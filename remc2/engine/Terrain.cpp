@@ -7,71 +7,72 @@ uint16_t x_WORD_17B4E0; // 34c4e0
 uint8_t mapTerrainType_10B4E0[65536]; // 256x256 //map array1
 uint8_t mapHeightmap_11B4E0[65536]; // 256x256 //map array2 // heightmap
 uint8_t mapShading_12B4E0[65536]; // 256x256 //map array3
-uint8_t mapAngle_13B4E0[65536]; // 256x256 //map array4 // water
+uint8_t mapAngle_13B4E0[65536]; // 256x256 //map array4 // water //!!! find all comparation, change to int8_t and test it !!!
 int16_t mapEntityIndex_15B4E0[65536]; // 256x256 //map array5
 
 char x_BYTE_F2CD0x[7 * 7 * 7 * 7][2]; // 233cd0//4802 //4816
 
 uint8_t x_BYTE_D41B7 = 44; // weak
 
-int8_t unk_D47E0[592] = {//terrain gen
-0x00,0x00,0x00,0x00,0x01,0x01,0x01,0x01,0x02,0x02,0x02,0x02,0x03,0x03,0x03,0x03,
-0x04,0x04,0x04,0x04,0x05,0x05,0x05,0x05,0x06,0x06,0x06,0x06,0xFF,0xFF,0xFF,0xFF,
-0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
-0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
-0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
-0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
-0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
-0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
-0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0x06,0x00,0x01,0x04,
-0x01,0x01,0x00,0x00,0x01,0x00,0x00,0x00,0x01,0x00,0x01,0x00,0x00,0x01,0x01,0x01,
-0x06,0x06,0x04,0x04,0x06,0x04,0x06,0x04,0x06,0x04,0x06,0x06,0x04,0x06,0x04,0x04,
-0x04,0x04,0x00,0x00,0x04,0x00,0x00,0x00,0x00,0x04,0x04,0x04,0x00,0x04,0x00,0x04,
-0x01,0x03,0x03,0x03,0x01,0x03,0x01,0x03,0x03,0x01,0x01,0x01,0x01,0x01,0x03,0x03,
-0x05,0x01,0x01,0x01,0x01,0x01,0x05,0x05,0x01,0x05,0x01,0x05,0x01,0x05,0x05,0x05,
-0x02,0x05,0x02,0x05,0x05,0x02,0x02,0x02,0x02,0x05,0x05,0x05,0x05,0x05,0x02,0x02,
-0x04,0x04,0x03,0x03,0x04,0x03,0x03,0x03,0x03,0x04,0x03,0x04,0x03,0x04,0x04,0x04,
-0x04,0x05,0x05,0x05,0x05,0x04,0x04,0x04,0x05,0x04,0x05,0x04,0x04,0x04,0x05,0x05,
-0x01,0x02,0x01,0x02,0x02,0x01,0x01,0x01,0x01,0x02,0x02,0x02,0x01,0x01,0x02,0x02,
-0x04,0x01,0x01,0x01,0x01,0x04,0x01,0x04,0x01,0x04,0x04,0x04,0x01,0x01,0x04,0x04,
-0x01,0x06,0x01,0x01,0x06,0x06,0x01,0x01,0x06,0x01,0x06,0x01,0x06,0x01,0x06,0x06,
-0x06,0x06,0x00,0x00,0x06,0x00,0x06,0x00,0x06,0x00,0x06,0x06,0x00,0x06,0x00,0x00,
-0x02,0x01,0x05,0x01,0x01,0x01,0x05,0x02,0x05,0x01,0x05,0x02,0x02,0x01,0x02,0x05,
-0x02,0x02,0x01,0x05,0x05,0x05,0x01,0x02,0x03,0x03,0x04,0x01,0x04,0x03,0x04,0x01,
-0x01,0x01,0x04,0x03,0x01,0x04,0x04,0x03,0x03,0x04,0x03,0x01,0x01,0x03,0x01,0x04,
-0x01,0x06,0x04,0x06,0x01,0x06,0x01,0x04,0x01,0x06,0x06,0x04,0x01,0x04,0x06,0x04,
-0x01,0x06,0x04,0x01,0x01,0x06,0x04,0x04,0x06,0x04,0x00,0x04,0x00,0x04,0x06,0x06,
-0x00,0x04,0x00,0x06,0x00,0x00,0x04,0x06,0x00,0x06,0x04,0x04,0x06,0x00,0x06,0x04,
-0x06,0x00,0x06,0x01,0x01,0x00,0x06,0x00,0x01,0x06,0x00,0x00,0x01,0x06,0x06,0x00,
-0x01,0x06,0x01,0x00,0x01,0x01,0x00,0x06,0x01,0x00,0x04,0x00,0x01,0x04,0x00,0x04,
-0x01,0x04,0x00,0x00,0x01,0x01,0x04,0x00,0x04,0x01,0x00,0x04,0x01,0x04,0x01,0x00,
-0x01,0x05,0x05,0x04,0x04,0x05,0x04,0x01,0x01,0x01,0x04,0x05,0x01,0x05,0x04,0x05,
-0x01,0x04,0x01,0x05,0x01,0x04,0x04,0x05,0x01,0x06,0x00,0x04,0x06,0x01,0x00,0x04,
-0x06,0x06,0x05,0x05,0x06,0x05,0x06,0x05,0x06,0x05,0x06,0x06,0x05,0x06,0x05,0x05,
-0x06,0x06,0x03,0x03,0x06,0x03,0x06,0x03,0x06,0x03,0x06,0x06,0x03,0x06,0x03,0x03,
-0x01,0x05,0x05,0x06,0x06,0x05,0x06,0x01,0x01,0x01,0x06,0x05,0x01,0x05,0x06,0x05,
-0x01,0x06,0x01,0x05,0x01,0x06,0x06,0x05,0x01,0x03,0x03,0x06,0x06,0x03,0x06,0x01,
-0x01,0x01,0x06,0x03,0x01,0x03,0x06,0x03,0x01,0x06,0x01,0x03,0x01,0x06,0x06,0x03
+int8_t unk_D47E0[0x250] = {//terrain gen
+0x00,0x00, 0x00,0x00, 0x01,0x01, 0x01,0x01, 0x02,0x02, 0x02,0x02, 0x03,0x03, 0x03,0x03,
+0x04,0x04, 0x04,0x04, 0x05,0x05, 0x05,0x05, 0x06,0x06, 0x06,0x06, 0xFF,0xFF, 0xFF,0xFF,
+0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF,
+0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF,
+0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF,
+0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF,
+0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF,
+0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF,
+0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0xFF,0xFF, 0x06,0x00, 0x01,0x04,
+0x01,0x01, 0x00,0x00, 0x01,0x00, 0x00,0x00, 0x01,0x00, 0x01,0x00, 0x00,0x01, 0x01,0x01,
+0x06,0x06, 0x04,0x04, 0x06,0x04, 0x06,0x04, 0x06,0x04, 0x06,0x06, 0x04,0x06, 0x04,0x04,
+0x04,0x04, 0x00,0x00, 0x04,0x00, 0x00,0x00, 0x00,0x04, 0x04,0x04, 0x00,0x04, 0x00,0x04,
+0x01,0x03, 0x03,0x03, 0x01,0x03, 0x01,0x03, 0x03,0x01, 0x01,0x01, 0x01,0x01, 0x03,0x03,
+0x05,0x01, 0x01,0x01, 0x01,0x01, 0x05,0x05, 0x01,0x05, 0x01,0x05, 0x01,0x05, 0x05,0x05,
+0x02,0x05, 0x02,0x05, 0x05,0x02, 0x02,0x02, 0x02,0x05, 0x05,0x05, 0x05,0x05, 0x02,0x02,
+0x04,0x04, 0x03,0x03, 0x04,0x03, 0x03,0x03, 0x03,0x04, 0x03,0x04, 0x03,0x04, 0x04,0x04,
+0x04,0x05, 0x05,0x05, 0x05,0x04, 0x04,0x04, 0x05,0x04, 0x05,0x04, 0x04,0x04, 0x05,0x05,
+0x01,0x02, 0x01,0x02, 0x02,0x01, 0x01,0x01, 0x01,0x02, 0x02,0x02, 0x01,0x01, 0x02,0x02,
+0x04,0x01, 0x01,0x01, 0x01,0x04, 0x01,0x04, 0x01,0x04, 0x04,0x04, 0x01,0x01, 0x04,0x04,
+0x01,0x06, 0x01,0x01, 0x06,0x06, 0x01,0x01, 0x06,0x01, 0x06,0x01, 0x06,0x01, 0x06,0x06,
+0x06,0x06, 0x00,0x00, 0x06,0x00, 0x06,0x00, 0x06,0x00, 0x06,0x06, 0x00,0x06, 0x00,0x00,
+0x02,0x01, 0x05,0x01, 0x01,0x01, 0x05,0x02, 0x05,0x01, 0x05,0x02, 0x02,0x01, 0x02,0x05,
+0x02,0x02, 0x01,0x05, 0x05,0x05, 0x01,0x02, 0x03,0x03, 0x04,0x01, 0x04,0x03, 0x04,0x01,
+0x01,0x01, 0x04,0x03, 0x01,0x04, 0x04,0x03, 0x03,0x04, 0x03,0x01, 0x01,0x03, 0x01,0x04,
+0x01,0x06, 0x04,0x06, 0x01,0x06, 0x01,0x04, 0x01,0x06, 0x06,0x04, 0x01,0x04, 0x06,0x04,
+0x01,0x06, 0x04,0x01, 0x01,0x06, 0x04,0x04, 0x06,0x04, 0x00,0x04, 0x00,0x04, 0x06,0x06,
+0x00,0x04, 0x00,0x06, 0x00,0x00, 0x04,0x06, 0x00,0x06, 0x04,0x04, 0x06,0x00, 0x06,0x04,
+0x06,0x00, 0x06,0x01, 0x01,0x00, 0x06,0x00, 0x01,0x06, 0x00,0x00, 0x01,0x06, 0x06,0x00,
+0x01,0x06, 0x01,0x00, 0x01,0x01, 0x00,0x06, 0x01,0x00, 0x04,0x00, 0x01,0x04, 0x00,0x04,
+0x01,0x04, 0x00,0x00, 0x01,0x01, 0x04,0x00, 0x04,0x01, 0x00,0x04, 0x01,0x04, 0x01,0x00,
+0x01,0x05, 0x05,0x04, 0x04,0x05, 0x04,0x01, 0x01,0x01, 0x04,0x05, 0x01,0x05, 0x04,0x05,
+0x01,0x04, 0x01,0x05, 0x01,0x04, 0x04,0x05, 0x01,0x06, 0x00,0x04, 0x06,0x01, 0x00,0x04,
+0x06,0x06, 0x05,0x05, 0x06,0x05, 0x06,0x05, 0x06,0x05, 0x06,0x06, 0x05,0x06, 0x05,0x05,
+0x06,0x06, 0x03,0x03, 0x06,0x03, 0x06,0x03, 0x06,0x03, 0x06,0x06, 0x03,0x06, 0x03,0x03,
+0x01,0x05, 0x05,0x06, 0x06,0x05, 0x06,0x01, 0x01,0x01, 0x06,0x05, 0x01,0x05, 0x06,0x05,
+0x01,0x06, 0x01,0x05, 0x01,0x06, 0x06,0x05, 0x01,0x03, 0x03,0x06, 0x06,0x03, 0x06,0x01,
+0x01,0x01, 0x06,0x03, 0x01,0x03, 0x06,0x03, 0x01,0x06, 0x01,0x03, 0x01,0x06, 0x06,0x03
 }; // weak
-uint8_t unk_D4A30[288] = {//terrain gen
-0x1B,0x00,0x1B,0x50,0x1B,0x30,0x1B,0x60,0x1A,0x00,0x1A,0x50,0x1A,0x30,0x1A,0x60,
-0x0A,0x00,0x0A,0x50,0x0A,0x30,0x0A,0x60,0x0A,0x00,0x0A,0x50,0x0A,0x30,0x0A,0x60,
-0x0B,0x00,0x0B,0x50,0x0B,0x30,0x0B,0x60,0x0B,0x00,0x0B,0x50,0x0B,0x30,0x0B,0x60,
-0x0C,0x00,0x0C,0x50,0x0C,0x30,0x0C,0x60,0x0C,0x00,0x0C,0x50,0x0C,0x30,0x0C,0x60,
-0x15,0x00,0x15,0x50,0x15,0x30,0x15,0x60,0x16,0x00,0x16,0x50,0x16,0x30,0x16,0x60,
-0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x18,0x00,0x18,0x50,0x18,0x30,0x18,0x60,
-0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x17,0x00,0x17,0x50,0x17,0x30,0x17,0x60,
-0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x19,0x00,0x19,0x50,0x19,0x30,0x19,0x60,
-0x10,0x00,0x10,0x50,0x10,0x30,0x10,0x60,0x0F,0x00,0x0F,0x50,0x0F,0x30,0x0F,0x60,
-0x10,0x00,0x10,0x50,0x10,0x30,0x10,0x60,0x0F,0x00,0x0F,0x50,0x0F,0x30,0x0F,0x60,
-0x1E,0x00,0x1E,0x50,0x1E,0x30,0x1D,0x60,0x1F,0x00,0x1D,0x50,0x1D,0x30,0x1D,0x60,
-0x1E,0x00,0x1E,0x50,0x1E,0x30,0x1E,0x60,0x1D,0x00,0x1D,0x50,0x1D,0x30,0x1D,0x60,
-0x21,0x00,0x21,0x50,0x21,0x30,0x21,0x60,0x22,0x00,0x20,0x50,0x20,0x30,0x20,0x60,
-0x21,0x00,0x21,0x50,0x21,0x30,0x21,0x60,0x20,0x00,0x20,0x50,0x20,0x30,0x20,0x60,
-0x13,0x00,0x13,0x50,0x13,0x30,0x13,0x60,0x14,0x00,0x12,0x50,0x12,0x30,0x12,0x60,
-0x13,0x00,0x13,0x50,0x13,0x30,0x13,0x60,0x12,0x00,0x12,0x50,0x12,0x30,0x12,0x60,
-0x13,0x00,0x13,0x50,0x13,0x30,0x13,0x60,0x14,0x00,0x12,0x50,0x12,0x30,0x12,0x60,
-0x21,0x00,0x21,0x50,0x21,0x30,0x21,0x60,0x20,0x00,0x20,0x50,0x20,0x30,0x20,0x60 }; // weak
+
+uint8_t unk_D4A30[0x120] = {//terrain gen
+0x1B,0x00, 0x1B,0x50, 0x1B,0x30, 0x1B,0x60, 0x1A,0x00, 0x1A,0x50, 0x1A,0x30, 0x1A,0x60,
+0x0A,0x00, 0x0A,0x50, 0x0A,0x30, 0x0A,0x60, 0x0A,0x00, 0x0A,0x50, 0x0A,0x30, 0x0A,0x60,//0x10
+0x0B,0x00, 0x0B,0x50, 0x0B,0x30, 0x0B,0x60, 0x0B,0x00, 0x0B,0x50, 0x0B,0x30, 0x0B,0x60,//0x20
+0x0C,0x00, 0x0C,0x50, 0x0C,0x30, 0x0C,0x60, 0x0C,0x00, 0x0C,0x50, 0x0C,0x30, 0x0C,0x60,//0x30
+0x15,0x00, 0x15,0x50, 0x15,0x30, 0x15,0x60, 0x16,0x00, 0x16,0x50, 0x16,0x30, 0x16,0x60,//0x40
+0x00,0x00, 0x00,0x00, 0x00,0x00, 0x00,0x00, 0x18,0x00, 0x18,0x50, 0x18,0x30, 0x18,0x60,//0x50
+0x00,0x00, 0x00,0x00, 0x00,0x00, 0x00,0x00, 0x17,0x00, 0x17,0x50, 0x17,0x30, 0x17,0x60,//0x60
+0x00,0x00, 0x00,0x00, 0x00,0x00, 0x00,0x00, 0x19,0x00, 0x19,0x50, 0x19,0x30, 0x19,0x60,//0x70
+0x10,0x00, 0x10,0x50, 0x10,0x30, 0x10,0x60, 0x0F,0x00, 0x0F,0x50, 0x0F,0x30, 0x0F,0x60,//0x80
+0x10,0x00, 0x10,0x50, 0x10,0x30, 0x10,0x60, 0x0F,0x00, 0x0F,0x50, 0x0F,0x30, 0x0F,0x60,//0x90
+0x1E,0x00, 0x1E,0x50, 0x1E,0x30, 0x1D,0x60, 0x1F,0x00, 0x1D,0x50, 0x1D,0x30, 0x1D,0x60,//0xa0
+0x1E,0x00, 0x1E,0x50, 0x1E,0x30, 0x1E,0x60, 0x1D,0x00, 0x1D,0x50, 0x1D,0x30, 0x1D,0x60,//0xb0
+0x21,0x00, 0x21,0x50, 0x21,0x30, 0x21,0x60, 0x22,0x00, 0x20,0x50, 0x20,0x30, 0x20,0x60,//0xc0
+0x21,0x00, 0x21,0x50, 0x21,0x30, 0x21,0x60, 0x20,0x00, 0x20,0x50, 0x20,0x30, 0x20,0x60,//0xd0
+0x13,0x00, 0x13,0x50, 0x13,0x30, 0x13,0x60, 0x14,0x00, 0x12,0x50, 0x12,0x30, 0x12,0x60,//0xe0
+0x13,0x00, 0x13,0x50, 0x13,0x30, 0x13,0x60, 0x12,0x00, 0x12,0x50, 0x12,0x30, 0x12,0x60,//0xf0
+0x13,0x00, 0x13,0x50, 0x13,0x30, 0x13,0x60, 0x14,0x00, 0x12,0x50, 0x12,0x30, 0x12,0x60,//0x100
+0x21,0x00, 0x21,0x50, 0x21,0x30, 0x21,0x60, 0x20,0x00, 0x20,0x50, 0x20,0x30, 0x20,0x60 }; //0x110
 
 
 //for debuging
@@ -1763,32 +1764,500 @@ void sub_43BB0()//224bb0
 	}
 }
 
-//----- (000104A0) --------------------------------------------------------
-signed int sub_104A0(axis_3d* a1x)//1f14a0
+//----- (0001B7A0) --------------------------------------------------------
+int sub_1B7A0_tile_compare(axis_3d* a1)//1fc7a0
 {
-	uint16_t v1; // ax
 
-	v1 = (a1x->x >> 8) + ((a1x->y >> 8) << 8);
-	return 1 << (mapAngle_13B4E0[v1] & 0xF);
+	//  X-X
+	//    |
+	//  B-X
+
+	uaxis_2d uindex;
+	uindex._axis_2d.x = a1->x >> 8;
+	uindex._axis_2d.y = a1->y >> 8;
+	uint8_t point1 = mapHeightmap_11B4E0[uindex.word];
+	uindex._axis_2d.x++;
+	uint8_t point2 = mapHeightmap_11B4E0[uindex.word];
+	uindex._axis_2d.y++;
+	uint8_t point3 = mapHeightmap_11B4E0[uindex.word];
+	uindex._axis_2d.x--;
+	uint8_t point4 = mapHeightmap_11B4E0[uindex.word];
+	int result1 = abs(point1 + point4 - point2 - point3);
+	int result2 = abs(point1 + point2 - point4 - point3);
+	if (result1 > result2)
+		return result1;
+	return result2;
+}
+
+//----- (0001B830) --------------------------------------------------------
+int sub_1B830(axis_3d* a1)//1fc830
+{
+
+	//  X-.-X
+	//      |
+	//      .
+	//      |
+	//  B-.-X
+
+	uaxis_2d uindex;
+	uindex._axis_2d.x = (a1->x >> 8) - 1;
+	uindex._axis_2d.y = (a1->y >> 8) - 1;
+	uint8_t point1 = mapHeightmap_11B4E0[uindex.word];
+	uindex._axis_2d.x += 2;
+	uint8_t point2 = mapHeightmap_11B4E0[uindex.word];
+	uindex._axis_2d.y += 2;
+	uint8_t point3 = mapHeightmap_11B4E0[uindex.word];
+	uindex._axis_2d.x += 2;
+	uint8_t point4 = mapHeightmap_11B4E0[uindex.word];
+	int result1 = abs(point1 + point4 - point2 - point3);
+	int result2 = abs(point1 + point2 - point4 - point3);
+	if (result1 > result2)
+		return result1;
+	return result2;
+}
+
+//----- (00045BE0) --------------------------------------------------------
+uint8_t sub_45BE0(uint8_t inType, uaxis_2d axis2d)//226be0
+{
+	//  X-X
+	//  | |
+	//  B-X
+
+	uint8_t result;
+	uint8_t type = 0;
+	uint8_t minHeight = 255;
+	uint8_t maxHeight = 0;
+	if (mapHeightmap_11B4E0[axis2d.word])
+	{
+		maxHeight = mapHeightmap_11B4E0[axis2d.word];
+		type = 0;
+	}
+	if (mapHeightmap_11B4E0[axis2d.word] < 255)
+		minHeight = mapHeightmap_11B4E0[axis2d.word];
+	axis2d._axis_2d.x++;
+	if (mapHeightmap_11B4E0[axis2d.word] > maxHeight)
+	{
+		maxHeight = mapHeightmap_11B4E0[axis2d.word];
+		type = 1;
+	}
+	if (mapHeightmap_11B4E0[axis2d.word] < minHeight)
+		minHeight = mapHeightmap_11B4E0[axis2d.word];
+	axis2d._axis_2d.y++;
+	if (mapHeightmap_11B4E0[axis2d.word] > maxHeight)
+	{
+		maxHeight = mapHeightmap_11B4E0[axis2d.word];
+		type = 2;
+	}
+	if (mapHeightmap_11B4E0[axis2d.word] < minHeight)
+		minHeight = mapHeightmap_11B4E0[axis2d.word];
+	axis2d._axis_2d.x--;
+	if (mapHeightmap_11B4E0[axis2d.word] > maxHeight)
+	{
+		maxHeight = mapHeightmap_11B4E0[axis2d.word];
+		type = 3;
+	}
+	if (mapHeightmap_11B4E0[axis2d.word] < minHeight)
+		minHeight = mapHeightmap_11B4E0[axis2d.word];
+	axis2d._axis_2d.y--;
+	uint8_t maxHeight2 = 0;
+	if (type && mapHeightmap_11B4E0[axis2d.word])
+	{
+		maxHeight2 = mapHeightmap_11B4E0[axis2d.word];
+		inType = 0;
+	}
+	axis2d._axis_2d.x++;
+	if (type != 1 && mapHeightmap_11B4E0[axis2d.word] > maxHeight2)
+	{
+		maxHeight2 = mapHeightmap_11B4E0[axis2d.word];
+		inType = 1;
+	}
+	axis2d._axis_2d.y++;
+	if (type != 2 && mapHeightmap_11B4E0[axis2d.word] > maxHeight2)
+	{
+		maxHeight2 = mapHeightmap_11B4E0[axis2d.word];
+		inType = 2;
+	}
+	axis2d._axis_2d.x--;
+	if (type != 3)
+	{
+		uint8_t minHeight2 = mapHeightmap_11B4E0[axis2d.word];
+		if (minHeight2 > maxHeight2)
+		{
+			inType = 3;
+			maxHeight2 = minHeight2;
+		}
+	}
+	bool lowDiff = false;
+	if (maxHeight - minHeight <= 8)
+		lowDiff = true;
+	if (maxHeight - maxHeight2 >= 8)
+	{
+		result = type;
+		lowDiffHeightmap_D47DC = lowDiff;
+		return result;
+	}
+	switch (type)
+	{
+	case 0:
+		if (inType != 1)
+			result = 7;
+		else
+			result = 4;
+		break;
+	case 1:
+		if (inType == 2)
+			result = 5;
+		else
+			result = 4;
+		break;
+	case 2:
+		if (inType == 3)
+			result = 6;
+		else
+			result = 5;
+		break;
+	case 3:
+		if (inType)
+			result = 6;
+		else
+			result = 7;
+		break;
+	default:
+		result = 0;
+		break;
+	}
+	lowDiffHeightmap_D47DC = lowDiff;
+	return result;
+}
+
+//----- (00033F70) --------------------------------------------------------
+bool sub_33F70(uint16_t inAxis)//214f70
+{
+	//    X
+	//    |
+	//  X-B-X
+	//    |
+	//    X
+
+	int compHeight;
+	bool result;
+	uaxis_2d axis2d;
+	uaxis_2d tempAxis2d;
+	axis2d.word = inAxis;
+	tempAxis2d.word = axis2d.word;
+	tempAxis2d._axis_2d.x--;//x-1,y
+	result = 1;
+	if (mapTerrainType_10B4E0[tempAxis2d.word] == 8)
+	{
+		compHeight = mapHeightmap_11B4E0[axis2d.word] + 30;
+		if (mapHeightmap_11B4E0[tempAxis2d.word] <= compHeight)
+		{
+			tempAxis2d._axis_2d.x += 2;//x+1,y
+			if (mapHeightmap_11B4E0[axis2d.word] <= compHeight)
+			{
+				tempAxis2d._axis_2d.x--;
+				tempAxis2d._axis_2d.y++;//x,y+1
+				if (mapHeightmap_11B4E0[tempAxis2d.word] <= compHeight)
+				{
+					tempAxis2d._axis_2d.y -= 2;//x,y-1
+					if (mapHeightmap_11B4E0[tempAxis2d.word] <= compHeight)
+						result = 0;
+				}
+			}
+		}
+	}
+	return result;
+}
+
+//----- (00045DC0) --------------------------------------------------------
+void sub_45DC0(uint8_t inType, uaxis_2d axis2d, uint8_t type2)//226dc0
+{
+	char heightType;
+	if (type2 >= 8u)
+	{
+		switch (type2)
+		{
+		case 8u:
+			mapTerrainType_10B4E0[axis2d.word] = 8;
+			break;
+		case 9u:
+			mapTerrainType_10B4E0[axis2d.word] = 9;
+			break;
+		case 0xAu:
+			heightType = sub_45BE0(inType, axis2d);
+			if (lowDiffHeightmap_D47DC)
+				heightType += 8;
+			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x80 + 2 * heightType];
+			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x80 + 2 * heightType + 1];
+			break;
+		case 0xBu:
+			heightType = sub_45BE0(inType, axis2d) + 0x10;
+			if (lowDiffHeightmap_D47DC)
+				heightType += 8;
+			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x80 + 2 * heightType];
+			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x80 + 2 * heightType + 1];
+			break;
+		case 0xCu:
+			heightType = sub_45BE0(inType, axis2d) + 0x20;
+			if (lowDiffHeightmap_D47DC)
+				heightType += 8;
+			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x80 + 2 * heightType];
+			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x80 + 2 * heightType + 1];
+			break;
+		case 0xDu:
+			heightType = sub_45BE0(inType, axis2d) + 0x30;
+			if (lowDiffHeightmap_D47DC)
+				heightType += 8;
+			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x80 + 2 * heightType];
+			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x80 + 2 * heightType + 1];
+			break;
+		case 0xEu:
+			heightType = sub_45BE0(inType, axis2d) + 0x40;
+			if (lowDiffHeightmap_D47DC)
+				heightType += 8;
+			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x80 + 2 * heightType];
+			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x80 + 2 * heightType + 1];
+			break;
+		case 0xFu:
+			mapTerrainType_10B4E0[axis2d.word] = 11;
+			break;
+		case 0x10u:
+			if (mapTerrainType_10B4E0[axis2d.word] == 10 || mapTerrainType_10B4E0[axis2d.word] == 11 || mapTerrainType_10B4E0[axis2d.word] == 12)
+				break;
+			heightType = sub_45BE0(inType, axis2d);
+			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[2 * heightType];
+			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[2 * heightType + 1];
+			break;
+		case 0x11u:
+			heightType = sub_45BE0(inType, axis2d);
+			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x40 + 2 * heightType];
+			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x40 + 2 * heightType + 1];
+			break;
+		case 0x12u:
+			heightType = (8 * ((axis2d._axis_2d.y + axis2d._axis_2d.x) & 1) + sub_45BE0(inType, axis2d));
+			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x50 + 2 * heightType];
+			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x50 + 2 * heightType + 1];
+			break;
+		case 0x13u:
+			heightType = (8 * ((axis2d._axis_2d.y + axis2d._axis_2d.x) & 1) + sub_45BE0(inType, axis2d));
+			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x60 + 2 * heightType];
+			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x60 + 2 * heightType + 1];
+			break;
+		case 0x14u:
+			heightType = sub_45BE0(inType, axis2d);
+			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x10 + 2 * heightType];
+			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x10 + 2 * heightType + 1];
+			break;
+		case 0x15u:
+			heightType = sub_45BE0(inType, axis2d);
+			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x20 + 2 * heightType];
+			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x20 + 2 * heightType + 1];
+			break;
+		case 0x16u:
+			heightType = sub_45BE0(inType, axis2d);
+			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x30 + 2 * heightType];
+			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x30 + 2 * heightType + 1];
+			break;
+		default:
+			break;
+		}
+		mapAngle_13B4E0[axis2d.word] |= 0x80;
+		if (isCaveLevel_D41B6)
+		{
+			if (x_BYTE_14B4E0_second_heightmap[axis2d.word] > mapHeightmap_11B4E0[axis2d.word])
+			{
+				mapAngle_13B4E0[axis2d.word] &= 0xF7;
+			}
+			else
+			{
+				mapAngle_13B4E0[axis2d.word] |= 8;
+				x_BYTE_14B4E0_second_heightmap[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
+			}
+			axis2d._axis_2d.x++;
+			if (x_BYTE_14B4E0_second_heightmap[axis2d.word] > mapHeightmap_11B4E0[axis2d.word])
+			{
+				mapAngle_13B4E0[axis2d.word] &= 0xF7u;
+			}
+			else
+			{
+				x_BYTE_14B4E0_second_heightmap[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
+				mapAngle_13B4E0[axis2d.word] |= 8;
+			}
+			axis2d._axis_2d.y++;
+			if (x_BYTE_14B4E0_second_heightmap[axis2d.word] > mapHeightmap_11B4E0[axis2d.word])
+			{
+				mapAngle_13B4E0[axis2d.word] &= 0xF7u;
+			}
+			else
+			{
+				x_BYTE_14B4E0_second_heightmap[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
+				mapAngle_13B4E0[axis2d.word] |= 8;
+			}
+			axis2d._axis_2d.x--;
+			if (x_BYTE_14B4E0_second_heightmap[axis2d.word] <= mapHeightmap_11B4E0[axis2d.word])
+			{
+				x_BYTE_14B4E0_second_heightmap[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
+				mapAngle_13B4E0[axis2d.word] |= 8;
+				return;
+			}
+		}
+		else
+		{
+			mapAngle_13B4E0[axis2d.word] &= 0xF7;
+			axis2d._axis_2d.x++;
+			mapAngle_13B4E0[axis2d.word] &= 0xF7;
+			axis2d._axis_2d.y++;
+			mapAngle_13B4E0[axis2d.word] &= 0xF7;
+			axis2d._axis_2d.x--;
+		}
+		mapAngle_13B4E0[axis2d.word] &= 0xF7u;
+		return;
+	}
+	mapAngle_13B4E0[axis2d.word] = type2 | mapAngle_13B4E0[axis2d.word] & 0xF0;
+	sub_462A0(axis2d, axis2d);
+}
+
+//----- (000462A0) --------------------------------------------------------
+void sub_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
+{
+	uaxis_2d tempAxis;
+	uint8_t nextAngle;
+	int terModIndex;
+	char tempShad;
+	char yAdd;
+	char xAdd;
+	int8_t point1;
+	int8_t point2;
+	int8_t point3;
+	int8_t point4;
+
+	tempAxis.word = inAxis2dA.word;
+	for (int indexY = inAxis2dB._axis_2d.y - inAxis2dA._axis_2d.y + 1; indexY != 0; indexY--)
+	{
+		for (int indexX = inAxis2dB._axis_2d.x - inAxis2dA._axis_2d.x + 1; indexX; indexX--)
+		{
+			if ((int8_t)mapAngle_13B4E0[tempAxis.word] >= 0)
+				mapTerrainType_10B4E0[tempAxis.word] = 1;
+			tempAxis._axis_2d.x--;
+			if ((int8_t)mapAngle_13B4E0[tempAxis.word] >= 0)
+				mapTerrainType_10B4E0[tempAxis.word] = 1;
+			tempAxis._axis_2d.y--;
+			if ((int8_t)mapAngle_13B4E0[tempAxis.word] >= 0)
+				mapTerrainType_10B4E0[tempAxis.word] = 1;
+			tempAxis._axis_2d.x++;
+			if ((int8_t)mapAngle_13B4E0[tempAxis.word] >= 0)
+				mapTerrainType_10B4E0[tempAxis.word] = 1;
+			tempAxis._axis_2d.x++;
+			tempAxis._axis_2d.y++;			
+		}
+		tempAxis._axis_2d.x -= inAxis2dB._axis_2d.x - inAxis2dA._axis_2d.x + 1;
+		tempAxis._axis_2d.y++;
+	}
+	xAdd = inAxis2dB._axis_2d.x - inAxis2dA._axis_2d.x + 2;
+	yAdd = inAxis2dB._axis_2d.y - inAxis2dA._axis_2d.y + 2;	
+	inAxis2dA._axis_2d.x--;
+	inAxis2dA._axis_2d.y--;
+	tempAxis.word = inAxis2dA.word;
+	for (int indexY = yAdd; indexY; indexY--)
+	{
+		for (int indexX = xAdd; indexX; indexX--)
+		{
+			if (mapTerrainType_10B4E0[tempAxis.word] == 1)
+			{
+				point1 = mapAngle_13B4E0[tempAxis.word];
+				tempAxis._axis_2d.x++;
+				point2 = mapAngle_13B4E0[tempAxis.word];
+				tempAxis._axis_2d.y++;
+				point3 = mapAngle_13B4E0[tempAxis.word];
+				tempAxis._axis_2d.x--;
+				point4 = mapAngle_13B4E0[tempAxis.word];
+				tempAxis._axis_2d.y--;
+				terModIndex = (point4 & 7) + 7 * (point3 & 7) + 49 * (point2 & 7) + 343 * (point1 & 7);
+				mapTerrainType_10B4E0[tempAxis.word] = x_BYTE_F2CD0x[terModIndex][0];
+				if (x_BYTE_F2CD0x[terModIndex][0] >= 8u)
+				{
+					nextAngle = x_BYTE_F2CD0x[terModIndex][1] + (mapAngle_13B4E0[tempAxis.word] & 0x87);
+				}
+				else
+				{
+					x_WORD_17B4E0 = 9377 * x_WORD_17B4E0 + 9439;
+					nextAngle = (mapAngle_13B4E0[tempAxis.word] & 0x87) + 16 * (x_WORD_17B4E0 % 7u);
+				}
+				mapAngle_13B4E0[tempAxis.word] = nextAngle;
+			}
+			tempAxis._axis_2d.x++;
+		}
+		tempAxis._axis_2d.x -= xAdd;
+		tempAxis._axis_2d.y++;
+	}
+	xAdd++;
+	yAdd++;
+	tempAxis.word = inAxis2dA.word;
+	if (yAdd != -1)
+	{
+		for (int indexY = yAdd; indexY; indexY--)
+		{
+			for (int indexX = xAdd; indexX; indexX--)
+			{
+				tempAxis._axis_2d.x++;
+				tempAxis._axis_2d.y++;
+				point1 = mapHeightmap_11B4E0[tempAxis.word];
+				tempAxis._axis_2d.x -= 2;
+				tempAxis._axis_2d.y -= 2;
+				point2 = mapHeightmap_11B4E0[tempAxis.word];
+				tempAxis._axis_2d.x++;
+				tempShad = point2 - point1 + 32;
+				tempAxis._axis_2d.y++;
+				if (tempShad >= 28)
+				{
+					if (tempShad > 40)
+						tempShad = (tempShad & 7) + 40;
+				}
+				else
+				{
+					tempShad = (tempShad & 3) + 28;
+				}
+				if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+					mapShading_12B4E0[tempAxis.word] = 32 - tempShad + 32;
+				else
+					mapShading_12B4E0[tempAxis.word] = tempShad;
+				if (isCaveLevel_D41B6 && (x_BYTE_14B4E0_second_heightmap[tempAxis.word] <= mapHeightmap_11B4E0[tempAxis.word]))
+				{
+					x_BYTE_14B4E0_second_heightmap[tempAxis.word] = mapHeightmap_11B4E0[tempAxis.word] - 1;
+					mapAngle_13B4E0[tempAxis.word] |= 8u;
+				}
+				else
+				{
+					mapAngle_13B4E0[tempAxis.word] &= 0xF7u;
+				}
+				tempAxis._axis_2d.x++;
+			}
+			tempAxis._axis_2d.x -= xAdd;
+			tempAxis._axis_2d.y++;
+		}
+	}
+}
+
+//----- (000104A0) --------------------------------------------------------
+signed int sub_104A0(axis_3d* axis3d)//1f14a0
+{
+	return 1 << (mapAngle_13B4E0[(axis3d->x >> 8) + ((axis3d->y >> 8) << 8)] & 0xF);
 }
 
 //----- (000104D0) --------------------------------------------------------
-uint32_t sub_104D0_terrain_tile_is_water(axis_3d* a1)//1f14d0
+uint32_t sub_104D0_terrain_tile_is_water(axis_3d* axis3d)//1f14d0
 {
-	uaxis_2d v1x; // eax
-
-	v1x._axis_2d.x = a1->x >> 8;
-	v1x._axis_2d.y = a1->y >> 8;
-	return sub_10590_terrain_tile_type(mapTerrainType_10B4E0[v1x.word]);
+	uaxis_2d axis2d;
+	axis2d._axis_2d.x = axis3d->x >> 8;
+	axis2d._axis_2d.y = axis3d->y >> 8;
+	return sub_10590_terrain_tile_type(mapTerrainType_10B4E0[axis2d.word]);
 }
 
 //----- (00010590) --------------------------------------------------------
-uint32_t sub_10590_terrain_tile_type(char a1)//1f1590
+uint32_t sub_10590_terrain_tile_type(char tileType)//1f1590
 {
-	uint32_t result; // eax
-
-	result = 0;
-	switch (a1)
+	uint32_t result = 0;
+	switch (tileType)
 	{
 	case 0:
 		result = 1;
@@ -1862,650 +2331,86 @@ uint32_t sub_10590_terrain_tile_type(char a1)//1f1590
 	}
 	return result;
 }
-// 10000: using guessed type int sub_10000();
 
 //----- (00010C40) --------------------------------------------------------
-int getTerrainAlt_10C40(axis_3d* a1x)//1f1c40
+int getTerrainAlt_10C40(axis_3d* axis3d)//1f1c40
 {
-	return sub_B5C60_getTerrainAlt2(a1x->x, a1x->y);
-}
-
-//----- (00010C60) --------------------------------------------------------
-int sub_10C60(axis_3d* a1)//1f1c60
-{
-	return sub_B5D68(a1->x, a1->y);
+	return sub_B5C60_getTerrainAlt2(axis3d->x, axis3d->y);
 }
 
 //----- (00011E70) --------------------------------------------------------
-bool sub_11E70(type_event_0x6E8E* a1x, axis_3d* a2)//1f2e70
+bool sub_11E70(type_event_0x6E8E* event, axis_3d* axis3d)//1f2e70
 {
-	int v2; // ebx
-	int v3; // ebx
-
-	v2 = a1x->dword_0xA0_160x->word_160_0xc_12;
-	v3 = a1x->array_0x52_82.fov + (signed __int16)getTerrainAlt_10C40(a2) + v2;
-	return v3 > (signed __int16)sub_10C60(a2);
+	return event->array_0x52_82.fov + getTerrainAlt_10C40(axis3d) + event->dword_0xA0_160x->word_160_0xc_12 > sub_10C60(axis3d);
 }
 
-//----- (0001B7A0) --------------------------------------------------------
-int sub_1B7A0_tile_compare(axis_3d* a1)//1fc7a0
+//----- (00010C60) --------------------------------------------------------
+int sub_10C60(axis_3d* axis3d)//1f1c60
 {
-	uint8_t v1x[2]; // eax
-	//uint8_t v2x[2]; // dx
-	//uint8_t v3x[2]; // bx
-	unsigned __int8 v4_00; // cl
-	unsigned __int8 v4_01; // cl
-	unsigned __int8 v4_10; // cl
-	unsigned __int8 v4_11; // cl
-
-	//uint8_t v5x[2]; // bx
-	//int v6; // esi
-	//int v7; // ebx
-	int v8; // ecx
-	int v9; // ebx
-
-	v1x[0] = a1->x >> 8;
-	v1x[1] = a1->y >> 8;
-
-	v4_00 = mapHeightmap_11B4E0[*(uint16_t*)v1x];//0000
-	v1x[0]++;
-	v4_10 = mapHeightmap_11B4E0[*(uint16_t*)v1x];//+100
-	v1x[1]++;
-	v4_11 = mapHeightmap_11B4E0[*(uint16_t*)v1x];//+1+1
-	v1x[0]--;
-	v4_01 = mapHeightmap_11B4E0[*(uint16_t*)v1x];//00+1
-
-	//v7 = v4_00 + v4_10 - v4_01;
-	v8 = abs(v4_00 + v4_01 - v4_10 - v4_11);
-	v9 = abs(v4_00 + v4_10 - v4_01 - v4_11);
-	if (v8 > v9)
-		v9 = v8;
-	return v9;
-}
-
-//----- (0001B830) --------------------------------------------------------
-int sub_1B830(axis_3d* a1)//1fc830
-{
-	unsigned __int16 v1; // ax
-	unsigned __int16 v2; // dx
-	unsigned __int16 v3; // bx
-	unsigned __int8 v4; // cl
-	unsigned __int16 v5; // bx
-	int v6; // esi
-	int v7; // ebx
-	int v8; // ecx
-	int v9; // ebx
-
-	LOBYTE(v1) = (a1->x >> 8) - 1;
-	HIBYTE(v1) = (a1->y >> 8) - 1;
-	v2 = v1;
-	LOBYTE(v1) = v1 + 2;
-	v3 = v1;
-	HIBYTE(v1) += 2;
-	v4 = mapHeightmap_11B4E0[v3];
-	v5 = v1;
-	LOBYTE(v2) = mapHeightmap_11B4E0[v2];
-	LOBYTE(v1) = v1 - 2;
-	HIBYTE(v2) = mapHeightmap_11B4E0[v5];
-	v6 = mapHeightmap_11B4E0[v1];
-	v7 = (unsigned __int8)v2 + v4 - v6;
-	v8 = abs((unsigned __int8)v2 + v6 - v4 - HIBYTE(v2));
-	v9 = abs(v7 - HIBYTE(v2));
-	if (v8 > v9)
-		v9 = v8;
-	return v9;
-}
-
-//----- (00033F70) --------------------------------------------------------
-bool sub_33F70(uint16_t a1)//214f70
-{
-	unsigned __int16 v1; // ax
-	signed int v2; // edx
-	unsigned __int16 v3; // ax
-	bool result; // al
-
-	HIBYTE(v1) = HIBYTE(a1);
-	LOBYTE(v1) = a1 - 1;
-	result = 1;
-	if (mapTerrainType_10B4E0[v1] == 8)
-	{
-		v2 = (unsigned __int16)(mapHeightmap_11B4E0[a1] + 30);
-		if (mapHeightmap_11B4E0[v1] <= (signed int)(unsigned __int16)v2)
-		{
-			LOBYTE(v1) = v1 + 2;
-			if (mapHeightmap_11B4E0[v1] <= v2)
-			{
-				LOBYTE(v3) = v1 - 1;
-				HIBYTE(v3) = HIBYTE(a1) + 1;
-				if (mapHeightmap_11B4E0[v3] <= v2)
-				{
-					HIBYTE(v3) = HIBYTE(a1) - 1;
-					if (mapHeightmap_11B4E0[v3] <= v2)
-						result = 0;
-				}
-			}
-		}
-	}
-	return result;
-}
-
-//----- (00045BE0) --------------------------------------------------------
-uint8_t sub_45BE0(uint8_t a2, uaxis_2d a3x)//226be0
-{
-	uaxis_2d v3x; // ax
-	uint8_t v4; // bl
-	uint8_t v5; // dh
-	uint8_t v6; // bh
-	uint8_t v7; // al
-	uint32_t v8; // edi
-	uint8_t result; // al
-
-	uint8_t a1 = 0;
-
-	v3x.word = a3x.word;
-	v4 = 0xFFu;
-	v5 = 0;
-	if (mapHeightmap_11B4E0[a3x.word])
-	{
-		v5 = mapHeightmap_11B4E0[a3x.word];
-		a1 = 0;
-	}
-	if (mapHeightmap_11B4E0[a3x.word] < 0xFFu)
-		v4 = mapHeightmap_11B4E0[a3x.word];
-	v3x._axis_2d.x++;
-	if (mapHeightmap_11B4E0[v3x.word] > v5)
-	{
-		v5 = mapHeightmap_11B4E0[v3x.word];
-		a1 = 1;
-	}
-	if (mapHeightmap_11B4E0[v3x.word] < v4)
-		v4 = mapHeightmap_11B4E0[v3x.word];
-	v3x._axis_2d.y++;
-	if (mapHeightmap_11B4E0[v3x.word] > v5)
-	{
-		v5 = mapHeightmap_11B4E0[v3x.word];
-		a1 = 2;
-	}
-	if (mapHeightmap_11B4E0[v3x.word] < v4)
-		v4 = mapHeightmap_11B4E0[v3x.word];
-	v3x._axis_2d.x--;
-	if (mapHeightmap_11B4E0[v3x.word] > v5)
-	{
-		v5 = mapHeightmap_11B4E0[v3x.word];
-		a1 = 3;
-	}
-	if (mapHeightmap_11B4E0[v3x.word] < v4)
-		v4 = mapHeightmap_11B4E0[v3x.word];
-	v3x._axis_2d.y--;
-	v6 = 0;
-	if (a1 && mapHeightmap_11B4E0[v3x.word])
-	{
-		v6 = mapHeightmap_11B4E0[v3x.word];
-		a2 = 0;
-	}
-	v3x._axis_2d.x++;
-	if (a1 != 1 && mapHeightmap_11B4E0[v3x.word] > v6)
-	{
-		v6 = mapHeightmap_11B4E0[v3x.word];
-		a2 = 1;
-	}
-	v3x._axis_2d.y++;
-	if (a1 != 2 && mapHeightmap_11B4E0[v3x.word] > v6)
-	{
-		v6 = mapHeightmap_11B4E0[v3x.word];
-		a2 = 2;
-	}
-	v3x._axis_2d.x--;
-	if (a1 != 3)
-	{
-		v7 = mapHeightmap_11B4E0[v3x.word];
-		if (v7 > v6)
-		{
-			a2 = 3;
-			v6 = v7;
-		}
-	}
-	v8 = 0;
-	if (v5 - v4 <= 8)
-		v8 = 1;
-	if (v5 - v6 >= 8)
-	{
-		result = a1;
-	LABEL_44:
-		lowDiffHeightmap_D47DC = v8;
-		return result;
-	}
-	if (a1 > 3u)
-	{
-		result = 0;
-		goto LABEL_44;
-	}
-	switch (a1)
-	{
-	case 0:
-		if (a2 != 1)
-			goto LABEL_42;
-		goto LABEL_36;
-	case 1:
-		if (a2 == 2)
-			goto LABEL_38;
-	LABEL_36:
-		result = 4;
-		lowDiffHeightmap_D47DC = v8;
-		return result;
-	case 2:
-		if (a2 == 3)
-			goto LABEL_40;
-	LABEL_38:
-		result = 5;
-		lowDiffHeightmap_D47DC = v8;
-		break;
-	case 3:
-		if (a2)
-		{
-		LABEL_40:
-			result = 6;
-			lowDiffHeightmap_D47DC = v8;
-		}
-		else
-		{
-		LABEL_42:
-			result = 7;
-			lowDiffHeightmap_D47DC = v8;
-		}
-		break;
-	}
-	return result;
-}
-
-//----- (00045DC0) --------------------------------------------------------
-void sub_45DC0(uint8_t a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
-{
-	uaxis_2d v4x; // bx
-	uaxis_2d v5x; // eax
-	char v6; // ch
-	uint8_t* v7; // eax
-	char v8; // al
-	char v9; // ah
-	unsigned __int8 v10; // al
-	char v11; // cl
-	unsigned __int8 v12; // dh
-	unsigned __int8 v13; // dh
-	char v14; // cl
-	unsigned __int8 v15; // dh
-	char v16; // cl
-	unsigned __int8 v17; // dh
-	char v18; // bl
-	uaxis_2d v19x; // ax
-	char v20; // ch
-	uaxis_2d v21x; // ax
-	char v22; // dl
-	unsigned __int8 v24; // [esp+0h] [ebp-4h]
-
-	if (CommandLineParams.DoDebugSequences()) {
-		//add_compare(0x226dc4, CommandLineParams.DoDebugafterload());//1cf0
-	}
-
-	v4x._axis_2d.y = a3x._axis_2d.y;
-	v24 = 8 * ((a3x._axis_2d.y + a3x._axis_2d.x) & 1);
-	if (a4 >= 8u)
-	{
-		switch (a4)
-		{
-		case 8u:
-			mapTerrainType_10B4E0[a3x.word] = 8;
-			break;
-		case 9u:
-			mapTerrainType_10B4E0[a3x.word] = 9;
-			break;
-		case 0xAu:
-			v8 = sub_45BE0(a2, a3x);
-			v9 = v8;
-			if (lowDiffHeightmap_D47DC)
-				v9 = v8 + 8;
-			v10 = v9;
-			goto LABEL_28;
-		case 0xBu:
-			v10 = sub_45BE0(a2, a3x) + 16;
-			if (lowDiffHeightmap_D47DC)
-				v10 += 8;
-			goto LABEL_28;
-		case 0xCu:
-			v10 = sub_45BE0(a2, a3x) + 32;
-			if (lowDiffHeightmap_D47DC)
-				v10 += 8;
-			goto LABEL_28;
-		case 0xDu:
-			v10 = sub_45BE0(a2, a3x) + 48;
-			if (lowDiffHeightmap_D47DC)
-				v10 += 8;
-			goto LABEL_28;
-		case 0xEu:
-			v10 = sub_45BE0(a2, a3x) + 64;
-			if (lowDiffHeightmap_D47DC)
-				v10 += 8;
-		LABEL_28:
-			v7 = &unk_D4A30[0x80] + 2 * v10;
-			goto LABEL_29;
-		case 0xFu:
-			mapTerrainType_10B4E0[a3x.word] = 11;
-			break;
-		case 0x10u:
-			v6 = mapTerrainType_10B4E0[a3x.word];
-			if (v6 == 10 || v6 == 11 || v6 == 12)
-				break;
-			v7 = unk_D4A30 + 2 * sub_45BE0(a2, a3x);
-			goto LABEL_29;
-		case 0x11u:
-			v7 = &unk_D4A30[64] + 2 * sub_45BE0(a2, a3x);
-			goto LABEL_29;
-		case 0x12u:
-			v7 = &unk_D4A30[80] + 2 * (v24 + sub_45BE0(a2, a3x));
-			goto LABEL_29;
-		case 0x13u:
-			v7 = &unk_D4A30[80] + 2 * (sub_45BE0(a2, a3x) + v24) + 16;
-			goto LABEL_29;
-		case 0x14u:
-			v7 = &unk_D4A30[16] + 2 * sub_45BE0(a2, a3x);
-			goto LABEL_29;
-		case 0x15u:
-			v7 = &unk_D4A30[16] + 2 * sub_45BE0(a2, a3x) + 16;
-			goto LABEL_29;
-		case 0x16u:
-			v7 = &unk_D4A30[16] + 2 * sub_45BE0(a2, a3x) + 32;
-		LABEL_29:
-			mapTerrainType_10B4E0[a3x.word] = v7[0];
-			mapAngle_13B4E0[a3x.word] = mapAngle_13B4E0[a3x.word] & 0x8F | v7[1];
-			break;
-		default:
-			break;
-		}
-		v11 = mapAngle_13B4E0[a3x.word] | 0x80;
-		mapAngle_13B4E0[a3x.word] = v11;
-		if (isCaveLevel_D41B6)
-		{
-			v12 = mapHeightmap_11B4E0[a3x.word];
-			if (x_BYTE_14B4E0_second_heightmap[a3x.word] > v12)
-			{
-				mapAngle_13B4E0[a3x.word] = v11 & 0xF7;
-			}
-			else
-			{
-				mapAngle_13B4E0[a3x.word] = v11 | 8;
-				x_BYTE_14B4E0_second_heightmap[a3x.word] = v12 - 1;
-			}
-			v4x._axis_2d.x = a3x._axis_2d.x + 1;
-			v13 = mapHeightmap_11B4E0[v4x.word];
-			if (x_BYTE_14B4E0_second_heightmap[v4x.word] > v13)
-			{
-				mapAngle_13B4E0[v4x.word] &= 0xF7u;
-			}
-			else
-			{
-				v14 = mapAngle_13B4E0[v4x.word] | 8;
-				x_BYTE_14B4E0_second_heightmap[v4x.word] = v13 - 1;
-				mapAngle_13B4E0[v4x.word] = v14;
-			}
-			v4x._axis_2d.y = a3x._axis_2d.y + 1;
-			v15 = mapHeightmap_11B4E0[v4x.word];
-			if (x_BYTE_14B4E0_second_heightmap[v4x.word] > v15)
-			{
-				mapAngle_13B4E0[v4x.word] &= 0xF7u;
-			}
-			else
-			{
-				v16 = mapAngle_13B4E0[v4x.word] | 8;
-				x_BYTE_14B4E0_second_heightmap[v4x.word] = v15 - 1;
-				mapAngle_13B4E0[v4x.word] = v16;
-			}
-			v4x._axis_2d.x = a3x._axis_2d.x;
-			v5x.word = v4x.word;
-			v17 = mapHeightmap_11B4E0[v4x.word];
-			if (x_BYTE_14B4E0_second_heightmap[v4x.word] <= v17)
-			{
-				v18 = mapAngle_13B4E0[v4x.word] | 8;
-				x_BYTE_14B4E0_second_heightmap[v5x.word] = v17 - 1;
-				mapAngle_13B4E0[v5x.word] = v18;
-				return;
-			}
-		}
-		else
-		{
-			v4x._axis_2d.x = a3x._axis_2d.x + 1;
-			mapAngle_13B4E0[a3x.word] = v11 & 0xF7;
-			v19x.word = v4x.word;
-			v20 = mapAngle_13B4E0[v4x.word] & 0xF7;
-			v4x._axis_2d.y = a3x._axis_2d.y + 1;
-			mapAngle_13B4E0[v19x.word] = v20;
-			v21x.word = v4x.word;
-			v22 = mapAngle_13B4E0[v4x.word] & 0xF7;
-			v4x._axis_2d.x = a3x._axis_2d.x;
-			mapAngle_13B4E0[v21x.word] = v22;
-			v5x.word = v4x.word;
-		}
-		mapAngle_13B4E0[v5x.word] &= 0xF7u;
-		return;
-	}
-	mapAngle_13B4E0[a3x.word] = a4 | mapAngle_13B4E0[a3x.word] & 0xF0;
-	sub_462A0(a3x, a3x);
-}
-
-//----- (000462A0) --------------------------------------------------------
-void sub_462A0(uaxis_2d a1x, uaxis_2d a2x)//2272a0
-{
-	uaxis_2d v2x; // cx
-	bool v3; // zf
-	uaxis_2d v4x; // eax
-	uint8_t v4y;
-	uaxis_2d v5x; // cx
-	int v6; // edx
-	int v8; // edx
-	int v9; // ebx
-	int v10; // eax
-	int v11index; // edx
-	char v12; // ST10_1
-	uaxis_2d v13x; // cx
-	char v14; // dh
-	char j; // dl
-	uaxis_2d v16x; // ax
-	uaxis_2d v17x; // bx
-	char v18; // al
-	char v19; // bl
-	char i; // [esp+0h] [ebp-14h]
-	char v23; // [esp+4h] [ebp-10h]
-	char v24; // [esp+4h] [ebp-10h]
-	char v25; // [esp+8h] [ebp-Ch]
-	char v26; // [esp+8h] [ebp-Ch]
-	char v27; // [esp+8h] [ebp-Ch]
-	char v28; // [esp+Ch] [ebp-8h]
-
-	if (CommandLineParams.DoDebugSequences()) {
-		//add_compare(0x2272a3, CommandLineParams.DoDebugafterload());
-	}
-	v4x._axis_2d.x = a2x._axis_2d.x - a1x._axis_2d.x + 1;
-	v2x.word = a1x.word;
-	v25 = a2x._axis_2d.x - a1x._axis_2d.x + 1;
-	v4x._axis_2d.y = a2x._axis_2d.y - a1x._axis_2d.y + 1;
-	v3 = v4x._axis_2d.y == 0;
-	v23 = a2x._axis_2d.y - a1x._axis_2d.y + 1;
-	while (v4x._axis_2d.y != 0)
-	{
-		v4x._axis_2d.x = a2x._axis_2d.x - a1x._axis_2d.x + 1;
-		while (v4x._axis_2d.x)
-		{
-			if ((int8_t)mapAngle_13B4E0[v2x.word] >= 0)
-				mapTerrainType_10B4E0[v2x.word] = 1;
-			v2x._axis_2d.x--;
-			if ((int8_t)mapAngle_13B4E0[v2x.word] >= 0)
-				mapTerrainType_10B4E0[v2x.word] = 1;
-			v2x._axis_2d.y--;
-			if ((int8_t)mapAngle_13B4E0[v2x.word] >= 0)
-				mapTerrainType_10B4E0[v2x.word] = 1;
-			v2x._axis_2d.x++;
-			if ((int8_t)mapAngle_13B4E0[v2x.word] >= 0)
-				mapTerrainType_10B4E0[v2x.word] = 1;
-			v2x._axis_2d.y++;
-			v4x._axis_2d.x--;
-			v2x._axis_2d.x++;
-		}
-		v2x._axis_2d.x -= v25;
-		v2x._axis_2d.y++;
-		v3 = --v4x._axis_2d.y == 0;
-	}
-	a1x._axis_2d.x--;
-	a1x._axis_2d.y--;
-	v24 = v23 + 1;
-	v28 = v24;
-	v5x.word = a1x.word;
-	v26 = v25 + 1;
-	while (v28)
-	{
-		v4x._axis_2d.x = v26;
-		for (i = v26; i; i--)
-		{
-			v4x.word = v5x.word;
-			if (mapTerrainType_10B4E0[v5x.word] == 1)
-			{
-				v6 = 343 * (mapAngle_13B4E0[v4x.word] & 7);
-				v5x._axis_2d.x++;
-				v8 = 49 * (mapAngle_13B4E0[v5x.word] & 7) + v6;
-				v5x._axis_2d.y++;
-				v9 = mapAngle_13B4E0[v5x.word] & 7;
-				v5x._axis_2d.x--;
-				v10 = mapAngle_13B4E0[v5x.word] & 7;
-				v5x._axis_2d.y--;
-				v11index = v10 + 7 * v9 + v8;
-				mapTerrainType_10B4E0[v5x.word] = x_BYTE_F2CD0x[v11index][0];
-				if (x_BYTE_F2CD0x[v11index][0] >= 8u)
-				{
-					v4y = x_BYTE_F2CD0x[v11index][1] + (mapAngle_13B4E0[v5x.word] & 0x87);
-				}
-				else
-				{
-					v12 = mapAngle_13B4E0[v5x.word] & 0x87;
-					x_WORD_17B4E0 = 9377 * x_WORD_17B4E0 + 9439;
-					v4y = v12 + 16 * (x_WORD_17B4E0 % 7u);
-				}
-				mapAngle_13B4E0[v5x.word] = v4y;
-			}
-			v5x._axis_2d.x++;
-		}
-		v5x._axis_2d.x -= v26;
-		v5x._axis_2d.y++;
-		v28--;
-	}
-	v27 = v26 + 1;
-	v13x.word = a1x.word;//fixed
-	v14 = v24 + 1;
-	if (v24 != -1)
-	{
-		do
-		{
-			for (j = v27; j; j--)
-			{
-				v13x._axis_2d.x++;
-				v13x._axis_2d.y++;
-				v16x.word = v13x.word;
-				v13x._axis_2d.x -= 2;
-				v13x._axis_2d.y -= 2;
-				v17x.word = v13x.word;
-				v13x._axis_2d.x++;
-				v18 = mapHeightmap_11B4E0[v17x.word] - mapHeightmap_11B4E0[v16x.word] + 32;
-				v13x._axis_2d.y++;
-				if (v18 >= 28)
-				{
-					if (v18 > 40)
-						v18 = (v18 & 7) + 40;
-				}
-				else
-				{
-					v18 = (v18 & 3) + 28;
-				}
-				if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
-					v19 = 32 - v18 + 32;
-				else
-					v19 = v18;
-				v4x.word = v13x.word;
-				mapShading_12B4E0[v13x.word] = v19;
-				if (isCaveLevel_D41B6 && (x_BYTE_14B4E0_second_heightmap[v13x.word] <= mapHeightmap_11B4E0[v13x.word]))
-				{
-					x_BYTE_14B4E0_second_heightmap[v13x.word] = mapHeightmap_11B4E0[v13x.word] - 1;
-					mapAngle_13B4E0[v13x.word] |= 8u;
-				}
-				else
-				{
-					mapAngle_13B4E0[v13x.word] &= 0xF7u;
-				}
-				v13x._axis_2d.x++;
-			}
-			v13x._axis_2d.x -= v27;
-			v14--;
-			v13x._axis_2d.y++;
-		} while (v14);
-	}
+	return sub_B5D68(axis3d->x, axis3d->y);
 }
 
 //----- (000B5D68) --------------------------------------------------------
-int sub_B5D68(__int16 a1, __int16 a2)//296d68
+int sub_B5D68(uint16_t inX, uint16_t inY)//296d68
 {
-	int v2; // ebx
-	int v3; // edx
-	int v4; // eax
-	int v5; // esi
-	int v6; // esi
-	int result; // eax
-	int v8; // esi
-	int v9; // eax
-	int v10; // esi
-	int v11; // esi
-	int v12; // edi
+	uint8_t point1;
+	uint8_t point2;
+	int finalComp;
+	int result;
 
-	v2 = HIBYTE(a1);
-	HIBYTE(v2) = HIBYTE(a2);
-	v3 = (unsigned __int8)a2;
-	if ((HIBYTE(a1) + HIBYTE(a2)) & 1)
+	uaxis_2d tempAxis;
+	uaxis_2d tempInX;
+	uaxis_2d tempInY;
+	tempInX.word = inX;
+	tempInY.word = inY;
+	tempAxis._axis_2d.x = tempInX._axis_2d.y;
+	tempAxis._axis_2d.y = tempInY._axis_2d.y;
+
+	if ((tempInX._axis_2d.y + tempInY._axis_2d.y) & 1)
 	{
-		if (__CFADD__((x_BYTE)v3, (x_BYTE)a1))
+		if (tempInY._axis_2d.x > (tempInY._axis_2d.x + tempInX._axis_2d.x) % 256)
 		{
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v4 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2) = v2 + 1;
-			v8 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v3) = ~(x_BYTE)a2;
-			BYTE1(v2) = HIBYTE(a2);
-			v6 = v3 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v8) + (unsigned __int8)a1 * (v8 - v4);
+			tempAxis._axis_2d.y++;
+			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempAxis._axis_2d.x++;
+			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempInY._axis_2d.x = 255 - 1 - tempInY._axis_2d.x;
+			tempAxis._axis_2d.y--;
+			finalComp = tempInY._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point2) + tempInX._axis_2d.x * (point2 - point1);
 		}
 		else
 		{
-			v4 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2) = v2 + 1;
-			v5 = (unsigned __int8)a1 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v4);
-			LOBYTE(v2) = v2 - 1;
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v6 = (unsigned __int8)a2 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v4) + v5;
+			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempAxis._axis_2d.x++;
+			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempAxis._axis_2d.x--;
+			tempAxis._axis_2d.y++;
+			finalComp = tempInY._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point1) + tempInX._axis_2d.x * (point2 - point1);
 		}
-		result = (v6 >> 3) + 32 * v4;
+		result = (finalComp >> 3) + 32 * point1;
 	}
 	else
 	{
-		if ((unsigned __int8)a1 <= (unsigned __int8)v3)
+		if (tempInX._axis_2d.x <= tempInY._axis_2d.x)
 		{
-			v9 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v12 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2)++;
-			v11 = (unsigned __int8)a2 * (v12 - v9) + (unsigned __int8)a1 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v12);
+			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempAxis._axis_2d.y++;
+			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempAxis._axis_2d.x++;
+			finalComp = tempInY._axis_2d.x * (point2 - point1) + tempInX._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point2);
 		}
 		else
 		{
-			v9 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2)++;
-			v10 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v11 = (unsigned __int8)a2 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v10) + (unsigned __int8)a1 * (v10 - v9);
+			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempAxis._axis_2d.x++;
+			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			tempAxis._axis_2d.y++;
+			finalComp = tempInY._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point2) + tempInX._axis_2d.x * (point2 - point1);
 		}
-		result = (v11 >> 3) + 32 * v9;
+		result = (finalComp >> 3) + 32 * point1;
 	}
 	return result;
 }
+
+
 
