@@ -1759,12 +1759,12 @@ void sub_55100(char a1);
 char SaveLevelSLEV_55250(uint8_t savefileindex, char* filenameindex);//SLEV1
 bool SaveLevelSMAP_55320(uint8_t savefileindex, char* filenameindex);
 char SaveLevelSVER_55450(uint8_t savefileindex, int32_t a2, char* filenameindex);
-char LoadLevel_555D0(uint8_t fileindex, int levelindex);
-uint8_t sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex);
+bool LoadLevel_555D0(uint8_t fileindex, int levelindex);
+bool sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex);
 bool LoadLevelSMAP_558E0(uint8_t savefileindex);
-char LoadLevelSLEV_55A10(uint8_t savefileindex);
+bool LoadLevelSLEV_55A10(uint8_t savefileindex);
 void sub_55AB0(type_str_0x2BDE* playStr);
-char sub_55C00_TestSaveFile2(__int16 a1);
+bool sub_55C00_TestSaveFile2(__int16 a1);
 // unsigned int sub_55C60(int a1, int a2, int a3);
 void sub_55EB0(__int16 a1);
 //int sub_main(int argc, const char **argv, const char **envp);
@@ -12202,29 +12202,18 @@ void PauseMenuEvents_197F0()//1fa7f0
 //----- (00019A50) --------------------------------------------------------
 void sub_19A50()//1faa50
 {
-	//int result=0; // rax
-
-	//BYTE1(result) = unk_18058Cstr.x_DWORD_18059C;
 	if (unk_18058Cstr.x_DWORD_18059C & 1 || unk_18058Cstr.x_DWORD_18059C & 2)
 		unk_18058Cstr.x_DWORD_18059C &= 0xFC;
-	//return result;
 }
-// 18059C: using guessed type int x_DWORD_18059C;
 
 //----- (00019A70) --------------------------------------------------------
 void sub_19A70()//1faa70
 {
-	unsigned __int8 v0; // al
-	//char result; // al
-
-	v0 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221;
-	if (v0 < 6u || v0 > 8u)
-		/*result = */SelectSpell_191B0(20, 9);
+	if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 < 6u || D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 > 8u)
+		SelectSpell_191B0(20, 9);
 	else
-		/*result = */SelectSpell_191B0(20, 11);
-	//return result;
+		SelectSpell_191B0(20, 11);
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00019AB0) --------------------------------------------------------
 void OptionMenuEvents_19AB0()//1faab0
@@ -12293,11 +12282,6 @@ void OptionMenuEvents_19AB0()//1faab0
 //----- (00019CA0) --------------------------------------------------------
 void ChangeSoundLevel_19CA0(uint8_t option)//1faca0
 {
-	__int16 v1; // ST00_2
-	//int v2; // edx
-	//int v3; // eax
-	unsigned __int8 v4; // al
-
 	if (option == 1u)
 	{
 		if (soundActive2_E3798)
@@ -12309,29 +12293,19 @@ void ChangeSoundLevel_19CA0(uint8_t option)//1faca0
 	else if (option == 2 && musicInitialized_E37FC)
 	{
 		x_D41A0_BYTEARRAY_4_struct.byte_38591 = 2;
-		v1 = D41A0_0.maptypeMusic_0x235;
 		musicStarted_E37FD = 1;
-		StartMusic_8E160(v1, 0x7Fu);
+		StartMusic_8E160(D41A0_0.maptypeMusic_0x235, 0x7Fu);
 	}
-	//v2 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
 	if (x_D41A0_BYTEARRAY_4_struct.byte_38591)
 	{
-		//v3 = (int)x_D41A0_BYTEARRAY_0;
 		D41A0_0.byte_0x36E04 = 0;
 		x_D41A0_BYTEARRAY_4_struct.setting_38402 = 1;
-		v4 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221;
-		if (v4 < 6u || v4 > 8u)
+		if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 < 6u || D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 > 8u)
 			SelectSpell_191B0(20, 10);
 		else
 			SelectSpell_191B0(20, 12);
 	}
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// E3798: using guessed type char x_BYTE_E3798_sound_active2;
-// E3799: using guessed type char x_BYTE_E3799_sound_card;
-// E37FC: using guessed type char x_BYTE_E37FC;
-// E37FD: using guessed type char x_BYTE_E37FD;
 
 //----- (00019D60) --------------------------------------------------------
 void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume)//1fad60
@@ -12363,9 +12337,7 @@ void sub_19E00()//1fae00
 {
 	char v0; // bl
 	char v1; // bh
-	//int v2; // eax
 	unsigned __int8 v3; // dl
-	//char v5; // [esp+0h] [ebp-Ah]
 	int16_t v6; // [esp+80h] [ebp+76h]
 	int16_t v7; // [esp+84h] [ebp+7Ah]
 	char v8; // [esp+88h] [ebp+7Eh]
@@ -12401,11 +12373,10 @@ void sub_19E00()//1fae00
 		{
 			v0 = 1;
 		}
-		/*LOBYTE(v2) = */sub_19A50();
+		sub_19A50();
 	}
 	if (!v0)
 		goto LABEL_37;
-	//LOBYTE(v2) = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
 	v3 = x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546;
 	if (v3 >= 2u)
 	{
@@ -12418,7 +12389,6 @@ void sub_19E00()//1fae00
 				else
 					sprintf(printbuffer, "%s:%s.", x_DWORD_E9C4C_langindexbuffer[424], x_DWORD_E9C4C_langindexbuffer[429]);//429 - Failed
 				sub_52D70(0, printbuffer);
-				///*LOBYTE(v2) = */sub_55C00(x_D41A0_BYTEARRAY_4_struct.levelnumber_43);
 				v1 = 1;
 				x_D41A0_BYTEARRAY_4_struct.byteindex_208 = sub_55C00_TestSaveFile2(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);
 			}
@@ -12430,33 +12400,22 @@ void sub_19E00()//1fae00
 				sprintf(printbuffer, "%s:%s.", x_DWORD_E9C4C_langindexbuffer[423], "OK");//Load Level
 			else
 				sprintf(printbuffer, "%s:%s.", x_DWORD_E9C4C_langindexbuffer[423], x_DWORD_E9C4C_langindexbuffer[429]);//429 - Failed
-			/*LOBYTE(v2) = */sub_52D70(0, printbuffer);
+			sub_52D70(0, printbuffer);
 		}
 	LABEL_37:
 		v1 = 1;
 		goto LABEL_38;
 	}
 	if (v3 == 1)
-		/*LOBYTE(v2) = */sub_18B30();
+		sub_18B30();
 LABEL_38:
 	if (v0 || v8)
 	{
-		//v2 = x_D41A0_BYTEARRAY_4[0];
 		x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546 = 0;
 		if (v1)
-			/*LOBYTE(v2) = */SelectSpell_191B0(20, x_D41A0_BYTEARRAY_4_struct.byte_38544);
+			SelectSpell_191B0(20, x_D41A0_BYTEARRAY_4_struct.byte_38544);
 	}
-	//return v2;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// D41A4: using guessed type int x_DWORD_D41A4;
-// EA2E8: using guessed type int x_DWORD_EA2E8;
-// EA2EC: using guessed type int x_DWORD_EA2EC;
-// EA300: using guessed type int x_DWORD_EA300;
-// 18059C: using guessed type int x_DWORD_18059C;
-// 1805B0: using guessed type int x_DWORD_1805B0_mouse.x;
-// 1805B4: using guessed type int x_DWORD_1805B0_mouse.y;
-// 1806E4: using guessed type char x_BYTE_1806E4;
 
 //----- (0001A030) --------------------------------------------------------
 void sub_1A030()//1fb030
@@ -52653,144 +52612,87 @@ char SaveLevelSVER_55450(uint8_t savefileindex, int32_t levelNumber, char* savef
 // D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (000555D0) --------------------------------------------------------
-char LoadLevel_555D0(uint8_t fileindex, int levelindex)//2365d0
-{
-	char v2; // bl
-	//int v3; // eax
-	//int v4; // edx
-	//int v5; // ecx
-	//int v6; // eax
-	//x_DWORD *v7; // edi
-	int v9; // [esp+0h] [ebp-34h]
-	int v10; // [esp+4h] [ebp-30h]
-	int v11; // [esp+8h] [ebp-2Ch]
-	int v12; // [esp+Ch] [ebp-28h]
-	GraphicsStruct_t v13; // [esp+10h] [ebp-24h]
-	DisplayStruct_t v14; // [esp+14h] [ebp-20h]
-	type_str_0x2192 v15; // [esp+18h] [ebp-1Ch]
-	type_str_0x2196 v16; // [esp+1Ch] [ebp-18h]
-	type_str_0x21AA v17; // [esp+20h] [ebp-14h]
-	type_str_0x21AE v18; // [esp+24h] [ebp-10h]
-	type_str_0x21B2 v19; // [esp+28h] [ebp-Ch]
-	type_str_0x21B6 v20; // [esp+2Ch] [ebp-8h]
+bool LoadLevel_555D0(uint8_t fileindex, int levelindex)//2365d0
+{	
+	int temp0x219A;
+	int temp0x219E;
+	int temp0x21A2;
+	int temp0x21A6;
+	GraphicsStruct_t tempGr;
+	DisplayStruct_t tempDisp;
+	type_str_0x2192 temp0x2192;
+	type_str_0x2196 temp0x2196;
+	type_str_0x21AA temp0x21AA;
+	type_str_0x21AE temp0x21AE;
+	type_str_0x21B2 temp0x21B2;
+	type_str_0x21B6 temp0x21B6;
 
-	v2 = 0;
+	bool readSuccess = false;
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 	{
-		v13 = D41A0_0.m_GameSettings.m_Graphics;
-		v14 = D41A0_0.m_GameSettings.m_Display;
-		v15 = D41A0_0.m_GameSettings.str_0x2192;
-		v16 = D41A0_0.m_GameSettings.str_0x2196;
-		v9 = D41A0_0.dword_0x219A;
-		v10 = D41A0_0.dword_0x219E;
-		v11 = D41A0_0.dword_0x21A2;
-		v12 = D41A0_0.dword_0x21A6;
-		v17 = D41A0_0.str_0x21AA;
-		//v17 = x_D41A0_BYTEARRAY_4_struct.byteindex_8618;
-		v18 = D41A0_0.str_0x21AE;
-		v19 = D41A0_0.str_0x21B2;
-		v20 = D41A0_0.str_0x21B6;
-		v2 = sub_55750_TestExistingSaveFile(fileindex, levelindex);
-
+		tempGr = D41A0_0.m_GameSettings.m_Graphics;
+		tempDisp = D41A0_0.m_GameSettings.m_Display;
+		temp0x2192 = D41A0_0.m_GameSettings.str_0x2192;
+		temp0x2196 = D41A0_0.m_GameSettings.str_0x2196;
+		temp0x219A = D41A0_0.dword_0x219A;
+		temp0x219E = D41A0_0.dword_0x219E;
+		temp0x21A2 = D41A0_0.dword_0x21A2;
+		temp0x21A6 = D41A0_0.dword_0x21A6;
+		temp0x21AA = D41A0_0.str_0x21AA;
+		temp0x21AE = D41A0_0.str_0x21AE;
+		temp0x21B2 = D41A0_0.str_0x21B2;
+		temp0x21B6 = D41A0_0.str_0x21B6;
+		readSuccess = sub_55750_TestExistingSaveFile(fileindex, levelindex);
 		//adress  23662a
-
-		//mouseturnoff = true;
-		//debugcounter_sub_41BD3_subDrawSprite=0;
-
-		if (v2)
+		if (readSuccess)
 		{
-			v2 = LoadLevelSMAP_558E0(fileindex);
-			if (v2)
+			readSuccess = LoadLevelSMAP_558E0(fileindex);
+			if (readSuccess)
 			{
 				qmemcpy(
 					&x_D41A0_BYTEARRAY_4_struct.byteindex_256ar,
 					&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc],
 					0x84Cu);
-				v2 = LoadLevelSLEV_55A10(fileindex);
-				if (v2)
+				readSuccess = LoadLevelSLEV_55A10(fileindex);
+				if (readSuccess)
 				{
 					sub_55100(2);
 					sub_57680_FixPointersAfterLoad();
 					sub_549A0(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.str_611, &x_D41A0_BYTEARRAY_4_struct.byteindex_256ar.dword_0x3E6_2BE4_12228.str_611);
-					//sub_549A0(2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0 + 11230 + 1609, &x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[1609]);
 					sub_49F90();
-					//v3 = (int)x_D41A0_BYTEARRAY_0;
-					//v4 = 2124 * D41A0_BYTESTR_0.word_0xc;
-					//v5 = (int)x_D41A0_BYTEARRAY_0 + 11230;
 					D41A0_0.dword_0x11e6 = -1;
 					sub_55AB0(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
 					sub_71990();
 					FlvInitSet_473B0();
-
-					//debug
-					/*uint8_t origbyte20;
-					uint8_t remakebyte20;
-					int comp20 = compare_with_sequence_D41A0((char*)"00236708-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, 0, 224790, &origbyte20, &remakebyte20);*/
-					//debug
 				}
 			}
 		}
-		//v6 = (int)x_D41A0_BYTEARRAY_0;
-		/*v7 = (x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8586);
-		*v7 = v13;
-		++v7;
-		*v7 = v14;
-		++v7;
-		*v7 = v15;
-		v7[1] = v16;
-		*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8602) = v9;
-		*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8606) = v10;
-		*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8610) = v11;
-		*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8614) = v12;
-		D41A0_BYTESTR_0.byte_0x21AA = v17;
-		*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8622) = v18;
-		*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8626) = v19;
-		*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8630) = v20;
-		*/
-		D41A0_0.m_GameSettings.m_Graphics = v13;
-		D41A0_0.m_GameSettings.m_Display = v14;
-		D41A0_0.m_GameSettings.str_0x2192 = v15;
-		D41A0_0.m_GameSettings.str_0x2196 = v16;
-		D41A0_0.dword_0x219A = v9;
-		D41A0_0.dword_0x219E = v10;
-		D41A0_0.dword_0x21A2 = v11;
-		D41A0_0.dword_0x21A6 = v12;
-		D41A0_0.str_0x21AA = v17;
-		D41A0_0.str_0x21AE = v18;
-		D41A0_0.str_0x21B2 = v19;
-		D41A0_0.str_0x21B6 = v20;
+		D41A0_0.m_GameSettings.m_Graphics = tempGr;
+		D41A0_0.m_GameSettings.m_Display = tempDisp;
+		D41A0_0.m_GameSettings.str_0x2192 = temp0x2192;
+		D41A0_0.m_GameSettings.str_0x2196 = temp0x2196;
+		D41A0_0.dword_0x219A = temp0x219A;
+		D41A0_0.dword_0x219E = temp0x219E;
+		D41A0_0.dword_0x21A2 = temp0x21A2;
+		D41A0_0.dword_0x21A6 = temp0x21A6;
+		D41A0_0.str_0x21AA = temp0x21AA;
+		D41A0_0.str_0x21AE = temp0x21AE;
+		D41A0_0.str_0x21B2 = temp0x21B2;
+		D41A0_0.str_0x21B6 = temp0x21B6;
 	}
-	return v2;
+	return readSuccess;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (00055750) --------------------------------------------------------
-uint8_t sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex)//236750 //load in game
+bool sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex)//236750 //load in game
 {
 	FILE* saveslevfile; // eax
-	//FILE* v3; // esi
 	int32_t v4; // eax
 	bool v5; // bl
 	uint32_t filesize2; // edi
 	FILE* savesmapfile; // eax
-	//FILE* v8; // ebx
 	uint32_t filesize; // esi
-	//char v11; // [esp+0h] [ebp-54h]
-	//uint8_t* v12; // [esp+40h] [ebp-14h]
-	//int v13; // [esp+44h] [ebp-10h]
-	//char v14; // [esp+48h] [ebp-Ch]
-	//int v15; // [esp+4Ch] [ebp-8h]
-	uint8_t result; // [esp+50h] [ebp-4h]
-
-	//fix it
-	//v13 = 0;
-	//v15 = 0xe1b7;
-	//fix it
-
-	//!!!!v12 fix
-
-	result = 0;
+	bool result = false;
 	sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath.c_str(), "SAVE", "SVER", fileindex + 1);
 	if (DataFileIO::ReadFileAndDecompress(printbuffer, &readbuffer) == 8 && *(uint32_t*)&readbuffer[4] == levelindex && *(uint32_t*)&readbuffer[0] == 0xf)
 	{
@@ -52815,7 +52717,7 @@ uint8_t sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex)//23675
 					filesize = DataFileIO::FileLengthBytes(savesmapfile);
 					DataFileIO::Close(savesmapfile);
 					if (filesize == 0x712C2)
-						result = 1;
+						result = true;
 				}
 			}
 		}
@@ -52830,9 +52732,6 @@ uint8_t sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex)//23675
 //----- (000558E0) --------------------------------------------------------
 bool LoadLevelSMAP_558E0(uint8_t savefileindex)//2368e0
 {
-	FILE* loadfile; // eax
-	int truesize = 0; // [esp+40h] [ebp-8h]	
-
 #ifdef DEBUG_LOADSAVE
 	debug_printf("InGameLoad-begin\n");
 #endif //DEBUG_START
@@ -52848,7 +52747,7 @@ bool LoadLevelSMAP_558E0(uint8_t savefileindex)//2368e0
 	x_WORD_17B4E0 = 0x21ed;//fix random variable for debugging
 
 	sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath.c_str(), "SAVE", "SMAP", savefileindex + 1);
-	loadfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
+	FILE* loadfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
 	if (loadfile)
 	{
 		DataFileIO::Read(loadfile, (uint8_t*)mapTerrainType_10B4E0, 0x10000);
@@ -52857,7 +52756,7 @@ bool LoadLevelSMAP_558E0(uint8_t savefileindex)//2368e0
 		DataFileIO::Read(loadfile, (uint8_t*)mapAngle_13B4E0, 0x10000);
 		DataFileIO::Read(loadfile, (uint8_t*)x_BYTE_14B4E0_second_heightmap, 0x10000);
 		DataFileIO::Read(loadfile, (uint8_t*)mapEntityIndex_15B4E0, 0x20000);
-		truesize = DataFileIO::Read(loadfile, (uint8_t*)x_BYTE_F2CD0x, 4802) == 4802;
+		int truesize = DataFileIO::Read(loadfile, (uint8_t*)x_BYTE_F2CD0x, 4802) == 4802;
 		DataFileIO::Close(loadfile);
 		if (truesize) {
 #ifdef DEBUG_LOADSAVE
@@ -52871,15 +52770,11 @@ bool LoadLevelSMAP_558E0(uint8_t savefileindex)//2368e0
 #endif //DEBUG_START
 	return 0;
 }
-// 10000: using guessed type void /*__noreturn*/ sub_10000();
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (00055A10) --------------------------------------------------------
-char LoadLevelSLEV_55A10(uint8_t savefileindex)//236a10
+bool LoadLevelSLEV_55A10(uint8_t savefileindex)//236a10
 {
-	char success; // bl
-	success = 0;
+	bool success = false;
 	sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath.c_str(), "SAVE", "SLEV", savefileindex + 1);
 	//x64 fix
 	uint8_t* D41A0_pointer;
@@ -52888,17 +52783,13 @@ char LoadLevelSLEV_55A10(uint8_t savefileindex)//236a10
 	if (DataFileIO::ReadFileAndDecompress(printbuffer, &D41A0_pointer) == sizeof(type_shadow_D41A0_BYTESTR_0))
 	{
 		D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.dword_0x189_393 = j___clock() - D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.dword_0x189_393;
-		success = 1;
+		success = true;
 	}
 	type_str_164* tempx_DWORD_EA3E4_0 = x_DWORD_EA3E4[0]->dword_0xA4_164x;//fix for x64
 	Convert_from_shadow_D41A0_BYTESTR_0(&shadow_D41A0_BYTESTR_0, &D41A0_0);
 	x_DWORD_EA3E4[0]->dword_0xA4_164x =tempx_DWORD_EA3E4_0;//fix for x64
 	return success;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 98786: using guessed type int /*__fastcall*/ j___clock(x_DWORD, x_DWORD, x_DWORD);
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (00055AB0) --------------------------------------------------------
 void sub_55AB0(type_str_0x2BDE* playStr)//236ab0
@@ -52935,7 +52826,7 @@ void sub_55AB0(type_str_0x2BDE* playStr)//236ab0
 }
 
 //----- (00055C00) --------------------------------------------------------
-char sub_55C00_TestSaveFile2(__int16 a1)//236c00
+bool sub_55C00_TestSaveFile2(__int16 a1)//236c00
 {
 	return sub_55750_TestExistingSaveFile(0, a1);
 }
@@ -54461,131 +54352,74 @@ char sub_57450(uint8_t a1)//238450
 //----- (000574A0) --------------------------------------------------------
 void sub_574A0()//2384a0
 {
-	type_entity_0x30311* indexx; // eax
-	type_str_611* v1x; // ebx
-	int v2; // edx
-
-	//index = (x_WORD *)x_D41A0_BYTEARRAY_4;
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 	{
 		memset(D41A0_0.str_0x364D2.dword_0x364D6, 0, 104);
-		indexx = &D41A0_0.terrain_2FECE.entity_0x30311[1];
-		v1x = &x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240]->dword_0xA4_164x->str_611;
-		while (indexx < (type_entity_0x30311*)&D41A0_0.terrain_2FECE.next_0x360D1)
+		type_str_611* tempStr611 = &x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240]->dword_0xA4_164x->str_611;
+		for (int index = 1; index < 0x4b0; index++)
 		{
-			if (indexx->type_0x30311 == 0x0F)
+			if (D41A0_0.terrain_2FECE.entity_0x30311[index].type_0x30311 == 0x0F)
 			{
-				v2 = indexx->subtype_0x30311;
-				if (!v1x->array_0x333_819x.word[v2] && !v1x->array_0x3E9_1001x.byte[v2])
-					D41A0_0.str_0x364D2.dword_0x364D6[v2]++;
+				if (!tempStr611->array_0x333_819x.word[D41A0_0.terrain_2FECE.entity_0x30311[index].type_0x30311] && !tempStr611->array_0x3E9_1001x.byte[D41A0_0.terrain_2FECE.entity_0x30311[index].type_0x30311])
+					D41A0_0.str_0x364D2.dword_0x364D6[D41A0_0.terrain_2FECE.entity_0x30311[index].type_0x30311]++;
 			}
-			indexx++;//= 10;
 		}
 	}
-	//return result;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
 
 //----- (00057570) --------------------------------------------------------
 void sub_57570()//238570
 {
-	//int result; // eax
-	//int v1; // edx
-	//char v2; // ch
-
-	//result = (int)x_D41A0_BYTEARRAY_4;
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 & 1))
 	{
-		//result = (int)x_D41A0_BYTEARRAY_0;
-		//v1 = D41A0_BYTESTR_0.word_0xc;
 		if (D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
 		{
-			//result = 2124 * v1 + (int)x_D41A0_BYTEARRAY_0;
-			//v2 = x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_0xc + 11232];
 			if (!(D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] & 0x10))
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] | 2;
 		}
 	}
-	//return result;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (000575C0) --------------------------------------------------------
 void sub_575C0()//2385c0
 {
-	//int v0; // edx
-	//int v1; // eax
-	//char v2; // dl
-
-	//v0 = 2124 * D41A0_BYTESTR_0.word_0xc;
-	//LOBYTE(v1) = v0 + (int)x_D41A0_BYTEARRAY_0;
-	//v2 = *(x_BYTE *)(2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0 + 11232);
 	if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] & 8)
 	{
 		if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] & 4)
 		{
-			//LOBYTE(v1) = (uint8)x_D41A0_BYTEARRAY_4;
-			//if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10) && x_D41A0_BYTEARRAY_4_struct.setting_38545 < 0)
 			if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10) && (x_D41A0_BYTEARRAY_4_struct.setting_38545 & 0x80))
 			{
-				//LOBYTE(v1) = sub_555D0(1u, x_D41A0_BYTEARRAY_4_struct.levelnumber_43);
 				if (LoadLevel_555D0(1u, x_D41A0_BYTEARRAY_4_struct.levelnumber_43w))
 				{
-					//v1 = (int)x_D41A0_BYTEARRAY_0;
 					D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] &= 0xF7u;
 					D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] &= 0xFBu;
 				}
 			}
 		}
 	}
-	//return v1;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (00057640) --------------------------------------------------------
 void sub_57640()//238640
 {
-	//int v0; // eax
-
-	//LOBYTE(v0) = (uint8)x_D41A0_BYTEARRAY_4;
-	//if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10) && x_D41A0_BYTEARRAY_4_struct.setting_38545 >= 0)
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10) && !(x_D41A0_BYTEARRAY_4_struct.setting_38545 & 0x80))
 	{
-		//LOBYTE(v0) = sub_55080(1u, x_D41A0_BYTEARRAY_4_struct.levelnumber_43);
 		if (SaveLevel_55080(1u, x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, (char*)""))
 		{
-			//v0 = (int)x_D41A0_BYTEARRAY_4;
 			x_D41A0_BYTEARRAY_4_struct.setting_38545 |= 0x80u;
 		}
 	}
-	//return v0;
 }
-// D41A4: using guessed type int x_DWORD_D41A4;
-
-//type_str_164 ffftype_str_164;
 
 //----- (00057680) --------------------------------------------------------
 void sub_57680_FixPointersAfterLoad()//238680
 {
-	//signed int v0; // edx
-	//int v1; // ebx
-	//type_str_0x6E8E* v2x; // ecx
-	//type_str_0x6E8E* indexx; // eax
-	//int32_t i; // edx
+	D41A0_0.str_0x3664C[0].event_A.pointer_0x6E8E = nullptr;
 
-	D41A0_0.str_0x3664C[0].event_A.pointer_0x6E8E = NULL;
-
-	//memset(&ffftype_str_164, -1, sizeof(ffftype_str_164));
 	for (int indexx = 1; x_DWORD_EA3E4[indexx] < x_DWORD_EA3E4[1000]; indexx++)
-		//if (memory_readable(x_DWORD_EA3E4[indexx]->dword_0xA4_164x,4))
 	{
 		#if defined(x32_BIT_ENVIRONMENT)
-			if ((uint32_t)x_DWORD_EA3E4[indexx]->dword_0xA4_164x == 0x2c75e28)//0x014F82E8//0x2c75e28-(uint32_t)&D41A0_BYTESTR_0
+			if ((uint32_t)x_DWORD_EA3E4[indexx]->dword_0xA4_164x == 0x2c75e28)
 				x_DWORD_EA3E4[indexx]->dword_0xA4_164x = unk_F42B0x;
 		#else
 			if ((uint64_t)x_DWORD_EA3E4[indexx]->dword_0xA4_164x == 0x2c75e28)//0x014F82E8//0x2c75e28-(uint32_t)&D41A0_BYTESTR_0
@@ -54595,30 +54429,12 @@ void sub_57680_FixPointersAfterLoad()//238680
 
 	for (int v0 = 0; v0 < D41A0_0.word_0xe; v0++)
 	{
-		//v1 = (int)x_D41A0_BYTEARRAY_0 + 11230 + 2124 * v0;
-		//v2x = x_DWORD_EA3E4[D41A0_BYTESTR_0.array_0x2BDE[v0].word_0x00a_2BE4_11240];
-		//v2x->dword_0xA4_164 = (uint32_t)(x_D41A0_BYTEARRAY_0 + 11230 + 2124 * v0 + 998);
 		x_DWORD_EA3E4[D41A0_0.array_0x2BDE[v0].word_0x00a_2BE4_11240]->dword_0xA4_164x = &D41A0_0.array_0x2BDE[v0].dword_0x3E6_2BE4_12228;
 	}
-	/*indexx = x_DWORD_EA3E4[1];
-	//for (i = &unk_D7BD6[0x7d6] - D41A0_BYTESTR_0.dword_0x36DF6; indexx < x_DWORD_EA3E4[1000]; indexx+=sizeof(type_str_0x6E8E))
-
-	for (i = (uint32_t)&unk_D7BD6[0x7d6] - D41A0_BYTESTR_0.dword_0x36DF6; indexx < x_DWORD_EA3E4[1000]; indexx++)
-	{
-		if (indexx->byte_0x3F_63)
-			indexx->dword_0xA0_160x = (type_str_160*)((int32u_t)indexx->dword_0xA0_160x+i);
-	}*/	
 	for (int indexx = 1; x_DWORD_EA3E4[indexx] < x_DWORD_EA3E4[1000]; indexx++)
 		if (x_DWORD_EA3E4[indexx]->class_0x3F_63)
-			//x_DWORD_EA3E4[indexx]->dword_0xA0_160x = &str_D7BD6[((int32u_t)x_DWORD_EA3E4[indexx]->dword_0xA0_160x - (int)D41A0_BYTESTR_0.dword_0x36DF6)/sizeof(type_str_160)];
 			x_DWORD_EA3E4[indexx]->dword_0xA0_160x = &str_D7BD6[(x_DWORD_EA3E4[indexx]->dword_0xA0_160x - D41A0_0.dword_0x36DF6)+ 59];
-	//allert_error();//next code must be tested with older commit then 1100
-	//return result;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
-// EA3E8: using guessed type int x_DWORD_EA3E8;
-// EB384: using guessed type int x_DWORD_EB384;
 
 int debug_UpdateEntities_57730 = 0;
 int debug_UpdateEntities_57730_2 = 0;
@@ -71832,7 +71648,7 @@ void sub_6F0B0(type_event_0x6E8E* a1x)//2500b0
 		//resultx = sub_6F850(a1x, 1);
 		if (InitSwitchChainZaxisAndSound_6F850(a1x, 1))
 		{
-			/*result = */sub_4A1E0(a1x->id_0x1A_26, 0);
+			sub_4A1E0(a1x->id_0x1A_26, 0);
 			a1x->dword_0x10_16 = 10;
 		}
 	}
