@@ -50580,7 +50580,7 @@ void GameEvents_51BB0()//232bb0
 					if (!actEvent->dword_0xA4_164x->str_611.array_0x333_819x.word[k])
 					{
 						//adress 23354c
-						type_event_0x6E8E* locEv = pre_sub_4A190_axis_3d(0x2321a0 + 14 * k, &actEvent->axis_0x4C_76);
+						type_event_0x6E8E* locEv = pre_sub_4A190_axis_3d(0x2321a0 + 0x20 * k, &actEvent->axis_0x4C_76);
 						if (locEv)
 						{
 							locEv->struct_byte_0xc_12_15.byte[0] |= 1u;
