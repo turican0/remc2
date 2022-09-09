@@ -6647,12 +6647,6 @@ void sub_12100(type_entity_0x30311* entity, type_event_0x6E8E* event, char a3)//
 {
 	signed __int16 v3; // bx
 	unsigned __int8 v4; // cl
-	//int v5;
-	//signed __int16 v6; // bx
-	//int v7; // edx
-	//signed __int16 v8; // bx
-	//int ix; // ecx
-	//__int16 result; // ax
 
 	v3 = 1;
 	v4 = 0;
@@ -40951,7 +40945,7 @@ type_event_0x6E8E* NewEvent_4A050()//22b050
 	}
 	if (D41A0_0.dword_0x11e6 >= 0)
 	{
-		memset(x_D41A0_BYTEARRAY_4_struct.bytearray_38403x, 0, sizeof(type_event_0x6E8E*)*29);//type_event_0x6E8E*
+		memset(x_D41A0_BYTEARRAY_4_struct.bytearray_38403x, 0, sizeof(type_event_0x6E8E*) * 29);//type_event_0x6E8E*
 		x_D41A0_BYTEARRAY_4_struct.dword_38523 = 0;
 		x_D41A0_BYTEARRAY_4_struct.dword_38527 = 0;
 		x_D41A0_BYTEARRAY_4_struct.dword_38519 = 0;
@@ -40977,9 +40971,6 @@ type_event_0x6E8E* NewEvent_4A050()//22b050
 	}
 	return 0;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
 
 type_event_0x6E8E* fix_it_4A190() {
 	myprintf("fix it");
@@ -49109,10 +49100,9 @@ type_event_0x6E8E* sub_4FBE0(axis_3d* position)//230be0
 //----- (0004FC30) --------------------------------------------------------
 type_event_0x6E8E* sub_4FC30(axis_3d* position)//230c30
 {
-	type_event_0x6E8E* event; // eax
 	if (!isCaveLevel_D41B6)
 		return 0;
-	event = NewEvent_4A050();
+	type_event_0x6E8E* event = NewEvent_4A050();
 	if (event)
 	{
 		event->life_0x8 = 16;
@@ -50349,17 +50339,8 @@ type_event_0x6E8E* sub_51790(axis_3d* position)//232790
 //----- (00051800) --------------------------------------------------------
 type_event_0x6E8E* sub_51800(axis_3d* position)//232800
 {
-	int v1; // ebx
-	type_event_0x6E8E* v4x; // eax
-	type_event_0x6E8E* v5x; // ebx
-	type_event_0x6E8E* v9x; // [esp+0h] [ebp-10h]
-	type_event_0x6E8E* v10x; // [esp+4h] [ebp-Ch]
-	type_event_0x6E8E* event; // [esp+8h] [ebp-8h]
-	signed __int16 v12; // [esp+Ch] [ebp-4h]
-
-	event = 0;
-	v1 = x_D41A0_BYTEARRAY_4_struct.byteindex_224;
-	if (sub_4A810_get_0x35plus() >= v1)
+	type_event_0x6E8E* event = nullptr;
+	if (sub_4A810_get_0x35plus() >= x_D41A0_BYTEARRAY_4_struct.byteindex_224)
 	{
 		event = NewEvent_4A050();
 		if (event)
@@ -50369,31 +50350,27 @@ type_event_0x6E8E* sub_51800(axis_3d* position)//232800
 			event->model_0x40_64 = 0x48;
 			event->maxLife_0x4 = 16;
 			event->struct_byte_0xc_12_15.byte[0] &= 0xF7;
-			v10x = event;
 			event->life_0x8 = event->maxLife_0x4;
-			v12 = 1;
 			event->byte_0x3E_62 = 0;
-			while (x_D41A0_BYTEARRAY_4_struct.byteindex_224 > v12)
+			type_event_0x6E8E* prevEvent = event;
+			for (int index = 1; x_D41A0_BYTEARRAY_4_struct.byteindex_224 > index; index++)
 			{
-				v4x = NewEvent_4A050();
-				v5x = v4x;
-				v9x = v4x;
-				if (v4x)
+				type_event_0x6E8E* newEvent = NewEvent_4A050();
+				if (newEvent)
 				{
-					qmemcpy(v4x, event, sizeof(type_event_0x6E8E));
-					v4x->word_0x32_50 = v10x - D41A0_0.struct_0x6E8E;
-					v10x->word_0x34_52 = v4x - D41A0_0.struct_0x6E8E;
-					v4x->word_0x34_52 = 0;
-					v4x->byte_0x3E_62 = v12;
+					qmemcpy(newEvent, event, sizeof(type_event_0x6E8E));
+					newEvent->word_0x32_50 = prevEvent - D41A0_0.struct_0x6E8E;
+					prevEvent->word_0x34_52 = newEvent - D41A0_0.struct_0x6E8E;
+					newEvent->word_0x34_52 = 0;
+					newEvent->byte_0x3E_62 = index;
 					x_WORD_EB398ar = *position;
-					MovePlayer_57FA0(&x_WORD_EB398ar, v12 * (2048 / x_D41A0_BYTEARRAY_4_struct.byteindex_224), 0, 512);
+					MovePlayer_57FA0(&x_WORD_EB398ar, index * (2048 / x_D41A0_BYTEARRAY_4_struct.byteindex_224), 0, 512);
 					x_WORD_EB398ar.z = getTerrainAlt_10C40(&x_WORD_EB398ar);
-					AddEventToMap_57D70(v5x, &x_WORD_EB398ar);
-					SetEntityShiftRot_49EA0(v5x, 128, 256);
-					SetEntityIndexAndRot_49CD0(v5x, 220);
+					AddEventToMap_57D70(newEvent, &x_WORD_EB398ar);
+					SetEntityShiftRot_49EA0(newEvent, 128, 256);
+					SetEntityIndexAndRot_49CD0(newEvent, 220);
 				}
-				v10x = v9x;
-				v12++;
+				prevEvent = newEvent;
 			}
 			x_WORD_EB398ar = *position;
 			MovePlayer_57FA0(&x_WORD_EB398ar, 0, 0, 512);
