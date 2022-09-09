@@ -859,9 +859,6 @@ unsigned int AddE7EE0x_10080(int32_t a1, int32_t a2);
 void ResetEvent08_10100(int32_t a1);
 signed int sub_10130(int a1, x_DWORD* a2, x_DWORD* a3);
 int sub_102D0(type_event_0x6E8E* a1, axis_3d* a2, char a3);
-signed int sub_104A0(axis_3d* a1);
-uint32_t sub_104D0_terrain_tile_is_water(axis_3d* a1);
-uint32_t sub_10590_terrain_tile_type(char a1);
 bool sub_10630(axis_3d* a1, axis_4d* a2, axis_3d* a3, axis_4d* a4);
 bool sub_106C0(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
 bool CompareAxisWithShift_106F0(axis_3d* a1, axis_4d* a2, axis_3d* a3, axis_4d* a4);
@@ -870,8 +867,6 @@ type_event_0x6E8E* sub_10780(type_event_0x6E8E* a1);
 type_event_0x6E8E* sub_108B0(type_event_0x6E8E* a1);
 type_event_0x6E8E* sub_10A50(type_event_0x6E8E* a1);
 signed int sub_10B70(axis_3d* a1, char a2, char a3);
-int getTerrainAlt_10C40(axis_3d* a1);
-int sub_10C60(axis_3d* a1);
 int sub_10C80(type_event_0x6E8E* a1, unsigned __int8 a2, unsigned __int16 a3);
 void sub_112D0(type_event_0x6E8E* a1, unsigned __int16 a2);
 void sub_11400(type_event_0x6E8E* a1, char a2, unsigned __int16 a3);
@@ -882,7 +877,6 @@ char sub_11A10(type_event_0x6E8E* a1);
 char sub_11C80(uaxis_2d a1);
 bool sub_11CB0(axis_3d* a1);
 bool sub_11E20(type_event_0x6E8E* a1, axis_3d* a2);
-bool sub_11E70(type_event_0x6E8E* a1, axis_3d* a2);
 void InitStageVars_11EE0();
 void sub_12100(type_entity_0x30311* a1, type_event_0x6E8E* a2, char a3);
 void sub_122A0(type_event_0x6E8E* a1);
@@ -979,8 +973,6 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3);
 //void sub_1B280_run_intro_events(type_E17CC_0* a1x);
 int sub_1B5F0();
 void sub_1B6B0(type_event_0x6E8E* a1);
-int sub_1B7A0_tile_compare(axis_3d* a1);
-int sub_1B830(axis_3d* a1);
 signed int sub_1B8C0(type_event_0x6E8E* a1);
 void sub_1BD90(type_event_0x6E8E* a1, char a2);
 void sub_1BF90(type_event_0x6E8E* a1, char a2);
@@ -1346,7 +1338,6 @@ void sub_33D40(type_event_0x6E8E* a1);
 void sub_33D80(type_event_0x6E8E* a1);
 void sub_33E20(type_event_0x6E8E* a1);
 void sub_33E80(type_event_0x6E8E* a1);
-bool sub_33F70(unsigned __int16 a1);
 void sub_34000(type_event_0x6E8E* a1);
 void sub_34110(type_event_0x6E8E* a1);
 void sub_34210(type_event_0x6E8E* a1);
@@ -1448,7 +1439,6 @@ void sub_45600(unsigned __int8 a1);*/
 // char sub_45BE0(char a1, char a2, unsigned __int16 a3);
 // char sub_45DC0(char a1, char a2, unsigned __int16 a3, unsigned __int8 a4);
 unsigned __int16 sub_46180(unsigned __int16 a1, char a2);
-void sub_462A0(uaxis_2d a1x, uaxis_2d a2x);
 void sub_46570(uaxis_2d a1, uaxis_2d a2);
 void sub_46820_simple_timer(uint32_t user);
 // int sub_46830_main_loop(signed __int16 *a1, signed int a2, unsigned __int16 a3);
@@ -2400,7 +2390,6 @@ int sub_B1304(int a1, int a2);
 int sub_B1414(int a1);
 int sub_B148C(int a1);
 int sub_B14F8(int* a1, int a2);
-int sub_B5D68(__int16 a1, __int16 a2);
 void sub_BD1B6(uint8_t* a1);
 void sub_BD2CB(uint8_t* a1);
 void sub_BD3DD();
@@ -31408,7 +31397,7 @@ void sub_33E80(type_event_0x6E8E* a1x)//214e80
 }
 
 //----- (00033F70) --------------------------------------------------------
-bool sub_33F70(unsigned __int16 a1)//214f70
+bool sub_33F70(uint16_t a1)//214f70
 {
 	unsigned __int16 v1; // ax
 	signed int v2; // edx
