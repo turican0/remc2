@@ -54170,8 +54170,8 @@ void sub_574A0()//2384a0
 		{
 			if (D41A0_0.terrain_2FECE.entity_0x30311[index].type_0x30311 == 0x0F)
 			{
-				if (!tempStr611->array_0x333_819x.word[D41A0_0.terrain_2FECE.entity_0x30311[index].type_0x30311] && !tempStr611->array_0x3E9_1001x.byte[D41A0_0.terrain_2FECE.entity_0x30311[index].type_0x30311])
-					D41A0_0.str_0x364D2.dword_0x364D6[D41A0_0.terrain_2FECE.entity_0x30311[index].type_0x30311]++;
+				if (!tempStr611->array_0x333_819x.word[D41A0_0.terrain_2FECE.entity_0x30311[index].subtype_0x30311] && !tempStr611->array_0x3E9_1001x.byte[D41A0_0.terrain_2FECE.entity_0x30311[index].subtype_0x30311])
+					D41A0_0.str_0x364D2.dword_0x364D6[D41A0_0.terrain_2FECE.entity_0x30311[index].subtype_0x30311]++;
 			}
 		}
 	}
