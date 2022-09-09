@@ -44065,7 +44065,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 		break;
 	}
 	case 0x21afa0: {
-		sub_39FA0(a1_6E8E, 0);
+		sub_39FA0(a1_6E8E, 0);//fix it
 		break;
 	}
 	case 0x21b909: {
