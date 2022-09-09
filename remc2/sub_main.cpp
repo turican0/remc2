@@ -1751,14 +1751,14 @@ void sub_548B0(type_str_0x2BDE* a1);
 void sub_548F0(type_str_0x2BDE* a1);
 void sub_54960();
 void sub_549A0(type_str_611* a1, type_str_611* a2);
-void sub_54A50(unsigned __int16 a1, int v0index/*uint8_t* a2*/);
-char SaveSMAPSLEVmovie_54D30(__int16 a1);
-char SaveSMAPSLEVmovie2_54F00(__int16 a1);
-char SaveLevel_55080(uint8_t savefileindex, int32_t LevelNumber, char* filenameindex);
+void sub_54A50(int playerIndex2, int playerIndex);
+bool SaveSMAPSLEVmovie_54D30(__int16 a1);
+bool SaveSMAPSLEVmovie2_54F00(__int16 a1);
+bool SaveLevel_55080(uint8_t savefileindex, int32_t LevelNumber, char* filenameindex);
 void sub_55100(char a1);
-char SaveLevelSLEV_55250(uint8_t savefileindex, char* filenameindex);//SLEV1
+bool SaveLevelSLEV_55250(uint8_t savefileindex, char* filenameindex);//SLEV1
 bool SaveLevelSMAP_55320(uint8_t savefileindex, char* filenameindex);
-char SaveLevelSVER_55450(uint8_t savefileindex, int32_t a2, char* filenameindex);
+bool SaveLevelSVER_55450(uint8_t savefileindex, int32_t a2, char* filenameindex);
 bool LoadLevel_555D0(uint8_t fileindex, int levelindex);
 bool sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex);
 bool LoadLevelSMAP_558E0(uint8_t savefileindex);
@@ -51742,24 +51742,16 @@ uint8_t BigTextureBuffer[128 * 128 * 160];
 //----- (00054630) --------------------------------------------------------
 void sub_54630_load_psxblock(uint16_t TextSize)//235630
 {
-	//__int16 result; // ax
-
-	//result = a1;
 	switch (TextSize)
 	{
 	case 16:
-	{
 		sub_84250_load_file_array(psxadatablock16dat);
 		break;
-	}
-	case 32: {
-		sub_84250_load_file_array(psxadatablock32dat);//psxadatablock32dat=~2a9e74
+	case 32:
+		sub_84250_load_file_array(psxadatablock32dat);
 		break;
-	}
 	case 128:
-	{
 		break;
-	}
 	}
 }
 
@@ -51914,8 +51906,6 @@ void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 		x_WORD_D4B7E = 255;
 	}
 }
-// D4B7C: using guessed type __int16 x_WORD_D4B7C;
-// D4B7E: using guessed type __int16 x_WORD_D4B7E;
 
 //----- (000548B0) --------------------------------------------------------
 void sub_548B0(type_str_0x2BDE* a1x)//2358b0
@@ -51927,10 +51917,6 @@ void sub_548B0(type_str_0x2BDE* a1x)//2358b0
 //----- (000548F0) --------------------------------------------------------
 void sub_548F0(type_str_0x2BDE* a1x)//2358f0
 {
-	//type_str_0x2BDE* resultx; // eax
-	//__int16 v2; // dx
-
-	//resultx = a1x;
 	if (a1x->word_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
 	{
 		if (unk_18058Cstr.x_WORD_1805C2_joystick != 7 && unk_18058Cstr.x_WORD_1805C2_joystick != 1 && unk_18058Cstr.x_WORD_1805C2_joystick != 2)
@@ -51941,18 +51927,14 @@ void sub_548F0(type_str_0x2BDE* a1x)//2358f0
 		else
 		{
 			a1x->dword_0x3E6_2BE4_12228.position_backup_20 = x_WORD_E3760_mouse;
-			//a1x->dword_0x3E6_2BE4_12228.position_backup_20.x = x_WORD_E3760_mouse.x;
-			//a1x->dword_0x3E6_2BE4_12228.position_backup_20.y = x_WORD_E3760_mouse.y;
 		}
-		//a1x->word_0x3FC_2BDE = v2;
 	}
 }
 
 //----- (00054960) --------------------------------------------------------
 void sub_54960()//235960
 {
-	int16_t posY; // ax
-
+	int16_t posY;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		posY = 400;
 	else
@@ -51966,206 +51948,118 @@ void sub_54960()//235960
 //----- (000549A0) --------------------------------------------------------
 void sub_549A0(type_str_611* a1x, type_str_611* a2x)//2359a0
 {
-	//signed int result; // eax
-
-	//qmemcpy((void *)(a1 + 390), (void *)(a2 + 390), 0x18u);
-	//qmemcpy((void *)(a1 + 414), (void *)(a2 + 414), 2u);
 	a1x->array_0x3E9_1001x = a2x->array_0x3E9_1001x;
-	//qmemcpy((void *)a1, (void *)a2, 0x68u);
 	a1x->array_0x263_611x = a2x->array_0x263_611x;
-	//qmemcpy((void *)(a1 + 442), (void *)(a2 + 442), 0x18u);
-	//qmemcpy((void *)(a1 + 466), (void *)(a2 + 466), 2u);
 	a1x->array_0x41D_1053z = a2x->array_0x41D_1053z;
-	//qmemcpy((void *)(a1 + 338), (void *)(a2 + 338), 0x18u);
-	//qmemcpy((void *)(a1 + 362), (void *)(a2 + 362), 2u);
 	a1x->array_0x3B5_949x = a2x->array_0x3B5_949x;
-	//result = 26;
-	//qmemcpy((void *)(a1 + 468), (void *)(a2 + 468), 0x18u);
-	//qmemcpy((void *)(a1 + 492), (void *)(a2 + 492), 2u);
 	a1x->array_0x437_1079x = a2x->array_0x437_1079x;
-	//return result;
 }
 
 int debugcounter_235a50 = 0;
 //----- (00054A50) --------------------------------------------------------
-void sub_54A50(unsigned __int16 a1, int v0index/*uint8_t* a2*/)//235a50
+void sub_54A50(int playerIndex2, int playerIndex)//235a50
 {
-	signed int i; // eax
-	//int v3; // eax
-	unsigned __int16 v4; // cx
-	signed int v5; // esi
-	int result; // eax
-	//uint8_t* v7; // ebx
-	char v8; // bl
-	//int v9; // ST00_4
-	bool v10; // zf
-	//uint8_t* v11; // edi
-	signed int v12; // [esp+1Ch] [ebp-14h]
-	//uint8_t* v13; // [esp+20h] [ebp-10h]
-	//uint8_t* v14; // [esp+24h] [ebp-Ch]
-	int v15; // [esp+28h] [ebp-8h]
-	signed int v16; // [esp+2Ch] [ebp-4h]
+	int tempPlayerIndex2;
+	int result;
+	bool bool1;
 
-	/*uint8_t origbyte20 = 0;
-	uint8_t remakebyte20 = 0;
-	int comp20 = compare_with_sequence_D41A0_4((char*)"00235A50-0038CF50", (uint8_t*)& x_D41A0_BYTEARRAY_4_struct, 0x38cf50, debugcounter_235a50, 0x94c, &origbyte20, &remakebyte20);
-	comp20 = compare_with_sequence_D41A0((char*)"00235A50-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_235a50, 224790, &origbyte20, &remakebyte20);
-	debugcounter_235a50++;*/
-
-	for (i = 0; i < 26; i++)
+	for (int i = 0; i < 26; i++)
 	{
-		//*(x_WORD *)(a2 + 2 * i + 1815) = 0;
-		//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x717(v0index, i, 0);
-		D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x437_1079x.byte[i] = 0;
-		//*(x_BYTE *)(a2 + i + 2024) = 0;//7e8
-		//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x7e8(v0index, i, 0);
-		//D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.byte_0x7E8_2BDE[i] = 0;
-		//*(x_BYTE *)(a2 + i + 2076) = 0;//81c
-		//D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.byte_0x81D_2BDE[i] = 0;
-		//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x81c(v0index, i, 0);
-		D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x333_819x.word[i] = 0;
-		D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x403_1027x.byte[i] = 0;
+		D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.array_0x437_1079x.byte[i] = 0;
+		D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.array_0x333_819x.word[i] = 0;
+		D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.array_0x403_1027x.byte[i] = 0;
 	}
 
-	//*(x_WORD *)(a2 + 2103) = -1;//0x837
-	//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x837(v0index, -1);
-	D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.word_0x451_1105 = -1;
-	//v3 = (int)x_D41A0_BYTEARRAY_4;
-	//*(x_WORD *)(a2 + 2105) = -1;//0x839
-	//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x839(v0index, -1);
-	D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.word_0x453_1107 = -1;
+	D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.word_0x451_1105 = -1;
+	D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.word_0x453_1107 = -1;
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
-		v4 = 0;
+		tempPlayerIndex2 = 0;
 	else
-		v4 = a1;
-	v5 = 0;
-	v15 = 0;
-	do
+		tempPlayerIndex2 = playerIndex2;
+	int index = 0;
+	for (int i = 0; i < 26; i++)
 	{
-		result = x_BYTE_D94FF_spell_index[v5];
-		//result = x_WORD_D93C0_bldgprmbuffer[2+0x13d+v5];
-		//v7 = result + 110 * v4 + x_D41A0_BYTEARRAY_0;
-		if (D41A0_0.terrain_2FECE.next_0x360D2[v4].byte_0x360FBx[result] > 2u)
-			D41A0_0.terrain_2FECE.next_0x360D2[v4].byte_0x360FBx[result] = 2;
-		//if (*(x_BYTE *)(a2 + 9) == 1)
-		if (D41A0_0.array_0x2BDE[v0index].byte_0x009_2BE4_11239 == 1)
+		result = x_BYTE_D94FF_spell_index[i];
+		if (D41A0_0.terrain_2FECE.next_0x360D2[tempPlayerIndex2].byte_0x360FBx[result] > 2u)
+			D41A0_0.terrain_2FECE.next_0x360D2[tempPlayerIndex2].byte_0x360FBx[result] = 2;
+		if (D41A0_0.array_0x2BDE[playerIndex].byte_0x009_2BE4_11239 == 1)
 		{
-			//*(x_BYTE *)(a2 + result + 2051) = *(x_BYTE *)(110 * v4 + x_D41A0_BYTEARRAY_0 + result + 221435);//0x803
-			D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x41D_1053z.byte[result] = D41A0_0.terrain_2FECE.next_0x360D2[v4].byte_0x360FBx[result];
+			D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.array_0x41D_1053z.byte[result] = D41A0_0.terrain_2FECE.next_0x360D2[tempPlayerIndex2].byte_0x360FBx[result];
 		}
 		else if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8 || x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 		{
-			v12 = D41A0_0.terrain_2FECE.next_0x360D2[v4].byte_0x360FBx[result];
-			//if (*(char *)(a2 + result + 2051) < v12)
-			if (D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x41D_1053z.byte[result] < v12)
+			int tempByte0x360FB = D41A0_0.terrain_2FECE.next_0x360D2[tempPlayerIndex2].byte_0x360FBx[result];
+			if (D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.array_0x41D_1053z.byte[result] < tempByte0x360FB)
 			{
-				v16 = D41A0_0.terrain_2FECE.next_0x360D2[v4].byte_0x360FBx[result];
-				if (v12 < 0)
-					v16 = 0;
-				if (v16 > 2)
-					v16 = 2;
-				//*(x_BYTE *)(a2 + result + 2051) = v16;
-				D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x41D_1053z.byte[result] = v16;
-				//*(x_DWORD *)(a2 + 4 * result + 1609) = *(x_DWORD *)&(*xadataspellsdat.colorPalette_var28)[80 * result + 18 + 26 * v16] + 1;//0x649
-				//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x649(v0index, result, *(x_DWORD *)&(*xadataspellsdat.colorPalette_var28)[80 * result + 18 + 26 * v16] + 1);
-				//D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x263_611x.dword[result] = *(x_DWORD*)&(*xadataspellsdat.colorPalette_var28)[80 * result + 18 + 26 * v16] + 1;
-				D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x263_611x.dword[result] = SPELLS_BEGIN_BUFFER_str[result].subspell[v16].dword_0x12 + 1;
+				tempByte0x360FB = D41A0_0.terrain_2FECE.next_0x360D2[tempPlayerIndex2].byte_0x360FBx[result];
+				if (tempByte0x360FB < 0)
+					tempByte0x360FB = 0;
+				if (tempByte0x360FB > 2)
+					tempByte0x360FB = 2;
+				D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.array_0x41D_1053z.byte[result] = tempByte0x360FB;
+				D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.array_0x263_611x.dword[result] = SPELLS_BEGIN_BUFFER_str[result].subspell[tempByte0x360FB].dword_0x12 + 1;
 			}
 		}
-		//*(x_BYTE *)(a2 + v5 + 1921) = -1;//781
-		//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x781(v0index, v5, -1);
-		D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x39B_923x.byte[v5] = -1;
-		v8 = 0;
-		//v13 = a2 + result;
-		//if (*(x_BYTE *)(a2 + 9) == 1)
-		if (D41A0_0.array_0x2BDE[v0index].byte_0x009_2BE4_11239 == 1)
+		D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.array_0x39B_923x.byte[i] = -1;
+		bool1 = false;
+		if (D41A0_0.array_0x2BDE[playerIndex].byte_0x009_2BE4_11239 == 1)
 		{
-			//v9 = (int)x_D41A0_BYTEARRAY_0;
-			//*(x_BYTE *)(a2 + result + 1973) = *(x_BYTE *)(result + 110 * v4 + x_D41A0_BYTEARRAY_0 + 221461);//7b5
-			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x7B5(v0index, result, *(x_BYTE *)(result + 110 * v4 + x_D41A0_BYTEARRAY_0 + 221461));
-			D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x3CF_975x.byte[result] = D41A0_0.terrain_2FECE.next_0x360D2[v4].byte_0x36115x[result];//  *(x_BYTE*)(result + 110 * v4 + x_D41A0_BYTEARRAY_0 + 221461);
-			if (!D41A0_0.terrain_2FECE.next_0x360D2[v4].byte_0x360E1x[result])
-				goto LABEL_37;
-			//v10 = *(x_BYTE *)(a2 + result + 1973) == 0;
-			//v10 = get_x_D41A0_BYTEARRAY_0_0x2BDE_0x7B5(v0index, result) == 0;
-			v10 = D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x3CF_975x.byte[result] == 0;
-			goto LABEL_35;
-		}
-		//v14 = result + 110 * v4 + x_D41A0_BYTEARRAY_0;
-		if (D41A0_0.terrain_2FECE.next_0x360D2[v4].byte_0x36115x[result])
-			goto LABEL_37;
-		if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
-		{
-			if (!D41A0_0.terrain_2FECE.next_0x360D2[v4].byte_0x360E1x[result])
-				goto LABEL_37;
-			v10 = D41A0_0.terrain_2FECE.next_0x360D2[v4].byte_0x36115x[result] == 0;
-		LABEL_35:
-			if (!v10)
-				goto LABEL_37;
-			goto LABEL_36;
-		}
-		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 >= 0 && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w)
-		{
-			//if (!*(x_BYTE *)(a2 + result + 1999))
-			if (!D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x.byte[result])
-				goto LABEL_37;
-		LABEL_36:
-			v8 = 1;
-			goto LABEL_37;
-		}
-		//if (*(x_BYTE *)(a2 + result + 1999))
-		//if(D41A0_BYTESTR_0.str_2FECE[v0index].byte_0x360E1x[result])
-		if (D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x.byte[result])
-			goto LABEL_36;
-		//v11 = result + 110 * v4 + x_D41A0_BYTEARRAY_0;
-		if (D41A0_0.terrain_2FECE.next_0x360D2[v4].byte_0x360E1x[result])
-		{
-			if (!D41A0_0.terrain_2FECE.next_0x360D2[v4].byte_0x36115x[result])
-				goto LABEL_36;
-		}
-	LABEL_37:
-		if (v8)//adress 235cc3
-		{
-			//*(x_WORD *)(a2 + 2 * result + 1817) = 1;//0x719
-			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x717(v0index, result+1, 1);
-			D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x333_819x.word[result] = 1;
-			//*(x_BYTE *)(a2 + result + 1999) = 1;
-			D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x.byte[result] = 1;
-			//if (*(signed __int16 *)(a2 + 2103) == -1)
-			if (D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.word_0x451_1105 == -1)
+			D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.array_0x3CF_975x.byte[result] = D41A0_0.terrain_2FECE.next_0x360D2[tempPlayerIndex2].byte_0x36115x[result];
+			if (D41A0_0.terrain_2FECE.next_0x360D2[tempPlayerIndex2].byte_0x360E1x[result])
 			{
-				//*(x_WORD *)(a2 + 2103) = result;
-				D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.word_0x451_1105 = result;
+				if (D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.array_0x3CF_975x.byte[result] == 0)
+					bool1 = true;
 			}
-			//else if (*(signed __int16 *)(a2 + 2105) == -1)
-			else if (D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.word_0x453_1107 == -1)
+		} else if (!D41A0_0.terrain_2FECE.next_0x360D2[tempPlayerIndex2].byte_0x36115x[result])
+		{
+			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 			{
-				//*(x_WORD *)(a2 + 2105) = result;
-				D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.word_0x453_1107 = result;
+				if (D41A0_0.terrain_2FECE.next_0x360D2[tempPlayerIndex2].byte_0x360E1x[result])
+				{
+					if (D41A0_0.terrain_2FECE.next_0x360D2[tempPlayerIndex2].byte_0x36115x[result] == 0)
+						bool1 = true;
+				}
 			}
-			result = v15 + 1;
-			//*(x_BYTE *)(a2 + v15 + 1921) = v15;//1921
-			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x781(v0index, v15, v15);
-			D41A0_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x39B_923x.byte[v15] = v15;
-			v15++;
+			else if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 >= 0 && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w)
+			{
+				if (D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x.byte[result])
+					bool1 = true;
+			}
+			else if (D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x.byte[result])
+			{
+				bool1 = true;
+			}
+			else if (D41A0_0.terrain_2FECE.next_0x360D2[tempPlayerIndex2].byte_0x360E1x[result])
+			{
+				if (!D41A0_0.terrain_2FECE.next_0x360D2[tempPlayerIndex2].byte_0x36115x[result])
+				{
+					bool1 = true;
+				}
+			}
 		}
-		v5++;
-	} while (v5 < 26);
-	//return result;
+		if (bool1)//adress 235cc3
+		{
+			D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.array_0x333_819x.word[result] = 1;
+			D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x.byte[result] = 1;
+			if (D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.word_0x451_1105 == -1)
+			{
+				D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.word_0x451_1105 = result;
+			}
+			else if (D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.word_0x453_1107 == -1)
+			{
+				D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.word_0x453_1107 = result;
+			}
+			result = index + 1;
+			D41A0_0.array_0x2BDE[playerIndex].dword_0x3E6_2BE4_12228.str_611.array_0x39B_923x.byte[index] = index;
+			index++;
+		}
+	}
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (00054D30) --------------------------------------------------------
-char SaveSMAPSLEVmovie_54D30(__int16 a1)//235d30 //in game load
+bool SaveSMAPSLEVmovie_54D30(__int16 a1)//235d30 //in game load
 {
 	FILE* savedfile; // eax
-	//FILE* v2; // ebx
-	//int v3; // eax
-	//x_DWORD *v4; // edi
-	//x_DWORD *v5; // edi
-	char result; // al
-	//char v7; // [esp+0h] [ebp-36h]
 	type_str_0x21AA v8; // [esp+80h] [ebp+4Ah]
 	type_str_0x21AE v9; // [esp+84h] [ebp+4Eh]
 	type_str_0x21B2 v10; // [esp+88h] [ebp+52h]
@@ -52178,12 +52072,11 @@ char SaveSMAPSLEVmovie_54D30(__int16 a1)//235d30 //in game load
 	DisplayStruct_t displaySettings; // [esp+A4h] [ebp+6Eh]
 	type_str_0x2192 v18; // [esp+A8h] [ebp+72h]
 	type_str_0x2196 v19; // [esp+ACh] [ebp+76h]
-	char v20; // [esp+B0h] [ebp+7Ah]
 
-	v20 = 1;
-	graphicsSettings = D41A0_0.m_GameSettings.m_Graphics;// *(x_DWORD*)(x_D41A0_BYTEARRAY_0 + 8586);
+	bool result = true;
+	graphicsSettings = D41A0_0.m_GameSettings.m_Graphics;
 	displaySettings = D41A0_0.m_GameSettings.m_Display;
-	v18 = D41A0_0.m_GameSettings.str_0x2192;// *(x_DWORD*)(x_D41A0_BYTEARRAY_0 + 8594);
+	v18 = D41A0_0.m_GameSettings.str_0x2192;
 	v19 = D41A0_0.m_GameSettings.str_0x2196;
 	v12 = D41A0_0.dword_0x219A;
 	v13 = D41A0_0.dword_0x219E;
@@ -52195,7 +52088,6 @@ char SaveSMAPSLEVmovie_54D30(__int16 a1)//235d30 //in game load
 	v11 = D41A0_0.str_0x21B6;
 	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SMAP", a1);
 	savedfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
-	//v2 = moviesmapfile;
 	if (savedfile)
 	{
 		DataFileIO::Read(savedfile, (uint8_t*)mapTerrainType_10B4E0, 0x10000);
@@ -52209,10 +52101,6 @@ char SaveSMAPSLEVmovie_54D30(__int16 a1)//235d30 //in game load
 	}
 	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SLEV", a1);
 
-	//fix this !!!!
-	//allert_error();
-	//sub_53E60_readfile_and_decompress(printbuffer, &x_D41A0_BYTEARRAY_0);
-	//fix this !!!!
 	uint8_t* D41A0_pointer;
 	D41A0_pointer = (uint8_t*)&D41A0_0;
 	DataFileIO::ReadFileAndDecompress(printbuffer, &D41A0_pointer);
@@ -52223,61 +52111,36 @@ char SaveSMAPSLEVmovie_54D30(__int16 a1)//235d30 //in game load
 	D41A0_0.dword_0x11e6 = -1;
 	sub_71990();
 	FlvInitSet_473B0();
-	//v3 = (int)x_D41A0_BYTEARRAY_0;
-	//v4 = (x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8586);
 	D41A0_0.m_GameSettings.m_Graphics = graphicsSettings;
-	//v4++;
-	//v4[0] = v17;
 	D41A0_0.m_GameSettings.m_Display = displaySettings;
-	//v4++;
-	//v4[0] = v18;
 	D41A0_0.m_GameSettings.str_0x2192 = v18;
-	//v4[1] = v19;
 	D41A0_0.m_GameSettings.str_0x2196 = v19;
 	D41A0_0.dword_0x219A = v12;
 	D41A0_0.dword_0x219E = v13;
 	D41A0_0.dword_0x21A2 = v14;
 	D41A0_0.dword_0x21A6 = v15;
-	//v5 = D41A0_BYTESTR_0.byte_0x21AA;
 	D41A0_0.str_0x21AA = v8;
 	D41A0_0.str_0x21AE = v9;
 	D41A0_0.str_0x21B2 = v10;
 	D41A0_0.str_0x21B6 = v11;
-	result = v20;
-	//v5[0] = v8;
-	//v5++;
-	//v5[0] = v9;
-	//v5++;
-	//v5[0] = v10;
-	//v5[1] = v11;
 	return result;
 }
-// 10000: using guessed type void /*__noreturn*/ sub_10000();
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00054F00) --------------------------------------------------------
-char SaveSMAPSLEVmovie2_54F00(__int16 a1)//235f00 //in game save
+bool SaveSMAPSLEVmovie2_54F00(__int16 a1)//235f00 //in game save
 {
-	//uint8_t* v1; // ST0C_4
 	FILE* file; // eax
-	//FILE* v3; // ebx
-	//char v5; // [esp+0h] [ebp-6h]
-	char success; // [esp+80h] [ebp+7Ah]
-
-	success = 1;
+	bool success = true;
 	sub_71930();
 	sub_55100(1);
 	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SLEV", a1);
-	//v1 = (uint8_t*)x_D41A0_BYTEARRAY_0;
-	D41A0_0.dword_0x36DF6 = &str_D7BD6[59]; //(uint32_t)&unk_D7BD6[0x7d6];
+	D41A0_0.dword_0x36DF6 = &str_D7BD6[59];
 
   int size = sizeof(type_shadow_D41A0_BYTESTR_0);
 	sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)&D41A0_0, size);
 
 	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SMAP", a1);
 	file = DataFileIO::CreateOrOpenFile(printbuffer, 546);
-	//v3 = v2;
 	if (file != NULL)
 	{
 		WriteFile_98CAA(file, (uint8_t*)mapTerrainType_10B4E0, 0x10000);
@@ -52294,16 +52157,11 @@ char SaveSMAPSLEVmovie2_54F00(__int16 a1)//235f00 //in game save
 	D41A0_0.dword_0x11e6 = -1;
 	return success;
 }
-// 10000: using guessed type void /*__noreturn*/ sub_10000();
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00055080) --------------------------------------------------------
-char SaveLevel_55080(uint8_t savefileindex, int32_t LevelNumber, char* savefileindex2)//236080 //filenameindex added for debugging
+bool SaveLevel_55080(uint8_t savefileindex, int32_t LevelNumber, char* savefileindex2)//236080 //filenameindex added for debugging
 {
-	char success; // bl
-
-	success = 0;
+	bool success = false;
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 	{
 		sub_71930();
@@ -52321,8 +52179,7 @@ char SaveLevel_55080(uint8_t savefileindex, int32_t LevelNumber, char* savefilei
 	}
 	return success;
 }
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
+
 int debugcounter_236100 = 0;
 //----- (00055100) --------------------------------------------------------
 void sub_55100(char a1)//236100
@@ -52482,9 +52339,9 @@ void sub_55100(char a1)//236100
 }
 
 //----- (00055250) --------------------------------------------------------
-char SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //in game save
+bool SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //in game save
 {
-	char success; // bl
+	bool success;
 	int temptime; // edi
 	long acttime; // eax
 
@@ -52497,7 +52354,7 @@ char SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //
 	}
 	//fix for saving
 
-	success = 0;
+	success = false;
 	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SLEV", savefileindex + 1, savefileindex2);
 	D41A0_0.dword_0x36DF6 = &str_D7BD6[59]; //(x_DWORD)&unk_D7BD6[0x7d6];
 	temptime = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.dword_0x189_393;
@@ -52510,12 +52367,11 @@ char SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //
 	//x64 fix
 
 	int size = sizeof(shadow_type_D41A0_BYTESTR_0);
-	if (sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)&shadow_type_D41A0_BYTESTR_0, size) == size) success = 1;
+	if (sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)&shadow_type_D41A0_BYTESTR_0, size) == size) success = true;
 	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.dword_0x189_393 = temptime;
 
 	//fix for saving
 	for (int indexx = 1; x_DWORD_EA3E4[indexx] < x_DWORD_EA3E4[1000]; indexx++)
-		//if (memory_readable(x_DWORD_EA3E4[indexx]->dword_0xA4_164x,4))
 	{
 		type_str_164* Zerotype_str_164 = 0;
 		if (x_DWORD_EA3E4[indexx]->dword_0xA4_164x == (type_str_164*)&((int8_t*)Zerotype_str_164)[0x2c75e28])//0x014F82E8//0x2c75e28-(uint32_t)&D41A0_BYTESTR_0
@@ -52525,10 +52381,6 @@ char SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //
 
 	return success;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 98786: using guessed type int /*__fastcall*/ j___clock(x_DWORD, x_DWORD, x_DWORD);
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (00055320) --------------------------------------------------------
 bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //file index added for develop
@@ -52563,20 +52415,17 @@ bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //
 // D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (00055450) --------------------------------------------------------
-char SaveLevelSVER_55450(uint8_t savefileindex, int32_t levelNumber, char* savefileindex2)//236450 //fileindex added for developing
+bool SaveLevelSVER_55450(uint8_t savefileindex, int32_t levelNumber, char* savefileindex2)//236450 //fileindex added for developing
 {
-	char success; // bl
 	int32_t data[2]; // [esp+40h] [ebp-8h]
 	data[1] = levelNumber;
 	data[0] = 15;
-	success = 0;
+	bool success = false;
 	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SVER", savefileindex + 1, savefileindex2);
 	if (sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)data, 2*sizeof(int32_t)) == 8)
-		success = 1;
+		success = true;
 	return success;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (000555D0) --------------------------------------------------------
 bool LoadLevel_555D0(uint8_t fileindex, int levelindex)//2365d0
@@ -52653,32 +52502,30 @@ bool LoadLevel_555D0(uint8_t fileindex, int levelindex)//2365d0
 //----- (00055750) --------------------------------------------------------
 bool sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex)//236750 //load in game
 {
-	FILE* saveslevfile; // eax
-	int32_t v4; // eax
-	bool v5; // bl
-	uint32_t filesize2; // edi
-	FILE* savesmapfile; // eax
-	uint32_t filesize; // esi
+	FILE* saveslevfile;
+	int32_t readState;
+	bool correctReadState;
+	uint32_t filesize2;
+	FILE* savesmapfile;
+	uint32_t filesize;
 	bool result = false;
 	sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath.c_str(), "SAVE", "SVER", fileindex + 1);
 	if (DataFileIO::ReadFileAndDecompress(printbuffer, &readbuffer) == 8 && *(uint32_t*)&readbuffer[4] == levelindex && *(uint32_t*)&readbuffer[0] == 0xf)
 	{
 		sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath.c_str(), "SAVE", "SLEV", fileindex + 1);
 		saveslevfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
-		//v3 = saveslevfile;
 		if (saveslevfile)
 		{
-			v4 = DataFileIO::Read(saveslevfile, readbuffer, 8);
-			v5 = v4 != 8;
-			if (v4 == 8 && *(uint32_t*)&readbuffer[4] != D41A0_0.dword_0x4)
-				v5 = 1;
+			readState = DataFileIO::Read(saveslevfile, readbuffer, 8);
+			correctReadState = readState != 8;
+			if (readState == 8 && *(uint32_t*)&readbuffer[4] != D41A0_0.dword_0x4)
+				correctReadState = true;
 			filesize2 = DataFileIO::FileLengthBytes(saveslevfile);
 			DataFileIO::Close(saveslevfile);
-			if (filesize2 == sizeof(type_shadow_D41A0_BYTESTR_0) && !v5)
+			if (filesize2 == sizeof(type_shadow_D41A0_BYTESTR_0) && !correctReadState)
 			{
 				sprintf(printbuffer, "%s/%s/%s%d.DAT", gameDataPath.c_str(), "SAVE", "SMAP", fileindex + 1);
 				savesmapfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
-				//v8 = v7;
 				if (savesmapfile)
 				{
 					filesize = DataFileIO::FileLengthBytes(savesmapfile);
@@ -52691,10 +52538,6 @@ bool sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex)//236750 /
 	}
 	return result;
 }
-// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
-// 988DA: using guessed type x_DWORD filelength(x_DWORD);
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (000558E0) --------------------------------------------------------
 bool LoadLevelSMAP_558E0(uint8_t savefileindex)//2368e0
