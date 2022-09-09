@@ -5625,7 +5625,6 @@ int sub_102D0(type_event_0x6E8E* a1x, axis_3d* a2, char a3)//1f12d0
 	}
 	return 0;
 }
-// D41B6: using guessed type char x_BYTE_D41B6;
 
 //----- (00010630) --------------------------------------------------------
 bool sub_10630(axis_3d* a1, axis_4d* a2, axis_3d* a3, axis_4d* a4)//1f1630
@@ -5669,7 +5668,6 @@ type_event_0x6E8E* sub_10780(type_event_0x6E8E* a1x)//1f1780
 	v8 = (a1x->axis_0x4C_76.x + 128) >> 8;
 	v1 = a1x->array_0x52_82.pitch + 255;
 	v9 = (a1x->axis_0x4C_76.y + 128) >> 8;
-	//v2 = sub_10080(0, (v1 - (__CFSHL__(v1 >> 31, 8) + (v1 >> 31 << 8))) >> 8);
 	v2 = AddE7EE0x_10080(0, ((v1 - (my_sign32(v1) * 255)) >> 8));
 	if (v2)
 	{
@@ -5679,7 +5677,6 @@ type_event_0x6E8E* sub_10780(type_event_0x6E8E* a1x)//1f1780
 				;
 				i = v5x->oldMapEntity_0x16_22)
 			{
-				//myprintf("%d\n",i);
 				v5x = x_DWORD_EA3E4[i];
 				if (v5x == x_DWORD_EA3E4[0])
 					break;
@@ -5699,7 +5696,6 @@ type_event_0x6E8E* sub_10780(type_event_0x6E8E* a1x)//1f1780
 	}
 	return 0;
 }
-// EA3E4: using guessed type int x_DWORD_EA3E4[];
 
 //----- (000108B0) --------------------------------------------------------
 type_event_0x6E8E* sub_108B0(type_event_0x6E8E* a1x)//1f18b0
