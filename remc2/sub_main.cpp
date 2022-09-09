@@ -52059,33 +52059,33 @@ void sub_54A50(int playerIndex2, int playerIndex)//235a50
 //----- (00054D30) --------------------------------------------------------
 bool SaveSMAPSLEVmovie_54D30(__int16 a1)//235d30 //in game load
 {
-	FILE* savedfile; // eax
-	type_str_0x21AA v8; // [esp+80h] [ebp+4Ah]
-	type_str_0x21AE v9; // [esp+84h] [ebp+4Eh]
-	type_str_0x21B2 v10; // [esp+88h] [ebp+52h]
-	type_str_0x21B6 v11; // [esp+8Ch] [ebp+56h]
-	int v12; // [esp+90h] [ebp+5Ah]
-	int v13; // [esp+94h] [ebp+5Eh]
-	int v14; // [esp+98h] [ebp+62h]
-	int v15; // [esp+9Ch] [ebp+66h]
-	GraphicsStruct_t graphicsSettings; // [esp+A0h] [ebp+6Ah]
-	DisplayStruct_t displaySettings; // [esp+A4h] [ebp+6Eh]
-	type_str_0x2192 v18; // [esp+A8h] [ebp+72h]
-	type_str_0x2196 v19; // [esp+ACh] [ebp+76h]
+	FILE* savedfile;
+	type_str_0x21AA temp0x21AA;
+	type_str_0x21AE temp0x21AE;
+	type_str_0x21B2 temp0x21B2;
+	type_str_0x21B6 temp0x21B6;
+	int temp0x219A;
+	int temp0x219E;
+	int temp0x21A2;
+	int temp0x21A6;
+	GraphicsStruct_t graphicsSettings;
+	DisplayStruct_t displaySettings;
+	type_str_0x2192 tempGraphics;
+	type_str_0x2196 tempDispl;
 
 	bool result = true;
 	graphicsSettings = D41A0_0.m_GameSettings.m_Graphics;
 	displaySettings = D41A0_0.m_GameSettings.m_Display;
-	v18 = D41A0_0.m_GameSettings.str_0x2192;
-	v19 = D41A0_0.m_GameSettings.str_0x2196;
-	v12 = D41A0_0.dword_0x219A;
-	v13 = D41A0_0.dword_0x219E;
-	v14 = D41A0_0.dword_0x21A2;
-	v15 = D41A0_0.dword_0x21A6;
-	v8 = D41A0_0.str_0x21AA;
-	v9 = D41A0_0.str_0x21AE;
-	v10 = D41A0_0.str_0x21B2;
-	v11 = D41A0_0.str_0x21B6;
+	tempGraphics = D41A0_0.m_GameSettings.str_0x2192;
+	tempDispl = D41A0_0.m_GameSettings.str_0x2196;
+	temp0x219A = D41A0_0.dword_0x219A;
+	temp0x219E = D41A0_0.dword_0x219E;
+	temp0x21A2 = D41A0_0.dword_0x21A2;
+	temp0x21A6 = D41A0_0.dword_0x21A6;
+	temp0x21AA = D41A0_0.str_0x21AA;
+	temp0x21AE = D41A0_0.str_0x21AE;
+	temp0x21B2 = D41A0_0.str_0x21B2;
+	temp0x21B6 = D41A0_0.str_0x21B6;
 	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SMAP", a1);
 	savedfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
 	if (savedfile)
@@ -52113,35 +52113,34 @@ bool SaveSMAPSLEVmovie_54D30(__int16 a1)//235d30 //in game load
 	FlvInitSet_473B0();
 	D41A0_0.m_GameSettings.m_Graphics = graphicsSettings;
 	D41A0_0.m_GameSettings.m_Display = displaySettings;
-	D41A0_0.m_GameSettings.str_0x2192 = v18;
-	D41A0_0.m_GameSettings.str_0x2196 = v19;
-	D41A0_0.dword_0x219A = v12;
-	D41A0_0.dword_0x219E = v13;
-	D41A0_0.dword_0x21A2 = v14;
-	D41A0_0.dword_0x21A6 = v15;
-	D41A0_0.str_0x21AA = v8;
-	D41A0_0.str_0x21AE = v9;
-	D41A0_0.str_0x21B2 = v10;
-	D41A0_0.str_0x21B6 = v11;
+	D41A0_0.m_GameSettings.str_0x2192 = tempGraphics;
+	D41A0_0.m_GameSettings.str_0x2196 = tempDispl;
+	D41A0_0.dword_0x219A = temp0x219A;
+	D41A0_0.dword_0x219E = temp0x219E;
+	D41A0_0.dword_0x21A2 = temp0x21A2;
+	D41A0_0.dword_0x21A6 = temp0x21A6;
+	D41A0_0.str_0x21AA = temp0x21AA;
+	D41A0_0.str_0x21AE = temp0x21AE;
+	D41A0_0.str_0x21B2 = temp0x21B2;
+	D41A0_0.str_0x21B6 = temp0x21B6;
 	return result;
 }
 
 //----- (00054F00) --------------------------------------------------------
 bool SaveSMAPSLEVmovie2_54F00(__int16 a1)//235f00 //in game save
 {
-	FILE* file; // eax
 	bool success = true;
 	sub_71930();
 	sub_55100(1);
 	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SLEV", a1);
 	D41A0_0.dword_0x36DF6 = &str_D7BD6[59];
 
-  int size = sizeof(type_shadow_D41A0_BYTESTR_0);
+    int size = sizeof(type_shadow_D41A0_BYTESTR_0);
 	sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)&D41A0_0, size);
 
 	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SMAP", a1);
-	file = DataFileIO::CreateOrOpenFile(printbuffer, 546);
-	if (file != NULL)
+	FILE* file = DataFileIO::CreateOrOpenFile(printbuffer, 546);
+	if (file != nullptr)
 	{
 		WriteFile_98CAA(file, (uint8_t*)mapTerrainType_10B4E0, 0x10000);
 		WriteFile_98CAA(file, (uint8_t*)mapHeightmap_11B4E0, 0x10000);
@@ -52218,7 +52217,6 @@ void sub_55100(char a1)//236100
 			v7 = D41A0_0.stages_0x3654C[v4].stages_3654C_byte0;
 			if ((v7 < 5) && (v7 > 0))
 			{
-				//allert_error();//test it and fix
 				if (!(D41A0_0.stages_0x3654C[v4].str_3654D_byte1 & 1))
 				{
 					if ((v7 == 1) || (v7 == 2) || (v7 == 4))
