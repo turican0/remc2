@@ -50350,7 +50350,7 @@ type_event_0x6E8E* sub_51800(axis_3d* position)//232800
 			event->model_0x40_64 = 0x48;
 			event->maxLife_0x4 = 16;
 			event->struct_byte_0xc_12_15.byte[0] &= 0xF7;
-			event->life_0x8 = event->maxLife_0x4;			
+			event->life_0x8 = event->maxLife_0x4;
 			event->byte_0x3E_62 = 0;
 			type_event_0x6E8E* prevEvent = event;
 			for (int index = 1; x_D41A0_BYTEARRAY_4_struct.byteindex_224 > index; index++)
@@ -50370,7 +50370,7 @@ type_event_0x6E8E* sub_51800(axis_3d* position)//232800
 					SetEntityShiftRot_49EA0(newEvent, 128, 256);
 					SetEntityIndexAndRot_49CD0(newEvent, 220);
 				}
-				prevEvent = newEvent;				
+				prevEvent = newEvent;
 			}
 			x_WORD_EB398ar = *position;
 			MovePlayer_57FA0(&x_WORD_EB398ar, 0, 0, 512);
@@ -50620,7 +50620,7 @@ void GameEvents_51BB0()//232bb0
 				{
 					D41A0_0.array_0x2BDE[k].byte_0x004_2BE0_11234 = 1;
 					NetworkEvent_7373D(k);
-				}				
+				}
 			}
 			break;
 		case 0x1B:
@@ -50726,7 +50726,7 @@ void GameEvents_51BB0()//232bb0
 				sub_52D70(i, (char*)".. CHEAT: Kill all creatures");
 				break;
 			case 8:
-				for(int k = 0; k < 26; k++)
+				for (int k = 0; k < 26; k++)
 				{
 					actEvent->dword_0xA4_164x->str_611.array_0x2CB_715x.dword[x_BYTE_D94FF_spell_index[k]] += 100;
 				}
@@ -50919,7 +50919,7 @@ void GameEvents_51BB0()//232bb0
 		default:
 			break;
 		}
-	//233c76
+		//233c76
 		int rollEnv = 2 * D41A0_0.array_0x6E3E[i].roll - actEvent->dword_0xA4_164x->word_0x155_341;
 		actEvent->dword_0xA4_164x->word_0x4_4 = (rollEnv - (my_sign32(rollEnv) << 2) + my_sign32(rollEnv)) >> 2;
 		int pitchEnv = 2 * D41A0_0.array_0x6E3E[i].pitch - actEvent->dword_0xA4_164x->word_0x157_343;
@@ -67273,7 +67273,6 @@ signed int sub_67CB0(type_event_0x6E8E* a1x)//248cb0
 					//adress 249226
 					v32 = sub_68490(a1x, i3x, 0x71u, 0x71u);
 					//adress 24922c
-					//eaxÂ´17f5a3f
 					if (v32 < v25)
 					{
 						v56x = i3x;
