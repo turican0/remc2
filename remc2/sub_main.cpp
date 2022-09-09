@@ -521,15 +521,6 @@ x_DWORD unk_D5621;
 GameRenderInterface* m_ptrGameRender;
 uint8_t loc_A0000_vga_buffer[307200];
 
-void sub_5FA96(type_event_0x6E8E* a1x);
-void sub_5FBB1(type_event_0x6E8E* a1x);
-void sub_5FB09(type_event_0x6E8E* a1x);
-void sub_5FB22(type_event_0x6E8E* a1x);
-void sub_5FB3A(type_event_0x6E8E* a1x);
-void sub_5FB8C(type_event_0x6E8E* a1x);
-int sub_B278C(short  /*a*/, short  /*b*/, int  /*c*/, int  /*d*/, int  /*e*/, int  /*f*/, int  /*g*/, int  /*h*/, int  /*i*/, int  /*j*/, int  /*k*/, int  /*l*/, int  /*m*/, int  /*n*/, short  /*o*/) { stub_fix_it(); return 0; };
-int _null_int23_exit() { stub_fix_it(); return 0; };
-
 int nullsub_3(x_DWORD  /*number*/) { stub_fix_it(); return 0; };
 int _no_support_loaded(x_DWORD  /*number1*/, x_DWORD  /*number2*/) { stub_fix_it(); return 0; };
 
@@ -4713,7 +4704,6 @@ char x_BYTE_E390C_VGA_pal_not_begin = 0; // weak
 int x_DWORD_E3B40 = 0; // weak
 int x_DWORD_E3B44 = 0; // weak
 __int16 x_WORD_E3B4A = 0; // weak
-int(*off_E3B90)() = &_null_int23_exit; // weak
 int x_DWORD_E3B94 = 0; // weak
 __int16 x_WORD_E3B98 = 32; // weak
 __int16 x_WORD_E3B9A = 0; // weak
