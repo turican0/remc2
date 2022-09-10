@@ -158,6 +158,7 @@
     <ClInclude Include="..\SDL-Mixer-X-master\src\mixer.h" />
     <ClInclude Include="..\SDL-Mixer-X-master\src\music.h" />
     <ClInclude Include="Basic-tests.h" />
+    <ClInclude Include="Regress-tests.h" />
     <ClInclude Include="Terrain-tests.h" />
   </ItemGroup>
   <ItemGroup>
@@ -272,6 +273,7 @@
     <ClCompile Include="..\SDL-Mixer-X-master\src\mixer_x_deprecated.c" />
     <ClCompile Include="..\SDL-Mixer-X-master\src\music.c" />
     <ClCompile Include="Basic-tests.cpp" />
+    <ClCompile Include="Regress-tests.cpp" />
     <ClCompile Include="Terrain-tests.cpp" />
     <ClCompile Include="Unit-tests.cpp" />
   </ItemGroup>

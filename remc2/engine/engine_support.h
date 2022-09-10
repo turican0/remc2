@@ -64,6 +64,10 @@ template<class T, class U> int8 __OFADD__x(T x, U y)
 */
 void allert_error();
 
+extern bool unitTests;
+extern std::string unitTestsPath;
+extern int* endTestsCode;
+
 extern uint8_t* readbuffer;
 extern const int printBufferSize;
 extern char* printbuffer;//char* buffer; // [esp+0h] [ebp-2h]
@@ -629,6 +633,11 @@ extern type_array_str_E2A74 str_E2A74;
 
 //extern char* char_355198;
 //void pathfix(char* path, char* path2);
+
+class thread_exit_exception : public std::exception {};
+
+void End_thread(int backCode);
+
 void support_begin();
 void support_end();
 

@@ -1,4 +1,5 @@
 #include "port_filesystem.h"
+#include "../engine/CommandLineParser.h"
 #include <string>
 #include <vector>
 #include <filesystem>
@@ -524,8 +525,8 @@ std::string getExistingDataPath(std::filesystem::path path)
 		}
 #endif //__linux__
 	}
-
-	std::cout << "Data file found: " << file_found << "\n";
+	if (CommandLineParams.DoShowDebugMessages1())
+		std::cout << "Data file found: " << file_found << "\n";
 	return file_found;
 }
 

@@ -1,3 +1,4 @@
+#include "../engine/engine_support.h"
 #include "port_sdl_vga_mouse.h"
 #include "port_time.h"
 
@@ -415,7 +416,6 @@ void VGA_Draw_string(char* wrstring) {
 
 int drawCounter = 0;
 void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer) {
-	if (buffer == NULL) return;
 	if (oldWidth != m_gamePalletisedSurface->w)
 		drawCounter = 0;
 	if (drawCounter<20)

@@ -98,6 +98,7 @@ void CommandLineParser::InterpretParams() {
         }
         else if (param == "--mode_test_regressions_game") { //this is setting for regressions testing
             m_mode_test_regressions_game = true;
+            m_no_show_new_procedures = true;
             m_detect_dword_a = true;
             m_copy_skip_config = true;
             m_fix_mouse = true;

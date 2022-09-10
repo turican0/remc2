@@ -132,7 +132,9 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 			if (index >= stopstep)
 			{
 				if (index >= exitindex)
-					exit(exitindex);
+				{
+					End_thread(20);
+				}
 				if (!skip)
 				{
 					comp20 = compare_with_sequence(buffer1, (uint8_t*)mapTerrainType_10B4E0, 0x2dc4e0, index - skip2, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0, (exitindex != 1000000));
