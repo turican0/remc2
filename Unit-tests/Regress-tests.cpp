@@ -1,3 +1,4 @@
+#include "Basic-tests.h"
 #include "Regress-tests.h"
 
 void sub_main_thread(int argc, char** argv, char**  envp)
@@ -26,7 +27,7 @@ int run_regtest(int level)//236F70
 	char* arg3 = "reglevel";
 	char* envp[] = { nullptr };
 	char arg4[4];
-	sprintf(arg4,"%d",level - 1);
+	sprintf(arg4, "%d", level - 1);
 	argv[0] = arg1;
 	argv[1] = arg2;
 	argv[2] = arg3;
@@ -34,13 +35,19 @@ int run_regtest(int level)//236F70
 	CommandLineParams.Init(argc, argv);
 	support_begin();
 	x_BYTE_D4B80 = 0;
-	//CleanF5538_716A0();
-    std::thread mainThread(sub_main_thread, argc, argv, envp);
+	CleanF5538_716A0();
+	for (int i = 0; i < 504; i++)
+		str_DWORD_F66F0x[i] = nullptr;
+	x_DWORD_E9C28_str = nullptr;
+	std::thread mainThread(sub_main_thread, argc, argv, envp);
 	mainThread.join();
 	support_end();
-	if(locEndTestsCode == 20)
+	if (locEndTestsCode == 20)
 		printf("Test Level%d - OK\n", level);
 	else
+	{
 		printf("Test Level%d - FAILED\n", level);
+		TestError();
+	}
 	return 0;
 }
