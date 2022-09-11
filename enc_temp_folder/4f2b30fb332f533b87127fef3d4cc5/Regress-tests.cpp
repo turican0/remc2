@@ -34,7 +34,7 @@ int run_regtest(int level)//236F70
 	CommandLineParams.Init(argc, argv);
 	support_begin();
 	x_BYTE_D4B80 = 0;
-	//CleanF5538_716A0();
+	CleanF5538_716A0();
     std::thread mainThread(sub_main_thread, argc, argv, envp);
 	mainThread.join();
 	support_end();

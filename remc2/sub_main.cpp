@@ -2135,7 +2135,6 @@ void sub_712F0();
 void sub_713A0();
 //int sub_71410_process_tmaps_process_tmaps();
 void sub_715B0();
-void CleanF5538_716A0();
 void sub_716C0(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3);
 void SetF5538ByStrTMAP00TAB_71730(unsigned __int16 a1);
 void sub_71780();

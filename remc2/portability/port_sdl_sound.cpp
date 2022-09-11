@@ -1,3 +1,4 @@
+#include "../engine/engine_support.h"
 #include "port_sdl_sound.h"
 
 #include <adlmidi.h>
@@ -477,6 +478,7 @@ void SOUND_set_sample_volume(HSAMPLE S, int32_t volume) {
 }
 
 void SOUND_start_sample(HSAMPLE S) {
+	if (unitTests)return;
 #ifdef SOUND_SDLMIXER
 	if (hqsound)
 	{
