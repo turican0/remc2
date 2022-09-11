@@ -12,7 +12,7 @@ int main(int argc, char** argv)
 
 	printf("--- Regressions tests ---\n");
 
-	run_regtest(1);
+	//run_regtest(1);
 	run_regtest(2);
 	run_regtest(3);
 	run_regtest(4);
