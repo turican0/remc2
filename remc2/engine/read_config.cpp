@@ -1,4 +1,5 @@
 #include "read_config.h"
+#include "../engine/CommandLineParser.h"
 
 #include <vector>
 #include <filesystem>
@@ -64,10 +65,12 @@ std::string findIniFile() {
 bool readini() {
 	std::string inifile = findIniFile();
 	if (std::filesystem::exists(inifile)) {
-		std::cout << "Using inifile: " << inifile << "\n";
+		if (CommandLineParams.DoShowDebugMessages1())
+			std::cout << "Using inifile: " << inifile << "\n";
 	}
 	else {
-		std::cout << "Inifile cannot be found... Exiting\n";
+		if (CommandLineParams.DoShowDebugMessages1())
+			std::cout << "Inifile cannot be found... Exiting\n";
 		return false;
 	}
 

@@ -10,7 +10,7 @@ int main(int argc, char** argv)
 {
 	//if (CommandLineParams.DoShowDebugMessages1()) -- for suppress messages
 
-	printf("--- Regressions tests ---\n\n");
+	printf("--- Regressions tests ---\n");
 
 	run_regtest(1);
 	run_regtest(2);

@@ -43,6 +43,8 @@ void CommandLineParser::Init(int argc, char **argv) {
     m_set_objective = false;
     m_set_level = false;
     m_test_network_chng1 = false;
+    m_show_debug_messages1 = false;
+    m_text_output_to_console = false;
     m_memimages_path = "../remc2/memimages/";
 
     this->m_params.clear();
@@ -85,6 +87,7 @@ void CommandLineParser::InterpretParams() {
             m_debugafterload = false;
             //m_disable_graphics_enhance = true;
             m_hide_graphics = false;
+            m_text_output_to_console = true;
         }
         else if (param == "--mode_playing_game") { //this is setting for autosavegame
             m_mode_playing_game = true;
@@ -95,6 +98,8 @@ void CommandLineParser::InterpretParams() {
             m_load_edited_level = true;
             m_debugafterload = true;
             m_hide_graphics = false;
+            m_text_output_to_console = true;
+            m_show_debug_messages1 = true;
         }
         else if (param == "--mode_test_regressions_game") { //this is setting for regressions testing
             m_mode_test_regressions_game = true;
@@ -147,6 +152,8 @@ void CommandLineParser::InterpretParams() {
             m_auto_change_res = true;
             m_load_edited_level = true;
             m_disable_graphics_enhance = true;
+            m_text_output_to_console = true;
+            m_show_debug_messages1 = true;
         }
         else if (param == "--no_alternative_gamespeed_control") m_alternative_gamespeed_control = false;
         else if (param == "--no_analyze_entity")                m_analyze_entity = false;
@@ -175,6 +182,8 @@ void CommandLineParser::InterpretParams() {
         else if (param == "--set_objective")                    m_set_objective = true;
         else if (param == "--set_level")                        m_set_level = true;
         else if (param == "--test_network_chng1")               m_test_network_chng1 = true;
+        else if (param == "--show_debug_messages1")             m_show_debug_messages1 = true;
+        else if (param == "--text_output_to_console")           m_text_output_to_console = true;
         else if (param == "--memimages_path") {
             m_memimages_path = *(++p);
         }
