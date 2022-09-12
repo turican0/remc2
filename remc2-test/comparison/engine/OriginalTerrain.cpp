@@ -63,3 +63,42 @@ int sub_B5C60_getTerrainAlt2_orig(uint16_t a1, uint16_t a2, uint8_t* mapHeightma
 	}
 	return result;
 }
+
+void sub_44DB0_truncTerrainHeight_orig(int16_t mapEntityIndex_15B4E0[], uint8_t mapHeightmap_11B4E0[])//225db0 // map to heightmap
+{
+	__int16 v0; // dx
+	__int16 v1; // cx
+	uint16_t v2; // bx
+	__int16 v3; // ax
+	int v4; // edx
+	uint32_t x; // eax
+
+	v0 = -32000;
+	v1 = 32000;
+	v2 = 0;
+	do
+	{
+		v3 = mapEntityIndex_15B4E0[v2];
+		if (v3 > v0)
+			v0 = mapEntityIndex_15B4E0[v2];
+		if (v3 < v1)
+			v1 = mapEntityIndex_15B4E0[v2];
+		v2++;
+	} while (v2);//find min and max height
+	if (v0)
+		v4 = 0xC40000 / v0;
+	else
+		v4 = 0;
+	do
+	{
+		x = v4 * mapEntityIndex_15B4E0[v2] >> 16;
+		mapEntityIndex_15B4E0[v2] = 0;
+		if ((x & 0x8000u) != 0)//water level trunc
+			x = 0;
+		if (x > 196)//trunc max height
+			x = 196;
+		mapHeightmap_11B4E0[v2] = x;
+		v2++;
+	} while (v2);
+	//return result;
+}

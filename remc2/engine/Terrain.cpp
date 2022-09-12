@@ -213,7 +213,7 @@ void GenerateLevelMap_43830(type_str_2FECE* a2x)//224830
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
 	sub_B5E70_decompress_terrain_map_level(x_WORD_17B4E0, a2x->offset_0x2FEE9, a2x->raise_0x2FEED, a2x->gnarl_0x2FEF1);
 
-	sub_44DB0_truncTerrainHeight();//225db0 //trunc and create
+	sub_44DB0_truncTerrainHeight(mapEntityIndex_15B4E0, mapHeightmap_11B4E0);//225db0 //trunc and create
 
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
 	sub_44E40(a2x->river_0x2FEF5, a2x->lriver_0x2FEF9);//225e40 //add any fields
@@ -273,7 +273,7 @@ void sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __i
 }
 
 //----- (00044DB0) --------------------------------------------------------
-void sub_44DB0_truncTerrainHeight()//225db0 // map to heightmap
+void sub_44DB0_truncTerrainHeight(int16_t mapEntityIndex_15B4E0[], uint8_t mapHeightmap_11B4E0[])//225db0 // map to heightmap
 {
 	int revMaxEnt = 0;
 	uint32_t weightedVar;

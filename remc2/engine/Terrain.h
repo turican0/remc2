@@ -22,7 +22,7 @@ extern bool lowDiffHeightmap_D47DC;
 
 void GenerateLevelMap_43830(type_str_2FECE* a2x);//224830
 void sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4);//296e70
-void sub_44DB0_truncTerrainHeight();//225db0 // map to heightmap
+void sub_44DB0_truncTerrainHeight(int16_t mapEntityIndex_15B4E0[], uint8_t mapHeightmap_11B4E0[]);//225db0 // map to heightmap
 int sub_B5C60_getTerrainAlt2(uint16_t a1, uint16_t a2);//296c60
 void sub_44E40(int a1, uint8_t a2);//225e40
 void sub_45AA0_setMax4Tiles();//226aa0

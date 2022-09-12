@@ -1,45 +1,5 @@
 #include "Terrain-tests.h"
 
-//----- (00044DB0) --------------------------------------------------------
-void sub_44DB0_truncTerrainHeight_orig()//225db0 // map to heightmap
-{
-	__int16 v0; // dx
-	__int16 v1; // cx
-	uint16_t v2; // bx
-	__int16 v3; // ax
-	int v4; // edx
-	uint32_t x; // eax
-
-	v0 = -32000;
-	v1 = 32000;
-	v2 = 0;
-	do
-	{
-		v3 = mapEntityIndex_15B4E0[v2];
-		if (v3 > v0)
-			v0 = mapEntityIndex_15B4E0[v2];
-		if (v3 < v1)
-			v1 = mapEntityIndex_15B4E0[v2];
-		v2++;
-	} while (v2);//find min and max height
-	if (v0)
-		v4 = 0xC40000 / v0;
-	else
-		v4 = 0;
-	do
-	{
-		x = v4 * mapEntityIndex_15B4E0[v2] >> 16;
-		mapEntityIndex_15B4E0[v2] = 0;
-		if ((x & 0x8000u) != 0)//water level trunc
-			x = 0;
-		if (x > 196)//trunc max height
-			x = 196;
-		mapHeightmap_11B4E0[v2] = x;
-		v2++;
-	} while (v2);
-	//return result;
-}
-
 //----- (00044EE0) --------------------------------------------------------
 void sub_44EE0_smooth_tiles_orig(/*int a1,*/ uaxis_2d a2x)//225ee0
 {
@@ -3474,30 +3434,6 @@ void test_44EE0() {
 	free(tempHeight2);
 }
 
-void test_44DB0() {
-	int16_t* tempTerrain1 = (int16_t*)malloc(65536 * sizeof(int16_t));
-	int16_t* tempTerrain2 = (int16_t*)malloc(65536 * sizeof(int16_t));
-	for (int i = 0; i < 256 * 256; i++)
-	{
-		mapEntityIndex_15B4E0[i] = pseudoRand() % (256 * 256);
-		tempTerrain1[i] = mapEntityIndex_15B4E0[i];
-	}
-	sub_44DB0_truncTerrainHeight_orig();
-	for (int i = 0; i < 256 * 256; i++)
-	{
-		tempTerrain2[i] = mapEntityIndex_15B4E0[i];
-		mapEntityIndex_15B4E0[i] = tempTerrain1[i];
-	}
-	sub_44DB0_truncTerrainHeight();
-	for (int i = 0; i < 256 * 256; i++)
-	{
-		if (mapEntityIndex_15B4E0[i] != tempTerrain2[i])
-			TestError();
-	}
-	free(tempTerrain2);
-	free(tempTerrain1);
-};
-
 void Terrain_test() {
 	printf("test_B5D68 - ");
 	test_B5D68();
@@ -3589,10 +3525,6 @@ void Terrain_test() {
 
 	printf("test_44EE0 - ");
 	test_44EE0();
-	printf("OK\n");
-
-	printf("test_44DB0 - ");
-	test_44DB0();
 	printf("OK\n");
 }
 
