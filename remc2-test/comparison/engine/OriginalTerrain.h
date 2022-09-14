@@ -29,3 +29,4 @@ void sub_43B40_orig(uint8_t x_BYTE_D41B7, uint8_t mapHeightmap_11B4E0[], uint8_t
 void sub_43BB0_orig(uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[], uint8_t* x_BYTE_14B4E0_second_heightmap);
 void sub_44580_orig(uint8_t* pdwScreenBuffer_351628, uint16_t &x_WORD_17B4E0, char x_BYTE_F2CD0x[][2], uint8_t mapTerrainType_10B4E0[], uint8_t mapAngle_13B4E0[]);
 void sub_43EE0_orig(uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[]);
+void sub_43FC0_orig(uint8_t mapAngle_13B4E0[]);

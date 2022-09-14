@@ -853,80 +853,7 @@ void sub_45600_orig(uint8_t a1)//226600
 	} while (index);
 }
 
-//----- (00043FC0) --------------------------------------------------------
-void sub_43FC0_orig()//224fc0
-{
-	uint16_t index; // ax
-	uint16_t v1; // dx
-	char v2; // dh
-	unsigned __int16 v3; // bx
-	unsigned __int16 v4; // bx
-	unsigned __int16 v5; // bx
-	unsigned __int16 v6; // bx
-	unsigned __int16 v7; // bx
-	char v8; // bl
-	//unsigned __int16 v9; // ax
-
-	index = 0;
-	do
-	{
-		HIBYTE(index)--;
-		v1 = index;
-		LOBYTE(index)++;
-		v2 = mapAngle_13B4E0[v1];
-		LOBYTE(v1) = v2 == mapAngle_13B4E0[index];
-		HIBYTE(index)++;
-		v3 = index;
-		HIBYTE(index)++;
-		LOBYTE(v1) = (v2 == mapAngle_13B4E0[v3]) + v1;
-		v4 = index;
-		LOBYTE(index)--;
-		LOBYTE(v1) = (v2 == mapAngle_13B4E0[v4]) + v1;
-		v5 = index;
-		LOBYTE(index)--;
-		LOBYTE(v1) = (v2 == mapAngle_13B4E0[v5]) + v1;
-		v6 = index;
-		HIBYTE(index)--;
-		LOBYTE(v1) = (v2 == mapAngle_13B4E0[v6]) + v1;
-		v7 = index;
-		HIBYTE(index)--;
-		v8 = (v2 == mapAngle_13B4E0[index]) + (v2 == mapAngle_13B4E0[v7]) + v1;
-		LOBYTE(index)++;
-		HIBYTE(index)++;
-		if (v2)
-		{
-			if (v8 == 7)
-				mapAngle_13B4E0[index] = v2;
-		}
-		index++;
-	} while (index);
-}
 // D41B7: using guessed type char x_BYTE_D41B7;
-
-void test_43FC0() {
-	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
-	uint8_t* tempAng2 = (uint8_t*)malloc(65536);
-
-	for (int i = 0; i < 256 * 256; i++)
-	{
-		mapAngle_13B4E0[i] = pseudoRand() % 256;
-		tempAng1[i] = mapAngle_13B4E0[i];
-	}
-	sub_43FC0_orig();
-	for (int i = 0; i < 256 * 256; i++)
-	{
-		tempAng2[i] = mapAngle_13B4E0[i];
-		mapAngle_13B4E0[i] = tempAng1[i];
-	}
-	sub_43FC0();
-	for (int i = 0; i < 256 * 256; i++)
-	{
-		if (tempAng2[i] != mapAngle_13B4E0[i])
-			TestError();
-	}
-	free(tempAng1);
-	free(tempAng2);
-}
 
 void test_45600() {
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
@@ -1067,10 +994,6 @@ void test_45AA0() {
 }
 
 void Terrain_test() {
-
-	printf("test_43FC0 - ");
-	test_43FC0();
-	printf("OK\n");
 
 	printf("test_45600 - ");
 	test_45600();

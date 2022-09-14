@@ -615,3 +615,24 @@ TEST(Terrain, sub_43EE0) {
 	free(tempAng1);
 	free(tempHeight1);
 }
+
+TEST(Terrain, sub_43FC0) {
+
+	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
+
+	for (int i = 0; i < 256 * 256; i++)
+	{
+		mapAngle_13B4E0[i] = pseudoRand() % 256;
+		tempAng1[i] = mapAngle_13B4E0[i];
+	}
+
+	sub_43FC0_orig(tempAng1);
+
+	sub_43FC0();
+
+	for (int i = 0; i < 256 * 256; i++)
+	{
+		EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+	}
+	free(tempAng1);
+}
