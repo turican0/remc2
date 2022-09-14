@@ -34,3 +34,6 @@ void sub_45600_orig(uint8_t a1, uint8_t mapTerrainType_10B4E0[], uint8_t mapHeig
 void sub_454F0_orig(uint8_t a1, uint8_t a2, uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[]);
 void sub_45210_orig(uint8_t a1, uint8_t a2, uint8_t mapTerrainType_10B4E0[], uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[]);
 void sub_45060_orig(uint8_t a1, uint8_t a2, uint8_t mapTerrainType_10B4E0[], uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[]);
+void sub_45AA0_setMax4Tiles_orig(uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[]);
+void sub_440D0_orig(unsigned __int16 a1, uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[]);
+void sub_44320_orig(uint8_t mapAngle_13B4E0[]);
