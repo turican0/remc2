@@ -18,7 +18,7 @@ TEST(Terrain, sub_B5C60_getTerrainAlt2)
 		{
 			int a = sub_B5C60_getTerrainAlt2(x, y);
 			int b = sub_B5C60_getTerrainAlt2_orig(x, y, mapHeightmap_11B4E0);
-			EXPECT_EQ(a, b);
+			ASSERT_EQ(a, b);
 		}
 	}
 }
@@ -46,8 +46,8 @@ TEST(Terrain, sub_44DB0_truncTerrainHeight)
 	//Check results match
 	for (int i = 0; i < 256 * 256; i++)
 	{
-		EXPECT_EQ(mapEntityIndex1[i], mapEntityIndex2[i]);
-		EXPECT_EQ(mapHeightmap1[i], mapHeightmap2[i]);
+		ASSERT_EQ(mapEntityIndex1[i], mapEntityIndex2[i]);
+		ASSERT_EQ(mapHeightmap1[i], mapHeightmap2[i]);
 	}
 	free(mapEntityIndex1);
 	free(mapEntityIndex2);
@@ -88,9 +88,9 @@ TEST(Terrain, sub_44EE0_smooth_tiles) {
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
-			EXPECT_EQ(tempTerr1[i], mapTerrainType_10B4E0[i]);
-			EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
-			EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+			ASSERT_EQ(tempTerr1[i], mapTerrainType_10B4E0[i]);
+			ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+			ASSERT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
 		}
 	}
 
@@ -126,9 +126,9 @@ TEST(Terrain, sub_44E40) {
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
-			EXPECT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
-			EXPECT_EQ(tempAngle1[i], mapAngle_13B4E0[i]);
-			EXPECT_EQ(tempHeightmap1[i], mapHeightmap_11B4E0[i]);
+			ASSERT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
+			ASSERT_EQ(tempAngle1[i], mapAngle_13B4E0[i]);
+			ASSERT_EQ(tempHeightmap1[i], mapHeightmap_11B4E0[i]);
 		}
 	}
 	free(tempAngle1);
@@ -152,7 +152,7 @@ TEST(Terrain, sub_B5D68) {
 	{
 		__int16 tempa1 = pseudoRand() % (256 * 256) - 127 * 256;
 		__int16 tempa2 = pseudoRand() % (256 * 256) - 127 * 256;
-		EXPECT_EQ(sub_B5D68_orig(tempa1, tempa2, x_BYTE_14B4E0_second_heightmap2), sub_B5D68(tempa1, tempa2));
+		ASSERT_EQ(sub_B5D68_orig(tempa1, tempa2, x_BYTE_14B4E0_second_heightmap2), sub_B5D68(tempa1, tempa2));
 	}
 
 	free(x_BYTE_14B4E0_second_heightmap);
@@ -221,13 +221,13 @@ TEST(Terrain, sub_45DC0) {
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
-			EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
-			EXPECT_EQ(tempTerrType1[i], mapTerrainType_10B4E0[i]);
-			EXPECT_EQ(tempShad1[i], mapShading_12B4E0[i]);
-			EXPECT_EQ(tempSecHeight1[i], x_BYTE_14B4E0_second_heightmap[i]);
-			EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+			ASSERT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+			ASSERT_EQ(tempTerrType1[i], mapTerrainType_10B4E0[i]);
+			ASSERT_EQ(tempShad1[i], mapShading_12B4E0[i]);
+			ASSERT_EQ(tempSecHeight1[i], x_BYTE_14B4E0_second_heightmap[i]);
+			ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
 		}
-		EXPECT_EQ(x_WORD_17B4E0, tempx_WORD_17B4E0);
+		ASSERT_EQ(x_WORD_17B4E0, tempx_WORD_17B4E0);
 	}
 	free(x_BYTE_14B4E0_second_heightmap);
 	free(tempTerrType1);
@@ -260,9 +260,9 @@ TEST(Terrain, sub_45BE0) {
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
-			EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+			ASSERT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
 		}
-		EXPECT_EQ(tempx_DWORD_D47DC, lowDiffHeightmap_D47DC);
+		ASSERT_EQ(tempx_DWORD_D47DC, lowDiffHeightmap_D47DC);
 	}
 	free(tempHeight1);
 }
@@ -290,8 +290,8 @@ TEST(Terrain, sub_33F70) {
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
-			EXPECT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
-			EXPECT_EQ(tempHeightMap1[i], mapHeightmap_11B4E0[i]);
+			ASSERT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
+			ASSERT_EQ(tempHeightMap1[i], mapHeightmap_11B4E0[i]);
 		}
 	}
 	free(tempTerrainType1);
@@ -320,7 +320,7 @@ TEST(Terrain, sub_1B830) {
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
-			EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+			ASSERT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
 		}
 	}
 	free(tempHeight1);
@@ -346,7 +346,7 @@ TEST(Terrain, sub_1B7A0) {
 		sub_1B7A0_tile_compare(&testAxis3D);
 		for (int i = 0; i < 256 * 256; i++)
 		{
-			EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+			ASSERT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
 		}
 	}
 	free(tempHeight1);
@@ -375,9 +375,9 @@ TEST(Terrain, sub_43D50) {
 
 	for (int i = 0; i < 256 * 256; i++)
 	{
-		EXPECT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
-		EXPECT_EQ(tempHeightmap1[i], mapHeightmap_11B4E0[i]);
-		EXPECT_EQ(tempAngle1[i], mapAngle_13B4E0[i]);
+		ASSERT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
+		ASSERT_EQ(tempHeightmap1[i], mapHeightmap_11B4E0[i]);
+		ASSERT_EQ(tempAngle1[i], mapAngle_13B4E0[i]);
 	}
 
 	free(tempAngle1);
@@ -419,8 +419,8 @@ TEST(Terrain, sub_44D00) {
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
-			EXPECT_EQ(tempHeightmap1[i], mapHeightmap_11B4E0[i]);
-			EXPECT_EQ(tempShading1[i], mapShading_12B4E0[i]);
+			ASSERT_EQ(tempHeightmap1[i], mapHeightmap_11B4E0[i]);
+			ASSERT_EQ(tempShading1[i], mapShading_12B4E0[i]);
 		}
 	}
 
@@ -482,8 +482,8 @@ TEST(Terrain, sub_439A0) {
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
-			EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
-			EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+			ASSERT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+			ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
 		}
 	}
 	free(tempAng1);
@@ -515,13 +515,13 @@ TEST(Terrain, sub_43B40) {
 
 	sub_43B40();
 
-	EXPECT_EQ(temp_x_BYTE_D41B7_1, x_BYTE_D41B7);
+	ASSERT_EQ(temp_x_BYTE_D41B7_1, x_BYTE_D41B7);
 
 	for (int i = 0; i < 256 * 256; i++)
 	{
-		EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
-		EXPECT_EQ(tempMapHeightmap1[i], mapHeightmap_11B4E0[i]);
-		EXPECT_EQ(tempSecondHeightmap1[i], x_BYTE_14B4E0_second_heightmap[i]);
+		ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+		ASSERT_EQ(tempMapHeightmap1[i], mapHeightmap_11B4E0[i]);
+		ASSERT_EQ(tempSecondHeightmap1[i], x_BYTE_14B4E0_second_heightmap[i]);
 	}
 
 	free(tempMapHeightmap1);
@@ -569,19 +569,19 @@ TEST(Terrain, sub_44580) {
 	for (int i = 0; i < 7 * 7 * 7 * 7; i++)
 		for (int m = 0; m < 2; m++)
 		{
-			EXPECT_EQ(tempx_BYTE_F2CD0x1[i][m], x_BYTE_F2CD0x[i][m]);
+			ASSERT_EQ(tempx_BYTE_F2CD0x1[i][m], x_BYTE_F2CD0x[i][m]);
 		}
 
-	EXPECT_EQ(temp_x_WORD_17B4E0_1, x_WORD_17B4E0);
+	ASSERT_EQ(temp_x_WORD_17B4E0_1, x_WORD_17B4E0);
 
 	for (int i = 0; i < 0x961u * 25; i++)
 	{
-		EXPECT_EQ(tempScreenBuffer1[i], pdwScreenBuffer_351628[i]);
+		ASSERT_EQ(tempScreenBuffer1[i], pdwScreenBuffer_351628[i]);
 	}
 	for (int i = 0; i < 256 * 256; i++)
 	{
-		EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
-		EXPECT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
+		ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+		ASSERT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
 	}
 	free(tempAng1);
 	free(tempTerrainType1);
@@ -609,8 +609,8 @@ TEST(Terrain, sub_43EE0) {
 
 	for (int i = 0; i < 256 * 256; i++)
 	{
-		EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
-		EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+		ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+		ASSERT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
 	}
 	free(tempAng1);
 	free(tempHeight1);
@@ -633,7 +633,7 @@ TEST(Terrain, sub_43FC0) {
 
 	for (int i = 0; i < 256 * 256; i++)
 	{
-		EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+		ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
 	}
 	free(tempAng1);
 }
@@ -663,9 +663,9 @@ TEST(Terrain, sub_45600) {
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
-			EXPECT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
-			EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
-			EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+			ASSERT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
+			ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+			ASSERT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
 		}
 	}
 	free(tempTerrainType1);
@@ -699,8 +699,8 @@ TEST(Terrain, sub_454F0) {
 
 			for (int i = 0; i < 256 * 256; i++)
 			{
-				EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
-				EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+				ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+				ASSERT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
 			}
 		}
 	}
@@ -736,9 +736,9 @@ TEST(Terrain, sub_45210) {
 
 			for (int i = 0; i < 256 * 256; i++)
 			{
-				EXPECT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
-				EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
-				EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+				ASSERT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
+				ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+				ASSERT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
 			}
 		}
 	}
@@ -776,9 +776,9 @@ TEST(Terrain, sub_45060) {
 
 			for (int i = 0; i < 256 * 256; i++)
 			{
-				EXPECT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
-				EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
-				EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+				ASSERT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
+				ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+				ASSERT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
 			}
 		}
 	}
