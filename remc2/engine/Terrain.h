@@ -4,6 +4,7 @@
 #define MAIN_TERRAIN
 
 #include "Basic.h"
+#include "Unk_D4A30.h"
 
 extern uint8_t unk_D4A30[];//terrain gen
 extern char x_BYTE_F2CD0x[7 * 7 * 7 * 7][2]; // 233cd0//4802 //4816
