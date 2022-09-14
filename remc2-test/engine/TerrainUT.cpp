@@ -273,9 +273,9 @@ TEST(Terrain, sub_33F70) {
 
 	for (int j = 0; j < 400; j++)
 	{
+		//Create Test Data
 		uaxis_2d testAxis2D;
 		testAxis2D.word = pseudoRand() % (256 * 256);
-
 		for (int i = 0; i < 256 * 256; i++)
 		{
 			mapTerrainType_10B4E0[i] = pseudoRand() % 256;
@@ -296,4 +296,32 @@ TEST(Terrain, sub_33F70) {
 	}
 	free(tempTerrainType1);
 	free(tempHeightMap1);
+}
+
+TEST(Terrain, sub_1B830) {
+	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
+
+	for (int j = 0; j < 400; j++)
+	{
+		//Create Test Data
+		axis_3d testAxis3D;
+		testAxis3D.x = pseudoRand() % (256 * 256);
+		testAxis3D.y = pseudoRand() % (256 * 256);
+		testAxis3D.z = pseudoRand() % (256 * 256) - (127 * 256);
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			mapHeightmap_11B4E0[i] = pseudoRand() % 256;
+			tempHeight1[i] = mapHeightmap_11B4E0[i];
+		}
+
+		sub_1B830_orig(&testAxis3D, tempHeight1);
+
+		sub_1B830(&testAxis3D);
+
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+		}
+	}
+	free(tempHeight1);
 }

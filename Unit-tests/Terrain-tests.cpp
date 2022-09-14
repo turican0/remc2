@@ -1821,71 +1821,6 @@ int sub_1B7A0_tile_compare_orig(axis_3d* a1)//1fc7a0
 	return v9;
 }
 
-int sub_1B830_orig(axis_3d* a1)//1fc830
-{
-	unsigned __int16 v1; // ax
-	unsigned __int16 v2; // dx
-	unsigned __int16 v3; // bx
-	unsigned __int8 v4; // cl
-	unsigned __int16 v5; // bx
-	int v6; // esi
-	int v7; // ebx
-	int v8; // ecx
-	int v9; // ebx
-
-	LOBYTE(v1) = (a1->x >> 8) - 1;
-	HIBYTE(v1) = (a1->y >> 8) - 1;
-	v2 = v1;
-	LOBYTE(v1) = v1 + 2;
-	v3 = v1;
-	HIBYTE(v1) += 2;
-	v4 = mapHeightmap_11B4E0[v3];
-	v5 = v1;
-	LOBYTE(v2) = mapHeightmap_11B4E0[v2];
-	LOBYTE(v1) = v1 - 2;
-	HIBYTE(v2) = mapHeightmap_11B4E0[v5];
-	v6 = mapHeightmap_11B4E0[v1];
-	v7 = (unsigned __int8)v2 + v4 - v6;
-	v8 = abs((unsigned __int8)v2 + v6 - v4 - HIBYTE(v2));
-	v9 = abs(v7 - HIBYTE(v2));
-	if (v8 > v9)
-		v9 = v8;
-	return v9;
-}
-
-void test_1B830() {
-	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
-	uint8_t* tempHeight2 = (uint8_t*)malloc(65536);
-
-	for (int j = 0; j < 400; j++)
-	{
-		axis_3d testAxis3D;
-		testAxis3D.x = pseudoRand() % (256 * 256);
-		testAxis3D.y = pseudoRand() % (256 * 256);
-		testAxis3D.z = pseudoRand() % (256 * 256) - (127 * 256);
-
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			mapHeightmap_11B4E0[i] = pseudoRand() % 256;
-			tempHeight1[i] = mapHeightmap_11B4E0[i];
-		}
-		sub_1B830_orig(&testAxis3D);
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			tempHeight2[i] = mapHeightmap_11B4E0[i];
-			mapHeightmap_11B4E0[i] = tempHeight1[i];
-		}
-		sub_1B830(&testAxis3D);
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			if (tempHeight2[i] != mapHeightmap_11B4E0[i])
-				TestError();
-		}
-	}
-	free(tempHeight1);
-	free(tempHeight2);
-}
-
 void test_1B7A0() {
 	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
 	uint8_t* tempHeight2 = (uint8_t*)malloc(65536);
@@ -2446,10 +2381,6 @@ void test_45AA0() {
 }
 
 void Terrain_test() {
-
-	printf("test_1B830 - ");
-	test_1B830();
-	printf("OK\n");
 
 	printf("test_1B7A0 - ");
 	test_1B7A0();
