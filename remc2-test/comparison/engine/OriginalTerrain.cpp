@@ -1279,3 +1279,82 @@ unsigned int sub_439A0_orig(unsigned __int16 a2, uint8_t mapHeightmap_11B4E0[], 
 	}
 	return a1;
 }
+
+//----- (00043B40) --------------------------------------------------------
+void sub_43B40_orig(uint8_t x_BYTE_D41B7, uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[], uint8_t* x_BYTE_14B4E0_second_heightmap)//224b40
+{
+	uint16_t v0; // dx
+	uint8_t v1; // eax
+	uint8_t v2; // bl
+	uint8_t v3; // bh
+	uint8_t v4; // cl
+
+	v0 = 0;
+	do
+	{
+		v1 = mapHeightmap_11B4E0[v0];
+		if (v1 > x_BYTE_D41B7)
+			v1 = x_BYTE_D41B7;
+		v2 = x_BYTE_D41B7 - v1;
+		x_BYTE_14B4E0_second_heightmap[v0] = x_BYTE_D41B7 - v1;
+		v3 = mapHeightmap_11B4E0[v0];
+		if (v2 > v3)
+		{
+			mapAngle_13B4E0[v0] &= 0xF7u;
+		}
+		else
+		{
+			v4 = mapAngle_13B4E0[v0] | 8;
+			x_BYTE_14B4E0_second_heightmap[v0] = v3 - 1;
+			mapAngle_13B4E0[v0] = v4;
+		}
+		v0++;
+	} while (v0);
+	sub_43BB0_orig(mapHeightmap_11B4E0, mapAngle_13B4E0, x_BYTE_14B4E0_second_heightmap);
+}
+
+//----- (00043BB0) --------------------------------------------------------
+void sub_43BB0_orig(uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[], uint8_t* x_BYTE_14B4E0_second_heightmap)//224bb0
+{
+	unsigned int v0; // esi
+	unsigned __int16 v1; // cx
+	signed int v2; // ebx
+	unsigned __int16 v3; // bx
+	//int v4; // eax
+	unsigned __int8 v5; // dh
+	char v6; // cl
+
+	v0 = 37487429;
+	v1 = 0;
+	do
+	{
+		if (!(mapAngle_13B4E0[v1] & 8))
+		{
+			v0 = 9377 * v0 + 9439;
+			v2 = v0 % 7 - 3 + (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v1];
+			if (v2 < 0)
+				v2 = 0;
+			if (v2 > 254)
+				LOBYTE(v2) = -2;
+			x_BYTE_14B4E0_second_heightmap[v1] = v2;
+		}
+		v1++;
+	} while (v1);
+	v3 = 0;
+	do
+	{
+		//v4 = v3;
+		v5 = mapHeightmap_11B4E0[v3];
+		if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v3] > v5)
+		{
+			mapAngle_13B4E0[v3] &= 0xF7u;
+		}
+		else
+		{
+			v6 = mapAngle_13B4E0[v3] | 8;
+			x_BYTE_14B4E0_second_heightmap[v3] = v5 - 1;
+			mapAngle_13B4E0[v3] = v6;
+		}
+		v3++;
+	} while (v3);
+}

@@ -489,3 +489,43 @@ TEST(Terrain, sub_439A0) {
 	free(tempAng1);
 	free(tempHeight1);
 }
+
+TEST(Terrain, sub_43B40) {
+
+	uint8_t* tempMapHeightmap1 = (uint8_t*)malloc(65536);
+	uint8_t* tempSecondHeightmap1 = (uint8_t*)malloc(65536);
+	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
+	x_BYTE_14B4E0_second_heightmap = (uint8_t*)malloc(65536);
+	uint16_t temp_x_BYTE_D41B7_1;
+
+	//Create Test Data
+	for (int i = 0; i < 256 * 256; i++)
+	{
+		mapAngle_13B4E0[i] = pseudoRand() % 256;
+		mapHeightmap_11B4E0[i] = pseudoRand() % 256;
+		x_BYTE_14B4E0_second_heightmap[i] = pseudoRand() % 256;
+		tempAng1[i] = mapAngle_13B4E0[i];
+		tempMapHeightmap1[i] = mapHeightmap_11B4E0[i];
+		tempSecondHeightmap1[i] = x_BYTE_14B4E0_second_heightmap[i];
+	}
+	x_BYTE_D41B7 = pseudoRand() % 256;
+	temp_x_BYTE_D41B7_1 = x_BYTE_D41B7;
+
+	sub_43B40_orig(temp_x_BYTE_D41B7_1, tempMapHeightmap1, tempAng1, tempSecondHeightmap1);
+
+	sub_43B40();
+
+	EXPECT_EQ(temp_x_BYTE_D41B7_1, x_BYTE_D41B7);
+
+	for (int i = 0; i < 256 * 256; i++)
+	{
+		EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+		EXPECT_EQ(tempMapHeightmap1[i], mapHeightmap_11B4E0[i]);
+		EXPECT_EQ(tempSecondHeightmap1[i], x_BYTE_14B4E0_second_heightmap[i]);
+	}
+
+	free(tempMapHeightmap1);
+	free(tempSecondHeightmap1);
+	free(tempAng1);
+	free(x_BYTE_14B4E0_second_heightmap);
+}
