@@ -865,3 +865,66 @@ int sub_1B7A0_tile_compare_orig(axis_3d* a1, uint8_t mapHeightmap_11B4E0[])//1fc
 		v9 = v8;
 	return v9;
 }
+
+void sub_43D50_orig(uint8_t mapTerrainType_10B4E0[], uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[])//224d50
+{
+	uint16_t index; // ax
+	uint16_t v1; // dx
+	//uint16_t v2; // bx
+	//uint16_t v3; // bx
+	//uint16_t v4; // bx
+	//uint16_t v5; // bx
+	//uint16_t v6; // bx
+	uint16_t v7; // bx
+	uint16_t v8; // dx
+	uint16_t v9; // bx
+	uint16_t v10; // bx
+
+	index = 0;
+	do
+	{
+		mapAngle_13B4E0[index] &= 0xF7u;
+		if (!mapHeightmap_11B4E0[index])
+		{
+			HIBYTE(index)--;
+			v1 = index;
+			LOBYTE(index)++;
+			//v2 = index;
+			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + (mapHeightmap_11B4E0[v1] != 0);
+			HIBYTE(index)++;
+			//v3 = index;
+			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
+			HIBYTE(index)++;
+			//v4 = index;
+			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
+			LOBYTE(index)--;
+			//v5 = index;
+			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
+			LOBYTE(index)--;
+			//v6 = index;
+			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
+			HIBYTE(index)--;
+			v7 = index;
+			HIBYTE(index)--;
+			LOBYTE(v1) = (mapHeightmap_11B4E0[v7] != 0) + v1;
+			LOBYTE(v7) = mapHeightmap_11B4E0[index] != 0;
+			LOBYTE(index)++;
+			HIBYTE(index)++;
+			if (!(LOBYTE(v7) + LOBYTE(v1)))
+			{
+				v8 = index;
+				LOBYTE(index)--;
+				v9 = index;
+				HIBYTE(index)--;
+				LOBYTE(v8) = (mapTerrainType_10B4E0[v9] != 0) + (mapTerrainType_10B4E0[v8] != 0);
+				v10 = index;
+				LOBYTE(index)++;
+				LOBYTE(v8) = (mapTerrainType_10B4E0[index] != 0) + (mapTerrainType_10B4E0[v10] != 0) + v8;
+				HIBYTE(index)++;
+				if (!(x_BYTE)v8)
+					mapAngle_13B4E0[index] |= 8u;
+			}
+		}
+		index++;
+	} while (index);
+}

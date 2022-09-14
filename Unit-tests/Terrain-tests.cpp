@@ -1723,117 +1723,6 @@ void sub_44D00_orig()//225d00
 	} while (v0x.word);
 }
 
-void sub_43D50_orig()//224d50
-{
-	uint16_t index; // ax
-	uint16_t v1; // dx
-	//uint16_t v2; // bx
-	//uint16_t v3; // bx
-	//uint16_t v4; // bx
-	//uint16_t v5; // bx
-	//uint16_t v6; // bx
-	uint16_t v7; // bx
-	uint16_t v8; // dx
-	uint16_t v9; // bx
-	uint16_t v10; // bx
-
-	index = 0;
-	do
-	{
-		mapAngle_13B4E0[index] &= 0xF7u;
-		if (!mapHeightmap_11B4E0[index])
-		{
-			HIBYTE(index)--;
-			v1 = index;
-			LOBYTE(index)++;
-			//v2 = index;
-			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + (mapHeightmap_11B4E0[v1] != 0);
-			HIBYTE(index)++;
-			//v3 = index;
-			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
-			HIBYTE(index)++;
-			//v4 = index;
-			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
-			LOBYTE(index)--;
-			//v5 = index;
-			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
-			LOBYTE(index)--;
-			//v6 = index;
-			LOBYTE(v1) = (mapHeightmap_11B4E0[index] != 0) + v1;
-			HIBYTE(index)--;
-			v7 = index;
-			HIBYTE(index)--;
-			LOBYTE(v1) = (mapHeightmap_11B4E0[v7] != 0) + v1;
-			LOBYTE(v7) = mapHeightmap_11B4E0[index] != 0;
-			LOBYTE(index)++;
-			HIBYTE(index)++;
-			if (!(LOBYTE(v7) + LOBYTE(v1)))
-			{
-				v8 = index;
-				LOBYTE(index)--;
-				v9 = index;
-				HIBYTE(index)--;
-				LOBYTE(v8) = (mapTerrainType_10B4E0[v9] != 0) + (mapTerrainType_10B4E0[v8] != 0);
-				v10 = index;
-				LOBYTE(index)++;
-				LOBYTE(v8) = (mapTerrainType_10B4E0[index] != 0) + (mapTerrainType_10B4E0[v10] != 0) + v8;
-				HIBYTE(index)++;
-				if (!(x_BYTE)v8)
-					mapAngle_13B4E0[index] |= 8u;
-			}
-		}
-		index++;
-	} while (index);
-}
-
-void test_43D50() {
-	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
-	uint8_t* tempTerrainType2 = (uint8_t*)malloc(65536);
-
-	uint8_t* tempAngle1 = (uint8_t*)malloc(65536);
-	uint8_t* tempAngle2 = (uint8_t*)malloc(65536);
-
-	uint8_t* tempHeightmap1 = (uint8_t*)malloc(65536);
-	uint8_t* tempHeightmap2 = (uint8_t*)malloc(65536);
-
-	for (int i = 0; i < 256 * 256; i++)
-	{
-		mapTerrainType_10B4E0[i] = pseudoRand() % (256 * 256);
-		tempTerrainType1[i] = mapTerrainType_10B4E0[i];
-		mapAngle_13B4E0[i] = pseudoRand() % (256 * 256);
-		tempAngle1[i] = mapAngle_13B4E0[i];
-		mapHeightmap_11B4E0[i] = pseudoRand() % (256 * 256);
-		tempHeightmap1[i] = mapHeightmap_11B4E0[i];
-	}
-	sub_43D50_orig();
-	for (int i = 0; i < 256 * 256; i++)
-	{
-		tempTerrainType2[i] = mapTerrainType_10B4E0[i];
-		mapTerrainType_10B4E0[i] = tempTerrainType1[i];
-		tempAngle2[i] = mapAngle_13B4E0[i];
-		mapAngle_13B4E0[i] = tempAngle1[i];
-		tempHeightmap2[i] = mapHeightmap_11B4E0[i];
-		mapHeightmap_11B4E0[i] = tempHeightmap1[i];
-	}
-	sub_43D50();
-	for (int i = 0; i < 256 * 256; i++)
-	{
-		if ((tempTerrainType2[i] != mapTerrainType_10B4E0[i]) ||
-			(tempAngle2[i] != mapAngle_13B4E0[i])||
-			(tempHeightmap2[i] != mapHeightmap_11B4E0[i]))
-			TestError();
-	}
-
-	free(tempAngle1);
-	free(tempAngle2);
-
-	free(tempTerrainType1);
-	free(tempTerrainType2);
-
-	free(tempHeightmap1);
-	free(tempHeightmap2);
-}
-
 void test_44D00() {
 	uint8_t* tempShading1 = (uint8_t*)malloc(65536);
 	uint8_t* tempShading2 = (uint8_t*)malloc(65536);
@@ -2313,10 +2202,6 @@ void test_45AA0() {
 }
 
 void Terrain_test() {
-
-	printf("test_43D50 - ");
-	test_43D50();
-	printf("OK\n");
 
 	printf("test_44D00 - ");
 	test_44D00();
