@@ -20,3 +20,6 @@ int sub_1B830_orig(axis_3d* a1, uint8_t mapHeightmap_11B4E0[]);
 int sub_1B7A0_tile_compare_orig(axis_3d* a1, uint8_t mapHeightmap_11B4E0[]);
 void sub_43D50_orig(uint8_t mapTerrainType_10B4E0[], uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[]);
 void sub_44D00_orig(MapType_t mapType, uint8_t mapHeightmap_11B4E0[], uint8_t mapShading_12B4E0[]);
+void sub_B5E70_decompress_terrain_map_level_orig(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4, int16_t mapEntityIndex_15B4E0[]);
+void sub_B5EFA_orig(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4, int16_t mapEntityIndex_15B4E0[]);
+void sub_B5F8F_orig(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4, int16_t mapEntityIndex_15B4E0[]);

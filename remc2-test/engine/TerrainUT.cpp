@@ -427,3 +427,32 @@ TEST(Terrain, sub_44D00) {
 	free(tempShading1);
 	free(tempHeightmap1);
 }
+
+TEST(Terrain, sub_B5E70_decompress_terrain_map_level) {
+
+	int16_t* tempEnt1 = (int16_t*)malloc(65536 * sizeof(int16_t));
+
+	for (int j = 0; j < 1000; j++)
+	{
+		//Create Test Data
+		__int16 a1 = (pseudoRand() % (256 * 256)) - 128 * 256;
+		unsigned __int16 a2 = pseudoRand() % (256 * 256);
+		__int16 a3 = (pseudoRand() % (256 * 256)) - 128 * 256;
+		int32_t a4 = (pseudoRand() % (256 * 256)) - 128 * 256;
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			mapEntityIndex_15B4E0[i] = pseudoRand() % (256 * 256);
+			tempEnt1[i] = mapEntityIndex_15B4E0[i];
+		}
+
+		sub_B5E70_decompress_terrain_map_level_orig(a1, a2, a3, a4, tempEnt1);
+
+		sub_B5E70_decompress_terrain_map_level(a1, a2, a3, a4);
+
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			EXPECT_EQ(tempEnt1[i], mapEntityIndex_15B4E0[i]);
+		}
+	}
+	free(tempEnt1);
+}

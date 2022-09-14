@@ -987,3 +987,189 @@ void sub_44D00_orig(MapType_t mapType, uint8_t mapHeightmap_11B4E0[], uint8_t ma
 		v0x.word++;
 	} while (v0x.word);
 }
+
+void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level_orig(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4, int16_t mapEntityIndex_15B4E0[])//296e70
+{
+	/*
+	uint16_t v3; // ebx
+	__int16 v4; // cx
+	//char v5; // sf
+	//char v6; // of
+	int8_t v7; // [esp+1h] [ebp-3h]
+	int8_t v8; // [esp+1h] [ebp-3h]
+	int8_t v9; // [esp+2h] [ebp-2h]
+	int8_t v10; // [esp+2h] [ebp-2h]
+	int8_t v11; // [esp+3h] [ebp-1h]
+	//uint8_t savedregs[20]; // [esp+4h] [ebp+0h]
+
+	mapEntityIndex_15B4E0[a2] = a3;//32c4e0 //first seed
+	v11 = 7;
+	do
+	{
+		v3 = a2;
+		v4 = (1 << v11);
+		v7 = 1 << (7 - v11);
+		do
+		{
+			v9 = 1 << (7 - v11);
+			do
+			{
+				sub_B5EFA_orig(v4, &v3, a4, &a1);//355220
+				v9--;
+			} while (v9);
+			v3 += (v4 + v4) << 8;
+			v7--;
+		} while (v7);
+		v8 = 1 << (7 - v11);
+		do
+		{
+			v10 = 1 << (7 - v11);
+			do
+			{
+				sub_B5F8F_orig(v4, &v3, a4, &a1);
+				v10--;
+			} while (v10);
+			v3 += (v4 + v4) << 8;
+			v8--;
+		} while (v8);
+		v11--;
+		//v6 = __OFSUB__(v11, 1);
+		//v5 = (v11-- - 1) < 0;
+	} while (v11 >= 1);
+	*/
+	uint16_t v3; // ebx
+	__int16 v4; // cx
+	char v6; // [esp+1h] [ebp-3h]
+	char v7; // [esp+1h] [ebp-3h]
+	char v8; // [esp+2h] [ebp-2h]
+	char v9; // [esp+2h] [ebp-2h]
+	char v10; // [esp+3h] [ebp-1h]
+	int savedregs; // [esp+4h] [ebp+0h] BYREF
+
+	mapEntityIndex_15B4E0[a2] = a3;
+	v10 = 7;
+	do
+	{
+		v3 = a2;
+		v4 = (unsigned __int8)(1 << v10);
+		v6 = 1 << (7 - v10);
+		do
+		{
+			v8 = 1 << (7 - v10);
+			do
+			{
+				sub_B5EFA_orig(v4, &v3, a4, &a1, mapEntityIndex_15B4E0);
+				--v8;
+			} while (v8);
+			BYTE1(v3) += v4 + v4;
+			--v6;
+		} while (v6);
+		v7 = 1 << (7 - v10);
+		do
+		{
+			v9 = 1 << (7 - v10);
+			do
+			{
+				sub_B5F8F_orig(v4, &v3, a4, &a1, mapEntityIndex_15B4E0);
+				--v9;
+			} while (v9);
+			BYTE1(v3) += v4 + v4;
+			--v7;
+		} while (v7);
+	} while (v10-- >= 1);
+}
+
+void sub_B5EFA_orig(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4, int16_t mapEntityIndex_15B4E0[])//296EFA
+{
+	int16_t v4; // di
+	//__int16 v5; // di
+	//__int16 v6; // di
+	uint16_t v7; // si
+	uint32_t v8; // di
+	//__int16 result; // ax
+
+	v4 = mapEntityIndex_15B4E0[*a2];
+	LOBYTE(*a2) += (a1 + a1);
+	v4 += mapEntityIndex_15B4E0[*a2];
+	*a2 += (a1 + a1) << 8;
+	v4 += mapEntityIndex_15B4E0[*a2];
+	LOBYTE(*a2) -= (a1 + a1);
+	v4 += mapEntityIndex_15B4E0[*a2];
+	LOBYTE(*a2) += a1;
+	*a2 -= a1 << 8;
+	v7 = 9377 * *a4 + 9439;
+	*a4 = v7;
+	v8 = v7 % (uint16_t)(2 * a3 + 1)
+		+ v7 % (uint16_t)((a1 << 6) + 1)
+		+ (v4 >> 2)
+		- 32 * a1
+		- a3;
+	//result = v8;
+	if (!mapEntityIndex_15B4E0[*a2])
+		mapEntityIndex_15B4E0[*a2] = v8;
+	LOBYTE(*a2) += a1;
+	*a2 -= a1 << 8;
+	//return result;
+}
+
+void sub_B5F8F_orig(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4, int16_t mapEntityIndex_15B4E0[])//296f8f
+{
+	__int16 v4; // di
+	//__int16 v5; // di
+	//__int16 v6; // di
+	uint16_t v7; // si
+	uint16_t v7b; // si
+	uint16_t v8; // ax
+	int16_t v9; // di
+	//__int16 v10; // di
+	//__int16 v11; // di
+	uint32_t v12; // di
+	//__int16 result; // ax
+	uint16_t v14; // [esp-2h] [ebp-2h]
+
+	v4 = mapEntityIndex_15B4E0[*a2];
+	v14 = v4;
+	LOBYTE(*a2) += a1;
+	*a2 -= a1 << 8;
+	v4 += mapEntityIndex_15B4E0[*a2];
+	LOBYTE(*a2) += a1;
+	*a2 += a1 << 8;
+	v4 += mapEntityIndex_15B4E0[*a2];
+	LOBYTE(*a2) -= a1;
+	*a2 += a1 << 8;
+	v4 += mapEntityIndex_15B4E0[*a2];
+	v7 = 9377 * *a4 + 9439;
+	//*a4 = v7;
+	//2ae9*24a1
+	v8 = v7 % (uint16_t)(2 * a3 + 1)
+		+ v7 % (uint16_t)((a1 << 6) + 1)
+		+ (uint16_t)(v4 >> 2)
+		- 32 * a1
+		- a3;
+	//(uint16_t)(v4 >> 2)-(a1*32)+v7 % (uint16_t)((a1 << 6) + 1)-a3+v7 % (uint16_t)(2 * a3 + 1)
+	v9 = mapEntityIndex_15B4E0[*a2];
+	*a2 -= a1 << 8;
+	if (!mapEntityIndex_15B4E0[*a2])
+		mapEntityIndex_15B4E0[*a2] = v8;
+	v9 += v14;
+	LOBYTE(*a2) -= (a1 + a1);
+	*a2 += a1 << 8;
+	v9 += mapEntityIndex_15B4E0[*a2];
+	LOBYTE(*a2) += a1;
+	*a2 += a1 << 8;
+	v9 += mapEntityIndex_15B4E0[*a2];
+	*a2 -= a1 << 8;
+	v7b = 9377 * v7 + 9439;
+	*a4 = v7b;
+	v12 = v7b % (unsigned __int16)(2 * a3 + 1)
+		+ v7b % (unsigned __int16)((a1 << 6) + 1)
+		+ (uint16_t)(v9 >> 2)
+		- 32 * a1
+		- a3;
+	//result = v12;
+	if (!mapEntityIndex_15B4E0[*a2])
+		mapEntityIndex_15B4E0[*a2] = v12;
+	*a2 -= a1 << 8;
+	LOBYTE(*a2) += (a1 + a1);
+	//return result;
+}
