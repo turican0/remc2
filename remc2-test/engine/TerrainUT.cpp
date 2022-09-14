@@ -588,3 +588,30 @@ TEST(Terrain, sub_44580) {
 	free(tempScreenBuffer1);
 	free(pdwScreenBuffer_351628);
 }
+
+TEST(Terrain, sub_43EE0) {
+
+	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
+	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
+
+	//Create Test Data
+	for (int i = 0; i < 256 * 256; i++)
+	{
+		mapAngle_13B4E0[i] = pseudoRand() % 256;
+		mapHeightmap_11B4E0[i] = pseudoRand() % 256;
+		tempAng1[i] = mapAngle_13B4E0[i];
+		tempHeight1[i] = mapHeightmap_11B4E0[i];
+	}
+
+	sub_43EE0_orig(tempHeight1, tempAng1);
+
+	sub_43EE0();
+
+	for (int i = 0; i < 256 * 256; i++)
+	{
+		EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+		EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+	}
+	free(tempAng1);
+	free(tempHeight1);
+}

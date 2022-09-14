@@ -901,129 +901,7 @@ void sub_43FC0_orig()//224fc0
 		index++;
 	} while (index);
 }
-
-void sub_43EE0_orig()//224ee0
-{
-	unsigned __int16 index; // ax
-	unsigned __int16 v1; // cx
-	char v2; // dh
-	unsigned __int8 v3; // dl
-	int v4; // ecx
-	char v5; // bl
-	char v6; // bh
-	unsigned __int8 v7; // cl
-	char v8; // bh
-	char v9; // bh
-	unsigned __int16 v10; // cx
-	unsigned __int16 v11; // cx
-	unsigned __int16 v12; // cx
-	unsigned __int16 v13; // cx
-
-	index = 0;
-	do
-	{
-		v1 = index;
-		v2 = 0;
-		LOBYTE(index)++;
-		v3 = mapHeightmap_11B4E0[v1];
-		v4 = v1;
-		LOWORD(v4) = index;
-		v5 = 0;
-		v6 = mapAngle_13B4E0[index];
-		if (v6)
-		{
-			if (v6 == 4)
-				v2 = 1;
-		}
-		else
-		{
-			v7 = mapHeightmap_11B4E0[v4];
-			v5 = 1;
-			if (v7 < v3)
-				v3 = v7;
-		}
-		HIBYTE(index)++;
-		v8 = mapAngle_13B4E0[index];
-		if (v8)
-		{
-			if (v8 == 4)
-				v2++;
-		}
-		else
-		{
-			v5++;
-			if (mapHeightmap_11B4E0[index] < v3)
-				v3 = mapHeightmap_11B4E0[index];
-		}
-		LOBYTE(index)--;
-		v9 = mapAngle_13B4E0[index];
-		if (v9)
-		{
-			if (v9 == 4)
-				v2++;
-		}
-		else
-		{
-			v5++;
-			if (mapHeightmap_11B4E0[index] < v3)
-				v3 = mapHeightmap_11B4E0[index];
-		}
-		HIBYTE(index)--;
-		if (v2 && v5 && !v3)
-		{
-			v10 = index;
-			LOBYTE(index)++;
-			mapHeightmap_11B4E0[v10] = 0;
-			v11 = index;
-			HIBYTE(index)++;
-			mapHeightmap_11B4E0[v11] = 0;
-			v12 = index;
-			LOBYTE(index)--;
-			mapHeightmap_11B4E0[v12] = 0;
-			v13 = index;
-			HIBYTE(index)--;
-			mapHeightmap_11B4E0[v13] = 0;
-		}
-		index++;
-	} while (index);
-}
-
 // D41B7: using guessed type char x_BYTE_D41B7;
-
-void test_43EE0() {
-	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
-	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
-
-	uint8_t* tempAng2 = (uint8_t*)malloc(65536);
-	uint8_t* tempHeight2 = (uint8_t*)malloc(65536);
-
-	for (int i = 0; i < 256 * 256; i++)
-	{
-		mapAngle_13B4E0[i] = pseudoRand() % 256;
-		mapHeightmap_11B4E0[i] = pseudoRand() % 256;
-		tempAng1[i] = mapAngle_13B4E0[i];
-		tempHeight1[i] = mapHeightmap_11B4E0[i];
-	}
-	sub_43EE0_orig();
-	for (int i = 0; i < 256 * 256; i++)
-	{
-		tempAng2[i] = mapAngle_13B4E0[i];
-		mapAngle_13B4E0[i] = tempAng1[i];
-		tempHeight2[i] = mapHeightmap_11B4E0[i];
-		mapHeightmap_11B4E0[i] = tempHeight1[i];
-	}
-	sub_43EE0();
-	for (int i = 0; i < 256 * 256; i++)
-	{
-		if ((tempAng2[i] != mapAngle_13B4E0[i]) ||
-			(tempHeight2[i] != mapHeightmap_11B4E0[i]))
-			TestError();
-	}
-	free(tempAng1);
-	free(tempHeight1);
-	free(tempAng2);
-	free(tempHeight2);
-}
 
 void test_43FC0() {
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
@@ -1189,10 +1067,6 @@ void test_45AA0() {
 }
 
 void Terrain_test() {
-
-	printf("test_43EE0 - ");
-	test_43EE0();
-	printf("OK\n");
 
 	printf("test_43FC0 - ");
 	test_43FC0();
