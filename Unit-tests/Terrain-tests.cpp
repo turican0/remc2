@@ -1786,74 +1786,6 @@ void sub_43D50_orig()//224d50
 	} while (index);
 }
 
-int sub_1B7A0_tile_compare_orig(axis_3d* a1)//1fc7a0
-{
-	uint8_t v1x[2]; // eax
-	//uint8_t v2x[2]; // dx
-	//uint8_t v3x[2]; // bx
-	unsigned __int8 v4_00; // cl
-	unsigned __int8 v4_01; // cl
-	unsigned __int8 v4_10; // cl
-	unsigned __int8 v4_11; // cl
-
-	//uint8_t v5x[2]; // bx
-	//int v6; // esi
-	//int v7; // ebx
-	int v8; // ecx
-	int v9; // ebx
-
-	v1x[0] = a1->x >> 8;
-	v1x[1] = a1->y >> 8;
-
-	v4_00 = mapHeightmap_11B4E0[*(uint16_t*)v1x];//0000
-	v1x[0]++;
-	v4_10 = mapHeightmap_11B4E0[*(uint16_t*)v1x];//+100
-	v1x[1]++;
-	v4_11 = mapHeightmap_11B4E0[*(uint16_t*)v1x];//+1+1
-	v1x[0]--;
-	v4_01 = mapHeightmap_11B4E0[*(uint16_t*)v1x];//00+1
-
-	//v7 = v4_00 + v4_10 - v4_01;
-	v8 = abs(v4_00 + v4_01 - v4_10 - v4_11);
-	v9 = abs(v4_00 + v4_10 - v4_01 - v4_11);
-	if (v8 > v9)
-		v9 = v8;
-	return v9;
-}
-
-void test_1B7A0() {
-	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
-	uint8_t* tempHeight2 = (uint8_t*)malloc(65536);
-
-	for (int j = 0; j < 400; j++)
-	{
-		axis_3d testAxis3D;
-		testAxis3D.x = pseudoRand() % (256 * 256);
-		testAxis3D.y = pseudoRand() % (256 * 256);
-		testAxis3D.z = pseudoRand() % (256 * 256) - (127 * 256);
-
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			mapHeightmap_11B4E0[i] = pseudoRand() % 256;
-			tempHeight1[i] = mapHeightmap_11B4E0[i];
-		}
-		sub_1B7A0_tile_compare_orig(&testAxis3D);
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			tempHeight2[i] = mapHeightmap_11B4E0[i];
-			mapHeightmap_11B4E0[i] = tempHeight1[i];
-		}
-		sub_1B7A0_tile_compare(&testAxis3D);
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			if (tempHeight2[i] != mapHeightmap_11B4E0[i])
-				TestError();
-		}
-	}
-	free(tempHeight1);
-	free(tempHeight2);
-}
-
 void test_43D50() {
 	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
 	uint8_t* tempTerrainType2 = (uint8_t*)malloc(65536);
@@ -2381,10 +2313,6 @@ void test_45AA0() {
 }
 
 void Terrain_test() {
-
-	printf("test_1B7A0 - ");
-	test_1B7A0();
-	printf("OK\n");
 
 	printf("test_43D50 - ");
 	test_43D50();
