@@ -1797,3 +1797,204 @@ void sub_43FC0_orig(uint8_t mapAngle_13B4E0[])//224fc0
 		index++;
 	} while (index);
 }
+
+void sub_45600_orig(uint8_t a1, uint8_t mapTerrainType_10B4E0[], uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[])//226600
+{
+	uint16_t index; // ax
+	unsigned __int8 v2; // dh
+	unsigned __int8 v3; // dl
+	//unsigned __int16 v4; // ax
+	//unsigned __int16 v5; // ax
+	//unsigned __int16 v6; // ax
+	__int16 v7; // bx
+	char v8; // dh
+	char v9; // dl
+	//char v10; // t0
+	//char v11; // t0
+	//char v12; // t0
+	//char v13; // t0
+	//char v14; // t0
+	//char v15; // t0
+	//char v16; // t0
+	//char v17; // t0
+	//char v18; // t0
+	//char v19; // t0
+	//char v20; // t0
+	//char v21; // t0
+	//char v22; // t0
+	//char v23; // t0
+	//char v24; // t0
+	//char v25; // t0
+	//char v26; // t0
+	//char v27; // t0
+	//char v28; // t0
+	//char v29; // t0
+	//char v30; // t0
+	//char v31; // t0
+	//char v32; // t0
+	//char v33; // t0
+
+	// fix if begin
+	//v4 = 0;
+	//v5 = 0;
+	//v6 = 0;
+	// end
+
+	memcpy(mapTerrainType_10B4E0, mapAngle_13B4E0, 0x10000);
+	index = 0;
+	do
+	{
+		v2 = 0;
+		v3 = 0xffu;
+		if (mapHeightmap_11B4E0[index])
+			v2 = mapHeightmap_11B4E0[index];
+		if (mapHeightmap_11B4E0[index] < 0xFFu)
+			v3 = mapHeightmap_11B4E0[index];
+		HIBYTE(index)--;
+		if (v2 < mapHeightmap_11B4E0[index])
+			v2 = mapHeightmap_11B4E0[index];
+		if (v3 > mapHeightmap_11B4E0[index])
+			v3 = mapHeightmap_11B4E0[index];
+		LOBYTE(index)++;
+		HIBYTE(index)++;
+		if (v2 < mapHeightmap_11B4E0[index])
+			v2 = mapHeightmap_11B4E0[index];
+		if (v3 > mapHeightmap_11B4E0[index])
+			v3 = mapHeightmap_11B4E0[index];
+		HIBYTE(index)++;
+		LOBYTE(index)--;
+		if (v2 < mapHeightmap_11B4E0[index])
+			v2 = mapHeightmap_11B4E0[index];
+		if (v3 > mapHeightmap_11B4E0[index])
+			v3 = mapHeightmap_11B4E0[index];
+		LOBYTE(index)--;
+		HIBYTE(index)--;
+		if (v2 < mapHeightmap_11B4E0[index])
+			v2 = mapHeightmap_11B4E0[index];
+		if (v3 > mapHeightmap_11B4E0[index])
+			v3 = mapHeightmap_11B4E0[index];
+		LOBYTE(index)++;
+		if (mapAngle_13B4E0[index] && v2 - v3 >= a1)
+			mapAngle_13B4E0[index] = 1;
+		index++;
+	} while (index);
+	do
+	{
+		if (mapAngle_13B4E0[index] != 6)
+			goto LABEL_100;
+		v7 = 0;
+		HIBYTE(index)--;
+		v8 = 0;
+		v9 = 0;
+		if (mapAngle_13B4E0[index] == 3)
+			HIBYTE(v7) = 1;
+		if (mapAngle_13B4E0[index] == 2)
+			v9 = 1;
+		if (mapAngle_13B4E0[index] == 5)
+			LOBYTE(v7) = 1;
+		//v10 = x_BYTE_13B4E0_angle[index];
+		//v11 = x_BYTE_13B4E0_angle[index];
+		if (mapAngle_13B4E0[index] == 4)
+			v8 = 1;
+		//v12 = x_BYTE_13B4E0_angle[index];
+		LOBYTE(index)++;
+		if (mapAngle_13B4E0[index] == 3)
+			HIBYTE(v7)++;
+		if (mapAngle_13B4E0[index] == 2)
+			v9++;
+		if (mapAngle_13B4E0[index] == 5)
+			LOBYTE(v7)++;
+		//v13 = x_BYTE_13B4E0_angle[index];
+		//v14 = x_BYTE_13B4E0_angle[index];
+		if (mapAngle_13B4E0[index] == 4)
+			v8++;
+		//v15 = x_BYTE_13B4E0_angle[index];
+		HIBYTE(index)++;
+		if (mapAngle_13B4E0[index] == 3)
+			HIBYTE(v7)++;
+		if (mapAngle_13B4E0[index] == 2)
+			v9++;
+		if (mapAngle_13B4E0[index] == 5)
+			LOBYTE(v7)++;
+		//v16 = x_BYTE_13B4E0_angle[index];
+		//v17 = x_BYTE_13B4E0_angle[index];
+		if (mapAngle_13B4E0[index] == 4)
+			v8++;
+		//v18 = x_BYTE_13B4E0_angle[index];
+		HIBYTE(index)++;
+		if (mapAngle_13B4E0[index] == 3)
+			HIBYTE(v7)++;
+		if (mapAngle_13B4E0[index] == 2)
+			v9++;
+		if (mapAngle_13B4E0[index] == 5)
+			LOBYTE(v7)++;
+		//v19 = x_BYTE_13B4E0_angle[index];
+		//v20 = x_BYTE_13B4E0_angle[index];
+		if (mapAngle_13B4E0[index] == 4)
+			v8++;
+		//v21 = x_BYTE_13B4E0_angle[index];
+		LOBYTE(index) = index - 1;
+		if (mapAngle_13B4E0[index] == 3)
+			HIBYTE(v7)++;
+		if (mapAngle_13B4E0[index] == 2)
+			v9++;
+		if (mapAngle_13B4E0[index] == 5)
+			LOBYTE(v7)++;
+		//v22 = x_BYTE_13B4E0_angle[index];
+		//v23 = x_BYTE_13B4E0_angle[index];
+		if (mapAngle_13B4E0[index] == 4)
+			v8++;
+		//v24 = x_BYTE_13B4E0_angle[index];
+		LOBYTE(index)--;
+		if (mapAngle_13B4E0[index] == 3)
+			HIBYTE(v7)++;
+		if (mapAngle_13B4E0[index] == 2)
+			v9++;
+		if (mapAngle_13B4E0[index] == 5)
+			LOBYTE(v7)++;
+		//v25 = x_BYTE_13B4E0_angle[index];
+		//v26 = x_BYTE_13B4E0_angle[index];
+		if (mapAngle_13B4E0[index] == 4)
+			v8++;
+		//v27 = x_BYTE_13B4E0_angle[index];
+		HIBYTE(index)--;
+		if (mapAngle_13B4E0[index] == 3)
+			HIBYTE(v7)++;
+		if (mapAngle_13B4E0[index] == 2)
+			v9++;
+		if (mapAngle_13B4E0[index] == 5)
+			LOBYTE(v7)++;
+		//v28 = x_BYTE_13B4E0_angle[index];
+		//v29 = x_BYTE_13B4E0_angle[index];
+		if (mapAngle_13B4E0[index] == 4)
+			v8++;
+		//v30 = x_BYTE_13B4E0_angle[index];
+		HIBYTE(index)--;
+		if (mapAngle_13B4E0[index] == 3)
+			HIBYTE(v7)++;
+		if (mapAngle_13B4E0[index] == 2)
+			v9++;
+		if (mapAngle_13B4E0[index] == 5)
+			LOBYTE(v7)++;
+		//v31 = x_BYTE_13B4E0_angle[index];
+		//v32 = x_BYTE_13B4E0_angle[index];
+		if (mapAngle_13B4E0[index] == 4)
+			v8++;
+		//v33 = x_BYTE_13B4E0_angle[index];
+		LOBYTE(index)++;
+		HIBYTE(index)++;
+		if (HIBYTE(v7))
+		{
+			if (v9 || LOBYTE(v7) || v8)
+				goto LABEL_99;
+		}
+		else if (v9 || (LOBYTE(v7) && v8))
+		{
+		LABEL_99:
+			mapAngle_13B4E0[index] = 1;
+			goto LABEL_100;
+		}
+	LABEL_100:
+		index++;
+	} while (index);
+}
