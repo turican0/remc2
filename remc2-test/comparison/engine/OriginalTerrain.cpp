@@ -1173,3 +1173,109 @@ void sub_B5F8F_orig(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4, int16_t m
 	LOBYTE(*a2) += (a1 + a1);
 	//return result;
 }
+
+//----- (000439A0) --------------------------------------------------------
+unsigned int sub_439A0_orig(unsigned __int16 a2, uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[])//2249a0
+{
+	unsigned __int16 v2; // ax
+	unsigned __int8 v3; // dl
+	unsigned __int8 v4; // dh
+	unsigned __int8 v5; // ch
+	unsigned __int8 v6; // cl
+	int v7; // ebx
+	unsigned __int8 v8; // cl
+	int v9; // ebx
+	unsigned __int8 v10; // cl
+	int v11; // ebx
+	unsigned __int8 v12; // cl
+	int v13; // ebx
+	unsigned __int8 v14; // cl
+	int v15; // ebx
+	unsigned __int8 v16; // cl
+	int v17; // ebx
+	unsigned __int8 v18; // cl
+	int v19; // ebx
+	unsigned __int8 v20; // al
+	unsigned int v21; // ebx
+	unsigned int v22; // ebx
+
+	unsigned int a1;
+	LOBYTE(v2) = a2;
+	LOWORD(a1) = mapHeightmap_11B4E0[a2];
+	if (mapAngle_13B4E0[a2] & 7)
+	{
+		HIBYTE(v2) = HIBYTE(a2) - 1;
+		v3 = mapHeightmap_11B4E0[a2];
+		v4 = v3;
+		v5 = mapHeightmap_11B4E0[a2];
+		v6 = mapHeightmap_11B4E0[v2];
+		v7 = v6;
+		if (v6 > v3)
+			v3 = mapHeightmap_11B4E0[v2];
+		if (v6 < v4)
+			v4 = mapHeightmap_11B4E0[v2];
+		LOBYTE(v2) = a2 + 1;
+		v8 = mapHeightmap_11B4E0[v2];
+		v9 = v8 + v7;
+		if (v8 > v3)
+			v3 = mapHeightmap_11B4E0[v2];
+		if (v8 < v4)
+			v4 = mapHeightmap_11B4E0[v2];
+		HIBYTE(v2) = HIBYTE(a2);
+		v10 = mapHeightmap_11B4E0[v2];
+		v11 = v10 + v9;
+		if (v10 > v3)
+			v3 = mapHeightmap_11B4E0[v2];
+		if (v10 < v4)
+			v4 = mapHeightmap_11B4E0[v2];
+		HIBYTE(v2) = HIBYTE(a2) + 1;
+		v12 = mapHeightmap_11B4E0[v2];
+		v13 = v12 + v11;
+		if (v12 > v3)
+			v3 = mapHeightmap_11B4E0[v2];
+		if (v12 < v4)
+			v4 = mapHeightmap_11B4E0[v2];
+		LOBYTE(v2) = a2;
+		v14 = mapHeightmap_11B4E0[v2];
+		v15 = v14 + v13;
+		if (v14 > v3)
+			v3 = mapHeightmap_11B4E0[v2];
+		if (v14 < v4)
+			v4 = mapHeightmap_11B4E0[v2];
+		LOBYTE(v2) = a2 - 1;
+		v16 = mapHeightmap_11B4E0[v2];
+		v17 = v16 + v15;
+		if (v16 > v3)
+			v3 = mapHeightmap_11B4E0[v2];
+		if (v16 < v4)
+			v4 = mapHeightmap_11B4E0[v2];
+		HIBYTE(v2) = HIBYTE(a2);
+		v18 = mapHeightmap_11B4E0[v2];
+		v19 = v18 + v17;
+		if (v18 > v3)
+			v3 = mapHeightmap_11B4E0[v2];
+		if (v18 < v4)
+			v4 = mapHeightmap_11B4E0[v2];
+		HIBYTE(v2) = HIBYTE(a2) - 1;
+		v20 = mapHeightmap_11B4E0[v2];
+		v21 = v20 + v19;
+		if (v20 > v3)
+			v3 = v20;
+		if (v20 < v4)
+			v4 = v20;
+		v22 = v21 >> 3;
+		if ((unsigned __int8)(v5 - v4) <= 4u)
+		{
+			if ((unsigned __int8)(v3 - v5) <= 4u)
+				return a1;
+			if ((unsigned __int8)(v3 - v5) <= 0xAu)
+				v22 = (v5 + v22) >> 1;
+		}
+		else if ((unsigned __int8)(v5 - v4) <= 0xAu)
+		{
+			return (v22 + v5) >> 1;
+		}
+		a1 = v22;
+	}
+	return a1;
+}
