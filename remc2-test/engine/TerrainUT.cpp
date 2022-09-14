@@ -197,7 +197,7 @@ TEST(Terrain, sub_45DC0) {
 				x_BYTE_F2CD0x[i][m] = pseudoRand() % 256;
 			}
 		x_WORD_17B4E0 = pseudoRand() % (256 * 256);
-		uint16_t tempx_WORD_17B4E01 = x_WORD_17B4E0;
+		uint16_t tempx_WORD_17B4E0 = x_WORD_17B4E0;
 
 		//Create Test Data
 		for (int i = 0; i < 256 * 256; i++)
@@ -215,10 +215,7 @@ TEST(Terrain, sub_45DC0) {
 			tempHeight1[i] = mapHeightmap_11B4E0[i];
 		}
 
-		sub_45DC0_orig(tempa2, tempa3x, tempa4, lowDiffHeightmap_D47DC, isCaveLevel_D41B6, x_WORD_17B4E0, x_BYTE_F2CD0x, tempTerrType1, tempHeight1, tempAng1, tempShad1, tempSecHeight1);
-
-		uint16_t tempx_WORD_17B4E02 = x_WORD_17B4E0;
-		x_WORD_17B4E0 = tempx_WORD_17B4E01;
+		sub_45DC0_orig(tempa2, tempa3x, tempa4, lowDiffHeightmap_D47DC, isCaveLevel_D41B6, tempx_WORD_17B4E0, x_BYTE_F2CD0x, tempTerrType1, tempHeight1, tempAng1, tempShad1, tempSecHeight1);
 
 		sub_45DC0(tempa2, tempa3x, tempa4);
 
@@ -230,7 +227,7 @@ TEST(Terrain, sub_45DC0) {
 			EXPECT_EQ(tempSecHeight1[i], x_BYTE_14B4E0_second_heightmap[i]);
 			EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
 		}
-		EXPECT_EQ(x_WORD_17B4E0, tempx_WORD_17B4E02);
+		EXPECT_EQ(x_WORD_17B4E0, tempx_WORD_17B4E0);
 	}
 	free(x_BYTE_14B4E0_second_heightmap);
 	free(tempTerrType1);
@@ -249,6 +246,7 @@ TEST(Terrain, sub_45BE0) {
 		uaxis_2d testAxis2D;
 		testAxis2D.word = pseudoRand() % (256 * 256);
 		uint8_t testA2 = pseudoRand() % 256;
+		int tempx_DWORD_D47DC = lowDiffHeightmap_D47DC;
 
 		//Create Test Data
 		for (int i = 0; i < 256 * 256; i++)
@@ -256,8 +254,7 @@ TEST(Terrain, sub_45BE0) {
 			mapHeightmap_11B4E0[i] = pseudoRand() % 256;
 			tempHeight1[i] = mapHeightmap_11B4E0[i];
 		}
-		sub_45BE0_orig(testA2, testAxis2D, lowDiffHeightmap_D47DC, tempHeight1);
-		int tempx_DWORD_D47DC = lowDiffHeightmap_D47DC;
+		sub_45BE0_orig(testA2, testAxis2D, tempx_DWORD_D47DC, tempHeight1);
 
 		sub_45BE0(testA2, testAxis2D);
 
