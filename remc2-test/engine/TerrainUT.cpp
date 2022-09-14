@@ -529,3 +529,62 @@ TEST(Terrain, sub_43B40) {
 	free(tempAng1);
 	free(x_BYTE_14B4E0_second_heightmap);
 }
+
+TEST(Terrain, sub_44580) {
+
+	pdwScreenBuffer_351628 = (uint8_t*)malloc(0x961u * 25);
+
+	uint8_t* tempScreenBuffer1 = (uint8_t*)malloc(0x961u * 25);
+	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
+	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
+	uint16_t temp_x_WORD_17B4E0_1;
+	char tempx_BYTE_F2CD0x1[7 * 7 * 7 * 7][2];
+
+	//Create Test Data
+	for (int i = 0; i < 256 * 256; i++)
+	{
+		mapAngle_13B4E0[i] = pseudoRand() % 256;
+		mapTerrainType_10B4E0[i] = pseudoRand() % 256;
+		tempAng1[i] = mapAngle_13B4E0[i];
+		tempTerrainType1[i] = mapTerrainType_10B4E0[i];
+	}
+	for (int i = 0; i < 7 * 7 * 7 * 7; i++)
+		for (int m = 0; m < 2; m++)
+		{
+			x_BYTE_F2CD0x[i][m] = pseudoRand() % 256;
+			tempx_BYTE_F2CD0x1[i][m] = x_BYTE_F2CD0x[i][m];
+		}
+	for (int i = 0; i < 0x961u * 25; i++)
+	{
+		pdwScreenBuffer_351628[i] = pseudoRand() % 256;
+		tempScreenBuffer1[i] = pdwScreenBuffer_351628[i];
+	}
+	x_WORD_17B4E0 = pseudoRand() % (256 * 256);
+	temp_x_WORD_17B4E0_1 = x_WORD_17B4E0;
+
+	sub_44580_orig(tempScreenBuffer1, temp_x_WORD_17B4E0_1, tempx_BYTE_F2CD0x1, tempTerrainType1, tempAng1);
+
+	sub_44580();
+
+	for (int i = 0; i < 7 * 7 * 7 * 7; i++)
+		for (int m = 0; m < 2; m++)
+		{
+			EXPECT_EQ(tempx_BYTE_F2CD0x1[i][m], x_BYTE_F2CD0x[i][m]);
+		}
+
+	EXPECT_EQ(temp_x_WORD_17B4E0_1, x_WORD_17B4E0);
+
+	for (int i = 0; i < 0x961u * 25; i++)
+	{
+		EXPECT_EQ(tempScreenBuffer1[i], pdwScreenBuffer_351628[i]);
+	}
+	for (int i = 0; i < 256 * 256; i++)
+	{
+		EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+		EXPECT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
+	}
+	free(tempAng1);
+	free(tempTerrainType1);
+	free(tempScreenBuffer1);
+	free(pdwScreenBuffer_351628);
+}

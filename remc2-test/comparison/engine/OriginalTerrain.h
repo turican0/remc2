@@ -5,6 +5,7 @@
 #include "../../remc2/portability/mctypes.h"
 #include "../../remc2/engine/global_types.h"
 #include "../../remc2/engine/Unk_D4A30.h"
+#include "../../remc2/engine/Unk_D47E0.h"
 #include "../../remc2/engine/MapType.h"
 
 int sub_B5C60_getTerrainAlt2_orig(uint16_t a1, uint16_t a2, uint8_t mapHeightmap_11B4E0[]);
@@ -26,3 +27,4 @@ void sub_B5F8F_orig(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4, int16_t m
 unsigned int sub_439A0_orig(unsigned __int16 a2, uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[]);
 void sub_43B40_orig(uint8_t x_BYTE_D41B7, uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[], uint8_t* x_BYTE_14B4E0_second_heightmap);
 void sub_43BB0_orig(uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[], uint8_t* x_BYTE_14B4E0_second_heightmap);
+void sub_44580_orig(uint8_t* pdwScreenBuffer_351628, uint16_t &x_WORD_17B4E0, char x_BYTE_F2CD0x[][2], uint8_t mapTerrainType_10B4E0[], uint8_t mapAngle_13B4E0[]);
