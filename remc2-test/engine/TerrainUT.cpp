@@ -239,3 +239,33 @@ TEST(Terrain, sub_45DC0) {
 	free(tempAng1);
 	free(tempShad1);
 }
+
+TEST(Terrain, sub_45BE0) {
+
+	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
+
+	for (int j = 0; j < 400; j++)
+	{
+		uaxis_2d testAxis2D;
+		testAxis2D.word = pseudoRand() % (256 * 256);
+		uint8_t testA2 = pseudoRand() % 256;
+
+		//Create Test Data
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			mapHeightmap_11B4E0[i] = pseudoRand() % 256;
+			tempHeight1[i] = mapHeightmap_11B4E0[i];
+		}
+		sub_45BE0_orig(testA2, testAxis2D, lowDiffHeightmap_D47DC, tempHeight1);
+		int tempx_DWORD_D47DC = lowDiffHeightmap_D47DC;
+
+		sub_45BE0(testA2, testAxis2D);
+
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+		}
+		EXPECT_EQ(tempx_DWORD_D47DC, lowDiffHeightmap_D47DC);
+	}
+	free(tempHeight1);
+}

@@ -1917,41 +1917,6 @@ void test_33F70() {
 	free(tempHeight2);
 }
 
-void test_45BE0() {
-	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
-	uint8_t* tempHeight2 = (uint8_t*)malloc(65536);
-
-	for (int j = 0; j < 400; j++)
-	{
-		uaxis_2d testAxis2D;
-		testAxis2D.word = pseudoRand() % (256 * 256);
-		uint8_t testA2 = pseudoRand() % 256;
-
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			mapHeightmap_11B4E0[i] = pseudoRand() % 256;
-			tempHeight1[i] = mapHeightmap_11B4E0[i];
-		}
-		sub_45BE0_orig(testA2, testAxis2D);
-		int tempx_DWORD_D47DC = lowDiffHeightmap_D47DC;
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			tempHeight2[i] = mapHeightmap_11B4E0[i];
-			mapHeightmap_11B4E0[i] = tempHeight1[i];
-		}
-		sub_45BE0(testA2, testAxis2D);
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			if (tempHeight2[i] != mapHeightmap_11B4E0[i])
-				TestError();
-		}
-		if(tempx_DWORD_D47DC != lowDiffHeightmap_D47DC)
-			TestError();
-	}
-	free(tempHeight1);
-	free(tempHeight2);
-}
-
 void test_1B830() {
 	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
 	uint8_t* tempHeight2 = (uint8_t*)malloc(65536);
@@ -2548,10 +2513,6 @@ void Terrain_test() {
 
 	printf("test_45BE0 - ");
 	test_33F70();
-	printf("OK\n");
-
-	printf("test_45BE0 - ");
-	test_45BE0();
 	printf("OK\n");
 
 	printf("test_1B830 - ");
