@@ -672,3 +672,117 @@ TEST(Terrain, sub_45600) {
 	free(tempAng1);
 	free(tempHeight1);
 }
+
+TEST(Terrain, sub_454F0) {
+
+	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
+	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
+
+	for (int y = 0; y < 256; y++)
+	{
+		if ((y > 3) && (y < 256 - 3))//skip steps for quick compare
+			continue;
+		for (int x = 0; x < 256; x++)
+		{
+			//Create Test Data
+			for (int i = 0; i < 256 * 256; i++)
+			{
+				mapAngle_13B4E0[i] = pseudoRand() % 256;
+				mapHeightmap_11B4E0[i] = pseudoRand() % 256;
+				tempAng1[i] = mapAngle_13B4E0[i];
+				tempHeight1[i] = mapHeightmap_11B4E0[i];
+			}
+
+			sub_454F0_orig(x, y, tempHeight1, tempAng1);
+
+			sub_454F0(x, y);
+
+			for (int i = 0; i < 256 * 256; i++)
+			{
+				EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+				EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+			}
+		}
+	}
+	free(tempHeight1);
+	free(tempAng1);
+}
+
+TEST(Terrain, sub_45210) {
+
+	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
+	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
+	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
+
+	for (int y = 0; y < 256; y++)
+	{
+		if ((y > 3) && (y < 256 - 3))//skip steps for quick compare
+			continue;
+		for (int x = 0; x < 256; x++)
+		{
+			//Create Test Data
+			for (int i = 0; i < 256 * 256; i++)
+			{
+				mapTerrainType_10B4E0[i] = pseudoRand() % (256 * 256);
+				mapAngle_13B4E0[i] = pseudoRand() % 256;
+				mapHeightmap_11B4E0[i] = pseudoRand() % 256;
+				tempTerrainType1[i] = mapTerrainType_10B4E0[i];
+				tempAng1[i] = mapAngle_13B4E0[i];
+				tempHeight1[i] = mapHeightmap_11B4E0[i];
+			}
+			sub_45210_orig(x, y, tempTerrainType1, tempHeight1, tempAng1);
+
+			sub_45210(x, y);
+
+			for (int i = 0; i < 256 * 256; i++)
+			{
+				EXPECT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
+				EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+				EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+			}
+		}
+	}
+	free(tempTerrainType1);
+	free(tempAng1);
+	free(tempHeight1);
+}
+
+TEST(Terrain, sub_45060) {
+
+	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
+	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
+	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
+
+	for (int y = 0; y < 256; y++)
+	{
+		if ((y > 3) && (y < 256 - 3))//skip steps for quick compare
+			continue;
+		for (int x = 0; x < 256; x++)
+		{
+			//Create Test Data
+			for (int i = 0; i < 256 * 256; i++)
+			{
+				mapTerrainType_10B4E0[i] = pseudoRand() % (256 * 256);
+				mapAngle_13B4E0[i] = pseudoRand() % 256;
+				mapHeightmap_11B4E0[i] = pseudoRand() % 256;
+				tempTerrainType1[i] = mapTerrainType_10B4E0[i];
+				tempAng1[i] = mapAngle_13B4E0[i];
+				tempHeight1[i] = mapHeightmap_11B4E0[i];
+			}
+
+			sub_45060_orig(x, y, mapTerrainType_10B4E0, mapHeightmap_11B4E0, mapAngle_13B4E0);
+			
+			sub_45060(x, y);
+
+			for (int i = 0; i < 256 * 256; i++)
+			{
+				EXPECT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
+				EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+				EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+			}
+		}
+	}
+	free(tempTerrainType1);
+	free(tempAng1);
+	free(tempHeight1);
+}
