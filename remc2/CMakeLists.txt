@@ -57,6 +57,8 @@ set(SOURCE_FILES_ENGINE
     "engine/XUnk_D4350.h"
     "engine/Unk_D4A30.cpp"
     "engine/Unk_D4A30.h"
+    "engine/Unk_D47E0.cpp"
+    "engine/Unk_D47E0.h"
     "engine/RenderThread.cpp"
     "engine/RenderThread.h"
     "utilities/BitmapIO.cpp"

@@ -5,13 +5,12 @@
 
 #include "Basic.h"
 #include "Unk_D4A30.h"
+#include "Unk_D47E0.h"
 
-extern uint8_t unk_D4A30[];//terrain gen
 extern char x_BYTE_F2CD0x[7 * 7 * 7 * 7][2]; // 233cd0//4802 //4816
 extern uint8_t x_BYTE_D41B7;
 
 extern uint16_t x_WORD_17B4E0;
-extern int8_t unk_D47E0[592];
 
 extern uint8_t mapTerrainType_10B4E0[65536];
 extern uint8_t mapHeightmap_11B4E0[65536];
