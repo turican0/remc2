@@ -102,3 +102,106 @@ void sub_44DB0_truncTerrainHeight_orig(int16_t mapEntityIndex_15B4E0[], uint8_t 
 	} while (v2);
 	//return result;
 }
+
+//----- (00044EE0) --------------------------------------------------------
+void sub_44EE0_smooth_tiles_orig(uaxis_2d a2x, uint8_t mapTerrainType_10B4E0[], uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[])//225ee0
+{
+	uaxis_2d v2x; // eax
+	uint16_t v3; // dx
+	unsigned __int8 v4; // dh
+	//uaxis_2d v5x; // si
+	//uaxis_2d v6x; // esi
+	unsigned __int8 v7; // dl
+	uint16_t index; // ax
+
+	//[*][*][*]
+	//[*][X][*]
+	//[*][*][*]
+
+	uaxis_2d a1x;
+
+	v2x.word = a2x.word;
+	v3 = 0;
+	do
+		mapTerrainType_10B4E0[v3++] = 3;
+	while (v3);//set all tiles to 3
+	v4 = mapHeightmap_11B4E0[a2x.word];
+	do
+	{
+		//v5x.word = v2x.word;
+		mapTerrainType_10B4E0[v2x.word] = 0;
+		//BYTE1(v2)--;
+		v2x._axis_2d.y--;
+
+		//v6 = v5;
+		//v6 = v2;
+		v7 = 0xFFu;
+		if (mapTerrainType_10B4E0[v2x.word] && mapHeightmap_11B4E0[v2x.word] < 0xFFu)
+		{
+			v7 = mapHeightmap_11B4E0[v2x.word];
+			a1x.word = v2x.word;
+		}
+		//LOBYTE(v2)++;
+		v2x._axis_2d.x++;
+		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
+		{
+			v7 = mapHeightmap_11B4E0[v2x.word];
+			a1x.word = v2x.word;
+		}
+		//BYTE1(v2)++;
+		v2x._axis_2d.y++;
+		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
+		{
+			v7 = mapHeightmap_11B4E0[v2x.word];
+			a1x.word = v2x.word;
+		}
+		//BYTE1(v2)++;
+		v2x._axis_2d.y++;
+		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
+		{
+			v7 = mapHeightmap_11B4E0[v2x.word];
+			a1x.word = v2x.word;
+		}
+		//LOBYTE(v2)--;
+		v2x._axis_2d.x--;
+		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
+		{
+			v7 = mapHeightmap_11B4E0[v2x.word];
+			a1x.word = v2x.word;
+		}
+		//LOBYTE(v2)--;
+		v2x._axis_2d.x--;
+		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
+		{
+			v7 = mapHeightmap_11B4E0[v2x.word];
+			a1x.word = v2x.word;
+		}
+		//BYTE1(v2)--;
+		v2x._axis_2d.y--;
+		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
+		{
+			v7 = mapHeightmap_11B4E0[v2x.word];
+			a1x.word = v2x.word;
+		}
+		//BYTE1(v2)--;
+		v2x._axis_2d.y--;
+		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
+		{
+			v7 = mapHeightmap_11B4E0[v2x.word];
+			a1x.word = v2x.word;
+		}
+		if (!mapAngle_13B4E0[a1x.word] || v7 == 0xFFu)
+			break;
+		if (v7 > v4)//if near tile is higger then central tile set central as near tile
+			mapHeightmap_11B4E0[a1x.word] = v4;
+		v4 = mapHeightmap_11B4E0[a1x.word];
+		v2x.word = a1x.word;
+	} while (v4);
+	index = 0;
+	do
+	{
+		if (!mapTerrainType_10B4E0[index])
+			mapAngle_13B4E0[index] = 0;
+		index++;
+	} while (index);//delete type
+}
