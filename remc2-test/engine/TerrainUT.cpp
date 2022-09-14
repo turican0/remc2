@@ -384,3 +384,46 @@ TEST(Terrain, sub_43D50) {
 	free(tempTerrainType1);
 	free(tempHeightmap1);
 }
+
+TEST(Terrain, sub_44D00) {
+
+	uint8_t* tempShading1 = (uint8_t*)malloc(65536);
+	uint8_t* tempHeightmap1 = (uint8_t*)malloc(65536);
+
+	for (int j = 0; j < 40; j++)
+	{
+		//Create Test Data
+		switch (pseudoRand() % 3)
+		{
+		case 0:
+			D41A0_0.terrain_2FECE.MapType = MapType_t::Day;
+			break;
+		case 1:
+			D41A0_0.terrain_2FECE.MapType = MapType_t::Night;
+			break;
+		case 2:
+			D41A0_0.terrain_2FECE.MapType = MapType_t::Cave;
+			break;
+		}
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			mapHeightmap_11B4E0[i] = pseudoRand() % (256 * 256);
+			mapShading_12B4E0[i] = pseudoRand() % (256 * 256);
+			tempHeightmap1[i] = mapHeightmap_11B4E0[i];
+			tempShading1[i] = mapShading_12B4E0[i];
+		}
+
+		sub_44D00_orig(D41A0_0.terrain_2FECE.MapType, tempHeightmap1, tempShading1);
+
+		sub_44D00();
+
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			EXPECT_EQ(tempHeightmap1[i], mapHeightmap_11B4E0[i]);
+			EXPECT_EQ(tempShading1[i], mapShading_12B4E0[i]);
+		}
+	}
+
+	free(tempShading1);
+	free(tempHeightmap1);
+}

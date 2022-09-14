@@ -19,3 +19,4 @@ bool sub_33F70_orig(unsigned __int16 a1, uint8_t mapTerrainType_10B4E0[], uint8_
 int sub_1B830_orig(axis_3d* a1, uint8_t mapHeightmap_11B4E0[]);
 int sub_1B7A0_tile_compare_orig(axis_3d* a1, uint8_t mapHeightmap_11B4E0[]);
 void sub_43D50_orig(uint8_t mapTerrainType_10B4E0[], uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[]);
+void sub_44D00_orig(MapType_t mapType, uint8_t mapHeightmap_11B4E0[], uint8_t mapShading_12B4E0[]);

@@ -928,3 +928,62 @@ void sub_43D50_orig(uint8_t mapTerrainType_10B4E0[], uint8_t mapHeightmap_11B4E0
 		index++;
 	} while (index);
 }
+
+void sub_44D00_orig(MapType_t mapType, uint8_t mapHeightmap_11B4E0[], uint8_t mapShading_12B4E0[])//225d00
+{
+	uaxis_2d v0x; // cx
+	//uaxis_2d v1x; // dx
+	uaxis_2d indexx; // eax
+	//unsigned __int16 v3; // cx
+	//uaxis_2d v4x; // et2
+	char v5; // dl
+
+	v0x.word = 0;
+	uint16_t x_WORD_17B4E0 = 0;
+	do
+	{
+		//adress 225d0f
+		v0x._axis_2d.x++;
+		//indexx._axis_2d.y = 0;
+		v0x._axis_2d.y++;
+		indexx.word = v0x.word;
+		v0x._axis_2d.x -= 2;
+		v0x._axis_2d.y -= 2;
+		//v1x.word = v0x.word;
+
+		indexx._axis_2d.x = mapHeightmap_11B4E0[v0x.word] - mapHeightmap_11B4E0[indexx.word] + 32;
+		v0x._axis_2d.x++;
+		v0x._axis_2d.y++;
+		if (indexx._axis_2d.x == 32)
+		{
+			indexx.word = 9377 * x_WORD_17B4E0 + 9439;
+			//LOWORD(index) += 9439;
+			x_WORD_17B4E0 = indexx.word;
+			//v4x.word = indexx.word;
+			indexx._axis_2d.y = (x_WORD_17B4E0 / 9u) >> 8;
+			indexx._axis_2d.x = x_WORD_17B4E0 % 9 + 28;
+		}
+		else if ((int8_t)indexx._axis_2d.x >= 28)
+		{
+			if ((int8_t)indexx._axis_2d.x > 40)
+				indexx._axis_2d.x = (indexx._axis_2d.x & 7) + 40;
+		}
+		else
+		{
+			indexx._axis_2d.x = (indexx._axis_2d.x & 3) + 28;
+		}
+		if (mapType != MapType_t::Day)
+		{
+			//index = 32 - (index & 0xff);
+			//v5 = (32 - (indexx._axis_2d.x)) + 32;
+			v5 = (64 - indexx._axis_2d.x);
+		}
+		else
+		{
+			v5 = indexx._axis_2d.x;
+		}
+		//LOBYTE(index) = v5;
+		mapShading_12B4E0[v0x.word] = v5;
+		v0x.word++;
+	} while (v0x.word);
+}

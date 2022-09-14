@@ -1664,123 +1664,6 @@ void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level_orig(__int16 a1, u
 	} while (v10-- >= 1);
 }
 
-void sub_44D00_orig()//225d00
-{
-	uaxis_2d v0x; // cx
-	//uaxis_2d v1x; // dx
-	uaxis_2d indexx; // eax
-	//unsigned __int16 v3; // cx
-	//uaxis_2d v4x; // et2
-	char v5; // dl
-
-	v0x.word = 0;
-	x_WORD_17B4E0 = 0;
-	do
-	{
-		//adress 225d0f
-		v0x._axis_2d.x++;
-		//indexx._axis_2d.y = 0;
-		v0x._axis_2d.y++;
-		indexx.word = v0x.word;
-		v0x._axis_2d.x -= 2;
-		v0x._axis_2d.y -= 2;
-		//v1x.word = v0x.word;
-
-		indexx._axis_2d.x = mapHeightmap_11B4E0[v0x.word] - mapHeightmap_11B4E0[indexx.word] + 32;
-		v0x._axis_2d.x++;
-		v0x._axis_2d.y++;
-		if (indexx._axis_2d.x == 32)
-		{
-			indexx.word = 9377 * x_WORD_17B4E0 + 9439;
-			//LOWORD(index) += 9439;
-			x_WORD_17B4E0 = indexx.word;
-			//v4x.word = indexx.word;
-			indexx._axis_2d.y = (x_WORD_17B4E0 / 9u) >> 8;
-			indexx._axis_2d.x = x_WORD_17B4E0 % 9 + 28;
-		}
-		else if ((int8_t)indexx._axis_2d.x >= 28)
-		{
-			if ((int8_t)indexx._axis_2d.x > 40)
-				indexx._axis_2d.x = (indexx._axis_2d.x & 7) + 40;
-		}
-		else
-		{
-			indexx._axis_2d.x = (indexx._axis_2d.x & 3) + 28;
-		}
-		if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
-		{
-			//index = 32 - (index & 0xff);
-			//v5 = (32 - (indexx._axis_2d.x)) + 32;
-			v5 = (64 - indexx._axis_2d.x);
-		}
-		else
-		{
-			v5 = indexx._axis_2d.x;
-		}
-		//LOBYTE(index) = v5;
-		mapShading_12B4E0[v0x.word] = v5;
-		v0x.word++;
-	} while (v0x.word);
-}
-
-void test_44D00() {
-	uint8_t* tempShading1 = (uint8_t*)malloc(65536);
-	uint8_t* tempShading2 = (uint8_t*)malloc(65536);
-
-	uint8_t* tempHeightmap1 = (uint8_t*)malloc(65536);
-	uint8_t* tempHeightmap2 = (uint8_t*)malloc(65536);
-
-	for (int j = 0; j < 40; j++)
-	{
-		switch (pseudoRand() % 3)
-		{
-			case 0:
-				D41A0_0.terrain_2FECE.MapType = MapType_t::Day;
-				break;
-			case 1:
-				D41A0_0.terrain_2FECE.MapType = MapType_t::Night;
-				break;
-			case 2:
-				D41A0_0.terrain_2FECE.MapType = MapType_t::Cave;
-				break;
-		}
-		x_WORD_17B4E0 = pseudoRand() % (256 * 256);
-		uint16_t temp17B4E0_1 = x_WORD_17B4E0;
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			mapShading_12B4E0[i] = pseudoRand() % (256 * 256);
-			tempShading1[i] = mapShading_12B4E0[i];
-			mapHeightmap_11B4E0[i] = pseudoRand() % (256 * 256);
-			tempHeightmap1[i] = mapHeightmap_11B4E0[i];
-		}
-		sub_44D00_orig();
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			tempShading2[i] = mapShading_12B4E0[i];
-			mapShading_12B4E0[i] = tempShading1[i];
-			tempHeightmap2[i] = mapHeightmap_11B4E0[i];
-			mapHeightmap_11B4E0[i] = tempHeightmap1[i];
-		}
-		uint16_t temp17B4E0_2 = x_WORD_17B4E0;
-		x_WORD_17B4E0 = temp17B4E0_1;
-		sub_44D00();
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			if ((tempShading2[i] != mapShading_12B4E0[i])||
-				(tempHeightmap2[i] != mapHeightmap_11B4E0[i]))
-				TestError();
-			if (temp17B4E0_2 != x_WORD_17B4E0)
-				TestError();
-		}
-	}
-
-	free(tempShading1);
-	free(tempShading2);
-
-	free(tempHeightmap1);
-	free(tempHeightmap2);
-}
-
 void test_B5E70_B5EFA_B5F8F() {
 	int16_t* tempEnt1 = (int16_t*)malloc(65536 * sizeof(int16_t));
 	int16_t* tempEnt2 = (int16_t*)malloc(65536 * sizeof(int16_t));
@@ -2202,10 +2085,6 @@ void test_45AA0() {
 }
 
 void Terrain_test() {
-
-	printf("test_44D00 - ");
-	test_44D00();
-	printf("OK\n");
 
 	printf("test_B5E70_B5EFA_B5F8F - ");
 	test_B5E70_B5EFA_B5F8F();
