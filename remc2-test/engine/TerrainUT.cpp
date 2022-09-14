@@ -158,3 +158,84 @@ TEST(Terrain, sub_B5D68) {
 	free(x_BYTE_14B4E0_second_heightmap);
 	free(x_BYTE_14B4E0_second_heightmap2);
 }
+
+TEST(Terrain, sub_45DC0) {
+	uint8_t* tempTerrType1 = (uint8_t*)malloc(65536);
+	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
+	uint8_t* tempSecHeight1 = (uint8_t*)malloc(65536);
+	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
+	uint8_t* tempShad1 = (uint8_t*)malloc(65536);
+	x_BYTE_14B4E0_second_heightmap = (uint8_t*)malloc(65536);
+
+	for (int j = 0; j < 400; j++)
+	{
+		uint8_t tempa2 = pseudoRand() % 256;
+		uaxis_2d tempa3x;
+		tempa3x.word = pseudoRand() % (256 * 256);
+		uint8_t tempa4 = pseudoRand() % 256;
+		lowDiffHeightmap_D47DC = true;
+		if (pseudoRand() % 2)
+			lowDiffHeightmap_D47DC = false;
+		switch (pseudoRand() % 3)
+		{
+		case 0:
+			D41A0_0.terrain_2FECE.MapType = MapType_t::Day;
+			isCaveLevel_D41B6 = false;
+			break;
+		case 1:
+			D41A0_0.terrain_2FECE.MapType = MapType_t::Night;
+			isCaveLevel_D41B6 = false;
+			break;
+		case 2:
+			D41A0_0.terrain_2FECE.MapType = MapType_t::Cave;
+			isCaveLevel_D41B6 = true;
+			break;
+		}
+		for (int i = 0; i < 7 * 7 * 7 * 7; i++)
+			for (int m = 0; m < 2; m++)
+			{
+				x_BYTE_F2CD0x[i][m] = pseudoRand() % 256;
+			}
+		x_WORD_17B4E0 = pseudoRand() % (256 * 256);
+		uint16_t tempx_WORD_17B4E01 = x_WORD_17B4E0;
+
+		//Create Test Data
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			mapTerrainType_10B4E0[i] = pseudoRand() % 256;
+			mapHeightmap_11B4E0[i] = pseudoRand() % 256;
+			mapAngle_13B4E0[i] = pseudoRand() % 256;
+			x_BYTE_14B4E0_second_heightmap[i] = pseudoRand() % 256;
+			mapShading_12B4E0[i] = pseudoRand() % 256;
+
+			tempTerrType1[i] = mapTerrainType_10B4E0[i];
+			tempShad1[i] = mapShading_12B4E0[i];
+			tempSecHeight1[i] = x_BYTE_14B4E0_second_heightmap[i];
+			tempAng1[i] = mapAngle_13B4E0[i];
+			tempHeight1[i] = mapHeightmap_11B4E0[i];
+		}
+
+		sub_45DC0_orig(tempa2, tempa3x, tempa4, lowDiffHeightmap_D47DC, isCaveLevel_D41B6, x_WORD_17B4E0, x_BYTE_F2CD0x, tempTerrType1, tempHeight1, tempAng1, tempShad1, tempSecHeight1);
+
+		uint16_t tempx_WORD_17B4E02 = x_WORD_17B4E0;
+		x_WORD_17B4E0 = tempx_WORD_17B4E01;
+
+		sub_45DC0(tempa2, tempa3x, tempa4);
+
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			EXPECT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
+			EXPECT_EQ(tempTerrType1[i], mapTerrainType_10B4E0[i]);
+			EXPECT_EQ(tempShad1[i], mapShading_12B4E0[i]);
+			EXPECT_EQ(tempSecHeight1[i], x_BYTE_14B4E0_second_heightmap[i]);
+			EXPECT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
+		}
+		EXPECT_EQ(x_WORD_17B4E0, tempx_WORD_17B4E02);
+	}
+	free(x_BYTE_14B4E0_second_heightmap);
+	free(tempTerrType1);
+	free(tempHeight1);
+	free(tempSecHeight1);
+	free(tempAng1);
+	free(tempShad1);
+}
