@@ -266,3 +266,34 @@ TEST(Terrain, sub_45BE0) {
 	}
 	free(tempHeight1);
 }
+
+TEST(Terrain, sub_33F70) {
+	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
+	uint8_t* tempHeightMap1 = (uint8_t*)malloc(65536);
+
+	for (int j = 0; j < 400; j++)
+	{
+		uaxis_2d testAxis2D;
+		testAxis2D.word = pseudoRand() % (256 * 256);
+
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			mapTerrainType_10B4E0[i] = pseudoRand() % 256;
+			mapHeightmap_11B4E0[i] = pseudoRand() % 256;
+			tempTerrainType1[i] = mapTerrainType_10B4E0[i];
+			tempHeightMap1[i] = mapHeightmap_11B4E0[i];
+		}
+
+		sub_33F70_orig(testAxis2D.word, tempTerrainType1, tempHeightMap1);
+
+		sub_33F70(testAxis2D.word);
+
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			EXPECT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
+			EXPECT_EQ(tempHeightMap1[i], mapHeightmap_11B4E0[i]);
+		}
+	}
+	free(tempTerrainType1);
+	free(tempHeightMap1);
+}

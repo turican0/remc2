@@ -766,3 +766,35 @@ uint8_t sub_45BE0_orig(uint8_t a2, uaxis_2d a3x, bool lowDiffHeightmap_D47DC, ui
 	}
 	return result;
 }
+
+bool sub_33F70_orig(unsigned __int16 a1, uint8_t mapTerrainType_10B4E0[], uint8_t mapHeightmap_11B4E0[])//214f70
+{
+	unsigned __int16 v1; // ax
+	signed int v2; // edx
+	unsigned __int16 v3; // ax
+	bool result; // al
+
+	HIBYTE(v1) = HIBYTE(a1);
+	LOBYTE(v1) = a1 - 1;
+	result = 1;
+	if (mapTerrainType_10B4E0[v1] == 8)
+	{
+		v2 = (unsigned __int16)(mapHeightmap_11B4E0[a1] + 30);
+		if (mapHeightmap_11B4E0[v1] <= (signed int)(unsigned __int16)v2)
+		{
+			LOBYTE(v1) = v1 + 2;
+			if (mapHeightmap_11B4E0[v1] <= v2)
+			{
+				LOBYTE(v3) = v1 - 1;
+				HIBYTE(v3) = HIBYTE(a1) + 1;
+				if (mapHeightmap_11B4E0[v3] <= v2)
+				{
+					HIBYTE(v3) = HIBYTE(a1) - 1;
+					if (mapHeightmap_11B4E0[v3] <= v2)
+						result = 0;
+				}
+			}
+		}
+	}
+	return result;
+}
