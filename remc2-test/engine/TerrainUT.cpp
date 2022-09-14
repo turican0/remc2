@@ -55,7 +55,6 @@ TEST(sub_44DB0_truncTerrainHeight, truncTerrainHeight)
 	free(mapHeightmap2);
 }
 
-
 TEST(sub_44EE0_smooth_tiles, smooth_tiles) {
 	uint8_t* tempTerr1 = (uint8_t*)malloc(65536);
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
@@ -98,7 +97,41 @@ TEST(sub_44EE0_smooth_tiles, smooth_tiles) {
 	free(tempTerr1);
 	free(tempAng1);
 	free(tempHeight1);
-	free(tempTerr2);
-	free(tempAng2);
-	free(tempHeight2);
+}
+
+TEST(sub_44E40_orig, sub_44E40) {
+	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
+	uint8_t* tempAngle1 = (uint8_t*)malloc(65536);
+	uint8_t* tempHeightmap1 = (uint8_t*)malloc(65536);
+
+	for (int j = 0; j < 400; j++)
+	{
+		x_WORD_17B4E0 = pseudoRand() % (256 * 256);
+		int a1 = pseudoRand() % 256;
+		uint8_t a2 = pseudoRand() % 256;
+
+		//Create Test Data
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			mapTerrainType_10B4E0[i] = pseudoRand() % (256 * 256);
+			tempTerrainType1[i] = mapTerrainType_10B4E0[i];
+			mapAngle_13B4E0[i] = pseudoRand() % (256 * 256);
+			tempAngle1[i] = mapAngle_13B4E0[i];
+			mapHeightmap_11B4E0[i] = pseudoRand() % (256 * 256);
+			tempHeightmap1[i] = mapHeightmap_11B4E0[i];
+		}
+		sub_44E40_orig(a1, a2, x_WORD_17B4E0, tempTerrainType1, tempHeightmap1, tempAngle1);
+
+		sub_44E40(a1, a2);
+
+		for (int i = 0; i < 256 * 256; i++)
+		{
+			EXPECT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
+			EXPECT_EQ(tempAngle1[i], mapAngle_13B4E0[i]);
+			EXPECT_EQ(tempHeightmap1[i], mapHeightmap_11B4E0[i]);
+		}
+	}
+	free(tempAngle1);
+	free(tempTerrainType1);
+	free(tempHeightmap1);
 }

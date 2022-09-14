@@ -1,108 +1,5 @@
 #include "Terrain-tests.h"
 
-//----- (00044EE0) --------------------------------------------------------
-void sub_44EE0_smooth_tiles_orig(/*int a1,*/ uaxis_2d a2x)//225ee0
-{
-	uaxis_2d v2x; // eax
-	uint16_t v3; // dx
-	unsigned __int8 v4; // dh
-	//uaxis_2d v5x; // si
-	//uaxis_2d v6x; // esi
-	unsigned __int8 v7; // dl
-	uint16_t index; // ax
-
-	//[*][*][*]
-	//[*][X][*]
-	//[*][*][*]
-
-	uaxis_2d a1x;
-
-	v2x.word = a2x.word;
-	v3 = 0;
-	do
-		mapTerrainType_10B4E0[v3++] = 3;
-	while (v3);//set all tiles to 3
-	v4 = mapHeightmap_11B4E0[a2x.word];
-	do
-	{
-		//v5x.word = v2x.word;
-		mapTerrainType_10B4E0[v2x.word] = 0;
-		//BYTE1(v2)--;
-		v2x._axis_2d.y--;
-
-		//v6 = v5;
-		//v6 = v2;
-		v7 = 0xFFu;
-		if (mapTerrainType_10B4E0[v2x.word] && mapHeightmap_11B4E0[v2x.word] < 0xFFu)
-		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
-		}
-		//LOBYTE(v2)++;
-		v2x._axis_2d.x++;
-		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
-		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
-		}
-		//BYTE1(v2)++;
-		v2x._axis_2d.y++;
-		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
-		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
-		}
-		//BYTE1(v2)++;
-		v2x._axis_2d.y++;
-		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
-		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
-		}
-		//LOBYTE(v2)--;
-		v2x._axis_2d.x--;
-		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
-		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
-		}
-		//LOBYTE(v2)--;
-		v2x._axis_2d.x--;
-		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
-		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
-		}
-		//BYTE1(v2)--;
-		v2x._axis_2d.y--;
-		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
-		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
-		}
-		//BYTE1(v2)--;
-		v2x._axis_2d.y--;
-		if (mapTerrainType_10B4E0[v2x.word] && v7 > mapHeightmap_11B4E0[v2x.word])
-		{
-			v7 = mapHeightmap_11B4E0[v2x.word];
-			a1x.word = v2x.word;
-		}
-		if (!mapAngle_13B4E0[a1x.word] || v7 == 0xFFu)
-			break;
-		if (v7 > v4)//if near tile is higger then central tile set central as near tile
-			mapHeightmap_11B4E0[a1x.word] = v4;
-		v4 = mapHeightmap_11B4E0[a1x.word];
-		v2x.word = a1x.word;
-	} while (v4);
-	index = 0;
-	do
-	{
-		if (!mapTerrainType_10B4E0[index])
-			mapAngle_13B4E0[index] = 0;
-		index++;
-	} while (index);//delete type
-}
-
 //----- (00045AA0) --------------------------------------------------------
 void sub_45AA0_setMax4Tiles_orig()//226aa0
 {
@@ -1889,58 +1786,6 @@ void sub_43D50_orig()//224d50
 	} while (index);
 }
 
-void sub_44E40_orig(int a1, uint8_t a2)//225e40
-{
-	int v2; // edi
-	uint16_t v3; // si
-	signed int v4; // ecx
-	uint16_t v5; // ax
-	uaxis_2d v6x; // dx
-	uint16_t v7; // eax
-	uint16_t v8; // ebx
-	//unsigned __int16 i; // ax
-
-	v2 = a1;
-	v3 = 0;
-	do
-	{
-		if (mapHeightmap_11B4E0[v3])
-			mapAngle_13B4E0[v3] = 5;
-		else
-			mapAngle_13B4E0[v3] = 0;
-		v3++;
-	} while (v3);
-LABEL_12:
-	if (v2 > 0)
-	{
-		v4 = 1000;
-		while (1)
-		{
-			//v8 = -1;
-			v5 = 9377 * x_WORD_17B4E0 + 9439;
-			x_WORD_17B4E0 = v5;
-			v6x.word = v5 % 0xffffu;
-			v7 = v5 % 0xffffu;
-			v8 = mapHeightmap_11B4E0[v7] + 0xff00;
-			if (!--v4)
-				break;
-			if ((v8 & 0xff) > a2 && mapAngle_13B4E0[v7])
-			{
-				v2--;
-				//adress 225eb1
-				//eax e568 ebx ff6f ecx 3e6 edx e568
-				sub_44EE0_smooth_tiles_orig(/*v8,*/ v6x);
-				goto LABEL_12;
-			}
-		}
-	}
-	do
-	{
-		//i = v3;
-		mapTerrainType_10B4E0[v3++] = -1;
-	} while (v3);
-}
-
 int sub_1B7A0_tile_compare_orig(axis_3d* a1)//1fc7a0
 {
 	uint8_t v1x[2]; // eax
@@ -2799,64 +2644,6 @@ void test_1B7A0() {
 	free(tempHeight2);
 }
 
-void test_44E40() {
-	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
-	uint8_t* tempTerrainType2 = (uint8_t*)malloc(65536);
-
-	uint8_t* tempAngle1 = (uint8_t*)malloc(65536);
-	uint8_t* tempAngle2 = (uint8_t*)malloc(65536);
-
-	uint8_t* tempHeightmap1 = (uint8_t*)malloc(65536);
-	uint8_t* tempHeightmap2 = (uint8_t*)malloc(65536);
-
-	for (int j = 0; j < 400; j++)
-	{
-		x_WORD_17B4E0 = pseudoRand() % (256 * 256);
-		int a1 = pseudoRand() % 256;
-		uint8_t a2 = pseudoRand() % 256;
-		uint16_t temp_17B4E0_1 = x_WORD_17B4E0;
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			mapTerrainType_10B4E0[i] = pseudoRand() % (256 * 256);
-			tempTerrainType1[i] = mapTerrainType_10B4E0[i];
-			mapAngle_13B4E0[i] = pseudoRand() % (256 * 256);
-			tempAngle1[i] = mapAngle_13B4E0[i];
-			mapHeightmap_11B4E0[i] = pseudoRand() % (256 * 256);
-			tempHeightmap1[i] = mapHeightmap_11B4E0[i];
-		}
-		sub_44E40_orig(a1, a2);
-		uint16_t temp_17B4E0_2 = x_WORD_17B4E0;
-		x_WORD_17B4E0 = temp_17B4E0_1;
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			tempTerrainType2[i] = mapTerrainType_10B4E0[i];
-			mapTerrainType_10B4E0[i] = tempTerrainType1[i];
-			tempAngle2[i] = mapAngle_13B4E0[i];
-			mapAngle_13B4E0[i] = tempAngle1[i];
-			tempHeightmap2[i] = mapHeightmap_11B4E0[i];
-			mapHeightmap_11B4E0[i] = tempHeightmap1[i];
-		}
-		sub_44E40(a1, a2);
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			if ((tempTerrainType2[i] != mapTerrainType_10B4E0[i]) ||
-				(tempAngle2[i] != mapAngle_13B4E0[i]) ||
-				(tempHeightmap2[i] != mapHeightmap_11B4E0[i]))
-				TestError();
-			if (temp_17B4E0_2 != x_WORD_17B4E0)
-				TestError();
-		}
-	}
-	free(tempAngle1);
-	free(tempAngle2);
-
-	free(tempTerrainType1);
-	free(tempTerrainType2);
-
-	free(tempHeightmap1);
-	free(tempHeightmap2);
-}
-
 void test_43D50() {
 	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
 	uint8_t* tempTerrainType2 = (uint8_t*)malloc(65536);
@@ -3383,57 +3170,6 @@ void test_45AA0() {
 	free(tempHeight2);
 }
 
-void test_44EE0() {
-	uint8_t* tempTerr1 = (uint8_t*)malloc(65536);
-	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
-	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
-
-	uint8_t* tempTerr2 = (uint8_t*)malloc(65536);
-	uint8_t* tempAng2 = (uint8_t*)malloc(65536);
-	uint8_t* tempHeight2 = (uint8_t*)malloc(65536);
-
-	for (int j = 0; j < 256 * 256; j++)
-	{
-		if ((j > 260) && (j < 256 * 256 - 260))//skip steps for quick compare
-			continue;
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			mapTerrainType_10B4E0[i] = pseudoRand() % 256;
-			mapAngle_13B4E0[i] = pseudoRand() % 256;
-			mapHeightmap_11B4E0[i] = pseudoRand() % 256;
-			tempTerr1[i] = mapTerrainType_10B4E0[i];
-			tempAng1[i] = mapAngle_13B4E0[i];
-			tempHeight1[i] = mapHeightmap_11B4E0[i];
-		}
-		uaxis_2d axis;
-		axis.word = j;
-		sub_44EE0_smooth_tiles_orig(axis);
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			tempTerr2[i] = mapTerrainType_10B4E0[i];
-			mapTerrainType_10B4E0[i] = tempTerr1[i];
-			tempAng2[i] = mapAngle_13B4E0[i];
-			mapAngle_13B4E0[i] = tempAng1[i];
-			tempHeight2[i] = mapHeightmap_11B4E0[i];
-			mapHeightmap_11B4E0[i] = tempHeight1[i];
-		}
-		sub_44EE0_smooth_tiles(axis);
-		for (int i = 0; i < 256 * 256; i++)
-		{
-			if ((tempTerr2[i] != mapTerrainType_10B4E0[i]) ||
-				(tempAng2[i] != mapAngle_13B4E0[i]) ||
-				(tempHeight2[i] != mapHeightmap_11B4E0[i]))
-				TestError();
-		}
-	}
-	free(tempTerr1);
-	free(tempAng1);
-	free(tempHeight1);
-	free(tempTerr2);
-	free(tempAng2);
-	free(tempHeight2);
-}
-
 void Terrain_test() {
 	printf("test_B5D68 - ");
 	test_B5D68();
@@ -3457,10 +3193,6 @@ void Terrain_test() {
 
 	printf("test_1B7A0 - ");
 	test_1B7A0();
-	printf("OK\n");
-
-	printf("test_44E40 - ");
-	test_44E40();
 	printf("OK\n");
 
 	printf("test_43D50 - ");
@@ -3521,10 +3253,6 @@ void Terrain_test() {
 
 	printf("test_45AA0 - ");
 	test_45AA0();
-	printf("OK\n");
-
-	printf("test_44EE0 - ");
-	test_44EE0();
 	printf("OK\n");
 }
 

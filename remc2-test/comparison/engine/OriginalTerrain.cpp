@@ -205,3 +205,55 @@ void sub_44EE0_smooth_tiles_orig(uaxis_2d a2x, uint8_t mapTerrainType_10B4E0[], 
 		index++;
 	} while (index);//delete type
 }
+
+void sub_44E40_orig(int a1, uint8_t a2, uint16_t x_WORD_17B4E0, uint8_t mapTerrainType_10B4E0[], uint8_t mapHeightmap_11B4E0[], uint8_t mapAngle_13B4E0[])//225e40
+{
+	int v2; // edi
+	uint16_t v3; // si
+	signed int v4; // ecx
+	uint16_t v5; // ax
+	uaxis_2d v6x; // dx
+	uint16_t v7; // eax
+	uint16_t v8; // ebx
+	//unsigned __int16 i; // ax
+
+	v2 = a1;
+	v3 = 0;
+	do
+	{
+		if (mapHeightmap_11B4E0[v3])
+			mapAngle_13B4E0[v3] = 5;
+		else
+			mapAngle_13B4E0[v3] = 0;
+		v3++;
+	} while (v3);
+LABEL_12:
+	if (v2 > 0)
+	{
+		v4 = 1000;
+		while (1)
+		{
+			//v8 = -1;
+			v5 = 9377 * x_WORD_17B4E0 + 9439;
+			x_WORD_17B4E0 = v5;
+			v6x.word = v5 % 0xffffu;
+			v7 = v5 % 0xffffu;
+			v8 = mapHeightmap_11B4E0[v7] + 0xff00;
+			if (!--v4)
+				break;
+			if ((v8 & 0xff) > a2 && mapAngle_13B4E0[v7])
+			{
+				v2--;
+				//adress 225eb1
+				//eax e568 ebx ff6f ecx 3e6 edx e568
+				sub_44EE0_smooth_tiles_orig(/*v8,*/ v6x, mapTerrainType_10B4E0, mapHeightmap_11B4E0, mapAngle_13B4E0);
+				goto LABEL_12;
+			}
+		}
+	}
+	do
+	{
+		//i = v3;
+		mapTerrainType_10B4E0[v3++] = -1;
+	} while (v3);
+}
