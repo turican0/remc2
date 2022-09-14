@@ -1,9 +1,8 @@
 #include <cstdint>
 #include <gtest/gtest.h>
 #include "../../remc2/engine/ViewPort.h"
-
-TEST(viewport, SetRenderViewPortSize_40C50) {
-    pdwScreenBuffer_351628 = new uint8_t[1920*1080*2];
+TEST(ViewPort, SetRenderViewPortSize_40C50) {
+    pdwScreenBuffer_351628 = new uint8_t[1920 * 1080 * 2];
     ViewPort viewPort;
 
     ViewPort::Rectangle viewPort1 = viewPort.SetRenderViewPortSize_40C50(39, 320, 200);

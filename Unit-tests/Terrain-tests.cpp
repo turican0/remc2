@@ -2331,82 +2331,6 @@ void sub_45DC0_orig(uint8_t a2, uaxis_2d a3x, unsigned __int8 a4)//226dc0
 	sub_462A0_orig(a3x, a3x);
 }
 
-int sub_B5D68_orig(__int16 a1, __int16 a2)//296d68
-{
-	int v2; // ebx
-	int v3; // edx
-	int v4; // eax
-	int v5; // esi
-	int v6; // esi
-	int result; // eax
-	int v8; // esi
-	int v9; // eax
-	int v10; // esi
-	int v11; // esi
-	int v12; // edi
-
-	v2 = HIBYTE(a1);
-	HIBYTE(v2) = HIBYTE(a2);
-	v3 = (unsigned __int8)a2;
-	if ((HIBYTE(a1) + HIBYTE(a2)) & 1)
-	{
-		if (__CFADD__((x_BYTE)v3, (x_BYTE)a1))
-		{
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v4 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2) = v2 + 1;
-			v8 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v3) = ~(x_BYTE)a2;
-			BYTE1(v2) = HIBYTE(a2);
-			v6 = v3 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v8) + (unsigned __int8)a1 * (v8 - v4);
-		}
-		else
-		{
-			v4 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2) = v2 + 1;
-			v5 = (unsigned __int8)a1 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v4);
-			LOBYTE(v2) = v2 - 1;
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v6 = (unsigned __int8)a2 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v4) + v5;
-		}
-		result = (v6 >> 3) + 32 * v4;
-	}
-	else
-	{
-		if ((unsigned __int8)a1 <= (unsigned __int8)v3)
-		{
-			v9 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v12 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2)++;
-			v11 = (unsigned __int8)a2 * (v12 - v9) + (unsigned __int8)a1 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v12);
-		}
-		else
-		{
-			v9 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			LOBYTE(v2)++;
-			v10 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2];
-			HIBYTE(v2) = HIBYTE(a2) + 1;
-			v11 = (unsigned __int8)a2 * ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v2] - v10) + (unsigned __int8)a1 * (v10 - v9);
-		}
-		result = (v11 >> 3) + 32 * v9;
-	}
-	return result;
-}
-
-void test_B5D68() {
-	x_BYTE_14B4E0_second_heightmap = (uint8_t*)malloc(65536);
-
-	for (int j = 0; j < 400; j++)
-	{
-		__int16 tempa1 = pseudoRand() % (256 * 256) - 127 * 256;
-		__int16 tempa2 = pseudoRand() % (256 * 256) - 127 * 256;
-		if(sub_B5D68_orig(tempa1, tempa2) != sub_B5D68(tempa1, tempa2))		
-			TestError();
-	}
-	free(x_BYTE_14B4E0_second_heightmap);
-}
-
 void test_45DC0() {
 	uint8_t* tempTerrType1 = (uint8_t*)malloc(65536);
 	uint8_t* tempTerrType2 = (uint8_t*)malloc(65536);
@@ -3171,9 +3095,6 @@ void test_45AA0() {
 }
 
 void Terrain_test() {
-	printf("test_B5D68 - ");
-	test_B5D68();
-	printf("OK\n");
 
 	printf("test_45DC0 - ");
 	test_45DC0();

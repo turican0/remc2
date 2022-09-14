@@ -4,7 +4,7 @@
 #include "../comparison/engine/OriginalTerrain.h"
 #include "../../remc2/engine/Terrain.h"
 
-TEST(sub_B5C60_getTerrainAlt2, getTerrainAlt) 
+TEST(Terrain, sub_B5C60_getTerrainAlt2)
 {
 
 	for (int i = 0; i < 256 * 256; i++)
@@ -23,7 +23,7 @@ TEST(sub_B5C60_getTerrainAlt2, getTerrainAlt)
 	}
 }
 
-TEST(sub_44DB0_truncTerrainHeight, truncTerrainHeight)
+TEST(Terrain, sub_44DB0_truncTerrainHeight)
 {
 	int16_t* mapEntityIndex1 = (int16_t*)malloc(65536 * sizeof(int16_t));
 	int16_t* mapEntityIndex2 = (int16_t*)malloc(65536 * sizeof(int16_t));
@@ -55,7 +55,7 @@ TEST(sub_44DB0_truncTerrainHeight, truncTerrainHeight)
 	free(mapHeightmap2);
 }
 
-TEST(sub_44EE0_smooth_tiles, smooth_tiles) {
+TEST(Terrain, sub_44EE0_smooth_tiles) {
 	uint8_t* tempTerr1 = (uint8_t*)malloc(65536);
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
 	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
@@ -99,7 +99,7 @@ TEST(sub_44EE0_smooth_tiles, smooth_tiles) {
 	free(tempHeight1);
 }
 
-TEST(sub_44E40_orig, sub_44E40) {
+TEST(Terrain, sub_44E40) {
 	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
 	uint8_t* tempAngle1 = (uint8_t*)malloc(65536);
 	uint8_t* tempHeightmap1 = (uint8_t*)malloc(65536);
@@ -134,4 +134,27 @@ TEST(sub_44E40_orig, sub_44E40) {
 	free(tempAngle1);
 	free(tempTerrainType1);
 	free(tempHeightmap1);
+}
+
+TEST(Terrain, sub_B5D68) {
+
+	x_BYTE_14B4E0_second_heightmap = (uint8_t*)malloc(65536);
+	uint8_t* x_BYTE_14B4E0_second_heightmap2 = (uint8_t*)malloc(65536);
+
+	//Create Test Data
+	for (int i = 0; i < 256 * 256; i++)
+	{
+		x_BYTE_14B4E0_second_heightmap[i] = pseudoRand() % 256;
+		x_BYTE_14B4E0_second_heightmap2[i] = x_BYTE_14B4E0_second_heightmap[i];
+	}
+
+	for (int j = 0; j < 400; j++)
+	{
+		__int16 tempa1 = pseudoRand() % (256 * 256) - 127 * 256;
+		__int16 tempa2 = pseudoRand() % (256 * 256) - 127 * 256;
+		EXPECT_EQ(sub_B5D68_orig(tempa1, tempa2, x_BYTE_14B4E0_second_heightmap2), sub_B5D68(tempa1, tempa2));
+	}
+
+	free(x_BYTE_14B4E0_second_heightmap);
+	free(x_BYTE_14B4E0_second_heightmap2);
 }
