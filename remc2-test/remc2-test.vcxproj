@@ -82,12 +82,12 @@
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libADLMIDI-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)inih;$(SolutionDir)libADLMIDI-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)\remc2\Debug;$(SolutionDir)\sdl2\VisualC\Win32\Debug;$(SolutionDir)\Debug;$(SolutionDir)\libvorbis\win32\VS2010\Win32\Debug;$(SolutionDir)\libogg\win32\VS2015\Win32\Debug;$(SolutionDir)\zlib\lib;$(SolutionDir)\libpng2\libpng-master\projects\vstudio2017\Debug;$(SolutionDir)\sdl2_mixer\VisualC\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)remc2\Debug;$(SolutionDir)sdl2\VisualC\Win32\Debug;$(SolutionDir)Debug;$(SolutionDir)libvorbis\win32\VS2010\Win32\Debug;$(SolutionDir)libogg\win32\VS2015\Win32\Debug;$(SolutionDir)zlib\lib;$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Debug;$(SolutionDir)sdl2_mixer\VisualC\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;libogg_static.lib;timidity.lib;native_midi.lib;SDL2_mixer.lib;SDL2.lib;port_sdl_sound;port_sdl_vga_mouse;dirent;fcaseopen;port_filesystem;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
