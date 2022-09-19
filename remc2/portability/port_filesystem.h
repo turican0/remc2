@@ -18,7 +18,7 @@
 #else
 	#include "dirent.h"
 	extern "C" {
-		#include "..\findfirst\findfirst.h"
+		#include "../findfirst/findfirst.h"
 	}
 	#include <limits.h>
 
