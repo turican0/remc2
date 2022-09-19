@@ -16,8 +16,6 @@ set(SOURCE_FILES_UNITTESTS
     "portability/fcaseopenUT.cpp"
     "../remc2/engine/ViewPort.cpp"
     "engine/SetRenderViewPortSize_40C50UT.cpp"
-    "../findfirst/findfirst.c"
-    "../findfirst/findfirst.h"
     "../remc2/engine/Terrain.cpp"
     "../remc2/engine/Terrain.h"
     "comparison/engine/OriginalTerrain.cpp"
@@ -27,8 +25,23 @@ set(SOURCE_FILES_UNITTESTS
 )
 source_group("Source Files\\unittests" FILES ${SOURCE_FILES_UNITTESTS})
 
-set(ROOT_NAMESPACE remc2-test)
+set(SOURCE_FILES__libs__inih
+    "../inih/ini.c"
+    "../inih/ini.h"
+    "../inih/INIReader.cpp"
+    "../inih/INIReader.h"
+)
+source_group("Source Files\\libs\\inih" FILES ${SOURCE_FILES__libs__inih})
 
+set(SOURCE_FILES__libs__findfirst
+    "../findfirst/findfirst.c"
+    "../findfirst/findfirst.h"
+    "../findfirst/spec.c"
+    "../findfirst/spec.h"
+)
+source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfirst})
+
+set(ROOT_NAMESPACE remc2-test)
 
 ################################################################################
 # Unit tests
