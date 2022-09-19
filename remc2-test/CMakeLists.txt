@@ -16,8 +16,6 @@ set(SOURCE_FILES_UNITTESTS
     "portability/fcaseopenUT.cpp"
     "../remc2/engine/ViewPort.cpp"
     "engine/SetRenderViewPortSize_40C50UT.cpp"
-    "../findfirst/findfirst.c"
-    "../findfirst/findfirst.h"
     "../remc2/engine/Terrain.cpp"
     "../remc2/engine/Terrain.h"
     "comparison/engine/OriginalTerrain.cpp"
@@ -40,6 +38,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "../remc2/engine"
     "../remc2/portability"
     "../findfirst"
+    "../inih"
 )
 target_link_libraries(${PROJECT_NAME} PUBLIC 
     gtest
