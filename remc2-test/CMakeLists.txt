@@ -16,6 +16,8 @@ set(SOURCE_FILES_UNITTESTS
     "portability/fcaseopenUT.cpp"
     "../remc2/engine/ViewPort.cpp"
     "engine/SetRenderViewPortSize_40C50UT.cpp"
+    "../findfirst/findfirst.c"
+    "../findfirst/findfirst.h"
     "../remc2/engine/Terrain.cpp"
     "../remc2/engine/Terrain.h"
     "comparison/engine/OriginalTerrain.cpp"
