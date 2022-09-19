@@ -16,6 +16,11 @@ set(SOURCE_FILES_UNITTESTS
     "portability/fcaseopenUT.cpp"
     "../remc2/engine/ViewPort.cpp"
     "engine/SetRenderViewPortSize_40C50UT.cpp"
+    "../remc2/engine/Terrain.cpp"
+    "../remc2/engine/Terrain.h"
+    "comparison/engine/OriginalTerrain.cpp"
+    "comparison/engine/OriginalTerrain.h"
+    "engine/TerrainUT.cpp"
     "UnitTests.cpp"
 )
 source_group("Source Files\\unittests" FILES ${SOURCE_FILES_UNITTESTS})
