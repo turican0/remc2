@@ -27,6 +27,14 @@ set(SOURCE_FILES_UNITTESTS
 )
 source_group("Source Files\\unittests" FILES ${SOURCE_FILES_UNITTESTS})
 
+set(SOURCE_FILES__libs__findfirst
+    "../findfirst/findfirst.c"
+    "../findfirst/findfirst.h"
+    "../findfirst/spec.c"
+    "../findfirst/spec.h"
+)
+source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfirst})
+
 set(ROOT_NAMESPACE remc2-test)
 
 
@@ -43,6 +51,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_link_libraries(${PROJECT_NAME} PUBLIC 
     gtest
     pthread
+    findfirst
 )
 add_compile_definitions(COMPILE_FOR_64BIT)
 gtest_add_tests(
