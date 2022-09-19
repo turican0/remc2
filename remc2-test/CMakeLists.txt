@@ -18,6 +18,8 @@ set(SOURCE_FILES_UNITTESTS
     "engine/SetRenderViewPortSize_40C50UT.cpp"
     "../remc2/engine/Terrain.cpp"
     "../remc2/engine/Terrain.h"
+    "utilities/Math.cpp"
+    "utilities/Math.h"
     "comparison/engine/OriginalTerrain.cpp"
     "comparison/engine/OriginalTerrain.h"
     "engine/TerrainUT.cpp"
