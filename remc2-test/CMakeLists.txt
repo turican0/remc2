@@ -82,8 +82,3 @@ if (USE_SANITIZERS)
     )
     target_link_options(${PROJECT_NAME} PRIVATE ${SANITIZER_OPTIONS})
 endif ()
-
-################################################################################
-# targets
-################################################################################
-add_library(findfirst ${SOURCE_FILES__libs__findfirst})
