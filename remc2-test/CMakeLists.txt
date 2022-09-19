@@ -8,15 +8,24 @@ endif ()
 # Source groups
 ################################################################################
 set(SOURCE_FILES_UNITTESTS
-    "pch.cpp"
-    "pch.h"
-    "comparison/engine/OriginalTerrain.cpp"
-    "comparison/engine/OriginalTerrain.h"
-    "engine/SetRenderViewPortSize_40C50UT.cpp"
-    "engine/TerrainUT.cpp"
+    "../remc2/engine/CommandLineParser.cpp"
+    "../remc2/engine/CommandLineParser.h"
+    "engine/CommandLineParserUT.cpp"
+    "../remc2/portability/fcaseopen.cpp"
+    "../remc2/portability/fcaseopen.h"
     "portability/fcaseopenUT.cpp"
+    "../remc2/engine/ViewPort.cpp"
+    "engine/SetRenderViewPortSize_40C50UT.cpp"
+    "../remc2/engine/engine_support.cpp"
+    "../remc2/engine/engine_support.h"
+    "../remc2/engine/Terrain.cpp"
+    "../remc2/engine/Terrain.h"
     "utilities/Math.cpp"
     "utilities/Math.h"
+    "comparison/engine/OriginalTerrain.cpp"
+    "comparison/engine/OriginalTerrain.h"
+    "engine/TerrainUT.cpp"
+    "UnitTests.cpp"
 )
 source_group("Source Files\\unittests" FILES ${SOURCE_FILES_UNITTESTS})
 
