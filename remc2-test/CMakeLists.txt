@@ -39,6 +39,7 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES_UNITTESTS})
 target_include_directories(${PROJECT_NAME} PUBLIC
     "../remc2/engine"
     "../remc2/portability"
+    "../findfirst"
 )
 target_link_libraries(${PROJECT_NAME} PUBLIC 
     gtest
