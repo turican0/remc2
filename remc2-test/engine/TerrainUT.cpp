@@ -10,7 +10,7 @@ type_D41A0_BYTESTR_0 D41A0_0;
 bool lowDiffHeightmap_D47DC;
 char isCaveLevel_D41B6 = 1;
 #endif
-
+/*
 TEST(Terrain, sub_B5C60_getTerrainAlt2)
 {
 
@@ -159,12 +159,14 @@ TEST(Terrain, sub_B5D68) {
 	{
 		__int16 tempa1 = pseudoRand() % (256 * 256) - 127 * 256;
 		__int16 tempa2 = pseudoRand() % (256 * 256) - 127 * 256;
+		if (sub_B5D68_orig(tempa1, tempa2, x_BYTE_14B4E0_second_heightmap2) != sub_B5D68(tempa1, tempa2))
+			printf("error");
 		ASSERT_EQ(sub_B5D68_orig(tempa1, tempa2, x_BYTE_14B4E0_second_heightmap2), sub_B5D68(tempa1, tempa2));
 	}
 
 	free(x_BYTE_14B4E0_second_heightmap);
 	free(x_BYTE_14B4E0_second_heightmap2);
-}
+}*/
 
 TEST(Terrain, sub_45DC0) {
 	uint8_t* tempTerrType1 = (uint8_t*)malloc(65536);
@@ -221,19 +223,32 @@ TEST(Terrain, sub_45DC0) {
 			tempAng1[i] = mapAngle_13B4E0[i];
 			tempHeight1[i] = mapHeightmap_11B4E0[i];
 		}
-
-		sub_45DC0_orig(tempa2, tempa3x, tempa4, lowDiffHeightmap_D47DC, isCaveLevel_D41B6, tempx_WORD_17B4E0, x_BYTE_F2CD0x, tempTerrType1, tempHeight1, tempAng1, tempShad1, tempSecHeight1);
+		if(j == 376)
+			printf("error");
+		sub_45DC0_orig(tempa2, tempa3x, tempa4, D41A0_0.terrain_2FECE.MapType, lowDiffHeightmap_D47DC, isCaveLevel_D41B6, tempx_WORD_17B4E0, x_BYTE_F2CD0x, tempTerrType1, tempHeight1, tempAng1, tempShad1, tempSecHeight1);
 
 		sub_45DC0(tempa2, tempa3x, tempa4);
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
+			if (tempHeight1[i] != mapHeightmap_11B4E0[i])
+				printf("error");
+			if (tempTerrType1[i] != mapTerrainType_10B4E0[i])
+				printf("error");
+			if (tempShad1[i] != mapShading_12B4E0[i])
+				printf("error");
+			if (tempSecHeight1[i] != x_BYTE_14B4E0_second_heightmap[i])
+				printf("error");
+			if (tempAng1[i] != mapAngle_13B4E0[i])
+				printf("error");
 			ASSERT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
 			ASSERT_EQ(tempTerrType1[i], mapTerrainType_10B4E0[i]);
 			ASSERT_EQ(tempShad1[i], mapShading_12B4E0[i]);
 			ASSERT_EQ(tempSecHeight1[i], x_BYTE_14B4E0_second_heightmap[i]);
 			ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
 		}
+		if (x_WORD_17B4E0 != tempx_WORD_17B4E0)
+			printf("error");
 		ASSERT_EQ(x_WORD_17B4E0, tempx_WORD_17B4E0);
 	}
 	free(x_BYTE_14B4E0_second_heightmap);
