@@ -221,7 +221,7 @@ TEST(Terrain, sub_45DC0) {
 			tempAng1[i] = mapAngle_13B4E0[i];
 			tempHeight1[i] = mapHeightmap_11B4E0[i];
 		}
-		sub_45DC0_orig(tempa2, tempa3x, tempa4, D41A0_0.terrain_2FECE.MapType, lowDiffHeightmap_D47DC, isCaveLevel_D41B6, tempx_WORD_17B4E0, x_BYTE_F2CD0x, tempTerrType1, tempHeight1, tempAng1, tempShad1, tempSecHeight1);
+		sub_45DC0_orig(tempa2, tempa3x, tempa4, D41A0_0.terrain_2FECE.MapType, lowDiffHeightmap_D47DC, isCaveLevel_D41B6, &tempx_WORD_17B4E0, x_BYTE_F2CD0x, tempTerrType1, tempHeight1, tempAng1, tempShad1, tempSecHeight1);
 
 		sub_45DC0(tempa2, tempa3x, tempa4);
 
