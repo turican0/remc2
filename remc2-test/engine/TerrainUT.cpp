@@ -166,7 +166,7 @@ TEST(Terrain, sub_B5D68) {
 
 	free(x_BYTE_14B4E0_second_heightmap);
 	free(x_BYTE_14B4E0_second_heightmap2);
-}*/
+}
 
 TEST(Terrain, sub_45DC0) {
 	uint8_t* tempTerrType1 = (uint8_t*)malloc(65536);
@@ -223,32 +223,18 @@ TEST(Terrain, sub_45DC0) {
 			tempAng1[i] = mapAngle_13B4E0[i];
 			tempHeight1[i] = mapHeightmap_11B4E0[i];
 		}
-		if(j == 376)
-			printf("error");
 		sub_45DC0_orig(tempa2, tempa3x, tempa4, D41A0_0.terrain_2FECE.MapType, lowDiffHeightmap_D47DC, isCaveLevel_D41B6, tempx_WORD_17B4E0, x_BYTE_F2CD0x, tempTerrType1, tempHeight1, tempAng1, tempShad1, tempSecHeight1);
 
 		sub_45DC0(tempa2, tempa3x, tempa4);
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
-			if (tempHeight1[i] != mapHeightmap_11B4E0[i])
-				printf("error");
-			if (tempTerrType1[i] != mapTerrainType_10B4E0[i])
-				printf("error");
-			if (tempShad1[i] != mapShading_12B4E0[i])
-				printf("error");
-			if (tempSecHeight1[i] != x_BYTE_14B4E0_second_heightmap[i])
-				printf("error");
-			if (tempAng1[i] != mapAngle_13B4E0[i])
-				printf("error");
 			ASSERT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
 			ASSERT_EQ(tempTerrType1[i], mapTerrainType_10B4E0[i]);
 			ASSERT_EQ(tempShad1[i], mapShading_12B4E0[i]);
 			ASSERT_EQ(tempSecHeight1[i], x_BYTE_14B4E0_second_heightmap[i]);
 			ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
 		}
-		if (x_WORD_17B4E0 != tempx_WORD_17B4E0)
-			printf("error");
 		ASSERT_EQ(x_WORD_17B4E0, tempx_WORD_17B4E0);
 	}
 	free(x_BYTE_14B4E0_second_heightmap);
@@ -268,7 +254,7 @@ TEST(Terrain, sub_45BE0) {
 		uaxis_2d testAxis2D;
 		testAxis2D.word = pseudoRand() % (256 * 256);
 		uint8_t testA2 = pseudoRand() % 256;
-		int tempx_DWORD_D47DC = lowDiffHeightmap_D47DC;
+		bool tempx_DWORD_D47DC = lowDiffHeightmap_D47DC;
 
 		//Create Test Data
 		for (int i = 0; i < 256 * 256; i++)
@@ -276,7 +262,7 @@ TEST(Terrain, sub_45BE0) {
 			mapHeightmap_11B4E0[i] = pseudoRand() % 256;
 			tempHeight1[i] = mapHeightmap_11B4E0[i];
 		}
-		sub_45BE0_orig(testA2, testAxis2D, tempx_DWORD_D47DC, tempHeight1);
+		sub_45BE0_orig(testA2, testAxis2D, &tempx_DWORD_D47DC, tempHeight1);
 
 		sub_45BE0(testA2, testAxis2D);
 
@@ -551,7 +537,7 @@ TEST(Terrain, sub_43B40) {
 	free(tempAng1);
 	free(x_BYTE_14B4E0_second_heightmap);
 }
-
+*/
 TEST(Terrain, sub_44580) {
 
 	pdwScreenBuffer_351628 = (uint8_t*)malloc(0x961u * 25);
@@ -592,16 +578,26 @@ TEST(Terrain, sub_44580) {
 		for (int m = 0; m < 2; m++)
 		{
 			ASSERT_EQ(tempx_BYTE_F2CD0x1[i][m], x_BYTE_F2CD0x[i][m]);
+			if (tempx_BYTE_F2CD0x1[i][m] != x_BYTE_F2CD0x[i][m])
+				printf("error");
 		}
 
 	ASSERT_EQ(temp_x_WORD_17B4E0_1, x_WORD_17B4E0);
+	if (temp_x_WORD_17B4E0_1 != x_WORD_17B4E0)
+		printf("error");
 
 	for (int i = 0; i < 0x961u * 25; i++)
 	{
 		ASSERT_EQ(tempScreenBuffer1[i], pdwScreenBuffer_351628[i]);
+		if (tempScreenBuffer1[i] != pdwScreenBuffer_351628[i])
+			printf("error");
 	}
 	for (int i = 0; i < 256 * 256; i++)
 	{
+		if (tempAng1[i] != mapAngle_13B4E0[i])
+			printf("error");
+		if (tempTerrainType1[i] != mapTerrainType_10B4E0[i])
+			printf("error");
 		ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
 		ASSERT_EQ(tempTerrainType1[i], mapTerrainType_10B4E0[i]);
 	}

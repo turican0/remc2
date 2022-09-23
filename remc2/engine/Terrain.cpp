@@ -2132,7 +2132,7 @@ void sub_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
 	xAdd++;
 	yAdd++;
 	tempAxis.word = inAxis2dA.word;
-	if (yAdd-1 != -1)
+	if (yAdd != 0)
 	{
 		for (int indexY = yAdd; indexY; indexY--)
 		{

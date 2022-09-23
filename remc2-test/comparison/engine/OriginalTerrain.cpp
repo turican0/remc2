@@ -357,29 +357,29 @@ void sub_45DC0_orig(uint8_t a2, uaxis_2d a3x, unsigned __int8 a4, MapType_t mapT
 			mapTerrainType_10B4E0[a3x.word] = 9;
 			break;
 		case 0xAu:
-			v8 = sub_45BE0_orig(a2, a3x, lowDiffHeightmap_D47DC, mapHeightmap_11B4E0);
+			v8 = sub_45BE0_orig(a2, a3x, &lowDiffHeightmap_D47DC, mapHeightmap_11B4E0);
 			v9 = v8;
 			if (lowDiffHeightmap_D47DC)
 				v9 = v8 + 8;
 			v10 = v9;
 			goto LABEL_28;
 		case 0xBu:
-			v10 = sub_45BE0_orig(a2, a3x, lowDiffHeightmap_D47DC, mapHeightmap_11B4E0) + 16;
+			v10 = sub_45BE0_orig(a2, a3x, &lowDiffHeightmap_D47DC, mapHeightmap_11B4E0) + 16;
 			if (lowDiffHeightmap_D47DC)
 				v10 += 8;
 			goto LABEL_28;
 		case 0xCu:
-			v10 = sub_45BE0_orig(a2, a3x, lowDiffHeightmap_D47DC, mapHeightmap_11B4E0) + 32;
+			v10 = sub_45BE0_orig(a2, a3x, &lowDiffHeightmap_D47DC, mapHeightmap_11B4E0) + 32;
 			if (lowDiffHeightmap_D47DC)
 				v10 += 8;
 			goto LABEL_28;
 		case 0xDu:
-			v10 = sub_45BE0_orig(a2, a3x, lowDiffHeightmap_D47DC, mapHeightmap_11B4E0) + 48;
+			v10 = sub_45BE0_orig(a2, a3x, &lowDiffHeightmap_D47DC, mapHeightmap_11B4E0) + 48;
 			if (lowDiffHeightmap_D47DC)
 				v10 += 8;
 			goto LABEL_28;
 		case 0xEu:
-			v10 = sub_45BE0_orig(a2, a3x, lowDiffHeightmap_D47DC, mapHeightmap_11B4E0) + 64;
+			v10 = sub_45BE0_orig(a2, a3x, &lowDiffHeightmap_D47DC, mapHeightmap_11B4E0) + 64;
 			if (lowDiffHeightmap_D47DC)
 				v10 += 8;
 		LABEL_28:
@@ -392,25 +392,25 @@ void sub_45DC0_orig(uint8_t a2, uaxis_2d a3x, unsigned __int8 a4, MapType_t mapT
 			v6 = mapTerrainType_10B4E0[a3x.word];
 			if (v6 == 10 || v6 == 11 || v6 == 12)
 				break;
-			v7 = unk_D4A30 + 2 * sub_45BE0_orig(a2, a3x, lowDiffHeightmap_D47DC, mapHeightmap_11B4E0);
+			v7 = unk_D4A30 + 2 * sub_45BE0_orig(a2, a3x, &lowDiffHeightmap_D47DC, mapHeightmap_11B4E0);
 			goto LABEL_29;
 		case 0x11u:
-			v7 = &unk_D4A30[64] + 2 * sub_45BE0_orig(a2, a3x, lowDiffHeightmap_D47DC, mapHeightmap_11B4E0);
+			v7 = &unk_D4A30[64] + 2 * sub_45BE0_orig(a2, a3x, &lowDiffHeightmap_D47DC, mapHeightmap_11B4E0);
 			goto LABEL_29;
 		case 0x12u:
-			v7 = &unk_D4A30[80] + 2 * (v24 + sub_45BE0_orig(a2, a3x, lowDiffHeightmap_D47DC, mapHeightmap_11B4E0));
+			v7 = &unk_D4A30[80] + 2 * (v24 + sub_45BE0_orig(a2, a3x, &lowDiffHeightmap_D47DC, mapHeightmap_11B4E0));
 			goto LABEL_29;
 		case 0x13u:
-			v7 = &unk_D4A30[80] + 2 * (sub_45BE0_orig(a2, a3x, lowDiffHeightmap_D47DC, mapHeightmap_11B4E0) + v24) + 16;
+			v7 = &unk_D4A30[80] + 2 * (sub_45BE0_orig(a2, a3x, &lowDiffHeightmap_D47DC, mapHeightmap_11B4E0) + v24) + 16;
 			goto LABEL_29;
 		case 0x14u:
-			v7 = &unk_D4A30[16] + 2 * sub_45BE0_orig(a2, a3x, lowDiffHeightmap_D47DC, mapHeightmap_11B4E0);
+			v7 = &unk_D4A30[16] + 2 * sub_45BE0_orig(a2, a3x, &lowDiffHeightmap_D47DC, mapHeightmap_11B4E0);
 			goto LABEL_29;
 		case 0x15u:
-			v7 = &unk_D4A30[16] + 2 * sub_45BE0_orig(a2, a3x, lowDiffHeightmap_D47DC, mapHeightmap_11B4E0) + 16;
+			v7 = &unk_D4A30[16] + 2 * sub_45BE0_orig(a2, a3x, &lowDiffHeightmap_D47DC, mapHeightmap_11B4E0) + 16;
 			goto LABEL_29;
 		case 0x16u:
-			v7 = &unk_D4A30[16] + 2 * sub_45BE0_orig(a2, a3x, lowDiffHeightmap_D47DC, mapHeightmap_11B4E0) + 32;
+			v7 = &unk_D4A30[16] + 2 * sub_45BE0_orig(a2, a3x, &lowDiffHeightmap_D47DC, mapHeightmap_11B4E0) + 32;
 		LABEL_29:
 			mapTerrainType_10B4E0[a3x.word] = v7[0];
 			mapAngle_13B4E0[a3x.word] = mapAngle_13B4E0[a3x.word] & 0x8F | v7[1];
@@ -639,7 +639,7 @@ void sub_462A0_orig(uaxis_2d a1x, uaxis_2d a2x, char isCaveLevel_D41B6, MapType_
 	}
 }
 
-uint8_t sub_45BE0_orig(uint8_t a2, uaxis_2d a3x, bool lowDiffHeightmap_D47DC, uint8_t mapHeightmap_11B4E0[])//226be0
+uint8_t sub_45BE0_orig(uint8_t a2, uaxis_2d a3x, bool* lowDiffHeightmap_D47DC, uint8_t mapHeightmap_11B4E0[])//226be0
 {
 	uaxis_2d v3x; // ax
 	uint8_t v4; // bl
@@ -721,7 +721,7 @@ uint8_t sub_45BE0_orig(uint8_t a2, uaxis_2d a3x, bool lowDiffHeightmap_D47DC, ui
 	{
 		result = a1;
 	LABEL_44:
-		lowDiffHeightmap_D47DC = v8;
+		*lowDiffHeightmap_D47DC = v8;
 		return result;
 	}
 	if (a1 > 3u)
@@ -740,27 +740,27 @@ uint8_t sub_45BE0_orig(uint8_t a2, uaxis_2d a3x, bool lowDiffHeightmap_D47DC, ui
 			goto LABEL_38;
 	LABEL_36:
 		result = 4;
-		lowDiffHeightmap_D47DC = v8;
+		*lowDiffHeightmap_D47DC = v8;
 		return result;
 	case 2:
 		if (a2 == 3)
 			goto LABEL_40;
 	LABEL_38:
 		result = 5;
-		lowDiffHeightmap_D47DC = v8;
+		*lowDiffHeightmap_D47DC = v8;
 		break;
 	case 3:
 		if (a2)
 		{
 		LABEL_40:
 			result = 6;
-			lowDiffHeightmap_D47DC = v8;
+			*lowDiffHeightmap_D47DC = v8;
 		}
 		else
 		{
 		LABEL_42:
 			result = 7;
-			lowDiffHeightmap_D47DC = v8;
+			*lowDiffHeightmap_D47DC = v8;
 		}
 		break;
 	}
