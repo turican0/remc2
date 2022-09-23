@@ -222,7 +222,7 @@ TEST(Terrain, sub_45DC0) {
 			tempHeight1[i] = mapHeightmap_11B4E0[i];
 		}
 
-		sub_45DC0_orig(tempa2, tempa3x, tempa4, lowDiffHeightmap_D47DC, isCaveLevel_D41B6, tempx_WORD_17B4E0, x_BYTE_F2CD0x, tempTerrType1, tempHeight1, tempAng1, tempShad1, tempSecHeight1);
+		sub_45DC0_orig(tempa2, tempa3x, tempa4, D41A0_0.terrain_2FECE.MapType, lowDiffHeightmap_D47DC, isCaveLevel_D41B6, &tempx_WORD_17B4E0, x_BYTE_F2CD0x, tempTerrType1, tempHeight1, tempAng1, tempShad1, tempSecHeight1);
 
 		sub_45DC0(tempa2, tempa3x, tempa4);
 
@@ -253,7 +253,7 @@ TEST(Terrain, sub_45BE0) {
 		uaxis_2d testAxis2D;
 		testAxis2D.word = pseudoRand() % (256 * 256);
 		uint8_t testA2 = pseudoRand() % 256;
-		int tempx_DWORD_D47DC = lowDiffHeightmap_D47DC;
+		bool tempx_DWORD_D47DC = lowDiffHeightmap_D47DC;
 
 		//Create Test Data
 		for (int i = 0; i < 256 * 256; i++)
@@ -261,7 +261,7 @@ TEST(Terrain, sub_45BE0) {
 			mapHeightmap_11B4E0[i] = pseudoRand() % 256;
 			tempHeight1[i] = mapHeightmap_11B4E0[i];
 		}
-		sub_45BE0_orig(testA2, testAxis2D, tempx_DWORD_D47DC, tempHeight1);
+		sub_45BE0_orig(testA2, testAxis2D, &tempx_DWORD_D47DC, tempHeight1);
 
 		sub_45BE0(testA2, testAxis2D);
 
@@ -539,9 +539,9 @@ TEST(Terrain, sub_43B40) {
 
 TEST(Terrain, sub_44580) {
 
-	pdwScreenBuffer_351628 = (uint8_t*)malloc(0x961u * 25);
+	pdwScreenBuffer_351628 = (uint8_t*)malloc(100000);
 
-	uint8_t* tempScreenBuffer1 = (uint8_t*)malloc(0x961u * 25);
+	uint8_t* tempScreenBuffer1 = (uint8_t*)malloc(100000);
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
 	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
 	uint16_t temp_x_WORD_17B4E0_1;
@@ -561,7 +561,7 @@ TEST(Terrain, sub_44580) {
 			x_BYTE_F2CD0x[i][m] = pseudoRand() % 256;
 			tempx_BYTE_F2CD0x1[i][m] = x_BYTE_F2CD0x[i][m];
 		}
-	for (int i = 0; i < 0x961u * 25; i++)
+	for (int i = 0; i < 100000; i++)
 	{
 		pdwScreenBuffer_351628[i] = pseudoRand() % 256;
 		tempScreenBuffer1[i] = pdwScreenBuffer_351628[i];
@@ -777,7 +777,7 @@ TEST(Terrain, sub_45060) {
 				tempHeight1[i] = mapHeightmap_11B4E0[i];
 			}
 
-			sub_45060_orig(x, y, mapTerrainType_10B4E0, mapHeightmap_11B4E0, mapAngle_13B4E0);
+			sub_45060_orig(x, y, tempTerrainType1, tempHeight1, tempAng1);
 			
 			sub_45060(x, y);
 

@@ -2065,10 +2065,10 @@ void sub_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
 	char tempShad;
 	char yAdd;
 	char xAdd;
-	int8_t point1;
-	int8_t point2;
-	int8_t point3;
-	int8_t point4;
+	uint8_t point1;
+	uint8_t point2;
+	uint8_t point3;
+	uint8_t point4;
 
 	tempAxis.word = inAxis2dA.word;
 	for (int indexY = inAxis2dB._axis_2d.y - inAxis2dA._axis_2d.y + 1; indexY != 0; indexY--)
@@ -2132,7 +2132,7 @@ void sub_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
 	xAdd++;
 	yAdd++;
 	tempAxis.word = inAxis2dA.word;
-	if (yAdd != -1)
+	if (yAdd != 0)
 	{
 		for (int indexY = yAdd; indexY; indexY--)
 		{
@@ -2313,7 +2313,7 @@ int sub_B5D68(uint16_t inX, uint16_t inY)//296d68
 			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
 			tempAxis._axis_2d.x++;
 			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
-			tempInY._axis_2d.x = 255 - 1 - tempInY._axis_2d.x;
+			tempInY._axis_2d.x = 255 - tempInY._axis_2d.x;
 			tempAxis._axis_2d.y--;
 			finalComp = tempInY._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point2) + tempInX._axis_2d.x * (point2 - point1);
 		}
