@@ -22,7 +22,7 @@ jobs:
 
     - name: install dependencies
       run: |
-        sudo apt-get update -y \
+        sudo apt-get update
         sudo apt-get -y install \
         cmake \
         libsdl2-dev libsdl2-mixer-dev \
