@@ -7,6 +7,14 @@ endif ()
 ################################################################################
 # Source groups
 ################################################################################
+set(SOURCE_FILES__libs__findfirst
+    "../findfirst/findfirst.c"
+    "../findfirst/findfirst.h"
+    "../findfirst/spec.c"
+    "../findfirst/spec.h"
+)
+source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfirst})
+
 set(SOURCE_FILES_UNITTESTS
     "pch.cpp"
     "pch.h"
