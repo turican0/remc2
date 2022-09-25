@@ -4,11 +4,6 @@
 #include "../comparison/engine/OriginalTerrain.h"
 #include "../../remc2/engine/Terrain.h"
 
-#ifndef _MSC_VER
-bool lowDiffHeightmap_D47DC;
-char isCaveLevel_D41B6 = 1;
-#endif
-
 TEST(Terrain, sub_B5C60_getTerrainAlt2)
 {
 
