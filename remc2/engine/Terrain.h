@@ -4,13 +4,13 @@
 #define MAIN_TERRAIN
 
 #include "Basic.h"
+#include "Unk_D4A30.h"
+#include "Unk_D47E0.h"
 
-extern uint8_t unk_D4A30[];//terrain gen
 extern char x_BYTE_F2CD0x[7 * 7 * 7 * 7][2]; // 233cd0//4802 //4816
 extern uint8_t x_BYTE_D41B7;
 
 extern uint16_t x_WORD_17B4E0;
-extern int8_t unk_D47E0[592];
 
 extern uint8_t mapTerrainType_10B4E0[65536];
 extern uint8_t mapHeightmap_11B4E0[65536];
@@ -22,7 +22,7 @@ extern bool lowDiffHeightmap_D47DC;
 
 void GenerateLevelMap_43830(type_str_2FECE* a2x);//224830
 void sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4);//296e70
-void sub_44DB0_truncTerrainHeight();//225db0 // map to heightmap
+void sub_44DB0_truncTerrainHeight(int16_t mapEntityIndex_15B4E0[], uint8_t mapHeightmap_11B4E0[]);//225db0 // map to heightmap
 int sub_B5C60_getTerrainAlt2(uint16_t a1, uint16_t a2);//296c60
 void sub_44E40(int a1, uint8_t a2);//225e40
 void sub_45AA0_setMax4Tiles();//226aa0
