@@ -20,6 +20,8 @@ set(SOURCE_FILES_UNITTESTS
     "engine/SetRenderViewPortSize_40C50UT.cpp"
     "../remc2/engine/Unk_D47E0.cpp"
     "../remc2/engine/Unk_D47E0.h"
+    "../remc2/engine/Unk_D4A30.cpp"
+    "../remc2/engine/Unk_D4A30.h"
     "../remc2/engine/engine_support.cpp"
     "../remc2/engine/engine_support.h"
     "../remc2/engine/Terrain.cpp"
