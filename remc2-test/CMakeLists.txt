@@ -8,6 +8,8 @@ endif ()
 # Source groups
 ################################################################################
 set(SOURCE_FILES_UNITTESTS
+    "pch.cpp"
+    "pch.h"
     "../remc2/engine/CommandLineParser.cpp"
     "../remc2/engine/CommandLineParser.h"
     "engine/CommandLineParserUT.cpp"
