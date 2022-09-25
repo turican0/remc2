@@ -66,6 +66,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_link_libraries(${PROJECT_NAME} PUBLIC 
     gtest
     pthread
+	remc2
 	SDL2::Main
 	SDL2::Mixer
 	${PNG_LIBRARY}
