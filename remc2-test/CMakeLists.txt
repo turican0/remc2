@@ -20,6 +20,8 @@ set(SOURCE_FILES_UNITTESTS
     "engine/SetRenderViewPortSize_40C50UT.cpp"
 	"../remc2/sub_main.cpp"
     "../remc2/sub_main.h"
+	"../remc2/utilities/Maths.cpp"
+    "../remc2/utilities/Maths.h"
 	"../remc2/utilities/DataFileIO.cpp"
     "../remc2/utilities/DataFileIO.h"
 	"../remc2/portability/port_time.cpp"
@@ -36,6 +38,8 @@ set(SOURCE_FILES_UNITTESTS
     "../remc2/engine/Unk_D4A30.h"
 	"../remc2/engine/Basic.cpp"
     "../remc2/engine/Basic.h"
+	"../remc2/engine/Sound.cpp"
+    "../remc2/engine/Sound.h"
     "../remc2/engine/engine_support.cpp"
     "../remc2/engine/engine_support.h"
     "../remc2/engine/Terrain.cpp"
@@ -66,7 +70,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_link_libraries(${PROJECT_NAME} PUBLIC 
     gtest
     pthread
-	remc2
 	SDL2::Main
 	SDL2::Mixer
 	${PNG_LIBRARY}
