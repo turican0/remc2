@@ -42,6 +42,8 @@ set(SOURCE_FILES_UNITTESTS
     "../remc2/portability/port_outputs.h"	
 	"../remc2/portability/port_sdl_sound.cpp"
     "../remc2/portability/port_sdl_sound.h"
+	"../remc2/portability/xmi2mid.cpp"
+    "../remc2/portability/xmi2mid.h"
 	"../remc2/engine/Type_WORD_D951C.cpp"
     "../remc2/engine/Type_WORD_D951C.h"
 	"../remc2/engine/Type_D404C.cpp"
