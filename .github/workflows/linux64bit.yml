@@ -22,14 +22,15 @@ jobs:
 
     - name: install dependencies
       run: |
+        sudo apt-get update
         sudo apt-get -y install \
-          cmake \
-          libsdl2-dev libsdl2-mixer-dev \
-          libsdl2-ttf-dev libsdl2-image-dev \
-          libpng-dev libpng++-dev \
-          libz-dev libgtest-dev \
-          libboost-system-dev \
-          -o APT::Immediate-Configure=0
+        cmake \
+        libsdl2-dev libsdl2-mixer-dev \
+        libsdl2-ttf-dev libsdl2-image-dev \
+        libpng-dev libpng++-dev \
+        libz-dev libgtest-dev \
+        libboost-system-dev \
+        -o APT::Immediate-Configure=0
         
     - name: cmake release
       run: |
