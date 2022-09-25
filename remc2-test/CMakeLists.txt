@@ -10,10 +10,6 @@ endif ()
 set(SOURCE_FILES_UNITTESTS
     "pch.cpp"
     "pch.h"
-	"../findfirst/findfirst.c"
-    "../findfirst/findfirst.h"
-    "../findfirst/spec.c"
-    "../findfirst/spec.h"
     "../remc2/engine/CommandLineParser.cpp"
     "../remc2/engine/CommandLineParser.h"
     "engine/CommandLineParserUT.cpp"
@@ -62,6 +58,12 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_link_libraries(${PROJECT_NAME} PUBLIC 
     gtest
     pthread
+	SDL2::Main
+	SDL2::Mixer
+	${PNG_LIBRARY}
+	findfirst
+	ADLMIDI_static
+	Boost::system
 )
 add_compile_definitions(COMPILE_FOR_64BIT)
 gtest_add_tests(
