@@ -7,17 +7,13 @@ endif ()
 ################################################################################
 # Source groups
 ################################################################################
-set(SOURCE_FILES__libs__inih
-    "../inih/ini.c"
-    "../inih/ini.h"
-    "../inih/INIReader.cpp"
-    "../inih/INIReader.h"
-)
-source_group("Source Files\\libs\\inih" FILES ${SOURCE_FILES__unittests_libs__inih})
-
 set(SOURCE_FILES_UNITTESTS
     "pch.cpp"
     "pch.h"
+	"../inih/ini.c"
+    "../inih/ini.h"
+    "../inih/INIReader.cpp"
+    "../inih/INIReader.h"
     "../remc2/engine/CommandLineParser.cpp"
     "../remc2/engine/CommandLineParser.h"
     "engine/CommandLineParserUT.cpp"
@@ -106,7 +102,6 @@ set(ROOT_NAMESPACE remc2-test)
 # Unit tests
 ################################################################################
 include(GoogleTest)
-add_executable(${PROJECT_NAME} ${SOURCE_FILES__unittests_libs__inih})
 add_executable(${PROJECT_NAME} ${SOURCE_FILES_UNITTESTS})
 target_include_directories(${PROJECT_NAME} PUBLIC
     "../remc2/engine"
