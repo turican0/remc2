@@ -2,15 +2,6 @@
 #include <gtest/gtest.h>
 #include "../../remc2/engine/ViewPort.h"
 
-#ifndef _MSC_VER
-type_F2C20ar str_F2C20ar;
-uint32_t screenHeight_180624;
-uint32_t screenWidth_18062C;
-int iScreenWidth_DE560;
-uint8_t* ViewPortRenderBufferStart_DE558;
-uint8_t* ViewPortRenderBufferAltStart_DE554;
-#endif
-
 TEST(ViewPort, SetRenderViewPortSize_40C50) {
     pdwScreenBuffer_351628 = new uint8_t[1920 * 1080 * 2];
     ViewPort viewPort;

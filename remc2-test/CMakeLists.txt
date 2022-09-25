@@ -18,6 +18,8 @@ set(SOURCE_FILES_UNITTESTS
     "portability/fcaseopenUT.cpp"
     "../remc2/engine/ViewPort.cpp"
     "engine/SetRenderViewPortSize_40C50UT.cpp"
+	"../remc2/utilities/DataFileIO.cpp"
+    "../remc2/utilities/DataFileIO.h"
 	"../remc2/portability/port_time.cpp"
     "../remc2/portability/port_time.h"
 	"../remc2/portability/port_filesystem.cpp"
