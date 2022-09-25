@@ -52,7 +52,6 @@ set(ROOT_NAMESPACE remc2-test)
 # Unit tests
 ################################################################################
 include(GoogleTest)
-add_library(findfirst ${SOURCE_FILES__libs__findfirst})
 add_executable(${PROJECT_NAME} ${SOURCE_FILES_UNITTESTS})
 target_include_directories(${PROJECT_NAME} PUBLIC
     "../remc2/engine"
