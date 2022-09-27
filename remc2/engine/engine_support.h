@@ -18,6 +18,7 @@
 #endif
 
 #include "global_types.h"
+#include "MapType.h"
 #include "../portability/port_time.h"
 #include "../portability/port_sdl_vga_mouse.h"
 
@@ -895,8 +896,6 @@ typedef struct {
 	uint8_t stub[1];*/
 }
 type_str_0x36442;
-
-enum class MapType_t : std::uint8_t { Day = 0, Night = 1, Cave = 2 };
 
 typedef struct {//lenght 0x6604u
 	uint16_t word_2FECE;
