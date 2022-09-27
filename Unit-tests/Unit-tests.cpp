@@ -3,7 +3,6 @@
 #include <chrono>
 #include <thread>
 #include <iostream>
-#include "Terrain-tests.h"
 #include "Regress-tests.h"
 
 int main(int argc, char** argv)
@@ -15,8 +14,6 @@ int main(int argc, char** argv)
 		if(i!=22)
 			run_regtest(i);
 	printf("\n");
-	printf("--- Terrain tests ---\n\n");
-	Terrain_test();
 
 	printf("\nAll tests passed\n");
 

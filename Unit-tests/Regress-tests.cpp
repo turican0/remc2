@@ -1,4 +1,3 @@
-#include "Basic-tests.h"
 #include "Regress-tests.h"
 
 void sub_main_thread(int argc, char** argv, char**  envp)
@@ -15,7 +14,7 @@ void sub_main_thread(int argc, char** argv, char**  envp)
 int run_regtest(int level)//236F70
 {
 	unitTests = true;
-	std::string locUnitTestsPath = "c:/prenos/remc2-bin/remc2/memimages/regressions/level" + std::to_string(level) + "/";
+	std::string locUnitTestsPath = "./memimages/regressions/level" + std::to_string(level) + "/";
 	unitTestsPath = locUnitTestsPath;
 	int locEndTestsCode;
 	endTestsCode = &locEndTestsCode;
@@ -47,7 +46,7 @@ int run_regtest(int level)//236F70
 	else
 	{
 		printf("Test Level%d - FAILED\n", level);
-		TestError();
+		return -1;
 	}
 	return 0;
 }
