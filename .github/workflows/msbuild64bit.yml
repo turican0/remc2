@@ -47,4 +47,4 @@ jobs:
 
     - name: run unit tests
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: ${{env.SOLUTION_FILE_PATH}}/${{env.BUILD_PLATFORM}}/${{env.BUILD_CONFIGURATION}}/remc2-test.exe
+      run: ${{env.SOLUTION_FILE_PATH}}/${{env.BUILD_PLATFORM}}/${{env.BUILD_CONFIGURATION}}/remc2-unit-test.exe
