@@ -21,9 +21,9 @@ int run_regtest(int level)//236F70
 
 	int argc = 4;
 	char* argv[4];
-	char* arg1 = "remc2";
-	char* arg2 = "--mode_test_regressions_game";
-	char* arg3 = "reglevel";
+	char arg1[] = "remc2";
+	char arg2[] = "--mode_test_regressions_game";
+	char arg3[] = "reglevel";
 	char* envp[] = { nullptr };
 	char arg4[4];
 	sprintf(arg4, "%d", level - 1);
