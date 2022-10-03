@@ -31,7 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Regress-tests.cpp" />
-    <ClCompile Include="Unit-tests.cpp" />
+    <ClCompile Include="Tests.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -286,17 +286,4 @@
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\boost.1.79.0\build\boost.targets" Condition="Exists('..\packages\boost.1.79.0\build\boost.targets')" />
-    <Import Project="..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets" Condition="Exists('..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets')" />
-    <Import Project="..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets" Condition="Exists('..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets')" />
-  </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>Tenhle projekt odkazuje na balíčky NuGet, které nejsou v tomhle počítači k dispozici. Když je chcete stáhnout, použijte funkci obnovení balíčků NuGet.  Další informace najdete na adrese http://go.microsoft.com/fwlink/?LinkID=322105. Chybějícím souborem je soubor {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\boost.1.79.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.79.0\build\boost.targets'))" />
-    <Error Condition="!Exists('..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets'))" />
-    <Error Condition="!Exists('..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets'))" />
-  </Target>
 </Project>
