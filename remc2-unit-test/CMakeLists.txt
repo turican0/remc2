@@ -97,7 +97,7 @@ set(SOURCE_FILES_UNITTESTS
 )
 source_group("Source Files\\unittests" FILES ${SOURCE_FILES_UNITTESTS})
 
-set(ROOT_NAMESPACE remc2-test)
+set(ROOT_NAMESPACE remc2-unit-test)
 
 
 ################################################################################
