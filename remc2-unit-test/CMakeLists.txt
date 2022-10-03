@@ -1,4 +1,4 @@
-project(remc2-test C CXX)
+project(remc2-unit-test C CXX)
 
 if (USE_CLANG_TIDY)
     set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=misc-unused-parameters")
