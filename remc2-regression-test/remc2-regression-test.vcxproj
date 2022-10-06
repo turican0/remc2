@@ -38,6 +38,12 @@
       <Project>{1df21d49-cdf7-47fb-a256-0813c1ec5923}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="regression-config.ini">
+      <DeploymentContent>true</DeploymentContent>
+      <FileType>Text</FileType>
+    </None>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{5a8f70a7-dfc4-4103-bfc2-c8e212918a73}</ProjectGuid>

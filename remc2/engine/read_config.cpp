@@ -43,7 +43,7 @@ std::string findIniFile() {
 	}
 #else //__linux__
 	if (CommandLineParams.GetConfigFilePath().length() > 0) {
-		inifile_locations.push_back(get_exe_path() + CommandLineParams.GetConfigFilePath());
+		inifile_locations.push_back(CommandLineParams.GetConfigFilePath());
 	} else {
 		auto home_drive = std::getenv("HOMEDRIVE");
 		auto home_path = std::getenv("HOMEPATH");
