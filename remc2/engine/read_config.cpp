@@ -42,14 +42,18 @@ std::string findIniFile() {
 		inifile_locations.emplace_back(home_dir / ".config" / "remc2" / "config.ini");
 	}
 #else //__linux__
-	auto home_drive = std::getenv("HOMEDRIVE");
-	auto home_path =  std::getenv("HOMEPATH");
-	if (home_drive && home_path) {
-		std::string home_dir = std::string(home_drive) + "/" + std::string(home_path);
-		inifile_locations.push_back(home_dir + "/remc2/config.ini");
-	}
+	if (CommandLineParams.GetConfigFilePath().length() > 0) {
+		inifile_locations.push_back(get_exe_path() + CommandLineParams.GetConfigFilePath());
+	} else {
+		auto home_drive = std::getenv("HOMEDRIVE");
+		auto home_path = std::getenv("HOMEPATH");
+		if (home_drive && home_path) {
+			std::string home_dir = std::string(home_drive) + "/" + std::string(home_path);
+			inifile_locations.push_back(home_dir + "/remc2/config.ini");
+		}
 #endif //__linux__
-	inifile_locations.push_back(get_exe_path() + "/config.ini");
+		inifile_locations.push_back(get_exe_path() + "/config.ini");
+	}
 	std::string inifile;
 	// first location at which an inifile can be found is chosen
 	for (auto inifile_location: inifile_locations) {
@@ -58,6 +62,7 @@ std::string findIniFile() {
 			break;
 		}
 	}
+
 
 	return inifile;
 }

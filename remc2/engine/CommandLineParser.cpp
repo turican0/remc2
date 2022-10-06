@@ -45,7 +45,9 @@ void CommandLineParser::Init(int argc, char **argv) {
     m_test_network_chng1 = false;
     m_show_debug_messages1 = false;
     m_text_output_to_console = false;
+
     m_memimages_path = "../remc2/memimages/";
+    m_config_file_path = "";
 
     this->m_params.clear();
     for (int i=1; i < argc; ++i) {
@@ -186,6 +188,9 @@ void CommandLineParser::InterpretParams() {
         else if (param == "--text_output_to_console")           m_text_output_to_console = true;
         else if (param == "--memimages_path") {
             m_memimages_path = *(++p);
+        }
+        else if (param == "--config_file_path") {
+            m_config_file_path = *(++p);
         }
     }
 }

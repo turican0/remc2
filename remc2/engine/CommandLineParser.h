@@ -52,6 +52,7 @@ class CommandLineParser {
 
         // settings
         std::string GetMemimagesPath() const {return m_memimages_path;};
+        std::string GetConfigFilePath() const { return m_config_file_path; };
 
     private:
         void InterpretParams();
@@ -97,6 +98,7 @@ class CommandLineParser {
         bool m_show_debug_messages1;
         bool m_text_output_to_console;
         std::string m_memimages_path;
+        std::string m_config_file_path;
 };
 
 extern CommandLineParser CommandLineParams;
