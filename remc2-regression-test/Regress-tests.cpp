@@ -14,7 +14,7 @@ void sub_main_thread(int argc, char** argv, char**  envp)
 int run_regtest(int level)//236F70
 {
 	unitTests = true;
-	std::string locUnitTestsPath = get_exe_path() + "../remc2/memimages/regressions/level" + std::to_string(level) + "/";
+	std::string locUnitTestsPath = get_exe_path() + "/../remc2/memimages/regressions/level" + std::to_string(level);
 	unitTestsPath = locUnitTestsPath;
 	int locEndTestsCode;
 	endTestsCode = &locEndTestsCode;
@@ -28,7 +28,7 @@ int run_regtest(int level)//236F70
 	sprintf(arg4, "%d", level - 1);
 	char arg5[] = "--config_file_path";
 
-	std::string path = get_exe_path() + CommandLineParams.GetConfigFilePath() + "/regression-config.ini";
+	std::string path = get_exe_path() + "/regression-config.ini";
 	char* arg6 = &path[0];
 	char* envp[] = { nullptr };
 	argv[0] = arg1;

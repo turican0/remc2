@@ -17,6 +17,6 @@ int main(int argc, char** argv)
 
 	printf("\nAll tests passed\n");
 
-	std::this_thread::sleep_for(std::chrono::milliseconds(20000));
+	std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 	return(0);
 }
