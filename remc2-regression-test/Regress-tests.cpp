@@ -14,7 +14,7 @@ void sub_main_thread(int argc, char** argv, char**  envp)
 int run_regtest(int level)//236F70
 {
 	unitTests = true;
-	std::string locUnitTestsPath = get_exe_path() + "/../remc2/memimages/regressions/level" + std::to_string(level);
+	std::string locUnitTestsPath = get_exe_path() + "/memimages/regressions/level" + std::to_string(level);
 	unitTestsPath = locUnitTestsPath;
 	int locEndTestsCode;
 	endTestsCode = &locEndTestsCode;

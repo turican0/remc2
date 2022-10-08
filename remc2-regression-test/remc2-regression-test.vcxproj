@@ -39,9 +39,459 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="memimages\regressions\level10\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
     <None Include="regression-config.ini">
       <DeploymentContent>true</DeploymentContent>
       <FileType>Text</FileType>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
     </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
