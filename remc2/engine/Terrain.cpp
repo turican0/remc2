@@ -77,6 +77,11 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 			{
 				if (index >= exitindex)
 				{
+					int i = getcompstrindex(adress);
+					if (i > -1)
+					{
+						compstr[i].index = 0;
+					}
 					End_thread(20);
 				}
 				if (!skip)
