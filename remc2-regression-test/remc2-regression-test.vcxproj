@@ -27,10 +27,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Regress-tests.h" />
+    <ClInclude Include="Regression-tests.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Regress-tests.cpp" />
+    <ClCompile Include="Regression-tests.cpp" />
     <ClCompile Include="Tests.cpp" />
   </ItemGroup>
   <ItemGroup>

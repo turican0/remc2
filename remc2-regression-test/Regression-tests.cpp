@@ -1,4 +1,4 @@
-#include "Regress-tests.h"
+#include "Regression-tests.h"
 
 void sub_main_thread(int argc, char** argv, char**  envp)
 {

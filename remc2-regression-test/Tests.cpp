@@ -3,7 +3,7 @@
 #include <chrono>
 #include <thread>
 #include <iostream>
-#include "Regress-tests.h"
+#include "Regression-tests.h"
 
 int main(int argc, char** argv)
 {
