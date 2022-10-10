@@ -52,6 +52,12 @@ jobs:
         cd ${{ github.workspace }}
         cd build_release/remc2-unit-test
         ./remc2-unit-test
+        
+    - name: run regression tests
+      run: |
+        cd ${{ github.workspace }}
+        cd build_release/remc2-regression-test
+        ./remc2-regression-test
 
     - name: sonarcloud scan
       if: github.repository_owner == 'thobbsinteractive'
