@@ -14,9 +14,7 @@ void sub_main_thread(int argc, char** argv, char**  envp)
 int run_regtest(int level)//236F70
 {
 	unitTests = true;
-	printf("Getting exe Path\n");
 	std::string locUnitTestsPath = get_exe_path() + "/memimages/regressions/level" + std::to_string(level);
-	printf("Got Path\n");
 	unitTestsPath = locUnitTestsPath;
 	int locEndTestsCode;
 	endTestsCode = &locEndTestsCode;
@@ -45,7 +43,6 @@ int run_regtest(int level)//236F70
 		compstr[i].adress = 0;
 		compstr[i].index = 0;
 	}
-	printf("Setting Command Line Params\n");
 	CommandLineParams.Init(argc, argv);
 	support_begin();
 	x_BYTE_D4B80 = 0;
@@ -53,7 +50,6 @@ int run_regtest(int level)//236F70
 	for (int i = 0; i < 504; i++)
 		str_DWORD_F66F0x[i] = nullptr;
 	x_DWORD_E9C28_str = nullptr;
-	printf("Running thread\n");
 	std::thread mainThread(sub_main_thread, argc, argv, envp);
 	mainThread.join();
 	support_end();
