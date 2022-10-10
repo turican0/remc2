@@ -8,17 +8,18 @@ int run_regtest(int level)//236F70
 	int locEndTestsCode;
 	endTestsCode = &locEndTestsCode;
 
-	int argc = 6;
-	char* argv[6];
+	int argc = 7;
+	char* argv[7];
 	char arg1[] = "remc2";
 	char arg2[] = "--mode_test_regressions_game";
-	char arg3[] = "reglevel";
-	char arg4[4];
-	sprintf(arg4, "%d", level - 1);
-	char arg5[] = "--config_file_path";
+	char arg3[] = "--text_output_to_console";
+	char arg4[] = "reglevel";
+	char arg5[4];
+	sprintf(arg5, "%d", level - 1);
+	char arg6[] = "--config_file_path";
 
 	std::string path = get_exe_path() + "/regression-config.ini";
-	char* arg6 = &path[0];
+	char* arg7 = &path[0];
 	char* envp[] = { nullptr };
 	argv[0] = arg1;
 	argv[1] = arg2;
@@ -26,12 +27,14 @@ int run_regtest(int level)//236F70
 	argv[3] = arg4;
 	argv[4] = arg5;
 	argv[5] = arg6;
+	argv[6] = arg7;
 
 	for (int i = 0; i < 100; i++)
 	{
 		compstr[i].adress = 0;
 		compstr[i].index = 0;
 	}
+
 	CommandLineParams.Init(argc, argv);
 	support_begin();
 	x_BYTE_D4B80 = 0;
