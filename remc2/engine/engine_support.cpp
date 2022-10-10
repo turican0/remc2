@@ -510,6 +510,7 @@ void allert_error() {
 
 void Exit_thread()
 {
+	printf("Exit_thread called");
 	thread_exit_exception e;
 	throw e;
 }
