@@ -16,10 +16,6 @@ uint8_t x_BYTE_D41B7 = 44; // weak
 
 //for debuging
 int countcompindexes = 0;
-typedef struct {
-	int index;
-	uint32_t adress;
-} type_compstr;
 
 type_compstr compstr[100];
 int getcompstrindex(uint32_t address) {

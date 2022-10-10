@@ -61,4 +61,11 @@ bool sub_11E70(type_event_0x6E8E* a1, axis_3d* a2);
 int sub_10C60(axis_3d* a1);
 int sub_B5D68(uint16_t a1, uint16_t a2);
 
+typedef struct {
+	int index;
+	uint32_t adress;
+} type_compstr;
+
+extern type_compstr compstr[100];
+
 #endif //MAIN_TERRAIN

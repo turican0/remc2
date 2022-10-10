@@ -37,6 +37,12 @@ int run_regtest(int level)//236F70
 	argv[3] = arg4;
 	argv[4] = arg5;
 	argv[5] = arg6;
+
+	for (int i = 0; i < 100; i++)
+	{
+		compstr[i].adress = 0;
+		compstr[i].index = 0;
+	}
 	CommandLineParams.Init(argc, argv);
 	support_begin();
 	x_BYTE_D4B80 = 0;
