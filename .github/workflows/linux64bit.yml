@@ -56,6 +56,7 @@ jobs:
     - name: run regression tests
       run: |
         cd ${{ github.workspace }}
+        cp -R remc2-regression-test/memimages/* build_release/remc2-regression-test/memimages
         cd build_release/remc2-regression-test
         ./remc2-regression-test
 
