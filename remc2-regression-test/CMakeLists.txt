@@ -8,8 +8,6 @@ endif ()
 # Source groups
 ################################################################################
 set(SOURCE_FILES_REGRESSIONTESTS
-    "pch.cpp"
-    "pch.h"
     "../inih/ini.c"
     "../inih/ini.h"
     "../inih/INIReader.cpp"
