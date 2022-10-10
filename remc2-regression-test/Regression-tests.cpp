@@ -1,5 +1,18 @@
 #include "Regression-tests.h"
 
+void sub_main_thread(int argc, char** argv, char**  envp)
+{
+	try
+	{
+		sub_main(argc, argv, envp);
+	}
+	catch (const thread_exit_exception& e){}
+	catch (const std::exception& e)
+	{
+		printf("Exception running main thread: %c \n", e.what());
+	}
+}
+
 int run_regtest(int level)//236F70
 {
 	unitTests = true;
@@ -39,17 +52,8 @@ int run_regtest(int level)//236F70
 	for (int i = 0; i < 504; i++)
 		str_DWORD_F66F0x[i] = nullptr;
 	x_DWORD_E9C28_str = nullptr;
-
-	try
-	{
-		sub_main(argc, argv, envp);
-	}
-	catch (const thread_exit_exception& e){}
-	catch (const std::exception& e)
-	{
-		printf("Exception running main thread: %c \n", e.what());
-	}
-
+	std::thread mainThread(sub_main_thread, argc, argv, envp);
+	mainThread.join();
 	support_end();
 	if (locEndTestsCode == 20)
 		printf("Test Level%d - OK\n", level);
