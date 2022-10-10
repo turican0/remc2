@@ -6,8 +6,13 @@ void sub_main_thread(int argc, char** argv, char**  envp)
 	{
 		sub_main(argc, argv, envp);
 	}
-	catch (const thread_exit_exception&)
+	catch (const thread_exit_exception& e)
 	{
+		printf("Thread Exception running main thread: %c \n", e.what());
+	}
+	catch (const std::exception& e)
+	{
+		printf("Exception running main thread: %c \n", e.what());
 	}
 }
 
