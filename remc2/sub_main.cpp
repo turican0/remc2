@@ -2135,7 +2135,6 @@ void sub_712F0();
 void sub_713A0();
 //int sub_71410_process_tmaps_process_tmaps();
 void sub_715B0();
-void CleanF5538_716A0();
 void sub_716C0(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3);
 void SetF5538ByStrTMAP00TAB_71730(unsigned __int16 a1);
 void sub_71780();
@@ -53030,6 +53029,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	//skip signal(4, 1);//236FB5 - 279DC0
 	//skip signal(6, 1);//236FC1 - 279DC0
 
+	printf("\nReading Ini file\n");
 	if (!readini()) exit(1);
 
 	if (assignToSpecificCores)
@@ -53041,16 +53041,19 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	}
 
 	if (CommandLineParams.DoDisableGraphicsEnhance()) {
+		printf("Disabling enhanced graphics\n");
 		bigSprites = false;
 		bigTextures = false;
 		texturepixels = 32;
 	}
 
 	//Set Paths for game data
+	printf("Getting Game data paths\n");
 	gameDataPath = GetSubDirectoryPath(gameFolder);
 	cdDataPath = GetSubDirectoryPath(cdFolder);
 	bigGraphicsPath = GetSubDirectoryPath(bigGraphicsFolder);
 
+	printf("Initializing graphics Width: %d Height: %d\n", windowResWidth, windowResHeight);
 	VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio);
 
 	//char maindir[1024];

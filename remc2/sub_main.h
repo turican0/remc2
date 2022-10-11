@@ -431,6 +431,7 @@ typedef struct //lenght 50
 //		 } NCB;
 
 extern Pathstruct pstr[];
+extern char x_BYTE_D4B80;
 
 void j___delay(x_DWORD); // weak
 unsigned long j___clock();
@@ -612,6 +613,8 @@ void sub_101C0();
 void sub_5BCC0_set_any_variables1();
 signed int sub_5C1B0_set_any_variables2();
 signed int sub_5BF50_load_psxdata();
+
+void CleanF5538_716A0();
 
 void CreateIndexes_6EB90(filearray_struct* a1);
 

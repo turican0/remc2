@@ -1,3 +1,4 @@
+#include "../engine/engine_support.h"
 #include "port_sdl_vga_mouse.h"
 #include "port_time.h"
 
@@ -415,7 +416,8 @@ void VGA_Draw_string(char* wrstring) {
 
 int drawCounter = 0;
 void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer) {
-	if (buffer == NULL) return;
+	if (unitTests)return;
+
 	if (oldWidth != m_gamePalletisedSurface->w)
 		drawCounter = 0;
 	if (drawCounter<20)
@@ -439,6 +441,7 @@ void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer) {
 }
 
 void VGA_Init(int width, int height, bool maintainAspectRatio) {
+	if (unitTests)return;
 	m_bMaintainAspectRatio = maintainAspectRatio;
 
 #define SDL_HWPALETTE 0
@@ -802,6 +805,8 @@ void VGA_Set_mouse(int16_t x, int16_t y) {
 };
 
 void VGA_Blit(Uint8* srcBuffer) {
+	if (unitTests)return;
+
 	oldWidth = m_gamePalletisedSurface->w;
 	if (CommandLineParams.DoHideGraphics()) return;
 	events();

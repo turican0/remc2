@@ -1,3 +1,0 @@
-### OPUS MKMF:  Do not remove this line!  Generated dependencies follow.
-
-sndtest.obj: comtools.h inttype.h lgsndid.h lgsound.h resource.h types.h

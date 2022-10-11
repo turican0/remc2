@@ -8,6 +8,10 @@
 extern DOS_Device* DOS_CON;
 #endif //USE_DOSBOX
 
+bool unitTests = false;
+std::string unitTestsPath;
+int* endTestsCode;
+
 const int printBufferSize = 4096;
 
 //delete after finalization
@@ -504,6 +508,25 @@ void allert_error() {
 	int c = a / b;//this is generate error
 }
 
+void Exit_thread()
+{
+	thread_exit_exception e;
+	throw e;
+}
+
+void End_thread(int backCode)
+{
+	if (unitTests)
+	{
+		*endTestsCode = backCode;
+		Exit_thread();
+	}
+	else
+		if(backCode == -1)
+			allert_error();
+		exit(backCode);
+}
+
 void support_begin() {
 	readbuffer = (uint8_t*)malloc(1000000);//fix it max 64000
 	printbuffer = (char*)malloc(printBufferSize);
@@ -871,6 +894,11 @@ uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint
 	else
 		finddir = std::string("../../dosbox-x-remc2/vs2015");
 	std::string finddir2 = GetSubDirectoryPath("", "");
+	if (unitTests)
+	{
+		finddir2 = "";
+		finddir = unitTestsPath;
+	}
 	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
 	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
@@ -912,7 +940,7 @@ uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint
 
 	if (i < size) {
 		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
-		allert_error();
+		End_thread(-1);
 	}
 	free(buffer);
 	fclose(fptestepc);
@@ -1271,6 +1299,11 @@ uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint
 	else
 		finddir = std::string("../../dosbox-x-remc2/vs2015");
 	std::string finddir2 = GetSubDirectoryPath("", "");
+	if (unitTests)
+	{
+		finddir2 = "";
+		finddir=unitTestsPath;
+	}
 	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
 	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
@@ -1312,7 +1345,7 @@ uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint
 
 	if (i < size2) {
 		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
-		allert_error();
+		End_thread(-1);
 	}
 	free(buffer);
 	fclose(fptestepc);
