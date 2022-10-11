@@ -202,6 +202,10 @@ int getIndexedColor(int colorR, int colorG, int colorB, unsigned char* palette, 
 	int diference = 10000000000;
 	for (int i = 0; i < paletteSize / 3; i++)
 	{
+#ifdef level1 //TMAPS1 night
+		if ((i >= 0xAB) && (i <= 0xB7))
+			continue;
+#endif
 		if (transparentColor != i)
 		{
 			int testDiference = (abs(colorR - palette[i * 3 + 0]) + abs(colorG - palette[i * 3 + 1]) + abs(colorB - palette[i * 3 + 2]));
@@ -809,9 +813,7 @@ int main()
 				colorRJerr[j] -= 0.5 * colorRerr;
 				colorGJerr[j] -= 0.5 * colorGerr;
 				colorBJerr[j] -= 0.5 * colorBerr;
-
 				
-
 				x = getIndexedColor(colorR - colorRerr, colorG - colorGerr, colorB - colorBerr, content_stdpal, szstd);
 				//fwrite((char*)&x, 1, 1, fptw_outdata2);
 				buffer[i * width + j] = (char)x;
