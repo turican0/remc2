@@ -53053,7 +53053,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	cdDataPath = GetSubDirectoryPath(cdFolder);
 	bigGraphicsPath = GetSubDirectoryPath(bigGraphicsFolder);
 
-	printf("Initializing graphics Widht: %d Height: %d\n", windowResWidth, windowResHeight);
+	printf("Initializing graphics Width: %d Height: %d\n", windowResWidth, windowResHeight);
 	VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio);
 
 	//char maindir[1024];
