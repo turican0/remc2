@@ -53029,6 +53029,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	//skip signal(4, 1);//236FB5 - 279DC0
 	//skip signal(6, 1);//236FC1 - 279DC0
 
+	printf("\nReading Ini file\n");
 	if (!readini()) exit(1);
 
 	if (assignToSpecificCores)
@@ -53040,16 +53041,19 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	}
 
 	if (CommandLineParams.DoDisableGraphicsEnhance()) {
+		printf("Disabling enhanced graphics\n");
 		bigSprites = false;
 		bigTextures = false;
 		texturepixels = 32;
 	}
 
 	//Set Paths for game data
+	printf("Getting Game data paths\n");
 	gameDataPath = GetSubDirectoryPath(gameFolder);
 	cdDataPath = GetSubDirectoryPath(cdFolder);
 	bigGraphicsPath = GetSubDirectoryPath(bigGraphicsFolder);
 
+	printf("Initializing graphics Width: %d Height: %d\n", windowResWidth, windowResHeight);
 	VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio);
 
 	//char maindir[1024];

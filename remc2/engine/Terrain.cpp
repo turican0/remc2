@@ -16,25 +16,26 @@ uint8_t x_BYTE_D41B7 = 44; // weak
 
 //for debuging
 int countcompindexes = 0;
-typedef struct {
-	int index;
-	uint32_t adress;
-} type_compstr;
 
 type_compstr compstr[100];
-int getcompindex(uint32_t adress) {
-	bool finded = false;
-	int findindex = 0;
+int getcompstrindex(uint32_t address) {
+	int findindex = -1;
 	for (int i = 0; i < countcompindexes; i++)
 	{
-		if (compstr[i].adress == adress)
+		if (compstr[i].adress == address)
 		{
-			finded = true;
 			findindex = i;
 			break;
 		}
 	}
-	if (finded)
+	return findindex;
+};
+
+int getcompindex(uint32_t adress) {
+
+	int findindex = getcompstrindex(adress);
+
+	if (findindex > -1)
 	{
 		compstr[findindex].index++;
 		return compstr[findindex].index;
@@ -72,6 +73,11 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 			{
 				if (index >= exitindex)
 				{
+					int i = getcompstrindex(adress);
+					if (i > -1)
+					{
+						compstr[i].index = 0;
+					}
 					End_thread(20);
 				}
 				if (!skip)
