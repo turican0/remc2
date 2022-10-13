@@ -791,7 +791,7 @@ void InitLanguage_76A40()//257A40
 			sub_7ADE0(1);
 		}
 	}
-	if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex != 2 || !soundActive2_E3798)
+	if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex != 2 || !soundAble_E3798)
 		x_BYTE_D41C0 = 1;
 	x_WORD_E29D8 = 1;
 }
@@ -826,7 +826,7 @@ void Intros_76D10(char a1)//257d10
 		sub_9874D_create_index_dattab(x_DWORD_17DE38str.x_DWORD_17DEC0, x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);
 
 	sub_2EB40();
-	if (soundActive2_E3798 && x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2)
+	if (soundAble_E3798 && x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2)
 	{
 		x_BYTE_D41C1 = 0;
 		x_BYTE_D41C0 = 0;
@@ -4640,7 +4640,7 @@ void sub_82670()//263670
 				}
 				if (v0)
 				{
-					if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2 && soundActive2_E3798 || v0 >= 6)
+					if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2 && soundAble_E3798 || v0 >= 6)
 					{
 						x_BYTE_D41C1 = 0;
 						x_BYTE_D41C0 = 0;
