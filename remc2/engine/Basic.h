@@ -38,6 +38,8 @@
 #include "Type_E9C38_Smalltit.h"
 #include "Type_F2C20ar.h"
 
+#include "globals.h"
+
 #if defined(__LP64__) || defined(_WIN64) || (defined(__x86_64__) &&     !defined(__ILP32__) ) || defined(_M_X64) || defined(__ia64) || defined (_M_IA64) || defined(__aarch64__) || defined(__powerpc64__) || defined(__x86_64__) || (UINT_MAX >= 0xffffffffffffffff) || defined (COMPILE_FOR_64BIT)
 #define x64_BIT_ENVIRONMENT 1
 #else
@@ -90,9 +92,9 @@ typedef struct//lenght 613 // end 17E09D
 	*/
 	type_BYTE_17DE68x array_BYTE_17DE68x[8];
 	//uint8_t x_BYTE_17DE68x[88]; // fix it -  weak //8*11
-	//char x_BYTE_17DE69[1]; //x_BYTE_17DE68x[0x1] fix it -  weak
-	//char x_BYTE_17DE71[1]; //x_BYTE_17DE68x[0x9] fix it -  weak
-	//char x_BYTE_17DE72[78]; //x_BYTE_17DE68x[0xa] idb
+	//char x_BYTE_17DE69[1]; //x_BYTE_17DE68x[1] fix it -  weak
+	//char x_BYTE_17DE71[1]; //x_BYTE_17DE68x[9] fix it -  weak
+	//char x_BYTE_17DE72[78]; //x_BYTE_17DE68x[10] idb
 	posistruct2_t* x_DWORD_17DEC0; // weak
 	posistruct2_t* x_DWORD_17DEC4; // weak
 	posistruct2_t* x_DWORD_17DEC8; // weak
@@ -138,13 +140,13 @@ typedef struct//lenght 613 // end 17E09D
 	__int16 x_WORD_17E072; // weak
 	__int16 x_WORD_17E074; // weak
 	__int16 x_WORD_17E076; // weak
-	int8_t unk_17E078x[0xc]; // weak [11]
+	int8_t unk_17E078x[12]; // weak [11]
 	//__int16 x_WORD_17E07C; // weak unk_17E078x[4]
 	//__int16 x_WORD_17E07E; // weak unk_17E078x[6]
 	//__int16 x_WORD_17E080; // weak unk_17E078x[8]
-	//char x_BYTE_17E082; // weak unk_17E078x[0xa]
-	//char x_BYTE_17E083; // weak unk_17E078x[0xb]
-	int16_t unk_17E084x[0xc]; // weak [11]
+	//char x_BYTE_17E082; // weak unk_17E078x[10]
+	//char x_BYTE_17E083; // weak unk_17E078x[11]
+	int16_t unk_17E084x[12]; // weak [11]
 	char x_BYTE_17E09C; // weak
 } type_x_DWORD_17DE38str;
 #pragma pack (16)
@@ -161,7 +163,7 @@ extern __int16 x_WORD_D4B7C; // weak
 extern __int16 x_WORD_D4B7E; // weak
 extern type_event_0x6E8E* x_DWORD_EA3E4[1001];//2bb3e4
 
-extern uint8_t x_BYTE_F6EE0_tablesx[0x14600];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
+extern uint8_t x_BYTE_F6EE0_tablesx[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
 extern uint8_t* x_BYTE_F6EE0_tablesx_pre;
 extern uint8_t* x_BYTE_FAEE0_tablesx_pre;
 
@@ -192,7 +194,7 @@ extern int frameCount;
 extern int fps;
 
 
-extern int x_DWORD_E3E2C;
+extern int readFileStatus_E3E2C;
 
 extern char x_BYTE_D41C1; // weak
 
@@ -229,6 +231,8 @@ extern type_x_DWORD_17DE38str x_DWORD_17DE38str;
 extern uint8_t* x_DWORD_E9C38_smalltit;
 
 extern TColor unk_17D838x[]; // weak
+
+extern uint8_t x_BYTE_D41B5_texture_size;
 
 #pragma pack (1)
 typedef struct {
@@ -492,8 +496,6 @@ extern int x_DWORD_180704_mouse_byte_index1; // weak
 
 extern int x_DWORD_180644_map_resolution2_y; // weak
 extern int x_DWORD_180648_map_resolution2_x; // weak
-extern uint32_t screenHeight_180624; // weak
-extern uint32_t screenWidth_18062C; // weak
 
 extern int16_t x_DWORD_1806F8_mousex; // weak
 extern int16_t x_DWORD_1806F8_mousey; // weak
@@ -514,19 +516,21 @@ extern __int16 x_WORD_E36D4; // weak
 
 extern type_TMAPS00TAB_BEGIN_BUFFER* str_TMAPS00TAB_BEGIN_BUFFER;
 
+extern uint8_t* Zero_pointer;
+
 bool DefaultResolutions();
 
-void sub_83E80_freemem4(uint8_t* a1);
+void FreeMem_83E80(uint8_t* a1);
 int sub_84000(int a1);
 
 x_DWORD x_outp(x_DWORD, char);// weak
 x_DWORD x_inp(x_DWORD);// weak
 void stub_fix_it();
-void* sub_83CD0_malloc2(size_t a1);
+void* Malloc_83CD0(size_t a1);
 void qmemcpy(void* a, void* b, size_t c);
-int sub_9D490_free4(void* a1, int a2);
+int FreeMem_9D490(void* a1, int a2);
 int x_free(void* ptr);
-void* sub_83D70_malloc1(int a1);
+void* Malloc_83D70(int a1);
 
 void __writegsx_WORD(unsigned long Offset, unsigned short Data);
 void __writegsx_DWORD(unsigned long Offset, unsigned long Data);
@@ -544,8 +548,8 @@ void dbgfprintf(FILE* file, const char* format, ...);
 
 x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, char*);
 
-signed int sub_9DE20_get_file_lenght(char* a1);
-uint8_t* sub_9DEA0_read_file(char* a1, uint8_t* a2);
+long GetFileLenght_9DE20(char* filename);
+uint8_t* ReadFile_9DEA0(char* filename, uint8_t* buffer);
 
 FILE* x_open(char* path, int pmodex);
 

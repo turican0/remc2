@@ -38,9 +38,9 @@ kiss_image mapimagefeat;
 kiss_image mapimagecheck;
 SDL_Renderer* editor_renderer;
 
-type_entity_0x30311 temparray_0x30311[0x4b0];
-bool temparray_0x30311_inactive[0x4b0];
-bool temparray_0x30311_selected[0x4b0];
+type_entity_0x30311 temparray_0x30311[1200];
+bool temparray_0x30311_inactive[1200];
+bool temparray_0x30311_selected[1200];
 
 int max_subtype_buttons = 64;
 int max_subsubtype_buttons = 128;
@@ -78,7 +78,7 @@ void SetPixelMapSurface(int x,int y,int nx,int ny,uint8_t* adress, SDL_Surface* 
 }
 
 void init_pal() {
-	uint8_t temppal[0x300];
+	uint8_t temppal[768];
 	for (int i = 0; i < 256; i++)
 	{
 		temppal[i * 3] = i;
@@ -178,7 +178,7 @@ void terrain_recalculate() {
 	D41A0_0.rand_0x8 = D41A0_0.terrain_2FECE.seed_0x2FEE5;
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
 	sub_B5E70_decompress_terrain_map_level(x_WORD_17B4E0, D41A0_0.terrain_2FECE.offset_0x2FEE9, D41A0_0.terrain_2FECE.raise_0x2FEED, D41A0_0.terrain_2FECE.gnarl_0x2FEF1);
-	sub_44DB0_truncTerrainHeight();//225db0 //trunc and create
+	sub_44DB0_truncTerrainHeight(mapEntityIndex_15B4E0, mapHeightmap_11B4E0);//225db0 //trunc and create
 	if (stage > 0)
 	{
 		memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
@@ -220,7 +220,7 @@ void terrain_recalculate() {
 	if (stage > 9)
 	{
 		memset((void*)mapTerrainType_10B4E0, 0, 0x10000);
-		sub_43970(0);//224970 // smooth terrain
+		sub_43970();//224970 // smooth terrain
 	}
 	if (stage > 10)
 	{
@@ -914,8 +914,8 @@ int indexUndoPoint = 0;
 const int MaxUndoPoints = 5000;
 int MaxUndoPoints2 = 0;
 type_str_2FECE UndoPoint[MaxUndoPoints];
-bool UndoInactive[MaxUndoPoints][0x4b0];
-bool UndoSelected[MaxUndoPoints][0x4b0];
+bool UndoInactive[MaxUndoPoints][1200];
+bool UndoSelected[MaxUndoPoints][1200];
 
 
 static bool button_undo_event(kiss_button* button, SDL_Event* e, int* draw)
@@ -1255,14 +1255,14 @@ static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons,
 			window_selectsubtype.focus = 1;
 			max_subtype_buttons = 0x14;
 			for (int i = 0; i < max_subtype_buttons; i++) { buttons[i].normalimg = img_none; buttons[i].prelightimg = img_none; buttons[i].activeimg = img_none; }
-			buttons[0x00].normalimg = img_type02_00; buttons[0x00].prelightimg = img_type02_00; buttons[0x00].activeimg = img_type02_00;
-			buttons[0x1D].normalimg = img_type02_1D; buttons[0x1D].prelightimg = img_type02_1D; buttons[0x1D].activeimg = img_type02_1D;
-			buttons[0x02].normalimg = img_type02_02; buttons[0x02].prelightimg = img_type02_02; buttons[0x02].activeimg = img_type02_02;
-			buttons[0x03].normalimg = img_type02_03; buttons[0x03].prelightimg = img_type02_03; buttons[0x03].activeimg = img_type02_03;
-			buttons[0x04].normalimg = img_type02_04; buttons[0x04].prelightimg = img_type02_04; buttons[0x04].activeimg = img_type02_04;
-			buttons[0x05].normalimg = img_type02_04; buttons[0x05].prelightimg = img_type02_04; buttons[0x05].activeimg = img_type02_04;
-			buttons[0x07].normalimg = img_type02_07; buttons[0x07].prelightimg = img_type02_07; buttons[0x07].activeimg = img_type02_07;
-			buttons[0x08].normalimg = img_type02_08; buttons[0x08].prelightimg = img_type02_08; buttons[0x08].activeimg = img_type02_08;
+			buttons[0].normalimg = img_type02_00; buttons[0].prelightimg = img_type02_00; buttons[0].activeimg = img_type02_00;
+			buttons[29].normalimg = img_type02_1D; buttons[29].prelightimg = img_type02_1D; buttons[29].activeimg = img_type02_1D;
+			buttons[2].normalimg = img_type02_02; buttons[2].prelightimg = img_type02_02; buttons[2].activeimg = img_type02_02;
+			buttons[3].normalimg = img_type02_03; buttons[3].prelightimg = img_type02_03; buttons[3].activeimg = img_type02_03;
+			buttons[4].normalimg = img_type02_04; buttons[4].prelightimg = img_type02_04; buttons[4].activeimg = img_type02_04;
+			buttons[5].normalimg = img_type02_04; buttons[5].prelightimg = img_type02_04; buttons[5].activeimg = img_type02_04;
+			buttons[7].normalimg = img_type02_07; buttons[7].prelightimg = img_type02_07; buttons[7].activeimg = img_type02_07;
+			buttons[8].normalimg = img_type02_08; buttons[8].prelightimg = img_type02_08; buttons[8].activeimg = img_type02_08;
 			break;
 		}
 		case 5:		
@@ -1272,14 +1272,14 @@ static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons,
 			window_selectsubtype.focus = 1;
 			max_subtype_buttons = 0x14;
 			for (int i = 0; i < max_subtype_buttons; i++) { buttons[i].normalimg = img_none; buttons[i].prelightimg = img_none; buttons[i].activeimg = img_none; }
-			buttons[0x1D].normalimg = img_type05_1D; buttons[0x1D].prelightimg = img_type05_1D; buttons[0x1D].activeimg = img_type05_1D;
-			buttons[0x02].normalimg = img_type05_02; buttons[0x02].prelightimg = img_type05_02; buttons[0x02].activeimg = img_type05_02;
-			buttons[0x03].normalimg = img_type05_03; buttons[0x03].prelightimg = img_type05_03; buttons[0x03].activeimg = img_type05_03;
-			buttons[0x04].normalimg = img_type05_04; buttons[0x04].prelightimg = img_type05_04; buttons[0x04].activeimg = img_type05_04;
-			buttons[0x09].normalimg = img_type05_09; buttons[0x09].prelightimg = img_type05_09; buttons[0x09].activeimg = img_type05_09;			
-			buttons[0x0D].normalimg = img_type05_0D; buttons[0x0D].prelightimg = img_type05_0D; buttons[0x0D].activeimg = img_type05_0D;
-			buttons[0x11].normalimg = img_type05_11; buttons[0x11].prelightimg = img_type05_11; buttons[0x11].activeimg = img_type05_11;
-			buttons[0x13].normalimg = img_type05_13; buttons[0x13].prelightimg = img_type05_13; buttons[0x13].activeimg = img_type05_13;
+			buttons[29].normalimg = img_type05_1D; buttons[29].prelightimg = img_type05_1D; buttons[29].activeimg = img_type05_1D;
+			buttons[2].normalimg = img_type05_02; buttons[2].prelightimg = img_type05_02; buttons[2].activeimg = img_type05_02;
+			buttons[3].normalimg = img_type05_03; buttons[3].prelightimg = img_type05_03; buttons[3].activeimg = img_type05_03;
+			buttons[4].normalimg = img_type05_04; buttons[4].prelightimg = img_type05_04; buttons[4].activeimg = img_type05_04;
+			buttons[9].normalimg = img_type05_09; buttons[9].prelightimg = img_type05_09; buttons[9].activeimg = img_type05_09;			
+			buttons[13].normalimg = img_type05_0D; buttons[13].prelightimg = img_type05_0D; buttons[13].activeimg = img_type05_0D;
+			buttons[17].normalimg = img_type05_11; buttons[17].prelightimg = img_type05_11; buttons[17].activeimg = img_type05_11;
+			buttons[19].normalimg = img_type05_13; buttons[19].prelightimg = img_type05_13; buttons[19].activeimg = img_type05_13;
 			
 			break;
 		}
@@ -1290,14 +1290,14 @@ static void button_selectsubtype_event(kiss_button* button,kiss_button* buttons,
 			window_selectsubtype.focus = 1;
 			max_subtype_buttons = 0x3D;
 			for (int i = 0; i < max_subtype_buttons; i++) { buttons[i].normalimg = img_none; buttons[i].prelightimg = img_none; buttons[i].activeimg = img_none; }
-			buttons[0x05].normalimg = img_trigger; buttons[0x05].prelightimg = img_trigger; buttons[0x05].activeimg = img_trigger;
-			buttons[0x06].normalimg = img_type0A_06; buttons[0x06].prelightimg = img_type0A_06; buttons[0x06].activeimg = img_type0A_06;
-			buttons[0x16].normalimg = img_type0A_16; buttons[0x16].prelightimg = img_type0A_16; buttons[0x16].activeimg = img_type0A_16;
-			buttons[0x1d].normalimg = img_type0A_1D; buttons[0x1d].prelightimg = img_type0A_1D; buttons[0x1d].activeimg = img_type0A_1D;
-			buttons[0x27].normalimg = img_type0A_27; buttons[0x27].prelightimg = img_type0A_27; buttons[0x27].activeimg = img_type0A_27;
-			buttons[0x2d].normalimg = img_castle; buttons[0x2d].prelightimg = img_castle; buttons[0x2d].activeimg = img_castle;
-			buttons[0x3B].normalimg = img_type0A_3B; buttons[0x3B].prelightimg = img_type0A_3B; buttons[0x3B].activeimg = img_type0A_3B;
-			buttons[0x3C].normalimg = img_type0A_3C; buttons[0x3C].prelightimg = img_type0A_3C; buttons[0x3C].activeimg = img_type0A_3C;
+			buttons[5].normalimg = img_trigger; buttons[5].prelightimg = img_trigger; buttons[5].activeimg = img_trigger;
+			buttons[6].normalimg = img_type0A_06; buttons[6].prelightimg = img_type0A_06; buttons[6].activeimg = img_type0A_06;
+			buttons[22].normalimg = img_type0A_16; buttons[22].prelightimg = img_type0A_16; buttons[22].activeimg = img_type0A_16;
+			buttons[29].normalimg = img_type0A_1D; buttons[29].prelightimg = img_type0A_1D; buttons[29].activeimg = img_type0A_1D;
+			buttons[39].normalimg = img_type0A_27; buttons[39].prelightimg = img_type0A_27; buttons[39].activeimg = img_type0A_27;
+			buttons[45].normalimg = img_castle; buttons[45].prelightimg = img_castle; buttons[45].activeimg = img_castle;
+			buttons[59].normalimg = img_type0A_3B; buttons[59].prelightimg = img_type0A_3B; buttons[59].activeimg = img_type0A_3B;
+			buttons[60].normalimg = img_type0A_3C; buttons[60].prelightimg = img_type0A_3C; buttons[60].activeimg = img_type0A_3C;
 			break;
 		}
 		}
@@ -1318,74 +1318,74 @@ static void button_selectsubsubtype_event(kiss_button* button, kiss_button* butt
 			window_selectsubsubtype.focus = 1;
 			max_subsubtype_buttons = 0x4C;
 			for (int i = 0; i < max_subsubtype_buttons; i++) { buttons[i].normalimg = img_none; buttons[i].prelightimg = img_none; buttons[i].activeimg = img_none; }
-			buttons[0x01].normalimg = img_type0A_2D_01; buttons[0x01].prelightimg = img_type0A_2D_01; buttons[0x01].activeimg = img_type0A_2D_01;
-			buttons[0x02].normalimg = img_type0A_2D_02; buttons[0x02].prelightimg = img_type0A_2D_02; buttons[0x02].activeimg = img_type0A_2D_02;
-			buttons[0x03].normalimg = img_type0A_2D_03; buttons[0x03].prelightimg = img_type0A_2D_03; buttons[0x03].activeimg = img_type0A_2D_03;
-			buttons[0x04].normalimg = img_type0A_2D_04; buttons[0x04].prelightimg = img_type0A_2D_04; buttons[0x04].activeimg = img_type0A_2D_04;
-			buttons[0x05].normalimg = img_type0A_2D_05; buttons[0x05].prelightimg = img_type0A_2D_05; buttons[0x05].activeimg = img_type0A_2D_05;
-			buttons[0x06].normalimg = img_type0A_2D_06; buttons[0x06].prelightimg = img_type0A_2D_06; buttons[0x06].activeimg = img_type0A_2D_06;
-			buttons[0x07].normalimg = img_type0A_2D_07; buttons[0x07].prelightimg = img_type0A_2D_07; buttons[0x07].activeimg = img_type0A_2D_07;
-			buttons[0x11].normalimg = img_type0A_2D_11; buttons[0x11].prelightimg = img_type0A_2D_11; buttons[0x11].activeimg = img_type0A_2D_11;
-			buttons[0x12].normalimg = img_type0A_2D_12; buttons[0x12].prelightimg = img_type0A_2D_12; buttons[0x12].activeimg = img_type0A_2D_12;
-			buttons[0x13].normalimg = img_type0A_2D_13; buttons[0x13].prelightimg = img_type0A_2D_13; buttons[0x13].activeimg = img_type0A_2D_13;
-			buttons[0x14].normalimg = img_type0A_2D_14; buttons[0x14].prelightimg = img_type0A_2D_14; buttons[0x14].activeimg = img_type0A_2D_14;
-			buttons[0x15].normalimg = img_type0A_2D_15; buttons[0x15].prelightimg = img_type0A_2D_15; buttons[0x15].activeimg = img_type0A_2D_15;
-			buttons[0x16].normalimg = img_type0A_2D_16; buttons[0x16].prelightimg = img_type0A_2D_16; buttons[0x16].activeimg = img_type0A_2D_16;
-			buttons[0x17].normalimg = img_type0A_2D_17; buttons[0x17].prelightimg = img_type0A_2D_17; buttons[0x17].activeimg = img_type0A_2D_17;
-			buttons[0x18].normalimg = img_type0A_2D_18; buttons[0x18].prelightimg = img_type0A_2D_18; buttons[0x18].activeimg = img_type0A_2D_18;
-			buttons[0x19].normalimg = img_type0A_2D_19; buttons[0x19].prelightimg = img_type0A_2D_19; buttons[0x19].activeimg = img_type0A_2D_19;
-			buttons[0x1A].normalimg = img_type0A_2D_1A; buttons[0x1A].prelightimg = img_type0A_2D_1A; buttons[0x1A].activeimg = img_type0A_2D_1A;
-			buttons[0x1B].normalimg = img_type0A_2D_1B; buttons[0x1B].prelightimg = img_type0A_2D_1B; buttons[0x1B].activeimg = img_type0A_2D_1B;
-			buttons[0x1C].normalimg = img_type0A_2D_1C; buttons[0x1C].prelightimg = img_type0A_2D_1C; buttons[0x1C].activeimg = img_type0A_2D_1C;
-			buttons[0x1D].normalimg = img_type0A_2D_1D; buttons[0x1D].prelightimg = img_type0A_2D_1D; buttons[0x1D].activeimg = img_type0A_2D_1D;
-			buttons[0x1E].normalimg = img_type0A_2D_1E; buttons[0x1E].prelightimg = img_type0A_2D_1E; buttons[0x1E].activeimg = img_type0A_2D_1E;
-			buttons[0x1F].normalimg = img_type0A_2D_1F; buttons[0x1F].prelightimg = img_type0A_2D_1F; buttons[0x1F].activeimg = img_type0A_2D_1F;
+			buttons[1].normalimg = img_type0A_2D_01; buttons[1].prelightimg = img_type0A_2D_01; buttons[1].activeimg = img_type0A_2D_01;
+			buttons[2].normalimg = img_type0A_2D_02; buttons[2].prelightimg = img_type0A_2D_02; buttons[2].activeimg = img_type0A_2D_02;
+			buttons[3].normalimg = img_type0A_2D_03; buttons[3].prelightimg = img_type0A_2D_03; buttons[3].activeimg = img_type0A_2D_03;
+			buttons[4].normalimg = img_type0A_2D_04; buttons[4].prelightimg = img_type0A_2D_04; buttons[4].activeimg = img_type0A_2D_04;
+			buttons[5].normalimg = img_type0A_2D_05; buttons[5].prelightimg = img_type0A_2D_05; buttons[5].activeimg = img_type0A_2D_05;
+			buttons[6].normalimg = img_type0A_2D_06; buttons[6].prelightimg = img_type0A_2D_06; buttons[6].activeimg = img_type0A_2D_06;
+			buttons[7].normalimg = img_type0A_2D_07; buttons[7].prelightimg = img_type0A_2D_07; buttons[7].activeimg = img_type0A_2D_07;
+			buttons[17].normalimg = img_type0A_2D_11; buttons[17].prelightimg = img_type0A_2D_11; buttons[17].activeimg = img_type0A_2D_11;
+			buttons[18].normalimg = img_type0A_2D_12; buttons[18].prelightimg = img_type0A_2D_12; buttons[18].activeimg = img_type0A_2D_12;
+			buttons[19].normalimg = img_type0A_2D_13; buttons[19].prelightimg = img_type0A_2D_13; buttons[19].activeimg = img_type0A_2D_13;
+			buttons[20].normalimg = img_type0A_2D_14; buttons[20].prelightimg = img_type0A_2D_14; buttons[20].activeimg = img_type0A_2D_14;
+			buttons[21].normalimg = img_type0A_2D_15; buttons[21].prelightimg = img_type0A_2D_15; buttons[21].activeimg = img_type0A_2D_15;
+			buttons[22].normalimg = img_type0A_2D_16; buttons[22].prelightimg = img_type0A_2D_16; buttons[22].activeimg = img_type0A_2D_16;
+			buttons[23].normalimg = img_type0A_2D_17; buttons[23].prelightimg = img_type0A_2D_17; buttons[23].activeimg = img_type0A_2D_17;
+			buttons[24].normalimg = img_type0A_2D_18; buttons[24].prelightimg = img_type0A_2D_18; buttons[24].activeimg = img_type0A_2D_18;
+			buttons[25].normalimg = img_type0A_2D_19; buttons[25].prelightimg = img_type0A_2D_19; buttons[25].activeimg = img_type0A_2D_19;
+			buttons[26].normalimg = img_type0A_2D_1A; buttons[26].prelightimg = img_type0A_2D_1A; buttons[26].activeimg = img_type0A_2D_1A;
+			buttons[27].normalimg = img_type0A_2D_1B; buttons[27].prelightimg = img_type0A_2D_1B; buttons[27].activeimg = img_type0A_2D_1B;
+			buttons[28].normalimg = img_type0A_2D_1C; buttons[28].prelightimg = img_type0A_2D_1C; buttons[28].activeimg = img_type0A_2D_1C;
+			buttons[29].normalimg = img_type0A_2D_1D; buttons[29].prelightimg = img_type0A_2D_1D; buttons[29].activeimg = img_type0A_2D_1D;
+			buttons[30].normalimg = img_type0A_2D_1E; buttons[30].prelightimg = img_type0A_2D_1E; buttons[30].activeimg = img_type0A_2D_1E;
+			buttons[31].normalimg = img_type0A_2D_1F; buttons[31].prelightimg = img_type0A_2D_1F; buttons[31].activeimg = img_type0A_2D_1F;
 
-			buttons[0x20].normalimg = img_type0A_2D_20; buttons[0x20].prelightimg = img_type0A_2D_20; buttons[0x20].activeimg = img_type0A_2D_20;
-			buttons[0x21].normalimg = img_type0A_2D_21; buttons[0x21].prelightimg = img_type0A_2D_21; buttons[0x21].activeimg = img_type0A_2D_21;
-			buttons[0x22].normalimg = img_type0A_2D_22; buttons[0x22].prelightimg = img_type0A_2D_22; buttons[0x22].activeimg = img_type0A_2D_22;
-			buttons[0x23].normalimg = img_type0A_2D_23; buttons[0x23].prelightimg = img_type0A_2D_23; buttons[0x23].activeimg = img_type0A_2D_23;
-			buttons[0x24].normalimg = img_type0A_2D_24; buttons[0x24].prelightimg = img_type0A_2D_24; buttons[0x24].activeimg = img_type0A_2D_24;
-			buttons[0x25].normalimg = img_type0A_2D_25; buttons[0x25].prelightimg = img_type0A_2D_25; buttons[0x25].activeimg = img_type0A_2D_25;
-			buttons[0x26].normalimg = img_type0A_2D_26; buttons[0x26].prelightimg = img_type0A_2D_26; buttons[0x26].activeimg = img_type0A_2D_26;
-			buttons[0x27].normalimg = img_type0A_2D_27; buttons[0x27].prelightimg = img_type0A_2D_27; buttons[0x27].activeimg = img_type0A_2D_27;
-			buttons[0x28].normalimg = img_type0A_2D_28; buttons[0x28].prelightimg = img_type0A_2D_28; buttons[0x28].activeimg = img_type0A_2D_28;
-			buttons[0x29].normalimg = img_type0A_2D_29; buttons[0x29].prelightimg = img_type0A_2D_29; buttons[0x29].activeimg = img_type0A_2D_29;
-			buttons[0x2A].normalimg = img_type0A_2D_2A; buttons[0x2A].prelightimg = img_type0A_2D_2A; buttons[0x2A].activeimg = img_type0A_2D_2A;
-			buttons[0x2B].normalimg = img_type0A_2D_2B; buttons[0x2B].prelightimg = img_type0A_2D_2B; buttons[0x2B].activeimg = img_type0A_2D_2B;
-			buttons[0x2C].normalimg = img_type0A_2D_2C; buttons[0x2C].prelightimg = img_type0A_2D_2C; buttons[0x2C].activeimg = img_type0A_2D_2C;
-			buttons[0x2D].normalimg = img_type0A_2D_2D; buttons[0x2D].prelightimg = img_type0A_2D_2D; buttons[0x2D].activeimg = img_type0A_2D_2D;
-			buttons[0x2E].normalimg = img_type0A_2D_2E; buttons[0x2E].prelightimg = img_type0A_2D_2E; buttons[0x2E].activeimg = img_type0A_2D_2E;
-			buttons[0x2F].normalimg = img_type0A_2D_2F; buttons[0x2F].prelightimg = img_type0A_2D_2F; buttons[0x2F].activeimg = img_type0A_2D_2F;
+			buttons[32].normalimg = img_type0A_2D_20; buttons[32].prelightimg = img_type0A_2D_20; buttons[32].activeimg = img_type0A_2D_20;
+			buttons[33].normalimg = img_type0A_2D_21; buttons[33].prelightimg = img_type0A_2D_21; buttons[33].activeimg = img_type0A_2D_21;
+			buttons[34].normalimg = img_type0A_2D_22; buttons[34].prelightimg = img_type0A_2D_22; buttons[34].activeimg = img_type0A_2D_22;
+			buttons[35].normalimg = img_type0A_2D_23; buttons[35].prelightimg = img_type0A_2D_23; buttons[35].activeimg = img_type0A_2D_23;
+			buttons[36].normalimg = img_type0A_2D_24; buttons[36].prelightimg = img_type0A_2D_24; buttons[36].activeimg = img_type0A_2D_24;
+			buttons[37].normalimg = img_type0A_2D_25; buttons[37].prelightimg = img_type0A_2D_25; buttons[37].activeimg = img_type0A_2D_25;
+			buttons[38].normalimg = img_type0A_2D_26; buttons[38].prelightimg = img_type0A_2D_26; buttons[38].activeimg = img_type0A_2D_26;
+			buttons[39].normalimg = img_type0A_2D_27; buttons[39].prelightimg = img_type0A_2D_27; buttons[39].activeimg = img_type0A_2D_27;
+			buttons[40].normalimg = img_type0A_2D_28; buttons[40].prelightimg = img_type0A_2D_28; buttons[40].activeimg = img_type0A_2D_28;
+			buttons[41].normalimg = img_type0A_2D_29; buttons[41].prelightimg = img_type0A_2D_29; buttons[41].activeimg = img_type0A_2D_29;
+			buttons[42].normalimg = img_type0A_2D_2A; buttons[42].prelightimg = img_type0A_2D_2A; buttons[42].activeimg = img_type0A_2D_2A;
+			buttons[43].normalimg = img_type0A_2D_2B; buttons[43].prelightimg = img_type0A_2D_2B; buttons[43].activeimg = img_type0A_2D_2B;
+			buttons[44].normalimg = img_type0A_2D_2C; buttons[44].prelightimg = img_type0A_2D_2C; buttons[44].activeimg = img_type0A_2D_2C;
+			buttons[45].normalimg = img_type0A_2D_2D; buttons[45].prelightimg = img_type0A_2D_2D; buttons[45].activeimg = img_type0A_2D_2D;
+			buttons[46].normalimg = img_type0A_2D_2E; buttons[46].prelightimg = img_type0A_2D_2E; buttons[46].activeimg = img_type0A_2D_2E;
+			buttons[47].normalimg = img_type0A_2D_2F; buttons[47].prelightimg = img_type0A_2D_2F; buttons[47].activeimg = img_type0A_2D_2F;
 
-			buttons[0x30].normalimg = img_type0A_2D_30; buttons[0x30].prelightimg = img_type0A_2D_30; buttons[0x30].activeimg = img_type0A_2D_30;
-			buttons[0x31].normalimg = img_type0A_2D_31; buttons[0x31].prelightimg = img_type0A_2D_31; buttons[0x31].activeimg = img_type0A_2D_31;
-			buttons[0x32].normalimg = img_type0A_2D_32; buttons[0x32].prelightimg = img_type0A_2D_32; buttons[0x32].activeimg = img_type0A_2D_32;
-			buttons[0x33].normalimg = img_type0A_2D_33; buttons[0x33].prelightimg = img_type0A_2D_33; buttons[0x33].activeimg = img_type0A_2D_33;
-			buttons[0x34].normalimg = img_type0A_2D_34; buttons[0x34].prelightimg = img_type0A_2D_34; buttons[0x34].activeimg = img_type0A_2D_34;
-			buttons[0x35].normalimg = img_type0A_2D_35; buttons[0x35].prelightimg = img_type0A_2D_35; buttons[0x35].activeimg = img_type0A_2D_35;
-			buttons[0x36].normalimg = img_type0A_2D_36; buttons[0x36].prelightimg = img_type0A_2D_36; buttons[0x36].activeimg = img_type0A_2D_36;
-			buttons[0x37].normalimg = img_type0A_2D_37; buttons[0x37].prelightimg = img_type0A_2D_37; buttons[0x37].activeimg = img_type0A_2D_37;
-			buttons[0x38].normalimg = img_type0A_2D_38; buttons[0x38].prelightimg = img_type0A_2D_38; buttons[0x38].activeimg = img_type0A_2D_38;
-			buttons[0x39].normalimg = img_type0A_2D_39; buttons[0x39].prelightimg = img_type0A_2D_39; buttons[0x39].activeimg = img_type0A_2D_39;
-			buttons[0x3A].normalimg = img_type0A_2D_3A; buttons[0x3A].prelightimg = img_type0A_2D_3A; buttons[0x3A].activeimg = img_type0A_2D_3A;
-			buttons[0x3B].normalimg = img_type0A_2D_3B; buttons[0x3B].prelightimg = img_type0A_2D_3B; buttons[0x3B].activeimg = img_type0A_2D_3B;
-			buttons[0x3C].normalimg = img_type0A_2D_3C; buttons[0x3C].prelightimg = img_type0A_2D_3C; buttons[0x3C].activeimg = img_type0A_2D_3C;
-			buttons[0x3D].normalimg = img_type0A_2D_3D; buttons[0x3D].prelightimg = img_type0A_2D_3D; buttons[0x3D].activeimg = img_type0A_2D_3D;
-			buttons[0x3E].normalimg = img_type0A_2D_3E; buttons[0x3E].prelightimg = img_type0A_2D_3E; buttons[0x3E].activeimg = img_type0A_2D_3E;
-			buttons[0x3F].normalimg = img_type0A_2D_3F; buttons[0x3F].prelightimg = img_type0A_2D_3F; buttons[0x3F].activeimg = img_type0A_2D_3F;
+			buttons[48].normalimg = img_type0A_2D_30; buttons[48].prelightimg = img_type0A_2D_30; buttons[48].activeimg = img_type0A_2D_30;
+			buttons[49].normalimg = img_type0A_2D_31; buttons[49].prelightimg = img_type0A_2D_31; buttons[49].activeimg = img_type0A_2D_31;
+			buttons[50].normalimg = img_type0A_2D_32; buttons[50].prelightimg = img_type0A_2D_32; buttons[50].activeimg = img_type0A_2D_32;
+			buttons[51].normalimg = img_type0A_2D_33; buttons[51].prelightimg = img_type0A_2D_33; buttons[51].activeimg = img_type0A_2D_33;
+			buttons[52].normalimg = img_type0A_2D_34; buttons[52].prelightimg = img_type0A_2D_34; buttons[52].activeimg = img_type0A_2D_34;
+			buttons[53].normalimg = img_type0A_2D_35; buttons[53].prelightimg = img_type0A_2D_35; buttons[53].activeimg = img_type0A_2D_35;
+			buttons[54].normalimg = img_type0A_2D_36; buttons[54].prelightimg = img_type0A_2D_36; buttons[54].activeimg = img_type0A_2D_36;
+			buttons[55].normalimg = img_type0A_2D_37; buttons[55].prelightimg = img_type0A_2D_37; buttons[55].activeimg = img_type0A_2D_37;
+			buttons[56].normalimg = img_type0A_2D_38; buttons[56].prelightimg = img_type0A_2D_38; buttons[56].activeimg = img_type0A_2D_38;
+			buttons[57].normalimg = img_type0A_2D_39; buttons[57].prelightimg = img_type0A_2D_39; buttons[57].activeimg = img_type0A_2D_39;
+			buttons[58].normalimg = img_type0A_2D_3A; buttons[58].prelightimg = img_type0A_2D_3A; buttons[58].activeimg = img_type0A_2D_3A;
+			buttons[59].normalimg = img_type0A_2D_3B; buttons[59].prelightimg = img_type0A_2D_3B; buttons[59].activeimg = img_type0A_2D_3B;
+			buttons[60].normalimg = img_type0A_2D_3C; buttons[60].prelightimg = img_type0A_2D_3C; buttons[60].activeimg = img_type0A_2D_3C;
+			buttons[61].normalimg = img_type0A_2D_3D; buttons[61].prelightimg = img_type0A_2D_3D; buttons[61].activeimg = img_type0A_2D_3D;
+			buttons[62].normalimg = img_type0A_2D_3E; buttons[62].prelightimg = img_type0A_2D_3E; buttons[62].activeimg = img_type0A_2D_3E;
+			buttons[63].normalimg = img_type0A_2D_3F; buttons[63].prelightimg = img_type0A_2D_3F; buttons[63].activeimg = img_type0A_2D_3F;
 
-			buttons[0x40].normalimg = img_type0A_2D_40; buttons[0x40].prelightimg = img_type0A_2D_40; buttons[0x40].activeimg = img_type0A_2D_40;
-			buttons[0x41].normalimg = img_type0A_2D_41; buttons[0x41].prelightimg = img_type0A_2D_41; buttons[0x41].activeimg = img_type0A_2D_41;
-			buttons[0x42].normalimg = img_type0A_2D_42; buttons[0x42].prelightimg = img_type0A_2D_42; buttons[0x42].activeimg = img_type0A_2D_42;
-			buttons[0x44].normalimg = img_type0A_2D_44; buttons[0x44].prelightimg = img_type0A_2D_44; buttons[0x44].activeimg = img_type0A_2D_44;
-			buttons[0x45].normalimg = img_type0A_2D_45; buttons[0x45].prelightimg = img_type0A_2D_45; buttons[0x45].activeimg = img_type0A_2D_45;
-			buttons[0x46].normalimg = img_type0A_2D_46; buttons[0x46].prelightimg = img_type0A_2D_46; buttons[0x46].activeimg = img_type0A_2D_46;
-			buttons[0x47].normalimg = img_type0A_2D_47; buttons[0x47].prelightimg = img_type0A_2D_47; buttons[0x47].activeimg = img_type0A_2D_47;
-			buttons[0x48].normalimg = img_type0A_2D_48; buttons[0x48].prelightimg = img_type0A_2D_48; buttons[0x48].activeimg = img_type0A_2D_48;
-			buttons[0x49].normalimg = img_type0A_2D_49; buttons[0x49].prelightimg = img_type0A_2D_49; buttons[0x49].activeimg = img_type0A_2D_49;
-			buttons[0x4A].normalimg = img_type0A_2D_4A; buttons[0x4A].prelightimg = img_type0A_2D_4A; buttons[0x4A].activeimg = img_type0A_2D_4A;
-			buttons[0x4B].normalimg = img_type0A_2D_4B; buttons[0x4B].prelightimg = img_type0A_2D_4B; buttons[0x4B].activeimg = img_type0A_2D_4B;
+			buttons[64].normalimg = img_type0A_2D_40; buttons[64].prelightimg = img_type0A_2D_40; buttons[64].activeimg = img_type0A_2D_40;
+			buttons[65].normalimg = img_type0A_2D_41; buttons[65].prelightimg = img_type0A_2D_41; buttons[65].activeimg = img_type0A_2D_41;
+			buttons[66].normalimg = img_type0A_2D_42; buttons[66].prelightimg = img_type0A_2D_42; buttons[66].activeimg = img_type0A_2D_42;
+			buttons[68].normalimg = img_type0A_2D_44; buttons[68].prelightimg = img_type0A_2D_44; buttons[68].activeimg = img_type0A_2D_44;
+			buttons[69].normalimg = img_type0A_2D_45; buttons[69].prelightimg = img_type0A_2D_45; buttons[69].activeimg = img_type0A_2D_45;
+			buttons[70].normalimg = img_type0A_2D_46; buttons[70].prelightimg = img_type0A_2D_46; buttons[70].activeimg = img_type0A_2D_46;
+			buttons[71].normalimg = img_type0A_2D_47; buttons[71].prelightimg = img_type0A_2D_47; buttons[71].activeimg = img_type0A_2D_47;
+			buttons[72].normalimg = img_type0A_2D_48; buttons[72].prelightimg = img_type0A_2D_48; buttons[72].activeimg = img_type0A_2D_48;
+			buttons[73].normalimg = img_type0A_2D_49; buttons[73].prelightimg = img_type0A_2D_49; buttons[73].activeimg = img_type0A_2D_49;
+			buttons[74].normalimg = img_type0A_2D_4A; buttons[74].prelightimg = img_type0A_2D_4A; buttons[74].activeimg = img_type0A_2D_4A;
+			buttons[75].normalimg = img_type0A_2D_4B; buttons[75].prelightimg = img_type0A_2D_4B; buttons[75].activeimg = img_type0A_2D_4B;
 			
 			break;
 		}
@@ -3131,18 +3131,18 @@ int main_x(/*int argc, char** argv*/)
 	button_type[8].activeimg = img_none; button_type[8].prelightimg = img_none;
 	kiss_button_new(&button_type[9], &window_selecttype, (char*)"9", window_selecttype.rect.x + kiss_border + 40, window_selecttype.rect.y + kiss_border + 80, &img_none);
 	button_type[9].activeimg = img_none; button_type[9].prelightimg = img_none;
-	kiss_button_new(&button_type[0xa], &window_selecttype, (char*)" ", window_selecttype.rect.x + kiss_border + 80, window_selecttype.rect.y + kiss_border + 80, &img_type2D);
-	button_type[0xa].activeimg = img_type2D; button_type[0xa].prelightimg = img_type2D;
-	kiss_button_new(&button_type[0xb], &window_selecttype, (char*)" ", window_selecttype.rect.x + kiss_border + 120, window_selecttype.rect.y + kiss_border + 80, &img_trigger);
-	button_type[0xb].activeimg = img_trigger; button_type[0xb].prelightimg = img_trigger;
-	kiss_button_new(&button_type[0xc], &window_selecttype, (char*)"C", window_selecttype.rect.x + kiss_border + 0, window_selecttype.rect.y + kiss_border + 120, &img_none);
-	button_type[0xc].activeimg = img_none; button_type[0xc].prelightimg = img_none;
-	kiss_button_new(&button_type[0xd], &window_selecttype, (char*)"D", window_selecttype.rect.x + kiss_border + 40, window_selecttype.rect.y + kiss_border + 120, &img_none);
-	button_type[0xd].activeimg = img_none; button_type[0xd].prelightimg = img_none;
-	kiss_button_new(&button_type[0xe], &window_selecttype, (char*)" ", window_selecttype.rect.x + kiss_border + 80, window_selecttype.rect.y + kiss_border + 120, &img_spell);
-	button_type[0xe].activeimg = img_spell; button_type[0xe].prelightimg = img_spell;
-	kiss_button_new(&button_type[0xf], &window_selecttype, (char*)" ", window_selecttype.rect.x + kiss_border + 120, window_selecttype.rect.y + kiss_border + 120, &img_spellB);
-	button_type[0xf].activeimg = img_spellB; button_type[0xf].prelightimg = img_spellB;
+	kiss_button_new(&button_type[10], &window_selecttype, (char*)" ", window_selecttype.rect.x + kiss_border + 80, window_selecttype.rect.y + kiss_border + 80, &img_type2D);
+	button_type[10].activeimg = img_type2D; button_type[10].prelightimg = img_type2D;
+	kiss_button_new(&button_type[11], &window_selecttype, (char*)" ", window_selecttype.rect.x + kiss_border + 120, window_selecttype.rect.y + kiss_border + 80, &img_trigger);
+	button_type[11].activeimg = img_trigger; button_type[11].prelightimg = img_trigger;
+	kiss_button_new(&button_type[12], &window_selecttype, (char*)"C", window_selecttype.rect.x + kiss_border + 0, window_selecttype.rect.y + kiss_border + 120, &img_none);
+	button_type[12].activeimg = img_none; button_type[12].prelightimg = img_none;
+	kiss_button_new(&button_type[13], &window_selecttype, (char*)"D", window_selecttype.rect.x + kiss_border + 40, window_selecttype.rect.y + kiss_border + 120, &img_none);
+	button_type[13].activeimg = img_none; button_type[13].prelightimg = img_none;
+	kiss_button_new(&button_type[14], &window_selecttype, (char*)" ", window_selecttype.rect.x + kiss_border + 80, window_selecttype.rect.y + kiss_border + 120, &img_spell);
+	button_type[14].activeimg = img_spell; button_type[14].prelightimg = img_spell;
+	kiss_button_new(&button_type[15], &window_selecttype, (char*)" ", window_selecttype.rect.x + kiss_border + 120, window_selecttype.rect.y + kiss_border + 120, &img_spellB);
+	button_type[15].activeimg = img_spellB; button_type[15].prelightimg = img_spellB;
 
 	for (int i = 0; i < max_subtype_buttons; i++)
 	{

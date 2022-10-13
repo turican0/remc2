@@ -1,11 +1,13 @@
 #include "port_outputs.h"
 #include "port_sdl_vga_mouse.h"
+#include "../engine/CommandLineParser.h"
 
 void myWriteOut(const char * format, ...) {
 #ifdef USE_DOSBOX
 	DEBUG_ShowMsg(format);
 #else
-	printf("%s", format);
+	if (CommandLineParams.DoTextOutputToConsole())
+		printf("%s", format);
 	VGA_Draw_string((char*)format);
 #endif //USE_DOSBOX
 
@@ -25,7 +27,8 @@ void myprintf(const char * format, ...) {
 #ifdef USE_DOSBOX
 	DEBUG_ShowMsg(prbuffer);
 #else
-	printf("%s", prbuffer);
+	if(CommandLineParams.DoTextOutputToConsole())
+		printf("%s", prbuffer);
 	VGA_Draw_string(prbuffer);
 #endif //USE_DOSBOX
 

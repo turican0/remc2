@@ -269,6 +269,48 @@ typedef struct {//lenght 18
 type_E24BCx;
 #pragma pack (16)
 
+
+#pragma pack (1)
+typedef struct {//lenght 18
+	int16_t word_0;
+	int16_t word_2;
+	int16_t word_4;
+	int16_t word_6;
+	int16_t word_8;
+	int16_t word_10;
+	int16_t word_12;
+	int16_t word_14;
+	int16_t word_16;
+}
+type_x_BYTE_E25ED_2BB;
+#pragma pack (16)
+
+#pragma pack (1)
+typedef struct {
+	int32_t x_DWORD_18058C;
+	int32_t x_DWORD_180590; // [4]//unk_18058Cstr.x_DWORD_180590//1
+	int32_t x_DWORD_180594; // [8]//unk_18058Cstr.x_DWORD_180594//2
+	int32_t x_DWORD_180598; // [12]//unk_18058Cstr.x_DWORD_180598//3
+	int32_t x_DWORD_18059C; // [16]//unk_18058Cstr.x_DWORD_18059C//4
+	int32_t x_DWORD_1805A0; // weak//unk_18058Car[20]//5
+	int32_t x_DWORD_1805A4; // weak//unk_18058Car[0x18]//6
+	int32_t x_DWORD_1805A8; // weak//unk_18058Car[28]//7
+	int32_t x_DWORD_1805AC; // weak//unk_18058Car[0x20]//8
+	axis_2d_32 x_DWORD_1805B0_mouse;
+	//int32_t x_DWORD_1805B0_mouse.x; // weak//unk_18058Car[36]
+	//int32_t x_DWORD_1805B0_mouse.y; // weak//unk_18058Car[40]
+	int32_t x_DWORD_1805B8_mouse_position_x; // weak//unk_18058Car[44]
+	int32_t x_DWORD_1805BC_mouse_position_y; // weak//unk_18058Car[48]
+	int16_t x_WORD_1805C0_arrow_keys; // weak//unk_18058Car[52] // keyboard buttons
+	int16_t x_WORD_1805C2_joystick; // weak//unk_18058Car[54]
+	int16_t x_WORD_1805C4_vio1_analog_joy; // weak//unk_18058Car[56]
+	int16_t x_WORD_1805C6_vio2_analog_joy; // weak//unk_18058Car[58]
+	int16_t x_WORD_1805C8; // weak//unk_18058Car[60]
+	uint8_t unk_1805CE[84]; // weak//unk_18058Car[66]
+	int16_t stub_180622;
+} type_unk_18058Cstr;//end 180624
+#pragma pack (16)
+
 //extern type_x_DWORD_17DE38str x_DWORD_17DE38str;
 /*
 extern int16_t x_DWORD_17DEE4_mouse_positionx; // weak
@@ -297,12 +339,13 @@ extern char x_BYTE_17DF11_last_key_status; // weak
 
 extern uint16_t x_WORD_17B4E0; // 34c4e0
 
+
 extern char isCaveLevel_D41B6;
 
 #pragma pack (1)
 typedef struct {//lenght 16
-	int16_t word_26_0;//0 x
-	int16_t word_28_1;//1 y
+	int16_t x1_26_0;//0 x
+	int16_t y1_28_1;//1 y
 	int16_t word_30_2;//2
 	int16_t word_32_3;//3
 	int16_t word_34_4;//4
@@ -344,19 +387,29 @@ type_WORD_E1F84;
 #pragma pack (16)
 
 #pragma pack (1)
-typedef struct {//lenght 24
-uint32_t dword_0;
-uint32_t dword_4;
-uint32_t dword_8;
-uint32_t dword_12;
-uint16_t word_16;
-uint16_t word_18;
-uint16_t word_20;
-uint16_t word_22;
-}
-type_E1BAC_0x3c4;
+typedef struct //lenght 50
+{
+	uint32_t x_DWORD_17DB70; // weak
+	int16_t x_WORD_17DB74; // weak 4
+	int16_t unk_17DB76_posx; // weak 6
+	int16_t unk_17DB78_posy; // weak 8
+	int16_t fill1; // test 10
+	int16_t fill2; // test 12
+	int16_t unk_17DB7E; // weak 14
+	int16_t unk_17DB80; // weak 16
+	int16_t x_WORD_17DB82_shift_step; // weak 18
+	int16_t x_WORD_17DB84; // weak 20
+	int16_t x_WORD_17DB86; // weak 22
+	int16_t x_WORD_17DB88; // weak 24
+	int16_t x_WORD_17DB8A; // weak 26
+	int16_t x_WORD_17DB8C; // weak 28
+	int8_t x_BYTE_17DB8E; // weak 30
+	int8_t x_BYTE_17DB8F; // weak 31
+	int16_t unk_17DB90; // weak 32
+	uint8_t unk_17DB92[6]; // weak 32
+	uint8_t fill3[16]; // fill
+} type_x_DWORD_17DB70str;
 #pragma pack (16)
-
 
 // typedef struct NCB{
 //				BYTE     ncb_command;	/* NetBIOS command (see netbios.h) */
@@ -378,27 +431,14 @@ type_E1BAC_0x3c4;
 //		 } NCB;
 
 extern Pathstruct pstr[];
+extern char x_BYTE_D4B80;
+
+void j___delay(x_DWORD); // weak
+unsigned long j___clock();
 
 void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
 
-void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4);
-void sub_44DB0_truncTerrainHeight();
-void sub_44E40(int a1, unsigned __int8 a2);
-void sub_45AA0_setMax4Tiles();
-void sub_43B40();
-void sub_43BB0();
 void sub_43C60(unsigned __int8 a1, char a2, int a3, int a4);
-void sub_43D50();
-void sub_43EE0();
-void sub_43FC0();
-void sub_440D0(unsigned __int16 a1);
-void sub_44320();
-void sub_44580();
-void sub_44D00();
-void sub_45060(unsigned __int8 a1, unsigned __int8 a2);
-void sub_45210(unsigned __int8 a1, unsigned __int8 a2);
-void sub_454F0(unsigned __int8 a1, unsigned __int8 a2);
-void sub_45600(unsigned __int8 a1);
 
 void SetStagetagForTermod_49830(type_str_2FECE* terrain);
 void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint16_t height);
@@ -411,7 +451,6 @@ void sub_6EBF0(filearray_struct* a1);
 
 char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
 
-bool sub_7B200_in_region(type_WORD_E1F84* a1x, int16_t testx, int16_t testy);
 //int /*__noreturn*/ sub_10000(); // weak
 type_event_0x6E8E* sub_15CB0(/*type_str_0x6E8E* a1,*/ type_event_0x6E8E* a2); // weak
 char sub_15D40(__int16 a1, type_event_0x6E8E* a2, type_event_0x6E8E* a3); // weak
@@ -429,30 +468,36 @@ signed int sub_369F0(/*signed int a1,*/ __int16 a2);
 //void qmemcpy(void* a, void* b, size_t c);
 void sub_2A340(/*int a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3, int a4, *//*type_str_0x6E8E* a5, */type_event_0x6E8E* a6);
 void sub_2AA90(/*type_str_0x6E8E* a1, */type_event_0x6E8E* a2, type_event_0x6E8E* a3);
+void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void ClearGraphicsBuffer_72883(void* ptrBuffer, uint16_t width, uint16_t height, char value);
-void DrawVolumnSettings_303D0();
+void DrawVolumeSettings_303D0();
 int _wcpp_1_unwind_leave__62(void); //weak
 //int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
-void sub_45DC0(/*uint8_t a1,*/ uint8_t a2, uaxis_2d a3, unsigned __int8 a4);
 signed int sub_36A50(/*signed int a1, */char a2);
 void sub_36920(/*signed __int16 a1, */type_event_0x6E8E* a2);
 void sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
-unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2);
 //void __outx_WORD(unsigned short Port, unsigned short Data);
 //void __outx_BYTE(unsigned short Port, unsigned char Data);
 //unsigned char __inx_BYTE(unsigned short Port);
-void sub_43970(unsigned int a1);
+void sub_41BC0();
 void sub_44EE0_smooth_tiles(/*int a1, */uaxis_2d a2);
+void sub_54600_mouse_reset();
 void sub_56A30_init_game_level(unsigned int a1);
+void sub_5B870_copy_sentence(char* langbuffer, char** langindexbuffer, uint32_t count);
 void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
+void SetCenterScreenForFlyAssistant_6EDB0();
 void VGA_BlitAny();
 void VGA_CalculateAndPrintFPS(int x, int y);
+int NetworkInitConnection_7308F(char* a2, __int16 a3);
+void NetworkUpdateConnections2_74374();
+int16_t GetIndexNetwork2_74515();
 void sub_7A060_get_mouse_and_keyboard_events();
+void sub_7AA70_load_and_decompres_dat_file(const char* a1, uint8_t* a2, int a3, int a4);
 void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
 void GameEvents_51BB0();
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
-void sub_55C60(/*int a1, int a2,*/ type_str_0x2BDE* a3);
+void sub_55C60(type_str_0x2BDE* loc0x2BDE);
 int32_t /*__cdecl*/ fix_filelength(int32_t);// weak
 //x_DWORD /*__cdecl*/ access(char* path, uint32_t flags);// weak
 //x_DWORD /*__cdecl*/ mkdir(char* path);
@@ -476,13 +521,19 @@ uint8_t NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* a2x, char* a3);
 //int int386x(int, REGS *, REGS *, struct SREGS *);
 //unsigned char __readgsx_BYTE(unsigned long Offset);
 //unsigned short __readgsx_WORD(unsigned long Offset);
-//int /*__fastcall*/ _wcpp_1_unwind_leave__131(x_DWORD);// weak
-void sub_7AB00_draw_menu_animations();
-int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char* a5, int8_t* a6, unsigned __int8 a7);
+void sub_753D0();
+void sub_7A110_load_hscreen(char a1, char a2);
+void ResetMouse_7B5A0();
+void sub_7B5D0();
+void ClearScrollDialogVars_7C020(type_str_word_26* a1x);
+char sub_7C200(uint8_t a1);
+void sub_7E840_draw_textbox_with_line(type_E24BCx* a1x, __int16 a2, __int16 a3);
+void sub_7E8D0(x_WORD* a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5, __int16 a6, __int16 a7);
+bool sub_7E9D0(x_WORD* a1, x_WORD* a2, x_WORD* a3);
 void sub_81CA0(int a1, int a2, __int16 a3, __int16 a4, type_x_BYTE_E25ED_db_str* a5);
 signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, uint8_t* a5, __int16 a6, __int16 a7);
 void sub_81260(int a1, int a2, int8_t* a3, __int16 a4, __int16 a5);
-void sub_82510(/*__int16 a1*//*, int *a2*/);
+int sub_812D0_drawDotBitmap(__int16 a1, __int16 a2);
 signed __int16 sub_81EE0(int a1, int a2, int a3, signed __int16 a4, __int16 a5, __int16 a6);
 bool sub_80D40_move_graphics_and_play_sounds(__int16 a2, __int16 a3, __int16 a4, __int16 a5, char a6);
 void sub_85CC3_draw_round_frame(/*unsigned int a1, int a2, */unsigned __int16* a3);
@@ -490,6 +541,9 @@ void sub_85CC3_draw_round_frame(/*unsigned int a1, int a2, */unsigned __int16* a
 //unsigned     int __readeflags(void);
 __int16 sub_840D3(char _CF, bool _ZF, char _SF, char _OF);
 void  sub_841CE(__int16 a1);
+char sub_86860_speak_Sound(unsigned __int16 a1);
+void sub_86EB0(unsigned __int8 a1, unsigned __int8 a2, char a3);
+int16_t sub_89B60_aplicate_setting(uint8_t a1);
 //void __writeeflags(unsigned Value);
 int32_t /*__cdecl*/ gets(int32_t);// weak
 //x_DWORD /*__cdecl*/ fix_tell(x_DWORD);// weak
@@ -498,6 +552,15 @@ int32_t /*__cdecl*/ expand(int32_t, int32_t);// weak
 void sub_8BA10(int a2, int* a3, char* a4, int a5);
 double /*__fastcall*/ _CHP(int32_t);// weak
 char sub_8B980(int a1, int a2, char* a3, int a4);
+signed int sub_8BBE0(uint8_t* a1);
+void sub_8CD27_set_cursor(posistruct_t a2);
+signed int sub_8CEDF_install_mouse();
+int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* a1x, uint8_t shadow_levels, bool a3);
+void sub_90D6E_VGA_set_video_mode_320x200_and_Palette(TColor* Palette);
+void sub_90E07_VGA_set_video_mode_640x480_and_Palette(TColor* Palette);
+void CopyScreen(void* source, void* desc, unsigned __int16 width, unsigned __int16 height);
+size_t WriteFile_98CAA(FILE* a1, uint8_t* a2, uint32_t a3);
+signed int sub_9A10A_check_keyboard();
 bool sub_9AE04(int a1, int a2);
 /*
 HDIGDRIVER sub_93330_AIL_install_DIG_driver_file(char* filename, IO_PARMS* IO);
@@ -543,11 +606,15 @@ void sub_ACF1A(int8_t* a1, int a2, int* a3);
 void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, uint8_t* a6);
 void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
+Type_SecretMapScreenPortals_E2970* sub_824B0(__int16 a1);
+Type_SecretMapScreenPortals_E2970* sub_824E0(__int16 a1);
 
 void sub_101C0();
 void sub_5BCC0_set_any_variables1();
 signed int sub_5C1B0_set_any_variables2();
 signed int sub_5BF50_load_psxdata();
+
+void CleanF5538_716A0();
 
 void CreateIndexes_6EB90(filearray_struct* a1);
 

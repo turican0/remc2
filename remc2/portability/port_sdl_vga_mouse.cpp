@@ -1,3 +1,4 @@
+#include "../engine/engine_support.h"
 #include "port_sdl_vga_mouse.h"
 #include "port_time.h"
 
@@ -130,7 +131,8 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 		}
 
 		Set_basic_Palette1();
-		Draw_debug_matrix1();
+		//Draw_debug_matrix1();
+		Draw_black();
 		inited = true;
 	}
 }
@@ -246,6 +248,27 @@ void Draw_debug_matrix0() {
 			dstrect.h = m_gamePalletisedSurface->h / 16;
 			SDL_FillRect(m_gamePalletisedSurface, &dstrect, i * 16 + j/*SDL_MapRGB(screen->format, i*16+j, 0, 0)*/);
 		}
+
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		SDL_UnlockSurface(m_gamePalletisedSurface);
+	}
+	SubBlit(m_iOrigw, m_iOrigh);
+};
+
+void Draw_black() {
+	SDL_Rect dstrect;
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		if (SDL_LockSurface(m_gamePalletisedSurface) < 0) {
+			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
+			return;
+		}
+	}
+
+	dstrect.x = 0;
+	dstrect.y = 0;
+	dstrect.w = m_gamePalletisedSurface->w;
+	dstrect.h = m_gamePalletisedSurface->h;
+	SDL_FillRect(m_gamePalletisedSurface, &dstrect, 1);
 
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
@@ -393,7 +416,8 @@ void VGA_Draw_string(char* wrstring) {
 
 int drawCounter = 0;
 void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer) {
-	if (buffer == NULL) return;
+	if (unitTests)return;
+
 	if (oldWidth != m_gamePalletisedSurface->w)
 		drawCounter = 0;
 	if (drawCounter<20)
@@ -417,6 +441,7 @@ void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer) {
 }
 
 void VGA_Init(int width, int height, bool maintainAspectRatio) {
+	if (unitTests)return;
 	m_bMaintainAspectRatio = maintainAspectRatio;
 
 #define SDL_HWPALETTE 0
@@ -780,6 +805,8 @@ void VGA_Set_mouse(int16_t x, int16_t y) {
 };
 
 void VGA_Blit(Uint8* srcBuffer) {
+	if (unitTests)return;
+
 	oldWidth = m_gamePalletisedSurface->w;
 	if (CommandLineParams.DoHideGraphics()) return;
 	events();

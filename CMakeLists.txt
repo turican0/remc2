@@ -103,5 +103,9 @@ if (FLATPAK)
     add_compile_definitions(FLATPAK)
 endif ()
         
-# remc2
+# remc2 and tests
 add_subdirectory(remc2)
+if (UNIT_TESTS)
+    add_subdirectory(remc2-unit-test)
+    add_subdirectory(remc2-regression-test)
+endif ()

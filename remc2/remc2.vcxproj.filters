@@ -426,6 +426,9 @@
     <ClInclude Include="engine\GameRenderHD.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="engine\MenusAndIntros.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
     <ClInclude Include="engine\GameRenderOriginal.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
@@ -443,6 +446,30 @@
     </ClInclude>
     <ClInclude Include="portability\fcaseopen.h">
       <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\TypeConfigDat.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Rectangle.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\global_types.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\globals.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Network.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Unk_D4A30.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\MapType.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Unk_D47E0.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -586,9 +613,6 @@
     </ClCompile>
     <ClCompile Include="..\kiss_sdl-master\kiss_widgets.cpp">
       <Filter>Source Files\libs\kiss-sdl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\dirent.c">
-      <Filter>Source Files\portability</Filter>
     </ClCompile>
     <ClCompile Include="..\SDL-Mixer-X-master\src\music.c">
       <Filter>Source Files\libs\sdl-mixer-x</Filter>
@@ -734,6 +758,9 @@
     <ClCompile Include="engine\GameRenderHD.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="engine\MenusAndIntros.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
     <ClCompile Include="engine\GameRenderOriginal.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
@@ -751,6 +778,18 @@
     </ClCompile>
     <ClCompile Include="portability\fcaseopen.cpp">
       <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\dirent.c">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Network.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Unk_D4A30.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Unk_D47E0.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

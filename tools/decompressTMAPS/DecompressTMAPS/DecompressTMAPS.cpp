@@ -5,27 +5,35 @@
 
 //#define level1 //night
 //#define level2 //day
-#define level2 //cave
-
+//#define level4 //cave
+char palfilename[512];
+char tmapsdatfilename[512];
+char tmapstabfilename[512];
+char tmapsstr[512];
+int transparent_color = 0;
+/*
 #ifdef level1
 char palfilename[] = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-n.pal";
 char tmapsdatfilename[] = "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps1-0.dat";
 char tmapstabfilename[] = "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps1-0.tab";
 char tmapsstr[] = "TMAPS2-1-";
+int transparent_color = 0;
 #endif
 #ifdef level2
 char palfilename[] = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-block.pal";
 char tmapsdatfilename[] = "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps0-0.dat";
 char tmapstabfilename[] = "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps0-0.tab";
 char tmapsstr[]="TMAPS2-0-";
+int transparent_color = 0;
 #endif
 #ifdef level4
 char palfilename[] = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-c.pal";
 char tmapsdatfilename[] = "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps2-0.dat";
 char tmapstabfilename[] = "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps2-0.tab";
 char tmapsstr[] = "TMAPS2-2-";
+int transparent_color = 0;
 #endif
-
+*/
 #include "png.h"
 #pragma comment(lib, "zlib.lib") // must be before libpng!
 #ifndef _WIN64
@@ -955,9 +963,65 @@ void writeImagePNG(char* filename, int width, int height, Bit8u* buffer, char* t
 		if (row != NULL) free(row);
 
 		//return code;
+		printf("img: %s created\n", filename);
 }
 
-void write_posistruct_to_png(Bit8u* buffer, int width, int height, char* filename,char* title,bool alpha) {
+Bit8u temobuffer[100000 * 4];
+void removeAlpha(Bit8u* buffer, int width, int height) {
+	for(int i=0;i<4* width * height;i++)
+		temobuffer[i] = buffer[i];
+	for (int i = 0; i < height; i++)
+		for (int j = 0; j < width; j++)
+		{
+			if ((i > 0)&& (buffer[(i * width + j) * 4 + 3]==0)&&(temobuffer[((i-1) * width + (j - 1)) * 4 + 3] !=0))
+			{
+				buffer[(i * width + j) * 4 + 0] = temobuffer[((i-1) * width + j) * 4 + 0];
+				buffer[(i * width + j) * 4 + 1] = temobuffer[((i-1) * width + j) * 4 + 1];
+				buffer[(i * width + j) * 4 + 2] = temobuffer[((i-1) * width + j) * 4 + 2];
+				buffer[(i * width + j) * 4 + 3] = 255;
+			}
+		}
+	for (int i = 0; i < height; i++)
+		for (int j = 0; j < width; j++)
+		{
+			if ((i < height - 1) && (buffer[(i * width + j) * 4 + 3] == 0) && (temobuffer[((i-1) * width + j) * 4 + 3] != 0))
+			{
+				buffer[(i * width + j) * 4 + 0] = temobuffer[((i+1) * width + j) * 4 + 0];
+				buffer[(i * width + j) * 4 + 1] = temobuffer[((i+1) * width + j) * 4 + 1];
+				buffer[(i * width + j) * 4 + 2] = temobuffer[((i+1) * width + j) * 4 + 2];
+				buffer[(i * width + j) * 4 + 3] = 255;
+			}
+		}
+	for (int i = 0; i < height; i++)
+		for (int j = 0; j < width; j++)
+		{
+			if ((j < width -1) && (buffer[(i * width + j) * 4 + 3] == 0) && (temobuffer[(i * width + (j+1)) * 4 + 3] != 0))
+			{
+				buffer[(i * width + j) * 4 + 0] = temobuffer[(i * width + (j+1)) * 4 + 0];
+				buffer[(i * width + j) * 4 + 1] = temobuffer[(i * width + (j+1)) * 4 + 1];
+				buffer[(i * width + j) * 4 + 2] = temobuffer[(i * width + (j+1)) * 4 + 2];
+				buffer[(i * width + j) * 4 + 3] = 255;
+			}
+		}
+	for (int i = 0; i < height; i++)
+		for (int j = 0; j < width; j++)
+		{
+			if ((j > 0) && (buffer[(i * width + j) * 4 + 3] == 0) && (temobuffer[(i * width + (j-1)) * 4 + 3] != 0))
+			{
+				buffer[(i * width + j) * 4 + 0] = temobuffer[(i * width + (j-1)) * 4 + 0];
+				buffer[(i * width + j) * 4 + 1] = temobuffer[(i * width + (j-1)) * 4 + 1];
+				buffer[(i * width + j) * 4 + 2] = temobuffer[(i * width + (j-1)) * 4 + 2];
+				buffer[(i * width + j) * 4 + 3] = 255;
+			}
+		}
+	for (int i = 0; i < height; i++)
+		for (int j = 0; j < width; j++)
+		{
+			buffer[(i * width + j) * 4 + 3] = 255;
+		}
+};
+/*
+void write_posistruct_to_png(Bit8u* buffer, int width, int height, char* filename,char* title, bool alpha, int frame) {
 	Bit8u pallettebuffer[768];
 	FILE* palfile;
 	//fopen_s(&palfile, "c:\\prenos\\remc2\\testpal.pal", "rb");
@@ -966,45 +1030,287 @@ void write_posistruct_to_png(Bit8u* buffer, int width, int height, char* filenam
 	fclose(palfile);
 
 	Bit8u buffer2[100000 * 4];
-	for (int i = 0; i < width * height; i++)
+	for (int y = 0; y < height + 2 * frame; y++)
+	for (int x = 0; x < width + 2 * frame; x++)
 	{
-		/*buffer2[i * 4 + 0] = buffer[i];
-		buffer2[i * 4 + 1] = buffer[i];
-		buffer2[i * 4 + 2] = buffer[i];*/
-		buffer2[i * 4 + 0] = pallettebuffer[buffer[i] * 3];
-		buffer2[i * 4 + 1] = pallettebuffer[buffer[i] * 3 + 1];
-		buffer2[i * 4 + 2] = pallettebuffer[buffer[i] * 3+2];
-
-		if (buffer[i] != 0xff)
+		int x2 = x + frame;
+		int y2 = y + frame;
+		if ((x < frame)||(y < frame) || (x >= width + frame) || (y >= height + frame)) {
+			buffer2[(y * width + x) * 4 + 0] = pallettebuffer[buffer[(0 * width + 0)] * 3];
+			buffer2[(y * width + x) * 4 + 1] = pallettebuffer[buffer[(0 * width + 0)] * 3 + 1];
+			buffer2[(y * width + x) * 4 + 2] = pallettebuffer[buffer[(0 * width + 0)] * 3 + 2];
+			buffer2[(y * width + x) * 4 + 3] = 255;
+		}
+		else
 		{
-			if (alpha)
-			{
-				buffer2[i * 4 + 3] = 255;
-				if ((buffer2[i * 4 + 0] == 0) && (buffer2[i * 4 + 1] == 0) && (buffer2[i * 4 + 2] == 0))
-				{
-					buffer2[i * 4 + 0] = 0;
-					buffer2[i * 4 + 1] = 0;
-					buffer2[i * 4 + 2] = 0;
-				}
-				else
-				{
-					buffer2[i * 4 + 0] = 255;
-					buffer2[i * 4 + 1] = 255;
-					buffer2[i * 4 + 2] = 255;
-				}
-			}
-			else
-			{
-				if ((buffer2[i * 4 + 0] == 0) && (buffer2[i * 4 + 1] == 0) && (buffer2[i * 4 + 2] == 0))
-					buffer2[i * 4 + 3] = 255;
-				else
-					buffer2[i * 4 + 3] = 255;
-			}
+buffer2[(y * width + x) * 4 + 0] = pallettebuffer[buffer[(y2 * width + x2)] * 3];
+buffer2[(y * width + x) * 4 + 1] = pallettebuffer[buffer[(y2 * width + x2)] * 3 + 1];
+buffer2[(y * width + x) * 4 + 2] = pallettebuffer[buffer[(y2 * width + x2)] * 3 + 2];
+buffer2[(y * width + x) * 4 + 3] = 255;
 
 		}
 	}
 	//writeImage(filename, width, height, buffer2);
-	writeImagePNG(filename, width, height, buffer2,title);
+	writeImagePNG(filename, width, height, buffer2, title);
+}
+
+*/
+void write_posistruct_to_png(Bit8u* buffer, int width, int height, char* filename, char* filenamealpha, char* title,bool alpha, int frame) {
+	Bit8u pallettebuffer[768];
+	FILE* palfile;
+	//fopen_s(&palfile, "c:\\prenos\\remc2\\testpal.pal", "rb");
+	fopen_s(&palfile, palfilename, "rb");
+	fread(pallettebuffer, 768, 1, palfile);
+	fclose(palfile);
+	char textbuffer[512];
+	Bit8u buffer2[100000 * 4];
+	/*for (int i = 0; i < width * height; i++)
+	{		
+		buffer2[i * 4 + 0] = pallettebuffer[buffer[i] * 3];
+		buffer2[i * 4 + 1] = pallettebuffer[buffer[i] * 3 + 1];
+		buffer2[i * 4 + 2] = pallettebuffer[buffer[i] * 3 + 2];
+
+		if (buffer[i] == transparent_color)
+		{
+			buffer2[i * 4 + 0] = 255;
+			buffer2[i * 4 + 1] = 255;
+			buffer2[i * 4 + 2] = 255;
+			buffer2[i * 4 + 3] = 0;
+		}
+		else
+		{
+			buffer2[i * 4 + 3] = 255;
+		}
+	}*/
+	for (int y = 0; y < height + 2 * frame; y++)
+		for (int x = 0; x < width + 2 * frame; x++)
+		{
+			int x2 = x - frame;
+			int y2 = y - frame;
+			if ((x < frame) || (y < frame) || (x >= width + frame) || (y >= height + frame)) {
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 255;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 0;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = 0;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+			}
+			else
+			{
+
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[y2 * width + x2] * 3];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[y2 * width + x2] * 3 + 1];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[y2 * width + x2] * 3 + 2];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+				if (buffer[y2 * width + x2] == transparent_color)
+				{
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 255;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 0;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = 0;
+				}
+			}
+	}
+	sprintf_s(textbuffer,"%sR.png", filename);
+	writeImagePNG(textbuffer, width + 2 * frame, height + 2 * frame, buffer2,title);
+	for (int y = 0; y < height + 2 * frame; y++)
+		for (int x = 0; x < width + 2 * frame; x++)
+		{
+			int x2 = x - frame;
+			int y2 = y - frame;
+			if ((x < frame) || (y < frame) || (x >= width + frame) || (y >= height + frame)) {
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 0;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 255;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = 0;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+			}
+			else
+			{
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[y2 * width + x2] * 3];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[y2 * width + x2] * 3 + 1];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[y2 * width + x2] * 3 + 2];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+				if (buffer[y2 * width + x2] == transparent_color)
+				{
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 0;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 255;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = 0;
+				}
+			}
+	}
+	sprintf_s(textbuffer, "%sG.png", filename);
+	writeImagePNG(textbuffer, width + 2 * frame, height + 2 * frame, buffer2, title);
+	for (int y = 0; y < height + 2 * frame; y++)
+		for (int x = 0; x < width + 2 * frame; x++)
+		{
+			int x2 = x - frame;
+			int y2 = y - frame;
+			if ((x < frame) || (y < frame) || (x >= width + frame) || (y >= height + frame)) {
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 0;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 0;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = 255;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+			}
+			else
+			{
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[y2 * width + x2] * 3];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[y2 * width + x2] * 3 + 1];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[y2 * width + x2] * 3 + 2];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+				if (buffer[y2 * width + x2] == transparent_color)
+				{
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 0;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 0;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = 255;
+				}
+			}
+	}
+	sprintf_s(textbuffer, "%sB.png", filename);
+	writeImagePNG(textbuffer, width + 2 * frame, height + 2 * frame, buffer2, title);
+	for (int y = 0; y < height + 2 * frame; y++)
+		for (int x = 0; x < width + 2 * frame; x++)
+		{
+			int x2 = x - frame;
+			int y2 = y - frame;
+			if ((x < frame) || (y < frame) || (x >= width + frame) || (y >= height + frame)) {
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 0;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 0;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = 0;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+			}
+			else
+			{
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[y2 * width + x2] * 3];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[y2 * width + x2] * 3 + 1];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[y2 * width + x2] * 3 + 2];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+				if (buffer[y2 * width + x2] == transparent_color)
+				{
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 0;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 0;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = 0;
+				}
+			}
+	}
+	sprintf_s(textbuffer, "%sBl.png", filename);
+	writeImagePNG(textbuffer, width + 2 * frame, height + 2 * frame, buffer2, title);
+	for (int y = 0; y < height + 2 * frame; y++)
+		for (int x = 0; x < width + 2 * frame; x++)
+		{
+			int x2 = x - frame;
+			int y2 = y - frame;
+			if ((x < frame) || (y < frame) || (x >= width + frame) || (y >= height + frame)) {
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 255;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 255;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = 255;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+			}
+			else
+			{
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[y2 * width + x2] * 3];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[y2 * width + x2] * 3 + 1];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[y2 * width + x2] * 3 + 2];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+				if (buffer[y2 * width + x2] == transparent_color)
+				{
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 255;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 255;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = 255;
+				}
+			}
+	}
+	sprintf_s(textbuffer, "%sWh.png", filename);
+	writeImagePNG(textbuffer, width + 2 * frame, height + 2 * frame, buffer2, title);
+	for (int y = 0; y < height + 2 * frame; y++)
+		for (int x = 0; x < width + 2 * frame; x++)
+		{
+			int x2 = x - frame;
+			int y2 = y - frame;
+			if ((x < frame) || (y < frame) || (x >= width + frame) || (y >= height + frame)) {
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 128;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 128;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = 128;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+			}
+			else
+			{
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[y2 * width + x2] * 3];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[y2 * width + x2] * 3 + 1];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[y2 * width + x2] * 3 + 2];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+				if (buffer[y2 * width + x2] == transparent_color)
+				{
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 128;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 128;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = 128;
+				}
+			}
+	}
+	sprintf_s(textbuffer, "%sGr.png", filename);
+	writeImagePNG(textbuffer, width + 2 * frame, height + 2 * frame, buffer2, title);
+
+	for (int y = 0; y < height + 2 * frame; y++)
+		for (int x = 0; x < width + 2 * frame; x++)
+		{
+			int x2 = x - frame;
+			int y2 = y - frame;
+
+			if ((x < frame) || (y < frame) || (x >= width + frame) || (y >= height + frame)) {
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 255;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 255;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = 255;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+			}
+			else
+			{
+				bool isWhite = false;
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[y2 * width + x2] * 3];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[y2 * width + x2] * 3 + 1];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[y2 * width + x2] * 3 + 2];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+				if (buffer[(y2 * width + x2)] == transparent_color)
+				{
+					isWhite = true;
+					if (y2 > 0)
+						if ((buffer[((y2 - 1) * width + x2)] != transparent_color) && (buffer[y2 * width + x2] == transparent_color))
+						{
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[((y2 - 1) * width + x2)] * 3];
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[((y2 - 1) * width + x2)] * 3 + 1];
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[((y2 - 1) * width + x2)] * 3 + 2];
+							isWhite = false;
+						}
+					if (y2 < height - 1)
+						if ((buffer[((y2 + 1) * width + x2)] != transparent_color) && (buffer[y2 * width + x2] == transparent_color))
+						{
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[((y2 + 1) * width + x2)] * 3];
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[((y2 + 1) * width + x2)] * 3 + 1];
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[((y2 + 1) * width + x2)] * 3 + 2];
+							isWhite = false;
+						}
+					if (x2 > 0)
+						if ((buffer[(y2 * width + (x2 - 1))] != transparent_color) && (buffer[y2 * width + x2] == transparent_color))
+						{
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[(y2 * width + (x2 - 1))] * 3];
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[(y2 * width + (x2 - 1))] * 3 + 1];
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[(y2 * width + (x2 - 1))] * 3 + 2];
+							isWhite = false;
+						}
+					if (x2 < width - 1)
+						if ((buffer[(y2 * width + (x2 + 1))] != transparent_color) && (buffer[y2 * width + x2] == transparent_color))
+						{
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[(y2 * width + (x2 + 1))] * 3];
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[(y2 * width + (x2 + 1))] * 3 + 1];
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[(y2 * width + (x2 + 1))] * 3 + 2];
+							isWhite = false;
+						}
+				}
+				if (isWhite)
+				{
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 255;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 255;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = 255;
+				}
+			}
+		}
+	sprintf_s(textbuffer, "%sFinal.png", filename);
+	writeImagePNG(textbuffer, width + 2 * frame, height + 2 * frame, buffer2, title);
 }
 
 void write_posistruct_to_bmp(Bit8u* buffer, int width, int height, char* filename) {
@@ -1733,9 +2039,57 @@ type_animations1* sub_721C0_initTmap(type_E9C08* a1x, int* a2, __int16 a3)//2531
 #define write_png
 //#define write_alphapng
 
+int other_folder0[] = { 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+	51, 52, 53, 54, 57, 59, 76, 77, 82, 85, 88, 89, 90,
+	91, 92, 93, 94, 95, 144, 260, 261, 425 -1};
 
+int other_folder1[] = { 38, 39, 40, 41, 42, 43, 44, 45, 46, 47 ,48, 49, 50,
+	51, 52, 53, 54, 77, 82, 261, -1};
 
-int main()
+int other_folder2[] = { 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+	51, 52, 53, 54, 66, 77, 82, 261, -1};
+
+int* other_folder;
+
+bool isOther(int* other_folder,int index) {
+	for (int i = 0; other_folder[i] != -1; i++)
+		if (index == other_folder[i])
+			return true;
+	return false;
+}
+
+int sub_main();
+int max_images = 504;
+int main() {
+	strcpy_s(palfilename, "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-n.pal");
+	strcpy_s(tmapsdatfilename,"c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps1-0.dat");
+	strcpy_s(tmapstabfilename,"c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps1-0.tab");
+	strcpy_s(tmapsstr,"TMAPS2-1-");
+	transparent_color = 0;
+	other_folder = other_folder1;
+	max_images = 504;
+	sub_main();
+
+	strcpy_s(palfilename,"c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-block.pal");
+	strcpy_s(tmapsdatfilename,"c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps0-0.dat");
+	strcpy_s(tmapstabfilename,"c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps0-0.tab");
+	strcpy_s(tmapsstr,"TMAPS2-0-");
+	transparent_color = 0;
+	other_folder = other_folder0;
+	max_images = 504;
+	sub_main();
+
+	strcpy_s(palfilename,"c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-c.pal");
+	strcpy_s(tmapsdatfilename,"c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps2-0.dat");
+	strcpy_s(tmapstabfilename,"c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps2-0.tab");
+	strcpy_s(tmapsstr,"TMAPS2-2-");
+	transparent_color = 0;
+	other_folder = other_folder2;
+	max_images = 464;
+	sub_main();
+}
+
+int sub_main()
 {
 	FILE* fptrTMAPSdata;
 	fopen_s(&fptrTMAPSdata, tmapsdatfilename, "rb");
@@ -1768,10 +2122,12 @@ int main()
 	x_DWORD_E9C08x = sub_72120(0x1F8u);
 
 	char outname[512];
+	char outnameAlpha[512];
 	char title[512];
-	while (index < 504)
+
+	while (index < max_images)
 	{
-		if (index == 77)
+		if (index == 186)
 		{
 			index++;
 			index--;
@@ -1835,10 +2191,17 @@ int main()
 #endif
 
 #ifdef write_png
-		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00.png", tmapsstr, index);
+		
+		if(isOther(other_folder, index))
+			sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00-other.png", tmapsstr, index);
+		else
+			sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00.png", tmapsstr, index);
 
 		sprintf_s(title, "%s%03i", tmapsstr, index);
-		write_posistruct_to_png(buffer + 6, width, height, outname, title, 0);//test write
+
+		sprintf_s(outnameAlpha, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00APLH.png", tmapsstr, index);
+
+		write_posistruct_to_png(buffer + 6, width, height, outname, outnameAlpha, title, 0, 30);//test write
 #endif
 #ifdef write_alphapng
 		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-alpha-00.png", tmapsstr, index);
@@ -1853,12 +2216,12 @@ int main()
 		index++;
 	}
 
-	for(int mainindex=0; mainindex<40; mainindex++)
+	for(int mainindex=0; mainindex<24; mainindex++)
 	{
 		
 
 		index = 0;
-		while (index < 504) {
+		while (index < max_images) {
 			Bit8u* subpointer = *(Bit8u * *)x_DWORD_F66F0[index];
 			subpointer[0] |= 8;
 			index++;
@@ -1868,7 +2231,7 @@ int main()
 		//image2
 		indextab = 0;
 		index = 0;
-		while (index < 504)
+		while (index < max_images)
 		{
 
 			Bit8u* subpointer = *(Bit8u * *)x_DWORD_F66F0[index];
@@ -1960,9 +2323,14 @@ int main()
 	#endif
 
 	#ifdef write_png
-			sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.png", tmapsstr, index, mainindex+1);
+			if (isOther(other_folder, index))
+				sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i-other.png", tmapsstr, index, mainindex + 1);
+			else
+				sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.png", tmapsstr, index, mainindex + 1);
+			//sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.png", tmapsstr, index, mainindex+1);
+			sprintf_s(outnameAlpha, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02iAlpha.png", tmapsstr, index, mainindex + 1);
 			sprintf_s(title, "%s%03i", tmapsstr, index);
-			write_posistruct_to_png(buffer + 6, width, height, outname, title, 0);//test write
+			write_posistruct_to_png(buffer + 6, width, height, outname, outnameAlpha,title, 0, 30);//test write
 	#endif
 	#ifdef write_alphapng
 			sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-alpha-%02i.png", tmapsstr, index, mainindex + 1);
