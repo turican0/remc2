@@ -23,11 +23,10 @@ typedef struct {
 } type_str_32_16; // weak
 #pragma pack (16)
 
-extern char soundCard_E3799;
-extern char musicStarted_E37FD;
-extern char soundActive2_E3798;
-extern char musicInitialized_E37FC;
-extern char musicStarted_E37FD;
+extern bool soundActive_E3799;
+extern bool musicActive_E37FD;
+extern bool soundAble_E3798;
+extern bool musicAble_E37FC;
 extern int x_DWORD_E3844;
 extern int x_DWORD_E387C;
 extern FILE* x_FILE_E3840;
@@ -36,7 +35,7 @@ extern int x_DWORD_E387C;
 extern int8_t soundActiveL_E2A14;
 extern int8_t soundActiveH_E2A14;
 extern __int16 soundFreqType_E37B6;
-extern char x_BYTE_E379B;
+extern bool autoScanForSoundHardware_E379B;
 extern __int16 x_WORD_E3828;
 extern int x_DWORD_E3824;
 extern __int16 x_WORD_E381C;
@@ -48,7 +47,7 @@ extern __int16 x_WORD_E387A;
 extern int x_DWORD_E383C;
 extern __int16 x_WORD_E3834;
 extern type_E3808_music_header* musicHeader_E3808;
-extern char x_BYTE_180C84_drivertype;
+extern char musicDriverType_180C84;
 extern int16_t x_WORD_181B44;
 
 extern uint8_t* x_DWORD_182188[];
@@ -66,7 +65,7 @@ int sub_8E0D0();
 void StartMusic_8E160(int track, int volume);
 void sub_8E410_sound_proc16_xmidivolume(int master_volume);
 void sub_8E470_sound_proc17_volume(int volume);
-bool LoadMusic(int channel);
+bool InitMusicBank_8EAD0(int channel);
 void GetMusicSequenceCount();
 bool LoadMusicTrack(FILE* filehandle, uint8_t drivernumber);
 int sub_8F0AB(FILE* a1, int a3);

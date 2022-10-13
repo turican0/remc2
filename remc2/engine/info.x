@@ -2057,7 +2057,7 @@ ac_sound_install_dig_driver_file x
 ac_sound_get_io_environment x
 
 int sub_8E470_sound_proc17_volume(int a1)
-x_BYTE_E379A - find this var
+soundLoaded_E379A - find this var
 
 void sub_8E160_sound_proc15_startsequence(__int16 a1, unsigned __int8 a2)//3 64
 x_BYTE_E37FC 00 - 2b47fc = 01
