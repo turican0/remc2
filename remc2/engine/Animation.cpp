@@ -629,6 +629,7 @@ void sub_9A0FC_wait_to_screen_beam()//27B0fc
 	  result = __inx_BYTE(0x3DAu);
 	while ( !(result & 8) );
 	return result;*/
+	VGA_Blit(nullptr);
 	mydelay(10);
 }
 
