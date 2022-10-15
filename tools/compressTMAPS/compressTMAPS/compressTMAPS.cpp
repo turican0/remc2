@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <vector>
 
 #include "png.h"
 
@@ -8,11 +9,11 @@
 #else
 #endif
 
-//#define level1 //TMAPS1 night
+#define level1 //TMAPS1 night
 //#define level2 //TMAPS0 day
-#define level4 //TMAPS2 cave
+//#define level4 //TMAPS2 cave
 
-#define rewriteBadFiles
+//#define rewriteBadFiles
 
 #define SIZEOF_UNSIGNED_INT 4
 
@@ -197,14 +198,18 @@ void read_pngalpha_file(char* filename) {
 }
 */
 int transparentColor = 0;
+std::vector<uint8_t> usedColors;
 int getIndexedColor(int colorR, int colorG, int colorB, unsigned char* palette, int paletteSize) {
 	int index;
 	int diference = 10000000000;
 	for (int i = 0; i < paletteSize / 3; i++)
 	{
 #ifdef level1 //TMAPS1 night
-		if ((i >= 0xAB) && (i <= 0xB7))
-			continue;
+		/*if ((i >= 0xAB) && (i <= 0xB7))
+			continue;*/
+		for(char locCol: usedColors)
+			if(i== locCol)
+				continue;
 #endif
 		if (transparentColor != i)
 		{
@@ -506,6 +511,38 @@ unsigned char content_stdpal[2048 * 2048 * 4];
 
 //unsigned char content_outdata[2048 * 2048 * 4];
 
+int hex2int(char locchar) {
+	if ((locchar >= '0') && (locchar <= '9'))
+		return locchar - '0';
+	if ((locchar >= 'a') && (locchar <= 'f'))
+		return locchar - 'a';
+	if ((locchar >= 'A') && (locchar <= 'F'))
+		return locchar - 'a';
+};
+
+void loadColors(std::vector<uint8_t>* usedColor, char* path) {
+	unsigned char content_col[10000];
+
+	FILE* colfile;
+	fopen_s(&colfile, path, "rt");
+	fseek(colfile, 0L, SEEK_END);
+	long szstd = ftell(colfile);
+	fseek(colfile, 0L, SEEK_SET);
+	fread(content_col, szstd, 1, colfile);
+	fclose(colfile);
+
+	usedColor->clear();
+	for (int i = 0; i < szstd; i++)
+	{
+		if (content_col[i] == 'x')
+		{
+			int col = 16 * hex2int(content_col[i + 1]) + hex2int(content_col[i + 2]);
+			usedColor->push_back(col);
+			i += 3;
+		}
+	}
+}
+
 int main()
 {
 #ifdef level1
@@ -589,6 +626,11 @@ int main()
 	{		
 		char textbuffer[512];
 		char prefix[512];
+
+		sprintf_s(prefix, "%s%03d-%02i%s-col.txt", data_filename);
+		loadColors(&usedColors, prefix);
+
+
 		sprintf_s(prefix, "%s", "");
 		sprintf_s(textbuffer, "%s%03d-%02i%s.pngR_rlt.png", data_filename, fileindex,mainindex, prefix);
 		if (!file_exist(textbuffer))
