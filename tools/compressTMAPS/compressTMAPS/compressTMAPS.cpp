@@ -198,19 +198,18 @@ void read_pngalpha_file(char* filename) {
 }
 */
 int transparentColor = 0;
-std::vector<uint8_t> usedColors;
+std::vector<int> usedColors;
 int getIndexedColor(int colorR, int colorG, int colorB, unsigned char* palette, int paletteSize) {
 	int index;
 	int diference = 10000000000;
-	for (int i = 0; i < paletteSize / 3; i++)
-	{
 #ifdef level1 //TMAPS1 night
-		/*if ((i >= 0xAB) && (i <= 0xB7))
-			continue;*/
-		for(char locCol: usedColors)
-			if(i== locCol)
-				continue;
+	for (int i : usedColors)
+	/*if ((i >= 0xAB) && (i <= 0xB7))
+		continue;*/
+#else
+	for (int i = 0; i < paletteSize / 3; i++)
 #endif
+	{
 		if (transparentColor != i)
 		{
 			int testDiference = (abs(colorR - palette[i * 3 + 0]) + abs(colorG - palette[i * 3 + 1]) + abs(colorB - palette[i * 3 + 2]));
@@ -515,12 +514,12 @@ int hex2int(char locchar) {
 	if ((locchar >= '0') && (locchar <= '9'))
 		return locchar - '0';
 	if ((locchar >= 'a') && (locchar <= 'f'))
-		return locchar - 'a';
+		return locchar - 'a' + 10;
 	if ((locchar >= 'A') && (locchar <= 'F'))
-		return locchar - 'a';
+		return locchar - 'A' + 10;
 };
 
-void loadColors(std::vector<uint8_t>* usedColor, char* path) {
+void loadColors(std::vector<int>* usedColor, char* path) {
 	unsigned char content_col[10000];
 
 	FILE* colfile;
@@ -538,7 +537,7 @@ void loadColors(std::vector<uint8_t>* usedColor, char* path) {
 		{
 			int col = 16 * hex2int(content_col[i + 1]) + hex2int(content_col[i + 2]);
 			usedColor->push_back(col);
-			i += 3;
+			i += 2;
 		}
 	}
 }
@@ -549,6 +548,7 @@ int main()
 	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\\out-n.pal";
 	const char* data_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\big\\TMAPS2-1-";
 	const char* out_filename = "c:\\prenos\\remc2\\tools\\compressTMAPS\\compressTMAPS\\out\\TMAPS2-1-";
+	const char* col_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-1-";
 	//const char* orig_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-1-";
 #endif level1
 #ifdef level2
@@ -627,8 +627,14 @@ int main()
 		char textbuffer[512];
 		char prefix[512];
 
-		sprintf_s(prefix, "%s%03d-%02i%s-col.txt", data_filename);
-		loadColors(&usedColors, prefix);
+		sprintf_s(textbuffer, "%s%03d-%02i.png-col.txt", col_filename, fileindex, mainindex);
+		if (!file_exist(textbuffer))
+		{
+			sprintf_s(textbuffer, "%s%03d-%02i-other.png-col.txt", col_filename, fileindex, mainindex);
+			if (!file_exist(textbuffer))
+				break;
+		}
+		loadColors(&usedColors, textbuffer);
 
 
 		sprintf_s(prefix, "%s", "");
