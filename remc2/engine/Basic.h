@@ -188,11 +188,11 @@ extern std::string bigGraphicsPath;
 
 extern long oldmillis;
 
-extern std::chrono::time_point<std::chrono::steady_clock> frameStart;
-extern std::chrono::duration<double> timeDelta;
-extern int frameCount;
-extern int fps;
-
+extern std::chrono::time_point<std::chrono::system_clock> frameStart;
+extern std::chrono::time_point<std::chrono::system_clock> lastFrameEnd;
+extern float m_fTimeElapsed; // The time that has elapsed so far
+extern int m_iFrameCount; // The number of frames that have occurred.
+extern float m_fFps; // The frames rendered per second. Needs to be stored to be shown every frame.
 
 extern int readFileStatus_E3E2C;
 
@@ -582,7 +582,9 @@ unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a
 void sub_75D70(uint8_t* a1, uint32_t a2);
 void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
 void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color);//20cc10
-void VGA_CalculateAndPrintFPS(int x, int y);
+std::chrono::duration<double, std::milli> CalculateTimeDelta();
+void VGA_CalculateAndPrintFps(int x, int y, float timeDelta);
+void LockFps(uint8_t maxFps);
 void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signed __int16 a4);
 void sub_7FB90_draw_text(char* a1, int16_t a2, int16_t a3, uint8_t a4);
 void sub_8CACD_draw_cursor2();
