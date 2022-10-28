@@ -23,8 +23,8 @@ char x_BYTE_E3766 = 0; // weak
 
 long oldmillis = 0;
 
-std::chrono::time_point<std::chrono::system_clock> frameStart;
-std::chrono::time_point<std::chrono::system_clock> lastFrameEnd;
+std::chrono::time_point<std::chrono::system_clock> m_frameStart;
+std::chrono::time_point<std::chrono::system_clock> m_lastFrameEnd;
 float m_fTimeElapsed = 0.0f; // The time that has elapsed so far
 int m_iFrameCount = 0; // The number of frames that have occurred.
 float m_fFps; // The frames rendered per second. Needs to be stored to be shown every frame.
@@ -1716,11 +1716,16 @@ void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t 
 	}	
 }
 
+void SetFrameStart(std::chrono::system_clock::time_point frameStart)
+{
+	m_frameStart = frameStart;
+}
+
 std::chrono::duration<double, std::milli> CalculateTimeDelta()
 {
 	std::chrono::system_clock::time_point currTime = std::chrono::system_clock::now();
-	std::chrono::duration<double, std::milli> timeDelta = (currTime - lastFrameEnd) * 0.001f;
-	lastFrameEnd = currTime;
+	std::chrono::duration<double, std::milli> timeDelta = (currTime - m_lastFrameEnd) * 0.001f;
+	m_lastFrameEnd = currTime;
 	return timeDelta;
 }
 
@@ -1749,7 +1754,7 @@ void LockFps(uint8_t maxFps)
 	if (maxFps <= 0)
 		return;
 
-	std::chrono::duration<double, std::milli> renderTimeMS = std::chrono::system_clock::now() - frameStart;
+	std::chrono::duration<double, std::milli> renderTimeMS = std::chrono::system_clock::now() - m_frameStart;
 
 	//lock to fps
 	float frameTimeMS = 1000.0f / maxFps;
