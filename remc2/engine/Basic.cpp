@@ -1744,7 +1744,7 @@ void VGA_CalculateAndPrintFps(int x, int y, float timeDelta)
 
 	VGA_GotoXY(x, y);
 	std::string fpsStr = "FPS: ";
-	fpsStr.append(std::to_string(m_fFps));
+	fpsStr.append(std::to_string(std::round(m_fFps*10)/10).substr(0,5));
 
 	VGA_Draw_stringXYtoBuffer((char*)fpsStr.c_str(), 0, 0, pdwScreenBuffer_351628);
 }
