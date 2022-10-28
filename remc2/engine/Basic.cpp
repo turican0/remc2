@@ -1516,7 +1516,7 @@ uint32_t sub_7FAE0_draw_text(char* text, int16_t a2, int16_t a3, int16_t posy, u
 
 //int debugcounter_271478 = 0;
 //----- (00090478) --------------------------------------------------------
-void sub_90478_VGA_Blit320()//271478
+void sub_90478_VGA_Blit320(uint8_t maxFps)//271478
 {
 	if (CommandLineParams.DoDebugSequences()) {
 		/* uint8_t origbyte20 = 0;
@@ -1554,7 +1554,7 @@ void sub_90478_VGA_Blit320()//271478
 	//VGA_mouse_clear_keys();
 
 	//set speed
-	LockFps(30);
+	LockFps(maxFps);
 	//set speed
 }
 
@@ -1563,7 +1563,7 @@ int debugcounter_258350 = 0;
 //long sub_75200_VGA_Blit640_index= 0;
 int debugcounter_256200 = 0;
 //long oldmillis = 0;
-void sub_75200_VGA_Blit640(uint16_t height)//256200
+void sub_75200_VGA_Blit640(uint16_t height, uint8_t maxFps)//256200
 {
 	/*if (debugcounter_258350 > 0)
 	{
@@ -1587,11 +1587,11 @@ void sub_75200_VGA_Blit640(uint16_t height)//256200
 	VGA_Blit(pdwScreenBuffer_351628);
 
 	//set speed
-	LockFps(30);
+	LockFps(maxFps);
 	//set speed
 }
 
-void VGA_BlitAny()//256200
+void VGA_BlitAny(uint8_t maxFps)//256200
 {
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();
@@ -1603,7 +1603,7 @@ void VGA_BlitAny()//256200
 	VGA_Blit(pdwScreenBuffer_351628);
 
 	//set speed
-	LockFps(30);
+	LockFps(maxFps);
 	//set speed
 }
 

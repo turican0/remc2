@@ -7,8 +7,8 @@
 
 int config_skip_screen;
 int texturepixels = 32;
-int speedGame = 35;
-int speedAnim = 100;
+int maxGameFps = 30;
+int fmvFps = 15;
 int windowResWidth = 640;
 int windowResHeight = 480;
 int gameResWidth = 640;
@@ -173,8 +173,8 @@ bool readini() {
 	std::string readstr4 = reader.GetString("main", "cdFolder", "");
 	strcpy((char*)cdFolder, (char*)readstr4.c_str());
 
-	speedGame = reader.GetInteger("game", "speed", 30);
-	speedAnim = reader.GetInteger("game", "animspeed", 100);
+	maxGameFps = reader.GetInteger("game", "maxGameFps", 0);
+	fmvFps = reader.GetInteger("game", "fmvFps", 20);
 
 	openGLRender = reader.GetBoolean("graphics", "openGLRender", false);
 

@@ -70,6 +70,8 @@ void PlayInfoFmv(__int16 a1, __int16 a2, Type_SoundEvent_E17CC* pSoundEvent, cha
 		x_WORD_17DB5C = a1;
 		do
 		{
+			SetFrameStart(std::chrono::system_clock::now());
+
 			if (x_WORD_17DB5A)
 				break;
 			if (ActualKeyframe_17DB60 >= LastKeyframe_17DB46 - 1)//34eb60 a 34eb46
@@ -357,19 +359,18 @@ void /*__fastcall*/ sub_75E70()//256e70
 			sub_2EC90(v19);//20fc90 -zde se prekresli texty
 		}
 	}
-	int tempSpeed = speedGame;
-	speedGame = speedAnim;
+
 	if (x_BYTE_D41C1)
 	{
 		pdwScreenBuffer_351628 += 0x26C0;
-		sub_90478_VGA_Blit320();
+		sub_90478_VGA_Blit320(fmvFps);
 		pdwScreenBuffer_351628 -= 0x26C0;
 	}
 	else
 	{
-		sub_90478_VGA_Blit320();
+		sub_90478_VGA_Blit320(fmvFps);
 	}
-	speedGame = tempSpeed;
+
 }
 
 //----- (0002EC60) --------------------------------------------------------

@@ -37225,15 +37225,15 @@ void sub_40F80()//221f80
 		}
 		else if ((!DefaultResolutions())&&(x_WORD_180660_VGA_type_resolution != 1))
 		{
-			VGA_BlitAny();
+			VGA_BlitAny(maxGameFps);
 		}
 		else if (x_WORD_180660_VGA_type_resolution & 1)
 		{
-			sub_90478_VGA_Blit320();
+			sub_90478_VGA_Blit320(maxGameFps);
 		}
 		else
 		{
-			sub_75200_VGA_Blit640(480);
+			sub_75200_VGA_Blit640(480, maxGameFps);
 		}
 	}
 	else if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && v12)
@@ -37246,15 +37246,15 @@ void sub_40F80()//221f80
 	}
 	else if ((!DefaultResolutions())&&(x_WORD_180660_VGA_type_resolution != 1))
 	{
-		VGA_BlitAny();
+		VGA_BlitAny(maxGameFps);
 	}
 	else if (x_WORD_180660_VGA_type_resolution & 1)
 	{
-		sub_90478_VGA_Blit320();
+		sub_90478_VGA_Blit320(maxGameFps);
 	}
 	else
 	{
-		sub_75200_VGA_Blit640(480);
+		sub_75200_VGA_Blit640(480, maxGameFps);
 	}
 }
 
@@ -37892,9 +37892,9 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, v10);
 				}
 				if (x_WORD_180660_VGA_type_resolution & 1)
-					sub_90478_VGA_Blit320();
+					sub_90478_VGA_Blit320(maxGameFps);
 				else
-					sub_75200_VGA_Blit640(480);
+					sub_75200_VGA_Blit640(480, maxGameFps);
 				if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] & 2
 					&& !(x_D41A0_BYTEARRAY_4_struct.setting_38545 & 4))
 				{

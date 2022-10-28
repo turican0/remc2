@@ -28,8 +28,8 @@
 bool readini();
 extern int config_skip_screen;
 extern int texturepixels;
-extern int speedGame;
-extern int speedAnim;
+extern int maxGameFps;
+extern int fmvFps;
 extern int windowResWidth;
 extern int windowResHeight;
 extern int gameResWidth;
