@@ -37225,15 +37225,15 @@ void sub_40F80()//221f80
 		}
 		else if ((!DefaultResolutions())&&(x_WORD_180660_VGA_type_resolution != 1))
 		{
-			VGA_BlitAny();
+			VGA_BlitAny(maxGameFps);
 		}
 		else if (x_WORD_180660_VGA_type_resolution & 1)
 		{
-			sub_90478_VGA_Blit320();
+			sub_90478_VGA_Blit320(maxGameFps);
 		}
 		else
 		{
-			sub_75200_VGA_Blit640(480);
+			sub_75200_VGA_Blit640(480, maxGameFps);
 		}
 	}
 	else if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && v12)
@@ -37246,15 +37246,15 @@ void sub_40F80()//221f80
 	}
 	else if ((!DefaultResolutions())&&(x_WORD_180660_VGA_type_resolution != 1))
 	{
-		VGA_BlitAny();
+		VGA_BlitAny(maxGameFps);
 	}
 	else if (x_WORD_180660_VGA_type_resolution & 1)
 	{
-		sub_90478_VGA_Blit320();
+		sub_90478_VGA_Blit320(maxGameFps);
 	}
 	else
 	{
-		sub_75200_VGA_Blit640(480);
+		sub_75200_VGA_Blit640(480, maxGameFps);
 	}
 }
 
@@ -37892,9 +37892,9 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, v10);
 				}
 				if (x_WORD_180660_VGA_type_resolution & 1)
-					sub_90478_VGA_Blit320();
+					sub_90478_VGA_Blit320(maxGameFps);
 				else
-					sub_75200_VGA_Blit640(480);
+					sub_75200_VGA_Blit640(480, maxGameFps);
 				if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] & 2
 					&& !(x_D41A0_BYTEARRAY_4_struct.setting_38545 & 4))
 				{
@@ -38459,10 +38459,7 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	signed int j; // ebx
 	signed int i; // ebx
 
-#if _DEBUG
-	frameStart = std::chrono::steady_clock::now();
-	//frameStart = clock();
-#endif
+	SetFrameStart(std::chrono::system_clock::now());
 
 	if ((CommandLineParams.DoDebugafterload() == 1) && (count_begin == 1))
 		debugcounter_47560++;
@@ -73955,9 +73952,9 @@ void sub_7B5D0()
 		ClearGraphicsBuffer_72883(pdwScreenBuffer_351628, 640, 480, 0);
 
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		sub_90478_VGA_Blit320();
+		sub_90478_VGA_Blit320(menuFps);
 	else
-		sub_75200_VGA_Blit640(480);
+		sub_75200_VGA_Blit640(480, menuFps);
 }
 
 //----- (0007C020) --------------------------------------------------------
