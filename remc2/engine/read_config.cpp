@@ -8,7 +8,8 @@
 int config_skip_screen;
 int texturepixels = 32;
 int maxGameFps = 30;
-int fmvFps = 15;
+int fmvFps = 20;
+int menuFps = 30;
 int windowResWidth = 640;
 int windowResHeight = 480;
 int gameResWidth = 640;

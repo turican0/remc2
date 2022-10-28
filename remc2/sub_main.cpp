@@ -73952,9 +73952,9 @@ void sub_7B5D0()
 		ClearGraphicsBuffer_72883(pdwScreenBuffer_351628, 640, 480, 0);
 
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		sub_90478_VGA_Blit320();
+		sub_90478_VGA_Blit320(menuFps);
 	else
-		sub_75200_VGA_Blit640(480);
+		sub_75200_VGA_Blit640(480, menuFps);
 }
 
 //----- (0007C020) --------------------------------------------------------
