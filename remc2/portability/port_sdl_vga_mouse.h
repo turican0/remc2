@@ -38,7 +38,9 @@ void SetPalette(SDL_Color* colors);
 void VGA_Write_basic_Palette(Uint8* Palettebuffer);
 Uint8* VGA_Get_Palette();
 void VGA_Draw_string(char* wrstring);
-void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer);
+void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer, char fontSize = 'M');
+void Draw_letter(int letter_number, int pozx, int pozy);
+void Draw_letterToBuffer(int letter_number, int pozx, int pozy, uint8_t* buffer, char fontSize = 'M');
 //void VGA_Set_Cursor(posistruct posstrcursor,int count);
 void VGA_GotoXY(int x, int y);
 int VGA_WhereX(); //returns current text cursor (x) coordinate
