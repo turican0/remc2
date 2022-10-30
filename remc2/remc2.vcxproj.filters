@@ -893,4 +893,12 @@
       <Filter>Source Files\libs\sdl-image</Filter>
     </Library>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="font\8x8-font.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="font\16x16-font.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

@@ -164,7 +164,8 @@ install(
 )
 install(
     FILES 
-    ${CMAKE_SOURCE_DIR}/Debug/font/16x16-font.bmp
+    ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/font/16x16-font.bmp
+    ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/font/8x8-font.bmp
     DESTINATION bin/font
 )
 install(
