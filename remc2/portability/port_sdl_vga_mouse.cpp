@@ -11,16 +11,16 @@
 extern DOS_Device* DOS_CON;
 #endif //USE_DOSBOX
 
-SDL_Window* m_window = NULL;
-SDL_Renderer* m_renderer = NULL;
-SDL_Texture* m_texture = NULL;
-SDL_Surface* m_gamePalletisedSurface = NULL;
-SDL_Surface* m_gameRGBASurface = NULL;
+SDL_Window* m_window = nullptr;
+SDL_Renderer* m_renderer = nullptr;
+SDL_Texture* m_texture = nullptr;
+SDL_Surface* m_gamePalletisedSurface = nullptr;
+SDL_Surface* m_gameRGBASurface = nullptr;
 SDL_Color m_currentPalletColours[256];
 uint8_t m_fontBuffer[256 * 256];
-SDL_Surface* m_surfaceFont = NULL;
+SDL_Surface* m_surfaceFont = nullptr;
 uint8_t m_smallFontBuffer[128 * 128];
-SDL_Surface* m_smallSurfaceFont = NULL;
+SDL_Surface* m_smallSurfaceFont = nullptr;
 
 uint8_t LastPressedKey_1806E4; //3516e4
 int8_t pressedKeys_180664[128]; // idb
