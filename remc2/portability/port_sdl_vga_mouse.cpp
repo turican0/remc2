@@ -376,7 +376,7 @@ void Draw_letterToBuffer(int letter_number, int pozx, int pozy, uint8_t* buffer,
 	}
 
 	srcrect.x = fontSizePixels * (letter_number % 16);
-	srcrect.y = fontSizePixels * (int)(letter_number / 16);
+	srcrect.y = fontSizePixels * (letter_number / 16);
 	srcrect.w = fontSizePixels;
 	srcrect.h = fontSizePixels;
 	dstrect.x = pozx;
@@ -481,7 +481,7 @@ void VGA_Draw_stringXYtoBuffer(const char* wrstring, int x, int y, uint8_t* buff
 		}
 		else
 		{
-			Draw_letterToBuffer(wrstring[i], x + (loclastpoz % textwidth) * fontSizePixels, y + ((int)(loclastpoz / textwidth)) * fontSizePixels, buffer, fontSize);
+			Draw_letterToBuffer(wrstring[i], x + (loclastpoz % textwidth) * fontSizePixels, y + (loclastpoz / textwidth) * fontSizePixels, buffer, fontSize);
 			loclastpoz++;
 		}
 	}
@@ -1001,17 +1001,17 @@ void VGA_close()
 {
 	clean_up_sound();
 	SDL_FreeSurface(m_surfaceFont);
-	m_surfaceFont = NULL;
+	m_surfaceFont = nullptr;
 	SDL_FreeSurface(m_gamePalletisedSurface);
-	m_gamePalletisedSurface = NULL;
+	m_gamePalletisedSurface = nullptr;
 	SDL_FreeSurface(m_gamePalletisedSurface);
-	m_gamePalletisedSurface = NULL;
+	m_gamePalletisedSurface = nullptr;
 	SDL_DestroyTexture(m_texture);
-	m_texture = NULL;
+	m_texture = nullptr;
 	SDL_DestroyRenderer(m_renderer);
-	m_renderer = NULL;
+	m_renderer = nullptr;
 	SDL_DestroyWindow(m_window);
-	m_window = NULL;
+	m_window = nullptr;
 	SDL_Quit();
 	//free(m_currentPalletColours);
 }
