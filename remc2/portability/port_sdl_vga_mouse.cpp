@@ -452,7 +452,7 @@ void VGA_Draw_string(char* wrstring) {
 }
 
 int drawCounter = 0;
-void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer, char fontSize) {
+void VGA_Draw_stringXYtoBuffer(const char* wrstring, int x, int y, uint8_t* buffer, char fontSize) {
 	if (unitTests)return;
 
 	if (oldWidth != m_gamePalletisedSurface->w)

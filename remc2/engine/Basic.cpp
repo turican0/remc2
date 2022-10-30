@@ -1747,7 +1747,7 @@ void VGA_CalculateAndPrintFps(int x, int y, float timeDelta)
 	std::string fpsStr = "FPS: ";
 	fpsStr.append(std::to_string(std::round(m_fFps*10)/10).substr(0,5));
 
-	VGA_Draw_stringXYtoBuffer((char*)fpsStr.c_str(), x, y, pdwScreenBuffer_351628);
+	VGA_Draw_stringXYtoBuffer(fpsStr.c_str(), x, y, pdwScreenBuffer_351628);
 }
 
 void VGA_DrawPlayerCoordData(int x, int y)
@@ -1762,13 +1762,13 @@ void VGA_DrawPlayerCoordData(int x, int y)
 			" Y: " + std::to_string(axisData.y) +
 			" Z: " + std::to_string(axisData.z);
 
-		VGA_Draw_stringXYtoBuffer((char*)playerCoordStr.c_str(), x, y, pdwScreenBuffer_351628, 'S');
+		VGA_Draw_stringXYtoBuffer(playerCoordStr.c_str(), x, y, pdwScreenBuffer_351628, 'S');
 
 		std::string playerRotationStr = "Pitch: " + std::to_string(rotData.pitch) +
 			" Roll: " + std::to_string(rotData.roll) +
 			" Yaw: " + std::to_string(rotData.yaw);
 
-		VGA_Draw_stringXYtoBuffer((char*)playerRotationStr.c_str(), x, y + 8, pdwScreenBuffer_351628, 'S');
+		VGA_Draw_stringXYtoBuffer(playerRotationStr.c_str(), x, y + 8, pdwScreenBuffer_351628, 'S');
 	}
 }
 
