@@ -36,7 +36,7 @@ Tomas has done amazing work, not only reverse engineering this code but updating
 
 There are two ways to build the Linux binary.
 - Building a native binary
-  1. Pull the development branch using GitHub (this is much easier if you install Visual Studio Code and install C++ Extension, cmake, cmake tools)
+  1. Pull the development branch using GitHub (this is much easier if you install Visual Studio Code and install C++ Extension, cmake, cmake tools). When pulling the branch either do a recursive clone of the repository or ensure that after the pull you run: `git submodule init` and `git submodule update`
   2. Make sure that you have `CMake`, `make` and a recent `GCC` installed
      - To install them on Debian/Pi OS: `sudo apt install -y cmake`  
   3. Make sure that you have the following dependencies as development packages (the exact names depend on your distro)
