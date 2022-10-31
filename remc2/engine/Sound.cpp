@@ -8,10 +8,10 @@
 
 
 int x_DWORD_E3794_sound_buffer3_lenght = 10; // weak
-char soundActive2_E3798 = 1; // weak
-char soundCard_E3799 = 1; // weak
-char x_BYTE_E379A = 0; // weak
-char x_BYTE_E379B = 1; // weak
+bool soundAble_E3798 = true; // weak
+bool soundActive_E3799 = true; // weak
+bool soundLoaded_E379A = true; // weak
+bool autoScanForSoundHardware_E379B = true; // weak
 char x_BYTE_E379C = 1; // weak
 
 type_E37A0_sound_buffer2* soundIndex_E37A0 = 0;
@@ -29,10 +29,10 @@ __int16 soundFreqType_E37B6 = 0; // weak
 char soundInitialized_E37B8 = 0; // weak
 int soundFrequence_E37BC = 0; // weak
 int musicVolume_E37F8 = 127; // weak
-char musicInitialized_E37FC = 1; // weak//2b47fc
-char musicStarted_E37FD = 1; // weak
-char musicLoaded_E37FE = 0; // weak
-__int16 musicTrack_E3802 = 0; // weak //2b4802
+bool musicAble_E37FC = true; // weak//2b47fc
+bool musicActive_E37FD = true; // weak
+bool musicLoaded_E37FE = false; // weak
+__int16 songCurrentlyPlaying_E3802 = 0; // weak //2b4802
 __int16 m_iNumberOfTracks = 0;
 type_E3808_music_header* musicHeader_E3808 = nullptr; // weak
 //uint8_t* x_DWORD_E3808_music_header = 0; // weak
@@ -87,7 +87,7 @@ char textBuffer_180BE0[512]; // weak
 HSEQUENCE m_hSequence; // weak
 HMDIDRIVER hMdiMusicDriver; // weak
 //int x_DWORD_180C80; // weak
-char x_BYTE_180C84_drivertype; // weak
+char musicDriverType_180C84; // weak
 
 HSAMPLE SoundBuffer3_180750[50]; // weak -351750 23 // delka 3fc, tj 2c struktur o delce 17 end x_DWORD_180B4C_end_sound_buffer3
 AIL_INI soundEffectsAILSettings; // weak
@@ -108,7 +108,7 @@ __int16 x_WORD_E39B4 = 0; // weak
 __int16 x_WORD_E39B6 = 0; // weak
 char x_BYTE_E39B8 = 0; // weak
 
-int x_DWORD_181C04 = 0; // weak 352c04
+int ailIndent_181C04 = 0; // weak 352c04
 struct tm* x_DWORD_181C08; // weak
 int x_DWORD_181C0C; // weak
 int x_DWORD_181C10; // weak
@@ -333,18 +333,18 @@ void InitSound_8D290()//26e290
 	sprintf(soundGamePath, "%s/SOUND", gameDataPath.c_str());
 
 	soundCardOk = false;
-	if (!soundActive2_E3798)
+	if (!soundAble_E3798)
 		return;
 	soundFreqType_E37B6 = soundFreqType2_E37B4;
 	if (!soundFreqType2_E37B4)
 	{
-		if (!musicInitialized_E37FC)
+		if (!musicAble_E37FC)
 		{
 			if (soundInitialized_E37B8)
 				AilShutdown_919C0();
 		}
-		soundActive2_E3798 = 0;
-		soundCard_E3799 = 0;
+		soundAble_E3798 = false;
+		soundActive_E3799 = false;
 		myprintf("\nCould not load any digital samples\n");
 		return;
 	}
@@ -385,16 +385,16 @@ void InitSound_8D290()//26e290
 
 	if (!DirExists(soundGamePath))
 	{
-		soundActive2_E3798 = 0;
-		soundCard_E3799 = 0;
-		if (musicInitialized_E37FC && musicLoaded_E37FE)
+		soundAble_E3798 = false;
+		soundActive_E3799 = false;
+		if (musicAble_E37FC && musicLoaded_E37FE)
 		{
 			sub_99C90();
 		}
 		else
 		{
-			musicInitialized_E37FC = 0;
-			musicStarted_E37FD = 0;
+			musicAble_E37FC = false;
+			musicActive_E37FD = false;
 			AilShutdown_919C0();
 		}
 		return;
@@ -407,10 +407,10 @@ void InitSound_8D290()//26e290
 
 		if (!hDigSoundEffectsDriver_180B48)
 		{
-			if (!musicInitialized_E37FC)
+			if (!musicAble_E37FC)
 				AilShutdown_919C0();
-			soundActive2_E3798 = 0;
-			soundCard_E3799 = 0;
+			soundAble_E3798 = false;
+			soundActive_E3799 = false;
 			return;
 		}
 		sprintf(soundEffectsAILSettings.driver_name, "%s", mdSoundPar1);
@@ -426,10 +426,10 @@ void InitSound_8D290()//26e290
 		{
 			if (!_stricmp(soundEffectsAILSettings.driver_name, "None"))//351ab0
 			{
-				if (!musicInitialized_E37FC)
+				if (!musicAble_E37FC)
 					AilShutdown_919C0();
-				soundActive2_E3798 = 0;
-				soundCard_E3799 = 0;
+				soundAble_E3798 = false;
+				soundActive_E3799 = false;
 				return;
 			}
 			if (!AilInstallDigIni_931F0(&hDigSoundEffectsDriver_180B48, digPath))//351b48
@@ -445,10 +445,10 @@ void InitSound_8D290()//26e290
 		}
 		if (!soundCardOk)
 		{
-			if (!musicInitialized_E37FC)
+			if (!musicAble_E37FC)
 				AilShutdown_919C0();
-			soundActive2_E3798 = 0;
-			soundCard_E3799 = 0;
+			soundAble_E3798 = false;
+			soundActive_E3799 = false;
 			return;
 		}
 	}
@@ -459,8 +459,8 @@ void InitSound_8D290()//26e290
 	{
 		switch (soundFreqType_E37B6) {
 			case 0:
-				soundActive2_E3798 = 0;
-				soundCard_E3799 = 0;
+				soundAble_E3798 = false;
+				soundActive_E3799 = false;
 				myprintf("\nCould not load any digital samples\n");
 				return;
 			case 800:
@@ -499,7 +499,7 @@ void InitSound_8D290()//26e290
 			AilSetPreference_91A80(7, 1);
 		else
 			AilSetPreference_91A80(7, 0);
-		if (!x_BYTE_E379B)
+		if (!autoScanForSoundHardware_E379B)
 			AilSetPreference_91A80(17, 0);
 		if (x_BYTE_E37AE)
 		{
@@ -515,7 +515,7 @@ void InitSound_8D290()//26e290
 		hDigSoundEffectsDriver_180B48 = AilInstallDigDriverFile_93330(soundEffectsAILSettings.driver_path, &ioParms_181D90);
 		if (hDigSoundEffectsDriver_180B48)
 		{
-			if (soundActive2_E3798)
+			if (soundAble_E3798)
 			{
 				x_DWORD_180B4C_end_sound_buffer3_endindex = x_DWORD_E3794_sound_buffer3_lenght;
 				for (int i = 0; i < x_DWORD_180B4C_end_sound_buffer3_endindex; i++)
@@ -524,16 +524,16 @@ void InitSound_8D290()//26e290
 					SoundBuffer3_180750[i]->len_4_5[1] = 0;
 					SoundBuffer3_180750[i]->start_44mhz = nullptr;
 				}
-				x_BYTE_E379A = 1;
+				soundLoaded_E379A = true;
 				sub_8E470_sound_proc17_volume(defaultVolume_E37B0);
 			}
 		}
 		else
 		{
-			if (!musicInitialized_E37FC)
+			if (!musicAble_E37FC)
 				AilShutdown_919C0();
-			soundActive2_E3798 = 0;
-			soundCard_E3799 = 0;
+			soundAble_E3798 = false;
+			soundActive_E3799 = false;
 			FreeMem_83E80((uint8_t*)soundIndex_E37A0);
 			numOfLoadedSounds_E37A4 = 0;
 			FreeMem_83E80(soundBuffer1_E37A8);
@@ -541,10 +541,10 @@ void InitSound_8D290()//26e290
 	}
 	else
 	{
-		if (!musicInitialized_E37FC)
+		if (!musicAble_E37FC)
 			AilShutdown_919C0();
-		soundActive2_E3798 = 0;
-		soundCard_E3799 = 0;
+		soundAble_E3798 = false;
+		soundActive_E3799 = false;
 		myprintf("\nCould not load any digital samples\n");
 	}
 }
@@ -587,7 +587,7 @@ void sub_8D800_sound_proc2()//26E800
 //----- (0008D8F0) --------------------------------------------------------
 void EndSample_8D8F0()//26e8f0
 {
-	if (soundActive2_E3798 && soundCard_E3799)
+	if (soundAble_E3798 && soundActive_E3799)
 	{
 		StopTimer_8F850();//270850
 		for (int i = 0; i < x_DWORD_180B4C_end_sound_buffer3_endindex; i++)
@@ -616,7 +616,7 @@ void InitMusic_8D970()//26e970
 
 	const char* mdMusic = nullptr;
 	bool musicCardOk = false;
-	if (!musicInitialized_E37FC)
+	if (!musicAble_E37FC)
 		return;
 	if (!soundInitialized_E37B8)
 	{
@@ -633,7 +633,7 @@ void InitMusic_8D970()//26e970
 	AilSetPreference_91A80(14, 1);
 	AilSetPreference_91A80(15, 0);
 	AilSetPreference_91A80(16, 12);
-	if (!x_BYTE_E379B)
+	if (!autoScanForSoundHardware_E379B)
 		AilSetPreference_91A80(17, 0);
 
 	char samplesPath[MAX_PATH];
@@ -641,16 +641,16 @@ void InitMusic_8D970()//26e970
 	AilSetGtlFilenamePrefix_96AE0(samplesPath);
 	if (!DirExists(soundCdPath))
 	{
-		musicInitialized_E37FC = 0;
-		musicStarted_E37FD = 0;
-		if (soundActive2_E3798 && x_BYTE_E379A)
+		musicAble_E37FC = false;
+		musicActive_E37FD = false;
+		if (soundAble_E3798 && soundLoaded_E379A)
 		{
 			EndSounds_99C10();
 		}
 		else
 		{
-			soundActive2_E3798 = 0;
-			soundCard_E3799 = 0;
+			soundAble_E3798 = false;
+			soundActive_E3799 = false;
 			AilShutdown_919C0();
 		}
 		return;
@@ -662,10 +662,10 @@ void InitMusic_8D970()//26e970
 		hMdiMusicDriver = AilInstakkMidiDriverFile_95850(mdMusicPar1, &ioParms);
 		if (!hMdiMusicDriver)
 		{
-			if (!soundActive2_E3798)
+			if (!soundAble_E3798)
 				AilShutdown_919C0();
-			musicInitialized_E37FC = 0;
-			musicStarted_E37FD = 0;
+			musicAble_E37FC = false;
+			musicActive_E37FD = false;
 			return;
 		}
 		sprintf(textBuffer_180BE0, "%s", mdMusicPar1);
@@ -679,10 +679,10 @@ void InitMusic_8D970()//26e970
 		{
 			if (!_stricmp(musicAILSettings.driver_name, "None"))
 			{
-				if (!soundActive2_E3798)
+				if (!soundAble_E3798)
 					AilShutdown_919C0();
-				musicInitialized_E37FC = 0;
-				musicStarted_E37FD = 0;
+				musicAble_E37FC = false;
+				musicActive_E37FD = false;
 				return;
 			}
 			if (!AilInstallMidiIni_95710(&hMdiMusicDriver, musicMdiPath))
@@ -690,10 +690,10 @@ void InitMusic_8D970()//26e970
 		}
 		if (!musicCardOk)
 		{
-			if (!soundActive2_E3798)
+			if (!soundAble_E3798)
 				AilShutdown_919C0();
-			musicInitialized_E37FC = 0;
-			musicStarted_E37FD = 0;
+			musicAble_E37FC = false;
+			musicActive_E37FD = false;
 			return;
 		}
 	}
@@ -702,85 +702,85 @@ void InitMusic_8D970()//26e970
 	bool isDriver = false;
 	if (!_stricmp(musicAILSettings.driver_name, "ADLIB.MDI"))
 	{
-		x_BYTE_180C84_drivertype = 'f';
+		musicDriverType_180C84 = 'f';
 		isDriver = true;		
 	}
 	if (!_stricmp(musicAILSettings.driver_name, "ADLIBG.MDI"))
 	{
-		x_BYTE_180C84_drivertype = 'f';
+		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
 	if (!_stricmp(musicAILSettings.driver_name, "OPL3.MDI"))
 	{
-		x_BYTE_180C84_drivertype = 'f';
+		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
 	if (!_stricmp(musicAILSettings.driver_name, "PAS.MDI"))
 	{
-		x_BYTE_180C84_drivertype = 'f';
+		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
 	if (!_stricmp(musicAILSettings.driver_name, "PASPLUS.MDI"))
 	{
-		x_BYTE_180C84_drivertype = 'f';
+		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
 	if (!_stricmp(musicAILSettings.driver_name, "SBLASTER.MDI"))
 	{
-		x_BYTE_180C84_drivertype = 'f';
+		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
 	if (!_stricmp(musicAILSettings.driver_name, "SBPRO1.MDI"))
 	{
-		x_BYTE_180C84_drivertype = 'f';
+		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
 	if (!_stricmp(musicAILSettings.driver_name, "SBPRO2.MDI"))
 	{
-		x_BYTE_180C84_drivertype = 'f';
+		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
 	if (!_stricmp(musicAILSettings.driver_name, "ESFM.MDI"))
 	{
-		x_BYTE_180C84_drivertype = 'f';
+		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
 	if (!_stricmp(musicAILSettings.driver_name, "SBAWE32.MDI"))
 	{
-		x_BYTE_180C84_drivertype = 'w';
+		musicDriverType_180C84 = 'w';
 		InitAWE32_9F740((char*)"Bullfrog");
 		if (!x_BYTE_E3815)
-			x_BYTE_180C84_drivertype = 'g';
+			musicDriverType_180C84 = 'g';
 		isDriver = true;
 	}
 	if (!_stricmp(musicAILSettings.driver_name, "MPU401.MDI"))
 	{
-		x_BYTE_180C84_drivertype = 'g';
+		musicDriverType_180C84 = 'g';
 		isDriver = true;
 	}
 	if (!_stricmp(musicAILSettings.driver_name, "SNDSCAPE.MDI"))
 	{
-		x_BYTE_180C84_drivertype = 'g';
+		musicDriverType_180C84 = 'g';
 		isDriver = true;
 	}
 	if (!_stricmp(musicAILSettings.driver_name, "MT32MPU.MDI"))
 	{
-		x_BYTE_180C84_drivertype = 'r';
+		musicDriverType_180C84 = 'r';
 		isDriver = true;
 	}
 	if (!sub_969A0_AIL_MDI_driver_type(hMdiMusicDriver))
 	{
-		x_BYTE_180C84_drivertype = 'g';
+		musicDriverType_180C84 = 'g';
 		isDriver = true;
 	}
 	if (sub_969A0_AIL_MDI_driver_type(hMdiMusicDriver) == 1 || sub_969A0_AIL_MDI_driver_type(hMdiMusicDriver) == 2)
 	{
-		x_BYTE_180C84_drivertype = 'f';
+		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
 	if (isDriver)
 	{
-		if (musicInitialized_E37FC && LoadMusic(musicChannel_E3814))
+		if (musicAble_E37FC && InitMusicBank_8EAD0(musicChannel_E3814))
 		{
 			if (x_BYTE_E3815 == 1)
 			{
@@ -788,31 +788,31 @@ void InitMusic_8D970()//26e970
 				x_BYTE_E3815 = 0;
 			}
 			AilUninstallMidiDriver_959A0(hMdiMusicDriver);
-			if (!soundActive2_E3798)
+			if (!soundAble_E3798)
 				AilShutdown_919C0();
-			musicInitialized_E37FC = 0;
-			musicStarted_E37FD = 0;
+			musicAble_E37FC = false;
+			musicActive_E37FD = false;
 			myprintf("\nError opening music files\n");
 		}
 		else
 		{
-			musicLoaded_E37FE = 1;
+			musicLoaded_E37FE = true;
 			sub_8E410_sound_proc16_xmidivolume(musicVolume_E37F8);
 		}
 		return;
 	}
 	AilUninstallMidiDriver_959A0(hMdiMusicDriver);
-	if (!soundActive2_E3798)
+	if (!soundAble_E3798)
 		AilShutdown_919C0();
-	musicInitialized_E37FC = 0;
-	musicStarted_E37FD = 0;
+	musicAble_E37FC = false;
+	musicActive_E37FD = false;
 	myprintf("\nError driver not supported\n");
 }
 
 //----- (0008E020) --------------------------------------------------------
 void StopMusic_8E020()//26f020
 {
-	if (musicInitialized_E37FC && musicStarted_E37FD && musicTrack_E3802)
+	if (musicAble_E37FC && musicActive_E37FD && songCurrentlyPlaying_E3802)
 	{
 		if (x_BYTE_E3818)
 			;// sub_92DC0_AIL_release_timer_handle(x_DWORD_180C80);
@@ -826,14 +826,14 @@ void StopMusic_8E020()//26f020
 			AilStopSequence_95DE0(m_hSequence);
 			AilEndSequence_95F00(m_hSequence);
 		}
-		musicTrack_E3802 = 0;
+		songCurrentlyPlaying_E3802 = 0;
 	}
 }
 
 //----- (0008E160) --------------------------------------------------------
 void StartMusic_8E160(int track, int volume)//26f160
 {
-	if (musicInitialized_E37FC && musicStarted_E37FD && track <= m_iNumberOfTracks && musicTrack_E3802 != track)
+	if (musicAble_E37FC && musicActive_E37FD && track <= m_iNumberOfTracks && songCurrentlyPlaying_E3802 != track)
 	{
 		if (x_BYTE_E3818)
 			;// sub_92DC0_AIL_release_timer_handle(x_DWORD_180C80);
@@ -842,14 +842,14 @@ void StartMusic_8E160(int track, int volume)//26f160
 		x_BYTE_E3817 = 1;
 		x_BYTE_E3816 = 0;
 		x_BYTE_E381A = -1;
-		if (musicTrack_E3802)
+		if (songCurrentlyPlaying_E3802)
 		{
 			if (AilSequenceStatus_96170(m_hSequence) != 2)
 			{
 				AilStopSequence_95DE0(m_hSequence);
 				AilEndSequence_95F00(m_hSequence);
 			}
-			musicTrack_E3802 = 0;
+			songCurrentlyPlaying_E3802 = 0;
 		}
 		AilInitSequence_95C00(m_hSequence, musicHeader_E3808->str_8.track_10[track].xmiData_0, 0, track);
 		AilRegisterTriggerCallback_97670(m_hSequence, reinterpret_cast<void*>(sub_8E0D0));
@@ -858,14 +858,14 @@ void StartMusic_8E160(int track, int volume)//26f160
 			AilSetSequenceVolume_96030(volume, -1);
 
 		AilStartSequence_95D50(m_hSequence, track);
-		musicTrack_E3802 = track;
+		songCurrentlyPlaying_E3802 = track;
 	}
 }
 
 //----- (0008E410) --------------------------------------------------------
 void sub_8E410_sound_proc16_xmidivolume(int master_volume)//26f410
 {
-	if (musicInitialized_E37FC)
+	if (musicAble_E37FC)
 	{
 		if (musicLoaded_E37FE)
 		{
@@ -881,9 +881,9 @@ void sub_8E410_sound_proc16_xmidivolume(int master_volume)//26f410
 //----- (0008E470) --------------------------------------------------------
 void sub_8E470_sound_proc17_volume(int volume)//26f470
 {
-	if (soundActive2_E3798)
+	if (soundAble_E3798)
 	{
-		if (x_BYTE_E379A)//2b479a
+		if (soundLoaded_E379A)//2b479a
 		{
 			if (volume != defaultVolume_E37B0 && volume <= 127 && volume >= 0)
 			{
@@ -985,34 +985,34 @@ void sub_91420()
 //----- (000919C0) --------------------------------------------------------
 void AilShutdown_919C0()
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_shutdown()\n");
 	UninstallDrivers_9ED70();
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8))
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8))
 	{
 		if (!GetE3FFE_A16A2())
 			fclose(ailDebufFile_181BF0);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00091A80) --------------------------------------------------------
 void AilSetPreference_91A80(uint32_t number, int32_t value)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_set_preference(%d,%d)\n", number, value);
 	AilSetPreference_9E6E0(number, value);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		//dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00091BD0) --------------------------------------------------------
@@ -1030,46 +1030,46 @@ void MinusE3FF2_91BF0()//fix it - remove
 //----- (00091C10) --------------------------------------------------------
 uint16_t AilGetRealVect_91C10(uint32_t vectnum)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_get_real_vect(0x%X)\n", vectnum);
 	uint16_t result = AilApiGetRealVect_A121D(vectnum);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (00091D50) --------------------------------------------------------
 void AilSetRealVect_91D50(uint32_t vectnum, uint16_t real_ptr)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_set_real_vect(0x%X,0x%X)\n", vectnum, real_ptr);
 	AilApiSetRealVect_A1249(vectnum, real_ptr);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00091E90) --------------------------------------------------------
 void AilRestoreUSE16ISR_91E90(int32_t isr)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_restore_USE16_ISR(%d)\n", isr);
 	AilApiRestoreUSE16IISR_A14DB(isr);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00099C10) --------------------------------------------------------
 void EndSounds_99C10()//27ac10
 {
-	if (x_BYTE_E379A)
+	if (soundLoaded_E379A)
 	{
 		EndSample_8D8F0();
 		if (!musicLoaded_E37FE)
@@ -1081,9 +1081,9 @@ void EndSounds_99C10()//27ac10
 		}
 		if (soundBuffer1_E37A8)
 			FreeMem_83E80(soundBuffer1_E37A8);
-		soundActive2_E3798 = 0;
-		soundCard_E3799 = 0;
-		x_BYTE_E379A = 0;
+		soundAble_E3798 = false;
+		soundActive_E3799 = false;
+		soundLoaded_E379A = false;
 	}
 }
 
@@ -1092,15 +1092,15 @@ void sub_99C90()//27ac90
 {
 	if (musicLoaded_E37FE)
 	{
-		if (musicTrack_E3802)
+		if (songCurrentlyPlaying_E3802)
 		{
 			AilStopSequence_95DE0((HSEQUENCE)m_hSequence);
 			AilEndSequence_95F00(m_hSequence);
-			musicTrack_E3802 = 0;
+			songCurrentlyPlaying_E3802 = 0;
 		}
 		if (x_BYTE_E3815 == 1)
 			sub_9FA80();
-		if (!x_BYTE_E379A)
+		if (!soundLoaded_E379A)
 			AilShutdown_919C0();
 		if (musicHeader_E3808)
 		{
@@ -1109,9 +1109,9 @@ void sub_99C90()//27ac90
 		}
 		if (musicData_E3810)
 			FreeMem_83E80(musicData_E3810);
-		musicInitialized_E37FC = 0;
-		musicStarted_E37FD = 0;
-		musicLoaded_E37FE = 0;
+		musicAble_E37FC = false;
+		musicActive_E37FD = false;
+		musicLoaded_E37FE = false;
 	}
 }
 
@@ -1155,9 +1155,9 @@ void sub_917D0()
 	//sub_A1840_AIL_API_set_timer_frequency(x_DWORD_181C00, 100);
 	//sub_A1768_start_timer(x_DWORD_181C00);
 	x_DWORD_181BF4 = 1;
-	x_DWORD_181C04 = 1;
+	ailIndent_181C04 = 1;
 	DebugSoundTimer_916F0();
-	x_DWORD_181C04 = 0;
+	ailIndent_181C04 = 0;
 	dbgfprintf(ailDebufFile_181BF0, "AIL_startup()");
 }
 
@@ -1187,130 +1187,130 @@ const char* mygetenv(const char* envName)//27ae33
 //----- (00093330) --------------------------------------------------------
 HDIGDRIVER AilInstallDigDriverFile_93330(char* filename, IO_PARMS* IO)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_install_DIG_driver_file(%s,0x%X)\n", filename, IO);
 	HDIGDRIVER result = AilApiInstallDigDriverFile_A3600(filename, IO);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (00093480) --------------------------------------------------------
 int AilUninstallDigDriver_93480(HDIGDRIVER dig)//AIL_uninstall_DIG_driver //274480
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_uninstall_DIG_driver(0x%X)\n", dig);
 	int result = sub_A37A0(dig);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (00093510) --------------------------------------------------------
 HSAMPLE AilAllocateSampleHandle_93510(HDIGDRIVER dig)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_allocate_sample_handle(0x%X)\n", dig);
 	HSAMPLE result = sub_A3820_allocate_sample_handle(dig);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (00093830) --------------------------------------------------------
 void AilInitSample_93830(HSAMPLE S)//274830
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_init_sample(0x%X)\n", S);
 	InitSample_A38E0(S);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (000938C0) --------------------------------------------------------
 int32_t AilSetSampleFile_938C0(HSAMPLE S, uint8_t* pWavData, int32_t block)//2748c0
 {
-	x_DWORD_181C04--;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04--;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_set_sample_file(0x%X,0x%X,%d)\n", S, pWavData, block);
 
 	int32_t result = SetSampleFile_A4B20(S, pWavData, block);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (00093A10) --------------------------------------------------------
 void AilSetSampleAddress_93A10(HSAMPLE S, uint8_t* start, uint32_t len)//274a10
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_set_sample_address(0x%X,0x%X,%u)\n", S, start, len);
 	SetSampleAddress_A3A30(S, start, len);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00093AB0) --------------------------------------------------------
 void AilSetSampleType_93AB0(HSAMPLE S, int32_t channels, uint32_t byteSampleType)//274ab0
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_set_sample_type(0x%X,%d,%u)\n", S, channels, byteSampleType);
 	SetSampleType_A3A70(S, channels, byteSampleType);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00093B50) --------------------------------------------------------
 void AilStartSample_93B50(HSAMPLE S)//274b50
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_start_sample(0x%X)\n", S);
 	ApiAilStartSample_A3CB0(S);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00093D00) --------------------------------------------------------
 void AilEndSample_93D00(HSAMPLE S)//274d00
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_end_sample(0x%X)\n", S);
 	ApiAilEndSample_A3DA0(S);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00093D90) --------------------------------------------------------
 void AilSetSamplePlaybackRate_93D90(HSAMPLE S, int32_t playback_rate)//274d90
 {
-	x_DWORD_181C04--;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04--;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_set_sample_playback_rate(0x%X,%d)\n", S, playback_rate);
 	SetSamplePlaybackRate_A3AF0(S, playback_rate);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00093E30) --------------------------------------------------------
@@ -1322,21 +1322,21 @@ void AilSetSampleVolume_93E30(HSAMPLE S, int32_t volume)//274e30
 //----- (00093ED0) --------------------------------------------------------
 void AilSetSampleVolumePan_93ED0(HSAMPLE S, int32_t volume)//274ed0
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_set_sample_pan(0x%X,%d)\n", S, volume);
 	SetSampleVolumePan_A3BB0(S, volume);
-	x_DWORD_181C04++;
+	ailIndent_181C04++;
 }
 
 //----- (00093F70) --------------------------------------------------------
 void AilSetSampleLoopCount_93F70(HSAMPLE S, int loop_count) //274f70
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_set_sample_loop_count(0x%X,%d)\n", S, loop_count);
 	SetSampleLoopCount_A3C90(S, loop_count);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00094010) --------------------------------------------------------
@@ -1353,156 +1353,156 @@ void AilDigitalMasterVolume_94650(int master_volume)
 //----- (00094650) --------------------------------------------------------
 void sub_94650_AIL_set_digital_master_volume_orig(HDIGDRIVER driver, int master_volume)//AIL_set_digital_master_volume
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_set_digital_master_volume(0x%X,%d)\n", driver, master_volume);
 	SetDigitalMasterVolume_A3F70(driver, master_volume);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00095140) --------------------------------------------------------
 EOS_callback_type AilRegisterEosCallback_95140(HSAMPLE S, EOS_callback_type EOS)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_register_EOS_callback(0x%X,0x%X)\n", S, EOS);
 	EOS_callback_type result = RegisterEosCallback_A3EB0(S, EOS);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (000953E0) --------------------------------------------------------
 void AilSetSampleUserData_953E0(HSAMPLE S, int index, int value)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_set_sample_user_data(0x%X,%u,%d)\n", S, index, value);
 	SetSampleUserData_A3F00(S, index, value);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00095480) --------------------------------------------------------
 int AilSampleUserData_95480(HSAMPLE S, int index)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_sample_user_data(0x%X,%u)\n", S, index);
 	int result = SampleUserData_A3F30(S, index);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (00095710) --------------------------------------------------------
 int32_t AilInstallMidiIni_95710(HMDIDRIVER* mdi, char* fileName)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_install_MDI_INI(0x%X)\n", mdi);
 	int result = AilApiInstallMDIIni_A78F0(mdi, fileName);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (00095850) --------------------------------------------------------
 HMDIDRIVER AilInstakkMidiDriverFile_95850(char* filename, IO_PARMS* IO)//276850
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_install_MDI_driver_file(%s,0x%X)\n", filename, IO);
 	HMDIDRIVER result = AilApiInstallMDIIni_A77D0(filename, IO);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (000959A0) --------------------------------------------------------
 int AilUninstallMidiDriver_959A0(HMDIDRIVER mdi)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_uninstall_MDI_driver(0x%X)\n", mdi);
 	int result = sub_A7970_AIL_API_uninstall_MDI_driver(mdi);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (00095A30) --------------------------------------------------------
 HSEQUENCE AilAllocateSequenceHandle_95A30(HMDIDRIVER mdi)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_allocate_sequence_handle(0x%X)\n", mdi);
 	HSEQUENCE result = AilApiAllocateSequenceHandle_A7B30(mdi);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (00095C00) --------------------------------------------------------
 int32_t AilInitSequence_95C00(HSEQUENCE hSequence, uint8_t* start, int32_t sequence_num, uint32_t track)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_init_sequence(0x%X,0x%X,%d)\n", hSequence, start, sequence_num);
 	int result = AilApiInitSequence_A7C20(hSequence, start, sequence_num, track);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (00095D50) --------------------------------------------------------
 void AilStartSequence_95D50(HSEQUENCE hSequence, uint32_t track)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_start_sequence(0x%X)\n", hSequence);
 	AilApiStartSequence_A8010(hSequence, track);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00095DE0) --------------------------------------------------------
@@ -1514,31 +1514,31 @@ void AilStopSequence_95DE0(HSEQUENCE hSequence)//AIL_stop_sequence
 //----- (00095DE0) --------------------------------------------------------
 void sub_95DE0_AIL_stop_sequence_orig(HSEQUENCE hSequence)//AIL_stop_sequence
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_stop_sequence(0x%X)\n", hSequence);
 	sub_A8050_AIL_API_stop_sequence(hSequence);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00095E70) --------------------------------------------------------
 void sub_95E70_AIL_resume_sequence(HSEQUENCE hSequence)//AIL_resume_sequence
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_resume_sequence(0x%X)\n", hSequence);
 	sub_A8180_AIL_API_resume_sequence(hSequence);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00095F00) --------------------------------------------------------
 void AilEndSequence_95F00(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_end_sequence
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_end_sequence(0x%X)\n", hSequence);
 	AilApiEndSequence_A8250(hSequence);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00096030) --------------------------------------------------------
@@ -1550,19 +1550,19 @@ void AilSetSequenceVolume_96030(int32_t volume, int32_t  milliseconds)
 //----- (00096170) --------------------------------------------------------
 int AilSequenceStatus_96170(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_sequence_status
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_sequence_status(0x%X)\n", hSequence);
 	int result = AilApiSequenceStatus_A8410(hSequence);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = %u\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
@@ -1575,15 +1575,15 @@ void AilSetXMidiMasterVolume_96670(int32_t master_volume)
 //----- (000969A0) --------------------------------------------------------
 int32_t sub_969A0_AIL_MDI_driver_type(HMDIDRIVER mdi)//AIL_MDI_driver_type
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_MDI_driver_type(0x%X)\n", mdi);
 	int32_t result = sub_A7990_AIL_API_MDI_driver_type(mdi);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
@@ -1593,109 +1593,109 @@ int32_t sub_969A0_AIL_MDI_driver_type(HMDIDRIVER mdi)//AIL_MDI_driver_type
 //----- (00096AE0) --------------------------------------------------------
 void AilSetGtlFilenamePrefix_96AE0(char* samplesPath)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_set_GTL_filename_prefix(%s)\n", samplesPath);
 	AilApiSetGTLFilenamePrefix_A7AA0(samplesPath);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00097330) --------------------------------------------------------
 void AilSequencePosition_97330(HSEQUENCE hSequence, x_DWORD* beat, x_DWORD* measure)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_sequence_position(0x%X,0x%X,0x%X)\n", hSequence, beat, measure);
 	sub_A8830(hSequence, beat, measure);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8))
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8))
 	{
 		if (!GetE3FFE_A16A2())
 		{
 			for (int i = 0; i < 14; i++)
 				dbgfprintf(ailDebufFile_181BF0, " \0");
-			for (int j = 1; j < x_DWORD_181C04; j++)
+			for (int j = 1; j < ailIndent_181C04; j++)
 				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 			dbgfprintf(ailDebufFile_181BF0, "Result = %d:%d\n", *measure + 1, *beat + 1);
 		}
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00097480) --------------------------------------------------------
 void AilBranchIndex_97480(HSEQUENCE hSequence, int marker)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_branch_index(0x%X,%u)\n", hSequence, marker);
 	sub_A8900(hSequence, marker);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00097670) --------------------------------------------------------
 void AilRegisterTriggerCallback_97670(HSEQUENCE hSequence, xCALLBACK callback)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_register_trigger_callback(0x%X,0x%X)\n", hSequence, callback);
 	AilApiTriggerCallback_A8A20(hSequence, callback);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		//dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00097F90) --------------------------------------------------------
 int AilLockChannel_97F90(MDI_DRIVER* mdi)
 {
-	x_DWORD_181C04--;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04--;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_lock_channel(0x%X)\n", mdi);
 	int result = AilApiLockChannel_97F90_A8BF0(mdi);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (000980D0) --------------------------------------------------------
 void AilReleaseChannel_980D0(HMDIDRIVER mdi, int channel)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_release_channel(0x%X,%d)\n", mdi, channel);
 	sub_A8EA0(mdi, channel);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00098170) --------------------------------------------------------
 void AilMapSequenceChannel_98170(HSEQUENCE S, int seq_channel, int new_channel)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_map_sequence_channel(0x%X,%d,%d)\n", S, seq_channel, new_channel);
 	sub_A9080(S, seq_channel, new_channel);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00098360) --------------------------------------------------------
 void AilSendChannelVoiceMessage_98360(HMDIDRIVER mdi, HSEQUENCE hSequence, int32_t status, int32_t data_1, int32_t data_2)//AIL_send_channel_voice_message // 279360
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_send_channel_voice_message(0x%X,0x%X,0x%X,0x%X,0x%X)\n", mdi, hSequence, status, data_1, data_2);
 	AilAPISendChannelVoiceMessage_A9140(mdi, hSequence, status, data_1, data_2);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (000986E0) --------------------------------------------------------
@@ -1710,7 +1710,7 @@ void sub_986E0()//2796e0
 //----- (00098790) --------------------------------------------------------
 void SetMusicVolume_98790(int milliseconds, int volume)//279790
 {
-	if (musicInitialized_E37FC && musicStarted_E37FD && musicTrack_E3802 && volume <= 0x7Fu && AilSequenceStatus_96170(m_hSequence) != 2)
+	if (musicAble_E37FC && musicActive_E37FD && songCurrentlyPlaying_E3802 && volume <= 0x7Fu && AilSequenceStatus_96170(m_hSequence) != 2)
 		AilSetSequenceVolume_96030(volume, milliseconds);
 }
 
@@ -1767,7 +1767,7 @@ bool LoadSound_84300(uint8_t soundIndex)//265300
 	int32_t lastSoundBankPos;
 	uint8_t soundIndex2 = 0;
 
-	if (soundActive2_E3798 && actualSound_E37AD != soundIndex)
+	if (soundAble_E3798 && actualSound_E37AD != soundIndex)
 	{
 		if (soundActiveH_E2A14)
 			EndSample_8D8F0();
@@ -1870,7 +1870,7 @@ bool ReadAndDecompressSound(FILE* file, uint8_t soundIndex2)//2654f0
 		soundBufferLen_E2A18 = soundBank2[soundIndex2].dword_12 + 256;
 		soundActiveH_E2A14 = 1;
 	}
-	soundActive2_E3798 = 0;
+	soundAble_E3798 = false;
 	if (!soundBuffer1_E37A8 || !soundIndex_E37A0)
 		return false;
 	memset((void*)soundBuffer1_E37A8, 0, soundBufferLen_E2A18);
@@ -1940,7 +1940,7 @@ bool ReadAndDecompressSound(FILE* file, uint8_t soundIndex2)//2654f0
 	//64xfix
 
 	LoadSoundDataFromBuffer_844A0(numOfLoadedSounds_E37A4);
-	soundActive2_E3798 = 1;
+	soundAble_E3798 = true;
 	return true;
 }
 
@@ -2189,7 +2189,7 @@ void sub_9F040()
 //----- (0009FA80) --------------------------------------------------------
 void sub_9FA80()//280a80
 {
-	if (musicInitialized_E37FC && !_stricmp(textBuffer_180BE0, "SBAWE32.MDI") && !_stricmp(&x_BYTE_180C84_drivertype, "w"))
+	if (musicAble_E37FC && !_stricmp(textBuffer_180BE0, "SBAWE32.MDI") && !_stricmp(&musicDriverType_180C84, "w"))
 	{
 		sub_9F6D0(hMdiMusicDriver, 1);
 		sub_9F170(x_DWORD_181E2C, x_WORD_181E30);
@@ -2390,7 +2390,7 @@ void InitAWE32_9F740(char* textBullfrog)//280740
 
 	FILE* file;
 
-	if (musicInitialized_E37FC && !_stricmp(textBuffer_180BE0, "SBAWE32.MDI") && !_stricmp(&x_BYTE_180C84_drivertype, "w"))
+	if (musicAble_E37FC && !_stricmp(textBuffer_180BE0, "SBAWE32.MDI") && !_stricmp(&musicDriverType_180C84, "w"))
 	{
 		if (x_BYTE_E3815 == 1)
 		{
@@ -4617,68 +4617,68 @@ IO_PARMS* AilGetIoEnvironment_92ED0(AIL_DRIVER* drvr)
 {
 	IO_PARMS* result; // [esp+Ch] [ebp-4h]
 
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_get_IO_environment(0x%X)\n", drvr);
 	result = AilApiGetIoEnvironment_9EB60(drvr);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (00093010) --------------------------------------------------------
 AIL_DRIVER* AilInstallDriver_93010(uint8_t* driver_image, int32_t n_bytes)//274010
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_install_driver(0x%X,%u)\n", driver_image, n_bytes);
 	AIL_DRIVER* result = AilApiInstallDriver_9E720(driver_image, n_bytes);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = 0x%X\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (00093160) --------------------------------------------------------
 int AilUninstallDriver_93160(AIL_DRIVER* drvr)
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_uninstall_driver(0x%X)\n", drvr);
 	int result = AilApiUninstallDriver_9EA60(drvr);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (000931F0) --------------------------------------------------------
 int AilInstallDigIni_931F0(HDIGDRIVER* dig, char* digPath)//2741f0
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_install_DIG_INI(0x%X)\n", dig);
 	int result = AilApiInstallDigINI_A3720(dig, digPath);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
@@ -4716,7 +4716,7 @@ bool DebugSoundTimer_916F0()
 	time_t timer = x_DWORD_181C0C;
 	struct tm* timeptr = x_DWORD_181C08;
 	MinusE3FF2_A0EF9();
-	if (x_DWORD_181C04 == 1)
+	if (ailIndent_181C04 == 1)
 	{
 		dbgfprintf(ailDebufFile_181BF0, "[%.02u:%.02u:%.02u.%.02u] ", x_DWORD_181BFC, timer, timeptr, x_DWORD_181C10);
 	}
@@ -4725,7 +4725,7 @@ bool DebugSoundTimer_916F0()
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
 	}
-	for (int j = 1; j < x_DWORD_181C04; j++)
+	for (int j = 1; j < ailIndent_181C04; j++)
 		dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 	return true;
 }
@@ -4870,7 +4870,7 @@ int sub_9F220(int a1)//serial_dpmi_lock_linear_memory/serial_dpmi_unlock_linear_
 }
 
 //----- (0008EAD0) --------------------------------------------------------
-bool LoadMusic(int channel)//26fad0
+bool InitMusicBank_8EAD0(int channel)//26fad0
 {
 	int16_t driverarray[4];
 	FILE* filehandle;
@@ -4879,7 +4879,7 @@ bool LoadMusic(int channel)//26fad0
 	int filelenght;
 	int channellplus;
 	char musicPath[MAX_PATH];
-	if (!musicInitialized_E37FC)
+	if (!musicAble_E37FC)
 		return false;
 	StopMusic_8E020();
 
@@ -4895,7 +4895,7 @@ bool LoadMusic(int channel)//26fad0
 	DataFileIO::Read(filehandle, (uint8_t*)driverarray, 8);
 	channellplus = channel + 1;
 
-	switch (x_BYTE_180C84_drivertype)
+	switch (musicDriverType_180C84)
 	{
 		case 'g':
 		case 'G':
@@ -4956,12 +4956,12 @@ bool LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	if (musicData_E3810)
 	{
 		FreeMem_83E80(musicData_E3810);
-		musicInitialized_E37FC = 0;
+		musicAble_E37FC = false;
 	}
 	if (musicHeader_E3808)
 	{
 		FreeMem_83E80((uint8_t*)musicHeader_E3808);
-		musicInitialized_E37FC = 0;
+		musicAble_E37FC = false;
 	}
 	musicData_E3810 = (uint8_t*)Malloc_83CD0(headerx[drivernumber].dword_12);
 	if (!musicData_E3810)
@@ -5049,7 +5049,7 @@ bool LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 
 	for (int i = 1; i <= m_iNumberOfTracks; i++)//2b4804
 		AilInitSequence_95C00(m_hSequence, musicHeader_E3808->str_8.track_10[i].xmiData_0, 0, i);
-	musicInitialized_E37FC = 1;
+	musicAble_E37FC = true;
 	return true;
 }
 
@@ -5071,8 +5071,8 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 	HSAMPLE* soundBuffer1 = nullptr;
 	HSAMPLE* soundBuffer2 = nullptr;
 
-	if (!soundActive2_E3798
-		|| !soundCard_E3799
+	if (!soundAble_E3798
+		|| !soundActive_E3799
 		|| index > (signed int)indexLoadedSound_180B50
 		|| !_stricmp((const char*)&soundIndex_E37A0->str_8.wavs_10[index -1].filename_14, "null.wav"))
 	{
@@ -5188,7 +5188,7 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 //----- (0008F420) --------------------------------------------------------
 void sub_8F420_sound_proc20(int a1, __int16 a2)//270420
 {
-	if (soundActive2_E3798 && soundCard_E3799)
+	if (soundAble_E3798 && soundActive_E3799)
 	{
 		for (int i = 0; i < x_DWORD_180B4C_end_sound_buffer3_endindex; i++)
 		{
@@ -5204,7 +5204,7 @@ void sub_8F420_sound_proc20(int a1, __int16 a2)//270420
 //----- (0008F710) --------------------------------------------------------
 void sub_8F710_sound_proc21(int flags, __int16 index, int loopCount, unsigned __int8 initTimers, char volScale)//270710
 {
-	if (soundActive2_E3798 && soundCard_E3799 && index <= indexLoadedSound_180B50)
+	if (soundAble_E3798 && soundActive_E3799 && index <= indexLoadedSound_180B50)
 	{
 		for (int i = 0; i < x_DWORD_180B4C_end_sound_buffer3_endindex; i++)
 		{
@@ -5255,91 +5255,91 @@ void StopTimer_8F850()//270850
 //----- (00091F70) --------------------------------------------------------
 int32_t AilCallDriver_91F70(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in, VDI_CALL* out)//272f70
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_call_driver(0x%X,0x%X,0x%X,0x%X)\n", drvr, fn, in, out);
 	int result = AilApiCallDriver_A158B(drvr, fn, in, out);
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i = 0; i < 14; i++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int j = 1; j < x_DWORD_181C04; j++)
+		for (int j = 1; j < ailIndent_181C04; j++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = %d\n", result);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (000920D0) --------------------------------------------------------
 void AilDelay_920D0(int delay)//AIL_delay
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_delay(%d)\n", delay);
 	AilApiDelay_A1665(delay);
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 }
 
 //----- (00092190) --------------------------------------------------------
 bool AilReadIniFile_92190(AIL_INI* INI, char* filename)//273190
 {
-	x_DWORD_181C04++;
-	if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
+	ailIndent_181C04++;
+	if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2() && DebugSoundTimer_916F0())
 		dbgfprintf(ailDebufFile_181BF0, "AIL_API_read_INI(0x%X,%s)\n", INI, filename);
 	bool result = AilApiReadIni_9E3A0(INI, filename);
 	if (result)
 	{
-		if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+		if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 		{
 			for (int i = 0; i < 14; i++)
 				dbgfprintf(ailDebufFile_181BF0, " \0");
-			for (int j = 1; j < x_DWORD_181C04; j++)
+			for (int j = 1; j < ailIndent_181C04; j++)
 				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 			dbgfprintf(ailDebufFile_181BF0, "Driver = %s\n", INI->driver_name);
 			for (int k = 0; k < 14; k++)
 				dbgfprintf(ailDebufFile_181BF0, " \0");
-			for (int l = 1; l < x_DWORD_181C04; l++)
+			for (int l = 1; l < ailIndent_181C04; l++)
 				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 			dbgfprintf(ailDebufFile_181BF0, "Device = %s\n", INI->device_name);
 			for (int m = 0; m < 14; m++)
 				dbgfprintf(ailDebufFile_181BF0, " \0");
-			for (int n = 1; n < x_DWORD_181C04; n++)
+			for (int n = 1; n < ailIndent_181C04; n++)
 				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 			dbgfprintf(ailDebufFile_181BF0, "IO     = %X\n", INI->IO.IO);//*(signed __int16 *)(a1 + 256)
 			for (int ii = 0; ii < 14; ii++)
 				dbgfprintf(ailDebufFile_181BF0, " \0");
-			for (int jj = 1; jj < x_DWORD_181C04; jj++)
+			for (int jj = 1; jj < ailIndent_181C04; jj++)
 				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 			dbgfprintf(ailDebufFile_181BF0, "IRQ    = %d\n", INI->IO.IRQ);//*(signed __int16 *)(a1 + 258)
 			for (int kk = 0; kk < 14; kk++)
 				dbgfprintf(ailDebufFile_181BF0, " \0");
-			for (int ll = 1; ll < x_DWORD_181C04; ll++)
+			for (int ll = 1; ll < ailIndent_181C04; ll++)
 				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 			dbgfprintf(ailDebufFile_181BF0, "DMA_8  = %d\n", INI->IO.DMA_8_bit);//*(signed __int16 *)(a1 + 260)
 			for (int mm = 0; mm < 14; mm++)
 				dbgfprintf(ailDebufFile_181BF0, " \0");
-			for (int nn = 1; nn < x_DWORD_181C04; nn++)
+			for (int nn = 1; nn < ailIndent_181C04; nn++)
 				dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 			dbgfprintf(ailDebufFile_181BF0, "DMA_16 = %d\n", INI->IO.DMA_16_bit);//*(signed __int16 *)(a1 + 262)
 		}
 	}
-	else if (x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
+	else if (x_DWORD_181BF4 && (ailIndent_181C04 == 1 || x_DWORD_181BF8) && !GetE3FFE_A16A2())
 	{
 		for (int i1 = 0; i1 < 14; i1++)
 			dbgfprintf(ailDebufFile_181BF0, " \0");
-		for (int i2 = 1; i2 < x_DWORD_181C04; i2++)
+		for (int i2 = 1; i2 < ailIndent_181C04; i2++)
 			dbgfprintf(ailDebufFile_181BF0, "\0xfa\0");
 		dbgfprintf(ailDebufFile_181BF0, "Result = %u\n", 0);
 	}
-	x_DWORD_181C04--;
+	ailIndent_181C04--;
 	return result;
 }
 
 //----- (00099970) --------------------------------------------------------
 void sub_99970(char a1, unsigned __int8 a2)//27a970
 {
-	if (pcSpeakerSoundDev_E3819 && musicInitialized_E37FC && musicStarted_E37FD && musicTrack_E3802 && AilSequenceStatus_96170(m_hSequence) != 2 && x_BYTE_E3817 != a1)
+	if (pcSpeakerSoundDev_E3819 && musicAble_E37FC && musicActive_E37FD && songCurrentlyPlaying_E3802 && AilSequenceStatus_96170(m_hSequence) != 2 && x_BYTE_E3817 != a1)
 	{
 		if (x_BYTE_E3818)
 			;// sub_92DC0_AIL_release_timer_handle(x_DWORD_180C80);

@@ -3,6 +3,8 @@
 #include <stdlib.h>
 
 #include <iostream>
+#include <vector>
+#include <algorithm>    // std::sort
 
 #include "png.h"
 
@@ -14,10 +16,10 @@
 
 //#define PalToPNG
 
-//#define level1
+#define level1
 //#define level25
 //#define level4
-#define level2
+//#define level2
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 unsigned char get32colorIndex(unsigned char* content_data32, int xindex2, int yindex2, int xpos, int ypos)
@@ -335,6 +337,24 @@ void pngToBuffer(unsigned char* pngbuffer) {
 }
 
 int transparentColor = 0;
+std::vector<int> usedColors;
+int getIndexedColorL1(int colorR, int colorG, int colorB, unsigned char* palette) {
+	int index;
+	int diference = 10000000000;
+	for (int i : usedColors)
+	{
+		if (transparentColor != i)
+		{
+			int testDiference = (abs(colorR - palette[i * 3 + 0]) + abs(colorG - palette[i * 3 + 1]) + abs(colorB - palette[i * 3 + 2]));
+			if (testDiference < diference)
+			{
+				index = i;
+				diference = testDiference;
+			}
+		}
+	}
+	return index;
+};
 int getIndexedColor(int minColor, int maxColor, int colorR, int colorG, int colorB, unsigned char* palette) {
 	int index;
 	int diference = 10000000000;
@@ -545,6 +565,23 @@ int main(int argc, char* argv[]) {
 
 			int j;
 
+			usedColors.clear();
+			for (int y = 0; y < 32; y++)
+				for (int x = 0; x < 32; x++)
+				{
+					unsigned char originalColor = content_data32[posY * (tileX * 32 * 32) + posX * (32) + y * tileX * 32 + x];
+					bool isIncluded = false;
+					for (int k : usedColors)
+						if (originalColor == k)
+						{
+							isIncluded = true;
+							break;
+						}
+					if (!isIncluded)
+						usedColors.push_back(originalColor);
+				}
+			sort(usedColors.begin(), usedColors.end());
+
 			for (int i = 0; i < height; i++)
 			{
 				for (int jx = 0; jx < width; jx++)
@@ -555,7 +592,38 @@ int main(int argc, char* argv[]) {
 					int colorR = pngbuffer[4 * (j + width * i) + 0];
 					int colorG = pngbuffer[4 * (j + width * i) + 1];
 					int colorB = pngbuffer[4 * (j + width * i) + 2];
+
+					float borderKoef = 40;
+					if (colorRIerr[i] < -borderKoef) colorRIerr[i] = -borderKoef;
+					if (colorGIerr[i] < -borderKoef) colorGIerr[i] = -borderKoef;
+					if (colorBIerr[i] < -borderKoef) colorBIerr[i] = -borderKoef;
+
+					if (colorRIerr[i] > borderKoef) colorRIerr[i] = borderKoef;
+					if (colorGIerr[i] > borderKoef) colorGIerr[i] = borderKoef;
+					if (colorBIerr[i] > borderKoef) colorBIerr[i] = borderKoef;
+
+					borderKoef = 80;
+					if (colorRIerr[j] < -borderKoef) colorRIerr[j] = -borderKoef;
+					if (colorGIerr[j] < -borderKoef) colorGIerr[j] = -borderKoef;
+					if (colorBIerr[j] < -borderKoef) colorBIerr[j] = -borderKoef;
+
+					if (colorRIerr[j] > borderKoef) colorRIerr[j] = borderKoef;
+					if (colorGIerr[j] > borderKoef) colorGIerr[j] = borderKoef;
+					if (colorBIerr[j] > borderKoef) colorBIerr[j] = borderKoef;
+
+					if (pngbuffer[4 * (j + width * i) + 3] < 128)
+					{
+						colorRIerr[i] = 0;
+						colorGIerr[i] = 0;
+						colorBIerr[i] = 0;
+
+						colorRJerr[j] = 0;
+						colorGJerr[j] = 0;
+						colorBJerr[j] = 0;
+					}
+
 					float koef = 0.5;
+
 					colorRerr = koef * (colorRIerr[i] + colorRJerr[j]);
 					colorGerr = koef * (colorGIerr[i] + colorGJerr[j]);
 					colorBerr = koef * (colorBIerr[i] + colorBJerr[j]);
@@ -567,25 +635,9 @@ int main(int argc, char* argv[]) {
 					colorRJerr[j] -= 0.5 * colorRerr;
 					colorGJerr[j] -= 0.5 * colorGerr;
 					colorBJerr[j] -= 0.5 * colorBerr;
-
-					colorRIerr[i] *= remLineKoef;
-					colorGIerr[i] *= remLineKoef;
-					colorBIerr[i] *= remLineKoef;
-
-					colorRJerr[j] *= remLineKoef;
-					colorGJerr[j] *= remLineKoef;
-					colorBJerr[j] *= remLineKoef;
-
-					/*if (pngbuffer[4 * (j + width * i) + 3] < 128)
-					{
-						colorRIerr[i] = 0;
-						colorGIerr[i] = 0;
-						colorBIerr[i] = 0;
-
-						colorRJerr[j] = 0;
-						colorGJerr[j] = 0;
-						colorBJerr[j] = 0;
-					}*/
+#ifdef level1
+					x = getIndexedColorL1(colorR - colorRerr, colorG - colorGerr, colorB - colorBerr, content_stdpal);
+#else
 #ifndef level4
 					unsigned char originalColor = content_data32[(posY * 32 * 32 * 8) + (posX * 32) + ((int)(j/4) + 8 * 32 * ((int)(i/4)))];
 					if(originalColor <=11)
@@ -593,6 +645,8 @@ int main(int argc, char* argv[]) {
 					else
 #endif // !level4
 						x = getIndexedColor(12, szstd / 3, colorR - colorRerr, colorG - colorGerr, colorB - colorBerr, content_stdpal);
+#endif // level1
+						
 					//fwrite((char*)&x, 1, 1, fptw_outdata2);
 					buffer[i * width + j] = (char)x;
 

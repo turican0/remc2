@@ -11668,9 +11668,9 @@ void sub_18BB0()//1f9bb0
 			sub_52E90(
 				&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc],
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221,	true);
-			if (soundCard_E3799)
+			if (soundActive_E3799)
 				EndSample_8D8F0();
-			if (musicStarted_E37FD)
+			if (musicActive_E37FD)
 				StopMusic_8E020();
 			if (x_D41A0_BYTEARRAY_4_struct.byteindex_225)
 				x_D41A0_BYTEARRAY_4_struct.byteindex_225 = 2;
@@ -11687,7 +11687,7 @@ void sub_18BB0()//1f9bb0
 		sub_52E90(
 			&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc],
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221, true);
-		if (musicStarted_E37FD)
+		if (musicActive_E37FD)
 			StartMusic_8E160(D41A0_0.maptypeMusic_0x235, 0x7Fu);
 		sub_86930(x_WORD_1803EC);
 		if (x_D41A0_BYTEARRAY_4_struct.byteindex_225)
@@ -12242,16 +12242,16 @@ void ChangeSoundLevel_19CA0(uint8_t option)//1faca0
 {
 	if (option == 1u)
 	{
-		if (soundActive2_E3798)
+		if (soundAble_E3798)
 		{
 			x_D41A0_BYTEARRAY_4_struct.byte_38591 = option;
-			soundCard_E3799 = 1;
+			soundActive_E3799 = true;
 		}
 	}
-	else if (option == 2 && musicInitialized_E37FC)
+	else if (option == 2 && musicAble_E37FC)
 	{
 		x_D41A0_BYTEARRAY_4_struct.byte_38591 = 2;
-		musicStarted_E37FD = 1;
+		musicActive_E37FD = true;
 		StartMusic_8E160(D41A0_0.maptypeMusic_0x235, 0x7Fu);
 	}
 	if (x_D41A0_BYTEARRAY_4_struct.byte_38591)
@@ -12474,9 +12474,9 @@ void sub_1A280()//1fb280
 {
 	x_D41A0_BYTEARRAY_4_struct.dwordindex_192 = 0;
 	x_D41A0_BYTEARRAY_4_struct.dwordindex_192 |= 0x01;//help
-	if (soundActive2_E3798)
+	if (soundAble_E3798)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_192 |= 0x02;//sound
-	if (musicInitialized_E37FC)
+	if (musicAble_E37FC)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_192 |= 0x04;//music
 	if (x_BYTE_E2A28_speek)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_192 |= 0x08;//speek
@@ -12500,9 +12500,9 @@ void sub_1A280()//1fb280
 	x_D41A0_BYTEARRAY_4_struct.dwordindex_188 = 0;
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_10)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_188 |= 0x01;//help
-	if (soundCard_E3799)
+	if (soundActive_E3799)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_188 |= 0x02;//sound
-	if (musicStarted_E37FD)
+	if (musicActive_E37FD)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_188 |= 0x04;//music
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 0x40)
 		x_D41A0_BYTEARRAY_4_struct.dwordindex_188 |= 0x08;//speek
@@ -12974,28 +12974,28 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		sub_18AA0();
 		return;
 	case 2:
-		if (!soundActive2_E3798)
+		if (!soundAble_E3798)
 			return;
-		sub_19760_set_message((char*)x_DWORD_E9C4C_langindexbuffer[(soundCard_E3799 != 0) + 390], 3u, 50);
+		sub_19760_set_message((char*)x_DWORD_E9C4C_langindexbuffer[(soundActive_E3799 != 0) + 390], 3u, 50);
 		//Sound On / Sound Off
 
 		EndSample_8D8F0();
 		sub_86860_speak_Sound(x_WORD_1803EC);
-		soundCard_E3799 ^= 1u;
+		soundActive_E3799 ^= 1u;
 		return;
 	case 3:
-		if (!musicInitialized_E37FC)
+		if (!musicAble_E37FC)
 			return;
-		if (musicStarted_E37FD)
+		if (musicActive_E37FD)
 		{
 			StopMusic_8E020();
 			sub_19760_set_message((char*)x_DWORD_E9C4C_langindexbuffer[393], 3u, 50);//Music Off
-			musicStarted_E37FD = 0;
+			musicActive_E37FD = false;
 		}
 		else
 		{
 			v15 = D41A0_0.maptypeMusic_0x235;
-			musicStarted_E37FD = 1;
+			musicActive_E37FD = true;
 			StartMusic_8E160(v15, 0x7Fu);
 			sub_19760_set_message(x_DWORD_E9C4C_langindexbuffer[392], 3u, 50);//Music On
 		}
@@ -28366,7 +28366,7 @@ void DrawPauseMenu_2FD90()//210d90
 			}
 			posY += heigth;
 			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176]);//Sound button
-			if (!soundActive2_E3798)
+			if (!soundAble_E3798)
 			{
 				v2 = 0;
 				while (v2 < 2)
@@ -28381,7 +28381,7 @@ void DrawPauseMenu_2FD90()//210d90
 				}
 			}
 			sub_2BB40_draw_bitmap(posX + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176].width_4, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[177]);//Music button
-			if (!musicInitialized_E37FC)
+			if (!musicAble_E37FC)
 			{
 				v3 = 0;
 				while (v3 < 2)
@@ -37225,15 +37225,15 @@ void sub_40F80()//221f80
 		}
 		else if ((!DefaultResolutions())&&(x_WORD_180660_VGA_type_resolution != 1))
 		{
-			VGA_BlitAny();
+			VGA_BlitAny(maxGameFps);
 		}
 		else if (x_WORD_180660_VGA_type_resolution & 1)
 		{
-			sub_90478_VGA_Blit320();
+			sub_90478_VGA_Blit320(maxGameFps);
 		}
 		else
 		{
-			sub_75200_VGA_Blit640(480);
+			sub_75200_VGA_Blit640(480, maxGameFps);
 		}
 	}
 	else if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && v12)
@@ -37246,15 +37246,15 @@ void sub_40F80()//221f80
 	}
 	else if ((!DefaultResolutions())&&(x_WORD_180660_VGA_type_resolution != 1))
 	{
-		VGA_BlitAny();
+		VGA_BlitAny(maxGameFps);
 	}
 	else if (x_WORD_180660_VGA_type_resolution & 1)
 	{
-		sub_90478_VGA_Blit320();
+		sub_90478_VGA_Blit320(maxGameFps);
 	}
 	else
 	{
-		sub_75200_VGA_Blit640(480);
+		sub_75200_VGA_Blit640(480, maxGameFps);
 	}
 }
 
@@ -37842,7 +37842,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 
 			while (!D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234)
 			{
-				if (musicInitialized_E37FC && musicStarted_E37FD && m_iNumberOfTracks)
+				if (musicAble_E37FC && musicActive_E37FD && m_iNumberOfTracks)
 				{
 					//v8 = x_D41A0_BYTEARRAY_0[196308];
 					switch (D41A0_0.terrain_2FECE.MapType) {
@@ -37892,9 +37892,9 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, v10);
 				}
 				if (x_WORD_180660_VGA_type_resolution & 1)
-					sub_90478_VGA_Blit320();
+					sub_90478_VGA_Blit320(maxGameFps);
 				else
-					sub_75200_VGA_Blit640(480);
+					sub_75200_VGA_Blit640(480, maxGameFps);
 				if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] & 2
 					&& !(x_D41A0_BYTEARRAY_4_struct.setting_38545 & 4))
 				{
@@ -38066,10 +38066,10 @@ void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)
 		if ((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 0x40)//fix it
 		{
 			PrintTextMessage_70910((char*)"Sound Disabled\0");
-			musicStarted_E37FD = 0;
-			soundCard_E3799 = 0;
-			musicInitialized_E37FC = 0;
-			soundActive2_E3798 = 0;
+			musicActive_E37FD = false;
+			soundActive_E3799 = false;
+			musicAble_E37FC = false;
+			soundAble_E3798 = false;
 		}
 		else
 		{
@@ -38079,9 +38079,9 @@ void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)
 			if (!soundActiveL_E2A14)
 				myprintf("ERROR: NOT ENOUGH MEMORY FOR SOUNDS\n");
 			if ((x_D41A0_BYTEARRAY_4_struct.setting_byte4_25) & 0x40)//fix it
-				LoadMusic(1);
+				InitMusicBank_8EAD0(1);
 		}
-		if (soundActive2_E3798 || musicInitialized_E37FC)
+		if (soundAble_E3798 || musicAble_E37FC)
 		{
 			//x_DWORD_F42A4_sound_timer = sub_92600_AIL_register_timer(sub_46820_simple_timer);
 			//sub_92930_AIL_set_timer_frequency(x_DWORD_F42A4_sound_timer, 0x78u);
@@ -38093,12 +38093,12 @@ void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)
 			sub_6FDA0();
 		}
 		//v5 = x_BYTE_E3798_sound_active2;
-		if (!soundActive2_E3798 && !musicInitialized_E37FC && x_BYTE_E2A28_speek)
+		if (!soundAble_E3798 && !musicAble_E37FC && x_BYTE_E2A28_speek)
 		{
 			sub_86860_speak_Sound(x_WORD_1803EC);
 			sub_86BD0_freemem1();
 			//v6 = x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 0xBF;
-			x_BYTE_E2A28_speek = soundActive2_E3798;
+			x_BYTE_E2A28_speek = soundAble_E3798;
 			(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24) &= 0xBF;
 		}
 	}
@@ -38459,10 +38459,7 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	signed int j; // ebx
 	signed int i; // ebx
 
-#if _DEBUG
-	frameStart = std::chrono::steady_clock::now();
-	//frameStart = clock();
-#endif
+	SetFrameStart(std::chrono::system_clock::now());
 
 	if ((CommandLineParams.DoDebugafterload() == 1) && (count_begin == 1))
 		debugcounter_47560++;
@@ -53436,7 +53433,7 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 	if (x_BYTE_355238_music2)
 		x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 |= 0x40u;
 	if (x_BYTE_35523C_detectoff)
-		x_BYTE_E379B = 1;
+		autoScanForSoundHardware_E379B = true;
 	//result = x_D41A0_BYTEARRAY_4;
 	x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = x_BYTE_355210_level;
 	x_D41A0_BYTEARRAY_4_struct.setting_45w = x_DWORD_355208;
@@ -53540,8 +53537,8 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 #ifdef DEBUG_START
 	debug_printf("sub_56A30_init_game_level:sub_6EB90 passed\n");
 #endif //DEBUG_START
-	char temp_x_BYTE_E3799_sound_card = soundCard_E3799;
-	soundCard_E3799 = 0;
+	char temp_x_BYTE_E3799_sound_card = soundActive_E3799;
+	soundActive_E3799 = false;
 	ClearSettings_567C0();
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8))
 	{
@@ -53606,7 +53603,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	if (CommandLineParams.DoDebugSequences()) {
 		add_compare(0x237bb9, CommandLineParams.DoDebugafterload());
 	}
-	soundCard_E3799 = temp_x_BYTE_E3799_sound_card;
+	soundActive_E3799 = temp_x_BYTE_E3799_sound_card;
 	sub_53160();
 	//adress 237bc7
 	if (CommandLineParams.DoDebugSequences()) {
@@ -53701,8 +53698,8 @@ void sub_56D60(unsigned int a1, char a2)//237d60
 	//uint8_t* v4; // eax
 	//type_event_0x6E8E* v5x; // ST08_4
 
-	v2 = soundCard_E3799;
-	soundCard_E3799 = 0;
+	v2 = soundActive_E3799;
+	soundActive_E3799 = false;
 	ClearSettings_567C0();
 	sub_533B0_decompress_levels(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, &D41A0_0.terrain_2FECE);
 	if (a2)
@@ -53725,7 +53722,7 @@ void sub_56D60(unsigned int a1, char a2)//237d60
 	InitStageVars_11EE0();
 	Init0x3664C_84790();
 	sub_4A1E0(0, 1);
-	soundCard_E3799 = v2;
+	soundActive_E3799 = v2;
 	sub_53160();
 	//v5x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 	sub_60F00();
@@ -57428,8 +57425,8 @@ void Initialize()//23c8d0
 		sub_753D0();
 	// ?keyboard init
 
-	soundCard_E3799 = soundActive2_E3798;
-	musicStarted_E37FD = musicInitialized_E37FC;
+	soundActive_E3799 = soundAble_E3798;
+	musicActive_E37FD = musicAble_E37FC;
 	sub_8CEDF_install_mouse();
 	if (!x_DWORD_E3768)
 	{
@@ -57609,13 +57606,13 @@ char sub_5BF10()//23cf10
 {
 	char result; // al
 
-	if (soundCard_E3799)
+	if (soundActive_E3799)
 		EndSample_8D8F0();
-	if (musicStarted_E37FD)
+	if (musicActive_E37FD)
 		StopMusic_8E020();
 	result = 0;
-	musicStarted_E37FD = 0;
-	soundCard_E3799 = 0;
+	musicActive_E37FD = false;
+	soundActive_E3799 = false;
 	return result;
 }
 // E3799: using guessed type char x_BYTE_E3799_sound_card;
@@ -70869,7 +70866,7 @@ void sub_6E150()//24f150
 	//int v3; // ebx
 	//int v4; // ebx
 
-	if (soundCard_E3799 && soundActive2_E3798 && (!(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1) || x_D41A0_BYTEARRAY_4_struct.byte_38591))
+	if (soundActive_E3799 && soundAble_E3798 && (!(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1) || x_D41A0_BYTEARRAY_4_struct.byte_38591))
 	{
 		v0 = 0;
 		do
@@ -70948,7 +70945,7 @@ void PrepareEventSound_6E450(__int16 a1, __int16 a2, __int16 a3)//24f450
 	v29 = 0;
 	v21 = 0;
 	v24 = D41A0_0.rand_0x8;
-	if (!soundCard_E3799 || !soundActive2_E3798)
+	if (!soundActive_E3799 || !soundAble_E3798)
 		return;
 	v3x = x_DWORD_EA3E4[a1];
 	v22x = v3x;
@@ -71221,7 +71218,7 @@ bool sub_6EA90(int a1, int a2)//24fa90
 //----- (0006EAB0) --------------------------------------------------------
 void sub_6EAB0(int  /*a1*/, __int16 a2, __int16 a3)//24fab0
 {
-	if (!soundCard_E3799 || !soundActive2_E3798)
+	if (!soundActive_E3799 || !soundAble_E3798)
 		return;
 	if ((unsigned __int16)a3 < 0x1Fu)
 	{
@@ -73955,9 +73952,9 @@ void sub_7B5D0()
 		ClearGraphicsBuffer_72883(pdwScreenBuffer_351628, 640, 480, 0);
 
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		sub_90478_VGA_Blit320();
+		sub_90478_VGA_Blit320(menuFps);
 	else
-		sub_75200_VGA_Blit640(480);
+		sub_75200_VGA_Blit640(480, menuFps);
 }
 
 //----- (0007C020) --------------------------------------------------------
@@ -76570,7 +76567,7 @@ void sub_86F20(char a1)//267f20
 //----- (00086F70) --------------------------------------------------------
 void sub_86F70_sound_proc12(unsigned __int8 a1, __int16 a2, __int16 a3)//267f70
 {
-	if (x_BYTE_E2A28_speek && (musicInitialized_E37FC || soundActive2_E3798))
+	if (x_BYTE_E2A28_speek && (musicAble_E37FC || soundAble_E3798))
 	{
 		//x_DWORD_180078 = sub_92600_AIL_register_timer(sub_86EA0);
 		//sub_92930_AIL_set_timer_frequency(x_DWORD_180078, 0x32u);
@@ -76587,7 +76584,7 @@ void sub_86F70_sound_proc12(unsigned __int8 a1, __int16 a2, __int16 a3)//267f70
 //----- (00086FF0) --------------------------------------------------------
 void sub_86FF0(unsigned __int8 a1, __int16 a2, __int16 a3)//267ff0
 {
-	if (x_BYTE_E2A28_speek && (musicInitialized_E37FC || soundActive2_E3798))
+	if (x_BYTE_E2A28_speek && (musicAble_E37FC || soundAble_E3798))
 	{
 		x_WORD_1803E8 = a1;
 		sub_86860_speak_Sound(x_WORD_1803EC);
@@ -81363,9 +81360,9 @@ size_t WriteFile_98CAA(FILE* filename, uint8_t* buffer, uint32_t num_bytes)//279
 //----- (00099080) --------------------------------------------------------
 /*void sub_99080(char a1)
 {
-  x_BYTE_E379B = a1 != 0;
+  autoScanForSoundHardware_E379B = a1 != 0;
 }*/
-// E379B: using guessed type char x_BYTE_E379B;
+// E379B: using guessed type char autoScanForSoundHardware_E379B;
 
 //----- (0009937E) --------------------------------------------------------
 int sub_9937E_set_video_mode(__int16  /*a1*/)//27a37e

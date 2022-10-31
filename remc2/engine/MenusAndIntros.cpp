@@ -791,7 +791,7 @@ void InitLanguage_76A40()//257A40
 			sub_7ADE0(1);
 		}
 	}
-	if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex != 2 || !soundActive2_E3798)
+	if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex != 2 || !soundAble_E3798)
 		x_BYTE_D41C0 = 1;
 	x_WORD_E29D8 = 1;
 }
@@ -826,7 +826,7 @@ void Intros_76D10(char a1)//257d10
 		sub_9874D_create_index_dattab(x_DWORD_17DE38str.x_DWORD_17DEC0, x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);
 
 	sub_2EB40();
-	if (soundActive2_E3798 && x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2)
+	if (soundAble_E3798 && x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2)
 	{
 		x_BYTE_D41C1 = 0;
 		x_BYTE_D41C0 = 0;
@@ -998,6 +998,7 @@ void MainMenu_76FA0(/*int a1, */int  /*a2*/, uint16_t a3x)//257fa0
 		v27 = x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode;
 		while (!x_WORD_E29DC)
 		{
+			SetFrameStart(std::chrono::system_clock::now());
 			v13 = j___clock();
 			if ((v10 == x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx) && (v12 == x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony) && (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode == v27))
 			{
@@ -1054,9 +1055,9 @@ void MainMenu_76FA0(/*int a1, */int  /*a2*/, uint16_t a3x)//257fa0
 			if (LOBYTE(a3x))
 			{
 				if (x_WORD_180660_VGA_type_resolution & 1)
-					sub_90478_VGA_Blit320();
+					sub_90478_VGA_Blit320(menuFps);
 				else
-					sub_75200_VGA_Blit640(480);
+					sub_75200_VGA_Blit640(480, menuFps);
 			}
 			else
 			{
@@ -1143,6 +1144,7 @@ bool NewGameDialog_77350(type_WORD_E1F84* a1x)//258350
 		x_DWORD_17DB70str.x_WORD_17DB8A = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
 		while (!v1)
 		{
+			SetFrameStart(std::chrono::system_clock::now());
 			if (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode == 59)
 			{
 				x_DWORD_17DE38str.x_BYTE_17DF13 = x_D41A0_BYTEARRAY_4_struct.byteindex_10 != 1;
@@ -1169,9 +1171,9 @@ bool NewGameDialog_77350(type_WORD_E1F84* a1x)//258350
 				v1 = 1;
 			}
 			if (x_WORD_180660_VGA_type_resolution & 1)
-				sub_90478_VGA_Blit320();
+				sub_90478_VGA_Blit320(menuFps);
 			else
-				sub_75200_VGA_Blit640(480);
+				sub_75200_VGA_Blit640(480, menuFps);
 			sub_7A060_get_mouse_and_keyboard_events();
 		}
 		sub_86860_speak_Sound(x_WORD_1803EC);
@@ -1899,6 +1901,7 @@ char SetKeysDialog_79610()//25a610
 	sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[110]);
 	while (v44 != 2)
 	{
+		SetFrameStart(std::chrono::system_clock::now());
 		v34 = j___clock();
 		v36 = v34;
 		if (x_WORD_180660_VGA_type_resolution & 1)
@@ -2081,9 +2084,9 @@ char SetKeysDialog_79610()//25a610
 			}
 		}
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			sub_90478_VGA_Blit320();
+			sub_90478_VGA_Blit320(menuFps);
 		else
-			sub_75200_VGA_Blit640(480);
+			sub_75200_VGA_Blit640(480, menuFps);
 		if (!v41)
 		{
 			sub_90B27_VGA_pal_fadein_fadeout(x_DWORD_17DE38str.x_DWORD_17DE38x, 0x20u, 0);
@@ -4640,7 +4643,7 @@ void sub_82670()//263670
 				}
 				if (v0)
 				{
-					if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2 && soundActive2_E3798 || v0 >= 6)
+					if (x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex == 2 && soundAble_E3798 || v0 >= 6)
 					{
 						x_BYTE_D41C1 = 0;
 						x_BYTE_D41C0 = 0;
@@ -4996,6 +4999,8 @@ void ShowWelcomeScreen_83850()//264850
 	LastPressedKey_1806E4 = 0;
 	while (!LastPressedKey_1806E4 && !x_WORD_180746_mouse_left_button && !x_WORD_180744_mouse_right_button && (j___clock() - v4) / 0x64u <= 0x14)
 	{
+		SetFrameStart(std::chrono::system_clock::now());
+
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			CopyScreen(x_DWORD_E9C38_smalltit, pdwScreenBuffer_351628, 320, 200);
 		else
@@ -5003,15 +5008,15 @@ void ShowWelcomeScreen_83850()//264850
 		if (v1)
 		{
 			if (x_WORD_180660_VGA_type_resolution & 1)
-				sub_90478_VGA_Blit320();
+				sub_90478_VGA_Blit320(menuFps);
 			else
-				sub_75200_VGA_Blit640(480);
+				sub_75200_VGA_Blit640(480, menuFps);
 		}
 		else
 		{
 			v1 = 1;
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, 0);//fix
-			sub_75200_VGA_Blit640(480);//fix
+			sub_75200_VGA_Blit640(480, menuFps);//fix
 			sub_90B27_VGA_pal_fadein_fadeout((TColor*)*xadatapald0dat2.colorPalette_var28, 0x20u, 0);
 		}
 	}
@@ -5022,9 +5027,9 @@ void ShowWelcomeScreen_83850()//264850
 		ClearGraphicsBuffer_72883(pdwScreenBuffer_351628, 640, 480, 0);
 
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		sub_90478_VGA_Blit320();
+		sub_90478_VGA_Blit320(menuFps);
 	else
-		sub_75200_VGA_Blit640(480);
+		sub_75200_VGA_Blit640(480, menuFps);
 	while (sub_9A10A_check_keyboard(/*v7*/))
 	{
 		LastPressedKey_1806E4 = 0;

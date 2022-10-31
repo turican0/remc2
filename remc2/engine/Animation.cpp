@@ -70,6 +70,8 @@ void PlayInfoFmv(__int16 a1, __int16 a2, Type_SoundEvent_E17CC* pSoundEvent, cha
 		x_WORD_17DB5C = a1;
 		do
 		{
+			SetFrameStart(std::chrono::system_clock::now());
+
 			if (x_WORD_17DB5A)
 				break;
 			if (ActualKeyframe_17DB60 >= LastKeyframe_17DB46 - 1)//34eb60 a 34eb46
@@ -111,7 +113,7 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 		case 'B':
 		case 'b':
 			StopMusic_8E020();
-			LoadMusic(pSoundEvent[x_WORD_D4004].index);
+			InitMusicBank_8EAD0(pSoundEvent[x_WORD_D4004].index);
 			break;
 		case 'D':
 		case 'd':
@@ -124,12 +126,12 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 			break;
 		case 'F':
 		case 'f':
-			if (soundActive2_E3798)
+			if (soundAble_E3798)
 				sub_8F710_sound_proc21(0, pSoundEvent[x_WORD_D4004].index, 0, 4u, 1);
 			break;
 		case 'H':
 		case 'h':
-			if (soundActive2_E3798)
+			if (soundAble_E3798)
 				sub_8F100_sound_proc19(0, pSoundEvent[x_WORD_D4004].index, 0, 64, 0x64u, -1, 2u);
 			break;
 		case 'K':
@@ -150,12 +152,12 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 			break;
 		case 'O':
 		case 'o':
-			if (soundActive2_E3798)
+			if (soundAble_E3798)
 				sub_8F710_sound_proc21(0, pSoundEvent[x_WORD_D4004].index, 0x7Fu, 2u, 0);
 			break;
 		case 'P':
 		case 'p':
-			if (soundActive2_E3798)
+			if (soundAble_E3798)
 				sub_8F710_sound_proc21(0, pSoundEvent[x_WORD_D4004].index, 0x50u, 2u, 0);
 			break;
 		case 'Q':
@@ -163,12 +165,12 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 			break;
 		case 'R':
 		case 'r':
-			if (soundActive2_E3798)
+			if (soundAble_E3798)
 				sub_8F100_sound_proc19(0, pSoundEvent[x_WORD_D4004].index, 127, 64, 0x64u, -1, 2u);
 			break;
 		case 'S':
 		case 's':
-			if (soundActive2_E3798)
+			if (soundAble_E3798)
 			{
 				if (pSoundEvent[x_WORD_D4004].index)
 					sub_8F100_sound_proc19(0, pSoundEvent[x_WORD_D4004].index, 127, 64, 0x64u, 0, 2u);
@@ -178,7 +180,7 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 			break;
 		case 'T':
 		case 't':
-			if (soundActive2_E3798)
+			if (soundAble_E3798)
 			{
 				if (pSoundEvent[x_WORD_D4004].index)
 					sub_8F420_sound_proc20(0, pSoundEvent[x_WORD_D4004].index);
@@ -357,19 +359,18 @@ void /*__fastcall*/ sub_75E70()//256e70
 			sub_2EC90(v19);//20fc90 -zde se prekresli texty
 		}
 	}
-	int tempSpeed = speedGame;
-	speedGame = speedAnim;
+
 	if (x_BYTE_D41C1)
 	{
 		pdwScreenBuffer_351628 += 0x26C0;
-		sub_90478_VGA_Blit320();
+		sub_90478_VGA_Blit320(fmvFps);
 		pdwScreenBuffer_351628 -= 0x26C0;
 	}
 	else
 	{
-		sub_90478_VGA_Blit320();
+		sub_90478_VGA_Blit320(fmvFps);
 	}
-	speedGame = tempSpeed;
+
 }
 
 //----- (0002EC60) --------------------------------------------------------
@@ -629,6 +630,7 @@ void sub_9A0FC_wait_to_screen_beam()//27B0fc
 	  result = __inx_BYTE(0x3DAu);
 	while ( !(result & 8) );
 	return result;*/
+	VGA_Blit(nullptr);
 	mydelay(10);
 }
 
