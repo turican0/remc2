@@ -154,7 +154,7 @@ void SetPalette(SDL_Color* colours) {
 	if (m_gamePalletisedSurface)
 	{
 		SDL_SetPaletteColors(m_gamePalletisedSurface->format->palette, m_currentPalletColours, 0, 256);
-		SubBlit(m_iOrigw, m_iOrigh);
+		//SubBlit(m_iOrigw, m_iOrigh);
 	}
 }
 
@@ -185,6 +185,9 @@ void Set_basic_Palette1() {
 			colors[i].g = 255;
 			colors[i].b = 255;
 		}
+		tempPalettebuffer[i * 3] = colors[i].r / 4;
+		tempPalettebuffer[i * 3 + 1] = colors[i].g / 4;
+		tempPalettebuffer[i * 3 + 2] = colors[i].b / 4;
 	}
 	SetPalette(colors);
 }

@@ -7156,8 +7156,9 @@ void PaletteMulti_7C9D0(signed __int16 a1)//25d9d0
 	x_DWORD_17DE38str.x_DWORD_17DE38x[148].red -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[148].red) >> 8;
 	x_DWORD_17DE38str.x_DWORD_17DE38x[148].green -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[148].green) >> 8;
 	x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue -= (v1 * x_DWORD_17DE38str.x_DWORD_17DE38x[148].blue) >> 8;
-	sub_9A0FC_wait_to_screen_beam();
+	//sub_9A0FC_wait_to_screen_beam();
 	sub_41A90_VGA_Palette_install(x_DWORD_17DE38str.x_DWORD_17DE38x);
+	fix_sub_9A0FC_wait_to_screen_beam();
 }
 
 //----- (0007C7C0) --------------------------------------------------------
@@ -7254,8 +7255,9 @@ void PaletteCopy_7C800(signed __int16 a1)//25d800
 		x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue = (x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].blue * v1) >> 8;
 	else
 		x_DWORD_17DE38str.x_DWORD_17DE38x[149].blue = x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].blue;
-	sub_9A0FC_wait_to_screen_beam();
+	//sub_9A0FC_wait_to_screen_beam();
 	sub_41A90_VGA_Palette_install(x_DWORD_17DE38str.x_DWORD_17DE38x);
+	fix_sub_9A0FC_wait_to_screen_beam();
 }
 
 //----- (00085BF5) --------------------------------------------------------
