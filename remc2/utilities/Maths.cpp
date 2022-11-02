@@ -835,8 +835,9 @@ int16_t Maths::sub_581E0_maybe_tan2(axis_3d* a1, axis_3d* a2)//2391E0
 
 inline void Maths::x_BitScanReverse(uint32_t* Destination, uint32_t Source)
 {
+#ifdef _MSC_VER
 	_BitScanReverse((unsigned long*)Destination, Source);
-	/* old implementation:
+#else
 	*Destination = 0;
 	if (Source & 0x80000000)
 	{
@@ -1000,7 +1001,7 @@ inline void Maths::x_BitScanReverse(uint32_t* Destination, uint32_t Source)
 	}
 	Destination = NULL;
 	return;
-	*/
+#endif //  _MSC_VER
 };
 
 int Maths::SubtrackUntilZero(int x, int y)
