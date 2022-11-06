@@ -138,7 +138,7 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
 
 			SDL_Rect display = GetDisplayByIndex(displayIndex);
-			if (display.w < width && display.h < height)
+			if (width > display.w || height > display.h)
 			{
 				display = FindDisplayByResolution(width, height);
 			}
