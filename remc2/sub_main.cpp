@@ -53051,7 +53051,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	bigGraphicsPath = GetSubDirectoryPath(bigGraphicsFolder);
 
 	printf("Initializing graphics Width: %d Height: %d\n", windowResWidth, windowResHeight);
-	VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio);
+	VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio, displayIndex);
 
 	//char maindir[1024];
 	myprintf("Finding Game Data...\n");
@@ -81008,7 +81008,7 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 
 	TColor zero_bufferx[256];
 
-	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio);
+	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
 
 	if (singlestep)
 	{
