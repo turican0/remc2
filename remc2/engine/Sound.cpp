@@ -2614,6 +2614,8 @@ int32_t AilApiCallDriver_A158B(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in, VDI_C
 //----- (000A1665) --------------------------------------------------------
 void AilApiDelay_A1665(int delay)//282665
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	mydelay(delay);
 }
 

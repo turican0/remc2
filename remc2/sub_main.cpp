@@ -36897,6 +36897,8 @@ uint16_t x_WORD_DE350[256] + 4400
 
 int sub_40D10()//221d10//fix vga
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	int v1; // ebx
 	signed int v2; // ecx
 	x_BYTE* v3; // esi
@@ -57529,6 +57531,8 @@ void sub_5BCC0_set_any_variables1()//23ccc0
 //----- (0005BDC0) --------------------------------------------------------
 void SetMousePositionInMemory_5BDC0(int16_t posX, int16_t posY)//23cdc0
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	if (posX < 0)
 		posX = 0;
 	if (posY < 0)
@@ -73933,6 +73937,8 @@ void sub_7AA70_load_and_decompres_dat_file(const char* path, uint8_t* filebuffer
 //----- (0007B5A0) --------------------------------------------------------
 void ResetMouse_7B5A0()
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	//_disable();
 	x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons = 0;
 	x_WORD_180744_mouse_right_button = 0;

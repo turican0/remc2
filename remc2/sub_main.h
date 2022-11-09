@@ -555,6 +555,7 @@ void  sub_841CE(__int16 a1);//ShowPerifery
 //sub_6FDA0 ShowPerifery
 //sub_90530 ShowPerifery
 //sub_B5015 ShowPerifery
+//sub_840B8 ShowPerifery
 
 char sub_86860_speak_Sound(unsigned __int16 a1);
 void sub_86EB0(unsigned __int8 a1, unsigned __int8 a2, char a3);
