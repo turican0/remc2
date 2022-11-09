@@ -73981,6 +73981,8 @@ signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1()//25d050
 	bool ctrl_or_alt_pressed; // zf
 	signed int result; // eax
 
+	if (CommandLineParams.DoShowDebugPerifery()) ShowPerifery();
+
 	x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode = 0;
 	x_DWORD_17DE38str.x_BYTE_17DF11_last_key_status = 0;
 	//a1h = 2;
@@ -81419,6 +81421,8 @@ int sub_9937E_set_video_mode(__int16  /*a1*/)//27a37e
 //----- (0009951B) --------------------------------------------------------
 signed int sub_9951B(__int16 a1)//27a51b //fix graphics
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	signed int result; // eax
 
 	x_WORD_E3BA4 = a1;
@@ -81499,6 +81503,8 @@ signed int sub_99FF0(char* a1, char** a2, signed int a3)//27aff0
 //----- (0009A10A) --------------------------------------------------------
 signed int sub_9A10A_check_keyboard(/*signed int result*/)//27B10a
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	if (x_DWORD_E4CA4)
 		return 1;
 	return VGA_check_standart_input_status();
@@ -82450,6 +82456,8 @@ int sub_9CD9C(uint8_t* a1, int a2)//27dd9c
 //----- (0009D31C) --------------------------------------------------------
 __int16 /*__fastcall*/ sub_9D31C(__int16 result)//27e31c
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	bool v1; // zf
 
 	//fix it:__asm { int     16h; KEYBOARD - GET ENHANCED SHIFT FLAGS (AT model 339,XT2,XT286,PS) }

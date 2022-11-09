@@ -6,6 +6,8 @@
 #include "ail_sound.h"
 #include "Basic.h"
 #include "../utilities/Wave.h"
+#include "../engine/CommandLineParser.h"
+#include "../portability/port_show_perifery.h"
 
 #pragma pack (1)
 typedef struct {//lenght 12

@@ -3,7 +3,8 @@
 #include "stdio.h"
 #include "string.h"
 
-void ShowPerifery(char* text = nullptr, int a = 0, int b = 0, int c = 0) {
+void ShowPerifery(char* text, int a, int b, int c) {
+//void ShowPerifery(char* text, int a, int b, int c) {
     if (text)
     {
         if (!strcmp(text, "cpuid"))
