@@ -2477,6 +2477,8 @@ void MinusE3FF2_A0EF9()//281ef9
 //----- (000A102C) --------------------------------------------------------
 char sub_A102C(int a1)//28202c //fix
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	unsigned int v1; // et0
 	char result; // al
 	unsigned int v3; // [esp-4h] [ebp-10h]

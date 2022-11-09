@@ -37268,6 +37268,7 @@ void sub_417D0_install_pal_and_mouse_minmax2()//2227d0
 
 void sub_41A90_VGA_Palette_install(TColor* bufferx)//222a90
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
 	//354f24 - 000000 00002a 002a00 002a2a 2a0000
 	//debug
 	//loadfromsnapshot((char*)"0160-00222A90-x", a1, 0x1a7358, 0x300);//4c
@@ -71860,6 +71861,8 @@ void sub_6FDA0()//fix//250da0
 //----- (0006FE20) --------------------------------------------------------
 void sub_6FE20()//fix//250e20
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	//int v0; // et1
 	//int v1; // eax
 
@@ -72841,6 +72844,8 @@ void sub_72550(type_E9C08** a1x)
 //----- (000727F0) --------------------------------------------------------
 void sub_727F0(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a3, unsigned __int8 a4)//fix
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	/*__outx_BYTE(0x3C8u, a1);
 	__outx_BYTE(0x3C9u, a2);
 	__outx_BYTE(0x3C9u, a3);
@@ -73240,6 +73245,8 @@ void sub_759B0_set_mouse_minmax_vert()
 //----- (00075A10) --------------------------------------------------------
 unsigned __int8 sub_75A10(int a1, unsigned __int8* a2)//256a10 // fix
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	unsigned __int8 v2; // al
 	unsigned __int8* v3; // ebx
 	char v4; // dl
@@ -73365,6 +73372,8 @@ int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3)//see: https://gith
 //----- (00075C50) --------------------------------------------------------
 void sub_75C50()//fix
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	/* __outx_BYTE(0x302u, 2u);
 	 __outx_BYTE(0x303u, 1u);*/
 	memset((void*)pdwScreenBuffer_351628, 0, screenHeight_180624 * screenWidth_18062C);
@@ -79680,6 +79689,8 @@ void sub_8BB40(uint8_t *a1, char a2)//26cb40
 //----- (0008BBE0) --------------------------------------------------------
 signed int sub_8BBE0(uint8_t* a1)//fix//26cbe0
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	char v1=0; // dl
 	unsigned __int8 v2; // al
 	char v3; // al
@@ -80926,6 +80937,8 @@ signed int sub_90668(int a1)//271668
 //----- (000906B4) --------------------------------------------------------
 int sub_906B4()//fix bios graphics//2716b4
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	char* v0; // edx
 	signed int v1; // ebx
 	char v2; // cl
@@ -82604,6 +82617,8 @@ int sub_A0BB0(int* a1, int a2)//281bb0
 //----- (000A0D2C) --------------------------------------------------------
 void sub_A0D2C_VGA_get_Palette(TColor* bufferx)//281d2c
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	uint8_t* tempbuffer = VGA_Get_Palette();
 	memcpy(bufferx, tempbuffer, 768);
 	/*int v2; // [esp+4h] [ebp-4h]
