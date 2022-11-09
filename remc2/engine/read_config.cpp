@@ -10,6 +10,7 @@ int texturepixels = 32;
 int maxGameFps = 30;
 int fmvFps = 20;
 int menuFps = 30;
+int displayIndex = 0;
 int windowResWidth = 640;
 int windowResHeight = 480;
 int gameResWidth = 640;
@@ -135,16 +136,7 @@ bool readini() {
 		texturepixels = 32;
 	}
 
-
-	gameResWidth = reader.GetInteger("graphics", "gameResWidth", 640);
-	gameResHeight = reader.GetInteger("graphics", "gameResHeight", 480);
-
-	if (gameResWidth < 640 || gameResHeight < 480)
-	{
-		gameResWidth = 640;
-		gameResHeight = 480;
-	}
-
+	displayIndex = reader.GetInteger("graphics", "displayIndex", 0);
 	windowResWidth = reader.GetInteger("graphics", "windowResWidth", 640);
 	windowResHeight = reader.GetInteger("graphics", "windowResHeight", 480);
 
@@ -154,14 +146,13 @@ bool readini() {
 		windowResHeight = 480;
 	}
 
-	if (windowResWidth < gameResWidth) 
-	{
-		windowResWidth = gameResWidth;
-	}
+	gameResWidth = reader.GetInteger("graphics", "gameResWidth", 640);
+	gameResHeight = reader.GetInteger("graphics", "gameResHeight", 480);
 
-	if (windowResHeight < gameResHeight)
+	if (gameResWidth < 640 || gameResHeight < 480)
 	{
-		windowResHeight = gameResHeight;
+		gameResWidth = 640;
+		gameResHeight = 480;
 	}
 
 	maintainAspectRatio = reader.GetBoolean("graphics", "maintainAspectRatio", true);

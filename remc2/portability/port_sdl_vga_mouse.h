@@ -24,8 +24,8 @@ typedef struct
 	int32_t y;
 } POSITION;
 
-void VGA_Init(int width, int height, bool maintainAspectRatio);
-void VGA_Init(Uint32 flags, int width, int height, bool maintainAspectRatio);
+void VGA_Init(int width, int height, bool maintainAspectRatio, int displayIndex);
+void VGA_Init(Uint32 flags, int width, int height, bool maintainAspectRatio, int displayIndex);
 bool VGA_LoadFont();
 void VGA_close();
 void VGA_Resize(int width, int height);
@@ -59,6 +59,9 @@ void VGA_mouse_clear_keys();
 void VGA_cleanKeyBuffer();
 void Draw_debug_matrix1();
 void Draw_black();
+std::vector<SDL_Rect> GetDisplays();
+SDL_Rect GetDisplayByIndex(uint8_t index);
+SDL_Rect FindDisplayByResolution(uint32_t width, uint32_t height);
 
 extern uint8_t LastPressedKey_1806E4; // weak//3516e4
 extern int8_t pressedKeys_180664[128]; // idb

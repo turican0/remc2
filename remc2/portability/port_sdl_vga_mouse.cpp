@@ -57,7 +57,56 @@ Uint32 blueMask = 0x00ff0000;
 Uint32 alphaMask = 0xff000000;
 #endif
 
-void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio)
+std::vector<SDL_Rect> GetDisplays()
+{
+	int displays = SDL_GetNumVideoDisplays();
+
+	// get display bounds for all displays
+	std::vector<SDL_Rect> displayBounds;
+	for (int i = 0; i < displays; i++) {
+		displayBounds.push_back(SDL_Rect());
+		SDL_GetDisplayBounds(i, &displayBounds.back());
+	}
+
+	return displayBounds;
+}
+
+SDL_Rect GetDisplayByIndex(uint8_t index)
+{
+	SDL_Rect display;
+	display.x = 0;
+	display.y = 0;
+	display.w = 0;
+	display.h = 0;
+
+	std::vector<SDL_Rect> displayBounds = GetDisplays();
+
+	if (index < displayBounds.size())
+	{
+		return displayBounds[index];
+	}
+
+	return display;
+}
+
+SDL_Rect FindDisplayByResolution(uint32_t width, uint32_t height)
+{
+	SDL_Rect display;
+	display.x = 0;
+	display.y = 0;
+	display.w = width;
+	display.h = height;
+
+	std::vector<SDL_Rect> displayBounds = GetDisplays();
+
+	for (int i = 0; i < displayBounds.size(); i++) {
+		if (displayBounds[i].w <= width && displayBounds[i].h <= height)
+			return displayBounds[i];
+	}
+	return display;
+}
+
+void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio, int displayIndex)
 {
 	m_bMaintainAspectRatio = maintainAspectRatio;
 
@@ -87,7 +136,13 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 			}
 
 			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
-			m_window = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width/*dm.w*/, height/*dm.h*/, test_fullscr);
+
+			SDL_Rect display = GetDisplayByIndex(displayIndex);
+			if (width > display.w || height > display.h)
+			{
+				display = FindDisplayByResolution(width, height);
+			}
+			m_window = SDL_CreateWindow(default_caption, display.x, display.y, display.w, display.h, test_fullscr);
 			SDL_SetWindowGrab(m_window, settingWindowGrabbed ? SDL_TRUE : SDL_FALSE);
 
 			m_renderer =
@@ -154,7 +209,7 @@ void SetPalette(SDL_Color* colours) {
 	if (m_gamePalletisedSurface)
 	{
 		SDL_SetPaletteColors(m_gamePalletisedSurface->format->palette, m_currentPalletColours, 0, 256);
-		SubBlit(m_iOrigw, m_iOrigh);
+		//SubBlit(m_iOrigw, m_iOrigh);
 	}
 }
 
@@ -185,6 +240,9 @@ void Set_basic_Palette1() {
 			colors[i].g = 255;
 			colors[i].b = 255;
 		}
+		tempPalettebuffer[i * 3] = colors[i].r / 4;
+		tempPalettebuffer[i * 3 + 1] = colors[i].g / 4;
+		tempPalettebuffer[i * 3 + 2] = colors[i].b / 4;
 	}
 	SetPalette(colors);
 }
@@ -487,12 +545,12 @@ void VGA_Draw_stringXYtoBuffer(const char* wrstring, int x, int y, uint8_t* buff
 	}
 }
 
-void VGA_Init(int width, int height, bool maintainAspectRatio) {
+void VGA_Init(int width, int height, bool maintainAspectRatio, int displayIndex) {
 	if (unitTests)return;
 	m_bMaintainAspectRatio = maintainAspectRatio;
 
 #define SDL_HWPALETTE 0
-	VGA_Init(SDL_HWPALETTE | SDL_INIT_AUDIO, width, height, maintainAspectRatio);
+	VGA_Init(SDL_HWPALETTE | SDL_INIT_AUDIO, width, height, maintainAspectRatio, displayIndex);
 }
 
 SDL_Rect dst;

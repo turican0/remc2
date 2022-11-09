@@ -53051,7 +53051,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	bigGraphicsPath = GetSubDirectoryPath(bigGraphicsFolder);
 
 	printf("Initializing graphics Width: %d Height: %d\n", windowResWidth, windowResHeight);
-	VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio);
+	VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio, displayIndex);
 
 	//char maindir[1024];
 	myprintf("Finding Game Data...\n");
@@ -81008,7 +81008,7 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 
 	TColor zero_bufferx[256];
 
-	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio);
+	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
 
 	if (singlestep)
 	{
@@ -81040,8 +81040,9 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 			outbufferx[i].green = x_BYTE_181544_oldpalbufferx[i].green + ((x_WORD_181B44) * (newpalbufferx[i].green - x_BYTE_181544_oldpalbufferx[i].green) / shadow_levels);
 			outbufferx[i].blue = x_BYTE_181544_oldpalbufferx[i].blue + ((x_WORD_181B44) * (newpalbufferx[i].blue - x_BYTE_181544_oldpalbufferx[i].blue) / shadow_levels);
 		}
-		sub_9A0FC_wait_to_screen_beam();
+		//sub_9A0FC_wait_to_screen_beam();
 		sub_41A90_VGA_Palette_install(outbufferx);
+		fix_sub_9A0FC_wait_to_screen_beam();
 		//return j;
 	}
 	else
@@ -81078,9 +81079,10 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 				outbufferx[i].green = x_BYTE_181544_oldpalbufferx[i].green + ((x_WORD_181B44) * (newpalbufferx[i].green - x_BYTE_181544_oldpalbufferx[i].green) / shadow_levels);//352b42 352544
 				outbufferx[i].blue = x_BYTE_181544_oldpalbufferx[i].blue + ((x_WORD_181B44) * (newpalbufferx[i].blue - x_BYTE_181544_oldpalbufferx[i].blue) / shadow_levels);//352b42 352544
 			}
-			sub_9A0FC_wait_to_screen_beam();
+			//sub_9A0FC_wait_to_screen_beam();
 			sub_41A90_VGA_Palette_install(outbufferx);
-			mydelay(10);
+			fix_sub_9A0FC_wait_to_screen_beam();
+			//mydelay(10);
 		}
 		x_BYTE_E390C_VGA_pal_not_begin = 0;
 	}

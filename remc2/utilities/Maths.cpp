@@ -833,8 +833,11 @@ int16_t Maths::sub_581E0_maybe_tan2(axis_3d* a1, axis_3d* a2)//2391E0
 	//rozdil1- 4c rozdil2 - 3e
 }
 
-void Maths::x_BitScanReverse(uint32_t* Destination, uint32_t Source) 
+inline void Maths::x_BitScanReverse(uint32_t* Destination, uint32_t Source)
 {
+#ifdef _MSC_VER
+	_BitScanReverse((unsigned long*)Destination, Source);
+#else
 	*Destination = 0;
 	if (Source & 0x80000000)
 	{
@@ -998,6 +1001,7 @@ void Maths::x_BitScanReverse(uint32_t* Destination, uint32_t Source)
 	}
 	Destination = NULL;
 	return;
+#endif //  _MSC_VER
 };
 
 int Maths::SubtrackUntilZero(int x, int y)
