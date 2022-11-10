@@ -13,9 +13,6 @@
 and may not be redistributed without written permission.*/
 
 bool debug_first_sound=true;
-/*#ifdef DEBUG_SOUND
-	debug_first_sound = true;
-#endif //DEBUG_SOUND*/
 
 bool hqsound=false;
 bool oggmusic=false;
@@ -516,21 +513,17 @@ void SOUND_start_sample(HSAMPLE S) {
 			gamechunk[S->index_sample].alen = /*sample->alen;//*/S->len_4_5[0] * 16;
 		else
 			gamechunk[S->index_sample].alen = /*sample->alen;//*/S->len_4_5[0] * 8;
-		#ifdef DEBUG_SOUND
 			if (debug_first_sound) {
-				debug_printf("SOUND_start_sample-hq:%08X\n", S->start_44mhz);
+				Logger->trace("SOUND_start_sample-hq:%08X\n", S->start_44mhz);
 				debug_first_sound = false;
 			}
-		#endif //DEBUG_SOUND		
 	}
 	else
 	{
-		#ifdef DEBUG_SOUND
-			if (debug_first_sound) {
-				debug_printf("SOUND_start_sample:%08X\n", S->start_44mhz);
-				debug_first_sound = false;
-			}
-		#endif //DEBUG_SOUND
+		if (debug_first_sound) {
+			Logger->trace("SOUND_start_sample:%08X\n", S->start_44mhz);
+			debug_first_sound = false;
+		}
 		gamechunk[S->index_sample].abuf = (uint8_t*)S->start_2_3[0];
 		gamechunk[S->index_sample].alen = S->len_4_5[0];
 	}

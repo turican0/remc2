@@ -37803,18 +37803,16 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 		MenusAndIntros_76930(v5, 0/*a1*/);//set language, intro, menu, atd. //257930
 		if (!D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234)
 		{
-#ifdef DEBUG_START
-			debug_printf("sub_46830_main_loop:before load scr\n");
-#endif //DEBUG_START
+			Logger->debug("sub_46830_main_loop:before load scr\n");
+
 			isSecretLevel = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 24 && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w < 50;
 			sub_47FC0_load_screen(isSecretLevel);//vga smaltitle
-#ifdef DEBUG_START
-			debug_printf("sub_46830_main_loop:load scr passed\n");
-#endif //DEBUG_START
+
+			Logger->debug("sub_46830_main_loop:load scr passed\n");
+
 			sub_56A30_init_game_level(a3);
-#ifdef DEBUG_START
-			debug_printf("sub_46830_main_loop:init game level passed\n");
-#endif //DEBUG_START
+
+			Logger->debug("sub_46830_main_loop:init game level passed\n");
 
 			if (CommandLineParams.DoAutoChangeRes()) {
 				resindex_begin = 0;
@@ -52334,9 +52332,7 @@ bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //
 	FILE* savesmapfile; // eax
 	size_t writedsize; // [esp+40h] [ebp-8h]
 	
-#ifdef DEBUG_LOADSAVE
-	debug_printf("InGameSave-begin\n");
-#endif //DEBUG_START
+	Logger->debug("InGameSave-begin\n");
 
 	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SMAP", savefileindex + 1, savefileindex2);
 	savesmapfile = DataFileIO::CreateOrOpenFile(printbuffer, 546);
@@ -52351,9 +52347,9 @@ bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //
 		writedsize = WriteFile_98CAA(savesmapfile, (uint8_t*)x_BYTE_F2CD0x, 4802) != 4802;
 		DataFileIO::Close(savesmapfile);
 	}
-#ifdef DEBUG_LOADSAVE
-	debug_printf("InGameSave-end-%d\n", writedsize);
-#endif //DEBUG_START
+
+	Logger->debug("InGameSave-end-%d\n", writedsize);
+
 	return (writedsize == 0);
 }
 // 10000: using guessed type void /*__noreturn*/ sub_10000();
@@ -52488,9 +52484,7 @@ bool sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex)//236750 /
 //----- (000558E0) --------------------------------------------------------
 bool LoadLevelSMAP_558E0(uint8_t savefileindex)//2368e0
 {
-#ifdef DEBUG_LOADSAVE
-	debug_printf("InGameLoad-begin\n");
-#endif //DEBUG_START
+	Logger->debug("InGameLoad-begin\n");
 
 	//fix
 	x_D41A0_BYTEARRAY_4_struct.dword_38519 = x_DWORD_EA3E4[1];
@@ -52515,15 +52509,11 @@ bool LoadLevelSMAP_558E0(uint8_t savefileindex)//2368e0
 		int truesize = DataFileIO::Read(loadfile, (uint8_t*)x_BYTE_F2CD0x, 4802) == 4802;
 		DataFileIO::Close(loadfile);
 		if (truesize) {
-#ifdef DEBUG_LOADSAVE
-			debug_printf("InGameLoad-end-ok\n");
-#endif //DEBUG_START
+			Logger->debug("InGameLoad-end-ok\n");
 			return 1;
 		}
 	}
-#ifdef DEBUG_LOADSAVE
-	debug_printf("InGameLoad-end-error\n");
-#endif //DEBUG_START
+	Logger->debug("InGameLoad-end-error\n");
 	return 0;
 }
 
@@ -53029,6 +53019,8 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	printf("\nReading Ini file\n");
 	if (!readini()) exit(1);
 
+	InitializeLogging();
+
 	if (assignToSpecificCores)
 	{
 #ifdef _MSC_VER
@@ -53528,28 +53520,25 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	if (CommandLineParams.DoSetLevel()) {
 		x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = 1;
 	}
-#ifdef DEBUG_START
-	debug_printf("sub_56A30_init_game_level:before sub_6EB90\n");
-#endif //DEBUG_START
+	Logger->debug("sub_56A30_init_game_level:before sub_6EB90\n");
 	//fixing
 	CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90 adress 0x23ca2e
 	//fixing
-#ifdef DEBUG_START
-	debug_printf("sub_56A30_init_game_level:sub_6EB90 passed\n");
-#endif //DEBUG_START
+	Logger->debug("sub_56A30_init_game_level:sub_6EB90 passed\n");
+
 	char temp_x_BYTE_E3799_sound_card = soundActive_E3799;
 	soundActive_E3799 = false;
 	ClearSettings_567C0();
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8))
 	{
 		PrintTextMessage_70910((char*)"Load Level\0");
-#ifdef DEBUG_START
-		debug_printf("sub_56A30_init_game_level:before sub_533B0_decompress_levels\n");
-#endif //DEBUG_START
+
+		Logger->debug("sub_56A30_init_game_level:before sub_533B0_decompress_levels\n");
+
 		sub_533B0_decompress_levels(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, &D41A0_0.terrain_2FECE);
-#ifdef DEBUG_START
-		debug_printf("sub_56A30_init_game_level:sub_533B0_decompress_levels passed\n");
-#endif //DEBUG_START
+
+		Logger->debug("sub_56A30_init_game_level:sub_533B0_decompress_levels passed\n");
+
 	}
 	sub_54660_read_and_decompress_sky_and_blocks(D41A0_0.terrain_2FECE.MapType, x_BYTE_D41B5_texture_size);//235660
 	sub_54800_read_and_decompress_tables(D41A0_0.terrain_2FECE.MapType);//235800
@@ -57317,9 +57306,8 @@ void Initialize()//23c8d0
 	sub_70890_print_header();//23C8D6 - 251890
 	if ((x_D41A0_BYTEARRAY_4_struct.setting_byte4_25) & 8)
 		sub_5C490_testers_info();//23C8E6 - 23D490
-#ifdef DEBUG_MKDIR
-	debug_printf("Init:Begin of creating dirs\n");
-#endif //DEBUG_MKDIR
+
+	Logger->debug("Init:Begin of creating dirs\n");
 
 	std::string exepath = get_exe_path();
 
@@ -57336,9 +57324,8 @@ void Initialize()//23c8d0
 
 	SetCDFilePaths(cdDataPath.c_str(), pstr);
 
-#ifdef DEBUG_MKDIR
-	debug_printf("Init:End of creating dirs\n");
-#endif //DEBUG_MKDIR
+	Logger->debug("Init:End of creating dirs\n");
+
 	sub_560D0_create_sound_dir();//23C9ED - 2370D0
 	sub_5BCC0_set_any_variables1();//23C9F2 - 23CCC0
 	if (!sub_5BF50_load_psxdata())//23C9F7 - 23CF50 //something with files about their loading, or just a set of Palettes
