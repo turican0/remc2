@@ -260,9 +260,7 @@ int32_t DataFileIO::Seek(FILE* file, x_DWORD position, char type) {
 
 size_t DataFileIO::Read(FILE* file, uint8_t* data, uint32_t length) {
 	size_t result = fread(data, 1, length, file);
-#ifdef _DEBUG
-	debug_printf("Read fread length %d result %d\n", length, result);
-#endif
+	Logger->debug("Read fread length %d result %d\n", length, result);
 	return result;
 };
 
