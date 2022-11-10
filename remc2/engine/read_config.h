@@ -31,6 +31,7 @@ extern int texturepixels;
 extern int maxGameFps;
 extern int fmvFps;
 extern int menuFps;
+extern std::string loggingLevel;
 extern int displayIndex;
 extern int windowResWidth;
 extern int windowResHeight;
