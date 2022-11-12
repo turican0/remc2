@@ -1,8 +1,5 @@
-
-//
-// Copyright(c) 2018 Gabi Melman.
+// Copyright(c) 2015-present, Gabi Melman & spdlog contributors.
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
-//
 
 #pragma once
 
@@ -10,7 +7,7 @@
 //
 // RAII over the owned thread:
 //    creates the thread on construction.
-//    stops and joins the thread on destruction.
+//    stops and joins the thread on destruction (if the thread is executing a callback, wait for it to finish first).
 
 #include <chrono>
 #include <condition_variable>
@@ -20,12 +17,12 @@
 namespace spdlog {
 namespace details {
 
-class periodic_worker
+class SPDLOG_API periodic_worker
 {
 public:
-    periodic_worker(std::function<void()> callback_fun, std::chrono::seconds interval)
-    {
-        active_ = (interval > std::chrono::seconds::zero());
+    template<typename Rep, typename Period>
+    periodic_worker(const std::function<void()> &callback_fun, std::chrono::duration<Rep, Period> interval) {
+        active_ = (interval > std::chrono::duration<Rep, Period>::zero());
         if (!active_)
         {
             return;
@@ -43,23 +40,10 @@ public:
             }
         });
     }
-
     periodic_worker(const periodic_worker &) = delete;
     periodic_worker &operator=(const periodic_worker &) = delete;
-
     // stop the worker thread and join it
-    ~periodic_worker()
-    {
-        if (worker_thread_.joinable())
-        {
-            {
-                std::lock_guard<std::mutex> lock(mutex_);
-                active_ = false;
-            }
-            cv_.notify_one();
-            worker_thread_.join();
-        }
-    }
+    ~periodic_worker();
 
 private:
     bool active_;
@@ -69,3 +53,7 @@ private:
 };
 } // namespace details
 } // namespace spdlog
+
+#ifdef SPDLOG_HEADER_ONLY
+#    include "periodic_worker-inl.h"
+#endif
