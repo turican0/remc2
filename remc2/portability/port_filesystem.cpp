@@ -34,17 +34,17 @@ void InitializeLogging(const char* levelStr)
 	{
 		spdlog::level::level_enum level = spdlog::level::debug;
 
-		if (!strcmp(levelStr, "Info"))
+		if (strcmp(levelStr, "Info"))
 			level = level = spdlog::level::info;
-		else if (!strcmp(levelStr, "Warn"))
+		else if (strcmp(levelStr, "Warn"))
 			level = spdlog::level::warn;
-		else if (!strcmp(levelStr, "Debug"))
+		else if (strcmp(levelStr, "Debug"))
 			level = spdlog::level::debug;
-		else if (!strcmp(levelStr, "Trace"))
+		else if (strcmp(levelStr, "Trace"))
 			level = spdlog::level::trace;
-		else if (!strcmp(levelStr, "Error"))
+		else if (strcmp(levelStr, "Error"))
 			level = spdlog::level::err;
-		else if (!strcmp(levelStr, "Critcal"))
+		else if (strcmp(levelStr, "Critcal"))
 			level = spdlog::level::critical;
 
 		auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
