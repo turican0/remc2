@@ -34,31 +34,32 @@ void InitializeLogging(const char* levelStr)
 	{
 		spdlog::level::level_enum level = spdlog::level::debug;
 
-		if (strcmp(levelStr, "Info"))
+		if (strcmp(levelStr, "Info") == 0)
 			level = level = spdlog::level::info;
-		else if (strcmp(levelStr, "Warn"))
+		else if (strcmp(levelStr, "Warn") == 0)
 			level = spdlog::level::warn;
-		else if (strcmp(levelStr, "Debug"))
+		else if (strcmp(levelStr, "Debug") == 0)
 			level = spdlog::level::debug;
-		else if (strcmp(levelStr, "Trace"))
+		else if (strcmp(levelStr, "Trace") == 0)
 			level = spdlog::level::trace;
-		else if (strcmp(levelStr, "Error"))
+		else if (strcmp(levelStr, "Error") == 0)
 			level = spdlog::level::err;
-		else if (strcmp(levelStr, "Critcal"))
+		else if (strcmp(levelStr, "Critcal") == 0)
 			level = spdlog::level::critical;
 
 		auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 		console_sink->set_level(level);
-		console_sink->set_pattern("[%H:%M:%S %z] [%n] [%^---%L---%$] [thread %t] %v");
+		console_sink->set_pattern("[%H:%M:%S %z] [%^---%L---%$] %v");
 
 		auto max_size = 1048576 * 5;
 		auto max_files = 3;
-		auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("logs/log.txt", max_size, max_files);
+		auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("log.txt", max_size, max_files);
 		file_sink->set_level(level);
-		file_sink->set_pattern("[%H:%M:%S %z] [%n] [%^---%L---%$] [thread %t] %v");
+		file_sink->set_pattern("[%H:%M:%S %z] [%^---%L---%$] %v");
 
 		Logger = new spdlog::logger("multi_sink", { console_sink, file_sink });
 		Logger->set_level(level);
+		Logger->info("Logging Initialized");
 	}
 	catch (const spdlog::spdlog_ex& ex)
 	{
@@ -252,7 +253,7 @@ dirsstruct getListDir(char* dirname)
 	DIR *dr = opendir(dirname);
 	if (dr == NULL)  // opendir returns NULL if couldn't open directory 
 	{
-		printf("Could not open current directory1 %s\n", dirname);
+		Logger->debug("Could not open current directory1 %s\n", dirname);
 		return directories;
 	}
 	// Refer http://pubs.opengroup.org/onlinepubs/7990989775/xsh/readdir.html 
