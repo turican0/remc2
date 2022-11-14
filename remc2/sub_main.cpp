@@ -37803,16 +37803,16 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 		MenusAndIntros_76930(v5, 0/*a1*/);//set language, intro, menu, atd. //257930
 		if (!D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234)
 		{
-			Logger->debug("sub_46830_main_loop:before load scr\n");
+			Logger->debug("sub_46830_main_loop:before load scr");
 
 			isSecretLevel = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 24 && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w < 50;
 			sub_47FC0_load_screen(isSecretLevel);//vga smaltitle
 
-			Logger->debug("sub_46830_main_loop:load scr passed\n");
+			Logger->debug("sub_46830_main_loop:load scr passed");
 
 			sub_56A30_init_game_level(a3);
 
-			Logger->debug("sub_46830_main_loop:init game level passed\n");
+			Logger->debug("sub_46830_main_loop:init game level passed");
 
 			if (CommandLineParams.DoAutoChangeRes()) {
 				resindex_begin = 0;
@@ -53525,11 +53525,11 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	if (CommandLineParams.DoSetLevel()) {
 		x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = 1;
 	}
-	Logger->debug("sub_56A30_init_game_level:before sub_6EB90\n");
+	Logger->debug("sub_56A30_init_game_level:before sub_6EB90");
 	//fixing
 	CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90 adress 0x23ca2e
 	//fixing
-	Logger->debug("sub_56A30_init_game_level:sub_6EB90 passed\n");
+	Logger->debug("sub_56A30_init_game_level:sub_6EB90 passed");
 
 	char temp_x_BYTE_E3799_sound_card = soundActive_E3799;
 	soundActive_E3799 = false;
@@ -53538,11 +53538,11 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	{
 		PrintTextMessage_70910((char*)"Load Level\0");
 
-		Logger->debug("sub_56A30_init_game_level:before sub_533B0_decompress_levels\n");
+		Logger->debug("sub_56A30_init_game_level:before sub_533B0_decompress_levels");
 
 		sub_533B0_decompress_levels(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, &D41A0_0.terrain_2FECE);
 
-		Logger->debug("sub_56A30_init_game_level:sub_533B0_decompress_levels passed\n");
+		Logger->debug("sub_56A30_init_game_level:sub_533B0_decompress_levels passed");
 
 	}
 	sub_54660_read_and_decompress_sky_and_blocks(D41A0_0.terrain_2FECE.MapType, x_BYTE_D41B5_texture_size);//235660
