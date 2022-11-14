@@ -5156,10 +5156,9 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 		AilInitSample_93830(*soundBuffer1);
 		if (debug_first_sound) {
 			uint8_t* debug_sound_buff = soundIndex_E37A0->str_8.wavs_10[index].wavData_0;
-			Logger->trace("sub_8F100_sound_proc19:buff:\n");
+			Logger->trace("sub_8F100_sound_proc19:buff:");
 			for (int i = 0; i < 100; i++)
-				Logger->trace("%02X", debug_sound_buff[i]);
-			Logger->trace("\n");
+				Logger->trace("{}", debug_sound_buff[i]);
 		}
 		AilSetSampleFile_938C0(*soundBuffer1, soundIndex_E37A0->str_8.wavs_10[index].wavData_0, 1);
 	}
@@ -5169,9 +5168,8 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 	AilSetSampleLoopCount_93F70(*soundBuffer1, loopCount + 1);
 
 	if (debug_first_sound) {
-		Logger->trace("sub_8F100_sound_proc19:44mhz:\n");
-		Logger->trace("\n");
-		Logger->trace("sub_8F100_sound_proc19:rate:%d\n", (*soundBuffer1)->playback_rate_15);
+		Logger->trace("sub_8F100_sound_proc19:44mhz:");
+		Logger->trace("sub_8F100_sound_proc19:rate:{}", (*soundBuffer1)->playback_rate_15);
 	}
 
 	AilStartSample_93B50(*soundBuffer1);
