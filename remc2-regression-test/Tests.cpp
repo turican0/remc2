@@ -20,15 +20,13 @@ int main(int argc, char** argv)
 				numFailedTests++;
 			}
 
-	Logger->info("\n");
-
 	if (numFailedTests == 0)
 	{
-		Logger->info("\nAll tests passed\n");
+		Logger->info("All tests passed");
 	}
 	else
 	{
-		Logger->info("\n%d tests failed!\n", numFailedTests);
+		Logger->info("{} tests failed!", numFailedTests);
 	}
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(2000));
