@@ -725,7 +725,7 @@ int run()
 	/* Start playing */
 	SDL_PauseAudio(0);
 
-	printf("Playing... Hit Ctrl+C to quit!\n");
+	Logger->info("Playing... Hit Ctrl+C to quit!");
 
 	/* wait until we're don't playing */
 	while (is_playing)
