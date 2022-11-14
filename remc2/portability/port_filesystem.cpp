@@ -59,7 +59,7 @@ void InitializeLogging(const char* levelStr)
 
 		Logger = new spdlog::logger("multi_sink", { console_sink, file_sink });
 		Logger->set_level(level);
-		Logger->info("Logging Initialized");
+		Logger->info("Logging Initialized with Level: {}", levelStr);
 	}
 	catch (const spdlog::spdlog_ex& ex)
 	{
@@ -101,15 +101,15 @@ std::string get_exe_path() {
 };
 
 long my_findfirst(char* path, _finddata_t* c_file){
-	Logger->debug("my_findfirst:fixed:%s\n", path);
+	Logger->debug("my_findfirst:fixed:{}", path);
 	long result= _findfirst(path, c_file);
-	Logger->debug("my_findfirst:end:%d\n", result);
+	Logger->debug("my_findfirst:end:{}", result);
 	return result;
 }
 
 long my_findnext(long hFile, _finddata_t* c_file){
 	long result = _findnext(hFile, c_file);
-	Logger->debug("my_findnext:end:%d\n", result);
+	Logger->debug("my_findnext:end:{}", result);
 	return result;
 }
 
@@ -126,27 +126,27 @@ bool file_exists(const char * filename) {
 	FILE* file;
 	if ((file = fcaseopen(filename, "r")) != NULL) {
 		fclose(file);
-		Logger->debug("file_exists:true-%s\n", filename);
+		Logger->debug("file_exists:true-{}", filename);
 		return true;
 	}
-	Logger->debug("file_exists:false-%s\n", filename);
+	Logger->debug("file_exists:false-{}", filename);
 	return false;
 }
 
 FILE* mycreate(const char* path, uint32_t  /*flags*/) {
 	FILE *fp = fcaseopen(path, "wb+");
-	Logger->debug("mycreate:%p\n", fmt::ptr(fp));
+	Logger->debug("mycreate:{}", fmt::ptr(fp));
 	return fp;
 };
 
 int32_t myaccess(const char* path, uint32_t  /*flags*/) {
 	DIR *dir;
 	//char path2[2048] = "\0";
-	Logger->debug("myaccess:orig path:%s\n", path);
+	Logger->debug("myaccess:orig path:{}", path);
 	//pathfix(path, path2);//only for DOSBOX version
 	//	Logger->debug("myaccess:fix path:%s\n", path2);
 	dir = opendir(path);
-	Logger->debug("myaccess:exit:%p %d\n", fmt::ptr(dir), errno);
+	Logger->debug("myaccess:exit:{} {}", fmt::ptr(dir), errno);
 	if (dir)
 	{
 		/* Directory exists. */
@@ -163,7 +163,7 @@ int32_t myaccess(const char* path, uint32_t  /*flags*/) {
 int32_t /*__cdecl*/ mymkdir(const char* path) {
 	//char path2[512] = "\0";
 
-	Logger->debug("mymkdir:path: %s\n", path);
+	Logger->debug("mymkdir:path: {}", path);
 
 	//pathfix(path, path2);//only for DOSBOX version
 	//Logger->debug("mymkdir:path2: %s\n", path2);
@@ -176,7 +176,7 @@ int32_t /*__cdecl*/ mymkdir(const char* path) {
 	pwcsName = new WCHAR[nChars];
 	MultiByteToWideChar(CP_ACP, 0, path, -1, (LPWSTR)pwcsName, nChars);
 	// use it....
-	Logger->debug("mymkdir:path3: %s\n", fmt::ptr(pwcsName));
+	Logger->debug("mymkdir:path3: {}", fmt::ptr(pwcsName));
 #endif
 
 	int result;
@@ -187,13 +187,13 @@ int32_t /*__cdecl*/ mymkdir(const char* path) {
 	result = mkdir(path, 0700);
 #endif
 	// delete it
-	Logger->debug("mymkdir:end: %d\n", result);
+	Logger->debug("mymkdir:end: {}", result);
 	return result;
 };
 
 FILE* myopen(const char* path, int pmode, uint32_t flags) {
 
-	Logger->debug("myopen:open file:%s\n", path);
+	Logger->debug("myopen:open file:{}", path);
 	//bool localDrive::FileOpen(DOS_File * * file, const char * name, uint32_t flags) {
 	const char * type;
 	if ((pmode == 0x222) && (flags == 0x40))type = "rb+";
@@ -207,7 +207,7 @@ FILE* myopen(const char* path, int pmode, uint32_t flags) {
 	//if(file_exists(path2))
 
 	fp= fcaseopen(path, type);
-	Logger->debug("myopen:open end %p\n", fmt::ptr(fp));
+	Logger->debug("myopen:open end {}", fmt::ptr(fp));
 	return fp;
 };
 int myclose(FILE* descriptor) {
@@ -240,7 +240,7 @@ int DirExists(const char* path)
 FILE* myopent(char* path, char* type) {
 	FILE *fp;
 	fp= fcaseopen(path, type);
-	Logger->debug("myopent:end: %p\n", fmt::ptr(fp));
+	Logger->debug("myopent:end: {}", fmt::ptr(fp));
 	return fp;
 };
 
@@ -253,7 +253,7 @@ dirsstruct getListDir(char* dirname)
 	DIR *dr = opendir(dirname);
 	if (dr == NULL)  // opendir returns NULL if couldn't open directory 
 	{
-		Logger->debug("Could not open current directory1 %s\n", dirname);
+		Logger->error("Could not open current directory1 {}", dirname);
 		return directories;
 	}
 	// Refer http://pubs.opengroup.org/onlinepubs/7990989775/xsh/readdir.html 
@@ -422,12 +422,12 @@ bool ExistGraphicsfile(const char* path) {
 	if ((file = fopen(path, "r")) != NULL) {
 		fclose(file);
 
-		Logger->debug("ffile_exists:true-%s\n", path);
+		Logger->debug("ffile_exists:true-{}", path);
 
 		return true;
 	}
 
-	Logger->debug("ffile_exists:false-%s\n", path);
+	Logger->debug("ffile_exists:false-{}", path);
 
 	return false;
 }

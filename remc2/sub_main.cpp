@@ -618,7 +618,7 @@ int wherey() //returns current text cursor (y) coordinate
 
 x_DWORD settextposition(x_DWORD x, x_DWORD y) {
 	gotoxy(x, y);
-	printf("\t");
+	Logger->debug("\t");
 	//printf("\033[%d;%dH%s\n", x, y, "R");
 	/*#ifndef USE_DOSBOX
 		COORD coord;
@@ -53016,10 +53016,14 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	//skip signal(4, 1);//236FB5 - 279DC0
 	//skip signal(6, 1);//236FC1 - 279DC0
 
-	printf("\nReading Ini file\n");
-	if (!readini()) exit(1);
-
+#ifdef _DEBUG
+	InitializeLogging("Debug");
+#else
 	InitializeLogging();
+#endif // _DEBUG
+
+	Logger->info("Reading Ini file");
+	if (!readini()) exit(1);
 
 	if (assignToSpecificCores)
 	{
@@ -53030,23 +53034,23 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	}
 
 	if (CommandLineParams.DoDisableGraphicsEnhance()) {
-		printf("Disabling enhanced graphics\n");
+		Logger->debug("Disabling enhanced graphics");
 		bigSprites = false;
 		bigTextures = false;
 		texturepixels = 32;
 	}
 
 	//Set Paths for game data
-	printf("Getting Game data paths\n");
+	Logger->debug("Getting Game data paths");
 	gameDataPath = GetSubDirectoryPath(gameFolder);
 	cdDataPath = GetSubDirectoryPath(cdFolder);
 	bigGraphicsPath = GetSubDirectoryPath(bigGraphicsFolder);
 
-	printf("Initializing graphics Width: %d Height: %d\n", windowResWidth, windowResHeight);
+	Logger->debug("Initializing graphics Width: %d Height: %d", windowResWidth, windowResHeight);
 	VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio, displayIndex);
 
 	//char maindir[1024];
-	myprintf("Finding Game Data...\n");
+	Logger->info("Finding Game Data...");
 	if (std::string mainfile = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT"); !file_exists(mainfile.c_str()))//test original file
 	{
 		//myprintf("Original Game Data Not Found, find GOG iso file\n");
@@ -53063,7 +53067,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 		//sprintf(maindir, "%s", (char*)"c:\\prenos\\ex");
 		//if (!file_exists(mainfile))//test existing GOG cd iso file
 		{
-			myprintf("Original game not found in\n %s folder\n", gameDataPath.c_str());
+			Logger->error("Original game not found in %s folder", gameDataPath.c_str());
 			mydelay(20000);
 			exit(1);//iso not found
 		}
@@ -53098,7 +53102,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	}
 	else
 	{
-		myprintf("Original Game Data Found!\n");
+		Logger->info("Original Game Data Found!");
 	}
 
 	//dos_setvect(9, null_vector, 0);
@@ -53133,6 +53137,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 		}	
 	}
 
+	Logger->info("Exited Game");
 	return 0;
 }
 
@@ -81650,7 +81655,7 @@ void OriginalDebugOutput_9AEEC(x_DWORD** a1, char* a2)//27Beec
 
 	v2 = (char*)a2;
 	if (x_DWORD_E3DE8)
-		printf("Writing %s\n", a2);
+		Logger->debug("Writing %s\n", a2);
 	while (*v2)
 	{
 		v4 = *v2++;

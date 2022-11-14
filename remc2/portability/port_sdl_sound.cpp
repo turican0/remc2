@@ -514,14 +514,14 @@ void SOUND_start_sample(HSAMPLE S) {
 		else
 			gamechunk[S->index_sample].alen = /*sample->alen;//*/S->len_4_5[0] * 8;
 			if (debug_first_sound) {
-				Logger->trace("SOUND_start_sample-hq:%08X\n", S->start_44mhz);
+				Logger->trace("SOUND_start_sample-hq:{}", S->start_44mhz);
 				debug_first_sound = false;
 			}
 	}
 	else
 	{
 		if (debug_first_sound) {
-			Logger->trace("SOUND_start_sample:%08X\n", S->start_44mhz);
+			Logger->trace("SOUND_start_sample:{}", S->start_44mhz);
 			debug_first_sound = false;
 		}
 		gamechunk[S->index_sample].abuf = (uint8_t*)S->start_2_3[0];
