@@ -32,34 +32,41 @@ void InitializeLogging(const char* levelStr)
 {
 	try
 	{
-		spdlog::level::level_enum level = spdlog::level::debug;
+		if (Logger == nullptr)
+		{
+			spdlog::level::level_enum level = spdlog::level::debug;
 
-		if (strcmp(levelStr, "Info") == 0)
-			level = level = spdlog::level::info;
-		else if (strcmp(levelStr, "Warn") == 0)
-			level = spdlog::level::warn;
-		else if (strcmp(levelStr, "Debug") == 0)
-			level = spdlog::level::debug;
-		else if (strcmp(levelStr, "Trace") == 0)
-			level = spdlog::level::trace;
-		else if (strcmp(levelStr, "Error") == 0)
-			level = spdlog::level::err;
-		else if (strcmp(levelStr, "Critcal") == 0)
-			level = spdlog::level::critical;
+			if (strcmp(levelStr, "Info") == 0)
+				level = level = spdlog::level::info;
+			else if (strcmp(levelStr, "Warn") == 0)
+				level = spdlog::level::warn;
+			else if (strcmp(levelStr, "Debug") == 0)
+				level = spdlog::level::debug;
+			else if (strcmp(levelStr, "Trace") == 0)
+				level = spdlog::level::trace;
+			else if (strcmp(levelStr, "Error") == 0)
+				level = spdlog::level::err;
+			else if (strcmp(levelStr, "Critcal") == 0)
+				level = spdlog::level::critical;
 
-		auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-		console_sink->set_level(level);
-		console_sink->set_pattern("[%H:%M:%S %z] [%^---%L---%$] %v");
+			auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+			console_sink->set_level(level);
+			console_sink->set_pattern("[%H:%M:%S %z] [%^---%L---%$] %v");
 
-		auto max_size = 1048576 * 5;
-		auto max_files = 3;
-		auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("log.txt", max_size, max_files);
-		file_sink->set_level(level);
-		file_sink->set_pattern("[%H:%M:%S %z] [%^---%L---%$] %v");
+			auto max_size = 1048576 * 5;
+			auto max_files = 3;
+			auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("log.txt", max_size, max_files);
+			file_sink->set_level(level);
+			file_sink->set_pattern("[%H:%M:%S %z] [%^---%L---%$] %v");
 
-		Logger = new spdlog::logger("multi_sink", { console_sink, file_sink });
-		Logger->set_level(level);
-		Logger->info("Logging Initialized with Level: {}", levelStr);
+			Logger = new spdlog::logger("multi_sink", { console_sink, file_sink });
+			Logger->set_level(level);
+			Logger->info("Logging Initialized with Level: {}", levelStr);
+		}
+		else
+		{
+			Logger->warn("Logging already Initialized");
+		}
 	}
 	catch (const spdlog::spdlog_ex& ex)
 	{
@@ -193,7 +200,7 @@ int32_t /*__cdecl*/ mymkdir(const char* path) {
 
 FILE* myopen(const char* path, int pmode, uint32_t flags) {
 
-	Logger->debug("myopen:open file:{}", path);
+	Logger->debug("myopen:open file: {}", path);
 	//bool localDrive::FileOpen(DOS_File * * file, const char * name, uint32_t flags) {
 	const char * type;
 	if ((pmode == 0x222) && (flags == 0x40))type = "rb+";
@@ -203,7 +210,7 @@ FILE* myopen(const char* path, int pmode, uint32_t flags) {
 	FILE* fp = nullptr;
 	//char path2[512] = "\0";
 	//pathfix(path, path2);//only for DOSBOX version
-	//	Logger->debug("myopen:open file:fixed:%s\n", path2);
+	//	Logger->debug("myopen:open file:{}", path2);
 	//if(file_exists(path2))
 
 	fp= fcaseopen(path, type);

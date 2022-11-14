@@ -52332,7 +52332,7 @@ bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //
 	FILE* savesmapfile; // eax
 	size_t writedsize; // [esp+40h] [ebp-8h]
 	
-	Logger->debug("InGameSave-begin\n");
+	Logger->debug("InGameSave-begin");
 
 	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SMAP", savefileindex + 1, savefileindex2);
 	savesmapfile = DataFileIO::CreateOrOpenFile(printbuffer, 546);
@@ -52348,7 +52348,7 @@ bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //
 		DataFileIO::Close(savesmapfile);
 	}
 
-	Logger->debug("InGameSave-end-%d\n", writedsize);
+	Logger->debug("InGameSave-end-{}", writedsize);
 
 	return (writedsize == 0);
 }
@@ -53046,7 +53046,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	cdDataPath = GetSubDirectoryPath(cdFolder);
 	bigGraphicsPath = GetSubDirectoryPath(bigGraphicsFolder);
 
-	Logger->debug("Initializing graphics Width: %d Height: %d", windowResWidth, windowResHeight);
+	Logger->debug("Initializing graphics Width: {} Height: {}", windowResWidth, windowResHeight);
 	VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio, displayIndex);
 
 	//char maindir[1024];
