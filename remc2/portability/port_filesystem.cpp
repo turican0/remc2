@@ -51,13 +51,13 @@ void InitializeLogging(const char* levelStr)
 
 			auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 			console_sink->set_level(level);
-			console_sink->set_pattern("[%H:%M:%S %z] [%^---%L---%$] %v");
+			console_sink->set_pattern("[%H:%M:%S %z] [%^%-8l%$] %v");
 
 			auto max_size = 1048576 * 5;
 			auto max_files = 3;
 			auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("log.txt", max_size, max_files);
 			file_sink->set_level(level);
-			file_sink->set_pattern("[%H:%M:%S %z] [%^---%L---%$] %v");
+			file_sink->set_pattern("[%H:%M:%S %z] [%^%-8l%$] %v");
 
 			Logger = new spdlog::logger("multi_sink", { console_sink, file_sink });
 			Logger->set_level(level);
