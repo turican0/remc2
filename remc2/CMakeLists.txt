@@ -117,13 +117,6 @@ set(SOURCE_FILES__libs__findfirst
 )
 source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfirst})
 
-set(SOURCE_FILES__libs__spdlog
-    "../spdlog/include/spdlog/spdlog.h"
-    "../spdlog/include/spdlog/sinks/rotating_file_sink.h"
-    "../spdlog/include/spdlog/sinks/stdout_color_sinks.h"
-)
-source_group("Source Files\\libs\\spdlog" FILES ${SOURCE_FILES__libs__spdlog})
-
 set(SOURCE_FILES__portability
     "portability/mctypes.h"
     "portability/fcaseopen.cpp"
