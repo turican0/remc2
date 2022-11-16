@@ -52989,154 +52989,160 @@ void InitNetworkInfo() {
 //----- (00055F70) --------------------------------------------------------
 int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 {
-	begin_plugin();
+	try
+	{
+		begin_plugin();
 
-	preconvert();//rewrite and remove it later
+		preconvert();//rewrite and remove it later
 
-	*xadataclrd0dat.colorPalette_var28 = (uint8_t*)malloc(4096);//fix it
+		*xadataclrd0dat.colorPalette_var28 = (uint8_t*)malloc(4096);//fix it
 
-	//*xadataspellsdat.colorPalette_var28 = (uint8_t*)malloc(50000);
+		//*xadataspellsdat.colorPalette_var28 = (uint8_t*)malloc(50000);
 
-	signed int v3; // edi
-	unsigned __int16 v4; // si
-	//skip __int16 v6; // [esp+0h] [ebp-1Ch]
-	//__int16 v7; // [esp+Ch] [ebp-10h]
+		signed int v3; // edi
+		unsigned __int16 v4; // si
+		//skip __int16 v6; // [esp+0h] [ebp-1Ch]
+		//__int16 v7; // [esp+Ch] [ebp-10h]
 
-	//fix it
-	v3 = 0;
-	v4 = 0;
-	//fix it
+		//fix it
+		v3 = 0;
+		v4 = 0;
+		//fix it
 
-	//skip memset(&v6, 0, 28);//236F7F - 26D250
-	//v7 = 0;
-	//skip v6 = 0x3301;
-//removed  int386(0x21, (REGS*)&v6, (REGS*)&v6);//236F9D - 279D52 //INT 21,33 - Get/Set System Values (Ctl-Break/Boot Drive) AH = 33h AL = 01 to set Ctrl - Break checking flag
-//may be INT 33,1 Show Mouse Cursor see:https://www.equestionanswers.com/c/c-int33-mouse-service.php
-	//skip signal(7, 1);//236FA9 - 279DC0
-	//skip signal(4, 1);//236FB5 - 279DC0
-	//skip signal(6, 1);//236FC1 - 279DC0
+		//skip memset(&v6, 0, 28);//236F7F - 26D250
+		//v7 = 0;
+		//skip v6 = 0x3301;
+	//removed  int386(0x21, (REGS*)&v6, (REGS*)&v6);//236F9D - 279D52 //INT 21,33 - Get/Set System Values (Ctl-Break/Boot Drive) AH = 33h AL = 01 to set Ctrl - Break checking flag
+	//may be INT 33,1 Show Mouse Cursor see:https://www.equestionanswers.com/c/c-int33-mouse-service.php
+		//skip signal(7, 1);//236FA9 - 279DC0
+		//skip signal(4, 1);//236FB5 - 279DC0
+		//skip signal(6, 1);//236FC1 - 279DC0
 
 #ifdef _DEBUG
-	InitializeLogging("Debug");
+		InitializeLogging("Debug");
 #else
-	InitializeLogging();
+		InitializeLogging();
 #endif // _DEBUG
 
-	Logger->info("Reading Ini file");
-	if (!readini()) exit(1);
+		Logger->info("Reading Ini file");
+		if (!readini()) exit(1);
 
-	if (assignToSpecificCores)
-	{
+		if (assignToSpecificCores)
+		{
 #ifdef _MSC_VER
-		SetThreadIdealProcessor(GetCurrentThread(), 0);
-		DWORD_PTR dw = SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << 0);
+			SetThreadIdealProcessor(GetCurrentThread(), 0);
+			DWORD_PTR dw = SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << 0);
 #endif
-	}
-
-	if (CommandLineParams.DoDisableGraphicsEnhance()) {
-		Logger->debug("Disabling enhanced graphics");
-		bigSprites = false;
-		bigTextures = false;
-		texturepixels = 32;
-	}
-
-	//Set Paths for game data
-	Logger->debug("Getting Game data paths");
-	gameDataPath = GetSubDirectoryPath(gameFolder);
-	cdDataPath = GetSubDirectoryPath(cdFolder);
-	bigGraphicsPath = GetSubDirectoryPath(bigGraphicsFolder);
-
-	Logger->debug("Initializing graphics Width: {} Height: {}", windowResWidth, windowResHeight);
-	VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio, displayIndex);
-
-	//char maindir[1024];
-	Logger->info("Finding Game Data...");
-	if (std::string mainfile = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT"); !file_exists(mainfile.c_str()))//test original file
-	{
-		//myprintf("Original Game Data Not Found, find GOG iso file\n");
-		/*char locexepath[1024];
-		get_exe_path(locexepath);
-		for (int i = 0;i < strlen(locexepath);i++)
-		{
-			if (locexepath[i] == '\\')
-				locexepath[i] = '/';
 		}
-		sprintf(mainfile, "%s/%s%s", locexepath,gamepath, "/MC2.dat");
-		sprintf(maindir, "%s/%s%s", locexepath, gamepath, "/extracted-game-files");
-		//sprintf(mainfile, "%s", (char*)"c:\\prenos\\gparted-live-0.27.0-1-i686");*/
-		//sprintf(maindir, "%s", (char*)"c:\\prenos\\ex");
-		//if (!file_exists(mainfile))//test existing GOG cd iso file
-		{
-			Logger->error("Original game not found in %s folder", gameDataPath.c_str());
-			mydelay(20000);
-			exit(1);//iso not found
-		}
-		/*myprintf("GOG game iso cd founded!\n");
-		sprintf(mainfile, "%s%s", gamepath, "/extracted-game-files\\data\\tmaps0-0.dat");
-		if (file_exists(mainfile))
-		{
-			myprintf("I found extracted GOG game files!\n");
-			sprintf(gamepath, "%s", maindir);
-		}
-		else
-		{
-			myprintf("Extracting GOG iso cd...\n");
-			sprintf(mainfile, "%s/%s%s", locexepath, gamepath, "/MC2.dat");
 
-			cd_iso_extract(mainfile, maindir);
-			//cd_iso_extract((char*)"c:\\prenos\\MC2.dat.bin", maindir);
+		if (CommandLineParams.DoDisableGraphicsEnhance()) {
+			Logger->debug("Disabling enhanced graphics");
+			bigSprites = false;
+			bigTextures = false;
+			texturepixels = 32;
+		}
 
-			//sprintf(mainfile, "%s%s", gamepath, "\\data\\tmaps0-0.dat");
+		//Set Paths for game data
+		Logger->debug("Getting Game data paths");
+		gameDataPath = GetSubDirectoryPath(gameFolder);
+		cdDataPath = GetSubDirectoryPath(cdFolder);
+		bigGraphicsPath = GetSubDirectoryPath(bigGraphicsFolder);
+
+		Logger->debug("Initializing graphics Width: {} Height: {}", windowResWidth, windowResHeight);
+		VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio, displayIndex);
+
+		//char maindir[1024];
+		Logger->info("Finding Game Data...");
+		if (std::string mainfile = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT"); !file_exists(mainfile.c_str()))//test original file
+		{
+			//myprintf("Original Game Data Not Found, find GOG iso file\n");
+			/*char locexepath[1024];
+			get_exe_path(locexepath);
+			for (int i = 0;i < strlen(locexepath);i++)
+			{
+				if (locexepath[i] == '\\')
+					locexepath[i] = '/';
+			}
+			sprintf(mainfile, "%s/%s%s", locexepath,gamepath, "/MC2.dat");
+			sprintf(maindir, "%s/%s%s", locexepath, gamepath, "/extracted-game-files");
+			//sprintf(mainfile, "%s", (char*)"c:\\prenos\\gparted-live-0.27.0-1-i686");*/
+			//sprintf(maindir, "%s", (char*)"c:\\prenos\\ex");
+			//if (!file_exists(mainfile))//test existing GOG cd iso file
+			{
+				Logger->error("Original game not found in %s folder", gameDataPath.c_str());
+				mydelay(20000);
+				exit(1);//iso not found
+			}
+			/*myprintf("GOG game iso cd founded!\n");
+			sprintf(mainfile, "%s%s", gamepath, "/extracted-game-files\\data\\tmaps0-0.dat");
 			if (file_exists(mainfile))
 			{
-				myprintf("GOG iso cd extracted!\n");
+				myprintf("I found extracted GOG game files!\n");
 				sprintf(gamepath, "%s", maindir);
 			}
 			else
 			{
-				myprintf("Any problem with GOG iso cd extracting\n");
-				mydelay(3000);
-				exit(1);//problem with file extracting
-			}
-		}	*/
-	}
-	else
-	{
-		Logger->info("Original Game Data Found!");
-	}
+				myprintf("Extracting GOG iso cd...\n");
+				sprintf(mainfile, "%s/%s%s", locexepath, gamepath, "/MC2.dat");
 
-	//dos_setvect(9, null_vector, 0);
+				cd_iso_extract(mainfile, maindir);
+				//cd_iso_extract((char*)"c:\\prenos\\MC2.dat.bin", maindir);
 
-	initposistruct();
-
-	sub_56210_process_command_line(argc, argv);//236FD4 - 237210
-	if (CommandLineParams.ModeTestNetwork()) {
-		if (Iam_server || Iam_client)
-			InitNetworkInfo();
-	}
-
-	//-init 0x2a51a4 je nekde tu
-	if (CommandLineParams.DoCopySkipConfig()) {
-		x_BYTE_D41AD_skip_screen = config_skip_screen;
-	}
-
-	Initialize();//236FDC - 23C8D0//rozdil 1E1000
-
-	sub_46830_main_loop(/*0, */v3, v4);//227830
-
-	sub_5BC20();//23CC20 //remove devices?
-	sub_56730_clean_memory();//237730
-	
-	if (CommandLineParams.ModeTestNetwork()) {
-		if (Iam_server || Iam_client)
+				//sprintf(mainfile, "%s%s", gamepath, "\\data\\tmaps0-0.dat");
+				if (file_exists(mainfile))
+				{
+					myprintf("GOG iso cd extracted!\n");
+					sprintf(gamepath, "%s", maindir);
+				}
+				else
+				{
+					myprintf("Any problem with GOG iso cd extracting\n");
+					mydelay(3000);
+					exit(1);//problem with file extracting
+				}
+			}	*/
+		}
+		else
 		{
-			EndMyNetLib();
-			/*EndLibNetClient();
-			if (Iam_server)
-				EndLibNetServer();*/
-		}	
-	}
+			Logger->info("Original Game Data Found!");
+		}
 
+		//dos_setvect(9, null_vector, 0);
+
+		initposistruct();
+
+		sub_56210_process_command_line(argc, argv);//236FD4 - 237210
+		if (CommandLineParams.ModeTestNetwork()) {
+			if (Iam_server || Iam_client)
+				InitNetworkInfo();
+		}
+
+		//-init 0x2a51a4 je nekde tu
+		if (CommandLineParams.DoCopySkipConfig()) {
+			x_BYTE_D41AD_skip_screen = config_skip_screen;
+		}
+
+		Initialize();//236FDC - 23C8D0//rozdil 1E1000
+
+		sub_46830_main_loop(/*0, */v3, v4);//227830
+
+		sub_5BC20();//23CC20 //remove devices?
+		sub_56730_clean_memory();//237730
+
+		if (CommandLineParams.ModeTestNetwork()) {
+			if (Iam_server || Iam_client)
+			{
+				EndMyNetLib();
+				/*EndLibNetClient();
+				if (Iam_server)
+					EndLibNetServer();*/
+			}
+		}
+	}
+	catch (const std::exception& e)
+	{
+		Logger->critical("Critial Error: {}", e.what());
+	}
 	Logger->info("Exited Game");
 	return 0;
 }
