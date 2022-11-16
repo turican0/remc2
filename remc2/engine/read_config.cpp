@@ -10,6 +10,7 @@ int texturepixels = 32;
 int maxGameFps = 30;
 int fmvFps = 20;
 int menuFps = 30;
+std::string loggingLevel = "Info";
 int displayIndex = 0;
 int windowResWidth = 640;
 int windowResHeight = 480;
@@ -165,9 +166,6 @@ bool readini() {
 	std::string readstr4 = reader.GetString("main", "cdFolder", "");
 	strcpy((char*)cdFolder, (char*)readstr4.c_str());
 
-	maxGameFps = reader.GetInteger("game", "maxGameFps", 0);
-	fmvFps = reader.GetInteger("game", "fmvFps", 20);
-
 	openGLRender = reader.GetBoolean("graphics", "openGLRender", false);
 
 	if (!openGLRender)
@@ -189,6 +187,10 @@ bool readini() {
 			numberOfRenderThreads = 0;
 		}
 	}
+
+	maxGameFps = reader.GetInteger("game", "maxGameFps", 0);
+	fmvFps = reader.GetInteger("game", "fmvFps", 20);
+	loggingLevel = reader.GetString("game", "loggingLevel", "Info");
 
 	return true;
 };

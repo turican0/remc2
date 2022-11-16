@@ -62,7 +62,7 @@ int DataFileIO::ReadFileAndDecompress(const char* path, uint8_t** data)
 		}
 		else
 		{
-			myprintf("ERROR decompressing %s\n");
+			Logger->error("ERROR decompressing %s\n");
 			result = -2;
 		}
 	}
@@ -260,9 +260,7 @@ int32_t DataFileIO::Seek(FILE* file, x_DWORD position, char type) {
 
 size_t DataFileIO::Read(FILE* file, uint8_t* data, uint32_t length) {
 	size_t result = fread(data, 1, length, file);
-#ifdef _DEBUG
-	debug_printf("Read fread length %d result %d\n", length, result);
-#endif
+	Logger->trace("Read fread length {} result {}", length, result);
 	return result;
 };
 

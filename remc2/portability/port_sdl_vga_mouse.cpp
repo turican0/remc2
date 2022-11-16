@@ -115,7 +115,7 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 		//Initialize SDL
 		if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		{
-			printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+			Logger->error("SDL could not initialize! SDL_Error: {}", SDL_GetError());
 			exit(0);
 			//success = false;
 		}
@@ -187,7 +187,7 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 		}
 		if (!VGA_LoadFont())
 		{
-			printf("Failed to load font!\n");
+			Logger->error("Failed to load font!");
 			exit(-1);
 		}
 
@@ -375,7 +375,7 @@ bool VGA_LoadFont()
 	m_surfaceFont = SDL_LoadBMP(fontPath.c_str());
 	if (m_surfaceFont == nullptr)
 	{
-		printf("Unable to load image %s! SDL Error: %s\n", "16x16-font.bmp", SDL_GetError());
+		Logger->error("Unable to load image {}! SDL Error: {}", "16x16-font.bmp", SDL_GetError());
 		success = false;
 	}
 
@@ -388,7 +388,7 @@ bool VGA_LoadFont()
 	m_smallSurfaceFont = SDL_LoadBMP(fontPath.c_str());
 	if (m_surfaceFont == nullptr)
 	{
-		printf("Unable to load image %s! SDL Error: %s\n", "8x8-font.bmp", SDL_GetError());
+		Logger->error("Unable to load image {}! SDL Error: {]", "8x8-font.bmp", SDL_GetError());
 		success = false;
 	}
 
@@ -825,13 +825,13 @@ int events()
 			if (!handleSpecialKeys(event)) {
 				setPress(true, lastchar);
 			}
-			printf("Key press detected\n");//test
+			Logger->trace("Key press detected");//test
 			break;
 
 		case SDL_KEYUP:
 			lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
 			setPress(false, lastchar);
-			printf("Key release detected\n");//test
+			Logger->trace("Key release detected");//test
 			break;
 
 		case SDL_MOUSEMOTION:
@@ -1020,7 +1020,7 @@ void VGA_Init_test() {//only for debug
 	/* Create display */
 
 	if (!m_gamePalletisedSurface) {
-		printf("Couldn't set video mode: %s\n", SDL_GetError());
+		Logger->error("Couldn't set video mode: {}", SDL_GetError());
 		exit(-1);
 	}
 

@@ -7,7 +7,7 @@ void myWriteOut(const char * format, ...) {
 	DEBUG_ShowMsg(format);
 #else
 	if (CommandLineParams.DoTextOutputToConsole())
-		printf("%s", format);
+		Logger->debug("{}", format);
 	VGA_Draw_string((char*)format);
 #endif //USE_DOSBOX
 
@@ -28,7 +28,7 @@ void myprintf(const char * format, ...) {
 	DEBUG_ShowMsg(prbuffer);
 #else
 	if(CommandLineParams.DoTextOutputToConsole())
-		printf("%s", prbuffer);
+		Logger->debug("{}", prbuffer);
 	VGA_Draw_string(prbuffer);
 #endif //USE_DOSBOX
 

@@ -2,6 +2,8 @@
 
 int run_regtest(int level)//236F70
 {
+	Logger->info("Testing Level{}", level);
+
 	unitTests = true;
 	std::string locUnitTestsPath = get_exe_path() + "/memimages/regressions/level" + std::to_string(level);
 	unitTestsPath = locUnitTestsPath;
@@ -50,15 +52,15 @@ int run_regtest(int level)//236F70
 	catch (const thread_exit_exception& e){}
 	catch (const std::exception& e)
 	{
-		printf("Exception running main thread: %c \n", e.what());
+		Logger->error("Exception running main thread: {}", e.what());
 	}
 
 	support_end();
 	if (locEndTestsCode == 20)
-		printf("Test Level%d - OK\n", level);
+		Logger->info("Test Level{} - OK", level);
 	else
 	{
-		printf("Test Level%d - FAILED\n", level);
+		Logger->error("Test Level{} - FAILED", level);
 		return -1;
 	}
 	return 0;

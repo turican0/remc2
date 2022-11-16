@@ -15,6 +15,7 @@ using namespace std;
 char gameFolder[512] = "NETHERW";
 char cdFolder[512] = "CD_Files";
 char bigGraphicsFolder[512] = "bigGraphics";
+spdlog::logger* Logger = nullptr;
 
 #ifndef _MSC_VER
 	#include <libgen.h>
@@ -24,6 +25,52 @@ char bigGraphicsFolder[512] = "bigGraphics";
 	#include <sys/stat.h>
     #include <cstdio>
 #endif
+
+void InitializeLogging(const char* levelStr)
+{
+	try
+	{
+		if (Logger == nullptr)
+		{
+			spdlog::level::level_enum level = spdlog::level::debug;
+
+			if (strcmp(levelStr, "Info") == 0)
+				level = level = spdlog::level::info;
+			else if (strcmp(levelStr, "Warn") == 0)
+				level = spdlog::level::warn;
+			else if (strcmp(levelStr, "Debug") == 0)
+				level = spdlog::level::debug;
+			else if (strcmp(levelStr, "Trace") == 0)
+				level = spdlog::level::trace;
+			else if (strcmp(levelStr, "Error") == 0)
+				level = spdlog::level::err;
+			else if (strcmp(levelStr, "Critcal") == 0)
+				level = spdlog::level::critical;
+
+			auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+			console_sink->set_level(level);
+			console_sink->set_pattern("[%H:%M:%S %z] [%^%-8l%$] %v");
+
+			auto max_size = 1048576 * 5;
+			auto max_files = 3;
+			auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("log.txt", max_size, max_files);
+			file_sink->set_level(level);
+			file_sink->set_pattern("[%H:%M:%S %z] [%^%-8l%$] %v");
+
+			Logger = new spdlog::logger("multi_sink", { console_sink, file_sink });
+			Logger->set_level(level);
+			Logger->info("Logging Initialized with Level: {}", levelStr);
+		}
+		else
+		{
+			Logger->warn("Logging already Initialized");
+		}
+	}
+	catch (const spdlog::spdlog_ex& ex)
+	{
+		std::cout << "Log init failed: " << ex.what() << std::endl;
+	}
+}
 
 #ifdef _MSC_VER
 std::string utf8_encode(const std::wstring &wstr)
@@ -60,24 +107,15 @@ std::string get_exe_path() {
 };
 
 long my_findfirst(char* path, _finddata_t* c_file){
-	#ifdef DEBUG_START
-		debug_printf("my_findfirst:%s\n", path);
-	#endif //DEBUG_START
-	#ifdef DEBUG_START
-		debug_printf("my_findfirst:fixed:%s\n", path);
-	#endif //DEBUG_START
+	Logger->debug("my_findfirst:fixed:{}", path);
 	long result= _findfirst(path, c_file);
-	#ifdef DEBUG_START
-			debug_printf("my_findfirst:end:%d\n", result);
-	#endif //DEBUG_START
+	Logger->debug("my_findfirst:end:{}", result);
 	return result;
 }
 
 long my_findnext(long hFile, _finddata_t* c_file){
 	long result = _findnext(hFile, c_file);
-	#ifdef DEBUG_START
-		debug_printf("my_findnext:end:%d\n", result);
-	#endif //DEBUG_START
+	Logger->debug("my_findnext:end:{}", result);
 	return result;
 }
 
@@ -94,73 +132,27 @@ bool file_exists(const char * filename) {
 	FILE* file;
 	if ((file = fcaseopen(filename, "r")) != NULL) {
 		fclose(file);
-		#ifdef DEBUG_START
-				debug_printf("file_exists:true-%s\n", filename);
-		#endif //DEBUG_START
+		Logger->debug("file_exists:true-{}", filename);
 		return true;
 	}
-	#ifdef DEBUG_START
-		debug_printf("file_exists:false-%s\n", filename);
-	#endif //DEBUG_START
+	Logger->debug("file_exists:false-{}", filename);
 	return false;
 }
 
 FILE* mycreate(const char* path, uint32_t  /*flags*/) {
-	FILE *fp;
-	fp = fcaseopen(path, "wb+");
-	#ifdef DEBUG_START
-		debug_printf("mycreate:%p\n",fp);
-	#endif //DEBUG_START
+	FILE *fp = fcaseopen(path, "wb+");
+	Logger->debug("mycreate:{}", fmt::ptr(fp));
 	return fp;
 };
-
-FILE* debug_output;
-
-bool debug_first = false;
-const char* debug_filename = "../debug.txt";
-std::string path = {};
-
-void debug_printf(const char* format, ...) {
-	char prbuffer[1024];
-#ifndef FLATPAK
-	va_list arg;
-	//int done;
-	va_start(arg, format);
-	vsprintf(prbuffer, format, arg);
-	va_end(arg);
-
-	std::string exepath = get_exe_path();
-	path = exepath + "/" + debug_filename;
-
-	if (debug_first)
-	{
-		debug_output = fcaseopen(path.c_str(), "wt");
-		debug_first = false;
-	}
-	else
-		debug_output = fcaseopen(path.c_str(), "at");
-	fprintf(debug_output, "%s", prbuffer);
-	fclose(debug_output);
-	#ifdef DEBUG_PRINT_DEBUG_TO_SCREEN
-		printf(prbuffer);
-	#endif
-#endif
-}
 
 int32_t myaccess(const char* path, uint32_t  /*flags*/) {
 	DIR *dir;
 	//char path2[2048] = "\0";
-	#ifdef DEBUG_FILEOPS
-		debug_printf("myaccess:orig path:%s\n", path);
-	#endif //DEBUG_FILEOPS
+	Logger->debug("myaccess:orig path:{}", path);
 	//pathfix(path, path2);//only for DOSBOX version
-	//#ifdef DEBUG_FILEOPS
-	//	debug_printf("myaccess:fix path:%s\n", path2);
-	//#endif //DEBUG_FILEOPS
+	//	Logger->debug("myaccess:fix path:%s\n", path2);
 	dir = opendir(path);
-	#ifdef DEBUG_FILEOPS
-		debug_printf("myaccess:exit:%p %d\n", dir, errno);
-	#endif //DEBUG_FILEOPS
+	Logger->debug("myaccess:exit:{} {}", fmt::ptr(dir), errno);
 	if (dir)
 	{
 		/* Directory exists. */
@@ -176,14 +168,11 @@ int32_t myaccess(const char* path, uint32_t  /*flags*/) {
 
 int32_t /*__cdecl*/ mymkdir(const char* path) {
 	//char path2[512] = "\0";
-	#ifdef DEBUG_FILEOPS
-		debug_printf("mymkdir:path: %s\n", path);
-	#endif //DEBUG_FILEOPS
-	//pathfix(path, path2);//only for DOSBOX version
 
-	//#ifdef DEBUG_FILEOPS
-	//	debug_printf("mymkdir:path2: %s\n", path2);
-	//#endif //DEBUG_FILEOPS
+	Logger->debug("mymkdir:path: {}", path);
+
+	//pathfix(path, path2);//only for DOSBOX version
+	//Logger->debug("mymkdir:path2: %s\n", path2);
 
 #ifdef WIN32
 	const WCHAR *pwcsName;
@@ -193,13 +182,8 @@ int32_t /*__cdecl*/ mymkdir(const char* path) {
 	pwcsName = new WCHAR[nChars];
 	MultiByteToWideChar(CP_ACP, 0, path, -1, (LPWSTR)pwcsName, nChars);
 	// use it....
-
-#ifdef DEBUG_FILEOPS
-	debug_printf("mymkdir:path3: %s\n", pwcsName);
-#endif //DEBUG_FILEOPS
+	Logger->debug("mymkdir:path3: {}", fmt::ptr(pwcsName));
 #endif
-
-
 
 	int result;
 #if defined (WIN32)						/* MS Visual C++ */
@@ -209,17 +193,13 @@ int32_t /*__cdecl*/ mymkdir(const char* path) {
 	result = mkdir(path, 0700);
 #endif
 	// delete it
-
-#ifdef DEBUG_FILEOPS
-	debug_printf("mymkdir:end: %d\n", result);
-#endif //DEBUG_FILEOPS
+	Logger->debug("mymkdir:end: {}", result);
 	return result;
 };
 
 FILE* myopen(const char* path, int pmode, uint32_t flags) {
-	#ifdef DEBUG_START
-		debug_printf("myopen:open file:%s\n", path);
-	#endif //DEBUG_START
+
+	Logger->debug("myopen:open file: {}", path);
 	//bool localDrive::FileOpen(DOS_File * * file, const char * name, uint32_t flags) {
 	const char * type;
 	if ((pmode == 0x222) && (flags == 0x40))type = "rb+";
@@ -229,15 +209,11 @@ FILE* myopen(const char* path, int pmode, uint32_t flags) {
 	FILE* fp = nullptr;
 	//char path2[512] = "\0";
 	//pathfix(path, path2);//only for DOSBOX version
-	//#ifdef DEBUG_START
-	//	debug_printf("myopen:open file:fixed:%s\n", path2);
-	//#endif //DEBUG_START
+	//	Logger->debug("myopen:open file:{}", path2);
 	//if(file_exists(path2))
 
 	fp= fcaseopen(path, type);
-	#ifdef DEBUG_START
-		debug_printf("myopen:open end %p\n", fp);
-	#endif //DEBUG_START
+	Logger->debug("myopen:open end {}", fmt::ptr(fp));
 	return fp;
 };
 int myclose(FILE* descriptor) {
@@ -270,9 +246,7 @@ int DirExists(const char* path)
 FILE* myopent(char* path, char* type) {
 	FILE *fp;
 	fp= fcaseopen(path, type);
-	#ifdef DEBUG_FILEOPS
-		debug_printf("myopent:end: %p\n", fp);
-	#endif //DEBUG_FILEOPS
+	Logger->debug("myopent:end: {}", fmt::ptr(fp));
 	return fp;
 };
 
@@ -285,7 +259,7 @@ dirsstruct getListDir(char* dirname)
 	DIR *dr = opendir(dirname);
 	if (dr == NULL)  // opendir returns NULL if couldn't open directory 
 	{
-		printf("Could not open current directory1 %s\n", dirname);
+		Logger->error("Could not open current directory1 {}", dirname);
 		return directories;
 	}
 	// Refer http://pubs.opengroup.org/onlinepubs/7990989775/xsh/readdir.html 
@@ -453,14 +427,14 @@ bool ExistGraphicsfile(const char* path) {
 
 	if ((file = fopen(path, "r")) != NULL) {
 		fclose(file);
-#ifdef DEBUG_START
-		debug_printf("ffile_exists:true-%s\n", path);
-#endif //DEBUG_START
+
+		Logger->debug("ffile_exists:true-{}", path);
+
 		return true;
 	}
-#ifdef DEBUG_START
-	debug_printf("ffile_exists:false-%s\n", path);
-#endif //DEBUG_START
+
+	Logger->debug("ffile_exists:false-{}", path);
+
 	return false;
 }
 
