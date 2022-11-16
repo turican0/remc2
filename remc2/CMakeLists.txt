@@ -117,6 +117,12 @@ set(SOURCE_FILES__libs__findfirst
 )
 source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfirst})
 
+set(SOURCE_FILES__libs__spdlog
+    "../spdlog/include/spdlog/spdlog.h"
+    "../spdlog/include/spdlog/sinks/rotating_file_sink.h"
+    "../spdlog/include/spdlog/sinks/stdout_color_sinks.h"
+)
+source_group("Source Files\\libs\\spdlog" FILES ${SOURCE_FILES__libs__spdlog})
 
 set(SOURCE_FILES__portability
     "portability/mctypes.h"
@@ -153,6 +159,7 @@ set(ALL_FILES
 # targets
 ################################################################################
 add_library(findfirst ${SOURCE_FILES__libs__findfirst})
+add_library(spdlog ${SOURCE_FILES__libs__spdlog})
 add_executable(${PROJECT_NAME} ${ALL_FILES})
 
 install(
