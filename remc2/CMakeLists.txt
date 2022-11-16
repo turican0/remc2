@@ -194,6 +194,7 @@ if (UNIX)
     target_include_directories(${PROJECT_NAME} PUBLIC
         "${CMAKE_SOURCE_DIR}/inih"
         "${CMAKE_SOURCE_DIR}/findfirst"
+        "${CMAKE_SOURCE_DIR}/spdlog/include"
     )
     #target_compile_definitions(${PROJECT_NAME} PRIVATE
     #)
