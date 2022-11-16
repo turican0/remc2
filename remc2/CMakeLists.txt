@@ -152,7 +152,6 @@ set(ALL_FILES
 # targets
 ################################################################################
 add_library(findfirst ${SOURCE_FILES__libs__findfirst})
-add_library(spdlog ${SOURCE_FILES__libs__spdlog})
 add_executable(${PROJECT_NAME} ${ALL_FILES})
 
 install(
