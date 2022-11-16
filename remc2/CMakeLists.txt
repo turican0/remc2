@@ -219,7 +219,7 @@ set(SOURCE_FILES__libs__spdlog
 	"../spdlog/include/spdlog/tweakme.h"
 	"../spdlog/include/spdlog/version.h"
 )
-source_group("Source Files\\libs\\spdlog" FILES ${SOURCE_FILES__libs__spdlog})
+source_group("Source Files\\libs\\spdlog\\spdlog" FILES ${SOURCE_FILES__libs__spdlog})
 
 set(SOURCE_FILES__portability
     "portability/mctypes.h"
