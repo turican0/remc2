@@ -26,8 +26,6 @@ spdlog::logger* Logger = nullptr;
     #include <cstdio>
 #endif
 
-#ifdef _MSC_VER
-
 void InitializeLogging(const char* levelStr)
 {
 	try
@@ -74,6 +72,7 @@ void InitializeLogging(const char* levelStr)
 	}
 }
 
+#ifdef _MSC_VER
 std::string utf8_encode(const std::wstring &wstr)
 {
 	if (wstr.empty()) return std::string();
