@@ -31,6 +31,8 @@ set(SOURCE_FILES_REGRESSIONTESTS
     "../remc2/portability/port_filesystem.h"
     "../remc2/portability/port_sdl_vga_mouse.cpp"
     "../remc2/portability/port_sdl_vga_mouse.h"
+	"../remc2/portability/port_show_perifery.cpp"
+    "../remc2/portability/port_show_perifery.h"
     "../remc2/portability/port_net.cpp"
     "../remc2/portability/port_net.h"
     "../remc2/portability/port_outputs.cpp"
