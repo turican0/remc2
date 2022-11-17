@@ -9,6 +9,9 @@
 #include <string>
 #include "mctypes.h"
 #include "fcaseopen.h"
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/rotating_file_sink.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
 
 #ifdef _MSC_VER
 	#include <windows.h>
@@ -29,19 +32,17 @@
 //#include <stdlib.h>
 //#include <string.h>
 //#include <ctype.h>
-
-#define DEBUG_MKDIR
-#define DEBUG_START
-#define DEBUG_FILEOPS
-#define DEBUG_LOADSAVE
-
+// 
 //#define DEBUG_PRINT_DEBUG_TO_SCREEN
 
 extern char gameFolder[512];
 extern char cdFolder[512];
 extern char bigGraphicsFolder[512];
+extern spdlog::logger* Logger;
 
-
+const char* GetStringFromLoggingLevel(spdlog::level::level_enum level);
+spdlog::level::level_enum GetLoggingLevelFromString(const char* levelStr);
+void InitializeLogging(spdlog::level::level_enum level);
 long my_findfirst(char* path, _finddata_t* c_file);
 long my_findnext(long hFile, _finddata_t* c_file);
 void my_findclose(long hFile);
@@ -81,8 +82,6 @@ std::string get_exe_path();
 #ifdef _MSC_VER
 uint64_t dos_getdiskfree(int16_t a1, int16_t a2, uint8_t a, short* b);
 #endif
-
-void debug_printf(const char* format, ...);
 
 std::string GetSubDirectoryPath(const char* subDirectory);
 

@@ -117,7 +117,6 @@ set(SOURCE_FILES__libs__findfirst
 )
 source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfirst})
 
-
 set(SOURCE_FILES__portability
     "portability/mctypes.h"
     "portability/fcaseopen.cpp"
@@ -196,6 +195,7 @@ if (UNIX)
     target_include_directories(${PROJECT_NAME} PUBLIC
         "${CMAKE_SOURCE_DIR}/inih"
         "${CMAKE_SOURCE_DIR}/findfirst"
+        "${CMAKE_SOURCE_DIR}/spdlog/include"
     )
     #target_compile_definitions(${PROJECT_NAME} PRIVATE
     #)

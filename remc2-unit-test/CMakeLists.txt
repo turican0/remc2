@@ -112,6 +112,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "../remc2/portability"
     "../findfirst"
     "../inih"
+	"../spdlog/include"
 )
 target_link_libraries(${PROJECT_NAME} PUBLIC 
     gtest

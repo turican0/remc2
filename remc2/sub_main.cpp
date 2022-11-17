@@ -618,7 +618,7 @@ int wherey() //returns current text cursor (y) coordinate
 
 x_DWORD settextposition(x_DWORD x, x_DWORD y) {
 	gotoxy(x, y);
-	printf("\t");
+	Logger->debug("\t");
 	//printf("\033[%d;%dH%s\n", x, y, "R");
 	/*#ifndef USE_DOSBOX
 		COORD coord;
@@ -37806,18 +37806,16 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 		MenusAndIntros_76930(v5, 0/*a1*/);//set language, intro, menu, atd. //257930
 		if (!D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234)
 		{
-#ifdef DEBUG_START
-			debug_printf("sub_46830_main_loop:before load scr\n");
-#endif //DEBUG_START
+			Logger->debug("sub_46830_main_loop:before load scr");
+
 			isSecretLevel = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 24 && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w < 50;
 			sub_47FC0_load_screen(isSecretLevel);//vga smaltitle
-#ifdef DEBUG_START
-			debug_printf("sub_46830_main_loop:load scr passed\n");
-#endif //DEBUG_START
+
+			Logger->debug("sub_46830_main_loop:load scr passed");
+
 			sub_56A30_init_game_level(a3);
-#ifdef DEBUG_START
-			debug_printf("sub_46830_main_loop:init game level passed\n");
-#endif //DEBUG_START
+
+			Logger->debug("sub_46830_main_loop:init game level passed");
 
 			if (CommandLineParams.DoAutoChangeRes()) {
 				resindex_begin = 0;
@@ -52337,9 +52335,7 @@ bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //
 	FILE* savesmapfile; // eax
 	size_t writedsize; // [esp+40h] [ebp-8h]
 	
-#ifdef DEBUG_LOADSAVE
-	debug_printf("InGameSave-begin\n");
-#endif //DEBUG_START
+	Logger->debug("InGameSave-begin");
 
 	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SMAP", savefileindex + 1, savefileindex2);
 	savesmapfile = DataFileIO::CreateOrOpenFile(printbuffer, 546);
@@ -52354,9 +52350,9 @@ bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //
 		writedsize = WriteFile_98CAA(savesmapfile, (uint8_t*)x_BYTE_F2CD0x, 4802) != 4802;
 		DataFileIO::Close(savesmapfile);
 	}
-#ifdef DEBUG_LOADSAVE
-	debug_printf("InGameSave-end-%d\n", writedsize);
-#endif //DEBUG_START
+
+	Logger->debug("InGameSave-end-{}", writedsize);
+
 	return (writedsize == 0);
 }
 // 10000: using guessed type void /*__noreturn*/ sub_10000();
@@ -52491,9 +52487,7 @@ bool sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex)//236750 /
 //----- (000558E0) --------------------------------------------------------
 bool LoadLevelSMAP_558E0(uint8_t savefileindex)//2368e0
 {
-#ifdef DEBUG_LOADSAVE
-	debug_printf("InGameLoad-begin\n");
-#endif //DEBUG_START
+	Logger->debug("InGameLoad-begin\n");
 
 	//fix
 	x_D41A0_BYTEARRAY_4_struct.dword_38519 = x_DWORD_EA3E4[1];
@@ -52518,15 +52512,11 @@ bool LoadLevelSMAP_558E0(uint8_t savefileindex)//2368e0
 		int truesize = DataFileIO::Read(loadfile, (uint8_t*)x_BYTE_F2CD0x, 4802) == 4802;
 		DataFileIO::Close(loadfile);
 		if (truesize) {
-#ifdef DEBUG_LOADSAVE
-			debug_printf("InGameLoad-end-ok\n");
-#endif //DEBUG_START
+			Logger->debug("InGameLoad-end-ok\n");
 			return 1;
 		}
 	}
-#ifdef DEBUG_LOADSAVE
-	debug_printf("InGameLoad-end-error\n");
-#endif //DEBUG_START
+	Logger->debug("InGameLoad-end-error\n");
 	return 0;
 }
 
@@ -53002,148 +52992,164 @@ void InitNetworkInfo() {
 //----- (00055F70) --------------------------------------------------------
 int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 {
-	begin_plugin();
-
-	preconvert();//rewrite and remove it later
-
-	*xadataclrd0dat.colorPalette_var28 = (uint8_t*)malloc(4096);//fix it
-
-	//*xadataspellsdat.colorPalette_var28 = (uint8_t*)malloc(50000);
-
-	signed int v3; // edi
-	unsigned __int16 v4; // si
-	//skip __int16 v6; // [esp+0h] [ebp-1Ch]
-	//__int16 v7; // [esp+Ch] [ebp-10h]
-
-	//fix it
-	v3 = 0;
-	v4 = 0;
-	//fix it
-
-	//skip memset(&v6, 0, 28);//236F7F - 26D250
-	//v7 = 0;
-	//skip v6 = 0x3301;
-//removed  int386(0x21, (REGS*)&v6, (REGS*)&v6);//236F9D - 279D52 //INT 21,33 - Get/Set System Values (Ctl-Break/Boot Drive) AH = 33h AL = 01 to set Ctrl - Break checking flag
-//may be INT 33,1 Show Mouse Cursor see:https://www.equestionanswers.com/c/c-int33-mouse-service.php
-	//skip signal(7, 1);//236FA9 - 279DC0
-	//skip signal(4, 1);//236FB5 - 279DC0
-	//skip signal(6, 1);//236FC1 - 279DC0
-
-	printf("\nReading Ini file\n");
-	if (!readini()) exit(1);
-
-	if (assignToSpecificCores)
+	try
 	{
+		begin_plugin();
+
+		preconvert();//rewrite and remove it later
+
+		*xadataclrd0dat.colorPalette_var28 = (uint8_t*)malloc(4096);//fix it
+
+		//*xadataspellsdat.colorPalette_var28 = (uint8_t*)malloc(50000);
+
+		signed int v3; // edi
+		unsigned __int16 v4; // si
+		//skip __int16 v6; // [esp+0h] [ebp-1Ch]
+		//__int16 v7; // [esp+Ch] [ebp-10h]
+
+		//fix it
+		v3 = 0;
+		v4 = 0;
+		//fix it
+
+		//skip memset(&v6, 0, 28);//236F7F - 26D250
+		//v7 = 0;
+		//skip v6 = 0x3301;
+	//removed  int386(0x21, (REGS*)&v6, (REGS*)&v6);//236F9D - 279D52 //INT 21,33 - Get/Set System Values (Ctl-Break/Boot Drive) AH = 33h AL = 01 to set Ctrl - Break checking flag
+	//may be INT 33,1 Show Mouse Cursor see:https://www.equestionanswers.com/c/c-int33-mouse-service.php
+		//skip signal(7, 1);//236FA9 - 279DC0
+		//skip signal(4, 1);//236FB5 - 279DC0
+		//skip signal(6, 1);//236FC1 - 279DC0
+
+		printf("Reading Ini file");
+		if (!readini()) exit(1);
+
+		spdlog::level::level_enum level = spdlog::level::info;
+
+#ifdef _DEBUG
+		level = GetLoggingLevelFromString("Debug");
+#else
+		level = GetLoggingLevelFromString(loggingLevel.c_str());
+#endif // _DEBUG
+		InitializeLogging(level);
+
+		if (assignToSpecificCores)
+		{
 #ifdef _MSC_VER
-		SetThreadIdealProcessor(GetCurrentThread(), 0);
-		DWORD_PTR dw = SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << 0);
+			SetThreadIdealProcessor(GetCurrentThread(), 0);
+			DWORD_PTR dw = SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << 0);
 #endif
-	}
-
-	if (CommandLineParams.DoDisableGraphicsEnhance()) {
-		printf("Disabling enhanced graphics\n");
-		bigSprites = false;
-		bigTextures = false;
-		texturepixels = 32;
-	}
-
-	//Set Paths for game data
-	printf("Getting Game data paths\n");
-	gameDataPath = GetSubDirectoryPath(gameFolder);
-	cdDataPath = GetSubDirectoryPath(cdFolder);
-	bigGraphicsPath = GetSubDirectoryPath(bigGraphicsFolder);
-
-	printf("Initializing graphics Width: %d Height: %d\n", windowResWidth, windowResHeight);
-	VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio, displayIndex);
-
-	//char maindir[1024];
-	myprintf("Finding Game Data...\n");
-	if (std::string mainfile = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT"); !file_exists(mainfile.c_str()))//test original file
-	{
-		//myprintf("Original Game Data Not Found, find GOG iso file\n");
-		/*char locexepath[1024];
-		get_exe_path(locexepath);
-		for (int i = 0;i < strlen(locexepath);i++)
-		{
-			if (locexepath[i] == '\\')
-				locexepath[i] = '/';
 		}
-		sprintf(mainfile, "%s/%s%s", locexepath,gamepath, "/MC2.dat");
-		sprintf(maindir, "%s/%s%s", locexepath, gamepath, "/extracted-game-files");
-		//sprintf(mainfile, "%s", (char*)"c:\\prenos\\gparted-live-0.27.0-1-i686");*/
-		//sprintf(maindir, "%s", (char*)"c:\\prenos\\ex");
-		//if (!file_exists(mainfile))//test existing GOG cd iso file
-		{
-			myprintf("Original game not found in\n %s folder\n", gameDataPath.c_str());
-			mydelay(20000);
-			exit(1);//iso not found
-		}
-		/*myprintf("GOG game iso cd founded!\n");
-		sprintf(mainfile, "%s%s", gamepath, "/extracted-game-files\\data\\tmaps0-0.dat");
-		if (file_exists(mainfile))
-		{
-			myprintf("I found extracted GOG game files!\n");
-			sprintf(gamepath, "%s", maindir);
-		}
-		else
-		{
-			myprintf("Extracting GOG iso cd...\n");
-			sprintf(mainfile, "%s/%s%s", locexepath, gamepath, "/MC2.dat");
 
-			cd_iso_extract(mainfile, maindir);
-			//cd_iso_extract((char*)"c:\\prenos\\MC2.dat.bin", maindir);
+		if (CommandLineParams.DoDisableGraphicsEnhance()) {
+			Logger->debug("Disabling enhanced graphics");
+			bigSprites = false;
+			bigTextures = false;
+			texturepixels = 32;
+		}
 
-			//sprintf(mainfile, "%s%s", gamepath, "\\data\\tmaps0-0.dat");
+		//Set Paths for game data
+		Logger->debug("Getting Game data paths");
+		gameDataPath = GetSubDirectoryPath(gameFolder);
+		cdDataPath = GetSubDirectoryPath(cdFolder);
+		bigGraphicsPath = GetSubDirectoryPath(bigGraphicsFolder);
+
+		Logger->debug("Initializing graphics Width: {} Height: {}", windowResWidth, windowResHeight);
+		VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio, displayIndex);
+
+		//char maindir[1024];
+		Logger->info("Finding Game Data...");
+		if (std::string mainfile = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT"); !file_exists(mainfile.c_str()))//test original file
+		{
+			//myprintf("Original Game Data Not Found, find GOG iso file\n");
+			/*char locexepath[1024];
+			get_exe_path(locexepath);
+			for (int i = 0;i < strlen(locexepath);i++)
+			{
+				if (locexepath[i] == '\\')
+					locexepath[i] = '/';
+			}
+			sprintf(mainfile, "%s/%s%s", locexepath,gamepath, "/MC2.dat");
+			sprintf(maindir, "%s/%s%s", locexepath, gamepath, "/extracted-game-files");
+			//sprintf(mainfile, "%s", (char*)"c:\\prenos\\gparted-live-0.27.0-1-i686");*/
+			//sprintf(maindir, "%s", (char*)"c:\\prenos\\ex");
+			//if (!file_exists(mainfile))//test existing GOG cd iso file
+			{
+				Logger->error("Original game not found in %s folder", gameDataPath.c_str());
+				mydelay(20000);
+				exit(1);//iso not found
+			}
+			/*myprintf("GOG game iso cd founded!\n");
+			sprintf(mainfile, "%s%s", gamepath, "/extracted-game-files\\data\\tmaps0-0.dat");
 			if (file_exists(mainfile))
 			{
-				myprintf("GOG iso cd extracted!\n");
+				myprintf("I found extracted GOG game files!\n");
 				sprintf(gamepath, "%s", maindir);
 			}
 			else
 			{
-				myprintf("Any problem with GOG iso cd extracting\n");
-				mydelay(3000);
-				exit(1);//problem with file extracting
-			}
-		}	*/
-	}
-	else
-	{
-		myprintf("Original Game Data Found!\n");
-	}
+				myprintf("Extracting GOG iso cd...\n");
+				sprintf(mainfile, "%s/%s%s", locexepath, gamepath, "/MC2.dat");
 
-	//dos_setvect(9, null_vector, 0);
+				cd_iso_extract(mainfile, maindir);
+				//cd_iso_extract((char*)"c:\\prenos\\MC2.dat.bin", maindir);
 
-	initposistruct();
-
-	sub_56210_process_command_line(argc, argv);//236FD4 - 237210
-	if (CommandLineParams.ModeTestNetwork()) {
-		if (Iam_server || Iam_client)
-			InitNetworkInfo();
-	}
-
-	//-init 0x2a51a4 je nekde tu
-	if (CommandLineParams.DoCopySkipConfig()) {
-		x_BYTE_D41AD_skip_screen = config_skip_screen;
-	}
-
-	Initialize();//236FDC - 23C8D0//rozdil 1E1000
-
-	sub_46830_main_loop(/*0, */v3, v4);//227830
-
-	sub_5BC20();//23CC20 //remove devices?
-	sub_56730_clean_memory();//237730
-	
-	if (CommandLineParams.ModeTestNetwork()) {
-		if (Iam_server || Iam_client)
+				//sprintf(mainfile, "%s%s", gamepath, "\\data\\tmaps0-0.dat");
+				if (file_exists(mainfile))
+				{
+					myprintf("GOG iso cd extracted!\n");
+					sprintf(gamepath, "%s", maindir);
+				}
+				else
+				{
+					myprintf("Any problem with GOG iso cd extracting\n");
+					mydelay(3000);
+					exit(1);//problem with file extracting
+				}
+			}	*/
+		}
+		else
 		{
-			EndMyNetLib();
-			/*EndLibNetClient();
-			if (Iam_server)
-				EndLibNetServer();*/
-		}	
-	}
+			Logger->info("Original Game Data Found!");
+		}
 
+		//dos_setvect(9, null_vector, 0);
+
+		initposistruct();
+
+		sub_56210_process_command_line(argc, argv);//236FD4 - 237210
+		if (CommandLineParams.ModeTestNetwork()) {
+			if (Iam_server || Iam_client)
+				InitNetworkInfo();
+		}
+
+		//-init 0x2a51a4 je nekde tu
+		if (CommandLineParams.DoCopySkipConfig()) {
+			x_BYTE_D41AD_skip_screen = config_skip_screen;
+		}
+
+		Initialize();//236FDC - 23C8D0//rozdil 1E1000
+
+		sub_46830_main_loop(/*0, */v3, v4);//227830
+
+		sub_5BC20();//23CC20 //remove devices?
+		sub_56730_clean_memory();//237730
+
+		if (CommandLineParams.ModeTestNetwork()) {
+			if (Iam_server || Iam_client)
+			{
+				EndMyNetLib();
+				/*EndLibNetClient();
+				if (Iam_server)
+					EndLibNetServer();*/
+			}
+		}
+	}
+	catch (const std::exception& e)
+	{
+		Logger->critical("Critial Error: {}", e.what());
+	}
+	Logger->info("Exited Game");
 	return 0;
 }
 
@@ -53531,28 +53537,25 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	if (CommandLineParams.DoSetLevel()) {
 		x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = 1;
 	}
-#ifdef DEBUG_START
-	debug_printf("sub_56A30_init_game_level:before sub_6EB90\n");
-#endif //DEBUG_START
+	Logger->debug("sub_56A30_init_game_level:before sub_6EB90");
 	//fixing
 	CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90 adress 0x23ca2e
 	//fixing
-#ifdef DEBUG_START
-	debug_printf("sub_56A30_init_game_level:sub_6EB90 passed\n");
-#endif //DEBUG_START
+	Logger->debug("sub_56A30_init_game_level:sub_6EB90 passed");
+
 	char temp_x_BYTE_E3799_sound_card = soundActive_E3799;
 	soundActive_E3799 = false;
 	ClearSettings_567C0();
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8))
 	{
 		PrintTextMessage_70910((char*)"Load Level\0");
-#ifdef DEBUG_START
-		debug_printf("sub_56A30_init_game_level:before sub_533B0_decompress_levels\n");
-#endif //DEBUG_START
+
+		Logger->debug("sub_56A30_init_game_level:before sub_533B0_decompress_levels");
+
 		sub_533B0_decompress_levels(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, &D41A0_0.terrain_2FECE);
-#ifdef DEBUG_START
-		debug_printf("sub_56A30_init_game_level:sub_533B0_decompress_levels passed\n");
-#endif //DEBUG_START
+
+		Logger->debug("sub_56A30_init_game_level:sub_533B0_decompress_levels passed");
+
 	}
 	sub_54660_read_and_decompress_sky_and_blocks(D41A0_0.terrain_2FECE.MapType, x_BYTE_D41B5_texture_size);//235660
 	sub_54800_read_and_decompress_tables(D41A0_0.terrain_2FECE.MapType);//235800
@@ -57320,9 +57323,8 @@ void Initialize()//23c8d0
 	sub_70890_print_header();//23C8D6 - 251890
 	if ((x_D41A0_BYTEARRAY_4_struct.setting_byte4_25) & 8)
 		sub_5C490_testers_info();//23C8E6 - 23D490
-#ifdef DEBUG_MKDIR
-	debug_printf("Init:Begin of creating dirs\n");
-#endif //DEBUG_MKDIR
+
+	Logger->debug("Init:Begin of creating dirs\n");
 
 	std::string exepath = get_exe_path();
 
@@ -57339,9 +57341,8 @@ void Initialize()//23c8d0
 
 	SetCDFilePaths(cdDataPath.c_str(), pstr);
 
-#ifdef DEBUG_MKDIR
-	debug_printf("Init:End of creating dirs\n");
-#endif //DEBUG_MKDIR
+	Logger->debug("Init:End of creating dirs\n");
+
 	sub_560D0_create_sound_dir();//23C9ED - 2370D0
 	sub_5BCC0_set_any_variables1();//23C9F2 - 23CCC0
 	if (!sub_5BF50_load_psxdata())//23C9F7 - 23CF50 //something with files about their loading, or just a set of Palettes
@@ -81688,7 +81689,7 @@ void OriginalDebugOutput_9AEEC(x_DWORD** a1, char* a2)//27Beec
 
 	v2 = (char*)a2;
 	if (x_DWORD_E3DE8)
-		printf("Writing %s\n", a2);
+		Logger->debug("Writing %s\n", a2);
 	while (*v2)
 	{
 		v4 = *v2++;
