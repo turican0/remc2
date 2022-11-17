@@ -4,47 +4,46 @@
 #include "string.h"
 
 void ShowPerifery(char* text, int a, int b, int c) {
-//void ShowPerifery(char* text, int a, int b, int c) {
     if (text)
     {
         if (!strcmp(text, "cpuid"))
-            printf("external pefifery - CPU identification!!!! - Fix It\n");
+            Logger->debug("external pefifery - CPU identification!!!! - Fix It");
         else if (!strcmp(text, "fninit"))
-            printf("external pefifery - CPU FPU unit turn on!!!! - Fix It\n");
+            Logger->debug("external pefifery - CPU FPU unit turn on!!!! - Fix It");
         else if (!strcmp(text, "port0x3C7"))
-            printf("external pefifery - Read VGA palette!!!! - Fix It\n");
+            Logger->debug("external pefifery - Read VGA palette!!!! - Fix It");
         else if (!strcmp(text, "port0x3C8"))
-            printf("external pefifery - Write VGA palette!!!! - Fix It\n");
+            Logger->debug("external pefifery - Write VGA palette!!!! - Fix It");
         else if (!strcmp(text, "initVga320"))
-            printf("external pefifery - Init VGA - resolution 320x200!!!! - Fix It\n");
+            Logger->debug("external pefifery - Init VGA - resolution 320x200!!!! - Fix It");
         else if (!strcmp(text, "chRes"))
-            printf("external pefifery - Change resolution type:%d!!!! - Fix It\n", a);
+            Logger->debug("external pefifery - Change resolution type:{}!!!! - Fix It", a);
         else if (!strcmp(text, "mouseRes"))
-            printf("external pefifery - Mouse Reset!!!! - Fix It\n");
+            Logger->debug("external pefifery - Mouse Reset!!!! - Fix It");
         else if (!strcmp(text, "mouseSubr"))
-            printf("external pefifery - Mouse Install subroutine!!!! - Fix It\n");
+            Logger->debug("external pefifery - Mouse Install subroutine!!!! - Fix It");
         else if (!strcmp(text, "mouseHide"))
-            printf("external pefifery - Mouse hide cursor!!!! - Fix It\n");
+            Logger->debug("external pefifery - Mouse hide cursor!!!! - Fix It");
         else if (!strcmp(text, "mouseSetPix"))
-            printf("external pefifery - Mouse set pixel ratio!!!! - Fix It\n");
+            Logger->debug("external pefifery - Mouse set pixel ratio!!!! - Fix It");
         else if (!strcmp(text, "blit320"))
-            printf("external pefifery - Blit320\n");
+            Logger->debug("external pefifery - Blit320");
         else if (!strcmp(text, "blit640"))
-            printf("external pefifery - Blit640\n");
+            Logger->debug("external pefifery - Blit640");
         else if (!strcmp(text, "VSYNC"))
-            printf("external pefifery - VSYNC\n");
+            Logger->debug("external pefifery - VSYNC");
         else if (!strcmp(text, "CLEAN_KEYS"))
-            printf("external pefifery - clean pressed keys\n");
+            Logger->debug("external pefifery - clean pressed keys");
         else if (!strcmp(text, "START_TIMER"))
-            printf("external pefifery - start timer\n");
+            Logger->debug("external pefifery - start timer");
         else if (!strcmp(text, "COMPUTE_TIMER"))
-            printf("external pefifery - compute timer\n");
+            Logger->debug("external pefifery - compute timer");
         else if (!strcmp(text, "MOUSE SET POS"))
-            printf("external pefifery - set mouse pos\n");
+            Logger->debug("external pefifery - set mouse pos");
         else
-            printf("unknown external pefifery!!!! - Fix It\n");
+            Logger->debug("unknown external pefifery!!!! - Fix It");
     }
     else
-        printf("unknown external pefifery!!!! - Fix It\n");
+        Logger->debug("unknown external pefifery!!!! - Fix It");
 };//for devices comutications
 
