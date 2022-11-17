@@ -53018,14 +53018,17 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 		//skip signal(4, 1);//236FB5 - 279DC0
 		//skip signal(6, 1);//236FC1 - 279DC0
 
-#ifdef _DEBUG
-		InitializeLogging("Debug");
-#else
-		InitializeLogging();
-#endif // _DEBUG
-
-		Logger->info("Reading Ini file");
+		printf("Reading Ini file");
 		if (!readini()) exit(1);
+
+		spdlog::level::level_enum level = spdlog::level::info;
+
+#ifdef _DEBUG
+		level = GetLoggingLevelFromString("Debug");
+#else
+		level = GetLoggingLevelFromString(loggingLevel.c_str());
+#endif // _DEBUG
+		InitializeLogging(level);
 
 		if (assignToSpecificCores)
 		{

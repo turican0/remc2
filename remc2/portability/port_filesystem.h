@@ -40,7 +40,9 @@ extern char cdFolder[512];
 extern char bigGraphicsFolder[512];
 extern spdlog::logger* Logger;
 
-void InitializeLogging(const char* levelStr = "Info");
+const char* GetStringFromLoggingLevel(spdlog::level::level_enum level);
+spdlog::level::level_enum GetLoggingLevelFromString(const char* levelStr);
+void InitializeLogging(spdlog::level::level_enum level);
 long my_findfirst(char* path, _finddata_t* c_file);
 long my_findnext(long hFile, _finddata_t* c_file);
 void my_findclose(long hFile);
