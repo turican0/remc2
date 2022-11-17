@@ -26,27 +26,37 @@ spdlog::logger* Logger = nullptr;
     #include <cstdio>
 #endif
 
-void InitializeLogging(const char* levelStr)
+const char* GetStringFromLoggingLevel(spdlog::level::level_enum level)
+{
+	const char* level_enum_str[] = { "trace", "debug", "info", "warn", "err", "critical" };
+	return level_enum_str[level];
+}
+
+spdlog::level::level_enum GetLoggingLevelFromString(const char* levelStr)
+{
+	spdlog::level::level_enum level = spdlog::level::info;
+
+	if (strcmp(levelStr, "Info") == 0)
+		level = level = spdlog::level::info;
+	else if (strcmp(levelStr, "Warn") == 0)
+		level = spdlog::level::warn;
+	else if (strcmp(levelStr, "Debug") == 0)
+		level = spdlog::level::debug;
+	else if (strcmp(levelStr, "Trace") == 0)
+		level = spdlog::level::trace;
+	else if (strcmp(levelStr, "Error") == 0)
+		level = spdlog::level::err;
+	else if (strcmp(levelStr, "Critcal") == 0)
+		level = spdlog::level::critical;
+
+	return level;
+}
+void InitializeLogging(spdlog::level::level_enum level)
 {
 	try
 	{
 		if (Logger == nullptr)
 		{
-			spdlog::level::level_enum level = spdlog::level::debug;
-
-			if (strcmp(levelStr, "Info") == 0)
-				level = level = spdlog::level::info;
-			else if (strcmp(levelStr, "Warn") == 0)
-				level = spdlog::level::warn;
-			else if (strcmp(levelStr, "Debug") == 0)
-				level = spdlog::level::debug;
-			else if (strcmp(levelStr, "Trace") == 0)
-				level = spdlog::level::trace;
-			else if (strcmp(levelStr, "Error") == 0)
-				level = spdlog::level::err;
-			else if (strcmp(levelStr, "Critcal") == 0)
-				level = spdlog::level::critical;
-
 			auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 			console_sink->set_level(level);
 			console_sink->set_pattern("[%H:%M:%S %z] [%^%-8l%$] %v");
@@ -59,6 +69,7 @@ void InitializeLogging(const char* levelStr)
 
 			Logger = new spdlog::logger("multi_sink", { console_sink, file_sink });
 			Logger->set_level(level);
+			auto levelStr = GetStringFromLoggingLevel(level);
 			Logger->info("Logging Initialized with Level: {}", levelStr);
 		}
 		else

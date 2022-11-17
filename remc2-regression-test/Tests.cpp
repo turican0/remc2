@@ -10,7 +10,7 @@ int main(int argc, char** argv)
 	//if (CommandLineParams.DoShowDebugMessages1()) -- for suppress messages
 	int numFailedTests = 0;
 
-	InitializeLogging("Info");
+	InitializeLogging(spdlog::level::info);
 
 	Logger->info("--- Regressions tests ---");
 	for (int i = 1; i <= 25; i++)
