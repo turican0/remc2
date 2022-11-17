@@ -133,6 +133,8 @@ set(SOURCE_FILES__portability
     "portability/port_sdl_sound.h"
     "portability/port_sdl_vga_mouse.cpp"
     "portability/port_sdl_vga_mouse.h"
+	"portability/port_show_perifery.cpp"
+    "portability/port_show_perifery.h"
     "portability/port_time.cpp"
     "portability/port_time.h"
     "portability/xmi2mid.cpp"

@@ -2477,6 +2477,8 @@ void MinusE3FF2_A0EF9()//281ef9
 //----- (000A102C) --------------------------------------------------------
 char sub_A102C(int a1)//28202c //fix
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	unsigned int v1; // et0
 	char result; // al
 	unsigned int v3; // [esp-4h] [ebp-10h]
@@ -2539,6 +2541,8 @@ void sub_A108F()//28208f
 //----- (000A10F4) --------------------------------------------------------
 void sub_A10F4_sound_proc_irq()//2820f4
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	unsigned __int16 v1 = 0;
 
 	x_DWORD_E3FEE = 0;
@@ -2558,23 +2562,27 @@ void sub_A10F4_sound_proc_irq()//2820f4
 //----- (000A11E2) --------------------------------------------------------
 void sub_A11E2()//2821e2
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
 }
 
 //----- (000A121D) --------------------------------------------------------
 uint16_t AilApiGetRealVect_A121D(uint32_t vectnum)//28221d
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
 	return ac_get_real_vect(vectnum);
 }
 
 //----- (000A1249) --------------------------------------------------------
 void AilApiSetRealVect_A1249(uint32_t vectnum, uint16_t real_ptr)//282249
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
 	ac_set_real_vect(vectnum, real_ptr);
 }
 
 //----- (000A14DB) --------------------------------------------------------
 void AilApiRestoreUSE16IISR_A14DB(int isr)//2824db
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
 	if (isr != -1 && isr == isr_E3FF8)
 	{
 		isr_E3FF8 = -1;
@@ -2599,12 +2607,15 @@ void sub_A1524(unsigned int a1)//282524
 //----- (000A158B) --------------------------------------------------------
 int32_t AilApiCallDriver_A158B(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in, VDI_CALL* out)//28258b
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
 	return ac_sound_call_driver(drvr, fn, out);
 }
 
 //----- (000A1665) --------------------------------------------------------
 void AilApiDelay_A1665(int delay)//282665
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	mydelay(delay);
 }
 

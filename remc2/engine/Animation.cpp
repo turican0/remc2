@@ -625,6 +625,8 @@ void sub_75CB0()//256cb0
 //----- (0009A0FC) --------------------------------------------------------
 void sub_9A0FC_wait_to_screen_beam()//27B0fc
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	/*unsigned __int8 result; // al
 
 	do

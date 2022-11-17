@@ -537,8 +537,26 @@ bool sub_80D40_move_graphics_and_play_sounds(__int16 a2, __int16 a3, __int16 a4,
 void sub_85CC3_draw_round_frame(/*unsigned int a1, int a2, */unsigned __int16* a3);
 //void sub_840B8(char a1, bool a2, char a3, char a4);
 //unsigned     int __readeflags(void);
-__int16 sub_840D3(char _CF, bool _ZF, char _SF, char _OF);
-void  sub_841CE(__int16 a1);
+
+__int16 sub_840D3(char _CF, bool _ZF, char _SF, char _OF);//ShowPerifery
+void  sub_841CE(__int16 a1);//ShowPerifery
+//sub_8EA7B ShowPerifery
+//sub_A0F06 ShowPerifery
+//sub_A12C5 ShowPerifery
+//sub_AC70E ShowPerifery
+//sub_AC7F6 ShowPerifery
+//sub_AC843 ShowPerifery
+//sub_AC8DD ShowPerifery
+//sub_AC918 ShowPerifery
+//sub_B5022 ShowPerifery
+//sub_B5128 ShowPerifery
+//sub_B51B3 ShowPerifery
+//sub_B522B ShowPerifery
+//sub_6FDA0 ShowPerifery
+//sub_90530 ShowPerifery
+//sub_B5015 ShowPerifery
+//sub_840B8 ShowPerifery
+
 char sub_86860_speak_Sound(unsigned __int16 a1);
 void sub_86EB0(unsigned __int8 a1, unsigned __int8 a2, char a3);
 int16_t sub_89B60_aplicate_setting(uint8_t a1);

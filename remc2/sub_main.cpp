@@ -36897,6 +36897,8 @@ uint16_t x_WORD_DE350[256] + 4400
 
 int sub_40D10()//221d10//fix vga
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	int v1; // ebx
 	signed int v2; // ecx
 	x_BYTE* v3; // esi
@@ -37268,6 +37270,7 @@ void sub_417D0_install_pal_and_mouse_minmax2()//2227d0
 
 void sub_41A90_VGA_Palette_install(TColor* bufferx)//222a90
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
 	//354f24 - 000000 00002a 002a00 002a2a 2a0000
 	//debug
 	//loadfromsnapshot((char*)"0160-00222A90-x", a1, 0x1a7358, 0x300);//4c
@@ -57529,6 +57532,8 @@ void sub_5BCC0_set_any_variables1()//23ccc0
 //----- (0005BDC0) --------------------------------------------------------
 void SetMousePositionInMemory_5BDC0(int16_t posX, int16_t posY)//23cdc0
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	if (posX < 0)
 		posX = 0;
 	if (posY < 0)
@@ -71861,6 +71866,8 @@ void sub_6FDA0()//fix//250da0
 //----- (0006FE20) --------------------------------------------------------
 void sub_6FE20()//fix//250e20
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	//int v0; // et1
 	//int v1; // eax
 
@@ -72842,6 +72849,8 @@ void sub_72550(type_E9C08** a1x)
 //----- (000727F0) --------------------------------------------------------
 void sub_727F0(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a3, unsigned __int8 a4)//fix
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	/*__outx_BYTE(0x3C8u, a1);
 	__outx_BYTE(0x3C9u, a2);
 	__outx_BYTE(0x3C9u, a3);
@@ -73241,6 +73250,8 @@ void sub_759B0_set_mouse_minmax_vert()
 //----- (00075A10) --------------------------------------------------------
 unsigned __int8 sub_75A10(int a1, unsigned __int8* a2)//256a10 // fix
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	unsigned __int8 v2; // al
 	unsigned __int8* v3; // ebx
 	char v4; // dl
@@ -73366,6 +73377,8 @@ int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3)//see: https://gith
 //----- (00075C50) --------------------------------------------------------
 void sub_75C50()//fix
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	/* __outx_BYTE(0x302u, 2u);
 	 __outx_BYTE(0x303u, 1u);*/
 	memset((void*)pdwScreenBuffer_351628, 0, screenHeight_180624 * screenWidth_18062C);
@@ -73925,6 +73938,8 @@ void sub_7AA70_load_and_decompres_dat_file(const char* path, uint8_t* filebuffer
 //----- (0007B5A0) --------------------------------------------------------
 void ResetMouse_7B5A0()
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	//_disable();
 	x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons = 0;
 	x_WORD_180744_mouse_right_button = 0;
@@ -73981,6 +73996,8 @@ signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1()//25d050
 	long v5; // esi
 	bool ctrl_or_alt_pressed; // zf
 	signed int result; // eax
+
+	if (CommandLineParams.DoShowDebugPerifery()) ShowPerifery();
 
 	x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode = 0;
 	x_DWORD_17DE38str.x_BYTE_17DF11_last_key_status = 0;
@@ -79679,6 +79696,8 @@ void sub_8BB40(uint8_t *a1, char a2)//26cb40
 //----- (0008BBE0) --------------------------------------------------------
 signed int sub_8BBE0(uint8_t* a1)//fix//26cbe0
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	char v1=0; // dl
 	unsigned __int8 v2; // al
 	char v3; // al
@@ -80925,6 +80944,8 @@ signed int sub_90668(int a1)//271668
 //----- (000906B4) --------------------------------------------------------
 int sub_906B4()//fix bios graphics//2716b4
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	char* v0; // edx
 	signed int v1; // ebx
 	char v2; // cl
@@ -81420,6 +81441,8 @@ int sub_9937E_set_video_mode(__int16  /*a1*/)//27a37e
 //----- (0009951B) --------------------------------------------------------
 signed int sub_9951B(__int16 a1)//27a51b //fix graphics
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	signed int result; // eax
 
 	x_WORD_E3BA4 = a1;
@@ -81500,6 +81523,8 @@ signed int sub_99FF0(char* a1, char** a2, signed int a3)//27aff0
 //----- (0009A10A) --------------------------------------------------------
 signed int sub_9A10A_check_keyboard(/*signed int result*/)//27B10a
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	if (x_DWORD_E4CA4)
 		return 1;
 	return VGA_check_standart_input_status();
@@ -82451,6 +82476,8 @@ int sub_9CD9C(uint8_t* a1, int a2)//27dd9c
 //----- (0009D31C) --------------------------------------------------------
 __int16 /*__fastcall*/ sub_9D31C(__int16 result)//27e31c
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	bool v1; // zf
 
 	//fix it:__asm { int     16h; KEYBOARD - GET ENHANCED SHIFT FLAGS (AT model 339,XT2,XT286,PS) }
@@ -82597,6 +82624,8 @@ int sub_A0BB0(int* a1, int a2)//281bb0
 //----- (000A0D2C) --------------------------------------------------------
 void sub_A0D2C_VGA_get_Palette(TColor* bufferx)//281d2c
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	uint8_t* tempbuffer = VGA_Get_Palette();
 	memcpy(bufferx, tempbuffer, 768);
 	/*int v2; // [esp+4h] [ebp-4h]
