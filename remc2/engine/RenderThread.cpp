@@ -26,6 +26,7 @@ RenderThread::~RenderThread()
 
 void RenderThread::StartWorkerThread(int8_t core)
 {
+	Logger->debug("Starting Worker Thread: {}", core);
 	int8_t numCores = std::thread::hardware_concurrency();
 
 	if (numCores < core)
@@ -42,25 +43,21 @@ void RenderThread::StartWorkerThread(int8_t core)
 		}
 #endif
 
-#ifndef _MSC_VER
 		std::unique_lock<std::mutex> lock(m_taskMutex, std::defer_lock);
-#endif
+
 		do
 		{
-
-#ifndef _MSC_VER
 			lock.lock();
 			// only wake up if we need to render or if the thread is stopped
 			m_nextTaskCondition.wait(lock, [this]{ return m_isTaskRunning || !m_running; });
-#endif
+
 			if (m_task) {
 				m_task();
 				m_task = 0;
 				m_isTaskRunning = false;
 			}
-#ifndef _MSC_VER
 			lock.unlock();
-#endif
+
 		} while (m_running);
 	});
 }
@@ -69,6 +66,7 @@ void RenderThread::StopWorkerThread()
 {
 	if (m_running)
 	{
+		Logger->debug("Stoping Worker Thread");
 		m_running = false;
 		m_nextTaskCondition.notify_all();
 		if (m_renderThread.joinable()) {
