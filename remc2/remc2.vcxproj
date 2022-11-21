@@ -258,9 +258,9 @@
     </Link>
     <PostBuildEvent>
       <Command>
-		XCOPY "$(SolutionDir)config.ini" "$(TargetDir)" /S /Y
+		XCOPY "$(SolutionDir)config.ini" "$(TargetDir)" /Y
 		XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
-        XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Release\SDL2.dll" "$(TargetDir)" /S /Y
+        XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Release\SDL2.dll" "$(TargetDir)" /Y
 		XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
       </Command>
     </PostBuildEvent>
@@ -291,6 +291,14 @@
       </AdditionalManifestDependencies>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>
+		XCOPY "$(SolutionDir)config.ini" "$(TargetDir)config.ini" /S /Y
+		XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
+        XCOPY "$(SolutionDir)sdl2\VisualC\x64\Release\SDL2.dll" "$(TargetDir)" /S /Y
+		XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\inih\ini.h" />
