@@ -21,7 +21,14 @@ RenderThread::RenderThread(uint8_t core)
 
 RenderThread::~RenderThread()
 {
-	StopWorkerThread();
+	try
+	{
+		StopWorkerThread();
+	}
+	catch (const std::exception& e)
+	{
+		Logger->error("Error Stopping Worker Thread: {}", e.what());
+	}
 }
 
 void RenderThread::StartWorkerThread(int8_t core)
