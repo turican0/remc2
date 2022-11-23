@@ -67,5 +67,4 @@ jobs:
         filename: 'Release_$BUILD_ID.zip'
         directory: ${{env.GITHUB_WORKSPACE}}
         path: /x64/Release
-        exclusions: *.lib
-        exclusions: *.exp
+        exclusions: '*.lib *.exp'
