@@ -1,4 +1,4 @@
-name: MSBuild CI Release
+name: MSBuild 32Bit CI Release
 
 on: 
   push:

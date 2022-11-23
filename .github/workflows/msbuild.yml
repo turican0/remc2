@@ -1,4 +1,4 @@
-name: MSBuild CI
+name: MSBuild 32Bit CI
 
 on: 
   push:
