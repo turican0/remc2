@@ -31,34 +31,34 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
-    - name: Build sdl2 static dependency
+    - name: Build sdl2 static dependency ${{matrix.BUILD_CONFIGURATION}} ${{matrix.BUILD_PLATFORM}}
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/sdl2/VisualC/SDL.sln
 
-    - name: Build libogg static dependency
+    - name: Build libogg static dependency ${{matrix.BUILD_CONFIGURATION}} ${{matrix.BUILD_PLATFORM}}
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/libogg/win32/VS2015/libogg_static.sln
     
-    - name: Build libvorbis static dependency
+    - name: Build libvorbis static dependency ${{matrix.BUILD_CONFIGURATION}} ${{matrix.BUILD_PLATFORM}}
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/libvorbis/win32/VS2010/vorbis_static.sln
 
-    - name: Build ${{matrix.BUILD_CONFIGURATION}}
+    - name: Build ${{matrix.BUILD_CONFIGURATION}} ${{matrix.BUILD_PLATFORM}}
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/remc2.sln
 
-    - name: Run Unit Tests
-      if: ${{matrix.BUILD_CONFIGURATION}} == 'Debug' && ${{matrix.BUILD_PLATFORM}} == 'x86'
+    - name: Run Unit Tests x86
+      if: ${{matrix.BUILD_CONFIGURATION}} == Debug && ${{matrix.BUILD_PLATFORM}} == x86
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
       
-    - name: Run Unit Tests
-      if: ${{matrix.BUILD_CONFIGURATION}} == 'Debug' && ${{matrix.BUILD_PLATFORM}} == 'x64'
+    - name: Run Unit Tests x64
+      if: ${{matrix.BUILD_CONFIGURATION}} == Debug && ${{matrix.BUILD_PLATFORM}} == x64
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
       
     - name: Create Archive x86
-      if: ${{matrix.BUILD_CONFIGURATION}} == 'Release' && ${{matrix.BUILD_PLATFORM}} == 'x86'
+      if: ${{matrix.BUILD_CONFIGURATION}} == Release && ${{matrix.BUILD_PLATFORM}} == x86
       uses: thedoctor0/zip-release@main
       with:
         type: 'zip'
@@ -68,7 +68,7 @@ jobs:
         exclusions: '*.lib *.exp'
         
     - name: Create Archive x64
-      if: ${{matrix.BUILD_CONFIGURATION}} == 'Release' && ${{matrix.BUILD_PLATFORM}} == 'x64'
+      if: ${{matrix.BUILD_CONFIGURATION}} == Release && ${{matrix.BUILD_PLATFORM}} == x64
       uses: thedoctor0/zip-release@main
       with:
         type: 'zip'
