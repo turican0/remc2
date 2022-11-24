@@ -11,6 +11,7 @@ on:
 env:
   # Path to the solution file relative to the root of the project.
   SOLUTION_FILE_PATH: .
+  BUILD_PLATFORM: x86
 
 jobs:
   build:
@@ -18,7 +19,6 @@ jobs:
     strategy:
       matrix:
         BUILD_CONFIGURATION: [Debug, Release]
-        BUILD_PLATFORM: [x86, x64]
 
     steps:
     - uses: actions/checkout@v2
@@ -35,33 +35,33 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/sdl2/VisualC/SDL.sln
+      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{env.BUILD_PLATFORM}} /p:Platform=${{env.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/sdl2/VisualC/SDL.sln
 
     - name: Build libogg static dependency
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/libogg/win32/VS2015/libogg_static.sln
+      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{env.BUILD_PLATFORM}} /p:Platform=${{env.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/libogg/win32/VS2015/libogg_static.sln
     
     - name: Build libvorbis static dependency
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/libvorbis/win32/VS2010/vorbis_static.sln
+      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{env.BUILD_PLATFORM}} /p:Platform=${{env.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/libvorbis/win32/VS2010/vorbis_static.sln
       
     - name: Build ${{matrix.BUILD_CONFIGURATION}}
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/remc2.sln
+      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{env.BUILD_PLATFORM}} /p:Platform=${{env.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/remc2.sln
       
     - name: Run Unit Tests
-      if: matrix.BUILD_CONFIGURATION == Debug
+      if: matrix.BUILD_CONFIGURATION == 'Debug'
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
       
     - name: Create Archive
-      if: matrix.BUILD_CONFIGURATION == Release
+      if: matrix.BUILD_CONFIGURATION == 'Release'
       run: dir
       uses: thedoctor0/zip-release@main
       with:
