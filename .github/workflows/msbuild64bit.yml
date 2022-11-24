@@ -11,19 +11,14 @@ on:
 env:
   # Path to the solution file relative to the root of the project.
   SOLUTION_FILE_PATH: .
-
-  # Configuration type to build.
-  # You can convert this to a build matrix if you need coverage of multiple configuration types.
-  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-  BUILD_CONFIGURATION: Debug
   BUILD_PLATFORM: x64
-  BUILD_PLATFORM_SDL2: x64
-  BUILD_PLATFORM_LIBOGG: x64
-  BUILD_PLATFORM_LIBVORBIS: x64
 
 jobs:
   build:
     runs-on: windows-latest
+    strategy:
+      matrix:
+        BUILD_CONFIGURATION: [Debug, Release]
 
     steps:
     - uses: actions/checkout@v2
@@ -40,26 +35,37 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:PlatformTarget=${{env.BUILD_PLATFORM_SDL2}} /p:Platform=${{env.BUILD_PLATFORM_LIBOGG}} ${{env.SOLUTION_FILE_PATH}}/sdl2/VisualC/SDL.sln
+      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{env.BUILD_PLATFORM}} /p:Platform=${{env.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/sdl2/VisualC/SDL.sln
 
     - name: Build libogg static dependency
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:PlatformTarget=${{env.BUILD_PLATFORM_LIBOGG}} /p:Platform=${{env.BUILD_PLATFORM_LIBOGG}} ${{env.SOLUTION_FILE_PATH}}/libogg/win32/VS2015/libogg_static.sln
+      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{env.BUILD_PLATFORM}} /p:Platform=${{env.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/libogg/win32/VS2015/libogg_static.sln
     
     - name: Build libvorbis static dependency
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:PlatformTarget=${{env.BUILD_PLATFORM_LIBVORBIS}} /p:Platform=${{env.BUILD_PLATFORM_LIBVORBIS}} ${{env.SOLUTION_FILE_PATH}}/libvorbis/win32/VS2010/vorbis_static.sln
+      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{env.BUILD_PLATFORM}} /p:Platform=${{env.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/libvorbis/win32/VS2010/vorbis_static.sln
 
-    - name: Build Debug
+    - name: Build ${{matrix.BUILD_CONFIGURATION}}
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:PlatformTarget=${{env.BUILD_PLATFORM}} /p:Platform=${{env.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/remc2.sln
+      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{env.BUILD_PLATFORM}} /p:Platform=${{env.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/remc2.sln
 
     - name: Run Unit Tests
+      if: matrix.BUILD_CONFIGURATION == 'Debug'
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: ${{env.SOLUTION_FILE_PATH}}/${{env.BUILD_PLATFORM}}/${{env.BUILD_CONFIGURATION}}/remc2-unit-test.exe
+      run: ${{env.SOLUTION_FILE_PATH}}/${{env.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
+  
+    - name: Create Archive
+      if: matrix.BUILD_CONFIGURATION == 'Release'
+      uses: thedoctor0/zip-release@main
+      with:
+        type: 'zip'
+        filename: 'Release_$BUILD_ID.zip'
+        directory: ${{env.GITHUB_WORKSPACE}}
+        path: ${{env.BUILD_PLATFORM}}/Release
+        exclusions: '*.lib *.exp'
