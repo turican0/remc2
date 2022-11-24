@@ -33,19 +33,19 @@ jobs:
 
     - name: Build sdl2 static dependency
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{env.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/sdl2/VisualC/SDL.sln
+      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/sdl2/VisualC/SDL.sln
 
     - name: Build libogg static dependency
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{env.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/libogg/win32/VS2015/libogg_static.sln
+      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/libogg/win32/VS2015/libogg_static.sln
     
     - name: Build libvorbis static dependency
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{env.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/libvorbis/win32/VS2010/vorbis_static.sln
+      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/libvorbis/win32/VS2010/vorbis_static.sln
 
     - name: Build ${{matrix.BUILD_CONFIGURATION}}
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{env.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/remc2.sln
+      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/remc2.sln
 
     - name: Run Unit Tests
       if: ${{matrix.BUILD_CONFIGURATION}} == 'Debug' && ${{matrix.BUILD_PLATFORM}} == 'x86'
