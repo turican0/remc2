@@ -19,6 +19,22 @@ jobs:
       matrix:
         BUILD_CONFIGURATION: [Debug, Release]
         BUILD_PLATFORM: [x86, x64]
+        include:
+          - BUILD_CONFIGURATION: Debug
+          - BUILD_PLATFORM: x86
+            UNIT_TESTX86: 1
+        include:
+          - BUILD_CONFIGURATION: Debug
+          - BUILD_PLATFORM: x64
+            UNIT_TESTX64: 1
+        include:
+          - BUILD_CONFIGURATION: Release
+          - BUILD_PLATFORM: x86
+            ARCHIVEX86: 1
+        include:
+          - BUILD_CONFIGURATION: Release
+          - BUILD_PLATFORM: x64
+            ARCHIVEX64: 1
 
     steps:
     - uses: actions/checkout@v2
@@ -48,17 +64,17 @@ jobs:
       run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/remc2.sln
 
     - name: Run Unit Tests x86
-      if: ${{matrix.BUILD_CONFIGURATION == 'Debug'}} && ${{matrix.BUILD_PLATFORM == 'x86'}}
+      if: ${{ matrix.UNIT_TESTX86 }}
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
       
     - name: Run Unit Tests x64
-      if: ${{matrix.BUILD_CONFIGURATION == 'Debug'}} && ${{matrix.BUILD_PLATFORM == 'x64'}}
+      if: ${{ matrix.UNIT_TESTX64 }}
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
       
     - name: Create Archive x86
-      if: ${{matrix.BUILD_CONFIGURATION == 'Release'}} && ${{matrix.BUILD_PLATFORM == 'x86'}} 
+      if: ${{ matrix.ARCHIVEX86 }}
       uses: thedoctor0/zip-release@main
       with:
         type: 'zip'
@@ -68,7 +84,7 @@ jobs:
         exclusions: '*.lib *.exp'
         
     - name: Create Archive x64
-      if: ${{matrix.BUILD_CONFIGURATION == 'Release'}} && ${{matrix.BUILD_PLATFORM == 'x64'}}
+      if: ${{ matrix.ARCHIVEX64 }}
       uses: thedoctor0/zip-release@main
       with:
         type: 'zip'
