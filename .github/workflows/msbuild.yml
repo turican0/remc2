@@ -77,10 +77,12 @@ jobs:
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}    
       uses: actions/upload-artifact@v1
       with:
+        name: remc2-x86-archive
         path: ${{ github.workspace }}/remc2_x86.zip
         
     - name: Archive x64
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}    
       uses: actions/upload-artifact@v1
       with:
+        name: remc2-x64-archive
         path: ${{ github.workspace }}/remc2_x64.zip
