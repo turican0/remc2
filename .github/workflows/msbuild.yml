@@ -64,7 +64,7 @@ jobs:
         type: 'zip'
         filename: 'remc2_x86_${{env.BUILD_ID}}.zip'
         directory: ${{env.GITHUB_WORKSPACE}}
-        path: /Release
+        path: ${{env.SOLUTION_FILE_PATH}}/Release
         exclusions: '*.lib *.exp'
         
     - name: Create Archive x64
@@ -74,5 +74,5 @@ jobs:
         type: 'zip'
         filename: 'remc2_x64_${{env.BUILD_ID}}.zip'
         directory: ${{env.GITHUB_WORKSPACE}}
-        path: ${{matrix.BUILD_PLATFORM}}/Release
+        path: ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/Release
         exclusions: '*.lib *.exp'
