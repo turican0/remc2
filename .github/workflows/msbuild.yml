@@ -56,18 +56,6 @@ jobs:
       if: ${{ matrix.BUILD_CONFIGURATION == 'Debug' && matrix.BUILD_PLATFORM == 'x64' }}
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
-      
-    - name: Create Archive x86
-      if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}
-      uses: montudor/action-zip@v1
-      with:
-        args: zip -qq -r remc2_x86.zip ${{env.SOLUTION_FILE_PATH}}/Release
-    
-    - name: Create Archive x64
-      if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}
-      uses: vimtor/action-zip@v1
-      with:
-        args: zip -qq remc2_x64.zip ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/Release
     
     - name: Archive x86
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}    
