@@ -61,7 +61,7 @@ jobs:
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}    
       uses: actions/upload-artifact@v3
       with:
-        name: remc2-x86-archive
+        name: remc2-win-x86-archive
         path: ${{env.SOLUTION_FILE_PATH}}/Release/
         if-no-files-found: error
         
@@ -69,6 +69,6 @@ jobs:
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}    
       uses: actions/upload-artifact@v3
       with:
-        name: remc2-x64-archive
+        name: remc2-win-x64-archive
         path: ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/Release/
         if-no-files-found: error
