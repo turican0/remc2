@@ -59,30 +59,28 @@ jobs:
       
     - name: Create Archive x86
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}
-      uses: vimtor/action-zip@v1
+      uses: montudor/action-zip@v1
       with:
-        files:  ${{env.SOLUTION_FILE_PATH}}/Release/
-        recursive: false
-        dest: remc2_x86.zip
+        args: zip -qq -r remc2_x86.zip ${{env.SOLUTION_FILE_PATH}}/Release
     
     - name: Create Archive x64
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}
       uses: vimtor/action-zip@v1
       with:
-        files:  ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/Release/
-        recursive: false
-        dest: remc2_x64.zip
+        args: zip -qq remc2_x64.zip ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/Release
     
     - name: Archive x86
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}    
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: remc2-x86-archive
-        path: ${{ github.workspace }}/remc2_x86.zip
+        path: ${{env.SOLUTION_FILE_PATH}}/Release/
+        if-no-files-found: error
         
     - name: Archive x64
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}    
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: remc2-x64-archive
-        path: ${{ github.workspace }}/remc2_x64.zip
+        path: ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/Release/
+        if-no-files-found: error
