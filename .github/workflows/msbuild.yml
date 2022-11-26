@@ -59,20 +59,28 @@ jobs:
       
     - name: Create Archive x86
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}
-      uses: thedoctor0/zip-release@main
+      uses: vimtor/action-zip@v1
       with:
-        type: 'zip'
-        filename: 'remc2_x86_${{env.BUILD_ID}}.zip'
-        directory: ${{env.GITHUB_WORKSPACE}}
-        path: ${{env.SOLUTION_FILE_PATH}}/Release
-        exclusions: '*.lib *.exp'
-        
+        files:  ${{env.SOLUTION_FILE_PATH}}/Release/
+        recursive: false
+        dest: remc2_x86.zip
+    
     - name: Create Archive x64
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}
-      uses: thedoctor0/zip-release@main
+      uses: vimtor/action-zip@v1
       with:
-        type: 'zip'
-        filename: 'remc2_x64_${{env.BUILD_ID}}.zip'
-        directory: ${{env.GITHUB_WORKSPACE}}
-        path: ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/Release
-        exclusions: '*.lib *.exp'
+        files:  ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/Release/
+        recursive: false
+        dest: remc2_x64.zip
+    
+    - name: Archive x86
+      if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}    
+      uses: actions/upload-artifact@v1
+      with:
+        path: ${{ github.workspace }}/remc2_x86.zip
+        
+    - name: Archive x64
+      if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}    
+      uses: actions/upload-artifact@v1
+      with:
+        path: ${{ github.workspace }}/remc2_x64.zip
