@@ -62,7 +62,7 @@ int DataFileIO::ReadFileAndDecompress(const char* path, uint8_t** data)
 		}
 		else
 		{
-			Logger->error("ERROR decompressing %s\n");
+			Logger->error("ERROR decompressing");
 			result = -2;
 		}
 	}
