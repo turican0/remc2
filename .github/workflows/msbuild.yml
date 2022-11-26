@@ -26,21 +26,13 @@ jobs:
         fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1
-      
-    - name: Test matrix x64
-      if: ${{ matrix.BUILD_PLATFORM }} == x64
-      run: echo "x64"
-      
-    - name: Test matrix x86
-      if: ${{ matrix.BUILD_PLATFORM }} == x86
-      run: echo "x86"
 
-    - name: Test matrix x64 2
-      if: ${{ matrix.BUILD_PLATFORM == 'x64' }}
+    - name: Test matrix Debug x64
+      if: ${{ matrix.BUILD_CONFIGURATION == 'Debug' && matrix.BUILD_PLATFORM == 'x64' }}
       run: echo "x64"
       
-    - name: Test matrix x86 2
-      if: ${{ matrix.BUILD_PLATFORM == 'x86' }}
+    - name: Test matrix Debug x86
+      if: ${{ matrix.BUILD_CONFIGURATION == 'Debug' }} && ${{ matrix.BUILD_PLATFORM == 'x86' }}
       run: echo "x86"
     #- name: Restore NuGet packages
     #  working-directory: ${{env.GITHUB_WORKSPACE}}
