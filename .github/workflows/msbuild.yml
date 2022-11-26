@@ -60,6 +60,7 @@ jobs:
     - name: Create Archive x86
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}
       uses: thedoctor0/zip-release@main
+      run: ls
       with:
         type: 'zip'
         filename: 'remc2_x86_${{env.BUILD_ID}}.zip'
@@ -70,6 +71,7 @@ jobs:
     - name: Create Archive x64
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}
       uses: thedoctor0/zip-release@main
+      run: dir
       with:
         type: 'zip'
         filename: 'remc2_x64_${{env.BUILD_ID}}.zip'
