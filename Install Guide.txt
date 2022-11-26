@@ -1,0 +1,6 @@
+-- Install Guide for GOG Edition --
+1. Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
+2. Install the Game.
+3. Extract the contents of this Zip Archive to your Game Directory, 
+4. In the "Extract" folder run extract-GOG-CD.bat. The CD Data will now be copied to a directory called "CD_Files"
+5. Run remc2.exe
