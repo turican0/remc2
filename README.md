@@ -21,14 +21,17 @@ Tomas has done amazing work, not only reverse engineering this code but updating
 
 ### Windows:
 - 1: Pull the development branch
-- 2: Open the Solution file "\libogg\win32\VS2015\libogg_static.sln" and build it. This builds the libogg library
-- 3: Close that solution and open "remc2.sln" Select "x86" in build config.
-- 4: Build the code (you can only compile only 32-bit binary version atm)
-- 5: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
-- 6: Install the Game. Copy the "NETHERW" directory to "remc2\Debug" Folder
-- 7: Copy the "Extract" folder to your Game Directory, run extract-GOG-CD.bat. The CD Data will now be copied to a directory called "CD_Files" in the "Extract" directory
-- 8: Move "CD_Files" directory into the "remc2\Debug" Folder
-- 9: Run
+- 2: You can build either x64 or 32 bit versions
+- 3: Open the Solution file "\sdl2\VisualC\SDL.sln" and build it in your prefered config (x64, x86). This builds the SDL2 library
+- 4: Open the Solution file "\libogg\win32\VS2015\libogg_static.sln" and build it in your prefered config (x64, x86). This builds the libogg library
+- 5: Open the Solution file "\libvorbis\win32\VS2010\vorbis_static.sln" and build it in your prefered config (x64, x86). This builds the vorbis library
+- 6: Close that solution and open "remc2.sln" in your prefered config (x64, x86).
+- 5: Build the code
+- 6: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
+- 7: Install the Game. Copy the "NETHERW" directory to "remc2\Debug" Folder
+- 8: Copy the "Extract" folder to your Game Directory, run extract-GOG-CD.bat. The CD Data will now be copied to a directory called "CD_Files" in the "Extract" directory
+- 9: Move "CD_Files" directory into the "remc2\Debug" Folder
+- 10: Run
 
 ### Linux:
 
