@@ -260,7 +260,7 @@
       <Command>
         XCOPY "$(SolutionDir)config.ini" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
-        XCOPY "$(SolutionDir)remc2\EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
+        XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
         XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
         XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Release\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
@@ -297,7 +297,7 @@
       <Command>
         XCOPY "$(SolutionDir)config.ini" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
-        XCOPY "$(SolutionDir)remc2\EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
+        XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
         XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
         XCOPY "$(SolutionDir)sdl2\VisualC\x64\Release\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
