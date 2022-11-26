@@ -1,0 +1,3 @@
+--- To use enhanced grahpics ---
+1. Extract this archive to the Game Directory.
+2. Edit the config.ini file and set "useEnhancedGraphics = true".
