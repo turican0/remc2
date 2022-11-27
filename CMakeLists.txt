@@ -106,5 +106,6 @@ endif ()
 # remc2 and tests
 add_subdirectory(remc2)
 if (UNIT_TESTS)
-    add_subdirectory(remc2-test)
+    add_subdirectory(remc2-unit-test)
+    add_subdirectory(remc2-regression-test)
 endif ()

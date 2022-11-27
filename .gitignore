@@ -39,6 +39,7 @@ remc2-test/Debug
 /packages
 **/Netherw
 /debug.txt
+**/log.txt
 **/CD_Files
 **/biggraphics
 **/music-ogg

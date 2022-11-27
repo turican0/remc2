@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <vector>
 
 #include "png.h"
 
@@ -8,11 +9,11 @@
 #else
 #endif
 
-//#define level1 //TMAPS1 night
+#define level1 //TMAPS1 night
 //#define level2 //TMAPS0 day
-#define level4 //TMAPS2 cave
+//#define level4 //TMAPS2 cave
 
-#define rewriteBadFiles
+//#define rewriteBadFiles
 
 #define SIZEOF_UNSIGNED_INT 4
 
@@ -197,10 +198,17 @@ void read_pngalpha_file(char* filename) {
 }
 */
 int transparentColor = 0;
+std::vector<int> usedColors;
 int getIndexedColor(int colorR, int colorG, int colorB, unsigned char* palette, int paletteSize) {
 	int index;
 	int diference = 10000000000;
+#ifdef level1 //TMAPS1 night
+	for (int i : usedColors)
+	/*if ((i >= 0xAB) && (i <= 0xB7))
+		continue;*/
+#else
 	for (int i = 0; i < paletteSize / 3; i++)
+#endif
 	{
 		if (transparentColor != i)
 		{
@@ -502,12 +510,45 @@ unsigned char content_stdpal[2048 * 2048 * 4];
 
 //unsigned char content_outdata[2048 * 2048 * 4];
 
+int hex2int(char locchar) {
+	if ((locchar >= '0') && (locchar <= '9'))
+		return locchar - '0';
+	if ((locchar >= 'a') && (locchar <= 'f'))
+		return locchar - 'a' + 10;
+	if ((locchar >= 'A') && (locchar <= 'F'))
+		return locchar - 'A' + 10;
+};
+
+void loadColors(std::vector<int>* usedColor, char* path) {
+	unsigned char content_col[10000];
+
+	FILE* colfile;
+	fopen_s(&colfile, path, "rt");
+	fseek(colfile, 0L, SEEK_END);
+	long szstd = ftell(colfile);
+	fseek(colfile, 0L, SEEK_SET);
+	fread(content_col, szstd, 1, colfile);
+	fclose(colfile);
+
+	usedColor->clear();
+	for (int i = 0; i < szstd; i++)
+	{
+		if (content_col[i] == 'x')
+		{
+			int col = 16 * hex2int(content_col[i + 1]) + hex2int(content_col[i + 2]);
+			usedColor->push_back(col);
+			i += 2;
+		}
+	}
+}
+
 int main()
 {
 #ifdef level1
 	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\\out-n.pal";
 	const char* data_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\big\\TMAPS2-1-";
 	const char* out_filename = "c:\\prenos\\remc2\\tools\\compressTMAPS\\compressTMAPS\\out\\TMAPS2-1-";
+	const char* col_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-1-";
 	//const char* orig_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-1-";
 #endif level1
 #ifdef level2
@@ -585,6 +626,17 @@ int main()
 	{		
 		char textbuffer[512];
 		char prefix[512];
+
+		sprintf_s(textbuffer, "%s%03d-%02i.png-col.txt", col_filename, fileindex, mainindex);
+		if (!file_exist(textbuffer))
+		{
+			sprintf_s(textbuffer, "%s%03d-%02i-other.png-col.txt", col_filename, fileindex, mainindex);
+			if (!file_exist(textbuffer))
+				break;
+		}
+		loadColors(&usedColors, textbuffer);
+
+
 		sprintf_s(prefix, "%s", "");
 		sprintf_s(textbuffer, "%s%03d-%02i%s.pngR_rlt.png", data_filename, fileindex,mainindex, prefix);
 		if (!file_exist(textbuffer))
@@ -809,9 +861,7 @@ int main()
 				colorRJerr[j] -= 0.5 * colorRerr;
 				colorGJerr[j] -= 0.5 * colorGerr;
 				colorBJerr[j] -= 0.5 * colorBerr;
-
 				
-
 				x = getIndexedColor(colorR - colorRerr, colorG - colorGerr, colorB - colorBerr, content_stdpal, szstd);
 				//fwrite((char*)&x, 1, 1, fptw_outdata2);
 				buffer[i * width + j] = (char)x;

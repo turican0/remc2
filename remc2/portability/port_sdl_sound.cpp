@@ -1,3 +1,4 @@
+#include "../engine/engine_support.h"
 #include "port_sdl_sound.h"
 
 #include <adlmidi.h>
@@ -12,9 +13,6 @@
 and may not be redistributed without written permission.*/
 
 bool debug_first_sound=true;
-/*#ifdef DEBUG_SOUND
-	debug_first_sound = true;
-#endif //DEBUG_SOUND*/
 
 bool hqsound=false;
 bool oggmusic=false;
@@ -87,6 +85,7 @@ void test_midi_play(uint8_t*  /*data*/, uint8_t* header, int32_t track_number)
 }
 
 void SOUND_start_sequence(int32_t sequence_num) {
+	if (unitTests)return;
 	//3 - menu
 	//4 - intro
 #ifdef SOUND_SDLMIXER
@@ -118,23 +117,27 @@ void SOUND_start_sequence(int32_t sequence_num) {
 };
 
 void SOUND_pause_sequence(int32_t  /*sequence_num*/) {
+	if (unitTests)return;
 #ifdef SOUND_SDLMIXER
 	Mix_PauseMusic();
 #endif//SOUND_SDLMIXER
 };
 
 void SOUND_stop_sequence(int32_t  /*sequence_num*/) {
+	if (unitTests)return;
 #ifdef SOUND_SDLMIXER
 	Mix_HaltMusic();
 #endif//SOUND_SDLMIXER
 };
 void SOUND_resume_sequence(int32_t  /*sequence_num*/) {
+	if (unitTests)return;
 #ifdef SOUND_SDLMIXER
 	Mix_ResumeMusic();
 #endif//SOUND_SDLMIXER
 };
 
 void SOUND_set_sequence_volume(int32_t volume, int32_t  milliseconds) {
+	if (unitTests)return;
 #ifdef SOUND_SDLMIXER
 #ifndef __linux__
 	if ((milliseconds > 0) && (volume == 0))
@@ -171,6 +174,7 @@ void SOUND_set_sequence_volume(int32_t volume, int32_t  milliseconds) {
 
 void SOUND_init_MIDI_sequence(uint8_t*  /*datax*/, type_E3808_music_header* headerx, int32_t track_number)
 {
+	if (unitTests)return;
 	//uint8_t* acttrack = &header[32 + track_number * 32];
 	uint8_t* acttrack = headerx->str_8.track_10[track_number].xmiData_0;
 	//int testsize = *(uint32_t*)(&header[32 + (track_number + 1) * 32] + 18) - *(uint32_t*)(acttrack + 18);
@@ -284,6 +288,7 @@ void SOUND_init_MIDI_sequence(uint8_t*  /*datax*/, type_E3808_music_header* head
 
 void clean_up_sound()
 {
+	if (unitTests)return;
 	/*//Free the sound effects
 	Mix_FreeChunk(scratch);
 	Mix_FreeChunk(high);
@@ -374,6 +379,7 @@ void stopmusic1()
 */
 void playmusic2(int32_t track_number)
 {
+	if (unitTests)return;
 #ifdef SOUND_SDLMIXER
 	if (Mix_PlayingMusic() == 0)
 	{
@@ -477,6 +483,7 @@ void SOUND_set_sample_volume(HSAMPLE S, int32_t volume) {
 }
 
 void SOUND_start_sample(HSAMPLE S) {
+	if (unitTests)return;
 #ifdef SOUND_SDLMIXER
 	if (hqsound)
 	{
@@ -506,21 +513,17 @@ void SOUND_start_sample(HSAMPLE S) {
 			gamechunk[S->index_sample].alen = /*sample->alen;//*/S->len_4_5[0] * 16;
 		else
 			gamechunk[S->index_sample].alen = /*sample->alen;//*/S->len_4_5[0] * 8;
-		#ifdef DEBUG_SOUND
 			if (debug_first_sound) {
-				debug_printf("SOUND_start_sample-hq:%08X\n", S->start_44mhz);
+				Logger->trace("SOUND_start_sample-hq:{}", S->start_44mhz);
 				debug_first_sound = false;
 			}
-		#endif //DEBUG_SOUND		
 	}
 	else
 	{
-		#ifdef DEBUG_SOUND
-			if (debug_first_sound) {
-				debug_printf("SOUND_start_sample:%08X\n", S->start_44mhz);
-				debug_first_sound = false;
-			}
-		#endif //DEBUG_SOUND
+		if (debug_first_sound) {
+			Logger->trace("SOUND_start_sample:{}", S->start_44mhz);
+			debug_first_sound = false;
+		}
 		gamechunk[S->index_sample].abuf = (uint8_t*)S->start_2_3[0];
 		gamechunk[S->index_sample].alen = S->len_4_5[0];
 	}
@@ -550,6 +553,7 @@ void SOUND_start_sample(HSAMPLE S) {
 };
 
 uint32_t SOUND_sample_status(HSAMPLE S) {
+	if (unitTests)return 0;
 #ifdef SOUND_SDLMIXER
 	if (Mix_Playing(S->index_sample)==0)return 2;
 #endif//SOUND_SDLMIXER
@@ -721,7 +725,7 @@ int run()
 	/* Start playing */
 	SDL_PauseAudio(0);
 
-	printf("Playing... Hit Ctrl+C to quit!\n");
+	Logger->info("Playing... Hit Ctrl+C to quit!");
 
 	/* wait until we're don't playing */
 	while (is_playing)

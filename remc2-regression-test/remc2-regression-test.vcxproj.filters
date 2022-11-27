@@ -1,0 +1,549 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Regression-tests.cpp" />
+    <ClCompile Include="Tests.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Regression-tests.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="regression-config.ini" />
+    <None Include="memimages\regressions\level1\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level1</Filter>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level1</Filter>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level1</Filter>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level1</Filter>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level1</Filter>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level1</Filter>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level2</Filter>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level2</Filter>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level2</Filter>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level2</Filter>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level2</Filter>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level2</Filter>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level3</Filter>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level3</Filter>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level3</Filter>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level3</Filter>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level3</Filter>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level3</Filter>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level4</Filter>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level4</Filter>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level4</Filter>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level4</Filter>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level4</Filter>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level4</Filter>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level5</Filter>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level5</Filter>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level5</Filter>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level5</Filter>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level5</Filter>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level5</Filter>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level6</Filter>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level6</Filter>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level6</Filter>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level6</Filter>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level6</Filter>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level6</Filter>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level7</Filter>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level7</Filter>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level7</Filter>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level7</Filter>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level7</Filter>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level7</Filter>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level8</Filter>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level8</Filter>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level8</Filter>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level8</Filter>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level8</Filter>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level8</Filter>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level9</Filter>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level9</Filter>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level9</Filter>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level9</Filter>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level9</Filter>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level9</Filter>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level10</Filter>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level10</Filter>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level10</Filter>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level10</Filter>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level10</Filter>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level10</Filter>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level11</Filter>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level11</Filter>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level11</Filter>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level11</Filter>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level11</Filter>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level11</Filter>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level12</Filter>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level12</Filter>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level12</Filter>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level12</Filter>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level12</Filter>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level12</Filter>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level13</Filter>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level13</Filter>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level13</Filter>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level13</Filter>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level13</Filter>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level13</Filter>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level14</Filter>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level14</Filter>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level14</Filter>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level14</Filter>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level14</Filter>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level14</Filter>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level15</Filter>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level15</Filter>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level15</Filter>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level15</Filter>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level15</Filter>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level15</Filter>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level16</Filter>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level16</Filter>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level16</Filter>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level16</Filter>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level16</Filter>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level16</Filter>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level17</Filter>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level17</Filter>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level17</Filter>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level17</Filter>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level17</Filter>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level17</Filter>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level18</Filter>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level18</Filter>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level18</Filter>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level18</Filter>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level18</Filter>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level18</Filter>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level19</Filter>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level19</Filter>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level19</Filter>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level19</Filter>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level19</Filter>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level19</Filter>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level20</Filter>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level20</Filter>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level20</Filter>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level20</Filter>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level20</Filter>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level20</Filter>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level21</Filter>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level21</Filter>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level21</Filter>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level21</Filter>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level21</Filter>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level21</Filter>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level22</Filter>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level22</Filter>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level22</Filter>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level22</Filter>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level22</Filter>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level22</Filter>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level23</Filter>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level23</Filter>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level23</Filter>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level23</Filter>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level23</Filter>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level23</Filter>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level24</Filter>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level24</Filter>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level24</Filter>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level24</Filter>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level24</Filter>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level24</Filter>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-002B3A74.bin">
+      <Filter>Resources\memimages\regressions\level25</Filter>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-002DC4E0.bin">
+      <Filter>Resources\memimages\regressions\level25</Filter>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-003AA0A4.bin">
+      <Filter>Resources\memimages\regressions\level25</Filter>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-0034C4E0.bin">
+      <Filter>Resources\memimages\regressions\level25</Filter>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-003514B0.bin">
+      <Filter>Resources\memimages\regressions\level25</Filter>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-00356038.bin">
+      <Filter>Resources\memimages\regressions\level25</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{22000a45-e2c1-42b0-82b3-6f9f7e77af1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages">
+      <UniqueIdentifier>{c73bdf49-2dd1-4944-9d71-5bc64e790f07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions">
+      <UniqueIdentifier>{d2cb5610-c8a1-4e5e-8a4c-c0e320774cd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level1">
+      <UniqueIdentifier>{962e682c-09fa-4c7e-b158-b583c2ca9cb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level2">
+      <UniqueIdentifier>{3febc179-f499-44db-af69-6c003113948a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level3">
+      <UniqueIdentifier>{813275a8-268e-4beb-87bf-24f765b150be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level4">
+      <UniqueIdentifier>{d708e636-42ee-4ade-8ee4-77b2ee2ac068}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level5">
+      <UniqueIdentifier>{016ad39c-1c51-4aec-a158-21e86a995c92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level6">
+      <UniqueIdentifier>{bb07af73-a010-48b2-8258-3eac2ccbdc2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level7">
+      <UniqueIdentifier>{5d9f52c2-fca6-46e8-8df7-3731acfc6488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level8">
+      <UniqueIdentifier>{d574fdc4-de79-4dd2-8abd-5d7bb1a5d401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level9">
+      <UniqueIdentifier>{6548cdb7-384c-493e-8b50-e1652a78c4ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level10">
+      <UniqueIdentifier>{0b52745c-3b2d-4ad5-954f-d879fa70f5c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level11">
+      <UniqueIdentifier>{f1932bf8-82f0-44dd-97f4-bed9ad6d76cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level12">
+      <UniqueIdentifier>{bd8e99e1-7ed7-45bf-ab7f-4ff4ccf5ad8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level13">
+      <UniqueIdentifier>{a4dc1973-f934-4450-9a5f-75d273f63523}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level14">
+      <UniqueIdentifier>{d4439ad0-63e3-4d43-af05-55369cf1455c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level15">
+      <UniqueIdentifier>{0a2d4aaf-b867-4bbd-b60c-1437f6294e49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level16">
+      <UniqueIdentifier>{402a6dca-7204-4323-8477-043574241c40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level17">
+      <UniqueIdentifier>{e6475a74-da56-4c90-ae5f-fd6c5bd79dd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level18">
+      <UniqueIdentifier>{792ce3ee-3578-4259-ae80-10a61d443c35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level19">
+      <UniqueIdentifier>{51f38d03-b4fe-49b5-b003-210872d6c402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level20">
+      <UniqueIdentifier>{876fdfe4-2799-4542-a75c-925415dd33f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level21">
+      <UniqueIdentifier>{4752a53e-b106-4592-9cc7-3f009e9fb16b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level22">
+      <UniqueIdentifier>{9c179607-0f4d-46a3-86e5-2a1fa021531d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level23">
+      <UniqueIdentifier>{824fd665-b481-430a-9b7c-a3b3a99465f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level24">
+      <UniqueIdentifier>{4db6c900-9e5e-405c-b322-b04e0d7f5eda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\memimages\regressions\level25">
+      <UniqueIdentifier>{27646b3f-3491-4127-b277-be0260d8bba6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

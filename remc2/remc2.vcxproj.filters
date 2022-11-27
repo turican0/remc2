@@ -462,6 +462,18 @@
     <ClInclude Include="engine\Network.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="engine\Unk_D4A30.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\MapType.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Unk_D47E0.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_show_perifery.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -776,6 +788,15 @@
     <ClCompile Include="engine\Network.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="engine\Unk_D4A30.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Unk_D47E0.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_show_perifery.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="engine\info.x">
@@ -877,5 +898,13 @@
     <Library Include="..\SDL2_image-2.0.5\lib\x64\SDL2_image.lib">
       <Filter>Source Files\libs\sdl-image</Filter>
     </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="font\8x8-font.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="font\16x16-font.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -431,30 +431,14 @@ typedef struct //lenght 50
 //		 } NCB;
 
 extern Pathstruct pstr[];
+extern char x_BYTE_D4B80;
 
 void j___delay(x_DWORD); // weak
 unsigned long j___clock();
 
 void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
 
-void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4);
-void sub_44DB0_truncTerrainHeight();
-void sub_44E40(int a1, unsigned __int8 a2);
-void sub_45AA0_setMax4Tiles();
-void sub_43B40();
-void sub_43BB0();
 void sub_43C60(unsigned __int8 a1, char a2, int a3, int a4);
-void sub_43D50();
-void sub_43EE0();
-void sub_43FC0();
-void sub_440D0(unsigned __int16 a1);
-void sub_44320();
-void sub_44580();
-void sub_44D00();
-void sub_45060(unsigned __int8 a1, unsigned __int8 a2);
-void sub_45210(unsigned __int8 a1, unsigned __int8 a2);
-void sub_454F0(unsigned __int8 a1, unsigned __int8 a2);
-void sub_45600(unsigned __int8 a1);
 
 void SetStagetagForTermod_49830(type_str_2FECE* terrain);
 void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint16_t height);
@@ -489,16 +473,13 @@ void ClearGraphicsBuffer_72883(void* ptrBuffer, uint16_t width, uint16_t height,
 void DrawVolumeSettings_303D0();
 int _wcpp_1_unwind_leave__62(void); //weak
 //int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
-void sub_45DC0(/*uint8_t a1,*/ uint8_t a2, uaxis_2d a3, unsigned __int8 a4);
 signed int sub_36A50(/*signed int a1, */char a2);
 void sub_36920(/*signed __int16 a1, */type_event_0x6E8E* a2);
 void sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
-unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2);
 //void __outx_WORD(unsigned short Port, unsigned short Data);
 //void __outx_BYTE(unsigned short Port, unsigned char Data);
 //unsigned char __inx_BYTE(unsigned short Port);
 void sub_41BC0();
-void sub_43970(unsigned int a1);
 void sub_44EE0_smooth_tiles(/*int a1, */uaxis_2d a2);
 void sub_54600_mouse_reset();
 void sub_56A30_init_game_level(unsigned int a1);
@@ -506,8 +487,6 @@ void sub_5B870_copy_sentence(char* langbuffer, char** langindexbuffer, uint32_t 
 void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
 void SetCenterScreenForFlyAssistant_6EDB0();
-void VGA_BlitAny();
-void VGA_CalculateAndPrintFPS(int x, int y);
 int NetworkInitConnection_7308F(char* a2, __int16 a3);
 void NetworkUpdateConnections2_74374();
 int16_t GetIndexNetwork2_74515();
@@ -558,8 +537,26 @@ bool sub_80D40_move_graphics_and_play_sounds(__int16 a2, __int16 a3, __int16 a4,
 void sub_85CC3_draw_round_frame(/*unsigned int a1, int a2, */unsigned __int16* a3);
 //void sub_840B8(char a1, bool a2, char a3, char a4);
 //unsigned     int __readeflags(void);
-__int16 sub_840D3(char _CF, bool _ZF, char _SF, char _OF);
-void  sub_841CE(__int16 a1);
+
+__int16 sub_840D3(char _CF, bool _ZF, char _SF, char _OF);//ShowPerifery
+void  sub_841CE(__int16 a1);//ShowPerifery
+//sub_8EA7B ShowPerifery
+//sub_A0F06 ShowPerifery
+//sub_A12C5 ShowPerifery
+//sub_AC70E ShowPerifery
+//sub_AC7F6 ShowPerifery
+//sub_AC843 ShowPerifery
+//sub_AC8DD ShowPerifery
+//sub_AC918 ShowPerifery
+//sub_B5022 ShowPerifery
+//sub_B5128 ShowPerifery
+//sub_B51B3 ShowPerifery
+//sub_B522B ShowPerifery
+//sub_6FDA0 ShowPerifery
+//sub_90530 ShowPerifery
+//sub_B5015 ShowPerifery
+//sub_840B8 ShowPerifery
+
 char sub_86860_speak_Sound(unsigned __int16 a1);
 void sub_86EB0(unsigned __int8 a1, unsigned __int8 a2, char a3);
 int16_t sub_89B60_aplicate_setting(uint8_t a1);
@@ -632,6 +629,8 @@ void sub_101C0();
 void sub_5BCC0_set_any_variables1();
 signed int sub_5C1B0_set_any_variables2();
 signed int sub_5BF50_load_psxdata();
+
+void CleanF5538_716A0();
 
 void CreateIndexes_6EB90(filearray_struct* a1);
 
