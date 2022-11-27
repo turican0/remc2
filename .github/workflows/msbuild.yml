@@ -58,7 +58,7 @@ jobs:
       run: ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
     
     - name: Archive x86
-      if: ${{ env.GITHUB_REF_NAME == 'master' && matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}    
+      if: ${{ github.REF_NAME == 'master' && matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}    
       uses: actions/upload-artifact@v3
       with:
         name: remc2-win-x86
@@ -66,7 +66,7 @@ jobs:
         if-no-files-found: error
         
     - name: Archive x64
-      if: ${{ env.GITHUB_REF_NAME == 'master' && matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}    
+      if: ${{ github.REF_NAME == 'master' && matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}    
       uses: actions/upload-artifact@v3
       with:
         name: remc2-win-x64
@@ -74,7 +74,7 @@ jobs:
         if-no-files-found: error
         
     - name: Archive Enhanced Graphics
-      if: ${{ env.GITHUB_REF_NAME == 'master' && matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}    
+      if: ${{ github.REF_NAME == 'master' && matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}    
       uses: actions/upload-artifact@v3
       with:
         name: enhanced-graphics
