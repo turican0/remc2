@@ -9,7 +9,7 @@ Tomas has done amazing work, not only reverse engineering this code but updating
 - Seperate Render and Simulation code so that game speed is not dependent of FPS (or fix FPS)
 - Enable local multiplayer without NETBIOS
 
-## STATUS: Code now runs though the first level of MC2 (in both Windows and Linux). Anyone with the GOG edition can download this repo, extract the Game Assets (from a legal GOG copy of the game) and run it.
+## STATUS: Code now runs and all of MC2 (in both Windows and Linux) seems to be playable. Anyone with the GOG edition can download this repo, extract the Game Assets (from a legal GOG copy of the game) and run it.
 ## Build Status:
 
 |Branch|Windows|Linux|
@@ -139,7 +139,7 @@ The game will search for this file in the following locations and this particula
 - Add VR support back into the game (yes it was originally supported! This game was waaay ahead of its time)<br />
 - Implement online multiplayer match making
 
-## If you know a bit about game development or want to help out, branch away or email me here: thobbsinteractive@gmail.com or find us on Discord here: https://discord.gg/mFMRUVeu
+## If you know a bit about game development or want to help out, branch away or email me here: thobbsinteractive@gmail.com or find us on Discord here: https://discord.gg/GR55HCbJJ4
 
 ## Development Guide ##
 - The Project is compiled as C++17.
@@ -150,3 +150,15 @@ e.g. `void sub_19CA0_sound_proc5(unsigned __int8 a1)` was renamed to `void Chang
 - For each commit please use the Semantic Commit Messages: https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716
 - Be careful with making logic changes to the code and Test, Test, Test! I recommend playing the first level all the way though. Then the first Cave level (4) and I also recomend Level 5 as you have a nice mix of AI to kill and a cutscene at level completion.
 - Please build and run the remc2-regression-test project BEFORE making a pull request. This must pass and since it needs the game data cannot be placed in the Github Actions.
+
+## License ##
+### Original Source Code is Copyright 1995 Bullfrog Productions ###
+
+### Additonal Code is Licensed under the following MIT Licence: ###
+Copyright 2022 Magic Carpet 2 HD
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
