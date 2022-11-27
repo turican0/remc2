@@ -24,15 +24,15 @@ jobs:
     - name: Archive x86
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}    
       run: |
-        echo "Archive x86"
-        echo ${{ GITHUB.HEAD_REF }} 
-        echo ${{ GITHUB.REF_NAME }} 
-        echo ${{ GITHUB.REF  }} 
+        Write-Host "Archive x86"
+        Write-Host ${{ GITHUB.HEAD_REF }} 
+        Write-Host ${{ GITHUB.REF_NAME }} 
+        Write-Host ${{ GITHUB.REF  }} 
         
     - name: Archive x64
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}
       run: |
-        echo "Archive x64"
-        echo ${{ github.head_ref }} 
-        echo ${{ github.ref_name }} 
-        echo ${{ github.ref  }} 
+        Write-Host "Archive x64"
+        Write-Host ${{ github.head_ref }} 
+        Write-Host ${{ github.ref_name }} 
+        Write-Host ${{ github.ref  }} 
