@@ -1,4 +1,4 @@
-name: MSBuild CI
+name: MSBuild Logic Test
 
 on: 
   push:
@@ -22,7 +22,7 @@ jobs:
 
     steps:
     - name: Archive x86
-      if: ${{ env.GITHUB_REF_NAME == 'fix-archive-logic' && matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}    
+      if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}    
       run: |
         echo "Archive x86"
         echo "${{ env.GITHUB_HEAD_REF }}"
@@ -30,7 +30,7 @@ jobs:
         echo "${{ env.GITHUB_REF }}"
         
     - name: Archive x64
-      if: ${{ env.GITHUB_REF_NAME == 'fix-archive-logic' && matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}
+      if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}
       run: |
         echo "Archive x64"
         echo "${{ env.GITHUB_HEAD_REF }}"
