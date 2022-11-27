@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug-Deploy-Enhanced-Assets|Win32">
+      <Configuration>Debug-Deploy-Enhanced-Assets</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug-Deploy-Enhanced-Assets|x64">
+      <Configuration>Debug-Deploy-Enhanced-Assets</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Regression-tests.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Regression-tests.cpp" />
+    <ClCompile Include="Tests.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\remc2\remc2.vcxproj">
+      <Project>{1df21d49-cdf7-47fb-a256-0813c1ec5923}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="memimages\regressions\level10\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level10\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level11\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level12\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level13\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level14\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level15\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level16\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level17\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level18\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level19\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level20\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level21\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level22\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level23\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level24\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level25\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level2\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level3\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level4\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level5\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level6\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level7\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level8\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level9\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="regression-config.ini">
+      <DeploymentContent>true</DeploymentContent>
+      <FileType>Text</FileType>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-002B3A74.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-002DC4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-0034C4E0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-003514B0.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-00356038.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="memimages\regressions\level1\sequence-002285FF-003AA0A4.bin">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{5a8f70a7-dfc4-4103-bfc2-c8e212918a73}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Unittests</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)inih;$(SolutionDir)libADLMIDI-master\include;$(SolutionDir)\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)remc2\Debug;$(SolutionDir)sdl2\VisualC\Win32\Debug;$(SolutionDir)Debug;$(SolutionDir)libvorbis\win32\VS2010\Win32\Debug;$(SolutionDir)libogg\win32\VS2015\Win32\Debug;$(SolutionDir)zlib\lib;$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Debug;$(SolutionDir)sdl2_mixer\VisualC\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;libogg_static.lib;timidity.lib;native_midi.lib;SDL2_mixer.lib;SDL2.lib;SDL2main.lib;port_sdl_sound;port_sdl_vga_mouse;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\sdl2\VisualC\Win32\Debug\;$(SolutionDir)\Debug;$(SolutionDir)\fluidsynth\lib;$(SolutionDir)\libvorbis\win32\VS2010\Win32\Debug;$(SolutionDir)\libogg\win32\VS2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+        XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
+        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)inih;$(SolutionDir)libADLMIDI-master\include;$(SolutionDir)\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OmitFramePointers>false</OmitFramePointers>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;libogg_static.lib;timidity.lib;native_midi.lib;SDL2_mixer.lib;SDL2.lib;SDL2main.lib;libpng16.lib;port_sdl_sound;port_sdl_vga_mouse;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)remc2\x64\Debug;$(SolutionDir)sdl2\VisualC\x64\Debug;$(SolutionDir)x64\Debug;$(SolutionDir)libvorbis\win32\VS2010\x64\Debug;$(SolutionDir)libogg\win32\VS2015\x64\Debug;$(SolutionDir)zlib\lib;$(SolutionDir)libpng3\lib;$(SolutionDir)sdl2_mixer\VisualC\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OmitFramePointers>false</OmitFramePointers>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\sdl2\VisualC\x64\Debug\;$(SolutionDir)\x64\Debug;$(SolutionDir)\fluidsynth\lib;$(SolutionDir)\libvorbis\win32\VS2010\x64\Debug;$(SolutionDir)\libogg\win32\VS2015\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+        XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
+        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>c:\prenos\remc2\sdl2\VisualC\Win32\Debug\;C:\prenos\remc2\Debug;C:\prenos\remc2\fluidsynth\lib;C:\prenos\remc2\libvorbis\win32\VS2010\Win32\Debug;C:\prenos\remc2\libogg\win32\VS2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

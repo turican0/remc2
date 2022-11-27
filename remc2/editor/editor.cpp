@@ -178,7 +178,7 @@ void terrain_recalculate() {
 	D41A0_0.rand_0x8 = D41A0_0.terrain_2FECE.seed_0x2FEE5;
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
 	sub_B5E70_decompress_terrain_map_level(x_WORD_17B4E0, D41A0_0.terrain_2FECE.offset_0x2FEE9, D41A0_0.terrain_2FECE.raise_0x2FEED, D41A0_0.terrain_2FECE.gnarl_0x2FEF1);
-	sub_44DB0_truncTerrainHeight();//225db0 //trunc and create
+	sub_44DB0_truncTerrainHeight(mapEntityIndex_15B4E0, mapHeightmap_11B4E0);//225db0 //trunc and create
 	if (stage > 0)
 	{
 		memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
@@ -220,7 +220,7 @@ void terrain_recalculate() {
 	if (stage > 9)
 	{
 		memset((void*)mapTerrainType_10B4E0, 0, 0x10000);
-		sub_43970(0);//224970 // smooth terrain
+		sub_43970();//224970 // smooth terrain
 	}
 	if (stage > 10)
 	{
@@ -2180,17 +2180,17 @@ int main_x(/*int argc, char** argv*/)
 #endif
 	mapsurface = SDL_CreateRGBSurface(SDL_SWSURFACE, 512, 512, 32, rmask, gmask, bmask, amask);
 	if (mapsurface == NULL) {
-		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
+		Logger->error("CreateRGBSurface failed: {}", SDL_GetError());
 		exit(1);
 	}
 	mapsurfacefeat = SDL_CreateRGBSurface(SDL_SWSURFACE, 512, 512, 32, rmask, gmask, bmask, amask);
 	if (mapsurfacefeat == NULL) {
-		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
+		Logger->error("CreateRGBSurface failed: {}", SDL_GetError());
 		exit(1);
 	}
 	mapsurfacecheck = SDL_CreateRGBSurface(SDL_SWSURFACE, 512, 512, 32, rmask, gmask, bmask, amask);
 	if (mapsurfacecheck == NULL) {
-		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
+		Logger->error("CreateRGBSurface failed: {}", SDL_GetError());
 		exit(1);
 	}
 	/*uint8_t* scrbuff = (uint8_t*)mapsurface->pixels;

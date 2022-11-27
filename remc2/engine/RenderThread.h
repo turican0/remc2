@@ -4,6 +4,8 @@
 #define RENDER_THREAD
 
 #include "../utilities/SafeQueue.h"
+#include "../portability/port_filesystem.h"
+
 #include <functional>
 #include <thread>
 #include <mutex>

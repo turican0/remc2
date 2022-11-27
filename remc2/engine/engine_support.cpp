@@ -8,6 +8,10 @@
 extern DOS_Device* DOS_CON;
 #endif //USE_DOSBOX
 
+bool unitTests = false;
+std::string unitTestsPath;
+int* endTestsCode;
+
 const int printBufferSize = 4096;
 
 //delete after finalization
@@ -504,6 +508,25 @@ void allert_error() {
 	int c = a / b;//this is generate error
 }
 
+void Exit_thread()
+{
+	thread_exit_exception e;
+	throw e;
+}
+
+void End_thread(int backCode)
+{
+	if (unitTests)
+	{
+		*endTestsCode = backCode;
+		Exit_thread();
+	}
+	else
+		if(backCode == -1)
+			allert_error();
+		exit(backCode);
+}
+
 void support_begin() {
 	readbuffer = (uint8_t*)malloc(1000000);//fix it max 64000
 	printbuffer = (char*)malloc(printBufferSize);
@@ -871,6 +894,11 @@ uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint
 	else
 		finddir = std::string("../../dosbox-x-remc2/vs2015");
 	std::string finddir2 = GetSubDirectoryPath("", "");
+	if (unitTests)
+	{
+		finddir2 = "";
+		finddir = unitTestsPath;
+	}
 	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
 	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
@@ -912,7 +940,7 @@ uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint
 
 	if (i < size) {
 		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
-		allert_error();
+		End_thread(-1);
 	}
 	free(buffer);
 	fclose(fptestepc);
@@ -1271,6 +1299,11 @@ uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint
 	else
 		finddir = std::string("../../dosbox-x-remc2/vs2015");
 	std::string finddir2 = GetSubDirectoryPath("", "");
+	if (unitTests)
+	{
+		finddir2 = "";
+		finddir=unitTestsPath;
+	}
 	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
 	fptestepc = fopen(findname.c_str(), "rb");
 	if (fptestepc == NULL)
@@ -1312,7 +1345,7 @@ uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint
 
 	if (i < size2) {
 		std::cout << "Regression compare sequence error @ function " << __FUNCTION__ << ", line " << __LINE__ << ": " << i << std::endl;
-		allert_error();
+		End_thread(-1);
 	}
 	free(buffer);
 	fclose(fptestepc);
@@ -1366,10 +1399,10 @@ void mine_texts(const char* filename, uint32_t adressdos, uint32_t count, char* 
 void writehex(uint8_t* buffer, uint32_t count) {
 	for (uint32_t i = 0; i < count; i++)
 	{
-		if (i % 32 == 0)printf("\n");
-		printf("%02X", buffer[i]);
+		if (i % 32 == 0)Logger->trace("\n");
+		Logger->trace("{}", buffer[i]);
 	}
-	printf("\n");
+	Logger->trace("\n");
 };
 
 type_D41A0_BYTESTR_0 D41A0_0;
@@ -1463,7 +1496,7 @@ int writeImage(const char* filename, int width, int height, uint8_t* buffer, cha
 	// Open file for writing (binary mode)
 	fp = fopen(filename, "wb");
 	if (fp == NULL) {
-		fprintf(stderr, "Could not open file %s for writing\n", filename);
+		Logger->error("Could not open file %s for writing {}", filename);
 		code = 1;
 		goto finalise;
 	}
@@ -1471,7 +1504,7 @@ int writeImage(const char* filename, int width, int height, uint8_t* buffer, cha
 	// Initialize write structure
 	png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 	if (png_ptr == NULL) {
-		fprintf(stderr, "Could not allocate write struct\n");
+		Logger->error("Could not allocate write struct");
 		code = 1;
 		goto finalise;
 	}
@@ -1479,14 +1512,14 @@ int writeImage(const char* filename, int width, int height, uint8_t* buffer, cha
 	// Initialize info structure
 	info_ptr = png_create_info_struct(png_ptr);
 	if (info_ptr == NULL) {
-		fprintf(stderr, "Could not allocate info struct\n");
+		Logger->error("Could not allocate info struct");
 		code = 1;
 		goto finalise;
 	}
 
 	// Setup Exception handling
 	if (setjmp(png_jmpbuf(png_ptr))) {
-		fprintf(stderr, "Error during png creation\n");
+		Logger->error("Error during png creation");
 		code = 1;
 		goto finalise;
 	}
@@ -1768,7 +1801,7 @@ void buff_posistruct_to_png(uint8_t* buffer, int width, int height, const char* 
 void testdword(int32_t* val1, int32_t* val2) {
 	if (*val1 != *val2)
 	{
-		printf("x_D41A0_BYTEARRAY_0_error");
+		Logger->error("x_D41A0_BYTEARRAY_0_error");
 		//allert_error();
 		//exit(0);
 	}
@@ -1778,7 +1811,7 @@ void testcbyte(int count, uint8_t* val1, uint8_t* val2) {
 	for (int i = 0; i < count; count++)
 		if (val1[i] != val2[i])
 		{
-			printf("x_D41A0_BYTEARRAY_0_error");
+			Logger->error("x_D41A0_BYTEARRAY_0_error");
 			//allert_error();
 			//exit(0);
 		}
@@ -1787,7 +1820,7 @@ void testcbyte(int count, uint8_t* val1, uint8_t* val2) {
 void testword(int16_t* val1, int16_t* val2) {
 	if (*val1 != *val2)
 	{
-		printf("x_D41A0_BYTEARRAY_0_error");
+		Logger->error("x_D41A0_BYTEARRAY_0_error");
 		//allert_error();
 		//exit(0);
 	}
@@ -1796,7 +1829,7 @@ void testword(int16_t* val1, int16_t* val2) {
 void testbyte(uint8_t* val1, uint8_t* val2) {
 	if (*val1 != *val2)
 	{
-		printf("x_D41A0_BYTEARRAY_0_error");
+		Logger->error("x_D41A0_BYTEARRAY_0_error");
 		//allert_error();
 		//exit(0);
 	}
@@ -2423,7 +2456,7 @@ void clean_x_D41A0_BYTEARRAY_0() {
 */
 void errorsize(int type, int size)
 {
-	printf("Test x_D41A0_BYTEARRAY_0 %d %X ERROR\n", type, size);
+	Logger->trace("Test x_D41A0_BYTEARRAY_0 {} {} ERROR", type, size);
 	//exit(0);
 }
 /*

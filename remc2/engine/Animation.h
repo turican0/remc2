@@ -39,6 +39,7 @@ int sub_76430();
 int sub_76540();
 void sub_75CB0();
 void sub_9A0FC_wait_to_screen_beam();
+void fix_sub_9A0FC_wait_to_screen_beam();
 
 
 

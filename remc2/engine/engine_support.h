@@ -18,8 +18,11 @@
 #endif
 
 #include "global_types.h"
+#include "MapType.h"
 #include "../portability/port_time.h"
 #include "../portability/port_sdl_vga_mouse.h"
+#include "../portability/port_outputs.h"
+#include "../portability/port_show_perifery.h"
 
 #pragma pack (1)
 typedef struct {//lenght 3
@@ -63,6 +66,10 @@ template<class T, class U> int8 __OFADD__x(T x, U y)
 }
 */
 void allert_error();
+
+extern bool unitTests;
+extern std::string unitTestsPath;
+extern int* endTestsCode;
 
 extern uint8_t* readbuffer;
 extern const int printBufferSize;
@@ -629,6 +636,11 @@ extern type_array_str_E2A74 str_E2A74;
 
 //extern char* char_355198;
 //void pathfix(char* path, char* path2);
+
+class thread_exit_exception : public std::exception {};
+
+void End_thread(int backCode);
+
 void support_begin();
 void support_end();
 
@@ -886,8 +898,6 @@ typedef struct {
 	uint8_t stub[1];*/
 }
 type_str_0x36442;
-
-enum class MapType_t : std::uint8_t { Day = 0, Night = 1, Cave = 2 };
 
 typedef struct {//lenght 0x6604u
 	uint16_t word_2FECE;
