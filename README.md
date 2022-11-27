@@ -3,19 +3,32 @@ Based off the Reverse engineering of game Magic Carpet 2 from assembler to c/c++
 Forked from Tomas Vesely's repo here: https://github.com/turican0/remc2 <br /><br />
 Tomas has done amazing work, not only reverse engineering this code but updating it to use more modern memory allocation and use the SDL library for input and sound. He has even increased the sprite resolutions.
 
+## Download the latest Alpha Here ##
+https://github.com/thobbsinteractive/magic-carpet-2-hd/releases/latest
+
+### Install Guide for GOG Edition ###
+#### Windows ####
+- 1: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
+- 2: Install the Game.
+- 3: Extract the contents of this Zip Archive to your Game Directory, 
+- 4: In the "Extract" folder run extract-GOG-CD.bat. The CD Data will now be copied to a directory called "CD_Files"
+- 5: Run remc2.exe
+- 6: Any errors will be output to "log.txt"
+
 ## My intention is to make a patch for Magic Carpet 1 and 2 (GOG editions) that initially will:
 - Add more screen resolution options
 - Increase draw distance
 - Seperate Render and Simulation code so that game speed is not dependent of FPS (or fix FPS)
 - Enable local multiplayer without NETBIOS
 
-## STATUS: Code now runs and all of MC2 (in both Windows and Linux) seems to be playable. Anyone with the GOG edition can download this repo, extract the Game Assets (from a legal GOG copy of the game) and run it.
 ## Build Status:
 
 |Branch|Windows|Linux|
 |------|:-----:|:---:|
 |master|[![MSBuild CI](https://github.com/thobbsinteractive/magic-carpet-2-hd/actions/workflows/msbuild.yml/badge.svg?branch=master)](https://github.com/thobbsinteractive/magic-carpet-2-hd/actions/workflows/msbuild.yml)|[![Linux 64bit CI](https://github.com/thobbsinteractive/magic-carpet-2-hd/actions/workflows/linux64bit.yml/badge.svg?branch=master)](https://github.com/thobbsinteractive/magic-carpet-2-hd/actions/workflows/linux64bit.yml)|
 |development|[![MSBuild CI](https://github.com/thobbsinteractive/magic-carpet-2-hd/actions/workflows/msbuild.yml/badge.svg?branch=development)](https://github.com/thobbsinteractive/magic-carpet-2-hd/actions/workflows/msbuild.yml)|[![Linux 64bit CI](https://github.com/thobbsinteractive/magic-carpet-2-hd/actions/workflows/linux64bit.yml/badge.svg?branch=development)](https://github.com/thobbsinteractive/magic-carpet-2-hd/actions/workflows/linux64bit.yml)|
+
+#### STATUS: Code now runs and all of MC2 (in both Windows and Linux) seems to be playable. Anyone with the GOG edition can download this repo, extract the Game Assets (from a legal GOG copy of the game) and run it. ####
 
 ## Steps: to build and run this code
 
