@@ -41,10 +41,10 @@ https://github.com/thobbsinteractive/magic-carpet-2-hd/releases/latest
 - 6: Close that solution and open "remc2.sln" in your prefered config (x64, x86).
 - 6: Build the code
 - 7: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
-- 8: Install the Game. Copy the "NETHERW" directory to "remc2\Debug" Folder
+- 8: Install the Game. Copy the "NETHERW" directory to "remc2\Debug\GAME" Folder
 - 9: Copy the "Extract" folder to your Game Directory, run extract-GOG-CD.bat. The CD Data will now be copied to a directory called "CD_Files" in the "Extract" directory
--10: Move "CD_Files" directory into the "remc2\Debug" Folder
--11: Run
+- 10: Move "CD_Files" directory into the "remc2\Debug" Folder
+- 11: Run
 
 ### Linux:
 
