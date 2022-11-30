@@ -65,7 +65,7 @@ void InitializeLogging(spdlog::level::level_enum level)
 			auto max_files = 3;
 			auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("log.txt", max_size, max_files);
 			file_sink->set_level(level);
-			file_sink->set_pattern("[%H:%M:%S %z] [%^%-8l%$] %v");
+			file_sink->set_pattern("[%H:%M:%S:%f %z] [%^%-8l%$] %v");
 
 			Logger = new spdlog::logger("multi_sink", { console_sink, file_sink });
 			Logger->set_level(level);
