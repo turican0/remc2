@@ -474,6 +474,9 @@
     <ClInclude Include="portability\port_show_perifery.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
+    <ClInclude Include="engine\Compare.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -796,6 +799,9 @@
     </ClCompile>
     <ClCompile Include="portability\port_show_perifery.cpp">
       <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Compare.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
