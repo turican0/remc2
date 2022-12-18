@@ -4,6 +4,8 @@
 #define RENDER_THREAD
 
 #include "../utilities/SafeQueue.h"
+#include "../portability/port_filesystem.h"
+
 #include <functional>
 #include <thread>
 #include <mutex>
@@ -21,12 +23,12 @@ class RenderThread
 private:
 
 	int8_t m_core;
-	bool m_running;
+	std::atomic<bool> m_running;
 	std::thread m_renderThread;
 	std::function<void()> m_task;
 	std::mutex m_taskMutex;
 	std::condition_variable m_nextTaskCondition;
-	bool m_isTaskRunning;
+	std::atomic<bool> m_isTaskRunning;
 
 public:
 

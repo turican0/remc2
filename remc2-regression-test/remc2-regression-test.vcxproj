@@ -505,38 +505,38 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -594,7 +594,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)inih;$(SolutionDir)libADLMIDI-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)inih;$(SolutionDir)libADLMIDI-master\include;$(SolutionDir)\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -604,7 +604,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)remc2\Debug;$(SolutionDir)sdl2\VisualC\Win32\Debug;$(SolutionDir)Debug;$(SolutionDir)libvorbis\win32\VS2010\Win32\Debug;$(SolutionDir)libogg\win32\VS2015\Win32\Debug;$(SolutionDir)zlib\lib;$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Debug;$(SolutionDir)sdl2_mixer\VisualC\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;libogg_static.lib;timidity.lib;native_midi.lib;SDL2_mixer.lib;SDL2.lib;SDL2main.lib;port_sdl_sound;port_sdl_vga_mouse;dirent;fcaseopen;port_filesystem;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;libogg_static.lib;timidity.lib;native_midi.lib;SDL2_mixer.lib;SDL2.lib;SDL2main.lib;port_sdl_sound;port_sdl_vga_mouse;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -647,7 +647,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)inih;$(SolutionDir)libADLMIDI-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)inih;$(SolutionDir)libADLMIDI-master\include;$(SolutionDir)\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OmitFramePointers>false</OmitFramePointers>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
@@ -660,7 +660,7 @@
       <TargetMachine>MachineX64</TargetMachine>
       <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;libogg_static.lib;timidity.lib;native_midi.lib;SDL2_mixer.lib;SDL2.lib;SDL2main.lib;libpng16.lib;port_sdl_sound;port_sdl_vga_mouse;dirent;fcaseopen;port_filesystem;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;libogg_static.lib;timidity.lib;native_midi.lib;SDL2_mixer.lib;SDL2.lib;SDL2main.lib;libpng16.lib;port_sdl_sound;port_sdl_vga_mouse;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)remc2\x64\Debug;$(SolutionDir)sdl2\VisualC\x64\Debug;$(SolutionDir)x64\Debug;$(SolutionDir)libvorbis\win32\VS2010\x64\Debug;$(SolutionDir)libogg\win32\VS2015\x64\Debug;$(SolutionDir)zlib\lib;$(SolutionDir)libpng3\lib;$(SolutionDir)sdl2_mixer\VisualC\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>

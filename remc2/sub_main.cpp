@@ -618,7 +618,7 @@ int wherey() //returns current text cursor (y) coordinate
 
 x_DWORD settextposition(x_DWORD x, x_DWORD y) {
 	gotoxy(x, y);
-	printf("\t");
+	Logger->debug("\t");
 	//printf("\033[%d;%dH%s\n", x, y, "R");
 	/*#ifndef USE_DOSBOX
 		COORD coord;
@@ -36897,6 +36897,8 @@ uint16_t x_WORD_DE350[256] + 4400
 
 int sub_40D10()//221d10//fix vga
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	int v1; // ebx
 	signed int v2; // ecx
 	x_BYTE* v3; // esi
@@ -37225,15 +37227,15 @@ void sub_40F80()//221f80
 		}
 		else if ((!DefaultResolutions())&&(x_WORD_180660_VGA_type_resolution != 1))
 		{
-			VGA_BlitAny();
+			VGA_BlitAny(maxGameFps);
 		}
 		else if (x_WORD_180660_VGA_type_resolution & 1)
 		{
-			sub_90478_VGA_Blit320();
+			sub_90478_VGA_Blit320(maxGameFps);
 		}
 		else
 		{
-			sub_75200_VGA_Blit640(480);
+			sub_75200_VGA_Blit640(480, maxGameFps);
 		}
 	}
 	else if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && v12)
@@ -37246,15 +37248,15 @@ void sub_40F80()//221f80
 	}
 	else if ((!DefaultResolutions())&&(x_WORD_180660_VGA_type_resolution != 1))
 	{
-		VGA_BlitAny();
+		VGA_BlitAny(maxGameFps);
 	}
 	else if (x_WORD_180660_VGA_type_resolution & 1)
 	{
-		sub_90478_VGA_Blit320();
+		sub_90478_VGA_Blit320(maxGameFps);
 	}
 	else
 	{
-		sub_75200_VGA_Blit640(480);
+		sub_75200_VGA_Blit640(480, maxGameFps);
 	}
 }
 
@@ -37268,6 +37270,7 @@ void sub_417D0_install_pal_and_mouse_minmax2()//2227d0
 
 void sub_41A90_VGA_Palette_install(TColor* bufferx)//222a90
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
 	//354f24 - 000000 00002a 002a00 002a2a 2a0000
 	//debug
 	//loadfromsnapshot((char*)"0160-00222A90-x", a1, 0x1a7358, 0x300);//4c
@@ -37803,18 +37806,16 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 		MenusAndIntros_76930(v5, 0/*a1*/);//set language, intro, menu, atd. //257930
 		if (!D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234)
 		{
-#ifdef DEBUG_START
-			debug_printf("sub_46830_main_loop:before load scr\n");
-#endif //DEBUG_START
+			Logger->debug("sub_46830_main_loop:before load scr");
+
 			isSecretLevel = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 24 && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w < 50;
 			sub_47FC0_load_screen(isSecretLevel);//vga smaltitle
-#ifdef DEBUG_START
-			debug_printf("sub_46830_main_loop:load scr passed\n");
-#endif //DEBUG_START
+
+			Logger->debug("sub_46830_main_loop:load scr passed");
+
 			sub_56A30_init_game_level(a3);
-#ifdef DEBUG_START
-			debug_printf("sub_46830_main_loop:init game level passed\n");
-#endif //DEBUG_START
+
+			Logger->debug("sub_46830_main_loop:init game level passed");
 
 			if (CommandLineParams.DoAutoChangeRes()) {
 				resindex_begin = 0;
@@ -37892,9 +37893,9 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, v10);
 				}
 				if (x_WORD_180660_VGA_type_resolution & 1)
-					sub_90478_VGA_Blit320();
+					sub_90478_VGA_Blit320(maxGameFps);
 				else
-					sub_75200_VGA_Blit640(480);
+					sub_75200_VGA_Blit640(480, maxGameFps);
 				if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] & 2
 					&& !(x_D41A0_BYTEARRAY_4_struct.setting_38545 & 4))
 				{
@@ -38459,10 +38460,7 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	signed int j; // ebx
 	signed int i; // ebx
 
-#if _DEBUG
-	frameStart = std::chrono::steady_clock::now();
-	//frameStart = clock();
-#endif
+	SetFrameStart(std::chrono::system_clock::now());
 
 	if ((CommandLineParams.DoDebugafterload() == 1) && (count_begin == 1))
 		debugcounter_47560++;
@@ -52337,9 +52335,7 @@ bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //
 	FILE* savesmapfile; // eax
 	size_t writedsize; // [esp+40h] [ebp-8h]
 	
-#ifdef DEBUG_LOADSAVE
-	debug_printf("InGameSave-begin\n");
-#endif //DEBUG_START
+	Logger->debug("InGameSave-begin");
 
 	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SMAP", savefileindex + 1, savefileindex2);
 	savesmapfile = DataFileIO::CreateOrOpenFile(printbuffer, 546);
@@ -52354,9 +52350,9 @@ bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //
 		writedsize = WriteFile_98CAA(savesmapfile, (uint8_t*)x_BYTE_F2CD0x, 4802) != 4802;
 		DataFileIO::Close(savesmapfile);
 	}
-#ifdef DEBUG_LOADSAVE
-	debug_printf("InGameSave-end-%d\n", writedsize);
-#endif //DEBUG_START
+
+	Logger->debug("InGameSave-end-{}", writedsize);
+
 	return (writedsize == 0);
 }
 // 10000: using guessed type void /*__noreturn*/ sub_10000();
@@ -52491,9 +52487,7 @@ bool sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex)//236750 /
 //----- (000558E0) --------------------------------------------------------
 bool LoadLevelSMAP_558E0(uint8_t savefileindex)//2368e0
 {
-#ifdef DEBUG_LOADSAVE
-	debug_printf("InGameLoad-begin\n");
-#endif //DEBUG_START
+	Logger->debug("InGameLoad-begin\n");
 
 	//fix
 	x_D41A0_BYTEARRAY_4_struct.dword_38519 = x_DWORD_EA3E4[1];
@@ -52518,15 +52512,11 @@ bool LoadLevelSMAP_558E0(uint8_t savefileindex)//2368e0
 		int truesize = DataFileIO::Read(loadfile, (uint8_t*)x_BYTE_F2CD0x, 4802) == 4802;
 		DataFileIO::Close(loadfile);
 		if (truesize) {
-#ifdef DEBUG_LOADSAVE
-			debug_printf("InGameLoad-end-ok\n");
-#endif //DEBUG_START
+			Logger->debug("InGameLoad-end-ok\n");
 			return 1;
 		}
 	}
-#ifdef DEBUG_LOADSAVE
-	debug_printf("InGameLoad-end-error\n");
-#endif //DEBUG_START
+	Logger->debug("InGameLoad-end-error\n");
 	return 0;
 }
 
@@ -53002,148 +52992,164 @@ void InitNetworkInfo() {
 //----- (00055F70) --------------------------------------------------------
 int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 {
-	begin_plugin();
-
-	preconvert();//rewrite and remove it later
-
-	*xadataclrd0dat.colorPalette_var28 = (uint8_t*)malloc(4096);//fix it
-
-	//*xadataspellsdat.colorPalette_var28 = (uint8_t*)malloc(50000);
-
-	signed int v3; // edi
-	unsigned __int16 v4; // si
-	//skip __int16 v6; // [esp+0h] [ebp-1Ch]
-	//__int16 v7; // [esp+Ch] [ebp-10h]
-
-	//fix it
-	v3 = 0;
-	v4 = 0;
-	//fix it
-
-	//skip memset(&v6, 0, 28);//236F7F - 26D250
-	//v7 = 0;
-	//skip v6 = 0x3301;
-//removed  int386(0x21, (REGS*)&v6, (REGS*)&v6);//236F9D - 279D52 //INT 21,33 - Get/Set System Values (Ctl-Break/Boot Drive) AH = 33h AL = 01 to set Ctrl - Break checking flag
-//may be INT 33,1 Show Mouse Cursor see:https://www.equestionanswers.com/c/c-int33-mouse-service.php
-	//skip signal(7, 1);//236FA9 - 279DC0
-	//skip signal(4, 1);//236FB5 - 279DC0
-	//skip signal(6, 1);//236FC1 - 279DC0
-
-	printf("\nReading Ini file\n");
-	if (!readini()) exit(1);
-
-	if (assignToSpecificCores)
+	try
 	{
+		begin_plugin();
+
+		preconvert();//rewrite and remove it later
+
+		*xadataclrd0dat.colorPalette_var28 = (uint8_t*)malloc(4096);//fix it
+
+		//*xadataspellsdat.colorPalette_var28 = (uint8_t*)malloc(50000);
+
+		signed int v3; // edi
+		unsigned __int16 v4; // si
+		//skip __int16 v6; // [esp+0h] [ebp-1Ch]
+		//__int16 v7; // [esp+Ch] [ebp-10h]
+
+		//fix it
+		v3 = 0;
+		v4 = 0;
+		//fix it
+
+		//skip memset(&v6, 0, 28);//236F7F - 26D250
+		//v7 = 0;
+		//skip v6 = 0x3301;
+	//removed  int386(0x21, (REGS*)&v6, (REGS*)&v6);//236F9D - 279D52 //INT 21,33 - Get/Set System Values (Ctl-Break/Boot Drive) AH = 33h AL = 01 to set Ctrl - Break checking flag
+	//may be INT 33,1 Show Mouse Cursor see:https://www.equestionanswers.com/c/c-int33-mouse-service.php
+		//skip signal(7, 1);//236FA9 - 279DC0
+		//skip signal(4, 1);//236FB5 - 279DC0
+		//skip signal(6, 1);//236FC1 - 279DC0
+
+		printf("Reading Ini file");
+		if (!readini()) exit(1);
+
+		spdlog::level::level_enum level = spdlog::level::info;
+
+#ifdef _DEBUG
+		level = GetLoggingLevelFromString("Debug");
+#else
+		level = GetLoggingLevelFromString(loggingLevel.c_str());
+#endif // _DEBUG
+		InitializeLogging(level);
+
+		if (assignToSpecificCores)
+		{
 #ifdef _MSC_VER
-		SetThreadIdealProcessor(GetCurrentThread(), 0);
-		DWORD_PTR dw = SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << 0);
+			SetThreadIdealProcessor(GetCurrentThread(), 0);
+			DWORD_PTR dw = SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << 0);
 #endif
-	}
-
-	if (CommandLineParams.DoDisableGraphicsEnhance()) {
-		printf("Disabling enhanced graphics\n");
-		bigSprites = false;
-		bigTextures = false;
-		texturepixels = 32;
-	}
-
-	//Set Paths for game data
-	printf("Getting Game data paths\n");
-	gameDataPath = GetSubDirectoryPath(gameFolder);
-	cdDataPath = GetSubDirectoryPath(cdFolder);
-	bigGraphicsPath = GetSubDirectoryPath(bigGraphicsFolder);
-
-	printf("Initializing graphics Width: %d Height: %d\n", windowResWidth, windowResHeight);
-	VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio);
-
-	//char maindir[1024];
-	myprintf("Finding Game Data...\n");
-	if (std::string mainfile = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT"); !file_exists(mainfile.c_str()))//test original file
-	{
-		//myprintf("Original Game Data Not Found, find GOG iso file\n");
-		/*char locexepath[1024];
-		get_exe_path(locexepath);
-		for (int i = 0;i < strlen(locexepath);i++)
-		{
-			if (locexepath[i] == '\\')
-				locexepath[i] = '/';
 		}
-		sprintf(mainfile, "%s/%s%s", locexepath,gamepath, "/MC2.dat");
-		sprintf(maindir, "%s/%s%s", locexepath, gamepath, "/extracted-game-files");
-		//sprintf(mainfile, "%s", (char*)"c:\\prenos\\gparted-live-0.27.0-1-i686");*/
-		//sprintf(maindir, "%s", (char*)"c:\\prenos\\ex");
-		//if (!file_exists(mainfile))//test existing GOG cd iso file
-		{
-			myprintf("Original game not found in\n %s folder\n", gameDataPath.c_str());
-			mydelay(20000);
-			exit(1);//iso not found
-		}
-		/*myprintf("GOG game iso cd founded!\n");
-		sprintf(mainfile, "%s%s", gamepath, "/extracted-game-files\\data\\tmaps0-0.dat");
-		if (file_exists(mainfile))
-		{
-			myprintf("I found extracted GOG game files!\n");
-			sprintf(gamepath, "%s", maindir);
-		}
-		else
-		{
-			myprintf("Extracting GOG iso cd...\n");
-			sprintf(mainfile, "%s/%s%s", locexepath, gamepath, "/MC2.dat");
 
-			cd_iso_extract(mainfile, maindir);
-			//cd_iso_extract((char*)"c:\\prenos\\MC2.dat.bin", maindir);
+		if (CommandLineParams.DoDisableGraphicsEnhance()) {
+			Logger->debug("Disabling enhanced graphics");
+			bigSprites = false;
+			bigTextures = false;
+			texturepixels = 32;
+		}
 
-			//sprintf(mainfile, "%s%s", gamepath, "\\data\\tmaps0-0.dat");
+		//Set Paths for game data
+		Logger->debug("Getting Game data paths");
+		gameDataPath = GetSubDirectoryPath(gameFolder);
+		cdDataPath = GetSubDirectoryPath(cdFolder);
+		bigGraphicsPath = GetSubDirectoryPath(bigGraphicsFolder);
+
+		Logger->debug("Initializing graphics Width: {} Height: {}", windowResWidth, windowResHeight);
+		VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio, displayIndex);
+
+		//char maindir[1024];
+		Logger->info("Finding Game Data...");
+		if (std::string mainfile = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT"); !file_exists(mainfile.c_str()))//test original file
+		{
+			//myprintf("Original Game Data Not Found, find GOG iso file\n");
+			/*char locexepath[1024];
+			get_exe_path(locexepath);
+			for (int i = 0;i < strlen(locexepath);i++)
+			{
+				if (locexepath[i] == '\\')
+					locexepath[i] = '/';
+			}
+			sprintf(mainfile, "%s/%s%s", locexepath,gamepath, "/MC2.dat");
+			sprintf(maindir, "%s/%s%s", locexepath, gamepath, "/extracted-game-files");
+			//sprintf(mainfile, "%s", (char*)"c:\\prenos\\gparted-live-0.27.0-1-i686");*/
+			//sprintf(maindir, "%s", (char*)"c:\\prenos\\ex");
+			//if (!file_exists(mainfile))//test existing GOG cd iso file
+			{
+				Logger->error("Original game not found in {} folder", gameDataPath.c_str());
+				mydelay(20000);
+				exit(1);//iso not found
+			}
+			/*myprintf("GOG game iso cd founded!\n");
+			sprintf(mainfile, "%s%s", gamepath, "/extracted-game-files\\data\\tmaps0-0.dat");
 			if (file_exists(mainfile))
 			{
-				myprintf("GOG iso cd extracted!\n");
+				myprintf("I found extracted GOG game files!\n");
 				sprintf(gamepath, "%s", maindir);
 			}
 			else
 			{
-				myprintf("Any problem with GOG iso cd extracting\n");
-				mydelay(3000);
-				exit(1);//problem with file extracting
-			}
-		}	*/
-	}
-	else
-	{
-		myprintf("Original Game Data Found!\n");
-	}
+				myprintf("Extracting GOG iso cd...\n");
+				sprintf(mainfile, "%s/%s%s", locexepath, gamepath, "/MC2.dat");
 
-	//dos_setvect(9, null_vector, 0);
+				cd_iso_extract(mainfile, maindir);
+				//cd_iso_extract((char*)"c:\\prenos\\MC2.dat.bin", maindir);
 
-	initposistruct();
-
-	sub_56210_process_command_line(argc, argv);//236FD4 - 237210
-	if (CommandLineParams.ModeTestNetwork()) {
-		if (Iam_server || Iam_client)
-			InitNetworkInfo();
-	}
-
-	//-init 0x2a51a4 je nekde tu
-	if (CommandLineParams.DoCopySkipConfig()) {
-		x_BYTE_D41AD_skip_screen = config_skip_screen;
-	}
-
-	Initialize();//236FDC - 23C8D0//rozdil 1E1000
-
-	sub_46830_main_loop(/*0, */v3, v4);//227830
-
-	sub_5BC20();//23CC20 //remove devices?
-	sub_56730_clean_memory();//237730
-	
-	if (CommandLineParams.ModeTestNetwork()) {
-		if (Iam_server || Iam_client)
+				//sprintf(mainfile, "%s%s", gamepath, "\\data\\tmaps0-0.dat");
+				if (file_exists(mainfile))
+				{
+					myprintf("GOG iso cd extracted!\n");
+					sprintf(gamepath, "%s", maindir);
+				}
+				else
+				{
+					myprintf("Any problem with GOG iso cd extracting\n");
+					mydelay(3000);
+					exit(1);//problem with file extracting
+				}
+			}	*/
+		}
+		else
 		{
-			EndMyNetLib();
-			/*EndLibNetClient();
-			if (Iam_server)
-				EndLibNetServer();*/
-		}	
-	}
+			Logger->info("Original Game Data Found!");
+		}
 
+		//dos_setvect(9, null_vector, 0);
+
+		initposistruct();
+
+		sub_56210_process_command_line(argc, argv);//236FD4 - 237210
+		if (CommandLineParams.ModeTestNetwork()) {
+			if (Iam_server || Iam_client)
+				InitNetworkInfo();
+		}
+
+		//-init 0x2a51a4 je nekde tu
+		if (CommandLineParams.DoCopySkipConfig()) {
+			x_BYTE_D41AD_skip_screen = config_skip_screen;
+		}
+
+		Initialize();//236FDC - 23C8D0//rozdil 1E1000
+
+		sub_46830_main_loop(/*0, */v3, v4);//227830
+
+		sub_5BC20();//23CC20 //remove devices?
+		sub_56730_clean_memory();//237730
+
+		if (CommandLineParams.ModeTestNetwork()) {
+			if (Iam_server || Iam_client)
+			{
+				EndMyNetLib();
+				/*EndLibNetClient();
+				if (Iam_server)
+					EndLibNetServer();*/
+			}
+		}
+	}
+	catch (const std::exception& e)
+	{
+		Logger->critical("Critial Error: {}", e.what());
+	}
+	Logger->info("Exited Game");
 	return 0;
 }
 
@@ -53531,28 +53537,25 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 	if (CommandLineParams.DoSetLevel()) {
 		x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = 1;
 	}
-#ifdef DEBUG_START
-	debug_printf("sub_56A30_init_game_level:before sub_6EB90\n");
-#endif //DEBUG_START
+	Logger->debug("sub_56A30_init_game_level:before sub_6EB90");
 	//fixing
 	CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90 adress 0x23ca2e
 	//fixing
-#ifdef DEBUG_START
-	debug_printf("sub_56A30_init_game_level:sub_6EB90 passed\n");
-#endif //DEBUG_START
+	Logger->debug("sub_56A30_init_game_level:sub_6EB90 passed");
+
 	char temp_x_BYTE_E3799_sound_card = soundActive_E3799;
 	soundActive_E3799 = false;
 	ClearSettings_567C0();
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8))
 	{
 		PrintTextMessage_70910((char*)"Load Level\0");
-#ifdef DEBUG_START
-		debug_printf("sub_56A30_init_game_level:before sub_533B0_decompress_levels\n");
-#endif //DEBUG_START
+
+		Logger->debug("sub_56A30_init_game_level:before sub_533B0_decompress_levels");
+
 		sub_533B0_decompress_levels(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, &D41A0_0.terrain_2FECE);
-#ifdef DEBUG_START
-		debug_printf("sub_56A30_init_game_level:sub_533B0_decompress_levels passed\n");
-#endif //DEBUG_START
+
+		Logger->debug("sub_56A30_init_game_level:sub_533B0_decompress_levels passed");
+
 	}
 	sub_54660_read_and_decompress_sky_and_blocks(D41A0_0.terrain_2FECE.MapType, x_BYTE_D41B5_texture_size);//235660
 	sub_54800_read_and_decompress_tables(D41A0_0.terrain_2FECE.MapType);//235800
@@ -57320,9 +57323,8 @@ void Initialize()//23c8d0
 	sub_70890_print_header();//23C8D6 - 251890
 	if ((x_D41A0_BYTEARRAY_4_struct.setting_byte4_25) & 8)
 		sub_5C490_testers_info();//23C8E6 - 23D490
-#ifdef DEBUG_MKDIR
-	debug_printf("Init:Begin of creating dirs\n");
-#endif //DEBUG_MKDIR
+
+	Logger->debug("Init:Begin of creating dirs\n");
 
 	std::string exepath = get_exe_path();
 
@@ -57339,9 +57341,8 @@ void Initialize()//23c8d0
 
 	SetCDFilePaths(cdDataPath.c_str(), pstr);
 
-#ifdef DEBUG_MKDIR
-	debug_printf("Init:End of creating dirs\n");
-#endif //DEBUG_MKDIR
+	Logger->debug("Init:End of creating dirs\n");
+
 	sub_560D0_create_sound_dir();//23C9ED - 2370D0
 	sub_5BCC0_set_any_variables1();//23C9F2 - 23CCC0
 	if (!sub_5BF50_load_psxdata())//23C9F7 - 23CF50 //something with files about their loading, or just a set of Palettes
@@ -57531,6 +57532,8 @@ void sub_5BCC0_set_any_variables1()//23ccc0
 //----- (0005BDC0) --------------------------------------------------------
 void SetMousePositionInMemory_5BDC0(int16_t posX, int16_t posY)//23cdc0
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	if (posX < 0)
 		posX = 0;
 	if (posY < 0)
@@ -71863,6 +71866,8 @@ void sub_6FDA0()//fix//250da0
 //----- (0006FE20) --------------------------------------------------------
 void sub_6FE20()//fix//250e20
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	//int v0; // et1
 	//int v1; // eax
 
@@ -72844,6 +72849,8 @@ void sub_72550(type_E9C08** a1x)
 //----- (000727F0) --------------------------------------------------------
 void sub_727F0(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a3, unsigned __int8 a4)//fix
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	/*__outx_BYTE(0x3C8u, a1);
 	__outx_BYTE(0x3C9u, a2);
 	__outx_BYTE(0x3C9u, a3);
@@ -73243,6 +73250,8 @@ void sub_759B0_set_mouse_minmax_vert()
 //----- (00075A10) --------------------------------------------------------
 unsigned __int8 sub_75A10(int a1, unsigned __int8* a2)//256a10 // fix
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	unsigned __int8 v2; // al
 	unsigned __int8* v3; // ebx
 	char v4; // dl
@@ -73368,6 +73377,8 @@ int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3)//see: https://gith
 //----- (00075C50) --------------------------------------------------------
 void sub_75C50()//fix
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	/* __outx_BYTE(0x302u, 2u);
 	 __outx_BYTE(0x303u, 1u);*/
 	memset((void*)pdwScreenBuffer_351628, 0, screenHeight_180624 * screenWidth_18062C);
@@ -73927,6 +73938,8 @@ void sub_7AA70_load_and_decompres_dat_file(const char* path, uint8_t* filebuffer
 //----- (0007B5A0) --------------------------------------------------------
 void ResetMouse_7B5A0()
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	//_disable();
 	x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons = 0;
 	x_WORD_180744_mouse_right_button = 0;
@@ -73955,9 +73968,9 @@ void sub_7B5D0()
 		ClearGraphicsBuffer_72883(pdwScreenBuffer_351628, 640, 480, 0);
 
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		sub_90478_VGA_Blit320();
+		sub_90478_VGA_Blit320(menuFps);
 	else
-		sub_75200_VGA_Blit640(480);
+		sub_75200_VGA_Blit640(480, menuFps);
 }
 
 //----- (0007C020) --------------------------------------------------------
@@ -73983,6 +73996,8 @@ signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1()//25d050
 	long v5; // esi
 	bool ctrl_or_alt_pressed; // zf
 	signed int result; // eax
+
+	if (CommandLineParams.DoShowDebugPerifery()) ShowPerifery();
 
 	x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode = 0;
 	x_DWORD_17DE38str.x_BYTE_17DF11_last_key_status = 0;
@@ -79681,6 +79696,8 @@ void sub_8BB40(uint8_t *a1, char a2)//26cb40
 //----- (0008BBE0) --------------------------------------------------------
 signed int sub_8BBE0(uint8_t* a1)//fix//26cbe0
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	char v1=0; // dl
 	unsigned __int8 v2; // al
 	char v3; // al
@@ -80927,6 +80944,8 @@ signed int sub_90668(int a1)//271668
 //----- (000906B4) --------------------------------------------------------
 int sub_906B4()//fix bios graphics//2716b4
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	char* v0; // edx
 	signed int v1; // ebx
 	char v2; // cl
@@ -81011,7 +81030,7 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 
 	TColor zero_bufferx[256];
 
-	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio);
+	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
 
 	if (singlestep)
 	{
@@ -81043,8 +81062,9 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 			outbufferx[i].green = x_BYTE_181544_oldpalbufferx[i].green + ((x_WORD_181B44) * (newpalbufferx[i].green - x_BYTE_181544_oldpalbufferx[i].green) / shadow_levels);
 			outbufferx[i].blue = x_BYTE_181544_oldpalbufferx[i].blue + ((x_WORD_181B44) * (newpalbufferx[i].blue - x_BYTE_181544_oldpalbufferx[i].blue) / shadow_levels);
 		}
-		sub_9A0FC_wait_to_screen_beam();
+		//sub_9A0FC_wait_to_screen_beam();
 		sub_41A90_VGA_Palette_install(outbufferx);
+		fix_sub_9A0FC_wait_to_screen_beam();
 		//return j;
 	}
 	else
@@ -81081,9 +81101,10 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 				outbufferx[i].green = x_BYTE_181544_oldpalbufferx[i].green + ((x_WORD_181B44) * (newpalbufferx[i].green - x_BYTE_181544_oldpalbufferx[i].green) / shadow_levels);//352b42 352544
 				outbufferx[i].blue = x_BYTE_181544_oldpalbufferx[i].blue + ((x_WORD_181B44) * (newpalbufferx[i].blue - x_BYTE_181544_oldpalbufferx[i].blue) / shadow_levels);//352b42 352544
 			}
-			sub_9A0FC_wait_to_screen_beam();
+			//sub_9A0FC_wait_to_screen_beam();
 			sub_41A90_VGA_Palette_install(outbufferx);
-			mydelay(10);
+			fix_sub_9A0FC_wait_to_screen_beam();
+			//mydelay(10);
 		}
 		x_BYTE_E390C_VGA_pal_not_begin = 0;
 	}
@@ -81420,6 +81441,8 @@ int sub_9937E_set_video_mode(__int16  /*a1*/)//27a37e
 //----- (0009951B) --------------------------------------------------------
 signed int sub_9951B(__int16 a1)//27a51b //fix graphics
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	signed int result; // eax
 
 	x_WORD_E3BA4 = a1;
@@ -81500,6 +81523,8 @@ signed int sub_99FF0(char* a1, char** a2, signed int a3)//27aff0
 //----- (0009A10A) --------------------------------------------------------
 signed int sub_9A10A_check_keyboard(/*signed int result*/)//27B10a
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	if (x_DWORD_E4CA4)
 		return 1;
 	return VGA_check_standart_input_status();
@@ -81664,7 +81689,7 @@ void OriginalDebugOutput_9AEEC(x_DWORD** a1, char* a2)//27Beec
 
 	v2 = (char*)a2;
 	if (x_DWORD_E3DE8)
-		printf("Writing %s\n", a2);
+		Logger->debug("Writing %s\n", a2);
 	while (*v2)
 	{
 		v4 = *v2++;
@@ -82451,6 +82476,8 @@ int sub_9CD9C(uint8_t* a1, int a2)//27dd9c
 //----- (0009D31C) --------------------------------------------------------
 __int16 /*__fastcall*/ sub_9D31C(__int16 result)//27e31c
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	bool v1; // zf
 
 	//fix it:__asm { int     16h; KEYBOARD - GET ENHANCED SHIFT FLAGS (AT model 339,XT2,XT286,PS) }
@@ -82597,6 +82624,8 @@ int sub_A0BB0(int* a1, int a2)//281bb0
 //----- (000A0D2C) --------------------------------------------------------
 void sub_A0D2C_VGA_get_Palette(TColor* bufferx)//281d2c
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	uint8_t* tempbuffer = VGA_Get_Palette();
 	memcpy(bufferx, tempbuffer, 768);
 	/*int v2; // [esp+4h] [ebp-4h]

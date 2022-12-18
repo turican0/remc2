@@ -2180,17 +2180,17 @@ int main_x(/*int argc, char** argv*/)
 #endif
 	mapsurface = SDL_CreateRGBSurface(SDL_SWSURFACE, 512, 512, 32, rmask, gmask, bmask, amask);
 	if (mapsurface == NULL) {
-		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
+		Logger->error("CreateRGBSurface failed: {}", SDL_GetError());
 		exit(1);
 	}
 	mapsurfacefeat = SDL_CreateRGBSurface(SDL_SWSURFACE, 512, 512, 32, rmask, gmask, bmask, amask);
 	if (mapsurfacefeat == NULL) {
-		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
+		Logger->error("CreateRGBSurface failed: {}", SDL_GetError());
 		exit(1);
 	}
 	mapsurfacecheck = SDL_CreateRGBSurface(SDL_SWSURFACE, 512, 512, 32, rmask, gmask, bmask, amask);
 	if (mapsurfacecheck == NULL) {
-		fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
+		Logger->error("CreateRGBSurface failed: {}", SDL_GetError());
 		exit(1);
 	}
 	/*uint8_t* scrbuff = (uint8_t*)mapsurface->pixels;

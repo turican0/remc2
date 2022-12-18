@@ -23,10 +23,11 @@ char x_BYTE_E3766 = 0; // weak
 
 long oldmillis = 0;
 
-std::chrono::time_point<std::chrono::steady_clock> frameStart;
-std::chrono::duration<double> timeDelta(0);
-int frameCount = 0;
-int fps = 0;
+std::chrono::time_point<std::chrono::system_clock> m_frameStart;
+std::chrono::time_point<std::chrono::system_clock> m_lastFrameEnd;
+float m_fTimeElapsed = 0.0f; // The time that has elapsed so far
+int m_iFrameCount = 0; // The number of frames that have occurred.
+float m_fFps; // The frames rendered per second. Needs to be stored to be shown every frame.
 
 uint8_t* x_DWORD_E9C3C; // weak
 
@@ -1515,7 +1516,7 @@ uint32_t sub_7FAE0_draw_text(char* text, int16_t a2, int16_t a3, int16_t posy, u
 
 //int debugcounter_271478 = 0;
 //----- (00090478) --------------------------------------------------------
-void sub_90478_VGA_Blit320()//271478
+void sub_90478_VGA_Blit320(uint8_t maxFps)//271478
 {
 	if (CommandLineParams.DoDebugSequences()) {
 		/* uint8_t origbyte20 = 0;
@@ -1540,9 +1541,12 @@ void sub_90478_VGA_Blit320()//271478
 	}
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();
+
+	std::chrono::duration<double, std::milli> timeDelta = CalculateTimeDelta();
+
 #ifndef debug_hide_graphics
 #if _DEBUG
-	VGA_CalculateAndPrintFPS(0, 0);
+	VGA_CalculateAndPrintFps(0, 0, timeDelta.count());
 #endif
 	VGA_Blit(pdwScreenBuffer_351628);
 #endif
@@ -1550,12 +1554,7 @@ void sub_90478_VGA_Blit320()//271478
 	//VGA_mouse_clear_keys();
 
 	//set speed
-	long actmillis = mygetthousandths();
-	long newdelay = speedGame - (actmillis - oldmillis);//max millis is 20 millis
-	if (newdelay < 0)newdelay = 0;
-	if (newdelay > speedGame)newdelay = speedGame;
-	mydelay(newdelay);//set speed
-	oldmillis = actmillis;
+	LockFps(maxFps);
 	//set speed
 }
 
@@ -1564,7 +1563,7 @@ int debugcounter_258350 = 0;
 //long sub_75200_VGA_Blit640_index= 0;
 int debugcounter_256200 = 0;
 //long oldmillis = 0;
-void sub_75200_VGA_Blit640(uint16_t height)//256200
+void sub_75200_VGA_Blit640(uint16_t height, uint8_t maxFps)//256200
 {
 	/*if (debugcounter_258350 > 0)
 	{
@@ -1581,38 +1580,31 @@ void sub_75200_VGA_Blit640(uint16_t height)//256200
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();//26dacd
 
+	std::chrono::duration<double, std::milli> timeDelta = CalculateTimeDelta();
 #if _DEBUG
-	VGA_CalculateAndPrintFPS(0, 0);
+	VGA_CalculateAndPrintFps(0, 0, timeDelta.count());
 #endif
 	VGA_Blit(pdwScreenBuffer_351628);
 
 	//set speed
-	long actmillis = mygetthousandths();
-	long newdelay = speedGame - (actmillis - oldmillis);//max millis is 20 millis
-	if (newdelay < 0)newdelay = 0;
-	if (newdelay > speedGame)newdelay = speedGame;
-	mydelay(newdelay);//set speed
-	oldmillis = actmillis;
+	LockFps(maxFps);
 	//set speed
 }
 
-void VGA_BlitAny()//256200
+void VGA_BlitAny(uint8_t maxFps)//256200
 {
 	if (!x_BYTE_E3766)
 		sub_8CACD_draw_cursor2();
 
+	std::chrono::duration<double, std::milli> timeDelta = CalculateTimeDelta();
 #if _DEBUG
-	VGA_CalculateAndPrintFPS(0, 0);
+	VGA_CalculateAndPrintFps(0, 0, timeDelta.count());
+	VGA_DrawPlayerCoordData(0, 16);
 #endif
 	VGA_Blit(pdwScreenBuffer_351628);
 
 	//set speed
-	long actmillis = mygetthousandths();
-	long newdelay = speedGame - (actmillis - oldmillis);//max millis is 20 millis
-	if (newdelay < 0)newdelay = 0;
-	if (newdelay > speedGame)newdelay = speedGame;
-	mydelay(newdelay);//set speed
-	oldmillis = actmillis;
+	LockFps(maxFps);
 	//set speed
 }
 
@@ -1725,24 +1717,74 @@ void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t 
 	}	
 }
 
-void VGA_CalculateAndPrintFPS(int x, int y)
+void SetFrameStart(std::chrono::system_clock::time_point frameStart)
 {
-	timeDelta += std::chrono::steady_clock::now() - frameStart;
-	frameCount++;
+	m_frameStart = frameStart;
+}
 
-	if (timeDelta > std::chrono::duration<double>(1.0))
+std::chrono::duration<double, std::milli> CalculateTimeDelta()
+{
+	std::chrono::system_clock::time_point currTime = std::chrono::system_clock::now();
+	std::chrono::duration<double, std::milli> timeDelta = (currTime - m_lastFrameEnd) * 0.001f;
+	m_lastFrameEnd = currTime;
+	return timeDelta;
+}
+
+void VGA_CalculateAndPrintFps(int x, int y, float timeDelta)
+{
+	//Caculate FPS
+	m_iFrameCount++;
+	m_fTimeElapsed += timeDelta;
+
+	if (m_fTimeElapsed >= 1.0f)
 	{
-		fps = frameCount;
-		frameCount = 0;
-		timeDelta = std::chrono::duration<double>(0);
+		m_fFps = (float)m_iFrameCount / m_fTimeElapsed;
+		m_fTimeElapsed = 0.0f;
+		m_iFrameCount = 0;
 	}
 
 	VGA_GotoXY(x, y);
 	std::string fpsStr = "FPS: ";
-	fpsStr.append(std::to_string(fps));
+	fpsStr.append(std::to_string(std::round(m_fFps*10)/10).substr(0,5));
 
-	VGA_Draw_stringXYtoBuffer((char*)fpsStr.c_str(), 0, 0, pdwScreenBuffer_351628);
-	//VGA_Draw_string((char*)fpsStr.c_str());
+	VGA_Draw_stringXYtoBuffer(fpsStr.c_str(), x, y, pdwScreenBuffer_351628);
+}
+
+void VGA_DrawPlayerCoordData(int x, int y)
+{
+	if (x_DWORD_EA3E4 != nullptr && x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240] != nullptr) {
+
+		int16_t index = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00e_2BDE_11244 + 1;
+		axis_3d axisData = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[index].axis_2BDE_11695;
+		axis_4d rotData = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[index].rotation__2BDE_11701;
+
+		std::string playerCoordStr = "X: " + std::to_string(axisData.x) +
+			" Y: " + std::to_string(axisData.y) +
+			" Z: " + std::to_string(axisData.z);
+
+		VGA_Draw_stringXYtoBuffer(playerCoordStr.c_str(), x, y, pdwScreenBuffer_351628, 'S');
+
+		std::string playerRotationStr = "Pitch: " + std::to_string(rotData.pitch) +
+			" Roll: " + std::to_string(rotData.roll) +
+			" Yaw: " + std::to_string(rotData.yaw);
+
+		VGA_Draw_stringXYtoBuffer(playerRotationStr.c_str(), x, y + 8, pdwScreenBuffer_351628, 'S');
+	}
+}
+
+void LockFps(uint8_t maxFps)
+{
+	if (maxFps <= 0)
+		return;
+
+	std::chrono::duration<double, std::milli> renderTimeMS = std::chrono::system_clock::now() - m_frameStart;
+
+	//lock to fps
+	float frameTimeMS = 1000.0f / maxFps;
+	if (renderTimeMS.count() > 0 && renderTimeMS.count() < frameTimeMS)
+	{
+		mydelay(frameTimeMS - renderTimeMS.count());
+	}
 }
 
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;

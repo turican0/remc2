@@ -70,6 +70,8 @@ void PlayInfoFmv(__int16 a1, __int16 a2, Type_SoundEvent_E17CC* pSoundEvent, cha
 		x_WORD_17DB5C = a1;
 		do
 		{
+			SetFrameStart(std::chrono::system_clock::now());
+
 			if (x_WORD_17DB5A)
 				break;
 			if (ActualKeyframe_17DB60 >= LastKeyframe_17DB46 - 1)//34eb60 a 34eb46
@@ -215,7 +217,7 @@ void sub_75DB0()//256db0
 	x_WORD_17D724 = x_DWORD_17D720[1] & 0xffff;
 	x_WORD_17D726 = (x_DWORD_17D720[1] & 0xffff0000) >> 16;
 	while (x_WORD_17D724 != 0xf1fa/*-3590*/)
-		myprintf("ERROR UNKNOWN FRAME TYPE\n");
+		Logger->error("ERROR UNKNOWN FRAME TYPE");
 	DataFileIO::Read(x_DWORD_17DB38_intro_file_handle, x_DWORD_E9C38_smalltit, x_DWORD_17D720[0] - 16);
 	x_DWORD_E1300 += x_DWORD_17D720[0];
 }
@@ -344,7 +346,7 @@ void /*__fastcall*/ sub_75E70()//256e70
 	sub_75CB0();//256cb0
 	if (v23)
 	{
-		sub_9A0FC_wait_to_screen_beam();//27b0fc
+		//sub_9A0FC_wait_to_screen_beam();//27b0fc
 		if (x_WORD_E12FC)
 		{
 			/*uint8_t origbyte = 0;
@@ -356,20 +358,20 @@ void /*__fastcall*/ sub_75E70()//256e70
 			v19 = getPaletteIndex_5BE80(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu);
 			sub_2EC90(v19);//20fc90 -zde se prekresli texty
 		}
+		fix_sub_9A0FC_wait_to_screen_beam();
 	}
-	int tempSpeed = speedGame;
-	speedGame = speedAnim;
+
 	if (x_BYTE_D41C1)
 	{
 		pdwScreenBuffer_351628 += 0x26C0;
-		sub_90478_VGA_Blit320();
+		sub_90478_VGA_Blit320(fmvFps);
 		pdwScreenBuffer_351628 -= 0x26C0;
 	}
 	else
 	{
-		sub_90478_VGA_Blit320();
+		sub_90478_VGA_Blit320(fmvFps);
 	}
-	speedGame = tempSpeed;
+
 }
 
 //----- (0002EC60) --------------------------------------------------------
@@ -623,12 +625,20 @@ void sub_75CB0()//256cb0
 //----- (0009A0FC) --------------------------------------------------------
 void sub_9A0FC_wait_to_screen_beam()//27B0fc
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	/*unsigned __int8 result; // al
 
 	do
 	  result = __inx_BYTE(0x3DAu);
 	while ( !(result & 8) );
 	return result;*/
+	VGA_Blit(nullptr);
+	mydelay(10);
+}
+
+void fix_sub_9A0FC_wait_to_screen_beam()//27B0fc
+{
 	VGA_Blit(nullptr);
 	mydelay(10);
 }

@@ -48,6 +48,7 @@ class CommandLineParser {
         bool DoSetLevel() const {return m_set_level;};
         bool DoTestNetworkChng1() const {return m_test_network_chng1;};
         bool DoShowDebugMessages1() const { return m_show_debug_messages1;};
+        bool DoShowDebugPerifery() const { return m_show_debug_perifery; };
         bool DoTextOutputToConsole() const { return m_text_output_to_console;};
 
         // settings
@@ -96,6 +97,7 @@ class CommandLineParser {
         bool m_set_level;
         bool m_test_network_chng1;
         bool m_show_debug_messages1;
+        bool m_show_debug_perifery;
         bool m_text_output_to_console;
         std::string m_memimages_path;
         std::string m_config_file_path;
