@@ -383,7 +383,6 @@ void GameRenderNG::DrawSky_40950(int16_t roll)
 	}
 	int lineWidthSQ = skyTextSize * skyTextSize;
 
-	int texturePixelIndex;
 	bsaxis_2d errLine[3840]; // for 4K
 	int beginX;
 	int beginY;
@@ -418,31 +417,30 @@ void GameRenderNG::DrawSky_40950(int16_t roll)
 	beginY = -(cosRoll * addY + sinRoll * addX);
 	uint16_t height = viewPort.Height_DE568;
 
-	if (viewPort.Height_DE568)
-	{
-		do
+	for (int height = viewPort.Height_DE568 - 1; height >= 0; height--)
 		{
 			index = 0;
 			uint8_t* viewPortLineRenderBufferStart = viewPortRenderBufferStart;
 
-			texturePixelIndex = (beginX / (256 * 256)) + skyTextSize * (int)(beginY / (256 * 256));
+			int texturePixelIndex = ((uint32)beginX / (256 * 256)) + ((uint32)beginY / (256 * 256)) * skyTextSize;
 			texturePixelIndex = (texturePixelIndex + lineWidthSQ * 2) % lineWidthSQ;
+
+			int texturePixelIndexX = texturePixelIndex % skyTextSize;
+			int texturePixelIndexY = (int32)(texturePixelIndex / skyTextSize);
 
 			//Scales sky texture to viewport
 			for (uint8_t* endLine = viewPortLineRenderBufferStart + viewPort.Width_DE564; viewPortLineRenderBufferStart < endLine; viewPortLineRenderBufferStart++)
 			{
-				*viewPortLineRenderBufferStart = off_D41A8_sky[texturePixelIndex];
-				texturePixelIndex += errLine[index].x + skyTextSize * errLine[index].y;
-				texturePixelIndex = (texturePixelIndex + lineWidthSQ) % lineWidthSQ;
+				*viewPortLineRenderBufferStart = off_D41A8_sky[texturePixelIndexX + skyTextSize * texturePixelIndexY];
+				texturePixelIndexX = (texturePixelIndexX + errLine[index].x + skyTextSize) % skyTextSize;
+				texturePixelIndexY = (texturePixelIndexY + errLine[index].y + skyTextSize) % skyTextSize;
 				index++;
 			}
 
 			viewPortRenderBufferStart = viewPortRenderBufferStart + iScreenWidth_DE560;
-			height = Maths::SubtrackUntilZero(height, 1);
 			beginX -= sinRoll;
 			beginY += cosRoll;
-		} while (height);
-	}
+		} 
 
 	CompareWith((char*)"DrawSky", 0, 320 * 200, (uint8*)ViewPortRenderBufferStart_DE558);
 }
