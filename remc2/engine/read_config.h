@@ -38,6 +38,7 @@ extern int windowResHeight;
 extern int gameResWidth;
 extern int gameResHeight;
 extern bool maintainAspectRatio;
+extern bool forceWindow;
 extern bool bigTextures;
 extern bool bigSprites;
 extern bool sky;
