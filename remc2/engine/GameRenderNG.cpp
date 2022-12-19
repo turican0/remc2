@@ -1,6 +1,8 @@
 #include "GameRenderNG.h"
 #include "CommandLineParser.h"
 
+#include "Compare.h"
+
 GameRenderNG::~GameRenderNG()
 {
 }
@@ -371,6 +373,9 @@ void GameRenderNG::DrawSky_40950_old(int16_t roll/*, uint8_t startLine, uint8_t 
 
 void GameRenderNG::DrawSky_40950(int16_t roll)
 {
+	DrawSky_40950_old(roll);
+	SaveCompare((char*)"DrawSky", 0, 320 * 200, (uint8*)ViewPortRenderBufferStart_DE558);
+
 	int skyTextSize = 256;
 	if (x_BYTE_D41B5_texture_size == 128)
 	{
@@ -438,6 +443,8 @@ void GameRenderNG::DrawSky_40950(int16_t roll)
 			beginY += cosRoll;
 		} while (height);
 	}
+
+	CompareWith((char*)"DrawSky", 0, 320 * 200, (uint8*)ViewPortRenderBufferStart_DE558);
 }
 
 
