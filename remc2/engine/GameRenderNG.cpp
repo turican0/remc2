@@ -385,7 +385,7 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 	//__int16 result; // ax
 	//int v12; // eax
 	char* v13; // esi
-	uint32_t* v14; // edi
+	//uint32_t* v14; // edi
 	uint8_t* v15; // edx
 	int v16; // ecx
 	int v17; // ebx
@@ -443,8 +443,8 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 			- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
 				+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;*/
 		v13 = (char*)errLine;
-		v14 = (uint32_t*)viewPortRenderBufferStart;
-		uint8* v14x = (uint8_t*)viewPortRenderBufferStart;
+		//v14 = (uint32_t*)viewPortRenderBufferStart;
+		uint8* viewPortLineRenderBufferStart = (uint8_t*)viewPortRenderBufferStart;
 		v15 = off_D41A8_sky;		
 		v16 = ((unsigned __int16)viewPort.Width_DE564
 			- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
@@ -457,10 +457,10 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 
 		do
 		{
-			v14x[0] = v15[v17];
+			*viewPortLineRenderBufferStart = v15[v17];
 			LOBYTE(v17) += v13[0];
 			BYTE1(v17) += v13[1];
-			v14x++;
+			viewPortLineRenderBufferStart++;
 			v13 += 2;
 			v16--;
 		} while (v16);
