@@ -70,7 +70,6 @@ private:
 	int16_t x_WORD_F2CC4 = 0;
 	uint8_t* x_DWORD_DE55C_ActTexture = 0;
 
-	void DrawSky_40950_old(int16_t roll);
 	void DrawSky_40950(int16_t roll);
 	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov);
 	void DrawSprite_41BD3(uint32 a1);
