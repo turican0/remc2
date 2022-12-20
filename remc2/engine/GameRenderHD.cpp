@@ -326,69 +326,56 @@ void GameRenderHD::DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEv
 	}
 	int lineWidthSQ = skyTextSize * skyTextSize;
 
-	int texturePixelIndex;
 	bsaxis_2d errLine[3840]; // for 4K
-	int beginX;
-	int beginY;
-
+	uint32 beginX;
+	uint32 beginY;
 	int roundRoll = roll & 0x7FF;
-	int sinRoll = (Maths::x_DWORD_DB750[roundRoll] * skyTextSize) / viewPort.Width_DE564;
-	int cosRoll = (Maths::x_DWORD_DB750[512 + roundRoll] * skyTextSize) / viewPort.Width_DE564;
+	int sinRoll = (Maths::x_DWORD_DB750[roundRoll] << 8) / viewPort.Width_DE564;
 	int errorX = 0;
+	int cosRoll = (Maths::x_DWORD_DB750[512 + roundRoll] << 8) / viewPort.Width_DE564;
 	int errorY = 0;
 	int8_t oldErrorX = 0;
 	int8_t oldErrorY = 0;
-	int index = 0;
 
 	// prepare sky texture lookup table
-	uint16_t width = viewPort.Width_DE564;
-	while (width)
+	for (uint16_t width = 0; width < viewPort.Width_DE564; width++)
 	{
-		errLine[index].x = BYTE2(errorX) - oldErrorX;
-		errLine[index].y = BYTE2(errorY) - oldErrorY;
+		errLine[width].x = BYTE2(errorX) - oldErrorX;
+		errLine[width].y = BYTE2(errorY) - oldErrorY;
 		oldErrorX = BYTE2(errorX);
 		oldErrorY = BYTE2(errorY);
 		errorY += sinRoll;
 		errorX += cosRoll;
-		index++;
-		width--;
 	}
 
 	uint8_t* viewPortRenderBufferStart = (ViewPortRenderBufferStart_DE558 + (startLine * iScreenWidth_DE560));
 	int addX = (-(str_F2C20ar.dword0x0d * str_F2C20ar.dword0x22) >> 16) + str_F2C20ar.dword0x24;
 	int addY = str_F2C20ar.dword0x10 - (str_F2C20ar.dword0x11 * str_F2C20ar.dword0x22 >> 16);
-	beginX = (x_WORD_F2CC0 << 15) * (skyTextSize / 256) - (addX * cosRoll - addY * sinRoll);
+	beginX = (x_WORD_F2CC0 << 15) - (addX * cosRoll - addY * sinRoll);
 	beginY = -(cosRoll * addY + sinRoll * addX);
-	uint16_t height = viewPort.Height_DE568;
 
 	beginX -= (sinRoll * startLine);
 	beginY += (cosRoll * startLine);
 
-	if (viewPort.Height_DE568)
+	for (int height = 0; height < viewPort.Height_DE568; height+= drawEveryNthLine)
 	{
-		do
+		uint8* viewPortLineRenderBufferStart = viewPortRenderBufferStart;
+
+		uint32 texturePixelIndexX = (beginX >> 16) % (skyTextSize - 1);
+		uint32 texturePixelIndexY = (beginY >> 16) % (skyTextSize - 1);
+
+		//Scales sky texture to viewport
+		for (uint16_t width = 0; width < viewPort.Width_DE564; width++)
 		{
-			index = 0;
-			uint8_t* viewPortLineRenderBufferStart = viewPortRenderBufferStart;
-
-			texturePixelIndex = (beginX / (256 * 256)) + skyTextSize * (int)(beginY / (256 * 256));
-			texturePixelIndex = (texturePixelIndex + lineWidthSQ * 2) % lineWidthSQ;
-
-			//Scales sky texture to viewport
-			for (uint8_t* endLine = viewPortLineRenderBufferStart + viewPort.Width_DE564; viewPortLineRenderBufferStart < endLine; viewPortLineRenderBufferStart++)
-			{
-				*viewPortLineRenderBufferStart = off_D41A8_sky[texturePixelIndex];
-				texturePixelIndex += errLine[index].x + skyTextSize * errLine[index].y;
-				texturePixelIndex = (texturePixelIndex + lineWidthSQ) % lineWidthSQ;
-				index++;
-			}
-
-			viewPortRenderBufferStart = viewPortRenderBufferStart + (iScreenWidth_DE560 * drawEveryNthLine);
-			height = Maths::SubtrackUntilZero(height, drawEveryNthLine);
-			beginX -= (sinRoll * drawEveryNthLine);
-			beginY += (cosRoll * drawEveryNthLine);
-		} while (height);
-	}
+			*viewPortLineRenderBufferStart = off_D41A8_sky[texturePixelIndexX + skyTextSize * texturePixelIndexY];
+			texturePixelIndexX = (texturePixelIndexX + errLine[width].x + skyTextSize) % skyTextSize;
+			texturePixelIndexY = (texturePixelIndexY + errLine[width].y + skyTextSize) % skyTextSize;
+			viewPortLineRenderBufferStart++;
+		}
+		viewPortRenderBufferStart = viewPortRenderBufferStart + (iScreenWidth_DE560 * drawEveryNthLine);
+		beginX -= (sinRoll * drawEveryNthLine);
+		beginY += (cosRoll * drawEveryNthLine);
+	}	
 }
 
 /*
