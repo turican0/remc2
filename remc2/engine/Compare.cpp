@@ -38,7 +38,6 @@ void SaveCompare(char* name, int value, int len, uint8_t* sequence)
 void CompareWith(char* name, int value, int len, uint8_t* sequence)
 {
 	uint32_t locIndex = getcompindex(HashFromStr(name, 0));
-	locIndex = 0;
 	uint8_t compBuffer[100000];
 	if (len == -1)
 	{

@@ -72,6 +72,7 @@ private:
 
 	void DrawSky_40950_old(int16_t roll);
 	void DrawSky_40950(int16_t roll);
+	void DrawSky_40950_new(int16_t roll);
 	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov);
 	void DrawSprite_41BD3(uint32 a1);
 	void DrawParticles_3E360(int a2x);
