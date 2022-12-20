@@ -373,7 +373,7 @@ void GameRenderNG::DrawSky_40950_old(int16_t roll/*, uint8_t startLine, uint8_t 
 
 void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t drawEveryNthLine*/)
 {
-	int v1; // ebx
+	int roundRoll; // ebx
 	int v2; // edx
 	int v3; // esi
 	int v4; // ebx
@@ -403,9 +403,16 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 	char v29; // [esp+524h] [ebp-8h]
 	unsigned __int8 v30; // [esp+528h] [ebp-4h]
 
-	v1 = roll & 0x7FF;
-	v2 = (x_DWORD)Maths::x_DWORD_DB750[512 + v1] << 8;
-	v26 = (Maths::x_DWORD_DB750[v1] << 8) / viewPort.Width_DE564;
+	int skyTextSize = 256;
+	if (x_BYTE_D41B5_texture_size == 128)
+	{
+		skyTextSize = 1024;
+	}
+	int lineWidthSQ = skyTextSize * skyTextSize;
+
+	roundRoll = roll & 0x7FF;
+	v2 = (x_DWORD)Maths::x_DWORD_DB750[512 + roundRoll] << 8;
+	v26 = (Maths::x_DWORD_DB750[roundRoll] << 8) / viewPort.Width_DE564;
 	v3 = 0;
 	v25 = v2 / viewPort.Width_DE564;
 	v4 = 0;
