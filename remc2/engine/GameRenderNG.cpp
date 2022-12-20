@@ -373,15 +373,15 @@ void GameRenderNG::DrawSky_40950_old(int16_t roll/*, uint8_t startLine, uint8_t 
 
 void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t drawEveryNthLine*/)
 {
-	int roundRoll; // ebx
+	//int roundRoll; // ebx
 	//int v2; // edx
 	//int v3; // esi
 	//int v4; // ebx
 	char* v5; // edx
-	int v7; // edx
-	int v8; // eax
-	int v9; // ecx
-	int v10; // edx
+	//int v7; // edx
+	//int v8; // eax
+	//int v9; // ecx
+	//int v10; // edx
 	//__int16 result; // ax
 	int v12; // eax
 	char* v13; // esi
@@ -390,18 +390,18 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 	int v16; // ecx
 	int v17; // ebx
 	int v18; // eax
-	char v19ar[0x500]; // [esp+0h] [ebp-52Ch]
+	//char v19ar[0x500]; // [esp+0h] [ebp-52Ch]
 	//int v20; // [esp+500h] [ebp-2Ch]
 	//int v21; // [esp+504h] [ebp-28h]
 	//int* viewPortRenderBufferStart; // [esp+508h] [ebp-24h]
-	int v23; // [esp+50Ch] [ebp-20h]
-	int v24; // [esp+510h] [ebp-1Ch]
+	//int v23; // [esp+50Ch] [ebp-20h]
+	//int v24; // [esp+510h] [ebp-1Ch]
 	//int v25; // [esp+514h] [ebp-18h]
 	//int v26; // [esp+518h] [ebp-14h]
-	int v27; // [esp+51Ch] [ebp-10h]
-	char v28; // [esp+520h] [ebp-Ch]
-	char v29; // [esp+524h] [ebp-8h]
-	unsigned __int8 v30; // [esp+528h] [ebp-4h]
+	//int v27; // [esp+51Ch] [ebp-10h]
+	//char v28; // [esp+520h] [ebp-Ch]
+	//char v29; // [esp+524h] [ebp-8h]
+	//unsigned __int8 v30; // [esp+528h] [ebp-4h]
 
 	int skyTextSize = 256;
 	if (x_BYTE_D41B5_texture_size == 128)
@@ -410,86 +410,73 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 	}
 	int lineWidthSQ = skyTextSize * skyTextSize;
 
-	roundRoll = roll & 0x7FF;
-	//v2 = (x_DWORD)Maths::x_DWORD_DB750[512 + roundRoll] << 8;
+	bsaxis_2d errLine[3840]; // for 4K
+	int beginX;
+	int beginY;
+	int roundRoll = roll & 0x7FF;
 	int sinRoll = (Maths::x_DWORD_DB750[roundRoll] << 8) / viewPort.Width_DE564;
 	int errorX = 0;
 	int cosRoll = (Maths::x_DWORD_DB750[512 + roundRoll] << 8) / viewPort.Width_DE564;
 	int errorY = 0;
-	v29 = 0;
-	v5 = v19ar;
-	v30 = 0;
+	int8_t oldErrorX = 0;
+	int8_t oldErrorY = 0;
 
 	// prepare sky texture lookup table
-	uint16_t width = viewPort.Width_DE564;
-	while (width)
+	for (uint16_t width = 0; width < viewPort.Width_DE564; width++)
 	{
-		v28 = BYTE2(errorX);
-		*v5 = BYTE2(errorX) - v29;
-		//v21 = BYTE2(v4);
-		//v20 = BYTE2(v4) - v30;
-		v5 += 2;
-		width--;
-		*(v5 - 1) = BYTE2(errorY) - v30;
-		v29 = v28;
-		v30 = BYTE2(errorY);
+		errLine[width].x = BYTE2(errorX) - oldErrorX;
+		errLine[width].y = BYTE2(errorY) - oldErrorY;
+		oldErrorX = BYTE2(errorX);
+		oldErrorY = BYTE2(errorY);
 		errorY += sinRoll;
 		errorX += cosRoll;
 	}
-	v7 = (-(str_F2C20ar.dword0x0d * str_F2C20ar.dword0x22) >> 16) + str_F2C20ar.dword0x24;
-	v8 = str_F2C20ar.dword0x10 - (str_F2C20ar.dword0x11 * str_F2C20ar.dword0x22 >> 16);
-	v9 = v7 * cosRoll - v8 * sinRoll;
-	v10 = cosRoll * v8 + sinRoll * v7;
-	v23 = ((unsigned __int16)x_WORD_F2CC0 << 15) - v9;
+
 	uint8_t* viewPortRenderBufferStart = ViewPortRenderBufferStart_DE558;
-	//result = viewPort.Height_DE568;
-	v27 = -v10;
-	v24 = (unsigned __int16)viewPort.Height_DE568;
-	if ((x_WORD)viewPort.Height_DE568)
+	int addX = (-(str_F2C20ar.dword0x0d * str_F2C20ar.dword0x22) >> 16) + str_F2C20ar.dword0x24;
+	int addY = str_F2C20ar.dword0x10 - (str_F2C20ar.dword0x11 * str_F2C20ar.dword0x22 >> 16);
+	//v9 = addX * cosRoll - addY * sinRoll;
+	//v10 = cosRoll * addY + sinRoll * addX;
+	beginX = (x_WORD_F2CC0 << 15) - (addX * cosRoll - addY * sinRoll);
+	beginY = -(cosRoll * addY + sinRoll * addX);
+	for (int height = 0; height < viewPort.Height_DE568; height++)
 	{
+		v12 = ((unsigned __int16)viewPort.Width_DE564
+			- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
+				+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
+		v13 = (char*)errLine;
+		v14 = (uint32_t*)viewPortRenderBufferStart;
+		v15 = off_D41A8_sky;
+		BYTE1(v17) = BYTE2(beginY);
+		v16 = ((unsigned __int16)viewPort.Width_DE564
+			- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
+				+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
+		LOBYTE(v17) = BYTE2(beginX);
+		v17 = (unsigned __int16)v17;
 		do
 		{
-			v12 = ((unsigned __int16)viewPort.Width_DE564
-				- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
-					+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
-			v13 = v19ar;
-			//v20 = v27 >> 16;
-			v14 = (uint32_t*)viewPortRenderBufferStart;
-			//v21 = v23 >> 16;
-			v15 = off_D41A8_sky;
-			BYTE1(v17) = BYTE2(v27);
-			v16 = ((unsigned __int16)viewPort.Width_DE564
-				- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
-					+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
-			LOBYTE(v17) = BYTE2(v23);
-			v17 = (unsigned __int16)v17;
-			do
-			{
-				LOBYTE(v12) = v15[v17];
-				LOBYTE(v17) = *v13 + v17;
-				BYTE1(v17) += v13[1];
-				BYTE1(v12) = v15[v17];
-				LOBYTE(v17) = v13[2] + v17;
-				BYTE1(v17) += v13[3];
-				v18 = v12 << 16;
-				LOBYTE(v18) = v15[v17];
-				LOBYTE(v17) = v13[4] + v17;
-				BYTE1(v17) += v13[5];
-				BYTE1(v18) = v15[v17];
-				LOBYTE(v17) = v13[6] + v17;
-				BYTE1(v17) += v13[7];
-				v12 = __ROL4_16__(v18);
-				*v14 = v12;
-				v14++;
-				v13 += 8;
-				v16--;
-			} while (v16);
-			viewPortRenderBufferStart += iScreenWidth_DE560;
-			//result = v25;
-			v24--;
-			v23 -= sinRoll;
-			v27 += cosRoll;
-		} while (v24);
+			LOBYTE(v12) = v15[v17];
+			LOBYTE(v17) = *v13 + v17;
+			BYTE1(v17) += v13[1];
+			BYTE1(v12) = v15[v17];
+			LOBYTE(v17) = v13[2] + v17;
+			BYTE1(v17) += v13[3];
+			v18 = v12 << 16;
+			LOBYTE(v18) = v15[v17];
+			LOBYTE(v17) = v13[4] + v17;
+			BYTE1(v17) += v13[5];
+			BYTE1(v18) = v15[v17];
+			LOBYTE(v17) = v13[6] + v17;
+			BYTE1(v17) += v13[7];
+			v12 = __ROL4_16__(v18);
+			*v14 = v12;
+			v14++;
+			v13 += 8;
+			v16--;
+		} while (v16);
+		viewPortRenderBufferStart += iScreenWidth_DE560;
+		beginX -= sinRoll;
+		beginY += cosRoll;
 	}
 
 	CompareWith((char*)"DrawSky", 0, 320 * 200, (uint8*)ViewPortRenderBufferStart_DE558);
