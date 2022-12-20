@@ -388,7 +388,7 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 	//uint32_t* v14; // edi
 	uint8_t* v15; // edx
 	int v16; // ecx
-	int v17; // ebx
+	//int v17; // ebx
 	int v18; // eax
 	//char v19ar[0x500]; // [esp+0h] [ebp-52Ch]
 	//int v20; // [esp+500h] [ebp-2Ch]
@@ -449,17 +449,17 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 		v16 = ((unsigned __int16)viewPort.Width_DE564
 			- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
 				+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
-		LOBYTE(v17) = BYTE2(beginX);
-		BYTE1(v17) = BYTE2(beginY);
-		v17 = (unsigned __int16)v17;
+		int texturePixelIndexX = BYTE2(beginX);
+		int texturePixelIndexY = BYTE2(beginY);
+		//v17 = (unsigned __int16)v17;
 
 		v16 *= 4;
 
 		do
 		{
-			*viewPortLineRenderBufferStart = v15[v17];
-			LOBYTE(v17) += v13[0];
-			BYTE1(v17) += v13[1];
+			*viewPortLineRenderBufferStart = v15[texturePixelIndexX + skyTextSize * texturePixelIndexY];
+			texturePixelIndexX = (texturePixelIndexX + v13[0] + skyTextSize) % skyTextSize;
+			texturePixelIndexY = (texturePixelIndexY + v13[1] + skyTextSize) % skyTextSize;
 			viewPortLineRenderBufferStart++;
 			v13 += 2;
 			v16--;
