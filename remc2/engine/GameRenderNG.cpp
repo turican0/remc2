@@ -384,10 +384,10 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 	//int v10; // edx
 	//__int16 result; // ax
 	//int v12; // eax
-	char* v13; // esi
+	//char* v13; // esi
 	//uint32_t* v14; // edi
-	uint8_t* v15; // edx
-	int v16; // ecx
+	//uint8_t* v15; // edx
+	//int v16; // ecx
 	//int v17; // ebx
 	int v18; // eax
 	//char v19ar[0x500]; // [esp+0h] [ebp-52Ch]
@@ -439,31 +439,19 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 	beginY = -(cosRoll * addY + sinRoll * addX);
 	for (int height = 0; height < viewPort.Height_DE568; height++)
 	{
-		/*v12 = ((unsigned __int16)viewPort.Width_DE564
-			- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
-				+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;*/
-		v13 = (char*)errLine;
-		//v14 = (uint32_t*)viewPortRenderBufferStart;
 		uint8* viewPortLineRenderBufferStart = (uint8_t*)viewPortRenderBufferStart;
-		v15 = off_D41A8_sky;		
-		v16 = ((unsigned __int16)viewPort.Width_DE564
-			- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
-				+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
+		//v15 = off_D41A8_sky;		
 		int texturePixelIndexX = BYTE2(beginX);
 		int texturePixelIndexY = BYTE2(beginY);
-		//v17 = (unsigned __int16)v17;
 
-		v16 *= 4;
-
-		do
+		//Scales sky texture to viewport
+		for (uint16_t width = 0; width < viewPort.Width_DE564; width++)
 		{
-			*viewPortLineRenderBufferStart = v15[texturePixelIndexX + skyTextSize * texturePixelIndexY];
-			texturePixelIndexX = (texturePixelIndexX + v13[0] + skyTextSize) % skyTextSize;
-			texturePixelIndexY = (texturePixelIndexY + v13[1] + skyTextSize) % skyTextSize;
+			*viewPortLineRenderBufferStart = off_D41A8_sky[texturePixelIndexX + skyTextSize * texturePixelIndexY];
+			texturePixelIndexX = (texturePixelIndexX + errLine[width].x + skyTextSize) % skyTextSize;
+			texturePixelIndexY = (texturePixelIndexY + errLine[width].y + skyTextSize) % skyTextSize;
 			viewPortLineRenderBufferStart++;
-			v13 += 2;
-			v16--;
-		} while (v16);
+		}
 		viewPortRenderBufferStart += iScreenWidth_DE560;
 		beginX -= sinRoll;
 		beginY += cosRoll;
