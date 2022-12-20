@@ -374,9 +374,9 @@ void GameRenderNG::DrawSky_40950_old(int16_t roll/*, uint8_t startLine, uint8_t 
 void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t drawEveryNthLine*/)
 {
 	int roundRoll; // ebx
-	int v2; // edx
-	int v3; // esi
-	int v4; // ebx
+	//int v2; // edx
+	//int v3; // esi
+	//int v4; // ebx
 	char* v5; // edx
 	int v7; // edx
 	int v8; // eax
@@ -396,8 +396,8 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 	//int* viewPortRenderBufferStart; // [esp+508h] [ebp-24h]
 	int v23; // [esp+50Ch] [ebp-20h]
 	int v24; // [esp+510h] [ebp-1Ch]
-	int v25; // [esp+514h] [ebp-18h]
-	int v26; // [esp+518h] [ebp-14h]
+	//int v25; // [esp+514h] [ebp-18h]
+	//int v26; // [esp+518h] [ebp-14h]
 	int v27; // [esp+51Ch] [ebp-10h]
 	char v28; // [esp+520h] [ebp-Ch]
 	char v29; // [esp+524h] [ebp-8h]
@@ -411,11 +411,11 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 	int lineWidthSQ = skyTextSize * skyTextSize;
 
 	roundRoll = roll & 0x7FF;
-	v2 = (x_DWORD)Maths::x_DWORD_DB750[512 + roundRoll] << 8;
-	v26 = (Maths::x_DWORD_DB750[roundRoll] << 8) / viewPort.Width_DE564;
-	v3 = 0;
-	v25 = v2 / viewPort.Width_DE564;
-	v4 = 0;
+	//v2 = (x_DWORD)Maths::x_DWORD_DB750[512 + roundRoll] << 8;
+	int sinRoll = (Maths::x_DWORD_DB750[roundRoll] << 8) / viewPort.Width_DE564;
+	int errorX = 0;
+	int cosRoll = (Maths::x_DWORD_DB750[512 + roundRoll] << 8) / viewPort.Width_DE564;
+	int errorY = 0;
 	v29 = 0;
 	v5 = v19ar;
 	v30 = 0;
@@ -424,22 +424,22 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 	uint16_t width = viewPort.Width_DE564;
 	while (width)
 	{
-		v28 = BYTE2(v3);
-		*v5 = BYTE2(v3) - v29;
+		v28 = BYTE2(errorX);
+		*v5 = BYTE2(errorX) - v29;
 		//v21 = BYTE2(v4);
 		//v20 = BYTE2(v4) - v30;
 		v5 += 2;
 		width--;
-		*(v5 - 1) = BYTE2(v4) - v30;
+		*(v5 - 1) = BYTE2(errorY) - v30;
 		v29 = v28;
-		v30 = BYTE2(v4);
-		v4 += v26;
-		v3 += v25;
+		v30 = BYTE2(errorY);
+		errorY += sinRoll;
+		errorX += cosRoll;
 	}
 	v7 = (-(str_F2C20ar.dword0x0d * str_F2C20ar.dword0x22) >> 16) + str_F2C20ar.dword0x24;
 	v8 = str_F2C20ar.dword0x10 - (str_F2C20ar.dword0x11 * str_F2C20ar.dword0x22 >> 16);
-	v9 = v7 * v25 - v8 * v26;
-	v10 = v25 * v8 + v26 * v7;
+	v9 = v7 * cosRoll - v8 * sinRoll;
+	v10 = cosRoll * v8 + sinRoll * v7;
 	v23 = ((unsigned __int16)x_WORD_F2CC0 << 15) - v9;
 	uint8_t* viewPortRenderBufferStart = ViewPortRenderBufferStart_DE558;
 	//result = viewPort.Height_DE568;
@@ -487,8 +487,8 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 			viewPortRenderBufferStart += iScreenWidth_DE560;
 			//result = v25;
 			v24--;
-			v23 -= v26;
-			v27 += v25;
+			v23 -= sinRoll;
+			v27 += cosRoll;
 		} while (v24);
 	}
 
