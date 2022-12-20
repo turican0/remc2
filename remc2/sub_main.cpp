@@ -37869,10 +37869,10 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 						m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (uint16_t)screenWidth_18062C, (uint16_t)screenHeight_180624, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 					else
 					{
-						if ((gameResWidth <= 640) && (gameResHeight <= 480)) {
+						/*if ((gameResWidth <= 640) && (gameResHeight <= 480)) {
 							m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
 						}
-						else {
+						else*/ {
 							m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (uint16_t)screenWidth_18062C, (uint16_t)screenHeight_180624, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 						}
 					}
