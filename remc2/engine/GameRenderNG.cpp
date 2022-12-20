@@ -435,8 +435,6 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 	uint8_t* viewPortRenderBufferStart = ViewPortRenderBufferStart_DE558;
 	int addX = (-(str_F2C20ar.dword0x0d * str_F2C20ar.dword0x22) >> 16) + str_F2C20ar.dword0x24;
 	int addY = str_F2C20ar.dword0x10 - (str_F2C20ar.dword0x11 * str_F2C20ar.dword0x22 >> 16);
-	//v9 = addX * cosRoll - addY * sinRoll;
-	//v10 = cosRoll * addY + sinRoll * addX;
 	beginX = (x_WORD_F2CC0 << 15) - (addX * cosRoll - addY * sinRoll);
 	beginY = -(cosRoll * addY + sinRoll * addX);
 	for (int height = 0; height < viewPort.Height_DE568; height++)
@@ -446,6 +444,7 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 				+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
 		v13 = (char*)errLine;
 		v14 = (uint32_t*)viewPortRenderBufferStart;
+		uint8* v14x = (uint8_t*)viewPortRenderBufferStart;
 		v15 = off_D41A8_sky;
 		BYTE1(v17) = BYTE2(beginY);
 		v16 = ((unsigned __int16)viewPort.Width_DE564
@@ -453,10 +452,39 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 				+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
 		LOBYTE(v17) = BYTE2(beginX);
 		v17 = (unsigned __int16)v17;
+
+		v16 *= 4;
+
 		do
 		{
 			LOBYTE(v12) = v15[v17];
-			LOBYTE(v17) = *v13 + v17;
+			LOBYTE(v17) = v13[0] + v17;
+			BYTE1(v17) += v13[1];
+			/*
+			BYTE1(v12) = v15[v17];
+			LOBYTE(v17) = v13[2] + v17;
+			BYTE1(v17) += v13[3];
+			v18 = v12 << 16;
+			LOBYTE(v18) = v15[v17];
+			LOBYTE(v17) = v13[4] + v17;
+			BYTE1(v17) += v13[5];
+			BYTE1(v18) = v15[v17];
+			LOBYTE(v17) = v13[6] + v17;
+			BYTE1(v17) += v13[7];
+			v12 = __ROL4_16__(v18);
+			v14[0] = v12;
+			v14++;
+			v13 += 8;
+			v16--;*/
+			v14x[0] = v12;
+			v14x++;
+			v13 += 2;
+			v16--;
+		} while (v16);
+		/*do
+		{
+			LOBYTE(v12) = v15[v17];
+			LOBYTE(v17) = v13[0] + v17;
 			BYTE1(v17) += v13[1];
 			BYTE1(v12) = v15[v17];
 			LOBYTE(v17) = v13[2] + v17;
@@ -469,11 +497,11 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 			LOBYTE(v17) = v13[6] + v17;
 			BYTE1(v17) += v13[7];
 			v12 = __ROL4_16__(v18);
-			*v14 = v12;
+			v14[0] = v12;
 			v14++;
 			v13 += 8;
 			v16--;
-		} while (v16);
+		} while (v16);*/
 		viewPortRenderBufferStart += iScreenWidth_DE560;
 		beginX -= sinRoll;
 		beginY += cosRoll;
