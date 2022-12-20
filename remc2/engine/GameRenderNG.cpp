@@ -383,7 +383,7 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 	//int v9; // ecx
 	//int v10; // edx
 	//__int16 result; // ax
-	int v12; // eax
+	//int v12; // eax
 	char* v13; // esi
 	uint32_t* v14; // edi
 	uint8_t* v15; // edx
@@ -439,69 +439,31 @@ void GameRenderNG::DrawSky_40950(int16_t roll/*, uint8_t startLine, uint8_t draw
 	beginY = -(cosRoll * addY + sinRoll * addX);
 	for (int height = 0; height < viewPort.Height_DE568; height++)
 	{
-		v12 = ((unsigned __int16)viewPort.Width_DE564
+		/*v12 = ((unsigned __int16)viewPort.Width_DE564
 			- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
-				+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
+				+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;*/
 		v13 = (char*)errLine;
 		v14 = (uint32_t*)viewPortRenderBufferStart;
 		uint8* v14x = (uint8_t*)viewPortRenderBufferStart;
-		v15 = off_D41A8_sky;
-		BYTE1(v17) = BYTE2(beginY);
+		v15 = off_D41A8_sky;		
 		v16 = ((unsigned __int16)viewPort.Width_DE564
 			- (__CFSHL__((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31, 2)
 				+ 4 * ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 31))) >> 2;
 		LOBYTE(v17) = BYTE2(beginX);
+		BYTE1(v17) = BYTE2(beginY);
 		v17 = (unsigned __int16)v17;
 
 		v16 *= 4;
 
 		do
 		{
-			LOBYTE(v12) = v15[v17];
-			LOBYTE(v17) = v13[0] + v17;
+			v14x[0] = v15[v17];
+			LOBYTE(v17) += v13[0];
 			BYTE1(v17) += v13[1];
-			/*
-			BYTE1(v12) = v15[v17];
-			LOBYTE(v17) = v13[2] + v17;
-			BYTE1(v17) += v13[3];
-			v18 = v12 << 16;
-			LOBYTE(v18) = v15[v17];
-			LOBYTE(v17) = v13[4] + v17;
-			BYTE1(v17) += v13[5];
-			BYTE1(v18) = v15[v17];
-			LOBYTE(v17) = v13[6] + v17;
-			BYTE1(v17) += v13[7];
-			v12 = __ROL4_16__(v18);
-			v14[0] = v12;
-			v14++;
-			v13 += 8;
-			v16--;*/
-			v14x[0] = v12;
 			v14x++;
 			v13 += 2;
 			v16--;
 		} while (v16);
-		/*do
-		{
-			LOBYTE(v12) = v15[v17];
-			LOBYTE(v17) = v13[0] + v17;
-			BYTE1(v17) += v13[1];
-			BYTE1(v12) = v15[v17];
-			LOBYTE(v17) = v13[2] + v17;
-			BYTE1(v17) += v13[3];
-			v18 = v12 << 16;
-			LOBYTE(v18) = v15[v17];
-			LOBYTE(v17) = v13[4] + v17;
-			BYTE1(v17) += v13[5];
-			BYTE1(v18) = v15[v17];
-			LOBYTE(v17) = v13[6] + v17;
-			BYTE1(v17) += v13[7];
-			v12 = __ROL4_16__(v18);
-			v14[0] = v12;
-			v14++;
-			v13 += 8;
-			v16--;
-		} while (v16);*/
 		viewPortRenderBufferStart += iScreenWidth_DE560;
 		beginX -= sinRoll;
 		beginY += cosRoll;
