@@ -269,9 +269,9 @@ void GameRenderNG::DrawSky_40950(int16_t roll)
 	uint32 beginX;
 	uint32 beginY;
 	int roundRoll = roll & 0x7FF;
-	int sinRoll = (Maths::x_DWORD_DB750[roundRoll] << 8) / viewPort.Width_DE564;
+	int sinRoll = (Maths::x_DWORD_DB750[roundRoll] * skyTextSize) / viewPort.Width_DE564;
+	int cosRoll = (Maths::x_DWORD_DB750[512 + roundRoll] * skyTextSize) / viewPort.Width_DE564;
 	int errorX = 0;
-	int cosRoll = (Maths::x_DWORD_DB750[512 + roundRoll] << 8) / viewPort.Width_DE564;
 	int errorY = 0;
 	int8_t oldErrorX = 0;
 	int8_t oldErrorY = 0;
@@ -279,10 +279,10 @@ void GameRenderNG::DrawSky_40950(int16_t roll)
 	// prepare sky texture lookup table
 	for (uint16_t width = 0; width < viewPort.Width_DE564; width++)
 	{
-		errLine[width].x = BYTE2(errorX) - oldErrorX;
-		errLine[width].y = BYTE2(errorY) - oldErrorY;
-		oldErrorX = BYTE2(errorX);
-		oldErrorY = BYTE2(errorY);
+		errLine[width].x = (errorX >> 16) - oldErrorX;
+		errLine[width].y = (errorY >> 16) - oldErrorY;
+		oldErrorX = (errorX >> 16);
+		oldErrorY = (errorY >> 16);
 		errorY += sinRoll;
 		errorX += cosRoll;
 	}
@@ -290,19 +290,25 @@ void GameRenderNG::DrawSky_40950(int16_t roll)
 	uint8_t* viewPortRenderBufferStart = ViewPortRenderBufferStart_DE558;
 	int addX = (-(str_F2C20ar.dword0x0d * str_F2C20ar.dword0x22) >> 16) + str_F2C20ar.dword0x24;
 	int addY = str_F2C20ar.dword0x10 - (str_F2C20ar.dword0x11 * str_F2C20ar.dword0x22 >> 16);
-	beginX = (x_WORD_F2CC0 << 15) - (addX * cosRoll - addY * sinRoll);
+	beginX = (x_WORD_F2CC0 << 15) * (skyTextSize / 256) - (addX * cosRoll - addY * sinRoll);
 	beginY = -(cosRoll * addY + sinRoll * addX);
+	
 	for (int height = 0; height < viewPort.Height_DE568; height++)
 	{
 		uint8* viewPortLineRenderBufferStart = viewPortRenderBufferStart;
 		
-		uint32 texturePixelIndexX = (beginX >> 16) % (skyTextSize - 1);
-		uint32 texturePixelIndexY = (beginY >> 16) % (skyTextSize - 1);
+		uint32 texturePixelIndexX = (beginX >> 16);
+		uint32 texturePixelIndexY = (beginY >> 16);
+		if (skyTextSize == 0x100)
+		{
+			texturePixelIndexX %= (skyTextSize - 1);
+			texturePixelIndexY %= (skyTextSize - 1);
+		}
 		
 		//Scales sky texture to viewport
 		for (uint16_t width = 0; width < viewPort.Width_DE564; width++)
 		{
-			*viewPortLineRenderBufferStart = off_D41A8_sky[texturePixelIndexX + skyTextSize * texturePixelIndexY];
+			*viewPortLineRenderBufferStart = off_D41A8_sky[(texturePixelIndexX + skyTextSize * texturePixelIndexY) % lineWidthSQ];
 			texturePixelIndexX = (texturePixelIndexX + errLine[width].x + skyTextSize) % skyTextSize;
 			texturePixelIndexY = (texturePixelIndexY + errLine[width].y + skyTextSize) % skyTextSize;
 			viewPortLineRenderBufferStart++;
@@ -311,6 +317,9 @@ void GameRenderNG::DrawSky_40950(int16_t roll)
 		beginX -= sinRoll;
 		beginY += cosRoll;
 	}
+
+	CompareWith((char*)"DrawSky", 0, 320 * 200, (uint8*)ViewPortRenderBufferStart_DE558);
+	allert_error();
 }
 
 void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov)
