@@ -29151,8 +29151,8 @@ LABEL_8:
 					v10 = Maths::sub_58490_radix_3d_2(&a1x->axis_0x4C_76, &v28x);
 					if (v10 < v35 && v10 >= v43)
 					{
-						v11 = (v44 * ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v10 << 10) / v35]) >> 1) >> 16)
-							* (0x10000 - Maths::x_DWORD_DB750[0x200 + v7]);
+						v11 = (v44 * ((x_DWORD)(0x10000 + (signed int)Maths::sin_DB750[0x200 + (v10 << 10) / v35]) >> 1) >> 16)
+							* (0x10000 - Maths::sin_DB750[0x200 + v7]);
 						v12 = v11 >> 16;
 						v45 = (v11 >> 18) + v42;
 						if (mapHeightmap_11B4E0[ix] < v45)
@@ -29516,7 +29516,7 @@ void sub_31940(type_event_0x6E8E* a1x)//212940
 				if (v11 < v6)
 				{
 					v12 = (a1x->word_0x2C_44
-						* ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v11 << 10) / v6]) >> 1) >> 16)
+						* ((x_DWORD)(0x10000 + (signed int)Maths::sin_DB750[0x200 + (v11 << 10) / v6]) >> 1) >> 16)
 						+ a1x->axis_0x4C_76.z;
 					v43 = v12;
 					v42 = mapHeightmap_11B4E0[v9x.word];
@@ -31712,7 +31712,7 @@ void sub_34C40(type_event_0x6E8E* a1x)//215c40
 					{
 						v22 = mapHeightmap_11B4E0[i];
 						v25 = x_BYTE_14B4E0_second_heightmap[i];
-						v18 = v14 * ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v8 << 10) / v7]) >> 1) >> 16;
+						v18 = v14 * ((x_DWORD)(0x10000 + (signed int)Maths::sin_DB750[0x200 + (v8 << 10) / v7]) >> 1) >> 16;
 						v9 = v18 + v23;
 						if (v18 + v23 > 254)
 							v9 = 254;
@@ -31879,7 +31879,7 @@ void sub_34EE0(/*signed int a1, int a2, */type_event_0x6E8E* a3x)//215ee0
 					v31 = v15;
 					if (v15 < v35)
 					{
-						v16 = v14 * ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v15 << 10) / v35]) >> 1);
+						v16 = v14 * ((x_DWORD)(0x10000 + (signed int)Maths::sin_DB750[0x200 + (v15 << 10) / v35]) >> 1);
 						v17 = a3x->model_0x40_64;
 						v18 = v16 >> 16;
 						if (v17 >= 0x54u)
@@ -34884,14 +34884,14 @@ void sub_39040(type_event_0x6E8E* a1x)//21a040
 									if (a1x->word_0x2C_44 < v11)
 										a1x->word_0x2C_44 = v11;
 									v50 = v11
-										- (((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + ((v48 - 2304) << 10) / 1536]) >> 1)
+										- (((x_DWORD)(0x10000 + (signed int)Maths::sin_DB750[0x200 + ((v48 - 2304) << 10) / 1536]) >> 1)
 											* (v11 - (a1x->axis_0x4C_76.z + 64)) >> 16);
 								}
 								else
 								{
 									v50 = a1x->axis_0x4C_76.z
 										+ 64
-										- ((0x10000 - Maths::x_DWORD_DB750[0x200 + ((2304 - v9) << 9) / 2304]) << 6 >> 16);
+										- ((0x10000 - Maths::sin_DB750[0x200 + ((2304 - v9) << 9) / 2304]) << 6 >> 16);
 								}
 								v12 = (v50 - mapHeightmap_11B4E0[v8x.word]) / a1x->dword_0x10_16
 									+ mapHeightmap_11B4E0[v8x.word];
@@ -35238,7 +35238,7 @@ unsigned __int8 sub_396D0(type_event_0x6E8E* a1x)//21a6d0
 						MovePlayer_57FA0(&v28x, v11, 0, 3840);
 						v12 = getTerrainAlt_10C40(&v28x);
 						v13 = (v12 >> 5)
-							- (((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v36 << 10) / 3840]) >> 1)
+							- (((x_DWORD)(0x10000 + (signed int)Maths::sin_DB750[0x200 + (v36 << 10) / 3840]) >> 1)
 								* ((v12 >> 5) - a1x->axis_0x4C_76.z) >> 16);
 						a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 						v14 = (a1x->rand_0x14_20 & 3) + v13 - 2;
@@ -54669,11 +54669,11 @@ void MovePlayer_57FA0(axis_3d* position, unsigned __int16 a2, __int16 a3, __int1
 		a2 &= 0x7ffu;
 		if (a3)
 		{
-			position->z -= (int)(a4 * Maths::x_DWORD_DB750[a3]) >> 16;//change z axis
-			a4 = (int)(a4 * Maths::x_DWORD_DB750[0x200 + a3]) >> 16;
+			position->z -= (int)(a4 * Maths::sin_DB750[a3]) >> 16;//change z axis
+			a4 = (int)(a4 * Maths::sin_DB750[0x200 + a3]) >> 16;
 		}
-		position->x += (int)(a4 * Maths::x_DWORD_DB750[a2]) >> 16;
-		position->y -= (int)(a4 * Maths::x_DWORD_DB750[0x200 + a2]) >> 16;
+		position->x += (int)(a4 * Maths::sin_DB750[a2]) >> 16;
+		position->y -= (int)(a4 * Maths::sin_DB750[0x200 + a2]) >> 16;
 	}
 }
 
@@ -61898,9 +61898,9 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY
 	HIDWORD(v12) = 0x10000 >> 31;
 	v13 = v12 / v10;
 	v82 = width / 2;
-	v14 = v13 * Maths::x_DWORD_DB750[yaw & 0x7FF];
+	v14 = v13 * Maths::sin_DB750[yaw & 0x7FF];
 	v76 = height / 2;
-	v15 = (x_DWORD)Maths::x_DWORD_DB750[0x200 + yaw & 0x7FF] * v13;
+	v15 = (x_DWORD)Maths::sin_DB750[0x200 + yaw & 0x7FF] * v13;
 	v86 = -v14 >> 16;
 	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
 	v73 = v15 >> 16;
@@ -61925,16 +61925,16 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY
 		v72 = (unsigned __int16)Maths::sub_72633_maybe_tan(v25 - v20, v26 - v21);
 		for (i = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 & 3;
 			;
-			*(x_BYTE*)(v84 + v20 + (i * Maths::x_DWORD_DB750[v72] >> 16) + screenWidth_18062C * v85) = x_BYTE_F6EE0_tablesx[0x4000 + 256
-			* *(unsigned __int8*)(v84 + v20 + (i * Maths::x_DWORD_DB750[v72] >> 16) + screenWidth_18062C * v85)
+			*(x_BYTE*)(v84 + v20 + (i * Maths::sin_DB750[v72] >> 16) + screenWidth_18062C * v85) = x_BYTE_F6EE0_tablesx[0x4000 + 256
+			* *(unsigned __int8*)(v84 + v20 + (i * Maths::sin_DB750[v72] >> 16) + screenWidth_18062C * v85)
 			+ (unsigned __int8)(*xadataclrd0dat.colorPalette_var28)[4095]])//castle rope
 		{
 			i += 4;
 			if (i > v75)
 				break;
-			v29 = v20 + (i * Maths::x_DWORD_DB750[v72] >> 16);
+			v29 = v20 + (i * Maths::sin_DB750[v72] >> 16);
 			//v29 = v20 + (i * Maths::x_DWORD_DB750ar_ret(4*v72) >> 16);
-			v85 = v21 + (-i * Maths::x_DWORD_DB750[0x200 + v72] >> 16);
+			v85 = v21 + (-i * Maths::sin_DB750[0x200 + v72] >> 16);
 			if (v29 < 0 || v29 >= width || v85 < 0 || v85 >= height || v29 < x_WORD_F4960[1 + 2 * v85] || v29 >= x_WORD_F4960[2 * v85])
 				break;
 		}
@@ -62503,8 +62503,8 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY
 	HIDWORD(v13) = 0x10000 >> 31;
 	v14 = v13 / v10;
 	v98 = width / 2;
-	v15 = v14 * Maths::x_DWORD_DB750[yaw & 0x7FF];
-	v16 = (x_DWORD)Maths::x_DWORD_DB750[0x200 + yaw & 0x7FF] * v14;
+	v15 = v14 * Maths::sin_DB750[yaw & 0x7FF];
+	v16 = (x_DWORD)Maths::sin_DB750[0x200 + yaw & 0x7FF] * v14;
 	v85 = height / 2;
 	v86 = -v15 >> 16;
 	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
@@ -62535,8 +62535,8 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY
 			v30 += 4;
 			if (v30 > v91)
 				break;
-			v31 = v21 + (v30 * Maths::x_DWORD_DB750[v89] >> 16);
-			v94 = v24 + (-v30 * (signed int)Maths::x_DWORD_DB750[0x200 + v89] >> 16);
+			v31 = v21 + (v30 * Maths::sin_DB750[v89] >> 16);
+			v94 = v24 + (-v30 * (signed int)Maths::sin_DB750[0x200 + v89] >> 16);
 			if (v31 < 0 || v31 >= width || v94 < 0 || v94 >= height || v31 < x_WORD_F4960[1 + 2 * v94] || v31 >= x_WORD_F4960[2 * v94])
 				break;
 			v32x = &v99x[screenWidth_18062C * v94 + v31];
@@ -63165,9 +63165,9 @@ void sub_63670_draw_minimap_a(int a1, int a2, int16_t posX, int16_t posY, uint16
 		}
 	}
 	v23 = yaw & 0x7FF;
-	v24 = v13 * (a8 * Maths::x_DWORD_DB750[v23] >> 16);
-	v25 = a8 * (signed int)Maths::x_DWORD_DB750[0x200 + v23] >> 16;
-	v80 = a8 * Maths::x_DWORD_DB750[v23] >> 16;
+	v24 = v13 * (a8 * Maths::sin_DB750[v23] >> 16);
+	v25 = a8 * (signed int)Maths::sin_DB750[0x200 + v23] >> 16;
+	v80 = a8 * Maths::sin_DB750[v23] >> 16;
 	v81y = v25;
 	v67 = v24 / v12;
 	v26 = v13 * v25;
@@ -63485,9 +63485,9 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16
 		}
 	}
 	v20 = yaw & 0x7FF;
-	v21 = v13 * (a8 * Maths::x_DWORD_DB750[v20] >> 16);
-	v22 = a8 * (signed int)Maths::x_DWORD_DB750[0x200 + v20] >> 16;
-	v70 = a8 * Maths::x_DWORD_DB750[v20] >> 16;
+	v21 = v13 * (a8 * Maths::sin_DB750[v20] >> 16);
+	v22 = a8 * (signed int)Maths::sin_DB750[0x200 + v20] >> 16;
+	v70 = a8 * Maths::sin_DB750[v20] >> 16;
 	v69 = v22;
 	v59 = v21 / v12;
 	v23 = v13 * v22;
@@ -63819,9 +63819,9 @@ void DrawMinimapMarks_644F0(int a1, int a2, int16_t posX, int16_t posY, uint16_t
 	v51x.v59xdw_30 = height;
 	v51x.v60xdw_34 = width / 2;
 	v10 = yaw & 0x7FF;
-	v11 = v83 * Maths::x_DWORD_DB750[v10];
+	v11 = v83 * Maths::sin_DB750[v10];
 	v51x.v61xdw_38 = height / 2;
-	v12 = v83 * Maths::x_DWORD_DB750[0x200 + v10] >> 16;
+	v12 = v83 * Maths::sin_DB750[0x200 + v10] >> 16;
 	v51x.v55xdw_14 = -v11 >> 16;
 	v51x.v54xdw_10 = v12;
 	v82 = yaw & 0x7FF;
@@ -63970,8 +63970,8 @@ void DrawMinimapMarks_644F0(int a1, int a2, int16_t posX, int16_t posY, uint16_t
 					LOWORD(v21) = 15872;
 				v67x = v75x->axis_0x4C_76;
 				MovePlayer_57FA0(&v67x, v78, 0, v21);
-				v22 = v83 * Maths::x_DWORD_DB750[v82];
-				v23 = v83 * (x_DWORD)Maths::x_DWORD_DB750[0x200 + v82];
+				v22 = v83 * Maths::sin_DB750[v82];
+				v23 = v83 * (x_DWORD)Maths::sin_DB750[0x200 + v82];
 				v71 = (signed __int16)(*(int16_t*)&v67x - posX);
 				v23 >>= 16;
 				v24 = -v22 >> 16;
@@ -63993,8 +63993,8 @@ void DrawMinimapMarks_644F0(int a1, int a2, int16_t posX, int16_t posY, uint16_t
 				v37x[24] = 4;
 				v26 = 1;
 				v78 = ((x_WORD)v78 - (x_WORD)v82) & 0x7FF;
-				v27 = Maths::x_DWORD_DB750[v78];
-				v28 = Maths::x_DWORD_DB750[0x200 + v78];
+				v27 = Maths::sin_DB750[v78];
+				v28 = Maths::sin_DB750[0x200 + v78];
 				while (v26 < 7)
 				{
 					v29 = 3 * v26;
@@ -66868,10 +66868,10 @@ int sub_68490(type_event_0x6E8E* a1y, type_event_0x6E8E* a2x, unsigned __int16 a
 			if (v8 <= 5120)
 			{
 				sub_655A0(a2x);
-				v9 = v8 * Maths::x_DWORD_DB750[0x200 + v13];
-				v10 = v8 * Maths::x_DWORD_DB750[v13];
-				v11 = v8 * Maths::x_DWORD_DB750[0x200 + v14];
-				v12 = 4 * Maths::x_DWORD_DB750[v14] * v8 >> 16;
+				v9 = v8 * Maths::sin_DB750[0x200 + v13];
+				v10 = v8 * Maths::sin_DB750[v13];
+				v11 = v8 * Maths::sin_DB750[0x200 + v14];
+				v12 = 4 * Maths::sin_DB750[v14] * v8 >> 16;
 				result = (v11 >> 16) * (v11 >> 16) + (v9 >> 16) * (v9 >> 16) + (4 * v10 >> 16) * (4 * v10 >> 16) + v12 * v12;
 			}
 			else
@@ -66923,10 +66923,10 @@ int sub_685D0(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x, unsigned __int16 a
 	v10 = Maths::sub_58490_radix_3d_2(v5x, v4x);
 	if (v10 > 5120)
 		return -1;
-	v11 = v10 * (x_DWORD)Maths::x_DWORD_DB750[0x200 + v15];
-	v12 = v10 * Maths::x_DWORD_DB750[v15];
-	v13 = v10 * (x_DWORD)Maths::x_DWORD_DB750[0x200 + v9];
-	v14 = 4 * Maths::x_DWORD_DB750[v9] * v10 >> 16;
+	v11 = v10 * (x_DWORD)Maths::sin_DB750[0x200 + v15];
+	v12 = v10 * Maths::sin_DB750[v15];
+	v13 = v10 * (x_DWORD)Maths::sin_DB750[0x200 + v9];
+	v14 = 4 * Maths::sin_DB750[v9] * v10 >> 16;
 	return (4 * v12 >> 16) * (4 * v12 >> 16) + (v11 >> 16) * (v11 >> 16) + (v13 >> 16) * (v13 >> 16) + v14 * v14;
 }
 // DBF50: using guessed type void (/*__noreturn*/ *off_DBF50[2])();
