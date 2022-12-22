@@ -317,9 +317,6 @@ void GameRenderNG::DrawSky_40950(int16_t roll)
 		beginX -= sinRoll;
 		beginY += cosRoll;
 	}
-
-	CompareWith((char*)"DrawSky", 0, 320 * 200, (uint8*)ViewPortRenderBufferStart_DE558);
-	allert_error();
 }
 
 void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov)
