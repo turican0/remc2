@@ -15,7 +15,6 @@ using namespace std;
 char gameFolder[512] = "NETHERW";
 char cdFolder[512] = "CD_Files";
 char bigGraphicsFolder[512] = "bigGraphics";
-char forceRender[512] = "";
 spdlog::logger* Logger = nullptr;
 
 #ifndef _MSC_VER

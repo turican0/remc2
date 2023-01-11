@@ -168,9 +168,6 @@ bool readini() {
 	std::string readstr4 = reader.GetString("main", "cdFolder", "");
 	strcpy((char*)cdFolder, (char*)readstr4.c_str());
 
-	std::string readstr5 = reader.GetString("graphics", "forceRender", "");
-	strcpy((char*)forceRender, (char*)readstr5.c_str());
-
 	openGLRender = reader.GetBoolean("graphics", "openGLRender", false);
 
 	if (!openGLRender)
