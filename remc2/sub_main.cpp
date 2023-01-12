@@ -53001,6 +53001,7 @@ void InitNetworkInfo() {
 //----- (00055F70) --------------------------------------------------------
 int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 {
+	int exitCode = 0;
 	try
 	{
 		begin_plugin();
@@ -53157,9 +53158,10 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	catch (const std::exception& e)
 	{
 		Logger->critical("Critial Error: {}", e.what());
+		exitCode = -1;
 	}
 	Logger->info("Exited Game");
-	return 0;
+	return exitCode;
 }
 
 //----- (000560D0) --------------------------------------------------------

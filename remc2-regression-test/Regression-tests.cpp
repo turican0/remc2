@@ -2,6 +2,7 @@
 
 int run_regtest(int level)//236F70
 {
+	int exitCode = 0;
 	Logger->info("Testing Level{}", level);
 
 	unitTests = true;
@@ -53,6 +54,7 @@ int run_regtest(int level)//236F70
 	catch (const std::exception& e)
 	{
 		Logger->error("Exception running main thread: {}", e.what());
+		exitCode = -1;
 	}
 
 	support_end();
@@ -61,7 +63,7 @@ int run_regtest(int level)//236F70
 	else
 	{
 		Logger->error("Test Level{} - FAILED", level);
-		return -1;
+		exitCode = -1;
 	}
-	return 0;
+	return exitCode;
 }
