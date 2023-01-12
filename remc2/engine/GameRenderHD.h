@@ -73,7 +73,7 @@ private:
 	char shadows_F2CC7 = 0;
 	char notDay_D4320 = 0;
 	char x_BYTE_F2CC6 = 0;
-	int16_t x_WORD_F2CC0 = 0;
+	int16_t yaw_F2CC0 = 0;
 	int16_t x_WORD_F2CC2 = 0;
 	int16_t x_WORD_F2CC4 = 0;
 

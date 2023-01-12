@@ -17,6 +17,7 @@ int windowResHeight = 480;
 int gameResWidth = 640;
 int gameResHeight = 480;
 bool maintainAspectRatio = false;
+bool forceWindow = false;
 bool bigTextures = false;
 bool bigSprites = false;
 bool sky = true;
@@ -157,6 +158,7 @@ bool readini() {
 	}
 
 	maintainAspectRatio = reader.GetBoolean("graphics", "maintainAspectRatio", true);
+	forceWindow = reader.GetBoolean("graphics", "forceWindow", false);
 	sky = reader.GetBoolean("graphics", "sky", true);
 	reflections = reader.GetBoolean("graphics", "reflections", false);
 	dynamicLighting = reader.GetBoolean("graphics", "dynamicLighting", false);
@@ -165,6 +167,9 @@ bool readini() {
 	strcpy((char*)gameFolder, (char*)readstr2.c_str());
 	std::string readstr4 = reader.GetString("main", "cdFolder", "");
 	strcpy((char*)cdFolder, (char*)readstr4.c_str());
+
+	std::string readstr5 = reader.GetString("graphics", "forceRender", "");
+	strcpy((char*)forceRender, (char*)readstr5.c_str());
 
 	openGLRender = reader.GetBoolean("graphics", "openGLRender", false);
 

@@ -63,6 +63,8 @@ set(SOURCE_FILES_REGRESSIONTESTS
     "../remc2/engine/RenderThread.h"
     "../remc2/engine/GameRenderOriginal.cpp"
     "../remc2/engine/GameRenderOriginal.h"
+    "../remc2/engine/GameRenderNG.cpp"
+    "../remc2/engine/GameRenderNG.h"
     "../remc2/engine/GameRenderHD.cpp"
     "../remc2/engine/GameRenderHD.h"
     "../remc2/engine/TextureMaps.cpp"

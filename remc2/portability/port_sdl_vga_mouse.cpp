@@ -5,6 +5,7 @@
 #include <cstdint>
 
 #include "../engine/sub_main_mouse.h"
+#include "../engine/read_config.h"
 #include "../engine/CommandLineParser.h"
 
 #ifdef USE_DOSBOX
@@ -137,12 +138,19 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 
 			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
 
-			SDL_Rect display = GetDisplayByIndex(displayIndex);
-			if (width > display.w || height > display.h)
+			if (forceWindow)//window
 			{
-				display = FindDisplayByResolution(width, height);
+				m_window = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width/*dm.w*/, height/*dm.h*/, test_fullscr);
 			}
-			m_window = SDL_CreateWindow(default_caption, display.x, display.y, display.w, display.h, test_fullscr);
+			else
+			{
+				SDL_Rect display = GetDisplayByIndex(displayIndex);
+				if (width > display.w || height > display.h)
+				{
+					display = FindDisplayByResolution(width, height);
+				}
+				m_window = SDL_CreateWindow(default_caption, display.x, display.y, display.w, display.h, test_fullscr);
+			}
 			SDL_SetWindowGrab(m_window, settingWindowGrabbed ? SDL_TRUE : SDL_FALSE);
 
 			m_renderer =
