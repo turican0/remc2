@@ -22,11 +22,11 @@ typedef struct {
 	int32_t dword0x0a_actIdx;
 	int32_t dword0x0b;
 	int32_t dword0x0c_realHeight;
-	int32_t dword0x0d;
+	int32_t sin_0x0d;
 	int32_t dword0x0e_ptrScreenRenderBufferStart;
 	int32_t dword0x0f;
 	int32_t dword0x10;
-	int32_t dword0x11;
+	int32_t cos_0x11;
 	int32_t dword0x12;
 	int32_t dword0x13;
 	type_event_0x6E8E* dword0x14x;
