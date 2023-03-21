@@ -339,10 +339,10 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	int v25z;
 	//unsigned __int16 v26; // dx
 	//int v27; // ebx
-	int v28; // eax
+	//int v28; // eax
 	//__int16 v29; // si
-	int v30; // edx
-	__int16 v31; // cx
+	//int v30; // edx
+	//__int16 v31; // cx
 	//int v32; // eax
 	int v33; // ecx
 	signed int v34; // esi
@@ -357,14 +357,14 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	//char v45; // bh
 	signed int v46; // edx
 	int v47x;
-	int v48; // esi
-	int v49; // ecx
-	int v50; // ecx
-	int v51; // ebx
-	int v52; // ecx
-	int v53; // ebx
-	signed int v54; // esi
-	signed int v55; // esi
+	//int v48; // esi
+	//int v49; // ecx
+	//int v50; // ecx
+	//int v51; // ebx
+	//int v52; // ecx
+	//int v53; // ebx
+	//signed int v54; // esi
+	//signed int v55; // esi
 	int v56x;
 	int v57x;
 	char v58; // ah
@@ -648,25 +648,16 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	str_F2C20ar.dword0x13 = 14745600;
 
 	int drawShift = 0;
+	uint8 pattern = keyColor1_D4B7C;
 	if (!D41A0_0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel_D41B6)
 	{
-		//v26 = viewPort.Width_DE564;
 		drawShift = iScreenWidth_DE560 - viewPort.Width_DE564;
-		v28 = (viewPort.Width_DE564 - (__CFSHL__(viewPort.Width_DE564 >> 31, 2) + 4 * (viewPort.Width_DE564 >> 31))) >> 2;
-		//v29 = viewPort.Height_DE568;
 		uint8* drawBuffer = ViewPortRenderBufferStart_DE558;
-		v30 = (viewPort.Width_DE564 - (__CFSHL__(viewPort.Width_DE564 >> 31, 2) + 4 * (viewPort.Width_DE564 >> 31))) >> 2;
-		LOBYTE(v28) = keyColor1_D4B7C;
-		HIBYTE(v28) = keyColor1_D4B7C;
-		v31 = v28;
-		v32 = v28 << 16;
-		LOWORD(v32) = v31;
 		for (index = 0; index < viewPort.Height_DE568; index++)
 		{
-			memset32(drawBuffer, v32, v30 * 4);
-			drawBuffer += 4 * v30 + drawShift;
-			//v29--;
-		}// while (v29);
+			memset32(drawBuffer, pattern, viewPort.Width_DE564);
+			drawBuffer += viewPort.Width_DE564 + drawShift;
+		}
 	}
 	else
 	{
@@ -679,35 +670,37 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 		{
 			if (!i)
 			{
-				v46 = 840;
+				v46 = textRows * textColumns;
 				v47x = 0;
 				while (v46)
 				{
-					v48 = ((Str_E9C38_smalltit[v47x].pnt1_16 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v47x].pnt2_20) >> 16) + str_F2C20ar.dword0x24;
+					//v48 = ((Str_E9C38_smalltit[v47x].pnt1_16 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v47x].pnt2_20) >> 16) + str_F2C20ar.dword0x24;
 					Str_E9C38_smalltit[v47x].pnt3_24 = ((Str_E9C38_smalltit[v47x].pnt1_16 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v47x].pnt4_28) >> 16) + str_F2C20ar.dword0x24;
-					v49 = Str_E9C38_smalltit[v47x].pnt1_16 * str_F2C20ar.sin_0x0d;
-					v52 = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v47x].pnt2_20) >> 16);
-					v50 = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v47x].pnt4_28) >> 16);
-					Str_E9C38_smalltit[v47x].pnt1_16 = v48;
-					v51 = v50;
+					//v49 = Str_E9C38_smalltit[v47x].pnt1_16 * str_F2C20ar.sin_0x0d;
+
+					Str_E9C38_smalltit[v47x].pnt1_16 = ((Str_E9C38_smalltit[v47x].pnt1_16 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v47x].pnt2_20) >> 16) + str_F2C20ar.dword0x24;
+					Str_E9C38_smalltit[v47x].pnt2_20 = str_F2C20ar.dword0x10 - ((Str_E9C38_smalltit[v47x].pnt1_16 * str_F2C20ar.sin_0x0d + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v47x].pnt2_20) >> 16);
+					Str_E9C38_smalltit[v47x].pnt4_28 = str_F2C20ar.dword0x10 - ((Str_E9C38_smalltit[v47x].pnt1_16 * str_F2C20ar.sin_0x0d + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v47x].pnt4_28) >> 16);
+					
+					//v51 = v50;
 					//v52 = v248x[24];
-					Str_E9C38_smalltit[v47x].pnt4_28 = v51;
-					Str_E9C38_smalltit[v47x].pnt2_20 = v52;
-					v53 = Str_E9C38_smalltit[v47x].pnt1_16;
+					//Str_E9C38_smalltit[v47x].pnt4_28 = v50;
+					//Str_E9C38_smalltit[v47x].pnt2_20 = v52;
+					//v53 = Str_E9C38_smalltit[v47x].pnt1_16;
 					//Str_E9C38_smalltit[v47x].dword24 = v248x[25];
-					if (v53 >= 0)
+					if (Str_E9C38_smalltit[v47x].pnt1_16 >= 0)
 					{
-						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v47x].pnt1_16)
+						if (viewPort.Width_DE564 <= Str_E9C38_smalltit[v47x].pnt1_16)
 							Str_E9C38_smalltit[v47x].triangleFeatures_38 |= 0x10u;
 					}
 					else
 					{
 						Str_E9C38_smalltit[v47x].triangleFeatures_38 |= 8u;
 					}
-					v54 = Str_E9C38_smalltit[v47x].pnt2_20;
-					if (v54 >= 0)
+					//v54 = Str_E9C38_smalltit[v47x].pnt2_20;
+					if (Str_E9C38_smalltit[v47x].pnt2_20 >= 0)
 					{
-						if ((unsigned __int16)viewPort.Height_DE568 <= v54)
+						if (viewPort.Height_DE568 <= Str_E9C38_smalltit[v47x].pnt2_20)
 							Str_E9C38_smalltit[v47x].triangleFeatures_38 |= 0x40u;
 					}
 					else
@@ -716,17 +709,17 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					}
 					if (Str_E9C38_smalltit[v47x].pnt3_24 >= 0)
 					{
-						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v47x].pnt3_24)
+						if (viewPort.Width_DE564 <= Str_E9C38_smalltit[v47x].pnt3_24)
 							Str_E9C38_smalltit[v47x].triangleFeatures_38 |= 0x200u;
 					}
 					else
 					{
 						Str_E9C38_smalltit[v47x].triangleFeatures_38 |= 0x100u;
 					}
-					v55 = Str_E9C38_smalltit[v47x].pnt4_28;
-					if (v55 >= 0)
+					//v55 = Str_E9C38_smalltit[v47x].pnt4_28;
+					if (Str_E9C38_smalltit[v47x].pnt4_28 >= 0)
 					{
-						if ((unsigned __int16)viewPort.Height_DE568 <= v55)
+						if ((unsigned __int16)viewPort.Height_DE568 <= Str_E9C38_smalltit[v47x].pnt4_28)
 							Str_E9C38_smalltit[v47x].triangleFeatures_38 |= 0x800u;
 					}
 					else
@@ -736,11 +729,11 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					v47x++;
 					v46--;
 				}
-				v57x = 800;
-				v281 = 20;
+				v57x = (textColumns - 1) * textRows;
+				v281 = textColumns-1;
 				do
 				{
-					v58 = 39;
+					v58 = textRows - 1;
 					for (jx = v57x; ; jx++)
 					{
 						v293 = v58;
@@ -875,7 +868,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					if (v293)
 					{
 						v82x = jx;// -1;
-						v83x = v57x + 38;
+						v83x = v57x + textRows - 2;
 						do
 						{
 							rPoint1.x_0 = Str_E9C38_smalltit[v83x].pnt3_24;//*(x_DWORD*)(v83 + 24);
@@ -999,12 +992,12 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 							v83x--;
 				} while (v83x >= v82x);
 			}
-					v57x -= 40;
+					v57x -= textRows;
 					v281--;
 		} while (v281);
 		return;
 	}
-			for (k = 40; k; k--)
+			for (k = textRows; k; k--)
 			{
 				v33 = ((unsigned __int8)mapShading_12B4E0[yawXY.word] << 8) + 128;
 				v34 = Str_E9C38_smalltit[v278x].y_12;
@@ -1074,11 +1067,11 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	}
 	if (D41A0_0.m_GameSettings.m_Graphics.m_wReflections)//21de79 nothing changed
 	{
-		for (l = 21; ; l--)
+		for (l = textColumns; ; l--)
 		{
 			if (!l)
 			{
-				v123 = 840;
+				v123 = textRows * textColumns;
 				v124x = 0;
 				while (v123)
 				{
@@ -1137,11 +1130,11 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				}
 				if (posZ < 4096)
 				{
-					v133x = 800;//35200/sizeof(type_E9C38_smalltit);
-					for (m = 20; m; --m)
+					v133x = (textColumns - 1) * textRows;//35200/sizeof(type_E9C38_smalltit);
+					for (m = textColumns - 1; m; --m)
 					{
 						v134x = v133x;
-						for (n = 39; n; --n)
+						for (n = textRows - 1; n; --n)
 						{
 							rPoint1.x_0 = Str_E9C38_smalltit[v134x].pnt3_24;
 							rPoint1.y_1 = Str_E9C38_smalltit[v134x].pnt4_28;
@@ -1234,7 +1227,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 						if (n)
 						{
 							v25z = v134x;// -1;
-							v147x = v133x + 38;
+							v147x = v133x + textRows - 2;
 							do
 							{
 								rPoint1.x_0 = Str_E9C38_smalltit[v147x].pnt3_24;//*(x_DWORD*)(v147 + 24);
@@ -1299,11 +1292,11 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 								v147x--;
 							} while (v147x >= v25z);
 						}
-						v133x -= 40;
+						v133x -= textRows;
 					}
 				}
-				v160x = 800;
-				v282 = 20;
+				v160x = (textColumns - 1) * textRows;
+				v282 = textColumns - 1;
 				do
 				{
 					v161x = v160x;
@@ -1410,7 +1403,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					if (ii)
 					{
 						v177x = v161x;// -1;
-						v178x = v160x + 38;
+						v178x = v160x + textRows - 2;
 						do
 						{
 							rPoint1.x_0 = Str_E9C38_smalltit[v178x].pnt1_16;//*(x_DWORD*)(v178 + 16);
@@ -1502,12 +1495,12 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 							v178x--;
 						} while (v178x >= v177x);
 					}
-					v160x -= 40;
+					v160x -= textRows;
 					v282--;
 			} while (v282);
 			return;
 		}
-			for (jj = 40; jj; --jj)
+			for (jj = textRows; jj; --jj)
 			{
 				int tempMapShading/*v248x[31]*/ = ((unsigned __int8)mapShading_12B4E0[yawXY.word] << 8) + 128;
 				v109 = Str_E9C38_smalltit[v278x].y_12;
@@ -1578,11 +1571,11 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 			yawXY._axis_2d.x += yawQuartal[6];
 	}
 	}
-	v283 = 21;//21eb44 nothing changed
+	v283 = textColumns;//21eb44 nothing changed
 LABEL_259:
 	if (v283)
 	{
-		v285 = 40;
+		v285 = textRows;
 		while (1)
 		{
 			if (!v285)
@@ -1641,7 +1634,7 @@ LABEL_259:
 		goto LABEL_254;
 	}//21edb7 nothing changed
 	v208 = roll & 0x7FF;//21edb7
-	v209 = 840;
+	v209 = textRows * textColumns;
 	v210 = Maths::sin_DB750[v208];
 	v211 = Maths::sin_DB750[512 + v208];
 	str_F2C20ar.sin_0x0d = v210;
@@ -1680,12 +1673,12 @@ LABEL_259:
 	}
 	//adress 3de7d
 	//v217 = &x_DWORD_E9C38_smalltit[35200];//21ee85
-	v217x = 800;
-	v289 = 20;
+	v217x = (textColumns - 1)*textRows;
+	v289 = textColumns-1;
 	do
 	{
 		v218x = v217x;
-		for (kk = 39; kk; kk--)
+		for (kk = textRows-1; kk; kk--)
 		{
 			rPoint1.x_0 = Str_E9C38_smalltit[v218x].pnt1_16;//*(x_DWORD*)(v218 + 16);
 			rPoint1.y_1 = Str_E9C38_smalltit[v218x].pnt2_20;//*(x_DWORD*)(v218 + 20);
@@ -1750,7 +1743,7 @@ LABEL_259:
 		if (kk)
 		{
 			v231x = v218x;// -1;
-			v232x = v217x + 38;
+			v232x = v217x + textRows - 2;
 			do
 			{
 				rPoint1.x_0 = Str_E9C38_smalltit[v232x].pnt1_16;//*(x_DWORD*)(v232 + 16);
@@ -1813,7 +1806,7 @@ LABEL_259:
 				v232x--;
 			} while (v232x >= v231x);
 		}
-		v217x -= 40;
+		v217x -= textRows;
 		v289--;
 	} while (v289);
 }
