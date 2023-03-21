@@ -25,6 +25,14 @@
 #include "defs.h"
 #include "ProjectionPolygon.h"
 
+typedef struct {//size 4*5
+	int32 x_0;
+	int32 y_1;
+	int32 u_2;
+	int32 v_3;
+	int32 z_4;
+} Type_RenderPoint;
+
 class GameRenderNG : public GameRenderInterface
 {
 
@@ -74,7 +82,7 @@ private:
 	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov);
 	void DrawSprite_41BD3(uint32 a1);
 	void DrawParticles_3E360(int a2x);
-	void DrawTriangleInProjectionSpace_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3);
+	void DrawTriangleInProjectionSpace_B6253(Type_RenderPoint* vertex1, Type_RenderPoint* vertex2, Type_RenderPoint* vertex3);
 	int32_t* x_DWORD_DB350_ret(uint32_t adress);
 	uint16_t sub_3FD60(int a2x);
 	void sub_88740(type_event_0x6E8E* a1x, int a2, int a3);
