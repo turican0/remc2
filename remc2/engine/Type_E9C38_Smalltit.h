@@ -7,21 +7,21 @@
 
 #pragma pack (1)
 typedef struct {//lenght 44
-	int32_t dword0_rot;
-	int32_t dword4_height;//Height
-	int32_t dword8;//?
-	int32_t dword12;//?
-	int32_t dword16;//triangleB
-	int32_t dword20;//triangleB
-	int32_t dword24;//triangleA
-	int32_t dword28;//triangleA
-	int32_t dword32;//triangleA and triangleB
-	int16_t word36;//? billboard
-	int16_t word38;
-	int8_t byte40;
-	uint8_t byte41;//texture index
-	int8_t byte42_std;//texture direction
-	int8_t byte43;
+	int32_t x_0;
+	int32_t alt_4;//altitude
+	int32_t alt2_8;//?
+	int32_t y_12;//?
+	int32_t pnt1_16;//triangleB
+	int32_t pnt2_20;//triangleB
+	int32_t pnt3_24;//triangleA
+	int32_t pnt4_28;//triangleA
+	int32_t pnt5_32;//triangleA and triangleB
+	int16_t haveBillboard_36;//? billboard
+	uint16_t triangleFeatures_38;//1- |/| |\|
+	int8_t var_40;
+	uint8_t textIndex_41;//texture index
+	int8_t textUV_42;//texture direction
+	bool textAtyp_43;
 }
 type_E9C38_smalltit;
 #pragma pack (16)

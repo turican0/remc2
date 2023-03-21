@@ -554,12 +554,12 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 		projectedVertexBuffer[28] = a1 * projectedVertexBuffer[30] >> 16;
 		while (v16)
 		{
-			Str_E9C38_smalltit[v15x].dword0_rot = projectedVertexBuffer[28];
-			Str_E9C38_smalltit[v15x].dword12 = projectedVertexBuffer[29];
+			Str_E9C38_smalltit[v15x].x_0 = projectedVertexBuffer[28];
+			Str_E9C38_smalltit[v15x].y_12 = projectedVertexBuffer[29];
 			if (a1 < 0)
-				Str_E9C38_smalltit[v15x].word38 = 0;
+				Str_E9C38_smalltit[v15x].triangleFeatures_38 = 0;
 			else
-				Str_E9C38_smalltit[v15x].word38 = 4;
+				Str_E9C38_smalltit[v15x].triangleFeatures_38 = 4;
 			v15x += 40;
 			v16--;
 		}
@@ -577,8 +577,8 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 		v20 = a2 * projectedVertexBuffer[30] >> 16;
 		while (v19)
 		{
-			Str_E9C38_smalltit[v18x].dword0_rot -= projectedVertexBuffer[27];
-			Str_E9C38_smalltit[v18x].dword12 += v20;// +v21;
+			Str_E9C38_smalltit[v18x].x_0 -= projectedVertexBuffer[27];
+			Str_E9C38_smalltit[v18x].y_12 += v20;// +v21;
 			v18x++;
 			v19--;
 		}
@@ -639,55 +639,55 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				v47x = 0;
 				while (v46)
 				{
-					v48 = ((Str_E9C38_smalltit[v47x].dword16 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v47x].dword20) >> 16) + str_F2C20ar.dword0x24;
-					projectedVertexBuffer[25] = ((Str_E9C38_smalltit[v47x].dword16 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v47x].dword28) >> 16) + str_F2C20ar.dword0x24;
-					v49 = Str_E9C38_smalltit[v47x].dword16 * str_F2C20ar.dword0x0d;
-					projectedVertexBuffer[24] = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v47x].dword20) >> 16);
-					v50 = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v47x].dword28) >> 16);
-					Str_E9C38_smalltit[v47x].dword16 = v48;
+					v48 = ((Str_E9C38_smalltit[v47x].pnt1_16 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v47x].pnt2_20) >> 16) + str_F2C20ar.dword0x24;
+					projectedVertexBuffer[25] = ((Str_E9C38_smalltit[v47x].pnt1_16 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v47x].pnt4_28) >> 16) + str_F2C20ar.dword0x24;
+					v49 = Str_E9C38_smalltit[v47x].pnt1_16 * str_F2C20ar.dword0x0d;
+					projectedVertexBuffer[24] = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v47x].pnt2_20) >> 16);
+					v50 = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v47x].pnt4_28) >> 16);
+					Str_E9C38_smalltit[v47x].pnt1_16 = v48;
 					v51 = v50;
 					v52 = projectedVertexBuffer[24];
-					Str_E9C38_smalltit[v47x].dword28 = v51;
-					Str_E9C38_smalltit[v47x].dword20 = v52;
-					v53 = Str_E9C38_smalltit[v47x].dword16;
-					Str_E9C38_smalltit[v47x].dword24 = projectedVertexBuffer[25];
+					Str_E9C38_smalltit[v47x].pnt4_28 = v51;
+					Str_E9C38_smalltit[v47x].pnt2_20 = v52;
+					v53 = Str_E9C38_smalltit[v47x].pnt1_16;
+					Str_E9C38_smalltit[v47x].pnt3_24 = projectedVertexBuffer[25];
 					if (v53 >= 0)
 					{
-						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v47x].dword16)
-							Str_E9C38_smalltit[v47x].word38 |= 0x10u;
+						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v47x].pnt1_16)
+							Str_E9C38_smalltit[v47x].triangleFeatures_38 |= 0x10u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v47x].word38 |= 8u;
+						Str_E9C38_smalltit[v47x].triangleFeatures_38 |= 8u;
 					}
-					v54 = Str_E9C38_smalltit[v47x].dword20;
+					v54 = Str_E9C38_smalltit[v47x].pnt2_20;
 					if (v54 >= 0)
 					{
 						if ((unsigned __int16)viewPort.Height_DE568 <= v54)
-							Str_E9C38_smalltit[v47x].word38 |= 0x40u;
+							Str_E9C38_smalltit[v47x].triangleFeatures_38 |= 0x40u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v47x].word38 |= 0x20u;
+						Str_E9C38_smalltit[v47x].triangleFeatures_38 |= 0x20u;
 					}
-					if (Str_E9C38_smalltit[v47x].dword24 >= 0)
+					if (Str_E9C38_smalltit[v47x].pnt3_24 >= 0)
 					{
-						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v47x].dword24)
-							Str_E9C38_smalltit[v47x].word38 |= 0x200u;
+						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v47x].pnt3_24)
+							Str_E9C38_smalltit[v47x].triangleFeatures_38 |= 0x200u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v47x].word38 |= 0x100u;
+						Str_E9C38_smalltit[v47x].triangleFeatures_38 |= 0x100u;
 					}
-					v55 = Str_E9C38_smalltit[v47x].dword28;
+					v55 = Str_E9C38_smalltit[v47x].pnt4_28;
 					if (v55 >= 0)
 					{
 						if ((unsigned __int16)viewPort.Height_DE568 <= v55)
-							Str_E9C38_smalltit[v47x].word38 |= 0x800u;
+							Str_E9C38_smalltit[v47x].triangleFeatures_38 |= 0x800u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v47x].word38 |= 0x400u;
+						Str_E9C38_smalltit[v47x].triangleFeatures_38 |= 0x400u;
 					}
 					v47x++;
 					v46--;
@@ -698,27 +698,27 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 			for (k = 40; k; k--)
 			{
 				v33 = ((unsigned __int8)mapShading_12B4E0[v279] << 8) + 128;
-				v34 = Str_E9C38_smalltit[v278x].dword12;
-				v35 = v34 * v34 + Str_E9C38_smalltit[v278x].dword0_rot * Str_E9C38_smalltit[v278x].dword0_rot;
-				Str_E9C38_smalltit[v278x].word36 = 0;
+				v34 = Str_E9C38_smalltit[v278x].y_12;
+				v35 = v34 * v34 + Str_E9C38_smalltit[v278x].x_0 * Str_E9C38_smalltit[v278x].x_0;
+				Str_E9C38_smalltit[v278x].haveBillboard_36 = 0;
 				if (v34 <= -256 || v35 >= str_F2C20ar.dword0x15)
 				{
-					Str_E9C38_smalltit[v278x].word38 |= 2u;
+					Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 2u;
 					goto LABEL_46;
 				}
 				if (v34 < 128)
 					v34 = 128;
-				Str_E9C38_smalltit[v278x].dword16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword0_rot / v34;
+				Str_E9C38_smalltit[v278x].pnt1_16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].x_0 / v34;
 				v36 = v279;
-				Str_E9C38_smalltit[v278x].dword4_height = 32 * mapHeightmap_11B4E0[v279] - posZ;
-				Str_E9C38_smalltit[v278x].dword8 = ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v36] << 15 >> 10) - posZ;
+				Str_E9C38_smalltit[v278x].alt_4 = 32 * mapHeightmap_11B4E0[v279] - posZ;
+				Str_E9C38_smalltit[v278x].alt2_8 = ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v36] << 15 >> 10) - posZ;
 				v37 = 0;
 				if (!mapTerrainType_10B4E0[v36])
 				{
 					v38 = 32 * D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248;
 					v37 = (Maths::sin_DB750[(v38 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8)
 						* (Maths::sin_DB750[(((unsigned __int8)v279 << 7) + v38) & 0x7FF] >> 8);
-					Str_E9C38_smalltit[v278x].dword4_height -= v37 >> 13;
+					Str_E9C38_smalltit[v278x].alt_4 -= v37 >> 13;
 					if (v33 >= 14464)
 						v37 = 0;
 				}
@@ -729,31 +729,31 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				{
 					v39 = v39 * (signed __int64)(str_F2C20ar.dword0x16 - v35) / str_F2C20ar.dword0x12;
 				LABEL_39:
-					Str_E9C38_smalltit[v278x].dword32 = v39;
+					Str_E9C38_smalltit[v278x].pnt5_32 = v39;
 					goto LABEL_40;
 				}
-				Str_E9C38_smalltit[v278x].dword32 = 0;
+				Str_E9C38_smalltit[v278x].pnt5_32 = 0;
 			LABEL_40:
 				if (mapAngle_13B4E0[v279] & 8)
-					Str_E9C38_smalltit[v278x].word38 |= 0x80u;
+					Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 0x80u;
 				v40 = str_F2C20ar.dword0x18;
 				//v41x = v278x;
-				Str_E9C38_smalltit[v278x].dword20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword4_height / v34;
-				Str_E9C38_smalltit[v278x].dword28 = str_F2C20ar.dword0x22 + v40 * Str_E9C38_smalltit[v278x].dword8 / v34;
+				Str_E9C38_smalltit[v278x].pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].alt_4 / v34;
+				Str_E9C38_smalltit[v278x].pnt4_28 = str_F2C20ar.dword0x22 + v40 * Str_E9C38_smalltit[v278x].alt2_8 / v34;
 				LOBYTE(v42) = v277[2] + v279;
 				HIBYTE(v42) = v277[3] + HIBYTE(v279);
 				v43x = v278x;
-				Str_E9C38_smalltit[v278x].byte41 = mapTerrainType_10B4E0[v42];
+				Str_E9C38_smalltit[v278x].textIndex_41 = mapTerrainType_10B4E0[v42];
 				if (D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
-					Str_E9C38_smalltit[v43x].word38 |= 0x1000u;
-				Str_E9C38_smalltit[v278x].byte43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].byte41];
-				Str_E9C38_smalltit[v278x].byte42_std = projectedVertexBuffer[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v42] >> 2) & 0x1C);
+					Str_E9C38_smalltit[v43x].triangleFeatures_38 |= 0x1000u;
+				Str_E9C38_smalltit[v278x].textAtyp_43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].textIndex_41];
+				Str_E9C38_smalltit[v278x].textUV_42 = projectedVertexBuffer[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v42] >> 2) & 0x1C);
 				LOBYTE(v42) = v277[4] + v42;
 				HIBYTE(v42) += v277[5];
-				Str_E9C38_smalltit[v278x].word36 = mapEntityIndex_15B4E0[v42];
+				Str_E9C38_smalltit[v278x].haveBillboard_36 = mapEntityIndex_15B4E0[v42];
 			LABEL_46:
 				v44 = v277;
-				Str_E9C38_smalltit[v278x].word38 |= ((x_BYTE)v279 + HIBYTE(v279)) & 1;
+				Str_E9C38_smalltit[v278x].triangleFeatures_38 |= ((x_BYTE)v279 + HIBYTE(v279)) & 1;
 				LOBYTE(v279) = v44[8] + v279;
 				HIBYTE(v279) += v277[9];
 				v278x++;
@@ -774,55 +774,55 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				v124x = 0;
 				while (v123)
 				{
-					v125 = ((str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword16 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v124x].dword20) >> 16) + str_F2C20ar.dword0x24;
-					projectedVertexBuffer[25] = ((str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword16 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v124x].dword28) >> 16) + str_F2C20ar.dword0x24;
-					v126 = Str_E9C38_smalltit[v124x].dword16 * str_F2C20ar.dword0x0d;
-					projectedVertexBuffer[24] = str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword20) >> 16);
-					v127 = str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword28) >> 16);
-					Str_E9C38_smalltit[v124x].dword16 = v125;
+					v125 = ((str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].pnt1_16 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v124x].pnt2_20) >> 16) + str_F2C20ar.dword0x24;
+					projectedVertexBuffer[25] = ((str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].pnt1_16 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v124x].pnt4_28) >> 16) + str_F2C20ar.dword0x24;
+					v126 = Str_E9C38_smalltit[v124x].pnt1_16 * str_F2C20ar.dword0x0d;
+					projectedVertexBuffer[24] = str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].pnt2_20) >> 16);
+					v127 = str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].pnt4_28) >> 16);
+					Str_E9C38_smalltit[v124x].pnt1_16 = v125;
 					v128 = v127;
 					v129 = projectedVertexBuffer[24];
-					Str_E9C38_smalltit[v124x].dword28 = v128;
-					Str_E9C38_smalltit[v124x].dword20 = v129;
-					v130 = Str_E9C38_smalltit[v124x].dword16;
-					Str_E9C38_smalltit[v124x].dword24 = projectedVertexBuffer[25];
+					Str_E9C38_smalltit[v124x].pnt4_28 = v128;
+					Str_E9C38_smalltit[v124x].pnt2_20 = v129;
+					v130 = Str_E9C38_smalltit[v124x].pnt1_16;
+					Str_E9C38_smalltit[v124x].pnt3_24 = projectedVertexBuffer[25];
 					if (v130 >= 0)
 					{
-						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v124x].dword16)
-							Str_E9C38_smalltit[v124x].word38 |= 0x10u;
+						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v124x].pnt1_16)
+							Str_E9C38_smalltit[v124x].triangleFeatures_38 |= 0x10u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v124x].word38 |= 8u;
+						Str_E9C38_smalltit[v124x].triangleFeatures_38 |= 8u;
 					}
-					v131 = Str_E9C38_smalltit[v124x].dword20;
+					v131 = Str_E9C38_smalltit[v124x].pnt2_20;
 					if (v131 >= 0)
 					{
 						if ((unsigned __int16)viewPort.Height_DE568 <= v131)
-							Str_E9C38_smalltit[v124x].word38 |= 0x40u;
+							Str_E9C38_smalltit[v124x].triangleFeatures_38 |= 0x40u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v124x].word38 |= 0x20u;
+						Str_E9C38_smalltit[v124x].triangleFeatures_38 |= 0x20u;
 					}
-					if (Str_E9C38_smalltit[v124x].dword24 >= 0)
+					if (Str_E9C38_smalltit[v124x].pnt3_24 >= 0)
 					{
-						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v124x].dword24)
-							Str_E9C38_smalltit[v124x].word38 |= 0x200u;
+						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v124x].pnt3_24)
+							Str_E9C38_smalltit[v124x].triangleFeatures_38 |= 0x200u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v124x].word38 |= 0x100u;
+						Str_E9C38_smalltit[v124x].triangleFeatures_38 |= 0x100u;
 					}
-					v132 = Str_E9C38_smalltit[v124x].dword28;
+					v132 = Str_E9C38_smalltit[v124x].pnt4_28;
 					if (v132 >= 0)
 					{
 						if ((unsigned __int16)viewPort.Height_DE568 <= v132)
-							Str_E9C38_smalltit[v124x].word38 |= 0x800u;
+							Str_E9C38_smalltit[v124x].triangleFeatures_38 |= 0x800u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v124x].word38 |= 0x400u;
+						Str_E9C38_smalltit[v124x].triangleFeatures_38 |= 0x400u;
 					}
 					v124x++;
 					v123--;
@@ -839,25 +839,25 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 			for (jj = 40; jj; --jj)
 			{
 				projectedVertexBuffer[31] = ((unsigned __int8)mapShading_12B4E0[v279] << 8) + 128;
-				v109 = Str_E9C38_smalltit[v278x].dword12;
-				v110 = v109 * v109 + Str_E9C38_smalltit[v278x].dword0_rot * Str_E9C38_smalltit[v278x].dword0_rot;
-				Str_E9C38_smalltit[v278x].word36 = 0;
+				v109 = Str_E9C38_smalltit[v278x].y_12;
+				v110 = v109 * v109 + Str_E9C38_smalltit[v278x].x_0 * Str_E9C38_smalltit[v278x].x_0;
+				Str_E9C38_smalltit[v278x].haveBillboard_36 = 0;
 				if (v109 <= -256 || v110 >= str_F2C20ar.dword0x15)
 				{
-					Str_E9C38_smalltit[v278x].word38 |= 2u;
+					Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 2u;
 					goto LABEL_140;
 				}
 				if (v109 < 128)
 					v109 = 128;
-				Str_E9C38_smalltit[v278x].dword16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword0_rot / v109;
+				Str_E9C38_smalltit[v278x].pnt1_16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].x_0 / v109;
 				v111 = v279;
-				Str_E9C38_smalltit[v278x].dword4_height = 32 * mapHeightmap_11B4E0[v279] - posZ;
+				Str_E9C38_smalltit[v278x].alt_4 = 32 * mapHeightmap_11B4E0[v279] - posZ;
 				v112 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
 				projectedVertexBuffer[26] = Maths::sin_DB750[(v112 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8;
 				v113 = projectedVertexBuffer[26] * (Maths::sin_DB750[(((unsigned __int8)v279 << 7) + v112) & 0x7FF] >> 8);
 				projectedVertexBuffer[26] = mapHeightmap_11B4E0[v111];
-				Str_E9C38_smalltit[v278x].dword8 = -(projectedVertexBuffer[26] * ((v113 >> 4) + 0x8000) >> 10) - posZ;
-				if (!(mapAngle_13B4E0[v111] & 8) || (Str_E9C38_smalltit[v278x].dword4_height -= v113 >> 10, projectedVertexBuffer[31] >= 14464))
+				Str_E9C38_smalltit[v278x].alt2_8 = -(projectedVertexBuffer[26] * ((v113 >> 4) + 0x8000) >> 10) - posZ;
+				if (!(mapAngle_13B4E0[v111] & 8) || (Str_E9C38_smalltit[v278x].alt_4 -= v113 >> 10, projectedVertexBuffer[31] >= 14464))
 				{
 					v113 = 0;
 				}
@@ -868,31 +868,31 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				{
 					v116 = v116 * (signed __int64)(str_F2C20ar.dword0x16 - v110) / str_F2C20ar.dword0x12;
 				LABEL_133:
-					Str_E9C38_smalltit[v278x].dword32 = v116;
+					Str_E9C38_smalltit[v278x].pnt5_32 = v116;
 					goto LABEL_134;
 				}
-				Str_E9C38_smalltit[v278x].dword32 = 0;
+				Str_E9C38_smalltit[v278x].pnt5_32 = 0;
 			LABEL_134:
 				v117x = v278x;
-				Str_E9C38_smalltit[v278x].dword20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword4_height / v109;
-				Str_E9C38_smalltit[v278x].dword28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v117x].dword8 / v109;
+				Str_E9C38_smalltit[v278x].pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].alt_4 / v109;
+				Str_E9C38_smalltit[v278x].pnt4_28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v117x].alt2_8 / v109;
 				LOBYTE(v118) = v277[2] + v279;
 				HIBYTE(v118) = v277[3] + HIBYTE(v279);
 				v119 = mapTerrainType_10B4E0[v118];
-				Str_E9C38_smalltit[v278x].byte41 = v119;
+				Str_E9C38_smalltit[v278x].textIndex_41 = v119;
 				if (Maths::x_BYTE_D41D8[164 + v119])
-					Str_E9C38_smalltit[v278x].word38 |= 0x80u;
+					Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 0x80u;
 				if (D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
-					Str_E9C38_smalltit[v278x].word38 |= 0x1000u;
+					Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 0x1000u;
 				v120x = v278x;
-				Str_E9C38_smalltit[v278x].byte43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].byte41];
-				Str_E9C38_smalltit[v120x].byte42_std = projectedVertexBuffer[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v118] >> 2) & 0x1C);
+				Str_E9C38_smalltit[v278x].textAtyp_43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].textIndex_41];
+				Str_E9C38_smalltit[v120x].textUV_42 = projectedVertexBuffer[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v118] >> 2) & 0x1C);
 				LOBYTE(v118) = v277[4] + v118;
 				HIBYTE(v118) += v277[5];
-				Str_E9C38_smalltit[v278x].word36 = mapEntityIndex_15B4E0[v118];
+				Str_E9C38_smalltit[v278x].haveBillboard_36 = mapEntityIndex_15B4E0[v118];
 			LABEL_140:
 				v121 = v277;
-				Str_E9C38_smalltit[v278x].word38 |= ((x_BYTE)v279 + HIBYTE(v279)) & 1;
+				Str_E9C38_smalltit[v278x].triangleFeatures_38 |= ((x_BYTE)v279 + HIBYTE(v279)) & 1;
 				LOBYTE(v279) = v121[8] + v279;
 				HIBYTE(v279) += v277[9];
 				v278x += 1;
@@ -917,16 +917,16 @@ LABEL_259:
 				goto LABEL_259;
 			}
 			v197 = ((unsigned __int8)mapShading_12B4E0[v279] << 8) + 128;
-			v198 = Str_E9C38_smalltit[v278x].dword12;
-			v199 = v198 * v198 + Str_E9C38_smalltit[v278x].dword0_rot * Str_E9C38_smalltit[v278x].dword0_rot;
-			Str_E9C38_smalltit[v278x].word36 = 0;
+			v198 = Str_E9C38_smalltit[v278x].y_12;
+			v199 = v198 * v198 + Str_E9C38_smalltit[v278x].x_0 * Str_E9C38_smalltit[v278x].x_0;
+			Str_E9C38_smalltit[v278x].haveBillboard_36 = 0;
 			if (v198 > -256 && v199 < str_F2C20ar.dword0x15)
 				break;
-			Str_E9C38_smalltit[v278x].word38 |= 2u;
+			Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 2u;
 		LABEL_256:
 			v206x = v278x;
 			v207 = v277;
-			Str_E9C38_smalltit[v278x].word38 |= ((x_BYTE)v279 + HIBYTE(v279)) & 1;
+			Str_E9C38_smalltit[v278x].triangleFeatures_38 |= ((x_BYTE)v279 + HIBYTE(v279)) & 1;
 			LOBYTE(v279) = v207[8] + v279;
 			HIBYTE(v279) += v277[9];
 			v285--;
@@ -935,35 +935,35 @@ LABEL_259:
 		if (v198 < 128)
 			v198 = 128;
 		v200 = v279;
-		Str_E9C38_smalltit[v278x].dword16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword0_rot / v198;
-		Str_E9C38_smalltit[v278x].dword4_height = 32 * mapHeightmap_11B4E0[v200] - posZ;
+		Str_E9C38_smalltit[v278x].pnt1_16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].x_0 / v198;
+		Str_E9C38_smalltit[v278x].alt_4 = 32 * mapHeightmap_11B4E0[v200] - posZ;
 		v201 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
 		projectedVertexBuffer[26] = Maths::sin_DB750[(v201 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8;
 		v202 = projectedVertexBuffer[26] * (Maths::sin_DB750[(((unsigned __int8)v279 << 7) + v201) & 0x7FF] >> 8);
-		if (!(mapAngle_13B4E0[v200] & 8) || (Str_E9C38_smalltit[v278x].dword4_height -= v202 >> 10, v197 >= 14464))
+		if (!(mapAngle_13B4E0[v200] & 8) || (Str_E9C38_smalltit[v278x].alt_4 -= v202 >> 10, v197 >= 14464))
 			v202 = 0;
 		v203 = (v197 << 8) + 8 * v202;
 		if (v199 > str_F2C20ar.dword0x13)
 		{
 			if (v199 >= str_F2C20ar.dword0x16)
 			{
-				Str_E9C38_smalltit[v278x].dword32 = 0;
+				Str_E9C38_smalltit[v278x].pnt5_32 = 0;
 			LABEL_254:
-				Str_E9C38_smalltit[v278x].dword20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword4_height / v198;
+				Str_E9C38_smalltit[v278x].pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].alt_4 / v198;
 				LOBYTE(v204) = v277[2] + v279;
 				HIBYTE(v204) = v277[3] + HIBYTE(v279);
 				v205x = v278x;
-				Str_E9C38_smalltit[v278x].byte41 = mapTerrainType_10B4E0[v204];
-				Str_E9C38_smalltit[v205x].byte43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v205x].byte41];
-				Str_E9C38_smalltit[v205x].byte42_std = projectedVertexBuffer[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v204] >> 2) & 0x1C);
+				Str_E9C38_smalltit[v278x].textIndex_41 = mapTerrainType_10B4E0[v204];
+				Str_E9C38_smalltit[v205x].textAtyp_43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v205x].textIndex_41];
+				Str_E9C38_smalltit[v205x].textUV_42 = projectedVertexBuffer[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v204] >> 2) & 0x1C);
 				LOBYTE(v204) = v277[4] + v204;
 				HIBYTE(v204) += v277[5];
-				Str_E9C38_smalltit[v278x].word36 = mapEntityIndex_15B4E0[v204];
+				Str_E9C38_smalltit[v278x].haveBillboard_36 = mapEntityIndex_15B4E0[v204];
 				goto LABEL_256;
 			}
 			v203 = v203 * (signed __int64)(str_F2C20ar.dword0x16 - v199) / str_F2C20ar.dword0x12;
 		}
-		Str_E9C38_smalltit[v278x].dword32 = v203;
+		Str_E9C38_smalltit[v278x].pnt5_32 = v203;
 		goto LABEL_254;
 	}//21edb7 nothing changed
 	v208 = roll & 0x7FF;//21edb7
@@ -976,30 +976,30 @@ LABEL_259:
 	while (v209)
 	{
 		v212 = str_F2C20ar.dword0x10;
-		v213 = (str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v56x].dword16 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v56x].dword20) >> 16;
-		Str_E9C38_smalltit[v56x].dword16 = ((Str_E9C38_smalltit[v56x].dword16 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v56x].dword20) >> 16)
+		v213 = (str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v56x].pnt1_16 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v56x].pnt2_20) >> 16;
+		Str_E9C38_smalltit[v56x].pnt1_16 = ((Str_E9C38_smalltit[v56x].pnt1_16 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v56x].pnt2_20) >> 16)
 			+ str_F2C20ar.dword0x24;
 		v214 = v212 - v213;
-		v215 = Str_E9C38_smalltit[v56x].dword16;
-		Str_E9C38_smalltit[v56x].dword20 = v214;
+		v215 = Str_E9C38_smalltit[v56x].pnt1_16;
+		Str_E9C38_smalltit[v56x].pnt2_20 = v214;
 		if (v215 >= 0)
 		{
-			if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v56x].dword16)
-				Str_E9C38_smalltit[v56x].word38 |= 0x10u;
+			if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v56x].pnt1_16)
+				Str_E9C38_smalltit[v56x].triangleFeatures_38 |= 0x10u;
 		}
 		else
 		{
-			Str_E9C38_smalltit[v56x].word38 |= 8u;
+			Str_E9C38_smalltit[v56x].triangleFeatures_38 |= 8u;
 		}
-		v216 = Str_E9C38_smalltit[v56x].dword20;
+		v216 = Str_E9C38_smalltit[v56x].pnt2_20;
 		if (v216 >= 0)
 		{
 			if ((unsigned __int16)viewPort.Height_DE568 <= v216)
-				Str_E9C38_smalltit[v56x].word38 |= 0x40u;
+				Str_E9C38_smalltit[v56x].triangleFeatures_38 |= 0x40u;
 		}
 		else
 		{
-			Str_E9C38_smalltit[v56x].word38 |= 0x20u;
+			Str_E9C38_smalltit[v56x].triangleFeatures_38 |= 0x20u;
 		}
 		v56x++;
 		v209--;
@@ -1070,34 +1070,34 @@ void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVer
 			v293 = v58;
 			if (!v58)
 				break;
-			projectedVertexBuffer[18] = Str_E9C38_smalltit[jx].dword24;
-			projectedVertexBuffer[19] = Str_E9C38_smalltit[jx].dword28;
-			projectedVertexBuffer[22] = Str_E9C38_smalltit[jx].dword32;
+			projectedVertexBuffer[18] = Str_E9C38_smalltit[jx].pnt3_24;
+			projectedVertexBuffer[19] = Str_E9C38_smalltit[jx].pnt4_28;
+			projectedVertexBuffer[22] = Str_E9C38_smalltit[jx].pnt5_32;
 			jx++;
-			v60 = Str_E9C38_smalltit[jx - 1].word38;
-			v61 = Str_E9C38_smalltit[jx - 1].word38;
-			if (Str_E9C38_smalltit[jx].word38 & 4)
+			v60 = Str_E9C38_smalltit[jx - 1].triangleFeatures_38;
+			v61 = Str_E9C38_smalltit[jx - 1].triangleFeatures_38;
+			if (Str_E9C38_smalltit[jx].triangleFeatures_38 & 4)
 				break;
-			projectedVertexBuffer[12] = Str_E9C38_smalltit[jx].dword24;
-			projectedVertexBuffer[13] = Str_E9C38_smalltit[jx].dword28;
-			projectedVertexBuffer[16] = Str_E9C38_smalltit[jx].dword32;
-			v62 = Str_E9C38_smalltit[jx].word38;
-			projectedVertexBuffer[6] = Str_E9C38_smalltit[jx - 40].dword24;
-			projectedVertexBuffer[7] = Str_E9C38_smalltit[jx - 40].dword28;
-			projectedVertexBuffer[10] = Str_E9C38_smalltit[jx - 40].dword32;
+			projectedVertexBuffer[12] = Str_E9C38_smalltit[jx].pnt3_24;
+			projectedVertexBuffer[13] = Str_E9C38_smalltit[jx].pnt4_28;
+			projectedVertexBuffer[16] = Str_E9C38_smalltit[jx].pnt5_32;
+			v62 = Str_E9C38_smalltit[jx].triangleFeatures_38;
+			projectedVertexBuffer[6] = Str_E9C38_smalltit[jx - 40].pnt3_24;
+			projectedVertexBuffer[7] = Str_E9C38_smalltit[jx - 40].pnt4_28;
+			projectedVertexBuffer[10] = Str_E9C38_smalltit[jx - 40].pnt5_32;
 
-			v63 = Str_E9C38_smalltit[jx - 40].word38;
+			v63 = Str_E9C38_smalltit[jx - 40].triangleFeatures_38;
 			v64 = v63 | v62 | v60;
 			v65 = v63 & v62 & v61;
-			projectedVertexBuffer[0] = Str_E9C38_smalltit[jx - 41].dword24;
-			projectedVertexBuffer[1] = Str_E9C38_smalltit[jx - 41].dword28;
-			projectedVertexBuffer[4] = Str_E9C38_smalltit[jx - 41].dword32;
-			v66 = Str_E9C38_smalltit[jx - 41].word38;
+			projectedVertexBuffer[0] = Str_E9C38_smalltit[jx - 41].pnt3_24;
+			projectedVertexBuffer[1] = Str_E9C38_smalltit[jx - 41].pnt4_28;
+			projectedVertexBuffer[4] = Str_E9C38_smalltit[jx - 41].pnt5_32;
+			v66 = Str_E9C38_smalltit[jx - 41].triangleFeatures_38;
 			v67 = v66 | v64;
 			v68x = jx - 1;
 			if ((v66 & v65 & 0x80u) == 0)
 			{
-				if (Str_E9C38_smalltit[v68x].word38 & 0x1000)
+				if (Str_E9C38_smalltit[v68x].triangleFeatures_38 & 0x1000)
 				{
 					x_BYTE_E126D = 7;
 					x_BYTE_E126C = (projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
@@ -1115,34 +1115,34 @@ void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVer
 					}
 				}
 			}
-			projectedVertexBuffer[18] = Str_E9C38_smalltit[v68x].dword16;
-			projectedVertexBuffer[19] = Str_E9C38_smalltit[v68x].dword20;
-			projectedVertexBuffer[22] = Str_E9C38_smalltit[v68x].dword32;
+			projectedVertexBuffer[18] = Str_E9C38_smalltit[v68x].pnt1_16;
+			projectedVertexBuffer[19] = Str_E9C38_smalltit[v68x].pnt2_20;
+			projectedVertexBuffer[22] = Str_E9C38_smalltit[v68x].pnt5_32;
 			jx = v68x + 1;
-			v71 = Str_E9C38_smalltit[jx - 1].word38;
-			v72 = Str_E9C38_smalltit[jx - 1].word38;
-			if (Str_E9C38_smalltit[jx].word38 & 4)
+			v71 = Str_E9C38_smalltit[jx - 1].triangleFeatures_38;
+			v72 = Str_E9C38_smalltit[jx - 1].triangleFeatures_38;
+			if (Str_E9C38_smalltit[jx].triangleFeatures_38 & 4)
 				break;
-			projectedVertexBuffer[12] = Str_E9C38_smalltit[jx].dword16;
-			projectedVertexBuffer[13] = Str_E9C38_smalltit[jx].dword20;
-			projectedVertexBuffer[16] = Str_E9C38_smalltit[jx].dword32;
-			v73 = Str_E9C38_smalltit[jx].word38;
-			projectedVertexBuffer[6] = Str_E9C38_smalltit[jx - 40].dword16;
-			projectedVertexBuffer[7] = Str_E9C38_smalltit[jx - 40].dword20;
-			projectedVertexBuffer[10] = Str_E9C38_smalltit[jx - 40].dword32;
-			v74 = Str_E9C38_smalltit[jx - 40].word38;
+			projectedVertexBuffer[12] = Str_E9C38_smalltit[jx].pnt1_16;
+			projectedVertexBuffer[13] = Str_E9C38_smalltit[jx].pnt2_20;
+			projectedVertexBuffer[16] = Str_E9C38_smalltit[jx].pnt5_32;
+			v73 = Str_E9C38_smalltit[jx].triangleFeatures_38;
+			projectedVertexBuffer[6] = Str_E9C38_smalltit[jx - 40].pnt1_16;
+			projectedVertexBuffer[7] = Str_E9C38_smalltit[jx - 40].pnt2_20;
+			projectedVertexBuffer[10] = Str_E9C38_smalltit[jx - 40].pnt5_32;
+			v74 = Str_E9C38_smalltit[jx - 40].triangleFeatures_38;
 			v75 = v74 | v73 | v71;
 			v76 = v74 & v73 & v72;
-			projectedVertexBuffer[0] = Str_E9C38_smalltit[jx - 41].dword16;
-			projectedVertexBuffer[1] = Str_E9C38_smalltit[jx - 41].dword20;
-			projectedVertexBuffer[4] = Str_E9C38_smalltit[jx - 41].dword32;
-			v77 = Str_E9C38_smalltit[jx - 41].word38;
+			projectedVertexBuffer[0] = Str_E9C38_smalltit[jx - 41].pnt1_16;
+			projectedVertexBuffer[1] = Str_E9C38_smalltit[jx - 41].pnt2_20;
+			projectedVertexBuffer[4] = Str_E9C38_smalltit[jx - 41].pnt5_32;
+			v77 = Str_E9C38_smalltit[jx - 41].triangleFeatures_38;
 			v78 = v77 | v75;
 			v79 = v77 & v76;
 			v80x = jx - 1;
 			if (v79 >= 0)
 			{
-				if (Str_E9C38_smalltit[v80x].word38 & 0x1000)
+				if (Str_E9C38_smalltit[v80x].triangleFeatures_38 & 0x1000)
 				{
 					x_BYTE_E126D = 7;
 					x_BYTE_E126C = (projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
@@ -1155,7 +1155,7 @@ void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVer
 				{
 					DrawSquareInProjectionSpace(projectedVertexBuffer, v80x);
 				}
-				if (Str_E9C38_smalltit[v80x].word36)
+				if (Str_E9C38_smalltit[v80x].haveBillboard_36)
 					DrawParticles_3E360(v80x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
 			}
 			v58 = v293 - 1;
@@ -1167,32 +1167,32 @@ void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVer
 			v83x = v57x + 38;
 			do
 			{
-				projectedVertexBuffer[18] = Str_E9C38_smalltit[v83x].dword24;
-				projectedVertexBuffer[19] = Str_E9C38_smalltit[v83x].dword28;
-				projectedVertexBuffer[22] = Str_E9C38_smalltit[v83x].dword32;
-				v84 = Str_E9C38_smalltit[v83x].word38;
-				projectedVertexBuffer[12] = Str_E9C38_smalltit[v83x + 1].dword24;
-				projectedVertexBuffer[13] = Str_E9C38_smalltit[v83x + 1].dword28;
-				projectedVertexBuffer[16] = Str_E9C38_smalltit[v83x + 1].dword32;
-				v85 = Str_E9C38_smalltit[v83x + 1].word38;
-				projectedVertexBuffer[6] = Str_E9C38_smalltit[v83x - 39].dword24;
-				projectedVertexBuffer[7] = Str_E9C38_smalltit[v83x - 39].dword28;
+				projectedVertexBuffer[18] = Str_E9C38_smalltit[v83x].pnt3_24;
+				projectedVertexBuffer[19] = Str_E9C38_smalltit[v83x].pnt4_28;
+				projectedVertexBuffer[22] = Str_E9C38_smalltit[v83x].pnt5_32;
+				v84 = Str_E9C38_smalltit[v83x].triangleFeatures_38;
+				projectedVertexBuffer[12] = Str_E9C38_smalltit[v83x + 1].pnt3_24;
+				projectedVertexBuffer[13] = Str_E9C38_smalltit[v83x + 1].pnt4_28;
+				projectedVertexBuffer[16] = Str_E9C38_smalltit[v83x + 1].pnt5_32;
+				v85 = Str_E9C38_smalltit[v83x + 1].triangleFeatures_38;
+				projectedVertexBuffer[6] = Str_E9C38_smalltit[v83x - 39].pnt3_24;
+				projectedVertexBuffer[7] = Str_E9C38_smalltit[v83x - 39].pnt4_28;
 				v86 = v84;
-				projectedVertexBuffer[10] = Str_E9C38_smalltit[v83x - 39].dword32;
-				v87 = Str_E9C38_smalltit[v83x - 39].word38;
+				projectedVertexBuffer[10] = Str_E9C38_smalltit[v83x - 39].pnt5_32;
+				v87 = Str_E9C38_smalltit[v83x - 39].triangleFeatures_38;
 				v88 = v87 | v85 | v84;
 				v89 = v87 & v85 & v86;
-				projectedVertexBuffer[0] = Str_E9C38_smalltit[v83x - 40].dword24;
-				projectedVertexBuffer[1] = Str_E9C38_smalltit[v83x - 40].dword28;
-				v90 = Str_E9C38_smalltit[v83x - 40].dword32;
+				projectedVertexBuffer[0] = Str_E9C38_smalltit[v83x - 40].pnt3_24;
+				projectedVertexBuffer[1] = Str_E9C38_smalltit[v83x - 40].pnt4_28;
+				v90 = Str_E9C38_smalltit[v83x - 40].pnt5_32;
 				v91x = v83x + 1;
 				projectedVertexBuffer[4] = v90;
-				v92 = Str_E9C38_smalltit[v83x - 41].word38;
+				v92 = Str_E9C38_smalltit[v83x - 41].triangleFeatures_38;
 				v93 = v92 | v88;
 				v94x = v91x - 1;
 				if ((v92 & v89 & 0x80u) == 0)
 				{
-					if (Str_E9C38_smalltit[v94x].word38 & 0x1000)
+					if (Str_E9C38_smalltit[v94x].triangleFeatures_38 & 0x1000)
 					{
 						x_BYTE_E126D = 7;
 						x_BYTE_E126C = (projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
@@ -1206,33 +1206,33 @@ void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVer
 						DrawInverseSquareInProjectionSpace(&projectedVertexBuffer[0], v94x, x_DWORD_DDF50_texture_adresses.at(1));
 					}
 				}
-				projectedVertexBuffer[18] = Str_E9C38_smalltit[v94x].dword16;
-				projectedVertexBuffer[19] = Str_E9C38_smalltit[v94x].dword20;
-				projectedVertexBuffer[22] = Str_E9C38_smalltit[v94x].dword32;
-				v97 = Str_E9C38_smalltit[v94x].word38;
-				projectedVertexBuffer[12] = Str_E9C38_smalltit[v94x + 1].dword16;
-				projectedVertexBuffer[13] = Str_E9C38_smalltit[v94x + 1].dword20;
-				projectedVertexBuffer[16] = Str_E9C38_smalltit[v94x + 1].dword32;
+				projectedVertexBuffer[18] = Str_E9C38_smalltit[v94x].pnt1_16;
+				projectedVertexBuffer[19] = Str_E9C38_smalltit[v94x].pnt2_20;
+				projectedVertexBuffer[22] = Str_E9C38_smalltit[v94x].pnt5_32;
+				v97 = Str_E9C38_smalltit[v94x].triangleFeatures_38;
+				projectedVertexBuffer[12] = Str_E9C38_smalltit[v94x + 1].pnt1_16;
+				projectedVertexBuffer[13] = Str_E9C38_smalltit[v94x + 1].pnt2_20;
+				projectedVertexBuffer[16] = Str_E9C38_smalltit[v94x + 1].pnt5_32;
 				v98 = v97;
-				v99 = Str_E9C38_smalltit[v94x + 1].word38;
+				v99 = Str_E9C38_smalltit[v94x + 1].triangleFeatures_38;
 				v100 = v99 | v97;
 				v101 = v99 & v98;
-				projectedVertexBuffer[6] = Str_E9C38_smalltit[v94x - 39].dword16;
-				projectedVertexBuffer[7] = Str_E9C38_smalltit[v94x - 39].dword20;
-				projectedVertexBuffer[10] = Str_E9C38_smalltit[v94x - 39].dword32;
-				v102 = Str_E9C38_smalltit[v94x - 39].word38;
+				projectedVertexBuffer[6] = Str_E9C38_smalltit[v94x - 39].pnt1_16;
+				projectedVertexBuffer[7] = Str_E9C38_smalltit[v94x - 39].pnt2_20;
+				projectedVertexBuffer[10] = Str_E9C38_smalltit[v94x - 39].pnt5_32;
+				v102 = Str_E9C38_smalltit[v94x - 39].triangleFeatures_38;
 
-				projectedVertexBuffer[0] = Str_E9C38_smalltit[v94x - 40].dword16;
-				v103 = Str_E9C38_smalltit[v94x - 40].dword20;
+				projectedVertexBuffer[0] = Str_E9C38_smalltit[v94x - 40].pnt1_16;
+				v103 = Str_E9C38_smalltit[v94x - 40].pnt2_20;
 				v104x = v94x + 1;
 				projectedVertexBuffer[1] = v103;
-				projectedVertexBuffer[4] = Str_E9C38_smalltit[v104x - 41].dword32;
-				v105 = (Str_E9C38_smalltit[v104x - 41].word38 & 0xff) | v102 | v100;
-				v106 = (Str_E9C38_smalltit[v104x - 41].word38 & 0xff) & v102 & v101;
+				projectedVertexBuffer[4] = Str_E9C38_smalltit[v104x - 41].pnt5_32;
+				v105 = (Str_E9C38_smalltit[v104x - 41].triangleFeatures_38 & 0xff) | v102 | v100;
+				v106 = (Str_E9C38_smalltit[v104x - 41].triangleFeatures_38 & 0xff) & v102 & v101;
 				v107x = v104x - 1;
 				if (v106 >= 0)
 				{
-					if (Str_E9C38_smalltit[v107x].word38 & 0x1000)
+					if (Str_E9C38_smalltit[v107x].triangleFeatures_38 & 0x1000)
 					{
 						x_BYTE_E126D = 7;
 						x_BYTE_E126C = (projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
@@ -1245,7 +1245,7 @@ void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVer
 					{
 						DrawSquareInProjectionSpace(projectedVertexBuffer, v107x);
 					}
-					if (Str_E9C38_smalltit[v107x].word36)
+					if (Str_E9C38_smalltit[v107x].haveBillboard_36)
 						DrawParticles_3E360(v107x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
 				}
 				v83x = v107x - 1;
@@ -1292,34 +1292,34 @@ void GameRenderHD::SubDrawInverseTerrainAndParticles(std::vector<int>& projected
 		v134x = v133x;
 		for (n = 39; n; --n)
 		{
-			projectedVertexBuffer[18] = Str_E9C38_smalltit[v134x].dword24;
-			projectedVertexBuffer[19] = Str_E9C38_smalltit[v134x].dword28;
-			v135 = Str_E9C38_smalltit[v134x].dword32;
+			projectedVertexBuffer[18] = Str_E9C38_smalltit[v134x].pnt3_24;
+			projectedVertexBuffer[19] = Str_E9C38_smalltit[v134x].pnt4_28;
+			v135 = Str_E9C38_smalltit[v134x].pnt5_32;
 			v134x++;
 			projectedVertexBuffer[22] = v135;
-			v136 = Str_E9C38_smalltit[v134x - 1].word38;
-			if (Str_E9C38_smalltit[v134x].word38 & 4)
+			v136 = Str_E9C38_smalltit[v134x - 1].triangleFeatures_38;
+			if (Str_E9C38_smalltit[v134x].triangleFeatures_38 & 4)
 				break;
-			projectedVertexBuffer[12] = Str_E9C38_smalltit[v134x].dword24;
-			projectedVertexBuffer[13] = Str_E9C38_smalltit[v134x].dword28;
-			projectedVertexBuffer[16] = Str_E9C38_smalltit[v134x].dword32;
-			v137 = Str_E9C38_smalltit[v134x].word38;
-			projectedVertexBuffer[6] = Str_E9C38_smalltit[v134x - 40].dword24;
-			projectedVertexBuffer[7] = Str_E9C38_smalltit[v134x - 40].dword28;
-			projectedVertexBuffer[10] = Str_E9C38_smalltit[v134x - 40].dword32;
-			v138 = Str_E9C38_smalltit[v134x - 40].word38 | v137 | v136;
-			projectedVertexBuffer[0] = Str_E9C38_smalltit[v134x - 41].dword24;
-			v139 = Str_E9C38_smalltit[v134x - 41].dword28;
+			projectedVertexBuffer[12] = Str_E9C38_smalltit[v134x].pnt3_24;
+			projectedVertexBuffer[13] = Str_E9C38_smalltit[v134x].pnt4_28;
+			projectedVertexBuffer[16] = Str_E9C38_smalltit[v134x].pnt5_32;
+			v137 = Str_E9C38_smalltit[v134x].triangleFeatures_38;
+			projectedVertexBuffer[6] = Str_E9C38_smalltit[v134x - 40].pnt3_24;
+			projectedVertexBuffer[7] = Str_E9C38_smalltit[v134x - 40].pnt4_28;
+			projectedVertexBuffer[10] = Str_E9C38_smalltit[v134x - 40].pnt5_32;
+			v138 = Str_E9C38_smalltit[v134x - 40].triangleFeatures_38 | v137 | v136;
+			projectedVertexBuffer[0] = Str_E9C38_smalltit[v134x - 41].pnt3_24;
+			v139 = Str_E9C38_smalltit[v134x - 41].pnt4_28;
 			v140x = v134x - 40;
 			v140x--;
 			projectedVertexBuffer[1] = v139;
-			projectedVertexBuffer[4] = Str_E9C38_smalltit[v140x].dword32;
-			v142 = Str_E9C38_smalltit[v140x].word38;
+			projectedVertexBuffer[4] = Str_E9C38_smalltit[v140x].pnt5_32;
+			v142 = Str_E9C38_smalltit[v140x].triangleFeatures_38;
 			v143x = v140x + 40;
 			v144 = v142 | v138;
-			if (Str_E9C38_smalltit[v143x].byte41)
+			if (Str_E9C38_smalltit[v143x].textIndex_41)
 			{
-				if (Str_E9C38_smalltit[v143x].word38 & 0x1000)
+				if (Str_E9C38_smalltit[v143x].triangleFeatures_38 & 0x1000)
 				{
 					x_BYTE_E126D = 7;
 					x_BYTE_E126C = (projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
@@ -1337,7 +1337,7 @@ void GameRenderHD::SubDrawInverseTerrainAndParticles(std::vector<int>& projected
 					}
 				}
 			}
-			if (Str_E9C38_smalltit[v143x].word36)
+			if (Str_E9C38_smalltit[v143x].haveBillboard_36)
 				sub_3FD60(v143x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, pitch);
 			v134x = v143x + 1;
 		}
@@ -1348,33 +1348,33 @@ void GameRenderHD::SubDrawInverseTerrainAndParticles(std::vector<int>& projected
 			v147x = v133x + 38;
 			do
 			{
-				projectedVertexBuffer[18] = Str_E9C38_smalltit[v147x].dword24;
-				projectedVertexBuffer[19] = Str_E9C38_smalltit[v147x].dword28;
-				projectedVertexBuffer[22] = Str_E9C38_smalltit[v147x].dword32;
-				v148 = Str_E9C38_smalltit[v147x].word38;
-				projectedVertexBuffer[12] = Str_E9C38_smalltit[v147x + 1].dword24;
-				projectedVertexBuffer[13] = Str_E9C38_smalltit[v147x + 1].dword28;
-				projectedVertexBuffer[16] = Str_E9C38_smalltit[v147x + 1].dword32;
-				v149 = Str_E9C38_smalltit[v147x + 1].word38 | v148;
-				projectedVertexBuffer[6] = Str_E9C38_smalltit[v147x - 39].dword24;
-				v150 = Str_E9C38_smalltit[v147x - 39].dword28;
+				projectedVertexBuffer[18] = Str_E9C38_smalltit[v147x].pnt3_24;
+				projectedVertexBuffer[19] = Str_E9C38_smalltit[v147x].pnt4_28;
+				projectedVertexBuffer[22] = Str_E9C38_smalltit[v147x].pnt5_32;
+				v148 = Str_E9C38_smalltit[v147x].triangleFeatures_38;
+				projectedVertexBuffer[12] = Str_E9C38_smalltit[v147x + 1].pnt3_24;
+				projectedVertexBuffer[13] = Str_E9C38_smalltit[v147x + 1].pnt4_28;
+				projectedVertexBuffer[16] = Str_E9C38_smalltit[v147x + 1].pnt5_32;
+				v149 = Str_E9C38_smalltit[v147x + 1].triangleFeatures_38 | v148;
+				projectedVertexBuffer[6] = Str_E9C38_smalltit[v147x - 39].pnt3_24;
+				v150 = Str_E9C38_smalltit[v147x - 39].pnt4_28;
 				v151x = v147x + 1;
 				projectedVertexBuffer[7] = v150;
-				v152 = Str_E9C38_smalltit[v151x - 40].dword32;
+				v152 = Str_E9C38_smalltit[v151x - 40].pnt5_32;
 				v151x -= 40;
 				projectedVertexBuffer[10] = v152;
-				v153 = Str_E9C38_smalltit[v151x].word38;
-				projectedVertexBuffer[0] = Str_E9C38_smalltit[v151x - 1].dword24;
-				v154 = Str_E9C38_smalltit[v151x - 1].dword28;
+				v153 = Str_E9C38_smalltit[v151x].triangleFeatures_38;
+				projectedVertexBuffer[0] = Str_E9C38_smalltit[v151x - 1].pnt3_24;
+				v154 = Str_E9C38_smalltit[v151x - 1].pnt4_28;
 				v151x--;
 				projectedVertexBuffer[1] = v154;
-				projectedVertexBuffer[4] = Str_E9C38_smalltit[v151x].dword32;
-				LOBYTE(v154) = Str_E9C38_smalltit[v151x].word38;
+				projectedVertexBuffer[4] = Str_E9C38_smalltit[v151x].pnt5_32;
+				LOBYTE(v154) = Str_E9C38_smalltit[v151x].triangleFeatures_38;
 				v155x = v151x + 40;
 				v156 = v154 | v153 | v149;
-				if (Str_E9C38_smalltit[v155x].byte41)
+				if (Str_E9C38_smalltit[v155x].textIndex_41)
 				{
-					if (Str_E9C38_smalltit[v155x].word38 & 0x1000)
+					if (Str_E9C38_smalltit[v155x].triangleFeatures_38 & 0x1000)
 					{
 						x_BYTE_E126D = 7;
 						x_BYTE_E126C = (projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
@@ -1392,7 +1392,7 @@ void GameRenderHD::SubDrawInverseTerrainAndParticles(std::vector<int>& projected
 						}
 					}
 				}
-				if (Str_E9C38_smalltit[v155x].word36)
+				if (Str_E9C38_smalltit[v155x].haveBillboard_36)
 					sub_3FD60(v155x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, pitch);
 				v147x = v155x - 1;
 			} while (v147x >= v25z);
@@ -1445,39 +1445,39 @@ void GameRenderHD::SubDrawTerrainAndParticles(std::vector<int>& projectedVertexB
 		//Draw Left Side of Terrain
 		for (ii = 39; ii; --ii)
 		{
-			projectedVertexBuffer[18] = Str_E9C38_smalltit[v161].dword16;
-			projectedVertexBuffer[19] = Str_E9C38_smalltit[v161].dword20;
-			v162 = Str_E9C38_smalltit[v161].dword32;
+			projectedVertexBuffer[18] = Str_E9C38_smalltit[v161].pnt1_16;
+			projectedVertexBuffer[19] = Str_E9C38_smalltit[v161].pnt2_20;
+			v162 = Str_E9C38_smalltit[v161].pnt5_32;
 			v161++;
 			projectedVertexBuffer[22] = v162;
-			v163 = Str_E9C38_smalltit[v161 - 1].word38;
-			v164 = Str_E9C38_smalltit[v161 - 1].word38;
-			if (Str_E9C38_smalltit[v161].word38 & 4)
+			v163 = Str_E9C38_smalltit[v161 - 1].triangleFeatures_38;
+			v164 = Str_E9C38_smalltit[v161 - 1].triangleFeatures_38;
+			if (Str_E9C38_smalltit[v161].triangleFeatures_38 & 4)
 				break;
-			projectedVertexBuffer[12] = Str_E9C38_smalltit[v161].dword16;
-			projectedVertexBuffer[13] = Str_E9C38_smalltit[v161].dword20;
-			projectedVertexBuffer[16] = Str_E9C38_smalltit[v161].dword32;
-			v165 = Str_E9C38_smalltit[v161].word38;
+			projectedVertexBuffer[12] = Str_E9C38_smalltit[v161].pnt1_16;
+			projectedVertexBuffer[13] = Str_E9C38_smalltit[v161].pnt2_20;
+			projectedVertexBuffer[16] = Str_E9C38_smalltit[v161].pnt5_32;
+			v165 = Str_E9C38_smalltit[v161].triangleFeatures_38;
 			v166 = v165 | v163;
 			v167 = v165 & v164;
-			projectedVertexBuffer[6] = Str_E9C38_smalltit[v161 - 40].dword16;
-			projectedVertexBuffer[7] = Str_E9C38_smalltit[v161 - 40].dword20;
-			v168 = Str_E9C38_smalltit[v161 - 40].dword32;
+			projectedVertexBuffer[6] = Str_E9C38_smalltit[v161 - 40].pnt1_16;
+			projectedVertexBuffer[7] = Str_E9C38_smalltit[v161 - 40].pnt2_20;
+			v168 = Str_E9C38_smalltit[v161 - 40].pnt5_32;
 			v169x = v161 - 40;
 			projectedVertexBuffer[10] = v168;
-			v170 = Str_E9C38_smalltit[v169x].word38;
-			projectedVertexBuffer[0] = Str_E9C38_smalltit[v169x - 1].dword16;
-			v171 = Str_E9C38_smalltit[v169x - 1].dword20;
+			v170 = Str_E9C38_smalltit[v169x].triangleFeatures_38;
+			projectedVertexBuffer[0] = Str_E9C38_smalltit[v169x - 1].pnt1_16;
+			v171 = Str_E9C38_smalltit[v169x - 1].pnt2_20;
 			v169x--;
 			projectedVertexBuffer[1] = v171;
-			projectedVertexBuffer[4] = Str_E9C38_smalltit[v169x].dword32;
-			BYTE1(v171) = Str_E9C38_smalltit[v169x].word38;
+			projectedVertexBuffer[4] = Str_E9C38_smalltit[v169x].pnt5_32;
+			BYTE1(v171) = Str_E9C38_smalltit[v169x].triangleFeatures_38;
 			v172x = v169x + 40;
 			v173 = BYTE1(v171) | v170 | v166;
 			v174 = BYTE1(v171) & v170 & v167;
-			if ((int8_t)(Str_E9C38_smalltit[v172x].word38 & 0xff) >= 0)
+			if ((int8_t)(Str_E9C38_smalltit[v172x].triangleFeatures_38 & 0xff) >= 0)
 			{
-				if (Str_E9C38_smalltit[v172x].word38 & 0x1000)
+				if (Str_E9C38_smalltit[v172x].triangleFeatures_38 & 0x1000)
 				{
 					x_BYTE_E126D = 7;
 					x_BYTE_E126C = ((signed int)projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
@@ -1499,7 +1499,7 @@ void GameRenderHD::SubDrawTerrainAndParticles(std::vector<int>& projectedVertexB
 					DrawSquareInProjectionSpace(projectedVertexBuffer, v172x);
 				}
 			}
-			if (Str_E9C38_smalltit[v172x].word36)
+			if (Str_E9C38_smalltit[v172x].haveBillboard_36)
 				DrawParticles_3E360(v172x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
 			v161 = v172x + 1;
 		}
@@ -1510,37 +1510,37 @@ void GameRenderHD::SubDrawTerrainAndParticles(std::vector<int>& projectedVertexB
 			v178x = v160 + 38;
 			do
 			{
-				projectedVertexBuffer[18] = Str_E9C38_smalltit[v178x].dword16;
-				projectedVertexBuffer[19] = Str_E9C38_smalltit[v178x].dword20;
-				projectedVertexBuffer[22] = Str_E9C38_smalltit[v178x].dword32;
-				v179 = Str_E9C38_smalltit[v178x].word38;
-				projectedVertexBuffer[12] = Str_E9C38_smalltit[v178x + 1].dword16;
-				projectedVertexBuffer[13] = Str_E9C38_smalltit[v178x + 1].dword20;
-				projectedVertexBuffer[16] = Str_E9C38_smalltit[v178x + 1].dword32;
-				v180 = Str_E9C38_smalltit[v178x + 1].word38;
-				projectedVertexBuffer[6] = Str_E9C38_smalltit[v178x - 39].dword16;
-				projectedVertexBuffer[7] = Str_E9C38_smalltit[v178x - 39].dword20;
+				projectedVertexBuffer[18] = Str_E9C38_smalltit[v178x].pnt1_16;
+				projectedVertexBuffer[19] = Str_E9C38_smalltit[v178x].pnt2_20;
+				projectedVertexBuffer[22] = Str_E9C38_smalltit[v178x].pnt5_32;
+				v179 = Str_E9C38_smalltit[v178x].triangleFeatures_38;
+				projectedVertexBuffer[12] = Str_E9C38_smalltit[v178x + 1].pnt1_16;
+				projectedVertexBuffer[13] = Str_E9C38_smalltit[v178x + 1].pnt2_20;
+				projectedVertexBuffer[16] = Str_E9C38_smalltit[v178x + 1].pnt5_32;
+				v180 = Str_E9C38_smalltit[v178x + 1].triangleFeatures_38;
+				projectedVertexBuffer[6] = Str_E9C38_smalltit[v178x - 39].pnt1_16;
+				projectedVertexBuffer[7] = Str_E9C38_smalltit[v178x - 39].pnt2_20;
 				v181 = v179;
-				projectedVertexBuffer[10] = Str_E9C38_smalltit[v178x - 39].dword32;
-				v182 = Str_E9C38_smalltit[v178x - 39].word38;
+				projectedVertexBuffer[10] = Str_E9C38_smalltit[v178x - 39].pnt5_32;
+				v182 = Str_E9C38_smalltit[v178x - 39].triangleFeatures_38;
 				v183 = v182 | v180 | v179;
 				v184 = v182 & v180 & v181;
-				v185 = Str_E9C38_smalltit[v178x - 40].dword16;
+				v185 = Str_E9C38_smalltit[v178x - 40].pnt1_16;
 				v186x = v178x + 1;
 				projectedVertexBuffer[0] = v185;
-				v187 = Str_E9C38_smalltit[v186x - 41].dword20;
+				v187 = Str_E9C38_smalltit[v186x - 41].pnt2_20;
 				v186x -= 40;
 				projectedVertexBuffer[1] = v187;
-				v188 = Str_E9C38_smalltit[v186x - 1].dword32;
+				v188 = Str_E9C38_smalltit[v186x - 1].pnt5_32;
 				v186x--;
 				projectedVertexBuffer[4] = v188;
-				v189 = Str_E9C38_smalltit[v186x].word38;
+				v189 = Str_E9C38_smalltit[v186x].triangleFeatures_38;
 				v190x = v186x + 40;
 				v191 = v189 | v183;
 				v192 = v189 & v184;
-				if ((int8_t)(Str_E9C38_smalltit[v190x].word38 & 0xff) >= 0)
+				if ((int8_t)(Str_E9C38_smalltit[v190x].triangleFeatures_38 & 0xff) >= 0)
 				{
-					if (Str_E9C38_smalltit[v190x].word38 & 0x1000)
+					if (Str_E9C38_smalltit[v190x].triangleFeatures_38 & 0x1000)
 					{
 						x_BYTE_E126D = 7;
 						x_BYTE_E126C = ((signed int)projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
@@ -1562,7 +1562,7 @@ void GameRenderHD::SubDrawTerrainAndParticles(std::vector<int>& projectedVertexB
 						DrawSquareInProjectionSpace(projectedVertexBuffer, v190x);
 					}
 				}
-				if (Str_E9C38_smalltit[v190x].word36)
+				if (Str_E9C38_smalltit[v190x].haveBillboard_36)
 					DrawParticles_3E360(v190x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
 				v178x = v190x - 1;
 			} while (v178x >= v177x);
@@ -1617,7 +1617,7 @@ uint16_t GameRenderHD::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x
 	type_particle_str* a1x = 0;
 	//fix
 
-	result = Str_E9C38_smalltit[a2x].word36;
+	result = Str_E9C38_smalltit[a2x].haveBillboard_36;
 	do
 	{
 		if (result < 0x3E8u)
@@ -2799,17 +2799,17 @@ void GameRenderHD::StopWorkerThreads()
 void GameRenderHD::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int index)
 {
 	//Set Texture coordinates for polys
-	vertexs[20] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][0];
-	vertexs[21] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][1];
-	vertexs[14] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][2];
-	vertexs[15] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][3];
-	vertexs[8] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][4];
-	vertexs[9] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][5];
-	vertexs[2] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][6];
-	vertexs[3] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][7];
+	vertexs[20] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][0];
+	vertexs[21] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][1];
+	vertexs[14] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][2];
+	vertexs[15] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][3];
+	vertexs[8] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][4];
+	vertexs[9] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][5];
+	vertexs[2] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][6];
+	vertexs[3] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][7];
 
 	//Get Texture
-	x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses.at(Str_E9C38_smalltit[index].byte41);
+	x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses.at(Str_E9C38_smalltit[index].textIndex_41);
 
 	//Render
 	auto vertex0 = ProjectionPolygon(&vertexs[0]);
@@ -2819,7 +2819,7 @@ void GameRenderHD::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int in
 
 	uint8_t drawEveryNthLine = m_renderThreads.size() + 1;
 
-	if ((uint8_t)Str_E9C38_smalltit[index].word38 & 1)
+	if ((uint8_t)Str_E9C38_smalltit[index].triangleFeatures_38 & 1)
 	{
 		if (m_renderThreads.size() > 0)
 		{
@@ -2873,20 +2873,20 @@ void GameRenderHD::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int in
 
 void GameRenderHD::DrawInverseSquareInProjectionSpace(int* vertexs, int index)
 {
-	DrawInverseSquareInProjectionSpace(vertexs, index, x_DWORD_DDF50_texture_adresses.at(Str_E9C38_smalltit[index].byte41));
+	DrawInverseSquareInProjectionSpace(vertexs, index, x_DWORD_DDF50_texture_adresses.at(Str_E9C38_smalltit[index].textIndex_41));
 }
 
 void GameRenderHD::DrawInverseSquareInProjectionSpace(int* vertexs, int index, uint8_t* pTexture)
 {
 	//Set Texture coordinates for polys
-	vertexs[20] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][0];
-	vertexs[21] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][1];
-	vertexs[14] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][2];
-	vertexs[15] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][3];
-	vertexs[8] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][4];
-	vertexs[9] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][5];
-	vertexs[2] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][6];
-	vertexs[3] = xunk_D4350[Str_E9C38_smalltit[index].byte42_std][7];
+	vertexs[20] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][0];
+	vertexs[21] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][1];
+	vertexs[14] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][2];
+	vertexs[15] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][3];
+	vertexs[8] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][4];
+	vertexs[9] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][5];
+	vertexs[2] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][6];
+	vertexs[3] = xunk_D4350[Str_E9C38_smalltit[index].textUV_42][7];
 	x_BYTE_E126D = 5;
 
 	//Get Texture
@@ -2900,7 +2900,7 @@ void GameRenderHD::DrawInverseSquareInProjectionSpace(int* vertexs, int index, u
 
 	uint8_t drawEveryNthLine = m_renderThreads.size() + 1;
 
-	if (Str_E9C38_smalltit[index].word38 & 1)
+	if (Str_E9C38_smalltit[index].triangleFeatures_38 & 1)
 	{
 		if (m_renderThreads.size() > 0)
 		{
@@ -3040,7 +3040,7 @@ void GameRenderHD::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F6
 	type_particle_str* a1y = NULL;
 	//fix
 
-	result = Str_E9C38_smalltit[a2x].word36;
+	result = Str_E9C38_smalltit[a2x].haveBillboard_36;
 	do
 	{
 		//adress 21f370
@@ -3054,7 +3054,7 @@ void GameRenderHD::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F6
 			v97 = (signed __int16)(x_WORD_F2CC2 - v4);
 			if (shadows_F2CC7)
 			{
-				if (!Str_E9C38_smalltit[a2x].byte43 && !(v3x->struct_byte_0xc_12_15.word[1] & 0x808))
+				if (!Str_E9C38_smalltit[a2x].textAtyp_43 && !(v3x->struct_byte_0xc_12_15.word[1] & 0x808))
 				{
 					//adress 21f40c
 					v98 = sub_B5C60_getTerrainAlt2(v3x->axis_0x4C_76.x, v4) - str_F2C20ar.dword0x20;
