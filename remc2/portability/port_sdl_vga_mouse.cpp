@@ -1,27 +1,35 @@
+#include "../engine/engine_support.h"
 #include "port_sdl_vga_mouse.h"
 #include "port_time.h"
 
 #include <cstdint>
 
 #include "../engine/sub_main_mouse.h"
+#include "../engine/read_config.h"
 #include "../engine/CommandLineParser.h"
 
 #ifdef USE_DOSBOX
 extern DOS_Device* DOS_CON;
 #endif //USE_DOSBOX
 
-SDL_Window* m_window = NULL;
-SDL_Renderer* m_renderer = NULL;
-SDL_Texture* m_texture = NULL;
-SDL_Surface* m_gamePalletisedSurface = NULL;
-SDL_Surface* m_gameRGBASurface = NULL;
+SDL_Window* m_window = nullptr;
+SDL_Renderer* m_renderer = nullptr;
+SDL_Texture* m_texture = nullptr;
+SDL_Surface* m_gamePalletisedSurface = nullptr;
+SDL_Surface* m_gameRGBASurface = nullptr;
 SDL_Color m_currentPalletColours[256];
+uint8_t m_fontBuffer[256 * 256];
+SDL_Surface* m_surfaceFont = nullptr;
+uint8_t m_smallFontBuffer[128 * 128];
+SDL_Surface* m_smallSurfaceFont = nullptr;
 
 uint8_t LastPressedKey_1806E4; //3516e4
 int8_t pressedKeys_180664[128]; // idb
 
 uint16_t m_iOrigw = 640;
 uint16_t m_iOrigh = 480;
+
+
 
 bool m_bMaintainAspectRatio = true;
 
@@ -50,7 +58,56 @@ Uint32 blueMask = 0x00ff0000;
 Uint32 alphaMask = 0xff000000;
 #endif
 
-void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio)
+std::vector<SDL_Rect> GetDisplays()
+{
+	int displays = SDL_GetNumVideoDisplays();
+
+	// get display bounds for all displays
+	std::vector<SDL_Rect> displayBounds;
+	for (int i = 0; i < displays; i++) {
+		displayBounds.push_back(SDL_Rect());
+		SDL_GetDisplayBounds(i, &displayBounds.back());
+	}
+
+	return displayBounds;
+}
+
+SDL_Rect GetDisplayByIndex(uint8_t index)
+{
+	SDL_Rect display;
+	display.x = 0;
+	display.y = 0;
+	display.w = 0;
+	display.h = 0;
+
+	std::vector<SDL_Rect> displayBounds = GetDisplays();
+
+	if (index < displayBounds.size())
+	{
+		return displayBounds[index];
+	}
+
+	return display;
+}
+
+SDL_Rect FindDisplayByResolution(uint32_t width, uint32_t height)
+{
+	SDL_Rect display;
+	display.x = 0;
+	display.y = 0;
+	display.w = width;
+	display.h = height;
+
+	std::vector<SDL_Rect> displayBounds = GetDisplays();
+
+	for (int i = 0; i < displayBounds.size(); i++) {
+		if (displayBounds[i].w <= width && displayBounds[i].h <= height)
+			return displayBounds[i];
+	}
+	return display;
+}
+
+void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio, int displayIndex)
 {
 	m_bMaintainAspectRatio = maintainAspectRatio;
 
@@ -59,7 +116,7 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 		//Initialize SDL
 		if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		{
-			printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+			Logger->error("SDL could not initialize! SDL_Error: {}", SDL_GetError());
 			exit(0);
 			//success = false;
 		}
@@ -80,7 +137,20 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 			}
 
 			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
-			m_window = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width/*dm.w*/, height/*dm.h*/, test_fullscr);
+
+			if (forceWindow)//window
+			{
+				m_window = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width/*dm.w*/, height/*dm.h*/, test_fullscr);
+			}
+			else
+			{
+				SDL_Rect display = GetDisplayByIndex(displayIndex);
+				if (width > display.w || height > display.h)
+				{
+					display = FindDisplayByResolution(width, height);
+				}
+				m_window = SDL_CreateWindow(default_caption, display.x, display.y, display.w, display.h, test_fullscr);
+			}
 			SDL_SetWindowGrab(m_window, settingWindowGrabbed ? SDL_TRUE : SDL_FALSE);
 
 			m_renderer =
@@ -125,12 +195,13 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 		}
 		if (!VGA_LoadFont())
 		{
-			printf("Failed to load font!\n");
+			Logger->error("Failed to load font!");
 			exit(-1);
 		}
 
 		Set_basic_Palette1();
-		Draw_debug_matrix1();
+		//Draw_debug_matrix1();
+		Draw_black();
 		inited = true;
 	}
 }
@@ -146,7 +217,7 @@ void SetPalette(SDL_Color* colours) {
 	if (m_gamePalletisedSurface)
 	{
 		SDL_SetPaletteColors(m_gamePalletisedSurface->format->palette, m_currentPalletColours, 0, 256);
-		SubBlit(m_iOrigw, m_iOrigh);
+		//SubBlit(m_iOrigw, m_iOrigh);
 	}
 }
 
@@ -177,6 +248,9 @@ void Set_basic_Palette1() {
 			colors[i].g = 255;
 			colors[i].b = 255;
 		}
+		tempPalettebuffer[i * 3] = colors[i].r / 4;
+		tempPalettebuffer[i * 3 + 1] = colors[i].g / 4;
+		tempPalettebuffer[i * 3 + 2] = colors[i].b / 4;
 	}
 	SetPalette(colors);
 }
@@ -253,6 +327,27 @@ void Draw_debug_matrix0() {
 	SubBlit(m_iOrigw, m_iOrigh);
 };
 
+void Draw_black() {
+	SDL_Rect dstrect;
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		if (SDL_LockSurface(m_gamePalletisedSurface) < 0) {
+			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
+			return;
+		}
+	}
+
+	dstrect.x = 0;
+	dstrect.y = 0;
+	dstrect.w = m_gamePalletisedSurface->w;
+	dstrect.h = m_gamePalletisedSurface->h;
+	SDL_FillRect(m_gamePalletisedSurface, &dstrect, 1);
+
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		SDL_UnlockSurface(m_gamePalletisedSurface);
+	}
+	SubBlit(m_iOrigw, m_iOrigh);
+};
+
 void Draw_debug_matrix1() {
 	SDL_Rect dstrect;
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
@@ -278,27 +373,37 @@ void Draw_debug_matrix1() {
 	SubBlit(m_iOrigw, m_iOrigh);
 };
 
-uint8_t fontbuffer[256 * 256];
-SDL_Surface* surface_font = NULL;
 bool VGA_LoadFont()
 {
 	//Loading success flag
 	bool success = true;
 
 	//Load splash image
-	char fontPath[512];
-	GetSubDirectoryPath(fontPath, "font/16x16-font.bmp");
-	surface_font = SDL_LoadBMP(fontPath);
-	if (surface_font == NULL)
+	std::string fontPath = GetSubDirectoryPath("font/16x16-font.bmp");
+	m_surfaceFont = SDL_LoadBMP(fontPath.c_str());
+	if (m_surfaceFont == nullptr)
 	{
-		printf("Unable to load image %s! SDL Error: %s\n", "16x16-font.bmp", SDL_GetError());
+		Logger->error("Unable to load image {}! SDL Error: {}", "16x16-font.bmp", SDL_GetError());
 		success = false;
 	}
 
-	uint8_t* pixels = (uint8_t*)surface_font->pixels;
+	uint8_t* pixels = (uint8_t*)m_surfaceFont->pixels;
 	for (int yy = 0; yy < 256; yy++)
 		for (int xx = 0; xx < 256; xx++)
-			fontbuffer[yy * 256 + xx] = pixels[(yy * 256 + xx) * 3];
+			m_fontBuffer[yy * 256 + xx] = pixels[(yy * 256 + xx) * 3];
+
+	fontPath = GetSubDirectoryPath("font/8x8-font.bmp");
+	m_smallSurfaceFont = SDL_LoadBMP(fontPath.c_str());
+	if (m_surfaceFont == nullptr)
+	{
+		Logger->error("Unable to load image {}! SDL Error: {]", "8x8-font.bmp", SDL_GetError());
+		success = false;
+	}
+
+	pixels = (uint8_t*)m_smallSurfaceFont->pixels;
+	for (int yy = 0; yy < 128; yy++)
+		for (int xx = 0; xx < 128; xx++)
+			m_smallFontBuffer[yy * 128 + xx] = pixels[(yy * 128 + xx) * 3];
 
 	return success;
 }
@@ -318,28 +423,48 @@ void Draw_letter(int letter_number, int pozx, int pozy) {
 	dstrect.y = 16 * pozy;
 	dstrect.w = 16;
 	dstrect.h = 16;
-	SDL_BlitSurface(surface_font, &srcrect, m_gamePalletisedSurface, &dstrect);
+	SDL_BlitSurface(m_surfaceFont, &srcrect, m_gamePalletisedSurface, &dstrect);
 };
 
-void Draw_letterToBuffer(int letter_number, int pozx, int pozy, uint8_t* buffer) {
+void Draw_letterToBuffer(int letter_number, int pozx, int pozy, uint8_t* buffer, char fontSize) {
 	SDL_Rect srcrect;
 	SDL_Rect dstrect;
 
-	srcrect.x = 16 * (letter_number % 16);
-	srcrect.y = 16 * (int)(letter_number / 16);
-	srcrect.w = 16;
-	srcrect.h = 16;
+	int fontSizePixels = 16;
+	switch (fontSize)
+	{
+	case 'S':
+		fontSizePixels = 8;
+		break;
+	default:
+		fontSizePixels = 16;
+		break;
+	}
+
+	srcrect.x = fontSizePixels * (letter_number % 16);
+	srcrect.y = fontSizePixels * (letter_number / 16);
+	srcrect.w = fontSizePixels;
+	srcrect.h = fontSizePixels;
 	dstrect.x = pozx;
 	dstrect.y = pozy;
-	dstrect.w = 16;
-	dstrect.h = 16;
+	dstrect.w = fontSizePixels;
+	dstrect.h = fontSizePixels;
 
 	for (int yy = 0; yy < dstrect.h; yy++)
 		for (int xx = 0; xx < dstrect.w; xx++)
 		{
 			int srcx = xx + srcrect.x;
 			int srcy = yy + srcrect.y;
-			buffer[(dstrect.y + yy) * m_gamePalletisedSurface->w + (dstrect.x + xx)] = fontbuffer[srcx + srcy * 256];
+
+			switch (fontSize)
+			{
+				case 'S':
+				buffer[(dstrect.y + yy) * m_gamePalletisedSurface->w + (dstrect.x + xx)] = m_smallFontBuffer[srcx + (srcy * 128)];
+				break;
+			default:
+				buffer[(dstrect.y + yy) * m_gamePalletisedSurface->w + (dstrect.x + xx)] = m_fontBuffer[srcx + (srcy * 256)];
+				break;
+			}
 		}
 };
 
@@ -393,16 +518,27 @@ void VGA_Draw_string(char* wrstring) {
 }
 
 int drawCounter = 0;
-void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer) {
-	if (buffer == NULL) return;
+void VGA_Draw_stringXYtoBuffer(const char* wrstring, int x, int y, uint8_t* buffer, char fontSize) {
+	if (unitTests)return;
+
 	if (oldWidth != m_gamePalletisedSurface->w)
 		drawCounter = 0;
-	if (drawCounter<20)
+	if (drawCounter < 20)
 	{
 		drawCounter++;
 		return;
 	}
 	int loclastpoz = 0;
+	int fontSizePixels = 16;
+	switch (fontSize)
+	{
+	case 'S':
+		fontSizePixels = 8;
+		break;
+	default:
+		fontSizePixels = 16;
+		break;
+	}
 	for (uint32_t i = 0; i < strlen(wrstring); i++)
 	{
 		if (wrstring[i] == '\n')
@@ -411,17 +547,18 @@ void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer) {
 		}
 		else
 		{
-			Draw_letterToBuffer(wrstring[i], x + (loclastpoz % textwidth) * 16, y + ((int)(loclastpoz / textwidth)) * 16, buffer);
+			Draw_letterToBuffer(wrstring[i], x + (loclastpoz % textwidth) * fontSizePixels, y + (loclastpoz / textwidth) * fontSizePixels, buffer, fontSize);
 			loclastpoz++;
 		}
 	}
 }
 
-void VGA_Init(int width, int height, bool maintainAspectRatio) {
+void VGA_Init(int width, int height, bool maintainAspectRatio, int displayIndex) {
+	if (unitTests)return;
 	m_bMaintainAspectRatio = maintainAspectRatio;
 
 #define SDL_HWPALETTE 0
-	VGA_Init(SDL_HWPALETTE | SDL_INIT_AUDIO, width, height, maintainAspectRatio);
+	VGA_Init(SDL_HWPALETTE | SDL_INIT_AUDIO, width, height, maintainAspectRatio, displayIndex);
 }
 
 SDL_Rect dst;
@@ -696,13 +833,13 @@ int events()
 			if (!handleSpecialKeys(event)) {
 				setPress(true, lastchar);
 			}
-			printf("Key press detected\n");//test
+			Logger->trace("Key press detected");//test
 			break;
 
 		case SDL_KEYUP:
 			lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
 			setPress(false, lastchar);
-			printf("Key release detected\n");//test
+			Logger->trace("Key release detected");//test
 			break;
 
 		case SDL_MOUSEMOTION:
@@ -781,6 +918,8 @@ void VGA_Set_mouse(int16_t x, int16_t y) {
 };
 
 void VGA_Blit(Uint8* srcBuffer) {
+	if (unitTests)return;
+
 	oldWidth = m_gamePalletisedSurface->w;
 	if (CommandLineParams.DoHideGraphics()) return;
 	events();
@@ -810,8 +949,8 @@ void VGA_Blit(Uint8* srcBuffer) {
 			return;
 		}
 	}
-
-	memcpy(m_gamePalletisedSurface->pixels, srcBuffer, m_gamePalletisedSurface->h * m_gamePalletisedSurface->w);
+	if (srcBuffer)
+		memcpy(m_gamePalletisedSurface->pixels, srcBuffer, m_gamePalletisedSurface->h * m_gamePalletisedSurface->w);
 	
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
@@ -889,7 +1028,7 @@ void VGA_Init_test() {//only for debug
 	/* Create display */
 
 	if (!m_gamePalletisedSurface) {
-		printf("Couldn't set video mode: %s\n", SDL_GetError());
+		Logger->error("Couldn't set video mode: {}", SDL_GetError());
 		exit(-1);
 	}
 
@@ -927,18 +1066,18 @@ void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
 void VGA_close()
 {
 	clean_up_sound();
-	SDL_FreeSurface(surface_font);
-	surface_font = NULL;
+	SDL_FreeSurface(m_surfaceFont);
+	m_surfaceFont = nullptr;
 	SDL_FreeSurface(m_gamePalletisedSurface);
-	m_gamePalletisedSurface = NULL;
+	m_gamePalletisedSurface = nullptr;
 	SDL_FreeSurface(m_gamePalletisedSurface);
-	m_gamePalletisedSurface = NULL;
+	m_gamePalletisedSurface = nullptr;
 	SDL_DestroyTexture(m_texture);
-	m_texture = NULL;
+	m_texture = nullptr;
 	SDL_DestroyRenderer(m_renderer);
-	m_renderer = NULL;
+	m_renderer = nullptr;
 	SDL_DestroyWindow(m_window);
-	m_window = NULL;
+	m_window = nullptr;
 	SDL_Quit();
 	//free(m_currentPalletColours);
 }

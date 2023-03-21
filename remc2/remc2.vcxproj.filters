@@ -426,6 +426,9 @@
     <ClInclude Include="engine\GameRenderHD.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="engine\MenusAndIntros.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
     <ClInclude Include="engine\GameRenderOriginal.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
@@ -439,6 +442,42 @@
       <Filter>Header Files\portability</Filter>
     </ClInclude>
     <ClInclude Include="engine\CommandLineParser.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\fcaseopen.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\TypeConfigDat.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Rectangle.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\global_types.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\globals.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Network.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Unk_D4A30.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\MapType.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Unk_D47E0.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_show_perifery.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Compare.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\GameRenderNG.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
   </ItemGroup>
@@ -584,9 +623,6 @@
     <ClCompile Include="..\kiss_sdl-master\kiss_widgets.cpp">
       <Filter>Source Files\libs\kiss-sdl</Filter>
     </ClCompile>
-    <ClCompile Include="..\temp\dirent.c">
-      <Filter>Source Files\portability</Filter>
-    </ClCompile>
     <ClCompile Include="..\SDL-Mixer-X-master\src\music.c">
       <Filter>Source Files\libs\sdl-mixer-x</Filter>
     </ClCompile>
@@ -731,6 +767,9 @@
     <ClCompile Include="engine\GameRenderHD.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="engine\MenusAndIntros.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
     <ClCompile Include="engine\GameRenderOriginal.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
@@ -744,6 +783,30 @@
       <Filter>Source Files\portability</Filter>
     </ClCompile>
     <ClCompile Include="engine\CommandLineParser.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\fcaseopen.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\dirent.c">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Network.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Unk_D4A30.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Unk_D47E0.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_show_perifery.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Compare.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\GameRenderNG.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -847,5 +910,13 @@
     <Library Include="..\SDL2_image-2.0.5\lib\x64\SDL2_image.lib">
       <Filter>Source Files\libs\sdl-image</Filter>
     </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="font\8x8-font.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="font\16x16-font.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="portability\fcaseopenUT.cpp">
+      <Filter>portability</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\SetRenderViewPortSize_40C50UT.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\TerrainUT.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="utilities\Math.cpp">
+      <Filter>utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="comparison\engine\OriginalTerrain.cpp">
+      <Filter>comparison\engine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="utilities\Math.h">
+      <Filter>utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="comparison\engine\OriginalTerrain.h">
+      <Filter>comparison\engine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="portability">
+      <UniqueIdentifier>{0f0f048f-e8cd-4a0e-bcd3-6367432a44ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine">
+      <UniqueIdentifier>{ab2df1ec-8afb-4548-ba7c-469e00b1a5a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utilities">
+      <UniqueIdentifier>{1a45d479-b444-4adb-b908-f993df7192bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="comparison">
+      <UniqueIdentifier>{ce12d2b2-70cc-4029-8d4a-77713c058938}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="comparison\engine">
+      <UniqueIdentifier>{e9ef06b4-cb70-482d-a968-fd6e938e3c68}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

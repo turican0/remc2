@@ -39,6 +39,8 @@ set(SOURCE_FILES_ENGINE
     "engine/engine_support.h"
     "utilities/Maths.cpp"
     "utilities/Maths.h"
+    "engine/Compare.cpp"
+    "engine/Compare.h"
     "engine/engine_support_converts.cpp"
     "engine/engine_support_converts.h"
     "engine/Type_D93C0_Bldgprmbuffer.cpp"
@@ -55,6 +57,10 @@ set(SOURCE_FILES_ENGINE
     "engine/Type_WORD_D951C.h"
     "engine/XUnk_D4350.cpp"
     "engine/XUnk_D4350.h"
+    "engine/Unk_D4A30.cpp"
+    "engine/Unk_D4A30.h"
+    "engine/Unk_D47E0.cpp"
+    "engine/Unk_D47E0.h"
     "engine/RenderThread.cpp"
     "engine/RenderThread.h"
     "utilities/BitmapIO.cpp"
@@ -67,6 +73,8 @@ set(SOURCE_FILES_ENGINE
     "engine/TextureMaps.h"
     "engine/GameRenderOriginal.cpp"
     "engine/GameRenderOriginal.h"
+    "engine/GameRenderNG.cpp"
+    "engine/GameRenderNG.h"
     "engine/GameRenderHD.cpp"
     "engine/GameRenderHD.h"
     "engine/GameRenderGL.cpp"
@@ -78,6 +86,8 @@ set(SOURCE_FILES_ENGINE
     "engine/ProjectionPolygon.h"
     "engine/Sound.cpp"
     "engine/Sound.h"
+    "engine/Network.cpp"
+    "engine/Network.h"
     "engine/Basic.cpp"
     "engine/Basic.h"
     "engine/Animation.cpp"
@@ -89,16 +99,10 @@ set(SOURCE_FILES_ENGINE
     "engine/ViewPort.h"
     "engine/CommandLineParser.cpp"
     "engine/CommandLineParser.h"
+    "engine/MenusAndIntros.cpp"
+    "engine/MenusAndIntros.h"
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
-
-set(SOURCE_FILES_UNITTESTS
-    "engine/CommandLineParser.cpp"
-    "engine/CommandLineParser.h"
-    "engine/CommandLineParserUT.cpp"
-    "UnitTests.cpp"
-)
-source_group("Source Files\\unittests" FILES ${SOURCE_FILES_UNITTESTS})
 
 
 set(SOURCE_FILES__libs__inih
@@ -117,9 +121,10 @@ set(SOURCE_FILES__libs__findfirst
 )
 source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfirst})
 
-
 set(SOURCE_FILES__portability
     "portability/mctypes.h"
+    "portability/fcaseopen.cpp"
+    "portability/fcaseopen.h"
     "portability/port_net.cpp"
     "portability/port_net.h"
     "portability/port_filesystem.cpp"
@@ -132,6 +137,8 @@ set(SOURCE_FILES__portability
     "portability/port_sdl_sound.h"
     "portability/port_sdl_vga_mouse.cpp"
     "portability/port_sdl_vga_mouse.h"
+	"portability/port_show_perifery.cpp"
+    "portability/port_show_perifery.h"
     "portability/port_time.cpp"
     "portability/port_time.h"
     "portability/xmi2mid.cpp"
@@ -162,7 +169,8 @@ install(
 )
 install(
     FILES 
-    ${CMAKE_SOURCE_DIR}/Debug/font/16x16-font.bmp
+    ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/font/16x16-font.bmp
+    ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/font/8x8-font.bmp
     DESTINATION bin/font
 )
 install(
@@ -191,6 +199,7 @@ if (UNIX)
     target_include_directories(${PROJECT_NAME} PUBLIC
         "${CMAKE_SOURCE_DIR}/inih"
         "${CMAKE_SOURCE_DIR}/findfirst"
+        "${CMAKE_SOURCE_DIR}/spdlog/include"
     )
     #target_compile_definitions(${PROJECT_NAME} PRIVATE
     #)
@@ -212,35 +221,6 @@ if (UNIX)
 endif ()
 
 
-################################################################################
-# Unit tests
-################################################################################
-if (UNIT_TESTS)
-    include(GoogleTest)
-
-    add_executable(remc2unittests ${SOURCE_FILES_UNITTESTS})
-    target_include_directories(remc2unittests PUBLIC
-    )
-    target_link_libraries(remc2unittests PUBLIC 
-        gtest
-        pthread
-    )
-    add_compile_definitions(COMPILE_FOR_64BIT)
-    gtest_add_tests(
-        TARGET      remc2unittests
-        TEST_SUFFIX .noArgs
-        TEST_LIST   noArgsTests
-    )
-    set_tests_properties(${noArgsTests} PROPERTIES TIMEOUT 10)
-    install(
-        TARGETS remc2unittests
-        CONFIGURATIONS Debug;Release;RelWithDebInfo
-        RUNTIME DESTINATION bin
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib/static
-    )
-endif ()
-
 # editor
 if (EDITOR)
     add_subdirectory(editor)
@@ -260,9 +240,6 @@ if (UNIX)
             -static-libubsan
         )
         target_link_options(remc2 PRIVATE ${SANITIZER_OPTIONS})
-        if (UNIT_TESTS)
-            target_link_options(remc2unittests PRIVATE ${SANITIZER_OPTIONS})
-        endif () 
         if (EDITOR)
             target_link_options(remc2editor PRIVATE ${SANITIZER_OPTIONS})
         endif ()

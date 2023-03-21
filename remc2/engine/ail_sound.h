@@ -27,10 +27,10 @@ typedef int32_t HTIMER;            // Handle to timer
 
 typedef MSS_STRUCT                      // I/O parameters structure
 {
-	/*0*/int16_t IO;
-	/*2*/int16_t IRQ;
-	/*4*/int16_t DMA_8_bit;
-	/*6*/int16_t DMA_16_bit;
+	/*0*/int IO;
+	/*2*/int IRQ;
+	/*4*/int DMA_8_bit;
+	/*6*/int DMA_16_bit;
 	/*8*/int32_t IO_reserved[4];
 	//24
 }
@@ -53,7 +53,7 @@ typedef MSS_STRUCT                      // Standard MSS 3.X VDI driver header
 	/*52*/uint16_t VDI_HDR_var52_this_ISR;
 	/*54*/uint32_t VDI_HDR_var54_prev_ISR;
    /*58*/int8_t scratch[128];           // Shared scratch workspace   
-   int8_t dev_name[80];           // Device name (VDI version >= 1.12 only)
+   char dev_name[80];           // Device name (VDI version >= 1.12 only)
    int8_t scratch2[1692];
    char mdiapplendix[4];   
 }
@@ -66,7 +66,7 @@ typedef MSS_STRUCT                   // Handle to driver
 {
 	/*0*/REALFAR seg_0;//remove this! segment must be zero!
 /*4*/uint32_t sel_1;
-/*8*/void* buf_2;
+/*8*/uint8_t* buf_2;
 /*12*/uint32_t size_3;
 /*16*/VDI_HDR* VHDR_4;
 /*20*/int32_t type_5;//type
@@ -147,7 +147,7 @@ typedef struct
 {
 	void*  DMA_buffer_A;//0
 	void*  DMA_buffer_B;//4
-	uint16_t     active_buffer;//8
+	uint16_t active_buffer;//8
 }
 DIG_DST;
 
@@ -165,7 +165,7 @@ HTIMER timer_3;
  /*13*/uint32_t DMA_sel_9;
  /*13*/void* DMA_buf_10;
   void* DMA_11_12[2];
-  /*13*/int16_t* buffer_flag_13;
+  /*13*/int16_t buffer_flag_13;
   /*13*/int32_t last_buffer_14;
   /*13*/int32_t channels_per_sample_15;
   /*13*/int32_t bytes_per_channel_16;

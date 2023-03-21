@@ -1,7 +1,5 @@
-﻿// compressTMAPS.cpp : Tento soubor obsahuje funkci main. Provádění programu se tam zahajuje a ukončuje.
-//
-
-#include <iostream>
+﻿#include <iostream>
+#include <vector>
 
 #include "png.h"
 
@@ -11,10 +9,11 @@
 #else
 #endif
 
-//#define level1 //TMAPS1 night
-#define level2 //TMAPS0 day
+#define level1 //TMAPS1 night
+//#define level2 //TMAPS0 day
 //#define level4 //TMAPS2 cave
 
+//#define rewriteBadFiles
 
 #define SIZEOF_UNSIGNED_INT 4
 
@@ -57,6 +56,7 @@ typedef   signed int    sint32;
 typedef unsigned int    uint32;
 
 int width, height;
+int width_fr, height_fr;
 png_byte color_type;
 png_byte bit_depth;
 png_bytep* row_pointers = NULL;
@@ -87,8 +87,8 @@ void read_png_file(char* filename) {
 
 	png_read_info(png, info);
 
-	width = png_get_image_width(png, info);
-	height = png_get_image_height(png, info);
+	width_fr = png_get_image_width(png, info);
+	height_fr = png_get_image_height(png, info);
 	color_type = png_get_color_type(png, info);
 	bit_depth = png_get_bit_depth(png, info);
 
@@ -122,8 +122,8 @@ void read_png_file(char* filename) {
 
 	//if (row_pointers) abort();
 
-	row_pointers = (png_bytep*)malloc(sizeof(png_bytep) * height);
-	for (int y = 0; y < height; y++) {
+	row_pointers = (png_bytep*)malloc(sizeof(png_bytep) * height_fr);
+	for (int y = 0; y < height_fr; y++) {
 		row_pointers[y] = (png_byte*)malloc(png_get_rowbytes(png, info));
 	}
 
@@ -197,6 +197,350 @@ void read_pngalpha_file(char* filename) {
 	png_destroy_read_struct(&png, &info, NULL);
 }
 */
+int transparentColor = 0;
+std::vector<int> usedColors;
+int getIndexedColor(int colorR, int colorG, int colorB, unsigned char* palette, int paletteSize) {
+	int index;
+	int diference = 10000000000;
+#ifdef level1 //TMAPS1 night
+	for (int i : usedColors)
+	/*if ((i >= 0xAB) && (i <= 0xB7))
+		continue;*/
+#else
+	for (int i = 0; i < paletteSize / 3; i++)
+#endif
+	{
+		if (transparentColor != i)
+		{
+			int testDiference = (abs(colorR - palette[i * 3 + 0]) + abs(colorG - palette[i * 3 + 1]) + abs(colorB - palette[i * 3 + 2]));
+			if (testDiference < diference)
+			{
+				index = i;
+				diference = testDiference;
+			}
+		}
+	}
+	return index;
+};
+
+inline void setRGBA(png_byte* ptr, Bit8u* val)
+{
+	ptr[0] = val[0];
+	ptr[1] = val[1];
+	ptr[2] = val[2];
+	ptr[3] = val[3];
+}
+
+void writeImagePNG(char* filename, int width, int height, Bit8u* buffer, char* title)
+{
+	int code = 0;
+	FILE* fp = NULL;
+	png_structp png_ptr = NULL;
+	png_infop info_ptr = NULL;
+	png_bytep row = NULL;
+
+	// Open file for writing (binary mode)
+	fopen_s(&fp, filename, "wb");
+	if (fp == NULL) {
+		fprintf(stderr, "Could not open file %s for writing\n", filename);
+		code = 1;
+		goto finalise;
+	}
+
+	// Initialize write structure
+	png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+	if (png_ptr == NULL) {
+		fprintf(stderr, "Could not allocate write struct\n");
+		code = 1;
+		goto finalise;
+	}
+
+	// Initialize info structure
+	info_ptr = png_create_info_struct(png_ptr);
+	if (info_ptr == NULL) {
+		fprintf(stderr, "Could not allocate info struct\n");
+		code = 1;
+		goto finalise;
+	}
+
+	// Setup Exception handling
+	if (setjmp(png_jmpbuf(png_ptr))) {
+		fprintf(stderr, "Error during png creation\n");
+		code = 1;
+		goto finalise;
+	}
+
+	png_init_io(png_ptr, fp);
+
+	// Write header (8 bit colour depth)
+	png_set_IHDR(png_ptr, info_ptr, width, height,
+		8, PNG_COLOR_TYPE_RGBA, PNG_INTERLACE_NONE,
+		PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
+
+	// Set title
+	if (title != NULL) {
+		png_text title_text;
+		title_text.compression = PNG_TEXT_COMPRESSION_NONE;
+		title_text.key = (png_charp)"Title";
+		title_text.text = title;
+		png_set_text(png_ptr, info_ptr, &title_text, 1);
+	}
+
+	png_write_info(png_ptr, info_ptr);
+
+	// Allocate memory for one row (3 bytes per pixel - RGB)
+	row = (png_bytep)malloc(4 * width * sizeof(png_byte));
+
+	// Write image data
+	int x, y;
+	for (y = 0; y < height; y++) {
+		for (x = 0; x < width; x++) {
+			setRGBA(&(row[x * 4]), buffer + (y * width + x) * 4);
+		}
+		png_write_row(png_ptr, row);
+	}
+
+	// End write
+	png_write_end(png_ptr, NULL);
+
+finalise:
+	if (fp != NULL) fclose(fp);
+	if (info_ptr != NULL) png_free_data(png_ptr, info_ptr, PNG_FREE_ALL, -1);
+	if (png_ptr != NULL) png_destroy_write_struct(&png_ptr, (png_infopp)NULL);
+	if (row != NULL) free(row);
+
+	//return code;
+}
+
+void pngToBuffer(unsigned char* pngbuffer) {
+	for (int yy = 0; yy < height; yy++)
+	{
+		png_bytep row = row_pointers[yy];
+		for (int xx = 0; xx < width; xx++) {
+			png_bytep px = &(row[xx * 4]);
+			Bit8u wrbyte = 0;
+			Bit8u datared = px[0];
+			Bit8u datagreen = px[1];
+			Bit8u datablue = px[2];
+			Bit8u dataalpha = px[3];
+			pngbuffer[4 * (xx + width * yy) + 0] = datared;
+			pngbuffer[4 * (xx + width * yy) + 1] = datagreen;
+			pngbuffer[4 * (xx + width * yy) + 2] = datablue;
+			pngbuffer[4 * (xx + width * yy) + 3] = dataalpha;
+		}
+	}
+}
+
+char buffer[4096*4096];
+int score[2048 * 2048  * 8];
+unsigned char maskBuffer2[2048 * 2048 * 4];
+
+void findMask(unsigned char* maskBuffer, unsigned char* pngbufferAr[6], unsigned char* pngbufferFinal) {
+	int koef = 10000;
+
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++){
+			score[y * width + x] = 0;
+		}
+	}
+
+	for(int i = 0; i < 6; i++)
+		for (int j = 0; j < 6; j++)
+		{
+			if (i != j)
+			{
+				for (int y = 0; y < height; y++)
+				{
+					for (int x = 0; x < width; x++)
+					{
+						score[y * width + x] += abs(pngbufferAr[i][(y * width + x) * 4] - pngbufferAr[j][(y * width + x) * 4]);
+						score[y * width + x] += abs(pngbufferAr[i][(y * width + x) * 4 + 1] - pngbufferAr[j][(y * width + x) * 4 + 1]);
+						score[y * width + x] += abs(pngbufferAr[i][(y * width + x) * 4 + 2] - pngbufferAr[j][(y * width + x) * 4 + 2]);
+					}
+				}
+			}
+		}
+
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+			if (score[y * width + x] > koef)
+			{
+				maskBuffer2[(y * width + x) * 4 + 3] = 0;
+			}
+			else
+			{
+				maskBuffer2[(y * width + x) * 4 + 3] = 255;
+			}
+			maskBuffer2[(y * width + x) * 4] = pngbufferFinal[(y * width + x) * 4];
+			maskBuffer2[(y * width + x) * 4 + 1] = pngbufferFinal[(y * width + x) * 4 + 1];
+			maskBuffer2[(y * width + x) * 4 + 2] = pngbufferFinal[(y * width + x) * 4 + 2];
+		}
+	}
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+			maskBuffer[(y * width + x) * 4] = maskBuffer2[(y * width + x) * 4];
+			maskBuffer[(y * width + x) * 4 + 1] = maskBuffer2[(y * width + x) * 4 + 1];
+			maskBuffer[(y * width + x) * 4 + 2] = maskBuffer2[(y * width + x) * 4 + 2];
+			maskBuffer[(y * width + x) * 4 + 3] = maskBuffer2[(y * width + x) * 4 + 3];
+			/*if (x > 0)
+			{
+				if(maskBuffer2[(y * width + (x - 1)) * 4 + 3] == 0)
+					maskBuffer[(y * width + x) * 4 + 3] = 0;
+			}
+			if (x < width-1)
+			{
+				if (maskBuffer2[(y * width + (x + 1)) * 4 + 3] == 0)
+					maskBuffer[(y * width + x) * 4 + 3] = 0;
+			}
+			if (y > 0)
+			{
+				if (maskBuffer2[((y-1) * width + x) * 4 + 3] == 0)
+					maskBuffer[(y * width + x) * 4 + 3] = 0;
+			}
+			if (y < height - 1)
+			{
+				if (maskBuffer2[((y+1) * width + x) * 4 + 3] == 0)
+					maskBuffer[(y * width + x) * 4 + 3] = 0;
+			}*/
+		}
+	}
+	//free(maskBuffer2);
+	//free(score);
+};
+
+unsigned char content_stdbuff[2048 * 2048 * 4];
+
+void copyFile(const char* out_filename, int from_etap, int to_etap, int begin_type , int end_type, int from_frame, int begin_frame, int end_frame) {
+	char infile[512];
+	char outfile[512];
+	char out_filename2[512];
+
+	strcpy_s(out_filename2,out_filename);
+	out_filename2[strlen(out_filename2)-2] = 0;
+	for (int i= begin_type;i<= end_type;i++)
+		for (int j = begin_frame; j <= end_frame; j++)
+		{
+			if (from_etap!= to_etap)from_frame = j;
+			sprintf_s(infile, "%s%01d-%03d-%02i.data", out_filename2, from_etap, i, from_frame);
+			sprintf_s(outfile, "%s%01d-%03d-%02i.data", out_filename2, to_etap, i, j);
+
+			if (!file_exist(infile))break;
+
+			FILE* fptr_std;
+			fopen_s(&fptr_std, infile, "rb");
+			fseek(fptr_std, 0L, SEEK_END);
+			long szstd = ftell(fptr_std);
+			fseek(fptr_std, 0L, SEEK_SET);
+			fread(content_stdbuff, szstd, 1, fptr_std);
+			fclose(fptr_std);
+
+			FILE* fptr_outdata;
+			fopen_s(&fptr_outdata, outfile, "wb");
+			for (int bb = 0; bb < szstd; bb++)
+				fwrite(&content_stdbuff[bb], 1, 1, fptr_outdata);
+			fclose(fptr_outdata);
+
+			sprintf_s(infile, "%s%01d-%03d-%02i.png", out_filename2, from_etap, i, from_frame);
+			sprintf_s(outfile, "%s%01d-%03d-%02i.png", out_filename2, to_etap, i, j);
+
+			if (!file_exist(infile))break;
+
+			fopen_s(&fptr_std, infile, "rb");
+			fseek(fptr_std, 0L, SEEK_END);
+			szstd = ftell(fptr_std);
+			fseek(fptr_std, 0L, SEEK_SET);
+			fread(content_stdbuff, szstd, 1, fptr_std);
+			fclose(fptr_std);
+
+			fopen_s(&fptr_outdata, outfile, "wb");
+			for (int bb = 0; bb < szstd; bb++)
+				fwrite(&content_stdbuff[bb], 1, 1, fptr_outdata);
+			fclose(fptr_outdata);
+
+		}
+}
+
+void moveSome(const char* out_filename)
+{
+	copyFile(out_filename, 2, 2, 453, 453, 0, 1, 1);
+	copyFile(out_filename, 2, 2, 454, 460, 0, 1, 24);
+	copyFile(out_filename, 0, 2, 464, 504, 0, 0, 24);
+	/*
+	TMAPS2 - 2 - 453 - 01.pngB.png
+		TMAPS2 - 2 - 454 - 01.pngB.png
+		TMAPS2 - 2 - 455 - 01.pngB.png
+		-
+		TMAPS2 - 2 - 455 - 24.pngB.png
+		TMAPS2 - 2 - 456 - 01.pngB.png
+		-
+		TMAPS2 - 2 - 456 - 24.pngB.png
+		TMAPS2 - 2 - 457 - 01.pngB.png
+		-
+		TMAPS2 - 2 - 457 - 24.pngB.png
+		TMAPS2 - 2 - 458 - 01.pngB.png
+		-
+		TMAPS2 - 2 - 458 - 24.pngB.png
+		TMAPS2 - 2 - 459 - 01.pngB.png
+		-
+		TMAPS2 - 2 - 459 - 24.pngB.png
+		TMAPS2 - 2 - 460 - 01.pngB.png
+		-
+		TMAPS2 - 2 - 460 - 24.pngB.png*/
+}
+
+void frBufferToBuffer(unsigned char* bigbufferAr, unsigned char* pngbufferAr, int width, int height, int frame) {
+	for (int y = 0; y < height; y++)
+		for (int x = 0; x < width; x++)
+		{
+			pngbufferAr[(y * width + x) * 4 + 0] = bigbufferAr[((y + frame) * (width + 2 * frame) + (x + frame)) * 4 + 0];
+			pngbufferAr[(y * width + x) * 4 + 1] = bigbufferAr[((y + frame) * (width + 2 * frame) + (x + frame)) * 4 + 1];
+			pngbufferAr[(y * width + x) * 4 + 2] = bigbufferAr[((y + frame) * (width + 2 * frame) + (x + frame)) * 4 + 2];
+			pngbufferAr[(y * width + x) * 4 + 3] = bigbufferAr[((y + frame) * (width + 2 * frame) + (x + frame)) * 4 + 3];
+		}
+};
+
+Bit8u buffer2[2048 * 2048 * 4];
+
+unsigned char content_stdpal[2048 * 2048 * 4];
+
+//unsigned char content_outdata[2048 * 2048 * 4];
+
+int hex2int(char locchar) {
+	if ((locchar >= '0') && (locchar <= '9'))
+		return locchar - '0';
+	if ((locchar >= 'a') && (locchar <= 'f'))
+		return locchar - 'a' + 10;
+	if ((locchar >= 'A') && (locchar <= 'F'))
+		return locchar - 'A' + 10;
+};
+
+void loadColors(std::vector<int>* usedColor, char* path) {
+	unsigned char content_col[10000];
+
+	FILE* colfile;
+	fopen_s(&colfile, path, "rt");
+	fseek(colfile, 0L, SEEK_END);
+	long szstd = ftell(colfile);
+	fseek(colfile, 0L, SEEK_SET);
+	fread(content_col, szstd, 1, colfile);
+	fclose(colfile);
+
+	usedColor->clear();
+	for (int i = 0; i < szstd; i++)
+	{
+		if (content_col[i] == 'x')
+		{
+			int col = 16 * hex2int(content_col[i + 1]) + hex2int(content_col[i + 2]);
+			usedColor->push_back(col);
+			i += 2;
+		}
+	}
+}
 
 int main()
 {
@@ -204,27 +548,29 @@ int main()
 	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\\out-n.pal";
 	const char* data_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\big\\TMAPS2-1-";
 	const char* out_filename = "c:\\prenos\\remc2\\tools\\compressTMAPS\\compressTMAPS\\out\\TMAPS2-1-";
-	const char* orig_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-1-";
+	const char* col_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-1-";
+	//const char* orig_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-1-";
 #endif level1
 #ifdef level2
 	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-block.pal";
 	const char* data_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\big\\TMAPS2-0-";
 	const char* out_filename = "c:\\prenos\\remc2\\tools\\compressTMAPS\\compressTMAPS\\out\\TMAPS2-0-";
-	const char* orig_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-0-";
+	//const char* orig_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-0-";
 #endif level2
 #ifdef level4
 	const char* standartpal_filename = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-c.pal";
 	const char* data_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\big\\TMAPS2-2-";
 	const char* out_filename = "c:\\prenos\\remc2\\tools\\compressTMAPS\\compressTMAPS\\out\\TMAPS2-2-";
-	const char* orig_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-2-";
+	//const char* orig_filename = "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-2-";
 #endif level4
-
+#ifdef rewriteBadFiles
+	moveSome(out_filename);
+#else
 	FILE* fptr_stdpal;
 	fopen_s(&fptr_stdpal, standartpal_filename, "rb");
 	fseek(fptr_stdpal, 0L, SEEK_END);
 	long szstd = ftell(fptr_stdpal);
 	fseek(fptr_stdpal, 0L, SEEK_SET);
-	unsigned char* content_stdpal = (unsigned char*)malloc(szstd * sizeof(char*));
 	fread(content_stdpal, szstd, 1, fptr_stdpal);
 	fclose(fptr_stdpal);
 
@@ -257,141 +603,349 @@ int main()
 	unsigned char* content_alphadata = (unsigned char*)malloc(szalpha * sizeof(char*));
 	fread(content_alphadata, szalpha, 1, fptr_alphadata);
 	fclose(fptr_alphadata);*/
-	
-	for(int fileindex=0; fileindex<1000; fileindex++)
-		for (int mainindex = 0; mainindex < 30; mainindex++)
-	{
-		
-		char buffer[512];
-		sprintf_s(buffer, "%s%03d-%02i_lionking_60000.png", data_filename, fileindex,mainindex);
-		if (!file_exist(buffer))break;
 
-		read_png_file(buffer);
+	unsigned char* pngbufferAr[6];
+	unsigned char* pngbufferfinal;
 
+	pngbufferAr[0] = (unsigned char*)malloc(2048 * 2048 * 4);
+	pngbufferAr[1] = (unsigned char*)malloc(2048 * 2048 * 4);
+	pngbufferAr[2] = (unsigned char*)malloc(2048 * 2048 * 4);
+	pngbufferAr[3] = (unsigned char*)malloc(2048 * 2048 * 4);
+	pngbufferAr[4] = (unsigned char*)malloc(2048 * 2048 * 4);
+	pngbufferAr[5] = (unsigned char*)malloc(2048 * 2048 * 4);
+	pngbufferfinal = (unsigned char*)malloc(2048 * 2048 * 4);
+	unsigned char* bigbufferAr = (unsigned char*)malloc(2048 * 2048 * 4);
+	unsigned char* pngbuffer = (unsigned char*)malloc(2048 * 2048 * 4);
 
-		//sprintf_s(buffer, "%sTMAPS2-0-%03d-alpha_cartoonpainted_400000_gaus.png", alpha_filename, fileindex);//gaus 3x3
-		//sprintf_s(buffer, "%sTMAPS2-0-%03d-alpha_cartoonpainted_400000.png", alpha_filename, fileindex);
-		//read_pngalpha_file(buffer);
+	for (int fileindex = 0; fileindex < 1000; fileindex++)
+	//for(int fileindex=255; fileindex<1000; fileindex++)
+	//for (int fileindex = 461; fileindex < 1000; fileindex++)
+	//for (int fileindex = 450; fileindex < 1000; fileindex++)
+	//	for (int fileindex = 198; fileindex < 199; fileindex++)
+		for (int mainindex = 0; mainindex < 24; mainindex++)
+	{		
+		char textbuffer[512];
+		char prefix[512];
 
-		sprintf_s(buffer, "%s%03d-%02i.data", orig_filename, fileindex, mainindex);
-		FILE* fptr_origdata;
-		fopen_s(&fptr_origdata, buffer, "rb");
-		fseek(fptr_origdata, 0L, SEEK_END);
-		long szorig = ftell(fptr_origdata);
-		fseek(fptr_origdata, 0L, SEEK_SET);
-		unsigned char* content_origdata = (unsigned char*)malloc(szorig * sizeof(char*));
-		fread(content_origdata, szorig, 1, fptr_origdata);
-		fclose(fptr_origdata);
-
-
-		/*
-		void process_png_file() {
-	  for(int y = 0; y < height; y++) {
-		png_bytep row = row_pointers[y];
-		for(int x = 0; x < width; x++) {
-		  png_bytep px = &(row[x * 4]);
-		  // Do something awesome for each pixel here...
-		  //printf("%4d, %4d = RGBA(%3d, %3d, %3d, %3d)\n", x, y, px[0], px[1], px[2], px[3]);
-		}
-	  }
-	}
-		*/
-
-		sprintf_s(buffer, "%s%03d-%02i.data", out_filename, fileindex, mainindex);
-		FILE* fptr_outdata;
-		fopen_s(&fptr_outdata, buffer, "wb");
-
-
-		Bit8u alphaweight = 32;
-		/*int datapos = 54;
-		int wpos = 18;
-		int hpos = 22;
-
-
-		int widthimg = *(Bit32u*)&content_data[wpos]; //18
-		int heightimg = *(Bit32u*)&content_data[hpos];//22
-		Bit8u* dataimg = content_data + datapos;
-			//79x65 4f x 41
-
-		Bit8u* alphaimg = content_alphadata + datapos;*/
-
-		unsigned char* content_outdata = (unsigned char*)malloc(width * height * sizeof(char*));
-
-		for (int yy = 0; yy < height; yy++)
+		sprintf_s(textbuffer, "%s%03d-%02i.png-col.txt", col_filename, fileindex, mainindex);
+		if (!file_exist(textbuffer))
 		{
-			png_bytep row = row_pointers[yy];
-			//png_bytep rowalpha = row_alphapointers[yy];
-			for (int xx = 0; xx < width; xx++) {
-
-				int origx = (xx + 2) / 4;
-				int origy = (yy + 2) / 4;
-				int origindex = 0;
-				Bit8u origcolor[100];
-				int origwidth = width / 4;
-				int origheight = height / 4;				
-				for (int oy = origy - 2; oy <= origy + 2; oy++)
-					for (int ox = origx - 2; ox <= origx + 2; ox++)
-					{							
-						if ((ox < 0) || (oy < 0) || (ox >= origwidth) || (oy >= origheight))
-							origcolor[origindex] = 0;
-						else
-							origcolor[origindex] = (content_origdata+6)[origwidth * oy + ox];
-						origindex++;
-					}
-
-
-				//int bmpx = xx;// widthimg - xx - 1;
-				//int bmpy = heightimg- yy - 1;
-				//Bit8u alphablue = alphaimg[3 * (bmpy * widthimg + bmpx)];
-				png_bytep px = &(row[xx * 4]);
-				//png_bytep alpx = &(rowalpha[xx * 4]);
-				//Bit8u alphablue = alpx[2];
-				Bit8u wrbyte = 0;
-				//if (alphablue > alphaweight)
-				{
-					Bit8u datared = px[0];
-					Bit8u datagreen = px[1];
-					Bit8u datablue = px[2];
-
-					int best = 1000;
-					unsigned char x = 0;
-					//for (int j = 0; j < szstd / 3; j++)
-					for (int j = 0; j < origindex; j++)
-					{
-						int score = 0;
-
-						/*score += abs(px[0] - content_stdpal[j * 3 + 0]);
-						score += abs(px[1] - content_stdpal[j * 3 + 1]);
-						score += abs(px[2] - content_stdpal[j * 3 + 2]);
-						*/
-						score += abs(px[0] - content_stdpal[origcolor[j]*3+0]);
-						score += abs(px[1] - content_stdpal[origcolor[j] * 3 + 1]);
-						score += abs(px[2] - content_stdpal[origcolor[j] * 3 + 2]);
-
-						bool notinremoved = true;
-						/*for (int kk = 0; kk < counterremoved; kk++)
-							if (removed[kk] == j)notinremoved = false;*/
-						if (notinremoved)
-							if (score < best)
-							{
-								best = score;
-								x = origcolor[j];
-							}
-					}
-
-
-					wrbyte = x;
-				}
-
-				fwrite(&wrbyte, 1, 1, fptr_outdata);
-
-			}
+			sprintf_s(textbuffer, "%s%03d-%02i-other.png-col.txt", col_filename, fileindex, mainindex);
+			if (!file_exist(textbuffer))
+				break;
 		}
+		loadColors(&usedColors, textbuffer);
 
-		for (int y = 0; y < height; y++) {
+
+		sprintf_s(prefix, "%s", "");
+		sprintf_s(textbuffer, "%s%03d-%02i%s.pngR_rlt.png", data_filename, fileindex,mainindex, prefix);
+		if (!file_exist(textbuffer))
+		{
+			sprintf_s(prefix, "%s", "-other");
+			sprintf_s(textbuffer, "%s%03d-%02i%s.pngR_rlt.png", data_filename, fileindex, mainindex, prefix);
+			if (!file_exist(textbuffer))
+				break;
+		}
+		int frame = 30 * 4;
+		read_png_file(textbuffer);		
+		width = width_fr;
+		height = height_fr;
+		pngToBuffer(bigbufferAr);
+		width = width_fr - 2 * frame;
+		height = height_fr - 2 * frame;
+		frBufferToBuffer(bigbufferAr, pngbufferAr[0], width, height, frame);
+		for (int y = 0; y < height_fr; y++) {
 			free(row_pointers[y]);
 		}
 		free(row_pointers);
+
+		sprintf_s(textbuffer, "%s%03d-%02i%s.pngG_rlt.png", data_filename, fileindex, mainindex, prefix);
+		if (!file_exist(textbuffer))break;
+		read_png_file(textbuffer);
+		width = width_fr;
+		height = height_fr;
+		pngToBuffer(bigbufferAr);
+		width = width_fr - 2 * frame;
+		height = height_fr - 2 * frame;
+		frBufferToBuffer(bigbufferAr, pngbufferAr[1], width, height, frame);
+		for (int y = 0; y < height_fr; y++) {
+			free(row_pointers[y]);
+		}
+		free(row_pointers);
+
+		sprintf_s(textbuffer, "%s%03d-%02i%s.pngB_rlt.png", data_filename, fileindex, mainindex, prefix);
+		if (!file_exist(textbuffer))break;
+		read_png_file(textbuffer);
+		width = width_fr;
+		height = height_fr;
+		pngToBuffer(bigbufferAr);
+		width = width_fr - 2 * frame;
+		height = height_fr - 2 * frame;
+		frBufferToBuffer(bigbufferAr, pngbufferAr[2], width, height, frame);
+		for (int y = 0; y < height_fr; y++) {
+			free(row_pointers[y]);
+		}
+		free(row_pointers);
+
+		sprintf_s(textbuffer, "%s%03d-%02i%s.pngBl_rlt.png", data_filename, fileindex, mainindex, prefix);
+		if (!file_exist(textbuffer))break;
+		read_png_file(textbuffer);
+		width = width_fr;
+		height = height_fr;
+		pngToBuffer(bigbufferAr);
+		width = width_fr - 2 * frame;
+		height = height_fr - 2 * frame;
+		frBufferToBuffer(bigbufferAr, pngbufferAr[3], width, height, frame);
+		for (int y = 0; y < height_fr; y++) {
+			free(row_pointers[y]);
+		}
+		free(row_pointers);
+
+		sprintf_s(textbuffer, "%s%03d-%02i%s.pngGr_rlt.png", data_filename, fileindex, mainindex, prefix);
+		if (!file_exist(textbuffer))break;
+		read_png_file(textbuffer);
+		width = width_fr;
+		height = height_fr;
+		pngToBuffer(bigbufferAr);
+		width = width_fr - 2 * frame;
+		height = height_fr - 2 * frame;
+		frBufferToBuffer(bigbufferAr, pngbufferAr[4], width, height, frame);
+		for (int y = 0; y < height_fr; y++) {
+			free(row_pointers[y]);
+		}
+		free(row_pointers);
+
+		sprintf_s(textbuffer, "%s%03d-%02i%s.pngWh_rlt.png", data_filename, fileindex, mainindex, prefix);
+		if (!file_exist(textbuffer))break;
+		read_png_file(textbuffer);
+		width = width_fr;
+		height = height_fr;
+		pngToBuffer(bigbufferAr);
+		width = width_fr - 2 * frame;
+		height = height_fr - 2 * frame;
+		frBufferToBuffer(bigbufferAr, pngbufferAr[5], width, height, frame);
+		for (int y = 0; y < height_fr; y++) {
+			free(row_pointers[y]);
+		}
+		free(row_pointers);
+
+		sprintf_s(textbuffer, "%s%03d-%02i%s.pngFinal_rlt.png", data_filename, fileindex, mainindex, prefix);
+		if (!file_exist(textbuffer))break;
+		read_png_file(textbuffer);
+		width = width_fr;
+		height = height_fr;
+		pngToBuffer(bigbufferAr);
+		width = width_fr - 2 * frame;
+		height = height_fr - 2 * frame;
+		frBufferToBuffer(bigbufferAr, pngbufferfinal, width, height, frame);
+		for (int y = 0; y < height_fr; y++) {
+			free(row_pointers[y]);
+		}
+		free(row_pointers);
+
+		//unsigned char* maskBuffer = (unsigned char*)malloc(width * height * 4);
+
+		findMask(pngbuffer, pngbufferAr, pngbufferfinal);
+
+		//sprintf_s(textbuffer, "%s%03d-%02i-mask.png", out_filename, fileindex, mainindex);
+		//writeImagePNG((char*)textbuffer, width, height, pngbuffer, (char*)"aa");
+
+		//free(maskBuffer);
+
+		sprintf_s(textbuffer, "%s%03d-%02i.data", out_filename, fileindex, mainindex);
+		FILE* fptr_outdata;
+		fopen_s(&fptr_outdata, textbuffer, "wb");
+
+
+		Bit8u alphaweight = 32;
+
+		//unsigned char* pngbuffer = (unsigned char*)malloc(width * height * 4);
+
+		/*for (int yy = 0; yy < height; yy++)
+		{
+			png_bytep row = row_pointers[yy];
+			for (int xx = 0; xx < width; xx++) {
+				png_bytep px = &(row[xx * 4]);
+				Bit8u wrbyte = 0;		
+				Bit8u datared = px[0];
+				Bit8u datagreen = px[1];
+				Bit8u datablue = px[2];
+				Bit8u dataalpha = px[3];
+				pngbuffer[4*(xx+width * yy) + 0] = datared;
+				pngbuffer[4 * (xx + width * yy) + 1] = datagreen;
+				pngbuffer[4 * (xx + width * yy) + 2] = datablue;
+				pngbuffer[4 * (xx + width * yy) + 3] = dataalpha;
+			}
+		}*/
+
+		int x;
+		float colorRIerr[4096];
+		float colorGIerr[4096];
+		float colorBIerr[4096];
+		float colorRJerr[4096];
+		float colorGJerr[4096];
+		float colorBJerr[4096];
+		int colorRerr = 0;
+		int colorGerr = 0;
+		int colorBerr = 0;
+		for (int i = 0; i < width; i++)
+		{
+			colorRIerr[i] = 0;
+			colorGIerr[i] = 0;
+			colorBIerr[i] = 0;
+		}
+
+		for (int j = 0; j < width; j++)
+		{
+			colorRJerr[j] = 0;
+			colorGJerr[j] = 0;
+			colorBJerr[j] = 0;
+		}
+
+		/*sprintf_s(textbuffer, "%s%03d-%02i-test.png", out_filename, fileindex, mainindex);
+		writeImagePNG((char*)textbuffer, width, height, pngbuffer, (char*)"aa");*/
+		
+
+		int j;
+
+		for (int i = 0; i < height; i++)
+		{
+			for (int jx = 0; jx < width; jx++)
+			{
+				if (i % 2 == 0)j = jx;
+				else j = width - 1 - jx;
+
+				int colorR = pngbuffer[4 * (j + width * i) + 0];
+				int colorG = pngbuffer[4 * (j + width * i) + 1];
+				int colorB = pngbuffer[4 * (j + width * i) + 2];
+
+				float borderKoef = 40;
+				if (colorRIerr[i] < -borderKoef) colorRIerr[i] = -borderKoef;
+				if (colorGIerr[i] < -borderKoef) colorGIerr[i] = -borderKoef;
+				if (colorBIerr[i] < -borderKoef) colorBIerr[i] = -borderKoef;
+
+				if (colorRIerr[i] > borderKoef) colorRIerr[i] = borderKoef;
+				if (colorGIerr[i] > borderKoef) colorGIerr[i] = borderKoef;
+				if (colorBIerr[i] > borderKoef) colorBIerr[i] = borderKoef;
+
+				borderKoef = 80;
+				if (colorRIerr[j] < -borderKoef) colorRIerr[j] = -borderKoef;
+				if (colorGIerr[j] < -borderKoef) colorGIerr[j] = -borderKoef;
+				if (colorBIerr[j] < -borderKoef) colorBIerr[j] = -borderKoef;
+
+				if (colorRIerr[j] > borderKoef) colorRIerr[j] = borderKoef;
+				if (colorGIerr[j] > borderKoef) colorGIerr[j] = borderKoef;
+				if (colorBIerr[j] > borderKoef) colorBIerr[j] = borderKoef;
+
+				if (pngbuffer[4 * (j + width * i) + 3] < 128)
+				{
+					colorRIerr[i] = 0;
+					colorGIerr[i] = 0;
+					colorBIerr[i] = 0;
+
+					colorRJerr[j] = 0;
+					colorGJerr[j] = 0;
+					colorBJerr[j] = 0;
+				}
+
+				float koef = 0.5;
+
+				colorRerr = koef * (colorRIerr[i] + colorRJerr[j]);
+				colorGerr = koef * (colorGIerr[i] + colorGJerr[j]);
+				colorBerr = koef * (colorBIerr[i] + colorBJerr[j]);
+
+				colorRIerr[i] -= 0.5 * colorRerr;
+				colorGIerr[i] -= 0.5 * colorGerr;
+				colorBIerr[i] -= 0.5 * colorBerr;
+
+				colorRJerr[j] -= 0.5 * colorRerr;
+				colorGJerr[j] -= 0.5 * colorGerr;
+				colorBJerr[j] -= 0.5 * colorBerr;
+				
+				x = getIndexedColor(colorR - colorRerr, colorG - colorGerr, colorB - colorBerr, content_stdpal, szstd);
+				//fwrite((char*)&x, 1, 1, fptw_outdata2);
+				buffer[i * width + j] = (char)x;
+
+				colorRIerr[i] += (content_stdpal[x * 3 + 0] - colorR) * 0.5;
+				colorGIerr[i] += (content_stdpal[x * 3 + 1] - colorG) * 0.5;
+				colorBIerr[i] += (content_stdpal[x * 3 + 2] - colorB) * 0.5;
+
+				colorRJerr[j] += (content_stdpal[x * 3 + 0] - colorR) * 0.5;
+				colorGJerr[j] += (content_stdpal[x * 3 + 1] - colorG) * 0.5;
+				colorBJerr[j] += (content_stdpal[x * 3 + 2] - colorB) * 0.5;
+
+				buffer2[(i * width + j) * 4] = content_stdpal[x * 3 + 0];
+				buffer2[(i * width + j) * 4 + 1] = content_stdpal[x * 3 + 1];
+				buffer2[(i * width + j) * 4 + 2] = content_stdpal[x * 3 + 2];
+				buffer2[(i * width + j) * 4 + 3] = 255;
+			}
+			/*colorRIerr[i] = 0;
+			colorGIerr[i] = 0;
+			colorBIerr[i] = 0;*/
+		}
+
+		/*sprintf_s(textbuffer, "%s%03d-%02i-test2.png", out_filename, fileindex, mainindex);
+		writeImagePNG((char*)textbuffer, width, height, buffer2, (char*)"aa");*/
+
+		int minalpha = 128;
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				bool isAlpha = false;
+				if (pngbuffer[4 * (j + width * i) + 3] < minalpha)
+					isAlpha = true;
+				if(i>0)
+					if (pngbuffer[4 * (j + width * (i - 1)) + 3] < minalpha)
+						isAlpha = true;
+				if (i < height-1)
+					if (pngbuffer[4 * (j + width * (i + 1)) + 3] < minalpha)
+						isAlpha = true;
+				if (j > 0)
+					if (pngbuffer[4 * ((j-1) + width * i) + 3] < minalpha)
+						isAlpha = true;
+				if (j < width - 1)
+					if (pngbuffer[4 * ((j+1) + width * i) + 3] < minalpha)
+						isAlpha = true;
+				if ((i > 0) && ((j > 0)))
+					if (pngbuffer[4 * ((j-1) + width * (i - 1)) + 3] < minalpha)
+						isAlpha = true;
+				if ((i < height - 1) && (j < width - 1))
+					if (pngbuffer[4 * ((j+1) + width * (i + 1)) + 3] < minalpha)
+						isAlpha = true;
+				if ((i < height - 1) && (j > 0))
+					if (pngbuffer[4 * ((j - 1) + width * (i+1)) + 3] < minalpha)
+						isAlpha = true;
+				if ((i > 0)&&(j < width - 1))
+					if (pngbuffer[4 * ((j + 1) + width * (i-1)) + 3] < minalpha)
+						isAlpha = true;
+
+				if (isAlpha)
+				{
+					buffer[i * width + j] = transparentColor;
+				}
+			}
+		}
+
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				if (buffer[i * width + j] == transparentColor)
+					buffer2[(i * width + j) * 4 + 3] = 0;
+				else
+					buffer2[(i * width + j) * 4 + 3] = 255;
+			}
+		}
+
+
+
+		for (int i = 0; i < height; i++)
+			for (int j = 0; j < width; j++)
+				fwrite(&buffer[i * width + j], 1, 1, fptr_outdata);
+
+		sprintf_s(textbuffer, "%s%03d-%02i.png", out_filename, fileindex, mainindex);
+		writeImagePNG((char*)textbuffer, width, height, buffer2, (char*)"aa");
 
 		/*for (int y = 0; y < height; y++) {
 			free(row_alphapointers[y]);
@@ -400,17 +954,12 @@ int main()
 
 		fclose(fptr_outdata);
 	}
-	
 
+	for (int i = 0; i < 6; i++)
+		free(pngbufferAr[i]);
+
+	free(pngbufferfinal);
+
+	free(pngbuffer);
+#endif	
 }
-
-// Spuštění programu: Ctrl+F5 nebo nabídka Ladit > Spustit bez ladění
-// Ladění programu: F5 nebo nabídka Ladit > Spustit ladění
-
-// Tipy pro zahájení práce:
-//   1. K přidání nebo správě souborů použijte okno Průzkumník řešení.
-//   2. Pro připojení ke správě zdrojového kódu použijte okno Team Explorer.
-//   3. K zobrazení výstupu sestavení a dalších zpráv použijte okno Výstup.
-//   4. K zobrazení chyb použijte okno Seznam chyb.
-//   5. Pokud chcete vytvořit nové soubory kódu, přejděte na Projekt > Přidat novou položku. Pokud chcete přidat do projektu existující soubory kódu, přejděte na Projekt > Přidat existující položku.
-//   6. Pokud budete chtít v budoucnu znovu otevřít tento projekt, přejděte na Soubor > Otevřít > Projekt a vyberte příslušný soubor .sln.

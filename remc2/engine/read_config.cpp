@@ -1,4 +1,5 @@
 #include "read_config.h"
+#include "../engine/CommandLineParser.h"
 
 #include <vector>
 #include <filesystem>
@@ -6,13 +7,17 @@
 
 int config_skip_screen;
 int texturepixels = 32;
-int speedGame = 35;
-int speedAnim = 100;
+int maxGameFps = 30;
+int fmvFps = 20;
+int menuFps = 30;
+std::string loggingLevel = "Info";
+int displayIndex = 0;
 int windowResWidth = 640;
 int windowResHeight = 480;
 int gameResWidth = 640;
 int gameResHeight = 480;
 bool maintainAspectRatio = false;
+bool forceWindow = false;
 bool bigTextures = false;
 bool bigSprites = false;
 bool sky = true;
@@ -26,29 +31,34 @@ bool openGLRender = false;
 std::string findIniFile() {
 	// find location of inifile and read it
 	std::vector<std::string> inifile_locations;
+	if (CommandLineParams.GetConfigFilePath().length() > 0) {
+		inifile_locations.push_back(CommandLineParams.GetConfigFilePath());
+	}
+	else {
 #ifdef __linux__
-	auto env_home_dir = std::getenv("HOME");
-	auto env_xdg_config_home_dir = std::getenv("XDG_CONFIG_HOME");
-	std::filesystem::path home_dir;
-	std::filesystem::path xdg_config_home_dir;
-	if (env_home_dir) home_dir = env_home_dir;
-	if (env_xdg_config_home_dir) xdg_config_home_dir = env_xdg_config_home_dir;
+		auto env_home_dir = std::getenv("HOME");
+		auto env_xdg_config_home_dir = std::getenv("XDG_CONFIG_HOME");
+		std::filesystem::path home_dir;
+		std::filesystem::path xdg_config_home_dir;
+		if (env_home_dir) home_dir = env_home_dir;
+		if (env_xdg_config_home_dir) xdg_config_home_dir = env_xdg_config_home_dir;
 
-	if (std::filesystem::exists(xdg_config_home_dir)) {
-		inifile_locations.emplace_back(xdg_config_home_dir / "remc2" / "config.ini");
-	}
-	if (std::filesystem::exists(home_dir)) {
-		inifile_locations.emplace_back(home_dir / ".config" / "remc2" / "config.ini");
-	}
+		if (std::filesystem::exists(xdg_config_home_dir)) {
+			inifile_locations.emplace_back(xdg_config_home_dir / "remc2" / "config.ini");
+		}
+		if (std::filesystem::exists(home_dir)) {
+			inifile_locations.emplace_back(home_dir / ".config" / "remc2" / "config.ini");
+		}
 #else //__linux__
-	auto home_drive = std::getenv("HOMEDRIVE");
-	auto home_path =  std::getenv("HOMEPATH");
-	if (home_drive && home_path) {
-		std::string home_dir = std::string(home_drive) + "/" + std::string(home_path);
-		inifile_locations.push_back(home_dir + "/remc2/config.ini");
-	}
+		auto home_drive = std::getenv("HOMEDRIVE");
+		auto home_path = std::getenv("HOMEPATH");
+		if (home_drive && home_path) {
+			std::string home_dir = std::string(home_drive) + "/" + std::string(home_path);
+			inifile_locations.push_back(home_dir + "/remc2/config.ini");
+		}
 #endif //__linux__
-	inifile_locations.push_back(get_exe_path() + "/config.ini");
+		inifile_locations.push_back(get_exe_path() + "/config.ini");
+	}
 	std::string inifile;
 	// first location at which an inifile can be found is chosen
 	for (auto inifile_location: inifile_locations) {
@@ -58,16 +68,19 @@ std::string findIniFile() {
 		}
 	}
 
+
 	return inifile;
 }
 
 bool readini() {
 	std::string inifile = findIniFile();
 	if (std::filesystem::exists(inifile)) {
-		std::cout << "Using inifile: " << inifile << "\n";
+		if (CommandLineParams.DoShowDebugMessages1())
+			std::cout << "Using inifile: " << inifile << "\n";
 	}
 	else {
-		std::cout << "Inifile cannot be found... Exiting\n";
+		if (CommandLineParams.DoShowDebugMessages1())
+			std::cout << "Inifile cannot be found... Exiting\n";
 		return false;
 	}
 
@@ -125,6 +138,15 @@ bool readini() {
 		texturepixels = 32;
 	}
 
+	displayIndex = reader.GetInteger("graphics", "displayIndex", 0);
+	windowResWidth = reader.GetInteger("graphics", "windowResWidth", 640);
+	windowResHeight = reader.GetInteger("graphics", "windowResHeight", 480);
+
+	if (windowResWidth < 640 || windowResHeight < 480)
+	{
+		windowResWidth = 640;
+		windowResHeight = 480;
+	}
 
 	gameResWidth = reader.GetInteger("graphics", "gameResWidth", 640);
 	gameResHeight = reader.GetInteger("graphics", "gameResHeight", 480);
@@ -135,26 +157,8 @@ bool readini() {
 		gameResHeight = 480;
 	}
 
-	windowResWidth = reader.GetInteger("graphics", "windowResWidth", 640);
-	windowResHeight = reader.GetInteger("graphics", "windowResHeight", 480);
-
-	if (windowResWidth < 640 || windowResHeight < 480)
-	{
-		windowResWidth = 640;
-		windowResHeight = 480;
-	}
-
-	if (windowResWidth < gameResWidth) 
-	{
-		windowResWidth = gameResWidth;
-	}
-
-	if (windowResHeight < gameResHeight)
-	{
-		windowResHeight = gameResHeight;
-	}
-
 	maintainAspectRatio = reader.GetBoolean("graphics", "maintainAspectRatio", true);
+	forceWindow = reader.GetBoolean("graphics", "forceWindow", false);
 	sky = reader.GetBoolean("graphics", "sky", true);
 	reflections = reader.GetBoolean("graphics", "reflections", false);
 	dynamicLighting = reader.GetBoolean("graphics", "dynamicLighting", false);
@@ -164,8 +168,8 @@ bool readini() {
 	std::string readstr4 = reader.GetString("main", "cdFolder", "");
 	strcpy((char*)cdFolder, (char*)readstr4.c_str());
 
-	speedGame = reader.GetInteger("game", "speed", 30);
-	speedAnim = reader.GetInteger("game", "animspeed", 100);
+	std::string readstr5 = reader.GetString("graphics", "forceRender", "");
+	strcpy((char*)forceRender, (char*)readstr5.c_str());
 
 	openGLRender = reader.GetBoolean("graphics", "openGLRender", false);
 
@@ -188,6 +192,10 @@ bool readini() {
 			numberOfRenderThreads = 0;
 		}
 	}
+
+	maxGameFps = reader.GetInteger("game", "maxGameFps", 0);
+	fmvFps = reader.GetInteger("game", "fmvFps", 20);
+	loggingLevel = reader.GetString("game", "loggingLevel", "Info");
 
 	return true;
 };
