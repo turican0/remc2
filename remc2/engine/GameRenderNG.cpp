@@ -345,15 +345,15 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	//__int16 v31; // cx
 	//int v32; // eax
 	int v33; // ecx
-	signed int v34; // esi
-	int v35; // ebx
-	unsigned __int16 v36; // dx
+	//signed int v34; // esi
+	//int v35; // ebx
+	//unsigned __int16 v36; // dx
 	int v37; // eax
 	__int16 v38; // ax
 	int v39; // eax
-	int v40; // edi
+	//int v40; // edi
 	unsigned __int16 v42; // bx
-	uint8_t* v44; // eax
+	//uint8_t* v44; // eax
 	//char v45; // bh
 	signed int v46; // edx
 	int v47x;
@@ -1000,22 +1000,22 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 			for (k = textRows; k; k--)
 			{
 				v33 = ((unsigned __int8)mapShading_12B4E0[yawXY.word] << 8) + 128;
-				v34 = Str_E9C38_smalltit[v278x].y_12;
-				v35 = v34 * v34 + Str_E9C38_smalltit[v278x].x_0 * Str_E9C38_smalltit[v278x].x_0;
+				int tempY = Str_E9C38_smalltit[v278x].y_12;
+				int powXY = tempY * tempY + Str_E9C38_smalltit[v278x].x_0 * Str_E9C38_smalltit[v278x].x_0;
 				Str_E9C38_smalltit[v278x].haveBillboard_36 = 0;
-				if (v34 <= -256 || v35 >= str_F2C20ar.dword0x15)
+				if (tempY <= -256 || powXY >= str_F2C20ar.dword0x15)
 				{
 					Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 2u;
 					goto LABEL_46;
 				}
-				if (v34 < 128)
-					v34 = 128;
-				Str_E9C38_smalltit[v278x].pnt1_16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].x_0 / v34;
-				v36 = yawXY.word;
+				if (tempY < 128)
+					tempY = 128;
+				Str_E9C38_smalltit[v278x].pnt1_16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].x_0 / tempY;
+				//v36 = yawXY.word;
 				Str_E9C38_smalltit[v278x].alt_4 = 32 * mapHeightmap_11B4E0[yawXY.word] - posZ;
-				Str_E9C38_smalltit[v278x].alt2_8 = ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v36] << 15 >> 10) - posZ;
+				Str_E9C38_smalltit[v278x].alt2_8 = ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[yawXY.word] << 15 >> 10) - posZ;
 				v37 = 0;
-				if (!mapTerrainType_10B4E0[v36])
+				if (!mapTerrainType_10B4E0[yawXY.word])
 				{
 					v38 = 32 * D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248;
 					v37 = (Maths::sin_DB750[(v38 + (yawXY._axis_2d.y << 7)) & 0x7FF] >> 8)
@@ -1025,11 +1025,11 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 						v37 = 0;
 				}
 				v39 = (v33 << 8) + 8 * v37;
-				if (v35 <= str_F2C20ar.dword0x13)
+				if (powXY <= str_F2C20ar.dword0x13)
 					goto LABEL_39;
-				if (v35 < str_F2C20ar.dword0x16)
+				if (powXY < str_F2C20ar.dword0x16)
 				{
-					v39 = v39 * (signed __int64)(str_F2C20ar.dword0x16 - v35) / str_F2C20ar.dword0x12;
+					v39 = v39 * (signed __int64)(str_F2C20ar.dword0x16 - powXY) / str_F2C20ar.dword0x12;
 				LABEL_39:
 					Str_E9C38_smalltit[v278x].pnt5_32 = v39;
 					goto LABEL_40;
@@ -1038,10 +1038,10 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 			LABEL_40:
 				if (mapAngle_13B4E0[yawXY.word] & 8)
 					Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 0x80u;
-				v40 = str_F2C20ar.dword0x18;
+				//v40 = str_F2C20ar.dword0x18;
 				//v41 = v278;
-				Str_E9C38_smalltit[v278x].pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].alt_4 / v34;
-				Str_E9C38_smalltit[v278x].pnt4_28 = str_F2C20ar.dword0x22 + v40 * Str_E9C38_smalltit[v278x].alt2_8 / v34;
+				Str_E9C38_smalltit[v278x].pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].alt_4 / tempY;
+				Str_E9C38_smalltit[v278x].pnt4_28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].alt2_8 / tempY;
 				LOBYTE(v42) = yawQuartal[2] + yawXY._axis_2d.x;
 				HIBYTE(v42) = yawQuartal[3] + yawXY._axis_2d.y;
 				//v43 = v278;
@@ -1050,13 +1050,13 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 0x1000u;
 				Str_E9C38_smalltit[v278x].textAtyp_43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].textIndex_41];
 				Str_E9C38_smalltit[v278x].textUV_42 = modYaw + (((signed int)(unsigned __int8)mapAngle_13B4E0[v42] >> 2) & 0x1C);
-				LOBYTE(v42) = yawQuartal[4] + v42;
+				LOBYTE(v42) += yawQuartal[4];
 				HIBYTE(v42) += yawQuartal[5];
 				Str_E9C38_smalltit[v278x].haveBillboard_36 = mapEntityIndex_15B4E0[v42];
 			LABEL_46:
-				v44 = yawQuartal;
+				//v44 = yawQuartal;
 				Str_E9C38_smalltit[v278x].triangleFeatures_38 |= (yawXY._axis_2d.x + yawXY._axis_2d.y) & 1;
-				yawXY._axis_2d.x += v44[8];
+				yawXY._axis_2d.x += yawQuartal[8];
 				yawXY._axis_2d.y += yawQuartal[9];
 				v278x++;
 			}
