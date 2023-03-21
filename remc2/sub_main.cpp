@@ -51846,22 +51846,22 @@ void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TABLESD.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);//2c7ee0
-		x_WORD_D4B7E = 0;
-		x_WORD_D4B7C = 254;
+		keyColor2_D4B7E = 0x00;
+		keyColor1_D4B7C = 0xfe;
 	}
 	else if (a1 == MapType_t::Night)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TABLESN.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);
-		x_WORD_D4B7E = 255;
-		x_WORD_D4B7C = 0;
+		keyColor2_D4B7E = 0xff;
+		keyColor1_D4B7C = 0x00;
 	}
 	else if (a1 == MapType_t::Cave)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TABLESC.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);
-		x_WORD_D4B7C = 254;
-		x_WORD_D4B7E = 255;
+		keyColor1_D4B7C = 0xfe;
+		keyColor2_D4B7E = 0xff;
 	}
 }
 

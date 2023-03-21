@@ -333,17 +333,17 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	//int v18x;
 	char v19; // dh
 	//int v20; // ebx
-	char v22; // ch
-	int v23; // eax
-	uint8_t* v25x; // edi
+	//char v22; // ch
+	//int v23; // eax
+	//uint8_t* v25x; // edi
 	int v25z;
 	//unsigned __int16 v26; // dx
-	int v27; // ebx
+	//int v27; // ebx
 	int v28; // eax
-	__int16 v29; // si
+	//__int16 v29; // si
 	int v30; // edx
 	__int16 v31; // cx
-	int v32; // eax
+	//int v32; // eax
 	int v33; // ecx
 	signed int v34; // esi
 	int v35; // ebx
@@ -354,7 +354,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	int v40; // edi
 	unsigned __int16 v42; // bx
 	uint8_t* v44; // eax
-	char v45; // bh
+	//char v45; // bh
 	signed int v46; // edx
 	int v47x;
 	int v48; // esi
@@ -410,7 +410,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	unsigned __int16 v118; // bx
 	unsigned __int8 v119; // al
 	uint8_t* v121; // eax
-	char v122; // bh
+	//char v122; // bh
 	signed int v123; // ebx
 	int v124x;
 	int v125; // esi
@@ -491,9 +491,9 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	char v244; // dl
 	char v245; // dh
 	//int v248x[33]; // [esp+0h] [ebp-62h]//v248x[0]
-	uint8_t* v277; // [esp+84h] [ebp+22h]
+	uint8_t* yawQuartal; // [esp+84h] [ebp+22h]
 	int v278x;
-	unsigned __int16 v279; // [esp+8Ch] [ebp+2Ah]
+	//unsigned __int16 v279; // [esp+8Ch] [ebp+2Ah]
 	char l; // [esp+90h] [ebp+2Eh]
 	char v281; // [esp+94h] [ebp+32h]
 	char v282; // [esp+98h] [ebp+36h]
@@ -571,7 +571,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 			viewPort.Width_DE564 * viewPort.Width_DE564
 			+ viewPort.Height_DE568 * viewPort.Height_DE568)
 		* fov >> 11;
-	v277 = unk_D4328x + 10 * modYaw;
+	yawQuartal = yawQuartal_D4328[modYaw];
 	switch (modYaw)//fixed? //rotations
 	{
 	case 0u:
@@ -636,34 +636,37 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	str_F2C20ar.dword0x15 = 26214400;//21d2df not drawing
 	v278x = 0;
 	str_F2C20ar.dword0x12 = 8912896;
-	v22 = v277[0];
+	//v22 = v277[0];
 	str_F2C20ar.dword0x22 = (pitch * viewPort.Width_DE564) >> 8;
-	LOBYTE(v279) = v22 + HIBYTE(posX);
-	HIBYTE(v279) = v277[1] + HIBYTE(posY);
-	v23 = roll & 0x7FF;
-	str_F2C20ar.cos_0x11 = Maths::sin_DB750[512 + v23];
+	uaxis_2d yawXY;
+	yawXY._axis_2d.x = yawQuartal[0] + uPosX._axis_2d.y;
+	yawXY._axis_2d.y = yawQuartal[1] + uPosY._axis_2d.y;
+	//v23 = roll & 0x7FF;
+	str_F2C20ar.cos_0x11 = Maths::sin_DB750[512 + roll & 0x7FF];
 	str_F2C20ar.dword0x16 = 23658496;
-	str_F2C20ar.sin_0x0d = Maths::sin_DB750[v23];
+	str_F2C20ar.sin_0x0d = Maths::sin_DB750[roll & 0x7FF];
 	str_F2C20ar.dword0x13 = 14745600;
+
+	int drawShift = 0;
 	if (!D41A0_0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel_D41B6)
 	{
 		//v26 = viewPort.Width_DE564;
-		v27 = iScreenWidth_DE560 - viewPort.Width_DE564;
+		drawShift = iScreenWidth_DE560 - viewPort.Width_DE564;
 		v28 = (viewPort.Width_DE564 - (__CFSHL__(viewPort.Width_DE564 >> 31, 2) + 4 * (viewPort.Width_DE564 >> 31))) >> 2;
-		v29 = viewPort.Height_DE568;
-		v25x = ViewPortRenderBufferStart_DE558;
+		//v29 = viewPort.Height_DE568;
+		uint8* drawBuffer = ViewPortRenderBufferStart_DE558;
 		v30 = (viewPort.Width_DE564 - (__CFSHL__(viewPort.Width_DE564 >> 31, 2) + 4 * (viewPort.Width_DE564 >> 31))) >> 2;
-		LOBYTE(v28) = x_WORD_D4B7C;
-		HIBYTE(v28) = x_WORD_D4B7C;
+		LOBYTE(v28) = keyColor1_D4B7C;
+		HIBYTE(v28) = keyColor1_D4B7C;
 		v31 = v28;
 		v32 = v28 << 16;
 		LOWORD(v32) = v31;
-		do
+		for (index = 0; index < viewPort.Height_DE568; index++)
 		{
-			memset32(v25x, v32, v30 * 4);
-			v25x += 4 * v30 + v27;
-			v29--;
-		} while (v29);
+			memset32(drawBuffer, v32, v30 * 4);
+			drawBuffer += 4 * v30 + drawShift;
+			//v29--;
+		}// while (v29);
 	}
 	else
 	{
@@ -1003,7 +1006,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	}
 			for (k = 40; k; k--)
 			{
-				v33 = ((unsigned __int8)mapShading_12B4E0[v279] << 8) + 128;
+				v33 = ((unsigned __int8)mapShading_12B4E0[yawXY.word] << 8) + 128;
 				v34 = Str_E9C38_smalltit[v278x].y_12;
 				v35 = v34 * v34 + Str_E9C38_smalltit[v278x].x_0 * Str_E9C38_smalltit[v278x].x_0;
 				Str_E9C38_smalltit[v278x].haveBillboard_36 = 0;
@@ -1015,15 +1018,15 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				if (v34 < 128)
 					v34 = 128;
 				Str_E9C38_smalltit[v278x].pnt1_16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].x_0 / v34;
-				v36 = v279;
-				Str_E9C38_smalltit[v278x].alt_4 = 32 * mapHeightmap_11B4E0[v279] - posZ;
+				v36 = yawXY.word;
+				Str_E9C38_smalltit[v278x].alt_4 = 32 * mapHeightmap_11B4E0[yawXY.word] - posZ;
 				Str_E9C38_smalltit[v278x].alt2_8 = ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v36] << 15 >> 10) - posZ;
 				v37 = 0;
 				if (!mapTerrainType_10B4E0[v36])
 				{
 					v38 = 32 * D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248;
-					v37 = (Maths::sin_DB750[(v38 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8)
-						* (Maths::sin_DB750[(((unsigned __int8)v279 << 7) + v38) & 0x7FF] >> 8);
+					v37 = (Maths::sin_DB750[(v38 + (yawXY._axis_2d.y << 7)) & 0x7FF] >> 8)
+						* (Maths::sin_DB750[((yawXY._axis_2d.x << 7) + v38) & 0x7FF] >> 8);
 					Str_E9C38_smalltit[v278x].alt_4 -= v37 >> 13;
 					if (v33 >= 14464)
 						v37 = 0;
@@ -1040,33 +1043,33 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				}
 				Str_E9C38_smalltit[v278x].pnt5_32 = 0;
 			LABEL_40:
-				if (mapAngle_13B4E0[v279] & 8)
+				if (mapAngle_13B4E0[yawXY.word] & 8)
 					Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 0x80u;
 				v40 = str_F2C20ar.dword0x18;
 				//v41 = v278;
 				Str_E9C38_smalltit[v278x].pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].alt_4 / v34;
 				Str_E9C38_smalltit[v278x].pnt4_28 = str_F2C20ar.dword0x22 + v40 * Str_E9C38_smalltit[v278x].alt2_8 / v34;
-				LOBYTE(v42) = v277[2] + v279;
-				HIBYTE(v42) = v277[3] + HIBYTE(v279);
+				LOBYTE(v42) = yawQuartal[2] + yawXY._axis_2d.x;
+				HIBYTE(v42) = yawQuartal[3] + yawXY._axis_2d.y;
 				//v43 = v278;
 				Str_E9C38_smalltit[v278x].textIndex_41 = mapTerrainType_10B4E0[v42];
 				if (D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
 					Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 0x1000u;
 				Str_E9C38_smalltit[v278x].textAtyp_43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].textIndex_41];
 				Str_E9C38_smalltit[v278x].textUV_42 = modYaw + (((signed int)(unsigned __int8)mapAngle_13B4E0[v42] >> 2) & 0x1C);
-				LOBYTE(v42) = v277[4] + v42;
-				HIBYTE(v42) += v277[5];
+				LOBYTE(v42) = yawQuartal[4] + v42;
+				HIBYTE(v42) += yawQuartal[5];
 				Str_E9C38_smalltit[v278x].haveBillboard_36 = mapEntityIndex_15B4E0[v42];
 			LABEL_46:
-				v44 = v277;
-				Str_E9C38_smalltit[v278x].triangleFeatures_38 |= ((x_BYTE)v279 + HIBYTE(v279)) & 1;
-				LOBYTE(v279) = v44[8] + v279;
-				HIBYTE(v279) += v277[9];
+				v44 = yawQuartal;
+				Str_E9C38_smalltit[v278x].triangleFeatures_38 |= (yawXY._axis_2d.x + yawXY._axis_2d.y) & 1;
+				yawXY._axis_2d.x += v44[8];
+				yawXY._axis_2d.y += yawQuartal[9];
 				v278x++;
 			}
-			v45 = v277[6] + v279;
-			HIBYTE(v279) += v277[7];
-			LOBYTE(v279) = v45;
+			//v45 = yawQuartal[6] + v279;
+			yawXY._axis_2d.y += yawQuartal[7];
+			yawXY._axis_2d.x += yawQuartal[6];
 }
 	}
 	if (D41A0_0.m_GameSettings.m_Graphics.m_wReflections)//21de79 nothing changed
@@ -1506,7 +1509,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 		}
 			for (jj = 40; jj; --jj)
 			{
-				int tempMapShading/*v248x[31]*/ = ((unsigned __int8)mapShading_12B4E0[v279] << 8) + 128;
+				int tempMapShading/*v248x[31]*/ = ((unsigned __int8)mapShading_12B4E0[yawXY.word] << 8) + 128;
 				v109 = Str_E9C38_smalltit[v278x].y_12;
 				v110 = v109 * v109 + Str_E9C38_smalltit[v278x].x_0 * Str_E9C38_smalltit[v278x].x_0;
 				Str_E9C38_smalltit[v278x].haveBillboard_36 = 0;
@@ -1518,11 +1521,11 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				if (v109 < 128)
 					v109 = 128;
 				Str_E9C38_smalltit[v278x].pnt1_16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].x_0 / v109;
-				v111 = v279;
-				Str_E9C38_smalltit[v278x].alt_4 = 32 * mapHeightmap_11B4E0[v279] - posZ;
+				v111 = yawXY.word;
+				Str_E9C38_smalltit[v278x].alt_4 = 32 * mapHeightmap_11B4E0[yawXY.word] - posZ;
 				v112 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
 				//v248x[26] = Maths::sin_DB750[(v112 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8;
-				v113 = (Maths::sin_DB750[(v112 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8) * (Maths::sin_DB750[(((unsigned __int8)v279 << 7) + v112) & 0x7FF] >> 8);
+				v113 = (Maths::sin_DB750[(v112 + (yawXY._axis_2d.y << 7)) & 0x7FF] >> 8) * (Maths::sin_DB750[((yawXY._axis_2d.x << 7) + v112) & 0x7FF] >> 8);
 				//v248x[26] = mapHeightmap_11B4E0[v111];
 				Str_E9C38_smalltit[v278x].alt2_8 = -(mapHeightmap_11B4E0[v111] * ((v113 >> 4) + 0x8000) >> 10) - posZ;
 				if (!(mapAngle_13B4E0[v111] & 8)
@@ -1550,8 +1553,8 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 			LABEL_134:
 				Str_E9C38_smalltit[v278x].pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].alt_4 / v109;
 				Str_E9C38_smalltit[v278x].pnt4_28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].alt2_8 / v109;
-				LOBYTE(v118) = v277[2] + v279;
-				HIBYTE(v118) = v277[3] + HIBYTE(v279);
+				LOBYTE(v118) = yawQuartal[2] + yawXY._axis_2d.x;
+				HIBYTE(v118) = yawQuartal[3] + yawXY._axis_2d.y;
 				v119 = mapTerrainType_10B4E0[v118];
 				Str_E9C38_smalltit[v278x].textIndex_41 = v119;
 				if (Maths::x_BYTE_D41D8[164 + v119])
@@ -1560,19 +1563,19 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 0x1000u;
 				Str_E9C38_smalltit[v278x].textAtyp_43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].textIndex_41];
 				Str_E9C38_smalltit[v278x].textUV_42 = modYaw + (((signed int)(unsigned __int8)mapAngle_13B4E0[v118] >> 2) & 0x1C);
-				LOBYTE(v118) = v277[4] + v118;
-				HIBYTE(v118) += v277[5];
+				LOBYTE(v118) = yawQuartal[4] + v118;
+				HIBYTE(v118) += yawQuartal[5];
 				Str_E9C38_smalltit[v278x].haveBillboard_36 = mapEntityIndex_15B4E0[v118];
 			LABEL_140:
-				v121 = v277;
-				Str_E9C38_smalltit[v278x].triangleFeatures_38 |= ((x_BYTE)v279 + HIBYTE(v279)) & 1;
-				LOBYTE(v279) = v121[8] + v279;
-				HIBYTE(v279) += v277[9];
+				v121 = yawQuartal;
+				Str_E9C38_smalltit[v278x].triangleFeatures_38 |= (yawXY._axis_2d.x + yawXY._axis_2d.y) & 1;
+				yawXY._axis_2d.x += v121[8];
+				yawXY._axis_2d.y += yawQuartal[9];
 				v278x += 1;
 			}
-			v122 = v277[6] + v279;
-			HIBYTE(v279) += v277[7];
-			LOBYTE(v279) = v122;
+			//v122 = yawQuartal[6] + v279;
+			yawXY._axis_2d.y += yawQuartal[7];
+			yawXY._axis_2d.x += yawQuartal[6];
 	}
 	}
 	v283 = 21;//21eb44 nothing changed
@@ -1584,12 +1587,12 @@ LABEL_259:
 		{
 			if (!v285)
 			{
-				LOBYTE(v279) = v277[6] + v279;
-				HIBYTE(v279) += v277[7];
+				yawXY._axis_2d.x += yawQuartal[6];
+				yawXY._axis_2d.y += yawQuartal[7];
 				v283--;
 				goto LABEL_259;
 			}
-			v197 = ((unsigned __int8)mapShading_12B4E0[v279] << 8) + 128;
+			v197 = ((unsigned __int8)mapShading_12B4E0[yawXY.word] << 8) + 128;
 			v198 = Str_E9C38_smalltit[v278x].y_12;
 			v199 = v198 * v198 + Str_E9C38_smalltit[v278x].x_0 * Str_E9C38_smalltit[v278x].x_0;
 			Str_E9C38_smalltit[v278x].haveBillboard_36 = 0;
@@ -1597,21 +1600,21 @@ LABEL_259:
 				break;
 			Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 2u;
 		LABEL_256:
-			v207 = v277;
-			Str_E9C38_smalltit[v278x].triangleFeatures_38 |= ((x_BYTE)v279 + HIBYTE(v279)) & 1;
-			LOBYTE(v279) = v207[8] + v279;
-			HIBYTE(v279) += v277[9];
+			v207 = yawQuartal;
+			Str_E9C38_smalltit[v278x].triangleFeatures_38 |= (yawXY._axis_2d.x + yawXY._axis_2d.y) & 1;
+			yawXY._axis_2d.x += v207[8];
+			yawXY._axis_2d.y += yawQuartal[9];
 			v285--;
 			v278x++;
 		}
 		if (v198 < 128)
 			v198 = 128;
-		v200 = v279;
+		v200 = yawXY.word;
 		Str_E9C38_smalltit[v278x].pnt1_16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].x_0 / v198;
 		Str_E9C38_smalltit[v278x].alt_4 = 32 * mapHeightmap_11B4E0[v200] - posZ;
 		v201 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
 		//v248x[26] = Maths::sin_DB750[(v201 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8;
-		v202 = (Maths::sin_DB750[(v201 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8) * (Maths::sin_DB750[(((unsigned __int8)v279 << 7) + v201) & 0x7FF] >> 8);
+		v202 = (Maths::sin_DB750[(v201 + (yawXY._axis_2d.y << 7)) & 0x7FF] >> 8) * (Maths::sin_DB750[((yawXY._axis_2d.x << 7) + v201) & 0x7FF] >> 8);
 		if (!(mapAngle_13B4E0[v200] & 8) || (Str_E9C38_smalltit[v278x].alt_4 -= v202 >> 10, v197 >= 14464))
 			v202 = 0;
 		v203 = (v197 << 8) + 8 * v202;
@@ -1622,13 +1625,13 @@ LABEL_259:
 				Str_E9C38_smalltit[v278x].pnt5_32 = 0;
 			LABEL_254:
 				Str_E9C38_smalltit[v278x].pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].alt_4 / v198;
-				LOBYTE(v204) = v277[2] + v279;
-				HIBYTE(v204) = v277[3] + HIBYTE(v279);
+				LOBYTE(v204) = yawQuartal[2] + yawXY._axis_2d.x;
+				HIBYTE(v204) = yawQuartal[3] + yawXY._axis_2d.y;
 				Str_E9C38_smalltit[v278x].textIndex_41 = mapTerrainType_10B4E0[v204];
 				Str_E9C38_smalltit[v278x].textAtyp_43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].textIndex_41];
 				Str_E9C38_smalltit[v278x].textUV_42 = modYaw + (((signed int)(unsigned __int8)mapAngle_13B4E0[v204] >> 2) & 0x1C);
-				LOBYTE(v204) = v277[4] + v204;
-				HIBYTE(v204) += v277[5];
+				LOBYTE(v204) = yawQuartal[4] + v204;
+				HIBYTE(v204) += yawQuartal[5];
 				Str_E9C38_smalltit[v278x].haveBillboard_36 = mapEntityIndex_15B4E0[v204];
 				goto LABEL_256;
 			}

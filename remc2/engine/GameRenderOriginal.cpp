@@ -685,8 +685,8 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 		v29 = viewPort.Height_DE568;
 		v25x = ViewPortRenderBufferStart_DE558;
 		v30 = (v26 - (__CFSHL__((signed int)v26 >> 31, 2) + 4 * ((signed int)v26 >> 31))) >> 2;
-		LOBYTE(v28) = x_WORD_D4B7C;
-		HIBYTE(v28) = x_WORD_D4B7C;
+		LOBYTE(v28) = keyColor1_D4B7C;
+		HIBYTE(v28) = keyColor1_D4B7C;
 		v31 = v28;
 		v32 = v28 << 16;
 		LOWORD(v32) = v31;

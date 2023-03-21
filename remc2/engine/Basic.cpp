@@ -112,8 +112,8 @@ int16_t x_WORD_180660_VGA_type_resolution; // weak
 uint8_t x_BYTE_E88E0x[32];
 uint8_t unk_F0A20x[1024];
 char isCaveLevel_D41B6 = 1;
-__int16 x_WORD_D4B7C = 254; // some key color?
-__int16 x_WORD_D4B7E = 0; // some key color?
+uint8_t keyColor1_D4B7C = 0xfe; // some key color?
+uint8_t keyColor2_D4B7E = 0x00; // some key color?
 type_event_0x6E8E* x_DWORD_EA3E4[1001];//2bb3e4
 
 uint8_t x_BYTE_F6EE0_tablesx[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
