@@ -336,7 +336,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	int jx;
 	int v82x;
 	int v83x;
-	__int16 v112; // ax
+	//__int16 v112; // ax
 	int tempSinXSin; // eax
 	signed int v123; // ebx
 	int tempVar16; // esi
@@ -1260,8 +1260,8 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 						tempY = 128;
 					Str_E9C38_smalltit[index2].pnt1_16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].x_0 / tempY;
 					Str_E9C38_smalltit[index2].alt_4 = 32 * mapHeightmap_11B4E0[yawXY.word] - posZ;
-					v112 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
-					tempSinXSin = (Maths::sin_DB750[(v112 + (yawXY._axis_2d.y << 7)) & 0x7FF] >> 8) * (Maths::sin_DB750[((yawXY._axis_2d.x << 7) + v112) & 0x7FF] >> 8);
+					//v112 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
+					tempSinXSin = pow((Maths::sin_DB750[((D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6)+(yawXY._axis_2d.y << 7)) & 0x7FF] >> 8), 2);
 					Str_E9C38_smalltit[index2].alt2_8 = -(mapHeightmap_11B4E0[yawXY.word] * ((tempSinXSin >> 4) + 0x8000) >> 10) - posZ;
 					tempSinXSin = 0;
 					allert_error();//test  next ifs
