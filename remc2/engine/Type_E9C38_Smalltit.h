@@ -17,7 +17,7 @@ typedef struct {//lenght 44
 	int32_t pnt4_28;//triangleA
 	int32_t pnt5_32;//triangleA and triangleB
 	int16_t haveBillboard_36;//? billboard
-	uint16_t triangleFeatures_38;//1- |/| |\|
+	uint16_t triangleFeatures_38;//0x1- |/| |\| 0x1000 -flat
 	int8_t var_40;
 	uint8_t textIndex_41;//texture index
 	int8_t textUV_42;//texture direction
