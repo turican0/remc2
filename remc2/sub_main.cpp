@@ -51866,10 +51866,16 @@ void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 }
 
 //----- (000548B0) --------------------------------------------------------
+// returns viewport from menu to flight mode
 void sub_548B0(type_str_0x2BDE* a1x)//2358b0
 {
 	if (a1x->word_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
-		SetMousePositionInMemory_5BDC0(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y);
+        // there is a discrepancy between joystick in a menu 
+        // (where the pointer needs to reach every corner of the display)
+        // and flight mode, where "pointer motion" is limited to 640x480
+        // so stop sending the old rest coordinate
+		//SetMousePositionInMemory_5BDC0(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y);
+		SetMousePositionInMemory_5BDC0(320, 240); // JOY_DEF_REST_X, JOY_DEF_REST_Y expected by joystick_event_mgr() for flight mode
 }
 
 //----- (000548F0) --------------------------------------------------------
@@ -71378,8 +71384,10 @@ void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 					posY *= 8;
 				}
 				//320x200 fix
-
-				VGA_Set_mouse(posX / 8, posY / 8);
+                // why the "+ 1" below?
+                // the screen that gets to be displayed is the main menu
+                // do not send 320x240 since it will be treated as flight mode by joystick_event_mgr
+				VGA_Set_mouse(posX / 8 + 1, posY / 8);
 			}
 		}
 	}
@@ -78392,11 +78400,13 @@ int16_t sub_89B60_aplicate_setting(uint8_t a1)//26ab60
 	switch (a1)
 	{
 	case 1u:
+        // i_Glasses (Virtual I-O) joystick
 		v1 = sub_8B600(unk_18058Cstr);//fix it
 		if ((signed __int16)v1 != -1)
 			goto LABEL_3;
 		break;
 	case 2u:
+        // VFX1 CyberPuck joystick
 		if (sub_75650())//fix it
 		{
 			v1 = 1;
