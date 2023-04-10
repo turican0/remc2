@@ -22,6 +22,7 @@ uint8_t m_fontBuffer[256 * 256];
 SDL_Surface* m_surfaceFont = nullptr;
 uint8_t m_smallFontBuffer[128 * 128];
 SDL_Surface* m_smallSurfaceFont = nullptr;
+SDL_Joystick* m_gameController = NULL;
 
 uint8_t LastPressedKey_1806E4; //3516e4
 int8_t pressedKeys_180664[128]; // idb
@@ -114,7 +115,7 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 	if (!inited)
 	{
 		//Initialize SDL
-		if (SDL_Init(SDL_INIT_VIDEO) < 0)
+		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0)
 		{
 			Logger->error("SDL could not initialize! SDL_Error: {}", SDL_GetError());
 			exit(0);
@@ -122,6 +123,15 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 		}
 		else
 		{
+			m_gameController = SDL_JoystickOpen(0);
+			if( m_gameController == NULL ) {
+				Logger->debug("joystick not detected. SDL Error: {}", SDL_GetError() );
+			}
+
+			if (SDL_JoystickEventState(SDL_ENABLE) != 1) {
+				Logger->error("unable to initialize joystick events. SDL Error: {}", SDL_GetError() );
+			}
+
 			init_sound();
 
 			SDL_ShowCursor(0);
@@ -813,6 +823,119 @@ bool handleSpecialKeys(const SDL_Event &event) {
 	return specialKey;
 }
 
+
+#define          JOY_MIN_X  0
+#define      JOY_MAX_FLY_X  640
+#define          JOY_MIN_Y  0
+#define      JOY_MAX_FLY_Y  480
+#define     JOY_DEF_REST_X  (JOY_MAX_FLY_X >> 1)
+#define     JOY_DEF_REST_Y  (JOY_MAX_FLY_Y >> 1)  // for some reason mouse is initialized to 200
+#define JOYSTICK_DEAD_ZONE  1000
+
+#define      JOY_UPDATED_X  0x1
+#define      JOY_UPDATED_Y  0x2
+#define   JOY_BTN_RELEASED  0x4
+#define    JOY_BTN_PRESSED  0x8
+
+int32_t joy_x = JOY_DEF_REST_X;
+int32_t joy_y = JOY_DEF_REST_Y;
+int32_t joy_rest_x = JOY_DEF_REST_X;
+int32_t joy_rest_y = JOY_DEF_REST_Y;
+
+/// \brief set the x,y coord of the joystick rest position 
+/// \param x coordinate where the mouse pointer needs to end up when the joystick is in it's rest position
+/// \param y coordinate where the mouse pointer needs to end up when the joystick is in it's rest position
+/// when x == 320 and y == 240 the joystick is in flight mode. otherwise it replaces a mouse in menu interactions
+void joystick_set_rest(const int32_t x, const int32_t y)
+{
+	Logger->trace("pointer rest at {},{}", x, y);
+	joy_rest_x = x;
+	joy_rest_y = y;
+	joy_x = x;
+	joy_y = y;
+}
+
+/// \brief emulate a mouse based on data provided by a USB joystick (tested with Logitech Attack 3)
+/// \param button_id  button press and release actions as understood by MouseEvents()
+/// \param axis_values SDL provides values in the -32768 ..  32767 range
+/// \param flags  can be one of JOY_UPDATED_X JOY_UPDATED_Y JOY_BTN_RELEASED JOY_BTN_PRESSED
+void joystick_event_mgr(uint16_t button_id, int16_t axis_value, const uint8_t flags)
+{
+	uint16_t joy_button_state = 0;
+	int32_t joy_max_x, joy_max_y;
+
+	if (flags == JOY_UPDATED_X) {
+		if ((axis_value < JOYSTICK_DEAD_ZONE) && (axis_value > -JOYSTICK_DEAD_ZONE)) {
+			joy_x = joy_rest_x;
+		} else {
+			if ((joy_rest_x == JOY_DEF_REST_X) && (joy_rest_y == JOY_DEF_REST_Y)) {
+				// flight mode. valid joy_x, joy_y are restricted to 640x480
+				joy_max_x = JOY_MAX_FLY_X;
+			} else {
+				// clicking_in_menus mode. valid joy_x and joy_y are rescaled to 
+				// config.ini->windowResWidth x windowResHeight
+				joy_max_x = SDL_GetWindowSurface(m_window)->w;
+			}
+
+			joy_x = joy_rest_x + (((joy_max_x >> 2) * axis_value) >> 15);
+
+			if (joy_x < JOY_MIN_X) {
+				joy_x = JOY_MIN_X;
+			} else if (joy_x > joy_max_x) {
+				joy_x = joy_max_x;
+			}
+		}
+	} else if (flags == JOY_UPDATED_Y) {
+		if ((axis_value < JOYSTICK_DEAD_ZONE) && (axis_value > -JOYSTICK_DEAD_ZONE)) {
+			joy_y = joy_rest_y;
+		} else {
+			if ((joy_rest_x == JOY_DEF_REST_X) && (joy_rest_y == JOY_DEF_REST_Y)) {
+				// flight mode. valid joy_x, joy_y are restricted to 640x480
+				joy_max_y = JOY_MAX_FLY_Y;
+			} else {
+				// clicking_in_menus mode. valid joy_x and joy_y are rescaled to
+				// config.ini->windowResWidth x windowResHeight
+				joy_max_y = SDL_GetWindowSurface(m_window)->h;
+			}
+
+			joy_y = joy_rest_y + (((joy_max_y >> 2) * axis_value) >> 15);
+
+			if (joy_y < JOY_MIN_Y) {
+				joy_y = JOY_MIN_Y;
+			} else if (joy_y > joy_max_y) {
+				joy_y = joy_max_y;
+			}
+		}
+	} else if (flags == JOY_BTN_PRESSED) {
+		switch (button_id) {
+			case 0:
+				joy_button_state |= 0x2;
+				break;
+			case 1:
+				joy_button_state |= 0x8;
+				break;
+			case 2:
+				joy_button_state |= 0x20;
+				break;
+		}
+	} else if (flags == JOY_BTN_RELEASED) {
+		switch (button_id) {
+			case 0:
+				joy_button_state |= 0x4;
+				break;
+			case 1:
+				joy_button_state |= 0x10;
+				break;
+			case 2:
+				joy_button_state |= 0x40;
+				break;
+		}
+	}
+
+	//Logger->trace("b {}, value {}  flags {}, x {} y {}", joy_button_state, axis_value, flags, joy_x, joy_y);
+	MouseEvents(joy_button_state, joy_x, joy_y);
+}
+
 int mousex, mousey;
 bool pressed = false;
 uint16_t lastchar = 0;
@@ -826,6 +949,26 @@ int events()
 	{
 		switch (event.type)
 		{
+		case SDL_JOYAXISMOTION:
+			if (event.jaxis.which == 0) {
+				// motion on controller 0
+				if (event.jaxis.axis == 0) {
+					joystick_event_mgr(0, event.jaxis.value, JOY_UPDATED_X);
+				} else if (event.jaxis.axis == 1) {
+					joystick_event_mgr(0, event.jaxis.value, JOY_UPDATED_Y);
+				}
+			}
+			break;
+		case SDL_JOYBUTTONDOWN:
+			if (event.jbutton.which == 0) {
+				joystick_event_mgr(event.jbutton.button, 0, JOY_BTN_PRESSED);
+			}
+			break;
+		case SDL_JOYBUTTONUP:
+			if (event.jbutton.which == 0) {
+				joystick_event_mgr(event.jbutton.button, 0, JOY_BTN_RELEASED);
+			}
+			break;
 		case SDL_KEYDOWN:
 			pressed = true;
 			lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
@@ -915,6 +1058,10 @@ int events()
 
 void VGA_Set_mouse(int16_t x, int16_t y) {
 	SDL_WarpMouseInWindow(m_window, x, y);
+
+	// when x == 320 and y == 240 the joystick is considered to be in flight mode.
+	// otherwise it replaces a mouse in menu interactions
+	joystick_set_rest(x, y);
 };
 
 void VGA_Blit(Uint8* srcBuffer) {
@@ -1065,6 +1212,8 @@ void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
 
 void VGA_close()
 {
+	SDL_JoystickClose(m_gameController);
+	m_gameController = NULL;
 	clean_up_sound();
 	SDL_FreeSurface(m_surfaceFont);
 	m_surfaceFont = nullptr;
