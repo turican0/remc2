@@ -1,0 +1,42 @@
+name: Personalize Main Page (Sandwich)
+
+on:
+  push:
+    branches:
+      - master
+      - development
+    paths:
+      - '.github/readme-template/**'
+      - 'README.md'
+
+jobs:
+  build:
+    if: github.repository == 'turican0/remc2' && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Assemble README
+        run: |
+          TEMPLATE_DIR=".github/readme-template"
+           sed -n '//,//p' README.md > CONTENT.tmp
+          
+          cat "$TEMPLATE_DIR/turican0-head.md" > NEW_README.md
+          echo -e "\n" >> NEW_README.md
+          cat CONTENT.tmp >> NEW_README.md
+          echo -e "\n" >> NEW_README.md
+          cat "$TEMPLATE_DIR/turican0-tail.md" >> NEW_README.md
+          
+          mv NEW_README.md README.md
+          rm CONTENT.tmp
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "docs: sandwich personalization from subdir for turican0" || exit 0
+          git push
