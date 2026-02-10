@@ -17,9 +17,7 @@ on:
 jobs:
   build:
     if: github.repository == 'turican0/remc2' && github.actor != 'github-actions[bot]'
-    
     runs-on: ubuntu-latest
-    
     permissions:
       contents: write
 
@@ -27,7 +25,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
           fetch-depth: 0
 
       - name: Assemble README
@@ -37,7 +35,7 @@ jobs:
           TAIL="$TEMPLATE_DIR/turican0-tail.md"
           
           if [ ! -f "$HEAD" ] || [ ! -f "$TAIL" ]; then
-            echo "Chybí šablony $HEAD nebo $TAIL. Končím."
+            echo "Error: Missing templates."
             exit 1
           fi
 
@@ -58,9 +56,9 @@ jobs:
 
       - name: Commit and Push changes
         run: |
+          TARGET_BRANCH=${{ github.event.pull_request.head.ref || github.ref_name }}
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          # Provede commit jen pokud se README skutečně změnilo
-          git commit -m "docs: personalize readme for branch ${{ github.ref_name }} (turican0-style)" || exit 0
-          git push origin ${{ github.ref_name }}
+          git commit -m "docs: personalize readme (turican0-style)" || exit 0
+          git push origin $TARGET_BRANCH
