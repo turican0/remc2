@@ -2,13 +2,17 @@ name: Personalize Main Page (Sandwich)
 
 on:
   push:
-    branches:
-      - '**'
+    branches: ["**"]
     paths:
       - '.github/readme-template/**'
       - 'README.md'
       - '.github/workflows/personalized-readme.yml'
-  workflow_dispatch: 
+  pull_request:
+    paths:
+      - '.github/readme-template/**'
+      - 'README.md'
+      - '.github/workflows/personalized-readme.yml'
+  workflow_dispatch:
 
 jobs:
   build:
