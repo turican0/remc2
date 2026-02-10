@@ -1,4 +1,4 @@
-# Magic Carpet 2 HD
+# REMC2
 ## Now actually in HD or 2K!
 Based off the Reverse engineering of game Magic Carpet 2 from assembler to c/c++ language by Tomas Versly <br />
 Forked from Tomas Vesely's repo here: https://github.com/turican0/remc2 <br /><br />
