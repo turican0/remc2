@@ -31613,7 +31613,7 @@ void InGameLoop_47320()//228320
 	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.word[1] = 0;
 
 	//fix res on begin level for hidden levels-neoriginal code
-	if (!IsDefaultResolution(gameResWidth, gameResHeight))
+	if (!(gameResWidth == 320 && gameResHeight == 200))
 	{
 		VGA_Resize(320, 200);
 		screenWidth_18062C = 320;
