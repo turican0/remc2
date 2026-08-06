@@ -1,4 +1,0 @@
-*.rc				text eol=crlf
-*.manifest			text eol=crlf
-*.def				text eol=crlf
-*.bat				text eol=crlf

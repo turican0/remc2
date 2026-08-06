@@ -1,1 +1,0 @@
-.\drvsetup uninstall

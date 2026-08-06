@@ -1,3 +1,18 @@
-[submodule "findfirst"]
-	path = findfirst
-	url = https://github.com/MathieuTurcotte/findfirst.git
+[submodule "lib/findfirst"]
+	path = lib/findfirst
+	url = https://github.com/MathieuTurcotte/findfirst
+[submodule "lib/libADLMIDI"]
+	path = lib/libADLMIDI
+	url = https://github.com/Wohlstand/libADLMIDI
+[submodule "lib/inih"]
+	path = lib/inih
+	url = https://github.com/benhoyt/inih
+[submodule "lib/stb"]
+	path = lib/stb
+	url = https://github.com/nothings/stb
+[submodule "lib/spdlog"]
+	path = lib/spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "lib/json"]
+	path = lib/json
+	url = https://github.com/nlohmann/json

@@ -1,7 +1,0 @@
-LIBRARY      adlmidisynth
-EXPORTS
-    DriverProc
-    modMessage
-    adl_linkedLibraryVersion
-    adl_getBankNames
-    adl_getBanksCount

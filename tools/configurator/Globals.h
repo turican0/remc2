@@ -1,0 +1,27 @@
+#pragma once
+#include <wx/wx.h>
+#include <wx/spinctrl.h>
+#include "portability/Config.h"
+#include "portability/ConfigToSdlScancodeMapping.h"
+
+enum {
+	ID_BTN_PLAY = wxID_HIGHEST + 1,
+	ID_BTN_FILE,
+	ID_BTN_GAME,
+	ID_BTN_CONTROLS,
+	ID_BTN_SOUND,
+	ID_BTN_DISPLAY,
+	ID_BTN_GRAPHICS,
+	ID_BTN_EXIT,
+	ID_BTN_GAME_BROWSE,
+	ID_BTN_CD_BROWSE,
+	ID_BTN_GRAPHICS_BROWSE,
+	ID_BTN_FIX_MENU_BROWSE,
+	ID_BTN_FONTS_BROWSE,
+	ID_CHK_GRAPHICS,
+	ID_CHK_FIX_MENU,
+	ID_CHK_FONTS,
+	ID_BTN_LAUNCH_OPTIONS,
+	ID_BTN_MULTIPLAYER,
+	ID_BTN_SETTINGS,
+};
