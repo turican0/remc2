@@ -170,7 +170,8 @@ void VGA_Init(Uint32  /*flags*/, int windowWidth, int windowHeight, int gameResW
 			SDL_RenderClear(m_renderer);
 			SDL_RenderPresent(m_renderer);
 
-			SDL_SetWindowMouseRect(m_window, new SDL_Rect{ 0, 0, 640, 480 });
+			SDL_Rect dim{0,0,640,480};
+			SDL_SetWindowMouseRect(m_window, &dim);
 
 			std::function<void(Scene)> callBackScene = SetMouseKeyboardScene;
 			EventDispatcher::I->RegisterEvent(new Event<Scene>(EventType::E_SCENE_CHANGE, callBackScene));
@@ -203,7 +204,8 @@ void SetMouseKeyboardGameState(const GameState state)
 {
 	if (state == GameState::GAMEPLAY_ENDED)
 	{
-		SDL_SetWindowMouseRect(m_window, new SDL_Rect{ 0, 0, 640, 480 });
+		SDL_Rect dim{0,0,640, 480};
+		SDL_SetWindowMouseRect(m_window, &dim);
 	}
 }
 
@@ -219,10 +221,14 @@ void OnMouseResolutionChanged(uint32_t width, uint32_t height)
 		if (y > screenHeight_180624)
 			y = screenHeight_180624;
 
-		SDL_SetWindowMouseRect(m_window, new SDL_Rect{ 0, 0, x, y });
+		SDL_Rect dim{0,0,x,y};
+		SDL_SetWindowMouseRect(m_window, &dim);
 	}
 	else
-		SDL_SetWindowMouseRect(m_window, new SDL_Rect{ 0, 0, 640, 480 });
+	{
+		SDL_Rect dim{0,0,640,480};
+		SDL_SetWindowMouseRect(m_window, &dim);
+	}
 }
 
 void CreateRenderSurfaces(int width, int height)

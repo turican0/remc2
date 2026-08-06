@@ -10,6 +10,7 @@ public:
 	//Alias for template callback
 	using _callback = std::function<void(_args...)>;
 
+	Event() = default;
 	explicit Event(const EventType eventType, _callback& cb) : m_EventType(eventType), m_cbFunc(cb) {}
 
 	~Event() {}

@@ -2201,7 +2201,8 @@ uint16_t GameRenderOriginal::sub_3FD60(int a2x)
 					LABEL_70:
 						str_F2C20ar.dword0x02_data = a1x->textureBuffer;
 						v38 = str_F2C20ar.dword0x00;
-						a1x->word_0 |= 8;
+						if(a1x != NULL)
+							a1x->word_0 |= 8;
 						if (v38 == 0x2000)
 							v39 = x_BYTE_D4750[v9x->byte_10];
 						else
