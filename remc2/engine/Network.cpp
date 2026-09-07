@@ -199,6 +199,8 @@ void NetworkListenAll_7302E()//25402e
 	}
 }
 
+void ResetRewireState();
+
 //----- (0007308F) --------------------------------------------------------
 int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 {
@@ -237,6 +239,17 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 	// clear stale per-match network state left over from a previous
 	// game before starting this one, otherwise the peers fail to reconnect.
 	ResetNetworkGameState();
+
+	// The token starts at index 0 in every match: index 0 is the side that listens, and
+	// the branch below only assigns the token on the node that gets index 0.  In the
+	// original game that was enough, because losing a peer ended the session for good -
+	// the token could never outlive the match it was moved in.  Now that a survivor plays
+	// on and starts another match, a client that took the token over when the previous
+	// server disappeared carried the value into the new game and still believed it held it,
+	// while the new index 0 believed the same.  Two token holders means two collectors and
+	// no sender: both sat in a receive until the test called it stuck.
+	IndexInNetwork2_E12A8 = 0;
+	ResetRewireState();
 
 	/*
 	//wait for Server AddName
@@ -668,6 +681,19 @@ uint8_t ownSliceBuffer[4096];
 void ReceiveSendAll_7438A(uint8_t* buffer, unsigned int size)//25538a
 {
 	RemoveDeadClients();
+	// Re-aim the connections if the server role has moved, from HERE.
+	//
+	// This is where a node in the lobby actually spins: after a hand-over both survivors were
+	// found here and NOT in the menu loop, so a check placed there was never reached - measured,
+	// the follower stopped reporting for seventy seconds while this exchange kept running.
+	//
+	// Only in the lobby (!g_inGameLoop) and only while the session is up (x_BYTE_E1275): in a
+	// level every pair already holds a session and there is nothing to re-aim, and doing this
+	// while a match is being torn down cancels NCBs that are on their way out, which killed an
+	// instance outright when this lived in the per-tick update.
+	if (!g_inGameLoop && x_BYTE_E1275)
+		NetworkRewireAfterServerChange();
+
 	if (x_BYTE_E1274)
 	{
 		if (IndexInNetwork_E1276 == IndexInNetwork2_E12A8)
@@ -1103,6 +1129,151 @@ static void NetworkPeerVanished_73AA1b(int16_t lost)
 	else
 	{
 		NetworkCall_74809(IndexInNetwork2_E12A8);
+	}
+}
+
+// The server role has moved: point everybody's connections at whoever holds it now.
+//
+// The game's topology is a hub and spokes with the hub pinned to slot 0: NetworkInitConnection
+// _7308F has index 0 listen on every other slot and everybody else call index 0, and it runs
+// once, when the session is joined.  When the host goes away in the LOBBY that arrangement is
+// left pointing at a node that no longer exists - measured: the survivor kept a CALL to
+// [NETH200] pending for the rest of the run, the transport happily resolved that name to the
+// dead host's port, and the node that had taken the role over sat listening to nobody, so
+// neither of them ever started the level.  In a level it does not show, because by then every
+// pair already holds a session.
+//
+// So the same two primitives are used again with the roles as they are now: the new server
+// listens on every other slot, and everybody else calls the slot the new server occupies.
+// The slot is worked out from the transport's membership list, whose lowest surviving entry is
+// exactly the node the hand-over picks.
+// Remembered between calls, and cleared for every new match by NetworkInitConnection_7308F:
+// a slot remembered from the previous game would make the first look at a freshly built
+// set of connections count as a hand-over, and pull them down again.
+static int  g_rewireLastServerSlot = -1;
+static long g_rewireLastAttempt = 0;
+void ResetRewireState() { g_rewireLastServerSlot = -1; g_rewireLastAttempt = 0; }
+
+void NetworkRewireAfterServerChange()
+{
+	bool present[8];
+	const int marked = NetworkRosterPlayers(nethID, present);
+	if (marked <= 0)
+		return;                       // nothing to go on yet
+
+	int serverSlot = -1;
+	for (int i = 0; i < 8; i++)
+		if (present[i]) { serverSlot = i; break; }
+	if (serverSlot < 0)
+		return;
+
+	// Act when the role moves, and then keep trying while this node is still not connected
+	// to whoever holds it.  One attempt is not enough: the two sides re-aim independently, and
+	// measured, the follower called 1.7 s before the new server had armed its LISTEN, so its
+	// connection was parked and timed out with nobody to adopt it - after which nothing tried
+	// again and both sat in the lobby.  Retrying stops as soon as the session is up, so this
+	// costs nothing once the two have found each other.
+	int&  lastServerSlot = g_rewireLastServerSlot;
+	long& lastAttempt    = g_rewireLastAttempt;
+	// The FIRST observation is not a change.  NetworkInitConnection_7308F has just set the
+	// connections up; cancelling and re-issuing them here because this function had not seen a
+	// server slot before tore down the handshake that was still in progress, and the clients
+	// never reached the level at all.
+	if (lastServerSlot < 0)
+	{
+		lastServerSlot = serverSlot;
+		lastAttempt = (long)j___clock();
+		return;
+	}
+	const bool  moved = (serverSlot != lastServerSlot);
+	const bool  connectedToServer = (serverSlot == IndexInNetwork_E1276)
+		|| (connected_E12CE[serverSlot] == 1);
+	if (!moved)
+	{
+		if (connectedToServer) return;
+		if (((long)j___clock() - lastAttempt) < 100) return;   // j___clock() ticks are 1/100 s
+	}
+	lastServerSlot = serverSlot;
+	lastAttempt = (long)j___clock();
+
+	if (CommandLineParams.DoNetworkDebug())
+		debug_net_printf("REWIRE: server is now slot %d, I am %d (%s)\n",
+			serverSlot, (int)IndexInNetwork_E1276,
+			IndexInNetwork_E1276 == serverSlot ? "listening for the rest" : "calling it");
+
+	// First put down the slots of nodes the membership list no longer has.  A slot left over
+	// from a node that has gone still carries a LISTEN or a CALL, and a connection meant for
+	// somebody else gets adopted into it - measured after a hand-over: the new server accepted
+	// the survivor into the dead host's slot and went on writing to "slot 0 ... call=[NETH200]",
+	// so the two of them held a session that neither of their player slots knew about and the
+	// lobby never counted a second player.
+	for (int i = 0; i < maxPlayers_E127A; i++)
+	{
+		if (i == IndexInNetwork_E1276) continue;
+		if (present[i]) continue;                    // still with us
+		if (connected_E12CE[i] != 1 && connection_E12AE[i]->ncb_cmd_cplt_49 == 0) continue;
+		if (CommandLineParams.DoNetworkDebug())
+			debug_net_printf("REWIRE: slot %d is nobody now, putting it down\n", i);
+		NetworkCancel_748F7(i);
+		NetworkHangUp_74B19(connection_E12AE[i]);
+		connected_E12CE[i] = 0;
+	}
+
+	// The token goes with the role.  In the lobby everybody sends their slice to the token
+	// holder and it hands the assembled array back, so a token left on a node that has gone
+	// means every record is addressed to nobody: measured after a hand-over, both survivors
+	// still reported "token=0" and their only writes were to "slot 0 ... call=[NETH200]", so
+	// neither ever saw the other and the lobby counted one player for ever.
+	//
+	// NetworkPeerVanished_73AA1b moves it when a peer is noticed dying in a running session;
+	// this path is the one where nobody notices, because the slots were already down between
+	// matches when the host left.
+	if (IndexInNetwork2_E12A8 != serverSlot)
+	{
+		if (CommandLineParams.DoNetworkDebug())
+			debug_net_printf("REWIRE: token moves from %d to %d\n",
+				(int)IndexInNetwork2_E12A8, serverSlot);
+		// Carry the table the token holder keeps.  Colours live in the token holder's record
+		// (FindFreeColorIndex_7D230 reads array_BYTE_17DE68x[token].playerIndex_1[]), and so does
+		// the chosen level.  Moving the token to a record that has never held them leaves every
+		// slot reading colour 0, and "the first free colour" then hands the same one to everybody
+		// - which is what two wizards in one colour looks like.
+		// ...but only from a record that still holds something.  The slot the token is leaving
+		// belongs to a node that has gone, and its record may already have been cleared - copying
+		// that gives every slot colour 0 (so everybody ends up the same colour) and level 0, which
+		// is not even a multiplayer level.  The lobby sets a sensible level of its own on entry,
+		// so when there is nothing to carry, leaving it alone is right.
+		const int oldToken = IndexInNetwork2_E12A8;
+		if (oldToken >= 0 && oldToken < 8 && serverSlot < 8
+			&& x_DWORD_17DE38str.array_BYTE_17DE68x[oldToken].makeUpdate_0)
+		{
+			for (int c = 0; c < 8; c++)
+				x_DWORD_17DE38str.array_BYTE_17DE68x[serverSlot].playerIndex_1[c] =
+					x_DWORD_17DE38str.array_BYTE_17DE68x[oldToken].playerIndex_1[c];
+			if (x_DWORD_17DE38str.array_BYTE_17DE68x[oldToken].selectedLevel_10 >= 50)
+				x_DWORD_17DE38str.array_BYTE_17DE68x[serverSlot].selectedLevel_10 =
+					x_DWORD_17DE38str.array_BYTE_17DE68x[oldToken].selectedLevel_10;
+		}
+		IndexInNetwork2_E12A8 = (int16_t)serverSlot;
+	}
+
+	if (IndexInNetwork_E1276 == serverSlot)
+	{
+		for (int i = 0; i < maxPlayers_E127A; i++)
+		{
+			if (i == IndexInNetwork_E1276) continue;
+			if (connected_E12CE[i] == 1) continue;      // already talking to that one
+			NetworkCancel_748F7(i);                     // drop whatever was aimed at the old host
+			NetworkListen_74B75(i);
+		}
+	}
+	else
+	{
+		if (connected_E12CE[serverSlot] != 1)
+		{
+			NetworkCancel_748F7(serverSlot);
+			NetworkCall_74809(serverSlot);
+		}
 	}
 }
 

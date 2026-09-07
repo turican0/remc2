@@ -5939,6 +5939,23 @@ char sub_77680()//258680
 			x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10 = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
 		else
 			x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10 = 50;
+
+		// Let an automated run say which multiplayer level to play.  The lobby numbers them from
+		// 50 - that is what the test above is about - so the first one a player sees is 50 and the
+		// tenth is 59.  Asking for them by that ordinal keeps the command line readable and means
+		// a test does not have to know the offset.
+		//
+		// Without this the run always plays the first level, and a level that has to be reached by
+		// hand cannot be part of a repeatable test.  --set_level is no use here: it sets skipMenus
+		// and drops the instance straight into a single-player level, past the lobby altogether.
+		if (CommandLineParams.AutoTest() && CommandLineParams.AutoTestMpLevel() > 0)
+		{
+			const int wanted = 50 + CommandLineParams.AutoTestMpLevel() - 1;
+			x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10 = (uint8_t)wanted;
+			if (CommandLineParams.DoNetworkDebug())
+				debug_net_printf("AUTOTEST: multiplayer level %d selected (level number %d)\n",
+					CommandLineParams.AutoTestMpLevel(), wanted);
+		}
 		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 2;
 		x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons = 0;
 		if (CommandLineParams.AutoTest())
@@ -6001,6 +6018,30 @@ char sub_77680()//258680
 				// waiting for the corpse to be declared.
 				const bool autoPeersAllIn = NetworkAllRosterPeersConnected();
 
+				// Why the level is not being started, reported when any part of the answer changes.
+				// Sitting in the lobby looks identical from outside whatever the reason is, and after
+				// a hand-over there are four candidates.
+				if (CommandLineParams.DoNetworkDebug())
+				{
+					static int lastWhy = -1;
+					static long lastSaid = 0;
+					const int why = (Iam_server ? 1 : 0) | (x_DWORD_17DE38str.x_WORD_17DEFE >= autoNeedPlayers ? 2 : 0)
+						| (autoPeersAllIn ? 4 : 0) | (autoStableFrames > 180 ? 8 : 0)
+						| (autoLevelStartedFor != g_autotest_match ? 16 : 0);
+					// Also every two seconds, not only on change: silence has to mean "this loop is
+					// not running" rather than "nothing moved", which is the difference between a
+					// gate that refuses and a gate nobody asks.
+					if (why != lastWhy || ((long)j___clock() - lastSaid) > 200)
+					{
+						lastWhy = why;
+						lastSaid = (long)j___clock();
+						debug_net_printf("GATE: server=%d players=%d(%d) peersAllIn=%d stable=%d notStarted=%d\n",
+							(int)Iam_server, (int)x_DWORD_17DE38str.x_WORD_17DEFE, autoNeedPlayers,
+							(int)autoPeersAllIn, (int)(autoStableFrames > 180),
+							(int)(autoLevelStartedFor != g_autotest_match));
+					}
+				}
+
 				if (Iam_server && autoLevelStartedFor != g_autotest_match
 					&& x_DWORD_17DE38str.x_WORD_17DEFE >= autoNeedPlayers
 					&& autoPeersAllIn
@@ -6010,7 +6051,24 @@ char sub_77680()//258680
 					x_DWORD_17DE38str.array_BYTE_17DE68x[me].action_9 = 5;
 					x_DWORD_17DE38str.array_BYTE_17DE68x[me].makeUpdate_0 = 1;
 					if (CommandLineParams.DoNetworkDebug())
-						debug_net_printf("AUTOTEST: host starts the level (match %d)\n", g_autotest_match);
+						debug_net_printf("AUTOTEST: host starts the level %d (match %d)\n",
+							(int)x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10,
+							g_autotest_match);
+
+					// Which colour each slot ended up with.  Two wizards in one colour is a real
+					// failure mode here - the table lives in the token holder's record, so a
+					// hand-over can leave it empty and "the first free colour" then answers the same
+					// for everybody.  Reported at the start so it can be judged from the log.
+					if (CommandLineParams.DoNetworkDebug())
+					{
+						char colours[64] = { 0 };
+						int at = 0;
+						for (int c = 0; c < 8 && at < (int)sizeof(colours) - 8; c++)
+							if (x_DWORD_17DE38str.array_BYTE_17DE68x[c].makeUpdate_0)
+								at += snprintf(colours + at, sizeof(colours) - at, "s%d=c%d ", c,
+									(int)x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[c]);
+						debug_net_printf("AUTOTEST: colours %s\n", colours);
+					}
 				}
 			}
 			if (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode == 59)

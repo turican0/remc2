@@ -39,6 +39,9 @@ class CommandLineParser {
 		// How many players the host waits for before it starts the level.  Two by default;
 		// a test that wants to disturb the lobby needs to hold the game there for longer.
 		int  AutoTestPlayers() const { return m_auto_test_players; };
+		// Which multiplayer level the automated run should play, counted the way a player counts
+		// them (1 = the first one in the lobby).  -1 leaves the lobby on its default.
+		int  AutoTestMpLevel() const { return m_auto_test_mp_level; };
 		// How many matches to play in one process, and how long each one lasts.  Leaving a
 		// level and starting another exercises the state that has to be torn down and rebuilt
 		// between matches - sessions, NCB commands, name registrations - which nothing else
@@ -113,6 +116,7 @@ class CommandLineParser {
 		int  m_auto_test_matches;
 		int  m_auto_test_match_s;
 		int  m_auto_test_players;
+		int  m_auto_test_mp_level;
         bool m_alternative_gamespeed_control;
         bool m_analyze_entity;
         bool m_auto_change_res;

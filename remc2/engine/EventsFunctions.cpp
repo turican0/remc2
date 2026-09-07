@@ -37600,9 +37600,26 @@ void DestroyPlayerCastle(int player)
 	if (!castle) return;
 	if (Entities_EA3E4[castle] > Entities_EA3E4[0])
 	{
+		// A stage at a time, the way the game takes a castle apart.  sub_605E0 removes one
+		// level per call and, on the call that brings the count to zero, clears the owner's
+		// castle and stops drawing it - that last step is what makes the castle actually go.
+		//
+		// Setting life = -1 once, which is all action 0x2A does, costs exactly ONE level: a
+		// level 3 castle came back as a level 2 one, which is what the tester saw.
 		if (CommandLineParams.DoNetworkDebug())
-			debug_net_printf("CASTLE: player %d left, its castle is destroyed\n", player + 1);
-		Entities_EA3E4[castle]->life_0x8 = -1;
+			debug_net_printf("CASTLE: player %d left, taking down its castle (%d level(s))\n",
+				player + 1, (int)Entities_EA3E4[castle]->dword_0x10_16);
+		// Bounded: the loop trusts a counter that lives in game state, and a castle has
+		// nothing like eight levels.
+		int guard = 16;
+		while (Entities_EA3E4[castle] > Entities_EA3E4[0]
+			&& Entities_EA3E4[castle]->dword_0x10_16 > 0 && guard-- > 0)
+		{
+			sub_605E0(Entities_EA3E4[castle]);
+		}
+		// A castle already at level 0 still has to be cleared away, and that is the same call.
+		if (Entities_EA3E4[castle] > Entities_EA3E4[0])
+			sub_605E0(Entities_EA3E4[castle]);
 	}
 }
 
