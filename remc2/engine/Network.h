@@ -42,6 +42,9 @@ int NetworkConnectedMask();
 // False while the transport has no membership list yet: with nothing to compare against there
 // is nothing to assert, and the caller should keep waiting rather than assume the best.
 bool NetworkAllRosterPeersConnected();
+
+// Re-aims this node's connections after the server role has moved; see the definition.
+void NetworkRewireAfterServerChange();
 extern bool Iam_client;
 extern int NetworkPort;
 extern int ServerPort;

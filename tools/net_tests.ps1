@@ -194,6 +194,24 @@ $Tests = @(
     # so this asserts the whole chain: the host dies in the lobby, the survivors elect a new
     # server, find each other again, roll the level and go on playing it.
     @{ name = "server-dies-lobby";  desc = "3p: the server is killed in the lobby";players=3; killWhen="lobby"; killTarget="host";    waitPlayers=4; waitPlayersClients=2; runSeconds=70; expect="restStartLevel" }
+    # The server leaves a FINISHED game and the rest have to start another one without it.
+    #
+    # Reported from real play and missing here: server-dies-* take the server out in the MIDDLE
+    # of a session, where every pair already holds a session and the survivors simply carry on;
+    # two-matches and three-matches play again but with everybody still present.  Neither covers
+    # the gap between two matches, which is where the game rebuilds its connections from nothing
+    # and the node they were all pointing at is gone.
+    #
+    # The host is taken out at 40 s: match 0 starts around 13 s and runs 15, so by then everybody
+    # is back in the lobby setting up match 1.  Judged by restPlayAllMatches rather than
+    # restStartLevel, because a survivor that does everything right finishes the last match and
+    # leaves the application - which the "is it still running" half of restStartLevel reads as
+    # "died with the host" on a run that was in fact perfect.  What is asserted is the whole
+    # chain: the survivors elect a new server, re-aim their connections at it, roll the level,
+    # and play every remaining match with real traffic in it.
+    @{ name = "server-quits-between-matches"; desc = "3p: the server leaves after the first match";
+                                    players=3; matches=3; matchSeconds=15; killWhen="lobby"; killAtSeconds=40;
+                                    killTarget="host"; waitPlayers=2; runSeconds=80; expect="restPlayAllMatches" }
     @{ name = "server-dies-game";   desc = "3p: the server is killed in the game"; players=3; killWhen="game";  killTarget="host";    waitPlayers=3; runSeconds=70; expect="restKeepPlaying" }
 )
 
@@ -516,6 +534,30 @@ function Invoke-Test($test) {
                     $problems += "$k exchanged almost nothing in the last match ($($s.deliveredLastMatch))"
                 }
             }
+        }
+        # The survivors go on WITHOUT the node that left, all the way to the end of the
+        # scenario's match list.  Deliberately no "still running" check, for the same reason
+        # playsAllMatches has none: the last match ends by leaving the program, so a survivor
+        # that did everything asked of it is supposed to be gone by the time this is judged.
+        # Measured with the token fix in: both survivors played all 3 matches, one of them took
+        # the role over and rolled level 50 for match 2, and that match carried 1121 exchanges.
+        'restPlayAllMatches' {
+            $wantMatches = if ($test.matches) { [int]$test.matches } else { 2 }
+            foreach ($k in $survivors.Keys) {
+                $s = $stats[$k]; if (-not $s) { continue }
+                if ($s.matchesEntered -lt $wantMatches) {
+                    $problems += "$k played $($s.matchesEntered) of $wantMatches matches after the $killed went away"
+                }
+                elseif ($s.deliveredLastMatch -lt 20) {
+                    $problems += "$k exchanged almost nothing in the last match ($($s.deliveredLastMatch))"
+                }
+            }
+            # One of them has to have taken the role over: the survivors were all clients while
+            # the node that left was there, so a survivor logging a level start can only be the
+            # match it hosted itself.
+            $anyStarted = $false
+            foreach ($k in $survivors.Keys) { if ($stats[$k] -and $stats[$k].startedLevel) { $anyStarted = $true } }
+            if (-not $anyStarted) { $problems += "nobody started the level after the $killed went away" }
         }
         # ...and here the survivors have to still be exchanging turns afterwards.
         'restKeepPlaying' {

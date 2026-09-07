@@ -28,6 +28,7 @@ void CommandLineParser::Init(int argc, char **argv) {
 	m_auto_test_matches = 1;
 	m_auto_test_match_s = 0;
 	m_auto_test_players = 2;
+	m_auto_test_mp_level = -1;
     m_analyze_entity = true;
     m_alternative_gamespeed_control = true;
     m_auto_change_res = false;
@@ -227,6 +228,7 @@ void CommandLineParser::InterpretParams() {
 		else if (param == "--auto_test_matches")                m_auto_test_matches = atoi((++p)->c_str());
 		else if (param == "--auto_test_match_seconds")          m_auto_test_match_s = atoi((++p)->c_str());
 		else if (param == "--auto_test_players")                m_auto_test_players = atoi((++p)->c_str());
+		else if (param == "--auto_test_mp_level")               m_auto_test_mp_level = atoi((++p)->c_str());
         else if (param == "--no_alternative_gamespeed_control") m_alternative_gamespeed_control = false;
         else if (param == "--no_analyze_entity")                m_analyze_entity = false;
         else if (param == "--auto_change_res")                  m_auto_change_res = true;
