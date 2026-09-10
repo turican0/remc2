@@ -29800,296 +29800,293 @@ void sub_3A8B0(type_entity_0x6E8E* a1x)//21b8b0
 	v33x = Entities_EA3E4[a1x->word_0x32_50];
 	if (v2x->life_0x8 < 0 || v2x->struct_byte_0xc_12_15.byte[1] & 4)
 	{
-	LABEL_99:
 		DisableEntityDrawing04_57F10(a1x);
+		return;
 	}
-	else
+	v3 = a1x->byte_0x44_68;
+	if (v3)
 	{
-		v3 = a1x->byte_0x44_68;
-		if (v3)
+		switch (abs(v3))
 		{
-			switch (abs(v3))
-			{
-			case 1:
-				v1 = 0;
-				break;
-			case 2:
-				v1 = 153;
-				break;
-			case 3:
-				v1 = 307;
-				break;
-			case 4:
-				v1 = 445;
-				break;
-			case 5:
-				v1 = 491;
-				break;
-			case 6:
-				v1 = 512;
-				break;
-			default:
-				break;
-			}
-			predictedAxis_EB398ar = a1x->axis_0x9A_154x;
-			predictedAxis_EB398ar.z = a1x->position_0x4C_76.z;
-			MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, v1);
-			CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
-			v4 = a1x->byte_0x44_68 + 1;
-			a1x->byte_0x44_68 = v4;
-			if (v4 > 0 && v4 > 6)
-				a1x->byte_0x44_68 = -5;
+		case 1:
+			v1 = 0;
+			break;
+		case 2:
+			v1 = 153;
+			break;
+		case 3:
+			v1 = 307;
+			break;
+		case 4:
+			v1 = 445;
+			break;
+		case 5:
+			v1 = 491;
+			break;
+		case 6:
+			v1 = 512;
+			break;
+		default:
+			break;
 		}
-		v5 = (signed __int16)getTerrainAlt_10C40(&a1x->position_0x4C_76);
-		v6 = a1x->byte_0x46_70;
-		if (v6 != 9 && v6 != 7)
+		predictedAxis_EB398ar = a1x->axis_0x9A_154x;
+		predictedAxis_EB398ar.z = a1x->position_0x4C_76.z;
+		MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, v1);
+		CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
+		v4 = a1x->byte_0x44_68 + 1;
+		a1x->byte_0x44_68 = v4;
+		if (v4 > 0 && v4 > 6)
+			a1x->byte_0x44_68 = -5;
+	}
+	v5 = (signed __int16)getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	v6 = a1x->byte_0x46_70;
+	if (v6 != 9 && v6 != 7)
+	{
+		v7 = a1x->life_0x8 - 1;
+		a1x->life_0x8 = v7;
+		if (v7 <= 0)
+			a1x->byte_0x46_70 = 6;
+		if (D41A0_0.LevelIndex_0xc == v33x->dword_0xA4_164x->playerColorIndex_0x38_56)
 		{
-			v7 = a1x->life_0x8 - 1;
-			a1x->life_0x8 = v7;
-			if (v7 <= 0)
-				a1x->byte_0x46_70 = 6;
-			if (D41A0_0.LevelIndex_0xc == v33x->dword_0xA4_164x->playerColorIndex_0x38_56)
-			{
-				v8 = a1x->word_0x36_54;
+			v8 = a1x->word_0x36_54;
+			a1x->struct_byte_0xc_12_15.byte[0] &= 0xFEu;
+			if (v8 != -1)
+				a1x->struct_byte_0xc_12_15.byte[2] |= 0x80u;
+		}
+		else if (!(a1x->byte_0x3E_62 & 7))
+		{
+			v9x = Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[12]];
+			if (v9x > Entities_EA3E4[0] && v9x->word_0x2E_46 && v9x->byte_0x46_70 >= 2)
 				a1x->struct_byte_0xc_12_15.byte[0] &= 0xFEu;
-				if (v8 != -1)
-					a1x->struct_byte_0xc_12_15.byte[2] |= 0x80u;
-			}
-			else if (!(a1x->byte_0x3E_62 & 7))
-			{
-				v9x = Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[12]];
-				if (v9x > Entities_EA3E4[0] && v9x->word_0x2E_46 && v9x->byte_0x46_70 >= 2)
-					a1x->struct_byte_0xc_12_15.byte[0] &= 0xFEu;
-				else
-					a1x->struct_byte_0xc_12_15.byte[0] |= 1u;
-			}
-			if (a1x->position_0x4C_76.z < v5)
-				a1x->position_0x4C_76.z = v5;
-			if (!a1x->byte_0x44_68 && abs(a1x->position_0x4C_76.z - (v5 + 1024)) > 96)
-			{
-				if (a1x->position_0x4C_76.z - (v5 + 1024) <= 0)
-					v10 = 48;
-				else
-					v10 = -48;
-				a1x->position_0x4C_76.z += v10;
-			}
-			if (isCaveLevel_D41B6)
-			{
-				v11 = a1x->array_0x52_82.fov;
-				v5 = (signed __int16)sub_10C60(&a1x->position_0x4C_76) - v11;
-				if (a1x->position_0x4C_76.z > v5)
-					a1x->position_0x4C_76.z = v5;
-			}
+			else
+				a1x->struct_byte_0xc_12_15.byte[0] |= 1u;
 		}
-		//LOBYTE(v12) = a1x->byte_0x46_70;
-		switch (a1x->byte_0x46_70)
+		if (a1x->position_0x4C_76.z < v5)
+			a1x->position_0x4C_76.z = v5;
+		if (!a1x->byte_0x44_68 && abs(a1x->position_0x4C_76.z - (v5 + 1024)) > 96)
+		{
+			if (a1x->position_0x4C_76.z - (v5 + 1024) <= 0)
+				v10 = 48;
+			else
+				v10 = -48;
+			a1x->position_0x4C_76.z += v10;
+		}
+		if (isCaveLevel_D41B6)
+		{
+			v11 = a1x->array_0x52_82.fov;
+			v5 = (signed __int16)sub_10C60(&a1x->position_0x4C_76) - v11;
+			if (a1x->position_0x4C_76.z > v5)
+				a1x->position_0x4C_76.z = v5;
+		}
+	}
+	//LOBYTE(v12) = a1x->byte_0x46_70;
+	switch (a1x->byte_0x46_70)
+	{
+	case 0:
+		//v12 = (int)& SPELLS_BEGIN_BUFFER_DA818[0x732] + 26 * a1x->word_0x2A_42;
+		//v13 = *(x_DWORD *)v12;
+		v13 = SPELLS_BEGIN_BUFFER_str[23].subspell[a1x->subSpellIndex_0x2A_42].subSpellIndex_2;
+		a1x->maxLife_0x4 = v13;// *(x_DWORD*)v12;
+		a1x->life_0x8 = v13;
+		a1x->axis_0x9A_154x = a1x->position_0x4C_76;
+		//LOBYTE(v12) = *(x_BYTE *)(v12 + 24);
+		//LOBYTE(v12) = SPELLS_BEGIN_BUFFER_str[23].subspell[a1x->word_0x2A_42].byte_0x1A;
+		switch (SPELLS_BEGIN_BUFFER_str[23].subspell[a1x->subSpellIndex_0x2A_42].life_0x1A)
 		{
 		case 0:
-			//v12 = (int)& SPELLS_BEGIN_BUFFER_DA818[0x732] + 26 * a1x->word_0x2A_42;
-			//v13 = *(x_DWORD *)v12;
-			v13 = SPELLS_BEGIN_BUFFER_str[23].subspell[a1x->subSpellIndex_0x2A_42].subSpellIndex_2;
-			a1x->maxLife_0x4 = v13;// *(x_DWORD*)v12;
-			a1x->life_0x8 = v13;
-			a1x->axis_0x9A_154x = a1x->position_0x4C_76;
-			//LOBYTE(v12) = *(x_BYTE *)(v12 + 24);
-			//LOBYTE(v12) = SPELLS_BEGIN_BUFFER_str[23].subspell[a1x->word_0x2A_42].byte_0x1A;
-			switch (SPELLS_BEGIN_BUFFER_str[23].subspell[a1x->subSpellIndex_0x2A_42].life_0x1A)
-			{
-			case 0:
-				a1x->byte_0x43_67 = 1;
-				break;
-			case 1:
-				a1x->byte_0x43_67 = 2;
-				break;
-			case 2:
-				a1x->byte_0x43_67 = 4;
-				break;
-			case 3:
-				a1x->byte_0x43_67 = 8;
-				break;
-			default:
-				break;
-			}
-			a1x->byte_0x46_70 = 1;
-			goto LABEL_45;
+			a1x->byte_0x43_67 = 1;
+			break;
 		case 1:
-		LABEL_45:
-			if (a1x->word_0x36_54 != 0xffff)
-			{
-				a1x->byte_0x46_70 = 2;
-				//return v12;
-			}
-			return;// v12;
+			a1x->byte_0x43_67 = 2;
+			break;
 		case 2:
-			a1x->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
-			a1x->id_0x1A_26 = a1x->word_0x32_50;
-			//if ((*xadataspellsdat.colorPalette_var28)[80 * a1x->word_0x36_54 + 27 + 26 * a1x->word_0x34_52] & 1)
-			if (SPELLS_BEGIN_BUFFER_str[a1x->word_0x36_54].subspell[a1x->word_0x34_52].fontType_0x1B & 1)
-				a1x->fontTypeIndex_0x3D_61 = 6;
-			else
-				a1x->fontTypeIndex_0x3D_61 = 1;
-			a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
-			//LOWORD(v12) = a1x->word_0x14_20 / 0x32u;
-			v14 = a1x->rand_0x14_20 % 0x32u;
-			a1x->byte_0x46_70 = 3;
-			a1x->dword_0x10_16 = v14 + 16;
-			return;// v12;
+			a1x->byte_0x43_67 = 4;
+			break;
 		case 3:
-			v15 = a1x->dword_0x10_16 - 1;
-			a1x->dword_0x10_16 = v15;
-			if (!v15)
-				a1x->byte_0x46_70 = 4;
-			return;// v12;
-		case 4:
-			if (!(a1x->byte_0x3E_62 & 0xF))
-			{
-				for (ix = x_D41A0_BYTEARRAY_4_struct.dword_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
-				{
-					//LOBYTE(v12) = ix->byte_0x40_64;
-					if (ix->model_0x40_64 <= 1u && ix != v33x)
-					{
-						v12x = sub_583F0_distance_3d(&a1x->position_0x4C_76, &ix->position_0x4C_76);
-						if (v12x < 3584 && v12x < (signed int)v29)
-						{
-							v31x = ix;
-							v29 = v12x;
-						}
-					}
-				}
-				if (v31x)
-				{
-					//v12 = v31x - D41A0_BYTESTR_0.struct_0x6E8E;
-					a1x->byte_0x46_70 = 5;
-					a1x->word_0x96_150 = v31x - D41A0_0.struct_0x6E8E;
-				}
-			}
-			return;// v12;
-		case 5:
-			//a1x->byte_0xc_12 &= 0xFF7FFFFE;
-			a1x->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
-			//a1x->byte_0xc_12 &= 0xFE;
-			//a1x->byte_0xe_14 &= 0x7F;
-			//LOBYTE(v12) = 0;
-			v17 = a1x->word_0x96_150;
-			v37 = 0;
-			if (!v17
-				|| Entities_EA3E4[v17]->life_0x8 < 0
-				|| Entities_EA3E4[v17]->struct_byte_0xc_12_15.byte[1] & 4)
-			{
-				v37 = 1;
-			}
-			else
-			{
-				sub_6D8B0(v33x->id_0x1A_26, 0x17u, 1);
-				//v30 = (__int16 *)&(*xadataspellsdat.colorPalette_var28)[80 * a1x->word_0x36_54 + 2 + 26 * a1x->word_0x34_52];
-				v30x = &SPELLS_BEGIN_BUFFER_str[a1x->word_0x36_54].subspell[a1x->word_0x34_52];
-				//v34 = a1x->word_0x36_54 == 7
-				//&& (*xadataspellsdat.colorPalette_var28)[80 * a1x->word_0x36_54 + 26 + 26 * a1x->word_0x34_52] == 2;
-				v34 = a1x->word_0x36_54 == 7
-					&& SPELLS_BEGIN_BUFFER_str[a1x->word_0x36_54].subspell[a1x->word_0x34_52].life_0x1A == 2;
-				v35 = (v34 != 0) + 1;
-				v36 = 0;
-				for (; v36 < v35; )
-				{
-					v19x = sub_6DCA0(v33x, &a1x->position_0x4C_76, a1x->word_0x36_54, v30x, 0, 1);
-					v20x = v19x;
-					v32x = v19x;
-					if (v19x)
-					{
-						v19x->id_0x1A_26 = a1x->word_0x32_50;
-						v19x->word_0x96_150 = a1x->word_0x96_150;
-						sub_655C0(v19x, Entities_EA3E4[v17]);
-						v20x->yaw_0x1C_28 = v20x->roll_0x20_32;
-						v20x->pitch_0x1E_30 = v20x->fov_0x22_34;
-						v21 = v20x->yaw_0x1C_28;
-						v20x->position_0x4C_76.z += a1x->array_0x52_82.yaw;
-						HIBYTE(v21) = (HIBYTE(v21) + 4) & 7;
-						a1x->yaw_0x1C_28 = v21;
-						v22 = a1x->byte_0x44_68;
-						if (v22)
-						{
-							a1x->byte_0x44_68 = v22 + 1;
-							if ((char)(v22 + 1) > 5)
-								a1x->byte_0x44_68 = 5;
-						}
-						else
-						{
-							a1x->byte_0x44_68 = 1;
-						}
-						if (v34)
-						{
-							if (v36)
-								v23 = v32x->yaw_0x1C_28 - 113;
-							else
-								v23 = v32x->yaw_0x1C_28 + 113;
-							v32x->yaw_0x1C_28 = v23 & 0x7FF;
-						}
-						v24 = a1x->fontTypeIndex_0x3D_61 - 1;
-						a1x->fontTypeIndex_0x3D_61 = v24;
-						if (!v24)
-							v37 = 1;
-					}
-					v36++;
-				}
-			}
-			if (v37)
-			{
-				v25 = a1x->byte_0x43_67;
-				a1x->word_0x96_150 = 0;
-				a1x->byte_0x43_67 = --v25;
-				if (v25)
-					//LABEL_46:
-					a1x->byte_0x46_70 = 2;
-				else
-					a1x->byte_0x46_70 = 6;
-			}
-			return;// v12;
-		case 6:
-			v27 = a1x->byte_0x44_68;
-			//*(x_DWORD *)(a1 + 12) &= 0xFF7FFFFE;
-			a1x->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
-			//a1x->byte_0xc_12 &= 0xfe;
-			//a1x->byte_0xe_14 &= 0x7f;
-			if (!v27)
-			{
-				a1x->byte_0x46_70 = 7;
-				a1x->dword_0x10_16 = 10;
-			}
-			return;// v12;
-		case 7:
-			//v12 = a1x->dword_0x10_16 - 1;
-			a1x->dword_0x10_16--;// = v12;
-			if (!a1x->dword_0x10_16)
-			{
-				a1x->byte_0x46_70 = 9;
-				a1x->dword_0x10_16 = 3;
-			}
-			return;// v12;
-		case 8:
-			a1x->byte_0x46_70 = 9;
-			//v26 = *(x_DWORD *)(a1 + 12);
-			a1x->dword_0x10_16 = 3;
-			//*(x_DWORD *)(a1 + 12) = v26 & 0xFF7FFFFE;
-			a1x->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
-			//a1x->byte_0xc_12 &= 0xFE;
-			//a1x->byte_0xe_14 &= 0x7F;
-			return;// v12;
-		case 9:
-			//v12 = a1x->dword_0x10_16;
-			a1x->dword_0x10_16++;// = v12 + 1;
-			//LOWORD(v12) = a1x->array_0x4C_76.z - 32 * v12;
-			a1x->position_0x4C_76.z -= 32 * a1x->dword_0x10_16;
-			if ((signed __int16)a1x->position_0x4C_76.z >= v5)
-				return;// v12;
-			a1x->position_0x4C_76.z = v5;
-			if (sub_104D0_terrain_tile_is_water(&a1x->position_0x4C_76) == 1)
-				IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
-			else
-				IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 0);
-			goto LABEL_99;
+			a1x->byte_0x43_67 = 8;
+			break;
 		default:
-			return;// v12;
+			break;
 		}
+		a1x->byte_0x46_70 = 1;
+		[[fallthrough]];
+	case 1:
+		if (a1x->word_0x36_54 != 0xffff)
+		{
+			a1x->byte_0x46_70 = 2;
+			//return v12;
+		}
+		return;// v12;
+	case 2:
+		a1x->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
+		a1x->id_0x1A_26 = a1x->word_0x32_50;
+		//if ((*xadataspellsdat.colorPalette_var28)[80 * a1x->word_0x36_54 + 27 + 26 * a1x->word_0x34_52] & 1)
+		if (SPELLS_BEGIN_BUFFER_str[a1x->word_0x36_54].subspell[a1x->word_0x34_52].fontType_0x1B & 1)
+			a1x->fontTypeIndex_0x3D_61 = 6;
+		else
+			a1x->fontTypeIndex_0x3D_61 = 1;
+		a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
+		//LOWORD(v12) = a1x->word_0x14_20 / 0x32u;
+		v14 = a1x->rand_0x14_20 % 0x32u;
+		a1x->byte_0x46_70 = 3;
+		a1x->dword_0x10_16 = v14 + 16;
+		return;// v12;
+	case 3:
+		v15 = a1x->dword_0x10_16 - 1;
+		a1x->dword_0x10_16 = v15;
+		if (!v15)
+			a1x->byte_0x46_70 = 4;
+		return;// v12;
+	case 4:
+		if (!(a1x->byte_0x3E_62 & 0xF))
+		{
+			for (ix = x_D41A0_BYTEARRAY_4_struct.dword_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+			{
+				//LOBYTE(v12) = ix->byte_0x40_64;
+				if (ix->model_0x40_64 <= 1u && ix != v33x)
+				{
+					v12x = sub_583F0_distance_3d(&a1x->position_0x4C_76, &ix->position_0x4C_76);
+					if (v12x < 3584 && v12x < (signed int)v29)
+					{
+						v31x = ix;
+						v29 = v12x;
+					}
+				}
+			}
+			if (v31x)
+			{
+				//v12 = v31x - D41A0_BYTESTR_0.struct_0x6E8E;
+				a1x->byte_0x46_70 = 5;
+				a1x->word_0x96_150 = v31x - D41A0_0.struct_0x6E8E;
+			}
+		}
+		return;// v12;
+	case 5:
+		//a1x->byte_0xc_12 &= 0xFF7FFFFE;
+		a1x->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
+		//a1x->byte_0xc_12 &= 0xFE;
+		//a1x->byte_0xe_14 &= 0x7F;
+		//LOBYTE(v12) = 0;
+		v17 = a1x->word_0x96_150;
+		v37 = 0;
+		if (!v17
+			|| Entities_EA3E4[v17]->life_0x8 < 0
+			|| Entities_EA3E4[v17]->struct_byte_0xc_12_15.byte[1] & 4)
+		{
+			v37 = 1;
+		}
+		else
+		{
+			sub_6D8B0(v33x->id_0x1A_26, 0x17u, 1);
+			//v30 = (__int16 *)&(*xadataspellsdat.colorPalette_var28)[80 * a1x->word_0x36_54 + 2 + 26 * a1x->word_0x34_52];
+			v30x = &SPELLS_BEGIN_BUFFER_str[a1x->word_0x36_54].subspell[a1x->word_0x34_52];
+			//v34 = a1x->word_0x36_54 == 7
+			//&& (*xadataspellsdat.colorPalette_var28)[80 * a1x->word_0x36_54 + 26 + 26 * a1x->word_0x34_52] == 2;
+			v34 = a1x->word_0x36_54 == 7
+				&& SPELLS_BEGIN_BUFFER_str[a1x->word_0x36_54].subspell[a1x->word_0x34_52].life_0x1A == 2;
+			v35 = (v34 != 0) + 1;
+			v36 = 0;
+			for (; v36 < v35; )
+			{
+				v19x = sub_6DCA0(v33x, &a1x->position_0x4C_76, a1x->word_0x36_54, v30x, 0, 1);
+				v20x = v19x;
+				v32x = v19x;
+				if (v19x)
+				{
+					v19x->id_0x1A_26 = a1x->word_0x32_50;
+					v19x->word_0x96_150 = a1x->word_0x96_150;
+					sub_655C0(v19x, Entities_EA3E4[v17]);
+					v20x->yaw_0x1C_28 = v20x->roll_0x20_32;
+					v20x->pitch_0x1E_30 = v20x->fov_0x22_34;
+					v21 = v20x->yaw_0x1C_28;
+					v20x->position_0x4C_76.z += a1x->array_0x52_82.yaw;
+					HIBYTE(v21) = (HIBYTE(v21) + 4) & 7;
+					a1x->yaw_0x1C_28 = v21;
+					v22 = a1x->byte_0x44_68;
+					if (v22)
+					{
+						a1x->byte_0x44_68 = v22 + 1;
+						if ((char)(v22 + 1) > 5)
+							a1x->byte_0x44_68 = 5;
+					}
+					else
+					{
+						a1x->byte_0x44_68 = 1;
+					}
+					if (v34)
+					{
+						if (v36)
+							v23 = v32x->yaw_0x1C_28 - 113;
+						else
+							v23 = v32x->yaw_0x1C_28 + 113;
+						v32x->yaw_0x1C_28 = v23 & 0x7FF;
+					}
+					v24 = a1x->fontTypeIndex_0x3D_61 - 1;
+					a1x->fontTypeIndex_0x3D_61 = v24;
+					if (!v24)
+						v37 = 1;
+				}
+				v36++;
+			}
+		}
+		if (v37)
+		{
+			v25 = a1x->byte_0x43_67;
+			a1x->word_0x96_150 = 0;
+			a1x->byte_0x43_67 = --v25;
+			if (v25)
+				//LABEL_46:
+				a1x->byte_0x46_70 = 2;
+			else
+				a1x->byte_0x46_70 = 6;
+		}
+		return;// v12;
+	case 6:
+		v27 = a1x->byte_0x44_68;
+		//*(x_DWORD *)(a1 + 12) &= 0xFF7FFFFE;
+		a1x->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
+		//a1x->byte_0xc_12 &= 0xfe;
+		//a1x->byte_0xe_14 &= 0x7f;
+		if (!v27)
+		{
+			a1x->byte_0x46_70 = 7;
+			a1x->dword_0x10_16 = 10;
+		}
+		return;// v12;
+	case 7:
+		//v12 = a1x->dword_0x10_16 - 1;
+		a1x->dword_0x10_16--;// = v12;
+		if (!a1x->dword_0x10_16)
+		{
+			a1x->byte_0x46_70 = 9;
+			a1x->dword_0x10_16 = 3;
+		}
+		return;// v12;
+	case 8:
+		a1x->byte_0x46_70 = 9;
+		//v26 = *(x_DWORD *)(a1 + 12);
+		a1x->dword_0x10_16 = 3;
+		//*(x_DWORD *)(a1 + 12) = v26 & 0xFF7FFFFE;
+		a1x->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
+		//a1x->byte_0xc_12 &= 0xFE;
+		//a1x->byte_0xe_14 &= 0x7F;
+		return;// v12;
+	case 9:
+		//v12 = a1x->dword_0x10_16;
+		//LOWORD(v12) = a1x->array_0x4C_76.z - 32 * v12;
+		a1x->position_0x4C_76.z -= 32 * a1x->dword_0x10_16;
+		a1x->dword_0x10_16++;// = v12 + 1;
+		if ((signed __int16)a1x->position_0x4C_76.z >= v5)
+			return;// v12;
+		a1x->position_0x4C_76.z = v5;
+		if (sub_104D0_terrain_tile_is_water(&a1x->position_0x4C_76) == 1)
+			IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
+		else
+			IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 0);
+		DisableEntityDrawing04_57F10(a1x);
+		return;
+	default:
+		return;// v12;
 	}
 	//return v12;
 }
@@ -55742,7 +55739,7 @@ char sub_68940(type_entity_0x6E8E* a1x)//249940
 			{
 				if (ix->model_0x40_64 == 78
 					&& ix->word_0x32_50 == a1x->id_0x1A_26
-					&& ix->word_0x36_54 == -1)
+					&& ix->word_0x36_54 == 0xFFFF)
 				{
 					v4 = v9x->dword_0xA0_160x->word_160_0x1c_28;
 					v5 = sub_583F0_distance_3d(&ix->position_0x4C_76, &v9x->position_0x4C_76);
@@ -55810,7 +55807,7 @@ char sub_68AC0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//249ac0
 		&& a2x->class_0x3F_63 == 10
 		&& a2x->model_0x40_64 == 78
 		&& a2x->word_0x32_50 == a1x->id_0x1A_26
-		&& a2x->word_0x36_54 == -1)
+		&& a2x->word_0x36_54 == 0xFFFF)
 	{
 		IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 0);
 		PrepareEventSound_6E450(a1x - D41A0_0.struct_0x6E8E, -1, 26);
