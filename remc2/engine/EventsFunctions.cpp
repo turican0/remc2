@@ -29807,7 +29807,7 @@ void sub_3A8B0(type_entity_0x6E8E* entity)//21b8b0
 		if (D41A0_0.LevelIndex_0xc == entity8->dword_0xA4_164x->playerColorIndex_0x38_56)
 		{
 			entity->struct_byte_0xc_12_15.byte[0] &= 0xFEu;
-			if (entity->word_0x36_54 != -1)
+			if (entity->word_0x36_54 != 0xFFFF)
 				entity->struct_byte_0xc_12_15.byte[2] |= 0x80u;
 		}
 		else if (!(entity->byte_0x3E_62 & 7))
@@ -29836,6 +29836,7 @@ void sub_3A8B0(type_entity_0x6E8E* entity)//21b8b0
 	}
 	int spellLife;
 	bool correctEntity;
+	type_entity_0x6E8E* targetEntity;
 	switch (entity->byte_0x46_70)
 	{
 	case 0:
@@ -29885,13 +29886,17 @@ void sub_3A8B0(type_entity_0x6E8E* entity)//21b8b0
 	case 4:
 		if (!(entity->byte_0x3E_62 & 0xF))
 		{
+			uint32_t nearestDistance = 0x10000;
 			for (type_entity_0x6E8E* entity4 = x_D41A0_BYTEARRAY_4_struct.dword_38519; entity4 > Entities_EA3E4[0]; entity4 = entity4->next_0)
 			{
 				if (entity4->model_0x40_64 <= 1u && entity4 != entity8)
 				{
 					uint32_t distance = sub_583F0_distance_3d(&entity->position_0x4C_76, &entity4->position_0x4C_76);
-					if (distance < 3584 && distance < 0x10000)
+					if (distance < 3584 && distance < nearestDistance)
+					{
 						entity6 = entity4;
+						nearestDistance = distance;
+					}
 				}
 			}
 			if (entity6)
@@ -29904,9 +29909,10 @@ void sub_3A8B0(type_entity_0x6E8E* entity)//21b8b0
 	case 5:
 		entity->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
 		correctEntity = false;
-		if (!entity->word_0x96_150
-			|| Entities_EA3E4[entity->word_0x96_150]->life_0x8 < 0
-			|| Entities_EA3E4[entity->word_0x96_150]->struct_byte_0xc_12_15.byte[1] & 4)
+		targetEntity = entity->word_0x96_150 ? Entities_EA3E4[(uint16_t)entity->word_0x96_150] : nullptr;
+		if (!targetEntity
+			|| targetEntity->life_0x8 < 0
+			|| targetEntity->struct_byte_0xc_12_15.byte[1] & 4)
 		{
 			correctEntity = true;
 		}
@@ -29919,24 +29925,22 @@ void sub_3A8B0(type_entity_0x6E8E* entity)//21b8b0
 			int index = 0;
 			for (; index < ((isType7 != 0) + 1); )
 			{
-				type_entity_0x6E8E* entity5= sub_6DCA0(entity8, &entity->position_0x4C_76, entity->word_0x36_54, subSpell, 0, 1);
-				type_entity_0x6E8E* entity6 = entity5;
-				type_entity_0x6E8E* entity7 = entity5;
+				type_entity_0x6E8E* entity5 = sub_6DCA0(entity8, &entity->position_0x4C_76, entity->word_0x36_54, subSpell, 0, 1);
 				if (entity5)
 				{
 					entity5->id_0x1A_26 = entity->word_0x32_50;
 					entity5->word_0x96_150 = entity->word_0x96_150;
-					sub_655C0(entity5, Entities_EA3E4[entity->word_0x96_150]);
-					entity6->yaw_0x1C_28 = entity6->roll_0x20_32;
-					entity6->pitch_0x1E_30 = entity6->fov_0x22_34;
-					int16_t tempYaw = entity6->yaw_0x1C_28;
-					entity6->position_0x4C_76.z += entity->array_0x52_82.yaw;
+					sub_655C0(entity5, targetEntity);
+					entity5->yaw_0x1C_28 = entity5->roll_0x20_32;
+					entity5->pitch_0x1E_30 = entity5->fov_0x22_34;
+					int16_t tempYaw = entity5->yaw_0x1C_28;
+					entity5->position_0x4C_76.z += entity->array_0x52_82.yaw;
 					HIBYTE(tempYaw) = (HIBYTE(tempYaw) + 4) & 7;
 					entity->yaw_0x1C_28 = tempYaw;
 					if (entity->byte_0x44_68)
 					{
 						entity->byte_0x44_68++;
-						if (entity->byte_0x44_68 + 1 > 5)
+						if (entity->byte_0x44_68 > 5)
 							entity->byte_0x44_68 = 5;
 					}
 					else
@@ -29946,9 +29950,9 @@ void sub_3A8B0(type_entity_0x6E8E* entity)//21b8b0
 					if (isType7)
 					{
 						if (index)
-							entity7->yaw_0x1C_28 = (entity7->yaw_0x1C_28 - 113) & 0x7FF;
+							entity5->yaw_0x1C_28 = (entity5->yaw_0x1C_28 - 113) & 0x7FF;
 						else
-							entity7->yaw_0x1C_28 = (entity7->yaw_0x1C_28 + 113) & 0x7FF;
+							entity5->yaw_0x1C_28 = (entity5->yaw_0x1C_28 + 113) & 0x7FF;
 					}
 					entity->fontTypeIndex_0x3D_61--;
 					if (!entity->fontTypeIndex_0x3D_61)
@@ -40028,7 +40032,7 @@ void sub_57390(uaxis_2d a1x, uint16_t a2)//238390
 					}
 					else if (Entities_EA3E4[i]->model_0x40_64 <= 0x19u)
 					{
-						if (Entities_EA3E4[i]->actionIndex_0x45_69 != -56)
+						if (Entities_EA3E4[i]->actionIndex_0x45_69 != 0xC8)
 							goto LABEL_25;
 					}
 					else if (Entities_EA3E4[i]->model_0x40_64 != 27)
@@ -45050,9 +45054,9 @@ void DrawGameDebugText_6FEC0()//250ec0
 		v51 = GetLetterHeight_6FC30() + v50;
 		sprintf(
 			printbuffer,
-			"%ld / %d",
-			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396[0],
-			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396 - D41A0_0.struct_0x6E8E);
+			"%ld / %ld",
+			(long)(intptr_t)x_D41A0_BYTEARRAY_4_struct.dwordindex_38396,
+			(long)(x_D41A0_BYTEARRAY_4_struct.dwordindex_38396 - D41A0_0.struct_0x6E8E));
 		DrawText_2BC10(printbuffer, 10, v51, (*xadataclrd0dat.colorPalette_var28)[255]);
 		v52 = GetLetterHeight_6FC30() + v51;
 		DrawText_2BC10((char*)"CLASS / MODEL / STATE", 10, v52, (*xadataclrd0dat.colorPalette_var28)[3840]);
