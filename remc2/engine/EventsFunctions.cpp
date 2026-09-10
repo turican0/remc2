@@ -37580,6 +37580,49 @@ static int  matchOutSeq[8];       // order of knock-outs, 0 = never went out
 static bool matchPlayed[8];       // slots that took part at all
 static int  matchOutCounter = 0;
 
+// A player who leaves a network game does not take their castle with them.
+//
+// Nothing used to happen to it: the owner went back to the menu and the castle stayed
+// standing on the map, still theirs, for the rest of the match.  Destroying it is what the
+// game already does when a castle is lost (action 0x2A sets life = -1) and the mana it held
+// is released by the castle's own death, so this only has to say "it is gone".
+//
+// Every node runs this for the same player at the same point - leaving is an action that
+// travels over the wire, and a node that vanished is noticed by all the others - so the
+// castle disappears on every screen without anything extra being sent.
+void DestroyPlayerCastle(int player)
+{
+	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)) return;
+	if (player < 0 || player >= 8) return;
+	type_entity_0x6E8E* owner = Entities_EA3E4[D41A0_0.array_0x2BDE[player].playerIndex_0x00a_2BE4_11240];
+	if (!owner || !owner->dword_0xA4_164x) return;
+	const int16_t castle = owner->dword_0xA4_164x->CastleEntityIndex_0x3A_58;
+	if (!castle) return;
+	if (Entities_EA3E4[castle] > Entities_EA3E4[0])
+	{
+		// A stage at a time, the way the game takes a castle apart.  sub_605E0 removes one
+		// level per call and, on the call that brings the count to zero, clears the owner's
+		// castle and stops drawing it - that last step is what makes the castle actually go.
+		//
+		// Setting life = -1 once, which is all action 0x2A does, costs exactly ONE level: a
+		// level 3 castle came back as a level 2 one, which is what the tester saw.
+		if (CommandLineParams.DoNetworkDebug())
+			debug_net_printf("CASTLE: player %d left, taking down its castle (%d level(s))\n",
+				player + 1, (int)Entities_EA3E4[castle]->dword_0x10_16);
+		// Bounded: the loop trusts a counter that lives in game state, and a castle has
+		// nothing like eight levels.
+		int guard = 16;
+		while (Entities_EA3E4[castle] > Entities_EA3E4[0]
+			&& Entities_EA3E4[castle]->dword_0x10_16 > 0 && guard-- > 0)
+		{
+			sub_605E0(Entities_EA3E4[castle]);
+		}
+		// A castle already at level 0 still has to be cleared away, and that is the same call.
+		if (Entities_EA3E4[castle] > Entities_EA3E4[0])
+			sub_605E0(Entities_EA3E4[castle]);
+	}
+}
+
 void MatchScoreReset()
 {
 	for (int i = 0; i < 8; i++) { matchKills[i] = 0; matchOutSeq[i] = 0; matchPlayed[i] = false; }
@@ -37839,6 +37882,7 @@ void PlayerEvents_51BB0()//232bb0
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 				DisableEntitesDrawing_5E660(actEvent);
 			MatchScoreRecordKnockOut(i, actEvent);
+			DestroyPlayerCastle(i);
 			NetworkEvent_7373D(i);
 			D41A0_0.array_0x2BDE[i].byte_0x006_2BE4_11236 = 0;
 			break;

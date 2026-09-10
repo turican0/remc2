@@ -508,6 +508,8 @@ void sub_7A060_get_mouse_and_keyboard_events();
 void sub_7AA70_load_and_decompres_dat_file(const char* a1, uint8_t* a2, int a3, int a4);
 // Multiplayer scoreboard for the end-of-game result line.  Worked out on every node from
 // the same inputs, so all of them arrive at the same table without anything being sent.
+// A leaving player's castle is destroyed rather than left standing; see the definition.
+void DestroyPlayerCastle(int player);
 void MatchScoreReset();
 void MatchScoreMarkPlaying(int player);
 void MatchScoreRecordKnockOut(int victim, type_entity_0x6E8E* victimEntity);

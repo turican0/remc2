@@ -549,7 +549,12 @@ int GetNameNetworkIndex(std::string name)
 
 void AddNetworkName(std::string name, TypeIpPort ip)
 {
-	if (GetNameNetwork(name).empty()) { NetworkName.push_back(name); clientIpPort.push_back(ip); }
+	if (GetNameNetwork(name).empty()) {
+		NetworkName.push_back(name); clientIpPort.push_back(ip);
+		if (m_network_debug)
+			debug_net_printf("NAMES: +[%.15s] %s:%d (%d total)\n",
+				name.c_str(), ip.adress.c_str(), ip.port, (int)NetworkName.size());
+	}
 }
 
 bool ExistNetworkName(std::string name, TypeIpPort ip)
@@ -566,6 +571,9 @@ void RemoveNetworkName(std::string name)
 {
 	int idx = GetNameNetworkIndex(name);
 	if (idx < 0) return;
+	if (m_network_debug)
+		debug_net_printf("NAMES: -[%.15s] (%d left)\n",
+			NetworkName[idx].c_str(), (int)NetworkName.size() - 1);
 	NetworkName.erase(NetworkName.begin() + idx);
 	clientIpPort.erase(clientIpPort.begin() + idx);
 }
@@ -1000,8 +1008,29 @@ static void ReleasePendingForVanished(const std::vector<RosterEntry>& before,
 	}
 }
 
-// What this node registered itself as, so it can find its own place in that list.
+// What this node is registered as, so it can find its own place in the membership list.
+//
+// Only ever set from the server's acceptance.  It used to be written when the name was
+// ASKED for, and a name that comes back rejected then stays behind as ours: joining a
+// second match, a node asked for NETH200 (refused - it belongs to the host) and NETH201
+// (refused - the other survivor had just taken it) and was still working through the
+// indices when the host died.  Both survivors then compared the successor's name with
+// their own, both matched NETH201, and both declared themselves the new server: each
+// seeded a membership list of one, they never opened a session, and the level was never
+// started for want of a second player.
 static std::string myNetName;
+// The name asked for and not yet answered.
+static std::string pendingNetName;
+
+// Set when this node follows a hand-over: the new server has to be told who we are.
+//
+// Following one only re-points the address and reconnects, and the new server seeds its
+// name table from the roster - so the newcomer shows up in the membership list at first and
+// then falls out of it again, because that entry is not backed by a control client that has
+// identified itself.  Measured after a hand-over in the lobby: the list said two members,
+// then one, and from then on each survivor saw only itself, never opened a session with the
+// other, and the level was never started for want of a second player.
+static bool reRegisterWithNewServer = false;
 
 // ---------------------------------------------------------------------------
 // Connect / disconnect notice for the game to show on screen.
@@ -1299,6 +1328,18 @@ namespace MyNetworkLib {
 		IpPortIsSet = true;
 		if (m_network_debug)
 			debug_net_printf("ConnectToServer: connected to %s:%d\n", clHost.c_str(), clServerPort);
+
+		// Introduce ourselves again after a hand-over.  Without this the new server keeps only
+		// the seeded entry, which nothing refreshes.
+		if (reRegisterWithNewServer && !myNetName.empty()) {
+			reRegisterWithNewServer = false;
+			shadow_myNCB n{}; n.ncb_command_0 = 0xFE;
+			char padded[16] = { 0 };
+			snprintf(padded, sizeof(padded), "%-15s", myNetName.c_str());
+			SendCtrl(Pack_Message(MESS_CLIENT_TESTADDNAME, n, 0, clPort, padded, 16));
+			if (m_network_debug)
+				debug_net_printf("TAKEOVER: registering [%s] with the new server\n", myNetName.c_str());
+		}
 
 	}
 
@@ -1708,6 +1749,7 @@ namespace MyNetworkLib {
 					deadName.c_str(), successor->name, successor->ip, successor->port);
 			clHost = successor->ip;
 			clServerPort = successor->port;
+			reRegisterWithNewServer = true;   // say who we are once the connection is up
 			// ConnectToServer() picks this up on the next tick; until it answers we keep
 			// trying, which is what a node that is still starting up needs.
 		}
@@ -2002,7 +2044,7 @@ namespace MyNetworkLib {
 		if (u.message == MESS_CLIENT_TESTADDNAME) {
 			TypeIpPort ip{ senderAddr, u.port };
 			shadow_myNCB n{}; n.ncb_command_0 = 0xFE;
-			// The host claims the session's first name before anybody else claims anything.
+			// The session's first name belongs to the node hosting it.
 			//
 			// Every node drops its name when a match ends and asks for one again for the next, so
 			// between matches the whole name space is briefly free.  A node arriving in that gap
@@ -2010,18 +2052,31 @@ namespace MyNetworkLib {
 			// machine actually hosting the session was pushed to NETH201, after which nothing was
 			// exchanged at all.  The protocol already says joiners should wait for the server to
 			// register (MESS_SERVER_GIVE_IP / SERVER_NAME_REGISTERED); this makes the server hold
-			// them off rather than trusting each of them to wait.
+			// them off - but ONLY for that one name.  Refusing every name until the host has
+			// registered was tried and breaks restarting: after a match the client asks first, is
+			// turned away from all eight indices and gives up, and the menu reports it could not
+			// join.  A joiner arriving first simply takes the second name and waits in the lobby.
 			{
 				char firstName[16] = { 0 };
 				snprintf(firstName, sizeof(firstName), "NETH2%c0", u.data[5]);
 				while (strlen(firstName) < 15) strcat(firstName, " ");
 				const bool wantsFirstName = (memcmp(u.data, firstName, 15) == 0);
-				if (!serverAddname && !wantsFirstName) {
+				// ...and the first name belongs to the node hosting the session, nobody else.
+				//
+				// Its own registration comes over its own control connection, so it is the request
+				// whose data port is the port this server listens on.  Letting anybody else have
+				// that name makes the game treat the joiner as node 0 while the transport server is
+				// somebody else - the two disagree about who is who, and the session comes apart as
+				// soon as they have to work together.
+				const bool senderIsHost = (u.port == clPort);
+				if (wantsFirstName && !senderIsHost) {
 					if (m_network_debug)
-						debug_net_printf("NAME: [%.15s] must wait, the host has not claimed its own yet\n", u.data);
+						debug_net_printf("NAME: [%.15s] belongs to the host, refusing it to %s:%d\n",
+							u.data, senderAddr.c_str(), u.port);
 					ReplyToSender(Pack_Message(MESS_SERVER_TESTADDNAME_REJECT, n, u.index, -10));
 					return;
 				}
+
 			}
 			if (GetNameNetwork(u.data).empty()) {
 				AddNetworkName(u.data, ip);
@@ -2179,11 +2234,18 @@ namespace MyNetworkLib {
 		}
 
 		if (u.message == MESS_SERVER_TESTADDNAME_OK) {
+			if (!pendingNetName.empty()) {
+				myNetName = pendingNetName;
+				pendingNetName.clear();
+				if (m_network_debug)
+					debug_net_printf("NAMES: this node is [%s]\n", myNetName.c_str());
+			}
 			std::lock_guard<std::mutex> lk(connections_mutex);
 			connectionTime* ct = GetConnection(u.index);
 			if (ct) ct->state = NETI_ADD_NAME_OK;
 		}
 		else if (u.message == MESS_SERVER_TESTADDNAME_REJECT) {
+			pendingNetName.clear();      // that one was not ours
 			std::lock_guard<std::mutex> lk(connections_mutex);
 			connectionTime* ct = GetConnection(u.index);
 			if (ct) ct->state = NETI_ADD_NAME_REJECT;
@@ -2545,9 +2607,8 @@ namespace MyNetworkLib {
 	// ---------------------------------------------------------------------------
 	void NetworkClass::AddName(myNCB* c, int32_t index)
 	{
-		// Remember what we call ourselves: the hand-over needs it to find our own place in
-		// the membership and work out whether we are the one that has to take over.
-		myNetName = TrimName(c->ncb_name_26, (int)sizeof(c->ncb_name_26));
+		// Asked for, not owned yet - myNetName is written when the server says yes.
+		pendingNetName = TrimName(c->ncb_name_26, (int)sizeof(c->ncb_name_26));
 		SendCtrl(Pack_Message(MESS_CLIENT_TESTADDNAME, myNCBtoShadow(*c), index, clPort,
 			c->ncb_name_26, sizeof(c->ncb_name_26)));
 	}
@@ -2562,6 +2623,13 @@ namespace MyNetworkLib {
 
 	void NetworkClass::DeleteNetwork(myNCB* c, int32_t index)
 	{
+		{
+			// Handing the name back makes this node nameless until it registers again; a
+			// stale one here is what made two nodes believe they were the same player.
+			const std::string gone = TrimName(c->ncb_name_26, (int)sizeof(c->ncb_name_26));
+			if (gone == myNetName) myNetName.clear();
+			if (gone == pendingNetName) pendingNetName.clear();
+		}
 		SendCtrl(Pack_Message(MESS_CLIENT_DELETE, myNCBtoShadow(*c), index, clPort,
 			c->ncb_name_26, sizeof(c->ncb_name_26)));
 		// No network tick from here.  This is the game thread - simulateInterupt(DELETE_NAME),
