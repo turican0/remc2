@@ -808,7 +808,7 @@ bool sub_56EE0(uaxis_2d a1);
 char sub_56F10(__int16 a1, __int16 a2, __int16 a3, char a4);
 char sub_570F0(__int16 a1, __int16 a2, signed __int16 a3, char a4, char a5, char a6);
 char sub_572C0(type_entity_0x6E8E* a1, __int16 a2, __int16 a3, __int16 a4, char a5);
-void sub_57390(uaxis_2d a1, unsigned __int16 a2);
+void sub_57390(uaxis_2d axis, uint16_t id);
 char sub_57450(unsigned __int8 a1);
 void sub_574A0();
 void sub_57B20(type_str_0x2BDE* a1, type_entity_0x6E8E* a2);
@@ -39985,76 +39985,34 @@ char sub_572C0(type_entity_0x6E8E* a1x, __int16 a2, __int16 a3, __int16 a4, char
 }
 
 //----- (00057390) --------------------------------------------------------
-void sub_57390(uaxis_2d a1x, uint16_t a2)//238390
+void sub_57390(uaxis_2d axis, uint16_t id)//238390
 {
-	//uint8_t index; // al
-	int i; // ebx
-	char v4; // ah
-	//uint8_t* v5; // ebx
-
-	//index = a1;
-	for (i = mapEntityIndex_15B4E0[a1x.word]; Entities_EA3E4[i] != Entities_EA3E4[0]; i = Entities_EA3E4[i]->oldMapEntity_0x16_22)
+	for (int i = mapEntityIndex_15B4E0[axis.word]; Entities_EA3E4[i] != Entities_EA3E4[0]; i = Entities_EA3E4[i]->oldMapEntity_0x16_22)
 	{
-		//v5 = Entities_EA3E4[i];
-		/*if (v5 == Entities_EA3E4[0])
-			break;*/
-			//index = a2;
-		if (Entities_EA3E4[i]->id_0x1A_26 != a2)
+		type_entity_0x6E8E* ix = Entities_EA3E4[i];
+		if (ix->id_0x1A_26 != id)
 		{
-			//index = Entities_EA3E4[i][63];
-			if (Entities_EA3E4[i]->class_0x3F_63 == 2)
+			if (ix->class_0x3F_63 == 2)
 			{
-				DisableEntityDrawing04_57F10(Entities_EA3E4[i]);
-				continue;
+				DisableEntityDrawing04_57F10(ix);
 			}
-			if (Entities_EA3E4[i]->class_0x3F_63 == 5)
+			else if (ix->class_0x3F_63 == 5
+				&& ix->model_0x40_64 != 6
+				&& ix->model_0x40_64 != 8
+				&& ix->model_0x40_64 != 10
+				&& ix->model_0x40_64 != 0x10
+				&& ix->model_0x40_64 != 0x16
+				&& ix->model_0x40_64 != 0x17
+				&& ix->model_0x40_64 != 27
+				&& (ix->model_0x40_64 != 0x19 || ix->actionIndex_0x45_69 != 0xC8))
 			{
-				v4 = 1;
-				//index = Entities_EA3E4[i][64];
-				if (Entities_EA3E4[i]->model_0x40_64 < 0x10u)
-				{
-					if (Entities_EA3E4[i]->model_0x40_64 < 8u)
-					{
-						if (Entities_EA3E4[i]->model_0x40_64 != 6)
-							goto LABEL_25;
-					}
-					else if (Entities_EA3E4[i]->model_0x40_64 > 8u && Entities_EA3E4[i]->model_0x40_64 != 10)
-					{
-						goto LABEL_25;
-					}
-				}
-				else if (Entities_EA3E4[i]->model_0x40_64 > 0x10u)
-				{
-					if (Entities_EA3E4[i]->model_0x40_64 < 0x19u)
-					{
-						if (Entities_EA3E4[i]->model_0x40_64 < 0x16u || Entities_EA3E4[i]->model_0x40_64 > 0x17u)
-							goto LABEL_25;
-					}
-					else if (Entities_EA3E4[i]->model_0x40_64 <= 0x19u)
-					{
-						if (Entities_EA3E4[i]->actionIndex_0x45_69 != 0xC8)
-							goto LABEL_25;
-					}
-					else if (Entities_EA3E4[i]->model_0x40_64 != 27)
-					{
-					LABEL_25:
-						if (v4)
-						{
-							Entities_EA3E4[i]->life_0x8 = -1;
-							Entities_EA3E4[i]->word_0x24_36 = a2;
-							Entities_EA3E4[i]->word_0x26_38 = a2;
-						}
-						continue;
-					}
-				}
-				v4 = 0;
-				goto LABEL_25;
+				ix->life_0x8 = -1;
+				ix->word_0x24_36 = a2;
+				ix->word_0x26_38 = a2;
 			}
 		}
 	}
-	//return result;
 }
-// EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00057450) --------------------------------------------------------
 char sub_57450(uint8_t a1)//238450
