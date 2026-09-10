@@ -29750,307 +29750,255 @@ LABEL_13:
 }
 
 //----- (0003A8B0) --------------------------------------------------------
-void sub_3A8B0(type_entity_0x6E8E* a1x)//21b8b0
+void sub_3A8B0(type_entity_0x6E8E* entity)//21b8b0
 {
-	__int16 v1; // cx
-	type_entity_0x6E8E* v2x; // eax
-	char v3; // dh
-	char v4; // cl
-	int v5; // esi
-	char v6; // ah
-	int v7; // eax
-	__int16 v8; // di
-	type_entity_0x6E8E* v9x; // eax
-	signed __int16 v10; // dx
-	int v11; // esi
-	uint32_t v12x;
-	int v13; // edx
-	unsigned int v14; // edx
-	int v15; // esi
-	type_entity_0x6E8E* ix; // esi
-	unsigned __int16 v17; // di
-	type_entity_0x6E8E* v19x; // eax
-	type_entity_0x6E8E* v20x; // esi
-	__int16 v21; // ax
-	char v22; // ah
-	__int16 v23; // ax
-	char v24; // al
-	char v25; // dl
-	char v27; // cl
-	uint32_t v29; // [esp+0h] [ebp-24h]
-	type_SPELLS_BEGIN_BUFFER_str_sub* v30x; // [esp+4h] [ebp-20h]
-	type_entity_0x6E8E* v31x; // [esp+8h] [ebp-1Ch]
-	type_entity_0x6E8E* v32x; // [esp+Ch] [ebp-18h]
-	type_entity_0x6E8E* v33x; // [esp+10h] [ebp-14h]
-	bool v34; // [esp+14h] [ebp-10h]
-	unsigned __int8 v35; // [esp+18h] [ebp-Ch]
-	unsigned __int8 v36; // [esp+1Ch] [ebp-8h]
-	char v37; // [esp+20h] [ebp-4h]
-
 	if (CommandLineParams.DoDebugSequences()) {
 		add_compare(0x21b8b4, CommandLineParams.DoDebugafterload());
 	}
 
-	v2x = Entities_EA3E4[a1x->word_0x32_50];
-	v31x = 0;
-	v29 = 0x10000;
-	v33x = Entities_EA3E4[a1x->word_0x32_50];
-	if (v2x->life_0x8 < 0 || v2x->struct_byte_0xc_12_15.byte[1] & 4)
+	type_entity_0x6E8E* entity2 = Entities_EA3E4[entity->word_0x32_50];
+	type_entity_0x6E8E* entity6 = 0;
+	type_entity_0x6E8E* entity8 = Entities_EA3E4[entity->word_0x32_50];
+	if (entity2->life_0x8 < 0 || entity2->struct_byte_0xc_12_15.byte[1] & 4)
 	{
-		DisableEntityDrawing04_57F10(a1x);
+		DisableEntityDrawing04_57F10(entity);
 		return;
 	}
-	v3 = a1x->byte_0x44_68;
-	if (v3)
+	int typeEntity;
+	if (entity->byte_0x44_68)
 	{
-		switch (abs(v3))
+		switch (abs(entity->byte_0x44_68))
 		{
 		case 1:
-			v1 = 0;
+			typeEntity = 0;
 			break;
 		case 2:
-			v1 = 153;
+			typeEntity = 153;
 			break;
 		case 3:
-			v1 = 307;
+			typeEntity = 307;
 			break;
 		case 4:
-			v1 = 445;
+			typeEntity = 445;
 			break;
 		case 5:
-			v1 = 491;
+			typeEntity = 491;
 			break;
 		case 6:
-			v1 = 512;
+			typeEntity = 512;
 			break;
 		default:
 			break;
 		}
-		predictedAxis_EB398ar = a1x->axis_0x9A_154x;
-		predictedAxis_EB398ar.z = a1x->position_0x4C_76.z;
-		MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, v1);
-		CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
-		v4 = a1x->byte_0x44_68 + 1;
-		a1x->byte_0x44_68 = v4;
-		if (v4 > 0 && v4 > 6)
-			a1x->byte_0x44_68 = -5;
+		predictedAxis_EB398ar = entity->axis_0x9A_154x;
+		predictedAxis_EB398ar.z = entity->position_0x4C_76.z;
+		MoveEntity_57FA0(&predictedAxis_EB398ar, entity->yaw_0x1C_28, 0, typeEntity);
+		CopyEntityPosition_57CF0(entity, &predictedAxis_EB398ar);
+		entity->byte_0x44_68++;
+		if (entity->byte_0x44_68 > 0 && entity->byte_0x44_68 > 6)
+			entity->byte_0x44_68 = -5;
 	}
-	v5 = (signed __int16)getTerrainAlt_10C40(&a1x->position_0x4C_76);
-	v6 = a1x->byte_0x46_70;
-	if (v6 != 9 && v6 != 7)
+	int terrainAltitude = getTerrainAlt_10C40(&entity->position_0x4C_76);
+	if (entity->byte_0x46_70 != 9 && entity->byte_0x46_70 != 7)
 	{
-		v7 = a1x->life_0x8 - 1;
-		a1x->life_0x8 = v7;
-		if (v7 <= 0)
-			a1x->byte_0x46_70 = 6;
-		if (D41A0_0.LevelIndex_0xc == v33x->dword_0xA4_164x->playerColorIndex_0x38_56)
+		entity->life_0x8--;
+		if (entity->life_0x8 <= 0)
+			entity->byte_0x46_70 = 6;
+		if (D41A0_0.LevelIndex_0xc == entity8->dword_0xA4_164x->playerColorIndex_0x38_56)
 		{
-			v8 = a1x->word_0x36_54;
-			a1x->struct_byte_0xc_12_15.byte[0] &= 0xFEu;
-			if (v8 != -1)
-				a1x->struct_byte_0xc_12_15.byte[2] |= 0x80u;
+			entity->struct_byte_0xc_12_15.byte[0] &= 0xFEu;
+			if (entity->word_0x36_54 != -1)
+				entity->struct_byte_0xc_12_15.byte[2] |= 0x80u;
 		}
-		else if (!(a1x->byte_0x3E_62 & 7))
+		else if (!(entity->byte_0x3E_62 & 7))
 		{
-			v9x = Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[12]];
-			if (v9x > Entities_EA3E4[0] && v9x->word_0x2E_46 && v9x->byte_0x46_70 >= 2)
-				a1x->struct_byte_0xc_12_15.byte[0] &= 0xFEu;
+			type_entity_0x6E8E* entity3 = Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[12]];
+			if (entity3 > Entities_EA3E4[0] && entity3->word_0x2E_46 && entity3->byte_0x46_70 >= 2)
+				entity->struct_byte_0xc_12_15.byte[0] &= 0xFEu;
 			else
-				a1x->struct_byte_0xc_12_15.byte[0] |= 1u;
+				entity->struct_byte_0xc_12_15.byte[0] |= 1u;
 		}
-		if (a1x->position_0x4C_76.z < v5)
-			a1x->position_0x4C_76.z = v5;
-		if (!a1x->byte_0x44_68 && abs(a1x->position_0x4C_76.z - (v5 + 1024)) > 96)
+		if (entity->position_0x4C_76.z < terrainAltitude)
+			entity->position_0x4C_76.z = terrainAltitude;
+		if (!entity->byte_0x44_68 && abs(entity->position_0x4C_76.z - (terrainAltitude + 1024)) > 96)
 		{
-			if (a1x->position_0x4C_76.z - (v5 + 1024) <= 0)
-				v10 = 48;
+			if (entity->position_0x4C_76.z - (terrainAltitude + 1024) <= 0)
+				entity->position_0x4C_76.z += 48;
 			else
-				v10 = -48;
-			a1x->position_0x4C_76.z += v10;
+				entity->position_0x4C_76.z += -48;
 		}
 		if (isCaveLevel_D41B6)
 		{
-			v11 = a1x->array_0x52_82.fov;
-			v5 = (signed __int16)sub_10C60(&a1x->position_0x4C_76) - v11;
-			if (a1x->position_0x4C_76.z > v5)
-				a1x->position_0x4C_76.z = v5;
+			terrainAltitude = sub_10C60(&entity->position_0x4C_76) - entity->array_0x52_82.fov;
+			if (entity->position_0x4C_76.z > terrainAltitude)
+				entity->position_0x4C_76.z = terrainAltitude;
 		}
 	}
-	switch (a1x->byte_0x46_70)
+	int spellLife;
+	bool correctEntity;
+	switch (entity->byte_0x46_70)
 	{
 	case 0:
-		v13 = SPELLS_BEGIN_BUFFER_str[23].subspell[a1x->subSpellIndex_0x2A_42].subSpellIndex_2;
-		a1x->maxLife_0x4 = v13;
-		a1x->life_0x8 = v13;
-		a1x->axis_0x9A_154x = a1x->position_0x4C_76;
-		switch (SPELLS_BEGIN_BUFFER_str[23].subspell[a1x->subSpellIndex_0x2A_42].life_0x1A)
+		spellLife = SPELLS_BEGIN_BUFFER_str[23].subspell[entity->subSpellIndex_0x2A_42].subSpellIndex_2;
+		entity->maxLife_0x4 = spellLife;
+		entity->life_0x8 = spellLife;
+		entity->axis_0x9A_154x = entity->position_0x4C_76;
+		switch (SPELLS_BEGIN_BUFFER_str[23].subspell[entity->subSpellIndex_0x2A_42].life_0x1A)
 		{
 		case 0:
-			a1x->byte_0x43_67 = 1;
+			entity->byte_0x43_67 = 1;
 			break;
 		case 1:
-			a1x->byte_0x43_67 = 2;
+			entity->byte_0x43_67 = 2;
 			break;
 		case 2:
-			a1x->byte_0x43_67 = 4;
+			entity->byte_0x43_67 = 4;
 			break;
 		case 3:
-			a1x->byte_0x43_67 = 8;
+			entity->byte_0x43_67 = 8;
 			break;
 		default:
 			break;
 		}
-		a1x->byte_0x46_70 = 1;
+		entity->byte_0x46_70 = 1;
 		[[fallthrough]];
 	case 1:
-		if (a1x->word_0x36_54 != 0xffff)
-			a1x->byte_0x46_70 = 2;
+		if (entity->word_0x36_54 != 0xffff)
+			entity->byte_0x46_70 = 2;
 		return;
 	case 2:
-		a1x->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
-		a1x->id_0x1A_26 = a1x->word_0x32_50;
-		if (SPELLS_BEGIN_BUFFER_str[a1x->word_0x36_54].subspell[a1x->word_0x34_52].fontType_0x1B & 1)
-			a1x->fontTypeIndex_0x3D_61 = 6;
+		entity->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
+		entity->id_0x1A_26 = entity->word_0x32_50;
+		if (SPELLS_BEGIN_BUFFER_str[entity->word_0x36_54].subspell[entity->word_0x34_52].fontType_0x1B & 1)
+			entity->fontTypeIndex_0x3D_61 = 6;
 		else
-			a1x->fontTypeIndex_0x3D_61 = 1;
-		a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
-		v14 = a1x->rand_0x14_20 % 0x32u;
-		a1x->byte_0x46_70 = 3;
-		a1x->dword_0x10_16 = v14 + 16;
+			entity->fontTypeIndex_0x3D_61 = 1;
+		entity->rand_0x14_20 = 9377 * entity->rand_0x14_20 + 9439;
+		entity->byte_0x46_70 = 3;
+		entity->dword_0x10_16 = (entity->rand_0x14_20 % 0x32u)+16;
 		return;
 	case 3:
-		v15 = a1x->dword_0x10_16 - 1;
-		a1x->dword_0x10_16 = v15;
-		if (!v15)
-			a1x->byte_0x46_70 = 4;
+		entity->dword_0x10_16--;
+		if (!entity->dword_0x10_16)
+			entity->byte_0x46_70 = 4;
 		return;
 	case 4:
-		if (!(a1x->byte_0x3E_62 & 0xF))
+		if (!(entity->byte_0x3E_62 & 0xF))
 		{
-			for (ix = x_D41A0_BYTEARRAY_4_struct.dword_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+			for (type_entity_0x6E8E* entity4 = x_D41A0_BYTEARRAY_4_struct.dword_38519; entity4 > Entities_EA3E4[0]; entity4 = entity4->next_0)
 			{
-				if (ix->model_0x40_64 <= 1u && ix != v33x)
+				if (entity4->model_0x40_64 <= 1u && entity4 != entity8)
 				{
-					v12x = sub_583F0_distance_3d(&a1x->position_0x4C_76, &ix->position_0x4C_76);
-					if (v12x < 3584 && v12x < (signed int)v29)
-					{
-						v31x = ix;
-						v29 = v12x;
-					}
+					uint32_t distance = sub_583F0_distance_3d(&entity->position_0x4C_76, &entity4->position_0x4C_76);
+					if (distance < 3584 && distance < 0x10000)
+						entity6 = entity4;
 				}
 			}
-			if (v31x)
+			if (entity6)
 			{
-				a1x->byte_0x46_70 = 5;
-				a1x->word_0x96_150 = v31x - D41A0_0.struct_0x6E8E;
+				entity->byte_0x46_70 = 5;
+				entity->word_0x96_150 = entity6 - D41A0_0.struct_0x6E8E;
 			}
 		}
 		return;
 	case 5:
-		a1x->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
-		v17 = a1x->word_0x96_150;
-		v37 = 0;
-		if (!v17
-			|| Entities_EA3E4[v17]->life_0x8 < 0
-			|| Entities_EA3E4[v17]->struct_byte_0xc_12_15.byte[1] & 4)
+		entity->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
+		correctEntity = false;
+		if (!entity->word_0x96_150
+			|| Entities_EA3E4[entity->word_0x96_150]->life_0x8 < 0
+			|| Entities_EA3E4[entity->word_0x96_150]->struct_byte_0xc_12_15.byte[1] & 4)
 		{
-			v37 = 1;
+			correctEntity = true;
 		}
 		else
 		{
-			sub_6D8B0(v33x->id_0x1A_26, 0x17u, 1);
-			v30x = &SPELLS_BEGIN_BUFFER_str[a1x->word_0x36_54].subspell[a1x->word_0x34_52];
-			v34 = a1x->word_0x36_54 == 7
-				&& SPELLS_BEGIN_BUFFER_str[a1x->word_0x36_54].subspell[a1x->word_0x34_52].life_0x1A == 2;
-			v35 = (v34 != 0) + 1;
-			v36 = 0;
-			for (; v36 < v35; )
+			sub_6D8B0(entity8->id_0x1A_26, 0x17u, 1);
+			type_SPELLS_BEGIN_BUFFER_str_sub* subSpell = &SPELLS_BEGIN_BUFFER_str[entity->word_0x36_54].subspell[entity->word_0x34_52];
+			bool isType7 = entity->word_0x36_54 == 7
+				&& SPELLS_BEGIN_BUFFER_str[entity->word_0x36_54].subspell[entity->word_0x34_52].life_0x1A == 2;
+			int index = 0;
+			for (; index < ((isType7 != 0) + 1); )
 			{
-				v19x = sub_6DCA0(v33x, &a1x->position_0x4C_76, a1x->word_0x36_54, v30x, 0, 1);
-				v20x = v19x;
-				v32x = v19x;
-				if (v19x)
+				type_entity_0x6E8E* entity5= sub_6DCA0(entity8, &entity->position_0x4C_76, entity->word_0x36_54, subSpell, 0, 1);
+				type_entity_0x6E8E* entity6 = entity5;
+				type_entity_0x6E8E* entity7 = entity5;
+				if (entity5)
 				{
-					v19x->id_0x1A_26 = a1x->word_0x32_50;
-					v19x->word_0x96_150 = a1x->word_0x96_150;
-					sub_655C0(v19x, Entities_EA3E4[v17]);
-					v20x->yaw_0x1C_28 = v20x->roll_0x20_32;
-					v20x->pitch_0x1E_30 = v20x->fov_0x22_34;
-					v21 = v20x->yaw_0x1C_28;
-					v20x->position_0x4C_76.z += a1x->array_0x52_82.yaw;
-					HIBYTE(v21) = (HIBYTE(v21) + 4) & 7;
-					a1x->yaw_0x1C_28 = v21;
-					v22 = a1x->byte_0x44_68;
-					if (v22)
+					entity5->id_0x1A_26 = entity->word_0x32_50;
+					entity5->word_0x96_150 = entity->word_0x96_150;
+					sub_655C0(entity5, Entities_EA3E4[entity->word_0x96_150]);
+					entity6->yaw_0x1C_28 = entity6->roll_0x20_32;
+					entity6->pitch_0x1E_30 = entity6->fov_0x22_34;
+					int16_t tempYaw = entity6->yaw_0x1C_28;
+					entity6->position_0x4C_76.z += entity->array_0x52_82.yaw;
+					HIBYTE(tempYaw) = (HIBYTE(tempYaw) + 4) & 7;
+					entity->yaw_0x1C_28 = tempYaw;
+					if (entity->byte_0x44_68)
 					{
-						a1x->byte_0x44_68 = v22 + 1;
-						if ((char)(v22 + 1) > 5)
-							a1x->byte_0x44_68 = 5;
+						entity->byte_0x44_68++;
+						if (entity->byte_0x44_68 + 1 > 5)
+							entity->byte_0x44_68 = 5;
 					}
 					else
 					{
-						a1x->byte_0x44_68 = 1;
+						entity->byte_0x44_68 = 1;
 					}
-					if (v34)
+					if (isType7)
 					{
-						if (v36)
-							v23 = v32x->yaw_0x1C_28 - 113;
+						if (index)
+							entity7->yaw_0x1C_28 = (entity7->yaw_0x1C_28 - 113) & 0x7FF;
 						else
-							v23 = v32x->yaw_0x1C_28 + 113;
-						v32x->yaw_0x1C_28 = v23 & 0x7FF;
+							entity7->yaw_0x1C_28 = (entity7->yaw_0x1C_28 + 113) & 0x7FF;
 					}
-					v24 = a1x->fontTypeIndex_0x3D_61 - 1;
-					a1x->fontTypeIndex_0x3D_61 = v24;
-					if (!v24)
-						v37 = 1;
+					entity->fontTypeIndex_0x3D_61--;
+					if (!entity->fontTypeIndex_0x3D_61)
+						correctEntity = true;
 				}
-				v36++;
+				index++;
 			}
 		}
-		if (v37)
+		if (correctEntity)
 		{
-			v25 = a1x->byte_0x43_67;
-			a1x->word_0x96_150 = 0;
-			a1x->byte_0x43_67 = --v25;
-			if (v25)
-				a1x->byte_0x46_70 = 2;
+			entity->word_0x96_150 = 0;
+			entity->byte_0x43_67--;
+			if (entity->byte_0x43_67)
+				entity->byte_0x46_70 = 2;
 			else
-				a1x->byte_0x46_70 = 6;
+				entity->byte_0x46_70 = 6;
 		}
 		return;
 	case 6:
-		v27 = a1x->byte_0x44_68;
-		a1x->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
-		if (!v27)
+		entity->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
+		if (!entity->byte_0x44_68)
 		{
-			a1x->byte_0x46_70 = 7;
-			a1x->dword_0x10_16 = 10;
+			entity->byte_0x46_70 = 7;
+			entity->dword_0x10_16 = 10;
 		}
 		return;
 	case 7:
-		a1x->dword_0x10_16--;
-		if (!a1x->dword_0x10_16)
+		entity->dword_0x10_16--;
+		if (!entity->dword_0x10_16)
 		{
-			a1x->byte_0x46_70 = 9;
-			a1x->dword_0x10_16 = 3;
+			entity->byte_0x46_70 = 9;
+			entity->dword_0x10_16 = 3;
 		}
 		return;
 	case 8:
-		a1x->byte_0x46_70 = 9;
-		a1x->dword_0x10_16 = 3;
-		a1x->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
+		entity->byte_0x46_70 = 9;
+		entity->dword_0x10_16 = 3;
+		entity->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
 		return;
 	case 9:
-		a1x->position_0x4C_76.z -= 32 * a1x->dword_0x10_16;
-		a1x->dword_0x10_16++;
-		if ((signed __int16)a1x->position_0x4C_76.z >= v5)
+		entity->position_0x4C_76.z -= 32 * entity->dword_0x10_16;
+		entity->dword_0x10_16++;
+		if (entity->position_0x4C_76.z >= terrainAltitude)
 			return;
-		a1x->position_0x4C_76.z = v5;
-		if (sub_104D0_terrain_tile_is_water(&a1x->position_0x4C_76) == 1)
-			IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
+		entity->position_0x4C_76.z = terrainAltitude;
+		if (sub_104D0_terrain_tile_is_water(&entity->position_0x4C_76) == 1)
+			IfSubtypeCallCreatingManaSphere_4A190(&entity->position_0x4C_76, 10, 5);
 		else
-			IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 0);
-		DisableEntityDrawing04_57F10(a1x);
+			IfSubtypeCallCreatingManaSphere_4A190(&entity->position_0x4C_76, 10, 0);
+		DisableEntityDrawing04_57F10(entity);
 		return;
 	default:
 		return;
