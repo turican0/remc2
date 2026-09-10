@@ -29763,14 +29763,12 @@ void sub_3A8B0(type_entity_0x6E8E* a1x)//21b8b0
 	type_entity_0x6E8E* v9x; // eax
 	signed __int16 v10; // dx
 	int v11; // esi
-	//uint32_t v12; // eax
 	uint32_t v12x;
 	int v13; // edx
 	unsigned int v14; // edx
 	int v15; // esi
 	type_entity_0x6E8E* ix; // esi
 	unsigned __int16 v17; // di
-	//type_str_0x6E8E* v18x; // edi
 	type_entity_0x6E8E* v19x; // eax
 	type_entity_0x6E8E* v20x; // esi
 	__int16 v21; // ax
@@ -29778,7 +29776,6 @@ void sub_3A8B0(type_entity_0x6E8E* a1x)//21b8b0
 	__int16 v23; // ax
 	char v24; // al
 	char v25; // dl
-	//int v26; // esi
 	char v27; // cl
 	uint32_t v29; // [esp+0h] [ebp-24h]
 	type_SPELLS_BEGIN_BUFFER_str_sub* v30x; // [esp+4h] [ebp-20h]
@@ -29879,18 +29876,13 @@ void sub_3A8B0(type_entity_0x6E8E* a1x)//21b8b0
 				a1x->position_0x4C_76.z = v5;
 		}
 	}
-	//LOBYTE(v12) = a1x->byte_0x46_70;
 	switch (a1x->byte_0x46_70)
 	{
 	case 0:
-		//v12 = (int)& SPELLS_BEGIN_BUFFER_DA818[0x732] + 26 * a1x->word_0x2A_42;
-		//v13 = *(x_DWORD *)v12;
 		v13 = SPELLS_BEGIN_BUFFER_str[23].subspell[a1x->subSpellIndex_0x2A_42].subSpellIndex_2;
-		a1x->maxLife_0x4 = v13;// *(x_DWORD*)v12;
+		a1x->maxLife_0x4 = v13;
 		a1x->life_0x8 = v13;
 		a1x->axis_0x9A_154x = a1x->position_0x4C_76;
-		//LOBYTE(v12) = *(x_BYTE *)(v12 + 24);
-		//LOBYTE(v12) = SPELLS_BEGIN_BUFFER_str[23].subspell[a1x->word_0x2A_42].byte_0x1A;
 		switch (SPELLS_BEGIN_BUFFER_str[23].subspell[a1x->subSpellIndex_0x2A_42].life_0x1A)
 		{
 		case 0:
@@ -29912,37 +29904,31 @@ void sub_3A8B0(type_entity_0x6E8E* a1x)//21b8b0
 		[[fallthrough]];
 	case 1:
 		if (a1x->word_0x36_54 != 0xffff)
-		{
 			a1x->byte_0x46_70 = 2;
-			//return v12;
-		}
-		return;// v12;
+		return;
 	case 2:
 		a1x->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
 		a1x->id_0x1A_26 = a1x->word_0x32_50;
-		//if ((*xadataspellsdat.colorPalette_var28)[80 * a1x->word_0x36_54 + 27 + 26 * a1x->word_0x34_52] & 1)
 		if (SPELLS_BEGIN_BUFFER_str[a1x->word_0x36_54].subspell[a1x->word_0x34_52].fontType_0x1B & 1)
 			a1x->fontTypeIndex_0x3D_61 = 6;
 		else
 			a1x->fontTypeIndex_0x3D_61 = 1;
 		a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
-		//LOWORD(v12) = a1x->word_0x14_20 / 0x32u;
 		v14 = a1x->rand_0x14_20 % 0x32u;
 		a1x->byte_0x46_70 = 3;
 		a1x->dword_0x10_16 = v14 + 16;
-		return;// v12;
+		return;
 	case 3:
 		v15 = a1x->dword_0x10_16 - 1;
 		a1x->dword_0x10_16 = v15;
 		if (!v15)
 			a1x->byte_0x46_70 = 4;
-		return;// v12;
+		return;
 	case 4:
 		if (!(a1x->byte_0x3E_62 & 0xF))
 		{
 			for (ix = x_D41A0_BYTEARRAY_4_struct.dword_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 			{
-				//LOBYTE(v12) = ix->byte_0x40_64;
 				if (ix->model_0x40_64 <= 1u && ix != v33x)
 				{
 					v12x = sub_583F0_distance_3d(&a1x->position_0x4C_76, &ix->position_0x4C_76);
@@ -29955,18 +29941,13 @@ void sub_3A8B0(type_entity_0x6E8E* a1x)//21b8b0
 			}
 			if (v31x)
 			{
-				//v12 = v31x - D41A0_BYTESTR_0.struct_0x6E8E;
 				a1x->byte_0x46_70 = 5;
 				a1x->word_0x96_150 = v31x - D41A0_0.struct_0x6E8E;
 			}
 		}
-		return;// v12;
+		return;
 	case 5:
-		//a1x->byte_0xc_12 &= 0xFF7FFFFE;
 		a1x->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
-		//a1x->byte_0xc_12 &= 0xFE;
-		//a1x->byte_0xe_14 &= 0x7F;
-		//LOBYTE(v12) = 0;
 		v17 = a1x->word_0x96_150;
 		v37 = 0;
 		if (!v17
@@ -29978,10 +29959,7 @@ void sub_3A8B0(type_entity_0x6E8E* a1x)//21b8b0
 		else
 		{
 			sub_6D8B0(v33x->id_0x1A_26, 0x17u, 1);
-			//v30 = (__int16 *)&(*xadataspellsdat.colorPalette_var28)[80 * a1x->word_0x36_54 + 2 + 26 * a1x->word_0x34_52];
 			v30x = &SPELLS_BEGIN_BUFFER_str[a1x->word_0x36_54].subspell[a1x->word_0x34_52];
-			//v34 = a1x->word_0x36_54 == 7
-			//&& (*xadataspellsdat.colorPalette_var28)[80 * a1x->word_0x36_54 + 26 + 26 * a1x->word_0x34_52] == 2;
 			v34 = a1x->word_0x36_54 == 7
 				&& SPELLS_BEGIN_BUFFER_str[a1x->word_0x36_54].subspell[a1x->word_0x34_52].life_0x1A == 2;
 			v35 = (v34 != 0) + 1;
@@ -30035,49 +30013,38 @@ void sub_3A8B0(type_entity_0x6E8E* a1x)//21b8b0
 			a1x->word_0x96_150 = 0;
 			a1x->byte_0x43_67 = --v25;
 			if (v25)
-				//LABEL_46:
 				a1x->byte_0x46_70 = 2;
 			else
 				a1x->byte_0x46_70 = 6;
 		}
-		return;// v12;
+		return;
 	case 6:
 		v27 = a1x->byte_0x44_68;
-		//*(x_DWORD *)(a1 + 12) &= 0xFF7FFFFE;
 		a1x->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
-		//a1x->byte_0xc_12 &= 0xfe;
-		//a1x->byte_0xe_14 &= 0x7f;
 		if (!v27)
 		{
 			a1x->byte_0x46_70 = 7;
 			a1x->dword_0x10_16 = 10;
 		}
-		return;// v12;
+		return;
 	case 7:
-		//v12 = a1x->dword_0x10_16 - 1;
-		a1x->dword_0x10_16--;// = v12;
+		a1x->dword_0x10_16--;
 		if (!a1x->dword_0x10_16)
 		{
 			a1x->byte_0x46_70 = 9;
 			a1x->dword_0x10_16 = 3;
 		}
-		return;// v12;
+		return;
 	case 8:
 		a1x->byte_0x46_70 = 9;
-		//v26 = *(x_DWORD *)(a1 + 12);
 		a1x->dword_0x10_16 = 3;
-		//*(x_DWORD *)(a1 + 12) = v26 & 0xFF7FFFFE;
 		a1x->struct_byte_0xc_12_15.dword &= 0xFF7FFFFE;
-		//a1x->byte_0xc_12 &= 0xFE;
-		//a1x->byte_0xe_14 &= 0x7F;
-		return;// v12;
+		return;
 	case 9:
-		//v12 = a1x->dword_0x10_16;
-		//LOWORD(v12) = a1x->array_0x4C_76.z - 32 * v12;
 		a1x->position_0x4C_76.z -= 32 * a1x->dword_0x10_16;
-		a1x->dword_0x10_16++;// = v12 + 1;
+		a1x->dword_0x10_16++;
 		if ((signed __int16)a1x->position_0x4C_76.z >= v5)
-			return;// v12;
+			return;
 		a1x->position_0x4C_76.z = v5;
 		if (sub_104D0_terrain_tile_is_water(&a1x->position_0x4C_76) == 1)
 			IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
@@ -30086,17 +30053,9 @@ void sub_3A8B0(type_entity_0x6E8E* a1x)//21b8b0
 		DisableEntityDrawing04_57F10(a1x);
 		return;
 	default:
-		return;// v12;
+		return;
 	}
-	//return v12;
 }
-// 10000: using guessed type void /*__noreturn*/ sub_10000();
-// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// D41A4: using guessed type int x_DWORD_D41A4;
-// D41B6: using guessed type char x_BYTE_D41B6;
-// EA3E4: using guessed type int Entities_EA3E4[];
-// EB398: using guessed type __int16 x_WORD_EB398;
-// EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 typedef union {
 	type_entity_0x6E8E* un_0x6E8E;
