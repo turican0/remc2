@@ -63835,7 +63835,7 @@ LABEL_26:
 				sub_65780(a1x, v5x, v14x);
 				sub_686D0(a1x, v5x);
 				if (v5x > Entities_EA3E4[0] && a1x->word_0x26_38)
-					sub_6D8B0(a1x->id_0x1A_26, *(char*)(Entities_EA3E4[a1x->word_0x26_38] + 64), 1);
+					sub_6D8B0(a1x->id_0x1A_26, Entities_EA3E4[a1x->word_0x26_38]->model_0x40_64, 1);
 				if (a1x->byte_0x44_68 == 34)
 					v12x->life_0x8 = a1x->subSpellIndex_0x2A_42;
 				v12x->id_0x1A_26 = a1x->id_0x1A_26;
