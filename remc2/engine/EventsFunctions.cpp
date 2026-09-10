@@ -40007,8 +40007,8 @@ void sub_57390(uaxis_2d axis, uint16_t id)//238390
 				&& (ix->model_0x40_64 != 0x19 || ix->actionIndex_0x45_69 != 0xC8))
 			{
 				ix->life_0x8 = -1;
-				ix->word_0x24_36 = a2;
-				ix->word_0x26_38 = a2;
+				ix->word_0x24_36 = id;
+				ix->word_0x26_38 = id;
 			}
 		}
 	}
