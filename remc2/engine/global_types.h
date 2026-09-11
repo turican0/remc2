@@ -93,21 +93,26 @@ typedef struct {//lenght 34
 }
 type_str_160;
 
+typedef union
+{
+	int32_t dword;
+	int16_t word[2];
+} type_mail_amount;//4
+
 typedef struct
 {
-	int32_t dword_0x5E_94;//94 //36 lenght
-	int16_t word_0x62_98;//98 //4 // index subentity
-	int32_t dword_0x64_100;//100 //6
-	int16_t word_0x68_104;//104 //10
-	uint8_t stub5b[6];
-	int32_t dword_0x70_112;//112
-	int16_t word_0x74_116;//116
-	int16_t word_0x76_118;//118
-	int16_t word_0x78_120;//120
-	int16_t word_0x7A_122;//122
-	int16_t word_0x7C_124;//124
-	uint8_t stub5d[2];
-	uint16_t word_0x80_128;//128
+	type_mail_amount amount;//+0
+	int16_t source;//+4 // index subentity
+} type_mail_channel;//6
+
+//94 //36 lenght //entity +0x5E..+0x81, six 6-byte channels; the EXE addresses
+//them as entity + 6*index (1f1cf0: lea eax,[edx*4] / sub eax,edx / add eax,eax)
+//channel[0] = dword_0x5E_94 / word_0x62_98    channel[3] = dword_0x70_112 / word_0x74_116
+//channel[1] = dword_0x64_100 / word_0x68_104  channel[4] = word_0x76_118+word_0x78_120 / word_0x7A_122
+//channel[2] = stub5b[6]                       channel[5] = word_0x7C_124+stub5d / word_0x80_128
+typedef struct
+{
+	type_mail_channel channel[6];
 } type_str_0x5E_94;
 
 typedef struct {//lenght 18

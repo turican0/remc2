@@ -3950,13 +3950,6 @@ signed int sub_10B70(axis_3d* a1x, char a2, char a3)//1f1b70
 int debugcounter_10c80 = 0;
 int debugcounter_10c80_2 = 0;
 //----- (00010C80) --------------------------------------------------------
-//the mailbox at +0x5E is a row of six 6-byte channels { int32 amount; int16 source };
-//1f1cf0: lea eax,[edx*4] / sub eax,edx / add eax,eax / add eax,esi -> entity + 6*channel
-static inline type_str_0x5E_94* mailChannel(type_entity_0x6E8E* entity, unsigned __int8 channel)
-{
-	return (type_str_0x5E_94*)((uint8_t*)&entity->str_0x5E_94 + 6 * channel);
-}
-
 int sub_10C80(type_entity_0x6E8E* entity, unsigned __int8 channel, unsigned __int16 amount)//1f1c80
 {
 	if (CommandLineParams.DoDebugSequences()) {
@@ -3973,13 +3966,13 @@ int sub_10C80(type_entity_0x6E8E* entity, unsigned __int8 channel, unsigned __in
 		{
 			if (target->model_0x40_64 == 2 && target->id_0x1A_26 != entity->id_0x1A_26 && sub_106C0(entity, target))
 			{
-				type_str_0x5E_94* mail = mailChannel(target, channel);
-				if (mail->word_0x62_98)
-					mail->dword_0x5E_94 += amount;
+				type_mail_channel* mail = &target->str_0x5E_94.channel[channel];
+				if (mail->source)
+					mail->amount.dword += amount;
 				else
-					mail->dword_0x5E_94 = amount;
+					mail->amount.dword = amount;
 				hitCount++;
-				mail->word_0x62_98 = entity->id_0x1A_26;
+				mail->source = entity->id_0x1A_26;
 			}
 		}
 		for (type_entity_0x6E8E* target = x_D41A0_BYTEARRAY_4_struct.dword_38527; target > Entities_EA3E4[0]; target = target->next_0)
@@ -4005,13 +3998,13 @@ int sub_10C80(type_entity_0x6E8E* entity, unsigned __int8 channel, unsigned __in
 					+ 2
 					* ((entity->position_0x4C_76.x >> 8) - spriteLeft + ((entity->position_0x4C_76.y >> 8) - spriteTop) * spriteWidth)) != -1)
 				{
-					type_str_0x5E_94* mail = mailChannel(target, channel);
-					if (mail->word_0x62_98)
-						mail->dword_0x5E_94 += amount;
+					type_mail_channel* mail = &target->str_0x5E_94.channel[channel];
+					if (mail->source)
+						mail->amount.dword += amount;
 					else
-						mail->dword_0x5E_94 = amount;
+						mail->amount.dword = amount;
 					hitCount++;
-					mail->word_0x62_98 = entity->id_0x1A_26;
+					mail->source = entity->id_0x1A_26;
 				}
 			}
 		}
@@ -4036,13 +4029,13 @@ int sub_10C80(type_entity_0x6E8E* entity, unsigned __int8 channel, unsigned __in
 							|| entity->xtype_0x41_65 == target->class_0x3F_63 && (uint8_t)entity->xsubtype_0x42_66 == 0xffu
 							|| entity->xtype_0x41_65 == target->class_0x3F_63 && entity->xsubtype_0x42_66 == target->model_0x40_64))
 					{
-						type_str_0x5E_94* mail = mailChannel(target, channel);
-						if (mail->word_0x62_98)
-							mail->dword_0x5E_94 += amount;
+						type_mail_channel* mail = &target->str_0x5E_94.channel[channel];
+						if (mail->source)
+							mail->amount.dword += amount;
 						else
-							mail->dword_0x5E_94 = amount;
+							mail->amount.dword = amount;
 						hitCount++;
-						mail->word_0x62_98 = entity->id_0x1A_26;
+						mail->source = entity->id_0x1A_26;
 					}
 				}
 			}
@@ -4072,13 +4065,13 @@ int sub_10C80(type_entity_0x6E8E* entity, unsigned __int8 channel, unsigned __in
 							|| entity->xtype_0x41_65 == target->class_0x3F_63 && entity->xsubtype_0x42_66 == target->model_0x40_64)
 						&& sub_106C0(entity, target))
 					{
-						type_str_0x5E_94* mail = mailChannel(target, channel);
-						if (mail->word_0x62_98)
-							mail->dword_0x5E_94 += amount;
+						type_mail_channel* mail = &target->str_0x5E_94.channel[channel];
+						if (mail->source)
+							mail->amount.dword += amount;
 						else
-							mail->dword_0x5E_94 = amount;
+							mail->amount.dword = amount;
 						hitCount++;
-						mail->word_0x62_98 = entity->id_0x1A_26;
+						mail->source = entity->id_0x1A_26;
 					}
 				}
 			}
@@ -4096,12 +4089,12 @@ int sub_10C80(type_entity_0x6E8E* entity, unsigned __int8 channel, unsigned __in
 			{
 				if (entity->id_0x1A_26 != target->id_0x1A_26 && target->class_0x3F_63 == 3 && sub_106C0(entity, target))
 				{
-					type_str_0x5E_94* mail = mailChannel(target, channel);
-					if (!mail->word_0x62_98)
+					type_mail_channel* mail = &target->str_0x5E_94.channel[channel];
+					if (!mail->source)
 					{
-						mail->dword_0x5E_94 = amount;
+						mail->amount.dword = amount;
 						hitCount++;
-						mail->word_0x62_98 = entity->id_0x1A_26;
+						mail->source = entity->id_0x1A_26;
 					}
 				}
 			}
@@ -4148,8 +4141,8 @@ void sub_112D0(type_entity_0x6E8E* a1x, unsigned __int16 a2)//1f22d0
 						|| a1x->xtype_0x41_65 == v5x->class_0x3F_63 && a1x->xsubtype_0x42_66 == v5x->model_0x40_64)
 					&& sub_106C0(a1x, v5x))
 				{
-					v5x->str_0x5E_94.word_0x68_104 = a1x->id_0x1A_26;
-					v5x->str_0x5E_94.dword_0x64_100 = a2;
+					v5x->str_0x5E_94.channel[1].source = a1x->id_0x1A_26;
+					v5x->str_0x5E_94.channel[1].amount.dword = a2;
 				}
 			}
 		}
@@ -4180,11 +4173,11 @@ void sub_11400(type_entity_0x6E8E* a1x, char a2, unsigned __int16 a3)//1f2400
 		{
 			if (ix->model_0x40_64 == 2 && ix->id_0x1A_26 != a1x->id_0x1A_26 && sub_106C0(a1x, ix))
 			{
-				if (ix->str_0x5E_94.word_0x62_98)
-					ix->str_0x5E_94.dword_0x5E_94 += a3;
+				if (ix->str_0x5E_94.channel[0].source)
+					ix->str_0x5E_94.channel[0].amount.dword += a3;
 				else
-					ix->str_0x5E_94.dword_0x5E_94 = a3;
-				ix->str_0x5E_94.word_0x62_98 = a1x->id_0x1A_26;
+					ix->str_0x5E_94.channel[0].amount.dword = a3;
+				ix->str_0x5E_94.channel[0].source = a1x->id_0x1A_26;
 			}
 		}
 		//v11 = (a1x->array_0x4C_76.x	+ 128 - (__CFSHL__((a1x->array_0x4C_76.x + 128) >> 31, 8) + ((a1x->array_0x4C_76.x + 128) >> 31 << 8))) >> 8;
@@ -4224,21 +4217,21 @@ void sub_11400(type_entity_0x6E8E* a1x, char a2, unsigned __int16 a3)//1f2400
 									{
 										if (v9x->class_0x3F_63 != 2 || v9x->model_0x40_64)
 										{
-											if (v9x->str_0x5E_94.word_0x62_98)
-												v9x->str_0x5E_94.dword_0x5E_94 += a3;
+											if (v9x->str_0x5E_94.channel[0].source)
+												v9x->str_0x5E_94.channel[0].amount.dword += a3;
 											else
-												v9x->str_0x5E_94.dword_0x5E_94 = a3;
+												v9x->str_0x5E_94.channel[0].amount.dword = a3;
 										}
-										else if (v9x->str_0x5E_94.word_0x62_98)
+										else if (v9x->str_0x5E_94.channel[0].source)
 										{
-											v9x->str_0x5E_94.dword_0x5E_94 += a3 / 10;
+											v9x->str_0x5E_94.channel[0].amount.dword += a3 / 10;
 										}
 										else
 										{
-											v9x->str_0x5E_94.dword_0x5E_94 = a3 / 10;
+											v9x->str_0x5E_94.channel[0].amount.dword = a3 / 10;
 										}
 										//LOBYTE(v3) = 0;
-										v9x->str_0x5E_94.word_0x62_98 = a1x->id_0x1A_26;
+										v9x->str_0x5E_94.channel[0].source = a1x->id_0x1A_26;
 									}
 								}
 							}
@@ -4275,12 +4268,12 @@ int sub_116A0(type_entity_0x6E8E* a1x, char a2, unsigned __int16 a3)//1f26a0
 				ix->word_0x30_48 = 30;
 				if (ix->id_0x1A_26 != a1x->id_0x1A_26)
 				{
-					if (ix->str_0x5E_94.word_0x62_98)
-						ix->str_0x5E_94.dword_0x5E_94 += a3;
+					if (ix->str_0x5E_94.channel[0].source)
+						ix->str_0x5E_94.channel[0].amount.dword += a3;
 					else
-						ix->str_0x5E_94.dword_0x5E_94 = a3;
+						ix->str_0x5E_94.channel[0].amount.dword = a3;
 					v3++;
-					ix->str_0x5E_94.word_0x62_98 = a1x->id_0x1A_26;
+					ix->str_0x5E_94.channel[0].source = a1x->id_0x1A_26;
 				}
 			}
 		}
@@ -4307,12 +4300,12 @@ int sub_116A0(type_entity_0x6E8E* a1x, char a2, unsigned __int16 a3)//1f26a0
 							|| a1x->xtype_0x41_65 == lx->class_0x3F_63 && a1x->xsubtype_0x42_66 == -1
 							|| a1x->xtype_0x41_65 == lx->class_0x3F_63 && a1x->xsubtype_0x42_66 == lx->model_0x40_64))
 					{
-						if (lx->str_0x5E_94.word_0x62_98)
-							lx->str_0x5E_94.dword_0x5E_94 += a3;
+						if (lx->str_0x5E_94.channel[0].source)
+							lx->str_0x5E_94.channel[0].amount.dword += a3;
 						else
-							lx->str_0x5E_94.dword_0x5E_94 = a3;
+							lx->str_0x5E_94.channel[0].amount.dword = a3;
 						v3++;
-						lx->str_0x5E_94.word_0x62_98 = a1x->id_0x1A_26;
+						lx->str_0x5E_94.channel[0].source = a1x->id_0x1A_26;
 					}
 				}
 			}
@@ -4330,12 +4323,12 @@ int sub_11900(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x, unsigned __int8 
 	int result; // eax
 
 	v4x = a2x + sizeof(type_entity_0x6E8E*) * a3;
-	if (v4x->str_0x5E_94.word_0x62_98)
-		v4x->str_0x5E_94.dword_0x5E_94 = a4;
+	if (v4x->str_0x5E_94.channel[0].source)
+		v4x->str_0x5E_94.channel[0].amount.dword = a4;
 	else
-		v4x->str_0x5E_94.dword_0x5E_94 += a4;
+		v4x->str_0x5E_94.channel[0].amount.dword += a4;
 	result = 3 * a3;
-	v4x->str_0x5E_94.word_0x62_98 = a1x->id_0x1A_26;
+	v4x->str_0x5E_94.channel[0].source = a1x->id_0x1A_26;
 	return result;
 }
 
@@ -5354,11 +5347,11 @@ signed int sub_12A70(type_entity_0x6E8E* a1x)//1f3a70
 		memset((void*)&a1x->str_0x5E_94, 0, 36);
 		//memset((void*)(a1 + 94), 0, 36);
 		//fix
-		/*a1x->str_0x5E_94.dword_0x5E_94 = 0;
-		a1x->str_0x5E_94.dword_0x5E_94 = 0;//94
-		a1x->str_0x5E_94.word_0x62_98 = 0;//98 //4
-		a1x->str_0x5E_94.dword_0x64_100 = 0;//100 //6
-		a1x->str_0x5E_94.word_0x68_104 = 0;//104 //10
+		/*a1x->str_0x5E_94.channel[0].amount.dword = 0;
+		a1x->str_0x5E_94.channel[0].amount.dword = 0;//94
+		a1x->str_0x5E_94.channel[0].source = 0;//98 //4
+		a1x->str_0x5E_94.channel[1].amount.dword = 0;//100 //6
+		a1x->str_0x5E_94.channel[1].source = 0;//104 //10
 		a1x->stub5b[24];
 		memset(a1x->str_0x5E_94.stub5b, 0, 24);*/
 		//fix
@@ -8664,12 +8657,12 @@ void sub_1B6B0(type_entity_0x6E8E* a1x)//1fc6b0
 		predictedAxis_EB398ar = *v2x;
 		MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, a1x->pitch_0x1E_30, -a1x->word_0x36_54);
 		CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
-		if (a1x->str_0x5E_94.word_0x62_98)
+		if (a1x->str_0x5E_94.channel[0].source)
 		{
-			v3 = a1x->str_0x5E_94.dword_0x5E_94;
+			v3 = a1x->str_0x5E_94.channel[0].amount.dword;
 			v4 = a1x->life_0x8;
-			v5 = a1x->str_0x5E_94.word_0x62_98;
-			a1x->str_0x5E_94.word_0x62_98 = 0;
+			v5 = a1x->str_0x5E_94.channel[0].source;
+			a1x->str_0x5E_94.channel[0].source = 0;
 			a1x->word_0x26_38 = v5;
 			a1x->life_0x8 = v4 - v3;
 		}
@@ -8913,11 +8906,11 @@ void sub_1BD90(type_entity_0x6E8E* a1x, char a2)//1fcd90
 	type_entity_0x6E8E* v17x; // [esp+Ch] [ebp-4h]
 
 	v2 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v3 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v3 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		v2 = 1;
 		a1x->word_0x26_38 = v3;
 	}
@@ -9044,11 +9037,11 @@ void sub_1BF90(type_entity_0x6E8E* a1x, char a2)//1fcf90
 	unsigned int v28; // [esp+18h] [ebp-4h]
 
 	v2 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v3 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v3 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		v2 = 1;
 		a1x->word_0x26_38 = v3;
 	}
@@ -9205,12 +9198,12 @@ signed int sub_1C310(type_entity_0x6E8E* a1x, char a2, unsigned __int16(*a3)(typ
 
 	v3 = 0;
 	v4 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		v5 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
+		v5 = a1x->str_0x5E_94.channel[0].source;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
 		a1x->word_0x26_38 = v5;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		v4 = 1;
 	}
 	else
@@ -9337,12 +9330,12 @@ void sub_1C560(type_entity_0x6E8E* a1x, unsigned __int16 a2)//1fd560
 		&& v4x->class_0x3F_63 == a1x->class_0x3F_63//(LOBYTE(v3) = v4x->byte_0x3F_63, (x_BYTE)v3 == a1x->byte_0x3F_63)
 		&& v4x->model_0x40_64 == a1x->model_0x40_64;//(LOBYTE(v3) = v4x->byte_0x40_64, (x_BYTE)v3 == a1x->byte_0x40_64);
 	v5 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
 		//LOWORD(v3) = a1x->word_0x62_98;
-		a1x->word_0x26_38 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->word_0x26_38 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		v5 = 1;
 		//a1x->word_0x62_98 = (int16_t)v3;
 	}
@@ -9539,13 +9532,13 @@ void sub_1C980(type_entity_0x6E8E* a1x, char a2)//1fd980
 	unsigned int v16; // ST08_4
 
 	v2 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		v3 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
+		v3 = a1x->str_0x5E_94.channel[0].source;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
 		a1x->word_0x26_38 = v3;
 		v2 = 1;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->str_0x5E_94.channel[0].source = 0;
 	}
 	else
 	{
@@ -10082,11 +10075,11 @@ void sub_1D8C0(type_entity_0x6E8E* a1x, __int16 a2)//1fe8c0
 	// fix it
 
 	v2 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v3 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v3 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		v2 = 1;
 		a1x->word_0x26_38 = v3;
 	}
@@ -10296,11 +10289,11 @@ void sub_1DDA0(type_entity_0x6E8E* a1x, __int16 a2)//1feda0
 	//uint8_t remakebyte20 = 0;
 	//int comp20;
 	v2x = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v3 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v3 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		a1x->word_0x26_38 = v3;
 		v2x = 1;
 	}
@@ -10437,11 +10430,11 @@ void sub_1E1C0(type_entity_0x6E8E* a1x, __int16 a2)//1ff1c0
 	char v10; // al
 
 	v2x = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v3 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v3 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		a1x->word_0x26_38 = v3;
 		v2x = 1;
 	}
@@ -10721,11 +10714,11 @@ void sub_1E700(type_entity_0x6E8E* a1x, char a2)//1ff700
 	type_entity_0x6E8E* jx; // ecx
 
 	v2 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v3 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v3 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		a1x->word_0x26_38 = v3;
 		v2 = 1;
 	}
@@ -11625,14 +11618,14 @@ void sub_1FAA0(type_entity_0x6E8E* a1x)//200aa0
 	unsigned int v35; // [esp+1Ch] [ebp-Ch]
 	unsigned int v36; // [esp+20h] [ebp-8h]
 
-	v1 = a1x->str_0x5E_94.word_0x62_98;
+	v1 = a1x->str_0x5E_94.channel[0].source;
 	jy = 0;
 	a1x->dword_0x10_16 = 0;
 	if (v1)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v3 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v3 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		a1x->word_0x26_38 = v3;
 		jy = 1;
 	}
@@ -12014,11 +12007,11 @@ void sub_203D0(type_entity_0x6E8E* a1x)//2013d0
 	if (a1x->byte_0x39_57)
 		a1x->dword_0x10_16 = 400;
 	v3 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v4 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v4 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		v3 = 1;
 		a1x->word_0x26_38 = v4;
 	}
@@ -12276,11 +12269,11 @@ void sub_20940(type_entity_0x6E8E* a1x)//201940
 
 	v1 = 0;
 	v24x = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v2 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v2 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		v1 = 1;
 		a1x->word_0x26_38 = v2;
 	}
@@ -12438,11 +12431,11 @@ void sub_20C50(type_entity_0x6E8E* a1x)//201c50
 	unsigned int v9; // edi
 
 	v1 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v2 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v2 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		v1 = 1;
 		a1x->word_0x26_38 = v2;
 	}
@@ -13584,16 +13577,16 @@ char sub_22190(type_entity_0x6E8E* a1x)//203190
 	v1 = 0;
 	if (a1x->byte_0x39_57)
 	{
-		if (a1x->str_0x5E_94.word_0x62_98)
+		if (a1x->str_0x5E_94.channel[0].source)
 		{
-			v2 = a1x->str_0x5E_94.dword_0x5E_94;
+			v2 = a1x->str_0x5E_94.channel[0].amount.dword;
 			if (v2 < 1)
 				v2 = 1;
 			if (v2 > 300)
 				v2 = 300;
 			a1x->life_0x8 -= v2;
-			v3 = a1x->str_0x5E_94.word_0x62_98;
-			a1x->str_0x5E_94.word_0x62_98 = 0;
+			v3 = a1x->str_0x5E_94.channel[0].source;
+			a1x->str_0x5E_94.channel[0].source = 0;
 			a1x->word_0x26_38 = v3;
 			v1 = 1;
 		}
@@ -14079,11 +14072,11 @@ void sub_22C80(type_entity_0x6E8E* a1x)//203c80
 
 	a1x->fontTypeIndex_0x3D_61 = 0;
 	v1 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v2 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v2 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		a1x->word_0x26_38 = v2;
 		v1 = 1;
 	}
@@ -14182,11 +14175,11 @@ void sub_22E60(type_entity_0x6E8E* a1x)//203e60
 	}
 
 	v1 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v2 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v2 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		a1x->word_0x26_38 = v2;
 		v1 = 1;
 	}
@@ -14287,11 +14280,11 @@ void sub_23020(type_entity_0x6E8E* a1x)//204020
 
 	v1 = 0;
 	v11 = -1;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v2 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v2 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		a1x->word_0x26_38 = v2;
 		v1 = 1;
 	}
@@ -14472,11 +14465,11 @@ void sub_23340(type_entity_0x6E8E* a1x)//204340
 	type_entity_0x6E8E* v12x; // esi
 
 	jy = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v2 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v2 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		a1x->word_0x26_38 = v2;
 		jy = 1;
 	}
@@ -14699,11 +14692,11 @@ void sub_237B0(type_entity_0x6E8E* a1x)//2047b0
 	//fix
 
 	v1y = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v2 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v2 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		a1x->word_0x26_38 = v2;
 		v1y = 1;
 	}
@@ -14929,11 +14922,11 @@ void sub_23C40(type_entity_0x6E8E* a1x)//204c40
 	type_entity_0x6E8E* v18x; // [esp+Ch] [ebp-4h]
 
 	v1 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v2 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v2 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		v1 = 1;
 		a1x->word_0x26_38 = v2;
 	}
@@ -15048,11 +15041,11 @@ void sub_23E60(type_entity_0x6E8E* a1x)//204e60
 	axis_3d* v12; // [esp+8h] [ebp-4h]
 
 	v1 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		a1x->word_0x26_38 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		a1x->word_0x26_38 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		v1 = 1;
 		//a1x->word_0x26_38 = v2;
 	}
@@ -15359,11 +15352,11 @@ void sub_24510(type_entity_0x6E8E* a1x)//205510
 	iy = v1 * v1;
 	v3 = 0;
 	v13 = iy;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		LOWORD(iy) = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		LOWORD(iy) = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		v3 = 1;
 		a1x->word_0x26_38 = iy;
 	}
@@ -15564,11 +15557,11 @@ void sub_24930(type_entity_0x6E8E* a1x)//205930
 
 	PrepareEventSound_6E450(a1x - D41A0_0.struct_0x6E8E, -1, 58);
 	v1 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v2 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v2 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		a1x->word_0x26_38 = v2;
 		v1 = 1;
 	}
@@ -16052,14 +16045,14 @@ unsigned int sub_252E0(type_entity_0x6E8E* a1x)//2062e0
 	type_entity_0x6E8E* v7x; // edx
 
 	v1 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
-	v2 = a1x->str_0x5E_94.word_0x62_98;
+	v2 = a1x->str_0x5E_94.channel[0].source;
 	a1x->position_0x4C_76.z = v1;
 	result = 0;
 	if (v2)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v4 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v4 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		a1x->word_0x26_38 = v4;
 		result = 1;
 	}
@@ -16268,11 +16261,11 @@ void HitFirebug_25610(type_entity_0x6E8E* a1x)//206610
 	type_entity_0x6E8E* v34x; // [esp+0h] [ebp-14h]
 
 	v1 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v2 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v2 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		a1x->word_0x26_38 = v2;
 		v1 = 1;
 	}
@@ -17111,13 +17104,13 @@ signed int sub_26830(type_entity_0x6E8E* a1x)//207830
 	int v4; // ecx
 	type_entity_0x6E8E* v5x; // edx
 
-	v1 = a1x->str_0x5E_94.word_0x62_98;
+	v1 = a1x->str_0x5E_94.channel[0].source;
 	v2 = 0;
 	if (v1)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v1 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v1 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		v2 = 1;
 	}
 	a1x->word_0x26_38 = v1;
@@ -17417,11 +17410,11 @@ void sub_26D20(type_entity_0x6E8E* a1x)//207d20
 		v2 = v1x->actionIndex_0x45_69;
 		if (v2 >= 0xB0u && (v2 <= 0xB0u || v2 == 178))
 		{
-			if (a1x->str_0x5E_94.word_0x62_98)
+			if (a1x->str_0x5E_94.channel[0].source)
 			{
 				v1x->actSpeed_0x82_130 = ((v1x->minSpeed_0x84_132 - v1x->maxSpeed_0x86_134) >> 2)
 					+ v1x->maxSpeed_0x86_134;
-				v3 = Maths::sub_581E0_maybe_tan2(&Entities_EA3E4[a1x->str_0x5E_94.word_0x62_98]->position_0x4C_76, &a1x->position_0x4C_76);
+				v3 = Maths::sub_581E0_maybe_tan2(&Entities_EA3E4[a1x->str_0x5E_94.channel[0].source]->position_0x4C_76, &a1x->position_0x4C_76);
 				v1x->yaw_0x1C_28 = v3;
 				v1x->roll_0x20_32 = v3;
 				v4 = 56 * abs(a1x->byte_0x46_70) / (v1x->byte_0x46_70 >> 1);
@@ -17449,20 +17442,20 @@ void sub_26D20(type_entity_0x6E8E* a1x)//207d20
 					v7x = Entities_EA3E4[v6];
 					if (v7x == Entities_EA3E4[0])
 						break;
-					v7x->str_0x5E_94.word_0x62_98 = 0;
+					v7x->str_0x5E_94.channel[0].source = 0;
 					v6 = v7x->word_0x34_52;
 				}
 			}
-			v8 = a1x->str_0x5E_94.word_0x68_104;
+			v8 = a1x->str_0x5E_94.channel[1].source;
 			if (v8)
 			{
 				if (v8 != v1x->playerEntityIndex_0x94_148)
 				{
-					if (a1x->str_0x5E_94.dword_0x64_100)
+					if (a1x->str_0x5E_94.channel[1].amount.dword)
 					{
 						v1x->actionIndex_0x45_69 = 177;
 						v1x->dword_0x10_16 = a1x->byte_0x46_70 << 8;
-						v10 = a1x->str_0x5E_94.word_0x68_104;
+						v10 = a1x->str_0x5E_94.channel[1].source;
 						v1x->playerEntityIndex_0x94_148 = v10;
 						PrepareEventSound_6E450(v10, -1, 4);
 						a1x->struct_byte_0xc_12_15.byte[2] |= 0x20u;
@@ -17471,7 +17464,7 @@ void sub_26D20(type_entity_0x6E8E* a1x)//207d20
 					{
 						v1x->actionIndex_0x45_69 = 177;
 						v1x->dword_0x10_16 = a1x->byte_0x46_70 << 8;
-						v9 = a1x->str_0x5E_94.word_0x68_104;
+						v9 = a1x->str_0x5E_94.channel[1].source;
 						v1x->playerEntityIndex_0x94_148 = v9;
 						PrepareEventSound_6E450(v9, -1, 4);
 					}
@@ -17481,7 +17474,7 @@ void sub_26D20(type_entity_0x6E8E* a1x)//207d20
 					v12x = Entities_EA3E4[i];
 					if (v12x == Entities_EA3E4[0])
 						break;
-					v12x->str_0x5E_94.word_0x68_104 = 0;
+					v12x->str_0x5E_94.channel[1].source = 0;
 				}
 			}
 		}
@@ -17502,9 +17495,9 @@ void sub_26F10(type_entity_0x6E8E* a1x)//207f10
 
 	if (a1x->byte_0x39_57)
 	{
-		if (a1x->str_0x5E_94.word_0x62_98)
+		if (a1x->str_0x5E_94.channel[0].source)
 		{
-			v1 = (a1x->str_0x5E_94.dword_0x5E_94 >> 2) + a1x->actSpeed_0x82_130;
+			v1 = (a1x->str_0x5E_94.channel[0].amount.dword >> 2) + a1x->actSpeed_0x82_130;
 			v2 = a1x->maxSpeed_0x86_134;
 			a1x->actSpeed_0x82_130 = v1;
 			if ((signed __int16)v1 < v2)
@@ -17512,23 +17505,23 @@ void sub_26F10(type_entity_0x6E8E* a1x)//207f10
 			v3 = a1x->minSpeed_0x84_132;
 			if (a1x->actSpeed_0x82_130 > v3)
 				a1x->actSpeed_0x82_130 = v3;
-			v4 = Maths::sub_581E0_maybe_tan2(&Entities_EA3E4[a1x->str_0x5E_94.word_0x62_98]->position_0x4C_76, &a1x->position_0x4C_76);
-			a1x->str_0x5E_94.word_0x62_98 = 0;
+			v4 = Maths::sub_581E0_maybe_tan2(&Entities_EA3E4[a1x->str_0x5E_94.channel[0].source]->position_0x4C_76, &a1x->position_0x4C_76);
+			a1x->str_0x5E_94.channel[0].source = 0;
 			a1x->yaw_0x1C_28 = v4;
 			a1x->roll_0x20_32 = v4;
 		}
-		v5 = a1x->str_0x5E_94.word_0x68_104;
+		v5 = a1x->str_0x5E_94.channel[1].source;
 		if (v5)
 		{
 			if (v5 != a1x->playerEntityIndex_0x94_148)
 			{
-				v6 = a1x->str_0x5E_94.word_0x68_104;
+				v6 = a1x->str_0x5E_94.channel[1].source;
 				a1x->playerEntityIndex_0x94_148 = v6;
 				a1x->actionIndex_0x45_69 = 177;
 				a1x->dword_0x10_16 = 0;
 				PrepareEventSound_6E450(v6, -1, 4);
 			}
-			a1x->str_0x5E_94.word_0x68_104 = 0;
+			a1x->str_0x5E_94.channel[1].source = 0;
 		}
 	}
 	if (a1x->life_0x8 < 0)
@@ -18416,13 +18409,13 @@ void sub_28110(type_entity_0x6E8E* a1x)//209110
 	v1 = 0;
 	if (a1x->byte_0x39_57)
 	{
-		if (a1x->str_0x5E_94.word_0x62_98)
+		if (a1x->str_0x5E_94.channel[0].source)
 		{
-			v2 = a1x->str_0x5E_94.word_0x62_98;
-			a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
+			v2 = a1x->str_0x5E_94.channel[0].source;
+			a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
 			a1x->word_0x26_38 = v2;
 			//a1x->word_0x26_38;
-			a1x->str_0x5E_94.word_0x62_98 = 0;
+			a1x->str_0x5E_94.channel[0].source = 0;
 			if (Entities_EA3E4[v3]->class_0x3F_63 == 3)
 			{
 				v1 = 1;
@@ -18810,11 +18803,11 @@ __int16 sub_28860(type_entity_0x6E8E* a1x)//209860
 	v2 = 0;
 	if (v1 != 1 && v1 != 2)
 	{
-		if (a1x->str_0x5E_94.word_0x62_98)
+		if (a1x->str_0x5E_94.channel[0].source)
 		{
-			a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-			v3 = a1x->str_0x5E_94.word_0x62_98;
-			a1x->str_0x5E_94.word_0x62_98 = 0;
+			a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+			v3 = a1x->str_0x5E_94.channel[0].source;
+			a1x->str_0x5E_94.channel[0].source = 0;
 			a1x->word_0x26_38 = v3;
 			v2 = 1;
 		}
@@ -18865,7 +18858,7 @@ __int16 sub_28860(type_entity_0x6E8E* a1x)//209860
 		LABEL_20:
 			v8 = a1x->maxLife_0x4;
 			v9 = a1x->dword_0x10_16;
-			a1x->str_0x5E_94.word_0x62_98 = 0;
+			a1x->str_0x5E_94.channel[0].source = 0;
 			v10 = v9 - 1;
 			a1x->life_0x8 = v8;
 			a1x->dword_0x10_16 = v10;
@@ -19206,11 +19199,11 @@ void sub_28FF0(type_entity_0x6E8E* a1x)//209ff0
 	if (!(a1x->byte_0x3E_62 & 0x1F))
 		PrepareEventSound_6E450(a1x - D41A0_0.struct_0x6E8E, -1, 62);
 	v1 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v2 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v2 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		v1 = 1;
 		a1x->word_0x26_38 = v2;
 	}
@@ -20101,7 +20094,7 @@ void sub_29A90(type_entity_0x6E8E* a1x)//20aa90
 					{
 						ix->rand_0x14_20 = 9377 * ix->rand_0x14_20 + 9439;
 						v32 = ix->rand_0x14_20 % 0x398u;
-						ix->str_0x5E_94.word_0x62_98 = 0;
+						ix->str_0x5E_94.channel[0].source = 0;
 						ix->byte_0x46_70 = 0;
 						//v1 = v32 + 920;
 						ix->life_0x8 = v32 + 920;
@@ -20353,17 +20346,17 @@ void sub_2A660(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//20b660
 	int v6; // ecx
 
 	//resultx = a2x;
-	v3 = a2x->str_0x5E_94.word_0x62_98;
+	v3 = a2x->str_0x5E_94.channel[0].source;
 	if (v3)
 	{
-		a1x->str_0x5E_94.word_0x62_98 = v3;
-		v4 = a2x->str_0x5E_94.dword_0x5E_94;
-		a1x->str_0x5E_94.dword_0x5E_94 = v4;
+		a1x->str_0x5E_94.channel[0].source = v3;
+		v4 = a2x->str_0x5E_94.channel[0].amount.dword;
+		a1x->str_0x5E_94.channel[0].amount.dword = v4;
 		if (v4 > 76)
 			v4 = 76;
 		a2x->life_0x8 -= v4;
-		v5 = a2x->str_0x5E_94.word_0x62_98;
-		a2x->str_0x5E_94.word_0x62_98 = 0;
+		v5 = a2x->str_0x5E_94.channel[0].source;
+		a2x->str_0x5E_94.channel[0].source = 0;
 		v6 = a2x->life_0x8;
 		a2x->word_0x26_38 = v5;
 		if (v6 < 0)
@@ -20379,7 +20372,7 @@ signed int sub_2A6B0(type_entity_0x6E8E* a1x)//20b6b0
 	signed int v2; // edx
 	char v3; // dl
 
-	v1 = a1x->str_0x5E_94.word_0x62_98;
+	v1 = a1x->str_0x5E_94.channel[0].source;
 	v2 = 0;
 	if (v1)
 	{
@@ -20395,7 +20388,7 @@ signed int sub_2A6B0(type_entity_0x6E8E* a1x)//20b6b0
 			v2 = 2;
 			a1x->word_0x24_36 = v1;
 		}
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->str_0x5E_94.channel[0].source = 0;
 	}
 	return v2;
 }
@@ -21315,11 +21308,11 @@ signed int sub_2B9A0(type_entity_0x6E8E* a1x)//20c9a0
 	type_entity_0x6E8E* v5x; // ebx
 
 	v1 = 0;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
-		v2 = a1x->str_0x5E_94.word_0x62_98;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
+		v2 = a1x->str_0x5E_94.channel[0].source;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		a1x->word_0x26_38 = v2;
 		v1 = 1;
 	}
@@ -24387,9 +24380,9 @@ void sub_33710(type_entity_0x6E8E* a1x)//214710
 				v4 = a1x - D41A0_0.struct_0x6E8E;
 				jx->word_0x30_48 = 30;
 				jx->word_0x26_38 = v4;
-				jx->str_0x5E_94.dword_0x5E_94 += a1x->subSpellIndex_0x2A_42;
+				jx->str_0x5E_94.channel[0].amount.dword += a1x->subSpellIndex_0x2A_42;
 				v1 += 2;
-				jx->str_0x5E_94.word_0x62_98 = a1x->id_0x1A_26;
+				jx->str_0x5E_94.channel[0].source = a1x->id_0x1A_26;
 			}
 		}
 		if (v1)
@@ -26018,16 +26011,16 @@ void TransformArcherToMana_35940(type_entity_0x6E8E* a1x)//216940 //move mana sp
 	else
 	{
 		//v2 = a1x->str_0x5E_94.word_0x68_104;
-		if (a1x->str_0x5E_94.word_0x68_104)
+		if (a1x->str_0x5E_94.channel[1].source)
 		{
-			if (a1x->str_0x5E_94.word_0x68_104 != a1x->playerEntityIndex_0x94_148)
+			if (a1x->str_0x5E_94.channel[1].source != a1x->playerEntityIndex_0x94_148)
 			{
 				v36 = 1;
-				if (a1x->str_0x5E_94.dword_0x64_100)
+				if (a1x->str_0x5E_94.channel[1].amount.dword)
 				{
 					//v4 = a1x->str_0x5E_94.word_0x68_104;
-					a1x->playerEntityIndex_0x94_148 = a1x->str_0x5E_94.word_0x68_104;
-					PrepareEventSound_6E450(a1x->str_0x5E_94.word_0x68_104, -1, 4);
+					a1x->playerEntityIndex_0x94_148 = a1x->str_0x5E_94.channel[1].source;
+					PrepareEventSound_6E450(a1x->str_0x5E_94.channel[1].source, -1, 4);
 					//a1x->byte_0xc_12 &= 0xFFDFFFBF;
 					a1x->struct_byte_0xc_12_15.dword &= 0xFFDFFFBF;
 					/*a1x->byte_0xc_12 &= 0xBF;
@@ -26037,28 +26030,28 @@ void TransformArcherToMana_35940(type_entity_0x6E8E* a1x)//216940 //move mana sp
 				else if (!(a1x->struct_byte_0xc_12_15.byte[2] & 0x20))
 				{
 					//v3 = a1x->str_0x5E_94.word_0x68_104;
-					a1x->playerEntityIndex_0x94_148 = a1x->str_0x5E_94.word_0x68_104;
-					PrepareEventSound_6E450(a1x->str_0x5E_94.word_0x68_104, -1, 4);
+					a1x->playerEntityIndex_0x94_148 = a1x->str_0x5E_94.channel[1].source;
+					PrepareEventSound_6E450(a1x->str_0x5E_94.channel[1].source, -1, 4);
 					a1x->struct_byte_0xc_12_15.byte[0] &= 0xBFu;
 				}
 			}
-			a1x->str_0x5E_94.word_0x68_104 = 0;
-			a1x->str_0x5E_94.dword_0x64_100 = 0;
+			a1x->str_0x5E_94.channel[1].source = 0;
+			a1x->str_0x5E_94.channel[1].amount.dword = 0;
 		}
 		//v5 = a1x->str_0x5E_94.word_0x7A_122;
-		if (a1x->str_0x5E_94.word_0x7A_122)
+		if (a1x->str_0x5E_94.channel[4].source)
 		{
 			v35 = 1;
-			a1x->yaw_0x1C_28 = Maths::sub_581E0_maybe_tan2(&a1x->position_0x4C_76, &Entities_EA3E4[a1x->str_0x5E_94.word_0x7A_122]->position_0x4C_76);
+			a1x->yaw_0x1C_28 = Maths::sub_581E0_maybe_tan2(&a1x->position_0x4C_76, &Entities_EA3E4[a1x->str_0x5E_94.channel[4].source]->position_0x4C_76);
 			//v6 = a1x->str_0x5E_94.word_0x76_118;
 			//v7 = a1x->word_0x1C_28;
 			predictedAxis_EB398ar.x = 0;
 			predictedAxis_EB398ar.y = 0;
 			predictedAxis_EB398ar.z = 0;
-			MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, a1x->str_0x5E_94.word_0x76_118);
+			MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, a1x->str_0x5E_94.channel[4].amount.word[0]);
 			a1x->axis_0x9A_154x.x = predictedAxis_EB398ar.x;
 			a1x->axis_0x9A_154x.y = predictedAxis_EB398ar.y;
-			a1x->str_0x5E_94.word_0x7A_122 = 0;
+			a1x->str_0x5E_94.channel[4].source = 0;
 		}
 		if (a1x->struct_byte_0xc_12_15.byte[0] & 0x40)
 		{
@@ -26311,16 +26304,16 @@ void sub_35FB0(type_entity_0x6E8E* a1x)//216FB0
 	{
 		a1x->struct_byte_0xc_12_15.byte[1] = v1 & 0xF7;
 	}
-	else if (a1x->str_0x5E_94.word_0x68_104 && sub_36680(a1x))
+	else if (a1x->str_0x5E_94.channel[1].source && sub_36680(a1x))
 	{
 		IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 0);
 		DisableEntityDrawing04_57F10(a1x);
 	}
 	else
 	{
-		if (a1x->str_0x5E_94.word_0x7A_122)
+		if (a1x->str_0x5E_94.channel[4].source)
 		{
-			v2 = a1x->str_0x5E_94.word_0x7A_122;
+			v2 = a1x->str_0x5E_94.channel[4].source;
 			a1x->actSpeed_0x82_130 = 0;
 			v31 = 1;
 			a1x->yaw_0x1C_28 = Maths::sub_581E0_maybe_tan2(&a1x->position_0x4C_76, &Entities_EA3E4[v2]->position_0x4C_76);
@@ -26329,10 +26322,10 @@ void sub_35FB0(type_entity_0x6E8E* a1x)//216FB0
 			predictedAxis_EB398ar.x = 0;
 			predictedAxis_EB398ar.y = 0;
 			predictedAxis_EB398ar.z = 0;
-			MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, a1x->str_0x5E_94.word_0x76_118);
+			MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, a1x->str_0x5E_94.channel[4].amount.word[0]);
 			a1x->axis_0x9A_154x.x = predictedAxis_EB398ar.x;
 			a1x->axis_0x9A_154x.y = predictedAxis_EB398ar.y;
-			a1x->str_0x5E_94.word_0x7A_122 = 0;
+			a1x->str_0x5E_94.channel[4].source = 0;
 		}
 		if (a1x->struct_byte_0xc_12_15.byte[0] & 0x40)
 		{
@@ -26572,10 +26565,10 @@ char sub_36680(type_entity_0x6E8E* a1x)//217680
 	char v5; // [esp+0h] [ebp-4h]
 
 	v5 = 0;
-	if (a1x->parentId_0x28_40 == a1x->str_0x5E_94.word_0x68_104)
+	if (a1x->parentId_0x28_40 == a1x->str_0x5E_94.channel[1].source)
 	{
-		a1x->str_0x5E_94.word_0x68_104 = 0;
-		a1x->str_0x5E_94.dword_0x64_100 = 0;
+		a1x->str_0x5E_94.channel[1].source = 0;
+		a1x->str_0x5E_94.channel[1].amount.dword = 0;
 	}
 	else
 	{
@@ -26630,8 +26623,8 @@ void sub_36770(type_entity_0x6E8E* a1x)//217770
 	v1x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 9, 0);
 	if (v1x)
 	{
-		v2x = Entities_EA3E4[a1x->str_0x5E_94.word_0x68_104];
-		v1x->word_0x96_150 = a1x->str_0x5E_94.word_0x68_104;
+		v2x = Entities_EA3E4[a1x->str_0x5E_94.channel[1].source];
+		v1x->word_0x96_150 = a1x->str_0x5E_94.channel[1].source;
 		sub_655C0(v1x, v2x);
 		v1x->yaw_0x1C_28 = v1x->roll_0x20_32;
 		v1x->pitch_0x1E_30 = v1x->fov_0x22_34;
@@ -26661,11 +26654,11 @@ void sub_36850(type_entity_0x6E8E* a1x)//217850
 	v2x = v1x;
 	if (v1x)
 	{
-		v3x = Entities_EA3E4[a1x->str_0x5E_94.word_0x68_104];
+		v3x = Entities_EA3E4[a1x->str_0x5E_94.channel[1].source];
 		v1x->byte_0x43_67 = 10;
 		v1x->byte_0x44_68 = 23;
 		v1x->id_0x1A_26 = a1x->id_0x1A_26;
-		v1x->word_0x96_150 = a1x->str_0x5E_94.word_0x68_104;
+		v1x->word_0x96_150 = a1x->str_0x5E_94.channel[1].source;
 		sub_655C0(v1x, v3x);
 		//LOWORD(v1) = *(x_WORD *)(v2 + 32);
 		v2x->dword_0xA0_160x = &str_D7BD6[64]; //(type_str_160*)&unk_D7BD6[0x880];
@@ -26792,7 +26785,7 @@ void sub_36AE0(type_entity_0x6E8E* a1x)//217ae0
 	type_entity_0x6E8E* ix; // ecx
 
 	result = getTerrainAlt_10C40(&a1x->position_0x4C_76);
-	v2 = a1x->str_0x5E_94.word_0x68_104;
+	v2 = a1x->str_0x5E_94.channel[1].source;
 	a1x->position_0x4C_76.z = result;
 	if (v2)
 	{
@@ -26805,7 +26798,7 @@ void sub_36AE0(type_entity_0x6E8E* a1x)//217ae0
 					ix->playerEntityIndex_0x94_148 = v3x - D41A0_0.struct_0x6E8E;
 			}
 		}
-		a1x->str_0x5E_94.word_0x68_104 = 0;
+		a1x->str_0x5E_94.channel[1].source = 0;
 		DisableEntityDrawing04_57F10(a1x);
 	}
 	//return result;
@@ -27956,8 +27949,8 @@ int AddHouse0A_2D_38330(type_entity_0x6E8E* event)//219330
 				{
 					v4x->actionIndex_0x45_69 = 33;
 					v5 = event->word_0x26_38;
-					v4x->str_0x5E_94.dword_0x5E_94 = 1;
-					v4x->str_0x5E_94.word_0x62_98 = v5;
+					v4x->str_0x5E_94.channel[0].amount.dword = 1;
+					v4x->str_0x5E_94.channel[0].source = v5;
 				}
 			}
 			v6x = Entities_EA3E4[event->word_0x26_38];
@@ -27965,12 +27958,12 @@ int AddHouse0A_2D_38330(type_entity_0x6E8E* event)//219330
 				Entities_EA3E4[event->word_0x26_38]->dword_0xA4_164x->word_0x248_584 = 200;
 		}
 	}
-	v7 = event->str_0x5E_94.word_0x68_104;
+	v7 = event->str_0x5E_94.channel[1].source;
 	if (v7)
 	{
 		if (v7 != event->playerEntityIndex_0x94_148)
 		{
-			if (event->str_0x5E_94.dword_0x64_100)
+			if (event->str_0x5E_94.channel[1].amount.dword)
 			{
 				event->playerEntityIndex_0x94_148 = v7;
 				PrepareEventSound_6E450(v7, -1, 4);
@@ -27979,22 +27972,22 @@ int AddHouse0A_2D_38330(type_entity_0x6E8E* event)//219330
 				SetEntityIndexAndRot_49CD0(event, 177);
 				// this is fixed bug from original game!!!!!!
 				// claimed building used to fly wizard 0's white banner in multiplayer.
-				event->word_0x5A_90 += TransformPlayerColorIndex_616D0(Entities_EA3E4[event->str_0x5E_94.word_0x68_104]->dword_0xA4_164x->playerColorIndex_0x38_56);
+				event->word_0x5A_90 += TransformPlayerColorIndex_616D0(Entities_EA3E4[event->str_0x5E_94.channel[1].source]->dword_0xA4_164x->playerColorIndex_0x38_56);
 			}
 			else if (!(event->struct_byte_0xc_12_15.byte[2] & 0x20))
 			{
-				v8 = event->str_0x5E_94.word_0x68_104;
+				v8 = event->str_0x5E_94.channel[1].source;
 				event->playerEntityIndex_0x94_148 = v8;
 				PrepareEventSound_6E450(v8, -1, 4);
 				event->struct_byte_0xc_12_15.byte[0] &= 0xFEu;
 				SetEntityIndexAndRot_49CD0(event, 177);
 				// this is fixed bug from original game!!!!!!
 				// claimed building used to fly wizard 0's white banner in multiplayer.
-				event->word_0x5A_90 += TransformPlayerColorIndex_616D0(Entities_EA3E4[event->str_0x5E_94.word_0x68_104]->dword_0xA4_164x->playerColorIndex_0x38_56);
+				event->word_0x5A_90 += TransformPlayerColorIndex_616D0(Entities_EA3E4[event->str_0x5E_94.channel[1].source]->dword_0xA4_164x->playerColorIndex_0x38_56);
 			}
 		}
-		event->str_0x5E_94.word_0x68_104 = 0;
-		event->str_0x5E_94.dword_0x64_100 = 0;
+		event->str_0x5E_94.channel[1].source = 0;
+		event->str_0x5E_94.channel[1].amount.dword = 0;
 	}
 	if (!(event->byte_0x3E_62 & 0x1F))
 	{
@@ -28091,8 +28084,8 @@ void RemoveCastleStage_385C0(type_entity_0x6E8E* event)//2195c0 //remove castle 
 							}
 							if (tempEvent)
 							{
-								tempEvent->str_0x5E_94.dword_0x5E_94 = 1;
-								tempEvent->str_0x5E_94.word_0x62_98 = event->word_0x26_38;
+								tempEvent->str_0x5E_94.channel[0].amount.dword = 1;
+								tempEvent->str_0x5E_94.channel[0].source = event->word_0x26_38;
 							}
 						}
 					}
@@ -28193,8 +28186,8 @@ int sub_389F0(type_entity_0x6E8E* a1x)//2199f0
 				Entities_EA3E4[Entities_EA3E4[a1x->id_0x1A_26]->dword_0xA4_164x->CastleEntityIndex_0x3A_58]))
 			{
 				//v2 =a1x->word_0x1A_26;
-				Entities_EA3E4[Entities_EA3E4[a1x->id_0x1A_26]->dword_0xA4_164x->CastleEntityIndex_0x3A_58]->str_0x5E_94.word_0x80_128 = a1x->id_0x1A_26;
-				Entities_EA3E4[Entities_EA3E4[a1x->id_0x1A_26]->dword_0xA4_164x->CastleEntityIndex_0x3A_58]->str_0x5E_94.word_0x7C_124 = 10;
+				Entities_EA3E4[Entities_EA3E4[a1x->id_0x1A_26]->dword_0xA4_164x->CastleEntityIndex_0x3A_58]->str_0x5E_94.channel[5].source = a1x->id_0x1A_26;
+				Entities_EA3E4[Entities_EA3E4[a1x->id_0x1A_26]->dword_0xA4_164x->CastleEntityIndex_0x3A_58]->str_0x5E_94.channel[5].amount.word[0] = 10;
 			}
 			else
 			{
@@ -28213,18 +28206,18 @@ signed int CompareEvent08_38B00(type_entity_0x6E8E* event)//219b00
 	event->word_0x26_38 = 0;
 	if (event->life_0x8 < 0)
 		return 2;
-	if (event->str_0x5E_94.word_0x62_98)
+	if (event->str_0x5E_94.channel[0].source)
 	{
-		event->life_0x8 -= event->str_0x5E_94.dword_0x5E_94;
+		event->life_0x8 -= event->str_0x5E_94.channel[0].amount.dword;
 		if (event->life_0x8 < 0)
 		{
-			event->word_0x24_36 = event->str_0x5E_94.word_0x62_98;
-			event->word_0x26_38 = event->str_0x5E_94.word_0x62_98;
+			event->word_0x24_36 = event->str_0x5E_94.channel[0].source;
+			event->word_0x26_38 = event->str_0x5E_94.channel[0].source;
 			return 2;
 		}
-		event->word_0x26_38 = event->str_0x5E_94.word_0x62_98;
-		event->str_0x5E_94.dword_0x5E_94 = 0;
-		event->str_0x5E_94.word_0x62_98 = 0;
+		event->word_0x26_38 = event->str_0x5E_94.channel[0].source;
+		event->str_0x5E_94.channel[0].amount.dword = 0;
+		event->str_0x5E_94.channel[0].source = 0;
 		return 1;
 	}
 	return 0;
@@ -28317,7 +28310,7 @@ unsigned int sub_38D80(type_entity_0x6E8E* a1x)//219d80
 	}
 	for (ix = x_D41A0_BYTEARRAY_4_struct.dword_38523; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
-		if (!ix->str_0x5E_94.word_0x7A_122)
+		if (!ix->str_0x5E_94.channel[4].source)
 		{
 			result = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
 			if (result < a1x->dword_0x10_16)
@@ -28326,9 +28319,9 @@ unsigned int sub_38D80(type_entity_0x6E8E* a1x)//219d80
 				if (v3 > 0x2A)
 					v3 = 42;
 				result = a1x - D41A0_0.struct_0x6E8E;
-				ix->str_0x5E_94.word_0x76_118 = LOWORD(v3);
-				ix->str_0x5E_94.word_0x78_120 = HIWORD(v3);
-				ix->str_0x5E_94.word_0x7A_122 = result;
+				ix->str_0x5E_94.channel[4].amount.word[0] = LOWORD(v3);
+				ix->str_0x5E_94.channel[4].amount.word[1] = HIWORD(v3);
+				ix->str_0x5E_94.channel[4].source = result;
 			}
 		}
 	}
@@ -29301,9 +29294,9 @@ void sub_3A090(type_entity_0x6E8E* a1x)//21b909
 			x_DWORD_E9B90 = v3;
 			jx->word_0x30_48 = 30;
 			jx->word_0x26_38 = a1x - D41A0_0.struct_0x6E8E;
-			jx->str_0x5E_94.dword_0x5E_94 += a1x->subSpellIndex_0x2A_42;
+			jx->str_0x5E_94.channel[0].amount.dword += a1x->subSpellIndex_0x2A_42;
 			v8 += 2;
-			jx->str_0x5E_94.word_0x62_98 = a1x->id_0x1A_26;
+			jx->str_0x5E_94.channel[0].source = a1x->id_0x1A_26;
 		}
 	}
 	v11 = ((unsigned __int16)(a1x->position_0x4C_76.x + 128) >> 8) - 15;
@@ -29387,9 +29380,9 @@ LABEL_13:
 	{
 		if (a2x->byte_0x38_56 & 1)
 		{
-			a2x->str_0x5E_94.dword_0x5E_94 += a2x->life_0x8 + 1;
+			a2x->str_0x5E_94.channel[0].amount.dword += a2x->life_0x8 + 1;
 			v6 = a1x->id_0x1A_26;
-			a2x->str_0x5E_94.word_0x62_98 = v6;
+			a2x->str_0x5E_94.channel[0].source = v6;
 			sub_6D8B0(v6, 0x14u, 1);
 		}
 	}
@@ -60162,13 +60155,13 @@ void AddPlayer03_00_5E010(type_entity_0x6E8E* a1x)//23f010
 	sub_5F380(a1x);
 	if (!(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED) && locIsOk)
 	{
-		if (a1x->str_0x5E_94.word_0x62_98)
+		if (a1x->str_0x5E_94.channel[0].source)
 		{
-			if (Entities_EA3E4[a1x->dword_0xA4_164x->CastleEntityIndex_0x3A_58]->str_0x5E_94.word_0x62_98)
-				Entities_EA3E4[a1x->dword_0xA4_164x->CastleEntityIndex_0x3A_58]->str_0x5E_94.dword_0x5E_94 += a1x->str_0x5E_94.dword_0x5E_94;
+			if (Entities_EA3E4[a1x->dword_0xA4_164x->CastleEntityIndex_0x3A_58]->str_0x5E_94.channel[0].source)
+				Entities_EA3E4[a1x->dword_0xA4_164x->CastleEntityIndex_0x3A_58]->str_0x5E_94.channel[0].amount.dword += a1x->str_0x5E_94.channel[0].amount.dword;
 			else
-				Entities_EA3E4[a1x->dword_0xA4_164x->CastleEntityIndex_0x3A_58]->str_0x5E_94.dword_0x5E_94 = a1x->str_0x5E_94.dword_0x5E_94;
-			Entities_EA3E4[a1x->dword_0xA4_164x->CastleEntityIndex_0x3A_58]->str_0x5E_94.word_0x62_98 = a1x->str_0x5E_94.word_0x62_98;
+				Entities_EA3E4[a1x->dword_0xA4_164x->CastleEntityIndex_0x3A_58]->str_0x5E_94.channel[0].amount.dword = a1x->str_0x5E_94.channel[0].amount.dword;
+			Entities_EA3E4[a1x->dword_0xA4_164x->CastleEntityIndex_0x3A_58]->str_0x5E_94.channel[0].source = a1x->str_0x5E_94.channel[0].source;
 		}
 		a1x->dword_0xA4_164x->word_0x159_345 = 2;
 	}
@@ -60839,35 +60832,35 @@ signed int sub_5EFA0(type_entity_0x6E8E* a1x)//23ffa0
 	}
 	if (a1x->life_0x8 >= 0)
 	{
-		if (a1x->str_0x5E_94.word_0x7A_122)
+		if (a1x->str_0x5E_94.channel[4].source)
 		{
-			v3x = Entities_EA3E4[a1x->str_0x5E_94.word_0x7A_122];
+			v3x = Entities_EA3E4[a1x->str_0x5E_94.channel[4].source];
 			if (v3x)
 			{
 				v3x->dword_0xA4_164x->word_0x146_326 = a1x - D41A0_0.struct_0x6E8E;
 				v3x->dword_0xA4_164x->dword_0x142_322 = sub_583F0_distance_3d(&a1x->position_0x4C_76, &v3x->position_0x4C_76);
-				v3x->dword_0xA4_164x->word_0x14A_330 = a1x->str_0x5E_94.word_0x76_118;
+				v3x->dword_0xA4_164x->word_0x14A_330 = a1x->str_0x5E_94.channel[4].amount.word[0];
 				//v4 = v3x->dword_0xA4_164;
 				if (v3x->dword_0xA4_164x->dword_0x142_322 < 1024)
 					v3x->dword_0xA4_164x->dword_0x142_322 = 1024;
 				//v5 = v3x->dword_0xA4_164;
 				if (v3x->dword_0xA4_164x->dword_0x142_322 > 3072)
 					v3x->dword_0xA4_164x->dword_0x142_322 = 3072;
-				sub_6D8B0(a1x->str_0x5E_94.word_0x7A_122, 0xEu, 1);
+				sub_6D8B0(a1x->str_0x5E_94.channel[4].source, 0xEu, 1);
 			}
 			//v6 = a1x->dword_0xA4_164;
-			a1x->str_0x5E_94.word_0x7A_122 = 0;
+			a1x->str_0x5E_94.channel[4].source = 0;
 			a1x->dword_0xA4_164x->PlayerHitFrameTime_406 = 4;
 			a1x->dword_0xA4_164x->dword_0x18D_397 = 16;
 			a1x->dword_0xA4_164x->word_0x24C_588 = 64;
 			sub_5EF70(a1x);
 		}
-		if (a1x->str_0x5E_94.word_0x74_116)
+		if (a1x->str_0x5E_94.channel[3].source)
 			sub_61050(a1x);
 		//v7 = a1x->dword_0xA4_164;
 		if (a1x->dword_0xA4_164x->moveSpeed_0x14C_332 && x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181)
 			SetPaletteModification_5C830(a1x, 3, 171 * a1x->dword_0xA4_164x->moveSpeed_0x14C_332 / 3 + 85);
-		v8 = a1x->str_0x5E_94.word_0x62_98;
+		v8 = a1x->str_0x5E_94.channel[0].source;
 		if (v8)
 		{
 			v9 = a1x->struct_byte_0xc_12_15.byte[1];
@@ -60877,10 +60870,10 @@ signed int sub_5EFA0(type_entity_0x6E8E* a1x)//23ffa0
 				sub_6D8B0(a1x - D41A0_0.struct_0x6E8E, 6u, 1);
 				if (a1x->struct_byte_0xc_12_15.byte[1] & 0x40)
 				{
-					v10 = (a1x->str_0x5E_94.dword_0x5E_94 - (__CFSHL__(a1x->str_0x5E_94.dword_0x5E_94 >> 31, 2) + 4 * (a1x->str_0x5E_94.dword_0x5E_94 >> 31))) >> 2;
+					v10 = (a1x->str_0x5E_94.channel[0].amount.dword - (__CFSHL__(a1x->str_0x5E_94.channel[0].amount.dword >> 31, 2) + 4 * (a1x->str_0x5E_94.channel[0].amount.dword >> 31))) >> 2;
 					v11 = a1x->struct_byte_0xc_12_15.byte[1];
 					v12 = a1x->mana_0x90_144 - v10;
-					a1x->str_0x5E_94.dword_0x5E_94 = v10;
+					a1x->str_0x5E_94.channel[0].amount.dword = v10;
 					a1x->mana_0x90_144 = v12;
 					a1x->struct_byte_0xc_12_15.byte[1] = v11 & 0xBF;
 				}
@@ -60888,16 +60881,16 @@ signed int sub_5EFA0(type_entity_0x6E8E* a1x)//23ffa0
 				{
 					a1x->struct_byte_0xc_12_15.dword &= 0xFFBFBFFF;
 					v13 = a1x->struct_byte_0xc_12_15.byte[1];
-					a1x->str_0x5E_94.dword_0x5E_94 = 0;
+					a1x->str_0x5E_94.channel[0].amount.dword = 0;
 					a1x->struct_byte_0xc_12_15.byte[1] = v13 | 0x40;
 				}
 			}
-			v14 = a1x->str_0x5E_94.word_0x62_98;
-			a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
+			v14 = a1x->str_0x5E_94.channel[0].source;
+			a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
 			v15x = Entities_EA3E4[v14];
 			a1x->dword_0xA4_164x->yaw_0x1E_30 = Maths::sub_581E0_maybe_tan2(&v15x->position_0x4C_76, &a1x->position_0x4C_76);
 			a1x->dword_0xA4_164x->fov_0x22_34 = Maths::sub_58210_radix_tan(&v15x->position_0x4C_76, &a1x->position_0x4C_76);
-			a1x->dword_0xA4_164x->moveBoost_0x1E_30 = a1x->str_0x5E_94.dword_0x5E_94 / 10;
+			a1x->dword_0xA4_164x->moveBoost_0x1E_30 = a1x->str_0x5E_94.channel[0].amount.dword / 10;
 			//v16 = a1x->dword_0xA4_164;
 			if (a1x->dword_0xA4_164x->moveBoost_0x1E_30 < 0)
 				a1x->dword_0xA4_164x->moveBoost_0x1E_30 = 0;
@@ -60912,7 +60905,7 @@ signed int sub_5EFA0(type_entity_0x6E8E* a1x)//23ffa0
 			PrepareEventSound_6E450(a1x - D41A0_0.struct_0x6E8E, -1, (a1x->rand_0x14_20 & 3) + 54);
 			if (a1x->life_0x8 < 0)
 			{
-				a1x->word_0x24_36 = a1x->str_0x5E_94.word_0x62_98;
+				a1x->word_0x24_36 = a1x->str_0x5E_94.channel[0].source;
 				if (v15x->class_0x3F_63 == 10 && v15x->model_0x40_64 == 67)
 					a1x->word_0x24_36 = 0;
 				v1 = 2;
@@ -60921,7 +60914,7 @@ signed int sub_5EFA0(type_entity_0x6E8E* a1x)//23ffa0
 			{
 				v1 = 1;
 				sub_5EF70(a1x);
-				a1x->str_0x5E_94.word_0x62_98 = 0;
+				a1x->str_0x5E_94.channel[0].source = 0;
 			}
 		}
 	}
@@ -60933,7 +60926,7 @@ signed int sub_5EFA0(type_entity_0x6E8E* a1x)//23ffa0
 	{
 		a1x->word_0x26_38 = 0;
 		a1x->word_0x24_36 = 0;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->str_0x5E_94.channel[0].source = 0;
 		a1x->life_0x8 = 10000;
 		v1 = 0;
 	}
@@ -61935,25 +61928,25 @@ int sub_609E0(type_entity_0x6E8E* locEvent)//2419e0
 	int result = 0;
 	if (locEvent->life_0x8 < 0)
 		return 2;
-	if (locEvent->str_0x5E_94.word_0x62_98)
+	if (locEvent->str_0x5E_94.channel[0].source)
 	{
-		locEvent->life_0x8 -= locEvent->str_0x5E_94.dword_0x5E_94;
+		locEvent->life_0x8 -= locEvent->str_0x5E_94.channel[0].amount.dword;
 		if (locEvent->life_0x8 < 0)
 		{
-			locEvent->word_0x24_36 = locEvent->str_0x5E_94.word_0x62_98;
-			locEvent->str_0x5E_94.word_0x62_98 = 0;
+			locEvent->word_0x24_36 = locEvent->str_0x5E_94.channel[0].source;
+			locEvent->str_0x5E_94.channel[0].source = 0;
 			return 2;
 		}
-		locEvent->str_0x5E_94.word_0x62_98 = 0;
-		locEvent->str_0x5E_94.dword_0x5E_94 = 0;
+		locEvent->str_0x5E_94.channel[0].source = 0;
+		locEvent->str_0x5E_94.channel[0].amount.dword = 0;
 		result = 1;
 		Entities_EA3E4[locEvent->id_0x1A_26]->dword_0xA4_164x->byte_0x195_405 = 4;
 	}
-	if (locEvent->str_0x5E_94.word_0x80_128 == locEvent->id_0x1A_26)
+	if (locEvent->str_0x5E_94.channel[5].source == locEvent->id_0x1A_26)
 	{
 		if (locEvent->dword_0x10_16 < 7)
 			locEvent->struct_byte_0xc_12_15.byte[0] |= 0x40u;
-		locEvent->str_0x5E_94.word_0x80_128 = 0;
+		locEvent->str_0x5E_94.channel[5].source = 0;
 	}
 	return result;
 }
@@ -62137,18 +62130,18 @@ void sub_60EA0(type_entity_0x6E8E* a1x)//241ea0
 	//v1 = 0;
 	if (a1x->life_0x8 < 0)
 		return/* 2*/;
-	if (a1x->str_0x5E_94.word_0x62_98)
+	if (a1x->str_0x5E_94.channel[0].source)
 	{
 		//v3 = a1x->dword_0xA4_164;
-		a1x->life_0x8 -= a1x->str_0x5E_94.dword_0x5E_94;
+		a1x->life_0x8 -= a1x->str_0x5E_94.channel[0].amount.dword;
 		a1x->dword_0xA4_164x->byte_0x197_407 = 4;
 		if (a1x->life_0x8 < 0)
 		{
-			a1x->word_0x24_36 = a1x->str_0x5E_94.word_0x62_98;
+			a1x->word_0x24_36 = a1x->str_0x5E_94.channel[0].source;
 			return/* 2*/;
 		}
 		//v1 = 1;
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->str_0x5E_94.channel[0].source = 0;
 	}
 	return/* v1*/;
 }
@@ -62312,7 +62305,7 @@ type_entity_0x6E8E* sub_61050(type_entity_0x6E8E* a1x)//242050
 
 	v33 = 0;
 	v35 = 0;
-	v1 = a1x->str_0x5E_94.word_0x74_116;
+	v1 = a1x->str_0x5E_94.channel[3].source;
 	v2x = Entities_EA3E4[v1];
 	v34x = v2x;
 	if (v2x < Entities_EA3E4[0])
@@ -62326,7 +62319,7 @@ type_entity_0x6E8E* sub_61050(type_entity_0x6E8E* a1x)//242050
 		//v32 = (uint8_t*)& SPELLS_BEGIN_BUFFER_DA818[0x15a +0x2b8+v3];
 		//SPELLS_BEGIN_BUFFER_str[13].subspell[a1x->str_0x5E_94.dword_0x70_112].dword_2
 		//v4 = SPELLS_BEGIN_BUFFER_DA818[0x15a +0x2b8+v3 + 24];
-		v4 = SPELLS_BEGIN_BUFFER_str[13].subspell[a1x->str_0x5E_94.dword_0x70_112].life_0x1A;
+		v4 = SPELLS_BEGIN_BUFFER_str[13].subspell[a1x->str_0x5E_94.channel[3].amount.dword].life_0x1A;
 		if (v4)
 		{
 			if (v4 > 2u)
@@ -62340,9 +62333,9 @@ type_entity_0x6E8E* sub_61050(type_entity_0x6E8E* a1x)//242050
 			}
 			else
 			{
-				v9 = v8 * SPELLS_BEGIN_BUFFER_str[13].subspell[a1x->str_0x5E_94.dword_0x70_112].subSpellIndex_2;
+				v9 = v8 * SPELLS_BEGIN_BUFFER_str[13].subspell[a1x->str_0x5E_94.channel[3].amount.dword].subSpellIndex_2;
 				v10x = v31x;
-				v6x->mana_0x90_144 = v8 - v8 * SPELLS_BEGIN_BUFFER_str[13].subspell[a1x->str_0x5E_94.dword_0x70_112].subSpellIndex_2 / 100;
+				v6x->mana_0x90_144 = v8 - v8 * SPELLS_BEGIN_BUFFER_str[13].subspell[a1x->str_0x5E_94.channel[3].amount.dword].subSpellIndex_2 / 100;
 				v11 = v10x->array_0x52_82.pitch * v10x->array_0x52_82.pitch;
 				v33 = v9 / 100;
 				v29 = Maths::sub_7277A_radix_3d(v11 + v31x->array_0x52_82.roll * v31x->array_0x52_82.roll);
@@ -62379,7 +62372,7 @@ type_entity_0x6E8E* sub_61050(type_entity_0x6E8E* a1x)//242050
 						v17x->word_0x2C_44 = 128;
 						MoveEntity_57FA0(&v17x->axis_0x9A_154x, v21, 0, v20);
 						v17x->mana_0x90_144 = v30;
-						if (SPELLS_BEGIN_BUFFER_str[13].subspell[a1x->str_0x5E_94.dword_0x70_112].life_0x1A == 2)
+						if (SPELLS_BEGIN_BUFFER_str[13].subspell[a1x->str_0x5E_94.channel[3].amount.dword].life_0x1A == 2)
 							v17x->playerEntityIndex_0x94_148 = v34x - D41A0_0.struct_0x6E8E;
 						else
 							v17x->playerEntityIndex_0x94_148 = 0;
@@ -62388,11 +62381,11 @@ type_entity_0x6E8E* sub_61050(type_entity_0x6E8E* a1x)//242050
 			}
 			if (!v35)
 				goto LABEL_23;
-			v5 = SPELLS_BEGIN_BUFFER_str[13].subspell[a1x->str_0x5E_94.dword_0x70_112].subSpellIndex_2;
+			v5 = SPELLS_BEGIN_BUFFER_str[13].subspell[a1x->str_0x5E_94.channel[3].amount.dword].subSpellIndex_2;
 		}
 		else
 		{
-			v5 = SPELLS_BEGIN_BUFFER_str[13].subspell[a1x->str_0x5E_94.dword_0x70_112].subSpellIndex_2;
+			v5 = SPELLS_BEGIN_BUFFER_str[13].subspell[a1x->str_0x5E_94.channel[3].amount.dword].subSpellIndex_2;
 			v35 = 1;
 		}
 		v33 = v5;
@@ -62423,7 +62416,7 @@ LABEL_23:
 LABEL_35:
 	sub_5EF70(a1x);
 	resultx = a1x;
-	a1x->str_0x5E_94.word_0x74_116 = 0;
+	a1x->str_0x5E_94.channel[3].source = 0;
 	return resultx;
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -62609,11 +62602,11 @@ uint32_t AddTree02_00_64E20(type_entity_0x6E8E* a1x)//245e20
 	uint32_t result; // eax
 	type_entity_0x6E8E* v11x; // eax
 
-	v1 = a1x->str_0x5E_94.word_0x62_98;
+	v1 = a1x->str_0x5E_94.channel[0].source;
 	a1x->struct_byte_0xc_12_15.byte[2] |= 2u;
 	if (v1)
 	{
-		v2 = a1x->life_0x8 - a1x->str_0x5E_94.dword_0x5E_94;
+		v2 = a1x->life_0x8 - a1x->str_0x5E_94.channel[0].amount.dword;
 		a1x->life_0x8 = v2;
 		if (v2 < 0)
 		{
@@ -62622,7 +62615,7 @@ uint32_t AddTree02_00_64E20(type_entity_0x6E8E* a1x)//245e20
 			v5x = v3x;
 			if (v3x)
 			{
-				v3x->id_0x1A_26 = Entities_EA3E4[a1x->str_0x5E_94.word_0x62_98]->id_0x1A_26;
+				v3x->id_0x1A_26 = Entities_EA3E4[a1x->str_0x5E_94.channel[0].source]->id_0x1A_26;
 				v6 = 3 * a1x->array_0x52_82.fov;
 				v7 = v4x->position_0x4C_76.z;
 				v4x->word_0x2C_44 = (signed int)(v6 - (__CFSHL__(HIDWORD(v6), 2) + 4 * HIDWORD(v6))) >> 2;
@@ -62642,7 +62635,7 @@ uint32_t AddTree02_00_64E20(type_entity_0x6E8E* a1x)//245e20
 				sub_57D40(a1x, &a1x->position_0x4C_76);
 			}
 		}
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->str_0x5E_94.channel[0].source = 0;
 	}
 	a1x->position_0x4C_76.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
 	result = sub_104D0_terrain_tile_is_water(&a1x->position_0x4C_76);
@@ -62752,23 +62745,23 @@ uint32_t sub_651B0(type_entity_0x6E8E* a1x)//2461b0
 	char v4; // dl
 	uint32_t result; // eax
 
-	v1 = a1x->str_0x5E_94.word_0x62_98;
+	v1 = a1x->str_0x5E_94.channel[0].source;
 	a1x->struct_byte_0xc_12_15.byte[2] |= 2u;
 	if (v1)
 	{
-		v2 = a1x->life_0x8 - a1x->str_0x5E_94.dword_0x5E_94;
+		v2 = a1x->life_0x8 - a1x->str_0x5E_94.channel[0].amount.dword;
 		a1x->life_0x8 = v2;
 		if (v2 < 0)
 		{
 			v3 = a1x->word_0x5A_90;
-			a1x->str_0x5E_94.word_0x62_98 = 0;
+			a1x->str_0x5E_94.channel[0].source = 0;
 			v4 = a1x->struct_byte_0xc_12_15.byte[0];
 			a1x->actionIndex_0x45_69 = 19;
 			a1x->struct_byte_0xc_12_15.byte[0] = v4 & 0xF7;
 			SetHalfSpeedEntity_49DA0(a1x, v3 + 4);
 			IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 13);
 		}
-		a1x->str_0x5E_94.word_0x62_98 = 0;
+		a1x->str_0x5E_94.channel[0].source = 0;
 	}
 	a1x->position_0x4C_76.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
 	result = sub_104D0_terrain_tile_is_water(&a1x->position_0x4C_76);
@@ -62857,11 +62850,11 @@ void sub_652C0(type_entity_0x6E8E* a1x)//2462c0
 		v6 = (signed __int16)getTerrainAlt_10C40(&a1x->position_0x4C_76);
 		if ((int16_t)a1x->position_0x4C_76.z <= v6)
 			a1x->position_0x4C_76.z = v6;
-		if (a1x->str_0x5E_94.word_0x62_98)
+		if (a1x->str_0x5E_94.channel[0].source)
 		{
 			if ((int16_t)a1x->position_0x4C_76.z <= v6)
 			{
-				v7 = a1x->str_0x5E_94.dword_0x5E_94 >> 2;
+				v7 = a1x->str_0x5E_94.channel[0].amount.dword >> 2;
 				if (v7 < 2)
 					v7 = 2;
 				if (v7 > 192)
@@ -62879,9 +62872,9 @@ void sub_652C0(type_entity_0x6E8E* a1x)//2462c0
 				a1x->actSpeed_0x82_130 = v10 + 1;
 				a1x->position_0x4C_76.z = v12 + v11;
 			}
-			v13 = a1x->str_0x5E_94.dword_0x5E_94;
+			v13 = a1x->str_0x5E_94.channel[0].amount.dword;
 			v14 = a1x->life_0x8;
-			a1x->str_0x5E_94.word_0x62_98 = 0;
+			a1x->str_0x5E_94.channel[0].source = 0;
 			a1x->life_0x8 = v14 - v13;
 		}
 		if (a1x->life_0x8 < 0)
