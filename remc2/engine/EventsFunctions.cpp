@@ -702,7 +702,7 @@ type_entity_0x6E8E* sub_10780(type_entity_0x6E8E* a1);
 type_entity_0x6E8E* sub_108B0(type_entity_0x6E8E* a1);
 type_entity_0x6E8E* sub_10A50(type_entity_0x6E8E* a1);
 signed int sub_10B70(axis_3d* a1, char a2, char a3);
-int sub_10C80(type_entity_0x6E8E* a1, unsigned __int8 a2, unsigned __int16 a3);
+int sub_10C80(type_entity_0x6E8E* entity, unsigned __int8 channel, unsigned __int16 amount);
 void sub_112D0(type_entity_0x6E8E* a1, unsigned __int16 a2);
 void sub_11400(type_entity_0x6E8E* a1, char a2, unsigned __int16 a3);
 int sub_116A0(type_entity_0x6E8E* a1, char a2, unsigned __int16 a3);
@@ -3950,217 +3950,165 @@ signed int sub_10B70(axis_3d* a1x, char a2, char a3)//1f1b70
 int debugcounter_10c80 = 0;
 int debugcounter_10c80_2 = 0;
 //----- (00010C80) --------------------------------------------------------
-//1f1cf0: lea eax,[edx*4] / sub eax,edx / add eax,eax / add eax,esi -> entity + 6*a2;
-//the mailbox at +0x5E is a row of six 6-byte channels { int32 amount; int16 source }
-static inline type_str_0x5E_94* mailChannel_10C80(type_entity_0x6E8E* entity, unsigned __int8 a2)
+//the mailbox at +0x5E is a row of six 6-byte channels { int32 amount; int16 source };
+//1f1cf0: lea eax,[edx*4] / sub eax,edx / add eax,eax / add eax,esi -> entity + 6*channel
+static inline type_str_0x5E_94* mailChannel(type_entity_0x6E8E* entity, unsigned __int8 channel)
 {
-	return (type_str_0x5E_94*)((uint8_t*)&entity->str_0x5E_94 + 6 * a2);
+	return (type_str_0x5E_94*)((uint8_t*)&entity->str_0x5E_94 + 6 * channel);
 }
 
-int sub_10C80(type_entity_0x6E8E* a1x, unsigned __int8 a2, unsigned __int16 a3)//1f1c80
+int sub_10C80(type_entity_0x6E8E* entity, unsigned __int8 channel, unsigned __int16 amount)//1f1c80
 {
-	int v3; // edi
-	type_entity_0x6E8E* iix; // esi
-	type_entity_0x6E8E* jjx; // esi
-	int v6; // ecx
-	int ll; // eax
-	type_entity_0x6E8E* v8x; // esi
-	int result; // eax
-	type_entity_0x6E8E* nx; // esi
-	type_str_0x5E_94* v11x; // eax
-	type_entity_0x6E8E* kx; // esi
-	type_str_0x5E_94* v13x; // eax
-	int v14; // [esp+0h] [ebp-5Ch]
-	int v15; // [esp+4h] [ebp-58h]
-	int v16; // [esp+8h] [ebp-54h]
-	int v17; // [esp+Ch] [ebp-50h]
-	int v18; // [esp+10h] [ebp-4Ch]
-	int v19; // [esp+1Ch] [ebp-40h]
-	int v20; // [esp+20h] [ebp-3Ch]
-	int v21; // [esp+24h] [ebp-38h]
-	int v22; // [esp+28h] [ebp-34h]
-	int m; // [esp+2Ch] [ebp-30h]
-	int v24; // [esp+30h] [ebp-2Ch]
-	int j; // [esp+34h] [ebp-28h]
-	int l; // [esp+38h] [ebp-24h]
-	int v27; // [esp+3Ch] [ebp-20h]
-	int v28; // [esp+40h] [ebp-1Ch]
-	int i; // [esp+44h] [ebp-18h]
-	int kk; // [esp+48h] [ebp-14h]
-	int v31; // [esp+4Ch] [ebp-10h]
-	signed int v32; // [esp+54h] [ebp-8h]
-
 	if (CommandLineParams.DoDebugSequences()) {
 		//add_compare(0x1F1C80, CommandLineParams.DoDebugafterload());
 	}
 
 	//adress 1f1c84
 
-	v3 = 0;
-	v32 = 1 << a2;
-	if (a2)
+	int hitCount = 0;
+	int channelMask = 1 << channel;
+	if (!channel)
 	{
-		if (a2 < 3u || a2 > 4u)
+		for (type_entity_0x6E8E* target = x_D41A0_BYTEARRAY_4_struct.dword_38519; target > Entities_EA3E4[0]; target = target->next_0)
 		{
-			v17 = (a1x->position_0x4C_76.x + 128) >> 8;
-			v14 = (a1x->position_0x4C_76.y + 128) >> 8;
-			//v27 = (a1x->array_0x52_82.pitch + 255 - (__CFSHL__((a1x->array_0x52_82.pitch + 255) >> 31, 8) + ((a1x->array_0x52_82.pitch + 255) >> 31 << 8))) >> 8;
-			v27 = (a1x->array_0x52_82.pitch + 255 - (my_sign32(a1x->array_0x52_82.pitch + 255) * 255)) >> 8;
-			for (i = -v27; i <= v27; i++)
+			if (target->model_0x40_64 == 2 && target->id_0x1A_26 != entity->id_0x1A_26 && sub_106C0(entity, target))
 			{
-				for (j = -v27; j <= v27; j++)
-				{
-					for (kx = Entities_EA3E4[mapEntityIndex_15B4E0[(unsigned __int8)(j + v17) + ((unsigned __int8)(i + v14) << 8)]];
-						kx != Entities_EA3E4[0];
-						kx = Entities_EA3E4[kx->oldMapEntity_0x16_22])
-					{
-						if (a1x->id_0x1A_26 != kx->id_0x1A_26
-							&& kx->class_0x3F_63
-							&& kx->struct_byte_0xc_12_15.byte[0] & 8
-							&& (unsigned __int8)v32 & kx->byte_0x38_56
-							&& (a1x->xtype_0x41_65 == -1
-								|| a1x->xtype_0x41_65 == kx->class_0x3F_63 && a1x->xsubtype_0x42_66 == -1
-								|| a1x->xtype_0x41_65 == kx->class_0x3F_63 && a1x->xsubtype_0x42_66 == kx->model_0x40_64)
-							&& sub_106C0(a1x, kx))
-						{
-							v13x = mailChannel_10C80(kx, a2);
-							if (v13x->word_0x62_98)
-								v13x->dword_0x5E_94 += a3;
-							else
-								v13x->dword_0x5E_94 = a3;
-							v3++;
-							v13x->word_0x62_98 = a1x->id_0x1A_26;
-						}
-					}
-				}
-			}
-			return v3;
-		}
-		v18 = (a1x->position_0x4C_76.x + 128) >> 8;
-		v15 = (a1x->position_0x4C_76.y + 128) >> 8;
-		//v28 = (a1x->array_0x52_82.pitch+ 255- (__CFSHL__((a1x->array_0x52_82.pitch + 255) >> 31, 8)+ ((a1x->array_0x52_82.pitch + 255) >> 31 << 8))) >> 8;
-		v28 = (a1x->array_0x52_82.pitch + 255 - (my_sign32(a1x->array_0x52_82.pitch + 255) * 255)) >> 8;
-		for (l = -v28; l <= v28; l++)
-		{
-			for (m = -v28; m <= v28; m++)
-			{
-				for (nx = Entities_EA3E4[mapEntityIndex_15B4E0[((unsigned __int8)(l + v15) << 8) + (unsigned __int8)(m + v18)]];
-					nx != Entities_EA3E4[0];
-					nx = Entities_EA3E4[nx->oldMapEntity_0x16_22])
-				{
-					if (a1x->id_0x1A_26 != nx->id_0x1A_26 && nx->class_0x3F_63 == 3 && sub_106C0(a1x, nx))
-					{
-						v11x = mailChannel_10C80(nx, a2);
-						if (!v11x->word_0x62_98)
-						{
-							v11x->dword_0x5E_94 = a3;
-							v3++;
-							v11x->word_0x62_98 = a1x->id_0x1A_26;
-						}
-					}
-				}
-			}
-		}
-		result = v3;
-	}
-	else
-	{
-		for (iix = x_D41A0_BYTEARRAY_4_struct.dword_38519; iix > Entities_EA3E4[0]; iix = iix->next_0)
-		{
-			if (iix->model_0x40_64 == 2 && iix->id_0x1A_26 != a1x->id_0x1A_26 && sub_106C0(a1x, iix))
-			{
-				if (iix->str_0x5E_94.word_0x62_98)
-					iix->str_0x5E_94.dword_0x5E_94 += a3;
+				type_str_0x5E_94* mail = mailChannel(target, channel);
+				if (mail->word_0x62_98)
+					mail->dword_0x5E_94 += amount;
 				else
-					iix->str_0x5E_94.dword_0x5E_94 = a3;
-				v3++;
-				iix->str_0x5E_94.word_0x62_98 = a1x->id_0x1A_26;
+					mail->dword_0x5E_94 = amount;
+				hitCount++;
+				mail->word_0x62_98 = entity->id_0x1A_26;
 			}
 		}
-		for (jjx = x_D41A0_BYTEARRAY_4_struct.dword_38527; jjx > Entities_EA3E4[0]; jjx = jjx->next_0)
+		for (type_entity_0x6E8E* target = x_D41A0_BYTEARRAY_4_struct.dword_38527; target > Entities_EA3E4[0]; target = target->next_0)
 		{
 			/*if (debugcounter_10c80_2 >= 0x144a)
 				comp20 = compare_with_sequence_D41A0((char*)"001F1D54-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_10c80_2, 224790, &origbyte20, &remakebyte20);
 			debugcounter_10c80_2++;*/
 
-			if (CompareAxisWithShift_10750(a1x, jjx))
+			if (CompareAxisWithShift_10750(entity, target))
 			{
-				//v6 = 0;v21 = 0; //fix it
-			  //v6 = *(unsigned __int8 *)(**filearray_2aa18c[24] + 6 * *(char *)(jj + 70) + 4);
-				v6 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[jjx->byte_0x46_70].width_4;//fix it;
-				//v21 = *(unsigned __int8 *)(**filearray_2aa18c[24] + 6 * *(char *)(jj + 70) + 5);
-				v21 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[jjx->byte_0x46_70].height_5;//fix it;
+				int spriteWidth = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[target->byte_0x46_70].width_4;//fix it;
+				int spriteHeight = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[target->byte_0x46_70].height_5;//fix it;
 				if (x_WORD_180660_VGA_type_resolution == 1)
 				{
-					v6 >>= 1;
-					v21 >>= 1;
+					spriteWidth >>= 1;
+					spriteHeight >>= 1;
 				}
-				v22 = (a1x->position_0x4C_76.x >> 8) - (v6 >> 1);
-				v20 = (a1x->position_0x4C_76.y >> 8) - (v21 >> 1);
-				if ((v20 + v22) % 2)
-					v22++;
-				if (*((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[jjx->byte_0x46_70].data
+				int spriteLeft = (entity->position_0x4C_76.x >> 8) - (spriteWidth >> 1);
+				int spriteTop = (entity->position_0x4C_76.y >> 8) - (spriteHeight >> 1);
+				if ((spriteTop + spriteLeft) % 2)
+					spriteLeft++;
+				if (*((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[target->byte_0x46_70].data
 					+ 2
-					* ((a1x->position_0x4C_76.x >> 8) - v22 + ((a1x->position_0x4C_76.y >> 8) - v20) * v6)) != -1)
+					* ((entity->position_0x4C_76.x >> 8) - spriteLeft + ((entity->position_0x4C_76.y >> 8) - spriteTop) * spriteWidth)) != -1)
 				{
-					if (jjx->str_0x5E_94.word_0x62_98)
-						jjx->str_0x5E_94.dword_0x5E_94 += a3;
+					type_str_0x5E_94* mail = mailChannel(target, channel);
+					if (mail->word_0x62_98)
+						mail->dword_0x5E_94 += amount;
 					else
-						jjx->str_0x5E_94.dword_0x5E_94 = a3;
-					v3++;
-					jjx->str_0x5E_94.word_0x62_98 = a1x->id_0x1A_26;
+						mail->dword_0x5E_94 = amount;
+					hitCount++;
+					mail->word_0x62_98 = entity->id_0x1A_26;
 				}
 			}
 		}
-		//v19 = (a1x->array_0x4C_76.x+ 128- (__CFSHL__((a1x->array_0x4C_76.x + 128) >> 31, 8)+ ((a1x->array_0x4C_76.x + 128) >> 31 << 8))) >> 8;
-		v19 = (a1x->position_0x4C_76.x + 128 - (my_sign32(a1x->position_0x4C_76.x + 128) * 255)) >> 8;//yes it is 32
-		//v16 = (a1x->array_0x4C_76.y+ 128- (__CFSHL__((a1x->array_0x4C_76.y + 128) >> 31, 8)+ ((a1x->array_0x4C_76.y + 128) >> 31 << 8))) >> 8;
-		v16 = (a1x->position_0x4C_76.y + 128 - (my_sign32(a1x->position_0x4C_76.y + 128) * 255)) >> 8;
-		//v24 = (a1x->array_0x52_82.pitch+ 255- (__CFSHL__((a1x->array_0x52_82.pitch + 255) >> 31, 8)+ ((a1x->array_0x52_82.pitch + 255) >> 31 << 8))) >> 8;
-		v24 = (a1x->array_0x52_82.pitch + 255 - (my_sign32(a1x->array_0x52_82.pitch + 255) * 255)) >> 8;
-		v31 = -v24;
-		if (-v24 > v24)
-			return v3;
-		do
+		int tileX = (entity->position_0x4C_76.x + 128 - (my_sign32(entity->position_0x4C_76.x + 128) * 255)) >> 8;//yes it is 32
+		int tileY = (entity->position_0x4C_76.y + 128 - (my_sign32(entity->position_0x4C_76.y + 128) * 255)) >> 8;
+		int radius = (entity->array_0x52_82.pitch + 255 - (my_sign32(entity->array_0x52_82.pitch + 255) * 255)) >> 8;
+		for (int dy = -radius; dy <= radius; dy++)
 		{
-			for (kk = -v24; kk <= v24; kk++)
+			for (int dx = -radius; dx <= radius; dx++)
 			{
-				for (ll = mapEntityIndex_15B4E0[((unsigned __int8)(v16 + v31) << 8) + (unsigned __int8)(kk + v19)];
-					;
-					ll = v8x->oldMapEntity_0x16_22)
+				for (type_entity_0x6E8E* target = Entities_EA3E4[mapEntityIndex_15B4E0[((unsigned __int8)(tileY + dy) << 8) + (unsigned __int8)(dx + tileX)]];
+					target != Entities_EA3E4[0];
+					target = Entities_EA3E4[target->oldMapEntity_0x16_22])
 				{
-					v8x = Entities_EA3E4[ll];
-					if (v8x == Entities_EA3E4[0])
-						break;
-					if (a1x->id_0x1A_26 != v8x->id_0x1A_26
-						&& (v8x->class_0x3F_63 != 3 || v8x->model_0x40_64 != 2)
-						&& (unsigned __int8)v32 & v8x->byte_0x38_56
-						&& v8x->struct_byte_0xc_12_15.byte[0] & 8
-						&& (v8x->class_0x3F_63 != 10 || v8x->model_0x40_64 != 45)
-						&& sub_106C0(a1x, v8x)
-						&& ((uint8_t)a1x->xtype_0x41_65 == 0xffu
-							|| a1x->xtype_0x41_65 == v8x->class_0x3F_63 && (uint8_t)a1x->xsubtype_0x42_66 == 0xffu
-							|| a1x->xtype_0x41_65 == v8x->class_0x3F_63 && a1x->xsubtype_0x42_66 == v8x->model_0x40_64))
+					if (entity->id_0x1A_26 != target->id_0x1A_26
+						&& (target->class_0x3F_63 != 3 || target->model_0x40_64 != 2)
+						&& (unsigned __int8)channelMask & target->byte_0x38_56
+						&& target->struct_byte_0xc_12_15.byte[0] & 8
+						&& (target->class_0x3F_63 != 10 || target->model_0x40_64 != 45)
+						&& sub_106C0(entity, target)
+						&& ((uint8_t)entity->xtype_0x41_65 == 0xffu
+							|| entity->xtype_0x41_65 == target->class_0x3F_63 && (uint8_t)entity->xsubtype_0x42_66 == 0xffu
+							|| entity->xtype_0x41_65 == target->class_0x3F_63 && entity->xsubtype_0x42_66 == target->model_0x40_64))
 					{
-						if (v8x->str_0x5E_94.word_0x62_98)
-							v8x->str_0x5E_94.dword_0x5E_94 += a3;
+						type_str_0x5E_94* mail = mailChannel(target, channel);
+						if (mail->word_0x62_98)
+							mail->dword_0x5E_94 += amount;
 						else
-							v8x->str_0x5E_94.dword_0x5E_94 = a3;
-						v3++;
-						v8x->str_0x5E_94.word_0x62_98 = a1x->id_0x1A_26;
+							mail->dword_0x5E_94 = amount;
+						hitCount++;
+						mail->word_0x62_98 = entity->id_0x1A_26;
 					}
 				}
 			}
-			v31++;
-		} while (v31 <= v24);
-		result = v3;
+		}
+		return hitCount;
 	}
-	return result;
+
+	int tileX = (entity->position_0x4C_76.x + 128) >> 8;
+	int tileY = (entity->position_0x4C_76.y + 128) >> 8;
+	int radius = (entity->array_0x52_82.pitch + 255 - (my_sign32(entity->array_0x52_82.pitch + 255) * 255)) >> 8;
+	if (channel < 3u || channel > 4u)
+	{
+		for (int dy = -radius; dy <= radius; dy++)
+		{
+			for (int dx = -radius; dx <= radius; dx++)
+			{
+				for (type_entity_0x6E8E* target = Entities_EA3E4[mapEntityIndex_15B4E0[(unsigned __int8)(dx + tileX) + ((unsigned __int8)(dy + tileY) << 8)]];
+					target != Entities_EA3E4[0];
+					target = Entities_EA3E4[target->oldMapEntity_0x16_22])
+				{
+					if (entity->id_0x1A_26 != target->id_0x1A_26
+						&& target->class_0x3F_63
+						&& target->struct_byte_0xc_12_15.byte[0] & 8
+						&& (unsigned __int8)channelMask & target->byte_0x38_56
+						&& (entity->xtype_0x41_65 == -1
+							|| entity->xtype_0x41_65 == target->class_0x3F_63 && entity->xsubtype_0x42_66 == -1
+							|| entity->xtype_0x41_65 == target->class_0x3F_63 && entity->xsubtype_0x42_66 == target->model_0x40_64)
+						&& sub_106C0(entity, target))
+					{
+						type_str_0x5E_94* mail = mailChannel(target, channel);
+						if (mail->word_0x62_98)
+							mail->dword_0x5E_94 += amount;
+						else
+							mail->dword_0x5E_94 = amount;
+						hitCount++;
+						mail->word_0x62_98 = entity->id_0x1A_26;
+					}
+				}
+			}
+		}
+		return hitCount;
+	}
+
+	for (int dy = -radius; dy <= radius; dy++)
+	{
+		for (int dx = -radius; dx <= radius; dx++)
+		{
+			for (type_entity_0x6E8E* target = Entities_EA3E4[mapEntityIndex_15B4E0[((unsigned __int8)(dy + tileY) << 8) + (unsigned __int8)(dx + tileX)]];
+				target != Entities_EA3E4[0];
+				target = Entities_EA3E4[target->oldMapEntity_0x16_22])
+			{
+				if (entity->id_0x1A_26 != target->id_0x1A_26 && target->class_0x3F_63 == 3 && sub_106C0(entity, target))
+				{
+					type_str_0x5E_94* mail = mailChannel(target, channel);
+					if (!mail->word_0x62_98)
+					{
+						mail->dword_0x5E_94 = amount;
+						hitCount++;
+						mail->word_0x62_98 = entity->id_0x1A_26;
+					}
+				}
+			}
+		}
+	}
+	return hitCount;
 }
-// D41A4: using guessed type int x_DWORD_D41A4;
-// EA3BC: using guessed type int x_DWORD_EA3BC;
-// EA3E4: using guessed type int Entities_EA3E4[];
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (000112D0) --------------------------------------------------------
 void sub_112D0(type_entity_0x6E8E* a1x, unsigned __int16 a2)//1f22d0
