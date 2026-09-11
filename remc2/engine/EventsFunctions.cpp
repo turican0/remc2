@@ -3950,6 +3950,13 @@ signed int sub_10B70(axis_3d* a1x, char a2, char a3)//1f1b70
 int debugcounter_10c80 = 0;
 int debugcounter_10c80_2 = 0;
 //----- (00010C80) --------------------------------------------------------
+//1f1cf0: lea eax,[edx*4] / sub eax,edx / add eax,eax / add eax,esi -> entity + 6*a2;
+//the mailbox at +0x5E is a row of six 6-byte channels { int32 amount; int16 source }
+static inline type_str_0x5E_94* mailChannel_10C80(type_entity_0x6E8E* entity, unsigned __int8 a2)
+{
+	return (type_str_0x5E_94*)((uint8_t*)&entity->str_0x5E_94 + 6 * a2);
+}
+
 int sub_10C80(type_entity_0x6E8E* a1x, unsigned __int8 a2, unsigned __int16 a3)//1f1c80
 {
 	int v3; // edi
@@ -3960,9 +3967,9 @@ int sub_10C80(type_entity_0x6E8E* a1x, unsigned __int8 a2, unsigned __int16 a3)/
 	type_entity_0x6E8E* v8x; // esi
 	int result; // eax
 	type_entity_0x6E8E* nx; // esi
-	type_entity_0x6E8E* v11x; // eax
+	type_str_0x5E_94* v11x; // eax
 	type_entity_0x6E8E* kx; // esi
-	type_entity_0x6E8E* v13x; // eax
+	type_str_0x5E_94* v13x; // eax
 	int v14; // [esp+0h] [ebp-5Ch]
 	int v15; // [esp+4h] [ebp-58h]
 	int v16; // [esp+8h] [ebp-54h]
@@ -4016,15 +4023,13 @@ int sub_10C80(type_entity_0x6E8E* a1x, unsigned __int8 a2, unsigned __int16 a3)/
 								|| a1x->xtype_0x41_65 == kx->class_0x3F_63 && a1x->xsubtype_0x42_66 == kx->model_0x40_64)
 							&& sub_106C0(a1x, kx))
 						{
-							allert_error();
-							//v13x = kx + sizeof(type_str_0x6E8E*) * a2;
-							v13x = kx + a2;
-							if (v13x->str_0x5E_94.word_0x62_98)
-								v13x->str_0x5E_94.dword_0x5E_94 += a3;
+							v13x = mailChannel_10C80(kx, a2);
+							if (v13x->word_0x62_98)
+								v13x->dword_0x5E_94 += a3;
 							else
-								v13x->str_0x5E_94.dword_0x5E_94 = a3;
+								v13x->dword_0x5E_94 = a3;
 							v3++;
-							v13x->str_0x5E_94.word_0x62_98 = a1x->id_0x1A_26;
+							v13x->word_0x62_98 = a1x->id_0x1A_26;
 						}
 					}
 				}
@@ -4045,13 +4050,12 @@ int sub_10C80(type_entity_0x6E8E* a1x, unsigned __int8 a2, unsigned __int16 a3)/
 				{
 					if (a1x->id_0x1A_26 != nx->id_0x1A_26 && nx->class_0x3F_63 == 3 && sub_106C0(a1x, nx))
 					{
-						//v11x = nx + sizeof(type_str_0x6E8E) * a2;
-						v11x = nx + a2;
-						if (!v11x->str_0x5E_94.word_0x62_98)
+						v11x = mailChannel_10C80(nx, a2);
+						if (!v11x->word_0x62_98)
 						{
-							v11x->str_0x5E_94.dword_0x5E_94 = a3;
+							v11x->dword_0x5E_94 = a3;
 							v3++;
-							v11x->str_0x5E_94.word_0x62_98 = a1x->id_0x1A_26;
+							v11x->word_0x62_98 = a1x->id_0x1A_26;
 						}
 					}
 				}
@@ -57548,9 +57552,7 @@ __int16 sub_6B610(type_entity_0x6E8E* a1x)//24c610
 						v3x->position_0x4C_76.z += v8x->array_0x52_82.fov;
 						v3x->mana_0x90_144 = a1x->mana_0x90_144;
 						v3x->byte_0x46_70 = a1x->byte_0x46_70;
-						//v3x += 154;
-						//v3y = &v8x->position_0x4C_76;// *(x_DWORD*)v3 = *(x_DWORD*)(v8 + 76);
-						//*(x_WORD *)(v3 + 4) = *(x_WORD *)(v8 + 80);
+						v3x->axis_0x9A_154x = v8x->position_0x4C_76;
 						MoveEntity_57FA0(
 							&v7x->axis_0x9A_154x,
 							v8x->dword_0xA4_164x->nextEntity_0x18_24 + v8x->yaw_0x1C_28,
