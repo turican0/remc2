@@ -2035,7 +2035,7 @@ uint16_t GameRenderHD::sub_3FD60(int a2x, uint8_t playersColors_E88E0x[][3], typ
 					LABEL_70:
 						str_F2C20ar.dword0x02_data = a1x->textureBuffer;
 						v38 = str_F2C20ar.dword0x00;
-						*reinterpret_cast<uint8_t*>(a1x) |= 8;
+						a1x->word_0 |= 8;
 						if (v38 == 0x2000)
 							v39 = x_BYTE_D4750[v9x->byte_10];
 						else
