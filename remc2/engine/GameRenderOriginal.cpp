@@ -2201,7 +2201,7 @@ uint16_t GameRenderOriginal::sub_3FD60(int a2x)
 					LABEL_70:
 						str_F2C20ar.dword0x02_data = a1x->textureBuffer;
 						v38 = str_F2C20ar.dword0x00;
-						a1x->word_0 |= 8;
+						*reinterpret_cast<uint8_t*>(a1x) |= 8;
 						if (v38 == 0x2000)
 							v39 = x_BYTE_D4750[v9x->byte_10];
 						else
@@ -3798,11 +3798,11 @@ void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
 						else if (v90x->struct_byte_0xc_12_15.byte[2] >= 0)
 						{
 							if (v93 & 1)
-								str_F2C20ar.dword0x01_visibilityIdx = 3; //In fog
+								str_F2C20ar.dword0x01_visibilityIdx = Visibility::InFog;
 						}
 						else
 						{
-							str_F2C20ar.dword0x01_visibilityIdx = 2; //Transparent
+							str_F2C20ar.dword0x01_visibilityIdx = Visibility::Transparent;
 						}
 					}
 					else

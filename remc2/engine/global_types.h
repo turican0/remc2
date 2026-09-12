@@ -171,6 +171,13 @@ typedef enum
 	LEVEL_LOADED_FROM_ARG = 0x80u,
 } Setting;
 
+typedef enum
+{
+	Transparent = 2,
+	InFog = 3,
+} Visibility;
+
+
 typedef struct {//begin 611//str_611
 	type_32_1a SpellExperience_0x263_611x;//size??//dword_0x649_2BDE
 	std::array<int32_t,NUMBER_OF_SPELLS> spellsExperience_0x2CB_715x;//104//size?? spell experience, one dword per spell, 26*4=104 bytes
