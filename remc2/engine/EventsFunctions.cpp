@@ -9698,7 +9698,8 @@ signed int sub_1CDA0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//1fdda0
 		v3x->id_0x1A_26 = a1x->id_0x1A_26;
 		v3x->yaw_0x1C_28 = Maths::sub_581E0_maybe_tan2(v5, &a2x->position_0x4C_76);
 		v3x->pitch_0x1E_30 = Maths::sub_58210_radix_tan(v5, &a2x->position_0x4C_76);
-		v3x->position_0x4C_76.z += a1x->array_0x52_82.roll;
+		// [esi+58h]: the shooter's array_0x52_82 +6, which is fov, not roll (+4)
+		v3x->position_0x4C_76.z += a1x->array_0x52_82.fov;
 		v3x->word_0x96_150 = a1x->word_0x96_150;
 		v3x->xsubtype_0x42_66 = a2x->model_0x40_64;
 		v3x->xtype_0x41_65 = a2x->class_0x3F_63;
