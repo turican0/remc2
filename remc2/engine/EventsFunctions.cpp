@@ -9248,11 +9248,12 @@ signed int sub_1C310(type_entity_0x6E8E* a1x, char a2, unsigned __int16(*a3)(typ
 			{
 				v12 = Maths::sub_581E0_maybe_tan2(&a1x->position_0x4C_76, &v10x->position_0x4C_76);
 				a1x->roll_0x20_32 = v12;
+				// neighbour distance: movsx on each coordinate, 32-bit subtraction (0x1C474)
 				for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 				{
 					if (jx->id_0x1A_26 != a1x->id_0x1A_26
-						&& abs(a1x->position_0x4C_76.x - jx->position_0x4C_76.x) < a1x->array_0x52_82.pitch
-						&& abs(a1x->position_0x4C_76.y - jx->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
+						&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)jx->position_0x4C_76.x) < a1x->array_0x52_82.pitch
+						&& abs((int16_t)a1x->position_0x4C_76.y - (int16_t)jx->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
 					{
 						a1x->roll_0x20_32 = Maths::sub_581E0_maybe_tan2(&jx->position_0x4C_76, &a1x->position_0x4C_76);
 						break;
