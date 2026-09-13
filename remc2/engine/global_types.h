@@ -9,7 +9,7 @@ const uint16_t GAME_RES_MAX_HEIGHT = 2160;
 constexpr uint16_t NUMBER_OF_SPELLS = 26;
 
 typedef union {
-	uint8_t byte[4];
+	int8_t byte[4];
 	uint16_t word[2];
 	uint32_t dword;
 }
