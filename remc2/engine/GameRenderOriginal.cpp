@@ -2206,7 +2206,7 @@ uint16_t GameRenderOriginal::sub_3FD60(int a2x)
 							v39 = x_BYTE_D4750[v9x->byte_10];
 						else
 							v39 = x_BYTE_D4750[6 + v9x->byte_10];
-						str_F2C20ar.dword0x01_rotIdx = v39;
+						str_F2C20ar.dword0x01_visibilityIdx = v39;
 						str_F2C20ar.dword0x09_realWidth++;
 						str_F2C20ar.dword0x0c_realHeight++;
 						DrawSprite_41BD3(2u);
@@ -3434,7 +3434,7 @@ void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
 									v45 = x_BYTE_D4750[v7x->byte_10];
 								else
 									v45 = x_BYTE_D4750[6 + v7x->byte_10];
-								str_F2C20ar.dword0x01_rotIdx = v45;
+								str_F2C20ar.dword0x01_visibilityIdx = v45;
 								v46 = str_F2C20ar.dword0x0c_realHeight >> 2;
 								str_F2C20ar.dword0x0c_realHeight >>= 2;
 								if (str_F2C20ar.dword0x09_realWidth > 0 && v46 > 0)
@@ -3444,7 +3444,7 @@ void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
 										str_F2C20ar.dword0x00 = 0x2000 - v47;
 									else
 										str_F2C20ar.dword0x00 = v47 + 0x2000;
-									str_F2C20ar.dword0x01_rotIdx = 8;
+									str_F2C20ar.dword0x01_visibilityIdx = 8;
 									DrawSprite_41BD3(0);
 								}
 								break;
@@ -3785,24 +3785,24 @@ void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
 						{
 							v94 = playersColors_E88E0x[3
 								* Entities_EA3E4[v90x->parentId_0x28_40]->dword_0xA4_164x->playerColorIndex_0x38_56][2];
-							str_F2C20ar.dword0x01_rotIdx = 4;
+							str_F2C20ar.dword0x01_visibilityIdx = 4;
 							str_F2C20ar.dword0x07 = v94;
 						}
 						else if (v93 & 4)
 						{
 							v95 = playersColors_E88E0x[3
 								* Entities_EA3E4[v90x->parentId_0x28_40]->dword_0xA4_164x->playerColorIndex_0x38_56][2];
-							str_F2C20ar.dword0x01_rotIdx = 5;
+							str_F2C20ar.dword0x01_visibilityIdx = 5;
 							str_F2C20ar.dword0x07 = v95;
 						}
 						else if (v90x->struct_byte_0xc_12_15.byte[2] >= 0)
 						{
 							if (v93 & 1)
-								str_F2C20ar.dword0x01_rotIdx = 3;
+								str_F2C20ar.dword0x01_visibilityIdx = Visibility::InFog;
 						}
 						else
 						{
-							str_F2C20ar.dword0x01_rotIdx = 2;
+							str_F2C20ar.dword0x01_visibilityIdx = Visibility::Transparent;
 						}
 					}
 					else
@@ -3811,7 +3811,7 @@ void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
 							v92 = x_BYTE_D4750[v52x->byte_10];
 						else
 							v92 = x_BYTE_D4750[6 + v52x->byte_10];
-						str_F2C20ar.dword0x01_rotIdx = v92;
+						str_F2C20ar.dword0x01_visibilityIdx = v92;
 					}
 					str_F2C20ar.dword0x09_realWidth++;
 					str_F2C20ar.dword0x0c_realHeight++;
@@ -4424,9 +4424,9 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 a1)
 									v169x = &m_str_F0E20x[*v165];
 									v155 = 8 * (v165[2] - v116) + &x_DWORD_E9C38_smalltit[36960];
 									v121x = &str_F2C20ar.dword0x02_data[str_F2C20ar.dword0x08_width * (str_F2C20ar.dword0x0a_actIdx >> 16)];
-									if ((unsigned int)str_F2C20ar.dword0x01_rotIdx <= 8)
+									if ((unsigned int)str_F2C20ar.dword0x01_visibilityIdx <= 8)
 									{
-										switch (str_F2C20ar.dword0x01_rotIdx)
+										switch (str_F2C20ar.dword0x01_visibilityIdx)
 										{
 										case 0:
 											v51x = &v121x[*(x_DWORD*)(v155 + 4)];
@@ -4999,9 +4999,9 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 a1)
 			//height
 			while (str_F2C20ar.dword0x0c_realHeight)
 			{
-				if ((unsigned int)str_F2C20ar.dword0x01_rotIdx <= 7)
+				if ((unsigned int)str_F2C20ar.dword0x01_visibilityIdx <= 7)
 				{
-					switch (str_F2C20ar.dword0x01_rotIdx)//mirroring
+					switch (str_F2C20ar.dword0x01_visibilityIdx)//mirroring
 					{
 					case 0:
 						//               width                  actual line                   base adress                 add index
