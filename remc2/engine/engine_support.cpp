@@ -1197,7 +1197,10 @@ int test_0x6E8E_id_pointer(uint32_t adress) {
 	return 0;
 }
 int test_D41A0_id_pointer(uint32_t adress) {
-	if ((adress >= 0x2bfa) && (adress < 0x2bfa + 49))return 2;//text
+	// CurrentNotificationText_0x01c of every player (array_0x2BDE, 0x84C each): the text comes
+	// from the language file, so it differs whenever the two runs use different languages
+	for (uint32_t player = 0; player < 8; player++)
+		if ((adress >= 0x2bfa + player * 0x84c) && (adress < 0x2bfa + player * 0x84c + 49))return 2;//text
 	if ((adress >= 0x2f79) && (adress < 0x2f79 + 1))return 2;//text
 	if ((adress >= 0x2fbd) && (adress < 0x2fbd + 1))return 2;//handle click button
 
