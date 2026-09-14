@@ -659,6 +659,7 @@
     <PostBuildEvent>
       <Command>
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+        XCOPY "$(ProjectDir)actions" "$(TargetDir)actions\" /S /Y /I
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -685,6 +686,7 @@
     <PostBuildEvent>
       <Command>
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+        XCOPY "$(ProjectDir)actions" "$(TargetDir)actions\" /S /Y /I
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -712,6 +714,7 @@
     <PostBuildEvent>
       <Command>
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+        XCOPY "$(ProjectDir)actions" "$(TargetDir)actions\" /S /Y /I
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -742,6 +745,7 @@
     <PostBuildEvent>
       <Command>
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+        XCOPY "$(ProjectDir)actions" "$(TargetDir)actions\" /S /Y /I
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

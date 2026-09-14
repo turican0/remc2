@@ -3,10 +3,14 @@
 #include <chrono>
 #include <thread>
 #include <iostream>
+#include <string>
 #include "regression-tests.h"
 
 
-int CountFailedRegressionTests() {
+// onlyLevel / onlyAfterload select a single test (-1 = no selection).  Running one test per
+// process keeps the engine's globals from carrying over between tests - run_regtest resets only
+// a handful of them.
+int CountFailedRegressionTests(int onlyLevel = -1, int onlyAfterload = -1) {
 	int numFailedTests = 0;
 	//run_regtest(level,testType,indexOfRegression,indexOfSavePosition(-1 - no load),isRecorded)
 	enum TestType {
@@ -16,16 +20,20 @@ int CountFailedRegressionTests() {
 		AfterloadWithActions = 3
 	};
 	Logger->info("\n--- Level regressions tests ---");
+	const bool all = (onlyLevel < 0 && onlyAfterload < 0);
 	for (int i = 1; i <= 25; i++)
-		if (i != 22 && i != 25)
+		if (i != 22 && i != 25 && (all || onlyLevel == i))
 			if (run_regtest(i) != 0)
 			{
 				numFailedTests++;
 			}
 	Logger->info("--- Afterload regressions tests ---");
 
-	if (run_regtest(2, TestType::AfterloadNoActions, 1, 2) != 0) numFailedTests++;
-	if (run_regtest(2, TestType::BeginLevelWithActions, 2, 1, "Levels-1-5-Recording.bin", 25) != 0) numFailedTests++;
+	if ((all || onlyAfterload == 1) && run_regtest(2, TestType::AfterloadNoActions, 1, 2) != 0) numFailedTests++;
+	if ((all || onlyAfterload == 2) && run_regtest(2, TestType::BeginLevelWithActions, 2, 1, "Levels-1-5-Recording.bin", 25) != 0) numFailedTests++;
+	// Level 5 played to the end of the recording (5402 turns) against the original game replaying the same
+	// recording in DOSBox (dosbox-x-remc2, mc2replay/run_replay.ps1 -Seq): memimages afterloadtest9
+	if ((all || onlyAfterload == 9) && run_regtest(5, TestType::BeginLevelWithActions, 9, 0, "Level5-mine.dem", 5420) != 0) numFailedTests++;
 	//if (run_regtest(1, TestType::BeginLevelWithActions, 3, -1, "Levels-1-5-Recording.bin", 3000) != 0) numFailedTests++;
 	//if (run_regtest(1, true, 2, -1, "c:/prenos/remc2-dev2/remc2/x64/Debug/memimages/regressions/afterloadtest2/Levels-1-5-Recording.bin",25) != 0) numFailedTests++;
 
@@ -54,7 +62,15 @@ int main(int argc, char** argv)
 	int numFailedTests = 0;
 
 	InitializeLogging(spdlog::level::info);
-	numFailedTests += CountFailedRegressionTests();
+	// "--level N" or "--afterload N" runs just that test
+	int onlyLevel = -1;
+	int onlyAfterload = -1;
+	for (int a = 1; a + 1 < argc; a++)
+	{
+		if (std::string(argv[a]) == "--level") onlyLevel = atoi(argv[a + 1]);
+		if (std::string(argv[a]) == "--afterload") onlyAfterload = atoi(argv[a + 1]);
+	}
+	numFailedTests += CountFailedRegressionTests(onlyLevel, onlyAfterload);
 
 	if (numFailedTests == 0)
 	{

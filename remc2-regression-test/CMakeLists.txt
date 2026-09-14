@@ -189,6 +189,11 @@ install(
     DESTINATION bin
 )
 install(
+    DIRECTORY
+    ${CMAKE_SOURCE_DIR}/remc2-regression-test/actions
+    DESTINATION bin
+)
+install(
     FILES
     ${CMAKE_SOURCE_DIR}/remc2-regression-test/regression-config.json
     ${CMAKE_SOURCE_DIR}/remc2-regression-test/renderer-config.json

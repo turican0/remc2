@@ -1,4 +1,30 @@
 #include "regression-tests.h"
+#include "../remc2/engine/EventsFunctions.h"
+#include "../remc2/engine/PlayerInput.h"
+#include "../remc2/engine/Level.h"
+
+// Per-run state of the engine that the tests depend on.  All tests run in one process, and without
+// this each one starts where the previous one left off: IsAfterLoad stays true after a level test,
+// so an afterload test compared frame 0 against a memimage taken after the load (which only
+// happens on frame 5) and failed on step 0.
+extern int debug_first_run;
+extern int count_begin;
+extern int countcompindexes;
+extern type_compstr lastcompstr;
+extern int debugcounter_1fb7a0;
+
+static void ResetRegressionRunState()
+{
+	IsAfterLoad = false;
+	debug_first_run = 0;
+	count_begin = 1;
+	debugcounter_47560 = 0;
+	debugcounter_1fb7a0 = 0;
+	save_debugcounter = 0;
+	countcompindexes = 0;
+	lastcompstr.adress = 0;
+	lastcompstr.index = 0;
+}
 
 int run_regtest(int level, int testType, int index, int saveIndex, const char* recordName, int maxSteps, bool turnOnIntervalSave)//236F70
 {
@@ -12,7 +38,9 @@ int run_regtest(int level, int testType, int index, int saveIndex, const char* r
 	{
 		locUnitTestsPath = get_exe_path() + "/memimages/regressions/afterloadtest" + std::to_string(index);
 		if(strlen(recordName) > 0)
-			recordPath = get_exe_path() + "/memimages/regressions/afterloadtest" + std::to_string(index) + "/" + recordName;
+			// recordings in the current layout (with spells); converted from the old ones by
+			// actions/convert_old_recordings.py and copied next to the exe by the build
+			recordPath = get_exe_path() + "/actions/" + recordName;
 	}
 	else
 		locUnitTestsPath = get_exe_path() + "/memimages/regressions/level" + std::to_string(level);
@@ -82,6 +110,7 @@ int run_regtest(int level, int testType, int index, int saveIndex, const char* r
 		compstr[i].adress = 0;
 		compstr[i].index = 0;
 	}
+	ResetRegressionRunState();
 
 	CommandLineParams.Init(argc, argv.data());
 	support_begin();
