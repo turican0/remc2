@@ -28153,15 +28153,25 @@ void RemoveCastleStage_385C0(type_entity_0x6E8E* event)//2195c0 //remove castle 
 		tempEvent->word_0x5A_90 = event->word_0x5A_90;
 	}
 	sub_59760(event, tempEvent);
+	// The final sweep clears bit 0x80 over the WHOLE footprint: retail
+	// (NETHERW.EXE 0x3899D) resets the cell to the row origin per row,
+	// `inc ch` per cell and `inc dl` (the origin's y) per row. The cell
+	// index used to stay at the origin, so only one corner was cleared
+	// (mgcr replay, mc2l1-new t=11829/11868/14211: 109-152 cells left
+	// with 0x80 that retail had cleared).
 	locData2 = locData;
+	uaxis_2d rowOrigin = locAxis1;
 	for (int y = 0; y < locHeight; y++)
 	{
+		uaxis_2d cell = rowOrigin;
 		for (int x = 0; x < locWidth; x++)
 		{
 			if (locData2[1] != 0xff || locData2[0] != 0xff)
-				mapAngle_13B4E0[locAxis1.word] &= 0x7Fu;
+				mapAngle_13B4E0[cell.word] &= 0x7Fu;
 			locData2 += 2;
+			cell._axis_2d.x++;
 		}
+		rowOrigin._axis_2d.y++;
 	}
 	DisableEntityDrawing04_57F10(event);
 }
@@ -57259,6 +57269,13 @@ signed int sub_6B1A0(type_entity_0x6E8E* a1)//24c1a0
 //----- (0006B1C0) --------------------------------------------------------
 void sub_6B1C0(type_entity_0x6E8E* a1x)//24c1c0
 {
+	// The invisibility flag (byte[0] & 0x20), the flight words word_0x159 /
+	// byte_0x1BF and the end-of-spell clear all belong to the CASTER v1x
+	// (NETHERW.EXE 0x6B1C0: every one of them is addressed off esi, the
+	// Entities[parentId] register; 0xc(%esi) / 0xa4(%esi)). They used to be
+	// written on the spell entity a1x, whose flag is never set, so the
+	// `!(flag & 0x20)` upkeep test failed on the first tick and the spell
+	// ended after one frame (mgcr replay, mc2l0-spells-galore t=10945).
 	type_entity_0x6E8E* v1x; // esi
 	//char *v2; // edx
 	__int16 v3; // di
@@ -57277,11 +57294,11 @@ void sub_6B1C0(type_entity_0x6E8E* a1x)//24c1c0
 					sub_6D8B0(a1x->parentId_0x28_40, 0xBu, 1);
 					//v2 = (char*)&(*xadataspellsdat.colorPalette_var28)[80 * a1x->byte_0x40_64 + 2 + 26 * a1x->byte_0x46_70];
 					//SPELLS_BEGIN_BUFFER_str[a1x->byte_0x40_64].subspell[a1x->byte_0x46_70].byte_0x1A
-					a1x->dword_0xA4_164x->word_0x159_345 = 0;
-					a1x->dword_0xA4_164x->byte_0x1BF_447 = SPELLS_BEGIN_BUFFER_str[a1x->model_0x40_64].subspell[a1x->byte_0x46_70].life_0x1A;
-					a1x->struct_byte_0xc_12_15.byte[0] |= 0x20u;
+					v1x->dword_0xA4_164x->word_0x159_345 = 0;
+					v1x->dword_0xA4_164x->byte_0x1BF_447 = SPELLS_BEGIN_BUFFER_str[a1x->model_0x40_64].subspell[a1x->byte_0x46_70].life_0x1A;
+					v1x->struct_byte_0xc_12_15.byte[0] |= 0x20u;
 				}
-				else if (!(a1x->struct_byte_0xc_12_15.byte[0] & 0x20))
+				else if (!(v1x->struct_byte_0xc_12_15.byte[0] & 0x20))
 				{
 					a1x->word_0x2E_46 = 1;
 				}
@@ -57298,7 +57315,7 @@ void sub_6B1C0(type_entity_0x6E8E* a1x)//24c1c0
 		{
 			//v4 = a1x->dword_0xA4_164;
 			v1x->struct_byte_0xc_12_15.byte[0] &= 0xDFu;
-			a1x->dword_0xA4_164x->byte_0x1BF_447 = 0;
+			v1x->dword_0xA4_164x->byte_0x1BF_447 = 0;
 			sub_6D880(a1x);
 		}
 	}

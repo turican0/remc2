@@ -1081,7 +1081,11 @@ void support_begin() {
 		//x_D41A0_BYTEARRAY_4_struct.player_name_57 =new char[256];
 		//x_D41A0_BYTEARRAY_4_struct.savestring_89 = new char[256];
 
-	x_BYTE_14B4E0_second_heightmap = new uint8_t[65536];
+	// Zero-initialised: the game maintains this plane on every map type (the
+	// painters raise and lower it) but only the cave generator seeds it, so on
+	// a day/night level it starts as whatever is here. In the original that is
+	// a zeroed BSS block; a bare new[] made it uninitialised heap.
+	x_BYTE_14B4E0_second_heightmap = new uint8_t[65536]();
 	off_D41A8_sky = new uint8_t[1024 * 1024];
 	memcpy(off_D41A8_sky, &x_BYTE_14B4E0_second_heightmap, 4);
 
