@@ -1617,7 +1617,7 @@ int sub_1B830(axis_3d* a1)//1fc830
 	uint8_t point2 = mapHeightmap_11B4E0[uindex.word];
 	uindex._axis_2d.y += 2;
 	uint8_t point3 = mapHeightmap_11B4E0[uindex.word];
-	uindex._axis_2d.x += 2;
+	uindex._axis_2d.x -= 2;//0x1FC86C sub al, 2
 	uint8_t point4 = mapHeightmap_11B4E0[uindex.word];
 	int result1 = abs(point1 + point4 - point2 - point3);
 	int result2 = abs(point1 + point2 - point4 - point3);
