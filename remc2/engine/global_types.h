@@ -9,7 +9,7 @@ const uint16_t GAME_RES_MAX_HEIGHT = 2160;
 constexpr uint16_t NUMBER_OF_SPELLS = 26;
 
 typedef union {
-	uint8_t byte[4];
+	int8_t byte[4];
 	uint16_t word[2];
 	uint32_t dword;
 }
@@ -175,6 +175,13 @@ typedef enum
 	SPEECH_DISABLED = 0xBF,
 	LEVEL_LOADED_FROM_ARG = 0x80u,
 } Setting;
+
+typedef enum
+{
+	Transparent = 2,
+	InFog = 3,
+} Visibility;
+
 
 typedef struct {//begin 611//str_611
 	type_32_1a SpellExperience_0x263_611x;//size??//dword_0x649_2BDE
