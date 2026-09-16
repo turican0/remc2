@@ -37717,7 +37717,7 @@ void PlayerEvents_51BB0()//232bb0
 		{
 			std::string msg = "Recording Turn: " + std::to_string(D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248);
 			SetCurrentNotificationMessage_19760(msg.c_str(), 3u, 50);
-			m_InputRecorder->RecordPlayerActions(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, i, D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248, sizeof(Type_PlayerInput_0x6E3E), (uint8_t*)&D41A0_0.playerInputs_0x6E3E[i]);
+			m_InputRecorder->RecordPlayerActions(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, i, D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248, D41A0_0.rand_0x8, sizeof(Type_PlayerInput_0x6E3E), (uint8_t*)&D41A0_0.playerInputs_0x6E3E[i]);
 		}
 
 		//adress 232d2f

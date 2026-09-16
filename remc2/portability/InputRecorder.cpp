@@ -122,7 +122,7 @@ void InputRecorder::RecordPlayerSpells(int level, int playerIdx, int16_t* spells
 	}
 }
 
-void InputRecorder::RecordPlayerActions(uint16_t level, uint16_t playerIdx, uint32_t turn, uint64_t sizeBytes, uint8_t* buffer)
+void InputRecorder::RecordPlayerActions(uint16_t level, uint16_t playerIdx, uint32_t turn, uint32_t rand, uint64_t sizeBytes, uint8_t* buffer)
 {
 	if (!m_IsRecording)
 		return;
@@ -146,6 +146,7 @@ void InputRecorder::RecordPlayerActions(uint16_t level, uint16_t playerIdx, uint
 		m_InputEvents->at(level)->Players->at(playerIdx)->Turns->insert({ turn, { new RecordedEventTurn() } });
 	}
 	m_InputEvents->at(level)->Players->at(playerIdx)->Turns->at(turn)->Turn = turn;
+	m_InputEvents->at(level)->Players->at(playerIdx)->Turns->at(turn)->Rand = rand;
 
 	m_InputEvents->at(level)->Players->at(playerIdx)->Turns->at(turn)->SizeBytes = sizeBytes;
 	m_InputEvents->at(level)->Players->at(playerIdx)->Turns->at(turn)->Bytes = new uint8_t[sizeBytes];
@@ -202,6 +203,7 @@ bool InputRecorder::SaveRecordingToFile(const char* outputFileName)
 				{
 					auto turn = playerTurns->at(i);
 					fwrite(turn, 8, 1, eventsFile);
+					fwrite(&turn->Rand, 8, 1, eventsFile);
 					fwrite(turn->Bytes, playerTurns->at(i)->SizeBytes, 1, eventsFile);
 				}
 				
@@ -291,6 +293,7 @@ bool InputRecorder::LoadRecordingFile(const char* inputFileName)
 				{
 					RecordedEventTurn* turn = new RecordedEventTurn();
 					fread(turn, 8, 1, eventsFile);
+					fread(&turn->Rand, 8, 1, eventsFile);
 					turn->Bytes = new uint8_t[turn->SizeBytes];
 					fread(turn->Bytes, turn->SizeBytes, 1, eventsFile);
 					m_InputEvents->at(level)->Players->at(playerIdx)->Turns->insert({ turn->Turn, turn });

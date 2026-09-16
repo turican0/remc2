@@ -10,6 +10,7 @@ struct RecordedEventHeader
 struct RecordedEventTurn
 {
 	uint32_t Turn = 0;
+	uint32_t Rand = 0;
 	uint32_t SizeBytes = 0;
 	uint8_t* Bytes = nullptr;
 
