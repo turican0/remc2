@@ -73,9 +73,17 @@ void InputRecorder::StopPlayback()
 	m_IsPlaying = false;
 }
 
+uint32_t InputRecorder::GetLevelRand(int level)
+{
+	if (!m_IsPlaying || m_InputEvents->count(level) == 0 || m_InputEvents->at(level)->Players->count(0) == 0)
+		return 0;
+
+	return m_InputEvents->at(level)->Players->at(0)->Turns->at(1)->Rand;
+}
+
 RecordedEventPlayer* InputRecorder::GetCurrentPlayer(int level, int playerIdx)
 {
-	if (!m_IsPlaying || m_InputEvents->count(level) == 0 || m_InputEvents->at(level)->Players->count(playerIdx) == 0 || m_InputEvents->at(level)->Players->count(playerIdx) == 0)
+	if (!m_IsPlaying || m_InputEvents->count(level) == 0 || m_InputEvents->at(level)->Players->count(playerIdx) == 0)
 		return nullptr;
 
 	return m_InputEvents->at(level)->Players->at(playerIdx);

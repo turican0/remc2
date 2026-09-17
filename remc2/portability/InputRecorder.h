@@ -32,6 +32,7 @@ public:
 	bool StartPlayback();
 	void StopPlayback();
 
+	uint32_t GetLevelRand(int level);
 	RecordedEventPlayer* GetCurrentPlayer(int level, int playerIdx);
 	RecordedEventTurn* GetCurrentPlayerActions(int level, int playerIdx, int turn);
 
