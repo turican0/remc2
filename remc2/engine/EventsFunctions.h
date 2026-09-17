@@ -1124,7 +1124,7 @@ void sub_3A5B0(type_entity_0x6E8E* a1);
 void sub_3A630(type_entity_0x6E8E* a1);
 int sub_3A650(type_entity_0x6E8E* a1);
 char sub_3A7F0(type_entity_0x6E8E* a1);
-void sub_3A8B0(type_entity_0x6E8E* a1);
+void sub_3A8B0(type_entity_0x6E8E* entity);
 void sub_3AF00_castle_defend_event(type_entity_0x6E8E* a1);
 void sub_53160();
 void sub_59C40_getTerrtoZ(type_entity_0x6E8E* a1);

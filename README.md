@@ -28,6 +28,7 @@ Open Map = Tab / Middle Mouse</br>
 
 # Community links #
 - **Magic Balls:** A project that uses the same engine but renders the image via the Godot engine: https://github.com/turican0/MagicBalls<br>
+- **MG Carpet** A rust project, created using AI trained from multiple game sources. Runs Magic Carpet 1, HW and MC2 campaigns: https://github.com/raincz/mgcarpet/ 
 - Blog from the very beginning of this project's development: https://github.com/turican0/remc2/wiki<br>
 - Dosbox version for data comparison: https://github.com/turican0/dosbox-x-remc2<br>
 - FAQ: https://github.com/thobbsinteractive/magic-carpet-2-hd/wiki/FAQ
