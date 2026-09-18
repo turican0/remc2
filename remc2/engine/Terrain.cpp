@@ -1627,14 +1627,13 @@ int sub_1B830(axis_3d* a1)//1fc830
 }
 
 //----- (00045BE0) --------------------------------------------------------
-uint8_t sub_45BE0(uint8_t inType, uaxis_2d axis2d)//226be0
+uint8_t sub_45BE0(uint8_t inType, uaxis_2d axis2d, uint8_t type)//226be0 type: dl, inType: cl of the caller
 {
 	//  X-X
 	//  | |
 	//  B-X
 
 	uint8_t result;
-	uint8_t type = 0;
 	uint8_t minHeight = 255;
 	uint8_t maxHeight = 0;
 	if (mapHeightmap_11B4E0[axis2d.word])
@@ -1780,7 +1779,7 @@ bool sub_33F70(uint16_t inAxis)//214f70
 }
 
 //----- (00045DC0) --------------------------------------------------------
-void sub_45DC0(uint8_t inType, uaxis_2d axis2d, uint8_t type2)//226dc0
+void sub_45DC0(uint8_t inType, uaxis_2d axis2d, uint8_t type2, uint8_t type)//226dc0
 {
 	char heightType;
 	if (type2 >= 8u)
@@ -1794,35 +1793,35 @@ void sub_45DC0(uint8_t inType, uaxis_2d axis2d, uint8_t type2)//226dc0
 			mapTerrainType_10B4E0[axis2d.word] = 9;
 			break;
 		case 0xAu:
-			heightType = sub_45BE0(inType, axis2d);
+			heightType = sub_45BE0(inType, axis2d, type);
 			if (lowDiffHeightmap_D47DC)
 				heightType += 8;
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x80 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x80 + 2 * heightType + 1];
 			break;
 		case 0xBu:
-			heightType = sub_45BE0(inType, axis2d) + 0x10;
+			heightType = sub_45BE0(inType, axis2d, type) + 0x10;
 			if (lowDiffHeightmap_D47DC)
 				heightType += 8;
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x80 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x80 + 2 * heightType + 1];
 			break;
 		case 0xCu:
-			heightType = sub_45BE0(inType, axis2d) + 0x20;
+			heightType = sub_45BE0(inType, axis2d, type) + 0x20;
 			if (lowDiffHeightmap_D47DC)
 				heightType += 8;
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x80 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x80 + 2 * heightType + 1];
 			break;
 		case 0xDu:
-			heightType = sub_45BE0(inType, axis2d) + 0x30;
+			heightType = sub_45BE0(inType, axis2d, type) + 0x30;
 			if (lowDiffHeightmap_D47DC)
 				heightType += 8;
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x80 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x80 + 2 * heightType + 1];
 			break;
 		case 0xEu:
-			heightType = sub_45BE0(inType, axis2d) + 0x40;
+			heightType = sub_45BE0(inType, axis2d, type) + 0x40;
 			if (lowDiffHeightmap_D47DC)
 				heightType += 8;
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x80 + 2 * heightType];
@@ -1834,37 +1833,37 @@ void sub_45DC0(uint8_t inType, uaxis_2d axis2d, uint8_t type2)//226dc0
 		case 0x10u:
 			if (mapTerrainType_10B4E0[axis2d.word] == 10 || mapTerrainType_10B4E0[axis2d.word] == 11 || mapTerrainType_10B4E0[axis2d.word] == 12)
 				break;
-			heightType = sub_45BE0(inType, axis2d);
+			heightType = sub_45BE0(inType, axis2d, type);
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[2 * heightType + 1];
 			break;
 		case 0x11u:
-			heightType = sub_45BE0(inType, axis2d);
+			heightType = sub_45BE0(inType, axis2d, type);
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x40 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x40 + 2 * heightType + 1];
 			break;
 		case 0x12u:
-			heightType = (8 * ((axis2d._axis_2d.y + axis2d._axis_2d.x) & 1) + sub_45BE0(inType, axis2d));
+			heightType = (8 * ((axis2d._axis_2d.y + axis2d._axis_2d.x) & 1) + sub_45BE0(inType, axis2d, type));
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x50 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x50 + 2 * heightType + 1];
 			break;
 		case 0x13u:
-			heightType = (8 * ((axis2d._axis_2d.y + axis2d._axis_2d.x) & 1) + sub_45BE0(inType, axis2d));
+			heightType = (8 * ((axis2d._axis_2d.y + axis2d._axis_2d.x) & 1) + sub_45BE0(inType, axis2d, type));
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x60 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x60 + 2 * heightType + 1];
 			break;
 		case 0x14u:
-			heightType = sub_45BE0(inType, axis2d);
+			heightType = sub_45BE0(inType, axis2d, type);
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x10 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x10 + 2 * heightType + 1];
 			break;
 		case 0x15u:
-			heightType = sub_45BE0(inType, axis2d);
+			heightType = sub_45BE0(inType, axis2d, type);
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x20 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x20 + 2 * heightType + 1];
 			break;
 		case 0x16u:
-			heightType = sub_45BE0(inType, axis2d);
+			heightType = sub_45BE0(inType, axis2d, type);
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x30 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x30 + 2 * heightType + 1];
 			break;
