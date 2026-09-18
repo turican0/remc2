@@ -97,6 +97,44 @@ RecordedEventTurn* InputRecorder::GetCurrentPlayerActions(int level, int playerI
 	return m_InputEvents->at(level)->Players->at(playerIdx)->Turns->at(turn);
 }
 
+RecordedEvent* InputRecorder::GetLevel(uint16_t level)
+{
+	if (m_InputEvents->count(level) == 0)
+	{
+		m_InputEvents->insert(std::pair<uint16_t, RecordedEvent*>(level, new RecordedEvent()));
+		m_InputEvents->at(level)->Header = new RecordedEventHeader();
+		m_InputEvents->at(level)->Header->Level = level;
+		m_InputEvents->at(level)->Players = new std::map<uint16_t, RecordedEventPlayer*>();
+	}
+	return m_InputEvents->at(level);
+}
+
+// counts the starts of a level so that a restart takes the save of its own
+void InputRecorder::LevelStarted(uint16_t level)
+{
+	m_LevelStarts[level]++;
+}
+
+void InputRecorder::RecordLevelSave(uint16_t level, std::vector<uint8_t> save)
+{
+	if (m_IsPlaying && m_InputEvents->count(level) == 0)//resave: only the levels the recording has
+		return;
+	RecordedEvent* event = GetLevel(level);
+	if (m_IsPlaying && m_LevelStarts[level] <= 1)//resave: the saves of the file are replaced
+		event->Saves.clear();
+	event->Saves.push_back(std::move(save));
+	if (m_IsPlaying)
+		SaveRecordingToFile(m_ResavePath.c_str());
+}
+
+const std::vector<uint8_t>* InputRecorder::GetLevelSave(int level)
+{
+	const size_t start = m_LevelStarts[(uint16_t)level];
+	if (m_InputEvents->count(level) == 0 || start == 0 || m_InputEvents->at(level)->Saves.size() < start)
+		return nullptr;
+	return &m_InputEvents->at(level)->Saves[start - 1];
+}
+
 void InputRecorder::RecordPlayerSpells(int level, int playerIdx, int16_t* spellsEnabled, uint8_t* spellIndexes, uint8_t* spellLevels, int32_t* spellsExperience)
 {
 	if (!m_IsRecording)
@@ -172,7 +210,7 @@ bool InputRecorder::SaveRecordingToFile(const char* outputFileName)
 		if (!eventsFile)
 			return false;
 
-		std::string fileSignature = "MC2-HD-Recording";
+		std::string fileSignature = m_FileSignature;
 
 		fwrite((uint8_t*)fileSignature.c_str(), fileSignature.length() * sizeof(char), 1, eventsFile);
 
@@ -190,6 +228,14 @@ bool InputRecorder::SaveRecordingToFile(const char* outputFileName)
 			inputEventHeader->PlayerCount = levelIt->second->Players->size();
 			
 			fwrite((uint8_t*)inputEventHeader, sizeof(RecordedEventHeader), 1, eventsFile);
+			uint32_t saveCount = (uint32_t)levelIt->second->Saves.size();
+			fwrite(&saveCount, sizeof(saveCount), 1, eventsFile);
+			for (const auto& levelSave : levelIt->second->Saves)
+			{
+				uint32_t saveSize = (uint32_t)levelSave.size();
+				fwrite(&saveSize, sizeof(saveSize), 1, eventsFile);
+				fwrite(levelSave.data(), 1, saveSize, eventsFile);
+			}
 
 			for (playIt = levelIt->second->Players->begin(); playIt != levelIt->second->Players->end(); playIt++)
 			{
@@ -258,6 +304,15 @@ bool InputRecorder::LoadRecordingFile(const char* inputFileName)
 				m_InputEvents->at(level)->Header->Level = level;
 				m_InputEvents->at(level)->Header->PlayerCount = playerCount;
 				m_InputEvents->at(level)->Players = new std::map<uint16_t, RecordedEventPlayer*>();
+			}
+			uint32_t saveCount = 0;
+			fread(&saveCount, sizeof(saveCount), 1, eventsFile);
+			while (saveCount--)
+			{
+				uint32_t saveSize = 0;
+				fread(&saveSize, sizeof(saveSize), 1, eventsFile);
+				m_InputEvents->at(level)->Saves.emplace_back(saveSize);
+				fread(m_InputEvents->at(level)->Saves.back().data(), 1, saveSize, eventsFile);
 			}
 
 

@@ -31619,6 +31619,56 @@ void analyzeEntites() {
 	}
 };
 
+// cheat "access all spells" (Alt+F1), also --all_spells
+void GiveAllSpells_Cheat(type_entity_0x6E8E* actEvent)
+{
+	for (int k = 0; k < 26; k++)
+	{
+		if (!actEvent->dword_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[k])
+		{
+			//adress 23354c
+			type_entity_0x6E8E* locEv = pre_sub_4A190_axis_3d(0x2321a0 + 0x20 * k, &actEvent->position_0x4C_76);
+			if (locEv)
+			{
+				locEv->struct_byte_0xc_12_15.byte[0] |= 1u;
+				locEv->manaRegen_0x88_136 = 0;
+				locEv->parentId_0x28_40 = actEvent - D41A0_0.struct_0x6E8E;
+				actEvent->dword_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[k] = locEv - D41A0_0.struct_0x6E8E;
+				for (int n = 0; n < 10; n++)
+				{
+					if (actEvent->dword_0xA4_164x->str_611.SpellIndexes_0x39B_923x.SpellIndex[n] == -1)
+					{
+						actEvent->dword_0xA4_164x->str_611.SpellIndexes_0x39B_923x.SpellIndex[n] = k;
+						break;
+					}
+				}
+			}
+		}
+	}
+	for (type_entity_0x6E8E* evIndex = Entities_EA3E4[1]; evIndex < Entities_EA3E4[1000]; evIndex++)
+	{
+		if (evIndex->class_0x3F_63 == 11)
+			evIndex->struct_byte_0xc_12_15.byte[0] &= 0xFEu;
+	}
+}
+
+// level start: save of a recording - stored when recording, loaded when playing
+void RecordingLevelSave()
+{
+	if (CommandLineParams.DoAllSpells())//before the save of a recording
+		GiveAllSpells_Cheat(Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]);
+	if (m_InputRecorder == nullptr)
+		return;
+	uint16_t level = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
+	m_InputRecorder->LevelStarted(level);//a restart of the level takes the save of its own start
+	const bool resave = m_InputRecorder->m_IsPlaying && !m_InputRecorder->m_ResavePath.empty();//a save of its own
+	const std::vector<uint8_t>* save = m_InputRecorder->GetLevelSave(level);
+	if (m_InputRecorder->m_IsPlaying && save != nullptr && !resave)
+		LoadLevelFromBuffer(*save);
+	else if (m_InputRecorder->m_IsRecording || resave)
+		m_InputRecorder->RecordLevelSave(level, SaveLevelToBuffer());
+}
+
 void intervalsave(int index) {
 	char outname[512];
 	sprintf(outname, "-%d", index % 5000);
@@ -37948,34 +37998,7 @@ void PlayerEvents_51BB0()//232bb0
 			switch (D41A0_0.playerInputs_0x6E3E[i].str_0x6E3E_byte1)
 			{
 			case 1:
-				for (int k = 0; k < 26; k++)
-				{
-					if (!actEvent->dword_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[k])
-					{
-						//adress 23354c
-						type_entity_0x6E8E* locEv = pre_sub_4A190_axis_3d(0x2321a0 + 0x20 * k, &actEvent->position_0x4C_76);
-						if (locEv)
-						{
-							locEv->struct_byte_0xc_12_15.byte[0] |= 1u;
-							locEv->manaRegen_0x88_136 = 0;
-							locEv->parentId_0x28_40 = actEvent - D41A0_0.struct_0x6E8E;
-							actEvent->dword_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[k] = locEv - D41A0_0.struct_0x6E8E;
-							for (int n = 0; n < 10; n++)
-							{
-								if (actEvent->dword_0xA4_164x->str_611.SpellIndexes_0x39B_923x.SpellIndex[n] == -1)
-								{
-									actEvent->dword_0xA4_164x->str_611.SpellIndexes_0x39B_923x.SpellIndex[n] = k;
-									break;
-								}
-							}
-						}
-					}
-				}
-				for (type_entity_0x6E8E* evIndex = Entities_EA3E4[1]; evIndex < Entities_EA3E4[1000]; evIndex++)
-				{
-					if (evIndex->class_0x3F_63 == 11)
-						evIndex->struct_byte_0xc_12_15.byte[0] &= 0xFEu;
-				}
+				GiveAllSpells_Cheat(actEvent);
 				ShowMessage_52D70(i, (char*)".. CHEAT: access all spells");
 				break;
 			case 2:
@@ -39643,6 +39666,7 @@ void LevelInitGame_56A30(int16_t level, std::string customLevelPath)//237a30
 	if (CommandLineParams.DoDebugSequences()) {
 		add_compare(0x237BF0, CommandLineParams.DoDebugafterload());
 	}
+	RecordingLevelSave();
 }
 
 //----- (00056D60) --------------------------------------------------------
@@ -39681,6 +39705,7 @@ void sub_56D60(unsigned int a1, char a2)//237d60
 	sub_53160();
 	//v5x = Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	sub_60F00();
+	RecordingLevelSave();
 }
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -51616,6 +51641,8 @@ void sub_8CB1F()//26db1f
 
 void MouseEvents(uint32_t buttons, int x, int y)
 {
+	if (m_InputRecorder != nullptr && m_InputRecorder->m_IsPlaying)//playback: no host mouse
+		return;
 	UpdateMouseEventData_8CB3A(buttons, x, y);
 };
 

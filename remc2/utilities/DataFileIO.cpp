@@ -174,7 +174,7 @@ bool DataFileIO::sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelinde
 	uint32_t filesize;
 	bool result = false;
 	char path[512];
-	sprintf(path, "%s/%s", gameDataPath.c_str(), "SAVE");
+	sprintf(path, "%s", SaveDirectory().c_str());
 	if (loadRegressionTest)
 	{
 		sprintf(path, "%sregressions", CommandLineParams.GetMemimagesPath().c_str());

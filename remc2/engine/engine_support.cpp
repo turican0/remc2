@@ -3,6 +3,10 @@
 #include <string>
 #include <cstring>
 #include <iostream>
+#include <map>
+#include <vector>
+#include <filesystem>
+#include <chrono>
 
 #ifdef USE_DOSBOX
 extern DOS_Device* DOS_CON;
@@ -10,6 +14,18 @@ extern DOS_Device* DOS_CON;
 
 bool unitTests = false;
 std::string unitTestsPath;
+
+extern std::string gameDataPath;
+
+// SAVE folder; a regression test has its own, tests run in parallel
+std::string SaveDirectory()
+{
+	if (!unitTests)
+		return gameDataPath + "/SAVE";
+	static const std::filesystem::path dir = std::filesystem::temp_directory_path() / ("remc2-save-" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
+	std::filesystem::create_directories(dir);
+	return dir.string();
+}
 int* endTestsCode;
 
 const int printBufferSize = 4096;
@@ -1211,6 +1227,8 @@ int test_D41A0_id_pointer(uint32_t adress) {
 	if ((adress >= 0x2fc4) && (adress < 0x2fc5))return 2;//event
 
 	if ((adress >= 0x2fd8) && (adress < 0x2fdc))return 2; // mouse position: position_backup_20 in dword_0x3E6_2BE4_12228 in array_0x2BDE
+	for (uint32_t player = 0; player < 8; player++)
+		if ((adress >= 0x341c + player * 0x84c) && (adress < 0x341e + player * 0x84c))return 2;//UI: spellIndex_0x458_1112, subSpellIndex_0x459_1113 by mouse
 	// if ((adress == 0x36e04))return 2;                     // objective box counter
 
 	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock - 4 bytes
@@ -1423,10 +1441,70 @@ uint32_t compare_with_sequence_E7EE0(const char* filename, uint8_t* adress, uint
 	return(i);
 };
 
+struct type_sequence_binz
+{
+	FILE* file = nullptr;
+	std::vector<uint8_t> frame;
+	long long index = -1;
+};
+
+// frame of sequence-<name>.bin, or of .binz: "MC2SEQZ1", frame size, per frame length + (varint same, varint changed, changed bytes)
+void read_sequence(const std::string& name, long long count, long long frameSize, long offset, uint32_t size, uint8_t* buffer)
+{
+	FILE* file = fopen((name + ".bin").c_str(), "rb");
+	if (file != NULL)
+	{
+#if defined(__linux__) || defined(__APPLE__)
+		fseeko(file, count * frameSize + offset, SEEK_SET);
+#else
+		_fseeki64(file, count * frameSize + offset, SEEK_SET);
+#endif
+		fread(buffer, size, 1, file);
+		fclose(file);
+		return;
+	}
+	static std::map<std::string, type_sequence_binz> binz;
+	type_sequence_binz& seq = binz[name];
+	if (seq.file == nullptr)
+		seq.file = fopen((name + ".binz").c_str(), "rb");
+	if (seq.file == nullptr)
+	{
+		Logger->error("Missing sequence: {}.bin(z)", name);
+		memset(buffer, 0, size);
+		return;
+	}
+	if (seq.index < 0 || count < seq.index)//from the first frame
+	{
+		uint32_t binzFrameSize = 0;
+		fseek(seq.file, 8, SEEK_SET);
+		fread(&binzFrameSize, 4, 1, seq.file);
+		seq.frame.assign(binzFrameSize, 0);
+		seq.index = -1;
+	}
+	std::vector<uint8_t> changes;
+	for (; seq.index < count; seq.index++)
+	{
+		uint32_t length = 0;
+		fread(&length, 4, 1, seq.file);
+		changes.resize(length);
+		fread(changes.data(), 1, length, seq.file);
+		size_t p = 0, pos = 0;
+		auto varint = [&]() { size_t v = 0; for (int shift = 0; p < length; shift += 7) { v |= (size_t)(changes[p] & 0x7F) << shift; if (!(changes[p++] & 0x80)) break; } return v; };
+		while (p < length)
+		{
+			pos += varint();
+			const size_t changed = varint();
+			memcpy(seq.frame.data() + pos, changes.data() + p, changed);
+			p += changed;
+			pos += changed;
+		}
+	}
+	memcpy(buffer, seq.frame.data() + offset, size);
+}
+
 uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
 	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size);
-	FILE* fptestepc;
 	if (regressions)
 		finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
 	else
@@ -1437,16 +1515,7 @@ uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint
 		finddir2 = "";
 		finddir = unitTestsPath;
 	}
-	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
-	fptestepc = fopen(findname.c_str(), "rb");
-	if (fptestepc == NULL)
-	{
-		mydelay(100);
-		fptestepc = fopen(findname.c_str(), "rb");
-	}
-	fseek(fptestepc, count * size + offset, SEEK_SET);
-
-	fread(buffer, size, 1, fptestepc);
+	read_sequence(finddir2 + finddir + std::string("/sequence-") + filename, count, size, offset, size, buffer);
 	uint32_t i;
 	bool testa, testb;
 	for (i = 0; i < size; i++)
@@ -1496,7 +1565,6 @@ uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint
 		End_thread(-1);
 	}
 	free(buffer);
-	fclose(fptestepc);
 	return(i);
 };
 
@@ -1846,7 +1914,6 @@ uint32_t compare_with_sequence_array_222BD3(const char* filename, uint8_t* adres
 uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint32_t  /*adressdos*/, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
 	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size2);
-	FILE* fptestepc;
 	if (regressions)
 		finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
 	else
@@ -1857,27 +1924,9 @@ uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint
 		finddir2 = "";
 		finddir = unitTestsPath;
 	}
-	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
-	fptestepc = fopen(findname.c_str(), "rb");
-	if (fptestepc == NULL)
-	{
-		mydelay(100);
-		fptestepc = fopen(findname.c_str(), "rb");
-	}
-
-#if defined(__linux__) || defined(__APPLE__)
-	fseek(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
-#else
-	_fseeki64(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
-#endif
+	read_sequence(finddir2 + finddir + std::string("/sequence-") + filename, count, size1, offset, size2, buffer);
 
 	uint32_t i;
-	/*for (i = 0; i < count; i++)
-	{
-		fread_s(buffer,size,1,size, fptestepc);
-	}*/
-
-	fread(buffer, size2, 1, fptestepc);
 	if (size2 == 320 * 200)
 	{
 		VGA_Debug_Blit(320, 200, pdwScreenBuffer_351628);
@@ -1901,7 +1950,6 @@ uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint
 		End_thread(-1);
 	}
 	free(buffer);
-	fclose(fptestepc);
 	return(i);
 };
 

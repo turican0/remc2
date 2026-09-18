@@ -72,6 +72,7 @@ void allert_error();
 
 extern bool unitTests;
 extern std::string unitTestsPath;
+std::string SaveDirectory();
 extern int* endTestsCode;
 
 extern uint8_t* readbuffer;
