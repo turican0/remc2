@@ -1,0 +1,1 @@
+level=5 type=2 save=0 record=record3/Level5-mine.dem steps=5420

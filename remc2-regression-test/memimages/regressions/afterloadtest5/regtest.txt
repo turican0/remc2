@@ -1,0 +1,1 @@
+level=1 type=2 save=-1 record=afterloadtest5/level-1-DosBox-Recording.bin steps=3000
