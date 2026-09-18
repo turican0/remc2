@@ -27947,7 +27947,7 @@ int AddHouse0A_2D_38330(type_entity_0x6E8E* event)//219330
 		{
 			v3 = event->byte_0x46_70;
 			event->dword_0x10_16 = v2 - 1;
-			if (str_D93C0_bldgprmbuffer[v3].byte_2 & 1)
+			if (v3 >= 0 && str_D93C0_bldgprmbuffer[v3].byte_2 & 1)//219378 movsx eax,byte ptr [ebx+46h]
 			{
 				predictedAxis_EB398ar = event->position_0x4C_76;
 				predictedAxis_EB398ar.x += event->array_0x52_82.pitch;
@@ -27998,7 +27998,7 @@ int AddHouse0A_2D_38330(type_entity_0x6E8E* event)//219330
 	}
 	if (!(event->byte_0x3E_62 & 0x1F))
 	{
-		if (str_D93C0_bldgprmbuffer[event->byte_0x46_70].byte_2 & 1)
+		if (event->byte_0x46_70 >= 0 && str_D93C0_bldgprmbuffer[event->byte_0x46_70].byte_2 & 1)//2194FC movsx
 		{
 			v9 = event->minSpeed_0x84_132;
 			if (v9 > 5 && v9 == event->dword_0x10_16)
@@ -28016,7 +28016,7 @@ int AddHouse0A_2D_38330(type_entity_0x6E8E* event)//219330
 			}
 		}
 	}
-	if (str_D93C0_bldgprmbuffer[event->byte_0x46_70].byte_2 & 1)
+	if (event->byte_0x46_70 >= 0 && str_D93C0_bldgprmbuffer[event->byte_0x46_70].byte_2 & 1)//219585 movsx
 		SetMaxDistance_5C8D0(event);
 	result = getTerrainAlt_10C40(&event->position_0x4C_76);
 	event->position_0x4C_76.z = result;
