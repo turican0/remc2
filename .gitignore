@@ -65,8 +65,6 @@ remc2/editor/debug.txt
 Debug/remc2_without_xcopy.exe
 Debug/remc2_without_xcopy.exp
 **/net_messages_log.txt
-remc2/memimages/regressions/seq*.bin
-*.binz
 *.exe.recipe
 
 ## Ignore Visual Studio temporary files, build results, and
