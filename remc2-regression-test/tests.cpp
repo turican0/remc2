@@ -4,39 +4,154 @@
 #include <thread>
 #include <iostream>
 #include <string>
+#include <filesystem>
+#include <fstream>
+#include <vector>
+#include <tuple>
+#include <algorithm>
 #include "regression-tests.h"
+//TEMPDIAG begin
+#include <windows.h>
+#include <dbghelp.h>
+#include <crtdbg.h>
+#pragma comment(lib, "dbghelp.lib")
+int TempAssertHook(int, char* message, int*)
+{
+	HANDLE process = GetCurrentProcess();
+	SymInitialize(process, nullptr, TRUE);
+	void* frames[64];
+	const USHORT count = CaptureStackBackTrace(0, 64, frames, nullptr);
+	std::cout << "TEMPDIAG assert: " << message << std::endl;
+	for (USHORT i = 0; i < count; i++)
+	{
+		char buffer[sizeof(SYMBOL_INFO) + 256] = {};
+		SYMBOL_INFO* symbol = (SYMBOL_INFO*)buffer;
+		symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
+		symbol->MaxNameLen = 255;
+		IMAGEHLP_LINE64 line = { sizeof(IMAGEHLP_LINE64) };
+		DWORD displacement = 0;
+		const bool hasSymbol = SymFromAddr(process, (DWORD64)frames[i], nullptr, symbol);
+		const bool hasLine = SymGetLineFromAddr64(process, (DWORD64)frames[i], &displacement, &line);
+		std::cout << "TEMPDIAG " << (hasSymbol ? symbol->Name : "?") << " " << (hasLine ? line.FileName : "") << ":" << (hasLine ? line.LineNumber : 0) << std::endl;
+	}
+	std::cout.flush();
+	ExitProcess(3);
+	return TRUE;
+}
+//TEMPDIAG end
 
 
-// onlyLevel / onlyAfterload select a single test (-1 = no selection).  Running one test per
-// process keeps the engine's globals from carrying over between tests - run_regtest resets only
-// a handful of them.
-int CountFailedRegressionTests(int onlyLevel = -1, int onlyAfterload = -1) {
-	int numFailedTests = 0;
-	//run_regtest(level,testType,indexOfRegression,indexOfSavePosition(-1 - no load),isRecorded)
-	enum TestType {
-		BeginLevelNoActions = 0,
-		AfterloadNoActions = 1,
-		BeginLevelWithActions = 2,
-		AfterloadWithActions = 3
-	};
-	Logger->info("\n--- Level regressions tests ---");
-	const bool all = (onlyLevel < 0 && onlyAfterload < 0);
-	for (int i = 1; i <= 25; i++)
-		if (i != 22 && i != 25 && (all || onlyLevel == i))
-			if (run_regtest(i) != 0)
+enum TestType {
+	BeginLevelNoActions = 0,
+	AfterloadNoActions = 1,
+	BeginLevelWithActions = 2,
+	AfterloadWithActions = 3
+};
+
+struct type_regtest
+{
+	std::string name;
+	int level = 0;
+	int type = BeginLevelNoActions;
+	int index = 0;
+	int save = 0;
+	std::string record;//in memimages/regressions, or in folder
+	int steps = 20;
+	bool intervalSave = false;
+	std::string folder;//record<N>: <folder>/level<L>/sequence-*
+};
+
+// N of <prefix>N, -1 for other names
+int FolderNumber(const std::string& name, const std::string& prefix)
+{
+	if (name.rfind(prefix, 0) != 0 || name.size() == prefix.size() || name.find_first_not_of("0123456789", prefix.size()) != std::string::npos)
+		return -1;
+	return std::stoi(name.substr(prefix.size()));
+}
+
+// frames of sequence-002285FF-00356038 (.bin or .binz)
+int SequenceFrames(const std::string& folder)
+{
+	const std::string name = folder + "/sequence-002285FF-00356038";
+	if (std::filesystem::exists(name + ".bin"))
+		return (int)(std::filesystem::file_size(name + ".bin") / 224790);
+	std::ifstream file(name + ".binz", std::ios::binary);
+	file.seekg(12);
+	int frames = 0;
+	uint32_t length = 0;
+	while (file.read((char*)&length, 4) && file.seekg(length, std::ios::cur))
+		frames++;
+	return frames;
+}
+
+// every test of memimages/regressions: level<N>, afterloadtest<N> (its regtest.txt), record<N>/level<L>
+std::vector<type_regtest> FindRegressionTests(int onlyLevel, int onlyAfterload, int onlyRecord)
+{
+	const bool all = (onlyLevel < 0 && onlyAfterload < 0 && onlyRecord < 0);
+	std::vector<std::pair<std::tuple<int, int, int>, type_regtest>> tests;
+	for (const auto& entry : std::filesystem::directory_iterator(RegressionsPath()))
+	{
+		const std::string name = entry.path().filename().string();
+		type_regtest test;
+		test.name = name;
+		if ((test.level = FolderNumber(name, "level")) > 0 && (all || (onlyRecord < 0 && onlyLevel == test.level)))
+			tests.push_back({ { 0, test.level, 0 }, test });
+		else if ((test.index = FolderNumber(name, "afterloadtest")) > 0 && (all || onlyAfterload == test.index))
+		{
+			std::ifstream file(entry.path() / "regtest.txt");
+			for (std::string token; file >> token;)
 			{
-				numFailedTests++;
+				const std::string key = token.substr(0, token.find('='));
+				const std::string value = token.substr(token.find('=') + 1);
+				if (key == "level") test.level = std::stoi(value);
+				if (key == "type") test.type = std::stoi(value);
+				if (key == "save") test.save = std::stoi(value);
+				if (key == "record") test.record = value;
+				if (key == "steps") test.steps = std::stoi(value);
+				if (key == "intervalsave") test.intervalSave = value == "1";
 			}
-	Logger->info("--- Afterload regressions tests ---");
+			tests.push_back({ { 1, test.index, 0 }, test });
+		}
+		else if (const int record = FolderNumber(name, "record"); record > 0 && (all || onlyRecord == record))
+		{
+			test.type = BeginLevelWithActions;
+			test.folder = name;
+			for (const auto& file : std::filesystem::directory_iterator(entry.path()))
+				if (file.is_regular_file())
+					test.record = file.path().filename().string();
+			for (const auto& levelFolder : std::filesystem::directory_iterator(entry.path()))
+			{
+				test.level = FolderNumber(levelFolder.path().filename().string(), "level");
+				if (test.level <= 0 || (onlyLevel > 0 && onlyRecord > 0 && onlyLevel != test.level))
+					continue;
+				test.steps = SequenceFrames(levelFolder.path().string());
+				tests.push_back({ { 2, record, test.level }, test });
+			}
+		}
+	}
+	std::sort(tests.begin(), tests.end(), [](const auto& a, const auto& b) { return a.first < b.first; });
+	std::vector<type_regtest> result;
+	for (const auto& test : tests)
+		result.push_back(test.second);
+	return result;
+}
 
-	if ((all || onlyAfterload == 1) && run_regtest(2, TestType::AfterloadNoActions, 1, 2) != 0) numFailedTests++;
-	if ((all || onlyAfterload == 2) && run_regtest(2, TestType::BeginLevelWithActions, 2, 1, "Levels-1-5-Recording.bin", 25) != 0) numFailedTests++;
-	// Level 5 played to the end of the recording (5402 turns) against the original game replaying the same
-	// recording in DOSBox (dosbox-x-remc2, mc2replay/run_replay.ps1 -Seq): memimages afterloadtest9
-	if ((all || onlyAfterload == 9) && run_regtest(5, TestType::BeginLevelWithActions, 9, 0, "Level5-mine.dem", 5420) != 0) numFailedTests++;
-	//if (run_regtest(1, TestType::BeginLevelWithActions, 3, -1, "Levels-1-5-Recording.bin", 3000) != 0) numFailedTests++;
-	//if (run_regtest(1, true, 2, -1, "c:/prenos/remc2-dev2/remc2/x64/Debug/memimages/regressions/afterloadtest2/Levels-1-5-Recording.bin",25) != 0) numFailedTests++;
+extern bool resaveRecordings;
 
+// onlyLevel / onlyAfterload / onlyRecord select tests (-1 = no selection).  Running one test per
+// process keeps the engine's globals from carrying over between tests - run_regtest resets only
+// a handful of them.  resave: 1 step of the tests with a recording, which gets the level start saves.
+int CountFailedRegressionTests(int onlyLevel = -1, int onlyAfterload = -1, int onlyRecord = -1, bool resave = false) {
+	int numFailedTests = 0;
+	for (const auto& test : FindRegressionTests(onlyLevel, onlyAfterload, onlyRecord))
+	{
+		if (resave && test.record.empty())
+			continue;
+		resaveRecordings = resave;
+		if (run_regtest(test.level, test.type, test.index, test.save, test.record.c_str(), resave ? 1 : test.steps, test.intervalSave, test.folder.c_str()) != 0)
+			numFailedTests++;
+		resaveRecordings = false;
+	}
 
 	// diff in level 22:
 	//   the first frame with a diff has it at 0x7dba and the following bytes:
@@ -62,15 +177,22 @@ int main(int argc, char** argv)
 	int numFailedTests = 0;
 
 	InitializeLogging(spdlog::level::info);
-	// "--level N" or "--afterload N" runs just that test
+	_CrtSetReportHook2(_CRT_RPTHOOK_INSTALL, TempAssertHook);//TEMPDIAG
+	// "--level N" or "--afterload N" runs just that test, "--record N [--level L]" the levels of recording N,
+	// "--resave" with them rewrites the level start saves of their recordings
 	int onlyLevel = -1;
 	int onlyAfterload = -1;
-	for (int a = 1; a + 1 < argc; a++)
+	int onlyRecord = -1;
+	bool resave = false;
+	for (int a = 1; a < argc; a++)
 	{
+		if (std::string(argv[a]) == "--resave") resave = true;
+		if (a + 1 >= argc) continue;
 		if (std::string(argv[a]) == "--level") onlyLevel = atoi(argv[a + 1]);
 		if (std::string(argv[a]) == "--afterload") onlyAfterload = atoi(argv[a + 1]);
+		if (std::string(argv[a]) == "--record") onlyRecord = atoi(argv[a + 1]);
 	}
-	numFailedTests += CountFailedRegressionTests(onlyLevel, onlyAfterload);
+	numFailedTests += CountFailedRegressionTests(onlyLevel, onlyAfterload, onlyRecord, resave);
 
 	if (numFailedTests == 0)
 	{

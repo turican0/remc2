@@ -2,6 +2,7 @@
 #include "../remc2/engine/EventsFunctions.h"
 #include "../remc2/engine/PlayerInput.h"
 #include "../remc2/engine/Level.h"
+#include <filesystem>
 
 // Per-run state of the engine that the tests depend on.  All tests run in one process, and without
 // this each one starts where the previous one left off: IsAfterLoad stays true after a level test,
@@ -26,24 +27,36 @@ static void ResetRegressionRunState()
 	lastcompstr.index = 0;
 }
 
-int run_regtest(int level, int testType, int index, int saveIndex, const char* recordName, int maxSteps, bool turnOnIntervalSave)//236F70
+bool resaveRecordings = false;
+
+// memimages/regressions next to the exe, else the one of the sources
+std::string RegressionsPath()
+{
+	const std::string nextToExe = get_exe_path() + "/memimages/regressions";
+	if (std::filesystem::exists(nextToExe))
+		return nextToExe;
+	return (std::filesystem::path(__FILE__).parent_path() / "memimages" / "regressions").string();
+}
+
+int run_regtest(int level, int testType, int index, int saveIndex, const char* recordName, int maxSteps, bool turnOnIntervalSave, const char* recordFolder)//236F70
 {
 	int exitCode = 0;
-	Logger->info("Testing aftreload {} for Level {}", index, level);
+	const std::string testName = strlen(recordFolder) > 0 ? std::string(recordFolder) : "aftreload " + std::to_string(index);
+	Logger->info("Testing {} for Level {}", testName, level);
 
 	unitTests = true;
 	std::string locUnitTestsPath;
 	std::string recordPath = "";
 	if (testType>0)
 	{
-		locUnitTestsPath = get_exe_path() + "/memimages/regressions/afterloadtest" + std::to_string(index);
-		if(strlen(recordName) > 0)
-			// recordings in the current layout (with spells); converted from the old ones by
-			// actions/convert_old_recordings.py and copied next to the exe by the build
-			recordPath = get_exe_path() + "/actions/" + recordName;
+		locUnitTestsPath = RegressionsPath() + "/afterloadtest" + std::to_string(index);
+		if (strlen(recordFolder) > 0)//<folder>/<recording>, <folder>/level<N>/sequence-*
+			locUnitTestsPath = RegressionsPath() + "/" + recordFolder + "/level" + std::to_string(level);
+		if (strlen(recordName) > 0)//in memimages/regressions
+			recordPath = RegressionsPath() + "/" + (strlen(recordFolder) > 0 ? std::string(recordFolder) + "/" : "") + recordName;
 	}
 	else
-		locUnitTestsPath = get_exe_path() + "/memimages/regressions/level" + std::to_string(level);
+		locUnitTestsPath = RegressionsPath() + "/level" + std::to_string(level);
 	unitTestsPath = locUnitTestsPath;
 	int locEndTestsCode = 0;
 	endTestsCode = &locEndTestsCode;
@@ -74,6 +87,11 @@ int run_regtest(int level, int testType, int index, int saveIndex, const char* r
 		{
 			args.emplace_back("--play_file");
 			args.emplace_back(recordPath);
+			if (resaveRecordings)
+			{
+				args.emplace_back("--record_file");//rewritten with level saves
+				args.emplace_back(recordPath);
+			}
 		}
 		args.emplace_back("--set_max_regressions_steps");
 		args.emplace_back(std::to_string(maxSteps));
@@ -134,13 +152,13 @@ int run_regtest(int level, int testType, int index, int saveIndex, const char* r
 	support_end();
 	if (locEndTestsCode == 20)
 		if (testType > 0)
-			Logger->info("Test aftreload {} for Level {} - OK\n\n", index, level);
+			Logger->info("Test {} for Level {} - OK\n\n", testName, level);
 		else
 			Logger->info("Test Level {} - OK\n\n", level);
 	else
 	{
 		if (testType > 0)
-			Logger->info("Test aftreload {} for Level {} - FAILED\n\n", index, level);
+			Logger->info("Test {} for Level {} - FAILED\n\n", testName, level);
 		else
 			Logger->error("Test Level {} - FAILED\n\n", level);
 		exitCode = -1;
