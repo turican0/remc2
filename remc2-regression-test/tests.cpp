@@ -11,6 +11,7 @@
 #include <algorithm>
 #include "regression-tests.h"
 //TEMPDIAG begin
+#ifdef _WIN32
 #include <windows.h>
 #include <dbghelp.h>
 #include <crtdbg.h>
@@ -38,6 +39,27 @@ int TempAssertHook(int, char* message, int*)
 	ExitProcess(3);
 	return TRUE;
 }
+#define TEMPDIAG_INSTALL_HOOK() _CrtSetReportHook2(_CRT_RPTHOOK_INSTALL, TempAssertHook)
+#else
+// Linux/glibc has no CRT report-hook mechanism: assert() just prints to
+// stderr and calls abort(), which raises SIGABRT. We hook that instead and
+// print a backtrace with glibc's <execinfo.h>, which is the closest
+// equivalent to the Windows dbghelp-based stack walk above.
+#include <execinfo.h>
+#include <csignal>
+#include <cstdlib>
+void TempAssertHook(int)
+{
+	void* frames[64];
+	const int count = backtrace(frames, 64);
+	std::cout << "TEMPDIAG assert: SIGABRT" << std::endl;
+	std::cout.flush();
+	backtrace_symbols_fd(frames, count, STDOUT_FILENO);
+	std::cout.flush();
+	_exit(3);
+}
+#define TEMPDIAG_INSTALL_HOOK() std::signal(SIGABRT, TempAssertHook)
+#endif
 //TEMPDIAG end
 
 
@@ -177,7 +199,7 @@ int main(int argc, char** argv)
 	int numFailedTests = 0;
 
 	InitializeLogging(spdlog::level::info);
-	_CrtSetReportHook2(_CRT_RPTHOOK_INSTALL, TempAssertHook);//TEMPDIAG
+	TEMPDIAG_INSTALL_HOOK();//TEMPDIAG
 	// "--level N" or "--afterload N" runs just that test, "--record N [--level L]" the levels of recording N,
 	// "--resave" with them rewrites the level start saves of their recordings
 	int onlyLevel = -1;
