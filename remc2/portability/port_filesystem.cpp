@@ -83,6 +83,7 @@ void InitializeLogging(spdlog::level::level_enum level, const char* logFileName)
 
 			Logger = new spdlog::logger("multi_sink", { console_sink, file_sink });
 			Logger->set_level(level);
+			Logger->flush_on(spdlog::level::info);//a crash must not cut the log off
 			auto levelStr = GetStringFromLoggingLevel(level);
 			Logger->info("Logging Initialized with Level: {}", levelStr);
 		}
