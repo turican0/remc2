@@ -135,6 +135,12 @@ const std::vector<uint8_t>* InputRecorder::GetLevelSave(int level)
 	return &m_InputEvents->at(level)->Saves[start - 1];
 }
 
+bool InputRecorder::HasPlayerSpells(int level, int playerIdx)
+{
+	return m_InputEvents->count(level) != 0 && m_InputEvents->at(level)->Players->count(playerIdx) != 0
+		&& m_InputEvents->at(level)->Players->at(playerIdx)->SpellsEnabled != nullptr;
+}
+
 void InputRecorder::RecordPlayerSpells(int level, int playerIdx, int16_t* spellsEnabled, uint8_t* spellIndexes, uint8_t* spellLevels, int32_t* spellsExperience)
 {
 	if (!m_IsRecording)
@@ -153,6 +159,9 @@ void InputRecorder::RecordPlayerSpells(int level, int playerIdx, int16_t* spells
 		m_InputEvents->at(level)->Players->at(playerIdx) = new RecordedEventPlayer();
 		m_InputEvents->at(level)->Players->at(playerIdx)->PlayerIdx = playerIdx;
 		m_InputEvents->at(level)->Players->at(playerIdx)->Turns = new std::map<uint32_t, RecordedEventTurn*>();
+	}
+	if (m_InputEvents->at(level)->Players->at(playerIdx)->SpellsEnabled == nullptr)
+	{
 		m_InputEvents->at(level)->Players->at(playerIdx)->SpellsEnabled = new int16_t[26];
 		m_InputEvents->at(level)->Players->at(playerIdx)->SpellIndexes = new uint8_t[26];
 		m_InputEvents->at(level)->Players->at(playerIdx)->SpellLevels = new uint8_t[26];
@@ -248,10 +257,13 @@ bool InputRecorder::SaveRecordingToFile(const char* outputFileName)
 
 				fwrite(&playerIndex, sizeof(uint16_t), 1, eventsFile);
 				fwrite(&turnCount, sizeof(uint32_t), 1, eventsFile);
-				fwrite(playIt->second->SpellsEnabled, sizeof(int16_t), 26, eventsFile);
-				fwrite(playIt->second->SpellIndexes, sizeof(uint8_t), 26, eventsFile);
-				fwrite(playIt->second->SpellLevels, sizeof(uint8_t), 26, eventsFile);
-				fwrite(playIt->second->SpellsExperience, sizeof(int32_t), 26, eventsFile);
+				const int16_t zeroSpells16[26] = {};//a player whose spells were never recorded
+				const uint8_t zeroSpells8[26] = {};
+				const int32_t zeroSpells32[26] = {};
+				fwrite(playIt->second->SpellsEnabled ? playIt->second->SpellsEnabled : zeroSpells16, sizeof(int16_t), 26, eventsFile);
+				fwrite(playIt->second->SpellIndexes ? playIt->second->SpellIndexes : zeroSpells8, sizeof(uint8_t), 26, eventsFile);
+				fwrite(playIt->second->SpellLevels ? playIt->second->SpellLevels : zeroSpells8, sizeof(uint8_t), 26, eventsFile);
+				fwrite(playIt->second->SpellsExperience ? playIt->second->SpellsExperience : zeroSpells32, sizeof(int32_t), 26, eventsFile);
 
 				for (int i = 0; i < playerTurns->size(); i++)
 				{

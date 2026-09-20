@@ -37768,6 +37768,13 @@ void PlayerEvents_51BB0()//232bb0
 			std::string msg = "Recording Turn: " + std::to_string(D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248);
 			SetCurrentNotificationMessage_19760(msg.c_str(), 3u, 50);
 			m_InputRecorder->RecordPlayerActions(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, i, D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248, D41A0_0.rand_0x8, sizeof(Type_PlayerInput_0x6E3E), (uint8_t*)&D41A0_0.playerInputs_0x6E3E[i]);
+			// recording started in a running level (a loaded game): 54A50 never ran, take the spells now
+			if (!m_InputRecorder->HasPlayerSpells(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, i))
+				m_InputRecorder->RecordPlayerSpells(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, i,
+					D41A0_0.array_0x2BDE[i].dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled,
+					D41A0_0.array_0x2BDE[i].dword_0x3E6_2BE4_12228.str_611.SpellIndexes_0x39B_923x.SpellIndex,
+					D41A0_0.array_0x2BDE[i].dword_0x3E6_2BE4_12228.str_611.SpellLevels_0x41D_1053z.SpellIndex,
+					D41A0_0.array_0x2BDE[i].dword_0x3E6_2BE4_12228.str_611.SpellExperience_0x263_611x.SpellExperience);
 		}
 
 		//adress 232d2f

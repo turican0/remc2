@@ -45,5 +45,6 @@ public:
 	void LevelStarted(uint16_t level);
 	void RecordPlayerActions(uint16_t level, uint16_t playerIdx, uint32_t turn, uint32_t rand, uint64_t sizeBytes, uint8_t* buffer);
 	void RecordPlayerSpells(int level, int playerIdx, int16_t* spellsEnabled, uint8_t* spellIndexes, uint8_t* spellLevels, int32_t* spellsExperience);
+	bool HasPlayerSpells(int level, int playerIdx);
 };
 
