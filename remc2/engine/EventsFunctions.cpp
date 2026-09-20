@@ -51648,7 +51648,10 @@ void sub_8CB1F()//26db1f
 
 void MouseEvents(uint32_t buttons, int x, int y)
 {
-	if (m_InputRecorder != nullptr && m_InputRecorder->m_IsPlaying)//playback: no host mouse
+	// playback: the recording drives the mouse, but the menus outside the level and the pause
+	// menu keep the host mouse, otherwise there is no way to reach a playback at all
+	if (m_InputRecorder != nullptr && m_InputRecorder->m_IsPlaying && g_inGameLoop
+		&& !(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED))
 		return;
 	UpdateMouseEventData_8CB3A(buttons, x, y);
 };
