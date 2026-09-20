@@ -72,6 +72,7 @@ void allert_error();
 
 extern bool unitTests;
 extern std::string unitTestsPath;
+extern bool unitTestsProgress;//print @PROGRESS <step> for the runner
 std::string SaveDirectory();
 extern int* endTestsCode;
 

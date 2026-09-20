@@ -14,6 +14,7 @@ extern DOS_Device* DOS_CON;
 
 bool unitTests = false;
 std::string unitTestsPath;
+bool unitTestsProgress = false;
 
 extern std::string gameDataPath;
 

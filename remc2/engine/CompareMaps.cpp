@@ -53,6 +53,11 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 	if (debugafterload)
 	{
 		int index = getcompindex(adress);
+		if (unitTestsProgress && index % 20 == 0)
+		{
+			printf("@PROGRESS %d\n", index);
+			fflush(stdout);
+		}
 		if (index >= skip2)
 		{
 			if (index >= stopstep)

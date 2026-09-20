@@ -280,7 +280,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -299,6 +299,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)remc2\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2main.lib;Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionVertex;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;XmiInfo;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

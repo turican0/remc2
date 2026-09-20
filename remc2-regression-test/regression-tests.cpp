@@ -2,6 +2,7 @@
 #include "../remc2/engine/EventsFunctions.h"
 #include "../remc2/engine/PlayerInput.h"
 #include "../remc2/engine/Level.h"
+#include "../remc2/engine/read_config.h"
 #include <filesystem>
 
 // Per-run state of the engine that the tests depend on.  All tests run in one process, and without
@@ -45,6 +46,7 @@ int run_regtest(int level, int testType, int index, int saveIndex, const char* r
 	Logger->info("Testing {} for Level {}", testName, level);
 
 	unitTests = true;
+	menuFps = 0;//no fps limit in the tests, maxGameFps is 0 in regression-config.json
 	std::string locUnitTestsPath;
 	std::string recordPath = "";
 	if (testType>0)
