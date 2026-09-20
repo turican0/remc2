@@ -219,6 +219,7 @@ struct type_running_test
 	std::atomic<int> done{ 0 };
 	std::atomic<bool> started{ false };
 	std::atomic<bool> announced{ false };
+	std::atomic<bool> printed{ false };
 	std::atomic<bool> finished{ false };
 	std::atomic<bool> failed{ false };
 	std::chrono::steady_clock::time_point start;
@@ -432,14 +433,14 @@ int RunTestsInParallel(const std::vector<type_regtest>& list, int jobs, const st
 		for (const auto& test : tests)
 			if (test->started && !test->announced.exchange(true))
 				printf("  started: %s (%d frames)\n", test->name.c_str(), test->total);
-		while (printed < tests.size() && tests[printed]->finished)
-		{
-			const auto& test = *tests[printed];
-			printf("%s", test.output.c_str());
-			printf("  %-22s %s %d frames in %s\n\n", test.name.c_str(), ProgressBar(1, 20).c_str(),
-				test.total, TimeText(SecondsSince(test.start)).c_str());
-			printed++;
-		}
+		for (const auto& test : tests)//a finished test right away, the tests do not finish in their order
+			if (test->finished && !test->printed.exchange(true))
+			{
+				printf("%s", test->output.c_str());
+				printf("  %-22s %s %d frames in %s\n\n", test->name.c_str(), ProgressBar(1, 20).c_str(),
+					test->total, TimeText(test->duration.load()).c_str());
+				printed++;
+			}
 		const std::vector<std::string> lines = StatusLines(tests, start, spin++, jobs);
 		for (const std::string& line : lines)
 			printf("%s\n", line.c_str());
@@ -449,6 +450,11 @@ int RunTestsInParallel(const std::vector<type_regtest>& list, int jobs, const st
 	}
 	for (std::thread& worker : workers)
 		worker.join();
+
+	printf("--- summary ---\n");
+	for (const auto& test : tests)
+		printf("  %-22s %-6s %6d frames in %s\n", test->name.c_str(), test->failed ? "FAILED" : "OK",
+			test->total, TimeText(test->duration.load()).c_str());
 
 	int failed = 0;
 	for (const auto& test : tests)
