@@ -16346,8 +16346,8 @@ void HitFirebug_25610(type_entity_0x6E8E* a1x)//206610
 						for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 						{
 							if (jx->id_0x1A_26 != a1x->id_0x1A_26
-								&& abs(a1x->position_0x4C_76.x - jx->position_0x4C_76.x) < a1x->array_0x52_82.pitch
-								&& abs(a1x->position_0x4C_76.y - jx->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
+								&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)jx->position_0x4C_76.x) < a1x->array_0x52_82.pitch//20680F movsx edx, word ptr [ebx+4Ch]
+								&& abs((int16_t)a1x->position_0x4C_76.y - (int16_t)jx->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
 							{
 								a1x->roll_0x20_32 = Maths::sub_581E0_maybe_tan2(&jx->position_0x4C_76, &a1x->position_0x4C_76);
 								return;
@@ -16375,8 +16375,8 @@ void HitFirebug_25610(type_entity_0x6E8E* a1x)//206610
 						if (v15x > Entities_EA3E4[0])
 						{
 							if (v15x->id_0x1A_26 == a1x->id_0x1A_26
-								|| abs(a1x->position_0x4C_76.x - v15x->position_0x4C_76.x) >= a1x->array_0x52_82.pitch
-								|| abs(a1x->position_0x4C_76.y - v15x->position_0x4C_76.y) >= a1x->array_0x52_82.pitch)
+								|| abs((int16_t)a1x->position_0x4C_76.x - (int16_t)v15x->position_0x4C_76.x) >= a1x->array_0x52_82.pitch//2068FC movsx edx, word ptr [ebx+4Ch]
+								|| abs((int16_t)a1x->position_0x4C_76.y - (int16_t)v15x->position_0x4C_76.y) >= a1x->array_0x52_82.pitch)
 							{
 								v15x = v15x->next_0;
 								continue;
@@ -16430,8 +16430,8 @@ void HitFirebug_25610(type_entity_0x6E8E* a1x)//206610
 						if (v30x > Entities_EA3E4[0])
 						{
 							if (v30x->id_0x1A_26 == a1x->id_0x1A_26
-								|| abs(a1x->position_0x4C_76.x - v30x->position_0x4C_76.x) >= a1x->array_0x52_82.pitch
-								|| abs(a1x->position_0x4C_76.y - v30x->position_0x4C_76.y) >= a1x->array_0x52_82.pitch)
+								|| abs((int16_t)a1x->position_0x4C_76.x - (int16_t)v30x->position_0x4C_76.x) >= a1x->array_0x52_82.pitch//206AC6 movsx edx, word ptr [ebx+4Ch]
+								|| abs((int16_t)a1x->position_0x4C_76.y - (int16_t)v30x->position_0x4C_76.y) >= a1x->array_0x52_82.pitch)
 							{
 								v30x = v30x->next_0;
 								continue;
@@ -16480,8 +16480,8 @@ void HitFirebug_25610(type_entity_0x6E8E* a1x)//206610
 				while (v22x > Entities_EA3E4[0])
 				{
 					if (v22x->id_0x1A_26 != a1x->id_0x1A_26
-						&& abs(a1x->position_0x4C_76.x - v22x->position_0x4C_76.x) < a1x->array_0x52_82.pitch
-						&& abs(a1x->position_0x4C_76.y - v22x->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
+						&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)v22x->position_0x4C_76.x) < a1x->array_0x52_82.pitch//206C0F movsx edx, word ptr [ebx+4Ch]
+						&& abs((int16_t)a1x->position_0x4C_76.y - (int16_t)v22x->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
 					{
 						a1x->roll_0x20_32 = Maths::sub_581E0_maybe_tan2(&v22x->position_0x4C_76, &a1x->position_0x4C_76);
 						break;
