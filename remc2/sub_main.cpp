@@ -655,6 +655,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 			std::filesystem::exists(CommandLineParams.GetPlaybackPath().c_str()))
 		{
 			StartPlayback(CommandLineParams.GetPlaybackPath().c_str());
+			m_InputRecorder->m_ResavePath = CommandLineParams.GetRecordingPath();//with --record_file: add level saves
 		}
 		else if (CommandLineParams.GetRecordingPath().length() > 0)
 		{

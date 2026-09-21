@@ -72,6 +72,8 @@ void allert_error();
 
 extern bool unitTests;
 extern std::string unitTestsPath;
+extern bool unitTestsProgress;//print @PROGRESS <step> for the runner
+std::string SaveDirectory();
 extern int* endTestsCode;
 
 extern uint8_t* readbuffer;
@@ -226,8 +228,11 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	//invincability - 1;
 	uint8_t FrameTimingIndex_26 = 0;//Used to time flashing indicators
 	uint8_t stubc[3];
-	uint8_t setting_30;//x_D41A0_BYTEARRAY_4_struct.setting_30
-	uint8_t stubd[3];
+	// The per-level tick counter, a dword in the original (mov esi,[eax+1Eh] / inc esi at 0x51C9B,
+	// read whole in sub_5D530 and added to D41A0_0.rand_0x8). As a byte followed by three bytes
+	// of padding it wrapped at 256 and the global RNG came out 0x100 short from turn 256 on.
+	// Replaces the padding, so the fields after it keep their place.
+	uint32_t setting_30;//x_D41A0_BYTEARRAY_4_struct.setting_30
 	//FILE* moviemvidatfile_byte4_33;
 	uint8_t m_wHighSpeedSystem;
 	FILE* moviemvidatfile_byte4_35;

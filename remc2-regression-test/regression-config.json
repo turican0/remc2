@@ -38,9 +38,225 @@
 				}
 			},
 			"game": {
-				"loggingLevel": "Debug",
-				"maxGameFps": 30
+				"loggingLevel": "Info",
+				"maxGameFps": 0,
 				"skipIntro": true
+			},
+			"controls": {
+				"mouse": [
+					{
+						"description": [
+							"invertYAxis: True By default, the Y axis is inverted in the original game",
+							"invertXAxis: By default, the X axis is not inverted",
+							"Mouse Buttons: 1 = Left, 2 = Middle, 3 = Right, 0 = Undefined",
+							"mouseScaleX: 1.0 = normal, 1.5 = slower, 0.5 faster etc... (Note: Effects joystick steering too)",
+							"disableLRButtonsMenuOpen: when enable stops the two fire buttons opening the map screen"
+						],
+						"name": "Modern",
+						"isActive": true,
+						"invertYAxis": true,
+						"invertXAxis": false,
+						"mouseScaleX": 1.0,
+						"mouseScaleY": 1.0,
+						"disableLRButtonsMenuOpen": true,
+						"spellLeft": 1,
+						"spellRight": 3,
+						"map": 2,
+						"spellMenu": 4,
+						"spellMenuMark": 5
+					}
+				],
+				"keyboard": [
+					{
+						"description": [
+							"spellMenu: Ctrl by default. Opens the Spell menu",
+							"spellMenuMark: LShift By default, Hold down with spell menu open to mark a spell to the mouse button pressed"
+						],
+						"name": "Modern",
+						"isActive": true,
+						"forward": "W",
+						"backwards": "S",
+						"left": "A",
+						"right": "D",
+						"map": "TAB",
+						"spellMenu": "LCTRL",
+						"spellMenuMark": "LSHIFT"
+					},
+					{
+						"description": [
+							"spellMenu: Ctrl by default. Opens the Spell menu",
+							"spellMenuMark: LShift By default, Hold down with spell menu open to mark a spell to the mouse button pressed"
+						],
+						"name": "Classic",
+						"isActive": false,
+						"forward": "UP",
+						"backwards": "DOWN",
+						"left": "LEFT",
+						"right": "RIGHT",
+						"map": "RETURN",
+						"spellMenu": "RCTRL",
+						"spellMenuMark": "RSHIFT"
+					}
+				],
+				"gamePad": [
+					{
+						"name": "XBox Controller",
+						"isActive": true,
+						"controllerId": 0,
+						"buttonMiniMap": 3,
+						"buttonSpell": 1,
+						"buttonPauseMenu": 7,
+						"buttonEsc": 8,
+						"buttonFireL": 5,
+						"buttonFireR": 6,
+						"buttonMenuSelect": 1,
+						"triggerDeadZone": 3000,
+						"hapticEnabled": true,
+						"hapticMaxGain": 75,
+						"hatNav": 0,
+						"hatMov": 0,
+						"hatNavInv": false,
+						"hatMovInv": false,
+						"axisLong": 2,
+						"axisLongDeadZone": 12000,
+						"axisLongNavDeadZone": 6000,
+						"axisLongInv": true,
+						"axisTrans": 1,
+						"axisTransInv": false,
+						"axisTransDeadZone": 12000,
+						"axisTransNavDeadZone": 6000,
+						"axisNavNs": 2,
+						"axisNavNsInv": false,
+						"axisNavEw": 1,
+						"axisNavEwInv": false,
+						"axisFireR": 6,
+						"axisFireL": 5,
+						"axisYaw": 3,
+						"axisYawInv": false,
+						"axisYawDeadZone": 3000,
+						"axisYawSensitivity": {
+							"zones": [
+								{
+									"start": 0,
+									"end": 8000,
+									"factor": 0.1
+								},
+								{
+									"start": 8000,
+									"end": 15000,
+									"factor": 0.2
+								},
+								{
+									"start": 15000,
+									"end": 20000,
+									"factor": 0.3
+								},
+								{
+									"start": 20000,
+									"end": 25000,
+									"factor": 0.35
+								},
+								{
+									"start": 25000,
+									"end": 26000,
+									"factor": 0.4
+								},
+								{
+									"start": 26000,
+									"end": 27000,
+									"factor": 0.5
+								},
+								{
+									"start": 27000,
+									"end": 28000,
+									"factor": 0.6
+								},
+								{
+									"start": 28000,
+									"end": 29000,
+									"factor": 0.7
+								},
+								{
+									"start": 29000,
+									"end": 30000,
+									"factor": 0.8
+								},
+								{
+									"start": 30000,
+									"end": 31000,
+									"factor": 0.9
+								},
+								{
+									"start": 31000,
+									"end": 32767,
+									"factor": 1.0
+								}
+							]
+						},
+						"axisPitch": 4,
+						"axisPitchInv": false,
+						"axisPitchDeadZone": 3000,
+						"axisPitchSensitivity": {
+							"zones": [
+								{
+									"start": 0,
+									"end": 8000,
+									"factor": 0.1
+								},
+								{
+									"start": 8000,
+									"end": 15000,
+									"factor": 0.2
+								},
+								{
+									"start": 15000,
+									"end": 20000,
+									"factor": 0.3
+								},
+								{
+									"start": 20000,
+									"end": 25000,
+									"factor": 0.35
+								},
+								{
+									"start": 25000,
+									"end": 26000,
+									"factor": 0.4
+								},
+								{
+									"start": 26000,
+									"end": 27000,
+									"factor": 0.5
+								},
+								{
+									"start": 27000,
+									"end": 28000,
+									"factor": 0.6
+								},
+								{
+									"start": 28000,
+									"end": 29000,
+									"factor": 0.7
+								},
+								{
+									"start": 29000,
+									"end": 30000,
+									"factor": 0.8
+								},
+								{
+									"start": 30000,
+									"end": 31000,
+									"factor": 0.9
+								},
+								{
+									"start": 31000,
+									"end": 32767,
+									"factor": 1.0
+								}
+							]
+						}
+					}
+				]
 			}
 		}
 	]

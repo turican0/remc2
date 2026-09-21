@@ -3,6 +3,10 @@
 #include <string>
 #include <cstring>
 #include <iostream>
+#include <map>
+#include <vector>
+#include <filesystem>
+#include <chrono>
 
 #ifdef USE_DOSBOX
 extern DOS_Device* DOS_CON;
@@ -10,6 +14,19 @@ extern DOS_Device* DOS_CON;
 
 bool unitTests = false;
 std::string unitTestsPath;
+bool unitTestsProgress = false;
+
+extern std::string gameDataPath;
+
+// SAVE folder; a regression test has its own, tests run in parallel
+std::string SaveDirectory()
+{
+	if (!unitTests)
+		return gameDataPath + "/SAVE";
+	static const std::filesystem::path dir = std::filesystem::temp_directory_path() / ("remc2-save-" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
+	std::filesystem::create_directories(dir);
+	return dir.string();
+}
 int* endTestsCode;
 
 const int printBufferSize = 4096;
@@ -789,17 +806,17 @@ static const std::vector<FieldRange>& field_table()
 		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].array_0x52_82.roll", i);  tbl.push_back({ ENTBASE(i,array_0x52_82) + 4,2,strdup(nm),0 });
 		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].array_0x52_82.fov", i);   tbl.push_back({ ENTBASE(i,array_0x52_82) + 6,2,strdup(nm),0 });
 		ESC(word_0x5A_90, 2); ESC(byte_0x5C_92, 1); ESC(byte_0x5D_93, 1);
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.dword_0x5E_94", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,dword_0x5E_94),4,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x62_98", i);   tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x62_98),2,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.dword_0x64_100", i); tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,dword_0x64_100),4,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x68_104", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x68_104),2,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.dword_0x70_112", i); tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,dword_0x70_112),4,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x74_116", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x74_116),2,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x76_118", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x76_118),2,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x78_120", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x78_120),2,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x7A_122", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x7A_122),2,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x7C_124", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x7C_124),2,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x80_128", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x80_128),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.dword_0x5E_94", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[0].amount.dword),4,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x62_98", i);   tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[0].source),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.dword_0x64_100", i); tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[1].amount.dword),4,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x68_104", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[1].source),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.dword_0x70_112", i); tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[3].amount.dword),4,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x74_116", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[3].source),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x76_118", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[4].amount.word[0]),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x78_120", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[4].amount.word[1]),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x7A_122", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[4].source),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x7C_124", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[5].amount.word[0]),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x80_128", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[5].source),2,strdup(nm),0 });
 		ESC(word_0x82_130, 2); ESC(word_0x84_132, 2); ESC(word_0x86_134, 2);
 		ESC(dword_0x88_136, 4); ESC(dword_0x8C_140, 4); ESC(dword_0x90_144, 4);
 		ESC(playerEntityIndex_0x94_148, 2); ESC(word_0x96_150, 2); ESC(word_0x98_152, 2);
@@ -1081,7 +1098,11 @@ void support_begin() {
 		//x_D41A0_BYTEARRAY_4_struct.player_name_57 =new char[256];
 		//x_D41A0_BYTEARRAY_4_struct.savestring_89 = new char[256];
 
-	x_BYTE_14B4E0_second_heightmap = new uint8_t[65536];
+	// Zero-initialised: the game maintains this plane on every map type (the
+	// painters raise and lower it) but only the cave generator seeds it, so on
+	// a day/night level it starts as whatever is here. In the original that is
+	// a zeroed BSS block; a bare new[] made it uninitialised heap.
+	x_BYTE_14B4E0_second_heightmap = new uint8_t[65536]();
 	off_D41A8_sky = new uint8_t[1024 * 1024];
 	memcpy(off_D41A8_sky, &x_BYTE_14B4E0_second_heightmap, 4);
 
@@ -1197,13 +1218,18 @@ int test_0x6E8E_id_pointer(uint32_t adress) {
 	return 0;
 }
 int test_D41A0_id_pointer(uint32_t adress) {
-	if ((adress >= 0x2bfa) && (adress < 0x2bfa + 49))return 2;//text
+	// CurrentNotificationText_0x01c of every player (array_0x2BDE, 0x84C each): the text comes
+	// from the language file, so it differs whenever the two runs use different languages
+	for (uint32_t player = 0; player < 8; player++)
+		if ((adress >= 0x2bfa + player * 0x84c) && (adress < 0x2bfa + player * 0x84c + 49))return 2;//text
 	if ((adress >= 0x2f79) && (adress < 0x2f79 + 1))return 2;//text
 	if ((adress >= 0x2fbd) && (adress < 0x2fbd + 1))return 2;//handle click button
 
 	if ((adress >= 0x2fc4) && (adress < 0x2fc5))return 2;//event
 
 	if ((adress >= 0x2fd8) && (adress < 0x2fdc))return 2; // mouse position: position_backup_20 in dword_0x3E6_2BE4_12228 in array_0x2BDE
+	for (uint32_t player = 0; player < 8; player++)
+		if ((adress >= 0x341c + player * 0x84c) && (adress < 0x341e + player * 0x84c))return 2;//UI: spellIndex_0x458_1112, subSpellIndex_0x459_1113 by mouse
 	// if ((adress == 0x36e04))return 2;                     // objective box counter
 
 	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock - 4 bytes
@@ -1416,10 +1442,70 @@ uint32_t compare_with_sequence_E7EE0(const char* filename, uint8_t* adress, uint
 	return(i);
 };
 
+struct type_sequence_binz
+{
+	FILE* file = nullptr;
+	std::vector<uint8_t> frame;
+	long long index = -1;
+};
+
+// frame of sequence-<name>.bin, or of .binz: "MC2SEQZ1", frame size, per frame length + (varint same, varint changed, changed bytes)
+void read_sequence(const std::string& name, long long count, long long frameSize, long offset, uint32_t size, uint8_t* buffer)
+{
+	FILE* file = fopen((name + ".bin").c_str(), "rb");
+	if (file != NULL)
+	{
+#if defined(__linux__) || defined(__APPLE__)
+		fseeko(file, count * frameSize + offset, SEEK_SET);
+#else
+		_fseeki64(file, count * frameSize + offset, SEEK_SET);
+#endif
+		fread(buffer, size, 1, file);
+		fclose(file);
+		return;
+	}
+	static std::map<std::string, type_sequence_binz> binz;
+	type_sequence_binz& seq = binz[name];
+	if (seq.file == nullptr)
+		seq.file = fopen((name + ".binz").c_str(), "rb");
+	if (seq.file == nullptr)
+	{
+		Logger->error("Missing sequence: {}.bin(z)", name);
+		memset(buffer, 0, size);
+		return;
+	}
+	if (seq.index < 0 || count < seq.index)//from the first frame
+	{
+		uint32_t binzFrameSize = 0;
+		fseek(seq.file, 8, SEEK_SET);
+		fread(&binzFrameSize, 4, 1, seq.file);
+		seq.frame.assign(binzFrameSize, 0);
+		seq.index = -1;
+	}
+	std::vector<uint8_t> changes;
+	for (; seq.index < count; seq.index++)
+	{
+		uint32_t length = 0;
+		fread(&length, 4, 1, seq.file);
+		changes.resize(length);
+		fread(changes.data(), 1, length, seq.file);
+		size_t p = 0, pos = 0;
+		auto varint = [&]() { size_t v = 0; for (int shift = 0; p < length; shift += 7) { v |= (size_t)(changes[p] & 0x7F) << shift; if (!(changes[p++] & 0x80)) break; } return v; };
+		while (p < length)
+		{
+			pos += varint();
+			const size_t changed = varint();
+			memcpy(seq.frame.data() + pos, changes.data() + p, changed);
+			p += changed;
+			pos += changed;
+		}
+	}
+	memcpy(buffer, seq.frame.data() + offset, size);
+}
+
 uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
 	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size);
-	FILE* fptestepc;
 	if (regressions)
 		finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
 	else
@@ -1430,16 +1516,7 @@ uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint
 		finddir2 = "";
 		finddir = unitTestsPath;
 	}
-	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
-	fptestepc = fopen(findname.c_str(), "rb");
-	if (fptestepc == NULL)
-	{
-		mydelay(100);
-		fptestepc = fopen(findname.c_str(), "rb");
-	}
-	fseek(fptestepc, count * size + offset, SEEK_SET);
-
-	fread(buffer, size, 1, fptestepc);
+	read_sequence(finddir2 + finddir + std::string("/sequence-") + filename, count, size, offset, size, buffer);
 	uint32_t i;
 	bool testa, testb;
 	for (i = 0; i < size; i++)
@@ -1489,7 +1566,6 @@ uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint
 		End_thread(-1);
 	}
 	free(buffer);
-	fclose(fptestepc);
 	return(i);
 };
 
@@ -1839,7 +1915,6 @@ uint32_t compare_with_sequence_array_222BD3(const char* filename, uint8_t* adres
 uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint32_t  /*adressdos*/, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
 	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size2);
-	FILE* fptestepc;
 	if (regressions)
 		finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
 	else
@@ -1850,27 +1925,9 @@ uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint
 		finddir2 = "";
 		finddir = unitTestsPath;
 	}
-	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
-	fptestepc = fopen(findname.c_str(), "rb");
-	if (fptestepc == NULL)
-	{
-		mydelay(100);
-		fptestepc = fopen(findname.c_str(), "rb");
-	}
-
-#if defined(__linux__) || defined(__APPLE__)
-	fseek(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
-#else
-	_fseeki64(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
-#endif
+	read_sequence(finddir2 + finddir + std::string("/sequence-") + filename, count, size1, offset, size2, buffer);
 
 	uint32_t i;
-	/*for (i = 0; i < count; i++)
-	{
-		fread_s(buffer,size,1,size, fptestepc);
-	}*/
-
-	fread(buffer, size2, 1, fptestepc);
 	if (size2 == 320 * 200)
 	{
 		VGA_Debug_Blit(320, 200, pdwScreenBuffer_351628);
@@ -1894,7 +1951,6 @@ uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint
 		End_thread(-1);
 	}
 	free(buffer);
-	fclose(fptestepc);
 	return(i);
 };
 

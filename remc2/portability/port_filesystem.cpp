@@ -73,16 +73,17 @@ void InitializeLogging(spdlog::level::level_enum level, const char* logFileName)
 		{
 			auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 			console_sink->set_level(level);
-			console_sink->set_pattern("[%H:%M:%S %z] [%^%-8l%$] %v");
+			console_sink->set_pattern("[%Y-%m-%d %H:%M:%S %z] [%^%-8l%$] %v");
 
 			auto max_size = 1048576 * 5;
 			auto max_files = 3;
 			auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(logFileName, max_size, max_files);
 			file_sink->set_level(level);
-			file_sink->set_pattern("[%H:%M:%S:%f %z] [%^%-8l%$] %v");
+			file_sink->set_pattern("[%Y-%m-%d %H:%M:%S:%f %z] [%^%-8l%$] %v");
 
 			Logger = new spdlog::logger("multi_sink", { console_sink, file_sink });
 			Logger->set_level(level);
+			Logger->flush_on(spdlog::level::info);//a crash must not cut the log off
 			auto levelStr = GetStringFromLoggingLevel(level);
 			Logger->info("Logging Initialized with Level: {}", levelStr);
 		}
