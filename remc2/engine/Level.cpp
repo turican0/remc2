@@ -1,4 +1,5 @@
 #include "Level.h"
+#include <memory>
 
 bool IsAfterLoad = false;
 
@@ -168,13 +169,9 @@ type_str_160 str_D7BD6[157] = {
 {0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x00000000,{0x00,0x00},0x0000,0x0000,0x0000,0x00,{0x00} } };
 
 
-//----- (00055250) --------------------------------------------------------
-bool SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //in game save
+// shadow D41A0 for a save (x64 fixes of dword_0xA4_164x)
+void SaveLevelShadow(type_shadow_D41A0_BYTESTR_0* shadow)
 {
-	bool success;
-	int temptime; // edi
-	long acttime; // eax
-
 	//fix for saving
 	for (int indexx = 1; Entities_EA3E4[indexx] < Entities_EA3E4[1000]; indexx++)
 		//if (memory_readable(Entities_EA3E4[indexx]->dword_0xA4_164x,4))
@@ -184,21 +181,8 @@ bool SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //
 	}
 	//fix for saving
 
-	success = false;
-	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SLEV", savefileindex + 1, savefileindex2);
 	D41A0_0.dword_0x36DF6 = &str_D7BD6[59]; //(x_DWORD)&unk_D7BD6[0x7d6];
-	temptime = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393;
-	acttime = j___clock();
-	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393 = acttime - D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393;
-
-	//x64 fix
-	type_shadow_D41A0_BYTESTR_0 shadow_type_D41A0_BYTESTR_0;
-	Convert_to_shadow_D41A0_BYTESTR_0(&D41A0_0, &shadow_type_D41A0_BYTESTR_0);
-	//x64 fix
-
-	int size = sizeof(shadow_type_D41A0_BYTESTR_0);
-	if (DataFileIO::sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)&shadow_type_D41A0_BYTESTR_0, size) == size) success = true;
-	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393 = temptime;
+	Convert_to_shadow_D41A0_BYTESTR_0(&D41A0_0, shadow);
 
 	//fix for saving
 	for (int indexx = 1; Entities_EA3E4[indexx] < Entities_EA3E4[1000]; indexx++)
@@ -208,6 +192,27 @@ bool SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //
 			Entities_EA3E4[indexx]->dword_0xA4_164x = unk_F42B0x;
 	}
 	//fix for saving
+}
+
+//----- (00055250) --------------------------------------------------------
+bool SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //in game save
+{
+	bool success;
+	int temptime; // edi
+	long acttime; // eax
+
+	success = false;
+	sprintf(printbuffer, "%s/%s%d%s.DAT", SaveDirectory().c_str(), "SLEV", savefileindex + 1, savefileindex2);
+	temptime = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393;
+	acttime = j___clock();
+	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393 = acttime - D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393;
+
+	type_shadow_D41A0_BYTESTR_0 shadow_type_D41A0_BYTESTR_0;
+	SaveLevelShadow(&shadow_type_D41A0_BYTESTR_0);
+
+	int size = sizeof(shadow_type_D41A0_BYTESTR_0);
+	if (DataFileIO::sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)&shadow_type_D41A0_BYTESTR_0, size) == size) success = true;
+	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393 = temptime;
 
 	return success;
 }
@@ -218,7 +223,7 @@ bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //
 	FILE* savesmapfile; // eax
 	size_t writedsize; // [esp+40h] [ebp-8h]
 	Logger->debug("InGameSave-begin");
-	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SMAP", savefileindex + 1, savefileindex2);
+	sprintf(printbuffer, "%s/%s%d%s.DAT", SaveDirectory().c_str(), "SMAP", savefileindex + 1, savefileindex2);
 	savesmapfile = DataFileIO::CreateOrOpenFile(printbuffer, 546);
 	if (savesmapfile)
 	{
@@ -245,7 +250,7 @@ bool SaveLevelSVER_55450(uint8_t savefileindex, int32_t levelNumber, char* savef
 	data[1] = levelNumber;
 	data[0] = 15;
 	bool success = false;
-	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SVER", savefileindex + 1, savefileindex2);
+	sprintf(printbuffer, "%s/%s%d%s.DAT", SaveDirectory().c_str(), "SVER", savefileindex + 1, savefileindex2);
 	if (DataFileIO::sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)data, 2*sizeof(int32_t)) == 8)
 		success = true;
 	return success;
@@ -341,7 +346,7 @@ bool LoadLevelSMAP_558E0(uint8_t savefileindex, bool loadRegressionTest)//2368e0
 	rand2_17B4E0 = 0x21ed;//fix random variable for debugging
 
 	char path[512];
-	sprintf(path, "%s/%s", gameDataPath.c_str(), "SAVE");
+	sprintf(path, "%s", SaveDirectory().c_str());
 	if (loadRegressionTest)
 	{
 		sprintf(path, "%sregressions", CommandLineParams.GetMemimagesPath().c_str());
@@ -378,7 +383,7 @@ bool LoadLevelSLEV_55A10(uint8_t savefileindex, bool loadRegressionTest)//236a10
 	bool success = false;
 
 	char path[512];
-	sprintf(path, "%s/%s", gameDataPath.c_str(), "SAVE");
+	sprintf(path, "%s", SaveDirectory().c_str());
 	if (loadRegressionTest)
 	{
 		sprintf(path, "%sregressions", CommandLineParams.GetMemimagesPath().c_str());
@@ -424,6 +429,82 @@ bool SaveLevel_55080(uint8_t savefileindex, int32_t LevelNumber, char* savefilei
 		D41A0_0.dword_0x11e6 = -1;
 	}
 	return success;
+}
+
+// SMAP content in the file order
+std::array<std::pair<uint8_t*, size_t>, 7> SmapParts()
+{
+	return { { { mapTerrainType_10B4E0, 0x10000 }, { mapHeightmap_11B4E0, 0x10000 }, { mapShading_12B4E0, 0x10000 },
+		{ mapAngle_13B4E0, 0x10000 }, { x_BYTE_14B4E0_second_heightmap, 0x10000 },
+		{ (uint8_t*)mapEntityIndex_15B4E0, 0x20000 }, { (uint8_t*)building_F2CD0x, 4802 } } };
+}
+
+// save for a recording (SLEV + SMAP), the game state stays unchanged
+std::vector<uint8_t> SaveLevelToBuffer()
+{
+	std::vector<uint8_t> save(sizeof(type_shadow_D41A0_BYTESTR_0));
+	auto shadow = (type_shadow_D41A0_BYTESTR_0*)save.data();
+	auto live = std::make_unique<type_D41A0_BYTESTR_0>(D41A0_0);
+	sub_55100(1);
+	SaveLevelShadow(shadow);
+	D41A0_0 = *live;
+	for (int i = 0; i < 1000; i++)//entity lists as indexes, the shadow keeps 32 bits of a pointer
+	{
+		shadow->pointers_0x246[i] = D41A0_0.pointers_0x246[i] ? D41A0_0.pointers_0x246[i] - D41A0_0.struct_0x6E8E : 0;
+		shadow->dword_0x11EA[i] = D41A0_0.dword_0x11EA[i] ? D41A0_0.dword_0x11EA[i] - D41A0_0.struct_0x6E8E : 0;
+	}
+	for (const auto& part : SmapParts())
+		save.insert(save.end(), part.first, part.first + part.second);
+	return save;
+}
+
+// load of a recording save at the level start: the state and its pointers only
+bool LoadLevelFromBuffer(const std::vector<uint8_t>& save)
+{
+	size_t pos = sizeof(type_shadow_D41A0_BYTESTR_0);
+	for (const auto& part : SmapParts())
+		pos += part.second;
+	if (save.size() != pos)
+		return false;
+	pos = sizeof(type_shadow_D41A0_BYTESTR_0);
+	for (const auto& part : SmapParts())
+	{
+		memcpy(part.first, &save[pos], part.second);
+		pos += part.second;
+	}
+	auto shadow = std::make_unique<type_shadow_D41A0_BYTESTR_0>();
+	memcpy(shadow.get(), save.data(), sizeof(type_shadow_D41A0_BYTESTR_0));
+	auto live = std::make_unique<type_D41A0_BYTESTR_0>(D41A0_0);
+	Convert_from_shadow_D41A0_BYTESTR_0(shadow.get(), &D41A0_0);
+	for (int i = 0; i < 1000; i++)
+	{
+		D41A0_0.pointers_0x246[i] = shadow->pointers_0x246[i] && shadow->pointers_0x246[i] < 1000 ? &D41A0_0.struct_0x6E8E[shadow->pointers_0x246[i]] : nullptr;
+		D41A0_0.dword_0x11EA[i] = shadow->dword_0x11EA[i] && shadow->dword_0x11EA[i] < 1000 ? &D41A0_0.struct_0x6E8E[shadow->dword_0x11EA[i]] : nullptr;
+	}
+	sub_55100(2);
+	for (int i = 1; i <= D41A0_0.countStageVars_0x36E00; i++)//sub_55100(2) keeps these as offsets, as the original (0x2361C9)
+	{
+		auto& stageVar = D41A0_0.StageVars2_0x365F4[i];
+		uint8_t type = stageVar.index_0x3647A_0;
+		if ((type >= 3 && type <= 5 || type == 8 || type == 9) && !(stageVar.stage_0x3647A_1 & 2)
+			&& stageVar.str_0x3647C_4.dword && stageVar.str_0x3647C_4.dword % sizeof(type_shadow_str_0x6E8E) == 0 && stageVar.str_0x3647C_4.dword < 1000 * sizeof(type_shadow_str_0x6E8E))
+			stageVar.str_0x3647C_4.pointer_0x6E8E = &D41A0_0.struct_0x6E8E[stageVar.str_0x3647C_4.dword / sizeof(type_shadow_str_0x6E8E)];
+	}
+	sub_57680_FixPointersAfterLoad();
+	// live values: pointers the fixes overwrite and the settings, as LoadLevel_555D0
+	D41A0_0.struct_0x6E8E[0].dword_0xA4_164x = live->struct_0x6E8E[0].dword_0xA4_164x;
+	D41A0_0.str_0x3664C[0].event_A.pointer_0x6E8E = live->str_0x3664C[0].event_A.pointer_0x6E8E;
+	D41A0_0.dword_0x36DF6 = live->dword_0x36DF6;
+	D41A0_0.m_GameSettings = live->m_GameSettings;
+	D41A0_0.dword_0x219A = live->dword_0x219A;
+	D41A0_0.dword_0x219E = live->dword_0x219E;
+	D41A0_0.dword_0x21A2 = live->dword_0x21A2;
+	D41A0_0.dword_0x21A6 = live->dword_0x21A6;
+	D41A0_0.str_0x21AA = live->str_0x21AA;
+	D41A0_0.str_0x21AE = live->str_0x21AE;
+	D41A0_0.str_0x21B2 = live->str_0x21B2;
+	D41A0_0.str_0x21B6 = live->str_0x21B6;
+	return true;
 }
 
 //----- (00049270) --------------------------------------------------------

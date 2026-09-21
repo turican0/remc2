@@ -40,6 +40,7 @@ void CommandLineParser::Init(int argc, char **argv) {
     m_fix_flyasistant = false;
     m_fix_mouse = false;
     m_interval_save = false;
+    m_all_spells = false;
     m_load_edited_level = false;
     m_mouse_off2 = false;
     m_move_player = false;
@@ -240,6 +241,7 @@ void CommandLineParser::InterpretParams() {
         else if (param == "--fix_flyasistant")                  m_fix_flyasistant = true;
         else if (param == "--fix_mouse")                        m_fix_mouse = true;
         else if (param == "--interval_save")                    m_interval_save = true;
+        else if (param == "--all_spells")                       m_all_spells = true;
         else if (param == "--load_edited_level")                m_load_edited_level = true;
         else if (param == "--mouse_off")                        m_mouse_off = true;
         else if (param == "--mouse_off2")                       m_mouse_off2 = true;

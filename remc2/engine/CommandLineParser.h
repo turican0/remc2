@@ -59,6 +59,7 @@ class CommandLineParser {
         bool DoFixFlyasistant() const {return m_fix_flyasistant;};
         bool DoFixMouse() const {return m_fix_mouse;};
         bool DoIntervalSave() const {return m_interval_save;};
+        bool DoAllSpells() const {return m_all_spells;};
         bool DoLoadEditedLevel() const {return m_load_edited_level;};
         bool DoMouseOff() const {return m_mouse_off;};
         bool DoMouseOff2() const {return m_mouse_off2;};
@@ -128,6 +129,7 @@ class CommandLineParser {
         bool m_fix_flyasistant;
         bool m_fix_mouse;
         bool m_interval_save;
+        bool m_all_spells;
         bool m_load_edited_level;
         bool m_mouse_off;
         bool m_mouse_off2;
