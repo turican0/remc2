@@ -43917,6 +43917,7 @@ void sub_5C950(type_str_0x2BDE* a1x, type_entity_0x6E8E* a2x)//23d950
 	int j; // [esp+Ch] [ebp-8h]
 	type_entity_0x6E8E* v39x; // [esp+10h] [ebp-4h]
 
+	a2x->dword_0x10_16 = 0;//fix 23D95C: the death countdown (1200) is not left to the castle code
 	if (CommandLineParams.DoDebugSequences2()) {
 		//add_compare(0x23d954, CommandLineParams.DoDebugafterload());
 	}
