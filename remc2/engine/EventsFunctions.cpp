@@ -37762,6 +37762,14 @@ void PlayerEvents_51BB0()//232bb0
 				SetCurrentNotificationMessage_19760(msg.c_str(), 3u, 50);
 			}
 			memcpy(&D41A0_0.playerInputs_0x6E3E[i], m_InputRecorder->GetCurrentPlayerActions(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, i, D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248)->Bytes, m_InputRecorder->GetCurrentPlayerActions(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, i, D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248)->SizeBytes);
+			// the recorded rand_0x8 only checks the playback: the first turn of a level it differs in is logged
+			static int randDiffersLevel = -1;
+			const uint32_t recordedRand = m_InputRecorder->GetCurrentPlayerActions(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, i, D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248)->Rand;
+			if (recordedRand != 0 && recordedRand != D41A0_0.rand_0x8 && randDiffersLevel != x_D41A0_BYTEARRAY_4_struct.levelnumber_43w)
+			{
+				Logger->warn("Playback differs from the recording: level {} turn {} rand {:X}, recorded {:X}", x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248, D41A0_0.rand_0x8, recordedRand);
+				randDiffersLevel = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
+			}
 		}
 		else if (m_InputRecorder != nullptr && m_InputRecorder->m_IsRecording)
 		{
