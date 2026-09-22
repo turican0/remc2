@@ -184,8 +184,19 @@ int CountFailedRegressionTests(int onlyLevel = -1, int onlyAfterload = -1, int o
 		if (resave && test.record.empty())
 			continue;
 		resaveRecordings = resave;
+		if (!unitTestsProgress && !resave)//a test of its own: a bar instead of the lines for the runner
+		{
+			unitTestsProgress = true;
+			unitTestsProgressFrames = test.steps;
+		}
 		if (run_regtest(test.level, test.type, test.index, test.save, test.record.c_str(), resave ? 1 : test.steps, test.intervalSave, test.folder.c_str()) != 0)
 			numFailedTests++;
+		if (unitTestsProgressFrames > 0)
+		{
+			printf("\n");
+			unitTestsProgress = false;
+			unitTestsProgressFrames = 0;
+		}
 		resaveRecordings = false;
 	}
 
@@ -481,6 +492,7 @@ int main(int argc, char** argv)
 	{
 		if (std::string(argv[a]) == "--resave") resave = true;
 		if (std::string(argv[a]) == "--progress") unitTestsProgress = true;
+		if (std::string(argv[a]) == "--compare_from" && a + 1 < argc) unitTestsCompareFrom = atoi(argv[a + 1]);
 		if (a + 1 >= argc) continue;
 		if (std::string(argv[a]) == "--level") onlyLevel = atoi(argv[a + 1]);
 		if (std::string(argv[a]) == "--afterload") onlyAfterload = atoi(argv[a + 1]);
