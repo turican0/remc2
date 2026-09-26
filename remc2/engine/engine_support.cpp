@@ -7,6 +7,8 @@
 #include <vector>
 #include <filesystem>
 #include <chrono>
+#include <memory>
+#include "sequence_codec.h"
 
 #ifdef USE_DOSBOX
 extern DOS_Device* DOS_CON;
@@ -1463,9 +1465,11 @@ struct type_sequence_binz
 	FILE* file = nullptr;
 	std::vector<uint8_t> frame;
 	long long index = -1;
+	std::shared_ptr<seqz::Z4Reader> z4;//"MC2SEQZ4"
 };
 
-// frame of sequence-<name>.bin, or of .binz: "MC2SEQZ1", frame size, per frame length + (varint same, varint changed, changed bytes)
+// frame of sequence-<name>.bin, or of .binz: "MC2SEQZ4" (sequence_codec.h) or the old "MC2SEQZ1",
+// frame size, per frame length + (varint same, varint changed, changed bytes)
 void read_sequence(const std::string& name, long long count, long long frameSize, long offset, uint32_t size, uint8_t* buffer)
 {
 	FILE* file = fopen((name + ".bin").c_str(), "rb");
@@ -1482,6 +1486,25 @@ void read_sequence(const std::string& name, long long count, long long frameSize
 	}
 	static std::map<std::string, type_sequence_binz> binz;
 	type_sequence_binz& seq = binz[name];
+	if (seq.file == nullptr && seq.z4 == nullptr && seqz::Magic(name + ".binz") == 4)
+	{
+		seq.z4 = std::make_shared<seqz::Z4Reader>();
+		if (!seq.z4->Open(name + ".binz"))
+		{
+			Logger->error("Damaged sequence: {}.binz", name);
+			seq.z4 = nullptr;
+			memset(buffer, 0, size);
+			return;
+		}
+	}
+	if (seq.z4 != nullptr)
+	{
+		if (count < seq.z4->Index())
+			seq.z4->Rewind();
+		while (seq.z4->Index() < count && seq.z4->Next()) {}
+		memcpy(buffer, seq.z4->State().data() + offset, size);
+		return;
+	}
 	if (seq.file == nullptr)
 		seq.file = fopen((name + ".binz").c_str(), "rb");
 	if (seq.file == nullptr)
