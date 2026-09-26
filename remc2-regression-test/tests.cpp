@@ -524,9 +524,16 @@ int RunTestsInParallel(const std::vector<type_regtest>& list, int jobs, const st
 		sorted.push_back(test.get());
 	std::sort(sorted.begin(), sorted.end(), [](const type_running_test* a, const type_running_test* b) { return NaturalLess(a->name, b->name); });
 	printf("\n");
+	FILE* summary = fopen((get_exe_path() + "/regression-summary.txt").c_str(), "wt");//the same list for reading afterwards
 	for (const type_running_test* test : sorted)
-		printf("  %-22s %-6s %6d frames in %s\n", test->name.c_str(), test->failed ? "FAILED" : "OK",
+	{
+		char line[256];
+		snprintf(line, sizeof(line), "  %-22s %-6s %6d frames in %s\n", test->name.c_str(), test->failed ? "FAILED" : "OK",
 			test->total, TimeText(test->duration.load()).c_str());
+		printf("%s", line);
+		if (summary) fputs(line, summary);
+	}
+	if (summary) fclose(summary);
 
 	int failed = 0;
 	for (const auto& test : tests)
