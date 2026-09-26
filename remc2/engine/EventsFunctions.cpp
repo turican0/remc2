@@ -38454,7 +38454,7 @@ char LevelDecompress_533B0(int16 levelIndex, Type_Level_2FECE* levelData, std::s
 {
 	if (levelIndex < 1000)
 	{
-		std::string levelDataPath = GetSubDirectoryFile(gameFolder.c_str(), "CLEVELS", "LEVELS.DAT");
+		std::string levelDataPath = LevelsDirectory() + "/LEVELS.DAT";
 		FILE* levelsdatfile = DataFileIO::CreateOrOpenFile(levelDataPath.c_str(), 512);
 		if (levelsdatfile == NULL)
 		{
@@ -38463,7 +38463,7 @@ char LevelDecompress_533B0(int16 levelIndex, Type_Level_2FECE* levelData, std::s
 			if (levelsdatfile == NULL)
 				return 0;
 		}
-		levelDataPath = GetSubDirectoryFile(gameFolder.c_str(), "CLEVELS", "LEVELS.TAB");
+		levelDataPath = LevelsDirectory() + "/LEVELS.TAB";
 		FILE* levelstabfile = DataFileIO::CreateOrOpenFile(levelDataPath.c_str(), 512);
 		if (levelstabfile == NULL)
 		{
@@ -38824,7 +38824,7 @@ char sub_54200_create_user_directiores()//235200
 	{
 		outtext("Setting Up Levels ..");
 		x_DWORD_F4720 = gettextposition(/*v7, v8, v0*/);
-		std::string clevelsPath = GetSubDirectoryPath(gameFolder.c_str(), "CLEVELS");
+		std::string clevelsPath = LevelsDirectory();
 		std::string levelPath = GetSubDirectoryPath(cdFolder.c_str(), "LEVELS");
 		if (LoadFilesFromCDAndGameData(levelPath.c_str(), clevelsPath.c_str(), "LEVELS"))
 			v0l = 0;

@@ -23,6 +23,17 @@ int unitTestsCompareFrom = 0;
 extern std::string gameDataPath;
 
 // SAVE folder; a regression test has its own, tests run in parallel
+// CLEVELS: every start of the game copies LEVELS.DAT/TAB there and the levels are read from it,
+// so the tests running in parallel need one each, as SAVE
+std::string LevelsDirectory()
+{
+	if (!unitTests)
+		return GetSubDirectoryPath(gameFolder.c_str(), "CLEVELS");
+	static const std::filesystem::path dir = std::filesystem::temp_directory_path() / ("remc2-clevels-" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
+	std::filesystem::create_directories(dir);
+	return dir.string();
+}
+
 std::string SaveDirectory()
 {
 	if (!unitTests)
