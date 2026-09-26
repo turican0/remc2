@@ -15,6 +15,8 @@ extern DOS_Device* DOS_CON;
 bool unitTests = false;
 std::string unitTestsPath;
 bool unitTestsProgress = false;
+int unitTestsProgressFrames = 0;
+int unitTestsCompareFrom = 0;
 
 extern std::string gameDataPath;
 
@@ -1315,6 +1317,20 @@ int test_D41A0_id_pointer(uint32_t adress) {
 	return 0;
 }
 
+// the answers of test_D41A0_id_pointer once for all of D41A0: the compare asks for every byte
+// of every frame, and the function walks 1000 entities each time
+const uint8_t* D41A0CompareKinds()
+{
+	static std::vector<uint8_t> kinds;
+	if (kinds.empty())
+	{
+		kinds.resize(0x36E16);
+		for (uint32_t i = 0; i < kinds.size(); i++)
+			kinds[i] = (uint8_t)test_D41A0_id_pointer(i);
+	}
+	return kinds.data();
+}
+
 int test_E2A74_id_pointer(uint32_t adress) {
 	//int offset = adress % 30;
 	//if (offset == 12 || offset == 13)
@@ -1519,9 +1535,10 @@ uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint
 	read_sequence(finddir2 + finddir + std::string("/sequence-") + filename, count, size, offset, size, buffer);
 	uint32_t i;
 	bool testa, testb;
+	const uint8_t* kinds = D41A0CompareKinds();
 	for (i = 0; i < size; i++)
 	{
-		int testx = test_D41A0_id_pointer(i);
+		int testx = i < 0x36E16 ? kinds[i] : test_D41A0_id_pointer(i);
 		if (testx == 1)
 		{
 			if (*(uint32_t*)&buffer[i])testa = true;
