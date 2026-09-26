@@ -24,6 +24,7 @@
 #define REGTEST_PCLOSE pclose
 #endif
 #include "regression-tests.h"
+#include "../remc2/engine/sequence_codec.h"
 //TEMPDIAG begin
 #ifdef _WIN32
 #include <windows.h>
@@ -112,6 +113,13 @@ int SequenceFrames(const std::string& folder)
 	if (std::filesystem::exists(name + ".bin"))
 		return (int)(std::filesystem::file_size(name + ".bin") / 224790);
 	std::ifstream file(name + ".binz", std::ios::binary);
+	if (seqz::Magic(name + ".binz") == 4)//"MC2SEQZ4", u32 frame size, u32 frames
+	{
+		uint32_t frames = 0;
+		file.seekg(12);
+		file.read((char*)&frames, 4);
+		return (int)frames;
+	}
 	file.seekg(12);
 	int frames = 0;
 	uint32_t length = 0;
@@ -229,7 +237,6 @@ struct type_running_test
 	int total = 0;//frames
 	std::atomic<int> done{ 0 };
 	std::atomic<bool> started{ false };
-	std::atomic<bool> announced{ false };
 	std::atomic<bool> printed{ false };
 	std::atomic<bool> finished{ false };
 	std::atomic<bool> failed{ false };
@@ -311,6 +318,16 @@ void EnableAnsiColours()
 	if (GetConsoleMode(console, &mode))
 		SetConsoleMode(console, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 #endif
+}
+
+int ConsoleWidth()
+{
+#ifdef _WIN32
+	CONSOLE_SCREEN_BUFFER_INFO info;
+	if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info))
+		return info.srWindow.Right - info.srWindow.Left + 1;
+#endif
+	return 80;
 }
 
 std::string ProgressBar(double part, int width)
@@ -398,11 +415,49 @@ std::vector<std::string> StatusLines(const std::vector<std::unique_ptr<type_runn
 	}
 	const double elapsed = SecondsSince(start);
 	const double left = SecondsLeft(tests, jobs);
-	char buffer[512];
-	snprintf(buffer, sizeof(buffer), "%s %d/%d tests, %s elapsed, %s left",
-		marks.c_str(), finished, (int)tests.size(), TimeText(elapsed).c_str(), TimeText(left).c_str());
-	lines.push_back(buffer);
+	char buffer[256];
+	snprintf(buffer, sizeof(buffer), " %d/%d tests, %s elapsed, %s left",
+		finished, (int)tests.size(), TimeText(elapsed).c_str(), TimeText(left).c_str());
+	// a line longer than the console wraps and the redraw would count one line less
+	const size_t width = ConsoleWidth() - 1;
+	for (std::string& line : lines)
+		if (line.size() > width)
+			line.resize(width);
+	for (size_t from = 0; from < marks.size(); from += width)
+		lines.push_back(marks.substr(from, width));
+	if (lines.back().size() + strlen(buffer) <= width)
+		lines.back() += buffer;
+	else
+		lines.push_back(std::string(buffer).substr(1, width));
 	return lines;
+}
+
+// "level 2" before "level 10": the numbers in the names by their value
+bool NaturalLess(const std::string& a, const std::string& b)
+{
+	size_t i = 0, j = 0;
+	while (i < a.size() && j < b.size())
+	{
+		if (isdigit((unsigned char)a[i]) && isdigit((unsigned char)b[j]))
+		{
+			size_t ei = i, ej = j;
+			while (ei < a.size() && isdigit((unsigned char)a[ei])) ei++;
+			while (ej < b.size() && isdigit((unsigned char)b[ej])) ej++;
+			const long long na = std::stoll(a.substr(i, ei - i)), nb = std::stoll(b.substr(j, ej - j));
+			if (na != nb)
+				return na < nb;
+			i = ei;
+			j = ej;
+		}
+		else
+		{
+			if (a[i] != b[j])
+				return a[i] < b[j];
+			i++;
+			j++;
+		}
+	}
+	return a.size() - i < b.size() - j;
 }
 
 // tests in parallel; their outputs are printed in the order of the tests, as a single run prints them
@@ -439,17 +494,16 @@ int RunTestsInParallel(const std::vector<type_regtest>& list, int jobs, const st
 	while (printed < tests.size())
 	{
 		for (int i = 0; i < statusLines; i++)
-			printf("\033[1A\033[2K");
+			printf("\r\033[1A\033[2K");
 		statusLines = 0;
-		for (const auto& test : tests)
-			if (test->started && !test->announced.exchange(true))
-				printf("  started: %s (%d frames)\n", test->name.c_str(), test->total);
-		for (const auto& test : tests)//a finished test right away, the tests do not finish in their order
+		for (const auto& test : tests)//above the bars only the failed tests, as they finish
 			if (test->finished && !test->printed.exchange(true))
 			{
-				printf("%s", test->output.c_str());
-				printf("  %-22s %s %d frames in %s\n\n", test->name.c_str(), ProgressBar(1, 20).c_str(),
-					test->total, TimeText(test->duration.load()).c_str());
+				if (test->failed)
+				{
+					printf("%s", test->output.c_str());
+					printf("  %-22s FAILED %d frames in %s\n\n", test->name.c_str(), test->total, TimeText(test->duration.load()).c_str());
+				}
 				printed++;
 			}
 		const std::vector<std::string> lines = StatusLines(tests, start, spin++, jobs);
@@ -462,8 +516,12 @@ int RunTestsInParallel(const std::vector<type_regtest>& list, int jobs, const st
 	for (std::thread& worker : workers)
 		worker.join();
 
-	printf("--- summary ---\n");
+	std::vector<const type_running_test*> sorted;//every test at the end, by name
 	for (const auto& test : tests)
+		sorted.push_back(test.get());
+	std::sort(sorted.begin(), sorted.end(), [](const type_running_test* a, const type_running_test* b) { return NaturalLess(a->name, b->name); });
+	printf("\n");
+	for (const type_running_test* test : sorted)
 		printf("  %-22s %-6s %6d frames in %s\n", test->name.c_str(), test->failed ? "FAILED" : "OK",
 			test->total, TimeText(test->duration.load()).c_str());
 
@@ -472,6 +530,45 @@ int RunTestsInParallel(const std::vector<type_regtest>& list, int jobs, const st
 		if (test->failed)
 			failed++;
 	return failed;
+}
+
+// the old "MC2SEQZ1" sequences of memimages/regressions become "MC2SEQZ4" (sequence_codec.h), each
+// only after it gives the same frames; the tests of a run then start on the new ones
+void UpgradeSequences(int jobs)
+{
+	std::vector<std::string> old;
+	for (const auto& entry : std::filesystem::recursive_directory_iterator(RegressionsPath()))
+		if (entry.is_regular_file() && entry.path().extension() == ".binz" && seqz::Magic(entry.path().string()) == 1)
+			old.push_back(entry.path().string());
+	if (old.empty())
+		return;
+	printf("Converting %d sequences to MC2SEQZ4...\n", (int)old.size());
+	std::atomic<size_t> next{ 0 };
+	std::atomic<int> done{ 0 };
+	std::atomic<long long> before{ 0 }, after{ 0 };
+	std::mutex print;
+	std::vector<std::thread> workers;
+	for (int i = 0; i < jobs; i++)
+		workers.emplace_back([&]()
+			{
+				for (size_t index = next++; index < old.size(); index = next++)
+				{
+					const long long size = (long long)std::filesystem::file_size(old[index]);
+					const bool ok = seqz::UpgradeToZ4(old[index]);
+					before += size;
+					after += (long long)std::filesystem::file_size(old[index]);
+					std::lock_guard<std::mutex> lock(print);
+					done++;
+					if (!ok)
+						printf("\r  NOT converted (kept as it was): %s\n", old[index].c_str());
+					printf("\r  %d/%d", done.load(), (int)old.size());
+					fflush(stdout);
+				}
+			});
+	for (std::thread& worker : workers)
+		worker.join();
+	printf("\r  %d sequences: %.1f MB -> %.1f MB\n", (int)old.size(), before / 1048576.0, after / 1048576.0);
+	fflush(stdout);
 }
 
 int main(int argc, char** argv)
@@ -501,6 +598,8 @@ int main(int argc, char** argv)
 	}
 	if (jobs < 1)
 		jobs = 1;
+	if (!unitTestsProgress)//not in a process of the parallel run, its runner has done it
+		UpgradeSequences(jobs);
 	// without a selection: every test in its own process, "--jobs 1" one after another
 	if (onlyLevel < 0 && onlyAfterload < 0 && onlyRecord < 0 && !resave && jobs > 1)
 		numFailedTests += RunTestsInParallel(FindRegressionTests(-1, -1, -1), jobs, argv[0]);
