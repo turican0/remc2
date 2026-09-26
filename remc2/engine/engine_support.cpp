@@ -1245,7 +1245,9 @@ int test_D41A0_id_pointer(uint32_t adress) {
 	if ((adress >= 0x2fd8) && (adress < 0x2fdc))return 2; // mouse position: position_backup_20 in dword_0x3E6_2BE4_12228 in array_0x2BDE
 	for (uint32_t player = 0; player < 8; player++)
 		if ((adress >= 0x341c + player * 0x84c) && (adress < 0x341e + player * 0x84c))return 2;//UI: spellIndex_0x458_1112, subSpellIndex_0x459_1113 by mouse
-	// if ((adress == 0x36e04))return 2;                     // objective box counter
+	// 23A820 PresentObjective: CD speech (original) vs text box (tests) - objective step and box counter
+	if ((adress == 0x36e02))return 2;
+	if ((adress == 0x36e04))return 2;
 
 	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock - 4 bytes
 	if ((adress >= 0x3999) && (adress < 0x399d))return 2;//clock2 - 4 bytes

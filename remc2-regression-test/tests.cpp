@@ -139,7 +139,10 @@ std::vector<type_regtest> FindRegressionTests(int onlyLevel, int onlyAfterload, 
 		type_regtest test;
 		test.name = name;
 		if ((test.level = FolderNumber(name, "level")) > 0 && (all || (onlyRecord < 0 && onlyLevel == test.level)))
+		{
+			test.steps = SequenceFrames(entry.path().string());
 			tests.push_back({ { 0, test.level, 0 }, test });
+		}
 		else if ((test.index = FolderNumber(name, "afterloadtest")) > 0 && (all || onlyAfterload == test.index))
 		{
 			std::ifstream file(entry.path() / "regtest.txt");
