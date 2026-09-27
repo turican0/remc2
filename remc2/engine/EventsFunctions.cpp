@@ -13012,8 +13012,8 @@ char sub_21490(type_entity_0x6E8E* a1x)//202490
 			}
 			else if (v29 <= 2u)
 			{
-				ix->struct_byte_0xc_12_15.byte[3] |= 0x80u;
-				ix->struct_byte_0xc_12_15.byte[2] &= 0xFEu;
+				ix->struct_byte_0xc_12_15.byte[2] |= 0x80u;//20278D or byte ptr [esi+0Eh],80h
+				ix->struct_byte_0xc_12_15.byte[3] &= 0xFEu;//202791 and byte ptr [esi+0Fh],0FEh
 			}
 			else if (v29 == 3)
 			{
@@ -18403,7 +18403,6 @@ void sub_28110(type_entity_0x6E8E* a1x)//209110
 {
 	signed int v1; // esi
 	__int16 v2; // ax
-	unsigned __int16 v3; // ax
 	type_entity_0x6E8E* v4x; // eax
 	//type_str_0x6E8E* v5x; // ecx
 	char v6; // al
@@ -18412,10 +18411,6 @@ void sub_28110(type_entity_0x6E8E* a1x)//209110
 	unsigned int v9; // esi
 	type_entity_0x6E8E* v10x; // eax
 	char v11; // dh
-
-	//fix
-	v3 = 0;
-	//fix
 
 	v1 = 0;
 	if (a1x->byte_0x39_57)
@@ -18427,7 +18422,7 @@ void sub_28110(type_entity_0x6E8E* a1x)//209110
 			a1x->word_0x26_38 = v2;
 			//a1x->word_0x26_38;
 			a1x->str_0x5E_94.channel[0].source = 0;
-			if (Entities_EA3E4[v3]->class_0x3F_63 == 3)
+			if (Entities_EA3E4[a1x->word_0x26_38]->class_0x3F_63 == 3)//209148 mov ax,[ebx+26h]; 209159 cmp byte ptr [eax+3Fh],3
 			{
 				v1 = 1;
 				v4x = sub_28420(a1x);
@@ -26830,7 +26825,7 @@ void TransformEntityToManaSphere_36BA0(type_entity_0x6E8E* entity, bool useManaF
 	{
 		if (useManaFraction)
 		{
-			int manaFraction = entity->mana_0x90_144 / 1000;
+			manaFraction = entity->mana_0x90_144 / 1000;//217BCC mov edi,eax: the count of the spheres
 			if (entity->mana_0x90_144 / 1000 < 1)
 				manaFraction = 1;
 			if (manaFraction > 16)
