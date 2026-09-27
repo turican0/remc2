@@ -279,7 +279,7 @@ void CommandLineParser::InterpretParams() {
 		}
 		else if (param == "--set_max_regressions_steps") {
 			std::string maxStepsStr = *(++p);
-			uint16_t maxSteps = std::stoi(maxStepsStr);
+			int maxSteps = std::stoi(maxStepsStr);
 			if (maxSteps > -1)
 			{
 				m_max_regressions_steps = maxSteps;
