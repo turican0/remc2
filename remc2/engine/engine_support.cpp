@@ -7,6 +7,8 @@
 #include <vector>
 #include <filesystem>
 #include <chrono>
+#include <memory>
+#include "sequence_codec.h"
 
 #ifdef USE_DOSBOX
 extern DOS_Device* DOS_CON;
@@ -21,6 +23,17 @@ int unitTestsCompareFrom = 0;
 extern std::string gameDataPath;
 
 // SAVE folder; a regression test has its own, tests run in parallel
+// CLEVELS: every start of the game copies LEVELS.DAT/TAB there and the levels are read from it,
+// so the tests running in parallel need one each, as SAVE
+std::string LevelsDirectory()
+{
+	if (!unitTests)
+		return GetSubDirectoryPath(gameFolder.c_str(), "CLEVELS");
+	static const std::filesystem::path dir = std::filesystem::temp_directory_path() / ("remc2-clevels-" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
+	std::filesystem::create_directories(dir);
+	return dir.string();
+}
+
 std::string SaveDirectory()
 {
 	if (!unitTests)
@@ -1232,7 +1245,9 @@ int test_D41A0_id_pointer(uint32_t adress) {
 	if ((adress >= 0x2fd8) && (adress < 0x2fdc))return 2; // mouse position: position_backup_20 in dword_0x3E6_2BE4_12228 in array_0x2BDE
 	for (uint32_t player = 0; player < 8; player++)
 		if ((adress >= 0x341c + player * 0x84c) && (adress < 0x341e + player * 0x84c))return 2;//UI: spellIndex_0x458_1112, subSpellIndex_0x459_1113 by mouse
-	// if ((adress == 0x36e04))return 2;                     // objective box counter
+	// 23A820 PresentObjective: CD speech (original) vs text box (tests) - objective step and box counter
+	if ((adress == 0x36e02))return 2;
+	if ((adress == 0x36e04))return 2;
 
 	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock - 4 bytes
 	if ((adress >= 0x3999) && (adress < 0x399d))return 2;//clock2 - 4 bytes
@@ -1463,9 +1478,11 @@ struct type_sequence_binz
 	FILE* file = nullptr;
 	std::vector<uint8_t> frame;
 	long long index = -1;
+	std::shared_ptr<seqz::Z4Reader> z4;//"MC2SEQZ4"
 };
 
-// frame of sequence-<name>.bin, or of .binz: "MC2SEQZ1", frame size, per frame length + (varint same, varint changed, changed bytes)
+// frame of sequence-<name>.bin, or of .binz: "MC2SEQZ4" (sequence_codec.h) or the old "MC2SEQZ1",
+// frame size, per frame length + (varint same, varint changed, changed bytes)
 void read_sequence(const std::string& name, long long count, long long frameSize, long offset, uint32_t size, uint8_t* buffer)
 {
 	FILE* file = fopen((name + ".bin").c_str(), "rb");
@@ -1482,6 +1499,25 @@ void read_sequence(const std::string& name, long long count, long long frameSize
 	}
 	static std::map<std::string, type_sequence_binz> binz;
 	type_sequence_binz& seq = binz[name];
+	if (seq.file == nullptr && seq.z4 == nullptr && seqz::Magic(name + ".binz") == 4)
+	{
+		seq.z4 = std::make_shared<seqz::Z4Reader>();
+		if (!seq.z4->Open(name + ".binz"))
+		{
+			Logger->error("Damaged sequence: {}.binz", name);
+			seq.z4 = nullptr;
+			memset(buffer, 0, size);
+			return;
+		}
+	}
+	if (seq.z4 != nullptr)
+	{
+		if (count < seq.z4->Index())
+			seq.z4->Rewind();
+		while (seq.z4->Index() < count && seq.z4->Next()) {}
+		memcpy(buffer, seq.z4->State().data() + offset, size);
+		return;
+	}
 	if (seq.file == nullptr)
 		seq.file = fopen((name + ".binz").c_str(), "rb");
 	if (seq.file == nullptr)

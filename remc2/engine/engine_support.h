@@ -77,6 +77,7 @@ extern int unitTestsProgressFrames;//how many frames the test has, 0 = print for
 extern int unitTestsCompareFrom;//compare only from this frame on ("--compare_from")
 const uint8_t* D41A0CompareKinds();//test_D41A0_id_pointer for every byte of D41A0
 std::string SaveDirectory();
+std::string LevelsDirectory();//CLEVELS, one per process in the tests
 extern int* endTestsCode;
 
 extern uint8_t* readbuffer;

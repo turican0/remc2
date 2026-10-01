@@ -107,6 +107,15 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 
 					//screen
 					//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer_351628, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
+
+					// the last frame of the reference: after the last level of the game no next frame comes (end video, credits)
+					if (exitindex != 1000000 && exitindex > 1 && index + 1 >= exitindex)
+					{
+						int i = getcompstrindex(adress);
+						if (i > -1)
+							compstr[i].index = 0;
+						End_thread(20);
+					}
 				}
 				//if(debugcounter_271478>5)
 				//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer_351628, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
