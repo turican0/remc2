@@ -13617,7 +13617,7 @@ LABEL_129:
 							v1055 = x_DWORD_DE55C_ActTexture;
 							while (1)
 							{
-								LOBYTE(v1046) = ClampClampReflectionTexel(v1047, v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1053);
 								LOWORD(v1053) = v1124 + v1053;
 								BYTE1(v1046) = v1054;
@@ -13642,7 +13642,7 @@ LABEL_129:
 								v1259 = v1258 - 1;
 								if (!v1259)
 									break;
-								LOBYTE(v1046) = ClampClampReflectionTexel(v1047, v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1057);
 								LOWORD(v1057) = v1124 + v1057;
 								BYTE1(v1046) = v1058;
