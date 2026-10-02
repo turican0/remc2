@@ -76,6 +76,9 @@ extern bool unitTestsProgress;//print @PROGRESS <step> for the runner
 extern int unitTestsProgressFrames;//how many frames the test has, 0 = print for the runner
 extern int unitTestsCompareFrom;//compare only from this frame on ("--compare_from")
 const uint8_t* D41A0CompareKinds();//test_D41A0_id_pointer for every byte of D41A0
+// entities given values from past the spell table by SetSpell_6D5E0 (model >= NUMBER_OF_SPELLS): in the original
+// they come from the credits pointers behind byte_DA818 (DOS addresses), the compare skips those fields
+extern bool spellTableOverrun[1000];
 std::string SaveDirectory();
 std::string LevelsDirectory();//CLEVELS, one per process in the tests
 extern int* endTestsCode;

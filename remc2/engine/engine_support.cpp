@@ -1334,6 +1334,17 @@ int test_D41A0_id_pointer(uint32_t adress) {
 
 // the answers of test_D41A0_id_pointer once for all of D41A0: the compare asks for every byte
 // of every frame, and the function walks 1000 entities each time
+bool spellTableOverrun[1000] = {};
+
+// the fields of an entity written by SetSpell_6D5E0 (24E641 mov [ebx+46h],al ... 24E660 mov [ebx+3Bh],dl, +88h, +8Ch, +90h)
+static bool SpellTableOverrunField(uint32_t adress)
+{
+	if (adress < 0x6E8E || adress >= 0x6E8E + 1000 * 0xA8 || !spellTableOverrun[(adress - 0x6E8E) / 0xA8])
+		return false;
+	const uint32_t o = (adress - 0x6E8E) % 0xA8;
+	return o == 0x2A || o == 0x2B || o == 0x30 || o == 0x31 || (o >= 0x3B && o <= 0x3D) || o == 0x46 || (o >= 0x88 && o < 0x94);
+}
+
 const uint8_t* D41A0CompareKinds()
 {
 	static std::vector<uint8_t> kinds;
@@ -1574,6 +1585,8 @@ uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint
 	const uint8_t* kinds = D41A0CompareKinds();
 	for (i = 0; i < size; i++)
 	{
+		if (SpellTableOverrunField(i))
+			continue;
 		int testx = i < 0x36E16 ? kinds[i] : test_D41A0_id_pointer(i);
 		if (testx == 1)
 		{

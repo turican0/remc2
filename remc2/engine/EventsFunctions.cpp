@@ -39553,6 +39553,7 @@ void ClearSettings_567C0()//2377c0 // clean level
 	//clean_x_D41A0_BYTEARRAY_0_0x2362();
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[28302]), 0, 168000);
 	memset(D41A0_0.struct_0x6E8E, 0, sizeof(type_entity_0x6E8E) * 0x3e8);
+	memset(spellTableOverrun, 0, sizeof(spellTableOverrun));
 
 	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.paletteMod_51), 0, 1);
 	memset((void*)(x_D41A0_BYTEARRAY_4_struct.colorIndex_121), 0, 16);
