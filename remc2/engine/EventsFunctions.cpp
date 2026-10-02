@@ -5016,8 +5016,9 @@ void sub_12500(type_entity_0x6E8E* entity)//1f3500
 				switch (D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].index_0x3647A_0)
 				{
 					case 1:
-						if (Maths::Abs16(D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].str_0x3647C_4.axis.x - entity->position_0x4C_76.x) <= 2048)
-							if (Maths::Abs16(D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].str_0x3647C_4.axis.y - entity->position_0x4C_76.y) <= 2048)
+						//1F35DE movsx edx,[ecx+4]; movsx eax,[ebx+4Ch]; sub edx,eax: 32-bit difference
+						if (abs((int16_t)D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].str_0x3647C_4.axis.x - (int16_t)entity->position_0x4C_76.x) <= 2048)
+							if (abs((int16_t)D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].str_0x3647C_4.axis.y - (int16_t)entity->position_0x4C_76.y) <= 2048)
 								sub_12410(entity, 8 * entity->model_0x40_64 + 1);
 						break;
 					case 3:
@@ -5052,10 +5053,14 @@ void sub_12500(type_entity_0x6E8E* entity)//1f3500
 						else
 						{
 							if (D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].index_0x3647A_0 == 9)
-								if (D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].str_0x3647C_4.axis.x || D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].str_0x3647C_4.axis.y)
-									if (Maths::Abs16(D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].str_0x3647C_4.axis.x - entity->position_0x4C_76.x) <= 3072)
-										if (Maths::Abs16(D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].str_0x3647C_4.axis.y - entity->position_0x4C_76.y) <= 3072)
+							{
+								//1F369A mov esi,[ecx+4]: the target entity; 1F36A5 movsx edx,[esi+4Ch]; movsx eax,[ebx+4Ch]; sub edx,eax
+								type_entity_0x6E8E* target = D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].str_0x3647C_4.pointer_0x6E8E;
+								if (target >= Entities_EA3E4[0] && target < Entities_EA3E4[1000])//fix
+									if (abs((int16_t)target->position_0x4C_76.x - (int16_t)entity->position_0x4C_76.x) <= 3072)
+										if (abs((int16_t)target->position_0x4C_76.y - (int16_t)entity->position_0x4C_76.y) <= 3072)
 											sub_12410(entity, 8 * entity->model_0x40_64 + 1);
+							}
 						}
 						break;
 					case 6:
@@ -9588,8 +9593,8 @@ void sub_1C980(type_entity_0x6E8E* a1x, char a2)//1fd980
 				for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 				{
 					if (jx->id_0x1A_26 != a1x->id_0x1A_26
-						&& abs(a1x->position_0x4C_76.x - jx->position_0x4C_76.x) < a1x->array_0x52_82.pitch
-						&& abs(a1x->position_0x4C_76.y - jx->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
+						&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)jx->position_0x4C_76.x) < a1x->array_0x52_82.pitch
+						&& abs((int16_t)a1x->position_0x4C_76.y - (int16_t)jx->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
 					{
 						a1x->roll_0x20_32 = Maths::sub_581E0_maybe_tan2(&jx->position_0x4C_76, &a1x->position_0x4C_76);
 						break;
@@ -10148,16 +10153,17 @@ void sub_1D8C0(type_entity_0x6E8E* a1x, __int16 a2)//1fe8c0
 					for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 					{
 						if (jx->id_0x1A_26 != a1x->id_0x1A_26
-							&& abs(a1x->position_0x4C_76.x - jx->position_0x4C_76.x) < a1x->array_0x52_82.pitch
-							&& abs(a1x->position_0x4C_76.y - jx->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
+							&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)jx->position_0x4C_76.x) < a1x->array_0x52_82.pitch
+							&& abs((int16_t)a1x->position_0x4C_76.y - (int16_t)jx->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
 						{
 							a1x->roll_0x20_32 = Maths::sub_581E0_maybe_tan2(&jx->position_0x4C_76, &a1x->position_0x4C_76);
 							break;
 						}
 					}
-					if (abs(a1x->position_0x4C_76.x - v12x->position_0x4C_76.x) < a1x->array_0x52_82.pitch
+					//1FEB51 movsx edx,[ebx+4Ch]; movsx eax,[esi+4Ch]; sub edx,eax
+					if (abs((int16_t)a1x->position_0x4C_76.x - (int16_t)v12x->position_0x4C_76.x) < a1x->array_0x52_82.pitch
 						+ v12x->array_0x52_82.pitch
-						&& abs(a1x->position_0x4C_76.y - v12x->position_0x4C_76.y) < a1x->array_0x52_82.pitch
+						&& abs((int16_t)a1x->position_0x4C_76.y - (int16_t)v12x->position_0x4C_76.y) < a1x->array_0x52_82.pitch
 						+ v12x->array_0x52_82.pitch)
 					{
 						a1x->roll_0x20_32 = Maths::sub_581E0_maybe_tan2(&v12x->position_0x4C_76, &a1x->position_0x4C_76);
@@ -10778,8 +10784,8 @@ void sub_1E700(type_entity_0x6E8E* a1x, char a2)//1ff700
 					for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 					{
 						if (jx->id_0x1A_26 != a1x->id_0x1A_26
-							&& abs(a1x->position_0x4C_76.x - jx->position_0x4C_76.x) < a1x->array_0x52_82.pitch
-							&& abs(a1x->position_0x4C_76.y - jx->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
+							&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)jx->position_0x4C_76.x) < a1x->array_0x52_82.pitch
+							&& abs((int16_t)a1x->position_0x4C_76.y - (int16_t)jx->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
 						{
 							a1x->roll_0x20_32 = Maths::sub_581E0_maybe_tan2(&jx->position_0x4C_76, &a1x->position_0x4C_76);
 							return;
@@ -13006,8 +13012,8 @@ char sub_21490(type_entity_0x6E8E* a1x)//202490
 			}
 			else if (v29 <= 2u)
 			{
-				ix->struct_byte_0xc_12_15.byte[3] |= 0x80u;
-				ix->struct_byte_0xc_12_15.byte[2] &= 0xFEu;
+				ix->struct_byte_0xc_12_15.byte[2] |= 0x80u;//20278D or byte ptr [esi+0Eh],80h
+				ix->struct_byte_0xc_12_15.byte[3] &= 0xFEu;//202791 and byte ptr [esi+0Fh],0FEh
 			}
 			else if (v29 == 3)
 			{
@@ -15251,8 +15257,8 @@ void sub_24190(type_entity_0x6E8E* a1x)//205190
 	for (ix = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->model_0x40_64]; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (ix->id_0x1A_26 != a1x->id_0x1A_26
-			&& abs(a1x->position_0x4C_76.x - ix->position_0x4C_76.x) < 256
-			&& abs(a1x->position_0x4C_76.y - ix->position_0x4C_76.y) < 256)
+			&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)ix->position_0x4C_76.x) < 256
+			&& abs((int16_t)a1x->position_0x4C_76.y - (int16_t)ix->position_0x4C_76.y) < 256)
 		{
 			a1x->roll_0x20_32 = Maths::sub_581E0_maybe_tan2(&ix->position_0x4C_76, &a1x->position_0x4C_76);
 			//v13 = 1;
@@ -15632,8 +15638,8 @@ void sub_24930(type_entity_0x6E8E* a1x)//205930
 				for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 				{
 					if (jx->id_0x1A_26 != a1x->id_0x1A_26
-						&& abs(a1x->position_0x4C_76.x - jx->position_0x4C_76.x) < a1x->array_0x52_82.pitch
-						&& abs(a1x->position_0x4C_76.y - jx->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
+						&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)jx->position_0x4C_76.x) < a1x->array_0x52_82.pitch
+						&& abs((int16_t)a1x->position_0x4C_76.y - (int16_t)jx->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
 					{
 						a1x->roll_0x20_32 = Maths::sub_581E0_maybe_tan2(&jx->position_0x4C_76, &a1x->position_0x4C_76);
 						break;
@@ -16824,8 +16830,8 @@ void sub_26220(/*type_str_0x6E8E* a1x, */type_entity_0x6E8E* a2x)//207220
 				for (ix = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a2x->model_0x40_64]; ix > Entities_EA3E4[0]; ix = ix->next_0)
 				{
 					if (ix->id_0x1A_26 != a2x->id_0x1A_26
-						&& abs(a2x->position_0x4C_76.x - ix->position_0x4C_76.x) < a2x->array_0x52_82.pitch
-						&& abs(a2x->position_0x4C_76.y - ix->position_0x4C_76.y) < a2x->array_0x52_82.pitch)
+						&& abs((int16_t)a2x->position_0x4C_76.x - (int16_t)ix->position_0x4C_76.x) < a2x->array_0x52_82.pitch
+						&& abs((int16_t)a2x->position_0x4C_76.y - (int16_t)ix->position_0x4C_76.y) < a2x->array_0x52_82.pitch)
 					{
 						a2x->roll_0x20_32 = Maths::sub_581E0_maybe_tan2(&ix->position_0x4C_76, &a2x->position_0x4C_76);
 						break;
@@ -18023,8 +18029,8 @@ void sub_27950(type_entity_0x6E8E* event)//208950
 	for (ix = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[event->model_0x40_64]; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (ix->id_0x1A_26 != event->id_0x1A_26
-			&& abs(event->position_0x4C_76.x - ix->position_0x4C_76.x) < event->array_0x52_82.pitch
-			&& abs(event->position_0x4C_76.y - ix->position_0x4C_76.y) < event->array_0x52_82.pitch)
+			&& abs((int16_t)event->position_0x4C_76.x - (int16_t)ix->position_0x4C_76.x) < event->array_0x52_82.pitch
+			&& abs((int16_t)event->position_0x4C_76.y - (int16_t)ix->position_0x4C_76.y) < event->array_0x52_82.pitch)
 		{
 			event->roll_0x20_32 = Maths::sub_581E0_maybe_tan2(&ix->position_0x4C_76, &event->position_0x4C_76);
 			break;
@@ -18274,8 +18280,8 @@ void sub_27E00(type_entity_0x6E8E* a1x)//208e00
 		for (ix = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->model_0x40_64]; ix > Entities_EA3E4[0]; ix = ix->next_0)
 		{
 			if (ix->id_0x1A_26 != a1x->id_0x1A_26
-				&& abs(a1x->position_0x4C_76.x - ix->position_0x4C_76.x) < a1x->array_0x52_82.pitch
-				&& abs(a1x->position_0x4C_76.y - ix->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
+				&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)ix->position_0x4C_76.x) < a1x->array_0x52_82.pitch
+				&& abs((int16_t)a1x->position_0x4C_76.y - (int16_t)ix->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
 			{
 				a1x->roll_0x20_32 = Maths::sub_581E0_maybe_tan2(&ix->position_0x4C_76, &a1x->position_0x4C_76);
 				break;
@@ -18374,8 +18380,8 @@ char sub_28060(type_entity_0x6E8E* a1x)//209060
 	for (ix = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->model_0x40_64]; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (ix->id_0x1A_26 != a1x->id_0x1A_26
-			&& abs(a1x->position_0x4C_76.x - ix->position_0x4C_76.x) < v1
-			&& abs(a1x->position_0x4C_76.y - ix->position_0x4C_76.y) < v1
+			&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)ix->position_0x4C_76.x) < v1
+			&& abs((int16_t)a1x->position_0x4C_76.y - (int16_t)ix->position_0x4C_76.y) < v1
 			&& abs(a1x->position_0x4C_76.z - ix->position_0x4C_76.z) < 2 * a1x->array_0x52_82.fov)
 		{
 			v3 = a1x->position_0x4C_76.z;
@@ -18397,7 +18403,6 @@ void sub_28110(type_entity_0x6E8E* a1x)//209110
 {
 	signed int v1; // esi
 	__int16 v2; // ax
-	unsigned __int16 v3; // ax
 	type_entity_0x6E8E* v4x; // eax
 	//type_str_0x6E8E* v5x; // ecx
 	char v6; // al
@@ -18406,10 +18411,6 @@ void sub_28110(type_entity_0x6E8E* a1x)//209110
 	unsigned int v9; // esi
 	type_entity_0x6E8E* v10x; // eax
 	char v11; // dh
-
-	//fix
-	v3 = 0;
-	//fix
 
 	v1 = 0;
 	if (a1x->byte_0x39_57)
@@ -18421,7 +18422,7 @@ void sub_28110(type_entity_0x6E8E* a1x)//209110
 			a1x->word_0x26_38 = v2;
 			//a1x->word_0x26_38;
 			a1x->str_0x5E_94.channel[0].source = 0;
-			if (Entities_EA3E4[v3]->class_0x3F_63 == 3)
+			if (Entities_EA3E4[a1x->word_0x26_38]->class_0x3F_63 == 3)//209148 mov ax,[ebx+26h]; 209159 cmp byte ptr [eax+3Fh],3
 			{
 				v1 = 1;
 				v4x = sub_28420(a1x);
@@ -19270,8 +19271,8 @@ void sub_28FF0(type_entity_0x6E8E* a1x)//209ff0
 				for (jx = x_D41A0_BYTEARRAY_4_struct.bytearray_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 				{
 					if (jx->id_0x1A_26 != a1x->id_0x1A_26
-						&& abs(a1x->position_0x4C_76.x - jx->position_0x4C_76.x) < a1x->array_0x52_82.pitch
-						&& abs(a1x->position_0x4C_76.y - jx->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
+						&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)jx->position_0x4C_76.x) < a1x->array_0x52_82.pitch
+						&& abs((int16_t)a1x->position_0x4C_76.y - (int16_t)jx->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
 					{
 						a1x->roll_0x20_32 = Maths::sub_581E0_maybe_tan2(&jx->position_0x4C_76, &a1x->position_0x4C_76);
 						break;
@@ -19730,7 +19731,7 @@ void sub_29A90(type_entity_0x6E8E* a1x)//20aa90
 	//type_entity_0x6E8E* v1y;
 
 	//fix
-	v34x = 0x1000002b;// (uint32_t)a1x;
+	v34x = 0x355188;//20AA96 sub esp,10h: [ebp-10h] uninitialized, mostly 355188h in the original
 	v35x = 0;
 	//v1y = 0;
 	//fix
@@ -21035,8 +21036,8 @@ void sub_2B260(type_entity_0x6E8E* a1x)//20c260
 				if (v5x > Entities_EA3E4[0])
 				{
 					if (v5x->id_0x1A_26 == a1x->id_0x1A_26
-						|| abs(a1x->position_0x4C_76.x - v5x->position_0x4C_76.x) >= a1x->array_0x52_82.pitch
-						|| abs(a1x->position_0x4C_76.y - v5x->position_0x4C_76.y) >= a1x->array_0x52_82.pitch)
+						|| abs((int16_t)a1x->position_0x4C_76.x - (int16_t)v5x->position_0x4C_76.x) >= a1x->array_0x52_82.pitch
+						|| abs((int16_t)a1x->position_0x4C_76.y - (int16_t)v5x->position_0x4C_76.y) >= a1x->array_0x52_82.pitch)
 					{
 						v5x = v5x->next_0;
 						continue;
@@ -21163,8 +21164,8 @@ void sub_2B260(type_entity_0x6E8E* a1x)//20c260
 		while (v14x > Entities_EA3E4[0])
 		{
 			if (v14x->id_0x1A_26 != a1x->id_0x1A_26
-				&& abs(a1x->position_0x4C_76.x - v14x->position_0x4C_76.x) < a1x->array_0x52_82.pitch
-				&& abs(a1x->position_0x4C_76.y - v14x->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
+				&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)v14x->position_0x4C_76.x) < a1x->array_0x52_82.pitch
+				&& abs((int16_t)a1x->position_0x4C_76.y - (int16_t)v14x->position_0x4C_76.y) < a1x->array_0x52_82.pitch)
 			{
 				a1x->roll_0x20_32 = Maths::sub_581E0_maybe_tan2(&v14x->position_0x4C_76, &a1x->position_0x4C_76);
 				//v27 = 1;
@@ -26824,7 +26825,7 @@ void TransformEntityToManaSphere_36BA0(type_entity_0x6E8E* entity, bool useManaF
 	{
 		if (useManaFraction)
 		{
-			int manaFraction = entity->mana_0x90_144 / 1000;
+			manaFraction = entity->mana_0x90_144 / 1000;//217BCC mov edi,eax: the count of the spheres
 			if (entity->mana_0x90_144 / 1000 < 1)
 				manaFraction = 1;
 			if (manaFraction > 16)
@@ -38454,7 +38455,7 @@ char LevelDecompress_533B0(int16 levelIndex, Type_Level_2FECE* levelData, std::s
 {
 	if (levelIndex < 1000)
 	{
-		std::string levelDataPath = GetSubDirectoryFile(gameFolder.c_str(), "CLEVELS", "LEVELS.DAT");
+		std::string levelDataPath = LevelsDirectory() + "/LEVELS.DAT";
 		FILE* levelsdatfile = DataFileIO::CreateOrOpenFile(levelDataPath.c_str(), 512);
 		if (levelsdatfile == NULL)
 		{
@@ -38463,7 +38464,7 @@ char LevelDecompress_533B0(int16 levelIndex, Type_Level_2FECE* levelData, std::s
 			if (levelsdatfile == NULL)
 				return 0;
 		}
-		levelDataPath = GetSubDirectoryFile(gameFolder.c_str(), "CLEVELS", "LEVELS.TAB");
+		levelDataPath = LevelsDirectory() + "/LEVELS.TAB";
 		FILE* levelstabfile = DataFileIO::CreateOrOpenFile(levelDataPath.c_str(), 512);
 		if (levelstabfile == NULL)
 		{
@@ -38824,7 +38825,7 @@ char sub_54200_create_user_directiores()//235200
 	{
 		outtext("Setting Up Levels ..");
 		x_DWORD_F4720 = gettextposition(/*v7, v8, v0*/);
-		std::string clevelsPath = GetSubDirectoryPath(gameFolder.c_str(), "CLEVELS");
+		std::string clevelsPath = LevelsDirectory();
 		std::string levelPath = GetSubDirectoryPath(cdFolder.c_str(), "LEVELS");
 		if (LoadFilesFromCDAndGameData(levelPath.c_str(), clevelsPath.c_str(), "LEVELS"))
 			v0l = 0;
