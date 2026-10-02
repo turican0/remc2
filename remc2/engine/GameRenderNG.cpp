@@ -13617,7 +13617,7 @@ LABEL_129:
 							v1055 = x_DWORD_DE55C_ActTexture;
 							while (1)
 							{
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1053);
 								LOWORD(v1053) = v1124 + v1053;
 								BYTE1(v1046) = v1054;
@@ -13642,7 +13642,7 @@ LABEL_129:
 								v1259 = v1258 - 1;
 								if (!v1259)
 									break;
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1057);
 								LOWORD(v1057) = v1124 + v1057;
 								BYTE1(v1046) = v1058;
@@ -13667,7 +13667,7 @@ LABEL_129:
 								v1260 = v1259 - 1;
 								if (!v1260)
 									break;
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1060);
 								LOWORD(v1060) = v1124 + v1060;
 								BYTE1(v1046) = v1061;
@@ -13692,7 +13692,7 @@ LABEL_129:
 								v1261 = v1260 - 1;
 								if (!v1261)
 									break;
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1063);
 								LOWORD(v1063) = v1124 + v1063;
 								BYTE1(v1046) = v1064;
@@ -13717,7 +13717,7 @@ LABEL_129:
 								v1262 = v1261 - 1;
 								if (!v1262)
 									break;
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1066);
 								LOWORD(v1066) = v1124 + v1066;
 								BYTE1(v1046) = v1067;
@@ -13742,7 +13742,7 @@ LABEL_129:
 								v1263 = v1262 - 1;
 								if (!v1263)
 									break;
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1069);
 								LOWORD(v1069) = v1124 + v1069;
 								BYTE1(v1046) = v1070;
@@ -13767,7 +13767,7 @@ LABEL_129:
 								v1264 = v1263 - 1;
 								if (!v1264)
 									break;
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1072);
 								LOWORD(v1072) = v1124 + v1072;
 								BYTE1(v1046) = v1073;
@@ -13792,7 +13792,7 @@ LABEL_129:
 								v1265 = v1264 - 1;
 								if (!v1265)
 									break;
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1075);
 								LOWORD(v1075) = v1124 + v1075;
 								BYTE1(v1046) = v1076;
@@ -13817,7 +13817,7 @@ LABEL_129:
 								v1266 = v1265 - 1;
 								if (!v1266)
 									break;
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1078);
 								LOWORD(v1078) = v1124 + v1078;
 								BYTE1(v1046) = v1079;
@@ -13842,7 +13842,7 @@ LABEL_129:
 								v1267 = v1266 - 1;
 								if (!v1267)
 									break;
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1081);
 								LOWORD(v1081) = v1124 + v1081;
 								BYTE1(v1046) = v1082;
@@ -13867,7 +13867,7 @@ LABEL_129:
 								v1268 = v1267 - 1;
 								if (!v1268)
 									break;
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1084);
 								LOWORD(v1084) = v1124 + v1084;
 								BYTE1(v1046) = v1085;
@@ -13892,7 +13892,7 @@ LABEL_129:
 								v1269 = v1268 - 1;
 								if (!v1269)
 									break;
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1087);
 								LOWORD(v1087) = v1124 + v1087;
 								BYTE1(v1046) = v1088;
@@ -13917,7 +13917,7 @@ LABEL_129:
 								v1270 = v1269 - 1;
 								if (!v1270)
 									break;
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1090);
 								LOWORD(v1090) = v1124 + v1090;
 								BYTE1(v1046) = v1091;
@@ -13942,7 +13942,7 @@ LABEL_129:
 								v1271 = v1270 - 1;
 								if (!v1271)
 									break;
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1093);
 								LOWORD(v1093) = v1124 + v1093;
 								BYTE1(v1046) = v1094;
@@ -13967,7 +13967,7 @@ LABEL_129:
 								v1272 = v1271 - 1;
 								if (!v1272)
 									break;
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1096);
 								LOWORD(v1096) = v1124 + v1096;
 								BYTE1(v1046) = v1097;
@@ -13992,7 +13992,7 @@ LABEL_129:
 								v1273 = v1272 - 1;
 								if (!v1273)
 									break;
-								LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+								LOBYTE(v1046) = ClampReflectionTexel(v1047, v1055);
 								v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1099);
 								LOWORD(v1099) = v1124 + v1099;
 								BYTE1(v1046) = v1100;
