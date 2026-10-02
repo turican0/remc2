@@ -1585,8 +1585,9 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* text
 //----- (0006D5E0) --------------------------------------------------------
 void SetSpell_6D5E0(type_entity_0x6E8E* entity, int spellId)//24e5e0
 {
-	// a non-spell entity (e.g. a building whose index is still in SpellEnabled) has its model past the table:
-	// the original reads byte_DA818 + model*50h there, the credits pointers (24E5EC movsx esi,byte ptr [ebx+40h])
+	// 2339AD call sub_6D5E0 with Entities[SpellEnabled[spell]]: the slot can hold a non-spell entity by then (a building,
+	// record11 turn 7421), its model is past the table and the original reads byte_DA818 + model*50h, the credits
+	// pointers (24E5EC movsx esi,byte ptr [ebx+40h])
 	if (entity->model_0x40_64 >= NUMBER_OF_SPELLS)
 		spellTableOverrun[entity - D41A0_0.struct_0x6E8E] = true;
 	int locSpellId = spellId;
