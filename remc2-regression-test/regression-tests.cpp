@@ -39,6 +39,14 @@ std::string RegressionsPath()
 	return (std::filesystem::path(__FILE__).parent_path() / "memimages" / "regressions").string();
 }
 
+// folder of memimages/regressions: prefix and a three digit number (level001, afterloadtest002, record010)
+std::string RegressionFolder(const char* prefix, int number)
+{
+	char name[64];
+	snprintf(name, sizeof(name), "%s%03d", prefix, number);
+	return name;
+}
+
 int run_regtest(int level, int testType, int index, int saveIndex, const char* recordName, int maxSteps, bool turnOnIntervalSave, const char* recordFolder)//236F70
 {
 	int exitCode = 0;
@@ -51,14 +59,14 @@ int run_regtest(int level, int testType, int index, int saveIndex, const char* r
 	std::string recordPath = "";
 	if (testType>0)
 	{
-		locUnitTestsPath = RegressionsPath() + "/afterloadtest" + std::to_string(index);
-		if (strlen(recordFolder) > 0)//<folder>/<recording>, <folder>/level<N>/sequence-*
-			locUnitTestsPath = RegressionsPath() + "/" + recordFolder + "/level" + std::to_string(level);
+		locUnitTestsPath = RegressionsPath() + "/" + RegressionFolder("afterloadtest", index);
+		if (strlen(recordFolder) > 0)//<folder>/<recording>, <folder>/level<NNN>/sequence-*
+			locUnitTestsPath = RegressionsPath() + "/" + recordFolder + "/" + RegressionFolder("level", level);
 		if (strlen(recordName) > 0)//in memimages/regressions
 			recordPath = RegressionsPath() + "/" + (strlen(recordFolder) > 0 ? std::string(recordFolder) + "/" : "") + recordName;
 	}
 	else
-		locUnitTestsPath = RegressionsPath() + "/level" + std::to_string(level);
+		locUnitTestsPath = RegressionsPath() + "/" + RegressionFolder("level", level);
 	unitTestsPath = locUnitTestsPath;
 	int locEndTestsCode = 0;
 	endTestsCode = &locEndTestsCode;
