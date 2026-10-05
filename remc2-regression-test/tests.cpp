@@ -20,6 +20,7 @@
 #define REGTEST_POPEN _popen
 #define REGTEST_PCLOSE _pclose
 #else
+#include <unistd.h>
 #define REGTEST_POPEN popen
 #define REGTEST_PCLOSE pclose
 #endif
@@ -274,6 +275,20 @@ void EnableAnsiColours()
 #endif
 }
 
+// a log instead of a console (GitHub Actions, redirected output): every redraw of the bars would stay
+// in it as new lines, so the runner prints a line per finished test and the progress by 5 %
+bool PlainProgress()
+{
+	if (getenv("GITHUB_ACTIONS") || getenv("CI"))
+		return true;
+#ifdef _WIN32
+	DWORD mode = 0;
+	return !GetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), &mode);
+#else
+	return !isatty(fileno(stdout));
+#endif
+}
+
 int ConsoleWidth()
 {
 #ifdef _WIN32
@@ -445,6 +460,37 @@ int RunTestsInParallel(const std::vector<type_regtest>& list, int jobs, const st
 
 	size_t printed = 0;
 	int spin = 0, statusLines = 0;
+	if (PlainProgress())
+	{
+		long long framesAll = 0;
+		for (const auto& test : tests)
+			framesAll += test->total;
+		int percentPrinted = 0;
+		while (printed < tests.size())
+		{
+			for (const auto& test : tests)
+				if (test->finished && !test->printed.exchange(true))
+				{
+					printed++;
+					if (test->failed)
+						printf("%s", test->output.c_str());
+					printf("  %-22s %-6s %6d frames in %s  (%d/%d tests)\n", test->name.c_str(), test->failed ? "FAILED" : "OK",
+						test->total, TimeText(test->duration.load()).c_str(), (int)printed, (int)tests.size());
+				}
+			long long framesDone = 0;
+			for (const auto& test : tests)
+				framesDone += test->done;
+			const int percent = framesAll > 0 ? (int)(framesDone * 100 / framesAll) : 100;
+			if (percent >= percentPrinted + 5)
+			{
+				percentPrinted = percent - percent % 5;
+				printf(" progress %d %%, %s elapsed, %s left\n", percentPrinted, TimeText(SecondsSince(start)).c_str(),
+					TimeText(SecondsLeft(tests, jobs)).c_str());
+			}
+			fflush(stdout);
+			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		}
+	}
 	while (printed < tests.size())
 	{
 		for (int i = 0; i < statusLines; i++)
