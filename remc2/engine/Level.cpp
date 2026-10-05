@@ -1698,6 +1698,7 @@ void sub_71A70_setTmaps(MapType_t a1)//252a70
 	}
 	}
 	x_DWORD_DB73C_tmapsfile = v1;
+	tmapsMapType = a1;
 	//return result;
 }
 // DB73C: using guessed type int x_DWORD_DB73C_tmapsfile;

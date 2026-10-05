@@ -15,6 +15,7 @@ std::string gameFolder = "NETHERW";
 std::string cdFolder = "CD_Files";
 std::string highResGraphicsFolder = "graphics/high-res";
 std::string fixedMenuGraphicsFolder = "graphics/fixed/menu";
+std::string fixedTmapsFolder = "graphics/fixed/tmaps";//sprites taken instead of the TMAPS ones (TextureMaps.cpp LoadFixedTmaps)
 std::string extendedFontsFolder = "graphics/fixed/fonts";
 std::string forceRender = "";
 spdlog::logger* Logger = nullptr;

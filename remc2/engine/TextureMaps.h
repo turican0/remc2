@@ -42,6 +42,7 @@ subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, u
 void sub_70A60_open_tmaps();
 void sub_70BF0_close_tmaps();
 int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer);
+extern MapType_t tmapsMapType;//the TMAPS file x_DWORD_DB73C_tmapsfile stands for (sub_70A60 Day, sub_71A70)
 void WriteTextureMapToBmp(uint16_t texture_index, type_particle_str* ptextureMap, MapType_t mapType);
 uint8_t* LoadTMapColorPalette(MapType_t mapType);
 type_animations1* sub_721C0_initTmap(type_E9C08* a1, type_particle_str** a2x, __int16 a3);

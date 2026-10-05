@@ -1,6 +1,7 @@
 #include "TextureMaps.h"
 
 #include <filesystem>
+#include <vector>
 
 #include "../utilities/BitmapIO.h"
 
@@ -21,6 +22,39 @@ type_x_DWORD_E9C28_str* x_DWORD_E9C28_str;
 type_E9C08* animations_E9C08x; // weak
 bool big_sprites_inited = false;
 uint8_t* m_pColorPalette = NULL;
+
+// Sprites with an error in the original data: sub_70C60_decompress_tmap takes them from
+// graphics/fixed/tmaps/TMAPS2-<map type>-<index>.data instead of the TMAPS file, the decompressed sprite
+// (u16 word_0, u16 width, u16 height, pixels). Day and cave 452 is a 320x200 canvas with the figure in the middle,
+// its neighbours 444-451 are cropped to the figure. Only drawing reads the size, the game state does not depend on it.
+// Read with the TMAPS files (sub_70A60_open_tmaps).
+MapType_t tmapsMapType = MapType_t::Day;
+static std::vector<uint8_t> fixedSprites[3][504];//[map type][sprite]
+
+static void LoadFixedTmaps()
+{
+	for (auto& type : fixedSprites)
+		for (auto& sprite : type)
+			sprite.clear();
+	const std::string folder = GetSubDirectoryPath(fixedTmapsFolder.c_str());
+	std::error_code error;
+	if (folder.empty())
+		return;
+	for (const auto& entry : std::filesystem::directory_iterator(folder, error))
+	{
+		int type, index;
+		if (sscanf(entry.path().filename().string().c_str(), "TMAPS2-%d-%d.data", &type, &index) != 2 || type < 0 || type > 2 || index < 0 || index >= 504)
+			continue;
+		FILE* file = fopen(entry.path().string().c_str(), "rb");
+		if (!file)
+			continue;
+		std::vector<uint8_t>& data = fixedSprites[type][index];
+		data.resize((size_t)std::filesystem::file_size(entry.path(), error));
+		if (fread(data.data(), 1, data.size(), file) != data.size() || data.size() < 6)
+			data.clear();
+		fclose(file);
+	}
+}
 
 bool MainInitTmaps_71520(unsigned __int16 a1)
 {
@@ -593,6 +627,8 @@ void sub_70A60_open_tmaps()//251a60
 		x_DWORD_DB748_tmaps20file = DataFileIO::CreateOrOpenFile(tMapPath2.c_str(), 512);
 	}
 	x_DWORD_DB73C_tmapsfile = x_DWORD_DB740_tmaps00file;
+	tmapsMapType = MapType_t::Day;
+	LoadFixedTmaps();
 	//return 1;
 }
 
@@ -623,6 +659,12 @@ int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer)//
 {
 	int result; // eax
 
+	const std::vector<uint8_t>& fixed = fixedSprites[(int)tmapsMapType][texture_index];
+	if (!fixed.empty() && fixed.size() <= 4 * ((unsigned int)(str_TMAPS00TAB_BEGIN_BUFFER[texture_index].dword_0 + 13) >> 2))//graphics/fixed/tmaps, the buffer of LoadTMapMetadata_71E70
+	{
+		memcpy(texture_buffer, fixed.data(), fixed.size());
+		return (int)fixed.size();
+	}
 	if (x_DWORD_DB73C_tmapsfile == NULL) {
 		return 0; //(int)x_DWORD_DB73C_tmapsfile;
 	}
