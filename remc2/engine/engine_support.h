@@ -81,6 +81,11 @@ const uint8_t* D41A0CompareKinds();//test_D41A0_id_pointer for every byte of D41
 extern bool spellTableOverrun[1000];
 std::string SaveDirectory();
 std::string LevelsDirectory();//CLEVELS, one per process in the tests
+// regression tests without the game (GitHub Actions): remc2-regression-test/data/data.binz holds the only
+// game data there is, everything else the game would load is skipped (PackedGameData())
+extern std::string packedDataFile;
+inline bool PackedGameData() { return !packedDataFile.empty(); }
+std::string UnpackPackedData();//the folder with CD_Files (from data.binz) and an empty NETHERW
 extern int* endTestsCode;
 
 extern uint8_t* readbuffer;

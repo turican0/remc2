@@ -608,6 +608,12 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 
 		//Set Paths for game data
 		Logger->debug("Getting Game data paths");
+		if (PackedGameData())//regression tests without the game: CD_Files from data.binz, NETHERW empty
+		{
+			const std::string packedDir = UnpackPackedData();
+			gameFolder = packedDir + "/NETHERW";
+			cdFolder = packedDir + "/CD_Files";
+		}
 		gameDataPath = GetSubDirectoryPath(gameFolder.c_str());
 		cdDataPath = GetSubDirectoryPath(cdFolder.c_str());
 		highResGraphicsPath = GetSubDirectoryPath(highResGraphicsFolder.c_str());

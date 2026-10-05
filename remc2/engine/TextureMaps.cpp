@@ -2,6 +2,10 @@
 
 #include <filesystem>
 #include <vector>
+#include <map>
+#include <tuple>
+#include <algorithm>
+#include "../utilities/DataFileRNC.h"
 
 #include "../utilities/BitmapIO.h"
 
@@ -655,6 +659,130 @@ void sub_70BF0_close_tmaps()//251bf0
 	//return result;
 }
 
+// Regression tests without the game (GitHub Actions): data.binz has no TMAPS?-0.DAT, but the simulation reads the
+// sprites - whether one is loaded and its frame count (CountOfFrames_16 of sub_721C0, e.g. sub_221F0 dword_0x10_16).
+// sub_70C60 reads the DAT of tmapsMapType at the offset and length of the TAB loaded now, which can be the TAB of
+// another map type (a day level loads night sprites with TMAPS0-0.TAB), so TMAPSMETA.DAT ("MC2TMAP2") keeps every
+// (DAT, offset, length) of the three TABs: u32 records; per record u8 DAT 0-2, u32 offset, i32 length, i32 result of
+// sub_70C60, u16 word_0, u16 width, u16 height, u16 frame count (the byte after the pixels); the pixels stay zero.
+static const int kTmapsMetaSprites = 504;
+
+static bool ReadWholeFile(const std::string& path, std::vector<uint8_t>& data)
+{
+	FILE* file = fopen(path.c_str(), "rb");
+	if (!file)
+		return false;
+	fseek(file, 0, SEEK_END);
+	data.resize(ftell(file));
+	fseek(file, 0, SEEK_SET);
+	const bool read = fread(data.data(), 1, data.size(), file) == data.size();
+	fclose(file);
+	return read;
+}
+
+bool WriteTmapsMeta(const std::string& dataDir, const std::string& outPath)
+{
+	std::vector<uint8_t> tabs[3], dats[3];
+	for (int type = 0; type < 3; type++)
+	{
+		const std::string name = dataDir + "/TMAPS" + std::to_string(type) + "-0.";
+		if (!ReadWholeFile(name + "TAB", tabs[type]) || !ReadWholeFile(name + "DAT", dats[type]))
+			return false;
+	}
+	std::vector<uint8_t> out = { 'M', 'C', '2', 'T', 'M', 'A', 'P', '2', 0, 0, 0, 0 };
+	auto put = [&out](uint32_t v, int bytes) { for (int b = 0; b < bytes; b++) out.push_back((uint8_t)(v >> (8 * b))); };
+	std::vector<uint8_t> buffer(0x100000);
+	std::vector<std::tuple<int, uint32_t, int32_t>> done;
+	uint32_t count = 0;
+	for (int dat = 0; dat < 3; dat++)
+		for (int tab = 0; tab < 3; tab++)
+		{
+			const type_TMAPS00TAB_BEGIN_BUFFER* entries = (const type_TMAPS00TAB_BEGIN_BUFFER*)tabs[tab].data();
+			for (int i = 0; i < kTmapsMetaSprites; i++)
+			{
+				const uint32_t offset = entries[i].dword_4;
+				const int32_t length = entries[i + 1].dword_4 - entries[i].dword_4;
+				if (std::find(done.begin(), done.end(), std::make_tuple(dat, offset, length)) != done.end())
+					continue;
+				done.emplace_back(dat, offset, length);
+				// as sub_70C60_decompress_tmap: a short read is -1, a decompression error -2, a plain block its length
+				std::fill(buffer.begin(), buffer.end(), 0);
+				int32_t result = -1;
+				if (length >= 0 && (size_t)offset + length <= dats[dat].size() && (size_t)length <= buffer.size())
+				{
+					memcpy(buffer.data(), &dats[dat][offset], length);
+					result = DataFileRNC::Decompress(buffer.data(), buffer.data());
+					if (result >= 0)
+					{
+						if (!result)
+							result = length;
+					}
+					else
+						result = -2;
+				}
+				const type_particle_str* sprite = (const type_particle_str*)buffer.data();
+				const uint32_t pixels = (uint32_t)sprite->width * sprite->height;
+				put(dat, 1);
+				put(offset, 4);
+				put(length, 4);
+				put(result, 4);
+				put(sprite->word_0, 2);
+				put(sprite->width, 2);
+				put(sprite->height, 2);
+				put(6 + pixels < buffer.size() ? (uint8_t)sprite->textureBuffer[pixels] : 0, 2);
+				count++;
+			}
+		}
+	for (int b = 0; b < 4; b++)
+		out[8 + b] = (uint8_t)(count >> (8 * b));
+	FILE* file = fopen(outPath.c_str(), "wb");
+	if (!file)
+		return false;
+	const bool written = fwrite(out.data(), 1, out.size(), file) == out.size();
+	fclose(file);
+	return written;
+}
+
+static int PackedTmap(uint16_t texture_index, uint8_t* texture_buffer)
+{
+	struct Record { int32_t result; uint16_t word_0, width, height, frames; };
+	static std::map<std::tuple<int, uint32_t, int32_t>, Record> records;
+	if (records.empty())
+	{
+		std::vector<uint8_t> meta;
+		ReadWholeFile(GetSubDirectoryFile(cdFolder.c_str(), "DATA", "TMAPSMETA.DAT"), meta);
+		auto get = [&meta](size_t p, int bytes) { uint32_t v = 0; for (int b = 0; b < bytes; b++) v |= (uint32_t)meta[p + b] << (8 * b); return v; };
+		const uint32_t count = meta.size() >= 12 && memcmp(meta.data(), "MC2TMAP2", 8) == 0 ? get(8, 4) : 0;
+		for (uint32_t i = 0; i < count && 12 + (i + 1) * 21 <= meta.size(); i++)
+		{
+			const size_t p = 12 + i * 21;
+			records[{ (int)get(p, 1), get(p + 1, 4), (int32_t)get(p + 5, 4) }] =
+				{ (int32_t)get(p + 9, 4), (uint16_t)get(p + 13, 2), (uint16_t)get(p + 15, 2), (uint16_t)get(p + 17, 2), (uint16_t)get(p + 19, 2) };
+		}
+	}
+	const uint32_t offset = str_TMAPS00TAB_BEGIN_BUFFER[texture_index].dword_4;
+	const int32_t length = str_TMAPS00TAB_BEGIN_BUFFER[texture_index + 1].dword_4 - str_TMAPS00TAB_BEGIN_BUFFER[texture_index].dword_4;
+	const auto found = records.find({ (int)tmapsMapType, offset, length });
+	if (found == records.end())
+		return -1;
+	const Record& r = found->second;
+	if (r.result == -1)
+		return -1;
+	const int size = r.result > length ? r.result : length;
+	memset(texture_buffer, 0, size);
+	type_particle_str* sprite = (type_particle_str*)texture_buffer;
+	if (size >= 6)
+	{
+		sprite->word_0 = r.word_0;
+		sprite->width = r.width;
+		sprite->height = r.height;
+	}
+	const uint32_t pixels = (uint32_t)r.width * r.height;
+	if (6 + pixels < (uint32_t)size)
+		sprite->textureBuffer[pixels] = (int8_t)r.frames;
+	return r.result;
+}
+
 int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer)//251c60
 {
 	int result; // eax
@@ -665,6 +793,8 @@ int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer)//
 		memcpy(texture_buffer, fixed.data(), fixed.size());
 		return (int)fixed.size();
 	}
+	if (PackedGameData() && x_DWORD_DB73C_tmapsfile == NULL)//regression tests without the game: the header and the frame count from TMAPSMETA.DAT
+		return PackedTmap(texture_index, texture_buffer);
 	if (x_DWORD_DB73C_tmapsfile == NULL) {
 		return 0; //(int)x_DWORD_DB73C_tmapsfile;
 	}

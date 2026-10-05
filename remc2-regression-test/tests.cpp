@@ -25,6 +25,7 @@
 #endif
 #include "regression-tests.h"
 #include "../remc2/engine/sequence_codec.h"
+#include "../remc2/engine/TextureMaps.h"
 
 
 enum TestType {
@@ -200,11 +201,12 @@ struct type_running_test
 
 std::string TestArguments(const type_regtest& test)
 {
+	const std::string packed = forcePackedData ? " --packed_data" : "";
 	if (!test.folder.empty())
-		return "--record " + test.folder.substr(6) + " --level " + std::to_string(test.level);
+		return "--record " + test.folder.substr(6) + " --level " + std::to_string(test.level) + packed;
 	if (test.index > 0)
-		return "--afterload " + std::to_string(test.index);
-	return "--level " + std::to_string(test.level);
+		return "--afterload " + std::to_string(test.index) + packed;
+	return "--level " + std::to_string(test.level) + packed;
 }
 
 std::string TestName(const type_regtest& test)
@@ -537,16 +539,21 @@ int main(int argc, char** argv)
 
 	InitializeLogging(spdlog::level::info);
 	// "--level N" or "--afterload N" runs just that test, "--record N [--level L]" the levels of recording N,
-	// "--resave" with them rewrites the level start saves of their recordings
+	// "--resave" with them rewrites the level start saves of their recordings,
+	// "--packed_data" uses only data/data.binz as GitHub Actions (automatic when CD_Files is missing)
 	int onlyLevel = -1;
 	int onlyAfterload = -1;
 	int onlyRecord = -1;
 	bool resave = false;
 	int jobs = (int)std::thread::hardware_concurrency() / 2;
+	// "--make_tmaps_meta <CD_Files/DATA> <out>": TMAPSMETA.DAT of data/data.binz from the TMAPS?-0.DAT/TAB of the game
+	if (argc == 4 && std::string(argv[1]) == "--make_tmaps_meta")
+		return WriteTmapsMeta(argv[2], argv[3]) ? 0 : 1;
 	for (int a = 1; a < argc; a++)
 	{
 		if (std::string(argv[a]) == "--resave") resave = true;
 		if (std::string(argv[a]) == "--progress") unitTestsProgress = true;
+		if (std::string(argv[a]) == "--packed_data") forcePackedData = true;//as without the game data (GitHub Actions)
 		if (std::string(argv[a]) == "--compare_from" && a + 1 < argc) unitTestsCompareFrom = atoi(argv[a + 1]);
 		if (a + 1 >= argc) continue;
 		if (std::string(argv[a]) == "--level") onlyLevel = atoi(argv[a + 1]);

@@ -42,6 +42,60 @@ std::string SaveDirectory()
 	std::filesystem::create_directories(dir);
 	return dir.string();
 }
+std::string packedDataFile;
+
+// data.binz, "MC2DATZ1": u32 files; per file u8 name length, name (path relative to CD_Files), u32 size,
+// u32 packed size, bytes packed by LzCompress (lzcompress.h). Unpacked once per process, as CLEVELS.
+std::string UnpackPackedData()
+{
+	static const std::filesystem::path dir = std::filesystem::temp_directory_path() / ("remc2-data-" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
+	static bool unpacked = false;
+	if (unpacked)
+		return dir.string();
+	unpacked = true;
+	std::filesystem::create_directories(dir / "NETHERW");
+	std::filesystem::create_directories(dir / "CD_Files");
+	FILE* file = fopen(packedDataFile.c_str(), "rb");
+	if (!file)
+	{
+		Logger->error("Packed game data {} not found", packedDataFile);
+		return dir.string();
+	}
+	std::vector<uint8_t> data;
+	fseek(file, 0, SEEK_END);
+	data.resize(ftell(file));
+	fseek(file, 0, SEEK_SET);
+	if (fread(data.data(), 1, data.size(), file) != data.size())
+		data.clear();
+	fclose(file);
+	if (data.size() < 12 || memcmp(data.data(), "MC2DATZ1", 8) != 0)
+	{
+		Logger->error("{} is not MC2DATZ1", packedDataFile);
+		return dir.string();
+	}
+	auto get32 = [&data](size_t p) { return (uint32_t)data[p] | (uint32_t)data[p + 1] << 8 | (uint32_t)data[p + 2] << 16 | (uint32_t)data[p + 3] << 24; };
+	const uint32_t files = get32(8);
+	size_t p = 12;
+	for (uint32_t i = 0; i < files && p < data.size(); i++)
+	{
+		const std::string name((const char*)&data[p + 1], data[p]);
+		p += 1 + name.size();
+		const uint32_t size = get32(p), packedSize = get32(p + 4);
+		p += 8;
+		const std::vector<uint8_t> bytes = LzDecompress(&data[p], packedSize, size);
+		p += packedSize;
+		const std::filesystem::path out = dir / "CD_Files" / name;
+		std::filesystem::create_directories(out.parent_path());
+		if (FILE* outFile = fopen(out.string().c_str(), "wb"))
+		{
+			fwrite(bytes.data(), 1, bytes.size(), outFile);
+			fclose(outFile);
+		}
+	}
+	Logger->info("Packed game data unpacked to {}", dir.string());
+	return dir.string();
+}
+
 int* endTestsCode;
 
 const int printBufferSize = 4096;

@@ -38767,6 +38767,8 @@ char sub_54200_create_user_directiores()//235200
 	readbuffer[0] = 0x0;
 	// end
 
+	if (PackedGameData())//regression tests without the game: no TMAPS to install into CDATA
+		return 1;
 	printbuffer[0] = 0;
 	outtext("Checking Setup Version ..");//23521B - 29EBED
 	v0l = 1;
@@ -43209,7 +43211,7 @@ void sub_46DD0_init_sound_and_music()//227DD0
 	if (!x_BYTE_D4B50)
 	{
 		x_BYTE_D4B50 = 1;
-		if ((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 0x40)//fix it
+		if (((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 0x40) || PackedGameData())//fix it; tests without the game: no sound data
 		{
 			PrintTextMessage_70910((char*)"Sound Disabled\0");
 			musicActive_E37FD = false;
@@ -45426,8 +45428,11 @@ void sub_72350(type_animations1* a1x)//253350 //animates sprite
 		/*v3 = sub_76619(v1 + a1x->dword_8, v1);
 		a1x->dword_8 = v3 - v1;
 		a1x->word_22 = a1x->word_22 + 1;*/
-		v3x = sub_76619(&a1x->Particles_4->textureBuffer[a1x->dword_8], a1x->Particles_4->textureBuffer);
-		a1x->dword_8 = v3x - a1x->Particles_4->textureBuffer;
+		if (!PackedGameData())//tests without the game: no frame data in the sprites (TMAPSMETA), the counter goes on
+		{
+			v3x = sub_76619(&a1x->Particles_4->textureBuffer[a1x->dword_8], a1x->Particles_4->textureBuffer);
+			a1x->dword_8 = v3x - a1x->Particles_4->textureBuffer;
+		}
 		a1x->FrameIndex_22++;
 	}
 }
@@ -46544,7 +46549,7 @@ void sub_7AA70_load_and_decompres_dat_file(const char* path, uint8_t* filebuffer
 {
 	//FILE* result; // eax
 
-	if (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc != NULL || (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = DataFileIO::CreateOrOpenFile(path, 512)))
+	if (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc != NULL || (path && (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = DataFileIO::CreateOrOpenFile(path, 512))))//path 0: only close (a missing file was never opened)
 	{
 		//result = x_DWORD_17DEE0_filedesc;
 		if (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc != NULL)

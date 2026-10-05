@@ -469,6 +469,8 @@ long ReadGraphicsfile(const char* path, uint8_t* buffer, long size)
 
 std::string getExistingDataPath(std::filesystem::path path) 
 {
+	if (path.is_absolute())//e.g. the packed game data of the regression tests
+		return std::filesystem::exists(path) ? path.string() : std::string();
 	std::vector<std::string> file_locations;
 #if defined(__linux__) || defined(__APPLE__)
 	auto env_home_dir = std::getenv("HOME");
