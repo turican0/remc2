@@ -6,14 +6,14 @@
 
 #pragma pack (push,1)
 typedef struct {//lenght 14
-	uint16_t word_0;
+	uint16_t textureIdx_0;
 	uint16_t word_2;
 	uint16_t word_4;
 	uint16_t speed_6;//shift
-	uint16_t rotSpeed_8;
-	uint8_t byte_10;
+	uint16_t worldSize_8;
+	uint8_t lightingTableIdx_10;
 	int8_t byte_11;
-	uint8_t byte_12;
+	uint8_t kind_12;
 	uint8_t byte_13;
 }
 Type_SpriteDef_D951C;

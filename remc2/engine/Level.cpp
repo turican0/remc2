@@ -1646,11 +1646,11 @@ void sub_71890()//252890
 	//char result; // al
 	int v0y = 0;
 	memset(m_LevelSpriteList_F5340, 0, 504);
-    while (spriteDefsTable_D951C[v0y].speed_6 || spriteDefsTable_D951C[v0y].rotSpeed_8)
+    while (spriteDefsTable_D951C[v0y].speed_6 || spriteDefsTable_D951C[v0y].worldSize_8)
     {
         if (spriteDefsTable_D951C[v0y].byte_11 == -1)
         {
-            m_LevelSpriteList_F5340[spriteDefsTable_D951C[v0y].word_0] = spriteDefsTable_D951C[v0y].byte_11;
+            m_LevelSpriteList_F5340[spriteDefsTable_D951C[v0y].textureIdx_0] = spriteDefsTable_D951C[v0y].byte_11;
         }
         v0y++;
     }
