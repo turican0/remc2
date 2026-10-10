@@ -16,7 +16,7 @@ extern FILE* x_DWORD_DB740_tmaps00file;
 extern FILE* x_DWORD_DB744_tmaps10file;
 extern FILE* x_DWORD_DB748_tmaps20file;
 
-extern type_particle_str** str_DWORD_F66F0x[504];
+extern Type_Sprite** m_ptrLoadedSprites_F66F0x[504];
 extern char m_LevelSpriteList_F5340[504];
 extern int32_t x_DWORD_F5730[504];
 extern subtype_x_DWORD_E9C28_str* str_F5F10[504];
@@ -44,9 +44,9 @@ void sub_70BF0_close_tmaps();
 int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer);
 bool WriteTmapsMeta(const std::string& dataDir, const std::string& outPath);//TMAPSMETA.DAT for the tests without the game
 extern MapType_t tmapsMapType;//the TMAPS file x_DWORD_DB73C_tmapsfile stands for (sub_70A60 Day, sub_71A70)
-void WriteTextureMapToBmp(uint16_t texture_index, type_particle_str* ptextureMap, MapType_t mapType);
+void WriteTextureMapToBmp(uint16_t texture_index, Type_Sprite* ptextureMap, MapType_t mapType);
 uint8_t* LoadTMapColorPalette(MapType_t mapType);
-type_animations1* sub_721C0_initTmap(type_E9C08* a1, type_particle_str** a2x, __int16 a3);
+type_animations1* sub_721C0_initTmap(type_E9C08* a1, Type_Sprite** a2x, __int16 a3);
 void ResetAnimation_72410(type_animations1* animation);
 
 #endif //TEXTURE_MAPS_H

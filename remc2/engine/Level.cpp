@@ -1434,7 +1434,7 @@ void sub_71990()//252990
 	{
 		for (j = 0; j < 504 && !v6_return; j++)
 		{
-			if (i == D41A0_0.array_0x39[j] && !str_DWORD_F66F0x[j])
+			if (i == D41A0_0.array_0x39[j] && !m_ptrLoadedSprites_F66F0x[j])
 			{
 				v4 = sub_70EF0(j);
 				if (sub_71E60(x_DWORD_E9C28_str) <= v4)
@@ -1456,7 +1456,7 @@ void sub_71930()//252930
 {
 	for (int i=0; i < 508; i++) D41A0_0.array_0x39[i] = 0;
 	for (int i=0; i < 504; i++) {
-		if (str_DWORD_F66F0x[i])
+		if (m_ptrLoadedSprites_F66F0x[i])
 		{
 			D41A0_0.array_0x39[i] = 1;
 			if (m_LevelSpriteList_F5340[i])
@@ -1633,8 +1633,8 @@ void sub_712F0()//2522f0
 		animations_E9C08x = sub_72120(0x1F8u);
 	sub_70A60_open_tmaps();
 	sub_71A70_setTmaps(D41A0_0.terrain_2FECE.MapType);
-	memset(str_DWORD_F66F0x, 0, 504 * sizeof(type_particle_str**));
-	memset(str_F5F10, 0, 504*sizeof(type_particle_str**));
+	memset(m_ptrLoadedSprites_F66F0x, 0, 504 * sizeof(Type_Sprite**));
+	memset(str_F5F10, 0, 504*sizeof(Type_Sprite**));
 	memset(x_DWORD_F5730, 0, 2016);
 	sub_71890();
 	sub_718F0();
@@ -1727,7 +1727,7 @@ type_E9C08* sub_72120(unsigned __int16 a1)//253120
 			//v5 = 7 * v1;
 			//*(x_DWORD *)(v2x->dword_2 + 4 * v5 + 4) = 0;
 			//*(x_DWORD *)(v2x->dword_2 + 4 * v5) = 0;
-			v2x->dword_2[v1].Particles_4 = 0;
+			v2x->dword_2[v1].Sprite_4 = 0;
 			v2x->dword_2[v1].dword_0 = 0;
 		}
 	}

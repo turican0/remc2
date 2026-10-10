@@ -178,10 +178,10 @@ typedef struct {//size 5152
 	uint16_t height;
 	int8_t textureBuffer[];
 }
-type_particle_str;
+Type_Sprite;
 
 typedef struct {//size 14
-	type_particle_str* partstr_0;//type_particle_str?
+	Type_Sprite* partstr_0;//Sprite?
 	int32_t dword_4;
 	int16_t word_8;
 	int16_t Index;
