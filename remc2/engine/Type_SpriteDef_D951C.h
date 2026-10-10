@@ -1,6 +1,6 @@
 #pragma once
-#ifndef TYPE_WORD_D951C_H
-#define TYPE_WORD_D951C_H
+#ifndef Type_SpriteDef_D951C_H
+#define Type_SpriteDef_D951C_H
 
 #include "stdint.h"
 
@@ -16,9 +16,9 @@ typedef struct {//lenght 14
 	uint8_t byte_12;
 	uint8_t byte_13;
 }
-type_WORD_D951C;
+Type_SpriteDef_D951C;
 #pragma pack (pop)
 
-extern type_WORD_D951C particlesParameters_D951C[347];
+extern Type_SpriteDef_D951C spriteDefsTable_D951C[347];
 
-#endif //TYPE_WORD_D951C_H
+#endif //Type_SpriteDef_D951C_H

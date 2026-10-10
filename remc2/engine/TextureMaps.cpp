@@ -904,9 +904,9 @@ type_animations1* sub_721C0_initTmap(type_E9C08* a1x, Type_Sprite** a2x, __int16
 	if (v12 <= -1)
 		return 0;
 	v7x = *a2x;
-	v8 = (*a2x)->height * (*a2x)->width;
+	length_v8 = (*a2x)->height * (*a2x)->width;
 	//v9 = *(x_WORD*)(v8 + (*a2x)->un_0.byte[0] + 6);//? is ok
-	v9 = ((*a2x)->textureBuffer)[v8];//? is ok
+	frameCount_v9 = ((*a2x)->textureBuffer)[length_v8];//? is ok
 	//v10 = 28 * v12;
 	a1x->dword_2[v12].Sprite_4 = *a2x;
 	a1x->dword_2[v12].word_12 = 6;

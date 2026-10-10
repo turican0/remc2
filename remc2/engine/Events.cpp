@@ -614,7 +614,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 	if (CommandLineParams.DoShowNewProcedures()) {
 		test_pre_sub_4a190(adress);//for debug
 	}
-	if (particlesParameters_D951C[a1_6E8E->word_0x5A_90].word_0 == 58)
+	if (spriteDefsTable_D951C[a1_6E8E->word_0x5A_90].word_0 == 58)
 	{
 		int xxx = 1;
 		xxx++;

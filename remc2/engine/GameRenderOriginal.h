@@ -16,7 +16,7 @@
 #include "Type_F2C20ar.h"
 #include "Type_E9C38_Smalltit.h"
 #include "Type_Unk_F0E20x.h"
-#include "Type_WORD_D951C.h"
+#include "Type_SpriteDef_D951C.h"
 #include "UVTable_D4350.h"
 #include "Type_D404C.h"
 #include "Type_D94F0_Bldgprmbuffer.h"

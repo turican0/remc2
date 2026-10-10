@@ -13621,7 +13621,7 @@ void sub_221F0(type_entity_0x6E8E* a1x, __int16 a2)//2031f0
 	/*LOBYTE(v2) = */SetEntityIndex_49C90(a1x, a2);
 	if ((unsigned __int16)a2 >= 0x157u && (unsigned __int16)a2 <= 0x159u)
 	{
-		v3 = particlesParameters_D951C[a2].word_0;//x_WORD_D951C[7 * a2];
+		v3 = spriteDefsTable_D951C[a2].word_0;//x_WORD_D951C[7 * a2];
 		/*LOBYTE(v2) = */sub_71AB0(v3, 1);
 		if (m_ptrLoadedSprites_F66F0x[v3])
 		{
@@ -17857,7 +17857,7 @@ void sub_27610(/*signed int a1, */type_entity_0x6E8E* a2x)//208610
 
 	v2 = GetManaSphereColorIndexFromEntityId_369F0(/*a1, */a2x->playerEntityIndex_0x94_148);
 	//v3 = 550 * (unsigned __int16)x_WORD_D951C[4 + 7 * (signed __int16)sub_278F0(v2, a2x->byte_0x46_70, 0)];
-	v3 = 550 * particlesParameters_D951C[(signed __int16)sub_278F0(v2, a2x->byte_0x46_70, 0)].rotSpeed_8;
+	v3 = 550 * spriteDefsTable_D951C[(signed __int16)sub_278F0(v2, a2x->byte_0x46_70, 0)].rotSpeed_8;
 	SetEntityShiftRot_49EA0(a2x, v3 / 1000, v3 / 1000);
 	for (result = a2x->word_0x34_52; ; result = v6x->word_0x34_52)
 	{
@@ -17865,7 +17865,7 @@ void sub_27610(/*signed int a1, */type_entity_0x6E8E* a2x)//208610
 		if (v6x == Entities_EA3E4[0])
 			break;
 		//v5 = 550 * (unsigned __int16)x_WORD_D951C[4 + 7 * (signed __int16)sub_278F0(v2, a2x->byte_0x46_70, v6x->byte_0x46_70)];
-		v5 = 550 * particlesParameters_D951C[(signed __int16)sub_278F0(v2, a2x->byte_0x46_70, v6x->byte_0x46_70)].rotSpeed_8;
+		v5 = 550 * spriteDefsTable_D951C[(signed __int16)sub_278F0(v2, a2x->byte_0x46_70, v6x->byte_0x46_70)].rotSpeed_8;
 		SetEntityShiftRot_49EA0(v6x, v5 / 1000, v5 / 1000);
 	}
 	//return result;
@@ -18770,7 +18770,7 @@ LABEL_11:
 		a1x->word_0x5A_90 = v3;
 		a1x->animationFrame_0x5C_92 = 0;
 		//a1x->byte_0x5D_93 = x_BYTE_D8A2E[(unsigned __int8)x_WORD_D951C[6 + 7 * v3]];
-		a1x->byte_0x5D_93 = x_BYTE_D8A2E[particlesParameters_D951C[v3].byte_12];
+		a1x->byte_0x5D_93 = x_BYTE_D8A2E[spriteDefsTable_D951C[v3].byte_12];
 
 	}
 	//return result;
@@ -20813,7 +20813,7 @@ void sub_2AED0(type_entity_0x6E8E* a1x, int a2)//20bed0
 		a1x->animationFrame_0x5C_92 = 0;
 		//LOBYTE(v2) = x_BYTE_D8A2E[(unsigned __int8)x_WORD_D951C[6+7 * a2]];
 		//a1x->byte_0x5D_93 = x_BYTE_D8A2E[(unsigned __int8)x_WORD_D951C[6 + 7 * a2]];
-		a1x->byte_0x5D_93 = x_BYTE_D8A2E[particlesParameters_D951C[a2].byte_12];
+		a1x->byte_0x5D_93 = x_BYTE_D8A2E[spriteDefsTable_D951C[a2].byte_12];
 	}
 	//return v2;
 }
@@ -32791,34 +32791,34 @@ void SetEntityIndex_49C90(type_entity_0x6E8E* event, int16_t entityIndex)//22ac9
 {
 	event->word_0x5A_90 = entityIndex;
 	event->animationFrame_0x5C_92 = 0;
-	event->byte_0x5D_93 = x_BYTE_D8A2E[particlesParameters_D951C[entityIndex].byte_12];
+	event->byte_0x5D_93 = x_BYTE_D8A2E[spriteDefsTable_D951C[entityIndex].byte_12];
 }
 
 //----- (00049CD0) --------------------------------------------------------
 void SetEntityIndexAndRot_49CD0(type_entity_0x6E8E* event, int16_t entityIndex)//22acd0
 {
 	SetEntityIndex_49C90(event, entityIndex);
-	event->array_0x52_82.yaw = particlesParameters_D951C[entityIndex].rotSpeed_8 / 2;
-	event->array_0x52_82.pitch = particlesParameters_D951C[entityIndex].speed_6 / 2;
-	event->array_0x52_82.roll = particlesParameters_D951C[entityIndex].speed_6 / 2;
-	event->array_0x52_82.fov = particlesParameters_D951C[entityIndex].rotSpeed_8 / 2;
+	event->array_0x52_82.yaw = spriteDefsTable_D951C[entityIndex].rotSpeed_8 / 2;
+	event->array_0x52_82.pitch = spriteDefsTable_D951C[entityIndex].speed_6 / 2;
+	event->array_0x52_82.roll = spriteDefsTable_D951C[entityIndex].speed_6 / 2;
+	event->array_0x52_82.fov = spriteDefsTable_D951C[entityIndex].rotSpeed_8 / 2;
 }
 
 //----- (00049D50) --------------------------------------------------------
 void sub_49D50(type_entity_0x6E8E* event, int16_t entityIndex)//22ad50
 {
 	event->word_0x5A_90 = entityIndex;
-	event->byte_0x5D_93 = x_BYTE_D8A2E[particlesParameters_D951C[entityIndex].byte_12];
-	event->array_0x52_82.yaw = particlesParameters_D951C[entityIndex].rotSpeed_8 / 2;
+	event->byte_0x5D_93 = x_BYTE_D8A2E[spriteDefsTable_D951C[entityIndex].byte_12];
+	event->array_0x52_82.yaw = spriteDefsTable_D951C[entityIndex].rotSpeed_8 / 2;
 }
 
 //----- (00049DA0) --------------------------------------------------------
 void SetHalfSpeedEntity_49DA0(type_entity_0x6E8E* event, int16_t entityIndex)//22ada0
 {
 	SetEntityIndexAndRot_49CD0(event, entityIndex);
-	event->array_0x52_82.pitch = particlesParameters_D951C[entityIndex].speed_6 / 2;
-	event->array_0x52_82.roll = particlesParameters_D951C[entityIndex].speed_6 / 2;
-	event->array_0x52_82.fov = particlesParameters_D951C[entityIndex].rotSpeed_8 / 2;
+	event->array_0x52_82.pitch = spriteDefsTable_D951C[entityIndex].speed_6 / 2;
+	event->array_0x52_82.roll = spriteDefsTable_D951C[entityIndex].speed_6 / 2;
+	event->array_0x52_82.fov = spriteDefsTable_D951C[entityIndex].rotSpeed_8 / 2;
 }
 
 //----- (00049E10) --------------------------------------------------------
@@ -33810,9 +33810,9 @@ type_entity_0x6E8E* sub_4B6F0(axis_3d* position)//22c6f0
 						+ 32 * (v9x->maxMana_0x8C_140 >> 31))) >> 5;
 				v5x->byte_0x3E_62 = v12;
 				SetEntityIndexAndRot_49CD0(v5x, v12 + 89);
-				v6x->array_0x52_82.pitch = 65 * particlesParameters_D951C[v12 + 89].speed_6 / 100;
-				v6x->array_0x52_82.roll = 65 * particlesParameters_D951C[v12 + 89].speed_6 / 100;
-				v6x->array_0x52_82.fov = 65 * particlesParameters_D951C[v12 + 89].rotSpeed_8 / 100;
+				v6x->array_0x52_82.pitch = 65 * spriteDefsTable_D951C[v12 + 89].speed_6 / 100;
+				v6x->array_0x52_82.roll = 65 * spriteDefsTable_D951C[v12 + 89].speed_6 / 100;
+				v6x->array_0x52_82.fov = 65 * spriteDefsTable_D951C[v12 + 89].rotSpeed_8 / 100;
 				v8 = v6x->array_0x52_82.pitch;
 				v6x->word_0x36_54 = v8;
 				if (!v12)
@@ -33826,9 +33826,9 @@ type_entity_0x6E8E* sub_4B6F0(axis_3d* position)//22c6f0
 		AddEventToMap_57D70(v9x, position);
 		CopyMaxLifeToLife_49A20(v9x);
 		SetEntityIndexAndRot_49CD0(v9x, 88);
-		v9x->array_0x52_82.pitch = 60 * particlesParameters_D951C[88].speed_6 / 100;//88 3
-		v9x->array_0x52_82.roll = 60 * particlesParameters_D951C[88].speed_6 / 100;//88 3
-		v9x->array_0x52_82.fov = 60 * particlesParameters_D951C[88].rotSpeed_8 / 100;//88 4
+		v9x->array_0x52_82.pitch = 60 * spriteDefsTable_D951C[88].speed_6 / 100;//88 3
+		v9x->array_0x52_82.roll = 60 * spriteDefsTable_D951C[88].speed_6 / 100;//88 3
+		v9x->array_0x52_82.fov = 60 * spriteDefsTable_D951C[88].rotSpeed_8 / 100;//88 4
 		resultx = v9x;
 	}
 	return resultx;
@@ -35877,7 +35877,7 @@ unsigned __int16 sub_4F1C0(type_entity_0x6E8E* a1x)//230c10
 	for (i = result; v1x > Entities_EA3E4[0]; v1x = Entities_EA3E4[result])
 	{
 		v4 = v1x->word_0x2C_44 + 293;
-		v5 = particlesParameters_D951C[v4].rotSpeed_8;
+		v5 = spriteDefsTable_D951C[v4].rotSpeed_8;
 		v6 = 550 * v5 / 1000;
 		v7 = 450 * v5 / 1000;
 		SetEntityIndexAndRot_49CD0(v1x, v4);
@@ -45122,7 +45122,7 @@ void sub_713A0()//2523a0
 //----- (00071410) --------------------------------------------------------
 void sub_71410_process_tmaps()//252410
 {
-	//type_WORD_D951C* v0x; // esi
+	//Type_SpriteDef_D951C* v0x; // esi
 	int v0y;
 	uint8_t* v1; // ebx
 	uint16_t v2; // di
@@ -45131,10 +45131,10 @@ void sub_71410_process_tmaps()//252410
 	//v0x = &str_WORD_D951C[0];
 	v0y = 0;
 	v1 = pdwScreenBuffer_351628;
-	while (particlesParameters_D951C[v0y].speed_6 || particlesParameters_D951C[v0y].rotSpeed_8)
+	while (spriteDefsTable_D951C[v0y].speed_6 || spriteDefsTable_D951C[v0y].rotSpeed_8)
 	{
-		v2 = particlesParameters_D951C[v0y].word_0;
-		memset((void*)v1, 0, str_TMAPS00TAB_BEGIN_BUFFER[particlesParameters_D951C[v0y].word_0 + 1].dword_4 - str_TMAPS00TAB_BEGIN_BUFFER[particlesParameters_D951C[v0y].word_0].dword_4);
+		v2 = spriteDefsTable_D951C[v0y].word_0;
+		memset((void*)v1, 0, str_TMAPS00TAB_BEGIN_BUFFER[spriteDefsTable_D951C[v0y].word_0 + 1].dword_4 - str_TMAPS00TAB_BEGIN_BUFFER[spriteDefsTable_D951C[v0y].word_0].dword_4);
 		if (sub_70C60_decompress_tmap(v2, v1) == -1)
 		{
 			*(x_WORD*)(v1 + 2) = 255;
@@ -45147,18 +45147,18 @@ void sub_71410_process_tmaps()//252410
 			*(x_WORD*)(v1 + 4) = 255;
 			*(x_BYTE*)(v1 + 1) = 1;
 		}
-		if (particlesParameters_D951C[v0y].speed_6)
+		if (spriteDefsTable_D951C[v0y].speed_6)
 		{
-			if (!particlesParameters_D951C[v0y].rotSpeed_8)
-				particlesParameters_D951C[v0y].rotSpeed_8 = *(unsigned __int16*)(v1 + 4) * particlesParameters_D951C[v0y].speed_6 / *(unsigned __int16*)(v1 + 2);
+			if (!spriteDefsTable_D951C[v0y].rotSpeed_8)
+				spriteDefsTable_D951C[v0y].rotSpeed_8 = *(unsigned __int16*)(v1 + 4) * spriteDefsTable_D951C[v0y].speed_6 / *(unsigned __int16*)(v1 + 2);
 		}
 		else
 		{
-			particlesParameters_D951C[v0y].speed_6 = *(unsigned __int16*)(v1 + 2) * particlesParameters_D951C[v0y].rotSpeed_8 / *(unsigned __int16*)(v1 + 4);
+			spriteDefsTable_D951C[v0y].speed_6 = *(unsigned __int16*)(v1 + 2) * spriteDefsTable_D951C[v0y].rotSpeed_8 / *(unsigned __int16*)(v1 + 4);
 		}
 		/*v0 += 7;
 		*((x_BYTE*)v0 - 2) = *(x_BYTE*)(v1 + 1);*/
-		particlesParameters_D951C[v0y].byte_12 = *(x_BYTE*)(v1 + 1);
+		spriteDefsTable_D951C[v0y].byte_12 = *(x_BYTE*)(v1 + 1);
 		v0y++;
 	}
 	sub_70BF0_close_tmaps();
@@ -45273,7 +45273,7 @@ void sub_716C0(unsigned __int16 entityType, unsigned __int16 entitySubtype, unsi
 //----- (00071730) --------------------------------------------------------
 void SetF5538ByStrTMAP00TAB_71730(unsigned __int16 a1)//252730
 {
-	x_BYTE_F5538[str_TMAPS00TAB_BEGIN_BUFFER[particlesParameters_D951C[a1].word_0].word_8] = particlesParameters_D951C[a1].byte_11;
+	x_BYTE_F5538[str_TMAPS00TAB_BEGIN_BUFFER[spriteDefsTable_D951C[a1].word_0].word_8] = spriteDefsTable_D951C[a1].byte_11;
 }
 
 //----- (00071780) --------------------------------------------------------
@@ -45298,7 +45298,7 @@ void sub_71780()//252780
 	{
 		for (j = 0; j < 0x1F8u && !v6; j++)
 		{
-			if (i == x_BYTE_F5538[j] && !str_DWORD_F66F0x[j])
+			if (i == x_BYTE_F5538[j] && !m_ptrLoadedSprites_F66F0x[j])
 			{
 				if (sub_71E60(x_DWORD_E9C28_str) <= sub_70EF0(j))
 				{
@@ -45321,7 +45321,7 @@ void sub_71AB0(__int16 a1, char a2)//252ab0
 	//type_particle_str* v2x; // eax
 	__int16 v3; // si
 	__int16 i; // bx
-	type_particle_str** v5x; // ecx
+	Type_Sprite** v5x; // ecx
 	type_animations1* v6x; // eax
 
 	//LOWORD(v2) = 5 * a1;
@@ -45380,12 +45380,12 @@ void sub_72350(type_animations1* a1x)//253350 //animates sprite
 		if (a1x->FrameIndex_22 > a1x->CountOfFrames_16)
 		{
 			a1x->FrameIndex_22 = 1;
-			a1x->dword_8 = a1x->word_14;
+			a1x->dword_8 = a1x->NextFrameOffset_14;
 		}
 
 		if (m_ptrLoadedSprites_F66F0x[a1x->word_26] != NULL)
 		{
-			type_particle_str* baseadr = *m_ptrLoadedSprites_F66F0x[a1x->word_26];
+			Type_Sprite* baseadr = *m_ptrLoadedSprites_F66F0x[a1x->word_26];
 			if (baseadr != NULL)
 			{
 				int animwidth = baseadr->width;
@@ -45420,7 +45420,7 @@ void sub_72350(type_animations1* a1x)//253350 //animates sprite
 		if (a1x->FrameIndex_22 > a1x->CountOfFrames_16)
 		{
 			a1x->FrameIndex_22 = 1;
-			a1x->dword_8 = a1x->word_14;
+			a1x->dword_8 = a1x->NextFrameOffset_14;
 		}
 		//v1 = *(x_DWORD*)a1x->particle_str_4;
 		sub_765FC(a1x->Width_18, 0);
@@ -45430,8 +45430,8 @@ void sub_72350(type_animations1* a1x)//253350 //animates sprite
 		a1x->word_22 = a1x->word_22 + 1;*/
 		if (!PackedGameData())//tests without the game: no frame data in the sprites (TMAPSMETA), the counter goes on
 		{
-			v3x = sub_76619(&a1x->Particles_4->textureBuffer[a1x->dword_8], a1x->Particles_4->textureBuffer);
-			a1x->dword_8 = v3x - a1x->Particles_4->textureBuffer;
+			v3x = sub_76619(&a1x->Sprite_4->textureBuffer[a1x->dword_8], a1x->Sprite_4->textureBuffer);
+			a1x->dword_8 = v3x - a1x->Sprite_4->textureBuffer;
 		}
 		a1x->FrameIndex_22++;
 	}
@@ -45455,10 +45455,10 @@ void sub_723B0(type_animations1* a1x, char a2)
 	else
 	{
 		//memset((void*)(*(x_DWORD*)a1x->dword_4 + 6), 0, a1x->word_18 * a1x->word_20);
-		memset((void*)(&a1x->Particles_4[1]), 0, a1x->Width_18 * a1x->Height_20);
+		memset((void*)(&a1x->Sprite_4[1]), 0, a1x->Width_18 * a1x->Height_20);
 		a1x->FrameIndex_22 = 1;
 		//result = a1x->word_14;
-		a1x->dword_8 = a1x->word_14;
+		a1x->dword_8 = a1x->NextFrameOffset_14;
 	}
 	//return result;
 }

@@ -1547,7 +1547,7 @@ uint16_t GameRenderNG::sub_3FD60(int a2x)
 	int v6; // ecx
 	int v7; // esi
 	int v8; // edx
-	type_WORD_D951C* v9x; // esi
+	Type_SpriteDef_D951C* v9x; // esi
 	int v10; // ecx
 	int v11; // ST0C_4
 	char v12; // al
@@ -1642,7 +1642,7 @@ uint16_t GameRenderNG::sub_3FD60(int a2x)
 					{
 						str_F2C20ar.dword0x00 = 0;
 					}
-					v9x = &particlesParameters_D951C[v41x->word_0x5A_90];
+					v9x = &spriteDefsTable_D951C[v41x->word_0x5A_90];
 					v10 = v6 * str_F2C20ar.dword0x18 / v40;
 					v11 = str_F2C20ar.dword0x18 * v42 / v40 + str_F2C20ar.dword0x22;
 					str_F2C20ar.dword0x04_screenY = ((v10 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * v11) >> 16) + str_F2C20ar.dword0x24;
@@ -2735,7 +2735,7 @@ void GameRenderNG::DrawSprites_3E360(int a2x)//21f360
 	__int16 v4; // cx
 	int v5; // ecx
 	int v6; // edx
-	type_WORD_D951C* v7x; // edi
+	Type_SpriteDef_D951C* v7x; // edi
 	int v8; // ecx
 	int v9; // ST18_4
 	char v10; // al
@@ -2770,7 +2770,7 @@ void GameRenderNG::DrawSprites_3E360(int a2x)//21f360
 	int v49; // ecx
 	type_D404C* v50x; // ebx
 	int v51; // edx
-	type_WORD_D951C* v52x; // edi
+	Type_SpriteDef_D951C* v52x; // edi
 	int v53; // ecx
 	int v54; // ST1C_4
 	char v55; // al
@@ -2855,7 +2855,7 @@ void GameRenderNG::DrawSprites_3E360(int a2x)//21f360
 							str_F2C20ar.dword0x00 = 0x2000;
 						else
 							str_F2C20ar.dword0x00 = v6 < str_F2C20ar.dword0x16_FogEnd ? 32 * (str_F2C20ar.dword0x16_FogEnd - (v99 * v99 + v5 * v5)) / str_F2C20ar.dword0x12_FogThickness << 8 : 0;
-						v7x = &particlesParameters_D951C[str_F2C20ar.dword0x14x->word_0x5A_90];
+						v7x = &spriteDefsTable_D951C[str_F2C20ar.dword0x14x->word_0x5A_90];
 						if (!v7x->byte_10)
 						{
 							v8 = v5 * str_F2C20ar.dword0x18 / v99;
@@ -3191,7 +3191,7 @@ void GameRenderNG::DrawSprites_3E360(int a2x)//21f360
 				{
 					str_F2C20ar.dword0x00 = 0;
 				}
-				v52x = &particlesParameters_D951C[str_F2C20ar.dword0x14x->word_0x5A_90];
+				v52x = &spriteDefsTable_D951C[str_F2C20ar.dword0x14x->word_0x5A_90];
 				v53 = v49 * str_F2C20ar.dword0x18 / v100;
 				v54 = str_F2C20ar.dword0x18 * (v48 - str_F2C20ar.dword0x20) / v100 + str_F2C20ar.dword0x22;
 				str_F2C20ar.dword0x04_screenY = ((v53 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * v54) >> 16) + str_F2C20ar.dword0x24;
