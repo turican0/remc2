@@ -7,12 +7,19 @@
 #include "engine_support.h"
 #include "ViewPort.h"
 
+enum class SpritePass : uint32_t
+{
+	Shadow = 0,
+	Main = 1,
+	Reflection = 2
+};
+
 inline uint8_t ClampReflectionTexel(int texel, const uint8_t* tile)
 {
 	if (texel & 0x8000)//row -1 (0xFF..) and lower
 		texel &= 0xFF;
 	return tile[texel];
-}
+};
 
 class GameRenderInterface
 {

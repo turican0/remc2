@@ -445,7 +445,7 @@
     <ClInclude Include="engine\Unk_D47E0.h" />
     <ClInclude Include="engine\Unk_D4A30.h" />
     <ClInclude Include="engine\Type_Unk_F0E20x.h" />
-    <ClInclude Include="engine\Type_WORD_D951C.h" />
+    <ClInclude Include="engine\Type_SpriteDef_D951C.h" />
     <ClInclude Include="engine\UVTable_D4350.h" />
     <ClInclude Include="engine\ViewPort.h" />
     <ClInclude Include="engine\RenderThread.h" />
@@ -531,7 +531,7 @@
     <ClCompile Include="engine\Type_SecretMapScreenPortals_E2970.cpp" />
     <ClCompile Include="engine\Unk_D47E0.cpp" />
     <ClCompile Include="engine\Unk_D4A30.cpp" />
-    <ClCompile Include="engine\Type_WORD_D951C.cpp" />
+    <ClCompile Include="engine\Type_SpriteDef_D951C.cpp" />
     <ClCompile Include="engine\UVTable_D4350.cpp" />
     <ClCompile Include="engine\ViewPort.cpp" />
     <ClCompile Include="engine\RenderThread.cpp" />

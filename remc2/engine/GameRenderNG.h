@@ -16,7 +16,7 @@
 #include "Type_F2C20ar.h"
 #include "Type_E9C38_Smalltit.h"
 #include "Type_Unk_F0E20x.h"
-#include "Type_WORD_D951C.h"
+#include "Type_SpriteDef_D951C.h"
 #include "UVTable_D4350.h"
 #include "Type_D404C.h"
 #include "Type_D94F0_Bldgprmbuffer.h"
@@ -81,7 +81,7 @@ private:
 
 	void DrawSky_40950(int16_t roll);
 	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov);
-	void DrawSprite_41BD3(uint32 a1);
+	void DrawSprite_41BD3(uint32 pass);
 	void DrawSprites_3E360(int a2x);
 	void DrawTriangleInProjectionSpace_B6253(Type_RenderPoint* vertex1, Type_RenderPoint* vertex2, Type_RenderPoint* vertex3);
 	int32_t* x_DWORD_DB350_ret(uint32_t adress);

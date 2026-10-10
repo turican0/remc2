@@ -16,7 +16,7 @@ FILE* x_DWORD_DB740_tmaps00file;
 FILE* x_DWORD_DB744_tmaps10file;
 FILE* x_DWORD_DB748_tmaps20file;
 
-type_particle_str** str_DWORD_F66F0x[504];
+Type_Sprite** m_ptrLoadedSprites_F66F0x[504];
 char m_LevelSpriteList_F5340[504];
 int32_t x_DWORD_F5730[504];
 subtype_x_DWORD_E9C28_str* str_F5F10[504];
@@ -80,7 +80,7 @@ bool MainInitTmaps_71520(unsigned __int16 a1)
 		InitTmaps(a1);
 		x_D41A0_BYTEARRAY_4_struct.byteindex_177 = 5;
 	}
-	return str_DWORD_F66F0x[a1] != 0;
+	return m_ptrLoadedSprites_F66F0x[a1] != 0;
 }
 
 int sub_70EF0(unsigned __int16 a1)//251ef0
@@ -172,7 +172,7 @@ unsigned int sub_71090(unsigned int a1)//252090
 	do
 	{
 		v4 = str_TMAPS00TAB_BEGIN_BUFFER[v3 + 1].word_8;
-		if (str_DWORD_F66F0x[v4] && !m_LevelSpriteList_F5340[v4])
+		if (m_ptrLoadedSprites_F66F0x[v4] && !m_LevelSpriteList_F5340[v4])
 			v31 = 0;
 		while ((unsigned __int16)v3 < 0x1F8u
 			&& str_TMAPS00TAB_BEGIN_BUFFER[v3 + 1].word_8 == v4)
@@ -183,7 +183,7 @@ unsigned int sub_71090(unsigned int a1)//252090
 	do
 	{
 		v6 = str_TMAPS00TAB_BEGIN_BUFFER[v5].word_8;
-		if ((!m_LevelSpriteList_F5340[v6] || v31) && str_DWORD_F66F0x[v6])
+		if ((!m_LevelSpriteList_F5340[v6] || v31) && m_ptrLoadedSprites_F66F0x[v6])
 		{
 			v7 = x_DWORD_F5730[v6];
 			v8 = str_TMAPS00TAB_BEGIN_BUFFER[v5].word_8;
@@ -258,7 +258,7 @@ char sub_70E10(unsigned __int16 a1)//251e10
 	//int v1; // edx
 	//__int16 v2; // di
 	unsigned __int16 i; // bx
-	type_particle_str** v4x; // ecx
+	Type_Sprite** v4x; // ecx
 	type_animations1* v5x; // eax
 
 	//v1 = 10 * a1;
@@ -267,7 +267,7 @@ char sub_70E10(unsigned __int16 a1)//251e10
 		return 0;
 	for (i = str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8; i < 0x1F8u && str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8 == str_TMAPS00TAB_BEGIN_BUFFER[i].word_8; i++)
 	{
-		v4x = str_DWORD_F66F0x[i];
+		v4x = m_ptrLoadedSprites_F66F0x[i];
 		if (v4x)
 		{
 			if ((*v4x)->word_0 & 1)
@@ -276,7 +276,7 @@ char sub_70E10(unsigned __int16 a1)//251e10
 				ResetAnimation_72410(v5x);
 			}
 			sub_71F20(x_DWORD_E9C28_str, str_F5F10[i]);
-			str_DWORD_F66F0x[i] = 0;
+			m_ptrLoadedSprites_F66F0x[i] = 0;
 			str_F5F10[i] = 0;
 			x_DWORD_F5730[i] = 0;
 		}
@@ -288,11 +288,11 @@ char ResetTmap_70D20(uint16 tmapsIndex)//251d20
 {
 	if (m_LevelSpriteList_F5340[str_TMAPS00TAB_BEGIN_BUFFER[tmapsIndex].word_8])
 		return 0;
-	if (!str_DWORD_F66F0x[str_TMAPS00TAB_BEGIN_BUFFER[tmapsIndex].word_8])
+	if (!m_ptrLoadedSprites_F66F0x[str_TMAPS00TAB_BEGIN_BUFFER[tmapsIndex].word_8])
 		return 0;
 	for (uint16 i = str_TMAPS00TAB_BEGIN_BUFFER[tmapsIndex].word_8; i < 504 && str_TMAPS00TAB_BEGIN_BUFFER[tmapsIndex].word_8 == str_TMAPS00TAB_BEGIN_BUFFER[i].word_8; i++)
 	{
-		type_particle_str** particle = str_DWORD_F66F0x[i];
+		Type_Sprite** particle = m_ptrLoadedSprites_F66F0x[i];
 		if (particle)
 		{
 			if ((*particle)->word_0 & 1)
@@ -300,7 +300,7 @@ char ResetTmap_70D20(uint16 tmapsIndex)//251d20
 				ResetAnimation_72410(GetAnimationByIndex_724F0(animations_E9C08x, i));
 			}
 			sub_71F20(x_DWORD_E9C28_str, str_F5F10[i]);
-			str_DWORD_F66F0x[i] = 0;
+			m_ptrLoadedSprites_F66F0x[i] = 0;
 			str_F5F10[i] = 0;
 			x_DWORD_F5730[i] = 0;
 		}
@@ -314,7 +314,7 @@ type_animations1* GetAnimationByIndex_724F0(type_E9C08* animations, __int16 inde
 	int16_t v3x = animations->word_0;
 	if (!animations->word_0)
 		return 0;
-	while (!animations->dword_2[resulty].Particles_4 || index != animations->dword_2[resulty].word_26)
+	while (!animations->dword_2[resulty].Sprite_4 || index != animations->dword_2[resulty].word_26)
 	{
 		--v3x;
 		resulty++;
@@ -326,12 +326,12 @@ type_animations1* GetAnimationByIndex_724F0(type_E9C08* animations, __int16 inde
 
 void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252f20
 {
-	type_particle_str* v2y;
+	Type_Sprite* v2y;
 	subtype_x_DWORD_E9C28_str* v3x; // ecx
 	unsigned __int16 v4; // bx
 	int v5; // esi
 	subtype_x_DWORD_E9C28_str* v6x; // ecx
-	type_particle_str* i; // [esp+4h] [ebp-4h]
+	Type_Sprite* i; // [esp+4h] [ebp-4h]
 
 	if (a2x->Index < a1y->word_22)
 	{
@@ -388,8 +388,8 @@ void InitTmaps(unsigned __int16 a1)//251f50
 	type_animations1* index; // eax
 	//uint8_t* index2; // eax
 	subtype_x_DWORD_E9C28_str* index3x; // eax
-	type_particle_str* index5x; // eax
-	type_particle_str** index6x; // eax
+	Type_Sprite* index5x; // eax
+	Type_Sprite** index6x; // eax
 	unsigned __int16 v2; // bx
 	unsigned __int16 i; // si
 	//uint8_t* v4; // edi
@@ -448,7 +448,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 		if (v2 != str_TMAPS00TAB_BEGIN_BUFFER[i].word_8)
 			break;
 		v6 = i;
-		if (!str_DWORD_F66F0x[i])
+		if (!m_ptrLoadedSprites_F66F0x[i])
 		{
 			index3x = LoadTMapMetadata_71E70(x_DWORD_E9C28_str, (unsigned __int16)(4 * ((unsigned int)(str_TMAPS00TAB_BEGIN_BUFFER[i].dword_0 + 13) >> 2)), i);
 			//v4 = index3;
@@ -460,7 +460,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 				{
 					if (bigSprites)
 					{
-						type_particle_str* oldtmapx = index3x->partstr_0;
+						Type_Sprite* oldtmapx = index3x->partstr_0;
 						int oldwidth = oldtmapx->width;
 						int oldheight = oldtmapx->height;
 						if ((oldwidth > 0) && (oldwidth < 512) && (oldheight > 0) && (oldheight < 512))
@@ -501,7 +501,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 								BitmapIO::WritePosistructToPng(m_pColorPalette, BIG_SPRITES_BUFFERx[i].frames[mm], oldwidth * 4, oldheight * 4, filebuffer, filebuffer);*/
 							}
 
-							BIG_SPRITES_BUFFERx[i].actdatax = (type_particle_str*)malloc(oldwidth * 4 * oldheight * 4 + 6 + 2);
+							BIG_SPRITES_BUFFERx[i].actdatax = (Type_Sprite*)malloc(oldwidth * 4 * oldheight * 4 + 6 + 2);
 							memcpy(BIG_SPRITES_BUFFERx[i].actdatax->textureBuffer, BIG_SPRITES_BUFFERx[i].frames[0], oldwidth * 4 * oldheight * 4);
 
 							BIG_SPRITES_BUFFERx[i].actdatax->word_0 = oldtmapx->word_0;
@@ -524,9 +524,10 @@ void InitTmaps(unsigned __int16 a1)//251f50
 						}
 					}
 					str_F5F10[v6] = index3x;
-					str_DWORD_F66F0x[v6] = &index3x->partstr_0;
+					m_ptrLoadedSprites_F66F0x[v6] = &index3x->partstr_0;
 					x_DWORD_F5730[v6] = v5;
-					index6x = str_DWORD_F66F0x[v6];
+					index6x = m_ptrLoadedSprites_F66F0x[v6];
+
 					//if (**(uint8_t**)index6 & 1)
 					if ((*index6x)->word_0 & 1)
 						index = sub_721C0_initTmap(animations_E9C08x, index6x, i);
@@ -534,13 +535,13 @@ void InitTmaps(unsigned __int16 a1)//251f50
 					{
 						if (v2 != 311)
 							continue;
-						index5x = *str_DWORD_F66F0x[i];
+						index5x = *m_ptrLoadedSprites_F66F0x[i];
 						index5x->word_0 |= 0x20u;
 						continue;
 					}
 					if (v2 <= 480 || v2 >= 488 && (v2 <= 488 || v2 == 496))
 					{
-						index5x = *str_DWORD_F66F0x[i];
+						index5x = *m_ptrLoadedSprites_F66F0x[i];
 						index5x->word_0 |= 0x20u;
 						continue;
 					}
@@ -589,7 +590,7 @@ subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, u
 */
 			a1y->str_8_data[idx].Index = idx;
 			a1y->str_8_data[idx].dword_4 = a2;
-			a1y->str_8_data[idx].partstr_0 = (type_particle_str*)(a1y->dword_16x + (a1y->dword_0 - a1y->dword_4));
+			a1y->str_8_data[idx].partstr_0 = (Type_Sprite*)(a1y->dword_16x + (a1y->dword_0 - a1y->dword_4));
 			a1y->str_8_data[idx].word_12 = a3;
 			a1y->dword_4 -= a2;
 			a1y->str_8_data[idx].word_8 = a1y->word_20;
@@ -720,7 +721,7 @@ bool WriteTmapsMeta(const std::string& dataDir, const std::string& outPath)
 					else
 						result = -2;
 				}
-				const type_particle_str* sprite = (const type_particle_str*)buffer.data();
+				const Type_Sprite* sprite = (const Type_Sprite*)buffer.data();
 				const uint32_t pixels = (uint32_t)sprite->width * sprite->height;
 				put(dat, 1);
 				put(offset, 4);
@@ -770,7 +771,7 @@ static int PackedTmap(uint16_t texture_index, uint8_t* texture_buffer)
 		return -1;
 	const int size = r.result > length ? r.result : length;
 	memset(texture_buffer, 0, size);
-	type_particle_str* sprite = (type_particle_str*)texture_buffer;
+	Type_Sprite* sprite = (Type_Sprite*)texture_buffer;
 	if (size >= 6)
 	{
 		sprite->word_0 = r.word_0;
@@ -817,7 +818,7 @@ int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer)//
 	return result;
 }
 
-void WriteTextureMapToBmp(uint16_t texture_index, type_particle_str* ptextureMap, MapType_t mapType)
+void WriteTextureMapToBmp(uint16_t texture_index, Type_Sprite* ptextureMap, MapType_t mapType)
 {
 	char name[MAX_PATH];
 	std::string path = GetSubDirectoryPath("BufferOut");
@@ -869,16 +870,16 @@ uint8_t* LoadTMapColorPalette(MapType_t mapType)
 	return Palettebuffer;
 }
 
-type_animations1* sub_721C0_initTmap(type_E9C08* a1x, type_particle_str** a2x, __int16 a3)//2531c0
+type_animations1* sub_721C0_initTmap(type_E9C08* a1x, Type_Sprite** a2x, __int16 a3)//2531c0
 {
 	signed __int16 v3; // cx
 	signed __int16 v4; // si
 	signed __int16 i; // bx
 	//x_DWORD *v6; // edx
 	type_animations1* v6x;
-	type_particle_str* v7x; // ebx
-	int v8; // ecx
-	__int16 v9; // ST08_2
+	Type_Sprite* v7x; // ebx
+	int length_v8; // ecx
+	int16_t frameCount_v9; // ST08_2
 	//int v10; // edx
 	signed __int16 v12; // [esp+Ch] [ebp-4h]
 
@@ -889,7 +890,7 @@ type_animations1* sub_721C0_initTmap(type_E9C08* a1x, type_particle_str** a2x, _
 	for (i = 0; i < a1x->word_0; i++)
 	{
 		v6x = &a1x->dword_2[i];
-		if (v6x->Particles_4)
+		if (v6x->Sprite_4)
 		{
 			if (!v6x->dword_0)
 				v4 = i;
@@ -903,17 +904,17 @@ type_animations1* sub_721C0_initTmap(type_E9C08* a1x, type_particle_str** a2x, _
 	if (v12 <= -1)
 		return 0;
 	v7x = *a2x;
-	v8 = (*a2x)->height * (*a2x)->width;
+	length_v8 = (*a2x)->height * (*a2x)->width;
 	//v9 = *(x_WORD*)(v8 + (*a2x)->un_0.byte[0] + 6);//? is ok
-	v9 = ((*a2x)->textureBuffer)[v8];//? is ok
+	frameCount_v9 = ((*a2x)->textureBuffer)[length_v8];//? is ok
 	//v10 = 28 * v12;
-	a1x->dword_2[v12].Particles_4 = *a2x;
+	a1x->dword_2[v12].Sprite_4 = *a2x;
 	a1x->dword_2[v12].word_12 = 6;
-	a1x->dword_2[v12].word_14 = v8 + 6;
-	a1x->dword_2[v12].CountOfFrames_16 = v9;
+	a1x->dword_2[v12].NextFrameOffset_14 = length_v8 + 6;
+	a1x->dword_2[v12].CountOfFrames_16 = frameCount_v9;
 	a1x->dword_2[v12].Width_18 = v7x->width;
 	a1x->dword_2[v12].Height_20 = v7x->height;
-	a1x->dword_2[v12].dword_8 = v8 + 6;
+	a1x->dword_2[v12].dword_8 = length_v8 + 6;
 	a1x->dword_2[v12].FrameIndex_22 = 1;
 	a1x->dword_2[v12].dword_0 = 1;
 	a1x->dword_2[v12].word_24 = v12;
@@ -927,6 +928,6 @@ void ResetAnimation_72410(type_animations1* animation)
 	if (animation)
 	{
 		animation->dword_0 = 0;
-		animation->Particles_4 = 0;
+		animation->Sprite_4 = 0;
 	}
 }
