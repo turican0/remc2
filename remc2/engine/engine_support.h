@@ -76,8 +76,16 @@ extern bool unitTestsProgress;//print @PROGRESS <step> for the runner
 extern int unitTestsProgressFrames;//how many frames the test has, 0 = print for the runner
 extern int unitTestsCompareFrom;//compare only from this frame on ("--compare_from")
 const uint8_t* D41A0CompareKinds();//test_D41A0_id_pointer for every byte of D41A0
+// entities given values from past the spell table by SetSpell_6D5E0 (model >= NUMBER_OF_SPELLS): in the original
+// they come from the credits pointers behind byte_DA818 (DOS addresses), the compare skips those fields
+extern bool spellTableOverrun[1000];
 std::string SaveDirectory();
 std::string LevelsDirectory();//CLEVELS, one per process in the tests
+// regression tests without the game (GitHub Actions): remc2-regression-test/data/data.binz holds the only
+// game data there is, everything else the game would load is skipped (PackedGameData())
+extern std::string packedDataFile;
+inline bool PackedGameData() { return !packedDataFile.empty(); }
+std::string UnpackPackedData();//the folder with CD_Files (from data.binz) and an empty NETHERW
 extern int* endTestsCode;
 
 extern uint8_t* readbuffer;

@@ -20,62 +20,13 @@
 #define REGTEST_POPEN _popen
 #define REGTEST_PCLOSE _pclose
 #else
+#include <unistd.h>
 #define REGTEST_POPEN popen
 #define REGTEST_PCLOSE pclose
 #endif
 #include "regression-tests.h"
 #include "../remc2/engine/sequence_codec.h"
-//TEMPDIAG begin
-#ifdef _WIN32
-#include <windows.h>
-#include <dbghelp.h>
-#include <crtdbg.h>
-#pragma comment(lib, "dbghelp.lib")
-int TempAssertHook(int, char* message, int*)
-{
-	HANDLE process = GetCurrentProcess();
-	SymInitialize(process, nullptr, TRUE);
-	void* frames[64];
-	const USHORT count = CaptureStackBackTrace(0, 64, frames, nullptr);
-	std::cout << "TEMPDIAG assert: " << message << std::endl;
-	for (USHORT i = 0; i < count; i++)
-	{
-		char buffer[sizeof(SYMBOL_INFO) + 256] = {};
-		SYMBOL_INFO* symbol = (SYMBOL_INFO*)buffer;
-		symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
-		symbol->MaxNameLen = 255;
-		IMAGEHLP_LINE64 line = { sizeof(IMAGEHLP_LINE64) };
-		DWORD displacement = 0;
-		const bool hasSymbol = SymFromAddr(process, (DWORD64)frames[i], nullptr, symbol);
-		const bool hasLine = SymGetLineFromAddr64(process, (DWORD64)frames[i], &displacement, &line);
-		std::cout << "TEMPDIAG " << (hasSymbol ? symbol->Name : "?") << " " << (hasLine ? line.FileName : "") << ":" << (hasLine ? line.LineNumber : 0) << std::endl;
-	}
-	std::cout.flush();
-	ExitProcess(3);
-	return TRUE;
-}
-#define TEMPDIAG_INSTALL_HOOK() _CrtSetReportHook2(_CRT_RPTHOOK_INSTALL, TempAssertHook)
-#else
-// Linux/glibc has no CRT report-hook mechanism: assert() just prints to
-// stderr and calls abort(), which raises SIGABRT. We hook that instead and
-// print a backtrace with glibc's <execinfo.h>, which is the closest
-// equivalent to the Windows dbghelp-based stack walk above.
-#include <execinfo.h>
-#include <csignal>
-#include <cstdlib>
-void TempAssertHook(int)
-{
-	void* frames[64];
-	const int count = backtrace(frames, 64);
-	std::cout << "TEMPDIAG assert: SIGABRT" << std::endl;
-	std::cout.flush();
-	backtrace_symbols_fd(frames, count, STDOUT_FILENO);
-	std::cout.flush();
-	_exit(3);
-}
-#define TEMPDIAG_INSTALL_HOOK() std::signal(SIGABRT, TempAssertHook)
-#endif
-//TEMPDIAG end
+#include "../remc2/engine/TextureMaps.h"
 
 
 enum TestType {
@@ -95,7 +46,7 @@ struct type_regtest
 	std::string record;//in memimages/regressions, or in folder
 	int steps = 20;
 	bool intervalSave = false;
-	std::string folder;//record<N>: <folder>/level<L>/sequence-*
+	std::string folder;//record<NNN>: <folder>/level<LLL>/sequence-*
 };
 
 // N of <prefix>N, -1 for other names
@@ -128,7 +79,7 @@ int SequenceFrames(const std::string& folder)
 	return frames;
 }
 
-// every test of memimages/regressions: level<N>, afterloadtest<N> (its regtest.txt), record<N>/level<L>
+// every test of memimages/regressions: level<NNN>, afterloadtest<NNN> (its regtest.txt), record<NNN>/level<LLL>
 std::vector<type_regtest> FindRegressionTests(int onlyLevel, int onlyAfterload, int onlyRecord)
 {
 	const bool all = (onlyLevel < 0 && onlyAfterload < 0 && onlyRecord < 0);
@@ -251,11 +202,12 @@ struct type_running_test
 
 std::string TestArguments(const type_regtest& test)
 {
+	const std::string packed = forcePackedData ? " --packed_data" : "";
 	if (!test.folder.empty())
-		return "--record " + test.folder.substr(6) + " --level " + std::to_string(test.level);
+		return "--record " + test.folder.substr(6) + " --level " + std::to_string(test.level) + packed;
 	if (test.index > 0)
-		return "--afterload " + std::to_string(test.index);
-	return "--level " + std::to_string(test.level);
+		return "--afterload " + std::to_string(test.index) + packed;
+	return "--level " + std::to_string(test.level) + packed;
 }
 
 std::string TestName(const type_regtest& test)
@@ -320,6 +272,20 @@ void EnableAnsiColours()
 	DWORD mode = 0;
 	if (GetConsoleMode(console, &mode))
 		SetConsoleMode(console, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+#endif
+}
+
+// a log instead of a console (GitHub Actions, redirected output): every redraw of the bars would stay
+// in it as new lines, so the runner prints a line per finished test and the progress by 5 %
+bool PlainProgress()
+{
+	if (getenv("GITHUB_ACTIONS") || getenv("CI"))
+		return true;
+#ifdef _WIN32
+	DWORD mode = 0;
+	return !GetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), &mode);
+#else
+	return !isatty(fileno(stdout));
 #endif
 }
 
@@ -494,6 +460,37 @@ int RunTestsInParallel(const std::vector<type_regtest>& list, int jobs, const st
 
 	size_t printed = 0;
 	int spin = 0, statusLines = 0;
+	if (PlainProgress())
+	{
+		long long framesAll = 0;
+		for (const auto& test : tests)
+			framesAll += test->total;
+		int percentPrinted = 0;
+		while (printed < tests.size())
+		{
+			for (const auto& test : tests)
+				if (test->finished && !test->printed.exchange(true))
+				{
+					printed++;
+					if (test->failed)
+						printf("%s", test->output.c_str());
+					printf("  %-22s %-6s %6d frames in %s  (%d/%d tests)\n", test->name.c_str(), test->failed ? "FAILED" : "OK",
+						test->total, TimeText(test->duration.load()).c_str(), (int)printed, (int)tests.size());
+				}
+			long long framesDone = 0;
+			for (const auto& test : tests)
+				framesDone += test->done;
+			const int percent = framesAll > 0 ? (int)(framesDone * 100 / framesAll) : 100;
+			if (percent >= percentPrinted + 5)
+			{
+				percentPrinted = percent - percent % 5;
+				printf(" progress %d %%, %s elapsed, %s left\n", percentPrinted, TimeText(SecondsSince(start)).c_str(),
+					TimeText(SecondsLeft(tests, jobs)).c_str());
+			}
+			fflush(stdout);
+			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		}
+	}
 	while (printed < tests.size())
 	{
 		for (int i = 0; i < statusLines; i++)
@@ -587,18 +584,22 @@ int main(int argc, char** argv)
 	int numFailedTests = 0;
 
 	InitializeLogging(spdlog::level::info);
-	TEMPDIAG_INSTALL_HOOK();//TEMPDIAG
 	// "--level N" or "--afterload N" runs just that test, "--record N [--level L]" the levels of recording N,
-	// "--resave" with them rewrites the level start saves of their recordings
+	// "--resave" with them rewrites the level start saves of their recordings,
+	// "--packed_data" uses only data/data.binz as GitHub Actions (automatic when CD_Files is missing)
 	int onlyLevel = -1;
 	int onlyAfterload = -1;
 	int onlyRecord = -1;
 	bool resave = false;
 	int jobs = (int)std::thread::hardware_concurrency() / 2;
+	// "--make_tmaps_meta <CD_Files/DATA> <out>": TMAPSMETA.DAT of data/data.binz from the TMAPS?-0.DAT/TAB of the game
+	if (argc == 4 && std::string(argv[1]) == "--make_tmaps_meta")
+		return WriteTmapsMeta(argv[2], argv[3]) ? 0 : 1;
 	for (int a = 1; a < argc; a++)
 	{
 		if (std::string(argv[a]) == "--resave") resave = true;
 		if (std::string(argv[a]) == "--progress") unitTestsProgress = true;
+		if (std::string(argv[a]) == "--packed_data") forcePackedData = true;//as without the game data (GitHub Actions)
 		if (std::string(argv[a]) == "--compare_from" && a + 1 < argc) unitTestsCompareFrom = atoi(argv[a + 1]);
 		if (a + 1 >= argc) continue;
 		if (std::string(argv[a]) == "--level") onlyLevel = atoi(argv[a + 1]);

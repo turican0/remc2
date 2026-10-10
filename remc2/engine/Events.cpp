@@ -563,6 +563,7 @@ type_entity_0x6E8E* NewEvent_4A050()//22b050
 	if (D41A0_0.dword_0x35 >= 0)
 	{
 		memset(D41A0_0.pointers_0x246[D41A0_0.dword_0x35], 0, sizeof(type_entity_0x6E8E));
+		spellTableOverrun[D41A0_0.pointers_0x246[D41A0_0.dword_0x35] - D41A0_0.struct_0x6E8E] = false;
 		D41A0_0.pointers_0x246[D41A0_0.dword_0x35]->maxLife_0x4 = 300;
 		D41A0_0.pointers_0x246[D41A0_0.dword_0x35]->struct_byte_0xc_12_15.dword = 8;
 		D41A0_0.pointers_0x246[D41A0_0.dword_0x35]->actSpeed_0x82_130 = 16;
@@ -589,6 +590,7 @@ type_entity_0x6E8E* NewEvent_4A050()//22b050
 		SetMapEntity_57E50(D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]);
 		D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->class_0x3F_63 = 0;
 		memset(D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6], 0, sizeof(type_entity_0x6E8E));
+		spellTableOverrun[D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6] - D41A0_0.struct_0x6E8E] = false;
 		D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->maxLife_0x4 = 300;
 		D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->struct_byte_0xc_12_15.dword = 8;
 		D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->actSpeed_0x82_130 = 16;
