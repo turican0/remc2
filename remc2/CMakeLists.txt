@@ -44,8 +44,6 @@ set(SOURCE_FILES_ENGINE
     "engine/GameBitmap.cpp"
     "engine/GameBitmap.h"
     "engine/GameBitmapIndexes.h"
-    "engine/GameRenderGL.cpp"
-    "engine/GameRenderGL.h"
     "engine/GameRenderHD.cpp"
     "engine/GameRenderHD.h"
     "engine/GameRenderInterface.h"
