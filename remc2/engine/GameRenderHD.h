@@ -107,7 +107,7 @@ private:
 	void SubDrawTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch);
 	void SubDrawInverseTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch);
 	void SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch);
-	void DrawSprite_41BD3(uint32 a1);
+	void DrawSprite_41BD3(uint32 pass);
 	void DrawSquareInProjectionSpace(std::vector<int>& vertexs, int index);
 	void DrawInverseSquareInProjectionSpace(int* vertexs, int index);
 	void DrawInverseSquareInProjectionSpace(int* vertexs, int index, uint8_t* pTexture);
