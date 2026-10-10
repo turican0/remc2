@@ -39,6 +39,29 @@ std::string RegressionsPath()
 	return (std::filesystem::path(__FILE__).parent_path() / "memimages" / "regressions").string();
 }
 
+bool forcePackedData = false;
+
+// GitHub Actions has no game data: without CD_Files the game takes data.binz (next to the exe, else the one
+// of the sources) and skips everything else it would load. Decided once, the runs change cdFolder.
+std::string PackedDataFile()
+{
+	static const bool packed = forcePackedData || GetSubDirectoryPath("CD_Files").empty();
+	if (!packed)
+		return "";
+	const std::string nextToExe = get_exe_path() + "/data/data.binz";
+	if (std::filesystem::exists(nextToExe))
+		return nextToExe;
+	return (std::filesystem::path(__FILE__).parent_path() / "data" / "data.binz").string();
+}
+
+// folder of memimages/regressions: prefix and a three digit number (level001, afterloadtest002, record010)
+std::string RegressionFolder(const char* prefix, int number)
+{
+	char name[64];
+	snprintf(name, sizeof(name), "%s%03d", prefix, number);
+	return name;
+}
+
 int run_regtest(int level, int testType, int index, int saveIndex, const char* recordName, int maxSteps, bool turnOnIntervalSave, const char* recordFolder)//236F70
 {
 	int exitCode = 0;
@@ -46,19 +69,20 @@ int run_regtest(int level, int testType, int index, int saveIndex, const char* r
 	Logger->info("Testing {} for Level {}", testName, level);
 
 	unitTests = true;
+	packedDataFile = PackedDataFile();
 	menuFps = 0;//no fps limit in the tests, maxGameFps is 0 in regression-config.json
 	std::string locUnitTestsPath;
 	std::string recordPath = "";
 	if (testType>0)
 	{
-		locUnitTestsPath = RegressionsPath() + "/afterloadtest" + std::to_string(index);
-		if (strlen(recordFolder) > 0)//<folder>/<recording>, <folder>/level<N>/sequence-*
-			locUnitTestsPath = RegressionsPath() + "/" + recordFolder + "/level" + std::to_string(level);
+		locUnitTestsPath = RegressionsPath() + "/" + RegressionFolder("afterloadtest", index);
+		if (strlen(recordFolder) > 0)//<folder>/<recording>, <folder>/level<NNN>/sequence-*
+			locUnitTestsPath = RegressionsPath() + "/" + recordFolder + "/" + RegressionFolder("level", level);
 		if (strlen(recordName) > 0)//in memimages/regressions
 			recordPath = RegressionsPath() + "/" + (strlen(recordFolder) > 0 ? std::string(recordFolder) + "/" : "") + recordName;
 	}
 	else
-		locUnitTestsPath = RegressionsPath() + "/level" + std::to_string(level);
+		locUnitTestsPath = RegressionsPath() + "/" + RegressionFolder("level", level);
 	unitTestsPath = locUnitTestsPath;
 	int locEndTestsCode = 0;
 	endTestsCode = &locEndTestsCode;
@@ -66,7 +90,9 @@ int run_regtest(int level, int testType, int index, int saveIndex, const char* r
 	std::vector<std::string> args;
 	args.reserve(20);
 
-	std::string path = get_exe_path() + "/regression-config.json";
+	std::string path = get_exe_path() + "/regression-config.json";//next to the exe, else the one of the sources (CI)
+	if (!std::filesystem::exists(path))
+		path = (std::filesystem::path(__FILE__).parent_path() / "regression-config.json").string();
 
 	args.emplace_back("remc2");
 

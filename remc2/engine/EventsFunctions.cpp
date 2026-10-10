@@ -17567,6 +17567,7 @@ void sub_26FF0(type_entity_0x6E8E* a1x)//207ff0
 		sub_27120(a1x);
 	v11x = a1x;
 	v12 = 0;
+	v9x = a1x->position_0x4C_76;//20806C: the original leaves var_10 uninitialized when sub_10C40 <= 0 (stack garbage); DOSBox sets the same
 	SetEntityShiftRot_49EA0(a1x, v3, v2);
 	while (v11x != Entities_EA3E4[0])
 	{
@@ -19731,7 +19732,7 @@ void sub_29A90(type_entity_0x6E8E* a1x)//20aa90
 	//type_entity_0x6E8E* v1y;
 
 	//fix
-	v34x = 0x355188;//20AA96 sub esp,10h: [ebp-10h] uninitialized, mostly 355188h in the original
+	v34x = 0x355188;//20AA96 sub esp,10h: [ebp-10h] uninitialized, mostly 355188h in the original; DOSBox sets the same
 	v35x = 0;
 	//v1y = 0;
 	//fix
@@ -22664,7 +22665,7 @@ void sub_30D50(type_entity_0x6E8E* a1x)//211d50
 			if (!(a1x->struct_byte_0xc_12_15.byte[0] & 2))
 			{
 				v10x._axis_2d.x = (a1x->position_0x4C_76.x + 128) >> 8;
-				v4 = a1x->struct_byte_0xc_12_15.byte[2];
+				v4 = a1x->struct_byte_0xc_12_15.byte[2];//211DFC call sub_45DC0: the original leaves dl (type) from sub_10C40, a DOS address; type 0 here and in DOSBox
 				v10x._axis_2d.y = (a1x->position_0x4C_76.y + 128) >> 8;
 				if (!(a1x->struct_byte_0xc_12_15.byte[2] & 1))
 					sub_10C80(a1x, 0, a1x->subSpellIndex_0x2A_42);
@@ -38766,6 +38767,8 @@ char sub_54200_create_user_directiores()//235200
 	readbuffer[0] = 0x0;
 	// end
 
+	if (PackedGameData())//regression tests without the game: no TMAPS to install into CDATA
+		return 1;
 	printbuffer[0] = 0;
 	outtext("Checking Setup Version ..");//23521B - 29EBED
 	v0l = 1;
@@ -39553,6 +39556,7 @@ void ClearSettings_567C0()//2377c0 // clean level
 	//clean_x_D41A0_BYTEARRAY_0_0x2362();
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[28302]), 0, 168000);
 	memset(D41A0_0.struct_0x6E8E, 0, sizeof(type_entity_0x6E8E) * 0x3e8);
+	memset(spellTableOverrun, 0, sizeof(spellTableOverrun));
 
 	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.paletteMod_51), 0, 1);
 	memset((void*)(x_D41A0_BYTEARRAY_4_struct.colorIndex_121), 0, 16);
@@ -43207,7 +43211,7 @@ void sub_46DD0_init_sound_and_music()//227DD0
 	if (!x_BYTE_D4B50)
 	{
 		x_BYTE_D4B50 = 1;
-		if ((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 0x40)//fix it
+		if (((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 0x40) || PackedGameData())//fix it; tests without the game: no sound data
 		{
 			PrintTextMessage_70910((char*)"Sound Disabled\0");
 			musicActive_E37FD = false;
@@ -45424,8 +45428,11 @@ void sub_72350(type_animations1* a1x)//253350 //animates sprite
 		/*v3 = sub_76619(v1 + a1x->dword_8, v1);
 		a1x->dword_8 = v3 - v1;
 		a1x->word_22 = a1x->word_22 + 1;*/
-		v3x = sub_76619(&a1x->Particles_4->textureBuffer[a1x->dword_8], a1x->Particles_4->textureBuffer);
-		a1x->dword_8 = v3x - a1x->Particles_4->textureBuffer;
+		if (!PackedGameData())//tests without the game: no frame data in the sprites (TMAPSMETA), the counter goes on
+		{
+			v3x = sub_76619(&a1x->Particles_4->textureBuffer[a1x->dword_8], a1x->Particles_4->textureBuffer);
+			a1x->dword_8 = v3x - a1x->Particles_4->textureBuffer;
+		}
 		a1x->FrameIndex_22++;
 	}
 }
@@ -46542,7 +46549,7 @@ void sub_7AA70_load_and_decompres_dat_file(const char* path, uint8_t* filebuffer
 {
 	//FILE* result; // eax
 
-	if (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc != NULL || (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = DataFileIO::CreateOrOpenFile(path, 512)))
+	if (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc != NULL || (path && (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = DataFileIO::CreateOrOpenFile(path, 512))))//path 0: only close (a missing file was never opened)
 	{
 		//result = x_DWORD_17DEE0_filedesc;
 		if (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc != NULL)
@@ -55169,7 +55176,7 @@ signed int sub_67CB0(type_entity_0x6E8E* a1x)//248cb0
 			{
 				if (kkx->id_0x1A_26 != a1x->id_0x1A_26
 					&& kkx->byte_0x39_57
-					&& (kkx->StageVar2_0x49_73 != 14 || kkx->word_0x2C_44 != a1x->id_0x1A_26))
+					&& (kkx->StageVar2_0x49_73 != 14 || kkx->parentId_0x28_40 != a1x->id_0x1A_26))//248D8C mov dx,[esi+28h]
 				{
 					v6 = sub_68490(a1x, kkx, 0x71u, 0x200u);
 					if (v6 < v1)
