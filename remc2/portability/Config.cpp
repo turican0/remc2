@@ -355,6 +355,7 @@ Config::Settings::GameDetail Config::GetGameDetail(const json& graphics)
 		gameDetailValues.m_HighResGraphicsFolder = ReadStringValue(gameDetail, "highResGraphicsFolder");
 		gameDetailValues.m_UseFixedMenuGraphics = ReadBoolValue(gameDetail, "useFixedMenuGraphics");
 		gameDetailValues.m_FixedMenuGraphicsFolder = ReadStringValue(gameDetail, "fixedMenuGraphicsFolder");
+		gameDetailValues.m_FixedTmapsFolder = ReadStringValue(gameDetail, "fixedTmapsFolder");
 		gameDetailValues.m_UseExtendedFonts = ReadBoolValue(gameDetail, "useExtendedFonts");
 		gameDetailValues.m_ExtendedFontsFolder = ReadStringValue(gameDetail, "extendedFontsFolder");
 		gameDetailValues.m_Sky = ReadBoolValue(gameDetail, "sky");
@@ -497,6 +498,8 @@ void Config::SaveGameDetailToDoc(Config::Settings::GameDetail gameDetail)
 	SetString(gd, "highResGraphicsFolder", gameDetail.m_HighResGraphicsFolder);
 	SetBool(gd, "useFixedMenuGraphics", gameDetail.m_UseFixedMenuGraphics);
 	SetString(gd, "fixedMenuGraphicsFolder", gameDetail.m_FixedMenuGraphicsFolder);
+	SetBool(gd, "useFixedTmaps", gameDetail.m_UseFixedTmaps);
+	SetString(gd, "fixedTmapsFolder", gameDetail.m_FixedTmapsFolder);
 	SetBool(gd, "useExtendedFonts", gameDetail.m_UseExtendedFonts);
 	SetString(gd, "extendedFontsFolder", gameDetail.m_ExtendedFontsFolder);
 	SetBool(gd, "sky", gameDetail.m_Sky);

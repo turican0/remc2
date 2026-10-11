@@ -71,7 +71,7 @@ GraphicsDialog::GraphicsDialog(wxWindow* parent, const Config::Settings::Graphic
 	main->Add(btnEnhanced, 0, wxALIGN_CENTER | wxLEFT | wxTOP | wxBOTTOM, 10);
 	btnEnhanced->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) {
 		GraphicsFoldersDialog dlg(this, m_cfg.m_GameDetail);
-		dlg.SetMinSize(wxSize(600, 200));
+		dlg.SetMinSize(wxSize(600, 260));
 		if (dlg.ShowModal() == wxID_OK)
 		{
 			auto folderSettings = dlg.GetFolders();
@@ -79,6 +79,8 @@ GraphicsDialog::GraphicsDialog(wxWindow* parent, const Config::Settings::Graphic
 			m_cfg.m_GameDetail.m_HighResGraphicsFolder = folderSettings.m_HighResGraphicsFolder;
 			m_cfg.m_GameDetail.m_UseFixedMenuGraphics = folderSettings.m_UseFixedMenuGraphics;
 			m_cfg.m_GameDetail.m_FixedMenuGraphicsFolder = folderSettings.m_FixedMenuGraphicsFolder;
+			m_cfg.m_GameDetail.m_UseFixedTmaps = folderSettings.m_UseFixedTmaps;
+			m_cfg.m_GameDetail.m_FixedTmapsFolder = folderSettings.m_FixedTmapsFolder;
 			m_cfg.m_GameDetail.m_UseExtendedFonts = folderSettings.m_UseExtendedFonts;
 			m_cfg.m_GameDetail.m_ExtendedFontsFolder = folderSettings.m_ExtendedFontsFolder;
 		}
