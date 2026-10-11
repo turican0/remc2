@@ -2767,6 +2767,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 	default:
 		break;
 	}
+	memcpy(&m_str_F0E20x[-1], &unk_F0A20x[1012], sizeof(type_unk_F0E20x));//a sprite span can start at step -1
 	v95 = str_F2C20ar.height0x26 - 1;
 	for (resultx = m_str_F0E20x; v95 >= 0; --v95)
 	{
