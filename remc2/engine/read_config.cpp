@@ -34,6 +34,7 @@ bool startWindowed = false;
 bool bigTextures = false;
 bool bigSprites = false;
 bool fixedMenuGraphics = false;
+bool fixedTmaps = false;
 bool extendedFonts = false;
 bool sky = true;
 bool reflections = false;
@@ -203,6 +204,13 @@ bool SetConfig() {
 		&& std::filesystem::is_directory(GetSubDirectoryPath(fixedMenuGraphicsFolder.c_str())))
 	{
 		fixedMenuGraphics = true;
+	}
+
+	fixedTmapsFolder = settingsValue.m_Graphics.m_GameDetail.m_FixedTmapsFolder;
+	if (settingsValue.m_Graphics.m_GameDetail.m_UseFixedTmaps && strlen(fixedTmapsFolder.c_str()) > 0
+		&& std::filesystem::is_directory(GetSubDirectoryPath(fixedTmapsFolder.c_str())))
+	{
+		fixedTmaps = true;
 	}
 
 	extendedFontsFolder = settingsValue.m_Graphics.m_GameDetail.m_ExtendedFontsFolder;

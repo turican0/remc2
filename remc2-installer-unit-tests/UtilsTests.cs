@@ -29,6 +29,7 @@ namespace remc2_installer_unit_tests
 			var testOutputPath = @"Resources\test-output.json";
 			Utils.SetHighResGraphics(beforePath, testOutputPath, true);
 			Utils.SetFixedMenuGraphics(testOutputPath, testOutputPath, true);
+			Utils.SetFixedTmaps(testOutputPath, testOutputPath, true);
 			Utils.SetExtendedFonts(testOutputPath, testOutputPath, true);
 
 			var actualJson = File.ReadAllText(testOutputPath);

@@ -67,6 +67,8 @@ namespace remc2_installer
 		public string highResGraphicsFolder { get; set; }
 		public bool useFixedMenuGraphics { get; set; }
 		public string fixedMenuGraphicsFolder { get; set; }
+		public bool useFixedTmaps { get; set; }
+		public string fixedTmapsFolder { get; set; }
 		public bool useExtendedFonts { get; set; }
 		public string extendedFontsFolder { get; set; }
 		public bool sky { get; set; }
