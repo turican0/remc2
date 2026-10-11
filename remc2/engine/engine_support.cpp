@@ -3,6 +3,12 @@
 #include <string>
 #include <cstring>
 #include <iostream>
+#include <map>
+#include <vector>
+#include <filesystem>
+#include <chrono>
+#include <memory>
+#include "sequence_codec.h"
 
 #ifdef USE_DOSBOX
 extern DOS_Device* DOS_CON;
@@ -10,6 +16,86 @@ extern DOS_Device* DOS_CON;
 
 bool unitTests = false;
 std::string unitTestsPath;
+bool unitTestsProgress = false;
+int unitTestsProgressFrames = 0;
+int unitTestsCompareFrom = 0;
+
+extern std::string gameDataPath;
+
+// SAVE folder; a regression test has its own, tests run in parallel
+// CLEVELS: every start of the game copies LEVELS.DAT/TAB there and the levels are read from it,
+// so the tests running in parallel need one each, as SAVE
+std::string LevelsDirectory()
+{
+	if (!unitTests)
+		return GetSubDirectoryPath(gameFolder.c_str(), "CLEVELS");
+	static const std::filesystem::path dir = std::filesystem::temp_directory_path() / ("remc2-clevels-" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
+	std::filesystem::create_directories(dir);
+	return dir.string();
+}
+
+std::string SaveDirectory()
+{
+	if (!unitTests)
+		return gameDataPath + "/SAVE";
+	static const std::filesystem::path dir = std::filesystem::temp_directory_path() / ("remc2-save-" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
+	std::filesystem::create_directories(dir);
+	return dir.string();
+}
+std::string packedDataFile;
+
+// data.binz, "MC2DATZ1": u32 files; per file u8 name length, name (path relative to CD_Files), u32 size,
+// u32 packed size, bytes packed by LzCompress (lzcompress.h). Unpacked once per process, as CLEVELS.
+std::string UnpackPackedData()
+{
+	static const std::filesystem::path dir = std::filesystem::temp_directory_path() / ("remc2-data-" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
+	static bool unpacked = false;
+	if (unpacked)
+		return dir.string();
+	unpacked = true;
+	std::filesystem::create_directories(dir / "NETHERW");
+	std::filesystem::create_directories(dir / "CD_Files");
+	FILE* file = fopen(packedDataFile.c_str(), "rb");
+	if (!file)
+	{
+		Logger->error("Packed game data {} not found", packedDataFile);
+		return dir.string();
+	}
+	std::vector<uint8_t> data;
+	fseek(file, 0, SEEK_END);
+	data.resize(ftell(file));
+	fseek(file, 0, SEEK_SET);
+	if (fread(data.data(), 1, data.size(), file) != data.size())
+		data.clear();
+	fclose(file);
+	if (data.size() < 12 || memcmp(data.data(), "MC2DATZ1", 8) != 0)
+	{
+		Logger->error("{} is not MC2DATZ1", packedDataFile);
+		return dir.string();
+	}
+	auto get32 = [&data](size_t p) { return (uint32_t)data[p] | (uint32_t)data[p + 1] << 8 | (uint32_t)data[p + 2] << 16 | (uint32_t)data[p + 3] << 24; };
+	const uint32_t files = get32(8);
+	size_t p = 12;
+	for (uint32_t i = 0; i < files && p < data.size(); i++)
+	{
+		const std::string name((const char*)&data[p + 1], data[p]);
+		p += 1 + name.size();
+		const uint32_t size = get32(p), packedSize = get32(p + 4);
+		p += 8;
+		const std::vector<uint8_t> bytes = LzDecompress(&data[p], packedSize, size);
+		p += packedSize;
+		const std::filesystem::path out = dir / "CD_Files" / name;
+		std::filesystem::create_directories(out.parent_path());
+		if (FILE* outFile = fopen(out.string().c_str(), "wb"))
+		{
+			fwrite(bytes.data(), 1, bytes.size(), outFile);
+			fclose(outFile);
+		}
+	}
+	Logger->info("Packed game data unpacked to {}", dir.string());
+	return dir.string();
+}
+
 int* endTestsCode;
 
 const int printBufferSize = 4096;
@@ -619,7 +705,7 @@ static const std::vector<FieldRange>& field_table()
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].CurrentNotificationText_0x01c_2BFA_11258[%d]", i, k);
 			tbl.push_back({ BDEBASE(i,CurrentNotificationText_0x01c_2BFA_11258) + k,1,strdup(nm),0 });
 		}
-		BDESC(word_0x04d_2C2B_11307, 2); BDESC(word_0x04f_2C2D_11309, 2);
+		BDESC(CurrentNotificationDuration_0x04d_2C2B_11307, 2); BDESC(word_0x04f_2C2D_11309, 2);
 
 		// names_81[8][48]
 		for (int r = 0; r < 8; r++) for (int c = 0; c < 48; c++) {
@@ -789,17 +875,17 @@ static const std::vector<FieldRange>& field_table()
 		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].array_0x52_82.roll", i);  tbl.push_back({ ENTBASE(i,array_0x52_82) + 4,2,strdup(nm),0 });
 		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].array_0x52_82.fov", i);   tbl.push_back({ ENTBASE(i,array_0x52_82) + 6,2,strdup(nm),0 });
 		ESC(word_0x5A_90, 2); ESC(byte_0x5C_92, 1); ESC(byte_0x5D_93, 1);
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.dword_0x5E_94", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,dword_0x5E_94),4,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x62_98", i);   tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x62_98),2,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.dword_0x64_100", i); tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,dword_0x64_100),4,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x68_104", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x68_104),2,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.dword_0x70_112", i); tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,dword_0x70_112),4,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x74_116", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x74_116),2,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x76_118", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x76_118),2,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x78_120", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x78_120),2,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x7A_122", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x7A_122),2,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x7C_124", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x7C_124),2,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x80_128", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,word_0x80_128),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.dword_0x5E_94", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[0].amount.dword),4,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x62_98", i);   tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[0].source),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.dword_0x64_100", i); tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[1].amount.dword),4,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x68_104", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[1].source),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.dword_0x70_112", i); tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[3].amount.dword),4,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x74_116", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[3].source),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x76_118", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[4].amount.word[0]),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x78_120", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[4].amount.word[1]),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x7A_122", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[4].source),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x7C_124", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[5].amount.word[0]),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "struct_0x6E8E[%d].str_0x5E_94.word_0x80_128", i);  tbl.push_back({ ENTBASE(i,str_0x5E_94) + offsetof(type_str_0x5E_94,channel[5].source),2,strdup(nm),0 });
 		ESC(word_0x82_130, 2); ESC(word_0x84_132, 2); ESC(word_0x86_134, 2);
 		ESC(dword_0x88_136, 4); ESC(dword_0x8C_140, 4); ESC(dword_0x90_144, 4);
 		ESC(playerEntityIndex_0x94_148, 2); ESC(word_0x96_150, 2); ESC(word_0x98_152, 2);
@@ -1081,7 +1167,11 @@ void support_begin() {
 		//x_D41A0_BYTEARRAY_4_struct.player_name_57 =new char[256];
 		//x_D41A0_BYTEARRAY_4_struct.savestring_89 = new char[256];
 
-	x_BYTE_14B4E0_second_heightmap = new uint8_t[65536];
+	// Zero-initialised: the game maintains this plane on every map type (the
+	// painters raise and lower it) but only the cave generator seeds it, so on
+	// a day/night level it starts as whatever is here. In the original that is
+	// a zeroed BSS block; a bare new[] made it uninitialised heap.
+	x_BYTE_14B4E0_second_heightmap = new uint8_t[65536]();
 	off_D41A8_sky = new uint8_t[1024 * 1024];
 	memcpy(off_D41A8_sky, &x_BYTE_14B4E0_second_heightmap, 4);
 
@@ -1197,14 +1287,21 @@ int test_0x6E8E_id_pointer(uint32_t adress) {
 	return 0;
 }
 int test_D41A0_id_pointer(uint32_t adress) {
-	if ((adress >= 0x2bfa) && (adress < 0x2bfa + 49))return 2;//text
+	// CurrentNotificationText_0x01c of every player (array_0x2BDE, 0x84C each): the text comes
+	// from the language file, so it differs whenever the two runs use different languages
+	for (uint32_t player = 0; player < 8; player++)
+		if ((adress >= 0x2bfa + player * 0x84c) && (adress < 0x2bfa + player * 0x84c + 49))return 2;//text
 	if ((adress >= 0x2f79) && (adress < 0x2f79 + 1))return 2;//text
 	if ((adress >= 0x2fbd) && (adress < 0x2fbd + 1))return 2;//handle click button
 
 	if ((adress >= 0x2fc4) && (adress < 0x2fc5))return 2;//event
 
 	if ((adress >= 0x2fd8) && (adress < 0x2fdc))return 2; // mouse position: position_backup_20 in dword_0x3E6_2BE4_12228 in array_0x2BDE
-	// if ((adress == 0x36e04))return 2;                     // objective box counter
+	for (uint32_t player = 0; player < 8; player++)
+		if ((adress >= 0x341c + player * 0x84c) && (adress < 0x341e + player * 0x84c))return 2;//UI: spellIndex_0x458_1112, subSpellIndex_0x459_1113 by mouse
+	// 23A820 PresentObjective: CD speech (original) vs text box (tests) - objective step and box counter
+	if ((adress == 0x36e02))return 2;
+	if ((adress == 0x36e04))return 2;
 
 	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock - 4 bytes
 	if ((adress >= 0x3999) && (adress < 0x399d))return 2;//clock2 - 4 bytes
@@ -1287,6 +1384,31 @@ int test_D41A0_id_pointer(uint32_t adress) {
 	}
 	if ((adress >= 0x36df6) && (adress < 0x36df7))return 1;
 	return 0;
+}
+
+// the answers of test_D41A0_id_pointer once for all of D41A0: the compare asks for every byte
+// of every frame, and the function walks 1000 entities each time
+bool spellTableOverrun[1000] = {};
+
+// the fields of an entity written by SetSpell_6D5E0 (24E641 mov [ebx+46h],al ... 24E660 mov [ebx+3Bh],dl, +88h, +8Ch, +90h)
+static bool SpellTableOverrunField(uint32_t adress)
+{
+	if (adress < 0x6E8E || adress >= 0x6E8E + 1000 * 0xA8 || !spellTableOverrun[(adress - 0x6E8E) / 0xA8])
+		return false;
+	const uint32_t o = (adress - 0x6E8E) % 0xA8;
+	return o == 0x2A || o == 0x2B || o == 0x30 || o == 0x31 || (o >= 0x3B && o <= 0x3D) || o == 0x46 || (o >= 0x88 && o < 0x94);
+}
+
+const uint8_t* D41A0CompareKinds()
+{
+	static std::vector<uint8_t> kinds;
+	if (kinds.empty())
+	{
+		kinds.resize(0x36E16);
+		for (uint32_t i = 0; i < kinds.size(); i++)
+			kinds[i] = (uint8_t)test_D41A0_id_pointer(i);
+	}
+	return kinds.data();
 }
 
 int test_E2A74_id_pointer(uint32_t adress) {
@@ -1416,10 +1538,91 @@ uint32_t compare_with_sequence_E7EE0(const char* filename, uint8_t* adress, uint
 	return(i);
 };
 
+struct type_sequence_binz
+{
+	FILE* file = nullptr;
+	std::vector<uint8_t> frame;
+	long long index = -1;
+	std::shared_ptr<seqz::Z4Reader> z4;//"MC2SEQZ4"
+};
+
+// frame of sequence-<name>.bin, or of .binz: "MC2SEQZ4" (sequence_codec.h) or the old "MC2SEQZ1",
+// frame size, per frame length + (varint same, varint changed, changed bytes)
+void read_sequence(const std::string& name, long long count, long long frameSize, long offset, uint32_t size, uint8_t* buffer)
+{
+	FILE* file = fopen((name + ".bin").c_str(), "rb");
+	if (file != NULL)
+	{
+#if defined(__linux__) || defined(__APPLE__)
+		fseeko(file, count * frameSize + offset, SEEK_SET);
+#else
+		_fseeki64(file, count * frameSize + offset, SEEK_SET);
+#endif
+		fread(buffer, size, 1, file);
+		fclose(file);
+		return;
+	}
+	static std::map<std::string, type_sequence_binz> binz;
+	type_sequence_binz& seq = binz[name];
+	if (seq.file == nullptr && seq.z4 == nullptr && seqz::Magic(name + ".binz") == 4)
+	{
+		seq.z4 = std::make_shared<seqz::Z4Reader>();
+		if (!seq.z4->Open(name + ".binz"))
+		{
+			Logger->error("Damaged sequence: {}.binz", name);
+			seq.z4 = nullptr;
+			memset(buffer, 0, size);
+			return;
+		}
+	}
+	if (seq.z4 != nullptr)
+	{
+		if (count < seq.z4->Index())
+			seq.z4->Rewind();
+		while (seq.z4->Index() < count && seq.z4->Next()) {}
+		memcpy(buffer, seq.z4->State().data() + offset, size);
+		return;
+	}
+	if (seq.file == nullptr)
+		seq.file = fopen((name + ".binz").c_str(), "rb");
+	if (seq.file == nullptr)
+	{
+		Logger->error("Missing sequence: {}.bin(z)", name);
+		memset(buffer, 0, size);
+		return;
+	}
+	if (seq.index < 0 || count < seq.index)//from the first frame
+	{
+		uint32_t binzFrameSize = 0;
+		fseek(seq.file, 8, SEEK_SET);
+		fread(&binzFrameSize, 4, 1, seq.file);
+		seq.frame.assign(binzFrameSize, 0);
+		seq.index = -1;
+	}
+	std::vector<uint8_t> changes;
+	for (; seq.index < count; seq.index++)
+	{
+		uint32_t length = 0;
+		fread(&length, 4, 1, seq.file);
+		changes.resize(length);
+		fread(changes.data(), 1, length, seq.file);
+		size_t p = 0, pos = 0;
+		auto varint = [&]() { size_t v = 0; for (int shift = 0; p < length; shift += 7) { v |= (size_t)(changes[p] & 0x7F) << shift; if (!(changes[p++] & 0x80)) break; } return v; };
+		while (p < length)
+		{
+			pos += varint();
+			const size_t changed = varint();
+			memcpy(seq.frame.data() + pos, changes.data() + p, changed);
+			p += changed;
+			pos += changed;
+		}
+	}
+	memcpy(buffer, seq.frame.data() + offset, size);
+}
+
 uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint32_t  /*adressdos*/, uint32_t count, uint32_t size, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
 	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size);
-	FILE* fptestepc;
 	if (regressions)
 		finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
 	else
@@ -1430,21 +1633,15 @@ uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint
 		finddir2 = "";
 		finddir = unitTestsPath;
 	}
-	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
-	fptestepc = fopen(findname.c_str(), "rb");
-	if (fptestepc == NULL)
-	{
-		mydelay(100);
-		fptestepc = fopen(findname.c_str(), "rb");
-	}
-	fseek(fptestepc, count * size + offset, SEEK_SET);
-
-	fread(buffer, size, 1, fptestepc);
+	read_sequence(finddir2 + finddir + std::string("/sequence-") + filename, count, size, offset, size, buffer);
 	uint32_t i;
 	bool testa, testb;
+	const uint8_t* kinds = D41A0CompareKinds();
 	for (i = 0; i < size; i++)
 	{
-		int testx = test_D41A0_id_pointer(i);
+		if (SpellTableOverrunField(i))
+			continue;
+		int testx = i < 0x36E16 ? kinds[i] : test_D41A0_id_pointer(i);
 		if (testx == 1)
 		{
 			if (*(uint32_t*)&buffer[i])testa = true;
@@ -1489,7 +1686,6 @@ uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint
 		End_thread(-1);
 	}
 	free(buffer);
-	fclose(fptestepc);
 	return(i);
 };
 
@@ -1839,7 +2035,6 @@ uint32_t compare_with_sequence_array_222BD3(const char* filename, uint8_t* adres
 uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint32_t  /*adressdos*/, long count, long size1, uint32_t size2, uint8_t* origbyte, uint8_t* copybyte, long offset, bool regressions) {
 	std::string finddir;
 	uint8_t* buffer = (uint8_t*)malloc(size2);
-	FILE* fptestepc;
 	if (regressions)
 		finddir = CommandLineParams.GetMemimagesPath() + std::string("regressions");
 	else
@@ -1850,27 +2045,9 @@ uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint
 		finddir2 = "";
 		finddir = unitTestsPath;
 	}
-	std::string findname = finddir2 + finddir + std::string("/sequence-") + filename + ".bin";
-	fptestepc = fopen(findname.c_str(), "rb");
-	if (fptestepc == NULL)
-	{
-		mydelay(100);
-		fptestepc = fopen(findname.c_str(), "rb");
-	}
-
-#if defined(__linux__) || defined(__APPLE__)
-	fseek(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
-#else
-	_fseeki64(fptestepc, (long long)count * (long long)size1 + offset, SEEK_SET);
-#endif
+	read_sequence(finddir2 + finddir + std::string("/sequence-") + filename, count, size1, offset, size2, buffer);
 
 	uint32_t i;
-	/*for (i = 0; i < count; i++)
-	{
-		fread_s(buffer,size,1,size, fptestepc);
-	}*/
-
-	fread(buffer, size2, 1, fptestepc);
 	if (size2 == 320 * 200)
 	{
 		VGA_Debug_Blit(320, 200, pdwScreenBuffer_351628);
@@ -1894,7 +2071,6 @@ uint32_t compare_with_sequence(const char* filename, const uint8_t* adress, uint
 		End_thread(-1);
 	}
 	free(buffer);
-	fclose(fptestepc);
 	return(i);
 };
 
@@ -2702,7 +2878,7 @@ void clean_x_D41A0_BYTEARRAY_0_0x2BDE(int number) {
 			D41A0_BYTESTR_0.array_0x2BDE[i].stub[j]=0;
 		for (int j = 0; j < 49; j++)
 			D41A0_BYTESTR_0.array_0x2BDE[i].CurrentNotificationText_0x01c_2BFA_11258[j]=0;//28//11258 - byte* jmeno2?
-		D41A0_BYTESTR_0.array_0x2BDE[i].word_0x04d_2C2B_11307 = 0;//77 //11307 - word
+		D41A0_BYTESTR_0.array_0x2BDE[i].CurrentNotificationDuration_0x04d_2C2B_11307 = 0;//77 //11307 - word
 		D41A0_BYTESTR_0.array_0x2BDE[i].word_0x04d_2C2D_11309 = 0;//79 //11309 - word
 		for (int j = 0; j < 846; j++)
 			D41A0_BYTESTR_0.array_0x2BDE[i].stub2[j];

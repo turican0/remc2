@@ -563,6 +563,7 @@ type_entity_0x6E8E* NewEvent_4A050()//22b050
 	if (D41A0_0.dword_0x35 >= 0)
 	{
 		memset(D41A0_0.pointers_0x246[D41A0_0.dword_0x35], 0, sizeof(type_entity_0x6E8E));
+		spellTableOverrun[D41A0_0.pointers_0x246[D41A0_0.dword_0x35] - D41A0_0.struct_0x6E8E] = false;
 		D41A0_0.pointers_0x246[D41A0_0.dword_0x35]->maxLife_0x4 = 300;
 		D41A0_0.pointers_0x246[D41A0_0.dword_0x35]->struct_byte_0xc_12_15.dword = 8;
 		D41A0_0.pointers_0x246[D41A0_0.dword_0x35]->actSpeed_0x82_130 = 16;
@@ -589,6 +590,7 @@ type_entity_0x6E8E* NewEvent_4A050()//22b050
 		SetMapEntity_57E50(D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]);
 		D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->class_0x3F_63 = 0;
 		memset(D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6], 0, sizeof(type_entity_0x6E8E));
+		spellTableOverrun[D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6] - D41A0_0.struct_0x6E8E] = false;
 		D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->maxLife_0x4 = 300;
 		D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->struct_byte_0xc_12_15.dword = 8;
 		D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->actSpeed_0x82_130 = 16;
@@ -612,7 +614,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 	if (CommandLineParams.DoShowNewProcedures()) {
 		test_pre_sub_4a190(adress);//for debug
 	}
-	if (particlesParameters_D951C[a1_6E8E->word_0x5A_90].word_0 == 58)
+	if (spriteDefsTable_D951C[a1_6E8E->word_0x5A_90].textureIdx_0 == 58)
 	{
 		int xxx = 1;
 		xxx++;
@@ -3136,7 +3138,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
         std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		allert_error();
 #else
-		sub_63670_draw_minimap_a((intptr_t)a1_6E8E, 0, 0, 0, 0, 0, 0, 0, 0);
+		DrawMapLowRes_63670((intptr_t)a1_6E8E, 0, 0, 0, 0, 0, 0, 0, 0);
 		allert_error();
 #endif
 		break;
@@ -3149,7 +3151,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
         std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		allert_error();
 #else
-		sub_63C90_draw_minimap_b((intptr_t)a1_6E8E, 0, 0, 0, 0, 0, 0, 0, 0);
+		DrawMapHighRes_63C90((intptr_t)a1_6E8E, 0, 0, 0, 0, 0, 0, 0, 0);
 		allert_error();
 #endif
 		break;

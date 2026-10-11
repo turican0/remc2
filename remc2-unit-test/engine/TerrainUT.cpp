@@ -256,7 +256,7 @@ TEST(Terrain, sub_45BE0) {
 		}
 		sub_45BE0_orig(testA2, testAxis2D, &tempx_DWORD_D47DC, tempHeight1);
 
-		sub_45BE0(testA2, testAxis2D);
+		sub_45BE0(testA2, testAxis2D, 0);
 
 		for (int i = 0; i < 256 * 256; i++)
 		{

@@ -92,8 +92,8 @@ void DrawSorcererScores_2D1D0(uint8_t scale = 1);
 void DrawTextboxLine_89A30(const Type_TextBox_1804B0* textbox);
 void DrawVolumeSettings_303D0(uint8_t scale = 1);
 
-void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
-void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
+void DrawMapLowRes_63670(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
+void DrawMapHighRes_63C90(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
 void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale);
 void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale);
 uint8_t CalculateScaleOffset(uint8_t scale);

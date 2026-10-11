@@ -1,4 +1,5 @@
 #include "Level.h"
+#include <memory>
 
 bool IsAfterLoad = false;
 
@@ -168,13 +169,9 @@ type_str_160 str_D7BD6[157] = {
 {0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x00000000,{0x00,0x00},0x0000,0x0000,0x0000,0x00,{0x00} } };
 
 
-//----- (00055250) --------------------------------------------------------
-bool SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //in game save
+// shadow D41A0 for a save (x64 fixes of dword_0xA4_164x)
+void SaveLevelShadow(type_shadow_D41A0_BYTESTR_0* shadow)
 {
-	bool success;
-	int temptime; // edi
-	long acttime; // eax
-
 	//fix for saving
 	for (int indexx = 1; Entities_EA3E4[indexx] < Entities_EA3E4[1000]; indexx++)
 		//if (memory_readable(Entities_EA3E4[indexx]->dword_0xA4_164x,4))
@@ -184,21 +181,8 @@ bool SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //
 	}
 	//fix for saving
 
-	success = false;
-	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SLEV", savefileindex + 1, savefileindex2);
 	D41A0_0.dword_0x36DF6 = &str_D7BD6[59]; //(x_DWORD)&unk_D7BD6[0x7d6];
-	temptime = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393;
-	acttime = j___clock();
-	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393 = acttime - D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393;
-
-	//x64 fix
-	type_shadow_D41A0_BYTESTR_0 shadow_type_D41A0_BYTESTR_0;
-	Convert_to_shadow_D41A0_BYTESTR_0(&D41A0_0, &shadow_type_D41A0_BYTESTR_0);
-	//x64 fix
-
-	int size = sizeof(shadow_type_D41A0_BYTESTR_0);
-	if (DataFileIO::sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)&shadow_type_D41A0_BYTESTR_0, size) == size) success = true;
-	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393 = temptime;
+	Convert_to_shadow_D41A0_BYTESTR_0(&D41A0_0, shadow);
 
 	//fix for saving
 	for (int indexx = 1; Entities_EA3E4[indexx] < Entities_EA3E4[1000]; indexx++)
@@ -208,6 +192,27 @@ bool SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //
 			Entities_EA3E4[indexx]->dword_0xA4_164x = unk_F42B0x;
 	}
 	//fix for saving
+}
+
+//----- (00055250) --------------------------------------------------------
+bool SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //in game save
+{
+	bool success;
+	int temptime; // edi
+	long acttime; // eax
+
+	success = false;
+	sprintf(printbuffer, "%s/%s%d%s.DAT", SaveDirectory().c_str(), "SLEV", savefileindex + 1, savefileindex2);
+	temptime = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393;
+	acttime = j___clock();
+	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393 = acttime - D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393;
+
+	type_shadow_D41A0_BYTESTR_0 shadow_type_D41A0_BYTESTR_0;
+	SaveLevelShadow(&shadow_type_D41A0_BYTESTR_0);
+
+	int size = sizeof(shadow_type_D41A0_BYTESTR_0);
+	if (DataFileIO::sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)&shadow_type_D41A0_BYTESTR_0, size) == size) success = true;
+	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393 = temptime;
 
 	return success;
 }
@@ -218,7 +223,7 @@ bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //
 	FILE* savesmapfile; // eax
 	size_t writedsize; // [esp+40h] [ebp-8h]
 	Logger->debug("InGameSave-begin");
-	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SMAP", savefileindex + 1, savefileindex2);
+	sprintf(printbuffer, "%s/%s%d%s.DAT", SaveDirectory().c_str(), "SMAP", savefileindex + 1, savefileindex2);
 	savesmapfile = DataFileIO::CreateOrOpenFile(printbuffer, 546);
 	if (savesmapfile)
 	{
@@ -245,7 +250,7 @@ bool SaveLevelSVER_55450(uint8_t savefileindex, int32_t levelNumber, char* savef
 	data[1] = levelNumber;
 	data[0] = 15;
 	bool success = false;
-	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SVER", savefileindex + 1, savefileindex2);
+	sprintf(printbuffer, "%s/%s%d%s.DAT", SaveDirectory().c_str(), "SVER", savefileindex + 1, savefileindex2);
 	if (DataFileIO::sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)data, 2*sizeof(int32_t)) == 8)
 		success = true;
 	return success;
@@ -337,11 +342,11 @@ bool LoadLevelSMAP_558E0(uint8_t savefileindex, bool loadRegressionTest)//2368e0
 	// FIXME: cannot set this here.
 	//        was before: debugafterload = 1;
 	//        cannot be: CommandLineParams.DoDebugafterload() = 1;
-	x_D41A0_BYTEARRAY_4_struct.setting_30 = 0x3d;//fix same run after load
+	x_D41A0_BYTEARRAY_4_struct.setting_30 = (x_D41A0_BYTEARRAY_4_struct.setting_30 & ~0xFFu) | 0x3d;//fix same run after load, the low byte only as DOSBox 2368E0 mem_writeb(0x38cf50 + 0x1e, 0x3d)
 	rand2_17B4E0 = 0x21ed;//fix random variable for debugging
 
 	char path[512];
-	sprintf(path, "%s/%s", gameDataPath.c_str(), "SAVE");
+	sprintf(path, "%s", SaveDirectory().c_str());
 	if (loadRegressionTest)
 	{
 		sprintf(path, "%sregressions", CommandLineParams.GetMemimagesPath().c_str());
@@ -378,7 +383,7 @@ bool LoadLevelSLEV_55A10(uint8_t savefileindex, bool loadRegressionTest)//236a10
 	bool success = false;
 
 	char path[512];
-	sprintf(path, "%s/%s", gameDataPath.c_str(), "SAVE");
+	sprintf(path, "%s", SaveDirectory().c_str());
 	if (loadRegressionTest)
 	{
 		sprintf(path, "%sregressions", CommandLineParams.GetMemimagesPath().c_str());
@@ -424,6 +429,82 @@ bool SaveLevel_55080(uint8_t savefileindex, int32_t LevelNumber, char* savefilei
 		D41A0_0.dword_0x11e6 = -1;
 	}
 	return success;
+}
+
+// SMAP content in the file order
+std::array<std::pair<uint8_t*, size_t>, 7> SmapParts()
+{
+	return { { { mapTerrainType_10B4E0, 0x10000 }, { mapHeightmap_11B4E0, 0x10000 }, { mapShading_12B4E0, 0x10000 },
+		{ mapAngle_13B4E0, 0x10000 }, { x_BYTE_14B4E0_second_heightmap, 0x10000 },
+		{ (uint8_t*)mapEntityIndex_15B4E0, 0x20000 }, { (uint8_t*)building_F2CD0x, 4802 } } };
+}
+
+// save for a recording (SLEV + SMAP), the game state stays unchanged
+std::vector<uint8_t> SaveLevelToBuffer()
+{
+	std::vector<uint8_t> save(sizeof(type_shadow_D41A0_BYTESTR_0));
+	auto shadow = (type_shadow_D41A0_BYTESTR_0*)save.data();
+	auto live = std::make_unique<type_D41A0_BYTESTR_0>(D41A0_0);
+	sub_55100(1);
+	SaveLevelShadow(shadow);
+	D41A0_0 = *live;
+	for (int i = 0; i < 1000; i++)//entity lists as indexes, the shadow keeps 32 bits of a pointer
+	{
+		shadow->pointers_0x246[i] = D41A0_0.pointers_0x246[i] ? D41A0_0.pointers_0x246[i] - D41A0_0.struct_0x6E8E : 0;
+		shadow->dword_0x11EA[i] = D41A0_0.dword_0x11EA[i] ? D41A0_0.dword_0x11EA[i] - D41A0_0.struct_0x6E8E : 0;
+	}
+	for (const auto& part : SmapParts())
+		save.insert(save.end(), part.first, part.first + part.second);
+	return save;
+}
+
+// load of a recording save at the level start: the state and its pointers only
+bool LoadLevelFromBuffer(const std::vector<uint8_t>& save)
+{
+	size_t pos = sizeof(type_shadow_D41A0_BYTESTR_0);
+	for (const auto& part : SmapParts())
+		pos += part.second;
+	if (save.size() != pos)
+		return false;
+	pos = sizeof(type_shadow_D41A0_BYTESTR_0);
+	for (const auto& part : SmapParts())
+	{
+		memcpy(part.first, &save[pos], part.second);
+		pos += part.second;
+	}
+	auto shadow = std::make_unique<type_shadow_D41A0_BYTESTR_0>();
+	memcpy(shadow.get(), save.data(), sizeof(type_shadow_D41A0_BYTESTR_0));
+	auto live = std::make_unique<type_D41A0_BYTESTR_0>(D41A0_0);
+	Convert_from_shadow_D41A0_BYTESTR_0(shadow.get(), &D41A0_0);
+	for (int i = 0; i < 1000; i++)
+	{
+		D41A0_0.pointers_0x246[i] = shadow->pointers_0x246[i] && shadow->pointers_0x246[i] < 1000 ? &D41A0_0.struct_0x6E8E[shadow->pointers_0x246[i]] : nullptr;
+		D41A0_0.dword_0x11EA[i] = shadow->dword_0x11EA[i] && shadow->dword_0x11EA[i] < 1000 ? &D41A0_0.struct_0x6E8E[shadow->dword_0x11EA[i]] : nullptr;
+	}
+	sub_55100(2);
+	for (int i = 1; i <= D41A0_0.countStageVars_0x36E00; i++)//sub_55100(2) keeps these as offsets, as the original (0x2361C9)
+	{
+		auto& stageVar = D41A0_0.StageVars2_0x365F4[i];
+		uint8_t type = stageVar.index_0x3647A_0;
+		if ((type >= 3 && type <= 5 || type == 8 || type == 9) && !(stageVar.stage_0x3647A_1 & 2)
+			&& stageVar.str_0x3647C_4.dword && stageVar.str_0x3647C_4.dword % sizeof(type_shadow_str_0x6E8E) == 0 && stageVar.str_0x3647C_4.dword < 1000 * sizeof(type_shadow_str_0x6E8E))
+			stageVar.str_0x3647C_4.pointer_0x6E8E = &D41A0_0.struct_0x6E8E[stageVar.str_0x3647C_4.dword / sizeof(type_shadow_str_0x6E8E)];
+	}
+	sub_57680_FixPointersAfterLoad();
+	// live values: pointers the fixes overwrite and the settings, as LoadLevel_555D0
+	D41A0_0.struct_0x6E8E[0].dword_0xA4_164x = live->struct_0x6E8E[0].dword_0xA4_164x;
+	D41A0_0.str_0x3664C[0].event_A.pointer_0x6E8E = live->str_0x3664C[0].event_A.pointer_0x6E8E;
+	D41A0_0.dword_0x36DF6 = live->dword_0x36DF6;
+	D41A0_0.m_GameSettings = live->m_GameSettings;
+	D41A0_0.dword_0x219A = live->dword_0x219A;
+	D41A0_0.dword_0x219E = live->dword_0x219E;
+	D41A0_0.dword_0x21A2 = live->dword_0x21A2;
+	D41A0_0.dword_0x21A6 = live->dword_0x21A6;
+	D41A0_0.str_0x21AA = live->str_0x21AA;
+	D41A0_0.str_0x21AE = live->str_0x21AE;
+	D41A0_0.str_0x21B2 = live->str_0x21B2;
+	D41A0_0.str_0x21B6 = live->str_0x21B6;
+	return true;
 }
 
 //----- (00049270) --------------------------------------------------------
@@ -1047,10 +1128,10 @@ void LoadSpr_47160()//228160
 	{
 		DataFileIO::LoadFileArray_84250(psxadatamsprd00dat);
 		filearray_2aa18c[filearrayindex_MSPRD00DATTAB] = { &MSPRD00TAB_BEGIN_BUFFER,&MSPRD00TAB_END_BUFFER,&MSPRD00DAT_BEGIN_BUFFER,&posistruct5 };
-		if (pre_x_DWORD_E9C3C)
-			FreeMem_83E80(pre_x_DWORD_E9C3C);
-		pre_x_DWORD_E9C3C = (uint8_t*)Malloc_83CD0(3000000);
-		x_DWORD_E9C3C = &pre_x_DWORD_E9C3C[200000];
+		if (pre_ptrMemoryBuffer_E9C3C)
+			FreeMem_83E80(pre_ptrMemoryBuffer_E9C3C);
+		pre_ptrMemoryBuffer_E9C3C = (uint8_t*)Malloc_83CD0(3000000);
+		ptrMemoryBuffer_E9C3C = &pre_ptrMemoryBuffer_E9C3C[200000];
 		help_VGA_type_resolution = 1;
 	}
 	else
@@ -1061,10 +1142,10 @@ void LoadSpr_47160()//228160
 			LoadFixedMenuGraphics();
 
 		filearray_2aa18c[filearrayindex_MSPRD00DATTAB] = { &HSPRD00TAB_BEGIN_BUFFER,&HSPRD00TAB_END_BUFFER,&HSPRD00DAT_BEGIN_BUFFER,&posistruct5 };
-		if (pre_x_DWORD_E9C3C)
-			FreeMem_83E80(pre_x_DWORD_E9C3C);
-		pre_x_DWORD_E9C3C = (uint8_t*)Malloc_83CD0(3000000);
-		x_DWORD_E9C3C = &pre_x_DWORD_E9C3C[200000];
+		if (pre_ptrMemoryBuffer_E9C3C)
+			FreeMem_83E80(pre_ptrMemoryBuffer_E9C3C);
+		pre_ptrMemoryBuffer_E9C3C = (uint8_t*)Malloc_83CD0(3000000);
+		ptrMemoryBuffer_E9C3C = &pre_ptrMemoryBuffer_E9C3C[200000];
 		CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_HFONT3DATTAB]);//2aa1d4
 		help_VGA_type_resolution = 8;
 
@@ -1353,7 +1434,7 @@ void sub_71990()//252990
 	{
 		for (j = 0; j < 504 && !v6_return; j++)
 		{
-			if (i == D41A0_0.array_0x39[j] && !str_DWORD_F66F0x[j])
+			if (i == D41A0_0.array_0x39[j] && !m_ptrLoadedSprites_F66F0x[j])
 			{
 				v4 = sub_70EF0(j);
 				if (sub_71E60(x_DWORD_E9C28_str) <= v4)
@@ -1375,7 +1456,7 @@ void sub_71930()//252930
 {
 	for (int i=0; i < 508; i++) D41A0_0.array_0x39[i] = 0;
 	for (int i=0; i < 504; i++) {
-		if (str_DWORD_F66F0x[i])
+		if (m_ptrLoadedSprites_F66F0x[i])
 		{
 			D41A0_0.array_0x39[i] = 1;
 			if (m_LevelSpriteList_F5340[i])
@@ -1504,9 +1585,18 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* text
 //----- (0006D5E0) --------------------------------------------------------
 void SetSpell_6D5E0(type_entity_0x6E8E* entity, int spellId)//24e5e0
 {
-	int locSpellId = spellId;
+	// 2339AD call sub_6D5E0 with Entities[SpellEnabled[spell]]: the slot can hold a non-spell entity by then (a building,
+	// record11 turn 7421), its model is past the table and the original reads byte_DA818 + model*50h, the credits
+	// pointers (24E5EC movsx esi,byte ptr [ebx+40h])
+	if (entity->model_0x40_64 >= NUMBER_OF_SPELLS)
+		spellTableOverrun[entity - D41A0_0.struct_0x6E8E] = true;
+	int locSpellId = (int8_t)spellId;//24E604 movsx esi,al
 	if (locSpellId > SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].byte_0 - 1)
 		locSpellId = SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].byte_0 - 1;
+	// 240890 sub_5F890 passes the wizard, its word_0x2C_44 - 1 can be negative (record038 turn 6754: -37) and the original
+	// reads before byte_DA818 (a pointer of another table); 0 here and in DOSBox (24E614)
+	if (locSpellId < 0)
+		locSpellId = 0;
 	if (entity->word_0x2E_46)
 	{
 		entity->word_0x2C_44 = locSpellId + 1;
@@ -1543,8 +1633,8 @@ void sub_712F0()//2522f0
 		animations_E9C08x = sub_72120(0x1F8u);
 	sub_70A60_open_tmaps();
 	sub_71A70_setTmaps(D41A0_0.terrain_2FECE.MapType);
-	memset(str_DWORD_F66F0x, 0, 504 * sizeof(type_particle_str**));
-	memset(str_F5F10, 0, 504*sizeof(type_particle_str**));
+	memset(m_ptrLoadedSprites_F66F0x, 0, 504 * sizeof(Type_Sprite**));
+	memset(str_F5F10, 0, 504*sizeof(Type_Sprite**));
 	memset(x_DWORD_F5730, 0, 2016);
 	sub_71890();
 	sub_718F0();
@@ -1556,11 +1646,11 @@ void sub_71890()//252890
 	//char result; // al
 	int v0y = 0;
 	memset(m_LevelSpriteList_F5340, 0, 504);
-    while (particlesParameters_D951C[v0y].speed_6 || particlesParameters_D951C[v0y].rotSpeed_8)
+    while (spriteDefsTable_D951C[v0y].speed_6 || spriteDefsTable_D951C[v0y].worldSize_8)
     {
-        if (particlesParameters_D951C[v0y].byte_11 == -1)
+        if (spriteDefsTable_D951C[v0y].byte_11 == -1)
         {
-            m_LevelSpriteList_F5340[particlesParameters_D951C[v0y].word_0] = particlesParameters_D951C[v0y].byte_11;
+            m_LevelSpriteList_F5340[spriteDefsTable_D951C[v0y].textureIdx_0] = spriteDefsTable_D951C[v0y].byte_11;
         }
         v0y++;
     }
@@ -1608,6 +1698,7 @@ void sub_71A70_setTmaps(MapType_t a1)//252a70
 	}
 	}
 	x_DWORD_DB73C_tmapsfile = v1;
+	tmapsMapType = a1;
 	//return result;
 }
 // DB73C: using guessed type int x_DWORD_DB73C_tmapsfile;
@@ -1636,7 +1727,7 @@ type_E9C08* sub_72120(unsigned __int16 a1)//253120
 			//v5 = 7 * v1;
 			//*(x_DWORD *)(v2x->dword_2 + 4 * v5 + 4) = 0;
 			//*(x_DWORD *)(v2x->dword_2 + 4 * v5) = 0;
-			v2x->dword_2[v1].Particles_4 = 0;
+			v2x->dword_2[v1].Sprite_4 = 0;
 			v2x->dword_2[v1].dword_0 = 0;
 		}
 	}

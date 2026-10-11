@@ -44,10 +44,11 @@ public:
 		struct Multiplayer
 		{
 			int m_ServerPort = 3030;
-			int m_ServerClientPort = 3031;
 			int m_ClientPort = 3030;
 			int m_ClientServerPort = 3030;
 			std::string m_ClientServerIp = "127.0.0.1";
+			std::string m_RecordPlayFile = "";
+			bool m_Debug = false;
 		};
 
 		struct Sound

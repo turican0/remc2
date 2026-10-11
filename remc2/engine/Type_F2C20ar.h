@@ -10,7 +10,7 @@
 #pragma pack (push,1)
 typedef struct {
 	int32_t dword0x00;
-	int32_t dword0x01_rotIdx;
+	int32_t dword0x01_visibilityIdx;
 	int8_t* dword0x02_data;
 	int32_t dword0x03_screenX;
 	int32_t dword0x04_screenY;

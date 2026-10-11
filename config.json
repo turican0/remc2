@@ -15,7 +15,6 @@
 			},
 			"multiplayer": {
 				"serverPort": 3030,
-				"serverClientPort": 3031,
 				"clientPort": 3030,
 				"clientServerPort": 3030,
 				"clientServerIp": "127.0.0.1"

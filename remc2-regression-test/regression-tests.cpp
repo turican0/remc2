@@ -1,21 +1,88 @@
 #include "regression-tests.h"
+#include "../remc2/engine/EventsFunctions.h"
+#include "../remc2/engine/PlayerInput.h"
+#include "../remc2/engine/Level.h"
+#include "../remc2/engine/read_config.h"
+#include <filesystem>
 
-int run_regtest(int level, int testType, int index, int saveIndex, const char* recordName, int maxSteps, bool turnOnIntervalSave)//236F70
+// Per-run state of the engine that the tests depend on.  All tests run in one process, and without
+// this each one starts where the previous one left off: IsAfterLoad stays true after a level test,
+// so an afterload test compared frame 0 against a memimage taken after the load (which only
+// happens on frame 5) and failed on step 0.
+extern int debug_first_run;
+extern int count_begin;
+extern int countcompindexes;
+extern type_compstr lastcompstr;
+extern int debugcounter_1fb7a0;
+
+static void ResetRegressionRunState()
+{
+	IsAfterLoad = false;
+	debug_first_run = 0;
+	count_begin = 1;
+	debugcounter_47560 = 0;
+	debugcounter_1fb7a0 = 0;
+	save_debugcounter = 0;
+	countcompindexes = 0;
+	lastcompstr.adress = 0;
+	lastcompstr.index = 0;
+}
+
+bool resaveRecordings = false;
+
+// memimages/regressions next to the exe, else the one of the sources
+std::string RegressionsPath()
+{
+	const std::string nextToExe = get_exe_path() + "/memimages/regressions";
+	if (std::filesystem::exists(nextToExe))
+		return nextToExe;
+	return (std::filesystem::path(__FILE__).parent_path() / "memimages" / "regressions").string();
+}
+
+bool forcePackedData = false;
+
+// GitHub Actions has no game data: without CD_Files the game takes data.binz (next to the exe, else the one
+// of the sources) and skips everything else it would load. Decided once, the runs change cdFolder.
+std::string PackedDataFile()
+{
+	static const bool packed = forcePackedData || GetSubDirectoryPath("CD_Files").empty();
+	if (!packed)
+		return "";
+	const std::string nextToExe = get_exe_path() + "/data/data.binz";
+	if (std::filesystem::exists(nextToExe))
+		return nextToExe;
+	return (std::filesystem::path(__FILE__).parent_path() / "data" / "data.binz").string();
+}
+
+// folder of memimages/regressions: prefix and a three digit number (level001, afterloadtest002, record010)
+std::string RegressionFolder(const char* prefix, int number)
+{
+	char name[64];
+	snprintf(name, sizeof(name), "%s%03d", prefix, number);
+	return name;
+}
+
+int run_regtest(int level, int testType, int index, int saveIndex, const char* recordName, int maxSteps, bool turnOnIntervalSave, const char* recordFolder)//236F70
 {
 	int exitCode = 0;
-	Logger->info("Testing aftreload {} for Level {}", index, level);
+	const std::string testName = strlen(recordFolder) > 0 ? std::string(recordFolder) : "aftreload " + std::to_string(index);
+	Logger->info("Testing {} for Level {}", testName, level);
 
 	unitTests = true;
+	packedDataFile = PackedDataFile();
+	menuFps = 0;//no fps limit in the tests, maxGameFps is 0 in regression-config.json
 	std::string locUnitTestsPath;
 	std::string recordPath = "";
 	if (testType>0)
 	{
-		locUnitTestsPath = get_exe_path() + "/memimages/regressions/afterloadtest" + std::to_string(index);
-		if(strlen(recordName) > 0)
-			recordPath = get_exe_path() + "/memimages/regressions/afterloadtest" + std::to_string(index) + "/" + recordName;
+		locUnitTestsPath = RegressionsPath() + "/" + RegressionFolder("afterloadtest", index);
+		if (strlen(recordFolder) > 0)//<folder>/<recording>, <folder>/level<NNN>/sequence-*
+			locUnitTestsPath = RegressionsPath() + "/" + recordFolder + "/" + RegressionFolder("level", level);
+		if (strlen(recordName) > 0)//in memimages/regressions
+			recordPath = RegressionsPath() + "/" + (strlen(recordFolder) > 0 ? std::string(recordFolder) + "/" : "") + recordName;
 	}
 	else
-		locUnitTestsPath = get_exe_path() + "/memimages/regressions/level" + std::to_string(level);
+		locUnitTestsPath = RegressionsPath() + "/" + RegressionFolder("level", level);
 	unitTestsPath = locUnitTestsPath;
 	int locEndTestsCode = 0;
 	endTestsCode = &locEndTestsCode;
@@ -23,7 +90,9 @@ int run_regtest(int level, int testType, int index, int saveIndex, const char* r
 	std::vector<std::string> args;
 	args.reserve(20);
 
-	std::string path = get_exe_path() + "/regression-config.json";
+	std::string path = get_exe_path() + "/regression-config.json";//next to the exe, else the one of the sources (CI)
+	if (!std::filesystem::exists(path))
+		path = (std::filesystem::path(__FILE__).parent_path() / "regression-config.json").string();
 
 	args.emplace_back("remc2");
 
@@ -46,6 +115,11 @@ int run_regtest(int level, int testType, int index, int saveIndex, const char* r
 		{
 			args.emplace_back("--play_file");
 			args.emplace_back(recordPath);
+			if (resaveRecordings)
+			{
+				args.emplace_back("--record_file");//rewritten with level saves
+				args.emplace_back(recordPath);
+			}
 		}
 		args.emplace_back("--set_max_regressions_steps");
 		args.emplace_back(std::to_string(maxSteps));
@@ -82,13 +156,14 @@ int run_regtest(int level, int testType, int index, int saveIndex, const char* r
 		compstr[i].adress = 0;
 		compstr[i].index = 0;
 	}
+	ResetRegressionRunState();
 
 	CommandLineParams.Init(argc, argv.data());
 	support_begin();
 	x_BYTE_D4B80 = 0;
 	CleanF5538_716A0();
 	for (int i = 0; i < 504; i++)
-		str_DWORD_F66F0x[i] = nullptr;
+		m_ptrLoadedSprites_F66F0x[i] = nullptr;
 	x_DWORD_E9C28_str = nullptr;
 
 	try
@@ -105,13 +180,13 @@ int run_regtest(int level, int testType, int index, int saveIndex, const char* r
 	support_end();
 	if (locEndTestsCode == 20)
 		if (testType > 0)
-			Logger->info("Test aftreload {} for Level {} - OK\n\n", index, level);
+			Logger->info("Test {} for Level {} - OK\n\n", testName, level);
 		else
 			Logger->info("Test Level {} - OK\n\n", level);
 	else
 	{
 		if (testType > 0)
-			Logger->info("Test aftreload {} for Level {} - FAILED\n\n", index, level);
+			Logger->info("Test {} for Level {} - FAILED\n\n", testName, level);
 		else
 			Logger->error("Test Level {} - FAILED\n\n", level);
 		exitCode = -1;

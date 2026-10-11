@@ -120,7 +120,7 @@ int x_DWORD_181C0C; // weak
 int x_DWORD_181C10; // weak
 
 uint32_t unk_181B42 = 0; // weak
-int16_t x_WORD_181B44 = 0; // weak
+int16_t CurrentPaletteFade_181B44 = 0; // weak
 int x_DWORD_181BE0; // weak
 FILE* ailDebufFile_181BF0; // weak
 int x_DWORD_181BF4 = 0; // weak//352bf4

@@ -124,7 +124,7 @@ extern const char* LevelsNames_D9204[61];
 extern char* off_DB558[];
 extern __int16 x_WORD_E131A;
 extern char x_BYTE_E1324;
-extern type_menuButtons_E1F84 str_E1BAC[10];
+extern type_menuButtons_E1F84 mainMenuButtons_E1BAC[10];
 extern long lastTime_E208C;
 extern __int16 timeCounter_E2094;
 extern char minTimeCounter_E2096;
@@ -134,7 +134,7 @@ extern MenuItem nextMenu_E29D8;
 extern int16_t m_ExitMenuLoop_E29DC;
 extern char x_BYTE_E29DF_skip_screen;
 extern char x_BYTE_E29E0;
-extern uint8_t* pre_x_DWORD_E9C3C;
+extern uint8_t* pre_ptrMemoryBuffer_E9C3C;
 extern uint8_t x_BYTE_EB39E_keys[10];
 extern uint8_t uiBackGroundColorIdx_EB3A8;
 extern int32_t times_17DBB8[4];
@@ -167,6 +167,10 @@ extern typeTextBoxtextBoxStr_E24BCx textBoxStr_E25DC[];
 extern type_BYTE_E25ED_0x str_BYTE_E25ED_0x[];
 extern type_x_BYTE_E25ED_2BB str_BYTE_E25ED_2BB[];
 extern type_E1BAC_0x3c4 str_E1BAC_0x2ec[];
+
+// Result of the multiplayer game that has just finished, waiting to be shown.  It is set as
+// the level is torn down and displayed after the exit of the level
+extern std::string g_matchResultPending;
 
 // functions
 void MenusAndIntros_76930(bool skipMenus = false);
@@ -204,6 +208,8 @@ void PlayInGameFmv_82670();
 void DrawEndGameTable_82C20(__int16 a1);
 void PlayIntros_83250(char a1);
 void ShowEndCredits_833C0();
+void ShowScores();
+std::vector<std::string> SplitLines(const std::string& text);
 void ShowWelcomeScreen_83850();
 void DrawNetGameMapBackground_85C8B(uint8_t* a1, uint8_t* a2, int a3, int a4, int a5, int a6);
 bool DrawAndServe_pre_sub_7B250(uint32_t var, type_menuButtons_E1F84* var2x);

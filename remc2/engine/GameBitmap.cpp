@@ -268,7 +268,7 @@ void GameBitmap::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, bitmap_
 			{
 				LOBYTE(startOffsetX) = *ptrBitmapPixel++;
 				HIBYTE(startOffsetX) = *ptrScreenBuffer;
-				LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
+				LOBYTE(startOffsetX) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + startOffsetX];
 				*ptrScreenBuffer++ = startOffsetX;
 				posWidth--;
 			} while (posWidth);
@@ -345,7 +345,7 @@ void GameBitmap::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, bitmap_
 					{
 						LOBYTE(startOffsetX) = *ptrBitmapPixel;
 						HIBYTE(startOffsetX) = *ptrScreenBuffer;
-						LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
+						LOBYTE(startOffsetX) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + startOffsetX];
 						*ptrScreenBuffer++ = startOffsetX;
 					}
 					ptrBitmapPixel++;
@@ -481,3 +481,47 @@ void GameBitmap::ScaleMenuGraphic(uint16_t height, uint8_t scale, uint8_t* ptrSr
 		}
 	}
 };
+
+void GameBitmap::PaletteToRgb(uint8_t* ptrPalette, uint8_t colorIdx, uint8_t truColorOut[3])
+{
+	truColorOut[0] = ptrPalette[colorIdx * 3 + 2];
+	truColorOut[1] = ptrPalette[colorIdx * 3 + 1];
+	truColorOut[2] = ptrPalette[colorIdx * 3];
+}
+
+void GameBitmap::PaletteToRgba(uint8_t* ptrPalette, uint8_t colorIdx, uint8_t truColorOut[4])
+{
+	truColorOut[0] = ptrPalette[colorIdx * 3 + 2];
+	truColorOut[1] = ptrPalette[colorIdx * 3 + 1];
+	truColorOut[2] = ptrPalette[colorIdx * 3];
+
+	if (colorIdx != 255)
+		truColorOut[3] = 255;
+}
+
+uint8_t GameBitmap::DeriveBlendAlpha(uint8_t* ptrPalette, uint8_t srcIndex, uint8_t dstIndex, uint8_t resultIndex)
+{
+	uint8_t src[3], dst[3], result[3];
+	PaletteToRgb(ptrPalette, srcIndex, src);
+	PaletteToRgb(ptrPalette, dstIndex, dst);
+	PaletteToRgb(ptrPalette, resultIndex, result);
+
+	float alphaSum = 0.0f;
+	int   channels = 0;
+
+	for (int c = 0; c < 3; ++c)
+	{
+		int denom = (int)src[c] - (int)dst[c];
+		if (denom != 0)
+		{
+			float a = (float)((int)result[c] - (int)dst[c]) / (float)denom;
+			alphaSum += std::clamp(a, 0.0f, 1.0f);
+			channels++;
+		}
+	}
+
+	if (channels == 0)
+		return 255; // src == dst on every channel; no info, treat as fully covered
+
+	return (uint8_t)(alphaSum / channels * 255.0f + 0.5f);
+}

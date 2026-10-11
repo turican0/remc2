@@ -130,7 +130,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)remc2\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;XmiInfo;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_SpriteDef_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionVertex;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;XmiInfo;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-nonASA|Win32'">
@@ -155,7 +155,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)remc2\Debug-nonASA;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_SpriteDef_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionVertex;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -177,7 +177,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)remc2\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;XmiInfo;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_SpriteDef_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionVertex;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;XmiInfo;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-nonASA|x64'">
@@ -199,7 +199,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)remc2\x64\Debug-nonASA;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;XmiInfo;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_SpriteDef_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionVertex;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;XmiInfo;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -212,6 +212,13 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>$(SolutionDir);$(MSBuildThisFileDirectory)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <!-- Same language settings as the Debug configurations above.  The tests include the
+           engine's own headers, and those need C++17 (globals.h has an inline variable,
+           ConfigToSdlScancodeMapping.h a structured binding) and a /utf-8 source charset,
+           which spdlog asserts on outright. -->
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalOptions>/Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -230,6 +237,10 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>$(SolutionDir);$(MSBuildThisFileDirectory)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <!-- See the note in the Release|Win32 block above. -->
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalOptions>/Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

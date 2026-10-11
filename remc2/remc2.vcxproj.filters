@@ -117,7 +117,7 @@
     <ClInclude Include="engine\Type_F2C20ar.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="engine\Type_WORD_D951C.h">
+    <ClInclude Include="engine\Type_SpriteDef_D951C.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="engine\ViewPort.h">
@@ -153,7 +153,7 @@
     <ClInclude Include="engine\RenderThread.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="engine\ProjectionPolygon.h">
+    <ClInclude Include="engine\ProjectionVertex.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="utilities\Wave.h">
@@ -178,9 +178,6 @@
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="engine\GameRenderInterface.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\GameRenderGL.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="portability\port_net.h">
@@ -425,7 +422,7 @@
     <ClCompile Include="engine\Type_D404C.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="engine\Type_WORD_D951C.cpp">
+    <ClCompile Include="engine\Type_SpriteDef_D951C.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\Type_D94F0_Bldgprmbuffer.cpp">
@@ -437,7 +434,7 @@
     <ClCompile Include="engine\RenderThread.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="engine\ProjectionPolygon.cpp">
+    <ClCompile Include="engine\ProjectionVertex.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\Type_MapScreenPortals_E17CC.cpp">
@@ -453,9 +450,6 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\GameRenderOriginal.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\GameRenderGL.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\ViewPort.cpp">
@@ -597,5 +591,10 @@
     <Image Include="font\16x16-font.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icons\app.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

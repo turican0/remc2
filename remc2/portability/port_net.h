@@ -9,6 +9,7 @@
 #include <fstream>
 
 #include "../engine/defs.h"
+#include "../engine/EventDispatcher.h"
 #include "../portability/port_outputs.h"
 
 #include <thread>
@@ -94,6 +95,10 @@ typedef struct message_info {
 };
 #pragma pack()
 
+// Defined in port_net.cpp: a connection that has been accepted but has not said yet whether
+// it carries control traffic or game data.
+struct PendingConn;
+
 namespace MyNetworkLib {
 
 	class NetworkClass {
@@ -129,13 +134,30 @@ namespace MyNetworkLib {
 		std::map<std::string, PeerInfo> directPeers;
 
 		void ConnectToServer();
-		void AcceptCtrlClients();
+		// One port carries both roles, so an accepted connection is parked until its first
+		// message says whether it is a control client or a peer data session.
+		void AcceptIncoming();
+		void PollPendingConnections();
+		void AdoptCtrlClient(::PendingConn& pc, const std::string& firstRaw);
+		// False means "not yet" - no LISTEN is armed for this caller.  The socket is left
+		// open so the caller can park the connection and offer it again.
+		bool AdoptDataSession(::PendingConn& pc, const std::string& firstRaw);
 		void PollCtrlClients();
+		// Server: hand the current membership to every client.
+		void BroadcastRoster();
+		// The server went away: decide who takes the role over, and either take it or follow.
+		void HandleServerLoss();
 		void PollCtrlSocket();
-		void AcceptPeerConnections();
 		void PollSessions();
 		bool ConnectDataToPeer(myNCB* ncb, const std::string& addr, int dataPort);
-		void HandleServerMsg(const std::string& raw, const std::string& senderAddr, int senderDataPort);
+		// senderSock is the connection the request arrived on.  Replies go straight back
+		// down it: addressing them by ip+port cannot distinguish two nodes that share an
+		// address, which on loopback is every node in the session.
+		//
+		// Carried as intptr_t so this header does not have to pull in the socket headers;
+		// -1 is the invalid handle on both platforms (INVALID_SOCKET is (SOCKET)~0).
+		void HandleServerMsg(const std::string& raw, const std::string& senderAddr, int senderDataPort,
+			intptr_t senderSock = -1);
 		void HandleClientMsg(const std::string& raw);
 		void UpdateClient();
 	};
@@ -146,7 +168,14 @@ extern MyNetworkLib::NetworkClass* locNetworkClass;
 
 void simulateInterupt(myNCB* connection);
 
+// Clears per-match network state (data sessions, established-connection list, pending
+// NCB commands) so a fresh multiplayer match does not inherit stale entries from a
+// previous one.  Sockets stay open.  Fixes restart bug (#3).
+void ResetNetworkGameState();
+
 void EndMyNetLib();
+
+void SetNetworkDebug();
 
 void AddRecMess(std::string message);
 std::string GetRecMess();
@@ -159,6 +188,21 @@ void printState2(char* text);
 bool ReceiveServerAddName();
 
 void InitMyNetLib(bool iam_server, bool iam_client, char* ip, int networkPort, int serverPort);
+
+// Which player slots the transport still sees in the session.
+//
+// Worked out from the membership list the server broadcasts on every change, so it covers
+// peers this node holds no data session with.  That matters when the server dies: the game
+// only ever talked to the token holder, so it cannot see the other survivors by itself, and
+// the orderly hand-over it would otherwise use begins by receiving the survivor list FROM
+// the node that went away.  The slot number is the trailing decimal of the NetBIOS name,
+// which is how the names were built: namePrefix (the game's nethID) followed by the index.
+// The prefix has to be passed in because it ends in digits itself - "NETH21" plus slot 1 is
+// "NETH211", so reading the trailing number off the end yields 211, not 1.
+//
+// Fills present[0..7] and returns how many slots were marked, or -1 if the transport has no
+// membership list yet - in which case the caller must fall back to what it knows itself.
+int NetworkRosterPlayers(const char* namePrefix, bool present[8]);
 
 void debug_net_printf(const char* format, ...);
 

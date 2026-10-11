@@ -1,5 +1,9 @@
 set(CONFIGURATOR_TARGET remc2-configurator)
 
+if (WIN32)
+	set(APP_ICON_RESOURCE ${CMAKE_SOURCE_DIR}/icons/config.rc)
+endif()
+
 set(SOURCE_FILES_CONFIGURATOR
     "Remc2ConfiguratorApp.cpp"
     "../remc2/portability/Config.cpp"

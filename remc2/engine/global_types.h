@@ -9,7 +9,7 @@ const uint16_t GAME_RES_MAX_HEIGHT = 2160;
 constexpr uint16_t NUMBER_OF_SPELLS = 26;
 
 typedef union {
-	uint8_t byte[4];
+	int8_t byte[4];
 	uint16_t word[2];
 	uint32_t dword;
 }
@@ -93,21 +93,26 @@ typedef struct {//lenght 34
 }
 type_str_160;
 
+typedef union
+{
+	int32_t dword;
+	int16_t word[2];
+} type_mail_amount;//4
+
 typedef struct
 {
-	int32_t dword_0x5E_94;//94 //36 lenght
-	int16_t word_0x62_98;//98 //4 // index subentity
-	int32_t dword_0x64_100;//100 //6
-	int16_t word_0x68_104;//104 //10
-	uint8_t stub5b[6];
-	int32_t dword_0x70_112;//112
-	int16_t word_0x74_116;//116
-	int16_t word_0x76_118;//118
-	int16_t word_0x78_120;//120
-	int16_t word_0x7A_122;//122
-	int16_t word_0x7C_124;//124
-	uint8_t stub5d[2];
-	uint16_t word_0x80_128;//128
+	type_mail_amount amount;//+0
+	int16_t source;//+4 // index subentity
+} type_mail_channel;//6
+
+//94 //36 lenght //entity +0x5E..+0x81, six 6-byte channels; the EXE addresses
+//them as entity + 6*index (1f1cf0: lea eax,[edx*4] / sub eax,edx / add eax,eax)
+//channel[0] = dword_0x5E_94 / word_0x62_98    channel[3] = dword_0x70_112 / word_0x74_116
+//channel[1] = dword_0x64_100 / word_0x68_104  channel[4] = word_0x76_118+word_0x78_120 / word_0x7A_122
+//channel[2] = stub5b[6]                       channel[5] = word_0x7C_124+stub5d / word_0x80_128
+typedef struct
+{
+	type_mail_channel channel[6];
 } type_str_0x5E_94;
 
 typedef struct {//lenght 18
@@ -170,6 +175,13 @@ typedef enum
 	SPEECH_DISABLED = 0xBF,
 	LEVEL_LOADED_FROM_ARG = 0x80u,
 } Setting;
+
+typedef enum
+{
+	Transparent = 2,
+	InFog = 3,
+} Visibility;
+
 
 typedef struct {//begin 611//str_611
 	type_32_1a SpellExperience_0x263_611x;//size??//dword_0x649_2BDE
@@ -295,7 +307,7 @@ typedef struct Type_str_164 {//size 1136
 	//int16_t word_0x204_516[32];
 	//int16_t word_0x242_578;//word_0x204_516[31]
 	uint8_t stubm[6];
-	int16_t word_0x242_578 = -1;
+	int16_t word_0x242_578;//unk_F42B0 (A4 of entities without a player) is BSS, 0 in the original; 1F6B0D movsx eax,word ptr [eax+242h]
 	int16_t word_0x244_580;
 	int16_t word_0x246_582;
 	int16_t word_0x248_584;

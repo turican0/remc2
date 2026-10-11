@@ -9,10 +9,10 @@
 #pragma pack (push,1)
 typedef struct {//lenght 28
 	int32_t dword_0;
-	type_particle_str* Particles_4;//mayby type_particle_str*
+	Type_Sprite* Sprite_4;
 	int32_t dword_8;
 	int16_t word_12;
-	uint16_t word_14;
+	uint16_t NextFrameOffset_14;
 	int16_t CountOfFrames_16;
 	int16_t Width_18;//width
 	int16_t Height_20;//height

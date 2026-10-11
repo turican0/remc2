@@ -27,7 +27,6 @@
 #include "engine/GameRenderOriginal.h"
 #include "engine/GameRenderHD.h"
 #include "engine/GameRenderNG.h"
-#include "engine/GameRenderGL.h"
 #include "engine/GameBitmap.h"
 #include "engine/GameBitmapIndexes.h"
 #include "engine/GameUiConstants.h"
@@ -100,6 +99,8 @@ void StopRecording();
 void StartPlayback(const char* inputFileName);
 void StopPlayback();
 bool IsRecordingOrPlaying();
+bool IsRecording();
+void OnNetworkMessageReceived(std::string message);
 
 int sub_main(int argc, char** argv, char** envp);
 #endif //SUB_MAIN_ACTIVE

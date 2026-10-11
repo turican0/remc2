@@ -281,21 +281,16 @@ jobs:
           path: remc2-linux-x86_64.tar.gz
 
   # ─────────────────────────────────────────────
-  # Linux ARM64 (cross-compile)
+  # Linux ARM64 (native runner)
   # ─────────────────────────────────────────────
   build-linux-arm64:
     name: Linux (ARM64)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
 
     env:
       GITHUB_CI_COMPATIBILITY_PATH: /usr/lib/aarch64-linux-gnu
 
     steps:
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-        with:
-          platforms: arm64
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -303,31 +298,19 @@ jobs:
           submodules: recursive
           path: src
 
-      - name: Install Dependencies (ARM64 cross)
+      - name: Install Dependencies
         run: |
-          sudo dpkg --add-architecture arm64
-
-          sudo grep -q "^Architectures:" /etc/apt/sources.list.d/ubuntu.sources || \
-          sudo sed -i 's/^Types: deb$/Types: deb\nArchitectures: amd64/' \
-            /etc/apt/sources.list.d/ubuntu.sources
-
-          sudo tee /etc/apt/sources.list.d/arm64-ports.list > /dev/null <<'EOF'
-          deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports noble main restricted universe multiverse
-          deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports noble-updates main restricted universe multiverse
-          deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports noble-security main restricted universe multiverse
-          EOF
-
           sudo apt-get update
           sudo apt-get -y install --no-install-recommends \
+            build-essential \
             cmake ninja-build \
-            gcc-aarch64-linux-gnu g++-aarch64-linux-gnu \
-            libsdl2-dev:arm64 libsdl2-mixer-dev:arm64 \
-            libsdl2-ttf-dev:arm64 libsdl2-image-dev:arm64 \
-            libgtest-dev:arm64 \
-            libspdlog-dev:arm64 libfmt-dev:arm64 \
-            libpng-dev:arm64 \
+            libsdl2-dev libsdl2-mixer-dev \
+            libsdl2-ttf-dev libsdl2-image-dev \
+            libgtest-dev \
+            libspdlog-dev libfmt-dev \
+            libpng-dev \
             nlohmann-json3-dev \
-            libwxgtk3.2-dev:arm64 \
+            libwxgtk3.2-dev
 
       - name: Configure
         run: |
@@ -335,10 +318,6 @@ jobs:
           cd build_Release
           cmake -GNinja \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_SYSTEM_NAME=Linux \
-            -DCMAKE_SYSTEM_PROCESSOR=aarch64 \
-            -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc \
-            -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++ \
             -DUSE_64_BIT=True \
             -DGITHUB_CI_COMPATIBILITY_PATH="${{ env.GITHUB_CI_COMPATIBILITY_PATH }}" \
             ${{ github.workspace }}/src

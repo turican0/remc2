@@ -98,7 +98,7 @@ void DrawLine_2BD10(int16_t posX1, int16_t posY1, int16_t posX2, int16_t posY2, 
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer_351628;
-		pdwScreenBuffer_351628 = (uint8_t*)x_DWORD_E9C3C;
+		pdwScreenBuffer_351628 = (uint8_t*)ptrMemoryBuffer_E9C3C;
 		func_draw(posX1, posY1, posX2, posY2, color);
 		//result = v7;
 		pdwScreenBuffer_351628 = temp_screen_buffer;
@@ -106,7 +106,7 @@ void DrawLine_2BD10(int16_t posX1, int16_t posY1, int16_t posX2, int16_t posY2, 
 	//return result;
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-// E9C3C: using guessed type int x_DWORD_E9C3C;
+// E9C3C: using guessed type int ptrMemoryBuffer_E9C3C;
 // 180628: using guessed type int pdwScreenBuffer_351628;
 // 180660: using guessed type int16_t x_WORD_180660_VGA_type_resolution;
 
@@ -522,7 +522,7 @@ void DrawSquareByColor_2E850(int posX, int posY, int width, int height, uint8_t 
 	{
 		for (int indexX = locPosX; indexX < locWidth + locPosX; indexX++)
 		{
-			pdwScreenBuffer_351628[screenWidth_18062C * indexY + indexX] = x_BYTE_F6EE0_tablesx[256 * color
+			pdwScreenBuffer_351628[screenWidth_18062C * indexY + indexX] = ColourLookupTable_F6EE0[256 * color
 				+ pdwScreenBuffer_351628[screenWidth_18062C * indexY + indexX]];
 		}
 	}
@@ -1102,7 +1102,7 @@ void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t pos
 		v72 = (uint16_t)Maths::sub_72633_maybe_tan(v25 - v20, v26 - v21);
 		for (i = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248 & 3;
 			;
-			*(x_BYTE*)(ptrMapBufferStart_v84 + v20 + (i * Maths::sin_DB750[v72] >> 16) + screenWidth_18062C * v85) = x_BYTE_F6EE0_tablesx[0x4000 + 256
+			*(x_BYTE*)(ptrMapBufferStart_v84 + v20 + (i * Maths::sin_DB750[v72] >> 16) + screenWidth_18062C * v85) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256
 			* *(uint8_t*)(ptrMapBufferStart_v84 + v20 + (i * Maths::sin_DB750[v72] >> 16) + screenWidth_18062C * v85)
 			+ (uint8_t)(*xadataclrd0dat.colorPalette_var28)[4095]])//castle rope
 		{
@@ -1534,19 +1534,19 @@ void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t pos
 		int v71 = 0;
 		int crossWidth_v67 = width / 12;
 		uint8_t* ptrCrossWest_v68 = (uint8_t*)(screenWidth_18062C * (int)(height / 2) + width / 2 + ptrMapBufferStart_v84 - 1);
-		char* index = (char*)&x_BYTE_F6EE0_tablesx[0x4000 + 256 * CentreCrossColour_v93];
+		char* index = (char*)&ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * CentreCrossColour_v93];
 		uint8_t* ptrCrossSouth_v70 = (uint8_t*)(screenWidth_18062C * (int)(height / 2) + width / 2 + ptrMapBufferStart_v84 - 1);
 		uint8_t* ptrCrossEast_v77 = (uint8_t*)(screenWidth_18062C * (int)(height / 2) + width / 2 + ptrMapBufferStart_v84 - 1);
 		uint8_t* ptrCrossNorth_v81 = (uint8_t*)(screenWidth_18062C * (int)(height / 2) + width / 2 + ptrMapBufferStart_v84 - 1);
 
-		for (*ptrCrossWest_v68 = index[(uint8_t)*ptrCrossWest_v68]; crossWidth_v67; *ptrCrossWest_v68 = x_BYTE_F6EE0_tablesx[0x4000 + 256 * CentreCrossColour_v93 + v71])
+		for (*ptrCrossWest_v68 = index[(uint8_t)*ptrCrossWest_v68]; crossWidth_v67; *ptrCrossWest_v68 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * CentreCrossColour_v93 + v71])
 		{
 			ptrCrossNorth_v81 -= screenWidth_18062C;
 			ptrCrossSouth_v70 += screenWidth_18062C;
 			ptrCrossEast_v77++;
-			*ptrCrossNorth_v81 = x_BYTE_F6EE0_tablesx[0x4000 + 256 * CentreCrossColour_v93 + (uint8_t)*ptrCrossNorth_v81];
-			*ptrCrossEast_v77 = x_BYTE_F6EE0_tablesx[0x4000 + 256 * CentreCrossColour_v93 + (uint8_t)*ptrCrossEast_v77];
-			*ptrCrossSouth_v70 = x_BYTE_F6EE0_tablesx[0x4000 + 256 * CentreCrossColour_v93 + (uint8_t)*ptrCrossSouth_v70];
+			*ptrCrossNorth_v81 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * CentreCrossColour_v93 + (uint8_t)*ptrCrossNorth_v81];
+			*ptrCrossEast_v77 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * CentreCrossColour_v93 + (uint8_t)*ptrCrossEast_v77];
+			*ptrCrossSouth_v70 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * CentreCrossColour_v93 + (uint8_t)*ptrCrossSouth_v70];
 			v71 = (uint8_t) * (ptrCrossWest_v68-- - 1);
 			crossWidth_v67--;
 		}
@@ -1565,8 +1565,8 @@ void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t pos
 
 		for (int i = 0; i < crossWidth_v67; i++)
 		{
-			*ptrCrossWest_v68 = x_BYTE_F6EE0_tablesx[0x4000 + 256 * CentreCrossColour_v93 + (uint8_t)*ptrCrossWest_v68];
-			*ptrCrossEast_v77 = x_BYTE_F6EE0_tablesx[0x4000 + 256 * CentreCrossColour_v93 + (uint8_t)*ptrCrossEast_v77];
+			*ptrCrossWest_v68 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * CentreCrossColour_v93 + (uint8_t)*ptrCrossWest_v68];
+			*ptrCrossEast_v77 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * CentreCrossColour_v93 + (uint8_t)*ptrCrossEast_v77];
 			ptrCrossWest_v68--;
 			ptrCrossEast_v77++;
 		}
@@ -1579,8 +1579,8 @@ void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t pos
 
 		for (int i = 0; i < crossWidth_v67; i++)
 		{
-			*ptrCrossNorth_v81 = x_BYTE_F6EE0_tablesx[0x4000 + 256 * CentreCrossColour_v93 + (uint8_t)*ptrCrossNorth_v81];
-			*ptrCrossSouth_v70 = x_BYTE_F6EE0_tablesx[0x4000 + 256 * CentreCrossColour_v93 + (uint8_t)*ptrCrossSouth_v70];
+			*ptrCrossNorth_v81 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * CentreCrossColour_v93 + (uint8_t)*ptrCrossNorth_v81];
+			*ptrCrossSouth_v70 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * CentreCrossColour_v93 + (uint8_t)*ptrCrossSouth_v70];
 			ptrCrossNorth_v81 -= screenWidth_18062C;
 			ptrCrossSouth_v70 += screenWidth_18062C;
 		}
@@ -1733,7 +1733,7 @@ void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_
 	}
 	//v99 = v9 * x_DWORD_18062C_resolution_x + (int)pdwScreenBuffer + v8;
 	v99x = &pdwScreenBuffer_351628[v9 * screenWidth_18062C + v8];
-	v100x = &x_DWORD_E9C3C[v9 * screenWidth_18062C + v8];
+	v100x = &ptrMemoryBuffer_E9C3C[v9 * screenWidth_18062C + v8];
 	LODWORD(v13) = 0x10000;
 	HIDWORD(v13) = 0x10000 >> 31;
 	v14 = v13 / v10;
@@ -1776,7 +1776,7 @@ void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_
 				break;
 			v32x = &v99x[screenWidth_18062C * v94 + v31];
 			v33x = &v100x[screenWidth_18062C * v94 + v31]; //(char*)(v100 + v31 + x_DWORD_18062C_resolution_x * v94);
-			v34 = x_BYTE_F6EE0_tablesx[0x4000 + 256 * *v32x + (uint8_t)(*xadataclrd0dat.colorPalette_var28)[4095]];
+			v34 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * *v32x + (uint8_t)(*xadataclrd0dat.colorPalette_var28)[4095]];
 			*v33x = v34;
 			*v32x = v34;
 		}
@@ -2182,7 +2182,7 @@ void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_
 	v74 = screenWidth_18062C * (height / 2);
 	v75 = &v100x[v74 + width / 2 - 1];
 	v76 = &v99x[v74 + width / 2 - 1];
-	index = (char*)&x_BYTE_F6EE0_tablesx[0x4000 + 256 * v106];
+	index = (char*)&ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * v106];
 	v88 = v76;
 	v101 = v76;
 	*v76 = index[(uint8_t)*v76];
@@ -2198,16 +2198,16 @@ void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_
 		v95 -= screenWidth_18062C;
 		v84++;
 		v83 += screenWidth_18062C;
-		v79 = x_BYTE_F6EE0_tablesx[0x4000 + 256 * v106 + (uint8_t)*v78];
+		v79 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * v106 + (uint8_t)*v78];
 		*v78 = v79;
 		*v95 = v79;
-		v80 = x_BYTE_F6EE0_tablesx[0x4000 + 256 * v106 + (uint8_t)*v101];
+		v80 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * v106 + (uint8_t)*v101];
 		*v101 = v80;
 		*v84 = v80;
-		v81 = x_BYTE_F6EE0_tablesx[0x4000 + 256 * v106 + (uint8_t)*v88];
+		v81 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * v106 + (uint8_t)*v88];
 		*v88 = v81;
 		*v83 = v81;
-		v82 = x_BYTE_F6EE0_tablesx[0x4000 + 256 * v106 + (uint8_t)*(v76 - 1)];
+		v82 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * v106 + (uint8_t)*(v76 - 1)];
 		*(v76 - 1) = v82;
 		*(v75 - 1) = v82;
 		v76--;
@@ -2255,14 +2255,16 @@ char sub_63570(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//244570
 //----- (00063600) --------------------------------------------------------
 void DrawMinimap_63600(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10)//244600
 {
+	if (PackedGameData())//regression tests without the game: needs TABLES?.DAT (ColourLookupTable_F6EE0), only reads the state
+		return;
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
-		sub_63670_draw_minimap_a(x, y, posX, posY, width, height, yaw, scaling, a10);
+		DrawMapLowRes_63670(x, y, posX, posY, width, height, yaw, scaling, a10);
 	else
-		sub_63C90_draw_minimap_b(x, y, posX, posY, width, height, yaw, scaling, a10);
+		DrawMapHighRes_63C90(x, y, posX, posY, width, height, yaw, scaling, a10);
 }
 
 //----- (00063670) --------------------------------------------------------
-void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10)//244670
+void DrawMapLowRes_63670(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10)//244670
 {
 	int v10; // eax
 	int v11; // esi
@@ -2281,7 +2283,6 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 	int v24; // esi
 	int v25; // eax
 	int v26; // eax
-	//int indexx; // eax
 	int v28; // ebx
 	int v29; // ecx
 	char* v30; // edi
@@ -2305,27 +2306,27 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 	char v48; // al
 	int v49; // ecx
 	int v50; // ebx
-	x_BYTE* v51; // edi
+	x_BYTE* ptrScreenBuffer_v51; // edi
+	x_BYTE* ptrScreenAlphaBuffer_v51 = nullptr;
 	int v52; // ecx
 	int v53; // esi
 	int v54; // eax
 	int v55; // edx
 	int v56; // ebx
-	char* v57; // edi
+	char* ptrScreenBuffer_v57; // edi
 	int v58; // ecx
 	int v59; // esi
 	int v60; // eax
 	int v61; // edx
 	char v62; // al
 	char* v63; // edi
-	uint8_t* v64x; // [esp+0h] [ebp-60h]
+	uint8_t* ptrMemoryBuffer_v64x; // [esp+0h] [ebp-60h]
 	int v65; // [esp+4h] [ebp-5Ch]
 	int v66; // [esp+8h] [ebp-58h]
 	int v67; // [esp+Ch] [ebp-54h]
-	//int v68; // [esp+10h] [ebp-50h]
 	int v69; // [esp+14h] [ebp-4Ch]
-	uint8_t* v70x; // [esp+18h] [ebp-48h]
-	uint8_t* v71x; // [esp+1Ch] [ebp-44h]
+	uint8_t* ptrScreenBuffer_v70x; // [esp+18h] [ebp-48h]
+	uint8_t* ptrMemoryBuffer_v71x; // [esp+1Ch] [ebp-44h]
 	int l; // [esp+20h] [ebp-40h]
 	int v73; // [esp+24h] [ebp-3Ch]
 	int i; // [esp+28h] [ebp-38h]
@@ -2335,11 +2336,10 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 	int v78; // [esp+38h] [ebp-28h]
 	int16_t* v79; // [esp+3Ch] [ebp-24h]
 	int v80; // [esp+40h] [ebp-20h]
-	//uint8_t* v81z; // [esp+44h] [ebp-1Ch]
 	int v81y; // [esp+44h] [ebp-1Ch]
-	uint8_t* v82x; // [esp+48h] [ebp-18h]
+	uint8_t* ptrMemoryBuffer_v82x; // [esp+48h] [ebp-18h]
 	int v83; // [esp+4Ch] [ebp-14h]
-	uint8_t* v84x; // [esp+50h] [ebp-10h]
+	uint8_t* ptrScreenBuffer_v84x; // [esp+50h] [ebp-10h]
 	int v85; // [esp+54h] [ebp-Ch]
 	int16_t* v86; // [esp+58h] [ebp-8h]
 	bool v87; // [esp+5Ch] [ebp-4h]
@@ -2358,8 +2358,8 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 		v13 = height >> 1;
 		scaling *= 2;
 	}
-	v70x = &pdwScreenBuffer_351628[v11 * screenWidth_18062C + v10];
-	v71x = &x_DWORD_E9C3C[v11 * screenWidth_18062C + v10];
+	ptrScreenBuffer_v70x = &pdwScreenBuffer_351628[v11 * screenWidth_18062C + v10];
+	ptrMemoryBuffer_v71x = &ptrMemoryBuffer_E9C3C[v11 * screenWidth_18062C + v10];
 	if (a10)
 	{
 		v15 = x_WORD_F4960;
@@ -2378,12 +2378,11 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 		v17 = &x_WORD_F4960[2 * (v13 / 2)];
 		v79 = v17 - 2;
 		v73 = 0;
-		//v68 = v13 >> 1;
 		v18 = v12 >> 1;
 		v69 = 0x1000000 / (v13 >> 1);
 		while (v78)
 		{
-			v65 = v18 * (uint8_t)x_BYTE_F6EE0_tablesx[(0x14300 + v73) >> 16] >> 8;
+			v65 = v18 * (uint8_t)ColourLookupTable_F6EE0[(0x14300 + v73) >> 16] >> 8;
 			v19 = v18 + v65;
 			v20 = v79;
 			*v17 = v18 + v65;
@@ -2409,8 +2408,8 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 	v85 = posX - (v12 * (v26 / v12) - v24) / 2;
 	v86 = x_WORD_F4960;
 	v83 = posY - (v26 + v12 * (v24 / v12)) / 2;
-	v84x = v70x;
-	v82x = v71x;
+	ptrScreenBuffer_v84x = ptrScreenBuffer_v70x;
+	ptrMemoryBuffer_v82x = ptrMemoryBuffer_v71x;
 	if (isCaveLevel_D41B6)
 	{
 		if (a10)
@@ -2420,8 +2419,8 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 				v33 = v86[1];
 				v28 = v85 + v33 * v66;
 				v29 = v83 + v33 * v67;
-				v30 = (char*)(v33 + v84x);
-				v64x = v33 + v82x;
+				v30 = (char*)(v33 + ptrScreenBuffer_v84x);
+				ptrMemoryBuffer_v64x = v33 + ptrMemoryBuffer_v82x;
 				v31 = *v86 - v86[1];
 				v32 = 0;
 				HIWORD(v33) = 0;
@@ -2434,19 +2433,18 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 					{
 						LOBYTE(v32) = mapTerrainType_10B4E0[v33];
 						BYTE1(v33) = mapShading_12B4E0[v33];
-						LOBYTE(v33) = x_BYTE_F6EE0_tablesx[0x14000 + v32];
-						v34 = x_BYTE_F6EE0_tablesx[v33];
+						LOBYTE(v33) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v32];
+						v34 = ColourLookupTable_F6EE0[v33];
 					}
 					*v30++ = v34;
 					LOWORD(v28) = v66 + v28;
 					LOWORD(v29) = v67 + v29;
 					v31--;
 				} while (v31);
-				v84x += screenWidth_18062C;
-				v82x += screenWidth_18062C;
+				ptrScreenBuffer_v84x += screenWidth_18062C;
+				ptrMemoryBuffer_v82x += screenWidth_18062C;
 				v86 += 2;
 				v85 -= v80;
-				//indexx = i - 1;
 				v83 += v81y;
 			}
 		}
@@ -2456,8 +2454,8 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 			{
 				v35 = v86[1];
 				v36 = v85 + v35 * v66;
-				v37 = (x_BYTE*)(v35 + v84x);
-				v64x = v35 + v82x;
+				v37 = (x_BYTE*)(v35 + ptrScreenBuffer_v84x);
+				ptrMemoryBuffer_v64x = v35 + ptrMemoryBuffer_v82x;
 				v38 = v83 + v35 * v67;
 				v39 = *v86 - v86[1];
 				v40 = 0;
@@ -2470,21 +2468,20 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 					{
 						LOBYTE(v40) = mapTerrainType_10B4E0[v41];
 						BYTE1(v41) = mapShading_12B4E0[v41];
-						LOBYTE(v41) = x_BYTE_F6EE0_tablesx[0x14000 + v40];
-						LOBYTE(v41) = x_BYTE_F6EE0_tablesx[v41];
+						LOBYTE(v41) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v40];
+						LOBYTE(v41) = ColourLookupTable_F6EE0[v41];
 						BYTE1(v41) = *v37;
-						*v37 = x_BYTE_F6EE0_tablesx[0x4000 + v41];
+						*v37 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v41];
 					}
 					v37++;
 					LOWORD(v36) = v66 + v36;
 					LOWORD(v38) = v67 + v38;
 					v39--;
 				} while (v39);
-				v84x += screenWidth_18062C;
-				v82x += screenWidth_18062C;
+				ptrScreenBuffer_v84x += screenWidth_18062C;
+				ptrMemoryBuffer_v82x += screenWidth_18062C;
 				v86 += 2;
 				v85 -= v80;
-				//indexx = j - 1;
 				v83 += v81y;
 			}
 		}
@@ -2494,9 +2491,9 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 			{
 				v47 = v86[1];
 				v42 = v85 + v47 * v66;
-				v43 = (char*)(v47 + v84x);
+				v43 = (char*)(v47 + ptrScreenBuffer_v84x);
 				v44 = v83 + v47 * v67;
-				v64x = v47 + v82x;
+				ptrMemoryBuffer_v64x = v47 + ptrMemoryBuffer_v82x;
 				v45 = *v86 - v86[1];
 				v46 = 0;
 				HIWORD(v47) = 0;
@@ -2512,18 +2509,17 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 					{
 						LOBYTE(v46) = mapTerrainType_10B4E0[v47];
 						BYTE1(v47) = mapShading_12B4E0[v47];
-						LOBYTE(v47) = x_BYTE_F6EE0_tablesx[0x14000 + v46];
-						v48 = x_BYTE_F6EE0_tablesx[v47];
+						LOBYTE(v47) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v46];
+						v48 = ColourLookupTable_F6EE0[v47];
 					}
 					*v43++ = v48;
 					LOWORD(v42) = v66 + v42;
 					LOWORD(v44) = v67 + v44;
 					v45--;
 				} while (v45);
-				v84x += screenWidth_18062C;
-				v82x += screenWidth_18062C;
+				ptrScreenBuffer_v84x += screenWidth_18062C;
+				ptrMemoryBuffer_v82x += screenWidth_18062C;
 				v86 += 2;
-				//indexx = v81y;
 				v85 -= v80;
 				k--;
 			}
@@ -2535,8 +2531,8 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 		{
 			v49 = v86[1];
 			v50 = v85 + v49 * v66;
-			v51 = (x_BYTE*)(v49 + v84x);
-			v64x = v49 + v82x;
+			ptrScreenBuffer_v51 = (x_BYTE*)(v49 + ptrScreenBuffer_v84x);
+			ptrMemoryBuffer_v64x = v49 + ptrMemoryBuffer_v82x;
 			v52 = v83 + v49 * v67;
 			v53 = *v86 - v86[1];
 			v54 = 0;
@@ -2547,17 +2543,16 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 				BYTE1(v55) = BYTE1(v52);
 				LOBYTE(v54) = mapTerrainType_10B4E0[v55];
 				BYTE1(v55) = mapShading_12B4E0[v55];
-				LOBYTE(v55) = x_BYTE_F6EE0_tablesx[0x14000 + v54];
-				*v51++ = x_BYTE_F6EE0_tablesx[v55];
+				LOBYTE(v55) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v54];
+				*ptrScreenBuffer_v51++ = ColourLookupTable_F6EE0[v55];
 				v50 += v66;
 				v52 += v67;
 				--v53;
 			} while (v53);
-			v84x += screenWidth_18062C;
-			v82x += screenWidth_18062C;
+			ptrScreenBuffer_v84x += screenWidth_18062C;
+			ptrMemoryBuffer_v82x += screenWidth_18062C;
 			v86 += 2;
 			v85 -= v80;
-			//indexx = l - 1;
 			v83 += v81y;
 		}
 	}
@@ -2567,9 +2562,9 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 		{
 			v61 = v86[1];
 			v56 = v85 + v61 * v66;
-			v57 = (char*)(v61 + v84x);
+			ptrScreenBuffer_v57 = (char*)(v61 + ptrScreenBuffer_v84x);
 			v58 = v83 + v61 * v67;
-			v64x = v61 + v82x;
+			ptrMemoryBuffer_v64x = v61 + ptrMemoryBuffer_v82x;
 			v59 = *v86 - v86[1];
 			v60 = 0;
 			HIWORD(v61) = 0;
@@ -2579,22 +2574,21 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 				BYTE1(v61) = BYTE1(v58);
 				LOBYTE(v60) = mapTerrainType_10B4E0[v61];
 				BYTE1(v61) = mapShading_12B4E0[v61];
-				LOBYTE(v61) = x_BYTE_F6EE0_tablesx[0x14000 + v60];
-				LOBYTE(v61) = x_BYTE_F6EE0_tablesx[v61];
-				BYTE1(v61) = *v57;
-				v62 = x_BYTE_F6EE0_tablesx[0x4000 + v61];
-				*v57 = v62;
-				v63 = x_InterlockedExchange((char**)&v64x, (v57 + 1));
+				LOBYTE(v61) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v60];
+				LOBYTE(v61) = ColourLookupTable_F6EE0[v61];
+				BYTE1(v61) = *ptrScreenBuffer_v57;
+				v62 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v61];
+				*ptrScreenBuffer_v57 = v62;
+				v63 = x_InterlockedExchange((char**)&ptrMemoryBuffer_v64x, (ptrScreenBuffer_v57 + 1));
 				*v63 = v62;
-				v57 = x_InterlockedExchange((char**)&v64x, (v63 + 1));
+				ptrScreenBuffer_v57 = x_InterlockedExchange((char**)&ptrMemoryBuffer_v64x, (v63 + 1));
 				v56 += v66;
 				v58 += v67;
 				v59--;
 			} while (v59);
-			v84x += screenWidth_18062C;
-			v82x += screenWidth_18062C;
+			ptrScreenBuffer_v84x += screenWidth_18062C;
+			ptrMemoryBuffer_v82x += screenWidth_18062C;
 			v86 += 2;
-			//indexx = v81y;
 			v85 -= v80;
 			m--;
 		}
@@ -2602,7 +2596,7 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 }
 
 //----- (00063C90) --------------------------------------------------------
-void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10)//244c90
+void DrawMapHighRes_63C90(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10)//244c90
 {
 	//bool v14; // al
 	int16_t* v15; // ebx
@@ -2699,7 +2693,7 @@ void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 		v18 = width >> 1;
 		while (v67)
 		{
-			v19 = v18 * x_BYTE_F6EE0_tablesx[0x14300 + (v64 >> 16)] >> 8;
+			v19 = v18 * ColourLookupTable_F6EE0[0x14300 + (v64 >> 16)] >> 8;
 			v17[0] = v18 + v19;
 			v68[0] = v18 + v19;
 			v17[1] = v18 - v19;
@@ -2744,8 +2738,8 @@ void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 					{
 						LOBYTE(v30) = mapTerrainType_10B4E0[v31];
 						HIBYTE(v31) = mapShading_12B4E0[v31];
-						LOBYTE(v31) = x_BYTE_F6EE0_tablesx[0x14000 + v30];
-						v32 = x_BYTE_F6EE0_tablesx[v31];
+						LOBYTE(v31) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v30];
+						v32 = ColourLookupTable_F6EE0[v31];
 					}
 					*v28++ = v32;
 					LOWORD(v26) = v58 + v26;
@@ -2778,10 +2772,10 @@ void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 					{
 						LOBYTE(v37) = mapTerrainType_10B4E0[v38];
 						BYTE1(v38) = mapShading_12B4E0[v38];
-						LOBYTE(v38) = x_BYTE_F6EE0_tablesx[0x14000 + v37];
-						LOBYTE(v38) = x_BYTE_F6EE0_tablesx[v38];
+						LOBYTE(v38) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v37];
+						LOBYTE(v38) = ColourLookupTable_F6EE0[v38];
 						BYTE1(v38) = *v35;
-						*v35 = x_BYTE_F6EE0_tablesx[0x4000 + v38];
+						*v35 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v38];
 					}
 					v35++;
 					LOWORD(v33) = v58 + v33;
@@ -2818,8 +2812,8 @@ void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 					{
 						LOBYTE(v43) = mapTerrainType_10B4E0[v44];
 						HIBYTE(v44) = mapShading_12B4E0[v44];
-						LOBYTE(v44) = x_BYTE_F6EE0_tablesx[0x14000 + v43];
-						v45 = x_BYTE_F6EE0_tablesx[v44];
+						LOBYTE(v44) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v43];
+						v45 = ColourLookupTable_F6EE0[v44];
 					}
 					*v41++ = v45;
 					LOWORD(v39) = v58 + v39;
@@ -2851,8 +2845,8 @@ void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 				HIBYTE(v51) = HIBYTE(v47);
 				LOBYTE(v50) = mapTerrainType_10B4E0[v51];
 				HIBYTE(v51) = mapShading_12B4E0[v51];
-				LOBYTE(v51) = x_BYTE_F6EE0_tablesx[0x14000 + v50];
-				*v48++ = x_BYTE_F6EE0_tablesx[v51];
+				LOBYTE(v51) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v50];
+				*v48++ = ColourLookupTable_F6EE0[v51];
 				v46 += v58;
 				v47 += v59;
 				v49--;
@@ -2881,10 +2875,10 @@ void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 				HIBYTE(v57) = HIBYTE(v53);
 				LOBYTE(v56) = mapTerrainType_10B4E0[v57];
 				HIBYTE(v57) = mapShading_12B4E0[v57];
-				LOBYTE(v57) = x_BYTE_F6EE0_tablesx[0x14000 + v56];
-				LOBYTE(v57) = x_BYTE_F6EE0_tablesx[v57];
+				LOBYTE(v57) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v56];
+				LOBYTE(v57) = ColourLookupTable_F6EE0[v57];
 				HIBYTE(v57) = v54[0];
-				*v54++ = x_BYTE_F6EE0_tablesx[0x4000 + v57];//here adress 2451b8
+				*v54++ = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v57];//here adress 2451b8
 				v52 += v58;
 				v53 += v59;
 				v55--;
@@ -3305,7 +3299,7 @@ char DrawObjectiveRectangle_64CE0(v51x_struct* a1, uint8_t scale)//245ce0
 					startY_v8 = screenWidth_18062C * (posY_v6 - scale);
 					startX_v9 = posX_v4 - scale;
 
-					v13 = (x_BYTE*)(startY_v8 + startX_v9 + x_DWORD_E9C3C);
+					v13 = (x_BYTE*)(startY_v8 + startX_v9 + ptrMemoryBuffer_E9C3C);
 					v13[0] = colour_v5;
 					v13[1] = colour_v5;
 					v13[2] = colour_v5;
@@ -4638,7 +4632,7 @@ void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY, uint8_t scale)//
 void ShowMessage_52D70(uint16_t playerIndex, char* cheatMessage)//233d70
 {
 	strcpy(D41A0_0.array_0x2BDE[playerIndex].CurrentNotificationText_0x01c_2BFA_11258, cheatMessage);
-	D41A0_0.array_0x2BDE[playerIndex].word_0x04d_2C2B_11307 = 100;
+	D41A0_0.array_0x2BDE[playerIndex].CurrentNotificationDuration_0x04d_2C2B_11307 = 100;
 	D41A0_0.array_0x2BDE[playerIndex].word_0x04f_2C2D_11309 = 1;
 }
 

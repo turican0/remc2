@@ -17,9 +17,37 @@ class CommandLineParser {
         int ModeRegressionsSaveIndex() const { return m_test_save_index; }; //this is setting for regressions testing
 		int ModeRegressionsTestType() const { return m_mode_regression_type; }; //this is setting for regressions testing
 		bool ModeDebugOnstart() const {return m_mode_debug_onstart;}; //this is setting is for compare data with dosbox(can fix mouse move, and etc.)
-        bool ModeTestNetwork() const {return m_mode_test_network;};
+        bool ModeNetwork() const {return m_mode_network;};
 
         // parameters
+		bool DoNetworkDebug() const { return m_network_debug; };
+
+		// Automated network testing.  AutoTest() drives the menus (skip intros, enter the
+		// network game, host starts the level) so a test can run unattended.
+		//
+		// The disturbances below only ever delay game data, never discard or reorder it:
+		// the link is TCP, so a message that was sent always arrives, and always in order.
+		// What a lossy line really costs is time - the segment is retransmitted and
+		// everything behind it waits - which is what NetStallMs models.
+		bool AutoTest() const { return m_auto_test; };
+		int  NetDelayMs() const { return m_net_delay_ms; };         // constant extra latency
+		int  NetJitterMs() const { return m_net_jitter_ms; };       // 0..n random extra latency
+		int  NetStallMs() const { return m_net_stall_ms; };         // occasional long pause
+		int  NetStallEvery() const { return m_net_stall_every; };   // ...once per n messages
+		int  NetKillAfterS() const { return m_net_kill_after_s; };  // drop the link
+		int  QuitAfterS() const { return m_quit_after_s; };         // leave the game
+		// How many players the host waits for before it starts the level.  Two by default;
+		// a test that wants to disturb the lobby needs to hold the game there for longer.
+		int  AutoTestPlayers() const { return m_auto_test_players; };
+		// Which multiplayer level the automated run should play, counted the way a player counts
+		// them (1 = the first one in the lobby).  -1 leaves the lobby on its default.
+		int  AutoTestMpLevel() const { return m_auto_test_mp_level; };
+		// How many matches to play in one process, and how long each one lasts.  Leaving a
+		// level and starting another exercises the state that has to be torn down and rebuilt
+		// between matches - sessions, NCB commands, name registrations - which nothing else
+		// covers, because every other scenario plays exactly one match and then exits.
+		int  AutoTestMatches() const { return m_auto_test_matches; };
+		int  AutoTestMatchSeconds() const { return m_auto_test_match_s; };
         bool DoAlternativeGamespeedControl() const {return m_alternative_gamespeed_control ;};
         bool DoAnalyzeEntity() const {return m_analyze_entity ;};
         bool DoAutoChangeRes() const {return m_auto_change_res;};
@@ -31,6 +59,7 @@ class CommandLineParser {
         bool DoFixFlyasistant() const {return m_fix_flyasistant;};
         bool DoFixMouse() const {return m_fix_mouse;};
         bool DoIntervalSave() const {return m_interval_save;};
+        bool DoAllSpells() const {return m_all_spells;};
         bool DoLoadEditedLevel() const {return m_load_edited_level;};
         bool DoMouseOff() const {return m_mouse_off;};
         bool DoMouseOff2() const {return m_mouse_off2;};
@@ -58,7 +87,7 @@ class CommandLineParser {
         std::string GetMemimagesPath() const {return m_memimages_path;};
         std::string GetConfigFilePath() const { return m_config_file_path; };
 		int16_t GetSetLevel() const { return m_set_level; };
-		int16_t GetMaxRegressionsSteps() const { return m_max_regressions_steps;};
+		uint32_t GetMaxRegressionsSteps() const { return m_max_regressions_steps;};
 		std::string GetCustomLevelPath() const { return m_custom_level_path; };
 		std::string GetLogLevelStr() const { return m_log_level_str; };
 		std::string GetRecordingPath() const { return m_record_file; };
@@ -73,10 +102,22 @@ class CommandLineParser {
         bool m_mode_release_game;
         bool m_mode_playing_game;
         bool m_mode_debug_onstart;
-        bool m_mode_test_network;
+        bool m_mode_network;
 		int m_mode_regression_type;
 
         // parameters
+		bool m_network_debug;
+		bool m_auto_test;
+		int  m_net_delay_ms;
+		int  m_net_jitter_ms;
+		int  m_net_stall_ms;
+		int  m_net_stall_every;
+		int  m_net_kill_after_s;
+		int  m_quit_after_s;
+		int  m_auto_test_matches;
+		int  m_auto_test_match_s;
+		int  m_auto_test_players;
+		int  m_auto_test_mp_level;
         bool m_alternative_gamespeed_control;
         bool m_analyze_entity;
         bool m_auto_change_res;
@@ -88,6 +129,7 @@ class CommandLineParser {
         bool m_fix_flyasistant;
         bool m_fix_mouse;
         bool m_interval_save;
+        bool m_all_spells;
         bool m_load_edited_level;
         bool m_mouse_off;
         bool m_mouse_off2;

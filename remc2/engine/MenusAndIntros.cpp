@@ -27,13 +27,17 @@ void _strupr(char* s)
 #else //__linux__
 #endif //__linux__
 
+// Unattended network testing (--auto_test): drives the menus so a test script can run a
+// multiplayer session without anyone clicking through the front end.
+extern bool Iam_server;
+
 bool first_enter = true;
 char x_BYTE_D41AD_skip_screen = 0; // weak
 int8_t LoadLevelNumber_D419C = -1; // weak
 char IsPlayingCDTrack_17E09D; // weak
 
 int16_t x_WORD_17DBC4 = 0; // weak//times_17DBB8[3] 34ebc4
-uint8_t* pre_x_DWORD_E9C3C;
+uint8_t* pre_ptrMemoryBuffer_E9C3C;
 
 char x_BYTE_E1B9C[8] = { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' }; // idb x_WORD_E1964x[0x238+
 char x_BYTE_E1BA4[8] = { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' }; // idb x_WORD_E1964x[0x240+
@@ -331,7 +335,7 @@ type_menuButtons_E1F84 str_WORD_E1F84[3] = {
 {0x00000000,0x00000000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x00,0x00,0x00,0x00,0x00,0x00,{0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000}}
 };
 
-type_menuButtons_E1F84 str_E1BAC[10] = {
+type_menuButtons_E1F84 mainMenuButtons_E1BAC[10] = {
 {0x00258350,0x00000000,0x0000,0x00CE,0x0043,0x0050,0x0050,0x019A,0x3B,0x33,0x06,0x01,0x00,0x00,{0x004E,0x004E,0x0000,0x0000,0x0050,0x0000,0x0000,0x0000,0x0003}},
 {0x00259E00,0x00000000,0x0000,0x0119,0x0041,0x0050,0x0050,0x0194,0x3C,0x34,0x0A,0x01,0x00,0x00,{0x0164,0x0070,0x0000,0x0000,0x0050,0x0000,0x01A4,0x0000,0x0003}},
 {0x0025EE80,0x00000000,0x0000,0x016A,0x0048,0x0050,0x0050,0x0199,0x3D,0x35,0x07,0x01,0x00,0x00,{0x01AE,0x004E,0x0000,0x0000,0x0050,0x0000,0x019C,0x0000,0x0003}},
@@ -460,6 +464,7 @@ char x_BYTE_E29E1 = 1; // weak
 
 int16_t x_WORD_17DE26; // weak
 
+std::string g_matchResultPending;
 
 intptr_t unknown_libname_2_findfirst(char* path, uint16_t  /*a2*/, _finddata_t* c_file) {//findfirst
 	intptr_t hFile;
@@ -579,6 +584,10 @@ void MenusAndIntros_76930(bool skipMenus)//257930
 {
 	//1 -351660
 	x_BYTE_E29DF_skip_screen = x_BYTE_D41AD_skip_screen;
+	// Skip the intro animations so an unattended test reaches the menu straight away.
+	// Set after E29DF has been read, so the network session number stays untouched.
+	if (CommandLineParams.AutoTest() && !skipMenus)
+		x_BYTE_D41AD_skip_screen = 1;
 	if (skipMenus)
 	{
 		x_BYTE_D41AD_skip_screen = 1;
@@ -656,7 +665,20 @@ void InitLanguage_76A40()//257A40
 	memset(&configDat, 0, sizeof(TypeConfigDat));
 	sprintf(printbuffer, "%s/%s", gameDataPath.c_str(), "CONFIG.DAT");
 	configdatfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
-	if (configdatfile == NULL)//config is not found
+	if (configdatfile == NULL && PackedGameData())//regression tests without the game: no dialog, CONFIG.DAT defaults, empty texts
+	{
+		x_D41A0_BYTEARRAY_4_struct.configDatSign_0 = 0xfffffff7;
+		x_D41A0_BYTEARRAY_4_struct.soundVolume_6 = 0x7f;
+		x_D41A0_BYTEARRAY_4_struct.musicVolume_8 = 0x7f;
+		x_D41A0_BYTEARRAY_4_struct.showHelp_10 = 1;
+		if (!x_DWORD_D41BC_langbuffer)
+		{
+			x_DWORD_D41BC_langbuffer = (char*)Malloc_83CD0(471);
+			memset(x_DWORD_D41BC_langbuffer, 0, 471);
+		}
+		sub_5B870_copy_sentence(x_DWORD_D41BC_langbuffer, x_DWORD_E9C4C_langindexbuffer, 471);
+	}
+	else if (configdatfile == NULL)//config is not found
 	{
 		LoadAndSetGraphicsAndPalette_7AC00();//25BC00 //change screen radio
 		LanguageSettingDialog_779E0(0);//2589E0 //set language
@@ -831,6 +853,18 @@ void MainMenu_76FA0()//257fa0
 	StopMusic_8E020();//26f020
 	StartMusic_8E160(4, 0x7Fu);//26f160
 	x_WORD_17DE26 = 0;
+
+	if (!g_matchResultPending.empty())
+	{
+		if (CommandLineParams.DoNetworkDebug())
+			debug_net_printf("MENU: showing result %s\n", g_matchResultPending.c_str());
+		// The scores screen waits for a keypress, and the automated tests press nothing:
+		// a run would stop here after the first match, which is reported as "host played
+		// 1 of 2 matches" with the transport perfectly healthy.
+		if (!CommandLineParams.AutoTest())
+			ShowScores();
+	}
+
 	VGA_cleanKeyBuffer();
 	if (x_BYTE_E29E1 || x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE || (NewGameDialog_77350(0), !m_ExitMenuLoop_E29DC))
 	{
@@ -849,6 +883,7 @@ void MainMenu_76FA0()//257fa0
 		int16_t tempMousePosX = x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx;
 		int16_t tempMousePosY = x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony;
 		int scanCode = x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode;
+
 		while (!m_ExitMenuLoop_E29DC)
 		{
 			g_state_monitor.Update();
@@ -922,6 +957,7 @@ void MainMenu_76FA0()//257fa0
 			}
 			sub_7A060_get_mouse_and_keyboard_events();
 		}
+
 		ClearPauseMenuState_41BC0();
 		D41A0_0.m_GameSettings.m_Display.m_uiScreenSize = 0;
 		sub_753D0();
@@ -1076,7 +1112,7 @@ signed int MouseEvents_7E0E0()//25f0e0
 		else if (InRegion_7B200(&str_WORD_E1F84[ix], x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony))//change language
 		{
 			PlaySample_8F100(0, 14, 127, 64, 0x64u, 0, 3u);
-			DrawBitmap_2BB40(str_WORD_E1F84[ix].xmin_10, str_WORD_E1F84[ix].ymin_12, xy_DWORD_17DED4_spritestr[str_WORD_E1F84[ix].xmin_10 & 0xff]);//asi vykresleni stisknuteho tlacitka
+			DrawBitmap_2BB40(str_WORD_E1F84[ix].xmin_10, str_WORD_E1F84[ix].ymin_12, xy_DWORD_17DED4_spritestr[str_WORD_E1F84[ix].byte_20]);//drawing pushed button (gold sprite)
 			result = str_WORD_E1F84[ix].byte_22;
 		}
 		ix++;
@@ -1221,6 +1257,7 @@ char LanguageSettingDialog_779E0(type_menuButtons_E1F84* a1y)//2589E0
 		SetCursor_8CD27(xy_DWORD_17DED4_spritestr[37]);//26dd27
 		while (mouseClick != 2)//adress 258c30
 		{
+			SetFrameStart(std::chrono::system_clock::now());
 			if (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode == 59)
 			{
 				x_D41A0_BYTEARRAY_4_struct.showHelp_10 = x_D41A0_BYTEARRAY_4_struct.showHelp_10 != 1;
@@ -1245,7 +1282,7 @@ char LanguageSettingDialog_779E0(type_menuButtons_E1F84* a1y)//2589E0
 					}
 					memset(textBoxStr, 0, 2 * sizeof(typeTextBoxtextBoxStr_E24BCx));//26db3a
 					textBoxStr[0] = textBoxStr_E24BCx[textIndex];
-					sub_7E840_draw_textbox_with_line(textBoxStr, 83, 100);//25f840 adress 258d6a - add text?
+					DrawTextBoxWithLine_7E840(textBoxStr, 83, 100);//25f840 adress 258d6a - add text?
 				}
 				else if (codeBranch == 3)
 				{
@@ -1257,9 +1294,9 @@ char LanguageSettingDialog_779E0(type_menuButtons_E1F84* a1y)//2589E0
 			if (frame)
 			{
 				if (x_WORD_180660_VGA_type_resolution & 1)
-					sub_90478_VGA_Blit320();
+					sub_90478_VGA_Blit320(menuFps);
 				else
-					sub_75200_VGA_Blit640(480);//draw //256200
+					sub_75200_VGA_Blit640(480, menuFps);//draw //256200
 			}
 			else
 			{
@@ -1623,7 +1660,7 @@ char SetKeysDialog_79610()//25a610
 	temp_screen_buffer = pdwScreenBuffer_351628;
 	pdwScreenBuffer_351628 = x_DWORD_E9C38_smalltit;
 	for (int v2_int = 0; str_BYTE_E25ED_2BB[v2_int].word_0; v2_int++)
-		sub_7FCB0_draw_text_with_border(x_DWORD_E9C4C_langindexbuffer[str_BYTE_E25ED_2BB[v2_int].word_12], str_BYTE_E25ED_2BB[v2_int].word_0, v39, str_BYTE_E25ED_2BB[v2_int].word_2, 4, 0, 0);
+		DrawTextWithBoarder_7FCB0(x_DWORD_E9C4C_langindexbuffer[str_BYTE_E25ED_2BB[v2_int].word_12], str_BYTE_E25ED_2BB[v2_int].word_0, v39, str_BYTE_E25ED_2BB[v2_int].word_2, 4, 0, 0);
 	pdwScreenBuffer_351628 = temp_screen_buffer;
 	ResetMouse_7B5A0();
 	for (int v2_int = 0; str_BYTE_E25ED_2BB[v2_int].word_0; v2_int++)
@@ -1676,7 +1713,7 @@ char SetKeysDialog_79610()//25a610
 			if (!str_BYTE_E25ED_2BB[v14_int].word_14)
 			{
 				sub_79E10(textBuff, *keyIter);
-				sub_7FCB0_draw_text_with_border(textBuff, keyNameX, buttonAreaWidth, str_BYTE_E25ED_2BB[v14_int].word_2, 4, 0, 0);
+				DrawTextWithBoarder_7FCB0(textBuff, keyNameX, buttonAreaWidth, str_BYTE_E25ED_2BB[v14_int].word_2, 4, 0, 0);
 			}
 			keyIter++;
 			v14_int++;
@@ -1692,7 +1729,7 @@ char SetKeysDialog_79610()//25a610
 				{
 					memset(textBuff, 0, 60);
 					sub_79E10(textBuff, *keyIter2);
-					sub_7FCB0_draw_text_with_border(textBuff, keyNameX, buttonAreaWidth, str_BYTE_E25ED_2BB[v2_int].word_2, 4, 0, 0);
+					DrawTextWithBoarder_7FCB0(textBuff, keyNameX, buttonAreaWidth, str_BYTE_E25ED_2BB[v2_int].word_2, 4, 0, 0);
 					if (elapsedTime > 0x32)
 					{
 						str_BYTE_E25ED_2BB[v2_int].word_14 = 2;
@@ -2030,11 +2067,11 @@ void DrawMenuAnimations_7AB00()//25bb00
 		}
 	}
 	// draw selected main menu item
-	for (int iy = 0; (str_E1BAC[iy].xmin_10<<16) + str_E1BAC[iy].ymin_12; iy++)
+	for (int iy = 0; (mainMenuButtons_E1BAC[iy].xmin_10<<16) + mainMenuButtons_E1BAC[iy].ymin_12; iy++)
 	{
-		if (str_E1BAC[iy].canSelect_23 && str_E1BAC[iy].gold_color_24)
+		if (mainMenuButtons_E1BAC[iy].canSelect_23 && mainMenuButtons_E1BAC[iy].gold_color_24)
 		{
-			DrawBitmap_2BB40(str_E1BAC[iy].xmin_10, str_E1BAC[iy].ymin_12, xy_DWORD_17DED4_spritestr[str_E1BAC[iy].byte_21]);
+			DrawBitmap_2BB40(mainMenuButtons_E1BAC[iy].xmin_10, mainMenuButtons_E1BAC[iy].ymin_12, xy_DWORD_17DED4_spritestr[mainMenuButtons_E1BAC[iy].byte_21]);
 		}
 	}
 }
@@ -2048,17 +2085,17 @@ void LoadAndSetGraphicsAndPalette_7AC00()//25BC00
 
 	if (!(x_WORD_180660_VGA_type_resolution & 8))
 	{
-		/*if (x_DWORD_E9C3C)
+		/*if (ptrMemoryBuffer_E9C3C)
 		{
-			sub_83E80_freemem4(x_DWORD_E9C3C);
-			x_DWORD_E9C3C = 0;
+			sub_83E80_freemem4(ptrMemoryBuffer_E9C3C);
+			ptrMemoryBuffer_E9C3C = 0;
 		}*/
 		//fix
-		if (pre_x_DWORD_E9C3C)
+		if (pre_ptrMemoryBuffer_E9C3C)
 		{
-			FreeMem_83E80(pre_x_DWORD_E9C3C);
-			pre_x_DWORD_E9C3C = 0;
-			x_DWORD_E9C3C = 0;
+			FreeMem_83E80(pre_ptrMemoryBuffer_E9C3C);
+			pre_ptrMemoryBuffer_E9C3C = 0;
+			ptrMemoryBuffer_E9C3C = 0;
 		}
 		//fix
 		sub_54600_mouse_reset();//235600 //mouse reset
@@ -2068,11 +2105,11 @@ void LoadAndSetGraphicsAndPalette_7AC00()//25BC00
 			x_WORD_E29DA_type_resolution = x_WORD_180660_VGA_type_resolution;
 			x_WORD_180660_VGA_type_resolution = 8;
 			/*
-			x_DWORD_E9C3C = (uint8_t*)sub_83CD0_malloc2(307200);
+			ptrMemoryBuffer_E9C3C = (uint8_t*)sub_83CD0_malloc2(307200);
 			*/
 			//fix
-			pre_x_DWORD_E9C3C = (uint8_t*)Malloc_83CD0(3000000);
-			x_DWORD_E9C3C = &pre_x_DWORD_E9C3C[200000];
+			pre_ptrMemoryBuffer_E9C3C = (uint8_t*)Malloc_83CD0(3000000);
+			ptrMemoryBuffer_E9C3C = &pre_ptrMemoryBuffer_E9C3C[200000];
 			//fix
 			CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
 			memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
@@ -2116,11 +2153,11 @@ void sub_7ADE0(char a1)//25bde0
 	if (a1 == 1)
 	{
 		//fix
-		if (pre_x_DWORD_E9C3C)
+		if (pre_ptrMemoryBuffer_E9C3C)
 		{
-			FreeMem_83E80(pre_x_DWORD_E9C3C);
-			pre_x_DWORD_E9C3C = 0;
-			x_DWORD_E9C3C = 0;
+			FreeMem_83E80(pre_ptrMemoryBuffer_E9C3C);
+			pre_ptrMemoryBuffer_E9C3C = 0;
+			ptrMemoryBuffer_E9C3C = 0;
 		}
 		//fix
 		sub_54600_mouse_reset();//mouse reset
@@ -2128,8 +2165,8 @@ void sub_7ADE0(char a1)//25bde0
 		x_WORD_180660_VGA_type_resolution = 1;
 		x_WORD_E29DA_type_resolution = 1;
 		//fix
-		pre_x_DWORD_E9C3C = (uint8_t*)Malloc_83CD0(3000000);
-		x_DWORD_E9C3C = &pre_x_DWORD_E9C3C[2000000];
+		pre_ptrMemoryBuffer_E9C3C = (uint8_t*)Malloc_83CD0(3000000);
+		ptrMemoryBuffer_E9C3C = &pre_ptrMemoryBuffer_E9C3C[2000000];
 		//fix
 		CreateIndexes_6EB90(&(filearray_2aa18c[filearrayindex_POINTERSDATTAB]));
 		memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
@@ -2169,18 +2206,18 @@ void sub_7BEC0()//25cec0
 	unsigned __int8 v1; // dl
 
 	//for (result = off_E1BAC; *((uint16_t*)result + 5); result += 44)
-	for (resultx = 0; str_E1BAC[resultx].xmin_10; resultx++)
+	for (resultx = 0; mainMenuButtons_E1BAC[resultx].xmin_10; resultx++)
 	{
-		str_E1BAC[resultx].selected_8 = 0;
-		v1 = str_E1BAC[resultx].byte_22;
-		str_E1BAC[resultx].gold_color_24 = 0;
+		mainMenuButtons_E1BAC[resultx].selected_8 = 0;
+		v1 = mainMenuButtons_E1BAC[resultx].byte_22;
+		mainMenuButtons_E1BAC[resultx].gold_color_24 = 0;
 		if (v1 == 7u)
 		{
-			str_E1BAC[resultx].canSelect_23 = x_D41A0_BYTEARRAY_4_struct.isNetwork_216w != 0;
+			mainMenuButtons_E1BAC[resultx].canSelect_23 = x_D41A0_BYTEARRAY_4_struct.isNetwork_216w != 0;
 		}
 		else if (v1 == 13)
 		{
-			str_E1BAC[resultx].canSelect_23 = 1;
+			mainMenuButtons_E1BAC[resultx].canSelect_23 = 1;
 		}		
 	}
 	//return result;
@@ -2418,7 +2455,7 @@ signed int DrawBitmapAndPlaySound_7E320()//25f320
 					if (x_D41A0_BYTEARRAY_4_struct.showHelp_10 != 1)
 						return 0;
 					int index2 = 0;
-					if (!textBoxStr_E2516[index2].minx2_2)
+					if (!textBoxStr_E2516[index2].left_2)
 						return 0;
 					do //adress 25f4e7
 					{
@@ -2429,13 +2466,13 @@ signed int DrawBitmapAndPlaySound_7E320()//25f320
 							bitmap_pos_struct2_t* tempx_DWORD_17DEC4 = x_DWORD_17DE38str.x_DWORD_17DEC4;
 							xy_DWORD_17DEC0_spritestr = xy_DWORD_17DEC8_spritestr;
 							x_DWORD_17DE38str.x_DWORD_17DEC4 = x_DWORD_17DE38str.x_DWORD_17DECC;
-							sub_7E840_draw_textbox_with_line(textBoxStr, 238, 264);
+							DrawTextBoxWithLine_7E840(textBoxStr, 238, 264);
 							xy_DWORD_17DEC0_spritestr = tempSpriteStr;
 							x_DWORD_17DE38str.x_DWORD_17DEC4 = tempx_DWORD_17DEC4;
 							return 0;
 						}
 						index2++;
-					} while (textBoxStr_E2516[index2].minx2_2);
+					} while (textBoxStr_E2516[index2].left_2);
 					return 0;
 				}
 			}
@@ -2902,14 +2939,14 @@ void DrawAnimTextsAndPlaySounds_7D400(__int16 posx, __int16 posy, char a4)//25e4
 				{
 					memset(textBoxStr, 0, 36);
 					textBoxStr[0] = textBoxStr_E24F2[0];
-					textBoxStr[0].minx2_2 = mapScreenPortals_E17CC[index2].portalPosX_12 - 80 - posx;
-					textBoxStr[0].miny2_4 = mapScreenPortals_E17CC[index2].portalPosY_14 - 60 - posy;
+					textBoxStr[0].left_2 = mapScreenPortals_E17CC[index2].portalPosX_12 - 80 - posx;
+					textBoxStr[0].top_4 = mapScreenPortals_E17CC[index2].portalPosY_14 - 60 - posy;
 					textBoxStr[0].minx_6 = mapScreenPortals_E17CC[index2].portalPosX_12 + 16 - posx;
 					textBoxStr[0].miny_8 = mapScreenPortals_E17CC[index2].portalPosY_14 - 60 - posy;
-					textBoxStr[0].maxx_12 = mapScreenPortals_E17CC[index2].portalPosX_12 + 16 - posx;
+					textBoxStr[0].width_12 = mapScreenPortals_E17CC[index2].portalPosX_12 + 16 - posx;
 					textBoxStr[0].maxy_14 = mapScreenPortals_E17CC[index2].portalPosY_14 - 4 - posy;
 					textBoxStr[0].textIndex_0 = 464;
-					sub_7E840_draw_textbox_with_line(textBoxStr, 238, 264);
+					DrawTextBoxWithLine_7E840(textBoxStr, 238, 264);
 					if (index3 != -1)
 					{
 						if ((time - x_DWORD_17DB70str.time_17DB70) / 0x64u > 8)
@@ -2928,14 +2965,14 @@ void DrawAnimTextsAndPlaySounds_7D400(__int16 posx, __int16 posy, char a4)//25e4
 				if (x_DWORD_17DB70str.x_BYTE_17DB8F == 3)
 				{
 					memset(textBoxStr, 0, 36);
-					textBoxStr[0].minx2_2 = mapScreenPortals_E17CC[index3].portalPosX_12 - 80 - posx;
-					textBoxStr[0].miny2_4 = mapScreenPortals_E17CC[index3].portalPosY_14 - 60 - posy;
+					textBoxStr[0].left_2 = mapScreenPortals_E17CC[index3].portalPosX_12 - 80 - posx;
+					textBoxStr[0].top_4 = mapScreenPortals_E17CC[index3].portalPosY_14 - 60 - posy;
 					textBoxStr[0].minx_6 = mapScreenPortals_E17CC[index3].portalPosX_12 + 16 - posx;
 					textBoxStr[0].miny_8 = mapScreenPortals_E17CC[index3].portalPosY_14 - 60 - posy;
-					textBoxStr[0].maxx_12 = mapScreenPortals_E17CC[index3].portalPosX_12 + 16 - posx;
+					textBoxStr[0].width_12 = mapScreenPortals_E17CC[index3].portalPosX_12 + 16 - posx;
 					textBoxStr[0].maxy_14 = mapScreenPortals_E17CC[index3].portalPosY_14 - 4 - posy;
 					textBoxStr[0].textIndex_0 = 465;
-					sub_7E840_draw_textbox_with_line(textBoxStr, 238, 264);
+					DrawTextBoxWithLine_7E840(textBoxStr, 238, 264);
 					if (index2 != -1)
 					{
 						if ((time - x_DWORD_17DB70str.time_17DB70) / 0x64u > 8)
@@ -3589,7 +3626,7 @@ void PresentLevelDescription_80C30(__int16 posX, __int16 posY, __int16 addWidth)
 		}
 		GetFont_6FC50(1);
 		uint8_t colorIndex = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
-		sub_7FCB0_draw_text_with_border(x_DWORD_E9C4C_langindexbuffer[23 + levelIdx_v3], posX + 4 * GetLetterWidth_6FC10(), posX + addWidth - 3 * GetLetterWidth_6FC10(), posY, 5, colorIndex, 1);
+		DrawTextWithBoarder_7FCB0(x_DWORD_E9C4C_langindexbuffer[23 + levelIdx_v3], posX + 4 * GetLetterWidth_6FC10(), posX + addWidth - 3 * GetLetterWidth_6FC10(), posY, 5, colorIndex, 1);
 		//"You must explore the outer Netherworlds while you learn its magic. Your first destination is the ancient city of Jahwl."+
 	}
 	if (x_DWORD_17DE28str.DisplayLevelDescriptionText_17DE34 != 3 && x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & 0x40 && !IsPlayingCDTrack_17E09D)
@@ -3991,7 +4028,7 @@ void sub_82510(/*__int16 a1*//*, int *a2*/)//263510
 				v4 = unk_17DBA8str.unk_17DBB4 + 1;
 				unk_17DBA8str.unk_17DBB4 = v4;
 				//if (!unk_E2516[9 * v4 + 1])
-				if (!textBoxStr_E2516[v4].minx2_2)
+				if (!textBoxStr_E2516[v4].left_2)
 					unk_17DBA8str.unk_17DBB4 = 0;
 				unk_17DBA8str.unk_17DBA8 = unk_17DBA8str.unk_17DBAC;//a2[0] = a2[1];
 			}
@@ -4013,7 +4050,7 @@ void sub_82510(/*__int16 a1*//*, int *a2*/)//263510
 				//v6 += 44;
 				v6y++;
 			}
-			sub_7E840_draw_textbox_with_line(v10x, 238, 264);//draw help
+			DrawTextBoxWithLine_7E840(v10x, 238, 264);//draw help
 		}
 		else if (switchbit == 3)
 		{
@@ -4309,7 +4346,7 @@ void ShowEndCredits_833C0()//2643c0
 			if (!_stricmp(off_DB558[index3], "!"))
 				break;
 			uint8_t colorIndex = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
-			sub_7FCB0_draw_text_with_border(off_DB558[index3], 10, 620, (signed __int16)(i + 200), 5, colorIndex, 0);
+			DrawTextWithBoarder_7FCB0(off_DB558[index3], 10, 620, (signed __int16)(i + 200), 5, colorIndex, 0);
 			index1++;
 		}
 		if (!reachedEnd && (time2 - time) / 100 > 2)
@@ -4346,6 +4383,148 @@ void ShowEndCredits_833C0()//2643c0
 	while (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode || x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons)
 		sub_7A060_get_mouse_and_keyboard_events();
 	x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode = 0;
+}
+
+void ShowScores()
+{
+	int time = j___clock();
+
+	char dataPath[MAX_PATH];
+
+	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
+
+	bool noFade = false;
+	x_DWORD_17DE38str.palette_17DE38x = (TColor*)*xadatapald0dat2.colorPalette_var28;
+	x_DWORD_17DE38str.x_WORD_17DEEC = 0;
+	x_DWORD_17DE38str.x_DWORD_17DE40 = pdwScreenBuffer_351628;
+	x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = NULL;
+	x_DWORD_17DE38str.x_DWORD_17DEDC = 0;
+	x_DWORD_17DE38str.x_DWORD_17DE48c = x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226;
+	FadeClearBlit_7B5D0();
+	x_DWORD_17DE38str.x_DWORD_17DE54 = x_DWORD_17DE38str.x_DWORD_17DE48c + 0x49ADB;
+	x_DWORD_17DE38str.x_DWORD_17DEC4 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4D313);
+	x_DWORD_17DE38str.x_DWORD_17DE58 = x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4D313;
+	x_DWORD_17DE38str.x_DWORD_17DEC8 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4ECC2);
+	x_DWORD_17DE38str.x_DWORD_17DECC = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4F31C);
+	x_DWORD_17DE38str.x_DWORD_17DED4 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4F31C);
+	x_DWORD_17DE38str.x_DWORD_17DED8 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4FA72);
+	x_DWORD_17DE38str.x_DWORD_17DE60 = x_DWORD_17DE38str.x_DWORD_17DE44;
+	x_DWORD_17DE38str.x_DWORD_17DE64_game_world_map = x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4FA72;
+	x_DWORD_17DE38str.x_DWORD_17DE3C = (TcolNext*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x17BA72);
+	x_DWORD_17DE38str.x_DWORD_17DEC0 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4CCAD);
+	x_DWORD_17DE38str.x_DWORD_17DE5C_border_bitmap = x_DWORD_17DE38str.x_DWORD_17DE48c + 0x17FA72;
+
+	while (sub_9A10A_check_keyboard())
+	{
+		LastPressedKey_1806E4 = 0;
+		sub_7A060_get_mouse_and_keyboard_events();
+	}
+
+	SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]); //Set cursor to Null (Don't Draw)
+	sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE54, 0x1641FC, 1214);
+	sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DEC0, 0x1646BA, 589);
+	sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE58, 0x164907, 1191);
+	sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DEC8, 0x164DAE, 543);
+	sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.palette_17DE38x, 0x178B5F, 768);
+	sub_7AA70_load_and_decompres_dat_file(dataPath, x_DWORD_17DE38str.x_DWORD_17DE64_game_world_map, 0x16554D, 79378);
+	sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);
+	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
+		sub_98709_create_index_dattab_power(x_DWORD_17DE38str.x_DWORD_17DEC0, x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);
+	}
+	else
+	{
+		sub_9874D_create_index_dattab(x_DWORD_17DE38str.x_DWORD_17DEC0, x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);
+	}
+	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
+		sub_98709_create_index_dattab_power(x_DWORD_17DE38str.x_DWORD_17DEC8, x_DWORD_17DE38str.x_DWORD_17DECC, x_DWORD_17DE38str.x_DWORD_17DE58, xy_DWORD_17DEC8_spritestr);
+	}
+	else
+	{
+		sub_9874D_create_index_dattab(x_DWORD_17DE38str.x_DWORD_17DEC8, x_DWORD_17DE38str.x_DWORD_17DECC, x_DWORD_17DE38str.x_DWORD_17DE58, xy_DWORD_17DEC8_spritestr);
+	}
+	x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode = 0;
+	x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons = 0;
+	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
+		sub_98709_create_index_dattab_power_add((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DEC0, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr, 6);
+	}
+	else
+	{
+		sub_9874D_create_index_dattab_add((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DEC0, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr, 6);
+	}
+	x_DWORD_17DE38str.x_DWORD_17DEC0++;
+
+	auto lines = SplitLines(g_matchResultPending);
+
+	while (!x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode && !x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons)
+	{
+		int timeDiff = (j___clock() - time) / 100;
+
+		if (x_WORD_180660_VGA_type_resolution & 1)
+			CopyScreen((void*)x_DWORD_17DE38str.x_DWORD_17DE64_game_world_map, (void*)pdwScreenBuffer_351628, 320, 200);
+		else
+			CopyScreen((void*)x_DWORD_17DE38str.x_DWORD_17DE64_game_world_map, (void*)pdwScreenBuffer_351628, 640, 480);
+
+		int i = 0;
+		for (const std::string& line : lines)
+		{
+			i += xy_DWORD_17DEC0_spritestr[65].height_5 + 2;
+			uint8_t colorIndex = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
+			DrawTextWithBoarder_7FCB0((char*)line.c_str(), 10, 620, (signed __int16)(i + 200), 5, colorIndex, 0);
+		}
+
+		if (timeDiff > 2)
+			sub_7A060_get_mouse_and_keyboard_events();
+
+		if (noFade)
+		{
+			if (x_WORD_180660_VGA_type_resolution & 1)
+				sub_90478_VGA_Blit320();
+			else
+				sub_75200_VGA_Blit640(480);
+		}
+		else
+		{
+			sub_90B27_VGA_pal_fadein_fadeout(x_DWORD_17DE38str.palette_17DE38x, 0x20u, 0);
+			noFade = true;
+		}
+	}
+	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
+	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
+	if (x_WORD_180660_VGA_type_resolution & 1)
+		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);
+	else
+		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, 0);
+	if (x_WORD_180660_VGA_type_resolution & 1)
+		sub_90478_VGA_Blit320();
+	else
+		sub_75200_VGA_Blit640(480);
+	while (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode || x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons)
+		sub_7A060_get_mouse_and_keyboard_events();
+	x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode = 0;
+
+	g_matchResultPending.clear();
+}
+
+std::vector<std::string> SplitLines(const std::string& text) {
+	std::vector<std::string> lines;
+	size_t start = 0;
+	size_t end;
+	while ((end = text.find('\n', start)) != std::string::npos) {
+		std::string line = text.substr(start, end - start);
+		if (!line.empty() && line.back() == '\r') {
+			line.pop_back();
+		}
+		lines.push_back(line);
+		start = end + 1;
+	}
+	// last line (if there's no trailing newline)
+	if (start < text.size()) {
+		lines.push_back(text.substr(start));
+	}
+	return lines;
 }
 
 //----- (00083850) --------------------------------------------------------
@@ -5337,12 +5516,47 @@ char MultiplayerMenu_7DE80(type_menuButtons_E1F84* a2x)//25ee80
 
 	memset(printbuffer, 0, 10);
 	a2x->dword_4 = 0;
+	// Confirm the session-number dialog once and go straight on to the level selection.
+	if (CommandLineParams.AutoTest()) {
+		static int autoSessionConfirmedFor = -1;
+		if (autoSessionConfirmedFor != g_autotest_match) {
+			autoSessionConfirmedFor = g_autotest_match;
+			// A fixed number, not whatever the dialog happens to be showing.
+			//
+			// It used to take x_BYTE_E29DF_skip_screen, which is not a session number at all:
+			// MenusAndIntros.cpp:585 copies it from x_BYTE_D41AD_skip_screen, the intro-skip
+			// flag, so it holds 0 or 1 depending on how the intros happened to be got rid of.
+			// While every instance ended up with the same value that was merely untidy - they
+			// all joined session 1 and the tests passed.  Measured when it stopped agreeing:
+			// the host confirmed session 0 and the client session 1, so they were in different
+			// sessions, neither ever appeared in the other's player list, no CALL was made, and
+			// both sat in the lobby to the end of the run reporting "myIdx=0".  Every scenario
+			// failed with 0 exchanges and nothing in the transport was wrong.
+			//
+			// Nothing here depends on WHICH session is used, only on all instances naming the
+			// same one, so it is pinned.  Also written back to the byte the dialog prints, so
+			// what is on screen matches what was joined.
+			const uint8_t autoSession = 0;
+			x_BYTE_E29DF_skip_screen = (char)autoSession;
+			if (CommandLineParams.DoNetworkDebug())
+				debug_net_printf("AUTOTEST: confirming session %d (match %d)\n", (int)autoSession, g_autotest_match);
+			x_WORD_E131A = 0;
+			x_DWORD_17DE38str.networkSession_17DEFA = autoSession;
+			ResetMouse_7B5A0();
+			a2x->dword_4 = sub_77680() != 0;
+			return 1;
+		}
+	}
 	v3 = j___clock();
 	GetFont_6FC50(1);
 	v22 = a2x->str_26.x1_26_0 + 10;
 	v20 = v22 + xy_DWORD_17DED4_spritestr[72].width_4 - 22;
 	v8 = a2x->str_26.word_34_4 / 2 + a2x->str_26.y1_28_1 - GetLetterHeight_6FC30();
 	v23 = DrawScrollDialog_7BF20(&a2x->str_26);
+
+	//Skip Game Number entry
+	v23 = 1;
+
 	if (a2x->str_26.word_36_5 > a2x->str_26.word_34_4 / 2)
 	{
 		if ((unsigned __int8)x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode != 0xFu)
@@ -5663,7 +5877,7 @@ int DrawScrollDialog2_7B660(int a1, int a2, __int16 a3, type_str_word_26* a4x, c
 			}
 		}
 		/*
-		if (CommandLineParams.ModeTestNetwork()) {
+		if (CommandLineParams.ModeNetwork()) {
 			if (first_enter)
 			{
 				first_enter = false;
@@ -5680,7 +5894,7 @@ int DrawScrollDialog2_7B660(int a1, int a2, __int16 a3, type_str_word_26* a4x, c
 	{
 		v31 = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x16u, 0x10u, 9u);
 		//"Exit Game" 16a 1c6 28 1 4c//adress 25cc27
-		sub_7FCB0_draw_text_with_border(/*v30,*/ a5, a1 + 10, v30, v46, 1, v31, 0);
+		DrawTextWithBoarder_7FCB0(/*v30,*/ a5, a1 + 10, v30, v46, 1, v31, 0);
 	}
 LABEL_31:
 	if (v44)
@@ -5738,10 +5952,138 @@ char sub_77680()//258680
 			x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10 = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
 		else
 			x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10 = 50;
+
+		// Let an automated run say which multiplayer level to play.  The lobby numbers them from
+		// 50 - that is what the test above is about - so the first one a player sees is 50 and the
+		// tenth is 59.  Asking for them by that ordinal keeps the command line readable and means
+		// a test does not have to know the offset.
+		//
+		// Without this the run always plays the first level, and a level that has to be reached by
+		// hand cannot be part of a repeatable test.  --set_level is no use here: it sets skipMenus
+		// and drops the instance straight into a single-player level, past the lobby altogether.
+		if (CommandLineParams.AutoTest() && CommandLineParams.AutoTestMpLevel() > 0)
+		{
+			const int wanted = 50 + CommandLineParams.AutoTestMpLevel() - 1;
+			x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10 = (uint8_t)wanted;
+			if (CommandLineParams.DoNetworkDebug())
+				debug_net_printf("AUTOTEST: multiplayer level %d selected (level number %d)\n",
+					CommandLineParams.AutoTestMpLevel(), wanted);
+		}
 		x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 2;
 		x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons = 0;
+		if (CommandLineParams.AutoTest())
+			debug_net_printf("AUTOTEST: level selection reached, myIdx=%d token=%d server=%d\n",
+				(int)x_DWORD_17DE38str.serverIndex_17DEFC, (int)GetIndexNetwork2_74515(), (int)Iam_server);
 		while (!a3a)
 		{
+			// Once every player has joined, the host starts the level.
+			if (CommandLineParams.AutoTest()) {
+				static int   autoFrames = 0;
+				static int   autoLevelStartedFor = -1;
+				// A second match comes back through this screen, so the settle counters have
+				// to start over with it - otherwise the level is rolled on the frame count
+				// and connection history left behind by the match before.
+				static int   autoMatchSeen = -1;
+				if (autoMatchSeen != g_autotest_match) { autoMatchSeen = g_autotest_match; autoFrames = 0; }
+				autoFrames++;
+				const int autoNeedPlayers = CommandLineParams.AutoTestPlayers() > 0
+					? CommandLineParams.AutoTestPlayers() : 2;
+				// The peers must be connected, and STAY connected for a while, before the
+				// level is rolled.  After a server hand-over the new server reaches its
+				// player count at once - the slots are all still there - and a peer that has
+				// just died still reads as connected for a few frames, until its NCB is
+				// marked closed.  Starting on that broadcasts "start" to nobody: this node
+				// goes in-game while the other survivor is left behind in the lobby, and from
+				// then on they exchange different-sized records at each other.
+				// Watch WHICH peers are connected, not how many: a hand-over swaps the old
+				// server for the other survivor and leaves the count unchanged, so a counter
+				// alone never dips and the wait it is supposed to impose never happens.
+				static int  autoStableFrames = 0;
+				static int  autoLastMask = -1;
+				static bool autoWasServer = false;
+				const int   autoMask = NetworkConnectedMask();
+				int         autoConnected = 0;
+				for (int b = 0; b < 8; b++) if (autoMask & (1 << b)) autoConnected++;
+
+				// Becoming the server restarts the wait.  At the instant the role is taken
+				// over nothing else has moved yet - the dead server still reads as connected
+				// for another ~80 ms, so neither the count nor the mask has noticed - and the
+				// level would be rolled before the survivors have found each other.
+				if (Iam_server != autoWasServer) { autoWasServer = Iam_server; autoStableFrames = 0; }
+
+				if (autoMask != autoLastMask) { autoLastMask = autoMask; autoStableFrames = 0; }
+				else if (autoConnected >= autoNeedPlayers) autoStableFrames++;
+				else autoStableFrames = 0;
+
+				// ...and the count is not enough on its own.  It includes this node, and a peer
+				// that has just been killed goes on being counted until its NCB is marked
+				// closed, so "me and the player about to die" reaches the bar just as well as
+				// "me and the player that will still be here".  Measured: with three players and
+				// a bar of two, the host started 1.2 s after the middle player was killed, on a
+				// count made up of itself and that corpse, while the survivor had not finished
+				// its LISTEN - which NetworkCancelAll_7449C() then cancelled on the way into the
+				// level.  The survivor was stranded in the lobby for the rest of the run.
+				//
+				// So require the peers by NAME: everybody the transport still lists has to be in
+				// a session with us.  The list drops a killed node as soon as its control
+				// connection closes, which is immediate, rather than after the five-second data
+				// heartbeat - so this says "the players that are really here are all in" without
+				// waiting for the corpse to be declared.
+				const bool autoPeersAllIn = NetworkAllRosterPeersConnected();
+
+				// Why the level is not being started, reported when any part of the answer changes.
+				// Sitting in the lobby looks identical from outside whatever the reason is, and after
+				// a hand-over there are four candidates.
+				if (CommandLineParams.DoNetworkDebug())
+				{
+					static int lastWhy = -1;
+					static long lastSaid = 0;
+					const int why = (Iam_server ? 1 : 0) | (x_DWORD_17DE38str.x_WORD_17DEFE >= autoNeedPlayers ? 2 : 0)
+						| (autoPeersAllIn ? 4 : 0) | (autoStableFrames > 180 ? 8 : 0)
+						| (autoLevelStartedFor != g_autotest_match ? 16 : 0);
+					// Also every two seconds, not only on change: silence has to mean "this loop is
+					// not running" rather than "nothing moved", which is the difference between a
+					// gate that refuses and a gate nobody asks.
+					if (why != lastWhy || ((long)j___clock() - lastSaid) > 200)
+					{
+						lastWhy = why;
+						lastSaid = (long)j___clock();
+						debug_net_printf("GATE: server=%d players=%d(%d) peersAllIn=%d stable=%d notStarted=%d\n",
+							(int)Iam_server, (int)x_DWORD_17DE38str.x_WORD_17DEFE, autoNeedPlayers,
+							(int)autoPeersAllIn, (int)(autoStableFrames > 180),
+							(int)(autoLevelStartedFor != g_autotest_match));
+					}
+				}
+
+				if (Iam_server && autoLevelStartedFor != g_autotest_match
+					&& x_DWORD_17DE38str.x_WORD_17DEFE >= autoNeedPlayers
+					&& autoPeersAllIn
+					&& autoStableFrames > 180 && autoFrames > 180) {
+					autoLevelStartedFor = g_autotest_match;
+					int me = x_DWORD_17DE38str.serverIndex_17DEFC;
+					x_DWORD_17DE38str.array_BYTE_17DE68x[me].action_9 = 5;
+					x_DWORD_17DE38str.array_BYTE_17DE68x[me].makeUpdate_0 = 1;
+					if (CommandLineParams.DoNetworkDebug())
+						debug_net_printf("AUTOTEST: host starts the level %d (match %d)\n",
+							(int)x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10,
+							g_autotest_match);
+
+					// Which colour each slot ended up with.  Two wizards in one colour is a real
+					// failure mode here - the table lives in the token holder's record, so a
+					// hand-over can leave it empty and "the first free colour" then answers the same
+					// for everybody.  Reported at the start so it can be judged from the log.
+					if (CommandLineParams.DoNetworkDebug())
+					{
+						char colours[64] = { 0 };
+						int at = 0;
+						for (int c = 0; c < 8 && at < (int)sizeof(colours) - 8; c++)
+							if (x_DWORD_17DE38str.array_BYTE_17DE68x[c].makeUpdate_0)
+								at += snprintf(colours + at, sizeof(colours) - at, "s%d=c%d ", c,
+									(int)x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[c]);
+						debug_net_printf("AUTOTEST: colours %s\n", colours);
+					}
+				}
+			}
 			if (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode == 59)
 			{
 				x_D41A0_BYTEARRAY_4_struct.showHelp_10 = x_D41A0_BYTEARRAY_4_struct.showHelp_10 != 1;
@@ -5756,14 +6098,14 @@ char sub_77680()//258680
 					if ((time - oldTimes[0]) / 0x64u > 1)
 					{
 						textIndex++;
-						if (!textBoxStr_E2570[textIndex].minx2_2)
+						if (!textBoxStr_E2570[textIndex].left_2)
 							textIndex = 0;
 						oldTimes[0] = time;
 					}
 					typeTextBoxtextBoxStr_E24BCx textBoxStr[2];
 					memset(textBoxStr, 0, 2 * sizeof(typeTextBoxtextBoxStr_E24BCx));
 					textBoxStr[0] = textBoxStr_E2570[textIndex];
-					sub_7E840_draw_textbox_with_line(textBoxStr, 21, 27);
+					DrawTextBoxWithLine_7E840(textBoxStr, 21, 27);
 				}
 				else if (timeState == 3)
 				{
@@ -5779,6 +6121,7 @@ char sub_77680()//258680
 				SetCursor_8CD27(xy_DWORD_17DED4_spritestr[15]);
 			}
 			UpdateNetInfo();
+
 			if (x_WORD_180660_VGA_type_resolution & 1)
 				sub_90478_VGA_Blit320();
 			else
@@ -5799,35 +6142,40 @@ bool DrawAndServe_7B250()//25c250
 	typeTextBoxtextBoxStr_E24BCx textBoxStr[2];
 
 	if (CommandLineParams.ModeRegressionsTestType()==0) {
-		str_E1BAC[0].dword_0 = 0x258350;
-		str_E1BAC[0].selected_8 = 1;
+		mainMenuButtons_E1BAC[0].dword_0 = 0x258350;
+		mainMenuButtons_E1BAC[0].selected_8 = 1;
 	}
-	/*
-	if (CommandLineParams.ModeTestNetwork()) {
-		if (first_enter)
-		{
-			str_E1BAC[2].selected_8 = 1;
+	// Pick the network-game button once, on behalf of the tester.
+	if (CommandLineParams.AutoTest()) {
+		// Once per MATCH, not once per process: a second match comes back to this menu and
+		// has to pick the network game again.
+		static int autoNetworkPickedFor = -1;
+		if (autoNetworkPickedFor != g_autotest_match) {
+			autoNetworkPickedFor = g_autotest_match;
+			mainMenuButtons_E1BAC[2].selected_8 = 1;
+			if (CommandLineParams.DoNetworkDebug())
+				debug_net_printf("AUTOTEST: entering network game (match %d)\n", g_autotest_match);
 		}
-	}*/
+	}
 
-	for (int i = 0; str_E1BAC[i].xmin_10; i++)
+	for (int i = 0; mainMenuButtons_E1BAC[i].xmin_10; i++)
 	{
-		if (str_E1BAC[i].selected_8 && str_E1BAC[i].dword_0)
+		if (mainMenuButtons_E1BAC[i].selected_8 && mainMenuButtons_E1BAC[i].dword_0)
 		{
-			if (DrawAndServe_pre_sub_7B250(str_E1BAC[i].dword_0, &str_E1BAC[i]))
+			if (DrawAndServe_pre_sub_7B250(mainMenuButtons_E1BAC[i].dword_0, &mainMenuButtons_E1BAC[i]))
 			{
-				str_E1BAC[i].selected_8 = 0;
+				mainMenuButtons_E1BAC[i].selected_8 = 0;
 				ResetMouse_7B5A0();
 			}
-			if (str_E1BAC[i].dword_4)
+			if (mainMenuButtons_E1BAC[i].dword_4)
 			{
-				str_E1BAC[i].selected_8 = 0;
+				mainMenuButtons_E1BAC[i].selected_8 = 0;
 				SetCenterScreenForFlyAssistant_6EDB0();
 				sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 4);
 				ResetMouse_7B5A0();
 				SetCursor_8CD27(xy_DWORD_17DED4_spritestr[39]);
-				if (str_E1BAC[i].dword_4 == 2)
-					str_E1BAC[i].dword_4 = 0;
+				if (mainMenuButtons_E1BAC[i].dword_4 == 2)
+					mainMenuButtons_E1BAC[i].dword_4 = 0;
 				return 1;
 			}
 			return 0;
@@ -5835,12 +6183,12 @@ bool DrawAndServe_7B250()//25c250
 	}
 	//clear/set off_E1BAC
 	int jx;
-	for (jx = 0; str_E1BAC[jx].xmin_10; jx++)//clear/set off_E1BAC
+	for (jx = 0; mainMenuButtons_E1BAC[jx].xmin_10; jx++)//clear/set off_E1BAC
 	{
-		str_E1BAC[jx].selected_8 = 0;
-		str_E1BAC[jx].gold_color_24 = 0;
-		if (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode == 1 && str_E1BAC[jx].byte_22 == 11)
-			str_E1BAC[jx].selected_8 = 1;
+		mainMenuButtons_E1BAC[jx].selected_8 = 0;
+		mainMenuButtons_E1BAC[jx].gold_color_24 = 0;
+		if (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode == 1 && mainMenuButtons_E1BAC[jx].byte_22 == 11)
+			mainMenuButtons_E1BAC[jx].selected_8 = 1;
 	}
 	if (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode == 1)
 	{
@@ -5848,20 +6196,20 @@ bool DrawAndServe_7B250()//25c250
 	}
 	else
 	{
-		for (jx = 0; str_E1BAC[jx].xmin_10; jx++)
+		for (jx = 0; mainMenuButtons_E1BAC[jx].xmin_10; jx++)
 		{
-			if (InRegion_7B200(&str_E1BAC[jx], x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony)
-				&& str_E1BAC[jx].canSelect_23)
+			if (InRegion_7B200(&mainMenuButtons_E1BAC[jx], x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony)
+				&& mainMenuButtons_E1BAC[jx].canSelect_23)
 			{
 				if (x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons & 1)
 				{
 					PlaySample_8F100(0, 14, 127, 64, 0x64u, 0, 3u);
-					str_E1BAC[jx].selected_8 = 1;
+					mainMenuButtons_E1BAC[jx].selected_8 = 1;
 					ResetMouse_7B5A0();
 				}
 				else
 				{
-					str_E1BAC[jx].gold_color_24 = 1;
+					mainMenuButtons_E1BAC[jx].gold_color_24 = 1;
 					x_BYTE_17DBC6 = 1;
 				}
 				break;
@@ -5876,25 +6224,25 @@ bool DrawAndServe_7B250()//25c250
 		if ((times_17DBB8[1] - times_17DBB8[0]) / 0x64u > 1)
 		{
 			x_WORD_17DBC4++;
-			if (!textBoxStr_E25DC[x_WORD_17DBC4].minx2_2)
+			if (!textBoxStr_E25DC[x_WORD_17DBC4].left_2)
 				x_WORD_17DBC4 = 0;
 			times_17DBB8[0] = times_17DBB8[1];
 		}
 		memset(textBoxStr, 0, 36);
 		textBoxStr[0] = textBoxStr_E25DC[x_WORD_17DBC4];
 		int index = 0;
-		sub_7E840_draw_textbox_with_line(textBoxStr, 80, 89);
-		if (!str_E1BAC[0].xmin_10)
+		DrawTextBoxWithLine_7E840(textBoxStr, 80, 89);
+		if (!mainMenuButtons_E1BAC[0].xmin_10)
 			return 0;
 		do
 		{
-			if (str_E1BAC[index].byte_22 == str_BYTE_E25ED_0x[x_WORD_17DBC4].byte_0)
+			if (mainMenuButtons_E1BAC[index].byte_22 == str_BYTE_E25ED_0x[x_WORD_17DBC4].byte_0)
 			{
-				str_E1BAC[index].gold_color_24 = 1;//turn on gold selection
+				mainMenuButtons_E1BAC[index].gold_color_24 = 1;//turn on gold selection
 				return 0;
 			}
 			index++;
-		} while (str_E1BAC[index].xmin_10);
+		} while (mainMenuButtons_E1BAC[index].xmin_10);
 		return false;
 	}
 	else
@@ -5910,17 +6258,17 @@ bool DrawAndServe_7B250()//25c250
 			return 0;
 		}
 		int index2 = 0;
-		if (textBoxStr_E25DC[index2].minx2_2)
+		if (textBoxStr_E25DC[index2].left_2)
 		{
-			while (textBoxStr_E25DC[index2].byte_17 != str_E1BAC[jx].byte_22)
+			while (textBoxStr_E25DC[index2].byte_17 != mainMenuButtons_E1BAC[jx].byte_22)
 			{
 				index2++;
-				if (!textBoxStr_E25DC[index2].minx2_2)
+				if (!textBoxStr_E25DC[index2].left_2)
 					return 0;
 			}
 			memset(textBoxStr, 0, 36);
 			textBoxStr[0] = textBoxStr_E25DC[index2];
-			sub_7E840_draw_textbox_with_line(textBoxStr, 80, 89);
+			DrawTextBoxWithLine_7E840(textBoxStr, 80, 89);
 			int time = j___clock();
 			times_17DBB8[1] = time;
 			times_17DBB8[0] = time;

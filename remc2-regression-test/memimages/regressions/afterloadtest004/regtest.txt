@@ -1,0 +1,1 @@
+level=1 type=1 save=-1 steps=20
