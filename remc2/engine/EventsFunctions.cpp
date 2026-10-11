@@ -45171,7 +45171,6 @@ void sub_715B0()//2525b0
 	//int result; // eax
 	Type_Sprite** v2x; // ecx
 	//char v3; // cl
-	char v4; // cl
 	type_animations1* v5x; // eax
 	__int16 v6; // si
 	unsigned __int16 i; // bx
@@ -45204,8 +45203,7 @@ void sub_715B0()//2525b0
 						if (v8x)
 						{
 							//result = *v8;
-							//v9 = (*v8x)->word_0 & 0xF7;
-							(*v8x)->word_0 &= 0xF7;
+							(*v8x)->word_0 &= 0xFFF7;//byte write of the low byte & 0xF7
 							if ((*v8x)->word_0 & 1)
 							{
 								v10x = GetAnimationByIndex_724F0(animations_E9C08x, i);
@@ -45217,9 +45215,8 @@ void sub_715B0()//2525b0
 				}
 				else
 				{
-					v4 = (*v2x)->word_0 & 0xF7;
-					//*(x_BYTE *)result = v4;
-					if (v4 & 1)
+					(*v2x)->word_0 &= 0xFFF7;//*(x_BYTE*)result = v4: the drawn flag is cleared
+					if ((*v2x)->word_0 & 1)
 					{
 						v5x = GetAnimationByIndex_724F0(animations_E9C08x, v0);
 						/*result = */sub_72350(v5x);
