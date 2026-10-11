@@ -66,7 +66,7 @@ public class CustomActions
 			{
 				session.Log($"Updating config File: {configFilePath}");
 
-				if (Utils.SetFixedTmaps(configFilePath, configFilePath, fixedMenuGraphics))
+				if (Utils.SetFixedMenuGraphics(configFilePath, configFilePath, fixedMenuGraphics))
 				{
 					session.Log($"Success updating config File: {configFilePath}");
 					return ActionResult.Success;
