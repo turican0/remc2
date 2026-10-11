@@ -20,6 +20,7 @@ namespace WixSharpSetup
 
             this.chkInstallTextures.Checked = (!string.IsNullOrWhiteSpace(Runtime.Session["HIGHTEX"]) && Runtime.Session["HIGHTEX"].Equals("yes", StringComparison.InvariantCultureIgnoreCase));
 			this.chkFixedMenuGraphics.Checked = (!string.IsNullOrWhiteSpace(Runtime.Session["FIXEDMENUGRAPHICS"]) && Runtime.Session["FIXEDMENUGRAPHICS"].Equals("yes", StringComparison.InvariantCultureIgnoreCase));
+			this.chkFixedTmaps.Checked = (!string.IsNullOrWhiteSpace(Runtime.Session["FIXEDTMAPS"]) && Runtime.Session["FIXEDTMAPS"].Equals("yes", StringComparison.InvariantCultureIgnoreCase));
 			this.chkExtendedFonts.Checked = (!string.IsNullOrWhiteSpace(Runtime.Session["EXTENDEDFONTS"]) && Runtime.Session["EXTENDEDFONTS"].Equals("yes", StringComparison.InvariantCultureIgnoreCase));
 			this.chkSpeech.Checked = (!string.IsNullOrWhiteSpace(Runtime.Session["SPEECH"]) && Runtime.Session["SPEECH"].Equals("yes", StringComparison.InvariantCultureIgnoreCase));
 
@@ -36,6 +37,7 @@ namespace WixSharpSetup
         {
             Runtime.Session["HIGHTEX"] = (chkInstallTextures.Checked ? "yes": "no");
 			Runtime.Session["FIXEDMENUGRAPHICS"] = (chkFixedMenuGraphics.Checked ? "yes" : "no");
+			Runtime.Session["FIXEDTMAPS"] = (chkFixedTmaps.Checked ? "yes" : "no");
 			Runtime.Session["EXTENDEDFONTS"] = (chkExtendedFonts.Checked ? "yes" : "no");
 			Runtime.Session["SPEECH"] = (chkSpeech.Checked ? "yes" : "no");
 			Shell.GoNext();

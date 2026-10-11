@@ -66,7 +66,7 @@ public class CustomActions
 			{
 				session.Log($"Updating config File: {configFilePath}");
 
-				if (Utils.SetFixedTmaps(configFilePath, configFilePath, fixedMenuGraphics))
+				if (Utils.SetFixedMenuGraphics(configFilePath, configFilePath, fixedMenuGraphics))
 				{
 					session.Log($"Success updating config File: {configFilePath}");
 					return ActionResult.Success;
@@ -93,7 +93,7 @@ public class CustomActions
 
 		try
 		{
-			if (!string.IsNullOrWhiteSpace(session["FIXEDTMAPS_INSTALLDIR"]) && session["FIXEDTMAPS_INSTALLDIR"].Equals("yes", System.StringComparison.InvariantCultureIgnoreCase))
+			if (!string.IsNullOrWhiteSpace(session["FIXEDTMAPS"]) && session["FIXEDTMAPS"].Equals("yes", System.StringComparison.InvariantCultureIgnoreCase))
 			{
 				fixedTmaps = true;
 			}
@@ -107,7 +107,7 @@ public class CustomActions
 			{
 				session.Log($"Updating config File: {configFilePath}");
 
-				if (Utils.SetFixedMenuGraphics(configFilePath, configFilePath, fixedTmaps))
+				if (Utils.SetFixedTmaps(configFilePath, configFilePath, fixedTmaps))
 				{
 					session.Log($"Success updating config File: {configFilePath}");
 					return ActionResult.Success;
