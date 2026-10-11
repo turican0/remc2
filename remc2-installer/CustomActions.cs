@@ -66,7 +66,7 @@ public class CustomActions
 			{
 				session.Log($"Updating config File: {configFilePath}");
 
-				if (Utils.SetFixedMenuGraphics(configFilePath, configFilePath, fixedMenuGraphics))
+				if (Utils.SetFixedTmaps(configFilePath, configFilePath, fixedMenuGraphics))
 				{
 					session.Log($"Success updating config File: {configFilePath}");
 					return ActionResult.Success;
@@ -82,6 +82,47 @@ public class CustomActions
 		catch (Exception ex)
 		{
 			session.Log($"Error Setting fixed menu graphics: {ex.Message}");
+			return ActionResult.Failure;
+		}
+	}
+
+	[CustomAction]
+	public static ActionResult SetFixedTmaps(Session session)
+	{
+		bool fixedTmaps = false;
+
+		try
+		{
+			if (!string.IsNullOrWhiteSpace(session["FIXEDTMAPS_INSTALLDIR"]) && session["FIXEDTMAPS_INSTALLDIR"].Equals("yes", System.StringComparison.InvariantCultureIgnoreCase))
+			{
+				fixedTmaps = true;
+			}
+
+			session.Log($"Setting fixed tmaps to: {fixedTmaps}");
+			string path = session["INSTALLDIR"];
+			string configFilePath = Path.Combine(path, "config.json");
+			session.Log($"Setting config.json file: {configFilePath}");
+
+			if (File.Exists(configFilePath))
+			{
+				session.Log($"Updating config File: {configFilePath}");
+
+				if (Utils.SetFixedMenuGraphics(configFilePath, configFilePath, fixedTmaps))
+				{
+					session.Log($"Success updating config File: {configFilePath}");
+					return ActionResult.Success;
+				}
+
+				return ActionResult.Failure;
+			}
+			else
+			{
+				return ActionResult.Failure;
+			}
+		}
+		catch (Exception ex)
+		{
+			session.Log($"Error Setting fixed tmaps: {ex.Message}");
 			return ActionResult.Failure;
 		}
 	}
