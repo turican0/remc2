@@ -2538,8 +2538,8 @@ void ChangeGameResolution_46B40()//227b40
 	unsigned __int8 v2; // al
 	unsigned __int8 v3; // al
 
-	int16_t v0_tempmousex = 320;
-	int16_t v0_tempmousey = 200;
+	int16_t v0_tempmousex = x_WORD_E3760_mouse.x;//227b46: mov si, word_E3760
+	int16_t v0_tempmousey = x_WORD_E3760_mouse.y;//227b53: mov bx, word_E3762
 
 	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 	sub_417A0_install_pal_and_mouse_minmax();
