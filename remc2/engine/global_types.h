@@ -307,7 +307,7 @@ typedef struct Type_str_164 {//size 1136
 	//int16_t word_0x204_516[32];
 	//int16_t word_0x242_578;//word_0x204_516[31]
 	uint8_t stubm[6];
-	int16_t word_0x242_578 = -1;
+	int16_t word_0x242_578;//unk_F42B0 (A4 of entities without a player) is BSS, 0 in the original; 1F6B0D movsx eax,word ptr [eax+242h]
 	int16_t word_0x244_580;
 	int16_t word_0x246_582;
 	int16_t word_0x248_584;

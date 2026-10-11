@@ -342,7 +342,7 @@ bool LoadLevelSMAP_558E0(uint8_t savefileindex, bool loadRegressionTest)//2368e0
 	// FIXME: cannot set this here.
 	//        was before: debugafterload = 1;
 	//        cannot be: CommandLineParams.DoDebugafterload() = 1;
-	x_D41A0_BYTEARRAY_4_struct.setting_30 = 0x3d;//fix same run after load
+	x_D41A0_BYTEARRAY_4_struct.setting_30 = (x_D41A0_BYTEARRAY_4_struct.setting_30 & ~0xFFu) | 0x3d;//fix same run after load, the low byte only as DOSBox 2368E0 mem_writeb(0x38cf50 + 0x1e, 0x3d)
 	rand2_17B4E0 = 0x21ed;//fix random variable for debugging
 
 	char path[512];
@@ -1434,7 +1434,7 @@ void sub_71990()//252990
 	{
 		for (j = 0; j < 504 && !v6_return; j++)
 		{
-			if (i == D41A0_0.array_0x39[j] && !str_DWORD_F66F0x[j])
+			if (i == D41A0_0.array_0x39[j] && !m_ptrLoadedSprites_F66F0x[j])
 			{
 				v4 = sub_70EF0(j);
 				if (sub_71E60(x_DWORD_E9C28_str) <= v4)
@@ -1456,7 +1456,7 @@ void sub_71930()//252930
 {
 	for (int i=0; i < 508; i++) D41A0_0.array_0x39[i] = 0;
 	for (int i=0; i < 504; i++) {
-		if (str_DWORD_F66F0x[i])
+		if (m_ptrLoadedSprites_F66F0x[i])
 		{
 			D41A0_0.array_0x39[i] = 1;
 			if (m_LevelSpriteList_F5340[i])
@@ -1585,9 +1585,18 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* text
 //----- (0006D5E0) --------------------------------------------------------
 void SetSpell_6D5E0(type_entity_0x6E8E* entity, int spellId)//24e5e0
 {
-	int locSpellId = spellId;
+	// 2339AD call sub_6D5E0 with Entities[SpellEnabled[spell]]: the slot can hold a non-spell entity by then (a building,
+	// record11 turn 7421), its model is past the table and the original reads byte_DA818 + model*50h, the credits
+	// pointers (24E5EC movsx esi,byte ptr [ebx+40h])
+	if (entity->model_0x40_64 >= NUMBER_OF_SPELLS)
+		spellTableOverrun[entity - D41A0_0.struct_0x6E8E] = true;
+	int locSpellId = (int8_t)spellId;//24E604 movsx esi,al
 	if (locSpellId > SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].byte_0 - 1)
 		locSpellId = SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].byte_0 - 1;
+	// 240890 sub_5F890 passes the wizard, its word_0x2C_44 - 1 can be negative (record038 turn 6754: -37) and the original
+	// reads before byte_DA818 (a pointer of another table); 0 here and in DOSBox (24E614)
+	if (locSpellId < 0)
+		locSpellId = 0;
 	if (entity->word_0x2E_46)
 	{
 		entity->word_0x2C_44 = locSpellId + 1;
@@ -1624,8 +1633,8 @@ void sub_712F0()//2522f0
 		animations_E9C08x = sub_72120(0x1F8u);
 	sub_70A60_open_tmaps();
 	sub_71A70_setTmaps(D41A0_0.terrain_2FECE.MapType);
-	memset(str_DWORD_F66F0x, 0, 504 * sizeof(type_particle_str**));
-	memset(str_F5F10, 0, 504*sizeof(type_particle_str**));
+	memset(m_ptrLoadedSprites_F66F0x, 0, 504 * sizeof(Type_Sprite**));
+	memset(str_F5F10, 0, 504*sizeof(Type_Sprite**));
 	memset(x_DWORD_F5730, 0, 2016);
 	sub_71890();
 	sub_718F0();
@@ -1637,11 +1646,11 @@ void sub_71890()//252890
 	//char result; // al
 	int v0y = 0;
 	memset(m_LevelSpriteList_F5340, 0, 504);
-    while (particlesParameters_D951C[v0y].speed_6 || particlesParameters_D951C[v0y].rotSpeed_8)
+    while (spriteDefsTable_D951C[v0y].speed_6 || spriteDefsTable_D951C[v0y].worldSize_8)
     {
-        if (particlesParameters_D951C[v0y].byte_11 == -1)
+        if (spriteDefsTable_D951C[v0y].byte_11 == -1)
         {
-            m_LevelSpriteList_F5340[particlesParameters_D951C[v0y].word_0] = particlesParameters_D951C[v0y].byte_11;
+            m_LevelSpriteList_F5340[spriteDefsTable_D951C[v0y].textureIdx_0] = spriteDefsTable_D951C[v0y].byte_11;
         }
         v0y++;
     }
@@ -1689,6 +1698,7 @@ void sub_71A70_setTmaps(MapType_t a1)//252a70
 	}
 	}
 	x_DWORD_DB73C_tmapsfile = v1;
+	tmapsMapType = a1;
 	//return result;
 }
 // DB73C: using guessed type int x_DWORD_DB73C_tmapsfile;
@@ -1717,7 +1727,7 @@ type_E9C08* sub_72120(unsigned __int16 a1)//253120
 			//v5 = 7 * v1;
 			//*(x_DWORD *)(v2x->dword_2 + 4 * v5 + 4) = 0;
 			//*(x_DWORD *)(v2x->dword_2 + 4 * v5) = 0;
-			v2x->dword_2[v1].Particles_4 = 0;
+			v2x->dword_2[v1].Sprite_4 = 0;
 			v2x->dword_2[v1].dword_0 = 0;
 		}
 	}

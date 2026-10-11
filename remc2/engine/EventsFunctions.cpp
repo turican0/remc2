@@ -13621,9 +13621,9 @@ void sub_221F0(type_entity_0x6E8E* a1x, __int16 a2)//2031f0
 	/*LOBYTE(v2) = */SetEntityIndex_49C90(a1x, a2);
 	if ((unsigned __int16)a2 >= 0x157u && (unsigned __int16)a2 <= 0x159u)
 	{
-		v3 = particlesParameters_D951C[a2].word_0;//x_WORD_D951C[7 * a2];
+		v3 = spriteDefsTable_D951C[a2].textureIdx_0;//x_WORD_D951C[7 * a2];
 		/*LOBYTE(v2) = */sub_71AB0(v3, 1);
-		if (str_DWORD_F66F0x[v3])
+		if (m_ptrLoadedSprites_F66F0x[v3])
 		{
 			//v2 = *(unsigned __int16 *)(GetAnimationByIndex_724F0(animations_E9C08x, v3) + 16);
 			a1x->dword_0x10_16 = (unsigned __int16)GetAnimationByIndex_724F0(animations_E9C08x, v3)->CountOfFrames_16;//0x203258 mov ax, [eax+10h]
@@ -17567,6 +17567,7 @@ void sub_26FF0(type_entity_0x6E8E* a1x)//207ff0
 		sub_27120(a1x);
 	v11x = a1x;
 	v12 = 0;
+	v9x = a1x->position_0x4C_76;//20806C: the original leaves var_10 uninitialized when sub_10C40 <= 0 (stack garbage); DOSBox sets the same
 	SetEntityShiftRot_49EA0(a1x, v3, v2);
 	while (v11x != Entities_EA3E4[0])
 	{
@@ -17856,7 +17857,7 @@ void sub_27610(/*signed int a1, */type_entity_0x6E8E* a2x)//208610
 
 	v2 = GetManaSphereColorIndexFromEntityId_369F0(/*a1, */a2x->playerEntityIndex_0x94_148);
 	//v3 = 550 * (unsigned __int16)x_WORD_D951C[4 + 7 * (signed __int16)sub_278F0(v2, a2x->byte_0x46_70, 0)];
-	v3 = 550 * particlesParameters_D951C[(signed __int16)sub_278F0(v2, a2x->byte_0x46_70, 0)].rotSpeed_8;
+	v3 = 550 * spriteDefsTable_D951C[(signed __int16)sub_278F0(v2, a2x->byte_0x46_70, 0)].worldSize_8;
 	SetEntityShiftRot_49EA0(a2x, v3 / 1000, v3 / 1000);
 	for (result = a2x->word_0x34_52; ; result = v6x->word_0x34_52)
 	{
@@ -17864,7 +17865,7 @@ void sub_27610(/*signed int a1, */type_entity_0x6E8E* a2x)//208610
 		if (v6x == Entities_EA3E4[0])
 			break;
 		//v5 = 550 * (unsigned __int16)x_WORD_D951C[4 + 7 * (signed __int16)sub_278F0(v2, a2x->byte_0x46_70, v6x->byte_0x46_70)];
-		v5 = 550 * particlesParameters_D951C[(signed __int16)sub_278F0(v2, a2x->byte_0x46_70, v6x->byte_0x46_70)].rotSpeed_8;
+		v5 = 550 * spriteDefsTable_D951C[(signed __int16)sub_278F0(v2, a2x->byte_0x46_70, v6x->byte_0x46_70)].worldSize_8;
 		SetEntityShiftRot_49EA0(v6x, v5 / 1000, v5 / 1000);
 	}
 	//return result;
@@ -18769,7 +18770,7 @@ LABEL_11:
 		a1x->word_0x5A_90 = v3;
 		a1x->animationFrame_0x5C_92 = 0;
 		//a1x->byte_0x5D_93 = x_BYTE_D8A2E[(unsigned __int8)x_WORD_D951C[6 + 7 * v3]];
-		a1x->byte_0x5D_93 = x_BYTE_D8A2E[particlesParameters_D951C[v3].byte_12];
+		a1x->byte_0x5D_93 = x_BYTE_D8A2E[spriteDefsTable_D951C[v3].kind_12];
 
 	}
 	//return result;
@@ -19731,7 +19732,7 @@ void sub_29A90(type_entity_0x6E8E* a1x)//20aa90
 	//type_entity_0x6E8E* v1y;
 
 	//fix
-	v34x = 0x355188;//20AA96 sub esp,10h: [ebp-10h] uninitialized, mostly 355188h in the original
+	v34x = 0x355188;//20AA96 sub esp,10h: [ebp-10h] uninitialized, mostly 355188h in the original; DOSBox sets the same
 	v35x = 0;
 	//v1y = 0;
 	//fix
@@ -20812,7 +20813,7 @@ void sub_2AED0(type_entity_0x6E8E* a1x, int a2)//20bed0
 		a1x->animationFrame_0x5C_92 = 0;
 		//LOBYTE(v2) = x_BYTE_D8A2E[(unsigned __int8)x_WORD_D951C[6+7 * a2]];
 		//a1x->byte_0x5D_93 = x_BYTE_D8A2E[(unsigned __int8)x_WORD_D951C[6 + 7 * a2]];
-		a1x->byte_0x5D_93 = x_BYTE_D8A2E[particlesParameters_D951C[a2].byte_12];
+		a1x->byte_0x5D_93 = x_BYTE_D8A2E[spriteDefsTable_D951C[a2].kind_12];
 	}
 	//return v2;
 }
@@ -21288,7 +21289,7 @@ void sub_2B860(type_entity_0x6E8E* a1x, unsigned __int8 a2)//20c860
 		SetEntityIndexAndRot_49CD0(a1x, 291);
 		SetEntityShiftRot_49EA0(a1x, 384, 768);
 		sub_71AB0(v5, 0);
-		if (str_DWORD_F66F0x[v5])
+		if (m_ptrLoadedSprites_F66F0x[v5])
 		{
 			a1x->dword_0x10_16 = GetAnimationByIndex_724F0(animations_E9C08x, v5)->CountOfFrames_16;
 			a1x->word_0x2C_44 = a1x->dword_0x10_16;
@@ -22664,7 +22665,7 @@ void sub_30D50(type_entity_0x6E8E* a1x)//211d50
 			if (!(a1x->struct_byte_0xc_12_15.byte[0] & 2))
 			{
 				v10x._axis_2d.x = (a1x->position_0x4C_76.x + 128) >> 8;
-				v4 = a1x->struct_byte_0xc_12_15.byte[2];
+				v4 = a1x->struct_byte_0xc_12_15.byte[2];//211DFC call sub_45DC0: the original leaves dl (type) from sub_10C40, a DOS address; type 0 here and in DOSBox
 				v10x._axis_2d.y = (a1x->position_0x4C_76.y + 128) >> 8;
 				if (!(a1x->struct_byte_0xc_12_15.byte[2] & 1))
 					sub_10C80(a1x, 0, a1x->subSpellIndex_0x2A_42);
@@ -31091,9 +31092,9 @@ void write_pngs2()
 
 	for (int k = 0; k < 0x1F8u; k++)
 	{
-		if (str_DWORD_F66F0x[k] != 0)
+		if (m_ptrLoadedSprites_F66F0x[k] != 0)
 		{
-			type_particle_str* actimg = *str_DWORD_F66F0x[k];
+			Type_Sprite* actimg = *m_ptrLoadedSprites_F66F0x[k];
 			//int lenght = actimg->word_0;
 			int width = actimg->width;
 			int height = actimg->height;
@@ -32790,34 +32791,34 @@ void SetEntityIndex_49C90(type_entity_0x6E8E* event, int16_t entityIndex)//22ac9
 {
 	event->word_0x5A_90 = entityIndex;
 	event->animationFrame_0x5C_92 = 0;
-	event->byte_0x5D_93 = x_BYTE_D8A2E[particlesParameters_D951C[entityIndex].byte_12];
+	event->byte_0x5D_93 = x_BYTE_D8A2E[spriteDefsTable_D951C[entityIndex].kind_12];
 }
 
 //----- (00049CD0) --------------------------------------------------------
 void SetEntityIndexAndRot_49CD0(type_entity_0x6E8E* event, int16_t entityIndex)//22acd0
 {
 	SetEntityIndex_49C90(event, entityIndex);
-	event->array_0x52_82.yaw = particlesParameters_D951C[entityIndex].rotSpeed_8 / 2;
-	event->array_0x52_82.pitch = particlesParameters_D951C[entityIndex].speed_6 / 2;
-	event->array_0x52_82.roll = particlesParameters_D951C[entityIndex].speed_6 / 2;
-	event->array_0x52_82.fov = particlesParameters_D951C[entityIndex].rotSpeed_8 / 2;
+	event->array_0x52_82.yaw = spriteDefsTable_D951C[entityIndex].worldSize_8 / 2;
+	event->array_0x52_82.pitch = spriteDefsTable_D951C[entityIndex].speed_6 / 2;
+	event->array_0x52_82.roll = spriteDefsTable_D951C[entityIndex].speed_6 / 2;
+	event->array_0x52_82.fov = spriteDefsTable_D951C[entityIndex].worldSize_8 / 2;
 }
 
 //----- (00049D50) --------------------------------------------------------
 void sub_49D50(type_entity_0x6E8E* event, int16_t entityIndex)//22ad50
 {
 	event->word_0x5A_90 = entityIndex;
-	event->byte_0x5D_93 = x_BYTE_D8A2E[particlesParameters_D951C[entityIndex].byte_12];
-	event->array_0x52_82.yaw = particlesParameters_D951C[entityIndex].rotSpeed_8 / 2;
+	event->byte_0x5D_93 = x_BYTE_D8A2E[spriteDefsTable_D951C[entityIndex].kind_12];
+	event->array_0x52_82.yaw = spriteDefsTable_D951C[entityIndex].worldSize_8 / 2;
 }
 
 //----- (00049DA0) --------------------------------------------------------
 void SetHalfSpeedEntity_49DA0(type_entity_0x6E8E* event, int16_t entityIndex)//22ada0
 {
 	SetEntityIndexAndRot_49CD0(event, entityIndex);
-	event->array_0x52_82.pitch = particlesParameters_D951C[entityIndex].speed_6 / 2;
-	event->array_0x52_82.roll = particlesParameters_D951C[entityIndex].speed_6 / 2;
-	event->array_0x52_82.fov = particlesParameters_D951C[entityIndex].rotSpeed_8 / 2;
+	event->array_0x52_82.pitch = spriteDefsTable_D951C[entityIndex].speed_6 / 2;
+	event->array_0x52_82.roll = spriteDefsTable_D951C[entityIndex].speed_6 / 2;
+	event->array_0x52_82.fov = spriteDefsTable_D951C[entityIndex].worldSize_8 / 2;
 }
 
 //----- (00049E10) --------------------------------------------------------
@@ -33809,9 +33810,9 @@ type_entity_0x6E8E* sub_4B6F0(axis_3d* position)//22c6f0
 						+ 32 * (v9x->maxMana_0x8C_140 >> 31))) >> 5;
 				v5x->byte_0x3E_62 = v12;
 				SetEntityIndexAndRot_49CD0(v5x, v12 + 89);
-				v6x->array_0x52_82.pitch = 65 * particlesParameters_D951C[v12 + 89].speed_6 / 100;
-				v6x->array_0x52_82.roll = 65 * particlesParameters_D951C[v12 + 89].speed_6 / 100;
-				v6x->array_0x52_82.fov = 65 * particlesParameters_D951C[v12 + 89].rotSpeed_8 / 100;
+				v6x->array_0x52_82.pitch = 65 * spriteDefsTable_D951C[v12 + 89].speed_6 / 100;
+				v6x->array_0x52_82.roll = 65 * spriteDefsTable_D951C[v12 + 89].speed_6 / 100;
+				v6x->array_0x52_82.fov = 65 * spriteDefsTable_D951C[v12 + 89].worldSize_8 / 100;
 				v8 = v6x->array_0x52_82.pitch;
 				v6x->word_0x36_54 = v8;
 				if (!v12)
@@ -33825,9 +33826,9 @@ type_entity_0x6E8E* sub_4B6F0(axis_3d* position)//22c6f0
 		AddEventToMap_57D70(v9x, position);
 		CopyMaxLifeToLife_49A20(v9x);
 		SetEntityIndexAndRot_49CD0(v9x, 88);
-		v9x->array_0x52_82.pitch = 60 * particlesParameters_D951C[88].speed_6 / 100;//88 3
-		v9x->array_0x52_82.roll = 60 * particlesParameters_D951C[88].speed_6 / 100;//88 3
-		v9x->array_0x52_82.fov = 60 * particlesParameters_D951C[88].rotSpeed_8 / 100;//88 4
+		v9x->array_0x52_82.pitch = 60 * spriteDefsTable_D951C[88].speed_6 / 100;//88 3
+		v9x->array_0x52_82.roll = 60 * spriteDefsTable_D951C[88].speed_6 / 100;//88 3
+		v9x->array_0x52_82.fov = 60 * spriteDefsTable_D951C[88].worldSize_8 / 100;//88 4
 		resultx = v9x;
 	}
 	return resultx;
@@ -35876,7 +35877,7 @@ unsigned __int16 sub_4F1C0(type_entity_0x6E8E* a1x)//230c10
 	for (i = result; v1x > Entities_EA3E4[0]; v1x = Entities_EA3E4[result])
 	{
 		v4 = v1x->word_0x2C_44 + 293;
-		v5 = particlesParameters_D951C[v4].rotSpeed_8;
+		v5 = spriteDefsTable_D951C[v4].worldSize_8;
 		v6 = 550 * v5 / 1000;
 		v7 = 450 * v5 / 1000;
 		SetEntityIndexAndRot_49CD0(v1x, v4);
@@ -38766,6 +38767,8 @@ char sub_54200_create_user_directiores()//235200
 	readbuffer[0] = 0x0;
 	// end
 
+	if (PackedGameData())//regression tests without the game: no TMAPS to install into CDATA
+		return 1;
 	printbuffer[0] = 0;
 	outtext("Checking Setup Version ..");//23521B - 29EBED
 	v0l = 1;
@@ -39553,6 +39556,7 @@ void ClearSettings_567C0()//2377c0 // clean level
 	//clean_x_D41A0_BYTEARRAY_0_0x2362();
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[28302]), 0, 168000);
 	memset(D41A0_0.struct_0x6E8E, 0, sizeof(type_entity_0x6E8E) * 0x3e8);
+	memset(spellTableOverrun, 0, sizeof(spellTableOverrun));
 
 	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.paletteMod_51), 0, 1);
 	memset((void*)(x_D41A0_BYTEARRAY_4_struct.colorIndex_121), 0, 16);
@@ -43207,7 +43211,7 @@ void sub_46DD0_init_sound_and_music()//227DD0
 	if (!x_BYTE_D4B50)
 	{
 		x_BYTE_D4B50 = 1;
-		if ((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 0x40)//fix it
+		if (((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 0x40) || PackedGameData())//fix it; tests without the game: no sound data
 		{
 			PrintTextMessage_70910((char*)"Sound Disabled\0");
 			musicActive_E37FD = false;
@@ -45108,8 +45112,8 @@ void sub_713A0()//2523a0
 	sub_720C0(&x_DWORD_E9C28_str);
 	sub_72550(&animations_E9C08x);
 	CleanF5538_716A0();
-	memset(str_DWORD_F66F0x, 0, 504 * sizeof(type_particle_str**));
-	memset(str_F5F10, 0, 504 * sizeof(type_particle_str**));
+	memset(m_ptrLoadedSprites_F66F0x, 0, 504 * sizeof(Type_Sprite**));
+	memset(str_F5F10, 0, 504 * sizeof(Type_Sprite**));
 	memset(x_DWORD_F5730, 0, 2016);
 	x_BYTE_DB738 = 0;
 	sub_70BF0_close_tmaps();
@@ -45118,7 +45122,7 @@ void sub_713A0()//2523a0
 //----- (00071410) --------------------------------------------------------
 void sub_71410_process_tmaps()//252410
 {
-	//type_WORD_D951C* v0x; // esi
+	//Type_SpriteDef_D951C* v0x; // esi
 	int v0y;
 	uint8_t* v1; // ebx
 	uint16_t v2; // di
@@ -45127,10 +45131,10 @@ void sub_71410_process_tmaps()//252410
 	//v0x = &str_WORD_D951C[0];
 	v0y = 0;
 	v1 = pdwScreenBuffer_351628;
-	while (particlesParameters_D951C[v0y].speed_6 || particlesParameters_D951C[v0y].rotSpeed_8)
+	while (spriteDefsTable_D951C[v0y].speed_6 || spriteDefsTable_D951C[v0y].worldSize_8)
 	{
-		v2 = particlesParameters_D951C[v0y].word_0;
-		memset((void*)v1, 0, str_TMAPS00TAB_BEGIN_BUFFER[particlesParameters_D951C[v0y].word_0 + 1].dword_4 - str_TMAPS00TAB_BEGIN_BUFFER[particlesParameters_D951C[v0y].word_0].dword_4);
+		v2 = spriteDefsTable_D951C[v0y].textureIdx_0;
+		memset((void*)v1, 0, str_TMAPS00TAB_BEGIN_BUFFER[spriteDefsTable_D951C[v0y].textureIdx_0 + 1].dword_4 - str_TMAPS00TAB_BEGIN_BUFFER[spriteDefsTable_D951C[v0y].textureIdx_0].dword_4);
 		if (sub_70C60_decompress_tmap(v2, v1) == -1)
 		{
 			*(x_WORD*)(v1 + 2) = 255;
@@ -45143,18 +45147,18 @@ void sub_71410_process_tmaps()//252410
 			*(x_WORD*)(v1 + 4) = 255;
 			*(x_BYTE*)(v1 + 1) = 1;
 		}
-		if (particlesParameters_D951C[v0y].speed_6)
+		if (spriteDefsTable_D951C[v0y].speed_6)
 		{
-			if (!particlesParameters_D951C[v0y].rotSpeed_8)
-				particlesParameters_D951C[v0y].rotSpeed_8 = *(unsigned __int16*)(v1 + 4) * particlesParameters_D951C[v0y].speed_6 / *(unsigned __int16*)(v1 + 2);
+			if (!spriteDefsTable_D951C[v0y].worldSize_8)
+				spriteDefsTable_D951C[v0y].worldSize_8 = *(unsigned __int16*)(v1 + 4) * spriteDefsTable_D951C[v0y].speed_6 / *(unsigned __int16*)(v1 + 2);
 		}
 		else
 		{
-			particlesParameters_D951C[v0y].speed_6 = *(unsigned __int16*)(v1 + 2) * particlesParameters_D951C[v0y].rotSpeed_8 / *(unsigned __int16*)(v1 + 4);
+			spriteDefsTable_D951C[v0y].speed_6 = *(unsigned __int16*)(v1 + 2) * spriteDefsTable_D951C[v0y].worldSize_8 / *(unsigned __int16*)(v1 + 4);
 		}
 		/*v0 += 7;
 		*((x_BYTE*)v0 - 2) = *(x_BYTE*)(v1 + 1);*/
-		particlesParameters_D951C[v0y].byte_12 = *(x_BYTE*)(v1 + 1);
+		spriteDefsTable_D951C[v0y].kind_12 = *(x_BYTE*)(v1 + 1);
 		v0y++;
 	}
 	sub_70BF0_close_tmaps();
@@ -45165,13 +45169,13 @@ void sub_715B0()//2525b0
 {
 	unsigned __int16 v0; // bx
 	//int result; // eax
-	type_particle_str** v2x; // ecx
+	Type_Sprite** v2x; // ecx
 	//char v3; // cl
 	char v4; // cl
 	type_animations1* v5x; // eax
 	__int16 v6; // si
 	unsigned __int16 i; // bx
-	type_particle_str** v8x; // edi
+	Type_Sprite** v8x; // edi
 	//char v9; // cl
 	type_animations1* v10x; // eax
 
@@ -45179,7 +45183,7 @@ void sub_715B0()//2525b0
 	do
 	{
 		//result = 4 * v0;
-		v2x = str_DWORD_F66F0x[v0];
+		v2x = m_ptrLoadedSprites_F66F0x[v0];
 		if (v2x)
 		{
 			//result = *v2;
@@ -45196,7 +45200,7 @@ void sub_715B0()//2525b0
 						if (v6 != str_TMAPS00TAB_BEGIN_BUFFER[i].word_8)
 							break;
 						//result = 4 * i;
-						v8x = str_DWORD_F66F0x[i];
+						v8x = m_ptrLoadedSprites_F66F0x[i];
 						if (v8x)
 						{
 							//result = *v8;
@@ -45269,7 +45273,7 @@ void sub_716C0(unsigned __int16 entityType, unsigned __int16 entitySubtype, unsi
 //----- (00071730) --------------------------------------------------------
 void SetF5538ByStrTMAP00TAB_71730(unsigned __int16 a1)//252730
 {
-	x_BYTE_F5538[str_TMAPS00TAB_BEGIN_BUFFER[particlesParameters_D951C[a1].word_0].word_8] = particlesParameters_D951C[a1].byte_11;
+	x_BYTE_F5538[str_TMAPS00TAB_BEGIN_BUFFER[spriteDefsTable_D951C[a1].textureIdx_0].word_8] = spriteDefsTable_D951C[a1].byte_11;
 }
 
 //----- (00071780) --------------------------------------------------------
@@ -45294,7 +45298,7 @@ void sub_71780()//252780
 	{
 		for (j = 0; j < 0x1F8u && !v6; j++)
 		{
-			if (i == x_BYTE_F5538[j] && !str_DWORD_F66F0x[j])
+			if (i == x_BYTE_F5538[j] && !m_ptrLoadedSprites_F66F0x[j])
 			{
 				if (sub_71E60(x_DWORD_E9C28_str) <= sub_70EF0(j))
 				{
@@ -45317,7 +45321,7 @@ void sub_71AB0(__int16 a1, char a2)//252ab0
 	//type_particle_str* v2x; // eax
 	__int16 v3; // si
 	__int16 i; // bx
-	type_particle_str** v5x; // ecx
+	Type_Sprite** v5x; // ecx
 	type_animations1* v6x; // eax
 
 	//LOWORD(v2) = 5 * a1;
@@ -45327,7 +45331,7 @@ void sub_71AB0(__int16 a1, char a2)//252ab0
 		//LOWORD(v2) = v3;
 		if (str_TMAPS00TAB_BEGIN_BUFFER[i].word_8 != v3)
 			break;
-		v5x = str_DWORD_F66F0x[i];
+		v5x = m_ptrLoadedSprites_F66F0x[i];
 		if (v5x)
 		{
 			//v2x = *v5x;
@@ -45376,12 +45380,12 @@ void sub_72350(type_animations1* a1x)//253350 //animates sprite
 		if (a1x->FrameIndex_22 > a1x->CountOfFrames_16)
 		{
 			a1x->FrameIndex_22 = 1;
-			a1x->dword_8 = a1x->word_14;
+			a1x->dword_8 = a1x->NextFrameOffset_14;
 		}
 
-		if (str_DWORD_F66F0x[a1x->word_26] != NULL)
+		if (m_ptrLoadedSprites_F66F0x[a1x->word_26] != NULL)
 		{
-			type_particle_str* baseadr = *str_DWORD_F66F0x[a1x->word_26];
+			Type_Sprite* baseadr = *m_ptrLoadedSprites_F66F0x[a1x->word_26];
 			if (baseadr != NULL)
 			{
 				int animwidth = baseadr->width;
@@ -45416,7 +45420,7 @@ void sub_72350(type_animations1* a1x)//253350 //animates sprite
 		if (a1x->FrameIndex_22 > a1x->CountOfFrames_16)
 		{
 			a1x->FrameIndex_22 = 1;
-			a1x->dword_8 = a1x->word_14;
+			a1x->dword_8 = a1x->NextFrameOffset_14;
 		}
 		//v1 = *(x_DWORD*)a1x->particle_str_4;
 		sub_765FC(a1x->Width_18, 0);
@@ -45424,8 +45428,11 @@ void sub_72350(type_animations1* a1x)//253350 //animates sprite
 		/*v3 = sub_76619(v1 + a1x->dword_8, v1);
 		a1x->dword_8 = v3 - v1;
 		a1x->word_22 = a1x->word_22 + 1;*/
-		v3x = sub_76619(&a1x->Particles_4->textureBuffer[a1x->dword_8], a1x->Particles_4->textureBuffer);
-		a1x->dword_8 = v3x - a1x->Particles_4->textureBuffer;
+		if (!PackedGameData())//tests without the game: no frame data in the sprites (TMAPSMETA), the counter goes on
+		{
+			v3x = sub_76619(&a1x->Sprite_4->textureBuffer[a1x->dword_8], a1x->Sprite_4->textureBuffer);
+			a1x->dword_8 = v3x - a1x->Sprite_4->textureBuffer;
+		}
 		a1x->FrameIndex_22++;
 	}
 }
@@ -45448,10 +45455,10 @@ void sub_723B0(type_animations1* a1x, char a2)
 	else
 	{
 		//memset((void*)(*(x_DWORD*)a1x->dword_4 + 6), 0, a1x->word_18 * a1x->word_20);
-		memset((void*)(&a1x->Particles_4[1]), 0, a1x->Width_18 * a1x->Height_20);
+		memset((void*)(&a1x->Sprite_4[1]), 0, a1x->Width_18 * a1x->Height_20);
 		a1x->FrameIndex_22 = 1;
 		//result = a1x->word_14;
-		a1x->dword_8 = a1x->word_14;
+		a1x->dword_8 = a1x->NextFrameOffset_14;
 	}
 	//return result;
 }
@@ -46542,7 +46549,7 @@ void sub_7AA70_load_and_decompres_dat_file(const char* path, uint8_t* filebuffer
 {
 	//FILE* result; // eax
 
-	if (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc != NULL || (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = DataFileIO::CreateOrOpenFile(path, 512)))
+	if (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc != NULL || (path && (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = DataFileIO::CreateOrOpenFile(path, 512))))//path 0: only close (a missing file was never opened)
 	{
 		//result = x_DWORD_17DEE0_filedesc;
 		if (x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc != NULL)
@@ -55169,7 +55176,7 @@ signed int sub_67CB0(type_entity_0x6E8E* a1x)//248cb0
 			{
 				if (kkx->id_0x1A_26 != a1x->id_0x1A_26
 					&& kkx->byte_0x39_57
-					&& (kkx->StageVar2_0x49_73 != 14 || kkx->word_0x2C_44 != a1x->id_0x1A_26))
+					&& (kkx->StageVar2_0x49_73 != 14 || kkx->parentId_0x28_40 != a1x->id_0x1A_26))//248D8C mov dx,[esi+28h]
 				{
 					v6 = sub_68490(a1x, kkx, 0x71u, 0x200u);
 					if (v6 < v1)

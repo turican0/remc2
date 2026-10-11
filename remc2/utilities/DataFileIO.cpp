@@ -321,6 +321,15 @@ signed int DataFileIO::UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 	else
 	{
 		path.var36_size_buffer = (signed int)sub_AB9E1_get_file_unpack_size(path.path);
+		if (path.var36_size_buffer <= 0 && PackedGameData())//regression tests without the game: zeros (palette, empty sprites)
+		{
+			path.var36_size_buffer = 0x100000;//more than any file of pstr (BLOCK32 is 26000h)
+			*(path.colorPalette_var28) = (uint8_t*)Malloc_83CD0(path.var36_size_buffer);
+			memset(*(path.colorPalette_var28), 0, path.var36_size_buffer);
+			if (path.var32_end_buffer)//a .TAB: 1000 empty bitmaps (width 0), its posistruct array holds 1700
+				(*path.var32_end_buffer) = (*path.colorPalette_var28) + 1000 * sizeof(bitmap_pos_struct2_t);
+			return 1;
+		}
 		if (path.var36_size_buffer <= 0)
 			return 0;
 		if (path.var40_alloc_type & 1)

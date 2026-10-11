@@ -1933,17 +1933,17 @@ void sub_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
 	uint8_t nextAngle;
 	int terModIndex;
 	char tempShad;
-	char yAdd;
-	char xAdd;
+	uint8_t yAdd;
+	uint8_t xAdd;
 	uint8_t point1;
 	uint8_t point2;
 	uint8_t point3;
 	uint8_t point4;
 
 	tempAxis.word = inAxis2dA.word;
-	for (int indexY = inAxis2dB._axis_2d.y - inAxis2dA._axis_2d.y + 1; indexY > 0; indexY--)
+	for (uint8_t indexY = inAxis2dB._axis_2d.y - inAxis2dA._axis_2d.y + 1; indexY != 0; indexY--)//2272B9 inc ah ... dec ah, jnz: byte counters, the area can wrap over the map edge
 	{
-		for (int indexX = inAxis2dB._axis_2d.x - inAxis2dA._axis_2d.x + 1; indexX > 0; indexX--)
+		for (uint8_t indexX = inAxis2dB._axis_2d.x - inAxis2dA._axis_2d.x + 1; indexX != 0; indexX--)
 		{
 			if ((int8_t)mapAngle_13B4E0[tempAxis.word] >= 0)
 				mapTerrainType_10B4E0[tempAxis.word] = 1;
@@ -1967,9 +1967,9 @@ void sub_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
 	inAxis2dA._axis_2d.x--;
 	inAxis2dA._axis_2d.y--;
 	tempAxis.word = inAxis2dA.word;
-	for (int indexY = yAdd; indexY > 0; indexY--)
+	for (uint8_t indexY = yAdd; indexY != 0; indexY--)
 	{
-		for (int indexX = xAdd; indexX > 0; indexX--)
+		for (uint8_t indexX = xAdd; indexX != 0; indexX--)
 		{
 			if (mapTerrainType_10B4E0[tempAxis.word] == 1)
 			{
@@ -2004,9 +2004,9 @@ void sub_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
 	tempAxis.word = inAxis2dA.word;
 	if (yAdd != 0)
 	{
-		for (int indexY = yAdd; indexY > 0; indexY--)
+		for (uint8_t indexY = yAdd; indexY != 0; indexY--)
 		{
-			for (int indexX = xAdd; indexX > 0; indexX--)
+			for (uint8_t indexX = xAdd; indexX != 0; indexX--)
 			{
 				tempAxis._axis_2d.x++;
 				tempAxis._axis_2d.y++;
