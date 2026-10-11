@@ -74,7 +74,7 @@
 					"highResGraphicsFolder": "graphics/high-res",
 					"useFixedMenuGraphics": false,
 					"fixedMenuGraphicsFolder": "graphics/fixed/menu",
-					"useFixedTmaps": false,
+					"useFixedTmaps": true,
 					"fixedTmapsFolder": "graphics/fixed/tmaps",
 					"useExtendedFonts": true,
 					"extendedFontsFolder": "graphics/fixed/fonts",
