@@ -2116,8 +2116,10 @@ void ComputeMousePlayerMovement_17060(int16_t x, int16_t y)//1f8060
 		}
 		else
 		{
-			roll = ((x << 7) - ((gameResWidth / 2) << 7)) / (gameResWidth / 2);
-			pitch = ((y << 7) - ((gameResHeight / 2) << 7)) / -(gameResHeight / 2);
+			const int centerX = screenWidth_18062C / 2;//640x480: 320, 240 as the original
+			const int centerY = screenHeight_180624 / 2;
+			roll = ((x << 7) - (centerX << 7)) / centerX;//1f80c5: lea edx, [eax-0A000h]
+			pitch = ((y << 7) - (centerY << 7)) / -centerY;//1f80df: lea edx, [eax-7800h]
 		}
 		if (roll < -127)
 			roll = -127;
