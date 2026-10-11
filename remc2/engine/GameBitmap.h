@@ -15,6 +15,9 @@ public:
 	static void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, uint8_t scale = 1);
 	static void DrawMenuGraphic(uint16_t width, uint16_t height, uint8_t scale, uint8_t* ptrSrc, uint8_t* ptrDest);
 	static void ScaleMenuGraphic(uint16_t height, uint8_t scale, uint8_t* ptrSrc, uint8_t* ptrDest);
+	static void PaletteToRgb(uint8_t* ptrPalette, uint8_t colorAddressIdx, uint8_t truColorOut[3]);
+	static void PaletteToRgba(uint8_t* ptrPalette, uint8_t colorIdx, uint8_t truColorOut[4]);
+	static uint8_t DeriveBlendAlpha(uint8_t* ptrPalette, uint8_t srcIndex, uint8_t dstIndex, uint8_t resultIndex);
 };
 
 #endif //GAME_BITMAP

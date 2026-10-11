@@ -14,6 +14,7 @@ endif ()
 source_group("Header Files" FILES ${HEADER_FILES})
 
 if (WIN32)
+	set(APP_ICON_RESOURCE ${CMAKE_SOURCE_DIR}/icons/app.rc)
     set(SOURCE_FILES
         "remc2.cpp"
         "stdafx.cpp"
@@ -43,8 +44,6 @@ set(SOURCE_FILES_ENGINE
     "engine/GameBitmap.cpp"
     "engine/GameBitmap.h"
     "engine/GameBitmapIndexes.h"
-    "engine/GameRenderGL.cpp"
-    "engine/GameRenderGL.h"
     "engine/GameRenderHD.cpp"
     "engine/GameRenderHD.h"
     "engine/GameRenderInterface.h"
@@ -72,8 +71,8 @@ set(SOURCE_FILES_ENGINE
     "engine/Player.h"
     "engine/PlayerInput.cpp"
     "engine/PlayerInput.h"
-    "engine/ProjectionPolygon.cpp"
-    "engine/ProjectionPolygon.h"
+    "engine/ProjectionVertex.cpp"
+    "engine/ProjectionVertex.h"
     "engine/RenderThread.cpp"
     "engine/RenderThread.h"
     "engine/Sound.cpp"
@@ -95,8 +94,8 @@ set(SOURCE_FILES_ENGINE
     "engine/Type_MapScreenPortals_E17CC.h"
     "engine/Type_SecretMapScreenPortals_E2970.cpp"
     "engine/Type_SecretMapScreenPortals_E2970.h"
-    "engine/Type_WORD_D951C.cpp"
-    "engine/Type_WORD_D951C.h"
+    "engine/Type_SpriteDef_D951C.cpp"
+    "engine/Type_SpriteDef_D951C.h"
     "engine/Unk_D47E0.cpp"
     "engine/Unk_D47E0.h"
     "engine/Unk_D4A30.cpp"

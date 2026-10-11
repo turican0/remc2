@@ -19,6 +19,7 @@ public:
 
 	//Methods
 	void Trigger(_args... a) { this->m_cbFunc(a...); }
+	const _callback& GetCallback() const { return this->m_cbFunc; }
 
 private:
 	//Event identifier

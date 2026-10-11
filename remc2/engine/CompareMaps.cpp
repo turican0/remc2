@@ -1,4 +1,6 @@
 #include "CompareMaps.h"
+#include <chrono>
+#include <string>
 
 //for debuging
 int countcompindexes = 0;
@@ -53,6 +55,22 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 	if (debugafterload)
 	{
 		int index = getcompindex(adress);
+		if (unitTestsProgress && index % 20 == 0)
+		{
+			if (unitTestsProgressFrames > 0)//a test of its own: a bar for the one who watches
+			{
+				static const std::chrono::steady_clock::time_point started = std::chrono::steady_clock::now();
+				const int elapsed = (int)std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - started).count();
+				const int left = index > 0 ? (int)((long long)elapsed * (unitTestsProgressFrames - index) / index) : 0;
+				const int bars = index * 20 / (unitTestsProgressFrames > 0 ? unitTestsProgressFrames : 1);
+				printf("\r  [%s%s] %d/%d frames, %02d:%02d elapsed, %02d:%02d left  ",
+					std::string(bars > 20 ? 20 : bars, '=').c_str(), std::string(bars > 20 ? 0 : 20 - bars, '.').c_str(),
+					index, unitTestsProgressFrames, elapsed / 60, elapsed % 60, left / 60, left % 60);
+			}
+			else
+				printf("@PROGRESS %d\n", index);
+			fflush(stdout);
+		}
 		if (index >= skip2)
 		{
 			if (index >= stopstep)
@@ -66,7 +84,7 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 					}
 					End_thread(20);
 				}
-				if (!skip)
+				if (!skip && index >= unitTestsCompareFrom)
 				{
 					comp20 = compare_with_sequence(buffer1, (uint8_t*)mapTerrainType_10B4E0, 0x2dc4e0, index - skip2, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0, (exitindex != 1000000));
 					comp20 = compare_with_sequence(buffer1, (uint8_t*)mapHeightmap_11B4E0, 0x2dc4e0, index - skip2, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000, (exitindex != 1000000));
@@ -89,6 +107,15 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 
 					//screen
 					//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer_351628, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
+
+					// the last frame of the reference: after the last level of the game no next frame comes (end video, credits)
+					if (exitindex != 1000000 && exitindex > 1 && index + 1 >= exitindex)
+					{
+						int i = getcompstrindex(adress);
+						if (i > -1)
+							compstr[i].index = 0;
+						End_thread(20);
+					}
 				}
 				//if(debugcounter_271478>5)
 				//comp20 = compare_with_sequence(buffer4, pdwScreenBuffer_351628, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);

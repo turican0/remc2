@@ -72,6 +72,20 @@ void allert_error();
 
 extern bool unitTests;
 extern std::string unitTestsPath;
+extern bool unitTestsProgress;//print @PROGRESS <step> for the runner
+extern int unitTestsProgressFrames;//how many frames the test has, 0 = print for the runner
+extern int unitTestsCompareFrom;//compare only from this frame on ("--compare_from")
+const uint8_t* D41A0CompareKinds();//test_D41A0_id_pointer for every byte of D41A0
+// entities given values from past the spell table by SetSpell_6D5E0 (model >= NUMBER_OF_SPELLS): in the original
+// they come from the credits pointers behind byte_DA818 (DOS addresses), the compare skips those fields
+extern bool spellTableOverrun[1000];
+std::string SaveDirectory();
+std::string LevelsDirectory();//CLEVELS, one per process in the tests
+// regression tests without the game (GitHub Actions): remc2-regression-test/data/data.binz holds the only
+// game data there is, everything else the game would load is skipped (PackedGameData())
+extern std::string packedDataFile;
+inline bool PackedGameData() { return !packedDataFile.empty(); }
+std::string UnpackPackedData();//the folder with CD_Files (from data.binz) and an empty NETHERW
 extern int* endTestsCode;
 
 extern uint8_t* readbuffer;
@@ -164,10 +178,10 @@ typedef struct {//size 5152
 	uint16_t height;
 	int8_t textureBuffer[];
 }
-type_particle_str;
+Type_Sprite;
 
 typedef struct {//size 14
-	type_particle_str* partstr_0;//type_particle_str?
+	Type_Sprite* partstr_0;//Sprite?
 	int32_t dword_4;
 	int16_t word_8;
 	int16_t Index;
@@ -226,8 +240,11 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	//invincability - 1;
 	uint8_t FrameTimingIndex_26 = 0;//Used to time flashing indicators
 	uint8_t stubc[3];
-	uint8_t setting_30;//x_D41A0_BYTEARRAY_4_struct.setting_30
-	uint8_t stubd[3];
+	// The per-level tick counter, a dword in the original (mov esi,[eax+1Eh] / inc esi at 0x51C9B,
+	// read whole in sub_5D530 and added to D41A0_0.rand_0x8). As a byte followed by three bytes
+	// of padding it wrapped at 256 and the global RNG came out 0x100 short from turn 256 on.
+	// Replaces the padding, so the fields after it keep their place.
+	uint32_t setting_30;//x_D41A0_BYTEARRAY_4_struct.setting_30
 	//FILE* moviemvidatfile_byte4_33;
 	uint8_t m_wHighSpeedSystem;
 	FILE* moviemvidatfile_byte4_35;

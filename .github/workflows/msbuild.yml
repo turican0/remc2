@@ -45,6 +45,22 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/remc2.sln
     
+    # Regression tests against the memimages of the original game. No game data on the runner: the tests use
+    # remc2-regression-test/data/data.binz (--packed_data) and draw nothing (SDL dummy drivers).
+    - name: Run Regression Tests
+      if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      env:
+        SDL_VIDEODRIVER: dummy
+        SDL_AUDIODRIVER: dummy
+      run: ${{env.SOLUTION_FILE_PATH}}/x64/Release/remc2-regression-test.exe --packed_data
+
+    - name: Regression Test Summary
+      if: ${{ always() && matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      shell: bash
+      run: cat ${{env.SOLUTION_FILE_PATH}}/x64/Release/regression-summary.txt || true
+
     #- name: Run Unit Tests x86
     #  if: ${{ matrix.BUILD_CONFIGURATION == 'Debug' && matrix.BUILD_PLATFORM == 'x86' }}
     #  working-directory: ${{env.GITHUB_WORKSPACE}}

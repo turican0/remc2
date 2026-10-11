@@ -2438,7 +2438,7 @@ void ReadOkayCancelButtonEvents_19E00()//1fae00
 }
 
 //----- (00019760) --------------------------------------------------------
-void SetCurrentNotificationMessage_19760(const char* message, unsigned __int8 a2, __int16 a3)//1fa760
+void SetCurrentNotificationMessage_19760(const char* message, unsigned __int8 a2, __int16 duration)//1fa760
 {
 	int maxLength = sizeof(D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].CurrentNotificationText_0x01c_2BFA_11258);
 
@@ -2472,7 +2472,7 @@ void SetCurrentNotificationMessage_19760(const char* message, unsigned __int8 a2
 		v4 += 2;
 	} while (v6);*/
 	//result = (int)x_D41A0_BYTEARRAY_0;
-	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x04d_2C2B_11307 = a3;
+	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].CurrentNotificationDuration_0x04d_2C2B_11307 = duration;
 	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x04f_2C2D_11309 = a2;
 	//	return result;
 }
@@ -2544,11 +2544,11 @@ void ChangeGameResolution_46B40()//227b40
 	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
 	sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
 
-	if (pre_x_DWORD_E9C3C)
+	if (pre_ptrMemoryBuffer_E9C3C)
 	{
-		FreeMem_83E80(pre_x_DWORD_E9C3C);
-		pre_x_DWORD_E9C3C = 0;
-		x_DWORD_E9C3C = 0;
+		FreeMem_83E80(pre_ptrMemoryBuffer_E9C3C);
+		pre_ptrMemoryBuffer_E9C3C = 0;
+		ptrMemoryBuffer_E9C3C = 0;
 	}
 
 	sub_54600_mouse_reset();

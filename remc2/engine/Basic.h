@@ -183,6 +183,12 @@ typedef struct//lenght 613 // end 17E09D
 } type_x_DWORD_17DE38str;
 #pragma pack (pop)
 
+typedef struct {
+	std::string Message;
+	int16_t Duration;
+}
+Type_Message;
+
 //extern int16_t m_iViewPortX_EA3D0; // weak?x_DWORD_E9C4C_langindexbuffer[481]
 //extern uint16_t m_uiViewPortWidth_EA3C4; // weak?x_DWORD_E9C4C_langindexbuffer[478]
 
@@ -194,7 +200,10 @@ extern uint8_t keyColor1_D4B7C; // weak
 extern uint8_t keyColor2_D4B7E; // weak
 extern type_entity_0x6E8E* Entities_EA3E4[1001];//2bb3e4
 
-extern uint8_t x_BYTE_F6EE0_tablesx[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
+extern uint8_t ColourLookupTable_F6EE0[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
+const uint32_t COLOUR_BLEND_LOOKUP_OFFSET = 0x4000;
+const uint32_t MAP_COLOUR_BLEND_LOOKUP_OFFSET = 0x14000;
+
 extern uint8_t* x_BYTE_F6EE0_tablesx_pre;
 extern uint8_t* x_BYTE_FAEE0_tablesx_pre;
 
@@ -459,7 +468,7 @@ extern Pathstruct xadatatables;
 #define psxazero14 47
 
 extern axis_2d x_WORD_E3760_mouse;
-extern uint8_t* x_DWORD_E9C3C; // weak
+extern uint8_t* ptrMemoryBuffer_E9C3C; // Looks like a generic buffer, used for video and sound operations
 extern type_SPELLS_BEGIN_BUFFER_str SPELLS_BEGIN_BUFFER_str[];
 
 extern int16_t x_WORD_1806EE; // weak
@@ -509,6 +518,8 @@ volatile extern int16_t GameTimerTurn_17DB54; // 34EB54
 
 extern uint32_t PitFrequency_F4240;
 
+extern std::vector<Type_Message*>* m_Messages;
+
 bool DefaultResolutions();
 bool IsDefaultResolution(int width, int height);
 bool IsDefaultResolution320(int width, int height);
@@ -556,7 +567,7 @@ int32_t /*__cdecl*/ x_tolower(int32_t);// weak
 void sub_2EC30_clear_img_mem();
 void StartSubtitles_2EB60();
 void sub_2EBB0_draw_text_with_border_630x340(char* textString);
-void sub_7FCB0_draw_text_with_border(char* textString, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
+void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
 void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, bitmap_pos_struct_t tempstr);
 uint8_t getPaletteIndex_5BE80(TColor* a1x, uint8_t a2, uint8_t a3, uint8_t a4);
 void sub_7C140_draw_text_background(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
@@ -577,6 +588,9 @@ void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t 
 void SetFrameStart(std::chrono::system_clock::time_point frameStart);
 std::chrono::duration<double, std::milli> CalculateTimeDelta();
 void VGA_CalculateAndPrintFps(int x, int y, float timeDelta);
+void AddMessage(Type_Message* message);
+void ClearMessages();
+void VGA_DrawMessages();
 void VGA_DrawPlayerCoordData(int x, int y);
 void VGA_BlitAny(uint8_t maxFps = 0);
 void LockFps(uint8_t maxFps);

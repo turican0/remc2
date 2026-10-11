@@ -51,7 +51,7 @@ extern int x_DWORD_E383C;
 extern __int16 x_WORD_E3834;
 extern type_E3808_music_header* musicHeader_E3808;
 extern char musicDriverType_180C84;
-extern int16_t x_WORD_181B44;
+extern int16_t CurrentPaletteFade_181B44;
 extern char cdSpeechEnabled_E2A28; // weak
 extern type_F4FE0 EntitySounds_F4FE0[70];
 

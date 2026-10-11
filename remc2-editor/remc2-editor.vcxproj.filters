@@ -112,4 +112,9 @@
   <ItemGroup>
     <None Include="editor-config.json" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icons\editor.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
 </Project>

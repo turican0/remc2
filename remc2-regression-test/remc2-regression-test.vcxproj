@@ -39,498 +39,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="memimages\regressions\afterloadtest1\SAVE\SAVE1.GAM">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\afterloadtest1\SAVE\SAVE2.GAM">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\afterloadtest1\SAVE\SLEV1.DAT">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\afterloadtest1\SAVE\SLEV2.DAT">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\afterloadtest1\SAVE\SMAP1.DAT">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\afterloadtest1\SAVE\SMAP2.DAT">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\afterloadtest1\SAVE\SVER1.DAT">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\afterloadtest1\SAVE\SVER2.DAT">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\afterloadtest1\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\afterloadtest1\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\afterloadtest1\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\afterloadtest1\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\afterloadtest1\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\afterloadtest1\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level10\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level10\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level10\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level10\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level10\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level10\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level11\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level11\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level11\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level11\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level11\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level11\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level12\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level12\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level12\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level12\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level12\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level12\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level13\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level13\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level13\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level13\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level13\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level13\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level14\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level14\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level14\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level14\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level14\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level14\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level15\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level15\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level15\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level15\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level15\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level15\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level16\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level16\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level16\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level16\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level16\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level16\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level17\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level17\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level17\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level17\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level17\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level17\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level18\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level18\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level18\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level18\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level18\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level18\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level19\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level19\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level19\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level19\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level19\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level19\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level20\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level20\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level20\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level20\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level20\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level20\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level21\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level21\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level21\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level21\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level21\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level21\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level22\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level22\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level22\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level22\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level22\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level22\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level23\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level23\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level23\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level23\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level23\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level23\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level24\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level24\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level24\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level24\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level24\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level24\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level25\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level25\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level25\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level25\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level25\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level25\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level2\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level2\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level2\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level2\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level2\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level2\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level3\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level3\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level3\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level3\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level3\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level3\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level4\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level4\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level4\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level4\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level4\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level4\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level5\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level5\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level5\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level5\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level5\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level5\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level6\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level6\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level6\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level6\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level6\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level6\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level7\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level7\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level7\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level7\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level7\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level7\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level8\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level8\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level8\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level8\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level8\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level8\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level9\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level9\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level9\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level9\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level9\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level9\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level1\sequence-002285FF-002B3A74.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level1\sequence-002285FF-002DC4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level1\sequence-002285FF-0034C4E0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level1\sequence-002285FF-003514B0.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level1\sequence-002285FF-00356038.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="memimages\regressions\level1\sequence-002285FF-003AA0A4.bin">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
     <None Include="playthough-config.json">
       <DeploymentContent>true</DeploymentContent>
     </None>
@@ -654,7 +162,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)remc2\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2maind.lib;Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;XmiInfo;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2maind.lib;Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_SpriteDef_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionVertex;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;XmiInfo;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -680,7 +188,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)remc2\Debug-nonASA;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2maind.lib;Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2maind.lib;Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_SpriteDef_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionVertex;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -707,7 +215,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)remc2\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2maind.lib;Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;XmiInfo;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2maind.lib;Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_SpriteDef_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionVertex;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;XmiInfo;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -737,7 +245,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)remc2\x64\Debug-nonASA;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2maind.lib;Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;XmiInfo;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2maind.lib;Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_SpriteDef_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionVertex;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;XmiInfo;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -757,7 +265,9 @@
       <ConformanceMode>false</ConformanceMode>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <!-- /utf-8 as in every Debug configuration of this project: spdlog's base.h asserts on
+           the source charset, so a build without it stops on a static_assert. -->
+      <AdditionalOptions>/Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -770,7 +280,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -778,7 +288,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <!-- See the note in the Release|Win32 block above. -->
+      <AdditionalOptions>/Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -788,6 +299,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)remc2\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2main.lib;Config;ScreenBuff;UVTable_D4350;Unk_D4A30;Unk_D47E0;Type_SpriteDef_D951C;Type_D404C;Compare;CompareMaps;ConvertMapInfo;PrintMessages;MouseOnOff;ReadAndDecompress;DatTabIndexes;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionVertex;Network;port_net;RenderThread;Graphics;GameRenderOriginal;GameRenderHD;GameRenderNG;GameBitmap;TextureMaps;Maths;Animation;Sound;XmiInfo;CommandLineParser;RendererTests;PlayerInput;Player;Spells;EventsFunctions;LevelInit;Level;LevelStructs;Events;EventDispatcher;GameUI;StateMonitor;read_config;Basic;BasicTerrain;BitmapIO;DataFileIO;DataFileRNC;InputRecorder;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;stb_impl;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

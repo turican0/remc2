@@ -2,30 +2,39 @@ If you want to play a multiplayer game, all players must be on the same network 
 
 One player is set up as the server and the others as clients.
 
-The server has the following settings in the command line:
+Every node holds ONE port. On the server that port carries both the control traffic it
+answers for everyone and its own game data; on a client it is the port its peers send game
+data to. The server therefore needs nothing but its own port:
 
---mode_test_network server [server-port] client [server-ip] [server-port] [client-port]
+--network server [server-port]
 
-The clients have these:
---mode_test_network client [server-ip] [server-port] [client-port]
+The clients need to be told where the server is, plus their own port:
+--network client [server-ip] [server-port] [client-port]
 
-For example(standard network game on different computers):
---mode_test_network server 3030 client 127.0.0.1 3030 3031
---mode_test_network client 192.168.0.15 3030 3030
---mode_test_network client 192.168.0.15 3030 3030
---mode_test_network client 192.168.0.15 3030 3030
---mode_test_network client 192.168.0.15 3030 3030
---mode_test_network client 192.168.0.15 3030 3030
+For example (standard network game on different computers):
+--network server 3030
+--network client 192.168.0.15 3030 3030
+--network client 192.168.0.15 3030 3030
+--network client 192.168.0.15 3030 3030
+--network client 192.168.0.15 3030 3030
+--network client 192.168.0.15 3030 3030
 
 
-Or for testing on single computer:
---mode_test_network server 3030 client 127.0.0.1 3030 3031
---mode_test_network client 127.0.0.1 3030 3032
---mode_test_network client 127.0.0.1 3030 3033
---mode_test_network client 127.0.0.1 3030 3034
---mode_test_network client 127.0.0.1 3030 3035
---mode_test_network client 127.0.0.1 3030 3036
---mode_test_network client 127.0.0.1 3030 3037
+Or for testing on a single computer, where every instance needs a port of its own:
+--network server 3030
+--network client 127.0.0.1 3030 3032
+--network client 127.0.0.1 3030 3033
+--network client 127.0.0.1 3030 3034
+--network client 127.0.0.1 3030 3035
+--network client 127.0.0.1 3030 3036
+--network client 127.0.0.1 3030 3037
+
+The older form, where the server was also given a "client 127.0.0.1 [server-port]
+[data-port]" part, still works - the extra data port is ignored, because the server now uses
+its control port for data as well.
 
 Leave the network number in the game set to 0. If there are multiple games on a single network,
 the servers will have different IP addresses so they don't interfere with each other.
+
+Add --network_debug to write a log of the network traffic; each instance writes
+net_messages_log1_[own port].txt into its working folder.

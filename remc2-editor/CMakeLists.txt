@@ -1,5 +1,9 @@
 set(EDITOR_TARGET remc2-editor)
 
+if (WIN32)
+	set(APP_ICON_RESOURCE ${CMAKE_SOURCE_DIR}/icons/editor.rc)
+endif()
+
 set(SOURCE_FILES_EDITOR
     "editor.cpp"
     "editor_main.cpp"
@@ -42,8 +46,8 @@ set(SOURCE_FILES_EDITOR
     "../remc2/engine/Player.h"
     "../remc2/engine/PlayerInput.cpp"
     "../remc2/engine/PlayerInput.h"
-    "../remc2/engine/ProjectionPolygon.cpp"
-    "../remc2/engine/ProjectionPolygon.h"
+    "../remc2/engine/ProjectionVertex.cpp"
+    "../remc2/engine/ProjectionVertex.h"
     "../remc2/engine/RenderThread.cpp"
     "../remc2/engine/RenderThread.h"
     "../remc2/engine/Sound.cpp"
@@ -64,8 +68,8 @@ set(SOURCE_FILES_EDITOR
     "../remc2/engine/Type_MapScreenPortals_E17CC.h"
     "../remc2/engine/Type_SecretMapScreenPortals_E2970.cpp"
     "../remc2/engine/Type_SecretMapScreenPortals_E2970.h"	
-    "../remc2/engine/Type_WORD_D951C.cpp"
-    "../remc2/engine/Type_WORD_D951C.h"
+    "../remc2/engine/Type_SpriteDef_D951C.cpp"
+    "../remc2/engine/Type_SpriteDef_D951C.h"
     "../remc2/engine/Unk_D47E0.cpp"
     "../remc2/engine/Unk_D47E0.h"
     "../remc2/engine/Unk_D4A30.cpp"

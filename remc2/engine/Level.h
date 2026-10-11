@@ -26,6 +26,8 @@ bool LoadLevel_555D0(uint8_t fileindex, int levelindex, bool loadRegressionTest 
 bool LoadLevelSMAP_558E0(uint8_t savefileindex, bool loadRegressionTest = false);
 bool LoadLevelSLEV_55A10(uint8_t savefileindex, bool loadRegressionTest = false);
 bool SaveLevel_55080(uint8_t savefileindex, int32_t LevelNumber, char* filenameindex);
+std::vector<uint8_t> SaveLevelToBuffer();
+bool LoadLevelFromBuffer(const std::vector<uint8_t>& save);
 void sub_49270_generate_level_features(Type_Level_2FECE* terrain);
 static std::string MapTypeFolder(MapType_t mt);
 static std::string DatBaseName(MapType_t mt);
