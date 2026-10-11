@@ -29,7 +29,7 @@
 					"sky": true,
 					"reflections": true,
 					"dynamicLighting": true,
-					"viewDistanceScale": 3
+					"viewDistanceScale": 1
 				},
 				"threading": {
 					"isActive": false,
