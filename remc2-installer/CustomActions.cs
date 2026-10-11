@@ -93,7 +93,7 @@ public class CustomActions
 
 		try
 		{
-			if (!string.IsNullOrWhiteSpace(session["FIXEDTMAPS_INSTALLDIR"]) && session["FIXEDTMAPS_INSTALLDIR"].Equals("yes", System.StringComparison.InvariantCultureIgnoreCase))
+			if (!string.IsNullOrWhiteSpace(session["FIXEDTMAPS"]) && session["FIXEDTMAPS"].Equals("yes", System.StringComparison.InvariantCultureIgnoreCase))
 			{
 				fixedTmaps = true;
 			}
