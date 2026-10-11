@@ -63,7 +63,8 @@
 						"sky: Turns the sky on or off. Can be changed in-game",
 						"reflections: Turns the reflections on or off. Can be changed in-game",
 						"dynamicLighting: Turns the dynamic terrain lighting on or off. Can be changed in-game",
-						"viewDistanceScale: Increases the view distance (will effect performance). '1' = Original distance, '2' = 2x, '3' = 3x (Max)"
+						"viewDistanceScale: Increases the view distance (will effect performance). '1' = Original distance, '2' = 2x, '3' = 3x (Max)",
+						"fogScale: Moves the fog (NG renderer). '1.0' = Original, '2.0' = twice as far (up to the view distance), '0.5' = closer"
 					],
 					"gameResWidth": 1920,
 					"gameResHeight": 1080,
@@ -77,7 +78,8 @@
 					"sky": true,
 					"reflections": true,
 					"dynamicLighting": true,
-					"viewDistanceScale": 2
+					"viewDistanceScale": 2,
+					"fogScale": 1.0
 				},
 				"threading": {
 					"description": [

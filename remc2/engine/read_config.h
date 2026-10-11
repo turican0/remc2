@@ -50,6 +50,7 @@ extern bool sky;
 extern bool reflections;
 extern bool dynamicLighting;
 extern int viewDistanceScale;
+extern float fogScale;
 extern bool openGLRender;
 extern float sizePercentToThreadRender;
 extern bool multiThreadedRender;
