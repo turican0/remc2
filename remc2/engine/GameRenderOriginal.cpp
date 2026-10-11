@@ -4644,7 +4644,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 											if (!(v133 & 1))
 											{
 												v89 = (x_DWORD*)(v155 + 8);
-												v90x = &m_str_F0E20x[1];
+												v90x = &v169x[1];//42A6C (mode 5): add edi,0Ch to the span entry
 												goto LABEL_247;
 											}
 											v91++;
@@ -4736,7 +4736,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 													LOBYTE(v105) = *v106;
 													*v106 = ColourLookupTable_F6EE0[v105];
 												}
-												v106 += v108x[3].dword_0;
+												v106 += v108x[1].dword_0;//the next entry, as cases 1-7
 												v107 += 4;
 												v108x += 2;
 												if (!--v109)

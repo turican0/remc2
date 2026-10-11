@@ -4742,7 +4742,7 @@ void GameRenderHD::DrawSprite_41BD3(uint32 pass)
 											if (!(v133 & 1))
 											{
 												v89 = (x_DWORD*)(v155 + 8);
-												v90x = &m_str_F0E20x[1];
+												v90x = &v169x[1];
 												goto LABEL_247;
 											}
 											v91++;
@@ -4841,7 +4841,7 @@ void GameRenderHD::DrawSprite_41BD3(uint32 pass)
 													LOBYTE(v105) = *ptrSpriteRenderDest_v106;
 													*ptrSpriteRenderDest_v106 = ColourLookupTable_F6EE0[v105];
 												}
-												ptrSpriteRenderDest_v106 += v108x[3].dword_0;
+												ptrSpriteRenderDest_v106 += v108x[1].dword_0;
 												v107 += 4;
 												v108x += 2;
 												if (!--v109)
