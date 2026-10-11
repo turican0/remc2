@@ -1515,6 +1515,14 @@ void ChangeSettings_1A970(char a1, int a2, int a3)//1fb970
 		sub_417D0_install_pal_and_mouse_minmax2();
 		return;
 	case 19:
+		if (m_ptrGameRender != nullptr && typeid(*m_ptrGameRender) == typeid(GameRenderNG))
+		{
+			GameRenderNG* render = (GameRenderNG*)m_ptrGameRender;
+			const uint8_t numRenderThreads = render->GetRenderThreads() >= 7 ? 0 : render->GetRenderThreads() + 1;
+			render->SetRenderThreads(numRenderThreads);
+			const std::string message = numRenderThreads ? "Multi-thread render ON: Number of Threads: " + std::to_string(numRenderThreads) : "Multi-thread render OFF";
+			SetCurrentNotificationMessage_19760(message.c_str(), 3u, 50);
+		}
 		if (m_ptrGameRender != nullptr && typeid(*m_ptrGameRender) == typeid(GameRenderHD))
 		{
 			uint8_t numRenderThreads = ((GameRenderHD*)m_ptrGameRender)->GetRenderThreads();

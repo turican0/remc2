@@ -31337,7 +31337,7 @@ void sub_46830_main_loop(unsigned __int16 actLevel)//227830
 				if (m_ptrGameRender == nullptr)
 				{
 					if (!strcmp(forceRender.c_str(), "NG"))
-						m_ptrGameRender = (GameRenderInterface*)new GameRenderNG();
+						m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, multiThreadedRender ? numberOfRenderThreads : 0, assignToSpecificCores, sizePercentToThreadRender);
 					else if (!strcmp(forceRender.c_str(), "Original"))
 						m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
 					else if (!strcmp(forceRender.c_str(), "HD"))
