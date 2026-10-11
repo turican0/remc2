@@ -355,6 +355,7 @@ Config::Settings::GameDetail Config::GetGameDetail(const json& graphics)
 		gameDetailValues.m_HighResGraphicsFolder = ReadStringValue(gameDetail, "highResGraphicsFolder");
 		gameDetailValues.m_UseFixedMenuGraphics = ReadBoolValue(gameDetail, "useFixedMenuGraphics");
 		gameDetailValues.m_FixedMenuGraphicsFolder = ReadStringValue(gameDetail, "fixedMenuGraphicsFolder");
+		gameDetailValues.m_UseFixedTmaps = ReadBoolValue(gameDetail, "useFixedTmaps");
 		gameDetailValues.m_FixedTmapsFolder = ReadStringValue(gameDetail, "fixedTmapsFolder");
 		gameDetailValues.m_UseExtendedFonts = ReadBoolValue(gameDetail, "useExtendedFonts");
 		gameDetailValues.m_ExtendedFontsFolder = ReadStringValue(gameDetail, "extendedFontsFolder");
