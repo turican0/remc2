@@ -21534,7 +21534,7 @@ void DrawGameFrame_2BE30()//20CE30
 
 			std::string help_buffer_name;
 			std::string screenbuffer_buffer_name;
-			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderNG))
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
@@ -21546,7 +21546,7 @@ void DrawGameFrame_2BE30()//20CE30
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
-				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 				help_buffer_name = "ScreenBuffer_Original.bmp";
 				screenbuffer_buffer_name = "ScreenBuffer_HD.bmp";
 			}
@@ -21582,7 +21582,7 @@ void DrawGameFrame_2BE30()//20CE30
 				WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, helpScreenBufferName.str().c_str());
 			}
 
-			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderNG))
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
@@ -21592,7 +21592,7 @@ void DrawGameFrame_2BE30()//20CE30
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
-				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 			}
 		}
 
@@ -21827,7 +21827,7 @@ void DrawGameFrame_2BE30()//20CE30
 
 			std::string help_buffer_name;
 			std::string screenbuffer_buffer_name;
-			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderNG))
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
@@ -21839,7 +21839,7 @@ void DrawGameFrame_2BE30()//20CE30
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
-				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 				help_buffer_name = "ScreenBuffer_Original.bmp";
 				screenbuffer_buffer_name = "ScreenBuffer_HD.bmp";
 			}
@@ -21868,7 +21868,7 @@ void DrawGameFrame_2BE30()//20CE30
 				Logger->error("Differences between HD and Original renderer in frame {0}: {1}", renderer_tests_frame_count, difference);
 			}
 
-			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderNG))
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
@@ -21878,7 +21878,7 @@ void DrawGameFrame_2BE30()//20CE30
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
-				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 			}
 		}
 
@@ -31345,7 +31345,7 @@ void sub_46830_main_loop(unsigned __int16 actLevel)//227830
 					else
 					{
 						if ((gameResWidth <= 640) && (gameResHeight <= 480)) {
-							m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, multiThreadedRender ? numberOfRenderThreads : 0, assignToSpecificCores, sizePercentToThreadRender);
+							m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
 						}
 						else {
 							m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, multiThreadedRender ? numberOfRenderThreads : 0, assignToSpecificCores, sizePercentToThreadRender);
