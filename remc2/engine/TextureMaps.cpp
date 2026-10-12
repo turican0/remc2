@@ -6,7 +6,6 @@
 #include <tuple>
 #include <algorithm>
 #include "../utilities/DataFileRNC.h"
-
 #include "../utilities/BitmapIO.h"
 
 type_BIG_SPRITES_BUFFER BIG_SPRITES_BUFFERx[max_sprites];
@@ -633,7 +632,10 @@ void sub_70A60_open_tmaps()//251a60
 	}
 	x_DWORD_DB73C_tmapsfile = x_DWORD_DB740_tmaps00file;
 	tmapsMapType = MapType_t::Day;
-	LoadFixedTmaps();
+	
+	if (fixedTmaps)
+		LoadFixedTmaps();
+
 	//return 1;
 }
 

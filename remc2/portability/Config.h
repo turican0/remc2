@@ -72,6 +72,8 @@ public:
 			std::string m_HighResGraphicsFolder = "";
 			bool m_UseFixedMenuGraphics = false;
 			std::string m_FixedMenuGraphicsFolder = "";
+			bool m_UseFixedTmaps = false;
+			std::string m_FixedTmapsFolder = "";
 			bool m_UseExtendedFonts = false;
 			std::string m_ExtendedFontsFolder = "";
 			bool m_Sky = true;

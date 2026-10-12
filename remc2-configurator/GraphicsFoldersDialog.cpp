@@ -2,7 +2,7 @@
 #include "PathHelpers.h"
 
 GraphicsFoldersDialog::GraphicsFoldersDialog(wxWindow* parent, const Config::Settings::GameDetail& d)
-	: wxDialog(parent, wxID_ANY, "Select Graphics Files Folders", wxDefaultPosition, wxSize(600, 200), 
+	: wxDialog(parent, wxID_ANY, "Select Graphics Files Folders", wxDefaultPosition, wxSize(600, 260), 
 		wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX), m_initialDetail(d)
 {
 	wxPanel* panel = new wxPanel(this, wxID_ANY);
@@ -19,6 +19,12 @@ GraphicsFoldersDialog::GraphicsFoldersDialog(wxWindow* parent, const Config::Set
 		m_menuFolderCtrl,
 		m_btnMenuBrowse, ID_BTN_FIX_MENU_BROWSE);
 
+	wxBoxSizer* rowTmaps = MakeFolderRow(panel,
+		"Fixed Tmaps Folder:",
+		m_chkFixedTmaps, ID_CHK_FIX_TMAPS,
+		m_tmapsFolderCtrl,
+		m_btnTmapsBrowse, ID_BTN_FIX_TMAPS_BROWSE);
+
 	wxBoxSizer* row3 = MakeFolderRow(panel,
 		"Extended Fonts Folder:",
 		m_chkFonts, ID_CHK_FONTS,
@@ -26,9 +32,10 @@ GraphicsFoldersDialog::GraphicsFoldersDialog(wxWindow* parent, const Config::Set
 		m_btnFontsBrowse, ID_BTN_FONTS_BROWSE);
 
 	// ── Populate m_rows for unified handlers ─────────────────────────────────
-	m_rows[0] = { m_chkHighRes,   m_graphicsFolderCtrl, m_btnGraphicsBrowse, "Select folder with the High Resolution graphics files" };
-	m_rows[1] = { m_chkFixedMenu, m_menuFolderCtrl,     m_btnMenuBrowse,     "Select folder for fixed menu files" };
-	m_rows[2] = { m_chkFonts,     m_fontFolderCtrl,     m_btnFontsBrowse,    "Select folder with the extended font files" };
+	m_rows[0] = { m_chkHighRes,    m_graphicsFolderCtrl, m_btnGraphicsBrowse, "Select folder with the High Resolution graphics files" };
+	m_rows[1] = { m_chkFixedMenu,  m_menuFolderCtrl,     m_btnMenuBrowse,     "Select folder for fixed menu files" };
+	m_rows[2] = { m_chkFixedTmaps, m_tmapsFolderCtrl,    m_btnTmapsBrowse,    "Select folder with the fixed tmap files" };
+	m_rows[3] = { m_chkFonts,      m_fontFolderCtrl,     m_btnFontsBrowse,    "Select folder with the extended font files" };
 
 	// ── Initial values ────────────────────────────────────────────────────────
 	m_chkHighRes->SetValue(d.m_UseHighResGraphics);
@@ -38,6 +45,10 @@ GraphicsFoldersDialog::GraphicsFoldersDialog(wxWindow* parent, const Config::Set
 	m_chkFixedMenu->SetValue(d.m_UseFixedMenuGraphics);
 	m_menuFolderCtrl->SetValue(d.m_FixedMenuGraphicsFolder);
 	m_menuFolderCtrl->SetToolTip("Path to the fixed menu Graphics");
+
+	m_chkFixedTmaps->SetValue(d.m_UseFixedTmaps);
+	m_tmapsFolderCtrl->SetValue(d.m_FixedTmapsFolder);
+	m_tmapsFolderCtrl->SetToolTip("Path to the fixed tmaps");
 
 	m_chkFonts->SetValue(d.m_UseExtendedFonts);
 	m_fontFolderCtrl->SetValue(d.m_ExtendedFontsFolder);
@@ -60,6 +71,7 @@ GraphicsFoldersDialog::GraphicsFoldersDialog(wxWindow* parent, const Config::Set
 	wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
 	mainSizer->Add(row1, wxSizerFlags(0).Expand().Border(wxLEFT | wxRIGHT | wxTOP, 12));
 	mainSizer->Add(row2, wxSizerFlags(0).Expand().Border(wxLEFT | wxRIGHT | wxTOP, 12));
+	mainSizer->Add(rowTmaps, wxSizerFlags(0).Expand().Border(wxLEFT | wxRIGHT | wxTOP, 12));
 	mainSizer->Add(row3, wxSizerFlags(0).Expand().Border(wxLEFT | wxRIGHT | wxTOP, 12));
 	mainSizer->AddStretchSpacer(1);
 	mainSizer->Add(btnSizer, wxSizerFlags(0).Expand().Border(wxALL, 8));
@@ -121,6 +133,7 @@ Config::Settings::GameDetail GraphicsFoldersDialog::GetFolders() const
 	d.m_UseExtendedFonts = m_chkFonts->GetValue();
 	d.m_HighResGraphicsFolder = m_graphicsFolderCtrl->GetValue();
 	d.m_FixedMenuGraphicsFolder = m_menuFolderCtrl->GetValue();
+	d.m_FixedTmapsFolder = m_menuFolderCtrl->GetValue();
 	d.m_ExtendedFontsFolder = m_fontFolderCtrl->GetValue();
 	return d;
 }

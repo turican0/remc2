@@ -17,6 +17,10 @@ private:
 	wxTextCtrl* m_menuFolderCtrl;
 	wxButton* m_btnMenuBrowse;
 
+	wxCheckBox* m_chkFixedTmaps;
+	wxTextCtrl* m_tmapsFolderCtrl;
+	wxButton* m_btnTmapsBrowse;
+
 	wxCheckBox* m_chkFonts;
 	wxTextCtrl* m_fontFolderCtrl;
 	wxButton* m_btnFontsBrowse;
@@ -30,7 +34,7 @@ private:
 		wxButton* btn;
 		wxString    prompt;
 	};
-	FolderRow m_rows[3];
+	FolderRow m_rows[4];
 
 	wxBoxSizer* MakeFolderRow(wxPanel* panel, const wxString& labelText,
 		wxCheckBox*& outChk, int chkId,
