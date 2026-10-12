@@ -25,23 +25,28 @@ GameRenderNG::GameRenderNG(uint8_t viewDistanceScale, float fogScale, uint8_t re
 	}
 
 	// squared distances in 1/65536 of a tile (256 units) squared; the fog from 15 to 19 tiles (20 the cut-off) times the scale
-	const int scale = m_viewDistanceScale;
-	const int64_t cutOff = 400 * scale * scale;
-	int64_t fogEnd = cutOff - 39 * scale * scale;
-	int64_t fogStart = cutOff - 175 * scale * scale;
-	if (fogScale > 0 && fogScale != 1.0f)
+	const auto fog = [fogScale](int scale, int& cutOffDistance, int& fogStartDistance, int& fogEndDistance)
 	{
-		const double fogScale2 = static_cast<double>(fogScale) * fogScale;
-		fogEnd = std::llround(fogEnd * fogScale2);
-		if (fogEnd > cutOff)
-			fogEnd = cutOff;
-		fogStart = std::llround(fogStart * fogScale2);
-		if (fogStart > fogEnd - 1)
-			fogStart = fogEnd - 1;
-	}
-	m_cutOffDistance = static_cast<int>(cutOff << 16);
-	m_fogEnd = static_cast<int>(fogEnd << 16);
-	m_fogStart = static_cast<int>(fogStart << 16);
+		const int64_t cutOff = 400 * scale * scale;
+		int64_t fogEnd = cutOff - 39 * scale * scale;
+		int64_t fogStart = cutOff - 175 * scale * scale;
+		if (fogScale > 0 && fogScale != 1.0f)
+		{
+			const double fogScale2 = static_cast<double>(fogScale) * fogScale;
+			fogEnd = std::llround(fogEnd * fogScale2);
+			if (fogEnd > cutOff)
+				fogEnd = cutOff;
+			fogStart = std::llround(fogStart * fogScale2);
+			if (fogStart > fogEnd - 1)
+				fogStart = fogEnd - 1;
+		}
+		cutOffDistance = static_cast<int>(cutOff << 16);
+		fogEndDistance = static_cast<int>(fogEnd << 16);
+		fogStartDistance = static_cast<int>(fogStart << 16);
+	};
+	fog(m_viewDistanceScale, m_cutOffDistance, m_fogStart, m_fogEnd);
+	int standardCutOff;
+	fog(1, standardCutOff, m_standardFogStart, m_standardFogEnd);
 }
 
 GameRenderNG::~GameRenderNG()
@@ -961,7 +966,7 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 			if (!def.lightingTableIdx_10)
 			{
 				ProjectSprite(across, height, depth);
-				if (ChooseSprite(str_F2C20ar.dword0x14x, def, depth, false, false, sprite) == SpriteChoice::Skip)
+				if (ChooseSprite(str_F2C20ar.dword0x14x, def, depth, distance, false, false, sprite) == SpriteChoice::Skip)
 					return;
 				str_F2C20ar.dword0x02_data = sprite->textureBuffer;
 				sprite->word_0 |= 8;
@@ -1022,28 +1027,32 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 	str_F2C20ar.dword0x00 = SpriteLight(distance);
 	const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[owner->word_0x5A_90];
 	ProjectSprite(across, z - str_F2C20ar.dword0x20, depth);
-	if (ChooseSprite(owner, def, depth, true, true, sprite) == SpriteChoice::Skip)
+	if (ChooseSprite(owner, def, depth, distance, true, true, sprite) == SpriteChoice::Skip)
 		return;
 	sprite->word_0 |= 8;
 	str_F2C20ar.dword0x02_data = sprite->textureBuffer;
-	if (owner->struct_byte_0xc_12_15.byte[2] < 0)
+	if (owner->struct_byte_0xc_12_15.word[1] & 0x380)//220ba6: mov cx, [ebx+0Eh]; test cx, 380h
 	{
 		const int8_t flags = owner->struct_byte_0xc_12_15.byte[3];
 		if (flags & 2)
 		{
 			str_F2C20ar.dword0x01_visibilityIdx = 4;
-			str_F2C20ar.dword0x07 = playersColors_E88E0x[3 * Entities_EA3E4[owner->parentId_0x28_40]->dword_0xA4_164x->playerColorIndex_0x38_56][2];
+			str_F2C20ar.dword0x07 = playersColors_E88E0x[Entities_EA3E4[owner->parentId_0x28_40]->dword_0xA4_164x->playerColorIndex_0x38_56][2];
 		}
 		else if (flags & 4)
 		{
 			str_F2C20ar.dword0x01_visibilityIdx = 5;
-			str_F2C20ar.dword0x07 = playersColors_E88E0x[3 * Entities_EA3E4[owner->parentId_0x28_40]->dword_0xA4_164x->playerColorIndex_0x38_56][2];
+			str_F2C20ar.dword0x07 = playersColors_E88E0x[Entities_EA3E4[owner->parentId_0x28_40]->dword_0xA4_164x->playerColorIndex_0x38_56][2];
 		}
-		else
+		else if (owner->struct_byte_0xc_12_15.byte[2] < 0)
 			str_F2C20ar.dword0x01_visibilityIdx = Visibility::Transparent;
+		else if (flags & 1)
+			str_F2C20ar.dword0x01_visibilityIdx = Visibility::InFog;
 	}
 	else
 		str_F2C20ar.dword0x01_visibilityIdx = m_spriteTables_D4750[(str_F2C20ar.dword0x00 == 0x2000 ? 0 : 6) + def.lightingTableIdx_10];
+	if (m_fadeVisibility >= 0)
+		str_F2C20ar.dword0x01_visibilityIdx = m_fadeVisibility;
 	str_F2C20ar.dword0x09_realWidth++;
 	str_F2C20ar.dword0x0c_realHeight++;
 	DrawSprite_41BD3((uint32_t)SpritePass::Main);
@@ -1074,11 +1083,12 @@ void GameRenderNG::sub_3FD60(int tileIndex)
 					str_F2C20ar.dword0x00 = SpriteLight(distance);
 					const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[entity->word_0x5A_90];
 					ProjectSprite(across, height, depth);
-					if (ChooseSprite(entity, def, depth, true, false, sprite) != SpriteChoice::Skip)
+					if (ChooseSprite(entity, def, depth, distance, true, false, sprite) != SpriteChoice::Skip)
 					{
 						str_F2C20ar.dword0x02_data = sprite->textureBuffer;
 						sprite->word_0 |= 8;
-						str_F2C20ar.dword0x01_visibilityIdx = m_spriteTables_D4750[(str_F2C20ar.dword0x00 == 0x2000 ? 0 : 6) + def.lightingTableIdx_10];
+						str_F2C20ar.dword0x01_visibilityIdx = m_fadeVisibility >= 0 ? m_fadeVisibility
+							: m_spriteTables_D4750[(str_F2C20ar.dword0x00 == 0x2000 ? 0 : 6) + def.lightingTableIdx_10];
 						str_F2C20ar.dword0x09_realWidth++;
 						str_F2C20ar.dword0x0c_realHeight++;
 						DrawSprite_41BD3((uint32_t)SpritePass::Reflection);
@@ -1098,6 +1108,13 @@ int GameRenderNG::SpriteLight(int distance)
 	if (distance < str_F2C20ar.dword0x16_FogEnd)
 		return static_cast<int>(32 * static_cast<int64_t>(str_F2C20ar.dword0x16_FogEnd - distance) / str_F2C20ar.dword0x12_FogThickness) << 8;
 	return 0;
+}
+
+// The flying creature (sprites 295-302) is meant to come out of the fog near the player: with a longer view it fades in the fog
+// of view distance 1 in the steps of the vanishing of sub_21490 (InFog, Transparent) and is gone past it.
+static bool FadesInStandardFog(int spriteIndex)
+{
+	return spriteIndex >= 295 && spriteIndex <= 302;
 }
 
 // The screen position of a sprite: across and height in the view space, rotated by the roll.
@@ -1121,10 +1138,12 @@ Type_Sprite* GameRenderNG::UseSprite(int index)
 // The sprite of the entity by its kind: one picture, an animation frame or one of the directions the camera sees it from
 // (the picture mirrored for the other side); sets its size on the screen. rotatedKind21: kind 21 is drawn rotated
 // (m_uprightSprite_F2CC6) as the kinds 22-36, turnTable: the directions of kind 17 through m_spriteTables_D4750 (entity flag 0x40).
-// An unknown kind keeps the previous sprite and size.
-GameRenderNG::SpriteChoice GameRenderNG::ChooseSprite(type_entity_0x6E8E* entity, const Type_SpriteDef_D951C& def, int depth, bool rotatedKind21, bool turnTable, Type_Sprite*& sprite)
+// An unknown kind keeps the previous sprite and size. With a longer view the sprites of FadesInStandardFog are skipped past
+// the end of the standard fog and set m_fadeVisibility in it.
+GameRenderNG::SpriteChoice GameRenderNG::ChooseSprite(type_entity_0x6E8E* entity, const Type_SpriteDef_D951C& def, int depth, int distance, bool rotatedKind21, bool turnTable, Type_Sprite*& sprite)
 {
 	m_uprightSprite_F2CC6 = 0;
+	m_fadeVisibility = -1;
 	int direction = ((entity->yaw_0x1C_28 - m_cameraYaw_F2CC0) >> 7) & 0xF;
 	int index;
 	bool mirrored = false;
@@ -1159,6 +1178,13 @@ GameRenderNG::SpriteChoice GameRenderNG::ChooseSprite(type_entity_0x6E8E* entity
 			m_uprightSprite_F2CC6 = 1;
 		index = def.textureIdx_0 + entity->animationFrame_0x5C_92;
 		break;
+	}
+	if (m_viewDistanceScale > 1 && FadesInStandardFog(index))
+	{
+		if (distance >= m_standardFogEnd)
+			return SpriteChoice::Skip;
+		if (distance > m_standardFogStart)
+			m_fadeVisibility = distance - m_standardFogStart < (m_standardFogEnd - m_standardFogStart) / 2 ? Visibility::InFog : Visibility::Transparent;
 	}
 	Type_Sprite* chosen = UseSprite(index);
 	if (!chosen)

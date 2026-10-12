@@ -91,6 +91,9 @@ private:
 	int m_cutOffDistance = 0;
 	int m_fogStart = 0;
 	int m_fogEnd = 0;
+	int m_standardFogStart = 0;//the fog of view distance 1 (FadesInStandardFog)
+	int m_standardFogEnd = 0;
+	int m_fadeVisibility = -1;//ChooseSprite: the mode of a sprite fading in the standard fog (FadesInStandardFog), -1 none
 
 	bool m_largeScreen = false;//over 640x480
 	uint8_t* m_scratch = nullptr;//the tables of SetBillboards_3B560 and of the sprites
@@ -166,7 +169,7 @@ private:
 	int SpriteLight(int distance);
 	void ProjectSprite(int across, int height, int depth);
 	Type_Sprite* UseSprite(int index);
-	SpriteChoice ChooseSprite(type_entity_0x6E8E* entity, const Type_SpriteDef_D951C& def, int depth, bool rotatedKind21, bool turnTable, Type_Sprite*& sprite);
+	SpriteChoice ChooseSprite(type_entity_0x6E8E* entity, const Type_SpriteDef_D951C& def, int depth, int distance, bool rotatedKind21, bool turnTable, Type_Sprite*& sprite);
 	void DrawTriangleInProjectionSpace_B6253(const TerrainVertex& vertex1, const TerrainVertex& vertex2, const TerrainVertex& vertex3);
 	void DrawTriangle(const TerrainVertex& vertex1, const TerrainVertex& vertex2, const TerrainVertex& vertex3, int mode, const uint8_t* texture,
 		int flatLight, int bandTop, int bandBottom);
