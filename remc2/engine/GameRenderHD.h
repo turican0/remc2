@@ -101,6 +101,20 @@ private:
 
 	uint8_t* x_DWORD_DE55C_ActTexture = 0;
 
+	struct SpriteDrawJob
+	{
+		bool     rotated;
+		uint8_t* dest;       // flat: v122x         rotated: ptrRenderBuffer
+		int      lineCount;  // flat: realHeight    rotated: scaledHeight
+		int      actIdx0;    // initial dword0x0a_actIdx
+		int      actStep;    // flat: v134          rotated: v135
+		int      stride;     // flat: iScreenWidth_DE560   rotated: dword0x23_stride
+		int      minOffset;  // rotated only: v116
+	};
+
+	// members
+	float m_spriteSizePercentToThreadRender = 0.10f;
+
 	void DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEveryNthLine);
 	void DrawSky_40950_TH(int16_t roll);
 	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov);
@@ -121,6 +135,11 @@ private:
 	void sub_88740(type_entity_0x6E8E* a1, int16_t posX, int16_t posY);
 	void SetBillboards_3B560(int16_t roll);
 	void DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* a1, int16_t a2, int a3, int16_t a4);
+	bool ShouldThreadSprite(int width, int height) const;
+	void RunSpriteJob(const SpriteDrawJob& job, int width);
+	void DrawSpriteLines(const SpriteDrawJob& job, uint8_t startLine, uint8_t nth);
+	void DrawSpriteLinesFlat(const SpriteDrawJob& job, uint8_t startLine, uint8_t nth);
+	void DrawSpriteLinesRotated(const SpriteDrawJob& job, uint8_t startLine, uint8_t nth);
 	void StartWorkerThreads(uint8_t numOfThreads, bool assignToSpecificCores);
 	void StartWorkerThread();
 	void StartWorkerThread(int core);
