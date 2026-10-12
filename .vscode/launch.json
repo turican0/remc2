@@ -7,16 +7,10 @@
             "request": "launch",
             "program": "${workspaceFolder}/build_vscode/inst/bin/remc2",
             "args": [
-                "--set_level", "0",
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build_vscode/inst/bin",
-            "environment": [
-                {
-                    "name": "UBSAN_OPTIONS",
-                    "value": "alignment=0"
-                }
-            ],
+            "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
             "miDebuggerPath": "/usr/bin/gdb"
