@@ -8,9 +8,10 @@
 
 // viewDistanceScale 1-3: the terrain grid (40 x 21 tiles in the original) times the scale with the cut-off and the fog
 // further away; fogScale moves the fog (1.0 as the original). With 1 and 1.0 everything is as the original.
-// renderThreads: the triangles over sizePercentToThreadRender % of the view port are drawn by them too (same pixels).
-GameRenderNG::GameRenderNG(uint8_t viewDistanceScale, float fogScale, uint8_t renderThreads, bool assignToSpecificCores, float sizePercentToThreadRender)
-	: m_sizePercentToThreadRender(sizePercentToThreadRender), m_assignToSpecificCores(assignToSpecificCores)
+// renderThreads: over 640x480 the sky and the terrain drawn by bands of rows in them and in the game thread (same pixels); the
+// sprites stay in the game thread, smaller screens draw everything in it. sizePercentToThreadRender of HD is not used.
+GameRenderNG::GameRenderNG(uint8_t viewDistanceScale, float fogScale, uint8_t renderThreads, bool assignToSpecificCores, float /*sizePercentToThreadRender*/)
+	: m_assignToSpecificCores(assignToSpecificCores)
 {
 	SetRenderThreads(renderThreads);
 	m_viewDistanceScale = viewDistanceScale < 1 ? 1 : (viewDistanceScale > 3 ? 3 : viewDistanceScale);
@@ -227,31 +228,50 @@ void GameRenderNG::SmoothViewPort()
 // line reads the texel of column p - 1 of the original step table, so columns 0 and 1 share their texel.
 void GameRenderNG::DrawSky_40950(int16_t roll)
 {
-	const int skySize = x_BYTE_D41B5_texture_size == 128 ? 1024 : 256;
-	const int skyMask = skySize - 1;
+	SkyPlan& sky = m_sky;
+	sky.size = x_BYTE_D41B5_texture_size == 128 ? 1024 : 256;
+	sky.mask = sky.size - 1;
 	const int width = viewPort.Width_DE564;
 	const int rollIndex = roll & 0x7FF;
-	const int cosRoll = Maths::sin_DB750[512 + rollIndex] * skySize / width;
-	const int sinRoll = Maths::sin_DB750[rollIndex] * skySize / width;
+	sky.cosRoll = Maths::sin_DB750[512 + rollIndex] * sky.size / width;
+	sky.sinRoll = Maths::sin_DB750[rollIndex] * sky.size / width;
 
-	std::vector<int> columnU(width);
-	std::vector<int> columnV(width);
+	sky.columnU.assign(width, 0);
+	sky.columnV.assign(width, 0);
 	for (int column = 1; column < width; column++)
 	{
-		columnU[column] = ((column - 1) * cosRoll >> 16) & skyMask;
-		columnV[column] = ((column - 1) * sinRoll >> 16) & skyMask;
+		sky.columnU[column] = ((column - 1) * sky.cosRoll >> 16) & sky.mask;
+		sky.columnV[column] = ((column - 1) * sky.sinRoll >> 16) & sky.mask;
 	}
 
 	const int centerX = (-(str_F2C20ar.sin_0x0d * str_F2C20ar.dword0x22) >> 16) + str_F2C20ar.dword0x24;
 	const int centerY = str_F2C20ar.dword0x10 - (str_F2C20ar.cos_0x11 * str_F2C20ar.dword0x22 >> 16);
-	int lineU = (m_cameraYaw_F2CC0 << 15) * (skySize / 256) - (centerX * cosRoll - centerY * sinRoll);
-	int lineV = -(cosRoll * centerY + sinRoll * centerX);
+	sky.lineU = (m_cameraYaw_F2CC0 << 15) * (sky.size / 256) - (centerX * sky.cosRoll - centerY * sky.sinRoll);
+	sky.lineV = -(sky.cosRoll * centerY + sky.sinRoll * centerX);
+	if (m_queueing)
+		m_skyQueued = true;
+	else
+		DrawSkyRows(0, viewPort.Height_DE568);
+}
+
+// The rows firstRow..endRow - 1 of the sky of m_sky.
+void GameRenderNG::DrawSkyRows(int firstRow, int endRow)
+{
+	const SkyPlan& sky = m_sky;
+	const int skySize = sky.size;
+	const int skyMask = sky.mask;
+	const int sinRoll = sky.sinRoll;
+	const int cosRoll = sky.cosRoll;
+	const int* columnU = sky.columnU.data();
+	const int* columnV = sky.columnV.data();
+	int lineU = static_cast<int>(static_cast<uint32_t>(sky.lineU) - static_cast<uint32_t>(sinRoll) * firstRow);
+	int lineV = static_cast<int>(static_cast<uint32_t>(sky.lineV) + static_cast<uint32_t>(cosRoll) * firstRow);
 
 	const int drawnWidth = DrawnWidth();
-	uint8_t* line = ViewPortRenderBufferStart_DE558;
+	uint8_t* line = ViewPortRenderBufferStart_DE558 + iScreenWidth_DE560 * firstRow;
 	const uint8_t* previousLine = nullptr;
 	int previousV = 0;
-	for (int row = 0; row < viewPort.Height_DE568; row++)
+	for (int row = firstRow; row < endRow; row++)
 	{
 		const int startU = lineU >> 16;
 		const int startV = lineV >> 16;
@@ -269,8 +289,8 @@ void GameRenderNG::DrawSky_40950(int16_t roll)
 				line[column] = skyLine[(startU + columnU[column]) & skyMask];
 		}
 		line += iScreenWidth_DE560;
-		lineU -= sinRoll;
-		lineV += cosRoll;
+		lineU = static_cast<int>(static_cast<uint32_t>(lineU) - static_cast<uint32_t>(sinRoll));
+		lineV = static_cast<int>(static_cast<uint32_t>(lineV) + static_cast<uint32_t>(cosRoll));
 	}
 }
 
@@ -280,6 +300,17 @@ void GameRenderNG::DrawSky_40950(int16_t roll)
 // standing on the tiles. A cave has a ceiling (second heightmap), with reflections the water mirrors the terrain.
 void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov)
 {
+	// with render threads over 640x480: the queue of the terrain, drawn before the sprites and at the end
+	struct QueueScope
+	{
+		GameRenderNG& render;
+		explicit QueueScope(GameRenderNG& renderNG) : render(renderNG) { render.m_queueing = render.m_largeScreen && !render.m_renderThreads.empty(); }
+		~QueueScope()
+		{
+			render.FlushQueue();
+			render.m_queueing = false;
+		}
+	} queueScope(*this);
 	m_shadows_F2CC7 = D41A0_0.m_GameSettings.m_Graphics.m_wShadows;//21d080
 	m_notDay_D4320 = D41A0_0.terrain_2FECE.MapType != MapType_t::Day;
 	str_F2C20ar.dword0x10 = viewPort.Height_DE568 >> 1;
@@ -898,6 +929,7 @@ void GameRenderNG::DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* entity
 // The entities standing on the tile (a list by oldMapEntity_0x16_22): the shadow on the terrain, then the entity.
 void GameRenderNG::DrawSprites_3E360(int tileIndex)//21f360
 {
+	FlushQueue();
 	Type_Sprite* sprite = nullptr;
 	uint16_t entityIndex = m_tiles[tileIndex].haveBillboard_36;
 	do
@@ -1020,6 +1052,7 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 // The entities of the tile mirrored in the water (below the terrain, upside down).
 void GameRenderNG::sub_3FD60(int tileIndex)
 {
+	FlushQueue();
 	Type_Sprite* sprite = nullptr;
 	type_entity_0x6E8E* entity = nullptr;
 	uint16_t entityIndex = m_tiles[tileIndex].haveBillboard_36;
@@ -1640,12 +1673,36 @@ static int CrossStep(int to, int64_t edgeOffset, int from, int divisor)
 // The triangle in screen space (x, y, texture u, v and light in 16.16) with the mode m_triangleMode_E126D: 5 textured with Gouraud
 // light, 7 textured with the flat light m_flatLight_E126C, 26 water (texels under 12 blended with the screen). Only the
 // clockwise triangles are drawn, the rows outside the view port are skipped. The texture coordinates and the light go
-// along the left edge, across the rows by the steps taken from the widest (middle) row.
+// along the left edge, across the rows by the steps taken from the widest (middle) row. With render threads queued.
 void GameRenderNG::DrawTriangleInProjectionSpace_B6253(const TerrainVertex& vertex1, const TerrainVertex& vertex2, const TerrainVertex& vertex3)//sub_B6253 - 297253
 {
 	const int mode = m_triangleMode_E126D;
 	if (mode != 5 && mode != 7 && mode != 26)
 		return;
+	if (!m_queueing)
+	{
+		DrawTriangle(vertex1, vertex2, vertex3, mode, m_triangleTexture_DE55C, m_flatLight_E126C, 0, viewPort.Height_DE568);
+		return;
+	}
+	QueuedTriangle& queued = m_queue.emplace_back();
+	queued.corners[0] = vertex1;
+	queued.corners[1] = vertex2;
+	queued.corners[2] = vertex3;
+	queued.texture = m_triangleTexture_DE55C;
+	queued.mode = mode;
+	queued.flatLight = m_flatLight_E126C;
+	queued.minY = (std::min)({ vertex1.y, vertex2.y, vertex3.y });
+	queued.maxY = (std::max)({ vertex1.y, vertex2.y, vertex3.y });
+	const int64_t width = std::clamp((std::max)({ vertex1.x, vertex2.x, vertex3.x }), 0, static_cast<int>(viewPort.Width_DE564))
+		- std::clamp((std::min)({ vertex1.x, vertex2.x, vertex3.x }), 0, static_cast<int>(viewPort.Width_DE564));
+	const int64_t height = std::clamp(queued.maxY, 0, static_cast<int>(viewPort.Height_DE568)) - std::clamp(queued.minY, 0, static_cast<int>(viewPort.Height_DE568));
+	m_queuedArea += width * height;
+}
+
+// The rows bandTop..bandBottom - 1 of the triangle (the whole view port without threads).
+void GameRenderNG::DrawTriangle(const TerrainVertex& vertex1, const TerrainVertex& vertex2, const TerrainVertex& vertex3, int mode, const uint8_t* texture,
+	int flatLight, int bandTop, int bandBottom)
+{
 	const bool light = mode != 7;
 	const TerrainVertex* corners[3] = { &vertex1, &vertex2, &vertex3 };
 	int minY = vertex1.y < vertex2.y ? vertex1.y : vertex2.y;
@@ -1802,9 +1859,10 @@ void GameRenderNG::DrawTriangleInProjectionSpace_B6253(const TerrainVertex& vert
 	}
 	}
 
-	const int height = viewPort.Height_DE568;
-	const int firstRow = a.y > 0 ? a.y : 0;
-	const int lastRow = bottomY < height ? bottomY : height;
+	const int firstRow = a.y > bandTop ? a.y : bandTop;
+	const int lastRow = bottomY < bandBottom ? bottomY : bandBottom;
+	if (firstRow >= lastRow)
+		return;
 	if (shape == Shape::FlatTop || shape == Shape::FlatBottom)
 		splitY = bottomY;
 	// above the middle corner (all the triangle when flat) and below it
@@ -1825,72 +1883,80 @@ void GameRenderNG::DrawTriangleInProjectionSpace_B6253(const TerrainVertex& vert
 		bottom.v = { StepValue(a.v, leftV, firstPart), leftV2, splitY };
 		bottom.light = { StepValue(a.light, leftL, firstPart), leftL2, splitY };
 	}
-	// the rows firstRow + offset, + step, ...: a big triangle is shared by the render threads, every one draws its rows
-	const auto drawRows = [&](auto modeTag, int offset, int step)
+	const auto drawRows = [&](auto modeTag)
 	{
 		const auto drawPart = [&](const TrianglePart& part, int fromRow, int toRow)
 		{
-			int row = firstRow + offset;
-			if (row < fromRow)
-				row += (fromRow - row + step - 1) / step * step;
-			if (row >= toRow)
+			if (fromRow >= toRow)
 				return;
-			uint32_t left = part.left.At(row);
-			uint32_t right = part.right.At(row);
-			uint32_t u = part.u.At(row);
-			uint32_t v = part.v.At(row);
-			uint32_t light = part.light.At(row);
-			const uint32_t leftStep = static_cast<uint32_t>(part.left.slope) * step;
-			const uint32_t rightStep = static_cast<uint32_t>(part.right.slope) * step;
-			const uint32_t uStep = static_cast<uint32_t>(part.u.slope) * step;
-			const uint32_t vStep = static_cast<uint32_t>(part.v.slope) * step;
-			const uint32_t lightStep = static_cast<uint32_t>(part.light.slope) * step;
-			uint8_t* line = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * (row + 1);
-			const int lineStep = iScreenWidth_DE560 * step;
-			for (; row < toRow; row += step, line += lineStep)
+			uint32_t left = part.left.At(fromRow);
+			uint32_t right = part.right.At(fromRow);
+			uint32_t u = part.u.At(fromRow);
+			uint32_t v = part.v.At(fromRow);
+			uint32_t light = part.light.At(fromRow);
+			uint8_t* line = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * (fromRow + 1);
+			for (int row = fromRow; row < toRow; row++, line += iScreenWidth_DE560)
 			{
 				DrawTriangleRow<decltype(modeTag)::value>(line, static_cast<int>(left), static_cast<int>(right), static_cast<int>(u), static_cast<int>(v),
-					static_cast<int>(light), du, dv, dl);
-				left += leftStep;
-				right += rightStep;
-				u += uStep;
-				v += vStep;
-				light += lightStep;
+					static_cast<int>(light), du, dv, dl, texture, flatLight);
+				left += part.left.slope;
+				right += part.right.slope;
+				u += part.u.slope;
+				v += part.v.slope;
+				light += part.light.slope;
 			}
 		};
 		drawPart(top, firstRow, splitY < lastRow ? splitY : lastRow);
 		drawPart(bottom, splitY > firstRow ? splitY : firstRow, lastRow);
 	};
-	const auto drawRowsOfMode = [&](int offset, int step)
-	{
-		if (mode == 5)
-			drawRows(std::integral_constant<int, 5>(), offset, step);
-		else if (mode == 7)
-			drawRows(std::integral_constant<int, 7>(), offset, step);
-		else
-			drawRows(std::integral_constant<int, 26>(), offset, step);
-	};
-	const int threads = static_cast<int>(m_renderThreads.size());
-	if (!threads || TriangleAreaPercent(vertex1, vertex2, vertex3) < m_sizePercentToThreadRender)
-	{
-		drawRowsOfMode(0, 1);
-		return;
-	}
-	for (int thread = 0; thread < threads; thread++)
-		m_renderThreads[thread]->Run([&drawRowsOfMode, thread, threads] { drawRowsOfMode(thread + 1, threads + 1); });
-	drawRowsOfMode(0, threads + 1);
-	WaitForRenderThreads();
+	if (mode == 5)
+		drawRows(std::integral_constant<int, 5>());
+	else if (mode == 7)
+		drawRows(std::integral_constant<int, 7>());
+	else
+		drawRows(std::integral_constant<int, 26>());
 }
 
-// The area of the triangle in percent of the view port (HD: only the bigger triangles pay for the threads).
-double GameRenderNG::TriangleAreaPercent(const TerrainVertex& vertex1, const TerrainVertex& vertex2, const TerrainVertex& vertex3) const
+// The queue (sky and triangles) by bands of rows: the render threads and the game thread take the bands one after another,
+// a band gets the queue in its order. A small queue is drawn by the game thread alone.
+void GameRenderNG::FlushQueue()
 {
-	const double area = std::abs(static_cast<double>(vertex1.x) * (vertex2.y - vertex3.y) + static_cast<double>(vertex2.x) * (vertex3.y - vertex1.y)
-		+ static_cast<double>(vertex3.x) * (vertex1.y - vertex2.y)) / 2.0;
-	return area * 100.0 / (static_cast<double>(viewPort.Width_DE564) * viewPort.Height_DE568);
+	if (m_queue.empty() && !m_skyQueued)
+		return;
+	const int height = viewPort.Height_DE568;
+	if (!m_skyQueued && m_queuedArea < 32768)
+	{
+		for (const QueuedTriangle& queued : m_queue)
+			DrawTriangle(queued.corners[0], queued.corners[1], queued.corners[2], queued.mode, queued.texture, queued.flatLight, 0, height);
+	}
+	else
+	{
+		const int bands = 4 * (static_cast<int>(m_renderThreads.size()) + 1);
+		m_nextBand = 0;
+		const auto drawBands = [this, bands, height]
+		{
+			for (int band = m_nextBand++; band < bands; band = m_nextBand++)
+			{
+				const int bandTop = height * band / bands;
+				const int bandBottom = height * (band + 1) / bands;
+				if (m_skyQueued)
+					DrawSkyRows(bandTop, bandBottom);
+				for (const QueuedTriangle& queued : m_queue)
+					if (queued.maxY > bandTop && queued.minY < bandBottom)
+						DrawTriangle(queued.corners[0], queued.corners[1], queued.corners[2], queued.mode, queued.texture, queued.flatLight, bandTop, bandBottom);
+			}
+		};
+		for (const auto& thread : m_renderThreads)
+			thread->Run(drawBands);
+		drawBands();
+		WaitForRenderThreads();
+	}
+	m_queue.clear();
+	m_queuedArea = 0;
+	m_skyQueued = false;
 }
 
-// 0 threads: everything in the game thread; the 'T' key goes through 1-7.
+// 0 threads: everything in the game thread at once; the 'T' key goes through 1-7.
 void GameRenderNG::SetRenderThreads(uint8_t renderThreads)
 {
 	WaitForRenderThreads();
@@ -1914,7 +1980,7 @@ void GameRenderNG::WaitForRenderThreads()
 // One row of the triangle from the pixel left >> 16 to right >> 16 (16-bit screen coordinates as the original), clipped by
 // the view port; at the left edge the texture and the light move by the skipped pixels. Mode as m_triangleMode_E126D.
 template <int Mode>
-void GameRenderNG::DrawTriangleRow(uint8_t* line, int left, int right, int u, int v, int light, int du, int dv, int dl)
+void GameRenderNG::DrawTriangleRow(uint8_t* line, int left, int right, int u, int v, int light, int du, int dv, int dl, const uint8_t* texture, int flatLight)
 {
 	const int width = viewPort.Width_DE564;
 	const int16_t startX = static_cast<int16_t>(left >> 16);
@@ -1939,7 +2005,6 @@ void GameRenderNG::DrawTriangleRow(uint8_t* line, int left, int right, int u, in
 		count = static_cast<int16_t>(endX) > width ? width : static_cast<int16_t>(endX);
 		pixel = line;
 	}
-	const uint8_t* const texture = m_triangleTexture_DE55C;
 	const uint8_t* const lit = ColourLookupTable_F6EE0;
 	uint32_t textureU = u;
 	uint32_t textureV = v;
@@ -1955,7 +2020,7 @@ void GameRenderNG::DrawTriangleRow(uint8_t* line, int left, int right, int u, in
 		}
 	else if constexpr (Mode == 7)
 	{
-		const uint8_t* const flatLit = lit + (static_cast<uint8_t>(m_flatLight_E126C) << 8);
+		const uint8_t* const flatLit = lit + (static_cast<uint8_t>(flatLight) << 8);
 		for (; pixel < end; pixel++)
 		{
 			*pixel = flatLit[texture[((textureV >> 8) & 0xFF00) | ((textureU >> 16) & 0xFF)]];

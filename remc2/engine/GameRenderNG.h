@@ -7,6 +7,7 @@
 #include "RenderThread.h"
 
 #include <array>
+#include <atomic>
 #include <thread>
 #include <memory>
 #include <vector>
@@ -101,16 +102,45 @@ private:
 	std::vector<uint8_t> m_largeBlurBuffer;
 
 	std::vector<std::unique_ptr<RenderThread>> m_renderThreads;
-	float m_sizePercentToThreadRender = 10.0f;
 	bool m_assignToSpecificCores = false;
 
+	// With render threads over 640x480 the terrain is queued and drawn by bands of rows: every thread takes bands and draws
+	// the queue in its order into them (every pixel gets the same writes in the same order as in one thread).
+	struct QueuedTriangle
+	{
+		TerrainVertex corners[3];
+		const uint8_t* texture;
+		int mode;
+		int flatLight;
+		int minY;
+		int maxY;
+	};
+	std::vector<QueuedTriangle> m_queue;
+	int64_t m_queuedArea = 0;//pixels of the bounding boxes in the view port: a small queue is drawn by the game thread
+	bool m_queueing = false;
+	bool m_skyQueued = false;
+	std::atomic<int> m_nextBand{ 0 };
+	// the sky of the frame (DrawSky_40950), drawn by rows
+	struct SkyPlan
+	{
+		int size = 256;
+		int mask = 255;
+		int cosRoll = 0;
+		int sinRoll = 0;
+		int lineU = 0;
+		int lineV = 0;
+		std::vector<int> columnU;
+		std::vector<int> columnV;
+	} m_sky;
+
 	void BuildTileSteps();
-	double TriangleAreaPercent(const TerrainVertex& vertex1, const TerrainVertex& vertex2, const TerrainVertex& vertex3) const;
 	void WaitForRenderThreads();
+	void FlushQueue();
 	void SetScreenBuffers();
 	// the original draws groups of 4 pixels only
 	int DrawnWidth() const { return m_largeScreen ? viewPort.Width_DE564 : viewPort.Width_DE564 & ~3; }
 	void DrawSky_40950(int16_t roll);
+	void DrawSkyRows(int firstRow, int endRow);
 	void BlendBlurBuffer(uint8_t* screen, const uint8_t* buffer, bool swapFirstGroup);
 	void SmoothViewPort();
 	enum class TerrainProjection { Plain, Reflections, Cave };
@@ -138,8 +168,10 @@ private:
 	Type_Sprite* UseSprite(int index);
 	SpriteChoice ChooseSprite(type_entity_0x6E8E* entity, const Type_SpriteDef_D951C& def, int depth, bool rotatedKind21, bool turnTable, Type_Sprite*& sprite);
 	void DrawTriangleInProjectionSpace_B6253(const TerrainVertex& vertex1, const TerrainVertex& vertex2, const TerrainVertex& vertex3);
+	void DrawTriangle(const TerrainVertex& vertex1, const TerrainVertex& vertex2, const TerrainVertex& vertex3, int mode, const uint8_t* texture,
+		int flatLight, int bandTop, int bandBottom);
 	template <int Mode>
-	void DrawTriangleRow(uint8_t* line, int left, int right, int u, int v, int light, int du, int dv, int dl);
+	void DrawTriangleRow(uint8_t* line, int left, int right, int u, int v, int light, int du, int dv, int dl, const uint8_t* texture, int flatLight);
 	void sub_3FD60(int tileIndex);
 	void sub_88740(type_entity_0x6E8E* entity, int16_t posX, int16_t posY);
 	void SetBillboards_3B560(int16_t roll);
