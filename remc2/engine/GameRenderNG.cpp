@@ -6,15 +6,15 @@
 #include <memory>
 #include <vector>
 
-// viewDistanceScale 1-3: the terrain grid (40 x 21 tiles in the original) times the scale with the cut-off and the fog
-// further away; fogScale moves the fog (1.0 as the original). With 1 and 1.0 everything is as the original.
+// viewDistanceScale from 1: the terrain grid (40 x 21 tiles in the original) times the scale with the cut-off and the fog
+// further away, over 6 the map (256 x 256 tiles) repeats; fogScale moves the fog (1.0 as the original). With 1 and 1.0 everything is as the original.
 // renderThreads: over 640x480 the sky and the terrain drawn by bands of rows in them and in the game thread (same pixels); the
 // sprites stay in the game thread, smaller screens draw everything in it. sizePercentToThreadRender of HD is not used.
 GameRenderNG::GameRenderNG(uint8_t viewDistanceScale, float fogScale, uint8_t renderThreads, bool assignToSpecificCores, float /*sizePercentToThreadRender*/)
 	: m_assignToSpecificCores(assignToSpecificCores)
 {
 	SetRenderThreads(renderThreads);
-	m_viewDistanceScale = viewDistanceScale < 1 ? 1 : (viewDistanceScale > 3 ? 3 : viewDistanceScale);
+	m_viewDistanceScale = viewDistanceScale < 1 ? 1 : viewDistanceScale;
 	m_tileColumns = 40 * m_viewDistanceScale;
 	m_tileRows = 21 * m_viewDistanceScale;
 	if (m_viewDistanceScale > 1)
@@ -25,7 +25,7 @@ GameRenderNG::GameRenderNG(uint8_t viewDistanceScale, float fogScale, uint8_t re
 	}
 
 	// squared distances in 1/65536 of a tile (256 units) squared; the fog from 15 to 19 tiles (20 the cut-off) times the scale
-	const auto fog = [fogScale](int scale, int& cutOffDistance, int& fogStartDistance, int& fogEndDistance)
+	const auto fog = [fogScale](int64_t scale, int64_t& cutOffDistance, int64_t& fogStartDistance, int64_t& fogEndDistance)
 	{
 		const int64_t cutOff = 400 * scale * scale;
 		int64_t fogEnd = cutOff - 39 * scale * scale;
@@ -40,12 +40,12 @@ GameRenderNG::GameRenderNG(uint8_t viewDistanceScale, float fogScale, uint8_t re
 			if (fogStart > fogEnd - 1)
 				fogStart = fogEnd - 1;
 		}
-		cutOffDistance = static_cast<int>(cutOff << 16);
-		fogEndDistance = static_cast<int>(fogEnd << 16);
-		fogStartDistance = static_cast<int>(fogStart << 16);
+		cutOffDistance = cutOff << 16;
+		fogEndDistance = fogEnd << 16;
+		fogStartDistance = fogStart << 16;
 	};
 	fog(m_viewDistanceScale, m_cutOffDistance, m_fogStart, m_fogEnd);
-	int standardCutOff;
+	int64_t standardCutOff;
 	fog(1, standardCutOff, m_standardFogStart, m_standardFogEnd);
 }
 
@@ -357,20 +357,21 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 		along = (posX & 0xFF) - 256 * m_viewDistanceScale;
 		break;
 	}
+	m_cameraRow = std::clamp((-along - 1) / 256 + 1, 1, m_tileRows - 1);
 	for (int column = 0; column < m_tileColumns; column++, across += 256)
 	{
 		for (int row = 0; row < m_tileRows; row++)
 		{
 			type_E9C38_smalltit& tile = m_tiles[row * m_tileColumns + column];
-			tile.x_0 = across * quadrantCos >> 16;
-			tile.y_12 = across * quadrantSin >> 16;
+			tile.x_0 = static_cast<int>(static_cast<int64_t>(across) * quadrantCos >> 16);//64 bits: a view distance over 6
+			tile.y_12 = static_cast<int>(static_cast<int64_t>(across) * quadrantSin >> 16);
 			tile.triangleFeatures_38 = across < 0 ? 0 : 4;
 		}
 	}
 	for (int row = 0; row < m_tileRows; row++, along += 256)
 	{
-		const int shiftX = along * quadrantSin >> 16;
-		const int shiftY = along * quadrantCos >> 16;
+		const int shiftX = static_cast<int>(static_cast<int64_t>(along) * quadrantSin >> 16);
+		const int shiftY = static_cast<int>(static_cast<int64_t>(along) * quadrantCos >> 16);
 		for (int column = 0; column < m_tileColumns; column++)
 		{
 			m_tiles[row * m_tileColumns + column].x_0 -= shiftX;
@@ -378,14 +379,14 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 		}
 	}
 
-	str_F2C20ar.dword0x15_tileRenderCutOffDistance = m_cutOffDistance;//21d2df
-	str_F2C20ar.dword0x12_FogThickness = m_fogEnd - m_fogStart;
+	str_F2C20ar.dword0x15_tileRenderCutOffDistance = static_cast<int>(m_cutOffDistance);//21d2df
+	str_F2C20ar.dword0x12_FogThickness = static_cast<int>(m_fogEnd - m_fogStart);
 	str_F2C20ar.dword0x22 = pitch * viewPort.Width_DE564 >> 8;
 	const int rollIndex = roll & 0x7FF;
 	str_F2C20ar.cos_0x11 = Maths::sin_DB750[512 + rollIndex];
-	str_F2C20ar.dword0x16_FogEnd = m_fogEnd;
+	str_F2C20ar.dword0x16_FogEnd = static_cast<int>(m_fogEnd);
 	str_F2C20ar.sin_0x0d = Maths::sin_DB750[rollIndex];
-	str_F2C20ar.dword0x13_FogStart = m_fogStart;
+	str_F2C20ar.dword0x13_FogStart = static_cast<int>(m_fogStart);
 
 	if (!D41A0_0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel_D41B6)
 	{
@@ -446,15 +447,15 @@ void GameRenderNG::ProjectTiles(TerrainProjection projection, uint8_t mapX, uint
 			const int map = mapY << 8 | mapX;
 			const int shade = (mapShading_12B4E0[map] << 8) + 128;
 			int depth = tile.y_12;
-			const int distance = depth * depth + tile.x_0 * tile.x_0;
+			const int64_t distance = static_cast<int64_t>(depth) * depth + static_cast<int64_t>(tile.x_0) * tile.x_0;
 			tile.haveBillboard_36 = 0;
-			if (depth <= -256 || distance >= str_F2C20ar.dword0x15_tileRenderCutOffDistance)
+			if (depth <= -256 || distance >= m_cutOffDistance)
 				tile.triangleFeatures_38 |= 2;
 			else
 			{
 				if (depth < 128)
 					depth = 128;
-				tile.pnt1_16 = str_F2C20ar.dword0x18 * tile.x_0 / depth;
+				tile.pnt1_16 = static_cast<int>(static_cast<int64_t>(str_F2C20ar.dword0x18) * tile.x_0 / depth);
 				tile.alt_4 = 32 * mapHeightmap_11B4E0[map] - posZ;
 				int wave;
 				if (projection == TerrainProjection::Cave)
@@ -482,17 +483,17 @@ void GameRenderNG::ProjectTiles(TerrainProjection projection, uint8_t mapX, uint
 						wave = 0;
 				}
 				const int light = (shade << 8) + 8 * wave;
-				if (distance <= str_F2C20ar.dword0x13_FogStart)
+				if (distance <= m_fogStart)
 					tile.pnt5_32 = light;
-				else if (distance < str_F2C20ar.dword0x16_FogEnd)
-					tile.pnt5_32 = light * (int64_t)(str_F2C20ar.dword0x16_FogEnd - distance) / str_F2C20ar.dword0x12_FogThickness;
+				else if (distance < m_fogEnd)
+					tile.pnt5_32 = static_cast<int>(light * (m_fogEnd - distance) / (m_fogEnd - m_fogStart));
 				else
 					tile.pnt5_32 = 0;
 				if (projection == TerrainProjection::Cave && (mapAngle_13B4E0[map] & 8))
 					tile.triangleFeatures_38 |= 0x80;
-				tile.pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * tile.alt_4 / depth;
+				tile.pnt2_20 = str_F2C20ar.dword0x22 + static_cast<int>(static_cast<int64_t>(str_F2C20ar.dword0x18) * tile.alt_4 / depth);
 				if (projection != TerrainProjection::Plain)
-					tile.pnt4_28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * tile.inverse_alt_8 / depth;
+					tile.pnt4_28 = str_F2C20ar.dword0x22 + static_cast<int>(static_cast<int64_t>(str_F2C20ar.dword0x18) * tile.inverse_alt_8 / depth);
 
 				const uint8_t textureX = mapX + steps[2];
 				const uint8_t textureY = mapY + steps[3];
@@ -523,14 +524,14 @@ void GameRenderNG::RotateTiles(bool secondPoints)
 {
 	const int width = viewPort.Width_DE564;
 	const int height = viewPort.Height_DE568;
-	const int cosRoll = str_F2C20ar.cos_0x11;
-	const int sinRoll = str_F2C20ar.sin_0x0d;
+	const int64_t cosRoll = str_F2C20ar.cos_0x11;//64 bits: the tiles beside the camera project far out of a big screen
+	const int64_t sinRoll = str_F2C20ar.sin_0x0d;
 	for (int index = 0; index < m_tileColumns * m_tileRows; index++)
 	{
 		type_E9C38_smalltit& tile = m_tiles[index];
 		const int x = tile.pnt1_16;
-		tile.pnt1_16 = ((x * cosRoll - sinRoll * tile.pnt2_20) >> 16) + str_F2C20ar.dword0x24;
-		tile.pnt2_20 = str_F2C20ar.dword0x10 - ((x * sinRoll + cosRoll * tile.pnt2_20) >> 16);
+		tile.pnt1_16 = static_cast<int>((x * cosRoll - sinRoll * tile.pnt2_20) >> 16) + str_F2C20ar.dword0x24;
+		tile.pnt2_20 = str_F2C20ar.dword0x10 - static_cast<int>((x * sinRoll + cosRoll * tile.pnt2_20) >> 16);
 		if (tile.pnt1_16 < 0)
 			tile.triangleFeatures_38 |= 8;
 		else if (tile.pnt1_16 >= width)
@@ -541,8 +542,8 @@ void GameRenderNG::RotateTiles(bool secondPoints)
 			tile.triangleFeatures_38 |= 0x40;
 		if (!secondPoints)
 			continue;
-		tile.pnt3_24 = ((x * cosRoll - sinRoll * tile.pnt4_28) >> 16) + str_F2C20ar.dword0x24;
-		tile.pnt4_28 = str_F2C20ar.dword0x10 - ((x * sinRoll + cosRoll * tile.pnt4_28) >> 16);
+		tile.pnt3_24 = static_cast<int>((x * cosRoll - sinRoll * tile.pnt4_28) >> 16) + str_F2C20ar.dword0x24;
+		tile.pnt4_28 = str_F2C20ar.dword0x10 - static_cast<int>((x * sinRoll + cosRoll * tile.pnt4_28) >> 16);
 		if (tile.pnt3_24 < 0)
 			tile.triangleFeatures_38 |= 0x100;
 		else if (tile.pnt3_24 >= width)
@@ -554,12 +555,14 @@ void GameRenderNG::RotateTiles(bool secondPoints)
 	}
 }
 
-// Rows m_tileRows - 1 .. 1 (row 0 is only the far edge of row 1). In a row from the left up to the tile whose right
-// neighbour lies behind the camera (flag 4), then from the right back to that tile.
+// Rows m_tileRows - 1 down to the camera row, then the rows behind it from row 1 up (a longer view has more of them), the
+// camera row last; row 0 is only the far edge of row 1. The rows on the two sides of the camera do not cover each other.
+// In a row from the left up to the tile whose right neighbour lies behind the camera (flag 4), then from the right back to it.
 void GameRenderNG::ForEachTileFarToNear(const std::function<void(int)>& drawTile)
 {
-	for (int rowStart = (m_tileRows - 1) * m_tileColumns; rowStart > 0; rowStart -= m_tileColumns)
+	const auto drawRow = [&](int row)
 	{
+		const int rowStart = row * m_tileColumns;
 		int tile = rowStart;
 		int left = m_tileColumns - 1;
 		for (; left; left--, tile++)
@@ -571,7 +574,12 @@ void GameRenderNG::ForEachTileFarToNear(const std::function<void(int)>& drawTile
 		if (left)
 			for (int back = rowStart + m_tileColumns - 2; back >= tile; back--)
 				drawTile(back);
-	}
+	};
+	for (int row = m_tileRows - 1; row > m_cameraRow; row--)
+		drawRow(row);
+	for (int row = 1; row < m_cameraRow; row++)
+		drawRow(row);
+	drawRow(m_cameraRow);
 }
 
 // The corners of the tile: [0] the tile of the previous row, [1] its right neighbour, [2] the right neighbour, [3] the tile.
@@ -947,19 +955,37 @@ void GameRenderNG::DrawSprites_3E360(int tileIndex)//21f360
 	} while (entityIndex);
 }
 
+// The entity on the tile in the view space (across, depth). dx and dy wrap in 16 bits (128 tiles); a view over 6 holds more
+// copies of the map (256 tiles), there the entity goes to the copy of the tile.
+void GameRenderNG::EntityViewPosition(const type_entity_0x6E8E* entity, const type_E9C38_smalltit& tile, int& across, int& depth) const
+{
+	const int64_t cos = str_F2C20ar.cos2_0x0f;
+	const int64_t sin = str_F2C20ar.sin2_0x17;
+	int64_t dx = static_cast<int16_t>(entity->position_0x4C_76.x - m_cameraX_F2CC4);
+	int64_t dy = static_cast<int16_t>(m_cameraY_F2CC2 - entity->position_0x4C_76.y);
+	if (m_viewDistanceScale > 6)
+	{
+		const int64_t tileDx = (cos * tile.x_0 + sin * tile.y_12) >> 16;
+		const int64_t tileDy = (cos * tile.y_12 - sin * tile.x_0) >> 16;
+		dx += (tileDx - dx + 0x8000) >> 16 << 16;
+		dy += (tileDy - dy + 0x8000) >> 16 << 16;
+	}
+	across = static_cast<int>((cos * dx - sin * dy) >> 16);
+	depth = static_cast<int>((sin * dx + cos * dy) >> 16);
+}
+
 // The shadow and the entity; nothing more when a sprite cannot be loaded (MainInitTmaps_71520).
 void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_smalltit& tile, Type_Sprite*& sprite)
 {
-	const int dx = static_cast<int16_t>(entity->position_0x4C_76.x - m_cameraX_F2CC4);
-	const int dy = static_cast<int16_t>(m_cameraY_F2CC2 - entity->position_0x4C_76.y);
+	int across;
+	int depth;
+	EntityViewPosition(entity, tile, across, depth);
 	if (m_shadows_F2CC7 && !tile.textAtyp_43 && !(entity->struct_byte_0xc_12_15.word[1] & 0x808))
 	{
 		//21f40c
 		const int height = sub_B5C60_getTerrainAlt2(entity->position_0x4C_76.x, entity->position_0x4C_76.y) - str_F2C20ar.dword0x20;
-		const int across = (str_F2C20ar.cos2_0x0f * dx - str_F2C20ar.sin2_0x17 * dy) >> 16;
-		const int depth = (str_F2C20ar.sin2_0x17 * dx + str_F2C20ar.cos2_0x0f * dy) >> 16;
-		const int distance = depth * depth + across * across;
-		if (depth > 64 && distance < str_F2C20ar.dword0x15_tileRenderCutOffDistance)
+		const int64_t distance = static_cast<int64_t>(depth) * depth + static_cast<int64_t>(across) * across;
+		if (depth > 64 && distance < m_cutOffDistance)
 		{
 			str_F2C20ar.dword0x00 = SpriteLight(distance);
 			const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[str_F2C20ar.dword0x14x->word_0x5A_90];
@@ -985,8 +1011,6 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 
 	type_entity_0x6E8E* owner = str_F2C20ar.dword0x14x;
 	const int z = owner->struct_byte_0xc_12_15.byte[3] >= 0 ? owner->position_0x4C_76.z : owner->position_0x4C_76.z - 160;
-	int depth = (str_F2C20ar.sin2_0x17 * dx + str_F2C20ar.cos2_0x0f * dy) >> 16;
-	const int across = (str_F2C20ar.cos2_0x0f * dx - str_F2C20ar.sin2_0x17 * dy) >> 16;
 	if (owner->struct_byte_0xc_12_15.byte[3] & 0x20)
 	{
 		// a part of a bigger entity: shifted by the direction of the parent
@@ -1021,8 +1045,8 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 			break;
 		}
 	}
-	const int distance = depth * depth + across * across;
-	if (depth <= 64 || distance >= str_F2C20ar.dword0x15_tileRenderCutOffDistance)
+	const int64_t distance = static_cast<int64_t>(depth) * depth + static_cast<int64_t>(across) * across;
+	if (depth <= 64 || distance >= m_cutOffDistance)
 		return;
 	str_F2C20ar.dword0x00 = SpriteLight(distance);
 	const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[owner->word_0x5A_90];
@@ -1072,13 +1096,12 @@ void GameRenderNG::sub_3FD60(int tileIndex)
 			entity = Entities_EA3E4[entityIndex];
 			if (!(entity->struct_byte_0xc_12_15.byte[0] & 0x21))
 			{
-				const int dx = static_cast<int16_t>(entity->position_0x4C_76.x - m_cameraX_F2CC4);
-				const int dy = static_cast<int16_t>(m_cameraY_F2CC2 - entity->position_0x4C_76.y);
 				const int height = -entity->position_0x4C_76.z - str_F2C20ar.dword0x20;
-				const int across = (dx * str_F2C20ar.cos2_0x0f - dy * str_F2C20ar.sin2_0x17) >> 16;
-				const int depth = (str_F2C20ar.sin2_0x17 * dx + str_F2C20ar.cos2_0x0f * dy) >> 16;
-				const int distance = depth * depth + across * across;
-				if (depth > 64 && distance < str_F2C20ar.dword0x15_tileRenderCutOffDistance)
+				int across;
+				int depth;
+				EntityViewPosition(entity, m_tiles[tileIndex], across, depth);
+				const int64_t distance = static_cast<int64_t>(depth) * depth + static_cast<int64_t>(across) * across;
+				if (depth > 64 && distance < m_cutOffDistance)
 				{
 					str_F2C20ar.dword0x00 = SpriteLight(distance);
 					const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[entity->word_0x5A_90];
@@ -1101,12 +1124,12 @@ void GameRenderNG::sub_3FD60(int tileIndex)
 }
 
 // The light of a sprite by its distance (fog): 0x2000 full, 0 in the fog end.
-int GameRenderNG::SpriteLight(int distance)
+int GameRenderNG::SpriteLight(int64_t distance)
 {
-	if (distance <= str_F2C20ar.dword0x13_FogStart)
+	if (distance <= m_fogStart)
 		return 0x2000;
-	if (distance < str_F2C20ar.dword0x16_FogEnd)
-		return static_cast<int>(32 * static_cast<int64_t>(str_F2C20ar.dword0x16_FogEnd - distance) / str_F2C20ar.dword0x12_FogThickness) << 8;
+	if (distance < m_fogEnd)
+		return static_cast<int>(32 * (m_fogEnd - distance) / (m_fogEnd - m_fogStart)) << 8;
 	return 0;
 }
 
@@ -1120,10 +1143,10 @@ static bool FadesInStandardFog(int spriteIndex)
 // The screen position of a sprite: across and height in the view space, rotated by the roll.
 void GameRenderNG::ProjectSprite(int across, int height, int depth)
 {
-	const int x = across * str_F2C20ar.dword0x18 / depth;
-	const int y = str_F2C20ar.dword0x18 * height / depth + str_F2C20ar.dword0x22;
-	str_F2C20ar.dword0x04_screenY = ((x * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * y) >> 16) + str_F2C20ar.dword0x24;
-	str_F2C20ar.dword0x03_screenX = str_F2C20ar.dword0x10 - ((str_F2C20ar.sin_0x0d * x + y * str_F2C20ar.cos_0x11) >> 16);
+	const int64_t x = static_cast<int64_t>(across) * str_F2C20ar.dword0x18 / depth;//64 bits: near sprites project far out of a big screen
+	const int64_t y = static_cast<int64_t>(str_F2C20ar.dword0x18) * height / depth + str_F2C20ar.dword0x22;
+	str_F2C20ar.dword0x04_screenY = static_cast<int>((x * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * y) >> 16) + str_F2C20ar.dword0x24;
+	str_F2C20ar.dword0x03_screenX = str_F2C20ar.dword0x10 - static_cast<int>((str_F2C20ar.sin_0x0d * x + y * str_F2C20ar.cos_0x11) >> 16);
 }
 
 // The sprite loaded (MainInitTmaps_71520 when needed) and marked as used in this frame; nullptr when it cannot be loaded.
@@ -1140,7 +1163,7 @@ Type_Sprite* GameRenderNG::UseSprite(int index)
 // (m_uprightSprite_F2CC6) as the kinds 22-36, turnTable: the directions of kind 17 through m_spriteTables_D4750 (entity flag 0x40).
 // An unknown kind keeps the previous sprite and size. With a longer view the sprites of FadesInStandardFog are skipped past
 // the end of the standard fog and set m_fadeVisibility in it.
-GameRenderNG::SpriteChoice GameRenderNG::ChooseSprite(type_entity_0x6E8E* entity, const Type_SpriteDef_D951C& def, int depth, int distance, bool rotatedKind21, bool turnTable, Type_Sprite*& sprite)
+GameRenderNG::SpriteChoice GameRenderNG::ChooseSprite(type_entity_0x6E8E* entity, const Type_SpriteDef_D951C& def, int depth, int64_t distance, bool rotatedKind21, bool turnTable, Type_Sprite*& sprite)
 {
 	m_uprightSprite_F2CC6 = 0;
 	m_fadeVisibility = -1;
@@ -1205,9 +1228,21 @@ GameRenderNG::SpriteChoice GameRenderNG::ChooseSprite(type_entity_0x6E8E* entity
 // center, the shadow and the reflection at their centers; for the entity also its name tag and help text.
 void GameRenderNG::DrawSprite_41BD3(uint32 pass)
 {
+	// a big screen or a longer view: the sprites beside the camera project far out of the view port, their 16.16 positions
+	// would overflow and wrap into it; not drawn when off the view port or past 16 bits (the flags below stay as they are)
+	bool draw = true;
+	if (m_largeScreen || m_viewDistanceScale > 1)
+	{
+		const int64_t size = static_cast<int64_t>(str_F2C20ar.dword0x09_realWidth) + str_F2C20ar.dword0x0c_realHeight;
+		const int64_t x = str_F2C20ar.dword0x04_screenY;
+		const int64_t y = str_F2C20ar.dword0x03_screenX;
+		draw = x + size >= 0 && x - size < viewPort.Width_DE564 && y + size >= 0 && y - size < viewPort.Height_DE568
+			&& x > -32768 && x < 32768 && y > -32768 && y < 32768 && size < 32768;
+	}
 	if (m_uprightSprite_F2CC6)
 	{
-		DrawUprightSprite(pass);
+		if (draw)
+			DrawUprightSprite(pass);
 		return;
 	}
 	if (pass == (uint32_t)SpritePass::Main)
@@ -1220,11 +1255,12 @@ void GameRenderNG::DrawSprite_41BD3(uint32 pass)
 		str_F2C20ar.dword0x04_screenY -= str_F2C20ar.cos_0x11 * str_F2C20ar.dword0x09_realWidth >> 17;
 		str_F2C20ar.dword0x03_screenX -= -(str_F2C20ar.sin_0x0d * str_F2C20ar.dword0x09_realWidth) >> 17;
 	}
-	DrawRotatedSprite(pass);
+	if (draw)
+		DrawRotatedSprite(pass);
 	if (pass != (uint32_t)SpritePass::Main)
 		return;
 	type_entity_0x6E8E* entity = str_F2C20ar.dword0x14x;
-	if (!x_D41A0_BYTEARRAY_4_struct.byteindex_207 && entity->class_0x3F_63 == 3 && (!entity->model_0x40_64 || entity->model_0x40_64 == 1))
+	if (draw && !x_D41A0_BYTEARRAY_4_struct.byteindex_207 && entity->class_0x3F_63 == 3 && (!entity->model_0x40_64 || entity->model_0x40_64 == 1))
 		DrawSorcererNameAndHealthBar_2CB30(entity, str_F2C20ar.dword0x04_screenY, static_cast<int16_t>(str_F2C20ar.dword0x03_screenX), str_F2C20ar.dword0x09_realWidth);
 	if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
 		sub_88740(entity, str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1), str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1));
@@ -1705,6 +1741,18 @@ void GameRenderNG::DrawTriangleInProjectionSpace_B6253(const TerrainVertex& vert
 	const int mode = m_triangleMode_E126D;
 	if (mode != 5 && mode != 7 && mode != 26)
 		return;
+	if (m_largeScreen || m_viewDistanceScale > 1)
+	{
+		const int minX = (std::min)({ vertex1.x, vertex2.x, vertex3.x });
+		const int maxX = (std::max)({ vertex1.x, vertex2.x, vertex3.x });
+		const int minY = (std::min)({ vertex1.y, vertex2.y, vertex3.y });
+		const int maxY = (std::max)({ vertex1.y, vertex2.y, vertex3.y });
+		if (minX < -32767 || maxX > 32767 || minY < -32767 || maxY > 32767 || maxX - minX > 32767 || maxY - minY > 32767)
+		{
+			DrawClippedTriangle(vertex1, vertex2, vertex3);
+			return;
+		}
+	}
 	if (!m_queueing)
 	{
 		DrawTriangle(vertex1, vertex2, vertex3, mode, m_triangleTexture_DE55C, m_flatLight_E126C, 0, viewPort.Height_DE568);
@@ -1723,6 +1771,51 @@ void GameRenderNG::DrawTriangleInProjectionSpace_B6253(const TerrainVertex& vert
 		- std::clamp((std::min)({ vertex1.x, vertex2.x, vertex3.x }), 0, static_cast<int>(viewPort.Width_DE564));
 	const int64_t height = std::clamp(queued.maxY, 0, static_cast<int>(viewPort.Height_DE568)) - std::clamp(queued.minY, 0, static_cast<int>(viewPort.Height_DE568));
 	m_queuedArea += width * height;
+}
+
+// A triangle of a big screen or a longer view whose corners or spans do not fit the 16.16 rows (the tiles beside the camera,
+// depth clamped to 128, project far out): clipped to the view port with a margin of 8192 pixels, the texture and the light
+// linear along the edges, and drawn as a fan of triangles that fit. The new edges lie outside the view port.
+void GameRenderNG::DrawClippedTriangle(const TerrainVertex& vertex1, const TerrainVertex& vertex2, const TerrainVertex& vertex3)
+{
+	struct ClipVertex
+	{
+		double x, y, u, v, light;
+	};
+	const auto fromVertex = [](const TerrainVertex& vertex) { return ClipVertex{ double(vertex.x), double(vertex.y), double(vertex.u), double(vertex.v), double(vertex.light) }; };
+	const double margin = 8192;
+	const double limits[4] = { -margin, viewPort.Width_DE564 + margin, -margin, viewPort.Height_DE568 + margin };
+	std::array<ClipVertex, 8> polygon = { fromVertex(vertex1), fromVertex(vertex2), fromVertex(vertex3) };
+	int count = 3;
+	for (int side = 0; side < 4 && count >= 3; side++)
+	{
+		const auto coordinate = [side](const ClipVertex& point) { return side < 2 ? point.x : point.y; };
+		const auto inside = [&](const ClipVertex& point) { return side % 2 == 0 ? coordinate(point) >= limits[side] : coordinate(point) <= limits[side]; };
+		std::array<ClipVertex, 8> clipped;
+		int clippedCount = 0;
+		for (int i = 0; i < count; i++)
+		{
+			const ClipVertex& from = polygon[i];
+			const ClipVertex& to = polygon[(i + 1) % count];
+			if (inside(from))
+				clipped[clippedCount++] = from;
+			if (inside(from) != inside(to))
+			{
+				const double t = (limits[side] - coordinate(from)) / (coordinate(to) - coordinate(from));
+				clipped[clippedCount++] = { from.x + (to.x - from.x) * t, from.y + (to.y - from.y) * t, from.u + (to.u - from.u) * t,
+					from.v + (to.v - from.v) * t, from.light + (to.light - from.light) * t };
+			}
+		}
+		polygon = clipped;
+		count = clippedCount;
+	}
+	const auto toVertex = [](const ClipVertex& point)
+	{
+		return TerrainVertex{ static_cast<int>(std::lround(point.x)), static_cast<int>(std::lround(point.y)), static_cast<int>(std::llround(point.u)),
+			static_cast<int>(std::llround(point.v)), static_cast<int>(std::llround(point.light)), 0 };
+	};
+	for (int i = 1; i + 1 < count; i++)
+		DrawTriangleInProjectionSpace_B6253(toVertex(polygon[0]), toVertex(polygon[i]), toVertex(polygon[i + 1]));
 }
 
 // The rows bandTop..bandBottom - 1 of the triangle (the whole view port without threads).

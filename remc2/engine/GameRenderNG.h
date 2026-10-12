@@ -86,13 +86,14 @@ private:
 	uint8_t m_viewDistanceScale = 1;
 	int m_tileColumns = 40;
 	int m_tileRows = 21;
+	int m_cameraRow = 1;//the tile row with the camera (ForEachTileFarToNear)
 	type_E9C38_smalltit* m_tiles = Str_E9C38_smalltit;//the original grid, own storage for a bigger one
 	std::vector<type_E9C38_smalltit> m_ownTiles;
-	int m_cutOffDistance = 0;
-	int m_fogStart = 0;
-	int m_fogEnd = 0;
-	int m_standardFogStart = 0;//the fog of view distance 1 (FadesInStandardFog)
-	int m_standardFogEnd = 0;
+	int64_t m_cutOffDistance = 0;//64 bits: a view distance from 10
+	int64_t m_fogStart = 0;
+	int64_t m_fogEnd = 0;
+	int64_t m_standardFogStart = 0;//the fog of view distance 1 (FadesInStandardFog)
+	int64_t m_standardFogEnd = 0;
 	int m_fadeVisibility = -1;//ChooseSprite: the mode of a sprite fading in the standard fog (FadesInStandardFog), -1 none
 
 	bool m_largeScreen = false;//over 640x480
@@ -166,11 +167,13 @@ private:
 	enum class SpriteChoice { Draw, Skip, KeepPrevious };
 	void DrawSprites_3E360(int tileIndex);
 	void DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_smalltit& tile, Type_Sprite*& sprite);
-	int SpriteLight(int distance);
+	void EntityViewPosition(const type_entity_0x6E8E* entity, const type_E9C38_smalltit& tile, int& across, int& depth) const;
+	int SpriteLight(int64_t distance);
 	void ProjectSprite(int across, int height, int depth);
 	Type_Sprite* UseSprite(int index);
-	SpriteChoice ChooseSprite(type_entity_0x6E8E* entity, const Type_SpriteDef_D951C& def, int depth, int distance, bool rotatedKind21, bool turnTable, Type_Sprite*& sprite);
+	SpriteChoice ChooseSprite(type_entity_0x6E8E* entity, const Type_SpriteDef_D951C& def, int depth, int64_t distance, bool rotatedKind21, bool turnTable, Type_Sprite*& sprite);
 	void DrawTriangleInProjectionSpace_B6253(const TerrainVertex& vertex1, const TerrainVertex& vertex2, const TerrainVertex& vertex3);
+	void DrawClippedTriangle(const TerrainVertex& vertex1, const TerrainVertex& vertex2, const TerrainVertex& vertex3);
 	void DrawTriangle(const TerrainVertex& vertex1, const TerrainVertex& vertex2, const TerrainVertex& vertex3, int mode, const uint8_t* texture,
 		int flatLight, int bandTop, int bandBottom);
 	template <int Mode>
