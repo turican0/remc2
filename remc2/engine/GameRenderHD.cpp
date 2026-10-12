@@ -3850,7 +3850,7 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 				LABEL_164:
 					v90x = str_F2C20ar.dword0x14x;
 					a1y->word_0 |= 8u;
-					v91 = v90x->struct_byte_0xc_12_15.byte[2];
+					v91 = v90x->struct_byte_0xc_12_15.word[1];
 					str_F2C20ar.dword0x02_data = a1y->textureBuffer;
 					if (v91 & 0x380)
 					{
