@@ -1648,20 +1648,21 @@ void GameRenderNG::DrawTriangleInProjectionSpace_B6253(const TerrainVertex& vert
 		return;
 	const bool light = mode != 7;
 	const TerrainVertex* corners[3] = { &vertex1, &vertex2, &vertex3 };
-	if (m_largeScreen)
-		for (const TerrainVertex* corner : corners)
-			if (corner->x > 32767 || corner->x < -32767 || corner->y > 32767 || corner->y < -32767)
-				return;
 	int minY = vertex1.y < vertex2.y ? vertex1.y : vertex2.y;
 	if (vertex3.y < minY)
 		minY = vertex3.y;
-	// outside the view port, before the divisions: the rows are clipped to it and an edge stays between its corners
-	// (in 16 bits, as the rows take x)
 	const int maxY = vertex1.y > vertex2.y ? (vertex1.y > vertex3.y ? vertex1.y : vertex3.y) : (vertex2.y > vertex3.y ? vertex2.y : vertex3.y);
-	if (maxY <= 0 || minY >= viewPort.Height_DE568)
-		return;
 	const int minX = vertex1.x < vertex2.x ? (vertex1.x < vertex3.x ? vertex1.x : vertex3.x) : (vertex2.x < vertex3.x ? vertex2.x : vertex3.x);
 	const int maxX = vertex1.x > vertex2.x ? (vertex1.x > vertex3.x ? vertex1.x : vertex3.x) : (vertex2.x > vertex3.x ? vertex2.x : vertex3.x);
+	// a big screen or a longer view: the tiles beside the camera (depth clamped to 128) project far out; the corners and
+	// the spans must stay in 16 bits, else the 16.16 slopes overflow into streaks across the screen
+	if (m_largeScreen || m_viewDistanceScale > 1)
+		if (minX < -32767 || maxX > 32767 || minY < -32767 || maxY > 32767 || maxX - minX > 32767 || maxY - minY > 32767)
+			return;
+	// outside the view port, before the divisions: the rows are clipped to it and an edge stays between its corners
+	// (in 16 bits, as the rows take x)
+	if (maxY <= 0 || minY >= viewPort.Height_DE568)
+		return;
 	if ((maxX < 0 && minX >= -32768) || (minX >= viewPort.Width_DE564 && maxX <= 32767))
 		return;
 	int topIndex = 0;
