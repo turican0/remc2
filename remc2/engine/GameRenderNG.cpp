@@ -1791,7 +1791,7 @@ void GameRenderNG::DrawClippedTriangle(const TerrainVertex& vertex1, const Terra
 	{
 		const auto coordinate = [side](const ClipVertex& point) { return side < 2 ? point.x : point.y; };
 		const auto inside = [&](const ClipVertex& point) { return side % 2 == 0 ? coordinate(point) >= limits[side] : coordinate(point) <= limits[side]; };
-		std::array<ClipVertex, 8> clipped;
+		std::array<ClipVertex, 8> clipped{};
 		int clippedCount = 0;
 		for (int i = 0; i < count; i++)
 		{
