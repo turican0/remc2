@@ -73,7 +73,8 @@ private:
 	type_E9C38_smalltit* m_ptrStr_E9C38_smalltit;
 	uint16_t m_tileRows = TILE_ROWS_COUNT;
 	uint16_t m_tileColumns = TILE_COLUMNS_COUNT;
-	float m_sizePercentToThreadRender = 10.0;
+	float m_sizePercentToThreadRenderPolys = 10.0f;
+	float m_sizePercentToThreadRenderSprites = 0.5f;
 	uint8_t m_viewDistanceScale = 1;
 
 	uint8_t* m_ptrDWORD_E9C38_smalltit = nullptr;
@@ -112,9 +113,6 @@ private:
 		int      minOffset;  // rotated only: v116
 	};
 
-	// members
-	float m_spriteSizePercentToThreadRender = 0.10f;
-
 	void DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEveryNthLine);
 	void DrawSky_40950_TH(int16_t roll);
 	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov);
@@ -150,7 +148,7 @@ private:
 	bool CheckViewPortCull(ProjectionVertex v1, ProjectionVertex v2, ProjectionVertex v3, int maxCoordinate = 2147483647, int minCoordinate = -2147483647);
 
 public:
-	GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint8_t renderThreads, bool assignToSpecificCores, float sizePercentToThreadRender = 10.0, uint8_t viewDistanceScale = 1);
+	GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint8_t renderThreads, bool assignToSpecificCores, float sizePercentToThreadRenderPolys = 10.0, float sizePercentToThreadRenderSprints = 0.5, uint8_t viewDistanceScale = 1);
 	~GameRenderHD();
 	
 	void SetRenderThreads(uint8_t renderThreads);

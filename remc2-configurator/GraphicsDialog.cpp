@@ -59,6 +59,7 @@ GraphicsDialog::GraphicsDialog(wxWindow* parent, const Config::Settings::Graphic
 			auto threadingSettings = dlg.GetSettings();
 			m_cfg.m_Threading.m_IsActive = threadingSettings.m_IsActive;
 			m_cfg.m_Threading.m_SizePercentToThreadRender = threadingSettings.m_SizePercentToThreadRender;
+			m_cfg.m_Threading.m_SizePercentToThreadRenderSprites = threadingSettings.m_SizePercentToThreadRenderSprites;
 			m_cfg.m_Threading.m_NumberOfRenderThreads = threadingSettings.m_NumberOfRenderThreads;
 			m_cfg.m_Threading.m_AssignToSpecificCores = threadingSettings.m_AssignToSpecificCores;
 		}

@@ -31341,14 +31341,14 @@ void sub_46830_main_loop(unsigned __int16 actLevel)//227830
 					else if (!strcmp(forceRender.c_str(), "Original"))
 						m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
 					else if (!strcmp(forceRender.c_str(), "HD"))
-						m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores, sizePercentToThreadRender, viewDistanceScale);
+						m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores, sizePercentToThreadRender, sizePercentToThreadRenderSprites, viewDistanceScale);
 					else
 					{
 						if ((gameResWidth <= 640) && (gameResHeight <= 480)) {
 							m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
 						}
 						else {
-							m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores, sizePercentToThreadRender, viewDistanceScale);
+							m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores, sizePercentToThreadRender, sizePercentToThreadRenderSprites, viewDistanceScale);
 						}
 					}
 				}

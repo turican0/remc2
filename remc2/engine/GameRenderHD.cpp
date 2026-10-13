@@ -2,7 +2,7 @@
 
 #include "../utilities/RendererTests.h"
 
-GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint8_t renderThreads, bool assignToSpecificCores, float sizePercentToThreadRender, uint8_t viewDistanceScale) :
+GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint8_t renderThreads, bool assignToSpecificCores, float sizePercentToThreadRenderPolys, float sizePercentToThreadRenderSprites, uint8_t viewDistanceScale) :
 	m_ptrScreenBuffer_351628(ptrScreenBuffer), m_ptrColorPalette(pColorPalette), m_assignToSpecificCores(assignToSpecificCores),
 	m_ptrDWORD_E9C38_smalltit(new uint8_t[GAME_RES_MAX_WIDTH * GAME_RES_MAX_HEIGHT])
 {
@@ -11,7 +11,8 @@ GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uin
 	m_preBlurBuffer_E9C3C = new uint8_t[((GAME_RES_MAX_WIDTH * GAME_RES_MAX_HEIGHT) * 3)]; // Allow x 3 padding for sprite rendering
 	m_ptrBlurBuffer_E9C3C = &m_preBlurBuffer_E9C3C[(GAME_RES_MAX_WIDTH * GAME_RES_MAX_HEIGHT)];
 
-	m_sizePercentToThreadRender = sizePercentToThreadRender;
+	m_sizePercentToThreadRenderPolys = sizePercentToThreadRenderPolys;
+	m_sizePercentToThreadRenderSprites = sizePercentToThreadRenderSprites;
 	m_viewDistanceScale = viewDistanceScale;
 	m_tileRows = TILE_ROWS_COUNT * viewDistanceScale;
 	m_tileColumns = TILE_COLUMNS_COUNT * viewDistanceScale;
@@ -2889,7 +2890,7 @@ bool GameRenderHD::ShouldThreadSprite(int width, int height) const
 	double viewPortArea = (double)viewPort.Width_DE564 * viewPort.Height_DE568;
 	double spriteArea = (double)width * height;
 
-	return (spriteArea / viewPortArea) * 100.0 >= m_spriteSizePercentToThreadRender;
+	return (spriteArea / viewPortArea) * 100.0 >= m_sizePercentToThreadRenderSprites;
 }
 
 void GameRenderHD::DrawSpriteLines(const SpriteDrawJob& job, uint8_t startLine, uint8_t nth)
@@ -3895,10 +3896,10 @@ bool GameRenderHD::CheckIfThreadRenderTriangle(ProjectionVertex v1, ProjectionVe
 
 	double viewPortArea = viewPort.Width_DE564 * viewPort.Height_DE568;
 
-	bool skipThread = (triArea1 / viewPortArea) * 100 < m_sizePercentToThreadRender;
+	bool skipThread = (triArea1 / viewPortArea) * 100 < m_sizePercentToThreadRenderPolys;
 
 	if (!skipThread)
-		skipThread = (triArea2 / viewPortArea) * 100 < m_sizePercentToThreadRender;
+		skipThread = (triArea2 / viewPortArea) * 100 < m_sizePercentToThreadRenderPolys;
 
 	return skipThread;
 }
