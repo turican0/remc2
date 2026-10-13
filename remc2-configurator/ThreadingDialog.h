@@ -16,7 +16,6 @@ private:
 	void OnActiveToggled(wxCommandEvent&);
 
 	wxCheckBox* m_chkActive;
-	wxSpinCtrlDouble* m_spinSizePercent;
 	wxSpinCtrl* m_spinNumThreads;
 	wxCheckBox* m_chkAssignCores;
 
