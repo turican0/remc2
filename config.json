@@ -82,7 +82,7 @@
 					"sky": true,
 					"reflections": true,
 					"dynamicLighting": true,
-					"viewDistanceScale": 2,
+					"viewDistanceScale": 4,
 					"fogScale": 1.0
 				},
 				"threading": {
