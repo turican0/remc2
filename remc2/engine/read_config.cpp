@@ -43,6 +43,7 @@ int viewDistanceScale = 1;
 float fogScale = 1.0f;
 bool multiThreadedRender = false;
 float sizePercentToThreadRender = 0;
+float sizePercentToThreadRenderSprites = 0;
 int numberOfRenderThreads = 0;
 bool assignToSpecificCores = false;
 bool openGLRender = false;

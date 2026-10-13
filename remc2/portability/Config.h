@@ -86,7 +86,8 @@ public:
 		struct Threading
 		{
 			bool m_IsActive = false;
-			float m_SizePercentToThreadRender = 10.0;
+			float m_SizePercentToThreadRender = 10.0f;
+			float m_SizePercentToThreadRenderSprites = 0.5f;
 			int m_NumberOfRenderThreads = 0;
 			bool m_AssignToSpecificCores = false;
 		};

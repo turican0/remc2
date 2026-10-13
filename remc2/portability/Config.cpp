@@ -377,6 +377,7 @@ Config::Settings::Threading Config::GetThreading(const json& graphics)
 		const auto& threading = graphics["threading"];
 		threadingValues.m_IsActive = threading.value("isActive", false);
 		threadingValues.m_SizePercentToThreadRender = ReadFloatValue(threading, "sizePercentToThreadRender");
+		threadingValues.m_SizePercentToThreadRenderSprites = ReadFloatValue(threading, "sizePercentToThreadRenderSprites");
 		threadingValues.m_NumberOfRenderThreads = (uint8_t)ReadIntValue(threading, "numberOfRenderThreads");
 		threadingValues.m_AssignToSpecificCores = ReadBoolValue(threading, "assignToSpecificCores");
 	}
@@ -519,6 +520,7 @@ void Config::SaveThreadingToDoc(Config::Settings::Threading threading)
 	auto& t = GetOrCreate(gfx, "threading");
 	SetBool(t, "isActive", threading.m_IsActive);
 	SetFloat(t, "sizePercentToThreadRender", threading.m_SizePercentToThreadRender);
+	SetFloat(t, "sizePercentToThreadRenderSprites", threading.m_SizePercentToThreadRenderSprites);
 	SetInt(t, "numberOfRenderThreads", threading.m_NumberOfRenderThreads);
 	SetBool(t, "assignToSpecificCores", threading.m_AssignToSpecificCores);
 }

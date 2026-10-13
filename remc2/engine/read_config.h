@@ -54,6 +54,7 @@ extern int viewDistanceScale;
 extern float fogScale;
 extern bool openGLRender;
 extern float sizePercentToThreadRender;
+extern float sizePercentToThreadRenderSprites;
 extern bool multiThreadedRender;
 extern int numberOfRenderThreads;
 extern bool assignToSpecificCores;
