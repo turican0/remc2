@@ -53,6 +53,7 @@ extern bool dynamicLighting;
 extern int viewDistanceScale;
 extern bool openGLRender;
 extern float sizePercentToThreadRender;
+extern float sizePercentToThreadRenderSprites;
 extern bool multiThreadedRender;
 extern int numberOfRenderThreads;
 extern bool assignToSpecificCores;
