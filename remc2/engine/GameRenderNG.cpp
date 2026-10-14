@@ -188,6 +188,7 @@ void GameRenderNG::SetScreenBuffers()
 	m_columnsOffset = 0x4000;
 	m_spansOffset = m_columnsOffset + 8 * lines + 0x100;
 	m_rowsOffset = m_spansOffset + 12 * lines + 0x100;
+	m_columnsCapacity = lines - 1;
 	m_largeScratch.resize(m_rowsOffset + 4 * lines + 0x100);
 	m_scratch = m_largeScratch.data();
 	m_largeBlurBuffer.resize(screenWidth_18062C * screenHeight_180624);
@@ -1379,6 +1380,14 @@ void GameRenderNG::DrawRotatedSprite(uint32 pass)
 			if (lines <= 0)
 				return;
 		}
+		// a big screen: the lines from width on lie below the view port, the row limits past their table are stale in
+		// the original (its lines land in the spare memory after a 320x200 screen)
+		if (m_largeScreen && line + lines > width)
+		{
+			lines = width - line;
+			if (lines <= 0)
+				return;
+		}
 		const int count = lines;
 		for (int i = 0; i < count; i++, spanStart -= spanShift)
 		{
@@ -1538,7 +1547,16 @@ void GameRenderNG::DrawRotatedSprite(uint32 pass)
 	int columnCount = spanLength - minSkip;
 	if (columnCount <= 0)
 		return;
-	if (columnCount > str_F2C20ar.dword0x1c)
+	if (m_largeScreen)
+	{
+		// a big screen: the columns the spans show, up to the table (past dword0x1c the original reads stale columns)
+		int shown = 0;
+		for (int i = 0; i < lines; i++)
+			if (spans[i].length > 0)
+				shown = (std::max)(shown, spans[i].skip - minSkip + spans[i].length);
+		columnCount = (std::min)({ columnCount, shown, m_columnsCapacity });
+	}
+	else if (columnCount > str_F2C20ar.dword0x1c)
 		columnCount = str_F2C20ar.dword0x1c;
 	str_F2C20ar.dword0x0b += columnStep * minSkip;
 	SpriteColumn* columns = reinterpret_cast<SpriteColumn*>(&m_scratch[m_columnsOffset]);
@@ -1551,11 +1569,12 @@ void GameRenderNG::DrawRotatedSprite(uint32 pass)
 	for (int i = 0; i < lines; i++)
 	{
 		const SpriteSpan& span = spans[i];
-		if (span.length > 0)
+		const int length = m_largeScreen ? (std::min)(span.length, columnCount - (span.skip - minSkip)) : span.length;
+		if (length > 0)
 		{
 			const SpriteColumn* first = &columns[span.skip - minSkip];
 			const int8_t* texels = &str_F2C20ar.dword0x02_data[str_F2C20ar.dword0x08_width * (str_F2C20ar.dword0x0a_actIdx >> 16) + first->offset];
-			DrawSpriteSpan(texels, first, lineStart + m_viewLines_F0E20[span.start].dword_1, &m_viewLines_F0E20[span.start], span.length, 8);
+			DrawSpriteSpan(texels, first, lineStart + m_viewLines_F0E20[span.start].dword_1, &m_viewLines_F0E20[span.start], length, 8);
 		}
 		str_F2C20ar.dword0x0a_actIdx += rowStep;
 		lineStart += str_F2C20ar.dword0x23_stride;

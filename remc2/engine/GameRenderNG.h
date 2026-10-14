@@ -101,6 +101,7 @@ private:
 	int m_columnsOffset = 36960;
 	int m_spansOffset = 45920;
 	int m_rowsOffset = 59360;
+	int m_columnsCapacity = 0;//a big screen: the last index of the column table
 	std::vector<uint8_t> m_largeScratch;
 	uint8_t* m_blurBuffer = nullptr;
 	std::vector<uint8_t> m_largeBlurBuffer;
