@@ -21620,45 +21620,7 @@ void DrawGameFrame_2BE30()//20CE30
 			if (x_DWORD_D4188 && playerEntity->dword_0xA4_164x->mobilizeCounter_0x14E_334)
 			{
 				//Draw Spiders Web
-				int16_t offSetX = 0;
-				int16_t offSetY = 0;
-				int maxCountX;
-				int maxCountY;
-				if (x_WORD_180660_VGA_type_resolution & 1)
-				{
-					maxCountY = 2;
-					maxCountX = 4;
-				}
-				else
-				{
-					maxCountY = 4;
-					maxCountX = 6;
-				}
-				if (x_WORD_180660_VGA_type_resolution != 1)
-					if (!DefaultResolutions())
-					{
-						offSetX = (screenWidth_18062C - 640) / 2;
-						offSetY = (screenHeight_180624 - 480) / 2;
-					}
-				actPlayerIndex = 1;
-				int countY = 0;
-				int y = 0;
-				int yAdd = x_DWORD_D418C[1].height_5;
-				while (countY < maxCountY)
-				{
-					int countX = 0;
-					int x = 0;
-					while (countX < maxCountX)
-					{
-						DrawBitmap_2BB40(offSetX + x, offSetY + y, x_DWORD_D4188t_spritestr[actPlayerIndex]);
-						countX++;
-						actPlayerIndex++;
-						x += x_DWORD_D4188t_spritestr[actPlayerIndex].width_4;
-						yAdd = x_DWORD_D4188t_spritestr[1].height_5;
-					}
-					countY++;
-					y += yAdd;
-				}
+				actPlayerIndex = DrawSpiderWeb();
 			}
 			if (D41A0_0.m_GameSettings.m_Display.m_wMiniMap)
 			{
@@ -22009,6 +21971,50 @@ void DrawGameFrame_2BE30()//20CE30
 		actHeight += GetLetterHeight_6FC30();
 	}
 	x_D41A0_BYTEARRAY_4_struct.byteindex_210d--;
+}
+
+int DrawSpiderWeb()
+{
+	int tilesX, tilesY;
+	int offsetX = 0, offsetY = 0;
+
+	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
+		tilesX = 4;
+		tilesY = 2;
+	}
+	else
+	{
+		tilesX = 6;
+		tilesY = 4;
+	}
+
+	// Center the 640x480 web on larger, non-default resolutions
+	if (x_WORD_180660_VGA_type_resolution != 1 && !DefaultResolutions())
+	{
+		offsetX = (screenWidth_18062C - 640) / 2;
+		offsetY = (screenHeight_180624 - 480) / 2;
+	}
+
+	int tileIndex = 1; // sprites are 1-based
+	int y = 0;
+
+	for (int row = 0; row < tilesY; row++)
+	{
+		int x = 0;
+		const int rowHeight = x_DWORD_D4188t_spritestr[tileIndex].height_5;
+
+		for (int col = 0; col < tilesX; col++, tileIndex++)
+		{
+			auto& tile = x_DWORD_D4188t_spritestr[tileIndex];
+			DrawBitmap_2BB40(offsetX + x, offsetY + y, tile);
+			x += tile.width_4;
+		}
+
+		y += rowHeight;
+	}
+
+	return tileIndex;
 }
 
 //----- (0002CE30) --------------------------------------------------------
