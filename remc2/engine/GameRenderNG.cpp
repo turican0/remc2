@@ -45,8 +45,7 @@ GameRenderNG::GameRenderNG(uint8_t viewDistanceScale, float fogScale, uint8_t re
 		fogStartDistance = fogStart << 16;
 	};
 	fog(m_viewDistanceScale, m_cutOffDistance, m_fogStart, m_fogEnd);
-	int64_t standardCutOff;
-	fog(1, standardCutOff, m_standardFogStart, m_standardFogEnd);
+	fog(1, m_standardCutOff, m_standardFogStart, m_standardFogEnd);
 }
 
 GameRenderNG::~GameRenderNG()
@@ -359,6 +358,8 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 		break;
 	}
 	m_cameraRow = std::clamp((-along - 1) / 256 + 1, 1, m_tileRows - 1);
+	m_standardFirstRow = quadrant == 0 || quadrant == 3 ? m_viewDistanceScale - 1 : 0;
+	m_standardFirstColumn = 19 * (m_viewDistanceScale - 1);
 	for (int column = 0; column < m_tileColumns; column++, across += 256)
 	{
 		for (int row = 0; row < m_tileRows; row++)
@@ -1049,6 +1050,12 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 	const int64_t distance = static_cast<int64_t>(depth) * depth + static_cast<int64_t>(across) * across;
 	if (depth <= 64 || distance >= m_cutOffDistance)
 		return;
+	// a longer view: the game logic (sub_21490) reacts to the seen flag, only the entities of the original grid and
+	// cut-off set it (the rows behind the camera and the far tiles are drawn only here)
+	const int tileIndex = static_cast<int>(&tile - m_tiles);
+	const int row = tileIndex / m_tileColumns - m_standardFirstRow;
+	const int column = tileIndex % m_tileColumns - m_standardFirstColumn;
+	m_standardView = m_viewDistanceScale == 1 || (row >= 1 && row <= 20 && column >= 0 && column <= 38 && distance < m_standardCutOff);
 	str_F2C20ar.dword0x00 = SpriteLight(distance);
 	const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[owner->word_0x5A_90];
 	ProjectSprite(across, z - str_F2C20ar.dword0x20, depth);
@@ -1265,7 +1272,7 @@ void GameRenderNG::DrawSprite_41BD3(uint32 pass)
 		DrawSorcererNameAndHealthBar_2CB30(entity, str_F2C20ar.dword0x04_screenY, static_cast<int16_t>(str_F2C20ar.dword0x03_screenX), str_F2C20ar.dword0x09_realWidth);
 	if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
 		sub_88740(entity, str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1), str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1));
-	if (entity->struct_byte_0xc_12_15.byte[3] & 0x40)
+	if ((entity->struct_byte_0xc_12_15.byte[3] & 0x40) && m_standardView)
 		entity->subSpellIndex_0x2A_42 |= 0x40;
 }
 

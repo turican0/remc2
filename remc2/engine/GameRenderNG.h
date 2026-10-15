@@ -94,6 +94,10 @@ private:
 	int64_t m_fogEnd = 0;
 	int64_t m_standardFogStart = 0;//the fog of view distance 1 (FadesInStandardFog)
 	int64_t m_standardFogEnd = 0;
+	int64_t m_standardCutOff = 0;
+	int m_standardFirstRow = 0;//the original grid (40 x 21) in a bigger one: its row 0 and column 0
+	int m_standardFirstColumn = 0;
+	bool m_standardView = true;//the entity drawn now is drawn also by the original grid and cut-off (the seen flag)
 	int m_fadeVisibility = -1;//ChooseSprite: the mode of a sprite fading in the standard fog (FadesInStandardFog), -1 none
 
 	bool m_largeScreen = false;//over 640x480
