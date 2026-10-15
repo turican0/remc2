@@ -40,6 +40,7 @@ bool sky = true;
 bool reflections = false;
 bool dynamicLighting = false;
 int viewDistanceScale = 1;
+float fogScale = 1.0f;
 bool multiThreadedRender = false;
 float sizePercentToThreadRender = 0;
 float sizePercentToThreadRenderSprites = 0;
@@ -224,8 +225,10 @@ bool SetConfig() {
 	sky = settingsValue.m_Graphics.m_GameDetail.m_Sky;
 	reflections = settingsValue.m_Graphics.m_GameDetail.m_Reflections;
 	dynamicLighting = settingsValue.m_Graphics.m_GameDetail.m_DynamicLighting;
-	if (settingsValue.m_Graphics.m_GameDetail.m_ViewDistanceScale > 0 && settingsValue.m_Graphics.m_GameDetail.m_ViewDistanceScale < 4)
+	if (settingsValue.m_Graphics.m_GameDetail.m_ViewDistanceScale > 0)
 		viewDistanceScale = settingsValue.m_Graphics.m_GameDetail.m_ViewDistanceScale;
+	if (settingsValue.m_Graphics.m_GameDetail.m_FogScale > 0)
+		fogScale = settingsValue.m_Graphics.m_GameDetail.m_FogScale;
 
 	multiThreadedRender = settingsValue.m_Graphics.m_Threading.m_IsActive;
 	sizePercentToThreadRender = settingsValue.m_Graphics.m_Threading.m_SizePercentToThreadRender;

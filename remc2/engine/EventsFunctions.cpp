@@ -21534,7 +21534,7 @@ void DrawGameFrame_2BE30()//20CE30
 
 			std::string help_buffer_name;
 			std::string screenbuffer_buffer_name;
-			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderNG))
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
@@ -21546,7 +21546,7 @@ void DrawGameFrame_2BE30()//20CE30
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
-				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 				help_buffer_name = "ScreenBuffer_Original.bmp";
 				screenbuffer_buffer_name = "ScreenBuffer_HD.bmp";
 			}
@@ -21582,7 +21582,7 @@ void DrawGameFrame_2BE30()//20CE30
 				WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, helpScreenBufferName.str().c_str());
 			}
 
-			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderNG))
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
@@ -21592,7 +21592,7 @@ void DrawGameFrame_2BE30()//20CE30
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
-				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 			}
 		}
 
@@ -21620,45 +21620,7 @@ void DrawGameFrame_2BE30()//20CE30
 			if (x_DWORD_D4188 && playerEntity->dword_0xA4_164x->mobilizeCounter_0x14E_334)
 			{
 				//Draw Spiders Web
-				int16_t offSetX = 0;
-				int16_t offSetY = 0;
-				int maxCountX;
-				int maxCountY;
-				if (x_WORD_180660_VGA_type_resolution & 1)
-				{
-					maxCountY = 2;
-					maxCountX = 4;
-				}
-				else
-				{
-					maxCountY = 4;
-					maxCountX = 6;
-				}
-				if (x_WORD_180660_VGA_type_resolution != 1)
-					if (!DefaultResolutions())
-					{
-						offSetX = (screenWidth_18062C - 640) / 2;
-						offSetY = (screenHeight_180624 - 480) / 2;
-					}
-				actPlayerIndex = 1;
-				int countY = 0;
-				int y = 0;
-				int yAdd = x_DWORD_D418C[1].height_5;
-				while (countY < maxCountY)
-				{
-					int countX = 0;
-					int x = 0;
-					while (countX < maxCountX)
-					{
-						DrawBitmap_2BB40(offSetX + x, offSetY + y, x_DWORD_D4188t_spritestr[actPlayerIndex]);
-						countX++;
-						actPlayerIndex++;
-						x += x_DWORD_D4188t_spritestr[actPlayerIndex].width_4;
-						yAdd = x_DWORD_D4188t_spritestr[1].height_5;
-					}
-					countY++;
-					y += yAdd;
-				}
+				actPlayerIndex = DrawSpiderWeb();
 			}
 			if (D41A0_0.m_GameSettings.m_Display.m_wMiniMap)
 			{
@@ -21827,7 +21789,7 @@ void DrawGameFrame_2BE30()//20CE30
 
 			std::string help_buffer_name;
 			std::string screenbuffer_buffer_name;
-			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderNG))
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
@@ -21839,7 +21801,7 @@ void DrawGameFrame_2BE30()//20CE30
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
-				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 				help_buffer_name = "ScreenBuffer_Original.bmp";
 				screenbuffer_buffer_name = "ScreenBuffer_HD.bmp";
 			}
@@ -21868,7 +21830,7 @@ void DrawGameFrame_2BE30()//20CE30
 				Logger->error("Differences between HD and Original renderer in frame {0}: {1}", renderer_tests_frame_count, difference);
 			}
 
-			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderNG))
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
@@ -21878,7 +21840,7 @@ void DrawGameFrame_2BE30()//20CE30
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
-				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 			}
 		}
 
@@ -22009,6 +21971,80 @@ void DrawGameFrame_2BE30()//20CE30
 		actHeight += GetLetterHeight_6FC30();
 	}
 	x_D41A0_BYTEARRAY_4_struct.byteindex_210d--;
+}
+
+int DrawSpiderWeb()
+{
+	int tilesX, tilesY;
+
+	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
+		tilesX = 4;
+		tilesY = 2;
+	}
+	else
+	{
+		tilesX = 6;
+		tilesY = 4;
+	}
+
+	// Pass 1: measure. Row height = tallest tile in the row,
+	// web width = widest row, web height = sum of row heights.
+	constexpr int kMaxRows = 4;
+	int rowHeights[kMaxRows] = {};
+	int webWidth = 0;
+	int webHeight = 0;
+
+	int index = 1; // sprites are 1-based
+	for (int row = 0; row < tilesY; row++)
+	{
+		int rowWidth = 0;
+
+		for (int col = 0; col < tilesX; col++, index++)
+		{
+			const auto& tile = x_DWORD_D4188t_spritestr[index];
+			rowWidth += tile.width_4;
+			rowHeights[row] = std::max<int>(rowHeights[row], tile.height_5);
+		}
+
+		webWidth = (std::max)(webWidth, rowWidth);
+		webHeight += rowHeights[row];
+	}
+
+	// Largest whole-number scale at which the web fits on screen.
+	// Default resolutions keep the original 1x behavior and position.
+	int scale = 1;
+	int offsetX = 0;
+	int offsetY = 0;
+
+	if (x_WORD_180660_VGA_type_resolution != 1 && !DefaultResolutions())
+	{
+		scale = (std::min)(screenWidth_18062C / webWidth, screenHeight_180624 / webHeight);
+		scale = (std::max)(scale, 1); // screen smaller than the web: draw 1x
+
+		offsetX = (screenWidth_18062C - webWidth * scale) / 2;
+		offsetY = (screenHeight_180624 - webHeight * scale) / 2;
+	}
+
+	// Pass 2: draw. Positions are tracked in unscaled web space.
+	int tileIndex = 1;
+	int y = 0;
+
+	for (int row = 0; row < tilesY; row++)
+	{
+		int x = 0;
+
+		for (int col = 0; col < tilesX; col++, tileIndex++)
+		{
+			auto& tile = x_DWORD_D4188t_spritestr[tileIndex];
+			DrawBitmap_2BB40(offsetX + x * scale, offsetY + y * scale, tile, scale);
+			x += tile.width_4;
+		}
+
+		y += rowHeights[row];
+	}
+
+	return tileIndex;
 }
 
 //----- (0002CE30) --------------------------------------------------------
@@ -31337,7 +31373,7 @@ void sub_46830_main_loop(unsigned __int16 actLevel)//227830
 				if (m_ptrGameRender == nullptr)
 				{
 					if (!strcmp(forceRender.c_str(), "NG"))
-						m_ptrGameRender = (GameRenderInterface*)new GameRenderNG();
+						m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, multiThreadedRender ? numberOfRenderThreads : 0, assignToSpecificCores, sizePercentToThreadRender);
 					else if (!strcmp(forceRender.c_str(), "Original"))
 						m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
 					else if (!strcmp(forceRender.c_str(), "HD"))
@@ -31348,7 +31384,7 @@ void sub_46830_main_loop(unsigned __int16 actLevel)//227830
 							m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
 						}
 						else {
-							m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores, sizePercentToThreadRender, sizePercentToThreadRenderSprites, viewDistanceScale);
+							m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, multiThreadedRender ? numberOfRenderThreads : 0, assignToSpecificCores, sizePercentToThreadRender);
 						}
 					}
 				}
@@ -45171,7 +45207,6 @@ void sub_715B0()//2525b0
 	//int result; // eax
 	Type_Sprite** v2x; // ecx
 	//char v3; // cl
-	char v4; // cl
 	type_animations1* v5x; // eax
 	__int16 v6; // si
 	unsigned __int16 i; // bx
@@ -45204,8 +45239,7 @@ void sub_715B0()//2525b0
 						if (v8x)
 						{
 							//result = *v8;
-							//v9 = (*v8x)->word_0 & 0xF7;
-							(*v8x)->word_0 &= 0xF7;
+							(*v8x)->word_0 &= 0xFFF7;//byte write of the low byte & 0xF7
 							if ((*v8x)->word_0 & 1)
 							{
 								v10x = GetAnimationByIndex_724F0(animations_E9C08x, i);
@@ -45217,9 +45251,8 @@ void sub_715B0()//2525b0
 				}
 				else
 				{
-					v4 = (*v2x)->word_0 & 0xF7;
-					//*(x_BYTE *)result = v4;
-					if (v4 & 1)
+					(*v2x)->word_0 &= 0xFFF7;//*(x_BYTE*)result = v4: the drawn flag is cleared
+					if ((*v2x)->word_0 & 1)
 					{
 						v5x = GetAnimationByIndex_724F0(animations_E9C08x, v0);
 						/*result = */sub_72350(v5x);

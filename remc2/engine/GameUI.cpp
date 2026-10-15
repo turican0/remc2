@@ -2266,402 +2266,6 @@ void DrawMinimap_63600(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_
 //----- (00063670) --------------------------------------------------------
 void DrawMapLowRes_63670(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10)//244670
 {
-	int v10; // eax
-	int v11; // esi
-	int v12; // edi
-	int v13; // ecx
-	bool v14; // dl
-	int16_t* v15; // ebx
-	int v16; // edx
-	int16_t* v17; // esi
-	int v18; // ebx
-	int16_t v19; // ax
-	int16_t* v20; // edx
-	int16_t v21; // ax
-	int8_t* v22x; // edx
-	int v23; // ebx
-	int v24; // esi
-	int v25; // eax
-	int v26; // eax
-	int v28; // ebx
-	int v29; // ecx
-	char* v30; // edi
-	int v31; // esi
-	int v32; // eax
-	int v33; // edx
-	char v34; // al
-	int v35; // ecx
-	int v36; // ebx
-	x_BYTE* v37; // edi
-	int v38; // ecx
-	int v39; // esi
-	int v40; // eax
-	int v41; // edx
-	int v42; // ebx
-	char* v43; // edi
-	int v44; // ecx
-	int v45; // esi
-	int v46; // eax
-	int v47; // edx
-	char v48; // al
-	int v49; // ecx
-	int v50; // ebx
-	x_BYTE* ptrScreenBuffer_v51; // edi
-	x_BYTE* ptrScreenAlphaBuffer_v51 = nullptr;
-	int v52; // ecx
-	int v53; // esi
-	int v54; // eax
-	int v55; // edx
-	int v56; // ebx
-	char* ptrScreenBuffer_v57; // edi
-	int v58; // ecx
-	int v59; // esi
-	int v60; // eax
-	int v61; // edx
-	char v62; // al
-	char* v63; // edi
-	uint8_t* ptrMemoryBuffer_v64x; // [esp+0h] [ebp-60h]
-	int v65; // [esp+4h] [ebp-5Ch]
-	int v66; // [esp+8h] [ebp-58h]
-	int v67; // [esp+Ch] [ebp-54h]
-	int v69; // [esp+14h] [ebp-4Ch]
-	uint8_t* ptrScreenBuffer_v70x; // [esp+18h] [ebp-48h]
-	uint8_t* ptrMemoryBuffer_v71x; // [esp+1Ch] [ebp-44h]
-	int l; // [esp+20h] [ebp-40h]
-	int v73; // [esp+24h] [ebp-3Ch]
-	int i; // [esp+28h] [ebp-38h]
-	int k; // [esp+2Ch] [ebp-34h]
-	int m; // [esp+30h] [ebp-30h]
-	int j; // [esp+34h] [ebp-2Ch]
-	int v78; // [esp+38h] [ebp-28h]
-	int16_t* v79; // [esp+3Ch] [ebp-24h]
-	int v80; // [esp+40h] [ebp-20h]
-	int v81y; // [esp+44h] [ebp-1Ch]
-	uint8_t* ptrMemoryBuffer_v82x; // [esp+48h] [ebp-18h]
-	int v83; // [esp+4Ch] [ebp-14h]
-	uint8_t* ptrScreenBuffer_v84x; // [esp+50h] [ebp-10h]
-	int v85; // [esp+54h] [ebp-Ch]
-	int16_t* v86; // [esp+58h] [ebp-8h]
-	bool v87; // [esp+5Ch] [ebp-4h]
-
-	v10 = x;
-	v11 = y;
-	v12 = width;
-	v13 = height;
-	v14 = !D41A0_0.m_GameSettings.str_0x2196.transparency_0x2198 && D41A0_0.terrain_2FECE.MapType != MapType_t::Cave;
-	v87 = v14;
-	if (x_WORD_180660_VGA_type_resolution & 1)
-	{
-		v10 = x >> 1;
-		v11 = y >> 1;
-		v12 = width >> 1;
-		v13 = height >> 1;
-		scaling *= 2;
-	}
-	ptrScreenBuffer_v70x = &pdwScreenBuffer_351628[v11 * screenWidth_18062C + v10];
-	ptrMemoryBuffer_v71x = &ptrMemoryBuffer_E9C3C[v11 * screenWidth_18062C + v10];
-	if (a10)
-	{
-		v15 = x_WORD_F4960;
-		v16 = v13;
-		while (v16)
-		{
-			v15 += 2;
-			*(v15 - 1) = 0;
-			v16--;
-			*(v15 - 2) = v12;
-		}
-	}
-	else
-	{
-		v78 = v13 / 2;
-		v17 = &x_WORD_F4960[2 * (v13 / 2)];
-		v79 = v17 - 2;
-		v73 = 0;
-		v18 = v12 >> 1;
-		v69 = 0x1000000 / (v13 >> 1);
-		while (v78)
-		{
-			v65 = v18 * (uint8_t)ColourLookupTable_F6EE0[(0x14300 + v73) >> 16] >> 8;
-			v19 = v18 + v65;
-			v20 = v79;
-			*v17 = v18 + v65;
-			*v20 = v19;
-			v21 = v18 - v65;
-			v22x = (int8_t*)v79;
-			v17[1] = v18 - v65;
-			*(x_WORD*)(v22x + 2) = v21;
-			v79 = (int16_t*)(v22x - 4);
-			v17 += 2;
-			v73 += v69;
-			v78--;
-		}
-	}
-	v23 = yaw & 0x7FF;
-	v24 = v13 * (scaling * Maths::sin_DB750[v23] >> 16);
-	v25 = scaling * (signed int)Maths::sin_DB750[0x200 + v23] >> 16;
-	v80 = scaling * Maths::sin_DB750[v23] >> 16;
-	v81y = v25;
-	v67 = v24 / v12;
-	v26 = v13 * v25;
-	v66 = v26 / v12;
-	v85 = posX - (v12 * (v26 / v12) - v24) / 2;
-	v86 = x_WORD_F4960;
-	v83 = posY - (v26 + v12 * (v24 / v12)) / 2;
-	ptrScreenBuffer_v84x = ptrScreenBuffer_v70x;
-	ptrMemoryBuffer_v82x = ptrMemoryBuffer_v71x;
-	if (isCaveLevel_D41B6)
-	{
-		if (a10)
-		{
-			for (i = v13; i; i--)
-			{
-				v33 = v86[1];
-				v28 = v85 + v33 * v66;
-				v29 = v83 + v33 * v67;
-				v30 = (char*)(v33 + ptrScreenBuffer_v84x);
-				ptrMemoryBuffer_v64x = v33 + ptrMemoryBuffer_v82x;
-				v31 = *v86 - v86[1];
-				v32 = 0;
-				HIWORD(v33) = 0;
-				do
-				{
-					LOBYTE(v33) = BYTE1(v28);
-					BYTE1(v33) = BYTE1(v29);
-					v34 = 0;
-					if (!(mapAngle_13B4E0[v33] & 8))
-					{
-						LOBYTE(v32) = mapTerrainType_10B4E0[v33];
-						BYTE1(v33) = mapShading_12B4E0[v33];
-						LOBYTE(v33) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v32];
-						v34 = ColourLookupTable_F6EE0[v33];
-					}
-					*v30++ = v34;
-					LOWORD(v28) = v66 + v28;
-					LOWORD(v29) = v67 + v29;
-					v31--;
-				} while (v31);
-				ptrScreenBuffer_v84x += screenWidth_18062C;
-				ptrMemoryBuffer_v82x += screenWidth_18062C;
-				v86 += 2;
-				v85 -= v80;
-				v83 += v81y;
-			}
-		}
-		else if (v87)
-		{
-			for (j = v13; j; j--)
-			{
-				v35 = v86[1];
-				v36 = v85 + v35 * v66;
-				v37 = (x_BYTE*)(v35 + ptrScreenBuffer_v84x);
-				ptrMemoryBuffer_v64x = v35 + ptrMemoryBuffer_v82x;
-				v38 = v83 + v35 * v67;
-				v39 = *v86 - v86[1];
-				v40 = 0;
-				HIWORD(v41) = 0;
-				do
-				{
-					LOBYTE(v41) = BYTE1(v36);
-					BYTE1(v41) = BYTE1(v38);
-					if (!(mapAngle_13B4E0[v41] & 8))
-					{
-						LOBYTE(v40) = mapTerrainType_10B4E0[v41];
-						BYTE1(v41) = mapShading_12B4E0[v41];
-						LOBYTE(v41) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v40];
-						LOBYTE(v41) = ColourLookupTable_F6EE0[v41];
-						BYTE1(v41) = *v37;
-						*v37 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v41];
-					}
-					v37++;
-					LOWORD(v36) = v66 + v36;
-					LOWORD(v38) = v67 + v38;
-					v39--;
-				} while (v39);
-				ptrScreenBuffer_v84x += screenWidth_18062C;
-				ptrMemoryBuffer_v82x += screenWidth_18062C;
-				v86 += 2;
-				v85 -= v80;
-				v83 += v81y;
-			}
-		}
-		else
-		{
-			for (k = v13; k; v83 += v81y)
-			{
-				v47 = v86[1];
-				v42 = v85 + v47 * v66;
-				v43 = (char*)(v47 + ptrScreenBuffer_v84x);
-				v44 = v83 + v47 * v67;
-				ptrMemoryBuffer_v64x = v47 + ptrMemoryBuffer_v82x;
-				v45 = *v86 - v86[1];
-				v46 = 0;
-				HIWORD(v47) = 0;
-				do
-				{
-					LOBYTE(v47) = BYTE1(v42);
-					BYTE1(v47) = BYTE1(v44);
-					if (mapAngle_13B4E0[v47] & 8)
-					{
-						v48 = 0;
-					}
-					else
-					{
-						LOBYTE(v46) = mapTerrainType_10B4E0[v47];
-						BYTE1(v47) = mapShading_12B4E0[v47];
-						LOBYTE(v47) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v46];
-						v48 = ColourLookupTable_F6EE0[v47];
-					}
-					*v43++ = v48;
-					LOWORD(v42) = v66 + v42;
-					LOWORD(v44) = v67 + v44;
-					v45--;
-				} while (v45);
-				ptrScreenBuffer_v84x += screenWidth_18062C;
-				ptrMemoryBuffer_v82x += screenWidth_18062C;
-				v86 += 2;
-				v85 -= v80;
-				k--;
-			}
-		}
-	}
-	else if (a10)
-	{
-		for (l = v13; l; l--)
-		{
-			v49 = v86[1];
-			v50 = v85 + v49 * v66;
-			ptrScreenBuffer_v51 = (x_BYTE*)(v49 + ptrScreenBuffer_v84x);
-			ptrMemoryBuffer_v64x = v49 + ptrMemoryBuffer_v82x;
-			v52 = v83 + v49 * v67;
-			v53 = *v86 - v86[1];
-			v54 = 0;
-			HIWORD(v55) = 0;
-			do
-			{
-				LOBYTE(v55) = BYTE1(v50);
-				BYTE1(v55) = BYTE1(v52);
-				LOBYTE(v54) = mapTerrainType_10B4E0[v55];
-				BYTE1(v55) = mapShading_12B4E0[v55];
-				LOBYTE(v55) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v54];
-				*ptrScreenBuffer_v51++ = ColourLookupTable_F6EE0[v55];
-				v50 += v66;
-				v52 += v67;
-				--v53;
-			} while (v53);
-			ptrScreenBuffer_v84x += screenWidth_18062C;
-			ptrMemoryBuffer_v82x += screenWidth_18062C;
-			v86 += 2;
-			v85 -= v80;
-			v83 += v81y;
-		}
-	}
-	else
-	{
-		for (m = v13; m; v83 += v81y)
-		{
-			v61 = v86[1];
-			v56 = v85 + v61 * v66;
-			ptrScreenBuffer_v57 = (char*)(v61 + ptrScreenBuffer_v84x);
-			v58 = v83 + v61 * v67;
-			ptrMemoryBuffer_v64x = v61 + ptrMemoryBuffer_v82x;
-			v59 = *v86 - v86[1];
-			v60 = 0;
-			HIWORD(v61) = 0;
-			do
-			{
-				LOBYTE(v61) = BYTE1(v56);
-				BYTE1(v61) = BYTE1(v58);
-				LOBYTE(v60) = mapTerrainType_10B4E0[v61];
-				BYTE1(v61) = mapShading_12B4E0[v61];
-				LOBYTE(v61) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v60];
-				LOBYTE(v61) = ColourLookupTable_F6EE0[v61];
-				BYTE1(v61) = *ptrScreenBuffer_v57;
-				v62 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v61];
-				*ptrScreenBuffer_v57 = v62;
-				v63 = x_InterlockedExchange((char**)&ptrMemoryBuffer_v64x, (ptrScreenBuffer_v57 + 1));
-				*v63 = v62;
-				ptrScreenBuffer_v57 = x_InterlockedExchange((char**)&ptrMemoryBuffer_v64x, (v63 + 1));
-				v56 += v66;
-				v58 += v67;
-				v59--;
-			} while (v59);
-			ptrScreenBuffer_v84x += screenWidth_18062C;
-			ptrMemoryBuffer_v82x += screenWidth_18062C;
-			v86 += 2;
-			v85 -= v80;
-			m--;
-		}
-	}
-}
-
-//----- (00063C90) --------------------------------------------------------
-void DrawMapHighRes_63C90(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10)//244c90
-{
-	//bool v14; // al
-	int16_t* v15; // ebx
-	int v16; // edx
-	int16_t* v17; // esi
-	int v18; // ebx
-	int v19; // ST00_4
-	int v20; // ebx
-	int v21; // esi
-	int v22; // eax
-	int v23; // eax
-	int v24; // edx
-	//int index; // eax
-	int v26; // ebx
-	int v27; // ecx
-	char* v28; // edi
-	int v29; // esi
-	int v30; // eax
-	int v31; // edx
-	char v32; // al
-	int v33; // ebx
-	int v34; // ecx
-	x_BYTE* v35; // edi
-	int v36; // esi
-	int v37; // eax
-	int v38; // edx
-	int v39; // ebx
-	int v40; // ecx
-	char* v41; // edi
-	int v42; // esi
-	int v43; // eax
-	int v44; // edx
-	char v45; // al
-	int v46; // ebx
-	int v47; // ecx
-	x_BYTE* v48; // edi
-	int v49; // esi
-	int v50; // eax
-	int v51; // edx
-	int v52; // ebx
-	int v53; // ecx
-	uint8_t* v54; // edi
-	int v55; // esi
-	int v56; // eax
-	int v57; // edx
-	int v58; // [esp+4h] [ebp-50h]
-	int v59; // [esp+8h] [ebp-4Ch]
-	uint8_t* ptrScreenBuffer; // [esp+14h] [ebp-40h]
-	int m; // [esp+18h] [ebp-3Ch]
-	int l; // [esp+1Ch] [ebp-38h]
-	int k; // [esp+20h] [ebp-34h]
-	int v64; // [esp+24h] [ebp-30h]
-	int i; // [esp+28h] [ebp-2Ch]
-	int j; // [esp+2Ch] [ebp-28h]
-	int v67; // [esp+30h] [ebp-24h]
-	int16_t* v68; // [esp+34h] [ebp-20h]
-	int v69; // [esp+38h] [ebp-1Ch]
-	int v70; // [esp+3Ch] [ebp-18h]
-	int v72; // [esp+44h] [ebp-10h]
-	int v73; // [esp+48h] [ebp-Ch]
-	int16_t* v74; // [esp+4Ch] [ebp-8h]
-	//bool v75; // [esp+50h] [ebp-4h]
-
-	//v14 = !x_D41A0_BYTEARRAY_0[8600] && x_D41A0_BYTEARRAY_0[196308] != 2;
-	//v75 = !x_D41A0_BYTEARRAY_0[8600] && x_D41A0_BYTEARRAY_0[196308] != 2;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		x = x >> 1;
@@ -2671,224 +2275,259 @@ void DrawMapHighRes_63C90(int16_t x, int16_t y, int16_t posX, int16_t posY, uint
 		scaling *= 2;
 	}
 
-	ptrScreenBuffer = &pdwScreenBuffer_351628[screenWidth_18062C * y + x];
-	if (a10)
+	if (width == 0 || height == 0)
+		return;
+
+	uint8_t* ptrScreenBuffer = &pdwScreenBuffer_351628[y * screenWidth_18062C + x];
+	uint8_t* ptrMemoryBuffer = &ptrMemoryBuffer_E9C3C[y * screenWidth_18062C + x];
+
+	BuildMapRowSpansLowRes(a10 != 0, width, height);
+
+	// Rotation setup
+	const int angle = yaw & 0x7FF;
+	const int sinScaled = (scaling * Maths::sin_DB750[angle]) >> 16;                      // v80
+	const int cosScaled = (scaling * (signed int)Maths::sin_DB750[0x200 + angle]) >> 16;  // v81y
+
+	const int hSin = height * sinScaled;
+	const int hCos = height * cosScaled;
+	const int du = hCos / width;                                // v66
+	const int dv = hSin / width;                                // v67
+	const int startU = posX - (width * du - hSin) / 2;          // v85
+	const int startV = posY - (hCos + width * dv) / 2;          // v83
+
+	// Cave-level blending is only allowed when transparency is off and it isn't a Cave map
+	const bool caveBlend = !D41A0_0.m_GameSettings.str_0x2196.transparency_0x2198
+		&& D41A0_0.terrain_2FECE.MapType != MapType_t::Cave;
+
+	// Per row: u moves by -sin, v moves by +cos
+	if (isCaveLevel_D41B6)
 	{
-		v15 = x_WORD_F4960;
-		v16 = height;
-		while (v16)
-		{
-			v15 += 2;
-			*(v15 - 1) = 0;
-			v16--;
-			*(v15 - 2) = width;
-		}
+		if (!a10 && caveBlend)
+			DrawMapRowsLowRes<true, true, false>(ptrScreenBuffer, ptrMemoryBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
+		else
+			DrawMapRowsLowRes<true, false, false>(ptrScreenBuffer, ptrMemoryBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
 	}
 	else
-	{
-		v67 = height / 2;//adress 244d1b
-		v17 = &x_WORD_F4960[2 * (height / 2)];
-		v68 = v17 - 2;
-		v64 = 0;
-		v18 = width >> 1;
-		while (v67)
-		{
-			v19 = v18 * ColourLookupTable_F6EE0[0x14300 + (v64 >> 16)] >> 8;
-			v17[0] = v18 + v19;
-			v68[0] = v18 + v19;
-			v17[1] = v18 - v19;
-			v68[1] = v18 - v19;
-			v68 -= 2;
-			v17 += 2;
-			v64 += 0x1000000 / (height >> 1);
-			v67--;
-		}
-	}
-	v20 = yaw & 0x7FF;
-	v21 = height * (scaling * Maths::sin_DB750[v20] >> 16);
-	v22 = scaling * (signed int)Maths::sin_DB750[0x200 + v20] >> 16;
-	v70 = scaling * Maths::sin_DB750[v20] >> 16;
-	v69 = v22;
-	v59 = v21 / width;
-	v23 = height * v22;
-	v58 = v23 / width;
-	v72 = posX - (width * (v23 / width) - v21) / 2;
-	v74 = x_WORD_F4960;
-	v24 = posY - (v23 + width * (v21 / width)) / 2;
-	v73 = v24;
-	if (isCaveLevel_D41B6)//adress 244e53
 	{
 		if (a10)
-		{
-			for (i = height; i; v73 += v69)
-			{
-				v31 = v74[1];
-				v26 = v72 + v31 * v58;
-				v27 = v73 + v31 * v59;
-				v28 = (char*)(v31 + ptrScreenBuffer);
-				v29 = *v74 - v31;
-				v30 = 0;
-				HIWORD(v31) = 0;
-				do
-				{
-					LOBYTE(v31) = HIBYTE(v26);
-					HIBYTE(v31) = HIBYTE(v27);
-					v32 = 0;
-					if (!(mapAngle_13B4E0[v31] & 8))
-					{
-						LOBYTE(v30) = mapTerrainType_10B4E0[v31];
-						HIBYTE(v31) = mapShading_12B4E0[v31];
-						LOBYTE(v31) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v30];
-						v32 = ColourLookupTable_F6EE0[v31];
-					}
-					*v28++ = v32;
-					LOWORD(v26) = v58 + v26;
-					LOWORD(v27) = v59 + v27;
-					v29--;
-				} while (v29);
-				ptrScreenBuffer += screenWidth_18062C;
-				v74 += 2;
-				//index = v69;
-				i--;
-				v72 -= v70;
-			}
-		}
-		else if (!D41A0_0.m_GameSettings.str_0x2196.transparency_0x2198 && D41A0_0.terrain_2FECE.MapType != MapType_t::Cave)
-		{
-			for (j = height; j; v73 += v69)
-			{
-				v38 = v74[1];
-				v33 = v72 + v38 * v58;
-				v34 = v73 + v38 * v59;
-				v35 = (x_BYTE*)(v38 + ptrScreenBuffer);
-				v36 = *v74 - v38;
-				v37 = 0;
-				HIWORD(v38) = 0;
-				do
-				{
-					LOBYTE(v38) = BYTE1(v33);
-					BYTE1(v38) = BYTE1(v34);
-					if (!(mapAngle_13B4E0[v38] & 8))
-					{
-						LOBYTE(v37) = mapTerrainType_10B4E0[v38];
-						BYTE1(v38) = mapShading_12B4E0[v38];
-						LOBYTE(v38) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v37];
-						LOBYTE(v38) = ColourLookupTable_F6EE0[v38];
-						BYTE1(v38) = *v35;
-						*v35 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v38];
-					}
-					v35++;
-					LOWORD(v33) = v58 + v33;
-					LOWORD(v34) = v59 + v34;
-					v36--;
-				} while (v36);
-				ptrScreenBuffer += screenWidth_18062C;
-				v74 += 2;
-				//index = v69;
-				j--;
-				v72 -= v70;
-			}
-		}
+			DrawMapRowsLowRes<false, false, false>(ptrScreenBuffer, ptrMemoryBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
 		else
+			DrawMapRowsLowRes<false, true, true>(ptrScreenBuffer, ptrMemoryBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
+	}
+}
+
+void BuildMapRowSpansLowRes(bool fullRows, int width, int height)
+{
+	int16_t* spans = x_WORD_F4960;
+
+	if (fullRows)
+	{
+		for (int r = 0; r < height; r++)
 		{
-			for (k = height; k; v73 += v69)
+			spans[2 * r] = (int16_t)width;
+			spans[2 * r + 1] = 0;
+		}
+		return;
+	}
+
+	const int half = height / 2;
+	if (half <= 0)
+		return;
+
+	const int halfWidth = width >> 1;
+	const int step = 0x1000000 / half;
+	int16_t* upper = &spans[2 * half];
+	int16_t* lower = upper - 2;
+	int fixed = 0;
+
+	for (int k = 0; k < half; k++)
+	{
+		// NOTE: index is (0x14300 + fixed) >> 16, exactly as in the original listing.
+		// DrawMapHighRes uses 0x14300 + (fixed >> 16). See the note below.
+		const int d = (halfWidth * (uint8_t)ColourLookupTable_F6EE0[(0x14300 + fixed) >> 16]) >> 8;
+		upper[0] = lower[0] = (int16_t)(halfWidth + d);
+		upper[1] = lower[1] = (int16_t)(halfWidth - d);
+		upper += 2;
+		lower -= 2;
+		fixed += step;
+	}
+}
+
+template <bool Masked, bool Blend, bool WriteMemory>
+void DrawMapRowsLowRes(uint8_t* ptrScreenBuffer, uint8_t* ptrMemoryBuffer, int height,
+	int rowU, int rowV, int du, int dv, int rowStepU, int rowStepV)
+{
+	const int16_t* span = x_WORD_F4960;
+
+	for (int row = 0; row < height; row++, span += 2)
+	{
+		const int start = span[1];
+		int count = span[0] - start;
+
+		uint8_t* dst = ptrScreenBuffer + start;
+		uint8_t* mem = ptrMemoryBuffer + start;
+		int u = rowU + start * du;
+		int v = rowV + start * dv;
+
+		for (; count > 0; count--, dst++, mem++, u += du, v += dv)
+		{
+			// Map cell: x = bits 8..15 of u, y = bits 8..15 of v
+			const unsigned idx = (((unsigned)u >> 8) & 0xFFu) | ((unsigned)v & 0xFF00u);
+
+			if (Masked && (mapAngle_13B4E0[idx] & 8))
 			{
-				v44 = v74[1];
-				v39 = v72 + v44 * v58;
-				v40 = v73 + v44 * v59;
-				v41 = (char*)(v44 + ptrScreenBuffer);
-				v42 = *v74 - v44;
-				v43 = 0;
-				HIWORD(v44) = 0;
-				do
-				{
-					LOBYTE(v44) = HIBYTE(v39);
-					HIBYTE(v44) = HIBYTE(v40);
-					if (mapAngle_13B4E0[v44] & 8)
-					{
-						v45 = 0;
-					}
-					else
-					{
-						LOBYTE(v43) = mapTerrainType_10B4E0[v44];
-						HIBYTE(v44) = mapShading_12B4E0[v44];
-						LOBYTE(v44) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v43];
-						v45 = ColourLookupTable_F6EE0[v44];
-					}
-					*v41++ = v45;
-					LOWORD(v39) = v58 + v39;
-					LOWORD(v40) = v59 + v40;
-					v42--;
-				} while (v42);
-				ptrScreenBuffer += screenWidth_18062C;
-				v74 += 2;
-				//index = v69;
-				k--;
-				v72 -= v70;
+				if (!Blend)
+					*dst = 0;
+				continue;
+			}
+
+			const unsigned terrainColour = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + mapTerrainType_10B4E0[idx]];
+			const uint8_t colour = ColourLookupTable_F6EE0[((unsigned)mapShading_12B4E0[idx] << 8) | terrainColour];
+
+			if (Blend)
+			{
+				const uint8_t result = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + (((unsigned)*dst << 8) | colour)];
+				*dst = result;
+				if (WriteMemory)
+					*mem = result;
+			}
+			else
+			{
+				*dst = colour;
 			}
 		}
+
+		ptrScreenBuffer += screenWidth_18062C;
+		ptrMemoryBuffer += screenWidth_18062C;
+		rowU += rowStepU;
+		rowV += rowStepV;
 	}
-	else if (a10)
+}
+
+void BuildMapRowSpans(bool fullRows, int width, int height)
+{
+	int16_t* spans = x_WORD_F4960;
+
+	if (fullRows)
 	{
-		for (l = height; l; v73 += v69)
+		for (int r = 0; r < height; r++)
 		{
-			v51 = v74[1];
-			v46 = v72 + v51 * v58;
-			v47 = v73 + v51 * v59;
-			v48 = (x_BYTE*)(v51 + ptrScreenBuffer);
-			v49 = *v74 - v51;
-			v50 = 0;
-			HIWORD(v51) = 0;
-			do
-			{
-				LOBYTE(v51) = HIBYTE(v46);
-				HIBYTE(v51) = HIBYTE(v47);
-				LOBYTE(v50) = mapTerrainType_10B4E0[v51];
-				HIBYTE(v51) = mapShading_12B4E0[v51];
-				LOBYTE(v51) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v50];
-				*v48++ = ColourLookupTable_F6EE0[v51];
-				v46 += v58;
-				v47 += v59;
-				v49--;
-			} while (v49);
-			ptrScreenBuffer += screenWidth_18062C;
-			v74 += 2;
-			//index = v69;
-			l--;
-			v72 -= v70;
+			spans[2 * r] = (int16_t)width;
+			spans[2 * r + 1] = 0;
 		}
+		return;
+	}
+
+	// Elliptical mask, filled outwards from the middle
+	const int half = height / 2;
+	const int halfWidth = width >> 1;
+	int16_t* upper = &spans[2 * half];
+	int16_t* lower = upper - 2;
+	int fixed = 0;
+
+	for (int k = 0; k < half; k++)
+	{
+		const int d = (halfWidth * ColourLookupTable_F6EE0[0x14300 + (fixed >> 16)]) >> 8;
+		upper[0] = lower[0] = (int16_t)(halfWidth + d);
+		upper[1] = lower[1] = (int16_t)(halfWidth - d);
+		upper += 2;
+		lower -= 2;
+		fixed += 0x1000000 / half;
+	}
+}
+
+template <bool Masked, bool Blend>
+void DrawMapRows(uint8_t* ptrScreenBuffer, int height, int rowU, int rowV,
+	int du, int dv, int rowStepU, int rowStepV)
+{
+	const int16_t* span = x_WORD_F4960;
+
+	for (int row = 0; row < height; row++, span += 2)
+	{
+		const int start = span[1];
+		int count = span[0] - start;
+
+		uint8_t* dst = ptrScreenBuffer + start;
+		int u = rowU + start * du;
+		int v = rowV + start * dv;
+
+		for (; count > 0; count--, dst++, u += du, v += dv)
+		{
+			// Map cell: x = bits 8..15 of u, y = bits 8..15 of v
+			const unsigned idx = (((unsigned)u >> 8) & 0xFFu) | ((unsigned)v & 0xFF00u);
+
+			if (Masked && (mapAngle_13B4E0[idx] & 8))
+			{
+				if (!Blend)
+					*dst = 0;
+				continue;
+			}
+
+			const unsigned terrainColour = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + mapTerrainType_10B4E0[idx]];
+			const uint8_t colour = ColourLookupTable_F6EE0[((unsigned)mapShading_12B4E0[idx] << 8) | terrainColour];
+
+			if (Blend)
+				*dst = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + (((unsigned)*dst << 8) | colour)];
+			else
+				*dst = colour;
+		}
+
+		ptrScreenBuffer += screenWidth_18062C;
+		rowU += rowStepU;
+		rowV += rowStepV;
+	}
+}
+
+void DrawMapHighRes_63C90(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10)//244c90
+{
+	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
+		x = x >> 1;
+		y = y >> 1;
+		width = width >> 1;
+		height = height >> 1;
+		scaling *= 2;
+	}
+
+	if (width == 0 || height == 0)
+		return;
+
+	uint8_t* ptrScreenBuffer = &pdwScreenBuffer_351628[screenWidth_18062C * y + x];
+
+	BuildMapRowSpans(a10 != 0, width, height);
+
+	// Rotation setup
+	const int angle = yaw & 0x7FF;
+	const int sinScaled = (scaling * Maths::sin_DB750[angle]) >> 16;                      // v70
+	const int cosScaled = (scaling * (signed int)Maths::sin_DB750[0x200 + angle]) >> 16;  // v69
+
+	const int hSin = height * sinScaled;
+	const int hCos = height * cosScaled;
+	const int du = hCos / width;                                // v58
+	const int dv = hSin / width;                                // v59
+	const int startU = posX - (width * du - hSin) / 2;          // v72
+	const int startV = posY - (hCos + width * dv) / 2;          // v73
+
+	// Pick the variant once
+	const bool masked = isCaveLevel_D41B6;
+
+	bool blend = !a10;
+	if (masked && blend)
+	{
+		blend = !D41A0_0.m_GameSettings.str_0x2196.transparency_0x2198
+			&& D41A0_0.terrain_2FECE.MapType != MapType_t::Cave;
+	}
+
+	// Per row: u moves by -sin, v moves by +cos
+	if (masked)
+	{
+		if (blend) DrawMapRows<true, true>(ptrScreenBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
+		else       DrawMapRows<true, false>(ptrScreenBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
 	}
 	else
-	{//adress 245156
-		for (m = height; m; v73 += v69)
-		{//0x2580=v71-pdwScreenBuffer_351628
-			v57 = v74[1];//adress 245185 mem edx 3ac764
-			v52 = v72 + v57 * v58;
-			v53 = v73 + v57 * v59;
-			v54 = &ptrScreenBuffer[v57];
-			v55 = v74[0] - v57;
-			v56 = 0;
-			HIWORD(v57) = 0;
-			do
-			{
-				LOBYTE(v57) = HIBYTE(v52);
-				HIBYTE(v57) = HIBYTE(v53);
-				LOBYTE(v56) = mapTerrainType_10B4E0[v57];
-				HIBYTE(v57) = mapShading_12B4E0[v57];
-				LOBYTE(v57) = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + v56];
-				LOBYTE(v57) = ColourLookupTable_F6EE0[v57];
-				HIBYTE(v57) = v54[0];
-				*v54++ = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v57];//here adress 2451b8
-				v52 += v58;
-				v53 += v59;
-				v55--;
-			} while (v55);
-			ptrScreenBuffer += screenWidth_18062C;
-			v74 += 2;
-			//index = v69;
-			m--;
-			v72 -= v70;
-		}
+	{
+		if (blend) DrawMapRows<false, true>(ptrScreenBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
+		else       DrawMapRows<false, false>(ptrScreenBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
 	}
 }
 

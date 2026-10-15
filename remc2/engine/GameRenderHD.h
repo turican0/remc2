@@ -69,7 +69,8 @@ private:
 		0x03,0x03,0x03,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0A,0x0B,0x0C,0x0C,0x0C,0x0C//44
 	};
 
-	type_unk_F0E20x m_str_F0E20x[GAME_RES_MAX_WIDTH + 100]; // Originally 640
+	type_unk_F0E20x m_str_F0E20xMemory[1 + GAME_RES_MAX_WIDTH + 100];//[0]: the end of unk_F0A20x, before unk_F0E20x in the original memory
+	type_unk_F0E20x* const m_str_F0E20x = &m_str_F0E20xMemory[1]; // Originally 640
 	type_E9C38_smalltit* m_ptrStr_E9C38_smalltit;
 	uint16_t m_tileRows = TILE_ROWS_COUNT;
 	uint16_t m_tileColumns = TILE_COLUMNS_COUNT;

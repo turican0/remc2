@@ -13,6 +13,7 @@
 
 #include <array>
 #include <typeinfo>
+#include <algorithm>
 
 //#include "../utilities/DataFileIO.h"
 //#include "../utilities/BitmapIO.h"
@@ -1664,4 +1665,5 @@ void sub_BD1B6(uint8_t* a1);
 void sub_BD2CB(uint8_t* a1);
 void sub_BD3DD();
 void DrawGameDebugText_6FEC0();
+int DrawSpiderWeb();
 #endif
