@@ -21976,7 +21976,6 @@ void DrawGameFrame_2BE30()//20CE30
 int DrawSpiderWeb()
 {
 	int tilesX, tilesY;
-	int offsetX = 0, offsetY = 0;
 
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
@@ -21989,29 +21988,60 @@ int DrawSpiderWeb()
 		tilesY = 4;
 	}
 
-	// Center the 640x480 web on larger, non-default resolutions
-	if (x_WORD_180660_VGA_type_resolution != 1 && !DefaultResolutions())
+	// Pass 1: measure. Row height = tallest tile in the row,
+	// web width = widest row, web height = sum of row heights.
+	constexpr int kMaxRows = 4;
+	int rowHeights[kMaxRows] = {};
+	int webWidth = 0;
+	int webHeight = 0;
+
+	int index = 1; // sprites are 1-based
+	for (int row = 0; row < tilesY; row++)
 	{
-		offsetX = (screenWidth_18062C - 640) / 2;
-		offsetY = (screenHeight_180624 - 480) / 2;
+		int rowWidth = 0;
+
+		for (int col = 0; col < tilesX; col++, index++)
+		{
+			const auto& tile = x_DWORD_D4188t_spritestr[index];
+			rowWidth += tile.width_4;
+			rowHeights[row] = std::max<int>(rowHeights[row], tile.height_5);
+		}
+
+		webWidth = (std::max)(webWidth, rowWidth);
+		webHeight += rowHeights[row];
 	}
 
-	int tileIndex = 1; // sprites are 1-based
+	// Largest whole-number scale at which the web fits on screen.
+	// Default resolutions keep the original 1x behavior and position.
+	int scale = 1;
+	int offsetX = 0;
+	int offsetY = 0;
+
+	if (x_WORD_180660_VGA_type_resolution != 1 && !DefaultResolutions())
+	{
+		scale = (std::min)(screenWidth_18062C / webWidth, screenHeight_180624 / webHeight);
+		scale = (std::max)(scale, 1); // screen smaller than the web: draw 1x
+
+		offsetX = (screenWidth_18062C - webWidth * scale) / 2;
+		offsetY = (screenHeight_180624 - webHeight * scale) / 2;
+	}
+
+	// Pass 2: draw. Positions are tracked in unscaled web space.
+	int tileIndex = 1;
 	int y = 0;
 
 	for (int row = 0; row < tilesY; row++)
 	{
 		int x = 0;
-		const int rowHeight = x_DWORD_D4188t_spritestr[tileIndex].height_5;
 
 		for (int col = 0; col < tilesX; col++, tileIndex++)
 		{
 			auto& tile = x_DWORD_D4188t_spritestr[tileIndex];
-			DrawBitmap_2BB40(offsetX + x, offsetY + y, tile);
+			DrawBitmap_2BB40(offsetX + x * scale, offsetY + y * scale, tile, scale);
 			x += tile.width_4;
 		}
 
-		y += rowHeight;
+		y += rowHeights[row];
 	}
 
 	return tileIndex;

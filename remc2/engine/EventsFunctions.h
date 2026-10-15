@@ -13,6 +13,7 @@
 
 #include <array>
 #include <typeinfo>
+#include <algorithm>
 
 //#include "../utilities/DataFileIO.h"
 //#include "../utilities/BitmapIO.h"
