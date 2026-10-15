@@ -17,6 +17,7 @@ private:
 	wxCheckBox* m_chkReflections;
 	wxCheckBox* m_chkDynamicLighting;
 	wxSpinCtrl* m_spinViewDistanceScale;
+	wxSpinCtrlDouble* m_spinFogScale = nullptr;
 
 	Config::Settings::Graphics m_cfg;
 

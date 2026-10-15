@@ -80,12 +80,14 @@ public:
 			bool m_Reflections = true;
 			bool m_DynamicLighting = true;
 			int m_ViewDistanceScale = 2;
+			float m_FogScale = 1.0f;
 		};
 
 		struct Threading
 		{
 			bool m_IsActive = false;
-			float m_SizePercentToThreadRender = 10.0;
+			float m_SizePercentToThreadRender = 10.0f;
+			float m_SizePercentToThreadRenderSprites = 0.5f;
 			int m_NumberOfRenderThreads = 0;
 			bool m_AssignToSpecificCores = false;
 		};

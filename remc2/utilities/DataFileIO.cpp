@@ -332,15 +332,16 @@ signed int DataFileIO::UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 		}
 		if (path.var36_size_buffer <= 0)
 			return 0;
+		const int allocated = path.var36_size_buffer + 0x10000;//texel row 255 of BLOCK32 lies 64 KB past its start, in DOS the next buffer
 		if (path.var40_alloc_type & 1)
 		{
-			*(path.colorPalette_var28) = (uint8_t*)Malloc_83D70(path.var36_size_buffer);//asi init a malloc bufferu
-			memset(*(path.colorPalette_var28), 0, path.var36_size_buffer);
+			*(path.colorPalette_var28) = (uint8_t*)Malloc_83D70(allocated);//asi init a malloc bufferu
+			memset(*(path.colorPalette_var28), 0, allocated);
 		}
 		else
 		{
-			*(path.colorPalette_var28) = (uint8_t*)Malloc_83CD0(path.var36_size_buffer);//asi init a malloc bufferu
-			memset(*(path.colorPalette_var28), 0, path.var36_size_buffer);
+			*(path.colorPalette_var28) = (uint8_t*)Malloc_83CD0(allocated);//asi init a malloc bufferu
+			memset(*(path.colorPalette_var28), 0, allocated);
 		}
 		//v4 = *(int **)path.colorPalette_var28;
 		//*v4 = v3;

@@ -2927,6 +2927,7 @@ void GameRenderOriginal::SetBillboards_3B560(int16_t roll)
 	default:
 		break;
 	}
+	memcpy(&m_str_F0E20x[-1], &unk_F0A20x[1012], sizeof(type_unk_F0E20x));//a sprite span can start at step -1
 	v95 = str_F2C20ar.height0x26 - 1;
 	for (resultx = m_str_F0E20x; v95 >= 0; --v95)
 	{
@@ -3776,22 +3777,20 @@ void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
 				LABEL_164:
 					v90x = str_F2C20ar.dword0x14x;
 					a1y->word_0 |= 8u;
-					v91 = v90x->struct_byte_0xc_12_15.byte[2];
+					v91 = v90x->struct_byte_0xc_12_15.word[1];
 					str_F2C20ar.dword0x02_data = a1y->textureBuffer;
 					if (v91 & 0x380)
 					{
 						v93 = v90x->struct_byte_0xc_12_15.byte[3];
 						if (v93 & 2)
 						{
-							v94 = playersColors_E88E0x[3
-								* Entities_EA3E4[v90x->parentId_0x28_40]->dword_0xA4_164x->playerColorIndex_0x38_56][2];
+							v94 = playersColors_E88E0x[Entities_EA3E4[v90x->parentId_0x28_40]->dword_0xA4_164x->playerColorIndex_0x38_56][2];
 							str_F2C20ar.dword0x01_visibilityIdx = 4;
 							str_F2C20ar.dword0x07 = v94;
 						}
 						else if (v93 & 4)
 						{
-							v95 = playersColors_E88E0x[3
-								* Entities_EA3E4[v90x->parentId_0x28_40]->dword_0xA4_164x->playerColorIndex_0x38_56][2];
+							v95 = playersColors_E88E0x[Entities_EA3E4[v90x->parentId_0x28_40]->dword_0xA4_164x->playerColorIndex_0x38_56][2];
 							str_F2C20ar.dword0x01_visibilityIdx = 5;
 							str_F2C20ar.dword0x07 = v95;
 						}
@@ -4644,7 +4643,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 											if (!(v133 & 1))
 											{
 												v89 = (x_DWORD*)(v155 + 8);
-												v90x = &m_str_F0E20x[1];
+												v90x = &v169x[1];//42A6C (mode 5): add edi,0Ch to the span entry
 												goto LABEL_247;
 											}
 											v91++;
@@ -4736,7 +4735,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 													LOBYTE(v105) = *v106;
 													*v106 = ColourLookupTable_F6EE0[v105];
 												}
-												v106 += v108x[3].dword_0;
+												v106 += v108x[1].dword_0;//the next entry, as cases 1-7
 												v107 += 4;
 												v108x += 2;
 												if (!--v109)
