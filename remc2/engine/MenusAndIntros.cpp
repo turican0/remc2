@@ -4151,7 +4151,7 @@ void PlayInGameFmv_82670()//263670
 					}
 					SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]); //Set cursor to Null (Don't Draw)
 					memset((void*)pdwScreenBuffer_351628, 0, 640 * 480);
-					if (x_WORD_180660_VGA_type_resolution != 1)
+					if (x_WORD_180660_VGA_type_resolution != 1 || screenWidth_18062C != 320 || screenHeight_180624 != 200)
 					{
 						sub_54600_mouse_reset();
 						memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
