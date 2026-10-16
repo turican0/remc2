@@ -138,6 +138,35 @@ public static class Utils
 		return false;
 	}
 
+	public static bool SetFixedTmaps(string inputFile, string outputFilePath, bool useFixedTmaps)
+	{
+		var json = File.ReadAllText(inputFile);
+		if (json != null)
+		{
+			bool updated = false;
+
+			var config = JsonConvert.DeserializeObject<Config>(json);
+
+			foreach (var setting in config.settings)
+			{
+				if (setting.isActive)
+				{
+					setting.graphics.gameDetail.useFixedTmaps = useFixedTmaps;
+					updated = true;
+					break;
+				}
+			}
+
+			if (updated)
+			{
+				json = SerializeObject<Config>(config);
+				File.WriteAllText(outputFilePath, json);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static bool SetExtendedFonts(string inputFile, string outputFilePath, bool useExtendedFonts)
 	{
 		var json = File.ReadAllText(inputFile);

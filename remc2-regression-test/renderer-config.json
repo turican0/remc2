@@ -30,8 +30,8 @@
 					"dynamicLighting": true
 				},
 				"threading": {
-					"isActive": false,
-					"numberOfRenderThreads": 0,
+					"isActive": true,
+					"numberOfRenderThreads": 3,
 					"assignToSpecificCores": false
 				}
 			},

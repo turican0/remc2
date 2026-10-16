@@ -58,12 +58,15 @@
 						"highResGraphicsFolder: Directory with 128x128 textures. Path is relative to .exe",
 						"useFixedMenuGraphics: If set to true, fixedMenuGraphicsFolder folder must be set as well",
 						"fixedMenuGraphicsFolder: Directory with fixed menu graphics. Path is relative to .exe",
+						"useFixedTmaps: If set to true, fixedTmapsFolder folder must be set as well",
+						"fixedTmapsFolder: Directory with fixed tmaps. Path is relative to .exe",
 						"useExtendedFonts: If set to true, extendedFontsFolder folder must be set as well",
 						"extendedFontsFolder: Directory with extended font graphics to support more languages. Path is relative to .exe",
 						"sky: Turns the sky on or off. Can be changed in-game",
 						"reflections: Turns the reflections on or off. Can be changed in-game",
 						"dynamicLighting: Turns the dynamic terrain lighting on or off. Can be changed in-game",
-						"viewDistanceScale: Increases the view distance (will effect performance). '1' = Original distance, '2' = 2x, '3' = 3x (Max)"
+						"viewDistanceScale: Increases the view distance (will effect performance). '1' = Original distance, '2' = 2x, ... (NG renderer: over '6' the map repeats)",
+						"fogScale: Moves the fog (NG renderer). '1.0' = Original, '2.0' = twice as far (up to the view distance), '0.5' = closer"
 					],
 					"gameResWidth": 1920,
 					"gameResHeight": 1080,
@@ -72,22 +75,27 @@
 					"highResGraphicsFolder": "graphics/high-res",
 					"useFixedMenuGraphics": false,
 					"fixedMenuGraphicsFolder": "graphics/fixed/menu",
+					"useFixedTmaps": true,
+					"fixedTmapsFolder": "graphics/fixed/tmaps",
 					"useExtendedFonts": true,
 					"extendedFontsFolder": "graphics/fixed/fonts",
 					"sky": true,
 					"reflections": true,
 					"dynamicLighting": true,
-					"viewDistanceScale": 2
+					"viewDistanceScale": 4,
+					"fogScale": 1.0
 				},
 				"threading": {
 					"description": [
 						"isActive : If set to false or deleted, multi-threading will not be used in render",
-						"sizePercentToThreadRender: 0.0 - 100.0. Decides if a poly is big enough percent on screen to render using threading",
+						"DEPRECATED: sizePercentToThreadRender: 0.0 - 100.0. Decides if a poly is big enough percent on screen to render using threading",
+						"DEPRECATED: sizePercentToThreadRenderSprites: 0.0 - 100.0. Decides if a sprite is big enough percent on screen to render using threading",
 						"numberOfRenderThreads: Valid range 1-7. Depends on the number of available cores (Press 'T' to change in game)",
 						"assignToSpecificCores: When set to true, threads will be assigned to a specifc core (as many as supported)"
 					],
 					"isActive": true,
 					"sizePercentToThreadRender": 10.0,
+					"sizePercentToThreadRenderSprites": 0.5,
 					"numberOfRenderThreads": 3,
 					"assignToSpecificCores": false
 				}

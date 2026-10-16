@@ -2,7 +2,7 @@
 
 #include "../utilities/RendererTests.h"
 
-GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint8_t renderThreads, bool assignToSpecificCores, float sizePercentToThreadRender, uint8_t viewDistanceScale) :
+GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint8_t renderThreads, bool assignToSpecificCores, float sizePercentToThreadRenderPolys, float sizePercentToThreadRenderSprites, uint8_t viewDistanceScale) :
 	m_ptrScreenBuffer_351628(ptrScreenBuffer), m_ptrColorPalette(pColorPalette), m_assignToSpecificCores(assignToSpecificCores),
 	m_ptrDWORD_E9C38_smalltit(new uint8_t[GAME_RES_MAX_WIDTH * GAME_RES_MAX_HEIGHT])
 {
@@ -11,7 +11,8 @@ GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uin
 	m_preBlurBuffer_E9C3C = new uint8_t[((GAME_RES_MAX_WIDTH * GAME_RES_MAX_HEIGHT) * 3)]; // Allow x 3 padding for sprite rendering
 	m_ptrBlurBuffer_E9C3C = &m_preBlurBuffer_E9C3C[(GAME_RES_MAX_WIDTH * GAME_RES_MAX_HEIGHT)];
 
-	m_sizePercentToThreadRender = sizePercentToThreadRender;
+	m_sizePercentToThreadRenderPolys = sizePercentToThreadRenderPolys;
+	m_sizePercentToThreadRenderSprites = sizePercentToThreadRenderSprites;
 	m_viewDistanceScale = viewDistanceScale;
 	m_tileRows = TILE_ROWS_COUNT * viewDistanceScale;
 	m_tileColumns = TILE_COLUMNS_COUNT * viewDistanceScale;
@@ -684,16 +685,16 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 
 	str_F2C20ar.dword0x15_tileRenderCutOffDistance = (400 * (m_viewDistanceScale * m_viewDistanceScale)) << 16; //Distance cut-off for tile render
 	v278x = 0;
-	str_F2C20ar.dword0x12_FogThickness = 136 << 16;
+	str_F2C20ar.dword0x12_FogThickness = (136 * m_viewDistanceScale * m_viewDistanceScale) << 16;
 	v22 = v277[0];
 	str_F2C20ar.dword0x22 = pitch * (uint16_t)viewPort.Width_DE564 >> 8;
 	LOBYTE(v279) = v22 + HIBYTE(posX);
 	HIBYTE(v279) = v277[1] + HIBYTE(posY);
 	v23 = roll & 0x7FF;
 	str_F2C20ar.cos_0x11 = Maths::sin_DB750[512 + v23];
-	str_F2C20ar.dword0x16_FogEnd = ((400 * (m_viewDistanceScale * m_viewDistanceScale)) - (39 + (20 * (m_viewDistanceScale - 1)))) << 16;
+	str_F2C20ar.dword0x16_FogEnd = ((400 * (m_viewDistanceScale * m_viewDistanceScale)) - (39 * m_viewDistanceScale * m_viewDistanceScale)) << 16;
 	str_F2C20ar.sin_0x0d = Maths::sin_DB750[v23];
-	str_F2C20ar.dword0x13_FogStart = ((400 * (m_viewDistanceScale * m_viewDistanceScale)) - (175 + (20 * (m_viewDistanceScale - 1)))) << 16;
+	str_F2C20ar.dword0x13_FogStart = ((400 * (m_viewDistanceScale * m_viewDistanceScale)) - (175 * m_viewDistanceScale * m_viewDistanceScale)) << 16;
 
 	if (!D41A0_0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel_D41B6)
 	{
@@ -1780,7 +1781,7 @@ uint16_t GameRenderHD::sub_3FD60(int a2x, uint8_t playersColors_E88E0x[][3], typ
 					}
 					else if (v8 < str_F2C20ar.dword0x16_FogEnd)
 					{
-						str_F2C20ar.dword0x00 = 32 * (str_F2C20ar.dword0x16_FogEnd - (v40 * v40 + v6 * v6)) / str_F2C20ar.dword0x12_FogThickness << 8;
+						str_F2C20ar.dword0x00 = (int)(32 * (signed __int64)(str_F2C20ar.dword0x16_FogEnd - (v40 * v40 + v6 * v6)) / str_F2C20ar.dword0x12_FogThickness) << 8;
 					}
 					else
 					{
@@ -2767,6 +2768,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 	default:
 		break;
 	}
+	memcpy(&m_str_F0E20x[-1], &unk_F0A20x[1012], sizeof(type_unk_F0E20x));//a sprite span can start at step -1
 	v95 = str_F2C20ar.height0x26 - 1;
 	for (resultx = m_str_F0E20x; v95 >= 0; --v95)
 	{
@@ -2876,6 +2878,879 @@ void GameRenderHD::DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* a1x, i
 			}
 		}
 	}
+}
+
+bool GameRenderHD::ShouldThreadSprite(int width, int height) const
+{
+	if (m_renderThreads.empty() || width <= 0 || height <= 0)
+		return false;
+
+	if (height < (int)(m_renderThreads.size() + 1) * 4)
+		return false;
+
+	double viewPortArea = (double)viewPort.Width_DE564 * viewPort.Height_DE568;
+	double spriteArea = (double)width * height;
+
+	return (spriteArea / viewPortArea) * 100.0 >= m_sizePercentToThreadRenderSprites;
+}
+
+void GameRenderHD::DrawSpriteLines(const SpriteDrawJob& job, uint8_t startLine, uint8_t nth)
+{
+	if (job.rotated) DrawSpriteLinesRotated(job, startLine, nth);
+	else             DrawSpriteLinesFlat(job, startLine, nth);
+}
+
+void GameRenderHD::DrawSpriteLinesFlat(const SpriteDrawJob& job, uint8_t startLine, uint8_t nth)
+{
+	// Uninitialised on purpose: the gotos jump into the loop bodies.
+	int8_t* ptrSpriteRenderSrc_v2x;
+	x_DWORD* v3;
+	uint8_t* v4;
+	int v5, v7, v8;
+	char v6, v9, v10, v11, v12;
+
+	int v13;
+	x_BYTE* ptrSpriteRenderSrc_v14;
+	x_DWORD* v15;
+	uint8_t* v16;
+	int v17;
+
+	x_BYTE* ptrSpriteRenderSrc_v18;
+	x_DWORD* v19;
+	uint8_t* v20;
+	int v21, v22;
+
+	x_BYTE* ptrSpriteRenderSrc_v23;
+	x_DWORD* v24;
+	uint8_t* v25;
+	int v26, v27;
+
+	x_BYTE* ptrSpriteRenderSrc_v28;
+	x_DWORD* v29;
+	uint8_t* v30;
+	int v31, v32;
+
+	int v33;
+	x_BYTE* ptrSpriteRenderSrc_v34;
+	x_DWORD* v35;
+	uint8_t* v36;
+	int v37;
+
+	int v38;
+	x_BYTE* ptrSpriteRenderSrc_v39;
+	x_DWORD* v40;
+	uint8_t* v41;
+	int v42, v43;
+
+	int v44;
+	x_BYTE* ptrSpriteRenderSrc_v45;
+	x_DWORD* v46;
+	uint8_t* v47;
+	int v48, v49;
+
+	for (int row = startLine; row < job.lineCount; row += nth)
+	{
+		uint8_t* v122x = job.dest + (int64_t)row * job.stride;
+		int actIdx = job.actIdx0 + row * job.actStep;
+
+		if ((unsigned int)str_F2C20ar.dword0x01_visibilityIdx > 7)
+			continue;
+
+		switch (str_F2C20ar.dword0x01_visibilityIdx)
+		{
+		case 0:
+			ptrSpriteRenderSrc_v2x = &str_F2C20ar.dword0x02_data[str_F2C20ar.dword0x08_width * (actIdx >> 16) + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4)];
+			v3 = (x_DWORD*)&(m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
+			v4 = v122x;
+			v5 = str_F2C20ar.dword0x09_realWidth >> 1;
+			if (!(str_F2C20ar.dword0x09_realWidth & 1))
+			{
+				v6 = v5 & 1;
+				v7 = str_F2C20ar.dword0x09_realWidth >> 2;
+				if (v6)
+				{
+					v7++;
+					v3 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 - 8);
+					v4 = (uint8_t*)(v122x - 2);
+					goto LABEL_49;
+				}
+				v3 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
+				goto LABEL_45;
+			}
+			v8 = v5 + 2;
+			v6 = v8 & 1;
+			v7 = v8 >> 1;
+			if (!v6)
+			{
+				v3 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 - 16);
+				v4 = (uint8_t*)(v122x - 3);
+				goto LABEL_51;
+			}
+			v4 = (uint8_t*)(v122x - 1);
+			while (1)
+			{
+				v10 = ptrSpriteRenderSrc_v2x[0];
+				ptrSpriteRenderSrc_v2x += v3[2];
+
+				if (v10)
+					v4[1] = v10;
+			LABEL_49:
+				v11 = ptrSpriteRenderSrc_v2x[0];
+				ptrSpriteRenderSrc_v2x += v3[4];
+
+				if (v11)
+					v4[2] = v11;
+			LABEL_51:
+				v12 = ptrSpriteRenderSrc_v2x[0];
+				ptrSpriteRenderSrc_v2x += v3[6];
+
+				if (v12)
+					v4[3] = v12;
+				v4 += 4;
+				v3 += 8;
+				if (!--v7)
+					break;
+			LABEL_45:
+				v9 = ptrSpriteRenderSrc_v2x[0];
+				ptrSpriteRenderSrc_v2x += v3[0];
+
+				if (v9)//if not transparent pixel
+					*v4 = v9;
+			}
+			break;
+
+		case 1:
+			v13 = str_F2C20ar.dword0x00;
+			ptrSpriteRenderSrc_v14 = (x_BYTE*)(str_F2C20ar.dword0x08_width * (actIdx >> 16) + str_F2C20ar.dword0x02_data + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4));
+			v15 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
+			v16 = (uint8_t*)v122x;
+			v17 = str_F2C20ar.dword0x09_realWidth >> 1;
+			if (!(str_F2C20ar.dword0x09_realWidth & 1))
+			{
+				v15 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
+				goto LABEL_58;
+			}
+			v17++;
+			v16 = (uint8_t*)(v122x - 1);
+			while (1)
+			{
+				LOBYTE(v13) = *ptrSpriteRenderSrc_v14;
+				ptrSpriteRenderSrc_v14 += v15[2];
+
+				if ((x_BYTE)v13)
+					v16[1] = ColourLookupTable_F6EE0[v13];
+				v16 += 2;
+				v15 += 4;
+				if (!--v17)
+					break;
+			LABEL_58:
+				LOBYTE(v13) = *ptrSpriteRenderSrc_v14;
+				ptrSpriteRenderSrc_v14 += *v15;
+
+				if ((x_BYTE)v13)
+					*v16 = ColourLookupTable_F6EE0[v13];
+			}
+			break;
+
+		case 2:
+			ptrSpriteRenderSrc_v18 = (x_BYTE*)(str_F2C20ar.dword0x08_width * (actIdx >> 16) + str_F2C20ar.dword0x02_data + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4));
+			v19 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
+			v20 = (uint8_t*)v122x;
+			HIWORD(v21) = 0;
+			v22 = str_F2C20ar.dword0x09_realWidth >> 1;
+			if (!(str_F2C20ar.dword0x09_realWidth & 1))
+			{
+				v19 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
+				goto LABEL_67;
+			}
+			v22++;
+			v20 = (uint8_t*)(v122x - 1);
+			while (1)
+			{
+				HIBYTE(v21) = *ptrSpriteRenderSrc_v18;
+				ptrSpriteRenderSrc_v18 += v19[2];
+
+				if (HIBYTE(v21))
+				{
+					LOBYTE(v21) = v20[1];
+					v20[1] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v21];
+				}
+				v20 += 2;
+				v19 += 4;
+				if (!--v22)
+					break;
+			LABEL_67:
+				HIBYTE(v21) = *ptrSpriteRenderSrc_v18;
+				ptrSpriteRenderSrc_v18 += *v19;
+
+				if (HIBYTE(v21))
+				{
+					LOBYTE(v21) = *v20;
+					v20[0] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v21];
+				}
+			}
+			break;
+
+		case 3:
+			ptrSpriteRenderSrc_v23 = (x_BYTE*)(str_F2C20ar.dword0x08_width * (actIdx >> 16) + str_F2C20ar.dword0x02_data + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4));//from mask
+			v24 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);//from image
+			v25 = v122x;//to adress
+			HIWORD(v26) = 0;
+			v27 = str_F2C20ar.dword0x09_realWidth >> 1;
+			if (!(str_F2C20ar.dword0x09_realWidth & 1))
+			{
+				v24 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
+				goto LABEL_76;
+			}
+			v27++;
+			v25 = (uint8_t*)(v122x - 1);
+			while (1)
+			{
+				LOBYTE(v26) = *ptrSpriteRenderSrc_v23;
+				ptrSpriteRenderSrc_v23 += v24[2];
+
+				if ((x_BYTE)v26)
+				{
+					HIBYTE(v26) = v25[1];
+					v25[1] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v26];
+				}
+				v25 += 2;
+				v24 += 4;
+				if (!--v27)
+					break;
+			LABEL_76:
+				LOBYTE(v26) = *ptrSpriteRenderSrc_v23;
+				ptrSpriteRenderSrc_v23 += *v24;
+
+				if ((x_BYTE)v26)
+				{
+					HIBYTE(v26) = v25[0];
+					v25[0] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v26];
+				}
+			}
+			break;
+
+		case 4:
+			HIWORD(v31) = HIWORD(str_F2C20ar.dword0x07);
+			ptrSpriteRenderSrc_v28 = (x_BYTE*)(str_F2C20ar.dword0x08_width * (actIdx >> 16) + str_F2C20ar.dword0x02_data + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4));
+			v29 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
+			v30 = v122x;
+			HIBYTE(v31) = str_F2C20ar.dword0x07;
+			v32 = str_F2C20ar.dword0x09_realWidth >> 1;
+			if (!(str_F2C20ar.dword0x09_realWidth & 1))
+			{
+				v29 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
+				goto LABEL_85;
+			}
+			v32++;
+			v30 = (uint8_t*)(v122x - 1);
+			while (1)
+			{
+				LOBYTE(v31) = *ptrSpriteRenderSrc_v28;
+				ptrSpriteRenderSrc_v28 += v29[2];
+
+				if ((x_BYTE)v31)
+					v30[1] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v31];
+				v30 += 2;
+				v29 += 4;
+				if (!--v32)
+					break;
+			LABEL_85:
+				LOBYTE(v31) = *ptrSpriteRenderSrc_v28;
+				ptrSpriteRenderSrc_v28 += *v29;
+
+				if ((x_BYTE)v31)
+					*v30 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v31];
+			}
+			break;
+
+		case 5:
+			v33 = str_F2C20ar.dword0x07;
+			ptrSpriteRenderSrc_v34 = (x_BYTE*)(str_F2C20ar.dword0x08_width * (actIdx >> 16) + str_F2C20ar.dword0x02_data + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4));
+			v35 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
+			v36 = v122x;
+			v37 = str_F2C20ar.dword0x09_realWidth >> 1;
+			if (!(str_F2C20ar.dword0x09_realWidth & 1))
+			{
+				v35 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
+				goto LABEL_94;
+			}
+			v37++;
+			v36 = (uint8_t*)(v122x - 1);
+			while (1)
+			{
+				BYTE1(v33) = *ptrSpriteRenderSrc_v34;
+				ptrSpriteRenderSrc_v34 += v35[2];
+
+				if (BYTE1(v33))
+					v36[1] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v33];
+				v36 += 2;
+				v35 += 4;
+				if (!--v37)
+					break;
+			LABEL_94:
+				BYTE1(v33) = *ptrSpriteRenderSrc_v34;
+				ptrSpriteRenderSrc_v34 += *v35;
+
+				if (BYTE1(v33))
+					*v36 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v33];
+			}
+			break;
+
+		case 6:
+			v38 = str_F2C20ar.dword0x00;
+			ptrSpriteRenderSrc_v39 = (x_BYTE*)(str_F2C20ar.dword0x08_width * (actIdx >> 16) + str_F2C20ar.dword0x02_data + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4));
+			v40 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
+			v41 = v122x;
+			HIWORD(v42) = 0;
+			v43 = str_F2C20ar.dword0x09_realWidth >> 1;
+			if (!(str_F2C20ar.dword0x09_realWidth & 1))
+			{
+				v40 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
+				goto LABEL_103;
+			}
+			v43++;
+			v41 = (uint8_t*)(v122x - 1);
+			while (1)
+			{
+				BYTE1(v42) = *ptrSpriteRenderSrc_v39;
+				ptrSpriteRenderSrc_v39 += v40[2];
+
+				if (BYTE1(v42))
+				{
+					LOBYTE(v42) = v41[1];
+					LOBYTE(v38) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v42];
+					v41[1] = ColourLookupTable_F6EE0[v38];
+				}
+				v41 += 2;
+				v40 += 4;
+				if (!--v43)
+					break;
+			LABEL_103:
+				BYTE1(v42) = *ptrSpriteRenderSrc_v39;
+				ptrSpriteRenderSrc_v39 += *v40;
+
+				if (BYTE1(v42))
+				{
+					LOBYTE(v42) = *v41;
+					LOBYTE(v38) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v42];
+					*v41 = ColourLookupTable_F6EE0[v38];
+				}
+			}
+			break;
+
+		case 7:
+			v44 = str_F2C20ar.dword0x00;
+			ptrSpriteRenderSrc_v45 = (x_BYTE*)(str_F2C20ar.dword0x08_width * (actIdx >> 16) + str_F2C20ar.dword0x02_data + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4));
+			v46 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
+			v47 = v122x;
+			HIWORD(v48) = 0;
+			v49 = str_F2C20ar.dword0x09_realWidth >> 1;
+			if (!(str_F2C20ar.dword0x09_realWidth & 1))
+			{
+				v46 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
+				goto LABEL_112;
+			}
+			v49++;
+			v47 = (uint8_t*)(v122x - 1);
+			while (1)
+			{
+				LOBYTE(v48) = *ptrSpriteRenderSrc_v45;
+				ptrSpriteRenderSrc_v45 += v46[2];
+
+				if ((x_BYTE)v48)
+				{
+					BYTE1(v48) = v47[1];
+					LOBYTE(v44) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v48];
+					v47[1] = ColourLookupTable_F6EE0[v44];
+				}
+				v47 += 2;
+				v46 += 4;
+				if (!--v49)
+					break;
+			LABEL_112:
+				LOBYTE(v48) = *ptrSpriteRenderSrc_v45;
+				ptrSpriteRenderSrc_v45 += *v46;
+
+				if ((x_BYTE)v48)
+				{
+					BYTE1(v48) = *v47;
+					LOBYTE(v44) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v48];
+					*v47 = ColourLookupTable_F6EE0[v44];
+				}
+			}
+			break;
+		}
+	}
+}
+
+void GameRenderHD::DrawSpriteLinesRotated(const SpriteDrawJob& job, uint8_t startLine, uint8_t nth)
+{
+	// Declared up front and uninitialised on purpose: the gotos jump into loop bodies.
+	int8_t* ptrSpriteRenderSrc_v51x;
+	uint8_t* ptrSpriteRenderDest_v52;
+	x_DWORD* v53;
+	type_unk_F0E20x* v54x;
+	int v55, v56, v57;
+	char v6, v58, v59, v60, v61;
+
+	int8_t* ptrSpriteRenderSrc_v62x;
+	int v63;
+	uint8_t* ptrSpriteRenderDest_v64;
+	x_DWORD* v65;
+	type_unk_F0E20x* v66x;
+	int v67;
+
+	int8_t* ptrSpriteRenderSrc_v68x;
+	uint8_t* ptrSpriteRenderDest_v69;
+	x_DWORD* v70;
+	type_unk_F0E20x* v71x;
+	int v72, v73;
+
+	int8_t* ptrSpriteRenderSrc_v74x;
+	uint8_t* ptrSpriteRenderDest_v75;
+	x_DWORD* v76;
+	type_unk_F0E20x* v77x;
+	int v78, v79;
+
+	int8_t* ptrSpriteRenderSrc_v80x;
+	uint8_t* ptrSpriteRenderDest_v81;
+	x_DWORD* v82;
+	type_unk_F0E20x* v83x;
+	int v84, v85;
+
+	int8_t* ptrSpriteRenderSrc_v86x;
+	int v87;
+	uint8_t* ptrSpriteRenderDest_v88;
+	x_DWORD* v89;
+	type_unk_F0E20x* v90x;
+	int v91;
+
+	int v92;
+	int8_t* ptrSpriteRenderSrc_v93x;
+	uint8_t* ptrSpriteRenderDest_v94;
+	int v95;
+	x_DWORD* v96;
+	type_unk_F0E20x* v97x;
+
+	int v98;
+	int8_t* ptrSpriteRenderSrc_v99x;
+	uint8_t* ptrSpriteRenderDest_v100;
+	int v101;
+	x_DWORD* v102;
+	type_unk_F0E20x* v103x;
+
+	int8_t* ptrSpriteRenderSrc_v104x;
+	int v105;
+	uint8_t* ptrSpriteRenderDest_v106;
+	x_DWORD* v107;
+	type_unk_F0E20x* v108x;
+	int v109;
+	char v110, v111;
+
+	const x_DWORD* spanTable = (const x_DWORD*)&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_2];
+	const int v116 = job.minOffset;
+
+	for (int i = startLine; i < job.lineCount; i += nth)
+	{
+		const x_DWORD* v165 = spanTable + 3 * i;
+		int v133 = v165[1];
+		if (v133 <= 0)
+			continue;
+
+		uint8_t* ptrRenderBuffer = job.dest + (int64_t)i * job.stride;
+		int actIdx = job.actIdx0 + i * job.actStep;
+
+		type_unk_F0E20x* v169x = &m_str_F0E20x[*v165];
+		uint8_t* v155 = 8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1];
+		int8_t* v121x = &str_F2C20ar.dword0x02_data[str_F2C20ar.dword0x08_width * (actIdx >> 16)];
+
+		if ((unsigned int)str_F2C20ar.dword0x01_visibilityIdx > 8)
+			continue;
+
+		switch (str_F2C20ar.dword0x01_visibilityIdx)
+		{
+		case 0:
+			ptrSpriteRenderSrc_v51x = &v121x[*(x_DWORD*)(v155 + 4)];
+			ptrSpriteRenderDest_v52 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+			v53 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
+			v54x = &m_str_F0E20x[*v165];
+			v55 = v133 >> 1;
+			if (!(v133 & 1))
+			{
+				v6 = v55 & 1;
+				v56 = v133 >> 2;
+				if (v6)
+				{
+					v56++;
+					v53 = (x_DWORD*)(v155 - 8);
+					v54x = &v169x[-1];
+					goto LABEL_197;
+				}
+				v53 = (x_DWORD*)(v155 + 8);
+				v54x = &v169x[1];
+				goto LABEL_191;
+			}
+			v57 = v55 + 2;
+			v6 = v57 & 1;
+			v56 = v57 >> 1;
+			if (!v6)
+			{
+				v53 = (x_DWORD*)(v155 - 16);
+				v54x = &v169x[-2];
+				goto LABEL_200;
+			}
+			while (1)
+			{
+				v59 = ptrSpriteRenderSrc_v51x[0];
+				ptrSpriteRenderSrc_v51x += v53[2];
+
+				if (v59)
+					*ptrSpriteRenderDest_v52 = v59;
+				ptrSpriteRenderDest_v52 += v54x[1].dword_0;
+
+			LABEL_197:
+				v60 = ptrSpriteRenderSrc_v51x[0];
+				ptrSpriteRenderSrc_v51x += v53[4];
+
+				if (v60)
+					*ptrSpriteRenderDest_v52 = v60;
+				ptrSpriteRenderDest_v52 += v54x[2].dword_0;
+
+			LABEL_200:
+				v61 = ptrSpriteRenderSrc_v51x[0];
+				ptrSpriteRenderSrc_v51x += v53[6];
+
+				if (v61)
+					*ptrSpriteRenderDest_v52 = v61;
+				ptrSpriteRenderDest_v52 += v54x[3].dword_0;
+
+				v53 += 8;
+				v54x += 4;
+				if (!--v56)
+					break;
+			LABEL_191:
+				v58 = ptrSpriteRenderSrc_v51x[0];
+				ptrSpriteRenderSrc_v51x += *v53;
+
+				if (v58)
+					*ptrSpriteRenderDest_v52 = v58;
+				ptrSpriteRenderDest_v52 += v54x[0].dword_0;
+			}
+			break;
+
+		case 1:
+			ptrSpriteRenderSrc_v62x = &v121x[*(x_DWORD*)(v155 + 4)];
+			v63 = str_F2C20ar.dword0x00;
+			ptrSpriteRenderDest_v64 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+			v65 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
+			v66x = &m_str_F0E20x[*v165];
+			v67 = v133 >> 1;
+			if (!(v133 & 1))
+			{
+				v65 = (x_DWORD*)(v155 + 8);
+				v66x = &v169x[1];
+				goto LABEL_207;
+			}
+			v67++;
+			while (1)
+			{
+				LOBYTE(v63) = ptrSpriteRenderSrc_v62x[0];
+				ptrSpriteRenderSrc_v62x += v65[2];
+
+				if ((x_BYTE)v63)
+					*ptrSpriteRenderDest_v64 = ColourLookupTable_F6EE0[v63];
+				ptrSpriteRenderDest_v64 += v66x[1].dword_0;
+
+				v65 += 4;
+				v66x += 2;
+				if (!--v67)
+					break;
+			LABEL_207:
+				LOBYTE(v63) = ptrSpriteRenderSrc_v62x[0];
+				ptrSpriteRenderSrc_v62x += *v65;
+
+				if ((x_BYTE)v63)
+					*ptrSpriteRenderDest_v64 = ColourLookupTable_F6EE0[v63];
+				ptrSpriteRenderDest_v64 += v66x->dword_0;
+			}
+			break;
+
+		case 2:
+			ptrSpriteRenderSrc_v68x = &v121x[*(x_DWORD*)(v155 + 4)];
+			ptrSpriteRenderDest_v69 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+			v70 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
+			v71x = &m_str_F0E20x[*v165];
+			HIWORD(v72) = 0;
+			v73 = v133 >> 1;
+			if (!(v133 & 1))
+			{
+				v70 = (x_DWORD*)(v155 + 8);
+				v71x = &v169x[1];
+				goto LABEL_217;
+			}
+			v73++;
+			while (1)
+			{
+				HIBYTE(v72) = ptrSpriteRenderSrc_v68x[0];
+				ptrSpriteRenderSrc_v68x += v70[2];
+
+				if (HIBYTE(v72))
+				{
+					LOBYTE(v72) = *ptrSpriteRenderDest_v69;
+					*ptrSpriteRenderDest_v69 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v72];
+				}
+				ptrSpriteRenderDest_v69 += v71x[1].dword_0;
+
+				v70 += 4;
+				v71x += 2;
+				if (!--v73)
+					break;
+			LABEL_217:
+				HIBYTE(v72) = ptrSpriteRenderSrc_v68x[0];
+				ptrSpriteRenderSrc_v68x += *v70;
+
+				if (HIBYTE(v72))
+				{
+					LOBYTE(v72) = *ptrSpriteRenderDest_v69;
+					*ptrSpriteRenderDest_v69 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v72];
+				}
+				ptrSpriteRenderDest_v69 += v71x->dword_0;
+			}
+			break;
+
+		case 3:
+			ptrSpriteRenderSrc_v74x = &v121x[*(x_DWORD*)(v155 + 4)];
+			ptrSpriteRenderDest_v75 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+			v76 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]); //to position
+			v77x = &m_str_F0E20x[v165[0]]; //from position
+			HIWORD(v78) = 0;
+			v79 = v133 >> 1;
+			if (!(v133 & 1))
+			{
+				v76 = (x_DWORD*)(v155 + 8);
+				v77x = &v169x[1];
+				goto LABEL_227;
+			}
+			v79++;
+			while (1)
+			{
+				LOBYTE(v78) = ptrSpriteRenderSrc_v74x[0];
+				ptrSpriteRenderSrc_v74x += v76[2];
+
+				if ((x_BYTE)v78)
+				{
+					HIBYTE(v78) = *ptrSpriteRenderDest_v75;
+					*ptrSpriteRenderDest_v75 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v78];
+				}
+				ptrSpriteRenderDest_v75 += v77x[1].dword_0;
+
+				v76 += 4;
+				v77x += 2;
+				if (!--v79)
+					break;
+			LABEL_227:
+				LOBYTE(v78) = ptrSpriteRenderSrc_v74x[0];
+				ptrSpriteRenderSrc_v74x += *v76;
+
+				if ((x_BYTE)v78)
+				{
+					HIBYTE(v78) = *ptrSpriteRenderDest_v75;
+					*ptrSpriteRenderDest_v75 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v78];
+				}
+				ptrSpriteRenderDest_v75 += v77x->dword_0;
+			}
+			break;
+
+		case 4:
+			ptrSpriteRenderSrc_v80x = &v121x[*(x_DWORD*)(v155 + 4)];
+			HIWORD(v84) = HIWORD(str_F2C20ar.dword0x07);
+			ptrSpriteRenderDest_v81 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+
+			v82 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
+			v83x = &m_str_F0E20x[*v165];
+			BYTE1(v84) = str_F2C20ar.dword0x07;
+			v85 = v133 >> 1;
+			if (!(v133 & 1))
+			{
+				v82 = (x_DWORD*)(v155 + 8);
+				v83x = &v169x[1];
+				goto LABEL_237;
+			}
+			v85++;
+			while (1)
+			{
+				LOBYTE(v84) = ptrSpriteRenderSrc_v80x[0];
+				ptrSpriteRenderSrc_v80x += v82[2];
+
+				if ((x_BYTE)v84)
+					*ptrSpriteRenderDest_v81 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v84];
+				ptrSpriteRenderDest_v81 += v83x[1].dword_0;
+
+				v82 += 4;
+				v83x += 2;
+				if (!--v85)
+					break;
+			LABEL_237:
+				LOBYTE(v84) = ptrSpriteRenderSrc_v80x[0];
+				ptrSpriteRenderSrc_v80x += *v82;
+
+				if ((x_BYTE)v84)
+					*ptrSpriteRenderDest_v81 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v84];
+				ptrSpriteRenderDest_v81 += v83x->dword_0;
+			}
+			break;
+
+		case 5:
+			ptrSpriteRenderSrc_v86x = &v121x[*(x_DWORD*)(v155 + 4)];
+			v87 = str_F2C20ar.dword0x07;
+			ptrSpriteRenderDest_v88 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+			v89 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
+			v90x = &m_str_F0E20x[*v165];
+			v91 = v133 >> 1;
+			if (!(v133 & 1))
+			{
+				v89 = (x_DWORD*)(v155 + 8);
+				v90x = &m_str_F0E20x[1];   // as in the original (not &v169x[1])
+				goto LABEL_247;
+			}
+			v91++;
+			while (1)
+			{
+				BYTE1(v87) = ptrSpriteRenderSrc_v86x[0];
+				ptrSpriteRenderSrc_v86x += v89[2];
+
+				if (BYTE1(v87))
+					*ptrSpriteRenderDest_v88 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v87];
+				ptrSpriteRenderDest_v88 += v90x[1].dword_0;
+
+				v89 += 4;
+				v90x += 2;
+				if (!--v91)
+					break;
+			LABEL_247:
+				BYTE1(v87) = ptrSpriteRenderSrc_v86x[0];
+				ptrSpriteRenderSrc_v86x += *v89;
+
+				if (BYTE1(v87))
+					*ptrSpriteRenderDest_v88 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v87];
+				ptrSpriteRenderDest_v88 += v90x->dword_0;
+			}
+			break;
+
+		case 6:
+			v92 = str_F2C20ar.dword0x00;
+			ptrSpriteRenderSrc_v93x = &v121x[*(x_DWORD*)(v155 + 4)];
+			ptrSpriteRenderDest_v94 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+
+			HIWORD(v95) = 0;
+			v96 = (x_DWORD*)(v155 + 8);
+			v97x = &v169x[1];
+			do
+			{
+				BYTE1(v95) = ptrSpriteRenderSrc_v93x[0];
+				ptrSpriteRenderSrc_v93x += *v96;
+
+				if (BYTE1(v95))
+				{
+					LOBYTE(v95) = *ptrSpriteRenderDest_v94;
+					LOBYTE(v92) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v95];
+					*ptrSpriteRenderDest_v94 = ColourLookupTable_F6EE0[v92];
+				}
+				ptrSpriteRenderDest_v94 += v97x->dword_0;
+				v96 += 2;
+				v97x++;
+				v133--;
+			} while (v133);
+			break;
+
+		case 7:
+			v98 = str_F2C20ar.dword0x00;
+			ptrSpriteRenderSrc_v99x = &v121x[*(x_DWORD*)(v155 + 4)];
+			ptrSpriteRenderDest_v100 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+			HIWORD(v101) = 0;
+			v102 = (x_DWORD*)(v155 + 8);
+			v103x = &v169x[1];
+			do
+			{
+				LOBYTE(v101) = ptrSpriteRenderSrc_v99x[0];
+				ptrSpriteRenderSrc_v99x += *v102;
+
+				if ((x_BYTE)v101)
+				{
+					BYTE1(v101) = *ptrSpriteRenderDest_v100;
+					LOBYTE(v98) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v101];
+					*ptrSpriteRenderDest_v100 = ColourLookupTable_F6EE0[v98];
+				}
+				ptrSpriteRenderDest_v100 += v103x->dword_0;
+				v102 += 2;
+				v103x++;
+				v133--;
+			} while (v133);
+			break;
+
+		case 8:
+			ptrSpriteRenderSrc_v104x = &v121x[*(x_DWORD*)(v155 + 4)];
+			v105 = str_F2C20ar.dword0x00;
+			ptrSpriteRenderDest_v106 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+			v107 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
+			v108x = &m_str_F0E20x[*v165];
+			v109 = v133 >> 1;
+			if (!(v133 & 1))
+			{
+				v107 = (x_DWORD*)(v155 + 8);
+				v108x = &v169x[1];
+				goto LABEL_267;
+			}
+			v109++;
+			while (1)
+			{
+				v111 = ptrSpriteRenderSrc_v104x[0];
+				ptrSpriteRenderSrc_v104x += v107[2];
+
+				if (v111)
+				{
+					LOBYTE(v105) = *ptrSpriteRenderDest_v106;
+					*ptrSpriteRenderDest_v106 = ColourLookupTable_F6EE0[v105];
+				}
+				ptrSpriteRenderDest_v106 += v108x[3].dword_0;   // [3], as in the original
+				v107 += 4;
+				v108x += 2;
+				if (!--v109)
+					break;
+			LABEL_267:
+				v110 = ptrSpriteRenderSrc_v104x[0];
+				ptrSpriteRenderSrc_v104x += *v107;
+				if (v110)
+				{
+					LOBYTE(v105) = *ptrSpriteRenderDest_v106;
+					*ptrSpriteRenderDest_v106 = ColourLookupTable_F6EE0[v105];
+				}
+				ptrSpriteRenderDest_v106 += v108x->dword_0;
+			}
+			break;
+		}
+	}
+}
+
+void GameRenderHD::RunSpriteJob(const SpriteDrawJob& job, int width)
+{
+	if (!ShouldThreadSprite(width, job.lineCount))
+	{
+		DrawSpriteLines(job, 0, 1);
+		return;
+	}
+
+	const uint8_t nth = (uint8_t)(m_renderThreads.size() + 1);
+	uint8_t i;
+	for (i = 0; i < m_renderThreads.size(); i++)
+	{
+		m_renderThreads[i]->Run([this, &job, i, nth] {
+			this->DrawSpriteLines(job, i, nth);
+			});
+	}
+	DrawSpriteLines(job, i, nth);
+	WaitForRenderFinish();   // &job is only valid because we wait here
 }
 
 void GameRenderHD::StartWorkerThreads(uint8_t numOfThreads, bool assignToSpecificCores)
@@ -3022,10 +3897,10 @@ bool GameRenderHD::CheckIfThreadRenderTriangle(ProjectionVertex v1, ProjectionVe
 
 	double viewPortArea = viewPort.Width_DE564 * viewPort.Height_DE568;
 
-	bool skipThread = (triArea1 / viewPortArea) * 100 < m_sizePercentToThreadRender;
+	bool skipThread = (triArea1 / viewPortArea) * 100 < m_sizePercentToThreadRenderPolys;
 
 	if (!skipThread)
-		skipThread = (triArea2 / viewPortArea) * 100 < m_sizePercentToThreadRender;
+		skipThread = (triArea2 / viewPortArea) * 100 < m_sizePercentToThreadRenderPolys;
 
 	return skipThread;
 }
@@ -3251,7 +4126,7 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 						if (v6 <= str_F2C20ar.dword0x13_FogStart)
 							str_F2C20ar.dword0x00 = 0x2000;
 						else
-							str_F2C20ar.dword0x00 = v6 < str_F2C20ar.dword0x16_FogEnd ? 32 * (str_F2C20ar.dword0x16_FogEnd - (v99 * v99 + v5 * v5)) / str_F2C20ar.dword0x12_FogThickness << 8 : 0;
+							str_F2C20ar.dword0x00 = v6 < str_F2C20ar.dword0x16_FogEnd ? (int)(32 * (signed __int64)(str_F2C20ar.dword0x16_FogEnd - (v99 * v99 + v5 * v5)) / str_F2C20ar.dword0x12_FogThickness) << 8 : 0;
 						v7x = &spriteDefsTable_D951C[str_F2C20ar.dword0x14x->word_0x5A_90];
 						if (!v7x->lightingTableIdx_10)
 						{
@@ -3581,7 +4456,7 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 				}
 				else if (v51 < str_F2C20ar.dword0x16_FogEnd)
 				{
-					str_F2C20ar.dword0x00 = 32 * (str_F2C20ar.dword0x16_FogEnd - (v100 * v100 + v49 * v49)) / str_F2C20ar.dword0x12_FogThickness << 8;
+					str_F2C20ar.dword0x00 = (int)(32 * (signed __int64)(str_F2C20ar.dword0x16_FogEnd - (v100 * v100 + v49 * v49)) / str_F2C20ar.dword0x12_FogThickness) << 8;
 				}
 				else
 				{
@@ -3849,7 +4724,7 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 				LABEL_164:
 					v90x = str_F2C20ar.dword0x14x;
 					a1y->word_0 |= 8u;
-					v91 = v90x->struct_byte_0xc_12_15.byte[2];
+					v91 = v90x->struct_byte_0xc_12_15.word[1];
 					str_F2C20ar.dword0x02_data = a1y->textureBuffer;
 					if (v91 & 0x380)
 					{
@@ -3900,193 +4775,30 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 
 void GameRenderHD::DrawSprite_41BD3(uint32 pass)
 {
-	int8_t* ptrSpriteRenderSrc_v2x; // ebx
-	x_DWORD* v3; // esi
-	uint8_t* v4; // edi
-	int v5; // ecx
-	char v6; // cf
-	int v7; // ecx
-	int v8; // ecx
-	char v9; // al
-	char v10; // al
-	char v11; // al
-	char v12; // al
-	int v13; // eax
-	x_BYTE* ptrSpriteRenderSrc_v14; // ebx
-	x_DWORD* v15; // esi
-	uint8_t* v16; // edi
-	int v17; // ecx
-	x_BYTE* ptrSpriteRenderSrc_v18; // ebx
-	x_DWORD* v19; // esi
-	uint8_t* v20; // edi
-	int v21; // eax
-	int v22; // ecx
-	x_BYTE* ptrSpriteRenderSrc_v23; // ebx
-	x_DWORD* v24; // esi
-	uint8_t* v25; // edi
-	int v26; // eax
-	int v27; // ecx
-	x_BYTE* ptrSpriteRenderSrc_v28; // ebx
-	x_DWORD* v29; // esi
-	uint8_t* v30; // edi
-	int v31; // eax
-	int v32; // ecx
-	int v33; // eax
-	x_BYTE* ptrSpriteRenderSrc_v34; // ebx
-	x_DWORD* v35; // esi
-	uint8_t* v36; // edi
-	int v37; // ecx
-	int v38; // edx
-	x_BYTE* ptrSpriteRenderSrc_v39; // ebx
-	x_DWORD* v40; // esi
-	uint8_t* v41; // edi
-	int v42; // eax
-	int v43; // ecx
-	int v44; // edx
-	x_BYTE* ptrSpriteRenderSrc_v45; // ebx
-	x_DWORD* v46; // esi
-	uint8_t* v47; // edi
-	int v48; // eax
-	int v49; // ecx
-	int v50; // ST4C_4
-	int8_t* ptrSpriteRenderSrc_v51x; // ebx
-	uint8_t* ptrSpriteRenderDest_v52; // edx
-	x_DWORD* v53; // esi
-	type_unk_F0E20x* v54x; // edi
-	int v55; // ecx
-	int v56; // ecx
-	int v57; // ecx
-	char v58; // al
-	char v59; // al
-	char v60; // al
-	char v61; // al
-	int8_t* ptrSpriteRenderSrc_v62x; // ebx
-	int v63; // eax
-	uint8_t* ptrSpriteRenderDest_v64; // edx
-	x_DWORD* v65; // esi
-	type_unk_F0E20x* v66x; // edi
-	int v67; // ecx
-	int8_t* ptrSpriteRenderSrc_v68x; // ebx
-	uint8_t* ptrSpriteRenderDest_v69; // edx
-	x_DWORD* v70; // esi
-	type_unk_F0E20x* v71x; // edi
-	int v72; // eax
-	int v73; // ecx
-	int8_t* ptrSpriteRenderSrc_v74x; // ebx
-	uint8_t* ptrSpriteRenderDest_v75; // edx
-	x_DWORD* v76; // esi
-	type_unk_F0E20x* v77x; // edi
-	int v78; // eax
-	int v79; // ecx
-	int8_t* ptrSpriteRenderSrc_v80x; // ebx
-	uint8_t* ptrSpriteRenderDest_v81; // edx
-	x_DWORD* v82; // esi
-	type_unk_F0E20x* v83x; // edi
-	int v84; // eax
-	int v85; // ecx
-	int8_t* ptrSpriteRenderSrc_v86x; // ebx
-	int v87; // eax
-	uint8_t* ptrSpriteRenderDest_v88; // edx
-	x_DWORD* v89; // esi
-	type_unk_F0E20x* v90x; // edi
-	int v91; // ecx
-	int v92; // ecx
-	int8_t* ptrSpriteRenderSrc_v93x; // ebx
-	uint8_t* ptrSpriteRenderDest_v94; // edx
-	int v95; // eax
-	x_DWORD* v96; // esi
-	type_unk_F0E20x* v97x; // edi
-	int v98; // ecx
-	int8_t* ptrSpriteRenderSrc_v99x; // ebx
-	uint8_t* ptrSpriteRenderDest_v100; // edx
-	int v101; // eax
-	x_DWORD* v102; // esi
-	type_unk_F0E20x* v103x; // edi
-	int8_t* ptrSpriteRenderSrc_v104x; // ebx
-	int v105; // eax
-	uint8_t* ptrSpriteRenderDest_v106; // edx
-	x_DWORD* v107; // esi
-	type_unk_F0E20x* v108x; // edi
-	int v109; // ecx
-	char v110; // al
-	char v111; // al
-	int v112; // eax
-	int v113; // edx
-	int v114; // edx
-	signed int v116; // [esp+10h] [ebp-54h]
-	x_DWORD* v117; // [esp+14h] [ebp-50h]
-	x_DWORD* v118; // [esp+14h] [ebp-50h]
-	int32_t* v119; // [esp+14h] [ebp-50h]
-	x_DWORD* v120; // [esp+14h] [ebp-50h]
-	int8_t* v121x; // [esp+1Ch] [ebp-48h]
-	uint8_t* v122x; // [esp+20h] [ebp-44h]
-	uint8_t* ptrRenderBuffer; // [esp+20h] [ebp-44h]
-	int v124; // [esp+24h] [ebp-40h]
-	int v125; // [esp+24h] [ebp-40h]
-	int i; // [esp+24h] [ebp-40h]
-	int k; // [esp+24h] [ebp-40h]
-	int v129; // [esp+24h] [ebp-40h]
-	int v130; // [esp+24h] [ebp-40h]
-	int l; // [esp+28h] [ebp-3Ch]
-	int v132; // [esp+28h] [ebp-3Ch]
-	int v133; // [esp+28h] [ebp-3Ch]
-	int v134; // [esp+34h] [ebp-30h]
-	int v135; // [esp+34h] [ebp-30h]
-	int v136; // [esp+38h] [ebp-2Ch]
-	int v137; // [esp+38h] [ebp-2Ch]
-	int v138; // [esp+3Ch] [ebp-28h]
-	int v139; // [esp+3Ch] [ebp-28h]
-	int v140; // [esp+3Ch] [ebp-28h]
-	int v141; // [esp+3Ch] [ebp-28h]
-	int v142; // [esp+3Ch] [ebp-28h]
-	int v143; // [esp+3Ch] [ebp-28h]
-	int v144; // [esp+3Ch] [ebp-28h]
-	int v145; // [esp+3Ch] [ebp-28h]
-	int v146; // [esp+3Ch] [ebp-28h]
-	int v147; // [esp+3Ch] [ebp-28h]
-	int v148; // [esp+3Ch] [ebp-28h]
-	int v149; // [esp+3Ch] [ebp-28h]
-	int v150; // [esp+3Ch] [ebp-28h]
-	int v151; // [esp+3Ch] [ebp-28h]
-	int v152; // [esp+3Ch] [ebp-28h]
-	x_DWORD* v153; // [esp+40h] [ebp-24h]
-	x_DWORD* v154; // [esp+40h] [ebp-24h]
-	uint8_t* v155; // [esp+40h] [ebp-24h]
-	int v156; // [esp+44h] [ebp-20h]
-	int v157; // [esp+48h] [ebp-1Ch]
-	int v158; // [esp+48h] [ebp-1Ch]
-	int scaledHeight; // [esp+4Ch] [ebp-18h]
-	int v160; // [esp+50h] [ebp-14h]
-	int v161; // [esp+50h] [ebp-14h]
-	int* v162; // [esp+54h] [ebp-10h]
-	x_DWORD* v163; // [esp+54h] [ebp-10h]
-	x_DWORD* v164; // [esp+54h] [ebp-10h]
-	x_DWORD* v165; // [esp+54h] [ebp-10h]
-	int* v166; // [esp+54h] [ebp-10h]
-	x_DWORD* v167; // [esp+54h] [ebp-10h]
-	x_DWORD* v168; // [esp+54h] [ebp-10h]
-	type_unk_F0E20x* v169x; // [esp+58h] [ebp-Ch]
-	int screenPosX; // [esp+5Ch] [ebp-8h]
-	int v171; // [esp+5Ch] [ebp-8h]
-	int v172; // [esp+60h] [ebp-4h]
-	int v173; // [esp+60h] [ebp-4h]
-	int v174; // [esp+60h] [ebp-4h]
-	int v175; // [esp+60h] [ebp-4h]
-
+	int v50;
+	int v112, v113, v114;
+	signed int v116;
+	x_DWORD* v117;
+	x_DWORD* v118;
+	int32_t* v119;
+	x_DWORD* v120;
+	uint8_t* ptrRenderBuffer;
+	uint8_t* v122x;
+	int v124, v125, k, v129, v130, l, v132;
+	int v134, v135, v136, v137, v138;
+	int v139, v140, v141, v142, v143, v144, v145, v146, v147, v148, v149, v150, v151, v152;
+	x_DWORD* v153;
+	x_DWORD* v154;
+	int v156, v157, v158, scaledHeight, v160, v161;
+	int* v162;
+	x_DWORD* v163;
+	x_DWORD* v164;
+	int* v166;
+	x_DWORD* v167;
+	x_DWORD* v168;
+	int screenPosX;
+	int v171, v172, v173, v174, v175;
 	int jy;
-
-	int maxRenderBufferSize = screenWidth_18062C * screenHeight_180624 * 4;
-
-	/*uint8_t origbyte2y[100];
-	uint8_t remakebyte2y[100];
-	int remakepos2y[100];
-	int comp22a = compare_with_sequence_array_222BD3((char*)"00222BD3", (uint8_t*)x_DWORD_F2C20ar, 0x222bd3, debugcounter_sub_41BD3_subDrawSprite, 0x28 * 4, origbyte2y, remakebyte2y, remakepos2y);
-
-	if (comp22a< 0x28 * 4)
-		comp22a = comp22a;
-		*/
-		/*if (CommandLineParams.DoDebugafterload())
-			VGA_Debug_Blit(640, 480, m_ptrScreenBuffer_351628);*/
 
 	if (!x_BYTE_F2CC6)
 	{
@@ -4484,386 +5196,17 @@ void GameRenderHD::DrawSprite_41BD3(uint32 pass)
 								v154 += 2;
 								v132--;
 							}
-							v165 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_2]);
 
-							//Draw Sprite to Render Buffer (rotated and scaled)
-							for (i = scaledHeight; i; i--)
-							{
-								v133 = v165[1];
-								if (v133 > 0)
-								{
-									//adress 2237d3
-									v169x = &m_str_F0E20x[*v165];
-									v155 = 8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1];
-									v121x = &str_F2C20ar.dword0x02_data[str_F2C20ar.dword0x08_width * (str_F2C20ar.dword0x0a_actIdx >> 16)];
-
-									if ((unsigned int)str_F2C20ar.dword0x01_visibilityIdx <= 8)
-									{
-										switch (str_F2C20ar.dword0x01_visibilityIdx)
-										{
-										case 0:
-											ptrSpriteRenderSrc_v51x = &v121x[*(x_DWORD*)(v155 + 4)];
-											ptrSpriteRenderDest_v52 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
-											v53 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
-											v54x = &m_str_F0E20x[*v165];
-											v55 = v133 >> 1;
-											if (!(v133 & 1))
-											{
-												v6 = v55 & 1;
-												v56 = v133 >> 2;
-												if (v6)
-												{
-													v56++;
-													v53 = (x_DWORD*)(v155 - 8);
-													v54x = &v169x[-1];
-													goto LABEL_197;
-												}
-												v53 = (x_DWORD*)(v155 + 8);
-												v54x = &v169x[1];
-												goto LABEL_191;
-											}
-											v57 = v55 + 2;
-											v6 = v57 & 1;
-											v56 = v57 >> 1;
-											if (!v6)
-											{
-												v53 = (x_DWORD*)(v155 - 16);
-												v54x = &v169x[-2];
-												goto LABEL_200;
-											}
-											while (1)
-											{
-												v59 = ptrSpriteRenderSrc_v51x[0];
-												ptrSpriteRenderSrc_v51x += v53[2];
-
-												if (v59)
-													*ptrSpriteRenderDest_v52 = v59;
-												ptrSpriteRenderDest_v52 += v54x[1].dword_0;
-
-											LABEL_197:
-
-												v60 = ptrSpriteRenderSrc_v51x[0];
-												ptrSpriteRenderSrc_v51x += v53[4];
-
-												if (v60)
-													*ptrSpriteRenderDest_v52 = v60;
-												ptrSpriteRenderDest_v52 += v54x[2].dword_0;
-
-											LABEL_200:
-
-												v61 = ptrSpriteRenderSrc_v51x[0];
-												ptrSpriteRenderSrc_v51x += v53[6];
-
-												if (v61)
-													*ptrSpriteRenderDest_v52 = v61;
-												ptrSpriteRenderDest_v52 += v54x[3].dword_0;
-
-												v53 += 8;
-												v54x += 4;
-												if (!--v56)
-													break;
-											LABEL_191:
-
-												v58 = ptrSpriteRenderSrc_v51x[0];
-												ptrSpriteRenderSrc_v51x += *v53;
-
-												if (v58)
-													*ptrSpriteRenderDest_v52 = v58;
-												ptrSpriteRenderDest_v52 += v54x[0].dword_0;
-											}
-											break;
-										case 1:
-											ptrSpriteRenderSrc_v62x = &v121x[*(x_DWORD*)(v155 + 4)];
-
-											v63 = str_F2C20ar.dword0x00;
-											ptrSpriteRenderDest_v64 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
-
-											v65 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
-											v66x = &m_str_F0E20x[*v165];
-											v67 = v133 >> 1;
-											if (!(v133 & 1))
-											{
-												v65 = (x_DWORD*)(v155 + 8);
-												v66x = &v169x[1];
-												goto LABEL_207;
-											}
-											v67++;
-											while (1)
-											{
-												LOBYTE(v63) = ptrSpriteRenderSrc_v62x[0];
-												ptrSpriteRenderSrc_v62x += v65[2];
-
-												if ((x_BYTE)v63)
-													*ptrSpriteRenderDest_v64 = ColourLookupTable_F6EE0[v63];
-												ptrSpriteRenderDest_v64 += v66x[1].dword_0;
-
-												v65 += 4;
-												v66x += 2;
-												if (!--v67)
-													break;
-											LABEL_207:
-												LOBYTE(v63) = ptrSpriteRenderSrc_v62x[0];
-												ptrSpriteRenderSrc_v62x += *v65;
-
-												if ((x_BYTE)v63)
-													*ptrSpriteRenderDest_v64 = ColourLookupTable_F6EE0[v63];
-												ptrSpriteRenderDest_v64 += v66x->dword_0;
-											}
-											break;
-										case 2:
-											ptrSpriteRenderSrc_v68x = &v121x[*(x_DWORD*)(v155 + 4)];
-											ptrSpriteRenderDest_v69 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
-											v70 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
-											v71x = &m_str_F0E20x[*v165];
-											HIWORD(v72) = 0;
-											v73 = v133 >> 1;
-											if (!(v133 & 1))
-											{
-												v70 = (x_DWORD*)(v155 + 8);
-												v71x = &v169x[1];
-												goto LABEL_217;
-											}
-											v73++;
-											while (1)
-											{
-												HIBYTE(v72) = ptrSpriteRenderSrc_v68x[0];
-												ptrSpriteRenderSrc_v68x += v70[2];
-
-												if (HIBYTE(v72))
-												{
-													LOBYTE(v72) = *ptrSpriteRenderDest_v69;
-													*ptrSpriteRenderDest_v69 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v72];
-												}
-												ptrSpriteRenderDest_v69 += v71x[1].dword_0;
-
-												v70 += 4;
-												v71x += 2;
-												if (!--v73)
-													break;
-											LABEL_217:
-												HIBYTE(v72) = ptrSpriteRenderSrc_v68x[0];
-												ptrSpriteRenderSrc_v68x += *v70;
-
-												if (HIBYTE(v72))
-												{
-													LOBYTE(v72) = *ptrSpriteRenderDest_v69;
-													*ptrSpriteRenderDest_v69 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v72];
-												}
-												ptrSpriteRenderDest_v69 += v71x->dword_0;
-											}
-											break;
-										case 3:
-											ptrSpriteRenderSrc_v74x = &v121x[*(x_DWORD*)(v155 + 4)];
-											ptrSpriteRenderDest_v75 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
-											v76 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);//to position
-											v77x = &m_str_F0E20x[v165[0]];//from position
-											HIWORD(v78) = 0;
-											v79 = v133 >> 1;
-											if (!(v133 & 1))
-											{
-												v76 = (x_DWORD*)(v155 + 8);
-												v77x = &v169x[1];
-												goto LABEL_227;
-											}
-											v79++;
-											while (1)
-											{
-												LOBYTE(v78) = ptrSpriteRenderSrc_v74x[0];
-												ptrSpriteRenderSrc_v74x += v76[2];
-
-												if ((x_BYTE)v78)
-												{
-													HIBYTE(v78) = *ptrSpriteRenderDest_v75;
-													*ptrSpriteRenderDest_v75 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v78];
-												}
-												ptrSpriteRenderDest_v75 += v77x[1].dword_0;
-
-												v76 += 4;
-												v77x += 2;
-												if (!--v79)
-													break;
-											LABEL_227:
-												LOBYTE(v78) = ptrSpriteRenderSrc_v74x[0];
-												ptrSpriteRenderSrc_v74x += *v76;
-
-												if ((x_BYTE)v78)
-												{
-													HIBYTE(v78) = *ptrSpriteRenderDest_v75;
-													*ptrSpriteRenderDest_v75 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v78];
-												}
-												ptrSpriteRenderDest_v75 += v77x->dword_0;
-											}
-											break;
-										case 4:
-											ptrSpriteRenderSrc_v80x = &v121x[*(x_DWORD*)(v155 + 4)];
-											HIWORD(v84) = HIWORD(str_F2C20ar.dword0x07);
-											ptrSpriteRenderDest_v81 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
-
-											v82 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
-											v83x = &m_str_F0E20x[*v165];
-											BYTE1(v84) = str_F2C20ar.dword0x07;
-											v85 = v133 >> 1;
-											if (!(v133 & 1))
-											{
-												v82 = (x_DWORD*)(v155 + 8);
-												v83x = &v169x[1];
-												goto LABEL_237;
-											}
-											v85++;
-											while (1)
-											{
-												LOBYTE(v84) = ptrSpriteRenderSrc_v80x[0];
-												ptrSpriteRenderSrc_v80x += v82[2];
-
-												if ((x_BYTE)v84)
-													*ptrSpriteRenderDest_v81 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v84];
-												ptrSpriteRenderDest_v81 += v83x[1].dword_0;
-
-												v82 += 4;
-												v83x += 2;
-												if (!--v85)
-													break;
-											LABEL_237:
-												LOBYTE(v84) = ptrSpriteRenderSrc_v80x[0];
-												ptrSpriteRenderSrc_v80x += *v82;
-
-												if ((x_BYTE)v84)
-													*ptrSpriteRenderDest_v81 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v84];
-												ptrSpriteRenderDest_v81 += v83x->dword_0;
-											}
-											break;
-										case 5:
-											ptrSpriteRenderSrc_v86x = &v121x[*(x_DWORD*)(v155 + 4)];
-											v87 = str_F2C20ar.dword0x07;
-											ptrSpriteRenderDest_v88 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
-											v89 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
-											v90x = &m_str_F0E20x[*v165];
-											v91 = v133 >> 1;
-											if (!(v133 & 1))
-											{
-												v89 = (x_DWORD*)(v155 + 8);
-												v90x = &m_str_F0E20x[1];
-												goto LABEL_247;
-											}
-											v91++;
-											while (1)
-											{
-												BYTE1(v87) = ptrSpriteRenderSrc_v86x[0];
-												ptrSpriteRenderSrc_v86x += v89[2];
-
-												if (BYTE1(v87))
-													*ptrSpriteRenderDest_v88 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v87];
-												ptrSpriteRenderDest_v88 += v90x[1].dword_0;
-
-												v89 += 4;
-												v90x += 2;
-												if (!--v91)
-													break;
-											LABEL_247:
-												BYTE1(v87) = ptrSpriteRenderSrc_v86x[0];
-												ptrSpriteRenderSrc_v86x += *v89;
-
-												if (BYTE1(v87))
-													*ptrSpriteRenderDest_v88 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v87];
-												ptrSpriteRenderDest_v88 += v90x->dword_0;
-											}
-											break;
-										case 6:
-											v92 = str_F2C20ar.dword0x00;
-											ptrSpriteRenderSrc_v93x = &v121x[*(x_DWORD*)(v155 + 4)];
-											ptrSpriteRenderDest_v94 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
-
-											HIWORD(v95) = 0;
-											v96 = (x_DWORD*)(v155 + 8);
-											v97x = &v169x[1];
-											do
-											{
-												BYTE1(v95) = ptrSpriteRenderSrc_v93x[0];
-												ptrSpriteRenderSrc_v93x += *v96;
-
-												if (BYTE1(v95))
-												{
-													LOBYTE(v95) = *ptrSpriteRenderDest_v94;
-													LOBYTE(v92) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v95];
-													*ptrSpriteRenderDest_v94 = ColourLookupTable_F6EE0[v92];
-												}
-												ptrSpriteRenderDest_v94 += v97x->dword_0;
-												v96 += 2;
-												v97x++;
-												v133--;
-											} while (v133);
-											break;
-										case 7:
-											v98 = str_F2C20ar.dword0x00;
-											ptrSpriteRenderSrc_v99x = &v121x[*(x_DWORD*)(v155 + 4)];
-											ptrSpriteRenderDest_v100 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
-											HIWORD(v101) = 0;
-											v102 = (x_DWORD*)(v155 + 8);
-											v103x = &v169x[1];
-											do
-											{
-												LOBYTE(v101) = ptrSpriteRenderSrc_v99x[0];
-												ptrSpriteRenderSrc_v99x += *v102;
-
-												if ((x_BYTE)v101)
-												{
-													BYTE1(v101) = *ptrSpriteRenderDest_v100;
-													LOBYTE(v98) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v101];
-													*ptrSpriteRenderDest_v100 = ColourLookupTable_F6EE0[v98];
-												}
-												ptrSpriteRenderDest_v100 += v103x->dword_0;
-												v102 += 2;
-												v103x++;
-												v133--;
-											} while (v133);
-											break;
-										case 8:
-											ptrSpriteRenderSrc_v104x = &v121x[*(x_DWORD*)(v155 + 4)];
-											v105 = str_F2C20ar.dword0x00;
-											ptrSpriteRenderDest_v106 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
-											v107 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
-											v108x = &m_str_F0E20x[*v165];
-											v109 = v133 >> 1;
-											if (!(v133 & 1))
-											{
-												v107 = (x_DWORD*)(v155 + 8);
-												v108x = &v169x[1];
-												goto LABEL_267;
-											}
-											v109++;
-											while (1)
-											{
-												v111 = ptrSpriteRenderSrc_v104x[0];
-												ptrSpriteRenderSrc_v104x += v107[2];
-
-												if (v111)
-												{
-													LOBYTE(v105) = *ptrSpriteRenderDest_v106;
-													*ptrSpriteRenderDest_v106 = ColourLookupTable_F6EE0[v105];
-												}
-												ptrSpriteRenderDest_v106 += v108x[3].dword_0;
-												v107 += 4;
-												v108x += 2;
-												if (!--v109)
-													break;
-											LABEL_267:
-												v110 = ptrSpriteRenderSrc_v104x[0];
-												ptrSpriteRenderSrc_v104x += *v107;
-												if (v110)
-												{
-													LOBYTE(v105) = *ptrSpriteRenderDest_v106;
-													*ptrSpriteRenderDest_v106 = ColourLookupTable_F6EE0[v105];
-												}
-												ptrSpriteRenderDest_v106 += v108x->dword_0;
-											}
-											break;
-										}
-									}
-								}
-								str_F2C20ar.dword0x0a_actIdx += v135;
-								ptrRenderBuffer += str_F2C20ar.dword0x23_stride;
-								v165 += 3;
-							}
+							// ---- threaded line draw (replaces the old for (i = scaledHeight; i; i--) loop) ----
+							SpriteDrawJob job;
+							job.rotated = true;
+							job.dest = ptrRenderBuffer;
+							job.lineCount = scaledHeight;
+							job.actIdx0 = str_F2C20ar.dword0x0a_actIdx;
+							job.actStep = v135;
+							job.stride = str_F2C20ar.dword0x23_stride;
+							job.minOffset = v116;
+							RunSpriteJob(job, v156);
 						}
 						break;
 					case 7:
@@ -4920,7 +5263,6 @@ void GameRenderHD::DrawSprite_41BD3(uint32 pass)
 							if (scaledHeight <= 0)
 								break;
 						}
-						//adress 223d83
 						v116 = 9999999;
 						for (jy = scaledHeight; jy; jy--)
 						{
@@ -5033,7 +5375,7 @@ void GameRenderHD::DrawSprite_41BD3(uint32 pass)
 		goto LABEL_126;
 	}
 
-	//Draw Sprite to Render buffer
+	//Draw Sprite to Render buffer (flat / particle path)
 	v138 = (str_F2C20ar.dword0x0c_realHeight + str_F2C20ar.dword0x09_realWidth) >> 2;
 	if (pass >= 1)
 	{
@@ -5102,341 +5444,20 @@ void GameRenderHD::DrawSprite_41BD3(uint32 pass)
 					str_F2C20ar.dword0x14x,
 					(int16_t)(str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1)),
 					(int16_t)(str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1)));
-			//v1 = (int)(x_DWORD_F2C2C * iScreenWidth_DE560 + x_DWORD_F2C30 + x_DWORD_DE558);
 
 			//               screen-Y                                            screen-X
 			v122x = &ViewPortRenderBufferStart_DE558[str_F2C20ar.dword0x03_screenX * iScreenWidth_DE560 + str_F2C20ar.dword0x04_screenY];
-			//height
-			while (str_F2C20ar.dword0x0c_realHeight)
-			{
-				if ((unsigned int)str_F2C20ar.dword0x01_visibilityIdx <= 7)
-				{
-					switch (str_F2C20ar.dword0x01_visibilityIdx)//mirroring
-					{
-					case 0:
-						//               width                  actual line                   base adress                 add index
-						//v2 = (char*)(str_F2C20ar.dword0x08_width * (str_F2C20ar.dword0x0a_actIdx >> 16) + (int)str_F2C20ar.dword0x02_data + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + 36964));//sprite
-						ptrSpriteRenderSrc_v2x = &str_F2C20ar.dword0x02_data[str_F2C20ar.dword0x08_width * (str_F2C20ar.dword0x0a_actIdx >> 16) + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4)];//sprite
-						v3 = (x_DWORD*)&(m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
-						v4 = v122x;//screen
-						//   parametres
-						v5 = str_F2C20ar.dword0x09_realWidth >> 1;
-						if (!(str_F2C20ar.dword0x09_realWidth & 1))//bit 1
-						{
-							v6 = v5 & 1;//bit 2
-							v7 = str_F2C20ar.dword0x09_realWidth >> 2;//bits 3-8 -> 1-6
-							if (v6)
-							{
-								v7++;
-								v3 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 - 8);
-								v4 = (uint8_t*)(v122x - 2);
-								goto LABEL_49;
-							}
-							v3 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
-							goto LABEL_45;
-						}
-						v8 = v5 + 2;
-						v6 = v8 & 1;
-						v7 = v8 >> 1;
-						if (!v6)
-						{
-							v3 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 - 16);
-							v4 = (uint8_t*)(v122x - 3);
-							goto LABEL_51;
-						}
-						v4 = (uint8_t*)(v122x - 1);
-						while (1)
-						{
-							v10 = ptrSpriteRenderSrc_v2x[0];
-							ptrSpriteRenderSrc_v2x += v3[2];
 
-							if (v10)
-								v4[1] = v10;
-						LABEL_49:
-							v11 = ptrSpriteRenderSrc_v2x[0];
-							ptrSpriteRenderSrc_v2x += v3[4];
-
-							if (v11)
-								v4[2] = v11;
-						LABEL_51:
-							v12 = ptrSpriteRenderSrc_v2x[0];
-							ptrSpriteRenderSrc_v2x += v3[6];
-
-							if (v12)
-								v4[3] = v12;
-							v4 += 4;
-							v3 += 8;
-							if (!--v7)
-								break;
-						LABEL_45:
-							v9 = ptrSpriteRenderSrc_v2x[0];
-							ptrSpriteRenderSrc_v2x += v3[0];
-
-							if (v9)//if not transparent pixel
-								*v4 = v9;
-						}
-						break;
-					case 1:
-						v13 = str_F2C20ar.dword0x00;
-						ptrSpriteRenderSrc_v14 = (x_BYTE*)(str_F2C20ar.dword0x08_width * (str_F2C20ar.dword0x0a_actIdx >> 16) + str_F2C20ar.dword0x02_data + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4));
-						v15 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
-						v16 = (uint8_t*)v122x;
-						v17 = str_F2C20ar.dword0x09_realWidth >> 1;
-						if (!(str_F2C20ar.dword0x09_realWidth & 1))
-						{
-							v15 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
-							goto LABEL_58;
-						}
-						v17++;
-						v16 = (uint8_t*)(v122x - 1);
-						while (1)
-						{
-							LOBYTE(v13) = *ptrSpriteRenderSrc_v14;
-							ptrSpriteRenderSrc_v14 += v15[2];
-
-							if ((x_BYTE)v13)
-								v16[1] = ColourLookupTable_F6EE0[v13];
-							v16 += 2;
-							v15 += 4;
-							if (!--v17)
-								break;
-						LABEL_58:
-							LOBYTE(v13) = *ptrSpriteRenderSrc_v14;
-							ptrSpriteRenderSrc_v14 += *v15;
-
-							if ((x_BYTE)v13)
-								*v16 = ColourLookupTable_F6EE0[v13];
-						}
-						break;
-					case 2:
-						ptrSpriteRenderSrc_v18 = (x_BYTE*)(str_F2C20ar.dword0x08_width * (str_F2C20ar.dword0x0a_actIdx >> 16) + str_F2C20ar.dword0x02_data + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4));
-						v19 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
-						v20 = (uint8_t*)v122x;
-						HIWORD(v21) = 0;
-						v22 = str_F2C20ar.dword0x09_realWidth >> 1;
-						if (!(str_F2C20ar.dword0x09_realWidth & 1))
-						{
-							v19 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
-							goto LABEL_67;
-						}
-						v22++;
-						v20 = (uint8_t*)(v122x - 1);
-						while (1)
-						{
-							HIBYTE(v21) = *ptrSpriteRenderSrc_v18;
-							ptrSpriteRenderSrc_v18 += v19[2];
-
-							if (HIBYTE(v21))
-							{
-								LOBYTE(v21) = v20[1];
-								v20[1] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v21];
-							}
-							v20 += 2;
-							v19 += 4;
-							if (!--v22)
-								break;
-						LABEL_67:
-							HIBYTE(v21) = *ptrSpriteRenderSrc_v18;//zde
-							ptrSpriteRenderSrc_v18 += *v19;
-
-							if (HIBYTE(v21))
-							{
-								LOBYTE(v21) = *v20;
-								v20[0] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v21];
-							}
-						}
-						break;
-					case 3:
-						ptrSpriteRenderSrc_v23 = (x_BYTE*)(str_F2C20ar.dword0x08_width * (str_F2C20ar.dword0x0a_actIdx >> 16) + str_F2C20ar.dword0x02_data + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4));//from mask
-						v24 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);//from image
-						v25 = v122x;//to adress
-						HIWORD(v26) = 0;
-						v27 = str_F2C20ar.dword0x09_realWidth >> 1;
-						if (!(str_F2C20ar.dword0x09_realWidth & 1))
-						{
-							v24 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
-							goto LABEL_76;
-						}
-						v27++;
-						v25 = (uint8_t*)(v122x - 1);
-						while (1)
-						{
-							LOBYTE(v26) = *ptrSpriteRenderSrc_v23;
-							ptrSpriteRenderSrc_v23 += v24[2];
-
-							if ((x_BYTE)v26)
-							{
-								HIBYTE(v26) = v25[1];
-								v25[1] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v26];
-							}
-							v25 += 2;
-							v24 += 4;
-							if (!--v27)
-								break;
-						LABEL_76:
-							LOBYTE(v26) = *ptrSpriteRenderSrc_v23;
-							ptrSpriteRenderSrc_v23 += *v24;
-
-							if ((x_BYTE)v26)
-							{
-								HIBYTE(v26) = v25[0];
-								v25[0] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v26];
-							}
-						}
-						break;
-					case 4:
-						HIWORD(v31) = HIWORD(str_F2C20ar.dword0x07);
-						ptrSpriteRenderSrc_v28 = (x_BYTE*)(str_F2C20ar.dword0x08_width * (str_F2C20ar.dword0x0a_actIdx >> 16) + str_F2C20ar.dword0x02_data + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4));
-						v29 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
-						v30 = v122x;
-						HIBYTE(v31) = str_F2C20ar.dword0x07;
-						v32 = str_F2C20ar.dword0x09_realWidth >> 1;
-						if (!(str_F2C20ar.dword0x09_realWidth & 1))
-						{
-							v29 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
-							goto LABEL_85;
-						}
-						v32++;
-						v30 = (uint8_t*)(v122x - 1);
-						while (1)
-						{
-							LOBYTE(v31) = *ptrSpriteRenderSrc_v28;
-							ptrSpriteRenderSrc_v28 += v29[2];
-
-							if ((x_BYTE)v31)
-								v30[1] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v31];
-							v30 += 2;
-							v29 += 4;
-							if (!--v32)
-								break;
-						LABEL_85:
-							LOBYTE(v31) = *ptrSpriteRenderSrc_v28;
-							ptrSpriteRenderSrc_v28 += *v29;
-
-							if ((x_BYTE)v31)
-								*v30 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v31];
-						}
-						break;
-					case 5:
-						v33 = str_F2C20ar.dword0x07;
-						ptrSpriteRenderSrc_v34 = (x_BYTE*)(str_F2C20ar.dword0x08_width * (str_F2C20ar.dword0x0a_actIdx >> 16) + str_F2C20ar.dword0x02_data + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4));
-						v35 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
-						v36 = v122x;
-						v37 = str_F2C20ar.dword0x09_realWidth >> 1;
-						if (!(str_F2C20ar.dword0x09_realWidth & 1))
-						{
-							v35 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
-							goto LABEL_94;
-						}
-						v37++;
-						v36 = (uint8_t*)(v122x - 1);
-						while (1)
-						{
-							BYTE1(v33) = *ptrSpriteRenderSrc_v34;
-							ptrSpriteRenderSrc_v34 += v35[2];
-
-							if (BYTE1(v33))
-								v36[1] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v33];
-							v36 += 2;
-							v35 += 4;
-							if (!--v37)
-								break;
-						LABEL_94:
-							BYTE1(v33) = *ptrSpriteRenderSrc_v34;
-							ptrSpriteRenderSrc_v34 += *v35;
-
-							if (BYTE1(v33))
-								*v36 = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v33];
-						}
-						break;
-					case 6:
-						v38 = str_F2C20ar.dword0x00;
-						ptrSpriteRenderSrc_v39 = (x_BYTE*)(str_F2C20ar.dword0x08_width * (str_F2C20ar.dword0x0a_actIdx >> 16) + str_F2C20ar.dword0x02_data + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4));
-						v40 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
-						v41 = v122x;
-						HIWORD(v42) = 0;
-						v43 = str_F2C20ar.dword0x09_realWidth >> 1;
-						if (!(str_F2C20ar.dword0x09_realWidth & 1))
-						{
-							v40 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
-							goto LABEL_103;
-						}
-						v43++;
-						v41 = (uint8_t*)(v122x - 1);
-						while (1)
-						{
-							BYTE1(v42) = *ptrSpriteRenderSrc_v39;
-							ptrSpriteRenderSrc_v39 += v40[2];
-
-							if (BYTE1(v42))
-							{
-								LOBYTE(v42) = v41[1];
-								LOBYTE(v38) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v42];
-								v41[1] = ColourLookupTable_F6EE0[v38];
-							}
-							v41 += 2;
-							v40 += 4;
-							if (!--v43)
-								break;
-						LABEL_103:
-							BYTE1(v42) = *ptrSpriteRenderSrc_v39;
-							ptrSpriteRenderSrc_v39 += *v40;
-
-							if (BYTE1(v42))
-							{
-								LOBYTE(v42) = *v41;
-								LOBYTE(v38) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v42];
-								*v41 = ColourLookupTable_F6EE0[v38];
-							}
-						}
-						break;
-					case 7:
-						v44 = str_F2C20ar.dword0x00;
-						ptrSpriteRenderSrc_v45 = (x_BYTE*)(str_F2C20ar.dword0x08_width * (str_F2C20ar.dword0x0a_actIdx >> 16) + str_F2C20ar.dword0x02_data + *(x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 4));
-						v46 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
-						v47 = v122x;
-						HIWORD(v48) = 0;
-						v49 = str_F2C20ar.dword0x09_realWidth >> 1;
-						if (!(str_F2C20ar.dword0x09_realWidth & 1))
-						{
-							v46 = (x_DWORD*)(m_ptrDWORD_E9C38_smalltit + m_bufferOffset_E9C38_1 + 8);
-							goto LABEL_112;
-						}
-						v49++;
-						v47 = (uint8_t*)(v122x - 1);
-						while (1)
-						{
-							LOBYTE(v48) = *ptrSpriteRenderSrc_v45;
-							ptrSpriteRenderSrc_v45 += v46[2];
-
-							if ((x_BYTE)v48)
-							{
-								BYTE1(v48) = v47[1];
-								LOBYTE(v44) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v48];
-								v47[1] = ColourLookupTable_F6EE0[v44];
-							}
-							v47 += 2;
-							v46 += 4;
-							if (!--v49)
-								break;
-						LABEL_112:
-							LOBYTE(v48) = *ptrSpriteRenderSrc_v45;
-							ptrSpriteRenderSrc_v45 += *v46;
-
-							if ((x_BYTE)v48)
-							{
-								BYTE1(v48) = *v47;
-								LOBYTE(v44) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + v48];
-								*v47 = ColourLookupTable_F6EE0[v44];
-							}
-						}
-						break;
-					}
-				}
-				str_F2C20ar.dword0x0a_actIdx += v134;
-				v122x += iScreenWidth_DE560;
-				str_F2C20ar.dword0x0c_realHeight--;
-			}
+			// ---- threaded line draw (replaces the old while (realHeight) loop) ----
+			SpriteDrawJob job;
+			job.rotated = false;
+			job.dest = v122x;
+			job.lineCount = str_F2C20ar.dword0x0c_realHeight;
+			job.actIdx0 = str_F2C20ar.dword0x0a_actIdx;
+			job.actStep = v134;
+			job.stride = iScreenWidth_DE560;
+			job.minOffset = 0;
+			RunSpriteJob(job, str_F2C20ar.dword0x09_realWidth);
 		}
 	}
 }

@@ -3,13 +3,13 @@
 // ── ThreadingDialog ───────────────────────────────────────────────────────────
 ThreadingDialog::ThreadingDialog(wxWindow* parent, const Config::Settings::Threading& cfg)
 	: wxDialog(parent, wxID_ANY, "Threading Settings",
-		wxDefaultPosition, wxSize(286, 220),
+		wxDefaultPosition, wxSize(286, 190),
 		wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX)
 {
 	m_cfg = cfg;
 
 	auto* main = new wxBoxSizer(wxVERTICAL);
-	auto* grid = new wxFlexGridSizer(/*rows*/4, /*cols*/2, /*vgap*/10, /*hgap*/12);
+	auto* grid = new wxFlexGridSizer(/*rows*/3, /*cols*/2, /*vgap*/10, /*hgap*/12);
 	grid->AddGrowableCol(1, 1);
 
 	// ── Is Active ─────────────────────────────────────────────────────────────
@@ -20,16 +20,6 @@ ThreadingDialog::ThreadingDialog(wxWindow* parent, const Config::Settings::Threa
 	m_chkActive->SetToolTip("If set to false or deleted, multi-threading will not be used in render.");
 	m_chkActive->Bind(wxEVT_CHECKBOX, &ThreadingDialog::OnActiveToggled, this);
 	grid->Add(m_chkActive, 0);
-
-	// ── Size Percent to Thread Render ─────────────────────────────────────────
-	grid->Add(new wxStaticText(this, wxID_ANY, "Size percentage to thread render:"),
-		0, wxALIGN_CENTER_VERTICAL);
-	m_spinSizePercent = new wxSpinCtrlDouble(this, wxID_ANY,
-		wxEmptyString, wxDefaultPosition, wxDefaultSize,
-		wxSP_ARROW_KEYS, 0.0, 100.0, cfg.m_SizePercentToThreadRender, 0.5);
-	m_spinSizePercent->SetDigits(1);
-	m_spinSizePercent->SetToolTip("0.0 - 100.0. Decides if a poly is big enough percentage on screen to render using threading.");
-	grid->Add(m_spinSizePercent, 0, wxEXPAND);
 
 	// ── Number of Render Threads ──────────────────────────────────────────────
 	grid->Add(new wxStaticText(this, wxID_ANY, "Addtional render threads:"),
@@ -65,7 +55,6 @@ ThreadingDialog::ThreadingDialog(wxWindow* parent, const Config::Settings::Threa
 	btnOK->Bind(wxEVT_BUTTON, &ThreadingDialog::OnOK, this);
 
 	const bool active = m_chkActive->GetValue();
-	m_spinSizePercent->Enable(active);
 	m_spinNumThreads->Enable(active);
 	m_chkAssignCores->Enable(active);
 
@@ -76,7 +65,6 @@ ThreadingDialog::ThreadingDialog(wxWindow* parent, const Config::Settings::Threa
 void ThreadingDialog::OnActiveToggled(wxCommandEvent&)
 {
 	const bool active = m_chkActive->GetValue();
-	m_spinSizePercent->Enable(active);
 	m_spinNumThreads->Enable(active);
 	m_chkAssignCores->Enable(active);
 }
@@ -91,7 +79,6 @@ Config::Settings::Threading ThreadingDialog::GetSettings() const
 	Config::Settings::Threading cfg = m_cfg;
 
 	cfg.m_IsActive = m_chkActive->GetValue();
-	cfg.m_SizePercentToThreadRender = m_spinSizePercent->GetValue();
 	cfg.m_NumberOfRenderThreads = m_spinNumThreads->GetValue();
 	cfg.m_AssignToSpecificCores = m_chkAssignCores->GetValue();
 

@@ -92,6 +92,12 @@ void DrawSorcererScores_2D1D0(uint8_t scale = 1);
 void DrawTextboxLine_89A30(const Type_TextBox_1804B0* textbox);
 void DrawVolumeSettings_303D0(uint8_t scale = 1);
 
+void BuildMapRowSpansLowRes(bool fullRows, int width, int height);
+template <bool Masked, bool Blend, bool WriteMemory>
+void DrawMapRowsLowRes(uint8_t* ptrScreenBuffer, uint8_t* ptrMemoryBuffer, int height, int rowU, int rowV, int du, int dv, int rowStepU, int rowStepV);
+void BuildMapRowSpans(bool fullRows, int width, int height);
+template <bool Masked, bool Blend>
+void DrawMapRows(uint8_t* ptrScreenBuffer, int height, int rowU, int rowV, int du, int dv, int rowStepU, int rowStepV);
 void DrawMapLowRes_63670(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
 void DrawMapHighRes_63C90(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
 void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale);

@@ -1515,6 +1515,14 @@ void ChangeSettings_1A970(char a1, int a2, int a3)//1fb970
 		sub_417D0_install_pal_and_mouse_minmax2();
 		return;
 	case 19:
+		if (m_ptrGameRender != nullptr && typeid(*m_ptrGameRender) == typeid(GameRenderNG))
+		{
+			GameRenderNG* render = (GameRenderNG*)m_ptrGameRender;
+			const uint8_t numRenderThreads = render->GetRenderThreads() >= 7 ? 0 : render->GetRenderThreads() + 1;
+			render->SetRenderThreads(numRenderThreads);
+			const std::string message = numRenderThreads ? "Multi-thread render ON: Number of Threads: " + std::to_string(numRenderThreads) : "Multi-thread render OFF";
+			SetCurrentNotificationMessage_19760(message.c_str(), 3u, 50);
+		}
 		if (m_ptrGameRender != nullptr && typeid(*m_ptrGameRender) == typeid(GameRenderHD))
 		{
 			uint8_t numRenderThreads = ((GameRenderHD*)m_ptrGameRender)->GetRenderThreads();
@@ -2116,8 +2124,10 @@ void ComputeMousePlayerMovement_17060(int16_t x, int16_t y)//1f8060
 		}
 		else
 		{
-			roll = ((x << 7) - ((gameResWidth / 2) << 7)) / (gameResWidth / 2);
-			pitch = ((y << 7) - ((gameResHeight / 2) << 7)) / -(gameResHeight / 2);
+			const int centerX = screenWidth_18062C / 2;//640x480: 320, 240 as the original
+			const int centerY = screenHeight_180624 / 2;
+			roll = ((x << 7) - (centerX << 7)) / centerX;//1f80c5: lea edx, [eax-0A000h]
+			pitch = ((y << 7) - (centerY << 7)) / -centerY;//1f80df: lea edx, [eax-7800h]
 		}
 		if (roll < -127)
 			roll = -127;
@@ -2536,8 +2546,8 @@ void ChangeGameResolution_46B40()//227b40
 	unsigned __int8 v2; // al
 	unsigned __int8 v3; // al
 
-	int16_t v0_tempmousex = 320;
-	int16_t v0_tempmousey = 200;
+	int16_t v0_tempmousex = x_WORD_E3760_mouse.x;//227b46: mov si, word_E3760
+	int16_t v0_tempmousey = x_WORD_E3760_mouse.y;//227b53: mov bx, word_E3762
 
 	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 	sub_417A0_install_pal_and_mouse_minmax();

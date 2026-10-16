@@ -355,12 +355,16 @@ Config::Settings::GameDetail Config::GetGameDetail(const json& graphics)
 		gameDetailValues.m_HighResGraphicsFolder = ReadStringValue(gameDetail, "highResGraphicsFolder");
 		gameDetailValues.m_UseFixedMenuGraphics = ReadBoolValue(gameDetail, "useFixedMenuGraphics");
 		gameDetailValues.m_FixedMenuGraphicsFolder = ReadStringValue(gameDetail, "fixedMenuGraphicsFolder");
+		gameDetailValues.m_UseFixedTmaps = ReadBoolValue(gameDetail, "useFixedTmaps");
+		gameDetailValues.m_FixedTmapsFolder = ReadStringValue(gameDetail, "fixedTmapsFolder");
 		gameDetailValues.m_UseExtendedFonts = ReadBoolValue(gameDetail, "useExtendedFonts");
 		gameDetailValues.m_ExtendedFontsFolder = ReadStringValue(gameDetail, "extendedFontsFolder");
 		gameDetailValues.m_Sky = ReadBoolValue(gameDetail, "sky");
 		gameDetailValues.m_Reflections = ReadBoolValue(gameDetail, "reflections");
 		gameDetailValues.m_DynamicLighting = ReadBoolValue(gameDetail, "dynamicLighting");
 		gameDetailValues.m_ViewDistanceScale = ReadIntValue(gameDetail, "viewDistanceScale");
+		if (gameDetail.contains("fogScale"))
+			gameDetailValues.m_FogScale = ReadFloatValue(gameDetail, "fogScale");
 	}
 	return gameDetailValues;
 }
@@ -373,6 +377,7 @@ Config::Settings::Threading Config::GetThreading(const json& graphics)
 		const auto& threading = graphics["threading"];
 		threadingValues.m_IsActive = threading.value("isActive", false);
 		threadingValues.m_SizePercentToThreadRender = ReadFloatValue(threading, "sizePercentToThreadRender");
+		threadingValues.m_SizePercentToThreadRenderSprites = ReadFloatValue(threading, "sizePercentToThreadRenderSprites");
 		threadingValues.m_NumberOfRenderThreads = (uint8_t)ReadIntValue(threading, "numberOfRenderThreads");
 		threadingValues.m_AssignToSpecificCores = ReadBoolValue(threading, "assignToSpecificCores");
 	}
@@ -497,12 +502,15 @@ void Config::SaveGameDetailToDoc(Config::Settings::GameDetail gameDetail)
 	SetString(gd, "highResGraphicsFolder", gameDetail.m_HighResGraphicsFolder);
 	SetBool(gd, "useFixedMenuGraphics", gameDetail.m_UseFixedMenuGraphics);
 	SetString(gd, "fixedMenuGraphicsFolder", gameDetail.m_FixedMenuGraphicsFolder);
+	SetBool(gd, "useFixedTmaps", gameDetail.m_UseFixedTmaps);
+	SetString(gd, "fixedTmapsFolder", gameDetail.m_FixedTmapsFolder);
 	SetBool(gd, "useExtendedFonts", gameDetail.m_UseExtendedFonts);
 	SetString(gd, "extendedFontsFolder", gameDetail.m_ExtendedFontsFolder);
 	SetBool(gd, "sky", gameDetail.m_Sky);
 	SetBool(gd, "reflections", gameDetail.m_Reflections);
 	SetBool(gd, "dynamicLighting", gameDetail.m_DynamicLighting);
 	SetInt(gd, "viewDistanceScale", gameDetail.m_ViewDistanceScale);
+	SetFloat(gd, "fogScale", gameDetail.m_FogScale);
 }
 
 void Config::SaveThreadingToDoc(Config::Settings::Threading threading)
@@ -512,6 +520,7 @@ void Config::SaveThreadingToDoc(Config::Settings::Threading threading)
 	auto& t = GetOrCreate(gfx, "threading");
 	SetBool(t, "isActive", threading.m_IsActive);
 	SetFloat(t, "sizePercentToThreadRender", threading.m_SizePercentToThreadRender);
+	SetFloat(t, "sizePercentToThreadRenderSprites", threading.m_SizePercentToThreadRenderSprites);
 	SetInt(t, "numberOfRenderThreads", threading.m_NumberOfRenderThreads);
 	SetBool(t, "assignToSpecificCores", threading.m_AssignToSpecificCores);
 }
