@@ -3937,6 +3937,9 @@ void ApiAilEndSample_A3DA0(HSAMPLE S)//284da0
 			{
 				S->status_1 = AilSampleStopped;
 				SOUND_end_sample(S);
+				//original AIL_end_sample (0xA3DA0) calls the end-of-sample callback (sample+0x850)
+				if (S->sam_var532_EOS_ptr)
+					S->sam_var532_EOS_ptr();
 			}
 		}
 	}

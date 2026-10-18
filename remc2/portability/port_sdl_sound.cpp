@@ -3,6 +3,11 @@
 
 #include <adlmidi.h>
 #include <iostream>
+#include <atomic>
+
+// Channel that SOUND_start_sample is just restarting. Mix_PlayChannel halts a still playing
+// channel first and calls ChannelFinished synchronously; that is not the end of the sample.
+static std::atomic<int> sdlRestartingChannel{ -1 };
 
 #if defined(__linux__) || defined(__APPLE__)
     #include <limits>
@@ -641,7 +646,9 @@ void SOUND_start_sample(HSAMPLE S) {
 	if (percentage != 1.0f)
 		SOUND_ChangeSamplePlaybackRate(S, percentage);
 
+	sdlRestartingChannel.store(S->channel);
 	Mix_PlayChannel(S->channel, &GameChunks[S->channel], S->loop_count_12);
+	sdlRestartingChannel.store(-1);
 	Mix_ChannelFinished(ChannelFinished);
 
 #endif//SOUND_SDLMIXER
@@ -664,11 +671,27 @@ void SOUND_start_sample(HSAMPLE S) {
 #endif//SOUND_OPENAL
 };
 
+// The original AIL driver calls the EOS callback (sample+0x850) when the last buffer finishes.
+// SDL_mixer forbids Mix_* calls from the channel-finished callback and the game's EOS handler
+// (sub_9EE70) starts the next sample, so it is run later from a one-shot SDL timer thread.
+static Uint32 SDLCALL EosTimerCallback(Uint32 interval, void* param)
+{
+	HSAMPLE S = (HSAMPLE)param;
+	if (S && S->sam_var532_EOS_ptr)
+		S->sam_var532_EOS_ptr();
+	return 0;
+}
+
 void ChannelFinished(int channel)
 {
-	if (GameChunkHSamples.count(channel) > 0)
+	if (GameChunkHSamples.count(channel) > 0 && channel != sdlRestartingChannel.load())
 	{
-		GameChunkHSamples[channel]->status_1 = 2;
+		HSAMPLE S = GameChunkHSamples[channel];
+		const bool wasPlaying = (S->status_1 == 4);//AilSampleStarted
+		S->status_1 = 2;
+		//explicit AIL_end_sample sets status 2 before halting and calls EOS itself
+		if (wasPlaying && S->sam_var532_EOS_ptr)
+			SDL_AddTimer(1, EosTimerCallback, S);
 	}
 
 	if (channel == maxSimultaniousSounds && !IsCdTrackPlaying())
@@ -681,7 +704,9 @@ uint32_t SOUND_sample_status(HSAMPLE S) {
 	if (unitTests)return 0;
 	
 #ifdef SOUND_SDLMIXER
-	if (Mix_Playing(S->channel)==0) return 2;
+	//original AIL_sample_status returns status_1: 1=free, 2=done, 4=playing
+	if (S->channel < 0 || Mix_Playing(S->channel) == 0) return 2;
+	return 4;
 #endif//SOUND_SDLMIXER
 #ifdef SOUND_OPENAL
 	return 2;
