@@ -1,9 +1,14 @@
 #include "../engine/engine_support.h"
 #include "port_sdl_sound.h"
 
+#include "../engine/PlayerInput.h"
+#include "awe32/Awe32Mdi.h"
+#include "awe32/Awe32Rom.h"
+
 #include <adlmidi.h>
 #include <iostream>
 #include <atomic>
+#include <list>
 
 // Channel that SOUND_start_sample is just restarting. Mix_PlayChannel halts a still playing
 // channel first and calls ChannelFinished synchronously; that is not the end of the sample.
@@ -30,6 +35,14 @@ int m_ptrSpeechBytesOffSet;
 bool fixspeedsound = false;
 bool autoShowObjectivesForForeignLanguages = false;
 int maxSimultaniousSounds = 10;
+
+std::string musicType = "ogg";
+std::string awe32RomFolder = "awe32rom";
+bool awe32RomDownload = true;
+std::string awe32RomUrl;
+bool awe32music = false;
+static std::string awe32RomPath;
+static std::string musicWarning;//shown in the game when the AWE32 music could not be used
 
 int32_t last_sequence_num = 0;
 
@@ -388,7 +401,10 @@ void clean_up_sound()
 	}
 
 	//Quit SDL_mixer
+	if (awe32music)
+		Mix_HookMusic(nullptr, nullptr);
 	Mix_CloseAudio();
+	Awe32Mdi::Shutdown();
 	DeleteWarMusic();
 
 #endif//SOUND_SDLMIXER
@@ -503,6 +519,48 @@ struct {
 } environment_string;
 
 int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* out) {
+	if (awe32music && drvr->type_5 == 1)
+	{
+		switch (fn) {
+		case 0x300://install: the driver image read from the file
+			Awe32Mdi::Install(drvr->buf_2, drvr->size_3, awe32RomPath);
+			break;
+		case 0x306://shutdown
+			Awe32Mdi::Shutdown();
+			return 1;
+		case 0x501: {//init instrument manager
+			std::string error;
+			const bool ok = Awe32Mdi::InitInstruments(error);
+			if (!ok)
+				Logger->error("AWE32: {}", error);
+			if (out)
+				out->AX = ok ? 1 : 0;
+			return 1;
+		}
+		case 0x502: {//send the buffered MIDI messages
+			HMDIDRIVER mdi = (HMDIDRIVER)drvr->descriptor_10;
+			if (mdi)
+				Awe32Mdi::SendMessages((const uint8_t*)mdi->DST_2->MIDI_data, mdi->message_count);
+			return 1;
+		}
+		case 0x503://install timbre bank: everything is in the ROM and the user bank
+			if (out)
+				out->AX = 1;
+			return 1;
+		case 0x506: {//AWE32 functions
+			if (!out)
+				return 1;
+			Awe32Mdi::Regs regs = { out->AX, out->BX, out->CX, out->DX };
+			Awe32Mdi::Extension(regs, SOUND_DosRealPointer, SOUND_DosRealAlloc);
+			out->AX = regs.AX;
+			out->CX = regs.CX;
+			out->DX = regs.DX;
+			return 1;
+		}
+		default:
+			break;
+		}
+	}
 	switch (fn) {
 	case 0x300: {//AIL_API_install_driver
 		drvr->VHDR_4->VDI_HDR_var10 = (void*)&common_IO_configurations;
@@ -553,6 +611,58 @@ int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* out) {
 	}
 	return 1;
 };
+
+//DOS conventional memory (DPMI 0x100/0x101) for the real mode buffers the game hands over to the driver
+static const uint16_t dosRealFirstSegment = 0x1000;
+static const uint16_t dosRealLastSegment = 0xA000;
+static std::vector<uint8_t> dosRealMemory;
+static std::list<std::pair<uint16_t, uint16_t>> dosRealBlocks;//segment, paragraphs
+
+uint16_t SOUND_DosRealAlloc(uint32_t bytes)
+{
+	if (dosRealMemory.empty())
+		dosRealMemory.resize((dosRealLastSegment - dosRealFirstSegment) * 16);
+	const uint32_t paragraphs = (bytes + 15) >> 4;
+	uint32_t segment = dosRealFirstSegment;
+	auto it = dosRealBlocks.begin();
+	for (; it != dosRealBlocks.end(); ++it)
+	{
+		if (segment + paragraphs <= it->first)
+			break;
+		segment = it->first + it->second;
+	}
+	if (paragraphs == 0 || segment + paragraphs > dosRealLastSegment)
+		return 0;
+	dosRealBlocks.insert(it, std::make_pair((uint16_t)segment, (uint16_t)paragraphs));
+	memset(&dosRealMemory[(segment - dosRealFirstSegment) * 16], 0, paragraphs * 16);
+	return (uint16_t)segment;
+}
+
+void SOUND_DosRealFree(uint16_t segment)
+{
+	dosRealBlocks.remove_if([segment](const std::pair<uint16_t, uint16_t>& block) { return block.first == segment; });
+}
+
+uint8_t* SOUND_DosRealPointer(uint16_t segment, uint16_t offset)
+{
+	for (const auto& block : dosRealBlocks)
+		if (block.first == segment && offset < block.second * 16)
+			return &dosRealMemory[(segment - dosRealFirstSegment) * 16 + offset];
+	return nullptr;
+}
+
+static void SDLCALL Awe32MusicHook(void* /*udata*/, Uint8* stream, int len)
+{
+	Awe32Mdi::Render((int16_t*)stream, len / 4);
+}
+
+void SOUND_ShowMusicWarning()
+{
+	if (musicWarning.empty())
+		return;
+	SetCurrentNotificationMessage_19760(musicWarning.c_str(), 3u, 100);
+	musicWarning.clear();
+}
 
 void SOUND_set_master_volume(int32_t volume) {
 	//gamechunk[S->channel].volume = volume;
@@ -813,6 +923,22 @@ bool init_sound()
 	//#define MUSIC_MID_FLUIDSYNTH
 	//Initialize SDL_mixer
 	srand(time(NULL));
+	if (musicType == "awe32")
+	{
+		std::string error;
+		awe32RomPath = Awe32Rom::Locate(awe32RomFolder, awe32RomDownload, awe32RomUrl, error);
+		if (awe32RomPath.empty())
+		{
+			Logger->warn("AWE32 music: {}; the ogg music plays instead", error);
+			musicWarning = "AWE32 ROM missing, ogg music plays";
+		}
+		else
+		{
+			Logger->info("AWE32 music: wave ROM {}", awe32RomPath);
+			awe32music = true;
+			hqsound = true;
+		}
+	}
 #ifdef SOUND_SDLMIXER
 	if (hqsound) {
 		if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096) == -1)//4096
@@ -832,6 +958,8 @@ bool init_sound()
 	}
 
 	Mix_AllocateChannels(maxSimultaniousSounds + 1 + 1);
+	if (awe32music)
+		Mix_HookMusic(Awe32MusicHook, nullptr);
 
 	//Mix_SetSoundFonts("c:\\prenos\\Magic2\\sf2\\TOM-SF2.sf2");
 	//load_sound_files();

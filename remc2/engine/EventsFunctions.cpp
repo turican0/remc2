@@ -31603,7 +31603,10 @@ void InGameLoop_47320()//228320
 		{
 			StopMusic_8E020();
 			if (gameTurn == 1)
+			{
 				StartMusic_8E160(D41A0_0.maptypeMusic_0x235, 0x7Fu);
+				SOUND_ShowMusicWarning();
+			}
 			gameTurn++;
 		}
 

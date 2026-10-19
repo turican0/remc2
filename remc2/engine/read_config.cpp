@@ -159,6 +159,10 @@ bool SetConfig() {
 	oggmusicalternative = settingsValue.m_Sound.m_OggMusicAlternative;
 	strcpy(oggmusicFolder, settingsValue.m_Sound.m_OggFolder.c_str());
 	strcpy(speechFolder, settingsValue.m_Sound.m_SpeechFolder.c_str());
+	musicType = settingsValue.m_Sound.m_MusicType;
+	awe32RomFolder = settingsValue.m_Sound.m_Awe32RomFolder;
+	awe32RomDownload = settingsValue.m_Sound.m_Awe32RomDownload;
+	awe32RomUrl = settingsValue.m_Sound.m_Awe32RomUrl;
 
 	//Graphics
 	displayIndex = settingsValue.m_Graphics.m_DisplayIndex;

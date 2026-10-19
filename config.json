@@ -27,7 +27,11 @@
 					"fixspeedsound: set true when sounds play double speed",
 					"maxSimultaniousSounds: Original was 10. Increasing might impact performance",
 					"speechFolder: location of the ripped CD speech tracks",
-					"autoShowObjectivesForForeignLanguages: auto displays objective and mission text when not english"
+					"autoShowObjectivesForForeignLanguages: auto displays objective and mission text when not english",
+					"musicType: ogg = the ogg music, awe32 = the original XMI music of the game through the Sound Blaster AWE32 emulation",
+					"awe32RomFolder: folder of the AWE32 wave ROM awe32.raw; without it the ogg music plays",
+					"awe32RomDownload: download the ROM into awe32RomFolder at the start when it is missing",
+					"awe32RomUrl: where the ROM is downloaded from"
 				],
 				"hqSound": true,
 				"oggMusic": true,
@@ -36,7 +40,11 @@
 				"fixSpeedSound": false,
 				"maxSimultaniousSounds": 20,
 				"speechFolder": "CD_Files/SPEECH",
-				"autoShowObjectivesForForeignLanguages": true
+				"autoShowObjectivesForForeignLanguages": true,
+				"musicType": "awe32",
+				"awe32RomFolder": "awe32rom",
+				"awe32RomDownload": true,
+				"awe32RomUrl": "https://github.com/libretro/libretro-pcem/blob/master/awe32.raw"
 			},
 			"graphics": {
 				"description": [

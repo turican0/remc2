@@ -398,6 +398,14 @@ Config::Settings::Sound Config::GetSound(const json& settings)
 		soundValues.m_AutoShowObjectivesForForeignLanguages = ReadBoolValue(sound, "autoShowObjectivesForForeignLanguages");
 		soundValues.m_MaxSimultaniousSounds = ReadIntValue(sound, "maxSimultaniousSounds");
 		soundValues.m_SpeechFolder = ReadStringValue(sound, "speechFolder");
+		if (sound.contains("musicType") && sound["musicType"].is_string())
+			soundValues.m_MusicType = ReadStringValue(sound, "musicType");
+		if (sound.contains("awe32RomFolder") && sound["awe32RomFolder"].is_string())
+			soundValues.m_Awe32RomFolder = ReadStringValue(sound, "awe32RomFolder");
+		if (sound.contains("awe32RomDownload") && sound["awe32RomDownload"].is_boolean())
+			soundValues.m_Awe32RomDownload = ReadBoolValue(sound, "awe32RomDownload");
+		if (sound.contains("awe32RomUrl") && sound["awe32RomUrl"].is_string())
+			soundValues.m_Awe32RomUrl = ReadStringValue(sound, "awe32RomUrl");
 	}
 	return soundValues;
 }
@@ -475,6 +483,10 @@ void Config::SaveSoundToDoc(Config::Settings::Sound soundSettings)
 	SetBool(sound, "autoShowObjectivesForForeignLanguages", soundSettings.m_AutoShowObjectivesForForeignLanguages);
 	SetInt(sound, "maxSimultaniousSounds", soundSettings.m_MaxSimultaniousSounds);
 	SetString(sound, "speechFolder", soundSettings.m_SpeechFolder);
+	SetString(sound, "musicType", soundSettings.m_MusicType);
+	SetString(sound, "awe32RomFolder", soundSettings.m_Awe32RomFolder);
+	SetBool(sound, "awe32RomDownload", soundSettings.m_Awe32RomDownload);
+	SetString(sound, "awe32RomUrl", soundSettings.m_Awe32RomUrl);
 }
 
 void Config::SaveGraphicsToDoc(Config::Settings::Graphics graphics)

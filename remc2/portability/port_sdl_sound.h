@@ -207,6 +207,17 @@ extern char speechFolder[512];
 extern Mix_Chunk* m_ptrSpeechChunk;
 extern int m_ptrSpeechBytesOffSet;
 
+extern std::string musicType;
+extern std::string awe32RomFolder;
+extern bool awe32RomDownload;
+extern std::string awe32RomUrl;
+extern bool awe32music;//the XMI music of the game plays through the AWE32 emulation (musicType "awe32" and the ROM found)
+
+void SOUND_ShowMusicWarning();
+uint8_t* SOUND_DosRealPointer(uint16_t segment, uint16_t offset);
+uint16_t SOUND_DosRealAlloc(uint32_t bytes);
+void SOUND_DosRealFree(uint16_t segment);
+
 bool init_sound();
 void SOUND_GameStateChange(const GameState gameState);
 //bool load_sound_files();
