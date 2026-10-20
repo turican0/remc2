@@ -3,4 +3,6 @@
 #include <stdio.h>
 /* Harness stub: signature identical to upstream src/include/86box/rom.h. */
 extern FILE *rom_fopen(const char *fn, char *mode);
+/* remc2: copies the wave ROM image (unpacked) to buf, returns the bytes copied. */
+extern size_t rom_read(void *buf, size_t size);
 #endif

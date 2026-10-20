@@ -29,7 +29,7 @@
 					"speechFolder: location of the ripped CD speech tracks",
 					"autoShowObjectivesForForeignLanguages: auto displays objective and mission text when not english",
 					"musicType: ogg = the ogg music, awe32 = the original XMI music of the game through the Sound Blaster AWE32 emulation",
-					"awe32RomFolder: folder of the AWE32 wave ROM awe32.raw; without it the ogg music plays",
+					"awe32RomFolder: folder of the AWE32 wave ROM, data.binz (packed by gzip) or data.bin; without it the ogg music plays",
 					"awe32RomDownload: download the ROM into awe32RomFolder at the start when it is missing",
 					"awe32RomUrl: where the ROM is downloaded from"
 				],
@@ -42,7 +42,7 @@
 				"speechFolder": "CD_Files/SPEECH",
 				"autoShowObjectivesForForeignLanguages": true,
 				"musicType": "awe32",
-				"awe32RomFolder": "awe32rom",
+				"awe32RomFolder": "awe32data",
 				"awe32RomDownload": true,
 				"awe32RomUrl": "https://github.com/libretro/libretro-pcem/blob/master/awe32.raw"
 			},

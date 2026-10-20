@@ -258,6 +258,7 @@ install(
     DIRECTORY
     ${CMAKE_SOURCE_DIR}/enhancedassets/music-ogg
     ${CMAKE_SOURCE_DIR}/enhancedassets/graphics
+    ${CMAKE_SOURCE_DIR}/awe32data
     DESTINATION bin
 )
 

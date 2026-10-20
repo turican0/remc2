@@ -1,5 +1,6 @@
 #include "Synth.h"
 #include "I18n.h"
+#include "Awe32Rom.h"
 #include <cstdio>
 #include "Awe32Curves.h"
 
@@ -113,11 +114,9 @@ void Synth::BuildDefaultWaveform()
 
 bool Synth::LoadWaveRom(const std::string& path, std::string& error)
 {
-    std::ifstream f(path, std::ios::binary);
-    if (!f) { error = StrFormat(_("Cannot open ROM: %s"), path.c_str()); return false; }
-
-    std::vector<uint8_t> raw((std::istreambuf_iterator<char>(f)),
-                              std::istreambuf_iterator<char>());
+    // A plain image or the one packed by gzip (data.binz).
+    std::vector<uint8_t> raw;
+    if (!Awe32Rom::Read(path, raw, error)) return false;
     if (raw.size() < 2) { error = StrFormat(_("ROM is empty: %s"), path.c_str()); return false; }
 
     // A raw dump = 16-bit little-endian samples. The ROM's text header is

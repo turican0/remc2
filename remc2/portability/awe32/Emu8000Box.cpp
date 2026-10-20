@@ -1,5 +1,6 @@
 #include "Emu8000Box.h"
 #include "I18n.h"
+#include "Awe32Rom.h"
 
 #ifndef AWE32EMU_WITH_86BOX
 
@@ -54,7 +55,8 @@ uint16_t emu8k_inw(uint16_t addr, void* priv);
 // ---------------------------------------------------------------------------
 namespace
 {
-    const char* g_romPath = nullptr;
+    // The ROM image (unpacked) while emu8k_init copies it.
+    const std::vector<uint8_t>* g_rom = nullptr;
 }
 
 extern "C" {
@@ -82,10 +84,13 @@ void fatal(const char* fmt, ...)
     std::exit(1);
 }
 
-FILE* rom_fopen(const char* fn, char* mode)
+size_t rom_read(void* buf, size_t size)
 {
-    (void) fn;
-    return g_romPath ? std::fopen(g_romPath, mode) : nullptr;
+    if (g_rom == nullptr)
+        return 0;
+    const size_t n = g_rom->size() < size ? g_rom->size() : size;
+    std::memcpy(buf, g_rom->data(), n);
+    return n;
 }
 
 void io_sethandler(uint16_t base, uint16_t size,
@@ -128,7 +133,6 @@ struct Emu8000Box::Impl
     size_t               fifoPos = 0;
     int                  frameInBlock = 0;
     bool                 haveBlock = false;
-    std::string          romPathStorage;
 };
 
 Emu8000Box::Emu8000Box()
@@ -157,30 +161,21 @@ bool Emu8000Box::Init(const std::string& romPath, uint16_t basePort, int ramKb, 
         return false;
     }
 
-    // rom_fopen takes the path from here; it is kept in Impl to outlive the call.
-    m_impl->romPathStorage = romPath;
-    g_romPath = m_impl->romPathStorage.c_str();
-
-    if (FILE* f = std::fopen(g_romPath, "rb"))
+    // rom_read takes the image from here; it is needed only during emu8k_init.
+    std::vector<uint8_t> rom;
+    if (!Awe32Rom::Read(romPath, rom, err))
+        return false;
+    if (rom.size() < 1048574)   // a card dump without the AWE-DUMP word is 2 bytes shorter
     {
-        std::fseek(f, 0, SEEK_END);
-        const long bytes = std::ftell(f);
-        std::fclose(f);
-        if (bytes < 1048574)   // a card dump without the AWE-DUMP word is 2 bytes shorter
-        {
-            err = StrFormat(_("wave ROM '%s' has only %ld B, the 86box chip needs 1 MB"),
-                            romPath.c_str(), bytes);
-            return false;
-        }
-    }
-    else
-    {
-        err = StrFormat(_("cannot open wave ROM '%s'"), romPath.c_str());
+        err = StrFormat(_("wave ROM '%s' has only %ld B, the 86box chip needs 1 MB"),
+                        romPath.c_str(), (long)rom.size());
         return false;
     }
 
     std::memset(&m_impl->emu, 0, sizeof(m_impl->emu));
+    g_rom = &rom;
     emu8k_init(&m_impl->emu, basePort, ramKb);
+    g_rom = nullptr;
 
     m_impl->fifo.clear();
     m_impl->pending.clear();

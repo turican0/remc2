@@ -37,7 +37,7 @@ bool autoShowObjectivesForForeignLanguages = false;
 int maxSimultaniousSounds = 10;
 
 std::string musicType = "ogg";
-std::string awe32RomFolder = "awe32rom";
+std::string awe32RomFolder = "awe32data";
 bool awe32RomDownload = true;
 std::string awe32RomUrl;
 bool awe32music = false;

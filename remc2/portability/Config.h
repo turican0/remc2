@@ -62,7 +62,7 @@ public:
 			int m_MaxSimultaniousSounds = 10;
 			std::string m_SpeechFolder;
 			std::string m_MusicType = "ogg";//"ogg" or "awe32" (the XMI music of the game through the AWE32 emulation)
-			std::string m_Awe32RomFolder = "awe32rom";
+			std::string m_Awe32RomFolder = "awe32data";
 			bool m_Awe32RomDownload = true;
 			std::string m_Awe32RomUrl = "https://github.com/libretro/libretro-pcem/blob/master/awe32.raw";
 		};

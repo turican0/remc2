@@ -33,8 +33,8 @@ public:
     Emu8000Box(const Emu8000Box&) = delete;
     Emu8000Box& operator=(const Emu8000Box&) = delete;
 
-    // romPath has to point to the 1 MB raw dump of the wave ROM (awe32.raw) -
-    // the chip loads it itself through rom_fopen, exactly as in 86Box.
+    // romPath has to point to the 1 MB dump of the wave ROM, plain or packed
+    // by gzip (Awe32Rom::Read); the chip takes it through rom_read.
     bool Init(const std::string& romPath, uint16_t basePort, int ramKb, std::string& err);
     bool Ready() const { return m_ready; }
 

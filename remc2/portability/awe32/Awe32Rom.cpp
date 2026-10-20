@@ -17,7 +17,8 @@
 
 namespace
 {
-	const char* kRomFile = "awe32.raw";
+	const char* kPackedFile = "data.binz";
+	const char* kRomFile = "data.bin";
 	const long kRomSize = 1048576;
 	// An AWEDUMP image lacks the first word; snd_emu8k.c accepts both.
 	const long kRomSizeMin = 1048574;
@@ -103,6 +104,13 @@ namespace
 		return ec ? -1 : (long)n;
 	}
 
+	std::string DataSha256(const std::vector<uint8_t>& data)
+	{
+		Sha256 sha;
+		sha.Update(data.data(), data.size());
+		return sha.HexDigest();
+	}
+
 	std::string FileSha256(const std::string& path)
 	{
 		FILE* f = fopen(path.c_str(), "rb");
@@ -113,6 +121,272 @@ namespace
 		while ((n = fread(buf.data(), 1, buf.size(), f)) > 0) sha.Update(buf.data(), n);
 		fclose(f);
 		return sha.HexDigest();
+	}
+
+	bool ReadFile(const std::string& path, std::vector<uint8_t>& data)
+	{
+		FILE* f = fopen(path.c_str(), "rb");
+		if (f == nullptr) return false;
+		data.clear();
+		std::vector<uint8_t> buf(65536);
+		size_t n;
+		while ((n = fread(buf.data(), 1, buf.size(), f)) > 0) data.insert(data.end(), buf.begin(), buf.begin() + n);
+		fclose(f);
+		return true;
+	}
+
+	// DEFLATE decoder (RFC 1951) after puff.c of zlib; remc2 does not link zlib.
+	class Inflater
+	{
+	public:
+		Inflater(const uint8_t* in, size_t size, std::vector<uint8_t>& out) : m_in(in), m_size(size), m_out(out) {}
+
+		bool Run()
+		{
+			int last;
+			do
+			{
+				last = Bits(1);
+				const int type = Bits(2);
+				if (type == 0) Stored();
+				else if (type == 1) Fixed();
+				else if (type == 2) Dynamic();
+				else m_failed = true;
+			} while (!last && !m_failed);
+			return !m_failed;
+		}
+
+		// Input bytes used, the last one partly.
+		size_t Consumed() const { return m_pos; }
+
+	private:
+		struct Huffman
+		{
+			uint16_t count[16];
+			uint16_t symbol[320];
+		};
+
+		int Bits(int need)
+		{
+			uint32_t val = m_bitBuf;
+			while (m_bitCount < need)
+			{
+				if (m_pos >= m_size) { m_failed = true; return 0; }
+				val |= (uint32_t)m_in[m_pos++] << m_bitCount;
+				m_bitCount += 8;
+			}
+			m_bitBuf = val >> need;
+			m_bitCount -= need;
+			return (int)(val & ((1u << need) - 1));
+		}
+
+		void Stored()
+		{
+			m_bitBuf = 0;
+			m_bitCount = 0;
+			if (m_pos + 4 > m_size) { m_failed = true; return; }
+			const unsigned len = m_in[m_pos] | (m_in[m_pos + 1] << 8);
+			const unsigned nlen = m_in[m_pos + 2] | (m_in[m_pos + 3] << 8);
+			m_pos += 4;
+			if (len != (~nlen & 0xFFFF) || m_pos + len > m_size) { m_failed = true; return; }
+			m_out.insert(m_out.end(), m_in + m_pos, m_in + m_pos + len);
+			m_pos += len;
+		}
+
+		// Returns the number of missing codes (incomplete code), negative when over-subscribed.
+		static int Construct(Huffman& h, const uint8_t* length, int n)
+		{
+			memset(h.count, 0, sizeof(h.count));
+			for (int i = 0; i < n; i++) h.count[length[i]]++;
+			if (h.count[0] == n) return 0;
+			int left = 1;
+			for (int len = 1; len < 16; len++)
+			{
+				left <<= 1;
+				left -= h.count[len];
+				if (left < 0) return left;
+			}
+			uint16_t offs[16];
+			offs[1] = 0;
+			for (int len = 1; len < 15; len++) offs[len + 1] = offs[len] + h.count[len];
+			for (int i = 0; i < n; i++)
+				if (length[i] != 0) h.symbol[offs[length[i]]++] = (uint16_t)i;
+			return left;
+		}
+
+		int Decode(const Huffman& h)
+		{
+			int code = 0, first = 0, index = 0;
+			for (int len = 1; len < 16; len++)
+			{
+				code |= Bits(1);
+				if (m_failed) return -1;
+				const int count = h.count[len];
+				if (code - count < first) return h.symbol[index + (code - first)];
+				index += count;
+				first += count;
+				first <<= 1;
+				code <<= 1;
+			}
+			m_failed = true;
+			return -1;
+		}
+
+		void Codes(const Huffman& lencode, const Huffman& distcode)
+		{
+			static const uint16_t lbase[29] = {
+				3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258 };
+			static const uint8_t lext[29] = {
+				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0 };
+			static const uint16_t dbase[30] = {
+				1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193, 257, 385, 513, 769,
+				1025, 1537, 2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577 };
+			static const uint8_t dext[30] = {
+				0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13 };
+			for (;;)
+			{
+				int symbol = Decode(lencode);
+				if (m_failed) return;
+				if (symbol < 256) { m_out.push_back((uint8_t)symbol); continue; }
+				if (symbol == 256) return;
+				symbol -= 257;
+				if (symbol >= 29) { m_failed = true; return; }
+				const size_t len = lbase[symbol] + Bits(lext[symbol]);
+				symbol = Decode(distcode);
+				if (m_failed || symbol >= 30) { m_failed = true; return; }
+				const size_t dist = dbase[symbol] + Bits(dext[symbol]);
+				if (m_failed || dist > m_out.size()) { m_failed = true; return; }
+				const size_t from = m_out.size() - dist;
+				for (size_t i = 0; i < len; i++) m_out.push_back(m_out[from + i]);
+			}
+		}
+
+		void Fixed()
+		{
+			static bool built = false;
+			static Huffman lencode, distcode;
+			if (!built)
+			{
+				uint8_t lengths[288];
+				int s = 0;
+				for (; s < 144; s++) lengths[s] = 8;
+				for (; s < 256; s++) lengths[s] = 9;
+				for (; s < 280; s++) lengths[s] = 7;
+				for (; s < 288; s++) lengths[s] = 8;
+				Construct(lencode, lengths, 288);
+				for (s = 0; s < 30; s++) lengths[s] = 5;
+				Construct(distcode, lengths, 30);
+				built = true;
+			}
+			Codes(lencode, distcode);
+		}
+
+		void Dynamic()
+		{
+			static const uint8_t order[19] = { 16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15 };
+			uint8_t lengths[320];
+			const int nlen = Bits(5) + 257;
+			const int ndist = Bits(5) + 1;
+			const int ncode = Bits(4) + 4;
+			if (m_failed || nlen > 286 || ndist > 30) { m_failed = true; return; }
+
+			int index = 0;
+			for (; index < ncode; index++) lengths[order[index]] = (uint8_t)Bits(3);
+			for (; index < 19; index++) lengths[order[index]] = 0;
+			Huffman lencode, distcode;
+			if (m_failed || Construct(lencode, lengths, 19) != 0) { m_failed = true; return; }
+
+			index = 0;
+			while (index < nlen + ndist)
+			{
+				int symbol = Decode(lencode);
+				if (m_failed) return;
+				if (symbol < 16) { lengths[index++] = (uint8_t)symbol; continue; }
+				uint8_t len = 0;
+				int repeat;
+				if (symbol == 16)
+				{
+					if (index == 0) { m_failed = true; return; }
+					len = lengths[index - 1];
+					repeat = 3 + Bits(2);
+				}
+				else if (symbol == 17) repeat = 3 + Bits(3);
+				else repeat = 11 + Bits(7);
+				if (m_failed || index + repeat > nlen + ndist) { m_failed = true; return; }
+				while (repeat--) lengths[index++] = len;
+			}
+			if (lengths[256] == 0) { m_failed = true; return; }
+
+			int err = Construct(lencode, lengths, nlen);
+			if (err < 0 || (err > 0 && nlen - lencode.count[0] != 1)) { m_failed = true; return; }
+			err = Construct(distcode, lengths + nlen, ndist);
+			if (err < 0 || (err > 0 && ndist - distcode.count[0] != 1)) { m_failed = true; return; }
+			Codes(lencode, distcode);
+		}
+
+		const uint8_t* m_in;
+		size_t m_size;
+		size_t m_pos = 0;
+		uint32_t m_bitBuf = 0;
+		int m_bitCount = 0;
+		bool m_failed = false;
+		std::vector<uint8_t>& m_out;
+	};
+
+	uint32_t Crc32(const std::vector<uint8_t>& data)
+	{
+		static uint32_t table[256];
+		static bool built = false;
+		if (!built)
+		{
+			for (uint32_t i = 0; i < 256; i++)
+			{
+				uint32_t c = i;
+				for (int k = 0; k < 8; k++) c = (c & 1) ? 0xEDB88320u ^ (c >> 1) : c >> 1;
+				table[i] = c;
+			}
+			built = true;
+		}
+		uint32_t crc = 0xFFFFFFFFu;
+		for (const uint8_t b : data) crc = table[(crc ^ b) & 0xFF] ^ (crc >> 8);
+		return crc ^ 0xFFFFFFFFu;
+	}
+
+	bool IsGzip(const std::vector<uint8_t>& data)
+	{
+		return data.size() >= 18 && data[0] == 0x1F && data[1] == 0x8B;
+	}
+
+	// One gzip member (RFC 1952), checked by its CRC-32 and size.
+	bool Gunzip(const std::vector<uint8_t>& in, std::vector<uint8_t>& out, std::string& error)
+	{
+		if (in[2] != 8) { error = "unknown gzip compression method"; return false; }
+		const uint8_t flags = in[3];
+		size_t pos = 10;
+		if (flags & 4)
+		{
+			if (pos + 2 > in.size()) { error = "damaged gzip header"; return false; }
+			pos += 2 + (in[pos] | (in[pos + 1] << 8));
+		}
+		for (const uint8_t text : { (uint8_t)8, (uint8_t)16 })
+			if (flags & text)
+			{
+				while (pos < in.size() && in[pos] != 0) pos++;
+				pos++;
+			}
+		if (flags & 2) pos += 2;
+		if (pos + 8 > in.size()) { error = "damaged gzip header"; return false; }
+
+		out.clear();
+		out.reserve(kRomSize);
+		Inflater inflater(in.data() + pos, in.size() - pos, out);
+		if (!inflater.Run()) { error = "damaged gzip data"; return false; }
+		pos += inflater.Consumed();
+		if (pos + 8 > in.size()) { error = "the gzip data is cut off"; return false; }
+		const uint32_t crc = in[pos] | (in[pos + 1] << 8) | (in[pos + 2] << 16) | ((uint32_t)in[pos + 3] << 24);
+		const uint32_t size = in[pos + 4] | (in[pos + 5] << 8) | (in[pos + 6] << 16) | ((uint32_t)in[pos + 7] << 24);
+		if (size != (uint32_t)out.size() || crc != Crc32(out)) { error = "the gzip data does not match its checksum"; return false; }
+		return true;
 	}
 
 	bool Writable(const std::filesystem::path& dir)
@@ -247,15 +521,51 @@ std::string Awe32Rom::RawUrl(const std::string& url)
 	return "https://raw.githubusercontent.com/" + url.substr(github.size(), blob - github.size()) + url.substr(blob + 5);
 }
 
+bool Awe32Rom::Read(const std::string& path, std::vector<uint8_t>& data, std::string& error)
+{
+	std::vector<uint8_t> file;
+	if (!ReadFile(path, file))
+	{
+		error = "cannot open the wave ROM " + path;
+		return false;
+	}
+	if (!IsGzip(file))
+	{
+		data = std::move(file);
+		return true;
+	}
+	if (!Gunzip(file, data, error))
+	{
+		error = path + ": " + error;
+		return false;
+	}
+	return true;
+}
+
 std::string Awe32Rom::Locate(const std::string& folder, bool download, const std::string& url, std::string& error)
 {
 	const std::string dir = GetSubDirectoryPath(folder.c_str());
 	if (!dir.empty())
 	{
-		const std::string path = (std::filesystem::path(dir) / kRomFile).string();
-		if (FileSize(path) >= kRomSizeMin)
+		// The packed ROM first, then the plain image.
+		for (const char* file : { kPackedFile, kRomFile })
 		{
-			const std::string sha = FileSha256(path);
+			const std::string path = (std::filesystem::path(dir) / file).string();
+			if (FileSize(path) < 0)
+				continue;
+			std::vector<uint8_t> data;
+			std::string readError;
+			if (!Read(path, data, readError))
+			{
+				Logger->warn("AWE32: {}", readError);
+				continue;
+			}
+			if ((long)data.size() < kRomSizeMin)
+			{
+				Logger->warn("AWE32: {} has only {} bytes of the ROM", path, data.size());
+				continue;
+			}
+			const std::string sha = DataSha256(data);
 			if (sha != kRomSha256)
 				Logger->warn("AWE32: {} is not the known ROM image (SHA-256 {}); using it anyway", path, sha);
 			return path;
@@ -264,7 +574,7 @@ std::string Awe32Rom::Locate(const std::string& folder, bool download, const std
 
 	if (!download)
 	{
-		error = "the wave ROM " + folder + "/" + kRomFile + " was not found";
+		error = "the wave ROM " + folder + "/" + kPackedFile + " or " + kRomFile + " was not found";
 		return std::string();
 	}
 	const std::filesystem::path target = TargetDir(folder);

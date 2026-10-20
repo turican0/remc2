@@ -2926,20 +2926,15 @@ void
 emu8k_init(emu8k_t *emu8k, uint16_t emu_addr, int onboard_ram)
 {
     uint32_t const BLOCK_SIZE_WORDS = 0x10000;
-    FILE          *fp;
     int            c;
     double         out;
 
-    fp = rom_fopen(EMU8K_ROM_PATH, "rb");
-    if (!fp)
-        fatal("AWE32.RAW not found\n");
-
     emu8k->rom = calloc(1024, 1024);
     /* AWE32Emu: also accept a card dump without the leading AWE-DUMP word
-     * (1048574 bytes); the missing last word stays zero. */
-    if (fread(emu8k->rom, 1, 1048576, fp) < 1048574)
+     * (1048574 bytes); the missing last word stays zero.
+     * remc2: the image comes from rom_read (it may be stored packed), not rom_fopen. */
+    if (rom_read(emu8k->rom, 1048576) < 1048574)
         fatal("emu8k_init(): Error reading data\n");
-    fclose(fp);
     /*AWE-DUMP creates ROM images offset by 2 bytes, so if we detect this
       then correct it*/
     if (emu8k->rom[3] == 0x314d && emu8k->rom[4] == 0x474d) {
