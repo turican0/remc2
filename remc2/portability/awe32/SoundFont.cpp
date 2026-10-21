@@ -470,7 +470,7 @@ namespace
         Wr16(ifil, 1); Wr16(ifil, 0);
         WrChunk(info, "ifil", ifil);
         const std::string nm = "SBAWE32.MDI GM";
-        WrChunk(info, "INAM", std::vector<uint8_t>(nm.begin(), nm.end() + 1));
+        WrChunk(info, "INAM", std::vector<uint8_t>(nm.c_str(), nm.c_str() + nm.size() + 1));
         std::vector<uint8_t> sdtaBody;
         WrChunk(sdtaBody, "snam", snamB);
         WrChunk(pdta, "phdr", phdrB); WrChunk(pdta, "pbag", pbagB); WrChunk(pdta, "pmod", pmodB);
