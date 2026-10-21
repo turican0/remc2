@@ -145,10 +145,16 @@ bool SetConfig() {
 	hqsound = settingsValue.m_Sound.m_HqSound;
 	fixspeedsound = settingsValue.m_Sound.m_FixSpeedSound;
 	autoShowObjectivesForForeignLanguages = settingsValue.m_Sound.m_AutoShowObjectivesForForeignLanguages;
-	if (settingsValue.m_Sound.m_OggMusic)
+
+	if (settingsValue.m_Sound.m_MusicType._Equal("ogg"))
 	{
 		oggmusic = true;
-		hqsound = true;//for mp3 music must be activate hqsound
+		hqsound = true;
+	}
+	else if(settingsValue.m_Sound.m_MusicType._Equal("awe32"))
+	{
+		awe32music = true;
+		hqsound = true;
 	}
 	else
 		oggmusic = false;
@@ -161,8 +167,6 @@ bool SetConfig() {
 	strcpy(speechFolder, settingsValue.m_Sound.m_SpeechFolder.c_str());
 	musicType = settingsValue.m_Sound.m_MusicType;
 	awe32RomFolder = settingsValue.m_Sound.m_Awe32RomFolder;
-	awe32RomDownload = settingsValue.m_Sound.m_Awe32RomDownload;
-	awe32RomUrl = settingsValue.m_Sound.m_Awe32RomUrl;
 
 	//Graphics
 	displayIndex = settingsValue.m_Graphics.m_DisplayIndex;

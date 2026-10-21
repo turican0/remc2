@@ -391,21 +391,14 @@ Config::Settings::Sound Config::GetSound(const json& settings)
 	{
 		const auto& sound = settings["sound"];
 		soundValues.m_HqSound = ReadBoolValue(sound, "hqSound");
-		soundValues.m_OggMusic = ReadBoolValue(sound, "oggMusic");
-		soundValues.m_OggFolder = ReadStringValue(sound, "oggFolder");
-		soundValues.m_OggMusicAlternative = ReadBoolValue(sound, "oggMusicAlternative");
 		soundValues.m_FixSpeedSound = ReadBoolValue(sound, "fixSpeedSound");
 		soundValues.m_AutoShowObjectivesForForeignLanguages = ReadBoolValue(sound, "autoShowObjectivesForForeignLanguages");
 		soundValues.m_MaxSimultaniousSounds = ReadIntValue(sound, "maxSimultaniousSounds");
 		soundValues.m_SpeechFolder = ReadStringValue(sound, "speechFolder");
-		if (sound.contains("musicType") && sound["musicType"].is_string())
-			soundValues.m_MusicType = ReadStringValue(sound, "musicType");
-		if (sound.contains("awe32RomFolder") && sound["awe32RomFolder"].is_string())
-			soundValues.m_Awe32RomFolder = ReadStringValue(sound, "awe32RomFolder");
-		if (sound.contains("awe32RomDownload") && sound["awe32RomDownload"].is_boolean())
-			soundValues.m_Awe32RomDownload = ReadBoolValue(sound, "awe32RomDownload");
-		if (sound.contains("awe32RomUrl") && sound["awe32RomUrl"].is_string())
-			soundValues.m_Awe32RomUrl = ReadStringValue(sound, "awe32RomUrl");
+		soundValues.m_MusicType = ReadStringValue(sound, "musicType");
+		soundValues.m_Awe32RomFolder = ReadStringValue(sound, "awe32RomFolder");
+		soundValues.m_OggFolder = ReadStringValue(sound, "oggFolder");
+		soundValues.m_OggMusicAlternative = ReadBoolValue(sound, "oggMusicAlternative");
 	}
 	return soundValues;
 }
@@ -476,7 +469,6 @@ void Config::SaveSoundToDoc(Config::Settings::Sound soundSettings)
 	auto& settingsEntry = GetOrCreateActiveSettingsEntry();
 	auto& sound = GetOrCreate(settingsEntry, "sound");
 	SetBool(sound, "hqSound", soundSettings.m_HqSound);
-	SetBool(sound, "oggMusic", soundSettings.m_OggMusic);
 	SetString(sound, "oggFolder", soundSettings.m_OggFolder);
 	SetBool(sound, "oggMusicAlternative", soundSettings.m_OggMusicAlternative);
 	SetBool(sound, "fixSpeedSound", soundSettings.m_FixSpeedSound);
@@ -485,8 +477,6 @@ void Config::SaveSoundToDoc(Config::Settings::Sound soundSettings)
 	SetString(sound, "speechFolder", soundSettings.m_SpeechFolder);
 	SetString(sound, "musicType", soundSettings.m_MusicType);
 	SetString(sound, "awe32RomFolder", soundSettings.m_Awe32RomFolder);
-	SetBool(sound, "awe32RomDownload", soundSettings.m_Awe32RomDownload);
-	SetString(sound, "awe32RomUrl", soundSettings.m_Awe32RomUrl);
 }
 
 void Config::SaveGraphicsToDoc(Config::Settings::Graphics graphics)

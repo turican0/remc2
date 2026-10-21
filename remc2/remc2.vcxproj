@@ -181,9 +181,9 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-        XCOPY "$(SolutionDir)awe32data" "$(TargetDir)awe32data\" /S /Y
-      </Command>
+				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+			</Command>
     </PostBuildEvent>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -211,10 +211,10 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-        XCOPY "$(SolutionDir)awe32data" "$(TargetDir)awe32data\" /S /Y
-      </Command>
+				XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+			</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -243,9 +243,9 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-        XCOPY "$(SolutionDir)awe32data" "$(TargetDir)awe32data\" /S /Y
-      </Command>
+				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+			</Command>
     </PostBuildEvent>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -279,10 +279,10 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-        XCOPY "$(SolutionDir)awe32data" "$(TargetDir)awe32data\" /S /Y
-      </Command>
+				XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+			</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -311,13 +311,13 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
-        XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
-        XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
-        XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-        XCOPY "$(SolutionDir)awe32data" "$(TargetDir)awe32data\" /S /Y
-      </Command>
+				XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
+				XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
+				XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
+				XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+			</Command>
     </PostBuildEvent>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -351,13 +351,13 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
-        XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
-        XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
-        XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-        XCOPY "$(SolutionDir)awe32data" "$(TargetDir)awe32data\" /S /Y
-      </Command>
+				XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
+				XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
+				XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
+				XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+			</Command>
     </PostBuildEvent>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>

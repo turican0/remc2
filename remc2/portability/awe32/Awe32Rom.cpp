@@ -542,7 +542,7 @@ bool Awe32Rom::Read(const std::string& path, std::vector<uint8_t>& data, std::st
 	return true;
 }
 
-std::string Awe32Rom::Locate(const std::string& folder, bool download, const std::string& url, std::string& error)
+std::string Awe32Rom::Locate(const std::string& folder, std::string& error)
 {
 	const std::string dir = GetSubDirectoryPath(folder.c_str());
 	if (!dir.empty())
@@ -572,20 +572,6 @@ std::string Awe32Rom::Locate(const std::string& folder, bool download, const std
 		}
 	}
 
-	if (!download)
-	{
-		error = "the wave ROM " + folder + "/" + kPackedFile + " or " + kRomFile + " was not found";
-		return std::string();
-	}
-	const std::filesystem::path target = TargetDir(folder);
-	if (target.empty())
-	{
-		error = "no writable folder for " + folder + "/" + kRomFile;
-		return std::string();
-	}
-	std::string path;
-	if (!DownloadRom(target, RawUrl(url), path, error))
-		return std::string();
-	Logger->info("AWE32: wave ROM saved to {}", path);
-	return path;
+	error = "the wave ROM " + folder + "/" + kPackedFile + " or " + kRomFile + " was not found";
+	return std::string();
 }

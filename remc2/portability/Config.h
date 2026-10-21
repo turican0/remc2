@@ -54,17 +54,14 @@ public:
 		struct Sound
 		{
 			bool m_HqSound = true;
-			bool m_OggMusic = true;
-			std::string m_OggFolder;
-			bool m_OggMusicAlternative = false;
 			bool m_FixSpeedSound = true;
 			bool m_AutoShowObjectivesForForeignLanguages = false;
 			int m_MaxSimultaniousSounds = 10;
 			std::string m_SpeechFolder;
-			std::string m_MusicType = "ogg";//"ogg" or "awe32" (the XMI music of the game through the AWE32 emulation)
-			std::string m_Awe32RomFolder = "awe32data";
-			bool m_Awe32RomDownload = true;
-			std::string m_Awe32RomUrl = "https://github.com/libretro/libretro-pcem/blob/master/awe32.raw";
+			std::string m_MusicType = "ogg";
+			std::string m_Awe32RomFolder;
+			std::string m_OggFolder;
+			bool m_OggMusicAlternative = false;
 		};
 
 		struct GameDetail

@@ -209,8 +209,6 @@ extern int m_ptrSpeechBytesOffSet;
 
 extern std::string musicType;
 extern std::string awe32RomFolder;
-extern bool awe32RomDownload;
-extern std::string awe32RomUrl;
 extern bool awe32music;//the XMI music of the game plays through the AWE32 emulation (musicType "awe32" and the ROM found)
 
 void SOUND_ShowMusicWarning();

@@ -12,7 +12,7 @@
 namespace Awe32Rom
 {
 	// Path of a usable ROM, or an empty string; then `error` says why.
-	std::string Locate(const std::string& folder, bool download, const std::string& url, std::string& error);
+	std::string Locate(const std::string& folder, std::string& error);
 
 	// Contents of a ROM file, unpacked when it is gzip data.
 	bool Read(const std::string& path, std::vector<uint8_t>& data, std::string& error);

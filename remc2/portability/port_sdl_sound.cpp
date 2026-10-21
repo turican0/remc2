@@ -38,8 +38,6 @@ int maxSimultaniousSounds = 10;
 
 std::string musicType = "ogg";
 std::string awe32RomFolder = "awe32data";
-bool awe32RomDownload = true;
-std::string awe32RomUrl;
 bool awe32music = false;
 static std::string awe32RomPath;
 static std::string musicWarning;//shown in the game when the AWE32 music could not be used
@@ -926,17 +924,17 @@ bool init_sound()
 	if (musicType == "awe32")
 	{
 		std::string error;
-		awe32RomPath = Awe32Rom::Locate(awe32RomFolder, awe32RomDownload, awe32RomUrl, error);
+		awe32RomPath = Awe32Rom::Locate(awe32RomFolder, error);
 		if (awe32RomPath.empty())
 		{
+			oggmusic = true;
 			Logger->warn("AWE32 music: {}; the ogg music plays instead", error);
 			musicWarning = "AWE32 ROM missing, ogg music plays";
 		}
 		else
 		{
-			Logger->info("AWE32 music: wave ROM {}", awe32RomPath);
 			awe32music = true;
-			hqsound = true;
+			Logger->info("AWE32 music: wave ROM {}", awe32RomPath);
 		}
 	}
 #ifdef SOUND_SDLMIXER
