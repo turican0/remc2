@@ -60,6 +60,7 @@ public:
 			std::string m_SpeechFolder;
 			std::string m_MusicType = "ogg";
 			std::string m_Awe32RomFolder;
+			bool m_UseMagicCarpet1Music = false;
 			std::string m_OggFolder;
 			bool m_OggMusicAlternative = false;
 		};
