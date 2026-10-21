@@ -19,7 +19,6 @@ namespace remc2_installer
 	public class Multiplayer
 	{
 		public int serverPort { get; set; }
-		public int serverClientPort { get; set; }
 		public int clientPort { get; set; }
 		public int clientServerPort { get; set; }
 		public string clientServerIp { get; set; }
@@ -85,6 +84,7 @@ namespace remc2_installer
 		public string[] description { get; set; }
 		public bool isActive { get; set; }
 		public float sizePercentToThreadRender { get; set; }
+		public float sizePercentToThreadRenderSprites { get; set; }
 		public int numberOfRenderThreads { get; set; }
 		public bool assignToSpecificCores { get; set; }
 	}
