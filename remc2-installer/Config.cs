@@ -36,13 +36,15 @@ namespace remc2_installer
 	{
 		public string[] description { get; set; }
 		public bool hqSound { get; set; }
-		public bool oggMusic { get; set; }
-		public string oggFolder { get; set; }
-		public bool oggMusicAlternative { get; set; }
 		public bool fixSpeedSound { get; set; }
 		public int maxSimultaniousSounds { get; set; }
 		public string speechFolder { get; set; }
 		public bool autoShowObjectivesForForeignLanguages { get; set; }
+		public string musicType { get; set; }
+		public string awe32RomFolder { get; set; }
+		public bool useMagicCarpet1Music { get; set; }
+		public string oggFolder { get; set; }
+		public bool oggMusicAlternative { get; set; }
 	}
 
 	public class Graphics
@@ -75,6 +77,7 @@ namespace remc2_installer
 		public bool reflections { get; set; }
 		public bool dynamicLighting { get; set; }
 		public int viewDistanceScale { get; set; }
+		public float fogScale { get; set; }
 	}
 
 	public class Threading
