@@ -38,7 +38,8 @@ int maxSimultaniousSounds = 10;
 
 std::string musicType = "ogg";
 std::string awe32RomFolder = "awe32data";
-bool awe32music = false;
+bool awe32Music = false;
+bool useMagicCarpet1Music = false;
 static std::string awe32RomPath;
 static std::string musicWarning;//shown in the game when the AWE32 music could not be used
 
@@ -399,7 +400,7 @@ void clean_up_sound()
 	}
 
 	//Quit SDL_mixer
-	if (awe32music)
+	if (awe32Music)
 		Mix_HookMusic(nullptr, nullptr);
 	Mix_CloseAudio();
 	Awe32Mdi::Shutdown();
@@ -517,7 +518,7 @@ struct {
 } environment_string;
 
 int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* out) {
-	if (awe32music && drvr->type_5 == 1)
+	if (awe32Music && drvr->type_5 == 1)
 	{
 		switch (fn) {
 		case 0x300://install: the driver image read from the file
@@ -649,7 +650,7 @@ uint8_t* SOUND_DosRealPointer(uint16_t segment, uint16_t offset)
 	return nullptr;
 }
 
-static void SDLCALL Awe32MusicHook(void* /*udata*/, Uint8* stream, int len)
+static void SDLCALL awe32MusicHook(void* /*udata*/, Uint8* stream, int len)
 {
 	Awe32Mdi::Render((int16_t*)stream, len / 4);
 }
@@ -933,7 +934,7 @@ bool init_sound()
 		}
 		else
 		{
-			awe32music = true;
+			awe32Music = true;
 			Logger->info("AWE32 music: wave ROM {}", awe32RomPath);
 		}
 	}
@@ -956,8 +957,8 @@ bool init_sound()
 	}
 
 	Mix_AllocateChannels(maxSimultaniousSounds + 1 + 1);
-	if (awe32music)
-		Mix_HookMusic(Awe32MusicHook, nullptr);
+	if (awe32Music)
+		Mix_HookMusic(awe32MusicHook, nullptr);
 
 	//Mix_SetSoundFonts("c:\\prenos\\Magic2\\sf2\\TOM-SF2.sf2");
 	//load_sound_files();

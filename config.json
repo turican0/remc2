@@ -28,7 +28,7 @@
 					"autoShowObjectivesForForeignLanguages: auto displays objective and mission text when not english",
 					"musicType: ogg = the ogg music, awe32 = the original XMI music of the game through the Sound Blaster AWE32 emulation",
 					"awe32RomFolder: folder of the AWE32 wave ROM, data.binz (packed by gzip) or data.bin; without it the ogg music plays",
-					"useMc1Music: set to true to use Original Magic Carpet music midi tracks. Requires awe32 music type set",
+					"useMagicCarpet1Music: set to true to use Original Magic Carpet music midi tracks. Requires awe32 music type set",
 					"oggFolder: folder for ogg music tracks, uses less CPU than AWE32 Emulation",
 					"oggMusicAlternative: set to true to use alternative ogg sound tracks"
 				],
@@ -39,7 +39,7 @@
 				"autoShowObjectivesForForeignLanguages": true,
 				"musicType": "awe32",
 				"awe32RomFolder": "awe32data",
-				"useMc1Music": false,
+				"useMagicCarpet1Music": false,
 				"oggFolder": "music-ogg",
 				"oggMusicAlternative": false
 			},

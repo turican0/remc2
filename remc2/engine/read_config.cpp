@@ -146,15 +146,21 @@ bool SetConfig() {
 	fixspeedsound = settingsValue.m_Sound.m_FixSpeedSound;
 	autoShowObjectivesForForeignLanguages = settingsValue.m_Sound.m_AutoShowObjectivesForForeignLanguages;
 
-	if (settingsValue.m_Sound.m_MusicType._Equal("ogg"))
+	musicType = settingsValue.m_Sound.m_MusicType;
+
+	if (musicType._Equal("ogg"))
 	{
 		oggmusic = true;
 		hqsound = true;
+		strcpy(oggmusicFolder, settingsValue.m_Sound.m_OggFolder.c_str());
+		oggmusicalternative = settingsValue.m_Sound.m_OggMusicAlternative;
 	}
-	else if(settingsValue.m_Sound.m_MusicType._Equal("awe32"))
+	else if(musicType._Equal("awe32"))
 	{
-		awe32music = true;
+		awe32Music = true;
 		hqsound = true;
+		awe32RomFolder = settingsValue.m_Sound.m_Awe32RomFolder;
+		useMagicCarpet1Music = settingsValue.m_Sound.m_UseMagicCarpet1Music;
 	}
 	else
 		oggmusic = false;
@@ -162,11 +168,7 @@ bool SetConfig() {
 	if (settingsValue.m_Sound.m_MaxSimultaniousSounds > 10)
 		maxSimultaniousSounds = settingsValue.m_Sound.m_MaxSimultaniousSounds;
 
-	oggmusicalternative = settingsValue.m_Sound.m_OggMusicAlternative;
-	strcpy(oggmusicFolder, settingsValue.m_Sound.m_OggFolder.c_str());
 	strcpy(speechFolder, settingsValue.m_Sound.m_SpeechFolder.c_str());
-	musicType = settingsValue.m_Sound.m_MusicType;
-	awe32RomFolder = settingsValue.m_Sound.m_Awe32RomFolder;
 
 	//Graphics
 	displayIndex = settingsValue.m_Graphics.m_DisplayIndex;

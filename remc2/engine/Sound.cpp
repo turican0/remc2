@@ -892,10 +892,10 @@ void StartMusic_8E160(int track, int volume)//26f160
 			songCurrentlyPlaying_E3802 = 0;
 		}
 		//track_10[] begins with track 1 (LoadMusicTrack), the original reads E3808 + track * 32 + 0x12
-		AilInitSequence_95C00(m_hMusicSequence_180C78, musicHeader_E3808->str_8.track_10[awe32music ? (track > 0 ? track - 1 : 0) : track].xmiData_0, 0, track);
+		AilInitSequence_95C00(m_hMusicSequence_180C78, musicHeader_E3808->str_8.track_10[awe32Music ? (track > 0 ? track - 1 : 0) : track].xmiData_0, 0, track);
 		AilRegisterTriggerCallback_97670(m_hMusicSequence_180C78, reinterpret_cast<void*>(sub_8E0D0));
 
-		if (awe32music)
+		if (awe32Music)
 		{
 			for (int i = 0; i < 16; i++)
 			{
@@ -2108,7 +2108,7 @@ void AilEndSequence_95F00(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_end_sequence
 //----- (00096030) --------------------------------------------------------
 void AilSetSequenceVolume_96030(int32_t volume, int32_t  milliseconds)
 {
-	if (awe32music)
+	if (awe32Music)
 	{
 		AilAPISetSequenceVolume_A8360(m_hMusicSequence_180C78, volume, milliseconds);
 		return;
@@ -2138,7 +2138,7 @@ int AilSequenceStatus_96170(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_sequence_st
 //----- (00096670) --------------------------------------------------------
 void AilSetXMidiMasterVolume_96670(int32_t master_volume)
 {
-	if (awe32music)
+	if (awe32Music)
 	{
 		AilApiSetXMidiMasterVolume_A84D0(hMdiMusicDriver_180C7C, master_volume);
 		return;
@@ -2543,7 +2543,7 @@ bool AilApiReadIni_9E3A0(AIL_INI* INI, char* filename)//27f3a0
 		INI->IO.DMA_8_bit = StrToInt("-1", 10);
 		INI->IO.DMA_16_bit = StrToInt("-1", 10);
 	}
-	if (!strcmp(filename + strlen(filename) - strlen("MDI.INI"), "MDI.INI") && awe32music)
+	if (!strcmp(filename + strlen(filename) - strlen("MDI.INI"), "MDI.INI") && awe32Music)
 	{
 		strcpy(INI->device_name, "Creative Labs Sound Blaster AWE32");
 		strcpy(INI->driver_name, "SBAWE32.MDI");
@@ -4713,7 +4713,7 @@ HMDIDRIVER InitAilDriver_A6FB0(AIL_DRIVER* ailDriver, IO_PARMS* io)//287fb0
 								AilDelay_920D0(3);
 						}
 						//loc_A755A: AIL_register_timer(loc_A6530), the AWE32 output calls it at preference 11 Hz
-						if (awe32music)
+						if (awe32Music)
 							Awe32Mdi::SetService(AilXmidiServiceTimer, hMdiDriver, preference_181DAC[11]);
 						result = hMdiDriver;
 					}
@@ -4979,7 +4979,7 @@ static int32_t AilApiInitSequence_A7C20(HSEQUENCE hSequence, uint8_t* start, int
 }
 
 int32_t AilApiInitMusicSequence_A7C20(HSEQUENCE hSequence, void*  start, int32_t sequence_num, uint32_t track) {
-	if (awe32music)
+	if (awe32Music)
 	{
 		std::lock_guard<std::recursive_mutex> lock(Awe32Mdi::Mutex());
 		return AilApiInitSequence_A7C20(hSequence, (uint8_t*)start, sequence_num);
@@ -4999,7 +4999,7 @@ int32_t AilApiInitMusicSequence_A7C20(HSEQUENCE hSequence, void*  start, int32_t
 //----- (000A8010) --------------------------------------------------------
 void AilApiStartSequence_A8010(HSEQUENCE hSequence, uint32_t track)//289010
 {
-	if (awe32music)
+	if (awe32Music)
 	{
 		sub_A8010_AIL_API_start_sequence_orig(hSequence);
 		return;
@@ -5033,7 +5033,7 @@ void sub_A8010_AIL_API_start_sequence_orig(HSEQUENCE hSequence)//289010
 //----- (000A8050) --------------------------------------------------------
 void sub_A8050_AIL_API_stop_sequence(HSEQUENCE hSequence)//289050
 {
-	if (awe32music)
+	if (awe32Music)
 	{
 		std::lock_guard<std::recursive_mutex> lock(Awe32Mdi::Mutex());
 		if (!hSequence || hSequence->status_1 != 4)
@@ -5068,7 +5068,7 @@ void sub_A8050_AIL_API_stop_sequence(HSEQUENCE hSequence)//289050
 //----- (000A8180) --------------------------------------------------------
 void sub_A8180_AIL_API_resume_sequence(HSEQUENCE hSequence)//289180
 {
-	if (awe32music)
+	if (awe32Music)
 	{
 		std::lock_guard<std::recursive_mutex> lock(Awe32Mdi::Mutex());
 		if (!hSequence || hSequence->status_1 != 8)
@@ -5096,7 +5096,7 @@ void sub_A8180_AIL_API_resume_sequence(HSEQUENCE hSequence)//289180
 //----- (000A8250) --------------------------------------------------------
 void AilApiEndSequence_A8250(HSEQUENCE hSequence)//289250
 {
-	if (awe32music)
+	if (awe32Music)
 	{
 		std::lock_guard<std::recursive_mutex> lock(Awe32Mdi::Mutex());
 		if (!hSequence || hSequence->status_1 == 1)
@@ -5122,7 +5122,7 @@ void AilApiEndSequence_A8250(HSEQUENCE hSequence)//289250
 void AilAPISetSequenceVolume_A8360(HSEQUENCE hSequence, int32_t volume, int32_t milliseconds)//289360
 {
 	std::unique_lock<std::recursive_mutex> lock(Awe32Mdi::Mutex(), std::defer_lock);
-	if (awe32music)
+	if (awe32Music)
 		lock.lock();
 	if (hSequence)
 	{
@@ -5238,7 +5238,7 @@ void AilApiTriggerCallback_A8A20(HSEQUENCE hSequence, xCALLBACK callback)
 	if (!hSequence)
 		return;
 	std::unique_lock<std::recursive_mutex> lock(Awe32Mdi::Mutex(), std::defer_lock);
-	if (awe32music)
+	if (awe32Music)
 		lock.lock();
 	hSequence->trigger_callback_8_32 = callback;
 }
@@ -5332,7 +5332,7 @@ void sub_A9080(HSEQUENCE sequence, int a2, int a3)//28a080
 //----- (000A9140) --------------------------------------------------------
 void AilAPISendChannelVoiceMessage_A9140(HMDIDRIVER mdi, HSEQUENCE hSequence, int32_t status, int32_t data_1, int32_t data_2)//28a140
 {
-	if (!awe32music)
+	if (!awe32Music)
 		return;
 	std::lock_guard<std::recursive_mutex> lock(Awe32Mdi::Mutex());
 	mdi->disable_5++;
@@ -5940,7 +5940,7 @@ uint32_t FadeWarMusic_99830(uint32_t interval)
 		{
 			x_BYTE_E3816 += x_BYTE_E381A;
 
-			if (awe32music)
+			if (awe32Music)
 			{
 				for (i = 0; i < 0x10u; ++i)
 				{

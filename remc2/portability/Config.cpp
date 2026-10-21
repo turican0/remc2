@@ -399,6 +399,7 @@ Config::Settings::Sound Config::GetSound(const json& settings)
 		soundValues.m_Awe32RomFolder = ReadStringValue(sound, "awe32RomFolder");
 		soundValues.m_OggFolder = ReadStringValue(sound, "oggFolder");
 		soundValues.m_OggMusicAlternative = ReadBoolValue(sound, "oggMusicAlternative");
+		soundValues.m_UseMagicCarpet1Music = ReadBoolValue(sound, "useMagicCarpet1Music");
 	}
 	return soundValues;
 }
@@ -477,6 +478,7 @@ void Config::SaveSoundToDoc(Config::Settings::Sound soundSettings)
 	SetString(sound, "speechFolder", soundSettings.m_SpeechFolder);
 	SetString(sound, "musicType", soundSettings.m_MusicType);
 	SetString(sound, "awe32RomFolder", soundSettings.m_Awe32RomFolder);
+	SetBool(sound, "useMagicCarpet1Music", soundSettings.m_UseMagicCarpet1Music);
 }
 
 void Config::SaveGraphicsToDoc(Config::Settings::Graphics graphics)

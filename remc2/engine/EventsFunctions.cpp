@@ -43099,6 +43099,9 @@ void Initialize()//23c8d0
 	if ((x_D41A0_BYTEARRAY_4_struct.setting_byte4_25) & 8)
 		sub_5C490_testers_info();//23C8E6 - 23D490
 
+	if (useMagicCarpet1Music)
+		x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 |= 0x40u;
+
 	Logger->debug("Init:Begin of creating dirs\n");
 
 	std::string exepath = get_exe_path();
