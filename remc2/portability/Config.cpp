@@ -391,13 +391,17 @@ Config::Settings::Sound Config::GetSound(const json& settings)
 	{
 		const auto& sound = settings["sound"];
 		soundValues.m_HqSound = ReadBoolValue(sound, "hqSound");
-		soundValues.m_OggMusic = ReadBoolValue(sound, "oggMusic");
-		soundValues.m_OggFolder = ReadStringValue(sound, "oggFolder");
-		soundValues.m_OggMusicAlternative = ReadBoolValue(sound, "oggMusicAlternative");
 		soundValues.m_FixSpeedSound = ReadBoolValue(sound, "fixSpeedSound");
 		soundValues.m_AutoShowObjectivesForForeignLanguages = ReadBoolValue(sound, "autoShowObjectivesForForeignLanguages");
 		soundValues.m_MaxSimultaniousSounds = ReadIntValue(sound, "maxSimultaniousSounds");
 		soundValues.m_SpeechFolder = ReadStringValue(sound, "speechFolder");
+		soundValues.m_MusicType = ReadStringValue(sound, "musicType");
+		soundValues.m_Awe32RomFolder = ReadStringValue(sound, "awe32RomFolder");
+		soundValues.m_OggFolder = ReadStringValue(sound, "oggFolder");
+		soundValues.m_OggMusicAlternative = ReadBoolValue(sound, "oggMusicAlternative");
+		soundValues.m_UseMagicCarpet1Music = ReadBoolValue(sound, "useMagicCarpet1Music");
+		soundValues.m_Awe32GmIntroMusic = ReadBoolValue(sound, "awe32GmIntroMusic");
+		soundValues.m_Awe32BufferMs = ReadIntValue(sound, "awe32BufferMs");
 	}
 	return soundValues;
 }
@@ -468,13 +472,17 @@ void Config::SaveSoundToDoc(Config::Settings::Sound soundSettings)
 	auto& settingsEntry = GetOrCreateActiveSettingsEntry();
 	auto& sound = GetOrCreate(settingsEntry, "sound");
 	SetBool(sound, "hqSound", soundSettings.m_HqSound);
-	SetBool(sound, "oggMusic", soundSettings.m_OggMusic);
 	SetString(sound, "oggFolder", soundSettings.m_OggFolder);
 	SetBool(sound, "oggMusicAlternative", soundSettings.m_OggMusicAlternative);
 	SetBool(sound, "fixSpeedSound", soundSettings.m_FixSpeedSound);
 	SetBool(sound, "autoShowObjectivesForForeignLanguages", soundSettings.m_AutoShowObjectivesForForeignLanguages);
 	SetInt(sound, "maxSimultaniousSounds", soundSettings.m_MaxSimultaniousSounds);
 	SetString(sound, "speechFolder", soundSettings.m_SpeechFolder);
+	SetString(sound, "musicType", soundSettings.m_MusicType);
+	SetString(sound, "awe32RomFolder", soundSettings.m_Awe32RomFolder);
+	SetBool(sound, "useMagicCarpet1Music", soundSettings.m_UseMagicCarpet1Music);
+	SetBool(sound, "awe32GmIntroMusic", soundSettings.m_Awe32GmIntroMusic);
+	SetInt(sound, "awe32BufferMs", soundSettings.m_Awe32BufferMs);
 }
 
 void Config::SaveGraphicsToDoc(Config::Settings::Graphics graphics)

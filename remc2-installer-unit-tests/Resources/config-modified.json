@@ -15,29 +15,37 @@
 			},
 			"multiplayer": {
 				"serverPort": 3030,
-				"serverClientPort": 3031,
 				"clientPort": 3030,
 				"clientServerPort": 3030,
 				"clientServerIp": "127.0.0.1"
 			},
 			"sound": {
 				"description": [
-					"hqSound: sound is transfered from 11025,8bit,mono to 44000,16bit,stereo. using AWE32 record of MIDI",
-					"oggMusic: music, for this function is hqsound auto enabled",
-					"oggMusicAlternative: use original and alternative sound tracks",
+					"hqSound: sound is transfered from 11025,8bit,mono to 44000,16bit,stereo",
 					"fixspeedsound: set true when sounds play double speed",
 					"maxSimultaniousSounds: Original was 10. Increasing might impact performance",
 					"speechFolder: location of the ripped CD speech tracks",
-					"autoShowObjectivesForForeignLanguages: auto displays objective and mission text when not english"
+					"autoShowObjectivesForForeignLanguages: auto displays objective and mission text when not english",
+					"musicType: ogg = the ogg music, awe32 = the original XMI music of the game through the Sound Blaster AWE32 emulation",
+					"awe32RomFolder: folder of the AWE32 wave ROM, data.binz (packed by gzip) or data.bin; without it the ogg music plays",
+					"useMagicCarpet1Music: set to true to use Original Magic Carpet music midi tracks. Requires awe32 music type set",
+					"awe32GmIntroMusic: the intro and the cutscenes play the General MIDI version of the XMI music through the AWE32 emulation, the game keeps the AWE32 version",
+					"awe32BufferMs: how many ms the AWE32 emulation renders ahead (100-2000), raise it when the music crackles (debug build); the music starts this much later",
+					"oggFolder: folder for ogg music tracks, uses less CPU than AWE32 Emulation",
+					"oggMusicAlternative: set to true to use alternative ogg sound tracks"
 				],
 				"hqSound": true,
-				"oggMusic": true,
-				"oggFolder": "music-ogg",
-				"oggMusicAlternative": false,
 				"fixSpeedSound": false,
 				"maxSimultaniousSounds": 20,
 				"speechFolder": "CD_Files/SPEECH",
-				"autoShowObjectivesForForeignLanguages": true
+				"autoShowObjectivesForForeignLanguages": true,
+				"musicType": "awe32",
+				"awe32RomFolder": "awe32data",
+				"useMagicCarpet1Music": false,
+				"awe32GmIntroMusic": true,
+				"awe32BufferMs": 200,
+				"oggFolder": "music-ogg",
+				"oggMusicAlternative": false
 			},
 			"graphics": {
 				"description": [
@@ -65,8 +73,9 @@
 						"extendedFontsFolder: Directory with extended font graphics to support more languages. Path is relative to .exe",
 						"sky: Turns the sky on or off. Can be changed in-game",
 						"reflections: Turns the reflections on or off. Can be changed in-game",
-						"dynamicLighting: Turns the reflections on or off. Can be changed in-game",
-						"viewDistanceScale: Increases the view distance (will effect performance). '1' = Original distance, '2' = 2x, '3' = 3x (Max)"
+						"dynamicLighting: Turns the dynamic terrain lighting on or off. Can be changed in-game",
+						"viewDistanceScale: Increases the view distance (will effect performance). '1' = Original distance, '2' = 2x, ... (NG renderer: over '6' the map repeats)",
+						"fogScale: Moves the fog (NG renderer). '1.0' = Original, '2.0' = twice as far (up to the view distance), '0.5' = closer"
 					],
 					"gameResWidth": 1920,
 					"gameResHeight": 1080,
@@ -82,13 +91,14 @@
 					"sky": true,
 					"reflections": true,
 					"dynamicLighting": true,
-					"viewDistanceScale": 3
+					"viewDistanceScale": 4,
+					"fogScale": 1.0
 				},
 				"threading": {
 					"description": [
 						"isActive : If set to false or deleted, multi-threading will not be used in render",
-						"sizePercentToThreadRender: 0.0 - 100.0. Decides if a poly is big enough percent on screen to render using threading",
-						"sizePercentToThreadRenderSprites: 0.0 - 100.0. Decides if a sprite is big enough percent on screen to render using threading",
+						"DEPRECATED: sizePercentToThreadRender: 0.0 - 100.0. Decides if a poly is big enough percent on screen to render using threading",
+						"DEPRECATED: sizePercentToThreadRenderSprites: 0.0 - 100.0. Decides if a sprite is big enough percent on screen to render using threading",
 						"numberOfRenderThreads: Valid range 1-7. Depends on the number of available cores (Press 'T' to change in game)",
 						"assignToSpecificCores: When set to true, threads will be assigned to a specifc core (as many as supported)"
 					],

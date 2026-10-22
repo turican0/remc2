@@ -186,6 +186,27 @@ set(SOURCE_FILES__portability
     "portability/port_outputs.h"
     "portability/port_sdl_sound.cpp"
     "portability/port_sdl_sound.h"
+    "portability/awe32/Awe32Mdi.cpp"
+    "portability/awe32/Awe32Rom.cpp"
+    "portability/awe32/Emu8000.cpp"
+    "portability/awe32/Emu8000Box.cpp"
+    "portability/awe32/I18n.cpp"
+    "portability/awe32/SoundFont.cpp"
+    "portability/awe32/Synth.cpp"
+    "portability/awe32/86box/snd_emu8k.c"
+    "portability/awe32/Awe32Curves.h"
+    "portability/awe32/Awe32Driver.h"
+    "portability/awe32/Awe32InitArrays.h"
+    "portability/awe32/Awe32Mdi.h"
+    "portability/awe32/Awe32Rom.h"
+    "portability/awe32/Emu8000.h"
+    "portability/awe32/Emu8000Box.h"
+    "portability/awe32/Emu8000Effects.h"
+    "portability/awe32/Emu8000Regs.h"
+    "portability/awe32/I18n.h"
+    "portability/awe32/MidiTypes.h"
+    "portability/awe32/SoundFont.h"
+    "portability/awe32/Synth.h"
     "portability/port_sdl_vga_mouse.cpp"
     "portability/port_sdl_vga_mouse.h"
     "portability/port_sdl_joystick.cpp"
@@ -211,6 +232,8 @@ set(ALL_FILES
 ################################################################################
 add_library(findfirst ${SOURCE_FILES__libs__findfirst})
 add_executable(${PROJECT_NAME} ${ALL_FILES})
+target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/portability/awe32/86box/include")
+target_compile_definitions(${PROJECT_NAME} PRIVATE AWE32EMU_WITH_86BOX)
 
 install(
     TARGETS ${PROJECT_NAME}
@@ -235,6 +258,7 @@ install(
     DIRECTORY
     ${CMAKE_SOURCE_DIR}/enhancedassets/music-ogg
     ${CMAKE_SOURCE_DIR}/enhancedassets/graphics
+    ${CMAKE_SOURCE_DIR}/awe32data
     DESTINATION bin
 )
 

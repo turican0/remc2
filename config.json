@@ -21,22 +21,31 @@
 			},
 			"sound": {
 				"description": [
-					"hqSound: sound is transfered from 11025,8bit,mono to 44000,16bit,stereo. using AWE32 record of MIDI",
-					"oggMusic: music, for this function is hqsound auto enabled",
-					"oggMusicAlternative: use original and alternative sound tracks",
+					"hqSound: sound is transfered from 11025,8bit,mono to 44000,16bit,stereo",
 					"fixspeedsound: set true when sounds play double speed",
 					"maxSimultaniousSounds: Original was 10. Increasing might impact performance",
 					"speechFolder: location of the ripped CD speech tracks",
-					"autoShowObjectivesForForeignLanguages: auto displays objective and mission text when not english"
+					"autoShowObjectivesForForeignLanguages: auto displays objective and mission text when not english",
+					"musicType: ogg = ogg recorded music, re-imagined from the midi tracks (uses less CPU), awe32 = the original XMI music of the game through the Sound Blaster AWE32 emulation",
+					"awe32RomFolder: folder of the AWE32 wave ROM, data.binz (packed by gzip) or data.bin; without it the ogg music plays",
+					"useMagicCarpet1Music: set to true to use Original Magic Carpet music midi tracks. Requires awe32 music type set",
+					"awe32GmIntroMusic: the intro and the cutscenes play the General MIDI version of the XMI music through the AWE32 emulation, the game keeps the AWE32 version",
+					"awe32BufferMs: how many ms the AWE32 emulation renders ahead (100-2000), raise it when the music crackles (debug build); the music starts this much later",
+					"oggFolder: folder for ogg music tracks, uses less CPU than AWE32 Emulation",
+					"oggMusicAlternative: set to true to use alternative ogg sound tracks"
 				],
 				"hqSound": true,
-				"oggMusic": true,
-				"oggFolder": "music-ogg",
-				"oggMusicAlternative": false,
 				"fixSpeedSound": false,
 				"maxSimultaniousSounds": 20,
 				"speechFolder": "CD_Files/SPEECH",
-				"autoShowObjectivesForForeignLanguages": true
+				"autoShowObjectivesForForeignLanguages": true,
+				"musicType": "awe32",
+				"awe32RomFolder": "awe32data",
+				"useMagicCarpet1Music": false,
+				"awe32GmIntroMusic": true,
+				"awe32BufferMs": 200,
+				"oggFolder": "music-ogg",
+				"oggMusicAlternative": false
 			},
 			"graphics": {
 				"description": [

@@ -105,6 +105,27 @@ set(SOURCE_FILES_UNITTESTS_DEPENDENCIES
     "../remc2/portability/port_sdl_joystick.h"
     "../remc2/portability/port_sdl_sound.cpp"
     "../remc2/portability/port_sdl_sound.h"
+    "../remc2/portability/awe32/Awe32Mdi.cpp"
+    "../remc2/portability/awe32/Awe32Rom.cpp"
+    "../remc2/portability/awe32/Emu8000.cpp"
+    "../remc2/portability/awe32/Emu8000Box.cpp"
+    "../remc2/portability/awe32/I18n.cpp"
+    "../remc2/portability/awe32/SoundFont.cpp"
+    "../remc2/portability/awe32/Synth.cpp"
+    "../remc2/portability/awe32/86box/snd_emu8k.c"
+    "../remc2/portability/awe32/Awe32Curves.h"
+    "../remc2/portability/awe32/Awe32Driver.h"
+    "../remc2/portability/awe32/Awe32InitArrays.h"
+    "../remc2/portability/awe32/Awe32Mdi.h"
+    "../remc2/portability/awe32/Awe32Rom.h"
+    "../remc2/portability/awe32/Emu8000.h"
+    "../remc2/portability/awe32/Emu8000Box.h"
+    "../remc2/portability/awe32/Emu8000Effects.h"
+    "../remc2/portability/awe32/Emu8000Regs.h"
+    "../remc2/portability/awe32/I18n.h"
+    "../remc2/portability/awe32/MidiTypes.h"
+    "../remc2/portability/awe32/SoundFont.h"
+    "../remc2/portability/awe32/Synth.h"
     "../remc2/portability/port_sdl_vga_mouse.cpp"
     "../remc2/portability/port_sdl_vga_mouse.h"
     "../remc2/portability/port_show_perifery.cpp"
@@ -168,6 +189,8 @@ set(ROOT_NAMESPACE remc2-unit-test)
 ################################################################################
 include(GoogleTest)
 add_executable(${UNIT_TEST_TARGET} ${SOURCE_FILES_UNITTESTS} ${SOURCE_FILES_UNITTESTS_DEPENDENCIES})
+target_include_directories(${UNIT_TEST_TARGET} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../remc2/portability/awe32/86box/include")
+target_compile_definitions(${UNIT_TEST_TARGET} PRIVATE AWE32EMU_WITH_86BOX)
 target_include_directories(${UNIT_TEST_TARGET} PUBLIC
     "../remc2/engine"
     "../remc2/portability"

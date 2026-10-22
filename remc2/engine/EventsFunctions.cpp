@@ -31603,7 +31603,10 @@ void InGameLoop_47320()//228320
 		{
 			StopMusic_8E020();
 			if (gameTurn == 1)
+			{
 				StartMusic_8E160(D41A0_0.maptypeMusic_0x235, 0x7Fu);
+				SOUND_ShowMusicWarning();
+			}
 			gameTurn++;
 		}
 
@@ -43095,6 +43098,9 @@ void Initialize()//23c8d0
 	PrintHeader_70890();//23C8D6 - 251890
 	if ((x_D41A0_BYTEARRAY_4_struct.setting_byte4_25) & 8)
 		sub_5C490_testers_info();//23C8E6 - 23D490
+
+	if (useMagicCarpet1Music)
+		x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 |= 0x40u;
 
 	Logger->debug("Init:Begin of creating dirs\n");
 

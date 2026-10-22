@@ -54,13 +54,17 @@ public:
 		struct Sound
 		{
 			bool m_HqSound = true;
-			bool m_OggMusic = true;
-			std::string m_OggFolder;
-			bool m_OggMusicAlternative = false;
 			bool m_FixSpeedSound = true;
 			bool m_AutoShowObjectivesForForeignLanguages = false;
 			int m_MaxSimultaniousSounds = 10;
 			std::string m_SpeechFolder;
+			std::string m_MusicType = "ogg";
+			std::string m_Awe32RomFolder;
+			bool m_UseMagicCarpet1Music = false;
+			bool m_Awe32GmIntroMusic = true;
+			int m_Awe32BufferMs = 200;
+			std::string m_OggFolder;
+			bool m_OggMusicAlternative = false;
 		};
 
 		struct GameDetail

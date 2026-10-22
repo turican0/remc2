@@ -145,10 +145,24 @@ bool SetConfig() {
 	hqsound = settingsValue.m_Sound.m_HqSound;
 	fixspeedsound = settingsValue.m_Sound.m_FixSpeedSound;
 	autoShowObjectivesForForeignLanguages = settingsValue.m_Sound.m_AutoShowObjectivesForForeignLanguages;
-	if (settingsValue.m_Sound.m_OggMusic)
+
+	musicType = settingsValue.m_Sound.m_MusicType;
+
+	if (musicType.compare("ogg") == 0)
 	{
 		oggmusic = true;
-		hqsound = true;//for mp3 music must be activate hqsound
+		hqsound = true;
+		strcpy(oggmusicFolder, settingsValue.m_Sound.m_OggFolder.c_str());
+		oggmusicalternative = settingsValue.m_Sound.m_OggMusicAlternative;
+	}
+	else if(musicType.compare("awe32") == 0)
+	{
+		awe32Music = true;
+		hqsound = true;
+		awe32RomFolder = settingsValue.m_Sound.m_Awe32RomFolder;
+		useMagicCarpet1Music = settingsValue.m_Sound.m_UseMagicCarpet1Music;
+		awe32GmIntroMusic = settingsValue.m_Sound.m_Awe32GmIntroMusic;
+		awe32BufferMs = settingsValue.m_Sound.m_Awe32BufferMs;
 	}
 	else
 		oggmusic = false;
@@ -156,8 +170,6 @@ bool SetConfig() {
 	if (settingsValue.m_Sound.m_MaxSimultaniousSounds > 10)
 		maxSimultaniousSounds = settingsValue.m_Sound.m_MaxSimultaniousSounds;
 
-	oggmusicalternative = settingsValue.m_Sound.m_OggMusicAlternative;
-	strcpy(oggmusicFolder, settingsValue.m_Sound.m_OggFolder.c_str());
 	strcpy(speechFolder, settingsValue.m_Sound.m_SpeechFolder.c_str());
 
 	//Graphics
