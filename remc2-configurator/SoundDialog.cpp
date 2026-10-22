@@ -8,7 +8,7 @@
 
 SoundDialog::SoundDialog(wxWindow* parent, const Config::Settings::Sound& s)
 	: wxDialog(parent, wxID_ANY, "Sound Settings",
-		wxDefaultPosition, wxSize(450, 365), 
+		wxDefaultPosition, wxSize(450, 420), 
 		wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX)
 {
 	wxPanel* panel = new wxPanel(this, wxID_ANY);
@@ -40,9 +40,9 @@ SoundDialog::SoundDialog(wxWindow* parent, const Config::Settings::Sound& s)
 	aweRow->Add(m_aweRomPath, wxSizerFlags(1).Expand().Border(wxRIGHT, 4));
 	aweRow->Add(btnAweBrowse, wxSizerFlags(0).CentreVertical());
 
-	m_useMC1Music = new wxCheckBox(musicParent, wxID_ANY, "Use Magic Carpet 1 Music");
+	m_useMC1Music = new wxCheckBox(musicParent, wxID_ANY, "Use Magic Carpet 1 Music in Levels");
 	m_useMC1Music->SetValue(s.m_UseMagicCarpet1Music);
-	m_useMC1Music->SetToolTip("Use the Magic Carpet 1 music tracks.");
+	m_useMC1Music->SetToolTip("Use the Magic Carpet 1 music tracks in Levels.");
 
 	m_aweGmIntroMusic = new wxCheckBox(musicParent, wxID_ANY, "General MIDI Music in Intro and Cutscenes");
 	m_aweGmIntroMusic->SetValue(s.m_Awe32GmIntroMusic);
@@ -52,7 +52,7 @@ SoundDialog::SoundDialog(wxWindow* parent, const Config::Settings::Sound& s)
 	m_aweBufferMs = new wxSpinCtrl(musicParent, wxID_ANY, wxEmptyString,
 		wxDefaultPosition, wxDefaultSize,
 		wxSP_ARROW_KEYS, 100, 2000, s.m_Awe32BufferMs);
-	m_aweBufferMs->SetToolTip("How far ahead the AWE32 emulation renders. Raise it when the music crackles (debug build), the music then starts later.");
+	m_aweBufferMs->SetToolTip("How far ahead the AWE32 emulation renders. Raise it when the music crackles.");
 
 	wxBoxSizer* aweBufferRow = new wxBoxSizer(wxHORIZONTAL);
 	aweBufferRow->Add(aweBufferLabel, wxSizerFlags(0).CentreVertical().Border(wxRIGHT, 6));

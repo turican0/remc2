@@ -148,14 +148,14 @@ bool SetConfig() {
 
 	musicType = settingsValue.m_Sound.m_MusicType;
 
-	if (musicType._Equal("ogg"))
+	if (musicType.compare("ogg") == 0)
 	{
 		oggmusic = true;
 		hqsound = true;
 		strcpy(oggmusicFolder, settingsValue.m_Sound.m_OggFolder.c_str());
 		oggmusicalternative = settingsValue.m_Sound.m_OggMusicAlternative;
 	}
-	else if(musicType._Equal("awe32"))
+	else if(musicType.compare("awe32") == 0)
 	{
 		awe32Music = true;
 		hqsound = true;

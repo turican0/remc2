@@ -400,10 +400,8 @@ Config::Settings::Sound Config::GetSound(const json& settings)
 		soundValues.m_OggFolder = ReadStringValue(sound, "oggFolder");
 		soundValues.m_OggMusicAlternative = ReadBoolValue(sound, "oggMusicAlternative");
 		soundValues.m_UseMagicCarpet1Music = ReadBoolValue(sound, "useMagicCarpet1Music");
-		if (sound.contains("awe32GmIntroMusic"))
-			soundValues.m_Awe32GmIntroMusic = ReadBoolValue(sound, "awe32GmIntroMusic");
-		if (sound.contains("awe32BufferMs"))
-			soundValues.m_Awe32BufferMs = ReadIntValue(sound, "awe32BufferMs");
+		soundValues.m_Awe32GmIntroMusic = ReadBoolValue(sound, "awe32GmIntroMusic");
+		soundValues.m_Awe32BufferMs = ReadIntValue(sound, "awe32BufferMs");
 	}
 	return soundValues;
 }
