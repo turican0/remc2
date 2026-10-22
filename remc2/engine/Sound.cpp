@@ -48,6 +48,10 @@ type_E3808_music_header* musicHeader_E3808 = nullptr; // weak
 int countOfMusicTracks_E380C = 0; // weak
 //replace str2_E37A4_sound_buffer3 and x_DWORD_E380C with equvivalent index_E37A4_MaxSound and index_E380C_MaxMusic
 uint8_t* musicData_E3810 = nullptr; // weak
+//awe32GmIntroMusic: the General MIDI version of the loaded bank, the intro and the cutscenes play it
+static type_E3808_music_header* gmMusicHeader = nullptr;
+static uint8_t* gmMusicData = nullptr;
+static bool songIsGm = false;
 uint8_t musicChannel_E3814 = 0; // weak
 char x_BYTE_E3815 = 0; // weak
 char x_BYTE_E3816 = 0; // weak
@@ -870,11 +874,43 @@ int sub_8E0D0(HSEQUENCE  /*hSequence*/, int a2, int a3)//26f0d0
 	return 0;
 }
 
-//----- (0008E160) --------------------------------------------------------
-void StartMusic_8E160(int track, int volume)//26f160
+static void FreeGmMusicBank()
 {
-	if (musicAble_E37FC && musicActive_E37FD && track <= m_iNumberOfTracks && songCurrentlyPlaying_E3802 != track)
+	if (gmMusicHeader)
 	{
+		FreeMem_83E80((uint8_t*)gmMusicHeader);
+		gmMusicHeader = nullptr;
+	}
+	if (gmMusicData)
+	{
+		FreeMem_83E80(gmMusicData);
+		gmMusicData = nullptr;
+	}
+}
+
+//the GM version of the bank whose header entry is at the file position; the position stays for the AWE32 version
+static void LoadGmMusicBank(FILE* filehandle)
+{
+	FreeGmMusicBank();
+	const long bankPos = myftell(filehandle);
+	if (LoadMusicTrack(filehandle, 0))
+	{
+		gmMusicHeader = musicHeader_E3808;
+		gmMusicData = musicData_E3810;
+		musicHeader_E3808 = nullptr;
+		musicData_E3810 = nullptr;
+	}
+	DataFileIO::Seek(filehandle, bankPos, 0);
+}
+
+//----- (0008E160) --------------------------------------------------------
+void StartMusic_8E160(int track, int volume, bool animation)//26f160
+{
+	const bool gm = animation && gmMusicHeader != nullptr;
+	if (musicAble_E37FC && musicActive_E37FD && track <= m_iNumberOfTracks && (songCurrentlyPlaying_E3802 != track || songIsGm != gm))
+	{
+		type_E3808_music_header* header = gm ? gmMusicHeader : musicHeader_E3808;
+		songIsGm = gm;
 		if (x_BYTE_E3818)
 			AilReleaseTimer_92DC0(MusicTimerIdx_180C80);
 		UpdateMusicTimer_E3819 = false;
@@ -892,7 +928,7 @@ void StartMusic_8E160(int track, int volume)//26f160
 			songCurrentlyPlaying_E3802 = 0;
 		}
 		//track_10[] begins with track 1 (LoadMusicTrack), the original reads E3808 + track * 32 + 0x12
-		AilInitSequence_95C00(m_hMusicSequence_180C78, musicHeader_E3808->str_8.track_10[awe32Music ? (track > 0 ? track - 1 : 0) : track].xmiData_0, 0, track);
+		AilInitSequence_95C00(m_hMusicSequence_180C78, header->str_8.track_10[awe32Music ? (track > 0 ? track - 1 : 0) : track].xmiData_0, 0, track);
 		AilRegisterTriggerCallback_97670(m_hMusicSequence_180C78, reinterpret_cast<void*>(sub_8E0D0));
 
 		if (awe32Music)
@@ -1539,6 +1575,7 @@ void EndMusic_99C90()//27ac90
 			sub_9FA80();
 		if (!soundLoaded_E379A)
 			AilShutdown_919C0();
+		FreeGmMusicBank();
 		if (musicHeader_E3808)
 		{
 			FreeMem_83E80((uint8_t*)musicHeader_E3808);
@@ -5609,6 +5646,8 @@ bool InitMusicBank_8EAD0(int channel)//26fad0
 	if (channellplus <= driverarray[finaldrivernumber])
 	{
 		DataFileIO::Seek(filehandle, (channellplus - 1) << 6, 1);
+		if (awe32Music && awe32GmIntroMusic && finaldrivernumber == 3)
+			LoadGmMusicBank(filehandle);
 		if (!LoadMusicTrack(filehandle, finaldrivernumber))
 		{
 			DataFileIO::Close(filehandle);

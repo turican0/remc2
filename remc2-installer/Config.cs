@@ -42,6 +42,8 @@ namespace remc2_installer
 		public string musicType { get; set; }
 		public string awe32RomFolder { get; set; }
 		public bool useMagicCarpet1Music { get; set; }
+		public bool awe32GmIntroMusic { get; set; } = true;
+		public int awe32BufferMs { get; set; } = 200;
 		public string oggFolder { get; set; }
 		public bool oggMusicAlternative { get; set; }
 	}

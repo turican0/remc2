@@ -29,6 +29,8 @@
 					"musicType: ogg = the ogg music, awe32 = the original XMI music of the game through the Sound Blaster AWE32 emulation",
 					"awe32RomFolder: folder of the AWE32 wave ROM, data.binz (packed by gzip) or data.bin; without it the ogg music plays",
 					"useMagicCarpet1Music: set to true to use Original Magic Carpet music midi tracks. Requires awe32 music type set",
+					"awe32GmIntroMusic: the intro and the cutscenes play the General MIDI version of the XMI music through the AWE32 emulation, the game keeps the AWE32 version",
+					"awe32BufferMs: how many ms the AWE32 emulation renders ahead (100-2000), raise it when the music crackles (debug build); the music starts this much later",
 					"oggFolder: folder for ogg music tracks, uses less CPU than AWE32 Emulation",
 					"oggMusicAlternative: set to true to use alternative ogg sound tracks"
 				],
@@ -40,6 +42,8 @@
 				"musicType": "awe32",
 				"awe32RomFolder": "awe32data",
 				"useMagicCarpet1Music": false,
+				"awe32GmIntroMusic": true,
+				"awe32BufferMs": 200,
 				"oggFolder": "music-ogg",
 				"oggMusicAlternative": false
 			},

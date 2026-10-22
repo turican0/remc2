@@ -161,6 +161,8 @@ bool SetConfig() {
 		hqsound = true;
 		awe32RomFolder = settingsValue.m_Sound.m_Awe32RomFolder;
 		useMagicCarpet1Music = settingsValue.m_Sound.m_UseMagicCarpet1Music;
+		awe32GmIntroMusic = settingsValue.m_Sound.m_Awe32GmIntroMusic;
+		awe32BufferMs = settingsValue.m_Sound.m_Awe32BufferMs;
 	}
 	else
 		oggmusic = false;

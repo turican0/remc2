@@ -44,9 +44,25 @@ SoundDialog::SoundDialog(wxWindow* parent, const Config::Settings::Sound& s)
 	m_useMC1Music->SetValue(s.m_UseMagicCarpet1Music);
 	m_useMC1Music->SetToolTip("Use the Magic Carpet 1 music tracks.");
 
+	m_aweGmIntroMusic = new wxCheckBox(musicParent, wxID_ANY, "General MIDI Music in Intro and Cutscenes");
+	m_aweGmIntroMusic->SetValue(s.m_Awe32GmIntroMusic);
+	m_aweGmIntroMusic->SetToolTip("The intro and the cutscenes play the General MIDI version of the music, the game keeps the AWE32 version.");
+
+	auto* aweBufferLabel = new wxStaticText(musicParent, wxID_ANY, "AWE 32 Buffer (ms):");
+	m_aweBufferMs = new wxSpinCtrl(musicParent, wxID_ANY, wxEmptyString,
+		wxDefaultPosition, wxDefaultSize,
+		wxSP_ARROW_KEYS, 100, 2000, s.m_Awe32BufferMs);
+	m_aweBufferMs->SetToolTip("How far ahead the AWE32 emulation renders. Raise it when the music crackles (debug build), the music then starts later.");
+
+	wxBoxSizer* aweBufferRow = new wxBoxSizer(wxHORIZONTAL);
+	aweBufferRow->Add(aweBufferLabel, wxSizerFlags(0).CentreVertical().Border(wxRIGHT, 6));
+	aweBufferRow->Add(m_aweBufferMs, wxSizerFlags(0));
+
 	wxBoxSizer* aweGroup = new wxBoxSizer(wxVERTICAL);
 	aweGroup->Add(aweRow, wxSizerFlags(0).Expand());
 	aweGroup->Add(m_useMC1Music, wxSizerFlags(0).Border(wxTOP, 8));
+	aweGroup->Add(m_aweGmIntroMusic, wxSizerFlags(0).Border(wxTOP, 8));
+	aweGroup->Add(aweBufferRow, wxSizerFlags(0).Border(wxTOP, 8));
 
 	// OGG controls
 	auto* oggFolderLabel = new wxStaticText(musicParent, wxID_ANY, "Music Tracks Folder:");
@@ -195,6 +211,8 @@ Config::Settings::Sound SoundDialog::GetSettings() const
 	// Music
 	s.m_Awe32RomFolder = m_aweRomPath->GetValue();
 	s.m_UseMagicCarpet1Music = m_useMC1Music->GetValue();
+	s.m_Awe32GmIntroMusic = m_aweGmIntroMusic->GetValue();
+	s.m_Awe32BufferMs = m_aweBufferMs->GetValue();
 	s.m_OggFolder = m_oggFolder->GetValue();
 	s.m_OggMusicAlternative = m_oggMusicAlternative->GetValue();
 

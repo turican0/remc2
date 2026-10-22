@@ -61,6 +61,8 @@ public:
 			std::string m_MusicType = "ogg";
 			std::string m_Awe32RomFolder;
 			bool m_UseMagicCarpet1Music = false;
+			bool m_Awe32GmIntroMusic = true;
+			int m_Awe32BufferMs = 200;
 			std::string m_OggFolder;
 			bool m_OggMusicAlternative = false;
 		};

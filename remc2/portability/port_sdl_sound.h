@@ -211,6 +211,8 @@ extern std::string musicType;
 extern std::string awe32RomFolder;
 extern bool awe32Music;//the XMI music of the game plays through the AWE32 emulation (musicType "awe32" and the ROM found)
 extern bool useMagicCarpet1Music;
+extern bool awe32GmIntroMusic;//the intro and the cutscenes play the General MIDI version of the XMI music instead of the AWE32 one
+extern int awe32BufferMs;//how far ahead the AWE32 emulation renders, more for slow (debug) builds
 
 void SOUND_ShowMusicWarning();
 uint8_t* SOUND_DosRealPointer(uint16_t segment, uint16_t offset);

@@ -13,6 +13,8 @@ private:
 	wxChoice* m_musicType = nullptr;
 	wxTextCtrl* m_aweRomPath = nullptr;
 	wxCheckBox* m_useMC1Music = nullptr;
+	wxCheckBox* m_aweGmIntroMusic = nullptr;
+	wxSpinCtrl* m_aweBufferMs = nullptr;
 	wxTextCtrl* m_oggFolder = nullptr;
 	wxCheckBox* m_oggMusicAlternative = nullptr;
 	wxCheckBox* m_fixSpeedSound = nullptr;

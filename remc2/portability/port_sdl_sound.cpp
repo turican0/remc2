@@ -40,6 +40,8 @@ std::string musicType = "ogg";
 std::string awe32RomFolder = "awe32data";
 bool awe32Music = false;
 bool useMagicCarpet1Music = false;
+bool awe32GmIntroMusic = true;
+int awe32BufferMs = 200;
 static std::string awe32RomPath;
 static std::string musicWarning;//shown in the game when the AWE32 music could not be used
 
@@ -935,7 +937,8 @@ bool init_sound()
 		else
 		{
 			awe32Music = true;
-			Logger->info("AWE32 music: wave ROM {}", awe32RomPath);
+			Awe32Mdi::SetBufferMs(awe32BufferMs);
+			Logger->info("AWE32 music: wave ROM {}, buffer {} ms", awe32RomPath, awe32BufferMs);
 		}
 	}
 #ifdef SOUND_SDLMIXER

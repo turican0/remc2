@@ -35,12 +35,16 @@ namespace Awe32Mdi
 	void SetService(void (*service)(void*), void* arg, int hz);
 	// Stereo 16-bit frames of the card output at 44100 Hz.
 	void Render(int16_t* out, int frames);
+	// How far ahead of the audio callback the card is rendered (the music starts this much later).
+	void SetBufferMs(int ms);
 
 	bool Ready();
 	// Guards the driver and the sequencer between the game, the AIL timers and the audio thread.
 	std::recursive_mutex& Mutex();
 
 	const int kSampleRate = 44100;
+	const int kMinBufferMs = 100;
+	const int kMaxBufferMs = 2000;
 }
 
 #endif //AWE32_MDI_H

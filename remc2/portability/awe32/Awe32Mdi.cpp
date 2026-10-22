@@ -28,10 +28,12 @@ namespace
 
 	// The card is rendered ahead in its own thread; the audio callback only copies the ring buffer,
 	// so neither the chip nor the game holding the driver can make it late.
+	// The ahead time is the awe32BufferMs setting (SetBufferMs), it has to cover the 4096 frames
+	// of the SDL callback and the slow blocks of the chip, a debug build needs more.
 	const int kChunkFrames = 512;
-	const int kAheadFrames = 8192;
-	const int kRingFrames = 16384;
-	std::vector<int16_t> g_ring(kRingFrames * 2);
+	int g_aheadFrames = 8192;
+	int g_ringFrames = 16384;
+	std::vector<int16_t> g_ring(g_ringFrames * 2);
 	uint64_t g_ringRead = 0;
 	uint64_t g_ringWrite = 0;
 	std::mutex g_ringMutex;
@@ -315,7 +317,7 @@ namespace
 		{
 			{
 				std::unique_lock<std::mutex> lock(g_ringMutex);
-				g_ringCv.wait(lock, [] { return g_renderStop || g_ringWrite - g_ringRead < (uint64_t)kAheadFrames; });
+				g_ringCv.wait(lock, [] { return g_renderStop || g_ringWrite - g_ringRead < (uint64_t)g_aheadFrames; });
 				if (g_renderStop)
 					return;
 			}
@@ -323,7 +325,7 @@ namespace
 			std::lock_guard<std::mutex> lock(g_ringMutex);
 			for (int i = 0; i < kChunkFrames; i++)
 			{
-				const size_t pos = (size_t)((g_ringWrite + i) % kRingFrames) * 2;
+				const size_t pos = (size_t)((g_ringWrite + i) % g_ringFrames) * 2;
 				g_ring[pos] = chunk[2 * i];
 				g_ring[pos + 1] = chunk[2 * i + 1];
 			}
@@ -344,13 +346,25 @@ namespace
 	}
 }
 
+void Awe32Mdi::SetBufferMs(int ms)
+{
+	ms = std::clamp(ms, kMinBufferMs, kMaxBufferMs);
+	const int frames = (kSampleRate * ms / 1000 + kChunkFrames - 1) / kChunkFrames * kChunkFrames;
+	std::lock_guard<std::mutex> lock(g_ringMutex);
+	g_aheadFrames = frames;
+	g_ringFrames = 2 * frames;
+	g_ring.assign((size_t)g_ringFrames * 2, 0);
+	g_ringRead = g_ringWrite = 0;
+	g_ringCv.notify_one();
+}
+
 void Awe32Mdi::Render(int16_t* out, int frames)
 {
 	std::lock_guard<std::mutex> lock(g_ringMutex);
 	const int available = (int)std::min<uint64_t>(g_ringWrite - g_ringRead, (uint64_t)frames);
 	for (int i = 0; i < available; i++)
 	{
-		const size_t pos = (size_t)((g_ringRead + i) % kRingFrames) * 2;
+		const size_t pos = (size_t)((g_ringRead + i) % g_ringFrames) * 2;
 		out[2 * i] = g_ring[pos];
 		out[2 * i + 1] = g_ring[pos + 1];
 	}
