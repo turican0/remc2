@@ -147,12 +147,12 @@ bool SetConfig() {
 	autoShowObjectivesForForeignLanguages = settingsValue.m_Sound.m_AutoShowObjectivesForForeignLanguages;
 
 	musicType = settingsValue.m_Sound.m_MusicType;
+	strcpy(oggmusicFolder, settingsValue.m_Sound.m_OggFolder.c_str());
 
 	if (musicType.compare("ogg") == 0)
 	{
 		oggmusic = true;
 		hqsound = true;
-		strcpy(oggmusicFolder, settingsValue.m_Sound.m_OggFolder.c_str());
 		oggmusicalternative = settingsValue.m_Sound.m_OggMusicAlternative;
 	}
 	else if(musicType.compare("awe32") == 0)
