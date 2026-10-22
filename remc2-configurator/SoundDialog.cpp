@@ -23,7 +23,7 @@ SoundDialog::SoundDialog(wxWindow* parent, const Config::Settings::Sound& s)
 	m_musicType->Append("AWE Enum");
 	m_musicType->Append("OGG");
 	m_musicType->SetSelection(s.m_MusicType == "ogg" ? 1 : 0);
-	m_musicType->SetToolTip("Select how music is played. Awe32 (the original XMI music of the game through the Sound Blaster AWE32 emulation) or Ogg recordings");
+	m_musicType->SetToolTip("Select how music is played. Awe32 (the original XMI music of the game through the Sound Blaster AWE32 emulation) or OGG recorded music (re-imagined from the midi tracks (uses less CPU))");
 
 	wxBoxSizer* typeRow = new wxBoxSizer(wxHORIZONTAL);
 	typeRow->Add(musicTypeLabel, wxSizerFlags(0).CentreVertical().Border(wxRIGHT, 6));
