@@ -181,8 +181,9 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-      </Command>
+				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+			</Command>
     </PostBuildEvent>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -210,9 +211,10 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-      </Command>
+				XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+			</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -241,8 +243,9 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-      </Command>
+				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+			</Command>
     </PostBuildEvent>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -276,9 +279,10 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-      </Command>
+				XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+			</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -307,12 +311,13 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
-        XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
-        XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
-        XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-      </Command>
+				XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
+				XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
+				XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
+				XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+			</Command>
     </PostBuildEvent>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -346,12 +351,13 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
-        XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
-        XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
-        XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-      </Command>
+				XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
+				XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
+				XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
+				XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+			</Command>
     </PostBuildEvent>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -484,6 +490,19 @@
     <ClInclude Include="portability\port_filesystem.h" />
     <ClInclude Include="portability\port_outputs.h" />
     <ClInclude Include="portability\port_sdl_sound.h" />
+    <ClInclude Include="portability\awe32\Awe32Curves.h" />
+    <ClInclude Include="portability\awe32\Awe32Driver.h" />
+    <ClInclude Include="portability\awe32\Awe32InitArrays.h" />
+    <ClInclude Include="portability\awe32\Awe32Mdi.h" />
+    <ClInclude Include="portability\awe32\Awe32Rom.h" />
+    <ClInclude Include="portability\awe32\Emu8000.h" />
+    <ClInclude Include="portability\awe32\Emu8000Box.h" />
+    <ClInclude Include="portability\awe32\Emu8000Effects.h" />
+    <ClInclude Include="portability\awe32\Emu8000Regs.h" />
+    <ClInclude Include="portability\awe32\I18n.h" />
+    <ClInclude Include="portability\awe32\MidiTypes.h" />
+    <ClInclude Include="portability\awe32\SoundFont.h" />
+    <ClInclude Include="portability\awe32\Synth.h" />
     <ClInclude Include="portability\port_sdl_vga_mouse.h" />
     <ClInclude Include="portability\port_time.h" />
     <ClInclude Include="portability\xmi2mid.h" />
@@ -561,6 +580,21 @@
     <ClCompile Include="portability\port_filesystem.cpp" />
     <ClCompile Include="portability\port_outputs.cpp" />
     <ClCompile Include="portability\port_sdl_sound.cpp" />
+    <ClCompile Include="portability\awe32\Awe32Mdi.cpp" />
+    <ClCompile Include="portability\awe32\Awe32Rom.cpp" />
+    <ClCompile Include="portability\awe32\Emu8000.cpp" />
+    <ClCompile Include="portability\awe32\Emu8000Box.cpp">
+      <AdditionalIncludeDirectories>$(ProjectDir)portability\awe32\86box\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>AWE32EMU_WITH_86BOX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="portability\awe32\I18n.cpp" />
+    <ClCompile Include="portability\awe32\SoundFont.cpp" />
+    <ClCompile Include="portability\awe32\Synth.cpp" />
+    <ClCompile Include="portability\awe32\86box\snd_emu8k.c">
+      <AdditionalIncludeDirectories>$(ProjectDir)portability\awe32\86box\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>AWE32EMU_WITH_86BOX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAs>CompileAsC</CompileAs>
+    </ClCompile>
     <ClCompile Include="portability\port_sdl_vga_mouse.cpp" />
     <ClCompile Include="portability\port_time.cpp" />
     <ClCompile Include="portability\xmi2mid.cpp" />

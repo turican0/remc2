@@ -114,7 +114,7 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 			break;
 		case 'D':
 		case 'd':
-			StartMusic_8E160(pSoundEvent[soundEventIndex_D4004].index, 0x64u);
+			StartMusic_8E160(pSoundEvent[soundEventIndex_D4004].index, 0x64u, true);
 			break;
 		case 'E':
 		case 'e':
@@ -140,13 +140,13 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 		case 'l':
 			if (x_DWORD_E387C)
 				sub_8F0AB(x_FILE_E3840, /*x_DWORD_E387C, */pSoundEvent[soundEventIndex_D4004].index);
-			StartMusic_8E160(pSoundEvent[soundEventIndex_D4004].index, 0x7Fu);
+			StartMusic_8E160(pSoundEvent[soundEventIndex_D4004].index, 0x7Fu, true);
 			break;
 		case 'M':
 		case 'Z':
 		case 'm':
 		case 'z':
-			StartMusic_8E160(pSoundEvent[soundEventIndex_D4004].index, 0x7Fu);
+			StartMusic_8E160(pSoundEvent[soundEventIndex_D4004].index, 0x7Fu, true);
 			break;
 		case 'O':
 		case 'o':

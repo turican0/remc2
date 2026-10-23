@@ -51,6 +51,45 @@
     <ClInclude Include="portability\dirent-x.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
+    <ClInclude Include="portability\awe32\Awe32Curves.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\awe32\Awe32Driver.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\awe32\Awe32InitArrays.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\awe32\Awe32Mdi.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\awe32\Awe32Rom.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\awe32\Emu8000.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\awe32\Emu8000Box.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\awe32\Emu8000Effects.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\awe32\Emu8000Regs.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\awe32\I18n.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\awe32\MidiTypes.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\awe32\SoundFont.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\awe32\Synth.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
     <ClInclude Include="portability\port_sdl_sound.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
@@ -372,6 +411,30 @@
       <Filter>Source Files\portability</Filter>
     </ClCompile>
     <ClCompile Include="portability\port_time.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\awe32\Awe32Mdi.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\awe32\Awe32Rom.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\awe32\Emu8000.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\awe32\Emu8000Box.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\awe32\I18n.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\awe32\SoundFont.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\awe32\Synth.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\awe32\86box\snd_emu8k.c">
       <Filter>Source Files\portability</Filter>
     </ClCompile>
     <ClCompile Include="portability\port_sdl_sound.cpp">

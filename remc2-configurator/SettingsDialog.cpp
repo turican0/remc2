@@ -76,7 +76,8 @@ void SettingsDialog::OnSound(wxCommandEvent&)
 {
 	auto settings = m_ptrConfig->GetSettingsFromDoc();
 	SoundDialog dlg(this, settings.m_Sound);
-	dlg.SetMinSize(wxSize(404, 332));
+	dlg.SetMinSize(wxSize(450, 420));
+	dlg.SetSize(wxSize(450, 420));
 	if (dlg.ShowModal() == wxID_OK) {
 		m_ptrConfig->SaveSoundToDoc(dlg.GetSettings());
 		m_ptrConfig->SaveToFile();

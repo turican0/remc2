@@ -19,7 +19,6 @@ namespace remc2_installer
 	public class Multiplayer
 	{
 		public int serverPort { get; set; }
-		public int serverClientPort { get; set; }
 		public int clientPort { get; set; }
 		public int clientServerPort { get; set; }
 		public string clientServerIp { get; set; }
@@ -36,13 +35,17 @@ namespace remc2_installer
 	{
 		public string[] description { get; set; }
 		public bool hqSound { get; set; }
-		public bool oggMusic { get; set; }
-		public string oggFolder { get; set; }
-		public bool oggMusicAlternative { get; set; }
 		public bool fixSpeedSound { get; set; }
 		public int maxSimultaniousSounds { get; set; }
 		public string speechFolder { get; set; }
 		public bool autoShowObjectivesForForeignLanguages { get; set; }
+		public string musicType { get; set; }
+		public string awe32RomFolder { get; set; }
+		public bool useMagicCarpet1Music { get; set; }
+		public bool awe32GmIntroMusic { get; set; } = true;
+		public int awe32BufferMs { get; set; } = 200;
+		public string oggFolder { get; set; }
+		public bool oggMusicAlternative { get; set; }
 	}
 
 	public class Graphics
@@ -75,6 +78,7 @@ namespace remc2_installer
 		public bool reflections { get; set; }
 		public bool dynamicLighting { get; set; }
 		public int viewDistanceScale { get; set; }
+		public float fogScale { get; set; }
 	}
 
 	public class Threading
@@ -82,6 +86,7 @@ namespace remc2_installer
 		public string[] description { get; set; }
 		public bool isActive { get; set; }
 		public float sizePercentToThreadRender { get; set; }
+		public float sizePercentToThreadRenderSprites { get; set; }
 		public int numberOfRenderThreads { get; set; }
 		public bool assignToSpecificCores { get; set; }
 	}

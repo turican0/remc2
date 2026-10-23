@@ -207,6 +207,18 @@ extern char speechFolder[512];
 extern Mix_Chunk* m_ptrSpeechChunk;
 extern int m_ptrSpeechBytesOffSet;
 
+extern std::string musicType;
+extern std::string awe32RomFolder;
+extern bool awe32Music;//the XMI music of the game plays through the AWE32 emulation (musicType "awe32" and the ROM found)
+extern bool useMagicCarpet1Music;
+extern bool awe32GmIntroMusic;//the intro and the cutscenes play the General MIDI version of the XMI music instead of the AWE32 one
+extern int awe32BufferMs;//how far ahead the AWE32 emulation renders, more for slow (debug) builds
+
+void SOUND_ShowMusicWarning();
+uint8_t* SOUND_DosRealPointer(uint16_t segment, uint16_t offset);
+uint16_t SOUND_DosRealAlloc(uint32_t bytes);
+void SOUND_DosRealFree(uint16_t segment);
+
 bool init_sound();
 void SOUND_GameStateChange(const GameState gameState);
 //bool load_sound_files();
