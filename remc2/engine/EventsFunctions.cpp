@@ -45017,7 +45017,7 @@ void DrawGameDebugText_6FEC0()//250ec0
 		sprintf(printbuffer, "Thing %d, Active %d", 168, 1000 - v39);
 		DrawText_2BC10(printbuffer, 320, v38, (*xadataclrd0dat.colorPalette_var28)[15]);
 		v40 = GetLetterHeight_6FC30() + v38;
-		sprintf(printbuffer, "Carpet %d", sizeof(type_shadow_D41A0_BYTESTR_0));
+		sprintf(printbuffer, "Carpet %zu", sizeof(type_shadow_D41A0_BYTESTR_0));
 		DrawText_2BC10(printbuffer, 320, v40, (*xadataclrd0dat.colorPalette_var28)[15]);
 		v41 = GetLetterHeight_6FC30() + v40;
 		sprintf(printbuffer, "Tape %d", 38547);
@@ -45566,7 +45566,7 @@ void WriteMenuGraphicToBMP(uint16_t width, uint16_t height, uint8_t scale, uint8
 	GameBitmap::DrawMenuGraphic(width, height, scale, ptrBuffer, ptrImage);
 
 	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), width, height, ptrPalette, ptrImage);
-	delete ptrImage;
+	delete[] ptrImage;
 }
 
 //----- (00072CB0) --------------------------------------------------------
