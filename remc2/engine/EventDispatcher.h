@@ -14,7 +14,7 @@ public:
 		for (auto el : _eventList)
 		{
 			for (auto e : el.second)
-				delete[] e;
+				delete e; // made with new, not new[] - delete[] freed a wrong address and broke the heap
 		}
 	};
 
