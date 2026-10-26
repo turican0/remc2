@@ -9,7 +9,7 @@ GraphicsDialog::GraphicsDialog(wxWindow* parent, const Config::Settings::Graphic
 	m_cfg = cfg;
 
 	auto* main = new wxBoxSizer(wxVERTICAL);
-	auto* grid = new wxFlexGridSizer(/*rows*/5, /*cols*/2, /*vgap*/10, /*hgap*/12);
+	auto* grid = new wxFlexGridSizer(/*rows*/6, /*cols*/2, /*vgap*/10, /*hgap*/12);
 	grid->AddGrowableCol(1, 1);
 
 	// ── Sky ───────────────────────────────────────────────────────────────────
@@ -54,6 +54,14 @@ GraphicsDialog::GraphicsDialog(wxWindow* parent, const Config::Settings::Graphic
 	m_spinFogScale->SetDigits(1);
 	m_spinFogScale->SetToolTip("Moves the fog (NG renderer). '1.0' = Original, '2.0' = twice as far (up to the view distance), '0.5' = closer");
 	grid->Add(m_spinFogScale, 0, wxEXPAND);
+
+	// ── Fixed Map Drawing ─────────────────────────────────────────────────────
+	grid->Add(new wxStaticText(this, wxID_ANY, "Fixed map drawing:"),
+		0, wxALIGN_CENTER_VERTICAL);
+	m_chkFixedMapDrawing = new wxCheckBox(this, wxID_ANY, wxEmptyString);
+	m_chkFixedMapDrawing->SetValue(cfg.m_GameDetail.m_FixedMapDrawing);
+	m_chkFixedMapDrawing->SetToolTip("Draws the map and the marks on it with exact maths (no shift between them). Off = the original drawing");
+	grid->Add(m_chkFixedMapDrawing, 0);
 
 	main->Add(grid, 1, wxEXPAND | wxALL, 14);
 	main->Add(new wxStaticLine(this), 0, wxEXPAND | wxLEFT | wxRIGHT, 14);
@@ -128,6 +136,7 @@ Config::Settings::Graphics GraphicsDialog::GetSettings() const
 	cfg.m_GameDetail.m_DynamicLighting = m_chkDynamicLighting->GetValue();
 	cfg.m_GameDetail.m_ViewDistanceScale = m_spinViewDistanceScale->GetValue();
 	cfg.m_GameDetail.m_FogScale = static_cast<float>(m_spinFogScale->GetValue());
+	cfg.m_GameDetail.m_FixedMapDrawing = m_chkFixedMapDrawing->GetValue();
 
 	return cfg;
 }

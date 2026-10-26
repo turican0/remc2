@@ -5,6 +5,9 @@
     <ClCompile Include="portability\fcaseopenUT.cpp">
       <Filter>portability</Filter>
     </ClCompile>
+    <ClCompile Include="engine\MapProjectionUT.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
     <ClCompile Include="engine\SetRenderViewPortSize_40C50UT.cpp">
       <Filter>engine</Filter>
     </ClCompile>

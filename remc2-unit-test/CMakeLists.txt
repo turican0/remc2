@@ -8,6 +8,7 @@ set(SOURCE_FILES_UNITTESTS
     "portability/fcaseopenUT.cpp"
     "engine/TerrainUT.cpp"
     "engine/SetRenderViewPortSize_40C50UT.cpp"
+    "engine/MapProjectionUT.cpp"
     "utilities/Math.cpp"
     "utilities/Math.h"
     "comparison/engine/OriginalTerrain.cpp"

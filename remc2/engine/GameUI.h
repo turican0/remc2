@@ -25,8 +25,31 @@ typedef struct {
 	uint16_t v62xw_42;//__int16 v62; // [esp+D2h] [ebp+18h]//+42
 	uint16_t v63xw_44;//__int16 v63; // [esp+D4h] [ebp+1Ah]//+44
 	uint8_t v64xb_46;//char v64; // [esp+D6h] [ebp+1Ch]//+46 //color
+	int16_t yaw_47;//not in the original, for MapProjection (fixedMapDrawing)
+	int16_t scaling_49;//not in the original, for MapProjection (fixedMapDrawing)
 } v51x_struct;
 #pragma pack(pop)
+
+// Places a world point on the map: pixel offset from the map centre (width / 2, height / 2).
+// The original maths (fixedMapDrawing off) is kept bit for bit: (dx * cos - dy * sin) >> 16 with the
+// coefficients (0x10000 / scaling) * sin_DB750 >> 16 computed by the caller. Both truncations make the
+// marks drift from the terrain the further they are from the centre.
+// With fixedMapDrawing it is exact (floor of the true position) and matches the terrain drawn by
+// DrawMapLowRes_63670 / DrawMapHighRes_63C90, which then sample each pixel in its centre.
+class MapProjection
+{
+public:
+	MapProjection(int cosCoef, int sinCoef, int16_t yaw, int scaling);
+	int X(int dx, int dy) const;
+	int Y(int dx, int dy) const;
+
+private:
+	int m_cosCoef;
+	int m_sinCoef;
+	int64_t m_cos;
+	int64_t m_sin;
+	int64_t m_divisor;
+};
 
 
 extern char FontType_D419D;
@@ -92,11 +115,30 @@ void DrawSorcererScores_2D1D0(uint8_t scale = 1);
 void DrawTextboxLine_89A30(const Type_TextBox_1804B0* textbox);
 void DrawVolumeSettings_303D0(uint8_t scale = 1);
 
+// Terrain walk of the map: world position of pixel (0, 0), its steps per column and per row
+struct MapWalk
+{
+	int startU;
+	int startV;
+	int du;
+	int dv;
+	int rowStepU;
+	int rowStepV;
+};
+// Fraction bits of a world unit in the walk with fixedMapDrawing (0 in the original)
+constexpr int MAP_WALK_FRAC_BITS = 8;
+MapWalk GetMapWalk(int16_t posX, int16_t posY, int width, int height, int16_t yaw, int scaling);
+MapWalk GetFixedMapWalk(int16_t posX, int16_t posY, int width, int height, int16_t yaw, int scaling);
+template <int FracBits>
+void DrawMapLowResWalk(uint8_t* ptrScreenBuffer, uint8_t* ptrMemoryBuffer, int height, const MapWalk& walk, int a10);
+template <int FracBits>
+void DrawMapHighResWalk(uint8_t* ptrScreenBuffer, int height, const MapWalk& walk, int a10);
+
 void BuildMapRowSpansLowRes(bool fullRows, int width, int height);
-template <bool Masked, bool Blend, bool WriteMemory>
+template <bool Masked, bool Blend, bool WriteMemory, int FracBits>
 void DrawMapRowsLowRes(uint8_t* ptrScreenBuffer, uint8_t* ptrMemoryBuffer, int height, int rowU, int rowV, int du, int dv, int rowStepU, int rowStepV);
 void BuildMapRowSpans(bool fullRows, int width, int height);
-template <bool Masked, bool Blend>
+template <bool Masked, bool Blend, int FracBits>
 void DrawMapRows(uint8_t* ptrScreenBuffer, int height, int rowU, int rowV, int du, int dv, int rowStepU, int rowStepV);
 void DrawMapLowRes_63670(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
 void DrawMapHighRes_63C90(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);

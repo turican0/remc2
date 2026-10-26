@@ -85,6 +85,7 @@ public:
 			bool m_DynamicLighting = true;
 			int m_ViewDistanceScale = 2;
 			float m_FogScale = 1.0f;
+			bool m_FixedMapDrawing = false;
 		};
 
 		struct Threading

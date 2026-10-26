@@ -75,7 +75,8 @@
 						"reflections: Turns the reflections on or off. Can be changed in-game",
 						"dynamicLighting: Turns the dynamic terrain lighting on or off. Can be changed in-game",
 						"viewDistanceScale: Increases the view distance (will effect performance). '1' = Original distance, '2' = 2x, ... (NG renderer: over '6' the map repeats)",
-						"fogScale: Moves the fog (NG renderer). '1.0' = Original, '2.0' = twice as far (up to the view distance), '0.5' = closer"
+						"fogScale: Moves the fog (NG renderer). '1.0' = Original, '2.0' = twice as far (up to the view distance), '0.5' = closer",
+						"fixedMapDrawing: true = the map and the marks on it are drawn with exact maths (no shift between them), false or missing = the original drawing"
 					],
 					"gameResWidth": 1920,
 					"gameResHeight": 1080,
@@ -92,7 +93,8 @@
 					"reflections": true,
 					"dynamicLighting": true,
 					"viewDistanceScale": 4,
-					"fogScale": 1.0
+					"fogScale": 1.0,
+					"fixedMapDrawing": true
 				},
 				"threading": {
 					"description": [
