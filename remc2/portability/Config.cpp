@@ -365,7 +365,6 @@ Config::Settings::GameDetail Config::GetGameDetail(const json& graphics)
 		gameDetailValues.m_ViewDistanceScale = ReadIntValue(gameDetail, "viewDistanceScale");
 		if (gameDetail.contains("fogScale"))
 			gameDetailValues.m_FogScale = ReadFloatValue(gameDetail, "fogScale");
-		gameDetailValues.m_FixedMapDrawing = ReadBoolValue(gameDetail, "fixedMapDrawing");
 	}
 	return gameDetailValues;
 }
@@ -520,7 +519,6 @@ void Config::SaveGameDetailToDoc(Config::Settings::GameDetail gameDetail)
 	SetBool(gd, "dynamicLighting", gameDetail.m_DynamicLighting);
 	SetInt(gd, "viewDistanceScale", gameDetail.m_ViewDistanceScale);
 	SetFloat(gd, "fogScale", gameDetail.m_FogScale);
-	SetBool(gd, "fixedMapDrawing", gameDetail.m_FixedMapDrawing);
 }
 
 void Config::SaveThreadingToDoc(Config::Settings::Threading threading)

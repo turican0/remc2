@@ -66,6 +66,7 @@ void CommandLineParser::Init(int argc, char **argv) {
     m_enable_in_game_debug = false;
     m_log_level_str = "Info";
     m_kill_move_and_rotation = false;
+    m_use_old_map_drawing = false;
     m_memimages_path = "../remc2/memimages/";
     m_config_file_path = "";
 
@@ -263,6 +264,7 @@ void CommandLineParser::InterpretParams() {
         else if (param == "--state_monitor")                    m_state_monitor = true;
         else if (param == "--enable_in_game_debug")             m_enable_in_game_debug = true;
         else if (param == "--kill_move_and_rotation")           m_kill_move_and_rotation = true;
+        else if (param == "--use_old_map_drawing")              m_use_old_map_drawing = true;
         else if (param == "--memimages_path") {
             m_memimages_path = *(++p);
         }

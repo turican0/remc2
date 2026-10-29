@@ -2286,7 +2286,7 @@ void DrawMapLowRes_63670(int16_t x, int16_t y, int16_t posX, int16_t posY, uint1
 
 	BuildMapRowSpansLowRes(a10 != 0, width, height);
 
-	if (fixedMapDrawing)
+	if (!CommandLineParams.DoUseOldMapDrawing())
 		DrawMapLowResWalk<MAP_WALK_FRAC_BITS>(ptrScreenBuffer, ptrMemoryBuffer, height, GetFixedMapWalk(posX, posY, width, height, yaw, scaling), a10);
 	else
 		DrawMapLowResWalk<0>(ptrScreenBuffer, ptrMemoryBuffer, height, GetMapWalk(posX, posY, width, height, yaw, scaling), a10);
@@ -2310,14 +2310,14 @@ static int FloorDiv(int64_t value, int64_t divisor)
 
 int MapProjection::X(int dx, int dy) const
 {
-	if (!fixedMapDrawing)
+	if (CommandLineParams.DoUseOldMapDrawing())
 		return (dx * m_cosCoef - dy * m_sinCoef) >> 16;
 	return FloorDiv(dx * m_cos + dy * m_sin, m_divisor);
 }
 
 int MapProjection::Y(int dx, int dy) const
 {
-	if (!fixedMapDrawing)
+	if (CommandLineParams.DoUseOldMapDrawing())
 		return (m_cosCoef * dy + m_sinCoef * dx) >> 16;
 	return FloorDiv(dy * m_cos - dx * m_sin, m_divisor);
 }
@@ -2573,7 +2573,7 @@ void DrawMapHighRes_63C90(int16_t x, int16_t y, int16_t posX, int16_t posY, uint
 
 	BuildMapRowSpans(a10 != 0, width, height);
 
-	if (fixedMapDrawing)
+	if (!CommandLineParams.DoUseOldMapDrawing())
 		DrawMapHighResWalk<MAP_WALK_FRAC_BITS>(ptrScreenBuffer, height, GetFixedMapWalk(posX, posY, width, height, yaw, scaling), a10);
 	else
 		DrawMapHighResWalk<0>(ptrScreenBuffer, height, GetMapWalk(posX, posY, width, height, yaw, scaling), a10);
@@ -2995,14 +2995,14 @@ char DrawObjectiveRectangle_64CE0(v51x_struct* a1, uint8_t scale)//245ce0
 	v2 = a1->v51y.y - a1->v57xdw_22;
 	v3 = 0;
 	const MapProjection projection(a1->v54xdw_10, a1->v55xdw_14, a1->yaw_47, a1->scaling_49);
-	if (fixedMapDrawing)
+	if (!CommandLineParams.DoUseOldMapDrawing())
 		posX_v4 = a1->v60xdw_34 + projection.X(v1, v2);
 	else
 		posX_v4 = a1->v60xdw_34 + ((int32_t)(v1 * a1->v54xdw_10 - v2 * a1->v55xdw_14) >> 16);
 	colour_v5 = a1->v64xb_46;
 	if (posX_v4 >= 0 && posX_v4 < a1->v58xdw_26)
 	{
-		if (fixedMapDrawing)
+		if (!CommandLineParams.DoUseOldMapDrawing())
 			posY_v6 = a1->v61xdw_38 + projection.Y(v1, v2);
 		else
 			posY_v6 = a1->v61xdw_38 + (int16_t)((a1->v54xdw_10 * v2 + a1->v55xdw_14 * v1) >> 16);

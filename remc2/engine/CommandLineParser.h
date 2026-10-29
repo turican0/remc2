@@ -82,6 +82,7 @@ class CommandLineParser {
         bool DoStateMonitor() const { return m_state_monitor;};
         bool DoShowInGameDebug() const { return m_enable_in_game_debug; };
         bool DoKillMoveAndRotation() const { return m_kill_move_and_rotation; };
+        bool DoUseOldMapDrawing() const { return m_use_old_map_drawing; };
 
         // settings
         std::string GetMemimagesPath() const {return m_memimages_path;};
@@ -151,6 +152,7 @@ class CommandLineParser {
         bool m_state_monitor;
         bool m_enable_in_game_debug;
         bool m_kill_move_and_rotation;
+        bool m_use_old_map_drawing;
 		int m_test_save_index;
 
         std::string m_memimages_path;
