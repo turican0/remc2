@@ -33,7 +33,6 @@ namespace
 
 	double MaxMarkError(bool fixed, const MapCase& c)
 	{
-		fixedMapDrawing = fixed;
 		const int posX = 0x1234;
 		const int posY = 0x6BCD;
 		double maxError = 0;
@@ -57,7 +56,6 @@ namespace
 				}
 			}
 		}
-		fixedMapDrawing = false;
 		return maxError;
 	}
 }
