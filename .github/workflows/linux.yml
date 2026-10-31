@@ -29,6 +29,7 @@ jobs:
         libgtest-dev \
         libspdlog-dev libfmt-dev \
         nlohmann-json3-dev \
+        libvulkan-dev glslc libvulkan-memory-allocator-dev \
         clang-tidy \
         libwxgtk3.2-dev \
         -o APT::Immediate-Configure=0

@@ -95,6 +95,97 @@ endif()
 find_package(PNG REQUIRED)
 find_package(fmt REQUIRED)
 
+# Vulkan renderer (GameRenderHW / VulkanPolygonRenderer)
+find_package(Vulkan REQUIRED)
+
+find_program(GLSLC_EXECUTABLE
+    NAMES glslc
+    HINTS "${Vulkan_GLSLC_EXECUTABLE}" "$ENV{VULKAN_SDK}/bin" "$ENV{VULKAN_SDK}/Bin"
+)
+if (NOT GLSLC_EXECUTABLE)
+    find_program(GLSLANG_VALIDATOR_EXECUTABLE
+        NAMES glslangValidator
+        HINTS "${Vulkan_GLSLANG_VALIDATOR_EXECUTABLE}" "$ENV{VULKAN_SDK}/bin" "$ENV{VULKAN_SDK}/Bin"
+    )
+    if (NOT GLSLANG_VALIDATOR_EXECUTABLE)
+        message(FATAL_ERROR "No GLSL compiler found. Install glslc (shaderc) or glslangValidator.")
+    endif ()
+endif ()
+
+# Distro packages for these are patchy, so fall back to fetching the same
+# versions vcpkg uses. FetchContent needs network access at configure time.
+include(FetchContent)
+
+find_package(VulkanMemoryAllocator CONFIG QUIET)
+if (NOT TARGET GPUOpen::VulkanMemoryAllocator)
+    find_path(VMA_INCLUDE_DIR vk_mem_alloc.h PATH_SUFFIXES vma)
+    if (VMA_INCLUDE_DIR)
+        add_library(GPUOpen::VulkanMemoryAllocator INTERFACE IMPORTED)
+        set_target_properties(GPUOpen::VulkanMemoryAllocator PROPERTIES
+            INTERFACE_INCLUDE_DIRECTORIES "${VMA_INCLUDE_DIR}"
+        )
+        message(STATUS "Found VulkanMemoryAllocator (header): ${VMA_INCLUDE_DIR}")
+    else ()
+        message(STATUS "VulkanMemoryAllocator not found, fetching v3.1.0")
+        FetchContent_Declare(VulkanMemoryAllocator
+            GIT_REPOSITORY https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git
+            GIT_TAG v3.1.0
+            GIT_SHALLOW TRUE
+        )
+        FetchContent_MakeAvailable(VulkanMemoryAllocator)
+    endif ()
+endif ()
+
+find_package(vk-bootstrap CONFIG QUIET)
+if (NOT TARGET vk-bootstrap::vk-bootstrap)
+    message(STATUS "vk-bootstrap not found, fetching v1.4.312")
+    FetchContent_Declare(vk-bootstrap
+        GIT_REPOSITORY https://github.com/charles-lunarg/vk-bootstrap.git
+        GIT_TAG v1.4.312
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_MakeAvailable(vk-bootstrap)
+endif ()
+
+set(VULKAN_LIBRARIES
+    Vulkan::Vulkan
+    GPUOpen::VulkanMemoryAllocator
+    vk-bootstrap::vk-bootstrap
+    ${CMAKE_DL_LIBS}
+)
+
+# Compiles the renderer's GLSL shaders to SPIR-V in <target dir>/shaders,
+# where VulkanPolygonRenderer loads them from at runtime.
+function(add_vulkan_shaders TARGET)
+    set(_shader_dir "${CMAKE_SOURCE_DIR}/remc2/portability/shaders")
+    set(_out_dir "$<TARGET_FILE_DIR:${TARGET}>/shaders")
+    set(_outputs)
+    foreach (_shader polygon.vert polygon.frag wireframe.frag overlay.vert overlay.frag)
+        set(_out "${CMAKE_CURRENT_BINARY_DIR}/shaders/${_shader}.spv")
+        if (GLSLC_EXECUTABLE)
+            set(_compile "${GLSLC_EXECUTABLE}" "${_shader_dir}/${_shader}" -o "${_out}")
+        else ()
+            set(_compile "${GLSLANG_VALIDATOR_EXECUTABLE}" -V "${_shader_dir}/${_shader}" -o "${_out}")
+        endif ()
+        add_custom_command(
+            OUTPUT "${_out}"
+            COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_BINARY_DIR}/shaders"
+            COMMAND ${_compile}
+            DEPENDS "${_shader_dir}/${_shader}"
+            COMMENT "Compiling shader ${_shader}"
+            VERBATIM
+        )
+        list(APPEND _outputs "${_out}")
+    endforeach ()
+    add_custom_target(${TARGET}-shaders DEPENDS ${_outputs})
+    add_dependencies(${TARGET} ${TARGET}-shaders)
+    add_custom_command(TARGET ${TARGET} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_BINARY_DIR}/shaders" "${_out_dir}"
+        VERBATIM
+    )
+    install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/shaders" DESTINATION bin)
+endfunction()
+
 ################################################################################
 # Global configuration types
 ################################################################################

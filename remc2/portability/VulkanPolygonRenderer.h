@@ -42,7 +42,8 @@ struct SDL_Window;
 class VulkanPolygonRenderer
 {
 public:
-	VulkanPolygonRenderer(std::string shaderFolder);
+	// enableValidation loads the Khronos validation layers: very slow, so only when chasing a Vulkan bug.
+	VulkanPolygonRenderer(std::string shaderFolder, bool enableValidation = false);
 	~VulkanPolygonRenderer();
 
 	VulkanPolygonRenderer(const VulkanPolygonRenderer&) = delete;
@@ -276,6 +277,7 @@ private:
 	SDL_Rect m_gameViewPort{ 0, 0, 0, 0 };
 
 	bool m_initialized = false;
+	bool m_enableValidation = false;
 	std::string m_ShaderFolder;
 
 	std::function<void(ResourceType, uint8_t)> m_SetClearColourIdxCallBack;

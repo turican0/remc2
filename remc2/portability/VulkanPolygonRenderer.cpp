@@ -41,9 +41,10 @@ namespace
 	}
 }
 
-VulkanPolygonRenderer::VulkanPolygonRenderer(std::string shaderFolder)
+VulkanPolygonRenderer::VulkanPolygonRenderer(std::string shaderFolder, bool enableValidation)
 {
 	m_ShaderFolder = shaderFolder;
+	m_enableValidation = enableValidation;
 
 	m_SetClearColourIdxCallBack =
 		[this](ResourceType state, uint8_t index) {
@@ -144,13 +145,7 @@ bool VulkanPolygonRenderer::Init(SDL_Window* window, int windowWidth, int window
 	vkb::InstanceBuilder instanceBuilder;
 	auto instRet = instanceBuilder
 		.set_app_name("remc2")
-		.request_validation_layers(
-#ifdef _DEBUG
-			true
-#else
-			false
-#endif
-		)
+		.request_validation_layers(m_enableValidation)   // slow; --vulkan_validation turns them on
 		.use_default_debug_messenger()
 		.require_api_version(1, 2, 0)
 		.build();

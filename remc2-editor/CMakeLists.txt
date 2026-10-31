@@ -30,9 +30,18 @@ set(SOURCE_FILES_EDITOR
     "../remc2/engine/GameUI.h"
     "../remc2/engine/Events.cpp"
     "../remc2/engine/Events.h"
-    "../remc2/engine/Event.h"
-    "../remc2/engine/EventDispatcher.cpp"
-    "../remc2/engine/EventDispatcher.h"
+    "../remc2/shared/EventDispatcher.cpp"
+    "../remc2/shared/EventDispatcher.h"
+    "../remc2/shared/Event.h"
+    "../remc2/shared/EventType.h"
+    "../remc2/shared/IEvent.h"
+    "../remc2/shared/ResourceType.h"
+    "../remc2/engine/GameRenderHW.cpp"
+    "../remc2/engine/GameRenderHW.h"
+    "../remc2/portability/VulkanPolygonRenderer.cpp"
+    "../remc2/portability/VulkanPolygonRenderer.h"
+    "../remc2/portability/RenderPolygon.h"
+    "../remc2/utilities/SafeQueue.h"
     "../remc2/engine/Level.cpp"
     "../remc2/engine/Level.h"
     "../remc2/engine/LevelStructs.cpp"
@@ -193,7 +202,9 @@ target_link_libraries(${EDITOR_TARGET} PUBLIC
     findfirst
     ADLMIDI_static
     fmt::fmt
+    ${VULKAN_LIBRARIES}
 )
+add_vulkan_shaders(${EDITOR_TARGET})
 target_include_directories(${EDITOR_TARGET} PUBLIC
     "../kiss_sdl-master"
     "../findfirst"

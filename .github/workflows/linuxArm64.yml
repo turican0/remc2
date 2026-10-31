@@ -37,6 +37,7 @@ jobs:
           libspdlog-dev libfmt-dev \
           libpng-dev \
           nlohmann-json3-dev \
+          libvulkan-dev glslc libvulkan-memory-allocator-dev \
           libwxgtk3.2-dev
 
     - name: Generate Build System - ${{matrix.BUILD_CONFIGURATION}}
