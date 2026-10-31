@@ -179,7 +179,7 @@ private:
 	void DrawBlur(VkCommandBuffer commandBuffer);
 	void DestroyFrameData();
 	void EnsureFrameBufferCapacity(FrameData& frame, size_t vertexBytes, size_t indexBytes);
-	VkDescriptorSet AllocateTextureDescriptorSet(VkImageView view, VkSampler sampler);
+	VkDescriptorSet AllocateTextureDescriptorSet(VkImageView view);
 
 	VkImage m_overlayImage = VK_NULL_HANDLE;
 	VmaAllocation m_overlayImageAlloc = VK_NULL_HANDLE;
@@ -244,7 +244,6 @@ private:
 	VkDescriptorSetLayout m_descriptorSetLayout = VK_NULL_HANDLE;
 	VkDescriptorPool m_descriptorPool = VK_NULL_HANDLE;
 	VkSampler m_nearestSampler = VK_NULL_HANDLE;
-	VkSampler m_mipSampler = VK_NULL_HANDLE;      // for textures with a mip chain (the terrain atlas)
 
 	// Palette: 256x1 RGBA8 texture, binding 0 in the descriptor set.
 	VkImage m_paletteImage = VK_NULL_HANDLE;

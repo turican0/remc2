@@ -23,9 +23,6 @@ const uint  MODE_SKY = 254u;
 const uint  MODE_WATER   = 26u;
 const uint  WATER_TEXELS = 12u;
 
-const int   TERRAIN_TILES_WIDE = 8;      // kTerrainAtlasTilesWide
-const float TERRAIN_LOD_BIAS   = 0.0;    // > 0 blurs sooner, < 0 keeps detail longer (and shimmers)
-
 const float WATER_GAIN   = 2.0;
 const vec3  WATER_LIFT   = vec3(0.0, 0.04, 0.06);
 
@@ -45,55 +42,13 @@ vec3 litColour(uint idx, float row)
 	return mix(a, b, fract(row));
 }
 
-// One terrain texel at a mip level, kept inside the tile uv is in so tiles don't bleed together
-uint terrainTexel(vec2 uv, int level, int tileSize)
-{
-	int   levelTile = max(tileSize >> level, 1);
-	ivec2 tile      = ivec2(floor(uv / float(tileSize))) * levelTile;
-	ivec2 texel     = ivec2(floor(uv / float(1 << level)));
-	texel = clamp(texel, tile, tile + levelTile - 1);
-	texel = clamp(texel, ivec2(0), textureSize(uIndexTex, level) - 1);
-	return texelFetch(uIndexTex, texel, level).r;
-}
-
 void main()
 {
 	const bool isTerrain = (pc.mode == MODE_TERRAIN) || (pc.mode == MODE_WATER);
 	const bool isSky     = (pc.mode == MODE_SKY);
 
 	ivec2 size = textureSize(uIndexTex, 0);
-
-	// ---- terrain and water ----
-	// Palette indices can't be filtered, so pick the level from the footprint of the pixel
-	// in atlas texels, look up nearest texels in the two closest levels and blend their lit
-	// colours. Up close (lod 0) this is exactly the unmipped lookup.
-	if (isTerrain)
-	{
-		vec2  dx       = dFdx(fragUV);
-		vec2  dy       = dFdy(fragUV);
-		float lod      = 0.5 * log2(max(max(dot(dx, dx), dot(dy, dy)), 1e-8)) + TERRAIN_LOD_BIAS;
-		int   levels   = textureQueryLevels(uIndexTex);
-		int   tileSize = size.x / TERRAIN_TILES_WIDE;
-		lod = clamp(lod, 0.0, float(levels - 1));
-
-		int   level = int(floor(lod));
-		float blend = lod - float(level);
-		float row   = fragShade * 32.0;
-
-		uint  idx = terrainTexel(fragUV, level, tileSize);
-		vec3  c   = litColour(idx, row);
-		if (blend > 0.0)
-			c = mix(c, litColour(terrainTexel(fragUV, level + 1, tileSize), row), blend);
-
-		float alpha = 1.0;
-		if (pc.mode == MODE_WATER && idx < WATER_TEXELS)
-			alpha = pc.alpha;      // no gain, no lift; fog comes only from litColour
-
-		outColor = vec4(c, alpha);
-		return;
-	}
-
-	vec2  uv   = fragUV * vec2(size);
+	vec2  uv   = isTerrain ? fragUV : fragUV * vec2(size);
 	ivec2 texel = ivec2(floor(uv));
 
 	if (isSky)
@@ -109,6 +64,19 @@ void main()
 	if (isSky)
 	{
 		outColor = vec4(palette(idx), 1.0);
+		return;
+	}
+
+	// ---- terrain and water ----
+	if (isTerrain)
+	{
+		vec3  c = litColour(idx, row);
+		float alpha = 1.0;
+
+		if (pc.mode == MODE_WATER && idx < WATER_TEXELS)
+			alpha = pc.alpha;      // no gain, no lift; fog comes only from litColour
+
+		outColor = vec4(c, alpha);
 		return;
 	}
 

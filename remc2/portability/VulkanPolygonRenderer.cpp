@@ -29,48 +29,6 @@ namespace
 		return module;
 	}
 
-	// Mip levels 1..log2(tileSize) of a tile atlas. Palette indices can't be averaged, so each
-	// texel is the most common index in the level-0 block it covers. Blocks never cross a tile
-	// edge, so neighbouring tiles don't bleed into each other.
-	std::vector<std::vector<uint8_t>> BuildTileMips(const uint8_t* pixels, uint32_t width, uint32_t height, uint32_t tileSize)
-	{
-		std::vector<std::vector<uint8_t>> levels;
-		uint32_t counts[256] = {};
-		for (uint32_t block = 2; block <= tileSize; block <<= 1)
-		{
-			const uint32_t levelWidth = width / block;
-			const uint32_t levelHeight = height / block;
-			std::vector<uint8_t> level(levelWidth * levelHeight);
-			for (uint32_t y = 0; y < levelHeight; y++)
-			{
-				for (uint32_t x = 0; x < levelWidth; x++)
-				{
-					const uint8_t* src = pixels + (y * block) * width + x * block;
-					uint8_t best = src[0];
-					uint32_t bestCount = 0;
-					for (uint32_t by = 0; by < block; by++)
-					{
-						for (uint32_t bx = 0; bx < block; bx++)
-						{
-							const uint8_t idx = src[by * width + bx];
-							if (++counts[idx] > bestCount)
-							{
-								bestCount = counts[idx];
-								best = idx;
-							}
-						}
-					}
-					for (uint32_t by = 0; by < block; by++)
-						for (uint32_t bx = 0; bx < block; bx++)
-							counts[src[by * width + bx]] = 0;
-					level[y * levelWidth + x] = best;
-				}
-			}
-			levels.push_back(std::move(level));
-		}
-		return levels;
-	}
-
 	// Triangulates a convex polygon (fan from vertex 0) into a flat index list.
 	void FanTriangulate(uint32_t baseVertex, uint32_t vertexCount, std::vector<uint32_t>& outIndices)
 	{
@@ -617,13 +575,6 @@ bool VulkanPolygonRenderer::CreateDescriptorResources()
 	if (vkCreateSampler(m_device, &samplerInfo, nullptr, &m_nearestSampler) != VK_SUCCESS)
 		return false;
 
-	// Unnormalized samplers can't be bound to a view with more than one level. The shader
-	// only texelFetches, so this one differs just enough to be legal for mipped textures.
-	samplerInfo.unnormalizedCoordinates = VK_FALSE;
-	samplerInfo.maxLod = VK_LOD_CLAMP_NONE;
-	if (vkCreateSampler(m_device, &samplerInfo, nullptr, &m_mipSampler) != VK_SUCCESS)
-		return false;
-
 	return true;
 }
 
@@ -936,7 +887,7 @@ void VulkanPolygonRenderer::RefreshClearColour()
 	m_clearColor = { { p[0] / 255.0f, p[1] / 255.0f, p[2] / 255.0f, 1.0f } };
 }
 
-VkDescriptorSet VulkanPolygonRenderer::AllocateTextureDescriptorSet(VkImageView view, VkSampler sampler)
+VkDescriptorSet VulkanPolygonRenderer::AllocateTextureDescriptorSet(VkImageView view)
 {
 	constexpr uint32_t kBindingCount = 4;
 
@@ -956,7 +907,7 @@ VkDescriptorSet VulkanPolygonRenderer::AllocateTextureDescriptorSet(VkImageView 
 	paletteInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
 	VkDescriptorImageInfo texInfo{};
-	texInfo.sampler = sampler;
+	texInfo.sampler = m_nearestSampler;
 	texInfo.imageView = view;
 	texInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
@@ -1000,23 +951,7 @@ uint32_t VulkanPolygonRenderer::UploadTexture(uint32_t index, const uint8_t* ind
 {
 	FreeTexture(index);
 
-	// The terrain atlas is minified a long way into the distance, so it gets a mip chain
-	// (the shader picks and blends the levels). Everything else stays a single level.
-	std::vector<std::vector<uint8_t>> mips;
-	const uint32_t tileSize = width / kTerrainAtlasTilesWide;
-	if (index == kTerrainAtlasId && tileSize > 1 && (tileSize & (tileSize - 1)) == 0
-		&& width % tileSize == 0 && height % tileSize == 0)
-		mips = BuildTileMips(indexedPixels, width, height, tileSize);
-	const uint32_t levelCount = 1 + (uint32_t)mips.size();
-
-	// Each level's offset in the staging buffer, kept 4-byte aligned for the copies.
-	std::vector<VkDeviceSize> offsets(levelCount);
-	VkDeviceSize size = 0;
-	for (uint32_t level = 0; level < levelCount; level++)
-	{
-		offsets[level] = size;
-		size += ((VkDeviceSize)(width >> level) * (height >> level) + 3) & ~(VkDeviceSize)3;
-	}
+	VkDeviceSize size = (VkDeviceSize)width * height;
 
 	VkBufferCreateInfo stagingInfo{};
 	stagingInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
@@ -1031,10 +966,7 @@ uint32_t VulkanPolygonRenderer::UploadTexture(uint32_t index, const uint8_t* ind
 	VmaAllocation stagingAllocation;
 	VmaAllocationInfo stagingOut{};
 	vmaCreateBuffer(m_allocator, &stagingInfo, &stagingAllocInfo, &stagingBuffer, &stagingAllocation, &stagingOut);
-	uint8_t* staged = static_cast<uint8_t*>(stagingOut.pMappedData);
-	std::memcpy(staged, indexedPixels, (size_t)width * height);
-	for (uint32_t level = 1; level < levelCount; level++)
-		std::memcpy(staged + offsets[level], mips[level - 1].data(), mips[level - 1].size());
+	std::memcpy(stagingOut.pMappedData, indexedPixels, (size_t)size);
 
 	Texture tex{};
 	tex.width = width;
@@ -1045,7 +977,7 @@ uint32_t VulkanPolygonRenderer::UploadTexture(uint32_t index, const uint8_t* ind
 	imgInfo.imageType = VK_IMAGE_TYPE_2D;
 	imgInfo.format = VK_FORMAT_R8_UINT; // raw palette index, resolved in the fragment shader
 	imgInfo.extent = { width, height, 1 };
-	imgInfo.mipLevels = levelCount;
+	imgInfo.mipLevels = 1;
 	imgInfo.arrayLayers = 1;
 	imgInfo.samples = VK_SAMPLE_COUNT_1_BIT;
 	imgInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
@@ -1061,7 +993,7 @@ uint32_t VulkanPolygonRenderer::UploadTexture(uint32_t index, const uint8_t* ind
 	viewInfo.image = tex.image;
 	viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
 	viewInfo.format = VK_FORMAT_R8_UINT;
-	viewInfo.subresourceRange = { VK_IMAGE_ASPECT_COLOR_BIT, 0, levelCount, 0, 1 };
+	viewInfo.subresourceRange = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 1, 0, 1 };
 	vkCreateImageView(m_device, &viewInfo, nullptr, &tex.view);
 
 	VkCommandPoolCreateInfo poolInfo{};
@@ -1089,20 +1021,16 @@ uint32_t VulkanPolygonRenderer::UploadTexture(uint32_t index, const uint8_t* ind
 	toTransfer.oldLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 	toTransfer.newLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
 	toTransfer.image = tex.image;
-	toTransfer.subresourceRange = { VK_IMAGE_ASPECT_COLOR_BIT, 0, levelCount, 0, 1 };
+	toTransfer.subresourceRange = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 1, 0, 1 };
 	toTransfer.srcAccessMask = 0;
 	toTransfer.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
 	vkCmdPipelineBarrier(cmd, VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT,
 		0, 0, nullptr, 0, nullptr, 1, &toTransfer);
 
-	std::vector<VkBufferImageCopy> copies(levelCount);
-	for (uint32_t level = 0; level < levelCount; level++)
-	{
-		copies[level].bufferOffset = offsets[level];
-		copies[level].imageSubresource = { VK_IMAGE_ASPECT_COLOR_BIT, level, 0, 1 };
-		copies[level].imageExtent = { width >> level, height >> level, 1 };
-	}
-	vkCmdCopyBufferToImage(cmd, stagingBuffer, tex.image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, levelCount, copies.data());
+	VkBufferImageCopy copy{};
+	copy.imageSubresource = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 0, 1 };
+	copy.imageExtent = { width, height, 1 };
+	vkCmdCopyBufferToImage(cmd, stagingBuffer, tex.image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &copy);
 
 	VkImageMemoryBarrier toShaderRead = toTransfer;
 	toShaderRead.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
@@ -1124,7 +1052,7 @@ uint32_t VulkanPolygonRenderer::UploadTexture(uint32_t index, const uint8_t* ind
 	vkDestroyCommandPool(m_device, pool, nullptr);
 	vmaDestroyBuffer(m_allocator, stagingBuffer, stagingAllocation);
 
-	tex.descriptorSet = AllocateTextureDescriptorSet(tex.view, levelCount > 1 ? m_mipSampler : m_nearestSampler);
+	tex.descriptorSet = AllocateTextureDescriptorSet(tex.view);
 
 	m_textures[index] = tex;
 	return index;
@@ -2228,7 +2156,6 @@ void VulkanPolygonRenderer::Shutdown()
 	vkDestroyPipeline(m_device, m_wireframePipeline, nullptr);
 	vkDestroyPipelineLayout(m_device, m_wireframePipelineLayout, nullptr);
 	vkDestroySampler(m_device, m_nearestSampler, nullptr);
-	vkDestroySampler(m_device, m_mipSampler, nullptr);
 	vkDestroyDescriptorPool(m_device, m_descriptorPool, nullptr);
 	vkDestroyDescriptorSetLayout(m_device, m_descriptorSetLayout, nullptr);
 	vkDestroyRenderPass(m_device, m_renderPass, nullptr);

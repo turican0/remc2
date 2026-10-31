@@ -521,7 +521,6 @@ extern uint32_t PitFrequency_F4240;
 extern std::vector<Type_Message*>* m_Messages;
 
 constexpr uint32_t kTerrainAtlasId = 1024;
-constexpr uint32_t kTerrainAtlasTilesWide = 8;
 constexpr uint32_t kSkyId = 1025;
 
 extern std::array<uint16_t, 504> m_spriteFrameCount;
