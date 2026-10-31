@@ -99,7 +99,7 @@ void SettingsDialog::OnGraphics(wxCommandEvent&)
 {
 	auto settings = m_ptrConfig->GetSettingsFromDoc();
 	GraphicsDialog dlg(this, settings.m_Graphics);
-	dlg.SetMinSize(wxSize(210, 310));
+	dlg.SetMinSize(wxSize(245, 370));
 	if (dlg.ShowModal() == wxID_OK) {
 		m_ptrConfig->SaveGraphicsToDoc(dlg.GetSettings());
 		m_ptrConfig->SaveToFile();

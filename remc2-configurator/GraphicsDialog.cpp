@@ -3,7 +3,7 @@
 // ── GraphicsDialog ────────────────────────────────────────────────────────────
 GraphicsDialog::GraphicsDialog(wxWindow* parent, const Config::Settings::Graphics& cfg)
 	: wxDialog(parent, wxID_ANY, "Graphics Settings",
-		wxDefaultPosition, wxSize(210, 340),
+		wxDefaultPosition, wxSize(245, 370),
 		wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX)
 {
 	m_cfg = cfg;
@@ -58,10 +58,27 @@ GraphicsDialog::GraphicsDialog(wxWindow* parent, const Config::Settings::Graphic
 	main->Add(grid, 1, wxEXPAND | wxALL, 14);
 	main->Add(new wxStaticLine(this), 0, wxEXPAND | wxLEFT | wxRIGHT, 14);
 
-	// ── Render Threads button ─────────────────────────────────────────────────
-	auto* btnRenderThreads = new wxButton(this, wxID_ANY, "Render Threads...");
-	main->Add(btnRenderThreads, 0, wxALIGN_CENTER | wxLEFT | wxTOP | wxBOTTOM, 10);
-	btnRenderThreads->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) {
+	// ── Renderer ──────────────────────────────────────────────────────────────
+	auto* renderRow = new wxBoxSizer(wxHORIZONTAL);
+	renderRow->Add(new wxStaticText(this, wxID_ANY, "Renderer:"),
+		0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 12);
+	m_choiceRender = new wxChoice(this, wxID_ANY);
+	m_choiceRender->Append("Hardware");
+	m_choiceRender->Append("Software");
+	m_choiceRender->SetSelection(cfg.m_Render == "HW" ? RENDER_HARDWARE : RENDER_SOFTWARE);
+	m_choiceRender->SetToolTip("Hardware renders with the GPU (Vulkan). Software renders with the CPU.");
+	renderRow->Add(m_choiceRender, 1, wxEXPAND);
+	main->Add(renderRow, 0, wxEXPAND | wxLEFT | wxRIGHT | wxTOP, 14);
+
+	// ── Hardware Settings button (hardware renderer only) ─────────────────────
+	m_btnHardwareSettings = new wxButton(this, wxID_ANY, "Hardware Settings...");
+	main->Add(m_btnHardwareSettings, 0, wxALIGN_CENTER | wxLEFT | wxTOP | wxBOTTOM, 10);
+
+	// ── Render Threads button (software renderer only) ────────────────────────
+	m_btnRenderThreads = new wxButton(this, wxID_ANY, "Render Threads...");
+	main->Add(m_btnRenderThreads, 0, wxALIGN_CENTER | wxLEFT | wxTOP | wxBOTTOM, 10);
+	m_choiceRender->Bind(wxEVT_CHOICE, [this](wxCommandEvent&) { UpdateRenderButtons(); });
+	m_btnRenderThreads->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) {
 		ThreadingDialog dlg(this, m_cfg.m_Threading);
 		dlg.SetMinSize(wxSize(286, 220));
 		if (dlg.ShowModal() == wxID_OK)
@@ -110,6 +127,7 @@ GraphicsDialog::GraphicsDialog(wxWindow* parent, const Config::Settings::Graphic
 	SetSizer(main);
 	btnOK->Bind(wxEVT_BUTTON, &GraphicsDialog::OnOK, this);
 
+	UpdateRenderButtons();
 	Fit();
 	Centre();
 }
@@ -117,6 +135,14 @@ GraphicsDialog::GraphicsDialog(wxWindow* parent, const Config::Settings::Graphic
 void GraphicsDialog::OnOK(wxCommandEvent&)
 {
 	EndModal(wxID_OK);
+}
+
+void GraphicsDialog::UpdateRenderButtons()
+{
+	bool hardware = m_choiceRender->GetSelection() == RENDER_HARDWARE;
+	m_btnHardwareSettings->Show(hardware);
+	m_btnRenderThreads->Show(!hardware);
+	Layout();
 }
 
 Config::Settings::Graphics GraphicsDialog::GetSettings() const
@@ -128,6 +154,7 @@ Config::Settings::Graphics GraphicsDialog::GetSettings() const
 	cfg.m_GameDetail.m_DynamicLighting = m_chkDynamicLighting->GetValue();
 	cfg.m_GameDetail.m_ViewDistanceScale = m_spinViewDistanceScale->GetValue();
 	cfg.m_GameDetail.m_FogScale = static_cast<float>(m_spinFogScale->GetValue());
+	cfg.m_Render = m_choiceRender->GetSelection() == RENDER_HARDWARE ? "HW" : "NG";
 
 	return cfg;
 }

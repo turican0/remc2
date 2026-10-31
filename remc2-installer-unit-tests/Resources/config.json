@@ -59,6 +59,7 @@
 				"windowResHeight": 1080,
 				"maintainAspectRatio": true,
 				"startWindowed": false,
+				"render": "HW",
 				"gameDetail": {
 					"description": [
 						"gameResWidth: In Game resolution. If using software render keep this low",

@@ -31381,11 +31381,11 @@ void sub_46830_main_loop(unsigned __int16 actLevel)//227830
 				SetCenterScreenForFlyAssistant_6EDB0();
 				if (m_ptrGameRender == nullptr)
 				{
-					if (!strcmp(forceRender.c_str(), "NG"))
-						m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, multiThreadedRender ? numberOfRenderThreads : 0, assignToSpecificCores, sizePercentToThreadRender);
-					else if (!strcmp(forceRender.c_str(), "Original"))
+					if (!strcmp(m_render.c_str(), "HW"))
+						m_ptrGameRender = (GameRenderInterface*)new GameRenderHW(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, viewDistanceScale);
+					else if (!strcmp(m_render.c_str(), "Original"))
 						m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
-					else if (!strcmp(forceRender.c_str(), "HD"))
+					else if (!strcmp(m_render.c_str(), "HD"))
 						m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores, sizePercentToThreadRender, sizePercentToThreadRenderSprites, viewDistanceScale);
 					else
 					{
@@ -31393,7 +31393,7 @@ void sub_46830_main_loop(unsigned __int16 actLevel)//227830
 							m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
 						}
 						else {
-							m_ptrGameRender = (GameRenderInterface*)new GameRenderHW(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, viewDistanceScale);
+							m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, multiThreadedRender ? numberOfRenderThreads : 0, assignToSpecificCores, sizePercentToThreadRender);
 						}
 					}
 				}

@@ -241,6 +241,7 @@ bool SetConfig() {
 		viewDistanceScale = settingsValue.m_Graphics.m_GameDetail.m_ViewDistanceScale;
 	if (settingsValue.m_Graphics.m_GameDetail.m_FogScale > 0)
 		fogScale = settingsValue.m_Graphics.m_GameDetail.m_FogScale;
+	m_render = settingsValue.m_Graphics.m_Render;
 	multiThreadedRender = settingsValue.m_Graphics.m_Threading.m_IsActive;
 	sizePercentToThreadRender = settingsValue.m_Graphics.m_Threading.m_SizePercentToThreadRender;
 	numberOfRenderThreads = settingsValue.m_Graphics.m_Threading.m_NumberOfRenderThreads;

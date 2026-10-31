@@ -52,13 +52,15 @@
 					"displayIndex: Decides which display to use, if it cannot find a display at the index, it will find the first one big enough.",
 					"windowResWidth: Window resolution, cannot be greater than resolution of chosen display",
 					"maintainAspectRatio: If set to false, whole window will be used for menu screen etc... stretching content",
-					"startWindowed: set to true to start windowed. Use Alt-Enter to change in game to windowed mode"
+					"startWindowed: set to true to start windowed. Use Alt-Enter to change in game to windowed mode",
+					"render: HW = hardware renderer (Vulkan), NG = software renderer"
 				],
 				"displayIndex": 0,
 				"windowResWidth": 1920,
 				"windowResHeight": 1080,
 				"maintainAspectRatio": true,
 				"startWindowed": false,
+				"render": "HW",
 				"gameDetail": {
 					"description": [
 						"gameResWidth: In Game resolution. If using software render keep this low",

@@ -18,11 +18,18 @@ private:
 	wxCheckBox* m_chkDynamicLighting;
 	wxSpinCtrl* m_spinViewDistanceScale;
 	wxSpinCtrlDouble* m_spinFogScale = nullptr;
+	wxChoice* m_choiceRender = nullptr;
+	wxButton* m_btnHardwareSettings = nullptr;
+	wxButton* m_btnRenderThreads = nullptr;
 
 	Config::Settings::Graphics m_cfg;
 
+	// Renderer drop down entries
+	enum { RENDER_HARDWARE = 0, RENDER_SOFTWARE = 1 };
+
 	// Helpers
 	void OnOK(wxCommandEvent& evt);
+	void UpdateRenderButtons();	// shows the settings button for the chosen renderer
 
 	// Common resolutions list  { label, width, height }
 	struct ResEntry { const char* label; int w; int h; };

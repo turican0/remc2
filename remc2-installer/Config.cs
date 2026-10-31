@@ -56,6 +56,7 @@ namespace remc2_installer
 		public int windowResHeight { get; set; }
 		public bool maintainAspectRatio { get; set; }
 		public bool startWindowed { get; set; }
+		public string render { get; set; } = "HW";
 		public GameDetail gameDetail { get; set; }
 		public Threading threading { get; set; }
 	}
