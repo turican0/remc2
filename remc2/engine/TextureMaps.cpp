@@ -529,7 +529,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 					//if (**(uint8_t**)index6 & 1)
 					if ((*index6x)->word_0 & 1)
 						index = sub_721C0_initTmap(animations_E9C08x, index6x, i);
-					else if ((*index6x)->height > 512)
+					else if ((*index6x)->height > 512 || (*index6x)->width == 0 || (*index6x)->height == 0)
 					{
 						//Error
 						Logger->error("Bad Texture Data!");
