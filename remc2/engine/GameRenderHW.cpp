@@ -2735,8 +2735,13 @@ HWVertex GameRenderHW::MakeHWVertex(const ProjectionVertex& v, uint32_t textureI
 
 	float tileX = (float)(textureIndex % kTilesWide) * TileTextureSize_D41B5;
 	float tileY = (float)(textureIndex / kTilesWide) * TileTextureSize_D41B5;
-	h.U = tileX + (float)v.U / 65536.0f;    // 0..TileTextureSize_D41B5 inside the tile, plus the tile's origin
-	h.V = tileY + (float)v.V / 65536.0f;
+
+	// The far edge is TileTextureSize_D41B5 - 1/65536, which rounds to the next tile's edge once the
+	// tile origin is added (a float can't hold that step at atlas coordinates in the hundreds). Pull
+	// both edges in a hair, so interpolation can't floor a texel into a neighbouring tile.
+	const float maxUV = (float)TileTextureSize_D41B5 - kTileUVInset;
+	h.U = tileX + std::clamp((float)v.U / 65536.0f, kTileUVInset, maxUV);    // inside the tile, plus the tile's origin
+	h.V = tileY + std::clamp((float)v.V / 65536.0f, kTileUVInset, maxUV);
 
 	h.Shade = std::clamp((float)v.Brightness / kBrightnessNeutral, 0.0f, 2.0f);  // >1 brightens
 	return h;

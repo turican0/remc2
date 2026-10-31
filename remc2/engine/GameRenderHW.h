@@ -34,6 +34,7 @@ class GameRenderHW : public GameRenderInterface
 private:
 
 	const uint32_t kTilesWide = 8;
+	const float kTileUVInset = 1.0f / 64.0f;   // texels kept clear of each tile edge in the atlas
 
 	struct TileStepQuadrant {
 		uint8_t startX;      // [0] starting X map coordinate offset
