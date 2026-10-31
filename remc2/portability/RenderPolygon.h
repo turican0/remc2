@@ -1,5 +1,5 @@
 #pragma once
-#include <vector>
+#include <array>
 #include <cstdint>
 #include "../engine/ProjectionVertex.h"
 
@@ -14,7 +14,7 @@ struct HWVertex
 
 struct RenderPolygon
 {
-	std::vector<HWVertex> Vertices;   // 3+ vertices, fan order
+	std::array<HWVertex, 4> Vertices; // quad, fan order; held inline so a polygon needs no heap allocation
 	uint32_t TextureId = 0;           // id returned by VulkanPolygonRenderer::UploadTexture
 	uint8_t  SpriteMode = 0xFF;       // 0xFF = terrain; 0..8 = original visibilityIdx
 	float Alpha = 1.0f;

@@ -557,6 +557,7 @@ void GameRenderHW::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	str_F2C20ar.dword0x13_FogStart = static_cast<int>(m_fogStart);
 
 	std::vector<RenderPolygon>* polygons = new std::vector<RenderPolygon>();
+	polygons->reserve(kReservedPolygons);
 
 	if (!D41A0_0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel_D41B6)
 	{
@@ -2783,7 +2784,6 @@ void GameRenderHW::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int ti
 		poly.SpriteMode = 26;
 		poly.Alpha = kWaterAlpha;
 	}
-	poly.Vertices.reserve(4);
 
 	// Fan (a,b,c,d) splits into (a,b,c) and (a,c,d), so the first vertex picks the diagonal.
 	if ((uint8_t)tile.triangleFeatures_38 & 1)
@@ -2859,7 +2859,6 @@ void GameRenderHW::DrawInverseSquareInProjectionSpace(int* vertexs, int tileInde
 
 	RenderPolygon poly;
 	poly.TextureId = kTerrainAtlasId;
-	poly.Vertices.reserve(4);
 
 	// Fan (a,b,c,d) splits into (a,b,c) and (a,c,d), so the first vertex picks the diagonal.
 	if ((uint8_t)tile.triangleFeatures_38 & 1)
@@ -3825,7 +3824,6 @@ void GameRenderHW::EmitSpriteQuad(std::vector<RenderPolygon>* polygons, int spri
 	}
 
 	poly.Tint = (uint8_t)(s.dword0x07 & 0xFF);
-	poly.Vertices.resize(4);
 	for (int i = 0; i < 4; i++)
 	{
 		HWVertex& v = poly.Vertices[i];
