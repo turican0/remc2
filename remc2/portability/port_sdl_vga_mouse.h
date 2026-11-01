@@ -40,7 +40,7 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight, uint8_t* alp
 void ApplyAlphaBuffer(SDL_Surface* rgbaSurface, const uint8_t* alphaBuffer, int width, int height);
 void SetPolygons(ResourceType state, std::vector<RenderPolygon>* polygons);
 void SetTexture(ResourceType state, uint32_t index, uint8_t* pixels, uint32_t width, uint32_t height);
-void SubVulkanBlit(SDL_Surface* surface, SDL_Rect srcRect, SDL_Rect destRect);
+void SubVulkanBlit(SDL_Surface* palettisedSurface, const uint8_t* alphaBuffer, SDL_Rect srcRect, SDL_Rect destRect);
 void VGA_Debug_Blit(int width, int height, Uint8* srcBuffer);
 void VGA_Set_Palette(Uint8* Palettebuffer);
 void VGA_Set_Palette2(Uint8* Palettebuffer);

@@ -1094,9 +1094,9 @@ void VGA_Blit(uint8_t* srcBuffer, uint8_t* alphaBuffer) {
 	SOUND_UPDATE();
 }
 
-void SubVulkanBlit(SDL_Surface* surface, SDL_Rect srcRect, SDL_Rect destRect)
+void SubVulkanBlit(SDL_Surface* palettisedSurface, const uint8_t* alphaBuffer, SDL_Rect srcRect, SDL_Rect destRect)
 {
-	if (m_vulkanRenderer->BeginFrame(surface, srcRect, destRect))
+	if (m_vulkanRenderer->BeginFrame(palettisedSurface, alphaBuffer, srcRect, destRect))
 	{
 		m_vulkanRenderer->EndFrame();
 	}
@@ -1142,11 +1142,10 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight, uint8_t* alp
 		dscrect.y = 0;
 	}
 
-	SDL_BlitSurface(m_gamePalletisedSurface, NULL, m_gameRGBASurface, NULL);
-
 	if (m_vulkanRenderer)
 	{
-		const size_t surfaceSize = (size_t)m_gameRGBASurface->w * m_gameRGBASurface->h;
+		// The 8-bit screen and its alpha go to the GPU as they are; hud.frag applies the palette.
+		const size_t surfaceSize = (size_t)m_gamePalletisedSurface->w * m_gamePalletisedSurface->h;
 		if (alphaBuffer != nullptr)
 		{
 			m_uiAlpha.assign(alphaBuffer, alphaBuffer + surfaceSize);   // copy, don't keep the pointer
@@ -1158,14 +1157,12 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight, uint8_t* alp
 			m_uiAlphaValid = false;
 		}
 
-		if (m_uiAlphaValid)
-			ApplyAlphaBuffer(m_gameRGBASurface, m_uiAlpha.data(), m_gameRGBASurface->w, m_gameRGBASurface->h);
-
-		SubVulkanBlit(m_gameRGBASurface, rectSrc, dscrect);
+		SubVulkanBlit(m_gamePalletisedSurface, m_uiAlphaValid ? m_uiAlpha.data() : nullptr, rectSrc, dscrect);
 	}
 	else
 	{
 		//WriteSurfaceToFile(m_gamePalletisedSurface);
+		SDL_BlitSurface(m_gamePalletisedSurface, NULL, m_gameRGBASurface, NULL);
 
 		SDL_UpdateTexture(m_texture, NULL, m_gameRGBASurface->pixels, m_gameRGBASurface->pitch);
 		SDL_RenderCopy(m_renderer, m_texture, &rectSrc, &dscrect);

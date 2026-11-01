@@ -706,5 +706,8 @@
     <CustomBuild Include="portability\shaders\overlay.vert">
       <Filter>Source Files\portability\shaders</Filter>
     </CustomBuild>
+    <CustomBuild Include="portability\shaders\hud.frag">
+      <Filter>Source Files\portability\shaders</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

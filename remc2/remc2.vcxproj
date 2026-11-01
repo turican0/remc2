@@ -621,6 +621,15 @@
       <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
       <Message>Compiling %(Filename)%(Extension)</Message>
     </CustomBuild>
+    <CustomBuild Include="portability\shaders\hud.frag">
+      <Command>
+				rem Compiling %(Identity)
+				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"
+				"$(VULKAN_SDK)\Bin\glslc.exe" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
+			</Command>
+      <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
+      <Message>Compiling %(Filename)%(Extension)</Message>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Image Include="font\16x16-font.bmp">

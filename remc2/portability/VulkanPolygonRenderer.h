@@ -80,8 +80,9 @@ public:
 	void SetFrontFace(VkFrontFace frontFace);
 	void SetCullMode(VkCullModeFlags cullMode); // default: VK_CULL_MODE_NONE
 
-	bool BeginFrame(SDL_Surface* surface, SDL_Rect srcRect, SDL_Rect destRect);
-	void UploadOverlaySurface(SDL_Surface* surface, SDL_Rect srcRect, VkCommandBuffer commandBuffer);
+	// hudSurface is the 8-bit palettised screen; hudAlpha is one alpha byte per pixel of it, or nullptr for opaque.
+	bool BeginFrame(SDL_Surface* hudSurface, const uint8_t* hudAlpha, SDL_Rect srcRect, SDL_Rect destRect);
+	bool UploadHud(SDL_Surface* hudSurface, const uint8_t* hudAlpha, VkCommandBuffer commandBuffer);   // false = nothing to draw
 	void DrawOverlay(SDL_Rect dscrect, VkCommandBuffer commandBuffer);
 	void DrawPolygons(const std::vector<RenderPolygon>& polygons);
 	void DrawPolygonsWireframe(const std::vector<RenderPolygon>& polygons);
@@ -154,7 +155,9 @@ private:
 	bool CreateDescriptorResources();
 	bool CreatePaletteTexture();
 	bool CreateFrameData();
-	bool CreateOverlayResources(uint32_t width, uint32_t height);
+	bool CreateOverlayResources();
+	bool EnsureHudImage(uint32_t width, uint32_t height);
+	void DestroyHudImage();
 	enum class OverlayBlend
 	{
 		Opaque,     // straight copy
@@ -171,7 +174,9 @@ private:
 		VkDescriptorSet descriptorSet = VK_NULL_HANDLE;   // overlay layout, for sampling the target
 	};
 
-	bool CreateOverlayPipeline(OverlayBlend blendMode, VkPipeline& pipeline);
+	// layout VK_NULL_HANDLE = the overlay layout (one sampled image)
+	bool CreateOverlayPipeline(OverlayBlend blendMode, VkPipeline& pipeline,
+		const char* fragShader = "overlay.frag.spv", VkPipelineLayout layout = VK_NULL_HANDLE);
 	bool CreateOffscreenRenderPass(VkAttachmentLoadOp loadOp, VkImageLayout initialLayout, VkRenderPass& renderPass);
 	bool CreateOffscreenTarget(uint32_t width, uint32_t height);
 	void DestroyOffscreenTarget();
@@ -182,20 +187,32 @@ private:
 	void EnsureFrameBufferCapacity(FrameData& frame, size_t vertexBytes, size_t indexBytes);
 	VkDescriptorSet AllocateTextureDescriptorSet(VkImageView view);
 
-	VkImage m_overlayImage = VK_NULL_HANDLE;
-	VmaAllocation m_overlayImageAlloc = VK_NULL_HANDLE;
-	VkImageView m_overlayImageView = VK_NULL_HANDLE;
 	VkSampler m_overlaySampler = VK_NULL_HANDLE;
 	VkDescriptorSetLayout m_overlayDescriptorSetLayout = VK_NULL_HANDLE;
-	VkDescriptorSet m_overlayDescriptorSet = VK_NULL_HANDLE;
 	VkPipelineLayout m_overlayPipelineLayout = VK_NULL_HANDLE;
-	VkPipeline m_overlayPipeline = VK_NULL_HANDLE;
 
-	VkBuffer m_overlayStagingBuffer = VK_NULL_HANDLE;
-	VmaAllocation m_overlayStagingAlloc = VK_NULL_HANDLE;
-	void* m_overlayStagingMapped = nullptr;
-	uint32_t m_overlayWidth = 0;
-	uint32_t m_overlayHeight = 0;
+	// The HUD is uploaded as the game's 8-bit screen and resolved through the palette on the GPU.
+	// m_hudImage is R8_UINT with two layers at game resolution: layer 0 = palette index, layer 1 = alpha.
+	static constexpr VkDeviceSize kHudPaletteBytes = 256 * 4;
+	VkImage m_hudImage = VK_NULL_HANDLE;
+	VmaAllocation m_hudImageAlloc = VK_NULL_HANDLE;
+	VkImageView m_hudImageView = VK_NULL_HANDLE;
+	VkImage m_hudPaletteImage = VK_NULL_HANDLE;        // 256x1 RGBA8
+	VmaAllocation m_hudPaletteAlloc = VK_NULL_HANDLE;
+	VkImageView m_hudPaletteView = VK_NULL_HANDLE;
+	VkDescriptorSetLayout m_hudDescriptorSetLayout = VK_NULL_HANDLE;
+	VkDescriptorSet m_hudDescriptorSet = VK_NULL_HANDLE;
+	VkPipelineLayout m_hudPipelineLayout = VK_NULL_HANDLE;
+	VkPipeline m_hudPipeline = VK_NULL_HANDLE;
+
+	// One slot per frame in flight, each [palette][indices][alpha], so a frame never overwrites one still being copied.
+	VkBuffer m_hudStagingBuffer = VK_NULL_HANDLE;
+	VmaAllocation m_hudStagingAlloc = VK_NULL_HANDLE;
+	void* m_hudStagingMapped = nullptr;
+	VkDeviceSize m_hudStagingSlotSize = 0;
+	uint32_t m_hudWidth = 0;
+	uint32_t m_hudHeight = 0;
+	bool m_hudHasAlpha = false;
 
 	// Polygons are rendered into this image at the game viewport's resolution,
 	// then upscaled into the window with m_viewPortBlitPipeline.
@@ -271,7 +288,6 @@ private:
 	int m_windowWidth = 0;
 	int m_windowHeight = 0;
 	SDL_Window* m_window = nullptr;
-	SDL_Surface* m_overlayScaledSurface = nullptr;
 
 	// Game world viewport in game-resolution pixels; w/h of 0 = not yet set, use full destRect
 	SDL_Rect m_gameViewPort{ 0, 0, 0, 0 };

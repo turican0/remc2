@@ -232,7 +232,7 @@ bool VulkanPolygonRenderer::Init(SDL_Window* window, int windowWidth, int window
 		return false;
 	if (!CreateShadeLutTexture())          // m_shadeLutView, calls SetShadeLut -> UploadStagedImage
 		return false;
-	if (!CreateOverlayResources((uint32_t)windowWidth, (uint32_t)windowHeight))
+	if (!CreateOverlayResources())
 		return false;
 	if (!CreatePipeline())
 		return false;
@@ -1066,39 +1066,8 @@ void VulkanPolygonRenderer::FreeTexture(uint32_t textureId)
 	m_textures.erase(it);
 }
 
-bool VulkanPolygonRenderer::CreateOverlayResources(uint32_t width, uint32_t height)
+bool VulkanPolygonRenderer::CreateOverlayResources()
 {
-	m_overlayWidth = width;
-	m_overlayHeight = height;
-
-	// --- GPU image the surface gets copied into ---
-	VkImageCreateInfo imageInfo{};
-	imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
-	imageInfo.imageType = VK_IMAGE_TYPE_2D;
-	imageInfo.format = VK_FORMAT_B8G8R8A8_UNORM; // match SDL_PIXELFORMAT_ARGB8888 byte order
-	imageInfo.extent = { width, height, 1 };
-	imageInfo.mipLevels = 1;
-	imageInfo.arrayLayers = 1;
-	imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
-	imageInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
-	imageInfo.usage = VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT;
-	imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-
-	VmaAllocationCreateInfo allocInfo{};
-	allocInfo.usage = VMA_MEMORY_USAGE_GPU_ONLY;
-
-	if (vmaCreateImage(m_allocator, &imageInfo, &allocInfo, &m_overlayImage, &m_overlayImageAlloc, nullptr) != VK_SUCCESS)
-		return false;
-
-	VkImageViewCreateInfo viewInfo{};
-	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-	viewInfo.image = m_overlayImage;
-	viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-	viewInfo.format = imageInfo.format;
-	viewInfo.subresourceRange = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 1, 0, 1 };
-	if (vkCreateImageView(m_device, &viewInfo, nullptr, &m_overlayImageView) != VK_SUCCESS)
-		return false;
-
 	VkSamplerCreateInfo samplerInfo{};
 	samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
 	samplerInfo.magFilter = VK_FILTER_NEAREST; // UI/HUD pixels - nearest avoids blurring text
@@ -1108,23 +1077,7 @@ bool VulkanPolygonRenderer::CreateOverlayResources(uint32_t width, uint32_t heig
 	if (vkCreateSampler(m_device, &samplerInfo, nullptr, &m_overlaySampler) != VK_SUCCESS)
 		return false;
 
-	// --- persistently-mapped staging buffer for per-frame surface uploads ---
-	VkDeviceSize stagingSize = (VkDeviceSize)width * height * 4;
-	VkBufferCreateInfo stagingInfo{};
-	stagingInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-	stagingInfo.size = stagingSize;
-	stagingInfo.usage = VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
-
-	VmaAllocationCreateInfo stagingAllocInfo{};
-	stagingAllocInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
-	stagingAllocInfo.flags = VMA_ALLOCATION_CREATE_MAPPED_BIT;
-
-	VmaAllocationInfo resultInfo{};
-	if (vmaCreateBuffer(m_allocator, &stagingInfo, &stagingAllocInfo, &m_overlayStagingBuffer, &m_overlayStagingAlloc, &resultInfo) != VK_SUCCESS)
-		return false;
-	m_overlayStagingMapped = resultInfo.pMappedData;
-
-	// --- descriptor set layout + set (single combined image sampler) ---
+	// --- overlay descriptor set layout (single combined image sampler), for the viewport blit and the blur ---
 	VkDescriptorSetLayoutBinding binding{};
 	binding.binding = 0;
 	binding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
@@ -1138,37 +1091,184 @@ bool VulkanPolygonRenderer::CreateOverlayResources(uint32_t width, uint32_t heig
 	if (vkCreateDescriptorSetLayout(m_device, &setLayoutInfo, nullptr, &m_overlayDescriptorSetLayout) != VK_SUCCESS)
 		return false;
 
+	// --- HUD palette, re-uploaded with the HUD every frame ---
+	VkImageCreateInfo paletteInfo{};
+	paletteInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
+	paletteInfo.imageType = VK_IMAGE_TYPE_2D;
+	paletteInfo.format = VK_FORMAT_R8G8B8A8_UNORM; // same byte order as SDL_Color
+	paletteInfo.extent = { 256, 1, 1 };
+	paletteInfo.mipLevels = 1;
+	paletteInfo.arrayLayers = 1;
+	paletteInfo.samples = VK_SAMPLE_COUNT_1_BIT;
+	paletteInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
+	paletteInfo.usage = VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT;
+	paletteInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+
+	VmaAllocationCreateInfo allocInfo{};
+	allocInfo.usage = VMA_MEMORY_USAGE_GPU_ONLY;
+
+	if (vmaCreateImage(m_allocator, &paletteInfo, &allocInfo, &m_hudPaletteImage, &m_hudPaletteAlloc, nullptr) != VK_SUCCESS)
+		return false;
+
+	VkImageViewCreateInfo viewInfo{};
+	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+	viewInfo.image = m_hudPaletteImage;
+	viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
+	viewInfo.format = paletteInfo.format;
+	viewInfo.subresourceRange = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 1, 0, 1 };
+	if (vkCreateImageView(m_device, &viewInfo, nullptr, &m_hudPaletteView) != VK_SUCCESS)
+		return false;
+
+	// --- HUD descriptor set: binding 0 = index/alpha image (written by EnsureHudImage), binding 1 = palette ---
+	VkDescriptorSetLayoutBinding hudBindings[2]{};
+	for (uint32_t i = 0; i < 2; i++)
+	{
+		hudBindings[i].binding = i;
+		hudBindings[i].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+		hudBindings[i].descriptorCount = 1;
+		hudBindings[i].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+	}
+
+	VkDescriptorSetLayoutCreateInfo hudLayoutInfo{};
+	hudLayoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+	hudLayoutInfo.bindingCount = 2;
+	hudLayoutInfo.pBindings = hudBindings;
+	if (vkCreateDescriptorSetLayout(m_device, &hudLayoutInfo, nullptr, &m_hudDescriptorSetLayout) != VK_SUCCESS)
+		return false;
+
 	VkDescriptorSetAllocateInfo dsAllocInfo{};
 	dsAllocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-	dsAllocInfo.descriptorPool = m_descriptorPool; // reuse existing pool - must have COMBINED_IMAGE_SAMPLER capacity for +1
+	dsAllocInfo.descriptorPool = m_descriptorPool;
 	dsAllocInfo.descriptorSetCount = 1;
-	dsAllocInfo.pSetLayouts = &m_overlayDescriptorSetLayout;
-	if (vkAllocateDescriptorSets(m_device, &dsAllocInfo, &m_overlayDescriptorSet) != VK_SUCCESS)
+	dsAllocInfo.pSetLayouts = &m_hudDescriptorSetLayout;
+	if (vkAllocateDescriptorSets(m_device, &dsAllocInfo, &m_hudDescriptorSet) != VK_SUCCESS)
 		return false;
+
+	VkDescriptorImageInfo paletteImgInfo{};
+	paletteImgInfo.sampler = m_overlaySampler;
+	paletteImgInfo.imageView = m_hudPaletteView;
+	paletteImgInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+
+	VkWriteDescriptorSet write{};
+	write.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+	write.dstSet = m_hudDescriptorSet;
+	write.dstBinding = 1;
+	write.descriptorCount = 1;
+	write.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+	write.pImageInfo = &paletteImgInfo;
+	vkUpdateDescriptorSets(m_device, 1, &write, 0, nullptr);
+
+	// hud.frag push constants: ivec2 size, int hasAlpha
+	VkPushConstantRange pushRange{};
+	pushRange.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+	pushRange.offset = 0;
+	pushRange.size = sizeof(int32_t) * 3;
+
+	VkPipelineLayoutCreateInfo hudPipelineLayoutInfo{};
+	hudPipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+	hudPipelineLayoutInfo.setLayoutCount = 1;
+	hudPipelineLayoutInfo.pSetLayouts = &m_hudDescriptorSetLayout;
+	hudPipelineLayoutInfo.pushConstantRangeCount = 1;
+	hudPipelineLayoutInfo.pPushConstantRanges = &pushRange;
+	if (vkCreatePipelineLayout(m_device, &hudPipelineLayoutInfo, nullptr, &m_hudPipelineLayout) != VK_SUCCESS)
+		return false;
+
+	// Alpha-blended for the HUD overlay; opaque for upscaling the offscreen polygon image,
+	// since the polygon pipeline leaves alpha < 1 wherever transparent polygons were drawn.
+	return CreateOverlayPipeline(OverlayBlend::Alpha, m_hudPipeline, "hud.frag.spv", m_hudPipelineLayout) &&
+		CreateOverlayPipeline(OverlayBlend::Opaque, m_viewPortBlitPipeline) &&
+		CreateOverlayPipeline(OverlayBlend::Constant, m_blurPipeline);
+}
+
+// (Re)creates the HUD index/alpha image and its staging buffer when the game resolution changes.
+bool VulkanPolygonRenderer::EnsureHudImage(uint32_t width, uint32_t height)
+{
+	if (m_hudImage != VK_NULL_HANDLE && width == m_hudWidth && height == m_hudHeight)
+		return true;
+
+	// The other frame in flight may still be reading the old image or staging slot.
+	vkDeviceWaitIdle(m_device);
+	DestroyHudImage();
+
+	VkImageCreateInfo imageInfo{};
+	imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
+	imageInfo.imageType = VK_IMAGE_TYPE_2D;
+	imageInfo.format = VK_FORMAT_R8_UINT;
+	imageInfo.extent = { width, height, 1 };
+	imageInfo.mipLevels = 1;
+	imageInfo.arrayLayers = 2;   // 0 = palette index, 1 = alpha
+	imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
+	imageInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
+	imageInfo.usage = VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT;
+	imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+
+	VmaAllocationCreateInfo allocInfo{};
+	allocInfo.usage = VMA_MEMORY_USAGE_GPU_ONLY;
+
+	if (vmaCreateImage(m_allocator, &imageInfo, &allocInfo, &m_hudImage, &m_hudImageAlloc, nullptr) != VK_SUCCESS)
+		return false;
+
+	VkImageViewCreateInfo viewInfo{};
+	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+	viewInfo.image = m_hudImage;
+	viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D_ARRAY;
+	viewInfo.format = imageInfo.format;
+	viewInfo.subresourceRange = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 1, 0, 2 };
+	if (vkCreateImageView(m_device, &viewInfo, nullptr, &m_hudImageView) != VK_SUCCESS)
+		return false;
+
+	// --- persistently-mapped staging buffer; each slot keeps the palette copy 4-byte aligned ---
+	m_hudStagingSlotSize = (kHudPaletteBytes + 2 * (VkDeviceSize)width * height + 3) & ~(VkDeviceSize)3;
+	VkBufferCreateInfo stagingInfo{};
+	stagingInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
+	stagingInfo.size = m_hudStagingSlotSize * kFramesInFlight;
+	stagingInfo.usage = VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
+
+	VmaAllocationCreateInfo stagingAllocInfo{};
+	stagingAllocInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
+	stagingAllocInfo.flags = VMA_ALLOCATION_CREATE_MAPPED_BIT;
+
+	VmaAllocationInfo resultInfo{};
+	if (vmaCreateBuffer(m_allocator, &stagingInfo, &stagingAllocInfo, &m_hudStagingBuffer, &m_hudStagingAlloc, &resultInfo) != VK_SUCCESS)
+		return false;
+	m_hudStagingMapped = resultInfo.pMappedData;
 
 	VkDescriptorImageInfo imgInfo{};
 	imgInfo.sampler = m_overlaySampler;
-	imgInfo.imageView = m_overlayImageView;
+	imgInfo.imageView = m_hudImageView;
 	imgInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
 	VkWriteDescriptorSet write{};
 	write.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-	write.dstSet = m_overlayDescriptorSet;
+	write.dstSet = m_hudDescriptorSet;
 	write.dstBinding = 0;
 	write.descriptorCount = 1;
 	write.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
 	write.pImageInfo = &imgInfo;
 	vkUpdateDescriptorSets(m_device, 1, &write, 0, nullptr);
 
-	// Image starts UNDEFINED - transition to SHADER_READ_ONLY_OPTIMAL once via
-	// a one-time command buffer (or let the first UploadOverlaySurface do it -
-	// see the layout transition inside that function below).
+	m_hudWidth = width;
+	m_hudHeight = height;
+	return true;
+}
 
-	// Alpha-blended for the HUD overlay; opaque for upscaling the offscreen polygon image,
-	// since the polygon pipeline leaves alpha < 1 wherever transparent polygons were drawn.
-	return CreateOverlayPipeline(OverlayBlend::Alpha, m_overlayPipeline) &&
-		CreateOverlayPipeline(OverlayBlend::Opaque, m_viewPortBlitPipeline) &&
-		CreateOverlayPipeline(OverlayBlend::Constant, m_blurPipeline);
+void VulkanPolygonRenderer::DestroyHudImage()
+{
+	if (m_hudStagingBuffer != VK_NULL_HANDLE)
+		vmaDestroyBuffer(m_allocator, m_hudStagingBuffer, m_hudStagingAlloc);
+	if (m_hudImageView != VK_NULL_HANDLE)
+		vkDestroyImageView(m_device, m_hudImageView, nullptr);
+	if (m_hudImage != VK_NULL_HANDLE)
+		vmaDestroyImage(m_allocator, m_hudImage, m_hudImageAlloc);
+
+	m_hudStagingBuffer = VK_NULL_HANDLE;
+	m_hudStagingAlloc = VK_NULL_HANDLE;
+	m_hudStagingMapped = nullptr;
+	m_hudImageView = VK_NULL_HANDLE;
+	m_hudImage = VK_NULL_HANDLE;
+	m_hudImageAlloc = VK_NULL_HANDLE;
+	m_hudWidth = 0;
+	m_hudHeight = 0;
 }
 
 bool VulkanPolygonRenderer::CreateWireframePipeline()
@@ -1411,10 +1511,10 @@ bool VulkanPolygonRenderer::CreatePipeline()
 	return result == VK_SUCCESS;
 }
 
-bool VulkanPolygonRenderer::CreateOverlayPipeline(OverlayBlend blendMode, VkPipeline& pipeline)
+bool VulkanPolygonRenderer::CreateOverlayPipeline(OverlayBlend blendMode, VkPipeline& pipeline, const char* fragShader, VkPipelineLayout layout)
 {
 	auto vertCode = ReadFile(ShaderPath("overlay.vert.spv"));
-	auto fragCode = ReadFile(ShaderPath("overlay.frag.spv"));
+	auto fragCode = ReadFile(ShaderPath(fragShader));
 	VkShaderModule vertModule = CreateShaderModule(m_device, vertCode);
 	VkShaderModule fragModule = CreateShaderModule(m_device, fragCode);
 	if (vertModule == VK_NULL_HANDLE || fragModule == VK_NULL_HANDLE)
@@ -1523,7 +1623,7 @@ bool VulkanPolygonRenderer::CreateOverlayPipeline(OverlayBlend blendMode, VkPipe
 	pipelineInfo.pMultisampleState = &multisample;
 	pipelineInfo.pColorBlendState = &blend;
 	pipelineInfo.pDynamicState = &dynamicState;
-	pipelineInfo.layout = m_overlayPipelineLayout;
+	pipelineInfo.layout = layout != VK_NULL_HANDLE ? layout : m_overlayPipelineLayout;
 	pipelineInfo.renderPass = m_renderPass;
 	pipelineInfo.subpass = 0;
 
@@ -1574,88 +1674,92 @@ bool VulkanPolygonRenderer::CreateFrameData()
 	return true;
 }
 
-void VulkanPolygonRenderer::UploadOverlaySurface(SDL_Surface* surface, SDL_Rect srcRect, VkCommandBuffer commandBuffer)
+// Copies the 8-bit screen, its alpha and the palette into this frame's staging slot and records the uploads.
+// The palette lookup and the scaling to the window happen in hud.frag.
+bool VulkanPolygonRenderer::UploadHud(SDL_Surface* hudSurface, const uint8_t* hudAlpha, VkCommandBuffer commandBuffer)
 {
-	constexpr Uint32 kOverlayTargetFormat = SDL_PIXELFORMAT_BGRA32;
+	const uint32_t width = (uint32_t)hudSurface->w;
+	const uint32_t height = (uint32_t)hudSurface->h;
+	const SDL_Palette* palette = hudSurface->format->palette;
+	if (width == 0 || height == 0 || palette == nullptr || !EnsureHudImage(width, height))
+		return false;
 
-	if (!m_overlayScaledSurface ||
-		(uint32_t)m_overlayScaledSurface->w != m_overlayWidth ||
-		(uint32_t)m_overlayScaledSurface->h != m_overlayHeight)
+	const VkDeviceSize pixelCount = (VkDeviceSize)width * height;
+	const VkDeviceSize paletteOffset = m_hudStagingSlotSize * m_currentFrame;
+	const VkDeviceSize indexOffset = paletteOffset + kHudPaletteBytes;
+	const VkDeviceSize alphaOffset = indexOffset + pixelCount;
+	uint8_t* staging = (uint8_t*)m_hudStagingMapped;
+
+	// SDL_Color is r, g, b, a - the same bytes as RGBA8.
+	std::memset(staging + paletteOffset, 0, kHudPaletteBytes);
+	std::memcpy(staging + paletteOffset, palette->colors, sizeof(SDL_Color) * (std::min)(palette->ncolors, 256));
+
+	if (SDL_MUSTLOCK(hudSurface))
+		SDL_LockSurface(hudSurface);
+	if ((uint32_t)hudSurface->pitch == width)
 	{
-		if (m_overlayScaledSurface)
-		{
-			SDL_FreeSurface(m_overlayScaledSurface);
-		}
-		m_overlayScaledSurface = SDL_CreateRGBSurfaceWithFormat(
-			0, (int)m_overlayWidth, (int)m_overlayHeight, 32, kOverlayTargetFormat);
-		assert(m_overlayScaledSurface && "Failed to create overlay scratch surface");
-	}
-
-	// Clamp srcRect to the source surface bounds.
-	SDL_Rect clampedSrc{};
-	SDL_Rect srcBounds{ 0, 0, surface->w, surface->h };
-	SDL_IntersectRect(&srcRect, &srcBounds, &clampedSrc);
-
-	SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_NONE);
-
-	// destRect is always the full scratch surface now - letterboxing to the
-	// window happens via viewport in DrawOverlay instead, so no partial-fill
-	// clear is needed here.
-	if (SDL_BlitScaled(surface, &clampedSrc, m_overlayScaledSurface, nullptr) != 0)
-	{
-		fprintf(stderr, "UploadOverlaySurface: SDL_BlitScaled failed: %s\n", SDL_GetError());
-		return;
-	}
-
-	SDL_Surface* scaled = m_overlayScaledSurface;
-	const uint32_t rowBytes = m_overlayWidth * 4;
-
-	if ((uint32_t)scaled->pitch == rowBytes)
-	{
-		std::memcpy(m_overlayStagingMapped, scaled->pixels, (size_t)rowBytes * m_overlayHeight);
+		std::memcpy(staging + indexOffset, hudSurface->pixels, (size_t)pixelCount);
 	}
 	else
 	{
-		uint8_t* dst = (uint8_t*)m_overlayStagingMapped;
-		const uint8_t* src = (const uint8_t*)scaled->pixels;
-		for (uint32_t y = 0; y < m_overlayHeight; ++y)
-		{
-			std::memcpy(dst + y * rowBytes, src + y * scaled->pitch, rowBytes);
-		}
+		for (uint32_t y = 0; y < height; ++y)
+			std::memcpy(staging + indexOffset + (VkDeviceSize)y * width, (const uint8_t*)hudSurface->pixels + y * hudSurface->pitch, width);
 	}
+	if (SDL_MUSTLOCK(hudSurface))
+		SDL_UnlockSurface(hudSurface);
 
-	VkImageMemoryBarrier toTransferDst{};
-	toTransferDst.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
-	toTransferDst.oldLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-	toTransferDst.newLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
-	toTransferDst.srcAccessMask = 0;
-	toTransferDst.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-	toTransferDst.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-	toTransferDst.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-	toTransferDst.image = m_overlayImage;
-	toTransferDst.subresourceRange = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 1, 0, 1 };
+	m_hudHasAlpha = hudAlpha != nullptr;
+	if (m_hudHasAlpha)
+		std::memcpy(staging + alphaOffset, hudAlpha, (size_t)pixelCount);
+
+	// Both images are rewritten completely (an unwritten alpha layer is never read), so their old contents can go.
+	VkImageMemoryBarrier toTransferDst[2]{};
+	for (VkImageMemoryBarrier& barrier : toTransferDst)
+	{
+		barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+		barrier.oldLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+		barrier.newLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+		barrier.srcAccessMask = 0;
+		barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+		barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+		barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+	}
+	toTransferDst[0].image = m_hudImage;
+	toTransferDst[0].subresourceRange = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 1, 0, 2 };
+	toTransferDst[1].image = m_hudPaletteImage;
+	toTransferDst[1].subresourceRange = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 1, 0, 1 };
 	vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT,
-		0, 0, nullptr, 0, nullptr, 1, &toTransferDst);
+		0, 0, nullptr, 0, nullptr, 2, toTransferDst);
 
-	VkBufferImageCopy region{};
-	region.bufferOffset = 0;
-	region.imageSubresource = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 0, 1 };
-	region.imageExtent = { m_overlayWidth, m_overlayHeight, 1 };
-	vkCmdCopyBufferToImage(commandBuffer, m_overlayStagingBuffer, m_overlayImage,
-		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
+	VkBufferImageCopy hudRegions[2]{};
+	hudRegions[0].bufferOffset = indexOffset;
+	hudRegions[0].imageSubresource = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 0, 1 };
+	hudRegions[0].imageExtent = { width, height, 1 };
+	hudRegions[1].bufferOffset = alphaOffset;
+	hudRegions[1].imageSubresource = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 1, 1 };
+	hudRegions[1].imageExtent = { width, height, 1 };
+	vkCmdCopyBufferToImage(commandBuffer, m_hudStagingBuffer, m_hudImage,
+		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, m_hudHasAlpha ? 2 : 1, hudRegions);
 
-	VkImageMemoryBarrier toShaderRead{};
-	toShaderRead.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
-	toShaderRead.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
-	toShaderRead.newLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-	toShaderRead.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-	toShaderRead.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
-	toShaderRead.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-	toShaderRead.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-	toShaderRead.image = m_overlayImage;
-	toShaderRead.subresourceRange = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 1, 0, 1 };
+	VkBufferImageCopy paletteRegion{};
+	paletteRegion.bufferOffset = paletteOffset;
+	paletteRegion.imageSubresource = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 0, 1 };
+	paletteRegion.imageExtent = { 256, 1, 1 };
+	vkCmdCopyBufferToImage(commandBuffer, m_hudStagingBuffer, m_hudPaletteImage,
+		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &paletteRegion);
+
+	VkImageMemoryBarrier toShaderRead[2] = { toTransferDst[0], toTransferDst[1] };
+	for (VkImageMemoryBarrier& barrier : toShaderRead)
+	{
+		barrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+		barrier.newLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+		barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+		barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
+	}
 	vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT,
-		0, 0, nullptr, 0, nullptr, 1, &toShaderRead);
+		0, 0, nullptr, 0, nullptr, 2, toShaderRead);
+
+	return true;
 }
 
 void VulkanPolygonRenderer::EnsureFrameBufferCapacity(FrameData& frame, size_t vertexBytes, size_t indexBytes)
@@ -1714,7 +1818,7 @@ void VulkanPolygonRenderer::DestroyFrameData()
 	}
 }
 
-bool VulkanPolygonRenderer::BeginFrame(SDL_Surface* surface, SDL_Rect srcRect, SDL_Rect destRect)
+bool VulkanPolygonRenderer::BeginFrame(SDL_Surface* hudSurface, const uint8_t* hudAlpha, SDL_Rect srcRect, SDL_Rect destRect)
 {
 	FrameData& frame = m_frames[m_currentFrame];
 	vkWaitForFences(m_device, 1, &frame.inFlight, VK_TRUE, UINT64_MAX);
@@ -1782,7 +1886,7 @@ bool VulkanPolygonRenderer::BeginFrame(SDL_Surface* surface, SDL_Rect srcRect, S
 	VkClearValue windowClearColor{};
 	windowClearColor.color = { { 0.0f, 0.0f, 0.0f, 1.0f } };
 
-	UploadOverlaySurface(surface, srcRect, frame.commandBuffer);
+	const bool drawHud = UploadHud(hudSurface, hudAlpha, frame.commandBuffer);
 
 	if (drawPolygons)
 	{
@@ -1840,7 +1944,8 @@ bool VulkanPolygonRenderer::BeginFrame(SDL_Surface* surface, SDL_Rect srcRect, S
 		vkCmdDraw(frame.commandBuffer, 3, 1, 0, 0);
 	}
 
-	DrawOverlay(destRect, frame.commandBuffer);
+	if (drawHud)
+		DrawOverlay(destRect, frame.commandBuffer);
 
 	return true;
 }
@@ -2091,9 +2196,11 @@ void VulkanPolygonRenderer::DrawOverlay(SDL_Rect dscrect, VkCommandBuffer comman
 	overlayScissor.extent = { (uint32_t)dscrect.w, (uint32_t)dscrect.h };
 	vkCmdSetScissor(commandBuffer, 0, 1, &overlayScissor);
 
-	vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, m_overlayPipeline);
+	const int32_t hudPushConstants[3] = { (int32_t)m_hudWidth, (int32_t)m_hudHeight, m_hudHasAlpha ? 1 : 0 };
+	vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, m_hudPipeline);
 	vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
-		m_overlayPipelineLayout, 0, 1, &m_overlayDescriptorSet, 0, nullptr);
+		m_hudPipelineLayout, 0, 1, &m_hudDescriptorSet, 0, nullptr);
+	vkCmdPushConstants(commandBuffer, m_hudPipelineLayout, VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(hudPushConstants), hudPushConstants);
 	vkCmdDraw(commandBuffer, 3, 1, 0, 0);
 
 	// Restore full-extent viewport/scissor so anything drawn after this in
@@ -2127,13 +2234,16 @@ void VulkanPolygonRenderer::Shutdown()
 	vkDestroyRenderPass(m_device, m_blurSeedRenderPass, nullptr);
 	vkDestroyRenderPass(m_device, m_blurRenderPass, nullptr);
 
-	vkDestroyPipeline(m_device, m_overlayPipeline, nullptr);
+	vkDestroyPipeline(m_device, m_hudPipeline, nullptr);
+	vkDestroyPipelineLayout(m_device, m_hudPipelineLayout, nullptr);
+	vkDestroyDescriptorSetLayout(m_device, m_hudDescriptorSetLayout, nullptr);
+	DestroyHudImage();
+	vkDestroyImageView(m_device, m_hudPaletteView, nullptr);
+	vmaDestroyImage(m_allocator, m_hudPaletteImage, m_hudPaletteAlloc);
+
 	vkDestroyPipelineLayout(m_device, m_overlayPipelineLayout, nullptr);
 	vkDestroyDescriptorSetLayout(m_device, m_overlayDescriptorSetLayout, nullptr);
 	vkDestroySampler(m_device, m_overlaySampler, nullptr);
-	vkDestroyImageView(m_device, m_overlayImageView, nullptr);
-	vmaDestroyImage(m_allocator, m_overlayImage, m_overlayImageAlloc);
-	vmaDestroyBuffer(m_allocator, m_overlayStagingBuffer, m_overlayStagingAlloc);
 
 	vmaDestroyBuffer(m_allocator, m_shadeLutStaging, m_shadeLutStagingAllocation);
 	vkDestroyImageView(m_device, m_shadeLutView, nullptr);
