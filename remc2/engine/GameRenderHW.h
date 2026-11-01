@@ -121,7 +121,7 @@ private:
 	uint8_t SpriteVisibility(const Type_SpriteDef_D951C& def) const;
 	void DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* polygons);
 	void DrawTileBillboards_3FD60(int tileIndex, std::vector<RenderPolygon>* polygons);
-	void sub_88740(type_entity_0x6E8E* a1, int16_t posX, int16_t posY);
+	void SetEntityHelpText_88740(type_entity_0x6E8E* a1, int16_t posX, int16_t posY);
 	void DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* a1, int16_t a2, int a3, int16_t a4);
 	void BuildTileRenderStepTable(TileStepQuadrant* table, int cols);
 	bool CheckViewPortCull(ProjectionVertex v1, ProjectionVertex v2, ProjectionVertex v3, int maxCoordinate = 2147483647, int minCoordinate = -2147483647);

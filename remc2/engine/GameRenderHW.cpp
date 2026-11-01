@@ -793,7 +793,7 @@ void GameRenderHW::DrawTileBillboards_3FD60(int tileIndex, std::vector<RenderPol
 	} while (entityIndex);
 }
 
-void GameRenderHW::sub_88740(type_entity_0x6E8E* a1x, int16_t posX, int16_t posY)
+void GameRenderHW::SetEntityHelpText_88740(type_entity_0x6E8E* a1x, int16_t posX, int16_t posY)
 {
 	int v3; // esi
 	type_entity_0x6E8E* v4x; // edx
@@ -1333,7 +1333,7 @@ void GameRenderHW::DrawSprite_41BD3(uint32_t pass, std::vector<RenderPolygon>* p
 					(int16_t)s.dword0x03_screenX, s.dword0x09_realWidth);
 			}
 			if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
-				sub_88740(s.dword0x14x,
+				SetEntityHelpText_88740(s.dword0x14x,
 					(int16_t)(s.dword0x04_screenY + (s.dword0x09_realWidth >> 1)),
 					(int16_t)(s.dword0x03_screenX + (s.dword0x0c_realHeight >> 1)));
 			if (s.dword0x14x->struct_byte_0xc_12_15.byte[3] & 0x40)
@@ -1363,7 +1363,7 @@ void GameRenderHW::DrawSprite_41BD3(uint32_t pass, std::vector<RenderPolygon>* p
 		return;
 
 	if (pass == 1 && x_D41A0_BYTEARRAY_4_struct.showHelp_10)
-		sub_88740(s.dword0x14x,
+		SetEntityHelpText_88740(s.dword0x14x,
 			(int16_t)(s.dword0x04_screenY + (s.dword0x09_realWidth >> 1)),
 			(int16_t)(s.dword0x03_screenX + (s.dword0x0c_realHeight >> 1)));
 

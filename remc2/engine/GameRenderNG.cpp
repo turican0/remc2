@@ -732,7 +732,7 @@ void GameRenderNG::DrawTerrainTile(TerrainVertex quad[4], int index, bool water)
 
 // Help (showHelp_10): the help text (str_E2A74) of the entity on the screen; the nearest entity of a text wins,
 // a text being shown follows its entity on the screen.
-void GameRenderNG::sub_88740(type_entity_0x6E8E* entity, int16_t posX, int16_t posY)
+void GameRenderNG::SetEntityHelpText_88740(type_entity_0x6E8E* entity, int16_t posX, int16_t posY)
 {
 	if (str_unk_1804B0ar.PopupStatusByte_0x9e & 1)
 		return;
@@ -1271,7 +1271,7 @@ void GameRenderNG::DrawSprite_41BD3(uint32 pass)
 	if (draw && !x_D41A0_BYTEARRAY_4_struct.byteindex_207 && entity->class_0x3F_63 == 3 && (!entity->model_0x40_64 || entity->model_0x40_64 == 1))
 		DrawSorcererNameAndHealthBar_2CB30(entity, str_F2C20ar.dword0x04_screenY, static_cast<int16_t>(str_F2C20ar.dword0x03_screenX), str_F2C20ar.dword0x09_realWidth);
 	if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
-		sub_88740(entity, str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1), str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1));
+		SetEntityHelpText_88740(entity, str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1), str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1));
 	if ((entity->struct_byte_0xc_12_15.byte[3] & 0x40) && m_standardView)
 		entity->subSpellIndex_0x2A_42 |= 0x40;
 }
@@ -1650,7 +1650,7 @@ void GameRenderNG::DrawUprightSprite(uint32 pass)
 		str_F2C20ar.dword0x0b += columnStep;
 	}
 	if (pass == (uint32_t)SpritePass::Main && x_D41A0_BYTEARRAY_4_struct.showHelp_10)
-		sub_88740(str_F2C20ar.dword0x14x, str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1), str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1));
+		SetEntityHelpText_88740(str_F2C20ar.dword0x14x, str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1), str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1));
 	uint8_t* line = &ViewPortRenderBufferStart_DE558[str_F2C20ar.dword0x03_screenX * iScreenWidth_DE560 + str_F2C20ar.dword0x04_screenY];
 	for (; str_F2C20ar.dword0x0c_realHeight; str_F2C20ar.dword0x0c_realHeight--)
 	{
