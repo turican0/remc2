@@ -55,22 +55,7 @@ private:
 		uint8_t colStepY;    // [9] column step Y
 	};
 
-	//The sprite render uses hardcoded offsets of the buffer. This have been adjusted to the new buffer size of
-	//m_ptrDWORD_E9C38_smalltit otherwise at higher resolutions sprite data they writes over each other
-	const int m_bufferOffset_E9C38_1 = 995328; // 12%
-	const int m_bufferOffset_E9C38_2 = 1161216; // 14%
-	const int m_bufferOffset_E9C38_3 = 1658880; // 20%
-
 	TileStepQuadrant* m_tileRenderStepTable_D4328x;
-
-	uint8_t unk_DE56Cx[8][4194304]; //Number of possible render threads (8) //number of polygons (2048 * 2048)
-
-	int offsets_B8845[16] = {
-		  0, -15, -14, -13,
-		-12, -11, -10,  -9,
-		 -8,  -7,  -6,  -5,
-		 -4,  -3,  -2,  -1
-	};
 
 	char x_BYTE_D4750[60] = {
 		0x00,0x00,0x02,0x03,0x04,0x05,//0
@@ -80,7 +65,6 @@ private:
 		0x03,0x03,0x03,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0A,0x0B,0x0C,0x0C,0x0C,0x0C//44
 	};
 
-	type_unk_F0E20x m_str_F0E20x[GAME_RES_MAX_WIDTH + 100]; // Originally 640
 	type_E9C38_smalltit* m_ptrStr_E9C38_smalltit;
 	uint16_t m_tileRows = TILE_ROWS_COUNT;
 	uint16_t m_tileColumns = TILE_COLUMNS_COUNT;
@@ -92,19 +76,14 @@ private:
 	int64_t m_fogStart = 0;
 	int64_t m_fogEnd = 0;
 
-	uint8_t* m_ptrDWORD_E9C38_smalltit = nullptr;
 	uint8_t* m_ptrScreenBuffer_351628 = nullptr;
 	uint8_t* m_ptrColorPalette = nullptr;
 
-	bool m_multiThreadRender = false;
 	bool m_assignToSpecificCores = false;
 	bool m_blurActive = false;
 
 	int x_DWORD_D4794 = 0;
 	int x_DWORD_D4798 = 0;
-	char x_BYTE_E126D = 0;
-	char x_BYTE_E126C = 112;
-	int x_DWORD_D4790 = 20;
 	int x_DWORD_D4324 = 0;
 	char shadows_F2CC7 = 0;
 	char notDay_D4320 = 0;
@@ -114,28 +93,35 @@ private:
 	int16_t cameraY_F2CC2 = 0;
 	int16_t cameraX_F2CC4 = 0;
 
-	uint8_t* x_DWORD_DE55C_ActTexture = 0;
+	enum class TerrainProjection { Plain, Reflections, Cave };
+	struct TileQuadFlags { uint8_t any; uint8_t all; };   // the flags of a quad's corners, OR-ed and AND-ed
+	enum class SpriteChoice { Draw, LoadFailed, Unknown };
 
 	void DrawSky_40950(int16_t roll, std::vector<RenderPolygon>* polygons);
 	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov);
-	void SubDrawTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch, std::vector<RenderPolygon>* polygons);
-	void SubDrawInverseTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch, std::vector<RenderPolygon>* polygons);
-	void SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch, std::vector<RenderPolygon>* polygons);
+	void ProjectTiles(TerrainProjection projection, uint8_t mapX, uint8_t mapY, const TileStepQuadrant& steps, uint8_t quadrant, int posZ);
+	void RotateTiles(bool secondPoints);
+	template<typename DrawTile> void ForEachTileFarToNear(DrawTile drawTile);
+	TileQuadFlags LoadTileQuad(std::vector<int>& vertexs, int tileIndex, bool secondPoints);
+	void SubDrawTerrainAndParticles(std::vector<int>& vertexs, std::vector<RenderPolygon>* polygons);
+	void SubDrawInverseTerrainAndParticles(std::vector<int>& vertexs, std::vector<RenderPolygon>* polygons);
+	void SubDrawCaveTerrainAndParticles(std::vector<int>& vertexs, std::vector<RenderPolygon>* polygons);
 	uint32_t SpriteFrameRow(int spriteIndex, int spriteFrame);
 	void DrawSprite_41BD3(uint32_t pass, std::vector<RenderPolygon>* polygons, int spriteIndex, int spriteFrame);
 	void EmitSpriteQuad(std::vector<RenderPolygon>* polygons, int spriteIndex, int spriteFrame,
 		float x, float y, float rx, float ry, float dx, float dy, bool flipV);
+	bool ProjectTileCorners(int* vertexs, int tileIndex, uint32_t textureIndex, HWVertex corners[4]);
 	void DrawSquareInProjectionSpace(std::vector<int>& vertexs, int tileIndex, std::vector<RenderPolygon>* polygons);
 	HWVertex MakeHWVertex(const ProjectionVertex& v, uint32_t textureIndex);
 	void DrawInverseSquareInProjectionSpace(int* vertexs, int tileIndex, std::vector<RenderPolygon>* polygons, int overrideTextIndex = -1);
-	void DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F66F0x[], uint8_t playersColors_E88E0x[][3], int32_t x_DWORD_F5730[], type_entity_0x6E8E* Entities_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, ViewPort viewPort, uint16_t screenWidth, std::vector<RenderPolygon>* polygons);
-	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int s0, int s1, int* line);
-	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v4, int s0, int s1, int s4, int* line);
-	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int s0, int s1, int s2, int s3, int* line);
-	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int* v4, int s0, int s1, int s2, int s3, int s4, int* line);
-	uint16_t DrawTileBillboards_3FD60(int a2x, uint8_t playersColors_E88E0x[][3], type_entity_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, Type_Sprite** m_ptrLoadedSprites_F66F0x[], int32_t x_DWORD_F5730[], ViewPort viewPort, uint16_t screenWidth, std::vector<RenderPolygon>* polygons);
+	Type_Sprite* UseSprite(int index);
+	SpriteChoice ChooseSprite(type_entity_0x6E8E* entity, const Type_SpriteDef_D951C& def, int depth,
+		bool uprightKind21, bool turnTable, Type_Sprite*& sprite, int& spriteBase, int& spriteFrame);
+	void ProjectSprite(int across, int height, int depth);
+	uint8_t SpriteVisibility(const Type_SpriteDef_D951C& def) const;
+	void DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* polygons);
+	void DrawTileBillboards_3FD60(int tileIndex, std::vector<RenderPolygon>* polygons);
 	void sub_88740(type_entity_0x6E8E* a1, int16_t posX, int16_t posY);
-	void SetBillboards_3B560(int16_t roll);
 	void DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* a1, int16_t a2, int a3, int16_t a4);
 	void BuildTileRenderStepTable(TileStepQuadrant* table, int cols);
 	bool CheckViewPortCull(ProjectionVertex v1, ProjectionVertex v2, ProjectionVertex v3, int maxCoordinate = 2147483647, int minCoordinate = -2147483647);
@@ -148,7 +134,6 @@ public:
 
 	void SetBlurActive(bool active);
 	void DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov);
-	void ClearGraphicsBuffer(uint8_t colorIdx);
 
 	static int32_t CalculateRotationTranslationX(int64_t cos_0x11, int64_t pnt1, int64_t sin_0x0d, int64_t pnt2);
 	static int32_t CalculateRotationTranslationY(int64_t pnt1, int64_t sin_0x0d, int64_t cos_0x11, int64_t pnt2);
