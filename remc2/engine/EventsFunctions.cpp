@@ -22381,12 +22381,20 @@ void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t col
 		locWidth = width / 2;
 		locHeight = height / 2;
 	}
+
+	const uint8_t overViewAlpha = (uint8_t)((1.0f - COLOUR_BLEND_ALPHA) * 255.0f + 0.5f);
 	for (int indexY = locPosY; indexY < locPosY + locHeight; indexY++)
 	{
 		for (int indexX = locPosX; indexX < locWidth + locPosX; indexX++)
 		{
-			pdwScreenBuffer_351628[screenWidth_18062C * indexY + indexX] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * color
-				+ pdwScreenBuffer_351628[screenWidth_18062C * indexY + indexX]];
+			const int index = screenWidth_18062C * indexY + indexX;
+			if (pdwScreenAlphaBuffer != nullptr && pdwScreenAlphaBuffer[index] == 0)
+			{
+				pdwScreenBuffer_351628[index] = color;
+				pdwScreenAlphaBuffer[index] = overViewAlpha;
+			}
+			else
+				pdwScreenBuffer_351628[index] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * color + pdwScreenBuffer_351628[index]];
 		}
 	}
 }
