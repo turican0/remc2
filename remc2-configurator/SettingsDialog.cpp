@@ -54,7 +54,7 @@ void SettingsDialog::OnGame(wxCommandEvent&)
 {
 	auto settings = m_ptrConfig->GetSettingsFromDoc();
 	GameDialog dlg(this, settings.m_Game);
-	dlg.SetMinSize(wxSize(286, 194));
+	SetDialogMinSize(dlg, wxSize(286, 194));
 	if (dlg.ShowModal() == wxID_OK) {
 		m_ptrConfig->SaveGameToDoc(dlg.GetSettings());
 		m_ptrConfig->SaveToFile();
@@ -65,7 +65,7 @@ void SettingsDialog::OnControls(wxCommandEvent&)
 {
 	auto settings = m_ptrConfig->GetSettingsFromDoc();
 	ControlsDialog dlg(this, settings.m_Controls);
-	dlg.SetMinSize(wxSize(666, 950));
+	SetDialogMinSize(dlg, wxSize(666, 950));
 	if (dlg.ShowModal() == wxID_OK) {
 		m_ptrConfig->SaveControlsToDoc(dlg.GetSettings());
 		m_ptrConfig->SaveToFile();
@@ -76,8 +76,7 @@ void SettingsDialog::OnSound(wxCommandEvent&)
 {
 	auto settings = m_ptrConfig->GetSettingsFromDoc();
 	SoundDialog dlg(this, settings.m_Sound);
-	dlg.SetMinSize(wxSize(450, 420));
-	dlg.SetSize(wxSize(450, 420));
+	SetDialogMinSize(dlg, wxSize(450, 420));
 	if (dlg.ShowModal() == wxID_OK) {
 		m_ptrConfig->SaveSoundToDoc(dlg.GetSettings());
 		m_ptrConfig->SaveToFile();
@@ -88,7 +87,7 @@ void SettingsDialog::OnDisplay(wxCommandEvent&)
 {
 	auto settings = m_ptrConfig->GetSettingsFromDoc();
 	DisplayDialog dlg(this, settings.m_Graphics);
-	dlg.SetMinSize(wxSize(270, 300));
+	SetDialogMinSize(dlg, wxSize(270, 300));
 	if (dlg.ShowModal() == wxID_OK) {
 		m_ptrConfig->SaveGraphicsToDoc(dlg.GetSettings());
 		m_ptrConfig->SaveToFile();
@@ -99,7 +98,7 @@ void SettingsDialog::OnGraphics(wxCommandEvent&)
 {
 	auto settings = m_ptrConfig->GetSettingsFromDoc();
 	GraphicsDialog dlg(this, settings.m_Graphics);
-	dlg.SetMinSize(wxSize(245, 370));
+	SetDialogMinSize(dlg, wxSize(245, 370));
 	if (dlg.ShowModal() == wxID_OK) {
 		m_ptrConfig->SaveGraphicsToDoc(dlg.GetSettings());
 		m_ptrConfig->SaveToFile();

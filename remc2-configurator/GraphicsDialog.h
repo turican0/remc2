@@ -4,6 +4,7 @@
 #include <wx/display.h>
 #include "GraphicsFoldersDialog.h"
 #include "ThreadingDialog.h"
+#include "HardwareDialog.h"
 
 class GraphicsDialog : public wxDialog
 {

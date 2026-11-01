@@ -338,6 +338,7 @@ Config::Settings::Graphics Config::GetGraphics(const json& settings)
 
 		graphicsValues.m_GameDetail = GetGameDetail(graphics);
 		graphicsValues.m_Threading = GetThreading(graphics);
+		graphicsValues.m_Hardware = GetHardware(graphics);
 	}
 	return graphicsValues;
 }
@@ -383,6 +384,18 @@ Config::Settings::Threading Config::GetThreading(const json& graphics)
 		threadingValues.m_AssignToSpecificCores = ReadBoolValue(threading, "assignToSpecificCores");
 	}
 	return threadingValues;
+}
+
+Config::Settings::Hardware Config::GetHardware(const json& graphics)
+{
+	Config::Settings::Hardware hardwareValues;
+	if (graphics.contains("hardware"))
+	{
+		const auto& hardware = graphics["hardware"];
+		hardwareValues.m_BilinearFiltering = ReadBoolValue(hardware, "bilinearFiltering");
+		hardwareValues.m_AntiAliasing = ReadIntValue(hardware, "antiAliasing");
+	}
+	return hardwareValues;
 }
 
 Config::Settings::Sound Config::GetSound(const json& settings)
@@ -498,6 +511,7 @@ void Config::SaveGraphicsToDoc(Config::Settings::Graphics graphics)
 	SetString(gfx, "render", graphics.m_Render);
 	SaveGameDetailToDoc(graphics.m_GameDetail);
 	SaveThreadingToDoc(graphics.m_Threading);
+	SaveHardwareToDoc(graphics.m_Hardware);
 }
 
 void Config::SaveGameDetailToDoc(Config::Settings::GameDetail gameDetail)
@@ -533,6 +547,15 @@ void Config::SaveThreadingToDoc(Config::Settings::Threading threading)
 	SetFloat(t, "sizePercentToThreadRenderSprites", threading.m_SizePercentToThreadRenderSprites);
 	SetInt(t, "numberOfRenderThreads", threading.m_NumberOfRenderThreads);
 	SetBool(t, "assignToSpecificCores", threading.m_AssignToSpecificCores);
+}
+
+void Config::SaveHardwareToDoc(Config::Settings::Hardware hardware)
+{
+	auto& settingsEntry = GetOrCreateActiveSettingsEntry();
+	auto& gfx = GetOrCreate(settingsEntry, "graphics");
+	auto& h = GetOrCreate(gfx, "hardware");
+	SetBool(h, "bilinearFiltering", hardware.m_BilinearFiltering);
+	SetInt(h, "antiAliasing", hardware.m_AntiAliasing);
 }
 
 void Config::SaveGameToDoc(Config::Settings::Game gameSettings)

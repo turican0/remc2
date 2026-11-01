@@ -78,9 +78,15 @@ GraphicsDialog::GraphicsDialog(wxWindow* parent, const Config::Settings::Graphic
 	m_btnRenderThreads = new wxButton(this, wxID_ANY, "Render Threads...");
 	main->Add(m_btnRenderThreads, 0, wxALIGN_CENTER | wxLEFT | wxTOP | wxBOTTOM, 10);
 	m_choiceRender->Bind(wxEVT_CHOICE, [this](wxCommandEvent&) { UpdateRenderButtons(); });
+	m_btnHardwareSettings->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) {
+		HardwareDialog dlg(this, m_cfg.m_Hardware);
+		SetDialogMinSize(dlg, wxSize(286, 170));
+		if (dlg.ShowModal() == wxID_OK)
+			m_cfg.m_Hardware = dlg.GetSettings();
+		});
 	m_btnRenderThreads->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) {
 		ThreadingDialog dlg(this, m_cfg.m_Threading);
-		dlg.SetMinSize(wxSize(286, 220));
+		SetDialogMinSize(dlg, wxSize(286, 220));
 		if (dlg.ShowModal() == wxID_OK)
 		{
 			auto threadingSettings = dlg.GetSettings();
@@ -97,7 +103,7 @@ GraphicsDialog::GraphicsDialog(wxWindow* parent, const Config::Settings::Graphic
 	main->Add(btnEnhanced, 0, wxALIGN_CENTER | wxLEFT | wxTOP | wxBOTTOM, 10);
 	btnEnhanced->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) {
 		GraphicsFoldersDialog dlg(this, m_cfg.m_GameDetail);
-		dlg.SetMinSize(wxSize(600, 260));
+		SetDialogMinSize(dlg, wxSize(600, 260));
 		if (dlg.ShowModal() == wxID_OK)
 		{
 			auto folderSettings = dlg.GetFolders();

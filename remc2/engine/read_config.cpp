@@ -46,6 +46,8 @@ float sizePercentToThreadRender = 0;
 float sizePercentToThreadRenderSprites = 0;
 int numberOfRenderThreads = 0;
 bool assignToSpecificCores = false;
+bool bilinearFiltering = false;
+int antiAliasing = 0;
 bool openGLRender = false;
 bool invertYAxis = true;
 bool invertXAxis = false;
@@ -242,6 +244,8 @@ bool SetConfig() {
 	if (settingsValue.m_Graphics.m_GameDetail.m_FogScale > 0)
 		fogScale = settingsValue.m_Graphics.m_GameDetail.m_FogScale;
 	m_render = settingsValue.m_Graphics.m_Render;
+	bilinearFiltering = settingsValue.m_Graphics.m_Hardware.m_BilinearFiltering;
+	antiAliasing = settingsValue.m_Graphics.m_Hardware.m_AntiAliasing;
 	multiThreadedRender = settingsValue.m_Graphics.m_Threading.m_IsActive;
 	sizePercentToThreadRender = settingsValue.m_Graphics.m_Threading.m_SizePercentToThreadRender;
 	numberOfRenderThreads = settingsValue.m_Graphics.m_Threading.m_NumberOfRenderThreads;
