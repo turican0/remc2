@@ -2046,7 +2046,9 @@ void VulkanPolygonRenderer::DrawPolygons(const std::vector<RenderPolygon>& polyg
 		return (uint32_t)p.SpriteMode;
 		};
 	auto tintOf = [](const RenderPolygon& p) -> uint32_t {
-		return p.TextureId == kTerrainAtlasId ? 0u : (uint32_t)p.Tint;
+		if (p.TextureId == kTerrainAtlasId)
+			return p.SpriteMode == 26 ? (uint32_t)p.Tint : 0u;   // water: the map type
+		return (uint32_t)p.Tint;
 		};
 	auto alphaOf = [](const RenderPolygon& p) -> float {
 		return p.Alpha;   // terrain defaults to 1.0

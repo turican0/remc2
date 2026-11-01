@@ -11,7 +11,7 @@ layout(set = 0, binding = 3) uniform usampler2D uShadeLut;   // 256x64, x = texe
 layout(push_constant) uniform PC
 {
 	uint  mode;      // 255 = terrain, 26 = water terrain, 0..8 = original visibilityIdx
-	uint  tint;      // dword0x07 low byte, used by modes 4/5
+	uint  tint;      // dword0x07 low byte, used by modes 4/5; water: MapType_t (0 day, 1 night)
 	float alpha;     // per-polygon alpha
 	uint  fogIndex;  // no longer used by the shader; kept so the 16-byte push constant layout is unchanged
 } pc;
@@ -23,8 +23,13 @@ const uint  MODE_SKY = 254u;
 const uint  MODE_WATER   = 26u;
 const uint  WATER_TEXELS = 12u;
 
-const float WATER_GAIN   = 2.0;
-const vec3  WATER_LIFT   = vec3(0.0, 0.04, 0.06);
+// The software water is blend[screen << 8 | water] from TABLES?.DAT. Fitted per map type as
+// out = x * water + y * screen + z (least squares over the table and palette, RGB rms error 19/6 of 255).
+// Day pulls the result towards the water's blue, hence its weights summing to more than 1.
+// Caves have no water blend: they use the reflection geometry for the ceiling.
+const vec3  WATER_BLEND[2] = vec3[2](
+	vec3(0.856, 0.233, 0.9 / 255.0),   // day
+	vec3(0.694, 0.314, 0.0));          // night
 
 vec3 palette(uint i)
 {
@@ -74,7 +79,12 @@ void main()
 		float alpha = 1.0;
 
 		if (pc.mode == MODE_WATER && idx < WATER_TEXELS)
-			alpha = pc.alpha;      // no gain, no lift; fog comes only from litColour
+		{
+			// The pipeline blends c * alpha + screen * (1 - alpha), so alpha = 1 - y and c is scaled to give x * water + z.
+			vec3 w = WATER_BLEND[min(pc.tint, 1u)];
+			alpha = 1.0 - w.y;
+			c = min((w.x * c + w.z) / alpha, vec3(1.0));
+		}
 
 		outColor = vec4(c, alpha);
 		return;

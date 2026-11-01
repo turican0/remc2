@@ -5,7 +5,6 @@
 
 static constexpr float kBrightnessMax = 4161536.0f;   // 63.5 * 65536, the observed maximum
 static constexpr float kBrightnessNeutral = 32.0f * 65536.0f;   // row 32 = fully lit, same as sprites
-static constexpr float kWaterAlpha = 0.75f;   // 0 = invisible, 1 = opaque
 
 GameRenderHW::GameRenderHW(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint8_t viewDistanceScale, float fogScale) :
 	m_ptrScreenBuffer_351628(ptrScreenBuffer), m_ptrColorPalette(pColorPalette), m_assignToSpecificCores(assignToSpecificCores),
@@ -2782,7 +2781,7 @@ void GameRenderHW::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int ti
 	if (tile.triangleFeatures_38 & 0x80)   // water tile (only set when reflections are on)
 	{
 		poly.SpriteMode = 26;
-		poly.Alpha = kWaterAlpha;
+		poly.Tint = static_cast<uint8_t>(D41A0_0.terrain_2FECE.MapType);   // the shader picks the blend fitted for the map type
 	}
 
 	// Fan (a,b,c,d) splits into (a,b,c) and (a,c,d), so the first vertex picks the diagonal.
