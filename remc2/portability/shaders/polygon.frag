@@ -31,6 +31,13 @@ const vec3  WATER_BLEND[2] = vec3[2](
 	vec3(0.856, 0.233, 0.9 / 255.0),   // day
 	vec3(0.694, 0.314, 0.0));          // night
 
+// The table maps a colour blended with itself to itself, so fogged sea over fogged reflection must stay the fog
+// colour; with weights summing to 1.09 the distant day sea drew brighter than the fog. As the fog thickens the
+// fit eases to a plain blend at this alpha (the best fit with weights summing to 1), keeping the tint up close.
+const float WATER_FOG_ALPHA[2] = float[2](
+	0.78,    // day
+	0.70);   // night
+
 vec3 palette(uint i)
 {
 	return texelFetch(uPalette, ivec2(int(i), 0), 0).rgb;
@@ -81,7 +88,9 @@ void main()
 		if (pc.mode == MODE_WATER && idx < WATER_TEXELS)
 		{
 			// The pipeline blends c * alpha + screen * (1 - alpha), so alpha = 1 - y and c is scaled to give x * water + z.
-			vec3 w = WATER_BLEND[min(pc.tint, 1u)];
+			uint  map = min(pc.tint, 1u);
+			float fog = clamp(1.0 - row / 32.0, 0.0, 1.0);   // rows 32 -> 0 fade into the fog colour (row 0 = all fog)
+			vec3  w = mix(WATER_BLEND[map], vec3(WATER_FOG_ALPHA[map], 1.0 - WATER_FOG_ALPHA[map], 0.0), fog);
 			alpha = 1.0 - w.y;
 			c = min((w.x * c + w.z) / alpha, vec3(1.0));
 		}
