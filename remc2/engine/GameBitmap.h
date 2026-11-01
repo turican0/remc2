@@ -8,6 +8,8 @@
 class GameBitmap
 {
 public:
+	static constexpr uint8_t kTransparentBitmapAlpha = (uint8_t)(COLOUR_BLEND_ALPHA * 255.0f + 0.5f);
+
     static void DrawColourizedBitmap(uint8_t* ptrBitmapData, uint8_t colour, uint8_t* ptrScreenBuffer, uint32_t stride, int16_t posX, int16_t posY, uint8_t height, uint8_t scale = 1, uint8_t* ptrScreenAlphaBuffer = nullptr);
 	static void DrawColourizedBitmap(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, uint8_t colour, uint8_t scale = 1);
 	static void DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, uint32_t stride, int16_t posX, int16_t posY, uint8_t height, uint8_t scale = 1, uint8_t* ptrScreenAlphaBuffer = nullptr);

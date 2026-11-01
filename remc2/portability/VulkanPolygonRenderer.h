@@ -224,7 +224,7 @@ private:
 
 	// Motion blur: while active, each frame is blended into m_blurTarget (same size as the
 	// offscreen target) and that is upscaled into the window instead of the offscreen image.
-	static constexpr float kBlurNewFrameWeight = 0.5f;
+	static constexpr float kBlurNewFrameWeight = 1.0f - COLOUR_BLEND_ALPHA;
 	VkRenderPass m_blurSeedRenderPass = VK_NULL_HANDLE;
 	VkRenderPass m_blurRenderPass = VK_NULL_HANDLE;
 	ColourTarget m_blurTarget;

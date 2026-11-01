@@ -323,7 +323,7 @@ void GameBitmap::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, bitmap_
 				{
 					uint8_t dstIndex = *ptrScreenBuffer;
 					*ptrScreenBuffer++ = srcIndex; // write original pixel, unblended
-					*ptrScreenAlphaBuffer++ = 160;
+					*ptrScreenAlphaBuffer++ = kTransparentBitmapAlpha;
 				}
 				else
 				{
@@ -416,7 +416,7 @@ void GameBitmap::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, bitmap_
 						{
 							uint8_t dstIndex = *ptrScreenBuffer;
 							*ptrScreenBuffer++ = srcIndex; // write original pixel, unblended
-							*ptrScreenAlphaBuffer++ = 160;
+							*ptrScreenAlphaBuffer++ = kTransparentBitmapAlpha;
 						}
 						else
 						{

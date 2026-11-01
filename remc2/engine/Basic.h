@@ -18,6 +18,10 @@
 #include "engine_support.h"
 #include "read_config.h"
 
+const uint32_t COLOUR_BLEND_LOOKUP_OFFSET = 0x4000;
+const uint32_t MAP_COLOUR_BLEND_LOOKUP_OFFSET = 0x14000;
+constexpr float COLOUR_BLEND_ALPHA = 0.69f;
+
 #include "../utilities/DataFileIO.h"
 #include "../engine/ViewPort.h"
 #include "../engine/GameBitmap.h"
@@ -200,9 +204,7 @@ extern uint8_t m_BackgroundColour_D4B7C; // weak
 extern uint8_t m_BackgroundColour_D4B7E; // weak
 extern type_entity_0x6E8E* Entities_EA3E4[1001];//2bb3e4
 
-extern uint8_t ColourLookupTable_F6EE0[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
-const uint32_t COLOUR_BLEND_LOOKUP_OFFSET = 0x4000;
-const uint32_t MAP_COLOUR_BLEND_LOOKUP_OFFSET = 0x14000;
+extern uint8_t ColourLookupTable_F6EE0[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites (offsets at the top: GameBitmap.h needs them)
 
 extern uint8_t* x_BYTE_F6EE0_tablesx_pre;
 extern uint8_t* x_BYTE_FAEE0_tablesx_pre;

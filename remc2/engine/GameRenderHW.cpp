@@ -3817,8 +3817,9 @@ void GameRenderHW::EmitSpriteQuad(std::vector<RenderPolygon>* polygons, int spri
 
 	switch (poly.SpriteMode)
 	{
-	case 2: case 3: case 6: case 7: poly.Alpha = 0.3f;  break;
-	case 8:                         poly.Alpha = 0.25f; break;   // shadow
+	case 2: case 6:                 poly.Alpha = 1.0f - COLOUR_BLEND_ALPHA; break;
+	case 3: case 7:                 poly.Alpha = COLOUR_BLEND_ALPHA;        break;
+	case 8:                         poly.Alpha = 0.25f; break;   // shadow: darkens through the lighting table, not the blend table
 	default:                        poly.Alpha = 1.0f;  break;
 	}
 
