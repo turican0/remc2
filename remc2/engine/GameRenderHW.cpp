@@ -3688,10 +3688,22 @@ void GameRenderHW::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 	} while (result);
 }
 
+static bool SpriteFitsScreen(uint8_t viewDistanceScale)
+{
+	if (screenWidth_18062C <= 640 && screenHeight_180624 <= 480 && viewDistanceScale <= 1)
+		return true;
+	const int64_t size = static_cast<int64_t>(str_F2C20ar.dword0x09_realWidth) + str_F2C20ar.dword0x0c_realHeight;
+	const int64_t x = str_F2C20ar.dword0x04_screenY;
+	const int64_t y = str_F2C20ar.dword0x03_screenX;
+	return x + size >= 0 && x - size < viewPort.Width_DE564 && y + size >= 0 && y - size < viewPort.Height_DE568
+		&& x > -32768 && x < 32768 && y > -32768 && y < 32768 && size < 32768;
+}
+
 void GameRenderHW::DrawSprite_41BD3(uint32_t pass, std::vector<RenderPolygon>* polygons, int spriteIndex, int spriteFrame)
 {
 	auto& s = str_F2C20ar;
 	constexpr float kFix = 1.0f / 65536.0f;
+	const bool draw = SpriteFitsScreen(m_viewDistanceScale);   // before the pass moves the position, as NG
 
 	if (!x_BYTE_F2CC6)
 	{
@@ -3708,7 +3720,7 @@ void GameRenderHW::DrawSprite_41BD3(uint32_t pass, std::vector<RenderPolygon>* p
 			s.dword0x03_screenX -= -(s.sin_0x0d * s.dword0x09_realWidth) >> 17;
 		}
 
-		if (s.dword0x09_realWidth > 0 && s.dword0x0c_realHeight > 0
+		if (draw && s.dword0x09_realWidth > 0 && s.dword0x0c_realHeight > 0
 			&& (unsigned)s.dword0x01_visibilityIdx <= 8)
 		{
 			const float c = s.cos_0x11 * kFix;
@@ -3739,6 +3751,8 @@ void GameRenderHW::DrawSprite_41BD3(uint32_t pass, std::vector<RenderPolygon>* p
 	}
 
 	// ---- axis-aligned path ----
+	if (!draw)
+		return;
 	const int q = (s.dword0x0c_realHeight + s.dword0x09_realWidth) >> 2;
 	if (pass == 1)
 	{

@@ -3917,6 +3917,15 @@ bool GameRenderHD::CheckViewPortCull(ProjectionVertex v1, ProjectionVertex v2, P
 	{
 		return true;
 	}
+	if (screenWidth_18062C > 640 || screenHeight_180624 > 480 || m_viewDistanceScale > 1)
+	{
+		const int minX = (std::min)({ v1.X, v2.X, v3.X });
+		const int maxX = (std::max)({ v1.X, v2.X, v3.X });
+		const int minY = (std::min)({ v1.Y, v2.Y, v3.Y });
+		const int maxY = (std::max)({ v1.Y, v2.Y, v3.Y });
+		if (maxX - minX > 32767 || maxY - minY > 32767)
+			return true;
+	}
 	return false;
 }
 
@@ -4773,8 +4782,22 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 	} while (result);
 }
 
+static bool SpriteFitsScreen(uint8_t viewDistanceScale)
+{
+	if (screenWidth_18062C <= 640 && screenHeight_180624 <= 480 && viewDistanceScale <= 1)
+		return true;
+	const int64_t size = static_cast<int64_t>(str_F2C20ar.dword0x09_realWidth) + str_F2C20ar.dword0x0c_realHeight;
+	const int64_t x = str_F2C20ar.dword0x04_screenY;
+	const int64_t y = str_F2C20ar.dword0x03_screenX;
+	return x + size >= 0 && x - size < viewPort.Width_DE564 && y + size >= 0 && y - size < viewPort.Height_DE568
+		&& x > -32768 && x < 32768 && y > -32768 && y < 32768 && size < 32768;
+}
+
 void GameRenderHD::DrawSprite_41BD3(uint32 pass)
 {
+	const bool draw = SpriteFitsScreen(m_viewDistanceScale);   // before the pass moves the position, as NG
+	const bool largeScreen = screenWidth_18062C > 640 || screenHeight_180624 > 480;
+
 	int v50;
 	int v112, v113, v114;
 	signed int v116;
@@ -4818,7 +4841,7 @@ void GameRenderHD::DrawSprite_41BD3(uint32 pass)
 			if (pass != 2)//a1 == 0,1
 			{
 			LABEL_126:
-				if ((unsigned int)str_F2C20ar.dword0x1e <= 7)
+				if (draw && (unsigned int)str_F2C20ar.dword0x1e <= 7)
 				{
 					switch (str_F2C20ar.dword0x1e)//mirroring
 					{
@@ -5086,6 +5109,14 @@ void GameRenderHD::DrawSprite_41BD3(uint32 pass)
 							if (v140 - screenPosX <= 0)
 								break;
 						}
+						// a big screen (as GameRenderNG::DrawRotatedSprite): the lines from width on lie below the view port, the
+						// row limits past their table are stale in the original (its lines land in the spare memory after a 320x200 screen)
+						if (largeScreen && screenPosX + scaledHeight > str_F2C20ar.width0x25)
+						{
+							scaledHeight = str_F2C20ar.width0x25 - screenPosX;
+							if (scaledHeight <= 0)
+								break;
+						}
 						v116 = 9999999;
 						v124 = scaledHeight;
 						while (2)
@@ -5184,7 +5215,22 @@ void GameRenderHD::DrawSprite_41BD3(uint32 pass)
 						v132 = v156 - v116;
 						if (v156 - v116 > 0)
 						{
-							if (v132 > str_F2C20ar.dword0x1c)
+							x_DWORD* spans = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_2]);   // start, length, skip
+							if (largeScreen)
+							{
+								// a big screen (as GameRenderNG::DrawRotatedSprite): the columns the spans show, up to the table
+								// (past dword0x1c the original reads stale columns)
+								int shown = 0;
+								for (int i = 0; i < scaledHeight; i++)
+									if (spans[3 * i + 1] > 0)
+										shown = (std::max)(shown, (int)(spans[3 * i + 2] - v116 + spans[3 * i + 1]));
+								const int capacity = (m_bufferOffset_E9C38_2 - m_bufferOffset_E9C38_1) / 8 - 1;
+								v132 = (std::min)({ v132, shown, capacity });
+								// and no span longer than those columns
+								for (int i = 0; i < scaledHeight; i++)
+									spans[3 * i + 1] = (std::min)((int)spans[3 * i + 1], v132 - (int)(spans[3 * i + 2] - v116));
+							}
+							else if (v132 > str_F2C20ar.dword0x1c)
 								v132 = str_F2C20ar.dword0x1c;
 							str_F2C20ar.dword0x0b += v137 * v116;
 							v154 = (x_DWORD*)(&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
@@ -5376,6 +5422,8 @@ void GameRenderHD::DrawSprite_41BD3(uint32 pass)
 	}
 
 	//Draw Sprite to Render buffer (flat / particle path)
+	if (!draw)
+		return;
 	v138 = (str_F2C20ar.dword0x0c_realHeight + str_F2C20ar.dword0x09_realWidth) >> 2;
 	if (pass >= 1)
 	{
