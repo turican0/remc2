@@ -269,6 +269,8 @@ void CreateRenderSurfaces(int width, int height)
 bool CreateRenderer(int width, int height)
 {
 	m_vulkanRenderer = new VulkanPolygonRenderer(GetSubDirectoryPath("shaders"), CommandLineParams.DoVulkanValidation());
+	m_vulkanRenderer->SetBilinearFiltering(bilinearFiltering);
+	m_vulkanRenderer->SetAntiAliasing(antiAliasing);
 	return m_vulkanRenderer->Init(m_window, width, height);
 }
 

@@ -20,4 +20,5 @@ struct RenderPolygon
 	float Alpha = 1.0f;
 	uint8_t  Tint = 0;                // dword0x07 low byte (modes 4/5)
 	bool Reflection = false;          // drawn in the reflection pass, before the terrain: the water reads what it left
+	uint16_t Frames = 1;              // sprites: animation frames stacked vertically in the texture (bilinear filtering keeps to one)
 };

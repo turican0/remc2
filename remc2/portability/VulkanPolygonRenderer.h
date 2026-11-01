@@ -80,6 +80,10 @@ public:
 	void SetFrontFace(VkFrontFace frontFace);
 	void SetCullMode(VkCullModeFlags cullMode); // default: VK_CULL_MODE_NONE
 
+	// Hardware Settings; both take effect when Init() builds the pipelines, so call them before it.
+	void SetBilinearFiltering(bool enabled);
+	void SetAntiAliasing(int samples);   // MSAA samples: 0/1 = off, 2, 4 or 8; capped to what the GPU supports
+
 	// hudSurface is the 8-bit palettised screen; hudAlpha is one alpha byte per pixel of it, or nullptr for opaque.
 	bool BeginFrame(SDL_Surface* hudSurface, const uint8_t* hudAlpha, SDL_Rect srcRect, SDL_Rect destRect);
 	bool UploadHud(SDL_Surface* hudSurface, const uint8_t* hudAlpha, VkCommandBuffer commandBuffer);   // false = nothing to draw
@@ -175,13 +179,20 @@ private:
 		VkDescriptorSet descriptorSet = VK_NULL_HANDLE;   // overlay layout, for sampling the target
 	};
 
-	// layout VK_NULL_HANDLE = the overlay layout (one sampled image)
+	// layout VK_NULL_HANDLE = the overlay layout (one sampled image); renderPass VK_NULL_HANDLE = m_renderPass
 	bool CreateOverlayPipeline(OverlayBlend blendMode, VkPipeline& pipeline,
-		const char* fragShader = "overlay.frag.spv", VkPipelineLayout layout = VK_NULL_HANDLE);
-	bool CreateOffscreenRenderPass(VkAttachmentLoadOp loadOp, VkImageLayout initialLayout, VkRenderPass& renderPass);
+		const char* fragShader = "overlay.frag.spv", VkPipelineLayout layout = VK_NULL_HANDLE,
+		VkRenderPass renderPass = VK_NULL_HANDLE, VkSampleCountFlagBits samples = VK_SAMPLE_COUNT_1_BIT);
+	bool CreateOffscreenRenderPass(VkAttachmentLoadOp loadOp, VkImageLayout initialLayout, VkRenderPass& renderPass,
+		VkSampleCountFlagBits samples = VK_SAMPLE_COUNT_1_BIT);
 	bool CreateOffscreenTarget(uint32_t width, uint32_t height);
 	void DestroyOffscreenTarget();
-	bool CreateColourTarget(uint32_t width, uint32_t height, VkRenderPass renderPass, ColourTarget& target);
+	// msaaView: the multisampled image the render pass resolves into target, or VK_NULL_HANDLE without MSAA
+	bool CreateColourTarget(uint32_t width, uint32_t height, VkRenderPass renderPass, ColourTarget& target,
+		VkImageView msaaView = VK_NULL_HANDLE);
+	bool CreateMsaaImage(uint32_t width, uint32_t height);
+	void DestroyMsaaImage();
+	VkSampleCountFlagBits PickMsaaSamples(int requested) const;
 	void DestroyColourTarget(ColourTarget& target);
 	void DrawBlur(VkCommandBuffer commandBuffer);
 	size_t ReflectionEnd(const std::vector<RenderPolygon>& polygons) const;
@@ -226,6 +237,18 @@ private:
 	uint32_t m_offscreenWidth = 0;
 	uint32_t m_offscreenHeight = 0;
 	VkPipeline m_viewPortBlitPipeline = VK_NULL_HANDLE;
+
+	// MSAA: the offscreen render pass draws into this multisampled image and resolves it into the target it is
+	// drawn for (the reflection, then the offscreen target: one after the other, so they share it).
+	// Unused (null) when m_msaaSamples is 1.
+	int m_requestedMsaaSamples = 0;
+	VkSampleCountFlagBits m_msaaSamples = VK_SAMPLE_COUNT_1_BIT;
+	VkImage m_msaaImage = VK_NULL_HANDLE;
+	VmaAllocation m_msaaAllocation = VK_NULL_HANDLE;
+	VkImageView m_msaaView = VK_NULL_HANDLE;
+	VkPipeline m_reflectionCopyPipeline = VK_NULL_HANDLE;   // m_viewPortBlitPipeline for the offscreen render pass (its sample count)
+
+	bool m_bilinearFiltering = false;   // polygon.frag's BILINEAR specialization constant
 
 	// Motion blur: while active, each frame is blended into m_blurTarget (same size as the
 	// offscreen target) and that is upscaled into the window instead of the offscreen image.

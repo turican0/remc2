@@ -136,6 +136,31 @@ void VulkanPolygonRenderer::SetCullMode(VkCullModeFlags cullMode)
 	m_cullMode = cullMode;
 }
 
+void VulkanPolygonRenderer::SetBilinearFiltering(bool enabled)
+{
+	m_bilinearFiltering = enabled;
+}
+
+void VulkanPolygonRenderer::SetAntiAliasing(int samples)
+{
+	m_requestedMsaaSamples = samples;
+}
+
+// The highest sample count up to the requested one that the device can render colour attachments with.
+VkSampleCountFlagBits VulkanPolygonRenderer::PickMsaaSamples(int requested) const
+{
+	VkPhysicalDeviceProperties properties;
+	vkGetPhysicalDeviceProperties(m_physicalDevice, &properties);
+	const VkSampleCountFlags supported = properties.limits.framebufferColorSampleCounts;
+
+	for (VkSampleCountFlagBits samples : { VK_SAMPLE_COUNT_8_BIT, VK_SAMPLE_COUNT_4_BIT, VK_SAMPLE_COUNT_2_BIT })
+	{
+		if ((int)samples <= requested && (supported & samples))
+			return samples;
+	}
+	return VK_SAMPLE_COUNT_1_BIT;
+}
+
 bool VulkanPolygonRenderer::Init(SDL_Window* window, int windowWidth, int windowHeight)
 {
 	m_window = window;
@@ -180,6 +205,7 @@ bool VulkanPolygonRenderer::Init(SDL_Window* window, int windowWidth, int window
 	m_vkbDevice = devRet.value();
 	m_device = m_vkbDevice.device;
 	m_physicalDevice = physRet.value().physical_device;
+	m_msaaSamples = PickMsaaSamples(m_requestedMsaaSamples);
 
 	auto gq = m_vkbDevice.get_queue(vkb::QueueType::graphics);
 	if (!gq)
@@ -199,7 +225,7 @@ bool VulkanPolygonRenderer::Init(SDL_Window* window, int windowWidth, int window
 		return false;
 	if (!CreateRenderPass())
 		return false;
-	if (!CreateOffscreenRenderPass(VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED, m_offscreenRenderPass))
+	if (!CreateOffscreenRenderPass(VK_ATTACHMENT_LOAD_OP_CLEAR, VK_IMAGE_LAYOUT_UNDEFINED, m_offscreenRenderPass, m_msaaSamples))
 		return false;
 	// Blur history: the seed pass overwrites it, the blur pass blends onto what is already there.
 	if (!CreateOffscreenRenderPass(VK_ATTACHMENT_LOAD_OP_DONT_CARE, VK_IMAGE_LAYOUT_UNDEFINED, m_blurSeedRenderPass))
@@ -363,29 +389,49 @@ bool VulkanPolygonRenderer::CreateRenderPass()
 	return vkCreateRenderPass(m_device, &rpInfo, nullptr, &m_renderPass) == VK_SUCCESS;
 }
 
-// Same attachment format/samples as m_renderPass so m_pipeline is compatible with it,
-// but it ends in SHADER_READ_ONLY_OPTIMAL so the result can be sampled for the upscale.
-// loadOp/initialLayout don't affect render pass compatibility, so the same pipelines work with every variant.
-bool VulkanPolygonRenderer::CreateOffscreenRenderPass(VkAttachmentLoadOp loadOp, VkImageLayout initialLayout, VkRenderPass& renderPass)
+// The same attachment format as m_renderPass, but it ends in SHADER_READ_ONLY_OPTIMAL so the result can be
+// sampled for the upscale. loadOp/initialLayout don't affect render pass compatibility, so the same pipelines
+// work with every single-sampled variant. With samples > 1 the subpass draws into a multisampled attachment
+// (0) and resolves it into the sampled one (1); m_pipeline is built for that pass, with the same sample count.
+bool VulkanPolygonRenderer::CreateOffscreenRenderPass(VkAttachmentLoadOp loadOp, VkImageLayout initialLayout, VkRenderPass& renderPass,
+	VkSampleCountFlagBits samples)
 {
-	VkAttachmentDescription colorAttachment{};
+	const bool msaa = samples != VK_SAMPLE_COUNT_1_BIT;
+
+	VkAttachmentDescription attachments[2]{};
+	VkAttachmentDescription& colorAttachment = attachments[0];
 	colorAttachment.format = m_swapchainFormat;
-	colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
+	colorAttachment.samples = samples;
 	colorAttachment.loadOp = loadOp;
-	colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+	colorAttachment.storeOp = msaa ? VK_ATTACHMENT_STORE_OP_DONT_CARE : VK_ATTACHMENT_STORE_OP_STORE;   // only the resolve is kept
 	colorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
 	colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-	colorAttachment.initialLayout = initialLayout;
-	colorAttachment.finalLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+	colorAttachment.initialLayout = msaa ? VK_IMAGE_LAYOUT_UNDEFINED : initialLayout;
+	colorAttachment.finalLayout = msaa ? VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL : VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+
+	VkAttachmentDescription& resolveAttachment = attachments[1];
+	resolveAttachment.format = m_swapchainFormat;
+	resolveAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
+	resolveAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;   // every pixel is overwritten by the resolve
+	resolveAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+	resolveAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+	resolveAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+	resolveAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+	resolveAttachment.finalLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
 	VkAttachmentReference colorRef{};
 	colorRef.attachment = 0;
 	colorRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
 
+	VkAttachmentReference resolveRef{};
+	resolveRef.attachment = 1;
+	resolveRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+
 	VkSubpassDescription subpass{};
 	subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
 	subpass.colorAttachmentCount = 1;
 	subpass.pColorAttachments = &colorRef;
+	subpass.pResolveAttachments = msaa ? &resolveRef : nullptr;
 
 	VkSubpassDependency dependencies[2]{};
 	// The previous frame's upscale must finish reading the image before we draw into it again.
@@ -405,8 +451,8 @@ bool VulkanPolygonRenderer::CreateOffscreenRenderPass(VkAttachmentLoadOp loadOp,
 
 	VkRenderPassCreateInfo rpInfo{};
 	rpInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-	rpInfo.attachmentCount = 1;
-	rpInfo.pAttachments = &colorAttachment;
+	rpInfo.attachmentCount = msaa ? 2 : 1;
+	rpInfo.pAttachments = attachments;
 	rpInfo.subpassCount = 1;
 	rpInfo.pSubpasses = &subpass;
 	rpInfo.dependencyCount = 2;
@@ -418,8 +464,11 @@ bool VulkanPolygonRenderer::CreateOffscreenRenderPass(VkAttachmentLoadOp loadOp,
 bool VulkanPolygonRenderer::CreateOffscreenTarget(uint32_t width, uint32_t height)
 {
 	// The blur history is only ever drawn with the blur render passes, which are compatible with each other.
-	if (!CreateColourTarget(width, height, m_offscreenRenderPass, m_offscreenTarget) ||
-		!CreateColourTarget(width, height, m_offscreenRenderPass, m_reflectionTarget) ||
+	if (m_msaaSamples != VK_SAMPLE_COUNT_1_BIT && !CreateMsaaImage(width, height))
+		return false;
+
+	if (!CreateColourTarget(width, height, m_offscreenRenderPass, m_offscreenTarget, m_msaaView) ||
+		!CreateColourTarget(width, height, m_offscreenRenderPass, m_reflectionTarget, m_msaaView) ||
 		!CreateColourTarget(width, height, m_blurRenderPass, m_blurTarget))
 		return false;
 
@@ -429,7 +478,51 @@ bool VulkanPolygonRenderer::CreateOffscreenTarget(uint32_t width, uint32_t heigh
 	return true;
 }
 
-bool VulkanPolygonRenderer::CreateColourTarget(uint32_t width, uint32_t height, VkRenderPass renderPass, ColourTarget& target)
+// The multisampled image is only drawn into and resolved within the render pass, so it never needs real memory
+// on GPUs with lazily allocated (tile) memory.
+bool VulkanPolygonRenderer::CreateMsaaImage(uint32_t width, uint32_t height)
+{
+	VkImageCreateInfo imageInfo{};
+	imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
+	imageInfo.imageType = VK_IMAGE_TYPE_2D;
+	imageInfo.format = m_swapchainFormat;
+	imageInfo.extent = { width, height, 1 };
+	imageInfo.mipLevels = 1;
+	imageInfo.arrayLayers = 1;
+	imageInfo.samples = m_msaaSamples;
+	imageInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
+	imageInfo.usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT;
+	imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+
+	VmaAllocationCreateInfo allocInfo{};
+	allocInfo.usage = VMA_MEMORY_USAGE_GPU_ONLY;
+	allocInfo.preferredFlags = VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT;
+
+	if (vmaCreateImage(m_allocator, &imageInfo, &allocInfo, &m_msaaImage, &m_msaaAllocation, nullptr) != VK_SUCCESS)
+		return false;
+
+	VkImageViewCreateInfo viewInfo{};
+	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+	viewInfo.image = m_msaaImage;
+	viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
+	viewInfo.format = imageInfo.format;
+	viewInfo.subresourceRange = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 1, 0, 1 };
+	return vkCreateImageView(m_device, &viewInfo, nullptr, &m_msaaView) == VK_SUCCESS;
+}
+
+void VulkanPolygonRenderer::DestroyMsaaImage()
+{
+	if (m_msaaView)
+		vkDestroyImageView(m_device, m_msaaView, nullptr);
+	if (m_msaaImage)
+		vmaDestroyImage(m_allocator, m_msaaImage, m_msaaAllocation);
+	m_msaaView = VK_NULL_HANDLE;
+	m_msaaImage = VK_NULL_HANDLE;
+	m_msaaAllocation = VK_NULL_HANDLE;
+}
+
+bool VulkanPolygonRenderer::CreateColourTarget(uint32_t width, uint32_t height, VkRenderPass renderPass, ColourTarget& target,
+	VkImageView msaaView)
 {
 	VkImageCreateInfo imageInfo{};
 	imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
@@ -458,11 +551,14 @@ bool VulkanPolygonRenderer::CreateColourTarget(uint32_t width, uint32_t height, 
 	if (vkCreateImageView(m_device, &viewInfo, nullptr, &target.view) != VK_SUCCESS)
 		return false;
 
+	// With MSAA the render pass draws into msaaView (attachment 0) and resolves into this target (attachment 1).
+	const VkImageView attachments[2] = { msaaView ? msaaView : target.view, target.view };
+
 	VkFramebufferCreateInfo fbInfo{};
 	fbInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
 	fbInfo.renderPass = renderPass;
-	fbInfo.attachmentCount = 1;
-	fbInfo.pAttachments = &target.view;
+	fbInfo.attachmentCount = msaaView ? 2 : 1;
+	fbInfo.pAttachments = attachments;
 	fbInfo.width = width;
 	fbInfo.height = height;
 	fbInfo.layers = 1;
@@ -501,6 +597,7 @@ void VulkanPolygonRenderer::DestroyOffscreenTarget()
 	DestroyColourTarget(m_offscreenTarget);
 	DestroyColourTarget(m_reflectionTarget);
 	DestroyColourTarget(m_blurTarget);
+	DestroyMsaaImage();
 	m_offscreenWidth = 0;
 	m_offscreenHeight = 0;
 }
@@ -1193,6 +1290,8 @@ bool VulkanPolygonRenderer::CreateOverlayResources()
 	// since the polygon pipeline leaves alpha < 1 wherever transparent polygons were drawn.
 	return CreateOverlayPipeline(OverlayBlend::Alpha, m_hudPipeline, "hud.frag.spv", m_hudPipelineLayout) &&
 		CreateOverlayPipeline(OverlayBlend::Opaque, m_viewPortBlitPipeline) &&
+		CreateOverlayPipeline(OverlayBlend::Opaque, m_reflectionCopyPipeline, "overlay.frag.spv", VK_NULL_HANDLE,
+			m_offscreenRenderPass, m_msaaSamples) &&
 		CreateOverlayPipeline(OverlayBlend::Constant, m_blurPipeline);
 }
 
@@ -1421,11 +1520,21 @@ bool VulkanPolygonRenderer::CreatePipeline()
 	vertStage.module = vertModule;
 	vertStage.pName = "main";
 
+	// polygon.frag constant_id 0 = BILINEAR, fixed per pipeline so the nearest path pays nothing for it
+	const VkBool32 bilinear = m_bilinearFiltering ? VK_TRUE : VK_FALSE;
+	VkSpecializationMapEntry specEntry{ 0, 0, sizeof(VkBool32) };
+	VkSpecializationInfo specInfo{};
+	specInfo.mapEntryCount = 1;
+	specInfo.pMapEntries = &specEntry;
+	specInfo.dataSize = sizeof(bilinear);
+	specInfo.pData = &bilinear;
+
 	VkPipelineShaderStageCreateInfo fragStage{};
 	fragStage.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
 	fragStage.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
 	fragStage.module = fragModule;
 	fragStage.pName = "main";
+	fragStage.pSpecializationInfo = &specInfo;
 
 	VkPipelineShaderStageCreateInfo stages[] = { vertStage, fragStage };
 
@@ -1465,7 +1574,7 @@ bool VulkanPolygonRenderer::CreatePipeline()
 
 	VkPipelineMultisampleStateCreateInfo multisample{};
 	multisample.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
-	multisample.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
+	multisample.rasterizationSamples = m_msaaSamples;   // must match m_offscreenRenderPass
 
 	VkPipelineColorBlendAttachmentState blendAttachment{};
 	blendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |
@@ -1518,7 +1627,7 @@ bool VulkanPolygonRenderer::CreatePipeline()
 	pipelineInfo.pColorBlendState = &blend;
 	pipelineInfo.pDynamicState = &dynamicState;
 	pipelineInfo.layout = m_pipelineLayout;
-	pipelineInfo.renderPass = m_renderPass;
+	pipelineInfo.renderPass = m_offscreenRenderPass;   // the only pass the polygons are drawn in (it carries the MSAA sample count)
 	pipelineInfo.subpass = 0;
 
 	VkResult result = vkCreateGraphicsPipelines(m_device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &m_pipeline);
@@ -1529,7 +1638,8 @@ bool VulkanPolygonRenderer::CreatePipeline()
 	return result == VK_SUCCESS;
 }
 
-bool VulkanPolygonRenderer::CreateOverlayPipeline(OverlayBlend blendMode, VkPipeline& pipeline, const char* fragShader, VkPipelineLayout layout)
+bool VulkanPolygonRenderer::CreateOverlayPipeline(OverlayBlend blendMode, VkPipeline& pipeline, const char* fragShader, VkPipelineLayout layout,
+	VkRenderPass renderPass, VkSampleCountFlagBits samples)
 {
 	auto vertCode = ReadFile(ShaderPath("overlay.vert.spv"));
 	auto fragCode = ReadFile(ShaderPath(fragShader));
@@ -1575,7 +1685,7 @@ bool VulkanPolygonRenderer::CreateOverlayPipeline(OverlayBlend blendMode, VkPipe
 
 	VkPipelineMultisampleStateCreateInfo multisample{};
 	multisample.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
-	multisample.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
+	multisample.rasterizationSamples = samples;
 
 	VkPipelineColorBlendAttachmentState blendAttachment{};
 	blendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |
@@ -1642,7 +1752,7 @@ bool VulkanPolygonRenderer::CreateOverlayPipeline(OverlayBlend blendMode, VkPipe
 	pipelineInfo.pColorBlendState = &blend;
 	pipelineInfo.pDynamicState = &dynamicState;
 	pipelineInfo.layout = layout != VK_NULL_HANDLE ? layout : m_overlayPipelineLayout;
-	pipelineInfo.renderPass = m_renderPass;
+	pipelineInfo.renderPass = renderPass != VK_NULL_HANDLE ? renderPass : m_renderPass;
 	pipelineInfo.subpass = 0;
 
 	VkResult result = vkCreateGraphicsPipelines(m_device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &pipeline);
@@ -2008,7 +2118,7 @@ void VulkanPolygonRenderer::BeginTerrainPass(VkCommandBuffer commandBuffer)
 	vkCmdBeginRenderPass(commandBuffer, &begin, VK_SUBPASS_CONTENTS_INLINE);
 
 	// Same size, nearest sampling: an exact copy
-	vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, m_viewPortBlitPipeline);
+	vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, m_reflectionCopyPipeline);
 	vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
 		m_overlayPipelineLayout, 0, 1, &m_reflectionTarget.descriptorSet, 0, nullptr);
 	vkCmdDraw(commandBuffer, 3, 1, 0, 0);
@@ -2104,6 +2214,7 @@ void VulkanPolygonRenderer::DrawPolygons(const std::vector<RenderPolygon>& polyg
 		uint32_t tint;
 		float    alpha;
 		bool     terrainPass;   // from reflectionEnd on
+		uint32_t frames;        // sprite frames stacked in the texture; the same for every polygon of a texture
 		uint32_t indexOffset;
 		uint32_t indexCount;
 	};
@@ -2126,6 +2237,7 @@ void VulkanPolygonRenderer::DrawPolygons(const std::vector<RenderPolygon>& polyg
 	bool haveBatch = false;
 	uint32_t curTexture = 0, curMode = 0, curTint = 0;
 	bool     curTerrainPass = false;
+	uint32_t curFrames = 1;
 	float    curAlpha = 1.0f;
 	uint32_t batchIndexStart = 0;
 
@@ -2142,16 +2254,16 @@ void VulkanPolygonRenderer::DrawPolygons(const std::vector<RenderPolygon>& polyg
 
 		if (!haveBatch)
 		{
-			curTexture = poly.TextureId; curMode = m; curTint = t; curAlpha = a; curTerrainPass = tp;
+			curTexture = poly.TextureId; curMode = m; curTint = t; curAlpha = a; curTerrainPass = tp; curFrames = poly.Frames;
 			batchIndexStart = (uint32_t)indices.size();
 			haveBatch = true;
 		}
 		else if (poly.TextureId != curTexture || m != curMode || t != curTint || a != curAlpha || tp != curTerrainPass)
 		{
-			batches.push_back({ curTexture, curMode, curTint, curAlpha, curTerrainPass,
+			batches.push_back({ curTexture, curMode, curTint, curAlpha, curTerrainPass, curFrames,
 				batchIndexStart, (uint32_t)indices.size() - batchIndexStart });
 			batchIndexStart = (uint32_t)indices.size();
-			curTexture = poly.TextureId; curMode = m; curTint = t; curAlpha = a; curTerrainPass = tp;
+			curTexture = poly.TextureId; curMode = m; curTint = t; curAlpha = a; curTerrainPass = tp; curFrames = poly.Frames;
 		}
 
 		uint32_t baseVertex = (uint32_t)vertices.size();
@@ -2161,7 +2273,7 @@ void VulkanPolygonRenderer::DrawPolygons(const std::vector<RenderPolygon>& polyg
 	}
 
 	if (haveBatch)
-		batches.push_back({ curTexture, curMode, curTint, curAlpha, curTerrainPass,
+		batches.push_back({ curTexture, curMode, curTint, curAlpha, curTerrainPass, curFrames,
 			batchIndexStart, (uint32_t)indices.size() - batchIndexStart });
 
 	if (vertices.empty() || indices.empty())
@@ -2203,7 +2315,7 @@ void VulkanPolygonRenderer::DrawPolygons(const std::vector<RenderPolygon>& polyg
 		//	m_textures.count(kTerrainAtlasId));
 	}
 
-	// polygon.frag flags bits 8-15: the sky (clear) colour index, the top of the day water's ramp
+	// polygon.frag flags bits 8-15: the sky (clear) colour index, the top of the day water's ramp; bits 16-31: sprite frames
 	const uint32_t skyIndex = (uint32_t)(m_clearPaletteIndex >= 0 ? m_clearPaletteIndex : 0xFE) << 8;
 
 	bool inTerrainPass = reflectionEnd == kNoReflectionPass;
@@ -2219,7 +2331,7 @@ void VulkanPolygonRenderer::DrawPolygons(const std::vector<RenderPolygon>& polyg
 		if (it == m_textures.end())
 			continue;
 
-		PC pc{ batch.mode, batch.tint, batch.alpha, skyIndex };
+		PC pc{ batch.mode, batch.tint, batch.alpha, skyIndex | (std::min)(batch.frames, 0xFFFFu) << 16 };
 		vkCmdPushConstants(frame.commandBuffer, m_pipelineLayout,
 			VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(pc), &pc);
 
@@ -2321,6 +2433,7 @@ void VulkanPolygonRenderer::Shutdown()
 	DestroyFrameData();
 	DestroyOffscreenTarget();
 	vkDestroyPipeline(m_device, m_viewPortBlitPipeline, nullptr);
+	vkDestroyPipeline(m_device, m_reflectionCopyPipeline, nullptr);
 	vkDestroyPipeline(m_device, m_blurPipeline, nullptr);
 	vkDestroyRenderPass(m_device, m_offscreenRenderPass, nullptr);
 	vkDestroyRenderPass(m_device, m_blurSeedRenderPass, nullptr);

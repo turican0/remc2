@@ -1,7 +1,8 @@
 #version 450
 
-layout(location = 0) in vec2  fragUV;
-layout(location = 1) in float fragShade;  // lighting row / 32 (terrain: 0..1.97, sprites: 0..1.25); fog is already in the row
+// centroid (see polygon.vert): with MSAA the UV is taken inside the polygon, not at a pixel centre outside it
+layout(location = 0) centroid in vec2  fragUV;
+layout(location = 1) centroid in float fragShade;  // lighting row / 32 (terrain: 0..1.97, sprites: 0..1.25); fog is already in the row
 
 layout(set = 0, binding = 0) uniform sampler2D  uPalette;    // 256x1 RGBA8
 layout(set = 0, binding = 1) uniform usampler2D uIndexTex;   // R8_UINT, terrain atlas or stacked sprite frames
@@ -17,8 +18,12 @@ layout(push_constant) uniform PC
 	uint  mode;      // 255 = terrain, 26 = water terrain, 0..8 = original visibilityIdx
 	uint  tint;      // dword0x07 low byte, used by modes 4/5; water: MapType_t (0 day, 1 night)
 	float alpha;     // per-polygon alpha
-	uint  flags;     // bits 8-15 = the sky (clear) colour index
+	uint  flags;     // bits 8-15 = the sky (clear) colour index; bits 16-31 = sprite frames stacked in the texture
 } pc;
+
+// Hardware Settings "Bilinear filtering", set when the pipeline is built. The textures hold palette indices,
+// which can't be filtered, so the four nearest texels are each lit and coloured and the colours are mixed.
+layout(constant_id = 0) const bool BILINEAR = false;
 
 layout(location = 0) out vec4 outColor;
 
@@ -26,6 +31,7 @@ const uint  MODE_TERRAIN = 255u;
 const uint  MODE_SKY = 254u;
 const uint  MODE_WATER   = 26u;
 const uint  WATER_TEXELS = 12u;
+const int   ATLAS_TILES_WIDE = 8;   // GameRenderHW::kTilesWide
 
 const vec3  LUMA = vec3(0.299, 0.587, 0.114);
 
@@ -76,13 +82,7 @@ vec3 dayRamp(float brightness)
 	return prev;   // brighter than the sky: the sky colour
 }
 
-// What everything writes: the pipeline blends colour * alpha + screen * (1 - alpha)
-void emit(vec3 colour, float alpha)
-{
-	outColor = vec4(colour, alpha);
-}
-
-// The water blended with the reflection under it, written opaque
+// The water blended with the reflection under it, opaque
 vec3 waterOverReflection(vec3 water, float row)
 {
 	vec3 reflection = texelFetch(uReflection, ivec2(gl_FragCoord.xy), 0).rgb;
@@ -96,6 +96,53 @@ vec3 waterOverReflection(vec3 water, float row)
 	return water * w.x + reflection * w.y + w.z;
 }
 
+// One texel as the polygon's mode draws it: colour and alpha (the pipeline blends colour * alpha + screen *
+// (1 - alpha)); alpha 0 = transparent (sprite index 0)
+vec4 shadeTexel(uint idx, float row, bool isTerrain, bool isSky)
+{
+	// ---- sky: tiles, opaque, no transparency ----
+	if (isSky)
+		return vec4(palette(idx), 1.0);
+
+	// ---- terrain and water ----
+	if (isTerrain)
+	{
+		vec3 c = litColour(idx, row);
+		if (pc.mode == MODE_WATER && idx < WATER_TEXELS)
+			c = waterOverReflection(c, row);
+		return vec4(c, 1.0);
+	}
+
+	// ---- sprites: index 0 is transparent in every mode ----
+	if (idx == 0u)
+		return vec4(0.0);
+
+	switch (pc.mode)
+	{
+	case 0u:   // texel as is
+	case 2u:   // blended with the screen
+	case 3u:
+		return vec4(palette(idx), pc.alpha);
+
+	case 1u:   // lit
+	case 6u:   // blended, then lit
+	case 7u:
+		return vec4(litColour(idx, row), pc.alpha);
+
+	case 4u:   // tint blend: LUT[tint << 8 | src]
+		return vec4(palette(texelFetch(uBlendLut, ivec2(int(idx), int(pc.tint & 0xFFu)), 0).r), pc.alpha);
+
+	case 5u:   // tint blend: LUT[src << 8 | tint]
+		return vec4(palette(texelFetch(uBlendLut, ivec2(int(pc.tint & 0xFFu), int(idx)), 0).r), pc.alpha);
+
+	case 8u:   // shadow: black, blended with the destination at pc.alpha
+		return vec4(0.0, 0.0, 0.0, pc.alpha);
+
+	default:
+		return vec4(litColour(idx, row), pc.alpha);
+	}
+}
+
 void main()
 {
 	const bool isTerrain = (pc.mode == MODE_TERRAIN) || (pc.mode == MODE_WATER);
@@ -103,67 +150,68 @@ void main()
 
 	ivec2 size = textureSize(uIndexTex, 0);
 	vec2  uv   = isTerrain ? fragUV : fragUV * vec2(size);
-	ivec2 texel = ivec2(floor(uv));
-
-	if (isSky)
-		texel = ((texel % size) + size) % size;   // wrap, negatives included
-	else
-		texel = clamp(texel, ivec2(0), size - 1);
-
-	uint  idx = texelFetch(uIndexTex, texel, 0).r;
 
 	const float row = fragShade * 32.0;
 
-	// ---- sky: tiles, opaque, no transparency ----
-	if (isSky)
+	if (!BILINEAR)
 	{
-		emit(palette(idx), 1.0);
+		ivec2 texel = ivec2(floor(uv));
+
+		if (isSky)
+			texel = ((texel % size) + size) % size;   // wrap, negatives included
+		else
+			texel = clamp(texel, ivec2(0), size - 1);
+
+		uint idx = texelFetch(uIndexTex, texel, 0).r;
+
+		if (!isTerrain && !isSky && idx == 0u)
+			discard;
+
+		outColor = shadeTexel(idx, row, isTerrain, isSky);
 		return;
 	}
 
-	// ---- terrain and water ----
+	// The four taps stay inside the texel's own atlas tile or sprite frame, so neighbours don't bleed in; the sky wraps.
+	ivec2 centre = clamp(ivec2(floor(uv)), ivec2(0), size - 1);
+	ivec2 lo = ivec2(0);
+	ivec2 hi = size - 1;
 	if (isTerrain)
 	{
-		vec3 c = litColour(idx, row);
-		if (pc.mode == MODE_WATER && idx < WATER_TEXELS)
-			emit(waterOverReflection(c, row), 1.0);
-		else
-			emit(c, 1.0);
-		return;
+		int tile = size.x / ATLAS_TILES_WIDE;
+		lo = (centre / tile) * tile;
+		hi = lo + tile - 1;
+	}
+	else if (!isSky)
+	{
+		int frameHeight = size.y / int(max(pc.flags >> 16, 1u));
+		lo.y = (centre.y / frameHeight) * frameHeight;
+		hi.y = lo.y + frameHeight - 1;
 	}
 
-	// ---- sprites: index 0 is transparent in every mode ----
-	if (idx == 0u)
+	vec2  p = uv - 0.5;
+	ivec2 base = ivec2(floor(p));
+	vec2  f = p - floor(p);
+
+	// Mixed weighted by alpha, so transparent sprite texels fade the edge instead of darkening it
+	vec4 sum = vec4(0.0);
+	for (int i = 0; i < 4; i++)
+	{
+		ivec2 offset = ivec2(i & 1, i >> 1);
+		ivec2 texel = base + offset;
+		if (isSky)
+			texel = ((texel % size) + size) % size;
+		else
+			texel = clamp(texel, lo, hi);
+
+		vec2  w2 = mix(1.0 - f, f, vec2(offset));
+		float weight = w2.x * w2.y;
+
+		vec4 s = shadeTexel(texelFetch(uIndexTex, texel, 0).r, row, isTerrain, isSky);
+		sum += vec4(s.rgb * s.a, s.a) * weight;
+	}
+
+	if (sum.a <= 0.0)
 		discard;
 
-	switch (pc.mode)
-	{
-	case 0u:   // texel as is
-	case 2u:   // blended with the screen
-	case 3u:
-		emit(palette(idx), pc.alpha);
-		break;
-
-	case 1u:   // lit
-	case 6u:   // blended, then lit
-	case 7u:
-		emit(litColour(idx, row), pc.alpha);
-		break;
-
-	case 4u:   // tint blend: LUT[tint << 8 | src]
-		emit(palette(texelFetch(uBlendLut, ivec2(int(idx), int(pc.tint & 0xFFu)), 0).r), pc.alpha);
-		break;
-
-	case 5u:   // tint blend: LUT[src << 8 | tint]
-		emit(palette(texelFetch(uBlendLut, ivec2(int(pc.tint & 0xFFu), int(idx)), 0).r), pc.alpha);
-		break;
-
-	case 8u:   // shadow: black, blended with the destination at pc.alpha
-		emit(vec3(0.0), pc.alpha);
-		break;
-
-	default:
-		emit(litColour(idx, row), pc.alpha);
-		break;
-	}
+	outColor = vec4(sum.rgb / sum.a, sum.a);
 }

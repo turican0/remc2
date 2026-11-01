@@ -3822,6 +3822,7 @@ void GameRenderHW::EmitSpriteQuad(std::vector<RenderPolygon>* polygons, int spri
 	poly.TextureId = (uint32_t)spriteIndex;
 	poly.SpriteMode = (uint8_t)s.dword0x01_visibilityIdx;
 	poly.Reflection = m_reflectionPass;
+	poly.Frames = (uint16_t)frames;
 
 	switch (poly.SpriteMode)
 	{
