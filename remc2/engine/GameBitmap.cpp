@@ -280,11 +280,11 @@ void GameBitmap::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, bitmap_
 
 		ptrBitmapData = a3.data;
 
+		if (pdwScreenAlphaBuffer != nullptr)
+			ptrScreenAlphaBufferLineStart = startOffsetX + pdwScreenAlphaBuffer;
+
 		for (ptrScreenBufferLineStart = startOffsetX + pdwScreenBuffer_351628; posHeight; ptrBitmapData += v15)
 		{
-			if (pdwScreenAlphaBuffer != nullptr)
-				ptrScreenAlphaBufferLineStart = startOffsetX + pdwScreenAlphaBuffer;
-
 			while (1)
 			{
 				while (1)
