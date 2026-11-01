@@ -419,6 +419,7 @@ bool VulkanPolygonRenderer::CreateOffscreenTarget(uint32_t width, uint32_t heigh
 {
 	// The blur history is only ever drawn with the blur render passes, which are compatible with each other.
 	if (!CreateColourTarget(width, height, m_offscreenRenderPass, m_offscreenTarget) ||
+		!CreateColourTarget(width, height, m_offscreenRenderPass, m_reflectionTarget) ||
 		!CreateColourTarget(width, height, m_blurRenderPass, m_blurTarget))
 		return false;
 
@@ -498,6 +499,7 @@ bool VulkanPolygonRenderer::CreateColourTarget(uint32_t width, uint32_t height, 
 void VulkanPolygonRenderer::DestroyOffscreenTarget()
 {
 	DestroyColourTarget(m_offscreenTarget);
+	DestroyColourTarget(m_reflectionTarget);
 	DestroyColourTarget(m_blurTarget);
 	m_offscreenWidth = 0;
 	m_offscreenHeight = 0;
@@ -541,18 +543,18 @@ bool VulkanPolygonRenderer::CreateDescriptorResources()
 	if (vkCreateDescriptorSetLayout(m_device, &layoutInfo, nullptr, &m_descriptorSetLayout) != VK_SUCCESS)
 		return false;
 
-	// Each texture set uses kBindingCount combined image samplers. The overlay set
-	// allocated later from this pool uses 1 more, so leave headroom.
+	// Each texture set uses kBindingCount combined image samplers. The HUD, colour target (offscreen,
+	// reflection, blur) and no-reflection sets allocated later from this pool use a few more: leave headroom.
 	// Live textures: up to 504 sprite IDs (m_spriteFrameCount) + terrain atlas + sky.
 	const uint32_t kMaxTextures = 512;
 	VkDescriptorPoolSize poolSize{};
 	poolSize.type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-	poolSize.descriptorCount = kMaxTextures * kBindingCount + 8;
+	poolSize.descriptorCount = kMaxTextures * kBindingCount + 16;
 
 	VkDescriptorPoolCreateInfo poolInfo{};
 	poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
 	poolInfo.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
-	poolInfo.maxSets = kMaxTextures + 8;
+	poolInfo.maxSets = kMaxTextures + 16;
 	poolInfo.poolSizeCount = 1;
 	poolInfo.pPoolSizes = &poolSize;
 	if (vkCreateDescriptorPool(m_device, &poolInfo, nullptr, &m_descriptorPool) != VK_SUCCESS)
@@ -1158,6 +1160,20 @@ bool VulkanPolygonRenderer::CreateOverlayResources()
 	write.pImageInfo = &paletteImgInfo;
 	vkUpdateDescriptorSets(m_device, 1, &write, 0, nullptr);
 
+	// --- polygon.frag set 1 while there is no reflection to read: any image in SHADER_READ_ONLY will do ---
+	dsAllocInfo.pSetLayouts = &m_overlayDescriptorSetLayout;
+	if (vkAllocateDescriptorSets(m_device, &dsAllocInfo, &m_noReflectionSet) != VK_SUCCESS)
+		return false;
+
+	VkDescriptorImageInfo noReflectionInfo{};
+	noReflectionInfo.sampler = m_overlaySampler;
+	noReflectionInfo.imageView = m_paletteView;
+	noReflectionInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+	write.dstSet = m_noReflectionSet;
+	write.dstBinding = 0;
+	write.pImageInfo = &noReflectionInfo;
+	vkUpdateDescriptorSets(m_device, 1, &write, 0, nullptr);
+
 	// hud.frag push constants: ivec2 size, int hasAlpha
 	VkPushConstantRange pushRange{};
 	pushRange.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
@@ -1473,16 +1489,18 @@ bool VulkanPolygonRenderer::CreatePipeline()
 	dynamicState.dynamicStateCount = 2;
 	dynamicState.pDynamicStates = dynamicStates;
 
-	// Fragment-stage push constants: mode, tint, alpha (matches `PC` in polygon.frag)
+	// Fragment-stage push constants (matches `PC` in polygon.frag)
 	VkPushConstantRange pushConstant{};
 	pushConstant.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
 	pushConstant.offset = 0;
-	pushConstant.size = sizeof(uint32_t) * 2 + sizeof(float);   // 12 bytes
+	pushConstant.size = sizeof(uint32_t) * 3 + sizeof(float);   // 16 bytes: mode, tint, alpha, flags
 
 	VkPipelineLayoutCreateInfo layoutInfo{};
 	layoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-	layoutInfo.setLayoutCount = 1;
-	layoutInfo.pSetLayouts = &m_descriptorSetLayout;
+	// set 0 = the texture's set, set 1 = the reflection the water reads (m_reflectionTarget or m_noReflectionSet)
+	const VkDescriptorSetLayout setLayouts[] = { m_descriptorSetLayout, m_overlayDescriptorSetLayout };
+	layoutInfo.setLayoutCount = 2;
+	layoutInfo.pSetLayouts = setLayouts;
 	layoutInfo.pushConstantRangeCount = 1;
 	layoutInfo.pPushConstantRanges = &pushConstant;
 	if (vkCreatePipelineLayout(m_device, &layoutInfo, nullptr, &m_pipelineLayout) != VK_SUCCESS)
@@ -1890,23 +1908,28 @@ bool VulkanPolygonRenderer::BeginFrame(SDL_Surface* hudSurface, const uint8_t* h
 
 	if (drawPolygons)
 	{
+		// With water the sky and the reflection go into m_reflectionTarget first (DrawPolygons then starts the terrain pass)
+		const size_t reflectionEnd = ReflectionEnd(m_polygons);
+
 		VkRenderPassBeginInfo offscreenBegin{};
 		offscreenBegin.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
 		offscreenBegin.renderPass = m_offscreenRenderPass;
-		offscreenBegin.framebuffer = m_offscreenTarget.framebuffer;
+		offscreenBegin.framebuffer = reflectionEnd != kNoReflectionPass ? m_reflectionTarget.framebuffer : m_offscreenTarget.framebuffer;
 		offscreenBegin.renderArea.extent = { m_offscreenWidth, m_offscreenHeight };
 		offscreenBegin.clearValueCount = 1;
 		offscreenBegin.pClearValues = &clearColor;
 
 		vkCmdBeginRenderPass(frame.commandBuffer, &offscreenBegin, VK_SUBPASS_CONTENTS_INLINE);
 		vkCmdBindPipeline(frame.commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, m_pipeline);
+		vkCmdBindDescriptorSets(frame.commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
+			m_pipelineLayout, 1, 1, &m_noReflectionSet, 0, nullptr);
 
 		VkViewport offscreenViewport{ 0.0f, 0.0f, (float)m_offscreenWidth, (float)m_offscreenHeight, 0.0f, 1.0f };
 		VkRect2D offscreenScissor{ { 0, 0 }, { m_offscreenWidth, m_offscreenHeight } };
 		vkCmdSetViewport(frame.commandBuffer, 0, 1, &offscreenViewport);
 		vkCmdSetScissor(frame.commandBuffer, 0, 1, &offscreenScissor);
 
-		DrawPolygons(m_polygons);
+		DrawPolygons(m_polygons, reflectionEnd);
 
 		vkCmdEndRenderPass(frame.commandBuffer);
 
@@ -1948,6 +1971,51 @@ bool VulkanPolygonRenderer::BeginFrame(SDL_Surface* hudSurface, const uint8_t* h
 		DrawOverlay(destRect, frame.commandBuffer);
 
 	return true;
+}
+
+// Where the terrain pass starts, when the frame has water: after the sky and the reflection at the front of the
+// list (possibly 0: from high up there is no reflection, and the water is blended with what was cleared).
+size_t VulkanPolygonRenderer::ReflectionEnd(const std::vector<RenderPolygon>& polygons) const
+{
+	const bool hasWater = std::any_of(polygons.begin(), polygons.end(), [](const RenderPolygon& p) {
+		return p.TextureId == kTerrainAtlasId && p.SpriteMode == 26;
+		});
+	if (!hasWater)
+		return kNoReflectionPass;
+
+	size_t end = 0;
+	while (end < polygons.size() && (polygons[end].Reflection || polygons[end].TextureId == kSkyId))
+		end++;
+	return end;
+}
+
+// Ends the reflection pass and starts the terrain pass on the offscreen target, beginning with a copy of the
+// reflection (the water blends with it, everything else draws over it as before) and with set 1 = the reflection.
+void VulkanPolygonRenderer::BeginTerrainPass(VkCommandBuffer commandBuffer)
+{
+	vkCmdEndRenderPass(commandBuffer);
+
+	VkClearValue clearColor{};
+	clearColor.color = m_clearColor;
+
+	VkRenderPassBeginInfo begin{};
+	begin.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+	begin.renderPass = m_offscreenRenderPass;
+	begin.framebuffer = m_offscreenTarget.framebuffer;
+	begin.renderArea.extent = { m_offscreenWidth, m_offscreenHeight };
+	begin.clearValueCount = 1;
+	begin.pClearValues = &clearColor;
+	vkCmdBeginRenderPass(commandBuffer, &begin, VK_SUBPASS_CONTENTS_INLINE);
+
+	// Same size, nearest sampling: an exact copy
+	vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, m_viewPortBlitPipeline);
+	vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
+		m_overlayPipelineLayout, 0, 1, &m_reflectionTarget.descriptorSet, 0, nullptr);
+	vkCmdDraw(commandBuffer, 3, 1, 0, 0);
+
+	vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, m_pipeline);
+	vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
+		m_pipelineLayout, 1, 1, &m_reflectionTarget.descriptorSet, 0, nullptr);
 }
 
 // Blends the frame just drawn into the blur history: history = new * weight + history * (1 - weight).
@@ -2020,7 +2088,7 @@ void VulkanPolygonRenderer::DrawPolygonsWireframe(const std::vector<RenderPolygo
 	vkCmdDrawIndexed(frame.commandBuffer, (uint32_t)indices.size(), 1, 0, 0, 0);
 }
 
-void VulkanPolygonRenderer::DrawPolygons(const std::vector<RenderPolygon>& polygons)
+void VulkanPolygonRenderer::DrawPolygons(const std::vector<RenderPolygon>& polygons, size_t reflectionEnd)
 {
 	FrameData& frame = m_frames[m_currentFrame];
 
@@ -2035,6 +2103,7 @@ void VulkanPolygonRenderer::DrawPolygons(const std::vector<RenderPolygon>& polyg
 		uint32_t mode;
 		uint32_t tint;
 		float    alpha;
+		bool     terrainPass;   // from reflectionEnd on
 		uint32_t indexOffset;
 		uint32_t indexCount;
 	};
@@ -2056,30 +2125,33 @@ void VulkanPolygonRenderer::DrawPolygons(const std::vector<RenderPolygon>& polyg
 
 	bool haveBatch = false;
 	uint32_t curTexture = 0, curMode = 0, curTint = 0;
+	bool     curTerrainPass = false;
 	float    curAlpha = 1.0f;
 	uint32_t batchIndexStart = 0;
 
-	for (const auto& poly : polygons)
+	for (size_t polyIndex = 0; polyIndex < polygons.size(); polyIndex++)
 	{
+		const RenderPolygon& poly = polygons[polyIndex];
 		if (poly.Vertices.size() < 3)
 			continue;
 
 		const uint32_t m = modeOf(poly);
 		const uint32_t t = tintOf(poly);
 		const float    a = alphaOf(poly);
+		const bool     tp = reflectionEnd != kNoReflectionPass && polyIndex >= reflectionEnd;
 
 		if (!haveBatch)
 		{
-			curTexture = poly.TextureId; curMode = m; curTint = t; curAlpha = a;
+			curTexture = poly.TextureId; curMode = m; curTint = t; curAlpha = a; curTerrainPass = tp;
 			batchIndexStart = (uint32_t)indices.size();
 			haveBatch = true;
 		}
-		else if (poly.TextureId != curTexture || m != curMode || t != curTint || a != curAlpha)
+		else if (poly.TextureId != curTexture || m != curMode || t != curTint || a != curAlpha || tp != curTerrainPass)
 		{
-			batches.push_back({ curTexture, curMode, curTint, curAlpha,
+			batches.push_back({ curTexture, curMode, curTint, curAlpha, curTerrainPass,
 				batchIndexStart, (uint32_t)indices.size() - batchIndexStart });
 			batchIndexStart = (uint32_t)indices.size();
-			curTexture = poly.TextureId; curMode = m; curTint = t; curAlpha = a;
+			curTexture = poly.TextureId; curMode = m; curTint = t; curAlpha = a; curTerrainPass = tp;
 		}
 
 		uint32_t baseVertex = (uint32_t)vertices.size();
@@ -2089,11 +2161,15 @@ void VulkanPolygonRenderer::DrawPolygons(const std::vector<RenderPolygon>& polyg
 	}
 
 	if (haveBatch)
-		batches.push_back({ curTexture, curMode, curTint, curAlpha,
+		batches.push_back({ curTexture, curMode, curTint, curAlpha, curTerrainPass,
 			batchIndexStart, (uint32_t)indices.size() - batchIndexStart });
 
 	if (vertices.empty() || indices.empty())
+	{
+		if (reflectionEnd != kNoReflectionPass)
+			BeginTerrainPass(frame.commandBuffer);   // BeginFrame ends whichever pass is open
 		return;
+	}
 
 	EnsureFrameBufferCapacity(frame, vertices.size() * sizeof(HWVertex), indices.size() * sizeof(uint32_t));
 	std::memcpy(frame.vertexMapped, vertices.data(), vertices.size() * sizeof(HWVertex));
@@ -2103,7 +2179,7 @@ void VulkanPolygonRenderer::DrawPolygons(const std::vector<RenderPolygon>& polyg
 	vkCmdBindVertexBuffers(frame.commandBuffer, 0, 1, &frame.vertexBuffer, &offset);
 	vkCmdBindIndexBuffer(frame.commandBuffer, frame.indexBuffer, 0, VK_INDEX_TYPE_UINT32);
 
-	struct PC { uint32_t mode; uint32_t tint; float alpha; uint32_t fogIndex; };
+	struct PC { uint32_t mode; uint32_t tint; float alpha; uint32_t flags; };
 
 	static int dbgFrame = 0;
 	if ((dbgFrame++ % 120) == 0)
@@ -2127,13 +2203,23 @@ void VulkanPolygonRenderer::DrawPolygons(const std::vector<RenderPolygon>& polyg
 		//	m_textures.count(kTerrainAtlasId));
 	}
 
+	// polygon.frag flags bits 8-15: the sky (clear) colour index, the top of the day water's ramp
+	const uint32_t skyIndex = (uint32_t)(m_clearPaletteIndex >= 0 ? m_clearPaletteIndex : 0xFE) << 8;
+
+	bool inTerrainPass = reflectionEnd == kNoReflectionPass;
 	for (const auto& batch : batches)
 	{
+		if (batch.terrainPass && !inTerrainPass)
+		{
+			BeginTerrainPass(frame.commandBuffer);
+			inTerrainPass = true;
+		}
+
 		auto it = m_textures.find(batch.textureId);
 		if (it == m_textures.end())
 			continue;
 
-		PC pc{ batch.mode, batch.tint, batch.alpha, (uint32_t)(std::max)(m_clearPaletteIndex, 0) };
+		PC pc{ batch.mode, batch.tint, batch.alpha, skyIndex };
 		vkCmdPushConstants(frame.commandBuffer, m_pipelineLayout,
 			VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(pc), &pc);
 
@@ -2141,6 +2227,10 @@ void VulkanPolygonRenderer::DrawPolygons(const std::vector<RenderPolygon>& polyg
 			m_pipelineLayout, 0, 1, &it->second.descriptorSet, 0, nullptr);
 		vkCmdDrawIndexed(frame.commandBuffer, batch.indexCount, 1, batch.indexOffset, 0, 0);
 	}
+
+	// The offscreen target must get the reflection even if nothing came after it
+	if (!inTerrainPass)
+		BeginTerrainPass(frame.commandBuffer);
 }
 
 void VulkanPolygonRenderer::EndFrame()

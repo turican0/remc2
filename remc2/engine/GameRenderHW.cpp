@@ -788,8 +788,14 @@ void GameRenderHW::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					v124x++;
 					v123--;
 				}
-				
-				SubDrawInverseTerrainAndParticles(projectedVertexBuffer, pitch, polygons);
+
+				// As the original (and NG): no reflection from high up, where the sea is blended over the sky instead
+				if (posZ < 4096)
+				{
+					m_reflectionPass = true;
+					SubDrawInverseTerrainAndParticles(projectedVertexBuffer, pitch, polygons);
+					m_reflectionPass = false;
+				}
 
 				//Draw rest of terrain
 				SubDrawTerrainAndParticles(projectedVertexBuffer, pitch, polygons);
@@ -2858,6 +2864,7 @@ void GameRenderHW::DrawInverseSquareInProjectionSpace(int* vertexs, int tileInde
 
 	RenderPolygon poly;
 	poly.TextureId = kTerrainAtlasId;
+	poly.Reflection = m_reflectionPass;
 
 	// Fan (a,b,c,d) splits into (a,b,c) and (a,c,d), so the first vertex picks the diagonal.
 	if ((uint8_t)tile.triangleFeatures_38 & 1)
@@ -3814,6 +3821,7 @@ void GameRenderHW::EmitSpriteQuad(std::vector<RenderPolygon>* polygons, int spri
 	RenderPolygon poly;
 	poly.TextureId = (uint32_t)spriteIndex;
 	poly.SpriteMode = (uint8_t)s.dword0x01_visibilityIdx;
+	poly.Reflection = m_reflectionPass;
 
 	switch (poly.SpriteMode)
 	{

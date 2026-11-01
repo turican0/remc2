@@ -19,4 +19,5 @@ struct RenderPolygon
 	uint8_t  SpriteMode = 0xFF;       // 0xFF = terrain; 0..8 = original visibilityIdx
 	float Alpha = 1.0f;
 	uint8_t  Tint = 0;                // dword0x07 low byte (modes 4/5)
+	bool Reflection = false;          // drawn in the reflection pass, before the terrain: the water reads what it left
 };

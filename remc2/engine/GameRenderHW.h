@@ -108,6 +108,7 @@ private:
 	int x_DWORD_D4324 = 0;
 	char shadows_F2CC7 = 0;
 	char notDay_D4320 = 0;
+	bool m_reflectionPass = false;   // set while the reflection pass emits its polygons (RenderPolygon::Reflection)
 	char x_BYTE_F2CC6 = 0;
 	int16_t yaw_F2CC0 = 0;
 	int16_t cameraY_F2CC2 = 0;

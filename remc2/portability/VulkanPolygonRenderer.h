@@ -84,7 +84,8 @@ public:
 	bool BeginFrame(SDL_Surface* hudSurface, const uint8_t* hudAlpha, SDL_Rect srcRect, SDL_Rect destRect);
 	bool UploadHud(SDL_Surface* hudSurface, const uint8_t* hudAlpha, VkCommandBuffer commandBuffer);   // false = nothing to draw
 	void DrawOverlay(SDL_Rect dscrect, VkCommandBuffer commandBuffer);
-	void DrawPolygons(const std::vector<RenderPolygon>& polygons);
+	static constexpr size_t kNoReflectionPass = (size_t)-1;
+	void DrawPolygons(const std::vector<RenderPolygon>& polygons, size_t reflectionEnd = kNoReflectionPass);
 	void DrawPolygonsWireframe(const std::vector<RenderPolygon>& polygons);
 	void EndFrame();
 
@@ -183,6 +184,8 @@ private:
 	bool CreateColourTarget(uint32_t width, uint32_t height, VkRenderPass renderPass, ColourTarget& target);
 	void DestroyColourTarget(ColourTarget& target);
 	void DrawBlur(VkCommandBuffer commandBuffer);
+	size_t ReflectionEnd(const std::vector<RenderPolygon>& polygons) const;
+	void BeginTerrainPass(VkCommandBuffer commandBuffer);
 	void DestroyFrameData();
 	void EnsureFrameBufferCapacity(FrameData& frame, size_t vertexBytes, size_t indexBytes);
 	VkDescriptorSet AllocateTextureDescriptorSet(VkImageView view);
@@ -218,6 +221,8 @@ private:
 	// then upscaled into the window with m_viewPortBlitPipeline.
 	VkRenderPass m_offscreenRenderPass = VK_NULL_HANDLE;
 	ColourTarget m_offscreenTarget;
+	ColourTarget m_reflectionTarget;
+	VkDescriptorSet m_noReflectionSet = VK_NULL_HANDLE;
 	uint32_t m_offscreenWidth = 0;
 	uint32_t m_offscreenHeight = 0;
 	VkPipeline m_viewPortBlitPipeline = VK_NULL_HANDLE;
