@@ -419,8 +419,9 @@ void GameRenderHW::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	str_F2C20ar.dword0x16_FogEnd = static_cast<int>(m_fogEnd);
 	str_F2C20ar.dword0x13_FogStart = static_cast<int>(m_fogStart);
 
-	std::vector<RenderPolygon>* polygons = new std::vector<RenderPolygon>();
-	polygons->reserve(kReservedPolygons);
+	std::vector<RenderPolygon>* polygons = &m_polygons;
+	polygons->clear();
+	polygons->reserve(1 + 2 * (size_t)m_tileRows * m_tileColumns + kReservedSprites);
 
 	if (!D41A0_0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel_D41B6)
 	{
@@ -468,7 +469,6 @@ void GameRenderHW::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 		SubDrawTerrainAndParticles(projectedVertexBuffer, polygons);
 	}
 	EventDispatcher::I->DispatchEvent<ResourceType, std::vector<RenderPolygon>*>(EventType::E_RESOURCE_CHANGE, ResourceType::POLYGONS_UPDATED, polygons);
-	delete polygons;
 }
 
 // The tiles in view space projected to the screen (pnt1/pnt2; for the cave ceiling and the reflection also pnt3/pnt4 from

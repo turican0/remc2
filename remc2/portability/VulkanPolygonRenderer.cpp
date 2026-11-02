@@ -274,7 +274,7 @@ bool VulkanPolygonRenderer::Init(SDL_Window* window, int windowWidth, int window
 void VulkanPolygonRenderer::SetPolygons(ResourceType state, std::vector<RenderPolygon>* polygons)
 {
 	if (state == ResourceType::POLYGONS_UPDATED)
-		m_polygons.swap(*polygons);   // the sender deletes its list straight after dispatching it, so take it rather than copy it
+		m_polygons.swap(*polygons);   // take it rather than copy it: the sender reuses the list it gets back (the previous frame's)
 	else if (state == ResourceType::POLYGONS_DISPOSED)
 		m_polygons.clear();
 }

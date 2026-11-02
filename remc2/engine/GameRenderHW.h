@@ -36,11 +36,8 @@ private:
 	const uint32_t kTilesWide = 8;
 	const float kTileUVInset = 1.0f / 64.0f;   // texels kept clear of each tile edge in the atlas
 
-	static constexpr uint32_t kMaxReservedViewDistance = 6;
-	static constexpr uint32_t kMaxReservedSprites = 200;
-	static constexpr uint32_t kReservedPolygons = 1
-		+ 2 * TILE_ROWS_COUNT * TILE_COLUMNS_COUNT * kMaxReservedViewDistance * kMaxReservedViewDistance
-		+ kMaxReservedSprites;
+	static constexpr size_t kReservedSprites = 200;
+	std::vector<RenderPolygon> m_polygons;
 
 	struct TileStepQuadrant {
 		uint8_t startX;      // [0] starting X map coordinate offset
