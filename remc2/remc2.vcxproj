@@ -156,6 +156,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Label="Shaders">
+    <GlslcExe Condition="'$(VULKAN_SDK)' != ''">$(VULKAN_SDK)\Bin\glslc.exe</GlslcExe>
+    <GlslcExe Condition="'$(GlslcExe)' == ''">glslc.exe</GlslcExe>
+  </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
@@ -580,7 +584,7 @@
       <Command>
 				rem Compiling %(Identity)
 				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"
-				"$(VULKAN_SDK)\Bin\glslc.exe" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
+				"$(GlslcExe)" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
 			</Command>
       <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
       <Message>Compiling %(Filename)%(Extension)</Message>
@@ -589,7 +593,7 @@
       <Command>
 				rem Compiling %(Identity)
 				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"
-				"$(VULKAN_SDK)\Bin\glslc.exe" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
+				"$(GlslcExe)" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
 			</Command>
       <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
       <Message>Compiling %(Filename)%(Extension)</Message>
@@ -598,7 +602,7 @@
       <Command>
 				rem Compiling %(Identity)
 				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"
-				"$(VULKAN_SDK)\Bin\glslc.exe" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
+				"$(GlslcExe)" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
 			</Command>
       <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
       <Message>Compiling %(Filename)%(Extension)</Message>
@@ -607,7 +611,7 @@
       <Command>
 				rem Compiling %(Identity)
 				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"
-				"$(VULKAN_SDK)\Bin\glslc.exe" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
+				"$(GlslcExe)" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
 			</Command>
       <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
       <Message>Compiling %(Filename)%(Extension)</Message>
@@ -616,7 +620,7 @@
       <Command>
 				rem Compiling %(Identity)
 				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"
-				"$(VULKAN_SDK)\Bin\glslc.exe" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
+				"$(GlslcExe)" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
 			</Command>
       <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
       <Message>Compiling %(Filename)%(Extension)</Message>
@@ -625,7 +629,7 @@
       <Command>
 				rem Compiling %(Identity)
 				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"
-				"$(VULKAN_SDK)\Bin\glslc.exe" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
+				"$(GlslcExe)" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
 			</Command>
       <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
       <Message>Compiling %(Filename)%(Extension)</Message>
