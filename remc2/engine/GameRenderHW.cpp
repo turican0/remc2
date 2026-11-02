@@ -1,4 +1,5 @@
 #include "GameRenderHW.h"
+#include <algorithm>
 #include "globals.h"
 
 #include "../utilities/RendererTests.h"

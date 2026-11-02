@@ -1,4 +1,5 @@
 #include "Basic.h"
+#include <algorithm>
 #include "engine_support.h"
 #include "CommandLineParser.h"
 #include "../portability/port_net.h"
