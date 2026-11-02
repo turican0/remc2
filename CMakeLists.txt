@@ -138,10 +138,16 @@ endif ()
 
 find_package(vk-bootstrap CONFIG QUIET)
 if (NOT TARGET vk-bootstrap::vk-bootstrap)
-    message(STATUS "vk-bootstrap not found, fetching v1.4.312")
+    # vk-bootstrap copes with older Vulkan headers but not newer ones, so match
+    # its release to the system headers when they are newer than our baseline.
+    set(VK_BOOTSTRAP_TAG v1.4.312)
+    if (Vulkan_VERSION VERSION_GREATER 1.4.312)
+        set(VK_BOOTSTRAP_TAG v${Vulkan_VERSION})
+    endif ()
+    message(STATUS "vk-bootstrap not found, fetching ${VK_BOOTSTRAP_TAG}")
     FetchContent_Declare(vk-bootstrap
         GIT_REPOSITORY https://github.com/charles-lunarg/vk-bootstrap.git
-        GIT_TAG v1.4.312
+        GIT_TAG ${VK_BOOTSTRAP_TAG}
         GIT_SHALLOW TRUE
     )
     FetchContent_MakeAvailable(vk-bootstrap)

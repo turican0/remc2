@@ -212,6 +212,8 @@ set(SOURCE_FILES__portability
     "portability/awe32/Synth.h"
     "portability/port_sdl_vga_mouse.cpp"
     "portability/port_sdl_vga_mouse.h"
+    "portability/VulkanPolygonRenderer.cpp"
+    "portability/VulkanPolygonRenderer.h"
     "portability/port_sdl_joystick.cpp"
     "portability/port_sdl_joystick.h"
     "portability/port_show_perifery.cpp"
@@ -301,7 +303,9 @@ if (UNIX)
         ${PNG_LIBRARY}
         findfirst
         ADLMIDI_static
+        ${VULKAN_LIBRARIES}
     )
+    add_vulkan_shaders(${PROJECT_NAME})
     target_link_directories(${PROJECT_NAME} PUBLIC
     )
     target_compile_definitions(${PROJECT_NAME} PUBLIC
