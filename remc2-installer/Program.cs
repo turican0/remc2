@@ -169,6 +169,13 @@ namespace remc2_installer
 								new File(new Id("TIFF_DLL"), @"..\Release\tiff.dll"),
 								new File(new Id("MC_HD_LOGO_PNG"), @"..\Release\mc2_hd_logo.png"),
 #endif
+#if WIN64
+								new Dir(new Id("SHADERS_INSTALLDIR"), @"shaders",
+									new Files(@"..\x64\Release\shaders\*.spv")),
+#else
+								new Dir(new Id("SHADERS_INSTALLDIR"), @"shaders",
+									new Files(@"..\Release\shaders\*.spv")),
+#endif
 								new Dir(new Id("KISS_INSTALLDIR"), @"kiss",
 									new Files(@"..\Release\kiss\*.*")),
 								new Dir(new Id("FONT_INSTALLDIR"), @"font",
