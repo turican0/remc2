@@ -22544,14 +22544,12 @@ void DrawBottomSpellsMenu_2ECC0()//20fcc0
 						else
 							GameBitmap::DrawTransparentBitmap_2DE80(posX + posIconsX, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[spellIndex2 + SPELL_FIREBALL_SMALL], scale);
 					}
-					if (skipToLabel43 || x_D41A0_BYTEARRAY_4_struct.spellOnCursor_50 == spellIconIndex)
-					{
-						uint8_t bitmapType = playerEntity->dword_0xA4_164x->str_611.array_0x3B5_949x.SpellIndex[spellIndex2];
-						if (bitmapType == 1)
-							GameBitmap::DrawTransparentBitmap_2DE80(posX + posIconsX, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TOP_LEFT_CORNER], scale);
-						else if (bitmapType == 2)
-							GameBitmap::DrawTransparentBitmap_2DE80(posX + posIconsX + xAdd2, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TOP_RIGHT_CORNER], scale);
-					}
+					//Draw the mouse button marker of a spell favourited with shift + mouse button
+					uint8_t bitmapType = playerEntity->dword_0xA4_164x->str_611.array_0x3B5_949x.SpellIndex[spellIndex2];
+					if (bitmapType == 1)
+						GameBitmap::DrawTransparentBitmap_2DE80(posX + posIconsX, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TOP_LEFT_CORNER], scale);
+					else if (bitmapType == 2)
+						GameBitmap::DrawTransparentBitmap_2DE80(posX + posIconsX + xAdd2, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TOP_RIGHT_CORNER], scale);
 				}
 				else
 				{

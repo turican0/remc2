@@ -319,10 +319,9 @@ void GameBitmap::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, bitmap_
 				LOBYTE(startOffsetX) = *ptrBitmapPixel++;
 				uint8_t srcIndex = LOBYTE(startOffsetX);
 
-				if (pdwScreenAlphaBuffer != nullptr)
+				if (pdwScreenAlphaBuffer != nullptr && *ptrScreenAlphaBuffer != 255)
 				{
-					uint8_t dstIndex = *ptrScreenBuffer;
-					*ptrScreenBuffer++ = srcIndex; // write original pixel, unblended
+					*ptrScreenBuffer++ = srcIndex;
 					*ptrScreenAlphaBuffer++ = kTransparentBitmapAlpha;
 				}
 				else
@@ -330,6 +329,8 @@ void GameBitmap::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, bitmap_
 					HIBYTE(startOffsetX) = *ptrScreenBuffer;
 					LOBYTE(startOffsetX) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + startOffsetX];
 					*ptrScreenBuffer++ = startOffsetX;
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBuffer++;
 				}
 				posWidth--;
 			} while (posWidth);
@@ -412,10 +413,9 @@ void GameBitmap::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, bitmap_
 						LOBYTE(startOffsetX) = *ptrBitmapPixel;
 						uint8_t srcIndex = LOBYTE(startOffsetX);
 
-						if (pdwScreenAlphaBuffer != nullptr)
+						if (pdwScreenAlphaBuffer != nullptr && *ptrScreenAlphaBuffer != 255)
 						{
-							uint8_t dstIndex = *ptrScreenBuffer;
-							*ptrScreenBuffer++ = srcIndex; // write original pixel, unblended
+							*ptrScreenBuffer++ = srcIndex;
 							*ptrScreenAlphaBuffer++ = kTransparentBitmapAlpha;
 						}
 						else
@@ -423,6 +423,8 @@ void GameBitmap::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, bitmap_
 							HIBYTE(startOffsetX) = *ptrScreenBuffer;
 							LOBYTE(startOffsetX) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + startOffsetX];
 							*ptrScreenBuffer++ = startOffsetX;
+							if (pdwScreenAlphaBuffer != nullptr)
+								ptrScreenAlphaBuffer++;
 						}
 					}
 					ptrBitmapPixel++;
