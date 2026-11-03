@@ -24,7 +24,7 @@ void UpdateTileTextures(uint32_t tileSize, uint8_t* tileBuffer, MapType_t mapTyp
 {
 	constexpr uint32_t kTilesWide = 8;
 	constexpr uint32_t kTilesTall = 19;
-	// The block buffers are always 256 pixels wide (see sub_5B7A0_prepare_textures), so
+	// The block buffers are always 256 pixels wide (see PrepareTextures_5B7A0), so
 	// 32px tiles sit 8 to a row but 128px tiles only 2. Repack into the kTilesWide atlas
 	// GameRenderHW addresses, whatever the tile size.
 	constexpr uint32_t kSourceWidth = 256;

@@ -107,7 +107,7 @@ void AilRestoreUSE16ISR_91E90(int32_t isr);
 void EndSounds_99C10();
 void EndMusic_99C90();
 HDIGDRIVER AilInstallDigDriverFile_93330(char* filename, IO_PARMS* IO);
-char sub_9AE90(int eax0, int edx0, char* ebx0, int* a1, int8_t* a2, int a3, int a4);
+char SerialReadWithTimeout_9AE90(int eax0, int edx0, char* ebx0, int* a1, int8_t* a2, int a3, int a4);
 
 int InitializeCdDriver_85E40();
 int QueryInstalledCdDrives_86010();
@@ -127,7 +127,7 @@ int AilInstallDigIni_931F0(HDIGDRIVER* a2, char* digPath);
 HMDIDRIVER AilInstakkMidiDriverFile_95850(char* filename, IO_PARMS* IO);
 int32_t AilInstallMidiIni_95710(HMDIDRIVER* mdi, char* fileName);
 void AilDelay_920D0(int a1);
-int sub_92160();
+int GetE3FFE_92160();
 bool AilReadIniFile_92190(AIL_INI* INI, char* filename);
 IO_PARMS* AilGetIoEnvironment_92ED0(AIL_DRIVER* drvr);
 AIL_DRIVER* AilInstallDriver_93010(uint8_t* driver_image, int32_t n_bytes);//274010

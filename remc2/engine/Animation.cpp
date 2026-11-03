@@ -314,7 +314,7 @@ void DrawFrame_75E70()//256e70
 		fix_sub_9A0FC_wait_to_screen_beam(0);//27b0fc
 		if (redrawTextInVideo_E12FC)
 		{
-			sub_41A90_VGA_Palette_install(unk_17D838x);
+			VGA_PaletteInstall_41A90(unk_17D838x);
 			SetSubtitleColourAndRedraw_2EC90(getPaletteIndex_5BE80(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu));//20fc90 -zde se prekresli texty
 		}
 	}

@@ -1338,7 +1338,7 @@ unsigned int DrawTextCentred_6FC80(char* a1, __int16 a2, __int16 a3, __int16 a4,
 void InstallPaletteAndMouseMinMax_417A0()//2227a0
 {
 	//sub_90810();
-	sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
+	VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
 	SetMouseMinMax_6EF10(0, 640, 0, 400);
 }
 // EA3D8: using guessed type int *xadatapald0dat2.colorPalette_var28;

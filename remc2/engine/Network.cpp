@@ -1485,7 +1485,7 @@ void WaitToConnect_7C230()//25d230
 		VGA_Blit320_90478();
 	else
 		VGA_Blit640_75200(480);
-	sub_7A060_get_mouse_and_keyboard_events();
+	GetMouseAndKeyboardEvents_7A060();
 }
 
 //----- (0007CE50) --------------------------------------------------------
@@ -1519,7 +1519,7 @@ bool SetMultiplayerColors_7CE50()//25de50
 					x_DWORD_17DE38str.palette_17DE38x[colorIndex].green = 0;
 					x_DWORD_17DE38str.palette_17DE38x[colorIndex].blue = 0;
 				}
-				sub_41A90_VGA_Palette_install(x_DWORD_17DE38str.palette_17DE38x);
+				VGA_PaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
 
 				x_DWORD_17DE38str.array_BYTE_17DE68x[i].makeUpdate_0 = 0;
 				// A slot whose node vanished has already been handed over from the roster in

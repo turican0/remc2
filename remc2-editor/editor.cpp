@@ -155,19 +155,19 @@ void editor_run()
 	DataFileIO::SetCDFilePaths(cdDataPath.c_str(), pstr);
 
 	//init
-	sub_5BCC0_set_any_variables1();//23C9F2 - 23CCC0
-	if (!sub_5BF50_load_psxdata())//23C9F7 - 23CF50 //something with files about their loading, or just a set of palettes
+	SetDefaultKeys_5BCC0();//23C9F2 - 23CCC0
+	if (!LoadPsxData_5BF50())//23C9F7 - 23CF50 //something with files about their loading, or just a set of palettes
 		exit(-1);
-	sub_5C1B0_set_any_variables2();
+	SetDefaultSettings_5C1B0();
 
-	sub_71410_process_tmaps();//252410
+	ProcessTmaps_71410();//252410
 
 	CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);//24fb90
 	CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90 adress 0x23ca2e
-	sub_101C0();//23CA36 - 1f11c0 //sem se to vubec nedostane
+	LoadSearchData_101C0();//23CA36 - 1f11c0 //sem se to vubec nedostane
 
 	//init
-	sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
+	CreateFileArrayIndexes_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
 	x_WORD_180660_VGA_type_resolution = 1;
 	x_WORD_E29DA_type_resolution = 1;
 
@@ -277,7 +277,7 @@ void terrain_recalculate() {
 	{
 		ComputeTerrainShading_44D00();//225d00
 	}
-	sub_49F30();//prepare events pointers
+	ResetEntityLists_49F30();//prepare events pointers
 	if (stage > 14)
 	{
 		SetStagetagForTermod_49830(&D41A0_0.terrain_2FECE);

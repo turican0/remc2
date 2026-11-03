@@ -674,7 +674,7 @@ void CloseTmaps_70BF0()//251bf0
 }
 
 // Regression tests without the game (GitHub Actions): data.binz has no TMAPS?-0.DAT, but the simulation reads the
-// sprites - whether one is loaded and its frame count (CountOfFrames_16 of sub_721C0, e.g. sub_221F0 dword_0x10_16).
+// sprites - whether one is loaded and its frame count (CountOfFrames_16 of sub_721C0, e.g. SetEntitySpriteAndLoad_221F0 dword_0x10_16).
 // sub_70C60 reads the DAT of tmapsMapType at the offset and length of the TAB loaded now, which can be the TAB of
 // another map type (a day level loads night sprites with TMAPS0-0.TAB), so TMAPSMETA.DAT ("MC2TMAP2") keeps every
 // (DAT, offset, length) of the three TABs: u32 records; per record u8 DAT 0-2, u32 offset, i32 length, i32 result of
@@ -1109,7 +1109,7 @@ type_animations1* InitTmapAnimation_721C0(type_E9C08* a1x, Type_Sprite** a2x, in
 	if (bigSprites && index >= 0 && index < max_sprites && v7x == BIG_SPRITES_BUFFERx[index].actdatax)
 	{
 		// High-res sprite: the buffer only holds frame 0 and the frame count, the frames are
-		// already decoded in BIG_SPRITES_BUFFERx (sub_72350 copies them in the same way).
+		// already decoded in BIG_SPRITES_BUFFERx (AnimateSprite_72350 copies them in the same way).
 		for (int f = 0; f < a1x->dword_2[v12].CountOfFrames_16 && f < max_sprites_frames; f++)
 		{
 			if (BIG_SPRITES_BUFFERx[index].frames[f])

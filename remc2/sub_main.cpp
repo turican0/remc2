@@ -419,7 +419,7 @@ int FreeAndClear_9B234(int* a1)//27C234
 //----- (00075900) --------------------------------------------------------
 void ShutdownJoystickDevice_75900()
 {
-	sub_75AB0();
+	ResetVrDevice_75AB0();
 }
 
 //----- (00053F80) --------------------------------------------------------
@@ -647,7 +647,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 
 		initposistruct();
 
-		sub_56210_process_command_line(argc, argv);//236FD4 - 237210
+		ProcessCommandLine_56210(argc, argv);//236FD4 - 237210
 		if (CommandLineParams.ModeNetwork()) {
 			if (Iam_server || Iam_client)
 				InitNetworkInfo();
@@ -670,7 +670,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 
 		Initialize();//236FDC - 23C8D0//rozdil 1E1000
 
-		sub_46830_main_loop(actLevel);//227830
+		MainLoop_46830(actLevel);//227830
 
 		if (CommandLineParams.GetPlaybackPath().length() > 0 &&
 			std::filesystem::exists(CommandLineParams.GetPlaybackPath().c_str()))
@@ -686,7 +686,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 		ClearMessages();
 		delete m_Messages;
 
-		sub_5BC20();//23CC20 //remove devices?
+		ShutdownGame_5BC20();//23CC20 //remove devices?
 		CleanMemory_56730();//237730
 
 		if (CommandLineParams.ModeNetwork()) {

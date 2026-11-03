@@ -778,7 +778,7 @@ void LoadFixedFonts(int fontStructIndex, char* type)
 	if (!strcmp(type, "intro"))
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
-		sub_7AA70_load_and_decompres_dat_file(dataPath, *xadatapald0dat2.colorPalette_var28, 0x17C118, 0x300);
+		LoadAndDecompressDatFile_7AA70(dataPath, *xadatapald0dat2.colorPalette_var28, 0x17C118, 0x300);
 		subFolder = "intro";
 	}
 	else if (!strcmp(type, "4b")) { subFolder = "4b"; }
@@ -1593,7 +1593,7 @@ void SetSpell_6D5E0(type_entity_0x6E8E* entity, int spellId)//24e5e0
 	int locSpellId = (int8_t)spellId;//24E604 movsx esi,al
 	if (locSpellId > SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].byte_0 - 1)
 		locSpellId = SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].byte_0 - 1;
-	// 240890 sub_5F890 passes the wizard, its word_0x2C_44 - 1 can be negative (record038 turn 6754: -37) and the original
+	// 240890 UpdateCastleLevel_5F890 passes the wizard, its word_0x2C_44 - 1 can be negative (record038 turn 6754: -37) and the original
 	// reads before byte_DA818 (a pointer of another table); 0 here and in DOSBox (24E614)
 	if (locSpellId < 0)
 		locSpellId = 0;

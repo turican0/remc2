@@ -321,14 +321,14 @@ int sub_AEF51() { stub_fix_it(); return 0; };
 int(*off_AEB40[2])() = { &sub_AEF40, &sub_AEF51 }; // weak
 
 int32_t AilCallDriver_91F70(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* in, VDI_CALL* out);//AIL_call_driver
-void sub_91F50(unsigned int a1);
+void RestoreInterruptFlags_91F50(unsigned int a1);
 void AilMdiTimerCallback_9E250(HMDIDRIVER mdidrv) {
 	if (!x_DWORD_E3E38)
 	{
 		x_DWORD_E3E38 = 1;
 		x_DWORD_181DA8 = SaveInterruptFlags_91F20();
 		AilCallDriver_91F70(mdidrv->drvr_0, 770, nullptr, nullptr);
-		sub_91F50(x_DWORD_181DA8);
+		RestoreInterruptFlags_91F50(x_DWORD_181DA8);
 		x_DWORD_E3E38 = 0;
 	}
 }; // weak
@@ -1044,9 +1044,9 @@ void CloseCdDriver_85F00()//267bd0
 	//char result; // al
 	//result = 1;//fix it
 	//if (x_DWORD_E2A6C)//2B3A6C - D5020000A11A0000
-//		result = sub_85F00_free_memory(x_DWORD_E2A6C);//264CDC - 266070
+//		result = FreeMemory_85F00(x_DWORD_E2A6C);//264CDC - 266070
 	/*if (x_DWORD_E2A70)
-		result = sub_85F00_free_memory(x_DWORD_E2A70);*/
+		result = FreeMemory_85F00(x_DWORD_E2A70);*/
 	cdSpeechEnabled_E2A28 = 0;
 	//x_DWORD_E2A6C = 0;
 	//x_DWORD_E2A70 = 0;
@@ -4350,7 +4350,7 @@ void StopAllSequenceNotes_A5E50(HSEQUENCE hSequence)//286e50
 	}
 	hSequence->note_count = 0;
 	FlushMidiBuffer_A4EB0(hSequence->driver_0);
-	if (count && !sub_92160())
+	if (count && !GetE3FFE_92160())
 		AilDelay_920D0(3);
 }
 
@@ -4996,7 +4996,7 @@ static int32_t AilApiInitSequence_A7C20(HSEQUENCE hSequence, uint8_t* start, int
 	}
 	if (!count)
 		return 1;
-	if (sub_92160())
+	if (GetE3FFE_92160())
 	{
 		strcpy(textBuffer_181C90, "No timbres loaded\n");
 		return -1;

@@ -1050,7 +1050,7 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 	const int64_t distance = static_cast<int64_t>(depth) * depth + static_cast<int64_t>(across) * across;
 	if (depth <= 64 || distance >= m_cutOffDistance)
 		return;
-	// a longer view: the game logic (sub_21490) reacts to the seen flag, only the entities of the original grid and
+	// a longer view: the game logic (EmuUpdateState_21490) reacts to the seen flag, only the entities of the original grid and
 	// cut-off set it (the rows behind the camera and the far tiles are drawn only here)
 	const int tileIndex = static_cast<int>(&tile - m_tiles);
 	const int row = tileIndex / m_tileColumns - m_standardFirstRow;
@@ -1142,7 +1142,7 @@ int GameRenderNG::SpriteLight(int64_t distance)
 }
 
 // The flying creature (sprites 295-302) is meant to come out of the fog near the player: with a longer view it fades in the fog
-// of view distance 1 in the steps of the vanishing of sub_21490 (InFog, Transparent) and is gone past it.
+// of view distance 1 in the steps of the vanishing of EmuUpdateState_21490 (InFog, Transparent) and is gone past it.
 static bool FadesInStandardFog(int spriteIndex)
 {
 	return spriteIndex >= 295 && spriteIndex <= 302;
