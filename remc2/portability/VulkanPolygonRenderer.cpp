@@ -51,7 +51,7 @@ VulkanPolygonRenderer::VulkanPolygonRenderer(std::string shaderFolder, bool enab
 		SetClearColourIndex(index);
 		};
 
-	EventDispatcher::I->RegisterEvent(new Event<ResourceType, uint8_t>(EventType::E_RESOURCE_CHANGE, m_SetClearColourIdxCallBack));
+	RegisterEvent(new Event<ResourceType, uint8_t>(EventType::E_RESOURCE_CHANGE, m_SetClearColourIdxCallBack));
 
 	m_SetPaletteLookupCallBack =
 		[this](ResourceType state, uint8_t* data) {
@@ -61,28 +61,28 @@ VulkanPolygonRenderer::VulkanPolygonRenderer(std::string shaderFolder, bool enab
 			SetColourLookupTable(data);
 		};
 
-	EventDispatcher::I->RegisterEvent(new Event<ResourceType, uint8_t*>(EventType::E_RESOURCE_CHANGE, m_SetPaletteLookupCallBack));
+	RegisterEvent(new Event<ResourceType, uint8_t*>(EventType::E_RESOURCE_CHANGE, m_SetPaletteLookupCallBack));
 
 	m_TextureCallBack =
 		[this](ResourceType state, uint32_t index, uint8_t* pixels, uint32_t width, uint32_t height) {
 		SetTexture(state, index, pixels, width, height);
 		};
 
-	EventDispatcher::I->RegisterEvent(new Event<ResourceType, uint32_t, uint8_t*, uint32_t, uint32_t>(EventType::E_RESOURCE_CHANGE, m_TextureCallBack));
+	RegisterEvent(new Event<ResourceType, uint32_t, uint8_t*, uint32_t, uint32_t>(EventType::E_RESOURCE_CHANGE, m_TextureCallBack));
 
 	m_PolyCallBack = 
 		[this](ResourceType state, std::vector<RenderPolygon>* polygons) {
 		SetPolygons(state, polygons);
 		};
 
-	EventDispatcher::I->RegisterEvent(new Event<ResourceType, std::vector<RenderPolygon>*>(EventType::E_RESOURCE_CHANGE, m_PolyCallBack));
+	RegisterEvent(new Event<ResourceType, std::vector<RenderPolygon>*>(EventType::E_RESOURCE_CHANGE, m_PolyCallBack));
 
 	m_ViewPortCallBack =
 		[this](uint16_t posX, uint16_t posY, uint16_t width, uint16_t height) {
 		m_gameViewPort = { posX, posY, width, height };
 		};
 
-	EventDispatcher::I->RegisterEvent(new Event<uint16_t, uint16_t, uint16_t, uint16_t>(EventType::E_VIEWPORT_CHANGE, m_ViewPortCallBack));
+	RegisterEvent(new Event<uint16_t, uint16_t, uint16_t, uint16_t>(EventType::E_VIEWPORT_CHANGE, m_ViewPortCallBack));
 
 	m_BlurEffectCallBack =
 		[this](bool active) {
@@ -91,20 +91,24 @@ VulkanPolygonRenderer::VulkanPolygonRenderer(std::string shaderFolder, bool enab
 		m_blurActive = active;
 		};
 
-	EventDispatcher::I->RegisterEvent(new Event<bool>(EventType::E_BLUR_EFFECT_CHANGE, m_BlurEffectCallBack));
+	RegisterEvent(new Event<bool>(EventType::E_BLUR_EFFECT_CHANGE, m_BlurEffectCallBack));
 }
 
 VulkanPolygonRenderer::~VulkanPolygonRenderer()
 {
-	EventDispatcher::I->UnregisterEvent(new Event<ResourceType, uint32_t, uint8_t*, uint32_t, uint32_t>(EventType::E_RESOURCE_CHANGE, m_TextureCallBack));
-	EventDispatcher::I->UnregisterEvent(new Event<ResourceType, std::vector<RenderPolygon>*>(EventType::E_RESOURCE_CHANGE, m_PolyCallBack));
-	EventDispatcher::I->UnregisterEvent(new Event<ResourceType, uint8_t>(EventType::E_RESOURCE_CHANGE, m_SetClearColourIdxCallBack));
-	EventDispatcher::I->UnregisterEvent(new Event<ResourceType, uint8_t*>(EventType::E_RESOURCE_CHANGE, m_SetPaletteLookupCallBack));
-	EventDispatcher::I->UnregisterEvent(new Event<uint16_t, uint16_t, uint16_t, uint16_t>(EventType::E_VIEWPORT_CHANGE, m_ViewPortCallBack));
-	EventDispatcher::I->UnregisterEvent(new Event<bool>(EventType::E_BLUR_EFFECT_CHANGE, m_BlurEffectCallBack));
+	// UnregisterEvent also deletes the event
+	for (IEvent* event : m_registeredEvents)
+		EventDispatcher::I->UnregisterEvent(event);
+	m_registeredEvents.clear();
 
 	if (m_initialized)
 		Shutdown();
+}
+
+void VulkanPolygonRenderer::RegisterEvent(IEvent* event)
+{
+	m_registeredEvents.push_back(event);
+	EventDispatcher::I->RegisterEvent(event);
 }
 
 std::string VulkanPolygonRenderer::ShaderPath(const char* filename)

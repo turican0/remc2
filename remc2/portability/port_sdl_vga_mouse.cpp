@@ -152,31 +152,23 @@ void VGA_Init(Uint32  /*flags*/, int windowWidth, int windowHeight, int gameResW
 			{
 				display = FindDisplayByResolution(windowWidth, windowHeight);
 			}
-			m_window = SDL_CreateWindow(default_caption, display.x, display.y, display.w, display.h, SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_VULKAN);
-
-			if (m_window == nullptr)
+			bool useVulkan = true;
+			CreateWindowAndSurfaces(display, gameResWidth, gameResHeight, useVulkan);
+			if (useVulkan && !CreateRenderer(gameResWidth, gameResHeight))
 			{
-				auto error = std::string(SDL_GetError());
-				throw std::runtime_error("SDL_CreateWindow failed: " + error);
+				// The window was made for Vulkan, so start again with a plain SDL one
+				Logger->warn("Vulkan renderer unavailable, falling back to software rendering");
+				FreeRenderer();
+				DestroyWindowAndSurfaces();
+				useVulkan = false;
+				CreateWindowAndSurfaces(display, gameResWidth, gameResHeight, useVulkan);
 			}
 
-			ToggleFullscreen(!startWindowed);
-
-			m_renderer =
-				SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED |
-					SDL_RENDERER_TARGETTEXTURE);
-
-			SDL_SetRenderDrawColor(m_renderer, 0x00, 0x00, 0x00, 0xFF);
-
-			// Now create your surface and convert the pixel format right away!
-			// Converting the pixel format to match the texture makes for quicker updates, otherwise
-			// It has to do the conversion each time you update the texture manually. This slows everything down.
-			// Do it once, and don't have to worry about it again.
-
-			CreateRenderSurfaces(gameResWidth, gameResHeight);
-			if (!CreateRenderer(gameResWidth, gameResHeight))
+			if (m_vulkanRenderer == nullptr && m_render == "HW")
 			{
-				throw std::runtime_error("CreateRenderer failed");
+				// GameRenderHW only produces polygons for Vulkan, so pick a software renderer instead
+				Logger->warn("HW renderer needs Vulkan, using a software renderer");
+				m_render = "";
 			}
 
 			SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_NONE);
@@ -241,6 +233,50 @@ void OnMouseResolutionChanged(uint32_t width, uint32_t height)
 		SDL_SetWindowMouseRect(m_window, new SDL_Rect{ 0, 0, 640, 480 });
 }
 
+SDL_Window* CreateGameWindow(const SDL_Rect& display, bool vulkan)
+{
+	Uint32 flags = SDL_WINDOW_FULLSCREEN_DESKTOP;
+	if (vulkan)
+		flags |= SDL_WINDOW_VULKAN;
+	return SDL_CreateWindow(default_caption, display.x, display.y, display.w, display.h, flags);
+}
+
+void CreateWindowAndSurfaces(const SDL_Rect& display, int gameResWidth, int gameResHeight, bool& useVulkan)
+{
+	m_window = CreateGameWindow(display, useVulkan);
+	if (m_window == nullptr && useVulkan)
+	{
+		// SDL refuses a Vulkan window when no Vulkan loader is installed
+		Logger->warn("Vulkan window could not be created, falling back to software rendering: {}", SDL_GetError());
+		useVulkan = false;
+		m_window = CreateGameWindow(display, false);
+	}
+
+	if (m_window == nullptr)
+	{
+		auto error = std::string(SDL_GetError());
+		throw std::runtime_error("SDL_CreateWindow failed: " + error);
+	}
+
+	ToggleFullscreen(!startWindowed);
+
+	m_renderer =
+		SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED |
+			SDL_RENDERER_TARGETTEXTURE);
+
+	SDL_SetRenderDrawColor(m_renderer, 0x00, 0x00, 0x00, 0xFF);
+	CreateRenderSurfaces(gameResWidth, gameResHeight);
+}
+
+void DestroyWindowAndSurfaces()
+{
+	FreeRenderSurfaces();
+	SDL_DestroyRenderer(m_renderer);
+	m_renderer = nullptr;
+	SDL_DestroyWindow(m_window);
+	m_window = nullptr;
+}
+
 void CreateRenderSurfaces(int width, int height)
 {
 	m_gamePalletisedSurface =
@@ -261,7 +297,7 @@ void CreateRenderSurfaces(int width, int height)
 			m_gameRGBASurface, SDL_PIXELFORMAT_RGBA32, 0);
 
 	m_texture = SDL_CreateTexture(m_renderer,
-		SDL_PIXELFORMAT_RGB888,
+		SDL_PIXELFORMAT_RGBA32,
 		SDL_TEXTUREACCESS_STREAMING,
 		m_gameRGBASurface->w, m_gameRGBASurface->h);
 }
@@ -271,7 +307,18 @@ bool CreateRenderer(int width, int height)
 	m_vulkanRenderer = new VulkanPolygonRenderer(GetSubDirectoryPath("shaders"), CommandLineParams.DoVulkanValidation());
 	m_vulkanRenderer->SetBilinearFiltering(bilinearFiltering);
 	m_vulkanRenderer->SetAntiAliasing(antiAliasing);
-	return m_vulkanRenderer->Init(m_window, width, height);
+	try
+	{
+		return m_vulkanRenderer->Init(m_window, width, height);
+	}
+	catch (const std::exception& e)
+	{
+		// e.g. no Vulkan 1.2 capable device
+		delete m_vulkanRenderer;
+		m_vulkanRenderer = nullptr;
+		Logger->error("Vulkan initialisation failed: {}", e.what());
+		return false;
+	}
 }
 
 Uint8* VGA_Get_Palette() {

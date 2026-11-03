@@ -330,6 +330,10 @@ private:
 	std::function<void(ResourceType, std::vector<RenderPolygon>*)> m_PolyCallBack;
 	std::function<void(uint16_t, uint16_t, uint16_t, uint16_t)> m_ViewPortCallBack;
 	std::function<void(bool)> m_BlurEffectCallBack;
+
+	// The dispatcher unregisters by pointer, so keep the events we registered to remove them again
+	std::vector<IEvent*> m_registeredEvents;
+	void RegisterEvent(IEvent* event);
 };
 
 #endif //VULKANPOLYGONRENDER_H 

@@ -28,6 +28,9 @@ typedef struct
 
 void VGA_Init(int windowWidth, int windowHeight, int gameResWidth, int gameResHeight, bool maintainAspectRatio, int displayIndex);
 void VGA_Init(Uint32 flags, int windowWidth, int windowHeight, int gameResWidth, int gameResHeight, bool maintainAspectRatio, int displayIndex);
+SDL_Window* CreateGameWindow(const SDL_Rect& display, bool vulkan);
+void CreateWindowAndSurfaces(const SDL_Rect& display, int gameResWidth, int gameResHeight, bool& useVulkan);
+void DestroyWindowAndSurfaces();
 void CreateRenderSurfaces(int gameResWidth, int gameResHeight);
 bool CreateRenderer(int width, int height);
 bool VGA_LoadFont();
