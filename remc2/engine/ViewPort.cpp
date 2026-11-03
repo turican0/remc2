@@ -1,5 +1,6 @@
 #include "ViewPort.h"
 #include "defs.h"
+#include "../shared/EventDispatcher.h"
 
 //View Port Dimensions for game world render
 ViewPort viewPort = ViewPort(0, 0, 0, 0, 0, 0);
@@ -68,6 +69,7 @@ void ViewPort::SetRenderViewPortSize_40BF0(int width, int height, int viewPortWi
 	}
 	str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart = width_help + screenWidth_18062C * height_help;
 	SetRenderViewPortSize_BCD45(str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart + pdwScreenBuffer_351628, screenWidth_18062C, viewPortWidth_help, viewPortHeight_help);
+	EventDispatcher::I->DispatchEvent<uint16_t, uint16_t, uint16_t, uint16_t>(EventType::E_VIEWPORT_CHANGE, (uint16_t)width_help, (uint16_t)height_help, Width_DE564, Height_DE568);
 }
 
 void ViewPort::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting)//221c50
@@ -97,7 +99,7 @@ Rectangle ViewPort::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting, uin
 void ViewPort::SetRenderViewPortSize_BCD45(uint16_t viewPortPosX, uint16_t viewPortPosY, uint16_t viewPortWidth, uint16_t viewPortHeight, uint16_t screenWidth, uint16_t screenHeight)
 {
 	iScreenWidth_DE560 = screenWidth;
-	SetViewPortScreenCoordinates_2CA60(viewPortPosX, viewPortPosY, viewPortWidth, viewPortHeight);
+	SetViewPortScreenCoordinates(viewPortPosX, viewPortPosY, viewPortWidth, viewPortHeight);
 
 	if (viewPortWidth > screenWidth)
 	{
@@ -121,6 +123,7 @@ void ViewPort::SetRenderViewPortSize_BCD45(uint16_t viewPortPosX, uint16_t viewP
 
 	int32_t ptrScreenRenderBufferStart = PosX_EA3D0 + iScreenWidth_DE560 * PosY_EA3CC;
 	SetRenderViewPortSize_BCD45(ptrScreenRenderBufferStart + pdwScreenBuffer_351628, iScreenWidth_DE560, Width_DE564, Height_DE568);
+	EventDispatcher::I->DispatchEvent<uint16_t, uint16_t, uint16_t, uint16_t>(EventType::E_VIEWPORT_CHANGE, PosX_EA3D0, PosY_EA3CC, Width_DE564, Height_DE568);
 }
 
 void ViewPort::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16_t screenWidth, uint16_t viewPortWidth, uint16_t viewPortHeight)
@@ -150,6 +153,12 @@ void ViewPort::SetRenderViewPortSize_BCD45(uint8_t* ptrScreenBufferStart, uint16
 //----- (0002CA60) --------------------------------------------------------
 void ViewPort::SetViewPortScreenCoordinates_2CA60(int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight)//20da60
 {
+	SetViewPortScreenCoordinates(viewPortX, viewPortY, viewPortWidth, viewPortHeight);
+	EventDispatcher::I->DispatchEvent<uint16_t, uint16_t, uint16_t, uint16_t>(EventType::E_VIEWPORT_CHANGE, PosX_EA3D0, PosY_EA3CC, Width_DE564, Height_DE568);
+}
+
+void ViewPort::SetViewPortScreenCoordinates(int16_t viewPortX, int16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight)
+{
 	PreWidth_EA3C4 = Width_DE564;
 	PreHeight_EA3C0 = Height_DE568;
 	PosX_EA3D0 = viewPortX;
@@ -169,4 +178,5 @@ void ViewPort::ResizeViewPort_2CA90(uint8_t viewPortSizeSetting)//20da90
 	PosY_EA3CC = (uint16_t)(heightKoef * factor);
 	PreWidth_EA3C4 = (uint16_t)((widthKoef * 2) * viewPortSizeSetting);
 	PreHeight_EA3C0 = (uint16_t)((heightKoef * 2) * viewPortSizeSetting);
+	EventDispatcher::I->DispatchEvent<uint16_t, uint16_t, uint16_t, uint16_t>(EventType::E_VIEWPORT_CHANGE, PosX_EA3D0, PosY_EA3CC, PreWidth_EA3C4, PreHeight_EA3C0);
 }

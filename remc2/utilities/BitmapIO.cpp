@@ -120,9 +120,9 @@ void BitmapIO::WriteRGBAImageBufferAsImageBMP(const char* path, int width, int h
 	{
 		int truColorIdx = (i * BitmapIO::RGBA_BYTES_PER_PIXEL);
 
-		truColorBuffer[truColorIdx + 0] = ptrPalette[ptrBuffer[(width * height) - 1 - i] * 3 + 2];
-		truColorBuffer[truColorIdx + 1] = ptrPalette[ptrBuffer[(width * height) - 1 - i] * 3 + 1];
-		truColorBuffer[truColorIdx + 2] = ptrPalette[ptrBuffer[(width * height) - 1 - i] * 3];
+		truColorBuffer[truColorIdx + 0] = ptrPalette[ptrBuffer[(width * height) - 1 - i] * 3 + 2] * 4;
+		truColorBuffer[truColorIdx + 1] = ptrPalette[ptrBuffer[(width * height) - 1 - i] * 3 + 1] * 4;
+		truColorBuffer[truColorIdx + 2] = ptrPalette[ptrBuffer[(width * height) - 1 - i] * 3] * 4;
 
 		if (ptrBuffer[(width * height) - 1 - i] != 255)
 			truColorBuffer[truColorIdx + 3] = 255;

@@ -18,6 +18,7 @@
 //#include "../utilities/DataFileIO.h"
 //#include "../utilities/BitmapIO.h"
 
+#include "../shared/EventDispatcher.h"
 #include "UVTable_D4350.h"
 #include "Type_D404C.h"
 #include "Type_D94F0_Bldgprmbuffer.h"
@@ -31,13 +32,12 @@
 #include "GameRenderOriginal.h"
 #include "GameRenderHD.h"
 #include "GameRenderNG.h"
+#include "GameRenderHW.h"
 #include "GameBitmap.h"
 #include "GameBitmapIndexes.h"
 #include "GameUiConstants.h"
 #include "LangTextIndexes.h"
 #include "Terrain.h"
-
-#include "EventDispatcher.h"
 
 //#include "../portability/port_net.h"
 
@@ -486,7 +486,8 @@ int GetManaSphereColorIndexFromEntityId_369F0(int playerEntityIndex);
 //void qmemcpy(void* a, void* b, size_t c);
 void sub_2A340(/*int a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3, int a4, *//*type_str_0x6E8E* a5, */type_entity_0x6E8E* a6);
 void sub_2AA90(/*type_str_0x6E8E* a1, */type_entity_0x6E8E* a2, type_entity_0x6E8E* a3);
-void ClearGraphicsBuffer_72883(void* ptrBuffer, uint16_t width, uint16_t height, char value);
+void ClearGraphicsBuffer_72883(void* ptrBuffer, uint16_t width, uint16_t height, uint8_t value);
+void ClearScreenAlphaBuffer(uint16_t width, uint16_t height, uint8_t value);
 int _wcpp_1_unwind_leave__62(void); //weak
 int GetManaSphereIndexFromId_36A50(/*signed int a1, */char a2);
 void SetManaSphereColorAndRot_36920(/*signed __int16 a1, */type_entity_0x6E8E* a2);

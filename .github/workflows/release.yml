@@ -34,6 +34,13 @@ jobs:
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v2
 
+      # Provides glslc (and sets VULKAN_SDK) for compiling the shaders in remc2.vcxproj
+      - name: Install Vulkan SDK
+        uses: jakoch/install-vulkan-sdk-action@v1
+        with:
+          install_runtime: false
+          cache: true
+
       - name: Setup vcpkg and install googletest
         working-directory: ${{env.GITHUB_WORKSPACE}}
         run: |

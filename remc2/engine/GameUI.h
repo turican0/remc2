@@ -2,6 +2,8 @@
 
 #include <array>
 #include <string_view>
+#include <algorithm>
+#include <cstdlib>
 
 #include "global_types.h"
 #include "engine_support.h"
@@ -59,6 +61,10 @@ extern int16_t x_WORD_E375C_mouse_position_x;
 extern int16_t x_WORD_E375E_mouse_position_y;
 extern uint8_t xx_array_E36C4[64];
 
+constexpr uint8_t ALPHA_HIDDEN = 0x00;
+constexpr uint8_t ALPHA_VISIBLE = 0xFF;
+constexpr uint8_t ALPHA_BLENDED = 200; // change if blended panels should be partial
+
 constexpr std::array WizardsNames_D93A0 { 
     "Zanzamar"sv, "Nyphur"sv, "Rahn"sv, "Belix"sv, "Jark"sv, "Elyssia"sv, "Yragore"sv, "Prish"sv  
 };
@@ -93,11 +99,13 @@ void DrawPauseMenuPopUps_87860();
 void sub_87C10();
 void DrawBottomSpellsMenu_2ECC0();
 void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color);
+void AlphaRectangle(int posX, int posY, int width, int height, uint8_t alphaAmount);
 void DrawChatMenu_2F6B0();
 void DrawPopupTextBox_87610();
 void DrawHelpPopUps_871F0();
 void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale = 1);
 void DrawCurrentObjectiveTextbox_30630(uint8_t scale = 1);
+void DrawSquareByColor_2E850(int posX, int posY, int width, int height, uint8_t color);//20f850
 void GetFont_6FC50(int16_t a1);
 void DrawInGameOptionsMenu_30050(uint8_t scale = 1);
 char sub_595C0(int16_t a1);
@@ -166,3 +174,7 @@ void SetMousePositionInMemory_5BDC0(int16_t posX, int16_t posY);
 void sub_1A5B0_getLangStrings(int a1, int* a2, int* a3);
 void GetOkayCancelButtonPositions_30BE0(int16_t* a1, int16_t* a2, uint8_t scale = 1);
 void ShowMessage_52D70(uint16_t playerIndex, char* cheatMessage);
+
+static void SetAlphaAt(const uint8_t* screenPixel, uint8_t alpha);
+static void SetAlphaXY(int x, int y, uint8_t alpha);
+static void FillAlphaRect(int x, int y, int w, int h, uint8_t alpha);

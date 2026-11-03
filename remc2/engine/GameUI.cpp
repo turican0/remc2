@@ -2,7 +2,7 @@
 
 #include <array>
 
-#include "EventDispatcher.h"
+#include "../shared/EventDispatcher.h"
 #include "Basic.h"
 #include "GameBitmapIndexes.h"
 #include "LangTextIndexes.h"
@@ -13,7 +13,6 @@
 #include "Type_D93C0_Bldgprmbuffer.h"
 #include "MapColourIndexs.h"
 #include "read_config.h"
-
 
 char FontType_D419D = 1; // weak
 int16_t x_WORD_D41D4 = 1; // weak
@@ -62,7 +61,6 @@ int16_t x_WORD_E375C_mouse_position_x = 320; // weak
 int16_t x_WORD_E375E_mouse_position_y = 200; // weak
 
 
-void DrawSquareByColor_2E850(int posX, int posY, int width, int height, uint8_t color);
 void sub_30870();
 void sub_548B0(type_str_0x2BDE* a1);
 signed __int16 sub_10010();
@@ -525,6 +523,7 @@ void DrawSquareByColor_2E850(int posX, int posY, int width, int height, uint8_t 
 		{
 			pdwScreenBuffer_351628[screenWidth_18062C * indexY + indexX] = ColourLookupTable_F6EE0[256 * color
 				+ pdwScreenBuffer_351628[screenWidth_18062C * indexY + indexX]];
+			SetAlphaXY(indexX, indexY, ALPHA_BLENDED);
 		}
 	}
 }
@@ -609,9 +608,10 @@ void DrawCurrentObjectiveTextbox_30630(uint8_t scale)//211630
 			}
 
 			ComputeTextboxSizesFromTextWords_89420(&textbox, text, scale);
-			ConstrainTextboxSizes_89520(&textbox);
+			ConstrainTextboxSizes_89520(&textbox, scale);
 			ComputeFrameSizes_89980(&textbox, scale);
 			ColorizeScreen_2E790(textbox.framePosX_0x24, textbox.framePosY_0x26, textbox.frameWidth_0x28, textbox.frameHeight_0x2a, textbox.color2_0x31);
+			AlphaRectangle(textbox.framePosX_0x24, textbox.framePosY_0x26, textbox.frameWidth_0x28, textbox.frameHeight_0x2a, 100);
 			DrawTextboxText_895D0(&textbox, text, scale);
 			DrawTextboxFrame_89690(&textbox, scale);
 		}
@@ -945,6 +945,33 @@ uint8_t CalculateScaleOffset(uint8_t scale)
 	if (scale > 2)
 		return (uint8_t)std::floor(((double)scale - 1) / 2);
 	return 0;
+}
+
+void AlphaRectangle(int posX, int posY, int width, int height, uint8_t alphaAmount)
+{
+	if (pdwScreenAlphaBuffer == nullptr)
+		return;
+
+	int locPosX = posX;
+	int locPosY = posY;
+	int locWidth = width;
+	int locHeight = height;
+
+	if (x_WORD_180660_VGA_type_resolution == 1)
+	{
+		locPosX = posX / 2;
+		locPosY = posY / 2;
+		locWidth = width / 2;
+		locHeight = height / 2;
+	}
+
+	for (int indexY = locPosY; indexY < locPosY + locHeight; indexY++)
+	{
+		for (int indexX = locPosX; indexX < locWidth + locPosX; indexX++)
+		{
+			pdwScreenAlphaBuffer[screenWidth_18062C * indexY + indexX] = alphaAmount;
+		}
+	}
 }
 
 int debugcounter2 = 0;
@@ -1439,6 +1466,7 @@ void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t pos
 								for (int x = 0; x < (blipSize * scale); x++)
 								{
 									ptrBlipBufferIdx_v56[x] = BlipColourIdx_v94;
+									SetAlphaAt((uint8_t*)&ptrBlipBufferIdx_v56[x], ALPHA_VISIBLE);
 								}
 								ptrBlipBufferIdx_v56 += screenWidth_18062C;
 							}
@@ -1517,6 +1545,7 @@ void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t pos
 								v65 = (uint8_t*)(v64 * screenWidth_18062C + v63 + ptrMapBufferStart_v84);
 								v66 = playersColors_E88E0x[GetTrueWizardNumber_61790(v60x->dword_0xA4_164x->playerColorIndex_0x38_56)][0];
 								*v65 = v66;
+								SetAlphaAt(v65, ALPHA_VISIBLE);
 								if (x_WORD_180660_VGA_type_resolution == 1)
 									DrawText_2BC10(D41A0_0.array_0x2BDE[v87].WizardName_0x39f_2BFA_12157, 2 * v63 + 4, 2 * v64, v66);
 								else
@@ -2453,8 +2482,7 @@ void DrawMapRowsLowRes(uint8_t* ptrScreenBuffer, uint8_t* ptrMemoryBuffer, int h
 
 			if (Masked && (mapAngle_13B4E0[idx] & 8))
 			{
-				if (!Blend)
-					*dst = 0;
+				if (!Blend) { *dst = 0; SetAlphaAt(dst, ALPHA_HIDDEN); }
 				continue;
 			}
 
@@ -2465,12 +2493,13 @@ void DrawMapRowsLowRes(uint8_t* ptrScreenBuffer, uint8_t* ptrMemoryBuffer, int h
 			{
 				const uint8_t result = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + (((unsigned)*dst << 8) | colour)];
 				*dst = result;
-				if (WriteMemory)
-					*mem = result;
+				SetAlphaAt(dst, ALPHA_BLENDED);
+				if (WriteMemory) *mem = result;
 			}
 			else
 			{
 				*dst = colour;
+				SetAlphaAt(dst, ALPHA_VISIBLE);
 			}
 		}
 
@@ -2536,17 +2565,26 @@ void DrawMapRows(uint8_t* ptrScreenBuffer, int height, int rowU, int rowV,
 			if (Masked && (mapAngle_13B4E0[idx] & 8))
 			{
 				if (!Blend)
+				{
 					*dst = 0;
-				continue;
+					SetAlphaAt(dst, ALPHA_HIDDEN);   // masked cave pixel
+				}
+				continue;                            // Blend: screen untouched, alpha untouched
 			}
 
 			const unsigned terrainColour = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + mapTerrainType_10B4E0[idx]];
 			const uint8_t colour = ColourLookupTable_F6EE0[((unsigned)mapShading_12B4E0[idx] << 8) | terrainColour];
 
 			if (Blend)
+			{
 				*dst = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + (((unsigned)*dst << 8) | colour)];
+				SetAlphaAt(dst, ALPHA_BLENDED);
+			}
 			else
+			{
 				*dst = colour;
+				SetAlphaAt(dst, ALPHA_VISIBLE);
+			}
 		}
 
 		ptrScreenBuffer += screenWidth_18062C;
@@ -3344,241 +3382,51 @@ void DrawLine_BD524(int16_t posX1, int16_t posY1, int16_t posX2, int16_t posY2, 
 //----- (000BD542) --------------------------------------------------------
 void DrawLine_BD542(uint16_t posX1, uint16_t posY1, uint16_t posX2, uint16_t posY2, uint8_t colour)//29e542
 {
-	int16_t v5; // bx
-	int16_t v6; // cx
-	uint16_t v7; // cx
-	uint16_t v8; // ax
-	uint16_t v9; // ax
-	_BYTE* v10; // edi
-	int v11; // esi
-	uint16_t v12; // ax
-	uint16_t v13; // cx
-	uint16_t v14; // si
-	int16_t v15; // dx
-	int16_t v16; // bx
-	int16_t v17; // cx
-	int v18; // edi
-	unsigned int v19; // ecx
-	int16_t v20; // ax
-	int v21; // eax
-	int v22; // ecx
-	int16_t v23; // cx
-	_BYTE* v24; // edi
-	int v25; // [esp+0h] [ebp-Ch]
-	int v26; // [esp+4h] [ebp-8h]
-	uint8_t* v27; // [esp+8h] [ebp-4h]
+	// The original treats the coordinates as signed 16-bit
+	int x1 = (int16_t)posX1, y1 = (int16_t)posY1;
+	int x2 = (int16_t)posX2, y2 = (int16_t)posY2;
 
-	v27 = &pdwScreenBuffer_351628[x_DWORD_18063C_sprite_sizex + screenWidth_18062C * x_DWORD_180650_positiony];
-	v5 = posY1;
-	if ((posY1 & 0x8000u) == 0)
-	{
-		v7 = posY2;
-		if ((posY2 & 0x8000u) == 0)
-		{
-			if (posY1 == posY2)
-			{
-				if ((int16_t)posY1 >= (int16_t)x_DWORD_180644_map_resolution2_y)
-					return;
-				v18 = posX1;
-				v19 = posX2;
-				if (posX2 < posX1)
-				{
-					LOWORD(v19) = posX1;
-					LOWORD(v18) = posX2;
-				}
-				v20 = x_DWORD_180648_map_resolution2_x - 1;
-				if ((v18 & 0x8000u) == 0)
-				{
-					if ((int16_t)v18 > v20)
-						return;
-					if ((uint16_t)v19 > (uint16_t)v20)
-						LOWORD(v19) = x_DWORD_180648_map_resolution2_x - 1;
-				}
-				else
-				{
-					if ((int16_t)v19 <= 0)
-						return;
-					LOWORD(v18) = 0;
-					if ((uint16_t)v19 > (uint16_t)v20)
-						LOWORD(v19) = x_DWORD_180648_map_resolution2_x - 1;
-				}
-				LOWORD(v19) = v19 - v18;
-				goto LABEL_54;
-			}
-			if ((int16_t)(posY1 - posY2) < 0)
-			{
-				if ((int16_t)posY1 >= (int16_t)x_DWORD_180644_map_resolution2_y)
-					return;
-				if ((int16_t)posY2 >= (int16_t)x_DWORD_180644_map_resolution2_y)
-					goto LABEL_5;
-			}
-			else
-			{
-				if ((int16_t)posY2 >= (int16_t)x_DWORD_180644_map_resolution2_y)
-					return;
-				posY2 = posY1;
-				posY1 = v7;
-				v9 = posX1;
-				posX1 = posX2;
-				posX2 = v9;
-				if (v5 >= (int16_t)x_DWORD_180644_map_resolution2_y)
-					goto LABEL_5;
-			}
-			goto LABEL_15;
-		}
-		posY2 = posY1;
-		v5 = v7;
-		v6 = posY1;
-		v8 = posX1;
-		posX1 = posX2;
-		posX2 = v8;
-	}
-	else
-	{
-		v6 = posY2;
-	}
-	if (v6 < 0)
+	const int maxX = x_DWORD_180648_map_resolution2_x - 1;
+	const int maxY = x_DWORD_180644_map_resolution2_y - 1;
+
+	// Trivial reject: both endpoints outside on the same side
+	if ((x1 < 0 && x2 < 0) || (x1 > maxX && x2 > maxX) ||
+		(y1 < 0 && y2 < 0) || (y1 > maxY && y2 > maxY))
 		return;
-	posX1 += (int16_t)-v5 * (int16_t)(posX2 - posX1) / (int16_t)(v6 - v5);
-	posY1 = 0;
-	if ((int16_t)(posY2 - x_DWORD_180644_map_resolution2_y) >= 0)
+
+	uint8_t* origin = &pdwScreenBuffer_351628[x_DWORD_18063C_sprite_sizex + screenWidth_18062C * x_DWORD_180650_positiony];
+
+	// Horizontal fast path (y is in range thanks to the reject above)
+	if (y1 == y2)
 	{
-	LABEL_5:
-		posX2 = posX1 + (int16_t)(x_DWORD_180644_map_resolution2_y - posY1) * (int16_t)(posX2 - posX1) / (int16_t)(posY2 - posY1);
-		posY2 = x_DWORD_180644_map_resolution2_y - 1;
-	}
-LABEL_15:
-	if ((posX1 & 0x8000u) == 0)
-	{
-		if ((int16_t)(posX1 - x_DWORD_180648_map_resolution2_x) < 0)
-		{
-			if ((posX2 & 0x8000u) == 0)
-			{
-				if ((int16_t)(posX2 - x_DWORD_180648_map_resolution2_x) < 0)
-				{
-					v26 = 1;
-					if (posX1 == posX2)
-					{
-						v21 = posY1;
-						v22 = posY2;
-						if (posY2 >= posY1)
-						{
-							v23 = posY2 - posY1;
-						}
-						else
-						{
-							LOWORD(v21) = posY2;
-							v23 = posY1 - posY2;
-						}
-						v24 = (_BYTE*)(v27 + screenWidth_18062C * v21 + posX1);
-						LOWORD(v22) = v23 + 1;
-						do
-						{
-							*v24 = colour;
-							v24 += screenWidth_18062C;
-							--v22;
-						} while (v22);
-						return;
-					}
-					if ((int16_t)(posX1 - posX2) >= 0)
-						v26 = -1;
-				}
-				else
-				{
-					v26 = 1;
-					posY2 = posY1 + (int16_t)(x_DWORD_180648_map_resolution2_x - posX1) * (int16_t)(posY2 - posY1) / (int16_t)(posX2 - posX1);
-					posX2 = x_DWORD_180648_map_resolution2_x - 1;
-				}
-			}
-			else
-			{
-				v26 = -1;
-				posY2 = posY1 + (int16_t)posX1 * (int16_t)(posY2 - posY1) / (int16_t)(posX1 - posX2);
-				posX2 = 0;
-			}
-		}
-		else
-		{
-			if ((int16_t)posX2 >= (int16_t)x_DWORD_180648_map_resolution2_x)
-				return;
-			v26 = -1;
-			posY1 += (int16_t)(posX1 - x_DWORD_180648_map_resolution2_x) * (int16_t)(posY2 - posY1) / (int16_t)(posX1 - posX2);
-			posX1 = x_DWORD_180648_map_resolution2_x - 1;
-			if ((posX2 & 0x8000u) != 0)
-			{
-				posY2 -= (int16_t)-posX2 * (int16_t)(posY2 - posY1) / (int16_t)(posX1 - posX2);
-				posX2 = 0;
-			}
-		}
-	}
-	else
-	{
-		if ((posX2 & 0x8000u) != 0)
-			return;
-		v26 = 1;
-		posY1 += (int16_t)-posX1 * (int16_t)(posY2 - posY1) / (int16_t)(posX2 - posX1);
-		posX1 = 0;
-		if ((int16_t)(posX2 - x_DWORD_180648_map_resolution2_x) >= 0)
-		{
-			posY2 = posY1 + (int16_t)x_DWORD_180648_map_resolution2_x * (int16_t)(posY2 - posY1) / (int16_t)posX2;
-			posX2 = x_DWORD_180648_map_resolution2_x - 1;
-		}
-	}
-	v10 = (_BYTE*)(v27 + screenWidth_18062C * posY1 + posX1);
-	v11 = v26;
-	v12 = v26 * (posX2 - posX1);
-	v13 = posY2 - posY1;
-	if (posY2 == posY1)
-	{
-		v18 = posX1;
-		v19 = posX2;
-		if (posX2 >= posX1)
-		{
-			LOWORD(v19) = posX2 - posX1;
-		}
-		else
-		{
-			LOWORD(v18) = posX2;
-			LOWORD(v19) = posX1 - posX2;
-		}
-	LABEL_54:
-		LOWORD(v19) = v19 + 1;
-		memset((void*)(v27 + screenWidth_18062C * posY1 + v18), colour, v19);
+		const int xa = (std::max)((std::min)(x1, x2), 0);
+		const int xb = (std::min)((std::max)(x1, x2), maxX);
+		uint8_t* p = origin + screenWidth_18062C * y1 + xa;
+		memset(p, colour, xb - xa + 1);
+		if (pdwScreenAlphaBuffer)
+			memset(pdwScreenAlphaBuffer + (p - pdwScreenBuffer_351628), ALPHA_VISIBLE, xb - xa + 1);
 		return;
 	}
-	if (v13 <= v12)
+
+	// General case: Bresenham with per-pixel clipping
+	const int dx = std::abs(x2 - x1), sx = x1 < x2 ? 1 : -1;
+	const int dy = -std::abs(y2 - y1), sy = y1 < y2 ? 1 : -1;
+	int err = dx + dy;
+
+	for (;;)
 	{
-		v25 = screenWidth_18062C;
-	}
-	else
-	{
-		v12 = posY2 - posY1;
-		v13 = v26 * (posX2 - posX1);
-		v26 = screenWidth_18062C;
-		v25 = v11;
-	}
-	v14 = v12;
-	v15 = 2 * v13;
-	v16 = 2 * v13 - v12;
-	v17 = 2 * (v13 - v12);
-	*v10 = colour;
-	do
-	{
-		while (1)
+		if ((unsigned)x1 <= (unsigned)maxX && (unsigned)y1 <= (unsigned)maxY)
 		{
-			v10 += v26;
-			if (v16 >= 0)
-				break;
-			v16 += v15;
-			*v10 = colour;
-			if (!--v14)
-				return;
+			uint8_t* p = origin + screenWidth_18062C * y1 + x1;
+			*p = colour;
+			SetAlphaAt(p, ALPHA_VISIBLE);
 		}
-		v10 += v25;
-		v16 += v17;
-		*v10 = colour;
-		--v14;
-	} while (v14);
+		if (x1 == x2 && y1 == y2)
+			break;
+		const int e2 = 2 * err;
+		if (e2 >= dy) { err += dy; x1 += sx; }
+		if (e2 <= dx) { err += dx; y1 += sy; }
+	}
 }
 
 std::vector<std::string> splitTextIntoWords(const std::string& text) {
@@ -4990,4 +4838,25 @@ void sub_30870()//211870
 		break;
 	}
 	//	return v1;
+}
+
+// For code that already has a pointer into pdwScreenBuffer_351628
+static inline void SetAlphaAt(const uint8_t* screenPixel, uint8_t alpha)
+{
+	if (pdwScreenAlphaBuffer)
+		pdwScreenAlphaBuffer[screenPixel - pdwScreenBuffer_351628] = alpha;
+}
+
+// For code that has x/y coordinates
+static inline void SetAlphaXY(int x, int y, uint8_t alpha)
+{
+	if (pdwScreenAlphaBuffer)
+		pdwScreenAlphaBuffer[screenWidth_18062C * y + x] = alpha;
+}
+
+static inline void FillAlphaRect(int x, int y, int w, int h, uint8_t alpha)
+{
+	if (!pdwScreenAlphaBuffer) return;
+	for (int j = y; j < y + h; j++)
+		memset(&pdwScreenAlphaBuffer[screenWidth_18062C * j + x], alpha, w);
 }

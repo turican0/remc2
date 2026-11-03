@@ -156,6 +156,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Label="Shaders">
+    <GlslcExe Condition="'$(VULKAN_SDK)' != ''">$(VULKAN_SDK)\Bin\glslc.exe</GlslcExe>
+    <GlslcExe Condition="'$(GlslcExe)' == ''">glslc.exe</GlslcExe>
+  </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
@@ -165,7 +169,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;WINDOWS_IGNORE_PACKING_MISMATCH;_DISABLE_STRING_ANNOTATION;_DISABLE_VECTOR_ANNOTATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
@@ -181,41 +185,13 @@
     </Link>
     <PostBuildEvent>
       <Command>
-				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
-			</Command>
+		XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+		XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+      </Command>
     </PostBuildEvent>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|Win32'">
-    <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalOptions>/Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <PostBuildEvent>
-      <Command>
-				XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
-				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
-			</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -223,7 +199,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;_DISABLE_STRING_ANNOTATION;_DISABLE_VECTOR_ANNOTATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OmitFramePointers>false</OmitFramePointers>
@@ -243,47 +219,13 @@
     </Link>
     <PostBuildEvent>
       <Command>
-				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
-			</Command>
+        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+        XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+      </Command>
     </PostBuildEvent>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|x64'">
-    <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <OmitFramePointers>false</OmitFramePointers>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <!-- The only configuration in this project that was missing /utf-8; spdlog's base.h
-           refuses to compile without it. -->
-      <AdditionalOptions>/Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <TargetMachine>MachineX64</TargetMachine>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalDependencies>SDL2maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
-    <PostBuildEvent>
-      <Command>
-				XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
-				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
-			</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -311,13 +253,13 @@
     </Link>
     <PostBuildEvent>
       <Command>
-				XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
-				XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
-				XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
-				XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
-				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
-			</Command>
+		XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
+		XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
+		XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
+		XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
+		XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+		XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+      </Command>
     </PostBuildEvent>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -351,13 +293,13 @@
     </Link>
     <PostBuildEvent>
       <Command>
-				XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
-				XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
-				XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
-				XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
-				XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
-				XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
-			</Command>
+		XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
+		XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
+		XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
+		XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
+		XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+		XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+	  </Command>
     </PostBuildEvent>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -378,6 +320,12 @@
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>SDL2maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>
+		XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+		XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+	  </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-nonASA|x64'">
     <ClCompile>
@@ -393,6 +341,12 @@
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
+    <PostBuildEvent>
+      <Command>
+		XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+		XCOPY "$(SolutionDir)enhancedassets\awe32data" "$(TargetDir)awe32data\" /S /Y
+	  </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="build_config.h" />
@@ -403,21 +357,18 @@
     <ClInclude Include="engine\BasicTerrain.h" />
     <ClInclude Include="engine\CommandLineParser.h" />
     <ClInclude Include="engine\Compare.h" />
-    <ClInclude Include="engine\Event.h" />
-    <ClInclude Include="engine\EventDispatcher.h" />
     <ClInclude Include="engine\EventsFunctions.h" />
-    <ClInclude Include="engine\EventType.h" />
     <ClInclude Include="engine\GameBitmap.h" />
     <ClInclude Include="engine\GameState.h" />
     <ClInclude Include="engine\GameUiConstants.h" />
     <ClInclude Include="engine\Graphics.h" />
     <ClInclude Include="engine\GameRenderInterface.h" />
+    <ClInclude Include="engine\GameRenderHW.h" />
     <ClInclude Include="engine\GameRenderHD.h" />
     <ClInclude Include="engine\GameRenderNG.h" />
     <ClInclude Include="engine\globals.h" />
     <ClInclude Include="engine\global_types.h" />
     <ClInclude Include="engine\GameBitmapIndexes.h" />
-    <ClInclude Include="engine\IEvent.h" />
     <ClInclude Include="engine\RecordedEvent.h" />
     <ClInclude Include="engine\LangTextIndexes.h" />
     <ClInclude Include="engine\Map.h" />
@@ -473,7 +424,14 @@
     <ClInclude Include="portability\port_net.h" />
     <ClInclude Include="portability\port_sdl_joystick.h" />
     <ClInclude Include="portability\port_show_perifery.h" />
+    <ClInclude Include="portability\RenderPolygon.h" />
     <ClInclude Include="portability\SfxEffectWrapper.h" />
+    <ClInclude Include="portability\VulkanPolygonRenderer.h" />
+    <ClInclude Include="shared\Event.h" />
+    <ClInclude Include="shared\EventDispatcher.h" />
+    <ClInclude Include="shared\EventType.h" />
+    <ClInclude Include="shared\IEvent.h" />
+    <ClInclude Include="shared\ResourceType.h" />
     <ClInclude Include="utilities\BitmapIO.h" />
     <ClInclude Include="utilities\DataFileIO.h" />
     <ClInclude Include="utilities\DataFileRNC.h" />
@@ -520,12 +478,12 @@
     <ClCompile Include="engine\BasicTerrain.cpp" />
     <ClCompile Include="engine\CommandLineParser.cpp" />
     <ClCompile Include="engine\Compare.cpp" />
-    <ClCompile Include="engine\EventDispatcher.cpp" />
     <ClCompile Include="engine\CompareMaps.cpp" />
     <ClCompile Include="engine\ConvertMapInfo.cpp" />
     <ClCompile Include="engine\DatTabIndexes.cpp" />
     <ClCompile Include="engine\EventsFunctions.cpp" />
     <ClCompile Include="engine\GameBitmap.cpp" />
+    <ClCompile Include="engine\GameRenderHW.cpp" />
     <ClCompile Include="engine\GameRenderHD.cpp" />
     <ClCompile Include="engine\GameRenderNG.cpp" />
     <ClCompile Include="engine\LevelInit.cpp" />
@@ -568,6 +526,8 @@
     <ClCompile Include="portability\port_net.cpp" />
     <ClCompile Include="portability\port_sdl_joystick.cpp" />
     <ClCompile Include="portability\port_show_perifery.cpp" />
+    <ClCompile Include="portability\VulkanPolygonRenderer.cpp" />
+    <ClCompile Include="shared\EventDispatcher.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />
     <ClCompile Include="utilities\DataFileIO.cpp" />
     <ClCompile Include="utilities\DataFileRNC.cpp" />
@@ -620,6 +580,60 @@
     <None Include="engine\bytearrays.x" />
     <None Include="engine\info.x" />
     <None Include="engine\structures.x" />
+    <CustomBuild Include="portability\shaders\polygon.frag">
+      <Command>
+				rem Compiling %(Identity)
+				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"
+				"$(GlslcExe)" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
+			</Command>
+      <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
+      <Message>Compiling %(Filename)%(Extension)</Message>
+    </CustomBuild>
+    <CustomBuild Include="portability\shaders\polygon.vert">
+      <Command>
+				rem Compiling %(Identity)
+				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"
+				"$(GlslcExe)" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
+			</Command>
+      <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
+      <Message>Compiling %(Filename)%(Extension)</Message>
+    </CustomBuild>
+    <CustomBuild Include="portability\shaders\wireframe.frag">
+      <Command>
+				rem Compiling %(Identity)
+				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"
+				"$(GlslcExe)" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
+			</Command>
+      <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
+      <Message>Compiling %(Filename)%(Extension)</Message>
+    </CustomBuild>
+    <CustomBuild Include="portability\shaders\overlay.frag">
+      <Command>
+				rem Compiling %(Identity)
+				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"
+				"$(GlslcExe)" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
+			</Command>
+      <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
+      <Message>Compiling %(Filename)%(Extension)</Message>
+    </CustomBuild>
+    <CustomBuild Include="portability\shaders\overlay.vert">
+      <Command>
+				rem Compiling %(Identity)
+				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"
+				"$(GlslcExe)" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
+			</Command>
+      <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
+      <Message>Compiling %(Filename)%(Extension)</Message>
+    </CustomBuild>
+    <CustomBuild Include="portability\shaders\hud.frag">
+      <Command>
+				rem Compiling %(Identity)
+				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"
+				"$(GlslcExe)" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
+			</Command>
+      <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
+      <Message>Compiling %(Filename)%(Extension)</Message>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Image Include="font\16x16-font.bmp">

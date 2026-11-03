@@ -18,6 +18,10 @@
 #include "engine_support.h"
 #include "read_config.h"
 
+const uint32_t COLOUR_BLEND_LOOKUP_OFFSET = 0x4000;
+const uint32_t MAP_COLOUR_BLEND_LOOKUP_OFFSET = 0x14000;
+constexpr float COLOUR_BLEND_ALPHA = 0.69f;
+
 #include "../utilities/DataFileIO.h"
 #include "../engine/ViewPort.h"
 #include "../engine/GameBitmap.h"
@@ -196,13 +200,11 @@ extern type_str_unk_1804B0ar str_unk_1804B0ar;
 extern __int16 x_WORD_180660_VGA_type_resolution;
 extern uint8_t playersColors_E88E0x[8][3];
 extern uint8_t unk_F0A20x[1024];//2c1a20
-extern uint8_t keyColor1_D4B7C; // weak
-extern uint8_t keyColor2_D4B7E; // weak
+extern uint8_t m_BackgroundColour_D4B7C; // weak
+extern uint8_t m_BackgroundColour_D4B7E; // weak
 extern type_entity_0x6E8E* Entities_EA3E4[1001];//2bb3e4
 
-extern uint8_t ColourLookupTable_F6EE0[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
-const uint32_t COLOUR_BLEND_LOOKUP_OFFSET = 0x4000;
-const uint32_t MAP_COLOUR_BLEND_LOOKUP_OFFSET = 0x14000;
+extern uint8_t ColourLookupTable_F6EE0[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites (offsets at the top: GameBitmap.h needs them)
 
 extern uint8_t* x_BYTE_F6EE0_tablesx_pre;
 extern uint8_t* x_BYTE_FAEE0_tablesx_pre;
@@ -263,7 +265,7 @@ extern uint8_t MinTrackIdx_180471;
 extern uint8_t MaxTrackIdx_180472;
 
 extern TColor unk_17D838x[]; // weak
-extern uint8_t x_BYTE_D41B5_texture_size;
+extern uint8_t TileTextureSize_D41B5;
 
 #pragma pack (push,1)
 typedef struct {
@@ -468,7 +470,7 @@ extern Pathstruct xadatatables;
 #define psxazero14 47
 
 extern axis_2d x_WORD_E3760_mouse;
-extern uint8_t* ptrMemoryBuffer_E9C3C; // Looks like a generic buffer, used for video and sound operations
+extern uint8_t* ptrMemoryBuffer_E9C3C; // weak
 extern type_SPELLS_BEGIN_BUFFER_str SPELLS_BEGIN_BUFFER_str[];
 
 extern int16_t x_WORD_1806EE; // weak
@@ -519,6 +521,11 @@ volatile extern int16_t GameTimerTurn_17DB54; // 34EB54
 extern uint32_t PitFrequency_F4240;
 
 extern std::vector<Type_Message*>* m_Messages;
+
+constexpr uint32_t kTerrainAtlasId = 1024;
+constexpr uint32_t kSkyId = 1025;
+
+extern std::array<uint16_t, 504> m_spriteFrameCount;
 
 bool DefaultResolutions();
 bool IsDefaultResolution(int width, int height);

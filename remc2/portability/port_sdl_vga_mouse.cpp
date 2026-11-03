@@ -12,9 +12,9 @@
 #ifdef USE_DOSBOX
 extern DOS_Device* DOS_CON;
 #endif //USE_DOSBOX
-#include "../engine/EventDispatcher.h"
 #include "GameKey.h"
 #include "KeyboardInputMapping.h"
+#include "VulkanPolygonRenderer.h"
 
 SDL_Window* m_window = nullptr;
 SDL_Renderer* m_renderer = nullptr;
@@ -27,8 +27,12 @@ SDL_Surface* m_surfaceFont = nullptr;
 uint8_t m_smallFontBuffer[128 * 128];
 SDL_Surface* m_smallSurfaceFont = nullptr;
 
+VulkanPolygonRenderer* m_vulkanRenderer = nullptr;
+
 uint8_t LastPressedKey_1806E4; //3516e4
 int8_t pressedKeys_180664[128]; // idb
+std::vector<uint8_t> m_uiAlpha;
+bool m_uiAlphaValid = false;
 
 uint16_t m_iOrigw = 640;
 uint16_t m_iOrigh = 480;
@@ -148,23 +152,27 @@ void VGA_Init(Uint32  /*flags*/, int windowWidth, int windowHeight, int gameResW
 			{
 				display = FindDisplayByResolution(windowWidth, windowHeight);
 			}
-			m_window = SDL_CreateWindow(default_caption, display.x, display.y, display.w, display.h, SDL_WINDOW_FULLSCREEN_DESKTOP);
-			ToggleFullscreen(!startWindowed);
+			bool useVulkan = true;
+			CreateWindowAndSurfaces(display, gameResWidth, gameResHeight, useVulkan);
+			if (useVulkan && !CreateRenderer(gameResWidth, gameResHeight))
+			{
+				// The window was made for Vulkan, so start again with a plain SDL one
+				Logger->warn("Vulkan renderer unavailable, falling back to software rendering");
+				FreeRenderer();
+				DestroyWindowAndSurfaces();
+				useVulkan = false;
+				CreateWindowAndSurfaces(display, gameResWidth, gameResHeight, useVulkan);
+			}
 
-			m_renderer =
-				SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED |
-					SDL_RENDERER_TARGETTEXTURE);
+			if (m_vulkanRenderer == nullptr && m_render == "HW")
+			{
+				// GameRenderHW only produces polygons for Vulkan, so pick a software renderer instead
+				Logger->warn("HW renderer needs Vulkan, using a software renderer");
+				m_render = "";
+			}
 
-			SDL_SetRenderDrawColor(m_renderer, 0x00, 0x00, 0x00, 0xFF);
-
-			// Now create your surface and convert the pixel format right away!
-			// Converting the pixel format to match the texture makes for quicker updates, otherwise
-			// It has to do the conversion each time you update the texture manually. This slows everything down.
-			// Do it once, and don't have to worry about it again.
-
-			CreateRenderSurfaces(gameResWidth, gameResHeight);
-
-			SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND);
+			SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_NONE);
+			SDL_SetSurfaceBlendMode(m_gameRGBASurface, SDL_BLENDMODE_NONE);
 
 			// Sure clear the screen first.. always nice.
 			SDL_RenderClear(m_renderer);
@@ -225,6 +233,50 @@ void OnMouseResolutionChanged(uint32_t width, uint32_t height)
 		SDL_SetWindowMouseRect(m_window, new SDL_Rect{ 0, 0, 640, 480 });
 }
 
+SDL_Window* CreateGameWindow(const SDL_Rect& display, bool vulkan)
+{
+	Uint32 flags = SDL_WINDOW_FULLSCREEN_DESKTOP;
+	if (vulkan)
+		flags |= SDL_WINDOW_VULKAN;
+	return SDL_CreateWindow(default_caption, display.x, display.y, display.w, display.h, flags);
+}
+
+void CreateWindowAndSurfaces(const SDL_Rect& display, int gameResWidth, int gameResHeight, bool& useVulkan)
+{
+	m_window = CreateGameWindow(display, useVulkan);
+	if (m_window == nullptr && useVulkan)
+	{
+		// SDL refuses a Vulkan window when no Vulkan loader is installed
+		Logger->warn("Vulkan window could not be created, falling back to software rendering: {}", SDL_GetError());
+		useVulkan = false;
+		m_window = CreateGameWindow(display, false);
+	}
+
+	if (m_window == nullptr)
+	{
+		auto error = std::string(SDL_GetError());
+		throw std::runtime_error("SDL_CreateWindow failed: " + error);
+	}
+
+	ToggleFullscreen(!startWindowed);
+
+	m_renderer =
+		SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED |
+			SDL_RENDERER_TARGETTEXTURE);
+
+	SDL_SetRenderDrawColor(m_renderer, 0x00, 0x00, 0x00, 0xFF);
+	CreateRenderSurfaces(gameResWidth, gameResHeight);
+}
+
+void DestroyWindowAndSurfaces()
+{
+	FreeRenderSurfaces();
+	SDL_DestroyRenderer(m_renderer);
+	m_renderer = nullptr;
+	SDL_DestroyWindow(m_window);
+	m_window = nullptr;
+}
+
 void CreateRenderSurfaces(int width, int height)
 {
 	m_gamePalletisedSurface =
@@ -236,19 +288,37 @@ void CreateRenderSurfaces(int width, int height)
 		SDL_ConvertSurfaceFormat(
 			m_gamePalletisedSurface, SDL_PIXELFORMAT_INDEX8, 0);
 
-	m_gameRGBASurface =
-		SDL_CreateRGBSurface(
-			SDL_SWSURFACE, width, height, 24,
-			redMask, greenMask, blueMask, alphaMask);
+	m_gameRGBASurface = SDL_CreateRGBSurface(
+		SDL_SWSURFACE, width, height, 32,
+		redMask, greenMask, blueMask, alphaMask);
 
 	m_gameRGBASurface =
 		SDL_ConvertSurfaceFormat(
-			m_gameRGBASurface, SDL_PIXELFORMAT_RGB888, 0);
+			m_gameRGBASurface, SDL_PIXELFORMAT_RGBA32, 0);
 
 	m_texture = SDL_CreateTexture(m_renderer,
-		SDL_PIXELFORMAT_RGB888,
+		SDL_PIXELFORMAT_RGBA32,
 		SDL_TEXTUREACCESS_STREAMING,
 		m_gameRGBASurface->w, m_gameRGBASurface->h);
+}
+
+bool CreateRenderer(int width, int height)
+{
+	m_vulkanRenderer = new VulkanPolygonRenderer(GetSubDirectoryPath("shaders"), CommandLineParams.DoVulkanValidation());
+	m_vulkanRenderer->SetBilinearFiltering(bilinearFiltering);
+	m_vulkanRenderer->SetAntiAliasing(antiAliasing);
+	try
+	{
+		return m_vulkanRenderer->Init(m_window, width, height);
+	}
+	catch (const std::exception& e)
+	{
+		// e.g. no Vulkan 1.2 capable device
+		delete m_vulkanRenderer;
+		m_vulkanRenderer = nullptr;
+		Logger->error("Vulkan initialisation failed: {}", e.what());
+		return false;
+	}
 }
 
 Uint8* VGA_Get_Palette() {
@@ -275,6 +345,7 @@ void Set_basic_Palette0() {
 		colors[i].r = tempPalettebuffer[i * 3];
 		colors[i].g = tempPalettebuffer[i * 3 + 1];
 		colors[i].b = tempPalettebuffer[i * 3 + 2];
+		colors[i].a = 255;
 	}
 	SetPalette(colors);
 }
@@ -286,12 +357,14 @@ void Set_basic_Palette1() {
 			colors[i].r = 0;
 			colors[i].g = 0;
 			colors[i].b = 0;
+			colors[i].a = 255;
 		}
 		else
 		{
 			colors[i].r = 255;
 			colors[i].g = 255;
 			colors[i].b = 255;
+			colors[i].a = 255;
 		}
 		tempPalettebuffer[i * 3] = colors[i].r / 4;
 		tempPalettebuffer[i * 3 + 1] = colors[i].g / 4;
@@ -309,6 +382,7 @@ void Set_basic_Palette3() {
 		colors[i].r = tempPalettebuffer[i * 3];
 		colors[i].g = tempPalettebuffer[i * 3 + 1];
 		colors[i].b = tempPalettebuffer[i * 3 + 2];
+		colors[i].a = 255;
 	}
 	SetPalette(colors);
 }
@@ -505,9 +579,13 @@ void Draw_letterToBuffer(int letter_number, int pozx, int pozy, uint8_t* buffer,
 			{
 				case 'S':
 				buffer[(dstrect.y + yy) * m_gamePalletisedSurface->w + (dstrect.x + xx)] = m_smallFontBuffer[srcx + (srcy * 128)];
+				if (pdwScreenAlphaBuffer != nullptr)
+					pdwScreenAlphaBuffer[(dstrect.y + yy) * m_gamePalletisedSurface->w + (dstrect.x + xx)] = 255;
 				break;
 			default:
 				buffer[(dstrect.y + yy) * m_gamePalletisedSurface->w + (dstrect.x + xx)] = m_fontBuffer[srcx + (srcy * 256)];
+				if (pdwScreenAlphaBuffer != nullptr)
+					pdwScreenAlphaBuffer[(dstrect.y + yy) * m_gamePalletisedSurface->w + (dstrect.x + xx)] = 255;
 				break;
 			}
 		}
@@ -632,6 +710,7 @@ void VGA_Set_file_Palette(char* filename) {
 		colors[i].r = 4 * Palettebuffer[i * 3];
 		colors[i].g = 4 * Palettebuffer[i * 3 + 1];
 		colors[i].b = 4 * Palettebuffer[i * 3 + 2];
+		colors[i].a = 255;
 	}
 	SetPalette(colors);
 }
@@ -644,6 +723,7 @@ void VGA_Set_Palette(Uint8* Palettebuffer) {
 		colors[i].r = 4 * Palettebuffer[i * 3];
 		colors[i].g = 4 * Palettebuffer[i * 3 + 1];
 		colors[i].b = 4 * Palettebuffer[i * 3 + 2];
+		colors[i].a = 255;
 	}
 	SetPalette(colors);
 }
@@ -655,6 +735,7 @@ void VGA_Set_Palette2(Uint8* Palettebuffer) {
 		colors[i].r = Palettebuffer[i * 3];
 		colors[i].g = Palettebuffer[i * 3 + 1];
 		colors[i].b = Palettebuffer[i * 3 + 2];
+		colors[i].a = 255;
 	}
 	SetPalette(colors);
 }
@@ -886,6 +967,9 @@ int PollSdlEvents()
 				m_iWindowHeight = newHeight;
 				if (EventDispatcher::I != nullptr)
 					EventDispatcher::I->DispatchEvent<int, int>(EventType::E_WINDOW_SIZE_CHANGE, newWidth, newHeight);
+
+				if (m_vulkanRenderer)
+					m_vulkanRenderer->Resize(newWidth, newHeight);
 			}
 			break;
 		}
@@ -1026,7 +1110,7 @@ void ScaleDownMouseCoordsToVga(int16_t& x, int16_t& y)
 	}
 }
 
-void VGA_Blit(Uint8* srcBuffer) {
+void VGA_Blit(uint8_t* srcBuffer, uint8_t* alphaBuffer) {
 	if (unitTests)return;
 
 	oldWidth = m_gamePalletisedSurface->w;
@@ -1055,11 +1139,20 @@ void VGA_Blit(Uint8* srcBuffer) {
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
-	SubBlit(m_iOrigw, m_iOrigh);
+	SubBlit(m_iOrigw, m_iOrigh, alphaBuffer);
 	SOUND_UPDATE();
 }
 
-void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
+void SubVulkanBlit(SDL_Surface* palettisedSurface, const uint8_t* alphaBuffer, SDL_Rect srcRect, SDL_Rect destRect)
+{
+	if (m_vulkanRenderer->BeginFrame(palettisedSurface, alphaBuffer, srcRect, destRect))
+	{
+		m_vulkanRenderer->EndFrame();
+	}
+}
+
+
+void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight, uint8_t* alphaBuffer) {
 	while (subBlitLock);//fix problem with quick blitting
 	subBlitLock = true;
 
@@ -1098,16 +1191,66 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
 		dscrect.y = 0;
 	}
 
-	SDL_BlitSurface(m_gamePalletisedSurface, NULL, m_gameRGBASurface, NULL);
+	if (m_vulkanRenderer)
+	{
+		// The 8-bit screen and its alpha go to the GPU as they are; hud.frag applies the palette.
+		const size_t surfaceSize = (size_t)m_gamePalletisedSurface->w * m_gamePalletisedSurface->h;
+		if (alphaBuffer != nullptr)
+		{
+			m_uiAlpha.assign(alphaBuffer, alphaBuffer + surfaceSize);   // copy, don't keep the pointer
+			m_uiAlphaValid = true;
+		}
+		else if (m_uiAlphaValid && m_uiAlpha.size() != surfaceSize)
+		{
+			// The cached alpha was captured at a previous resolution (e.g. 320x200 intro -> 640x480 menu)
+			m_uiAlphaValid = false;
+		}
 
-	//WriteSurfaceToFile(m_gamePalletisedSurface);
+		SubVulkanBlit(m_gamePalletisedSurface, m_uiAlphaValid ? m_uiAlpha.data() : nullptr, rectSrc, dscrect);
+	}
+	else
+	{
+		//WriteSurfaceToFile(m_gamePalletisedSurface);
+		SDL_BlitSurface(m_gamePalletisedSurface, NULL, m_gameRGBASurface, NULL);
 
-	SDL_UpdateTexture(m_texture, NULL, m_gameRGBASurface->pixels, m_gameRGBASurface->pitch);
-	SDL_RenderCopy(m_renderer, m_texture, &rectSrc, &dscrect);
+		SDL_UpdateTexture(m_texture, NULL, m_gameRGBASurface->pixels, m_gameRGBASurface->pitch);
+		SDL_RenderCopy(m_renderer, m_texture, &rectSrc, &dscrect);
 
-	SDL_RenderPresent(m_renderer);
-	SDL_RenderClear(m_renderer);
+		SDL_RenderPresent(m_renderer);
+		SDL_RenderClear(m_renderer);
+	}
 	subBlitLock = false;
+}
+
+void ApplyAlphaBuffer(SDL_Surface* rgbaSurface, const uint8_t* alphaBuffer, int width, int height)
+{
+	// alphaBuffer is assumed to be width*height, row-major, matching rgbaSurface dimensions
+
+	if (SDL_MUSTLOCK(rgbaSurface))
+		SDL_LockSurface(rgbaSurface);
+
+	SDL_PixelFormat* fmt = rgbaSurface->format;
+	int bpp = fmt->BytesPerPixel; // should be 4 for RGBA/ARGB surfaces
+
+	for (int y = 0; y < height; y++)
+	{
+		uint8_t* row = static_cast<uint8_t*>(rgbaSurface->pixels) + y * rgbaSurface->pitch;
+		const uint8_t* alphaRow = alphaBuffer + y * width;
+
+		for (int x = 0; x < width; x++)
+		{
+			uint32_t* pixel = reinterpret_cast<uint32_t*>(row + x * bpp);
+			uint32_t p = *pixel;
+
+			// Clear existing alpha bits, then OR in the new alpha value
+			p = (p & ~fmt->Amask) | ((static_cast<uint32_t>(alphaRow[x]) << fmt->Ashift) & fmt->Amask);
+
+			*pixel = p;
+		}
+	}
+
+	if (SDL_MUSTLOCK(rgbaSurface))
+		SDL_UnlockSurface(rgbaSurface);
 }
 
 void VGA_Init_test() {//only for debug
@@ -1119,6 +1262,7 @@ void VGA_Init_test() {//only for debug
 		colors[i].r = i;
 		colors[i].g = i;
 		colors[i].b = i;
+		colors[i].a = 255;
 	}
 
 	/* Create display */
@@ -1166,6 +1310,7 @@ void VGA_close()
 	SDL_FreeSurface(m_surfaceFont);
 	m_surfaceFont = nullptr;
 	FreeRenderSurfaces();
+	FreeRenderer();
 	SDL_DestroyRenderer(m_renderer);
 	m_renderer = nullptr;
 	SDL_DestroyWindow(m_window);
@@ -1182,6 +1327,12 @@ void FreeRenderSurfaces()
 	m_gameRGBASurface = nullptr;
 	SDL_DestroyTexture(m_texture);
 	m_texture = nullptr;
+}
+
+void FreeRenderer()
+{
+	delete m_vulkanRenderer;
+	m_vulkanRenderer = nullptr;
 }
 
 int16_t VGA_get_shift_status() {

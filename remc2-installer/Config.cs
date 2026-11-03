@@ -56,8 +56,10 @@ namespace remc2_installer
 		public int windowResHeight { get; set; }
 		public bool maintainAspectRatio { get; set; }
 		public bool startWindowed { get; set; }
+		public string render { get; set; } = "HW";
 		public GameDetail gameDetail { get; set; }
 		public Threading threading { get; set; }
+		public Hardware hardware { get; set; }
 	}
 
 	public class GameDetail
@@ -89,6 +91,13 @@ namespace remc2_installer
 		public float sizePercentToThreadRenderSprites { get; set; }
 		public int numberOfRenderThreads { get; set; }
 		public bool assignToSpecificCores { get; set; }
+	}
+
+	public class Hardware
+	{
+		public string[] description { get; set; }
+		public bool bilinearFiltering { get; set; } = true;
+		public int antiAliasing { get; set; } = 2;   // MSAA samples: 0 = off (1x), 2, 4 or 8
 	}
 
 	public class Game

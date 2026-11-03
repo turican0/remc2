@@ -145,6 +145,7 @@ namespace remc2_installer
 								new File(new Id("LIBLZMA_DLL"), @"..\x64\Release\liblzma.dll"),
 								new File(new Id("PCRE2_16_DLL"), @"..\x64\Release\pcre2-16.dll"),
 								new File(new Id("TIFF_DLL"), @"..\x64\Release\tiff.dll"),
+								new File(new Id("VULKAN_1_DLL"), @"..\x64\Release\vulkan-1.dll"),
 								new File(new Id("MC_HD_LOGO_PNG"), @"..\x64\Release\mc2_hd_logo.png"),
 #else
 								new File(new Id("BROTLICOMMON_DLL"), @"..\Release\brotlicommon.dll"),
@@ -167,7 +168,15 @@ namespace remc2_installer
 								new File(new Id("LIBLZMA_DLL"), @"..\Release\liblzma.dll"),
 								new File(new Id("PCRE2_16_DLL"), @"..\Release\pcre2-16.dll"),
 								new File(new Id("TIFF_DLL"), @"..\Release\tiff.dll"),
+								new File(new Id("VULKAN_1_DLL"), @"..\Release\vulkan-1.dll"),
 								new File(new Id("MC_HD_LOGO_PNG"), @"..\Release\mc2_hd_logo.png"),
+#endif
+#if WIN64
+								new Dir(new Id("SHADERS_INSTALLDIR"), @"shaders",
+									new Files(@"..\x64\Release\shaders\*.spv")),
+#else
+								new Dir(new Id("SHADERS_INSTALLDIR"), @"shaders",
+									new Files(@"..\Release\shaders\*.spv")),
 #endif
 								new Dir(new Id("KISS_INSTALLDIR"), @"kiss",
 									new Files(@"..\Release\kiss\*.*")),
@@ -202,6 +211,8 @@ namespace remc2_installer
 									}),
 								new Dir(new Id("MUSICOGG_INSTALLDIR"), @"music-ogg",
                                     new Files(@"..\enhancedassets\music-ogg\*.*")),
+								new Dir(new Id("AWE32DATA_INSTALLDIR"), @"awe32data",
+                                    new Files(@"..\enhancedassets\awe32data\*.*")),
                                 new Dir(new Id("EXTRACT_INSTALLDIR"), @"Extract",
                                     new File(new Id("DOSBOXEXTRACT_CONF"), @"Extract\dosboxExtract-GOG-CD.conf"),
                                     new File(new Id("XXCOPY16_EXE"), @"Extract\XXCOPY16.EXE"),

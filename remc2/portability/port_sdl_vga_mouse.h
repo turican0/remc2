@@ -11,10 +11,12 @@
 
 #include "SDL2/SDL.h"
 
-#include "port_sdl_sound.h"
-#include "port_filesystem.h"
+#include "../shared/EventDispatcher.h"
 #include "../engine/Scene.h"
 #include "../engine/GameState.h"
+#include "port_sdl_sound.h"
+#include "port_filesystem.h"
+#include "RenderPolygon.h"
 
 typedef struct
 {
@@ -26,13 +28,22 @@ typedef struct
 
 void VGA_Init(int windowWidth, int windowHeight, int gameResWidth, int gameResHeight, bool maintainAspectRatio, int displayIndex);
 void VGA_Init(Uint32 flags, int windowWidth, int windowHeight, int gameResWidth, int gameResHeight, bool maintainAspectRatio, int displayIndex);
+SDL_Window* CreateGameWindow(const SDL_Rect& display, bool vulkan);
+void CreateWindowAndSurfaces(const SDL_Rect& display, int gameResWidth, int gameResHeight, bool& useVulkan);
+void DestroyWindowAndSurfaces();
 void CreateRenderSurfaces(int gameResWidth, int gameResHeight);
+bool CreateRenderer(int width, int height);
 bool VGA_LoadFont();
 void VGA_close();
 void FreeRenderSurfaces();
+void FreeRenderer();
 void VGA_Resize(int width, int height);
-void VGA_Blit(Uint8* srcBuffer);
-void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight);
+void VGA_Blit(uint8_t* srcBuffer, uint8_t* alphaBuffer = nullptr);
+void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight, uint8_t* alphaBuffer = nullptr);
+void ApplyAlphaBuffer(SDL_Surface* rgbaSurface, const uint8_t* alphaBuffer, int width, int height);
+void SetPolygons(ResourceType state, std::vector<RenderPolygon>* polygons);
+void SetTexture(ResourceType state, uint32_t index, uint8_t* pixels, uint32_t width, uint32_t height);
+void SubVulkanBlit(SDL_Surface* palettisedSurface, const uint8_t* alphaBuffer, SDL_Rect srcRect, SDL_Rect destRect);
 void VGA_Debug_Blit(int width, int height, Uint8* srcBuffer);
 void VGA_Set_Palette(Uint8* Palettebuffer);
 void VGA_Set_Palette2(Uint8* Palettebuffer);
@@ -83,5 +94,7 @@ void WriteSurfaceToFile(SDL_Surface* surface, const char* filename);
 
 extern uint8_t LastPressedKey_1806E4; // weak//3516e4
 extern int8_t pressedKeys_180664[128]; // idb
+extern std::vector<uint8_t> m_uiAlpha;
+extern bool m_uiAlphaValid;
 
 #endif //PORT_SDL_VGA_MOUSE

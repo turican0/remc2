@@ -37,6 +37,18 @@
     <Filter Include="Header Files\lib">
       <UniqueIdentifier>{71476ba4-8cad-4bb4-87dd-d3a59776e259}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\portability\lib">
+      <UniqueIdentifier>{09dcf658-cd17-438b-8076-e982e29977fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\portability\shaders">
+      <UniqueIdentifier>{e7b8062d-a177-422d-8569-eeadbba25149}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\shared">
+      <UniqueIdentifier>{a9dae56b-b83a-4665-b7b7-2e39845bffd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shared">
+      <UniqueIdentifier>{105f20fd-7c5b-45f0-bfd0-6187f64995bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -219,6 +231,9 @@
     <ClInclude Include="engine\GameRenderInterface.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="engine\GameRenderHW.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
     <ClInclude Include="portability\port_net.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
@@ -321,28 +336,16 @@
     <ClInclude Include="engine\EventsFunctions.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="engine\Event.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
     <ClInclude Include="portability\Config.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
     <ClInclude Include="portability\ConfigToSdlScancodeMapping.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
-    <ClInclude Include="engine\EventDispatcher.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\EventType.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
     <ClInclude Include="portability\GameKey.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
     <ClInclude Include="engine\GameState.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\IEvent.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="portability\SfxEffectWrapper.h">
@@ -389,6 +392,27 @@
     </ClInclude>
     <ClInclude Include="engine\axis_3d.h">
       <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\VulkanPolygonRenderer.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\RenderPolygon.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\IEvent.h">
+      <Filter>Header Files\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Event.h">
+      <Filter>Header Files\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\EventDispatcher.h">
+      <Filter>Header Files\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\EventType.h">
+      <Filter>Header Files\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\ResourceType.h">
+      <Filter>Header Files\shared</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -515,6 +539,9 @@
     <ClCompile Include="engine\GameRenderOriginal.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="engine\GameRenderHW.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
     <ClCompile Include="engine\ViewPort.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
@@ -617,9 +644,6 @@
     <ClCompile Include="engine\LevelStructs.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="engine\EventDispatcher.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
     <ClCompile Include="portability\Config.cpp">
       <Filter>Source Files\portability</Filter>
     </ClCompile>
@@ -630,7 +654,13 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="lib\stb_impl.cpp">
-      <Filter>Source Files\lib</Filter>
+      <Filter>Source Files\portability\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\VulkanPolygonRenderer.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\EventDispatcher.cpp">
+      <Filter>Source Files\shared</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -659,5 +689,25 @@
     <ResourceCompile Include="icons\app.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="portability\shaders\polygon.frag">
+      <Filter>Source Files\portability\shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="portability\shaders\polygon.vert">
+      <Filter>Source Files\portability\shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="portability\shaders\wireframe.frag">
+      <Filter>Source Files\portability\shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="portability\shaders\overlay.frag">
+      <Filter>Source Files\portability\shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="portability\shaders\overlay.vert">
+      <Filter>Source Files\portability\shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="portability\shaders\hud.frag">
+      <Filter>Source Files\portability\shaders</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

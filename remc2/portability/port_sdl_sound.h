@@ -23,8 +23,8 @@
 #include <time.h>       /* time */
 #include <string>
 
+#include "../shared/EventDispatcher.h"
 #include "../engine/ail_sound.h"
-#include "../engine/EventDispatcher.h"
 #include "../engine/GameState.h"
 #include "port_filesystem.h"
 

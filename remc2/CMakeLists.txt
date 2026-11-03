@@ -35,17 +35,22 @@ set(SOURCE_FILES_ENGINE
     "engine/CommandLineParser.cpp"
     "engine/CommandLineParser.h"
     "engine/Compare.cpp"
-    "engine/Compare.h"
+    "engine/Compare.h"	
     "engine/Events.cpp"
     "engine/Events.h"
-    "engine/Event.h"
-    "engine/EventDispatcher.cpp"
-    "engine/EventDispatcher.h"
+	"shared/EventDispatcher.cpp"
+    "shared/EventDispatcher.h"
+    "shared/Event.h"
+    "shared/EventType.h"
+    "shared/IEvent.h"
+    "shared/ResourceType.h"
     "engine/GameBitmap.cpp"
     "engine/GameBitmap.h"
     "engine/GameBitmapIndexes.h"
     "engine/GameRenderHD.cpp"
     "engine/GameRenderHD.h"
+    "engine/GameRenderHW.cpp"
+    "engine/GameRenderHW.h"
     "engine/GameRenderInterface.h"
     "engine/GameRenderNG.cpp"
     "engine/GameRenderNG.h"
@@ -209,6 +214,9 @@ set(SOURCE_FILES__portability
     "portability/awe32/Synth.h"
     "portability/port_sdl_vga_mouse.cpp"
     "portability/port_sdl_vga_mouse.h"
+    "portability/VulkanPolygonRenderer.cpp"
+    "portability/VulkanPolygonRenderer.h"
+    "portability/RenderPolygon.h"
     "portability/port_sdl_joystick.cpp"
     "portability/port_sdl_joystick.h"
     "portability/port_show_perifery.cpp"
@@ -298,7 +306,9 @@ if (UNIX)
         ${PNG_LIBRARY}
         findfirst
         ADLMIDI_static
+        ${VULKAN_LIBRARIES}
     )
+    add_vulkan_shaders(${PROJECT_NAME})
     target_link_directories(${PROJECT_NAME} PUBLIC
     )
     target_compile_definitions(${PROJECT_NAME} PUBLIC

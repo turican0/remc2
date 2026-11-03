@@ -83,6 +83,7 @@ class CommandLineParser {
         bool DoShowInGameDebug() const { return m_enable_in_game_debug; };
         bool DoKillMoveAndRotation() const { return m_kill_move_and_rotation; };
         bool DoUseOldMapDrawing() const { return m_use_old_map_drawing; };
+        bool DoVulkanValidation() const { return m_vulkan_validation; };
 
         // settings
         std::string GetMemimagesPath() const {return m_memimages_path;};
@@ -153,6 +154,7 @@ class CommandLineParser {
         bool m_enable_in_game_debug;
         bool m_kill_move_and_rotation;
         bool m_use_old_map_drawing;
+        bool m_vulkan_validation;
 		int m_test_save_index;
 
         std::string m_memimages_path;

@@ -1,8 +1,10 @@
 #pragma once
 
+#include <algorithm>
 #include <map>
 #include <vector>
 #include "Event.h"
+#include "ResourceType.h"
 
 class EventDispatcher
 {
@@ -22,6 +24,27 @@ public:
 	{
 		if (event)
 			_eventList[event->GetType()].push_back(event);
+	};
+
+	void UnregisterEvent(IEvent* event)
+	{
+		if (!event)
+			return;
+
+		auto it_eventList = _eventList.find(event->GetType());
+		if (it_eventList == _eventList.end())
+			return;
+
+		auto& events = it_eventList->second;
+		auto it = std::find(events.begin(), events.end(), event);
+		if (it != events.end())
+		{
+			delete* it;
+			events.erase(it);
+		}
+
+		if (events.empty())
+			_eventList.erase(it_eventList);
 	};
 
 	template <typename ..._args>
