@@ -5,7 +5,7 @@
 uint8_t BigTextureBuffer[128 * 128 * 160];
 
 //----- (00054630) --------------------------------------------------------
-void sub_54630_load_psxblock(uint16_t TextSize)//235630
+void LoadPsxBlock_54630(uint16_t TextSize)//235630
 {
 	switch (TextSize)
 	{
@@ -188,7 +188,7 @@ void ReadAndDecompressSkyAndBlocks_54660(MapType_t GraphicsType, uint8_t Graphic
 
 
 //----- (00054800) --------------------------------------------------------
-void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
+void ReadAndDecompressTables_54800(MapType_t a1)//235800
 {
 	char dataPath[MAX_PATH];
 

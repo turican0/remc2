@@ -293,23 +293,23 @@ void initposistruct() {//fix it
 };
 
 //----- (00056730) --------------------------------------------------------
-int sub_56730_clean_memory()//237730
+int CleanMemory_56730()//237730
 {
-	return sub_8B5A0();
+	return FreeJoystickMemory_8B5A0();
 }
 
 //----- (0008B5A0) --------------------------------------------------------
-int sub_8B5A0()//26c5a0
+int FreeJoystickMemory_8B5A0()//26c5a0
 {
 	if (x_BYTE_E36D1)
 	{
 		switch (unk_18058Cstr.x_WORD_1805C2_joystick)
 		{
 		case 1:
-			sub_8B770();
+			FreeJoystickBuffer_8B770();
 			break;
 		case 9:
-			sub_75900();
+			ShutdownJoystickDevice_75900();
 			break;
 		default:
 			break;
@@ -322,14 +322,14 @@ int sub_8B5A0()//26c5a0
 // 1805C2: using guessed type __int16 x_WORD_1805C2_joystick;
 
 //----- (00053CF0) --------------------------------------------------------
-int sub_53CF0_access(const char* a1)//234cf0
+int FileAccess_53CF0(const char* a1)//234cf0
 {
 	return myaccess(a1, 0);
 }
 // 98CF2: using guessed type x_DWORD access(x_DWORD, x_DWORD);
 
 //----- (000560D0) --------------------------------------------------------
-void sub_560D0_create_sound_dir()//2370d0
+void CreateSoundDir_560D0()//2370d0
 {
 	FILE* diginifile2; // eax
 	FILE* diginifile; // ebx
@@ -377,13 +377,13 @@ void sub_560D0_create_sound_dir()//2370d0
 // D41A4: using guessed type int x_DWORD_D41A4;
 
 //----- (0008B770) --------------------------------------------------------
-int sub_8B770()//26c770
+int FreeJoystickBuffer_8B770()//26c770
 {
-	return sub_9B234((int*)unk_18058Cstr.unk_1805CE);
+	return FreeAndClear_9B234((int*)unk_18058Cstr.unk_1805CE);
 }
 
 //----- (00053EF0) --------------------------------------------------------
-bool sub_53EF0_fileexist(const char* path, const char* path2)//234ef0//fix a2
+bool IsEitherFileMissing_53EF0(const char* path, const char* path2)//234ef0//fix a2
 {
 	FILE* testfile1; // eax
 	FILE* testfile2; // eax
@@ -400,7 +400,7 @@ bool sub_53EF0_fileexist(const char* path, const char* path2)//234ef0//fix a2
 }
 
 //----- (0009B234) --------------------------------------------------------
-int sub_9B234(int* a1)//27C234
+int FreeAndClear_9B234(int* a1)//27C234
 {
 	int result; // eax
 
@@ -417,7 +417,7 @@ int sub_9B234(int* a1)//27C234
 // A0E6B: using guessed type x_DWORD free(x_DWORD);
 
 //----- (00075900) --------------------------------------------------------
-void sub_75900()
+void ShutdownJoystickDevice_75900()
 {
 	sub_75AB0();
 }
@@ -446,9 +446,9 @@ char LoadFilesFromCDAndGameData(const char* cdPath, const char* gamePath, const 
 	int v20; // [esp+18Ch] [ebp-8h]
 	//FILE* v21; // [esp+190h] [ebp-4h]
 
-	if (!sub_53F60(cdPath))//234F90 - 234F60
+	if (!IsFileMissing_53F60(cdPath))//234F90 - 234F60
 		return 2;
-	if (!sub_53F60(gamePath))//234FA5 - 234F60
+	if (!IsFileMissing_53F60(gamePath))//234FA5 - 234F60
 		return 1;
 	sprintf(printbuffer, "%s/%s.TAB", cdPath, fileName);//234FCA - 269F3D5
 	sprintf(printbuffer2, "%s/%s.TAB", gamePath, fileName);//234FE3 - 269F3D5
@@ -507,14 +507,14 @@ char LoadFilesFromCDAndGameData(const char* cdPath, const char* gamePath, const 
 }
 
 //----- (00053F60) --------------------------------------------------------
-bool sub_53F60(const char* a1)//234f60
+bool IsFileMissing_53F60(const char* a1)//234f60
 {
 	return myaccess(a1, 0) != NULL;//234F69 - 279CF2
 }
 // 98CF2: using guessed type x_DWORD access(x_DWORD, x_DWORD);
 
 //----- (0008C2CD) --------------------------------------------------------
-void sub_8C2CD()//26d2cd
+void NoOp_8C2CD()//26d2cd
 {
 	;
 }
@@ -687,7 +687,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 		delete m_Messages;
 
 		sub_5BC20();//23CC20 //remove devices?
-		sub_56730_clean_memory();//237730
+		CleanMemory_56730();//237730
 
 		if (CommandLineParams.ModeNetwork()) {
 			if (Iam_server || Iam_client)

@@ -85,7 +85,7 @@ void GetHintText_89AC0(char* buffer, int helpIndex);
 
 void SetPauseMenuClosed_41B60();
 void SetMenuCursorPosition_52E90(type_str_0x2BDE* playStr, uint16_t newMenuStatus, bool useSound, uint8_t scale = 1);
-void sub_53120();
+void CheckCdPresent_53120();
 void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popupSrcPos, char a4, char a5, uint8_t scale = 1);
 void SetHelpPopupCoords_87580();
 void SetPauseMenuCoordinates_87970(uint8_t scale = 1);
@@ -96,7 +96,7 @@ void SetTextBoxMinMaxForSetResolution();
 void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume);
 
 void DrawPauseMenuPopUps_87860();
-void sub_87C10();
+void CloseHelpPopup_87C10();
 void DrawBottomSpellsMenu_2ECC0();
 void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color);
 void AlphaRectangle(int posX, int posY, int width, int height, uint8_t alphaAmount);
@@ -108,10 +108,10 @@ void DrawCurrentObjectiveTextbox_30630(uint8_t scale = 1);
 void DrawSquareByColor_2E850(int posX, int posY, int width, int height, uint8_t color);//20f850
 void GetFont_6FC50(int16_t a1);
 void DrawInGameOptionsMenu_30050(uint8_t scale = 1);
-char sub_595C0(int16_t a1);
-char sub_59610(type_entity_0x6E8E** a1, int16_t a2);
-bool sub_596C0(axis_3d* a1, int16_t a2);
-char sub_63570(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
+char GetObjectiveStage_595C0(int16_t a1);
+char GetObjectiveTargetEntity_59610(type_entity_0x6E8E** a1, int16_t a2);
+bool GetObjectiveTargetPosition_596C0(axis_3d* a1, int16_t a2);
+char CanSeePlayerOnMinimap_63570(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
 void DrawMinimap_63600(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
 void DrawMinimapEntites_61880(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale);
 int TransformPlayerColorIndex_616D0(int index);
@@ -150,12 +150,12 @@ template <bool Masked, bool Blend, int FracBits>
 void DrawMapRows(uint8_t* ptrScreenBuffer, int height, int rowU, int rowV, int du, int dv, int rowStepU, int rowStepV);
 void DrawMapLowRes_63670(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
 void DrawMapHighRes_63C90(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
-void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale);
+void DrawMinimapEntities_627F0(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale);
 void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale);
 uint8_t CalculateScaleOffset(uint8_t scale);
 void DrawRectangle(uint8_t* ptrImageBufferStart, int posX, int poxY, int width, int height, uint8_t lineThickness, uint32_t pitch, uint8_t colour);
 
-void sub_885E0(type_entity_0x6E8E* a1, int16_t posX, int16_t posY, uint16_t a4);
+void SetHelpItemTarget_885E0(type_entity_0x6E8E* a1, int16_t posX, int16_t posY, uint16_t a4);
 
 void ComputeTextboxSizesFromTextWords_89420(Type_TextBox_1804B0* textbox, const char* text, uint8_t scale = 1);
 void ConstrainTextboxSizes_89520(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
@@ -165,13 +165,13 @@ void ComputeFrameSizes_89980(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
 
 void DrawLine_BD524(int16_t posX1, int16_t posY1, int16_t posX2, int16_t posY2, uint8_t color);
 void DrawLine_BD542(uint16_t posX1, uint16_t posY1, uint16_t posX2, uint16_t posY2, uint8_t color);
-void sub_548F0(type_str_0x2BDE* a1);
-void sub_1A280();
-int sub_1A4A0();
+void BackupMousePosition_548F0(type_str_0x2BDE* a1);
+void SetOptionsMenuFlags_1A280();
+int GetOptionsMenuWidth_1A4A0();
 void SetOkayCancelButtonsCursorPosition_1A030();
 void MoveCursorToSelectedSpell_6D200(type_str_0x2BDE* a1);
 void SetMousePositionInMemory_5BDC0(int16_t posX, int16_t posY);
-void sub_1A5B0_getLangStrings(int a1, int* a2, int* a3);
+void GetOptionsLangStrings_1A5B0(int a1, int* a2, int* a3);
 void GetOkayCancelButtonPositions_30BE0(int16_t* a1, int16_t* a2, uint8_t scale = 1);
 void ShowMessage_52D70(uint16_t playerIndex, char* cheatMessage);
 

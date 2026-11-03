@@ -158,13 +158,13 @@ long DataFileIO::FileLengthBytes(FILE* file)
 }
 
 //----- (00055C00) --------------------------------------------------------
-bool DataFileIO::sub_55C00_TestSaveFile2(int16_t a1)//236c00
+bool DataFileIO::TestSaveFile2_55C00(int16_t a1)//236c00
 {
-	return sub_55750_TestExistingSaveFile(0, a1);
+	return TestExistingSaveFile_55750(0, a1);
 }
 
 //----- (00055750) --------------------------------------------------------
-bool DataFileIO::sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex, bool loadRegressionTest)//236750 //load in game
+bool DataFileIO::TestExistingSaveFile_55750(uint8_t fileindex, int levelindex, bool loadRegressionTest)//236750 //load in game
 {
 	FILE* saveslevfile;
 	int32_t readState;
@@ -215,7 +215,7 @@ bool DataFileIO::sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelinde
 }
 
 //----- (00090D3F) --------------------------------------------------------
-char* DataFileIO::sub_90D3F_unload_file_array(int psindex)//271d3f
+char* DataFileIO::UnloadFileArray_90D3F(int psindex)//271d3f
 {
 	char* result; // eax
 
@@ -320,7 +320,7 @@ signed int DataFileIO::UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 	}
 	else
 	{
-		path.var36_size_buffer = (signed int)sub_AB9E1_get_file_unpack_size(path.path);
+		path.var36_size_buffer = (signed int)GetFileUnpackSize_AB9E1(path.path);
 		if (path.var36_size_buffer <= 0 && PackedGameData())//regression tests without the game: zeros (palette, empty sprites)
 		{
 			path.var36_size_buffer = 0x100000;//more than any file of pstr (BLOCK32 is 26000h)
@@ -362,7 +362,7 @@ signed int DataFileIO::UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 }
 
 //----- (000AB9E1) --------------------------------------------------------
-signed int DataFileIO::sub_AB9E1_get_file_unpack_size(const char* path)//28c9e1
+signed int DataFileIO::GetFileUnpackSize_AB9E1(const char* path)//28c9e1
 {
 	uint8_t v2[10]; // [esp+0h] [ebp-1Ch]
 	//unsigned __int8 v3; // [esp+4h] [ebp-18h]
@@ -416,7 +416,7 @@ signed int DataFileIO::sub_AB9E1_get_file_unpack_size(const char* path)//28c9e1
 // 99682: using guessed type x_DWORD strncmp(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (00098C48) --------------------------------------------------------
-signed int DataFileIO::sub_98C48_open_nwrite_close(const char* filename, uint8_t* buffer, uint32_t count)//279c48
+signed int DataFileIO::OpenWriteClose_98C48(const char* filename, uint8_t* buffer, uint32_t count)//279c48
 {
 	int result; // ST14_4
 	FILE* file; // [esp+4h] [ebp-8h]

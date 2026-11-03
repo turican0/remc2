@@ -332,7 +332,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	const int quadrantCos = Maths::sin_DB750[512 + quadrantYaw];
 	const int quadrantSin = Maths::sin_DB750[quadrantYaw];
 	SetBillboards_3B560(-roll & 0x7FF);//21d1aa
-	str_F2C20ar.dword0x18 = 7 * Maths::sub_7277A_radix_3d(viewPort.Width_DE564 * viewPort.Width_DE564 + viewPort.Height_DE568 * viewPort.Height_DE568) * fov >> 11;
+	str_F2C20ar.dword0x18 = 7 * Maths::IntegerSqrt_7277A(viewPort.Width_DE564 * viewPort.Width_DE564 + viewPort.Height_DE568 * viewPort.Height_DE568) * fov >> 11;
 	const uint8_t* steps = &m_tileSteps_D4328[10 * quadrant];
 
 	// the grid: x across the view, y (depth) along it
@@ -707,7 +707,7 @@ void GameRenderNG::DrawReflectedTile(TerrainVertex quad[4], int index)
 		}
 	}
 	if (tile.haveBillboard_36)
-		sub_3FD60(index);
+		DrawTileSpriteReflections_3FD60(index);
 }
 
 // The terrain tile and its sprites; with water the tiles with flag 0x80 are drawn transparent (mode 26) over the reflection.
@@ -985,7 +985,7 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 	if (m_shadows_F2CC7 && !tile.textAtyp_43 && !(entity->struct_byte_0xc_12_15.word[1] & 0x808))
 	{
 		//21f40c
-		const int height = sub_B5C60_getTerrainAlt2(entity->position_0x4C_76.x, entity->position_0x4C_76.y) - str_F2C20ar.dword0x20;
+		const int height = GetTerrainAlt2_B5C60(entity->position_0x4C_76.x, entity->position_0x4C_76.y) - str_F2C20ar.dword0x20;
 		const int64_t distance = static_cast<int64_t>(depth) * depth + static_cast<int64_t>(across) * across;
 		if (depth > 64 && distance < m_cutOffDistance)
 		{
@@ -1091,7 +1091,7 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 }
 
 // The entities of the tile mirrored in the water (below the terrain, upside down).
-void GameRenderNG::sub_3FD60(int tileIndex)
+void GameRenderNG::DrawTileSpriteReflections_3FD60(int tileIndex)
 {
 	FlushQueue();
 	Type_Sprite* sprite = nullptr;

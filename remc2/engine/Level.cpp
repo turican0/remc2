@@ -3,8 +3,8 @@
 
 bool IsAfterLoad = false;
 
-void sub_71890();
-void sub_718F0();
+void BuildLevelSpriteList_71890();
+void LoadLevelSpriteTmaps_718F0();
 
 
 char x_BYTE_E29E8 = 1; // weak
@@ -211,7 +211,7 @@ bool SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //
 	SaveLevelShadow(&shadow_type_D41A0_BYTESTR_0);
 
 	int size = sizeof(shadow_type_D41A0_BYTESTR_0);
-	if (DataFileIO::sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)&shadow_type_D41A0_BYTESTR_0, size) == size) success = true;
+	if (DataFileIO::OpenWriteClose_98C48(printbuffer, (uint8_t*)&shadow_type_D41A0_BYTESTR_0, size) == size) success = true;
 	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393 = temptime;
 
 	return success;
@@ -251,7 +251,7 @@ bool SaveLevelSVER_55450(uint8_t savefileindex, int32_t levelNumber, char* savef
 	data[0] = 15;
 	bool success = false;
 	sprintf(printbuffer, "%s/%s%d%s.DAT", SaveDirectory().c_str(), "SVER", savefileindex + 1, savefileindex2);
-	if (DataFileIO::sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)data, 2*sizeof(int32_t)) == 8)
+	if (DataFileIO::OpenWriteClose_98C48(printbuffer, (uint8_t*)data, 2*sizeof(int32_t)) == 8)
 		success = true;
 	return success;
 }
@@ -289,7 +289,7 @@ bool LoadLevel_555D0(uint8_t fileindex, int levelindex, bool loadRegressionTest)
 		temp0x21AE = D41A0_0.str_0x21AE;
 		temp0x21B2 = D41A0_0.str_0x21B2;
 		temp0x21B6 = D41A0_0.str_0x21B6;
-		readSuccess = DataFileIO::sub_55750_TestExistingSaveFile(fileindex, levelindex, loadRegressionTest);
+		readSuccess = DataFileIO::TestExistingSaveFile_55750(fileindex, levelindex, loadRegressionTest);
 		//adress  23662a
 		if (readSuccess)
 		{
@@ -303,13 +303,13 @@ bool LoadLevel_555D0(uint8_t fileindex, int levelindex, bool loadRegressionTest)
 				readSuccess = LoadLevelSLEV_55A10(fileindex, loadRegressionTest);
 				if (readSuccess)
 				{
-					sub_55100(2);
-					sub_57680_FixPointersAfterLoad();
-					sub_549A0(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.str_611, &x_D41A0_BYTEARRAY_4_struct.byteindex_256ar.dword_0x3E6_2BE4_12228.str_611);
-					sub_49F90();
+					ConvertObjectivePointers_55100(2);
+					FixPointersAfterLoad_57680();
+					CopyPlayerSpellData_549A0(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.str_611, &x_D41A0_BYTEARRAY_4_struct.byteindex_256ar.dword_0x3E6_2BE4_12228.str_611);
+					RebuildEntityLists_49F90();
 					D41A0_0.dword_0x11e6 = -1;
-					sub_55AB0(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
-					sub_71990();
+					CreatePlayerSpellEntities_55AB0(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
+					ReloadLevelTmaps_71990();
 					FlvInitSet_473B0();
 				}
 			}
@@ -415,8 +415,8 @@ bool SaveLevel_55080(uint8_t savefileindex, int32_t LevelNumber, char* savefilei
 	bool success = false;
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE))
 	{
-		sub_71930();
-		sub_55100(1);
+		MarkLoadedTmaps_71930();
+		ConvertObjectivePointers_55100(1);
 		success = SaveLevelSLEV_55250(savefileindex, savefileindex2);
 		if (success)
 		{
@@ -424,8 +424,8 @@ bool SaveLevel_55080(uint8_t savefileindex, int32_t LevelNumber, char* savefilei
 			if (success)
 				success = SaveLevelSVER_55450(savefileindex, LevelNumber, savefileindex2);
 		}
-		sub_55100(2);
-		sub_49F90();
+		ConvertObjectivePointers_55100(2);
+		RebuildEntityLists_49F90();
 		D41A0_0.dword_0x11e6 = -1;
 	}
 	return success;
@@ -445,7 +445,7 @@ std::vector<uint8_t> SaveLevelToBuffer()
 	std::vector<uint8_t> save(sizeof(type_shadow_D41A0_BYTESTR_0));
 	auto shadow = (type_shadow_D41A0_BYTESTR_0*)save.data();
 	auto live = std::make_unique<type_D41A0_BYTESTR_0>(D41A0_0);
-	sub_55100(1);
+	ConvertObjectivePointers_55100(1);
 	SaveLevelShadow(shadow);
 	D41A0_0 = *live;
 	for (int i = 0; i < 1000; i++)//entity lists as indexes, the shadow keeps 32 bits of a pointer
@@ -481,8 +481,8 @@ bool LoadLevelFromBuffer(const std::vector<uint8_t>& save)
 		D41A0_0.pointers_0x246[i] = shadow->pointers_0x246[i] && shadow->pointers_0x246[i] < 1000 ? &D41A0_0.struct_0x6E8E[shadow->pointers_0x246[i]] : nullptr;
 		D41A0_0.dword_0x11EA[i] = shadow->dword_0x11EA[i] && shadow->dword_0x11EA[i] < 1000 ? &D41A0_0.struct_0x6E8E[shadow->dword_0x11EA[i]] : nullptr;
 	}
-	sub_55100(2);
-	for (int i = 1; i <= D41A0_0.countStageVars_0x36E00; i++)//sub_55100(2) keeps these as offsets, as the original (0x2361C9)
+	ConvertObjectivePointers_55100(2);
+	for (int i = 1; i <= D41A0_0.countStageVars_0x36E00; i++)//ConvertObjectivePointers_55100(2) keeps these as offsets, as the original (0x2361C9)
 	{
 		auto& stageVar = D41A0_0.StageVars2_0x365F4[i];
 		uint8_t type = stageVar.index_0x3647A_0;
@@ -490,7 +490,7 @@ bool LoadLevelFromBuffer(const std::vector<uint8_t>& save)
 			&& stageVar.str_0x3647C_4.dword && stageVar.str_0x3647C_4.dword % sizeof(type_shadow_str_0x6E8E) == 0 && stageVar.str_0x3647C_4.dword < 1000 * sizeof(type_shadow_str_0x6E8E))
 			stageVar.str_0x3647C_4.pointer_0x6E8E = &D41A0_0.struct_0x6E8E[stageVar.str_0x3647C_4.dword / sizeof(type_shadow_str_0x6E8E)];
 	}
-	sub_57680_FixPointersAfterLoad();
+	FixPointersAfterLoad_57680();
 	// live values: pointers the fixes overwrite and the settings, as LoadLevel_555D0
 	D41A0_0.struct_0x6E8E[0].dword_0xA4_164x = live->struct_0x6E8E[0].dword_0xA4_164x;
 	D41A0_0.str_0x3664C[0].event_A.pointer_0x6E8E = live->str_0x3664C[0].event_A.pointer_0x6E8E;
@@ -508,7 +508,7 @@ bool LoadLevelFromBuffer(const std::vector<uint8_t>& save)
 }
 
 //----- (00049270) --------------------------------------------------------
-void sub_49270_generate_level_features(Type_Level_2FECE* terrain)//22a270
+void GenerateLevelFeatures_49270(Type_Level_2FECE* terrain)//22a270
 {
 	SetStagetagForTermod_49830(terrain);
 	//adress 22A27D
@@ -917,9 +917,9 @@ void LoadFixedFonts(int fontStructIndex, char* type)
 	if (createIndexType == 0)
 	{
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			sub_98709_create_index_dattab_power(datTabOffset0, datTabOffset1, fontDatBase, fontStruct);
+			CreateIndexDatTabDoubled_98709(datTabOffset0, datTabOffset1, fontDatBase, fontStruct);
 		else
-			sub_9874D_create_index_dattab(datTabOffset0, datTabOffset1, fontDatBase, fontStruct);
+			CreateIndexDatTab_9874D(datTabOffset0, datTabOffset1, fontDatBase, fontStruct);
 	}
 	else
 		CreateIndexes_6EB90(structForIndex2);
@@ -1085,7 +1085,7 @@ void LoadFixedMenuGraphics()
 		Logger->debug("LoadFixedMenuGraphics: no sprites patched for map type '{}'.", mapFolder);
 		return;
 	}
-	sub_9874D_create_index_dattab(
+	CreateIndexDatTab_9874D(
 		HSPRD00TAB_BEGIN_BUFFER,
 		HSPRD00TAB_END_BUFFER,
 		HSPRD00DAT_BEGIN_BUFFER,
@@ -1158,7 +1158,7 @@ void LoadSpr_47160()//228160
 
 int debugcounter_236100 = 0;
 //----- (00055100) --------------------------------------------------------
-void sub_55100(char a1)//236100
+void ConvertObjectivePointers_55100(char a1)//236100
 {
 	signed int v2; // eax
 	#if defined(x32_BIT_ENVIRONMENT)
@@ -1314,7 +1314,7 @@ void sub_55100(char a1)//236100
 }
 
 //----- (00057680) --------------------------------------------------------
-void sub_57680_FixPointersAfterLoad()//238680
+void FixPointersAfterLoad_57680()//238680
 {
 	D41A0_0.str_0x3664C[0].event_A.pointer_0x6E8E = nullptr;
 
@@ -1339,7 +1339,7 @@ void sub_57680_FixPointersAfterLoad()//238680
 }
 
 //----- (000549A0) --------------------------------------------------------
-void sub_549A0(type_str_611* a1x, type_str_611* a2x)//2359a0
+void CopyPlayerSpellData_549A0(type_str_611* a1x, type_str_611* a2x)//2359a0
 {
 	a1x->array_0x3E9_1001x = a2x->array_0x3E9_1001x;
 	a1x->SpellExperience_0x263_611x = a2x->SpellExperience_0x263_611x;
@@ -1349,7 +1349,7 @@ void sub_549A0(type_str_611* a1x, type_str_611* a2x)//2359a0
 }
 
 //----- (00049F90) --------------------------------------------------------
-void sub_49F90()//22af90
+void RebuildEntityLists_49F90()//22af90
 {
 	int iy;
 	signed int v2; // ebx
@@ -1357,7 +1357,7 @@ void sub_49F90()//22af90
 	for (iy = 1; iy < 0x3e8; iy++)
 	{
 		if (Entities_EA3E4[iy]->class_0x3F_63 && Entities_EA3E4[iy]->struct_byte_0xc_12_15.byte[1] & 4)
-			sub_57F20(Entities_EA3E4[iy]);
+			ReleaseEntity_57F20(Entities_EA3E4[iy]);
 	}
 	D41A0_0.dword_0x35 = -1;
 	v2 = 999;
@@ -1383,7 +1383,7 @@ void sub_49F90()//22af90
 }
 
 //----- (00055AB0) --------------------------------------------------------
-void sub_55AB0(type_str_0x2BDE* playStr)//236ab0
+void CreatePlayerSpellEntities_55AB0(type_str_0x2BDE* playStr)//236ab0
 {
 	for (int i = 0; i < 26; i++)
 	{
@@ -1406,7 +1406,7 @@ void sub_55AB0(type_str_0x2BDE* playStr)//236ab0
 			if (playStr->dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[i]])
 			{
 				playStr->dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[i]] = 0;
-				sub_57F20(Entities_EA3E4[playStr->dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[i]]]);
+				ReleaseEntity_57F20(Entities_EA3E4[playStr->dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[i]]]);
 			}
 		}
 	}
@@ -1417,7 +1417,7 @@ void sub_55AB0(type_str_0x2BDE* playStr)//236ab0
 }
 
 //----- (00071990) --------------------------------------------------------
-void sub_71990()//252990
+void ReloadLevelTmaps_71990()//252990
 {
 	char i; // bl
 	unsigned __int16 j; // si
@@ -1426,7 +1426,7 @@ void sub_71990()//252990
 
 	v6_return = 0;
 	if (!x_DWORD_E9C28_str)
-		sub_712F0();
+		InitTmapsAndSprites_712F0();
 	for(int i=0;i<504;i++)
 		if (!D41A0_0.array_0x39[i])
 			ResetTmap_70D20(i);
@@ -1436,10 +1436,10 @@ void sub_71990()//252990
 		{
 			if (i == D41A0_0.array_0x39[j] && !m_ptrLoadedSprites_F66F0x[j])
 			{
-				v4 = sub_70EF0(j);
-				if (sub_71E60(x_DWORD_E9C28_str) <= v4)
+				v4 = GetTmapGroupSize_70EF0(j);
+				if (GetTmapCacheFreeSize_71E60(x_DWORD_E9C28_str) <= v4)
 				{
-					if (sub_71E60(x_DWORD_E9C28_str) < 0x400)
+					if (GetTmapCacheFreeSize_71E60(x_DWORD_E9C28_str) < 0x400)
 						v6_return = 1;
 				}
 				else
@@ -1452,7 +1452,7 @@ void sub_71990()//252990
 }
 
 //----- (00071930) --------------------------------------------------------
-void sub_71930()//252930
+void MarkLoadedTmaps_71930()//252930
 {
 	for (int i=0; i < 508; i++) D41A0_0.array_0x39[i] = 0;
 	for (int i=0; i < 504; i++) {
@@ -1504,7 +1504,7 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* text
 	char dataPath[MAX_PATH];
 	char tabPath[MAX_PATH];
 
-	sub_47130();
+	FreeWebSprites_47130();
 	v0 = MapType;
 	switch (v0)
 	{
@@ -1574,9 +1574,9 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* text
 				x_DWORD_D4190 = (bitmap_pos_struct2_t*)((int8_t*)x_DWORD_D4188+file2lenght+file1Lenght);
 				//x_DWORD_D4190 = &x_DWORD_D4188[(file2lenght + file1Lenght) / sizeof(bitmap_pos_struct2_t)];
 				if (vgaTypeResolution & 1)
-					sub_98709_create_index_dattab_power(x_DWORD_D418C, x_DWORD_D4190, (uint8_t*)x_DWORD_D4188, x_DWORD_D4188t_spritestr);
+					CreateIndexDatTabDoubled_98709(x_DWORD_D418C, x_DWORD_D4190, (uint8_t*)x_DWORD_D4188, x_DWORD_D4188t_spritestr);
 				else
-					sub_9874D_create_index_dattab(x_DWORD_D418C, x_DWORD_D4190, (uint8_t*)x_DWORD_D4188, x_DWORD_D4188t_spritestr);
+					CreateIndexDatTab_9874D(x_DWORD_D418C, x_DWORD_D4190, (uint8_t*)x_DWORD_D4188, x_DWORD_D4188t_spritestr);
 			}
 		}
 	}
@@ -1626,22 +1626,22 @@ void SetSpell_6D5E0(type_entity_0x6E8E* entity, int spellId)//24e5e0
 }
 
 //----- (000712F0) --------------------------------------------------------
-void sub_712F0()//2522f0
+void InitTmapsAndSprites_712F0()//2522f0
 {
-	x_DWORD_E9C28_str = sub_71B40(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230, 504, (type_x_DWORD_E9C28_str*)x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226);
+	x_DWORD_E9C28_str = InitTmapCache_71B40(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230, 504, (type_x_DWORD_E9C28_str*)x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226);
 	if (x_DWORD_E9C28_str)
-		animations_E9C08x = sub_72120(0x1F8u);
-	sub_70A60_open_tmaps();
-	sub_71A70_setTmaps(D41A0_0.terrain_2FECE.MapType);
+		animations_E9C08x = AllocateAnimations_72120(0x1F8u);
+	OpenTmaps_70A60();
+	SetTmapsFile_71A70(D41A0_0.terrain_2FECE.MapType);
 	memset(m_ptrLoadedSprites_F66F0x, 0, 504 * sizeof(Type_Sprite**));
 	memset(str_F5F10, 0, 504*sizeof(Type_Sprite**));
 	memset(x_DWORD_F5730, 0, 2016);
-	sub_71890();
-	sub_718F0();
+	BuildLevelSpriteList_71890();
+	LoadLevelSpriteTmaps_718F0();
 }
 
 //----- (00071890) --------------------------------------------------------
-void sub_71890()//252890
+void BuildLevelSpriteList_71890()//252890
 {
 	//char result; // al
 	int v0y = 0;
@@ -1657,7 +1657,7 @@ void sub_71890()//252890
 }
 
 //----- (000718F0) --------------------------------------------------------
-void sub_718F0()//2528f0
+void LoadLevelSpriteTmaps_718F0()//2528f0
 {
 	unsigned __int16 v0; // bx
 	v0 = 0;
@@ -1672,7 +1672,7 @@ void sub_718F0()//2528f0
 }
 
 //----- (00071A70) --------------------------------------------------------
-void sub_71A70_setTmaps(MapType_t a1)//252a70
+void SetTmapsFile_71A70(MapType_t a1)//252a70
 {
 	FILE* v1; // edx
 	//unsigned __int8 result; // al
@@ -1707,7 +1707,7 @@ void sub_71A70_setTmaps(MapType_t a1)//252a70
 // DB748: using guessed type int x_DWORD_DB748_tmaps20file;
 
 //----- (00072120) --------------------------------------------------------
-type_E9C08* sub_72120(unsigned __int16 a1)//253120
+type_E9C08* AllocateAnimations_72120(unsigned __int16 a1)//253120
 {
 	unsigned __int16 v1; // di
 	type_E9C08* v2x; // esi
@@ -1716,7 +1716,7 @@ type_E9C08* sub_72120(unsigned __int16 a1)//253120
 	//int v5; // eax
 
 	v1 = a1;
-	sub_83CC0(9);
+	SetAllocationTag_83CC0(9);
 	v2x = (type_E9C08*)Malloc_83CD0(sizeof(type_E9C08));
 	v3x = v2x;
 	if (v2x && (v4 = (type_animations1*)Malloc_83CD0(sizeof(type_animations1) * a1), (v2x->dword_2 = v4) != 0))
@@ -1736,12 +1736,12 @@ type_E9C08* sub_72120(unsigned __int16 a1)//253120
 		FreeMem_83E80((uint8_t*)v2x);
 		v3x = 0;
 	}
-	sub_83CC0(10);
+	SetAllocationTag_83CC0(10);
 	return v3x;
 }
 
 //----- (00071B40) --------------------------------------------------------
-type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C28_str* a3y)//252b40
+type_x_DWORD_E9C28_str* InitTmapCache_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C28_str* a3y)//252b40
 {
 	int v5; // eax
 	int v6; // edx
@@ -1876,7 +1876,7 @@ int GetSpellManaCost_6D710(type_entity_0x6E8E* event, uint8 spellIndex, uint8 su
 }
 
 //----- (00083CC0) --------------------------------------------------------
-void sub_83CC0(char a1)//264cc0
+void SetAllocationTag_83CC0(char a1)//264cc0
 {
 	x_BYTE_E29E8 = a1; // FIXME: Can this be removed? Only written, never read.
 }

@@ -37,10 +37,10 @@ public:
 	static char x_BYTE_D41D8[328];
 
 	static unsigned int EuclideanDistXYZ_58490(axis_3d* a1, axis_3d* a2);
-	static unsigned int sub_7277A_radix_3d(unsigned int a1);
-	static int16_t sub_58210_radix_tan(axis_3d* a1, axis_3d* a2);
-	static uint16_t sub_72633_maybe_tan(int16_t a1, int16_t a2);
-	static int16_t sub_581E0_maybe_tan2(axis_3d* a1, axis_3d* a2);
+	static unsigned int IntegerSqrt_7277A(unsigned int a1);
+	static int16_t GetPitchAngle_58210(axis_3d* a1, axis_3d* a2);
+	static uint16_t Atan2_72633(int16_t a1, int16_t a2);
+	static int16_t GetYawAngle_581E0(axis_3d* a1, axis_3d* a2);
 	static void x_BitScanReverse(uint32_t* Destination, uint32_t Source);
 	static int SubtrackUntilZero(int x, int y);
 	static uint16_t CurveCoords(uint16_t x, uint16_t y, std::vector<Maths::Zone>& zones);

@@ -67,8 +67,8 @@ int sub_980D0(x_DWORD *a1, int a2);
 int sub_98170(x_DWORD *a1, int a2, int a3);
 int sub_A158B(int a1, __int16 a2, x_WORD *a3, x_WORD *a4);
 bool sub_A4CB0();
-int sub_A4F10(int a1, char a2, char a3, char a4);
-x_DWORD * sub_A5850(int a1, char a2, unsigned int a3, signed int a4, int a5);*/
+int SendMidiChannelMessage_A4F10(int a1, char a2, char a3, char a4);
+x_DWORD * SendSequenceMidiMessage_A5850(int a1, char a2, unsigned int a3, signed int a4, int a5);*/
 
 #define O_RDONLY        0x00    /* read only */
 #define O_WRONLY        0x01    /* write only */
@@ -495,7 +495,7 @@ void sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
 //void __outx_WORD(unsigned short Port, unsigned short Data);
 //void __outx_BYTE(unsigned short Port, unsigned char Data);
 //unsigned char __inx_BYTE(unsigned short Port);
-void sub_44EE0_smooth_tiles(/*int a1, */uaxis_2d a2);
+void SmoothTiles_44EE0(/*int a1, */uaxis_2d a2);
 void sub_54600_mouse_reset();
 void LevelInitGame_56A30(int16_t level = -1, std::string customLevelPath = "");
 void sub_5B870_copy_sentence(char* langbuffer, char** langindexbuffer, uint32_t count);
@@ -535,8 +535,8 @@ int32_t /*__cdecl*/ signal(int32_t, int32_t);// weak
 //void(*dos_getvect(x_DWORD number))();
 //x_DWORD /*__cdecl*/ dos_setvect(x_DWORD number, void(*actcall)(), x_DWORD);// weak
 //unsigned char _BitScanReverse(unsigned long * Index, unsigned long Mask);
-//void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6);
-//void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t a2, int a3, uint8_t* a4, uint8_t setbyte, char a6);
+//void DrawBitmapFinalUnscaled_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6);
+//void DrawBitmapFinal_8F935(uint8_t a1byte1, uint8_t a1byte2, uint16_t a2, int a3, uint8_t* a4, uint8_t setbyte, char a6);
 //x_DWORD /*__cdecl*/ segread(SREGS*); //weak
 //x_DWORD /*__cdecl*/ int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);// weak
 //int int386x(int, REGS *, REGS *, struct SREGS *);
@@ -625,9 +625,9 @@ HMDIDRIVER sub_A77D0_AIL_API_install_MDI_INI(char* filename, IO_PARMS* IO);
 */
 int32_t /*__cdecl*/ x_setmode(FILE* path, int mode);// weak
 //uint32_t sub_98AE0(uint8_t *a1);
-//__int16 sub_98B2C(unsigned __int8 a1, int a2);
+//__int16 ReadBits_98B2C(unsigned __int8 a1, int a2);
 //char sub_98BAF(int a1);
-__int16 sub_98AE9(__int16* a1, int a2);
+__int16 DecodeHuffmanSymbol_98AE9(__int16* a1, int a2);
 unsigned __CFRCR__(__int16 a, unsigned __int8 b);
 uint32_t /*__cdecl*/ x_write(FILE* descriptor, uint8_t* buffer, uint32_t size_t);
 //int32_t /*__cdecl*/ x_tolower(int32_t);// weak
@@ -643,9 +643,9 @@ void __inx_BYTEstring(unsigned short Port, unsigned char* Buffer, unsigned long 
 int sub_ACE8D(int16_t* a1, int a2, int* a3);
 void sub_AD0E2(int8_t* a1, int a2, int* a3, int8_t** a4);
 void sub_ACF1A(int8_t* a1, int a2, int* a3);
-void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
+void TerrainSquareStep_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, uint8_t* a6);
-void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
+void TerrainDiamondStep_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 Type_SecretMapScreenPortals_E2970* GetSecretAndActivedPortal_824B0(__int16 actLevel);
 
 void sub_101C0();

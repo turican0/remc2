@@ -134,12 +134,12 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 			break;
 		case 'K':
 		case 'W':
-			sub_2EC30_clear_img_mem();
+			ClearSubtitleImageMemory_2EC30();
 			break;
 		case 'L':
 		case 'l':
 			if (x_DWORD_E387C)
-				sub_8F0AB(x_FILE_E3840, /*x_DWORD_E387C, */pSoundEvent[soundEventIndex_D4004].index);
+				ReadIntoFileBuffer_8F0AB(x_FILE_E3840, /*x_DWORD_E387C, */pSoundEvent[soundEventIndex_D4004].index);
 			StartMusic_8E160(pSoundEvent[soundEventIndex_D4004].index, 0x7Fu, true);
 			break;
 		case 'M':
@@ -161,7 +161,7 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 				Update_Playing_Sample_Status_8F710(0, pSoundEvent[soundEventIndex_D4004].index, 0x50u, 2u, 0);
 			break;
 		case 'Q':
-			sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[pSoundEvent[soundEventIndex_D4004].index]);
+			DrawSubtitleTextWithBorder_2EBB0(x_DWORD_E9C4C_langindexbuffer[pSoundEvent[soundEventIndex_D4004].index]);
 			break;
 		case 'R':
 		case 'r':
@@ -189,7 +189,7 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 			}
 			break;
 		case 'U':
-			sub_2EBB0_draw_text_with_border_630x340(x_DWORD_E9C4C_langindexbuffer[pSoundEvent[soundEventIndex_D4004].index]);
+			DrawSubtitleTextWithBorder_2EBB0(x_DWORD_E9C4C_langindexbuffer[pSoundEvent[soundEventIndex_D4004].index]);
 			break;
 		case 'V':
 			if (DisplaySubtitles_D41C0)
@@ -200,7 +200,7 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 			StopMusic_8E020();
 			break;
 		case 'Y':
-			sub_2EC60();
+			ClearSubtitles_2EC60();
 			break;
 		default:
 			break;
@@ -270,7 +270,7 @@ void DrawFrame_75E70()//256e70
 				paletteChanged = true;
 				break;
 			case 7:
-				sub_76300();//257300 - uz by mel byt vykreslen text
+				DecodeFlcDeltaChunk_76300();//257300 - uz by mel byt vykreslen text
 				strcpy(&x_BYTE_17D738[strlen(x_BYTE_17D738)], (char*)"SS2 ");
 				break;
 			case 11:
@@ -279,7 +279,7 @@ void DrawFrame_75E70()//256e70
 				paletteChanged = true;
 				break;
 			case 12:
-				sub_76430();
+				DecodeFliLineCompressChunk_76430();
 				strcpy(&x_BYTE_17D738[strlen(x_BYTE_17D738)], (char*)"LC ");
 				break;
 			case 13:
@@ -287,7 +287,7 @@ void DrawFrame_75E70()//256e70
 				strcpy(&x_BYTE_17D738[strlen(x_BYTE_17D738)], (char*)"BLACK ");
 				break;
 			case 15:
-				sub_76540();//257540
+				DecodeFliByteRunChunk_76540();//257540
 				strcpy(&x_BYTE_17D738[strlen(x_BYTE_17D738)], (char*)"BRUN ");
 				break;
 			case 16:
@@ -308,35 +308,35 @@ void DrawFrame_75E70()//256e70
 	}
 	if (x_DWORD_17DB3C)
 		x_DWORD_17DB3C();
-	sub_75CB0();//256cb0
+	WaitForNextAnimationFrame_75CB0();//256cb0
 	if (paletteChanged)
 	{
 		fix_sub_9A0FC_wait_to_screen_beam(0);//27b0fc
 		if (redrawTextInVideo_E12FC)
 		{
 			sub_41A90_VGA_Palette_install(unk_17D838x);
-			sub_2EC90(getPaletteIndex_5BE80(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu));//20fc90 -zde se prekresli texty
+			SetSubtitleColourAndRedraw_2EC90(getPaletteIndex_5BE80(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu));//20fc90 -zde se prekresli texty
 		}
 	}
 
 	if (DisplaySubtitles_D41C1)
 	{
 		pdwScreenBuffer_351628 += 0x26C0;
-		sub_90478_VGA_Blit320(UINT8_MAX);
+		VGA_Blit320_90478(UINT8_MAX);
 		pdwScreenBuffer_351628 -= 0x26C0;
 	}
 	else
 	{
-		sub_90478_VGA_Blit320(UINT8_MAX);
+		VGA_Blit320_90478(UINT8_MAX);
 	}
 }
 
 //----- (0002EC60) --------------------------------------------------------
-void sub_2EC60()//20fc60
+void ClearSubtitles_2EC60()//20fc60
 {
 	if (SubtitlesOn_D41CE)
 	{
-		sub_2EC30_clear_img_mem();
+		ClearSubtitleImageMemory_2EC30();
 		DisplaySubtitles_D41C1 = 0;
 		SubtitlesOn_D41CE = 0;
 		x_DWORD_D41D0 = 0;
@@ -344,7 +344,7 @@ void sub_2EC60()//20fc60
 }
 
 //----- (00076300) --------------------------------------------------------
-void sub_76300()//257300
+void DecodeFlcDeltaChunk_76300()//257300
 {
 	int32_t v0; // edi
 	//int16_t result; // ax
@@ -432,7 +432,7 @@ void sub_76300()//257300
 // 17DB48: using guessed type __int16 x_WORD_17DB48;
 
 //----- (00076430) --------------------------------------------------------
-int sub_76430()
+int DecodeFliLineCompressChunk_76430()
 {
 	uint8_t* v0; // edi
 	int result; // eax
@@ -492,7 +492,7 @@ int sub_76430()
 // 17DB48: using guessed type __int16 x_WORD_17DB48;
 
 //----- (00076540) --------------------------------------------------------
-int sub_76540()//257540
+int DecodeFliByteRunChunk_76540()//257540
 {
 	uint8_t* v0; // esi
 	char* v1; // ebx
@@ -551,9 +551,9 @@ std::string get_current_time_str() {
 }
 
 //----- (00075CB0) --------------------------------------------------------
-void sub_75CB0()//256cb0
+void WaitForNextAnimationFrame_75CB0()//256cb0
 {
-	if (x_WORD_E12FE && sub_473E0())
+	if (x_WORD_E12FE && HasSkipInput_473E0())
 	{
 		stopPlaybackFlag_17DB5A = 1;
 	}
@@ -569,7 +569,7 @@ void sub_75CB0()//256cb0
 		while (now < deadline)
 		//while (GameTimerTurn_17DB54 < x_DWORD_E3844)
 		{
-			if (x_WORD_E12FE && sub_473E0())
+			if (x_WORD_E12FE && HasSkipInput_473E0())
 			{
 				stopPlaybackFlag_17DB5A = 1;
 				return;
@@ -587,7 +587,7 @@ void sub_75CB0()//256cb0
 
 /*
 //----- (0009A0FC) --------------------------------------------------------
-void sub_9A0FC_wait_to_screen_beam()//27B0fc
+void WaitToScreenBeam_9A0FC()//27B0fc
 {
 	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
 
@@ -596,7 +596,7 @@ void sub_9A0FC_wait_to_screen_beam()//27B0fc
 }*/
 
 //----- (000473E0) --------------------------------------------------------
-int sub_473E0()//2283e0
+int HasSkipInput_473E0()//2283e0
 {
 	char v0; // bl
 	//__int16 v1; // ax

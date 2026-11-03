@@ -54,7 +54,7 @@ extern uint8_t connected_E12A6;
 
 void NetworkDisallocation_72D04();
 // int sub_72DDE(signed __int16 *a1, int a2);
-int sub_72E70(signed __int16* a3);//not used
+int ConnectToNetworkPlayers_72E70(signed __int16* a3);//not used
 signed int NetworkTestCall_72FBB();
 void NetworkListenAll_7302E();
 // int NetworkInitConnection_7308F(signed __int16 *a1, int a2, __int16 a3);

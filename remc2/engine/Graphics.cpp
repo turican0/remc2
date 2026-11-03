@@ -13,7 +13,7 @@ bitmap_pos_struct2_t* x_DWORD_D4190 = 0; // weak
 
 
 //----- (000A0D50) --------------------------------------------------------
-void sub_A0D50_set_viewport(uint16_t posX, uint16_t posY, uint16_t width, uint16_t height)//281d50
+void SetViewport_A0D50(uint16_t posX, uint16_t posY, uint16_t width, uint16_t height)//281d50
 {
 	x_DWORD_18063C_sprite_sizex = posX;
 	x_DWORD_180650_positiony = posY;

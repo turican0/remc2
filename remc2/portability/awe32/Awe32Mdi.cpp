@@ -192,7 +192,7 @@ void Awe32Mdi::SendMessages(const uint8_t* data, int count)
 		case 0xD0: g_synth->ChannelPressure(ch, data[pos + 1]); pos += 2; break;
 		case 0xE0: g_synth->PitchBend(ch, (int16_t)(((data[pos + 2] << 7) | data[pos + 1]) - 8192)); pos += 3; break;
 		default:
-			// a system exclusive message is alone in the buffer (AIL sub_A4FD0)
+			// a system exclusive message is alone in the buffer (AIL SendMidiSysExMessage_A4FD0)
 			Logger->debug("AWE32: MIDI message {:02X} ignored", status);
 			return;
 		}

@@ -66,8 +66,8 @@ int sub_980D0(x_DWORD *a1, int a2);
 int sub_98170(x_DWORD *a1, int a2, int a3);
 int sub_A158B(int a1, __int16 a2, x_WORD *a3, x_WORD *a4);
 bool sub_A4CB0();
-int sub_A4F10(int a1, char a2, char a3, char a4);
-x_DWORD * sub_A5850(int a1, char a2, unsigned int a3, signed int a4, int a5);*/
+int SendMidiChannelMessage_A4F10(int a1, char a2, char a3, char a4);
+x_DWORD * SendSequenceMidiMessage_A5850(int a1, char a2, unsigned int a3, signed int a4, int a5);*/
 
 #ifndef SUB_MAIN_ACTIVE
 #define SUB_MAIN_ACTIVE
@@ -78,17 +78,17 @@ void begin_plugin();
 void preconvert();
 void initposistruct();
 void sub_56210_process_command_line(int a1, char** a2);
-int sub_56730_clean_memory();
-int sub_8B5A0();
-int sub_8B770();
-int sub_9B234(int* a1);
-void sub_75900();
-int sub_53CF0_access(const char* a1);
-void sub_560D0_create_sound_dir();
-bool sub_53EF0_fileexist(const char* path, const char* path2);
+int CleanMemory_56730();
+int FreeJoystickMemory_8B5A0();
+int FreeJoystickBuffer_8B770();
+int FreeAndClear_9B234(int* a1);
+void ShutdownJoystickDevice_75900();
+int FileAccess_53CF0(const char* a1);
+void CreateSoundDir_560D0();
+bool IsEitherFileMissing_53EF0(const char* path, const char* path2);
 char LoadFilesFromCDAndGameData(const char* cdPath, const char* gamePath, const char* fileName);
-bool sub_53F60(const char* a1);
-void sub_8C2CD();
+bool IsFileMissing_53F60(const char* a1);
+void NoOp_8C2CD();
 void NetworkAllocation2_5C430();
 Scene GetCurrentScene();
 void SetCurrentScene(const Scene scene);

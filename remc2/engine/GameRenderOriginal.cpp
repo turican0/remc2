@@ -600,7 +600,7 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 	v13 = Maths::sin_DB750[v12];
 	SetBillboards_3B560(-roll & 0x7FF);//21d1aa
 	str_F2C20ar.dword0x18 = 7
-		* Maths::sub_7277A_radix_3d(
+		* Maths::IntegerSqrt_7277A(
 			(unsigned __int16)viewPort.Width_DE564 * (unsigned __int16)viewPort.Width_DE564
 			+ (unsigned __int16)viewPort.Height_DE568 * (unsigned __int16)viewPort.Height_DE568)
 		* fov >> 11;
@@ -1257,7 +1257,7 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 								v143--;
 							}*/
 							if (Str_E9C38_smalltit[v134x].haveBillboard_36)
-								sub_3FD60(v134x);
+								DrawTileSpriteReflections_3FD60(v134x);
 							v134x++;
 						}
 						if (n)
@@ -1324,7 +1324,7 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 									}
 								}
 								if (Str_E9C38_smalltit[v147x].haveBillboard_36)
-									sub_3FD60(v147x);
+									DrawTileSpriteReflections_3FD60(v147x);
 								v147x--;
 							} while (v147x >= v25z);
 						}
@@ -1852,7 +1852,7 @@ int32_t* GameRenderOriginal::x_DWORD_DB350_ret(uint32_t address) {
 	allert_error();
 }
 
-uint16_t GameRenderOriginal::sub_3FD60(int a2x)
+uint16_t GameRenderOriginal::DrawTileSpriteReflections_3FD60(int a2x)
 {
 	unsigned __int16 result; // ax
 	type_entity_0x6E8E* v3x; // eax
@@ -3165,7 +3165,7 @@ void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
 				if (!Str_E9C38_smalltit[a2x].textAtyp_43 && !(v3x->struct_byte_0xc_12_15.word[1] & 0x808))
 				{
 					//adress 21f40c
-					v98 = sub_B5C60_getTerrainAlt2(v3x->position_0x4C_76.x, v4) - str_F2C20ar.dword0x20;
+					v98 = GetTerrainAlt2_B5C60(v3x->position_0x4C_76.x, v4) - str_F2C20ar.dword0x20;
 					v5 = (str_F2C20ar.cos2_0x0f * v96 - str_F2C20ar.sin2_0x17 * v97) >> 16;
 					v99 = (str_F2C20ar.sin2_0x17 * v96 + str_F2C20ar.cos2_0x0f * v97) >> 16;
 					v6 = v99 * v99 + v5 * v5;

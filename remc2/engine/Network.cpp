@@ -131,7 +131,7 @@ uint8 NetworkTestAddName_72DDE(/*signed __int16* a1,*/ int compindex)//253dde
 }
 
 //----- (00072E70) --------------------------------------------------------
-int sub_72E70(signed __int16* a3)//253e70
+int ConnectToNetworkPlayers_72E70(signed __int16* a3)//253e70
 {
 	char connected[8];
 	for (int i = 0; maxPlayers_E127A > i; i++)
@@ -1464,7 +1464,7 @@ void WaitToConnect_7C230()//25d230
 	{
 		CopyScreen((void*)x_DWORD_E9C38_smalltit, (void*)pdwScreenBuffer_351628, 640, 480);
 	}
-	sub_7C120_draw_bitmap_640(185, 232, xy_DWORD_17DED4_spritestr[66]);
+	DrawBitmap640_7C120(185, 232, xy_DWORD_17DED4_spritestr[66]);
 	DrawMenuAnimations_7AB00();
 	if (DrawScrollDialog_7BF20(&str_WORD_E1F70))
 	{
@@ -1480,11 +1480,11 @@ void WaitToConnect_7C230()//25d230
 			timeCounter_E2094 = minTimeCounter_E2096;
 		lastTime_E208C = actTime;
 	}
-	sub_7C120_draw_bitmap_640(x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony, xy_DWORD_17DED4_spritestr[timeCounter_E2094]);
+	DrawBitmap640_7C120(x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony, xy_DWORD_17DED4_spritestr[timeCounter_E2094]);
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		sub_90478_VGA_Blit320();
+		VGA_Blit320_90478();
 	else
-		sub_75200_VGA_Blit640(480);
+		VGA_Blit640_75200(480);
 	sub_7A060_get_mouse_and_keyboard_events();
 }
 

@@ -12,18 +12,18 @@
 #include "EventsFunctions.h"
 
 
-// void sub_49090(Type_Level_2FECE* a1, Type_Level_2FECE* a2); // FIXME: investigate this function: the type of param 2 is wrong - this was the original declaration but the fucntion definition was as below with another type
+// void CreateLinkedLevelFeatures_49090(Type_Level_2FECE* a1, Type_Level_2FECE* a2); // FIXME: investigate this function: the type of param 2 is wrong - this was the original declaration but the fucntion definition was as below with another type
 int shortestLenght_48370(__int16 a1, __int16 a2, __int16 a3);
-int sub_483A0(__int16 a1, int a2, char a3, char a4);
+int SetPredictedPositionFromTiles_483A0(__int16 a1, int a2, char a3, char a4);
 
 typedef std::function<void(uint16_t, uint16_t, uint16_t, uint16_t, uint8_t)> EventInitFunctionType;
-void sub_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5 = 0);
-void sub_48690(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5 = 0);
-void sub_487D0(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5);
-void sub_48880(uint16_t a1, uint16_t a2, uint16_t a3, uint16_t a4, uint8_t a5 = 0);
-void sub_48930(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5);
+void CreateSubtype27LineBetweenPoints_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5 = 0);
+void CreateSubtype30LineBetweenPoints_48690(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5 = 0);
+void CreateSubtype32MovingToPoint_487D0(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5);
+void CreateSubtype51MovingToPoint_48880(uint16_t a1, uint16_t a2, uint16_t a3, uint16_t a4, uint8_t a5 = 0);
+void CreateSubtype81WithTarget_48930(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5);
 
-void sub_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity);
+void CreateLinkedLevelFeatures_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity);
 void PrepareEvents_49540(Type_Level_2FECE* terrain, type_entity_0x30311* entity);
 void ApplyEvents_498A0();
 
@@ -331,7 +331,7 @@ void PrepareEvents_49540(Type_Level_2FECE* terrain, type_entity_0x30311* entity)
 				case 0x50:
 				{
 					if (entity->stageTag_12)//only 1c,1d,1f, 32 and 50
-						sub_49090(terrain, entity);
+						CreateLinkedLevelFeatures_49090(terrain, entity);
 					return;
 				}
 				case 0x2D:
@@ -446,7 +446,7 @@ void ApplyEvents_498A0()//22a8a0
 					}
 					//all without 0xA
 					if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)//all without 0xE
-						sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+						ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 					continue;
 				}
 				//0xA
@@ -460,7 +460,7 @@ void ApplyEvents_498A0()//22a8a0
 							DisableEntityDrawing04_57F10(&D41A0_0.struct_0x6E8E[iy]);
 							D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 							if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-								sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+								ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 							continue;
 						}
 						v5 = &str_D4C48ar[D41A0_0.struct_0x6E8E[iy].class_0x3F_63].dword_10[D41A0_0.struct_0x6E8E[iy].actionIndex_0x45_69];//ok
@@ -471,7 +471,7 @@ void ApplyEvents_498A0()//22a8a0
 						}
 						D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 						if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-							sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+							ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 						continue;
 					}
 					if (v4 == 0x9)//0xA,0x9
@@ -484,7 +484,7 @@ void ApplyEvents_498A0()//22a8a0
 						}
 						D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 						if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-							sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+							ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 						continue;
 					}
 				}
@@ -500,7 +500,7 @@ void ApplyEvents_498A0()//22a8a0
 						}
 						D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 						if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-							sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+							ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 						continue;
 					}
 					if (v4 >= 0x32)
@@ -510,7 +510,7 @@ void ApplyEvents_498A0()//22a8a0
 							DisableEntityDrawing04_57F10(&D41A0_0.struct_0x6E8E[iy]);
 							D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 							if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-								sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+								ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 							continue;
 						}
 						v5 = &str_D4C48ar[D41A0_0.struct_0x6E8E[iy].class_0x3F_63].dword_10[D41A0_0.struct_0x6E8E[iy].actionIndex_0x45_69];//ok
@@ -521,7 +521,7 @@ void ApplyEvents_498A0()//22a8a0
 						}
 						D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 						if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-							sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+							ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 						continue;
 					}
 					if (v4 == 0x2D)
@@ -530,7 +530,7 @@ void ApplyEvents_498A0()//22a8a0
 						{
 							D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 							if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-								sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+								ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 							continue;
 						}
 						v5 = &str_D4C48ar[D41A0_0.struct_0x6E8E[iy].class_0x3F_63].dword_10[D41A0_0.struct_0x6E8E[iy].actionIndex_0x45_69];//ok
@@ -541,14 +541,14 @@ void ApplyEvents_498A0()//22a8a0
 						}
 						D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 						if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-							sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+							ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 						continue;
 					}
 				}
 				DisableEntityDrawing04_57F10(&D41A0_0.struct_0x6E8E[iy]);
 				D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 				if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-					sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+					ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 				continue;
 			}
 		}
@@ -884,7 +884,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x1f9da0: {
-		sub_18DA0(a1_6E8E, 0, 0);
+		CycleSelectedSpell_18DA0(a1_6E8E, 0, 0);
 		break;
 	}
 	case 0x1f9f80: {
@@ -910,7 +910,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x1faa50: {
-		sub_19A50();
+		ClearMouseButtonState_19A50();
 		break;
 	}
 	case 0x1faab0: {
@@ -952,11 +952,11 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x1fb280: {
-		sub_1A280();
+		SetOptionsMenuFlags_1A280();
 		break;
 	}
 	case 0x1fb4a0: {
-		sub_1A4A0();
+		GetOptionsMenuWidth_1A4A0();
 		break;
 	}
 
@@ -967,13 +967,13 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		sub_1A5B0_getLangStrings((intptr_t)a1_6E8E, 0, 0);
+		GetOptionsLangStrings_1A5B0((intptr_t)a1_6E8E, 0, 0);
 		allert_error();
 #endif
 		break;
 	}
 	case 0x1fb7a0: {
-		sub_1A7A0_fly_asistant();
+		FlyAssistant_1A7A0();
 		break;
 	}
 	case 0x1fb8a0: {
@@ -1025,11 +1025,11 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x1fc7a0: {
-		sub_1B7A0_tile_compare((axis_3d*)a1_6E8E);
+		GetTileSlope_1B7A0((axis_3d*)a1_6E8E);
 		break;
 	}
 	case 0x1fc830: {
-		sub_1B830((axis_3d*)a1_6E8E);
+		GetTileSlopeWide_1B830((axis_3d*)a1_6E8E);
 		break;
 	}
 
@@ -2462,7 +2462,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		sub_33F70((intptr_t)a1_6E8E);
+		CheckTileType8Neighbours_33F70((intptr_t)a1_6E8E);
 		allert_error();
 #endif
 		break;
@@ -2810,7 +2810,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x234120: {
-		sub_53120();
+		CheckCdPresent_53120();
 		break;
 	}
 	case 0x234160: {
@@ -2832,9 +2832,9 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 	}
 
 				 /*
-				 char sub_595C0(__int16 a1)//23a5c0
-				 char sub_59610(uint8_t** a1, __int16 a2)//23a610
-				 char sub_596C0(x_WORD *a1, __int16 a2)//23a6c0
+				 char GetObjectiveStage_595C0(__int16 a1)//23a5c0
+				 char GetObjectiveTargetEntity_59610(uint8_t** a1, __int16 a2)//23a610
+				 char GetObjectiveTargetPosition_596C0(x_WORD *a1, __int16 a2)//23a6c0
 				 void sub_59760(uint8_t* a1, uint8_t* a2)//23a760
 				 void sub_59820()//23a820
 
@@ -3107,13 +3107,13 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
         std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		allert_error();
 #else
-		sub_627F0_draw_minimap_entites_a((intptr_t)a1_6E8E, 0, 0, 0, 0, 0, 0, 0, 0);
+		DrawMinimapEntities_627F0((intptr_t)a1_6E8E, 0, 0, 0, 0, 0, 0, 0, 0);
 		allert_error();
 #endif
 		break;
 	}
 	case 0x244570: {
-		sub_63570(a1_6E8E, 0);
+		CanSeePlayerOnMinimap_63570(a1_6E8E, 0);
 		break;
 	}
 	case 0x244600: {
@@ -3462,7 +3462,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x24a250: {
-		sub_69250(a1_6E8E);
+		UpdateSpellPickup_69250(a1_6E8E);
 		break;
 	}
 	case 0x24a2a0: {
@@ -3825,7 +3825,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x24e4c0: {
-		sub_6D4C0((type_str_611*)a1_6E8E);
+		UpdateSubSpellIndex_6D4C0((type_str_611*)a1_6E8E);
 		break;
 	}
 
@@ -3976,7 +3976,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 #if defined(__linux__) || defined(__APPLE__) // FIXME: types
 		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		sub_6EF10_set_mouse_minmax((intptr_t)a1_6E8E, 0, 0, 0);
+		SetMouseMinMax_6EF10((intptr_t)a1_6E8E, 0, 0, 0);
 		stub_fix_it();//bad retyping
 #endif
 		break;
@@ -5208,7 +5208,7 @@ void SetMapEntity_57E50(type_entity_0x6E8E* entity)//238e50
 }
 
 //----- (00057F20) --------------------------------------------------------
-void sub_57F20(type_entity_0x6E8E* entity)//238f20
+void ReleaseEntity_57F20(type_entity_0x6E8E* entity)//238f20
 {
 	int32_t v1; // edx
 	signed int v2; // ecx
@@ -5242,7 +5242,7 @@ void sub_57F20(type_entity_0x6E8E* entity)//238f20
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00069250) --------------------------------------------------------
-signed int sub_69250(type_entity_0x6E8E* a1x)//24a250
+signed int UpdateSpellPickup_69250(type_entity_0x6E8E* a1x)//24a250
 {
 	signed int result; // eax
 	type_entity_0x6E8E* resultx;
@@ -5260,7 +5260,7 @@ signed int sub_69250(type_entity_0x6E8E* a1x)//24a250
 // D781E: using guessed type int (*off_D781E)(int);
 
 //----- (00049090) --------------------------------------------------------
-void sub_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a090
+void CreateLinkedLevelFeatures_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a090
 {
 	type_entity_0x30311* tempEntity; // ebx
 	int16_t tempSubtype; // si
@@ -5280,27 +5280,27 @@ void sub_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a090
 		{
 			case 0x1C:
 			{
-				functionPointer = &sub_48400;
+				functionPointer = &CreateSubtype27LineBetweenPoints_48400;
 				break;
 			}
 			case 0x1D:
 			{
-				functionPointer = &sub_48690;
+				functionPointer = &CreateSubtype30LineBetweenPoints_48690;
 				break;
 			}
 			case 0x1F:
 			{
-				functionPointer = &sub_487D0;
+				functionPointer = &CreateSubtype32MovingToPoint_487D0;
 				break;
 			}
 			case 0x32:
 			{
-				functionPointer = &sub_48880;
+				functionPointer = &CreateSubtype51MovingToPoint_48880;
 				break;
 			}
 			case 0x50:				
 			{
-				functionPointer = &sub_48930;
+				functionPointer = &CreateSubtype81WithTarget_48930;
 				break;
 			}
 		}
@@ -5364,7 +5364,7 @@ void sub_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a090
 }
 
 //----- (00048400) --------------------------------------------------------
-void sub_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229400
+void CreateSubtype27LineBetweenPoints_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229400
 {
 	int v4; // eax
 	int v5; // esi
@@ -5424,7 +5424,7 @@ void sub_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 			v28 = v21;
 			for (i = v6 - result; v18; v28 = 0)
 			{
-				sub_483A0(posX2, posY2, posX, posY);
+				SetPredictedPositionFromTiles_483A0(posX2, posY2, posX, posY);
 				v22x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 27);
 				if (v20 >= 0)
 				{
@@ -5437,7 +5437,7 @@ void sub_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 					v23 = -v20 - v28;
 				}
 				v22x->dword_0x10_16 = v23;
-				sub_483A0(posX2, (unsigned __int16)(v20 + v28 + posY2), posX, posY);
+				SetPredictedPositionFromTiles_483A0(posX2, (unsigned __int16)(v20 + v28 + posY2), posX, posY);
 				v18--;
 				posY2 += v20 + v28;
 				v24x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 27);
@@ -5460,12 +5460,12 @@ void sub_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 			{
 				do
 				{
-					sub_483A0(posX2, posY2, posX, posY);
+					SetPredictedPositionFromTiles_483A0(posX2, posY2, posX, posY);
 					v13x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 27);
 					v13x->actionIndex_0x45_69 = 29;
 					v13x->dword_0x10_16 = v25 + v29;
 					posX2 += v25 + v29;
-					sub_483A0(posX2, posY2, posX, posY);
+					SetPredictedPositionFromTiles_483A0(posX2, posY2, posX, posY);
 					v14x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 27);
 					if (v12 >= 0)
 					{
@@ -5492,7 +5492,7 @@ void sub_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 // EB398: using guessed type __int16 x_WORD_EB398;
 
 //----- (00048690) --------------------------------------------------------
-void sub_48690(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229690
+void CreateSubtype30LineBetweenPoints_48690(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229690
 {
 	int Xdist; // eax
 	signed __int16 Xdir; // si
@@ -5557,7 +5557,7 @@ void sub_48690(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 }
 
 //----- (000487D0) --------------------------------------------------------
-void sub_487D0(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//2297d0
+void CreateSubtype32MovingToPoint_487D0(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//2297d0
 {
 	__int16 v5; // si
 	unsigned __int16 v6; // bx
@@ -5573,7 +5573,7 @@ void sub_487D0(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 	v8x.z = 32 * mapHeightmap_11B4E0[256 * posY2 + posX2];
 	v11x.x = posX << 8;
 	v11x.y = posY << 8;
-	v5 = Maths::sub_581E0_maybe_tan2(&v8x, &v11x);
+	v5 = Maths::GetYawAngle_581E0(&v8x, &v11x);
 	v6 = Maths::EuclideanDistXYZ_58490(&v8x, &v11x);
 	resultx = IfSubtypeCallCreatingManaSphere_4A190(&v8x, 10, 32);
 	if (resultx)
@@ -5585,7 +5585,7 @@ void sub_487D0(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 }
 
 //----- (00048880) --------------------------------------------------------
-void sub_48880(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229880
+void CreateSubtype51MovingToPoint_48880(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229880
 {
 	__int16 v4; // si
 	unsigned __int16 v5; // di
@@ -5603,7 +5603,7 @@ void sub_48880(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 	v9x.z = 16 * mapHeightmap_11B4E0[256 * posY2 + posX2];
 	v12x.x = posX << 8;
 	v12x.y = posY << 8;
-	v4 = Maths::sub_581E0_maybe_tan2(&v9x, &v12x);
+	v4 = Maths::GetYawAngle_581E0(&v9x, &v12x);
 	v5 = Maths::EuclideanDistXYZ_58490(&v9x, &v12x);
 	resultx = IfSubtypeCallCreatingManaSphere_4A190(&v9x, 10, 51);
 	//v7x = resultx;
@@ -5620,7 +5620,7 @@ void sub_48880(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 int debugcounter_229930 = 0;
 //uint16_t last_v8x = 0;
 //uint16_t last_a1x = 0;
-void sub_48930(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229930
+void CreateSubtype81WithTarget_48930(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229930
 {
 	type_entity_0x6E8E* result; // eax
 	__int16 v6; // [esp+0h] [ebp-10h]
@@ -5763,7 +5763,7 @@ int shortestLenght_48370(int16_t point1, int16_t point2, int16_t mapSize)//22937
 }
 
 //----- (000483A0) --------------------------------------------------------
-int sub_483A0(__int16 a1, int a2, char a3, char a4)//2293a0
+int SetPredictedPositionFromTiles_483A0(__int16 a1, int a2, char a3, char a4)//2293a0
 {
 	unsigned __int16 v4; // ax
 	__int16 v5; // bx

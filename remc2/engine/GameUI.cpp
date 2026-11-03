@@ -61,10 +61,10 @@ int16_t x_WORD_E375C_mouse_position_x = 320; // weak
 int16_t x_WORD_E375E_mouse_position_y = 200; // weak
 
 
-void sub_30870();
-void sub_548B0(type_str_0x2BDE* a1);
-signed __int16 sub_10010();
-void sub_889F0(uint16_t a1);
+void DrawLangStringDebugViewer_30870();
+void RestoreMousePosition_548B0(type_str_0x2BDE* a1);
+signed __int16 IsCdPresent_10010();
+void UpdateHelpItemState_889F0(uint16_t a1);
 
 std::vector<std::string> splitTextIntoWords(const std::string& text);
 std::vector<std::string> splitTextIntoLines(const std::string& text, int width);
@@ -625,7 +625,7 @@ void SetPauseMenuClosed_41B60()//222b60
 	{
 		D41A0_0.m_GameSettings.m_Display.m_uiScreenSize = x_BYTE_D47D8;
 		if ((unsigned __int8)x_BYTE_D47D8 >= 1u && (unsigned __int8)x_BYTE_D47D8 <= 1u)
-			sub_417D0_install_pal_and_mouse_minmax2();
+			InstallPaletteAndMouseMinMax2_417D0();
 		x_BYTE_D47D8 = 0;
 	}
 	if (IsPauseMenuOpen_D47D9)
@@ -642,11 +642,11 @@ void SetMenuCursorPosition_52E90(type_str_0x2BDE* playStr, uint16_t newMenuState
 	playStr->MenuState_0x3DF_2BE4_12221 = newMenuState;
 	if (playStr->word_0x007_2BE4_11237 != D41A0_0.LevelIndex_0xc)
 	{
-		sub_53120();
+		CheckCdPresent_53120();
 		return;
 	}
 	x_D41A0_BYTEARRAY_4_struct.byte_38544 = currentMenuState ;
-	sub_87C10();
+	CloseHelpPopup_87C10();
 	if (newMenuState)
 	{
 		SetPausedMenuOpen_41AF0();
@@ -693,7 +693,7 @@ void SetMenuCursorPosition_52E90(type_str_0x2BDE* playStr, uint16_t newMenuState
 	case 6u:
 		if (newMenuState == currentMenuState && !(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED))
 		{
-			sub_548B0(playStr);
+			RestoreMousePosition_548B0(playStr);
 			EventDispatcher::I->DispatchEvent(EventType::E_SCENE_CHANGE, Scene::FLIGHT);
 		}
 		break;
@@ -706,7 +706,7 @@ void SetMenuCursorPosition_52E90(type_str_0x2BDE* playStr, uint16_t newMenuState
 	case (int)MenuState::SHOW_MAP_VOLUME_OPTIONS:
 	case (int)MenuState::SHOW_OK_CANCEL_OPTIONS:
 	case (int)MenuState::SHOW_MAP_OK_CANCEL_OPTIONS:
-		sub_548B0(playStr);
+		RestoreMousePosition_548B0(playStr);
 		if (!(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED))
 			EventDispatcher::I->DispatchEvent(EventType::E_SCENE_CHANGE, Scene::FLIGHT);
 		FlvInitSet_473B0();
@@ -722,30 +722,30 @@ void SetMenuCursorPosition_52E90(type_str_0x2BDE* playStr, uint16_t newMenuState
 		if (newMenuState == currentMenuState  && x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED)
 		{
 			SetCenterScreenForFlyAssistant_6EDB0();
-			sub_548F0(playStr);
+			BackupMousePosition_548F0(playStr);
 			break;
 		}
 		break;
 	case (int)MenuState::SHOW_CHAT_MENU:
 	case (int)MenuState::SHOW_BOTTOM_MENU:
 	case (int)MenuState::SHOW_MAP_BOTTOM_MENU:
-		sub_548F0(playStr);
+		BackupMousePosition_548F0(playStr);
 		break;
 	case (int)MenuState::SHOW_IN_GAME_OPTIONS:
 	case (int)MenuState::SHOW_MAP_GAME_OPTIONS:
-		sub_1A280();
+		SetOptionsMenuFlags_1A280();
 		x_D41A0_BYTEARRAY_4_struct.byteindex_225 = 1;
-		x_D41A0_BYTEARRAY_4_struct.byteindex_186 = sub_1A4A0();
-		sub_548F0(playStr);
+		x_D41A0_BYTEARRAY_4_struct.byteindex_186 = GetOptionsMenuWidth_1A4A0();
+		BackupMousePosition_548F0(playStr);
 		break;
 	case (int)MenuState::SHOW_VOLUME_OPTIONS:
 	case (int)MenuState::SHOW_MAP_VOLUME_OPTIONS:
-		sub_548F0(playStr);
+		BackupMousePosition_548F0(playStr);
 		SetSoundEffectAndMusicLevelCoordinates_19D60(newMenuState);
 		break;
 	case (int)MenuState::SHOW_OK_CANCEL_OPTIONS:
 	case (int)MenuState::SHOW_MAP_OK_CANCEL_OPTIONS:
-		sub_548F0(playStr);
+		BackupMousePosition_548F0(playStr);
 		SetOkayCancelButtonsCursorPosition_1A030();
 		break;
 	default:
@@ -787,17 +787,17 @@ void SetMenuCursorPosition_52E90(type_str_0x2BDE* playStr, uint16_t newMenuState
 	}
 	if (useSound)
 		PrepareEventSound_6E450(0, playStr->word_0x007_2BE4_11237, 14);
-	sub_53120();
+	CheckCdPresent_53120();
 }
 
 //----- (00053120) --------------------------------------------------------
-void sub_53120()//234120
+void CheckCdPresent_53120()//234120
 {
 	if (!(x_D41A0_BYTEARRAY_4_struct.FrameTimingIndex_26 & 7))
 	{
 		if ((x_D41A0_BYTEARRAY_4_struct.byteindex_52 & 3) == 1)
 		{
-			if (!sub_10010())
+			if (!IsCdPresent_10010())
 			{
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234 = 2;
 			}
@@ -806,7 +806,7 @@ void sub_53120()//234120
 }
 
 //----- (000595C0) --------------------------------------------------------
-char sub_595C0(int16_t a1)//23a5c0
+char GetObjectiveStage_595C0(int16_t a1)//23a5c0
 {
 	char result = -1;
 	if (D41A0_0.byte_0x36E0B & 1)
@@ -817,7 +817,7 @@ char sub_595C0(int16_t a1)//23a5c0
 }
 
 //----- (00059610) --------------------------------------------------------
-char sub_59610(type_entity_0x6E8E** a1y, int16_t a2)//23a610
+char GetObjectiveTargetEntity_59610(type_entity_0x6E8E** a1y, int16_t a2)//23a610
 {
 	char v5; // dl
 	*a1y = 0;
@@ -848,7 +848,7 @@ char sub_59610(type_entity_0x6E8E** a1y, int16_t a2)//23a610
 }
 
 //----- (000596C0) --------------------------------------------------------
-bool sub_596C0(axis_3d* position, int16_t a2)//23a6c0
+bool GetObjectiveTargetPosition_596C0(axis_3d* position, int16_t a2)//23a6c0
 {
 	bool result = false;
 	position->x = -1;
@@ -1127,8 +1127,8 @@ void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t pos
 		v25 = v82 + projection.X(v23, v24);
 		v26 = projection.Y(v23, v24) + v76;
 		v27 = v82 + projection.X(v23, v24) - v20;
-		v75 = Maths::sub_7277A_radix_3d(v27 * v27 + (v26 - v21) * (v26 - v21));
-		v72 = (uint16_t)Maths::sub_72633_maybe_tan(v25 - v20, v26 - v21);
+		v75 = Maths::IntegerSqrt_7277A(v27 * v27 + (v26 - v21) * (v26 - v21));
+		v72 = (uint16_t)Maths::Atan2_72633(v25 - v20, v26 - v21);
 		for (i = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248 & 3;
 			;
 			*(x_BYTE*)(ptrMapBufferStart_v84 + v20 + (i * Maths::sin_DB750[v72] >> 16) + screenWidth_18062C * v85) = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256
@@ -1513,7 +1513,7 @@ void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t pos
 						}
 					}
 					if (v88)
-						sub_885E0(jy, (int16_t)posx, (int16_t)posy, v88);
+						SetHelpItemTarget_885E0(jy, (int16_t)posx, (int16_t)posy, v88);
 				}
 			}
 		}
@@ -1532,7 +1532,7 @@ void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t pos
 				v60x = Entities_EA3E4[v59];
 				if (v60x->life_0x8 >= 0)
 				{
-					if (sub_63570(v74x, Entities_EA3E4[v59]))
+					if (CanSeePlayerOnMinimap_63570(v74x, Entities_EA3E4[v59]))
 					{
 						v61 = (int16_t)(v60x->position_0x4C_76.x - posX);
 						v62 = (int16_t)(v60x->position_0x4C_76.y - posY);
@@ -1619,7 +1619,7 @@ void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t pos
 }
 
 //----- (000627F0) --------------------------------------------------------
-void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale)//2437f0
+void DrawMinimapEntities_627F0(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale)//2437f0
 {//
 	int v8; // edx
 	int v9; // esi
@@ -1794,8 +1794,8 @@ void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_
 		v27 = v98 + projection.X(v25, v26);
 		v28 = projection.Y(v25, v26) + v85;
 		v29 = v98 + projection.X(v25, v26) - v21;
-		v91 = Maths::sub_7277A_radix_3d(v29 * v29 + (v28 - v24) * (v28 - v24));
-		v89 = (uint16_t)Maths::sub_72633_maybe_tan(v27 - v21, v28 - v24);
+		v91 = Maths::IntegerSqrt_7277A(v29 * v29 + (v28 - v24) * (v28 - v24));
+		v89 = (uint16_t)Maths::Atan2_72633(v27 - v21, v28 - v24);
 		v30 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248 & 3;
 		while (1)
 		{
@@ -2167,7 +2167,7 @@ void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_
 						}
 					}
 					if (v104)
-						sub_885E0(iy, (int16_t)v59, (int16_t)v60, v104);
+						SetHelpItemTarget_885E0(iy, (int16_t)v59, (int16_t)v60, v104);
 				}
 			}
 		}
@@ -2184,7 +2184,7 @@ void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_
 				v66x = Entities_EA3E4[v65];
 				if (v66x->life_0x8 >= 0)
 				{
-					if (sub_63570(v90x, Entities_EA3E4[v65]))
+					if (CanSeePlayerOnMinimap_63570(v90x, Entities_EA3E4[v65]))
 					{
 						v67 = (int16_t)(v66x->position_0x4C_76.x - posX);
 						v68 = (int16_t)(v66x->position_0x4C_76.y - posY);
@@ -2249,7 +2249,7 @@ void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_
 }
 
 //----- (00063570) --------------------------------------------------------
-char sub_63570(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//244570
+char CanSeePlayerOnMinimap_63570(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//244570
 {
 	type_entity_0x6E8E* v2x; // ecx
 	char v3; // ah
@@ -2800,7 +2800,7 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 	v82 = yaw & 0x7FF;
 	v13 = D41A0_0.LevelIndex_0xc;
 	v75x = Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
-	v14 = sub_595C0(v13);
+	v14 = GetObjectiveStage_595C0(v13);
 	switch (v14 + 3)
 	{
 	case 0:
@@ -2846,13 +2846,13 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 		break;
 	case 4:
 	case 5:
-		//LOBYTE(i) = (uint8_t)sub_59610(v72x, D41A0_BYTESTR_0.word_0xc);
-		if (sub_59610(&v72x, D41A0_0.LevelIndex_0xc))
+		//LOBYTE(i) = (uint8_t)GetObjectiveTargetEntity_59610(v72x, D41A0_BYTESTR_0.word_0xc);
+		if (GetObjectiveTargetEntity_59610(&v72x, D41A0_0.LevelIndex_0xc))
 		{
 			v51x.v64xb_46 = (*xadataclrd0dat.colorPalette_var28)[3840];
 			v51x.v51y = v72x->position_0x4C_76;
 			if (DrawObjectiveRectangle_64CE0(&v51x, scale))
-				sub_885E0(v72x, v51x.v62xw_42, v51x.v63xw_44, 0x52u);
+				SetHelpItemTarget_885E0(v72x, v51x.v62xw_42, v51x.v63xw_44, 0x52u);
 			v36x = &v72x->position_0x4C_76;
 			v17x = &v72x->position_0x4C_76;
 			v16x = &v75x->position_0x4C_76;
@@ -2861,13 +2861,13 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 		}
 		break;
 	case 8: //Draw Objective Rectangle
-		//LOBYTE(i) = sub_596C0(v65x, D41A0_BYTESTR_0.word_0xc);
-		if (sub_596C0(&v65y, D41A0_0.LevelIndex_0xc))
+		//LOBYTE(i) = GetObjectiveTargetPosition_596C0(v65x, D41A0_BYTESTR_0.word_0xc);
+		if (GetObjectiveTargetPosition_596C0(&v65y, D41A0_0.LevelIndex_0xc))
 		{
 			v51x.v64xb_46 = (*xadataclrd0dat.colorPalette_var28)[0xff0];
 			v51x.v51y = v65y;
 			if (DrawObjectiveRectangle_64CE0(&v51x, scale))
-				sub_885E0(0, v51x.v62xw_42, v51x.v63xw_44, 0x51u);
+				SetHelpItemTarget_885E0(0, v51x.v62xw_42, v51x.v63xw_44, 0x51u);
 			v36x = &v65y;
 			v17x = &v65y;
 			v16x = &v75x->position_0x4C_76;
@@ -2888,7 +2888,7 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 				break;
 			v51x.v51y = v72x->position_0x4C_76;
 			if (DrawObjectiveRectangle_64CE0(&v51x, scale))
-				sub_885E0(v72x, v51x.v62xw_42, v51x.v63xw_44, 0x52u);
+				SetHelpItemTarget_885E0(v72x, v51x.v62xw_42, v51x.v63xw_44, 0x52u);
 			v19 = Maths::EuclideanDistXYZ_58490(&v75x->position_0x4C_76, &v72x->position_0x4C_76);
 			if (v19 < v8)
 			{
@@ -2913,7 +2913,7 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 				{
 					v51x.v51y = v72x->position_0x4C_76;
 					if (DrawObjectiveRectangle_64CE0(&v51x, scale))
-						sub_885E0(v72x, v51x.v62xw_42, v51x.v63xw_44, 0x52u);
+						SetHelpItemTarget_885E0(v72x, v51x.v62xw_42, v51x.v63xw_44, 0x52u);
 					v20 = Maths::EuclideanDistXYZ_58490(&v75x->position_0x4C_76, &v72x->position_0x4C_76);
 					if (v20 < v8)
 					{
@@ -2939,7 +2939,7 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 			if (x_D41A0_BYTEARRAY_4_struct.colorIndex_121[6])
 			{
 				v21 = v8 - 512;
-				LOWORD(v78) = Maths::sub_581E0_maybe_tan2(&v75x->position_0x4C_76, &v67x);
+				LOWORD(v78) = Maths::GetYawAngle_581E0(&v75x->position_0x4C_76, &v67x);
 				v78 = (uint16_t)v78;
 				if (v21 > 15872)
 					LOWORD(v21) = 15872;
@@ -3131,7 +3131,7 @@ void DrawRectangle(uint8_t* ptrImageBuffer, int posX, int posY, int width, int h
 }
 
 //----- (00087C10) --------------------------------------------------------
-void sub_87C10()//268c10
+void CloseHelpPopup_87C10()//268c10
 {
 	if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
 	{
@@ -3143,7 +3143,7 @@ void sub_87C10()//268c10
 		str_E2A74[str_unk_1804B0ar.Index_0x86].dword_16 = 0;
 		str_E2A74[str_unk_1804B0ar.Index_0x86].dword_12 = 0;
 		str_E2A74[str_unk_1804B0ar.Index_0x86].byte_29 = str_E2A74[str_unk_1804B0ar.Index_0x86].byte_28;
-		sub_889F0(str_unk_1804B0ar.Index_0x86);
+		UpdateHelpItemState_889F0(str_unk_1804B0ar.Index_0x86);
 		str_unk_1804B0ar.Index_0x86 = 0;
 	}
 }
@@ -3151,7 +3151,7 @@ void sub_87C10()//268c10
 int debugcounter_2695e0 = 0;
 
 //----- (000885E0) --------------------------------------------------------
-void sub_885E0(type_entity_0x6E8E* a1x, int16_t posX, int16_t posY, uint16_t a4)//2695e0
+void SetHelpItemTarget_885E0(type_entity_0x6E8E* a1x, int16_t posX, int16_t posY, uint16_t a4)//2695e0
 {
 	signed int v4; // eax
 	int v5; // edx
@@ -3465,7 +3465,7 @@ std::vector<std::string> splitTextIntoLines(const std::string& text, int width) 
 
 //----- (000548B0) --------------------------------------------------------
 // returns viewport from menu to flight mode
-void sub_548B0(type_str_0x2BDE* a1x)//2358b0
+void RestoreMousePosition_548B0(type_str_0x2BDE* a1x)//2358b0
 {
 	if (a1x->word_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
 	{
@@ -3476,7 +3476,7 @@ void sub_548B0(type_str_0x2BDE* a1x)//2358b0
 }
 
 //----- (000548F0) --------------------------------------------------------
-void sub_548F0(type_str_0x2BDE* a1x)//2358f0
+void BackupMousePosition_548F0(type_str_0x2BDE* a1x)//2358f0
 {
 	if (a1x->word_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
 	{
@@ -3493,7 +3493,7 @@ void sub_548F0(type_str_0x2BDE* a1x)//2358f0
 }
 
 //----- (0001A280) --------------------------------------------------------
-void sub_1A280()//1fb280
+void SetOptionsMenuFlags_1A280()//1fb280
 {
 	x_D41A0_BYTEARRAY_4_struct.dwordindex_192 = 0;
 	x_D41A0_BYTEARRAY_4_struct.dwordindex_192 |= 0x01;//help
@@ -3556,7 +3556,7 @@ void sub_1A280()//1fb280
 }
 
 //----- (0001A4A0) --------------------------------------------------------
-int sub_1A4A0()//1fb4a0
+int GetOptionsMenuWidth_1A4A0()//1fb4a0
 {
 	int v0; // ebx
 	signed int i; // esi
@@ -3568,7 +3568,7 @@ int sub_1A4A0()//1fb4a0
 	v0 = 0;
 	for (i = 0; i < 17; i++)
 	{
-		sub_1A5B0_getLangStrings(i + 1, &v6, &v5);
+		GetOptionsLangStrings_1A5B0(i + 1, &v6, &v5);
 		v2 = strlen((const char*)x_DWORD_E9C4C_langindexbuffer[v6]) + 1;
 		//Help Mode On and etc.
 		if ((signed int)(8 * (v2 - 1)) > v0)
@@ -3709,7 +3709,7 @@ void MoveCursorToSelectedSpell_6D200(type_str_0x2BDE* a1x)//24e200
 }
 
 //----- (00010010) --------------------------------------------------------
-signed __int16 sub_10010()
+signed __int16 IsCdPresent_10010()
 {
 	__int16 v0; // bx
 	__int16 v1; // cx
@@ -3741,7 +3741,7 @@ signed __int16 sub_10010()
 }
 
 //----- (000889F0) --------------------------------------------------------
-void sub_889F0(uint16_t a1)//2699f0
+void UpdateHelpItemState_889F0(uint16_t a1)//2699f0
 {
 	if (a1 < 0x15u)
 	{
@@ -3861,7 +3861,7 @@ void SetMousePositionInMemory_5BDC0(int16_t posX, int16_t posY)//23cdc0
 }
 
 //----- (0001A5B0) --------------------------------------------------------
-void sub_1A5B0_getLangStrings(int a1, int* a2, int* a3)//1fb5b0
+void GetOptionsLangStrings_1A5B0(int a1, int* a2, int* a3)//1fb5b0
 {
 	int result; // eax
 
@@ -4545,7 +4545,7 @@ void DrawPauseMenu_2FD90(uint8_t scale)//210d90
 			DrawBitmap_2BB40(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[CURSOR_SPRITE_INDEX_D419E], scale);
 		}
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 & 0x10)
-			sub_30870();
+			DrawLangStringDebugViewer_30870();
 	}
 
 }
@@ -4594,7 +4594,7 @@ void DrawInGameOptionsMenu_30050(uint8_t scale)//211050
 		v21 = v1;
 		if (v1 >= 17)
 			break;
-		sub_1A5B0_getLangStrings(v21 + 1, &v15, &v14);
+		GetOptionsLangStrings_1A5B0(v21 + 1, &v15, &v14);
 		v19 = 1 << v21;
 		if ((1 << v21) & x_D41A0_BYTEARRAY_4_struct.dwordindex_192 && (1 << v21) & x_D41A0_BYTEARRAY_4_struct.dwordindex_188)
 			v3 = v15;
@@ -4759,7 +4759,7 @@ void DrawVolumeSettings_303D0(uint8_t scale)//2113d0
 }
 
 //----- (00030870) --------------------------------------------------------
-void sub_30870()//211870
+void DrawLangStringDebugViewer_30870()//211870
 {
 	char* v0; // ebx
 	__int16 v1; // ax
