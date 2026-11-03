@@ -1663,7 +1663,7 @@ void AutoSaveLevel_57640();
 void ResetPaletteFade_90D27();
 void VGA_GetPalette_A0D2C(TColor* a1);
 void DrawVrFrame_BD1B6(uint8_t* a1);
-void sub_BD2CB(uint8_t* a1);
+void BlitScreenToVgaBanks_BD2CB(uint8_t* a1);
 void BlitScreenToVga_BD3DD();
 void DrawGameDebugText_6FEC0();
 int DrawSpiderWeb();

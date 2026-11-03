@@ -997,7 +997,7 @@ void SerialClearBuffer_9CBBC(x_DWORD* a1);
 int SerialSetRts_9CCB4(uint8_t* a1, int a2);
 int SerialSetDtr_9CCF8(uint8_t* a1, int a2);
 int SerialSetLineControl_9CD9C(uint8_t* a1, int a2);
-__int16 sub_9D31C(__int16 result);
+__int16 ReadKeyboardShiftFlags_9D31C(__int16 result);
 void AilMdiTimerCallback_9E250(uint32_t user); // weak
 int SetVgaRegister_A0B24(int a1);
 int ReadVgaCrtcRegisters_A0BB0(int* a1, int a2);
@@ -30786,7 +30786,7 @@ void BlendAndBlit_40F80()//221f80
 	else if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		if (x_BYTE_D478C)
-			sub_BD2CB(unk_F0A20x);//maybe for virtual head set
+			BlitScreenToVgaBanks_BD2CB(unk_F0A20x);//maybe for virtual head set
 		else if ((!DefaultResolutions()) && (x_WORD_180660_VGA_type_resolution != 1))
 			VGA_BlitAny(maxGameFps);
 		else if (x_WORD_180660_VGA_type_resolution & 1)
@@ -53599,7 +53599,7 @@ int SerialSetLineControl_9CD9C(uint8_t* a1, int a2)//27dd9c
 // A0ED7: using guessed type x_DWORD outp(x_DWORD, char);
 
 //----- (0009D31C) --------------------------------------------------------
-__int16 /*__fastcall*/ sub_9D31C(__int16 result)//27e31c
+__int16 /*__fastcall*/ ReadKeyboardShiftFlags_9D31C(__int16 result)//27e31c
 {
 	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
 
@@ -54304,7 +54304,7 @@ void DrawVrFrame_BD1B6(uint8_t* a1)
 }
 
 //----- (000BD2CB) --------------------------------------------------------
-void /*__spoils<ecx>*/ sub_BD2CB(uint8_t* a1)//29e2cb
+void /*__spoils<ecx>*/ BlitScreenToVgaBanks_BD2CB(uint8_t* a1)//29e2cb
 {
 	//int v1; // ecx
 	int v2; // eax
