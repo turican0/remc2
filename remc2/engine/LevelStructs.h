@@ -237,10 +237,10 @@ typedef struct {//lenght 224791
 	type_entity_0x6E8E entities_0x6E8E[1000];//28302 a8*3e8
 	Type_Level_2FECE terrain_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level
 	type_str_0x364D2 creatureStats_0x364D2;//lenght 108
-	int16_t creatureCountA_0x3653E;//
-	int16_t creatureCountB_0x36540;//
+	int16_t dragonCount1_0x3653E;//!!!!! the 3 dragon counters count the same list in the original, maybe a bug of the original game, investigate later
+	int16_t dragonCount2_0x36540;//!!!!! see dragonCount1_0x3653E
 	int16_t cymmerianCount_0x36542;//
-	int16_t creatureCountC_0x36544;//
+	int16_t dragonCount3_0x36544;//!!!!! see dragonCount1_0x3653E
 	int16_t emuTargetDistance_0x36546;//
 	int16_t word_0x36548;//
 	int16_t buildingCheckEntity_0x3654A;//

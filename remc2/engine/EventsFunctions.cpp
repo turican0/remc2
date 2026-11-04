@@ -12909,7 +12909,7 @@ void EmuUpdateMovement_21850(type_entity_0x6E8E* a1x)//202850
 					a1x->nextStage_0x4A_74 = 682;
 
 					//if (*(x_WORD*)(0x3653D + v9 + 3) < 12)
-					if (D41A0_0.creatureCountB_0x36540 < 12)
+					if (D41A0_0.dragonCount2_0x36540 < 12)
 					{
 						a1x->levelPar1_0x43_67 = 4;
 						goto LABEL_22;
@@ -12936,7 +12936,7 @@ void EmuUpdateMovement_21850(type_entity_0x6E8E* a1x)//202850
 				//v7 = (int)x_D41A0_BYTEARRAY_0;
 				a1x->nextStage_0x4A_74 = 682;
 				//if (*(x_WORD *)(0x3653D + v7 + 1) < 4)
-				if (D41A0_0.creatureCountA_0x3653E < 4)
+				if (D41A0_0.dragonCount1_0x3653E < 4)
 				{
 					a1x->levelPar1_0x43_67 = 3;
 					goto LABEL_22;
@@ -12950,7 +12950,7 @@ void EmuUpdateMovement_21850(type_entity_0x6E8E* a1x)//202850
 			//v6 = (int)x_D41A0_BYTEARRAY_0;
 			a1x->nextStage_0x4A_74 = 256;
 			//if (*(x_WORD *)(0x36543 + v6 + 1) < 28)
-			if (D41A0_0.creatureCountC_0x36544 < 28)
+			if (D41A0_0.dragonCount3_0x36544 < 28)
 			{
 				a1x->levelPar1_0x43_67 = 6;
 				goto LABEL_22;
@@ -13535,15 +13535,16 @@ void CountWizards_223E0()//2033e0
 
 	//v0 = x_D41A0_BYTEARRAY_0;
 	//v1 = x_D41A0_BYTEARRAY_4;
-	D41A0_0.creatureCountA_0x3653E = 0;
+	//!!!!! 2033e0: the original also counts list 0 (dragons) three times, [ecx+9603h] - maybe a bug of the original game, investigate later
+	D41A0_0.dragonCount1_0x3653E = 0;
 	for (ix = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[0]; ix > Entities_EA3E4[0]; ix = ix->next_0)
-		D41A0_0.creatureCountA_0x3653E++;
-	D41A0_0.creatureCountB_0x36540 = 0;
+		D41A0_0.dragonCount1_0x3653E++;
+	D41A0_0.dragonCount2_0x36540 = 0;//!!!!! same list 0, investigate later
 	for (jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[0]; jx > Entities_EA3E4[0]; jx = jx->next_0)
-		D41A0_0.creatureCountB_0x36540++;
-	D41A0_0.creatureCountC_0x36544 = 0;
+		D41A0_0.dragonCount2_0x36540++;
+	D41A0_0.dragonCount3_0x36544 = 0;//!!!!! same list 0, investigate later
 	for (kx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[0]; kx > Entities_EA3E4[0]; kx = kx->next_0)
-		D41A0_0.creatureCountC_0x36544++;
+		D41A0_0.dragonCount3_0x36544++;
 	D41A0_0.cymmerianCount_0x36542 = 0;
 	for (indexx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[100 / 4]; indexx > Entities_EA3E4[0]; indexx = indexx->next_0)
 	{

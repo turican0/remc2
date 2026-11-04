@@ -3445,10 +3445,10 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 		to->terrain_2FECE.StageVars_0x3647A[i].target_0x3647C_4.axis = from->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis;
 	}
 	to->creatureStats_0x364D2 = from->str_0x364D2;
-	to->creatureCountA_0x3653E = from->word_0x3653E;
-	to->creatureCountB_0x36540 = from->word_0x36540;
+	to->dragonCount1_0x3653E = from->word_0x3653E;
+	to->dragonCount2_0x36540 = from->word_0x36540;
 	to->cymmerianCount_0x36542 = from->word_0x36542;
-	to->creatureCountC_0x36544 = from->word_0x36544;
+	to->dragonCount3_0x36544 = from->word_0x36544;
 	to->emuTargetDistance_0x36546 = from->word_0x36546;
 	to->word_0x36548 = from->word_0x36548;
 	to->buildingCheckEntity_0x3654A = from->word_0x3654A;
@@ -3638,10 +3638,10 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis = from->terrain_2FECE.StageVars_0x3647A[i].target_0x3647C_4.axis;
 	}
 	to->str_0x364D2 = from->creatureStats_0x364D2;
-	to->word_0x3653E = from->creatureCountA_0x3653E;
-	to->word_0x36540 = from->creatureCountB_0x36540;
+	to->word_0x3653E = from->dragonCount1_0x3653E;
+	to->word_0x36540 = from->dragonCount2_0x36540;
 	to->word_0x36542 = from->cymmerianCount_0x36542;
-	to->word_0x36544 = from->creatureCountC_0x36544;
+	to->word_0x36544 = from->dragonCount3_0x36544;
 	to->word_0x36546 = from->emuTargetDistance_0x36546;
 	to->word_0x36548 = from->word_0x36548;
 	to->word_0x3654A = from->buildingCheckEntity_0x3654A;

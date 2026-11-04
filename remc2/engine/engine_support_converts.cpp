@@ -753,13 +753,13 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 	//type_str_0x364D2 str_0x364D2;//lenght 108
 	convert_struct_to_array_0x364D2(&input->creatureStats_0x364D2, output + 0x364D2);
 	//int16_t word_0x3653E;//
-	memcpy(output + 0x3653E, &input->creatureCountA_0x3653E, 2);
+	memcpy(output + 0x3653E, &input->dragonCount1_0x3653E, 2);
 	//int16_t word_0x36540;//
-	memcpy(output + 0x36540, &input->creatureCountB_0x36540, 2);
+	memcpy(output + 0x36540, &input->dragonCount2_0x36540, 2);
 	//int16_t word_0x36542;//
 	memcpy(output + 0x36542, &input->cymmerianCount_0x36542, 2);
 	//int16_t word_0x36544;//
-	memcpy(output + 0x36544, &input->creatureCountC_0x36544, 2);
+	memcpy(output + 0x36544, &input->dragonCount3_0x36544, 2);
 	//int16_t word_0x36546;//
 	memcpy(output + 0x36546, &input->emuTargetDistance_0x36546, 2);
 	//int16_t word_0x36548;//
