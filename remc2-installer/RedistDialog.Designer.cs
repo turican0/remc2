@@ -50,7 +50,7 @@ namespace WixSharpSetup
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(480, 64);
+            this.panel2.Size = new System.Drawing.Size(278, 64);
             this.panel2.TabIndex = 10;
             // 
             // label2
@@ -60,7 +60,7 @@ namespace WixSharpSetup
             this.label2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(30, 31);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(531, 24);
+            this.label2.Size = new System.Drawing.Size(283, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "You might need to install the LATEST C++ Redistributable";
             // 
@@ -71,7 +71,7 @@ namespace WixSharpSetup
             this.label1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(16, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(300, 25);
+            this.label1.Size = new System.Drawing.Size(175, 14);
             this.label1.TabIndex = 1;
             this.label1.Text = "Install C++ Redistributable";
             // 
@@ -82,9 +82,9 @@ namespace WixSharpSetup
             this.panel1.Controls.Add(this.btnNext);
             this.panel1.Controls.Add(this.btnRun);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 269);
+            this.panel1.Location = new System.Drawing.Point(3, 144);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(480, 64);
+            this.panel1.Size = new System.Drawing.Size(278, 64);
             this.panel1.TabIndex = 9;
             // 
             // btnNext
@@ -92,7 +92,7 @@ namespace WixSharpSetup
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNext.AutoSize = true;
             this.btnNext.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNext.Location = new System.Drawing.Point(395, 20);
+            this.btnNext.Location = new System.Drawing.Point(193, 20);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 34);
             this.btnNext.TabIndex = 1;
@@ -105,11 +105,11 @@ namespace WixSharpSetup
             this.btnRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRun.AutoSize = true;
             this.btnRun.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRun.Location = new System.Drawing.Point(126, 20);
+            this.btnRun.Location = new System.Drawing.Point(109, 20);
             this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(263, 34);
+            this.btnRun.Size = new System.Drawing.Size(78, 34);
             this.btnRun.TabIndex = 0;
-            this.btnRun.Text = "Install C++ Redistributable";
+            this.btnRun.Text = "Install";
             this.btnRun.UseVisualStyleBackColor = true;
             this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             // 
@@ -118,7 +118,7 @@ namespace WixSharpSetup
             this.lblDescription.Location = new System.Drawing.Point(3, 70);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Padding = new System.Windows.Forms.Padding(10);
-            this.lblDescription.Size = new System.Drawing.Size(470, 196);
+            this.lblDescription.Size = new System.Drawing.Size(278, 71);
             this.lblDescription.TabIndex = 11;
             this.lblDescription.Text = "The LATEST C++ Redistributable is required to run Magic Carpet 2 HD and the Edito" +
     "r.\r\n\r\nI am working to removed this dependancy, but it is a complex process to re" +
@@ -138,19 +138,18 @@ namespace WixSharpSetup
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(486, 336);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(284, 211);
             this.tableLayoutPanel1.TabIndex = 12;
             // 
             // RedistDialog
             // 
             this.AcceptButton = this.btnRun;
-            this.ClientSize = new System.Drawing.Size(486, 336);
+            this.ClientSize = new System.Drawing.Size(284, 211);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(510, 400);
+            this.MinimumSize = new System.Drawing.Size(300, 250);
             this.Name = "RedistDialog";
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game Data";
             this.Load += new System.EventHandler(this.dialog_Load);
