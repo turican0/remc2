@@ -173,22 +173,22 @@ void StateMonitor::MonitorD41A0() {
 #ifdef REMC2_CODE
     // compare D41A0_0 with with last state if different, add to observed changes
 	// uint8_t stub0[4];
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x4);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, levelId_0x4);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, LevelIndex_0xc);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, NumberOfPlayers_0xe);
-	MONITOR_STRUCT_ARRAY_HEX(D41A0_0, array_0x10);
+	MONITOR_STRUCT_ARRAY_HEX(D41A0_0, modelCounters_0x10);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x2d);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x31);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x33);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x35); // entity counter(max 1000 entity changes per step)
-    MONITOR_STRUCT_ARRAY_HEX(D41A0_0, array_0x39);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, volcanoEntity_0x31);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, volcanoFireEntity_0x33);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, freeEntityCount_0x35); // entity counter(max 1000 entity changes per step)
+    MONITOR_STRUCT_ARRAY_HEX(D41A0_0, usedTmaps_0x39);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, maptypeMusic_0x235);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x239);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x23a);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x23e);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x242);
     //MONITOR_STRUCT_ARRAY_POINTERS(D41A0_0, pointers_0x246);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x11e6); // second entity counter
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, freeEntityCount2_0x11e6); // second entity counter
 	// type_entity_0x6E8E* dword_0x11EA[1000];//??4586
 	// GameSettingsStruct_t m_GameSettings;
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x219A);
@@ -219,21 +219,21 @@ void StateMonitor::MonitorD41A0() {
 	// type_str_3659C struct_0x3659C[8];//size 11 count 8 C-0 D-1 E-2 F-3
 	// type_str_0x3647Ac StageVars2_0x365F4[11];//8x11	//set 0x58 // end 0x3664c
 	// type_str_0x3664C str_0x3664C[50];// lenght 0x79e//39x50 (end-0x36dea)
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36DEA_fly_asistant);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, flyAssistant_0x36DEA);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36DEB_xx);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DEC_mousex);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DEE_mousey);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DF0_mousexx);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x36DF2);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, lastMouseX_0x36DEC);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, lastMouseY_0x36DEE);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, mouseIdleCounter_0x36DF0);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, lightRandSeed_0x36DF2);
 	// type_str_160* dword_0x36DF6;//pointer
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DFA);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DFC);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DFE);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, activeLights_0x36DFA);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, switchOnceEntity_0x36DFC);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, switchChainEntity_0x36DFE);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, countStageVars_0x36E00);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, stageIndex_0x36E01);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E02);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, tempObjective_0x36E02);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E03);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_counter_current_objective_box_0x36E04);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, objectiveBoxCounter_0x36E04);
 	// uint8_t stub3k[6];
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E0B);
 	// uint8_t stubend[11];
@@ -248,32 +248,32 @@ void StateMonitor::Monitor17DB70str() {
 #ifdef REMC2_CODE
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, time_17DB70);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB74);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB76_posx);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB78_posy);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, posX_17DB76);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, posY_17DB78);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, fill1);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, fill2);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB7E);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB80);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB82_shift_step);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB84);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB86);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB88);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB8A);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB8C);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, shiftStep_17DB82);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, portalPosX_17DB84);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, portalPosY_17DB86);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, portalActivated_17DB88);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, selectedLevel_17DB8A);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, targetLevel_17DB8C);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_BYTE_17DB8E);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_BYTE_17DB8F);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.diffX_0);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.diffY_1);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.absDiffX2_2);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.absDiffY2_3);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.maxX_4);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.maxY_5);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.beginX_6);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.beginY_7);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.secondAdd_8);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.field_9);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.stateX_10);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.stateY_11);
+	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.diffX_0);
+	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.diffY_1);
+	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.absDiffX2_2);
+	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.absDiffY2_3);
+	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.maxX_4);
+	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.maxY_5);
+	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.beginX_6);
+	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.beginY_7);
+	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.secondAdd_8);
+	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.field_9);
+	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.stateX_10);
+	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.stateY_11);
 
     // shallow copy of x_DWORD_17DB70str
     m_last_states.x_DWORD_17DB70str = x_DWORD_17DB70str;
@@ -287,8 +287,8 @@ void StateMonitor::Monitor_str_D4C48ar() {
             m_last_states.str_D4C48ar[i].dword_0 != str_D4C48ar[i].dword_0 ||
             m_last_states.str_D4C48ar[i].dword_4 != str_D4C48ar[i].dword_4 ||
             m_last_states.str_D4C48ar[i].word_8 != str_D4C48ar[i].word_8 ||
-            m_last_states.str_D4C48ar[i].dword_10 != str_D4C48ar[i].dword_10 ||
-            m_last_states.str_D4C48ar[i].dword_14 != str_D4C48ar[i].dword_14;
+            m_last_states.str_D4C48ar[i].actions_10 != str_D4C48ar[i].actions_10 ||
+            m_last_states.str_D4C48ar[i].models_14 != str_D4C48ar[i].models_14;
         if (different) {
 #ifdef REMC2_CODE
             RegisterChange(
@@ -297,14 +297,14 @@ void StateMonitor::Monitor_str_D4C48ar() {
                     m_last_states.str_D4C48ar[i].dword_0, 
                     m_last_states.str_D4C48ar[i].dword_4, 
                     m_last_states.str_D4C48ar[i].word_8, 
-                    reinterpret_cast<std::uintptr_t>(m_last_states.str_D4C48ar[i].dword_10), 
-                    reinterpret_cast<std::uintptr_t>(m_last_states.str_D4C48ar[i].dword_14)),
+                    reinterpret_cast<std::uintptr_t>(m_last_states.str_D4C48ar[i].actions_10), 
+                    reinterpret_cast<std::uintptr_t>(m_last_states.str_D4C48ar[i].models_14)),
                 fmt::format("{:x} {:x} {:x} {:x} {:x}", 
                     str_D4C48ar[i].dword_0, 
                     str_D4C48ar[i].dword_4, 
                     str_D4C48ar[i].word_8, 
-                    reinterpret_cast<std::uintptr_t>(str_D4C48ar[i].dword_10), 
-                    reinterpret_cast<std::uintptr_t>(str_D4C48ar[i].dword_14))
+                    reinterpret_cast<std::uintptr_t>(str_D4C48ar[i].actions_10), 
+                    reinterpret_cast<std::uintptr_t>(str_D4C48ar[i].models_14))
             );
 #endif //REMC2_CODE
         }

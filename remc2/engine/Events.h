@@ -13,8 +13,8 @@ sub2x_BYTE_E7EE0x;
 typedef struct {//lenght 24
 	int32_t dword_0;
 	int32_t dword_4;
-	int32_t dword_8;
-	int32_t dword_12;
+	int32_t bitmapIndex_8;
+	int32_t frameCounter_12;
 	sub2x_BYTE_E7EE0x* bitmapsStr_16;
 	int8_t* bitmapsData_20xx;
 }

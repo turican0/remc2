@@ -2461,12 +2461,12 @@ bool ReadAndDecompressSound(FILE* file, uint8_t soundIndex2)//2654f0
 	myftell(file);
 	//3550d8
 	DataFileIO::Read(file, (uint8_t*)soundBank2, 96);
-	if (soundBank2[soundIndex2].dword_4 == -1)
+	if (soundBank2[soundIndex2].dataOffset_4 == -1)
 		return false;
 
 	if (!soundActiveH_E2A14)
 	{
-		soundBuffer1_E37A8 = (uint8_t*)Malloc_83CD0(soundBank2[soundIndex2].dword_12 + 256);
+		soundBuffer1_E37A8 = (uint8_t*)Malloc_83CD0(soundBank2[soundIndex2].size_12 + 256);
 		soundIndex_E37A0 = (type_E37A0_sound_buffer2*)Malloc_83CD0(sizeof(type_E37A0_sound_buffer2));
 		soundActiveL_E2A14 = 1;
 		if (!soundBuffer1_E37A8 || !soundIndex_E37A0)
@@ -2477,7 +2477,7 @@ bool ReadAndDecompressSound(FILE* file, uint8_t soundIndex2)//2654f0
 			actualSoundBank_E37AD = -1;
 			return false;
 		}
-		soundBufferLen_E2A18 = soundBank2[soundIndex2].dword_12 + 256;
+		soundBufferLen_E2A18 = soundBank2[soundIndex2].size_12 + 256;
 		soundActiveH_E2A14 = 1;
 	}
 	soundAble_E3798 = false;
@@ -2495,18 +2495,18 @@ bool ReadAndDecompressSound(FILE* file, uint8_t soundIndex2)//2654f0
 
 	memset((void*)shadow_str_E37A0_sound_buffer2, 0, sizeof(shadow_type_E37A0_sound_buffer2));
 	numOfLoadedSounds_E37A4 = (soundBank2[soundIndex2].sizeBytes_8) / sizeof(shadow_sub2type_E37A0_sound_buffer2);
-	DataFileIO::Seek(file, soundBank2[soundIndex2].dword_4, 0);
+	DataFileIO::Seek(file, soundBank2[soundIndex2].dataOffset_4, 0);
 	DataFileIO::Read(file, soundBuffer1_E37A8, 8);
 	if (soundBuffer1_E37A8[0] != 'R' || soundBuffer1_E37A8[1] != 'N' || soundBuffer1_E37A8[2] != 'C')
 	{
-		DataFileIO::Read(file, (soundBuffer1_E37A8 + 8), soundBank2[soundIndex2].dword_12 - 8);
+		DataFileIO::Read(file, (soundBuffer1_E37A8 + 8), soundBank2[soundIndex2].size_12 - 8);
 	}
 	else
 	{
 		DataFileIO::Read(file, (soundBuffer1_E37A8 + 8), soundBuffer1_E37A8[7] + ((soundBuffer1_E37A8[6] + ((soundBuffer1_E37A8[5] + (soundBuffer1_E37A8[4] << 8)) << 8)) << 8) - 8);
 		DataFileRNC::Decompress(soundBuffer1_E37A8, soundBuffer1_E37A8);
 	}
-	DataFileIO::Seek(file, soundBank2[soundIndex2].dword_0, 0);
+	DataFileIO::Seek(file, soundBank2[soundIndex2].headerOffset_0, 0);
 	DataFileIO::Read(file, (uint8_t*)shadow_str_E37A0_sound_buffer2, 8);
 	if (shadow_str_E37A0_sound_buffer2->byte_0 != 'R' || shadow_str_E37A0_sound_buffer2->byte_1 != 'N' || shadow_str_E37A0_sound_buffer2->byte_2 != 'C')//R N C
 	{
@@ -5681,7 +5681,7 @@ bool LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 
 	myftell(filehandle);
 	DataFileIO::Read(filehandle, (uint8_t*)headerx, 64);
-	if (headerx[drivernumber].dword_4 == -1)
+	if (headerx[drivernumber].dataOffset_4 == -1)
 		return false;
 	if (musicData_E3810)
 	{
@@ -5693,7 +5693,7 @@ bool LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 		FreeMem_83E80((uint8_t*)musicHeader_E3808);
 		musicAble_E37FC = false;
 	}
-	musicData_E3810 = (uint8_t*)Malloc_83CD0(headerx[drivernumber].dword_12);
+	musicData_E3810 = (uint8_t*)Malloc_83CD0(headerx[drivernumber].size_12);
 	if (!musicData_E3810)
 		return false;
 	musicHeader_E3808 = (type_E3808_music_header*)Malloc_83CD0(sizeof(type_E3808_music_header));
@@ -5713,7 +5713,7 @@ bool LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	//64xbit fix
 	
 	countOfMusicTracks_E380C = (headerx[drivernumber].sizeBytes_8) / sizeof(sub2type_E37A0_sound_buffer2);
-	DataFileIO::Seek(filehandle, headerx[drivernumber].dword_4, 0);
+	DataFileIO::Seek(filehandle, headerx[drivernumber].dataOffset_4, 0);
 	DataFileIO::Read(filehandle, musicData_E3810, 8);
 	if (musicData_E3810[0] == 'R' && musicData_E3810[1] == 'N' && musicData_E3810[2] == 'C')//RNC
 	{
@@ -5729,9 +5729,9 @@ bool LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	}
 	else
 	{
-		DataFileIO::Read(filehandle, (uint8_t*)&musicData_E3810[8], headerx[drivernumber].dword_12 - 8);
+		DataFileIO::Read(filehandle, (uint8_t*)&musicData_E3810[8], headerx[drivernumber].size_12 - 8);
 	}
-	DataFileIO::Seek(filehandle, headerx[drivernumber].dword_0, 0);
+	DataFileIO::Seek(filehandle, headerx[drivernumber].headerOffset_0, 0);
 
 	//64x fix shadow_str_E3808_music_header
 	DataFileIO::Read(filehandle, (uint8_t*)shadow_str_E3808_music_header, 8);
@@ -6056,8 +6056,8 @@ int32_t StopTimer_8F850(uint32_t interval)
 
 void SetSamplePositionFromPlayer(uint32_t flags, int16_t wavIndex, axis_3d_32 entityPosition)
 {
-	int16_t rotationIndex = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1;
-	axis_4d rotData = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[rotationIndex].rotation__2BDE_11701;
+	int16_t rotationIndex = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1;
+	axis_4d rotData = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[rotationIndex].rotation__2BDE_11701;
 	auto playerYawDeg = Maths::ConvertYawToDegrees(rotData.yaw);
 	auto rotatedCoords = Maths::RotateZ({ (float)entityPosition.x, (float)entityPosition.y, (float)entityPosition.z }, -playerYawDeg);
 	float angleDeg = Maths::MeasureYawAngleDegrees(rotatedCoords);
@@ -6394,14 +6394,14 @@ void PrepareEventSound_6E450(int16_t entityIndex, int16_t levelIndex, int16_t wa
 	}
 	else
 	{
-		if (currentEntity->struct_byte_0xc_12_15.byte[0] < 0)
+		if (currentEntity->flags_0xc_12_15.byte[0] < 0)
 			return;
 		entityPos = &currentEntity->position_0x4C_76;
 		if (Maths::EuclideanDistXY_584D0(
-			&Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->position_0x4C_76,
+			&Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->position_0x4C_76,
 			&currentEntity->position_0x4C_76) > MaxSoundDistance)
 			return;
-		playerEntity = Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+		playerEntity = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 		soundFlags = cachedEntity->id_0x1A_26;
 		distXYZ = Maths::EuclideanDistXYZ_58490(&playerEntity->position_0x4C_76, entityPos);
 		positionFromPlayer = Maths::RelativeXYZCoordinate(&currentEntity->position_0x4C_76, &playerEntity->position_0x4C_76);
@@ -6662,9 +6662,9 @@ void ChangeSoundLevel_19CA0(uint8_t option)//1faca0
 	}
 	if (x_D41A0_BYTEARRAY_4_struct.byte_38591)
 	{
-		D41A0_0.byte_counter_current_objective_box_0x36E04 = 0;
+		D41A0_0.objectiveBoxCounter_0x36E04 = 0;
 		x_D41A0_BYTEARRAY_4_struct.setting_38402 = 1;
-		if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 < 6u || D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 > 8u)
+		if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 < 6u || D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 > 8u)
 			HandleButtonClick_191B0(20, 10);
 		else
 			HandleButtonClick_191B0(20, 12);

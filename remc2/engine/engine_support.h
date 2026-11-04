@@ -173,7 +173,7 @@ type_dword_0x649_2BDE;
 
 typedef struct {//size 5152
 	//type_particle_str_0 un_0;//lenght?
-	uint16_t word_0;
+	uint16_t flags_0;
 	uint16_t width;
 	uint16_t height;
 	int8_t textureBuffer[];
@@ -182,10 +182,10 @@ Type_Sprite;
 
 typedef struct {//size 14
 	Type_Sprite* partstr_0;//Sprite?
-	int32_t dword_4;
+	int32_t size_4;
 	int16_t word_8;
 	int16_t Index;
-	int16_t word_12;
+	int16_t tmapIndex_12;
 }
 subtype_x_DWORD_E9C28_str;
 
@@ -198,14 +198,14 @@ typedef struct {//size 4
 subtype_x_DWORD_E9C28_str2;
 
 typedef struct {//size 26
-	int32_t dword_0;
-	int32_t dword_4;
-	subtype_x_DWORD_E9C28_str* str_8_data;
-	subtype_x_DWORD_E9C28_str** dword_12x;//uint32_t*
-	uint32_t* dword_16x;//uint32_t*
-	int16_t word_20;
-	int16_t word_22;
-	int16_t word_24;
+	int32_t capacity_0;
+	int32_t freeSize_4;
+	subtype_x_DWORD_E9C28_str* entries_8;
+	subtype_x_DWORD_E9C28_str** entryPtrs_12x;//uint32_t*
+	uint32_t* buffer_16x;//uint32_t*
+	int16_t usedCount_20;
+	int16_t maxEntries_22;
+	int16_t allocMode_24;
 	subtype_x_DWORD_E9C28_str data[];
 	//uint32_t dword_26;
 } type_x_DWORD_E9C28_str;
@@ -268,19 +268,19 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	//uint8_t byteindex_125;//0x7d//x_D41A0_BYTEARRAY_4_struct.byteindex_121[4]
 	//uint8_t byteindex_127;//0x7f//x_D41A0_BYTEARRAY_4_struct.byteindex_121[6]
 	uint8_t stubi[8];
-	char byteindex_145ar[32];//x_D41A0_BYTEARRAY_4_struct.byteindex_145ar
+	char netGameName_145ar[32];//x_D41A0_BYTEARRAY_4_struct.byteindex_145ar
 
 	uint8_t byteindex_177;//0xb1//x_D41A0_BYTEARRAY_4_struct.byteindex_177
 	uint8_t speedIndex;//0xb2//x_D41A0_BYTEARRAY_4_struct.byteindex_178
 	uint8_t SelectedLangIndex;
 	uint8_t paletteSubMod_180;//0xb4//x_D41A0_BYTEARRAY_4_struct.byteindex_180
 	uint8_t moveSpeedFlag_181;//0xb5//x_D41A0_BYTEARRAY_4_struct.byteindex_181
-	uint8_t byteindex_183;//0xb7//x_D41A0_BYTEARRAY_4_struct.byteindex_183
+	uint8_t arrowKeyFlags_183;//0xb7//x_D41A0_BYTEARRAY_4_struct.byteindex_183
 	uint16_t paletteCount_184w;//0xb8//x_D41A0_BYTEARRAY_4_struct.byteindex_184
 	//uint8_t stubj[1];
-	uint8_t byteindex_186;//0xba//x_D41A0_BYTEARRAY_4_struct.byteindex_186
+	uint8_t optionsMenuWidth_186;//0xba//x_D41A0_BYTEARRAY_4_struct.byteindex_186
 	uint8_t stubk[1];
-	uint32_t dwordindex_188;//x_D41A0_BYTEARRAY_4_struct.byteindex_188
+	uint32_t optionsMenuFlags_188;//x_D41A0_BYTEARRAY_4_struct.byteindex_188
 	//uint8_t byteindex_189;//x_D41A0_BYTEARRAY_4_struct.byteindex_189
 	//uint8_t byteindex_190;//x_D41A0_BYTEARRAY_4_struct.byteindex_190
 
@@ -288,7 +288,7 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	//9(0x100)-reflection//10(0x200)-sky//11(0x400)-shadows//12(0x800)-light/13(0x1000)-icons//14(0x2000)-transparency//15(0x4000)-flat	//16(0x8000)-resolution
 	//17(0x10000)-names
 
-	uint32_t dwordindex_192;//0xc0//x_D41A0_BYTEARRAY_4_struct.byteindex_192
+	uint32_t optionsMenuFlags2_192;//0xc0//x_D41A0_BYTEARRAY_4_struct.byteindex_192
 	//uint8_t byteindex_193;//0xc1//x_D41A0_BYTEARRAY_4_struct.byteindex_193
 	//uint8_t byteindex_194;//0xc2//x_D41A0_BYTEARRAY_4_struct.byteindex_194
 
@@ -301,10 +301,10 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	uint8_t transfer_rate_dwordindex_200;//0xc8//x_D41A0_BYTEARRAY_4_struct.transfer_rate_dwordindex_200
 	uint8_t stubm[3];
 	uint8_t byteindex_204;//0xCC//x_D41A0_BYTEARRAY_4_struct.byteindex_204
-	uint8_t byteindex_205;//0xCD//x_D41A0_BYTEARRAY_4_struct.byteindex_205
+	uint8_t pauseToggle_205;//0xCD//x_D41A0_BYTEARRAY_4_struct.byteindex_205
 	uint8_t byteindex_206;//0xce//x_D41A0_BYTEARRAY_4_struct.byteindex_206
 	uint8_t byteindex_207;//0xcf//x_D41A0_BYTEARRAY_4_struct.byteindex_207
-	uint8_t byteindex_208;//0xd0//x_D41A0_BYTEARRAY_4_struct.byteindex_208
+	uint8_t saveFileExists_208;//0xd0//x_D41A0_BYTEARRAY_4_struct.byteindex_208
 	uint8_t stubmm[1];
 	uint32_t byteindex_210d;//0xd2//x_D41A0_BYTEARRAY_4_struct.byteindex_210
 	//uint8_t stubn[3];
@@ -315,9 +315,9 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	uint16_t byteindex_218w;//0xda//x_D41A0_BYTEARRAY_4_struct.byteindex_218
 	//uint8_t stubq[1];
 
-	uint8_t byteindex_220;//0xdc//x_D41A0_BYTEARRAY_4_struct.byteindex_220
+	uint8_t lastMouseX_220;//0xdc//x_D41A0_BYTEARRAY_4_struct.byteindex_220
 	uint8_t byteindex_221ar[3];//0xe0//x_D41A0_BYTEARRAY_4_struct.byteindex_221ar
-	uint8_t byteindex_224;//0xe0//x_D41A0_BYTEARRAY_4_struct.byteindex_224
+	uint8_t summonCount_224;//0xe0//x_D41A0_BYTEARRAY_4_struct.byteindex_224
 	uint8_t byteindex_225;//0xe1//x_D41A0_BYTEARRAY_4_struct.byteindex_225
 	uint8_t* pointer_0xE2_heapbuffer_226;//x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226
 	uint32_t dword_0xE6_heapsize_230;//x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230
@@ -326,7 +326,7 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	//uint8_t byteindex_246;//0xf6//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4]
 	//uint8_t byteindex_250;//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[8]
 
-	type_str_0x2BDE byteindex_256ar;//0x100//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar
+	type_str_0x2BDE savedPlayer_256ar;//0x100//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar
 	//280=byteindex_256ar[24];//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[24]
 	//565=byteindex_256ar[309];//0x235//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[309]
 	//1865=byteindex_256ar[1609];//0x749//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[1609]
@@ -338,19 +338,19 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	//uint8_t stubs[9];
 	uint32_t dwordindex_2380;//0x94c//x_D41A0_BYTEARRAY_4_struct.dwordindex_2380
 	uint8_t stubt[4];
-	uint32_t dwordindex_2388;//0x954//x_D41A0_BYTEARRAY_4_struct.dwordindex_2388
-	uint32_t dwordindex_2392;//0x958//x_D41A0_BYTEARRAY_4_struct.dwordindex_2392
+	uint32_t timerStep_2388;//0x954//x_D41A0_BYTEARRAY_4_struct.dwordindex_2388
+	uint32_t timerAccumulator_2392;//0x958//x_D41A0_BYTEARRAY_4_struct.dwordindex_2392
 
 	//uint8_t byteindex_8618;//0x21aa//x_D41A0_BYTEARRAY_4_struct.byteindex_8618
 	//uint8_t setting_38545;
 	uint8_t stubu[36000];
-	type_entity_0x6E8E* dwordindex_38396;//0x95FC//x_D41A0_BYTEARRAY_4_struct.dwordindex_38396
+	type_entity_0x6E8E* nearestEntity_38396;//0x95FC//x_D41A0_BYTEARRAY_4_struct.dwordindex_38396
 	uint8_t leftSpellPlayerIndex_38400;//0x9600//x_D41A0_BYTEARRAY_4_struct.leftSpellPlayerIndex_38400
 	uint8_t rightSpellPlayerIndex_38401;//0x9601//x_D41A0_BYTEARRAY_4_struct.rightSpellPlayerIndex_38401
 
 	uint8_t setting_38402;//0x9602//x_D41A0_BYTEARRAY_4_struct.setting_38402
 
-	type_entity_0x6E8E* bytearray_38403x[29];//array 116//0x9603//x_D41A0_BYTEARRAY_4_struct.bytearray_38403
+	type_entity_0x6E8E* creatureLists_38403x[29];//array 116//0x9603//x_D41A0_BYTEARRAY_4_struct.bytearray_38403
 	/*
 	creatures
 		8-dead
@@ -369,7 +369,7 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	//bytearray_38535=bytearray_38403[132]//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[132]
 
 	//endarray - dword_38519
-	type_entity_0x6E8E* dword_38519;//0x9677//x_D41A0_BYTEARRAY_4_struct.dword_38519
+	type_entity_0x6E8E* class3List_38519;//0x9677//x_D41A0_BYTEARRAY_4_struct.dword_38519
 	/*
 	entite
 	8-dead
@@ -380,10 +380,10 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 		3-ballon
 	144-mana
 	*/
-	type_entity_0x6E8E* dword_38523;//0x967b//x_D41A0_BYTEARRAY_4_struct.dword_38523
-	type_entity_0x6E8E* dword_38527;//0x967F//x_D41A0_BYTEARRAY_4_struct.dword_38527
-	type_entity_0x6E8E* dword_38531;//0x9683//x_D41A0_BYTEARRAY_4_struct.dword_38531
-	type_entity_0x6E8E* dword_38535;//x_D41A0_BYTEARRAY_4_struct.dword_38535
+	type_entity_0x6E8E* manaSphereList_38523;//0x967b//x_D41A0_BYTEARRAY_4_struct.dword_38523
+	type_entity_0x6E8E* buildingList_38527;//0x967F//x_D41A0_BYTEARRAY_4_struct.dword_38527
+	type_entity_0x6E8E* projectileList_38531;//0x9683//x_D41A0_BYTEARRAY_4_struct.dword_38531
+	type_entity_0x6E8E* miscList_38535;//x_D41A0_BYTEARRAY_4_struct.dword_38535
 	uint8_t stubv[5];
 	uint8_t byte_38544;//x_D41A0_BYTEARRAY_4_struct.byte_38544
 	uint8_t setting_38545;//0x9691//x_D41A0_BYTEARRAY_4_struct.setting_38545
@@ -430,13 +430,13 @@ extern x_BYTE x_BYTE_355220;//Langcheck//3551CE+52 BYTE
 extern x_BYTE x_BYTE_355238;//aMusic2//3551CE+6a BYTE*/
 
 typedef struct {//lenght 30
-	int16_t word_0;//str_E2A74[].word_0
+	int16_t type_0;//str_E2A74[].word_0
 	std::array<int16_t, 5> axis_2; // 1=textIndex 3=lineX1, 4=lineY1
 	//int16_t axis_4[3];//?? str_E2A74[].axis_2[0]
 	//int16_t stuba;
-	type_entity_0x6E8E* dword_12;//str_E2A74[].dword_12
-	int32_t dword_16;
-	int32_t dword_20;//str_E2A74[].dword_20
+	type_entity_0x6E8E* entity_12;//str_E2A74[].dword_12
+	int32_t counter_16;
+	int32_t countdown_20;//str_E2A74[].dword_20
 	int32_t dword_24;//str_E2A74[].dword_24
 	//int8_t byte_25;
 	int8_t byte_28;
@@ -700,34 +700,34 @@ struct {//0xb0 nebo spis 171(0xab)
 	//0x66
 	*/
 
-	int32_t dword_0x66;//66
+	int32_t helpItemCount_0x66;//66
 	int32_t dword_0x6a;//6a
-	int32_t dword_0x6e;//6e
-	int32_t dword_0x72;//72
-	int32_t dword_0x76;//76
-	int32_t dword_0x7a;//7a
+	int32_t blinkPeriod_0x6e;//6e
+	int32_t blinkCounter_0x72;//72
+	int32_t popupTimer_0x76;//76
+	int32_t popupTimeout_0x7a;//7a
 	int8_t stub[4];
-	int32_t dword_0x82;//82
+	int32_t randSeed_0x82;//82
 	int16_t Index_0x86;//86
 	int16_t word_0x88;//88
 	type_uni_0x8a uni_0x8a;
 	//int32_t dword_0x8a;//8a
 	//int16_t array_0x8e[4];//8e //text lines
-	int16_t word_0x96;//96
-	int16_t word_0x98;//98
-	int16_t word_0x9a;//9A
-	int16_t word_0x9c;//9C
+	int16_t scoresPosX_0x96;//96
+	int16_t scoresPosY_0x98;//98
+	int16_t scoresBarX_0x9a;//9A
+	int16_t scoresBarY_0x9c;//9C
 	int8_t PopupStatusByte_0x9e;//9e
-	int8_t byte_0x9f;//9f
-	int8_t byte_0xa0;//a0
-	int8_t byte_0xa1;//a1
+	int8_t popupFlags_0x9f;//9f
+	int8_t lineCount_0xa0;//a0
+	int8_t highlightLine_0xa1;//a1
 	int8_t byte_0xa2;//a2
 	int8_t drawTextType_0xa3;//a3
 	int8_t byte_0xa4;//a4
-	int8_t byte_0xa5;//a5
-	int8_t byte_0xa6;//a6
+	int8_t lastSpellIndex_0xa5;//a5
+	int8_t lastSubSpellIndex_0xa6;//a6
 	int8_t showPlayerScores_0xa7;//a7
-	int8_t byte_0xa8;//a8 - wizard number
+	int8_t wizardNumber_0xa8;//a8 - wizard number
 	int8_t byte_0xa9;//a9
 	int8_t byte_0xaa;//aa
 	//int8_t stubb[1];

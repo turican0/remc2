@@ -174,22 +174,22 @@ void SaveLevelShadow(type_shadow_D41A0_BYTESTR_0* shadow)
 {
 	//fix for saving
 	for (int indexx = 1; Entities_EA3E4[indexx] < Entities_EA3E4[1000]; indexx++)
-		//if (memory_readable(Entities_EA3E4[indexx]->dword_0xA4_164x,4))
+		//if (memory_readable(Entities_EA3E4[indexx]->playerData_0xA4_164x,4))
 	{
-		if (Entities_EA3E4[indexx]->dword_0xA4_164x == unk_F42B0x)//0x014F82E8//0x2c75e28-(uint32_t)&D41A0_BYTESTR_0
-			Entities_EA3E4[indexx]->dword_0xA4_164x = (type_str_164*)0x2c75e28;
+		if (Entities_EA3E4[indexx]->playerData_0xA4_164x == unk_F42B0x)//0x014F82E8//0x2c75e28-(uint32_t)&D41A0_BYTESTR_0
+			Entities_EA3E4[indexx]->playerData_0xA4_164x = (type_str_164*)0x2c75e28;
 	}
 	//fix for saving
 
-	D41A0_0.dword_0x36DF6 = &str_D7BD6[59]; //(x_DWORD)&unk_D7BD6[0x7d6];
+	D41A0_0.typeParamsBase_0x36DF6 = &str_D7BD6[59]; //(x_DWORD)&unk_D7BD6[0x7d6];
 	Convert_to_shadow_D41A0_BYTESTR_0(&D41A0_0, shadow);
 
 	//fix for saving
 	for (int indexx = 1; Entities_EA3E4[indexx] < Entities_EA3E4[1000]; indexx++)
 	{
 		type_str_164* Zerotype_str_164 = 0;
-		if (Entities_EA3E4[indexx]->dword_0xA4_164x == (type_str_164*)&((int8_t*)Zerotype_str_164)[0x2c75e28])//0x014F82E8//0x2c75e28-(uint32_t)&D41A0_BYTESTR_0
-			Entities_EA3E4[indexx]->dword_0xA4_164x = unk_F42B0x;
+		if (Entities_EA3E4[indexx]->playerData_0xA4_164x == (type_str_164*)&((int8_t*)Zerotype_str_164)[0x2c75e28])//0x014F82E8//0x2c75e28-(uint32_t)&D41A0_BYTESTR_0
+			Entities_EA3E4[indexx]->playerData_0xA4_164x = unk_F42B0x;
 	}
 	//fix for saving
 }
@@ -203,16 +203,16 @@ bool SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //
 
 	success = false;
 	sprintf(printbuffer, "%s/%s%d%s.DAT", SaveDirectory().c_str(), "SLEV", savefileindex + 1, savefileindex2);
-	temptime = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393;
+	temptime = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.time_393;
 	acttime = j___clock();
-	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393 = acttime - D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393;
+	D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.time_393 = acttime - D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.time_393;
 
 	type_shadow_D41A0_BYTESTR_0 shadow_type_D41A0_BYTESTR_0;
 	SaveLevelShadow(&shadow_type_D41A0_BYTESTR_0);
 
 	int size = sizeof(shadow_type_D41A0_BYTESTR_0);
 	if (DataFileIO::OpenWriteClose_98C48(printbuffer, (uint8_t*)&shadow_type_D41A0_BYTESTR_0, size) == size) success = true;
-	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393 = temptime;
+	D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.time_393 = temptime;
 
 	return success;
 }
@@ -297,18 +297,18 @@ bool LoadLevel_555D0(uint8_t fileindex, int levelindex, bool loadRegressionTest)
 			if (readSuccess)
 			{
 				qmemcpy(
-					&x_D41A0_BYTEARRAY_4_struct.byteindex_256ar,
-					&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc],
+					&x_D41A0_BYTEARRAY_4_struct.savedPlayer_256ar,
+					&D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc],
 					0x84Cu);
 				readSuccess = LoadLevelSLEV_55A10(fileindex, loadRegressionTest);
 				if (readSuccess)
 				{
 					ConvertObjectivePointers_55100(2);
 					FixPointersAfterLoad_57680();
-					CopyPlayerSpellData_549A0(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.str_611, &x_D41A0_BYTEARRAY_4_struct.byteindex_256ar.dword_0x3E6_2BE4_12228.str_611);
+					CopyPlayerSpellData_549A0(&D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611, &x_D41A0_BYTEARRAY_4_struct.savedPlayer_256ar.playerData_0x3E6_2BE4_12228.str_611);
 					RebuildEntityLists_49F90();
-					D41A0_0.dword_0x11e6 = -1;
-					CreatePlayerSpellEntities_55AB0(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
+					D41A0_0.freeEntityCount2_0x11e6 = -1;
+					CreatePlayerSpellEntities_55AB0(&D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc]);
 					ReloadLevelTmaps_71990();
 					FlvInitSet_473B0();
 				}
@@ -336,7 +336,7 @@ bool LoadLevelSMAP_558E0(uint8_t savefileindex, bool loadRegressionTest)//2368e0
 	Logger->debug("InGameLoad-begin\n");
 
 	//fix
-	x_D41A0_BYTEARRAY_4_struct.dword_38519 = Entities_EA3E4[1];
+	x_D41A0_BYTEARRAY_4_struct.class3List_38519 = Entities_EA3E4[1];
 	//fix
 
 	// FIXME: cannot set this here.
@@ -400,12 +400,12 @@ bool LoadLevelSLEV_55A10(uint8_t savefileindex, bool loadRegressionTest)//236a10
 	D41A0_pointer = (uint8_t*)&shadow_D41A0_BYTESTR_0;
 	if (DataFileIO::ReadFileAndDecompress(printbuffer, &D41A0_pointer) == sizeof(type_shadow_D41A0_BYTESTR_0))
 	{
-		D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393 = j___clock() - D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.time_393;
+		D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.time_393 = j___clock() - D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.time_393;
 		success = true;
 	}
-	type_str_164* tempEntities_EA3E4_0 = Entities_EA3E4[0]->dword_0xA4_164x;//fix for x64
+	type_str_164* tempEntities_EA3E4_0 = Entities_EA3E4[0]->playerData_0xA4_164x;//fix for x64
 	Convert_from_shadow_D41A0_BYTESTR_0(&shadow_D41A0_BYTESTR_0, &D41A0_0);
-	Entities_EA3E4[0]->dword_0xA4_164x =tempEntities_EA3E4_0;//fix for x64
+	Entities_EA3E4[0]->playerData_0xA4_164x =tempEntities_EA3E4_0;//fix for x64
 	return success;
 }
 
@@ -426,7 +426,7 @@ bool SaveLevel_55080(uint8_t savefileindex, int32_t LevelNumber, char* savefilei
 		}
 		ConvertObjectivePointers_55100(2);
 		RebuildEntityLists_49F90();
-		D41A0_0.dword_0x11e6 = -1;
+		D41A0_0.freeEntityCount2_0x11e6 = -1;
 	}
 	return success;
 }
@@ -450,8 +450,8 @@ std::vector<uint8_t> SaveLevelToBuffer()
 	D41A0_0 = *live;
 	for (int i = 0; i < 1000; i++)//entity lists as indexes, the shadow keeps 32 bits of a pointer
 	{
-		shadow->pointers_0x246[i] = D41A0_0.pointers_0x246[i] ? D41A0_0.pointers_0x246[i] - D41A0_0.struct_0x6E8E : 0;
-		shadow->dword_0x11EA[i] = D41A0_0.dword_0x11EA[i] ? D41A0_0.dword_0x11EA[i] - D41A0_0.struct_0x6E8E : 0;
+		shadow->pointers_0x246[i] = D41A0_0.freeEntities_0x246[i] ? D41A0_0.freeEntities_0x246[i] - D41A0_0.entities_0x6E8E : 0;
+		shadow->dword_0x11EA[i] = D41A0_0.freeEntities2_0x11EA[i] ? D41A0_0.freeEntities2_0x11EA[i] - D41A0_0.entities_0x6E8E : 0;
 	}
 	for (const auto& part : SmapParts())
 		save.insert(save.end(), part.first, part.first + part.second);
@@ -478,8 +478,8 @@ bool LoadLevelFromBuffer(const std::vector<uint8_t>& save)
 	Convert_from_shadow_D41A0_BYTESTR_0(shadow.get(), &D41A0_0);
 	for (int i = 0; i < 1000; i++)
 	{
-		D41A0_0.pointers_0x246[i] = shadow->pointers_0x246[i] && shadow->pointers_0x246[i] < 1000 ? &D41A0_0.struct_0x6E8E[shadow->pointers_0x246[i]] : nullptr;
-		D41A0_0.dword_0x11EA[i] = shadow->dword_0x11EA[i] && shadow->dword_0x11EA[i] < 1000 ? &D41A0_0.struct_0x6E8E[shadow->dword_0x11EA[i]] : nullptr;
+		D41A0_0.freeEntities_0x246[i] = shadow->pointers_0x246[i] && shadow->pointers_0x246[i] < 1000 ? &D41A0_0.entities_0x6E8E[shadow->pointers_0x246[i]] : nullptr;
+		D41A0_0.freeEntities2_0x11EA[i] = shadow->dword_0x11EA[i] && shadow->dword_0x11EA[i] < 1000 ? &D41A0_0.entities_0x6E8E[shadow->dword_0x11EA[i]] : nullptr;
 	}
 	ConvertObjectivePointers_55100(2);
 	for (int i = 1; i <= D41A0_0.countStageVars_0x36E00; i++)//ConvertObjectivePointers_55100(2) keeps these as offsets, as the original (0x2361C9)
@@ -487,14 +487,14 @@ bool LoadLevelFromBuffer(const std::vector<uint8_t>& save)
 		auto& stageVar = D41A0_0.StageVars2_0x365F4[i];
 		uint8_t type = stageVar.index_0x3647A_0;
 		if ((type >= 3 && type <= 5 || type == 8 || type == 9) && !(stageVar.stage_0x3647A_1 & 2)
-			&& stageVar.str_0x3647C_4.dword && stageVar.str_0x3647C_4.dword % sizeof(type_shadow_str_0x6E8E) == 0 && stageVar.str_0x3647C_4.dword < 1000 * sizeof(type_shadow_str_0x6E8E))
-			stageVar.str_0x3647C_4.pointer_0x6E8E = &D41A0_0.struct_0x6E8E[stageVar.str_0x3647C_4.dword / sizeof(type_shadow_str_0x6E8E)];
+			&& stageVar.target_0x3647C_4.dword && stageVar.target_0x3647C_4.dword % sizeof(type_shadow_str_0x6E8E) == 0 && stageVar.target_0x3647C_4.dword < 1000 * sizeof(type_shadow_str_0x6E8E))
+			stageVar.target_0x3647C_4.pointer_0x6E8E = &D41A0_0.entities_0x6E8E[stageVar.target_0x3647C_4.dword / sizeof(type_shadow_str_0x6E8E)];
 	}
 	FixPointersAfterLoad_57680();
 	// live values: pointers the fixes overwrite and the settings, as LoadLevel_555D0
-	D41A0_0.struct_0x6E8E[0].dword_0xA4_164x = live->struct_0x6E8E[0].dword_0xA4_164x;
-	D41A0_0.str_0x3664C[0].event_A.pointer_0x6E8E = live->str_0x3664C[0].event_A.pointer_0x6E8E;
-	D41A0_0.dword_0x36DF6 = live->dword_0x36DF6;
+	D41A0_0.entities_0x6E8E[0].playerData_0xA4_164x = live->entities_0x6E8E[0].playerData_0xA4_164x;
+	D41A0_0.dynamicLights_0x3664C[0].event_A.pointer_0x6E8E = live->dynamicLights_0x3664C[0].event_A.pointer_0x6E8E;
+	D41A0_0.typeParamsBase_0x36DF6 = live->typeParamsBase_0x36DF6;
 	D41A0_0.m_GameSettings = live->m_GameSettings;
 	D41A0_0.dword_0x219A = live->dword_0x219A;
 	D41A0_0.dword_0x219E = live->dword_0x219E;
@@ -741,16 +741,16 @@ void LoadFixedFonts(int fontStructIndex, char* type)
 	{
 	case 0:
 		fontStruct = xy_DWORD_17DEC0_spritestr;
-		fontDatBase = x_DWORD_17DE38str.x_DWORD_17DE54;
-		datTabOffset0 = x_DWORD_17DE38str.x_DWORD_17DEC0;
-		datTabOffset1 = x_DWORD_17DE38str.x_DWORD_17DEC4;
+		fontDatBase = x_DWORD_17DE38str.fontData_17DE54;
+		datTabOffset0 = x_DWORD_17DE38str.fontTab_17DEC0;
+		datTabOffset1 = x_DWORD_17DE38str.fontTabEnd_17DEC4;
 		patchedBufferPtr = &g_patchedFontDataBuffer;
 		break;
 	case 1:
 		fontStruct = xy_DWORD_17DEC8_spritestr;
-		fontDatBase = x_DWORD_17DE38str.x_DWORD_17DE58;
-		datTabOffset0 = x_DWORD_17DE38str.x_DWORD_17DEC8;
-		datTabOffset1 = x_DWORD_17DE38str.x_DWORD_17DECC;
+		fontDatBase = x_DWORD_17DE38str.font2Data_17DE58;
+		datTabOffset0 = x_DWORD_17DE38str.font2Tab_17DEC8;
+		datTabOffset1 = x_DWORD_17DE38str.font2TabEnd_17DECC;
 		patchedBufferPtr = &g_patchedFontDataBuffer2;
 		break;
 	case 2:
@@ -966,7 +966,7 @@ void LoadFixedMenuGraphics()
 		break;
 		case MapType_t::Night:
 		{
-			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+			if (D41A0_0.terrain_2FECE.levelType_0x2FED2 & 2)
 			{
 				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/PALF-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.colorPalette_var28);
@@ -1182,37 +1182,37 @@ void ConvertObjectivePointers_55100(char a1)//236100
 
 	//fix !!!!
 	int8_t* ZeroPointer=0;
-	v3 = v2 * ((int8_t*)D41A0_0.struct_0x6E8E- ZeroPointer);
+	v3 = v2 * ((int8_t*)D41A0_0.entities_0x6E8E- ZeroPointer);
 	v4 = 0;
 	v5 = v2 * ((int8_t*)D41A0_0.terrain_2FECE.entity_0x30311 - ZeroPointer);
 	//fix
 
 	while (v4 < D41A0_0.stageIndex_0x36E01)
 	{
-		if (D41A0_0.stages_0x3654C[v4].str_36552_un.dword)
+		if (D41A0_0.stages_0x3654C[v4].target_36552.dword)
 		{
 			v7 = D41A0_0.stages_0x3654C[v4].stages_3654C_byte0;
 			if ((v7 < 5) && (v7 > 0))
 			{
-				if (!(D41A0_0.stages_0x3654C[v4].str_3654D_byte1 & 1))
+				if (!(D41A0_0.stages_0x3654C[v4].flags_3654D & 1))
 				{
 					if ((v7 == 1) || (v7 == 2) || (v7 == 4))
 					{
-						type_entity_0x30311* temp_0x30311 = D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311;
+						type_entity_0x30311* temp_0x30311 = D41A0_0.stages_0x3654C[v4].target_36552.ptr0x30311;
 						if (v2 == -1)
 						{
-							int diff = D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 - D41A0_0.terrain_2FECE.entity_0x30311;
+							int diff = D41A0_0.stages_0x3654C[v4].target_36552.ptr0x30311 - D41A0_0.terrain_2FECE.entity_0x30311;
 							int sizediff = diff * sizeof(type_entity_0x30311);
-							if (((char*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 - (char*)D41A0_0.terrain_2FECE.entity_0x30311) % sizeof(type_entity_0x30311) > 0)
+							if (((char*)D41A0_0.stages_0x3654C[v4].target_36552.ptr0x30311 - (char*)D41A0_0.terrain_2FECE.entity_0x30311) % sizeof(type_entity_0x30311) > 0)
 								allert_error();
-							D41A0_0.stages_0x3654C[v4].str_36552_un.dword = sizediff;
+							D41A0_0.stages_0x3654C[v4].target_36552.dword = sizediff;
 						}
 						else
 						{
-							int count = D41A0_0.stages_0x3654C[v4].str_36552_un.dword / sizeof(type_entity_0x30311);
-							int countadd = D41A0_0.stages_0x3654C[v4].str_36552_un.dword % sizeof(type_entity_0x30311);
+							int count = D41A0_0.stages_0x3654C[v4].target_36552.dword / sizeof(type_entity_0x30311);
+							int countadd = D41A0_0.stages_0x3654C[v4].target_36552.dword % sizeof(type_entity_0x30311);
 							if (countadd > 0)allert_error();
-							D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 = &D41A0_0.terrain_2FECE.entity_0x30311[count];
+							D41A0_0.stages_0x3654C[v4].target_36552.ptr0x30311 = &D41A0_0.terrain_2FECE.entity_0x30311[count];
 						}
 #ifdef x32_BIT_ENVIRONMENT
 						if (D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x30311 != (type_entity_0x30311*)((uint8_t*)temp_0x30311 + (xBITINT)v5))
@@ -1222,21 +1222,21 @@ void ConvertObjectivePointers_55100(char a1)//236100
 				}
 				else
 				{
-					type_entity_0x6E8E* temp_0x6E8E = D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E;
+					type_entity_0x6E8E* temp_0x6E8E = D41A0_0.stages_0x3654C[v4].target_36552.ptr0x6E8E;
 					if (v2 == -1)
 					{
-						int diff = D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E - D41A0_0.struct_0x6E8E;
+						int diff = D41A0_0.stages_0x3654C[v4].target_36552.ptr0x6E8E - D41A0_0.entities_0x6E8E;
 						int sizediff = diff * sizeof(type_shadow_str_0x6E8E);
-						if (((char*)D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E - (char*)D41A0_0.struct_0x6E8E) % sizeof(type_entity_0x6E8E) > 0)
+						if (((char*)D41A0_0.stages_0x3654C[v4].target_36552.ptr0x6E8E - (char*)D41A0_0.entities_0x6E8E) % sizeof(type_entity_0x6E8E) > 0)
 							allert_error();
-						D41A0_0.stages_0x3654C[v4].str_36552_un.dword = sizediff;
+						D41A0_0.stages_0x3654C[v4].target_36552.dword = sizediff;
 					}
 					else
 					{
-						int count = D41A0_0.stages_0x3654C[v4].str_36552_un.dword / sizeof(type_shadow_str_0x6E8E);
-						int countadd = D41A0_0.stages_0x3654C[v4].str_36552_un.dword % sizeof(type_shadow_str_0x6E8E);
+						int count = D41A0_0.stages_0x3654C[v4].target_36552.dword / sizeof(type_shadow_str_0x6E8E);
+						int countadd = D41A0_0.stages_0x3654C[v4].target_36552.dword % sizeof(type_shadow_str_0x6E8E);
 						if (countadd > 0)allert_error();
-						D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E = &D41A0_0.struct_0x6E8E[count];
+						D41A0_0.stages_0x3654C[v4].target_36552.ptr0x6E8E = &D41A0_0.entities_0x6E8E[count];
 					}
 #ifdef x32_BIT_ENVIRONMENT
 					if (D41A0_0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E != (type_entity_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
@@ -1257,23 +1257,23 @@ void ConvertObjectivePointers_55100(char a1)//236100
 		{
 			if (!(D41A0_0.StageVars2_0x365F4[i].stage_0x3647A_1 & 2))
 			{
-				type_entity_0x6E8E* temp_0x6E8E = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E;
+				type_entity_0x6E8E* temp_0x6E8E = D41A0_0.StageVars2_0x365F4[i].target_0x3647C_4.pointer_0x6E8E;
 				if (temp_0x6E8E >= Entities_EA3E4[0] && temp_0x6E8E < Entities_EA3E4[1000])
 				{
 					if (v2 == -1)
 					{
-						int diff = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E - D41A0_0.struct_0x6E8E;
+						int diff = D41A0_0.StageVars2_0x365F4[i].target_0x3647C_4.pointer_0x6E8E - D41A0_0.entities_0x6E8E;
 						int sizediff = diff * sizeof(type_shadow_str_0x6E8E);
-						if (((char*)D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E - (char*)D41A0_0.struct_0x6E8E) % sizeof(type_entity_0x6E8E) > 0)
+						if (((char*)D41A0_0.StageVars2_0x365F4[i].target_0x3647C_4.pointer_0x6E8E - (char*)D41A0_0.entities_0x6E8E) % sizeof(type_entity_0x6E8E) > 0)
 							allert_error();
-						D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.dword = sizediff;
+						D41A0_0.StageVars2_0x365F4[i].target_0x3647C_4.dword = sizediff;
 					}
 					else
 					{
-						int count = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.dword / sizeof(type_shadow_str_0x6E8E);
-						int countadd = D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.dword % sizeof(type_shadow_str_0x6E8E);
+						int count = D41A0_0.StageVars2_0x365F4[i].target_0x3647C_4.dword / sizeof(type_shadow_str_0x6E8E);
+						int countadd = D41A0_0.StageVars2_0x365F4[i].target_0x3647C_4.dword % sizeof(type_shadow_str_0x6E8E);
 						if (countadd > 0)allert_error();
-						D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E = &D41A0_0.struct_0x6E8E[count];
+						D41A0_0.StageVars2_0x365F4[i].target_0x3647C_4.pointer_0x6E8E = &D41A0_0.entities_0x6E8E[count];
 					}
 #ifdef x32_BIT_ENVIRONMENT
 					if (D41A0_0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E != (type_entity_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
@@ -1287,23 +1287,23 @@ void ConvertObjectivePointers_55100(char a1)//236100
 	//23620a
 	for (j = 1; j < 50; j++)
 	{
-		if (D41A0_0.str_0x3664C[j].byte_0)
+		if (D41A0_0.dynamicLights_0x3664C[j].active_0)
 		{
-			type_entity_0x6E8E* temp_0x6E8E = D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E;
+			type_entity_0x6E8E* temp_0x6E8E = D41A0_0.dynamicLights_0x3664C[j].event_A.pointer_0x6E8E;
 			if (v2 == -1)
 			{
-				int diff = D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E - D41A0_0.struct_0x6E8E;
+				int diff = D41A0_0.dynamicLights_0x3664C[j].event_A.pointer_0x6E8E - D41A0_0.entities_0x6E8E;
 				int sizediff = diff * sizeof(type_shadow_str_0x6E8E);
-				if (((char*)D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E - (char*)D41A0_0.struct_0x6E8E) % sizeof(type_entity_0x6E8E) > 0)
+				if (((char*)D41A0_0.dynamicLights_0x3664C[j].event_A.pointer_0x6E8E - (char*)D41A0_0.entities_0x6E8E) % sizeof(type_entity_0x6E8E) > 0)
 					allert_error();
-				D41A0_0.str_0x3664C[j].event_A.dword = sizediff;//0x36656
+				D41A0_0.dynamicLights_0x3664C[j].event_A.dword = sizediff;//0x36656
 			}
 			else
 			{
-				int count = D41A0_0.str_0x3664C[j].event_A.dword / sizeof(type_shadow_str_0x6E8E);
-				int countadd = D41A0_0.str_0x3664C[j].event_A.dword % sizeof(type_shadow_str_0x6E8E);
+				int count = D41A0_0.dynamicLights_0x3664C[j].event_A.dword / sizeof(type_shadow_str_0x6E8E);
+				int countadd = D41A0_0.dynamicLights_0x3664C[j].event_A.dword % sizeof(type_shadow_str_0x6E8E);
 				if (countadd > 0)allert_error();
-				D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E = &D41A0_0.struct_0x6E8E[count];//0x36656
+				D41A0_0.dynamicLights_0x3664C[j].event_A.pointer_0x6E8E = &D41A0_0.entities_0x6E8E[count];//0x36656
 			}
 #ifdef x32_BIT_ENVIRONMENT
 			if (D41A0_0.str_0x3664C[j].event_A.pointer_0x6E8E != (type_entity_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
@@ -1316,26 +1316,26 @@ void ConvertObjectivePointers_55100(char a1)//236100
 //----- (00057680) --------------------------------------------------------
 void FixPointersAfterLoad_57680()//238680
 {
-	D41A0_0.str_0x3664C[0].event_A.pointer_0x6E8E = nullptr;
+	D41A0_0.dynamicLights_0x3664C[0].event_A.pointer_0x6E8E = nullptr;
 
 	for (int indexx = 1; Entities_EA3E4[indexx] < Entities_EA3E4[1000]; indexx++)
 	{
 		#if defined(x32_BIT_ENVIRONMENT)
-			if ((uint32_t)Entities_EA3E4[indexx]->dword_0xA4_164x == 0x2c75e28)
-				Entities_EA3E4[indexx]->dword_0xA4_164x = unk_F42B0x;
+			if ((uint32_t)Entities_EA3E4[indexx]->playerData_0xA4_164x == 0x2c75e28)
+				Entities_EA3E4[indexx]->playerData_0xA4_164x = unk_F42B0x;
 		#else
-			if ((uint64_t)Entities_EA3E4[indexx]->dword_0xA4_164x == 0x2c75e28)//0x014F82E8//0x2c75e28-(uint32_t)&D41A0_BYTESTR_0
-				Entities_EA3E4[indexx]->dword_0xA4_164x = unk_F42B0x;
+			if ((uint64_t)Entities_EA3E4[indexx]->playerData_0xA4_164x == 0x2c75e28)//0x014F82E8//0x2c75e28-(uint32_t)&D41A0_BYTESTR_0
+				Entities_EA3E4[indexx]->playerData_0xA4_164x = unk_F42B0x;
 		#endif
 	}
 
 	for (int v0 = 0; v0 < D41A0_0.NumberOfPlayers_0xe; v0++)
 	{
-		Entities_EA3E4[D41A0_0.array_0x2BDE[v0].playerIndex_0x00a_2BE4_11240]->dword_0xA4_164x = &D41A0_0.array_0x2BDE[v0].dword_0x3E6_2BE4_12228;
+		Entities_EA3E4[D41A0_0.players_0x2BDE[v0].playerIndex_0x00a_2BE4_11240]->playerData_0xA4_164x = &D41A0_0.players_0x2BDE[v0].playerData_0x3E6_2BE4_12228;
 	}
 	for (int indexx = 1; Entities_EA3E4[indexx] < Entities_EA3E4[1000]; indexx++)
 		if (Entities_EA3E4[indexx]->class_0x3F_63)
-			Entities_EA3E4[indexx]->dword_0xA0_160x = &str_D7BD6[(Entities_EA3E4[indexx]->dword_0xA0_160x - D41A0_0.dword_0x36DF6)+ 59];
+			Entities_EA3E4[indexx]->typeParams_0xA0_160x = &str_D7BD6[(Entities_EA3E4[indexx]->typeParams_0xA0_160x - D41A0_0.typeParamsBase_0x36DF6)+ 59];
 }
 
 //----- (000549A0) --------------------------------------------------------
@@ -1345,7 +1345,7 @@ void CopyPlayerSpellData_549A0(type_str_611* a1x, type_str_611* a2x)//2359a0
 	a1x->SpellExperience_0x263_611x = a2x->SpellExperience_0x263_611x;
 	a1x->SpellLevels_0x41D_1053z = a2x->SpellLevels_0x41D_1053z;
 	a1x->array_0x3B5_949x = a2x->array_0x3B5_949x;
-	a1x->array_0x437_1079x = a2x->array_0x437_1079x;
+	a1x->selectedSubSpells_0x437_1079x = a2x->selectedSubSpells_0x437_1079x;
 }
 
 //----- (00049F90) --------------------------------------------------------
@@ -1356,27 +1356,27 @@ void RebuildEntityLists_49F90()//22af90
 	type_entity_0x6E8E* indexx; // eax
 	for (iy = 1; iy < 0x3e8; iy++)
 	{
-		if (Entities_EA3E4[iy]->class_0x3F_63 && Entities_EA3E4[iy]->struct_byte_0xc_12_15.byte[1] & 4)
+		if (Entities_EA3E4[iy]->class_0x3F_63 && Entities_EA3E4[iy]->flags_0xc_12_15.byte[1] & 4)
 			ReleaseEntity_57F20(Entities_EA3E4[iy]);
 	}
-	D41A0_0.dword_0x35 = -1;
+	D41A0_0.freeEntityCount_0x35 = -1;
 	v2 = 999;
-	D41A0_0.dword_0x11e6 = -1;
+	D41A0_0.freeEntityCount2_0x11e6 = -1;
 	do
 	{
 		indexx = Entities_EA3E4[v2];
 		if (indexx->class_0x3F_63)
 		{
-			if (indexx->struct_byte_0xc_12_15.byte[2] & 2)
+			if (indexx->flags_0xc_12_15.byte[2] & 2)
 			{
-				D41A0_0.dword_0x11e6++;
-				D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6] = Entities_EA3E4[v2];
+				D41A0_0.freeEntityCount2_0x11e6++;
+				D41A0_0.freeEntities2_0x11EA[D41A0_0.freeEntityCount2_0x11e6] = Entities_EA3E4[v2];
 			}
 		}
 		else
 		{
-			D41A0_0.dword_0x35++;
-			D41A0_0.pointers_0x246[D41A0_0.dword_0x35] = Entities_EA3E4[v2];
+			D41A0_0.freeEntityCount_0x35++;
+			D41A0_0.freeEntities_0x246[D41A0_0.freeEntityCount_0x35] = Entities_EA3E4[v2];
 		}
 		v2--;
 	} while (v2 > 0);
@@ -1387,33 +1387,33 @@ void CreatePlayerSpellEntities_55AB0(type_str_0x2BDE* playStr)//236ab0
 {
 	for (int i = 0; i < 26; i++)
 	{
-		if (playStr->dword_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x.SpellIndex[spellIndex_D94FF[i]] || playStr->dword_0x3E6_2BE4_12228.str_611.array_0x403_1027x.SpellIndex[spellIndex_D94FF[i]])
+		if (playStr->playerData_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x.SpellIndex[spellIndex_D94FF[i]] || playStr->playerData_0x3E6_2BE4_12228.str_611.array_0x403_1027x.SpellIndex[spellIndex_D94FF[i]])
 		{
-			if (!playStr->dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[i]])
+			if (!playStr->playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[i]])
 			{
 				type_entity_0x6E8E* tempEvent = CreateEntity_4A190(&Entities_EA3E4[playStr->playerIndex_0x00a_2BE4_11240]->position_0x4C_76, 15, spellIndex_D94FF[i]);
 				if (tempEvent)
 				{
-					playStr->dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[i]] = tempEvent - D41A0_0.struct_0x6E8E;
-					tempEvent->parentId_0x28_40 = Entities_EA3E4[playStr->playerIndex_0x00a_2BE4_11240] - D41A0_0.struct_0x6E8E;
-					tempEvent->struct_byte_0xc_12_15.byte[0] |= 1u;
-					SetSpell_6D5E0(tempEvent, playStr->dword_0x3E6_2BE4_12228.str_611.array_0x437_1079x.SpellIndex[spellIndex_D94FF[i]]);
+					playStr->playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[i]] = tempEvent - D41A0_0.entities_0x6E8E;
+					tempEvent->parentId_0x28_40 = Entities_EA3E4[playStr->playerIndex_0x00a_2BE4_11240] - D41A0_0.entities_0x6E8E;
+					tempEvent->flags_0xc_12_15.byte[0] |= 1u;
+					SetSpell_6D5E0(tempEvent, playStr->playerData_0x3E6_2BE4_12228.str_611.selectedSubSpells_0x437_1079x.SpellIndex[spellIndex_D94FF[i]]);
 				}
 			}
 		}
 		else
 		{
-			if (playStr->dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[i]])
+			if (playStr->playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[i]])
 			{
-				playStr->dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[i]] = 0;
-				ReleaseEntity_57F20(Entities_EA3E4[playStr->dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[i]]]);
+				playStr->playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[i]] = 0;
+				ReleaseEntity_57F20(Entities_EA3E4[playStr->playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[i]]]);
 			}
 		}
 	}
-	if (playStr->dword_0x3E6_2BE4_12228.str_611.SpellIndexLeft_0x451_1105 != -1 && !playStr->dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[playStr->dword_0x3E6_2BE4_12228.str_611.SpellIndexLeft_0x451_1105])
-		playStr->dword_0x3E6_2BE4_12228.str_611.SpellIndexLeft_0x451_1105 = -1;
-	if (playStr->dword_0x3E6_2BE4_12228.str_611.SpellIndexRight_0x453_1107 != -1 && !playStr->dword_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[playStr->dword_0x3E6_2BE4_12228.str_611.SpellIndexRight_0x453_1107])
-		playStr->dword_0x3E6_2BE4_12228.str_611.SpellIndexRight_0x453_1107 = -1;
+	if (playStr->playerData_0x3E6_2BE4_12228.str_611.SpellIndexLeft_0x451_1105 != -1 && !playStr->playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[playStr->playerData_0x3E6_2BE4_12228.str_611.SpellIndexLeft_0x451_1105])
+		playStr->playerData_0x3E6_2BE4_12228.str_611.SpellIndexLeft_0x451_1105 = -1;
+	if (playStr->playerData_0x3E6_2BE4_12228.str_611.SpellIndexRight_0x453_1107 != -1 && !playStr->playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[playStr->playerData_0x3E6_2BE4_12228.str_611.SpellIndexRight_0x453_1107])
+		playStr->playerData_0x3E6_2BE4_12228.str_611.SpellIndexRight_0x453_1107 = -1;
 }
 
 //----- (00071990) --------------------------------------------------------
@@ -1428,13 +1428,13 @@ void ReloadLevelTmaps_71990()//252990
 	if (!x_DWORD_E9C28_str)
 		InitTmapsAndSprites_712F0();
 	for(int i=0;i<504;i++)
-		if (!D41A0_0.array_0x39[i])
+		if (!D41A0_0.usedTmaps_0x39[i])
 			ResetTmap_70D20(i);
 	for (i = 2; i && !v6_return; i--)
 	{
 		for (j = 0; j < 504 && !v6_return; j++)
 		{
-			if (i == D41A0_0.array_0x39[j] && !m_ptrLoadedSprites_F66F0x[j])
+			if (i == D41A0_0.usedTmaps_0x39[j] && !m_ptrLoadedSprites_F66F0x[j])
 			{
 				v4 = GetTmapGroupSize_70EF0(j);
 				if (GetTmapCacheFreeSize_71E60(x_DWORD_E9C28_str) <= v4)
@@ -1454,13 +1454,13 @@ void ReloadLevelTmaps_71990()//252990
 //----- (00071930) --------------------------------------------------------
 void MarkLoadedTmaps_71930()//252930
 {
-	for (int i=0; i < 508; i++) D41A0_0.array_0x39[i] = 0;
+	for (int i=0; i < 508; i++) D41A0_0.usedTmaps_0x39[i] = 0;
 	for (int i=0; i < 504; i++) {
 		if (m_ptrLoadedSprites_F66F0x[i])
 		{
-			D41A0_0.array_0x39[i] = 1;
+			D41A0_0.usedTmaps_0x39[i] = 1;
 			if (m_LevelSpriteList_F5340[i])
-				D41A0_0.array_0x39[i]++;
+				D41A0_0.usedTmaps_0x39[i]++;
 		}
 	}	
 }
@@ -1589,10 +1589,10 @@ void SetSpell_6D5E0(type_entity_0x6E8E* entity, int spellId)//24e5e0
 	// record11 turn 7421), its model is past the table and the original reads byte_DA818 + model*50h, the credits
 	// pointers (24E5EC movsx esi,byte ptr [ebx+40h])
 	if (entity->model_0x40_64 >= NUMBER_OF_SPELLS)
-		spellTableOverrun[entity - D41A0_0.struct_0x6E8E] = true;
+		spellTableOverrun[entity - D41A0_0.entities_0x6E8E] = true;
 	int locSpellId = (int8_t)spellId;//24E604 movsx esi,al
-	if (locSpellId > SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].byte_0 - 1)
-		locSpellId = SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].byte_0 - 1;
+	if (locSpellId > SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].levelCount_0 - 1)
+		locSpellId = SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].levelCount_0 - 1;
 	// 240890 UpdateCastleLevel_5F890 passes the wizard, its word_0x2C_44 - 1 can be negative (record038 turn 6754: -37) and the original
 	// reads before byte_DA818 (a pointer of another table); 0 here and in DOSBox (24E614)
 	if (locSpellId < 0)
@@ -1719,16 +1719,16 @@ type_E9C08* AllocateAnimations_72120(unsigned __int16 a1)//253120
 	SetAllocationTag_83CC0(9);
 	v2x = (type_E9C08*)Malloc_83CD0(sizeof(type_E9C08));
 	v3x = v2x;
-	if (v2x && (v4 = (type_animations1*)Malloc_83CD0(sizeof(type_animations1) * a1), (v2x->dword_2 = v4) != 0))
+	if (v2x && (v4 = (type_animations1*)Malloc_83CD0(sizeof(type_animations1) * a1), (v2x->animations_2 = v4) != 0))
 	{
-		v2x->word_0 = a1;
+		v2x->count_0 = a1;
 		while (--v1 != 0xffff)
 		{
 			//v5 = 7 * v1;
 			//*(x_DWORD *)(v2x->dword_2 + 4 * v5 + 4) = 0;
 			//*(x_DWORD *)(v2x->dword_2 + 4 * v5) = 0;
-			v2x->dword_2[v1].Sprite_4 = 0;
-			v2x->dword_2[v1].dword_0 = 0;
+			v2x->animations_2[v1].Sprite_4 = 0;
+			v2x->animations_2[v1].dword_0 = 0;
 		}
 	}
 	else if (v2x)
@@ -1757,46 +1757,46 @@ type_x_DWORD_E9C28_str* InitTmapCache_71B40(int a1, unsigned __int16 a2, type_x_
 		v6 = a1 - v5;
 		if (a1 == v5)
 			return 0;
-		a3y->word_20 = 0;
-		a3y->word_24 = 2;
-		a3y->dword_0 = v6;
-		a3y->dword_4 = v6;
+		a3y->usedCount_20 = 0;
+		a3y->allocMode_24 = 2;
+		a3y->capacity_0 = v6;
+		a3y->freeSize_4 = v6;
 		result = a3y;
-		a3y->word_22 = a2;
-		a3y->str_8_data = a3y->data;
-		a3y->dword_12x = (subtype_x_DWORD_E9C28_str**)&a3y->data[a2];
-		a3y->dword_16x = (uint32_t*)((uint8_t*)a3y->data+((sizeof(subtype_x_DWORD_E9C28_str) * a2) + sizeof(subtype_x_DWORD_E9C28_str*) * a2));
+		a3y->maxEntries_22 = a2;
+		a3y->entries_8 = a3y->data;
+		a3y->entryPtrs_12x = (subtype_x_DWORD_E9C28_str**)&a3y->data[a2];
+		a3y->buffer_16x = (uint32_t*)((uint8_t*)a3y->data+((sizeof(subtype_x_DWORD_E9C28_str) * a2) + sizeof(subtype_x_DWORD_E9C28_str*) * a2));
 		while (--index != 0xffff)
-			a3y->str_8_data[index].dword_4 = 0;
+			a3y->entries_8[index].size_4 = 0;
 	}
 	else
 	{
 		result = (type_x_DWORD_E9C28_str*)Malloc_83CD0(26);
 		//result = v10y;
 		if (!result
-			|| (v11x = (uint8_t*)Malloc_83CD0(a1), (result->dword_16x = (uint32_t*)v11x) == 0)
-			|| (v12x = (uint8_t*)Malloc_83CD0(sizeof(subtype_x_DWORD_E9C28_str) * a2), (result->str_8_data = (subtype_x_DWORD_E9C28_str*)v12x) == 0)
-			|| (v13x = (uint8_t*)Malloc_83CD0(sizeof(subtype_x_DWORD_E9C28_str*) * a2), (result->dword_12x = (subtype_x_DWORD_E9C28_str**)v13x) == 0))
+			|| (v11x = (uint8_t*)Malloc_83CD0(a1), (result->buffer_16x = (uint32_t*)v11x) == 0)
+			|| (v12x = (uint8_t*)Malloc_83CD0(sizeof(subtype_x_DWORD_E9C28_str) * a2), (result->entries_8 = (subtype_x_DWORD_E9C28_str*)v12x) == 0)
+			|| (v13x = (uint8_t*)Malloc_83CD0(sizeof(subtype_x_DWORD_E9C28_str*) * a2), (result->entryPtrs_12x = (subtype_x_DWORD_E9C28_str**)v13x) == 0))
 		{
 			if (result)
 			{
-				if (result->dword_16x)
+				if (result->buffer_16x)
 				{
-					if (result->str_8_data)
-						FreeMem_83E80((uint8_t*)result->str_8_data);
-					FreeMem_83E80((uint8_t*)result->dword_16x);
+					if (result->entries_8)
+						FreeMem_83E80((uint8_t*)result->entries_8);
+					FreeMem_83E80((uint8_t*)result->buffer_16x);
 				}
 				FreeMem_83E80((uint8_t*)result);
 			}
 			exit(1);
 		}
-		result->word_20 = 0;
-		result->word_24 = 1;
-		result->word_22 = a2;
-		result->dword_0 = a1;
-		result->dword_4 = a1;
+		result->usedCount_20 = 0;
+		result->allocMode_24 = 1;
+		result->maxEntries_22 = a2;
+		result->capacity_0 = a1;
+		result->freeSize_4 = a1;
 		while (--index != 0xffff)
-			result->str_8_data[index].dword_4 = 0;
+			result->entries_8[index].size_4 = 0;
 	}
 	return result;
 }
@@ -1808,10 +1808,10 @@ int GetSpellManaCost_6D710(type_entity_0x6E8E* event, uint8 spellIndex, uint8 su
 	int result = SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[subSpellIndex].manaCost_6;
 	if (spellIndex == 2 && event > Entities_EA3E4[0])
 	{
-		type_entity_0x6E8E* entity2 = Entities_EA3E4[event->dword_0xA4_164x->CastleEntityIndex_0x3A_58];
+		type_entity_0x6E8E* entity2 = Entities_EA3E4[event->playerData_0xA4_164x->CastleEntityIndex_0x3A_58];
 		if (entity2 <= Entities_EA3E4[0])
 		{
-			if (event->dword_0xA4_164x->byte_0x1BE_446)
+			if (event->playerData_0xA4_164x->byte_0x1BE_446)
 				add3000 = 3000;
 			if (add3000)
 				result += 3000;
@@ -1866,7 +1866,7 @@ int GetSpellManaCost_6D710(type_entity_0x6E8E* event, uint8 spellIndex, uint8 su
 				result += 3000;
 			return result;
 		}
-		if (event->dword_0xA4_164x->byte_0x1BE_446)
+		if (event->playerData_0xA4_164x->byte_0x1BE_446)
 			add3000 = true;
 		if (add3000)
 			result += 3000;

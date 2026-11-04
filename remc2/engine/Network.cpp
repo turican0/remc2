@@ -1082,7 +1082,7 @@ static void NetworkPeerVanished_73AA1b(int16_t lost)
 		return;
 
 	NetworkCanceling_73669(lost);
-	D41A0_0.array_0x2BDE[lost].byte_0x006_2BE4_11236 = 0;   // no longer in the game
+	D41A0_0.players_0x2BDE[lost].playerActive_0x006_2BE4_11236 = 0;   // no longer in the game
 	if (CommandLineParams.DoNetworkDebug())
 		debug_net_printf("PEERGONE: player %d vanished (token holder was %d)\n",
 			(int)lost, (int)IndexInNetwork2_E12A8);
@@ -1245,14 +1245,14 @@ void NetworkRewireAfterServerChange()
 		// so when there is nothing to carry, leaving it alone is right.
 		const int oldToken = IndexInNetwork2_E12A8;
 		if (oldToken >= 0 && oldToken < 8 && serverSlot < 8
-			&& x_DWORD_17DE38str.array_BYTE_17DE68x[oldToken].makeUpdate_0)
+			&& x_DWORD_17DE38str.netSessions_17DE68x[oldToken].makeUpdate_0)
 		{
 			for (int c = 0; c < 8; c++)
-				x_DWORD_17DE38str.array_BYTE_17DE68x[serverSlot].playerIndex_1[c] =
-					x_DWORD_17DE38str.array_BYTE_17DE68x[oldToken].playerIndex_1[c];
-			if (x_DWORD_17DE38str.array_BYTE_17DE68x[oldToken].selectedLevel_10 >= 50)
-				x_DWORD_17DE38str.array_BYTE_17DE68x[serverSlot].selectedLevel_10 =
-					x_DWORD_17DE38str.array_BYTE_17DE68x[oldToken].selectedLevel_10;
+				x_DWORD_17DE38str.netSessions_17DE68x[serverSlot].playerIndex_1[c] =
+					x_DWORD_17DE38str.netSessions_17DE68x[oldToken].playerIndex_1[c];
+			if (x_DWORD_17DE38str.netSessions_17DE68x[oldToken].selectedLevel_10 >= 50)
+				x_DWORD_17DE38str.netSessions_17DE68x[serverSlot].selectedLevel_10 =
+					x_DWORD_17DE38str.netSessions_17DE68x[oldToken].selectedLevel_10;
 		}
 		IndexInNetwork2_E12A8 = (int16_t)serverSlot;
 	}
@@ -1294,8 +1294,8 @@ void RemoveDeadClients()
 				// stale action every frame, which for a "select character" action re-rolls
 				// colours through FindFreeColorIndex_7D230 and lands two wizards on one
 				// colour.
-				x_DWORD_17DE38str.array_BYTE_17DE68x[i].makeUpdate_0 = 1;
-				x_DWORD_17DE38str.array_BYTE_17DE68x[i].action_9 = 1;
+				x_DWORD_17DE38str.netSessions_17DE68x[i].makeUpdate_0 = 1;
+				x_DWORD_17DE38str.netSessions_17DE68x[i].action_9 = 1;
 				// What must NOT run for this slot is the ORDERLY hand-over that action_9 = 1
 				// normally triggers: NetworkPeerLeft_73AA1 begins by receiving the survivor
 				// list from the node that is leaving, and a node that was killed sent none.
@@ -1480,7 +1480,7 @@ void WaitToConnect_7C230()//25d230
 			timeCounter_E2094 = minTimeCounter_E2096;
 		lastTime_E208C = actTime;
 	}
-	DrawBitmap640_7C120(x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony, xy_DWORD_17DED4_spritestr[timeCounter_E2094]);
+	DrawBitmap640_7C120(x_DWORD_17DE38str.mouseX_17DEE4, x_DWORD_17DE38str.mouseY_17DEE6, xy_DWORD_17DED4_spritestr[timeCounter_E2094]);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		VgaBlit320_90478();
 	else
@@ -1494,23 +1494,23 @@ bool SetMultiplayerColors_7CE50()//25de50
 	__int16 colorIndex; // di
 	bool result = false;
 
-	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].makeUpdate_0 = 1;
+	x_DWORD_17DE38str.netSessions_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].makeUpdate_0 = 1;
 	NetworkUpdateConnections2_74374();//some with network
 	printState(connection_E12AE);
-	ReceiveSendAll_7438A((uint8_t*)x_DWORD_17DE38str.array_BYTE_17DE68x, sizeof(type_BYTE_17DE68x));
+	ReceiveSendAll_7438A((uint8_t*)x_DWORD_17DE38str.netSessions_17DE68x, sizeof(type_BYTE_17DE68x));
 	for (int v0 = 0; v0 < 8; v0++)
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			x_DWORD_17DE38str.array_BYTE_17DE68x[v0].playerIndex_1[j] = x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[j];
-			x_BYTE_E131C[j] = x_DWORD_17DE38str.array_BYTE_17DE68x[v0].playerIndex_1[j];
+			x_DWORD_17DE38str.netSessions_17DE68x[v0].playerIndex_1[j] = x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[j];
+			x_BYTE_E131C[j] = x_DWORD_17DE38str.netSessions_17DE68x[v0].playerIndex_1[j];
 		}
 	}
 	for (int i = 0; i < 8; i++)
 	{
-		if (x_DWORD_17DE38str.array_BYTE_17DE68x[i].makeUpdate_0)
+		if (x_DWORD_17DE38str.netSessions_17DE68x[i].makeUpdate_0)
 		{
-			switch (x_DWORD_17DE38str.array_BYTE_17DE68x[i].action_9)
+			switch (x_DWORD_17DE38str.netSessions_17DE68x[i].action_9)
 			{
 			case 1://end of select character
 				for (colorIndex = 134; colorIndex < 148; colorIndex++)
@@ -1521,7 +1521,7 @@ bool SetMultiplayerColors_7CE50()//25de50
 				}
 				VgaPaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
 
-				x_DWORD_17DE38str.array_BYTE_17DE68x[i].makeUpdate_0 = 0;
+				x_DWORD_17DE38str.netSessions_17DE68x[i].makeUpdate_0 = 0;
 				// A slot whose node vanished has already been handed over from the roster in
 				// RemoveDeadClients; the orderly path below would try to receive a survivor
 				// list that nobody sent.
@@ -1536,27 +1536,27 @@ bool SetMultiplayerColors_7CE50()//25de50
 				if (GetIndexNetwork2_74515() == GetIndexNetwork_74536())//begin of select character
 				{
 					if (i <= 0)
-						x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = i;
+						x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = i;
 					else
-						x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = i - 1;
-					x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = FindFreeColorIndex_7D230(1, x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i], i);
+						x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = i - 1;
+					x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = FindFreeColorIndex_7D230(1, x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i], i);
 				}
 				break;
 			case 3://change to left character
-				if (GetIndexNetwork2_74515() == GetIndexNetwork_74536() && x_DWORD_17DE38str.x_WORD_17DEFE < 7)
+				if (GetIndexNetwork2_74515() == GetIndexNetwork_74536() && x_DWORD_17DE38str.netPlayerCount_17DEFE < 7)
 				{
-					x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = FindFreeColorIndex_7D230(1, x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i], i);
+					x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = FindFreeColorIndex_7D230(1, x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i], i);
 				}
 				break;
 			case 4://change to right character
-				if (GetIndexNetwork2_74515() == GetIndexNetwork_74536() && x_DWORD_17DE38str.x_WORD_17DEFE < 7)
+				if (GetIndexNetwork2_74515() == GetIndexNetwork_74536() && x_DWORD_17DE38str.netPlayerCount_17DEFE < 7)
 				{
-					x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = FindFreeColorIndex_7D230(0, x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i], i);
+					x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = FindFreeColorIndex_7D230(0, x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i], i);
 				}
 				break;
 			case 5://start multiplayer level
 				D41A0_0.LevelIndex_0xc = x_DWORD_17DE38str.serverIndex_17DEFC;
-				x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].selectedLevel_10;
+				x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].selectedLevel_10;
 				x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 |= Setting::MULTIPLAYER_MODE;
 				// NumberOfPlayers_0xe is used everywhere as a LOOP BOUND over array_0x2BDE,
 				// not as a population count, and the two agree only while the players fill
@@ -1572,7 +1572,7 @@ bool SetMultiplayerColors_7CE50()//25de50
 				{
 					int highestSlot = -1;
 					for (int s = 0; s < 8; s++)
-						if (x_DWORD_17DE38str.array_BYTE_17DE68x[s].makeUpdate_0) highestSlot = s;
+						if (x_DWORD_17DE38str.netSessions_17DE68x[s].makeUpdate_0) highestSlot = s;
 					D41A0_0.NumberOfPlayers_0xe = (int16_t)(highestSlot + 1);
 				}
 				NetworkCancelAll_7449C();
@@ -1580,15 +1580,15 @@ bool SetMultiplayerColors_7CE50()//25de50
 				result = true;
 				break;
 			case 6:
-				x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10 = x_DWORD_17DE38str.array_BYTE_17DE68x[i].selectedLevel_10;//select next level
+				x_DWORD_17DE38str.netSessions_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10 = x_DWORD_17DE38str.netSessions_17DE68x[i].selectedLevel_10;//select next level
 				break;
 			default:
 				continue;
 			}
 		}
 	}
-	x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 0;
-	x_DWORD_17DE38str.x_WORD_17DEF4 = x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[x_DWORD_17DE38str.serverIndex_17DEFC];
+	x_DWORD_17DE38str.netSessions_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 0;
+	x_DWORD_17DE38str.wizardIndex_17DEF4 = x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[x_DWORD_17DE38str.serverIndex_17DEFC];
 	DrawNetworkLevelName_7D1F0();
 	return result;
 }
@@ -1597,11 +1597,11 @@ bool SetMultiplayerColors_7CE50()//25de50
 void DrawNetworkLevelName_7D1F0()//25e1f0
 {
 	int index = 0;
-	x_DWORD_17DE38str.x_WORD_17DEFE = 0;
+	x_DWORD_17DE38str.netPlayerCount_17DEFE = 0;
 	do
 	{
-		if (x_DWORD_17DE38str.array_BYTE_17DE68x[index].makeUpdate_0)
-			x_DWORD_17DE38str.x_WORD_17DEFE++;
+		if (x_DWORD_17DE38str.netSessions_17DE68x[index].makeUpdate_0)
+			x_DWORD_17DE38str.netPlayerCount_17DEFE++;
 		index++;
 	} while (index < 8);
 }
@@ -1611,11 +1611,11 @@ void SetMultiplayerColors_7D310()//25e310
 {
 	for (int i = 0; i < 8; i++)
 	{
-		if (x_DWORD_17DE38str.array_BYTE_17DE68x[i].makeUpdate_0)
+		if (x_DWORD_17DE38str.netSessions_17DE68x[i].makeUpdate_0)
 		{
 			if (i != x_DWORD_17DE38str.serverIndex_17DEFC)
 			{
-				SetPaletteColor_7CDC0(i, x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i]);
+				SetPaletteColor_7CDC0(i, x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i]);
 			}
 		}
 	}
@@ -1642,8 +1642,8 @@ int FindFreeColorIndex_7D230(char searchBackward, uint8 startColor, uint8 exclud
 			while (slotBwd < 8)
 			{
 				if (slotBwd != excludeSlot &&
-					x_DWORD_17DE38str.array_BYTE_17DE68x[slotBwd].makeUpdate_0 &&
-					x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[slotBwd] == (x_WORD)currentColor)
+					x_DWORD_17DE38str.netSessions_17DE68x[slotBwd].makeUpdate_0 &&
+					x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[slotBwd] == (x_WORD)currentColor)
 				{
 					colorTakenBwd = 1;
 					break;
@@ -1663,8 +1663,8 @@ int FindFreeColorIndex_7D230(char searchBackward, uint8 startColor, uint8 exclud
 			while (slotFwd < 8)
 			{
 				if (slotFwd != excludeSlot &&
-					x_DWORD_17DE38str.array_BYTE_17DE68x[slotFwd].makeUpdate_0 &&
-					x_DWORD_17DE38str.array_BYTE_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[slotFwd] == (x_WORD)currentColor)
+					x_DWORD_17DE38str.netSessions_17DE68x[slotFwd].makeUpdate_0 &&
+					x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[slotFwd] == (x_WORD)currentColor)
 				{
 					colorTakenFwd = 1;
 					break;

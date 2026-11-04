@@ -188,10 +188,10 @@ void GameRenderHW::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 		v20 = 100;
 	}
 	vYaw = yaw & 0x7FF;
-	x_DWORD_D4794 += (v19 - x_DWORD_D4794) >> 3;
-	x_DWORD_D4798 += (v20 - x_DWORD_D4798) >> 3;
-	vPosX = x_DWORD_D4794 + posX;
-	vPosY = x_DWORD_D4798 + posY;
+	viewOffsetX_D4794 += (v19 - viewOffsetX_D4794) >> 3;
+	viewOffsetY_D4798 += (v20 - viewOffsetY_D4798) >> 3;
+	vPosX = viewOffsetX_D4794 + posX;
+	vPosY = viewOffsetY_D4798 + posY;
 
 	if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && D41A0_0.m_GameSettings.m_Display.m_uiScreenSize && screenWidth_18062C == 640)
 	{
@@ -219,12 +219,12 @@ void GameRenderHW::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 	{
 		bool blurActive = D41A0_0.m_GameSettings.m_Display.xxxx_0x2191;
 		if (x_WORD_180660_VGA_type_resolution == 1
-			&& !D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221
+			&& !D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221
 			&& x_D41A0_BYTEARRAY_4_struct.m_wHighSpeedSystem
 			&& D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize == 40)
 		{
 			// Motion blur when the player is moving fast
-			int32_t speed = Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->actSpeed_0x82_130;
+			int32_t speed = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->actSpeed_0x82_130;
 			if (std::abs(speed) > 80)
 				blurActive = true;
 		}
@@ -274,12 +274,12 @@ void GameRenderHW::DrawSky_40950(
 		viewPort.Width_DE564;
 
 	const int addX =
-		(-(str_F2C20ar.sin_0x0d * str_F2C20ar.dword0x22) >> 16)
-		+ str_F2C20ar.dword0x24;
+		(-(str_F2C20ar.sin_0x0d * str_F2C20ar.horizonOffset_0x22) >> 16)
+		+ str_F2C20ar.centerX_0x24;
 
 	const int addY =
-		str_F2C20ar.dword0x10 -
-		(str_F2C20ar.cos_0x11 * str_F2C20ar.dword0x22 >> 16);
+		str_F2C20ar.centerY_0x10 -
+		(str_F2C20ar.cos_0x11 * str_F2C20ar.horizonOffset_0x22 >> 16);
 
 	// Preserve the original software renderer's starting offsets.
 	const uint32_t beginX =
@@ -339,13 +339,13 @@ void GameRenderHW::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 
 	shadows_F2CC7 = D41A0_0.m_GameSettings.m_Graphics.m_wShadows;//21d080
 	notDay_D4320 = D41A0_0.terrain_2FECE.MapType != MapType_t::Day;
-	str_F2C20ar.dword0x10 = (signed int)(uint16_t)viewPort.Height_DE568 >> 1;
+	str_F2C20ar.centerY_0x10 = (signed int)(uint16_t)viewPort.Height_DE568 >> 1;
 	cameraX_F2CC4 = posX;
 	yaw_F2CC0 = yaw & 0x7FF;
 	cameraY_F2CC2 = posY;
 	const int yaw90 = (yaw & 0x7FF) + 256;
-	str_F2C20ar.dword0x20 = posZ;
-	str_F2C20ar.dword0x24 = x_DWORD_D4324 + ((signed int)(uint16_t)viewPort.Width_DE564 >> 1);
+	str_F2C20ar.cameraZ_0x20 = posZ;
+	str_F2C20ar.centerX_0x24 = x_DWORD_D4324 + ((signed int)(uint16_t)viewPort.Width_DE564 >> 1);
 	str_F2C20ar.cos2_0x0f = Maths::sin_DB750[256 + yaw90];
 	str_F2C20ar.sin2_0x17 = Maths::sin_DB750[yaw90 - 256];
 
@@ -354,7 +354,7 @@ void GameRenderHW::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	const int quadrantYaw = ((yaw90 & 0x1FF) - 256) & 0x7FF;
 	const int quadrantCos = Maths::sin_DB750[512 + quadrantYaw];
 	const int quadrantSin = Maths::sin_DB750[quadrantYaw];
-	str_F2C20ar.dword0x18 = 7
+	str_F2C20ar.projectionScale_0x18 = 7
 		* Maths::IntegerSqrt_7277A(
 			(uint16_t)viewPort.Width_DE564 * (uint16_t)viewPort.Width_DE564
 			+ (uint16_t)viewPort.Height_DE568 * (uint16_t)viewPort.Height_DE568)
@@ -413,7 +413,7 @@ void GameRenderHW::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	// Cut-off and fog distances come from the members (64 bit, see the constructor)
 	str_F2C20ar.dword0x15_tileRenderCutOffDistance = static_cast<int>(m_cutOffDistance); //Distance cut-off for tile render
 	str_F2C20ar.dword0x12_FogThickness = static_cast<int>(m_fogEnd - m_fogStart);
-	str_F2C20ar.dword0x22 = pitch * (uint16_t)viewPort.Width_DE564 >> 8;
+	str_F2C20ar.horizonOffset_0x22 = pitch * (uint16_t)viewPort.Width_DE564 >> 8;
 	const int rollIndex = roll & 0x7FF;
 	str_F2C20ar.cos_0x11 = Maths::sin_DB750[512 + rollIndex];
 	str_F2C20ar.sin_0x0d = Maths::sin_DB750[rollIndex];
@@ -496,7 +496,7 @@ void GameRenderHW::ProjectTiles(TerrainProjection projection, uint8_t mapX, uint
 			{
 				if (depth < 128)
 					depth = 128;
-				tile.pnt1_16 = str_F2C20ar.dword0x18 * tile.x_0 / depth;
+				tile.pnt1_16 = str_F2C20ar.projectionScale_0x18 * tile.x_0 / depth;
 				tile.alt_4 = 32 * mapHeightmap_11B4E0[map] - posZ;
 
 				// The waves of the water, which also bend its reflection; the cave has the ceiling instead
@@ -506,7 +506,7 @@ void GameRenderHW::ProjectTiles(TerrainProjection projection, uint8_t mapX, uint
 					tile.inverse_alt_8 = ((uint8_t)x_BYTE_14B4E0_second_heightmap[map] << 15 >> 10) - posZ;
 					if (!mapTerrainType_10B4E0[map])
 					{
-						const int turn = 32 * D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248;
+						const int turn = 32 * D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248;
 						wave = (Maths::sin_DB750[(turn + (mapY << 7)) & 0x7FF] >> 8) * (Maths::sin_DB750[((mapX << 7) + turn) & 0x7FF] >> 8);
 						tile.alt_4 -= wave >> 13;
 						if (shading >= 14464)
@@ -517,7 +517,7 @@ void GameRenderHW::ProjectTiles(TerrainProjection projection, uint8_t mapX, uint
 				}
 				else
 				{
-					const int tick = (uint16_t)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248 << 6;
+					const int tick = (uint16_t)D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248 << 6;
 					wave = (Maths::sin_DB750[(tick + (mapY << 7)) & 0x7FF] >> 8) * (Maths::sin_DB750[(tick + (mapX << 7)) & 0x7FF] >> 8);
 					if (projection == TerrainProjection::Reflections)
 						tile.inverse_alt_8 = -(mapHeightmap_11B4E0[map] * ((wave >> 4) + 0x8000) >> 10) - posZ;
@@ -525,9 +525,9 @@ void GameRenderHW::ProjectTiles(TerrainProjection projection, uint8_t mapX, uint
 						wave = 0;
 				}
 				tile.pnt5_32 = FogLight((shading << 8) + 8 * wave, distance);
-				tile.pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * tile.alt_4 / depth;
+				tile.pnt2_20 = str_F2C20ar.horizonOffset_0x22 + str_F2C20ar.projectionScale_0x18 * tile.alt_4 / depth;
 				if (projection != TerrainProjection::Plain)
-					tile.pnt4_28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * tile.inverse_alt_8 / depth;
+					tile.pnt4_28 = str_F2C20ar.horizonOffset_0x22 + str_F2C20ar.projectionScale_0x18 * tile.inverse_alt_8 / depth;
 
 				const uint8_t textureX = mapX + steps.texOffX;
 				const uint8_t textureY = mapY + steps.texOffY;
@@ -574,13 +574,13 @@ void GameRenderHW::RotateTiles(bool secondPoints)
 int32_t GameRenderHW::CalculateRotationTranslationX(int64_t cos_0x11, int64_t pnt1, int64_t sin_0x0d, int64_t pnt2)
 {
 	int64_t rotation = ((cos_0x11 * pnt1 - sin_0x0d * pnt2) >> 16);
-	return rotation + str_F2C20ar.dword0x24;
+	return rotation + str_F2C20ar.centerX_0x24;
 }
 
 int32_t GameRenderHW::CalculateRotationTranslationY(int64_t pnt1, int64_t sin_0x0d, int64_t cos_0x11, int64_t pnt2)
 {
 	int64_t rotation = ((pnt1 * sin_0x0d + cos_0x11 * pnt2) >> 16);
-	return str_F2C20ar.dword0x10 - rotation;
+	return str_F2C20ar.centerY_0x10 - rotation;
 }
 
 // The tiles far to near, as the original draws them: the rows from the back, each from the left up to the first tile whose
@@ -675,7 +675,7 @@ Type_Sprite* GameRenderHW::UseSprite(int index)
 {
 	if (!m_ptrLoadedSprites_F66F0x[index] && !MainInitTmaps_71520(index))
 		return nullptr;
-	x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[index].word_8] = x_D41A0_BYTEARRAY_4_struct.FrameTimingIndex_26;
+	x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[index].group_8] = x_D41A0_BYTEARRAY_4_struct.FrameTimingIndex_26;
 	return *m_ptrLoadedSprites_F66F0x[index];
 }
 
@@ -697,8 +697,8 @@ GameRenderHW::SpriteChoice GameRenderHW::ChooseSprite(type_entity_0x6E8E* entity
 	}
 	else if (kind == 17)
 	{
-		if (turnTable && (entity->struct_byte_0xc_12_15.byte[3] & 0x40))
-			direction = (uint8_t)x_BYTE_D4750[44 + direction];
+		if (turnTable && (entity->flags_0xc_12_15.byte[3] & 0x40))
+			direction = (uint8_t)directionTable_D4750[44 + direction];
 		mirrored = direction >= 8;
 		frame = mirrored ? 15 - direction : direction;
 	}
@@ -709,7 +709,7 @@ GameRenderHW::SpriteChoice GameRenderHW::ChooseSprite(type_entity_0x6E8E* entity
 	else if (kind == 19 || kind == 20)
 	{
 		mirrored = direction >= 8;
-		frame = (uint8_t)x_BYTE_D4750[(kind == 19 ? 12 : 28) + direction];
+		frame = (uint8_t)directionTable_D4750[(kind == 19 ? 12 : 28) + direction];
 	}
 	else if ((kind >= 2 && kind <= 16) || (kind >= 22 && kind <= 36))
 	{
@@ -731,7 +731,7 @@ GameRenderHW::SpriteChoice GameRenderHW::ChooseSprite(type_entity_0x6E8E* entity
 	spriteFrame = frame;
 	str_F2C20ar.dword0x08_width = sprite->width;
 	str_F2C20ar.dword0x06_height = sprite->height;
-	const int realHeight = (signed __int64)(str_F2C20ar.dword0x18 * def.worldSize_8) / depth;
+	const int realHeight = (signed __int64)(str_F2C20ar.projectionScale_0x18 * def.worldSize_8) / depth;
 	str_F2C20ar.dword0x0c_realHeight = realHeight;
 	str_F2C20ar.dword0x09_realWidth = realHeight * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
 	str_F2C20ar.dword0x05 = mirrored ? -str_F2C20ar.dword0x08_width : str_F2C20ar.dword0x08_width;
@@ -741,16 +741,16 @@ GameRenderHW::SpriteChoice GameRenderHW::ChooseSprite(type_entity_0x6E8E* entity
 // The screen position of a sprite: across and height in the view space at the depth, rotated by the roll
 void GameRenderHW::ProjectSprite(int across, int height, int depth)
 {
-	const int x = across * str_F2C20ar.dword0x18 / depth;
-	const int y = str_F2C20ar.dword0x18 * height / depth + str_F2C20ar.dword0x22;
-	str_F2C20ar.dword0x04_screenY = ((x * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * y) >> 16) + str_F2C20ar.dword0x24;
-	str_F2C20ar.dword0x03_screenX = str_F2C20ar.dword0x10 - ((str_F2C20ar.sin_0x0d * x + y * str_F2C20ar.cos_0x11) >> 16);
+	const int x = across * str_F2C20ar.projectionScale_0x18 / depth;
+	const int y = str_F2C20ar.projectionScale_0x18 * height / depth + str_F2C20ar.horizonOffset_0x22;
+	str_F2C20ar.dword0x04_screenY = ((x * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * y) >> 16) + str_F2C20ar.centerX_0x24;
+	str_F2C20ar.dword0x03_screenX = str_F2C20ar.centerY_0x10 - ((str_F2C20ar.sin_0x0d * x + y * str_F2C20ar.cos_0x11) >> 16);
 }
 
 // The sprite's drawing mode by its lighting table, lit (dword0x00 = 0x2000) or in the fog
 uint8_t GameRenderHW::SpriteVisibility(const Type_SpriteDef_D951C& def) const
 {
-	return (uint8_t)x_BYTE_D4750[(str_F2C20ar.dword0x00 == 0x2000 ? 0 : 6) + def.lightingTableIdx_10];
+	return (uint8_t)directionTable_D4750[(str_F2C20ar.dword0x00 == 0x2000 ? 0 : 6) + def.lightingTableIdx_10];
 }
 
 // The entities of the tile mirrored in the water (below the terrain, upside down)
@@ -763,25 +763,25 @@ void GameRenderHW::DrawTileBillboards_3FD60(int tileIndex, std::vector<RenderPol
 		if (entityIndex < 0x3E8u)
 		{
 			entity = Entities_EA3E4[entityIndex];
-			if (!(entity->struct_byte_0xc_12_15.byte[0] & 0x21))
+			if (!(entity->flags_0xc_12_15.byte[0] & 0x21))
 			{
 				const int dx = (int16_t)(entity->position_0x4C_76.x - cameraX_F2CC4);
 				const int dy = (int16_t)(cameraY_F2CC2 - entity->position_0x4C_76.y);
-				const int height = -entity->position_0x4C_76.z - str_F2C20ar.dword0x20;
+				const int height = -entity->position_0x4C_76.z - str_F2C20ar.cameraZ_0x20;
 				const int across = (dx * str_F2C20ar.cos2_0x0f - dy * str_F2C20ar.sin2_0x17) >> 16;
 				const int depth = (str_F2C20ar.sin2_0x17 * dx + str_F2C20ar.cos2_0x0f * dy) >> 16;
 				const int64_t distance = (int64_t)depth * depth + (int64_t)across * across;
 				if (depth > 64 && distance < m_cutOffDistance)
 				{
 					str_F2C20ar.dword0x00 = SpriteLight(distance);
-					const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[entity->word_0x5A_90];
+					const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[entity->spriteIndex_0x5A_90];
 					ProjectSprite(across, height, depth);
 					Type_Sprite* sprite = nullptr;
 					int spriteBase = 0, spriteFrame = 0;
 					if (ChooseSprite(entity, def, depth, true, false, sprite, spriteBase, spriteFrame) == SpriteChoice::Draw)
 					{
 						str_F2C20ar.dword0x02_data = sprite->textureBuffer;
-						sprite->word_0 |= 8;
+						sprite->flags_0 |= 8;
 						str_F2C20ar.dword0x01_visibilityIdx = SpriteVisibility(def);
 						str_F2C20ar.dword0x09_realWidth++;
 						str_F2C20ar.dword0x0c_realHeight++;
@@ -816,7 +816,7 @@ void GameRenderHW::SetEntityHelpText_88740(type_entity_0x6E8E* a1x, int16_t posX
 	v3 = 0;
 	if (str_unk_1804B0ar.PopupStatusByte_0x9e & 1)
 		return;
-	v4x = Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	v4x = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	v5 = a1x->class_0x3F_63;
 	if (v5 < 5u)
 	{
@@ -869,7 +869,7 @@ void GameRenderHW::SetEntityHelpText_88740(type_entity_0x6E8E* a1x, int16_t posX
 				if (a1x->model_0x40_64 == 39 && a1x->playerEntityIndex_0x94_148 != v4x->id_0x1A_26)
 					v3 = 18;
 			}
-			else if (v5 == 15 && !(a1x->struct_byte_0xc_12_15.byte[0] & 1))
+			else if (v5 == 15 && !(a1x->flags_0xc_12_15.byte[0] & 1))
 			{
 				v3 = 20;
 			}
@@ -912,14 +912,14 @@ LABEL_48:
 		}
 		if (str_E2A74[v3].axis_2[0] & 2)
 		{
-			if (a1x == str_E2A74[v3].dword_12)
+			if (a1x == str_E2A74[v3].entity_12)
 			{
-				if (!(str_unk_1804B0ar.byte_0x9f & 0x1))
+				if (!(str_unk_1804B0ar.popupFlags_0x9f & 0x1))
 				{
 					str_E2A74[v3].axis_2[3] = posX;
 					str_E2A74[v3].axis_2[0] |= 8;
 					str_E2A74[v3].axis_2[4] = posY;
-					str_unk_1804B0ar.byte_0x9f |= 2;
+					str_unk_1804B0ar.popupFlags_0x9f |= 2;
 				}
 			}
 		}
@@ -927,12 +927,12 @@ LABEL_48:
 		{
 			v18 = 0;
 			v13 = Maths::EuclideanDistXYZ_58490(&v4x->position_0x4C_76, &a1x->position_0x4C_76);
-			if (!str_E2A74[v3].dword_12 || v13 < str_E2A74[v3].dword_20 && v13 > 1024)
+			if (!str_E2A74[v3].entity_12 || v13 < str_E2A74[v3].countdown_20 && v13 > 1024)
 				v18 = 1;
 			if (v18)
 			{
-				str_E2A74[v3].dword_20 = v13;
-				str_E2A74[v3].dword_12 = a1x;
+				str_E2A74[v3].countdown_20 = v13;
+				str_E2A74[v3].entity_12 = a1x;
 				str_E2A74[v3].axis_2[0] |= 8;
 			}
 		}
@@ -966,8 +966,8 @@ void GameRenderHW::DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* a1x, i
 	int v39; // [esp+74h] [ebp+1Ch]
 	v31 = viewPort.PreWidth_EA3C4 + viewPort.PosX_EA3D0 - 4;
 	v29 = viewPort.PreHeight_EA3C0 + viewPort.PosY_EA3CC - 22;
-	v25 = a1x->dword_0xA4_164x->playerColorIndex_0x38_56;
-	v5 = D41A0_0.array_0x2BDE[v25].WizardName_0x39f_2BFA_12157;
+	v25 = a1x->playerData_0xA4_164x->playerColorIndex_0x38_56;
+	v5 = D41A0_0.players_0x2BDE[v25].WizardName_0x39f_2BFA_12157;
 	strcpy(v24, v5);
 	v36 = playersColors_E88E0x[GetTrueWizardNumber_61790(v25)][0];//c
 	v35 = m_ptrColorPalette[0];//10 //v19
@@ -1163,8 +1163,8 @@ void GameRenderHW::DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* 
 	{
 		//adress 21f370
 		type_entity_0x6E8E* entity = Entities_EA3E4[entityIndex];
-		str_F2C20ar.dword0x14x = entity;
-		if (!(entity->struct_byte_0xc_12_15.byte[0] & 0x21))
+		str_F2C20ar.entity_0x14x = entity;
+		if (!(entity->flags_0xc_12_15.byte[0] & 0x21))
 		{
 			const int dx = (int16_t)(entity->position_0x4C_76.x - cameraX_F2CC4);
 			const int dy = (int16_t)(cameraY_F2CC2 - entity->position_0x4C_76.y);
@@ -1172,30 +1172,30 @@ void GameRenderHW::DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* 
 			int spriteBase = 0, spriteFrame = 0;
 
 			// ---- the shadow ----
-			if (shadows_F2CC7 && !m_ptrStr_E9C38_smalltit[tileIndex].textAtyp_43 && !(entity->struct_byte_0xc_12_15.word[1] & 0x808))
+			if (shadows_F2CC7 && !m_ptrStr_E9C38_smalltit[tileIndex].textAtyp_43 && !(entity->flags_0xc_12_15.word[1] & 0x808))
 			{
 				//adress 21f40c
-				const int height = GetTerrainAlt2_B5C60(entity->position_0x4C_76.x, entity->position_0x4C_76.y) - str_F2C20ar.dword0x20;
+				const int height = GetTerrainAlt2_B5C60(entity->position_0x4C_76.x, entity->position_0x4C_76.y) - str_F2C20ar.cameraZ_0x20;
 				const int across = (str_F2C20ar.cos2_0x0f * dx - str_F2C20ar.sin2_0x17 * dy) >> 16;
 				const int depth = (str_F2C20ar.sin2_0x17 * dx + str_F2C20ar.cos2_0x0f * dy) >> 16;
 				const int64_t distance = (int64_t)depth * depth + (int64_t)across * across;
 				if (depth > 64 && distance < m_cutOffDistance)
 				{
 					str_F2C20ar.dword0x00 = SpriteLight(distance);
-					const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[entity->word_0x5A_90];
+					const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[entity->spriteIndex_0x5A_90];
 					if (!def.lightingTableIdx_10)
 					{
 						ProjectSprite(across, height, depth);
 						const SpriteChoice choice = ChooseSprite(entity, def, depth, false, false, sprite, spriteBase, spriteFrame);
 						if (choice == SpriteChoice::LoadFailed)
 						{
-							entityIndex = str_F2C20ar.dword0x14x->oldMapEntity_0x16_22;
+							entityIndex = str_F2C20ar.entity_0x14x->oldMapEntity_0x16_22;
 							continue;
 						}
 						if (choice == SpriteChoice::Draw)
 						{
 							str_F2C20ar.dword0x02_data = sprite->textureBuffer;
-							sprite->word_0 |= 8;
+							sprite->flags_0 |= 8;
 							str_F2C20ar.dword0x01_visibilityIdx = SpriteVisibility(def);
 							str_F2C20ar.dword0x0c_realHeight >>= 2;
 							if (str_F2C20ar.dword0x09_realWidth > 0 && str_F2C20ar.dword0x0c_realHeight > 0)
@@ -1211,15 +1211,15 @@ void GameRenderHW::DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* 
 			}
 
 			// ---- the entity ----
-			const int z = str_F2C20ar.dword0x14x->struct_byte_0xc_12_15.byte[3] >= 0
-				? str_F2C20ar.dword0x14x->position_0x4C_76.z : str_F2C20ar.dword0x14x->position_0x4C_76.z - 160;
+			const int z = str_F2C20ar.entity_0x14x->flags_0xc_12_15.byte[3] >= 0
+				? str_F2C20ar.entity_0x14x->position_0x4C_76.z : str_F2C20ar.entity_0x14x->position_0x4C_76.z - 160;
 			int depth = (str_F2C20ar.sin2_0x17 * dx + str_F2C20ar.cos2_0x0f * dy) >> 16;
 			const int across = (str_F2C20ar.cos2_0x0f * dx - str_F2C20ar.sin2_0x17 * dy) >> 16;
-			if (str_F2C20ar.dword0x14x->struct_byte_0xc_12_15.byte[3] & 0x20)
+			if (str_F2C20ar.entity_0x14x->flags_0xc_12_15.byte[3] & 0x20)
 			{
 				// carried: moved along the carrier's direction
-				const type_D404C* offsets = &str_D404C[str_F2C20ar.dword0x14x->byte_0x3B_59];
-				switch ((((Entities_EA3E4[str_F2C20ar.dword0x14x->word_0x32_50]->yaw_0x1C_28 - (uint16_t)yaw_F2CC0) >> 3) & 0xF0) >> 4)
+				const type_D404C* offsets = &str_D404C[str_F2C20ar.entity_0x14x->byte_0x3B_59];
+				switch ((((Entities_EA3E4[str_F2C20ar.entity_0x14x->leaderId_0x32_50]->yaw_0x1C_28 - (uint16_t)yaw_F2CC0) >> 3) & 0xF0) >> 4)
 				{
 				case 0: case 15: depth -= offsets->word_16; break;
 				case 1: case 14: depth -= offsets->word_18; break;
@@ -1234,29 +1234,29 @@ void GameRenderHW::DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* 
 			if (depth > 64 && distance < m_cutOffDistance)
 			{
 				str_F2C20ar.dword0x00 = SpriteLight(distance);
-				const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[str_F2C20ar.dword0x14x->word_0x5A_90];
-				ProjectSprite(across, z - str_F2C20ar.dword0x20, depth);
-				if (ChooseSprite(str_F2C20ar.dword0x14x, def, depth, true, true, sprite, spriteBase, spriteFrame) == SpriteChoice::Draw)
+				const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[str_F2C20ar.entity_0x14x->spriteIndex_0x5A_90];
+				ProjectSprite(across, z - str_F2C20ar.cameraZ_0x20, depth);
+				if (ChooseSprite(str_F2C20ar.entity_0x14x, def, depth, true, true, sprite, spriteBase, spriteFrame) == SpriteChoice::Draw)
 				{
-					type_entity_0x6E8E* drawn = str_F2C20ar.dword0x14x;
-					sprite->word_0 |= 8u;
-					const __int16 flags2 = drawn->struct_byte_0xc_12_15.byte[2];
+					type_entity_0x6E8E* drawn = str_F2C20ar.entity_0x14x;
+					sprite->flags_0 |= 8u;
+					const __int16 flags2 = drawn->flags_0xc_12_15.byte[2];
 					str_F2C20ar.dword0x02_data = sprite->textureBuffer;
 					if (flags2 & 0x380)
 					{
 						// a player's: tinted with the player's colour (4/5), or blended (2/3)
-						const char flags3 = drawn->struct_byte_0xc_12_15.byte[3];
+						const char flags3 = drawn->flags_0xc_12_15.byte[3];
 						if (flags3 & 2)
 						{
 							str_F2C20ar.dword0x01_visibilityIdx = 4;
-							str_F2C20ar.dword0x07 = playersColors_E88E0x[Entities_EA3E4[drawn->parentId_0x28_40]->dword_0xA4_164x->playerColorIndex_0x38_56][2];
+							str_F2C20ar.dword0x07 = playersColors_E88E0x[Entities_EA3E4[drawn->parentId_0x28_40]->playerData_0xA4_164x->playerColorIndex_0x38_56][2];
 						}
 						else if (flags3 & 4)
 						{
 							str_F2C20ar.dword0x01_visibilityIdx = 5;
-							str_F2C20ar.dword0x07 = playersColors_E88E0x[Entities_EA3E4[drawn->parentId_0x28_40]->dword_0xA4_164x->playerColorIndex_0x38_56][2];
+							str_F2C20ar.dword0x07 = playersColors_E88E0x[Entities_EA3E4[drawn->parentId_0x28_40]->playerData_0xA4_164x->playerColorIndex_0x38_56][2];
 						}
-						else if (drawn->struct_byte_0xc_12_15.byte[2] >= 0)
+						else if (drawn->flags_0xc_12_15.byte[2] >= 0)
 						{
 							if (flags3 & 1)
 								str_F2C20ar.dword0x01_visibilityIdx = 3;
@@ -1277,7 +1277,7 @@ void GameRenderHW::DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* 
 				}
 			}
 		}
-		entityIndex = str_F2C20ar.dword0x14x->oldMapEntity_0x16_22;
+		entityIndex = str_F2C20ar.entity_0x14x->oldMapEntity_0x16_22;
 	} while (entityIndex);
 }
 
@@ -1327,18 +1327,18 @@ void GameRenderHW::DrawSprite_41BD3(uint32_t pass, std::vector<RenderPolygon>* p
 		if (pass == 1)
 		{
 			if (!x_D41A0_BYTEARRAY_4_struct.byteindex_207
-				&& s.dword0x14x->class_0x3F_63 == 3
-				&& (!s.dword0x14x->model_0x40_64 || s.dword0x14x->model_0x40_64 == 1))
+				&& s.entity_0x14x->class_0x3F_63 == 3
+				&& (!s.entity_0x14x->model_0x40_64 || s.entity_0x14x->model_0x40_64 == 1))
 			{
-				DrawSorcererNameAndHealthBar_2CB30(s.dword0x14x, s.dword0x04_screenY,
+				DrawSorcererNameAndHealthBar_2CB30(s.entity_0x14x, s.dword0x04_screenY,
 					(int16_t)s.dword0x03_screenX, s.dword0x09_realWidth);
 			}
 			if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
-				SetEntityHelpText_88740(s.dword0x14x,
+				SetEntityHelpText_88740(s.entity_0x14x,
 					(int16_t)(s.dword0x04_screenY + (s.dword0x09_realWidth >> 1)),
 					(int16_t)(s.dword0x03_screenX + (s.dword0x0c_realHeight >> 1)));
-			if (s.dword0x14x->struct_byte_0xc_12_15.byte[3] & 0x40)
-				s.dword0x14x->subSpellIndex_0x2A_42 |= 0x40u;
+			if (s.entity_0x14x->flags_0xc_12_15.byte[3] & 0x40)
+				s.entity_0x14x->subSpellIndex_0x2A_42 |= 0x40u;
 		}
 		return;
 	}
@@ -1364,7 +1364,7 @@ void GameRenderHW::DrawSprite_41BD3(uint32_t pass, std::vector<RenderPolygon>* p
 		return;
 
 	if (pass == 1 && x_D41A0_BYTEARRAY_4_struct.showHelp_10)
-		SetEntityHelpText_88740(s.dword0x14x,
+		SetEntityHelpText_88740(s.entity_0x14x,
 			(int16_t)(s.dword0x04_screenY + (s.dword0x09_realWidth >> 1)),
 			(int16_t)(s.dword0x03_screenX + (s.dword0x0c_realHeight >> 1)));
 
@@ -1380,7 +1380,7 @@ uint32_t GameRenderHW::SpriteFrameRow(int spriteIndex, int spriteFrame)
 	if (frames <= 1)
 		return 0;
 
-	if (m_ptrLoadedSprites_F66F0x[spriteIndex] && ((*m_ptrLoadedSprites_F66F0x[spriteIndex])->word_0 & 1))
+	if (m_ptrLoadedSprites_F66F0x[spriteIndex] && ((*m_ptrLoadedSprites_F66F0x[spriteIndex])->flags_0 & 1))
 	{
 		if (const type_animations1* anim = GetAnimationByIndex_724F0(animations_E9C08x, spriteIndex))
 			return (uint32_t)std::clamp(anim->FrameIndex_22 - 2, 0, (int)frames - 1);

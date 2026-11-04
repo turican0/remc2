@@ -10,8 +10,8 @@ typedef struct {//lenght 22
 	int32_t time_0;
 	int16_t viewPortPosX_4;
 	int16_t viewPortPosY_6;
-	int16_t word_8;
-	int16_t word_10;
+	int16_t sizeX_8;
+	int16_t sizeY_10;
 	int16_t portalPosX_12; //X
 	int16_t portalPosY_14; //Y
 	int16_t spriteIndex_16;

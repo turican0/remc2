@@ -234,8 +234,8 @@ typedef struct {//lenght 18
 	uint32_t dword_0;
 	uint32_t dword_4;
 	int16_t word_8;
-	type_D4C52ar2* dword_10;
-	type_D4C52ar2* dword_14;
+	type_D4C52ar2* actions_10;
+	type_D4C52ar2* models_14;
 }
 type_D4C52ar;
 #pragma pack(pop)
@@ -293,13 +293,13 @@ typeTextBoxtextBoxStr_E24BCx;
 
 #pragma pack(push, 1)
 typedef struct {//lenght 18
-	int16_t word_0;
-	int16_t word_2;
+	int16_t posX_0;
+	int16_t posY_2;
 	int16_t word_4;
 	int16_t word_6;
 	int16_t word_8;
 	int16_t word_10;
-	int16_t word_12;
+	int16_t textIndex_12;
 	int16_t word_14;
 	int16_t word_16;
 }
@@ -309,25 +309,25 @@ type_x_BYTE_E25ED_2BB;
 #pragma pack(push, 1)
 typedef struct {
 	int32_t x_DWORD_18058C;
-	int32_t x_DWORD_180590; // [4]//unk_18058Cstr.x_DWORD_180590//1
-	int32_t x_DWORD_180594; // [8]//unk_18058Cstr.x_DWORD_180594//2
-	int32_t x_DWORD_180598; // [12]//unk_18058Cstr.x_DWORD_180598//3
+	int32_t joyAxisX_180590; // [4]//unk_18058Cstr.x_DWORD_180590//1
+	int32_t joyAxisY_180594; // [8]//unk_18058Cstr.x_DWORD_180594//2
+	int32_t joyAxisZ_180598; // [12]//unk_18058Cstr.x_DWORD_180598//3
 	int32_t MouseButtonState_18059C; // [16]//unk_18058Cstr.x_DWORD_18059C//4
 	int32_t x_DWORD_1805A0; // weak//unk_18058Car[20]//5
-	int32_t x_DWORD_1805A4; // weak//unk_18058Car[0x18]//6
-	int32_t x_DWORD_1805A8; // weak//unk_18058Car[28]//7
-	int32_t x_DWORD_1805AC; // weak//unk_18058Car[0x20]//8
-	axis_2d_32 x_DWORD_1805B0_mouse;
+	int32_t joyCenterX_1805A4; // weak//unk_18058Car[0x18]//6
+	int32_t joyCenterY_1805A8; // weak//unk_18058Car[28]//7
+	int32_t joyCenterZ_1805AC; // weak//unk_18058Car[0x20]//8
+	axis_2d_32 mouse_1805B0;
 	//int32_t x_DWORD_1805B0_mouse.x; // weak//unk_18058Car[36]
 	//int32_t x_DWORD_1805B0_mouse.y; // weak//unk_18058Car[40]
-	int32_t x_DWORD_1805B8_mouse_position_x; // weak//unk_18058Car[44]
-	int32_t x_DWORD_1805BC_mouse_position_y; // weak//unk_18058Car[48]
-	int16_t x_WORD_1805C0_arrow_keys; // weak//unk_18058Car[52] // keyboard buttons
-	int16_t x_WORD_1805C2_joystick; // weak//unk_18058Car[54]
-	int16_t x_WORD_1805C4_vio1_analog_joy; // weak//unk_18058Car[56]
-	int16_t x_WORD_1805C6_vio2_analog_joy; // weak//unk_18058Car[58]
+	int32_t mouseX_1805B8; // weak//unk_18058Car[44]
+	int32_t mouseY_1805BC; // weak//unk_18058Car[48]
+	int16_t arrowKeys_1805C0; // weak//unk_18058Car[52] // keyboard buttons
+	int16_t joystickMode_1805C2; // weak//unk_18058Car[54]
+	int16_t vio1AnalogJoy_1805C4; // weak//unk_18058Car[56]
+	int16_t vio2AnalogJoy_1805C6; // weak//unk_18058Car[58]
 	int16_t x_WORD_1805C8; // weak//unk_18058Car[60]
-	uint8_t unk_1805CE[84]; // weak//unk_18058Car[66]
+	uint8_t serialBuffer_1805CE[84]; // weak//unk_18058Car[66]
 	int16_t stub_180622;
 } type_unk_18058Cstr;//end 180624
 #pragma pack(pop)
@@ -369,15 +369,15 @@ typedef struct {//lenght 16
 	int16_t y1_28_1;//1 y
 	int16_t word_30_2;//2
 	int16_t word_32_3;//3
-	int16_t word_34_4;//4
-	int16_t word_36_5;//5
-	int16_t word_38_6;//6
+	int16_t height_34_4;//4
+	int16_t scrollPos_36_5;//5
+	int16_t textIndex_38_6;//6
 	int16_t click_40_7;//7
 	int16_t nocl_42_8;//8
 } type_str_word_26;
 
 typedef struct {//lenght 44
-	uint32_t dword_0;
+	uint32_t callback_0;
 	//int16_t word_2;
 	int32_t dword_4;//4 dword
 	//int16_t word_6;//remove it
@@ -387,14 +387,14 @@ typedef struct {//lenght 44
 	int16_t sizex_14;
 	int16_t sizey_16;
 	int16_t word_18;
-	uint8_t byte_20;//index of gold sprite
-	uint8_t byte_21;//index of gray sprite
+	uint8_t goldSprite_20;//index of gold sprite
+	uint8_t graySprite_21;//index of gray sprite
 	int8_t byte_22;
 	int8_t canSelect_23;
 	int8_t gold_color_24;
 	int8_t byte_25;
 	//int16_t word_24;//23 and 24 byte
-	type_str_word_26 str_26;//0
+	type_str_word_26 scroll_26;//0
 	//int16_t word_28;//1
 	//int16_t word_30;//2
 	//int16_t word_32;//3

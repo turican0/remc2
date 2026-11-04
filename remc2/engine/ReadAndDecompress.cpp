@@ -101,7 +101,7 @@ void ReadAndDecompressSkyAndBlocks_54660(MapType_t GraphicsType, uint8_t Graphic
 		{
 		case 16:
 		{
-			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+			if (D41A0_0.terrain_2FECE.levelType_0x2FED2 & 2)
 			{
 				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16F0-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
@@ -115,7 +115,7 @@ void ReadAndDecompressSkyAndBlocks_54660(MapType_t GraphicsType, uint8_t Graphic
 		}
 		case 32:
 		{
-			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+			if (D41A0_0.terrain_2FECE.levelType_0x2FED2 & 2)
 			{
 				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32F0-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
@@ -132,7 +132,7 @@ void ReadAndDecompressSkyAndBlocks_54660(MapType_t GraphicsType, uint8_t Graphic
 		}
 		case 128:
 		{
-			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+			if (D41A0_0.terrain_2FECE.levelType_0x2FED2 & 2)
 			{
 				sprintf(dataPath, "%s/%s", highResGraphicsPath.c_str(), "bl128f0-0.data");
 				ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics

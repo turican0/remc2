@@ -59,9 +59,9 @@ typedef struct {
 #pragma pack(push, 1)
 typedef struct //lenght 24
 {
-	int32_t field_0;
-	int16_t field_4;
-	int16_t field_6;
+	int32_t lastTime_0;
+	int16_t posX_4;
+	int16_t posY_6;
 	int16_t spriteIndex_8;
 	int8_t firstSpriteIndex_10;
 	int8_t lastSpriteIndex_11;
@@ -108,17 +108,17 @@ typedef struct //lenght 24
 typedef struct//lenght 613 // end 17E09D
 {
 	TColor* palette_17DE38x; // weak
-	TcolNext* x_DWORD_17DE3C; // weak//1
-	uint8_t* x_DWORD_17DE40; // weak//2
+	TcolNext* colorNextTable_17DE3C; // weak//1
+	uint8_t* screenBuffer_17DE40; // weak//2
 	uint8_t* x_DWORD_17DE44; // weak//3
-	uint8_t* x_DWORD_17DE48c; // weak//4
+	uint8_t* menuSpritesData_17DE48c; // weak//4
 	uint8_t* x_DWORD_17DE4C; // weak
-	char* x_DWORD_17DE50; // weak
-	uint8_t* x_DWORD_17DE54; // weak
-	uint8_t* x_DWORD_17DE58; // weak
-	uint8_t* x_DWORD_17DE5C_border_bitmap; // weak
+	char* playerNameText_17DE50; // weak
+	uint8_t* fontData_17DE54; // weak
+	uint8_t* font2Data_17DE58; // weak
+	uint8_t* borderBitmap_17DE5C; // weak
 	uint8_t* x_DWORD_17DE60; // weak
-	uint8_t* x_DWORD_17DE64_game_world_map; // weak
+	uint8_t* gameWorldMap_17DE64; // weak
 
 	/*
 	int8_t byte_0
@@ -126,35 +126,35 @@ typedef struct//lenght 613 // end 17E09D
 	int8_t byte_9;
 	int8_t byte_10;
 	*/
-	type_BYTE_17DE68x array_BYTE_17DE68x[8];
+	type_BYTE_17DE68x netSessions_17DE68x[8];
 	//uint8_t x_BYTE_17DE68x[88]; // fix it -  weak //8*11
 	//char x_BYTE_17DE69[1]; //x_BYTE_17DE68x[1] fix it -  weak
 	//char x_BYTE_17DE71[1]; //x_BYTE_17DE68x[9] fix it -  weak
 	//char x_BYTE_17DE72[78]; //x_BYTE_17DE68x[10] idb
-	bitmap_pos_struct2_t* x_DWORD_17DEC0; // weak
-	bitmap_pos_struct2_t* x_DWORD_17DEC4; // weak
-	bitmap_pos_struct2_t* x_DWORD_17DEC8; // weak
-	bitmap_pos_struct2_t* x_DWORD_17DECC; // weak
+	bitmap_pos_struct2_t* fontTab_17DEC0; // weak
+	bitmap_pos_struct2_t* fontTabEnd_17DEC4; // weak
+	bitmap_pos_struct2_t* font2Tab_17DEC8; // weak
+	bitmap_pos_struct2_t* font2TabEnd_17DECC; // weak
 	int x_DWORD_17DED0; // weak
-	bitmap_pos_struct2_t* x_DWORD_17DED4; // weak
-	bitmap_pos_struct2_t* x_DWORD_17DED8; // weak
-	int x_DWORD_17DEDC; // weak
-	FILE* x_DWORD_17DEE0_filedesc; // weak
-	int16_t x_DWORD_17DEE4_mouse_positionx; // weak
-	int16_t x_DWORD_17DEE6_mouse_positiony; // weak
+	bitmap_pos_struct2_t* menuSpritesTab_17DED4; // weak
+	bitmap_pos_struct2_t* menuSpritesTabEnd_17DED8; // weak
+	int fileOffset_17DEDC; // weak
+	FILE* fileHandle_17DEE0; // weak
+	int16_t mouseX_17DEE4; // weak
+	int16_t mouseY_17DEE6; // weak
 	char stub0[2];
 	char stub1[2];
 	__int16 x_WORD_17DEEC; // weak
-	__int16 x_WORD_17DEEE_mouse_buttons; // weak
-	__int16 x_WORD_17DEF0; // weak
-	__int16 x_WORD_17DEF2; // weak
-	__int16 x_WORD_17DEF4; // weak
-	__int16 x_WORD_17DEF6; // weak
+	__int16 mouseButtons_17DEEE; // weak
+	__int16 playerNameLength_17DEF0; // weak
+	__int16 prevWizardIndex_17DEF2; // weak
+	__int16 wizardIndex_17DEF4; // weak
+	__int16 colourMenuState_17DEF6; // weak
 	__int16 x_WORD_17DEF8; // weak
 	__int16 networkSession_17DEFA; // weak
 	__int16 serverIndex_17DEFC; // weak
-	__int16 x_WORD_17DEFE; // weak
-	__int16 x_WORD_17DF00; // weak
+	__int16 netPlayerCount_17DEFE; // weak
+	__int16 lastNetPlayerCount_17DF00; // weak
 	uint16_t palMulti_17DF02; // weak
 	int16_t savedGameIndex_17DF04; // selected save game number to load/save (set in load/save_game_dialog)
 	__int16 x_WORD_17DF06; // weak
@@ -162,8 +162,8 @@ typedef struct//lenght 613 // end 17E09D
 	__int16 x_WORD_17DF0A; // weak
 	__int16 x_WORD_17DF0C; // weak
 	__int16 x_WORD_17DF0E; // weak
-	char x_BYTE_17DF10_get_key_scancode; // weak
-	char x_BYTE_17DF11_last_key_status; // weak
+	char keyScancode_17DF10; // weak
+	char lastKeyChar_17DF11; // weak
 	char stuba[1];
 	char showHelp_17DF13; // weak
 	char xx_BYTE_17DF14[8][43]; // 43*8, used for load_dialog_dialog
@@ -172,17 +172,17 @@ typedef struct//lenght 613 // end 17E09D
 	//char x_BYTE_17DF3E[400]; // idb//&x_BYTE_17DF14[42]
 	__int16 x_17E06C; // weak
 	__int16 y_17E06E; // weak
-	__int16 x_WORD_17E070; // weak
-	__int16 x_WORD_17E072; // weak
+	__int16 lastX_17E070; // weak
+	__int16 lastY_17E072; // weak
 	__int16 x2_17E074; // weak
 	__int16 y2_17E076; // weak
-	type_animStruct3 unk_17E078x; // weak [11]
+	type_animStruct3 mapAnimation_17E078x; // weak [11]
 	//__int16 x_WORD_17E07C; // weak unk_17E078x[4]
 	//__int16 x_WORD_17E07E; // weak unk_17E078x[6]
 	//__int16 x_WORD_17E080; // weak unk_17E078x[8]
 	//char x_BYTE_17E082; // weak unk_17E078x[10]
 	//char x_BYTE_17E083; // weak unk_17E078x[11]
-	type_animStruct unk_17E084x; // weak [11]
+	type_animStruct mapAnimObject_17E084x; // weak [11]
 	char x_BYTE_17E09C; // weak
 } type_x_DWORD_17DE38str;
 #pragma pack (pop)
@@ -276,9 +276,9 @@ typedef struct {
 } filearray_struct;
 
 typedef struct {//lenght 10
-	int32_t dword_0;
-	int32_t dword_4;
-	int16_t word_8;
+	int32_t size_0;
+	int32_t offset_4;
+	int16_t group_8;
 }
 type_TMAPS00TAB_BEGIN_BUFFER;
 #pragma pack (pop)

@@ -78,17 +78,17 @@ typedef struct {//lenght 34
 	int16_t word_160_0x4_4;
 	int16_t word_160_0x6_6;
 	int16_t word_160_0x8_8;
-	int16_t word_160_0xa_10;
-	int16_t word_160_0xc_12;
-	int16_t word_160_0xe_14;
-	int16_t word_160_0x10_16;//->dword_0xA0_160x->word_160_0x10_16
+	int16_t maxHeight_160_0xa_10;
+	int16_t minHeight_160_0xc_12;
+	int16_t climbSpeed_160_0xe_14;
+	int16_t maxSlope_160_0x10_16;//->typeParams_0xA0_160x->word_160_0x10_16
 	int16_t word_160_0x12_18;
 	int32_t dword_160_0x14_20;
 	uint8_t stuba[2];
-	int16_t word_160_0x1a_26;
-	int16_t word_160_0x1c_28;
-	int16_t word_160_0x1e_30;
-	int8_t byte_160_0x20_32;
+	int16_t updateInterval_160_0x1a_26;
+	int16_t range_160_0x1c_28;
+	int16_t wanderAngle_160_0x1e_30;
+	int8_t flags_160_0x20_32;
 	uint8_t stubb[1];
 }
 type_str_160;
@@ -214,12 +214,12 @@ typedef struct {//begin 611//str_611
 	type_8_1a array_0x3E9_1001x;//390//size??//array_0x7CF_2BDE_13229
 	type_8_1a array_0x403_1027x;//416//size??//byte_0x7E9_2BDE
 	type_8_1a SpellLevels_0x41D_1053z;//442//size??//byte_0x803_2BDE
-	type_8_1a array_0x437_1079x;//468//size?? //table of spell indexes//byte_0x81D_2BDE
+	type_8_1a selectedSubSpells_0x437_1079x;//468//size?? //table of spell indexes//byte_0x81D_2BDE
 	int16_t SpellIndexLeft_0x451_1105;//494 act left spell index//word_0x837_2BDE
 	int16_t SpellIndexRight_0x453_1107;//496 act right spell index//word_0x839_2BDE
 	int8_t SubSpellIndexLeft_1109;//498
 	int8_t SubSpellIndexRight_1110;//499
-	int8_t byte_0x457_1111;//500//byte_0x83D_2BDE //select spell/type spell
+	int8_t selectSpellType_0x457_1111;//500//byte_0x83D_2BDE //select spell/type spell
 	int8_t spellIndex_0x458_1112;//501//byte_0x83E_2BDE
 	int8_t subSpellIndex_0x459_1113;//502
 	int8_t byte_0x45A_1114;
@@ -245,28 +245,28 @@ typedef struct Type_str_164 {//size 1136
 	int16_t yaw_0x1E_30;
 	int16_t fov_0x22_34;
 	int16_t pitch_0x24_36;
-	int16_t word_0x26_38[8];
+	int16_t kills_0x26_38[8];
 	//int16_t word_0x2E_46;//word_0x26_38[4]
-	int16_t word_0x36_54;
+	int16_t hitTimer_0x36_54;
 	int16_t playerColorIndex_0x38_56;
 	int16_t CastleEntityIndex_0x3A_58;
 	uint16_t array_0x3C_60[16];//size??
 	std::array<uint16_t, 103> array_0x5C_92; // size?? at least index 33 is accessed in level 19
-	int32_t dword_0x12A_298;
-	int32_t dword_0x12E_302;
+	int32_t castleMaxManaSum_0x12A_298;
+	int32_t castleManaSum_0x12E_302;
 	uint8_t stube[10];
-	int32_t dword_0x13C_316;
+	int32_t extraMana_0x13C_316;
 	uint8_t stubf[2];
-	int32_t dword_0x142_322;
-	int16_t word_0x146_326;
+	int32_t targetDistance_0x142_322;
+	int16_t mountId_0x146_326;
 	int16_t word_0x148_328;
-	int16_t word_0x14A_330;
+	int16_t duelLevel_0x14A_330;
 	uint8_t moveSpeed_0x14C_332;
 	int8_t moveSpeedCounter_0x14D_333;
 	int8_t mobilizeCounter_0x14E_334;
 	int8_t mobilizeCounter2_0x150_336;
-	int32_t byte_0x150_336;
-	uint8_t byte_0x154_340;
+	int32_t maxMana_0x150_336;
+	uint8_t chargeTime_0x154_340;
 	int16_t roll_0x155_341;
 	int16_t pitch_0x157_343;
 	int16_t word_0x159_345;
@@ -284,11 +284,11 @@ typedef struct Type_str_164 {//size 1136
 	int32_t time_393;//clock
 	int32_t dword_0x18D_397;
 	uint8_t stubi[4];
-	int8_t byte_0x195_405;
+	int8_t castleDestroyedBlink_0x195_405;
 	int8_t PlayerHitFrameTime_406;
-	int8_t byte_0x197_407;
+	int8_t castleDamagedBlink_0x197_407;
 	uint8_t stubj[2];
-	int32_t dword_0x19A_410;
+	int32_t screenShake_0x19A_410;
 	int32_t maxDistance_0x19E_414;
 	int16_t word_0x1A2_418;
 	int16_t word_0x1A4_420;
@@ -297,13 +297,13 @@ typedef struct Type_str_164 {//size 1136
 	int16_t zAdd_0x1AA_426;//213 z add
 	type_str_0x1AC_428 str_0x1AC_428;
 	int8_t byte_0x1BE_446;
-	int8_t byte_0x1BF_447;
-	int8_t byte_0x1C0_448;
-	int8_t byte_0x1C1_449;//switch - event? type?
+	int8_t invisibleTime_0x1BF_447;
+	int8_t wizardType_0x1C0_448;
+	int8_t aiState_0x1C1_449;//switch - event? type?
 	int16_t word_0x1C2_450;
 	uint8_t stubl[56];
 	//int8_t array_0x1D4_468[26];
-	uint16_t array_0x1FC_508[32];//1ca
+	uint16_t aiTargets_0x1FC_508[32];//1ca
 	//int16_t word_0x204_516[32];
 	//int16_t word_0x242_578;//word_0x204_516[31]
 	uint8_t stubm[6];
@@ -311,7 +311,7 @@ typedef struct Type_str_164 {//size 1136
 	int16_t word_0x244_580;
 	int16_t word_0x246_582;
 	int16_t word_0x248_584;
-	int16_t word_0x24A_586;
+	int16_t lifeScale_0x24A_586;
 	int16_t word_0x24C_588;
 	std::array<int8_t, 19> array_0x24E_590; // size?? -> at least 12 in level 19. using the whole space of stubn now.
 	//uint8_t stubn[8];
@@ -333,7 +333,7 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	struct _str_0x6E8E* next_0;
 	int32_t maxLife_0x4;//4 //?bitmap//LIVE
 	int32_t life_0x8;//8 // this is int32_t ?bitmap//MAX LIVE
-	dw_w_b struct_byte_0xc_12_15;//12
+	dw_w_b flags_0xc_12_15;//12
 						//12//struct_byte_0xc_12_15.dbyte1_2.byte1
 	//0xfe - all spell
 	//int8_t byte_0xd_13;//13//struct_byte_0xc_12_15.dbyte1_2.byte2
@@ -350,22 +350,22 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	//int8_t byte_0x21_33;//33
 	int16_t fov_0x22_34;//34//rotate4
 	int16_t word_0x24_36;//36 // index subentity
-	int16_t word_0x26_38;//38 // index subentity
+	int16_t hitById_0x26_38;//38 // index subentity
 	uint16_t parentId_0x28_40;//40//WHO OWNS ME
 	uint16_t subSpellIndex_0x2A_42;//42 //maybe int16_t
 	int16_t word_0x2C_44;//44 //add to z
 	int16_t word_0x2E_46;//46
 	uint16_t word_0x30_48;//48
-	uint16_t word_0x32_50;//50
-	uint16_t word_0x34_52;//52 // index subentity
+	uint16_t leaderId_0x32_50;//50
+	uint16_t nextLinkedId_0x34_52;//52 // index subentity
 	uint16_t word_0x36_54;//54
-	int8_t byte_0x38_56;//56
+	int8_t mailMask_0x38_56;//56
 	int8_t byte_0x39_57;//57
 	int8_t byte_0x3A_58;//58
 	int8_t byte_0x3B_59;//59
 	int8_t byte_0x3C_60;//60
 	int8_t fontTypeIndex_0x3D_61;//61
-	uint8_t byte_0x3E_62;//62 //index
+	uint8_t instanceIndex_0x3E_62;//62 //index
 	uint8_t class_0x3F_63;//63 //type//MODEL
 	//11 - spell
 	uint8_t model_0x40_64;//64 //subtype//CLASS
@@ -382,10 +382,10 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	int16_t word_0x4A_74;
 	axis_3d position_0x4C_76;//position//ACTUAL X Y Z
 	axis_4d array_0x52_82;
-	int16_t word_0x5A_90;
+	int16_t spriteIndex_0x5A_90;
 	int8_t animationFrame_0x5C_92;
-	int8_t byte_0x5D_93;
-	type_str_0x5E_94 str_0x5E_94;
+	int8_t frameCount_0x5D_93;
+	type_str_0x5E_94 mail_0x5E_94;
 
 	int16_t actSpeed_0x82_130;//130 //add to z//ACTUAL SPEED
 	int16_t minSpeed_0x84_132;//132//MIN SPEED
@@ -394,13 +394,13 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	int32_t maxMana_0x8C_140;//140 //wiz name?//ACTUAL MANA
 	int32_t mana_0x90_144;//144 0-1000//MAX MANA
 	uint16_t playerEntityIndex_0x94_148;//148
-	int16_t word_0x96_150;//150 // index subentity
-	uint16_t word_0x98_152;//152
+	int16_t targetId_0x96_150;//150 // index subentity
+	uint16_t targetKey_0x98_152;//152
 	axis_3d axis_0x9A_154x;//154
 	//int16_t word_0x9E_158;//152
-	type_str_160* dword_0xA0_160x;//160 //special settings
+	type_str_160* typeParams_0xA0_160x;//160 //special settings
 	//uint16_t word_0xA2_162;//162
-	type_str_164* dword_0xA4_164x;//100 // adress of xx
+	type_str_164* playerData_0xA4_164x;//100 // adress of xx
 } type_entity_0x6E8E;
 
 #pragma pack(push, 1)

@@ -7,9 +7,9 @@
 
 #pragma pack (push,1)
 typedef struct {//lenght 22
-	int16_t word_0;
-	int16_t word_2;
-	int16_t word_4;
+	int16_t distance_0;
+	int16_t angle_2;
+	int16_t height_4;
 	int16_t word_6;
 	int16_t word_8;
 	int16_t word_10;

@@ -824,7 +824,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 						HIBYTE(v97) = 15;
 						LOBYTE(v97) = *v19;
 						v19++;
-						*(v19 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
+						*(v19 - 1) = ((uint8_t*)x_DWORD_17DE38str.colorNextTable_17DE3C)[v97];
 					}
 					v19 += 640 - v20;
 				}
@@ -936,7 +936,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 									HIBYTE(v97) = 15;
 									LOBYTE(v97) = *v31;
 									v31++;
-									*(v31 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
+									*(v31 - 1) = ((uint8_t*)x_DWORD_17DE38str.colorNextTable_17DE3C)[v97];
 								}
 								v31 += 640 - v33;
 							}
@@ -962,7 +962,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 										HIBYTE(v40) = 15;
 										LOBYTE(v40) = *v38;
 										v38++;
-										*(v38 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v40];
+										*(v38 - 1) = ((uint8_t*)x_DWORD_17DE38str.colorNextTable_17DE3C)[v40];
 									}
 									v38 += 640 - v39;
 								}
@@ -1050,7 +1050,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 						v91 = xy_DWORD_17DED4_spritestr[274].width_4;
 						HIBYTE(v97) = 15;
 						LOBYTE(v97) = *v58x;
-						*v58x = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
+						*v58x = ((uint8_t*)x_DWORD_17DE38str.colorNextTable_17DE3C)[v97];
 						v58x++;
 					}
 					v59y = 640 - v60;
@@ -1073,7 +1073,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 						HIBYTE(v97) = 15;
 						LOBYTE(v97) = *v64;
 						v64++;
-						*(v64 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
+						*(v64 - 1) = ((uint8_t*)x_DWORD_17DE38str.colorNextTable_17DE3C)[v97];
 					}
 					v64 += 640 - v66;
 				}
@@ -1108,7 +1108,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 							HIBYTE(v97) = 15;
 							LOBYTE(v97) = *v72;
 							v72++;
-							*(v72 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
+							*(v72 - 1) = ((uint8_t*)x_DWORD_17DE38str.colorNextTable_17DE3C)[v97];
 						}
 						v71 = 640 - v74;
 					}
@@ -1129,7 +1129,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 							HIBYTE(v97) = 15;
 							LOBYTE(v97) = *v78;
 							v78++;
-							*(v78 - 1) = ((uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE3C)[v97];
+							*(v78 - 1) = ((uint8_t*)x_DWORD_17DE38str.colorNextTable_17DE3C)[v97];
 						}
 						v78 += 640 - v80;
 					}
@@ -1636,11 +1636,11 @@ void VGA_DrawMessages()
 
 void VGA_DrawPlayerCoordData(int x, int y)
 {
-	if (Entities_EA3E4 != nullptr && Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240] != nullptr) {
+	if (Entities_EA3E4 != nullptr && Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240] != nullptr) {
 
-		int16_t index = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1;
-		axis_3d axisData = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[index].axis_2BDE_11695;
-		axis_4d rotData = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[index].rotation__2BDE_11701;
+		int16_t index = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1;
+		axis_3d axisData = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[index].axis_2BDE_11695;
+		axis_4d rotData = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[index].rotation__2BDE_11701;
 
 		std::string playerCoordStr = "X: " + std::to_string(axisData.x) +
 			" Y: " + std::to_string(axisData.y) +
@@ -3270,7 +3270,7 @@ signed int GetTrueWizardNumber_61790(signed int inputnumber)//242790
 	signed int outputNumber = inputnumber;
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 	{
-		switch (D41A0_0.array_0x2BDE[inputnumber].dword_0x3E6_2BE4_12228.byte_0x1C0_448)
+		switch (D41A0_0.players_0x2BDE[inputnumber].playerData_0x3E6_2BE4_12228.wizardType_0x1C0_448)
 		{
 		case 0:
 			outputNumber = 0;
@@ -3305,24 +3305,24 @@ signed int GetTrueWizardNumber_61790(signed int inputnumber)//242790
 
 void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type_D41A0_BYTESTR_0* to) {
 	for (int i = 0; i < 4; i++)to->stub0[i] = from->stub0[i];
-	to->dword_0x4 = from->dword_0x4;
+	to->levelId_0x4 = from->dword_0x4;
 	to->rand_0x8 = from->dword_0x8;
 	to->LevelIndex_0xc = from->word_0xc;
 	to->NumberOfPlayers_0xe = from->NumberOfPlayers_0xe;
-	for (int i = 0; i < 0x1d; i++)to->array_0x10[i] = from->array_0x10[i];
+	for (int i = 0; i < 0x1d; i++)to->modelCounters_0x10[i] = from->array_0x10[i];
 	to->dword_0x2d = from->dword_0x2d;
-	to->word_0x31 = from->word_0x31;
-	to->word_0x33 = from->word_0x33;
-	to->dword_0x35 = from->dword_0x35;
-	for (int i = 0; i < 508; i++)to->array_0x39[i] = from->array_0x39[i];
+	to->volcanoEntity_0x31 = from->word_0x31;
+	to->volcanoFireEntity_0x33 = from->word_0x33;
+	to->freeEntityCount_0x35 = from->dword_0x35;
+	for (int i = 0; i < 508; i++)to->usedTmaps_0x39[i] = from->array_0x39[i];
 	to->maptypeMusic_0x235 = from->dword_0x235;
 	to->byte_0x239 = from->byte_0x239;
 	to->dword_0x23a = from->dword_0x23a;
 	to->dword_0x23e = from->dword_0x23e;
 	to->dword_0x242 = from->dword_0x242;
-	for (int i = 0; i < 0x3e8; i++)to->pointers_0x246[i] = (type_entity_0x6E8E*)from->pointers_0x246[i];
-	to->dword_0x11e6 = from->dword_0x11e6;
-	for (int i = 0; i < 0x3e8; i++)to->dword_0x11EA[i] = (type_entity_0x6E8E*)from->dword_0x11EA[i];
+	for (int i = 0; i < 0x3e8; i++)to->freeEntities_0x246[i] = (type_entity_0x6E8E*)from->pointers_0x246[i];
+	to->freeEntityCount2_0x11e6 = from->dword_0x11e6;
+	for (int i = 0; i < 0x3e8; i++)to->freeEntities2_0x11EA[i] = (type_entity_0x6E8E*)from->dword_0x11EA[i];
 	to->m_GameSettings = from->m_GameSettings;
 	to->dword_0x219A = from->dword_0x219A;
 	to->dword_0x219E = from->dword_0x219E;
@@ -3333,81 +3333,81 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	to->str_0x21B2 = from->str_0x21B2;
 	to->str_0x21B6 = from->str_0x21B6;
 	for (int i = 0; i < 0x1a8; i++)to->stub3b[i] = from->stub3b[i];
-	for (int i = 0; i < 8; i++)to->array_0x2362[i] = from->array_0x2362[i];
+	for (int i = 0; i < 8; i++)to->playerStarts_0x2362[i] = from->array_0x2362[i];
 	for (int i = 0; i < 0x14d; i++)to->stub3c[i] = from->stub3c[i];
 	for (int i = 0; i < 0x6ff; i++)to->stub3d[i] = from->stub3d[i];
-	for (int i = 0; i < 8; i++)to->array_0x2BDE[i] = from->array_0x2BDE[i];
+	for (int i = 0; i < 8; i++)to->players_0x2BDE[i] = from->array_0x2BDE[i];
 	for (int i = 0; i < 8; i++)to->playerInputs_0x6E3E[i] = from->playerInputs_0x6E3E[i];
 	for (int i = 0; i < 0x3e8; i++) {
-		to->struct_0x6E8E[i].next_0 = (_str_0x6E8E*)from->struct_0x6E8E[i].next_0;
-		to->struct_0x6E8E[i].maxLife_0x4 = from->struct_0x6E8E[i].dword_0x4;
-		to->struct_0x6E8E[i].life_0x8 = from->struct_0x6E8E[i].dword_0x8;
-		to->struct_0x6E8E[i].struct_byte_0xc_12_15 = from->struct_0x6E8E[i].struct_byte_0xc_12_15;
-		to->struct_0x6E8E[i].dword_0x10_16 = from->struct_0x6E8E[i].dword_0x10_16;
-		to->struct_0x6E8E[i].rand_0x14_20 = from->struct_0x6E8E[i].word_0x14_20;
-		to->struct_0x6E8E[i].oldMapEntity_0x16_22 = from->struct_0x6E8E[i].word_0x16_22;
-		to->struct_0x6E8E[i].nextEntity_0x18_24 = from->struct_0x6E8E[i].word_0x18_24_next_entity;
-		to->struct_0x6E8E[i].id_0x1A_26 = from->struct_0x6E8E[i].word_0x1A_26;
-		to->struct_0x6E8E[i].yaw_0x1C_28 = from->struct_0x6E8E[i].word_0x1C_28;
-		to->struct_0x6E8E[i].pitch_0x1E_30 = from->struct_0x6E8E[i].word_0x1E_30;
-		to->struct_0x6E8E[i].roll_0x20_32 = from->struct_0x6E8E[i].word_0x20_32;
-		to->struct_0x6E8E[i].fov_0x22_34 = from->struct_0x6E8E[i].word_0x22_34;
-		to->struct_0x6E8E[i].word_0x24_36 = from->struct_0x6E8E[i].word_0x24_36;
-		to->struct_0x6E8E[i].word_0x26_38 = from->struct_0x6E8E[i].word_0x26_38;
-		to->struct_0x6E8E[i].parentId_0x28_40 = from->struct_0x6E8E[i].word_0x28_40;
-		to->struct_0x6E8E[i].subSpellIndex_0x2A_42 = from->struct_0x6E8E[i].word_0x2A_42;
-		to->struct_0x6E8E[i].word_0x2C_44 = from->struct_0x6E8E[i].word_0x2C_44;
-		to->struct_0x6E8E[i].word_0x2E_46 = from->struct_0x6E8E[i].word_0x2E_46;
-		to->struct_0x6E8E[i].word_0x30_48 = from->struct_0x6E8E[i].word_0x30_48;
-		to->struct_0x6E8E[i].word_0x32_50 = from->struct_0x6E8E[i].word_0x32_50;
-		to->struct_0x6E8E[i].word_0x34_52 = from->struct_0x6E8E[i].word_0x34_52;
-		to->struct_0x6E8E[i].word_0x36_54 = from->struct_0x6E8E[i].word_0x36_54;
-		to->struct_0x6E8E[i].byte_0x38_56 = from->struct_0x6E8E[i].byte_0x38_56;
-		to->struct_0x6E8E[i].byte_0x39_57 = from->struct_0x6E8E[i].byte_0x39_57;
-		to->struct_0x6E8E[i].byte_0x3A_58 = from->struct_0x6E8E[i].byte_0x3A_58;
-		to->struct_0x6E8E[i].byte_0x3B_59 = from->struct_0x6E8E[i].byte_0x3B_59;
-		to->struct_0x6E8E[i].byte_0x3C_60 = from->struct_0x6E8E[i].byte_0x3C_60;
-		to->struct_0x6E8E[i].fontTypeIndex_0x3D_61 = from->struct_0x6E8E[i].byte_0x3D_61;
-		to->struct_0x6E8E[i].byte_0x3E_62 = from->struct_0x6E8E[i].byte_0x3E_62;
-		to->struct_0x6E8E[i].class_0x3F_63 = from->struct_0x6E8E[i].type_0x3F_63;
-		to->struct_0x6E8E[i].model_0x40_64 = from->struct_0x6E8E[i].subtype_0x40_64;
-		to->struct_0x6E8E[i].xtype_0x41_65 = from->struct_0x6E8E[i].byte_0x41_65;
-		to->struct_0x6E8E[i].xsubtype_0x42_66 = from->struct_0x6E8E[i].byte_0x42_66;
-		to->struct_0x6E8E[i].byte_0x43_67 = from->struct_0x6E8E[i].byte_0x43_67;
-		to->struct_0x6E8E[i].byte_0x44_68 = from->struct_0x6E8E[i].byte_0x44_68;
-		to->struct_0x6E8E[i].actionIndex_0x45_69 = from->struct_0x6E8E[i].byte_0x45_69;
-		to->struct_0x6E8E[i].byte_0x46_70 = from->struct_0x6E8E[i].byte_0x46_70;
-		to->struct_0x6E8E[i].byte_0x47_71_xx = from->struct_0x6E8E[i].byte_0x47_71_xx;
-		to->struct_0x6E8E[i].StageVar1_0x48_72 = from->struct_0x6E8E[i].byte_0x48_72;
-		to->struct_0x6E8E[i].StageVar2_0x49_73 = from->struct_0x6E8E[i].byte_0x49_73;
-		to->struct_0x6E8E[i].word_0x4A_74 = from->struct_0x6E8E[i].word_0x4A_74;
-		to->struct_0x6E8E[i].position_0x4C_76 = from->struct_0x6E8E[i].array_0x4C_76;
-		to->struct_0x6E8E[i].array_0x52_82 = from->struct_0x6E8E[i].array_0x52_82;
-		to->struct_0x6E8E[i].word_0x5A_90 = from->struct_0x6E8E[i].word_0x5A_90;
-		to->struct_0x6E8E[i].animationFrame_0x5C_92 = from->struct_0x6E8E[i].byte_0x5C_92;
-		to->struct_0x6E8E[i].byte_0x5D_93 = from->struct_0x6E8E[i].byte_0x5D_93;
-		to->struct_0x6E8E[i].str_0x5E_94 = from->struct_0x6E8E[i].str_0x5E_94;
-		to->struct_0x6E8E[i].actSpeed_0x82_130 = from->struct_0x6E8E[i].word_0x82_130;
-		to->struct_0x6E8E[i].minSpeed_0x84_132 = from->struct_0x6E8E[i].word_0x84_132;
-		to->struct_0x6E8E[i].maxSpeed_0x86_134 = from->struct_0x6E8E[i].word_0x86_134;
-		to->struct_0x6E8E[i].manaRegen_0x88_136 = from->struct_0x6E8E[i].dword_0x88_136;
-		to->struct_0x6E8E[i].maxMana_0x8C_140 = from->struct_0x6E8E[i].dword_0x8C_140;
-		to->struct_0x6E8E[i].mana_0x90_144 = from->struct_0x6E8E[i].dword_0x90_144;
-		to->struct_0x6E8E[i].playerEntityIndex_0x94_148 = from->struct_0x6E8E[i].playerEntityIndex_0x94_148;
-		to->struct_0x6E8E[i].word_0x96_150 = from->struct_0x6E8E[i].word_0x96_150;
-		to->struct_0x6E8E[i].word_0x98_152 = from->struct_0x6E8E[i].word_0x98_152;
-		to->struct_0x6E8E[i].axis_0x9A_154x = from->struct_0x6E8E[i].axis_0x9A_154x;
-		to->struct_0x6E8E[i].dword_0xA0_160x = (type_str_160*)from->struct_0x6E8E[i].dword_0xA0_160x;
-		to->struct_0x6E8E[i].dword_0xA4_164x = (type_str_164*)from->struct_0x6E8E[i].dword_0xA4_164x;
+		to->entities_0x6E8E[i].next_0 = (_str_0x6E8E*)from->struct_0x6E8E[i].next_0;
+		to->entities_0x6E8E[i].maxLife_0x4 = from->struct_0x6E8E[i].dword_0x4;
+		to->entities_0x6E8E[i].life_0x8 = from->struct_0x6E8E[i].dword_0x8;
+		to->entities_0x6E8E[i].flags_0xc_12_15 = from->struct_0x6E8E[i].struct_byte_0xc_12_15;
+		to->entities_0x6E8E[i].dword_0x10_16 = from->struct_0x6E8E[i].dword_0x10_16;
+		to->entities_0x6E8E[i].rand_0x14_20 = from->struct_0x6E8E[i].word_0x14_20;
+		to->entities_0x6E8E[i].oldMapEntity_0x16_22 = from->struct_0x6E8E[i].word_0x16_22;
+		to->entities_0x6E8E[i].nextEntity_0x18_24 = from->struct_0x6E8E[i].word_0x18_24_next_entity;
+		to->entities_0x6E8E[i].id_0x1A_26 = from->struct_0x6E8E[i].word_0x1A_26;
+		to->entities_0x6E8E[i].yaw_0x1C_28 = from->struct_0x6E8E[i].word_0x1C_28;
+		to->entities_0x6E8E[i].pitch_0x1E_30 = from->struct_0x6E8E[i].word_0x1E_30;
+		to->entities_0x6E8E[i].roll_0x20_32 = from->struct_0x6E8E[i].word_0x20_32;
+		to->entities_0x6E8E[i].fov_0x22_34 = from->struct_0x6E8E[i].word_0x22_34;
+		to->entities_0x6E8E[i].word_0x24_36 = from->struct_0x6E8E[i].word_0x24_36;
+		to->entities_0x6E8E[i].hitById_0x26_38 = from->struct_0x6E8E[i].word_0x26_38;
+		to->entities_0x6E8E[i].parentId_0x28_40 = from->struct_0x6E8E[i].word_0x28_40;
+		to->entities_0x6E8E[i].subSpellIndex_0x2A_42 = from->struct_0x6E8E[i].word_0x2A_42;
+		to->entities_0x6E8E[i].word_0x2C_44 = from->struct_0x6E8E[i].word_0x2C_44;
+		to->entities_0x6E8E[i].word_0x2E_46 = from->struct_0x6E8E[i].word_0x2E_46;
+		to->entities_0x6E8E[i].word_0x30_48 = from->struct_0x6E8E[i].word_0x30_48;
+		to->entities_0x6E8E[i].leaderId_0x32_50 = from->struct_0x6E8E[i].word_0x32_50;
+		to->entities_0x6E8E[i].nextLinkedId_0x34_52 = from->struct_0x6E8E[i].word_0x34_52;
+		to->entities_0x6E8E[i].word_0x36_54 = from->struct_0x6E8E[i].word_0x36_54;
+		to->entities_0x6E8E[i].mailMask_0x38_56 = from->struct_0x6E8E[i].byte_0x38_56;
+		to->entities_0x6E8E[i].byte_0x39_57 = from->struct_0x6E8E[i].byte_0x39_57;
+		to->entities_0x6E8E[i].byte_0x3A_58 = from->struct_0x6E8E[i].byte_0x3A_58;
+		to->entities_0x6E8E[i].byte_0x3B_59 = from->struct_0x6E8E[i].byte_0x3B_59;
+		to->entities_0x6E8E[i].byte_0x3C_60 = from->struct_0x6E8E[i].byte_0x3C_60;
+		to->entities_0x6E8E[i].fontTypeIndex_0x3D_61 = from->struct_0x6E8E[i].byte_0x3D_61;
+		to->entities_0x6E8E[i].instanceIndex_0x3E_62 = from->struct_0x6E8E[i].byte_0x3E_62;
+		to->entities_0x6E8E[i].class_0x3F_63 = from->struct_0x6E8E[i].type_0x3F_63;
+		to->entities_0x6E8E[i].model_0x40_64 = from->struct_0x6E8E[i].subtype_0x40_64;
+		to->entities_0x6E8E[i].xtype_0x41_65 = from->struct_0x6E8E[i].byte_0x41_65;
+		to->entities_0x6E8E[i].xsubtype_0x42_66 = from->struct_0x6E8E[i].byte_0x42_66;
+		to->entities_0x6E8E[i].byte_0x43_67 = from->struct_0x6E8E[i].byte_0x43_67;
+		to->entities_0x6E8E[i].byte_0x44_68 = from->struct_0x6E8E[i].byte_0x44_68;
+		to->entities_0x6E8E[i].actionIndex_0x45_69 = from->struct_0x6E8E[i].byte_0x45_69;
+		to->entities_0x6E8E[i].byte_0x46_70 = from->struct_0x6E8E[i].byte_0x46_70;
+		to->entities_0x6E8E[i].byte_0x47_71_xx = from->struct_0x6E8E[i].byte_0x47_71_xx;
+		to->entities_0x6E8E[i].StageVar1_0x48_72 = from->struct_0x6E8E[i].byte_0x48_72;
+		to->entities_0x6E8E[i].StageVar2_0x49_73 = from->struct_0x6E8E[i].byte_0x49_73;
+		to->entities_0x6E8E[i].word_0x4A_74 = from->struct_0x6E8E[i].word_0x4A_74;
+		to->entities_0x6E8E[i].position_0x4C_76 = from->struct_0x6E8E[i].array_0x4C_76;
+		to->entities_0x6E8E[i].array_0x52_82 = from->struct_0x6E8E[i].array_0x52_82;
+		to->entities_0x6E8E[i].spriteIndex_0x5A_90 = from->struct_0x6E8E[i].word_0x5A_90;
+		to->entities_0x6E8E[i].animationFrame_0x5C_92 = from->struct_0x6E8E[i].byte_0x5C_92;
+		to->entities_0x6E8E[i].frameCount_0x5D_93 = from->struct_0x6E8E[i].byte_0x5D_93;
+		to->entities_0x6E8E[i].mail_0x5E_94 = from->struct_0x6E8E[i].str_0x5E_94;
+		to->entities_0x6E8E[i].actSpeed_0x82_130 = from->struct_0x6E8E[i].word_0x82_130;
+		to->entities_0x6E8E[i].minSpeed_0x84_132 = from->struct_0x6E8E[i].word_0x84_132;
+		to->entities_0x6E8E[i].maxSpeed_0x86_134 = from->struct_0x6E8E[i].word_0x86_134;
+		to->entities_0x6E8E[i].manaRegen_0x88_136 = from->struct_0x6E8E[i].dword_0x88_136;
+		to->entities_0x6E8E[i].maxMana_0x8C_140 = from->struct_0x6E8E[i].dword_0x8C_140;
+		to->entities_0x6E8E[i].mana_0x90_144 = from->struct_0x6E8E[i].dword_0x90_144;
+		to->entities_0x6E8E[i].playerEntityIndex_0x94_148 = from->struct_0x6E8E[i].playerEntityIndex_0x94_148;
+		to->entities_0x6E8E[i].targetId_0x96_150 = from->struct_0x6E8E[i].word_0x96_150;
+		to->entities_0x6E8E[i].targetKey_0x98_152 = from->struct_0x6E8E[i].word_0x98_152;
+		to->entities_0x6E8E[i].axis_0x9A_154x = from->struct_0x6E8E[i].axis_0x9A_154x;
+		to->entities_0x6E8E[i].typeParams_0xA0_160x = (type_str_160*)from->struct_0x6E8E[i].dword_0xA0_160x;
+		to->entities_0x6E8E[i].playerData_0xA4_164x = (type_str_164*)from->struct_0x6E8E[i].dword_0xA4_164x;
 	}
 
 	to->terrain_2FECE.word_2FECE = from->str_2FECE.word_2FECE;
 	to->terrain_2FECE.levelID_2FED0 = from->str_2FECE.levelID_2FED0;
-	to->terrain_2FECE.byte_0x2FED2 = from->str_2FECE.byte_0x2FED2;
-	to->terrain_2FECE.byte_0x2FED3 = from->str_2FECE.byte_0x2FED3;
+	to->terrain_2FECE.levelType_0x2FED2 = from->str_2FECE.byte_0x2FED2;
+	to->terrain_2FECE.basicHeight_0x2FED3 = from->str_2FECE.byte_0x2FED3;
 	to->terrain_2FECE.MapType = (from->str_2FECE.MapType == 2) ? MapType_t::Cave : (from->str_2FECE.MapType == 1) ? MapType_t::Night : MapType_t::Day;
 	to->terrain_2FECE.word_0x2FED5 = from->str_2FECE.word_0x2FED5;
-	to->terrain_2FECE.word_0x2FED7 = from->str_2FECE.word_0x2FED7;
+	to->terrain_2FECE.numberOfPlayers_0x2FED7 = from->str_2FECE.word_0x2FED7;
 	for (int i = 0; i < 8; i++)to->terrain_2FECE.player_0x2FED9[i] = from->str_2FECE.array_0x2FED9[i];
 	for (int i = 0; i < 4; i++)to->terrain_2FECE.stubb[i] = from->str_2FECE.stubb[i];
 	to->terrain_2FECE.seed_0x2FEE5 = from->str_2FECE.word_0x2FEE5;
@@ -3442,7 +3442,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 		to->terrain_2FECE.StageVars_0x3647A[i].index_0x3647A_0 = from->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0;
 		to->terrain_2FECE.StageVars_0x3647A[i].stage_0x3647A_1 = from->str_2FECE.array_0x3647A[i].str_0x3647A_byte_1;
 		to->terrain_2FECE.StageVars_0x3647A[i].str_0x3647A_2 = from->str_2FECE.array_0x3647A[i].str_0x3647A_2;
-		to->terrain_2FECE.StageVars_0x3647A[i].str_0x3647C_4.axis = from->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis;
+		to->terrain_2FECE.StageVars_0x3647A[i].target_0x3647C_4.axis = from->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis;
 	}
 	to->str_0x364D2 = from->str_0x364D2;
 	to->word_0x3653E = from->word_0x3653E;
@@ -3454,41 +3454,41 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	to->word_0x3654A = from->word_0x3654A;
 	for (int i = 0; i < 8; i++) {
 		to->stages_0x3654C[i].stages_3654C_byte0 = from->struct_0x3654C[i].str_3654C_byte0;
-		to->stages_0x3654C[i].str_3654D_byte1 = from->struct_0x3654C[i].str_3654D_byte1;
-		to->stages_0x3654C[i].str_3654E_axis = from->struct_0x3654C[i].str_3654E_axis;
-		to->stages_0x3654C[i].str_36552_un.dword = from->struct_0x3654C[i].str_36552_un.dword;
+		to->stages_0x3654C[i].flags_3654D = from->struct_0x3654C[i].str_3654D_byte1;
+		to->stages_0x3654C[i].position_3654E = from->struct_0x3654C[i].str_3654E_axis;
+		to->stages_0x3654C[i].target_36552.dword = from->struct_0x3654C[i].str_36552_un.dword;
 	}
-	for (int i = 0; i < 8; i++)to->struct_0x3659C[i] = from->struct_0x3659C[i];
+	for (int i = 0; i < 8; i++)to->playerObjectives_0x3659C[i] = from->struct_0x3659C[i];
 	for (int i = 0; i < 11; i++) {
 		to->StageVars2_0x365F4[i].index_0x3647A_0 = from->array_0x365F4[i].str_0x3647A_byte_0;
 		to->StageVars2_0x365F4[i].stage_0x3647A_1 = from->array_0x365F4[i].str_0x3647A_byte_1;
 		to->StageVars2_0x365F4[i].str_0x3647A_2 = from->array_0x365F4[i].str_0x3647A_2;
-		to->StageVars2_0x365F4[i].str_0x3647C_4.axis = from->array_0x365F4[i].str_0x3647C_4.axis;
+		to->StageVars2_0x365F4[i].target_0x3647C_4.axis = from->array_0x365F4[i].str_0x3647C_4.axis;
 	}
 	for (int i = 0; i < 0x32; i++) {
-		to->str_0x3664C[i].byte_0 = from->str_0x3664C[i].byte_0;
-		to->str_0x3664C[i].byte_1 = from->str_0x3664C[i].byte_1;
-		to->str_0x3664C[i].byte_2 = from->str_0x3664C[i].byte_2;
-		to->str_0x3664C[i].byte_3 = from->str_0x3664C[i].byte_3;
-		to->str_0x3664C[i].axis3d_4 = from->str_0x3664C[i].axis3d_4;
-		to->str_0x3664C[i].event_A.pointer_0x6E8E = (type_entity_0x6E8E*)from->str_0x3664C[i].dword_A;
-		for (int j = 0; j < 25; j++)to->str_0x3664C[i].array_E[j] = from->str_0x3664C[i].array_E[j];
+		to->dynamicLights_0x3664C[i].active_0 = from->str_0x3664C[i].byte_0;
+		to->dynamicLights_0x3664C[i].flags_1 = from->str_0x3664C[i].byte_1;
+		to->dynamicLights_0x3664C[i].intensity_2 = from->str_0x3664C[i].byte_2;
+		to->dynamicLights_0x3664C[i].flickerRange_3 = from->str_0x3664C[i].byte_3;
+		to->dynamicLights_0x3664C[i].axis3d_4 = from->str_0x3664C[i].axis3d_4;
+		to->dynamicLights_0x3664C[i].event_A.pointer_0x6E8E = (type_entity_0x6E8E*)from->str_0x3664C[i].dword_A;
+		for (int j = 0; j < 25; j++)to->dynamicLights_0x3664C[i].shading_E[j] = from->str_0x3664C[i].array_E[j];
 	}
-	to->byte_0x36DEA_fly_asistant = from->byte_0x36DEA_fly_asistant;
+	to->flyAssistant_0x36DEA = from->byte_0x36DEA_fly_asistant;
 	to->byte_0x36DEB_xx = from->byte_0x36DEB_xx;
-	to->word_0x36DEC_mousex = from->word_0x36DEC_mousex;
-	to->word_0x36DEE_mousey = from->word_0x36DEE_mousey;
-	to->word_0x36DF0_mousexx = from->word_0x36DF0_mousexx;
-	to->dword_0x36DF2 = from->dword_0x36DF2;
-	to->dword_0x36DF6 = (type_str_160*)from->dword_0x36DF6;
-	to->word_0x36DFA = from->word_0x36DFA;
-	to->word_0x36DFC = from->word_0x36DFC;
-	to->word_0x36DFE = from->word_0x36DFE;
+	to->lastMouseX_0x36DEC = from->word_0x36DEC_mousex;
+	to->lastMouseY_0x36DEE = from->word_0x36DEE_mousey;
+	to->mouseIdleCounter_0x36DF0 = from->word_0x36DF0_mousexx;
+	to->lightRandSeed_0x36DF2 = from->dword_0x36DF2;
+	to->typeParamsBase_0x36DF6 = (type_str_160*)from->dword_0x36DF6;
+	to->activeLights_0x36DFA = from->word_0x36DFA;
+	to->switchOnceEntity_0x36DFC = from->word_0x36DFC;
+	to->switchChainEntity_0x36DFE = from->word_0x36DFE;
 	to->countStageVars_0x36E00 = from->byte_0x36E00;
 	to->stageIndex_0x36E01 = from->byte_0x36E01;
-	to->byte_0x36E02 = from->byte_0x36E02;
+	to->tempObjective_0x36E02 = from->byte_0x36E02;
 	to->byte_0x36E03 = from->byte_0x36E03;
-	to->byte_counter_current_objective_box_0x36E04 = from->byte_counter_current_objective_box_0x36E04;
+	to->objectiveBoxCounter_0x36E04 = from->byte_counter_current_objective_box_0x36E04;
 	for (int i = 0; i < 6; i++)to->stub3k[i] = from->stub3k[i];
 	to->byte_0x36E0B = from->byte_0x36E0B;
 	for (int i = 0; i < 11; i++)to->stubend[i] = from->stubend[i];
@@ -3498,24 +3498,24 @@ uint8_t* Zero_pointer = NULL;
 
 void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D41A0_BYTESTR_0* to) {
 	for (int i = 0; i < 4; i++)to->stub0[i] = from->stub0[i];
-	to->dword_0x4 = from->dword_0x4;
+	to->dword_0x4 = from->levelId_0x4;
 	to->dword_0x8 = from->rand_0x8;
 	to->word_0xc = from->LevelIndex_0xc;
 	to->NumberOfPlayers_0xe = from->NumberOfPlayers_0xe;
-	for (int i = 0; i < 0x1d; i++)to->array_0x10[i] = from->array_0x10[i];
+	for (int i = 0; i < 0x1d; i++)to->array_0x10[i] = from->modelCounters_0x10[i];
 	to->dword_0x2d = from->dword_0x2d;
-	to->word_0x31 = from->word_0x31;
-	to->word_0x33 = from->word_0x33;
-	to->dword_0x35 = from->dword_0x35;
-	for (int i = 0; i < 508; i++)to->array_0x39[i] = from->array_0x39[i];
+	to->word_0x31 = from->volcanoEntity_0x31;
+	to->word_0x33 = from->volcanoFireEntity_0x33;
+	to->dword_0x35 = from->freeEntityCount_0x35;
+	for (int i = 0; i < 508; i++)to->array_0x39[i] = from->usedTmaps_0x39[i];
 	to->dword_0x235 = from->maptypeMusic_0x235;
 	to->byte_0x239 = from->byte_0x239;
 	to->dword_0x23a = from->dword_0x23a;
 	to->dword_0x23e = from->dword_0x23e;
 	to->dword_0x242 = from->dword_0x242;
-	for (int i = 0; i < 0x3e8; i++)to->pointers_0x246[i] = ((uint8_t*)from->pointers_0x246[i]- Zero_pointer);
-	to->dword_0x11e6 = from->dword_0x11e6;
-	for (int i = 0; i < 0x3e8; i++)to->dword_0x11EA[i] = ((uint8_t*)from->dword_0x11EA[i] - Zero_pointer);
+	for (int i = 0; i < 0x3e8; i++)to->pointers_0x246[i] = ((uint8_t*)from->freeEntities_0x246[i]- Zero_pointer);
+	to->dword_0x11e6 = from->freeEntityCount2_0x11e6;
+	for (int i = 0; i < 0x3e8; i++)to->dword_0x11EA[i] = ((uint8_t*)from->freeEntities2_0x11EA[i] - Zero_pointer);
 	to->m_GameSettings = from->m_GameSettings;
 	to->dword_0x219A = from->dword_0x219A;
 	to->dword_0x219E = from->dword_0x219E;
@@ -3526,81 +3526,81 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	to->str_0x21B2 = from->str_0x21B2;
 	to->str_0x21B6 = from->str_0x21B6;
 	for (int i = 0; i < 0x1a8; i++)to->stub3b[i] = from->stub3b[i];
-	for (int i = 0; i < 8; i++)to->array_0x2362[i] = from->array_0x2362[i];
+	for (int i = 0; i < 8; i++)to->array_0x2362[i] = from->playerStarts_0x2362[i];
 	for (int i = 0; i < 0x14d; i++)to->stub3c[i] = from->stub3c[i];
 	for (int i = 0; i < 0x6ff; i++)to->stub3d[i] = from->stub3d[i];
-	for (int i = 0; i < 8; i++)to->array_0x2BDE[i] = from->array_0x2BDE[i];
+	for (int i = 0; i < 8; i++)to->array_0x2BDE[i] = from->players_0x2BDE[i];
 	for (int i = 0; i < 8; i++)to->playerInputs_0x6E3E[i] = from->playerInputs_0x6E3E[i];
 	for (int i = 0; i < 0x3e8; i++) {
-		to->struct_0x6E8E[i].next_0 = ((uint8_t*)from->struct_0x6E8E[i].next_0 - Zero_pointer);
-		to->struct_0x6E8E[i].dword_0x4 = from->struct_0x6E8E[i].maxLife_0x4;
-		to->struct_0x6E8E[i].dword_0x8 = from->struct_0x6E8E[i].life_0x8;
-		to->struct_0x6E8E[i].struct_byte_0xc_12_15 = from->struct_0x6E8E[i].struct_byte_0xc_12_15;
-		to->struct_0x6E8E[i].dword_0x10_16 = from->struct_0x6E8E[i].dword_0x10_16;
-		to->struct_0x6E8E[i].word_0x14_20 = from->struct_0x6E8E[i].rand_0x14_20;
-		to->struct_0x6E8E[i].word_0x16_22 = from->struct_0x6E8E[i].oldMapEntity_0x16_22;
-		to->struct_0x6E8E[i].word_0x18_24_next_entity = from->struct_0x6E8E[i].nextEntity_0x18_24;
-		to->struct_0x6E8E[i].word_0x1A_26 = from->struct_0x6E8E[i].id_0x1A_26;
-		to->struct_0x6E8E[i].word_0x1C_28 = from->struct_0x6E8E[i].yaw_0x1C_28;
-		to->struct_0x6E8E[i].word_0x1E_30 = from->struct_0x6E8E[i].pitch_0x1E_30;
-		to->struct_0x6E8E[i].word_0x20_32 = from->struct_0x6E8E[i].roll_0x20_32;
-		to->struct_0x6E8E[i].word_0x22_34 = from->struct_0x6E8E[i].fov_0x22_34;
-		to->struct_0x6E8E[i].word_0x24_36 = from->struct_0x6E8E[i].word_0x24_36;
-		to->struct_0x6E8E[i].word_0x26_38 = from->struct_0x6E8E[i].word_0x26_38;
-		to->struct_0x6E8E[i].word_0x28_40 = from->struct_0x6E8E[i].parentId_0x28_40;
-		to->struct_0x6E8E[i].word_0x2A_42 = from->struct_0x6E8E[i].subSpellIndex_0x2A_42;
-		to->struct_0x6E8E[i].word_0x2C_44 = from->struct_0x6E8E[i].word_0x2C_44;
-		to->struct_0x6E8E[i].word_0x2E_46 = from->struct_0x6E8E[i].word_0x2E_46;
-		to->struct_0x6E8E[i].word_0x30_48 = from->struct_0x6E8E[i].word_0x30_48;
-		to->struct_0x6E8E[i].word_0x32_50 = from->struct_0x6E8E[i].word_0x32_50;
-		to->struct_0x6E8E[i].word_0x34_52 = from->struct_0x6E8E[i].word_0x34_52;
-		to->struct_0x6E8E[i].word_0x36_54 = from->struct_0x6E8E[i].word_0x36_54;
-		to->struct_0x6E8E[i].byte_0x38_56 = from->struct_0x6E8E[i].byte_0x38_56;
-		to->struct_0x6E8E[i].byte_0x39_57 = from->struct_0x6E8E[i].byte_0x39_57;
-		to->struct_0x6E8E[i].byte_0x3A_58 = from->struct_0x6E8E[i].byte_0x3A_58;
-		to->struct_0x6E8E[i].byte_0x3B_59 = from->struct_0x6E8E[i].byte_0x3B_59;
-		to->struct_0x6E8E[i].byte_0x3C_60 = from->struct_0x6E8E[i].byte_0x3C_60;
-		to->struct_0x6E8E[i].byte_0x3D_61 = from->struct_0x6E8E[i].fontTypeIndex_0x3D_61;
-		to->struct_0x6E8E[i].byte_0x3E_62 = from->struct_0x6E8E[i].byte_0x3E_62;
-		to->struct_0x6E8E[i].type_0x3F_63 = from->struct_0x6E8E[i].class_0x3F_63;
-		to->struct_0x6E8E[i].subtype_0x40_64 = from->struct_0x6E8E[i].model_0x40_64;
-		to->struct_0x6E8E[i].byte_0x41_65 = from->struct_0x6E8E[i].xtype_0x41_65;
-		to->struct_0x6E8E[i].byte_0x42_66 = from->struct_0x6E8E[i].xsubtype_0x42_66;
-		to->struct_0x6E8E[i].byte_0x43_67 = from->struct_0x6E8E[i].byte_0x43_67;
-		to->struct_0x6E8E[i].byte_0x44_68 = from->struct_0x6E8E[i].byte_0x44_68;
-		to->struct_0x6E8E[i].byte_0x45_69 = from->struct_0x6E8E[i].actionIndex_0x45_69;
-		to->struct_0x6E8E[i].byte_0x46_70 = from->struct_0x6E8E[i].byte_0x46_70;
-		to->struct_0x6E8E[i].byte_0x47_71_xx = from->struct_0x6E8E[i].byte_0x47_71_xx;
-		to->struct_0x6E8E[i].byte_0x48_72 = from->struct_0x6E8E[i].StageVar1_0x48_72;
-		to->struct_0x6E8E[i].byte_0x49_73 = from->struct_0x6E8E[i].StageVar2_0x49_73;
-		to->struct_0x6E8E[i].word_0x4A_74 = from->struct_0x6E8E[i].word_0x4A_74;
-		to->struct_0x6E8E[i].array_0x4C_76 = from->struct_0x6E8E[i].position_0x4C_76;
-		to->struct_0x6E8E[i].array_0x52_82 = from->struct_0x6E8E[i].array_0x52_82;
-		to->struct_0x6E8E[i].word_0x5A_90 = from->struct_0x6E8E[i].word_0x5A_90;
-		to->struct_0x6E8E[i].byte_0x5C_92 = from->struct_0x6E8E[i].animationFrame_0x5C_92;
-		to->struct_0x6E8E[i].byte_0x5D_93 = from->struct_0x6E8E[i].byte_0x5D_93;
-		to->struct_0x6E8E[i].str_0x5E_94 = from->struct_0x6E8E[i].str_0x5E_94;
-		to->struct_0x6E8E[i].word_0x82_130 = from->struct_0x6E8E[i].actSpeed_0x82_130;
-		to->struct_0x6E8E[i].word_0x84_132 = from->struct_0x6E8E[i].minSpeed_0x84_132;
-		to->struct_0x6E8E[i].word_0x86_134 = from->struct_0x6E8E[i].maxSpeed_0x86_134;
-		to->struct_0x6E8E[i].dword_0x88_136 = from->struct_0x6E8E[i].manaRegen_0x88_136;
-		to->struct_0x6E8E[i].dword_0x8C_140 = from->struct_0x6E8E[i].maxMana_0x8C_140;
-		to->struct_0x6E8E[i].dword_0x90_144 = from->struct_0x6E8E[i].mana_0x90_144;
-		to->struct_0x6E8E[i].playerEntityIndex_0x94_148 = from->struct_0x6E8E[i].playerEntityIndex_0x94_148;
-		to->struct_0x6E8E[i].word_0x96_150 = from->struct_0x6E8E[i].word_0x96_150;
-		to->struct_0x6E8E[i].word_0x98_152 = from->struct_0x6E8E[i].word_0x98_152;
-		to->struct_0x6E8E[i].axis_0x9A_154x = from->struct_0x6E8E[i].axis_0x9A_154x;
-		to->struct_0x6E8E[i].dword_0xA0_160x = ((uint8_t*)from->struct_0x6E8E[i].dword_0xA0_160x - Zero_pointer);
-		to->struct_0x6E8E[i].dword_0xA4_164x = ((uint8_t*)from->struct_0x6E8E[i].dword_0xA4_164x - Zero_pointer);
+		to->struct_0x6E8E[i].next_0 = ((uint8_t*)from->entities_0x6E8E[i].next_0 - Zero_pointer);
+		to->struct_0x6E8E[i].dword_0x4 = from->entities_0x6E8E[i].maxLife_0x4;
+		to->struct_0x6E8E[i].dword_0x8 = from->entities_0x6E8E[i].life_0x8;
+		to->struct_0x6E8E[i].struct_byte_0xc_12_15 = from->entities_0x6E8E[i].flags_0xc_12_15;
+		to->struct_0x6E8E[i].dword_0x10_16 = from->entities_0x6E8E[i].dword_0x10_16;
+		to->struct_0x6E8E[i].word_0x14_20 = from->entities_0x6E8E[i].rand_0x14_20;
+		to->struct_0x6E8E[i].word_0x16_22 = from->entities_0x6E8E[i].oldMapEntity_0x16_22;
+		to->struct_0x6E8E[i].word_0x18_24_next_entity = from->entities_0x6E8E[i].nextEntity_0x18_24;
+		to->struct_0x6E8E[i].word_0x1A_26 = from->entities_0x6E8E[i].id_0x1A_26;
+		to->struct_0x6E8E[i].word_0x1C_28 = from->entities_0x6E8E[i].yaw_0x1C_28;
+		to->struct_0x6E8E[i].word_0x1E_30 = from->entities_0x6E8E[i].pitch_0x1E_30;
+		to->struct_0x6E8E[i].word_0x20_32 = from->entities_0x6E8E[i].roll_0x20_32;
+		to->struct_0x6E8E[i].word_0x22_34 = from->entities_0x6E8E[i].fov_0x22_34;
+		to->struct_0x6E8E[i].word_0x24_36 = from->entities_0x6E8E[i].word_0x24_36;
+		to->struct_0x6E8E[i].word_0x26_38 = from->entities_0x6E8E[i].hitById_0x26_38;
+		to->struct_0x6E8E[i].word_0x28_40 = from->entities_0x6E8E[i].parentId_0x28_40;
+		to->struct_0x6E8E[i].word_0x2A_42 = from->entities_0x6E8E[i].subSpellIndex_0x2A_42;
+		to->struct_0x6E8E[i].word_0x2C_44 = from->entities_0x6E8E[i].word_0x2C_44;
+		to->struct_0x6E8E[i].word_0x2E_46 = from->entities_0x6E8E[i].word_0x2E_46;
+		to->struct_0x6E8E[i].word_0x30_48 = from->entities_0x6E8E[i].word_0x30_48;
+		to->struct_0x6E8E[i].word_0x32_50 = from->entities_0x6E8E[i].leaderId_0x32_50;
+		to->struct_0x6E8E[i].word_0x34_52 = from->entities_0x6E8E[i].nextLinkedId_0x34_52;
+		to->struct_0x6E8E[i].word_0x36_54 = from->entities_0x6E8E[i].word_0x36_54;
+		to->struct_0x6E8E[i].byte_0x38_56 = from->entities_0x6E8E[i].mailMask_0x38_56;
+		to->struct_0x6E8E[i].byte_0x39_57 = from->entities_0x6E8E[i].byte_0x39_57;
+		to->struct_0x6E8E[i].byte_0x3A_58 = from->entities_0x6E8E[i].byte_0x3A_58;
+		to->struct_0x6E8E[i].byte_0x3B_59 = from->entities_0x6E8E[i].byte_0x3B_59;
+		to->struct_0x6E8E[i].byte_0x3C_60 = from->entities_0x6E8E[i].byte_0x3C_60;
+		to->struct_0x6E8E[i].byte_0x3D_61 = from->entities_0x6E8E[i].fontTypeIndex_0x3D_61;
+		to->struct_0x6E8E[i].byte_0x3E_62 = from->entities_0x6E8E[i].instanceIndex_0x3E_62;
+		to->struct_0x6E8E[i].type_0x3F_63 = from->entities_0x6E8E[i].class_0x3F_63;
+		to->struct_0x6E8E[i].subtype_0x40_64 = from->entities_0x6E8E[i].model_0x40_64;
+		to->struct_0x6E8E[i].byte_0x41_65 = from->entities_0x6E8E[i].xtype_0x41_65;
+		to->struct_0x6E8E[i].byte_0x42_66 = from->entities_0x6E8E[i].xsubtype_0x42_66;
+		to->struct_0x6E8E[i].byte_0x43_67 = from->entities_0x6E8E[i].byte_0x43_67;
+		to->struct_0x6E8E[i].byte_0x44_68 = from->entities_0x6E8E[i].byte_0x44_68;
+		to->struct_0x6E8E[i].byte_0x45_69 = from->entities_0x6E8E[i].actionIndex_0x45_69;
+		to->struct_0x6E8E[i].byte_0x46_70 = from->entities_0x6E8E[i].byte_0x46_70;
+		to->struct_0x6E8E[i].byte_0x47_71_xx = from->entities_0x6E8E[i].byte_0x47_71_xx;
+		to->struct_0x6E8E[i].byte_0x48_72 = from->entities_0x6E8E[i].StageVar1_0x48_72;
+		to->struct_0x6E8E[i].byte_0x49_73 = from->entities_0x6E8E[i].StageVar2_0x49_73;
+		to->struct_0x6E8E[i].word_0x4A_74 = from->entities_0x6E8E[i].word_0x4A_74;
+		to->struct_0x6E8E[i].array_0x4C_76 = from->entities_0x6E8E[i].position_0x4C_76;
+		to->struct_0x6E8E[i].array_0x52_82 = from->entities_0x6E8E[i].array_0x52_82;
+		to->struct_0x6E8E[i].word_0x5A_90 = from->entities_0x6E8E[i].spriteIndex_0x5A_90;
+		to->struct_0x6E8E[i].byte_0x5C_92 = from->entities_0x6E8E[i].animationFrame_0x5C_92;
+		to->struct_0x6E8E[i].byte_0x5D_93 = from->entities_0x6E8E[i].frameCount_0x5D_93;
+		to->struct_0x6E8E[i].str_0x5E_94 = from->entities_0x6E8E[i].mail_0x5E_94;
+		to->struct_0x6E8E[i].word_0x82_130 = from->entities_0x6E8E[i].actSpeed_0x82_130;
+		to->struct_0x6E8E[i].word_0x84_132 = from->entities_0x6E8E[i].minSpeed_0x84_132;
+		to->struct_0x6E8E[i].word_0x86_134 = from->entities_0x6E8E[i].maxSpeed_0x86_134;
+		to->struct_0x6E8E[i].dword_0x88_136 = from->entities_0x6E8E[i].manaRegen_0x88_136;
+		to->struct_0x6E8E[i].dword_0x8C_140 = from->entities_0x6E8E[i].maxMana_0x8C_140;
+		to->struct_0x6E8E[i].dword_0x90_144 = from->entities_0x6E8E[i].mana_0x90_144;
+		to->struct_0x6E8E[i].playerEntityIndex_0x94_148 = from->entities_0x6E8E[i].playerEntityIndex_0x94_148;
+		to->struct_0x6E8E[i].word_0x96_150 = from->entities_0x6E8E[i].targetId_0x96_150;
+		to->struct_0x6E8E[i].word_0x98_152 = from->entities_0x6E8E[i].targetKey_0x98_152;
+		to->struct_0x6E8E[i].axis_0x9A_154x = from->entities_0x6E8E[i].axis_0x9A_154x;
+		to->struct_0x6E8E[i].dword_0xA0_160x = ((uint8_t*)from->entities_0x6E8E[i].typeParams_0xA0_160x - Zero_pointer);
+		to->struct_0x6E8E[i].dword_0xA4_164x = ((uint8_t*)from->entities_0x6E8E[i].playerData_0xA4_164x - Zero_pointer);
 	}
 
 	to->str_2FECE.word_2FECE = from->terrain_2FECE.word_2FECE;
 	to->str_2FECE.levelID_2FED0 = from->terrain_2FECE.levelID_2FED0;
-	to->str_2FECE.byte_0x2FED2 = from->terrain_2FECE.byte_0x2FED2;
-	to->str_2FECE.byte_0x2FED3 = from->terrain_2FECE.byte_0x2FED3;
+	to->str_2FECE.byte_0x2FED2 = from->terrain_2FECE.levelType_0x2FED2;
+	to->str_2FECE.byte_0x2FED3 = from->terrain_2FECE.basicHeight_0x2FED3;
 	to->str_2FECE.MapType = static_cast<std::underlying_type<MapType_t>::type>(from->terrain_2FECE.MapType);
 	to->str_2FECE.word_0x2FED5 = from->terrain_2FECE.word_0x2FED5;
-	to->str_2FECE.word_0x2FED7 = from->terrain_2FECE.word_0x2FED7;
+	to->str_2FECE.word_0x2FED7 = from->terrain_2FECE.numberOfPlayers_0x2FED7;
 	for (int i = 0; i < 8; i++)to->str_2FECE.array_0x2FED9[i] = from->terrain_2FECE.player_0x2FED9[i];
 	for (int i = 0; i < 4; i++)to->str_2FECE.stubb[i] = from->terrain_2FECE.stubb[i];
 	to->str_2FECE.word_0x2FEE5 = from->terrain_2FECE.seed_0x2FEE5;
@@ -3635,7 +3635,7 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 		to->str_2FECE.array_0x3647A[i].str_0x3647A_byte_0 = from->terrain_2FECE.StageVars_0x3647A[i].index_0x3647A_0;
 		to->str_2FECE.array_0x3647A[i].str_0x3647A_byte_1 = from->terrain_2FECE.StageVars_0x3647A[i].stage_0x3647A_1;
 		to->str_2FECE.array_0x3647A[i].str_0x3647A_2 = from->terrain_2FECE.StageVars_0x3647A[i].str_0x3647A_2;
-		to->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis = from->terrain_2FECE.StageVars_0x3647A[i].str_0x3647C_4.axis;
+		to->str_2FECE.array_0x3647A[i].str_0x3647C_4.axis = from->terrain_2FECE.StageVars_0x3647A[i].target_0x3647C_4.axis;
 	}
 	to->str_0x364D2 = from->str_0x364D2;
 	to->word_0x3653E = from->word_0x3653E;
@@ -3647,41 +3647,41 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	to->word_0x3654A = from->word_0x3654A;
 	for (int i = 0; i < 8; i++) {
 		to->struct_0x3654C[i].str_3654C_byte0 = from->stages_0x3654C[i].stages_3654C_byte0;
-		to->struct_0x3654C[i].str_3654D_byte1 = from->stages_0x3654C[i].str_3654D_byte1;
-		to->struct_0x3654C[i].str_3654E_axis = from->stages_0x3654C[i].str_3654E_axis;
-		to->struct_0x3654C[i].str_36552_un.dword = from->stages_0x3654C[i].str_36552_un.dword;
+		to->struct_0x3654C[i].str_3654D_byte1 = from->stages_0x3654C[i].flags_3654D;
+		to->struct_0x3654C[i].str_3654E_axis = from->stages_0x3654C[i].position_3654E;
+		to->struct_0x3654C[i].str_36552_un.dword = from->stages_0x3654C[i].target_36552.dword;
 	}
-	for (int i = 0; i < 8; i++)to->struct_0x3659C[i] = from->struct_0x3659C[i];
+	for (int i = 0; i < 8; i++)to->struct_0x3659C[i] = from->playerObjectives_0x3659C[i];
 	for (int i = 0; i < 11; i++) {
 		to->array_0x365F4[i].str_0x3647A_byte_0 = from->StageVars2_0x365F4[i].index_0x3647A_0;
 		to->array_0x365F4[i].str_0x3647A_byte_1 = from->StageVars2_0x365F4[i].stage_0x3647A_1;
 		to->array_0x365F4[i].str_0x3647A_2 = from->StageVars2_0x365F4[i].str_0x3647A_2;
-		to->array_0x365F4[i].str_0x3647C_4.axis = from->StageVars2_0x365F4[i].str_0x3647C_4.axis;
+		to->array_0x365F4[i].str_0x3647C_4.axis = from->StageVars2_0x365F4[i].target_0x3647C_4.axis;
 	}
 	for (int i = 0; i < 0x32; i++) {
-		to->str_0x3664C[i].byte_0 = from->str_0x3664C[i].byte_0;
-		to->str_0x3664C[i].byte_1 = from->str_0x3664C[i].byte_1;
-		to->str_0x3664C[i].byte_2 = from->str_0x3664C[i].byte_2;
-		to->str_0x3664C[i].byte_3 = from->str_0x3664C[i].byte_3;
-		to->str_0x3664C[i].axis3d_4 = from->str_0x3664C[i].axis3d_4;
-		to->str_0x3664C[i].dword_A = ((uint8_t*)from->str_0x3664C[i].event_A.pointer_0x6E8E - Zero_pointer);
-		for (int j = 0; j < 25; j++)to->str_0x3664C[i].array_E[j] = from->str_0x3664C[i].array_E[j];
+		to->str_0x3664C[i].byte_0 = from->dynamicLights_0x3664C[i].active_0;
+		to->str_0x3664C[i].byte_1 = from->dynamicLights_0x3664C[i].flags_1;
+		to->str_0x3664C[i].byte_2 = from->dynamicLights_0x3664C[i].intensity_2;
+		to->str_0x3664C[i].byte_3 = from->dynamicLights_0x3664C[i].flickerRange_3;
+		to->str_0x3664C[i].axis3d_4 = from->dynamicLights_0x3664C[i].axis3d_4;
+		to->str_0x3664C[i].dword_A = ((uint8_t*)from->dynamicLights_0x3664C[i].event_A.pointer_0x6E8E - Zero_pointer);
+		for (int j = 0; j < 25; j++)to->str_0x3664C[i].array_E[j] = from->dynamicLights_0x3664C[i].shading_E[j];
 	}
-	to->byte_0x36DEA_fly_asistant = from->byte_0x36DEA_fly_asistant;
+	to->byte_0x36DEA_fly_asistant = from->flyAssistant_0x36DEA;
 	to->byte_0x36DEB_xx = from->byte_0x36DEB_xx;
-	to->word_0x36DEC_mousex = from->word_0x36DEC_mousex;
-	to->word_0x36DEE_mousey = from->word_0x36DEE_mousey;
-	to->word_0x36DF0_mousexx = from->word_0x36DF0_mousexx;
-	to->dword_0x36DF2 = from->dword_0x36DF2;
-	to->dword_0x36DF6 = ((uint8_t*)from->dword_0x36DF6 - Zero_pointer);
-	to->word_0x36DFA = from->word_0x36DFA;
-	to->word_0x36DFC = from->word_0x36DFC;
-	to->word_0x36DFE = from->word_0x36DFE;
+	to->word_0x36DEC_mousex = from->lastMouseX_0x36DEC;
+	to->word_0x36DEE_mousey = from->lastMouseY_0x36DEE;
+	to->word_0x36DF0_mousexx = from->mouseIdleCounter_0x36DF0;
+	to->dword_0x36DF2 = from->lightRandSeed_0x36DF2;
+	to->dword_0x36DF6 = ((uint8_t*)from->typeParamsBase_0x36DF6 - Zero_pointer);
+	to->word_0x36DFA = from->activeLights_0x36DFA;
+	to->word_0x36DFC = from->switchOnceEntity_0x36DFC;
+	to->word_0x36DFE = from->switchChainEntity_0x36DFE;
 	to->byte_0x36E00 = from->countStageVars_0x36E00;
 	to->byte_0x36E01 = from->stageIndex_0x36E01;
-	to->byte_0x36E02 = from->byte_0x36E02;
+	to->byte_0x36E02 = from->tempObjective_0x36E02;
 	to->byte_0x36E03 = from->byte_0x36E03;
-	to->byte_counter_current_objective_box_0x36E04 = from->byte_counter_current_objective_box_0x36E04;
+	to->byte_counter_current_objective_box_0x36E04 = from->objectiveBoxCounter_0x36E04;
 	for (int i = 0; i < 6; i++)to->stub3k[i] = from->stub3k[i];
 	to->byte_0x36E0B = from->byte_0x36E0B;
 	for (int i = 0; i < 11; i++)to->stubend[i] = from->stubend[i];
@@ -3690,12 +3690,12 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 void Convert_to_shadow_str_E2A74(const type_array_str_E2A74 &from, type_shadow_str_E2A74* to)
 {
 	for (int j = 0; j < from.size(); ++j) {
-		to[j].word_0 = from[j].word_0;
+		to[j].word_0 = from[j].type_0;
 		for (int i = 0; i < from[j].axis_2.size(); i++)
 			to[j].axis_2[i] = from[j].axis_2[i];
-		to[j].dword_12 = ((uint8_t*)from[j].dword_12 - Zero_pointer);
-		to[j].dword_16 = from[j].dword_16;
-		to[j].dword_20 = from[j].dword_20;
+		to[j].dword_12 = ((uint8_t*)from[j].entity_12 - Zero_pointer);
+		to[j].dword_16 = from[j].counter_16;
+		to[j].dword_20 = from[j].countdown_20;
 		to[j].dword_24 = from[j].dword_24;
 		to[j].byte_28 = from[j].byte_28;
 		to[j].byte_29 = from[j].byte_29;
@@ -3716,9 +3716,9 @@ unsigned long j___clock() {
 
 void SetPlayerLocation(uint16_t x, uint16_t y, int16_t z, int16_t pitch, int16_t roll, int16_t yaw)
 {
-	if (Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240] != nullptr)
+	if (Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240] != nullptr)
 	{
-		auto ptrPlayerEntity = Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+		auto ptrPlayerEntity = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 		ptrPlayerEntity->position_0x4C_76.x = x;
 		ptrPlayerEntity->position_0x4C_76.y = y;
 		ptrPlayerEntity->position_0x4C_76.z = z;

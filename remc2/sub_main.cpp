@@ -303,7 +303,7 @@ int FreeJoystickMemory_8B5A0()//26c5a0
 {
 	if (x_BYTE_E36D1)
 	{
-		switch (unk_18058Cstr.x_WORD_1805C2_joystick)
+		switch (unk_18058Cstr.joystickMode_1805C2)
 		{
 		case 1:
 			FreeJoystickBuffer_8B770();
@@ -379,7 +379,7 @@ void CreateSoundDir_560D0()//2370d0
 //----- (0008B770) --------------------------------------------------------
 int FreeJoystickBuffer_8B770()//26c770
 {
-	return FreeAndClear_9B234((int*)unk_18058Cstr.unk_1805CE);
+	return FreeAndClear_9B234((int*)unk_18058Cstr.serialBuffer_1805CE);
 }
 
 //----- (00053EF0) --------------------------------------------------------

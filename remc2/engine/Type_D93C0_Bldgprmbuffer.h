@@ -9,8 +9,8 @@
 #pragma pack (push,1)
 typedef struct {//lenght 4
 	uint16_t word_0;
-	uint8_t byte_2;
-	uint8_t byte_3;
+	uint8_t flags_2;
+	uint8_t nextIndex_3;
 }
 type_D93C0_bldgprmbuffer;
 #pragma pack (pop)

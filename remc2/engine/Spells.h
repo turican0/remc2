@@ -18,7 +18,7 @@ typedef struct {//lenght 26
 type_SPELLS_BEGIN_BUFFER_str_sub;
 
 typedef struct {//lenght 80
-	int8_t byte_0;
+	int8_t levelCount_0;
 	uint8_t isEnabled_1;
 	type_SPELLS_BEGIN_BUFFER_str_sub subspell[3];
 }

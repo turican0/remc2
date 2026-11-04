@@ -103,7 +103,7 @@ typedef struct {//lenght 2124=0x84C
 	dw_w_b dw_w_b_0_2BDE_11230;
 	uint8_t byte_0x004_2BE0_11234;//2	//11234 - byte //4
 	uint8_t ShowDebugTextFlag_0x005_2BE0_11235;//5
-	uint8_t byte_0x006_2BE4_11236;//6	//11236 - byte //6
+	uint8_t playerActive_0x006_2BE4_11236;//6	//11236 - byte //6
 	int16_t word_0x007_2BE4_11237;//index of player
 	int8_t IsAiPlayer_0x009_2BE4_11239;
 	uint16_t playerIndex_0x00a_2BE4_11240;//10 //11240 - word - index z EA3E4 //0xa
@@ -119,16 +119,16 @@ typedef struct {//lenght 2124=0x84C
 	int16_t CurrentNotificationDuration_0x04d_2C2B_11307;//77 //11307 - word
 	uint16_t word_0x04f_2C2D_11309;//79 //11309 - word
 	char names_81[8][48];//81 ?8
-	type_struct_0x1d1_2BDE_11695 struct_0x1d1_2BDE_11695[33];//465
+	type_struct_0x1d1_2BDE_11695 positions_0x1d1_2BDE_11695[33];//465
 	char WizardName_0x39f_2BFA_12157[64];//927//12157 - byte(11230+927) 100% name
 	uint8_t MenuState_0x3DF_2BE4_12221;//991//12221 - byte
-	uint8_t byte_0x3E0_2BE4_12222;//992//12222 - byte
-	uint8_t byte_0x3E1_2BE4_12223;//993//12223 - byte - ok
+	uint8_t chatLineIndex_0x3E0_2BE4_12222;//992//12222 - byte
+	uint8_t chatState_0x3E1_2BE4_12223;//993//12223 - byte - ok
 	uint8_t byte_0x3E2_2BE4_12224;//994//12224 - byte
-	uint8_t byte_0x3E3_2BE4_12225;//995
-	uint8_t byte_0x3E4_2BE4_12226;//996
+	uint8_t chatRecipients_0x3E3_2BE4_12225;//995
+	uint8_t secretCounter_0x3E4_2BE4_12226;//996
 	uint8_t stub3[1];
-	type_str_164 dword_0x3E6_2BE4_12228;//998//pointer or other
+	type_str_164 playerData_0x3E6_2BE4_12228;//998//pointer or other
 	int8_t byte_0x846_2BDE;//2118
 	int8_t byte_0x847_2BDE;//2119
 	int16_t word_0x848_2BDE;//2120
@@ -145,9 +145,9 @@ un_str_36552;
 
 typedef struct {//size 10 count 8
 	int8_t stages_3654C_byte0;//222540
-	int8_t str_3654D_byte1;
-	axis_2d str_3654E_axis;//objective parametres
-	un_str_36552 str_36552_un; //pointer sometimes
+	int8_t flags_3654D;
+	axis_2d position_3654E;//objective parametres
+	un_str_36552 target_36552; //pointer sometimes
 } type_str_3654C;
 
 typedef struct {//lenght 10
@@ -172,18 +172,18 @@ typedef struct {//lenght 10
 
 typedef struct {//lenght 108
 	uint32_t dword_0x364D2;//lenght 108
-	uint32_t dword_0x364D6[26];// lenght 0x68=104 end 0x3653e
+	uint32_t spawnCounts_0x364D6[26];// lenght 0x68=104 end 0x3653e
 }
 type_str_0x364D2;
 
 typedef struct {//lenght 39
-	int8_t byte_0;
-	int8_t byte_1;
-	uint8_t byte_2;
-	int8_t byte_3;
+	int8_t active_0;
+	int8_t flags_1;
+	uint8_t intensity_2;
+	int8_t flickerRange_3;
 	axis_3d axis3d_4;
 	un1 event_A;
-	uint8_t array_E[25];
+	uint8_t shading_E[25];
 }
 type_str_0x3664C;
 
@@ -201,24 +201,24 @@ typedef struct {//size 11 count 6
 
 typedef struct {//lenght 224791
 	std::array<uint8_t, 4> stub0;
-	uint32_t dword_0x4;
+	uint32_t levelId_0x4;
 	uint32_t rand_0x8;
 	int16_t LevelIndex_0xc;//player_index?
 	int16_t NumberOfPlayers_0xe;
-	std::array<uint8_t, 29> array_0x10; //0x10, next 0x2d(45)
+	std::array<uint8_t, 29> modelCounters_0x10; //0x10, next 0x2d(45)
 	int32_t dword_0x2d;//45
-	uint16_t word_0x31;//49
-	uint16_t word_0x33;//51
-	int32_t dword_0x35;//53//entity counter(max 1000 entity changes per step)
-	std::array<uint8_t, 508> array_0x39;//57
+	uint16_t volcanoEntity_0x31;//49
+	uint16_t volcanoFireEntity_0x33;//51
+	int32_t freeEntityCount_0x35;//53//entity counter(max 1000 entity changes per step)
+	std::array<uint8_t, 508> usedTmaps_0x39;//57
 	int32_t maptypeMusic_0x235;//act music
 	uint8_t byte_0x239;//569
 	int32_t dword_0x23a;
 	int32_t dword_0x23e;
 	int32_t dword_0x242;
-	std::array<type_entity_0x6E8E*, 1000> pointers_0x246;//pointers
-	int32_t dword_0x11e6;//second entity counter
-	std::array<type_entity_0x6E8E*, 1000> dword_0x11EA;//??4586
+	std::array<type_entity_0x6E8E*, 1000> freeEntities_0x246;//pointers
+	int32_t freeEntityCount2_0x11e6;//second entity counter
+	std::array<type_entity_0x6E8E*, 1000> freeEntities2_0x11EA;//??4586
 	GameSettingsStruct_t m_GameSettings;
 	uint32_t dword_0x219A;//8602
 	uint32_t dword_0x219E;//8606
@@ -229,12 +229,12 @@ typedef struct {//lenght 224791
 	type_str_0x21B2 str_0x21B2;
 	type_str_0x21B6 str_0x21B6;
 	std::array<uint8_t, 424> stub3b;
-	std::array<axis_3d, 8> array_0x2362;
+	std::array<axis_3d, 8> playerStarts_0x2362;
 	std::array<uint8_t, 333> stub3c;
 	std::array<uint8_t, 1791> stub3d;
-	std::array<type_str_0x2BDE, 8> array_0x2BDE;
+	std::array<type_str_0x2BDE, 8> players_0x2BDE;
 	Type_PlayerInput_0x6E3E playerInputs_0x6E3E[8];//28222	lenght 0xa size 0x8// game events
-	type_entity_0x6E8E struct_0x6E8E[1000];//28302 a8*3e8
+	type_entity_0x6E8E entities_0x6E8E[1000];//28302 a8*3e8
 	Type_Level_2FECE terrain_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level
 	type_str_0x364D2 str_0x364D2;//lenght 108
 	int16_t word_0x3653E;//
@@ -245,24 +245,24 @@ typedef struct {//lenght 224791
 	int16_t word_0x36548;//
 	int16_t word_0x3654A;//
 	type_str_3654C stages_0x3654C[8];//size 10 count 8
-	type_str_3659C struct_0x3659C[8];//size 11 count 8 C-0 D-1 E-2 F-3
+	type_str_3659C playerObjectives_0x3659C[8];//size 11 count 8 C-0 D-1 E-2 F-3
 	type_str_0x3647Ac StageVars2_0x365F4[11];//8x11	//set 0x58 // end 0x3664c
-	type_str_0x3664C str_0x3664C[50];// lenght 0x79e//39x50 (end-0x36dea)
-	int8_t byte_0x36DEA_fly_asistant;
+	type_str_0x3664C dynamicLights_0x3664C[50];// lenght 0x79e//39x50 (end-0x36dea)
+	int8_t flyAssistant_0x36DEA;
 	int8_t byte_0x36DEB_xx;
-	int16_t word_0x36DEC_mousex;
-	int16_t word_0x36DEE_mousey;
-	int16_t word_0x36DF0_mousexx;
-	uint32_t dword_0x36DF2;//index
-	type_str_160* dword_0x36DF6;//pointer
-	int16_t word_0x36DFA;
-	int16_t word_0x36DFC;
-	int16_t word_0x36DFE;
+	int16_t lastMouseX_0x36DEC;
+	int16_t lastMouseY_0x36DEE;
+	int16_t mouseIdleCounter_0x36DF0;
+	uint32_t lightRandSeed_0x36DF2;//index
+	type_str_160* typeParamsBase_0x36DF6;//pointer
+	int16_t activeLights_0x36DFA;
+	int16_t switchOnceEntity_0x36DFC;
+	int16_t switchChainEntity_0x36DFE;
 	uint8_t countStageVars_0x36E00;
 	uint8_t stageIndex_0x36E01;//count objectives
-	int8_t byte_0x36E02;//temp objective
+	int8_t tempObjective_0x36E02;//temp objective
 	int8_t byte_0x36E03;
-	uint8_t byte_counter_current_objective_box_0x36E04;
+	uint8_t objectiveBoxCounter_0x36E04;
 	uint8_t stub3k[6];
 	int8_t byte_0x36E0B;
 	uint8_t stubend[11];

@@ -762,7 +762,7 @@ char temp[256];
 for (int i = 0; i < 0xb; i++)
 {
 	type_str_0x3647Ac actstage = D41A0_0.terrain_2FECE.StageVars_0x3647A[i];
-	sprintf(temp, "%01X |%02X|%02X|%04X|%04X|%04X", i, (uint8_t)actstage.index_0x3647A_0, (uint8_t)actstage.stage_0x3647A_1, actstage.str_0x3647A_2.word,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
+	sprintf(temp, "%01X |%02X|%02X|%04X|%04X|%04X", i, (uint8_t)actstage.index_0x3647A_0, (uint8_t)actstage.stage_0x3647A_1, actstage.str_0x3647A_2.word,actstage.target_0x3647C_4.axis.x, actstage.target_0x3647C_4.axis.y);
 	kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 }
 //text_reset(textbox1, vscrollbar1);
@@ -3164,11 +3164,11 @@ int main_x(/*int argc, char** argv*/)
 
 	kiss_hex4edit_new(&hex4edit13, &window1, &D41A0_0.terrain_2FECE.word_2FECE, (char*)"2FECE:", 250, 10,80);
 	kiss_hex4edit_new(&hex4edit14, &window1, &D41A0_0.terrain_2FECE.levelID_2FED0, (char*)"2FED0:", 250, 30, 80);
-	kiss_hex2edit_new(&hex2edit15, &window1, &D41A0_0.terrain_2FECE.byte_0x2FED2, (char*)"2FED2:", 250, 50, 80);
-	kiss_hex2edit_new(&hex2edit16, &window1, &D41A0_0.terrain_2FECE.byte_0x2FED3, (char*)"2FED3:", 250, 70, 80);
+	kiss_hex2edit_new(&hex2edit15, &window1, &D41A0_0.terrain_2FECE.levelType_0x2FED2, (char*)"2FED2:", 250, 50, 80);
+	kiss_hex2edit_new(&hex2edit16, &window1, &D41A0_0.terrain_2FECE.basicHeight_0x2FED3, (char*)"2FED3:", 250, 70, 80);
 	kiss_hex2edit_new(&hex2edit17, &window1, &D41A0_0.terrain_2FECE.MapType, (char*)"DY/NG/CV:", 250, 90, 80);
 	kiss_hex4edit_new(&hex4edit18, &window1, &D41A0_0.terrain_2FECE.word_0x2FED5, (char*)"2FED5:", 250, 110, 80);
-	kiss_hex4edit_new(&hex4edit19, &window1, &D41A0_0.terrain_2FECE.word_0x2FED7, (char*)"2FED7:", 250, 130, 80);
+	kiss_hex4edit_new(&hex4edit19, &window1, &D41A0_0.terrain_2FECE.numberOfPlayers_0x2FED7, (char*)"2FED7:", 250, 130, 80);
 
 	kiss_hex2edit_new(&hex2edit20, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[0], (char*)"D9-0", 250, 150, 40);
 	kiss_hex2edit_new(&hex2edit21, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[1], (char*)"D9-1", 385, 150, 40);

@@ -54,7 +54,7 @@ private:
 
 	TileStepQuadrant* m_tileRenderStepTable_D4328x;
 
-	char x_BYTE_D4750[60] = {
+	char directionTable_D4750[60] = {
 		0x00,0x00,0x02,0x03,0x04,0x05,//0
 		0x01,0x00,0x06,0x07,0x04,0x05,//6
 		0x00,0x01,0x01,0x02,0x02,0x03,0x03,0x04,0x04,0x03,0x03,0x02,0x02,0x01,0x01,0x00,//12
@@ -79,8 +79,8 @@ private:
 	bool m_assignToSpecificCores = false;
 	bool m_blurActive = false;
 
-	int x_DWORD_D4794 = 0;
-	int x_DWORD_D4798 = 0;
+	int viewOffsetX_D4794 = 0;
+	int viewOffsetY_D4798 = 0;
 	int x_DWORD_D4324 = 0;
 	char shadows_F2CC7 = 0;
 	char notDay_D4320 = 0;
