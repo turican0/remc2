@@ -54,6 +54,7 @@ int main(int argc, char* argv[])
 	{
 		InitializeLogging(level, "log-editor.txt");
 		SetConfig();
+		EventDispatcher::I = new EventDispatcher();
 		support_begin();
 		editor_run();
 	}
@@ -62,6 +63,10 @@ int main(int argc, char* argv[])
 		Logger->critical("Critial Error: {}", e.what());
 		exitCode = -1;
 	}
+
+	delete EventDispatcher::I;
+	EventDispatcher::I = nullptr;
+
 	Logger->info("Exited Game");
 
     return 0;
