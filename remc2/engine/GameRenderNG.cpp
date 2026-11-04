@@ -117,7 +117,7 @@ void GameRenderNG::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 	const int eyeX = 20 * Maths::sin_DB750[512 + yawIndex] >> 16;
 	const int eyeY = 20 * Maths::sin_DB750[yawIndex] >> 16;
 
-	if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && D41A0_0.m_GameSettings.m_Display.m_uiScreenSize && screenWidth_18062C == 640)
+	if (D41A0_0.m_GameSettings.graphics_0x2192.xxxx_0x2193 && D41A0_0.m_GameSettings.m_Display.m_uiScreenSize && screenWidth_18062C == 640)
 	{
 		//VR interlaced render
 		viewPort.SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628, 2 * screenWidth_18062C, screenWidth_18062C / 2 - 8, screenHeight_180624 / 2 - 40);
@@ -129,7 +129,7 @@ void GameRenderNG::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 		m_eyeShift_D4324 = 0;
 		viewPort.SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628, screenWidth_18062C, screenWidth_18062C, screenHeight_180624);
 	}
-	else if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize != 1 || D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193)
+	else if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize != 1 || D41A0_0.m_GameSettings.graphics_0x2192.xxxx_0x2193)
 	{
 		const auto savedBlur = D41A0_0.m_GameSettings.m_Display.xxxx_0x2191;
 		if (x_WORD_180660_VGA_type_resolution == 1 && !D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221
@@ -137,7 +137,7 @@ void GameRenderNG::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 			&& std::abs(Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->actSpeed_0x82_130) > 80)
 			D41A0_0.m_GameSettings.m_Display.xxxx_0x2191 = 1;
 
-		if (D41A0_0.str_0x21AE.xxxx_0x21B1 && D41A0_0.m_GameSettings.m_Display.xxxx_0x2191 && m_blurBuffer)
+		if (D41A0_0.miscSettings_0x21AE.xxxx_0x21B1 && D41A0_0.m_GameSettings.m_Display.xxxx_0x2191 && m_blurBuffer)
 		{
 			//Blur: the frame into the buffer, then blended with the previous one on the screen
 			uint8_t* screen = ViewPortRenderBufferStart_DE558;
@@ -149,7 +149,7 @@ void GameRenderNG::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 		else
 		{
 			DrawTerrainAndParticles_3C080(cameraX, cameraY, yawIndex, posZ, pitch, roll, fov);
-			if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2192)
+			if (D41A0_0.m_GameSettings.graphics_0x2192.xxxx_0x2192)
 				SmoothViewPort();
 		}
 		D41A0_0.m_GameSettings.m_Display.xxxx_0x2191 = savedBlur;
@@ -381,14 +381,14 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 		}
 	}
 
-	str_F2C20ar.dword0x15_tileRenderCutOffDistance = static_cast<int>(m_cutOffDistance);//21d2df
-	str_F2C20ar.dword0x12_FogThickness = static_cast<int>(m_fogEnd - m_fogStart);
+	str_F2C20ar.tileCutOffDistance_0x15 = static_cast<int>(m_cutOffDistance);//21d2df
+	str_F2C20ar.fogThickness_0x12 = static_cast<int>(m_fogEnd - m_fogStart);
 	str_F2C20ar.horizonOffset_0x22 = pitch * viewPort.Width_DE564 >> 8;
 	const int rollIndex = roll & 0x7FF;
 	str_F2C20ar.cos_0x11 = Maths::sin_DB750[512 + rollIndex];
-	str_F2C20ar.dword0x16_FogEnd = static_cast<int>(m_fogEnd);
+	str_F2C20ar.fogEnd_0x16 = static_cast<int>(m_fogEnd);
 	str_F2C20ar.sin_0x0d = Maths::sin_DB750[rollIndex];
-	str_F2C20ar.dword0x13_FogStart = static_cast<int>(m_fogStart);
+	str_F2C20ar.fogStart_0x13 = static_cast<int>(m_fogStart);
 
 	if (!D41A0_0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel_D41B6)
 	{
@@ -503,7 +503,7 @@ void GameRenderNG::ProjectTiles(TerrainProjection projection, uint8_t mapX, uint
 				tile.textIndex_41 = mapTerrainType_10B4E0[textureMap];
 				if (projection == TerrainProjection::Reflections && Maths::x_BYTE_D41D8[164 + tile.textIndex_41])
 					tile.triangleFeatures_38 |= 0x80;
-				if (projection != TerrainProjection::Plain && D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
+				if (projection != TerrainProjection::Plain && D41A0_0.m_GameSettings.display_0x2196.flat_0x2199)
 					tile.triangleFeatures_38 |= 0x1000;
 				tile.textAtyp_43 = Maths::x_BYTE_D41D8[tile.textIndex_41];
 				tile.textUV_42 = quadrant + ((mapAngle_13B4E0[textureMap] >> 2) & 0x1C);
@@ -839,26 +839,26 @@ void GameRenderNG::SetBillboards_3B560(int16_t roll)
 	str_F2C20ar.sin_0x27 = Maths::sin_DB750[angle];
 	str_F2C20ar.cos_0x1b = Maths::sin_DB750[angle + 512];
 	if (diagonal)
-		str_F2C20ar.dword0x1f = 0x10000;
+		str_F2C20ar.skew_0x1f = 0x10000;
 	else if (octantIndex & 1)
-		str_F2C20ar.dword0x1f = (str_F2C20ar.cos_0x1b << 8) / (str_F2C20ar.sin_0x27 >> 8);
+		str_F2C20ar.skew_0x1f = (str_F2C20ar.cos_0x1b << 8) / (str_F2C20ar.sin_0x27 >> 8);
 	else
-		str_F2C20ar.dword0x1f = (str_F2C20ar.sin_0x27 << 8) / (str_F2C20ar.cos_0x1b >> 8);
+		str_F2C20ar.skew_0x1f = (str_F2C20ar.sin_0x27 << 8) / (str_F2C20ar.cos_0x1b >> 8);
 
 	const int width = viewPort.Width_DE564;
 	const int height = viewPort.Height_DE568;
 	const int count = octant.alongWidth ? width : height;
 	const int primaryStep = octant.primaryX + octant.primaryY * iScreenWidth_DE560;
 	const int secondaryStep = octant.secondaryX + octant.secondaryY * iScreenWidth_DE560;
-	const int fraction = str_F2C20ar.dword0x1f & 0xFFFF;
+	const int fraction = str_F2C20ar.skew_0x1f & 0xFFFF;
 	int32_t* rowSteps = reinterpret_cast<int32_t*>(&m_scratch[m_rowsOffset]);
 	int error = 0;
 	int offset = 0;
 	int rows = 0;
 	for (int step = 1; step <= count; step++)
 	{
-		m_viewLines_F0E20[step - 1].dword_1 = offset;
-		m_viewLines_F0E20[step - 1].dword_2 = rows;
+		m_viewLines_F0E20[step - 1].destOffset_1 = offset;
+		m_viewLines_F0E20[step - 1].lineIndex_2 = rows;
 		error += fraction;
 		if (diagonal || error > 0xFFFF)
 		{
@@ -869,22 +869,22 @@ void GameRenderNG::SetBillboards_3B560(int16_t roll)
 		offset += primaryStep;
 	}
 
-	str_F2C20ar.dword0x1d = rows;
-	str_F2C20ar.dword0x21 = -rows;
+	str_F2C20ar.rows_0x1d = rows;
+	str_F2C20ar.minScreenX_0x21 = -rows;
 	str_F2C20ar.width0x25 = octant.alongWidth ? height : width;
 	str_F2C20ar.height0x26 = count;
 	str_F2C20ar.Height_0x19 = str_F2C20ar.width0x25 - rows;
-	str_F2C20ar.dword0x1c = height + width;
+	str_F2C20ar.maxColumns_0x1c = height + width;
 	str_F2C20ar.pbyte0x1a = &m_scratch[m_rowsOffset + 4 * (rows - 1)];
-	str_F2C20ar.dword0x23_stride = octant.strideX + octant.strideY * iScreenWidth_DE560;
+	str_F2C20ar.stride_0x23 = octant.strideX + octant.strideY * iScreenWidth_DE560;
 
 	// step -1: in the original memory unk_F0A20x lies right before unk_F0E20x, a sprite span can start there
 	memcpy(&m_viewLines_F0E20[-1], &unk_F0A20x[1012], sizeof(type_unk_F0E20x));
-	int previousOffset = m_viewLines_F0E20[-1].dword_1;
+	int previousOffset = m_viewLines_F0E20[-1].destOffset_1;
 	for (int step = 0; step < count; step++)
 	{
-		m_viewLines_F0E20[step].dword_0 = m_viewLines_F0E20[step].dword_1 - previousOffset;
-		previousOffset = m_viewLines_F0E20[step].dword_1;
+		m_viewLines_F0E20[step].destDelta_0 = m_viewLines_F0E20[step].destOffset_1 - previousOffset;
+		previousOffset = m_viewLines_F0E20[step].destOffset_1;
 	}
 }
 
@@ -989,22 +989,22 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 		const int64_t distance = static_cast<int64_t>(depth) * depth + static_cast<int64_t>(across) * across;
 		if (depth > 64 && distance < m_cutOffDistance)
 		{
-			str_F2C20ar.dword0x00 = SpriteLight(distance);
+			str_F2C20ar.fogShade_0x00 = SpriteLight(distance);
 			const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[str_F2C20ar.entity_0x14x->spriteIndex_0x5A_90];
 			if (!def.lightingTableIdx_10)
 			{
 				ProjectSprite(across, height, depth);
 				if (ChooseSprite(str_F2C20ar.entity_0x14x, def, depth, distance, false, false, sprite) == SpriteChoice::Skip)
 					return;
-				str_F2C20ar.dword0x02_data = sprite->textureBuffer;
+				str_F2C20ar.texture_0x02 = sprite->textureBuffer;
 				sprite->flags_0 |= 8;
-				str_F2C20ar.dword0x01_visibilityIdx = m_spriteTables_D4750[(str_F2C20ar.dword0x00 == 0x2000 ? 0 : 6) + def.lightingTableIdx_10];
-				str_F2C20ar.dword0x0c_realHeight >>= 2;
-				if (str_F2C20ar.dword0x09_realWidth > 0 && str_F2C20ar.dword0x0c_realHeight > 0)
+				str_F2C20ar.visibility_0x01 = m_spriteTables_D4750[(str_F2C20ar.fogShade_0x00 == 0x2000 ? 0 : 6) + def.lightingTableIdx_10];
+				str_F2C20ar.realHeight_0x0c >>= 2;
+				if (str_F2C20ar.realWidth_0x09 > 0 && str_F2C20ar.realHeight_0x0c > 0)
 				{
-					const int light = str_F2C20ar.dword0x00 >> 2;
-					str_F2C20ar.dword0x00 = m_notDay_D4320 ? 0x2000 - light : light + 0x2000;
-					str_F2C20ar.dword0x01_visibilityIdx = 8;
+					const int light = str_F2C20ar.fogShade_0x00 >> 2;
+					str_F2C20ar.fogShade_0x00 = m_notDay_D4320 ? 0x2000 - light : light + 0x2000;
+					str_F2C20ar.visibility_0x01 = 8;
 					DrawSprite_41BD3((uint32_t)SpritePass::Shadow);
 				}
 			}
@@ -1016,32 +1016,32 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 	if (owner->flags_0xc_12_15.byte[3] & 0x20)
 	{
 		// a part of a bigger entity: shifted by the direction of the parent
-		const type_D404C& offsets = str_D404C[owner->byte_0x3B_59];
+		const type_D404C& offsets = str_D404C[owner->poseIndex_0x3B_59];
 		switch (((Entities_EA3E4[owner->leaderId_0x32_50]->yaw_0x1C_28 - m_cameraYaw_F2CC0) >> 7) & 0xF)
 		{
 		case 0:
 		case 15:
-			depth -= offsets.word_16;
+			depth -= offsets.depthOffset1_16;
 			break;
 		case 1:
 		case 14:
-			depth -= offsets.word_18;
+			depth -= offsets.depthOffset2_18;
 			break;
 		case 2:
 		case 13:
-			depth -= offsets.word_20;
+			depth -= offsets.depthOffset3_20;
 			break;
 		case 5:
 		case 10:
-			depth += offsets.word_20;
+			depth += offsets.depthOffset3_20;
 			break;
 		case 6:
 		case 9:
-			depth += offsets.word_18;
+			depth += offsets.depthOffset2_18;
 			break;
 		case 7:
 		case 8:
-			depth += offsets.word_16;
+			depth += offsets.depthOffset1_16;
 			break;
 		default:
 			break;
@@ -1056,37 +1056,37 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 	const int row = tileIndex / m_tileColumns - m_standardFirstRow;
 	const int column = tileIndex % m_tileColumns - m_standardFirstColumn;
 	m_standardView = m_viewDistanceScale == 1 || (row >= 1 && row <= 20 && column >= 0 && column <= 38 && distance < m_standardCutOff);
-	str_F2C20ar.dword0x00 = SpriteLight(distance);
+	str_F2C20ar.fogShade_0x00 = SpriteLight(distance);
 	const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[owner->spriteIndex_0x5A_90];
 	ProjectSprite(across, z - str_F2C20ar.cameraZ_0x20, depth);
 	if (ChooseSprite(owner, def, depth, distance, true, true, sprite) == SpriteChoice::Skip)
 		return;
 	sprite->flags_0 |= 8;
-	str_F2C20ar.dword0x02_data = sprite->textureBuffer;
+	str_F2C20ar.texture_0x02 = sprite->textureBuffer;
 	if (owner->flags_0xc_12_15.word[1] & 0x380)//220ba6: mov cx, [ebx+0Eh]; test cx, 380h
 	{
 		const int8_t flags = owner->flags_0xc_12_15.byte[3];
 		if (flags & 2)
 		{
-			str_F2C20ar.dword0x01_visibilityIdx = 4;
-			str_F2C20ar.dword0x07 = playersColors_E88E0x[Entities_EA3E4[owner->parentId_0x28_40]->playerData_0xA4_164x->playerColorIndex_0x38_56][2];
+			str_F2C20ar.visibility_0x01 = 4;
+			str_F2C20ar.tint_0x07 = playersColors_E88E0x[Entities_EA3E4[owner->parentId_0x28_40]->playerData_0xA4_164x->playerColorIndex_0x38_56][2];
 		}
 		else if (flags & 4)
 		{
-			str_F2C20ar.dword0x01_visibilityIdx = 5;
-			str_F2C20ar.dword0x07 = playersColors_E88E0x[Entities_EA3E4[owner->parentId_0x28_40]->playerData_0xA4_164x->playerColorIndex_0x38_56][2];
+			str_F2C20ar.visibility_0x01 = 5;
+			str_F2C20ar.tint_0x07 = playersColors_E88E0x[Entities_EA3E4[owner->parentId_0x28_40]->playerData_0xA4_164x->playerColorIndex_0x38_56][2];
 		}
 		else if (owner->flags_0xc_12_15.byte[2] < 0)
-			str_F2C20ar.dword0x01_visibilityIdx = Visibility::Transparent;
+			str_F2C20ar.visibility_0x01 = Visibility::Transparent;
 		else if (flags & 1)
-			str_F2C20ar.dword0x01_visibilityIdx = Visibility::InFog;
+			str_F2C20ar.visibility_0x01 = Visibility::InFog;
 	}
 	else
-		str_F2C20ar.dword0x01_visibilityIdx = m_spriteTables_D4750[(str_F2C20ar.dword0x00 == 0x2000 ? 0 : 6) + def.lightingTableIdx_10];
+		str_F2C20ar.visibility_0x01 = m_spriteTables_D4750[(str_F2C20ar.fogShade_0x00 == 0x2000 ? 0 : 6) + def.lightingTableIdx_10];
 	if (m_fadeVisibility >= 0)
-		str_F2C20ar.dword0x01_visibilityIdx = m_fadeVisibility;
-	str_F2C20ar.dword0x09_realWidth++;
-	str_F2C20ar.dword0x0c_realHeight++;
+		str_F2C20ar.visibility_0x01 = m_fadeVisibility;
+	str_F2C20ar.realWidth_0x09++;
+	str_F2C20ar.realHeight_0x0c++;
 	DrawSprite_41BD3((uint32_t)SpritePass::Main);
 }
 
@@ -1111,17 +1111,17 @@ void GameRenderNG::DrawTileSpriteReflections_3FD60(int tileIndex)
 				const int64_t distance = static_cast<int64_t>(depth) * depth + static_cast<int64_t>(across) * across;
 				if (depth > 64 && distance < m_cutOffDistance)
 				{
-					str_F2C20ar.dword0x00 = SpriteLight(distance);
+					str_F2C20ar.fogShade_0x00 = SpriteLight(distance);
 					const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[entity->spriteIndex_0x5A_90];
 					ProjectSprite(across, height, depth);
 					if (ChooseSprite(entity, def, depth, distance, true, false, sprite) != SpriteChoice::Skip)
 					{
-						str_F2C20ar.dword0x02_data = sprite->textureBuffer;
+						str_F2C20ar.texture_0x02 = sprite->textureBuffer;
 						sprite->flags_0 |= 8;
-						str_F2C20ar.dword0x01_visibilityIdx = m_fadeVisibility >= 0 ? m_fadeVisibility
-							: m_spriteTables_D4750[(str_F2C20ar.dword0x00 == 0x2000 ? 0 : 6) + def.lightingTableIdx_10];
-						str_F2C20ar.dword0x09_realWidth++;
-						str_F2C20ar.dword0x0c_realHeight++;
+						str_F2C20ar.visibility_0x01 = m_fadeVisibility >= 0 ? m_fadeVisibility
+							: m_spriteTables_D4750[(str_F2C20ar.fogShade_0x00 == 0x2000 ? 0 : 6) + def.lightingTableIdx_10];
+						str_F2C20ar.realWidth_0x09++;
+						str_F2C20ar.realHeight_0x0c++;
 						DrawSprite_41BD3((uint32_t)SpritePass::Reflection);
 					}
 				}
@@ -1153,8 +1153,8 @@ void GameRenderNG::ProjectSprite(int across, int height, int depth)
 {
 	const int64_t x = static_cast<int64_t>(across) * str_F2C20ar.projectionScale_0x18 / depth;//64 bits: near sprites project far out of a big screen
 	const int64_t y = static_cast<int64_t>(str_F2C20ar.projectionScale_0x18) * height / depth + str_F2C20ar.horizonOffset_0x22;
-	str_F2C20ar.dword0x04_screenY = static_cast<int>((x * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * y) >> 16) + str_F2C20ar.centerX_0x24;
-	str_F2C20ar.dword0x03_screenX = str_F2C20ar.centerY_0x10 - static_cast<int>((str_F2C20ar.sin_0x0d * x + y * str_F2C20ar.cos_0x11) >> 16);
+	str_F2C20ar.screenY_0x04 = static_cast<int>((x * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * y) >> 16) + str_F2C20ar.centerX_0x24;
+	str_F2C20ar.screenX_0x03 = str_F2C20ar.centerY_0x10 - static_cast<int>((str_F2C20ar.sin_0x0d * x + y * str_F2C20ar.cos_0x11) >> 16);
 }
 
 // The sprite loaded (MainInitTmaps_71520 when needed) and marked as used in this frame; nullptr when it cannot be loaded.
@@ -1223,11 +1223,11 @@ GameRenderNG::SpriteChoice GameRenderNG::ChooseSprite(type_entity_0x6E8E* entity
 	sprite = chosen;
 	if (def.kind_12 == 21 && rotatedKind21)
 		m_uprightSprite_F2CC6 = 1;
-	str_F2C20ar.dword0x08_width = sprite->width;
-	str_F2C20ar.dword0x06_height = sprite->height;
-	str_F2C20ar.dword0x0c_realHeight = str_F2C20ar.projectionScale_0x18 * def.worldSize_8 / depth;
-	str_F2C20ar.dword0x09_realWidth = str_F2C20ar.dword0x0c_realHeight * str_F2C20ar.dword0x08_width / str_F2C20ar.dword0x06_height;
-	str_F2C20ar.dword0x05 = mirrored ? -str_F2C20ar.dword0x08_width : str_F2C20ar.dword0x08_width;
+	str_F2C20ar.width_0x08 = sprite->width;
+	str_F2C20ar.height_0x06 = sprite->height;
+	str_F2C20ar.realHeight_0x0c = str_F2C20ar.projectionScale_0x18 * def.worldSize_8 / depth;
+	str_F2C20ar.realWidth_0x09 = str_F2C20ar.realHeight_0x0c * str_F2C20ar.width_0x08 / str_F2C20ar.height_0x06;
+	str_F2C20ar.signedWidth_0x05 = mirrored ? -str_F2C20ar.width_0x08 : str_F2C20ar.width_0x08;
 	return SpriteChoice::Draw;
 }
 
@@ -1241,9 +1241,9 @@ void GameRenderNG::DrawSprite_41BD3(uint32 pass)
 	bool draw = true;
 	if (m_largeScreen || m_viewDistanceScale > 1)
 	{
-		const int64_t size = static_cast<int64_t>(str_F2C20ar.dword0x09_realWidth) + str_F2C20ar.dword0x0c_realHeight;
-		const int64_t x = str_F2C20ar.dword0x04_screenY;
-		const int64_t y = str_F2C20ar.dword0x03_screenX;
+		const int64_t size = static_cast<int64_t>(str_F2C20ar.realWidth_0x09) + str_F2C20ar.realHeight_0x0c;
+		const int64_t x = str_F2C20ar.screenY_0x04;
+		const int64_t y = str_F2C20ar.screenX_0x03;
 		draw = x + size >= 0 && x - size < viewPort.Width_DE564 && y + size >= 0 && y - size < viewPort.Height_DE568
 			&& x > -32768 && x < 32768 && y > -32768 && y < 32768 && size < 32768;
 	}
@@ -1255,13 +1255,13 @@ void GameRenderNG::DrawSprite_41BD3(uint32 pass)
 	}
 	if (pass == (uint32_t)SpritePass::Main)
 	{
-		str_F2C20ar.dword0x04_screenY -= ((str_F2C20ar.cos_0x11 * str_F2C20ar.dword0x09_realWidth >> 1) + str_F2C20ar.sin_0x0d * str_F2C20ar.dword0x0c_realHeight) >> 16;
-		str_F2C20ar.dword0x03_screenX -= (str_F2C20ar.cos_0x11 * str_F2C20ar.dword0x0c_realHeight - (str_F2C20ar.sin_0x0d * str_F2C20ar.dword0x09_realWidth >> 1)) >> 16;
+		str_F2C20ar.screenY_0x04 -= ((str_F2C20ar.cos_0x11 * str_F2C20ar.realWidth_0x09 >> 1) + str_F2C20ar.sin_0x0d * str_F2C20ar.realHeight_0x0c) >> 16;
+		str_F2C20ar.screenX_0x03 -= (str_F2C20ar.cos_0x11 * str_F2C20ar.realHeight_0x0c - (str_F2C20ar.sin_0x0d * str_F2C20ar.realWidth_0x09 >> 1)) >> 16;
 	}
 	else if (pass == (uint32_t)SpritePass::Shadow || pass == (uint32_t)SpritePass::Reflection)
 	{
-		str_F2C20ar.dword0x04_screenY -= str_F2C20ar.cos_0x11 * str_F2C20ar.dword0x09_realWidth >> 17;
-		str_F2C20ar.dword0x03_screenX -= -(str_F2C20ar.sin_0x0d * str_F2C20ar.dword0x09_realWidth) >> 17;
+		str_F2C20ar.screenY_0x04 -= str_F2C20ar.cos_0x11 * str_F2C20ar.realWidth_0x09 >> 17;
+		str_F2C20ar.screenX_0x03 -= -(str_F2C20ar.sin_0x0d * str_F2C20ar.realWidth_0x09) >> 17;
 	}
 	if (draw)
 		DrawRotatedSprite(pass);
@@ -1269,9 +1269,9 @@ void GameRenderNG::DrawSprite_41BD3(uint32 pass)
 		return;
 	type_entity_0x6E8E* entity = str_F2C20ar.entity_0x14x;
 	if (draw && !x_D41A0_BYTEARRAY_4_struct.byteindex_207 && entity->class_0x3F_63 == 3 && (!entity->model_0x40_64 || entity->model_0x40_64 == 1))
-		DrawSorcererNameAndHealthBar_2CB30(entity, str_F2C20ar.dword0x04_screenY, static_cast<int16_t>(str_F2C20ar.dword0x03_screenX), str_F2C20ar.dword0x09_realWidth);
+		DrawSorcererNameAndHealthBar_2CB30(entity, str_F2C20ar.screenY_0x04, static_cast<int16_t>(str_F2C20ar.screenX_0x03), str_F2C20ar.realWidth_0x09);
 	if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
-		SetEntityHelpText_88740(entity, str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1), str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1));
+		SetEntityHelpText_88740(entity, str_F2C20ar.screenY_0x04 + (str_F2C20ar.realWidth_0x09 >> 1), str_F2C20ar.screenX_0x03 + (str_F2C20ar.realHeight_0x0c >> 1));
 	if ((entity->flags_0xc_12_15.byte[3] & 0x40) && m_standardView)
 		entity->subSpellIndex_0x2A_42 |= 0x40;
 }
@@ -1287,27 +1287,27 @@ void GameRenderNG::DrawRotatedSprite(uint32 pass)
 	const bool odd = octant & 1;
 	const int spanFactor = odd ? str_F2C20ar.sin_0x27 : str_F2C20ar.cos_0x1b;
 	const int shiftFactor = odd ? str_F2C20ar.cos_0x1b : str_F2C20ar.sin_0x27;
-	const int spanLength = spanFactor * str_F2C20ar.dword0x09_realWidth >> 16;
+	const int spanLength = spanFactor * str_F2C20ar.realWidth_0x09 >> 16;
 	if (spanLength <= 0)
 		return;
-	int lines = (str_F2C20ar.dword0x0c_realHeight << 16) / spanFactor;
+	int lines = (str_F2C20ar.realHeight_0x0c << 16) / spanFactor;
 	if (lines <= 0)
 		return;
-	const int screenX = str_F2C20ar.dword0x04_screenY;
-	const int screenY = str_F2C20ar.dword0x03_screenX;
+	const int screenX = str_F2C20ar.screenY_0x04;
+	const int screenY = str_F2C20ar.screenX_0x03;
 	const int width = str_F2C20ar.width0x25;
 	const int height = str_F2C20ar.height0x26;
 	if (octant == 7 && screenX >= height)
 		return;
-	int rowStep = (str_F2C20ar.dword0x06_height << 16) / lines;
+	int rowStep = (str_F2C20ar.height_0x06 << 16) / lines;
 	if (pass == (uint32_t)SpritePass::Main)
-		str_F2C20ar.dword0x0a_actIdx = 0;
+		str_F2C20ar.rowIndex_0x0a = 0;
 	else
 	{
-		str_F2C20ar.dword0x0a_actIdx = (lines - 1) * rowStep;
+		str_F2C20ar.rowIndex_0x0a = (lines - 1) * rowStep;
 		rowStep = -rowStep;
 	}
-	const int spanShift = shiftFactor * str_F2C20ar.dword0x0c_realHeight / lines;
+	const int spanShift = shiftFactor * str_F2C20ar.realHeight_0x0c / lines;
 
 	// a: the line of the sprite position, b: its position along the line
 	int a = 0;
@@ -1324,23 +1324,23 @@ void GameRenderNG::DrawRotatedSprite(uint32 pass)
 	case 7: a = width - screenY; b = screenX; break;
 	}
 	int spanStart = b << 16;
-	int line = a - (str_F2C20ar.dword0x1f * b >> 16);
+	int line = a - (str_F2C20ar.skew_0x1f * b >> 16);
 	if (!odd)
 	{
-		if (line < str_F2C20ar.dword0x21)
+		if (line < str_F2C20ar.minScreenX_0x21)
 		{
-			const int cut = str_F2C20ar.dword0x21 - line;
+			const int cut = str_F2C20ar.minScreenX_0x21 - line;
 			lines -= cut;
 			if (lines <= 0)
 				return;
-			str_F2C20ar.dword0x0a_actIdx += cut * rowStep;
+			str_F2C20ar.rowIndex_0x0a += cut * rowStep;
 			spanStart -= cut * spanShift;
-			line = str_F2C20ar.dword0x21;
+			line = str_F2C20ar.minScreenX_0x21;
 		}
 	}
 	else if (line < width)
 	{
-		if (line < str_F2C20ar.dword0x21)
+		if (line < str_F2C20ar.minScreenX_0x21)
 			return;
 	}
 	else
@@ -1349,7 +1349,7 @@ void GameRenderNG::DrawRotatedSprite(uint32 pass)
 		lines -= cut;
 		if (lines <= 0)
 			return;
-		str_F2C20ar.dword0x0a_actIdx += cut * rowStep;
+		str_F2C20ar.rowIndex_0x0a += cut * rowStep;
 		spanStart += cut * spanShift;
 		line = width;
 	}
@@ -1372,7 +1372,7 @@ void GameRenderNG::DrawRotatedSprite(uint32 pass)
 	SpriteSpan* spans = reinterpret_cast<SpriteSpan*>(&m_scratch[m_spansOffset]);
 	const int32_t* rowLimits = reinterpret_cast<const int32_t*>(str_F2C20ar.pbyte0x1a);
 	const int32_t* rowStarts = reinterpret_cast<const int32_t*>(&m_scratch[m_rowsOffset]);
-	const int lastLine = width - str_F2C20ar.dword0x21;
+	const int lastLine = width - str_F2C20ar.minScreenX_0x21;
 	int minSkip = 9999999;
 	if (!odd)
 	{
@@ -1504,7 +1504,7 @@ void GameRenderNG::DrawRotatedSprite(uint32 pass)
 			if (span.length + span.start > height)
 				span.length = height - span.start;
 		}
-		const int over = line + str_F2C20ar.dword0x1d - width + 1;
+		const int over = line + str_F2C20ar.rows_0x1d - width + 1;
 		for (int i = 0; i < over; i++)
 		{
 			SpriteSpan& span = spans[over - 1 - i];
@@ -1519,10 +1519,10 @@ void GameRenderNG::DrawRotatedSprite(uint32 pass)
 		if (line - lines < 0)
 		{
 			int remaining = lines - line;
-			const int cut = line - lines - str_F2C20ar.dword0x21;
+			const int cut = line - lines - str_F2C20ar.minScreenX_0x21;
 			if (cut < 0)
 			{
-				lines = line - str_F2C20ar.dword0x21;
+				lines = line - str_F2C20ar.minScreenX_0x21;
 				if (lines <= 0)
 					return;
 				remaining += cut;
@@ -1547,10 +1547,10 @@ void GameRenderNG::DrawRotatedSprite(uint32 pass)
 	}
 
 	// the texture columns from the first one any span shows
-	const int columnStep = (str_F2C20ar.dword0x05 << 16) / spanLength;
-	str_F2C20ar.dword0x0b = 0;
-	if (str_F2C20ar.dword0x05 < 0)
-		str_F2C20ar.dword0x0b -= columnStep * (spanLength - 1);
+	const int columnStep = (str_F2C20ar.signedWidth_0x05 << 16) / spanLength;
+	str_F2C20ar.columnIndex_0x0b = 0;
+	if (str_F2C20ar.signedWidth_0x05 < 0)
+		str_F2C20ar.columnIndex_0x0b -= columnStep * (spanLength - 1);
 	int columnCount = spanLength - minSkip;
 	if (columnCount <= 0)
 		return;
@@ -1563,15 +1563,15 @@ void GameRenderNG::DrawRotatedSprite(uint32 pass)
 				shown = (std::max)(shown, spans[i].skip - minSkip + spans[i].length);
 		columnCount = (std::min)({ columnCount, shown, m_columnsCapacity });
 	}
-	else if (columnCount > str_F2C20ar.dword0x1c)
-		columnCount = str_F2C20ar.dword0x1c;
-	str_F2C20ar.dword0x0b += columnStep * minSkip;
+	else if (columnCount > str_F2C20ar.maxColumns_0x1c)
+		columnCount = str_F2C20ar.maxColumns_0x1c;
+	str_F2C20ar.columnIndex_0x0b += columnStep * minSkip;
 	SpriteColumn* columns = reinterpret_cast<SpriteColumn*>(&m_scratch[m_columnsOffset]);
 	for (int column = 0; column <= columnCount; column++)
 	{
-		columns[column].offset = str_F2C20ar.dword0x0b >> 16;
+		columns[column].offset = str_F2C20ar.columnIndex_0x0b >> 16;
 		columns[column].step = columns[column].offset - columns[column - 1].offset;
-		str_F2C20ar.dword0x0b += columnStep;
+		str_F2C20ar.columnIndex_0x0b += columnStep;
 	}
 	for (int i = 0; i < lines; i++)
 	{
@@ -1580,83 +1580,83 @@ void GameRenderNG::DrawRotatedSprite(uint32 pass)
 		if (length > 0)
 		{
 			const SpriteColumn* first = &columns[span.skip - minSkip];
-			const int8_t* texels = &str_F2C20ar.dword0x02_data[str_F2C20ar.dword0x08_width * (str_F2C20ar.dword0x0a_actIdx >> 16) + first->offset];
-			DrawSpriteSpan(texels, first, lineStart + m_viewLines_F0E20[span.start].dword_1, &m_viewLines_F0E20[span.start], length, 8);
+			const int8_t* texels = &str_F2C20ar.texture_0x02[str_F2C20ar.width_0x08 * (str_F2C20ar.rowIndex_0x0a >> 16) + first->offset];
+			DrawSpriteSpan(texels, first, lineStart + m_viewLines_F0E20[span.start].destOffset_1, &m_viewLines_F0E20[span.start], length, 8);
 		}
-		str_F2C20ar.dword0x0a_actIdx += rowStep;
-		lineStart += str_F2C20ar.dword0x23_stride;
+		str_F2C20ar.rowIndex_0x0a += rowStep;
+		lineStart += str_F2C20ar.stride_0x23;
 	}
 }
 
 // The sprite upright and scaled into the rectangle at the screen position, clipped by the view port.
 void GameRenderNG::DrawUprightSprite(uint32 pass)
 {
-	const int shift = (str_F2C20ar.dword0x0c_realHeight + str_F2C20ar.dword0x09_realWidth) >> 2;
+	const int shift = (str_F2C20ar.realHeight_0x0c + str_F2C20ar.realWidth_0x09) >> 2;
 	if (pass == (uint32_t)SpritePass::Main)
 	{
-		str_F2C20ar.dword0x04_screenY += -(str_F2C20ar.sin_0x0d * shift >> 16) - shift;
-		str_F2C20ar.dword0x03_screenX += -(str_F2C20ar.cos_0x11 * shift >> 16) - shift;
+		str_F2C20ar.screenY_0x04 += -(str_F2C20ar.sin_0x0d * shift >> 16) - shift;
+		str_F2C20ar.screenX_0x03 += -(str_F2C20ar.cos_0x11 * shift >> 16) - shift;
 	}
 	else if (pass == (uint32_t)SpritePass::Reflection)
 	{
-		str_F2C20ar.dword0x04_screenY += (str_F2C20ar.sin_0x0d * shift >> 16) - shift;
-		str_F2C20ar.dword0x03_screenX += (str_F2C20ar.cos_0x11 * shift >> 16) - shift;
+		str_F2C20ar.screenY_0x04 += (str_F2C20ar.sin_0x0d * shift >> 16) - shift;
+		str_F2C20ar.screenX_0x03 += (str_F2C20ar.cos_0x11 * shift >> 16) - shift;
 	}
 	const int width = viewPort.Width_DE564;
 	const int height = viewPort.Height_DE568;
-	if (str_F2C20ar.dword0x04_screenY >= width)
+	if (str_F2C20ar.screenY_0x04 >= width)
 		return;
-	const int columnStep = (str_F2C20ar.dword0x05 << 16) / str_F2C20ar.dword0x09_realWidth;
-	if (str_F2C20ar.dword0x04_screenY >= 0)
+	const int columnStep = (str_F2C20ar.signedWidth_0x05 << 16) / str_F2C20ar.realWidth_0x09;
+	if (str_F2C20ar.screenY_0x04 >= 0)
 	{
-		str_F2C20ar.dword0x0b = 0;
-		if (str_F2C20ar.dword0x09_realWidth + str_F2C20ar.dword0x04_screenY - width > 0)
-			str_F2C20ar.dword0x09_realWidth = width - str_F2C20ar.dword0x04_screenY;
+		str_F2C20ar.columnIndex_0x0b = 0;
+		if (str_F2C20ar.realWidth_0x09 + str_F2C20ar.screenY_0x04 - width > 0)
+			str_F2C20ar.realWidth_0x09 = width - str_F2C20ar.screenY_0x04;
 	}
 	else
 	{
-		str_F2C20ar.dword0x09_realWidth += str_F2C20ar.dword0x04_screenY;
-		if (str_F2C20ar.dword0x09_realWidth <= 0)
+		str_F2C20ar.realWidth_0x09 += str_F2C20ar.screenY_0x04;
+		if (str_F2C20ar.realWidth_0x09 <= 0)
 			return;
-		str_F2C20ar.dword0x0b = columnStep * -str_F2C20ar.dword0x04_screenY;
-		str_F2C20ar.dword0x04_screenY = 0;
-		if (width <= str_F2C20ar.dword0x09_realWidth)
-			str_F2C20ar.dword0x09_realWidth = width;
+		str_F2C20ar.columnIndex_0x0b = columnStep * -str_F2C20ar.screenY_0x04;
+		str_F2C20ar.screenY_0x04 = 0;
+		if (width <= str_F2C20ar.realWidth_0x09)
+			str_F2C20ar.realWidth_0x09 = width;
 	}
-	if (str_F2C20ar.dword0x03_screenX >= height)
+	if (str_F2C20ar.screenX_0x03 >= height)
 		return;
-	const int rowStep = (str_F2C20ar.dword0x06_height << 16) / str_F2C20ar.dword0x0c_realHeight;
-	if (str_F2C20ar.dword0x03_screenX >= 0)
+	const int rowStep = (str_F2C20ar.height_0x06 << 16) / str_F2C20ar.realHeight_0x0c;
+	if (str_F2C20ar.screenX_0x03 >= 0)
 	{
-		str_F2C20ar.dword0x0a_actIdx = 0;
-		if (str_F2C20ar.dword0x0c_realHeight + str_F2C20ar.dword0x03_screenX - height > 0)
-			str_F2C20ar.dword0x0c_realHeight = height - str_F2C20ar.dword0x03_screenX;
+		str_F2C20ar.rowIndex_0x0a = 0;
+		if (str_F2C20ar.realHeight_0x0c + str_F2C20ar.screenX_0x03 - height > 0)
+			str_F2C20ar.realHeight_0x0c = height - str_F2C20ar.screenX_0x03;
 	}
 	else
 	{
-		str_F2C20ar.dword0x0c_realHeight += str_F2C20ar.dword0x03_screenX;
-		if (str_F2C20ar.dword0x0c_realHeight <= 0)
+		str_F2C20ar.realHeight_0x0c += str_F2C20ar.screenX_0x03;
+		if (str_F2C20ar.realHeight_0x0c <= 0)
 			return;
-		str_F2C20ar.dword0x0a_actIdx = rowStep * -str_F2C20ar.dword0x03_screenX;
-		str_F2C20ar.dword0x03_screenX = 0;
-		if (height <= str_F2C20ar.dword0x0c_realHeight)
-			str_F2C20ar.dword0x0c_realHeight = height;
+		str_F2C20ar.rowIndex_0x0a = rowStep * -str_F2C20ar.screenX_0x03;
+		str_F2C20ar.screenX_0x03 = 0;
+		if (height <= str_F2C20ar.realHeight_0x0c)
+			str_F2C20ar.realHeight_0x0c = height;
 	}
 	SpriteColumn* columns = reinterpret_cast<SpriteColumn*>(&m_scratch[m_columnsOffset]);
-	for (int column = 0; column < str_F2C20ar.dword0x09_realWidth; column++)
+	for (int column = 0; column < str_F2C20ar.realWidth_0x09; column++)
 	{
-		columns[column].offset = str_F2C20ar.dword0x0b >> 16;
+		columns[column].offset = str_F2C20ar.columnIndex_0x0b >> 16;
 		columns[column].step = column ? columns[column].offset - columns[column - 1].offset : 22;
-		str_F2C20ar.dword0x0b += columnStep;
+		str_F2C20ar.columnIndex_0x0b += columnStep;
 	}
 	if (pass == (uint32_t)SpritePass::Main && x_D41A0_BYTEARRAY_4_struct.showHelp_10)
-		SetEntityHelpText_88740(str_F2C20ar.entity_0x14x, str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1), str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1));
-	uint8_t* line = &ViewPortRenderBufferStart_DE558[str_F2C20ar.dword0x03_screenX * iScreenWidth_DE560 + str_F2C20ar.dword0x04_screenY];
-	for (; str_F2C20ar.dword0x0c_realHeight; str_F2C20ar.dword0x0c_realHeight--)
+		SetEntityHelpText_88740(str_F2C20ar.entity_0x14x, str_F2C20ar.screenY_0x04 + (str_F2C20ar.realWidth_0x09 >> 1), str_F2C20ar.screenX_0x03 + (str_F2C20ar.realHeight_0x0c >> 1));
+	uint8_t* line = &ViewPortRenderBufferStart_DE558[str_F2C20ar.screenX_0x03 * iScreenWidth_DE560 + str_F2C20ar.screenY_0x04];
+	for (; str_F2C20ar.realHeight_0x0c; str_F2C20ar.realHeight_0x0c--)
 	{
-		const int8_t* texels = &str_F2C20ar.dword0x02_data[str_F2C20ar.dword0x08_width * (str_F2C20ar.dword0x0a_actIdx >> 16) + columns[0].offset];
-		DrawSpriteSpan(texels, columns, line, nullptr, str_F2C20ar.dword0x09_realWidth, 7);
-		str_F2C20ar.dword0x0a_actIdx += rowStep;
+		const int8_t* texels = &str_F2C20ar.texture_0x02[str_F2C20ar.width_0x08 * (str_F2C20ar.rowIndex_0x0a >> 16) + columns[0].offset];
+		DrawSpriteSpan(texels, columns, line, nullptr, str_F2C20ar.realWidth_0x09, 7);
+		str_F2C20ar.rowIndex_0x0a += rowStep;
 		line += iScreenWidth_DE560;
 	}
 }
@@ -1671,7 +1671,7 @@ static void DrawSpritePixels(const int8_t* texels, const GameRenderNG::SpriteCol
 		texels += columns[i].step;
 		if (texel)
 			pixel(*screen, texel);
-		screen += steps ? steps[i].dword_0 : 1;
+		screen += steps ? steps[i].destDelta_0 : 1;
 	}
 }
 
@@ -1679,11 +1679,11 @@ static void DrawSpritePixels(const int8_t* texels, const GameRenderNG::SpriteCol
 // screen, 4/5 blended with the player color (dword0x07), 6/7 blended and lit, 8 the screen darkened (shadow).
 void GameRenderNG::DrawSpriteSpan(const int8_t* texels, const SpriteColumn* columns, uint8_t* screen, const type_unk_F0E20x* steps, int length, int lastMode)
 {
-	const int mode = str_F2C20ar.dword0x01_visibilityIdx;
+	const int mode = str_F2C20ar.visibility_0x01;
 	if ((unsigned)mode > (unsigned)lastMode)
 		return;
-	const int light = str_F2C20ar.dword0x00 & ~0xFF;
-	const int color = str_F2C20ar.dword0x07;
+	const int light = str_F2C20ar.fogShade_0x00 & ~0xFF;
+	const int color = str_F2C20ar.tint_0x07;
 	const uint8_t* lit = ColourLookupTable_F6EE0;
 	const uint8_t* blend = &ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET];
 	switch (mode)

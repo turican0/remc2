@@ -208,13 +208,13 @@ void StateMonitor::MonitorD41A0() {
 	// type_entity_0x6E8E struct_0x6E8E[1000];//28302 a8*3e8
 	// Type_Level_2FECE terrain_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level
 	// type_str_0x364D2 str_0x364D2;//lenght 108
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x3653E);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36540);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36542);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36544);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36546);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, creatureCountA_0x3653E);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, creatureCountB_0x36540);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, cymmerianCount_0x36542);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, creatureCountC_0x36544);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, emuTargetDistance_0x36546);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36548);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x3654A);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, buildingCheckEntity_0x3654A);
 	// type_str_3654C stages_0x3654C[8];//size 10 count 8
 	// type_str_3659C struct_0x3659C[8];//size 11 count 8 C-0 D-1 E-2 F-3
 	// type_str_0x3647Ac StageVars2_0x365F4[11];//8x11	//set 0x58 // end 0x3664c
@@ -232,10 +232,10 @@ void StateMonitor::MonitorD41A0() {
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, countStageVars_0x36E00);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, stageIndex_0x36E01);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, tempObjective_0x36E02);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E03);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, altSpawnMode_0x36E03);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, objectiveBoxCounter_0x36E04);
 	// uint8_t stub3k[6];
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E0B);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, gameFlags_0x36E0B);
 	// uint8_t stubend[11];
 
     // shallow copy of D41A0_0
@@ -247,21 +247,21 @@ extern type_x_DWORD_17DB70str x_DWORD_17DB70str;
 void StateMonitor::Monitor17DB70str() {
 #ifdef REMC2_CODE
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, time_17DB70);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB74);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, portalAnimState_17DB74);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, posX_17DB76);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, posY_17DB78);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, fill1);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, fill2);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB7E);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB80);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, portPosX_17DB7E);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, portPosY_17DB80);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, shiftStep_17DB82);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, portalPosX_17DB84);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, portalPosY_17DB86);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, portalActivated_17DB88);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, selectedLevel_17DB8A);
     MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, targetLevel_17DB8C);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_BYTE_17DB8E);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_BYTE_17DB8F);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, levelChosen_17DB8E);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, mapState_17DB8F);
 	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.diffX_0);
 	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.diffY_1);
 	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.absDiffX2_2);
@@ -271,7 +271,7 @@ void StateMonitor::Monitor17DB70str() {
 	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.beginX_6);
 	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.beginY_7);
 	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.secondAdd_8);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.field_9);
+	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.secondAddY_9);
 	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.stateX_10);
 	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, anim_17DB90.stateY_11);
 
@@ -284,8 +284,8 @@ extern std::array<type_D4C52ar, 17> str_D4C48ar;
 void StateMonitor::Monitor_str_D4C48ar() {
     for (int i = 0; i < str_D4C48ar.size(); i++) {
         bool different = 
-            m_last_states.str_D4C48ar[i].dword_0 != str_D4C48ar[i].dword_0 ||
-            m_last_states.str_D4C48ar[i].dword_4 != str_D4C48ar[i].dword_4 ||
+            m_last_states.str_D4C48ar[i].address_0 != str_D4C48ar[i].address_0 ||
+            m_last_states.str_D4C48ar[i].classIndex_4 != str_D4C48ar[i].classIndex_4 ||
             m_last_states.str_D4C48ar[i].word_8 != str_D4C48ar[i].word_8 ||
             m_last_states.str_D4C48ar[i].actions_10 != str_D4C48ar[i].actions_10 ||
             m_last_states.str_D4C48ar[i].models_14 != str_D4C48ar[i].models_14;
@@ -294,14 +294,14 @@ void StateMonitor::Monitor_str_D4C48ar() {
             RegisterChange(
                 fmt::format("str_D4C48ar[{}]", i),
                 fmt::format("{:x} {:x} {:x} {:x} {:x}", 
-                    m_last_states.str_D4C48ar[i].dword_0, 
-                    m_last_states.str_D4C48ar[i].dword_4, 
+                    m_last_states.str_D4C48ar[i].address_0, 
+                    m_last_states.str_D4C48ar[i].classIndex_4, 
                     m_last_states.str_D4C48ar[i].word_8, 
                     reinterpret_cast<std::uintptr_t>(m_last_states.str_D4C48ar[i].actions_10), 
                     reinterpret_cast<std::uintptr_t>(m_last_states.str_D4C48ar[i].models_14)),
                 fmt::format("{:x} {:x} {:x} {:x} {:x}", 
-                    str_D4C48ar[i].dword_0, 
-                    str_D4C48ar[i].dword_4, 
+                    str_D4C48ar[i].address_0, 
+                    str_D4C48ar[i].classIndex_4, 
                     str_D4C48ar[i].word_8, 
                     reinterpret_cast<std::uintptr_t>(str_D4C48ar[i].actions_10), 
                     reinterpret_cast<std::uintptr_t>(str_D4C48ar[i].models_14))

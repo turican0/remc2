@@ -257,7 +257,7 @@ void SOUND_init_MIDI_sequence(uint8_t*  /*datax*/, type_E3808_music_header* head
 {
 	if (unitTests)return;
 	//uint8_t* acttrack = &header[32 + track_number * 32];
-	uint8_t* acttrack = headerx->str_8.track_10[track_number].xmiData_0;
+	uint8_t* acttrack = headerx->trackTable_8.track_10[track_number].xmiData_0;
 	//int testsize = *(uint32_t*)(&header[32 + (track_number + 1) * 32] + 18) - *(uint32_t*)(acttrack + 18);
 	int testsize2 = *(uint32_t*)(acttrack + 26);
 

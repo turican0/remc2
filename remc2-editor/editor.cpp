@@ -110,7 +110,7 @@ void clean_terrain()
 		empty->stageTag_12 = 0;
 		empty->subtype_0x30311 = 0;
 		empty->type_0x30311 = 0;
-		empty->word_10 = 0;
+		empty->par0_10 = 0;
 	}
 
 	memcpy(temparray_0x30311, empty, sizeof(type_entity_0x30311) * 0x4b0);
@@ -564,7 +564,7 @@ void fillterrain(kiss_terrain* terrain, SDL_Surface* mapsurface,float zoom, int 
 	for (int i = 0; i < 0x4B0; i++)//same B
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];
-		if ((actfeat.subtype_0x30311 > 0) && (actfeat.type_0x30311 == 0xB) && (actfeat.word_10))
+		if ((actfeat.subtype_0x30311 > 0) && (actfeat.type_0x30311 == 0xB) && (actfeat.par0_10))
 		{
 			type_entity_0x30311* actfeat2 = NULL;
 			for (int j = 0; j < 0x4B0; j++)//switches
@@ -732,7 +732,7 @@ static void terrain_feat_append(kiss_textbox* textbox, kiss_vscrollbar* vscrollb
 	for (int i = first_terrain_feature; i < 0x4B0; i++)
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, (uint16_t)actfeat.DisId, actfeat.word_10, (uint16_t)actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);
+		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, (uint16_t)actfeat.DisId, actfeat.par0_10, (uint16_t)actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);
 		if(temparray_0x30311_inactive[i])temp[strlen(temp) - 1] = 'I';//set last char as inactive
 		if(temparray_0x30311_selected[i])temp[strlen(temp) - 2] = 'S';//set last char as inactive
 		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
@@ -762,7 +762,7 @@ char temp[256];
 for (int i = 0; i < 0xb; i++)
 {
 	type_str_0x3647Ac actstage = D41A0_0.terrain_2FECE.StageVars_0x3647A[i];
-	sprintf(temp, "%01X |%02X|%02X|%04X|%04X|%04X", i, (uint8_t)actstage.index_0x3647A_0, (uint8_t)actstage.stage_0x3647A_1, actstage.str_0x3647A_2.word,actstage.target_0x3647C_4.axis.x, actstage.target_0x3647C_4.axis.y);
+	sprintf(temp, "%01X |%02X|%02X|%04X|%04X|%04X", i, (uint8_t)actstage.index_0x3647A_0, (uint8_t)actstage.stage_0x3647A_1, actstage.entityIndex_0x3647A_2.word,actstage.target_0x3647C_4.axis.x, actstage.target_0x3647C_4.axis.y);
 	kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 }
 //text_reset(textbox1, vscrollbar1);
@@ -1056,7 +1056,7 @@ static void button_savelevelcsv_event(kiss_button* button, SDL_Event* e, int* dr
 			for (int i = 0; i < 0x4B0; i++)
 			{
 				type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-				fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);
+				fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.par0_10, actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);
 			}
 			fclose(file);
 		}
@@ -1536,7 +1536,7 @@ static int  CloneEvent(int x, int y) {
 	kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
 	kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
 	kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
-	kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
+	kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].par0_10);
 	kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
 	kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].par1_14);
 	kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].par2_16);
@@ -1582,7 +1582,7 @@ static int button_clean_event(kiss_button* button, SDL_Event* e, int* quit, int*
 		kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
 		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
 		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
-		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
+		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].par0_10);
 		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
 		kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].par1_14);
 		kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].par2_16);
@@ -3167,7 +3167,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_hex2edit_new(&hex2edit15, &window1, &D41A0_0.terrain_2FECE.levelType_0x2FED2, (char*)"2FED2:", 250, 50, 80);
 	kiss_hex2edit_new(&hex2edit16, &window1, &D41A0_0.terrain_2FECE.basicHeight_0x2FED3, (char*)"2FED3:", 250, 70, 80);
 	kiss_hex2edit_new(&hex2edit17, &window1, &D41A0_0.terrain_2FECE.MapType, (char*)"DY/NG/CV:", 250, 90, 80);
-	kiss_hex4edit_new(&hex4edit18, &window1, &D41A0_0.terrain_2FECE.word_0x2FED5, (char*)"2FED5:", 250, 110, 80);
+	kiss_hex4edit_new(&hex4edit18, &window1, &D41A0_0.terrain_2FECE.manaGoalPercent_0x2FED5, (char*)"2FED5:", 250, 110, 80);
 	kiss_hex4edit_new(&hex4edit19, &window1, &D41A0_0.terrain_2FECE.numberOfPlayers_0x2FED7, (char*)"2FED7:", 250, 130, 80);
 
 	kiss_hex2edit_new(&hex2edit20, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[0], (char*)"D9-0", 250, 150, 40);
@@ -3380,7 +3380,7 @@ int main_x(/*int argc, char** argv*/)
 				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
 				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
 				kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
-				kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
+				kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].par0_10);
 				kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
 				kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].par1_14);
 				set_button_image_subsubtype(&act_img_subsubtype, temparray_0x30311[edited_line_old + 1].type_0x30311, temparray_0x30311[edited_line_old + 1].subtype_0x30311, temparray_0x30311[edited_line_old + 1].par1_14);

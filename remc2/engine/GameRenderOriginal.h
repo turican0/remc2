@@ -62,7 +62,7 @@ private:
 	char polygonDrawMode_E126D = 0;
 	char triangleShade_E126C = 112;
 	int x_DWORD_D4790 = 20;
-	int x_DWORD_D4324 = 0;
+	int viewShiftX_D4324 = 0;
 	char shadows_F2CC7 = 0;
 	char notDay_D4320 = 0;
 	char x_BYTE_F2CC6 = 0;

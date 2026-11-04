@@ -14,7 +14,7 @@ typedef struct {//lenght 17
 	uint16_t posY_10;
 	uint16_t activated_12; //3-hidden 1-activated
 	uint16_t spriteIndex_14;
-	uint8_t byte_16;
+	uint8_t state_16;
 }Type_SecretMapScreenPortals_E2970;
 #pragma pack(pop)
 

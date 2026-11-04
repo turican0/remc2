@@ -8,7 +8,7 @@
 
 #pragma pack (push,1)
 typedef struct {//lenght 4
-	uint16_t word_0;
+	uint16_t subSpellIndex_0;
 	uint8_t flags_2;
 	uint8_t nextIndex_3;
 }

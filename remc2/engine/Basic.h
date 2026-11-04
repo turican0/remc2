@@ -80,7 +80,7 @@ typedef struct //lenght 24
 	int16_t beginX_6;
 	int16_t beginY_7;
 	int16_t secondAdd_8;
-	int16_t field_9;
+	int16_t secondAddY_9;
 	int16_t stateX_10;
 	int16_t stateY_11;
 } type_animStruct;
@@ -110,14 +110,14 @@ typedef struct//lenght 613 // end 17E09D
 	TColor* palette_17DE38x; // weak
 	TcolNext* colorNextTable_17DE3C; // weak//1
 	uint8_t* screenBuffer_17DE40; // weak//2
-	uint8_t* x_DWORD_17DE44; // weak//3
+	uint8_t* savedSmalltit_17DE44; // weak//3
 	uint8_t* menuSpritesData_17DE48c; // weak//4
-	uint8_t* x_DWORD_17DE4C; // weak
+	uint8_t* menuData2_17DE4C; // weak
 	char* playerNameText_17DE50; // weak
 	uint8_t* fontData_17DE54; // weak
 	uint8_t* font2Data_17DE58; // weak
 	uint8_t* borderBitmap_17DE5C; // weak
-	uint8_t* x_DWORD_17DE60; // weak
+	uint8_t* loadBuffer_17DE60; // weak
 	uint8_t* gameWorldMap_17DE64; // weak
 
 	/*
@@ -135,7 +135,7 @@ typedef struct//lenght 613 // end 17E09D
 	bitmap_pos_struct2_t* fontTabEnd_17DEC4; // weak
 	bitmap_pos_struct2_t* font2Tab_17DEC8; // weak
 	bitmap_pos_struct2_t* font2TabEnd_17DECC; // weak
-	int x_DWORD_17DED0; // weak
+	int cursorBlinkTime_17DED0; // weak
 	bitmap_pos_struct2_t* menuSpritesTab_17DED4; // weak
 	bitmap_pos_struct2_t* menuSpritesTabEnd_17DED8; // weak
 	int fileOffset_17DEDC; // weak
@@ -157,11 +157,11 @@ typedef struct//lenght 613 // end 17E09D
 	__int16 lastNetPlayerCount_17DF00; // weak
 	uint16_t palMulti_17DF02; // weak
 	int16_t savedGameIndex_17DF04; // selected save game number to load/save (set in load/save_game_dialog)
-	__int16 x_WORD_17DF06; // weak
-	__int16 x_WORD_17DF08; // weak
-	__int16 x_WORD_17DF0A; // weak
-	__int16 x_WORD_17DF0C; // weak
-	__int16 x_WORD_17DF0E; // weak
+	__int16 scrollBorderSprite_17DF06; // weak
+	__int16 cancelSprite_17DF08; // weak
+	__int16 cancelHoverSprite_17DF0A; // weak
+	__int16 okSprite_17DF0C; // weak
+	__int16 okHoverSprite_17DF0E; // weak
 	char keyScancode_17DF10; // weak
 	char lastKeyChar_17DF11; // weak
 	char stuba[1];
@@ -183,7 +183,7 @@ typedef struct//lenght 613 // end 17E09D
 	//char x_BYTE_17E082; // weak unk_17E078x[10]
 	//char x_BYTE_17E083; // weak unk_17E078x[11]
 	type_animStruct mapAnimObject_17E084x; // weak [11]
-	char x_BYTE_17E09C; // weak
+	char mapAnimState_17E09C; // weak
 } type_x_DWORD_17DE38str;
 #pragma pack (pop)
 

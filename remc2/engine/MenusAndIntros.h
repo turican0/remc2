@@ -16,12 +16,12 @@ extern int16_t MOUSE_MAX_Y;
 #pragma pack(push, 1)
 typedef struct // size 16
 {
-	uint32_t unk_17DBA8; // weak 40
-	uint32_t unk_17DBAC; //1(+4)
+	uint32_t helpTextTime_17DBA8; // weak 40
+	uint32_t currentTime_17DBAC; //1(+4)
 	uint32_t unk_17DBB0; //2(+8)
 	uint16_t helpTextIndex_17DBB4; //3(+12)
 	uint8_t x_BYTE_17DBB5; //(+14)
-	uint8_t x_BYTE_17DBB6; //(+15)
+	uint8_t helpMode_17DBB6; //(+15)
 } Type_unk_17DBA8str; //16
 #pragma pack(pop)
 
@@ -29,21 +29,21 @@ typedef struct // size 16
 typedef struct //lenght 56
 {
 	uint32_t time_17DB70; // weak
-	int16_t x_WORD_17DB74; // weak 4
+	int16_t portalAnimState_17DB74; // weak 4
 	int16_t posX_17DB76; // weak 6
 	int16_t posY_17DB78; // weak 8
 	int16_t fill1; // test 10
 	int16_t fill2; // test 12
-	int16_t unk_17DB7E; // weak 14
-	int16_t unk_17DB80; // weak 16
+	int16_t portPosX_17DB7E; // weak 14
+	int16_t portPosY_17DB80; // weak 16
 	int16_t shiftStep_17DB82; // weak 18
 	int16_t portalPosX_17DB84; // weak 20
 	int16_t portalPosY_17DB86; // weak 22
 	int16_t portalActivated_17DB88; // weak 24
 	int16_t selectedLevel_17DB8A; // weak 26
 	int16_t targetLevel_17DB8C; // weak 28
-	int8_t x_BYTE_17DB8E; // weak 30
-	int8_t x_BYTE_17DB8F; // weak 31
+	int8_t levelChosen_17DB8E; // weak 30
+	int8_t mapState_17DB8F; // weak 31
 	type_animStruct anim_17DB90; // weak 32
 	//std::array<uint8_t, 6> unk_17DB92; // weak 32
 	//std::array<uint8_t, 16> fill3; // fill
@@ -71,15 +71,15 @@ typedef struct {//lenght 69
 	uint8_t stub_8;//8
 	uint8_t stub_9;//9
 	int16_t sample1_10;//10	
-	int8_t byte_12;//12
+	int8_t sample1PlayType_12;//12
 	uint8_t stub_13;//13
 	int16_t sample2_14;//14	
-	int8_t byte_16;//16
+	int8_t sample2PlayType_16;//16
 	uint8_t stub_17;//17
 	type_animStruct2 anim_18;////18
-	int8_t byte_42;//42
+	int8_t animKind_42;//42
 	int8_t animState_43;//43
-	uint8_t byte_44;//44
+	uint8_t portalIndex_44;//44
 	type_animStruct animObject_45;//45
 }
 type_WORD_E20A4;
@@ -91,10 +91,10 @@ typedef struct {//lenght 24
 	uint32_t dataSize_4;
 	uint32_t paletteOffset_8;
 	uint32_t paletteSize_12;
-	uint16_t word_16;
-	uint16_t word_18;
-	uint16_t word_20;
-	uint16_t word_22;
+	uint16_t posX_16;
+	uint16_t posY_18;
+	uint16_t width_20;
+	uint16_t height_22;
 }
 type_E1BAC_0x3c4;
 #pragma pack(pop)
@@ -111,7 +111,7 @@ enum class MenuItem : int {
 
 #pragma pack(push, 1)
 typedef struct {//lenght 18
-	uint8_t byte_0;
+	uint8_t buttonId_0;
 	uint8_t stub[17];
 }
 type_BYTE_E25ED_0x;

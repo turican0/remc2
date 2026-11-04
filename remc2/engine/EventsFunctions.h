@@ -222,17 +222,17 @@ Type_CutScene_E16E0;
 #pragma pack(push, 1)
 typedef struct {//lenght 14
 	uint32_t dword_0;//ok
-	int16_t word_4;//ok
+	int16_t index_4;//ok
 	uint32_t address_6;
-	int32_t dword_10;//ok
+	int32_t enabled_10;//ok
 }
 type_D4C52ar2;
 #pragma pack(pop)
 
 #pragma pack(push, 1)
 typedef struct {//lenght 18
-	uint32_t dword_0;
-	uint32_t dword_4;
+	uint32_t address_0;
+	uint32_t classIndex_4;
 	int16_t word_8;
 	type_D4C52ar2* actions_10;
 	type_D4C52ar2* models_14;
@@ -259,13 +259,13 @@ typedef struct {//lenght 30
 	int16_t lastFrame_14;
 	int16_t frameIndex_16;
 	int16_t time3_18;
-	int8_t byte_20;
-	int8_t byte_21;
+	int8_t state_20;
+	int8_t playOnce_21;
 	int16_t time4_22;
-	int16_t word_24;
-	int16_t word_26;
+	int16_t wavIndex_24;
+	int16_t playType_26;
 	//int8_t stuba[1];
-	int16_t word_28;
+	int16_t loopCount_28;
 	//int8_t stubb[1];
 } type_x_BYTE_E25ED_db_str;
 #pragma pack(pop)
@@ -284,8 +284,8 @@ typedef struct {//lenght 18
 	int16_t word_10;
 	int16_t width_12;
 	int16_t maxy_14;
-	int8_t byte_16;
-	int8_t byte_17;
+	int8_t mapButtonId_16;
+	int8_t buttonId_17;
 }
 typeTextBoxtextBoxStr_E24BCx;
 #pragma pack(pop)
@@ -300,8 +300,8 @@ typedef struct {//lenght 18
 	int16_t word_8;
 	int16_t word_10;
 	int16_t textIndex_12;
-	int16_t word_14;
-	int16_t word_16;
+	int16_t state_14;
+	int16_t type_16;
 }
 type_x_BYTE_E25ED_2BB;
 #pragma pack(pop)
@@ -379,7 +379,7 @@ typedef struct {//lenght 16
 typedef struct {//lenght 44
 	uint32_t callback_0;
 	//int16_t word_2;
-	int32_t dword_4;//4 dword
+	int32_t state_4;//4 dword
 	//int16_t word_6;//remove it
 	int16_t selected_8;
 	int16_t xmin_10;
@@ -389,10 +389,10 @@ typedef struct {//lenght 44
 	int16_t word_18;
 	uint8_t goldSprite_20;//index of gold sprite
 	uint8_t graySprite_21;//index of gray sprite
-	int8_t byte_22;
+	int8_t id_22;
 	int8_t canSelect_23;
 	int8_t gold_color_24;
-	int8_t byte_25;
+	int8_t active_25;
 	//int16_t word_24;//23 and 24 byte
 	type_str_word_26 scroll_26;//0
 	//int16_t word_28;//1

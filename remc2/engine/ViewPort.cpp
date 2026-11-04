@@ -67,8 +67,8 @@ void ViewPort::SetRenderViewPortSize_40BF0(int width, int height, int viewPortWi
 		viewPortWidth_help = viewPortWidth >> 1;
 		viewPortHeight_help = viewPortHeight >> 1;
 	}
-	str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart = width_help + screenWidth_18062C * height_help;
-	SetRenderViewPortSize_BCD45(str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart + pdwScreenBuffer_351628, screenWidth_18062C, viewPortWidth_help, viewPortHeight_help);
+	str_F2C20ar.renderBufferStart_0x0e = width_help + screenWidth_18062C * height_help;
+	SetRenderViewPortSize_BCD45(str_F2C20ar.renderBufferStart_0x0e + pdwScreenBuffer_351628, screenWidth_18062C, viewPortWidth_help, viewPortHeight_help);
 	EventDispatcher::I->DispatchEvent<uint16_t, uint16_t, uint16_t, uint16_t>(EventType::E_VIEWPORT_CHANGE, (uint16_t)width_help, (uint16_t)height_help, Width_DE564, Height_DE568);
 }
 
@@ -76,7 +76,7 @@ void ViewPort::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting)//221c50
 {
 	Rectangle rectangle = SetRenderViewPortSize_40C50(viewPortSizeSetting, screenWidth_18062C, screenHeight_180624);
 	int32_t ptr = (screenWidth_18062C * rectangle.PosY_EA3CC) + rectangle.PosX_EA3D0;
-	str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart = ptr;
+	str_F2C20ar.renderBufferStart_0x0e = ptr;
 	SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628 + ptr, screenWidth_18062C, rectangle.Width_DE564, rectangle.Height_DE568);
 }
 

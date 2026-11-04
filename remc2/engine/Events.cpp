@@ -136,7 +136,7 @@ unsigned int AddE7EE0x_10080(int32_t a1, int32_t a2)//1f1080
 	str_E7EE0x[i].dword_0 = a1;
 	str_E7EE0x[i].bitmapIndex_8 = a1;
 	str_E7EE0x[i].frameCounter_12 = 0;
-	str_E7EE0x[i].dword_4 = a2;
+	str_E7EE0x[i].lastBitmapIndex_4 = a2;
 	str_E7EE0x[i].bitmapsStr_16 = &bitmaps_E9980x[str_E7EE0x[i].bitmapIndex_8];
 	str_E7EE0x[i].bitmapsData_20xx = bitmaps_E9980x[str_E7EE0x[i].bitmapIndex_8].bitmapData_0;
 	return i;
@@ -314,7 +314,7 @@ void PrepareEvents_49540(Type_Level_2FECE* terrain, type_entity_0x30311* entity)
 				event = CallCreateFunction_4A190(temp_adress, &predictedAxis_EB398ar);
 				if (event)
 				{
-					event->word_0x2C_44 = entity->par1_14;
+					event->param2_0x2C_44 = entity->par1_14;
 					event->targetId_0x96_150 = entity->par3_18;
 				}
 			}
@@ -373,27 +373,27 @@ void PrepareEvents_49540(Type_Level_2FECE* terrain, type_entity_0x30311* entity)
 						}
 						case 0x52:
 						{
-							event->byte_0x46_70 = entity->par3_18;
-							event->byte_0x43_67 = entity->par1_14;
-							event->byte_0x44_68 = entity->par2_16;
+							event->levelPar3_0x46_70 = entity->par3_18;
+							event->levelPar1_0x43_67 = entity->par1_14;
+							event->levelPar2_0x44_68 = entity->par2_16;
 							break;
 						}
 						case 0x53:
 						{
-							event->axis_0x9A_154x.x = entity->word_10;
+							event->axis_0x9A_154x.x = entity->par0_10;
 							break;
 						}
 						case 0x54:
 						case 0x55:
 						{
-							event->axis_0x9A_154x.x = entity->word_10;
+							event->axis_0x9A_154x.x = entity->par0_10;
 							event->position_0x4C_76.z = entity->par3_18;
 							break;
 						}
 						case 0x58:
 						{
-							event->array_0x52_82.pitch = entity->par1_14;
-							event->array_0x52_82.roll = entity->par2_16;
+							event->params_0x52_82.pitch = entity->par1_14;
+							event->params_0x52_82.roll = entity->par2_16;
 							break;
 						}
 					}
@@ -434,7 +434,7 @@ void ApplyEvents_498A0()//22a8a0
 						{
 							v6 = &str_D4C48ar[D41A0_0.entities_0x6E8E[iy].class_0x3F_63].actions_10[D41A0_0.entities_0x6E8E[iy].actionIndex_0x45_69];
 							runagain = true;
-							if (v6->address_6 && v6->dword_10)
+							if (v6->address_6 && v6->enabled_10)
 							{
 								CallUpdateFunction_4A190(v6->address_6, &D41A0_0.entities_0x6E8E[iy]);
 							}
@@ -465,7 +465,7 @@ void ApplyEvents_498A0()//22a8a0
 						}
 						v5 = &str_D4C48ar[D41A0_0.entities_0x6E8E[iy].class_0x3F_63].actions_10[D41A0_0.entities_0x6E8E[iy].actionIndex_0x45_69];//ok
 						runagain = true;
-						if (v5->address_6 && v5->dword_10)
+						if (v5->address_6 && v5->enabled_10)
 						{
 							CallUpdateFunction_4A190(v5->address_6, &D41A0_0.entities_0x6E8E[iy]);
 						}
@@ -478,7 +478,7 @@ void ApplyEvents_498A0()//22a8a0
 					{
 						v5 = &str_D4C48ar[D41A0_0.entities_0x6E8E[iy].class_0x3F_63].actions_10[D41A0_0.entities_0x6E8E[iy].actionIndex_0x45_69];//ok
 						runagain = true;
-						if (v5->address_6 && v5->dword_10)
+						if (v5->address_6 && v5->enabled_10)
 						{
 							CallUpdateFunction_4A190(v5->address_6, &D41A0_0.entities_0x6E8E[iy]);
 						}
@@ -494,7 +494,7 @@ void ApplyEvents_498A0()//22a8a0
 					{
 						v5 = &str_D4C48ar[D41A0_0.entities_0x6E8E[iy].class_0x3F_63].actions_10[D41A0_0.entities_0x6E8E[iy].actionIndex_0x45_69];//ok
 						runagain = true;
-						if (v5->address_6 && v5->dword_10)
+						if (v5->address_6 && v5->enabled_10)
 						{
 							CallUpdateFunction_4A190(v5->address_6, &D41A0_0.entities_0x6E8E[iy]);
 						}
@@ -515,7 +515,7 @@ void ApplyEvents_498A0()//22a8a0
 						}
 						v5 = &str_D4C48ar[D41A0_0.entities_0x6E8E[iy].class_0x3F_63].actions_10[D41A0_0.entities_0x6E8E[iy].actionIndex_0x45_69];//ok
 						runagain = true;
-						if (v5->address_6 && v5->dword_10)
+						if (v5->address_6 && v5->enabled_10)
 						{
 							CallUpdateFunction_4A190(v5->address_6, &D41A0_0.entities_0x6E8E[iy]);
 						}
@@ -535,7 +535,7 @@ void ApplyEvents_498A0()//22a8a0
 						}
 						v5 = &str_D4C48ar[D41A0_0.entities_0x6E8E[iy].class_0x3F_63].actions_10[D41A0_0.entities_0x6E8E[iy].actionIndex_0x45_69];//ok
 						runagain = true;
-						if (v5->address_6 && v5->dword_10)
+						if (v5->address_6 && v5->enabled_10)
 						{
 							CallUpdateFunction_4A190(v5->address_6, &D41A0_0.entities_0x6E8E[iy]);
 						}
@@ -573,8 +573,8 @@ type_entity_0x6E8E* NewEvent_4A050()//22b050
 		D41A0_0.freeEntities_0x246[D41A0_0.freeEntityCount_0x35]->xsubtype_0x42_66 = -1;
 		D41A0_0.freeEntities_0x246[D41A0_0.freeEntityCount_0x35]->typeParams_0xA0_160x = &str_D7BD6[59]; //(type_str_160*)&unk_D7BD6[0x7d6];
 		D41A0_0.freeEntities_0x246[D41A0_0.freeEntityCount_0x35]->playerData_0xA4_164x = unk_F42B0x;
-		D41A0_0.freeEntities_0x246[D41A0_0.freeEntityCount_0x35]->byte_0x43_67 = 10;
-		D41A0_0.freeEntities_0x246[D41A0_0.freeEntityCount_0x35]->byte_0x39_57 = -6;
+		D41A0_0.freeEntities_0x246[D41A0_0.freeEntityCount_0x35]->levelPar1_0x43_67 = 10;
+		D41A0_0.freeEntities_0x246[D41A0_0.freeEntityCount_0x35]->timer_0x39_57 = -6;
 		D41A0_0.freeEntities_0x246[D41A0_0.freeEntityCount_0x35]->instanceIndex_0x3E_62 = D41A0_0.freeEntities_0x246[D41A0_0.freeEntityCount_0x35] - D41A0_0.entities_0x6E8E;
 		D41A0_0.freeEntities_0x246[D41A0_0.freeEntityCount_0x35]->rand_0x14_20 = D41A0_0.freeEntities_0x246[D41A0_0.freeEntityCount_0x35] - D41A0_0.entities_0x6E8E + D41A0_0.rand_0x8;//this is it line
 		return D41A0_0.freeEntities_0x246[D41A0_0.freeEntityCount_0x35--];
@@ -600,8 +600,8 @@ type_entity_0x6E8E* NewEvent_4A050()//22b050
 		D41A0_0.freeEntities2_0x11EA[D41A0_0.freeEntityCount2_0x11e6]->xsubtype_0x42_66 = -1;
 		D41A0_0.freeEntities2_0x11EA[D41A0_0.freeEntityCount2_0x11e6]->typeParams_0xA0_160x = &str_D7BD6[59]; //(type_str_160*)&unk_D7BD6[0x7d6];
 		D41A0_0.freeEntities2_0x11EA[D41A0_0.freeEntityCount2_0x11e6]->playerData_0xA4_164x = unk_F42B0x;
-		D41A0_0.freeEntities2_0x11EA[D41A0_0.freeEntityCount2_0x11e6]->byte_0x43_67 = 10;
-		D41A0_0.freeEntities2_0x11EA[D41A0_0.freeEntityCount2_0x11e6]->byte_0x39_57 = -6;
+		D41A0_0.freeEntities2_0x11EA[D41A0_0.freeEntityCount2_0x11e6]->levelPar1_0x43_67 = 10;
+		D41A0_0.freeEntities2_0x11EA[D41A0_0.freeEntityCount2_0x11e6]->timer_0x39_57 = -6;
 		D41A0_0.freeEntities2_0x11EA[D41A0_0.freeEntityCount2_0x11e6]->instanceIndex_0x3E_62 = D41A0_0.freeEntities2_0x11EA[D41A0_0.freeEntityCount2_0x11e6] - D41A0_0.entities_0x6E8E;
 		D41A0_0.freeEntities2_0x11EA[D41A0_0.freeEntityCount2_0x11e6]->rand_0x14_20 = D41A0_0.freeEntities2_0x11EA[D41A0_0.freeEntityCount2_0x11e6] - D41A0_0.entities_0x6E8E + D41A0_0.rand_0x8;//this is it line
 		return D41A0_0.freeEntities2_0x11EA[D41A0_0.freeEntityCount2_0x11e6--];
@@ -5187,7 +5187,7 @@ type_entity_0x6E8E* CallCreateFunction_4A190(uint32_t adress, axis_3d* a1_axis3d
 //----- (0004A190) --------------------------------------------------------
 type_entity_0x6E8E* CreateEntity_4A190(axis_3d* position, int type, int subtype)//22b190
 {
-	if (str_D4C48ar[type].models_14[subtype].dword_10 && str_D4C48ar[type].models_14[subtype].word_4 == subtype)
+	if (str_D4C48ar[type].models_14[subtype].enabled_10 && str_D4C48ar[type].models_14[subtype].index_4 == subtype)
 		return CallCreateFunction_4A190(str_D4C48ar[type].models_14[subtype].address_6, position);
 	return 0;
 }
@@ -5436,13 +5436,13 @@ void CreateSubtype27LineBetweenPoints_48400(uint16_t posX2, uint16_t posY2, uint
 					v22x->actionIndex_0x45_69 = 27;
 					v23 = -v20 - v28;
 				}
-				v22x->dword_0x10_16 = v23;
+				v22x->param_0x10_16 = v23;
 				SetPredictedPositionFromTiles_483A0(posX2, (unsigned __int16)(v20 + v28 + posY2), posX, posY);
 				v18--;
 				posY2 += v20 + v28;
 				v24x = CreateEntity_4A190(&predictedAxis_EB398ar, 10, 27);
 				v24x->actionIndex_0x45_69 = 29;
-				v24x->dword_0x10_16 = i + v30;
+				v24x->param_0x10_16 = i + v30;
 				result = 0;
 				posX2 += i + v30;
 				i = 0;
@@ -5463,7 +5463,7 @@ void CreateSubtype27LineBetweenPoints_48400(uint16_t posX2, uint16_t posY2, uint
 					SetPredictedPositionFromTiles_483A0(posX2, posY2, posX, posY);
 					v13x = CreateEntity_4A190(&predictedAxis_EB398ar, 10, 27);
 					v13x->actionIndex_0x45_69 = 29;
-					v13x->dword_0x10_16 = v25 + v29;
+					v13x->param_0x10_16 = v25 + v29;
 					posX2 += v25 + v29;
 					SetPredictedPositionFromTiles_483A0(posX2, posY2, posX, posY);
 					v14x = CreateEntity_4A190(&predictedAxis_EB398ar, 10, 27);
@@ -5477,7 +5477,7 @@ void CreateSubtype27LineBetweenPoints_48400(uint16_t posX2, uint16_t posY2, uint
 						v14x->actionIndex_0x45_69 = 27;
 						v15 = -v12 - v27;
 					}
-					v14x->dword_0x10_16 = v15;
+					v14x->param_0x10_16 = v15;
 					v11--;
 					result = v12 + v27;
 					v25 = 0;
@@ -5541,7 +5541,7 @@ void CreateSubtype30LineBetweenPoints_48690(uint16_t posX2, uint16_t posY2, uint
 	v10x = CreateEntity_4A190(&predictedAxis_EB398ar, 10, 30);
 	if (v10x)
 	{
-		v10x->dword_0x10_16 = maxabsdist;
+		v10x->param_0x10_16 = maxabsdist;
 		v10x->yaw_0x1C_28 = Xdir;
 		v10x->pitch_0x1E_30 = Ydir;
 	}
@@ -5550,7 +5550,7 @@ void CreateSubtype30LineBetweenPoints_48690(uint16_t posX2, uint16_t posY2, uint
 	resultx = CreateEntity_4A190(&predictedAxis_EB398ar, 10, 30);
 	if (resultx)
 	{
-		resultx->dword_0x10_16 = distXYdiff;
+		resultx->param_0x10_16 = distXYdiff;
 		resultx->yaw_0x1C_28 = v14;
 		resultx->pitch_0x1E_30 = v15;
 	}
@@ -5580,7 +5580,7 @@ void CreateSubtype32MovingToPoint_487D0(uint16_t posX2, uint16_t posY2, uint16_t
 	{
 		resultx->yaw_0x1C_28 = v5;
 		resultx->life_0x8 = (signed int)v6 >> 8;
-		resultx->byte_0x46_70 = a5;
+		resultx->levelPar3_0x46_70 = a5;
 	}
 }
 
@@ -5685,7 +5685,7 @@ void CreateSubtype81WithTarget_48930(uint16_t posX2, uint16_t posY2, uint16_t po
 	//v3 = (int)& x_DWORD_D4C52ar[str_D4C48ar[10].dword_14 + 81 * 14 - 0x2a5c52];
 	v3x = &str_D4C48ar[10].models_14[81];
 	//(str_D4C52ar[10]->dword_4)-0x2a5c52
-	if (v3x->dword_10 && v3x->word_4/* *(signed __int16*)(v3 + 4)*/ == 81)
+	if (v3x->enabled_10 && v3x->index_4/* *(signed __int16*)(v3 + 4)*/ == 81)
 	{
 		axis_3d a1x;
 		a1x.x = v6;
@@ -5747,7 +5747,7 @@ void CreateSubtype81WithTarget_48930(uint16_t posX2, uint16_t posY2, uint16_t po
 		*(_WORD*)(result + 158) = v10;
 		*(_BYTE*)(result + 70) = a5;*/
 		result->axis_0x9A_154x = v8x;
-		result->byte_0x46_70 = a5;
+		result->levelPar3_0x46_70 = a5;
 	}
 }
 

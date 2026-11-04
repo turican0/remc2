@@ -81,7 +81,7 @@ private:
 
 	int viewOffsetX_D4794 = 0;
 	int viewOffsetY_D4798 = 0;
-	int x_DWORD_D4324 = 0;
+	int viewShiftX_D4324 = 0;
 	char shadows_F2CC7 = 0;
 	char notDay_D4320 = 0;
 	bool m_reflectionPass = false;   // set while the reflection pass emits its polygons (RenderPolygon::Reflection)

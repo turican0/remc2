@@ -642,10 +642,10 @@ static const std::vector<FieldRange>& field_table()
 	GS(m_Graphics.m_wSky, 1);         GS(m_Graphics.m_wViewPortSize, 1);
 	GS(m_Display.m_wMiniMap, 1);      GS(m_Display.m_wTopBar, 1);
 	GS(m_Display.m_uiScreenSize, 1);  GS(m_Display.xxxx_0x2191, 1);
-	GS(str_0x2192.xxxx_0x2192, 1);    GS(str_0x2192.xxxx_0x2193, 1);
-	GS(str_0x2192.m_wResolution, 1);  GS(str_0x2192.shadows_0x2195, 1);
-	GS(str_0x2196.m_wDynamicLighting, 1); GS(str_0x2196.setting_0x2197, 1);
-	GS(str_0x2196.transparency_0x2198, 1); GS(str_0x2196.flat_0x2199, 1);
+	GS(graphics_0x2192.xxxx_0x2192, 1);    GS(graphics_0x2192.xxxx_0x2193, 1);
+	GS(graphics_0x2192.m_wResolution, 1);  GS(graphics_0x2192.shadows_0x2195, 1);
+	GS(display_0x2196.m_wDynamicLighting, 1); GS(display_0x2196.setting_0x2197, 1);
+	GS(display_0x2196.transparency_0x2198, 1); GS(display_0x2196.flat_0x2199, 1);
 #undef GS
 
 	tbl.push_back({ BASE(dword_0x219A),4,"dword_0x219A",0 });
@@ -691,12 +691,12 @@ static const std::vector<FieldRange>& field_table()
     snprintf(nm,sizeof(nm),"array_0x2BDE[%d]." #f, i); \
     tbl.push_back({BDEBASE(i,f), sz, strdup(nm), 0}); \
 } while(0)
-		BDESC(dw_w_b_0_2BDE_11230, 4);
-		BDESC(byte_0x004_2BE0_11234, 1); BDESC(ShowDebugTextFlag_0x005_2BE0_11235, 1);
-		BDESC(playerActive_0x006_2BE4_11236, 1); BDESC(word_0x007_2BE4_11237, 2);
+		BDESC(stateFlags_0_2BDE_11230, 4);
+		BDESC(syncReady_0x004_2BE0_11234, 1); BDESC(ShowDebugTextFlag_0x005_2BE0_11235, 1);
+		BDESC(playerActive_0x006_2BE4_11236, 1); BDESC(playerSlot_0x007_2BE4_11237, 2);
 		BDESC(IsAiPlayer_0x009_2BE4_11239, 1); BDESC(playerIndex_0x00a_2BE4_11240, 2);
 		BDESC(byte_0x00c_2BE0_11242_xx, 1); BDESC(byte_0x00d_2BE0_11243_xx, 1);
-		BDESC(ActPlayerIndex_0x00e_2BDE_11244, 2); BDESC(word_0x010_2BDE_11246, 2);
+		BDESC(ActPlayerIndex_0x00e_2BDE_11244, 2); BDESC(positionCount_0x010_2BDE_11246, 2);
 		BDESC(Turn_2BE0_11248, 4); BDESC(byte_0x016_2BE0_11252_xx, 1);
 		BDESC(byte_0x017_2BE0_11253_xx, 1); BDESC(dword_0x018_2BDE_11254, 4);
 
@@ -705,7 +705,7 @@ static const std::vector<FieldRange>& field_table()
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].CurrentNotificationText_0x01c_2BFA_11258[%d]", i, k);
 			tbl.push_back({ BDEBASE(i,CurrentNotificationText_0x01c_2BFA_11258) + k,1,strdup(nm),0 });
 		}
-		BDESC(CurrentNotificationDuration_0x04d_2C2B_11307, 2); BDESC(word_0x04f_2C2D_11309, 2);
+		BDESC(CurrentNotificationDuration_0x04d_2C2B_11307, 2); BDESC(endState_0x04f_2C2D_11309, 2);
 
 		// names_81[8][48]
 		for (int r = 0; r < 8; r++) for (int c = 0; c < 48; c++) {
@@ -731,7 +731,7 @@ static const std::vector<FieldRange>& field_table()
 			tbl.push_back({ BDEBASE(i,WizardName_0x39f_2BFA_12157) + k,1,strdup(nm),0 });
 		}
 		BDESC(MenuState_0x3DF_2BE4_12221, 1); BDESC(chatLineIndex_0x3E0_2BE4_12222, 1);
-		BDESC(chatState_0x3E1_2BE4_12223, 1);      BDESC(byte_0x3E2_2BE4_12224, 1);
+		BDESC(chatState_0x3E1_2BE4_12223, 1);      BDESC(chatLength_0x3E2_2BE4_12224, 1);
 		BDESC(chatRecipients_0x3E3_2BE4_12225, 1);      BDESC(secretCounter_0x3E4_2BE4_12226, 1);
 		snprintf(nm, sizeof(nm), "array_0x2BDE[%d].stub3[0]", i);
 		tbl.push_back({ BDEBASE(i,stub3),1,strdup(nm),0 });
@@ -742,7 +742,7 @@ static const std::vector<FieldRange>& field_table()
     tbl.push_back({S164BASE(i,f), sz, strdup(nm), 0}); \
 } while(0)
 		S164SC(entityIndex_0x0, 4); S164SC(rollDelta_0x4_4, 2); S164SC(pitchDelta_0x6_6, 2);
-		S164SC(speed_0xc_12, 2); S164SC(word_0xe_14, 2); S164SC(strafeSpeed_0x10_16, 2);
+		S164SC(speed_0xc_12, 2); S164SC(castLock_0xe_14, 2); S164SC(strafeSpeed_0x10_16, 2);
 		S164SC(position_backup_20.x, 2); S164SC(position_backup_20.y, 2);
 		S164SC(nextEntity_0x18_24, 2); S164SC(entityIndex2_0x1A_26, 2);
 		S164SC(moveBoost_0x1E_30, 2); S164SC(yaw_0x1E_30, 2);
@@ -754,49 +754,49 @@ static const std::vector<FieldRange>& field_table()
 		S164SC(hitTimer_0x36_54, 2); S164SC(playerColorIndex_0x38_56, 2); S164SC(CastleEntityIndex_0x3A_58, 2);
 		for (int k = 0; k < 16; k++) {
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.array_0x3C_60[%d]", i, k);
-			tbl.push_back({ S164BASE(i,array_0x3C_60) + k * 2,2,strdup(nm),0 });
+			tbl.push_back({ S164BASE(i,balloons_0x3C_60) + k * 2,2,strdup(nm),0 });
 		}
 		for (int k = 0; k < 103; k++) {
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.array_0x5C_92[%d]", i, k);
-			tbl.push_back({ S164BASE(i,array_0x5C_92) + k * 2,2,strdup(nm),0 });
+			tbl.push_back({ S164BASE(i,castleParts_0x5C_92) + k * 2,2,strdup(nm),0 });
 		}
 		S164SC(castleMaxManaSum_0x12A_298, 4); S164SC(castleManaSum_0x12E_302, 4); S164SC(extraMana_0x13C_316, 4);
 		S164SC(targetDistance_0x142_322, 4); S164SC(mountId_0x146_326, 2); S164SC(word_0x148_328, 2);
 		S164SC(duelLevel_0x14A_330, 2); S164SC(moveSpeed_0x14C_332, 1); S164SC(moveSpeedCounter_0x14D_333, 1);
 		S164SC(mobilizeCounter_0x14E_334, 1); S164SC(mobilizeCounter2_0x150_336, 1);
 		S164SC(maxMana_0x150_336, 4); S164SC(chargeTime_0x154_340, 1);
-		S164SC(roll_0x155_341, 2); S164SC(pitch_0x157_343, 2); S164SC(word_0x159_345, 2);
+		S164SC(roll_0x155_341, 2); S164SC(pitch_0x157_343, 2); S164SC(invulnerableTimer_0x159_345, 2);
 		for (int k = 0; k < 8; k++) {
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.array_0x15B_347[%d]", i, k);
 			tbl.push_back({ S164BASE(i,array_0x15B_347) + k,1,strdup(nm),0 });
 		}
-		S164SC(lifeRegen_0x163_355, 2); S164SC(dword_0x165_357, 4); S164SC(dword_0x169_361, 4);
-		S164SC(dword_0x16D_365, 4); S164SC(creaturesKilledPercent_373, 4);
+		S164SC(lifeRegen_0x163_355, 2); S164SC(shotsFired_0x165_357, 4); S164SC(shotsHit_0x169_361, 4);
+		S164SC(startTimer_0x16D_365, 4); S164SC(creaturesKilledPercent_373, 4);
 		S164SC(spellsCollectedPercent_377, 4); S164SC(hitAccuracyPercent_381, 4);
 		S164SC(manaCollectedPercent_385, 4); S164SC(dword_0x185_389, 4);
 		S164SC(time_393, 4); S164SC(dword_0x18D_397, 4);
 		S164SC(castleDestroyedBlink_0x195_405, 1); S164SC(PlayerHitFrameTime_406, 1); S164SC(castleDamagedBlink_0x197_407, 1);
 		S164SC(screenShake_0x19A_410, 4); S164SC(maxDistance_0x19E_414, 4);
-		S164SC(word_0x1A2_418, 2); S164SC(word_0x1A4_420, 2);
+		S164SC(aiReactionDelay_0x1A2_418, 2); S164SC(word_0x1A4_420, 2);
 		S164SC(xAdd_0x1A6_422, 2); S164SC(yAdd_0x1A8_424, 2); S164SC(zAdd_0x1AA_426, 2);
-		S164SC(str_0x1AC_428.word_0, 2);
+		S164SC(objectiveTargets_0x1AC_428.word_0, 2);
 		for (int k = 0; k < 8; k++) {
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_0x1AC_428.word_2BDE_12658[%d]", i, k);
-			tbl.push_back({ S164BASE(i,str_0x1AC_428.word_2BDE_12658) + k * 2,2,strdup(nm),0 });
+			tbl.push_back({ S164BASE(i,objectiveTargets_0x1AC_428.completedTargets_2BDE_12658) + k * 2,2,strdup(nm),0 });
 		}
-		S164SC(byte_0x1BE_446, 1); S164SC(invisibleTime_0x1BF_447, 1); S164SC(wizardType_0x1C0_448, 1);
+		S164SC(castleBuilding_0x1BE_446, 1); S164SC(invisibleTime_0x1BF_447, 1); S164SC(wizardType_0x1C0_448, 1);
 		S164SC(aiState_0x1C1_449, 1); S164SC(word_0x1C2_450, 2);
 		for (int k = 0; k < 32; k++) {
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.array_0x1FC_508[%d]", i, k);
 			tbl.push_back({ S164BASE(i,aiTargets_0x1FC_508) + k * 2,2,strdup(nm),0 });
 		}
-		S164SC(word_0x242_578, 2); S164SC(word_0x244_580, 2); S164SC(word_0x246_582, 2);
-		S164SC(word_0x248_584, 2); S164SC(lifeScale_0x24A_586, 2); S164SC(word_0x24C_588, 2);
+		S164SC(aiAggression_0x242_578, 2); S164SC(aiPerception_0x244_580, 2); S164SC(aiReflexes_0x246_582, 2);
+		S164SC(attackedTimer_0x248_584, 2); S164SC(lifeScale_0x24A_586, 2); S164SC(word_0x24C_588, 2);
 		for (int k = 0; k < 19; k++) {
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.array_0x24E_590[%d]", i, k);
-			tbl.push_back({ S164BASE(i,array_0x24E_590) + k,1,strdup(nm),0 });
+			tbl.push_back({ S164BASE(i,castleSpells_0x24E_590) + k,1,strdup(nm),0 });
 		}
-		S164SC(byte_0x261_609, 1); S164SC(waterCounter_0x262_610, 1);
+		S164SC(nearCeiling_0x261_609, 1); S164SC(waterCounter_0x262_610, 1);
 
 		// str_611
 #define S611SC(f,sz) do { \
@@ -811,17 +811,17 @@ static const std::vector<FieldRange>& field_table()
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x333_819x.SpellEnabled[%d]", i, k);
 			tbl.push_back({ S611BASE(i,SpellsEnabled_0x333_819x) + k * 2,2,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x367_871x.SpellEnabled[%d]", i, k);
-			tbl.push_back({ S611BASE(i,array_0x367_871x) + k * 2,2,strdup(nm),0 });
+			tbl.push_back({ S611BASE(i,spellCooldowns_0x367_871x) + k * 2,2,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x39B_923x.SpellIndex[%d]", i, k);
 			tbl.push_back({ S611BASE(i,SpellIndexes_0x39B_923x) + k,1,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x3B5_949x.SpellIndex[%d]", i, k);
-			tbl.push_back({ S611BASE(i,array_0x3B5_949x) + k,1,strdup(nm),0 });
+			tbl.push_back({ S611BASE(i,spellSlotTypes_0x3B5_949x) + k,1,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x3CF_975x.SpellIndex[%d]", i, k);
-			tbl.push_back({ S611BASE(i,array_0x3CF_975x) + k,1,strdup(nm),0 });
+			tbl.push_back({ S611BASE(i,blockedSpells_0x3CF_975x) + k,1,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x.SpellIndex[%d]", i, k);
-			tbl.push_back({ S611BASE(i,array_0x3E9_1001x) + k,1,strdup(nm),0 });
+			tbl.push_back({ S611BASE(i,availableSpells_0x3E9_1001x) + k,1,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x403_1027x.SpellIndex[%d]", i, k);
-			tbl.push_back({ S611BASE(i,array_0x403_1027x) + k,1,strdup(nm),0 });
+			tbl.push_back({ S611BASE(i,pickedUpSpells_0x403_1027x) + k,1,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x41D_1053z.SpellIndex[%d]", i, k);
 			tbl.push_back({ S611BASE(i,SpellLevels_0x41D_1053z) + k,1,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x437_1079x.SpellIndex[%d]", i, k);
@@ -832,12 +832,12 @@ static const std::vector<FieldRange>& field_table()
 		S611SC(selectSpellType_0x457_1111, 1); S611SC(spellIndex_0x458_1112, 1);
 		S611SC(subSpellIndex_0x459_1113, 1); S611SC(byte_0x45A_1114, 1); S611SC(byte_0x45B_1115, 1);
 #undef S611SC
-		S164SC(str_611_byte_0x45C_1116, 1); S164SC(str_611_byte_0x45D_1117, 1);
-		S164SC(str_611_byte_0x45E_1118, 1); S164SC(str_611_byte_0x45E_1119, 1);
+		S164SC(aiCombatMode_0x45C_1116, 1); S164SC(aiCombatCounter_0x45D_1117, 1);
+		S164SC(aiSteerCounter_0x45E_1118, 1); S164SC(aiLavaDirection_0x45E_1119, 1);
 #undef S164SC
 
-		BDESC(byte_0x846_2BDE, 1); BDESC(byte_0x847_2BDE, 1);
-		BDESC(word_0x848_2BDE, 2); BDESC(word_0x84A_2BDE, 2);
+		BDESC(rollState_0x846_2BDE, 1); BDESC(rollDirection_0x847_2BDE, 1);
+		BDESC(rollAngle_0x848_2BDE, 2); BDESC(rollSpeed_0x84A_2BDE, 2);
 #undef BDESC
 	}
 
@@ -845,7 +845,7 @@ static const std::vector<FieldRange>& field_table()
 	for (int i = 0; i < 8; i++) {
 		char nm[128];
 #define PISC(f,sz) do { snprintf(nm,sizeof(nm),"playerInputs_0x6E3E[%d]." #f,i); tbl.push_back({PIBASE(i,f),sz,strdup(nm),0}); } while(0)
-		PISC(PlayerAction_byte0, 1); PISC(str_0x6E3E_byte1, 1); PISC(str_0x6E3E_byte2, 1);
+		PISC(PlayerAction_byte0, 1); PISC(param1_0x6E3E_byte1, 1); PISC(param2_0x6E3E_byte2, 1);
 		PISC(roll, 1); PISC(pitch, 1); PISC(entityIndex_0x6E3E_byte5, 1);
 		PISC(nextEntity_0x6E3E_word6, 2); PISC(entityIndex2_0x6E3E_word8, 2);
 #undef PISC
@@ -916,7 +916,7 @@ static const std::vector<FieldRange>& field_table()
 		XSC(type_0x30311, 2); XSC(subtype_0x30311, 2);
 		snprintf(nm, sizeof(nm), "str_2FECE.array_0x30311[%d].axis2d_4.x", k); tbl.push_back({ ENT2BASE(k,axis2d_4) + 0,2,strdup(nm),0 });
 		snprintf(nm, sizeof(nm), "str_2FECE.array_0x30311[%d].axis2d_4.y", k); tbl.push_back({ ENT2BASE(k,axis2d_4) + 2,2,strdup(nm),0 });
-		XSC(DisId, 2); XSC(word_10, 2); XSC(stageTag_12, 2); XSC(par1_14, 2); XSC(par2_16, 2); XSC(par3_18, 2);
+		XSC(DisId, 2); XSC(par0_10, 2); XSC(stageTag_12, 2); XSC(par1_14, 2); XSC(par2_16, 2); XSC(par3_18, 2);
 #undef XSC
 	}
 
@@ -949,12 +949,12 @@ static const std::vector<FieldRange>& field_table()
 		char nm[128];
 		snprintf(nm, sizeof(nm), "str_2FECE.array_0x3647A[%d].index_0x3647A_0", k);  tbl.push_back({ SVBASE(k,index_0x3647A_0),1,strdup(nm),0 });
 		snprintf(nm, sizeof(nm), "str_2FECE.array_0x3647A[%d].stage_0x3647A_1", k);  tbl.push_back({ SVBASE(k,stage_0x3647A_1),1,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "str_2FECE.array_0x3647A[%d].str_0x3647A_2.word", k); tbl.push_back({ SVBASE(k,str_0x3647A_2),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "str_2FECE.array_0x3647A[%d].str_0x3647A_2.word", k); tbl.push_back({ SVBASE(k,entityIndex_0x3647A_2),2,strdup(nm),0 });
 		snprintf(nm, sizeof(nm), "str_2FECE.array_0x3647A[%d].str_0x3647C_4.dword", k); tbl.push_back({ SVBASE(k,target_0x3647C_4),4,strdup(nm),0 });
 	}
 
 	// ── str_0x364D2 ─────────────────────────────────────────────────────────
-	tbl.push_back({ BASE(str_0x364D2) + offsetof(type_str_0x364D2,dword_0x364D2),4,"str_0x364D2.dword_0x364D2",0 });
+	tbl.push_back({ BASE(str_0x364D2) + offsetof(type_str_0x364D2,livingCreatures_0x364D2),4,"str_0x364D2.dword_0x364D2",0 });
 	for (int i = 0; i < 26; i++) {
 		char nm[64]; snprintf(nm, sizeof(nm), "str_0x364D2.dword_0x364D6[%d]", i);
 		tbl.push_back({ BASE(str_0x364D2) + offsetof(type_str_0x364D2,spawnCounts_0x364D6) + i * 4,4,strdup(nm),0 });

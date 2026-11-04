@@ -279,16 +279,16 @@ bool LoadLevel_555D0(uint8_t fileindex, int levelindex, bool loadRegressionTest)
 	{
 		tempGr = D41A0_0.m_GameSettings.m_Graphics;
 		tempDisp = D41A0_0.m_GameSettings.m_Display;
-		temp0x2192 = D41A0_0.m_GameSettings.str_0x2192;
-		temp0x2196 = D41A0_0.m_GameSettings.str_0x2196;
+		temp0x2192 = D41A0_0.m_GameSettings.graphics_0x2192;
+		temp0x2196 = D41A0_0.m_GameSettings.display_0x2196;
 		temp0x219A = D41A0_0.dword_0x219A;
 		temp0x219E = D41A0_0.dword_0x219E;
 		temp0x21A2 = D41A0_0.dword_0x21A2;
 		temp0x21A6 = D41A0_0.dword_0x21A6;
-		temp0x21AA = D41A0_0.str_0x21AA;
-		temp0x21AE = D41A0_0.str_0x21AE;
-		temp0x21B2 = D41A0_0.str_0x21B2;
-		temp0x21B6 = D41A0_0.str_0x21B6;
+		temp0x21AA = D41A0_0.visualSettings_0x21AA;
+		temp0x21AE = D41A0_0.miscSettings_0x21AE;
+		temp0x21B2 = D41A0_0.screenSettings_0x21B2;
+		temp0x21B6 = D41A0_0.detailSettings_0x21B6;
 		readSuccess = DataFileIO::TestExistingSaveFile_55750(fileindex, levelindex, loadRegressionTest);
 		//adress  23662a
 		if (readSuccess)
@@ -316,16 +316,16 @@ bool LoadLevel_555D0(uint8_t fileindex, int levelindex, bool loadRegressionTest)
 		}
 		D41A0_0.m_GameSettings.m_Graphics = tempGr;
 		D41A0_0.m_GameSettings.m_Display = tempDisp;
-		D41A0_0.m_GameSettings.str_0x2192 = temp0x2192;
-		D41A0_0.m_GameSettings.str_0x2196 = temp0x2196;
+		D41A0_0.m_GameSettings.graphics_0x2192 = temp0x2192;
+		D41A0_0.m_GameSettings.display_0x2196 = temp0x2196;
 		D41A0_0.dword_0x219A = temp0x219A;
 		D41A0_0.dword_0x219E = temp0x219E;
 		D41A0_0.dword_0x21A2 = temp0x21A2;
 		D41A0_0.dword_0x21A6 = temp0x21A6;
-		D41A0_0.str_0x21AA = temp0x21AA;
-		D41A0_0.str_0x21AE = temp0x21AE;
-		D41A0_0.str_0x21B2 = temp0x21B2;
-		D41A0_0.str_0x21B6 = temp0x21B6;
+		D41A0_0.visualSettings_0x21AA = temp0x21AA;
+		D41A0_0.miscSettings_0x21AE = temp0x21AE;
+		D41A0_0.screenSettings_0x21B2 = temp0x21B2;
+		D41A0_0.detailSettings_0x21B6 = temp0x21B6;
 	}
 	return readSuccess;
 }
@@ -500,10 +500,10 @@ bool LoadLevelFromBuffer(const std::vector<uint8_t>& save)
 	D41A0_0.dword_0x219E = live->dword_0x219E;
 	D41A0_0.dword_0x21A2 = live->dword_0x21A2;
 	D41A0_0.dword_0x21A6 = live->dword_0x21A6;
-	D41A0_0.str_0x21AA = live->str_0x21AA;
-	D41A0_0.str_0x21AE = live->str_0x21AE;
-	D41A0_0.str_0x21B2 = live->str_0x21B2;
-	D41A0_0.str_0x21B6 = live->str_0x21B6;
+	D41A0_0.visualSettings_0x21AA = live->visualSettings_0x21AA;
+	D41A0_0.miscSettings_0x21AE = live->miscSettings_0x21AE;
+	D41A0_0.screenSettings_0x21B2 = live->screenSettings_0x21B2;
+	D41A0_0.detailSettings_0x21B6 = live->detailSettings_0x21B6;
 	return true;
 }
 
@@ -1341,10 +1341,10 @@ void FixPointersAfterLoad_57680()//238680
 //----- (000549A0) --------------------------------------------------------
 void CopyPlayerSpellData_549A0(type_str_611* a1x, type_str_611* a2x)//2359a0
 {
-	a1x->array_0x3E9_1001x = a2x->array_0x3E9_1001x;
+	a1x->availableSpells_0x3E9_1001x = a2x->availableSpells_0x3E9_1001x;
 	a1x->SpellExperience_0x263_611x = a2x->SpellExperience_0x263_611x;
 	a1x->SpellLevels_0x41D_1053z = a2x->SpellLevels_0x41D_1053z;
-	a1x->array_0x3B5_949x = a2x->array_0x3B5_949x;
+	a1x->spellSlotTypes_0x3B5_949x = a2x->spellSlotTypes_0x3B5_949x;
 	a1x->selectedSubSpells_0x437_1079x = a2x->selectedSubSpells_0x437_1079x;
 }
 
@@ -1387,7 +1387,7 @@ void CreatePlayerSpellEntities_55AB0(type_str_0x2BDE* playStr)//236ab0
 {
 	for (int i = 0; i < 26; i++)
 	{
-		if (playStr->playerData_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x.SpellIndex[spellIndex_D94FF[i]] || playStr->playerData_0x3E6_2BE4_12228.str_611.array_0x403_1027x.SpellIndex[spellIndex_D94FF[i]])
+		if (playStr->playerData_0x3E6_2BE4_12228.str_611.availableSpells_0x3E9_1001x.SpellIndex[spellIndex_D94FF[i]] || playStr->playerData_0x3E6_2BE4_12228.str_611.pickedUpSpells_0x403_1027x.SpellIndex[spellIndex_D94FF[i]])
 		{
 			if (!playStr->playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[i]])
 			{
@@ -1597,25 +1597,25 @@ void SetSpell_6D5E0(type_entity_0x6E8E* entity, int spellId)//24e5e0
 	// reads before byte_DA818 (a pointer of another table); 0 here and in DOSBox (24E614)
 	if (locSpellId < 0)
 		locSpellId = 0;
-	if (entity->word_0x2E_46)
+	if (entity->stage_0x2E_46)
 	{
-		entity->word_0x2C_44 = locSpellId + 1;
+		entity->param2_0x2C_44 = locSpellId + 1;
 	}
 	else
 	{
-		entity->byte_0x46_70 = locSpellId;
+		entity->levelPar3_0x46_70 = locSpellId;
 		entity->subSpellIndex_0x2A_42 = SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].subspell[locSpellId].subSpellIndex_2;
-		entity->word_0x30_48 = SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].subspell[locSpellId].word_0x18;
-		entity->byte_0x3B_59 = (SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].subspell[locSpellId].fontType_0x1B & 1) == 0;
-		entity->byte_0x3C_60 = 0;
+		entity->maxStage_0x30_48 = SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].subspell[locSpellId].maxStage_0x18;
+		entity->poseIndex_0x3B_59 = (SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].subspell[locSpellId].fontType_0x1B & 1) == 0;
+		entity->counter_0x3C_60 = 0;
 		entity->fontTypeIndex_0x3D_61 = 0;
 		//fix
 		entity->manaRegen_0x88_136 = SPELLS_BEGIN_BUFFER_str[entity->model_0x40_64].subspell[locSpellId].maxManaLimit_A;
 		//fix
 		int mana = GetSpellManaCost_6D710(Entities_EA3E4[entity->parentId_0x28_40], entity->model_0x40_64, locSpellId);
 		entity->maxMana_0x8C_140 = mana;
-		if (entity->word_0x30_48)
-			mana /= entity->word_0x30_48;
+		if (entity->maxStage_0x30_48)
+			mana /= entity->maxStage_0x30_48;
 		entity->mana_0x90_144 = mana;
 		if (x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & 0x20)
 		{
@@ -1648,9 +1648,9 @@ void BuildLevelSpriteList_71890()//252890
 	memset(m_LevelSpriteList_F5340, 0, 504);
     while (spriteDefsTable_D951C[v0y].speed_6 || spriteDefsTable_D951C[v0y].worldSize_8)
     {
-        if (spriteDefsTable_D951C[v0y].byte_11 == -1)
+        if (spriteDefsTable_D951C[v0y].levelSpriteGroup_11 == -1)
         {
-            m_LevelSpriteList_F5340[spriteDefsTable_D951C[v0y].textureIdx_0] = spriteDefsTable_D951C[v0y].byte_11;
+            m_LevelSpriteList_F5340[spriteDefsTable_D951C[v0y].textureIdx_0] = spriteDefsTable_D951C[v0y].levelSpriteGroup_11;
         }
         v0y++;
     }
@@ -1728,7 +1728,7 @@ type_E9C08* AllocateAnimations_72120(unsigned __int16 a1)//253120
 			//*(x_DWORD *)(v2x->dword_2 + 4 * v5 + 4) = 0;
 			//*(x_DWORD *)(v2x->dword_2 + 4 * v5) = 0;
 			v2x->animations_2[v1].Sprite_4 = 0;
-			v2x->animations_2[v1].dword_0 = 0;
+			v2x->animations_2[v1].active_0 = 0;
 		}
 	}
 	else if (v2x)
@@ -1811,13 +1811,13 @@ int GetSpellManaCost_6D710(type_entity_0x6E8E* event, uint8 spellIndex, uint8 su
 		type_entity_0x6E8E* entity2 = Entities_EA3E4[event->playerData_0xA4_164x->CastleEntityIndex_0x3A_58];
 		if (entity2 <= Entities_EA3E4[0])
 		{
-			if (event->playerData_0xA4_164x->byte_0x1BE_446)
+			if (event->playerData_0xA4_164x->castleBuilding_0x1BE_446)
 				add3000 = 3000;
 			if (add3000)
 				result += 3000;
 			return result;
 		}
-		switch (entity2->dword_0x10_16)
+		switch (entity2->param_0x10_16)
 		{
 		case 0:
 			result = 1000;
@@ -1844,7 +1844,7 @@ int GetSpellManaCost_6D710(type_entity_0x6E8E* event, uint8 spellIndex, uint8 su
 			result = 300000000;
 			break;
 		}
-		if (entity2->dword_0x10_16 >= 7)
+		if (entity2->param_0x10_16 >= 7)
 		{
 			if (add3000)
 				result += 3000;
@@ -1860,13 +1860,13 @@ int GetSpellManaCost_6D710(type_entity_0x6E8E* event, uint8 spellIndex, uint8 su
 				result = ((384 * result) - (my_sign32(384 * result) << 8) + my_sign32(384 * result)) >> 8;
 				break;
 		}
-		if (entity2->dword_0x10_16)
+		if (entity2->param_0x10_16)
 		{
 			if (add3000)
 				result += 3000;
 			return result;
 		}
-		if (event->playerData_0xA4_164x->byte_0x1BE_446)
+		if (event->playerData_0xA4_164x->castleBuilding_0x1BE_446)
 			add3000 = true;
 		if (add3000)
 			result += 3000;

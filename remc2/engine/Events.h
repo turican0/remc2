@@ -12,7 +12,7 @@ typedef struct {//lenght 6
 sub2x_BYTE_E7EE0x;
 typedef struct {//lenght 24
 	int32_t dword_0;
-	int32_t dword_4;
+	int32_t lastBitmapIndex_4;
 	int32_t bitmapIndex_8;
 	int32_t frameCounter_12;
 	sub2x_BYTE_E7EE0x* bitmapsStr_16;

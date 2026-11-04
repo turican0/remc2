@@ -928,7 +928,7 @@ void StartMusic_8E160(int track, int volume, bool animation)//26f160
 			songCurrentlyPlaying_E3802 = 0;
 		}
 		//track_10[] begins with track 1 (LoadMusicTrack), the original reads E3808 + track * 32 + 0x12
-		AilInitSequence_95C00(m_hMusicSequence_180C78, header->str_8.track_10[awe32Music ? (track > 0 ? track - 1 : 0) : track].xmiData_0, 0, track);
+		AilInitSequence_95C00(m_hMusicSequence_180C78, header->trackTable_8.track_10[awe32Music ? (track > 0 ? track - 1 : 0) : track].xmiData_0, 0, track);
 		AilRegisterTriggerCallback_97670(m_hMusicSequence_180C78, reinterpret_cast<void*>(MusicTriggerCallback_8E0D0));
 
 		if (awe32Music)
@@ -2444,7 +2444,7 @@ void LoadSoundDataFromBuffer_844A0(uint16_t count)//2654a0
 			soundIndex_E37A0->str_8.wavs_10[index].wavData_18 = reinterpret_cast<uint32_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_18) + soundBuffer1_E37A8;
 #endif //x32_BIT_ENVIRONMENT
 #ifdef x64_BIT_ENVIRONMENT
-			soundIndex_E37A0->str_8.wavs_10[index].wavData_18 = reinterpret_cast<uint64_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_18) + soundBuffer1_E37A8;
+			soundIndex_E37A0->soundBank_8.wavs_10[index].wavData_18 = reinterpret_cast<uint64_t>(soundIndex_E37A0->soundBank_8.wavs_10[index].wavData_18) + soundBuffer1_E37A8;
 #endif //x64_BIT_ENVIRONMENT
 		}
 	}
@@ -2527,29 +2527,29 @@ bool ReadAndDecompressSound(FILE* file, uint8_t soundIndex2)//2654f0
 	soundIndex_E37A0->byte_7 = shadow_str_E37A0_sound_buffer2->byte_7;
 
 	// Add null wavs in first index
-	soundIndex_E37A0->str_8.wavs_10[0].wavData_18 = NULL;
+	soundIndex_E37A0->soundBank_8.wavs_10[0].wavData_18 = NULL;
 	for (int j = 0; j < 4; j++)
-		soundIndex_E37A0->str_8.wavs_10[0].stub_22[j] = 0;
+		soundIndex_E37A0->soundBank_8.wavs_10[0].stub_22[j] = 0;
 
-	soundIndex_E37A0->str_8.wavs_10[0].wavSize_26 = 0;
-	soundIndex_E37A0->str_8.wavs_10[0].word_30 = 0;
+	soundIndex_E37A0->soundBank_8.wavs_10[0].wavSize_26 = 0;
+	soundIndex_E37A0->soundBank_8.wavs_10[0].word_30 = 0;
 
 	for (int j = 0; j < 18; j++)
-		soundIndex_E37A0->str_8.wavs_10[0].filename_0[j] = 0;
+		soundIndex_E37A0->soundBank_8.wavs_10[0].filename_0[j] = 0;
 
 	for (int i = 0; i < 95; i++)
 	{
-		soundIndex_E37A0->str_8.wavs_10[i+1].wavData_18 = (uint8_t*)shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].wavData_18;
+		soundIndex_E37A0->soundBank_8.wavs_10[i+1].wavData_18 = (uint8_t*)shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].wavData_18;
 		for (int j = 0; j < 4; j++)
 		{
-			soundIndex_E37A0->str_8.wavs_10[i+1].stub_22[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].stub_22[j];
+			soundIndex_E37A0->soundBank_8.wavs_10[i+1].stub_22[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].stub_22[j];
 		}
 
-		soundIndex_E37A0->str_8.wavs_10[i+1].wavSize_26 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].wavSize_26;
-		soundIndex_E37A0->str_8.wavs_10[i+1].word_30 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].word_30;
+		soundIndex_E37A0->soundBank_8.wavs_10[i+1].wavSize_26 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].wavSize_26;
+		soundIndex_E37A0->soundBank_8.wavs_10[i+1].word_30 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].word_30;
 		for (int j = 0; j < 18; j++)
 		{
-			soundIndex_E37A0->str_8.wavs_10[i+1].filename_0[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].filename_0[j];
+			soundIndex_E37A0->soundBank_8.wavs_10[i+1].filename_0[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].filename_0[j];
 		}
 	}
 
@@ -2814,7 +2814,7 @@ int PlayNextSampleCallback_9EE70()
 	{
 		AilInitSample_93830(mainSample_181E10);
 		AilRegisterEosCallback_95140(mainSample_181E10, PlayNextSampleCallback_9EE70);
-		AilSetSampleFile_938C0(mainSample_181E10, soundIndex_E37A0->str_8.wavs_10[AilSampleUserData_95480(mainSample_181E10, x_DWORD_E3E40)].wavData_18, 1);
+		AilSetSampleFile_938C0(mainSample_181E10, soundIndex_E37A0->soundBank_8.wavs_10[AilSampleUserData_95480(mainSample_181E10, x_DWORD_E3E40)].wavData_18, 1);
 		x_DWORD_E3E40++;
 		AilStartSample_93B50(mainSample_181E10);
 	}
@@ -5668,7 +5668,7 @@ void GetMusicSequenceCount()//26fc90 // set index
 		for (m_iNumberOfTracks = 0; m_iNumberOfTracks < countOfMusicTracks_E380C; m_iNumberOfTracks++)
 		{
 			uint8_t* zero_pointer = 0;
-			musicHeader_E3808->str_8.track_10[m_iNumberOfTracks].xmiData_0 = &musicData_E3810[musicHeader_E3808->str_8.track_10[m_iNumberOfTracks].xmiData_0 - zero_pointer];
+			musicHeader_E3808->trackTable_8.track_10[m_iNumberOfTracks].xmiData_0 = &musicData_E3810[musicHeader_E3808->trackTable_8.track_10[m_iNumberOfTracks].xmiData_0 - zero_pointer];
 		}
 	}
 }
@@ -5760,25 +5760,25 @@ bool LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	musicHeader_E3808->byte_6 = shadow_str_E3808_music_header->byte_6;
 	musicHeader_E3808->byte_7 = shadow_str_E3808_music_header->byte_7;
 	for (int i = 0; i < 10; i++)
-		musicHeader_E3808->str_8.stub[i] = shadow_str_E3808_music_header->str_8.stub[i];
+		musicHeader_E3808->trackTable_8.stub[i] = shadow_str_E3808_music_header->str_8.stub[i];
 	for (int i = 0; i < 6; i++)
 	{
-		musicHeader_E3808->str_8.track_10[i].xmiData_0 = shadow_str_E3808_music_header->str_8.track_10[i].xmiData_0 + Zero_pointer;
+		musicHeader_E3808->trackTable_8.track_10[i].xmiData_0 = shadow_str_E3808_music_header->str_8.track_10[i].xmiData_0 + Zero_pointer;
 		for (int j = 0; j < 4; j++)
-			musicHeader_E3808->str_8.track_10[i].stub_4[j] = shadow_str_E3808_music_header->str_8.track_10[i].stub_4[j];
-		musicHeader_E3808->str_8.track_10[i].xmiSize_8 = shadow_str_E3808_music_header->str_8.track_10[i].xmiSize_8;
-		musicHeader_E3808->str_8.track_10[i].word_12 = shadow_str_E3808_music_header->str_8.track_10[i].word_12;
+			musicHeader_E3808->trackTable_8.track_10[i].stub_4[j] = shadow_str_E3808_music_header->str_8.track_10[i].stub_4[j];
+		musicHeader_E3808->trackTable_8.track_10[i].xmiSize_8 = shadow_str_E3808_music_header->str_8.track_10[i].xmiSize_8;
+		musicHeader_E3808->trackTable_8.track_10[i].word_12 = shadow_str_E3808_music_header->str_8.track_10[i].word_12;
 		for (int j = 0; j < 18; j++)
-			musicHeader_E3808->str_8.track_10[i].filename_14[j] = shadow_str_E3808_music_header->str_8.track_10[i].filename_14[j];
+			musicHeader_E3808->trackTable_8.track_10[i].filename_14[j] = shadow_str_E3808_music_header->str_8.track_10[i].filename_14[j];
 	}
 	for (int i = 0; i < 14; i++)
-		musicHeader_E3808->str_8.stubb[i] = shadow_str_E3808_music_header->str_8.stubb[i];
+		musicHeader_E3808->trackTable_8.stubb[i] = shadow_str_E3808_music_header->str_8.stubb[i];
 	FreeMem_83E80((uint8_t*)shadow_str_E3808_music_header);
 	//64x fix
 	GetMusicSequenceCount();
 
 	for (int i = 1; i <= m_iNumberOfTracks; i++)//2b4804
-		AilInitSequence_95C00(m_hMusicSequence_180C78, musicHeader_E3808->str_8.track_10[i-1].xmiData_0, 0, i);
+		AilInitSequence_95C00(m_hMusicSequence_180C78, musicHeader_E3808->trackTable_8.track_10[i-1].xmiData_0, 0, i);
 	musicAble_E37FC = true;
 	return true;
 }
@@ -5804,7 +5804,7 @@ void PlaySample_8F100(uint32_t flags, int16_t wavIndex, int volume, int volumePa
 	if (!soundAble_E3798
 		|| !soundActive_E3799
 		|| wavIndex > (signed int)MaxLoadedWavIndex_180B50
-		|| !_stricmp((const char*)&soundIndex_E37A0->str_8.wavs_10[wavIndex].filename_0, "null.wav"))
+		|| !_stricmp((const char*)&soundIndex_E37A0->soundBank_8.wavs_10[wavIndex].filename_0, "null.wav"))
 	{
 		return;
 	}
@@ -5890,12 +5890,12 @@ void PlaySample_8F100(uint32_t flags, int16_t wavIndex, int volume, int volumePa
 		//Initialize new from wavs
 		AilInitSample_93830(*ptrExistingStoppedSample);
 		if (debug_first_sound) {
-			uint8_t* debug_sound_buff = soundIndex_E37A0->str_8.wavs_10[wavIndex].wavData_18;
+			uint8_t* debug_sound_buff = soundIndex_E37A0->soundBank_8.wavs_10[wavIndex].wavData_18;
 			Logger->trace("PlaySample_8F100:buff:");
 			for (int i = 0; i < 100; i++)
 				Logger->trace("{}", debug_sound_buff[i]);
 		}
-		AilSetSampleFile_938C0(*ptrExistingStoppedSample, soundIndex_E37A0->str_8.wavs_10[wavIndex].wavData_18, 1);
+		AilSetSampleFile_938C0(*ptrExistingStoppedSample, soundIndex_E37A0->soundBank_8.wavs_10[wavIndex].wavData_18, 1);
 	}
 	AilSetSampleVolume_93E30(*ptrExistingStoppedSample, volume);
 	AilSetSampleVolumePan_93ED0(*ptrExistingStoppedSample, volumePan);
@@ -6650,17 +6650,17 @@ void ChangeSoundLevel_19CA0(uint8_t option)//1faca0
 	{
 		if (soundAble_E3798)
 		{
-			x_D41A0_BYTEARRAY_4_struct.byte_38591 = option;
+			x_D41A0_BYTEARRAY_4_struct.volumeKeyHeld_38591 = option;
 			soundActive_E3799 = true;
 		}
 	}
 	else if (option == 2 && musicAble_E37FC)
 	{
-		x_D41A0_BYTEARRAY_4_struct.byte_38591 = 2;
+		x_D41A0_BYTEARRAY_4_struct.volumeKeyHeld_38591 = 2;
 		musicActive_E37FD = true;
 		StartMusic_8E160(D41A0_0.maptypeMusic_0x235, 0x7Fu);
 	}
-	if (x_D41A0_BYTEARRAY_4_struct.byte_38591)
+	if (x_D41A0_BYTEARRAY_4_struct.volumeKeyHeld_38591)
 	{
 		D41A0_0.objectiveBoxCounter_0x36E04 = 0;
 		x_D41A0_BYTEARRAY_4_struct.setting_38402 = 1;

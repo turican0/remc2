@@ -53,7 +53,7 @@ typedef struct {//lenght 3100
 	int8_t byte_5;
 	int8_t byte_6;
 	int8_t byte_7;
-	sub1type_E37A0_sound_buffer2 str_8;//2072 lenght
+	sub1type_E37A0_sound_buffer2 soundBank_8;//2072 lenght
 }
 type_E37A0_sound_buffer2;
 
@@ -122,7 +122,7 @@ typedef struct {//lenght 224
 	int8_t byte_5;
 	int8_t byte_6;
 	int8_t byte_7;
-	sub1type_E3808_music_header str_8;//216 lenght
+	sub1type_E3808_music_header trackTable_8;//216 lenght
 }
 type_E3808_music_header;
 /*

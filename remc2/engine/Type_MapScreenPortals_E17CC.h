@@ -16,7 +16,7 @@ typedef struct {//lenght 22
 	int16_t portalPosY_14; //Y
 	int16_t spriteIndex_16;
 	int8_t activated_18;//2-hidden 1-activated
-	int8_t byte_19;
+	int8_t state_19;
 	int16_t word_20;
 }Type_MapScreenPortals_E17CC;
 #pragma pack(pop)

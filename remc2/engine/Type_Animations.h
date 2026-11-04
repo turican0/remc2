@@ -8,7 +8,7 @@
 
 #pragma pack (push,1)
 typedef struct {//lenght 28
-	int32_t dword_0;
+	int32_t active_0;
 	Type_Sprite* Sprite_4;
 	int32_t frameOffset_8;
 	int16_t word_12;

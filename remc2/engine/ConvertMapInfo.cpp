@@ -5,7 +5,7 @@ void DecompressLevel_2FECE(Type_CompressedLevel_2FECE* from, Type_Level_2FECE* t
 	to->levelType_0x2FED2 = from->byte_0x2FED2;
 	to->basicHeight_0x2FED3 = from->byte_0x2FED3;
 	to->MapType = (from->MapType == 2) ? MapType_t::Cave : (from->MapType == 1) ? MapType_t::Night : MapType_t::Day;
-	to->word_0x2FED5 = from->word_0x2FED5;
+	to->manaGoalPercent_0x2FED5 = from->word_0x2FED5;
 	to->numberOfPlayers_0x2FED7 = from->word_0x2FED7;
 	for (int i = 0; i < 8; i++)to->player_0x2FED9[i] = from->array_0x2FED9[i];
 	for (int i = 0; i < 4; i++)to->stubb[i] = from->stubb[i];
@@ -40,7 +40,7 @@ void DecompressLevel_2FECE(Type_CompressedLevel_2FECE* from, Type_Level_2FECE* t
 	{
 		to->StageVars_0x3647A[i].index_0x3647A_0 = from->array_0x3647A[i].str_0x3647A_byte_0;
 		to->StageVars_0x3647A[i].stage_0x3647A_1 = from->array_0x3647A[i].str_0x3647A_byte_1;
-		to->StageVars_0x3647A[i].str_0x3647A_2 = from->array_0x3647A[i].str_0x3647A_2;
+		to->StageVars_0x3647A[i].entityIndex_0x3647A_2 = from->array_0x3647A[i].str_0x3647A_2;
 		to->StageVars_0x3647A[i].target_0x3647C_4.axis = from->array_0x3647A[i].str_0x3647C_4.axis;
 	}
 }

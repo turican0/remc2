@@ -337,7 +337,7 @@ void FreeTmapCacheEntry_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28
 		v3x = &a1y->entries_8[a2x->Index];
 		if (v3x->size_4)
 		{
-			v4 = v3x->word_8;
+			v4 = v3x->slotIndex_8;
 			v5 = v3x->size_4 + a1y->freeSize_4;
 			v6x = a1y->entries_8;
 			a1y->freeSize_4 = v5;
@@ -349,7 +349,7 @@ void FreeTmapCacheEntry_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28
 				if (v4 >= a1y->usedCount_20)
 					break;
 				a1y->entryPtrs_12x[v4 - 1] = a1y->entryPtrs_12x[v4];
-				a1y->entryPtrs_12x[v4]->word_8 = v4 - 1;
+				a1y->entryPtrs_12x[v4]->slotIndex_8 = v4 - 1;
 				a1y->entryPtrs_12x[v4]->partstr_0 = i;
 				//qmemcpy(i, a1y->dword_12x[v4], a1y->dword_12x[v4]->dword_4);
 
@@ -603,7 +603,7 @@ subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, u
 			a1y->entries_8[idx].partstr_0 = (Type_Sprite*)(a1y->buffer_16x + (a1y->capacity_0 - a1y->freeSize_4));
 			a1y->entries_8[idx].tmapIndex_12 = a3;
 			a1y->freeSize_4 -= a2;
-			a1y->entries_8[idx].word_8 = a1y->usedCount_20;
+			a1y->entries_8[idx].slotIndex_8 = a1y->usedCount_20;
 			//*(x_DWORD*)(a1y->dword_12x + (unsigned __int16)(a1y->word_20)++) = (uint32_t)&a1y->str_8_data[v4];
 			a1y->entryPtrs_12x[a1y->usedCount_20++] = &a1y->entries_8[idx];
 			//allert_error();//for 64x fix
@@ -759,7 +759,7 @@ bool WriteTmapsMeta(const std::string& dataDir, const std::string& outPath)
 
 static int PackedTmap(uint16_t texture_index, uint8_t* texture_buffer)
 {
-	struct Record { int32_t result; uint16_t word_0, width, height, frames; };
+	struct Record { int32_t result; uint16_t flags_0, width, height, frames; };
 	static std::map<std::tuple<int, uint32_t, int32_t>, Record> records;
 	if (records.empty())
 	{
@@ -787,7 +787,7 @@ static int PackedTmap(uint16_t texture_index, uint8_t* texture_buffer)
 	Type_Sprite* sprite = (Type_Sprite*)texture_buffer;
 	if (size >= 6)
 	{
-		sprite->flags_0 = r.word_0;
+		sprite->flags_0 = r.flags_0;
 		sprite->width = r.width;
 		sprite->height = r.height;
 	}
@@ -1074,7 +1074,7 @@ type_animations1* InitTmapAnimation_721C0(type_E9C08* a1x, Type_Sprite** a2x, in
 		v6x = &a1x->animations_2[i];
 		if (v6x->Sprite_4)
 		{
-			if (!v6x->dword_0)
+			if (!v6x->active_0)
 				v4 = i;
 		}
 		else
@@ -1098,7 +1098,7 @@ type_animations1* InitTmapAnimation_721C0(type_E9C08* a1x, Type_Sprite** a2x, in
 	a1x->animations_2[v12].Height_20 = v7x->height;
 	a1x->animations_2[v12].frameOffset_8 = length_v8 + 6;
 	a1x->animations_2[v12].FrameIndex_22 = 1;
-	a1x->animations_2[v12].dword_0 = 1;
+	a1x->animations_2[v12].active_0 = 1;
 	a1x->animations_2[v12].word_24 = v12;
 	a1x->animations_2[v12].spriteIndex_26 = index;
 
@@ -1147,7 +1147,7 @@ void ResetAnimation_72410(type_animations1* animation)
 {
 	if (animation)
 	{
-		animation->dword_0 = 0;
+		animation->active_0 = 0;
 		animation->Sprite_4 = 0;
 	}
 }

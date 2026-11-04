@@ -183,7 +183,7 @@ Type_Sprite;
 typedef struct {//size 14
 	Type_Sprite* partstr_0;//Sprite?
 	int32_t size_4;
-	int16_t word_8;
+	int16_t slotIndex_8;
 	int16_t Index;
 	int16_t tmapIndex_12;
 }
@@ -212,7 +212,7 @@ typedef struct {//size 26
 
 typedef struct {//lenght 14
 	int8_t stuba[4];
-	int32_t dword_4;
+	int32_t totalMana_4;
 	uint32_t dword_8;
 	int8_t stubb[2];
 } type_index_242ar;
@@ -256,7 +256,7 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	uint8_t stubg[3];
 	int8_t spellOnCursor_50;//0x32//x_D41A0_BYTEARRAY_4_struct.byteindex_50
 	uint8_t paletteMod_51;//0x33//x_D41A0_BYTEARRAY_4_struct.byteindex_51
-	uint8_t byteindex_52;//0x34//x_D41A0_BYTEARRAY_4_struct.byteindex_52
+	uint8_t cdFlags_52;//0x34//x_D41A0_BYTEARRAY_4_struct.byteindex_52
 	uint8_t byteindex_53;//0x35//x_D41A0_BYTEARRAY_4_struct.byteindex_53
 	uint8_t stubh[3];
 	char player_name_57ar[32];
@@ -296,19 +296,19 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	//9(0x100)-reflection//10(0x200)-sky//11(0x400)-shadows//12(0x800)-light/13(0x1000)-icons//14(0x2000)-transparency//15(0x4000)-flat	//16(0x8000)-resolution
 	//17(0x10000)-names
 
-	uint8_t byteindex_196;//0xc4//x_D41A0_BYTEARRAY_4_struct.byteindex_196
+	uint8_t lastTurnTime_196;//0xc4//x_D41A0_BYTEARRAY_4_struct.byteindex_196
 	uint8_t stubl[3];
 	uint8_t transfer_rate_dwordindex_200;//0xc8//x_D41A0_BYTEARRAY_4_struct.transfer_rate_dwordindex_200
 	uint8_t stubm[3];
-	uint8_t byteindex_204;//0xCC//x_D41A0_BYTEARRAY_4_struct.byteindex_204
+	uint8_t textState_204;//0xCC//x_D41A0_BYTEARRAY_4_struct.byteindex_204
 	uint8_t pauseToggle_205;//0xCD//x_D41A0_BYTEARRAY_4_struct.byteindex_205
-	uint8_t byteindex_206;//0xce//x_D41A0_BYTEARRAY_4_struct.byteindex_206
+	uint8_t pauseState_206;//0xce//x_D41A0_BYTEARRAY_4_struct.byteindex_206
 	uint8_t byteindex_207;//0xcf//x_D41A0_BYTEARRAY_4_struct.byteindex_207
 	uint8_t saveFileExists_208;//0xd0//x_D41A0_BYTEARRAY_4_struct.byteindex_208
 	uint8_t stubmm[1];
-	uint32_t byteindex_210d;//0xd2//x_D41A0_BYTEARRAY_4_struct.byteindex_210
+	uint32_t textDelay_210d;//0xd2//x_D41A0_BYTEARRAY_4_struct.byteindex_210
 	//uint8_t stubn[3];
-	uint16_t byteindex_214w;//0xd6//x_D41A0_BYTEARRAY_4_struct.byteindex_214
+	uint16_t textLineIndex_214w;//0xd6//x_D41A0_BYTEARRAY_4_struct.byteindex_214
 	//uint8_t stubo[1];
 	uint16_t isNetwork_216w;
 	//uint8_t stubp[1];
@@ -322,7 +322,7 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	uint8_t* pointer_0xE2_heapbuffer_226;//x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226
 	uint32_t dword_0xE6_heapsize_230;//x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230
 	uint8_t stubr[8];
-	type_index_242ar str_index_242ar;//0xf2//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar
+	type_index_242ar manaStats_242ar;//0xf2//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar
 	//uint8_t byteindex_246;//0xf6//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4]
 	//uint8_t byteindex_250;//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[8]
 
@@ -385,11 +385,11 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	type_entity_0x6E8E* projectileList_38531;//0x9683//x_D41A0_BYTEARRAY_4_struct.dword_38531
 	type_entity_0x6E8E* miscList_38535;//x_D41A0_BYTEARRAY_4_struct.dword_38535
 	uint8_t stubv[5];
-	uint8_t byte_38544;//x_D41A0_BYTEARRAY_4_struct.byte_38544
+	uint8_t savedMenuState_38544;//x_D41A0_BYTEARRAY_4_struct.byte_38544
 	uint8_t setting_38545;//0x9691//x_D41A0_BYTEARRAY_4_struct.setting_38545
 	uint8_t SelectedMenuItem_38546;//0x9692//x_D41A0_BYTEARRAY_4_struct.byte_38546
 	uint8_t stubw[44];
-	uint8_t byte_38591;//0x96BF//x_D41A0_BYTEARRAY_4_struct.byte_38591
+	uint8_t volumeKeyHeld_38591;//0x96BF//x_D41A0_BYTEARRAY_4_struct.byte_38591
 
 	//uint32_t dword_616432;
 }type_x_D41A0_BYTEARRAY_4_struct;
@@ -437,10 +437,10 @@ typedef struct {//lenght 30
 	type_entity_0x6E8E* entity_12;//str_E2A74[].dword_12
 	int32_t counter_16;
 	int32_t countdown_20;//str_E2A74[].dword_20
-	int32_t dword_24;//str_E2A74[].dword_24
+	int32_t interval_24;//str_E2A74[].dword_24
 	//int8_t byte_25;
-	int8_t byte_28;
-	int8_t byte_29;
+	int8_t resetStage_28;
+	int8_t stage_29;
 }
 type_str_E2A74;
 
@@ -709,7 +709,7 @@ struct {//0xb0 nebo spis 171(0xab)
 	int8_t stub[4];
 	int32_t randSeed_0x82;//82
 	int16_t Index_0x86;//86
-	int16_t word_0x88;//88
+	int16_t pendingHelpIndex_0x88;//88
 	type_uni_0x8a uni_0x8a;
 	//int32_t dword_0x8a;//8a
 	//int16_t array_0x8e[4];//8e //text lines
@@ -721,15 +721,15 @@ struct {//0xb0 nebo spis 171(0xab)
 	int8_t popupFlags_0x9f;//9f
 	int8_t lineCount_0xa0;//a0
 	int8_t highlightLine_0xa1;//a1
-	int8_t byte_0xa2;//a2
+	int8_t initialized_0xa2;//a2
 	int8_t drawTextType_0xa3;//a3
-	int8_t byte_0xa4;//a4
+	int8_t spellHelpStep_0xa4;//a4
 	int8_t lastSpellIndex_0xa5;//a5
 	int8_t lastSubSpellIndex_0xa6;//a6
 	int8_t showPlayerScores_0xa7;//a7
 	int8_t wizardNumber_0xa8;//a8 - wizard number
-	int8_t byte_0xa9;//a9
-	int8_t byte_0xaa;//aa
+	int8_t keyHelpItem_0xa9;//a9
+	int8_t pauseMenuItem_0xaa;//aa
 	//int8_t stubb[1];
 }
 typedef type_str_unk_1804B0ar;
