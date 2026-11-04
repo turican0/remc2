@@ -35,17 +35,22 @@ set(SOURCE_FILES_ENGINE
     "engine/CommandLineParser.cpp"
     "engine/CommandLineParser.h"
     "engine/Compare.cpp"
-    "engine/Compare.h"
+    "engine/Compare.h"	
     "engine/Events.cpp"
     "engine/Events.h"
-    "engine/Event.h"
-    "engine/EventDispatcher.cpp"
-    "engine/EventDispatcher.h"
+	"shared/EventDispatcher.cpp"
+    "shared/EventDispatcher.h"
+    "shared/Event.h"
+    "shared/EventType.h"
+    "shared/IEvent.h"
+    "shared/ResourceType.h"
     "engine/GameBitmap.cpp"
     "engine/GameBitmap.h"
     "engine/GameBitmapIndexes.h"
     "engine/GameRenderHD.cpp"
     "engine/GameRenderHD.h"
+    "engine/GameRenderHW.cpp"
+    "engine/GameRenderHW.h"
     "engine/GameRenderInterface.h"
     "engine/GameRenderNG.cpp"
     "engine/GameRenderNG.h"
@@ -186,8 +191,32 @@ set(SOURCE_FILES__portability
     "portability/port_outputs.h"
     "portability/port_sdl_sound.cpp"
     "portability/port_sdl_sound.h"
+    "portability/awe32/Awe32Mdi.cpp"
+    "portability/awe32/Awe32Rom.cpp"
+    "portability/awe32/Emu8000.cpp"
+    "portability/awe32/Emu8000Box.cpp"
+    "portability/awe32/I18n.cpp"
+    "portability/awe32/SoundFont.cpp"
+    "portability/awe32/Synth.cpp"
+    "portability/awe32/86box/snd_emu8k.c"
+    "portability/awe32/Awe32Curves.h"
+    "portability/awe32/Awe32Driver.h"
+    "portability/awe32/Awe32InitArrays.h"
+    "portability/awe32/Awe32Mdi.h"
+    "portability/awe32/Awe32Rom.h"
+    "portability/awe32/Emu8000.h"
+    "portability/awe32/Emu8000Box.h"
+    "portability/awe32/Emu8000Effects.h"
+    "portability/awe32/Emu8000Regs.h"
+    "portability/awe32/I18n.h"
+    "portability/awe32/MidiTypes.h"
+    "portability/awe32/SoundFont.h"
+    "portability/awe32/Synth.h"
     "portability/port_sdl_vga_mouse.cpp"
     "portability/port_sdl_vga_mouse.h"
+    "portability/VulkanPolygonRenderer.cpp"
+    "portability/VulkanPolygonRenderer.h"
+    "portability/RenderPolygon.h"
     "portability/port_sdl_joystick.cpp"
     "portability/port_sdl_joystick.h"
     "portability/port_show_perifery.cpp"
@@ -211,6 +240,8 @@ set(ALL_FILES
 ################################################################################
 add_library(findfirst ${SOURCE_FILES__libs__findfirst})
 add_executable(${PROJECT_NAME} ${ALL_FILES})
+target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/portability/awe32/86box/include")
+target_compile_definitions(${PROJECT_NAME} PRIVATE AWE32EMU_WITH_86BOX)
 
 install(
     TARGETS ${PROJECT_NAME}
@@ -235,6 +266,7 @@ install(
     DIRECTORY
     ${CMAKE_SOURCE_DIR}/enhancedassets/music-ogg
     ${CMAKE_SOURCE_DIR}/enhancedassets/graphics
+    ${CMAKE_SOURCE_DIR}/awe32data
     DESTINATION bin
 )
 
@@ -274,7 +306,9 @@ if (UNIX)
         ${PNG_LIBRARY}
         findfirst
         ADLMIDI_static
+        ${VULKAN_LIBRARIES}
     )
+    add_vulkan_shaders(${PROJECT_NAME})
     target_link_directories(${PROJECT_NAME} PUBLIC
     )
     target_compile_definitions(${PROJECT_NAME} PUBLIC

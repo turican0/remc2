@@ -17,7 +17,7 @@ std::string highResGraphicsFolder = "graphics/high-res";
 std::string fixedMenuGraphicsFolder = "graphics/fixed/menu";
 std::string fixedTmapsFolder = "graphics/fixed/tmaps";//sprites taken instead of the TMAPS ones (TextureMaps.cpp LoadFixedTmaps)
 std::string extendedFontsFolder = "graphics/fixed/fonts";
-std::string forceRender = "";
+std::string m_render = "";
 spdlog::logger* Logger = nullptr;
 
 #ifndef _MSC_VER

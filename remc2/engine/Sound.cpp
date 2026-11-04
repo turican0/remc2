@@ -3,6 +3,8 @@
 #include "PlayerInput.h"
 
 #include "../utilities/Maths.h"
+#include "../portability/awe32/Awe32Mdi.h"
+#include <mutex>
 
 //fix str2_E37A4_sound_buffer3 = str_E37A0_sound_buffer2->next_str + v8x[a2].dword_8;
 //fix x_DWORD_E380C = str_E3808_music_header->next_str + headerx[drivernumber].dword_8;
@@ -46,6 +48,10 @@ type_E3808_music_header* musicHeader_E3808 = nullptr; // weak
 int countOfMusicTracks_E380C = 0; // weak
 //replace str2_E37A4_sound_buffer3 and x_DWORD_E380C with equvivalent index_E37A4_MaxSound and index_E380C_MaxMusic
 uint8_t* musicData_E3810 = nullptr; // weak
+//awe32GmIntroMusic: the General MIDI version of the loaded bank, the intro and the cutscenes play it
+static type_E3808_music_header* gmMusicHeader = nullptr;
+static uint8_t* gmMusicData = nullptr;
+static bool songIsGm = false;
 uint8_t musicChannel_E3814 = 0; // weak
 char x_BYTE_E3815 = 0; // weak
 char x_BYTE_E3816 = 0; // weak
@@ -94,6 +100,7 @@ HSEQUENCE m_hMusicSequence_180C78; // weak
 HMDIDRIVER hMdiMusicDriver_180C7C; // weak
 //int x_DWORD_180C80; // weak
 char musicDriverType_180C84; // weak
+uint8_t byte_180C90[16];//channels muted by the trigger callback (war music)
 
 HSAMPLE SoundBuffer3_180750[50]; // weak -351750 23 // delka 3fc, tj 2c struktur o delce 17 end x_DWORD_180B4C_end_sound_buffer3
 AIL_INI soundEffectsAILSettings; // weak
@@ -695,6 +702,8 @@ void InitMusic_8D970()//26e970
 		sprintf(musicMdiPath, "%s/MDI.INI", soundGamePath);
 		if (AilReadIniFile_92190(&musicAILSettings, musicMdiPath)) //driver
 		{
+			//the AIL_INI of the original lies at 0x180B60, its driver name is 0x180BE0
+			sprintf(textBuffer_180BE0, "%s", musicAILSettings.driver_name);
 			if (!_stricmp(musicAILSettings.driver_name, "None"))
 			{
 				if (!soundAble_E3798)
@@ -723,47 +732,47 @@ void InitMusic_8D970()//26e970
 		musicDriverType_180C84 = 'f';
 		isDriver = true;		
 	}
-	if (!_stricmp(musicAILSettings.driver_name, "ADLIBG.MDI"))
+	else if (!_stricmp(musicAILSettings.driver_name, "ADLIBG.MDI"))
 	{
 		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
-	if (!_stricmp(musicAILSettings.driver_name, "OPL3.MDI"))
+	else if (!_stricmp(musicAILSettings.driver_name, "OPL3.MDI"))
 	{
 		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
-	if (!_stricmp(musicAILSettings.driver_name, "PAS.MDI"))
+	else if (!_stricmp(musicAILSettings.driver_name, "PAS.MDI"))
 	{
 		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
-	if (!_stricmp(musicAILSettings.driver_name, "PASPLUS.MDI"))
+	else if (!_stricmp(musicAILSettings.driver_name, "PASPLUS.MDI"))
 	{
 		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
-	if (!_stricmp(musicAILSettings.driver_name, "SBLASTER.MDI"))
+	else if (!_stricmp(musicAILSettings.driver_name, "SBLASTER.MDI"))
 	{
 		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
-	if (!_stricmp(musicAILSettings.driver_name, "SBPRO1.MDI"))
+	else if (!_stricmp(musicAILSettings.driver_name, "SBPRO1.MDI"))
 	{
 		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
-	if (!_stricmp(musicAILSettings.driver_name, "SBPRO2.MDI"))
+	else if (!_stricmp(musicAILSettings.driver_name, "SBPRO2.MDI"))
 	{
 		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
-	if (!_stricmp(musicAILSettings.driver_name, "ESFM.MDI"))
+	else if (!_stricmp(musicAILSettings.driver_name, "ESFM.MDI"))
 	{
 		musicDriverType_180C84 = 'f';
 		isDriver = true;
 	}
-	if (!_stricmp(musicAILSettings.driver_name, "SBAWE32.MDI"))
+	else if (!_stricmp(musicAILSettings.driver_name, "SBAWE32.MDI"))
 	{
 		musicDriverType_180C84 = 'w';
 		InitAWE32_9F740((char*)"Bullfrog");
@@ -771,27 +780,27 @@ void InitMusic_8D970()//26e970
 			musicDriverType_180C84 = 'g';
 		isDriver = true;
 	}
-	if (!_stricmp(musicAILSettings.driver_name, "MPU401.MDI"))
+	else if (!_stricmp(musicAILSettings.driver_name, "MPU401.MDI"))
 	{
 		musicDriverType_180C84 = 'g';
 		isDriver = true;
 	}
-	if (!_stricmp(musicAILSettings.driver_name, "SNDSCAPE.MDI"))
+	else if (!_stricmp(musicAILSettings.driver_name, "SNDSCAPE.MDI"))
 	{
 		musicDriverType_180C84 = 'g';
 		isDriver = true;
 	}
-	if (!_stricmp(musicAILSettings.driver_name, "MT32MPU.MDI"))
+	else if (!_stricmp(musicAILSettings.driver_name, "MT32MPU.MDI"))
 	{
 		musicDriverType_180C84 = 'r';
 		isDriver = true;
 	}
-	if (!sub_969A0_AIL_MDI_driver_type(hMdiMusicDriver_180C7C))
+	else if (!sub_969A0_AIL_MDI_driver_type(hMdiMusicDriver_180C7C))
 	{
 		musicDriverType_180C84 = 'g';
 		isDriver = true;
 	}
-	if (sub_969A0_AIL_MDI_driver_type(hMdiMusicDriver_180C7C) == 1 || sub_969A0_AIL_MDI_driver_type(hMdiMusicDriver_180C7C) == 2)
+	else if (sub_969A0_AIL_MDI_driver_type(hMdiMusicDriver_180C7C) == 1 || sub_969A0_AIL_MDI_driver_type(hMdiMusicDriver_180C7C) == 2)
 	{
 		musicDriverType_180C84 = 'f';
 		isDriver = true;
@@ -848,13 +857,13 @@ void StopMusic_8E020()//26f020
 	}
 }
 
-int sub_8E0D0(int a2, int a3)
+int sub_8E0D0(HSEQUENCE  /*hSequence*/, int a2, int a3)//26f0d0
 {
 	if (!a3)
 	{
 		UpdateMusicTimer_E3819 = true;
 		AilSendChannelVoiceMessage_98360(hMdiMusicDriver_180C7C, m_hMusicSequence_180C78, a2 | 0xB0, 11, 0);
-		//now eliminated, maybe return it later byte_180C90[a2] = 1;
+		byte_180C90[a2] = 1;
 	}
 	if (a3 == 1)
 	{
@@ -865,11 +874,43 @@ int sub_8E0D0(int a2, int a3)
 	return 0;
 }
 
-//----- (0008E160) --------------------------------------------------------
-void StartMusic_8E160(int track, int volume)//26f160
+static void FreeGmMusicBank()
 {
-	if (musicAble_E37FC && musicActive_E37FD && track <= m_iNumberOfTracks && songCurrentlyPlaying_E3802 != track)
+	if (gmMusicHeader)
 	{
+		FreeMem_83E80((uint8_t*)gmMusicHeader);
+		gmMusicHeader = nullptr;
+	}
+	if (gmMusicData)
+	{
+		FreeMem_83E80(gmMusicData);
+		gmMusicData = nullptr;
+	}
+}
+
+//the GM version of the bank whose header entry is at the file position; the position stays for the AWE32 version
+static void LoadGmMusicBank(FILE* filehandle)
+{
+	FreeGmMusicBank();
+	const long bankPos = myftell(filehandle);
+	if (LoadMusicTrack(filehandle, 0))
+	{
+		gmMusicHeader = musicHeader_E3808;
+		gmMusicData = musicData_E3810;
+		musicHeader_E3808 = nullptr;
+		musicData_E3810 = nullptr;
+	}
+	DataFileIO::Seek(filehandle, bankPos, 0);
+}
+
+//----- (0008E160) --------------------------------------------------------
+void StartMusic_8E160(int track, int volume, bool animation)//26f160
+{
+	const bool gm = animation && gmMusicHeader != nullptr;
+	if (musicAble_E37FC && musicActive_E37FD && track <= m_iNumberOfTracks && (songCurrentlyPlaying_E3802 != track || songIsGm != gm))
+	{
+		type_E3808_music_header* header = gm ? gmMusicHeader : musicHeader_E3808;
+		songIsGm = gm;
 		if (x_BYTE_E3818)
 			AilReleaseTimer_92DC0(MusicTimerIdx_180C80);
 		UpdateMusicTimer_E3819 = false;
@@ -886,12 +927,33 @@ void StartMusic_8E160(int track, int volume)//26f160
 			}
 			songCurrentlyPlaying_E3802 = 0;
 		}
-		AilInitSequence_95C00(m_hMusicSequence_180C78, musicHeader_E3808->str_8.track_10[track].xmiData_0, 0, track);
+		//track_10[] begins with track 1 (LoadMusicTrack), the original reads E3808 + track * 32 + 0x12
+		AilInitSequence_95C00(m_hMusicSequence_180C78, header->str_8.track_10[awe32Music ? (track > 0 ? track - 1 : 0) : track].xmiData_0, 0, track);
 		AilRegisterTriggerCallback_97670(m_hMusicSequence_180C78, reinterpret_cast<void*>(sub_8E0D0));
 
+		if (awe32Music)
+		{
+			for (int i = 0; i < 16; i++)
+			{
+				byte_180C90[i] = 0;
+				AilSendChannelVoiceMessage_98360(hMdiMusicDriver_180C7C, m_hMusicSequence_180C78, i | 0xB0, 0, 0);
+				AilSendChannelVoiceMessage_98360(hMdiMusicDriver_180C7C, m_hMusicSequence_180C78, i | 0xB0, 7, 0);
+				AilSendChannelVoiceMessage_98360(hMdiMusicDriver_180C7C, m_hMusicSequence_180C78, i | 0xE0, 0, 64);
+				AilSendChannelVoiceMessage_98360(hMdiMusicDriver_180C7C, m_hMusicSequence_180C78, i | 0xB0, 11, 127);
+				AilSendChannelVoiceMessage_98360(hMdiMusicDriver_180C7C, m_hMusicSequence_180C78, i | 0xB0, 1, 0);
+				AilSendChannelVoiceMessage_98360(hMdiMusicDriver_180C7C, m_hMusicSequence_180C78, i | 0xB0, 91, 0);
+				AilSendChannelVoiceMessage_98360(hMdiMusicDriver_180C7C, m_hMusicSequence_180C78, i | 0xB0, 93, 0);
+			}
+			if (volume < 127)
+				AilAPISetSequenceVolume_A8360(m_hMusicSequence_180C78, volume, 0);
+			AilStartSequence_95D50(m_hMusicSequence_180C78, track);
+			songCurrentlyPlaying_E3802 = track;
+			return;
+		}
+
 		//fix call at now,It should be called when we encounter a tag in the MIDI
-		typedef int (*TriggerFunc)(int, int);
-		((TriggerFunc)m_hMusicSequence_180C78->trigger_callback_8_32)(0, 0);
+		typedef int (*TriggerFunc)(HSEQUENCE, int, int);
+		((TriggerFunc)m_hMusicSequence_180C78->trigger_callback_8_32)(nullptr, 0, 0);
 		//fix call at now,It should be called when we encounter a tag in the MIDI
 
 		if (volume < 127)
@@ -1513,6 +1575,7 @@ void EndMusic_99C90()//27ac90
 			sub_9FA80();
 		if (!soundLoaded_E379A)
 			AilShutdown_919C0();
+		FreeGmMusicBank();
 		if (musicHeader_E3808)
 		{
 			FreeMem_83E80((uint8_t*)musicHeader_E3808);
@@ -2082,6 +2145,11 @@ void AilEndSequence_95F00(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_end_sequence
 //----- (00096030) --------------------------------------------------------
 void AilSetSequenceVolume_96030(int32_t volume, int32_t  milliseconds)
 {
+	if (awe32Music)
+	{
+		AilAPISetSequenceVolume_A8360(m_hMusicSequence_180C78, volume, milliseconds);
+		return;
+	}
 	SOUND_set_sequence_volume(volume, milliseconds);
 }
 
@@ -2107,6 +2175,11 @@ int AilSequenceStatus_96170(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_sequence_st
 //----- (00096670) --------------------------------------------------------
 void AilSetXMidiMasterVolume_96670(int32_t master_volume)
 {
+	if (awe32Music)
+	{
+		AilApiSetXMidiMasterVolume_A84D0(hMdiMusicDriver_180C7C, master_volume);
+		return;
+	}
 	SOUND_set_sequence_volume(master_volume, 0);
 }
 
@@ -2507,7 +2580,18 @@ bool AilApiReadIni_9E3A0(AIL_INI* INI, char* filename)//27f3a0
 		INI->IO.DMA_8_bit = StrToInt("-1", 10);
 		INI->IO.DMA_16_bit = StrToInt("-1", 10);
 	}
-	if (!strcmp(filename + strlen(filename) - strlen("MDI.INI"), "MDI.INI"))
+	if (!strcmp(filename + strlen(filename) - strlen("MDI.INI"), "MDI.INI") && awe32Music)
+	{
+		strcpy(INI->device_name, "Creative Labs Sound Blaster AWE32");
+		strcpy(INI->driver_name, "SBAWE32.MDI");
+		std::string driver_path = GetSubDirectoryFile(cdFolder.c_str(), "SOUND", "SBAWE32.MDI");
+		sprintf(INI->driver_path, "%s", driver_path.c_str());
+		INI->IO.IO = StrToInt((char*)"220h", 16);
+		INI->IO.IRQ = StrToInt((char*)"-1", 10);
+		INI->IO.DMA_8_bit = StrToInt((char*)"-1", 10);
+		INI->IO.DMA_16_bit = StrToInt((char*)"-1", 10);
+	}
+	else if (!strcmp(filename + strlen(filename) - strlen("MDI.INI"), "MDI.INI"))
 	{
 		strcpy(INI->device_name, "Creative Labs Sound Blaster(TM) 16");
 		strcpy(INI->driver_name, "SBPRO2.MDI");
@@ -2758,7 +2842,7 @@ void sub_9F040()
 //----- (0009FA80) --------------------------------------------------------
 void sub_9FA80()//280a80
 {
-	if (musicAble_E37FC && !_stricmp(textBuffer_180BE0, "SBAWE32.MDI") && !_stricmp(&musicDriverType_180C84, "w"))
+	if (musicAble_E37FC && !_stricmp(textBuffer_180BE0, "SBAWE32.MDI") && musicDriverType_180C84 == 'w')
 	{
 		sub_9F6D0(hMdiMusicDriver_180C7C, 1);
 		sub_9F170(x_DWORD_181E2C, x_WORD_181E30);
@@ -2768,267 +2852,142 @@ void sub_9FA80()//280a80
 }
 
 //----- (0009F280) --------------------------------------------------------
-int sub_9F280(HMDIDRIVER hMdiDriver)//a1 bude nejaky driver
+int sub_9F280(HMDIDRIVER hMdiDriver)//280280
 {
-	VDI_CALL v2; // [esp+0h] [ebp-10h]
-	//__int16 v3; // [esp+4h] [ebp-Ch]
-	__int16 v4; // [esp+6h] [ebp-Ah]
-	__int16 v5; // [esp+8h] [ebp-8h]
-	int v6; // [esp+Ch] [ebp-4h]
+	VDI_CALL regs = {};
+	regs.BX = 0x10;
+	AilCallDriver_91F70(hMdiDriver->drvr_0, 1286, &regs, &regs);
+	if (regs.AX)
+		return -1;
+	return regs.CX << (regs.DX + 16);
+}
 
-	//fix it
-	v4 = 0;
-	v5 = 0;
-	//fix it
-
-	//v3 = 16;
-	AilCallDriver_91F70(hMdiDriver->drvr_0, 1286, &v2, &v2);
-	if (v2.AX == 0)//fix
-		v6 = -1;
-	else
-		v6 = v4 << (v5 + 16);
-	return v6;
+//the parameter block of the AWE32 driver functions: count/bank, real mode segment of the data
+static int16_t Awe32DriverCall(HMDIDRIVER hMdiDriver, int16_t function, unsigned __int16 selector, unsigned __int16 count, VDI_CALL* regs)
+{
+	if (!str_E3E54.par1 && !str_E3E54.par2)
+	{
+		signed __int64 block = sub_9F110(4);
+		str_E3E54.par2 = WORD2(block);
+		str_E3E54.par1 = block;
+		if (!str_E3E54.par1 && !str_E3E54.par2)
+			return -1;
+	}
+	uint8_t* params = SOUND_DosRealPointer(str_E3E54.par2, str_E3E54.par1);
+	*(uint16_t*)&params[0] = count;
+	*(uint16_t*)&params[2] = sub_9F220(selector);
+	regs->BX = function;
+	regs->CX = sub_9F220(str_E3E54.par2);
+	regs->DX = 0;
+	AilCallDriver_91F70(hMdiDriver->drvr_0, 1286, regs, regs);
+	return regs->AX;
 }
 
 //----- (0009F2E0) --------------------------------------------------------
-VDI_CALL sub_9F2E0(HMDIDRIVER hMdiDriver, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)
+int sub_9F2E0(HMDIDRIVER hMdiDriver, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)//2802e0
 {
-	signed __int64 v4; // rax
-	unsigned __int16 v5; // ax
-	VDI_CALL v7; // [esp+0h] [ebp-10h]
-
-	if (!str_E3E54.par1 && !str_E3E54.par2)
-	{
-		v4 = sub_9F110(4);
-		str_E3E54.par2 = WORD2(v4);
-		str_E3E54.par1 = v4;
-		if (!(x_DWORD)v4 && !str_E3E54.par2)
-		{
-			v7.AX = -1;
-			return v7;
-		}
-	}
-	__writegsx_WORD(str_E3E54.par1, a4);
-	v5 = sub_9F220(a3);
-	__writegsx_WORD(str_E3E54.par1 + 2, v5);
-	//v8 = 17;
-	sub_9F220(str_E3E54.par2);
-	//v10 = 0;
-	AilCallDriver_91F70(hMdiDriver->drvr_0, 1286, &v7, &v7);
-	return v7;
+	VDI_CALL regs = {};
+	return Awe32DriverCall(hMdiDriver, 0x11, a3, a4, &regs);
 }
 
 //----- (0009F3D0) --------------------------------------------------------
-__int64 sub_9F3D0(HMDIDRIVER hMdiDriver, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)
+__int64 sub_9F3D0(HMDIDRIVER hMdiDriver, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)//2803d0
 {
-	signed __int64 v4; // rax
-	unsigned __int16 v5; // ax
-	int v6; // ebx
-	VDI_CALL v8; // [esp+0h] [ebp-14h]
-	//__int16 v9; // [esp+4h] [ebp-10h]
-	__int16 v10; // [esp+6h] [ebp-Eh]
-	__int16 v11; // [esp+8h] [ebp-Ch]
-	__int64 v12; // [esp+Ch] [ebp-8h]
-
-	if (str_E3E54.par1
-		|| str_E3E54.par2
-		|| (v4 = sub_9F110(4), str_E3E54.par2 = WORD2(v4), (str_E3E54.par1 = v4) != 0))
-	{
-		//__GS__ = *(x_WORD *)&x_BYTE_E3E54[4];
-		__writegsx_WORD(str_E3E54.par1, a4);
-		v5 = sub_9F220(a3);
-		//__GS__ = *(x_WORD *)&x_BYTE_E3E54[4];
-		__writegsx_WORD(str_E3E54.par1 + 2, v5);
-		//v9 = 23;
-		v10 = sub_9F220(str_E3E54.par2);
-		v11 = 0;
-		AilCallDriver_91F70(hMdiDriver->drvr_0, 1286, &v8, &v8);
-		if (v8.AX != NULL)
-		{
-			WORD2(v12) = 0;
-			LODWORD(v12) = 0;
-		}
-		else
-		{
-			v6 = v11;
-			WORD2(v12) = sub_9F1D0(v10);
-			LODWORD(v12) = v6;
-		}
-	}
-	else
-	{
-		WORD2(v12) = 0;
-		LODWORD(v12) = 0;
-	}
-	return v12;
+	VDI_CALL regs = {};
+	if (Awe32DriverCall(hMdiDriver, 0x17, a3, a4, &regs))
+		return 0;
+	return __PAIR__((uint32_t)sub_9F1D0((uint16_t)regs.CX), (uint16_t)regs.DX);
 }
 
 //----- (0009F4F0) --------------------------------------------------------
-VDI_CALL sub_9F4F0(HMDIDRIVER hMdiDriver, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)
+int sub_9F4F0(HMDIDRIVER hMdiDriver, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)//2804f0
 {
-	signed __int64 v4; // rax
-	unsigned __int16 v5; // ax
-	VDI_CALL result; // [esp+0h] [ebp-10h]
-	//__int16 v8; // [esp+4h] [ebp-Ch]
-	//__int16 v9; // [esp+6h] [ebp-Ah]
-	//__int16 v10; // [esp+8h] [ebp-8h]
-
-	if (!str_E3E54.par1 && !str_E3E54.par2)
-	{
-		v4 = sub_9F110(4);
-		str_E3E54.par2 = WORD2(v4);
-		str_E3E54.par1 = v4;
-		if (!(x_DWORD)v4 && !str_E3E54.par2)
-		{
-			result.AX = -1;
-			return result;
-		}
-	}
-	//__GS__ = *(x_WORD *)&x_BYTE_E3E54[4];
-	__writegsx_WORD(str_E3E54.par1, a4);
-	v5 = sub_9F220(a3);
-	//__GS__ = *(x_WORD *)&x_BYTE_E3E54[4];
-	__writegsx_WORD(str_E3E54.par1 + 2, v5);
-	//v8 = 24;
-	sub_9F220(str_E3E54.par2);
-	//v10 = 0;
-	AilCallDriver_91F70(hMdiDriver->drvr_0, 1286, &result, &result);
-	return result;
+	VDI_CALL regs = {};
+	return Awe32DriverCall(hMdiDriver, 0x18, a3, a4, &regs);
 }
 
 //----- (0009F5E0) --------------------------------------------------------
-VDI_CALL sub_9F5E0(HMDIDRIVER hMdiDriver, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)
+int sub_9F5E0(HMDIDRIVER hMdiDriver, int  /*a2*/, unsigned __int16 a3, unsigned __int16 a4)//2805e0
 {
-	signed __int64 v4; // rax
-	unsigned __int16 v5; // ax
-	VDI_CALL result; // [esp+0h] [ebp-10h]
-	//__int16 v8; // [esp+4h] [ebp-Ch]
-	//__int16 v9; // [esp+6h] [ebp-Ah]
-	//__int16 v10; // [esp+8h] [ebp-8h]
-
-	if (!str_E3E54.par1 && !str_E3E54.par2)
-	{
-		v4 = sub_9F110(4);
-		str_E3E54.par2 = WORD2(v4);
-		str_E3E54.par1 = v4;
-		if (!(x_DWORD)v4 && !str_E3E54.par2)
-		{
-			result.AX = -1;
-			return result;
-		}
-	}
-	//__GS__ = *(x_WORD *)&x_BYTE_E3E54[4];
-	__writegsx_WORD(str_E3E54.par1, a4);
-	v5 = sub_9F220(a3);
-	//__GS__ = *(x_WORD *)&x_BYTE_E3E54[4];
-	__writegsx_WORD(str_E3E54.par1 + 2, v5);
-	//v8 = 25;
-	sub_9F220(str_E3E54.par2);
-	//v10 = 0;
-	AilCallDriver_91F70(hMdiDriver->drvr_0, 1286, &result, &result);
-	return result;
+	VDI_CALL regs = {};
+	return Awe32DriverCall(hMdiDriver, 0x19, a3, a4, &regs);
 }
 
 //----- (0009F6D0) --------------------------------------------------------
-VDI_CALL sub_9F6D0(HMDIDRIVER hMdiDriver, __int16 a2)
+int sub_9F6D0(HMDIDRIVER hMdiDriver, __int16 a2)//2806d0
 {
-	VDI_CALL result; // [esp+0h] [ebp-10h]
-
+	VDI_CALL regs = {};
 	sub_9F170(str_E3E54.par1, str_E3E54.par2);
 	str_E3E54.par2 = 0;
 	str_E3E54.par1 = 0;
-	//v4 = 18;
-	//v5 = a2;
-	AilCallDriver_91F70(hMdiDriver->drvr_0, 1286, &result, &result);
-	return result;
+	regs.BX = 0x12;
+	regs.CX = a2;
+	AilCallDriver_91F70(hMdiDriver->drvr_0, 1286, &regs, &regs);
+	return regs.AX;
 }
 
 //----- (0009F740) --------------------------------------------------------
 void InitAWE32_9F740(char* textBullfrog)//280740
 {
-	signed __int64 v1; // rax
-	__int64 v2; // rax
-	signed __int64 v3; // rax
-	//char v4; // [esp+0h] [ebp-34h]
-	type_str_32_16 v5x;
-	type_str_32_16 v6x; // [esp+1Ch] [ebp-18h]
-	unsigned int v7; // [esp+24h] [ebp-10h]
-	char v8; // [esp+28h] [ebp-Ch]
-	int v9; // [esp+2Ch] [ebp-8h]
-	int i; // [esp+30h] [ebp-4h]
-
-	FILE* file;
-
-	if (musicAble_E37FC && !_stricmp(textBuffer_180BE0, "SBAWE32.MDI") && !_stricmp(&musicDriverType_180C84, "w"))
+	if (!musicAble_E37FC || _stricmp(textBuffer_180BE0, "SBAWE32.MDI") || musicDriverType_180C84 != 'w')
+		return;
+	if (x_BYTE_E3815 == 1)
 	{
-		if (x_BYTE_E3815 == 1)
-		{
-			sub_9FA80();
-			x_BYTE_E3815 = 0;
-		}
-		char bulltemp[512] = "Bullfrog";//fix it
-		strcpy(bulltemp, (const char*)textBullfrog);
-		sprintf(printbuffer, "sound//%s.sbk", bulltemp);
-		file = DataFileIO::CreateOrOpenFile(printbuffer, 512);
-		if (file != NULL)
-		{
-			v7 = DataFileIO::FileLengthBytes(file);
-			v1 = sub_9F110(512);
-			x_WORD_181E30 = WORD2(v1);
-			x_DWORD_181E2C = v1;
-			if ((x_DWORD)v1 || x_WORD_181E30)
-			{
-				v9 = sub_9F280(hMdiMusicDriver_180C7C);
-				if (v9 != -1)
-				{
-					v5x.par2 = x_WORD_181E30;
-					v5x.par1 = x_DWORD_181E2C;
-					__writegsx_DWORD(x_DWORD_181E2C, 0);
-					__writegsx_DWORD(v5x.par1 + 4, v7);
-#ifdef TEST_x64
-	allert_error();
-#endif
-					if (sub_9F2E0(hMdiMusicDriver_180C7C, v5x.par1, v5x.par2, 2u).AX == -1//fix
-						&& !dos_read(file, x_DWORD_181E2C, (unsigned __int16)x_WORD_181E30, 512, &v8))
-					{
-						v2 = sub_9F3D0(hMdiMusicDriver_180C7C, x_DWORD_181E2C, x_WORD_181E30, 1u);
-						v5x.par2 = WORD2(v2);
-						v5x.par1 = v2;
-						if ((x_DWORD)v2 || v5x.par2)
-						{
-							DataFileIO::Seek(file, __readgsx_DWORD(v5x.par1 + 2), 0);
-							for (i = 0; (signed __int16)__readgsx_WORD(v5x.par1) > i; i++)
-							{
-								if (dos_read(file, x_DWORD_181E2C, (unsigned __int16)x_WORD_181E30, 512, &v8)
-									|| sub_9F4F0(hMdiMusicDriver_180C7C, x_DWORD_181E2C, x_WORD_181E30, 1u).AX != -1)//fix
-								{
-									return;
-								}
-							}
-							v3 = sub_9F110(__readgsx_DWORD(v5x.par1 + 10));
-							x_WORD_181E2A = WORD2(v3);
-							x_DWORD_181E26 = v3;
-							if ((x_DWORD)v3 || x_WORD_181E2A)
-							{
-								DataFileIO::Seek(file, __readgsx_DWORD(v5x.par1 + 6), 0);
-								if (!dos_read(
-									file,
-									x_DWORD_181E26,
-									(unsigned __int16)x_WORD_181E2A,
-									__readgsx_DWORD(v5x.par1 + 10),
-									&v8)
-									&& sub_9F5E0(hMdiMusicDriver_180C7C, x_DWORD_181E26, x_WORD_181E2A, 1u).AX == -1)//fix
-								{
-									x_BYTE_E3815 = 1;
-									DataFileIO::Close(file);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+		sub_9FA80();
+		x_BYTE_E3815 = 0;
 	}
+	//"sound//%s.sbk" of the game folder, the CD when the bank is not installed
+	sprintf(printbuffer, "%s/sound//%s.sbk", gameDataPath.c_str(), textBullfrog);
+	FILE* file = DataFileIO::CreateOrOpenFile(printbuffer, 512);
+	if (file == nullptr)
+	{
+		sprintf(printbuffer, "%s/sound//%s.sbk", cdDataPath.c_str(), textBullfrog);
+		file = DataFileIO::CreateOrOpenFile(printbuffer, 512);
+	}
+	if (file == nullptr)
+		return;
+	uint32_t length = DataFileIO::FileLengthBytes(file);
+	signed __int64 block = sub_9F110(512);
+	x_WORD_181E30 = WORD2(block);
+	x_DWORD_181E2C = block;
+	if (!x_DWORD_181E2C && !x_WORD_181E30)
+		return;
+	if (sub_9F280(hMdiMusicDriver_180C7C) == -1)
+		return;
+	uint8_t* buffer = SOUND_DosRealPointer(x_WORD_181E30, x_DWORD_181E2C);
+	*(uint32_t*)&buffer[0] = 0;
+	*(uint32_t*)&buffer[4] = length;
+	if (sub_9F2E0(hMdiMusicDriver_180C7C, x_DWORD_181E2C, x_WORD_181E30, 2))
+		return;
+	if (!DataFileIO::Read(file, buffer, 512))
+		return;
+	__int64 request = sub_9F3D0(hMdiMusicDriver_180C7C, x_DWORD_181E2C, x_WORD_181E30, 1);
+	type_str_32_16 v5x;
+	v5x.par1 = (x_DWORD)request;
+	v5x.par2 = WORD2(request);
+	if (!v5x.par1 && !v5x.par2)
+		return;
+	uint8_t* info = SOUND_DosRealPointer(v5x.par2, v5x.par1);
+	DataFileIO::Seek(file, *(uint32_t*)&info[2], 0);
+	for (int i = 0; *(int16_t*)&info[0] > i; i++)
+	{
+		if (!DataFileIO::Read(file, buffer, 512))
+			return;
+		if (sub_9F4F0(hMdiMusicDriver_180C7C, x_DWORD_181E2C, x_WORD_181E30, 1))
+			return;
+	}
+	block = sub_9F110(*(uint32_t*)&info[10]);
+	x_WORD_181E2A = WORD2(block);
+	x_DWORD_181E26 = block;
+	if (!x_DWORD_181E26 && !x_WORD_181E2A)
+		return;
+	DataFileIO::Seek(file, *(uint32_t*)&info[6], 0);
+	if (!DataFileIO::Read(file, SOUND_DosRealPointer(x_WORD_181E2A, x_DWORD_181E26), *(uint32_t*)&info[10]))
+		return;
+	if (sub_9F5E0(hMdiMusicDriver_180C7C, x_DWORD_181E26, x_WORD_181E2A, 1))
+		return;
+	x_BYTE_E3815 = 1;
+	DataFileIO::Close(file);
 }
 
 //----- (000A0EEC) --------------------------------------------------------
@@ -3937,6 +3896,9 @@ void ApiAilEndSample_A3DA0(HSAMPLE S)//284da0
 			{
 				S->status_1 = AilSampleStopped;
 				SOUND_end_sample(S);
+				//original AIL_end_sample (0xA3DA0) calls the end-of-sample callback (sample+0x850)
+				if (S->sam_var532_EOS_ptr)
+					S->sam_var532_EOS_ptr();
 			}
 		}
 	}
@@ -4079,53 +4041,65 @@ signed int sub_A4E10(char input)//285e10
 {
 	switch (input & 0xF0)
 	{
-		case 0x0:
-		case 0x10:
-		case 0x20:
-		case 0x30:
-		case 0x40:
-		case 0x50:
-		case 0x60:
-		case 0x70:
-		case 0xF0:
-			return 0;
+		case 0x80:
+		case 0x90:
+		case 0xA0:
+		case 0xB0:
+		case 0xE0:
+			return 3;
+		case 0xC0:
 		case 0xD0:
 			return 2;
 	}
-	return 3;
+	return 0;
 }
 
 //----- (000A4EB0) --------------------------------------------------------
 void sub_A4EB0(HMDIDRIVER hMdiDriver)//285eb0
 {
 	VDI_CALL vdiCall;
-	if (hMdiDriver->var106_aildrv > 0)
+	if (hMdiDriver->message_count > 0)
 	{
 		AilCallDriver_91F70(hMdiDriver->drvr_0, 1282, &vdiCall, nullptr);
-		hMdiDriver->var106_aildrv = 0;
-		hMdiDriver->var107_aildrv = 0;
+		hMdiDriver->message_count = 0;
+		hMdiDriver->offset = 0;
 	}
 }
 
 //----- (000A4F10) --------------------------------------------------------
 void sub_A4F10(HMDIDRIVER hMdiDriver, char par1, char par2, char par3)//285f10
 {
-	int locPar4 = sub_A4E10(par1);
-	if (locPar4 + hMdiDriver->var107_aildrv > 0x200)
+	int length = sub_A4E10(par1);
+	if (length + hMdiDriver->offset > 0x200)
 		sub_A4EB0(hMdiDriver);
-	hMdiDriver->var106_aildrv++;
-	hMdiDriver->var107_aildrv++;
+	hMdiDriver->DST_2->MIDI_data[hMdiDriver->offset++] = par1;
+	hMdiDriver->DST_2->MIDI_data[hMdiDriver->offset++] = par2;
+	if (length == 3)
+		hMdiDriver->DST_2->MIDI_data[hMdiDriver->offset++] = par3;
+	hMdiDriver->message_count++;
 }
 
 //----- (000A4FD0) --------------------------------------------------------
-void sub_A4FD0(HMDIDRIVER a1, int  /*a2*/, unsigned int a3)//285fd0
+void sub_A4FD0(HMDIDRIVER hMdiDriver, uint8_t* message, unsigned int length)//285fd0
 {
-	sub_A4EB0(a1);
-	if (a3 <= 0x200)
-		;
-	else
-		;
-	sub_A4EB0(a1);
+	sub_A4EB0(hMdiDriver);
+	memmove(hMdiDriver->DST_2->MIDI_data, message, length <= 0x200 ? length : 0x200);
+	hMdiDriver->message_count++;
+	sub_A4EB0(hMdiDriver);
+}
+
+//----- (000A5040) --------------------------------------------------------
+int32_t sub_A5040(uint8_t** ptr)//286040
+{
+	int32_t value = 0;
+	for (int i = 4; i > 0; i--)
+	{
+		uint8_t byte = *(*ptr)++;
+		value = (value << 7) | (byte & 0x7F);
+		if (!(byte & 0x80))
+			break;
+	}
+	return value;
 }
 
 //----- (000A50A0) --------------------------------------------------------
@@ -4174,468 +4148,271 @@ uint8_t* sub_A50F0(uint8_t* a1, int a2)
 }
 // 99682: using guessed type x_DWORD strncmp(x_DWORD, x_DWORD, x_DWORD);
 
-//----- (000A5210) --------------------------------------------------------
-int sub_A5210(int a1, char a2, unsigned int a3)
+//controller logged in CTRL_LOG, nullptr = not logged
+static int32_t* CtrlLogController(CTRL_LOG* log, unsigned int controller, int channel)
 {
-	int v4; // [esp+0h] [ebp-Ch]
-	int v5; // [esp+4h] [ebp-8h]
-	unsigned int v6; // [esp+8h] [ebp-4h]
-
-	v6 = a2 & 0xF0;
-	v5 = a2 & 0xF;
-	if (v6 < 0xC0)
+	switch (controller)
 	{
-		if (v6 != 176)
-			return -1;
-		if (a3 < 0x5D)
-		{
-			if (a3 < 0xA)
-			{
-				if (a3 < 6)
-				{
-					if (a3 == 1)
-						return *(x_DWORD*)(a1 + 4 * v5 + 640);
-				}
-				else
-				{
-					if (a3 <= 6)
-						return *(x_DWORD*)(a1 + 4 * v5 + 1088);
-					if (a3 == 7)
-						return *(x_DWORD*)(a1 + 4 * v5 + 704);
-				}
-			}
-			else
-			{
-				if (a3 <= 0xA)
-					return *(x_DWORD*)(a1 + 4 * v5 + 768);
-				if (a3 < 0x40)
-				{
-					if (a3 == 11)
-						return *(x_DWORD*)(a1 + 4 * v5 + 832);
-				}
-				else
-				{
-					if (a3 <= 0x40)
-						return *(x_DWORD*)(a1 + 4 * v5 + 896);
-					if (a3 == 91)
-						return *(x_DWORD*)(a1 + 4 * v5 + 960);
-				}
-			}
-		}
-		else
-		{
-			if (a3 <= 0x5D)
-				return *(x_DWORD*)(a1 + 4 * v5 + 1024);
-			if (a3 < 0x70)
-			{
-				if (a3 >= 0x6E)
-				{
-					if (a3 <= 0x6E)
-						v4 = *(x_DWORD*)(a1 + 4 * v5 + 192);
-					else
-						v4 = *(x_DWORD*)(a1 + 4 * v5 + 256);
-					return v4;
-				}
-				if (a3 == 107)
-					return *(x_DWORD*)(a1 + 4 * v5 + 320);
-			}
-			else
-			{
-				if (a3 <= 0x70)
-					return *(x_DWORD*)(a1 + 4 * v5 + 384);
-				if (a3 < 0x73)
-				{
-					if (a3 == 114)
-						return *(x_DWORD*)(a1 + 4 * v5 + 448);
-				}
-				else
-				{
-					if (a3 <= 0x73)
-						return *(x_DWORD*)(a1 + 4 * v5 + 512);
-					if (a3 == 119)
-						return *(x_DWORD*)(a1 + 4 * v5 + 576);
-				}
-			}
-		}
-		return -1;
+		case 1: return &log->mod[channel];
+		case 6: return &log->bend_range[channel];
+		case 7: return &log->vol[channel];
+		case 10: return &log->pan[channel];
+		case 11: return &log->exp[channel];
+		case 64: return &log->sus[channel];
+		case 91: return &log->reverb[channel];
+		case 93: return &log->chorus[channel];
+		case 107: return &log->c_mute[channel];
+		case 110: return &log->c_lock[channel];
+		case 111: return &log->c_prot[channel];
+		case 112: return &log->c_v_prot[channel];
+		case 114: return &log->bank[channel];
+		case 115: return &log->indirect[channel];
+		case 119: return &log->callback[channel];
 	}
-	if (v6 <= 0xC0)
-		return *(x_DWORD*)(a1 + 4 * v5);
-	if (v6 != 224)
-		return -1;
-	return (*(x_DWORD*)(a1 + 4 * v5 + 128) << 7) | *(x_DWORD*)(a1 + 4 * v5 + 64);
+	return nullptr;
+}
+
+//----- (000A5210) --------------------------------------------------------
+int sub_A5210(CTRL_LOG* log, char status, unsigned int data_1)//286210
+{
+	int channel = status & 0xF;
+	switch (status & 0xF0)
+	{
+		case 0xB0:
+		{
+			int32_t* value = CtrlLogController(log, data_1, channel);
+			return value ? *value : -1;
+		}
+		case 0xC0:
+			return log->program[channel];
+		case 0xE0:
+			return (log->pitch_h[channel] << 7) | log->pitch_l[channel];
+	}
+	return -1;
 }
 
 //----- (000A5530) --------------------------------------------------------
-void sub_A5530(CTRL_LOG* a1x, char a2, unsigned int a3, unsigned __int8 a4)
+void sub_A5530(CTRL_LOG* log, char status, unsigned int data_1, unsigned __int8 data_2)//286530
 {
-	x_DWORD* result;
-	int v5;
-	unsigned int v6;
-
-	v6 = a2 & 0xF0;
-	result = (x_DWORD*)(a2 & 0xF);
-	v5 = a2 & 0xF;
-	if (v6 < 0xC0)
+	int channel = status & 0xF;
+	switch (status & 0xF0)
 	{
-		if (v6 == 176)
+		case 0xB0:
 		{
-			if (a3 < 0x5D)
-			{
-				if (a3 < 0xA)
-				{
-					if (a3 < 6)
-					{
-						if (a3 == 1)
-						{
-							result = &a1x->indirect[v5];
-							result[160] = a4;
-						}
-					}
-					else if (a3 <= 6)
-					{
-						result = &a1x->indirect[v5];
-						result[272] = a4;
-					}
-					else if (a3 == 7)
-					{
-						result = &a1x->indirect[v5];
-						result[176] = a4;
-					}
-				}
-				else if (a3 <= 0xA)
-				{
-					result = &a1x->indirect[v5];
-					result[192] = a4;
-				}
-				else if (a3 < 0x40)
-				{
-					if (a3 == 11)
-					{
-						result = &a1x->indirect[v5];
-						result[208] = a4;
-					}
-				}
-				else if (a3 <= 0x40)
-				{
-					result = &a1x->indirect[v5];
-					result[224] = a4;
-				}
-				else if (a3 == 91)
-				{
-					result = &a1x->indirect[v5];
-					result[240] = a4;
-				}
-			}
-			else if (a3 <= 0x5D)
-			{
-				result = &a1x->indirect[v5];
-				result[256] = a4;
-			}
-			else if (a3 < 0x70)
-			{
-				if (a3 < 0x6E)
-				{
-					if (a3 == 107)
-					{
-						result = &a1x->indirect[v5];
-						result[80] = a4;
-					}
-				}
-				else if (a3 <= 0x6E)
-				{
-					result = &a1x->indirect[v5];
-					result[48] = a4;
-				}
-				else
-				{
-					result = &a1x->indirect[v5];
-					result[64] = a4;
-				}
-			}
-			else if (a3 <= 0x70)
-			{
-				result = &a1x->indirect[v5];
-				result[96] = a4;
-			}
-			else if (a3 < 0x73)
-			{
-				if (a3 == 114)
-				{
-					result = &a1x->indirect[v5];
-					result[112] = a4;
-				}
-			}
-			else if (a3 <= 0x73)
-			{
-				result = &a1x->indirect[v5];
-				result[128] = a4;
-			}
-			else if (a3 == 119)
-			{
-				result = &a1x->indirect[v5];
-				result[144] = a4;
-			}
+			int32_t* value = CtrlLogController(log, data_1, channel);
+			if (value)
+				*value = data_2;
+			break;
 		}
-	}
-	else if (v6 <= 0xC0)
-	{
-		result = &a1x->indirect[v5];
-		*result = (unsigned __int8)a3;
-	}
-	else if (v6 == 224)
-	{
-		a1x->indirect[v5 + 8] = (unsigned __int8)a3;
-		result = &a1x->indirect[v5];
-		result[32] = a4;
+		case 0xC0:
+			log->program[channel] = (uint8_t)data_1;
+			break;
+		case 0xE0:
+			log->pitch_l[channel] = (uint8_t)data_1;
+			log->pitch_h[channel] = data_2;
+			break;
 	}
 }
 
 //----- (000A5850) --------------------------------------------------------
-void sub_A5850(HSEQUENCE hSequence, char a2, unsigned int a3, signed int a4, int a5)//286850
+void sub_A5850(HSEQUENCE hSequence, char status, unsigned int data_1, signed int data_2, int fromSequence)//286850
 {
-	HMDIDRIVER mdiDriver;
-	int indexCh;
-	int chMap;
-	signed int i;
-	signed int j;
-	int v12;
-	int indexChH;
-
-	mdiDriver = hSequence->driver_0;
-	indexChH = a2 & 0xF0;
-	indexCh = a2 & 0xF;
-	chMap = hSequence->chan_map_37[indexCh];
-	if (indexChH == 176 || indexChH == 192 || indexChH == 224)
-		sub_A5530(&hSequence->shadow_53, indexCh | indexChH, a3, a4);
-	if (indexChH != 176)
-		goto LABEL_79;
-	if (a5)
+	HMDIDRIVER mdi = hSequence->driver_0;
+	int type = status & 0xF0;
+	int channel = status & 0xF;
+	int phys = hSequence->chan_map_37[channel];
+	if (type == 0xB0 || type == 0xC0 || type == 0xE0)
+		sub_A5530(&hSequence->shadow_53, status, data_1, data_2);
+	if (type == 0xB0)
 	{
-		if (hSequence->shadow_53.indirect[indexCh] != -1)
+		if (fromSequence && hSequence->shadow_53.indirect[channel] != -1)
 		{
-			a4 = hSequence->shadow_53.indirect[indexCh];
-			hSequence->shadow_53.indirect[indexCh] = -1;
+			data_2 = hSequence->shadow_53.indirect[channel];
+			hSequence->shadow_53.indirect[channel] = -1;
 		}
-	}
-	if (a3 < 0x6F)
-	{
-		if (a3 < 0x6C)
+		switch (data_1)
 		{
-			if (a3 >= 6)
-			{
-				if (a3 <= 6)
-				{//6
-					sub_A5850(hSequence, indexCh | 0xB0, 0x64u, 0, 0);
-					sub_A5850(hSequence, indexCh | 0xB0, 0x65u, 0, 0);
-					sub_A5850(hSequence, indexCh | 0xB0, 0x26u, 0, 0);
-				}
-				else if (a3 == 7)
-				{//7
-					a4 = hSequence->volume_14 * a4 * mdiDriver->var108_aildrv / 16129;
-					if (a4 > 127)
-						a4 = 127;
-					if (a4 < 0)
-						a4 = 0;
-				}
-			}
-			goto LABEL_79;
-		}
-		if (a3 <= 0x6C)
-		{//6c
-			if (hSequence->prefix_callback_7)
-				hSequence->shadow_53.indirect[indexCh] = (*(int(**)(HSEQUENCE, int, signed int))(hSequence->prefix_callback_7))(hSequence, indexCh, a4);
-			goto LABEL_79;
-		}
-		if (a3 <= 0x6D)
-		{//6d
-			AilBranchIndex_97480(hSequence, a4);
-		}
-		else if (a4 < 64)
-		{//
-			if (mdiDriver->lock[chMap] == 1)
-			{
-				sub_A5F30(hSequence, indexCh);
-				AilReleaseChannel_980D0(mdiDriver, chMap + 1);
-				AilMapSequenceChannel_98170(hSequence, indexCh + 1, indexCh + 1);
-			}
-		}
-		else
-		{
-			if (mdiDriver->lock[chMap] != 1)
-			{
-				v12 = AilLockChannel_97F90(mdiDriver);
-				if (v12)
-				{
-					AilMapSequenceChannel_98170(hSequence, indexCh + 1, v12);
-					mdiDriver->var23_aildrvx[hSequence->driver_0->drvr_0->seg_0] = hSequence;
-				}
-			}
-		}
-	}
-	else if (a3 <= 0x6F)
-	{//6f
-		if (mdiDriver->lock[chMap] != 1)
-		{
-			if (a4 >= 64)
-			{
-				mdiDriver->lock[chMap] = 2;
-			}
-			else
-			{
-				mdiDriver->lock[chMap] = 0;
-			}
-		}
-	}
-	else if (a3 < 0x75)
-	{
-		if (a3 < 0x73)
-			goto LABEL_79;
-		if (a3 <= 0x73)
-		{//73
-			*(x_DWORD*)(hSequence + 4 * indexCh + 724) = *(unsigned __int8*)(a4 + *(x_DWORD*)(hSequence + 24));
-		LABEL_79://end
-			if (mdiDriver->lock[chMap] != 1 || mdiDriver->locker[chMap] == hSequence)
-			{
-				if (indexChH == 144)
-				{
-					mdiDriver->notes[chMap]++;
-				}
-				else if (indexChH == 128)
-				{
-					mdiDriver->notes[chMap]--;
-				}
-				mdiDriver->user[chMap] = hSequence;
-				if (indexChH != 144 || hSequence->shadow_53.c_mute[indexCh] < 64)
-				{
-					if (!mdiDriver->event_trap
-						|| ((HMDIDRIVER)(x_DWORD*)((int(*)(HMDIDRIVER, HSEQUENCE, int, unsigned int, signed int))mdiDriver->event_trap)(
-							mdiDriver,
-							hSequence,
-							chMap | indexChH,
-							a3,
-							(int)a4)) == 0)
-					{
-						sub_A4F10(mdiDriver, chMap | indexChH, a3, a4);
-					}
-				}
-			}
-			return;
-		}
-		for (i = 0; i < 4; i++)
-		{
-			if (hSequence->FOR_loop_count_33[i] == -1)
+			case 6:
+				sub_A5850(hSequence, channel | 0xB0, 100, 0, 0);
+				sub_A5850(hSequence, channel | 0xB0, 101, 0, 0);
+				sub_A5850(hSequence, channel | 0xB0, 38, 0, 0);
 				break;
-		}
-		if (i != 4)
-		{
-			hSequence->FOR_loop_count_33[i] = a4;
-			hSequence->FOR_ptrs[i] = hSequence->EVNT_ptr_5;
-		}
-	}
-	else if (a3 <= 0x75)
-	{//75
-		if (a4 >= 64)
-		{
-			for (j = 3; j >= 0; j--)
-			{
-				if (hSequence->FOR_loop_count_33[j] != -1)
-					break;
-			}
-			if (j != -1)
-			{
-				if (hSequence->FOR_loop_count_33[j])
+			case 7:
+				data_2 = hSequence->volume_14 * data_2 * mdi->master_volume / 16129;
+				if (data_2 > 127)
+					data_2 = 127;
+				if (data_2 < 0)
+					data_2 = 0;
+				break;
+			case 108:
+				if (hSequence->prefix_callback_7)
+					hSequence->shadow_53.indirect[channel] = ((int(*)(HSEQUENCE, int, int))hSequence->prefix_callback_7)(hSequence, channel, data_2);
+				break;
+			case 109:
+				AilBranchIndex_97480(hSequence, data_2);
+				return;
+			case 110:
+				if (data_2 >= 64)
 				{
-					if (--hSequence->FOR_loop_count_33[j])
+					if (mdi->lock[phys] != 1)
 					{
-						hSequence->EVNT_ptr_5 = hSequence->FOR_ptrs[j];
-					}
-					else
-					{
-						hSequence->FOR_loop_count_33[j] = -1;
+						int locked = AilLockChannel_97F90(mdi);
+						if (locked)
+						{
+							AilMapSequenceChannel_98170(hSequence, channel + 1, locked);
+							mdi->locker[locked - 1] = hSequence;
+						}
 					}
 				}
-				else
+				else if (mdi->lock[phys] == 1)
 				{
-					hSequence->EVNT_ptr_5 = (uint8_t*)hSequence->FOR_loop_count_33[j];
+					sub_A5F30(hSequence, channel);
+					AilReleaseChannel_980D0(mdi, phys + 1);
+					AilMapSequenceChannel_98170(hSequence, channel + 1, channel + 1);
 				}
-			}
+				return;
+			case 111:
+				if (mdi->lock[phys] != 1)
+					mdi->lock[phys] = data_2 >= 64 ? 2 : 0;
+				return;
+			case 115:
+				if (hSequence->ICA_6)
+					hSequence->shadow_53.indirect[channel] = hSequence->ICA_6[data_2];
+				break;
+			case 116:
+				for (int i = 0; i < FOR_NEST; i++)
+				{
+					if (hSequence->FOR_loop_count_33[i] == -1)
+					{
+						hSequence->FOR_loop_count_33[i] = data_2;
+						hSequence->FOR_ptrs[i] = hSequence->EVNT_ptr_5;
+						break;
+					}
+				}
+				return;
+			case 117:
+				if (data_2 >= 64)
+				{
+					int j;
+					for (j = FOR_NEST - 1; j >= 0; j--)
+						if (hSequence->FOR_loop_count_33[j] != -1)
+							break;
+					if (j != -1)
+					{
+						if (hSequence->FOR_loop_count_33[j] == 0)
+							hSequence->EVNT_ptr_5 = hSequence->FOR_ptrs[j];
+						else if (--hSequence->FOR_loop_count_33[j] != 0)
+							hSequence->EVNT_ptr_5 = hSequence->FOR_ptrs[j];
+						else
+							hSequence->FOR_loop_count_33[j] = -1;
+					}
+				}
+				return;
+			case 118:
+				hSequence->beat_count_23 = 0;
+				hSequence->measure_count_24 = 0;
+				hSequence->beat_fraction_27 = -hSequence->time_fraction_26;
+				if (hSequence->beat_callback_9)
+					((void(*)(HMDIDRIVER, HSEQUENCE, int, int))hSequence->beat_callback_9)(mdi, hSequence, 0, 0);
+				return;
+			case 119:
+				if (hSequence->trigger_callback_8_32)
+					((int(*)(HSEQUENCE, int, int))hSequence->trigger_callback_8_32)(hSequence, channel, data_2);
+				return;
 		}
 	}
-	else if (a3 <= 0x76)
-	{//76
-		*(x_DWORD*)(hSequence + 92) = 0;
-		*(x_DWORD*)(hSequence + 96) = 0;
-		*(x_DWORD*)(hSequence + 108) = 0;
-		*(x_DWORD*)(hSequence + 108) -= *(x_DWORD*)(hSequence + 104);
-		if (hSequence->beat_callback_9)
-			(*(int(**)(HMDIDRIVER, HSEQUENCE, x_DWORD, x_DWORD))(hSequence->beat_callback_9))(mdiDriver, hSequence, 0, 0);
-	}
-	else
-	{
-		if (a3 != 119)
-			goto LABEL_79;
-		if (hSequence->trigger_callback_8_32)
-			(*(int(**)(HSEQUENCE, int, signed int))(hSequence->trigger_callback_8_32))(hSequence, indexCh, a4);
-	}
+	if (mdi->lock[phys] == 1 && mdi->locker[phys] != hSequence)
+		return;
+	if (type == 0x90)
+		mdi->notes[phys]++;
+	else if (type == 0x80)
+		mdi->notes[phys]--;
+	mdi->user[phys] = hSequence;
+	if (type == 0x90 && hSequence->shadow_53.c_mute[channel] >= 64)
+		return;
+	if (mdi->event_trap && ((int(*)(HMDIDRIVER, HSEQUENCE, int, int, int))mdi->event_trap)(mdi, hSequence, phys | type, data_1, data_2))
+		return;
+	sub_A4F10(mdi, phys | type, data_1, data_2);
 }
 
 //----- (000A5E50) --------------------------------------------------------
-void sub_A5E50(HSEQUENCE hSequence)
+void sub_A5E50(HSEQUENCE hSequence)//286e50
 {
-	int v1;
-	int v3;
-
-	v3 = 0;
-	for (int i = 0; i < 32; i++)
+	int count = 0;
+	for (int i = 0; i < MAX_NOTES; i++)
 	{
-		if (hSequence->seq_342[i] != -1)
+		if (hSequence->note_chan[i] != -1)
 		{
-			sub_A5850(hSequence, hSequence->seq_342[i] | 0x80, hSequence->seq_374[i], 0, 0);
-			hSequence->seq_342[i] = -1;
-			v3++;
+			sub_A5850(hSequence, hSequence->note_chan[i] | 0x80, hSequence->note_num[i], 0, 0);
+			hSequence->note_chan[i] = -1;
+			count++;
 		}
 	}
-	hSequence->seq_341 = 0;
-	sub_A4EB0((HMDIDRIVER)hSequence->driver_0);
-	if (v3)
-	{
-		v1 = sub_92160();
-		if (!v1)
-			AilDelay_920D0(3);
-	}
+	hSequence->note_count = 0;
+	sub_A4EB0(hSequence->driver_0);
+	if (count && !sub_92160())
+		AilDelay_920D0(3);
 }
 
 //----- (000A5F30) --------------------------------------------------------
-void sub_A5F30(HSEQUENCE hSequence, int a2)
+void sub_A5F30(HSEQUENCE hSequence, int channel)//286f30
 {
-	for (int i = 0; i < 32; i++)
+	for (int i = 0; i < MAX_NOTES; i++)
 	{
-		if (hSequence->note_chan[i] == a2)
+		if (hSequence->note_chan[i] == channel)
 		{
 			sub_A5850(hSequence, hSequence->note_chan[i] | 0x80, hSequence->note_num[i], 0, 0);
 			hSequence->note_chan[i] = -1;
 		}
 	}
-	return sub_A4EB0(hSequence->driver_0);
+	sub_A4EB0(hSequence->driver_0);
 }
 
 //----- (000A5FD0) --------------------------------------------------------
-void sub_A5FD0(HSEQUENCE hSequence, int a2)
+void sub_A5FD0(HSEQUENCE hSequence, int channel)//286fd0
 {
+	CTRL_LOG* log = &hSequence->shadow_53;
+	if (log->bank[channel] != -1)
+		sub_A5850(hSequence, channel | 0xB0, 114, log->bank[channel], 0);
+	if (log->program[channel] != -1)
+		sub_A5850(hSequence, channel | 0xC0, log->program[channel], 0, 0);
+	if (log->pitch_h[channel] != -1)
+		sub_A5850(hSequence, channel | 0xE0, log->pitch_l[channel], log->pitch_h[channel], 0);
+	if (log->c_mute[channel] != -1)
+		sub_A5850(hSequence, channel | 0xB0, 107, log->c_mute[channel], 0);
+	if (log->c_prot[channel] != -1)
+		sub_A5850(hSequence, channel | 0xB0, 111, log->c_prot[channel], 0);
+	if (log->c_v_prot[channel] != -1)
+		sub_A5850(hSequence, channel | 0xB0, 112, log->c_v_prot[channel], 0);
+	if (log->mod[channel] != -1)
+		sub_A5850(hSequence, channel | 0xB0, 1, log->mod[channel], 0);
+	if (log->vol[channel] != -1)
+		sub_A5850(hSequence, channel | 0xB0, 7, log->vol[channel], 0);
+	if (log->pan[channel] != -1)
+		sub_A5850(hSequence, channel | 0xB0, 10, log->pan[channel], 0);
+	if (log->exp[channel] != -1)
+		sub_A5850(hSequence, channel | 0xB0, 11, log->exp[channel], 0);
+	if (log->sus[channel] != -1)
+		sub_A5850(hSequence, channel | 0xB0, 64, log->sus[channel], 0);
+	if (log->reverb[channel] != -1)
+		sub_A5850(hSequence, channel | 0xB0, 91, log->reverb[channel], 0);
+	if (log->chorus[channel] != -1)
+		sub_A5850(hSequence, channel | 0xB0, 93, log->chorus[channel], 0);
+	if (log->bend_range[channel] != -1)
+		sub_A5850(hSequence, channel | 0xB0, 6, log->bend_range[channel], 0);
 }
 
 //----- (000A6370) --------------------------------------------------------
 void sub_A6370(HSEQUENCE hSequence)//287370
 {
-	for (int i = 0; i < 16; i++)
+	for (int i = 0; i < NUM_CHANS; i++)
 		hSequence->chan_map_37[i] = i;
 	memset((void*)&hSequence->shadow_53, -1, sizeof(CTRL_LOG));
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < FOR_NEST; i++)
 		hSequence->FOR_loop_count_33[i] = -1;
-	for (int i = 0; i < 32; i++)
-		hSequence->seq_342[i] = -1;
-	hSequence->seq_341 = 0;
+	for (int i = 0; i < MAX_NOTES; i++)
+		hSequence->note_chan[i] = -1;
+	hSequence->note_count = 0;
 	hSequence->interval_count_12 = 0;
 	hSequence->beat_count_23 = 0;
 	hSequence->measure_count_24 = -1;
@@ -4656,11 +4433,196 @@ void sub_A6490(HSEQUENCE hSequence)
 //----- (000A64C0) --------------------------------------------------------
 void sub_A64C0(HSEQUENCE hSequence)
 {
-	for (int32_t i = 0; i < 16; i++)
+	for (int32_t i = 0; i < NUM_CHANS; i++)
 	{
-		if (hSequence->shadow_53.pan[i] != -1)
-			sub_A5850(hSequence, i | 0xB0, 7u, hSequence->shadow_53.pan[i], 0);
+		if (hSequence->shadow_53.vol[i] != -1)
+			sub_A5850(hSequence, i | 0xB0, 7u, hSequence->shadow_53.vol[i], 0);
 	}
+}
+
+//----- (000A6530) --------------------------------------------------------
+int serviceBusy_E4B18 = 0;
+void AilXmidiService_A6530(HMDIDRIVER mdi)//287530
+{
+	if (mdi->disable_5 || serviceBusy_E4B18)
+		return;
+	serviceBusy_E4B18 = 1;
+	HSEQUENCE hSequence = mdi->sequences_6;
+	for (uint32_t n = mdi->n_sequences_7; n; n--, hSequence++)
+	{
+		if (hSequence->status_1 != 4)
+			continue;
+		bool end = false;
+		hSequence->interval_num_13++;
+		hSequence->tempo_error_22 += hSequence->tempo_percent_18;
+		while (hSequence->tempo_error_22 >= 100)
+		{
+			hSequence->tempo_error_22 -= 100;
+			if (hSequence->note_count > 0)
+			{
+				for (int i = 0; i < MAX_NOTES; i++)
+				{
+					if (hSequence->note_chan[i] == -1 || --hSequence->note_time[i] > 0)
+						continue;
+					sub_A5850(hSequence, hSequence->note_chan[i] | 0x80, hSequence->note_num[i], 0, 0);
+					hSequence->note_chan[i] = -1;
+					if (--hSequence->note_count == 0)
+						break;
+				}
+			}
+			if (--hSequence->interval_count_12 <= 0)
+			{
+				while (*hSequence->EVNT_ptr_5 >= 0x80 && !end)
+				{
+					uint8_t* ptr = hSequence->EVNT_ptr_5;
+					int status = *ptr;
+					if (status == 0xF0 || status == 0xF7)
+					{
+						uint8_t* data = ptr + 1;
+						int32_t length = sub_A5040(&data);
+						length += (int32_t)(data - ptr);
+						sub_A4FD0(mdi, ptr, length);
+						hSequence->EVNT_ptr_5 += length;
+					}
+					else if (status == 0xFF)
+					{
+						int metaType = ptr[1];
+						hSequence->EVNT_ptr_5 += 2;
+						int32_t length = sub_A5040(&hSequence->EVNT_ptr_5);
+						uint8_t* data = hSequence->EVNT_ptr_5;
+						if (metaType == 0x2F)
+						{
+							end = true;
+							if (hSequence->loop_count_11 == 0 || --hSequence->loop_count_11 != 0)
+							{
+								hSequence->EVNT_ptr_5 = (uint8_t*)hSequence->EVNT_4 + 8;
+								hSequence->beat_count_23 = 0;
+								hSequence->measure_count_24 = -1;
+								hSequence->beat_fraction_27 = 0;
+								if (hSequence->beat_callback_9)
+									((void(*)(HMDIDRIVER, HSEQUENCE, int, int))hSequence->beat_callback_9)(mdi, hSequence, 0, 0);
+							}
+							else
+							{
+								AilStopSequence_95DE0(hSequence);
+								hSequence->status_1 = 2;
+								if (hSequence->EOS_10)
+									((void(*)(HSEQUENCE))hSequence->EOS_10)(hSequence);
+							}
+						}
+						else if (metaType == 0x51)
+						{
+							hSequence->time_per_beat_28 = ((data[0] << 16) + (data[1] << 8) + data[2]) << 4;
+						}
+						else if (metaType == 0x58)
+						{
+							hSequence->time_numerator_25 = data[0];
+							int shift = data[1] - 2;
+							int32_t fraction = 16000000 / preference_181DAC[11];
+							hSequence->time_fraction_26 = shift < 0 ? fraction >> -shift : fraction << shift;
+							hSequence->beat_fraction_27 = -hSequence->time_fraction_26;
+							hSequence->beat_count_23 = 0;
+							hSequence->measure_count_24++;
+							if (hSequence->beat_callback_9)
+								((void(*)(HMDIDRIVER, HSEQUENCE, int, int))hSequence->beat_callback_9)(mdi, hSequence, hSequence->beat_count_23, hSequence->measure_count_24);
+						}
+						hSequence->EVNT_ptr_5 += length;
+					}
+					else
+					{
+						int channel = status & 0x0F;
+						sub_A5850(hSequence, ptr[0], ptr[1], ptr[2], 1);
+						if ((status & 0xF0) != 0x90)
+						{
+							hSequence->EVNT_ptr_5 += sub_A4E10(*hSequence->EVNT_ptr_5);
+						}
+						else
+						{
+							int slot;
+							for (slot = 0; slot < MAX_NOTES; slot++)
+								if (hSequence->note_chan[slot] == -1)
+									break;
+							if (slot == MAX_NOTES)
+							{
+								strcpy(textBuffer_181C90, "Internal note queue overflow\n");
+								AilStopSequence_95DE0(hSequence);
+								hSequence->status_1 = 2;
+								serviceBusy_E4B18 = 0;
+								return;
+							}
+							hSequence->note_count++;
+							hSequence->note_chan[slot] = channel;
+							hSequence->note_num[slot] = hSequence->EVNT_ptr_5[1];
+							hSequence->EVNT_ptr_5 += 3;
+							hSequence->note_time[slot] = sub_A5040(&hSequence->EVNT_ptr_5);
+						}
+					}
+				}
+				if (!end)
+					hSequence->interval_count_12 = *hSequence->EVNT_ptr_5++;
+			}
+			if (!end)
+			{
+				hSequence->beat_fraction_27 += hSequence->time_fraction_26;
+				if (hSequence->beat_fraction_27 >= hSequence->time_per_beat_28)
+				{
+					hSequence->beat_fraction_27 -= hSequence->time_per_beat_28;
+					if (++hSequence->beat_count_23 >= hSequence->time_numerator_25)
+					{
+						hSequence->beat_count_23 = 0;
+						hSequence->measure_count_24++;
+					}
+					if (hSequence->beat_callback_9)
+					{
+						x_DWORD beat, measure;
+						AilSequencePosition_97330(hSequence, &beat, &measure);
+						((void(*)(HMDIDRIVER, HSEQUENCE, int, int))hSequence->beat_callback_9)(mdi, hSequence, beat, measure);
+					}
+				}
+			}
+		}
+		if (end)
+			continue;
+		if (hSequence->volume_14 != hSequence->volume_target_15)
+		{
+			hSequence->volume_accum_16 += mdi->interval_time_4;
+			while (hSequence->volume_accum_16 >= hSequence->volume_period_17)
+			{
+				hSequence->volume_accum_16 -= hSequence->volume_period_17;
+				if (hSequence->volume_target_15 > hSequence->volume_14)
+					hSequence->volume_14++;
+				else
+					hSequence->volume_14--;
+				if (hSequence->volume_14 == hSequence->volume_target_15)
+					break;
+			}
+			if (!(hSequence->interval_num_13 & 7))
+				sub_A64C0(hSequence);
+		}
+		if (hSequence->tempo_percent_18 != hSequence->tempo_target_19)
+		{
+			hSequence->tempo_accum_20 += mdi->interval_time_4;
+			while (hSequence->tempo_accum_20 >= hSequence->tempo_period_21)
+			{
+				hSequence->tempo_accum_20 -= hSequence->tempo_period_21;
+				if (hSequence->tempo_target_19 > hSequence->tempo_percent_18)
+					hSequence->tempo_percent_18++;
+				else
+					hSequence->tempo_percent_18--;
+				if (hSequence->tempo_percent_18 == hSequence->tempo_target_19)
+					break;
+			}
+		}
+	}
+	sub_A4EB0(mdi);
+	serviceBusy_E4B18 = 0;
+}
+
+static void AilXmidiServiceTimer(void* mdi)
+{
+	x_DWORD_E3FEE++;
+	AilXmidiService_A6530((HMDIDRIVER)mdi);
+	x_DWORD_E3FEE--;
 }
 
 //----- (000A6E00) --------------------------------------------------------
@@ -4747,13 +4709,22 @@ HMDIDRIVER InitAilDriver_A6FB0(AIL_DRIVER* ailDriver, IO_PARMS* io)//287fb0
 							hMdiDriver->sequences_6[i].status_1 = 1;
 							hMdiDriver->sequences_6[i].driver_0 = hMdiDriver;
 						}
-						hMdiDriver->var104_aildrv = 0;
-						hMdiDriver->var105_aildrv = 0;
-						hMdiDriver->var106_aildrv = 0;
-						hMdiDriver->var107_aildrv = 0;
+						hMdiDriver->event_trap = nullptr;
+						hMdiDriver->timbre_trap = nullptr;
+						hMdiDriver->message_count = 0;
+						hMdiDriver->offset = 0;
 						hMdiDriver->interval_time_4 = PitFrequency_F4240 / preference_181DAC[11];
 						hMdiDriver->disable_5 = 0;
-						hMdiDriver->var108_aildrv = 127;
+						hMdiDriver->master_volume = 127;
+						for (int i = 0; i < 16; i++)
+						{
+							hMdiDriver->lock[i] = 0;
+							hMdiDriver->locker[i] = nullptr;
+							hMdiDriver->owner[i] = nullptr;
+							hMdiDriver->user[i] = nullptr;
+							hMdiDriver->state[i] = 0;
+							hMdiDriver->notes[i] = 0;
+						}
 						hMdiDriver->timer_3 = 1;
 						hMdiDriver->drvr_0->destructor_9 = sub_A6F30;
 						hMdiDriver->drvr_0->descriptor_10 = hMdiDriver;
@@ -4778,6 +4749,9 @@ HMDIDRIVER InitAilDriver_A6FB0(AIL_DRIVER* ailDriver, IO_PARMS* io)//287fb0
 							if (!(i & 3))
 								AilDelay_920D0(3);
 						}
+						//loc_A755A: AIL_register_timer(loc_A6530), the AWE32 output calls it at preference 11 Hz
+						if (awe32Music)
+							Awe32Mdi::SetService(AilXmidiServiceTimer, hMdiDriver, preference_181DAC[11]);
 						result = hMdiDriver;
 					}
 					else
@@ -4950,7 +4924,103 @@ XmiLoopEvent actXmiLoopEvents[maxLoopEvents];
 int foundXmiLoopEvents = 0;
 
 //----- (000A7C20) --------------------------------------------------------
+static int32_t AilApiInitSequence_A7C20(HSEQUENCE hSequence, uint8_t* start, int32_t sequence_num)//288c20
+{
+	if (!hSequence)
+		return 0;
+	hSequence->status_1 = 2;
+	uint8_t* chunk = sub_A50F0(start, sequence_num);
+	if (!chunk)
+	{
+		strcpy(textBuffer_181C90, "Invalid XMIDI sequence\n");
+		return 0;
+	}
+	uint8_t* end = chunk + sub_A50A0(*(x_DWORD*)(chunk + 4)) + 8;
+	chunk += 12;
+	hSequence->TIMB_2 = nullptr;
+	hSequence->RBRN_3 = nullptr;
+	hSequence->EVNT_4 = nullptr;
+	while (chunk < end)
+	{
+		if (!strncmp((const char*)chunk, "TIMB", 4))
+			hSequence->TIMB_2 = chunk;
+		if (!strncmp((const char*)chunk, "RBRN", 4))
+			hSequence->RBRN_3 = chunk;
+		if (!strncmp((const char*)chunk, "EVNT", 4))
+			hSequence->EVNT_4 = chunk;
+		chunk += sub_A50A0(*(x_DWORD*)(chunk + 4)) + 8;
+	}
+	if (!hSequence->EVNT_4)
+	{
+		strcpy(textBuffer_181C90, "Invalid XMIDI sequence\n");
+		return 0;
+	}
+	hSequence->ICA_6 = nullptr;
+	hSequence->prefix_callback_7 = nullptr;
+	hSequence->trigger_callback_8_32 = nullptr;
+	hSequence->beat_callback_9 = nullptr;
+	hSequence->EOS_10 = nullptr;
+	hSequence->loop_count_11 = 1;
+	sub_A6490(hSequence);
+	hSequence->volume_14 = preference_181DAC[13];
+	hSequence->volume_target_15 = preference_181DAC[13];
+	hSequence->volume_period_17 = 0;
+	hSequence->volume_accum_16 = 0;
+	hSequence->tempo_percent_18 = 100;
+	hSequence->tempo_target_19 = 100;
+	hSequence->tempo_period_21 = 0;
+	hSequence->tempo_accum_20 = 0;
+	hSequence->tempo_error_22 = 0;
+	if (!hSequence->TIMB_2)
+		return 1;
+	static uint8_t timbres_181EE0[0x200];
+	memmove(timbres_181EE0, hSequence->TIMB_2, 0x200);
+	uint16_t& count = *(uint16_t*)&timbres_181EE0[8];
+	if (hSequence->driver_0->timbre_trap)
+	{
+		for (int i = 0; i < count;)
+		{
+			uint16_t timbre = *(uint16_t*)&timbres_181EE0[10 + 2 * i];
+			if (!((int(*)(HMDIDRIVER, int, int))hSequence->driver_0->timbre_trap)(hSequence->driver_0, timbre >> 8, timbre & 0xFF))
+			{
+				i++;
+				continue;
+			}
+			for (int j = i + 1; j < count; j++)
+				*(uint16_t*)&timbres_181EE0[8 + 2 * j] = *(uint16_t*)&timbres_181EE0[10 + 2 * j];
+			count--;
+			if (timbres_181EE0[5] < 2)
+				timbres_181EE0[4]--;
+			timbres_181EE0[5] -= 2;
+		}
+	}
+	if (!count)
+		return 1;
+	if (sub_92160())
+	{
+		strcpy(textBuffer_181C90, "No timbres loaded\n");
+		return -1;
+	}
+	VDI_CALL vdiOut = {};
+	hSequence->driver_0->disable_5++;
+	sub_A4EB0(hSequence->driver_0);
+	memmove(hSequence->driver_0->DST_2->MIDI_data, timbres_181EE0, 0x200);
+	AilCallDriver_91F70(hSequence->driver_0->drvr_0, 0x503, nullptr, &vdiOut);
+	hSequence->driver_0->disable_5--;
+	if (!vdiOut.AX)
+	{
+		sprintf(textBuffer_181C90, "Driver could not install timbre bank %u, patch %u\n", (vdiOut.BX >> 8) & 0xFF, vdiOut.BX & 0xFF);
+		return -1;
+	}
+	return 1;
+}
+
 int32_t AilApiInitMusicSequence_A7C20(HSEQUENCE hSequence, void*  start, int32_t sequence_num, uint32_t track) {
+	if (awe32Music)
+	{
+		std::lock_guard<std::recursive_mutex> lock(Awe32Mdi::Mutex());
+		return AilApiInitSequence_A7C20(hSequence, (uint8_t*)start, sequence_num);
+	}
 	hSequence->loop_count_11 = 1;
 	hSequence->volume_14 = preference_181DAC[13];
 	hSequence->volume_target_15 = preference_181DAC[13];
@@ -4966,6 +5036,11 @@ int32_t AilApiInitMusicSequence_A7C20(HSEQUENCE hSequence, void*  start, int32_t
 //----- (000A8010) --------------------------------------------------------
 void AilApiStartSequence_A8010(HSEQUENCE hSequence, uint32_t track)//289010
 {
+	if (awe32Music)
+	{
+		sub_A8010_AIL_API_start_sequence_orig(hSequence);
+		return;
+	}
 	if (hSequence)
 	{
 		if (hSequence->status_1 != 1)
@@ -4980,6 +5055,7 @@ void AilApiStartSequence_A8010(HSEQUENCE hSequence, uint32_t track)//289010
 //----- (000A8010) --------------------------------------------------------
 void sub_A8010_AIL_API_start_sequence_orig(HSEQUENCE hSequence)//289010
 {
+	std::lock_guard<std::recursive_mutex> lock(Awe32Mdi::Mutex());
 	if (hSequence)
 	{
 		if (hSequence->status_1 != 1)
@@ -4991,8 +5067,31 @@ void sub_A8010_AIL_API_start_sequence_orig(HSEQUENCE hSequence)//289010
 	}
 }
 
+//----- (000A8050) --------------------------------------------------------
 void sub_A8050_AIL_API_stop_sequence(HSEQUENCE hSequence)//289050
 {
+	if (awe32Music)
+	{
+		std::lock_guard<std::recursive_mutex> lock(Awe32Mdi::Mutex());
+		if (!hSequence || hSequence->status_1 != 4)
+			return;
+		HMDIDRIVER mdi = hSequence->driver_0;
+		hSequence->status_1 = 8;
+		sub_A5E50(hSequence);
+		for (int i = 0; i < NUM_CHANS; i++)
+		{
+			int phys = hSequence->chan_map_37[i];
+			if (hSequence->shadow_53.sus[i] >= 64)
+				sub_A4F10(mdi, phys | 0xB0, 64, 0);
+			if (hSequence->shadow_53.c_prot[i] >= 64)
+				mdi->lock[phys] = 0;
+			if (hSequence->shadow_53.c_v_prot[i] >= 64)
+				sub_A4F10(mdi, phys | 0xB0, 112, 0);
+			if (hSequence->shadow_53.c_lock[i] >= 64)
+				AilReleaseChannel_980D0(mdi, phys + 1);
+		}
+		return;
+	}
 	if (hSequence)
 	{
 		if (hSequence->status_1 == 4)
@@ -5003,8 +5102,27 @@ void sub_A8050_AIL_API_stop_sequence(HSEQUENCE hSequence)//289050
 	}
 }
 
+//----- (000A8180) --------------------------------------------------------
 void sub_A8180_AIL_API_resume_sequence(HSEQUENCE hSequence)//289180
 {
+	if (awe32Music)
+	{
+		std::lock_guard<std::recursive_mutex> lock(Awe32Mdi::Mutex());
+		if (!hSequence || hSequence->status_1 != 8)
+			return;
+		for (int i = 0; i < NUM_CHANS; i++)
+		{
+			if (hSequence->shadow_53.c_lock[i] >= 64)
+			{
+				int channel = AilLockChannel_97F90(hSequence->driver_0) - 1;
+				hSequence->chan_map_37[i] = channel == -1 ? i : channel;
+			}
+		}
+		for (int i = 0; i < NUM_CHANS; i++)
+			sub_A5FD0(hSequence, i);
+		hSequence->status_1 = 4;
+		return;
+	}
 	if (hSequence && hSequence->status_1 == 8)
 	{
 		hSequence->status_1 = 4;
@@ -5012,10 +5130,20 @@ void sub_A8180_AIL_API_resume_sequence(HSEQUENCE hSequence)//289180
 	}
 }
 
-
-
+//----- (000A8250) --------------------------------------------------------
 void AilApiEndSequence_A8250(HSEQUENCE hSequence)//289250
 {
+	if (awe32Music)
+	{
+		std::lock_guard<std::recursive_mutex> lock(Awe32Mdi::Mutex());
+		if (!hSequence || hSequence->status_1 == 1)
+			return;
+		AilStopSequence_95DE0(hSequence);
+		hSequence->status_1 = 2;
+		if (hSequence->EOS_10)
+			((void(*)(HSEQUENCE))hSequence->EOS_10)(hSequence);
+		return;
+	}
 	if (hSequence)
 	{
 		if (hSequence->status_1 != 1)
@@ -5030,6 +5158,9 @@ void AilApiEndSequence_A8250(HSEQUENCE hSequence)//289250
 //----- (000A8360) --------------------------------------------------------
 void AilAPISetSequenceVolume_A8360(HSEQUENCE hSequence, int32_t volume, int32_t milliseconds)//289360
 {
+	std::unique_lock<std::recursive_mutex> lock(Awe32Mdi::Mutex(), std::defer_lock);
+	if (awe32Music)
+		lock.lock();
 	if (hSequence)
 	{
 		hSequence->driver_0->disable_5++;
@@ -5056,6 +5187,21 @@ void AilAPISetSequenceVolume_A8360(HSEQUENCE hSequence, int32_t volume, int32_t 
 }
 // A0D1F: using guessed type x_DWORD abs(x_DWORD);
 
+//----- (000A84D0) --------------------------------------------------------
+void AilApiSetXMidiMasterVolume_A84D0(HMDIDRIVER mdi, int32_t master_volume)//2894d0
+{
+	std::lock_guard<std::recursive_mutex> lock(Awe32Mdi::Mutex());
+	if (mdi->master_volume == master_volume)
+		return;
+	mdi->master_volume = master_volume;
+	mdi->disable_5++;
+	HSEQUENCE hSequence = mdi->sequences_6;
+	for (uint32_t n = mdi->n_sequences_7; n; n--, hSequence++)
+		if (hSequence->status_1 == 4)
+			sub_A64C0(hSequence);
+	mdi->disable_5--;
+}
+
 //----- (000A8410) --------------------------------------------------------
 int AilApiSequenceStatus_A8410(HSEQUENCE hSequence)
 {
@@ -5069,68 +5215,55 @@ int AilApiSequenceStatus_A8410(HSEQUENCE hSequence)
 }
 
 //----- (000A8830) --------------------------------------------------------
-void sub_A8830(HSEQUENCE hSequence, x_DWORD* a2, x_DWORD* a3)
+void sub_A8830(HSEQUENCE hSequence, x_DWORD* beat, x_DWORD* measure)//289830
 {
-	int result; // eax
-	int v4; // [esp+0h] [ebp-10h]
-	int i; // [esp+4h] [ebp-Ch]
-	int v6; // [esp+8h] [ebp-8h]
-	int v7; // [esp+Ch] [ebp-4h]
-
 	if (hSequence)
 	{
-		hSequence->tempo_accum_20++;
-		v7 = hSequence->beat_count_23;
-		v6 = hSequence->measure_count_24;
-		v4 = hSequence->beat_fraction_27;
-		for (i = 0; i < preference_181DAC[14]; i++)
+		hSequence->driver_0->disable_5++;
+		int beatCount = hSequence->beat_count_23;
+		int measureCount = hSequence->measure_count_24;
+		int fraction = hSequence->beat_fraction_27;
+		for (int i = 0; i < preference_181DAC[14]; i++)
 		{
-			v4 += hSequence->time_fraction_26;
-			if (v4 >= hSequence->time_per_beat_28)
+			fraction += hSequence->time_fraction_26;
+			if (fraction >= hSequence->time_per_beat_28)
 			{
-				v4 -= hSequence->time_per_beat_28;
-				if (++v7 >= hSequence->time_numerator_25)
+				fraction -= hSequence->time_per_beat_28;
+				if (++beatCount >= hSequence->time_numerator_25)
 				{
-					v7 = 0;
-					++v6;
+					beatCount = 0;
+					++measureCount;
 				}
 			}
 		}
-		if (v6 < 0)
-			v6 = 0;
-		if (a3)
-			*a3 = v6;
-		if (a2)
-			*a2 = v7;
-		hSequence->tempo_accum_20--;		
+		if (measureCount < 0)
+			measureCount = 0;
+		if (measure)
+			*measure = measureCount;
+		if (beat)
+			*beat = beatCount;
+		hSequence->driver_0->disable_5--;
 	}
 }
 
 //----- (000A8900) --------------------------------------------------------
-void sub_A8900(HSEQUENCE hSequence, int marker)
+void sub_A8900(HSEQUENCE hSequence, int marker)//289900
 {
-	int v3;
-	signed int v5;
-	int i;
-
-	if (hSequence)
+	if (hSequence && hSequence->RBRN_3)
 	{
-		if (hSequence->RBRN_3)
+		int count = *(int16_t*)&hSequence->RBRN_3[8];
+		uint8_t* branches = hSequence->RBRN_3 + 10;
+		int i;
+		for (i = 0; i < count && *(uint16_t*)&branches[6 * i] != marker; i++)
+			;
+		if (i != count)
 		{
-			v5 = *(signed __int16*)(&hSequence->RBRN_3[8]);
-			v3 = hSequence->RBRN_3[10];
-			for (i = 0; i < v5 && *(unsigned __int16*)(v3 + 6 * i) != marker; i++)
-				;
-			if (i != v5)
+			hSequence->EVNT_ptr_5 = (uint8_t*)hSequence->EVNT_4 + 8 + *(uint32_t*)&branches[6 * i + 2];
+			hSequence->interval_count_12 = 0;
+			if (!preference_181DAC[15])
 			{
-				hSequence->interval_count_12 = 0;
-				if (!preference_181DAC[15])
-				{
-					for (int j = 0; j < 4; j++)
-					{
-						hSequence->FOR_loop_count_33[j] = -1;
-					}
-				}
+				for (int j = 0; j < FOR_NEST; j++)
+					hSequence->FOR_loop_count_33[j] = -1;
 			}
 		}
 	}
@@ -5141,102 +5274,124 @@ void AilApiTriggerCallback_A8A20(HSEQUENCE hSequence, xCALLBACK callback)
 {
 	if (!hSequence)
 		return;
+	std::unique_lock<std::recursive_mutex> lock(Awe32Mdi::Mutex(), std::defer_lock);
+	if (awe32Music)
+		lock.lock();
 	hSequence->trigger_callback_8_32 = callback;
 }
 
-//----- (000A8BF0) --------------------------------------------------------
-int AilApiLockChannel_97F90_A8BF0(MDI_DRIVER* mdi)
+//note-off of the queued notes of all sequences on a physical channel
+static void NotesOffOnChannel(HMDIDRIVER mdi, int channel)
 {
-	int v2;
-	HSEQUENCE v3;
-	signed int v4;
-	signed int v5;
-	int v9;
+	HSEQUENCE hSequence = mdi->sequences_6;
+	for (uint32_t n = mdi->n_sequences_7; n; n--, hSequence++)
+	{
+		if (hSequence->status_1 == 1)
+			continue;
+		for (int k = 0; k < MAX_NOTES; k++)
+		{
+			if (hSequence->note_chan[k] != -1 && hSequence->chan_map_37[hSequence->note_chan[k]] == channel)
+			{
+				sub_A5850(hSequence, hSequence->note_chan[k] | 0x80, hSequence->note_num[k], 0, 0);
+				hSequence->note_chan[k] = -1;
+			}
+		}
+	}
+}
 
-	++mdi->disable_5;
-	v5 = -1;
-	v4 = 0x7FFFFFFF;
+//----- (000A8BF0) --------------------------------------------------------
+int AilApiLockChannel_97F90_A8BF0(MDI_DRIVER* mdi)//289bf0
+{
+	mdi->disable_5++;
+	int best = -1;
+	int fewest = 0x7FFFFFFF;
 	for (int i = 8; i >= 1; i--)
 	{
-		if (i != 9 && mdi->lock[i] != 1 && mdi->lock[i] != 2 && mdi->notes[i] < v4)
+		if (i != 9 && mdi->lock[i] != 1 && mdi->lock[i] != 2 && mdi->notes[i] < fewest)
 		{
-			v4 = mdi->notes[i];
-			v5 = i;
+			fewest = mdi->notes[i];
+			best = i;
 		}
 	}
-	if (v5 == -1)
+	if (best == -1)
 	{
-		for (int j = 8; j >= 1; j--)
+		for (int i = 8; i >= 1; i--)
 		{
-			if (j != 9 && mdi->lock[j] != 1 && mdi->notes[j] < v4)
+			if (i != 9 && mdi->lock[i] != 1 && mdi->notes[i] < fewest)
 			{
-				v4 = mdi->notes[j];
-				v5 = j;
+				fewest = mdi->notes[i];
+				best = i;
 			}
 		}
 	}
-	if (v5 == -1)
+	if (best == -1)
 	{
-		--mdi->disable_5;
-		v2 = 0;
+		mdi->disable_5--;
+		return 0;
 	}
-	else
-	{
-		sub_A4F10(mdi, v5 | 0xB0, 64, 0);
-		v9 = mdi->n_sequences_7;
-		v3 = mdi->sequences_6;
-		while (v9)
-		{
-			if (*(x_DWORD*)(v3 + 4) != 1)
-			{
-				for (int k = 0; k < 32; k++)
-				{
-					if (*(x_DWORD*)(v3 + 4 * k + 1368) != -1 && *(x_DWORD*)(v3 + 4 * *(x_DWORD*)(v3 + 4 * k + 1368) + 148) == v5)
-					{
-						sub_A5850(v3, *(unsigned int*)(v3 + 4 * k + 1368) | 0x80, *(x_DWORD*)(v3 + 4 * k + 1496), 0, 0);
-						*(x_DWORD*)(v3 + 4 * k + 1368) = -1;
-					}
-				}
-			}
-			--v9;
-			v3 += 1816;
-		}
-		mdi->state[v5] = mdi->lock[v5];
-		mdi->lock[v5] = 1;
-		mdi->locker[v5] = nullptr;
-		mdi->owner[v5] = mdi->user[v5];
-		--mdi->disable_5;
-		v2 = v5 + 1;
-	}
-	return v2;
+	sub_A4F10(mdi, best | 0xB0, 64, 0);
+	NotesOffOnChannel(mdi, best);
+	mdi->state[best] = mdi->lock[best];
+	mdi->lock[best] = 1;
+	mdi->locker[best] = nullptr;
+	mdi->owner[best] = mdi->user[best];
+	mdi->disable_5--;
+	return best + 1;
 }
 
 //----- (000A8EA0) --------------------------------------------------------
-void sub_A8EA0(HMDIDRIVER mdi, int a2)
+void sub_A8EA0(HMDIDRIVER mdi, int a2)//289ea0
 {
+	int channel = a2 - 1;
+	if (mdi->lock[channel] != 1)
+		return;
+	mdi->disable_5++;
+	mdi->lock[channel] = mdi->state[channel];
+	mdi->user[channel] = mdi->owner[channel];
+	sub_A4F10(mdi, channel | 0xB0, 64, 0);
+	NotesOffOnChannel(mdi, channel);
+	if (mdi->owner[channel] && mdi->owner[channel]->status_1 != 1)
+		sub_A5FD0(mdi->owner[channel], channel);
+	mdi->disable_5--;
 }
 
 //----- (000A9080) --------------------------------------------------------
-void sub_A9080(HSEQUENCE sequence, int a2, int a3)
+void sub_A9080(HSEQUENCE sequence, int a2, int a3)//28a080
 {
-	HSEQUENCE result = nullptr;
 	if (sequence)
 	{
-		sequence->chan_map_37[a2] = a3 - 1;
-		sequence->driver_0->notes[a3];
-		if (sequence->FOR_loop_count_33[a3] == 1)
-		{
-			result = sequence->driver_0->var23_aildrvx[a3];
-			if (result != sequence)
-			{
-				sequence->driver_0->var23_aildrvx[a3] = sequence;
-			}
-		}
+		sequence->chan_map_37[a2 - 1] = a3 - 1;
+		if (sequence->driver_0->lock[a3 - 1] == 1 && sequence->driver_0->locker[a3 - 1] != sequence)
+			sequence->driver_0->locker[a3 - 1] = sequence;
 	}
 }
 
+//----- (000A9140) --------------------------------------------------------
 void AilAPISendChannelVoiceMessage_A9140(HMDIDRIVER mdi, HSEQUENCE hSequence, int32_t status, int32_t data_1, int32_t data_2)//28a140
 {
+	if (!awe32Music)
+		return;
+	std::lock_guard<std::recursive_mutex> lock(Awe32Mdi::Mutex());
+	mdi->disable_5++;
+	if (hSequence)
+	{
+		sub_A5850(hSequence, status, data_1, data_2, 0);
+	}
+	else
+	{
+		if ((status & 0xF0) == 0xB0 && data_1 == 7)
+		{
+			data_2 = data_2 * mdi->master_volume / 127;
+			if (data_2 > 127)
+				data_2 = 127;
+			if (data_2 < 0)
+				data_2 = 0;
+		}
+		if (!mdi->event_trap || !((int(*)(HMDIDRIVER, HSEQUENCE, int, int, int))mdi->event_trap)(mdi, nullptr, status, data_1, data_2))
+			sub_A4F10(mdi, status, data_1, data_2);
+	}
+	sub_A4EB0(mdi);
+	mdi->disable_5--;
 }
 
 IO_PARMS* AilGetIoEnvironment_92ED0(AIL_DRIVER* drvr)
@@ -5419,80 +5574,27 @@ void AIL_fix() {
 //----- (0009F110) --------------------------------------------------------
 signed __int64 sub_9F110(int a1)//dpmi_real_malloc see: https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
-	int v4; // [esp+Ch] [ebp-18h]
-	int v5; // [esp+18h] [ebp-Ch]
-	unsigned int v6; // [esp+20h] [ebp-4h]
-
-	//fix it
-	v4 = 0;
-	v5 = 0;
-	//fix it
-
-	if (v5)
-		LOWORD(v6) = 0;
-	else
-		LOWORD(v6) = v4;
-	return __PAIR__(v6, 0);
+	//the selector of the block is its real mode segment
+	return __PAIR__((uint32_t)SOUND_DosRealAlloc(a1), 0);
 }
 
 //----- (0009F170) --------------------------------------------------------
 int sub_9F170(int  /*a1*/, unsigned __int16 a2)//dpmi_real_free see: https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
 {
-	int v5; // [esp+18h] [ebp-8h]
-	int v6; // [esp+1Ch] [ebp-4h]
-
-	//fix it
-	v5 = 0;
-	//fix it
-
-	if (v5)
-		v6 = -1;
-	else
-		v6 = 0;
-	return v6;
+	SOUND_DosRealFree(a2);
+	return 0;
 }
 
 //----- (0009F1D0) --------------------------------------------------------
 int sub_9F1D0(int a1)//see: https://www.delorie.com/djgpp/doc/dpmi/api/310002.html
 {
-	int v2; // [esp+0h] [ebp-20h]
-	int v4; // [esp+18h] [ebp-8h]
-	int v5; // [esp+1Ch] [ebp-4h]
-
-	//fix it
-	v4 = 0;
-	//fix it
-
-	v2 = 2;
-
-	if (v4)
-		v5 = -1;
-	else
-		v5 = (unsigned __int16)v2;
-	return v5;
+	return (unsigned __int16)a1;
 }
 
 //----- (0009F220) --------------------------------------------------------
 int sub_9F220(int a1)//serial_dpmi_lock_linear_memory/serial_dpmi_unlock_linear_memory see:https://github.com/kstenerud/DOS-Serial-Library/blob/master/serial.c
 {
-	unsigned __int16 v4;
-	unsigned __int16 v5;
-	int v6;
-	int v7;
-	//fix it
-	v4 = 0;
-	//fix it
-
-	//fix it
-	v5 = 0;
-	v6 = 0;
-	//fix it
-
-	if (v6)
-		v7 = -1;
-	else
-		v7 = ((signed int)v5 >> 4) + (v4 << 12);
-	return v7;
+	return (unsigned __int16)a1;
 }
 
 //----- (0008EAD0) --------------------------------------------------------
@@ -5544,6 +5646,8 @@ bool InitMusicBank_8EAD0(int channel)//26fad0
 	if (channellplus <= driverarray[finaldrivernumber])
 	{
 		DataFileIO::Seek(filehandle, (channellplus - 1) << 6, 1);
+		if (awe32Music && awe32GmIntroMusic && finaldrivernumber == 3)
+			LoadGmMusicBank(filehandle);
 		if (!LoadMusicTrack(filehandle, finaldrivernumber))
 		{
 			DataFileIO::Close(filehandle);
@@ -5875,14 +5979,16 @@ uint32_t FadeWarMusic_99830(uint32_t interval)
 		{
 			x_BYTE_E3816 += x_BYTE_E381A;
 
-			WarMusicSetVolume(x_BYTE_E3816);
-			/*
-			for (i = 0; i < 0x10u; ++i)
+			if (awe32Music)
 			{
-				if (byte_180C90[i])
-					AilSendChannelVoiceMessage_98360(hMdiMusicDriver_180C7C, m_hMusicSequence_180C78, i | 0xB0, 11, (unsigned __int8)x_BYTE_E3816);
+				for (i = 0; i < 0x10u; ++i)
+				{
+					if (byte_180C90[i])
+						AilSendChannelVoiceMessage_98360(hMdiMusicDriver_180C7C, m_hMusicSequence_180C78, i | 0xB0, 11, (unsigned __int8)x_BYTE_E3816);
+				}
 			}
-			*/
+			else
+				WarMusicSetVolume(x_BYTE_E3816);
 		}
 	}
 	else

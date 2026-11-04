@@ -11,7 +11,7 @@ LaunchOptionsDialog::LaunchOptionsDialog(wxWindow* parent, std::string launchArg
 	m_setLevel = new wxCheckBox(this, wxID_ANY, "Set Level");
 	m_setLevel->SetToolTip("Jump to a selected Level");
 	m_levelSpin = new wxSpinCtrl(this, wxID_ANY, "0", wxDefaultPosition, wxDefaultSize,
-		wxSP_ARROW_KEYS, 0, 25, 0);
+		wxSP_ARROW_KEYS, 0, 24, 0);
 	m_levelSpin->Enable(false);
 	m_levelSpin->SetToolTip("Jump to a selected Level");
 	levelSizer->Add(m_setLevel, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 10);

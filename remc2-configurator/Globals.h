@@ -4,6 +4,17 @@
 #include "../remc2/portability/Config.h"
 #include "../remc2/portability/ConfigToSdlScancodeMapping.h"
 
+// SetMinSize only limits later resizing: a dialog its constructor has already Fit() smaller stays that size.
+// This grows it to the minimum as well (never shrinks it) and re-centres it, since it was centred at the old size.
+inline void SetDialogMinSize(wxDialog& dlg, const wxSize& minSize)
+{
+	dlg.SetMinSize(minSize);
+	wxSize size = dlg.GetSize();
+	size.IncTo(minSize);
+	dlg.SetSize(size);
+	dlg.Centre();
+}
+
 enum {
 	ID_BTN_PLAY = wxID_HIGHEST + 1,
 	ID_BTN_FILE,

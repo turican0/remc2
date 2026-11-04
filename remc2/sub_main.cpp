@@ -698,8 +698,8 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 					EndLibNetServer();*/
 			}
 		}
-		delete EventDispatcher::I;
 		VGA_close();
+		delete EventDispatcher::I;
 	}
 #ifndef __ANDROID__
 	catch (const thread_exit_exception& e)

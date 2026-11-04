@@ -46,6 +46,8 @@ float sizePercentToThreadRender = 0;
 float sizePercentToThreadRenderSprites = 0;
 int numberOfRenderThreads = 0;
 bool assignToSpecificCores = false;
+bool bilinearFiltering = false;
+int antiAliasing = 0;
 bool openGLRender = false;
 bool invertYAxis = true;
 bool invertXAxis = false;
@@ -145,10 +147,24 @@ bool SetConfig() {
 	hqsound = settingsValue.m_Sound.m_HqSound;
 	fixspeedsound = settingsValue.m_Sound.m_FixSpeedSound;
 	autoShowObjectivesForForeignLanguages = settingsValue.m_Sound.m_AutoShowObjectivesForForeignLanguages;
-	if (settingsValue.m_Sound.m_OggMusic)
+
+	musicType = settingsValue.m_Sound.m_MusicType;
+	strcpy(oggmusicFolder, settingsValue.m_Sound.m_OggFolder.c_str());
+
+	if (musicType.compare("ogg") == 0)
 	{
 		oggmusic = true;
-		hqsound = true;//for mp3 music must be activate hqsound
+		hqsound = true;
+		oggmusicalternative = settingsValue.m_Sound.m_OggMusicAlternative;
+	}
+	else if(musicType.compare("awe32") == 0)
+	{
+		awe32Music = true;
+		hqsound = true;
+		awe32RomFolder = settingsValue.m_Sound.m_Awe32RomFolder;
+		useMagicCarpet1Music = settingsValue.m_Sound.m_UseMagicCarpet1Music;
+		awe32GmIntroMusic = settingsValue.m_Sound.m_Awe32GmIntroMusic;
+		awe32BufferMs = settingsValue.m_Sound.m_Awe32BufferMs;
 	}
 	else
 		oggmusic = false;
@@ -156,8 +172,6 @@ bool SetConfig() {
 	if (settingsValue.m_Sound.m_MaxSimultaniousSounds > 10)
 		maxSimultaniousSounds = settingsValue.m_Sound.m_MaxSimultaniousSounds;
 
-	oggmusicalternative = settingsValue.m_Sound.m_OggMusicAlternative;
-	strcpy(oggmusicFolder, settingsValue.m_Sound.m_OggFolder.c_str());
 	strcpy(speechFolder, settingsValue.m_Sound.m_SpeechFolder.c_str());
 
 	//Graphics
@@ -229,7 +243,9 @@ bool SetConfig() {
 		viewDistanceScale = settingsValue.m_Graphics.m_GameDetail.m_ViewDistanceScale;
 	if (settingsValue.m_Graphics.m_GameDetail.m_FogScale > 0)
 		fogScale = settingsValue.m_Graphics.m_GameDetail.m_FogScale;
-
+	m_render = settingsValue.m_Graphics.m_Render;
+	bilinearFiltering = settingsValue.m_Graphics.m_Hardware.m_BilinearFiltering;
+	antiAliasing = settingsValue.m_Graphics.m_Hardware.m_AntiAliasing;
 	multiThreadedRender = settingsValue.m_Graphics.m_Threading.m_IsActive;
 	sizePercentToThreadRender = settingsValue.m_Graphics.m_Threading.m_SizePercentToThreadRender;
 	numberOfRenderThreads = settingsValue.m_Graphics.m_Threading.m_NumberOfRenderThreads;

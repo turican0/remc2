@@ -58,6 +58,8 @@ extern float sizePercentToThreadRenderSprites;
 extern bool multiThreadedRender;
 extern int numberOfRenderThreads;
 extern bool assignToSpecificCores;
+extern bool bilinearFiltering;
+extern int antiAliasing;   // MSAA samples, 0 = off
 extern bool invertYAxis;
 extern bool invertXAxis;
 extern float mouseScaleX;
