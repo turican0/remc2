@@ -28,6 +28,14 @@ extern bool big_sprites_inited;
 
 extern uint8_t* m_pColorPalette;
 
+struct FlcState {
+	int  width = 0;
+	int  height = 0;
+	bool skipZero = false;
+};
+
+static uint16_t FlcRd16(uint8_t* p);
+
 bool MainInitTmaps_71520(unsigned __int16 a1);
 int sub_70EF0(unsigned __int16 a1);
 signed int GetIndex_71CD0(type_x_DWORD_E9C28_str* a1);
@@ -44,9 +52,15 @@ void sub_70BF0_close_tmaps();
 int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer);
 bool WriteTmapsMeta(const std::string& dataDir, const std::string& outPath);//TMAPSMETA.DAT for the tests without the game
 extern MapType_t tmapsMapType;//the TMAPS file x_DWORD_DB73C_tmapsfile stands for (sub_70A60 Day, sub_71A70)
-void WriteTextureMapToBmp(uint16_t texture_index, Type_Sprite* ptextureMap, MapType_t mapType);
+void WriteTextureMapToBmp(uint16_t textureIndex, uint8_t* ptextureMap, uint16_t width, uint16_t height, MapType_t mapType);
+void WriteTextureMapToBmp(uint16_t textureIndex, uint16_t frameIndex, uint8_t* ptextureMap, uint16_t width, uint16_t height, MapType_t mapType);
 uint8_t* LoadTMapColorPalette(MapType_t mapType);
-type_animations1* sub_721C0_initTmap(type_E9C08* a1, Type_Sprite** a2x, __int16 a3);
+type_animations1* sub_721C0_initTmap(type_E9C08* a1, Type_Sprite** a2x, int16_t index);
 void ResetAnimation_72410(type_animations1* animation);
+
+std::vector<uint8_t*> GetRawFrames(uint16_t frameCount, Type_Sprite* ptextureMap, size_t startOffset = 0);
+uint8_t* ApplyDeltaFlc(uint8_t* p, uint8_t* img, const FlcState& st);
+void ApplyByteRun(uint8_t* p, uint8_t* end, uint8_t* img, const FlcState& st);
+uint8_t* ApplyFlcFrame(uint8_t* src, uint8_t* img, FlcState& st);
 
 #endif //TEXTURE_MAPS_H

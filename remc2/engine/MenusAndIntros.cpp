@@ -3,7 +3,7 @@
 #include <algorithm>
 
 #include "../utilities/StateMonitor.h"
-#include "EventDispatcher.h"
+#include "../shared/EventDispatcher.h"
 #include "CommandLineParser.h"
 #include "GameUI.h"
 #include "Level.h"
@@ -1006,10 +1006,12 @@ bool NewGameDialog_77350(type_menuButtons_E1F84* a1x)//258350
 		if (x_WORD_180660_VGA_type_resolution & 1)
 		{
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0));
+			ClearScreenAlphaBuffer(320, 200, 255);
 		}
 		else
 		{
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0));
+			ClearScreenAlphaBuffer(640, 480, 255);
 		}
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			sub_90478_VGA_Blit320();
@@ -1361,10 +1363,12 @@ char LanguageSettingDialog_779E0(type_menuButtons_E1F84* a1y)//2589E0
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);
+		ClearScreenAlphaBuffer(320, 200, 255);
 	}
 	else
 	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, 0);
+		ClearScreenAlphaBuffer(640, 480, 255);
 	}
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		ClearGraphicsBuffer_72883((void*)x_DWORD_E9C38_smalltit, 320, 200, 0);
@@ -1856,15 +1860,21 @@ char SetKeysDialog_79610()//25a610
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);
+		ClearScreenAlphaBuffer(320, 200, 255);
 	}
 	else
 	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, 0);
+		ClearScreenAlphaBuffer(640, 480, 255);
 	}
 	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
 		ClearGraphicsBuffer_72883((void*)x_DWORD_E9C38_smalltit, 320, 200, 0);
+	}
 	else
+	{
 		ClearGraphicsBuffer_72883((void*)x_DWORD_E9C38_smalltit, 640, 480, 0);
+	}
 	ResetMouse_7B5A0();
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		sub_90478_VGA_Blit320();
@@ -2132,9 +2142,15 @@ void LoadAndSetGraphicsAndPalette_7AC00()//25BC00
 			sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
 			uiBackGroundColorIdx_EB3A8 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
 			if (x_WORD_180660_VGA_type_resolution & 1)
+			{
 				ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, uiBackGroundColorIdx_EB3A8);
+				ClearScreenAlphaBuffer(320, 200, 255);
+			}
 			else
+			{
 				ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, uiBackGroundColorIdx_EB3A8);
+				ClearScreenAlphaBuffer(640, 480, 255);
+			}
 
 			sub_8CEDF_install_mouse();
 			SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]); //Set cursor to Null (Don't Draw)
@@ -2174,11 +2190,13 @@ void sub_7ADE0(char a1)//25bde0
 		{
 			v1 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, v1);
+			ClearScreenAlphaBuffer(320, 200, 255);
 		}
 		else
 		{
 			v2 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, v2);
+			ClearScreenAlphaBuffer(640, 480, 255);
 		}
 		memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
 		sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
@@ -2190,9 +2208,15 @@ void sub_7ADE0(char a1)//25bde0
 		v3 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
 		uiBackGroundColorIdx_EB3A8 = v3;
 		if (x_WORD_180660_VGA_type_resolution & 1)
+		{
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, v3);
+			ClearScreenAlphaBuffer(320, 200, 255);
+		}
 		else
+		{
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, v3);
+			ClearScreenAlphaBuffer(640, 480, 255);
+		}
 		sub_8CEDF_install_mouse();
 	}
 	SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]); //Set cursor to Null (Don't Draw)
@@ -4151,14 +4175,20 @@ void PlayInGameFmv_82670()//263670
 					}
 					SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]); //Set cursor to Null (Don't Draw)
 					memset((void*)pdwScreenBuffer_351628, 0, 640 * 480);
-					if (x_WORD_180660_VGA_type_resolution != 1)
+					if (x_WORD_180660_VGA_type_resolution != 1 || screenWidth_18062C != 320 || screenHeight_180624 != 200)
 					{
 						sub_54600_mouse_reset();
 						memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
 						if (x_WORD_180660_VGA_type_resolution & 1)
+						{
 							ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);
+							ClearScreenAlphaBuffer(320, 200, 255);
+						}
 						else
+						{
 							ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, 0);
+							ClearScreenAlphaBuffer(640, 480, 255);
+						}
 						sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
 						x_WORD_180660_VGA_type_resolution = 1;
 						sub_90D6E_VGA_set_video_mode_320x200_and_Palette((TColor*)*xadatapald0dat2.colorPalette_var28);
@@ -4182,9 +4212,15 @@ void PlayInGameFmv_82670()//263670
 					StopMusic_8E020();
 					FadeClearBlit_7B5D0();
 					if (x_WORD_180660_VGA_type_resolution & 1)
+					{
 						ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);
+						ClearScreenAlphaBuffer(320, 200, 255);
+					}
 					else
+					{
 						ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, 0);
+						ClearScreenAlphaBuffer(640, 480, 255);
+					}
 
 					if (x_WORD_180660_VGA_type_resolution & 1)
 						sub_90478_VGA_Blit320();
@@ -4195,9 +4231,15 @@ void PlayInGameFmv_82670()//263670
 						sub_54600_mouse_reset();
 						memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
 						if (x_WORD_180660_VGA_type_resolution & 1)
+						{
 							ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);
+							ClearScreenAlphaBuffer(320, 200, 254);
+						}
 						else
+						{
 							ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, 0);
+							ClearScreenAlphaBuffer(640, 480, 254);
+						}
 						sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
 						x_WORD_180660_VGA_type_resolution = tempTypeResolution;
 						if (x_WORD_180660_VGA_type_resolution & 1)
@@ -4232,9 +4274,15 @@ void PlayIntros_83250(char a1)//264250
 	sub_54600_mouse_reset();
 	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
 	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);
+		ClearScreenAlphaBuffer(320, 200, 255);
+	}
 	else
+	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, 0);
+		ClearScreenAlphaBuffer(640, 480, 255);
+	}
 
 	sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
 	x_WORD_180660_VGA_type_resolution = 8;
@@ -4373,9 +4421,15 @@ void ShowEndCredits_833C0()//2643c0
 	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
 	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);
+		ClearScreenAlphaBuffer(320, 200, 255);
+	}
 	else
+	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, 0);
+		ClearScreenAlphaBuffer(640, 480, 255);
+	}
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		sub_90478_VGA_Blit320();
 	else
@@ -4494,9 +4548,15 @@ void ShowScores()
 	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
 	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);
+		ClearScreenAlphaBuffer(320, 200, 255);
+	}
 	else
+	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, 0);
+		ClearScreenAlphaBuffer(640, 480, 255);
+	}
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		sub_90478_VGA_Blit320();
 	else
@@ -4556,15 +4616,22 @@ void ShowWelcomeScreen_83850()//264850
 		{
 			afterFade = true;
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, 0);
+			ClearScreenAlphaBuffer(640, 480, 255);
 			sub_75200_VGA_Blit640(480, menuFps);
 			sub_90B27_VGA_pal_fadein_fadeout((TColor*)*xadatapald0dat2.colorPalette_var28, 0x20u, 0);
 		}
 	}
 	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
 		ClearGraphicsBuffer_72883(pdwScreenBuffer_351628, 320, 200, 0);
+		ClearScreenAlphaBuffer(320, 200, 255);
+	}
 	else
+	{
 		ClearGraphicsBuffer_72883(pdwScreenBuffer_351628, 640, 480, 0);
+		ClearScreenAlphaBuffer(640, 480, 255);
+	}
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		sub_90478_VGA_Blit320(menuFps);
 	else

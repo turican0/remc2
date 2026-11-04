@@ -685,8 +685,8 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 		v29 = viewPort.Height_DE568;
 		v25x = ViewPortRenderBufferStart_DE558;
 		v30 = (v26 - (__CFSHL__((signed int)v26 >> 31, 2) + 4 * ((signed int)v26 >> 31))) >> 2;
-		LOBYTE(v28) = keyColor1_D4B7C;
-		HIBYTE(v28) = keyColor1_D4B7C;
+		LOBYTE(v28) = m_BackgroundColour_D4B7C;
+		HIBYTE(v28) = m_BackgroundColour_D4B7C;
 		v31 = v28;
 		v32 = v28 << 16;
 		LOWORD(v32) = v31;
@@ -2222,7 +2222,7 @@ uint16_t GameRenderOriginal::sub_3FD60(int a2x)
 	return result;
 }
 
-void GameRenderOriginal::sub_88740(type_entity_0x6E8E* a1x, int16_t posX, int16_t posY)
+void GameRenderOriginal::SetEntityHelpText_88740(type_entity_0x6E8E* a1x, int16_t posX, int16_t posY)
 {
 	int v3; // esi
 	type_entity_0x6E8E* v4x; // edx
@@ -4908,7 +4908,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 						DrawSorcererNameAndHealthBar_2CB30(str_F2C20ar.dword0x14x, str_F2C20ar.dword0x04_screenY, (signed __int16)str_F2C20ar.dword0x03_screenX, str_F2C20ar.dword0x09_realWidth);
 					}
 					if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
-						sub_88740(
+						SetEntityHelpText_88740(
 							str_F2C20ar.dword0x14x,
 							(signed __int16)(str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1)),
 							(signed __int16)(str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1)));
@@ -4988,7 +4988,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 				v153 += 2;
 			}
 			if (pass == 1 && x_D41A0_BYTEARRAY_4_struct.showHelp_10)
-				sub_88740(
+				SetEntityHelpText_88740(
 					str_F2C20ar.dword0x14x,
 					(signed __int16)(str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1)),
 					(signed __int16)(str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1)));

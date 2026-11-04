@@ -5,6 +5,7 @@
 #include <map>
 #include <fstream>
 #include <vector>
+#include "../shared/EventDispatcher.h"
 #include "../engine/RecordedEvent.h"
 #include "../engine/GameState.h"
 

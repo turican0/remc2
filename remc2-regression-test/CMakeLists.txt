@@ -12,9 +12,18 @@ set(SOURCE_FILES_REGRESSIONTESTS
     "../remc2/engine/CommandLineParser.h"
     "../remc2/engine/Events.cpp"
     "../remc2/engine/Events.h"
-    "../remc2/engine/Event.h"
-    "../remc2/engine/EventDispatcher.cpp"
-    "../remc2/engine/EventDispatcher.h"
+    "../remc2/shared/EventDispatcher.cpp"
+    "../remc2/shared/EventDispatcher.h"
+    "../remc2/shared/Event.h"
+    "../remc2/shared/EventType.h"
+    "../remc2/shared/IEvent.h"
+    "../remc2/shared/ResourceType.h"
+    "../remc2/engine/GameRenderHW.cpp"
+    "../remc2/engine/GameRenderHW.h"
+    "../remc2/portability/VulkanPolygonRenderer.cpp"
+    "../remc2/portability/VulkanPolygonRenderer.h"
+    "../remc2/portability/RenderPolygon.h"
+    "../remc2/utilities/SafeQueue.h"
     "../remc2/engine/GameBitmap.cpp"
     "../remc2/engine/GameBitmap.h"
     "../remc2/engine/GameBitmapIndexes.h"
@@ -92,6 +101,27 @@ set(SOURCE_FILES_REGRESSIONTESTS
     "../remc2/portability/port_sdl_joystick.h"
     "../remc2/portability/port_sdl_sound.cpp"
     "../remc2/portability/port_sdl_sound.h"
+    "../remc2/portability/awe32/Awe32Mdi.cpp"
+    "../remc2/portability/awe32/Awe32Rom.cpp"
+    "../remc2/portability/awe32/Emu8000.cpp"
+    "../remc2/portability/awe32/Emu8000Box.cpp"
+    "../remc2/portability/awe32/I18n.cpp"
+    "../remc2/portability/awe32/SoundFont.cpp"
+    "../remc2/portability/awe32/Synth.cpp"
+    "../remc2/portability/awe32/86box/snd_emu8k.c"
+    "../remc2/portability/awe32/Awe32Curves.h"
+    "../remc2/portability/awe32/Awe32Driver.h"
+    "../remc2/portability/awe32/Awe32InitArrays.h"
+    "../remc2/portability/awe32/Awe32Mdi.h"
+    "../remc2/portability/awe32/Awe32Rom.h"
+    "../remc2/portability/awe32/Emu8000.h"
+    "../remc2/portability/awe32/Emu8000Box.h"
+    "../remc2/portability/awe32/Emu8000Effects.h"
+    "../remc2/portability/awe32/Emu8000Regs.h"
+    "../remc2/portability/awe32/I18n.h"
+    "../remc2/portability/awe32/MidiTypes.h"
+    "../remc2/portability/awe32/SoundFont.h"
+    "../remc2/portability/awe32/Synth.h"
     "../remc2/portability/port_sdl_vga_mouse.cpp"
     "../remc2/portability/port_sdl_vga_mouse.h"
     "../remc2/portability/port_show_perifery.cpp"
@@ -157,6 +187,8 @@ set(ROOT_NAMESPACE remc2-regression-test)
 # Regression tests
 ################################################################################
 add_executable(${REGRESSION_TEST_TARGET} ${SOURCE_FILES_REGRESSIONTESTS})
+target_include_directories(${REGRESSION_TEST_TARGET} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../remc2/portability/awe32/86box/include")
+target_compile_definitions(${REGRESSION_TEST_TARGET} PRIVATE AWE32EMU_WITH_86BOX)
 target_include_directories(${REGRESSION_TEST_TARGET} PUBLIC
     "../remc2/engine"
     "../remc2/portability"
@@ -174,7 +206,9 @@ target_link_libraries(${REGRESSION_TEST_TARGET} PUBLIC
 	findfirst
 	ADLMIDI_static
 	fmt::fmt
+	${VULKAN_LIBRARIES}
 )
+add_vulkan_shaders(${REGRESSION_TEST_TARGET})
 add_compile_definitions(COMPILE_FOR_64BIT)
 install(
     TARGETS ${REGRESSION_TEST_TARGET}

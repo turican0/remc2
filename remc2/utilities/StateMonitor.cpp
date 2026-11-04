@@ -56,7 +56,7 @@ void StateMonitor::Init() {
         m_surface, SDL_PIXELFORMAT_RGB888, 0);
     m_texture = SDL_CreateTexture(m_renderer,
         SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_STREAMING, m_surface->w, m_surface->h);
-    SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND);
+    SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_NONE);
     SDL_RenderClear(m_renderer);
     SDL_RenderPresent(m_renderer);
 

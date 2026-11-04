@@ -1,4 +1,7 @@
 #include "ReadAndDecompress.h"
+#include "TextureMaps.h"
+#include <cstring>
+#include <vector>
 uint8_t BigTextureBuffer[128 * 128 * 160];
 
 //----- (00054630) --------------------------------------------------------
@@ -17,8 +20,43 @@ void sub_54630_load_psxblock(uint16_t TextSize)//235630
 	}
 }
 
+void UpdateTileTextures(uint32_t tileSize, uint8_t* tileBuffer, MapType_t mapType)
+{
+	constexpr uint32_t kTilesWide = 8;
+	constexpr uint32_t kTilesTall = 19;
+	// The block buffers are always 256 pixels wide (see sub_5B7A0_prepare_textures), so
+	// 32px tiles sit 8 to a row but 128px tiles only 2. Repack into the kTilesWide atlas
+	// GameRenderHW addresses, whatever the tile size.
+	constexpr uint32_t kSourceWidth = 256;
+	const uint32_t sourceTilesWide = kSourceWidth / tileSize;
+	const uint32_t atlasWidth = tileSize * kTilesWide;
+	const uint32_t atlasHeight = tileSize * kTilesTall;
+
+	std::vector<uint8_t> atlas(atlasWidth * atlasHeight);
+	for (uint32_t tile = 0; tile < kTilesWide * kTilesTall; tile++)
+	{
+		const uint8_t* src = tileBuffer + (tile / sourceTilesWide) * tileSize * kSourceWidth + (tile % sourceTilesWide) * tileSize;
+		uint8_t* dst = atlas.data() + (tile / kTilesWide) * tileSize * atlasWidth + (tile % kTilesWide) * tileSize;
+		for (uint32_t row = 0; row < tileSize; row++)
+			memcpy(dst + row * atlasWidth, src + row * kSourceWidth, tileSize);
+	}
+
+	EventDispatcher::I->DispatchEvent<ResourceType, uint32_t, uint8_t*, uint32_t, uint32_t>(
+		EventType::E_RESOURCE_CHANGE, ResourceType::TEXTURE_LOADED,
+		kTerrainAtlasId, atlas.data(), atlasWidth, atlasHeight);
+	
+	//WriteTextureMapToBmp(kTerrainAtlasId, atlas.data(), atlasWidth, atlasHeight, mapType);
+}
+
+void UpdateSkyTexture(uint32_t size, uint8_t* skyBuffer)
+{
+	EventDispatcher::I->DispatchEvent<ResourceType, uint32_t, uint8_t*, uint32_t, uint32_t>(
+		EventType::E_RESOURCE_CHANGE, ResourceType::TEXTURE_LOADED,
+		kSkyId, skyBuffer, size, size);
+}
+
 //----- (00054660) --------------------------------------------------------
-void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_t GraphicsSize)//235660
+void ReadAndDecompressSkyAndBlocks_54660(MapType_t GraphicsType, uint8_t GraphicsSize)//235660
 {
 	char dataPath[MAX_PATH];
 
@@ -40,6 +78,7 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 			DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
 			sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYD0-0.DAT");
 			DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
+			UpdateSkyTexture(256, off_D41A8_sky);
 			break;
 		}
 		case 128:
@@ -48,6 +87,7 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 			ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
 			sprintf(dataPath, "%s/%s", highResGraphicsPath.c_str(), "skyd1024.data");
 			ReadGraphicsfile(dataPath, off_D41A8_sky);//2a51a8
+			UpdateSkyTexture(1024, off_D41A8_sky);
 			break;
 		}
 		}
@@ -87,6 +127,7 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 			}
 			sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYN0-0.DAT");
 			DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
+			UpdateSkyTexture(256, off_D41A8_sky);
 			break;
 		}
 		case 128:
@@ -103,6 +144,7 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 			}
 			sprintf(dataPath, "%s/%s", highResGraphicsPath.c_str(), "skyn1024.data");
 			ReadGraphicsfile(dataPath, off_D41A8_sky);//2a51a8
+			UpdateSkyTexture(1024, off_D41A8_sky);
 			break;
 		}
 		}
@@ -138,6 +180,10 @@ void sub_54660_read_and_decompress_sky_and_blocks(MapType_t GraphicsType, uint8_
 		break;
 	}
 	}
+	if (GraphicsSize < 128)
+		UpdateTileTextures(GraphicsSize, BLOCK32DAT_BEGIN_BUFFER, GraphicsType);
+	else
+		UpdateTileTextures(GraphicsSize, BigTextureBuffer, GraphicsType);
 }
 
 
@@ -150,22 +196,22 @@ void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TABLESD.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);//2c7ee0
-		keyColor2_D4B7E = 0x00;
-		keyColor1_D4B7C = 0xfe;
+		m_BackgroundColour_D4B7E = 0x00;
+		m_BackgroundColour_D4B7C = 0xfe;
 	}
 	else if (a1 == MapType_t::Night)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TABLESN.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);
-		keyColor2_D4B7E = 0xff;
-		keyColor1_D4B7C = 0x00;
+		m_BackgroundColour_D4B7E = 0xff;
+		m_BackgroundColour_D4B7C = 0x00;
 	}
 	else if (a1 == MapType_t::Cave)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TABLESC.DAT");
 		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);
-		keyColor1_D4B7C = 0xfe;
-		keyColor2_D4B7E = 0xff;
+		m_BackgroundColour_D4B7C = 0xfe;
+		m_BackgroundColour_D4B7E = 0xff;
 	}
 }
 

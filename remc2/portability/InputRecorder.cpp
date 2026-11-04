@@ -1,6 +1,5 @@
 #include "InputRecorder.h"
-#include "../engine/EventDispatcher.h"
-#include "../engine/GameState.h"
+
 using namespace std;
 
 InputRecorder::InputRecorder(const char* filePath)

@@ -2,7 +2,7 @@
 
 #include <array>
 
-#include "EventDispatcher.h"
+#include "../shared/EventDispatcher.h"
 #include "Basic.h"
 #include "GameBitmapIndexes.h"
 #include "LangTextIndexes.h"
@@ -12,7 +12,7 @@
 #include "MenusAndIntros.h"
 #include "Type_D93C0_Bldgprmbuffer.h"
 #include "MapColourIndexs.h"
-
+#include "read_config.h"
 
 char FontType_D419D = 1; // weak
 int16_t x_WORD_D41D4 = 1; // weak
@@ -61,7 +61,6 @@ int16_t x_WORD_E375C_mouse_position_x = 320; // weak
 int16_t x_WORD_E375E_mouse_position_y = 200; // weak
 
 
-void DrawSquareByColor_2E850(int posX, int posY, int width, int height, uint8_t color);
 void sub_30870();
 void sub_548B0(type_str_0x2BDE* a1);
 signed __int16 sub_10010();
@@ -524,6 +523,7 @@ void DrawSquareByColor_2E850(int posX, int posY, int width, int height, uint8_t 
 		{
 			pdwScreenBuffer_351628[screenWidth_18062C * indexY + indexX] = ColourLookupTable_F6EE0[256 * color
 				+ pdwScreenBuffer_351628[screenWidth_18062C * indexY + indexX]];
+			SetAlphaXY(indexX, indexY, ALPHA_BLENDED);
 		}
 	}
 }
@@ -608,9 +608,10 @@ void DrawCurrentObjectiveTextbox_30630(uint8_t scale)//211630
 			}
 
 			ComputeTextboxSizesFromTextWords_89420(&textbox, text, scale);
-			ConstrainTextboxSizes_89520(&textbox);
+			ConstrainTextboxSizes_89520(&textbox, scale);
 			ComputeFrameSizes_89980(&textbox, scale);
 			ColorizeScreen_2E790(textbox.framePosX_0x24, textbox.framePosY_0x26, textbox.frameWidth_0x28, textbox.frameHeight_0x2a, textbox.color2_0x31);
+			AlphaRectangle(textbox.framePosX_0x24, textbox.framePosY_0x26, textbox.frameWidth_0x28, textbox.frameHeight_0x2a, 100);
 			DrawTextboxText_895D0(&textbox, text, scale);
 			DrawTextboxFrame_89690(&textbox, scale);
 		}
@@ -946,6 +947,33 @@ uint8_t CalculateScaleOffset(uint8_t scale)
 	return 0;
 }
 
+void AlphaRectangle(int posX, int posY, int width, int height, uint8_t alphaAmount)
+{
+	if (pdwScreenAlphaBuffer == nullptr)
+		return;
+
+	int locPosX = posX;
+	int locPosY = posY;
+	int locWidth = width;
+	int locHeight = height;
+
+	if (x_WORD_180660_VGA_type_resolution == 1)
+	{
+		locPosX = posX / 2;
+		locPosY = posY / 2;
+		locWidth = width / 2;
+		locHeight = height / 2;
+	}
+
+	for (int indexY = locPosY; indexY < locPosY + locHeight; indexY++)
+	{
+		for (int indexX = locPosX; indexX < locWidth + locPosX; indexX++)
+		{
+			pdwScreenAlphaBuffer[screenWidth_18062C * indexY + indexX] = alphaAmount;
+		}
+	}
+}
+
 int debugcounter2 = 0;
 //----- (00061A00) --------------------------------------------------------
 void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale)//242a00
@@ -1081,6 +1109,7 @@ void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t pos
 	v86 = -v14 >> 16;
 	GetFont_6FC50(FontType_D419D);
 	v73 = v15 >> 16;
+	const MapProjection projection(v73, v86, yaw, scaling);
 	v80x = Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	v16 = v80x->dword_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[12];
 	if (v16)
@@ -1090,14 +1119,14 @@ void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t pos
 	{
 		v18 = (int16_t)(v80x->position_0x4C_76.x - posX);
 		v19 = (int16_t)(v80x->position_0x4C_76.y - posY);
-		v20 = v82 + ((v18 * v73 - v19 * v86) >> 16);
-		v21 = ((v73 * v19 + v86 * v18) >> 16) + v76;
+		v20 = v82 + projection.X(v18, v19);
+		v21 = projection.Y(v18, v19) + v76;
 		v22x = Entities_EA3E4[v80x->dword_0xA4_164x->CastleEntityIndex_0x3A_58];
 		v23 = (int16_t)(v22x->position_0x4C_76.x - posX);
 		v24 = (int16_t)(v22x->position_0x4C_76.y - posY);
-		v25 = v82 + ((v23 * v73 - v24 * v86) >> 16);
-		v26 = ((v73 * v24 + v86 * v23) >> 16) + v76;
-		v27 = v82 + ((v23 * v73 - v24 * v86) >> 16) - v20;
+		v25 = v82 + projection.X(v23, v24);
+		v26 = projection.Y(v23, v24) + v76;
+		v27 = v82 + projection.X(v23, v24) - v20;
 		v75 = Maths::sub_7277A_radix_3d(v27 * v27 + (v26 - v21) * (v26 - v21));
 		v72 = (uint16_t)Maths::sub_72633_maybe_tan(v25 - v20, v26 - v21);
 		for (i = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248 & 3;
@@ -1415,11 +1444,11 @@ void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t pos
 		{
 			v52 = (int16_t)(jy->position_0x4C_76.x - posX);
 			v53 = (int16_t)(jy->position_0x4C_76.y - posY);
-			posx = v82 + ((v52 * v73 - v53 * v86) >> 16);
+			posx = v82 + projection.X(v52, v53);
 			posx -= CalculateScaleOffset(scale);
 			if (posx >= 0 && posx < width)
 			{//24324e
-				posy = ((v73 * v53 + v86 * v52) >> 16) + v76;
+				posy = projection.Y(v52, v53) + v76;
 				posy -= CalculateScaleOffset(scale);
 				if (posy >= 0 && posy < height && posx >= x_WORD_F4960[1 + 2 * posy] && posx < x_WORD_F4960[2 * posy])
 				{//adress 24329e 0x1e xx 0x17
@@ -1437,6 +1466,7 @@ void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t pos
 								for (int x = 0; x < (blipSize * scale); x++)
 								{
 									ptrBlipBufferIdx_v56[x] = BlipColourIdx_v94;
+									SetAlphaAt((uint8_t*)&ptrBlipBufferIdx_v56[x], ALPHA_VISIBLE);
 								}
 								ptrBlipBufferIdx_v56 += screenWidth_18062C;
 							}
@@ -1506,15 +1536,16 @@ void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t pos
 					{
 						v61 = (int16_t)(v60x->position_0x4C_76.x - posX);
 						v62 = (int16_t)(v60x->position_0x4C_76.y - posY);
-						v63 = v82 + ((v61 * v73 - v62 * v86) >> 16);
+						v63 = v82 + projection.X(v61, v62);
 						if (v63 >= 0 && v63 < width)
 						{
-							v64 = v76 + ((v86 * v61 + v73 * v62) >> 16);
+							v64 = v76 + projection.Y(v61, v62);
 							if (v64 >= 0 && v64 < height && v63 >= x_WORD_F4960[1 + 2 * v64] && v63 < x_WORD_F4960[2 * v64])
 							{
 								v65 = (uint8_t*)(v64 * screenWidth_18062C + v63 + ptrMapBufferStart_v84);
 								v66 = playersColors_E88E0x[GetTrueWizardNumber_61790(v60x->dword_0xA4_164x->playerColorIndex_0x38_56)][0];
 								*v65 = v66;
+								SetAlphaAt(v65, ALPHA_VISIBLE);
 								if (x_WORD_180660_VGA_type_resolution == 1)
 									DrawText_2BC10(D41A0_0.array_0x2BDE[v87].WizardName_0x39f_2BFA_12157, 2 * v63 + 4, 2 * v64, v66);
 								else
@@ -1744,6 +1775,7 @@ void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_
 	v86 = -v15 >> 16;
 	GetFont_6FC50(FontType_D419D);
 	v87 = v16 >> 16;
+	const MapProjection projection(v87, v86, yaw, v10);
 	v102x = Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	v17 = v102x->dword_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[12];
 	if (v17)
@@ -1753,15 +1785,15 @@ void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_
 	{
 		v19 = (int16_t)(v102x->position_0x4C_76.x - posX);
 		v20 = (int16_t)(v102x->position_0x4C_76.y - posY);
-		v21 = v98 + ((v19 * v87 - v20 * v86) >> 16);
+		v21 = v98 + projection.X(v19, v20);
 		v22 = v87 * v20 + v86 * v19;
 		v23x = Entities_EA3E4[v102x->dword_0xA4_164x->CastleEntityIndex_0x3A_58];
-		v24 = (v22 >> 16) + v85;
+		v24 = projection.Y(v19, v20) + v85;
 		v25 = (int16_t)(v23x->position_0x4C_76.x - posX);
 		v26 = (int16_t)(v23x->position_0x4C_76.y - posY);
-		v27 = v98 + ((v25 * v87 - v26 * v86) >> 16);
-		v28 = ((v86 * v25 + v87 * v26) >> 16) + v85;
-		v29 = v98 + ((v25 * v87 - v26 * v86) >> 16) - v21;
+		v27 = v98 + projection.X(v25, v26);
+		v28 = projection.Y(v25, v26) + v85;
+		v29 = v98 + projection.X(v25, v26) - v21;
 		v91 = Maths::sub_7277A_radix_3d(v29 * v29 + (v28 - v24) * (v28 - v24));
 		v89 = (uint16_t)Maths::sub_72633_maybe_tan(v27 - v21, v28 - v24);
 		v30 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248 & 3;
@@ -2054,10 +2086,10 @@ void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_
 		{
 			v57 = (int16_t)(iy->position_0x4C_76.x - posX);
 			v58 = (int16_t)(iy->position_0x4C_76.y - posY);
-			v59 = v98 + ((v57 * v87 - v58 * v86) >> 16);
+			v59 = v98 + projection.X(v57, v58);
 			if (v59 >= 0 && v59 < width)
 			{
-				v60 = ((v87 * v58 + v86 * v57) >> 16) + v85;
+				v60 = projection.Y(v57, v58) + v85;
 				if (v60 >= 0 && v60 < height && v59 >= x_WORD_F4960[1 + 2 * v60] && v59 < x_WORD_F4960[2 * v60])
 				{
 					/*v61 = (char*)(v60 * x_DWORD_18062C_resolution_x + v59 + v99);
@@ -2156,10 +2188,10 @@ void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_
 					{
 						v67 = (int16_t)(v66x->position_0x4C_76.x - posX);
 						v68 = (int16_t)(v66x->position_0x4C_76.y - posY);
-						v69 = v98 + ((v67 * v87 - v68 * v86) >> 16);
+						v69 = v98 + projection.X(v67, v68);
 						if (v69 >= 0 && v69 < width)
 						{
-							v70 = ((v86 * v67 + v87 * v68) >> 16) + v85;
+							v70 = projection.Y(v67, v68) + v85;
 							if (v70 >= 0 && v70 < height && v69 >= x_WORD_F4960[1 + 2 * v70] && v69 < x_WORD_F4960[2 * v70])
 							{
 								v71 = &v99x[v70 * screenWidth_18062C + v69];
@@ -2283,36 +2315,110 @@ void DrawMapLowRes_63670(int16_t x, int16_t y, int16_t posX, int16_t posY, uint1
 
 	BuildMapRowSpansLowRes(a10 != 0, width, height);
 
-	// Rotation setup
+	if (!CommandLineParams.DoUseOldMapDrawing())
+		DrawMapLowResWalk<MAP_WALK_FRAC_BITS>(ptrScreenBuffer, ptrMemoryBuffer, height, GetFixedMapWalk(posX, posY, width, height, yaw, scaling), a10);
+	else
+		DrawMapLowResWalk<0>(ptrScreenBuffer, ptrMemoryBuffer, height, GetMapWalk(posX, posY, width, height, yaw, scaling), a10);
+}
+
+MapProjection::MapProjection(int cosCoef, int sinCoef, int16_t yaw, int scaling)
+	: m_cosCoef(cosCoef), m_sinCoef(sinCoef),
+	m_cos(Maths::sin_DB750[0x200 + (yaw & 0x7FF)]), m_sin(Maths::sin_DB750[yaw & 0x7FF]),
+	m_divisor((int64_t)scaling << 16)
+{
+}
+
+// Rounds towards minus infinity, the divisor is positive
+static int FloorDiv(int64_t value, int64_t divisor)
+{
+	int64_t result = value / divisor;
+	if (value % divisor < 0)
+		result--;
+	return (int)result;
+}
+
+int MapProjection::X(int dx, int dy) const
+{
+	if (CommandLineParams.DoUseOldMapDrawing())
+		return (dx * m_cosCoef - dy * m_sinCoef) >> 16;
+	return FloorDiv(dx * m_cos + dy * m_sin, m_divisor);
+}
+
+int MapProjection::Y(int dx, int dy) const
+{
+	if (CommandLineParams.DoUseOldMapDrawing())
+		return (m_cosCoef * dy + m_sinCoef * dx) >> 16;
+	return FloorDiv(dy * m_cos - dx * m_sin, m_divisor);
+}
+
+// The original walk: steps truncated to whole world units, the column step stretched by height / width
+// (the full screen map is not square, its marks are), pixels sampled in their top left corner
+MapWalk GetMapWalk(int16_t posX, int16_t posY, int width, int height, int16_t yaw, int scaling)
+{
 	const int angle = yaw & 0x7FF;
-	const int sinScaled = (scaling * Maths::sin_DB750[angle]) >> 16;                      // v80
-	const int cosScaled = (scaling * (signed int)Maths::sin_DB750[0x200 + angle]) >> 16;  // v81y
+	const int sinScaled = (scaling * Maths::sin_DB750[angle]) >> 16;                      // v80 / v70
+	const int cosScaled = (scaling * (signed int)Maths::sin_DB750[0x200 + angle]) >> 16;  // v81y / v69
 
 	const int hSin = height * sinScaled;
 	const int hCos = height * cosScaled;
-	const int du = hCos / width;                                // v66
-	const int dv = hSin / width;                                // v67
-	const int startU = posX - (width * du - hSin) / 2;          // v85
-	const int startV = posY - (hCos + width * dv) / 2;          // v83
 
+	MapWalk walk;
+	walk.du = hCos / width;                                     // v66 / v58
+	walk.dv = hSin / width;                                     // v67 / v59
+	walk.startU = posX - (width * walk.du - hSin) / 2;          // v85 / v72
+	walk.startV = posY - (hCos + width * walk.dv) / 2;          // v83 / v73
+	// Per row: u moves by -sin, v moves by +cos
+	walk.rowStepU = -sinScaled;
+	walk.rowStepV = cosScaled;
+	return walk;
+}
+
+// fixedMapDrawing: the same scale in both directions, the coordinates carry MAP_WALK_FRAC_BITS bits of
+// a world unit, and pixel (i, j) shows the world at its centre (i + 0.5 - width / 2, j + 0.5 - height / 2),
+// i.e. exactly the point MapProjection places into that pixel
+MapWalk GetFixedMapWalk(int16_t posX, int16_t posY, int width, int height, int16_t yaw, int scaling)
+{
+	const int angle = yaw & 0x7FF;
+	// world units << 16 per pixel
+	const int64_t sinStep = (int64_t)scaling * Maths::sin_DB750[angle];
+	const int64_t cosStep = (int64_t)scaling * Maths::sin_DB750[0x200 + angle];
+	const int shift = 16 - MAP_WALK_FRAC_BITS;
+	const int64_t half = (int64_t)1 << (shift - 1);
+
+	// twice the offset of the centre of pixel (0, 0) from the map centre
+	const int64_t col2 = 1 - 2 * (width / 2);
+	const int64_t row2 = 1 - 2 * (height / 2);
+
+	MapWalk walk;
+	walk.du = (int)((cosStep + half) >> shift);
+	walk.dv = (int)((sinStep + half) >> shift);
+	walk.rowStepU = -walk.dv;
+	walk.rowStepV = walk.du;
+	walk.startU = ((int)(uint16_t)posX << MAP_WALK_FRAC_BITS) + (int)((col2 * cosStep - row2 * sinStep + 2 * half) >> (shift + 1));
+	walk.startV = ((int)(uint16_t)posY << MAP_WALK_FRAC_BITS) + (int)((col2 * sinStep + row2 * cosStep + 2 * half) >> (shift + 1));
+	return walk;
+}
+
+template <int FracBits>
+void DrawMapLowResWalk(uint8_t* ptrScreenBuffer, uint8_t* ptrMemoryBuffer, int height, const MapWalk& walk, int a10)
+{
 	// Cave-level blending is only allowed when transparency is off and it isn't a Cave map
 	const bool caveBlend = !D41A0_0.m_GameSettings.str_0x2196.transparency_0x2198
 		&& D41A0_0.terrain_2FECE.MapType != MapType_t::Cave;
 
-	// Per row: u moves by -sin, v moves by +cos
 	if (isCaveLevel_D41B6)
 	{
 		if (!a10 && caveBlend)
-			DrawMapRowsLowRes<true, true, false>(ptrScreenBuffer, ptrMemoryBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
+			DrawMapRowsLowRes<true, true, false, FracBits>(ptrScreenBuffer, ptrMemoryBuffer, height, walk.startU, walk.startV, walk.du, walk.dv, walk.rowStepU, walk.rowStepV);
 		else
-			DrawMapRowsLowRes<true, false, false>(ptrScreenBuffer, ptrMemoryBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
+			DrawMapRowsLowRes<true, false, false, FracBits>(ptrScreenBuffer, ptrMemoryBuffer, height, walk.startU, walk.startV, walk.du, walk.dv, walk.rowStepU, walk.rowStepV);
 	}
 	else
 	{
 		if (a10)
-			DrawMapRowsLowRes<false, false, false>(ptrScreenBuffer, ptrMemoryBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
+			DrawMapRowsLowRes<false, false, false, FracBits>(ptrScreenBuffer, ptrMemoryBuffer, height, walk.startU, walk.startV, walk.du, walk.dv, walk.rowStepU, walk.rowStepV);
 		else
-			DrawMapRowsLowRes<false, true, true>(ptrScreenBuffer, ptrMemoryBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
+			DrawMapRowsLowRes<false, true, true, FracBits>(ptrScreenBuffer, ptrMemoryBuffer, height, walk.startU, walk.startV, walk.du, walk.dv, walk.rowStepU, walk.rowStepV);
 	}
 }
 
@@ -2353,7 +2459,7 @@ void BuildMapRowSpansLowRes(bool fullRows, int width, int height)
 	}
 }
 
-template <bool Masked, bool Blend, bool WriteMemory>
+template <bool Masked, bool Blend, bool WriteMemory, int FracBits>
 void DrawMapRowsLowRes(uint8_t* ptrScreenBuffer, uint8_t* ptrMemoryBuffer, int height,
 	int rowU, int rowV, int du, int dv, int rowStepU, int rowStepV)
 {
@@ -2371,13 +2477,12 @@ void DrawMapRowsLowRes(uint8_t* ptrScreenBuffer, uint8_t* ptrMemoryBuffer, int h
 
 		for (; count > 0; count--, dst++, mem++, u += du, v += dv)
 		{
-			// Map cell: x = bits 8..15 of u, y = bits 8..15 of v
-			const unsigned idx = (((unsigned)u >> 8) & 0xFFu) | ((unsigned)v & 0xFF00u);
+			// Map cell: x = bits 8..15 of u, y = bits 8..15 of v (above the FracBits fraction bits)
+			const unsigned idx = (((unsigned)u >> (8 + FracBits)) & 0xFFu) | (((unsigned)v >> FracBits) & 0xFF00u);
 
 			if (Masked && (mapAngle_13B4E0[idx] & 8))
 			{
-				if (!Blend)
-					*dst = 0;
+				if (!Blend) { *dst = 0; SetAlphaAt(dst, ALPHA_HIDDEN); }
 				continue;
 			}
 
@@ -2388,12 +2493,13 @@ void DrawMapRowsLowRes(uint8_t* ptrScreenBuffer, uint8_t* ptrMemoryBuffer, int h
 			{
 				const uint8_t result = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + (((unsigned)*dst << 8) | colour)];
 				*dst = result;
-				if (WriteMemory)
-					*mem = result;
+				SetAlphaAt(dst, ALPHA_BLENDED);
+				if (WriteMemory) *mem = result;
 			}
 			else
 			{
 				*dst = colour;
+				SetAlphaAt(dst, ALPHA_VISIBLE);
 			}
 		}
 
@@ -2436,7 +2542,7 @@ void BuildMapRowSpans(bool fullRows, int width, int height)
 	}
 }
 
-template <bool Masked, bool Blend>
+template <bool Masked, bool Blend, int FracBits>
 void DrawMapRows(uint8_t* ptrScreenBuffer, int height, int rowU, int rowV,
 	int du, int dv, int rowStepU, int rowStepV)
 {
@@ -2453,23 +2559,32 @@ void DrawMapRows(uint8_t* ptrScreenBuffer, int height, int rowU, int rowV,
 
 		for (; count > 0; count--, dst++, u += du, v += dv)
 		{
-			// Map cell: x = bits 8..15 of u, y = bits 8..15 of v
-			const unsigned idx = (((unsigned)u >> 8) & 0xFFu) | ((unsigned)v & 0xFF00u);
+			// Map cell: x = bits 8..15 of u, y = bits 8..15 of v (above the FracBits fraction bits)
+			const unsigned idx = (((unsigned)u >> (8 + FracBits)) & 0xFFu) | (((unsigned)v >> FracBits) & 0xFF00u);
 
 			if (Masked && (mapAngle_13B4E0[idx] & 8))
 			{
 				if (!Blend)
+				{
 					*dst = 0;
-				continue;
+					SetAlphaAt(dst, ALPHA_HIDDEN);   // masked cave pixel
+				}
+				continue;                            // Blend: screen untouched, alpha untouched
 			}
 
 			const unsigned terrainColour = ColourLookupTable_F6EE0[MAP_COLOUR_BLEND_LOOKUP_OFFSET + mapTerrainType_10B4E0[idx]];
 			const uint8_t colour = ColourLookupTable_F6EE0[((unsigned)mapShading_12B4E0[idx] << 8) | terrainColour];
 
 			if (Blend)
+			{
 				*dst = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + (((unsigned)*dst << 8) | colour)];
+				SetAlphaAt(dst, ALPHA_BLENDED);
+			}
 			else
+			{
 				*dst = colour;
+				SetAlphaAt(dst, ALPHA_VISIBLE);
+			}
 		}
 
 		ptrScreenBuffer += screenWidth_18062C;
@@ -2496,18 +2611,15 @@ void DrawMapHighRes_63C90(int16_t x, int16_t y, int16_t posX, int16_t posY, uint
 
 	BuildMapRowSpans(a10 != 0, width, height);
 
-	// Rotation setup
-	const int angle = yaw & 0x7FF;
-	const int sinScaled = (scaling * Maths::sin_DB750[angle]) >> 16;                      // v70
-	const int cosScaled = (scaling * (signed int)Maths::sin_DB750[0x200 + angle]) >> 16;  // v69
+	if (!CommandLineParams.DoUseOldMapDrawing())
+		DrawMapHighResWalk<MAP_WALK_FRAC_BITS>(ptrScreenBuffer, height, GetFixedMapWalk(posX, posY, width, height, yaw, scaling), a10);
+	else
+		DrawMapHighResWalk<0>(ptrScreenBuffer, height, GetMapWalk(posX, posY, width, height, yaw, scaling), a10);
+}
 
-	const int hSin = height * sinScaled;
-	const int hCos = height * cosScaled;
-	const int du = hCos / width;                                // v58
-	const int dv = hSin / width;                                // v59
-	const int startU = posX - (width * du - hSin) / 2;          // v72
-	const int startV = posY - (hCos + width * dv) / 2;          // v73
-
+template <int FracBits>
+void DrawMapHighResWalk(uint8_t* ptrScreenBuffer, int height, const MapWalk& walk, int a10)
+{
 	// Pick the variant once
 	const bool masked = isCaveLevel_D41B6;
 
@@ -2518,16 +2630,15 @@ void DrawMapHighRes_63C90(int16_t x, int16_t y, int16_t posX, int16_t posY, uint
 			&& D41A0_0.terrain_2FECE.MapType != MapType_t::Cave;
 	}
 
-	// Per row: u moves by -sin, v moves by +cos
 	if (masked)
 	{
-		if (blend) DrawMapRows<true, true>(ptrScreenBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
-		else       DrawMapRows<true, false>(ptrScreenBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
+		if (blend) DrawMapRows<true, true, FracBits>(ptrScreenBuffer, height, walk.startU, walk.startV, walk.du, walk.dv, walk.rowStepU, walk.rowStepV);
+		else       DrawMapRows<true, false, FracBits>(ptrScreenBuffer, height, walk.startU, walk.startV, walk.du, walk.dv, walk.rowStepU, walk.rowStepV);
 	}
 	else
 	{
-		if (blend) DrawMapRows<false, true>(ptrScreenBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
-		else       DrawMapRows<false, false>(ptrScreenBuffer, height, startU, startV, du, dv, -sinScaled, cosScaled);
+		if (blend) DrawMapRows<false, true, FracBits>(ptrScreenBuffer, height, walk.startU, walk.startV, walk.du, walk.dv, walk.rowStepU, walk.rowStepV);
+		else       DrawMapRows<false, false, FracBits>(ptrScreenBuffer, height, walk.startU, walk.startV, walk.du, walk.dv, walk.rowStepU, walk.rowStepV);
 	}
 }
 
@@ -2684,6 +2795,8 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 	v12 = v83 * Maths::sin_DB750[0x200 + v10] >> 16;
 	v51x.v55xdw_14 = -v11 >> 16;
 	v51x.v54xdw_10 = v12;
+	v51x.yaw_47 = yaw;
+	v51x.scaling_49 = scaling;
 	v82 = yaw & 0x7FF;
 	v13 = D41A0_0.LevelIndex_0xc;
 	v75x = Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
@@ -2837,13 +2950,14 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 				v71 = (int16_t)(*(int16_t*)&v67x - posX);
 				v23 >>= 16;
 				v24 = -v22 >> 16;
-				v25 = width / 2 + ((v23 * v71 - v24 * (int16_t)((int16_t)v67x.y - posY)) >> 16);
+				const MapProjection arrowProjection(v23, v24, yaw, scaling);
+				v25 = width / 2 + arrowProjection.X(v71, (int16_t)((int16_t)v67x.y - posY));
 				v37x[7] = 13 * scale;
 				v37x[13] = 13 * scale;
 				v37x[19] = 13 * scale;
 				v37x[37] = 13 * scale;
 				v37x[6] = 9 * scale;
-				v77 = height / 2 + ((v71 * v24 + (int16_t)((int16_t)v67x.y - posY) * v23) >> 16);
+				v77 = height / 2 + arrowProjection.Y(v71, (int16_t)((int16_t)v67x.y - posY));
 				v37x[0] = 0;
 				v37x[1] = 0;
 				v37x[12] = -9 * scale;
@@ -2918,11 +3032,18 @@ char DrawObjectiveRectangle_64CE0(v51x_struct* a1, uint8_t scale)//245ce0
 	v1 = a1->v51y.x - a1->v56xdw_18;
 	v2 = a1->v51y.y - a1->v57xdw_22;
 	v3 = 0;
-	posX_v4 = a1->v60xdw_34 + ((int32_t)(v1 * a1->v54xdw_10 - v2 * a1->v55xdw_14) >> 16);
+	const MapProjection projection(a1->v54xdw_10, a1->v55xdw_14, a1->yaw_47, a1->scaling_49);
+	if (!CommandLineParams.DoUseOldMapDrawing())
+		posX_v4 = a1->v60xdw_34 + projection.X(v1, v2);
+	else
+		posX_v4 = a1->v60xdw_34 + ((int32_t)(v1 * a1->v54xdw_10 - v2 * a1->v55xdw_14) >> 16);
 	colour_v5 = a1->v64xb_46;
 	if (posX_v4 >= 0 && posX_v4 < a1->v58xdw_26)
 	{
-		posY_v6 = a1->v61xdw_38 + (int16_t)((a1->v54xdw_10 * v2 + a1->v55xdw_14 * v1) >> 16);
+		if (!CommandLineParams.DoUseOldMapDrawing())
+			posY_v6 = a1->v61xdw_38 + projection.Y(v1, v2);
+		else
+			posY_v6 = a1->v61xdw_38 + (int16_t)((a1->v54xdw_10 * v2 + a1->v55xdw_14 * v1) >> 16);
 		if (posY_v6 >= 3 && posY_v6 < a1->v59xdw_30 - 3 && posX_v4 >= x_WORD_F4960[1 + 2 * posY_v6] + 3 && posX_v4 < x_WORD_F4960[2 * posY_v6] - 3)
 		{
 			a1->v62xw_42 = posX_v4;
@@ -3261,241 +3382,51 @@ void DrawLine_BD524(int16_t posX1, int16_t posY1, int16_t posX2, int16_t posY2, 
 //----- (000BD542) --------------------------------------------------------
 void DrawLine_BD542(uint16_t posX1, uint16_t posY1, uint16_t posX2, uint16_t posY2, uint8_t colour)//29e542
 {
-	int16_t v5; // bx
-	int16_t v6; // cx
-	uint16_t v7; // cx
-	uint16_t v8; // ax
-	uint16_t v9; // ax
-	_BYTE* v10; // edi
-	int v11; // esi
-	uint16_t v12; // ax
-	uint16_t v13; // cx
-	uint16_t v14; // si
-	int16_t v15; // dx
-	int16_t v16; // bx
-	int16_t v17; // cx
-	int v18; // edi
-	unsigned int v19; // ecx
-	int16_t v20; // ax
-	int v21; // eax
-	int v22; // ecx
-	int16_t v23; // cx
-	_BYTE* v24; // edi
-	int v25; // [esp+0h] [ebp-Ch]
-	int v26; // [esp+4h] [ebp-8h]
-	uint8_t* v27; // [esp+8h] [ebp-4h]
+	// The original treats the coordinates as signed 16-bit
+	int x1 = (int16_t)posX1, y1 = (int16_t)posY1;
+	int x2 = (int16_t)posX2, y2 = (int16_t)posY2;
 
-	v27 = &pdwScreenBuffer_351628[x_DWORD_18063C_sprite_sizex + screenWidth_18062C * x_DWORD_180650_positiony];
-	v5 = posY1;
-	if ((posY1 & 0x8000u) == 0)
-	{
-		v7 = posY2;
-		if ((posY2 & 0x8000u) == 0)
-		{
-			if (posY1 == posY2)
-			{
-				if ((int16_t)posY1 >= (int16_t)x_DWORD_180644_map_resolution2_y)
-					return;
-				v18 = posX1;
-				v19 = posX2;
-				if (posX2 < posX1)
-				{
-					LOWORD(v19) = posX1;
-					LOWORD(v18) = posX2;
-				}
-				v20 = x_DWORD_180648_map_resolution2_x - 1;
-				if ((v18 & 0x8000u) == 0)
-				{
-					if ((int16_t)v18 > v20)
-						return;
-					if ((uint16_t)v19 > (uint16_t)v20)
-						LOWORD(v19) = x_DWORD_180648_map_resolution2_x - 1;
-				}
-				else
-				{
-					if ((int16_t)v19 <= 0)
-						return;
-					LOWORD(v18) = 0;
-					if ((uint16_t)v19 > (uint16_t)v20)
-						LOWORD(v19) = x_DWORD_180648_map_resolution2_x - 1;
-				}
-				LOWORD(v19) = v19 - v18;
-				goto LABEL_54;
-			}
-			if ((int16_t)(posY1 - posY2) < 0)
-			{
-				if ((int16_t)posY1 >= (int16_t)x_DWORD_180644_map_resolution2_y)
-					return;
-				if ((int16_t)posY2 >= (int16_t)x_DWORD_180644_map_resolution2_y)
-					goto LABEL_5;
-			}
-			else
-			{
-				if ((int16_t)posY2 >= (int16_t)x_DWORD_180644_map_resolution2_y)
-					return;
-				posY2 = posY1;
-				posY1 = v7;
-				v9 = posX1;
-				posX1 = posX2;
-				posX2 = v9;
-				if (v5 >= (int16_t)x_DWORD_180644_map_resolution2_y)
-					goto LABEL_5;
-			}
-			goto LABEL_15;
-		}
-		posY2 = posY1;
-		v5 = v7;
-		v6 = posY1;
-		v8 = posX1;
-		posX1 = posX2;
-		posX2 = v8;
-	}
-	else
-	{
-		v6 = posY2;
-	}
-	if (v6 < 0)
+	const int maxX = x_DWORD_180648_map_resolution2_x - 1;
+	const int maxY = x_DWORD_180644_map_resolution2_y - 1;
+
+	// Trivial reject: both endpoints outside on the same side
+	if ((x1 < 0 && x2 < 0) || (x1 > maxX && x2 > maxX) ||
+		(y1 < 0 && y2 < 0) || (y1 > maxY && y2 > maxY))
 		return;
-	posX1 += (int16_t)-v5 * (int16_t)(posX2 - posX1) / (int16_t)(v6 - v5);
-	posY1 = 0;
-	if ((int16_t)(posY2 - x_DWORD_180644_map_resolution2_y) >= 0)
+
+	uint8_t* origin = &pdwScreenBuffer_351628[x_DWORD_18063C_sprite_sizex + screenWidth_18062C * x_DWORD_180650_positiony];
+
+	// Horizontal fast path (y is in range thanks to the reject above)
+	if (y1 == y2)
 	{
-	LABEL_5:
-		posX2 = posX1 + (int16_t)(x_DWORD_180644_map_resolution2_y - posY1) * (int16_t)(posX2 - posX1) / (int16_t)(posY2 - posY1);
-		posY2 = x_DWORD_180644_map_resolution2_y - 1;
-	}
-LABEL_15:
-	if ((posX1 & 0x8000u) == 0)
-	{
-		if ((int16_t)(posX1 - x_DWORD_180648_map_resolution2_x) < 0)
-		{
-			if ((posX2 & 0x8000u) == 0)
-			{
-				if ((int16_t)(posX2 - x_DWORD_180648_map_resolution2_x) < 0)
-				{
-					v26 = 1;
-					if (posX1 == posX2)
-					{
-						v21 = posY1;
-						v22 = posY2;
-						if (posY2 >= posY1)
-						{
-							v23 = posY2 - posY1;
-						}
-						else
-						{
-							LOWORD(v21) = posY2;
-							v23 = posY1 - posY2;
-						}
-						v24 = (_BYTE*)(v27 + screenWidth_18062C * v21 + posX1);
-						LOWORD(v22) = v23 + 1;
-						do
-						{
-							*v24 = colour;
-							v24 += screenWidth_18062C;
-							--v22;
-						} while (v22);
-						return;
-					}
-					if ((int16_t)(posX1 - posX2) >= 0)
-						v26 = -1;
-				}
-				else
-				{
-					v26 = 1;
-					posY2 = posY1 + (int16_t)(x_DWORD_180648_map_resolution2_x - posX1) * (int16_t)(posY2 - posY1) / (int16_t)(posX2 - posX1);
-					posX2 = x_DWORD_180648_map_resolution2_x - 1;
-				}
-			}
-			else
-			{
-				v26 = -1;
-				posY2 = posY1 + (int16_t)posX1 * (int16_t)(posY2 - posY1) / (int16_t)(posX1 - posX2);
-				posX2 = 0;
-			}
-		}
-		else
-		{
-			if ((int16_t)posX2 >= (int16_t)x_DWORD_180648_map_resolution2_x)
-				return;
-			v26 = -1;
-			posY1 += (int16_t)(posX1 - x_DWORD_180648_map_resolution2_x) * (int16_t)(posY2 - posY1) / (int16_t)(posX1 - posX2);
-			posX1 = x_DWORD_180648_map_resolution2_x - 1;
-			if ((posX2 & 0x8000u) != 0)
-			{
-				posY2 -= (int16_t)-posX2 * (int16_t)(posY2 - posY1) / (int16_t)(posX1 - posX2);
-				posX2 = 0;
-			}
-		}
-	}
-	else
-	{
-		if ((posX2 & 0x8000u) != 0)
-			return;
-		v26 = 1;
-		posY1 += (int16_t)-posX1 * (int16_t)(posY2 - posY1) / (int16_t)(posX2 - posX1);
-		posX1 = 0;
-		if ((int16_t)(posX2 - x_DWORD_180648_map_resolution2_x) >= 0)
-		{
-			posY2 = posY1 + (int16_t)x_DWORD_180648_map_resolution2_x * (int16_t)(posY2 - posY1) / (int16_t)posX2;
-			posX2 = x_DWORD_180648_map_resolution2_x - 1;
-		}
-	}
-	v10 = (_BYTE*)(v27 + screenWidth_18062C * posY1 + posX1);
-	v11 = v26;
-	v12 = v26 * (posX2 - posX1);
-	v13 = posY2 - posY1;
-	if (posY2 == posY1)
-	{
-		v18 = posX1;
-		v19 = posX2;
-		if (posX2 >= posX1)
-		{
-			LOWORD(v19) = posX2 - posX1;
-		}
-		else
-		{
-			LOWORD(v18) = posX2;
-			LOWORD(v19) = posX1 - posX2;
-		}
-	LABEL_54:
-		LOWORD(v19) = v19 + 1;
-		memset((void*)(v27 + screenWidth_18062C * posY1 + v18), colour, v19);
+		const int xa = (std::max)((std::min)(x1, x2), 0);
+		const int xb = (std::min)((std::max)(x1, x2), maxX);
+		uint8_t* p = origin + screenWidth_18062C * y1 + xa;
+		memset(p, colour, xb - xa + 1);
+		if (pdwScreenAlphaBuffer)
+			memset(pdwScreenAlphaBuffer + (p - pdwScreenBuffer_351628), ALPHA_VISIBLE, xb - xa + 1);
 		return;
 	}
-	if (v13 <= v12)
+
+	// General case: Bresenham with per-pixel clipping
+	const int dx = std::abs(x2 - x1), sx = x1 < x2 ? 1 : -1;
+	const int dy = -std::abs(y2 - y1), sy = y1 < y2 ? 1 : -1;
+	int err = dx + dy;
+
+	for (;;)
 	{
-		v25 = screenWidth_18062C;
-	}
-	else
-	{
-		v12 = posY2 - posY1;
-		v13 = v26 * (posX2 - posX1);
-		v26 = screenWidth_18062C;
-		v25 = v11;
-	}
-	v14 = v12;
-	v15 = 2 * v13;
-	v16 = 2 * v13 - v12;
-	v17 = 2 * (v13 - v12);
-	*v10 = colour;
-	do
-	{
-		while (1)
+		if ((unsigned)x1 <= (unsigned)maxX && (unsigned)y1 <= (unsigned)maxY)
 		{
-			v10 += v26;
-			if (v16 >= 0)
-				break;
-			v16 += v15;
-			*v10 = colour;
-			if (!--v14)
-				return;
+			uint8_t* p = origin + screenWidth_18062C * y1 + x1;
+			*p = colour;
+			SetAlphaAt(p, ALPHA_VISIBLE);
 		}
-		v10 += v25;
-		v16 += v17;
-		*v10 = colour;
-		--v14;
-	} while (v14);
+		if (x1 == x2 && y1 == y2)
+			break;
+		const int e2 = 2 * err;
+		if (e2 >= dy) { err += dy; x1 += sx; }
+		if (e2 <= dx) { err += dx; y1 += sy; }
+	}
 }
 
 std::vector<std::string> splitTextIntoWords(const std::string& text) {
@@ -4907,4 +4838,25 @@ void sub_30870()//211870
 		break;
 	}
 	//	return v1;
+}
+
+// For code that already has a pointer into pdwScreenBuffer_351628
+static inline void SetAlphaAt(const uint8_t* screenPixel, uint8_t alpha)
+{
+	if (pdwScreenAlphaBuffer)
+		pdwScreenAlphaBuffer[screenPixel - pdwScreenBuffer_351628] = alpha;
+}
+
+// For code that has x/y coordinates
+static inline void SetAlphaXY(int x, int y, uint8_t alpha)
+{
+	if (pdwScreenAlphaBuffer)
+		pdwScreenAlphaBuffer[screenWidth_18062C * y + x] = alpha;
+}
+
+static inline void FillAlphaRect(int x, int y, int w, int h, uint8_t alpha)
+{
+	if (!pdwScreenAlphaBuffer) return;
+	for (int j = y; j < y + h; j++)
+		memset(&pdwScreenAlphaBuffer[screenWidth_18062C * j + x], alpha, w);
 }

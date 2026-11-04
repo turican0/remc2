@@ -1,6 +1,7 @@
 #include "PlayerInput.h"
 
 #include "../utilities/DataFileIO.h"
+#include "../shared/EventDispatcher.h"
 #include "Animation.h"
 #include "Basic.h"
 #include "Events.h"
@@ -10,7 +11,6 @@
 #include "MenusAndIntros.h"
 #include "Sound.h"
 #include "engine_support.h"
-#include "EventDispatcher.h"
 #include "DatTabIndexes.h"
 
 
@@ -2595,11 +2595,13 @@ void ChangeGameResolution_46B40()//227b40
 	{
 		v1 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, v1);
+		ClearScreenAlphaBuffer(320, 200, 255);
 	}
 	else
 	{
 		v2 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, v2);
+		ClearScreenAlphaBuffer(screenWidth_18062C, screenHeight_180624, 255);
 	}
 	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
 	sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
@@ -2623,9 +2625,15 @@ void ChangeGameResolution_46B40()//227b40
 	v3 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
 	uiBackGroundColorIdx_EB3A8 = v3;
 	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, v3);
+		ClearScreenAlphaBuffer(320, 200, 255);
+	}
 	else
+	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, v3);
+		ClearScreenAlphaBuffer(screenWidth_18062C, screenHeight_180624, 255);
+	}
 
 	sub_8CEDF_install_mouse();
 	SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]); //Set cursor to Null (Don't Draw)
@@ -2639,6 +2647,9 @@ void ChangeGameResolution_46B40()//227b40
 
 	if (EventDispatcher::I != nullptr)
 		EventDispatcher::I->DispatchEvent(EventType::E_RESOLUTION_CHANGE, screenWidth_18062C, screenHeight_180624);
+
+	// Recalculate the viewport for the new resolution (dispatches E_VIEWPORT_CHANGE)
+	viewPort.ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
 }
 
 //----- (00075C50) --------------------------------------------------------

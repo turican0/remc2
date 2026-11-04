@@ -24,7 +24,8 @@ namespace remc2_installer_unit_tests
 			if (!File.Exists(beforePath) || !File.Exists(afterPath))
 				Assert.Fail();
 
-			var expectedJson = File.ReadAllText(afterPath);
+			// The serializer writes the platform's line endings and the checked-in file may have either: compare the content
+			var expectedJson = File.ReadAllText(afterPath).Replace("\r\n", "\n");
 
 			var testOutputPath = @"Resources\test-output.json";
 			Utils.SetHighResGraphics(beforePath, testOutputPath, true);
@@ -32,7 +33,7 @@ namespace remc2_installer_unit_tests
 			Utils.SetFixedTmaps(testOutputPath, testOutputPath, true);
 			Utils.SetExtendedFonts(testOutputPath, testOutputPath, true);
 
-			var actualJson = File.ReadAllText(testOutputPath);
+			var actualJson = File.ReadAllText(testOutputPath).Replace("\r\n", "\n");
 
 			if (expectedJson.Length != actualJson.Length)
 				Assert.Fail();

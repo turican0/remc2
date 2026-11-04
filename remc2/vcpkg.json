@@ -7,10 +7,16 @@
 		"libvorbis",
 		"libogg",
 		"libpng",
-		"sdl2",
+		{
+			"name": "sdl2",
+			"features": ["vulkan"]
+		},
 		"sdl2-ttf",
 		"sdl2-mixer",
-		"libadlmidi"
+		"libadlmidi",
+		"vulkan",
+		"vulkan-memory-allocator",
+		"vk-bootstrap"
     ],
     "builtin-baseline": "ef7dbf94b9198bc58f45951adcf1f041fcbc5ea0",
     "overrides": [

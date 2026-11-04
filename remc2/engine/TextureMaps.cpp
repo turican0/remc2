@@ -454,7 +454,6 @@ void InitTmaps(unsigned __int16 a1)//251f50
 			if (index3x)
 			{
 				int index4 = sub_70C60_decompress_tmap(i, (uint8_t*)index3x->partstr_0);
-				//WriteTextureMapToBmp(i, index3x->partstr_0, D41A0_0.terrain_2FECE.MapType);
 				if (index4 != -1)
 				{
 					if (bigSprites)
@@ -530,6 +529,18 @@ void InitTmaps(unsigned __int16 a1)//251f50
 					//if (**(uint8_t**)index6 & 1)
 					if ((*index6x)->word_0 & 1)
 						index = sub_721C0_initTmap(animations_E9C08x, index6x, i);
+					else if ((*index6x)->height > 512 || (*index6x)->width == 0 || (*index6x)->height == 0)
+					{
+						//Error
+						Logger->error("Bad Texture Data!");
+					}
+					else
+					{
+						m_spriteFrameCount[i] = std::max<uint16_t>(1, 1);
+						EventDispatcher::I->DispatchEvent<ResourceType, uint32_t, uint8_t*, uint32_t, uint32_t>(
+							EventType::E_RESOURCE_CHANGE, ResourceType::TEXTURE_LOADED, i, (uint8_t*)(*index6x)->textureBuffer, (*index6x)->width, (*index6x)->height);
+					}
+
 					if (v2 < 480)
 					{
 						if (v2 != 311)
@@ -820,7 +831,29 @@ int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer)//
 	return result;
 }
 
-void WriteTextureMapToBmp(uint16_t texture_index, Type_Sprite* ptextureMap, MapType_t mapType)
+void WriteTextureMapToBmp(uint16_t textureIndex, uint8_t* ptextureMap, uint16_t width, uint16_t height, MapType_t mapType)
+{
+	char name[MAX_PATH];
+	std::string path = GetSubDirectoryPath("BufferOut");
+	if (myaccess(path.c_str(), 0) < 0)
+	{
+		std::string exepath = get_exe_path();
+		mymkdir((exepath + "/" + "BufferOut").c_str());
+	}
+
+	if (m_pColorPalette == NULL)
+	{
+		m_pColorPalette = LoadTMapColorPalette(mapType);
+		path = GetSubDirectoryFilePath("BufferOut", "PalletOut.bmp");
+		BitmapIO::WritePaletteAsImageBMP(path.c_str(), 256, m_pColorPalette);
+	}
+
+	sprintf(name, "TmapOut%03d%s", textureIndex, ".bmp");
+	path = GetSubDirectoryFilePath("BufferOut", name);
+	BitmapIO::WriteRGBAImageBufferAsImageBMP(path.c_str(), width, height, m_pColorPalette, ptextureMap);
+}
+
+void WriteTextureMapToBmp(uint16_t textureIndex, uint16_t frameIndex, uint8_t* ptextureMap, uint16_t width, uint16_t height, MapType_t mapType)
 {
 	char name[MAX_PATH];
 	std::string path = GetSubDirectoryPath("BufferOut");
@@ -837,9 +870,156 @@ void WriteTextureMapToBmp(uint16_t texture_index, Type_Sprite* ptextureMap, MapT
 		BitmapIO::WritePaletteAsImageBMP(path.c_str(), 256, m_pColorPalette);
 	}
 
-	sprintf(name, "TmapOut%03d%s", texture_index, ".bmp");
+	sprintf(name, "TmapOut%03d-F%03d%s", textureIndex, frameIndex, ".bmp");
 	path = GetSubDirectoryFilePath("BufferOut", name);
-	BitmapIO::WriteRGBAImageBufferAsImageBMP(path.c_str(), ptextureMap->width, ptextureMap->height, m_pColorPalette, (uint8_t*)ptextureMap->textureBuffer);
+	BitmapIO::WriteRGBAImageBufferAsImageBMP(path.c_str(), width, height, m_pColorPalette, ptextureMap);
+}
+
+std::vector<uint8_t*> GetRawFrames(uint16_t frameCount, Type_Sprite* ptextureMap, size_t startOffset)
+{
+	std::vector<uint8_t*> frames;
+
+	if (!ptextureMap || !ptextureMap->textureBuffer)
+		return frames;
+
+	FlcState st;
+	st.width = ptextureMap->width;
+	st.height = ptextureMap->height;
+
+	size_t frameBytes = static_cast<size_t>(st.width) * st.height;
+	uint8_t* buf = reinterpret_cast<uint8_t*>(ptextureMap->textureBuffer);
+
+	// Working buffer containing the currently decoded frame.
+	std::vector<uint8_t> work(buf, buf + frameBytes);
+
+	// Allocate/copy frame 0.
+	uint8_t* frame0 = new uint8_t[frameBytes];
+	std::memcpy(frame0, work.data(), frameBytes);
+	frames.push_back(frame0);
+
+	size_t off = startOffset ? startOffset : frameBytes + 6;
+
+	for (uint16_t f = 1; f < frameCount; ++f)
+	{
+		const uint8_t* next = ApplyFlcFrame(buf + off, work.data(), st);
+
+		if (!next)
+			break;
+
+		off = static_cast<size_t>(next - buf);
+
+		// Allocate an independent buffer for this completed frame.
+		uint8_t* frame = new uint8_t[frameBytes];
+		std::memcpy(frame, work.data(), frameBytes);
+
+		frames.push_back(frame);
+	}
+	return frames;
+}
+
+static uint16_t FlcRd16(uint8_t* p) 
+{
+	return (uint16_t)(p[0] | (p[1] << 8)); 
+}
+
+uint8_t* ApplyDeltaFlc(uint8_t* p, uint8_t* img, const FlcState& st)
+{
+	int w = st.width, h = st.height;
+	int lines = FlcRd16(p); p += 2;          // line records (0x2c = 44 in your dump)
+	int y = 0;
+
+	while (lines > 0 && y < h) {
+		uint16_t op = FlcRd16(p); p += 2;
+
+		switch (op & 0xC000) {
+		case 0xC000: y += -(int16_t)op; continue;              // skip lines
+		case 0x8000: {                                         // last pixel of the line
+			const uint8_t v = op & 0xFF;
+			if (y < h && (!st.skipZero || v)) img[(size_t)y * w + (w - 1)] = v;
+			continue;                                          // then the packet count follows
+		}
+		case 0x4000: continue;                                 // undefined
+		}
+
+		int packets = op;                                      // 0x0000: packets on this line
+		int x = 0;
+		while (packets-- > 0) {
+			x += *p++;                                         // skip unchanged pixels
+			int8_t cnt = (int8_t)*p++;
+			if (cnt >= 0) {                                    // cnt words of literal pixels
+				for (int i = 0; i < cnt * 2; ++i, ++x)
+					if (x < w) img[(size_t)y * w + x] = p[i];
+				p += cnt * 2;
+			}
+			else {                                           // one word repeated -cnt times
+				uint8_t a = p[0], b = p[1]; p += 2;
+				for (int i = 0; i < -cnt; ++i) {
+					if (x < w) { img[(size_t)y * w + x] = a; } ++x;
+					if (x < w) { img[(size_t)y * w + x] = b; } ++x;
+				}
+			}
+		}
+		++y; --lines;
+	}
+	return p;
+}
+
+void ApplyByteRun(uint8_t* p, uint8_t* end, uint8_t* img, const FlcState& st)
+{
+	int w = st.width, h = st.height;
+	auto put = [&](int y, int& x, uint8_t v) {
+		if (x < w && !(st.skipZero && v == 0)) img[(size_t)y * w + x] = v;
+		++x;
+		};
+	for (int y = 0; y < h && p < end; ++y) {
+		++p;                                                   // obsolete packet count
+		int x = 0;
+		while (x < w && p + 1 < end) {
+			int8_t cnt = (int8_t)*p++;
+			if (cnt > 0) {
+				uint8_t v = *p++;
+				for (int i = 0; i < cnt; ++i) put(y, x, v);
+			}
+			else if (cnt < 0) {
+				for (int i = 0; i < -cnt; ++i, ++p) put(y, x, *p);
+			}
+			else {
+				++p;   // the game treats 0 as a 256-byte literal run; unused for widths < 256
+			}
+		}
+	}
+}
+
+uint8_t* ApplyFlcFrame(uint8_t* src, uint8_t* img, FlcState& st)
+{
+	uint8_t* p = src;
+	uint16_t magic;
+	for (;;) {
+		p += 4;
+		magic = FlcRd16(p); p += 2;
+		if (magic != 0xAF12) break;
+		st.width = FlcRd16(p + 2);
+		st.height = FlcRd16(p + 4);
+		p += 6;
+	}
+	if (magic != 0xF1FA) return nullptr;
+
+	int chunks = FlcRd16(p); p += 2; 
+	p += 8;
+	while (chunks-- > 0) {
+		uint16_t size16 = FlcRd16(p);
+		uint16_t type = FlcRd16(p + 4);
+		p += 6;
+		switch (type) {
+		case 7:  p = ApplyDeltaFlc(p, img, st);                         
+			break;
+		case 15: ApplyByteRun(p, p + size16 - 6, img, st); p += size16 - 6; 
+			break;
+		default: p += size16 - 6;                                        
+			break;
+		}
+	}
+	return p;
 }
 
 uint8_t* LoadTMapColorPalette(MapType_t mapType)
@@ -872,7 +1052,7 @@ uint8_t* LoadTMapColorPalette(MapType_t mapType)
 	return Palettebuffer;
 }
 
-type_animations1* sub_721C0_initTmap(type_E9C08* a1x, Type_Sprite** a2x, __int16 a3)//2531c0
+type_animations1* sub_721C0_initTmap(type_E9C08* a1x, Type_Sprite** a2x, int16_t index)//2531c0
 {
 	signed __int16 v3; // cx
 	signed __int16 v4; // si
@@ -920,8 +1100,46 @@ type_animations1* sub_721C0_initTmap(type_E9C08* a1x, Type_Sprite** a2x, __int16
 	a1x->dword_2[v12].FrameIndex_22 = 1;
 	a1x->dword_2[v12].dword_0 = 1;
 	a1x->dword_2[v12].word_24 = v12;
-	a1x->dword_2[v12].word_26 = a3;
-	//return v10 + a1x->dword_2;
+	a1x->dword_2[v12].word_26 = index;
+
+
+	auto rawData = new uint8_t[a1x->dword_2[v12].CountOfFrames_16 * a1x->dword_2[v12].Width_18 * a1x->dword_2[v12].Height_20]();
+	size_t frameBytes = a1x->dword_2[v12].Width_18 * a1x->dword_2[v12].Height_20;
+
+	if (bigSprites && index >= 0 && index < max_sprites && v7x == BIG_SPRITES_BUFFERx[index].actdatax)
+	{
+		// High-res sprite: the buffer only holds frame 0 and the frame count, the frames are
+		// already decoded in BIG_SPRITES_BUFFERx (sub_72350 copies them in the same way).
+		for (int f = 0; f < a1x->dword_2[v12].CountOfFrames_16 && f < max_sprites_frames; f++)
+		{
+			if (BIG_SPRITES_BUFFERx[index].frames[f])
+				memcpy(rawData + (frameBytes * f), BIG_SPRITES_BUFFERx[index].frames[f], frameBytes);
+		}
+	}
+	else
+	{
+		auto frames = GetRawFrames(frameCount_v9, a1x->dword_2[v12].Sprite_4, a1x->dword_2[v12].NextFrameOffset_14);
+
+		for (int f = 0; f < frames.size(); f++)
+		{
+			memcpy(rawData + (frameBytes * f), frames[f], frameBytes);
+			//WriteTextureMapToBmp(v12, f, frames[f], a1x->dword_2[v12].Width_18, a1x->dword_2[v12].Height_20, D41A0_0.terrain_2FECE.MapType);
+		}
+
+		for (uint8_t* frame : frames)
+			delete[] frame;
+
+		frames.clear();
+	}
+
+	//WriteTextureMapToBmp(v12, rawData, a1x->dword_2[v12].Width_18, a1x->dword_2[v12].Height_20 * a1x->dword_2[v12].CountOfFrames_16, D41A0_0.terrain_2FECE.MapType);
+
+	m_spriteFrameCount[index] = std::max<uint16_t>(1, a1x->dword_2[v12].CountOfFrames_16);
+	EventDispatcher::I->DispatchEvent<ResourceType, uint32_t, uint8_t*, uint32_t, uint32_t>(
+		EventType::E_RESOURCE_CHANGE, ResourceType::TEXTURE_LOADED, index, rawData, a1x->dword_2[v12].Width_18, a1x->dword_2[v12].Height_20 * a1x->dword_2[v12].CountOfFrames_16);
+	
+	delete[] rawData;
+
 	return &a1x->dword_2[v12];
 }
 

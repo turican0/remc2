@@ -334,9 +334,11 @@ Config::Settings::Graphics Config::GetGraphics(const json& settings)
 		graphicsValues.m_WindowResHeight = ReadIntValue(graphics, "windowResHeight");
 		graphicsValues.m_MaintainAspectRatio = ReadBoolValue(graphics, "maintainAspectRatio");
 		graphicsValues.m_StartWindowed = ReadBoolValue(graphics, "startWindowed");
+		graphicsValues.m_Render = ReadStringValue(graphics, "render");
 
 		graphicsValues.m_GameDetail = GetGameDetail(graphics);
 		graphicsValues.m_Threading = GetThreading(graphics);
+		graphicsValues.m_Hardware = GetHardware(graphics);
 	}
 	return graphicsValues;
 }
@@ -384,6 +386,18 @@ Config::Settings::Threading Config::GetThreading(const json& graphics)
 	return threadingValues;
 }
 
+Config::Settings::Hardware Config::GetHardware(const json& graphics)
+{
+	Config::Settings::Hardware hardwareValues;
+	if (graphics.contains("hardware"))
+	{
+		const auto& hardware = graphics["hardware"];
+		hardwareValues.m_BilinearFiltering = ReadBoolValue(hardware, "bilinearFiltering");
+		hardwareValues.m_AntiAliasing = ReadIntValue(hardware, "antiAliasing");
+	}
+	return hardwareValues;
+}
+
 Config::Settings::Sound Config::GetSound(const json& settings)
 {
 	Config::Settings::Sound soundValues;
@@ -391,13 +405,17 @@ Config::Settings::Sound Config::GetSound(const json& settings)
 	{
 		const auto& sound = settings["sound"];
 		soundValues.m_HqSound = ReadBoolValue(sound, "hqSound");
-		soundValues.m_OggMusic = ReadBoolValue(sound, "oggMusic");
-		soundValues.m_OggFolder = ReadStringValue(sound, "oggFolder");
-		soundValues.m_OggMusicAlternative = ReadBoolValue(sound, "oggMusicAlternative");
 		soundValues.m_FixSpeedSound = ReadBoolValue(sound, "fixSpeedSound");
 		soundValues.m_AutoShowObjectivesForForeignLanguages = ReadBoolValue(sound, "autoShowObjectivesForForeignLanguages");
 		soundValues.m_MaxSimultaniousSounds = ReadIntValue(sound, "maxSimultaniousSounds");
 		soundValues.m_SpeechFolder = ReadStringValue(sound, "speechFolder");
+		soundValues.m_MusicType = ReadStringValue(sound, "musicType");
+		soundValues.m_Awe32RomFolder = ReadStringValue(sound, "awe32RomFolder");
+		soundValues.m_OggFolder = ReadStringValue(sound, "oggFolder");
+		soundValues.m_OggMusicAlternative = ReadBoolValue(sound, "oggMusicAlternative");
+		soundValues.m_UseMagicCarpet1Music = ReadBoolValue(sound, "useMagicCarpet1Music");
+		soundValues.m_Awe32GmIntroMusic = ReadBoolValue(sound, "awe32GmIntroMusic");
+		soundValues.m_Awe32BufferMs = ReadIntValue(sound, "awe32BufferMs");
 	}
 	return soundValues;
 }
@@ -468,13 +486,17 @@ void Config::SaveSoundToDoc(Config::Settings::Sound soundSettings)
 	auto& settingsEntry = GetOrCreateActiveSettingsEntry();
 	auto& sound = GetOrCreate(settingsEntry, "sound");
 	SetBool(sound, "hqSound", soundSettings.m_HqSound);
-	SetBool(sound, "oggMusic", soundSettings.m_OggMusic);
 	SetString(sound, "oggFolder", soundSettings.m_OggFolder);
 	SetBool(sound, "oggMusicAlternative", soundSettings.m_OggMusicAlternative);
 	SetBool(sound, "fixSpeedSound", soundSettings.m_FixSpeedSound);
 	SetBool(sound, "autoShowObjectivesForForeignLanguages", soundSettings.m_AutoShowObjectivesForForeignLanguages);
 	SetInt(sound, "maxSimultaniousSounds", soundSettings.m_MaxSimultaniousSounds);
 	SetString(sound, "speechFolder", soundSettings.m_SpeechFolder);
+	SetString(sound, "musicType", soundSettings.m_MusicType);
+	SetString(sound, "awe32RomFolder", soundSettings.m_Awe32RomFolder);
+	SetBool(sound, "useMagicCarpet1Music", soundSettings.m_UseMagicCarpet1Music);
+	SetBool(sound, "awe32GmIntroMusic", soundSettings.m_Awe32GmIntroMusic);
+	SetInt(sound, "awe32BufferMs", soundSettings.m_Awe32BufferMs);
 }
 
 void Config::SaveGraphicsToDoc(Config::Settings::Graphics graphics)
@@ -486,8 +508,10 @@ void Config::SaveGraphicsToDoc(Config::Settings::Graphics graphics)
 	SetInt(gfx, "windowResHeight", graphics.m_WindowResHeight);
 	SetBool(gfx, "maintainAspectRatio", graphics.m_MaintainAspectRatio);
 	SetBool(gfx, "startWindowed", graphics.m_StartWindowed);
+	SetString(gfx, "render", graphics.m_Render);
 	SaveGameDetailToDoc(graphics.m_GameDetail);
 	SaveThreadingToDoc(graphics.m_Threading);
+	SaveHardwareToDoc(graphics.m_Hardware);
 }
 
 void Config::SaveGameDetailToDoc(Config::Settings::GameDetail gameDetail)
@@ -523,6 +547,15 @@ void Config::SaveThreadingToDoc(Config::Settings::Threading threading)
 	SetFloat(t, "sizePercentToThreadRenderSprites", threading.m_SizePercentToThreadRenderSprites);
 	SetInt(t, "numberOfRenderThreads", threading.m_NumberOfRenderThreads);
 	SetBool(t, "assignToSpecificCores", threading.m_AssignToSpecificCores);
+}
+
+void Config::SaveHardwareToDoc(Config::Settings::Hardware hardware)
+{
+	auto& settingsEntry = GetOrCreateActiveSettingsEntry();
+	auto& gfx = GetOrCreate(settingsEntry, "graphics");
+	auto& h = GetOrCreate(gfx, "hardware");
+	SetBool(h, "bilinearFiltering", hardware.m_BilinearFiltering);
+	SetInt(h, "antiAliasing", hardware.m_AntiAliasing);
 }
 
 void Config::SaveGameToDoc(Config::Settings::Game gameSettings)
