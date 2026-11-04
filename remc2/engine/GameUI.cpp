@@ -976,7 +976,7 @@ void AlphaRectangle(int posX, int posY, int width, int height, uint8_t alphaAmou
 
 int debugcounter2 = 0;
 //----- (00061A00) --------------------------------------------------------
-void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale)//242a00
+void DrawMinimapEntitiesB_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale)//242a00
 {
 	int v8; // edx
 	int v9; // esi

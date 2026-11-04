@@ -862,7 +862,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 		v10 = xy_DWORD_17DED4_spritestr[a8].height_5;//adress 260da7
 		v11 = v10 + a5;
 		v98 += v10;
-		v12 = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0/*v86*/);
+		v12 = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0/*v86*/);
 		v86 = v12;
 		v13 = 6 * (a8 - 1);
 		v14 = xy_DWORD_17DED4_spritestr[v13 / 6].height_5;
@@ -990,7 +990,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 					{
 						if (!a6)
 						{
-							v27 = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0/*v86*/);
+							v27 = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0/*v86*/);
 							v86 = v27;
 							v28 = 6 * (a8 - 1);
 							v29 = xy_DWORD_17DED4_spritestr[v28 / 6].height_5;
@@ -1161,7 +1161,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 		{
 			if (!a6)
 			{
-				v45 = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0/*v86*/);
+				v45 = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0/*v86*/);
 				v86 = v45;
 				v46 = 6 * (a8 - 1);
 				v47 = xy_DWORD_17DED4_spritestr[v46 / 6].height_5;
@@ -1176,7 +1176,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 				//HIWORD(v50) = HIWORD(xy_DWORD_17DED4_spritestr);
 				v50 = xy_DWORD_17DED4_spritestr[v46 / 6].height_5;
 				v51 = v50 + a1;
-				v52 = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0/*v86*/);//?
+				v52 = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0/*v86*/);//?
 				v86 = v52;
 				v53 = xy_DWORD_17DED4_spritestr[v46 / 6].height_5;
 				v54 = v91;
@@ -1215,7 +1215,7 @@ void DrawBitmap640_7C120(int16_t posx, int16_t posy, bitmap_pos_struct_t tempstr
 }
 
 //----- (0005BE80) --------------------------------------------------------
-uint8_t getPaletteIndex_5BE80(TColor* Palettex, uint8_t red_color, uint8_t green_color, uint8_t blue_color)//23ce80
+uint8_t GetPaletteIndex_5BE80(TColor* Palettex, uint8_t red_color, uint8_t green_color, uint8_t blue_color)//23ce80
 {
 	uint16_t count_of_colors; // edx
 	int16_t oldPalAmbient; // ecx
@@ -1338,7 +1338,7 @@ unsigned int DrawTextCentred_6FC80(char* a1, __int16 a2, __int16 a3, __int16 a4,
 void InstallPaletteAndMouseMinMax_417A0()//2227a0
 {
 	//sub_90810();
-	VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
+	VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
 	SetMouseMinMax_6EF10(0, 640, 0, 400);
 }
 // EA3D8: using guessed type int *xadatapald0dat2.colorPalette_var28;
@@ -1381,7 +1381,7 @@ uint32_t DrawText_7FAE0(char* text, int16_t x, int16_t width, int16_t posy, uint
 
 //int debugcounter_271478 = 0;
 //----- (00090478) --------------------------------------------------------
-void VGA_Blit320_90478(uint8_t maxFps)//271478
+void VgaBlit320_90478(uint8_t maxFps)//271478
 {
 	if (CommandLineParams.DoDebugSequences()) {
 		/* uint8_t origbyte20 = 0;
@@ -1428,7 +1428,7 @@ int debugcounter_258350 = 0;
 //long sub_75200_VGA_Blit640_index= 0;
 int debugcounter_256200 = 0;
 //long oldmillis = 0;
-void VGA_Blit640_75200(uint16_t height, uint8_t maxFps)//256200
+void VgaBlit640_75200(uint16_t height, uint8_t maxFps)//256200
 {
 	/*if (debugcounter_258350 > 0)
 	{
@@ -1491,17 +1491,17 @@ void DrawBitmap_2BB40(int16_t posx, int16_t posy, bitmap_pos_struct_t tempposstr
 {
 	uint8_t* temp_screen_buffer;
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		drawBitmap320_8F8B0(posx, posy, tempposstr);
+		DrawBitmap320_8F8B0(posx, posy, tempposstr);
 	else
-		drawBitmap640_8F8E8(posx, posy, tempposstr, scale);
+		DrawBitmap640_8F8E8(posx, posy, tempposstr, scale);
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer_351628;
 		pdwScreenBuffer_351628 = ptrMemoryBuffer_E9C3C;
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			drawBitmap320_8F8B0(posx, posy, tempposstr);
+			DrawBitmap320_8F8B0(posx, posy, tempposstr);
 		else
-			drawBitmap640_8F8E8(posx, posy, tempposstr, scale);
+			DrawBitmap640_8F8E8(posx, posy, tempposstr, scale);
 		pdwScreenBuffer_351628 = temp_screen_buffer;
 	}
 }
@@ -1811,8 +1811,8 @@ void DrawCursorIfEnabled_8CACD()//26dacd
 // E3768: using guessed type int x_DWORD_E3768;
 
 //----- (0008F8B0) --------------------------------------------------------
-//void drawBitmap320_8F8B0(__int16 a1, __int16 a2, Pathstruct a3)//2708B0
-void drawBitmap320_8F8B0(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale)//2708B0
+//void DrawBitmap320_8F8B0(__int16 a1, __int16 a2, Pathstruct a3)//2708B0
+void DrawBitmap320_8F8B0(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale)//2708B0
 {
 	//int v4; // [esp+4h] [ebp-4h]
 
@@ -1826,8 +1826,8 @@ void drawBitmap320_8F8B0(int16_t posx, int16_t posy, bitmap_pos_struct_t temppst
 // 180628: using guessed type int pdwScreenBuffer_351628;
 
 //----- (0008F8E8) --------------------------------------------------------
-//void drawBitmap640_8F8E8(__int16 a1, __int16 a2, uint8_t* a3)//2708e8
-void drawBitmap640_8F8E8(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale)//2708e8
+//void DrawBitmap640_8F8E8(__int16 a1, __int16 a2, uint8_t* a3)//2708e8
+void DrawBitmap640_8F8E8(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale)//2708e8
 {
 	//int v4; // [esp+4h] [ebp-4h]
 

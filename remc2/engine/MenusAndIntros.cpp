@@ -819,7 +819,7 @@ void Intros_76D10(char introType)//257d10
 		PlayInfoFmv(1, 1, str_E17CC_0x160, introPath);//E192C
 		break;
 	}
-	VGA_PalFadeInFadeOut_90B27(0, 0x10u, 0);
+	VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 	EndSample_8D8F0();
 	StopMusic_8E020();
 	FadeClearBlit_7B5D0();
@@ -932,7 +932,7 @@ void MainMenu_76FA0()//257fa0
 			DrawBitmap640_7C120(185, 232, xy_DWORD_17DED4_spritestr[66]);//adress 25827a
 			DrawMenuAnimations_7AB00();//25bb00
 
-			DrawText_7FB90((char*)VersionNumber, 10, 465, getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 255, 0, 0));
+			DrawText_7FB90((char*)VersionNumber, 10, 465, GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 255, 0, 0));
 
 			if (DrawAndServe_7B250())//25c250
 			{
@@ -945,15 +945,15 @@ void MainMenu_76FA0()//257fa0
 			if (onlyBlit)
 			{
 				if (x_WORD_180660_VGA_type_resolution & 1)
-					VGA_Blit320_90478(menuFps);
+					VgaBlit320_90478(menuFps);
 				else
-					VGA_Blit640_75200(480, menuFps);
+					VgaBlit640_75200(480, menuFps);
 			}
 			else
 			{
 				onlyBlit = true;
 				//34ee38 20 0
-				VGA_PalFadeInFadeOut_90B27(x_DWORD_17DE38str.palette_17DE38x, 0x20u, 0);//tady
+				VgaPalFadeInFadeOut_90B27(x_DWORD_17DE38str.palette_17DE38x, 0x20u, 0);//tady
 			}
 			GetMouseAndKeyboardEvents_7A060();
 		}
@@ -1002,22 +1002,22 @@ bool NewGameDialog_77350(type_menuButtons_E1F84* a1x)//258350
 		SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]); //Set cursor to Null (Don't Draw)
 
 		ResetMouse_7B5A0();
-		VGA_PalFadeInFadeOut_90B27(0, 0x10u, 0);
+		VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 		if (x_WORD_180660_VGA_type_resolution & 1)
 		{
-			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0));
+			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0));
 			ClearScreenAlphaBuffer(320, 200, 255);
 		}
 		else
 		{
-			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0));
+			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0));
 			ClearScreenAlphaBuffer(640, 480, 255);
 		}
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			VGA_Blit320_90478();
+			VgaBlit320_90478();
 		else
-			VGA_Blit640_75200(480);
-		VGA_PaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
+			VgaBlit640_75200(480);
+		VgaPaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
 		PortalsUpdate_7DD70();
 		x_DWORD_17DE38str.x_WORD_17DEEC = 0;
 		SetCenterScreenForFlyAssistant_6EDB0();
@@ -1057,9 +1057,9 @@ bool NewGameDialog_77350(type_menuButtons_E1F84* a1x)//258350
 				endAction = 1;
 			}
 			if (x_WORD_180660_VGA_type_resolution & 1)
-				VGA_Blit320_90478(menuFps);
+				VgaBlit320_90478(menuFps);
 			else
-				VGA_Blit640_75200(480, menuFps);
+				VgaBlit640_75200(480, menuFps);
 			GetMouseAndKeyboardEvents_7A060();
 		}
 		StopCdPlayback_86860(x_WORD_1803EC);
@@ -1077,7 +1077,7 @@ bool NewGameDialog_77350(type_menuButtons_E1F84* a1x)//258350
 			a1x->dword_4 = 1;
 		}
 		SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
-		VGA_PalFadeInFadeOut_90B27(0, 0x10u, 0);
+		VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 		result = true;
 	}
 	else
@@ -1296,13 +1296,13 @@ char LanguageSettingDialog_779E0(type_menuButtons_E1F84* a1y)//2589E0
 			if (frame)
 			{
 				if (x_WORD_180660_VGA_type_resolution & 1)
-					VGA_Blit320_90478(menuFps);
+					VgaBlit320_90478(menuFps);
 				else
-					VGA_Blit640_75200(480, menuFps);//draw //256200
+					VgaBlit640_75200(480, menuFps);//draw //256200
 			}
 			else
 			{
-				VGA_PalFadeInFadeOut_90B27(x_DWORD_17DE38str.palette_17DE38x, 0x20u, 0);//271b27
+				VgaPalFadeInFadeOut_90B27(x_DWORD_17DE38str.palette_17DE38x, 0x20u, 0);//271b27
 				frame++;
 			}
 			GetMouseAndKeyboardEvents_7A060();//25b060 adress 258ddf
@@ -1359,7 +1359,7 @@ char LanguageSettingDialog_779E0(type_menuButtons_E1F84* a1y)//2589E0
 
 		DataFileIO::Close(configFile);
 	}
-	VGA_PalFadeInFadeOut_90B27(nullptr, 0x10u, 0);
+	VgaPalFadeInFadeOut_90B27(nullptr, 0x10u, 0);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);
@@ -1377,9 +1377,9 @@ char LanguageSettingDialog_779E0(type_menuButtons_E1F84* a1y)//2589E0
 
 	ResetMouse_7B5A0();
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		VGA_Blit320_90478();
+		VgaBlit320_90478();
 	else
-		VGA_Blit640_75200(480);
+		VgaBlit640_75200(480);
 	if (langlhandle != 0)//3551d4
 	{
 		char dataPath[MAX_PATH];
@@ -1387,7 +1387,7 @@ char LanguageSettingDialog_779E0(type_menuButtons_E1F84* a1y)//2589E0
 
 		LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.palette_17DE38x, 0, 768);
 		LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE40, x_DWORD_17DE38str.x_DWORD_17DEDC, 168081);
-		VGA_PaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
+		VgaPaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
 		SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);//maybe xadatapointerstab
 		SetCursor_8CD27(xy_DWORD_17DED4_spritestr[39]);
 		if (x_WORD_180660_VGA_type_resolution & 1)
@@ -1495,8 +1495,8 @@ bool LoadGameDialog_780F0(type_menuButtons_E1F84* menuButtons) //0x2590f0
 	bool result = false;
 	int drawScrollResult = 0;
 
-	uint8_t pal_selected_text = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
-	uint8_t pal_text = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x16u, 0x10u, 9u);
+	uint8_t pal_selected_text = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
+	uint8_t pal_text = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x16u, 0x10u, 9u);
 	if (x_DWORD_17DE38str.savedGameIndex_17DF04 == -1)
 	{
 		for (int index = 0; index < 8; index++)
@@ -1834,12 +1834,12 @@ char SetKeysDialog_79610()//25a610
 			}
 		}
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			VGA_Blit320_90478(menuFps);
+			VgaBlit320_90478(menuFps);
 		else
-			VGA_Blit640_75200(480, menuFps);
+			VgaBlit640_75200(480, menuFps);
 		if (!fadeInDone)
 		{
-			VGA_PalFadeInFadeOut_90B27(x_DWORD_17DE38str.palette_17DE38x, 0x20u, 0);
+			VgaPalFadeInFadeOut_90B27(x_DWORD_17DE38str.palette_17DE38x, 0x20u, 0);
 			fadeInDone = 1;
 		}
 		if ((clockNow - clock2) > 0xA)
@@ -1856,7 +1856,7 @@ char SetKeysDialog_79610()//25a610
 		}
 	}
 	WriteConfigDat_81DB0();
-	VGA_PalFadeInFadeOut_90B27(0, 0x10u, 0);
+	VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);
@@ -1877,9 +1877,9 @@ char SetKeysDialog_79610()//25a610
 	}
 	ResetMouse_7B5A0();
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		VGA_Blit320_90478();
+		VgaBlit320_90478();
 	else
-		VGA_Blit640_75200(480);
+		VgaBlit640_75200(480);
 
 	char dataPath[MAX_PATH];
 	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
@@ -1888,7 +1888,7 @@ char SetKeysDialog_79610()//25a610
 	LoadAndDecompressDatFile_7AA70(dataPath, x_DWORD_17DE38str.x_DWORD_17DE40, x_DWORD_17DE38str.x_DWORD_17DEDC, 168081);
 	LoadAndDecompressDatFile_7AA70(0, 0, 0, 0);
 	SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
-	VGA_PaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
+	VgaPaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
 	SetCursor_8CD27(xy_DWORD_17DED4_spritestr[39]);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		CopyScreen((void*)pdwScreenBuffer_351628, (void*)x_DWORD_E9C38_smalltit, 320, 200);
@@ -2134,13 +2134,13 @@ void LoadAndSetGraphicsAndPalette_7AC00()//25BC00
 				//ClearGraphicsBuffer640(&pdwScreenBuffer_351628, 480, sub_5BE80_test_Palette(*xadatapald0dat2.colorPalette_var28, 0, 0, 0));//[351628d]3aa0a4,1E0,0
 			}
 			memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
-			VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
+			VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
 			if (x_WORD_180660_VGA_type_resolution & 1)
-				VGA_SetVideoMode320x200AndPalette_90D6E((TColor*)*xadatapald0dat2.colorPalette_var28);
+				VgaSetVideoMode320x200AndPalette_90D6E((TColor*)*xadatapald0dat2.colorPalette_var28);
 			else
-				VGA_SetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
-			VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
-			uiBackGroundColorIdx_EB3A8 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
+				VgaSetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
+			VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
+			uiBackGroundColorIdx_EB3A8 = GetPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
 			if (x_WORD_180660_VGA_type_resolution & 1)
 			{
 				ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, uiBackGroundColorIdx_EB3A8);
@@ -2188,24 +2188,24 @@ void SetMenuVideoMode_7ADE0(char a1)//25bde0
 		memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
 		if (x_WORD_180660_VGA_type_resolution & 1)
 		{
-			v1 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
+			v1 = GetPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, v1);
 			ClearScreenAlphaBuffer(320, 200, 255);
 		}
 		else
 		{
-			v2 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
+			v2 = GetPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, v2);
 			ClearScreenAlphaBuffer(640, 480, 255);
 		}
 		memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
-		VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
+		VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			VGA_SetVideoMode320x200AndPalette_90D6E((TColor*)*xadatapald0dat2.colorPalette_var28);
+			VgaSetVideoMode320x200AndPalette_90D6E((TColor*)*xadatapald0dat2.colorPalette_var28);
 		else
-			VGA_SetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
-		VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
-		v3 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
+			VgaSetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
+		VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
+		v3 = GetPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
 		uiBackGroundColorIdx_EB3A8 = v3;
 		if (x_WORD_180660_VGA_type_resolution & 1)
 		{
@@ -2592,8 +2592,8 @@ char SaveGameDialog_78730(type_menuButtons_E1F84* a1x)//259730
 	//fix it
 
 	result = 0;
-	v68 = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
-	v67 = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x16u, 0x10u, 9u);
+	v68 = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
+	v67 = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x16u, 0x10u, 9u);
 	//v1 = a1x->word_26;//a1 + 13;
 	if (x_DWORD_17DE38str.savedGameIndex_17DF04 == -1)
 	{
@@ -3649,7 +3649,7 @@ void PresentLevelDescription_80C30(__int16 posX, __int16 posY, __int16 addWidth)
 			}
 		}
 		GetFont_6FC50(1);
-		uint8_t colorIndex = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
+		uint8_t colorIndex = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
 		DrawTextWithBoarder_7FCB0(x_DWORD_E9C4C_langindexbuffer[23 + levelIdx_v3], posX + 4 * GetLetterWidth_6FC10(), posX + addWidth - 3 * GetLetterWidth_6FC10(), posY, 5, colorIndex, 1);
 		//"You must explore the outer Netherworlds while you learn its magic. Your first destination is the ancient city of Jahwl."+
 	}
@@ -4189,9 +4189,9 @@ void PlayInGameFmv_82670()//263670
 							ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, 0);
 							ClearScreenAlphaBuffer(640, 480, 255);
 						}
-						VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
+						VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
 						x_WORD_180660_VGA_type_resolution = 1;
-						VGA_SetVideoMode320x200AndPalette_90D6E((TColor*)*xadatapald0dat2.colorPalette_var28);
+						VgaSetVideoMode320x200AndPalette_90D6E((TColor*)*xadatapald0dat2.colorPalette_var28);
 						InstallMouse_8CEDF();
 						SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]); //Set cursor to Null (Don't Draw)
 					}
@@ -4207,7 +4207,7 @@ void PlayInGameFmv_82670()//263670
 						LoadFixedFonts(0, (char*)"intro");
 
 					PlayInfoFmv(0, 1, cutScene_E16E0[cutSceneIndex].pSoundEvent_0, cutScenePath);
-					VGA_PalFadeInFadeOut_90B27(0, 0x10u, 0);
+					VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 					EndSample_8D8F0();
 					StopMusic_8E020();
 					FadeClearBlit_7B5D0();
@@ -4223,9 +4223,9 @@ void PlayInGameFmv_82670()//263670
 					}
 
 					if (x_WORD_180660_VGA_type_resolution & 1)
-						VGA_Blit320_90478();
+						VgaBlit320_90478();
 					else
-						VGA_Blit640_75200(480);
+						VgaBlit640_75200(480);
 					if (tempTypeResolution != x_WORD_180660_VGA_type_resolution)
 					{
 						MouseReset_54600();
@@ -4240,12 +4240,12 @@ void PlayInGameFmv_82670()//263670
 							ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, 0);
 							ClearScreenAlphaBuffer(640, 480, 254);
 						}
-						VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
+						VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
 						x_WORD_180660_VGA_type_resolution = tempTypeResolution;
 						if (x_WORD_180660_VGA_type_resolution & 1)
-							VGA_SetVideoMode320x200AndPalette_90D6E((TColor*)*xadatapald0dat2.colorPalette_var28);
+							VgaSetVideoMode320x200AndPalette_90D6E((TColor*)*xadatapald0dat2.colorPalette_var28);
 						else
-							VGA_SetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
+							VgaSetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
 						InstallMouse_8CEDF();
 						SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]); //Set cursor to Null (Don't Draw)
 					}
@@ -4266,7 +4266,7 @@ void PlayIntros_83250(char a1)//264250
 		MouseReset_54600();
 		memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
 		x_WORD_180660_VGA_type_resolution = 1;
-		VGA_SetVideoMode320x200AndPalette_90D6E((TColor*)*xadatapald0dat2.colorPalette_var28);
+		VgaSetVideoMode320x200AndPalette_90D6E((TColor*)*xadatapald0dat2.colorPalette_var28);
 		InstallMouse_8CEDF();
 		SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]); //Set cursor to Null (Don't Draw)
 	}
@@ -4284,9 +4284,9 @@ void PlayIntros_83250(char a1)//264250
 		ClearScreenAlphaBuffer(640, 480, 255);
 	}
 
-	VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
+	VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
 	x_WORD_180660_VGA_type_resolution = 8;
-	VGA_SetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
+	VgaSetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
 	InstallMouse_8CEDF();
 	SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]); //Set cursor to Null (Don't Draw)
 	SetCenterScreenForFlyAssistant_6EDB0();
@@ -4393,7 +4393,7 @@ void ShowEndCredits_833C0()//2643c0
 			}
 			if (!_stricmp(off_DB558[index3], "!"))
 				break;
-			uint8_t colorIndex = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
+			uint8_t colorIndex = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
 			DrawTextWithBoarder_7FCB0(off_DB558[index3], 10, 620, (signed __int16)(i + 200), 5, colorIndex, 0);
 			index1++;
 		}
@@ -4408,17 +4408,17 @@ void ShowEndCredits_833C0()//2643c0
 		if (noFade)
 		{
 			if (x_WORD_180660_VGA_type_resolution & 1)
-				VGA_Blit320_90478();
+				VgaBlit320_90478();
 			else
-				VGA_Blit640_75200(480);
+				VgaBlit640_75200(480);
 		}
 		else
 		{
-			VGA_PalFadeInFadeOut_90B27(x_DWORD_17DE38str.palette_17DE38x, 0x20u, 0);
+			VgaPalFadeInFadeOut_90B27(x_DWORD_17DE38str.palette_17DE38x, 0x20u, 0);
 			noFade = true;
 		}
 	}
-	VGA_PalFadeInFadeOut_90B27(0, 0x10u, 0);
+	VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
@@ -4431,9 +4431,9 @@ void ShowEndCredits_833C0()//2643c0
 		ClearScreenAlphaBuffer(640, 480, 255);
 	}
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		VGA_Blit320_90478();
+		VgaBlit320_90478();
 	else
-		VGA_Blit640_75200(480);
+		VgaBlit640_75200(480);
 	while (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode || x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons)
 		GetMouseAndKeyboardEvents_7A060();
 	x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode = 0;
@@ -4525,7 +4525,7 @@ void ShowScores()
 		for (const std::string& line : lines)
 		{
 			i += xy_DWORD_17DEC0_spritestr[65].height_5 + 2;
-			uint8_t colorIndex = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
+			uint8_t colorIndex = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
 			DrawTextWithBoarder_7FCB0((char*)line.c_str(), 10, 620, (signed __int16)(i + 200), 5, colorIndex, 0);
 		}
 
@@ -4535,17 +4535,17 @@ void ShowScores()
 		if (noFade)
 		{
 			if (x_WORD_180660_VGA_type_resolution & 1)
-				VGA_Blit320_90478();
+				VgaBlit320_90478();
 			else
-				VGA_Blit640_75200(480);
+				VgaBlit640_75200(480);
 		}
 		else
 		{
-			VGA_PalFadeInFadeOut_90B27(x_DWORD_17DE38str.palette_17DE38x, 0x20u, 0);
+			VgaPalFadeInFadeOut_90B27(x_DWORD_17DE38str.palette_17DE38x, 0x20u, 0);
 			noFade = true;
 		}
 	}
-	VGA_PalFadeInFadeOut_90B27(0, 0x10u, 0);
+	VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
@@ -4558,9 +4558,9 @@ void ShowScores()
 		ClearScreenAlphaBuffer(640, 480, 255);
 	}
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		VGA_Blit320_90478();
+		VgaBlit320_90478();
 	else
-		VGA_Blit640_75200(480);
+		VgaBlit640_75200(480);
 	while (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode || x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons)
 		GetMouseAndKeyboardEvents_7A060();
 	x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode = 0;
@@ -4608,20 +4608,20 @@ void ShowWelcomeScreen_83850()//264850
 		if (afterFade)
 		{
 			if (x_WORD_180660_VGA_type_resolution & 1)
-				VGA_Blit320_90478(menuFps);
+				VgaBlit320_90478(menuFps);
 			else
-				VGA_Blit640_75200(480, menuFps);
+				VgaBlit640_75200(480, menuFps);
 		}
 		else
 		{
 			afterFade = true;
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, 0);
 			ClearScreenAlphaBuffer(640, 480, 255);
-			VGA_Blit640_75200(480, menuFps);
-			VGA_PalFadeInFadeOut_90B27((TColor*)*xadatapald0dat2.colorPalette_var28, 0x20u, 0);
+			VgaBlit640_75200(480, menuFps);
+			VgaPalFadeInFadeOut_90B27((TColor*)*xadatapald0dat2.colorPalette_var28, 0x20u, 0);
 		}
 	}
-	VGA_PalFadeInFadeOut_90B27(0, 0x10u, 0);
+	VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		ClearGraphicsBuffer_72883(pdwScreenBuffer_351628, 320, 200, 0);
@@ -4633,9 +4633,9 @@ void ShowWelcomeScreen_83850()//264850
 		ClearScreenAlphaBuffer(640, 480, 255);
 	}
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		VGA_Blit320_90478(menuFps);
+		VgaBlit320_90478(menuFps);
 	else
-		VGA_Blit640_75200(480, menuFps);
+		VgaBlit640_75200(480, menuFps);
 	while (CheckKeyboard_9A10A())
 	{
 		LastPressedKey_1806E4 = 0;
@@ -5119,11 +5119,11 @@ LABEL_13:
 	_strupr(x_DWORD_17DE38str.x_DWORD_17DE50);
 	GetFont_6FC50(1);
 	v9 = GetLetterHeight_6FC30() + v5;
-	v10 = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x16u, 0x10u, 9u);
+	v10 = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x16u, 0x10u, 9u);
 	v11 = DrawTextCentred_6FC80((char*)x_DWORD_17DE38str.x_DWORD_17DE50, v29, v27, v9, v10);
 	if ((v26 - x_DWORD_17DE38str.x_DWORD_17DED0) / 0xCu >= 1)
 	{
-		v12 = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x16u, 0x10u, 9u);
+		v12 = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x16u, 0x10u, 9u);
 		DrawText_2BC10((char*)"_", v11 + 2, v9, v12);
 		x_DWORD_17DE38str.x_DWORD_17DED0 = v26;
 	}
@@ -5272,8 +5272,8 @@ char SetJoystickDialog_79160(type_menuButtons_E1F84* locEvent)//25a160
 
 	int lastSelected = 0;
 	result = 0;
-	color1 = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
-	color2 = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0);
+	color1 = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
+	color2 = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0);
 	switch (locEvent->byte_25)
 	{
 	case 0:
@@ -5647,11 +5647,11 @@ char MultiplayerMenu_7DE80(type_menuButtons_E1F84* a2x)//25ee80
 		sprintf(printbuffer, "%d", (unsigned __int8)x_BYTE_E29DF_skip_screen);
 		GetFont_6FC50(1);
 		v12 = GetLetterHeight_6FC30() + v8;
-		v14 = DrawTextCentred_6FC80(printbuffer, v22, v20, v12, getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0));
+		v14 = DrawTextCentred_6FC80(printbuffer, v22, v20, v12, GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0));
 		if ((v3 - x_DWORD_17DE38str.x_DWORD_17DED0) / 0xCu >= 1)
 		{
 			GetFont_6FC50(1);
-			DrawText_2BC10((char*)"_", v14 - 2, v12, getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0));
+			DrawText_2BC10((char*)"_", v14 - 2, v12, GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0, 0, 0));
 			x_DWORD_17DE38str.x_DWORD_17DED0 = v3;
 		}
 	}
@@ -5816,11 +5816,11 @@ int DrawScrollDialog2_7B660(int a1, int a2, __int16 a3, type_str_word_26* a4x, c
 		DrawBitmap640_7C120(a1, a2, xy_DWORD_17DED4_spritestr[x_DWORD_17DE38str.x_WORD_17DF06]);//unknown draw
 		goto LABEL_31;
 	}
-	v45 = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x25u, 0x1Fu, 0x19u);
+	v45 = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x25u, 0x1Fu, 0x19u);
 	//v38 = (signed __int16)a2;
 	//v41 = (signed __int16)a1;
 	DrawBitmap640_7C120(a1, a2, xy_DWORD_17DED4_spritestr[x_DWORD_17DE38str.x_WORD_17DF06]);//top scroll border
-	v7 = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x2Au, 0x24u, 0x1Du);
+	v7 = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x2Au, 0x24u, 0x1Du);
 	DrawTextBackground_7C140(
 		(a1 + 10),
 		a2 + xy_DWORD_17DED4_spritestr[x_DWORD_17DE38str.x_WORD_17DF06].height_5 - 2,
@@ -5959,7 +5959,7 @@ int DrawScrollDialog2_7B660(int a1, int a2, __int16 a3, type_str_word_26* a4x, c
 	v46 = xy_DWORD_17DED4_spritestr[x_DWORD_17DE38str.x_WORD_17DF06].height_5 + 2 + a2;
 	if (a5)
 	{
-		v31 = getPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x16u, 0x10u, 9u);
+		v31 = GetPaletteIndex_5BE80(x_DWORD_17DE38str.palette_17DE38x, 0x16u, 0x10u, 9u);
 		//"Exit Game" 16a 1c6 28 1 4c//adress 25cc27
 		DrawTextWithBoarder_7FCB0(/*v30,*/ a5, a1 + 10, v30, v46, 1, v31, 0);
 	}
@@ -6183,16 +6183,16 @@ char NetworkSessionLobby_77680()//258680
 			}
 			if (!a3b)
 			{
-				VGA_PalFadeInFadeOut_90B27(x_DWORD_17DE38str.palette_17DE38x, 0x20u, 0);
+				VgaPalFadeInFadeOut_90B27(x_DWORD_17DE38str.palette_17DE38x, 0x20u, 0);
 				a3b = 1;
 				SetCursor_8CD27(xy_DWORD_17DED4_spritestr[15]);
 			}
 			UpdateNetInfo();
 
 			if (x_WORD_180660_VGA_type_resolution & 1)
-				VGA_Blit320_90478();
+				VgaBlit320_90478();
 			else
-				VGA_Blit640_75200(480);
+				VgaBlit640_75200(480);
 			GetMouseAndKeyboardEvents_7A060();
 		}
 		FadeClearBlit_7B5D0();
@@ -6455,7 +6455,7 @@ signed int MultiplayerColourMenu_7C390()//25d390
 			}
 		}
 		if (v4 || x_DWORD_17DE38str.x_WORD_17DF00 != x_DWORD_17DE38str.x_WORD_17DEFE)
-			VGA_PaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
+			VgaPaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
 		x_DWORD_E9C38_smalltit = v6x;
 		result = v3;
 	}
@@ -6579,7 +6579,7 @@ void PaletteMulti_7C9D0(signed __int16 a1)//25d9d0
 	x_DWORD_17DE38str.palette_17DE38x[148].green -= (v1 * x_DWORD_17DE38str.palette_17DE38x[148].green) >> 8;
 	x_DWORD_17DE38str.palette_17DE38x[148].blue -= (v1 * x_DWORD_17DE38str.palette_17DE38x[148].blue) >> 8;
 	//WaitToScreenBeam_9A0FC();
-	VGA_PaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
+	VgaPaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
 	fix_sub_9A0FC_wait_to_screen_beam();
 }
 
@@ -6678,7 +6678,7 @@ void PaletteCopy_7C800(signed __int16 a1)//25d800
 	else
 		x_DWORD_17DE38str.palette_17DE38x[149].blue = x_DWORD_17DE38str.x_DWORD_17DE3C->c[149].blue;
 	//WaitToScreenBeam_9A0FC();
-	VGA_PaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
+	VgaPaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
 	fix_sub_9A0FC_wait_to_screen_beam();
 }
 

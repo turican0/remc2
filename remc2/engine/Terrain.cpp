@@ -2142,7 +2142,7 @@ uint32_t TerrainTileType_10590(char tileType)//1f1590
 }
 
 //----- (00010C40) --------------------------------------------------------
-int getTerrainAlt_10C40(axis_3d* axis3d)//1f1c40
+int GetTerrainAlt_10C40(axis_3d* axis3d)//1f1c40
 {
 	return GetTerrainAlt2_B5C60(axis3d->x, axis3d->y);
 }
@@ -2150,7 +2150,7 @@ int getTerrainAlt_10C40(axis_3d* axis3d)//1f1c40
 //----- (00011E70) --------------------------------------------------------
 bool IsTouchingCeiling_11E70(type_entity_0x6E8E* event, axis_3d* axis3d)//1f2e70
 {
-	return event->array_0x52_82.fov + getTerrainAlt_10C40(axis3d) + event->dword_0xA0_160x->word_160_0xc_12 > GetCeilingAlt_10C60(axis3d);
+	return event->array_0x52_82.fov + GetTerrainAlt_10C40(axis3d) + event->dword_0xA0_160x->word_160_0xc_12 > GetCeilingAlt_10C60(axis3d);
 }
 
 //----- (00010C60) --------------------------------------------------------

@@ -533,7 +533,7 @@ void NetworkRemoveClient_739AD(__int16 a1)//2549ad
 }
 
 //----- (00073AA1) --------------------------------------------------------
-void NetworkSomeChange_73AA1(__int16 a1)//254aa1
+void NetworkPeerLeft_73AA1(__int16 a1)//254aa1
 {
 	uint8_t locConnected[8]; // [esp+54h] [ebp-10h]
 	int i; // [esp+5Ch] [ebp-8h]
@@ -859,7 +859,7 @@ uint8_t NetworkAddName_74767(/*signed __int16* a1,*/ myNCB* connection, char* na
 	while (strlen(connection->ncb_name_26) < 0xFu)
 		strcat(connection->ncb_name_26, " ");
 	connection->ncb_command_0 = 0xb0;//ADD_NAME
-	if (setNetbios_75044(connection) == 0xff)
+	if (SetNetbios_75044(connection) == 0xff)
 		return 157;
 	// Unlike the other waits this one keeps drawing, so it is the "waiting for connection"
 	// screen rather than a freeze.  Note it in the log every half minute, so the timeline
@@ -889,7 +889,7 @@ void NetworkCall_74809(__int16 clientIndex)//255809
 		strcat(connection_E12AE[clientIndex]->ncb_callName_10, " ");
 	connection_E12AE[clientIndex]->ncb_rto_42 = 0;
 	connection_E12AE[clientIndex]->ncb_sto_43 = 0;
-	setNetbios_75044(connection_E12AE[clientIndex]);
+	SetNetbios_75044(connection_E12AE[clientIndex]);
 }
 
 //----- (000748F7) --------------------------------------------------------
@@ -899,7 +899,7 @@ signed int NetworkCancel_748F7(__int16 compindex)//2558f7
 		return -mainConnection_E12AA->ncb_cmd_cplt_49;
 	mainConnection_E12AA->ncb_command_0 = 0x35;//CANCEL 
 	mainConnection_E12AA->ncb_buffer_4.p = (uint8_t*)connection_E12AE[compindex];
-	if (setNetbios_75044(mainConnection_E12AA) != 0xff)
+	if (SetNetbios_75044(mainConnection_E12AA) != 0xff)
 	{
 		do
 		{
@@ -933,7 +933,7 @@ signed int NetworkInit_74A11()//255a11 // netbios
 	if (dos_getvect(92))
 	{
 		mainConnection_E12AA->ncb_command_0 = 0x7F;//?
-		if (setNetbios_75044(mainConnection_E12AA) == -1)//push ebx:1a6f44,push esi:1a7358,push edi:1a7358,push ebp:355234
+		if (SetNetbios_75044(mainConnection_E12AA) == -1)//push ebx:1a6f44,push esi:1a7358,push edi:1a7358,push ebp:355234
 			return -1;
 		if (mainConnection_E12AA->ncb_retcode_1 == 3)
 			return 0;
@@ -948,7 +948,7 @@ void NetworkDeleteName_74A86(myNCB* a1x, char* a2)//255a86
 	while (strlen(a1x->ncb_name_26) < 0xFu)
 		strcat(a1x->ncb_name_26, " ");
 	a1x->ncb_command_0 = 0xb1;//DELETE_NAME
-	if (setNetbios_75044(a1x) == -1)
+	if (SetNetbios_75044(a1x) == -1)
 		return;
 	WaitForNcb_diag(a1x, "delete name");
 }
@@ -957,7 +957,7 @@ void NetworkDeleteName_74A86(myNCB* a1x, char* a2)//255a86
 void NetworkHangUp_74B19(myNCB* a1x)//255b19
 {
 	a1x->ncb_command_0 = 0x92;//HANG_UP
-	if (setNetbios_75044(a1x) == -1)
+	if (SetNetbios_75044(a1x) == -1)
 		return;
 	WaitForNcb_diag(a1x, "hang up");
 	a1x->ncb_lsn_2 = 0;
@@ -975,7 +975,7 @@ signed int NetworkListen_74B75(__int16 a1)//255b75
 		strcat(connection_E12AE[a1]->ncb_callName_10, " ");
 	connection_E12AE[a1]->ncb_rto_42 = 0;
 	connection_E12AE[a1]->ncb_sto_43 = 0;
-	if (setNetbios_75044(connection_E12AE[a1]) != -1)
+	if (SetNetbios_75044(connection_E12AE[a1]) != -1)
 	{
 		connection_E12AE[a1]->ncb_buffer_4.p = NULL;
 		return -connection_E12AE[a1]->ncb_cmd_cplt_49;
@@ -989,7 +989,7 @@ int NetworkReceivePacket_74C9D(myNCB* connection, uint8_t* buffer, int size)//25
 	connection->ncb_command_0 = 0x95;//RECEIVE
 	connection->ncb_buffer_4.p = paket_E1282;
 	connection->ncb_bufferLength_8 = size;
-	if (setNetbios_75044(connection) == -1)
+	if (SetNetbios_75044(connection) == -1)
 		return -99;
 	// This is where a node ends up when its peer stops sending while the socket stays up:
 	// RECEIVE never expires, so the turn never finishes.
@@ -1029,7 +1029,7 @@ signed int NetworkReceivePacket_74DD4(myNCB* connection, unsigned __int16 buffer
 	connection->ncb_buffer_4 = packetArray_E1286[bufferindex];
 
 	connection->ncb_bufferLength_8 = 2048;
-	if (setNetbios_75044(connection) == -1)
+	if (SetNetbios_75044(connection) == -1)
 		v4 = -99;
 	else
 		v4 = 1;
@@ -1046,7 +1046,7 @@ int NetworkSendPacket_74E6D(myNCB* connection, uint8_t* buffer, int size)//255e6
 	connection->ncb_buffer_4.p = networkBuffer_E127E;
 
 	connection->ncb_bufferLength_8 = size;
-	if (setNetbios_75044(connection) == -1)
+	if (SetNetbios_75044(connection) == -1)
 		return -99;
 	WaitForNcb_diag(connection, "send packet");
 	return -connection->ncb_cmd_cplt_49;
@@ -1069,7 +1069,7 @@ void NetworkSendMessage_74EF1(myNCB* connection, uint8_t* inbuffer, unsigned int
 
 char oldConnected[8] = { -1, -1, -1, -1, -1, -1, -1, -1 }; // idb
 // A peer vanished without warning - killed process, lost machine - rather than leaving in
-// an orderly way.  NetworkSomeChange_73AA1 cannot be used for this: it starts by receiving
+// an orderly way.  NetworkPeerLeft_73AA1 cannot be used for this: it starts by receiving
 // the survivor list from the node that is going away, and nobody sent one.  Everything is
 // therefore worked out locally, and because every node applies the same rule to the same
 // facts, they all reach the same answer without talking to each other.
@@ -1297,7 +1297,7 @@ void RemoveDeadClients()
 				x_DWORD_17DE38str.array_BYTE_17DE68x[i].makeUpdate_0 = 1;
 				x_DWORD_17DE38str.array_BYTE_17DE68x[i].action_9 = 1;
 				// What must NOT run for this slot is the ORDERLY hand-over that action_9 = 1
-				// normally triggers: NetworkSomeChange_73AA1 begins by receiving the survivor
+				// normally triggers: NetworkPeerLeft_73AA1 begins by receiving the survivor
 				// list from the node that is leaving, and a node that was killed sent none.
 				// Mark the slot so that dispatch is skipped, and do the hand-over here from
 				// the roster instead - which is right in the lobby for exactly the same
@@ -1396,7 +1396,7 @@ signed int NetworkGetState_74FE1(__int16 a1)//255fe1
 }
 
 //----- (00075044) --------------------------------------------------------
-int setNetbios_75044(myNCB* connection)//256044
+int SetNetbios_75044(myNCB* connection)//256044
 {
 	//a1x 0x2b22aa
 	type_v2x v2x; // [esp+0h] [ebp-7Ch]
@@ -1482,9 +1482,9 @@ void WaitToConnect_7C230()//25d230
 	}
 	DrawBitmap640_7C120(x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony, xy_DWORD_17DED4_spritestr[timeCounter_E2094]);
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		VGA_Blit320_90478();
+		VgaBlit320_90478();
 	else
-		VGA_Blit640_75200(480);
+		VgaBlit640_75200(480);
 	GetMouseAndKeyboardEvents_7A060();
 }
 
@@ -1519,7 +1519,7 @@ bool SetMultiplayerColors_7CE50()//25de50
 					x_DWORD_17DE38str.palette_17DE38x[colorIndex].green = 0;
 					x_DWORD_17DE38str.palette_17DE38x[colorIndex].blue = 0;
 				}
-				VGA_PaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
+				VgaPaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
 
 				x_DWORD_17DE38str.array_BYTE_17DE68x[i].makeUpdate_0 = 0;
 				// A slot whose node vanished has already been handed over from the roster in
@@ -1528,7 +1528,7 @@ bool SetMultiplayerColors_7CE50()//25de50
 				if (g_vanishedHandled[i])
 					g_vanishedHandled[i] = false;
 				else
-					NetworkSomeChange_73AA1(i);
+					NetworkPeerLeft_73AA1(i);
 				if (i == x_DWORD_17DE38str.serverIndex_17DEFC)
 					result = true;
 				break;

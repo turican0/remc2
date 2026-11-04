@@ -747,7 +747,7 @@ void MarkSteepTerrain_45600(unsigned __int8 a1);*/
 // void /*__spoils<ecx>*/ ClearGraphicsBuffer640(int a1, void *a2, unsigned __int16 a3, char a4);
 //void DrawBitmapWithColour640_72C40(__int16 a1, __int16 a2, bitmap_pos_struct_t a3, unsigned __int8 a4);
 //int sub_72CB0(unsigned __int8* a1, int a2);//not used
-//void VGA_Blit640_75200(uint16_t height);
+//void VgaBlit640_75200(uint16_t height);
 //int sub_75420();
 //void sub_75AE0(int a1);
 //void sub_75B50(__int16 a1);
@@ -789,13 +789,13 @@ void MarkSteepTerrain_45600(unsigned __int8 a1);*/
 //void DrawCursorIfEnabled_8CACD();
 // int sub_8D12F_set_mouse_viewport();
 //-------------
-//void drawBitmap320_8F8B0(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr);
-//void drawBitmap640_8F8E8(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr);
+//void DrawBitmap320_8F8B0(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr);
+//void DrawBitmap640_8F8E8(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr);
 // void DrawBitmapFinalUnscaled_8F920(__int16 a1, signed int a2, int a3, char *a4, unsigned __int8 a5, char a6);
 // void DrawBitmapFinal_8F935(__int16 a1, signed int a2, int a3, char *a4, unsigned __int8 a5, char a6);
 //void sub_90164(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
 //void sub_901E4(int16_t a1, int16_t a2, int16_t a3, int16_t a4, unsigned __int16 a5);
-//void VGA_Blit320_90478();
+//void VgaBlit320_90478();
 //unsigned __int8 sub_90530(int a1, int a2, float a3);
 //void sub_905EC_any_graphics_command2(char a1);
 //int sub_90810();
@@ -1882,8 +1882,8 @@ type_D4C52ar2 str_x_DWORD_D4C52ar_0x2F22[7] = {
 
 
 
-//int(*off_D697E)(int) = (int(*)(int)) & NewAdd0A00_4E320; // weak
-//int(*off_D7B7A)(int) = (int(*)(int)) & AddClass0E_00_51530; // weak
+//int(*off_D697E)(int) = (int(*)(int)) & AddImpactExplosion_4E320; // weak
+//int(*off_D7B7A)(int) = (int(*)(int)) & AddClass0E00_51530; // weak
 
 /*
 uint8_t xx_unk_D7BD6[0xe58 + 0xee + 0x50c + 0xc0] = {
@@ -3442,10 +3442,10 @@ int CheckPositionCollision_102D0(type_entity_0x6E8E* a1x, axis_3d* a2, char a3)/
 	if (a3 & 2)
 	{
 		v3 = a1x->dword_0xA0_160x->word_160_0xc_12;
-		if (a2->z < v3 + (signed __int16)getTerrainAlt_10C40(a2))
+		if (a2->z < v3 + (signed __int16)GetTerrainAlt_10C40(a2))
 			return 1;
 		v5 = a1x->dword_0xA0_160x->word_160_0xa_10;
-		if (a2->z > (signed __int16)getTerrainAlt_10C40(a2) + v5)
+		if (a2->z > (signed __int16)GetTerrainAlt_10C40(a2) + v5)
 			return 1;
 	}
 	if (a3 & 1)
@@ -4361,7 +4361,7 @@ bool IsNearCeiling_11E20(type_entity_0x6E8E* a1x, axis_3d* a2x)//1f2e20
 	int v3; // ebx
 
 	v2 = a1x->dword_0xA0_160x->word_160_0xc_12;
-	v3 = (signed __int16)getTerrainAlt_10C40(a2x) + v2 + a1x->array_0x52_82.fov;
+	v3 = (signed __int16)GetTerrainAlt_10C40(a2x) + v2 + a1x->array_0x52_82.fov;
 	return v3 > (signed __int16)GetCeilingAlt_10C60(a2x) - 384;
 }
 
@@ -5220,7 +5220,7 @@ signed int UpdateWizardAiState_12A70(type_entity_0x6E8E* a1x)//1f3a70
 			}
 		}
 	}
-	v28 = (signed __int16)getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	v28 = (signed __int16)GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	//v29 = a1x->dword_0xA0_160;
 	if (a1x->position_0x4C_76.z > v28 + a1x->dword_0xA0_160x->word_160_0xa_10)
 		a1x->position_0x4C_76.z = a1x->dword_0xA0_160x->word_160_0xa_10 + v28;
@@ -6193,7 +6193,7 @@ void UpdateWizardMovement_146F0(type_entity_0x6E8E* a1x)//1f56f0
 		v3 = a1x->dword_0xA0_160x->word_160_0xe_14;
 		v4 = a1x->dword_0xA0_160x->word_160_0xa_10;
 		v5 = a1x->dword_0xA0_160x->word_160_0xc_12;
-		v6 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+		v6 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 		ClampAboveTerrain_580E0(&predictedAxis_EB398ar, v6, v5, v4, v3);
 		MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, a1x->actSpeed_0x82_130);
 		v7 = a1x->yaw_0x1C_28;
@@ -6573,7 +6573,7 @@ signed int WizardAiCastSpell_14E10(type_entity_0x6E8E* a1x, unsigned __int8 a2)/
 		}
 		else
 		{
-			v4x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->axis_0x9A_154x, 3, 2);
+			v4x = CreateEntity_4A190(&a1x->axis_0x9A_154x, 3, 2);
 			if (v4x)
 			{
 				v4x->id_0x1A_26 = a1x->id_0x1A_26;
@@ -8543,7 +8543,7 @@ signed int MoveCreature_1B8C0(type_entity_0x6E8E* a1x)//1fc8c0
 		v5 = a1x->dword_0xA0_160x->word_160_0xe_14;
 		v6 = a1x->dword_0xA0_160x->word_160_0xa_10;
 		v7 = a1x->dword_0xA0_160x->word_160_0xc_12;
-		v8 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+		v8 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 		ClampAboveTerrain_580E0(&predictedAxis_EB398ar, v8, v7, v6, v5);
 		MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, a1x->actSpeed_0x82_130);
 		if (a1x->position_0x4C_76.x >> 8 != predictedAxis_EB398ar.x >> 8 || a1x->position_0x4C_76.y >> 8 != predictedAxis_EB398ar.y >> 8)
@@ -8563,7 +8563,7 @@ signed int MoveCreature_1B8C0(type_entity_0x6E8E* a1x)//1fc8c0
 				v15 = a1x->dword_0xA0_160x->word_160_0xe_14;
 				v16 = a1x->dword_0xA0_160x->word_160_0xa_10;
 				v17 = a1x->dword_0xA0_160x->word_160_0xc_12;
-				v18 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+				v18 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 				ClampAboveTerrain_580E0(&predictedAxis_EB398ar, v18, v17, v16, v15);
 				MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, a1x->actSpeed_0x82_130);
 				if (CheckPositionCollision_102D0(a1x, &predictedAxis_EB398ar, 1)
@@ -8577,7 +8577,7 @@ signed int MoveCreature_1B8C0(type_entity_0x6E8E* a1x)//1fc8c0
 					v23 = a1x->dword_0xA0_160x->word_160_0xe_14;
 					v24 = a1x->dword_0xA0_160x->word_160_0xa_10;
 					v25 = a1x->dword_0xA0_160x->word_160_0xc_12;
-					v26 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+					v26 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 					ClampAboveTerrain_580E0(&predictedAxis_EB398ar, v26, v25, v24, v23);
 					MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, a1x->actSpeed_0x82_130);
 					if (CheckPositionCollision_102D0(a1x, &predictedAxis_EB398ar, 1)
@@ -8589,7 +8589,7 @@ signed int MoveCreature_1B8C0(type_entity_0x6E8E* a1x)//1fc8c0
 						v30 = a1x->dword_0xA0_160x->word_160_0xe_14;
 						v31 = a1x->dword_0xA0_160x->word_160_0xa_10;
 						v32 = a1x->dword_0xA0_160x->word_160_0xc_12;
-						v33 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+						v33 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 						ClampAboveTerrain_580E0(&predictedAxis_EB398ar, v33, v32, v31, v30);
 						MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, a1x->actSpeed_0x82_130);
 						if (CheckPositionCollision_102D0(a1x, &predictedAxis_EB398ar, 1)
@@ -9304,7 +9304,7 @@ void KillEntity_1C930(type_entity_0x6E8E* entity)//1fd930
 		TransformEntityToManaSphere_36BA0(entity, false);
 		if (!(entity->struct_byte_0xc_12_15.byte[2] & 0x10))
 		{
-			type_entity_0x6E8E* tempEntity = IfSubtypeCallCreatingManaSphere_4A190(&entity->position_0x4C_76, 10, 1);
+			type_entity_0x6E8E* tempEntity = CreateEntity_4A190(&entity->position_0x4C_76, 10, 1);
 			if (tempEntity)
 				tempEntity->id_0x1A_26 = entity->id_0x1A_26;
 		}
@@ -9431,7 +9431,7 @@ signed int CreatureShootFireball_1CC20(type_entity_0x6E8E* a1x, type_entity_0x6E
 
 	v2 = &a1x->position_0x4C_76;
 	v3 = 0;
-	v4x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 9, 0);
+	v4x = CreateEntity_4A190(&a1x->position_0x4C_76, 9, 0);
 	v5x = v4x;
 	if (v4x)
 	{
@@ -9463,7 +9463,7 @@ signed int CreatureShootArrow_1CCE0(type_entity_0x6E8E* a1x, type_entity_0x6E8E*
 
 	v2 = &a1x->position_0x4C_76;
 	v3 = 0;
-	v4x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 9, 13);
+	v4x = CreateEntity_4A190(&a1x->position_0x4C_76, 9, 13);
 	if (v4x)
 	{
 		v4x->id_0x1A_26 = a1x->id_0x1A_26;
@@ -9491,7 +9491,7 @@ signed int CreatureShootArrow2_1CDA0(type_entity_0x6E8E* a1x, type_entity_0x6E8E
 
 	v2 = 0;
 	v5 = &a1x->position_0x4C_76;
-	v3x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 9, 13);
+	v3x = CreateEntity_4A190(&a1x->position_0x4C_76, 9, 13);
 	if (v3x)
 	{
 		v3x->id_0x1A_26 = a1x->id_0x1A_26;
@@ -9566,7 +9566,7 @@ signed int CreatureShootProjectile20_1D0E0(type_entity_0x6E8E* a1x, type_entity_
 
 	v2 = &a1x->position_0x4C_76;
 	v3 = 0;
-	v4x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 9, 20);
+	v4x = CreateEntity_4A190(&a1x->position_0x4C_76, 9, 20);
 	v5x = v4x;
 	if (v4x)
 	{
@@ -9600,7 +9600,7 @@ signed int CreatureShootProjectile21_1D1A0(type_entity_0x6E8E* a1x, type_entity_
 
 	v2 = &a1x->position_0x4C_76;
 	v3 = 0;
-	v4x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 9, 21);
+	v4x = CreateEntity_4A190(&a1x->position_0x4C_76, 9, 21);
 	v5x = v4x;
 	if (v4x)
 	{
@@ -9635,7 +9635,7 @@ signed int CreatureShootProjectile9_1D260(type_entity_0x6E8E* a1x, type_entity_0
 	predictedAxis_EB398ar = a1x->position_0x4C_76;
 	v6 = 0;
 	predictedAxis_EB398ar.z += a1x->array_0x52_82.fov;
-	v2x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 9, 9);
+	v2x = CreateEntity_4A190(&predictedAxis_EB398ar, 9, 9);
 	v3x = v2x;
 	if (v2x)
 	{
@@ -9694,7 +9694,7 @@ void CreatureShootSpread_1D460(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)
 			break;
 		}
 		v9 = &a1x->position_0x4C_76;
-		v4x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 9, 0);
+		v4x = CreateEntity_4A190(&a1x->position_0x4C_76, 9, 0);
 		v5x = v4x;
 		if (v4x)
 		{
@@ -10489,8 +10489,8 @@ void CreatureScriptEscortParent_1E580(type_entity_0x6E8E* a1x, __int16 a2)//1ff5
 	if (v6)
 	{
 		if (a1x->StageVar2_0x49_73 == 13)
-			IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 73);
-		IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 0);
+			CreateEntity_4A190(&a1x->position_0x4C_76, 10, 73);
+		CreateEntity_4A190(&a1x->position_0x4C_76, 10, 0);
 		DisableEntityDrawing04_57F10(a1x);
 	}
 }
@@ -10927,62 +10927,62 @@ void KeepCreatureAboveTerrain_1EEE0(type_entity_0x6E8E* a1x)//1ffee0
 	v2 = a1x->dword_0xA0_160x->word_160_0xe_14;
 	v3 = a1x->dword_0xA0_160x->word_160_0xa_10;
 	v4 = a1x->dword_0xA0_160x->word_160_0xc_12;
-	v5 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	v5 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	/*return */ClampAboveTerrain_580E0(&a1x->position_0x4C_76, v5, v4, v3, v2);
 }
 
 //----- (0001EF20) --------------------------------------------------------
-void FlyingWormIdle_1EF20(type_entity_0x6E8E* a1x)//1fff20
+void DragonIdle_1EF20(type_entity_0x6E8E* a1x)//1fff20
 {
 	CreatureIdle_1BD90(a1x, 0);
 }
 
 //----- (0001EF40) --------------------------------------------------------
-void FlyingWormWander_1EF40(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)//1fff40
+void DragonWander_1EF40(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)//1fff40
 {
 	CreatureWander_1BF90(a2x, 0);
-	UpdateFlyingWormBody_1F0C0(/*a1x,*/ a2x);
-	ApplyFlyingWormGravity_1F040(a2x);
+	UpdateDragonBody_1F0C0(/*a1x,*/ a2x);
+	ApplyDragonGravity_1F040(a2x);
 }
 
 //----- (0001EF70) --------------------------------------------------------
-void FlyingWormAttack_1EF70(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)//1fff70
+void DragonAttack_1EF70(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)//1fff70
 {
 	if ((unsigned __int16)CreatureAttack_1C310(a2x, 0, (unsigned __int16(*)(type_entity_0x6E8E*, type_entity_0x6E8E*))CreatureShootFireball_1CC20))
 		PrepareEventSound_6E450(a2x - D41A0_0.struct_0x6E8E, -1, 8);
-	UpdateFlyingWormBody_1F0C0(/*a1x,*/ a2x);
-	ApplyFlyingWormGravity_1F040(a2x);
+	UpdateDragonBody_1F0C0(/*a1x,*/ a2x);
+	ApplyDragonGravity_1F040(a2x);
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (0001EFD0) --------------------------------------------------------
-void FlyingWormFollow_1EFD0(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)//1fffd0
+void DragonFollow_1EFD0(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)//1fffd0
 {
 	CreatureFollowLeader_1C560(a2x, 0);
-	UpdateFlyingWormBody_1F0C0(/*a1x,*/ a2x);
-	ApplyFlyingWormGravity_1F040(a2x);
+	UpdateDragonBody_1F0C0(/*a1x,*/ a2x);
+	ApplyDragonGravity_1F040(a2x);
 }
 
 //----- (0001F000) --------------------------------------------------------
-void FlyingWormPreKill_1F000(type_entity_0x6E8E* a1x)//200000
+void DragonPreKill_1F000(type_entity_0x6E8E* a1x)//200000
 {
 	PreKillEntity_1C890(a1x, 0);
 }
 
 //----- (0001F020) --------------------------------------------------------
-void FlyingWormKill_1F020(type_entity_0x6E8E* a1x)//200020
+void DragonKill_1F020(type_entity_0x6E8E* a1x)//200020
 {
 	KillEntity_1C930(a1x);
 }
 
 //----- (0001F040) --------------------------------------------------------
-void ApplyFlyingWormGravity_1F040(type_entity_0x6E8E* a1x)//200040
+void ApplyDragonGravity_1F040(type_entity_0x6E8E* a1x)//200040
 {
 	__int16 v1; // ax
 	int result; // eax
 
 	a1x->position_0x4C_76.z += a1x->dword_0x10_16;
-	v1 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	v1 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	a1x->dword_0x10_16 -= 5;
 	result = v1 + 256;
 	if (a1x->position_0x4C_76.z >= result)
@@ -11003,7 +11003,7 @@ void ApplyFlyingWormGravity_1F040(type_entity_0x6E8E* a1x)//200040
 // D41B6: using guessed type char x_BYTE_D41B6;
 
 //----- (0001F0C0) --------------------------------------------------------
-void UpdateFlyingWormBody_1F0C0(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)//2000c0
+void UpdateDragonBody_1F0C0(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)//2000c0
 {
 	char v2; // ah
 	int v3; // edi
@@ -11095,7 +11095,7 @@ void UpdateFlyingWormBody_1F0C0(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2
 // EB398: using guessed type __int16 x_WORD_EB398;
 
 //----- (0001F300) --------------------------------------------------------
-void FlyingWormScripted_1F300(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)//200300
+void DragonScripted_1F300(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)//200300
 {
 	//int result; // eax
 
@@ -11116,11 +11116,11 @@ void FlyingWormScripted_1F300(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)
 	case 0xD:
 	case 0xE:
 	case 0x10:
-		UpdateFlyingWormBody_1F0C0(/*a1x,*/ a2x);
+		UpdateDragonBody_1F0C0(/*a1x,*/ a2x);
 		goto LABEL_3;
 	case 0x11:
 	LABEL_3:
-		/*result = */ApplyFlyingWormGravity_1F040(a2x);
+		/*result = */ApplyDragonGravity_1F040(a2x);
 		break;
 	default:
 		return;// result;
@@ -11195,7 +11195,7 @@ void HitGoat_1F530(type_entity_0x6E8E* entity)//200530
 }
 
 //----- (0001F5B0) --------------------------------------------------------
-void AddGoat05_01_1F5B0(type_entity_0x6E8E* event)//2005b0
+void GoatRunScript_1F5B0(type_entity_0x6E8E* event)//2005b0
 {
 	CreatureRunScript_1D5D0(event, 8);
 	event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
@@ -11679,7 +11679,7 @@ void KillArcher_20040(type_entity_0x6E8E* a1x)//201040
 }
 
 //----- (00020060) --------------------------------------------------------
-void ArcherStartShooting_20060(type_entity_0x6E8E* entity)//201060
+void ArcherStartShooting_20060(type_entity_0x6E8E* entity)//201060 //tex 121,11
 {
 	entity->rand_0x14_20 = 9377 * entity->rand_0x14_20 + 9439;
 	entity->actSpeed_0x82_130 = 0;
@@ -11693,7 +11693,7 @@ void ArcherStartShooting_20060(type_entity_0x6E8E* entity)//201060
 }
 
 //----- (000200F0) --------------------------------------------------------
-void ArcherResetAnimation_200F0(type_entity_0x6E8E* entity)//2010f0
+void ArcherResetAnimation_200F0(type_entity_0x6E8E* entity)//2010f0 //tex 8
 {
 	entity->actSpeed_0x82_130 = entity->minSpeed_0x84_132;
 	SetEntityIndexAndRot_49CD0(entity, 0);
@@ -11703,7 +11703,7 @@ void ArcherResetAnimation_200F0(type_entity_0x6E8E* entity)//2010f0
 }
 
 //----- (00020140) --------------------------------------------------------
-void AddScroll05_04_20140(type_entity_0x6E8E* entity)//201140
+void ArcherRunScript_20140(type_entity_0x6E8E* entity)//201140
 {
 	entity->dword_0x10_16 = 0;
 	CreatureRunScript_1D5D0(entity, 32);
@@ -11955,7 +11955,7 @@ void SkeletonArcherWander_203D0(type_entity_0x6E8E* a1x)//2013d0
 								{
 									predictedAxis_EB398ar = v41x->position_0x4C_76;
 									DisableEntityDrawing04_57F10(v41x);
-									v39x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 5, 9);
+									v39x = CreateEntity_4A190(&predictedAxis_EB398ar, 5, 9);
 									if (v39x)
 									{
 										if (Entities_EA3E4[a1x->id_0x1A_26]->class_0x3F_63 == 3)
@@ -12153,7 +12153,7 @@ void SkeletonArcherUpdate_20940(type_entity_0x6E8E* a1x)//201940
 					{
 						predictedAxis_EB398ar = v24x->position_0x4C_76;
 						DisableEntityDrawing04_57F10(v24x);
-						v23x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 5, 9);
+						v23x = CreateEntity_4A190(&predictedAxis_EB398ar, 5, 9);
 						if (v23x)
 							v23x->id_0x1A_26 = a1x->id_0x1A_26;
 					}
@@ -12334,7 +12334,7 @@ void SkeletonArcherKill_20EA0(type_entity_0x6E8E* a1x)//201ea0
 }
 
 //----- (00020EC0) --------------------------------------------------------
-void SkeletonArcherCheckTarget_20EC0(type_entity_0x6E8E* a1x)//201ec0
+void SkeletonArcherCheckTarget_20EC0(type_entity_0x6E8E* a1x)//201ec0 //tex 113
 {
 	type_entity_0x6E8E* v1x; // esi
 	//char result; // al
@@ -12357,7 +12357,7 @@ void SkeletonArcherCheckTarget_20EC0(type_entity_0x6E8E* a1x)//201ec0
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00020F20) --------------------------------------------------------
-void SkeletonArcherReset_20F20(type_entity_0x6E8E* a1x)//201f20
+void SkeletonArcherReset_20F20(type_entity_0x6E8E* a1x)//201f20 //tex 110
 {
 	//int result; // eax
 
@@ -12371,7 +12371,7 @@ void SkeletonArcherReset_20F20(type_entity_0x6E8E* a1x)//201f20
 }
 
 //----- (00020F60) --------------------------------------------------------
-void SkeletonArcherStartAnimation_20F60(type_entity_0x6E8E* a1x)//201f60
+void SkeletonArcherStartAnimation_20F60(type_entity_0x6E8E* a1x)//201f60 //tex 110
 {
 	//int result; // eax
 
@@ -12381,7 +12381,7 @@ void SkeletonArcherStartAnimation_20F60(type_entity_0x6E8E* a1x)//201f60
 }
 
 //----- (00020F80) --------------------------------------------------------
-void SkeletonArcherSetCooldown_20F80(type_entity_0x6E8E* a1x)//201f80
+void SkeletonArcherSetCooldown_20F80(type_entity_0x6E8E* a1x)//201f80 //tex 110
 {
 	a1x->byte_0x46_70 = 0;
 	a1x->dword_0x10_16 = 400;
@@ -12556,7 +12556,7 @@ void EmuIdle_21030(type_entity_0x6E8E* a1x)//202030
 	case 0xC:
 		a1x->byte_0x46_70 = 13;
 		a1x->dword_0x10_16 = 32;
-		v13x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 17);
+		v13x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 17);
 		if (v13x)
 		{
 			v14 = v1x->id_0x1A_26;
@@ -12607,7 +12607,7 @@ void EmuIdle_21030(type_entity_0x6E8E* a1x)//202030
 		a1x->dword_0x10_16 = v20;
 		if (v20 <= 0)
 		{
-			v21x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 9);
+			v21x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 9);
 			if (v21x)
 			{
 				v22 = v1x->id_0x1A_26;
@@ -12826,7 +12826,7 @@ char EmuUpdateState_21490(type_entity_0x6E8E* a1x)//202490
 				break;
 			v18x = a1x->position_0x4C_76;
 			MoveEntity_57FA0(&v18x, v23, 0, 192);
-			v16x = IfSubtypeCallCreatingManaSphere_4A190(&v18x, 10, 14);
+			v16x = CreateEntity_4A190(&v18x, 10, 14);
 			if (v16x)
 			{
 				a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
@@ -13072,7 +13072,7 @@ void EmuFindTarget_21AB0(type_entity_0x6E8E* a1x)//202ab0
 			switch (a1x->byte_0x43_67)
 			{
 			case 1:
-				v5x = IfSubtypeCallCreatingManaSphere_4A190(&v28x, 9, 0);
+				v5x = CreateEntity_4A190(&v28x, 9, 0);
 				v33x = v5x;
 				if (v5x)
 				{
@@ -13088,7 +13088,7 @@ void EmuFindTarget_21AB0(type_entity_0x6E8E* a1x)//202ab0
 				}
 				break;
 			case 2:
-				v6x = IfSubtypeCallCreatingManaSphere_4A190(&v28x, 9, 9);
+				v6x = CreateEntity_4A190(&v28x, 9, 9);
 				v33x = v6x;
 				if (v6x)
 				{
@@ -13115,16 +13115,16 @@ void EmuFindTarget_21AB0(type_entity_0x6E8E* a1x)//202ab0
 				switch (a1x->byte_0x43_67)
 				{
 				case 3:
-					v10x = AddFlyingWorm05_00_4B240(&v28x);
+					v10x = AddDragon_4B240(&v28x);
 					goto LABEL_19;
 				case 4:
-					v10x = AddDiablo05_15_4C8F0(&v28x);
+					v10x = AddDevil_4C8F0(&v28x);
 					goto LABEL_19;
 				case 5:
-					v10x = AddFlyingCreature05_19_4CE00(&v28x);
+					v10x = AddCymmerian_4CE00(&v28x);
 					goto LABEL_19;
 				case 6:
-					v10x = AddFirebug05_13_4C6B0(&v28x);
+					v10x = AddFirefly_4C6B0(&v28x);
 				LABEL_19:
 					v35x = v10x;
 					break;
@@ -13191,17 +13191,17 @@ void EmuFindTarget_21AB0(type_entity_0x6E8E* a1x)//202ab0
 				v32 = v18;
 				MoveEntity_57FA0(&predictedAxis_EB398ar, v18, 0, D41A0_0.word_0x36546);
 				v19x = v31x;
-				if (moveTest_5D0A0(v31x))
+				if (MoveTest_5D0A0(v31x))
 				{
 					v20 = v19x->dword_0xA0_160x->word_160_0xc_12;
-					v21 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+					v21 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 					if (predictedAxis_EB398ar.z < v21 + v20)
 						predictedAxis_EB398ar.z = v19x->dword_0xA0_160x->word_160_0xc_12 + v21;
 					CopyEntityPosition_57CF0(v31x, &predictedAxis_EB398ar);
 				}
 				break;
 			case 8:
-				v8x = IfSubtypeCallCreatingManaSphere_4A190(&v28x, 9, 26);
+				v8x = CreateEntity_4A190(&v28x, 9, 26);
 				v33x = v8x;
 				if (v8x)
 				{
@@ -13217,7 +13217,7 @@ void EmuFindTarget_21AB0(type_entity_0x6E8E* a1x)//202ab0
 				}
 				break;
 			case 9:
-				v7x = IfSubtypeCallCreatingManaSphere_4A190(&v28x, 9, 3);
+				v7x = CreateEntity_4A190(&v28x, 9, 3);
 				v33x = v7x;
 				if (v7x)
 				{
@@ -13353,7 +13353,7 @@ char EmuCheckNearbyEntities_21F60(type_entity_0x6E8E* a1x)//202f60
 		{
 			if (ix->model_0x40_64 == 10)
 				Entities_EA3E4[v16x->dword_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[2]]->word_0x2E_46 = 0;
-			v6x = IfSubtypeCallCreatingManaSphere_4A190(&ix->position_0x4C_76, 10, 0);
+			v6x = CreateEntity_4A190(&ix->position_0x4C_76, 10, 0);
 			if (v6x)
 				v6x->id_0x1A_26 = a1x->id_0x1A_26;
 			DisableEntityDrawing04_57F10(ix);
@@ -13432,7 +13432,7 @@ void EmuSnapToTerrain_22270(type_entity_0x6E8E* a1x)//203270
 	__int16 result; // ax
 	signed int v2; // edx
 
-	result = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	result = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	v2 = a1x->life_0x8;
 	a1x->position_0x4C_76.z = result;
 	if (v2 >= 10)
@@ -13841,7 +13841,7 @@ void BuilderIdle_22760(type_entity_0x6E8E* a1x)//203760
 		}
 		if (!v9)
 		{
-			v8y = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 45);
+			v8y = CreateEntity_4A190(&predictedAxis_EB398ar, 10, 45);
 			v14x = v8y;
 			if (v8y)
 			{
@@ -14452,7 +14452,7 @@ void HitTownie_23710(type_entity_0x6E8E* a1x)//204710
 }
 
 //----- (00023750) --------------------------------------------------------
-void AddTownie05_0D_23750(type_entity_0x6E8E* a1x)//204750
+void TownieRunScript_23750(type_entity_0x6E8E* a1x)//204750
 {
 	//__int16 result; // ax
 
@@ -14899,7 +14899,7 @@ void ExplodedHumanAttack_23E60(type_entity_0x6E8E* a1x)//204e60
 				a1x->actionIndex_0x45_69 = 121;
 				goto LABEL_26;
 			}
-			v9x = IfSubtypeCallCreatingManaSphere_4A190(v12, 9, 13);
+			v9x = CreateEntity_4A190(v12, 9, 13);
 			v10x = v9x;
 			if (v9x)
 			{
@@ -14944,7 +14944,7 @@ void ExplodedHumanKill_240E0(type_entity_0x6E8E* a1x)//2050e0
 }
 
 //----- (00024100) --------------------------------------------------------
-void ExplodedHumanStartAttack_24100(type_entity_0x6E8E* a1x)//205100
+void ExplodedHumanStartAttack_24100(type_entity_0x6E8E* a1x)//205100 //tex 121,11
 {
 	signed int v1; // edx
 	//int result; // eax
@@ -14960,7 +14960,7 @@ void ExplodedHumanStartAttack_24100(type_entity_0x6E8E* a1x)//205100
 }
 
 //----- (00024150) --------------------------------------------------------
-void ExplodedHumanResetAnimation_24150(type_entity_0x6E8E* a1x)//205150
+void ExplodedHumanResetAnimation_24150(type_entity_0x6E8E* a1x)//205150 //tex 8
 {
 	a1x->actSpeed_0x82_130 = a1x->minSpeed_0x84_132;
 	return SetEntityIndexAndRot_49CD0(a1x, 0);
@@ -15219,7 +15219,7 @@ void WyvernAttack_24510(type_entity_0x6E8E* a1x)//205510
 					{
 						a1x->dword_0x10_16 = v6 - 1;
 						v14 = &a1x->position_0x4C_76;
-						v7x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 9, 0);
+						v7x = CreateEntity_4A190(&a1x->position_0x4C_76, 9, 0);
 						v8x = v7x;
 						if (v7x)
 						{
@@ -15305,7 +15305,7 @@ void WyvernScripted_24840(type_entity_0x6E8E* a1x)//205840
 }
 
 //----- (00024860) --------------------------------------------------------
-void LionIdle_24860(type_entity_0x6E8E* a1x)//205860
+void ManticoreIdle_24860(type_entity_0x6E8E* a1x)//205860
 {
 	type_entity_0x6E8E* resultx; // eax
 	char v2; // dh
@@ -15324,7 +15324,7 @@ void LionIdle_24860(type_entity_0x6E8E* a1x)//205860
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (000248C0) --------------------------------------------------------
-void LionWander_248C0(type_entity_0x6E8E* a1x)//2058c0
+void ManticoreWander_248C0(type_entity_0x6E8E* a1x)//2058c0
 {
 	type_entity_0x6E8E* v1x; // eax
 	char v2; // dh
@@ -15341,7 +15341,7 @@ void LionWander_248C0(type_entity_0x6E8E* a1x)//2058c0
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00024930) --------------------------------------------------------
-void LionAttack_24930(type_entity_0x6E8E* a1x)//205930
+void ManticoreAttack_24930(type_entity_0x6E8E* a1x)//205930
 {
 	unsigned int v1; // eax
 	__int16 v2; // ax
@@ -15497,7 +15497,7 @@ void LionAttack_24930(type_entity_0x6E8E* a1x)//205930
 				a1x->actSpeed_0x82_130 = v10 - 8;
 			predictedAxis_EB398ar = a1x->position_0x4C_76;
 			v11 = v14 + predictedAxis_EB398ar.z;
-			LOWORD(v1) = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+			LOWORD(v1) = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 			if (v11 <= (signed __int16)v1)
 			{
 				a1x->byte_0x46_70 = 4;
@@ -15548,7 +15548,7 @@ void LionAttack_24930(type_entity_0x6E8E* a1x)//205930
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (00024D40) --------------------------------------------------------
-void LionFollow_24D40(type_entity_0x6E8E* a1x)//205d40
+void ManticoreFollow_24D40(type_entity_0x6E8E* a1x)//205d40
 {
 	//type_str_0x6E8E* v1x; // eax
 	//char v2; // dh
@@ -15566,19 +15566,19 @@ void LionFollow_24D40(type_entity_0x6E8E* a1x)//205d40
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00024DA0) --------------------------------------------------------
-void LionPreKill_24DA0(type_entity_0x6E8E* a1x)//205da0
+void ManticorePreKill_24DA0(type_entity_0x6E8E* a1x)//205da0
 {
 	PreKillEntity_1C890(a1x, 136);
 }
 
 //----- (00024DC0) --------------------------------------------------------
-void LionKill_24DC0(type_entity_0x6E8E* a1x)//205dc0
+void ManticoreKill_24DC0(type_entity_0x6E8E* a1x)//205dc0
 {
 	KillEntity_1C930(a1x);
 }
 
 //----- (00024DF0) --------------------------------------------------------
-void LionScripted_24DF0(type_entity_0x6E8E* a1x)//205df0
+void ManticoreScripted_24DF0(type_entity_0x6E8E* a1x)//205df0
 {
 	CreatureRunScript_1D5D0(a1x, 136);
 	if (a1x->actionIndex_0x45_69 == 138)
@@ -15586,7 +15586,7 @@ void LionScripted_24DF0(type_entity_0x6E8E* a1x)//205df0
 }
 
 //----- (00024E20) --------------------------------------------------------
-void HeadIdle_24E20(type_entity_0x6E8E* a1x)//205e20
+void SentinelIdle_24E20(type_entity_0x6E8E* a1x)//205e20
 {
 	int result; // eax
 	int v2; // edx
@@ -15603,11 +15603,11 @@ void HeadIdle_24E20(type_entity_0x6E8E* a1x)//205e20
 	unsigned int v13; // [esp+8h] [ebp-8h]
 	unsigned int v14; // [esp+Ch] [ebp-4h]
 
-	result = HeadCheckDamage_252E0(a1x);
+	result = SentinelCheckDamage_252E0(a1x);
 	if (result)
 	{
 		if (result == 1)
-			/*result = */HeadSetState_253B0(/*1, */a1x, 2u, 0);
+			/*result = */SentinelSetState_253B0(/*1, */a1x, 2u, 0);
 	}
 	else
 	{
@@ -15624,12 +15624,12 @@ void HeadIdle_24E20(type_entity_0x6E8E* a1x)//205e20
 					a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 					result = a1x->rand_0x14_20 / 0x31u;
 					if (!(a1x->rand_0x14_20 % 0x31u))
-						/*result = */HeadSetState_253B0(/*result, */a1x, 2u, 0);
+						/*result = */SentinelSetState_253B0(/*result, */a1x, 2u, 0);
 				}
 				else
 				{
 					a1x->word_0x96_150 = 0;
-					/*result = */HeadSetState_253B0(/*v11, */a1x, 0, 0);
+					/*result = */SentinelSetState_253B0(/*v11, */a1x, 0, 0);
 				}
 			}
 		}
@@ -15679,14 +15679,14 @@ void HeadIdle_24E20(type_entity_0x6E8E* a1x)//205e20
 						{
 							v9 = v4x - D41A0_0.struct_0x6E8E;
 							a1x->word_0x96_150 = v9;
-							/*result = */HeadSetState_253B0(/*v9, */a1x, 0, 1u);
+							/*result = */SentinelSetState_253B0(/*v9, */a1x, 0, 1u);
 						}
 					}
 				}
 			}
 			else
 			{
-				/*result = */HeadSetState_253B0(/*result, */a1x, 1u, 0);
+				/*result = */SentinelSetState_253B0(/*result, */a1x, 1u, 0);
 			}
 		}
 	}
@@ -15697,16 +15697,16 @@ void HeadIdle_24E20(type_entity_0x6E8E* a1x)//205e20
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00025050) --------------------------------------------------------
-void HeadWander_25050(type_entity_0x6E8E* a1x)//206050
+void SentinelWander_25050(type_entity_0x6E8E* a1x)//206050
 {
 	int result; // eax
 	int v2; // edx
 
-	result = HeadCheckDamage_252E0(a1x);
+	result = SentinelCheckDamage_252E0(a1x);
 	if (result)
 	{
 		if (result == 1)
-			/*result = */HeadSetState_253B0(/*1, */a1x, 0, 1u);
+			/*result = */SentinelSetState_253B0(/*1, */a1x, 0, 1u);
 	}
 	else
 	{
@@ -15715,13 +15715,13 @@ void HeadWander_25050(type_entity_0x6E8E* a1x)//206050
 		v2 = a1x->dword_0x10_16 - 1;
 		a1x->dword_0x10_16 = v2;
 		if (v2 <= 0)
-			/*result = */HeadSetState_253B0(/*result, */a1x, 0, 0);
+			/*result = */SentinelSetState_253B0(/*result, */a1x, 0, 0);
 	}
 	//return result;
 }
 
 //----- (000250B0) --------------------------------------------------------
-void HeadAttack_250B0(type_entity_0x6E8E* a1x)//2060b0
+void SentinelAttack_250B0(type_entity_0x6E8E* a1x)//2060b0
 {
 	int v1; // eax
 	int v2; // esi
@@ -15732,7 +15732,7 @@ void HeadAttack_250B0(type_entity_0x6E8E* a1x)//2060b0
 	type_entity_0x6E8E* v6x; // esi
 	//int v7; // ecx
 
-	v1 = HeadCheckDamage_252E0(a1x);
+	v1 = SentinelCheckDamage_252E0(a1x);
 	v2 = v1;
 	if ((unsigned int)v1 <= 1)
 	{
@@ -15746,7 +15746,7 @@ void HeadAttack_250B0(type_entity_0x6E8E* a1x)//2060b0
 				v3 = a1x->dword_0x10_16 - 47;
 				a1x->dword_0x10_16 = v3;
 				if (v3 < 0)
-					/*LOWORD(v1) = */HeadSetState_253B0(/*v1, */a1x, 2u, 1u);
+					/*LOWORD(v1) = */SentinelSetState_253B0(/*v1, */a1x, 2u, 1u);
 			}
 			else
 			{
@@ -15757,11 +15757,11 @@ void HeadAttack_250B0(type_entity_0x6E8E* a1x)//2060b0
 					//v4 = a1x->dword_0x10_16 - 1;
 					a1x->dword_0x10_16--;// = v4;
 					if (a1x->dword_0x10_16 < 0)
-						/*LOWORD(v1) = */HeadSetState_253B0(/*v1, */a1x, 2u, 2u);
+						/*LOWORD(v1) = */SentinelSetState_253B0(/*v1, */a1x, 2u, 2u);
 				}
 				else
 				{
-					/*LOWORD(v1) = */HeadSetState_253B0(/*v1, */a1x, 2u, 1u);
+					/*LOWORD(v1) = */SentinelSetState_253B0(/*v1, */a1x, 2u, 1u);
 				}
 			}
 			return;// v1;
@@ -15778,7 +15778,7 @@ void HeadAttack_250B0(type_entity_0x6E8E* a1x)//2060b0
 				if (v5x <= Entities_EA3E4[0] || v5x->life_0x8 < 0 || v5x->struct_byte_0xc_12_15.byte[1] & 4)
 				{
 				LABEL_17:
-					/*LOWORD(v1) = */HeadSetState_253B0(/*v5x, */a1x, 2u, 2u);
+					/*LOWORD(v1) = */SentinelSetState_253B0(/*v5x, */a1x, 2u, 2u);
 				}
 				else
 				{
@@ -15793,14 +15793,14 @@ void HeadAttack_250B0(type_entity_0x6E8E* a1x)//2060b0
 			//v1 = a1x->dword_0x10_16 - 1;
 			a1x->dword_0x10_16--;// = v1;
 			if (a1x->dword_0x10_16 <= 0)
-				/*LOWORD(v1) = */HeadSetState_253B0(/*a1x->dword_0x10_16, */a1x, 2u, 3u);
+				/*LOWORD(v1) = */SentinelSetState_253B0(/*a1x->dword_0x10_16, */a1x, 2u, 3u);
 			break;
 		case 3:
 			//v7 = a1x->dword_0x10_16 - 1;
 			a1x->dword_0x10_16--;// = v7;
 			if (a1x->dword_0x10_16 < 0)
 			{
-				/*LOWORD(v1) = */HeadSetState_253B0(/*v1, */a1x, 1u, 0);
+				/*LOWORD(v1) = */SentinelSetState_253B0(/*v1, */a1x, 1u, 0);
 			}
 			else if (a1x->dword_0x10_16 >= 8)
 			{
@@ -15819,25 +15819,25 @@ void HeadAttack_250B0(type_entity_0x6E8E* a1x)//2060b0
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00025280) --------------------------------------------------------
-void HeadFollow_25280(/*int a1, */type_entity_0x6E8E* a2x)//206280
+void SentinelFollow_25280(/*int a1, */type_entity_0x6E8E* a2x)//206280
 {
-	/*return */HeadSetState_253B0(/*a1, */a2x, 0, 0);
+	/*return */SentinelSetState_253B0(/*a1, */a2x, 0, 0);
 }
 
 //----- (000252A0) --------------------------------------------------------
-void HeadPreKill_252A0(type_entity_0x6E8E* a1x)//2062a0
+void SentinelPreKill_252A0(type_entity_0x6E8E* a1x)//2062a0
 {
 	PreKillEntity_1C890(a1x, 144);
 }
 
 //----- (000252C0) --------------------------------------------------------
-void HeadKill_252C0(type_entity_0x6E8E* a1x)//2062c0
+void SentinelKill_252C0(type_entity_0x6E8E* a1x)//2062c0
 {
 	KillEntity_1C930(a1x);
 }
 
 //----- (000252E0) --------------------------------------------------------
-unsigned int HeadCheckDamage_252E0(type_entity_0x6E8E* a1x)//2062e0
+unsigned int SentinelCheckDamage_252E0(type_entity_0x6E8E* a1x)//2062e0
 {
 	__int16 v1; // ax
 	__int16 v2; // dx
@@ -15847,7 +15847,7 @@ unsigned int HeadCheckDamage_252E0(type_entity_0x6E8E* a1x)//2062e0
 	int v6; // ecx
 	type_entity_0x6E8E* v7x; // edx
 
-	v1 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	v1 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	v2 = a1x->str_0x5E_94.channel[0].source;
 	a1x->position_0x4C_76.z = v1;
 	result = 0;
@@ -15901,7 +15901,7 @@ unsigned int HeadCheckDamage_252E0(type_entity_0x6E8E* a1x)//2062e0
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (000253B0) --------------------------------------------------------
-void HeadSetState_253B0(/*int result, */type_entity_0x6E8E* a2x, unsigned __int8 a3, unsigned __int8 a4)//2063b0
+void SentinelSetState_253B0(/*int result, */type_entity_0x6E8E* a2x, unsigned __int8 a3, unsigned __int8 a4)//2063b0
 {
 	signed int v4; // esi
 	unsigned __int64 v5; // rax
@@ -15992,21 +15992,21 @@ void TurnTowardsEntity_254E0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x, u
 }
 
 //----- (00025550) --------------------------------------------------------
-void HeadScripted_25550(type_entity_0x6E8E* a1x)//206550
+void SentinelScripted_25550(type_entity_0x6E8E* a1x)//206550
 {
 	//int result; // eax
 
 	CreatureRunScript_1D5D0(a1x, 144);
 	//result = sub_10C40_getTerrainAlt(&a1x->array_0x4C_76);
-	a1x->position_0x4C_76.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	a1x->position_0x4C_76.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	//BYTE1(result) = a1x->byte_0x45_69;
 	if (a1x->actionIndex_0x45_69 == 146)
-		/*result = */HeadSetState_253B0(/*result, */a1x, 2u, 0);
+		/*result = */SentinelSetState_253B0(/*result, */a1x, 2u, 0);
 	//return result;
 }
 
 //----- (00025590) --------------------------------------------------------
-void FirebugIdle_25590(type_entity_0x6E8E* a1x)//206590
+void FireflyIdle_25590(type_entity_0x6E8E* a1x)//206590
 {
 	//signed int result; // eax
 
@@ -16018,7 +16018,7 @@ void FirebugIdle_25590(type_entity_0x6E8E* a1x)//206590
 }
 
 //----- (000255C0) --------------------------------------------------------
-void FirebugWander_255C0(type_entity_0x6E8E* a1x)//2065c0
+void FireflyWander_255C0(type_entity_0x6E8E* a1x)//2065c0
 {
 	CreatureWander_1BF90(a1x, 152);
 	if (a1x->actionIndex_0x45_69 == 154)
@@ -16026,7 +16026,7 @@ void FirebugWander_255C0(type_entity_0x6E8E* a1x)//2065c0
 }
 
 //----- (00025610) --------------------------------------------------------
-void HitFirebug_25610(type_entity_0x6E8E* a1x)//206610
+void HitFirefly_25610(type_entity_0x6E8E* a1x)//206610
 {
 	unsigned int v1; // eax
 	__int16 v2; // ax
@@ -16327,7 +16327,7 @@ void HitFirebug_25610(type_entity_0x6E8E* a1x)//206610
 // EB398: using guessed type __int16 x_WORD_EB398;
 
 //----- (00025CD0) --------------------------------------------------------
-void FirebugFollow_25CD0(type_entity_0x6E8E* a1x)//206cd0
+void FireflyFollow_25CD0(type_entity_0x6E8E* a1x)//206cd0
 {
 	//char result; // al
 
@@ -16338,19 +16338,19 @@ void FirebugFollow_25CD0(type_entity_0x6E8E* a1x)//206cd0
 }
 
 //----- (00025D00) --------------------------------------------------------
-void FirebugPreKill_25D00(type_entity_0x6E8E* a1x)//206d00
+void FireflyPreKill_25D00(type_entity_0x6E8E* a1x)//206d00
 {
 	PreKillEntity_1C890(a1x, 152);
 }
 
 //----- (00025D20) --------------------------------------------------------
-void FirebugKill_25D20(type_entity_0x6E8E* a1x)//206d20
+void FireflyKill_25D20(type_entity_0x6E8E* a1x)//206d20
 {
 	KillEntity_1C930(a1x);
 }
 
 //----- (00025D50) --------------------------------------------------------
-void AddFirebug05_13_25D50(type_entity_0x6E8E* a1x)//206d50
+void FireflyRunScript_25D50(type_entity_0x6E8E* a1x)//206d50
 {
 	CreatureRunScript_1D5D0(a1x, 152);
 	if (a1x->actionIndex_0x45_69 == 154)
@@ -16499,13 +16499,13 @@ void SpiderScripted_26020(type_entity_0x6E8E* a1x)//207020
 }
 
 //----- (00026050) --------------------------------------------------------
-type_entity_0x6E8E* DiabloIdle_26050(type_entity_0x6E8E* a1x)//207050
+type_entity_0x6E8E* DevilIdle_26050(type_entity_0x6E8E* a1x)//207050
 {
-	return DiabloSetMode_268F0(a1x, 1u);
+	return DevilSetMode_268F0(a1x, 1u);
 }
 
 //----- (00026070) --------------------------------------------------------
-char DiabloWander_26070(type_entity_0x6E8E* a1x)//207070
+char DevilWander_26070(type_entity_0x6E8E* a1x)//207070
 {
 	signed int v1; // eax
 	unsigned __int16 v2; // ax
@@ -16521,12 +16521,12 @@ char DiabloWander_26070(type_entity_0x6E8E* a1x)//207070
 	unsigned int v13; // [esp+8h] [ebp-8h]
 	unsigned int v14; // [esp+Ch] [ebp-4h]
 
-	v1 = DiabloCheckDamage_26830(a1x);
+	v1 = DevilCheckDamage_26830(a1x);
 	if ((unsigned int)v1 <= 1)
 	{
 		MoveCreature_1B8C0(a1x);
-		DiabloUpdateState_265A0(a1x);
-		LOBYTE(v1) = DiabloIsAttacking_26930(a1x);
+		DevilUpdateState_265A0(a1x);
+		LOBYTE(v1) = DevilIsAttacking_26930(a1x);
 		if ((x_BYTE)v1)
 		{
 			a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
@@ -16572,7 +16572,7 @@ char DiabloWander_26070(type_entity_0x6E8E* a1x)//207070
 			if (v4x)
 			{
 				a1x->word_0x96_150 = v4x - D41A0_0.struct_0x6E8E;
-				/*LOBYTE(v1) = */DiabloSetMode_268F0(a1x, 2u);
+				/*LOBYTE(v1) = */DevilSetMode_268F0(a1x, 2u);
 			}
 		}
 	}
@@ -16583,7 +16583,7 @@ char DiabloWander_26070(type_entity_0x6E8E* a1x)//207070
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00026220) --------------------------------------------------------
-void DiabloAttack_26220(/*type_str_0x6E8E* a1x, */type_entity_0x6E8E* a2x)//207220
+void DevilAttack_26220(/*type_str_0x6E8E* a1x, */type_entity_0x6E8E* a2x)//207220
 {
 	unsigned int result; // eax
 	unsigned __int16 v3; // dx
@@ -16597,7 +16597,7 @@ void DiabloAttack_26220(/*type_str_0x6E8E* a1x, */type_entity_0x6E8E* a2x)//2072
 
 	v7 = 1;
 	v8 = 0;
-	result = DiabloCheckDamage_26830(a2x);
+	result = DevilCheckDamage_26830(a2x);
 	if (result <= 1)
 	{
 		v3 = a2x->word_0x96_150;
@@ -16614,7 +16614,7 @@ void DiabloAttack_26220(/*type_str_0x6E8E* a1x, */type_entity_0x6E8E* a2x)//2072
 		}
 		if (!v7)
 			goto LABEL_26;
-		if (DiabloIsAttacking_26930(a2x))
+		if (DevilIsAttacking_26930(a2x))
 		{
 			a2x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a2x->position_0x4C_76, &v4x->position_0x4C_76);
 			if (!(a2x->byte_0x3E_62 & 3))
@@ -16641,9 +16641,9 @@ void DiabloAttack_26220(/*type_str_0x6E8E* a1x, */type_entity_0x6E8E* a2x)//2072
 		v8 = 1;
 	LABEL_22:
 		MoveCreature_1B8C0(a2x);
-		/*result = */DiabloUpdateState_265A0(a2x);
+		/*result = */DevilUpdateState_265A0(a2x);
 		if (v8)
-			/*result = */DiabloSetMode_268F0(a2x, 1u);
+			/*result = */DevilSetMode_268F0(a2x, 1u);
 	}
 	//return result;
 }
@@ -16651,26 +16651,26 @@ void DiabloAttack_26220(/*type_str_0x6E8E* a1x, */type_entity_0x6E8E* a2x)//2072
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (000263C0) --------------------------------------------------------
-type_entity_0x6E8E* DiabloFollow_263C0(type_entity_0x6E8E* a1x)//2073c0
+type_entity_0x6E8E* DevilFollow_263C0(type_entity_0x6E8E* a1x)//2073c0
 {
-	return DiabloSetMode_268F0(a1x, 1u);
+	return DevilSetMode_268F0(a1x, 1u);
 }
 
 //----- (000263E0) --------------------------------------------------------
-void DiabloPreKill_263E0(type_entity_0x6E8E* a1x)//2073e0
+void DevilPreKill_263E0(type_entity_0x6E8E* a1x)//2073e0
 {
 	PreKillEntity_1C890(a1x, 168);
 }
 
 //----- (00026400) --------------------------------------------------------
-void DiabloKill_26400(type_entity_0x6E8E* a1x)//207400
+void DevilKill_26400(type_entity_0x6E8E* a1x)//207400
 {
 	KillEntity_1C930(a1x);
 }
 
 int debug_sub_26470 = 0;
 //----- (00026470) --------------------------------------------------------
-void DiabloScripted_26470(type_entity_0x6E8E* a1x)//207470
+void DevilScripted_26470(type_entity_0x6E8E* a1x)//207470
 {
 	//int result; // eax
 
@@ -16697,25 +16697,25 @@ void DiabloScripted_26470(type_entity_0x6E8E* a1x)//207470
 	case 8:
 	case 9:
 	case 0xA:
-		/*result = */DiabloUpdateState_265A0(a1x);
+		/*result = */DevilUpdateState_265A0(a1x);
 		break;
 	case 0xD:
 	case 0xE:
 	case 0x10:
 		a1x->byte_0x43_67 = 0;
-		/*result = */DiabloUpdateState_265A0(a1x);
+		/*result = */DevilUpdateState_265A0(a1x);
 		break;
 	default:
 		break;
 	}
 	//HIBYTE(result) = a1x->byte_0x45_69;
 	if (a1x->actionIndex_0x45_69 != 175)
-		/*result = */DiabloSetMode_268F0(a1x, a1x->actionIndex_0x45_69 + 88);
+		/*result = */DevilSetMode_268F0(a1x, a1x->actionIndex_0x45_69 + 88);
 	//return result;
 }
 
 //----- (00026500) --------------------------------------------------------
-void DiabloSetSprite_26500(/*int result, */type_entity_0x6E8E* a2x)//207500
+void DevilSetSprite_26500(/*int result, */type_entity_0x6E8E* a2x)//207500
 {
 	int result;
 	switch (a2x->byte_0x46_70)
@@ -16756,7 +16756,7 @@ void DiabloSetSprite_26500(/*int result, */type_entity_0x6E8E* a2x)//207500
 }
 
 //----- (000265A0) --------------------------------------------------------
-void DiabloUpdateState_265A0(type_entity_0x6E8E* a1x)//2075a0
+void DevilUpdateState_265A0(type_entity_0x6E8E* a1x)//2075a0
 {
 	char v1; // dh
 	__int16 v2; // dx
@@ -16805,7 +16805,7 @@ void DiabloUpdateState_265A0(type_entity_0x6E8E* a1x)//2075a0
 		break;
 	case 6:
 		v3 = a1x->position_0x4C_76.z;
-		if (v3 - (signed __int16)getTerrainAlt_10C40(&a1x->position_0x4C_76) < 230)
+		if (v3 - (signed __int16)GetTerrainAlt_10C40(&a1x->position_0x4C_76) < 230)
 			a1x->byte_0x46_70 = 7;
 		break;
 	case 7:
@@ -16843,7 +16843,7 @@ void DiabloUpdateState_265A0(type_entity_0x6E8E* a1x)//2075a0
 	default:
 		break;
 	}
-	v6 = (signed __int16)getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	v6 = (signed __int16)GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	if (v12)
 	{
 		a1x->position_0x4C_76.z -= (int16_t)42;
@@ -16876,7 +16876,7 @@ void DiabloUpdateState_265A0(type_entity_0x6E8E* a1x)//2075a0
 		else if (a1x->position_0x4C_76.z == v6)
 		{
 			a1x->byte_0x46_70 = 10;
-			IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 5);//this set 02 2077b2
+			CreateEntity_4A190(&predictedAxis_EB398ar, 10, 5);//this set 02 2077b2
 		}
 		if (a1x->actionIndex_0x45_69 == 170)
 			v10 = 66;
@@ -16893,13 +16893,13 @@ void DiabloUpdateState_265A0(type_entity_0x6E8E* a1x)//2075a0
 			v10 = 60;
 	}
 	a1x->actSpeed_0x82_130 = v10;
-	DiabloSetSprite_26500(a1x);
+	DevilSetSprite_26500(a1x);
 	if (!v13)
 		a1x->struct_byte_0xc_12_15.byte[1] |= 8u;
 }
 
 //----- (00026830) --------------------------------------------------------
-signed int DiabloCheckDamage_26830(type_entity_0x6E8E* a1x)//207830
+signed int DevilCheckDamage_26830(type_entity_0x6E8E* a1x)//207830
 {
 	__int16 v1; // dx
 	unsigned int v2; // ebx
@@ -16944,7 +16944,7 @@ signed int DiabloCheckDamage_26830(type_entity_0x6E8E* a1x)//207830
 		if (v2 <= 1)
 		{
 			a1x->word_0x96_150 = a1x->word_0x26_38;
-			DiabloSetMode_268F0(a1x, 2u);
+			DevilSetMode_268F0(a1x, 2u);
 		}
 		else if (v2 == 2)
 		{
@@ -16957,7 +16957,7 @@ signed int DiabloCheckDamage_26830(type_entity_0x6E8E* a1x)//207830
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (000268F0) --------------------------------------------------------
-type_entity_0x6E8E* DiabloSetMode_268F0(type_entity_0x6E8E* a1x, unsigned __int8 a2)//2078f0
+type_entity_0x6E8E* DevilSetMode_268F0(type_entity_0x6E8E* a1x, unsigned __int8 a2)//2078f0
 {
 	type_entity_0x6E8E* resultx; // eax
 
@@ -16979,7 +16979,7 @@ type_entity_0x6E8E* DiabloSetMode_268F0(type_entity_0x6E8E* a1x, unsigned __int8
 }
 
 //----- (00026930) --------------------------------------------------------
-char DiabloIsAttacking_26930(type_entity_0x6E8E* a1x)//207930
+char DevilIsAttacking_26930(type_entity_0x6E8E* a1x)//207930
 {
 	char result; // al
 	unsigned __int8 v2; // ah
@@ -17363,7 +17363,7 @@ void FlyingManaUpdateSpeed_26FF0(type_entity_0x6E8E* a1x)//207ff0
 	SetEntityShiftRot_49EA0(a1x, v3, v2);
 	while (v11x != Entities_EA3E4[0])
 	{
-		v4 = getTerrainAlt_10C40(&v11x->position_0x4C_76);
+		v4 = GetTerrainAlt_10C40(&v11x->position_0x4C_76);
 		if ((signed __int16)v4 > (signed __int16)v12)
 		{
 			v12 = v4;
@@ -17798,7 +17798,7 @@ void FlyingManaScripted_27930(type_entity_0x6E8E* event)//208930
 }
 
 //----- (00027950) --------------------------------------------------------
-void BalloonIdle_27950(type_entity_0x6E8E* event)//208950
+void MoonDwellerIdle_27950(type_entity_0x6E8E* event)//208950
 {
 	type_entity_0x6E8E* ix; // ecx
 	int v2; // ecx
@@ -17842,7 +17842,7 @@ void BalloonIdle_27950(type_entity_0x6E8E* event)//208950
 	if (v4 < 1u)
 	{
 		if (v4) {
-			BalloonCheckDamage_28110(event);
+			MoonDwellerCheckDamage_28110(event);
 			return;
 		}
 		event->actSpeed_0x82_130 = event->maxSpeed_0x86_134;
@@ -17850,7 +17850,7 @@ void BalloonIdle_27950(type_entity_0x6E8E* event)//208950
 		event->dword_0x10_16 = v5y - 1;
 		if (v5y)
 		{
-			BalloonCheckDamage_28110(event);
+			MoonDwellerCheckDamage_28110(event);
 			return;
 		}
 	LABEL_27:
@@ -17870,17 +17870,17 @@ void BalloonIdle_27950(type_entity_0x6E8E* event)//208950
 		}
 		else
 		{
-			v8 = getTerrainAlt_10C40(&event->position_0x4C_76);
+			v8 = GetTerrainAlt_10C40(&event->position_0x4C_76);
 			HIBYTE(v8) += 7;
 			event->word_0x2C_44 = v8;
 			SetEntityActionState_27FE0(event, 184, 0, 80);
 		}
-		BalloonCheckDamage_28110(event);
+		MoonDwellerCheckDamage_28110(event);
 		return;
 	}
 	if (v4 != 2)
 	{
-		BalloonCheckDamage_28110(event);
+		MoonDwellerCheckDamage_28110(event);
 		return;
 	}
 	v5x = GetBalloonTarget_28420(event);
@@ -17897,18 +17897,18 @@ void BalloonIdle_27950(type_entity_0x6E8E* event)//208950
 			v11 = -71;
 		LABEL_28:
 			SetEntityActionState_27FE0(event, v11, v12, v13);
-			BalloonCheckDamage_28110(event);
+			MoonDwellerCheckDamage_28110(event);
 			return;
 		}
 	}
-	BalloonCheckDamage_28110(event);
+	MoonDwellerCheckDamage_28110(event);
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // D41A4: using guessed type int x_DWORD_D41A4;
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00027B20) --------------------------------------------------------
-void BalloonWander_27B20(type_entity_0x6E8E* a1x)//208b20
+void MoonDwellerWander_27B20(type_entity_0x6E8E* a1x)//208b20
 {
 	char v1; // al
 	int v2; // edx
@@ -17926,7 +17926,7 @@ void BalloonWander_27B20(type_entity_0x6E8E* a1x)//208b20
 			if (v5 >= 0x2000)
 			{
 				SetEntityActionState_27FE0(a1x, 184, 0, 80);
-				BalloonCheckDamage_28110(a1x);
+				MoonDwellerCheckDamage_28110(a1x);
 				return;
 			}
 			a1x->position_0x4C_76.z = v5 + 32;
@@ -17949,15 +17949,15 @@ void BalloonWander_27B20(type_entity_0x6E8E* a1x)//208b20
 		if (v6)
 		{
 			SetEntityActionState_27FE0(a1x, 185, 1, 0);
-			BalloonCheckDamage_28110(a1x);
+			MoonDwellerCheckDamage_28110(a1x);
 			return;
 		}
 	}
-	BalloonCheckDamage_28110(a1x);
+	MoonDwellerCheckDamage_28110(a1x);
 }
 
 //----- (00027C10) --------------------------------------------------------
-void BalloonFollow_27C10(type_entity_0x6E8E* a1x)//208c10
+void MoonDwellerFollow_27C10(type_entity_0x6E8E* a1x)//208c10
 {
 	unsigned __int8 v1; // al
 	type_entity_0x6E8E* v2x; // eax
@@ -18038,12 +18038,12 @@ void BalloonFollow_27C10(type_entity_0x6E8E* a1x)//208c10
 LABEL_24:
 	if (v10)
 		SetEntityActionState_27FE0(a1x, 185, 1, 0);
-	BalloonCheckDamage_28110(a1x);
+	MoonDwellerCheckDamage_28110(a1x);
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00027E00) --------------------------------------------------------
-void BalloonAttack_27E00(type_entity_0x6E8E* a1x)//208e00
+void MoonDwellerAttack_27E00(type_entity_0x6E8E* a1x)//208e00
 {
 	type_entity_0x6E8E* v1x; // ebx
 	type_entity_0x6E8E* v2x; // eax
@@ -18093,7 +18093,7 @@ void BalloonAttack_27E00(type_entity_0x6E8E* a1x)//208e00
 		goto LABEL_15;
 	}
 LABEL_16:
-	/*result = */BalloonCheckDamage_28110(a1x);
+	/*result = */MoonDwellerCheckDamage_28110(a1x);
 	if (v8)
 	{
 		a1x->word_0x96_150 = 0;
@@ -18106,13 +18106,13 @@ LABEL_16:
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00027FA0) --------------------------------------------------------
-void BalloonPreKill_27FA0(type_entity_0x6E8E* a1x)//208fa0
+void MoonDwellerPreKill_27FA0(type_entity_0x6E8E* a1x)//208fa0
 {
 	PreKillEntity_1C890(a1x, 184);
 }
 
 //----- (00027FC0) --------------------------------------------------------
-void BalloonKill_27FC0(type_entity_0x6E8E* a1x)//208fc0
+void MoonDwellerKill_27FC0(type_entity_0x6E8E* a1x)//208fc0
 {
 	KillEntity_1C930(a1x);
 }
@@ -18192,7 +18192,7 @@ char IsTooCloseToSameModel_28060(type_entity_0x6E8E* a1x)//209060
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00028110) --------------------------------------------------------
-void BalloonCheckDamage_28110(type_entity_0x6E8E* a1x)//209110
+void MoonDwellerCheckDamage_28110(type_entity_0x6E8E* a1x)//209110
 {
 	signed int v1; // esi
 	__int16 v2; // ax
@@ -18371,7 +18371,7 @@ type_entity_0x6E8E* GetBalloonTarget_28420(type_entity_0x6E8E* a1x)//209420
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00028470) --------------------------------------------------------
-void BalloonScripted_28470(type_entity_0x6E8E* a1x)//209470
+void MoonDwellerScripted_28470(type_entity_0x6E8E* a1x)//209470
 {
 	CreatureRunScript_1D5D0(a1x, 184);
 }
@@ -18569,7 +18569,7 @@ LABEL_11:
 }
 
 //----- (00028860) --------------------------------------------------------
-__int16 FlyingCreatureIdle_28860(type_entity_0x6E8E* a1x)//209860
+__int16 CymmerianIdle_28860(type_entity_0x6E8E* a1x)//209860 //tex 392,393
 {
 	char v1; // dh
 	uint32_t v2; // eax
@@ -18772,7 +18772,7 @@ __int16 FlyingCreatureIdle_28860(type_entity_0x6E8E* a1x)//209860
 		{
 			if (a1x->word_0x5A_90 == 314)
 			{
-				LOWORD(v2) = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+				LOWORD(v2) = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 				if ((signed __int16)v2 < a1x->position_0x4C_76.z)
 					/*LOWORD(v2) = */SetEntityIndexAndRot_49CD0(a1x, 313);
 			}
@@ -18803,7 +18803,7 @@ __int16 FlyingCreatureIdle_28860(type_entity_0x6E8E* a1x)//209860
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00028C30) --------------------------------------------------------
-int FlyingCreatureWander_28C30(type_entity_0x6E8E* a1x)//209c30
+int CymmerianWander_28C30(type_entity_0x6E8E* a1x)//209c30
 {
 	int result; // eax
 	// fix if begin
@@ -18817,7 +18817,7 @@ int FlyingCreatureWander_28C30(type_entity_0x6E8E* a1x)//209c30
 }
 
 //----- (00028C60) --------------------------------------------------------
-signed int FlyingCreatureAttack_28C60(type_entity_0x6E8E* a1x)//209c60
+signed int CymmerianAttack_28C60(type_entity_0x6E8E* a1x)//209c60
 {
 	signed int result; // eax
 
@@ -18830,7 +18830,7 @@ signed int FlyingCreatureAttack_28C60(type_entity_0x6E8E* a1x)//209c60
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00028CC0) --------------------------------------------------------
-type_entity_0x6E8E* FlyingCreatureFollow_28CC0(type_entity_0x6E8E* a1x)//209cc0
+type_entity_0x6E8E* CymmerianFollow_28CC0(type_entity_0x6E8E* a1x)//209cc0
 {
 	type_entity_0x6E8E* resultx; // eax
 	int v2; // edx
@@ -18844,7 +18844,7 @@ type_entity_0x6E8E* FlyingCreatureFollow_28CC0(type_entity_0x6E8E* a1x)//209cc0
 }
 
 //----- (00028CE0) --------------------------------------------------------
-void FlyingCreaturePreKill_28CE0(type_entity_0x6E8E* a1x)//209ce0
+void CymmerianPreKill_28CE0(type_entity_0x6E8E* a1x)//209ce0 //tex 393
 {
 	type_entity_0x6E8E* v1x; // eax
 	type_entity_0x6E8E* v2x; // ebx
@@ -18917,7 +18917,7 @@ void FlyingCreaturePreKill_28CE0(type_entity_0x6E8E* a1x)//209ce0
 		if (v11x)
 			v11x->mana_0x90_144 += v12;
 	}
-	v7x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 1);
+	v7x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 1);
 	if (v7x)
 		v7x->id_0x1A_26 = a1x->id_0x1A_26;
 	a1x->actionIndex_0x45_69 = 205;
@@ -18928,7 +18928,7 @@ void FlyingCreaturePreKill_28CE0(type_entity_0x6E8E* a1x)//209ce0
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00028EC0) --------------------------------------------------------
-void FlyingCreatureKill_28EC0(type_entity_0x6E8E* a1x)//209ec0
+void CymmerianKill_28EC0(type_entity_0x6E8E* a1x)//209ec0
 {
 	if (a1x->byte_0x46_70)
 	{
@@ -18946,7 +18946,7 @@ void FlyingCreatureKill_28EC0(type_entity_0x6E8E* a1x)//209ec0
 }
 
 //----- (00028F50) --------------------------------------------------------
-void FlyingCreatureScripted_28F50(type_entity_0x6E8E* a1x)//209f50
+void CymmerianScripted_28F50(type_entity_0x6E8E* a1x)//209f50
 {
 	if (a1x->byte_0x46_70)
 	{
@@ -19184,7 +19184,7 @@ void MummySetAttackFlag_293D0(type_entity_0x6E8E* a1x)//20a3d0
 }
 
 //----- (00029400) --------------------------------------------------------
-void BigDragonIdle_29400(type_entity_0x6E8E* a1x)//20a400
+void HydraIdle_29400(type_entity_0x6E8E* a1x)//20a400
 {
 	unsigned int v1; // eax
 	type_entity_0x6E8E* ix; // eax
@@ -19238,7 +19238,7 @@ void BigDragonIdle_29400(type_entity_0x6E8E* a1x)//20a400
 			predictedAxis_EB398ar.y += ((v4 & 7) + 8) << 8;
 			while (v5 < 128)
 			{
-				predictedAxis_EB398ar.z = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+				predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 				if (!CheckPositionCollision_102D0(a1x, &predictedAxis_EB398ar, 1) && !CheckPositionCollision_102D0(a1x, &predictedAxis_EB398ar, 4) && GetTileSlopeWide_1B830(&predictedAxis_EB398ar) < 32)
 					break;
 				v5++;
@@ -19287,8 +19287,8 @@ LABEL_35:
 		}
 	}
 LABEL_36:
-	a1x->position_0x4C_76.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
-	BigDragonUpdateBody_29A90(a1x);
+	a1x->position_0x4C_76.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
+	HydraUpdateBody_29A90(a1x);
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // EA3E4: using guessed type int Entities_EA3E4[];
@@ -19297,18 +19297,18 @@ LABEL_36:
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (00029670) --------------------------------------------------------
-void BigDragonWander_29670(type_entity_0x6E8E* a1x)//20a670
+void HydraWander_29670(type_entity_0x6E8E* a1x)//20a670
 {
 	signed int v1; // eax
 	__int16 v2; // ax
 	char v3; // al
 
-	v1 = BigDragonCheckDamage_2A6B0(a1x);
+	v1 = HydraCheckDamage_2A6B0(a1x);
 	if (v1)
 	{
 		if (v1 != 1)
 		{
-			BigDragonUpdateBody_29A90(a1x);
+			HydraUpdateBody_29A90(a1x);
 			return;
 		}
 		a1x->actionIndex_0x45_69 = 218;
@@ -19321,14 +19321,14 @@ void BigDragonWander_29670(type_entity_0x6E8E* a1x)//20a670
 	{
 		if ((unsigned __int8)v3 <= 3u)
 		{
-			BigDragonUpdateBody_29A90(a1x);
+			HydraUpdateBody_29A90(a1x);
 			return;
 		}
 		if (v3 == 4)
 		{
 			a1x->actionIndex_0x45_69 = 216;
 			a1x->dword_0x10_16 = 0;
-			BigDragonUpdateBody_29A90(a1x);
+			HydraUpdateBody_29A90(a1x);
 			return;
 		}
 	}
@@ -19337,11 +19337,11 @@ void BigDragonWander_29670(type_entity_0x6E8E* a1x)//20a670
 		a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 		a1x->roll_0x20_32 = (a1x->rand_0x14_20 % 0x1C7u + a1x->roll_0x20_32 - 227) & 0x7FF;
 	}
-	BigDragonUpdateBody_29A90(a1x);
+	HydraUpdateBody_29A90(a1x);
 }
 
 //----- (00029710) --------------------------------------------------------
-void BigDragonAttack_29710(type_entity_0x6E8E* a1x)//20a710
+void HydraAttack_29710(type_entity_0x6E8E* a1x)//20a710
 {
 	signed int v1; // eax
 	char v2; // al
@@ -19352,7 +19352,7 @@ void BigDragonAttack_29710(type_entity_0x6E8E* a1x)//20a710
 	char v8; // [esp+0h] [ebp-4h]
 
 	v8 = 0;
-	v1 = BigDragonCheckDamage_2A6B0(a1x);
+	v1 = HydraCheckDamage_2A6B0(a1x);
 	if (v1)
 	{
 		if (v1 != 1)
@@ -19401,26 +19401,26 @@ LABEL_19:
 		a1x->word_0x96_150 = 0;
 		a1x->byte_0x46_70 = 0;
 	}
-	BigDragonUpdateBody_29A90(a1x);
+	HydraUpdateBody_29A90(a1x);
 }
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00029890) --------------------------------------------------------
-void BigDragonFollow_29890(type_entity_0x6E8E* a1x)//20a890
+void HydraFollow_29890(type_entity_0x6E8E* a1x)//20a890
 {
 	a1x->actionIndex_0x45_69 = 217;
-	BigDragonWander_29670(a1x);
+	HydraWander_29670(a1x);
 }
 
 //----- (000298B0) --------------------------------------------------------
-void BigDragonPreKill_298B0(type_entity_0x6E8E* a1x)//20a8b0
+void HydraPreKill_298B0(type_entity_0x6E8E* a1x)//20a8b0
 {
 	a1x->life_0x8 = -1;
 	PreKillEntity_1C890(a1x, 216);
 }
 
 //----- (000298D0) --------------------------------------------------------
-int BigDragonKill_298D0(type_entity_0x6E8E* a1x)//20a8d0
+int HydraKill_298D0(type_entity_0x6E8E* a1x)//20a8d0
 {
 	type_entity_0x6E8E* v1x; // eax
 
@@ -19428,16 +19428,16 @@ int BigDragonKill_298D0(type_entity_0x6E8E* a1x)//20a8d0
 	TransformEntityToManaSphere_36BA0(a1x, true);
 	if (!(a1x->struct_byte_0xc_12_15.byte[2] & 0x10))
 	{
-		v1x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 1);
+		v1x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 1);
 		if (v1x)
 			v1x->id_0x1A_26 = a1x->id_0x1A_26;
 	}
-	BigDragonHideSegments_2AE80(a1x);
+	HydraHideSegments_2AE80(a1x);
 	return 1;
 }
 
 //----- (00029930) --------------------------------------------------------
-void BigDragonScripted_29930(type_entity_0x6E8E* a1x)//20a930
+void HydraScripted_29930(type_entity_0x6E8E* a1x)//20a930
 {
 	unsigned __int8 v1; // al
 	char v2; // ah
@@ -19473,12 +19473,12 @@ void BigDragonScripted_29930(type_entity_0x6E8E* a1x)//20a930
 	{
 		a1x->StageVar2_0x49_73 = 15;
 	}
-	BigDragonUpdateBody_29A90(a1x);
+	HydraUpdateBody_29A90(a1x);
 }
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00029A90) --------------------------------------------------------
-void BigDragonUpdateBody_29A90(type_entity_0x6E8E* a1x)//20aa90
+void HydraUpdateBody_29A90(type_entity_0x6E8E* a1x)//20aa90
 {
 	//uint8_t* v1; // edx
 	//int v2; // eax
@@ -19550,8 +19550,8 @@ void BigDragonUpdateBody_29A90(type_entity_0x6E8E* a1x)//20aa90
 			{
 				ix->rand_0x14_20 = 9377 * ix->rand_0x14_20 + 9439;
 				ix->byte_0x43_67 = ix->rand_0x14_20 % 0x14u;
-				BigDragonPlaceSegment_2A5B0(a1x, ix, 672);
-				BigDragonForwardDamage_2A660(a1x, ix);
+				HydraPlaceSegment_2A5B0(a1x, ix, 672);
+				HydraForwardDamage_2A660(a1x, ix);
 				if (ix->byte_0x46_70 == 1)
 				{
 					ix->rand_0x14_20 = 9377 * ix->rand_0x14_20 + 9439;
@@ -19603,7 +19603,7 @@ void BigDragonUpdateBody_29A90(type_entity_0x6E8E* a1x)//20aa90
 						}
 						else
 						{
-							v10x = BigDragonFindTarget_2A6F0(ix);
+							v10x = HydraFindTarget_2A6F0(ix);
 							v35x = v10x;
 							if (v10x)
 							{
@@ -19631,7 +19631,7 @@ void BigDragonUpdateBody_29A90(type_entity_0x6E8E* a1x)//20aa90
 				goto LABEL_26;
 			case 3:
 			LABEL_26:
-				v13x = BigDragonGetTarget_2A7B0(ix);
+				v13x = HydraGetTarget_2A7B0(ix);
 				v35x = v13x;
 				if (v13x)
 				{
@@ -19748,7 +19748,7 @@ void BigDragonUpdateBody_29A90(type_entity_0x6E8E* a1x)//20aa90
 			case 7:
 			LABEL_52:
 				v36 = 0;
-				BigDragonPlaceSegment_2A5B0(a1x, ix, 672);
+				HydraPlaceSegment_2A5B0(a1x, ix, 672);
 				v17 = ix->byte_0x44_68;
 				switch ((x_BYTE)v17)
 				{
@@ -19833,8 +19833,8 @@ void BigDragonUpdateBody_29A90(type_entity_0x6E8E* a1x)//20aa90
 					v17 = a1x->yaw_0x1C_28 + v4yy->word_12 + v23;
 					ix->yaw_0x1C_28 = v17;
 				}
-				BigDragonMoveSegment_2A340(/*v17, a1x, a1x, (int)v4y,*/ /*a1x,*/ ix);
-				BigDragonSetSegmentPose_2A940(a1x, ix);
+				HydraMoveSegment_2A340(/*v17, a1x, a1x, (int)v4y,*/ /*a1x,*/ ix);
+				HydraSetSegmentPose_2A940(a1x, ix);
 				break;
 			case 8:
 				ix->byte_0x46_70 = 9;
@@ -19937,29 +19937,29 @@ void BigDragonUpdateBody_29A90(type_entity_0x6E8E* a1x)//20aa90
 			case 3:
 			case 4:
 			case 5:
-				BigDragonMoveSegment_2A340(/*v2, v1y, a1x, (int)v4y,*/ /*a1x,*/ ix);
-				BigDragonSetSegmentPose_2A940(a1x, ix);
-				BigDragonAttachSegment_2AA90(/*ix,*/ a1x, ix);
+				HydraMoveSegment_2A340(/*v2, v1y, a1x, (int)v4y,*/ /*a1x,*/ ix);
+				HydraSetSegmentPose_2A940(a1x, ix);
+				HydraAttachSegment_2AA90(/*ix,*/ a1x, ix);
 				if (v37)
 				{
-					BigDragonChooseAttack_2A7F0(ix, v35x, v37 == 1);
+					HydraChooseAttack_2A7F0(ix, v35x, v37 == 1);
 					PrepareEventSound_6E450(a1x - D41A0_0.struct_0x6E8E, -1, 17);
 				}
 				goto LABEL_99;
 			case 6:
 			case 7:
-				/*LOWORD(v2) = */BigDragonAttachSegment_2AA90(/*ix, */a1x, ix);
+				/*LOWORD(v2) = */HydraAttachSegment_2AA90(/*ix, */a1x, ix);
 				break;
 			case 0xB:
 			case 0xC:
-				BigDragonPlaceSegment_2A5B0(a1x, ix, 672);
-				BigDragonSetSegmentPose_2A940(a1x, ix);
-				BigDragonAttachSegment_2AA90(/*ix,*/ a1x, ix);
+				HydraPlaceSegment_2A5B0(a1x, ix, 672);
+				HydraSetSegmentPose_2A940(a1x, ix);
+				HydraAttachSegment_2AA90(/*ix,*/ a1x, ix);
 				v35x = Entities_EA3E4[ix->word_0x96_150];
 				predictedAxis_EB398ar = v35x->position_0x4C_76;
 				CopyEntityPosition_57CF0(ix, &predictedAxis_EB398ar);
 			LABEL_99:
-				/*LOWORD(v2) = */BigDragonShootFromSegment_2A9F0(a1x, ix);
+				/*LOWORD(v2) = */HydraShootFromSegment_2A9F0(a1x, ix);
 				break;
 			default:
 				continue;
@@ -19974,7 +19974,7 @@ void BigDragonUpdateBody_29A90(type_entity_0x6E8E* a1x)//20aa90
 // EB398: using guessed type __int16 x_WORD_EB398;
 
 //----- (0002A340) --------------------------------------------------------
-void BigDragonMoveSegment_2A340(/*int a1, type_str_0x6E8E* a2x, type_str_0x6E8E* a3x, int a4,*/ /*type_str_0x6E8E* a5x,*/ type_entity_0x6E8E* a6x)//20b340
+void HydraMoveSegment_2A340(/*int a1, type_str_0x6E8E* a2x, type_str_0x6E8E* a3x, int a4,*/ /*type_str_0x6E8E* a5x,*/ type_entity_0x6E8E* a6x)//20b340
 {
 	int16_t v6x; // eax
 	int16_t v7x; // eax
@@ -20104,7 +20104,7 @@ void BigDragonMoveSegment_2A340(/*int a1, type_str_0x6E8E* a2x, type_str_0x6E8E*
 		v13 = a6x->position_0x4C_76.z - a6x->word_0x36_54;
 		a6x->actSpeed_0x82_130 -= a6x->minSpeed_0x84_132;
 		a6x->position_0x4C_76.z = v13;
-		v6x = getTerrainAlt_10C40(&a6x->position_0x4C_76);
+		v6x = GetTerrainAlt_10C40(&a6x->position_0x4C_76);
 		if ((int16_t)a6x->position_0x4C_76.z < v6x)
 			a6x->position_0x4C_76.z = v6x;
 		break;
@@ -20115,7 +20115,7 @@ void BigDragonMoveSegment_2A340(/*int a1, type_str_0x6E8E* a2x, type_str_0x6E8E*
 }
 
 //----- (0002A5B0) --------------------------------------------------------
-void BigDragonPlaceSegment_2A5B0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x, __int16 a3)//20b5b0
+void HydraPlaceSegment_2A5B0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x, __int16 a3)//20b5b0
 {
 	type_D404C* v3x; // ebx
 	__int16 v4; // si
@@ -20136,7 +20136,7 @@ void BigDragonPlaceSegment_2A5B0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (0002A660) --------------------------------------------------------
-void BigDragonForwardDamage_2A660(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//20b660
+void HydraForwardDamage_2A660(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//20b660
 {
 	//type_entity_0x6E8E* resultx; // eax
 	__int16 v3; // dx
@@ -20165,7 +20165,7 @@ void BigDragonForwardDamage_2A660(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a
 }
 
 //----- (0002A6B0) --------------------------------------------------------
-signed int BigDragonCheckDamage_2A6B0(type_entity_0x6E8E* a1x)//20b6b0
+signed int HydraCheckDamage_2A6B0(type_entity_0x6E8E* a1x)//20b6b0
 {
 	__int16 v1; // bx
 	signed int v2; // edx
@@ -20193,7 +20193,7 @@ signed int BigDragonCheckDamage_2A6B0(type_entity_0x6E8E* a1x)//20b6b0
 }
 
 //----- (0002A6F0) --------------------------------------------------------
-type_entity_0x6E8E* BigDragonFindTarget_2A6F0(type_entity_0x6E8E* a1x)//20b6f0
+type_entity_0x6E8E* HydraFindTarget_2A6F0(type_entity_0x6E8E* a1x)//20b6f0
 {
 	int v1; // esi
 	type_entity_0x6E8E* v2x; // edi
@@ -20230,7 +20230,7 @@ type_entity_0x6E8E* BigDragonFindTarget_2A6F0(type_entity_0x6E8E* a1x)//20b6f0
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (0002A7B0) --------------------------------------------------------
-type_entity_0x6E8E* BigDragonGetTarget_2A7B0(type_entity_0x6E8E* a1x)//20b7b0
+type_entity_0x6E8E* HydraGetTarget_2A7B0(type_entity_0x6E8E* a1x)//20b7b0
 {
 	unsigned __int16 v1; // bx
 	type_entity_0x6E8E* resultx; // eax
@@ -20249,7 +20249,7 @@ type_entity_0x6E8E* BigDragonGetTarget_2A7B0(type_entity_0x6E8E* a1x)//20b7b0
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (0002A7F0) --------------------------------------------------------
-void BigDragonChooseAttack_2A7F0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x, char a3)//20b7f0
+void HydraChooseAttack_2A7F0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x, char a3)//20b7f0
 {
 	type_entity_0x6E8E* v3x; // esi
 	signed int v4; // edx
@@ -20272,7 +20272,7 @@ void BigDragonChooseAttack_2A7F0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2
 		{
 			if (!a3)
 				goto LABEL_13;
-			v6x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 9, 0);
+			v6x = CreateEntity_4A190(&a1x->position_0x4C_76, 9, 0);
 			v3x = v6x;
 			if (!v6x)
 				goto LABEL_13;
@@ -20284,7 +20284,7 @@ void BigDragonChooseAttack_2A7F0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2
 		{
 			if (v5 != 2)
 				goto LABEL_13;
-			v6x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 9, 9);
+			v6x = CreateEntity_4A190(&a1x->position_0x4C_76, 9, 9);
 			v3x = v6x;
 			if (!v6x)
 				goto LABEL_13;
@@ -20312,7 +20312,7 @@ LABEL_13:
 // D89EA: using guessed type void *off_D89EA;
 
 //----- (0002A940) --------------------------------------------------------
-void BigDragonSetSegmentPose_2A940(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//20b940
+void HydraSetSegmentPose_2A940(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//20b940
 {
 	//signed int result; // eax
 	type_D404C* v3x; // edx
@@ -20350,7 +20350,7 @@ void BigDragonSetSegmentPose_2A940(type_entity_0x6E8E* a1x, type_entity_0x6E8E* 
 // EB398: using guessed type __int16 x_WORD_EB398;
 
 //----- (0002A9F0) --------------------------------------------------------
-void BigDragonShootFromSegment_2A9F0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//20b9f0
+void HydraShootFromSegment_2A9F0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//20b9f0
 {
 	//int v2; // eax
 	type_D404C* v3x; // eax
@@ -20374,7 +20374,7 @@ void BigDragonShootFromSegment_2A9F0(type_entity_0x6E8E* a1x, type_entity_0x6E8E
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (0002AA90) --------------------------------------------------------
-void BigDragonAttachSegment_2AA90(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x, type_entity_0x6E8E* a3x)//20ba90
+void HydraAttachSegment_2AA90(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x, type_entity_0x6E8E* a3x)//20ba90
 {
 	type_D404C* v3x; // ecx
 	__int16 v4; // ax
@@ -20455,7 +20455,7 @@ void BigDragonAttachSegment_2AA90(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* 
 		CopyEntityPosition_57CF0(v7x, &v12x);
 		if (a3x->byte_0x46_70 == 7 && a3x->byte_0x44_68 == 8)
 		{
-			v10 = getTerrainAlt_10C40(&v7x->position_0x4C_76);
+			v10 = GetTerrainAlt_10C40(&v7x->position_0x4C_76);
 			if (v7x->position_0x4C_76.z <= v10)
 				v7x->position_0x4C_76.z = v10;
 		}
@@ -20471,7 +20471,7 @@ void BigDragonAttachSegment_2AA90(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* 
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (0002AC50) --------------------------------------------------------
-void BigDragonResetRotation_2AC50(type_entity_0x6E8E* a1x)//20bc50
+void HydraResetRotation_2AC50(type_entity_0x6E8E* a1x)//20bc50 //tex 394
 {
 	type_entity_0x6E8E* v1x; // ebx
 	//uint8_t* v2; // ecx
@@ -20511,7 +20511,7 @@ void BigDragonResetRotation_2AC50(type_entity_0x6E8E* a1x)//20bc50
 // D88B8: using guessed type void *off_D88B8;
 
 //----- (0002AD40) --------------------------------------------------------
-void BigDragonCheckSegmentsDead_2AD40(type_entity_0x6E8E* a1x)//20bd40
+void HydraCheckSegmentsDead_2AD40(type_entity_0x6E8E* a1x)//20bd40 //tex 402
 {
 	unsigned __int16 result; // ax
 	signed int v2; // esi
@@ -20539,7 +20539,7 @@ void BigDragonCheckSegmentsDead_2AD40(type_entity_0x6E8E* a1x)//20bd40
 			v5 = 460 * v2 + 920;
 			ix->life_0x8 = v5;
 			ix->maxLife_0x4 = v5;
-			/*result = */BigDragonSetSegmentPose_2A940(a1x, ix);
+			/*result = */HydraSetSegmentPose_2A940(a1x, ix);
 		}
 		v2++;
 	}
@@ -20549,7 +20549,7 @@ void BigDragonCheckSegmentsDead_2AD40(type_entity_0x6E8E* a1x)//20bd40
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (0002AE30) --------------------------------------------------------
-void BigDragonKillSegments_2AE30(type_entity_0x6E8E* a1x)//20be30
+void HydraKillSegments_2AE30(type_entity_0x6E8E* a1x)//20be30 //tex 410
 {
 	//int result; // eax
 	int ix; // ebx
@@ -20572,7 +20572,7 @@ void BigDragonKillSegments_2AE30(type_entity_0x6E8E* a1x)//20be30
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (0002AE80) --------------------------------------------------------
-void BigDragonHideSegments_2AE80(type_entity_0x6E8E* a1x)//20be80
+void HydraHideSegments_2AE80(type_entity_0x6E8E* a1x)//20be80
 {
 	int ix; // ebx
 	type_entity_0x6E8E* v2x; // ebx
@@ -20643,7 +20643,7 @@ char MoveDragonEntity_2AF10(type_entity_0x6E8E* a1x, char a2)//20bf10
 		predictedAxis_EB398ar = a1x->position_0x4C_76;
 		if (a2)
 			MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, a1x->actSpeed_0x82_130);
-		predictedAxis_EB398ar.z = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+		predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 		if (a2
 			&& a1x->position_0x4C_76.x >> 8 == predictedAxis_EB398ar.x >> 8
 			&& a1x->position_0x4C_76.y >> 8 == predictedAxis_EB398ar.y >> 8)
@@ -20666,7 +20666,7 @@ char MoveDragonEntity_2AF10(type_entity_0x6E8E* a1x, char a2)//20bf10
 					predictedAxis_EB398ar = a1x->position_0x4C_76;
 					v8 = (a1x->yaw_0x1C_28 + v9 * v7) & 0x7FF;
 					MoveEntity_57FA0(&predictedAxis_EB398ar, v8, 0, a1x->actSpeed_0x82_130);
-					predictedAxis_EB398ar.z = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+					predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 					if (!CheckPositionCollision_102D0(a1x, &predictedAxis_EB398ar, 1) && !CheckPositionCollision_102D0(a1x, &predictedAxis_EB398ar, 4) && GetTileSlopeWide_1B830(&predictedAxis_EB398ar) < 32)
 					{
 						v11 = 1;
@@ -20717,7 +20717,7 @@ char MoveDragonEntity_2AF10(type_entity_0x6E8E* a1x, char a2)//20bf10
 			HIBYTE(v5) &= 7u;
 			a1x->yaw_0x1C_28 = v5;
 		}
-		a1x->position_0x4C_76.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+		a1x->position_0x4C_76.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	}
 	if (v13 == 4)
 	{
@@ -20797,7 +20797,7 @@ void ManaAttack_2B260(type_entity_0x6E8E* a1x)//20c260
 			/*LOBYTE(v1) = */ManaSetState_2BA50(a1x, 1u);
 			return;// v1;
 		case 1:
-			IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
+			CreateEntity_4A190(&a1x->position_0x4C_76, 10, 5);
 			/*LOBYTE(v1) = */ManaSetState_2BA50(a1x, 2u);
 			return;// v1;
 		case 2:
@@ -20911,7 +20911,7 @@ void ManaAttack_2B260(type_entity_0x6E8E* a1x)//20c260
 			break;
 		case 6:
 			ManaSetMode_2B860(a1x, 3u);
-			IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
+			CreateEntity_4A190(&a1x->position_0x4C_76, 10, 5);
 			v17 = 0;
 			v18 = a1x->word_0x96_150;
 			v26 = 0;
@@ -21050,7 +21050,7 @@ void ManaStartAttack_2B840(type_entity_0x6E8E* a1x)//20c840
 }
 
 //----- (0002B860) --------------------------------------------------------
-void ManaSetMode_2B860(type_entity_0x6E8E* a1x, unsigned __int8 a2)//20c860
+void ManaSetMode_2B860(type_entity_0x6E8E* a1x, unsigned __int8 a2)//20c860 //tex 319,311
 {
 	char v3; // ah
 	char v4; // dh
@@ -21267,9 +21267,9 @@ void DrawGameFrame_2BE30()//20CE30
 	if (D41A0_0.m_GameSettings.str_0x2196.transparency_0x2198)
 	{
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			drawBitmapFunction = drawBitmap320_8F8B0;
+			drawBitmapFunction = DrawBitmap320_8F8B0;
 		else
-			drawBitmapFunction = drawBitmap640_8F8E8;
+			drawBitmapFunction = DrawBitmap640_8F8E8;
 		ptrDrawBitmap_F01E8 = drawBitmapFunction;
 	}
 	else
@@ -22480,7 +22480,7 @@ void DrawBottomSpellsMenu_2ECC0()//20fcc0
 }
 
 //----- (00030D50) --------------------------------------------------------
-void UpdateEffect0A_00_30D50(type_entity_0x6E8E* a1x)//211d50
+void UpdateImpactExplosion_30D50(type_entity_0x6E8E* a1x)//211d50
 {
 	signed int v3; // esi
 	uint8_t v4; // cl
@@ -22500,7 +22500,7 @@ void UpdateEffect0A_00_30D50(type_entity_0x6E8E* a1x)//211d50
 		if (a1x->life_0x8 >= -1)
 		{
 			a1x->struct_byte_0xc_12_15.byte[0] &= 0xFEu;
-			v3 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+			v3 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 			if (!(a1x->struct_byte_0xc_12_15.byte[0] & 2))
 			{
 				v10x._axis_2d.x = (a1x->position_0x4C_76.x + 128) >> 8;
@@ -22556,7 +22556,7 @@ void UpdateEffect0A_00_30D50(type_entity_0x6E8E* a1x)//211d50
 }
 
 //----- (00030F60) --------------------------------------------------------
-void AddQuickfair0A_01_30F60(type_entity_0x6E8E* event)//211f60
+void UpdateDeathExplosion_30F60(type_entity_0x6E8E* event)//211f60
 {
 	int strIndex; // esi
 	type_entity_0x6E8E* event2; // eax
@@ -22588,7 +22588,7 @@ void AddQuickfair0A_01_30F60(type_entity_0x6E8E* event)//211f60
 				event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
 				position.y = event->position_0x4C_76.y - 96 + 192 * tempY + event->rand_0x14_20 % 0x81u - 64;
 				position.z = event->position_0x4C_76.z;
-				event2 = IfSubtypeCallCreatingManaSphere_4A190(&position, 10, 0);
+				event2 = CreateEntity_4A190(&position, 10, 0);
 				if (event2)
 				{
 					event2->id_0x1A_26 = event->id_0x1A_26;//here
@@ -22623,11 +22623,11 @@ void UpdateSpeedTrail_31120(type_entity_0x6E8E* a1x)//212120
 
 	v4 = false;
 	//result = sub_10C40_getTerrainAlt(a1x->array_0x4C_76);
-	if (getTerrainAlt_10C40(&a1x->position_0x4C_76) != a1x->position_0x4C_76.z)
+	if (GetTerrainAlt_10C40(&a1x->position_0x4C_76) != a1x->position_0x4C_76.z)
 		goto LABEL_12;
 	if (a1x->maxLife_0x4 - 5 == a1x->life_0x8)
 	{
-		IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 87);
+		CreateEntity_4A190(&a1x->position_0x4C_76, 10, 87);
 		//v2 = (int)x_D41A0_BYTEARRAY_0;
 		//v3 = 9377 * *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) + 9439;
 		//*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) = v3;
@@ -22861,7 +22861,7 @@ LABEL_8:
 			if (v24 > 0x2000)
 				LOWORD(v24) = 0x2000;
 			MoveEntity_57FA0(&predictedAxis_EB398ar, k, 0, v24);
-			v2x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 13);
+			v2x = CreateEntity_4A190(&predictedAxis_EB398ar, 10, 13);
 			if (v2x)
 			{
 				v2x->yaw_0x1C_28 = k;
@@ -22887,7 +22887,7 @@ LABEL_8:
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (00031760) --------------------------------------------------------
-void UpdateEffect0A_06_31760(type_entity_0x6E8E* a1x)//212760
+void UpdateFire_31760(type_entity_0x6E8E* a1x)//212760
 {
 	int v2; // esi
 	char v4; // ah
@@ -22915,7 +22915,7 @@ void UpdateEffect0A_06_31760(type_entity_0x6E8E* a1x)//212760
 				a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 				if (!(a1x->rand_0x14_20 % 7u))
 				{
-					v5x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 14);
+					v5x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 14);
 					if (v5x)
 					{
 						v6 = a1x->id_0x1A_26;
@@ -22935,7 +22935,7 @@ void UpdateEffect0A_06_31760(type_entity_0x6E8E* a1x)//212760
 		a1x->word_0x5A_90++;
 		a1x->dword_0x10_16 = v2;
 	}
-	a1x->position_0x4C_76.z = a1x->word_0x2C_44 + getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	a1x->position_0x4C_76.z = a1x->word_0x2C_44 + GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	v8 = TerrainTileIsWater_104D0(&a1x->position_0x4C_76);
 	if (v8 == 1)
 		DisableEntityDrawing04_57F10(a1x);
@@ -22944,20 +22944,20 @@ void UpdateEffect0A_06_31760(type_entity_0x6E8E* a1x)//212760
 }
 
 //----- (00031870) --------------------------------------------------------
-void UpdateEffect0A_07_31870(type_entity_0x6E8E* event)//212870
+void UpdateEffect0A07_31870(type_entity_0x6E8E* event)//212870
 {
 	DisableEntityDrawing04_57F10(event);
 }
 
 //----- (00031890) --------------------------------------------------------
-void UpdateEffect0A_03_31890(type_entity_0x6E8E* event)//212890
+void UpdateWizardGhost_31890(type_entity_0x6E8E* event)//212890
 {
 	if (event->life_0x8-- < 0)
 		DisableEntityDrawing04_57F10(event);
 }
 
 //----- (000318B0) --------------------------------------------------------
-void AddAsh0A_05_318B0(type_entity_0x6E8E* event)//2128b0
+void UpdateAsh_318B0(type_entity_0x6E8E* event)//2128b0
 {
 	if (event->life_0x8-- >= 0)
 	{
@@ -22975,13 +22975,13 @@ void AddAsh0A_05_318B0(type_entity_0x6E8E* event)//2128b0
 }
 
 //----- (00031920) --------------------------------------------------------
-void UpdateEffect0A_08_31920(type_entity_0x6E8E* a1x)//212920
+void UpdateEffectAction8_31920(type_entity_0x6E8E* a1x)//212920
 {
 	DisableEntityDrawing04_57F10(a1x);
 }
 
 //----- (00031940) --------------------------------------------------------
-void UpdateEffect0A_09_31940(type_entity_0x6E8E* a1x)//212940
+void UpdateManaSphereSpawner_31940(type_entity_0x6E8E* a1x)//212940
 {
 	//int v1;
 	type_entity_0x6E8E* v1x; // eax
@@ -23213,8 +23213,8 @@ void UpdateEffect0A_09_31940(type_entity_0x6E8E* a1x)//212940
 				v16x._axis_2d.y++;
 			}
 			predictedAxis_EB398ar = a1x->position_0x4C_76;
-			predictedAxis_EB398ar.z = getTerrainAlt_10C40(&predictedAxis_EB398ar);
-			v1x = D41A0_0.byte_0x36E03 ? IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 91) : IfSubtypeCallCreatingManaSphere_4A190(
+			predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
+			v1x = D41A0_0.byte_0x36E03 ? CreateEntity_4A190(&predictedAxis_EB398ar, 10, 91) : CreateEntity_4A190(
 				&predictedAxis_EB398ar, 10, 18);
 			if (v1x)
 				v1x->id_0x1A_26 = a1x->id_0x1A_26;
@@ -23230,7 +23230,7 @@ void UpdateEffect0A_09_31940(type_entity_0x6E8E* a1x)//212940
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (00031E90) --------------------------------------------------------
-void UpdateEffect0A_0A_31E90(type_entity_0x6E8E* a1x)//212e90
+void UpdateSpawnAround_31E90(type_entity_0x6E8E* a1x)//212e90
 {
 	if (!(GetTileAngleBit_104A0(&a1x->position_0x4C_76) & 1))
 	{
@@ -23278,7 +23278,7 @@ void SpawnEffectAroundTile_31F00(type_entity_0x6E8E* a1x, __int16 a2, __int16 a3
 }
 
 //----- (00031FB0) --------------------------------------------------------
-void UpdateEffect0A_0B_31FB0(type_entity_0x6E8E* a1x)//212fb0
+void UpdateSpellBlast_31FB0(type_entity_0x6E8E* a1x)//212fb0
 {
 	int v1; // edx
 	unsigned __int16 v2; // ax
@@ -23360,7 +23360,7 @@ void UpdateEffectLifetime_32120(type_entity_0x6E8E* entity)//213120
 }
 
 //----- (00032160) --------------------------------------------------------
-void UpdateEffect0A_0D_32160(type_entity_0x6E8E* entity)//213160
+void UpdateRisingSmoke_32160(type_entity_0x6E8E* entity)//213160
 {
 	if (entity->life_0x8-- < 0)
 	{
@@ -23374,7 +23374,7 @@ void UpdateEffect0A_0D_32160(type_entity_0x6E8E* entity)//213160
 	if (entity->actSpeed_0x82_130 > 128)
 		entity->actSpeed_0x82_130 = 128;
 	predictedAxis_EB398ar.z += entity->actSpeed_0x82_130;
-	int tempAlt = getTerrainAlt_10C40(&entity->position_0x4C_76);
+	int tempAlt = GetTerrainAlt_10C40(&entity->position_0x4C_76);
 	if (predictedAxis_EB398ar.z < tempAlt)
 		predictedAxis_EB398ar.z = tempAlt;
 	entity->dword_0x10_16++;
@@ -23401,7 +23401,7 @@ void UpdateEffect0A_0D_32160(type_entity_0x6E8E* entity)//213160
 }
 
 //----- (000322A0) --------------------------------------------------------
-void UpdateEffect0A_0E_322A0(type_entity_0x6E8E* entity)//2132a0
+void UpdateRisingSmoke2_322A0(type_entity_0x6E8E* entity)//2132a0
 {
 	if (entity->life_0x8-- < 0)
 	{
@@ -23415,7 +23415,7 @@ void UpdateEffect0A_0E_322A0(type_entity_0x6E8E* entity)//2132a0
 	if (entity->actSpeed_0x82_130 > 128)
 		entity->actSpeed_0x82_130 = 128;
 	predictedAxis_EB398ar.z += entity->actSpeed_0x82_130;
-	int tempAlt = getTerrainAlt_10C40(&entity->position_0x4C_76);
+	int tempAlt = GetTerrainAlt_10C40(&entity->position_0x4C_76);
 	if (predictedAxis_EB398ar.z < tempAlt)
 		predictedAxis_EB398ar.z = tempAlt;
 	entity->dword_0x10_16++;
@@ -23442,19 +23442,19 @@ void UpdateEffect0A_0E_322A0(type_entity_0x6E8E* entity)//2132a0
 }
 
 //----- (000323E0) --------------------------------------------------------
-void AddParticleSmoke0A_3B_323E0(type_entity_0x6E8E* event)//2133e0
+void UpdateParticleSmoke3B_323E0(type_entity_0x6E8E* event)//2133e0
 {
-	AddParticleSmoke0A_3D_32420(event);
+	UpdateParticleSmoke_32420(event);
 }
 
 //----- (00032400) --------------------------------------------------------
-void AddParticleSmoke0A_3C_32400(type_entity_0x6E8E* event)//213400
+void UpdateParticleSmoke3C_32400(type_entity_0x6E8E* event)//213400
 {
-	AddParticleSmoke0A_3D_32420(event);
+	UpdateParticleSmoke_32420(event);
 }
 
 //----- (00032420) --------------------------------------------------------
-void AddParticleSmoke0A_3D_32420(type_entity_0x6E8E* event)//213420
+void UpdateParticleSmoke_32420(type_entity_0x6E8E* event)//213420
 {
 	type_entity_0x6E8E* tempentity = 0; // ecx
 
@@ -23482,7 +23482,7 @@ void AddParticleSmoke0A_3D_32420(type_entity_0x6E8E* event)//213420
 }
 
 //----- (00032530) --------------------------------------------------------
-void UpdateEffect0A_0F_32530(type_entity_0x6E8E* entity)//213530
+void UpdateEmberSpawner_32530(type_entity_0x6E8E* entity)//213530
 {
 	type_entity_0x6E8E* resultx; // eax
 
@@ -23504,7 +23504,7 @@ void UpdateEffect0A_0F_32530(type_entity_0x6E8E* entity)//213530
 	entity->rand_0x14_20 = 9377 * entity->rand_0x14_20 + 9439;
 	entity->yaw_0x1C_28 = ((entity->rand_0x14_20 % 0x5Bu) + entity->yaw_0x1C_28 - 45) & 0x7FF;
 	MoveEntity_57FA0(&entity->position_0x4C_76, entity->yaw_0x1C_28, 0, 256);
-	resultx = IfSubtypeCallCreatingManaSphere_4A190(&entity->position_0x4C_76, 10, 11);
+	resultx = CreateEntity_4A190(&entity->position_0x4C_76, 10, 11);
 	if (resultx)
 	{
 		resultx->array_0x52_82.pitch = entity->array_0x52_82.pitch;
@@ -23517,7 +23517,7 @@ void UpdateEffect0A_0F_32530(type_entity_0x6E8E* entity)//213530
 }
 
 //----- (00032600) --------------------------------------------------------
-void UpdateEffect0A_10_32600(type_entity_0x6E8E* a1x)//213600
+void UpdateVolcanoRock_32600(type_entity_0x6E8E* a1x)//213600
 {
 	int v1; // eax
 	int v2; // eax
@@ -23560,7 +23560,7 @@ void UpdateEffect0A_10_32600(type_entity_0x6E8E* a1x)//213600
 		if (a1x->word_0x2C_44 > 256)
 			a1x->word_0x2C_44 = 256;
 		//v6 = sub_10C40_getTerrainAlt(x_WORD_EB398ar);
-		v7 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+		v7 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 		if (v7 > predictedAxis_EB398ar.z)
 		{
 			v8 = a1x->word_0x2C_44;
@@ -23569,7 +23569,7 @@ void UpdateEffect0A_10_32600(type_entity_0x6E8E* a1x)//213600
 			a1x->word_0x2C_44 = -((v8 - (my_sign32(v8) << 2) + my_sign32(v8)) >> 2);
 			if (TerrainTileIsWater_104D0(&a1x->position_0x4C_76) == 1)
 			{
-				v9x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 5);
+				v9x = CreateEntity_4A190(&predictedAxis_EB398ar, 10, 5);
 				if (v9x)
 				{
 					v9x->id_0x1A_26 = a1x->id_0x1A_26;
@@ -23580,7 +23580,7 @@ void UpdateEffect0A_10_32600(type_entity_0x6E8E* a1x)//213600
 			{
 				if (!IsEntityOfModelNearby_10B70(&predictedAxis_EB398ar, 10, 6))
 				{
-					v10x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 6);
+					v10x = CreateEntity_4A190(&predictedAxis_EB398ar, 10, 6);
 					if (v10x)
 					{
 						v11 = v10x->subSpellIndex_0x2A_42;
@@ -23670,7 +23670,7 @@ void UpdateMeteor_32880(type_entity_0x6E8E* a1x)//213880
 			a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 			v9x.y = a1x->rand_0x14_20 % 0x81u + 160 * v13 + a1x->position_0x4C_76.y - 96 - 64;
 			v9x.z = a1x->position_0x4C_76.z;
-			v6x = IfSubtypeCallCreatingManaSphere_4A190(&v9x, 10, 0);
+			v6x = CreateEntity_4A190(&v9x, 10, 0);
 			//v7 = v6;
 			if (v6x)
 			{
@@ -23694,7 +23694,7 @@ void UpdateMeteor_32880(type_entity_0x6E8E* a1x)//213880
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00032A70) --------------------------------------------------------
-void UpdateEffect0A_12_32A70(type_entity_0x6E8E* a1x)//213a70
+void UpdateVolcanoEruption_32A70(type_entity_0x6E8E* a1x)//213a70
 {
 	__int16 v1; // si
 	__int16 v2; // ax
@@ -23715,7 +23715,7 @@ void UpdateEffect0A_12_32A70(type_entity_0x6E8E* a1x)//213a70
 		if (!(a1x->rand_0x14_20 % 0x64u) && !D41A0_0.word_0x31)
 		{
 			v1 = a1x->position_0x4C_76.z;
-			v2 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+			v2 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 			a1x->position_0x4C_76.z = v2;
 			if (v1 != v2)
 			{
@@ -23731,7 +23731,7 @@ void UpdateEffect0A_12_32A70(type_entity_0x6E8E* a1x)//213a70
 		|| !a1x->dword_0x10_16)
 	{
 		v3 = a1x->position_0x4C_76.z;
-		v4 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+		v4 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 		a1x->position_0x4C_76.z = v4;
 		if (v3 != v4)
 		{
@@ -23745,7 +23745,7 @@ void UpdateEffect0A_12_32A70(type_entity_0x6E8E* a1x)//213a70
 			if (v5x > Entities_EA3E4[0])
 				v5x->dword_0x10_16 = 250;
 			D41A0_0.word_0x31 = a1x - D41A0_0.struct_0x6E8E;
-			v6x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 19);
+			v6x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 19);
 			//v7 = v6;
 			if (v6x)
 			{
@@ -23755,7 +23755,7 @@ void UpdateEffect0A_12_32A70(type_entity_0x6E8E* a1x)//213a70
 				D41A0_0.word_0x33 = v6x - D41A0_0.struct_0x6E8E;
 			}
 		}
-		v8x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 16);
+		v8x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 16);
 		if (v8x)
 		{
 			v8x->id_0x1A_26 = a1x->id_0x1A_26;
@@ -23767,7 +23767,7 @@ void UpdateEffect0A_12_32A70(type_entity_0x6E8E* a1x)//213a70
 		a1x->yaw_0x1C_28 += 1280;
 		if (!v10)
 		{
-			v12x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 9, 0);
+			v12x = CreateEntity_4A190(&a1x->position_0x4C_76, 9, 0);
 			if (v12x)
 			{
 				v12x->id_0x1A_26 = a1x->id_0x1A_26;
@@ -23780,7 +23780,7 @@ void UpdateEffect0A_12_32A70(type_entity_0x6E8E* a1x)//213a70
 				v12x->yaw_0x1C_28 = v11;
 				v12x->axis_0x9A_154x = a1x->position_0x4C_76;
 				MoveEntity_57FA0(&v12x->axis_0x9A_154x, v12x->yaw_0x1C_28, 0, 1536);
-				v12x->axis_0x9A_154x.z = getTerrainAlt_10C40(&v12x->axis_0x9A_154x);
+				v12x->axis_0x9A_154x.z = GetTerrainAlt_10C40(&v12x->axis_0x9A_154x);
 			}
 		}
 		if (a1x->dword_0x10_16 >= 127)
@@ -23821,7 +23821,7 @@ void SpawnManaSpheres_32CF0(type_entity_0x6E8E* a1x)//213cf0
 
 	for (i = 0; i < 3; i++)
 	{
-		v1x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 39);
+		v1x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 39);
 		//v2 = v1;
 		//v3 = v1;
 		if (v1x)
@@ -23860,7 +23860,7 @@ void SpawnManaSpheres_32CF0(type_entity_0x6E8E* a1x)//213cf0
 			//v11 = v1x->axis_0x9A_154x[1] - v1x->array_0x4C_76.y;
 			v1x->axis_0x9A_154x.x -= v1x->position_0x4C_76.x;
 			v1x->axis_0x9A_154x.y -= v1x->position_0x4C_76.y;
-			v1x->position_0x4C_76.z = getTerrainAlt_10C40(&v1x->position_0x4C_76) + 96;
+			v1x->position_0x4C_76.z = GetTerrainAlt_10C40(&v1x->position_0x4C_76) + 96;
 		}
 	}
 	if (!(a1x->byte_0x3E_62 & 1))
@@ -23883,7 +23883,7 @@ void SpawnManaSpheres_32CF0(type_entity_0x6E8E* a1x)//213cf0
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00032F40) --------------------------------------------------------
-void UpdateEffect0A_13_32F40(type_entity_0x6E8E* a1x)//213f40
+void UpdateVolcanoFire_32F40(type_entity_0x6E8E* a1x)//213f40
 {
 	int v1; // eax
 	int v2; // esi
@@ -23918,7 +23918,7 @@ void UpdateEffect0A_13_32F40(type_entity_0x6E8E* a1x)//213f40
 						LOWORD(v10) = (a1x->life_0x8 / 2 & 1) << 8;
 						while ((unsigned __int16)v10 < 0x800u)
 						{
-							v3x = IfSubtypeCallCreatingManaSphere_4A190(&v5x, 10, 14);
+							v3x = CreateEntity_4A190(&v5x, 10, 14);
 							if (v3x)
 							{
 								v3x->id_0x1A_26 = a1x->id_0x1A_26;
@@ -23931,7 +23931,7 @@ void UpdateEffect0A_13_32F40(type_entity_0x6E8E* a1x)//213f40
 			}
 			ResetEvent08_10100(v2);
 		}
-		a1x->position_0x4C_76.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+		a1x->position_0x4C_76.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	}
 	else
 	{
@@ -23992,7 +23992,7 @@ void UpdateWindMovement_331A0(type_entity_0x6E8E* a1x)//2141a0
 	HIBYTE(v2) &= 7u;
 	a1x->yaw_0x1C_28 = v2;
 	MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, 120);
-	predictedAxis_EB398ar.z = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+	predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 	CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
 	v7x = Entities_EA3E4[a1x->word_0x34_52];
 	resultx = a1x;
@@ -24151,7 +24151,7 @@ void UpdateWindPull_33340(type_entity_0x6E8E* a1x)//214340
 								ix->struct_byte_0xc_12_15.byte[1] |= 8u;
 								predictedAxis_EB398ar = a1x->axis_0x9A_154x;
 								v9 = ix->position_0x4C_76.z - a1x->word_0x30_48 + 57;
-								v10 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+								v10 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 								predictedAxis_EB398ar.z = v9 + v10;
 								if (predictedAxis_EB398ar.z < v10)
 									predictedAxis_EB398ar.z = v10;
@@ -24181,7 +24181,7 @@ void UpdateWindPull_33340(type_entity_0x6E8E* a1x)//214340
 					v22 = v37;
 					v23 = ix->dword_0xA0_160x->word_160_0xa_10;
 					v24 = ix->dword_0xA0_160x->word_160_0xc_12;
-					v25 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+					v25 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 					ClampAboveTerrain_580E0(&predictedAxis_EB398ar, v25, v24, v23, v22);
 					CopyEntityPosition_57CF0(ix, &predictedAxis_EB398ar);
 					if (v39)
@@ -24392,7 +24392,7 @@ void UpdateWhirlwindState_339B0(type_entity_0x6E8E* a1x)//2149b0
 			a1x->word_0x2C_44 = v7;
 			if (v7 < 0)
 			{
-				IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 0);
+				CreateEntity_4A190(&a1x->position_0x4C_76, 10, 0);
 				/*LOBYTE(v1) = */RemoveWhirlwindSegments_33D40(a1x);
 			}
 		}
@@ -24535,7 +24535,7 @@ void UpdateWhirlwindTarget_33C70(type_entity_0x6E8E* a1x)//214c70
 			v9 = 1;
 	}
 	v4 = a1x->word_0x2C_44;
-	result = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	result = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	v6 = v4 + (signed __int16)result;
 	if (a1x->position_0x4C_76.z < v6)
 		a1x->position_0x4C_76.z = v6;
@@ -24575,7 +24575,7 @@ void RemoveWhirlwindSegments_33D40(type_entity_0x6E8E* a1x)//214d40
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00033D80) --------------------------------------------------------
-void UpdateEffect0A_17_33D80(type_entity_0x6E8E* a1x)//214d80
+void UpdateSmallExplosion_33D80(type_entity_0x6E8E* a1x)//214d80
 {
 	int v1; // eax
 	__int16 v2; // ax
@@ -24605,7 +24605,7 @@ void UpdateEffect0A_17_33D80(type_entity_0x6E8E* a1x)//214d80
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00033E20) --------------------------------------------------------
-void UpdateEffect0A_19_33E20(type_entity_0x6E8E* a1x)//214e20
+void UpdateEffect0A19_33E20(type_entity_0x6E8E* a1x)//214e20
 {
 	int v1; // ecx
 	unsigned __int16 v2; // ST08_2
@@ -24630,7 +24630,7 @@ void UpdateEffect0A_19_33E20(type_entity_0x6E8E* a1x)//214e20
 }
 
 //----- (00033E80) --------------------------------------------------------
-void UpdateEffect0A_1A_33E80(type_entity_0x6E8E* a1x)//214e80
+void UpdateDuelHand_33E80(type_entity_0x6E8E* a1x)//214e80
 {
 	int v1; // eax
 	int result; // eax
@@ -24651,7 +24651,7 @@ void UpdateEffect0A_1A_33E80(type_entity_0x6E8E* a1x)//214e80
 }
 
 //----- (00034000) --------------------------------------------------------
-void UpdateEffect0A_1C_34000(type_entity_0x6E8E* a1x)//215000
+void UpdateEffectAction28_34000(type_entity_0x6E8E* a1x)//215000
 {
 	unsigned __int16 v1; // bx
 	unsigned __int16 v3; // [esp+0h] [ebp-Ch]
@@ -24685,7 +24685,7 @@ void UpdateEffect0A_1C_34000(type_entity_0x6E8E* a1x)//215000
 }
 
 //----- (00034110) --------------------------------------------------------
-void UpdateEffect0A_1B_34110(type_entity_0x6E8E* a1x)//215110
+void UpdateTerrainPaint_34110(type_entity_0x6E8E* a1x)//215110
 {
 	unsigned __int16 v1; // bx
 	char v3; // [esp+0h] [ebp-Ch]
@@ -24717,7 +24717,7 @@ void UpdateEffect0A_1B_34110(type_entity_0x6E8E* a1x)//215110
 }
 
 //----- (00034210) --------------------------------------------------------
-void UpdateEffect0A_1D_34210(type_entity_0x6E8E* a1x)//215210
+void UpdateEffectAction29_34210(type_entity_0x6E8E* a1x)//215210
 {
 	int v1; // edx
 	int v2; // ebx
@@ -24777,14 +24777,14 @@ void UpdateEffect0A_1D_34210(type_entity_0x6E8E* a1x)//215210
 }
 
 //----- (00034330) --------------------------------------------------------
-void UpdateEffect0A_1E_34330(type_entity_0x6E8E* a1x)//215330
+void UpdateEffect0A1C_34330(type_entity_0x6E8E* a1x)//215330
 {
 	DisableEntityDrawing04_57F10(a1x);
 	//return 1;
 }
 
 //----- (00034350) --------------------------------------------------------
-void UpdateEffect0A_1F_34350(type_entity_0x6E8E* a1x)//215350
+void UpdateEffect0A1D_34350(type_entity_0x6E8E* a1x)//215350
 {
 	DisableEntityDrawing04_57F10(a1x);
 	//return 1;
@@ -24834,13 +24834,13 @@ void ApplyPointToPath_343F0(type_entity_0x6E8E* event)//2153f0
 }
 
 //----- (00034480) --------------------------------------------------------
-void UpdateEffect0A_21_34480(type_entity_0x6E8E* a1x)//215480
+void UpdateEffect0A1F_34480(type_entity_0x6E8E* a1x)//215480
 {
 	DisableEntityDrawing04_57F10(a1x);
 }
 
 //----- (000344A0) --------------------------------------------------------
-void UpdateEffect0A_22_344A0(type_entity_0x6E8E* a1x)//2154a0
+void UpdateEffect0A20_344A0(type_entity_0x6E8E* a1x)//2154a0
 {
 	int v1; // eax
 	type_entity_0x6E8E* v3x; // eax
@@ -24852,7 +24852,7 @@ void UpdateEffect0A_22_344A0(type_entity_0x6E8E* a1x)//2154a0
 		DisableEntityDrawing04_57F10(a1x);
 		return;// NULL;
 	}
-	v3x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 11);
+	v3x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 11);
 	if (v3x)
 	{
 		v3x->array_0x52_82.fov = a1x->array_0x52_82.fov;
@@ -25549,7 +25549,7 @@ void UpdateEffectUntilWater_352C0(type_entity_0x6E8E* a1x)//2162c0
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00035390) --------------------------------------------------------
-void UpdateEffect0A_24_35390(type_entity_0x6E8E* a1x)//216390
+void UpdatePortal_35390(type_entity_0x6E8E* a1x)//216390
 {
 	//uint8_t* v1; // eax
 	int v2; // edx
@@ -25586,7 +25586,7 @@ void UpdateEffect0A_24_35390(type_entity_0x6E8E* a1x)//216390
 				if ((unsigned __int16)AngleDifference_582B0(v4x->yaw_0x1C_28, v5) < 0xAAu)
 				{
 					//v6 = a1x->dword_0xA0_160;
-					v7 = getTerrainAlt_10C40(&a1x->axis_0x9A_154x);
+					v7 = GetTerrainAlt_10C40(&a1x->axis_0x9A_154x);
 					//v8 = x_D41A0_BYTEARRAY_0;
 					a1x->axis_0x9A_154x.z = a1x->dword_0xA0_160x->word_160_0xc_12 + v7;
 					PrepareEventSound_6E450(a1x - D41A0_0.struct_0x6E8E, -1, 22);
@@ -25597,7 +25597,7 @@ void UpdateEffect0A_24_35390(type_entity_0x6E8E* a1x)//216390
 			//v3 += 2124;
 			v3x++;
 		}
-		a1x->position_0x4C_76.z = getTerrainAlt_10C40(v9);
+		a1x->position_0x4C_76.z = GetTerrainAlt_10C40(v9);
 	}
 	else
 	{
@@ -25609,7 +25609,7 @@ void UpdateEffect0A_24_35390(type_entity_0x6E8E* a1x)//216390
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00035530) --------------------------------------------------------
-void UpdateEffect0A_25_35530(type_entity_0x6E8E* a1x)//216530
+void UpdateEffectAction37_35530(type_entity_0x6E8E* a1x)//216530
 {
 	type_entity_0x6E8E* resultx; // eax
 	__int16 v2; // ax
@@ -25629,7 +25629,7 @@ void UpdateEffect0A_25_35530(type_entity_0x6E8E* a1x)//216530
 			v2 = a1x->yaw_0x1C_28 + 45;
 			HIBYTE(v2) &= 7u;
 			a1x->yaw_0x1C_28 = v2;
-			v3 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+			v3 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 			HIBYTE(v3)++;
 			predictedAxis_EB398ar.z = v3;
 			/*result = */CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
@@ -25642,7 +25642,7 @@ void UpdateEffect0A_25_35530(type_entity_0x6E8E* a1x)//216530
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (00035600) --------------------------------------------------------
-void UpdateEffect0A_23_35600(type_entity_0x6E8E* a1x)//216600
+void UpdateEffect0A21_35600(type_entity_0x6E8E* a1x)//216600
 {
 	type_entity_0x6E8E* resultx; // eax
 	int v2; // edx
@@ -25664,7 +25664,7 @@ void UpdateEffect0A_23_35600(type_entity_0x6E8E* a1x)//216600
 }
 
 //----- (00035640) --------------------------------------------------------
-void UpdateEffect0A_28_35640(type_entity_0x6E8E* a1x)//216640
+void UpdateThunderball_35640(type_entity_0x6E8E* a1x)//216640
 {
 	signed __int16 v1; // si
 	__int16 v2; // dx
@@ -25679,7 +25679,7 @@ void UpdateEffect0A_28_35640(type_entity_0x6E8E* a1x)//216640
 	signed int v11; // [esp+0h] [ebp-4h]
 
 	v1 = 0;
-	v2 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	v2 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	if (a1x->position_0x4C_76.z < v2 + 1024)
 	{
 		v1 = 1;
@@ -25711,7 +25711,7 @@ void UpdateEffect0A_28_35640(type_entity_0x6E8E* a1x)//216640
 				v6 = a1x->byte_0x44_68;
 				v7 = a1x->byte_0x43_67;
 				predictedAxis_EB398ar.z += a1x->array_0x52_82.yaw;
-				v8x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, v7, v6);
+				v8x = CreateEntity_4A190(&a1x->position_0x4C_76, v7, v6);
 				v9x = v8x;
 				if (v8x)
 				{
@@ -25740,7 +25740,7 @@ void UpdateEffect0A_28_35640(type_entity_0x6E8E* a1x)//216640
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (000357C0) --------------------------------------------------------
-void UpdateEffect0A_26_357C0(type_entity_0x6E8E* a1x)//2167c0
+void UpdateSkeletonSpawn_357C0(type_entity_0x6E8E* a1x)//2167c0
 {
 	signed __int16 v1; // bx
 	unsigned __int16 v2; // cx
@@ -25782,7 +25782,7 @@ void UpdateEffect0A_26_357C0(type_entity_0x6E8E* a1x)//2167c0
 			{
 				predictedAxis_EB398ar = a1x->position_0x4C_76;
 				MoveEntity_57FA0(&predictedAxis_EB398ar, v8, 0, 512);
-				v5x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 5, 9);
+				v5x = CreateEntity_4A190(&predictedAxis_EB398ar, 5, 9);
 				if (v5x)
 				{
 					v5x->mana_0x90_144 = (signed __int16)v7 % (signed __int16)v10;
@@ -25950,7 +25950,7 @@ void TransformArcherToMana_35940(type_entity_0x6E8E* a1x)//216940 //move mana sp
 							predictedAxis_EB398ar.z += v33;
 						}
 					}
-					v14 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+					v14 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 					if (v14 > predictedAxis_EB398ar.z)
 						predictedAxis_EB398ar.z = v14;
 					CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
@@ -25998,7 +25998,7 @@ void TransformArcherToMana_35940(type_entity_0x6E8E* a1x)//216940 //move mana sp
 						predictedAxis_EB398ar = a1x->position_0x4C_76;
 						v31 = (v30 * v32 + a1x->yaw_0x1C_28 + 512) & 0x7FF;
 						MoveEntity_57FA0(&predictedAxis_EB398ar, v31, 0, a1x->actSpeed_0x82_130);
-						predictedAxis_EB398ar.z = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+						predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 						if (!IsTouchingCeiling_11E70(a1x, &predictedAxis_EB398ar))
 						{
 							v34 = 1;
@@ -26029,7 +26029,7 @@ void TransformArcherToMana_35940(type_entity_0x6E8E* a1x)//216940 //move mana sp
 				}
 				a1x->word_0x2C_44 = -128;
 			}
-			v22 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+			v22 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 			if (v22 > (int16_t)predictedAxis_EB398ar.z)
 			{
 				int cftemp = 0;
@@ -26153,7 +26153,7 @@ void UpdateManaSphere_35FB0(type_entity_0x6E8E* a1x)//216FB0
 	}
 	else if (a1x->str_0x5E_94.channel[1].source && ManaSphereCheckCollector_36680(a1x))
 	{
-		IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 0);
+		CreateEntity_4A190(&a1x->position_0x4C_76, 10, 0);
 		DisableEntityDrawing04_57F10(a1x);
 	}
 	else
@@ -26234,7 +26234,7 @@ void UpdateManaSphere_35FB0(type_entity_0x6E8E* a1x)//216FB0
 							predictedAxis_EB398ar.z += v30;
 						}
 					}
-					v12 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+					v12 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 					if (v12 > predictedAxis_EB398ar.z)
 						predictedAxis_EB398ar.z = v12;
 					CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
@@ -26280,7 +26280,7 @@ void UpdateManaSphere_35FB0(type_entity_0x6E8E* a1x)//216FB0
 				{
 					CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
 				}
-				v15 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+				v15 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 				if (v15 <= (int16_t)predictedAxis_EB398ar.z)
 				{
 					if (isCaveLevel_D41B6)
@@ -26305,7 +26305,7 @@ void UpdateManaSphere_35FB0(type_entity_0x6E8E* a1x)//216FB0
 					if (TerrainTileIsWater_104D0(&a1x->position_0x4C_76) == 1)
 					{
 						a1x->word_0x2C_44 = 0;
-						v16x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
+						v16x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 5);
 						if (v16x)
 							PrepareEventSound_6E450(v16x - D41A0_0.struct_0x6E8E, -1, 27);
 					}
@@ -26356,7 +26356,7 @@ void UpdateManaSphere_35FB0(type_entity_0x6E8E* a1x)//216FB0
 					}
 					a1x->word_0x2C_44 = -128;
 				}
-				v24 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+				v24 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 				if (v24 > (int16_t)predictedAxis_EB398ar.z)
 				{
 					/*v25 = -((signed int)(a1x->word_0x2C_44
@@ -26467,7 +26467,7 @@ void ManaSphereShootFireball_36770(type_entity_0x6E8E* a1x)//217770
 	type_entity_0x6E8E* v2x; // ST08_4
 	type_entity_0x6E8E* v3x; // eax
 
-	v1x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 9, 0);
+	v1x = CreateEntity_4A190(&a1x->position_0x4C_76, 9, 0);
 	if (v1x)
 	{
 		v2x = Entities_EA3E4[a1x->str_0x5E_94.channel[1].source];
@@ -26480,7 +26480,7 @@ void ManaSphereShootFireball_36770(type_entity_0x6E8E* a1x)//217770
 		PrepareEventSound_6E450(v1x - D41A0_0.struct_0x6E8E, -1, 9);
 		if (TerrainTileIsWater_104D0(&v1x->position_0x4C_76) == 1)
 		{
-			v3x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
+			v3x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 5);
 			if (v3x)
 				PrepareEventSound_6E450(v3x - D41A0_0.struct_0x6E8E, -1, 27);
 		}
@@ -26497,7 +26497,7 @@ void ManaSphereShootProjectile9_36850(type_entity_0x6E8E* a1x)//217850
 	type_entity_0x6E8E* v3x; // esi
 
 	predictedAxis_EB398ar = a1x->position_0x4C_76;
-	v1x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 9, 9);
+	v1x = CreateEntity_4A190(&predictedAxis_EB398ar, 9, 9);
 	v2x = v1x;
 	if (v1x)
 	{
@@ -26624,14 +26624,14 @@ int GetManaSphereIndexFromId_36A50(char index)//217a50
 }
 
 //----- (00036AE0) --------------------------------------------------------
-void UpdateEffect0A_2A_36AE0(type_entity_0x6E8E* a1x)//217ae0
+void UpdatePlayerDeathEffect_36AE0(type_entity_0x6E8E* a1x)//217ae0
 {
 	int result; // eax
 	unsigned __int16 v2; // dx
 	type_entity_0x6E8E* v3x; // edi
 	type_entity_0x6E8E* ix; // ecx
 
-	result = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	result = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	v2 = a1x->str_0x5E_94.channel[1].source;
 	a1x->position_0x4C_76.z = result;
 	if (v2)
@@ -26682,7 +26682,7 @@ void TransformEntityToManaSphere_36BA0(type_entity_0x6E8E* entity, bool useManaF
 		while (manaFraction > manaIndex)
 		{
 			//create mana sphere
-			type_entity_0x6E8E* manaSphereEntity = IfSubtypeCallCreatingManaSphere_4A190(&entity->position_0x4C_76, 10, 39);
+			type_entity_0x6E8E* manaSphereEntity = CreateEntity_4A190(&entity->position_0x4C_76, 10, 39);
 			//create mana sphere
 			if (manaSphereEntity)
 			{
@@ -26697,7 +26697,7 @@ void TransformEntityToManaSphere_36BA0(type_entity_0x6E8E* entity, bool useManaF
 				manaSphereEntity->axis_0x9A_154x.x = 0;
 				manaSphereEntity->axis_0x9A_154x.y = 0;
 				manaSphereEntity->actSpeed_0x82_130 = manaSphereEntity->rand_0x14_20 % 0x30u + 16;
-				int zDiff = entity->position_0x4C_76.z - getTerrainAlt_10C40(&entity->position_0x4C_76);
+				int zDiff = entity->position_0x4C_76.z - GetTerrainAlt_10C40(&entity->position_0x4C_76);
 				manaSphereEntity->word_0x2C_44 = (1024 - zDiff - (my_sign32(1024 - zDiff) * 7)) >> 3;//0x217CF5 shl edx, 3 / sbb eax, edx
 				MoveEntity_57FA0(&manaSphereEntity->axis_0x9A_154x, manaSphereEntity->yaw_0x1C_28, 0, manaSphereEntity->actSpeed_0x82_130);
 			}
@@ -26869,7 +26869,7 @@ void UpdateManaSphereMovement_36FC0(type_entity_0x6E8E* a1x)//217fc0
 	v3 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[v1].height_5;
 	v17 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[v1].data;
 	v4 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[v1].width_4;
-	result = IsNextEvent0A_2A_37740(a1x);
+	result = IsCastleEffect42At_37740(a1x);
 	//result = 0;v3 = 0;v4 = 0;v17 = 0;  //fix it
 	if (!result)
 	{
@@ -27026,7 +27026,7 @@ void ApplyTerrainModification_37240(type_entity_0x6E8E* event)//218240
 	v50 = 0;
 	if (event->maxLife_0x4 == event->life_0x8)
 		SetShiftByCastle_49EC0(event, event->byte_0x46_70);
-	if (!IsNextEvent0A_2A_37740(event))
+	if (!IsCastleEffect42At_37740(event))
 	{
 		v36 = (event->position_0x4C_76.x + 128) >> 8;
 		v39 = (event->position_0x4C_76.y + 128) >> 8;
@@ -27089,7 +27089,7 @@ void ApplyTerrainModification_37240(type_entity_0x6E8E* event)//218240
 						event->struct_byte_0xc_12_15.byte[0] |= 1u;
 					event->axis_0x9A_154x.z = event->position_0x4C_76.z;
 					v19 = v4 >> 1;
-					event->position_0x4C_76.z = getTerrainAlt_10C40(&event->position_0x4C_76);
+					event->position_0x4C_76.z = GetTerrainAlt_10C40(&event->position_0x4C_76);
 					v20 = (v3 >> 1) & 0xFFFF;
 					DrawTerrainLine_48A20(v20, v38x._axis_2d.x, v38x._axis_2d.y, v20, (uint16_t)v19, 2u);
 					DrawTerrainLine_48A20(v20, v38x._axis_2d.x, v38x._axis_2d.y, v20, (uint16_t)v19, 5u);//problem
@@ -27226,7 +27226,7 @@ void ApplyTerrainModification_37240(type_entity_0x6E8E* event)//218240
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (00037740) --------------------------------------------------------
-bool IsNextEvent0A_2A_37740(type_entity_0x6E8E* event)//218740
+bool IsCastleEffect42At_37740(type_entity_0x6E8E* event)//218740
 {
 	type_entity_0x6E8E* event2 = x_D41A0_BYTEARRAY_4_struct.dword_38535;
 	if (event2 <= Entities_EA3E4[0])
@@ -27255,7 +27255,7 @@ void DamageOverlappingWizards_377A0(type_entity_0x6E8E* a1x)//2187a0
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (000377F0) --------------------------------------------------------
-void UpdateEffect0A_2B_377F0(type_entity_0x6E8E* a1x)//2187f0
+void UpdateCastleEffect41_377F0(type_entity_0x6E8E* a1x)//2187f0
 {
 	__int16 v1; // dx
 	//signed int v2; // eax
@@ -27438,7 +27438,7 @@ void UpdateEffect0A_2B_377F0(type_entity_0x6E8E* a1x)//2187f0
 }
 
 //----- (00037BC0) --------------------------------------------------------
-void AddTerrainMod0A_2A_37BC0(type_entity_0x6E8E* a1x)//218bc0 // groove castle
+void UpdateCastleEffect42_37BC0(type_entity_0x6E8E* a1x)//218bc0 // groove castle
 {
 	signed int v3; // eax
 	unsigned int v4; // eax
@@ -27715,13 +27715,13 @@ type_entity_0x6E8E* GetRandManaSphere_38270(type_entity_0x6E8E* event)//219270
 	{
 	case 0u:
 	case 1u:
-		resultx = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 5, 4);
+		resultx = CreateEntity_4A190(&predictedAxis_EB398ar, 5, 4);
 		if (resultx)
 			resultx->actionIndex_0x45_69 = 33;
 		break;
 	case 2u:
 	case 3u:
-		resultx = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 5, 14);
+		resultx = CreateEntity_4A190(&predictedAxis_EB398ar, 5, 14);
 		if (resultx)
 			resultx->actionIndex_0x45_69 = 113;
 		break;
@@ -27730,14 +27730,14 @@ type_entity_0x6E8E* GetRandManaSphere_38270(type_entity_0x6E8E* event)//219270
 	case 6u:
 	case 7u:
 	case 8u:
-		resultx = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 5, 13);
+		resultx = CreateEntity_4A190(&predictedAxis_EB398ar, 5, 13);
 		if (resultx)
 			resultx->actionIndex_0x45_69 = 105;
 		break;
 	case 9u:
 	case 0xAu:
 	case 0xBu:
-		resultx = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 5, 12);
+		resultx = CreateEntity_4A190(&predictedAxis_EB398ar, 5, 12);
 		if (resultx)
 			resultx->actionIndex_0x45_69 = 97;
 		break;
@@ -27749,7 +27749,7 @@ type_entity_0x6E8E* GetRandManaSphere_38270(type_entity_0x6E8E* event)//219270
 }
 
 //----- (00038330) --------------------------------------------------------
-int AddHouse0A_2D_38330(type_entity_0x6E8E* event)//219330
+int UpdateHouse_38330(type_entity_0x6E8E* event)//219330 //tex 96
 {
 	unsigned int v1; // eax
 	signed int v2; // edx
@@ -27768,7 +27768,7 @@ int AddHouse0A_2D_38330(type_entity_0x6E8E* event)//219330
 	{
 		if (v1)
 		{
-			result = getTerrainAlt_10C40(&event->position_0x4C_76);
+			result = GetTerrainAlt_10C40(&event->position_0x4C_76);
 			event->position_0x4C_76.z = result;
 			return result;
 		}
@@ -27779,7 +27779,7 @@ int AddHouse0A_2D_38330(type_entity_0x6E8E* event)//219330
 		{
 			if (v1 == 2)
 				event->actionIndex_0x45_69 = 53;
-			result = getTerrainAlt_10C40(&event->position_0x4C_76);
+			result = GetTerrainAlt_10C40(&event->position_0x4C_76);
 			event->position_0x4C_76.z = result;
 			return result;
 		}
@@ -27792,7 +27792,7 @@ int AddHouse0A_2D_38330(type_entity_0x6E8E* event)//219330
 			{
 				predictedAxis_EB398ar = event->position_0x4C_76;
 				predictedAxis_EB398ar.x += event->array_0x52_82.pitch;
-				v4x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 5, 4);
+				v4x = CreateEntity_4A190(&predictedAxis_EB398ar, 5, 4);
 				if (v4x)
 				{
 					v4x->actionIndex_0x45_69 = 33;
@@ -27859,13 +27859,13 @@ int AddHouse0A_2D_38330(type_entity_0x6E8E* event)//219330
 	}
 	if (event->byte_0x46_70 >= 0 && str_D93C0_bldgprmbuffer[event->byte_0x46_70].byte_2 & 1)//219585 movsx
 		SetMaxDistance_5C8D0(event);
-	result = getTerrainAlt_10C40(&event->position_0x4C_76);
+	result = GetTerrainAlt_10C40(&event->position_0x4C_76);
 	event->position_0x4C_76.z = result;
 	return result;
 }
 
 //----- (000385C0) --------------------------------------------------------
-void RemoveCastleStage_385C0(type_entity_0x6E8E* event)//2195c0 //remove castle stage
+void RemoveCastleStage_385C0(type_entity_0x6E8E* event)//2195c0 //remove castle stage //tex 96
 {
 	uaxis_2d locAxis1;
 	uaxis_2d locAxis2;
@@ -27919,14 +27919,14 @@ void RemoveCastleStage_385C0(type_entity_0x6E8E* event)//2195c0 //remove castle 
 								}
 								else
 								{
-									tempEvent = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 5, 4);
+									tempEvent = CreateEntity_4A190(&predictedAxis_EB398ar, 5, 4);
 									if (tempEvent)
 										tempEvent->actionIndex_0x45_69 = 33;
 								}
 							}
 							else
 							{
-								tempEvent = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 5, 12);
+								tempEvent = CreateEntity_4A190(&predictedAxis_EB398ar, 5, 12);
 								if (tempEvent)
 									tempEvent->actionIndex_0x45_69 = 97;
 							}
@@ -27977,7 +27977,7 @@ void RemoveCastleStage_385C0(type_entity_0x6E8E* event)//2195c0 //remove castle 
 		DisableEntityDrawing04_57F10(event);
 		return;
 	}
-	tempEvent = IfSubtypeCallCreatingManaSphere_4A190(&event->position_0x4C_76, 10, 45);
+	tempEvent = CreateEntity_4A190(&event->position_0x4C_76, 10, 45);
 	if (!tempEvent)
 	{
 		event->fontTypeIndex_0x3D_61 = 0;
@@ -28037,7 +28037,7 @@ int UpdateProjectileLife_389F0(type_entity_0x6E8E* a1x)//2199f0
 		if (!(a1x->struct_byte_0xc_12_15.byte[0] & 2))
 		{
 			a1x->struct_byte_0xc_12_15.byte[0] |= 2u;
-			if ((signed __int16)getTerrainAlt_10C40(&a1x->position_0x4C_76) > 58880)
+			if ((signed __int16)GetTerrainAlt_10C40(&a1x->position_0x4C_76) > 58880)
 				UpdateCastleLevel_5F890(a1x, 0);
 			if (EntitiesOverlap_106C0(
 				a1x,
@@ -28129,7 +28129,7 @@ int UpdateProjectileTrail_38B90(type_entity_0x6E8E* a1x)//219b90
 			a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 			v8x.y = a1x->rand_0x14_20 % 0x81u + a1x->position_0x4C_76.y - 96 + 160 * v11 - 64;
 			v8x.z = a1x->position_0x4C_76.z;
-			v5x = IfSubtypeCallCreatingManaSphere_4A190(&v8x, 10, 0);
+			v5x = CreateEntity_4A190(&v8x, 10, 0);
 			v6x = v5x;
 			if (v5x)
 			{
@@ -28387,7 +28387,7 @@ void UpdateLightning_39040(type_entity_0x6E8E* a1x)//21a040
 									v10 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v40x);
 									v42x = a1x->position_0x4C_76;
 									MoveEntity_57FA0(&v42x, v10, 0, 3840);
-									v11 = (signed __int16)getTerrainAlt_10C40(&v42x) >> 5;
+									v11 = (signed __int16)GetTerrainAlt_10C40(&v42x) >> 5;
 									if (a1x->word_0x2C_44 < v11)
 										a1x->word_0x2C_44 = v11;
 									v50 = v11
@@ -28743,7 +28743,7 @@ unsigned __int8 UpdateTremorTiles_396D0(type_entity_0x6E8E* a1x)//21a6d0
 						v11 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v30x);
 						v28x = a1x->position_0x4C_76;
 						MoveEntity_57FA0(&v28x, v11, 0, 3840);
-						v12 = getTerrainAlt_10C40(&v28x);
+						v12 = GetTerrainAlt_10C40(&v28x);
 						v13 = (v12 >> 5)
 							- (((x_DWORD)(0x10000 + (signed int)Maths::sin_DB750[0x200 + (v36 << 10) / 3840]) >> 1)
 								* ((v12 >> 5) - a1x->position_0x4C_76.z) >> 16);
@@ -28896,7 +28896,7 @@ void ApplyEarthquakeTiles_39B60(type_entity_0x6E8E* a1x)//21ab60
 					LOWORD(v6) = v3;
 				v7 = Maths::GetYawAngle_581E0(&predictedAxis_EB398ar, &a1x->position_0x4C_76);
 				MoveEntity_57FA0(&predictedAxis_EB398ar, v7, 0, v6);
-				v8 = (signed __int16)getTerrainAlt_10C40(&predictedAxis_EB398ar);
+				v8 = (signed __int16)GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 				if (v10x->class_0x3F_63 == 3 && !v10x->model_0x40_64)
 				{
 					v9 = (signed __int16)(predictedAxis_EB398ar.z
@@ -29409,7 +29409,7 @@ void UpdateEffectFade_3A5B0(type_entity_0x6E8E* a1x)//21b5b0
 	}
 	else if (!v1)
 	{
-		v2x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 5, a1x->byte_0x46_70);
+		v2x = CreateEntity_4A190(&a1x->position_0x4C_76, 5, a1x->byte_0x46_70);
 		if (v2x)
 		{
 			v3 = 8 * v2x->model_0x40_64;
@@ -29601,7 +29601,7 @@ void UpdatePossessedCreature_3A8B0(type_entity_0x6E8E* entity)//21b8b0
 		if (entity->byte_0x44_68 > 0 && entity->byte_0x44_68 > 6)
 			entity->byte_0x44_68 = -5;
 	}
-	int terrainAltitude = getTerrainAlt_10C40(&entity->position_0x4C_76);
+	int terrainAltitude = GetTerrainAlt_10C40(&entity->position_0x4C_76);
 	if (entity->byte_0x46_70 != 9 && entity->byte_0x46_70 != 7)
 	{
 		entity->life_0x8--;
@@ -29802,9 +29802,9 @@ void UpdatePossessedCreature_3A8B0(type_entity_0x6E8E* entity)//21b8b0
 			return;
 		entity->position_0x4C_76.z = terrainAltitude;
 		if (TerrainTileIsWater_104D0(&entity->position_0x4C_76) == 1)
-			IfSubtypeCallCreatingManaSphere_4A190(&entity->position_0x4C_76, 10, 5);
+			CreateEntity_4A190(&entity->position_0x4C_76, 10, 5);
 		else
-			IfSubtypeCallCreatingManaSphere_4A190(&entity->position_0x4C_76, 10, 0);
+			CreateEntity_4A190(&entity->position_0x4C_76, 10, 0);
 		DisableEntityDrawing04_57F10(entity);
 		return;
 	default:
@@ -29818,7 +29818,7 @@ typedef union {
 } type_un_v3;
 
 //----- (0003AF00) --------------------------------------------------------
-void CastleDefendEvent_3AF00(type_entity_0x6E8E* a1x)//21bf00
+void CastleDefendEvent_3AF00(type_entity_0x6E8E* a1x)//21bf00 //tex 55
 {
 	int v1; // edx
 	__int16 v2; // dx
@@ -30044,7 +30044,7 @@ void CastleDefendEvent_3AF00(type_entity_0x6E8E* a1x)//21bf00
 	case 9:
 		goto LABEL_73;
 	case 0xA:
-		v22x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 1);
+		v22x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 1);
 		if (v22x)
 			v22x->id_0x1A_26 = a1x->id_0x1A_26;
 	LABEL_73:
@@ -30150,7 +30150,7 @@ LABEL_74:
 		if (v25 > 0 && v25 > 6)
 			a1x->byte_0x44_68 = -5;
 	}
-	v26 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	v26 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	result = v37 + v26;
 	v28 = a1x->position_0x4C_76.z;
 	if (v28 < result)
@@ -30582,9 +30582,9 @@ void BlendAndBlit_40F80()//221f80
 		else if ((!DefaultResolutions()) && (x_WORD_180660_VGA_type_resolution != 1))
 			VGA_BlitAny(maxGameFps);
 		else if (x_WORD_180660_VGA_type_resolution & 1)
-			VGA_Blit320_90478(maxGameFps);
+			VgaBlit320_90478(maxGameFps);
 		else
-			VGA_Blit640_75200(480, maxGameFps);
+			VgaBlit640_75200(480, maxGameFps);
 	}
 	else if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && D41A0_0.m_GameSettings.m_Display.m_uiScreenSize)
 		BlitScreenToVga_BD3DD();
@@ -30593,12 +30593,12 @@ void BlendAndBlit_40F80()//221f80
 	else if ((!DefaultResolutions()) && (x_WORD_180660_VGA_type_resolution != 1))
 		VGA_BlitAny(maxGameFps);
 	else if (x_WORD_180660_VGA_type_resolution & 1)
-		VGA_Blit320_90478(maxGameFps);
+		VgaBlit320_90478(maxGameFps);
 	else
-		VGA_Blit640_75200(480, maxGameFps);
+		VgaBlit640_75200(480, maxGameFps);
 }
 
-void VGA_PaletteInstall_41A90(TColor* bufferx)//222a90
+void VgaPaletteInstall_41A90(TColor* bufferx)//222a90
 {
 	if (CommandLineParams.DoShowDebugPerifery())
 		ShowPerifery();
@@ -31206,21 +31206,21 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 				StopMusic_8E020();
 				StopCdPlayback_86860(x_WORD_1803EC);
 				RestoreSoundVolume_59BF0();
-				VGA_PalFadeInFadeOut_90B27(0, 0x10u, 0);
+				VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 				if (x_WORD_180660_VGA_type_resolution & 1)
 				{
-					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0));
+					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, GetPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0));
 					ClearScreenAlphaBuffer(320, 200, 255);
 				}
 				else
 				{
-					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0));
+					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, GetPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0));
 					ClearScreenAlphaBuffer(640, 480, 255);
 				}
 				if (x_WORD_180660_VGA_type_resolution & 1)
-					VGA_Blit320_90478(maxGameFps);
+					VgaBlit320_90478(maxGameFps);
 				else
-					VGA_Blit640_75200(480, maxGameFps);
+					VgaBlit640_75200(480, maxGameFps);
 				if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] & 2
 					&& !(x_D41A0_BYTEARRAY_4_struct.setting_38545 & 4))
 				{
@@ -31454,7 +31454,7 @@ void InGameLoop_47320()//228320
 	if(IsRecording())
 		m_InputRecorder->SaveRecording();
 
-	VGA_SetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
+	VgaSetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
 }
 
 type_entity_0x6E8E OldTestEntity[256];
@@ -31482,7 +31482,7 @@ void GiveAllSpells_Cheat(type_entity_0x6E8E* actEvent)
 		if (!actEvent->dword_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[k])
 		{
 			//adress 23354c
-			type_entity_0x6E8E* locEv = pre_sub_4A190_axis_3d(0x2321a0 + 0x20 * k, &actEvent->position_0x4C_76);
+			type_entity_0x6E8E* locEv = CallCreateFunction_4A190(0x2321a0 + 0x20 * k, &actEvent->position_0x4C_76);
 			if (locEv)
 			{
 				locEv->struct_byte_0xc_12_15.byte[0] |= 1u;
@@ -31702,7 +31702,7 @@ void PaletteChanges_47760()//228760
 		x_D41A0_BYTEARRAY_4_struct.paletteMod_51++;
 		x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 1;
 		memset((void*)*DefaultPal, 0, 768);
-		VGA_PaletteInstall_41A90(*DefaultPal);
+		VgaPaletteInstall_41A90(*DefaultPal);
 		switch (D41A0_0.terrain_2FECE.MapType)
 		{
 		case MapType_t::Day:
@@ -31752,7 +31752,7 @@ void PaletteChanges_47760()//228760
 		case 1:
 			//Fade back
 			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
-			if (VGA_PalFadeInFadeOut_90B27(*DefaultPal, 4u, 1, 0) == 4)
+			if (VgaPalFadeInFadeOut_90B27(*DefaultPal, 4u, 1, 0) == 4)
 			{
 				x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 0;
 			}
@@ -31781,7 +31781,7 @@ void PaletteChanges_47760()//228760
 				x_BYTE_F3FA0arx[i].blue = x_DWORD_F42A0;
 			}
 			ResetPaletteFade_90D27();
-			VGA_PaletteInstall_41A90(x_BYTE_F3FA0arx);
+			VgaPaletteInstall_41A90(x_BYTE_F3FA0arx);
 			x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 1;
 			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
 			break;
@@ -31810,7 +31810,7 @@ void PaletteChanges_47760()//228760
 				x_BYTE_F3FA0arx[i].blue = x_DWORD_F42A0;
 			}
 			ResetPaletteFade_90D27();
-			VGA_PaletteInstall_41A90(x_BYTE_F3FA0arx);
+			VgaPaletteInstall_41A90(x_BYTE_F3FA0arx);
 			x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 1;
 			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
 			break;
@@ -31823,7 +31823,7 @@ void PaletteChanges_47760()//228760
 				x_BYTE_F3FA0arx[i].blue = 63;
 			}
 			ResetPaletteFade_90D27();
-			VGA_PaletteInstall_41A90(x_BYTE_F3FA0arx);
+			VgaPaletteInstall_41A90(x_BYTE_F3FA0arx);
 			x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 1;
 			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
 			break;
@@ -31855,7 +31855,7 @@ void PaletteChanges_47760()//228760
 				x_BYTE_F3FA0arx[i].blue = x_DWORD_F42A0;
 			}
 			ResetPaletteFade_90D27();
-			VGA_PaletteInstall_41A90(x_BYTE_F3FA0arx);
+			VgaPaletteInstall_41A90(x_BYTE_F3FA0arx);
 			x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 1;
 			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
 			break;
@@ -31869,7 +31869,7 @@ void PaletteChanges_47760()//228760
 				x_BYTE_F3FA0arx[i].blue = x_DWORD_F42A0;
 			}
 			ResetPaletteFade_90D27();
-			VGA_PaletteInstall_41A90(x_BYTE_F3FA0arx);
+			VgaPaletteInstall_41A90(x_BYTE_F3FA0arx);
 			x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 1;
 			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
 			break;
@@ -31896,20 +31896,20 @@ void PaletteChanges_47760()//228760
 				x_BYTE_F3FA0arx[i].blue = x_DWORD_F42A0;
 			}
 			ResetPaletteFade_90D27();
-			VGA_PaletteInstall_41A90(x_BYTE_F3FA0arx);
+			VgaPaletteInstall_41A90(x_BYTE_F3FA0arx);
 			x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 9;
 			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
 			break;
 		case 9:
 			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
-			if (VGA_PalFadeInFadeOut_90B27((TColor*)*xadatapald0dat2.colorPalette_var28, 0x10u, 1) == 16)
+			if (VgaPalFadeInFadeOut_90B27((TColor*)*xadatapald0dat2.colorPalette_var28, 0x10u, 1) == 16)
 			{
 				x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 0;
 			}
 			break;
 		case 0xA:
 			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
-			if (VGA_PalFadeInFadeOut_90B27((TColor*)*xadatapald0dat2.colorPalette_var28, 0x1Cu, 1) == 28)
+			if (VgaPalFadeInFadeOut_90B27((TColor*)*xadatapald0dat2.colorPalette_var28, 0x1Cu, 1) == 28)
 			{
 				x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 0;
 			}
@@ -31929,10 +31929,10 @@ void LoadScreen_47FC0(bool isSecretLevel)//228fc0
 
 	//int result; // eax
 
-	VGA_PalFadeInFadeOut_90B27(0, 0x10u, 0);
+	VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 
 	//debug
-	VGA_PalFadeInFadeOut_90B27((TColor*)*xadatapald0dat2.colorPalette_var28, 0x20u, 0);
+	VgaPalFadeInFadeOut_90B27((TColor*)*xadatapald0dat2.colorPalette_var28, 0x20u, 0);
 	//debug
 
 	if (isSecretLevel)
@@ -31947,9 +31947,9 @@ void LoadScreen_47FC0(bool isSecretLevel)//228fc0
 	}
 	CopyScreen_85B20(x_DWORD_E9C38_smalltit, pdwScreenBuffer_351628, 400);
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		VGA_Blit320_90478();
+		VgaBlit320_90478();
 	else
-		VGA_Blit640_75200(480);
+		VgaBlit640_75200(480);
 	if (isSecretLevel)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SMATITL2.PAL");
@@ -31960,7 +31960,7 @@ void LoadScreen_47FC0(bool isSecretLevel)//228fc0
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SMATITLE.PAL");
 		DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.colorPalette_var28);
 	}
-	VGA_PalFadeInFadeOut_90B27((TColor*)*xadatapald0dat2.colorPalette_var28, 0x20u, 0);
+	VgaPalFadeInFadeOut_90B27((TColor*)*xadatapald0dat2.colorPalette_var28, 0x20u, 0);
 	//result = (int)x_D41A0_BYTEARRAY_0;
 	/*D41A0_BYTESTR_0.dword_0x23a = 1;//0x23a
 	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 574) = 0;//0x23e
@@ -31980,7 +31980,7 @@ void PaletteFadeIn_480A0()//2290a0
 	do
 		timeDiff = j___clock() - time;
 	while (timeDiff < 50); //delay 50 mms
-	VGA_PalFadeInFadeOut_90B27(0, 0x10u, 0);
+	VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 	D41A0_0.dword_0x23a = 0;
 	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/PALD-0.DAT");
 	DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.colorPalette_var28);
@@ -32766,7 +32766,7 @@ void ResetLevelState_4A1E0(int a1, char a2)//22b1e0
 	{
 		D41A0_0.str_0x364D2.dword_0x364D2 = 0;
 		memset(D41A0_0.str_0x364D2.dword_0x364D6, 0, 104);
-		CleanF5538_716A0();
+		ClearUsedTmapFlags_716A0();
 		for (int v3x = 1; v3x < 0x4b0; v3x++)
 		{
 			if (CommandLineParams.DoDebugSequences()) {
@@ -32826,8 +32826,8 @@ void SpawnLevelEntity_4A310(type_entity_0x30311* entity)//22b310
 		return;
 	v11x.x = (entity->axis2d_4.x << 8) + 128;
 	v11x.y = (entity->axis2d_4.y << 8) + 128;
-	v11x.z = getTerrainAlt_10C40(&v11x);//tady to chce pridat jeste 5012 804d80da5012
-	indexx = IfSubtypeCallCreatingManaSphere_4A190(&v11x, entity->type_0x30311, entity->subtype_0x30311);
+	v11x.z = GetTerrainAlt_10C40(&v11x);//tady to chce pridat jeste 5012 804d80da5012
+	indexx = CreateEntity_4A190(&v11x, entity->type_0x30311, entity->subtype_0x30311);
 	v2x = indexx;
 	v3x = indexx;
 	if (!indexx)
@@ -33127,7 +33127,7 @@ type_entity_0x6E8E* SetPlayerStart7_4A900(axis_3d* position)//22b900
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (0004A920) --------------------------------------------------------
-type_entity_0x6E8E* AddPlayer_4A920(axis_3d* position)//22b920 - add player 0
+type_entity_0x6E8E* AddPlayer_4A920(axis_3d* position)//22b920 - add player 0 //tex 0
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -33151,7 +33151,7 @@ type_entity_0x6E8E* AddPlayer_4A920(axis_3d* position)//22b920 - add player 0
 }
 
 //----- (0004A9C0) --------------------------------------------------------
-type_entity_0x6E8E* AddWizard03_01_4A9C0(axis_3d* position)//22b9c0 //Other player spawn?
+type_entity_0x6E8E* AddWizard_4A9C0(axis_3d* position)//22b9c0 //Other player spawn? //tex 0
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -33172,7 +33172,7 @@ type_entity_0x6E8E* AddWizard03_01_4A9C0(axis_3d* position)//22b9c0 //Other play
 }
 
 //----- (0004AA40) --------------------------------------------------------
-type_entity_0x6E8E* AddCastle03_02_4AA40(axis_3d* position)//22ba40 //Spawn Scenery Bad Stone
+type_entity_0x6E8E* AddCastle_4AA40(axis_3d* position)//22ba40 //Spawn Scenery Bad Stone //tex 96
 {
 	type_entity_0x6E8E* event; // eax
 	type_entity_0x6E8E* v2x; // ebx
@@ -33195,7 +33195,7 @@ type_entity_0x6E8E* AddCastle03_02_4AA40(axis_3d* position)//22ba40 //Spawn Scen
 		v6ar = predictedAxis_EB398ar;
 		v6ar.x >>= 8;
 		v6ar.y >>= 8;
-		v6ar.z = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+		v6ar.z = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 		if ((v6ar.x + v6ar.y) % 2)
 			v6ar.x++;
 		v6ar.x <<= 8;
@@ -33219,7 +33219,7 @@ type_entity_0x6E8E* AddCastle03_02_4AA40(axis_3d* position)//22ba40 //Spawn Scen
 }
 
 //----- (0004ABA0) --------------------------------------------------------
-type_entity_0x6E8E* AddPlayer03_03_4ABA0(axis_3d* position)//22bba0 //Spawn Creature 3?
+type_entity_0x6E8E* AddCastleBalloon_4ABA0(axis_3d* position)//22bba0 //Spawn Creature 3? //tex 88
 {
 	type_entity_0x6E8E* entity = NewEvent_4A050();
 	if (entity)
@@ -33313,7 +33313,7 @@ type_entity_0x6E8E* AddDolmen_4ADF0(axis_3d* position)//22bdf0 - add scenery Dol
 }
 
 //----- (0004AE80) --------------------------------------------------------
-type_entity_0x6E8E* AddScenery02_03_4AE80(axis_3d* position)//22be80 // Spawn Creture 3
+type_entity_0x6E8E* AddSceneryType3_4AE80(axis_3d* position)//22be80 // Spawn Creture 3
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -33331,7 +33331,7 @@ type_entity_0x6E8E* AddScenery02_03_4AE80(axis_3d* position)//22be80 // Spawn Cr
 }
 
 //----- (0004AF00) --------------------------------------------------------
-type_entity_0x6E8E* AddScenery02_04_4AF00(axis_3d* position)//22bf00 // Spawn 4??
+type_entity_0x6E8E* AddSceneryType4_4AF00(axis_3d* position)//22bf00 // Spawn 4??
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -33348,7 +33348,7 @@ type_entity_0x6E8E* AddScenery02_04_4AF00(axis_3d* position)//22bf00 // Spawn 4?
 }
 
 //----- (0004AF70) --------------------------------------------------------
-type_entity_0x6E8E* AddScenery02_05_4AF70(axis_3d* position)//22bf70 //Spawn 5??
+type_entity_0x6E8E* AddSceneryType5_4AF70(axis_3d* position)//22bf70 //Spawn 5??
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -33365,7 +33365,7 @@ type_entity_0x6E8E* AddScenery02_05_4AF70(axis_3d* position)//22bf70 //Spawn 5??
 }
 
 //----- (0004AFE0) --------------------------------------------------------
-type_entity_0x6E8E* AddScenery02_06_4AFE0(axis_3d* position)//22bfe0 //Spawn Creture Bee
+type_entity_0x6E8E* AddSceneryType6_4AFE0(axis_3d* position)//22bfe0 //Spawn Creture Bee
 {
 	type_entity_0x6E8E* v1x; // eax
 	type_entity_0x6E8E* v2x; // ebx
@@ -33397,7 +33397,7 @@ type_entity_0x6E8E* AddScenery02_06_4AFE0(axis_3d* position)//22bfe0 //Spawn Cre
 }
 
 //----- (0004B0F0) --------------------------------------------------------
-type_entity_0x6E8E* AddScenery02_07_4B0F0(axis_3d* position)//22c0f0
+type_entity_0x6E8E* AddSceneryType7_4B0F0(axis_3d* position)//22c0f0
 {
 	type_entity_0x6E8E* event; // eax
 	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
@@ -33408,7 +33408,7 @@ type_entity_0x6E8E* AddScenery02_07_4B0F0(axis_3d* position)//22c0f0
 }
 
 //----- (0004B120) --------------------------------------------------------
-type_entity_0x6E8E* AddScenery02_08_4B120(axis_3d* position)//22c120
+type_entity_0x6E8E* AddSceneryType8_4B120(axis_3d* position)//22c120
 {
 	type_entity_0x6E8E* event; // eax
 	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
@@ -33452,7 +33452,7 @@ type_entity_0x6E8E* AddSceneryWithSprite_4B150(axis_3d* position, char a2, char 
 }
 
 //----- (0004B240) --------------------------------------------------------
-type_entity_0x6E8E* AddFlyingWorm05_00_4B240(axis_3d* position)//22c240
+type_entity_0x6E8E* AddDragon_4B240(axis_3d* position)//22c240 //tex 22
 {
 	type_entity_0x6E8E* v1x; // eax
 	type_entity_0x6E8E* v2x; // ebx
@@ -33530,7 +33530,7 @@ type_entity_0x6E8E* AddFlyingWorm05_00_4B240(axis_3d* position)//22c240
 }
 
 //----- (0004B490) --------------------------------------------------------
-type_entity_0x6E8E* AddCreature_4B490(axis_3d* position)//22c490 - add creature Vulture(sup?)
+type_entity_0x6E8E* AddGoat_4B490(axis_3d* position)//22c490 - add creature Vulture(sup?) //tex 152
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -33561,7 +33561,7 @@ type_entity_0x6E8E* AddCreature_4B490(axis_3d* position)//22c490 - add creature 
 }
 
 //----- (0004B590) --------------------------------------------------------
-type_entity_0x6E8E* AddBee05_02_4B590(axis_3d* position)//22c590
+type_entity_0x6E8E* AddBee_4B590(axis_3d* position)//22c590 //tex 14
 {
 	type_entity_0x6E8E* v1x; // eax
 	type_entity_0x6E8E* v2x; // ebx
@@ -33607,7 +33607,7 @@ type_entity_0x6E8E* AddBee05_02_4B590(axis_3d* position)//22c590
 }
 
 //----- (0004B6F0) --------------------------------------------------------
-type_entity_0x6E8E* AddWorm05_03_4B6F0(axis_3d* position)//22c6f0
+type_entity_0x6E8E* AddWorm_4B6F0(axis_3d* position)//22c6f0 //tex 30
 {
 	type_entity_0x6E8E* resultx; // eax
 	type_entity_0x6E8E* v5x; // eax
@@ -33688,7 +33688,7 @@ type_entity_0x6E8E* AddWorm05_03_4B6F0(axis_3d* position)//22c6f0
 }
 
 //----- (0004BA10) --------------------------------------------------------
-type_entity_0x6E8E* AddArchers_4BA10(axis_3d* position)//22ca10
+type_entity_0x6E8E* AddArchers_4BA10(axis_3d* position)//22ca10 //tex 8
 {
 	type_entity_0x6E8E* entity = NewEvent_4A050();
 	if (entity)
@@ -33722,7 +33722,7 @@ type_entity_0x6E8E* AddArchers_4BA10(axis_3d* position)//22ca10
 }
 
 //----- (0004BBB0) --------------------------------------------------------
-type_entity_0x6E8E* AddSkeletonArcher05_09_4BBB0(axis_3d* a1x)//22cbb0
+type_entity_0x6E8E* AddSkeletonArcher_4BBB0(axis_3d* a1x)//22cbb0 //tex 158
 {
 	type_entity_0x6E8E* v1x; // eax
 	type_entity_0x6E8E* v2x; // ebx
@@ -33761,7 +33761,7 @@ type_entity_0x6E8E* AddSkeletonArcher05_09_4BBB0(axis_3d* a1x)//22cbb0
 		v2x->dword_0x10_16 = 16;
 		v2x->byte_0x39_57 = v9 + 4;
 		AddEventToMap_57D70(v2x, a1x);
-		v2x->position_0x4C_76.z = getTerrainAlt_10C40(&v2x->position_0x4C_76);
+		v2x->position_0x4C_76.z = GetTerrainAlt_10C40(&v2x->position_0x4C_76);
 		CopyMaxLifeToLife_49A20(v2x);
 		SetEntityIndexAndRot_49CD0(v2x, 220);
 		SetEntityShiftRot_49EA0(v2x, 128, 128);
@@ -33775,7 +33775,7 @@ type_entity_0x6E8E* AddSkeletonArcher05_09_4BBB0(axis_3d* a1x)//22cbb0
 }
 
 //----- (0004BD00) --------------------------------------------------------
-type_entity_0x6E8E* AddEmu05_0A_4BD00(axis_3d* position)//22cd00
+type_entity_0x6E8E* AddEmu_4BD00(axis_3d* position)//22cd00 //tex 464
 {
 	type_entity_0x6E8E* v1x; // eax
 	type_entity_0x6E8E* v2x; // ebx
@@ -33800,7 +33800,7 @@ type_entity_0x6E8E* AddEmu05_0A_4BD00(axis_3d* position)//22cd00
 	v2x->byte_0x46_70 = 0;
 	v2x->byte_0x3E_62 = D41A0_0.array_0x10[v2x->model_0x40_64]++;
 	AddEventToMap_57D70(v2x, position);
-	v2x->position_0x4C_76.z = getTerrainAlt_10C40(&v2x->position_0x4C_76);
+	v2x->position_0x4C_76.z = GetTerrainAlt_10C40(&v2x->position_0x4C_76);
 	CopyMaxLifeToLife_49A20(v2x);
 	SetEntityIndex_49C90(v2x, 341);
 	v2x->array_0x52_82.yaw = 512;
@@ -33809,7 +33809,7 @@ type_entity_0x6E8E* AddEmu05_0A_4BD00(axis_3d* position)//22cd00
 }
 
 //----- (0004BDF0) --------------------------------------------------------
-type_entity_0x6E8E* AddBuilder05_0C_4BDF0(axis_3d* position)//22cdf0
+type_entity_0x6E8E* AddBuilder_4BDF0(axis_3d* position)//22cdf0 //tex 141
 {
 	type_entity_0x6E8E* v1x; // eax
 	type_entity_0x6E8E* v2x; // ebx
@@ -33847,7 +33847,7 @@ type_entity_0x6E8E* AddBuilder05_0C_4BDF0(axis_3d* position)//22cdf0
 }
 
 //----- (0004BF40) --------------------------------------------------------
-type_entity_0x6E8E* AddVilliger_4BF40(axis_3d* position)//22cf40 - add creature Townie
+type_entity_0x6E8E* AddVillager_4BF40(axis_3d* position)//22cf40 - add creature Townie //tex 183,199,180,155
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -33904,7 +33904,7 @@ type_entity_0x6E8E* AddVilliger_4BF40(axis_3d* position)//22cf40 - add creature 
 }
 
 //----- (0004C0B0) --------------------------------------------------------
-type_entity_0x6E8E* AddTrader_4C0B0(axis_3d* position)//22d0b0
+type_entity_0x6E8E* AddTrader_4C0B0(axis_3d* position)//22d0b0 //tex 138
 {
 	type_entity_0x6E8E* entity = NewEvent_4A050();
 	if (entity)
@@ -33939,7 +33939,7 @@ type_entity_0x6E8E* AddTrader_4C0B0(axis_3d* position)//22d0b0
 }
 
 //----- (0004C1E0) --------------------------------------------------------
-type_entity_0x6E8E* AddExplodedHuman05_0F_4C1E0(axis_3d* position)//22d1e0
+type_entity_0x6E8E* AddExplodedHuman_4C1E0(axis_3d* position)//22d1e0 //tex 8
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -33973,7 +33973,7 @@ type_entity_0x6E8E* AddExplodedHuman05_0F_4C1E0(axis_3d* position)//22d1e0
 }
 
 //----- (0004C310) --------------------------------------------------------
-type_entity_0x6E8E* AddWyvern05_10_4C310(axis_3d* position)//22d310
+type_entity_0x6E8E* AddWyvern_4C310(axis_3d* position)//22d310 //tex 124
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -34011,7 +34011,7 @@ type_entity_0x6E8E* AddWyvern05_10_4C310(axis_3d* position)//22d310
 }
 
 //----- (0004C460) --------------------------------------------------------
-type_entity_0x6E8E* AddLion05_11_4C460(axis_3d* position)//22d460
+type_entity_0x6E8E* AddManticore_4C460(axis_3d* position)//22d460 //tex 263
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -34046,7 +34046,7 @@ type_entity_0x6E8E* AddLion05_11_4C460(axis_3d* position)//22d460
 }
 
 //----- (0004C590) --------------------------------------------------------
-type_entity_0x6E8E* AddHead05_12_4C590(axis_3d* position)//22d590
+type_entity_0x6E8E* AddSentinel_4C590(axis_3d* position)//22d590 //tex 271
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -34081,7 +34081,7 @@ type_entity_0x6E8E* AddHead05_12_4C590(axis_3d* position)//22d590
 }
 
 //----- (0004C6B0) --------------------------------------------------------
-type_entity_0x6E8E* AddFirebug05_13_4C6B0(axis_3d* position)//22d6b0
+type_entity_0x6E8E* AddFirefly_4C6B0(axis_3d* position)//22d6b0 //tex 279
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -34117,7 +34117,7 @@ type_entity_0x6E8E* AddFirebug05_13_4C6B0(axis_3d* position)//22d6b0
 }
 
 //----- (0004C7F0) --------------------------------------------------------
-type_entity_0x6E8E* AddSpider05_14_4C7F0(axis_3d* a1x)//22d7f0
+type_entity_0x6E8E* AddSpider_4C7F0(axis_3d* a1x)//22d7f0 //tex 287
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -34150,7 +34150,7 @@ type_entity_0x6E8E* AddSpider05_14_4C7F0(axis_3d* a1x)//22d7f0
 }
 
 //----- (0004C8F0) --------------------------------------------------------
-type_entity_0x6E8E* AddDiablo05_15_4C8F0(axis_3d* position)//22d8f0
+type_entity_0x6E8E* AddDevil_4C8F0(axis_3d* position)//22d8f0
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -34179,15 +34179,15 @@ type_entity_0x6E8E* AddDiablo05_15_4C8F0(axis_3d* position)//22d8f0
 		v1x->byte_0x43_67 = 0;
 		AddEventToMap_57D70(v1x, position);
 		CopyMaxLifeToLife_49A20(v1x);
-		DiabloSetSprite_26500(/*sub_49A20_remove_event(v1x),*/ v1x);
-		DiabloSetMode_268F0(v1x, 1u);
+		DevilSetSprite_26500(/*sub_49A20_remove_event(v1x),*/ v1x);
+		DevilSetMode_268F0(v1x, 1u);
 		SetEntityShiftRot_49EA0(v1x, 128, 128);
 	}
 	return v1x;
 }
 
 //----- (0004CA00) --------------------------------------------------------
-type_entity_0x6E8E* AddFlyingMana05_16_4CA00(axis_3d* position)//22da00
+type_entity_0x6E8E* AddFlyingMana_4CA00(axis_3d* position)//22da00
 {
 	type_entity_0x6E8E* v1x; // eax
 	if (GetFreeEntityCount_4A810() < 15)
@@ -34222,7 +34222,7 @@ type_entity_0x6E8E* AddFlyingMana05_16_4CA00(axis_3d* position)//22da00
 	v1x->byte_0x46_70 = 15;
 	v1x->byte_0x39_57 = v1x->dword_0xA0_160x->word_160_0x1a_26 - (signed __int16)v1x->byte_0x3E_62 % v1x->dword_0xA0_160x->word_160_0x1a_26 + 4;
 	predictedAxis_EB398ar = *position;
-	predictedAxis_EB398ar.z = getTerrainAlt_10C40(&predictedAxis_EB398ar) + 384;
+	predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&predictedAxis_EB398ar) + 384;
 	AddEventToMap_57D70(v1x, &predictedAxis_EB398ar);
 	SetEvent144_49C70(v1x);
 	CopyMaxLifeToLife_49A20(v1x);
@@ -34264,7 +34264,7 @@ void AddFlyingManaSegments_4CB60(type_entity_0x6E8E* event)//22db60
 }
 
 //----- (0004CBF0) --------------------------------------------------------
-type_entity_0x6E8E* AddBalloon05_17_4CBF0(axis_3d* position)//22dbf0
+type_entity_0x6E8E* AddMoonDweller_4CBF0(axis_3d* position)//22dbf0 //tex 295
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -34297,7 +34297,7 @@ type_entity_0x6E8E* AddBalloon05_17_4CBF0(axis_3d* position)//22dbf0
 }
 
 //----- (0004CCF0) --------------------------------------------------------
-type_entity_0x6E8E* AddCreature05_18_4CCF0(axis_3d* position)//22dcf0
+type_entity_0x6E8E* AddCreature24_4CCF0(axis_3d* position)//22dcf0 //tex 437
 {
 	type_entity_0x6E8E* v1x; // eax
 	if (D41A0_0.terrain_2FECE.MapType != MapType_t::Cave)
@@ -34333,7 +34333,7 @@ type_entity_0x6E8E* AddCreature05_18_4CCF0(axis_3d* position)//22dcf0
 }
 
 //----- (0004CE00) --------------------------------------------------------
-type_entity_0x6E8E* AddFlyingCreature05_19_4CE00(axis_3d* position)//22de00
+type_entity_0x6E8E* AddCymmerian_4CE00(axis_3d* position)//22de00 //tex 303
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -34367,7 +34367,7 @@ type_entity_0x6E8E* AddFlyingCreature05_19_4CE00(axis_3d* position)//22de00
 }
 
 //----- (0004CF00) --------------------------------------------------------
-type_entity_0x6E8E* AddMummy05_1A_4CF00(axis_3d* position)//22df00
+type_entity_0x6E8E* AddMummy_4CF00(axis_3d* position)//22df00 //tex 411
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -34401,7 +34401,7 @@ type_entity_0x6E8E* AddMummy05_1A_4CF00(axis_3d* position)//22df00
 }
 
 //----- (0004D000) --------------------------------------------------------
-type_entity_0x6E8E* AddBigDragon05_1B_4D000(axis_3d* position)//22e000
+type_entity_0x6E8E* AddHydra_4D000(axis_3d* position)//22e000
 {
 	type_entity_0x6E8E* v2x; // eax
 	type_entity_0x6E8E* v3x; // ebx
@@ -34490,13 +34490,13 @@ type_entity_0x6E8E* AddBigDragon05_1B_4D000(axis_3d* position)//22e000
 		}
 		if (!a1x || v16)
 		{
-			BigDragonHideSegments_2AE80(a1x);
+			HydraHideSegments_2AE80(a1x);
 		}
 		else
 		{
-			BigDragonResetRotation_2AC50(a1x);
-			BigDragonCheckSegmentsDead_2AD40(a1x);
-			BigDragonKillSegments_2AE30(a1x);
+			HydraResetRotation_2AC50(a1x);
+			HydraCheckSegmentsDead_2AD40(a1x);
+			HydraKillSegments_2AE30(a1x);
 		}
 	}
 	if (v16)
@@ -34505,7 +34505,7 @@ type_entity_0x6E8E* AddBigDragon05_1B_4D000(axis_3d* position)//22e000
 }
 
 //----- (0004D1D0) --------------------------------------------------------
-type_entity_0x6E8E* AddMana05_1C_4D1D0(axis_3d* position)//22e1d0
+type_entity_0x6E8E* AddMana_4D1D0(axis_3d* position)//22e1d0 //tex 319
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -34539,7 +34539,7 @@ type_entity_0x6E8E* AddMana05_1C_4D1D0(axis_3d* position)//22e1d0
 }
 
 //----- (0004D2E0) --------------------------------------------------------
-type_entity_0x6E8E* SummonFireball_4D2E0(axis_3d* position)//22e2e0
+type_entity_0x6E8E* AddFireballProjectile_4D2E0(axis_3d* position)//22e2e0 //tex 463
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -34556,15 +34556,15 @@ type_entity_0x6E8E* SummonFireball_4D2E0(axis_3d* position)//22e2e0
 		AddEventToMap_57D70(v1x, position);
 		CopyMaxLifeToLife_49A20(v1x);
 		SetEntityIndexAndRot_49CD0(v1x, 340);
-		AddEvent2_847D0(v1x, 128, 1, 0);
+		AddDynamicLight_847D0(v1x, 128, 1, 0);
 	}
 	return v1x;
 }
 
 //----- (0004D380) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_1C_4D380(axis_3d* position)//22e380
+type_entity_0x6E8E* AddFireStormProjectile_4D380(axis_3d* position)//22e380
 {
-	type_entity_0x6E8E* event = SummonFireball_4D2E0(position);
+	type_entity_0x6E8E* event = AddFireballProjectile_4D2E0(position);
 	if (event)
 	{
 		event->actionIndex_0x45_69 = 29;
@@ -34574,7 +34574,7 @@ type_entity_0x6E8E* AddProjectile09_1C_4D380(axis_3d* position)//22e380
 }
 
 //----- (0004D3B0) --------------------------------------------------------
-type_entity_0x6E8E* SummonManaPosession_4D3B0(axis_3d* position)//22e3b0
+type_entity_0x6E8E* AddPossessionProjectile_4D3B0(axis_3d* position)//22e3b0 //tex 144
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34598,7 +34598,7 @@ type_entity_0x6E8E* SummonManaPosession_4D3B0(axis_3d* position)//22e3b0
 }
 
 //----- (0004D470) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_02_4D470(axis_3d* position)//22e470
+type_entity_0x6E8E* AddEarthquakeProjectile_4D470(axis_3d* position)//22e470 //tex 146
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34620,7 +34620,7 @@ type_entity_0x6E8E* AddProjectile09_02_4D470(axis_3d* position)//22e470
 }
 
 //----- (0004D500) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_03_4D500(axis_3d* position)//22e500
+type_entity_0x6E8E* AddMeteorProjectile_4D500(axis_3d* position)//22e500 //tex 64
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34642,7 +34642,7 @@ type_entity_0x6E8E* AddProjectile09_03_4D500(axis_3d* position)//22e500
 }
 
 //----- (0004D590) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_04_4D590(axis_3d* position)//22e590
+type_entity_0x6E8E* AddVolcanoProjectile_4D590(axis_3d* position)//22e590 //tex 145
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34664,7 +34664,7 @@ type_entity_0x6E8E* AddProjectile09_04_4D590(axis_3d* position)//22e590
 }
 
 //----- (0004D620) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_05_4D620(axis_3d* position)//22e620
+type_entity_0x6E8E* AddCraterProjectile_4D620(axis_3d* position)//22e620 //tex 146
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34686,7 +34686,7 @@ type_entity_0x6E8E* AddProjectile09_05_4D620(axis_3d* position)//22e620
 }
 
 //----- (0004D6B0) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_06_4D6B0(axis_3d* position)//22e6b0
+type_entity_0x6E8E* AddBlueOrbProjectile_4D6B0(axis_3d* position)//22e6b0 //tex 147
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34708,7 +34708,7 @@ type_entity_0x6E8E* AddProjectile09_06_4D6B0(axis_3d* position)//22e6b0
 }
 
 //----- (0004D740) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_07_4D740(axis_3d* position)//22e740
+type_entity_0x6E8E* AddDuelProjectile_4D740(axis_3d* position)//22e740 //tex 148
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34730,7 +34730,7 @@ type_entity_0x6E8E* AddProjectile09_07_4D740(axis_3d* position)//22e740
 }
 
 //----- (0004D7D0) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_08_4D7D0(axis_3d* position)//22e7d0
+type_entity_0x6E8E* AddStealManaProjectile_4D7D0(axis_3d* position)//22e7d0 //tex 149
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34752,7 +34752,7 @@ type_entity_0x6E8E* AddProjectile09_08_4D7D0(axis_3d* position)//22e7d0
 }
 
 //----- (0004D860) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_09_4D860(axis_3d* position)//22e860
+type_entity_0x6E8E* AddLightningProjectile_4D860(axis_3d* position)//22e860 //tex 151
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34769,13 +34769,13 @@ type_entity_0x6E8E* AddProjectile09_09_4D860(axis_3d* position)//22e860
 		AddEventToMap_57D70(event, position);
 		CopyMaxLifeToLife_49A20(event);
 		SetEntityIndexAndRot_49CD0(event, 216);
-		AddEvent2_847D0(event, 128, 9, 0);
+		AddDynamicLight_847D0(event, 128, 9, 0);
 	}
 	return event;
 }
 
 //----- (0004D900) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_0A_4D900(axis_3d* position)//22e900
+type_entity_0x6E8E* AddCastleProjectile_4D900(axis_3d* position)//22e900 //tex 61
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34797,7 +34797,7 @@ type_entity_0x6E8E* AddProjectile09_0A_4D900(axis_3d* position)//22e900
 }
 
 //----- (0004D990) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_0B_4D990(axis_3d* position)//22e990
+type_entity_0x6E8E* AddBoneProjectile_4D990(axis_3d* position)//22e990 //tex 260
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34819,7 +34819,7 @@ type_entity_0x6E8E* AddProjectile09_0B_4D990(axis_3d* position)//22e990
 }
 
 //----- (0004DA20) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_0C_4DA20(axis_3d* position)//22ea20
+type_entity_0x6E8E* AddThunderboltProjectile_4DA20(axis_3d* position)//22ea20 //tex 151
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34841,7 +34841,7 @@ type_entity_0x6E8E* AddProjectile09_0C_4DA20(axis_3d* position)//22ea20
 }
 
 //----- (0004DAB0) --------------------------------------------------------
-type_entity_0x6E8E* AddEvent09_0D_4DAB0(axis_3d* position)//22eab0
+type_entity_0x6E8E* AddArrow_4DAB0(axis_3d* position)//22eab0
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34861,7 +34861,7 @@ type_entity_0x6E8E* AddEvent09_0D_4DAB0(axis_3d* position)//22eab0
 }
 
 //----- (0004DBC0) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_0E_4DBC0(axis_3d* position)//22ebc0
+type_entity_0x6E8E* AddGreenBlobProjectile_4DBC0(axis_3d* position)//22ebc0 //tex 60
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34881,7 +34881,7 @@ type_entity_0x6E8E* AddProjectile09_0E_4DBC0(axis_3d* position)//22ebc0
 }
 
 //----- (0004DC40) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_14_4DC40(axis_3d* position)//22ec40
+type_entity_0x6E8E* AddManticoreStunProjectile_4DC40(axis_3d* position)//22ec40 //tex 60
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34901,7 +34901,7 @@ type_entity_0x6E8E* AddProjectile09_14_4DC40(axis_3d* position)//22ec40
 }
 
 //----- (0004DCC0) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_15_4DCC0(axis_3d* position)//22ecc0
+type_entity_0x6E8E* AddSpiderWebProjectile_4DCC0(axis_3d* position)//22ecc0 //tex 419
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34922,7 +34922,7 @@ type_entity_0x6E8E* AddProjectile09_15_4DCC0(axis_3d* position)//22ecc0
 }
 
 //----- (0004DD50) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_0F_4DD50(axis_3d* position)//22ed50
+type_entity_0x6E8E* AddPurpleOrbProjectile_4DD50(axis_3d* position)//22ed50 //tex 150
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34942,7 +34942,7 @@ type_entity_0x6E8E* AddProjectile09_0F_4DD50(axis_3d* position)//22ed50
 }
 
 //----- (0004DDD0) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_11_4DDD0(axis_3d* position)//22edd0
+type_entity_0x6E8E* AddPossessionBeam_4DDD0(axis_3d* position)//22edd0 //tex 144
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34965,7 +34965,7 @@ type_entity_0x6E8E* AddProjectile09_11_4DDD0(axis_3d* position)//22edd0
 }
 
 //----- (0004DEA0) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_16_4DEA0(axis_3d* position)//22eea0
+type_entity_0x6E8E* AddGravityWellProjectile_4DEA0(axis_3d* position)//22eea0 //tex 146
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -34987,7 +34987,7 @@ type_entity_0x6E8E* AddProjectile09_16_4DEA0(axis_3d* position)//22eea0
 }
 
 //----- (0004DF30) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_1B_4DF30(axis_3d* position)//22ef30
+type_entity_0x6E8E* AddPurpleOrb2Projectile_4DF30(axis_3d* position)//22ef30 //tex 150
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35009,7 +35009,7 @@ type_entity_0x6E8E* AddProjectile09_1B_4DF30(axis_3d* position)//22ef30
 }
 
 //----- (0004DFC0) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_17_4DFC0(axis_3d* position)//22efc0
+type_entity_0x6E8E* AddTremorProjectile_4DFC0(axis_3d* position)//22efc0 //tex 146
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35031,7 +35031,7 @@ type_entity_0x6E8E* AddProjectile09_17_4DFC0(axis_3d* position)//22efc0
 }
 
 //----- (0004E050) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_18_4E050(axis_3d* position)//22f050
+type_entity_0x6E8E* AddSummonArmyProjectile_4E050(axis_3d* position)//22f050 //tex 260
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35054,7 +35054,7 @@ type_entity_0x6E8E* AddProjectile09_18_4E050(axis_3d* position)//22f050
 }
 
 //----- (0004E0F0) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_19_4E0F0(axis_3d* position)//22f0f0
+type_entity_0x6E8E* AddAllianceProjectile_4E0F0(axis_3d* position)//22f0f0 //tex 421
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35076,7 +35076,7 @@ type_entity_0x6E8E* AddProjectile09_19_4E0F0(axis_3d* position)//22f0f0
 }
 
 //----- (0004E180) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_1A_4E180(axis_3d* position)//22f180
+type_entity_0x6E8E* AddWhirlwindProjectile_4E180(axis_3d* position)//22f180 //tex 420
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35098,7 +35098,7 @@ type_entity_0x6E8E* AddProjectile09_1A_4E180(axis_3d* position)//22f180
 }
 
 //----- (0004E210) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_1E_4E210(axis_3d* position)//22f210
+type_entity_0x6E8E* AddCaveInProjectile_4E210(axis_3d* position)//22f210 //tex 146
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35120,7 +35120,7 @@ type_entity_0x6E8E* AddProjectile09_1E_4E210(axis_3d* position)//22f210
 }
 
 //----- (0004E2A0) --------------------------------------------------------
-type_entity_0x6E8E* AddProjectile09_1D_4E2A0(axis_3d* position)//22f2a0
+type_entity_0x6E8E* AddMagicMineProjectile_4E2A0(axis_3d* position)//22f2a0 //tex 80
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35142,7 +35142,7 @@ type_entity_0x6E8E* AddProjectile09_1D_4E2A0(axis_3d* position)//22f2a0
 }
 
 //----- (0004E320) --------------------------------------------------------
-type_entity_0x6E8E* NewAdd0A00_4E320(axis_3d* position)//22f320
+type_entity_0x6E8E* AddImpactExplosion_4E320(axis_3d* position)//22f320 //tex 38
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35159,13 +35159,13 @@ type_entity_0x6E8E* NewAdd0A00_4E320(axis_3d* position)//22f320
 		CopyMaxLifeToLife_49A20(event);
 		SetEntityIndexAndRot_49CD0(event, 7);//problem
 		SetEntityShiftRot_49EA0(event, 128, 128);
-		AddEvent2_847D0(event, 128, 7, 1);
+		AddDynamicLight_847D0(event, 128, 7, 1);
 	}
 	return event;
 }
 
 //----- (0004E3B0) --------------------------------------------------------
-type_entity_0x6E8E* NewAdd0A01_4E3B0(axis_3d* position)//22f3b0 - add effect Big explosion
+type_entity_0x6E8E* AddDeathExplosion_4E3B0(axis_3d* position)//22f3b0 - add effect Big explosion //tex 54
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35180,13 +35180,13 @@ type_entity_0x6E8E* NewAdd0A01_4E3B0(axis_3d* position)//22f3b0 - add effect Big
 		AddEventToMap_57D70(event, position);
 		CopyMaxLifeToLife_49A20(event);
 		SetEntityIndexAndRot_49CD0(event, 41);
-		AddEvent2_847D0(event, 128, 7, 1);
+		AddDynamicLight_847D0(event, 128, 7, 1);
 	}
 	return event;
 }
 
 //----- (0004E430) --------------------------------------------------------
-type_entity_0x6E8E* NewAdd0A02_4E430(axis_3d* position)//22f430
+type_entity_0x6E8E* AddSpeedSpellEffect_4E430(axis_3d* position)//22f430
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35204,7 +35204,7 @@ type_entity_0x6E8E* NewAdd0A02_4E430(axis_3d* position)//22f430
 }
 
 //----- (0004E490) --------------------------------------------------------
-type_entity_0x6E8E* NewAdd0A03_4E490(axis_3d* position)//22f490
+type_entity_0x6E8E* AddWizardGhost_4E490(axis_3d* position)//22f490 //tex 0
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35239,14 +35239,14 @@ type_entity_0x6E8E* NewAdd0A04_4E500(axis_3d* position)//22f500
 		event->struct_byte_0xc_12_15.byte[2] |= 2u;
 		event->dword_0x10_16 = 0;
 		event->position_0x4C_76 = *position;
-		event->position_0x4C_76.z = getTerrainAlt_10C40(&event->position_0x4C_76);
+		event->position_0x4C_76.z = GetTerrainAlt_10C40(&event->position_0x4C_76);
 		CopyMaxLifeToLife_49A20(event);
 	}
 	return event;
 }
 
 //----- (0004E570) --------------------------------------------------------
-type_entity_0x6E8E* NewAdd0A05_4E570(axis_3d* position)//22f570
+type_entity_0x6E8E* AddAsh_4E570(axis_3d* position)//22f570 //tex 186
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35260,7 +35260,7 @@ type_entity_0x6E8E* NewAdd0A05_4E570(axis_3d* position)//22f570
 		event->dword_0x10_16 = 0;
 		event->struct_byte_0xc_12_15.byte[2] |= 2;
 		AddEventToMap_57D70(event, position);
-		event->position_0x4C_76.z = getTerrainAlt_10C40(&event->position_0x4C_76);
+		event->position_0x4C_76.z = GetTerrainAlt_10C40(&event->position_0x4C_76);
 		CopyMaxLifeToLife_49A20(event);
 		SetEntityIndexAndRot_49CD0(event, 244);
 	}
@@ -35268,7 +35268,7 @@ type_entity_0x6E8E* NewAdd0A05_4E570(axis_3d* position)//22f570
 }
 
 //----- (0004E5F0) --------------------------------------------------------
-type_entity_0x6E8E* NewAdd0A06_4E5F0(axis_3d* position)//22f5f0
+type_entity_0x6E8E* AddFire_4E5F0(axis_3d* position)//22f5f0 //tex 77
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35282,18 +35282,18 @@ type_entity_0x6E8E* NewAdd0A06_4E5F0(axis_3d* position)//22f5f0
 		event->struct_byte_0xc_12_15.dword &= 0xFFFDFFF7;
 		event->struct_byte_0xc_12_15.byte[2] |= 2u;
 		AddEventToMap_57D70(event, position);
-		event->position_0x4C_76.z = getTerrainAlt_10C40(position);
+		event->position_0x4C_76.z = GetTerrainAlt_10C40(position);
 		CopyMaxLifeToLife_49A20(event);
 		SetEntityIndexAndRot_49CD0(event, 228);
 		SetEntityShiftRot_49EA0(event, 272, 1536);
 		event->dword_0x10_16 = 0;
-		AddEvent2_847D0(event, 80, 11, 1);
+		AddDynamicLight_847D0(event, 80, 11, 1);
 	}
 	return event;
 }
 
 //----- (0004E6A0) --------------------------------------------------------
-type_entity_0x6E8E* NewAdd0A07_4E6A0(axis_3d* position)//22f6a0
+type_entity_0x6E8E* AddEffect0A07_4E6A0(axis_3d* position)//22f6a0
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35309,7 +35309,7 @@ type_entity_0x6E8E* NewAdd0A07_4E6A0(axis_3d* position)//22f6a0
 		event->xsubtype_0x42_66 = 7;
 		event->actSpeed_0x82_130 = (event->rand_0x14_20 % 0x14u) + 20;
 		AddEventToMap_57D70(event, position);
-		event->position_0x4C_76.z = getTerrainAlt_10C40(position);
+		event->position_0x4C_76.z = GetTerrainAlt_10C40(position);
 		SetHalfSpeedEntity_49DA0(event, 78);
 		CopyMaxLifeToLife_49A20(event);
 		event->struct_byte_0xc_12_15.byte[0] |= 1u;
@@ -35317,13 +35317,13 @@ type_entity_0x6E8E* NewAdd0A07_4E6A0(axis_3d* position)//22f6a0
 	return event;
 }
 
-type_entity_0x6E8E* AddEffect0A_08_4E750()//22f750
+type_entity_0x6E8E* AddEffect0A08_4E750()//22f750
 {
 	return 0;
 }
 
 //----- (0004E760) --------------------------------------------------------
-type_entity_0x6E8E* NewAdd0A09_4E760(axis_3d* position)//22f760
+type_entity_0x6E8E* AddManaSphereSpawner_4E760(axis_3d* position)//22f760
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35343,7 +35343,7 @@ type_entity_0x6E8E* NewAdd0A09_4E760(axis_3d* position)//22f760
 }
 
 //----- (0004E7D0) --------------------------------------------------------
-type_entity_0x6E8E* NewAdd0A0A_4E7D0(axis_3d* position)//22f7d0
+type_entity_0x6E8E* AddSpawnAround_4E7D0(axis_3d* position)//22f7d0
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35363,7 +35363,7 @@ type_entity_0x6E8E* NewAdd0A0A_4E7D0(axis_3d* position)//22f7d0
 }
 
 //----- (0004E840) --------------------------------------------------------
-type_entity_0x6E8E* NewAdd0A0B_4E840(axis_3d* position)//22f840
+type_entity_0x6E8E* AddSpellBlast_4E840(axis_3d* position)//22f840
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35384,7 +35384,7 @@ type_entity_0x6E8E* NewAdd0A0B_4E840(axis_3d* position)//22f840
 }
 
 //----- (0004E8C0) --------------------------------------------------------
-type_entity_0x6E8E* NewAdd0A0C_4E8C0(axis_3d* position)//22f8c0
+type_entity_0x6E8E* AddPossessHitEffect_4E8C0(axis_3d* position)//22f8c0 //tex 54
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35406,7 +35406,7 @@ type_entity_0x6E8E* NewAdd0A0C_4E8C0(axis_3d* position)//22f8c0
 }
 
 //----- (0004E950) --------------------------------------------------------
-type_entity_0x6E8E* NewAdd0A46_4E950(axis_3d* position)//22f950
+type_entity_0x6E8E* AddEffectLifetime_4E950(axis_3d* position)//22f950 //tex 54
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35517,7 +35517,7 @@ type_entity_0x6E8E* AddSmoke_4EC10(axis_3d* position)//22fc10- add effect ??
 }
 
 //----- (0004ECD0) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_0F_4ECD0(axis_3d* position)//22fcd0
+type_entity_0x6E8E* AddEmberSpawner_4ECD0(axis_3d* position)//22fcd0
 {
 	type_entity_0x6E8E* v1x; // eax
 	v1x = NewEvent_4A050();
@@ -35559,7 +35559,7 @@ type_entity_0x6E8E* AddMeteor_4ED70(axis_3d* position)//22fd70
 }
 
 //----- (0004EDC0) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_10_4EDC0(axis_3d* position)//22fdc0
+type_entity_0x6E8E* AddVolcanoRock_4EDC0(axis_3d* position)//22fdc0 //tex 145
 {
 	type_entity_0x6E8E* v1x = NewEvent_4A050();
 	if (v1x)
@@ -35578,7 +35578,7 @@ type_entity_0x6E8E* AddEffect0A_10_4EDC0(axis_3d* position)//22fdc0
 		v1x->yaw_0x1C_28 = v1x->rand_0x14_20 & 0x7FF;
 		v1x->struct_byte_0xc_12_15.byte[2] |= 2;
 		AddEventToMap_57D70(v1x, position);
-		v1x->position_0x4C_76.z = getTerrainAlt_10C40(position) + 64;
+		v1x->position_0x4C_76.z = GetTerrainAlt_10C40(position) + 64;
 		MoveEntity_57FA0(&v1x->axis_0x9A_154x, v1x->yaw_0x1C_28, 0, v1x->actSpeed_0x82_130);
 		CopyMaxLifeToLife_49A20(v1x);
 		SetEntityIndexAndRot_49CD0(v1x, 210);
@@ -35587,7 +35587,7 @@ type_entity_0x6E8E* AddEffect0A_10_4EDC0(axis_3d* position)//22fdc0
 }
 
 //----- (0004EED0) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_12_4EED0(axis_3d* position)//22fed0
+type_entity_0x6E8E* AddVolcanoEruption_4EED0(axis_3d* position)//22fed0
 {
 	type_entity_0x6E8E* v1x; // eax
 	v1x = NewEvent_4A050();
@@ -35607,7 +35607,7 @@ type_entity_0x6E8E* AddEffect0A_12_4EED0(axis_3d* position)//22fed0
 }
 
 //----- (0004EF30) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction98_4EF30(axis_3d* a1x)//22ff30
+type_entity_0x6E8E* AddManaSphereSpawn_4EF30(axis_3d* a1x)//22ff30
 {
 	type_entity_0x6E8E* v1x; // eax
 	//uint8_t* v2; // ebx
@@ -35634,7 +35634,7 @@ type_entity_0x6E8E* AddEffectAction98_4EF30(axis_3d* a1x)//22ff30
 }
 
 //----- (0004EF90) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_13_4EF90(axis_3d* a1x)//22ff90
+type_entity_0x6E8E* AddVolcanoFire_4EF90(axis_3d* a1x)//22ff90 //tex 77
 {
 	type_entity_0x6E8E* v1x; // eax
 	//uint8_t* v2; // ebx
@@ -35726,7 +35726,7 @@ unsigned __int16 SetChainToTerrainHeight_4F1C0(type_entity_0x6E8E* a1x)//230c10
 
 	v1x = a1x;
 	v2 = 0;
-	result = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	result = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	for (i = result; v1x > Entities_EA3E4[0]; v1x = Entities_EA3E4[result])
 	{
 		v4 = v1x->word_0x2C_44 + 293;
@@ -35799,7 +35799,7 @@ type_entity_0x6E8E* AddFireSpheres_4F2A0(axis_3d* position)//2302a0
 }
 
 //----- (0004F440) --------------------------------------------------------
-__int16 InitWindEntity_4F440(type_entity_0x6E8E* a1x)//230440
+__int16 InitWindEntity_4F440(type_entity_0x6E8E* a1x)//230440 //tex 463
 {
 	unsigned __int16 v1; // ax
 	int v2; // eax
@@ -35889,7 +35889,7 @@ __int16 InitWindEntity_4F440(type_entity_0x6E8E* a1x)//230440
 		MoveEntity_57FA0(&predictedAxis_EB398ar, v13x->yaw_0x1C_28, v13x->pitch_0x1E_30, a1x->word_0x2C_44);
 		CopyEntityPosition_57CF0(v13x, &predictedAxis_EB398ar);
 		SetEntityIndexAndRot_49CD0(v13x, 340);
-		AddEvent2_847D0(v13x, 128, 1, 0);
+		AddDynamicLight_847D0(v13x, 128, 1, 0);
 		v2 = v13x->word_0x34_52;
 	}
 }
@@ -35897,7 +35897,7 @@ __int16 InitWindEntity_4F440(type_entity_0x6E8E* a1x)//230440
 // EB398: using guessed type __int16 x_WORD_EB398;
 
 //----- (0004F5F0) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_17_4F5F0(axis_3d* position)//2305f0
+type_entity_0x6E8E* AddSmallExplosion_4F5F0(axis_3d* position)//2305f0 //tex 38
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35914,13 +35914,13 @@ type_entity_0x6E8E* AddEffect0A_17_4F5F0(axis_3d* position)//2305f0
 		SetEntityIndexAndRot_49CD0(event, 7);
 		SetEntityShiftRot_49EA0(event, 200, 200);
 		event->struct_byte_0xc_12_15.byte[0] |= 1u;
-		AddEvent2_847D0(event, 128, 9, 0);
+		AddDynamicLight_847D0(event, 128, 9, 0);
 	}
 	return event;
 }
 
 //----- (0004F6A0) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_19_4F6A0(axis_3d* position)//2306a0
+type_entity_0x6E8E* AddEffect0A19_4F6A0(axis_3d* position)//2306a0
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35940,7 +35940,7 @@ type_entity_0x6E8E* AddEffect0A_19_4F6A0(axis_3d* position)//2306a0
 }
 
 //----- (0004F720) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_1A_4F720(axis_3d* position)//230720
+type_entity_0x6E8E* AddDuelHand_4F720(axis_3d* position)//230720 //tex 148
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35961,7 +35961,7 @@ type_entity_0x6E8E* AddEffect0A_1A_4F720(axis_3d* position)//230720
 }
 
 //----- (0004F7A0) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_1B_4F7A0(axis_3d* position)//2307a0
+type_entity_0x6E8E* AddTerrainPaint_4F7A0(axis_3d* position)//2307a0
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -35980,7 +35980,7 @@ type_entity_0x6E8E* AddEffect0A_1B_4F7A0(axis_3d* position)//2307a0
 }
 
 //----- (0004F800) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_1C_4F800(axis_3d* position)//230800
+type_entity_0x6E8E* AddEffect0A1C_4F800(axis_3d* position)//230800
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36084,7 +36084,7 @@ type_entity_0x6E8E* AddPointToPath_4F9A0(axis_3d* position)//2309a0 - summon eff
 }
 
 //----- (0004FA00) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_1D_4FA00(axis_3d* position)//230a00
+type_entity_0x6E8E* AddEffect0A1D_4FA00(axis_3d* position)//230a00
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36102,7 +36102,7 @@ type_entity_0x6E8E* AddEffect0A_1D_4FA00(axis_3d* position)//230a00
 }
 
 //----- (0004FA60) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_20_4FA60(axis_3d* position)//230a60
+type_entity_0x6E8E* AddEffect0A20_4FA60(axis_3d* position)//230a60
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36121,7 +36121,7 @@ type_entity_0x6E8E* AddEffect0A_20_4FA60(axis_3d* position)//230a60
 }
 
 //----- (0004FAC0) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_1F_4FAC0(axis_3d* position)//230ac0
+type_entity_0x6E8E* AddEffect0A1F_4FAC0(axis_3d* position)//230ac0
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36139,7 +36139,7 @@ type_entity_0x6E8E* AddEffect0A_1F_4FAC0(axis_3d* position)//230ac0
 }
 
 //----- (0004FB20) --------------------------------------------------------
-type_entity_0x6E8E* AddCaveEffect1_4FB20(axis_3d* position)//230b20
+type_entity_0x6E8E* AddArcProjectile_4FB20(axis_3d* position)//230b20
 {
 	type_entity_0x6E8E* event; // eax
 	if (!isCaveLevel_D41B6)
@@ -36184,7 +36184,7 @@ type_entity_0x6E8E* AddCaveEffect2_4FB80(axis_3d* position)//230b80
 }
 
 //----- (0004FBE0) --------------------------------------------------------
-type_entity_0x6E8E* AddCaveEffect3_4FBE0(axis_3d* position)//230be0
+type_entity_0x6E8E* AddTerrainDeform_4FBE0(axis_3d* position)//230be0
 {
 	type_entity_0x6E8E* event; // eax
 
@@ -36207,7 +36207,7 @@ type_entity_0x6E8E* AddCaveEffect3_4FBE0(axis_3d* position)//230be0
 }
 
 //----- (0004FC30) --------------------------------------------------------
-type_entity_0x6E8E* AddCaveEffect4_4FC30(axis_3d* position)//230c30
+type_entity_0x6E8E* AddCraterEffect_4FC30(axis_3d* position)//230c30
 {
 	if (!isCaveLevel_D41B6)
 		return 0;
@@ -36231,7 +36231,7 @@ type_entity_0x6E8E* AddCaveEffect4_4FC30(axis_3d* position)//230c30
 }
 
 //----- (0004FCA0) --------------------------------------------------------
-type_entity_0x6E8E* AddCaveEffectAction91_4FCA0(axis_3d* position)//230ca0
+type_entity_0x6E8E* AddVolcanoEffect91_4FCA0(axis_3d* position)//230ca0
 {
 	type_entity_0x6E8E* event = AddCaveEffect_4FD00(position);
 	if (event)
@@ -36243,7 +36243,7 @@ type_entity_0x6E8E* AddCaveEffectAction91_4FCA0(axis_3d* position)//230ca0
 }
 
 //----- (0004FCD0) --------------------------------------------------------
-type_entity_0x6E8E* AddCaveEffectAction92_4FCD0(axis_3d* position)//230cd0
+type_entity_0x6E8E* AddVolcanoEffect92_4FCD0(axis_3d* position)//230cd0
 {
 	type_entity_0x6E8E* event = AddCaveEffect_4FD00(position);
 	if (event)
@@ -36278,7 +36278,7 @@ type_entity_0x6E8E* AddCaveEffect_4FD00(axis_3d* position)//230d00
 }
 
 //----- (0004FD70) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction55_4FD70(axis_3d* position)//230d70
+type_entity_0x6E8E* AddEffectUntilWater_4FD70(axis_3d* position)//230d70
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36316,7 +36316,7 @@ type_entity_0x6E8E* AddEffectAction54_4FDE0(axis_3d* position)//230de0
 }
 
 //----- (0004FE40) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_22_4FE40(axis_3d* position)//230e40
+type_entity_0x6E8E* AddPortal_4FE40(axis_3d* position)//230e40 //tex 168
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36333,7 +36333,7 @@ type_entity_0x6E8E* AddEffect0A_22_4FE40(axis_3d* position)//230e40
 		SetEntityShiftRot_49EA0(event, 256, 256);
 		CopyMaxLifeToLife_49A20(event);
 		AddEventToMap_57D70(event, position);
-		event->position_0x4C_76.z = getTerrainAlt_10C40(&event->position_0x4C_76) + 640;
+		event->position_0x4C_76.z = GetTerrainAlt_10C40(&event->position_0x4C_76) + 640;
 		event->axis_0x9A_154x = event->position_0x4C_76;
 		event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
 		MoveEntity_57FA0(&event->axis_0x9A_154x, event->rand_0x14_20 & 0x7FF, 0, -32768);
@@ -36342,13 +36342,13 @@ type_entity_0x6E8E* AddEffect0A_22_4FE40(axis_3d* position)//230e40
 }
 
 //----- (0004FF20) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_23_4FF20()//230f20
+type_entity_0x6E8E* AddEffect0A23_4FF20()//230f20
 {
 	return NewEvent_4A050();
 }
 
 //----- (0004FF30) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_24_4FF30(axis_3d* position)//230f30
+type_entity_0x6E8E* AddSkeletonSpawn_4FF30(axis_3d* position)//230f30 //tex 54
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36369,7 +36369,7 @@ type_entity_0x6E8E* AddEffect0A_24_4FF30(axis_3d* position)//230f30
 }
 
 //----- (0004FFB0) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_26_4FFB0(axis_3d* position)//230fb0
+type_entity_0x6E8E* AddThunderball_4FFB0(axis_3d* position)//230fb0 //tex 202
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36388,7 +36388,7 @@ type_entity_0x6E8E* AddEffect0A_26_4FFB0(axis_3d* position)//230fb0
 }
 
 //----- (00050020) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_21_50020(axis_3d* position)//231020
+type_entity_0x6E8E* AddEffect0A21_50020(axis_3d* position)//231020
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36441,7 +36441,7 @@ type_entity_0x6E8E* CreateManaSphere_500C0(axis_3d* position, __int16 mana)//231
 }
 
 //----- (00050130) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction62_50130(axis_3d* position)//231130
+type_entity_0x6E8E* AddFoolsManaSphere_50130(axis_3d* position)//231130
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36469,7 +36469,7 @@ type_entity_0x6E8E* AddEffectAction62_50130(axis_3d* position)//231130
 }
 
 //----- (000501D0) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_28_501D0(axis_3d* position)//2311d0
+type_entity_0x6E8E* AddPlayerDeathEffect_501D0(axis_3d* position)//2311d0
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36487,7 +36487,7 @@ type_entity_0x6E8E* AddEffect0A_28_501D0(axis_3d* position)//2311d0
 }
 
 //----- (00050250) --------------------------------------------------------
-type_entity_0x6E8E* AddTerrainModification_50250(axis_3d* position)//231250 - add effect ?? no in INF
+type_entity_0x6E8E* AddTerrainModification_50250(axis_3d* position)//231250 - add effect ?? no in INF //tex 96
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36507,7 +36507,7 @@ type_entity_0x6E8E* AddTerrainModification_50250(axis_3d* position)//231250 - ad
 }
 
 //----- (000502B0) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction45_502B0(axis_3d* position)//2312b0
+type_entity_0x6E8E* AddProjectileLife_502B0(axis_3d* position)//2312b0 //tex 54
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36527,7 +36527,7 @@ type_entity_0x6E8E* AddEffectAction45_502B0(axis_3d* position)//2312b0
 }
 
 //----- (00050320) --------------------------------------------------------
-type_entity_0x6E8E* AddEffect0A_29_50320(axis_3d* position)//231320
+type_entity_0x6E8E* AddCastleEffect41_50320(axis_3d* position)//231320
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36544,7 +36544,7 @@ type_entity_0x6E8E* AddEffect0A_29_50320(axis_3d* position)//231320
 }
 
 //----- (00050370) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction44_50370(axis_3d* position)//231370
+type_entity_0x6E8E* AddCastleEffect42_50370(axis_3d* position)//231370
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36563,7 +36563,7 @@ type_entity_0x6E8E* AddEffectAction44_50370(axis_3d* position)//231370
 }
 
 //----- (000503D0) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction46_503D0(axis_3d* position)//2313d0
+type_entity_0x6E8E* AddEffectAction46_503D0(axis_3d* position)//2313d0 //tex 60
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36582,7 +36582,7 @@ type_entity_0x6E8E* AddEffectAction46_503D0(axis_3d* position)//2313d0
 }
 
 //----- (00050430) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction56_50430(axis_3d* position)//231430
+type_entity_0x6E8E* AddEffectAction56_50430(axis_3d* position)//231430 //tex 0
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36604,7 +36604,7 @@ type_entity_0x6E8E* AddEffectAction56_50430(axis_3d* position)//231430
 }
 
 //----- (000504B0) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction58_504B0(axis_3d* position)//2314b0
+type_entity_0x6E8E* AddProjectileTrail_504B0(axis_3d* position)//2314b0
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36722,7 +36722,7 @@ type_entity_0x6E8E* AddEffectAction61_506E0(axis_3d* position)//2316e0
 }
 
 //----- (00050780) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction70_50780(axis_3d* position)//231780
+type_entity_0x6E8E* AddSlowDownWizard_50780(axis_3d* position)//231780
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36738,7 +36738,7 @@ type_entity_0x6E8E* AddEffectAction70_50780(axis_3d* position)//231780
 }
 
 //----- (000507C0) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction71_507C0(axis_3d* position)//2317c0
+type_entity_0x6E8E* AddMobilizeWizard_507C0(axis_3d* position)//2317c0
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36755,7 +36755,7 @@ type_entity_0x6E8E* AddEffectAction71_507C0(axis_3d* position)//2317c0
 }
 
 //----- (00050800) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction81_50800()//231800
+type_entity_0x6E8E* AddFollowTarget_50800()//231800
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36770,7 +36770,7 @@ type_entity_0x6E8E* AddEffectAction81_50800()//231800
 }
 
 //----- (00050840) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction85_50840(axis_3d* position)//231840
+type_entity_0x6E8E* AddPossessedCreatureMarker_50840(axis_3d* position)//231840 //tex 80
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36797,7 +36797,7 @@ type_entity_0x6E8E* AddEffectAction85_50840(axis_3d* position)//231840
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (000508E0) --------------------------------------------------------
-type_entity_0x6E8E* CastleDefendCreate_508E0(axis_3d* position)//2318e0
+type_entity_0x6E8E* CastleDefendCreate_508E0(axis_3d* position)//2318e0 //tex 80
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36821,7 +36821,7 @@ type_entity_0x6E8E* CastleDefendCreate_508E0(axis_3d* position)//2318e0
 }
 
 //----- (00050960) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction93_50960(axis_3d* position)//231960
+type_entity_0x6E8E* AddSpeedTrail_50960(axis_3d* position)//231960
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -36834,7 +36834,7 @@ type_entity_0x6E8E* AddEffectAction93_50960(axis_3d* position)//231960
 		event->model_0x40_64 = 0x56;
 		event->struct_byte_0xc_12_15.byte[2] |= 2;
 		AddEventToMap_57D70(event, position);
-		event->position_0x4C_76.z = getTerrainAlt_10C40(&event->position_0x4C_76);
+		event->position_0x4C_76.z = GetTerrainAlt_10C40(&event->position_0x4C_76);
 		event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
 		SetEntityIndexAndRot_49CD0(event, event->rand_0x14_20 % 3u + 332);
 		if (!(GetTileAngleBit_104A0(&event->position_0x4C_76) & 1))
@@ -36847,7 +36847,7 @@ type_entity_0x6E8E* AddEffectAction93_50960(axis_3d* position)//231960
 }
 
 //----- (00050A20) --------------------------------------------------------
-type_entity_0x6E8E* AddCaveEffect5_50A20(axis_3d* position)//231a20
+type_entity_0x6E8E* AddSpeedSpell_50A20(axis_3d* position)//231a20
 {
 	type_entity_0x6E8E* event; // eax
 	if (D41A0_0.terrain_2FECE.MapType != MapType_t::Cave)
@@ -37097,7 +37097,7 @@ type_entity_0x6E8E* AddSwitch43_50F90(axis_3d* position)//231f90
 }
 
 //----- (00050FB0) --------------------------------------------------------
-type_entity_0x6E8E* addCheckpoint44_50FB0(axis_3d* position)//231fb0
+type_entity_0x6E8E* AddCheckpoint44_50FB0(axis_3d* position)//231fb0
 {
 	return AddSwitchXX_50A90(position, 44, 44);
 }
@@ -37142,7 +37142,7 @@ type_entity_0x6E8E* AddClass0EEntity_514E0(axis_3d* position, char a2, char a3, 
 }
 
 //----- (00051530) --------------------------------------------------------
-type_entity_0x6E8E* AddClass0E_00_51530(axis_3d* position)//232530
+type_entity_0x6E8E* AddClass0E00_51530(axis_3d* position)//232530
 {
 	type_entity_0x6E8E* event = AddClass0EEntity_514E0(position, 0, 0, 77);
 	if (event)
@@ -37151,7 +37151,7 @@ type_entity_0x6E8E* AddClass0E_00_51530(axis_3d* position)//232530
 }
 
 //----- (00051570) --------------------------------------------------------
-type_entity_0x6E8E* AddClass0E_03_51570(axis_3d* position)//232570
+type_entity_0x6E8E* AddClass0E03_51570(axis_3d* position)//232570
 {
 	type_entity_0x6E8E* event = AddClass0EEntity_514E0(position, 3, 8, 338);
 	if (event)
@@ -37163,7 +37163,7 @@ type_entity_0x6E8E* AddClass0E_03_51570(axis_3d* position)//232570
 }
 
 //----- (000515C0) --------------------------------------------------------
-type_entity_0x6E8E* AddClass0E_04_515C0(axis_3d* position)//2325c0
+type_entity_0x6E8E* AddClass0E04_515C0(axis_3d* position)//2325c0
 {
 	type_entity_0x6E8E* event = AddClass0EEntity_514E0(position, 4, 9, 339);
 	if (event)
@@ -37175,7 +37175,7 @@ type_entity_0x6E8E* AddClass0E_04_515C0(axis_3d* position)//2325c0
 }
 
 //----- (00051610) --------------------------------------------------------
-type_entity_0x6E8E* AddClass0E_05_51610(axis_3d* position)//232610
+type_entity_0x6E8E* AddClass0E05_51610(axis_3d* position)//232610
 {
 	type_entity_0x6E8E* event = AddClass0EEntity_514E0(position, 5, 10, 280);
 	if (event)
@@ -37188,7 +37188,7 @@ type_entity_0x6E8E* AddClass0E_05_51610(axis_3d* position)//232610
 }
 
 //----- (00051660) --------------------------------------------------------
-type_entity_0x6E8E* AddClass0E_01_51660(axis_3d* position)//232660
+type_entity_0x6E8E* AddClass0E01_51660(axis_3d* position)//232660
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -37207,7 +37207,7 @@ type_entity_0x6E8E* AddClass0E_01_51660(axis_3d* position)//232660
 }
 
 //----- (000516C0) --------------------------------------------------------
-type_entity_0x6E8E* AddClass0E_02_516C0(axis_3d* position)//2326c0
+type_entity_0x6E8E* AddClass0E02_516C0(axis_3d* position)//2326c0
 {
 	type_entity_0x6E8E* event = 0;
 	if (isCaveLevel_D41B6)
@@ -37231,7 +37231,7 @@ type_entity_0x6E8E* AddClass0E_02_516C0(axis_3d* position)//2326c0
 }
 
 //----- (00051730) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction72_51730(axis_3d* position)//232730
+type_entity_0x6E8E* AddLightningEffect_51730(axis_3d* position)//232730
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -37249,7 +37249,7 @@ type_entity_0x6E8E* AddEffectAction72_51730(axis_3d* position)//232730
 }
 
 //----- (00051790) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction78_51790(axis_3d* position)//232790
+type_entity_0x6E8E* AddShield_51790(axis_3d* position)//232790
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -37269,7 +37269,7 @@ type_entity_0x6E8E* AddEffectAction78_51790(axis_3d* position)//232790
 }
 
 //----- (00051800) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectIfEntitiesFree_51800(axis_3d* position)//232800
+type_entity_0x6E8E* AddEffectIfEntitiesFree_51800(axis_3d* position)//232800 //tex 158
 {
 	type_entity_0x6E8E* event = nullptr;
 	if (GetFreeEntityCount_4A810() >= x_D41A0_BYTEARRAY_4_struct.byteindex_224)
@@ -37297,7 +37297,7 @@ type_entity_0x6E8E* AddEffectIfEntitiesFree_51800(axis_3d* position)//232800
 					newEvent->byte_0x3E_62 = index;
 					predictedAxis_EB398ar = *position;
 					MoveEntity_57FA0(&predictedAxis_EB398ar, index * (2048 / x_D41A0_BYTEARRAY_4_struct.byteindex_224), 0, 512);
-					predictedAxis_EB398ar.z = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+					predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 					AddEventToMap_57D70(newEvent, &predictedAxis_EB398ar);
 					SetEntityShiftRot_49EA0(newEvent, 128, 256);
 					SetEntityIndexAndRot_49CD0(newEvent, 220);
@@ -37306,7 +37306,7 @@ type_entity_0x6E8E* AddEffectIfEntitiesFree_51800(axis_3d* position)//232800
 			}
 			predictedAxis_EB398ar = *position;
 			MoveEntity_57FA0(&predictedAxis_EB398ar, 0, 0, 512);
-			predictedAxis_EB398ar.z = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+			predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 			AddEventToMap_57D70(event, &predictedAxis_EB398ar);
 			SetEntityShiftRot_49EA0(event, 128, 256);
 			SetEntityIndexAndRot_49CD0(event, 220);
@@ -37316,7 +37316,7 @@ type_entity_0x6E8E* AddEffectIfEntitiesFree_51800(axis_3d* position)//232800
 }
 
 //----- (00051A00) --------------------------------------------------------
-type_entity_0x6E8E* AddEffectAction80_51A00(axis_3d* position)//232a00
+type_entity_0x6E8E* AddEffectCountdown_51A00(axis_3d* position)//232a00 //tex 158
 {
 	type_entity_0x6E8E* entity = NewEvent_4A050();
 	if (entity)
@@ -37328,7 +37328,7 @@ type_entity_0x6E8E* AddEffectAction80_51A00(axis_3d* position)//232a00
 		entity->struct_byte_0xc_12_15.byte[0] &= 0xF7;
 		entity->maxLife_0x4 = entity->life_0x8;
 		predictedAxis_EB398ar = *position;
-		predictedAxis_EB398ar.z = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+		predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 		AddEventToMap_57D70(entity, &predictedAxis_EB398ar);
 		SetEntityShiftRot_49EA0(entity, 128, 256);
 		SetEntityIndexAndRot_49CD0(entity, 220);
@@ -37872,7 +37872,7 @@ void PlayerEvents_51BB0()//232bb0
 				ShowMessage_52D70(i, (char*)".. CHEAT: access all spells");
 				break;
 			case 2:
-				ifsEvent = IfSubtypeCallCreatingManaSphere_4A190(&actEvent->position_0x4C_76, 10, 39);
+				ifsEvent = CreateEntity_4A190(&actEvent->position_0x4C_76, 10, 39);
 				if (ifsEvent)
 				{
 					ifsEvent->mana_0x90_144 = 100000;
@@ -39506,7 +39506,7 @@ void LevelInitGame_56A30(int16_t level, std::string customLevelPath)//237a30
 	{
 		InitStages_58940();
 		InitStageVars_11EE0();
-		Init0x3664C_84790();
+		ClearDynamicLights_84790();
 	}
 	//adress 237BB0
 	if (CommandLineParams.DoDebugSequences()) {
@@ -39572,7 +39572,7 @@ void LoadLevel_56D60(unsigned int a1, char a2)//237d60
 		SetTmapsFile_71A70(D41A0_0.terrain_2FECE.MapType);
 	InitStages_58940();
 	InitStageVars_11EE0();
-	Init0x3664C_84790();
+	ClearDynamicLights_84790();
 	ResetLevelState_4A1E0(0, 1);
 	soundActive_E3799 = v2;
 	UpdateGameFrame_53160();
@@ -40229,7 +40229,7 @@ void UpdateEntities_57730()//238730
 							mx->actionIndex_0x45_69++;
 							mx->actionIndex_0x45_69--;
 						}*/
-						pre_sub_4A190_0x6E8E(str_D4C48ar[mx->class_0x3F_63].dword_10[mx->actionIndex_0x45_69].address_6, mx);
+						CallUpdateFunction_4A190(str_D4C48ar[mx->class_0x3F_63].dword_10[mx->actionIndex_0x45_69].address_6, mx);
 						mx->byte_0x3E_62++;
 					}
 				}
@@ -40310,7 +40310,7 @@ void CopyPlayerPositionAndRotation_57B20(type_str_0x2BDE* a1x, type_entity_0x6E8
 	{
 		a1x->struct_0x1d1_2BDE_11695[a1x->word_0x010_2BDE_11246].axis_2BDE_11695.x = a2x->position_0x4C_76.x;
 		a1x->struct_0x1d1_2BDE_11695[a1x->word_0x010_2BDE_11246].axis_2BDE_11695.y = a2x->position_0x4C_76.y;
-		getTerrainAlt_10C40(&a2x->position_0x4C_76);
+		GetTerrainAlt_10C40(&a2x->position_0x4C_76);
 		//v2 = a2x->array_0x4C_76.z;
 		a1x->struct_0x1d1_2BDE_11695[a1x->word_0x010_2BDE_11246].axis_2BDE_11695.z = a2x->position_0x4C_76.z;
 
@@ -40515,7 +40515,7 @@ void UpdateWizardHeights_585D0()//2395d0
 	{
 		if (!ix->model_0x40_64)
 		{
-			v2 = getTerrainAlt_10C40(&ix->position_0x4C_76);
+			v2 = GetTerrainAlt_10C40(&ix->position_0x4C_76);
 			if (ix->position_0x4C_76.z < v2 + v0)
 				ix->position_0x4C_76.z = v0 + v2;
 		}
@@ -40608,7 +40608,7 @@ LABEL_5:
 				{
 					v15x.x = v13x._axis_2d.x << 8;
 					v15x.y = v13x._axis_2d.y << 8;
-					IfSubtypeCallCreatingManaSphere_4A190(&v15x, 10, 86);
+					CreateEntity_4A190(&v15x, 10, 86);
 					v3x = 1;
 				}
 				v11 += 11;
@@ -41201,7 +41201,7 @@ void SnapEntityToTerrain_59C40(type_entity_0x6E8E* a1x)//23ac40
 	//int result; // eax
 
 	//result = sub_10C40_getTerrainAlt(&a1x->array_0x4C_76);
-	a1x->position_0x4C_76.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	a1x->position_0x4C_76.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	//return result;
 }
 
@@ -41210,7 +41210,7 @@ int SnapEntityToTerrain2_59C60(type_entity_0x6E8E* a1x)//23ac60
 {
 	int result; // eax
 
-	result = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	result = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	a1x->position_0x4C_76.z = result;
 	return result;
 }
@@ -41226,7 +41226,7 @@ int UpdateScroll_59C80(type_entity_0x6E8E* entity)//23ac80
 	}
 	else
 	{
-		entity->position_0x4C_76.z = getTerrainAlt_10C40(&entity->position_0x4C_76);
+		entity->position_0x4C_76.z = GetTerrainAlt_10C40(&entity->position_0x4C_76);
 		for (entity2 = x_D41A0_BYTEARRAY_4_struct.dword_38519; entity2 > Entities_EA3E4[0]; entity2 = entity2->next_0)
 		{
 			if (!entity2->model_0x40_64 && entity2->life_0x8 >= 0)
@@ -41300,7 +41300,7 @@ char CheckParentAlive_59DC0(type_entity_0x6E8E* a1x)//23adc0
 	v7 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v10x);
 	MoveEntity_57FA0(&predictedAxis_EB398ar, v7, v6, v5);
 	CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
-	v8 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	v8 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	if (a1x->position_0x4C_76.z >= v8 + 64)
 	{
 		a1x->dword_0x10_16++;
@@ -42989,38 +42989,38 @@ void Initialize()//23c8d0
 
 	//VGA_Write_basic_Palette(basic_pal_buffer);
 
-  //VGA_PalFadeInFadeOut_90B27(*xadatapald0dat2.colorPalette_var28, 0x20u, 0);
+  //VgaPalFadeInFadeOut_90B27(*xadatapald0dat2.colorPalette_var28, 0x20u, 0);
 
-	VGA_PalFadeInFadeOut_90B27(0, 0x10u, 0);//271B27 tady se zapina vga
+	VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);//271B27 tady se zapina vga
 	//fixed
 	ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, 0);//fixed
 	ClearScreenAlphaBuffer(640, 480, 255);
-	//VGA_Blit640_75200(480);//debug
-	//VGA_Blit640_75200(480);//debug
+	//VgaBlit640_75200(480);//debug
+	//VgaBlit640_75200(480);//debug
 	//fixed
   //*xadatapald0dat2.colorPalette_var28 = (uint8_t*)malloc(10000);//fix it
 	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
-	VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//222a90
+	VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//222a90
 	x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 = 0;//fix it
 	if ((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 0x110)//2a51a4 // 38cf50+16 //00 druh grafiky/inicializace
 	{
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			VGA_SetVideoMode320x200AndPalette_90D6E((TColor*)*xadatapald0dat2.colorPalette_var28);
+			VgaSetVideoMode320x200AndPalette_90D6E((TColor*)*xadatapald0dat2.colorPalette_var28);
 		else
-			VGA_SetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
+			VgaSetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
 		memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
-		VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//222a90
+		VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//222a90
 	}
 	else
 	{
-		VGA_PalFadeInFadeOut_90B27(0, 0x10u, 0);
+		VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 		x_WORD_180660_VGA_type_resolution = 1;//fix it
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			VGA_SetVideoMode320x200AndPalette_90D6E((TColor*)pdwScreenBuffer_351628);//3aa0a4
+			VgaSetVideoMode320x200AndPalette_90D6E((TColor*)pdwScreenBuffer_351628);//3aa0a4
 		else
-			VGA_SetVideoMode640x480AndPalette_90E07((TColor*)pdwScreenBuffer_351628);
+			VgaSetVideoMode640x480AndPalette_90E07((TColor*)pdwScreenBuffer_351628);
 		memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 0x300);
-		VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//222a90
+		VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//222a90
 	}
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8)
 		NoOp_8C2CD();
@@ -43744,7 +43744,7 @@ void SetMaxDistance_5C8D0(type_entity_0x6E8E* event)//23d8d0
 
 int debugcounter_23d950 = 0;
 //----- (0005C950) --------------------------------------------------------
-void UpdatePlayerWizard_5C950(type_str_0x2BDE* a1x, type_entity_0x6E8E* a2x)//23d950
+void UpdatePlayerWizard_5C950(type_str_0x2BDE* a1x, type_entity_0x6E8E* a2x)//23d950 //tex 0,211,243,203,251,235,227,219
 {
 	type_entity_0x6E8E* v2x; // ebx
 	__int16 v3; // ax
@@ -43801,12 +43801,12 @@ void UpdatePlayerWizard_5C950(type_str_0x2BDE* a1x, type_entity_0x6E8E* a2x)//23
 	//v35x[2] = *(x_WORD *)(x_D41A0_BYTEARRAY_0 + 6 * ((a1 - &x_D41A0_BYTEARRAY_0[11230]) / 2124) + 9062);
 	v35x = D41A0_0.array_0x2362[a1x - &D41A0_0.array_0x2BDE[0]]; // FIXME: pointer arithmetic for array_0x2362
 	//v35x[2] = get_x_D41A0_BYTEARRAY_0_0x2366(((a1 - &x_D41A0_BYTEARRAY_0[11230]) / 2124));
-	v3 = getTerrainAlt_10C40(&v35x);
+	v3 = GetTerrainAlt_10C40(&v35x);
 	v3 += 0x100;
 	v35x.z = v3;
 	if (a2x == Entities_EA3E4[0])
 	{
-		v2x = IfSubtypeCallCreatingManaSphere_4A190(&v35x, 3, a1x->IsAiPlayer_0x009_2BE4_11239 == 1);
+		v2x = CreateEntity_4A190(&v35x, 3, a1x->IsAiPlayer_0x009_2BE4_11239 == 1);
 		v37 = 1;
 	}
 	else
@@ -43894,7 +43894,7 @@ void UpdatePlayerWizard_5C950(type_str_0x2BDE* a1x, type_entity_0x6E8E* a2x)//23
 			{
 				if (D41A0_0.terrain_2FECE.player_0x2FED9[v2x->dword_0xA4_164x->playerColorIndex_0x38_56])
 				{
-					v16x = IfSubtypeCallCreatingManaSphere_4A190(&v2x->position_0x4C_76, 3, 2);
+					v16x = CreateEntity_4A190(&v2x->position_0x4C_76, 3, 2);
 					v39x = v16x;
 					if (v16x)
 					{
@@ -44172,7 +44172,7 @@ type_entity_0x6E8E* CastSpell_6DCA0(type_entity_0x6E8E* a1x, axis_3d* a2x, unsig
 				{
 					if (a4x->life_0x1A > 2u)
 						goto LABEL_60;
-					v12x = IfSubtypeCallCreatingManaSphere_4A190(a2x, 9, 12);
+					v12x = CreateEntity_4A190(a2x, 9, 12);
 					v7x = v12x;
 					if (!v12x)
 						goto LABEL_60;
@@ -44183,7 +44183,7 @@ type_entity_0x6E8E* CastSpell_6DCA0(type_entity_0x6E8E* a1x, axis_3d* a2x, unsig
 				}
 				else
 				{
-					v10x = IfSubtypeCallCreatingManaSphere_4A190(a2x, 9, 9);
+					v10x = CreateEntity_4A190(a2x, 9, 9);
 					v7x = v10x;
 					if (!v10x)
 						goto LABEL_60;
@@ -44196,9 +44196,9 @@ type_entity_0x6E8E* CastSpell_6DCA0(type_entity_0x6E8E* a1x, axis_3d* a2x, unsig
 				goto LABEL_60;
 			}
 			if (a4x->life_0x1A >= 2u)
-				v8x = IfSubtypeCallCreatingManaSphere_4A190(a2x, 9, 28);
+				v8x = CreateEntity_4A190(a2x, 9, 28);
 			else
-				v8x = IfSubtypeCallCreatingManaSphere_4A190(a2x, 9, 0);
+				v8x = CreateEntity_4A190(a2x, 9, 0);
 			v7x = v8x;
 			if (v8x)
 			{
@@ -44214,7 +44214,7 @@ type_entity_0x6E8E* CastSpell_6DCA0(type_entity_0x6E8E* a1x, axis_3d* a2x, unsig
 		{
 			if (a3 <= 9u)
 			{
-				v13x = IfSubtypeCallCreatingManaSphere_4A190(a2x, 9, 3);
+				v13x = CreateEntity_4A190(a2x, 9, 3);
 				v7x = v13x;
 				if (!v13x)
 					goto LABEL_60;
@@ -44227,7 +44227,7 @@ type_entity_0x6E8E* CastSpell_6DCA0(type_entity_0x6E8E* a1x, axis_3d* a2x, unsig
 				goto LABEL_60;
 			if (a3 <= 0xDu)
 			{
-				v14x = IfSubtypeCallCreatingManaSphere_4A190(a2x, 9, 8);
+				v14x = CreateEntity_4A190(a2x, 9, 8);
 				v7x = v14x;
 				if (v14x)
 				{
@@ -44237,7 +44237,7 @@ type_entity_0x6E8E* CastSpell_6DCA0(type_entity_0x6E8E* a1x, axis_3d* a2x, unsig
 			}
 			else if (a3 == 15)
 			{
-				v15x = IfSubtypeCallCreatingManaSphere_4A190(a2x, 9, 23);
+				v15x = CreateEntity_4A190(a2x, 9, 23);
 				v7x = v15x;
 				if (v15x)
 				{
@@ -44253,7 +44253,7 @@ type_entity_0x6E8E* CastSpell_6DCA0(type_entity_0x6E8E* a1x, axis_3d* a2x, unsig
 	}
 	else if (a3 <= 0x10u)
 	{
-		v16x = IfSubtypeCallCreatingManaSphere_4A190(a2x, 9, 5);
+		v16x = CreateEntity_4A190(a2x, 9, 5);
 		v7x = v16x;
 		if (v16x)
 		{
@@ -44267,7 +44267,7 @@ type_entity_0x6E8E* CastSpell_6DCA0(type_entity_0x6E8E* a1x, axis_3d* a2x, unsig
 	{
 		if (a3 <= 0x11u)
 		{
-			v17x = IfSubtypeCallCreatingManaSphere_4A190(a2x, 9, 2);
+			v17x = CreateEntity_4A190(a2x, 9, 2);
 			v7x = v17x;
 			if (v17x)
 			{
@@ -44279,7 +44279,7 @@ type_entity_0x6E8E* CastSpell_6DCA0(type_entity_0x6E8E* a1x, axis_3d* a2x, unsig
 		}
 		else if (a3 == 18)
 		{
-			v18x = IfSubtypeCallCreatingManaSphere_4A190(a2x, 9, 4);
+			v18x = CreateEntity_4A190(a2x, 9, 4);
 			v7x = v18x;
 			if (v18x)
 			{
@@ -44292,7 +44292,7 @@ type_entity_0x6E8E* CastSpell_6DCA0(type_entity_0x6E8E* a1x, axis_3d* a2x, unsig
 	}
 	else if (a3 <= 0x14u)
 	{
-		v19x = IfSubtypeCallCreatingManaSphere_4A190(a2x, 9, 22);
+		v19x = CreateEntity_4A190(a2x, 9, 22);
 		v7x = v19x;
 		if (v19x)
 		{
@@ -44306,7 +44306,7 @@ type_entity_0x6E8E* CastSpell_6DCA0(type_entity_0x6E8E* a1x, axis_3d* a2x, unsig
 	{
 		if (a3 <= 0x15u)
 		{
-			v20x = IfSubtypeCallCreatingManaSphere_4A190(a2x, 9, 26);
+			v20x = CreateEntity_4A190(a2x, 9, 26);
 			v21x = v20x;
 			v7x = v20x;
 			if (!v20x)
@@ -44321,7 +44321,7 @@ type_entity_0x6E8E* CastSpell_6DCA0(type_entity_0x6E8E* a1x, axis_3d* a2x, unsig
 		}
 		if (a3 == 25)
 		{
-			v23x = IfSubtypeCallCreatingManaSphere_4A190(a2x, 9, 30);
+			v23x = CreateEntity_4A190(a2x, 9, 30);
 			v21x = v23x;
 			v7x = v23x;
 			if (v23x)
@@ -44468,11 +44468,11 @@ void EndLoop_6EAB0(int  /*a1*/, __int16 a2, __int16 index)//24fab0
 	else if ((unsigned __int16)index > 31)
 	{
 		if ((unsigned __int16)index >= 47 && ((unsigned __int16)index <= 0x2Fu || index == 49))
-			Update_Playing_Sample_Status_8F710(0, index, 0, 4u, 1);
+			UpdatePlayingSampleStatus_8F710(0, index, 0, 4u, 1);
 		return;
 	}
 	if (a2 == D41A0_0.LevelIndex_0xc)
-		Update_Playing_Sample_Status_8F710(0, index, 0, 2u, 1);
+		UpdatePlayingSampleStatus_8F710(0, index, 0, 2u, 1);
 }
 
 //----- (0006EBF0) --------------------------------------------------------
@@ -44614,7 +44614,7 @@ void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 }
 
 //----- (0006F030) --------------------------------------------------------
-type_entity_0x6E8E* AddSwitch0B_00_6F030(type_entity_0x6E8E* event)//250030
+type_entity_0x6E8E* SwitchResetLevel_6F030(type_entity_0x6E8E* event)//250030
 {
 	type_entity_0x6E8E* event2 = InitSwitchChainZaxisAndSound_6F850(event, 1);
 	if (event2)
@@ -44647,7 +44647,7 @@ type_entity_0x6E8E* InitSwitchChainZaxisAndSound_6F850(type_entity_0x6E8E* event
 	{
 		if (ix <= Entities_EA3E4[0])
 		{
-			event->position_0x4C_76.z = getTerrainAlt_10C40(&event->position_0x4C_76);
+			event->position_0x4C_76.z = GetTerrainAlt_10C40(&event->position_0x4C_76);
 			return 0;
 		}
 		if (!ix->model_0x40_64 && CompareAxisWithShift_10750(event, ix) == a2)
@@ -44974,7 +44974,7 @@ void FreeTmapsAndAnimations_713A0()//2523a0
 {
 	FreeTmapCache_720C0(&x_DWORD_E9C28_str);
 	FreeAnimations_72550(&animations_E9C08x);
-	CleanF5538_716A0();
+	ClearUsedTmapFlags_716A0();
 	memset(m_ptrLoadedSprites_F66F0x, 0, 504 * sizeof(Type_Sprite**));
 	memset(str_F5F10, 0, 504 * sizeof(Type_Sprite**));
 	memset(x_DWORD_F5730, 0, 2016);
@@ -45095,7 +45095,7 @@ void UpdateSpriteAnimations_715B0()//2525b0
 // F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
 
 //----- (000716A0) --------------------------------------------------------
-void CleanF5538_716A0()//2526a0
+void ClearUsedTmapFlags_716A0()//2526a0
 {
 	memset(x_BYTE_F5538, 0, 504);
 }
@@ -45121,17 +45121,17 @@ void LoadEntitySprites_716C0(unsigned __int16 entityType, unsigned __int16 entit
 			if ((v4[0] & 0x8000u) != 0)
 				break;
 			v4++;
-			SetF5538ByStrTMAP00TAB_71730(v5);
+			MarkSpriteTmapUsed_71730(v5);
 		}
 	}
 	else if ((a3 & 0x8000u) == 0)
 	{
-		SetF5538ByStrTMAP00TAB_71730(a3);
+		MarkSpriteTmapUsed_71730(a3);
 	}
 }
 
 //----- (00071730) --------------------------------------------------------
-void SetF5538ByStrTMAP00TAB_71730(unsigned __int16 a1)//252730
+void MarkSpriteTmapUsed_71730(unsigned __int16 a1)//252730
 {
 	x_BYTE_F5538[str_TMAPS00TAB_BEGIN_BUFFER[spriteDefsTable_D951C[a1].textureIdx_0].word_8] = spriteDefsTable_D951C[a1].byte_11;
 }
@@ -46168,7 +46168,7 @@ int DecodeAnimationRun_76840()
 
 /*void Debug_Blit()
 {
-	VGA_Blit640_75200(480);
+	VgaBlit640_75200(480);
 }*/
 
 //----- (0007A060) --------------------------------------------------------
@@ -46463,7 +46463,7 @@ void ResetMouse_7B5A0()
 //----- (0007B5D0) --------------------------------------------------------
 void FadeClearBlit_7B5D0()
 {
-	VGA_PalFadeInFadeOut_90B27(0, 0x10u, 0);
+	VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
@@ -46476,9 +46476,9 @@ void FadeClearBlit_7B5D0()
 		ClearScreenAlphaBuffer(640, 480, 255);
 	}
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		VGA_Blit320_90478(menuFps);
+		VgaBlit320_90478(menuFps);
 	else
-		VGA_Blit640_75200(480, menuFps);
+		VgaBlit640_75200(480, menuFps);
 }
 
 //----- (0007C020) --------------------------------------------------------
@@ -47297,7 +47297,7 @@ void GetSystemSpeed()
 // E29F0: using guessed type char x_BYTE_E29F0;
 
 //----- (00084790) --------------------------------------------------------
-void Init0x3664C_84790()//265790
+void ClearDynamicLights_84790()//265790
 {
 	memset(&D41A0_0.str_0x3664C, 0, sizeof(type_str_0x3664C) * 50);//39x50
 	D41A0_0.word_0x36DFA = 0;
@@ -47305,7 +47305,7 @@ void Init0x3664C_84790()//265790
 }
 
 //----- (000847D0) --------------------------------------------------------
-void AddEvent2_847D0(type_entity_0x6E8E* event, char a2, char a3, char a4)//2657d0
+void AddDynamicLight_847D0(type_entity_0x6E8E* event, char a2, char a3, char a4)//2657d0
 {
 	if (D41A0_0.m_GameSettings.str_0x2196.m_wDynamicLighting)
 	{
@@ -47770,7 +47770,7 @@ void ApplyLightToTile_84EA0(uaxis_2d a1x, type_str_0x3664C* a2x, char a3, __int1
 	{
 		v12.x = (a1x._axis_2d.x << 8) + 128;
 		v12.y = (a1x._axis_2d.y << 8) + 128;
-		v12.z = getTerrainAlt_10C40(&v12);
+		v12.z = GetTerrainAlt_10C40(&v12);
 		v7 = DistanceSquared3DAlt_84FB0(&a2x->axis3d_4, &v12);//fix v7 = sub_84FB0(a2 + 4, &v12);
 		if (v7 < 0x48000)
 		{
@@ -52084,7 +52084,7 @@ char SetGammaCorrection_904C0(float a1)//2714c0
 	return result;
 }*/
 // E3908: using guessed type __int16 x_WORD_E3908;
-int16_t VGA_PalFadeInFadeOut_90B27(TColor* newpalbufferx, uint8_t shadow_levels, bool singlestep, int32_t frameDelay)//271B27 init and nightfall
+int16_t VgaPalFadeInFadeOut_90B27(TColor* newpalbufferx, uint8_t shadow_levels, bool singlestep, int32_t frameDelay)//271B27 init and nightfall
 {
 	//uint8_t *v3; // eax
 	//uint16_t v4; // edx
@@ -52111,7 +52111,7 @@ int16_t VGA_PalFadeInFadeOut_90B27(TColor* newpalbufferx, uint8_t shadow_levels,
 		{
 			CurrentPaletteFade_181B44 = 0;
 			x_BYTE_E390C_VGA_pal_not_begin = 1;
-			VGA_GetPalette_A0D2C(x_BYTE_181544_oldpalbufferx);
+			VgaGetPalette_A0D2C(x_BYTE_181544_oldpalbufferx);
 			if (!newpalbufferx)
 				memset(zero_bufferx, 0, 0x300);
 		}
@@ -52130,13 +52130,13 @@ int16_t VGA_PalFadeInFadeOut_90B27(TColor* newpalbufferx, uint8_t shadow_levels,
 			outbufferx[i].blue = x_BYTE_181544_oldpalbufferx[i].blue + ((CurrentPaletteFade_181B44) * (newpalbufferx[i].blue - x_BYTE_181544_oldpalbufferx[i].blue) / shadow_levels);
 		}
 		//WaitToScreenBeam_9A0FC();
-		VGA_PaletteInstall_41A90(outbufferx);
+		VgaPaletteInstall_41A90(outbufferx);
 		fix_sub_9A0FC_wait_to_screen_beam(frameDelay);
 		//return j;
 	}
 	else
 	{
-		VGA_GetPalette_A0D2C(x_BYTE_181544_oldpalbufferx);
+		VgaGetPalette_A0D2C(x_BYTE_181544_oldpalbufferx);
 		if (!newpalbufferx)//ebp+14 - 355204
 		{
 			newpalbufferx = zero_bufferx;
@@ -52169,7 +52169,7 @@ int16_t VGA_PalFadeInFadeOut_90B27(TColor* newpalbufferx, uint8_t shadow_levels,
 				outbufferx[i].blue = x_BYTE_181544_oldpalbufferx[i].blue + ((CurrentPaletteFade_181B44) * (newpalbufferx[i].blue - x_BYTE_181544_oldpalbufferx[i].blue) / shadow_levels);//352b42 352544
 			}
 			//WaitToScreenBeam_9A0FC();
-			VGA_PaletteInstall_41A90(outbufferx);
+			VgaPaletteInstall_41A90(outbufferx);
 			fix_sub_9A0FC_wait_to_screen_beam(frameDelay);
 			//mydelay(10);
 		}
@@ -52184,7 +52184,7 @@ int16_t VGA_PalFadeInFadeOut_90B27(TColor* newpalbufferx, uint8_t shadow_levels,
 }
 
 //----- (00090B27) --------------------------------------------------------
-__int16 VGA_PalFadeInFadeOutOrig_90B27(char*  /*a1*/, unsigned __int8  /*a2*/, char  /*a3*/)
+__int16 VgaPalFadeInFadeOutOrig_90B27(char*  /*a1*/, unsigned __int8  /*a2*/, char  /*a3*/)
 {
 	/*
   char *v3; // eax
@@ -52206,7 +52206,7 @@ __int16 VGA_PalFadeInFadeOutOrig_90B27(char*  /*a1*/, unsigned __int8  /*a2*/, c
 	{
 	  CurrentPaletteFade_181B44 = 0;
 	  x_BYTE_E390C_VGA_pal_not_begin = 1;
-	  VGA_GetPalette_A0D2C(x_BYTE_181544_oldpalbuffer);
+	  VgaGetPalette_A0D2C(x_BYTE_181544_oldpalbuffer);
 	  if ( !a1 )
 		memset(&unk_181844, 0, 768);
 	}
@@ -52225,11 +52225,11 @@ __int16 VGA_PalFadeInFadeOutOrig_90B27(char*  /*a1*/, unsigned __int8  /*a2*/, c
 										   / a2);
 	}
 	WaitToScreenBeam_9A0FC();
-	VGA_PaletteInstall_41A90((unsigned __int8 *)v8);
+	VgaPaletteInstall_41A90((unsigned __int8 *)v8);
   }
   else
   {
-	VGA_GetPalette_A0D2C(x_BYTE_181544_oldpalbuffer);
+	VgaGetPalette_A0D2C(x_BYTE_181544_oldpalbuffer);
 	if ( !a1 )
 	{
 	  a1 = (char *)&unk_181844;
@@ -52250,7 +52250,7 @@ __int16 VGA_PalFadeInFadeOutOrig_90B27(char*  /*a1*/, unsigned __int8  /*a2*/, c
 											 / a2);
 	  }
 	  WaitToScreenBeam_9A0FC();
-	  VGA_PaletteInstall_41A90((unsigned __int8 *)v8);
+	  VgaPaletteInstall_41A90((unsigned __int8 *)v8);
 	}
 	x_BYTE_E390C_VGA_pal_not_begin = 0;
   }
@@ -52269,7 +52269,7 @@ void ResetPaletteFade_90D27()
 }
 // E390C: using guessed type char x_BYTE_E390C_VGA_pal_not_begin;
 
-void VGA_SetVideoMode320x200AndPalette_90D6E(TColor* Palettex)//271d6e
+void VgaSetVideoMode320x200AndPalette_90D6E(TColor* Palettex)//271d6e
 {
 	//find 351662 - 3;//fix it
 	//unsigned __int8 v2=3; // [esp+0h] [ebp-38h]
@@ -52287,13 +52287,13 @@ void VGA_SetVideoMode320x200AndPalette_90D6E(TColor* Palettex)//271d6e
 	//removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Write string (BIOS after 1/10/86)
 
 		//a1 - 3aa0a4
-	VGA_PaletteInstall_41A90(Palettex);
+	VgaPaletteInstall_41A90(Palettex);
 	//removed sub_8D12F_set_mouse_viewport();//set min/max viewport
 	SetViewport_A0D50(0, 0, 320, 200);
 }
 
 //----- (00090D6E) --------------------------------------------------------
-void VGA_SetVideoMode320x200AndPaletteOrig_90D6E(TColor* a1x)
+void VgaSetVideoMode320x200AndPaletteOrig_90D6E(TColor* a1x)
 {
 	unsigned __int8 v2; // [esp+0h] [ebp-38h]
 	//int v3; // [esp+1Ch] [ebp-1Ch]
@@ -52310,13 +52310,13 @@ void VGA_SetVideoMode320x200AndPaletteOrig_90D6E(TColor* a1x)
 	screenWidth_18062C = 320;
 	screenHeight_180624 = 200;
 	//removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Write string (BIOS after 1/10/86)
-	VGA_PaletteInstall_41A90(a1x);
+	VgaPaletteInstall_41A90(a1x);
 	//removed sub_8D12F_set_mouse_viewport(); /set min/max viewport
 	SetViewport_A0D50(0, 0, 320, 200);
 }
 
 //----- (00090E07) --------------------------------------------------------
-void VGA_SetVideoMode640x480AndPalette_90E07(TColor* Palettex)//271e07
+void VgaSetVideoMode640x480AndPalette_90E07(TColor* Palettex)//271e07
 {
 	//unsigned __int8 v2; // [esp+0h] [ebp-38h]
 	//int v3; // [esp+1Ch] [ebp-1Ch]
@@ -52329,7 +52329,7 @@ void VGA_SetVideoMode640x480AndPalette_90E07(TColor* Palettex)//271e07
 	screenWidth_18062C = 640;
 	screenHeight_180624 = 480;
 	//removed sub_994BA_cursor_move(0x101); //set position of cursor?
-	VGA_PaletteInstall_41A90(Palettex);
+	VgaPaletteInstall_41A90(Palettex);
 	//removed sub_8D12F_set_mouse_viewport(); //set min/max of viewport
 	SetViewport_A0D50(0, 0, 640, 480);
 
@@ -52367,9 +52367,9 @@ void RestoreInterruptFlags_91F50(unsigned int a1)
 }
 
 //----- (00092160) --------------------------------------------------------
-int GetE3FFE_92160()
+int AilBackground_92160()
 {
-	return GetE3FFE_A16A2();
+	return AilApiBackground_A16A2();
 }
 
 //----- (00098FF5) --------------------------------------------------------
@@ -53539,7 +53539,7 @@ int ReadVgaCrtcRegisters_A0BB0(int* a1, int a2)//281bb0
 // A0EE1: using guessed type x_DWORD inp(x_DWORD);
 
 //----- (000A0D2C) --------------------------------------------------------
-void VGA_GetPalette_A0D2C(TColor* bufferx)//281d2c
+void VgaGetPalette_A0D2C(TColor* bufferx)//281d2c
 {
 	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
 
@@ -54278,7 +54278,7 @@ void CopyMaxLifeToLife_49A20(type_entity_0x6E8E* event)//22aa20
 }
 
 //----- (00051120) --------------------------------------------------------
-type_entity_0x6E8E* AddSpellXX_XX_51120(axis_3d* position, char type, char a3)//232120 - add any
+type_entity_0x6E8E* AddSpellPickup_51120(axis_3d* position, char type, char a3)//232120 - add any //tex 59
 {
 	type_entity_0x6E8E* event = NewEvent_4A050();
 	if (event)
@@ -54299,165 +54299,165 @@ type_entity_0x6E8E* AddSpellXX_XX_51120(axis_3d* position, char type, char a3)//
 }
 
 //----- (000511A0) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell00_00_511A0(axis_3d* position)//2321a0
+type_entity_0x6E8E* AddFireballSpell_511A0(axis_3d* position)//2321a0
 {
-	return AddSpellXX_XX_51120(position, 0, 0);
+	return AddSpellPickup_51120(position, 0, 0);
 }
 
 //----- (000511C0) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell01_03_511C0(axis_3d* position)//2321c0
+type_entity_0x6E8E* AddPossessSpell_511C0(axis_3d* position)//2321c0
 {
-	return AddSpellXX_XX_51120(position, 1, 3);
+	return AddSpellPickup_51120(position, 1, 3);
 }
 
 //----- (000511E0) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell02_06_511E0(axis_3d* position)//2321e0
+type_entity_0x6E8E* AddCastleSpell_511E0(axis_3d* position)//2321e0
 {
-	return AddSpellXX_XX_51120(position, 2, 6);//add scroll to map - castle1
+	return AddSpellPickup_51120(position, 2, 6);//add scroll to map - castle1
 }
 
 //----- (00051200) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell03_09_51200(axis_3d* position)//232200
+type_entity_0x6E8E* AddSpeedUpSpell_51200(axis_3d* position)//232200
 {
-	return AddSpellXX_XX_51120(position, 3, 9);
+	return AddSpellPickup_51120(position, 3, 9);
 }
 
 //----- (00051220) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell04_12_51220(axis_3d* position)//232220
+type_entity_0x6E8E* AddMorphSpell_51220(axis_3d* position)//232220
 {
-	return AddSpellXX_XX_51120(position, 4, 12);
+	return AddSpellPickup_51120(position, 4, 12);
 }
 
 //----- (00051240) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell05_15_51240(axis_3d* position)//232240
+type_entity_0x6E8E* AddHealSpell_51240(axis_3d* position)//232240
 {
-	return AddSpellXX_XX_51120(position, 5, 15);
+	return AddSpellPickup_51120(position, 5, 15);
 }
 
 //----- (00051260) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell06_18_51260(axis_3d* a1x)//232260
+type_entity_0x6E8E* AddShieldSpell_51260(axis_3d* a1x)//232260
 {
-	return AddSpellXX_XX_51120(a1x, 6, 18);
+	return AddSpellPickup_51120(a1x, 6, 18);
 }
 
 //----- (00051280) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell07_21_51280(axis_3d* position)//232280
+type_entity_0x6E8E* AddLightningSpell_51280(axis_3d* position)//232280
 {
-	return AddSpellXX_XX_51120(position, 7, 21);
+	return AddSpellPickup_51120(position, 7, 21);
 }
 
 //----- (000512A0) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell08_24_512A0(axis_3d* position)//2322a0
+type_entity_0x6E8E* AddReboundSpell_512A0(axis_3d* position)//2322a0
 {
-	return AddSpellXX_XX_51120(position, 8, 24);
+	return AddSpellPickup_51120(position, 8, 24);
 }
 
 //----- (000512C0) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell09_27_512C0(axis_3d* position)//2322c0
+type_entity_0x6E8E* AddMeteorSpell_512C0(axis_3d* position)//2322c0
 {
-	return AddSpellXX_XX_51120(position, 9, 27);
+	return AddSpellPickup_51120(position, 9, 27);
 }
 
 //----- (000512E0) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell10_30_512E0(axis_3d* position)//2322e0
+type_entity_0x6E8E* AddTeleportSpell_512E0(axis_3d* position)//2322e0
 {
-	return AddSpellXX_XX_51120(position, 10, 30);
+	return AddSpellPickup_51120(position, 10, 30);
 }
 
 //----- (00051300) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell11_33_51300(axis_3d* position)//232300
+type_entity_0x6E8E* AddInvisibleSpell_51300(axis_3d* position)//232300
 {
-	return AddSpellXX_XX_51120(position, 11, 33);
+	return AddSpellPickup_51120(position, 11, 33);
 }
 
 //----- (00051320) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell12_36_51320(axis_3d* position)//232320
+type_entity_0x6E8E* AddBeyondSightSpell_51320(axis_3d* position)//232320
 {
-	return AddSpellXX_XX_51120(position, 12, 36);
+	return AddSpellPickup_51120(position, 12, 36);
 }
 
 //----- (00051340) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell13_39_51340(axis_3d* position)//232340
+type_entity_0x6E8E* AddStealManaSpell_51340(axis_3d* position)//232340
 {
-	return AddSpellXX_XX_51120(position, 13, 39);
+	return AddSpellPickup_51120(position, 13, 39);
 }
 
 //----- (00051360) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell14_42_51360(axis_3d* position)//232360
+type_entity_0x6E8E* AddDuelSpell_51360(axis_3d* position)//232360
 {
-	return AddSpellXX_XX_51120(position, 14, 42);
+	return AddSpellPickup_51120(position, 14, 42);
 }
 
 //----- (00051380) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell15_45_51380(axis_3d* position)//232380
+type_entity_0x6E8E* AddTremorSpell_51380(axis_3d* position)//232380
 {
-	return AddSpellXX_XX_51120(position, 15, 45);
+	return AddSpellPickup_51120(position, 15, 45);
 }
 
 //----- (000513A0) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell16_48_513A0(axis_3d* position)//2323a0
+type_entity_0x6E8E* AddCraterSpell_513A0(axis_3d* position)//2323a0
 {
-	return AddSpellXX_XX_51120(position, 16, 48);
+	return AddSpellPickup_51120(position, 16, 48);
 }
 
 //----- (000513C0) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell17_51_513C0(axis_3d* position)//2323c0
+type_entity_0x6E8E* AddEarthquakeSpell_513C0(axis_3d* position)//2323c0
 {
-	return AddSpellXX_XX_51120(position, 17, 51);
+	return AddSpellPickup_51120(position, 17, 51);
 }
 
 //----- (000513E0) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell18_54_513E0(axis_3d* position)//2323e0
+type_entity_0x6E8E* AddVolcanoSpell_513E0(axis_3d* position)//2323e0
 {
-	return AddSpellXX_XX_51120(position, 18, 54);
+	return AddSpellPickup_51120(position, 18, 54);
 }
 
 //----- (00051400) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell19_57_51400(axis_3d* position)//232400
+type_entity_0x6E8E* AddSummonArmySpell_51400(axis_3d* position)//232400
 {
-	return AddSpellXX_XX_51120(position, 19, 57);
+	return AddSpellPickup_51120(position, 19, 57);
 }
 
 //----- (00051420) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell20_60_51420(axis_3d* position)//232420
+type_entity_0x6E8E* AddGravityWellSpell_51420(axis_3d* position)//232420
 {
-	return AddSpellXX_XX_51120(position, 20, 60);
+	return AddSpellPickup_51120(position, 20, 60);
 }
 
 //----- (00051440) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell21_63_51440(axis_3d* position)//232440
+type_entity_0x6E8E* AddWhirlwindSpell_51440(axis_3d* position)//232440
 {
-	return AddSpellXX_XX_51120(position, 21, 63);
+	return AddSpellPickup_51120(position, 21, 63);
 }
 
 //----- (00051460) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell22_66_51460(axis_3d* position)//232460
+type_entity_0x6E8E* AddFoolsManaSpell_51460(axis_3d* position)//232460
 {
-	return AddSpellXX_XX_51120(position, 22, 66);
+	return AddSpellPickup_51120(position, 22, 66);
 }
 
 //----- (00051480) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell23_69_51480(axis_3d* position)//232480
+type_entity_0x6E8E* AddMagicMineSpell_51480(axis_3d* position)//232480
 {
-	return AddSpellXX_XX_51120(position, 23, 69);
+	return AddSpellPickup_51120(position, 23, 69);
 }
 
 //----- (000514A0) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell24_72_514A0(axis_3d* position)//2324a0
+type_entity_0x6E8E* AddAllianceSpell_514A0(axis_3d* position)//2324a0
 {
-	return AddSpellXX_XX_51120(position, 24, 72);
+	return AddSpellPickup_51120(position, 24, 72);
 }
 
 //----- (000514C0) --------------------------------------------------------
-type_entity_0x6E8E* AddSpell25_75_514C0(axis_3d* position)//2324c0
+type_entity_0x6E8E* AddCaveInSpell_514C0(axis_3d* position)//2324c0
 {
-	return AddSpellXX_XX_51120(position, 25, 75);
+	return AddSpellPickup_51120(position, 25, 75);
 }
 
-type_entity_0x6E8E* (*arsub_2a881e[])(axis_3d*) = { AddSpell00_00_511A0, AddSpell01_03_511C0, AddSpell02_06_511E0,AddSpell03_09_51200,AddSpell04_12_51220,
-AddSpell05_15_51240 ,AddSpell06_18_51260,AddSpell07_21_51280,AddSpell08_24_512A0,AddSpell09_27_512C0,AddSpell10_30_512E0,AddSpell11_33_51300,AddSpell12_36_51320,AddSpell13_39_51340,
-AddSpell14_42_51360,AddSpell15_45_51380,AddSpell16_48_513A0,AddSpell17_51_513C0,AddSpell18_54_513E0,AddSpell19_57_51400,AddSpell20_60_51420,AddSpell21_63_51440,
-AddSpell22_66_51460,AddSpell23_69_51480,AddSpell24_72_514A0,AddSpell25_75_514C0 };
+type_entity_0x6E8E* (*arsub_2a881e[])(axis_3d*) = { AddFireballSpell_511A0, AddPossessSpell_511C0, AddCastleSpell_511E0,AddSpeedUpSpell_51200,AddMorphSpell_51220,
+AddHealSpell_51240 ,AddShieldSpell_51260,AddLightningSpell_51280,AddReboundSpell_512A0,AddMeteorSpell_512C0,AddTeleportSpell_512E0,AddInvisibleSpell_51300,AddBeyondSightSpell_51320,AddStealManaSpell_51340,
+AddDuelSpell_51360,AddTremorSpell_51380,AddCraterSpell_513A0,AddEarthquakeSpell_513C0,AddVolcanoSpell_513E0,AddSummonArmySpell_51400,AddGravityWellSpell_51420,AddWhirlwindSpell_51440,
+AddFoolsManaSpell_51460,AddMagicMineSpell_51480,AddAllianceSpell_514A0,AddCaveInSpell_514C0 };
 
 //----- (0006F100) --------------------------------------------------------
 type_entity_0x6E8E* SwitchCheckPlayersNear_6F100(type_entity_0x6E8E* a1x)//250100
@@ -54483,7 +54483,7 @@ type_entity_0x6E8E* SwitchCheckPlayersNear_6F100(type_entity_0x6E8E* a1x)//25010
 }
 
 //----- (0006F150) --------------------------------------------------------
-type_entity_0x6E8E* AddSwitch0B_04_6F150(type_entity_0x6E8E* a1x)//250150
+type_entity_0x6E8E* SwitchCheckLevelEnd_6F150(type_entity_0x6E8E* a1x)//250150
 {
 	type_entity_0x6E8E* resultx; // eax
 
@@ -54507,7 +54507,7 @@ type_entity_0x6E8E* AddSwitch0B_04_6F150(type_entity_0x6E8E* a1x)//250150
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (0006F1C0) --------------------------------------------------------
-void AddSwitch0B_20_6F1C0(type_entity_0x6E8E* a1x)//2501c0
+void SwitchCheckStage_6F1C0(type_entity_0x6E8E* a1x)//2501c0
 {
 	int resultx;
 	signed __int16 v2; // bx
@@ -54688,7 +54688,7 @@ unsigned int CountCreatures03_6F480(type_entity_0x6E8E* a1)//250480
 }
 
 //----- (0006F4A0) --------------------------------------------------------
-unsigned int AddSwitch0B_11_6F4A0(type_entity_0x6E8E* a1)//2504a0
+unsigned int CountCreatures04_6F4A0(type_entity_0x6E8E* a1)//2504a0
 {
 	return CountCreaturesOfModel_6F300(a1, 4u);
 }
@@ -55590,7 +55590,7 @@ char CanProjectileHitEntity_68AC0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a
 		&& a2x->word_0x32_50 == a1x->id_0x1A_26
 		&& a2x->word_0x36_54 == 0xFFFF)
 	{
-		IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 0);
+		CreateEntity_4A190(&a1x->position_0x4C_76, 10, 0);
 		PrepareEventSound_6E450(a1x - D41A0_0.struct_0x6E8E, -1, 26);
 		v4 = a1x->word_0x26_38;
 		if (v4)
@@ -55783,7 +55783,7 @@ signed int LaunchSpellProjectile_68E50(type_entity_0x6E8E* a1x, type_entity_0x6E
 			//HIBYTE(v5) &= 7u;
 			MoveEntity_57FA0(&v14x, (a1x->yaw_0x1C_28 - 512) & 0x7ffu, 0, 256);
 		}
-		v6 = getTerrainAlt_10C40(&v14x);
+		v6 = GetTerrainAlt_10C40(&v14x);
 		if (v6 > v14x.z)
 		{
 			v14x = a2x->position_0x4C_76;
@@ -55811,7 +55811,7 @@ signed int LaunchSpellProjectile_68E50(type_entity_0x6E8E* a1x, type_entity_0x6E
 				//HIBYTE(v11) = (HIBYTE(v11) + 2) & 7;
 				MoveEntity_57FA0(&v14x, (a1x->yaw_0x1C_28 + 0x200) & 0x7ffu, 0, 256);
 			}
-			v12 = getTerrainAlt_10C40(&v14x);
+			v12 = GetTerrainAlt_10C40(&v14x);
 			if (v12 > v14x.z)
 			{
 				v14x = a2x->position_0x4C_76;
@@ -55850,7 +55850,7 @@ signed int UpdateSpellPickupCommon_68FF0(type_entity_0x6E8E* a1x, char a2, char 
 	}
 	else
 	{
-		v4 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+		v4 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 		ClampAboveTerrain_580E0(&a1x->position_0x4C_76, v4, 0, 0x2000, -128);
 		if (!(a1x->byte_0x3E_62 & 3))
 		{
@@ -55986,7 +55986,7 @@ void SpellHitByEntity_69300(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//2
 // EB398: using guessed type __int16 x_WORD_EB398;
 
 //----- (000693F0) --------------------------------------------------------
-void SpellFireballActive_693F0(type_entity_0x6E8E* a1x)//24a3f0//spell fire
+void SpellFireballActive_693F0(type_entity_0x6E8E* a1x)//24a3f0//spell fire //tex 55
 {
 	type_entity_0x6E8E* v1x; // ebx
 	type_entity_0x6E8E* v2x; // eax
@@ -56104,7 +56104,7 @@ void SpellPossessionActive_69640(type_entity_0x6E8E* a1x)//24a640//spell posses
 					{
 						if (SPELLS_BEGIN_BUFFER_str[a1x->model_0x40_64].subspell[a1x->byte_0x46_70].life_0x1A <= 3u)
 						{
-							v4x = IfSubtypeCallCreatingManaSphere_4A190(&v1x->position_0x4C_76, 9, 17);
+							v4x = CreateEntity_4A190(&v1x->position_0x4C_76, 9, 17);
 							if (v4x)
 							{
 								v4x->actSpeed_0x82_130 += v1x->actSpeed_0x82_130;
@@ -56199,7 +56199,7 @@ void CastPossessionProjectile_69900(type_entity_0x6E8E* a1x, type_entity_0x6E8E*
 	//int v3; // edx
 	//uint8_t* v4; // eax
 
-	v2x = IfSubtypeCallCreatingManaSphere_4A190(&a2x->position_0x4C_76, 9, 1);
+	v2x = CreateEntity_4A190(&a2x->position_0x4C_76, 9, 1);
 	if (v2x)
 	{
 		v2x->actSpeed_0x82_130 += a2x->actSpeed_0x82_130;
@@ -56277,7 +56277,7 @@ type_entity_0x6E8E* SpellCastleActive_69AB0(type_entity_0x6E8E* a1x)//24aab0
 					v1x->dword_0xA4_164x->array_0x24E_590.at(v4) = SPELLS_BEGIN_BUFFER_str[a1x->model_0x40_64].subspell[a1x->byte_0x46_70].subSpellIndex_2;
 					v1x->dword_0xA4_164x->array_0x24E_590.at(v4 + 9) = SPELLS_BEGIN_BUFFER_str[a1x->model_0x40_64].subspell[a1x->byte_0x46_70].life_0x1A;
 					RechargeSpell_68DE0(a1x, v1x);
-					v5x = IfSubtypeCallCreatingManaSphere_4A190(&v1x->position_0x4C_76, 9, 10);
+					v5x = CreateEntity_4A190(&v1x->position_0x4C_76, 9, 10);
 					v12x = v5x;
 					v11x = v5x;
 					if (v5x)
@@ -56296,7 +56296,7 @@ type_entity_0x6E8E* SpellCastleActive_69AB0(type_entity_0x6E8E* a1x)//24aab0
 						{
 							v12x->axis_0x9A_154x = v1x->position_0x4C_76;
 							MoveEntity_57FA0(&v12x->axis_0x9A_154x, v1x->dword_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28, 0, 4096);
-							v8 = getTerrainAlt_10C40(&v12x->axis_0x9A_154x);
+							v8 = GetTerrainAlt_10C40(&v12x->axis_0x9A_154x);
 							v12x->byte_0x43_67 = 3;
 							v12x->byte_0x44_68 = 2;
 							v12x->axis_0x9A_154x.z = v8;
@@ -56407,7 +56407,7 @@ void GetScroll_69DB0(type_entity_0x6E8E* a1x)//24adb0
 				v1x->actSpeed_0x82_130 = v1x->dword_0xA4_164x->speed_0xc_12;
 				if (!(a1x->byte_0x3E_62 & 3))
 				{
-					v6x = IfSubtypeCallCreatingManaSphere_4A190(&v1x->position_0x4C_76, 10, 2);
+					v6x = CreateEntity_4A190(&v1x->position_0x4C_76, 10, 2);
 					if (v6x)
 					{
 						v7 = 4 * v6x->life_0x8;
@@ -56477,7 +56477,7 @@ void SpellMetamorphActive_6A030(type_entity_0x6E8E* a1x)//24b030
 			{
 				SendSpellMessage_6D8B0(a1x->parentId_0x28_40, 4u, 1);
 				//v4x = sub_4A190(&v2x->array_0x4C_76, 5, (unsigned __int8)(*xadataspellsdat.colorPalette_var28)[80 * a1x->byte_0x40_64 + 26 + 26 * a1x->byte_0x46_70]);
-				v4x = IfSubtypeCallCreatingManaSphere_4A190(&v2x->position_0x4C_76, 5, SPELLS_BEGIN_BUFFER_str[a1x->model_0x40_64].subspell[a1x->byte_0x46_70].life_0x1A);
+				v4x = CreateEntity_4A190(&v2x->position_0x4C_76, 5, SPELLS_BEGIN_BUFFER_str[a1x->model_0x40_64].subspell[a1x->byte_0x46_70].life_0x1A);
 				v5x = v4x;
 				if (v4x)
 				{
@@ -57452,7 +57452,7 @@ __int16 SpellDuelActive_6B610(type_entity_0x6E8E* a1x)//24c610
 			{
 				if (a1x->word_0x2E_46 == a1x->word_0x30_48)
 				{
-					v2x = IfSubtypeCallCreatingManaSphere_4A190(&v8x->position_0x4C_76, 9, 7);
+					v2x = CreateEntity_4A190(&v8x->position_0x4C_76, 9, 7);
 					v7x = v2x;
 					if (v2x)
 					{
@@ -57543,7 +57543,7 @@ void SpellTremorActive_6B870(type_entity_0x6E8E* a1x)//24c870
 						v1x->dword_0xA4_164x->byte_0x154_340 = 0;
 						v6x->axis_0x9A_154x = v1x->position_0x4C_76;
 						MoveEntity_57FA0(&v6x->axis_0x9A_154x, v1x->dword_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28, 0, 4096);
-						v6x->axis_0x9A_154x.z = getTerrainAlt_10C40(&v6x->axis_0x9A_154x);
+						v6x->axis_0x9A_154x.z = GetTerrainAlt_10C40(&v6x->axis_0x9A_154x);
 					}
 				}
 				RechargeSpell_68DE0(a1x, v1x);
@@ -57616,7 +57616,7 @@ void SpellCraterActive_6BAB0(type_entity_0x6E8E* a1x)//24cab0
 						v1x->dword_0xA4_164x->byte_0x154_340 = 0;
 						v6x->axis_0x9A_154x = v1x->position_0x4C_76;
 						MoveEntity_57FA0(&v6x->axis_0x9A_154x, v1x->dword_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28, 0, 4096);
-						v6x->axis_0x9A_154x.z = getTerrainAlt_10C40(&v6x->axis_0x9A_154x);
+						v6x->axis_0x9A_154x.z = GetTerrainAlt_10C40(&v6x->axis_0x9A_154x);
 					}
 				}
 				RechargeSpell_68DE0(a1x, v1x);
@@ -57688,7 +57688,7 @@ void SpellEarthquakeActive_6BCF0(type_entity_0x6E8E* a1x)//24ccf0
 						v1x->dword_0xA4_164x->byte_0x154_340 = 0;
 						v6x->axis_0x9A_154x = v1x->position_0x4C_76;
 						MoveEntity_57FA0(&v6x->axis_0x9A_154x, v1x->dword_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28, 0, 4096);
-						v6x->axis_0x9A_154x.z = getTerrainAlt_10C40(&v6x->axis_0x9A_154x);
+						v6x->axis_0x9A_154x.z = GetTerrainAlt_10C40(&v6x->axis_0x9A_154x);
 					}
 					RechargeSpell_68DE0(a1x, v1x);
 				}
@@ -57758,7 +57758,7 @@ void SpellVolcanoActive_6BF30(type_entity_0x6E8E* a1x)//24cf30
 						v1x->dword_0xA4_164x->byte_0x154_340 = 0;
 						v6x->axis_0x9A_154x = v1x->position_0x4C_76;
 						MoveEntity_57FA0(&v6x->axis_0x9A_154x, v1x->dword_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28, 0, 4096);
-						v6x->axis_0x9A_154x.z = getTerrainAlt_10C40(&v6x->axis_0x9A_154x);
+						v6x->axis_0x9A_154x.z = GetTerrainAlt_10C40(&v6x->axis_0x9A_154x);
 						v6x->yaw_0x1C_28 = v1x->dword_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28;
 						v6x->pitch_0x1E_30 = v1x->dword_0xA4_164x->entityIndex2_0x1A_26 + v1x->pitch_0x1E_30;
 					}
@@ -57818,7 +57818,7 @@ void SpellSummonArmyActive_6C170(type_entity_0x6E8E* a1x)//24d170
 				if (a1x->word_0x2E_46 == a1x->word_0x30_48)
 				{
 					//v2 = (char*)&(*xadataspellsdat.colorPalette_var28)[80 * a1x->byte_0x40_64 + 2 + 26 * a1x->byte_0x46_70];
-					v6x = IfSubtypeCallCreatingManaSphere_4A190(&v7x->position_0x4C_76, 9, 24);
+					v6x = CreateEntity_4A190(&v7x->position_0x4C_76, 9, 24);
 					if (v6x)
 					{
 						v6x->actSpeed_0x82_130 += v7x->actSpeed_0x82_130;
@@ -57911,7 +57911,7 @@ void SpellGravityWellActive_6C3E0(type_entity_0x6E8E* a1x)//24d3e0
 						v1x->dword_0xA4_164x->byte_0x154_340 = 0;
 						v6x->axis_0x9A_154x = v1x->position_0x4C_76;
 						MoveEntity_57FA0(&v6x->axis_0x9A_154x, v1x->dword_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28, 0, 4096);
-						v6x->axis_0x9A_154x.z = getTerrainAlt_10C40(&v6x->axis_0x9A_154x);
+						v6x->axis_0x9A_154x.z = GetTerrainAlt_10C40(&v6x->axis_0x9A_154x);
 					}
 				}
 				RechargeSpell_68DE0(a1x, v1x);
@@ -57988,7 +57988,7 @@ void SpellWhirlwindActive_6C620(type_entity_0x6E8E* a1x)//24d620
 						v1x->dword_0xA4_164x->byte_0x154_340 = 0;
 						v3x->axis_0x9A_154x = v1x->position_0x4C_76;
 						MoveEntity_57FA0(&v3x->axis_0x9A_154x, v1x->dword_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28, 0, 4096);
-						v3x->axis_0x9A_154x.z = getTerrainAlt_10C40(&v3x->axis_0x9A_154x);
+						v3x->axis_0x9A_154x.z = GetTerrainAlt_10C40(&v3x->axis_0x9A_154x);
 						v3x->yaw_0x1C_28 = v1x->dword_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28;
 						v3x->pitch_0x1E_30 = v1x->dword_0xA4_164x->entityIndex2_0x1A_26 + v1x->pitch_0x1E_30;
 					}
@@ -58053,7 +58053,7 @@ void SpellFoolsManaActive_6C870(type_entity_0x6E8E* a1x)//24d870
 						//v7 = (char*)&(*xadataspellsdat.colorPalette_var28)[80 * a1x->byte_0x40_64 + 2 + 26 * a1x->byte_0x46_70];
 						while (v6 < 6)
 						{
-							v1x = IfSubtypeCallCreatingManaSphere_4A190(&v2x->position_0x4C_76, 10, 57);
+							v1x = CreateEntity_4A190(&v2x->position_0x4C_76, 10, 57);
 							if (v1x)
 							{
 								v3 = 4 * v2x->actSpeed_0x82_130;
@@ -58140,7 +58140,7 @@ void SpellMagicMineActive_6CAC0(type_entity_0x6E8E* a1x)//24dac0
 			{
 				if (a1x->word_0x2E_46 == a1x->word_0x30_48)
 				{
-					v2x = IfSubtypeCallCreatingManaSphere_4A190(&v8x->position_0x4C_76, 9, 29);
+					v2x = CreateEntity_4A190(&v8x->position_0x4C_76, 9, 29);
 					if (v2x)
 					{
 						v2x->actSpeed_0x82_130 += v8x->actSpeed_0x82_130;
@@ -58157,7 +58157,7 @@ void SpellMagicMineActive_6CAC0(type_entity_0x6E8E* a1x)//24dac0
 						v8x->dword_0xA4_164x->byte_0x154_340 = 0;
 						v2x->axis_0x9A_154x = v8x->position_0x4C_76;
 						MoveEntity_57FA0(&v2x->axis_0x9A_154x, v8x->dword_0xA4_164x->nextEntity_0x18_24 + v8x->yaw_0x1C_28, 0, 4096);
-						v2x->axis_0x9A_154x.z = getTerrainAlt_10C40(&v2x->axis_0x9A_154x);
+						v2x->axis_0x9A_154x.z = GetTerrainAlt_10C40(&v2x->axis_0x9A_154x);
 						v2x->yaw_0x1C_28 = v8x->dword_0xA4_164x->nextEntity_0x18_24 + v8x->yaw_0x1C_28;
 						//v4 = x_D41A0_BYTEARRAY_0 + 28302;
 						v2x->pitch_0x1E_30 = v8x->dword_0xA4_164x->entityIndex2_0x1A_26 + v8x->pitch_0x1E_30;
@@ -58221,7 +58221,7 @@ void SpellAllianceActive_6CD20(type_entity_0x6E8E* a1x)//24dd20
 				if (a1x->word_0x2E_46 == a1x->word_0x30_48)
 				{
 					//v2 = (char*)&(*xadataspellsdat.colorPalette_var28)[80 * a1x->byte_0x40_64 + 2 + 26 * a1x->byte_0x46_70];
-					v3x = IfSubtypeCallCreatingManaSphere_4A190(&v9x->position_0x4C_76, 9, 25);
+					v3x = CreateEntity_4A190(&v9x->position_0x4C_76, 9, 25);
 					if (v3x)
 					{
 						v3x->actSpeed_0x82_130 += v9x->actSpeed_0x82_130;
@@ -58322,7 +58322,7 @@ void SpellCaveInActive_6CFA0(type_entity_0x6E8E* a1x)//24dfa0
 						v1x->dword_0xA4_164x->byte_0x154_340 = 0;
 						v3x->axis_0x9A_154x = v1x->position_0x4C_76;
 						MoveEntity_57FA0(&v3x->axis_0x9A_154x, v1x->dword_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28, 0, 4096);
-						v3x->axis_0x9A_154x.z = getTerrainAlt_10C40(&v3x->axis_0x9A_154x);
+						v3x->axis_0x9A_154x.z = GetTerrainAlt_10C40(&v3x->axis_0x9A_154x);
 						v3x->yaw_0x1C_28 = v1x->dword_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28;
 						v3x->pitch_0x1E_30 = v1x->dword_0xA4_164x->entityIndex2_0x1A_26 + v1x->pitch_0x1E_30;
 					}
@@ -58427,7 +58427,7 @@ void SendSpellMessage_6D8B0(unsigned __int16 a1, unsigned __int16 a2, __int16 a3
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00066750) --------------------------------------------------------
-void UpdateProjectile09_09_66750(type_entity_0x6E8E* a1x)//247750
+void UpdateLightningProjectile_66750(type_entity_0x6E8E* a1x)//247750 //tex 151
 {
 	__int16 v1; // di
 	__int16 v2; // si
@@ -58562,7 +58562,7 @@ void UpdateProjectile09_09_66750(type_entity_0x6E8E* a1x)//247750
 	}
 	v13x = FindOverlappingSelectableEntity_10780(a1x);
 	v24x = Entities_EA3E4[a1x->word_0x96_150];
-	v14x = IfSubtypeCallCreatingManaSphere_4A190(&v20x, a1x->byte_0x43_67, a1x->byte_0x44_68);
+	v14x = CreateEntity_4A190(&v20x, a1x->byte_0x43_67, a1x->byte_0x44_68);
 	v15x = v14x;
 	if (!v14x)
 		return;// (short)v14x;
@@ -58620,7 +58620,7 @@ LABEL_36:
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (00066B30) --------------------------------------------------------
-void CastCastleProjectile_66B30(type_entity_0x6E8E* a1x)//247b30
+void UpdateCastleProjectile_66B30(type_entity_0x6E8E* a1x)//247b30
 {
 	type_entity_0x6E8E* v1x; // eax
 	__int16 v2; // ax
@@ -58662,7 +58662,7 @@ void CastCastleProjectile_66B30(type_entity_0x6E8E* a1x)//247b30
 		}
 		else
 		{
-			v2 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+			v2 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 			v4 = a1x->position_0x4C_76.z;
 			predictedAxis_EB398ar.z = v2;
 			if (v2 > v4
@@ -58693,7 +58693,7 @@ void CastCastleProjectile_66B30(type_entity_0x6E8E* a1x)//247b30
 			}
 			else
 			{
-				v8x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
+				v8x = CreateEntity_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
 				if (v8x)
 				{
 					v8x->id_0x1A_26 = a1x->id_0x1A_26;
@@ -58794,7 +58794,7 @@ void UpdateHomingProjectile_66D00(type_entity_0x6E8E* a1x)//247d00
 	}
 	//LOWORD(v2x) = sub_10C40_getTerrainAlt(&a1x->array_0x4C_76);
 	v8 = a1x->position_0x4C_76.z;
-	predictedAxis_EB398ar.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	if (predictedAxis_EB398ar.z > v8
 		|| isCaveLevel_D41B6
 		&& (predictedAxis_EB398ar.z = GetCeilingAlt_10C60(&a1x->position_0x4C_76) - a1x->array_0x52_82.fov,
@@ -58829,7 +58829,7 @@ LABEL_18:
 			MoveEntity_57FA0(&predictedAxis_EB398ar, v11, a1x->pitch_0x1E_30, a1x->actSpeed_0x82_130);
 			CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
 		}
-		v2x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
+		v2x = CreateEntity_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
 		if (v2x)
 		{
 			v2x->id_0x1A_26 = a1x->id_0x1A_26;
@@ -58844,13 +58844,13 @@ LABEL_18:
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (00066FB0) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_0B_66FB0(type_entity_0x6E8E* a1)//247fb0
+type_entity_0x6E8E* UpdateBoneProjectile_66FB0(type_entity_0x6E8E* a1)//247fb0
 {
 	return UpdateProjectileTargeting_65820(a1);
 }
 
 //----- (00066FD0) --------------------------------------------------------
-void UpdateProjectile09_0C_66FD0(type_entity_0x6E8E* a1x)//247fd0
+void UpdateThunderboltProjectile_66FD0(type_entity_0x6E8E* a1x)//247fd0
 {
 	type_entity_0x6E8E* v1x; // eax
 	char v2; // dl
@@ -58939,7 +58939,7 @@ void UpdateProjectile09_0C_66FD0(type_entity_0x6E8E* a1x)//247fd0
 	}
 	else
 	{
-		v9 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+		v9 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 		v10 = a1x->position_0x4C_76.z;
 		predictedAxis_EB398ar.z = v9;
 		if (v9 > v10
@@ -58953,7 +58953,7 @@ void UpdateProjectile09_0C_66FD0(type_entity_0x6E8E* a1x)//247fd0
 				//v8 = (uint8_t*)TerrainTileIsWater_104D0((signed __int16 *)(a1 + 76));
 				if (TerrainTileIsWater_104D0(&a1x->position_0x4C_76) == 1)
 				{
-					v11x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
+					v11x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 5);
 					if (v11x)
 						v11x->id_0x1A_26 = a1x->id_0x1A_26;
 					DisableEntityDrawing04_57F10(a1x);
@@ -58980,7 +58980,7 @@ LABEL_28:
 		else
 		{
 			//v8 = sub_4A190((uint8_t*)(a1 + 76), 10, 38);
-			v12x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 38);
+			v12x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 38);
 			if (v12x)
 			{
 				SetProjectileDamage_65780(a1x, v7x, v14x);
@@ -59011,7 +59011,7 @@ LABEL_28:
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (000672E0) --------------------------------------------------------
-void AddArcherArrow_672E0(type_entity_0x6E8E* a1x)//2482e0
+void UpdateArrow_672E0(type_entity_0x6E8E* a1x)//2482e0
 {
 	//uint8_t* v1; // esi
 	//int v2; // eax
@@ -59031,7 +59031,7 @@ void AddArcherArrow_672E0(type_entity_0x6E8E* a1x)//2482e0
 	predictedAxis_EB398ar = a1x->position_0x4C_76;
 	MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, a1x->pitch_0x1E_30, a1x->actSpeed_0x82_130);
 	v3x = FindOverlappingSelectableEntity_10780(a1x);
-	if (getTerrainAlt_10C40(&predictedAxis_EB398ar) <= predictedAxis_EB398ar.z)
+	if (GetTerrainAlt_10C40(&predictedAxis_EB398ar) <= predictedAxis_EB398ar.z)
 	{
 		//v4 = *(x_DWORD *)(a1 + 8);
 		//(a1x->dword_0x8)--;// = v4 - 1;
@@ -59065,7 +59065,7 @@ void AddArcherArrow_672E0(type_entity_0x6E8E* a1x)//2482e0
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (00067410) --------------------------------------------------------
-void UpdateProjectile09_0E_67410(type_entity_0x6E8E* a1x)//248410
+void UpdateProjectileAction14_67410(type_entity_0x6E8E* a1x)//248410
 {
 	int result; // eax
 
@@ -59077,19 +59077,19 @@ void UpdateProjectile09_0E_67410(type_entity_0x6E8E* a1x)//248410
 }
 
 //----- (00067430) --------------------------------------------------------
-void UpdateProjectile09_0F_67430(type_entity_0x6E8E* a1)//248430
+void UpdateGreenBlobProjectile_67430(type_entity_0x6E8E* a1)//248430
 {
 	UpdateProjectileTargeting_65820(a1);
 }
 
 //----- (00067450) --------------------------------------------------------
-void UpdateProjectile09_10_67450(type_entity_0x6E8E* a1)//248450
+void UpdatePurpleOrbProjectile_67450(type_entity_0x6E8E* a1)//248450
 {
 	UpdateProjectileTargeting_65820(a1);
 }
 
 //----- (00067470) --------------------------------------------------------
-void UpdateProjectile09_11_67470(type_entity_0x6E8E* a1x)//248470
+void UpdateProjectileAction17_67470(type_entity_0x6E8E* a1x)//248470
 {
 	type_entity_0x6E8E* resultx; // eax
 	char v2; // dh
@@ -59098,7 +59098,7 @@ void UpdateProjectile09_11_67470(type_entity_0x6E8E* a1x)//248470
 	//BYTE1(result) = *(x_BYTE *)(a1 + 63);
 	if (a1x->class_0x3F_63)
 	{
-		resultx = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 0);
+		resultx = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 0);
 		if (resultx)
 		{
 			resultx->struct_byte_0xc_12_15.byte[0] |= 0x80u;
@@ -59111,7 +59111,7 @@ void UpdateProjectile09_11_67470(type_entity_0x6E8E* a1x)//248470
 }
 
 //----- (000674C0) --------------------------------------------------------
-void UpdateProjectile09_12_674C0(type_entity_0x6E8E* a1x)//2484c0
+void UpdatePossessionBeam_674C0(type_entity_0x6E8E* a1x)//2484c0
 {
 	type_entity_0x6E8E* v1x; // eax
 	char v2; // dl
@@ -59153,7 +59153,7 @@ void UpdateProjectile09_12_674C0(type_entity_0x6E8E* a1x)//2484c0
 	predictedAxis_EB398ar = a1x->position_0x4C_76;
 
 	MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, a1x->pitch_0x1E_30, a1x->actSpeed_0x82_130);
-	v3 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+	v3 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 	if (v3 > predictedAxis_EB398ar.z)
 		predictedAxis_EB398ar.z = v3;
 	CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
@@ -59168,7 +59168,7 @@ void UpdateProjectile09_12_674C0(type_entity_0x6E8E* a1x)//2484c0
 		v16 = 1;
 		goto LABEL_16;
 	}
-	result = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	result = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	v8 = a1x->position_0x4C_76.z;
 	predictedAxis_EB398ar.z = result;
 	if (result > v8
@@ -59196,9 +59196,9 @@ LABEL_16:
 		if (v6x)
 		{
 			if (a1x->byte_0x43_67 != 10 || a1x->byte_0x44_68 != 69)
-				v12x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 12);
+				v12x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 12);
 			else
-				v12x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 70);
+				v12x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 70);
 			v13x = v12x;
 			if (v12x)
 			{
@@ -59207,7 +59207,7 @@ LABEL_16:
 				v13x->yaw_0x1C_28 = a1x->yaw_0x1C_28;
 				v13x->pitch_0x1E_30 = a1x->pitch_0x1E_30;
 			}
-			v14x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
+			v14x = CreateEntity_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
 			if (v14x)
 			{
 				SetProjectileDamage_65780(a1x, v6x, v15x);
@@ -59228,11 +59228,11 @@ LABEL_16:
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (000676F0) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_13_676F0(type_entity_0x6E8E* a1x)//2486f0
+type_entity_0x6E8E* SpawnStoredEntity_676F0(type_entity_0x6E8E* a1x)//2486f0
 {
 	type_entity_0x6E8E* resultx; // eax
 
-	resultx = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
+	resultx = CreateEntity_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
 	if (resultx)
 	{
 		resultx->id_0x1A_26 = a1x->id_0x1A_26;
@@ -59245,25 +59245,25 @@ type_entity_0x6E8E* UpdateProjectile09_13_676F0(type_entity_0x6E8E* a1x)//2486f0
 }
 
 //----- (00067740) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_14_67740(type_entity_0x6E8E* a1)//248740
+type_entity_0x6E8E* UpdateProjectileAction20_67740(type_entity_0x6E8E* a1)//248740
 {
 	return UpdateProjectileTargeting_65820(a1);
 }
 
 //----- (00067760) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_15_67760(type_entity_0x6E8E* a1)//248760
+type_entity_0x6E8E* UpdateManticoreStunProjectile_67760(type_entity_0x6E8E* a1)//248760
 {
 	return UpdateProjectileTargeting_65820(a1);
 }
 
 //----- (00067780) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_16_67780(type_entity_0x6E8E* a1)//248780
+type_entity_0x6E8E* UpdateSpiderWebProjectile_67780(type_entity_0x6E8E* a1)//248780
 {
 	return UpdateProjectileTargeting_65820(a1);
 }
 
 //----- (000677A0) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_17_677A0(type_entity_0x6E8E* a1x)//2487a0
+type_entity_0x6E8E* UpdateGravityWellProjectile_677A0(type_entity_0x6E8E* a1x)//2487a0
 {
 	type_entity_0x6E8E* resultx; // eax
 	int v2; // edx
@@ -59279,7 +59279,7 @@ type_entity_0x6E8E* UpdateProjectile09_17_677A0(type_entity_0x6E8E* a1x)//2487a0
 }
 
 //----- (000677D0) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_18_677D0(type_entity_0x6E8E* a1x)//2487d0
+type_entity_0x6E8E* UpdateTremorProjectile_677D0(type_entity_0x6E8E* a1x)//2487d0
 {
 	type_entity_0x6E8E* resultx; // eax
 	int v2; // edx
@@ -59297,7 +59297,7 @@ type_entity_0x6E8E* UpdateProjectile09_18_677D0(type_entity_0x6E8E* a1x)//2487d0
 }
 
 //----- (00067800) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_19_67800(type_entity_0x6E8E* a1x)//248800
+type_entity_0x6E8E* UpdateSummonArmyProjectile_67800(type_entity_0x6E8E* a1x)//248800
 {
 	unsigned __int8 v1; // al
 	type_entity_0x6E8E* resultx; // eax
@@ -59340,7 +59340,7 @@ LABEL_11:
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00067890) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_1A_67890(type_entity_0x6E8E* a1x)//248890
+type_entity_0x6E8E* UpdateAllianceProjectile_67890(type_entity_0x6E8E* a1x)//248890
 {
 	type_entity_0x6E8E* resultx; // eax
 	char v2; // dh
@@ -59361,7 +59361,7 @@ type_entity_0x6E8E* UpdateProjectile09_1A_67890(type_entity_0x6E8E* a1x)//248890
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (000678E0) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_1B_678E0(type_entity_0x6E8E* a1x)//2488e0
+type_entity_0x6E8E* UpdateWhirlwindProjectile_678E0(type_entity_0x6E8E* a1x)//2488e0
 {
 	type_entity_0x6E8E* resultx; // eax
 	int v2; // edx
@@ -59377,7 +59377,7 @@ type_entity_0x6E8E* UpdateProjectile09_1B_678E0(type_entity_0x6E8E* a1x)//2488e0
 }
 
 //----- (00067910) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_1F_67910(type_entity_0x6E8E* a1x)//248910
+type_entity_0x6E8E* UpdateCaveInProjectile_67910(type_entity_0x6E8E* a1x)//248910
 {
 	type_entity_0x6E8E* resultx; // eax
 	int v2; // edx
@@ -59393,13 +59393,13 @@ type_entity_0x6E8E* UpdateProjectile09_1F_67910(type_entity_0x6E8E* a1x)//248910
 }
 
 //----- (00067940) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_1C_67940(type_entity_0x6E8E* a1)//248940
+type_entity_0x6E8E* UpdatePurpleOrb2Projectile_67940(type_entity_0x6E8E* a1)//248940
 {
 	return UpdateProjectileTargeting_65820(a1);
 }
 
 //----- (00067960) --------------------------------------------------------
-void UpdateProjectile09_1E_67960(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)//248960
+void UpdateMagicMineProjectile_67960(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)//248960
 {
 	int v2; // eax
 	type_entity_0x6E8E* v3x; // eax
@@ -59490,7 +59490,7 @@ void UpdateProjectile09_1E_67960(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a
 		CopyEntityPosition_57CF0(a2x, &Entities_EA3E4[a2x->word_0x96_150]->position_0x4C_76);
 		LowerFromEntityCentre_655A0(Entities_EA3E4[a2x->word_0x96_150]);
 		Entities_EA3E4[a2x->word_0x96_150]->byte_0x46_70 = 8;
-		IfSubtypeCallCreatingManaSphere_4A190(v13x, 10, 0);
+		CreateEntity_4A190(v13x, 10, 0);
 		DisableEntityDrawing04_57F10(a2x);
 	}
 	else
@@ -59498,7 +59498,7 @@ void UpdateProjectile09_1E_67960(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a
 		predictedAxis_EB398ar = a2x->position_0x4C_76;
 		MoveEntity_57FA0(&predictedAxis_EB398ar, a2x->yaw_0x1C_28, a2x->pitch_0x1E_30, a2x->actSpeed_0x82_130);
 		CopyEntityPosition_57CF0(a2x, &predictedAxis_EB398ar);
-		v9 = getTerrainAlt_10C40(v13x);
+		v9 = GetTerrainAlt_10C40(v13x);
 		v10 = a2x->position_0x4C_76.z;
 		predictedAxis_EB398ar.z = v9;
 		if (v9 > v10 || isCaveLevel_D41B6 && (predictedAxis_EB398ar.z = GetCeilingAlt_10C60(v13x) - a2x->array_0x52_82.fov, a2x->position_0x4C_76.z > predictedAxis_EB398ar.z))
@@ -59512,7 +59512,7 @@ void UpdateProjectile09_1E_67960(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a
 			v18 = 1;
 		if (v18)
 		{
-			resultx = IfSubtypeCallCreatingManaSphere_4A190(&a2x->position_0x4C_76, a2x->byte_0x43_67, a2x->byte_0x44_68);
+			resultx = CreateEntity_4A190(&a2x->position_0x4C_76, a2x->byte_0x43_67, a2x->byte_0x44_68);
 			if (resultx)
 			{
 				resultx->word_0x32_50 = a2x->id_0x1A_26;
@@ -59554,7 +59554,7 @@ void UpdatePlayerSpellCharges_5CF40(type_entity_0x6E8E* a1x, char a2)//23df40
 		*/
 		if (a1x->dword_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[i])
 		{
-			v4x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 15, i);
+			v4x = CreateEntity_4A190(&a1x->position_0x4C_76, 15, i);
 			if (v4x)
 			{
 				a1x->dword_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[i] = v4x - D41A0_0.struct_0x6E8E;
@@ -59588,7 +59588,7 @@ void UpdatePlayerSpellCharges_5CF40(type_entity_0x6E8E* a1x, char a2)//23df40
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (0005D0A0) --------------------------------------------------------
-bool moveTest_5D0A0(type_entity_0x6E8E* a1x)//23e0a0
+bool MoveTest_5D0A0(type_entity_0x6E8E* a1x)//23e0a0
 {
 	//unsigned __int16 v1; // di
 	//int v2; // eax
@@ -59676,7 +59676,7 @@ bool moveTest_5D0A0(type_entity_0x6E8E* a1x)//23e0a0
 		return result;
 	axis_3d tempAxis = predictedAxis_EB398ar;
 	//v7 = a1x->dword_0xA0_160x->word_160_0xc_12;
-	v8 = a1x->dword_0xA0_160x->word_160_0xc_12 + getTerrainAlt_10C40(&tempAxis) + a1x->array_0x52_82.fov;
+	v8 = a1x->dword_0xA0_160x->word_160_0xc_12 + GetTerrainAlt_10C40(&tempAxis) + a1x->array_0x52_82.fov;
 	v9 = GetCeilingAlt_10C60(&tempAxis);
 	LOBYTE(v47) = tempAxis.x >> 8;
 	HIBYTE(v47) = tempAxis.y >> 8;
@@ -59704,11 +59704,11 @@ bool moveTest_5D0A0(type_entity_0x6E8E* a1x)//23e0a0
 			v37 = (unsigned __int16)v48;
 			MoveEntity_57FA0(&v33x, v43, v48, v39);
 			v38 = (signed __int16)GetCeilingAlt_10C60(&v33x);
-			v14 = getTerrainAlt_10C40(&v33x);
+			v14 = GetTerrainAlt_10C40(&v33x);
 			v15 = v38 - v14;
 			MoveEntity_57FA0(&v27x, v44, v37, v13);
 			v38 = (signed __int16)GetCeilingAlt_10C60(&v27x);
-			v16 = getTerrainAlt_10C40(&v27x);
+			v16 = GetTerrainAlt_10C40(&v27x);
 			v17 = v38 - v16;
 			LOBYTE(v47) = v33x.x >> 8;
 			HIBYTE(v47) = v33x.y >> 8;
@@ -59805,7 +59805,7 @@ void MovePlayerWizard_5D530(type_entity_0x6E8E* a1x)//*(x_DWORD *)(a1 + 160)//23
 			speedSign = 1;
 	}
 	a1x->actSpeed_0x82_130 += speedSign * speedIcrement_D4B84;
-	int altDiff = ((predictedAxis_EB398ar.z - getTerrainAlt_10C40(&predictedAxis_EB398ar) - a1x->dword_0xA0_160x->word_160_0xa_10) << 10)
+	int altDiff = ((predictedAxis_EB398ar.z - GetTerrainAlt_10C40(&predictedAxis_EB398ar) - a1x->dword_0xA0_160x->word_160_0xa_10) << 10)
 		/ a1x->dword_0xA0_160x->word_160_0xa_10;
 	if (altDiff < -256)
 		altDiff = -256;
@@ -59904,9 +59904,9 @@ void MovePlayerWizard_5D530(type_entity_0x6E8E* a1x)//*(x_DWORD *)(a1 + 160)//23
 		if (!a1x->dword_0xA4_164x->mobilizeCounter2_0x150_336)
 			a1x->dword_0xA4_164x->mobilizeCounter_0x14E_334--;
 	}
-	if (moveTest_5D0A0(a1x))
+	if (MoveTest_5D0A0(a1x))
 	{
-		locAlt = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+		locAlt = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 		if (a1x->dword_0xA4_164x->mobilizeCounter_0x14E_334)
 		{
 			predictedAxis_EB398ar.z -= 51;
@@ -60114,7 +60114,7 @@ void UpdateWizardMount_5DE30(type_entity_0x6E8E* a1x)//23ee30
 // EB398: using guessed type __int16 x_WORD_EB398;
 
 //----- (0005E010) --------------------------------------------------------
-void AddPlayer03_00_5E010(type_entity_0x6E8E* a1x)//23f010
+void UpdatePlayer_5E010(type_entity_0x6E8E* a1x)//23f010
 {
 	bool locIsOk = false;
 	a1x->minSpeed_0x84_132 = x_DWORD_D4B8C;
@@ -60247,11 +60247,11 @@ void MultiplayerTestDie_5E310(type_entity_0x6E8E* a1x)//23f310
 	if (a1x->word_0x2C_44 > 0)
 		a1x->word_0x2C_44 = 0;
 	v3 = a1x->dword_0xA0_160x->word_160_0xc_12;
-	v4 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	v4 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	v5 = v4;
 	if (a1x->position_0x4C_76.z < v3 + v4)
 		a1x->position_0x4C_76.z = a1x->dword_0xA0_160x->word_160_0xc_12 + v4;
-	v6x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 1);
+	v6x = CreateEntity_4A190(&predictedAxis_EB398ar, 10, 1);
 	if (v6x)
 	{
 		v6x->struct_byte_0xc_12_15.byte[0] |= 0x80u;
@@ -60323,7 +60323,7 @@ void MultiplayerTestDie_5E310(type_entity_0x6E8E* a1x)//23f310
 				v26x->life_0x8 = a1x->rand_0x14_20 % 0x5Au + 200;
 			}
 		}
-		v24x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 40);
+		v24x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 40);
 		if (v24x)
 		{
 			a1x->actionIndex_0x45_69 = 3;
@@ -60383,7 +60383,7 @@ __int16 CheckWizardKiller_5E6C0(type_entity_0x6E8E* a1x)//23f6c0
 	{
 		a1x->yaw_0x1C_28 += 5;
 		a1x->yaw_0x1C_28 &= 0x7ff;
-		v8 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+		v8 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 		HIBYTE(v8)++;
 	}
 	else
@@ -60401,7 +60401,7 @@ __int16 CheckWizardKiller_5E6C0(type_entity_0x6E8E* a1x)//23f6c0
 		a1x->yaw_0x1C_28 &= 0x7ff;
 		a1x->pitch_0x1E_30 += TurnTowardsAngle_58350(a1x->pitch_0x1E_30, a1x->fov_0x22_34, 5, 0x16u);
 		a1x->pitch_0x1E_30 &= 0x7ff;
-		v8 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+		v8 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	}
 	a1x->position_0x4C_76.z = v8;
 	a1x->pitch_0x1E_30 = 0;
@@ -60557,7 +60557,7 @@ signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1x)//23f8c0 //end game seq
 		predictedAxis_EB398ar = a1x->position_0x4C_76;
 		v8 = a1x->actSpeed_0x82_130;
 		MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, a1x->actSpeed_0x82_130);
-		if (moveTest_5D0A0(a1x))
+		if (MoveTest_5D0A0(a1x))
 			CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
 		else
 			a1x->actSpeed_0x82_130 = 0;
@@ -60642,7 +60642,7 @@ signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1x)//23f8c0 //end game seq
 			a1x->actSpeed_0x82_130 = 0;
 		if (a1x->actSpeed_0x82_130 > 200)
 			a1x->actSpeed_0x82_130 = 200;
-		if (!moveTest_5D0A0(a1x))
+		if (!MoveTest_5D0A0(a1x))
 			goto LABEL_51;
 		CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
 		if (Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &v14x->position_0x4C_76) < 0x180)
@@ -60668,7 +60668,7 @@ signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1x)//23f8c0 //end game seq
 			a1x->actSpeed_0x82_130 = 0;
 		if (a1x->actSpeed_0x82_130 > 200)
 			a1x->actSpeed_0x82_130 = 200;
-		if (moveTest_5D0A0(a1x))
+		if (MoveTest_5D0A0(a1x))
 			CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
 		else
 			LABEL_51:
@@ -60689,7 +60689,7 @@ signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1x)//23f8c0 //end game seq
 		{
 			predictedAxis_EB398ar = a1x->position_0x4C_76;
 			MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, 2);
-			if (moveTest_5D0A0(a1x))
+			if (MoveTest_5D0A0(a1x))
 				CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
 		}
 		else
@@ -60724,7 +60724,7 @@ signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1x)//23f8c0 //end game seq
 			}
 		}
 	}
-	v23 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	v23 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	v24 = a1x->position_0x4C_76.z;
 	if (v24 <= v23 + 256)
 	{
@@ -61240,7 +61240,7 @@ void EndOfCastleProjectile_5F8F0(type_entity_0x6E8E* a1x)//2408f0
 		{
 			a1x->word_0x30_48--;
 			UpdateCastleLevel_5F890(a1x, 1);
-			a1x->position_0x4C_76.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+			a1x->position_0x4C_76.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 		}
 	}
 	else
@@ -61254,7 +61254,7 @@ void EndOfCastleProjectile_5F8F0(type_entity_0x6E8E* a1x)//2408f0
 			a1x->word_0x2E_46 = 0;
 			a1x->actionIndex_0x45_69 = 5;
 		}
-		a1x->position_0x4C_76.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+		a1x->position_0x4C_76.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 		//v2 = a1x->byte_0x3E_62;
 		a1x->playerEntityIndex_0x94_148 = a1x->id_0x1A_26;
 		if (!(a1x->byte_0x3E_62 & 1))
@@ -61310,7 +61310,7 @@ void BeginOfCastleCreation_5FA70(type_entity_0x6E8E* locEvent)//240a70
 		break;
 	case 1:
 	case 6:
-		locEvent->position_0x4C_76.z = getTerrainAlt_10C40(&locEvent->position_0x4C_76);
+		locEvent->position_0x4C_76.z = GetTerrainAlt_10C40(&locEvent->position_0x4C_76);
 		break;
 	case 2:
 		locEvent->actionIndex_0x45_69 = 4;
@@ -61322,7 +61322,7 @@ void BeginOfCastleCreation_5FA70(type_entity_0x6E8E* locEvent)//240a70
 		SpawnCastleEffect42_5FBD0(locEvent);
 		break;
 	case 4:
-		locEvent->position_0x4C_76.z = getTerrainAlt_10C40(&locEvent->position_0x4C_76);
+		locEvent->position_0x4C_76.z = GetTerrainAlt_10C40(&locEvent->position_0x4C_76);
 		if ((locEvent->byte_0x3E_62 & 0x1F) == 0)
 		{
 			bool is10_42Type = false;
@@ -61337,7 +61337,7 @@ void BeginOfCastleCreation_5FA70(type_entity_0x6E8E* locEvent)//240a70
 		break;
 	case 5:
 		UpdateCastleLevel_5F890(locEvent, 1);
-		locEvent->position_0x4C_76.z = getTerrainAlt_10C40(&locEvent->position_0x4C_76);
+		locEvent->position_0x4C_76.z = GetTerrainAlt_10C40(&locEvent->position_0x4C_76);
 		SpawnCastleEffect41_5FC40(locEvent);
 		break;
 	default:
@@ -61351,7 +61351,7 @@ void SpawnCastleEffect42_5FBD0(type_entity_0x6E8E* a1x)//240bd0
 	type_entity_0x6E8E* indexx; // eax
 	__int16 v2; // ST08_2
 
-	indexx = IfSubtypeCallCreatingManaSphere_4A190(&a1x->axis_0x9A_154x, 10, 42);
+	indexx = CreateEntity_4A190(&a1x->axis_0x9A_154x, 10, 42);
 	if (indexx)
 	{
 		indexx->byte_0x46_70 = a1x->dword_0x10_16;
@@ -61371,7 +61371,7 @@ type_entity_0x6E8E* SpawnCastleEffect41_5FC40(type_entity_0x6E8E* a1x)//240c40
 	type_entity_0x6E8E* resultx; // eax
 	type_entity_0x6E8E* v2x; // ebx
 
-	resultx = IfSubtypeCallCreatingManaSphere_4A190(&a1x->axis_0x9A_154x, 10, 41);
+	resultx = CreateEntity_4A190(&a1x->axis_0x9A_154x, 10, 41);
 	v2x = resultx;
 	if (resultx)
 	{
@@ -61462,7 +61462,7 @@ void TransferCastleMana_5FD00(type_entity_0x6E8E* a1x)//240d00
 				for (result = v16; v16 > v13; result = v16)
 				{
 					predictedAxis_EB398ar = a1x->position_0x4C_76;
-					v4x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 39);
+					v4x = CreateEntity_4A190(&predictedAxis_EB398ar, 10, 39);
 					//v5x = v4x;
 					if (v4x)
 					{
@@ -61475,7 +61475,7 @@ void TransferCastleMana_5FD00(type_entity_0x6E8E* a1x)//240d00
 						v4x->axis_0x9A_154x.y = 0;
 						v4x->actSpeed_0x82_130 = v4x->rand_0x14_20 % 0x30u + 16;
 						v8 = a1x->position_0x4C_76.z;
-						v9 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+						v9 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 						//v5x->word_0x2C_44 = (1024-(v8-v9)-(__CFSHL__((1024-(v8-v9)) >> 31, 3)+8*((1024-(v8-v9))>>31)))>>3;
 						v4x->word_0x2C_44 = (1024 - (v8 - v9) - (my_sign32(1024 - (v8 - v9)) * 7)) >> 3;
 						a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
@@ -61543,7 +61543,7 @@ void UpdateCastleStructure_5FF50(type_entity_0x6E8E* a1x)//240f50
 				v3x = Entities_EA3E4[v18x->dword_0xA4_164x->array_0x3C_60[v1]];
 				if (v3x <= Entities_EA3E4[0])
 				{
-					v8x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 3, 3);
+					v8x = CreateEntity_4A190(&a1x->position_0x4C_76, 3, 3);
 					v9x = v8x;
 					if (v8x)
 					{
@@ -61649,7 +61649,7 @@ LABEL_22:
 			{
 				if (!a1x->word_0x2C_44)
 				{
-					v17x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 5, 15);
+					v17x = CreateEntity_4A190(&a1x->position_0x4C_76, 5, 15);
 					if (v17x)
 					{
 						a1x->word_0x2C_44 = 16;
@@ -61662,7 +61662,7 @@ LABEL_22:
 						predictedAxis_EB398ar = v17x->position_0x4C_76;
 						predictedAxis_EB398ar.x += 128;
 						predictedAxis_EB398ar.y += 640;
-						predictedAxis_EB398ar.z = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+						predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 						CopyEntityPosition_57CF0(v17x, &predictedAxis_EB398ar);
 					}
 				}
@@ -61735,7 +61735,7 @@ void SpawnCastleBuildEffect_60480(type_entity_0x6E8E* a1x)//241480
 	type_entity_0x6E8E* v6x; // edi
 	//char v7; // dl
 
-	v1x = AddEffectAction44_50370(&a1x->axis_0x9A_154x);
+	v1x = AddCastleEffect42_50370(&a1x->axis_0x9A_154x);
 	v2x = v1x;
 	if (v1x)
 	{
@@ -61924,7 +61924,7 @@ int CheckCastleDestroyed_609E0(type_entity_0x6E8E* locEvent)//2419e0
 }
 
 //----- (00060AB0) --------------------------------------------------------
-void AddBallon_60AB0(type_entity_0x6E8E* a1x)//241ab0
+void UpdateCastleBalloon_60AB0(type_entity_0x6E8E* a1x)//241ab0
 {
 	type_entity_0x6E8E* v1x; // eax
 	axis_3d* v2; // esi
@@ -61992,7 +61992,7 @@ void AddBallon_60AB0(type_entity_0x6E8E* a1x)//241ab0
 				if (Maths::EuclideanDistXYZ_58490(&predictedAxis_EB398ar, v2) <= v7)
 				{
 					v8 = a1x->dword_0xA0_160x->word_160_0xc_12;
-					if (predictedAxis_EB398ar.z <= v8 + (signed __int16)getTerrainAlt_10C40(&predictedAxis_EB398ar) && v16x->dword_0x10_16 > 0)
+					if (predictedAxis_EB398ar.z <= v8 + (signed __int16)GetTerrainAlt_10C40(&predictedAxis_EB398ar) && v16x->dword_0x10_16 > 0)
 					{
 						predictedAxis_EB398ar.x = v16x->position_0x4C_76.x;
 						v9 = v16x->mana_0x90_144;
@@ -62019,7 +62019,7 @@ void AddBallon_60AB0(type_entity_0x6E8E* a1x)//241ab0
 			v11 = a1x->dword_0xA0_160x->word_160_0xe_14;
 			v12 = a1x->dword_0xA0_160x->word_160_0xa_10;
 			v13 = a1x->dword_0xA0_160x->word_160_0xc_12;
-			v14 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+			v14 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 			ClampAboveTerrain_580E0(&predictedAxis_EB398ar, v14, v13, v12, v11);
 			CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
 		}
@@ -62080,7 +62080,7 @@ void SpawnCastleRubble_60D50(axis_3d* a1x, type_entity_0x6E8E* a2x)//241d50
 	v5 = a2x->dword_0xA0_160x->word_160_0xe_14;
 	v6 = a2x->dword_0xA0_160x->word_160_0xa_10;
 	v7 = a2x->dword_0xA0_160x->word_160_0xc_12;
-	v8 = getTerrainAlt_10C40(a1x);
+	v8 = GetTerrainAlt_10C40(a1x);
 	ClampAboveTerrain_580E0(a1x, v8, v7, v6, v5);
 	if (!(a2x->struct_byte_0xc_12_15.byte[0] & 1))
 	{
@@ -62324,10 +62324,10 @@ type_entity_0x6E8E* UpdateBalloonCollection_61050(type_entity_0x6E8E* a1x)//2420
 					v14 = v13 & 0x7FF;
 					v33 = v12;
 					MoveEntity_57FA0(&v26x, v13 & 0x7FF, 0, v29);
-					v15 = getTerrainAlt_10C40(&v26x);
+					v15 = GetTerrainAlt_10C40(&v26x);
 					HIBYTE(v15) += 4;
 					v26x.z = v15;
-					v16x = IfSubtypeCallCreatingManaSphere_4A190(&v26x, 10, 39);
+					v16x = CreateEntity_4A190(&v26x, 10, 39);
 					v17x = v16x;
 					if (v16x)
 					{
@@ -62464,7 +62464,7 @@ void UpdateBalloonChain_613D0(type_entity_0x6E8E* a1x)//2423d0
 				{
 					predictedAxis_EB398ar.x = (v20 + v13[0]) << 8;
 					predictedAxis_EB398ar.y = (v19 + v13[1]) << 8;
-					i2x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 79);
+					i2x = CreateEntity_4A190(&predictedAxis_EB398ar, 10, 79);
 					v9x = i2x;
 					v17x = i2x;
 					if (!i2x)
@@ -62475,7 +62475,7 @@ void UpdateBalloonChain_613D0(type_entity_0x6E8E* a1x)//2423d0
 					i2x->id_0x1A_26 = a1x->id_0x1A_26;
 					i2x->byte_0x43_67 = v16;
 					i2x->word_0x4A_74 = v4;
-					v11 = getTerrainAlt_10C40(&i2x->position_0x4C_76);
+					v11 = GetTerrainAlt_10C40(&i2x->position_0x4C_76);
 					v9x->position_0x4C_76.z = v11;
 					v9x->position_0x4C_76.z = v4 <= 1 ? v11 + 384 : v11 + 224;
 					v18x = v17x;
@@ -62556,11 +62556,11 @@ void DrawMinimapEntites_61880(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 		DrawMinimapEntities_627F0(x, y, posX, posY, width, height, yaw, scaling, scale);
 	else
-		DrawMinimapEntities_B_61A00(x, y, posX, posY, width, height, yaw, scaling, scale);
+		DrawMinimapEntitiesB_61A00(x, y, posX, posY, width, height, yaw, scaling, scale);
 }
 
 //----- (00064E20) --------------------------------------------------------
-uint32_t AddTree02_00_64E20(type_entity_0x6E8E* a1x)//245e20
+uint32_t UpdateTree_64E20(type_entity_0x6E8E* a1x)//245e20
 {
 	__int16 v1; // dx
 	int v2; // edx
@@ -62582,7 +62582,7 @@ uint32_t AddTree02_00_64E20(type_entity_0x6E8E* a1x)//245e20
 		a1x->life_0x8 = v2;
 		if (v2 < 0)
 		{
-			v3x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 6);
+			v3x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 6);
 			v4x = v3x;
 			v5x = v3x;
 			if (v3x)
@@ -62609,11 +62609,11 @@ uint32_t AddTree02_00_64E20(type_entity_0x6E8E* a1x)//245e20
 		}
 		a1x->str_0x5E_94.channel[0].source = 0;
 	}
-	a1x->position_0x4C_76.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	a1x->position_0x4C_76.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	result = TerrainTileIsWater_104D0(&a1x->position_0x4C_76);
 	if (result == 1)
 	{
-		v11x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
+		v11x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 5);
 		if (v11x)
 			v11x->id_0x1A_26 = a1x->id_0x1A_26;
 		DisableEntityDrawing04_57F10(a1x);
@@ -62623,7 +62623,7 @@ uint32_t AddTree02_00_64E20(type_entity_0x6E8E* a1x)//245e20
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (00064F60) --------------------------------------------------------
-uint32_t UpdateScenery02_01_64F60(type_entity_0x6E8E* a1x)//245f60
+uint32_t UpdateBurningTree_64F60(type_entity_0x6E8E* a1x)//245f60
 {
 	int v1; // edx
 	unsigned __int16 v2; // si
@@ -62648,11 +62648,11 @@ uint32_t UpdateScenery02_01_64F60(type_entity_0x6E8E* a1x)//245f60
 			}
 		}
 	}
-	a1x->position_0x4C_76.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	a1x->position_0x4C_76.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	result = TerrainTileIsWater_104D0(&a1x->position_0x4C_76);
 	if (result == 1)
 	{
-		v4x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
+		v4x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 5);
 		if (v4x)
 			v4x->id_0x1A_26 = a1x->id_0x1A_26;
 		DisableEntityDrawing04_57F10(a1x);
@@ -62661,16 +62661,16 @@ uint32_t UpdateScenery02_01_64F60(type_entity_0x6E8E* a1x)//245f60
 }
 
 //----- (00064FF0) --------------------------------------------------------
-uint32_t UpdateScenery02_02_64FF0(type_entity_0x6E8E* a1x)//245ff0
+uint32_t UpdateBurntTree_64FF0(type_entity_0x6E8E* a1x)//245ff0
 {
 	uint32_t result; // eax
 	type_entity_0x6E8E* v2x; // eax
 
-	a1x->position_0x4C_76.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	a1x->position_0x4C_76.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	result = TerrainTileIsWater_104D0(&a1x->position_0x4C_76);
 	if (result == 1)
 	{
-		v2x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
+		v2x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 5);
 		if (v2x)
 			v2x->id_0x1A_26 = a1x->id_0x1A_26;
 		DisableEntityDrawing04_57F10(a1x);
@@ -62679,14 +62679,14 @@ uint32_t UpdateScenery02_02_64FF0(type_entity_0x6E8E* a1x)//245ff0
 }
 
 //----- (00065040) --------------------------------------------------------
-void AddStatue02_01_65040(type_entity_0x6E8E* event)//246040
+void UpdateStone_65040(type_entity_0x6E8E* event)//246040
 {
 	event->struct_byte_0xc_12_15.byte[2] |= 2u;
-	event->position_0x4C_76.z = getTerrainAlt_10C40(&event->position_0x4C_76);
+	event->position_0x4C_76.z = GetTerrainAlt_10C40(&event->position_0x4C_76);
 }
 
 //----- (00065080) --------------------------------------------------------
-void AddDolmen02_02_65080(type_entity_0x6E8E* event)//246080
+void UpdateDolmen_65080(type_entity_0x6E8E* event)//246080
 {
 	for (int v2x = 0; v2x < D41A0_0.NumberOfPlayers_0xe; v2x++)
 	{
@@ -62694,22 +62694,22 @@ void AddDolmen02_02_65080(type_entity_0x6E8E* event)//246080
 		if (event2->life_0x8 >= 0 && EntitiesOverlap_106C0(event2, event))
 			event2->struct_byte_0xc_12_15.byte[1] |= 0x10u;
 	}
-	event->position_0x4C_76.z = getTerrainAlt_10C40(&event->position_0x4C_76);
+	event->position_0x4C_76.z = GetTerrainAlt_10C40(&event->position_0x4C_76);
 }
 
 //----- (00065110) --------------------------------------------------------
-int UpdateScenery02_09_65110(type_entity_0x6E8E* a1x)//246110
+int UpdateSceneryType3_65110(type_entity_0x6E8E* a1x)//246110
 {
 	int result; // eax
 
 	a1x->struct_byte_0xc_12_15.byte[2] |= 2u;
-	result = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	result = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	a1x->position_0x4C_76.z = result;
 	return result;
 }
 
 //----- (000651B0) --------------------------------------------------------
-uint32_t UpdateScenery02_12_651B0(type_entity_0x6E8E* a1x)//2461b0
+uint32_t UpdateSceneryType6_651B0(type_entity_0x6E8E* a1x)//2461b0
 {
 	__int16 v1; // dx
 	int v2; // edx
@@ -62731,11 +62731,11 @@ uint32_t UpdateScenery02_12_651B0(type_entity_0x6E8E* a1x)//2461b0
 			a1x->actionIndex_0x45_69 = 19;
 			a1x->struct_byte_0xc_12_15.byte[0] = v4 & 0xF7;
 			SetHalfSpeedEntity_49DA0(a1x, v3 + 4);
-			IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 13);
+			CreateEntity_4A190(&a1x->position_0x4C_76, 10, 13);
 		}
 		a1x->str_0x5E_94.channel[0].source = 0;
 	}
-	a1x->position_0x4C_76.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	a1x->position_0x4C_76.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	result = TerrainTileIsWater_104D0(&a1x->position_0x4C_76);
 	if (result == 1)
 		DisableEntityDrawing04_57F10(a1x);
@@ -62743,11 +62743,11 @@ uint32_t UpdateScenery02_12_651B0(type_entity_0x6E8E* a1x)//2461b0
 }
 
 //----- (00065240) --------------------------------------------------------
-uint32_t UpdateScenery02_13_65240(type_entity_0x6E8E* a1x)//246240
+uint32_t UpdateSceneryType6Burnt_65240(type_entity_0x6E8E* a1x)//246240
 {
 	uint32_t result; // eax
 
-	a1x->position_0x4C_76.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	a1x->position_0x4C_76.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	result = TerrainTileIsWater_104D0(&a1x->position_0x4C_76);
 	if (result == 1)
 		DisableEntityDrawing04_57F10(a1x);
@@ -62755,13 +62755,13 @@ uint32_t UpdateScenery02_13_65240(type_entity_0x6E8E* a1x)//246240
 }
 
 //----- (00065280) --------------------------------------------------------
-void UpdateScenery02_15_65280(type_entity_0x6E8E* a1x)//246280
+void UpdateSceneryType6Falling2_65280(type_entity_0x6E8E* a1x)//246280
 {
 	MoveProjectile_652C0(a1x);
 }
 
 //----- (000652A0) --------------------------------------------------------
-void UpdateScenery02_14_652A0(type_entity_0x6E8E* a1x)//2462a0
+void UpdateSceneryType6Falling_652A0(type_entity_0x6E8E* a1x)//2462a0
 {
 	MoveProjectile_652C0(a1x);
 }
@@ -62796,7 +62796,7 @@ void MoveProjectile_652C0(type_entity_0x6E8E* a1x)//2462c0
 	else
 	{
 		predictedAxis_EB398ar = a1x->position_0x4C_76;
-		if ((int16_t)a1x->position_0x4C_76.z > (signed __int16)getTerrainAlt_10C40(&a1x->position_0x4C_76))
+		if ((int16_t)a1x->position_0x4C_76.z > (signed __int16)GetTerrainAlt_10C40(&a1x->position_0x4C_76))
 		{
 			v2 = a1x->actSpeed_0x82_130;
 			if (v2)
@@ -62819,7 +62819,7 @@ void MoveProjectile_652C0(type_entity_0x6E8E* a1x)//2462c0
 			a1x->word_0x2C_44 = -192;
 		if (a1x->word_0x2C_44 > 192)
 			a1x->word_0x2C_44 = 192;
-		v6 = (signed __int16)getTerrainAlt_10C40(&a1x->position_0x4C_76);
+		v6 = (signed __int16)GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 		if ((int16_t)a1x->position_0x4C_76.z <= v6)
 			a1x->position_0x4C_76.z = v6;
 		if (a1x->str_0x5E_94.channel[0].source)
@@ -62851,12 +62851,12 @@ void MoveProjectile_652C0(type_entity_0x6E8E* a1x)//2462c0
 		}
 		if (a1x->life_0x8 < 0)
 		{
-			IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 13);
+			CreateEntity_4A190(&a1x->position_0x4C_76, 10, 13);
 			goto LABEL_27;
 		}
 		if ((int16_t)a1x->position_0x4C_76.z <= v6 && TerrainTileIsWater_104D0(&a1x->position_0x4C_76) == 1)
 		{
-			IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
+			CreateEntity_4A190(&a1x->position_0x4C_76, 10, 5);
 		LABEL_27:
 			DisableEntityDrawing04_57F10(a1x);
 			return;
@@ -62894,7 +62894,7 @@ void BounceProjectileOffTerrain_654B0(/*axis_3d* a1x,*/ type_entity_0x6E8E* a2x)
 			v7x = predictedAxis_EB398ar;
 			MoveEntity_57FA0(&v7x, v11, 0, 64);
 			v3 = v10;
-			v4 = getTerrainAlt_10C40(&v7x);
+			v4 = GetTerrainAlt_10C40(&v7x);
 			if (v4 < v3)
 			{
 				v10 = v4;
@@ -63108,7 +63108,7 @@ type_entity_0x6E8E* UpdateProjectileTargeting_65820(type_entity_0x6E8E* a1x)//24
 		v14 = 1;
 		goto LABEL_29;
 	}
-	v6 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+	v6 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	v7 = a1x->position_0x4C_76.z;
 	predictedAxis_EB398ar.z = v6;
 	if (v6 > v7
@@ -63119,7 +63119,7 @@ type_entity_0x6E8E* UpdateProjectileTargeting_65820(type_entity_0x6E8E* a1x)//24
 		v8 = a1x->model_0x40_64;
 		if (v8 != 4 && v8 != 22 && v8 != 24 && v8 != 26 && TerrainTileIsWater_104D0(&a1x->position_0x4C_76) == 1)
 		{
-			v9x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
+			v9x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 5);
 			if (v9x)
 				v9x->id_0x1A_26 = a1x->id_0x1A_26;
 			DisableEntityDrawing04_57F10(a1x);
@@ -63140,7 +63140,7 @@ LABEL_29:
 		DisableEntityDrawing04_57F10(a1x);
 		return 0;
 	}
-	v11x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
+	v11x = CreateEntity_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
 	if (!v11x)
 		return 0;
 	SetProjectileDamage_65780(a1x, v5x, v13x);
@@ -63166,14 +63166,14 @@ LABEL_29:
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (00065B30) --------------------------------------------------------
-void CastPlayerFire_65B30(type_entity_0x6E8E* entity)//246b30
+void UpdateFireballProjectile_65B30(type_entity_0x6E8E* entity)//246b30
 {
 	if (UpdateProjectileTargeting2_65C20(entity))
 		DisableEntityDrawing04_57F10(entity);//fire drop
 }
 
 //----- (00065B50) --------------------------------------------------------
-void UpdateProjectile09_1D_65B50(type_entity_0x6E8E* a1x)//246b50
+void UpdateFireStormProjectile_65B50(type_entity_0x6E8E* a1x)//246b50 //tex 55
 {
 	//int result; // eax
 	type_entity_0x6E8E* v2x; // esi
@@ -63293,7 +63293,7 @@ LABEL_18:
 	v9x = v8x;
 	if (!v8x)
 	{
-		v11 = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+		v11 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 		v12 = a1x->position_0x4C_76.z;
 		predictedAxis_EB398ar.z = v11;
 		if (v11 > v12
@@ -63304,7 +63304,7 @@ LABEL_18:
 			CopyEntityPosition_57CF0(a1x, &v16x);
 			if (a1x->model_0x40_64 != 4 && TerrainTileIsWater_104D0(&a1x->position_0x4C_76) == 1)
 			{
-				v13x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
+				v13x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 5);
 				if (v13x)
 					v13x->id_0x1A_26 = a1x->id_0x1A_26;
 				DisableEntityDrawing04_57F10(a1x);
@@ -63344,7 +63344,7 @@ LABEL_35:
 		}
 		else
 		{
-			v18x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
+			v18x = CreateEntity_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
 			if (v18x)
 			{
 				SetProjectileDamage_65780(a1x, v9x, v19x);
@@ -63371,7 +63371,7 @@ LABEL_35:
 int debugcounter_sub_65F60 = 0;
 
 //----- (00065F60) --------------------------------------------------------
-void CastPosses_65F60(type_entity_0x6E8E* a1x)//246f60
+void UpdatePossessionProjectile_65F60(type_entity_0x6E8E* a1x)//246f60
 {
 	type_entity_0x6E8E* v1x; // eax
 	//char v2; // dl
@@ -63423,7 +63423,7 @@ void CastPosses_65F60(type_entity_0x6E8E* a1x)//246f60
 	}
 	predictedAxis_EB398ar = a1x->position_0x4C_76;
 	MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, a1x->pitch_0x1E_30, a1x->actSpeed_0x82_130);
-	v3 = getTerrainAlt_10C40(&predictedAxis_EB398ar);
+	v3 = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 	if (v3 > predictedAxis_EB398ar.z)
 		predictedAxis_EB398ar.z = v3;
 	if (isCaveLevel_D41B6)
@@ -63440,7 +63440,7 @@ void CastPosses_65F60(type_entity_0x6E8E* a1x)//246f60
 	{
 		/*LOWORD(v8) = *///sub_10C40_getTerrainAlt(a1x->array_0x4C_76);
 		v9 = a1x->position_0x4C_76.z;
-		predictedAxis_EB398ar.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+		predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 		if (predictedAxis_EB398ar.z > v9
 			|| isCaveLevel_D41B6
 			&& (predictedAxis_EB398ar.z = GetCeilingAlt_10C60(&a1x->position_0x4C_76) - a1x->array_0x52_82.fov,
@@ -63470,7 +63470,7 @@ LABEL_19:
 	if (v15)
 	{
 		//v8x = sub_4A190(a1x->array_0x4C_76, *(char *)(a1 + 67), *(char *)(a1 + 68));
-		v12x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
+		v12x = CreateEntity_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
 		if (v12x)
 		{
 			SetProjectileDamage_65780(a1x, v7x, v14x);
@@ -63490,7 +63490,7 @@ LABEL_19:
 // EB39C: using guessed type __int16 x_WORD_EB398ar[2];
 
 //----- (00066160) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_02_66160(type_entity_0x6E8E* a1x)//247160
+type_entity_0x6E8E* UpdateEarthquakeProjectile_66160(type_entity_0x6E8E* a1x)//247160
 {
 	type_entity_0x6E8E* resultx; // eax
 
@@ -63501,7 +63501,7 @@ type_entity_0x6E8E* UpdateProjectile09_02_66160(type_entity_0x6E8E* a1x)//247160
 }
 
 //----- (00066180) --------------------------------------------------------
-void UpdateProjectile09_03_66180(type_entity_0x6E8E* a1x)//247180
+void UpdateMeteorProjectile_66180(type_entity_0x6E8E* a1x)//247180
 {
 	type_entity_0x6E8E* v1x; // esi
 	type_entity_0x6E8E* resultx; // eax
@@ -63520,7 +63520,7 @@ void UpdateProjectile09_03_66180(type_entity_0x6E8E* a1x)//247180
 		a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 		v4x.y = a1x->rand_0x14_20 % 0x81u + a1x->position_0x4C_76.y - 96 - 64;
 		v4x.z = a1x->position_0x4C_76.z;
-		resultx = IfSubtypeCallCreatingManaSphere_4A190(&v4x, 10, 0);
+		resultx = CreateEntity_4A190(&v4x, 10, 0);
 		if (resultx)
 		{
 			resultx->struct_byte_0xc_12_15.dword |= 0x10080;
@@ -63541,7 +63541,7 @@ void UpdateProjectile09_03_66180(type_entity_0x6E8E* a1x)//247180
 }
 
 //----- (00066250) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_04_66250(type_entity_0x6E8E* a1x)//247250
+type_entity_0x6E8E* UpdateVolcanoProjectile_66250(type_entity_0x6E8E* a1x)//247250
 {
 	type_entity_0x6E8E* resultx; // eax
 	int v2; // edx
@@ -63557,7 +63557,7 @@ type_entity_0x6E8E* UpdateProjectile09_04_66250(type_entity_0x6E8E* a1x)//247250
 }
 
 //----- (00066280) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_05_66280(type_entity_0x6E8E* a1x)//247280
+type_entity_0x6E8E* UpdateCraterProjectile_66280(type_entity_0x6E8E* a1x)//247280
 {
 	type_entity_0x6E8E* resultx; // eax
 
@@ -63568,19 +63568,19 @@ type_entity_0x6E8E* UpdateProjectile09_05_66280(type_entity_0x6E8E* a1x)//247280
 }
 
 //----- (000662A0) --------------------------------------------------------
-type_entity_0x6E8E* UpdateProjectile09_06_662A0(type_entity_0x6E8E* a1x)//2472a0
+type_entity_0x6E8E* UpdateBlueOrbProjectile_662A0(type_entity_0x6E8E* a1x)//2472a0
 {
 	return UpdateProjectileTargeting_65820(a1x);
 }
 
 //----- (000662C0) --------------------------------------------------------
-void UpdateProjectile09_07_662C0(type_entity_0x6E8E* a1x)//2472c0
+void UpdateDuelProjectile_662C0(type_entity_0x6E8E* a1x)//2472c0
 {
-	UpdateProjectile09_08_662E0(a1x);
+	UpdateStealManaProjectile_662E0(a1x);
 }
 
 //----- (000662E0) --------------------------------------------------------
-void UpdateProjectile09_08_662E0(type_entity_0x6E8E* a1x)//2472e0
+void UpdateStealManaProjectile_662E0(type_entity_0x6E8E* a1x)//2472e0
 {
 	type_entity_0x6E8E* v1x; // eax
 	char v2; // dl
@@ -63658,7 +63658,7 @@ void UpdateProjectile09_08_662E0(type_entity_0x6E8E* a1x)//2472e0
 	{
 		//LOWORD(v6) = sub_10C40_getTerrainAlt(a1x->array_0x4C_76);
 		v7 = a1x->position_0x4C_76.z;
-		predictedAxis_EB398ar.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+		predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 		if (predictedAxis_EB398ar.z > v7
 			|| isCaveLevel_D41B6
 			&& (predictedAxis_EB398ar.z = GetCeilingAlt_10C60(&a1x->position_0x4C_76) - a1x->array_0x52_82.fov,
@@ -63674,7 +63674,7 @@ void UpdateProjectile09_08_662E0(type_entity_0x6E8E* a1x)//2472e0
 				//v6 = TerrainTileIsWater_104D0((signed __int16 *)(a1 + 76));
 				if (TerrainTileIsWater_104D0(&a1x->position_0x4C_76) == 1)
 				{
-					v9x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, 10, 5);
+					v9x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 5);
 					if (v9x)
 						v9x->id_0x1A_26 = a1x->id_0x1A_26;
 					DisableEntityDrawing04_57F10(a1x);
@@ -63705,7 +63705,7 @@ LABEL_26:
 		}
 		else
 		{
-			v6x = IfSubtypeCallCreatingManaSphere_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
+			v6x = CreateEntity_4A190(&a1x->position_0x4C_76, a1x->byte_0x43_67, a1x->byte_0x44_68);
 			v12x = v6x;
 			if (v6x)
 			{
@@ -63775,7 +63775,7 @@ void UpdateProjectileExplosion_66610(type_entity_0x6E8E* a1x)//247610
 	{
 		//LOWORD(v2) = sub_10C40_getTerrainAlt(a1x->array_0x4C_76);
 		v3 = a1x->position_0x4C_76.z;
-		predictedAxis_EB398ar.z = getTerrainAlt_10C40(&a1x->position_0x4C_76);
+		predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 		if (predictedAxis_EB398ar.z > v3
 			|| isCaveLevel_D41B6
 			&& (predictedAxis_EB398ar.z = GetCeilingAlt_10C60(&a1x->position_0x4C_76) - a1x->array_0x52_82.fov,

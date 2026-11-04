@@ -161,7 +161,7 @@ int run_regtest(int level, int testType, int index, int saveIndex, const char* r
 	CommandLineParams.Init(argc, argv.data());
 	support_begin();
 	x_BYTE_D4B80 = 0;
-	CleanF5538_716A0();
+	ClearUsedTmapFlags_716A0();
 	for (int i = 0; i < 504; i++)
 		m_ptrLoadedSprites_F66F0x[i] = nullptr;
 	x_DWORD_E9C28_str = nullptr;

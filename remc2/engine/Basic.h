@@ -576,13 +576,13 @@ void StartSubtitles_2EB60();
 void DrawSubtitleTextWithBorder_2EBB0(char* textString);
 void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
 void DrawBitmap640_7C120(int16_t posx, int16_t posy, bitmap_pos_struct_t tempstr);
-uint8_t getPaletteIndex_5BE80(TColor* a1x, uint8_t a2, uint8_t a3, uint8_t a4);
+uint8_t GetPaletteIndex_5BE80(TColor* a1x, uint8_t a2, uint8_t a3, uint8_t a4);
 void DrawTextBackground_7C140(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
-void VGA_PaletteInstall_41A90(TColor* a1x);
+void VgaPaletteInstall_41A90(TColor* a1x);
 void SetSubtitleColourAndRedraw_2EC90(char a1);
 uint32_t DrawText_7FAE0(char* text, int16_t x, int16_t width, int16_t posy, uint8_t color);
-void VGA_Blit320_90478(uint8_t maxFps = 0);
-void VGA_Blit640_75200(uint16_t height, uint8_t maxFps = 0);
+void VgaBlit320_90478(uint8_t maxFps = 0);
+void VgaBlit640_75200(uint16_t height, uint8_t maxFps = 0);
 uint8_t GetLetterHeight_6FC30();
 void DrawBitmap_2BB40(int16_t posx, int16_t posy, bitmap_pos_struct_t temposstr, uint8_t scale = 1);
 
@@ -604,8 +604,8 @@ void LockFps(uint8_t maxFps);
 void SetMouseMinMax_6EF10(__int16 a1, signed __int16 a2, __int16 a3, signed __int16 a4);
 void DrawText_7FB90(char* textbuffer, int16_t posx, int16_t posy, uint8_t color);
 void DrawCursorIfEnabled_8CACD();
-void drawBitmap320_8F8B0(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale = 1);
-void drawBitmap640_8F8E8(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale = 1);
+void DrawBitmap320_8F8B0(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale = 1);
+void DrawBitmap640_8F8E8(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale = 1);
 void DrawLineLowRes_90164(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
 void DrawLineHighRes_901E4(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
 void DrawTextRaw_6F940(const char* textbuffer, int posx, int posy, uint8_t color, uint8_t scale = 1);//250940

@@ -254,12 +254,12 @@ bool DataFileIO::LoadFileArray_84250(int psindex)//265250
 				psindex++;
 				continue;
 			}
-			VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//install Palette for text mode(show error)
+			VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//install Palette for text mode(show error)
 			myprintf("ERROR: File %s.\n","palette");
 		}
 		else
 		{
-			VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//install Palette for text mode(show error)
+			VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//install Palette for text mode(show error)
 			myprintf("ERROR: Allocation %s.\n","palette");
 		}
 		myprintf("Press return to continue\n");

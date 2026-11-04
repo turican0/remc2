@@ -52,7 +52,7 @@ void ChangeGameResolution_46B40();
 void ClearScreenAndBlit_75C50();
 int ClearVgaMemory_906B4();
 signed int InitScanlineOffsets_90668(int a1);
-void VGA_SetVideoModeAltAndPalette_90E07(TColor* Palette);
+void VgaSetVideoModeAltAndPalette_90E07(TColor* Palette);
 
 
 int debugcounter_47560 = 0;
@@ -1575,7 +1575,7 @@ void SetPausedMenuOpen_41AF0()//222af0
 			x_BYTE_D47D8 = D41A0_0.m_GameSettings.m_Display.m_uiScreenSize;
 			InstallPaletteAndMouseMinMax_417A0();
 			D41A0_0.m_GameSettings.m_Display.m_uiScreenSize = 0;
-			VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
+			VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
 		}
 	}
 	IsPauseMenuOpen_D47D9++;
@@ -1709,7 +1709,7 @@ void SetCursor_8CD27(bitmap_pos_struct_t a2)//26dd27
 		//printf("%d",i);
 	}
 	if (a2.data)
-		drawBitmap320_8F8B0(0, 0, a2);//2708B0 super inicializace //a2 ma byt 86 nebo a1 nema nikam ukazovat
+		DrawBitmap320_8F8B0(0, 0, a2);//2708B0 super inicializace //a2 ma byt 86 nebo a1 nema nikam ukazovat
 	pdwScreenBuffer_351628 = temp_screen_buffer;
 	screenWidth_18062C = v3;
 	//x_WORD_E36D4 = x_WORD_E36D4;//355230
@@ -1723,7 +1723,7 @@ void SetCursor_8CD27(bitmap_pos_struct_t a2)//26dd27
 	//pdwScreenBuffer_351628 = (uint8_t*)v5;
 	x_DWORD_E3758 = 0;
 
-	//VGA_Blit320_90478();//debug
+	//VgaBlit320_90478();//debug
 	//return result;
 }
 
@@ -1731,7 +1731,7 @@ void SetCursor_8CD27(bitmap_pos_struct_t a2)//26dd27
 void InstallPaletteAndMouseMinMax2_417D0()//2227d0
 {
 	ClearVgaMemory_906B4();
-	VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
+	VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
 	SetMouseMinMax_6EF10(0, 640, 0, 800);
 }
 
@@ -2549,10 +2549,10 @@ void ChangeGameResolution_46B40()//227b40
 	int16_t v0_tempmousex = x_WORD_E3760_mouse.x;//227b46: mov si, word_E3760
 	int16_t v0_tempmousey = x_WORD_E3760_mouse.y;//227b53: mov bx, word_E3762
 
-	VGA_PalFadeInFadeOut_90B27(0, 0x10u, 0);
+	VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 	InstallPaletteAndMouseMinMax_417A0();
 	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
-	VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
+	VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
 
 	if (pre_ptrMemoryBuffer_E9C3C)
 	{
@@ -2593,36 +2593,36 @@ void ChangeGameResolution_46B40()//227b40
 	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
-		v1 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
+		v1 = GetPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, v1);
 		ClearScreenAlphaBuffer(320, 200, 255);
 	}
 	else
 	{
-		v2 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
+		v2 = GetPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, v2);
 		ClearScreenAlphaBuffer(screenWidth_18062C, screenHeight_180624, 255);
 	}
 	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
-	VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
+	VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		VGA_SetVideoMode320x200AndPalette_90D6E((TColor*)*xadatapald0dat2.colorPalette_var28);
+		VgaSetVideoMode320x200AndPalette_90D6E((TColor*)*xadatapald0dat2.colorPalette_var28);
 	else
 	{
 		if (((gameResWidth > 640) || (gameResHeight > 480)) && (x_WORD_180660_VGA_type_resolution != 1))
 		{
 			screenWidth_18062C = gameResWidth;
 			screenHeight_180624 = gameResHeight;
-			VGA_SetVideoModeAltAndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
+			VgaSetVideoModeAltAndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
 			v0_tempmousex = gameResWidth / 2;
 			v0_tempmousey = gameResHeight / 2;
 		}
 		else
-			VGA_SetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
+			VgaSetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
 	}
 
-	VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
-	v3 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
+	VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
+	v3 = GetPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
 	uiBackGroundColorIdx_EB3A8 = v3;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
@@ -2661,9 +2661,9 @@ void ClearScreenAndBlit_75C50()//fix
 	 __outx_BYTE(0x303u, 1u);*/
 	memset((void*)pdwScreenBuffer_351628, 0, screenHeight_180624 * screenWidth_18062C);
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		VGA_Blit320_90478();
+		VgaBlit320_90478();
 	else
-		VGA_Blit640_75200(480);
+		VgaBlit640_75200(480);
 }
 
 //----- (000906B4) --------------------------------------------------------
@@ -2823,7 +2823,7 @@ signed int InitScanlineOffsets_90668(int a1)//271668
 }
 // 1811E4: using guessed type __int16 x_WORD_1811E4[];
 
-void VGA_SetVideoModeAltAndPalette_90E07(TColor* Palette)//271e07
+void VgaSetVideoModeAltAndPalette_90E07(TColor* Palette)//271e07
 {
 	//unsigned __int8 v2; // [esp+0h] [ebp-38h]
 	//int v3; // [esp+1Ch] [ebp-1Ch]
@@ -2836,7 +2836,7 @@ void VGA_SetVideoModeAltAndPalette_90E07(TColor* Palette)//271e07
 	screenWidth_18062C = screenWidth_18062C;
 	screenHeight_180624 = screenHeight_180624;
 //removed sub_994BA_cursor_move(0x101); //set position of cursor?
-	VGA_PaletteInstall_41A90(Palette);
+	VgaPaletteInstall_41A90(Palette);
 //removed sub_8D12F_set_mouse_viewport(); //set min/max of viewport
 	SetViewport_A0D50(0, 0, screenWidth_18062C, screenHeight_180624);
 }

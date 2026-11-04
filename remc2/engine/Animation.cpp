@@ -125,7 +125,7 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 		case 'f':
 			//Stop loop
 			if (soundAble_E3798)
-				Update_Playing_Sample_Status_8F710(0, pSoundEvent[soundEventIndex_D4004].index, 0, 4u, 1);
+				UpdatePlayingSampleStatus_8F710(0, pSoundEvent[soundEventIndex_D4004].index, 0, 4u, 1);
 			break;
 		case 'H':
 		case 'h':
@@ -152,13 +152,13 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 		case 'o':
 			//Materialisation Sound
 			if (soundAble_E3798)
-				Update_Playing_Sample_Status_8F710(0, pSoundEvent[soundEventIndex_D4004].index, 0x7Fu, 2u, 0);
+				UpdatePlayingSampleStatus_8F710(0, pSoundEvent[soundEventIndex_D4004].index, 0x7Fu, 2u, 0);
 			break;
 		case 'P':
 		case 'p':
 			//People Sound
 			if (soundAble_E3798)
-				Update_Playing_Sample_Status_8F710(0, pSoundEvent[soundEventIndex_D4004].index, 0x50u, 2u, 0);
+				UpdatePlayingSampleStatus_8F710(0, pSoundEvent[soundEventIndex_D4004].index, 0x50u, 2u, 0);
 			break;
 		case 'Q':
 			DrawSubtitleTextWithBorder_2EBB0(x_DWORD_E9C4C_langindexbuffer[pSoundEvent[soundEventIndex_D4004].index]);
@@ -314,20 +314,20 @@ void DrawFrame_75E70()//256e70
 		fix_sub_9A0FC_wait_to_screen_beam(0);//27b0fc
 		if (redrawTextInVideo_E12FC)
 		{
-			VGA_PaletteInstall_41A90(unk_17D838x);
-			SetSubtitleColourAndRedraw_2EC90(getPaletteIndex_5BE80(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu));//20fc90 -zde se prekresli texty
+			VgaPaletteInstall_41A90(unk_17D838x);
+			SetSubtitleColourAndRedraw_2EC90(GetPaletteIndex_5BE80(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu));//20fc90 -zde se prekresli texty
 		}
 	}
 
 	if (DisplaySubtitles_D41C1)
 	{
 		pdwScreenBuffer_351628 += 0x26C0;
-		VGA_Blit320_90478(UINT8_MAX);
+		VgaBlit320_90478(UINT8_MAX);
 		pdwScreenBuffer_351628 -= 0x26C0;
 	}
 	else
 	{
-		VGA_Blit320_90478(UINT8_MAX);
+		VgaBlit320_90478(UINT8_MAX);
 	}
 }
 
