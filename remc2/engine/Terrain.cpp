@@ -21,42 +21,42 @@ void GenerateLevelMap_43830(Type_Level_2FECE* a2x)//224830
 	rand2_17B4E0 = a2x->seed_0x2FEE5;
 	D41A0_0.rand_0x8 = a2x->seed_0x2FEE5;
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
-	sub_B5E70_decompress_terrain_map_level(rand2_17B4E0, a2x->offset_0x2FEE9, a2x->raise_0x2FEED, a2x->gnarl_0x2FEF1);
+	DecompressTerrainMapLevel_B5E70(rand2_17B4E0, a2x->offset_0x2FEE9, a2x->raise_0x2FEED, a2x->gnarl_0x2FEF1);
 
-	sub_44DB0_truncTerrainHeight(mapEntityIndex_15B4E0, mapHeightmap_11B4E0);//225db0 //trunc and create
+	TruncTerrainHeight_44DB0(mapEntityIndex_15B4E0, mapHeightmap_11B4E0);//225db0 //trunc and create
 
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
-	sub_44E40(a2x->river_0x2FEF5, a2x->lriver_0x2FEF9);//225e40 //add any fields
+	MarkLandAndRivers_44E40(a2x->river_0x2FEF5, a2x->lriver_0x2FEF9);//225e40 //add any fields
 
-	sub_45AA0_setMax4Tiles();//226aa0
+	SetMax4Tiles_45AA0();//226aa0
 
-	sub_440D0(a2x->snLin_0x2FF01);//2250d0
+	ApplySnowLine_440D0(a2x->snLin_0x2FF01);//2250d0
 
-	sub_45060(a2x->snFlt_0x2FF05, a2x->bhLin_0x2FF09);//226060
+	MarkFlatLowland_45060(a2x->snFlt_0x2FF05, a2x->bhLin_0x2FF09);//226060
 
-	sub_44320();//225320
+	SpreadTerrainClass4_44320();//225320
 
-	sub_45210(a2x->snFlt_0x2FF05, a2x->bhLin_0x2FF09);//226210
+	MarkFlatLowlandClass2_45210(a2x->snFlt_0x2FF05, a2x->bhLin_0x2FF09);//226210
 
-	sub_454F0(a2x->source_0x2FEFD, a2x->rkSte_0x2FF11);//2264f0
+	MarkFlatHighland_454F0(a2x->source_0x2FEFD, a2x->rkSte_0x2FF11);//2264f0
 
-	sub_45600(a2x->bhFlt_0x2FF0D);//226600
+	MarkSteepTerrain_45600(a2x->bhFlt_0x2FF0D);//226600
 
-	sub_43FC0();//224fc0
+	RemoveIsolatedTerrainClasses_43FC0();//224fc0
 	memset((void*)mapTerrainType_10B4E0, 0, 0x10000);
-	sub_43970();//224970 // smooth terrain
-	sub_43EE0();//224ee0 // add rivers
+	SmoothTerrain_43970();//224970 // smooth terrain
+	AddRivers_43EE0();//224ee0 // add rivers
 
-	sub_44580();//225580 //set angle of terrain
+	SetTerrainAngles_44580();//225580 //set angle of terrain
 	if (isCaveLevel_D41B6)
-		sub_43B40();//224b40 //change angle of terrain
+		GenerateCaveCeiling_43B40();//224b40 //change angle of terrain
 	else
-		sub_43D50();//224d50 //change angle of terrain
-	sub_44D00();//225d00
+		MarkWaterEdges_43D50();//224d50 //change angle of terrain
+	ComputeTerrainShading_44D00();//225d00
 }
 
 //----- (000B5E70) --------------------------------------------------------
-void sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4)//296e70
+void DecompressTerrainMapLevel_B5E70(__int16 a1, unsigned __int16 a2, __int16 a3, int32_t a4)//296e70
 {
 	uaxis_2d sumEnt;
 	mapEntityIndex_15B4E0[a2] = a3;//32c4e0 //first seed
@@ -67,7 +67,7 @@ void sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __i
 		{
 			for (int k = 1 << (7 - i); k > 0; k--)
 			{
-				sub_B5EFA(1 << i, &sumEnt, a4, &a1);//355220
+				TerrainDiamondStep_B5EFA(1 << i, &sumEnt, a4, &a1);//355220
 			}
 			sumEnt.word += (2 * (1 << i)) << 8;
 		}
@@ -75,7 +75,7 @@ void sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __i
 		{
 			for (int k = 1 << (7 - i); k > 0; k--)
 			{
-				sub_B5F8F(1 << i, &sumEnt, a4, &a1);
+				TerrainSquareStep_B5F8F(1 << i, &sumEnt, a4, &a1);
 			}
 			sumEnt.word += (2 * (1 << i)) << 8;
 		}
@@ -83,7 +83,7 @@ void sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __i
 }
 
 //----- (00044DB0) --------------------------------------------------------
-void sub_44DB0_truncTerrainHeight(int16_t mapEntityIndex_15B4E0[], uint8_t mapHeightmap_11B4E0[])//225db0 // map to heightmap
+void TruncTerrainHeight_44DB0(int16_t mapEntityIndex_15B4E0[], uint8_t mapHeightmap_11B4E0[])//225db0 // map to heightmap
 {
 	int revMaxEnt = 0;
 	uint32_t weightedVar;
@@ -110,7 +110,7 @@ void sub_44DB0_truncTerrainHeight(int16_t mapEntityIndex_15B4E0[], uint8_t mapHe
 	}
 }
 
-int sub_B5C60_getTerrainAlt2(uint16_t axisX, uint16_t axisY)//296c60
+int GetTerrainAlt2_B5C60(uint16_t axisX, uint16_t axisY)//296c60
 {
 	int point1;
 	int diaPoint;
@@ -173,7 +173,7 @@ int sub_B5C60_getTerrainAlt2(uint16_t axisX, uint16_t axisY)//296c60
 }
 
 //----- (00044E40) --------------------------------------------------------
-void sub_44E40(int count, uint8_t minSmooth)//225e40
+void MarkLandAndRivers_44E40(int count, uint8_t minSmooth)//225e40
 {
 	uaxis_2d index;
 	int locCount = count;
@@ -193,7 +193,7 @@ void sub_44E40(int count, uint8_t minSmooth)//225e40
 			index.word = rand2_17B4E0 % 0xffffu;
 			if ((mapHeightmap_11B4E0[index.word] > minSmooth) && mapAngle_13B4E0[index.word])
 			{
-				sub_44EE0_smooth_tiles(index);
+				SmoothTiles_44EE0(index);
 				locCount--;
 				break;
 			}
@@ -206,7 +206,7 @@ void sub_44E40(int count, uint8_t minSmooth)//225e40
 }
 
 //----- (00045AA0) --------------------------------------------------------
-void sub_45AA0_setMax4Tiles()//226aa0
+void SetMax4Tiles_45AA0()//226aa0
 {
 	//  X-X
 	//  | |
@@ -268,7 +268,7 @@ void sub_45AA0_setMax4Tiles()//226aa0
 }
 
 //----- (000440D0) --------------------------------------------------------
-void sub_440D0(unsigned __int16 a1)//2250d0
+void ApplySnowLine_440D0(unsigned __int16 a1)//2250d0
 {
 	//    X
 	//   / \
@@ -387,7 +387,7 @@ void sub_440D0(unsigned __int16 a1)//2250d0
 }
 
 //----- (00045060) --------------------------------------------------------
-void sub_45060(uint8_t maxHeightCut, uint8_t maxHeightDiffCut)//226060
+void MarkFlatLowland_45060(uint8_t maxHeightCut, uint8_t maxHeightDiffCut)//226060
 {
 	//  X-X-X
 	//  |   |
@@ -459,7 +459,7 @@ void sub_45060(uint8_t maxHeightCut, uint8_t maxHeightDiffCut)//226060
 }
 
 //----- (00044320) --------------------------------------------------------
-void sub_44320()//225320
+void SpreadTerrainClass4_44320()//225320
 {
 	//  X-X
 	//  | |
@@ -553,7 +553,7 @@ void sub_44320()//225320
 }
 
 //----- (00045210) --------------------------------------------------------
-void sub_45210(uint8_t maxHeightCut, uint8_t maxHeightDiffCut)//226210
+void MarkFlatLowlandClass2_45210(uint8_t maxHeightCut, uint8_t maxHeightDiffCut)//226210
 {
 	//  X-X-X
 	//  |   |
@@ -665,7 +665,7 @@ void sub_45210(uint8_t maxHeightCut, uint8_t maxHeightDiffCut)//226210
 }
 
 //----- (000454F0) --------------------------------------------------------
-void sub_454F0(uint8_t maxHeightCut, uint8_t maxHeightDiffCut)//2264f0
+void MarkFlatHighland_454F0(uint8_t maxHeightCut, uint8_t maxHeightDiffCut)//2264f0
 {
 	//    X
 	//	 / \
@@ -721,7 +721,7 @@ void sub_454F0(uint8_t maxHeightCut, uint8_t maxHeightDiffCut)//2264f0
 }
 
 //----- (00045600) --------------------------------------------------------
-void sub_45600(uint8_t a1)//226600
+void MarkSteepTerrain_45600(uint8_t a1)//226600
 {
 	char ang4;
 	char ang2;
@@ -879,7 +879,7 @@ void sub_45600(uint8_t a1)//226600
 }
 
 //----- (00043FC0) --------------------------------------------------------
-void sub_43FC0()//224fc0
+void RemoveIsolatedTerrainClasses_43FC0()//224fc0
 {
 	int sameAngle;
 	char centerAngle;
@@ -921,18 +921,18 @@ void sub_43FC0()//224fc0
 }
 
 //----- (00043970) --------------------------------------------------------
-void sub_43970()//224970
+void SmoothTerrain_43970()//224970
 {
 	uaxis_2d index;
 	for (int i = 0; i < 256 * 256; i++)
 	{
 		index.word = i;
-		mapHeightmap_11B4E0[index.word] = sub_439A0(index.word);
+		mapHeightmap_11B4E0[index.word] = GetSmoothedHeight_439A0(index.word);
 	}
 }
 
 //----- (00043EE0) --------------------------------------------------------
-void sub_43EE0()//224ee0
+void AddRivers_43EE0()//224ee0
 {
 	//  X-X
 	//  | |
@@ -1008,7 +1008,7 @@ void sub_43EE0()//224ee0
 }
 
 //----- (00044580) --------------------------------------------------------
-void sub_44580()//225580
+void SetTerrainAngles_44580()//225580
 {
 	uint8_t* actBufPos;
 	char point1;
@@ -1155,7 +1155,7 @@ void sub_44580()//225580
 }
 
 //----- (00043B40) --------------------------------------------------------
-void sub_43B40()//224b40
+void GenerateCaveCeiling_43B40()//224b40
 {
 	uint8_t locHeight;
 	uaxis_2d index;
@@ -1176,11 +1176,11 @@ void sub_43B40()//224b40
 			mapAngle_13B4E0[index.word] |= 8;
 		}
 	}
-	sub_43BB0();
+	RandomiseCeilingHeight_43BB0();
 }
 
 //----- (00043D50) --------------------------------------------------------
-void sub_43D50()//224d50
+void MarkWaterEdges_43D50()//224d50
 {
 
 	//  X-X-X
@@ -1239,7 +1239,7 @@ void sub_43D50()//224d50
 }
 
 //----- (00044D00) --------------------------------------------------------
-void sub_44D00()//225d00
+void ComputeTerrainShading_44D00()//225d00
 {
 
 	//     X
@@ -1290,7 +1290,7 @@ void sub_44D00()//225d00
 }
 
 //----- (000B5EFA) --------------------------------------------------------
-void sub_B5EFA(__int16 a1, uaxis_2d* indexx, int32_t a3, int16_t* nextRand)//296EFA
+void TerrainDiamondStep_B5EFA(__int16 a1, uaxis_2d* indexx, int32_t a3, int16_t* nextRand)//296EFA
 {
 	//  X-.-X
 	//   \  |
@@ -1320,7 +1320,7 @@ void sub_B5EFA(__int16 a1, uaxis_2d* indexx, int32_t a3, int16_t* nextRand)//296
 }
 
 //----- (000B5F8F) --------------------------------------------------------
-void sub_B5F8F(__int16 a1, uaxis_2d* indexx, int32_t a3, int16_t* nextRand)//296f8f
+void TerrainSquareStep_B5F8F(__int16 a1, uaxis_2d* indexx, int32_t a3, int16_t* nextRand)//296f8f
 {
 
 	//   X
@@ -1374,7 +1374,7 @@ void sub_B5F8F(__int16 a1, uaxis_2d* indexx, int32_t a3, int16_t* nextRand)//296
 }
 
 //----- (00044EE0) --------------------------------------------------------
-void sub_44EE0_smooth_tiles(uaxis_2d axis)//225ee0
+void SmoothTiles_44EE0(uaxis_2d axis)//225ee0
 {
 	//  X-X-X
 	//  |   |
@@ -1456,7 +1456,7 @@ void sub_44EE0_smooth_tiles(uaxis_2d axis)//225ee0
 }
 
 //----- (000439A0) --------------------------------------------------------
-unsigned int sub_439A0(uint16_t index)//2249a0
+unsigned int GetSmoothedHeight_439A0(uint16_t index)//2249a0
 {
 	//    X
 	//    |
@@ -1543,7 +1543,7 @@ unsigned int sub_439A0(uint16_t index)//2249a0
 }
 
 //----- (00043BB0) --------------------------------------------------------
-void sub_43BB0()//224bb0
+void RandomiseCeilingHeight_43BB0()//224bb0
 {
 	int fuzzyHeight;
 	unsigned int randSeed = 37487429;
@@ -1575,7 +1575,7 @@ void sub_43BB0()//224bb0
 }
 
 //----- (0001B7A0) --------------------------------------------------------
-int sub_1B7A0_tile_compare(axis_3d* a1)//1fc7a0
+int GetTileSlope_1B7A0(axis_3d* a1)//1fc7a0
 {
 
 	//  X-X
@@ -1600,7 +1600,7 @@ int sub_1B7A0_tile_compare(axis_3d* a1)//1fc7a0
 }
 
 //----- (0001B830) --------------------------------------------------------
-int sub_1B830(axis_3d* a1)//1fc830
+int GetTileSlopeWide_1B830(axis_3d* a1)//1fc830
 {
 
 	//  X-.-X
@@ -1627,7 +1627,7 @@ int sub_1B830(axis_3d* a1)//1fc830
 }
 
 //----- (00045BE0) --------------------------------------------------------
-uint8_t sub_45BE0(uint8_t inType, uaxis_2d axis2d, uint8_t type)//226be0 type: dl, inType: cl of the caller
+uint8_t GetTileHeightType_45BE0(uint8_t inType, uaxis_2d axis2d, uint8_t type)//226be0 type: dl, inType: cl of the caller
 {
 	//  X-X
 	//  | |
@@ -1740,7 +1740,7 @@ uint8_t sub_45BE0(uint8_t inType, uaxis_2d axis2d, uint8_t type)//226be0 type: d
 }
 
 //----- (00033F70) --------------------------------------------------------
-bool sub_33F70(uint16_t inAxis)//214f70
+bool CheckTileType8Neighbours_33F70(uint16_t inAxis)//214f70
 {
 	//    X
 	//    |
@@ -1779,7 +1779,7 @@ bool sub_33F70(uint16_t inAxis)//214f70
 }
 
 //----- (00045DC0) --------------------------------------------------------
-void sub_45DC0(uint8_t inType, uaxis_2d axis2d, uint8_t type2, uint8_t type)//226dc0
+void SetTileTerrainType_45DC0(uint8_t inType, uaxis_2d axis2d, uint8_t type2, uint8_t type)//226dc0
 {
 	char heightType;
 	if (type2 >= 8u)
@@ -1793,35 +1793,35 @@ void sub_45DC0(uint8_t inType, uaxis_2d axis2d, uint8_t type2, uint8_t type)//22
 			mapTerrainType_10B4E0[axis2d.word] = 9;
 			break;
 		case 0xAu:
-			heightType = sub_45BE0(inType, axis2d, type);
+			heightType = GetTileHeightType_45BE0(inType, axis2d, type);
 			if (lowDiffHeightmap_D47DC)
 				heightType += 8;
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x80 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x80 + 2 * heightType + 1];
 			break;
 		case 0xBu:
-			heightType = sub_45BE0(inType, axis2d, type) + 0x10;
+			heightType = GetTileHeightType_45BE0(inType, axis2d, type) + 0x10;
 			if (lowDiffHeightmap_D47DC)
 				heightType += 8;
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x80 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x80 + 2 * heightType + 1];
 			break;
 		case 0xCu:
-			heightType = sub_45BE0(inType, axis2d, type) + 0x20;
+			heightType = GetTileHeightType_45BE0(inType, axis2d, type) + 0x20;
 			if (lowDiffHeightmap_D47DC)
 				heightType += 8;
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x80 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x80 + 2 * heightType + 1];
 			break;
 		case 0xDu:
-			heightType = sub_45BE0(inType, axis2d, type) + 0x30;
+			heightType = GetTileHeightType_45BE0(inType, axis2d, type) + 0x30;
 			if (lowDiffHeightmap_D47DC)
 				heightType += 8;
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x80 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x80 + 2 * heightType + 1];
 			break;
 		case 0xEu:
-			heightType = sub_45BE0(inType, axis2d, type) + 0x40;
+			heightType = GetTileHeightType_45BE0(inType, axis2d, type) + 0x40;
 			if (lowDiffHeightmap_D47DC)
 				heightType += 8;
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x80 + 2 * heightType];
@@ -1833,37 +1833,37 @@ void sub_45DC0(uint8_t inType, uaxis_2d axis2d, uint8_t type2, uint8_t type)//22
 		case 0x10u:
 			if (mapTerrainType_10B4E0[axis2d.word] == 10 || mapTerrainType_10B4E0[axis2d.word] == 11 || mapTerrainType_10B4E0[axis2d.word] == 12)
 				break;
-			heightType = sub_45BE0(inType, axis2d, type);
+			heightType = GetTileHeightType_45BE0(inType, axis2d, type);
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[2 * heightType + 1];
 			break;
 		case 0x11u:
-			heightType = sub_45BE0(inType, axis2d, type);
+			heightType = GetTileHeightType_45BE0(inType, axis2d, type);
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x40 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x40 + 2 * heightType + 1];
 			break;
 		case 0x12u:
-			heightType = (8 * ((axis2d._axis_2d.y + axis2d._axis_2d.x) & 1) + sub_45BE0(inType, axis2d, type));
+			heightType = (8 * ((axis2d._axis_2d.y + axis2d._axis_2d.x) & 1) + GetTileHeightType_45BE0(inType, axis2d, type));
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x50 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x50 + 2 * heightType + 1];
 			break;
 		case 0x13u:
-			heightType = (8 * ((axis2d._axis_2d.y + axis2d._axis_2d.x) & 1) + sub_45BE0(inType, axis2d, type));
+			heightType = (8 * ((axis2d._axis_2d.y + axis2d._axis_2d.x) & 1) + GetTileHeightType_45BE0(inType, axis2d, type));
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x60 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x60 + 2 * heightType + 1];
 			break;
 		case 0x14u:
-			heightType = sub_45BE0(inType, axis2d, type);
+			heightType = GetTileHeightType_45BE0(inType, axis2d, type);
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x10 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x10 + 2 * heightType + 1];
 			break;
 		case 0x15u:
-			heightType = sub_45BE0(inType, axis2d, type);
+			heightType = GetTileHeightType_45BE0(inType, axis2d, type);
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x20 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x20 + 2 * heightType + 1];
 			break;
 		case 0x16u:
-			heightType = sub_45BE0(inType, axis2d, type);
+			heightType = GetTileHeightType_45BE0(inType, axis2d, type);
 			mapTerrainType_10B4E0[axis2d.word] = unk_D4A30[0x30 + 2 * heightType];
 			mapAngle_13B4E0[axis2d.word] = mapAngle_13B4E0[axis2d.word] & 0x8F | unk_D4A30[0x30 + 2 * heightType + 1];
 			break;
@@ -1923,11 +1923,11 @@ void sub_45DC0(uint8_t inType, uaxis_2d axis2d, uint8_t type2, uint8_t type)//22
 		return;
 	}
 	mapAngle_13B4E0[axis2d.word] = type2 | mapAngle_13B4E0[axis2d.word] & 0xF0;
-	sub_462A0(axis2d, axis2d);
+	UpdateTerrainTiles_462A0(axis2d, axis2d);
 }
 
 //----- (000462A0) --------------------------------------------------------
-void sub_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
+void UpdateTerrainTiles_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
 {
 	uaxis_2d tempAxis;
 	uint8_t nextAngle;
@@ -2048,22 +2048,22 @@ void sub_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
 }
 
 //----- (000104A0) --------------------------------------------------------
-signed int sub_104A0(axis_3d* axis3d)//1f14a0
+signed int GetTileAngleBit_104A0(axis_3d* axis3d)//1f14a0
 {
 	return 1 << (mapAngle_13B4E0[(axis3d->x >> 8) + ((axis3d->y >> 8) << 8)] & 0xF);
 }
 
 //----- (000104D0) --------------------------------------------------------
-uint32_t sub_104D0_terrain_tile_is_water(axis_3d* axis3d)//1f14d0
+uint32_t TerrainTileIsWater_104D0(axis_3d* axis3d)//1f14d0
 {
 	uaxis_2d axis2d;
 	axis2d._axis_2d.x = axis3d->x >> 8;
 	axis2d._axis_2d.y = axis3d->y >> 8;
-	return sub_10590_terrain_tile_type(mapTerrainType_10B4E0[axis2d.word]);
+	return TerrainTileType_10590(mapTerrainType_10B4E0[axis2d.word]);
 }
 
 //----- (00010590) --------------------------------------------------------
-uint32_t sub_10590_terrain_tile_type(char tileType)//1f1590
+uint32_t TerrainTileType_10590(char tileType)//1f1590
 {
 	uint32_t result = 0;
 	switch (tileType)
@@ -2144,23 +2144,23 @@ uint32_t sub_10590_terrain_tile_type(char tileType)//1f1590
 //----- (00010C40) --------------------------------------------------------
 int getTerrainAlt_10C40(axis_3d* axis3d)//1f1c40
 {
-	return sub_B5C60_getTerrainAlt2(axis3d->x, axis3d->y);
+	return GetTerrainAlt2_B5C60(axis3d->x, axis3d->y);
 }
 
 //----- (00011E70) --------------------------------------------------------
-bool sub_11E70(type_entity_0x6E8E* event, axis_3d* axis3d)//1f2e70
+bool IsTouchingCeiling_11E70(type_entity_0x6E8E* event, axis_3d* axis3d)//1f2e70
 {
-	return event->array_0x52_82.fov + getTerrainAlt_10C40(axis3d) + event->dword_0xA0_160x->word_160_0xc_12 > sub_10C60(axis3d);
+	return event->array_0x52_82.fov + getTerrainAlt_10C40(axis3d) + event->dword_0xA0_160x->word_160_0xc_12 > GetCeilingAlt_10C60(axis3d);
 }
 
 //----- (00010C60) --------------------------------------------------------
-int sub_10C60(axis_3d* axis3d)//1f1c60
+int GetCeilingAlt_10C60(axis_3d* axis3d)//1f1c60
 {
-	return sub_B5D68(axis3d->x, axis3d->y);
+	return GetCeilingAlt2_B5D68(axis3d->x, axis3d->y);
 }
 
 //----- (000B5D68) --------------------------------------------------------
-int sub_B5D68(uint16_t inX, uint16_t inY)//296d68
+int GetCeilingAlt2_B5D68(uint16_t inX, uint16_t inY)//296d68
 {
 	uint8_t point1;
 	uint8_t point2;

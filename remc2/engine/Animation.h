@@ -66,15 +66,15 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent);
 void ReadFrame_75DB0();
 void DrawFrame_75E70();
 
-void sub_2EC60();
-int sub_473E0();
+void ClearSubtitles_2EC60();
+int HasSkipInput_473E0();
 
 void ReadIntroPalettes_76260();
-void sub_76300();
-int sub_76430();
-int sub_76540();
-void sub_75CB0();
-void sub_9A0FC_wait_to_screen_beam();
+void DecodeFlcDeltaChunk_76300();
+int DecodeFliLineCompressChunk_76430();
+int DecodeFliByteRunChunk_76540();
+void WaitForNextAnimationFrame_75CB0();
+void WaitToScreenBeam_9A0FC();
 
 
 

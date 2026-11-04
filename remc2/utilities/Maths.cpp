@@ -738,10 +738,10 @@ uint16_t Maths::x_WORD_DE350[257] = { //speed table3//2af350 tang?
 unsigned int Maths::EuclideanDistXYZ_58490(axis_3d* a1, axis_3d* a2)//239490
 {
 	uint32_t radix = ((int16_t)(a2->x - a1->x)) * ((int16_t)(a2->x - a1->x)) + ((int16_t)(a2->y - a1->y)) * ((int16_t)(a2->y - a1->y));
-	return Maths::sub_7277A_radix_3d(radix);
+	return Maths::IntegerSqrt_7277A(radix);
 }
 
-unsigned int Maths::sub_7277A_radix_3d(unsigned int a1)//25377a
+unsigned int Maths::IntegerSqrt_7277A(unsigned int a1)//25377a
 {
 	uint32_t v1; // eax
 	unsigned int i; // ebx
@@ -754,14 +754,14 @@ unsigned int Maths::sub_7277A_radix_3d(unsigned int a1)//25377a
 	return i;
 }
 
-int16_t Maths::sub_58210_radix_tan(axis_3d* a1, axis_3d* a2)//239210
+int16_t Maths::GetPitchAngle_58210(axis_3d* a1, axis_3d* a2)//239210
 {
 	int16_t v2; // ax
 	v2 = EuclideanDistXYZ_58490(a1, a2);//
-	return sub_72633_maybe_tan(a1->z - a2->z, -v2);
+	return Atan2_72633(a1->z - a2->z, -v2);
 }
 
-uint16_t Maths::sub_72633_maybe_tan(int16_t a1, int16_t a2)//253633 //4c //3e
+uint16_t Maths::Atan2_72633(int16_t a1, int16_t a2)//253633 //4c //3e
 {
 	//signed int v2; // ebx
 	uint16_t result; // ax
@@ -816,7 +816,7 @@ uint16_t Maths::sub_72633_maybe_tan(int16_t a1, int16_t a2)//253633 //4c //3e
 	return result;
 }
 
-int16_t Maths::sub_581E0_maybe_tan2(axis_3d* a1, axis_3d* a2)//2391E0
+int16_t Maths::GetYawAngle_581E0(axis_3d* a1, axis_3d* a2)//2391E0
 {
 	//354f10->35f418 +2->35012a .. 012a
 	//354f14->354f20 +2->350168 .. 0168
@@ -829,7 +829,7 @@ int16_t Maths::sub_581E0_maybe_tan2(axis_3d* a1, axis_3d* a2)//2391E0
 	//edx=a2 //1d8
 	//ax edx+2
 
-	return sub_72633_maybe_tan(a2->x - a1->x, a2->y - a1->y);//253633
+	return Atan2_72633(a2->x - a1->x, a2->y - a1->y);//253633
 	//rozdil1- 4c rozdil2 - 3e
 }
 

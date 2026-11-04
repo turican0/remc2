@@ -12,18 +12,18 @@
 #include "EventsFunctions.h"
 
 
-// void sub_49090(Type_Level_2FECE* a1, Type_Level_2FECE* a2); // FIXME: investigate this function: the type of param 2 is wrong - this was the original declaration but the fucntion definition was as below with another type
+// void CreateLinkedLevelFeatures_49090(Type_Level_2FECE* a1, Type_Level_2FECE* a2); // FIXME: investigate this function: the type of param 2 is wrong - this was the original declaration but the fucntion definition was as below with another type
 int shortestLenght_48370(__int16 a1, __int16 a2, __int16 a3);
-int sub_483A0(__int16 a1, int a2, char a3, char a4);
+int SetPredictedPositionFromTiles_483A0(__int16 a1, int a2, char a3, char a4);
 
 typedef std::function<void(uint16_t, uint16_t, uint16_t, uint16_t, uint8_t)> EventInitFunctionType;
-void sub_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5 = 0);
-void sub_48690(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5 = 0);
-void sub_487D0(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5);
-void sub_48880(uint16_t a1, uint16_t a2, uint16_t a3, uint16_t a4, uint8_t a5 = 0);
-void sub_48930(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5);
+void CreateSubtype27LineBetweenPoints_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5 = 0);
+void CreateSubtype30LineBetweenPoints_48690(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5 = 0);
+void CreateSubtype32MovingToPoint_487D0(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5);
+void CreateSubtype51MovingToPoint_48880(uint16_t a1, uint16_t a2, uint16_t a3, uint16_t a4, uint8_t a5 = 0);
+void CreateSubtype81WithTarget_48930(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5);
 
-void sub_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity);
+void CreateLinkedLevelFeatures_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity);
 void PrepareEvents_49540(Type_Level_2FECE* terrain, type_entity_0x30311* entity);
 void ApplyEvents_498A0();
 
@@ -331,7 +331,7 @@ void PrepareEvents_49540(Type_Level_2FECE* terrain, type_entity_0x30311* entity)
 				case 0x50:
 				{
 					if (entity->stageTag_12)//only 1c,1d,1f, 32 and 50
-						sub_49090(terrain, entity);
+						CreateLinkedLevelFeatures_49090(terrain, entity);
 					return;
 				}
 				case 0x2D:
@@ -345,7 +345,7 @@ void PrepareEvents_49540(Type_Level_2FECE* terrain, type_entity_0x30311* entity)
 					{
 						event = pre_sub_4A190_axis_3d(temp_adress, &predictedAxis_EB398ar);//(*(int(**)(int))((char *)&off_D697E + 14 * v4))((int)x_WORD_EB398ar);
 						if (event)
-							sub_49A30(event, entity->par1_14);
+							InitBuildingEntity_49A30(event, entity->par1_14);
 					}
 					return;
 				}
@@ -446,7 +446,7 @@ void ApplyEvents_498A0()//22a8a0
 					}
 					//all without 0xA
 					if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)//all without 0xE
-						sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+						ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 					continue;
 				}
 				//0xA
@@ -460,7 +460,7 @@ void ApplyEvents_498A0()//22a8a0
 							DisableEntityDrawing04_57F10(&D41A0_0.struct_0x6E8E[iy]);
 							D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 							if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-								sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+								ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 							continue;
 						}
 						v5 = &str_D4C48ar[D41A0_0.struct_0x6E8E[iy].class_0x3F_63].dword_10[D41A0_0.struct_0x6E8E[iy].actionIndex_0x45_69];//ok
@@ -471,7 +471,7 @@ void ApplyEvents_498A0()//22a8a0
 						}
 						D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 						if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-							sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+							ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 						continue;
 					}
 					if (v4 == 0x9)//0xA,0x9
@@ -484,7 +484,7 @@ void ApplyEvents_498A0()//22a8a0
 						}
 						D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 						if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-							sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+							ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 						continue;
 					}
 				}
@@ -500,7 +500,7 @@ void ApplyEvents_498A0()//22a8a0
 						}
 						D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 						if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-							sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+							ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 						continue;
 					}
 					if (v4 >= 0x32)
@@ -510,7 +510,7 @@ void ApplyEvents_498A0()//22a8a0
 							DisableEntityDrawing04_57F10(&D41A0_0.struct_0x6E8E[iy]);
 							D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 							if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-								sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+								ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 							continue;
 						}
 						v5 = &str_D4C48ar[D41A0_0.struct_0x6E8E[iy].class_0x3F_63].dword_10[D41A0_0.struct_0x6E8E[iy].actionIndex_0x45_69];//ok
@@ -521,7 +521,7 @@ void ApplyEvents_498A0()//22a8a0
 						}
 						D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 						if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-							sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+							ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 						continue;
 					}
 					if (v4 == 0x2D)
@@ -530,7 +530,7 @@ void ApplyEvents_498A0()//22a8a0
 						{
 							D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 							if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-								sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+								ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 							continue;
 						}
 						v5 = &str_D4C48ar[D41A0_0.struct_0x6E8E[iy].class_0x3F_63].dword_10[D41A0_0.struct_0x6E8E[iy].actionIndex_0x45_69];//ok
@@ -541,14 +541,14 @@ void ApplyEvents_498A0()//22a8a0
 						}
 						D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 						if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-							sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+							ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 						continue;
 					}
 				}
 				DisableEntityDrawing04_57F10(&D41A0_0.struct_0x6E8E[iy]);
 				D41A0_0.struct_0x6E8E[iy].byte_0x3E_62++;
 				if (D41A0_0.struct_0x6E8E[iy].struct_byte_0xc_12_15.byte[1] & 4)
-					sub_57F20(&D41A0_0.struct_0x6E8E[iy]);
+					ReleaseEntity_57F20(&D41A0_0.struct_0x6E8E[iy]);
 				continue;
 			}
 		}
@@ -622,260 +622,260 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 	switch (adress)
 	{
 	case 0x1f3910: {
-		sub_12910(a1_6E8E);
+		UpdateWizardAi_12910(a1_6E8E);
 		break;
 	}
 	case 0x1f3a70: {
-		sub_12A70(a1_6E8E);
+		UpdateWizardAiState_12A70(a1_6E8E);
 		break;
 	}
 	case 0x1f3e70: {
-		sub_12E70(a1_6E8E);
+		WizardAiChooseState_12E70(a1_6E8E);
 		break;
 	}
 	case 0x1f3ff0: {
-		sub_12FF0(a1_6E8E);
+		WizardAiAttackTarget_12FF0(a1_6E8E);
 		break;
 	}
 	case 0x1f4100: {
-		sub_13100(a1_6E8E);
+		WizardAiMoveToPosition_13100(a1_6E8E);
 		break;
 	}
 
 	case 0x1f41f0: {
-		sub_131F0(a1_6E8E);
+		WizardAiFaceTarget_131F0(a1_6E8E);
 		break;
 	}
 	case 0x1f4270: {
-		sub_13270(a1_6E8E);
+		WizardAiCastFoolsMana_13270(a1_6E8E);
 		break;
 	}
 	case 0x1f43b0: {
-		sub_133B0(a1_6E8E);
+		WizardAiReturnToCastle_133B0(a1_6E8E);
 		break;
 	}
 	case 0x1f45c0: {
-		sub_135C0(a1_6E8E);
+		WizardAiPossessTarget_135C0(a1_6E8E);
 		break;
 	}
 	case 0x1f4710: {
-		sub_13710(a1_6E8E);
+		WizardAiAttackWithSpell_13710(a1_6E8E);
 		break;
 	}
 
 	case 0x1f4830: {
-		sub_13830(a1_6E8E);
+		WizardAiCombat2_13830(a1_6E8E);
 		break;
 	}
 	case 0x1f4850: {
-		sub_13850(a1_6E8E);
+		WizardAiCombat3_13850(a1_6E8E);
 		break;
 	}
 	case 0x1f4870: {
-		sub_13870(a1_6E8E);
+		WizardAiCombat4_13870(a1_6E8E);
 		break;
 	}
 	case 0x1f4890: {
-		sub_13890(a1_6E8E);
+		WizardAiCombat_13890(a1_6E8E);
 		break;
 	}
 	case 0x1f4b00: {
-		sub_13B00(a1_6E8E);
+		WizardAiTryBuildCastle_13B00(a1_6E8E);
 		break;
 	}
 
 	case 0x1f4c50: {
-		sub_13C50(a1_6E8E);
+		WizardAiTryGrowCastle_13C50(a1_6E8E);
 		break;
 	}
 	case 0x1f4ce0: {
-		sub_13CE0(a1_6E8E);
+		WizardAiFindTarget_13CE0(a1_6E8E);
 		break;
 	}
 	case 0x1f4dc0: {
-		sub_13DC0(a1_6E8E);
+		WizardAiShouldRetreat_13DC0(a1_6E8E);
 		break;
 	}
 	case 0x1f4e40: {
-		sub_13E40(a1_6E8E);
+		WizardAiChooseEnemyWizard_13E40(a1_6E8E);
 		break;
 	}
 	case 0x1f5030: {
-		sub_14030(a1_6E8E);
+		WizardAiChooseEnemyCreature_14030(a1_6E8E);
 		break;
 	}
 
 	case 0x1f5250: {
-		sub_14250(a1_6E8E);
+		WizardAiChooseEnemyCastle_14250(a1_6E8E);
 		break;
 	}
 	case 0x1f5530: {
-		sub_14530(a1_6E8E);
+		WizardAiChooseAttackTarget_14530(a1_6E8E);
 		break;
 	}
 	case 0x1f5630: {
-		sub_14630(a1_6E8E);
+		WizardAiCheckHealth_14630(a1_6E8E);
 		break;
 	}
 				 /*case 0x1f56c0: {
-					 sub_146C0(a1_6E8E,0);
+					 GetPlayerSpellEntity_146C0(a1_6E8E,0);
 					 break;
 				 }*/
 	case 0x1f56f0: {
-		sub_146F0(a1_6E8E);
+		UpdateWizardMovement_146F0(a1_6E8E);
 		break;
 	}
 
 	case 0x1f58e0: {
-		sub_148E0(a1_6E8E);
+		FindNearestOwnBalloon_148E0(a1_6E8E);
 		break;
 	}
 				 /*case 0x1f5b10: {
-				   sub_14B10(a1_6E8E,0);
+				   FindWizardTargetBySpell_14B10(a1_6E8E,0);
 				   break;
 				 }
 				 case 0x1f5bd0: {
-				   sub_14BD0(a1_6E8E,0);
+				   FindNearestOtherWizard_14BD0(a1_6E8E,0);
 				   break;
 				 }*/
 	case 0x1f5c40: {
-		sub_14C40(a1_6E8E);
+		GetEntityKey_14C40(a1_6E8E);
 		break;
 	}
 				 /*case 0x1f5c60: {
-				   sub_14C60(a1_6E8E,0);
+				   IsTargetStillValid_14C60(a1_6E8E,0);
 				   break;
 				 }*/
 
 	case 0x1f5c90: {
-		sub_14C90(a1_6E8E, 0, 0, 0);
+		WizardAiMoveTowards_14C90(a1_6E8E, 0, 0, 0);
 		break;
 	}
 	case 0x1f5e10: {
-		sub_14E10(a1_6E8E, 0);
+		WizardAiCastSpell_14E10(a1_6E8E, 0);
 		break;
 	}
 	case 0x1f6170: {
-		sub_15170(a1_6E8E, 0);
+		WizardCanCastSpell_15170(a1_6E8E, 0);
 		break;
 	}
 	case 0x1f65e0: {
-		sub_155E0(a1_6E8E);
+		WizardAiCanGrowCastle_155E0(a1_6E8E);
 		break;
 	}
 	case 0x1f66f0: {
-		sub_156F0(a1_6E8E, 0);
+		IsPlayerSpellActive_156F0(a1_6E8E, 0);
 		break;
 	}
 
 	case 0x1f6730: {
-		sub_15730(a1_6E8E, 0);
+		HasEnoughManaForSpell_15730(a1_6E8E, 0);
 		break;
 	}
 	case 0x1f6760: {
-		sub_15760(a1_6E8E, 0);
+		GetActivePlayerSpellEntity_15760(a1_6E8E, 0);
 		break;
 	}
 	case 0x1f6790: {
-		sub_15790(a1_6E8E);
+		WizardAiChooseAttackSpell_15790(a1_6E8E);
 		break;
 	}
 	case 0x1f6910: {
-		sub_15910(a1_6E8E);
+		WizardAiChooseSpell_15910(a1_6E8E);
 		break;
 	}
 	case 0x1f69e0: {
-		sub_159E0();
+		UpdateWizardAiTargets_159E0();
 		break;
 	}
 
 	case 0x1f6cb0: {
-		sub_15CB0(a1_6E8E);
+		FindNearestEntityTargeting_15CB0(a1_6E8E);
 		break;
 	}
 	case 0x1f6d20: {
-		sub_15D20(a1_6E8E);
+		SetWizardStrafeSpeed_15D20(a1_6E8E);
 		break;
 	}
 	case 0x1f6d40: {
 #if defined(__linux__) || defined(__APPLE__) // FIXME: types
 		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		sub_15D40((short)a1_6E8E, 0, 0);
+		RateWizardTarget_15D40((short)a1_6E8E, 0, 0);
 		stub_fix_it();//bad retyping
 #endif
 		break;
 	}
 
 	case 0x1f6e60: {
-		sub_15E60(a1_6E8E);
+		HasAttackSpell_15E60(a1_6E8E);
 		break;
 	}
 	case 0x1f6ee0: {
-		sub_15EE0();
+		FindLocalWizard_15EE0();
 		break;
 	}
 
 	case 0x1f6f20: {
-		sub_15F20(a1_6E8E, 0, 0);
+		WizardTrySelectSpell_15F20(a1_6E8E, 0, 0);
 		break;
 	}
 	case 0x1f6fc0: {
-		sub_15FC0(a1_6E8E);
+		WizardAiMetamorph_15FC0(a1_6E8E);
 		break;
 	}
 	case 0x1f71a0: {
-		sub_161A0(a1_6E8E);
+		WizardAiAttackMetamorphed_161A0(a1_6E8E);
 		break;
 	}
 	case 0x1f74b0: {
-		sub_164B0(a1_6E8E);
+		HasAreaSpell_164B0(a1_6E8E);
 		break;
 	}
 	case 0x1f7580: {
-		sub_16580(a1_6E8E);
+		WizardAiSteer_16580(a1_6E8E);
 		break;
 	}
 
 	case 0x1f7730: {
-		sub_16730(a1_6E8E, 0);
+		FindAdjacentLavaDirection_16730(a1_6E8E, 0);
 		break;
 	}
 	case 0x1f79c0: {
-		sub_169C0(a1_6E8E);
+		WizardAiAvoidObstacles_169C0(a1_6E8E);
 		break;
 	}
 				 /*case 0x1f7ca0: {
-				   sub_16CA0(a1_6E8E,0,0);
+				   FindAdjacentLavaDirection2_16CA0(a1_6E8E,0,0);
 				   break;
 				 }*/
 				 /*case 0x1f7e70: {
-				   sub_16E70((uint8_t*)a1_6E8E,0);
+				   TraceTileLine_16E70((uint8_t*)a1_6E8E,0);
 				   break;
 				 }*/
 	case 0x1f7fc0: {
-		sub_16FC0(a1_6E8E, 0);
+		FindNearestOtherEntity_16FC0(a1_6E8E, 0);
 		break;
 	}
 
 	case 0x1f8060: {
-		sub_16730(a1_6E8E, 0);
+		FindAdjacentLavaDirection_16730(a1_6E8E, 0);
 		break;
 	}
 	case 0x1f8190: {
-		sub_169C0(a1_6E8E);
+		WizardAiAvoidObstacles_169C0(a1_6E8E);
 		break;
 	}
 				 /*case 0x1f8a00: {
-				   sub_16CA0(a1_6E8E,0,0);
+				   FindAdjacentLavaDirection2_16CA0(a1_6E8E,0,0);
 				   break;
 				 }*/
 				 /*case 0x1f9aa0: {
-				   sub_16E70((uint8_t*)a1_6E8E,0);
+				   TraceTileLine_16E70((uint8_t*)a1_6E8E,0);
 				   break;
 				 }*/
 	case 0x1f9b30: {
-		sub_16FC0(a1_6E8E, 0);
+		FindNearestOtherEntity_16FC0(a1_6E8E, 0);
 		break;
 	}
 
@@ -884,7 +884,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x1f9da0: {
-		sub_18DA0(a1_6E8E, 0, 0);
+		CycleSelectedSpell_18DA0(a1_6E8E, 0, 0);
 		break;
 	}
 	case 0x1f9f80: {
@@ -910,7 +910,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x1faa50: {
-		sub_19A50();
+		ClearMouseButtonState_19A50();
 		break;
 	}
 	case 0x1faab0: {
@@ -952,11 +952,11 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x1fb280: {
-		sub_1A280();
+		SetOptionsMenuFlags_1A280();
 		break;
 	}
 	case 0x1fb4a0: {
-		sub_1A4A0();
+		GetOptionsMenuWidth_1A4A0();
 		break;
 	}
 
@@ -967,13 +967,13 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		sub_1A5B0_getLangStrings((intptr_t)a1_6E8E, 0, 0);
+		GetOptionsLangStrings_1A5B0((intptr_t)a1_6E8E, 0, 0);
 		allert_error();
 #endif
 		break;
 	}
 	case 0x1fb7a0: {
-		sub_1A7A0_fly_asistant();
+		FlyAssistant_1A7A0();
 		break;
 	}
 	case 0x1fb8a0: {
@@ -1021,36 +1021,36 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x1fc6b0: {
-		sub_1B6B0(a1_6E8E);
+		CreatureFollowParent_1B6B0(a1_6E8E);
 		break;
 	}
 	case 0x1fc7a0: {
-		sub_1B7A0_tile_compare((axis_3d*)a1_6E8E);
+		GetTileSlope_1B7A0((axis_3d*)a1_6E8E);
 		break;
 	}
 	case 0x1fc830: {
-		sub_1B830((axis_3d*)a1_6E8E);
+		GetTileSlopeWide_1B830((axis_3d*)a1_6E8E);
 		break;
 	}
 
 	case 0x1fc8c0: {
-		sub_1B8C0(a1_6E8E);
+		MoveCreature_1B8C0(a1_6E8E);
 		break;
 	}
 	case 0x1fcd90: {
-		sub_1BD90(a1_6E8E, 0);
+		CreatureIdle_1BD90(a1_6E8E, 0);
 		break;
 	}
 	case 0x1fcf90: {
-		sub_1BF90(a1_6E8E, 0);
+		CreatureWander_1BF90(a1_6E8E, 0);
 		break;
 	}
 	case 0x1fd310: {
-		sub_1C310(a1_6E8E, 0, 0);
+		CreatureAttack_1C310(a1_6E8E, 0, 0);
 		break;
 	}
 	case 0x1fd560: {
-		sub_1C560(a1_6E8E, 0);
+		CreatureFollowLeader_1C560(a1_6E8E, 0);
 		break;
 	}
 
@@ -1063,188 +1063,188 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x1fd980: {
-		sub_1C980(a1_6E8E, 0);
+		CreatureFlee_1C980(a1_6E8E, 0);
 		break;
 	}
 	case 0x1fdc20: {
-		sub_1CC20(a1_6E8E, 0);
+		CreatureShootFireball_1CC20(a1_6E8E, 0);
 		break;
 	}
 	case 0x1fdce0: {
-		sub_1CCE0(a1_6E8E, 0);
+		CreatureShootArrow_1CCE0(a1_6E8E, 0);
 		break;
 	}
 
 	case 0x1fdda0: {
-		sub_1CDA0(a1_6E8E, 0);
+		CreatureShootArrow2_1CDA0(a1_6E8E, 0);
 		break;
 	}
 	case 0x1fde80: {
-		sub_1CE80(a1_6E8E, 0);
+		CreatureMeleeAttack1024_1CE80(a1_6E8E, 0);
 		break;
 	}
 	case 0x1fded0: {
-		sub_1CED0(a1_6E8E, 0);
+		CreatureMeleeAttack768_1CED0(a1_6E8E, 0);
 		break;
 	}
 	case 0x1fdf20: {
-		sub_1CF20(a1_6E8E, 0);
+		CreatureMeleeAttack1536_1CF20(a1_6E8E, 0);
 		break;
 	}
 	case 0x1fe0e0: {
-		sub_1D0E0(a1_6E8E, 0);
+		CreatureShootProjectile20_1D0E0(a1_6E8E, 0);
 		break;
 	}
 
 	case 0x1fe1a0: {
-		sub_1D1A0(a1_6E8E, 0);
+		CreatureShootProjectile21_1D1A0(a1_6E8E, 0);
 		break;
 	}
 	case 0x1fe260: {
-		sub_1D260(a1_6E8E, 0);
+		CreatureShootProjectile9_1D260(a1_6E8E, 0);
 		break;
 	}
 	case 0x1fe460: {
-		sub_1D460(a1_6E8E, 0);
+		CreatureShootSpread_1D460(a1_6E8E, 0);
 		break;
 	}
 	case 0x1fe5d0: {
-		sub_1D5D0(a1_6E8E, 0);
+		CreatureRunScript_1D5D0(a1_6E8E, 0);
 		break;
 	}
 	case 0x1fe700: {
-		sub_1D700(a1_6E8E, 0);
+		CreatureScriptCmd4_1D700(a1_6E8E, 0);
 		break;
 	}
 
 	case 0x1fe7c0: {
-		sub_1D7C0(a1_6E8E, 0);
+		CreatureScriptCmd3_1D7C0(a1_6E8E, 0);
 		break;
 	}
 	case 0x1fe880: {
-		sub_1D880(a1_6E8E, 0);
+		CreatureScriptCmd8_1D880(a1_6E8E, 0);
 		break;
 	}
 	case 0x1fe8a0: {
-		sub_1D8A0(a1_6E8E, 0);
+		CreatureScriptCmd9_1D8A0(a1_6E8E, 0);
 		break;
 	}
 	case 0x1fe8c0: {
-		sub_1D8C0(a1_6E8E, 0);
+		CreatureScriptAttack_1D8C0(a1_6E8E, 0);
 		break;
 	}
 	case 0x1febf0: {
-		sub_1DBF0(a1_6E8E, 0);
+		CreatureScriptGuardPosition_1DBF0(a1_6E8E, 0);
 		break;
 	}
 
 	case 0x1feda0: {
-		sub_1DDA0(a1_6E8E, 0);
+		CreatureScriptGoToPosition_1DDA0(a1_6E8E, 0);
 		break;
 	}
 	case 0x1ff000: {
-		sub_1E000(a1_6E8E, 0);
+		CreatureScriptCmd6_1E000(a1_6E8E, 0);
 		break;
 	}
 	case 0x1ff020: {
-		sub_1E020(a1_6E8E, 0);
+		CreatureScriptCmd7_1E020(a1_6E8E, 0);
 		break;
 	}
 	case 0x1ff040: {
-		sub_1E040(a1_6E8E, 0);
+		CreatureScriptResume_1E040(a1_6E8E, 0);
 		break;
 	}
 	case 0x1ff1c0: {
-		sub_1E1C0(a1_6E8E, 0);
+		CreatureScriptIdle_1E1C0(a1_6E8E, 0);
 		break;
 	}
 
 	case 0x1ff320: {
-		sub_1E320(a1_6E8E);
+		CreatureScriptChaseTarget_1E320(a1_6E8E);
 		break;
 	}
 	case 0x1ff3e0: {
-		sub_1E3E0(a1_6E8E);
+		FindScriptGroupLeader_1E3E0(a1_6E8E);
 		break;
 	}
 	case 0x1ff4d0: {
-		sub_1E4D0(a1_6E8E);
+		CreatureScriptFollowParent_1E4D0(a1_6E8E);
 		break;
 	}
 	case 0x1ff580: {
-		sub_1E580(a1_6E8E, 0);
+		CreatureScriptEscortParent_1E580(a1_6E8E, 0);
 		break;
 	}
 	case 0x1ff700: {
-		sub_1E700(a1_6E8E, 0);
+		CreatureIdleNoHerd_1E700(a1_6E8E, 0);
 		break;
 	}
 
 	case 0x1ff9c0: {
-		sub_1E9C0(a1_6E8E, 0);
+		CreatureScriptCmd14_1E9C0(a1_6E8E, 0);
 		break;
 	}
 	case 0x1ffd30: {
-		sub_1ED30(a1_6E8E, 0);
+		GetCreatureTarget_1ED30(a1_6E8E, 0);
 		break;
 	}
 	case 0x1ffee0: {
-		sub_1EEE0(a1_6E8E);
+		KeepCreatureAboveTerrain_1EEE0(a1_6E8E);
 		break;
 	}
 	case 0x1fff20: {
-		sub_1EF20(a1_6E8E);
+		FlyingWormIdle_1EF20(a1_6E8E);
 		break;
 	}
 	case 0x1fff40: {
-		sub_1EF40(a1_6E8E);
+		FlyingWormWander_1EF40(a1_6E8E);
 		break;
 	}
 
 	case 0x1fff70: {
-		sub_1EF70(a1_6E8E);
+		FlyingWormAttack_1EF70(a1_6E8E);
 		break;
 	}
 	case 0x1fffd0: {
-		sub_1EFD0(a1_6E8E);
+		FlyingWormFollow_1EFD0(a1_6E8E);
 		break;
 	}
 
 	case 0x200000: {
-		sub_1F000(a1_6E8E);
+		FlyingWormPreKill_1F000(a1_6E8E);
 		break;
 	}
 	case 0x200020: {
-		sub_1F020(a1_6E8E);
+		FlyingWormKill_1F020(a1_6E8E);
 		break;
 	}
 	case 0x200040: {
-		sub_1F040(a1_6E8E);
+		ApplyFlyingWormGravity_1F040(a1_6E8E);
 		break;
 	}
 	case 0x2000c0: {
-		sub_1F0C0(a1_6E8E);
+		UpdateFlyingWormBody_1F0C0(a1_6E8E);
 		break;
 	}
 	case 0x200300: {
-		sub_1F300(a1_6E8E);
+		FlyingWormScripted_1F300(a1_6E8E);
 		break;
 	}
 
 	case 0x200340: {
-		sub_1F340(a1_6E8E);
+		GoatIdle_1F340(a1_6E8E);
 		break;
 	}
 	case 0x2003c0: {
-		sub_1F3C0(a1_6E8E);
+		GoatWander_1F3C0(a1_6E8E);
 		break;
 	}
 	case 0x200440: {
-		sub_1F440(a1_6E8E);
+		GoatAttack_1F440(a1_6E8E);
 		break;
 	}
 	case 0x200470: {
-		sub_1F470(a1_6E8E);
+		GoatFollow_1F470(a1_6E8E);
 		break;
 	}
 	case 0x2004f0: {//begin of goat kill
@@ -1265,70 +1265,70 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x200630: {
-		sub_1F630(a1_6E8E);
+		BeeIdle_1F630(a1_6E8E);
 		break;
 	}
 	case 0x200660: {
-		sub_1F660(a1_6E8E);
+		BeeWander_1F660(a1_6E8E);
 		break;
 	}
 
 	case 0x2006d0: {
-		sub_1F6D0(a1_6E8E);
+		BeeAttack_1F6D0(a1_6E8E);
 		break;
 	}
 	case 0x200800: {
-		sub_1F800(a1_6E8E);
+		BeeFollow_1F800(a1_6E8E);
 		break;
 	}
 	case 0x200830: {//maybe bee dead
-		sub_1F830(a1_6E8E);
+		BeePreKill_1F830(a1_6E8E);
 		break;
 	}
 	case 0x200850: {
-		sub_1F850(a1_6E8E);
+		BeeKill_1F850(a1_6E8E);
 		break;
 	}
 	case 0x2008a0: {
-		sub_1F8A0(a1_6E8E);
+		BeeScripted_1F8A0(a1_6E8E);
 		break;
 	}
 
 	case 0x200950: {
-		sub_1F950(a1_6E8E);
+		WormIdle_1F950(a1_6E8E);
 		break;
 	}
 	case 0x200970: {
-		sub_1F970(a1_6E8E);
+		WormWander_1F970(a1_6E8E);
 		break;
 	}
 	case 0x200990: {
-		sub_1F990(a1_6E8E);
+		WormAttack_1F990(a1_6E8E);
 		break;
 	}
 	case 0x2009e0: {
-		sub_1F9E0(a1_6E8E);
+		WormFollow_1F9E0(a1_6E8E);
 		break;
 	}
 	case 0x200a00: {
-		sub_1FA00(a1_6E8E);
+		WormPreKill_1FA00(a1_6E8E);
 		break;
 	}
 
 	case 0x200a20: {
-		sub_1FA20(a1_6E8E);
+		WormKill_1FA20(a1_6E8E);
 		break;
 	}
 	case 0x200a50: {
-		sub_1FA50(a1_6E8E);
+		WormScripted_1FA50(a1_6E8E);
 		break;
 	}
 	case 0x200a70: {
-		sub_1FA70(a1_6E8E);
+		ArcherIdle_1FA70(a1_6E8E);
 		break;
 	}
 	case 0x200aa0: {
-		sub_1FAA0(a1_6E8E);
+		ArcherWander_1FAA0(a1_6E8E);
 		break;
 	}
 	case 0x200f40: {//get scroll5-help
@@ -1337,7 +1337,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 	}
 
 	case 0x200fe0: {
-		sub_1FFE0(a1_6E8E);
+		ArcherFollow_1FFE0(a1_6E8E);
 		break;
 	}
 	case 0x201010: {
@@ -1349,11 +1349,11 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x201060: {
-		sub_20060(a1_6E8E);
+		ArcherStartShooting_20060(a1_6E8E);
 		break;
 	}
 	case 0x2010f0: {
-		sub_200F0(a1_6E8E);
+		ArcherResetAnimation_200F0(a1_6E8E);
 		break;
 	}
 
@@ -1362,187 +1362,187 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x201370: {
-		sub_20370(a1_6E8E);
+		SkeletonArcherIdle_20370(a1_6E8E);
 		break;
 	}
 	case 0x2013d0: {
-		sub_203D0(a1_6E8E);
+		SkeletonArcherWander_203D0(a1_6E8E);
 		break;
 	}
 	case 0x201940: {
-		sub_20940(a1_6E8E);
+		SkeletonArcherUpdate_20940(a1_6E8E);
 		break;
 	}
 	case 0x201c50: {
-		sub_20C50(a1_6E8E);
+		SkeletonArcherAttack_20C50(a1_6E8E);
 		break;
 	}
 
 	case 0x201e50: {
-		sub_20E50(a1_6E8E);
+		SkeletonArcherFollow_20E50(a1_6E8E);
 		break;
 	}
 	case 0x201e80: {
-		sub_20E80(a1_6E8E);
+		SkeletonArcherPreKill_20E80(a1_6E8E);
 		break;
 	}
 	case 0x201ea0: {
-		sub_20EA0(a1_6E8E);
+		SkeletonArcherKill_20EA0(a1_6E8E);
 		break;
 	}
 	case 0x201ec0: {
-		sub_20EC0(a1_6E8E);
+		SkeletonArcherCheckTarget_20EC0(a1_6E8E);
 		break;
 	}
 	case 0x201f20: {
-		sub_20F20(a1_6E8E);
+		SkeletonArcherReset_20F20(a1_6E8E);
 		break;
 	}
 
 	case 0x201f60: {
-		sub_20F60(a1_6E8E);
+		SkeletonArcherStartAnimation_20F60(a1_6E8E);
 		break;
 	}
 	case 0x201f80: {
-		sub_20F80(a1_6E8E);
+		SkeletonArcherSetCooldown_20F80(a1_6E8E);
 		break;
 	}
 	case 0x201fc0: {
-		sub_20FC0(a1_6E8E);
+		SkeletonArcherScripted_20FC0(a1_6E8E);
 		break;
 	}
 
 	case 0x202030: {
-		sub_21030(a1_6E8E);
+		EmuIdle_21030(a1_6E8E);
 		break;
 	}
 	case 0x202490: {
-		sub_21490(a1_6E8E);
+		EmuUpdateState_21490(a1_6E8E);
 		break;
 	}
 	case 0x202850: {
-		sub_21850(a1_6E8E);
+		EmuUpdateMovement_21850(a1_6E8E);
 
 		break;
 	}
 	case 0x202ab0: {
-		sub_21AB0(a1_6E8E);
+		EmuFindTarget_21AB0(a1_6E8E);
 		break;
 	}
 	case 0x202f60: {
-		sub_21F60(a1_6E8E);
+		EmuCheckNearbyEntities_21F60(a1_6E8E);
 		break;
 	}
 	case 0x203190: {
-		sub_22190(a1_6E8E);
+		EmuCheckDamage_22190(a1_6E8E);
 		break;
 	}
 	case 0x2031f0: {
-		sub_221F0(a1_6E8E, 0);
+		SetEntitySpriteAndLoad_221F0(a1_6E8E, 0);
 		break;
 	}
 	case 0x203270: {
-		sub_22270(a1_6E8E);
+		EmuSnapToTerrain_22270(a1_6E8E);
 		break;
 	}
 	case 0x2032b0: {
-		sub_222B0(a1_6E8E);
+		EmuFacePlayer_222B0(a1_6E8E);
 		break;
 	}
 	case 0x2033e0: {
-		sub_223E0();
+		CountWizards_223E0();
 		break;
 	}
 	case 0x203490: {
-		sub_22490(a1_6E8E);
+		ScanTilesAround_22490(a1_6E8E);
 		break;
 	}
 	case 0x203530: {
-		sub_22530(a1_6E8E);
+		EmuWander_22530(a1_6E8E);
 		break;
 	}
 	case 0x203540: {
-		sub_22540(a1_6E8E);
+		EmuAttack_22540(a1_6E8E);
 		break;
 	}
 	case 0x203550: {
-		sub_22550(a1_6E8E);
+		EmuFollow_22550(a1_6E8E);
 		break;
 	}
 	case 0x203560: {
-		sub_22560(a1_6E8E);
+		EmuPreKill_22560(a1_6E8E);
 		break;
 	}
 	case 0x203580: {
-		sub_22580(a1_6E8E);
+		EmuKill_22580(a1_6E8E);
 		break;
 	}
 	case 0x2035a0: {
-		sub_225A0(a1_6E8E);
+		EmuHit_225A0(a1_6E8E);
 		break;
 	}
 	case 0x2035b0: {
-		sub_225B0(a1_6E8E);
+		EmuScripted_225B0(a1_6E8E);
 		break;
 	}
 	case 0x203640: {
-		sub_22640((axis_3d*)a1_6E8E, 0, 0, 0);
+		CanPlaceBuilding_22640((axis_3d*)a1_6E8E, 0, 0, 0);
 		break;
 	}
 				 /*case 0x2036d0: {
-					 sub_226D0((unsigned short)a1_6E8E,0,0);
+					 GetBuildingBitmapSize_226D0((unsigned short)a1_6E8E,0,0);
 					 break;
 				 }*/
 	case 0x203760: {
-		sub_22760(a1_6E8E);
+		BuilderIdle_22760(a1_6E8E);
 		break;
 	}
 	case 0x203c80: {
-		sub_22C80(a1_6E8E);
+		BuilderWander_22C80(a1_6E8E);
 		break;
 	}
 	case 0x203e60: {
-		sub_22E60(a1_6E8E);
+		BuilderAttack_22E60(a1_6E8E);
 		break;
 	}
 	case 0x204020: {
-		sub_23020(a1_6E8E);
+		BuilderFollow_23020(a1_6E8E);
 		break;
 	}
 	case 0x2041e0: {
-		sub_231E0(a1_6E8E);
+		BuilderPreKill_231E0(a1_6E8E);
 		break;
 	}
 	case 0x204200: {
-		sub_23200(a1_6E8E);
+		BuilderKill_23200(a1_6E8E);
 		break;
 	}
 	case 0x204260: {
-		sub_23260(a1_6E8E);
+		BuilderHit_23260(a1_6E8E);
 		break;
 	}
 	case 0x2042a0: {
-		sub_232A0(a1_6E8E);
+		BuilderScripted_232A0(a1_6E8E);
 		break;
 	}
 	case 0x2042c0: {
-		sub_232C0();
+		ChooseRandomBuilding_232C0();
 		break;
 	}
 	case 0x204320: {
-		sub_23320(a1_6E8E);
+		TownieIdle_23320(a1_6E8E);
 		break;
 	}
 	case 0x204340: {
-		sub_23340(a1_6E8E);//kill goat?
+		TownieWander_23340(a1_6E8E);//kill goat?
 		break;
 	}
 	case 0x204640: {
-		sub_23640(a1_6E8E);
+		TownieAttack_23640(a1_6E8E);
 		break;
 	}
 	case 0x204660: {
-		sub_23660(a1_6E8E);
+		TownieFollow_23660(a1_6E8E);
 		break;
 	}
 	case 0x204680: {//mana posses
@@ -1550,7 +1550,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x2046f0: {
-		sub_236F0(a1_6E8E);
+		TownieKill_236F0(a1_6E8E);
 		break;
 	}
 	case 0x204710: {
@@ -1562,186 +1562,186 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x204790: {
-		sub_23790(a1_6E8E);
+		TraderIdle_23790(a1_6E8E);
 		break;
 	}
 	case 0x2047b0: {
-		sub_237B0(a1_6E8E);
+		TraderWander_237B0(a1_6E8E);
 		break;
 	}
 	case 0x204ac0: {
-		sub_23AC0(a1_6E8E);
+		TraderAttack_23AC0(a1_6E8E);
 		break;
 	}
 	case 0x204ae0: {
-		sub_23AE0(a1_6E8E);
+		TraderFollow_23AE0(a1_6E8E);
 		break;
 	}
 	case 0x204b00: {
-		sub_23B00(a1_6E8E);
+		TraderPreKill_23B00(a1_6E8E);
 		break;
 	}
 	case 0x204b30: {
-		sub_23B30(a1_6E8E);
+		TraderKill_23B30(a1_6E8E);
 		break;
 	}
 	case 0x204b90: {//kill human with bag
-		sub_23B90(a1_6E8E);
+		TraderHit_23B90(a1_6E8E);
 		break;
 	}
 	case 0x204bd0: {
-		sub_23BD0(a1_6E8E);
+		TraderScripted_23BD0(a1_6E8E);
 		break;
 	}
 	case 0x204c20: {
-		sub_23C20(a1_6E8E);
+		ExplodedHumanIdle_23C20(a1_6E8E);
 		break;
 	}
 	case 0x204c40: {
-		sub_23C40(a1_6E8E);
+		ExplodedHumanWander_23C40(a1_6E8E);
 		break;
 	}
 	case 0x204e60: {
-		sub_23E60(a1_6E8E);
+		ExplodedHumanAttack_23E60(a1_6E8E);
 		break;
 	}
 
 	case 0x2050a0: {
-		sub_240A0(a1_6E8E);
+		ExplodedHumanFollow_240A0(a1_6E8E);
 		break;
 	}
 	case 0x2050c0: {
-		sub_240C0(a1_6E8E);
+		ExplodedHumanPreKill_240C0(a1_6E8E);
 		break;
 	}
 	case 0x2050e0: {
-		sub_240E0(a1_6E8E);
+		ExplodedHumanKill_240E0(a1_6E8E);
 		break;
 	}
 	case 0x205100: {
-		sub_24100(a1_6E8E);
+		ExplodedHumanStartAttack_24100(a1_6E8E);
 		break;
 	}
 	case 0x205150: {
-		sub_24150(a1_6E8E);
+		ExplodedHumanResetAnimation_24150(a1_6E8E);
 		break;
 	}
 
 	case 0x205190: {
-		sub_24190(a1_6E8E);
+		ExplodedHumanExplode_24190(a1_6E8E);
         break; // FIXME: this break was missing here - was this a mistake?
 	}
 	case 0x205400: {
-		sub_24400(a1_6E8E);
+		ExplodedHumanScripted_24400(a1_6E8E);
 		break;
 	}
 	case 0x205420: {
-		sub_24420(a1_6E8E);
+		WyvernIdle_24420(a1_6E8E);
 		break;
 	}
 	case 0x205440: {
-		sub_24440(a1_6E8E);
+		WyvernWander_24440(a1_6E8E);
 		break;
 	}
 	case 0x205510: {
-		sub_24510(a1_6E8E);
+		WyvernAttack_24510(a1_6E8E);
 		break;
 	}
 
 	case 0x2057d0: {
-		sub_247D0(a1_6E8E);
+		WyvernFollow_247D0(a1_6E8E);
 		break;
 	}
 	case 0x2057f0: {
-		sub_247F0(a1_6E8E);
+		WyvernPreKill_247F0(a1_6E8E);
 		break;
 	}
 	case 0x205810: {
-		sub_24810(a1_6E8E);
+		WyvernKill_24810(a1_6E8E);
 		break;
 	}
 	case 0x205840: {
-		sub_24840(a1_6E8E);
+		WyvernScripted_24840(a1_6E8E);
 		break;
 	}
 	case 0x205860: {
-		sub_24860(a1_6E8E);
+		LionIdle_24860(a1_6E8E);
 		break;
 	}
 
 	case 0x2058c0: {
-		sub_248C0(a1_6E8E);
+		LionWander_248C0(a1_6E8E);
 		break;
 	}
 	case 0x205930: {
-		sub_24930(a1_6E8E);
+		LionAttack_24930(a1_6E8E);
 		break;
 	}
 	case 0x205d40: {
-		sub_24D40(a1_6E8E);
+		LionFollow_24D40(a1_6E8E);
 		break;
 	}
 	case 0x205da0: {
-		sub_24DA0(a1_6E8E);
+		LionPreKill_24DA0(a1_6E8E);
 		break;
 	}
 	case 0x205dc0: {
-		sub_24DC0(a1_6E8E);
+		LionKill_24DC0(a1_6E8E);
 		break;
 	}
 
 	case 0x205df0: {
-		sub_24DF0(a1_6E8E);
+		LionScripted_24DF0(a1_6E8E);
 		break;
 	}
 	case 0x205e20: {
-		sub_24E20(a1_6E8E);
+		HeadIdle_24E20(a1_6E8E);
 		break;
 	}
 	case 0x206050: {
-		sub_25050(a1_6E8E);
+		HeadWander_25050(a1_6E8E);
 		break;
 	}
 	case 0x2060b0: {
-		sub_250B0(a1_6E8E);
+		HeadAttack_250B0(a1_6E8E);
 		break;
 	}
 	case 0x206280: {
-		sub_25280(/*a1_6E8E,*/a1_6E8E);
+		HeadFollow_25280(/*a1_6E8E,*/a1_6E8E);
 		break;
 	}
 
 	case 0x2062a0: {
-		sub_252A0(a1_6E8E);
+		HeadPreKill_252A0(a1_6E8E);
 		break;
 	}
 	case 0x2062c0: {
-		sub_252C0(a1_6E8E);
+		HeadKill_252C0(a1_6E8E);
 		break;
 	}
 	case 0x2062e0: {
-		sub_252E0(a1_6E8E);
+		HeadCheckDamage_252E0(a1_6E8E);
 		break;
 	}
 	case 0x2063b0: {
-		sub_253B0(a1_6E8E, 0, 0);
+		HeadSetState_253B0(a1_6E8E, 0, 0);
 		break;
 	}
 	case 0x2064e0: {
-		sub_254E0(a1_6E8E, 0, 0);
+		TurnTowardsEntity_254E0(a1_6E8E, 0, 0);
 		break;
 	}
 
 	case 0x206550: {
-		sub_25550(a1_6E8E);
+		HeadScripted_25550(a1_6E8E);
 		break;
 	}
 	case 0x206590: {
-		sub_25590(a1_6E8E);
+		FirebugIdle_25590(a1_6E8E);
 		break;
 	}
 	case 0x2065c0: {
-		sub_255C0(a1_6E8E);
+		FirebugWander_255C0(a1_6E8E);
 		break;
 	}
 	case 0x206610: {
@@ -1749,16 +1749,16 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x206cd0: {
-		sub_25CD0(a1_6E8E);
+		FirebugFollow_25CD0(a1_6E8E);
 		break;
 	}
 
 	case 0x206d00: {
-		sub_25D00(a1_6E8E);
+		FirebugPreKill_25D00(a1_6E8E);
 		break;
 	}
 	case 0x206d20: {
-		sub_25D20(a1_6E8E);
+		FirebugKill_25D20(a1_6E8E);
 		break;
 	}
 	case 0x206d50: {
@@ -1766,482 +1766,482 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x206d80: {
-		sub_25D80(a1_6E8E);
+		SpiderIdle_25D80(a1_6E8E);
 		break;
 	}
 	case 0x206de0: {
-		sub_25DE0(a1_6E8E);
+		SpiderWander_25DE0(a1_6E8E);
 		break;
 	}
 
 	case 0x206e40: {
-		sub_25E40(a1_6E8E);
+		SpiderAttack_25E40(a1_6E8E);
 		break;
 	}
 	case 0x206f70: {
-		sub_25F70(a1_6E8E);
+		SpiderFollow_25F70(a1_6E8E);
 		break;
 	}
 	case 0x206fd0: {
-		sub_25FD0(a1_6E8E);
+		SpiderPreKill_25FD0(a1_6E8E);
 		break;
 	}
 	case 0x206ff0: {
-		sub_25FF0(a1_6E8E);
+		SpiderKill_25FF0(a1_6E8E);
 		break;
 	}
 	case 0x207020: {
-		sub_26020(a1_6E8E);
+		SpiderScripted_26020(a1_6E8E);
 		break;
 	}
 
 	case 0x207050: {
-		sub_26050(a1_6E8E);
+		DiabloIdle_26050(a1_6E8E);
 		break;
 	}
 	case 0x207070: {
-		sub_26070(a1_6E8E);
+		DiabloWander_26070(a1_6E8E);
 		break;
 	}
 	case 0x207220: {
-		sub_26220(a1_6E8E);
+		DiabloAttack_26220(a1_6E8E);
 		break;
 	}
 	case 0x2073c0: {
-		sub_263C0(a1_6E8E);
+		DiabloFollow_263C0(a1_6E8E);
 		break;
 	}
 	case 0x2073e0: {
-		sub_263E0(a1_6E8E);
+		DiabloPreKill_263E0(a1_6E8E);
 		break;
 	}
 
 	case 0x207400: {
-		sub_26400(a1_6E8E);
+		DiabloKill_26400(a1_6E8E);
 		break;
 	}
 	case 0x207470: {
-		sub_26470(a1_6E8E);
+		DiabloScripted_26470(a1_6E8E);
 		break;
 	}
 	case 0x207500: {
-		sub_26500(a1_6E8E);
+		DiabloSetSprite_26500(a1_6E8E);
 		break;
 	}
 	case 0x2075a0: {
-		sub_265A0(a1_6E8E);
+		DiabloUpdateState_265A0(a1_6E8E);
 		break;
 	}
 	case 0x207830: {
-		sub_26830(a1_6E8E);
+		DiabloCheckDamage_26830(a1_6E8E);
 		break;
 	}
 
 	case 0x2078f0: {
-		sub_268F0(a1_6E8E, 0);
+		DiabloSetMode_268F0(a1_6E8E, 0);
 		break;
 	}
 	case 0x207930: {
-		sub_26930(a1_6E8E);
+		DiabloIsAttacking_26930(a1_6E8E);
 		break;
 	}
 	case 0x207960: {
-		sub_26960(a1_6E8E);
+		FlyingManaIdle_26960(a1_6E8E);
 		break;
 	}
 	case 0x207990: {
-		sub_26990(a1_6E8E);
+		FlyingManaWander_26990(a1_6E8E);
 		break;
 	}
 	case 0x207aa0: {
-		sub_26AA0(a1_6E8E);
+		FlyingManaAttack_26AA0(a1_6E8E);
 		break;
 	}
 
 	case 0x207bd0: {
-		sub_26BD0(a1_6E8E);
+		FlyingManaFollow_26BD0(a1_6E8E);
 		break;
 	}
 	case 0x207ca0: {
-		sub_26CA0(a1_6E8E);
+		FlyingManaPreKill_26CA0(a1_6E8E);
 		break;
 	}
 	case 0x207cc0: {
-		sub_26CC0(a1_6E8E);
+		FlyingManaKill_26CC0(a1_6E8E);
 		break;
 	}
 	case 0x207d20: {
-		sub_26D20(a1_6E8E);
+		FlyingManaFollowTarget_26D20(a1_6E8E);
 		break;
 	}
 	case 0x207f10: {
-		sub_26F10(a1_6E8E);
+		FlyingManaApplyDamage_26F10(a1_6E8E);
 		break;
 	}
 	case 0x207ff0: {
-		sub_26FF0(a1_6E8E);
+		FlyingManaUpdateSpeed_26FF0(a1_6E8E);
 		break;
 	}
 
 	case 0x208120: {
-		sub_27120(a1_6E8E);
+		FlyingManaAvoidOthers_27120(a1_6E8E);
 		break;
 	}
 	case 0x2081d0: {
-		sub_271D0(a1_6E8E);
+		FlyingManaSteerToTarget_271D0(a1_6E8E);
 		break;
 	}
 	case 0x2082c0: {
-		sub_272C0(a1_6E8E);
+		FlyingManaUpdateAnimation_272C0(a1_6E8E);
 		break;
 	}
 	case 0x208470: {
-		sub_27470(a1_6E8E, 0);
+		GetChainSegment_27470(a1_6E8E, 0);
 		break;
 	}
 	case 0x208590: {
-		sub_27590(a1_6E8E);
+		SetFlyingManaSprite_27590(a1_6E8E);
 		break;
 	}
 
 	case 0x208610: {
-		sub_27610(a1_6E8E);
+		SetFlyingManaChainSize_27610(a1_6E8E);
 		break;
 	}
 	case 0x2086e0: {
-		sub_276E0(a1_6E8E);
+		UpdateChainSegments_276E0(a1_6E8E);
 		break;
 	}
 	case 0x208720: {
-		sub_27720(a1_6E8E, 0);
+		SetFlyingManaLevel_27720(a1_6E8E, 0);
 		break;
 	}
 	case 0x208880: {
-		sub_27880(a1_6E8E);
+		FlyingManaCountdown_27880(a1_6E8E);
 		break;
 	}
 	case 0x208930: {
-		sub_27930(a1_6E8E);
+		FlyingManaScripted_27930(a1_6E8E);
 		break;
 	}
 
 	case 0x208950: {
-		sub_27950(a1_6E8E);
+		BalloonIdle_27950(a1_6E8E);
 		break;
 	}
 	case 0x208b20: {
-		sub_27B20(a1_6E8E);
+		BalloonWander_27B20(a1_6E8E);
 		break;
 	}
 
 	case 0x208c10: {
-		sub_27C10(a1_6E8E);
+		BalloonFollow_27C10(a1_6E8E);
 		break;
 	}
 	case 0x208e00: {
-		sub_27E00(a1_6E8E);
+		BalloonAttack_27E00(a1_6E8E);
 		break;
 	}
 	case 0x208fa0: {
-		sub_27FA0(a1_6E8E);
+		BalloonPreKill_27FA0(a1_6E8E);
 		break;
 	}
 	case 0x208fc0: {
-		sub_27FC0(a1_6E8E);
+		BalloonKill_27FC0(a1_6E8E);
 		break;
 	}
 	case 0x208fe0: {
-		sub_27FE0(a1_6E8E, 0, 0, 0);
+		SetEntityActionState_27FE0(a1_6E8E, 0, 0, 0);
 		break;
 	}
 
 	case 0x209000: {
-		sub_28000(a1_6E8E);
+		FindNearestCastle_28000(a1_6E8E);
 		break;
 	}
 	case 0x209060: {
-		sub_28060(a1_6E8E);
+		IsTooCloseToSameModel_28060(a1_6E8E);
 		break;
 	}
 	case 0x209110: {
-		sub_28110(a1_6E8E);
+		BalloonCheckDamage_28110(a1_6E8E);
 		break;
 	}
 	case 0x2092d0: {
-		sub_282D0(a1_6E8E);
+		FindBalloonTarget_282D0(a1_6E8E);
 		break;
 	}
 	case 0x209390: {
-		sub_28390(a1_6E8E, 0);
+		MoveTowardsEntity_28390(a1_6E8E, 0);
 		break;
 	}
 
 	case 0x209420: {
-		sub_28420(a1_6E8E);
+		GetBalloonTarget_28420(a1_6E8E);
 		break;
 	}
 	case 0x209470: {
-		sub_28470(a1_6E8E);
+		BalloonScripted_28470(a1_6E8E);
 		break;
 	}
 	case 0x209490: {
-		sub_28490(a1_6E8E);
+		Creature24Idle_28490(a1_6E8E);
 		break;
 	}
 	case 0x209500: {
-		sub_28500(a1_6E8E);
+		Creature24Wander_28500(a1_6E8E);
 		break;
 	}
 	case 0x209570: {
-		sub_28570(a1_6E8E);
+		Creature24Attack_28570(a1_6E8E);
 		break;
 	}
 
 	case 0x2095d0: {
-		sub_285D0(a1_6E8E);
+		Creature24Follow_285D0(a1_6E8E);
 		break;
 	}
 	case 0x2095f0: {
-		sub_285F0(a1_6E8E);
+		Creature24PreKill_285F0(a1_6E8E);
 		break;
 	}
 	case 0x209610: {
-		sub_28610(a1_6E8E);
+		Creature24Kill_28610(a1_6E8E);
 		break;
 	}
 	case 0x209630: {
-		sub_28630(a1_6E8E);
+		Creature24Hit_28630(a1_6E8E);
 		break;
 	}
 	case 0x209660: {
-		sub_28660(a1_6E8E);
+		Creature24Scripted_28660(a1_6E8E);
 		break;
 	}
 
 	case 0x209690: {
-		sub_28690(a1_6E8E);
+		Creature24FindTarget_28690(a1_6E8E);
 		break;
 	}
 	case 0x2097b0: {
-		sub_287B0(a1_6E8E);
+		Creature24SetSprite_287B0(a1_6E8E);
 		break;
 	}
 	case 0x209860: {
-		sub_28860(a1_6E8E);
+		FlyingCreatureIdle_28860(a1_6E8E);
 		break;
 	}
 	case 0x209c30: {
-		sub_28C30(a1_6E8E);
+		FlyingCreatureWander_28C30(a1_6E8E);
 		break;
 	}
 	case 0x209c60: {
-		sub_28C60(a1_6E8E);
+		FlyingCreatureAttack_28C60(a1_6E8E);
 		break;
 	}
 
 	case 0x209cc0: {
-		sub_28CC0(a1_6E8E);
+		FlyingCreatureFollow_28CC0(a1_6E8E);
 		break;
 	}
 	case 0x209ce0: {
-		sub_28CE0(a1_6E8E);
+		FlyingCreaturePreKill_28CE0(a1_6E8E);
 		break;
 	}
 	case 0x209ec0: {
-		sub_28EC0(a1_6E8E);
+		FlyingCreatureKill_28EC0(a1_6E8E);
 		break;
 	}
 	case 0x209f50: {
-		sub_28F50(a1_6E8E);
+		FlyingCreatureScripted_28F50(a1_6E8E);
 		break;
 	}
 	case 0x209f90: {
-		sub_28F90(a1_6E8E);
+		MummyIdle_28F90(a1_6E8E);
 		break;
 	}
 	case 0x209fc0: {
-		sub_28FC0(a1_6E8E);
+		MummyWander_28FC0(a1_6E8E);
 		break;
 	}
 	case 0x209ff0: {
-		sub_28FF0(a1_6E8E);
+		MummyAttack_28FF0(a1_6E8E);
 		break;
 	}
 
 	case 0x20a300: {
-		sub_29300(a1_6E8E);
+		MummyFollow_29300(a1_6E8E);
 		break;
 	}
 	case 0x20a330: {
-		sub_29330(a1_6E8E);
+		MummyPreKill_29330(a1_6E8E);
 		break;
 	}
 	case 0x20a350: {
-		sub_29350(a1_6E8E);
+		MummyKill_29350(a1_6E8E);
 		break;
 	}
 	case 0x20a380: {
-		sub_29380(a1_6E8E);
+		MummyScripted_29380(a1_6E8E);
 		break;
 	}
 	case 0x20a3b0: {
-		sub_293B0(a1_6E8E);
+		MummyResetAttackFlag_293B0(a1_6E8E);
 		break;
 	}
 
 	case 0x20a3d0: {
-		sub_293D0(a1_6E8E);
+		MummySetAttackFlag_293D0(a1_6E8E);
 		break;
 	}
 	case 0x20a400: {
-		sub_29400(a1_6E8E);
+		BigDragonIdle_29400(a1_6E8E);
 		break;
 	}
 	case 0x20a670: {
-		sub_29670(a1_6E8E);
+		BigDragonWander_29670(a1_6E8E);
 		break;
 	}
 	case 0x20a710: {
-		sub_29710(a1_6E8E);
+		BigDragonAttack_29710(a1_6E8E);
 		break;
 	}
 	case 0x20a890: {
-		sub_29890(a1_6E8E);
+		BigDragonFollow_29890(a1_6E8E);
 		break;
 	}
 
 	case 0x20a8b0: {
-		sub_298B0(a1_6E8E);
+		BigDragonPreKill_298B0(a1_6E8E);
 		break;
 	}
 	case 0x20a8d0: {
-		sub_298D0(a1_6E8E);
+		BigDragonKill_298D0(a1_6E8E);
 		break;
 	}
 	case 0x20a930: {
-		sub_29930(a1_6E8E);
+		BigDragonScripted_29930(a1_6E8E);
 		break;
 	}
 	case 0x20aa90: {
-		sub_29A90(a1_6E8E);
+		BigDragonUpdateBody_29A90(a1_6E8E);
 		break;
 	}
 	case 0x20b340: {
-		sub_2A340(a1_6E8E);
+		BigDragonMoveSegment_2A340(a1_6E8E);
 		break;
 	}
 
 	case 0x20b5b0: {
-		sub_2A5B0(a1_6E8E, 0, 0);
+		BigDragonPlaceSegment_2A5B0(a1_6E8E, 0, 0);
 		break;
 	}
 	case 0x20b660: {
-		sub_2A660(a1_6E8E, 0);
+		BigDragonForwardDamage_2A660(a1_6E8E, 0);
 		break;
 	}
 	case 0x20b6b0: {
-		sub_2A6B0(a1_6E8E);
+		BigDragonCheckDamage_2A6B0(a1_6E8E);
 		break;
 	}
 	case 0x20b6f0: {
-		sub_2A6F0(a1_6E8E);
+		BigDragonFindTarget_2A6F0(a1_6E8E);
 		break;
 	}
 	case 0x20b7b0: {
-		sub_2A7B0(a1_6E8E);
+		BigDragonGetTarget_2A7B0(a1_6E8E);
 		break;
 	}
 
 	case 0x20b7f0: {
-		sub_2A7F0(a1_6E8E, 0, 0);
+		BigDragonChooseAttack_2A7F0(a1_6E8E, 0, 0);
 		break;
 	}
 	case 0x20b940: {
-		sub_2A940(a1_6E8E, 0);
+		BigDragonSetSegmentPose_2A940(a1_6E8E, 0);
 		break;
 	}
 	case 0x20b9f0: {
-		sub_2A9F0(a1_6E8E, 0);
+		BigDragonShootFromSegment_2A9F0(a1_6E8E, 0);
 		break;
 	}
 	case 0x20ba90: {
-		sub_2AA90(a1_6E8E, 0);
+		BigDragonAttachSegment_2AA90(a1_6E8E, 0);
 		break;
 	}
 	case 0x20bc50: {
-		sub_2AC50(a1_6E8E);
+		BigDragonResetRotation_2AC50(a1_6E8E);
 		break;
 	}
 
 	case 0x20bd40: {
-		sub_2AD40(a1_6E8E);
+		BigDragonCheckSegmentsDead_2AD40(a1_6E8E);
 		break;
 	}
 	case 0x20be30: {
-		sub_2AE30(a1_6E8E);
+		BigDragonKillSegments_2AE30(a1_6E8E);
 		break;
 	}
 	case 0x20be80: {
-		sub_2AE80(a1_6E8E);
+		BigDragonHideSegments_2AE80(a1_6E8E);
 		break;
 	}
 	case 0x20bed0: {
-		sub_2AED0(a1_6E8E, 0);
+		SetEntitySpriteIfChanged_2AED0(a1_6E8E, 0);
 		break;
 	}
 	case 0x20bf10: {
-		sub_2AF10(a1_6E8E, 0);
+		MoveDragonEntity_2AF10(a1_6E8E, 0);
 		break;
 	}
 
 	case 0x20c1d0: {
-		sub_2B1D0(a1_6E8E);
+		ManaIdle_2B1D0(a1_6E8E);
 		break;
 	}
 	case 0x20c200: {
-		sub_2B200(a1_6E8E);
+		ManaWander_2B200(a1_6E8E);
 		break;
 	}
 	case 0x20c260: {
-		sub_2B260(a1_6E8E);
+		ManaAttack_2B260(a1_6E8E);
 		break;
 	}
 	case 0x20c750: {
-		sub_2B750(a1_6E8E);
+		ManaFollow_2B750(a1_6E8E);
 		break;
 	}
 	case 0x20c760: {
-		sub_2B760(a1_6E8E);
+		ManaPreKill_2B760(a1_6E8E);
 		break;
 	}
 
 	case 0x20c780: {
-		sub_2B780(a1_6E8E);
+		ManaKill_2B780(a1_6E8E);
 		break;
 	}
 	case 0x20c7b0: {
-		sub_2B7B0(a1_6E8E);
+		ManaScripted_2B7B0(a1_6E8E);
 		break;
 	}
 	case 0x20c7e0: {
-		sub_2B7E0(a1_6E8E);
+		IsAnyCreature28Alive_2B7E0(a1_6E8E);
 		break;
 	}
 	case 0x20c840: {
-		sub_2B840(a1_6E8E);
+		ManaStartAttack_2B840(a1_6E8E);
 		break;
 	}
 	case 0x20c860: {
-		sub_2B860(a1_6E8E, 0);
+		ManaSetMode_2B860(a1_6E8E, 0);
 		break;
 	}
 
 	case 0x20c9a0: {
-		sub_2B9A0(a1_6E8E);
+		ManaCheckDamage_2B9A0(a1_6E8E);
 		break;
 	}
 	case 0x20ca50: {
-		sub_2BA50(a1_6E8E, 0);
+		ManaSetState_2BA50(a1_6E8E, 0);
 		break;
 	}
 				 /*case 0x20cb40: {
@@ -2250,7 +2250,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 					 break;
 				 }*/
 				 /*case 0x20cbb0: {
-					 sub_2BBB0((short)a1,0, (bitmap_pos_struct_t)0);
+					 DrawBitmapToScreenAndBuffer_2BBB0((short)a1,0, (bitmap_pos_struct_t)0);
 
 					 break;
 				 }*/
@@ -2273,7 +2273,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x211d50: {
-		sub_30D50(a1_6E8E);//0xa0 0x00 pos 0x4a 0xdc
+		UpdateEffect0A_00_30D50(a1_6E8E);//0xa0 0x00 pos 0x4a 0xdc
 		break;
 	}
 	case 0x211f60: {
@@ -2285,24 +2285,24 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x212120: {
-		sub_31120(a1_6E8E);
+		UpdateSpeedTrail_31120(a1_6E8E);
 		break;
 	}
 
 	case 0x2121e0: {
-		sub_311E0(a1_6E8E);
+		UpdateSpeedSpell_311E0(a1_6E8E);
 		break;
 	}
 	case 0x212760: {
-		sub_31760(a1_6E8E);
+		UpdateEffect0A_06_31760(a1_6E8E);
 		break;
 	}
 	case 0x212870: {
-		sub_31870(a1_6E8E);
+		UpdateEffect0A_07_31870(a1_6E8E);
 		break;
 	}
 	case 0x212890: {
-		sub_31890(a1_6E8E);
+		UpdateEffect0A_03_31890(a1_6E8E);
 		break;
 	}
 	case 0x2128b0: {//end of water splash
@@ -2311,44 +2311,44 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 	}
 
 	case 0x212920: {
-		sub_31920(a1_6E8E);
+		UpdateEffect0A_08_31920(a1_6E8E);
 		break;
 	}
 	case 0x212940: {
-		sub_31940(a1_6E8E);
+		UpdateEffect0A_09_31940(a1_6E8E);
 		break;
 	}
 	case 0x212e90: {
-		sub_31E90(a1_6E8E);
+		UpdateEffect0A_0A_31E90(a1_6E8E);
 		break;
 	}
 	case 0x212f00: {
-		sub_31F00(a1_6E8E, 0, 0);
+		SpawnEffectAroundTile_31F00(a1_6E8E, 0, 0);
 		break;
 	}
 	case 0x212fb0: {
-		sub_31FB0(a1_6E8E);
+		UpdateEffect0A_0B_31FB0(a1_6E8E);
 		break;
 	}
 
 	case 0x2130e0: {
 		PossesHitMana_320E0(a1_6E8E);//posses spell drop
 		//debug
-		//sub_4AA40(a1);//castle create
+		//AddCastle03_02_4AA40(a1);//castle create
 		//sub_5FA70(a1);//castle create2
 		//debug
 		break;
 	}
 	case 0x213120: {
-		sub_32120(a1_6E8E);
+		UpdateEffectLifetime_32120(a1_6E8E);
 		break;
 	}
 	case 0x213160: {//in quest point3
-		sub_32160(a1_6E8E);//0x0A 0x0D pos 0x72 0xd4
+		UpdateEffect0A_0D_32160(a1_6E8E);//0x0A 0x0D pos 0x72 0xd4
 		break;
 	}
 	case 0x2132a0: {
-		sub_322A0(a1_6E8E);//0x0a 0x0e pos 0x4e 0da
+		UpdateEffect0A_0E_322A0(a1_6E8E);//0x0a 0x0e pos 0x4e 0da
 		break;
 	}
 	case 0x2133e0: {//in quest point2
@@ -2368,91 +2368,91 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x213530: {
-		sub_32530(a1_6E8E);
+		UpdateEffect0A_0F_32530(a1_6E8E);
 		break;
 	}
 	case 0x213600: {
-		sub_32600(a1_6E8E);
+		UpdateEffect0A_10_32600(a1_6E8E);
 		break;
 	}
 	case 0x213880: {
-		sub_32880(a1_6E8E);
+		UpdateMeteor_32880(a1_6E8E);
 		break;
 	}
 
 	case 0x213a70: {
-		sub_32A70(a1_6E8E);
+		UpdateEffect0A_12_32A70(a1_6E8E);
 		break;
 	}
 	case 0x213cf0: {
-		sub_32CF0(a1_6E8E);
+		SpawnManaSpheres_32CF0(a1_6E8E);
 		break;
 	}
 	case 0x213f40: {
-		sub_32F40(a1_6E8E);
+		UpdateEffect0A_13_32F40(a1_6E8E);
 		break;
 	}
 	case 0x214110: {
-		sub_33110(a1_6E8E);
+		UpdateWind_33110(a1_6E8E);
 		break;
 	}
 	case 0x2141a0: {
-		sub_331A0(a1_6E8E);
+		UpdateWindMovement_331A0(a1_6E8E);
 		break;
 	}
 
 	case 0x214340: {
-		sub_33340(a1_6E8E);
+		UpdateWindPull_33340(a1_6E8E);
 		break;
 	}
 	case 0x214710: {
-		sub_33710(a1_6E8E);
+		WindKillOverlapping_33710(a1_6E8E);
 		break;
 	}
 	case 0x214810: {
-		sub_33810(a1_6E8E, 0);
+		CanWindAffectEntity_33810(a1_6E8E, 0);
 		break;
 	}
 	case 0x2148d0: {
-		sub_338D0(a1_6E8E);
+		WindPullNearbyEntities_338D0(a1_6E8E);
 		break;
 	}
 	case 0x2149b0: {
-		sub_339B0(a1_6E8E);
+		UpdateWhirlwindState_339B0(a1_6E8E);
 		break;
 	}
 
 	case 0x214ad0: {
-		sub_33AD0(a1_6E8E);
+		UpdateWhirlwindSpeed_33AD0(a1_6E8E);
 		break;
 	}
 	case 0x214b20: {
-		sub_33B20(a1_6E8E);
+		SpinEntity_33B20(a1_6E8E);
 		break;
 	}
 	case 0x214c00: {
-		sub_33C00(a1_6E8E);
+		UpdateWhirlwindSegments_33C00(a1_6E8E);
 		break;
 	}
 	case 0x214c70: {
-		sub_33C70(a1_6E8E);
+		UpdateWhirlwindTarget_33C70(a1_6E8E);
 		break;
 	}
 	case 0x214d40: {
-		sub_33D40(a1_6E8E);
+		RemoveWhirlwindSegments_33D40(a1_6E8E);
 		break;
 	}
 
 	case 0x214d80: {
-		sub_33D80(a1_6E8E);
+		UpdateEffect0A_17_33D80(a1_6E8E);
 		break;
 	}
 	case 0x214e20: {
-		sub_33E20(a1_6E8E);
+		UpdateEffect0A_19_33E20(a1_6E8E);
 		break;
 	}
 	case 0x214e80: {
-		sub_33E80(a1_6E8E);
+		UpdateEffect0A_1A_33E80(a1_6E8E);
 		break;
 	}
 	case 0x214f70: {
@@ -2462,30 +2462,30 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		sub_33F70((intptr_t)a1_6E8E);
+		CheckTileType8Neighbours_33F70((intptr_t)a1_6E8E);
 		allert_error();
 #endif
 		break;
 	}
 	case 0x215000: {
-		sub_34000(a1_6E8E);
+		UpdateEffect0A_1C_34000(a1_6E8E);
 		break;
 	}
 
 	case 0x215110: {
-		sub_34110(a1_6E8E);
+		UpdateEffect0A_1B_34110(a1_6E8E);
 		break;
 	}
 	case 0x215210: {
-		sub_34210(a1_6E8E);
+		UpdateEffect0A_1D_34210(a1_6E8E);
 		break;
 	}
 	case 0x215330: {
-		sub_34330(a1_6E8E);
+		UpdateEffect0A_1E_34330(a1_6E8E);
 		break;
 	}
 	case 0x215350: {
-		sub_34350(a1_6E8E);
+		UpdateEffect0A_1F_34350(a1_6E8E);
 		break;
 	}
 	case 0x215370: {
@@ -2495,11 +2495,11 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x215390: {
-		sub_34390(a1_6E8E);
+		SetLinkedEntityLife2AndHide_34390(a1_6E8E);
 		break;
 	}
 	case 0x2153c0: {
-		sub_343C0(a1_6E8E);
+		SetLinkedEntityLife1AndHide_343C0(a1_6E8E);
 		break;
 	}
 
@@ -2509,23 +2509,23 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 	}
 
 	case 0x215480: {
-		sub_34480(a1_6E8E);
+		UpdateEffect0A_21_34480(a1_6E8E);
 		break;
 	}
 	case 0x2154a0: {
-		sub_344A0(a1_6E8E);
+		UpdateEffect0A_22_344A0(a1_6E8E);
 		break;
 	}
 	case 0x215520: {
-		sub_34520(a1_6E8E);
+		HideEntity_34520(a1_6E8E);
 		break;
 	}
 	case 0x215540: {
-		sub_34540(a1_6E8E);
+		UpdateArcProjectile_34540(a1_6E8E);
 		break;
 	}
 	case 0x215910: {
-		sub_34910(a1_6E8E);
+		UpdateTerrainDeform_34910(a1_6E8E);
 		break;
 	}
 
@@ -2533,47 +2533,47 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 #if defined(__linux__) || defined(__APPLE__) // FIXME: types
 		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		sub_34B00((intptr_t)a1_6E8E, 0, 0, 0);
+		UpdateTileAngles_34B00((intptr_t)a1_6E8E, 0, 0, 0);
 		stub_fix_it();//bad retyping
 #endif
 		break;
 	}
 	case 0x215c40: {
-		sub_34C40(a1_6E8E);
+		UpdateCraterEffect_34C40(a1_6E8E);
 		break;
 	}
 	case 0x215ee0: {
-		sub_34EE0(a1_6E8E);
+		UpdateVolcanoEffect_34EE0(a1_6E8E);
 		break;
 	}
 	case 0x2162a0: {
-		sub_352A0(a1_6E8E);
+		HideEntity2_352A0(a1_6E8E);
 		break;
 	}
 	case 0x2162c0: {
-		sub_352C0(a1_6E8E);
+		UpdateEffectUntilWater_352C0(a1_6E8E);
 		break;
 	}
 
 	case 0x216390: {
-		sub_35390(a1_6E8E);
+		UpdateEffect0A_24_35390(a1_6E8E);
 		break;
 	}
 	case 0x216530: {
-		sub_35530(a1_6E8E);
+		UpdateEffect0A_25_35530(a1_6E8E);
 
 		break;
 	}
 	case 0x216600: {
-		sub_35600(a1_6E8E);
+		UpdateEffect0A_23_35600(a1_6E8E);
 		break;
 	}
 	case 0x216640: {//lighting II
-		sub_35640(a1_6E8E);
+		UpdateEffect0A_28_35640(a1_6E8E);
 		break;
 	}
 	case 0x2167c0: {
-		sub_357C0(a1_6E8E);
+		UpdateEffect0A_26_357C0(a1_6E8E);
 		break;
 	}
 
@@ -2582,20 +2582,20 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x216FB0: {
-		sub_35FB0(a1_6E8E);
+		UpdateManaSphere_35FB0(a1_6E8E);
 		break;
 	}
 	case 0x217680: {
-		sub_36680(a1_6E8E);
+		ManaSphereCheckCollector_36680(a1_6E8E);
 		break;
 	}
 	case 0x217770: {
-		sub_36770(a1_6E8E);
+		ManaSphereShootFireball_36770(a1_6E8E);
 		break;
 	}
 
 	case 0x217850: {
-		sub_36850(a1_6E8E);
+		ManaSphereShootProjectile9_36850(a1_6E8E);
 		break;
 	}
 	case 0x217920: {
@@ -2627,7 +2627,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x217ae0: {//enemy dead
-		sub_36AE0(a1_6E8E);
+		UpdateEffect0A_2A_36AE0(a1_6E8E);
 		break;
 	}
 
@@ -2636,15 +2636,15 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x217d50: {
-		sub_36D50(a1_6E8E, 0);
+		MergeManaSpheres_36D50(a1_6E8E, 0);
 		break;
 	}
 	case 0x217f30: {
-		sub_36F30(a1_6E8E, 0);
+		ManaSphereCollide_36F30(a1_6E8E, 0);
 		break;
 	}
 	case 0x217fc0: {
-		sub_36FC0(a1_6E8E);
+		UpdateManaSphereMovement_36FC0(a1_6E8E);
 		break;
 	}
 	case 0x218240: {//255 instances in level 1
@@ -2657,11 +2657,11 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x2187a0: {
-		sub_377A0(a1_6E8E);
+		DamageOverlappingWizards_377A0(a1_6E8E);
 		break;
 	}
 	case 0x2187f0: {
-		sub_377F0(a1_6E8E);
+		UpdateEffect0A_2B_377F0(a1_6E8E);
 		break;
 	}
 	case 0x218bc0: {
@@ -2682,7 +2682,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x2199f0: {//cast castleII 2
-		sub_389F0(a1_6E8E);
+		UpdateProjectileLife_389F0(a1_6E8E);
 		break;
 	}
 	case 0x219af0: {
@@ -2700,94 +2700,94 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 	}
 
 	case 0x219b90: {
-		sub_38B90(a1_6E8E);
+		UpdateProjectileTrail_38B90(a1_6E8E);
 		break;
 	}
 	case 0x219d80: {
-		sub_38D80(a1_6E8E);
+		UpdateProjectileTimeout_38D80(a1_6E8E);
 		break;
 	}
 	case 0x219e20: {
-		sub_38E20(a1_6E8E);
+		HideProjectile_38E20(a1_6E8E);
 		break;
 	}
 	case 0x219e40: {
-		sub_38E40(a1_6E8E);
+		HideProjectile2_38E40(a1_6E8E);
 		break;
 	}
 	case 0x219e60: {
 		break;
 	}
 	case 0x219e70: {
-		sub_38E70(a1_6E8E);
+		SlowDownWizard_38E70(a1_6E8E);
 		break;
 	}
 
 	case 0x219f70: {
-		sub_38F70(a1_6E8E);
+		MobilizeWizard_38F70(a1_6E8E);
 		break;
 	}
 	case 0x21a040: {
-		sub_39040(a1_6E8E);
+		UpdateLightning_39040(a1_6E8E);
 		break;
 	}
 	case 0x21a6a0: {
-		sub_396A0(a1_6E8E);
+		UpdateEarthquake_396A0(a1_6E8E);
 		break;
 	}
 	case 0x21a6d0: {
-		sub_396D0(a1_6E8E);
+		UpdateTremorTiles_396D0(a1_6E8E);
 		break;
 	}
 	case 0x21ab60: {
-		sub_39B60(a1_6E8E);
+		ApplyEarthquakeTiles_39B60(a1_6E8E);
 		break;
 	}
 
 	case 0x21ae40: {
-		sub_39E40(a1_6E8E);
+		FindTremorTarget_39E40(a1_6E8E);
 		break;
 	}
 	case 0x21afa0: {
-		sub_39FA0(a1_6E8E, 0);//fix it
+		CanSpellAffectEntity_39FA0(a1_6E8E, 0);//fix it
 		break;
 	}
 	case 0x21b909: {
-		sub_3A090(a1_6E8E);
+		KillOverlappingEntities_3A090(a1_6E8E);
 		break;
 	}
 	case 0x21b200: {
-		sub_3A200(a1_6E8E, 0);
+		ApplySpellToEntity_3A200(a1_6E8E, 0);
 		break;
 	}
 	case 0x21b2d0: {
-		sub_3A2D0(a1_6E8E);
+		UpdateShield_3A2D0(a1_6E8E);
 		break;
 	}
 
 	case 0x21b5b0: {
-		sub_3A5B0(a1_6E8E);
+		UpdateEffectFade_3A5B0(a1_6E8E);
 		break;
 	}
 	case 0x21b630: {
-		sub_3A630(a1_6E8E);
+		UpdateEffectCountdown_3A630(a1_6E8E);
 		break;
 	}
 	case 0x21b650: {
-		sub_3A650(a1_6E8E);
+		FollowTargetEntity_3A650(a1_6E8E);
 		break;
 	}
 	case 0x21b7f0: {
-		sub_3A7F0(a1_6E8E);
+		IsCreatureAffectable_3A7F0(a1_6E8E);
 		break;
 	}
 	case 0x21b8b0: {
-		sub_3A8B0(a1_6E8E);
+		UpdatePossessedCreature_3A8B0(a1_6E8E);
 		break;
 	}
 
 	case 0x21bf00: {
-		sub_3AF00_castle_defend_event(a1_6E8E);
+		CastleDefendEvent_3AF00(a1_6E8E);
 		break;
 	}
 
@@ -2810,11 +2810,11 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x234120: {
-		sub_53120();
+		CheckCdPresent_53120();
 		break;
 	}
 	case 0x234160: {
-		sub_53160();
+		UpdateGameFrame_53160();
 		break;
 	}
 	case 0x2343b0: {
@@ -2832,10 +2832,10 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 	}
 
 				 /*
-				 char sub_595C0(__int16 a1)//23a5c0
-				 char sub_59610(uint8_t** a1, __int16 a2)//23a610
-				 char sub_596C0(x_WORD *a1, __int16 a2)//23a6c0
-				 void sub_59760(uint8_t* a1, uint8_t* a2)//23a760
+				 char GetObjectiveStage_595C0(__int16 a1)//23a5c0
+				 char GetObjectiveTargetEntity_59610(uint8_t** a1, __int16 a2)//23a610
+				 char GetObjectiveTargetPosition_596C0(x_WORD *a1, __int16 a2)//23a6c0
+				 void CheckObjectiveKill_59760(uint8_t* a1, uint8_t* a2)//23a760
 				 void sub_59820()//23a820
 
 				 int FadeDownSoundVolume_59A50()//23aa50
@@ -2845,11 +2845,11 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 				 */
 
 	case 0x23ac40: {
-		sub_59C40_getTerrtoZ(a1_6E8E);
+		SnapEntityToTerrain_59C40(a1_6E8E);
 		break;
 	}
 	case 0x23ac60: {
-		sub_59C60(a1_6E8E);
+		SnapEntityToTerrain2_59C60(a1_6E8E);
 		break;
 	}
 	case 0x23ac80: {
@@ -2860,20 +2860,20 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x23adc0: {
-		sub_59DC0(a1_6E8E);
+		CheckParentAlive_59DC0(a1_6E8E);
 		break;
 	}
 	case 0x23af60: {
-		sub_59F60(a1_6E8E);
+		UpdateCastle_59F60(a1_6E8E);
 		break;
 	}
 
 	case 0x23c070: {
-		sub_5B070(a1_6E8E);
+		FindEntityOnTile_5B070(a1_6E8E);
 		break;
 	}
 	case 0x23c100: {
-		sub_5B100(a1_6E8E);
+		UpdateCastleBuilding_5B100(a1_6E8E);
 		break;
 	}
 
@@ -2882,7 +2882,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x23f310: {
-		sub_5E310_multiplayer_test_die(a1_6E8E);//enemy player die
+		MultiplayerTestDie_5E310(a1_6E8E);//enemy player die
 		break;
 	}
 	case 0x23f660: {
@@ -2890,50 +2890,50 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x23f6c0: {
-		sub_5E6C0(a1_6E8E);
+		CheckWizardKiller_5E6C0(a1_6E8E);
 		break;
 	}
 
 	case 0x23f7c0: {
-		sub_5E7C0_multiplayer_test_banished(a1_6E8E);
+		MultiplayerTestBanished_5E7C0(a1_6E8E);
 		break;
 	}
 	case 0x23f8c0: {
-		sub_5E8C0_endGameSeq(a1_6E8E);
+		EndGameSequence_5E8C0(a1_6E8E);
 		break;
 	}
 	case 0x23ff70: {
-		sub_5EF70(a1_6E8E);
+		SetWizardHitTimer_5EF70(a1_6E8E);
 		break;
 	}
 	case 0x23ffa0: {
-		sub_5EFA0(a1_6E8E);
+		UpdateCastleTarget_5EFA0(a1_6E8E);
 		break;
 	}
 
 	case 0x240380: {
-		sub_5F380(a1_6E8E);
+		UpdateWizardSpeed_5F380(a1_6E8E);
 		break;
 	}
 	case 0x240660: {
-		sub_5F660(a1_6E8E, 0, 0);
+		CastleAttackEntity_5F660(a1_6E8E, 0, 0);
 		break;
 	}
 	case 0x2407b0: {
-		sub_5F7B0(a1_6E8E, 0, 0);
+		SetCastleCooldown_5F7B0(a1_6E8E, 0, 0);
 		break;
 	}
 	case 0x2407e0: {
-		sub_5F7E0(a1_6E8E, 0);
+		ClearEntityVisibleFlag_5F7E0(a1_6E8E, 0);
 		break;
 	}
 	case 0x240810: {
-		sub_5F810(a1_6E8E, 0, 0);
+		FindNearestEnemyBalloon_5F810(a1_6E8E, 0, 0);
 		break;
 	}
 
 	case 0x240890: {
-		sub_5F890(a1_6E8E, 0);
+		UpdateCastleLevel_5F890(a1_6E8E, 0);
 		break;
 	}
 	case 0x2408f0: {
@@ -2945,24 +2945,24 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x240bd0: {
-		sub_5FBD0(a1_6E8E);
+		SpawnCastleEffect42_5FBD0(a1_6E8E);
 		break;
 	}
 	case 0x240c40: {
-		sub_5FC40(a1_6E8E);
+		SpawnCastleEffect41_5FC40(a1_6E8E);
 		break;
 	}
 
 	case 0x240ca0: {
-		sub_5FCA0_destroy_castle_level(a1_6E8E);
+		DestroyCastleLevel_5FCA0(a1_6E8E);
 		break;
 	}
 	case 0x240d00: {
-		sub_5FD00(a1_6E8E);
+		TransferCastleMana_5FD00(a1_6E8E);
 		break;
 	}
 	case 0x240f50: {
-		sub_5FF50(a1_6E8E);
+		UpdateCastleStructure_5FF50(a1_6E8E);
 		break;
 	}
 	case 0x241400: {
@@ -2970,30 +2970,30 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
         allert_error();
 #else
-		sub_60400((short)a1_6E8E, 0, 0);
+		GetCastleLevelSize_60400((short)a1_6E8E, 0, 0);
 		stub_fix_it();//bad retyping
 #endif
 		break;
 	}
 	case 0x241480: {
-		sub_60480(a1_6E8E);
+		SpawnCastleBuildEffect_60480(a1_6E8E);
 		break;
 	}
 
 	case 0x2415e0: {
-		sub_605E0(a1_6E8E);
+		ShrinkCastleMana_605E0(a1_6E8E);
 		break;
 	}
 	case 0x241780: {
-		sub_60780(a1_6E8E, 0, 0, 0);
+		SetCastleLifeAndMana_60780(a1_6E8E, 0, 0, 0);
 		break;
 	}
 	case 0x241810: {
-		sub_60810(a1_6E8E);
+		GrowCastle_60810(a1_6E8E);
 		break;
 	}
 	case 0x2419e0: {
-		sub_609E0(a1_6E8E);
+		CheckCastleDestroyed_609E0(a1_6E8E);
 		break;
 	}
 	case 0x241a90: {
@@ -3008,38 +3008,38 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 	}
 
 	case 0x241d50: {
-		sub_60D50((axis_3d*)a1_6E8E, 0);
+		SpawnCastleRubble_60D50((axis_3d*)a1_6E8E, 0);
 		break;
 	}
 	case 0x241e90: {
 		break;
 	}
 	case 0x241ea0: {
-		sub_60EA0(a1_6E8E);
+		ApplyCastleDamage_60EA0(a1_6E8E);
 		break;
 	}
 	case 0x241f00: {
-		sub_60F00();
+		UpdateCastles_60F00();
 		break;
 	}
 	case 0x242000: {
-		sub_61000(a1_6E8E);
+		AddBalloonManaToCastle_61000(a1_6E8E);
 		break;
 	}
 	case 0x241040: {
 		break;
 	}
 	case 0x242050: {
-		sub_61050(a1_6E8E);
+		UpdateBalloonCollection_61050(a1_6E8E);
 		break;
 	}
 
 	case 0x2423d0: {
-		sub_613D0(a1_6E8E);
+		UpdateBalloonChain_613D0(a1_6E8E);
 		break;
 	}
 	case 0x242620: {
-		sub_61620(a1_6E8E, 0);
+		FindNearestManaForBalloon_61620(a1_6E8E, 0);
 		break;
 	}
 	case 0x2426d0: {
@@ -3069,7 +3069,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x242810: {
-		sub_61810(a1_6E8E, 0);
+		IsBalloonNearCastle_61810(a1_6E8E, 0);
 		break;
 	}
 
@@ -3107,13 +3107,13 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
         std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		allert_error();
 #else
-		sub_627F0_draw_minimap_entites_a((intptr_t)a1_6E8E, 0, 0, 0, 0, 0, 0, 0, 0);
+		DrawMinimapEntities_627F0((intptr_t)a1_6E8E, 0, 0, 0, 0, 0, 0, 0, 0);
 		allert_error();
 #endif
 		break;
 	}
 	case 0x244570: {
-		sub_63570(a1_6E8E, 0);
+		CanSeePlayerOnMinimap_63570(a1_6E8E, 0);
 		break;
 	}
 	case 0x244600: {
@@ -3179,11 +3179,11 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 	}
 
 	case 0x245f60: {
-		sub_64F60(a1_6E8E);
+		UpdateScenery02_01_64F60(a1_6E8E);
 		break;
 	}
 	case 0x245ff0: {
-		sub_64FF0(a1_6E8E);
+		UpdateScenery02_02_64FF0(a1_6E8E);
 		break;
 	}
 	case 0x246040: {
@@ -3195,7 +3195,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x246110: {
-		sub_65110(a1_6E8E);
+		UpdateScenery02_09_65110(a1_6E8E);
 		break;
 	}
 	case 0x246130:
@@ -3208,55 +3208,55 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 	case 0x2461a0:
 		break;
 	case 0x2461b0: {
-		sub_651B0(a1_6E8E);
+		UpdateScenery02_12_651B0(a1_6E8E);
 		break;
 	}
 	case 0x246240: {
-		sub_65240(a1_6E8E);
+		UpdateScenery02_13_65240(a1_6E8E);
 		break;
 	}
 	case 0x246280: {
-		sub_65280(a1_6E8E);
+		UpdateScenery02_15_65280(a1_6E8E);
 		break;
 	}
 	case 0x2462a0: {
-		sub_652A0(a1_6E8E);
+		UpdateScenery02_14_652A0(a1_6E8E);
 		break;
 	}
 	case 0x2462c0: {
-		sub_652C0(a1_6E8E);
+		MoveProjectile_652C0(a1_6E8E);
 		break;
 	}
 	case 0x2464b0: {
-		sub_654B0(a1_6E8E);
+		BounceProjectileOffTerrain_654B0(a1_6E8E);
 		break;
 	}
 	case 0x246580: {
-		sub_65580(a1_6E8E);
+		RaiseToEntityCentre_65580(a1_6E8E);
 		break;
 	}
 	case 0x2465a0: {
-		sub_655A0(a1_6E8E);
+		LowerFromEntityCentre_655A0(a1_6E8E);
 		break;
 	}
 	case 0x2465c0: {
-		sub_655C0(a1_6E8E, 0);
+		AimAtEntity_655C0(a1_6E8E, 0);
 		break;
 	}
 	case 0x246610: {
-		sub_65610(a1_6E8E, 0);
+		AimAtEntityLeading_65610(a1_6E8E, 0);
 		break;
 	}
 	case 0x2466d0: {
-		sub_656D0(a1_6E8E, 0);
+		AimAtEntityDirect_656D0(a1_6E8E, 0);
 		break;
 	}
 	case 0x246780: {
-		sub_65780(a1_6E8E, 0, 0);
+		SetProjectileDamage_65780(a1_6E8E, 0, 0);
 		break;
 	}
 	case 0x246820: {
-		sub_65820(a1_6E8E);
+		UpdateProjectileTargeting_65820(a1_6E8E);
 		break;
 	}
 	case 0x246b30: {
@@ -3264,11 +3264,11 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x246b50: {
-		sub_65B50(a1_6E8E);
+		UpdateProjectile09_1D_65B50(a1_6E8E);
 		break;
 	}
 	case 0x246c20: {
-		sub_65C20(a1_6E8E);
+		UpdateProjectileTargeting2_65C20(a1_6E8E);
 		break;
 	}
 	case 0x246f60: {
@@ -3276,39 +3276,39 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x247160: {
-		sub_66160(a1_6E8E);
+		UpdateProjectile09_02_66160(a1_6E8E);
 		break;
 	}
 	case 0x247180: {
-		sub_66180(a1_6E8E);
+		UpdateProjectile09_03_66180(a1_6E8E);
 		break;
 	}
 	case 0x247250: {
-		sub_66250(a1_6E8E);
+		UpdateProjectile09_04_66250(a1_6E8E);
 		break;
 	}
 	case 0x247280: {
-		sub_66280(a1_6E8E);
+		UpdateProjectile09_05_66280(a1_6E8E);
 		break;
 	}
 	case 0x2472a0: {
-		sub_662A0(a1_6E8E);
+		UpdateProjectile09_06_662A0(a1_6E8E);
 		break;
 	}
 	case 0x2472c0: {
-		sub_662C0(a1_6E8E);
+		UpdateProjectile09_07_662C0(a1_6E8E);
 		break;
 	}
 	case 0x2472e0: {
-		sub_662E0(a1_6E8E);
+		UpdateProjectile09_08_662E0(a1_6E8E);
 		break;
 	}
 	case 0x247610: {
-		sub_66610(a1_6E8E);
+		UpdateProjectileExplosion_66610(a1_6E8E);
 		break;
 	}
 	case 0x247750: {
-		sub_66750(a1_6E8E);
+		UpdateProjectile09_09_66750(a1_6E8E);
 		break;
 	}
 	case 0x247b30: {
@@ -3316,15 +3316,15 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x247d00: {
-		sub_66D00(a1_6E8E);
+		UpdateHomingProjectile_66D00(a1_6E8E);
 		break;
 	}
 	case 0x247fb0: {
-		sub_66FB0(a1_6E8E);
+		UpdateProjectile09_0B_66FB0(a1_6E8E);
 		break;
 	}
 	case 0x247fd0: {//lighting II
-		sub_66FD0(a1_6E8E);
+		UpdateProjectile09_0C_66FD0(a1_6E8E);
 		break;
 	}
 	case 0x2482e0: {//arrow2
@@ -3332,191 +3332,191 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x248410: {
-		sub_67410(a1_6E8E);
+		UpdateProjectile09_0E_67410(a1_6E8E);
 		break;
 	}
 	case 0x248430: {
-		sub_67430(a1_6E8E);
+		UpdateProjectile09_0F_67430(a1_6E8E);
 		break;
 	}
 	case 0x248450: {
-		sub_67450(a1_6E8E);
+		UpdateProjectile09_10_67450(a1_6E8E);
 		break;
 	}
 	case 0x248470: {
-		sub_67470(a1_6E8E);
+		UpdateProjectile09_11_67470(a1_6E8E);
 		break;
 	}
 
 	case 0x2484c0: {
-		sub_674C0(a1_6E8E);//possess mana ii
+		UpdateProjectile09_12_674C0(a1_6E8E);//possess mana ii
 		break;
 	}
 	case 0x2486f0: {
-		sub_676F0(a1_6E8E);
+		UpdateProjectile09_13_676F0(a1_6E8E);
 		break;
 	}
 	case 0x248740: {
-		sub_67740(a1_6E8E);
+		UpdateProjectile09_14_67740(a1_6E8E);
 		break;
 	}
 	case 0x248760: {
-		sub_67760(a1_6E8E);
+		UpdateProjectile09_15_67760(a1_6E8E);
 		break;
 	}
 	case 0x248780: {
-		sub_67780(a1_6E8E);
+		UpdateProjectile09_16_67780(a1_6E8E);
 		break;
 	}
 
 	case 0x2487a0: {
-		sub_677A0(a1_6E8E);
+		UpdateProjectile09_17_677A0(a1_6E8E);
 		break;
 	}
 	case 0x2487d0: {
-		sub_677D0(a1_6E8E);
+		UpdateProjectile09_18_677D0(a1_6E8E);
 		break;
 	}
 	case 0x248800: {
-		sub_67800(a1_6E8E);
+		UpdateProjectile09_19_67800(a1_6E8E);
 		break;
 	}
 	case 0x248890: {
-		sub_67890(a1_6E8E);
+		UpdateProjectile09_1A_67890(a1_6E8E);
 		break;
 	}
 	case 0x2488e0: {
-		sub_678E0(a1_6E8E);
+		UpdateProjectile09_1B_678E0(a1_6E8E);
 		break;
 	}
 
 	case 0x248910: {
-		sub_67910(a1_6E8E);
+		UpdateProjectile09_1F_67910(a1_6E8E);
 		break;
 	}
 	case 0x248940: {
-		sub_67940(a1_6E8E);
+		UpdateProjectile09_1C_67940(a1_6E8E);
 		break;
 	}
 	case 0x248960: {
-		sub_67960(a1_6E8E/*,0*/);
+		UpdateProjectile09_1E_67960(a1_6E8E/*,0*/);
 		break;
 	}
 	case 0x248cb0: {
-		sub_67CB0(a1_6E8E);
+		UpdateProjectile_67CB0(a1_6E8E);
 		break;
 	}
 	case 0x249490: {
-		sub_68490(a1_6E8E, 0, 0, 0);
+		ProjectileHomeOnTarget_68490(a1_6E8E, 0, 0, 0);
 		break;
 	}
 
 	case 0x2495d0: {
-		sub_685D0(a1_6E8E, 0, 0, 0);
+		ProjectileTurnTowardsTarget_685D0(a1_6E8E, 0, 0, 0);
 		break;
 	}
 	case 0x2496d0: {
-		sub_686D0(a1_6E8E, 0);
+		CreditKillToWizard_686D0(a1_6E8E, 0);
 		break;
 	}
 	case 0x249740: {
-		sub_68740(a1_6E8E, 0, 0, 0);
+		ProjectileHitTarget_68740(a1_6E8E, 0, 0, 0);
 		break;
 	}
 	case 0x249940: {
-		sub_68940(a1_6E8E);
+		FindProjectileTarget_68940(a1_6E8E);
 		break;
 	}
 	case 0x249ac0: {
-		sub_68AC0(a1_6E8E, 0);
+		CanProjectileHitEntity_68AC0(a1_6E8E, 0);
 		break;
 	}
 
 	case 0x249bd0: {
-		sub_68BD0(a1_6E8E, 0);
+		IsCreatureModel0_68BD0(a1_6E8E, 0);
 		break;
 	}
 	case 0x249bf0: {
-		sub_68BF0();
+		UpdateAllCreatures_68BF0();
 		break;
 	}
 	case 0x249c70: {
-		sub_68C70(a1_6E8E);
+		UpdateChainedProjectile_68C70(a1_6E8E);
 		break;
 	}
 	case 0x249d50: {
-		sub_68D50(a1_6E8E, 0);
+		CanSpellOwnerCast_68D50(a1_6E8E, 0);
 		break;
 	}
 	case 0x249de0: {
-		sub_68DE0(a1_6E8E, 0);
+		RechargeSpell_68DE0(a1_6E8E, 0);
 		break;
 	}
 	case 0x249e50: {
-		sub_68E50(a1_6E8E, 0, 0);
+		LaunchSpellProjectile_68E50(a1_6E8E, 0, 0);
 		break;
 	}
 
 	case 0x249f00: {
-		sub_68FF0(a1_6E8E, 0, 0);
+		UpdateSpellPickupCommon_68FF0(a1_6E8E, 0, 0);
 		break;
 	}
 	case 0x24a250: {
-		sub_69250(a1_6E8E);
+		UpdateSpellPickup_69250(a1_6E8E);
 		break;
 	}
 	case 0x24a2a0: {
-		sub_692A0(a1_6E8E);
+		UpdateSpellPickupFloating_692A0(a1_6E8E);
 		break;
 	}
 	case 0x24a2c0: {
-		sub_692C0(a1_6E8E);
+		ResetSpellToPickup_692C0(a1_6E8E);
 		break;
 	}
 	case 0x24a300: {
-		sub_69300(a1_6E8E, 0);
+		SpellHitByEntity_69300(a1_6E8E, 0);
 		break;
 	}
 
 	case 0x24a3f0: {
-		sub_693F0(a1_6E8E);//0xff 0x00 pos 0x4d 0xde
+		SpellFireballActive_693F0(a1_6E8E);//0xff 0x00 pos 0x4d 0xde
 		break;
 	}
 	case 0x24a600: {
-		sub_69600(a1_6E8E);
+		SpellFireballPickup_69600(a1_6E8E);
 		break;
 	}
 	case 0x24a620: {
-		sub_69620(a1_6E8E);
+		SpellFireballPickupUpgrade_69620(a1_6E8E);
 		break;
 	}
 	case 0x24a640: {
-		sub_69640(a1_6E8E);//0xff 0x01 pos 0x4d 0xde
+		SpellPossessionActive_69640(a1_6E8E);//0xff 0x01 pos 0x4d 0xde
 		break;
 	}
 	case 0x24a900: {
-		sub_69900(a1_6E8E, 0);
+		CastPossessionProjectile_69900(a1_6E8E, 0);
 		break;
 	}
 
 	case 0x24aa70: {
-		sub_69A70(a1_6E8E);
+		SpellPossessionPickup_69A70(a1_6E8E);
 		break;
 	}
 	case 0x24aa90: {
-		sub_69A90(a1_6E8E);
+		SpellPossessionPickupUpgrade_69A90(a1_6E8E);
 		break;
 	}
 	case 0x24aab0: {//get scroll6
-		sub_69AB0(a1_6E8E);//0x0f 0x02 pos 0xc2 0xd5
+		SpellCastleActive_69AB0(a1_6E8E);//0x0f 0x02 pos 0xc2 0xd5
 		break;
 	}
 	case 0x24ad70: {
-		sub_69D70(a1_6E8E);//0x0f 0x02 pos 0x2c 0xd5
+		SpellCastlePickup_69D70(a1_6E8E);//0x0f 0x02 pos 0x2c 0xd5
 		break;
 	}
 	case 0x24ad90: {
-		sub_69D90(a1_6E8E);
+		SpellCastlePickupUpgrade_69D90(a1_6E8E);
 		break;
 	}
 
@@ -3530,285 +3530,285 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 	}
 
 	case 0x24b010: {
-		sub_6A010(a1_6E8E);
+		SpellSpeedUpPickupUpgrade_6A010(a1_6E8E);
 		break;
 	}
 	case 0x24b030: {
-		sub_6A030(a1_6E8E);
+		SpellMetamorphActive_6A030(a1_6E8E);
 		break;
 	}
 	case 0x24b2c0: {
-		sub_6A2C0(a1_6E8E);
+		SpellMetamorphPickup_6A2C0(a1_6E8E);
 		break;
 	}
 	case 0x24b2e0: {
-		sub_6A2E0(a1_6E8E);
+		SpellMetamorphPickupUpgrade_6A2E0(a1_6E8E);
 		break;
 	}
 	case 0x24b300: {
-		sub_6A300(a1_6E8E);
+		SpellHealActive_6A300(a1_6E8E);
 		break;
 	}
 
 	case 0x24b440: {
-		sub_6A440(a1_6E8E);
+		SpellHealPickup_6A440(a1_6E8E);
 		break;
 	}
 	case 0x24b460: {
-		sub_6A460(a1_6E8E);
+		SpellHealPickupUpgrade_6A460(a1_6E8E);
 		break;
 	}
 	case 0x24b480: {
-		sub_6A480(a1_6E8E);
+		SpellShieldActive_6A480(a1_6E8E);
 		break;
 	}
 	case 0x24b580: {
-		sub_6A580(a1_6E8E);
+		SpellShieldPickup_6A580(a1_6E8E);
 		break;
 	}
 	case 0x24b5a0: {
-		sub_6A5A0(a1_6E8E);
+		SpellShieldPickupUpgrade_6A5A0(a1_6E8E);
 		break;
 	}
 
 	case 0x24b5c0: {
-		sub_6A5C0(a1_6E8E);
+		SpellLightningActive_6A5C0(a1_6E8E);
 		break;
 	}
 	case 0x24b9c0: {
-		sub_6A9C0(a1_6E8E);
+		SpellLightningPickup_6A9C0(a1_6E8E);
 		break;
 	}
 	case 0x24b9e0: {
-		sub_6A9E0(a1_6E8E);
+		SpellLightningPickupUpgrade_6A9E0(a1_6E8E);
 		break;
 	}
 	case 0x24ba00: {
-		sub_6AA00(a1_6E8E);
+		SpellReboundActive_6AA00(a1_6E8E);
 		break;
 	}
 	case 0x24bac0: {
-		sub_6AAC0(a1_6E8E);
+		SpellReboundPickup_6AAC0(a1_6E8E);
 		break;
 	}
 
 	case 0x24bae0: {
-		sub_6AAE0(a1_6E8E);
+		SpellReboundPickupUpgrade_6AAE0(a1_6E8E);
 		break;
 	}
 	case 0x24bb00: {
-		sub_6AB00(a1_6E8E);
+		SpellMeteorActive_6AB00(a1_6E8E);
 		break;
 	}
 	case 0x24bd00: {
-		sub_6AD00(a1_6E8E);
+		SpellMeteorPickup_6AD00(a1_6E8E);
 		break;
 	}
 	case 0x24bd20: {
-		sub_6AD20(a1_6E8E);
+		SpellMeteorPickupUpgrade_6AD20(a1_6E8E);
 		break;
 	}
 	case 0x24bd60: {
-		sub_6AD60(a1_6E8E);
+		SpellTeleportActive_6AD60(a1_6E8E);
 		break;
 	}
 
 	case 0x24c180: {
-		sub_6B180(a1_6E8E);
+		SpellTeleportPickup_6B180(a1_6E8E);
 		break;
 	}
 	case 0x24c1a0: {
-		sub_6B1A0(a1_6E8E);
+		SpellTeleportPickupUpgrade_6B1A0(a1_6E8E);
 		break;
 	}
 	case 0x24c1c0: {
-		sub_6B1C0(a1_6E8E);
+		SpellInvisibleActive_6B1C0(a1_6E8E);
 		break;
 	}
 	case 0x24c2d0: {
-		sub_6B2D0(a1_6E8E);
+		SpellInvisiblePickup_6B2D0(a1_6E8E);
 		break;
 	}
 	case 0x24c2f0: {
-		sub_6B2F0(a1_6E8E);
+		SpellInvisiblePickupUpgrade_6B2F0(a1_6E8E);
 		break;
 	}
 
 	case 0x24c310: {
-		sub_6B310(a1_6E8E);
+		SpellBeyondSightActive_6B310(a1_6E8E);
 		break;
 	}
 	case 0x24c3a0: {
-		sub_6B3A0(a1_6E8E);
+		SpellBeyondSightPickup_6B3A0(a1_6E8E);
 		break;
 	}
 	case 0x24c3c0: {
-		sub_6B3C0(a1_6E8E);
+		SpellBeyondSightPickupUpgrade_6B3C0(a1_6E8E);
 		break;
 	}
 	case 0x24c3e0: {
-		sub_6B3E0(a1_6E8E);
+		SpellStealManaActive_6B3E0(a1_6E8E);
 		break;
 	}
 	case 0x24c5d0: {
-		sub_6B5D0(a1_6E8E);
+		SpellStealManaPickup_6B5D0(a1_6E8E);
 		break;
 	}
 
 	case 0x24c5f0: {
-		sub_6B5F0(a1_6E8E);
+		SpellStealManaPickupUpgrade_6B5F0(a1_6E8E);
 		break;
 	}
 	case 0x24c610: {
-		sub_6B610(a1_6E8E);
+		SpellDuelActive_6B610(a1_6E8E);
 		break;
 	}
 	case 0x24c830: {
-		sub_6B830(a1_6E8E);
+		SpellDuelPickup_6B830(a1_6E8E);
 		break;
 	}
 	case 0x24c850: {
-		sub_6B850(a1_6E8E);
+		SpellDuelPickupUpgrade_6B850(a1_6E8E);
 		break;
 	}
 	case 0x24c870: {
-		sub_6B870(a1_6E8E);
+		SpellTremorActive_6B870(a1_6E8E);
 		break;
 	}
 
 	case 0x24ca70: {
-		sub_6BA70(a1_6E8E);
+		SpellTremorPickup_6BA70(a1_6E8E);
 		break;
 	}
 	case 0x24ca90: {
-		sub_6BA90(a1_6E8E);
+		SpellTremorPickupUpgrade_6BA90(a1_6E8E);
 		break;
 	}
 	case 0x24cab0: {
-		sub_6BAB0(a1_6E8E);
+		SpellCraterActive_6BAB0(a1_6E8E);
 		break;
 	}
 	case 0x24ccb0: {
-		sub_6BCB0(a1_6E8E);
+		SpellCraterPickup_6BCB0(a1_6E8E);
 		break;
 	}
 	case 0x24ccd0: {
-		sub_6BCD0(a1_6E8E);
+		SpellCraterPickupUpgrade_6BCD0(a1_6E8E);
 		break;
 	}
 
 	case 0x24ccf0: {
-		sub_6BCF0(a1_6E8E);
+		SpellEarthquakeActive_6BCF0(a1_6E8E);
 		break;
 	}
 	case 0x24cef0: {
-		sub_6BEF0(a1_6E8E);
+		SpellEarthquakePickup_6BEF0(a1_6E8E);
 		break;
 	}
 	case 0x24cf10: {
-		sub_6BF10(a1_6E8E);
+		SpellEarthquakePickupUpgrade_6BF10(a1_6E8E);
 		break;
 	}
 	case 0x24cf30: {
-		sub_6BF30(a1_6E8E);
+		SpellVolcanoActive_6BF30(a1_6E8E);
 		break;
 	}
 	case 0x24d130: {
-		sub_6C130(a1_6E8E);
+		SpellVolcanoPickup_6C130(a1_6E8E);
 		break;
 	}
 
 	case 0x24d150: {
-		sub_6C150(a1_6E8E);
+		SpellVolcanoPickupUpgrade_6C150(a1_6E8E);
 		break;
 	}
 	case 0x24d170: {
-		sub_6C170(a1_6E8E);
+		SpellSummonArmyActive_6C170(a1_6E8E);
 		break;
 	}
 	case 0x24d3a0: {
-		sub_6C3A0(a1_6E8E);
+		SpellSummonArmyPickup_6C3A0(a1_6E8E);
 		break;
 	}
 	case 0x24d3c0: {
-		sub_6C3C0(a1_6E8E);
+		SpellSummonArmyPickupUpgrade_6C3C0(a1_6E8E);
 		break;
 	}
 	case 0x24d3e0: {
-		sub_6C3E0(a1_6E8E);
+		SpellGravityWellActive_6C3E0(a1_6E8E);
 		break;
 	}
 
 	case 0x24d5e0: {
-		sub_6C5E0(a1_6E8E);
+		SpellGravityWellPickup_6C5E0(a1_6E8E);
 		break;
 	}
 	case 0x24d600: {
-		sub_6C600(a1_6E8E);
+		SpellGravityWellPickupUpgrade_6C600(a1_6E8E);
 		break;
 	}
 	case 0x24d620: {
-		sub_6C620(a1_6E8E);
+		SpellWhirlwindActive_6C620(a1_6E8E);
 		break;
 	}
 	case 0x24d830: {
-		sub_6C830(a1_6E8E);
+		SpellWhirlwindPickup_6C830(a1_6E8E);
 		break;
 	}
 	case 0x24d850: {
-		sub_6C850(a1_6E8E);
+		SpellWhirlwindPickupUpgrade_6C850(a1_6E8E);
 		break;
 	}
 
 	case 0x24d870: {
-		sub_6C870(a1_6E8E);
+		SpellFoolsManaActive_6C870(a1_6E8E);
 		break;
 	}
 	case 0x24da80: {
-		sub_6CA80(a1_6E8E);
+		SpellFoolsManaPickup_6CA80(a1_6E8E);
 		break;
 	}
 	case 0x24daa0: {
-		sub_6CAA0(a1_6E8E);
+		SpellFoolsManaPickupUpgrade_6CAA0(a1_6E8E);
 		break;
 	}
 	case 0x24dac0: {
-		sub_6CAC0(a1_6E8E);
+		SpellMagicMineActive_6CAC0(a1_6E8E);
 		break;
 	}
 	case 0x24dce0: {
-		sub_6CCE0(a1_6E8E);
+		SpellMagicMinePickup_6CCE0(a1_6E8E);
 		break;
 	}
 
 	case 0x24dd00: {
-		sub_6CD00(a1_6E8E);
+		SpellMagicMinePickupUpgrade_6CD00(a1_6E8E);
 		break;
 	}
 	case 0x24dd20: {
-		sub_6CD20(a1_6E8E);
+		SpellAllianceActive_6CD20(a1_6E8E);
 
 		break;
 	}
 	case 0x24df60: {
-		sub_6CF60(a1_6E8E);
+		SpellAlliancePickup_6CF60(a1_6E8E);
 		break;
 	}
 	case 0x24df80: {
-		sub_6CF80(a1_6E8E);
+		SpellAlliancePickupUpgrade_6CF80(a1_6E8E);
 		break;
 	}
 	case 0x24dfa0: {
-		sub_6CFA0(a1_6E8E);
+		SpellCaveInActive_6CFA0(a1_6E8E);
 		break;
 	}
 
 	case 0x24e1c0: {
-		sub_6D1C0(a1_6E8E);
+		SpellCaveInPickup_6D1C0(a1_6E8E);
 		break;
 	}
 	case 0x24e1e0: {
-		sub_6D1E0(a1_6E8E);
+		SpellCaveInPickupUpgrade_6D1E0(a1_6E8E);
 		break;
 	}
 	case 0x24e200: {
@@ -3825,7 +3825,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x24e4c0: {
-		sub_6D4C0((type_str_611*)a1_6E8E);
+		UpdateSubSpellIndex_6D4C0((type_str_611*)a1_6E8E);
 		break;
 	}
 
@@ -3846,7 +3846,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x24e880: {
-		sub_6D880(a1_6E8E);
+		RestorePreviousSpell_6D880(a1_6E8E);
 		break;
 	}
 
@@ -3855,30 +3855,30 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
         allert_error();
 #else
-		sub_6D8B0((unsigned short)a1_6E8E, 0, 0);
+		SendSpellMessage_6D8B0((unsigned short)a1_6E8E, 0, 0);
 		stub_fix_it();//bad retyping
 #endif
 		break;
 	}
 	case 0x24e9c0: {
-		sub_6D9C0((type_str_611*)a1_6E8E, 0, 0, 0, 0);
+		UpdateSpellAvailability_6D9C0((type_str_611*)a1_6E8E, 0, 0, 0, 0);
 		break;
 	}
 	case 0x24ead0: {
-		sub_6DAD0((type_str_611*)a1_6E8E, 0, 0);
+		UpdateSpellExperience_6DAD0((type_str_611*)a1_6E8E, 0, 0);
 		break;
 	}
 	case 0x24eb50: {
 #if defined(__linux__) || defined(__APPLE__) // FIXME: types
 		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		sub_6DB50((char)a1_6E8E, 0);
+		GrantSpellToPlayer_6DB50((char)a1_6E8E, 0);
 		stub_fix_it();//bad retyping
 #endif
 		break;
 	}
 	case 0x24ebd0: {
-		sub_6DBD0();
+		GrantAllSpellsMultiplayer_6DBD0();
 		break;
 	}
 
@@ -3886,13 +3886,13 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 #if defined(__linux__) || defined(__APPLE__) // FIXME: types
 		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		sub_6DC40_improve_ability((unsigned char)a1_6E8E);
+		ImproveAbility_6DC40((unsigned char)a1_6E8E);
 		stub_fix_it();//bad retyping
 #endif
 		break;
 	}
 	case 0x24eca0: {
-		sub_6DCA0(a1_6E8E, 0, 0, 0, 0, 0);
+		CastSpell_6DCA0(a1_6E8E, 0, 0, 0, 0, 0);
 		break;
 	}
 	case 0x24f020: {
@@ -3909,7 +3909,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x24f0d0: {
-		sub_6E0D0();
+		EnableAllSpells_6E0D0();
 		break;
 	}
 
@@ -3956,7 +3956,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 	}
 
 	case 0x24FBF0: {
-		sub_6EBF0((filearray_struct*)a1_6E8E);
+		CreateFileArrayIndexes_6EBF0((filearray_struct*)a1_6E8E);
 		break;
 	}
 	case 0x24FDB0: {
@@ -3976,7 +3976,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 #if defined(__linux__) || defined(__APPLE__) // FIXME: types
 		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		sub_6EF10_set_mouse_minmax((intptr_t)a1_6E8E, 0, 0, 0);
+		SetMouseMinMax_6EF10((intptr_t)a1_6E8E, 0, 0, 0);
 		stub_fix_it();//bad retyping
 #endif
 		break;
@@ -3991,11 +3991,11 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x2500b0: {
-		sub_6F0B0(a1_6E8E);
+		SwitchCheckPlayersNear2_6F0B0(a1_6E8E);
 		break;
 	}
 	case 0x250100: {
-		sub_6F100(a1_6E8E);
+		SwitchCheckPlayersNear_6F100(a1_6E8E);
 		break;
 	}
 	case 0x250150: {
@@ -4008,28 +4008,28 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x2502b0: {
-		sub_6F2B0(a1_6E8E);
+		ActivateSwitchChain_6F2B0(a1_6E8E);
 		break;
 	}
 	case 0x250300: {
-		sub_6F300(a1_6E8E, 0);
+		CountCreaturesOfModel_6F300(a1_6E8E, 0);
 		break;
 	}
 	case 0x250420: {
-		sub_6F420(a1_6E8E);
+		CountCreatures00_6F420(a1_6E8E);
 		break;
 	}
 	case 0x250440: {
-		sub_6F440(a1_6E8E);
+		CountCreatures01_6F440(a1_6E8E);
 		break;
 	}
 
 	case 0x250460: {
-		sub_6F460(a1_6E8E);
+		CountCreatures02_6F460(a1_6E8E);
 		break;
 	}
 	case 0x250480: {
-		sub_6F480(a1_6E8E);
+		CountCreatures03_6F480(a1_6E8E);
 		break;
 	}
 	case 0x2504a0: {//get scroll4
@@ -4037,112 +4037,112 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x2504c0: {
-		sub_6F4C0(a1_6E8E);
+		CountCreatures05_6F4C0(a1_6E8E);
 		break;
 	}
 	case 0x2504e0: {
-		sub_6F4E0(a1_6E8E);
+		CountCreatures06_6F4E0(a1_6E8E);
 		break;
 	}
 
 	case 0x250500: {
-		sub_6F500(a1_6E8E);
+		CountCreatures07_6F500(a1_6E8E);
 		break;
 	}
 	case 0x250520: {
-		sub_6F520(a1_6E8E);
+		CountCreatures08_6F520(a1_6E8E);
 		break;
 	}
 	case 0x250540: {
-		sub_6F540(a1_6E8E);
+		CountCreatures09_6F540(a1_6E8E);
 		break;
 	}
 	case 0x250560: {
-		sub_6F560(a1_6E8E);
+		CountCreatures0A_6F560(a1_6E8E);
 		break;
 	}
 	case 0x250580: {
-		sub_6F580(a1_6E8E);
+		CountCreatures0B_6F580(a1_6E8E);
 		break;
 	}
 
 	case 0x2505a0: {
-		sub_6F5A0(a1_6E8E);
+		CountCreatures0C_6F5A0(a1_6E8E);
 		break;
 	}
 	case 0x2505c0: {
-		sub_6F5C0(a1_6E8E);
+		CountCreatures0D_6F5C0(a1_6E8E);
 		break;
 	}
 	case 0x2505e0: {
-		sub_6F5E0(a1_6E8E);
+		CountCreatures0E_6F5E0(a1_6E8E);
 		break;
 	}
 	case 0x250600: {
-		sub_6F600(a1_6E8E);
+		CountCreatures0F_6F600(a1_6E8E);
 		break;
 	}
 	case 0x250620: {
-		sub_6F620(a1_6E8E);
+		CountCreatures10_6F620(a1_6E8E);
 		break;
 	}
 
 	case 0x250640: {
-		sub_6F640(a1_6E8E);
+		CountCreatures11_6F640(a1_6E8E);
 		break;
 	}
 	case 0x250660: {
-		sub_6F660(a1_6E8E);
+		CountCreatures12_6F660(a1_6E8E);
 		break;
 	}
 	case 0x250680: {
-		sub_6F680(a1_6E8E);
+		CountCreatures13_6F680(a1_6E8E);
 		break;
 	}
 	case 0x2506a0: {
-		sub_6F6A0(a1_6E8E);
+		CountCreatures14_6F6A0(a1_6E8E);
 		break;
 	}
 	case 0x2506c0: {
-		sub_6F6C0(a1_6E8E);
+		CountCreatures15_6F6C0(a1_6E8E);
 		break;
 	}
 
 	case 0x2506e0: {
-		sub_6F6E0(a1_6E8E);
+		CountCreatures16_6F6E0(a1_6E8E);
 		break;
 	}
 	case 0x250700: {
-		sub_6F700(a1_6E8E);
+		CountCreatures17_6F700(a1_6E8E);
 		break;
 	}
 	case 0x250720: {
-		sub_6F720(a1_6E8E);
+		CountCreatures18_6F720(a1_6E8E);
 		break;
 	}
 	case 0x250740: {
-		sub_6F740(a1_6E8E);
+		CountCreatures19_6F740(a1_6E8E);
 		break;
 	}
 	case 0x250760: {
-		sub_6F760(a1_6E8E);
+		CountCreatures1A_6F760(a1_6E8E);
 		break;
 	}
 
 	case 0x250780: {
-		sub_6F780(a1_6E8E);
+		CountCreatures1B_6F780(a1_6E8E);
 		break;
 	}
 	case 0x2507a0: {
-		sub_6F7A0(a1_6E8E);
+		CountCreatures1C_6F7A0(a1_6E8E);
 		break;
 	}
 	case 0x2507c0: {
-		sub_6F7C0(a1_6E8E);
+		CountAllCreatures_6F7C0(a1_6E8E);
 		break;
 	}
 	case 0x2507e0: {
-		sub_6F7E0(a1_6E8E);
+		ActivateSwitchChainOnce_6F7E0(a1_6E8E);
 		break;
 	}
 	case 0x250850: {
@@ -4150,7 +4150,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_entity_0x6E8E* a1_6E8E)//pre 22b
 		break;
 	}
 	case 0x2508e0: {
-		sub_6F8E0(a1_6E8E, 0);
+		FindPlayerTouchingSwitch_6F8E0(a1_6E8E, 0);
 		break;
 	}
 	default: {
@@ -4173,45 +4173,45 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 	switch (adress)
 	{
 		/*case 0x22b810: {
-			return sub_4A810_get_0x35plus();
+			return GetFreeEntityCount_4A810();
 			break;
 		}*/
 	case 0x22b820: {// 1 instance in level 1
-		return sub_4A820(a1_axis3d);
+		return SetPlayerStart0_4A820(a1_axis3d);
 		break;
 	}
 	case 0x22b840: {
-		return sub_4A840(a1_axis3d);
+		return SetPlayerStart1_4A840(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22b860: {
-		return sub_4A860(a1_axis3d);
+		return SetPlayerStart2_4A860(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22b880: {
-		return sub_4A880(a1_axis3d);
+		return SetPlayerStart3_4A880(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22b8a0: {
-		return sub_4A8A0(a1_axis3d);
+		return SetPlayerStart4_4A8A0(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22b8c0: {
-		return sub_4A8C0(a1_axis3d);
+		return SetPlayerStart5_4A8C0(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22b8e0: {
-		return sub_4A8E0(a1_axis3d);
+		return SetPlayerStart6_4A8E0(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22b900: {
-		return sub_4A900(a1_axis3d);
+		return SetPlayerStart7_4A900(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
@@ -4220,15 +4220,15 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x22b9c0: {
-		return sub_4A9C0(a1_axis3d);
+		return AddWizard03_01_4A9C0(a1_axis3d);
 		break;
 	}
 	case 0x22ba40: {
-		return sub_4AA40(a1_axis3d);//castle create
+		return AddCastle03_02_4AA40(a1_axis3d);//castle create
 		break;
 	}
 	case 0x22bba0: {
-		return sub_4ABA0(a1_axis3d);
+		return AddPlayer03_03_4ABA0(a1_axis3d);
 		break;
 	}
 	case 0x22bc40: {
@@ -4244,37 +4244,37 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x22be80: {
-		return sub_4AE80(a1_axis3d);
+		return AddScenery02_03_4AE80(a1_axis3d);
 		break;
 	}
 	case 0x22bf00: {
-		return sub_4AF00(a1_axis3d);
+		return AddScenery02_04_4AF00(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22bf70: {
-		return sub_4AF70(a1_axis3d);
+		return AddScenery02_05_4AF70(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22bfe0: {
-		return sub_4AFE0(a1_axis3d);
+		return AddScenery02_06_4AFE0(a1_axis3d);
 		break;
 	}
 	case 0x22c0f0: {
-		return sub_4B0F0(a1_axis3d);
+		return AddScenery02_07_4B0F0(a1_axis3d);
 		break;
 	}
 	case 0x22c120: {
-		return sub_4B120(a1_axis3d);
+		return AddScenery02_08_4B120(a1_axis3d);
 		break;
 	}
 				 /*case 0x22c150: {
-					 return sub_4B150(a1_axis3d, 0, 0, 0);//fix
+					 return AddSceneryWithSprite_4B150(a1_axis3d, 0, 0, 0);//fix
 					 break;
 				 }*/
 	case 0x22c240: {
-		return sub_4B240(a1_axis3d);
+		return AddFlyingWorm05_00_4B240(a1_axis3d);
 		break;
 	}
 	case 0x22c490: {// 1 instance in level 33
@@ -4282,11 +4282,11 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x22c590: {
-		return sub_4B590(a1_axis3d);
+		return AddBee05_02_4B590(a1_axis3d);
 		break;
 	}
 	case 0x22c6f0: {
-		return sub_4B6F0(a1_axis3d);
+		return AddWorm05_03_4B6F0(a1_axis3d);
 		break;
 	}
 	case 0x22ca10: {//get scroll1 //create archers
@@ -4294,15 +4294,15 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x22cbb0: {
-		return sub_4BBB0(a1_axis3d);
+		return AddSkeletonArcher05_09_4BBB0(a1_axis3d);
 		break;
 	}
 	case 0x22cd00: {
-		return sub_4BD00(a1_axis3d);
+		return AddEmu05_0A_4BD00(a1_axis3d);
 		break;
 	}
 	case 0x22cdf0: {
-		return sub_4BDF0(a1_axis3d);
+		return AddBuilder05_0C_4BDF0(a1_axis3d);
 		break;
 	}
 	case 0x22cf40: {// 1 instance in level 28
@@ -4314,65 +4314,65 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x22d1e0: {
-		return sub_4C1E0(a1_axis3d);
+		return AddExplodedHuman05_0F_4C1E0(a1_axis3d);
 		break;
 	}
 	case 0x22d310: {
-		return sub_4C310(a1_axis3d);
+		return AddWyvern05_10_4C310(a1_axis3d);
 		break;
 	}
 	case 0x22d460: {
-		return sub_4C460(a1_axis3d);
+		return AddLion05_11_4C460(a1_axis3d);
 		break;
 	}
 	case 0x22d590: {
-		return sub_4C590(a1_axis3d);
+		return AddHead05_12_4C590(a1_axis3d);
 		break;
 	}
 	case 0x22d6b0: {
-		return sub_4C6B0(a1_axis3d);
+		return AddFirebug05_13_4C6B0(a1_axis3d);
 		break;
 	}
 	case 0x22d7f0: {
-		return sub_4C7F0(a1_axis3d);
+		return AddSpider05_14_4C7F0(a1_axis3d);
 		break;
 	}
 	case 0x22d8f0: {
-		return sub_4C8F0(a1_axis3d);
+		return AddDiablo05_15_4C8F0(a1_axis3d);
 		break;
 	}
 	case 0x22da00: {
-		return sub_4CA00(a1_axis3d);
+		return AddFlyingMana05_16_4CA00(a1_axis3d);
 		break;
 	}
 				 /*case 0x22db60: {
-					 sub_4CB60((type_str_0x6E8E*)a1);
+					 AddFlyingManaSegments_4CB60((type_str_0x6E8E*)a1);
 					 return fix_it_4A190();
 					 break;
 				 }*/
 	case 0x22dbf0: {
-		return sub_4CBF0(a1_axis3d);
+		return AddBalloon05_17_4CBF0(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22dcf0: {
-		return sub_4CCF0(a1_axis3d);
+		return AddCreature05_18_4CCF0(a1_axis3d);
 		break;
 	}
 	case 0x22de00: {
-		return sub_4CE00(a1_axis3d);
+		return AddFlyingCreature05_19_4CE00(a1_axis3d);
 		break;
 	}
 	case 0x22df00: {
-		return sub_4CF00(a1_axis3d);
+		return AddMummy05_1A_4CF00(a1_axis3d);
 		break;
 	}
 	case 0x22e000: {
-		return sub_4D000(a1_axis3d);
+		return AddBigDragon05_1B_4D000(a1_axis3d);
 		break;
 	}
 	case 0x22e1d0: {
-		return sub_4D1D0(a1_axis3d);
+		return AddMana05_1C_4D1D0(a1_axis3d);
 		break;
 	}
 	case 0x22e2e0: {
@@ -4380,7 +4380,7 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x22e380: {
-		return sub_4D380(a1_axis3d);
+		return AddProjectile09_1C_4D380(a1_axis3d);
 		break;
 	}
 	case 0x22e3b0: {
@@ -4388,47 +4388,47 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x22e470: {
-		return sub_4D470(a1_axis3d);
+		return AddProjectile09_02_4D470(a1_axis3d);
 		break;
 	}
 	case 0x22e500: {
-		return sub_4D500(a1_axis3d);
+		return AddProjectile09_03_4D500(a1_axis3d);
 		break;
 	}
 	case 0x22e590: {
-		return sub_4D590(a1_axis3d);
+		return AddProjectile09_04_4D590(a1_axis3d);
 		break;
 	}
 	case 0x22e620: {
-		return sub_4D620(a1_axis3d);
+		return AddProjectile09_05_4D620(a1_axis3d);
 		break;
 	}
 	case 0x22e6b0: {
-		return sub_4D6B0(a1_axis3d);
+		return AddProjectile09_06_4D6B0(a1_axis3d);
 		break;
 	}
 	case 0x22e740: {
-		return sub_4D740(a1_axis3d);
+		return AddProjectile09_07_4D740(a1_axis3d);
 		break;
 	}
 	case 0x22e7d0: {
-		return sub_4D7D0(a1_axis3d);
+		return AddProjectile09_08_4D7D0(a1_axis3d);
 		break;
 	}
 	case 0x22e860: {
-		return sub_4D860(a1_axis3d);
+		return AddProjectile09_09_4D860(a1_axis3d);
 		break;
 	}
 	case 0x22e900: {
-		return sub_4D900(a1_axis3d);//castle cast
+		return AddProjectile09_0A_4D900(a1_axis3d);//castle cast
 		break;
 	}
 	case 0x22e990: {
-		return sub_4D990(a1_axis3d);
+		return AddProjectile09_0B_4D990(a1_axis3d);
 		break;
 	}
 	case 0x22ea20: {
-		return sub_4DA20(a1_axis3d);
+		return AddProjectile09_0C_4DA20(a1_axis3d);
 		break;
 	}
 	case 0x22eab0: {
@@ -4436,20 +4436,20 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x22ebc0: {
-		return sub_4DBC0(a1_axis3d);
+		return AddProjectile09_0E_4DBC0(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22ec40: {
-		return sub_4DC40(a1_axis3d);
+		return AddProjectile09_14_4DC40(a1_axis3d);
 		break;
 	}
 	case 0x22ecc0: {
-		return sub_4DCC0(a1_axis3d);
+		return AddProjectile09_15_4DCC0(a1_axis3d);
 		break;
 	}
 	case 0x22ed50: {
-		return sub_4DD50(a1_axis3d);
+		return AddProjectile09_0F_4DD50(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
@@ -4458,7 +4458,7 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x22edd0: {
-		return sub_4DDD0(a1_axis3d);
+		return AddProjectile09_11_4DDD0(a1_axis3d);
 		break;
 	}
 	case 0x22ee80: {
@@ -4470,41 +4470,41 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x22eea0: {
-		return sub_4DEA0(a1_axis3d);
+		return AddProjectile09_16_4DEA0(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22ef30: {
-		return sub_4DF30(a1_axis3d);
+		return AddProjectile09_1B_4DF30(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22efc0: {
-		return sub_4DFC0(a1_axis3d);
+		return AddProjectile09_17_4DFC0(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22f050: {
-		return sub_4E050(a1_axis3d);
+		return AddProjectile09_18_4E050(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22f0f0: {
-		return sub_4E0F0(a1_axis3d);
+		return AddProjectile09_19_4E0F0(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22f180: {
-		return sub_4E180(a1_axis3d);
+		return AddProjectile09_1A_4E180(a1_axis3d);
 		break;
 	}
 	case 0x22f210: {
-		return sub_4E210(a1_axis3d);
+		return AddProjectile09_1E_4E210(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x22f2a0: {
-		return sub_4E2A0(a1_axis3d);
+		return AddProjectile09_1D_4E2A0(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
@@ -4544,7 +4544,7 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x22f750: {
-		return sub_4E750();
+		return AddEffect0A_08_4E750();
 		break;
 	}
 	case 0x22f760: {
@@ -4577,7 +4577,7 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x22fa60: {
-		return sub_4EA60(a1_axis3d);
+		return AddRandomSmoke_4EA60(a1_axis3d);
 		break;
 	}
 				 /*case 0x22faa0: {
@@ -4594,7 +4594,7 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x22fcd0: {
-		return sub_4ECD0(a1_axis3d);
+		return AddEffect0A_0F_4ECD0(a1_axis3d);
 		break;
 	}
 	case 0x22fd70: {
@@ -4602,19 +4602,19 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x22fdc0: {
-		return sub_4EDC0(a1_axis3d);
+		return AddEffect0A_10_4EDC0(a1_axis3d);
 		break;
 	}
 	case 0x22fed0: {
-		return sub_4EED0(a1_axis3d);
+		return AddEffect0A_12_4EED0(a1_axis3d);
 		break;
 	}
 	case 0x22ff30: {
-		return sub_4EF30(a1_axis3d);
+		return AddEffectAction98_4EF30(a1_axis3d);
 		break;
 	}
 	case 0x22ff90: {
-		return sub_4EF90(a1_axis3d);
+		return AddEffect0A_13_4EF90(a1_axis3d);
 		break;
 	}
 	case 0x230020: {
@@ -4630,7 +4630,7 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 				 /*case 0x230c10: {
-					 return sub_4F1C0((type_str_0x6E8E*)a1);
+					 return SetChainToTerrainHeight_4F1C0((type_str_0x6E8E*)a1);
 					 break;
 				 }*/
 	case 0x2302a0: {
@@ -4638,11 +4638,11 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 				 /*case 0x230440: {
-					 return sub_4F440((type_str_0x6E8E*)a1);
+					 return InitWindEntity_4F440((type_str_0x6E8E*)a1);
 					 break;
 				 }*/
 	case 0x2305f0: {
-		return sub_4F5F0(a1_axis3d);
+		return AddEffect0A_17_4F5F0(a1_axis3d);
 		break;
 	}
 	case 0x230690: {
@@ -4650,35 +4650,35 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x2306a0: {
-		return sub_4F6A0(a1_axis3d);
+		return AddEffect0A_19_4F6A0(a1_axis3d);
 		break;
 	}
 	case 0x230720: {
-		return sub_4F720(a1_axis3d);
+		return AddEffect0A_1A_4F720(a1_axis3d);
 		break;
 	}
 	case 0x2307a0: {
-		return sub_4F7A0(a1_axis3d);
+		return AddEffect0A_1B_4F7A0(a1_axis3d);
 		break;
 	}
 	case 0x230800: {
-		return sub_4F800(a1_axis3d);
+		return AddEffect0A_1C_4F800(a1_axis3d);
 		break;
 	}
 	case 0x230860: {
-		return sub_4F860(a1_axis3d);
+		return AddEffectAction66_4F860(a1_axis3d);
 		break;
 	}
 	case 0x2308b0: {
-		return sub_4F8B0(a1_axis3d);
+		return AddEffectAction67_4F8B0(a1_axis3d);
 		break;
 	}
 	case 0x230900: {
-		return sub_4F900(a1_axis3d);
+		return AddEffectAction68_4F900(a1_axis3d);
 		break;
 	}
 	case 0x230950: {
-		return sub_4F950(a1_axis3d);
+		return AddEffectAction69_4F950(a1_axis3d);
 		break;
 	}
 	case 0x2309a0: {//2 instances in level 1
@@ -4686,71 +4686,71 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x230a00: {
-		return sub_4FA00(a1_axis3d);
+		return AddEffect0A_1D_4FA00(a1_axis3d);
 		break;
 	}
 	case 0x230a60: {
-		return sub_4FA60(a1_axis3d);
+		return AddEffect0A_20_4FA60(a1_axis3d);
 		break;
 	}
 	case 0x230ac0: {
-		return sub_4FAC0(a1_axis3d);
+		return AddEffect0A_1F_4FAC0(a1_axis3d);
 		break;
 	}
 	case 0x230b20: {
-		return sub_4FB20(a1_axis3d);
+		return AddCaveEffect1_4FB20(a1_axis3d);
 		break;
 	}
 	case 0x230b80: {
-		return sub_4FB80(a1_axis3d);
+		return AddCaveEffect2_4FB80(a1_axis3d);
 		break;
 	}
 	case 0x230be0: {
-		return sub_4FBE0(a1_axis3d);
+		return AddCaveEffect3_4FBE0(a1_axis3d);
 		break;
 	}
 	case 0x230c30: {
-		return sub_4FC30(a1_axis3d);
+		return AddCaveEffect4_4FC30(a1_axis3d);
 		break;
 	}
 	case 0x230ca0: {
-		return sub_4FCA0(a1_axis3d);
+		return AddCaveEffectAction91_4FCA0(a1_axis3d);
 		break;
 	}
 	case 0x230cd0: {
-		return sub_4FCD0(a1_axis3d);
+		return AddCaveEffectAction92_4FCD0(a1_axis3d);
 		break;
 	}
 	case 0x230d00: {
-		return sub_4FD00(a1_axis3d);
+		return AddCaveEffect_4FD00(a1_axis3d);
 		break;
 	}
 	case 0x230d70: {
-		return sub_4FD70(a1_axis3d);
+		return AddEffectAction55_4FD70(a1_axis3d);
 		break;
 	}
 	case 0x230de0: {
-		return sub_4FDE0(a1_axis3d);
+		return AddEffectAction54_4FDE0(a1_axis3d);
 		break;
 	}
 	case 0x230e40: {
-		return sub_4FE40(a1_axis3d);
+		return AddEffect0A_22_4FE40(a1_axis3d);
 		break;
 	}
 	case 0x230f20: {
-		return sub_4FF20();
+		return AddEffect0A_23_4FF20();
 		break;
 	}
 	case 0x230f30: {
-		return sub_4FF30(a1_axis3d);
+		return AddEffect0A_24_4FF30(a1_axis3d);
 		break;
 	}
 	case 0x230fb0: {
-		return sub_4FFB0(a1_axis3d);
+		return AddEffect0A_26_4FFB0(a1_axis3d);
 		break;
 	}
 	case 0x231020: {
-		return sub_50020(a1_axis3d);
+		return AddEffect0A_21_50020(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
@@ -4767,11 +4767,11 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x231130: {
-		return sub_50130(a1_axis3d);
+		return AddEffectAction62_50130(a1_axis3d);
 		break;
 	}
 	case 0x2311d0: {
-		return sub_501D0(a1_axis3d);
+		return AddEffect0A_28_501D0(a1_axis3d);
 		break;
 	}
 	case 0x231250: {//47 instances in level 1
@@ -4779,29 +4779,29 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x2312b0: {//cast castleII
-		return sub_502B0(a1_axis3d);
+		return AddEffectAction45_502B0(a1_axis3d);
 		break;
 	}
 	case 0x231320: {
-		return sub_50320(a1_axis3d);
+		return AddEffect0A_29_50320(a1_axis3d);
 		break;
 	}
 	case 0x231370: {//arrow1
-		return sub_50370(a1_axis3d);
+		return AddEffectAction44_50370(a1_axis3d);
 		break;
 	}
 	case 0x2313d0: {
-		return sub_503D0(a1_axis3d);
+		return AddEffectAction46_503D0(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x231430: {
-		return sub_50430(a1_axis3d);
+		return AddEffectAction56_50430(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x2314b0: {
-		return sub_504B0(a1_axis3d);
+		return AddEffectAction58_504B0(a1_axis3d);
 		break;
 	}
 	case 0x231500: {
@@ -4809,46 +4809,46 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x2315a0: {
-		return sub_505A0(a1_axis3d);
+		return AddEffectAction75_505A0(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x2315e0: {
-		return sub_505E0(a1_axis3d);
+		return AddMovingEffect_505E0(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x231640: {
-		return sub_50640(a1_axis3d);
+		return AddEffectAction60_50640(a1_axis3d);
 		break;
 	}
 	case 0x2316e0: {
-		return sub_506E0(a1_axis3d);
+		return AddEffectAction61_506E0(a1_axis3d);
 		break;
 	}
 	case 0x231780: {
-		return sub_50780(a1_axis3d);
+		return AddEffectAction70_50780(a1_axis3d);
 		break;
 	}
 	case 0x2317c0: {
-		return sub_507C0(a1_axis3d);
+		return AddEffectAction71_507C0(a1_axis3d);
 		break;
 	}
 	case 0x231800: {
-		return sub_50800();
+		return AddEffectAction81_50800();
 		break;
 	}
 	case 0x231840: {
-		return sub_50840(a1_axis3d);
+		return AddEffectAction85_50840(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x2318e0: {
-		return sub_508E0_castle_defend_create(a1_axis3d);
+		return CastleDefendCreate_508E0(a1_axis3d);
 		break;
 	}
 	case 0x231960: {
-		return sub_50960(a1_axis3d);
+		return AddEffectAction93_50960(a1_axis3d);
 		break;
 	}
 	case 0x231a10: {
@@ -4856,7 +4856,7 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x231a20: {
-		return sub_50A20(a1_axis3d);
+		return AddCaveEffect5_50A20(a1_axis3d);
 		break;
 	}
 	case 0x231a80: {
@@ -5128,49 +5128,49 @@ type_entity_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1_axis3d)//
 		break;
 	}
 	case 0x2324e0: {
-		return sub_514E0(a1_axis3d, 0, 0, 0);//fix it
+		return AddClass0EEntity_514E0(a1_axis3d, 0, 0, 0);//fix it
 		break;
 	}
 	case 0x232530: {
-		return sub_51530(a1_axis3d);
+		return AddClass0E_00_51530(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x232570: {
-		return sub_51570(a1_axis3d);
+		return AddClass0E_03_51570(a1_axis3d);
 		break;
 	}
 	case 0x2325c0: {
-		return sub_515C0(a1_axis3d);
+		return AddClass0E_04_515C0(a1_axis3d);
 		break;
 	}
 	case 0x232610: {
-		return sub_51610(a1_axis3d);
+		return AddClass0E_05_51610(a1_axis3d);
 		break;
 	}
 	case 0x232660: {
-		return sub_51660(a1_axis3d);
+		return AddClass0E_01_51660(a1_axis3d);
 		break;
 	}
 	case 0x2326c0: {
-		return sub_516C0(a1_axis3d);
+		return AddClass0E_02_516C0(a1_axis3d);
 		break;
 	}
 	case 0x232730: {
-		return sub_51730(a1_axis3d);
+		return AddEffectAction72_51730(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
 	case 0x232790: {
-		return sub_51790(a1_axis3d);
+		return AddEffectAction78_51790(a1_axis3d);
 		break;
 	}
 	case 0x232800: {
-		return sub_51800(a1_axis3d);
+		return AddEffectIfEntitiesFree_51800(a1_axis3d);
 		break;
 	}
 	case 0x232a00: {
-		return sub_51A00(a1_axis3d);
+		return AddEffectAction80_51A00(a1_axis3d);
 		//return fix_it_4A190();
 		break;
 	}
@@ -5208,7 +5208,7 @@ void SetMapEntity_57E50(type_entity_0x6E8E* entity)//238e50
 }
 
 //----- (00057F20) --------------------------------------------------------
-void sub_57F20(type_entity_0x6E8E* entity)//238f20
+void ReleaseEntity_57F20(type_entity_0x6E8E* entity)//238f20
 {
 	int32_t v1; // edx
 	signed int v2; // ecx
@@ -5242,11 +5242,11 @@ void sub_57F20(type_entity_0x6E8E* entity)//238f20
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (00069250) --------------------------------------------------------
-signed int sub_69250(type_entity_0x6E8E* a1x)//24a250
+signed int UpdateSpellPickup_69250(type_entity_0x6E8E* a1x)//24a250
 {
 	signed int result; // eax
 	type_entity_0x6E8E* resultx;
-	result = sub_68FF0(a1x, a1x->model_0x40_64, a1x->actionIndex_0x45_69 - 2);
+	result = UpdateSpellPickupCommon_68FF0(a1x, a1x->model_0x40_64, a1x->actionIndex_0x45_69 - 2);
 	if (result)
 	{
 		resultx = arsub_2a881e[a1x->model_0x40_64](&a1x->position_0x4C_76);
@@ -5260,7 +5260,7 @@ signed int sub_69250(type_entity_0x6E8E* a1x)//24a250
 // D781E: using guessed type int (*off_D781E)(int);
 
 //----- (00049090) --------------------------------------------------------
-void sub_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a090
+void CreateLinkedLevelFeatures_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a090
 {
 	type_entity_0x30311* tempEntity; // ebx
 	int16_t tempSubtype; // si
@@ -5280,27 +5280,27 @@ void sub_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a090
 		{
 			case 0x1C:
 			{
-				functionPointer = &sub_48400;
+				functionPointer = &CreateSubtype27LineBetweenPoints_48400;
 				break;
 			}
 			case 0x1D:
 			{
-				functionPointer = &sub_48690;
+				functionPointer = &CreateSubtype30LineBetweenPoints_48690;
 				break;
 			}
 			case 0x1F:
 			{
-				functionPointer = &sub_487D0;
+				functionPointer = &CreateSubtype32MovingToPoint_487D0;
 				break;
 			}
 			case 0x32:
 			{
-				functionPointer = &sub_48880;
+				functionPointer = &CreateSubtype51MovingToPoint_48880;
 				break;
 			}
 			case 0x50:				
 			{
-				functionPointer = &sub_48930;
+				functionPointer = &CreateSubtype81WithTarget_48930;
 				break;
 			}
 		}
@@ -5364,7 +5364,7 @@ void sub_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a090
 }
 
 //----- (00048400) --------------------------------------------------------
-void sub_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229400
+void CreateSubtype27LineBetweenPoints_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229400
 {
 	int v4; // eax
 	int v5; // esi
@@ -5424,7 +5424,7 @@ void sub_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 			v28 = v21;
 			for (i = v6 - result; v18; v28 = 0)
 			{
-				sub_483A0(posX2, posY2, posX, posY);
+				SetPredictedPositionFromTiles_483A0(posX2, posY2, posX, posY);
 				v22x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 27);
 				if (v20 >= 0)
 				{
@@ -5437,7 +5437,7 @@ void sub_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 					v23 = -v20 - v28;
 				}
 				v22x->dword_0x10_16 = v23;
-				sub_483A0(posX2, (unsigned __int16)(v20 + v28 + posY2), posX, posY);
+				SetPredictedPositionFromTiles_483A0(posX2, (unsigned __int16)(v20 + v28 + posY2), posX, posY);
 				v18--;
 				posY2 += v20 + v28;
 				v24x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 27);
@@ -5460,12 +5460,12 @@ void sub_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 			{
 				do
 				{
-					sub_483A0(posX2, posY2, posX, posY);
+					SetPredictedPositionFromTiles_483A0(posX2, posY2, posX, posY);
 					v13x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 27);
 					v13x->actionIndex_0x45_69 = 29;
 					v13x->dword_0x10_16 = v25 + v29;
 					posX2 += v25 + v29;
-					sub_483A0(posX2, posY2, posX, posY);
+					SetPredictedPositionFromTiles_483A0(posX2, posY2, posX, posY);
 					v14x = IfSubtypeCallCreatingManaSphere_4A190(&predictedAxis_EB398ar, 10, 27);
 					if (v12 >= 0)
 					{
@@ -5492,7 +5492,7 @@ void sub_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 // EB398: using guessed type __int16 x_WORD_EB398;
 
 //----- (00048690) --------------------------------------------------------
-void sub_48690(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229690
+void CreateSubtype30LineBetweenPoints_48690(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229690
 {
 	int Xdist; // eax
 	signed __int16 Xdir; // si
@@ -5557,7 +5557,7 @@ void sub_48690(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 }
 
 //----- (000487D0) --------------------------------------------------------
-void sub_487D0(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//2297d0
+void CreateSubtype32MovingToPoint_487D0(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//2297d0
 {
 	__int16 v5; // si
 	unsigned __int16 v6; // bx
@@ -5573,7 +5573,7 @@ void sub_487D0(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 	v8x.z = 32 * mapHeightmap_11B4E0[256 * posY2 + posX2];
 	v11x.x = posX << 8;
 	v11x.y = posY << 8;
-	v5 = Maths::sub_581E0_maybe_tan2(&v8x, &v11x);
+	v5 = Maths::GetYawAngle_581E0(&v8x, &v11x);
 	v6 = Maths::EuclideanDistXYZ_58490(&v8x, &v11x);
 	resultx = IfSubtypeCallCreatingManaSphere_4A190(&v8x, 10, 32);
 	if (resultx)
@@ -5585,7 +5585,7 @@ void sub_487D0(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 }
 
 //----- (00048880) --------------------------------------------------------
-void sub_48880(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229880
+void CreateSubtype51MovingToPoint_48880(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229880
 {
 	__int16 v4; // si
 	unsigned __int16 v5; // di
@@ -5603,7 +5603,7 @@ void sub_48880(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 	v9x.z = 16 * mapHeightmap_11B4E0[256 * posY2 + posX2];
 	v12x.x = posX << 8;
 	v12x.y = posY << 8;
-	v4 = Maths::sub_581E0_maybe_tan2(&v9x, &v12x);
+	v4 = Maths::GetYawAngle_581E0(&v9x, &v12x);
 	v5 = Maths::EuclideanDistXYZ_58490(&v9x, &v12x);
 	resultx = IfSubtypeCallCreatingManaSphere_4A190(&v9x, 10, 51);
 	//v7x = resultx;
@@ -5620,7 +5620,7 @@ void sub_48880(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uin
 int debugcounter_229930 = 0;
 //uint16_t last_v8x = 0;
 //uint16_t last_a1x = 0;
-void sub_48930(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229930
+void CreateSubtype81WithTarget_48930(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229930
 {
 	type_entity_0x6E8E* result; // eax
 	__int16 v6; // [esp+0h] [ebp-10h]
@@ -5763,7 +5763,7 @@ int shortestLenght_48370(int16_t point1, int16_t point2, int16_t mapSize)//22937
 }
 
 //----- (000483A0) --------------------------------------------------------
-int sub_483A0(__int16 a1, int a2, char a3, char a4)//2293a0
+int SetPredictedPositionFromTiles_483A0(__int16 a1, int a2, char a3, char a4)//2293a0
 {
 	unsigned __int16 v4; // ax
 	__int16 v5; // bx

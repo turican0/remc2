@@ -784,7 +784,7 @@ void SOUND_start_sample(HSAMPLE S) {
 
 // The original AIL driver calls the EOS callback (sample+0x850) when the last buffer finishes.
 // SDL_mixer forbids Mix_* calls from the channel-finished callback and the game's EOS handler
-// (sub_9EE70) starts the next sample, so it is run later from a one-shot SDL timer thread.
+// (PlayNextSampleCallback_9EE70) starts the next sample, so it is run later from a one-shot SDL timer thread.
 static Uint32 SDLCALL EosTimerCallback(Uint32 interval, void* param)
 {
 	HSAMPLE S = (HSAMPLE)param;

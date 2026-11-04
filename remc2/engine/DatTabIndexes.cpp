@@ -1,6 +1,6 @@
 #include "DatTabIndexes.h"
 //----- (00098709) --------------------------------------------------------
-void sub_98709_create_index_dattab_power(bitmap_pos_struct2_t* tabbuffer, bitmap_pos_struct2_t* tabbufferend, uint8_t* datbuffer, bitmap_pos_struct_t* dattabindex)//279709
+void CreateIndexDatTabDoubled_98709(bitmap_pos_struct2_t* tabbuffer, bitmap_pos_struct2_t* tabbufferend, uint8_t* datbuffer, bitmap_pos_struct_t* dattabindex)//279709
 {
 	//int length = (tabbufferend - ((uint8_t*)tabbuffer)) / 6;
 	//int length = tabbufferend - tabbuffer;
@@ -13,7 +13,7 @@ void sub_98709_create_index_dattab_power(bitmap_pos_struct2_t* tabbuffer, bitmap
 	}
 }
 
-void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, bitmap_pos_struct_t* dattabindex, int add)//279709
+void CreateIndexDatTabDoubledWithOffset_98709(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, bitmap_pos_struct_t* dattabindex, int add)//279709
 {
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
 	{
@@ -29,7 +29,7 @@ void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbuf
 }
 
 //----- (0009874D) --------------------------------------------------------
-void sub_9874D_create_index_dattab(bitmap_pos_struct2_t* tabbuffer, bitmap_pos_struct2_t* tabbufferend, uint8_t* datbuffer, bitmap_pos_struct_t* dattabindex)//27974d
+void CreateIndexDatTab_9874D(bitmap_pos_struct2_t* tabbuffer, bitmap_pos_struct2_t* tabbufferend, uint8_t* datbuffer, bitmap_pos_struct_t* dattabindex)//27974d
 {
 	for (uint32_t i = 0; i < tabbufferend - tabbuffer; i++)
 	{
@@ -39,7 +39,7 @@ void sub_9874D_create_index_dattab(bitmap_pos_struct2_t* tabbuffer, bitmap_pos_s
 	}
 }
 
-void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, bitmap_pos_struct_t* dattabindex, int add)//27974d
+void CreateIndexDatTabWithOffset_9874D(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, bitmap_pos_struct_t* dattabindex, int add)//27974d
 {
 	uint8_t* start_ptr = tabbuffer + add;
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
@@ -52,7 +52,7 @@ void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend
 }
 
 //----- (00099A77) --------------------------------------------------------
-void sub_99A77_create_index_dattab_div(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t*  /*datbuffer*/, bitmap_pos_struct_t* dattabindex)//280a77
+void CreateIndexDatTabHalved_99A77(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t*  /*datbuffer*/, bitmap_pos_struct_t* dattabindex)//280a77
 {
 	//uint32_t testadr = *(uint32_t*)tabbuffer;
 	/*if (testadr == 0x9999)
@@ -78,7 +78,7 @@ void sub_99A77_create_index_dattab_div(uint8_t* tabbuffer, uint8_t* tabbufferend
 }
 
 //----- (00099AEB) --------------------------------------------------------
-void sub_99AEB_create_index_dattab_minus(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t*  /*datbuffer*/, bitmap_pos_struct_t* dattabindex)//280aeb
+void CreateIndexDatTabRelative_99AEB(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t*  /*datbuffer*/, bitmap_pos_struct_t* dattabindex)//280aeb
 {
 	//uint32_t testadr = *(uint32_t*)tabbuffer;
 	/*if (testadr == 0x9999)
@@ -107,9 +107,9 @@ void CreateIndexes_6EB90(filearray_struct* a1)//24fb90
 	for (uint32_t i = 0; (a1[i].begin_buffer) != &ZERO_BUFFER_PST2; i++)
 	{
 		if (x_WORD_180660_VGA_type_resolution & 1)
-			sub_98709_create_index_dattab_power(*a1[i].begin_buffer, *a1[i].end_buffer, *a1[i].dat_buffer, *a1[i].posistruct);//279709 //1a6f44,1a6f86,1a6578
+			CreateIndexDatTabDoubled_98709(*a1[i].begin_buffer, *a1[i].end_buffer, *a1[i].dat_buffer, *a1[i].posistruct);//279709 //1a6f44,1a6f86,1a6578
 		else
-			sub_9874D_create_index_dattab(*a1[i].begin_buffer, *a1[i].end_buffer, *a1[i].dat_buffer, *a1[i].posistruct);
+			CreateIndexDatTab_9874D(*a1[i].begin_buffer, *a1[i].end_buffer, *a1[i].dat_buffer, *a1[i].posistruct);
 	}
 }
 

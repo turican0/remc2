@@ -5,7 +5,7 @@
 uint8_t BigTextureBuffer[128 * 128 * 160];
 
 //----- (00054630) --------------------------------------------------------
-void sub_54630_load_psxblock(uint16_t TextSize)//235630
+void LoadPsxBlock_54630(uint16_t TextSize)//235630
 {
 	switch (TextSize)
 	{
@@ -24,7 +24,7 @@ void UpdateTileTextures(uint32_t tileSize, uint8_t* tileBuffer, MapType_t mapTyp
 {
 	constexpr uint32_t kTilesWide = 8;
 	constexpr uint32_t kTilesTall = 19;
-	// The block buffers are always 256 pixels wide (see sub_5B7A0_prepare_textures), so
+	// The block buffers are always 256 pixels wide (see PrepareTextures_5B7A0), so
 	// 32px tiles sit 8 to a row but 128px tiles only 2. Repack into the kTilesWide atlas
 	// GameRenderHW addresses, whatever the tile size.
 	constexpr uint32_t kSourceWidth = 256;
@@ -188,7 +188,7 @@ void ReadAndDecompressSkyAndBlocks_54660(MapType_t GraphicsType, uint8_t Graphic
 
 
 //----- (00054800) --------------------------------------------------------
-void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
+void ReadAndDecompressTables_54800(MapType_t a1)//235800
 {
 	char dataPath[MAX_PATH];
 

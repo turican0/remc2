@@ -355,7 +355,7 @@ void GameRenderHW::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	const int quadrantCos = Maths::sin_DB750[512 + quadrantYaw];
 	const int quadrantSin = Maths::sin_DB750[quadrantYaw];
 	str_F2C20ar.dword0x18 = 7
-		* Maths::sub_7277A_radix_3d(
+		* Maths::IntegerSqrt_7277A(
 			(uint16_t)viewPort.Width_DE564 * (uint16_t)viewPort.Width_DE564
 			+ (uint16_t)viewPort.Height_DE568 * (uint16_t)viewPort.Height_DE568)
 		* fov >> 11;
@@ -1175,7 +1175,7 @@ void GameRenderHW::DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* 
 			if (shadows_F2CC7 && !m_ptrStr_E9C38_smalltit[tileIndex].textAtyp_43 && !(entity->struct_byte_0xc_12_15.word[1] & 0x808))
 			{
 				//adress 21f40c
-				const int height = sub_B5C60_getTerrainAlt2(entity->position_0x4C_76.x, entity->position_0x4C_76.y) - str_F2C20ar.dword0x20;
+				const int height = GetTerrainAlt2_B5C60(entity->position_0x4C_76.x, entity->position_0x4C_76.y) - str_F2C20ar.dword0x20;
 				const int across = (str_F2C20ar.cos2_0x0f * dx - str_F2C20ar.sin2_0x17 * dy) >> 16;
 				const int depth = (str_F2C20ar.sin2_0x17 * dx + str_F2C20ar.cos2_0x0f * dy) >> 16;
 				const int64_t distance = (int64_t)depth * depth + (int64_t)across * across;

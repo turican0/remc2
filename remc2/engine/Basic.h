@@ -564,31 +564,31 @@ uint8_t* ReadFile_9DEA0(char* filename, uint8_t* buffer);
 
 FILE* x_open(char* path, int pmodex);
 
-int sub_9D770(char* a1, char a2);
-int sub_9D380(FILE* a1, int a2, char a3, uint8_t* a4x, int a5);//27e380
+int GetLxExecutableMemorySize_9D770(char* a1, char a2);
+int ReadFromFileOrMemory_9D380(FILE* a1, int a2, char a3, uint8_t* a4x, int a5);//27e380
 
 char x_toupper(char inputchar);
 int32_t /*__cdecl*/ x_tolower(int32_t);// weak
 
 //graphics basics - move it later to basic graphics
-void sub_2EC30_clear_img_mem();
+void ClearSubtitleImageMemory_2EC30();
 void StartSubtitles_2EB60();
-void sub_2EBB0_draw_text_with_border_630x340(char* textString);
+void DrawSubtitleTextWithBorder_2EBB0(char* textString);
 void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
-void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, bitmap_pos_struct_t tempstr);
+void DrawBitmap640_7C120(int16_t posx, int16_t posy, bitmap_pos_struct_t tempstr);
 uint8_t getPaletteIndex_5BE80(TColor* a1x, uint8_t a2, uint8_t a3, uint8_t a4);
-void sub_7C140_draw_text_background(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
-void sub_41A90_VGA_Palette_install(TColor* a1x);
-void sub_2EC90(char a1);
+void DrawTextBackground_7C140(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
+void VGA_PaletteInstall_41A90(TColor* a1x);
+void SetSubtitleColourAndRedraw_2EC90(char a1);
 uint32_t DrawText_7FAE0(char* text, int16_t x, int16_t width, int16_t posy, uint8_t color);
-void sub_90478_VGA_Blit320(uint8_t maxFps = 0);
-void sub_75200_VGA_Blit640(uint16_t height, uint8_t maxFps = 0);
+void VGA_Blit320_90478(uint8_t maxFps = 0);
+void VGA_Blit640_75200(uint16_t height, uint8_t maxFps = 0);
 uint8_t GetLetterHeight_6FC30();
 void DrawBitmap_2BB40(int16_t posx, int16_t posy, bitmap_pos_struct_t temposstr, uint8_t scale = 1);
 
 void GetFont_6FC50(__int16 a1);//250c50
 uint8_t GetLetterWidth_6FC10();
-unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
+unsigned int DrawTextCentred_6FC80(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void CopyAndShiftFrom17DB50_75D70(uint8_t* a1, uint32_t count);
 void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
 void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color, uint8_t scale = 1);//20cc10
@@ -601,18 +601,18 @@ void VGA_DrawMessages();
 void VGA_DrawPlayerCoordData(int x, int y);
 void VGA_BlitAny(uint8_t maxFps = 0);
 void LockFps(uint8_t maxFps);
-void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signed __int16 a4);
+void SetMouseMinMax_6EF10(__int16 a1, signed __int16 a2, __int16 a3, signed __int16 a4);
 void DrawText_7FB90(char* textbuffer, int16_t posx, int16_t posy, uint8_t color);
-void sub_8CACD_draw_cursor2();
+void DrawCursorIfEnabled_8CACD();
 void drawBitmap320_8F8B0(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale = 1);
 void drawBitmap640_8F8E8(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale = 1);
 void DrawLineLowRes_90164(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
 void DrawLineHighRes_901E4(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
-void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t color, uint8_t scale = 1);//250940
-void sub_72C40_draw_bitmap_640_setcolor(int16_t posx, int16_t posy, bitmap_pos_struct_t a3, uint8_t color, uint8_t scale = 1);
+void DrawTextRaw_6F940(const char* textbuffer, int posx, int posy, uint8_t color, uint8_t scale = 1);//250940
+void DrawBitmapWithColour640_72C40(int16_t posx, int16_t posy, bitmap_pos_struct_t a3, uint8_t color, uint8_t scale = 1);
 void DrawCursor_8C635();
-void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6, uint8_t scale);
-void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6);
+void DrawBitmapFinal_8F935(uint8_t width, uint8_t height, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6, uint8_t scale);
+void DrawBitmapFinalUnscaled_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6);
 
 signed int GetTrueWizardNumber_61790(signed int inputnumber);
 
@@ -620,7 +620,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D41A0_BYTESTR_0* to);
 void Convert_to_shadow_str_E2A74(const type_array_str_E2A74 &from, type_shadow_str_E2A74* to);
 
-void sub_417A0_install_pal_and_mouse_minmax();
+void InstallPaletteAndMouseMinMax_417A0();
 unsigned long j___clock();
 
 void SetPlayerLocation(uint16_t x, uint16_t y, int16_t z, int16_t pitch, int16_t roll, int16_t yaw);

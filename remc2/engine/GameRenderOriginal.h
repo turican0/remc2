@@ -77,7 +77,7 @@ private:
 	void DrawSprites_3E360(int a2x);
 	void DrawTriangleInProjectionSpace_B6253(x_DWORD* a1, x_DWORD* a2, x_DWORD* a3);
 	int32_t* x_DWORD_DB350_ret(uint32_t adress);
-	uint16_t sub_3FD60(int a2x);
+	uint16_t DrawTileSpriteReflections_3FD60(int a2x);
 	void SetEntityHelpText_88740(type_entity_0x6E8E* a1x, int16_t posX, int16_t posY);
 	void SetBillboards_3B560(int16_t roll);
 	void DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* a1x, int16_t a2, int a3, int16_t a4);
