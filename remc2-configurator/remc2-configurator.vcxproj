@@ -171,6 +171,7 @@
     <ClCompile Include="SettingsDialog.cpp" />
     <ClCompile Include="SoundDialog.cpp" />
     <ClCompile Include="ThreadingDialog.cpp" />
+    <ClCompile Include="HardwareDialog.cpp" />
     <ClCompile Include="ZoneEditorCtrl.cpp" />
     <ClCompile Include="ZoneEditorDialog.cpp" />
   </ItemGroup>
@@ -190,6 +191,7 @@
     <ClInclude Include="SettingsDialog.h" />
     <ClInclude Include="SoundDialog.h" />
     <ClInclude Include="ThreadingDialog.h" />
+    <ClInclude Include="HardwareDialog.h" />
     <ClInclude Include="ZoneEditorCtrl.h" />
     <ClInclude Include="ZoneEditorDialog.h" />
   </ItemGroup>

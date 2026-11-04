@@ -8,6 +8,7 @@ set(SOURCE_FILES_UNITTESTS
     "portability/fcaseopenUT.cpp"
     "engine/TerrainUT.cpp"
     "engine/SetRenderViewPortSize_40C50UT.cpp"
+    "engine/MapProjectionUT.cpp"
     "utilities/Math.cpp"
     "utilities/Math.h"
     "comparison/engine/OriginalTerrain.cpp"
@@ -25,9 +26,18 @@ set(SOURCE_FILES_UNITTESTS_DEPENDENCIES
     "../remc2/engine/CommandLineParser.h"
     "../remc2/engine/Events.cpp"
     "../remc2/engine/Events.h"
-    "../remc2/engine/Event.h"
-    "../remc2/engine/EventDispatcher.cpp"
-    "../remc2/engine/EventDispatcher.h"
+    "../remc2/shared/EventDispatcher.cpp"
+    "../remc2/shared/EventDispatcher.h"
+    "../remc2/shared/Event.h"
+    "../remc2/shared/EventType.h"
+    "../remc2/shared/IEvent.h"
+    "../remc2/shared/ResourceType.h"
+    "../remc2/engine/GameRenderHW.cpp"
+    "../remc2/engine/GameRenderHW.h"
+    "../remc2/portability/VulkanPolygonRenderer.cpp"
+    "../remc2/portability/VulkanPolygonRenderer.h"
+    "../remc2/portability/RenderPolygon.h"
+    "../remc2/utilities/SafeQueue.h"
     "../remc2/engine/GameBitmap.cpp"
     "../remc2/engine/GameBitmap.h"
     "../remc2/engine/GameBitmapIndexes.h"
@@ -206,6 +216,7 @@ target_link_libraries(${UNIT_TEST_TARGET} PUBLIC
 	findfirst
 	ADLMIDI_static
 	fmt::fmt
+	${VULKAN_LIBRARIES}
     ${GTEST_LIBRARIES}
     ${GTEST_MAIN_LIBRARIES}
 )

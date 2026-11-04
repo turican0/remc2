@@ -155,19 +155,19 @@ void editor_run()
 	DataFileIO::SetCDFilePaths(cdDataPath.c_str(), pstr);
 
 	//init
-	sub_5BCC0_set_any_variables1();//23C9F2 - 23CCC0
-	if (!sub_5BF50_load_psxdata())//23C9F7 - 23CF50 //something with files about their loading, or just a set of palettes
+	SetDefaultKeys_5BCC0();//23C9F2 - 23CCC0
+	if (!LoadPsxData_5BF50())//23C9F7 - 23CF50 //something with files about their loading, or just a set of palettes
 		exit(-1);
-	sub_5C1B0_set_any_variables2();
+	SetDefaultSettings_5C1B0();
 
-	sub_71410_process_tmaps();//252410
+	ProcessTmaps_71410();//252410
 
 	CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);//24fb90
 	CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);//24fb90 adress 0x23ca2e
-	sub_101C0();//23CA36 - 1f11c0 //sem se to vubec nedostane
+	LoadSearchData_101C0();//23CA36 - 1f11c0 //sem se to vubec nedostane
 
 	//init
-	sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
+	CreateFileArrayIndexes_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
 	x_WORD_180660_VGA_type_resolution = 1;
 	x_WORD_E29DA_type_resolution = 1;
 
@@ -213,71 +213,71 @@ void terrain_recalculate() {
 	rand2_17B4E0 = D41A0_0.terrain_2FECE.seed_0x2FEE5;
 	D41A0_0.rand_0x8 = D41A0_0.terrain_2FECE.seed_0x2FEE5;
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
-	sub_B5E70_decompress_terrain_map_level(rand2_17B4E0, D41A0_0.terrain_2FECE.offset_0x2FEE9, D41A0_0.terrain_2FECE.raise_0x2FEED, D41A0_0.terrain_2FECE.gnarl_0x2FEF1);
-	sub_44DB0_truncTerrainHeight(mapEntityIndex_15B4E0, mapHeightmap_11B4E0);//225db0 //trunc and create
+	DecompressTerrainMapLevel_B5E70(rand2_17B4E0, D41A0_0.terrain_2FECE.offset_0x2FEE9, D41A0_0.terrain_2FECE.raise_0x2FEED, D41A0_0.terrain_2FECE.gnarl_0x2FEF1);
+	TruncTerrainHeight_44DB0(mapEntityIndex_15B4E0, mapHeightmap_11B4E0);//225db0 //trunc and create
 	if (stage > 0)
 	{
 		memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
-		sub_44E40(D41A0_0.terrain_2FECE.river_0x2FEF5, D41A0_0.terrain_2FECE.lriver_0x2FEF9);//225e40 //add any fields
+		MarkLandAndRivers_44E40(D41A0_0.terrain_2FECE.river_0x2FEF5, D41A0_0.terrain_2FECE.lriver_0x2FEF9);//225e40 //add any fields
 	}
 	if (stage > 1)
 	{
-		sub_45AA0_setMax4Tiles();//226aa0
+		SetMax4Tiles_45AA0();//226aa0
 	}
 
 	if (stage > 2)
 	{
-		sub_440D0(D41A0_0.terrain_2FECE.snLin_0x2FF01);//2250d0
+		ApplySnowLine_440D0(D41A0_0.terrain_2FECE.snLin_0x2FF01);//2250d0
 	}
 	if (stage > 3)
 	{
-		sub_45060(D41A0_0.terrain_2FECE.snFlt_0x2FF05, D41A0_0.terrain_2FECE.bhLin_0x2FF09);//226060
+		MarkFlatLowland_45060(D41A0_0.terrain_2FECE.snFlt_0x2FF05, D41A0_0.terrain_2FECE.bhLin_0x2FF09);//226060
 	}
 	if (stage > 4)
 	{
-		sub_44320();//225320
+		SpreadTerrainClass4_44320();//225320
 	}
 	if (stage > 5)
 	{
-		sub_45210(D41A0_0.terrain_2FECE.snFlt_0x2FF05, D41A0_0.terrain_2FECE.bhLin_0x2FF09);//226210
+		MarkFlatLowlandClass2_45210(D41A0_0.terrain_2FECE.snFlt_0x2FF05, D41A0_0.terrain_2FECE.bhLin_0x2FF09);//226210
 	}
 	if (stage > 6)
 	{
-		sub_454F0(D41A0_0.terrain_2FECE.source_0x2FEFD, D41A0_0.terrain_2FECE.rkSte_0x2FF11);//2264f0
+		MarkFlatHighland_454F0(D41A0_0.terrain_2FECE.source_0x2FEFD, D41A0_0.terrain_2FECE.rkSte_0x2FF11);//2264f0
 	}
 	if (stage > 7)
 	{
-		sub_45600(D41A0_0.terrain_2FECE.bhFlt_0x2FF0D);//226600
+		MarkSteepTerrain_45600(D41A0_0.terrain_2FECE.bhFlt_0x2FF0D);//226600
 	}
 	if (stage > 8)
 	{
-		sub_43FC0();//224fc0
+		RemoveIsolatedTerrainClasses_43FC0();//224fc0
 	}
 	if (stage > 9)
 	{
 		memset((void*)mapTerrainType_10B4E0, 0, 0x10000);
-		sub_43970();//224970 // smooth terrain
+		SmoothTerrain_43970();//224970 // smooth terrain
 	}
 	if (stage > 10)
 	{
-		sub_43EE0();//224ee0 // add rivers
+		AddRivers_43EE0();//224ee0 // add rivers
 	}
 	if (stage > 11)
 	{
-		sub_44580();//225580 //set angle of terrain
+		SetTerrainAngles_44580();//225580 //set angle of terrain
 	}
 	if (stage > 12)
 	{
 		if (isCaveLevel_D41B6)
-			sub_43B40();//224b40 //change angle of terrain
+			GenerateCaveCeiling_43B40();//224b40 //change angle of terrain
 		else
-			sub_43D50();//224d50 //change angle of terrain
+			MarkWaterEdges_43D50();//224d50 //change angle of terrain
 	}
 	if (stage > 13)
 	{
-		sub_44D00();//225d00
+		ComputeTerrainShading_44D00();//225d00
 	}
-	sub_49F30();//prepare events pointers
+	ResetEntityLists_49F30();//prepare events pointers
 	if (stage > 14)
 	{
 		SetStagetagForTermod_49830(&D41A0_0.terrain_2FECE);

@@ -59,6 +59,7 @@
 				"windowResHeight": 1080,
 				"maintainAspectRatio": true,
 				"startWindowed": false,
+				"render": "HW",
 				"gameDetail": {
 					"description": [
 						"gameResWidth: In Game resolution. If using software render keep this low",
@@ -107,6 +108,15 @@
 					"sizePercentToThreadRenderSprites": 0.5,
 					"numberOfRenderThreads": 3,
 					"assignToSpecificCores": false
+				},
+				"hardware": {
+					"description": [
+						"Hardware renderer (render: HW) only. Hardware Settings in the configurator",
+						"bilinearFiltering: Smooths the terrain, sky and sprite textures instead of showing square texels",
+						"antiAliasing: Multisample anti-aliasing (MSAA) samples: 0 = off (1x), 2, 4 or 8. Capped to what the graphics card supports"
+					],
+					"bilinearFiltering": true,
+					"antiAliasing": 2
 				}
 			},
 			"game": {

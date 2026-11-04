@@ -1,4 +1,5 @@
 #include "Basic.h"
+#include <algorithm>
 #include "engine_support.h"
 #include "CommandLineParser.h"
 #include "../portability/port_net.h"
@@ -91,6 +92,7 @@ uint16_t x_WORD_18072E_cursor_sizey; // weak
 uint8_t* x_DWORD_180730_cursor_data; // weak//351730
 
 uint8_t* ptrScreenPos_180708; // weak
+uint8_t* ptrScreenAlphaPos;
 uint8_t* ptrCursorBitmapPos_18070C; // weak
 uint8_t* x_DWORD_180714; // weak
 uint8_t* x_DWORD_180718; // weak
@@ -115,8 +117,8 @@ int help_VGA_type_resolution = 0;
 int16_t x_WORD_180660_VGA_type_resolution; // weak
 uint8_t playersColors_E88E0x[8][3];
 uint8_t unk_F0A20x[1024];
-uint8_t keyColor1_D4B7C = 0xfe; // some key color?
-uint8_t keyColor2_D4B7E = 0x00; // some key color?
+uint8_t m_BackgroundColour_D4B7C = 0xfe;
+uint8_t m_BackgroundColour_D4B7E = 0x00;
 type_entity_0x6E8E* Entities_EA3E4[1001];//2bb3e4
 
 uint8_t ColourLookupTable_F6EE0[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
@@ -346,6 +348,7 @@ Pathstruct xadatatables = { "",(uint8_t**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_
 //#define psxazero14 47
 
 std::vector<Type_Message*>* m_Messages = nullptr;
+std::array<uint16_t, 504> m_spriteFrameCount{};   // 0 = not uploaded yet
 
 bool IsDefaultResolution320(int width, int height)
 {
@@ -478,7 +481,7 @@ unsigned int x__getcallerseflags(void) { stub_fix_it(); return 0; };
 x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, char*) { stub_fix_it(); return 0; };// weak
 
 //----- (0009D770) --------------------------------------------------------
-int sub_9D770(char* a1, char a2)//27e770
+int GetLxExecutableMemorySize_9D770(char* a1, char a2)//27e770
 {
 	char v3; // [esp+0h] [ebp-E0h]
 	int v4; // [esp+40h] [ebp-A0h]
@@ -509,15 +512,15 @@ int sub_9D770(char* a1, char a2)//27e770
 		if (v10 == NULL)
 			return 0;
 	}
-	v12 = sub_9D380(v10, 60, a2, (uint8_t*)&v8, 4);
-	v12 = sub_9D380(v10, v8, a2, (uint8_t*)&v13, 2);
+	v12 = ReadFromFileOrMemory_9D380(v10, 60, a2, (uint8_t*)&v8, 4);
+	v12 = ReadFromFileOrMemory_9D380(v10, v8, a2, (uint8_t*)&v13, 2);
 	if (!strcmp((const char*)&v13, "LX"))
 	{
-		sub_9D380(v10, v8, a2, (uint8_t*)&v3, 172);
+		ReadFromFileOrMemory_9D380(v10, v8, a2, (uint8_t*)&v3, 172);
 		v12 = v4 + v8;
 		for (i = 0; i < v5; i++)
 		{
-			v12 = sub_9D380(v10, v12, a2, (uint8_t*)&v6, 24);
+			v12 = ReadFromFileOrMemory_9D380(v10, v12, a2, (uint8_t*)&v6, 24);
 			v7 += v6;
 		}
 		if (!(a2 & 1))
@@ -562,7 +565,7 @@ FILE* x_open(char* path, int  /*pmodex*/) {
 };
 
 //----- (0009D380) --------------------------------------------------------
-int sub_9D380(FILE* a1, int a2, char a3, uint8_t* a4x, int a5)//27e380
+int ReadFromFileOrMemory_9D380(FILE* a1, int a2, char a3, uint8_t* a4x, int a5)//27e380
 {
 	if (a3 & 1)
 	{
@@ -627,7 +630,7 @@ void* Malloc_83D70(int a1)//264d70
 
 x_DWORD x_tolower(x_DWORD) { stub_fix_it(); return 0; };// weak
 
-void sub_2EC30_clear_img_mem()//20fc30
+void ClearSubtitleImageMemory_2EC30()//20fc30
 {
 	if (SubtitlesOn_D41CE)
 		memset((void*)x_DWORD_F01E4, 0, x_WORD_F01F4);
@@ -644,13 +647,13 @@ void StartSubtitles_2EB60()//20fb60
 		DisplaySubtitles_D41C1 = 1;
 		x_DWORD_F01E4 = &pdwScreenBuffer_351628[64320];//line 320x201 - after normal image
 		x_WORD_F01F4 = 0x3200;//320*40
-		sub_2EC30_clear_img_mem();
+		ClearSubtitleImageMemory_2EC30();
 		x_DWORD_D41D0 = 0;
 	}
 }
 
 //----- (0002EBB0) --------------------------------------------------------
-void sub_2EBB0_draw_text_with_border_630x340(char* textString)//20fbb0
+void DrawSubtitleTextWithBorder_2EBB0(char* textString)//20fbb0
 {
 	if (SubtitlesOn_D41CE)
 	{
@@ -808,7 +811,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 					a4 = v16 + a3 - xy_DWORD_17DED4_spritestr[274].width_4;
 				}
 				for (i = 0; i < v104; i += v103)
-					sub_7C120_draw_bitmap_640(i + a3, a5, xy_DWORD_17DED4_spritestr[275]);
+					DrawBitmap640_7C120(i + a3, a5, xy_DWORD_17DED4_spritestr[275]);
 				//HIWORD(v18) = HIWORD(xy_DWORD_17DED4_spritestr);
 				v18 = xy_DWORD_17DED4_spritestr[275].height_5;
 				v8 = v18 + a5;
@@ -825,8 +828,8 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 					}
 					v19 += 640 - v20;
 				}
-				sub_7C120_draw_bitmap_640(a3, v8, xy_DWORD_17DED4_spritestr[274]);
-				sub_7C120_draw_bitmap_640(a4 - xy_DWORD_17DED4_spritestr[274].width_4, v8, xy_DWORD_17DED4_spritestr[274]);
+				DrawBitmap640_7C120(a3, v8, xy_DWORD_17DED4_spritestr[274]);
+				DrawBitmap640_7C120(a4 - xy_DWORD_17DED4_spritestr[274].width_4, v8, xy_DWORD_17DED4_spritestr[274]);
 			}
 			if (a8)
 			{
@@ -853,7 +856,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 			a4 = v104 + a3 - xy_DWORD_17DED4_spritestr[(v88 - 1)].width_4;
 		}
 		for (j = 0; j < v104; j += v103)//ramecek - horni vodorovna linka
-			sub_7C120_draw_bitmap_640(j + a3, a5, xy_DWORD_17DED4_spritestr[a8]);//25d120
+			DrawBitmap640_7C120(j + a3, a5, xy_DWORD_17DED4_spritestr[a8]);//25d120
 
 //HIWORD(v10) = HIWORD(xy_DWORD_17DED4_spritestr);
 		v10 = xy_DWORD_17DED4_spritestr[a8].height_5;//adress 260da7
@@ -865,9 +868,9 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 		v14 = xy_DWORD_17DED4_spritestr[v13 / 6].height_5;
 		v91 = v11;
 		v90 = a3;
-		sub_7C140_draw_text_background(a3, v11, v104, v14, v12);//prvni cerna linka
-		sub_7C120_draw_bitmap_640(v90, v91, xy_DWORD_17DED4_spritestr[v13 / 6]);//prvni levy svisly dilek
-		sub_7C120_draw_bitmap_640(a4, v91, xy_DWORD_17DED4_spritestr[v13 / 6]);//prvni pravy svisly dilek
+		DrawTextBackground_7C140(a3, v11, v104, v14, v12);//prvni cerna linka
+		DrawBitmap640_7C120(v90, v91, xy_DWORD_17DED4_spritestr[v13 / 6]);//prvni levy svisly dilek
+		DrawBitmap640_7C120(a4, v91, xy_DWORD_17DED4_spritestr[v13 / 6]);//prvni pravy svisly dilek
 		//HIWORD(v15) = HIWORD(xy_DWORD_17DED4_spritestr);
 		v15 = xy_DWORD_17DED4_spritestr[v13 / 6].height_5;
 		a1 = v15 + v11;
@@ -937,15 +940,15 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 								}
 								v31 += 640 - v33;
 							}
-							sub_7C120_draw_bitmap_640(v99, a1, xy_DWORD_17DED4_spritestr[274]);
-							sub_7C120_draw_bitmap_640(a4, a1, xy_DWORD_17DED4_spritestr[274]);
+							DrawBitmap640_7C120(v99, a1, xy_DWORD_17DED4_spritestr[274]);
+							DrawBitmap640_7C120(a4, a1, xy_DWORD_17DED4_spritestr[274]);
 							//HIWORD(v34) = HIWORD(xy_DWORD_17DED4_spritestr);
 							v34 = xy_DWORD_17DED4_spritestr[274].height_5;
 							a1 += v34;
 							v86 = a7;
 							v35 = v98;
 							v36 = a4 - 2 * GetLetterWidth_6FC10();
-							sub_6FC80_pre_draw_text(v87, v99 + xy_DWORD_17DED4_spritestr[275].width_4, v36, v35, a7);
+							DrawTextCentred_6FC80(v87, v99 + xy_DWORD_17DED4_spritestr[275].width_4, v36, v35, a7);
 						}
 						else if (a6 == 5)
 						{
@@ -964,9 +967,9 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 									v38 += 640 - v39;
 								}
 								v41 = v99;
-								sub_7C120_draw_bitmap_640(v99, a1, xy_DWORD_17DED4_spritestr[274]);
+								DrawBitmap640_7C120(v99, a1, xy_DWORD_17DED4_spritestr[274]);
 								v86 = *xy_DWORD_17DED4_spritestr[274].data;
-								sub_7C120_draw_bitmap_640(a4 - xy_DWORD_17DED4_spritestr[274].width_4, a1, xy_DWORD_17DED4_spritestr[274]);
+								DrawBitmap640_7C120(a4 - xy_DWORD_17DED4_spritestr[274].width_4, a1, xy_DWORD_17DED4_spritestr[274]);
 								//HIWORD(v42) = HIWORD(xy_DWORD_17DED4_spritestr);
 								v42 = xy_DWORD_17DED4_spritestr[274].height_5;
 								a1 += v42;
@@ -980,7 +983,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 						}
 						else
 						{
-							sub_6FC80_pre_draw_text(v87, v99, a4, v98, a7);
+							DrawTextCentred_6FC80(v87, v99, a4, v98, a7);
 						}
 					}
 					else
@@ -992,9 +995,9 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 							v28 = 6 * (a8 - 1);
 							v29 = xy_DWORD_17DED4_spritestr[v28 / 6].height_5;
 							v90 = v99;
-							sub_7C140_draw_text_background(v99, a1, v104, v29, v27);
-							sub_7C120_draw_bitmap_640(v90, a1, xy_DWORD_17DED4_spritestr[v28 / 6]);
-							sub_7C120_draw_bitmap_640(a4, a1, xy_DWORD_17DED4_spritestr[v28 / 6]);
+							DrawTextBackground_7C140(v99, a1, v104, v29, v27);
+							DrawBitmap640_7C120(v90, a1, xy_DWORD_17DED4_spritestr[v28 / 6]);
+							DrawBitmap640_7C120(a4, a1, xy_DWORD_17DED4_spritestr[v28 / 6]);
 							//HIWORD(v30) = HIWORD(xy_DWORD_17DED4_spritestr);
 							v30 = xy_DWORD_17DED4_spritestr[v28 / 6].height_5;
 							a1 += v30;
@@ -1053,8 +1056,8 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 					v59y = 640 - v60;
 				}
 				v61 = v99;
-				sub_7C120_draw_bitmap_640(v99, a1, xy_DWORD_17DED4_spritestr[274]);
-				sub_7C120_draw_bitmap_640(a4, a1, xy_DWORD_17DED4_spritestr[274]);
+				DrawBitmap640_7C120(v99, a1, xy_DWORD_17DED4_spritestr[274]);
+				DrawBitmap640_7C120(a4, a1, xy_DWORD_17DED4_spritestr[274]);
 				//HIWORD(v62) = HIWORD(xy_DWORD_17DED4_spritestr);
 				v62 = xy_DWORD_17DED4_spritestr[274].height_5;
 				v63 = v62 + a1;
@@ -1074,21 +1077,21 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 					}
 					v64 += 640 - v66;
 				}
-				sub_7C120_draw_bitmap_640(v99, v63, xy_DWORD_17DED4_spritestr[274]);
-				sub_7C120_draw_bitmap_640(a4, v63, xy_DWORD_17DED4_spritestr[274]);
+				DrawBitmap640_7C120(v99, v63, xy_DWORD_17DED4_spritestr[274]);
+				DrawBitmap640_7C120(a4, v63, xy_DWORD_17DED4_spritestr[274]);
 				//HIWORD(v67) = HIWORD(xy_DWORD_17DED4_spritestr);
 				v67 = xy_DWORD_17DED4_spritestr[274].height_5;
 				v68 = 0;
 				a1 = v67 + v63;
 				while (v68 < v104)
 				{
-					sub_7C120_draw_bitmap_640(v68 + a3, a1, xy_DWORD_17DED4_spritestr[275]);
+					DrawBitmap640_7C120(v68 + a3, a1, xy_DWORD_17DED4_spritestr[275]);
 					v68 += v103;
 				}
 				v86 = a7;
 				v69 = v98;
 				v70 = a4 - 2 * GetLetterWidth_6FC10();
-				sub_6FC80_pre_draw_text(v87, v99 + xy_DWORD_17DED4_spritestr[275].width_4, v70, v69, a7);
+				DrawTextCentred_6FC80(v87, v99 + xy_DWORD_17DED4_spritestr[275].width_4, v70, v69, a7);
 			}
 			else if (a6 == 5)
 			{
@@ -1110,9 +1113,9 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 						v71 = 640 - v74;
 					}
 					v75 = v99;
-					sub_7C120_draw_bitmap_640(v99, a1, xy_DWORD_17DED4_spritestr[274]);
+					DrawBitmap640_7C120(v99, a1, xy_DWORD_17DED4_spritestr[274]);
 					v86 = *xy_DWORD_17DED4_spritestr[274].data;
-					sub_7C120_draw_bitmap_640(a4 - xy_DWORD_17DED4_spritestr[274].width_4, a1, xy_DWORD_17DED4_spritestr[274]);
+					DrawBitmap640_7C120(a4 - xy_DWORD_17DED4_spritestr[274].width_4, a1, xy_DWORD_17DED4_spritestr[274]);
 					//HIWORD(v76) = HIWORD(xy_DWORD_17DED4_spritestr);
 					v76 = xy_DWORD_17DED4_spritestr[274].height_5;
 					v77 = v76 + a1;
@@ -1130,9 +1133,9 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 						}
 						v78 += 640 - v80;
 					}
-					sub_7C120_draw_bitmap_640(v99, v77, xy_DWORD_17DED4_spritestr[274]);
+					DrawBitmap640_7C120(v99, v77, xy_DWORD_17DED4_spritestr[274]);
 					v86 = *xy_DWORD_17DED4_spritestr[274].data;
-					sub_7C120_draw_bitmap_640(a4 - xy_DWORD_17DED4_spritestr[274].width_4, v77, xy_DWORD_17DED4_spritestr[274]);
+					DrawBitmap640_7C120(a4 - xy_DWORD_17DED4_spritestr[274].width_4, v77, xy_DWORD_17DED4_spritestr[274]);
 					//HIWORD(v81) = HIWORD(xy_DWORD_17DED4_spritestr);
 					v81 = xy_DWORD_17DED4_spritestr[274].height_5;
 
@@ -1140,7 +1143,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 					for (v82 = 0; v82 < v104; v82 += v103)
 					{
 						v83 = v82 + a3;
-						sub_7C120_draw_bitmap_640(v83, a1, xy_DWORD_17DED4_spritestr[275]);
+						DrawBitmap640_7C120(v83, a1, xy_DWORD_17DED4_spritestr[275]);
 					}
 					DrawText_7FAE0(v87, v99 + xy_DWORD_17DED4_spritestr[275].width_4, a4, v98, 0);
 				}
@@ -1151,7 +1154,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 			}
 			else
 			{
-				sub_6FC80_pre_draw_text(v87, v99, a4, v98, a7);
+				DrawTextCentred_6FC80(v87, v99, a4, v98, a7);
 			}
 		}
 		else
@@ -1165,11 +1168,11 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 				v91 = v104;
 				v48 = v99;
 				v90 = a1;
-				sub_7C140_draw_text_background(v99, a1, v104, v47, v45);//draw next black row
-				sub_7C120_draw_bitmap_640(v48, v90, xy_DWORD_17DED4_spritestr[v46 / 6]);//draw next left column
+				DrawTextBackground_7C140(v99, a1, v104, v47, v45);//draw next black row
+				DrawBitmap640_7C120(v48, v90, xy_DWORD_17DED4_spritestr[v46 / 6]);//draw next left column
 				v49 = v90;
 				v90 = a4;
-				sub_7C120_draw_bitmap_640(a4, v49, xy_DWORD_17DED4_spritestr[v46 / 6]);//draw next right column
+				DrawBitmap640_7C120(a4, v49, xy_DWORD_17DED4_spritestr[v46 / 6]);//draw next right column
 				//HIWORD(v50) = HIWORD(xy_DWORD_17DED4_spritestr);
 				v50 = xy_DWORD_17DED4_spritestr[v46 / 6].height_5;
 				v51 = v50 + a1;
@@ -1178,16 +1181,16 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 				v53 = xy_DWORD_17DED4_spritestr[v46 / 6].height_5;
 				v54 = v91;
 				v91 = v51;
-				sub_7C140_draw_text_background(v48, v51, v54, v53, v52);//draw next black row
-				sub_7C120_draw_bitmap_640(v48, v91, xy_DWORD_17DED4_spritestr[v46 / 6]);//draw next left column
-				sub_7C120_draw_bitmap_640(v90, v91, xy_DWORD_17DED4_spritestr[v46 / 6]);//draw next right column
+				DrawTextBackground_7C140(v48, v51, v54, v53, v52);//draw next black row
+				DrawBitmap640_7C120(v48, v91, xy_DWORD_17DED4_spritestr[v46 / 6]);//draw next left column
+				DrawBitmap640_7C120(v90, v91, xy_DWORD_17DED4_spritestr[v46 / 6]);//draw next right column
 				//HIWORD(v55) = HIWORD(xy_DWORD_17DED4_spritestr);
 				v55 = xy_DWORD_17DED4_spritestr[v46 / 6].height_5;
 				v56 = 0;
 				a1 = v55 + v51;
 				while (v56 < v104)
 				{
-					sub_7C120_draw_bitmap_640(v56 + v99, a1, xy_DWORD_17DED4_spritestr[a8]);//draw bottom row
+					DrawBitmap640_7C120(v56 + v99, a1, xy_DWORD_17DED4_spritestr[a8]);//draw bottom row
 					v56 += v103;
 				}
 			}
@@ -1206,7 +1209,7 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 }
 
 //----- (0007C120) --------------------------------------------------------
-void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, bitmap_pos_struct_t tempstr)//25d120
+void DrawBitmap640_7C120(int16_t posx, int16_t posy, bitmap_pos_struct_t tempstr)//25d120
 {
 	DrawBitmap_2BB40(posx, posy, tempstr);//ebp
 }
@@ -1240,7 +1243,7 @@ uint8_t getPaletteIndex_5BE80(TColor* Palettex, uint8_t red_color, uint8_t green
 }
 
 //----- (0007C140) --------------------------------------------------------
-void sub_7C140_draw_text_background(int16_t x1, int16_t y1, int16_t x2, int16_t y2, unsigned __int8 a5)//25d140
+void DrawTextBackground_7C140(int16_t x1, int16_t y1, int16_t x2, int16_t y2, unsigned __int8 a5)//25d140
 {//black line in text
 	int16_t x1d; // si
 	int16_t y1d; // bx
@@ -1309,7 +1312,7 @@ uint8_t GetLetterWidth_6FC10()//250c10
 // EA3D4: using guessed type int x_DWORD_EA3D4;
 
 //----- (0006FC80) --------------------------------------------------------
-unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5)//00250C80
+unsigned int DrawTextCentred_6FC80(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5)//00250C80
 {
 	unsigned int v5; // kr04_4
 	int v6; // esi
@@ -1332,16 +1335,16 @@ unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a
 }
 
 //----- (000417A0) --------------------------------------------------------
-void sub_417A0_install_pal_and_mouse_minmax()//2227a0
+void InstallPaletteAndMouseMinMax_417A0()//2227a0
 {
 	//sub_90810();
-	sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
-	sub_6EF10_set_mouse_minmax(0, 640, 0, 400);
+	VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);
+	SetMouseMinMax_6EF10(0, 640, 0, 400);
 }
 // EA3D8: using guessed type int *xadatapald0dat2.colorPalette_var28;
 
 //----- (0002EC90) --------------------------------------------------------
-void sub_2EC90(char a1)//20fc90
+void SetSubtitleColourAndRedraw_2EC90(char a1)//20fc90
 {
 	//char result; // al
 
@@ -1350,7 +1353,7 @@ void sub_2EC90(char a1)//20fc90
 		//result = a1;
 		x_BYTE_EB3B6 = a1;
 		if (x_DWORD_D41D0)
-			/*result = */sub_2EBB0_draw_text_with_border_630x340(x_DWORD_D41D0);
+			/*result = */DrawSubtitleTextWithBorder_2EBB0(x_DWORD_D41D0);
 	}
 	//return result;
 }
@@ -1378,7 +1381,7 @@ uint32_t DrawText_7FAE0(char* text, int16_t x, int16_t width, int16_t posy, uint
 
 //int debugcounter_271478 = 0;
 //----- (00090478) --------------------------------------------------------
-void sub_90478_VGA_Blit320(uint8_t maxFps)//271478
+void VGA_Blit320_90478(uint8_t maxFps)//271478
 {
 	if (CommandLineParams.DoDebugSequences()) {
 		/* uint8_t origbyte20 = 0;
@@ -1402,7 +1405,7 @@ void sub_90478_VGA_Blit320(uint8_t maxFps)//271478
 		} */
 	}
 	if (!x_BYTE_E3766)
-		sub_8CACD_draw_cursor2();
+		DrawCursorIfEnabled_8CACD();
 
 	std::chrono::duration<double, std::milli> timeDelta = CalculateTimeDelta();
 
@@ -1410,7 +1413,7 @@ void sub_90478_VGA_Blit320(uint8_t maxFps)//271478
 #if _DEBUG
 	VGA_CalculateAndPrintFps(0, 0, timeDelta.count());
 #endif
-	VGA_Blit(pdwScreenBuffer_351628);
+	VGA_Blit(pdwScreenBuffer_351628, pdwScreenAlphaBuffer);
 #endif
 	//if(dos_key_vect_9)dos_key_vect_9();
 	//VGA_mouse_clear_keys();
@@ -1425,7 +1428,7 @@ int debugcounter_258350 = 0;
 //long sub_75200_VGA_Blit640_index= 0;
 int debugcounter_256200 = 0;
 //long oldmillis = 0;
-void sub_75200_VGA_Blit640(uint16_t height, uint8_t maxFps)//256200
+void VGA_Blit640_75200(uint16_t height, uint8_t maxFps)//256200
 {
 	/*if (debugcounter_258350 > 0)
 	{
@@ -1440,7 +1443,7 @@ void sub_75200_VGA_Blit640(uint16_t height, uint8_t maxFps)//256200
 	}*/
 
 	if (!x_BYTE_E3766)
-		sub_8CACD_draw_cursor2();//26dacd
+		DrawCursorIfEnabled_8CACD();//26dacd
 
 	std::chrono::duration<double, std::milli> timeDelta = CalculateTimeDelta();
 #if _DEBUG
@@ -1448,7 +1451,7 @@ void sub_75200_VGA_Blit640(uint16_t height, uint8_t maxFps)//256200
 #endif
 	VGA_DrawMessages();
 	// Not inside the _DEBUG block above: this one is for players, not for us.
-	VGA_Blit(pdwScreenBuffer_351628);
+	VGA_Blit(pdwScreenBuffer_351628, pdwScreenAlphaBuffer);
 
 	//set speed
 	LockFps(maxFps);
@@ -1458,7 +1461,7 @@ void sub_75200_VGA_Blit640(uint16_t height, uint8_t maxFps)//256200
 void VGA_BlitAny(uint8_t maxFps)//256200
 {
 	if (!x_BYTE_E3766)
-		sub_8CACD_draw_cursor2();
+		DrawCursorIfEnabled_8CACD();
 
 	std::chrono::duration<double, std::milli> timeDelta = CalculateTimeDelta();
 #if _DEBUG
@@ -1466,7 +1469,7 @@ void VGA_BlitAny(uint8_t maxFps)//256200
 	VGA_DrawPlayerCoordData(0, 16);
 #endif
 	VGA_DrawMessages();
-	VGA_Blit(pdwScreenBuffer_351628);
+	VGA_Blit(pdwScreenBuffer_351628, pdwScreenAlphaBuffer);
 
 	//set speed
 	LockFps(maxFps);
@@ -1515,6 +1518,7 @@ void CopyAndShiftFrom17DB50_75D70(uint8_t* dest, uint32_t count)//256d70
 void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx)//20cc80
 {
 	uint8_t* temp_screen_buffer; // ST14_4
+	uint8_t* temp_screen_alpha_buffer; // ST14_4
 
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		DrawLineLowRes_90164(posStartX, posStartY, posEndX, posEndY, colorIdx);
@@ -1524,6 +1528,8 @@ void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer_351628;
+		temp_screen_alpha_buffer = pdwScreenAlphaBuffer;
+
 		pdwScreenBuffer_351628 = ptrMemoryBuffer_E9C3C;
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			DrawLineLowRes_90164(posStartX, posStartY, posEndX, posEndY, colorIdx);
@@ -1531,6 +1537,7 @@ void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16
 			DrawLineHighRes_901E4(posStartX, posStartY, posEndX, posEndY, colorIdx);
 
 		pdwScreenBuffer_351628 = temp_screen_buffer;
+		pdwScreenAlphaBuffer = temp_screen_alpha_buffer;
 	}
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -1541,12 +1548,12 @@ void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16
 //----- (0002BC10) --------------------------------------------------------
 void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color, uint8_t scale)//20cc10
 {
-	sub_6F940_sub_draw_text(textbuffer, posx, posy, color, scale);
+	DrawTextRaw_6F940(textbuffer, posx, posy, color, scale);
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)//shifted graphics
 	{
 		uint8_t* temp_screen_buffer = pdwScreenBuffer_351628;
 		pdwScreenBuffer_351628 = ptrMemoryBuffer_E9C3C;
-		sub_6F940_sub_draw_text(textbuffer, posx, posy, color, scale);
+		DrawTextRaw_6F940(textbuffer, posx, posy, color, scale);
 		pdwScreenBuffer_351628 = temp_screen_buffer;
 	}	
 }
@@ -1674,7 +1681,7 @@ void LockFps(uint8_t maxFps)
 // 180628: using guessed type int pdwScreenBuffer_351628;
 
 //----- (0006EF10) --------------------------------------------------------
-void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signed __int16 a4)//24ff10
+void SetMouseMinMax_6EF10(__int16 a1, signed __int16 a2, __int16 a3, signed __int16 a4)//24ff10
 {
 	signed __int16 v4; // si
 	signed __int16 v5; // bx
@@ -1750,9 +1757,9 @@ void DrawText_7FB90(char* textbuffer, int16_t posx, int16_t posy, uint8_t color)
 			if (temptextbuffer[0])//not end char
 			{
 				if (color)
-					sub_72C40_draw_bitmap_640_setcolor(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptextbuffer[0]], color);
+					DrawBitmapWithColour640_72C40(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptextbuffer[0]], color);
 				else
-					sub_7C120_draw_bitmap_640(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptextbuffer[0]]);
+					DrawBitmap640_7C120(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptextbuffer[0]]);
 			}
 			tempposx += xy_DWORD_17DEC0_spritestr[65].width_4;
 			temptextbuffer++;
@@ -1777,9 +1784,9 @@ void DrawText_7FB90(char* textbuffer, int16_t posx, int16_t posy, uint8_t color)
 			if (temptextbuffer[0])//not end char
 			{
 				if (color)
-					sub_72C40_draw_bitmap_640_setcolor(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptextbuffer[0]], color);
+					DrawBitmapWithColour640_72C40(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptextbuffer[0]], color);
 				else
-					sub_7C120_draw_bitmap_640(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptextbuffer[0]]);
+					DrawBitmap640_7C120(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptextbuffer[0]]);
 			}
 			tempposx += xy_DWORD_17DEC0_spritestr[65].width_4;
 			temptextbuffer++;
@@ -1792,7 +1799,7 @@ void DrawText_7FB90(char* textbuffer, int16_t posx, int16_t posy, uint8_t color)
 }
 
 //----- (0008CACD) --------------------------------------------------------
-void sub_8CACD_draw_cursor2()//26dacd
+void DrawCursorIfEnabled_8CACD()//26dacd
 {
 	if (x_DWORD_E3768)
 	{
@@ -1813,7 +1820,7 @@ void drawBitmap320_8F8B0(int16_t posx, int16_t posy, bitmap_pos_struct_t temppst
 	//v4 = 0;
 	//fix it
 
-	sub_8F935_bitmap_draw_final(temppstr.width_4, temppstr.height_5, posy, posx, temppstr.data, 0, 0, 1);//270935 // a2 je 86
+	DrawBitmapFinal_8F935(temppstr.width_4, temppstr.height_5, posy, posx, temppstr.data, 0, 0, 1);//270935 // a2 je 86
 	//return v4;
 }
 // 180628: using guessed type int pdwScreenBuffer_351628;
@@ -1850,8 +1857,8 @@ void drawBitmap640_8F8E8(int16_t posx, int16_t posy, bitmap_pos_struct_t temppst
 	  */
 	  //x_DWORD_180628b
 	  //xasearchd_2bac30.colorPalette_var28
-	  //sub_8F935_bitmap_draw_final(doublebyte_conv(xasearchd_2bac30.colorPalette_var28, a2, a1, a3, 0, 0);//270935
-	sub_8F935_bitmap_draw_final(temppstr.width_4, temppstr.height_5, posy, posx, temppstr.data, 0, 0, scale);//270935
+	  //DrawBitmapFinal_8F935(doublebyte_conv(xasearchd_2bac30.colorPalette_var28, a2, a1, a3, 0, 0);//270935
+	DrawBitmapFinal_8F935(temppstr.width_4, temppstr.height_5, posy, posx, temppstr.data, 0, 0, scale);//270935
   //return v4;
 }
 // 180628: using guessed type int pdwScreenBuffer_351628;
@@ -1859,7 +1866,8 @@ void drawBitmap640_8F8E8(int16_t posx, int16_t posy, bitmap_pos_struct_t temppst
 //----- (00090164) --------------------------------------------------------
 void DrawLineLowRes_90164(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx)
 {
-	uint8_t* pixel;
+	uint8_t* pixel = nullptr;
+	uint8_t* alpha = nullptr;
 	uint16_t v6; // dx
 	uint8_t v7; // ebx
 	int v8; // esi
@@ -1868,6 +1876,9 @@ void DrawLineLowRes_90164(int16_t posStartX, int16_t posStartY, int16_t posEndX,
 	uint16_t v11; // [esp+14h] [ebp+10h]
 
 	pixel = &pdwScreenBuffer_351628[320 * (posStartY >> 1) + (posStartX >> 1)];
+	if (pdwScreenAlphaBuffer != nullptr)
+		alpha = &pdwScreenAlphaBuffer[320 * (posStartY >> 1) + (posStartX >> 1)];
+
 	v6 = posEndY >> 1;
 	v11 = posEndX >> 1;
 	v10 = (320 - v11);
@@ -1882,9 +1893,13 @@ void DrawLineLowRes_90164(int16_t posStartX, int16_t posStartY, int16_t posEndX,
 			{
 				v7 = pixel[0];
 				*pixel++ = *(uint8_t*)(v8 + v7);
+				if (pdwScreenAlphaBuffer != nullptr)
+					*alpha++ = 255;
 				--v9;
 			} while (v9);
 			pixel += v10;
+			if (pdwScreenAlphaBuffer != nullptr)
+				alpha += v10;
 			--v6;
 		} while (v6);
 	}
@@ -1893,7 +1908,11 @@ void DrawLineLowRes_90164(int16_t posStartX, int16_t posStartY, int16_t posEndX,
 		do
 		{
 			memset(pixel, colorIdx, v11);
+			if (pdwScreenAlphaBuffer != nullptr)
+				memset(alpha, 255, v11);
 			pixel += v10 + v11;
+			if (pdwScreenAlphaBuffer != nullptr)
+				alpha += v10 + v11;
 			--v6;
 		} while (v6);
 	}
@@ -1905,7 +1924,8 @@ void DrawLineLowRes_90164(int16_t posStartX, int16_t posStartY, int16_t posEndX,
 //----- (000901E4) --------------------------------------------------------
 void DrawLineHighRes_901E4(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx)//2711e4
 {
-	uint8_t* pixel; // edi
+	uint8_t* pixel = nullptr; // edi
+	uint8_t* alpha = nullptr;
 	__int16 v6; // dx
 	int v7; // ebx
 	int v8; // esi
@@ -1918,6 +1938,10 @@ void DrawLineHighRes_901E4(int16_t posStartX, int16_t posStartY, int16_t posEndX
 			helpWidth = screenWidth_18062C;
 
 	pixel = (uint8_t*)(helpWidth * posStartY + pdwScreenBuffer_351628 + posStartX);
+
+	if (pdwScreenAlphaBuffer != nullptr)
+		alpha = (uint8_t*)(helpWidth * posStartY + pdwScreenAlphaBuffer + posStartX);
+
 	v6 = posEndY;
 	v10 = (unsigned __int16)(helpWidth - posEndX);
 	if (x_WORD_E36D4 & 4)
@@ -1931,9 +1955,13 @@ void DrawLineHighRes_901E4(int16_t posStartX, int16_t posStartY, int16_t posEndX
 			{
 				BYTE1(v7) = *pixel;
 				*pixel++ = *(x_BYTE*)(v7 + v8);
+				if (pdwScreenAlphaBuffer != nullptr)
+					*alpha++ = 255;
 				v9--;
 			} while (v9);
 			pixel += v10;
+			if (pdwScreenAlphaBuffer != nullptr)
+				alpha += v10;
 			v6--;
 		} while (v6);
 	}
@@ -1942,7 +1970,11 @@ void DrawLineHighRes_901E4(int16_t posStartX, int16_t posStartY, int16_t posEndX
 		do
 		{
 			memset(pixel, colorIdx, posEndX);
+			if (pdwScreenAlphaBuffer != nullptr)
+				memset(alpha, 255, posEndX);
 			pixel += v10 + posEndX;
+			if (pdwScreenAlphaBuffer != nullptr)
+				alpha += v10 + posEndX;
 			v6--;
 		} while (v6);
 	}
@@ -1952,7 +1984,7 @@ void DrawLineHighRes_901E4(int16_t posStartX, int16_t posStartY, int16_t posEndX
 // 180628: using guessed type int pdwScreenBuffer_351628;
 
 //----- (0006F940) --------------------------------------------------------
-void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t color, uint8_t scale)//250940
+void DrawTextRaw_6F940(const char* textbuffer, int posx, int posy, uint8_t color, uint8_t scale)//250940
 {
 	uint8_t* v4; // esi
 	int v5; // ebx
@@ -2005,7 +2037,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 		if (!v4[0])
 			goto LABEL_14;
 		//v8 = 6 * (v4[0] + 1);
-		//similar as:sub_7C120_draw_bitmap_640(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptextbuffer[0]]);
+		//similar as:DrawBitmap640_7C120(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptextbuffer[0]]);
 		//bitmap_pos_struct_t tempposistruct;//fixed
 		//tempposistruct.pointer = new uint8_t[1];//fixed
 		/*
@@ -2016,15 +2048,15 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 		tempposistruct.sizey = 0;*/
 		if (help_VGA_type_resolution != 8)//fixed
 		{
-			sub_72C40_draw_bitmap_640_setcolor(v5, posy, x_DWORD_EA3D4[v4[0] + 1], color, scale);//fixed 2509d1
+			DrawBitmapWithColour640_72C40(v5, posy, x_DWORD_EA3D4[v4[0] + 1], color, scale);//fixed 2509d1
 			v9 = x_DWORD_EA3D4[v4[0] + 1].width_4 * scale;
 		}
 		else
 		{
-			sub_72C40_draw_bitmap_640_setcolor(v5, posy, posistruct7[v4[0] + 1], color, scale);//fixed 2509d1
+			DrawBitmapWithColour640_72C40(v5, posy, posistruct7[v4[0] + 1], color, scale);//fixed 2509d1
 			v9 = posistruct7[v4[0] + 1].width_4 * scale;
 		}
-		//sub_72C40_draw_bitmap_640_setcolor(v5, a3, *(new bitmap_pos_struct_t)/*(uint8_t*)(v8 + x_DWORD_EA3D4)*/, a4);
+		//DrawBitmapWithColour640_72C40(v5, a3, *(new bitmap_pos_struct_t)/*(uint8_t*)(v8 + x_DWORD_EA3D4)*/, a4);
 
 	LABEL_15:
 		v5 += v9;
@@ -2038,7 +2070,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 // EA3D4: using guessed type int x_DWORD_EA3D4;
 
 //----- (00072C40) --------------------------------------------------------
-void sub_72C40_draw_bitmap_640_setcolor(int16_t posx, int16_t posy, bitmap_pos_struct_t a3, uint8_t color, uint8_t scale)//253c40
+void DrawBitmapWithColour640_72C40(int16_t posx, int16_t posy, bitmap_pos_struct_t a3, uint8_t color, uint8_t scale)//253c40
 {
 	//uint16_t v4; // dx
 	//uint8_t* v5; // esi
@@ -2053,7 +2085,7 @@ void sub_72C40_draw_bitmap_640_setcolor(int16_t posx, int16_t posy, bitmap_pos_s
 	//v5 = *(uint8_t **)a3;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
-		sub_8F920(a3.width_4, a3.height_5, posy, posx, a3.data, color, 0);
+		DrawBitmapFinalUnscaled_8F920(a3.width_4, a3.height_5, posy, posx, a3.data, color, 0);
 		//result = v7;
 	}
 	else
@@ -2063,7 +2095,7 @@ void sub_72C40_draw_bitmap_640_setcolor(int16_t posx, int16_t posy, bitmap_pos_s
 			/*doublebyte tempdblbyte;
 			tempdblbyte.byte1 = a3.sizex;
 			tempdblbyte.byte2 = a3.sizey;*/
-			sub_8F935_bitmap_draw_final(a3.width_4, a3.height_5, posy, posx, a3.data, color, 0, scale);
+			DrawBitmapFinal_8F935(a3.width_4, a3.height_5, posy, posx, a3.data, color, 0, scale);
 		}
 		//result = v7;
 	}
@@ -2110,6 +2142,8 @@ void DrawCursor_8C635()//26d635
 	x_DWORD_180714 = x_DWORD_180700;
 	x_DWORD_180718 = x_DWORD_1806F0;
 	ptrScreenPos_180708 = x_DWORD_180704_mouse_byte_index1 + pdwScreenBuffer_351628;
+	if (pdwScreenAlphaBuffer != nullptr)
+		ptrScreenAlphaPos = x_DWORD_180704_mouse_byte_index1 + pdwScreenAlphaBuffer;
 	ptrCursorBitmapPos_18070C = x_DWORD_180730_cursor_data;
 
 	int lineStartBytes = 0;
@@ -2128,9 +2162,15 @@ void DrawCursor_8C635()//26d635
 			for (int s = 0; s < scale; s++)
 			{
 				if (ptrCursorBitmapPos_18070C[0] != 0xfe)
+				{
 					ptrScreenPos_180708[0] = ptrCursorBitmapPos_18070C[0];
+					if (pdwScreenAlphaBuffer != nullptr)
+						*ptrScreenAlphaPos = 255;
+				}
 
 				ptrScreenPos_180708++;
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaPos++;
 			}
 
 			ptrCursorBitmapPos_18070C++;
@@ -2152,6 +2192,8 @@ void DrawCursor_8C635()//26d635
 			ptrCursorBitmapPos_18070C += x_DWORD_180734 - x_DWORD_1806FC_mouse_invx;
 		}
 		ptrScreenPos_180708 += screenWidth_18062C - (x_DWORD_1806FC_mouse_invx * scale);
+		if (pdwScreenAlphaBuffer != nullptr)
+			ptrScreenAlphaPos += screenWidth_18062C - (x_DWORD_1806FC_mouse_invx * scale);
 	}
 }
 // E3760: using guessed type int x_DWORD_E3760;
@@ -2178,12 +2220,15 @@ void DrawCursor_8C635()//26d635
 // 18073A: using guessed type int x_DWORD_18073A;
 
 //----- (0008F935) --------------------------------------------------------
-void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6, uint8_t scale)//270935
+void DrawBitmapFinal_8F935(uint8_t width, uint8_t height, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6, uint8_t scale)//270935
 {
 	uint8_t* ptrScreenBuffer;
 	uint8_t* ptrScreenBufferLineStart;
 	uint8_t* pixel_buffer_index; // edi
 	int32_t startOffsetX;
+	uint8_t* ptrScreenAlphaBuffer = nullptr;
+	uint8_t* ptrScreenAlphaBufferLineStart = nullptr;
+	uint8_t* pixel_buffer_alpha_index = nullptr; // edi
 	int32_t posWidth;
 	uint8_t pixel; // al
 
@@ -2215,6 +2260,7 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 	const void* v55; // esi
 	unsigned int v62; // ecx
 	uint8_t* v65; // edi
+	uint8_t* v65a = nullptr; // alpha mirror of v65
 	char v66; // al
 	char* v67; // esi
 	uint8_t v69l;
@@ -2242,6 +2288,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 	unsigned int v117; // ebx
 	x_BYTE* v118; // edi
 	x_BYTE* v119; // edx
+	x_BYTE* v118a = nullptr; // alpha mirror of v118
+	x_BYTE* v119a = nullptr; // alpha mirror of v119
 	int v120; // ecx
 	char v121; // al
 	char v122; // al
@@ -2265,7 +2313,12 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 
 	if (!(height))//453558
 		return;
+
 	pixel_buffer_index = pdwScreenBuffer_351628 + x_DWORD_18063C_sprite_sizex + screenWidth_18062C * x_DWORD_180650_positiony;
+
+	if (pdwScreenAlphaBuffer != nullptr)
+		pixel_buffer_alpha_index = pdwScreenAlphaBuffer + x_DWORD_18063C_sprite_sizex + screenWidth_18062C * x_DWORD_180650_positiony;
+
 	if (x_WORD_180660_VGA_type_resolution & 1)//if 320x200 is resolved, the value is halved
 	{
 		width /= 2;
@@ -2329,6 +2382,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 				--v126;
 			} while (v126);
 			pixel_buffer_index = pdwScreenBuffer_351628;
+			if (pdwScreenAlphaBuffer != nullptr)
+				pixel_buffer_alpha_index = pdwScreenAlphaBuffer;
 		}
 		else
 		{
@@ -2351,12 +2406,16 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						{
 							v79 = width + tilex;
 							ptrScreenBuffer = (screenWidth_18062C * (height + tiley) + v79 + pixel_buffer_index);
+							if (pdwScreenAlphaBuffer != nullptr)
+								ptrScreenAlphaBuffer = (screenWidth_18062C * (height + tiley) + v79 + pixel_buffer_alpha_index);
 							posWidth = 0;
 							v79 = x_DWORD_180634_screen_width - v79 - 2;
 							width = v79;
 							v133 = v79;
 							startOffsetX = -1;
 							ptrScreenBufferLineStart = ptrScreenBuffer;
+							if (pdwScreenAlphaBuffer != nullptr)
+								ptrScreenAlphaBufferLineStart = ptrScreenAlphaBuffer;
 							do
 							{
 								while (1)
@@ -2367,6 +2426,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 										if ((startOffsetX & 0x80u) == 0)
 											break;
 										ptrScreenBuffer += startOffsetX;
+										if (pdwScreenAlphaBuffer != nullptr)
+											ptrScreenAlphaBuffer += startOffsetX;
 										width = width - startOffsetX;
 									}
 									if (!startOffsetX)
@@ -2377,13 +2438,23 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 										pixel = *texture++;
 										width = width + 1;
 										if ((width & 0x80u) == 0)
+										{
 											*ptrScreenBuffer = pixel;
+											if (pdwScreenAlphaBuffer != nullptr)
+												*ptrScreenAlphaBuffer = 255;
+										}
 										--ptrScreenBuffer;
+										if (pdwScreenAlphaBuffer != nullptr)
+											--ptrScreenAlphaBuffer;
 										--posWidth;
 									} while (posWidth);
 								}
 								ptrScreenBufferLineStart -= screenWidth_18062C;
+								if (pdwScreenAlphaBuffer != nullptr)
+									ptrScreenAlphaBufferLineStart -= screenWidth_18062C;
 								ptrScreenBuffer = ptrScreenBufferLineStart;
+								if (pdwScreenAlphaBuffer != nullptr)
+									ptrScreenAlphaBuffer = ptrScreenAlphaBufferLineStart;
 								width = __PAIR__(height, v133) - 256;
 							} while (height);
 						}
@@ -2396,12 +2467,14 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						v85 = x_DWORD_180634_screen_width - v85 - 2;
 						width = v85;
 						v134 = v85;
-						GameBitmap::DrawBitmap(texture, pixel_buffer_index, screenWidth_18062C, v85, tiley, width, height, v134);
+						GameBitmap::DrawBitmap(texture, pixel_buffer_index, screenWidth_18062C, v85, tiley, width, height, v134, pixel_buffer_alpha_index);
 					}
 				}
 				else if (x_WORD_E36D4 & 2)
 				{
 					ptrScreenBuffer = (screenWidth_18062C * (height + tiley) + tilex + pixel_buffer_index);
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBuffer = (screenWidth_18062C * (height + tiley) + tilex + pixel_buffer_alpha_index);
 					v92 = 0;
 					v93 = x_DWORD_180634_screen_width - tilex;
 					if (v93 >= 0)
@@ -2410,6 +2483,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						v135 = v93;
 						startOffsetX = -1;
 						ptrScreenBufferLineStart = ptrScreenBuffer;
+						if (pdwScreenAlphaBuffer != nullptr)
+							ptrScreenAlphaBufferLineStart = ptrScreenAlphaBuffer;
 						do
 						{
 							while (1)
@@ -2420,6 +2495,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 									if ((startOffsetX & 0x80u) == 0)
 										break;
 									ptrScreenBuffer -= startOffsetX;
+									if (pdwScreenAlphaBuffer != nullptr)
+										ptrScreenAlphaBuffer -= startOffsetX;
 									width = startOffsetX + width;
 								}
 								if (!startOffsetX)
@@ -2430,12 +2507,20 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 									v96 = *texture++;
 									width = width - 1;
 									if ((width & 0x80u) == 0)
+									{
 										*ptrScreenBuffer++ = v96;
+										if (pdwScreenAlphaBuffer != nullptr)
+											*ptrScreenAlphaBuffer++ = 255;
+									}
 									--v92;
 								} while (v92);
 							}
 							ptrScreenBufferLineStart -= screenWidth_18062C;
+							if (pdwScreenAlphaBuffer != nullptr)
+								ptrScreenAlphaBufferLineStart -= screenWidth_18062C;
 							ptrScreenBuffer = ptrScreenBufferLineStart;
+							if (pdwScreenAlphaBuffer != nullptr)
+								ptrScreenAlphaBuffer = ptrScreenAlphaBufferLineStart;
 							width = __PAIR__(height, v135) - 256;
 						} while (width);
 					}
@@ -2446,10 +2531,14 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 				if (x_DWORD_180634_screen_width - tilex >= 0)
 				{
 					ptrScreenBuffer = (screenWidth_18062C * tiley + tilex + pixel_buffer_index);
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBuffer = (screenWidth_18062C * tiley + tilex + pixel_buffer_alpha_index);
 					v69l = x_DWORD_180634_screen_width - tilex;
 					v69h = height;//ebx
 					v132 = v69l;//ebp-6
 					ptrScreenBufferLineStart = ptrScreenBuffer;//edx edi
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBufferLineStart = ptrScreenAlphaBuffer;
 					v72l = 0;//ecx
 					do
 					{
@@ -2467,6 +2556,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 								if (!((v76 ^ v46) | v75))
 								{
 									ptrScreenBuffer -= v73;
+									if (pdwScreenAlphaBuffer != nullptr)
+										ptrScreenAlphaBuffer -= v73;
 									v77 = *texture++;
 									v72l = v77;
 									do
@@ -2474,7 +2565,11 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 										v78 = *texture++;
 										v69l--;
 										if ((v69l & 0x80u) == 0)//fix
+										{
 											*ptrScreenBuffer++ = v78;
+											if (pdwScreenAlphaBuffer != nullptr)
+												*ptrScreenAlphaBuffer++ = 255;
+										}
 										v72l--;
 									} while (v72l);
 								}
@@ -2487,12 +2582,20 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 								v74 = *texture++;
 								v69l--;
 								if ((v69l & 0x80u) == 0)//fix
+								{
 									*ptrScreenBuffer++ = v74;
+									if (pdwScreenAlphaBuffer != nullptr)
+										*ptrScreenAlphaBuffer++ = 255;
+								}
 								v72l--;
 							} while (v72l);
 						}
 						ptrScreenBufferLineStart += screenWidth_18062C;
+						if (pdwScreenAlphaBuffer != nullptr)
+							ptrScreenAlphaBufferLineStart += screenWidth_18062C;
 						ptrScreenBuffer = ptrScreenBufferLineStart;
+						if (pdwScreenAlphaBuffer != nullptr)
+							ptrScreenAlphaBuffer = ptrScreenAlphaBufferLineStart;
 
 						v69l = /*(v69l&0xff00)+*/v132;//fix
 						v69h--;
@@ -2505,9 +2608,13 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 			if (x_WORD_E36D4 & 2)
 			{
 				ptrScreenBuffer = (screenWidth_18062C * (height + tiley) + width + tilex + pixel_buffer_index);
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBuffer = (screenWidth_18062C * (height + tiley) + width + tilex + pixel_buffer_alpha_index);
 				posWidth = 0;
 				startOffsetX = -1;
 				ptrScreenBufferLineStart = ptrScreenBuffer;
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBufferLineStart = ptrScreenAlphaBuffer;
 				do
 				{
 					while (1)
@@ -2523,12 +2630,16 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 								break;
 							}
 							ptrScreenBuffer += startOffsetX;
+							if (pdwScreenAlphaBuffer != nullptr)
+								ptrScreenAlphaBuffer += startOffsetX;
 							v12 = *texture++;
 							posWidth = v12;
 							do
 							{
 								v13 = *texture++;
 								*ptrScreenBuffer-- = v13;
+								if (pdwScreenAlphaBuffer != nullptr)
+									*ptrScreenAlphaBuffer-- = 255;
 								--posWidth;
 							} while (posWidth);
 						}
@@ -2539,20 +2650,30 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						{
 							pixel = *texture++;
 							*ptrScreenBuffer-- = pixel;
+							if (pdwScreenAlphaBuffer != nullptr)
+								*ptrScreenAlphaBuffer-- = 255;
 							--posWidth;
 						} while (posWidth);
 					}
 					ptrScreenBufferLineStart -= screenWidth_18062C;
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBufferLineStart -= screenWidth_18062C;
 					ptrScreenBuffer = ptrScreenBufferLineStart;
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBuffer = ptrScreenAlphaBufferLineStart;
 					--height;
 				} while (height);
 			}
 			else
 			{
 				ptrScreenBuffer = (screenWidth_18062C * tiley + width + tilex + pixel_buffer_index);
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBuffer = (screenWidth_18062C * tiley + width + tilex + pixel_buffer_alpha_index);
 				v15 = 0;
 				startOffsetX = -1;
 				ptrScreenBufferLineStart = ptrScreenBuffer;
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBufferLineStart = ptrScreenAlphaBuffer;
 				do
 				{
 					while (1)
@@ -2566,12 +2687,16 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 								break;
 							}
 							ptrScreenBuffer += startOffsetX;
+							if (pdwScreenAlphaBuffer != nullptr)
+								ptrScreenAlphaBuffer += startOffsetX;
 							v19 = *texture++;
 							v15 = v19;
 							do
 							{
 								v20 = *texture++;
 								*ptrScreenBuffer-- = v20;
+								if (pdwScreenAlphaBuffer != nullptr)
+									*ptrScreenAlphaBuffer-- = 255;
 								--v15;
 							} while (v15);
 						}
@@ -2582,11 +2707,18 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						{
 							v18 = *texture++;
 							*ptrScreenBuffer-- = v18;
+							if (pdwScreenAlphaBuffer != nullptr)
+								*ptrScreenAlphaBuffer-- = 255;
 							--v15;
 						} while (v15);
 					}
 					ptrScreenBufferLineStart += screenWidth_18062C;
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBufferLineStart += screenWidth_18062C;
+
 					ptrScreenBuffer = ptrScreenBufferLineStart;
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBuffer = ptrScreenAlphaBufferLineStart;
 					--height;
 				} while (height);
 			}
@@ -2596,9 +2728,13 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 			if (x_WORD_E36D4 & 2)
 			{
 				ptrScreenBuffer = (screenWidth_18062C * (height + tiley) + tilex + pixel_buffer_index);
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBuffer = (screenWidth_18062C * (height + tiley) + tilex + pixel_buffer_alpha_index);
 				v29 = 0;
 				startOffsetX = -1;
 				ptrScreenBufferLineStart = ptrScreenBuffer;
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBufferLineStart = ptrScreenAlphaBuffer;
 				do
 				{
 					while (1)
@@ -2618,6 +2754,11 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 							qmemcpy(v32, v34, v29);
 							texture = (uint8_t*)&v34[v29];
 							ptrScreenBuffer = &v32[v29];
+							if (pdwScreenAlphaBuffer != nullptr)
+							{
+								memset(&ptrScreenAlphaBuffer[-startOffsetX], 255, v29);
+								ptrScreenAlphaBuffer = &ptrScreenAlphaBuffer[-startOffsetX + v29];
+							}
 							v29 = 0;
 						}
 						if (!startOffsetX)
@@ -2626,10 +2767,19 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						qmemcpy(ptrScreenBuffer, texture, v29);
 						texture += v29;
 						ptrScreenBuffer += v29;
+						if (pdwScreenAlphaBuffer != nullptr)
+						{
+							memset(ptrScreenAlphaBuffer, 255, v29);
+							ptrScreenAlphaBuffer += v29;
+						}
 						v29 = 0;
 					}
 					ptrScreenBufferLineStart -= screenWidth_18062C;
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBufferLineStart -= screenWidth_18062C;
 					ptrScreenBuffer = ptrScreenBufferLineStart;
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBuffer = ptrScreenAlphaBufferLineStart;
 					--height;
 				} while (height);
 			}
@@ -2637,8 +2787,12 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 			{
 				v35 = x_DWORD_E3890;
 				ptrScreenBuffer = (screenWidth_18062C * tiley + tilex + pixel_buffer_index);
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBuffer = (screenWidth_18062C * tiley + tilex + pixel_buffer_alpha_index);
 				v37 = 0;
 				ptrScreenBufferLineStart = ptrScreenBuffer;
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBufferLineStart = ptrScreenAlphaBuffer;
 				do
 				{
 					while (1)
@@ -2652,6 +2806,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 								break;
 							}
 							ptrScreenBuffer -= (char)startOffsetX;
+							if (pdwScreenAlphaBuffer != nullptr)
+								ptrScreenAlphaBuffer -= (char)startOffsetX;
 						}
 						if (!startOffsetX)
 							break;
@@ -2662,19 +2818,29 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 							v40 = *texture++;
 							v40 = *ptrScreenBuffer;
 							*ptrScreenBuffer++ = *(x_BYTE*)(v40 + v35);
+							if (pdwScreenAlphaBuffer != nullptr)
+								ptrScreenAlphaBuffer++;
 							--v37;
 						} while (v37);
 					}
 					ptrScreenBufferLineStart += screenWidth_18062C;
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBufferLineStart += screenWidth_18062C;
 					ptrScreenBuffer = ptrScreenBufferLineStart;
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBuffer = ptrScreenAlphaBufferLineStart;
 					--height;
 				} while (height);
 			}
 			else if (x_WORD_E36D4 & 8)
 			{
 				ptrScreenBuffer = (screenWidth_18062C * tiley + tilex + pixel_buffer_index);
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBuffer = (screenWidth_18062C * tiley + tilex + pixel_buffer_alpha_index);
 				v42 = 0;
 				ptrScreenBufferLineStart = ptrScreenBuffer;
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBufferLineStart = ptrScreenAlphaBuffer;
 				v140 = height;
 				for (i = setbyte; ; i = setbyte)
 				{
@@ -2693,6 +2859,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 								{
 									i = setbyte;
 									++ptrScreenBuffer;
+									if (pdwScreenAlphaBuffer != nullptr)
+										++ptrScreenAlphaBuffer;
 								}
 								--v42;
 							} while (v42);
@@ -2708,6 +2876,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 							{
 								i = setbyte;
 								*ptrScreenBuffer++ = v45;
+								if (pdwScreenAlphaBuffer != nullptr)
+									*ptrScreenAlphaBuffer++ = 255;
 							}
 							--v42;
 						} while (v42);
@@ -2728,13 +2898,21 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						}
 					}
 					ptrScreenBufferLineStart += screenWidth_18062C;
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBufferLineStart += screenWidth_18062C;
 					ptrScreenBuffer = ptrScreenBufferLineStart;
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBuffer = ptrScreenAlphaBufferLineStart;
 				}
 			}
 			else if (x_WORD_E36D4 & 0x20)
 			{
 				ptrScreenBuffer = (screenWidth_18062C * tiley + tilex + pixel_buffer_index);
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBuffer = (screenWidth_18062C * tiley + tilex + pixel_buffer_alpha_index);
 				ptrScreenBufferLineStart = ptrScreenBuffer;
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBufferLineStart = ptrScreenAlphaBuffer;
 				v141 = height;
 				do
 				{
@@ -2746,6 +2924,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 							if (v50 >= 0)
 								break;
 							ptrScreenBuffer += (setbyte * -v50);
+							if (pdwScreenAlphaBuffer != nullptr)
+								ptrScreenAlphaBuffer += (setbyte * -v50);
 						}
 						if (!v50)
 							break;
@@ -2755,6 +2935,11 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 							v52 = *texture++;
 							memset(ptrScreenBuffer, v52, setbyte);
 							ptrScreenBuffer += setbyte;
+							if (pdwScreenAlphaBuffer != nullptr)
+							{
+								memset(ptrScreenAlphaBuffer, 255, setbyte);
+								ptrScreenAlphaBuffer += setbyte;
+							}
 							v46 = __OFSUB__(v51--, 1);
 						} while (!(((v51 < 0) ^ v46) | (v51 == 0)));
 					}
@@ -2767,26 +2952,41 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						{
 							v55 = ptrScreenBufferLineStart;
 							ptrScreenBufferLineStart += screenWidth_18062C;
+							if (pdwScreenAlphaBuffer != nullptr)
+							{
+								// the repeated line copies its alpha too
+								memcpy(ptrScreenAlphaBufferLineStart + screenWidth_18062C, ptrScreenAlphaBufferLineStart, v54);
+								ptrScreenAlphaBufferLineStart += screenWidth_18062C;
+							}
+
 							qmemcpy(ptrScreenBufferLineStart, (void*)v55, v54);
 							v46 = __OFSUB__(v53--, 1);
 						} while (!(((v53 < 0) ^ v46) | (v53 == 0)));
 						texture = (uint8_t*)v131;
 					}
 					ptrScreenBufferLineStart += screenWidth_18062C;
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBufferLineStart += screenWidth_18062C;
 					ptrScreenBuffer = ptrScreenBufferLineStart;
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBuffer = ptrScreenAlphaBufferLineStart;
 					--v141;
 				} while (v141);
 			}
 			else if (x_WORD_E36D4 & 0x40)
 			{
-				GameBitmap::DrawColourizedBitmap(texture, setbyte, pixel_buffer_index, screenWidth_18062C, tilex, tiley, height, scale);
+				GameBitmap::DrawColourizedBitmap(texture, setbyte, pixel_buffer_index, screenWidth_18062C, tilex, tiley, height, scale, pixel_buffer_alpha_index);
 			}
 			else
 			{
 				ptrScreenBuffer = (screenWidth_18062C * tiley + tilex + pixel_buffer_index);
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBuffer = (screenWidth_18062C * tiley + tilex + pixel_buffer_alpha_index);
 				v62 = 0;
 				startOffsetX = -1;
 				ptrScreenBufferLineStart = ptrScreenBuffer;
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBufferLineStart = ptrScreenAlphaBuffer;
 				do
 				{
 					while (1)
@@ -2795,17 +2995,21 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						{
 							startOffsetX = *texture++;
 							if ((startOffsetX & 0x80u) == 0)
-							{
-								//Start Drawing
 								break;
-							}
 							v65 = &ptrScreenBuffer[-startOffsetX];
+							if (pdwScreenAlphaBuffer != nullptr)
+								v65a = &ptrScreenAlphaBuffer[-startOffsetX];
 							v66 = *texture;
 							v67 = (char*)(texture + 1);
 							v62 = v66;
 							qmemcpy(v65, v67, v62);
 							texture = (uint8_t*)&v67[v62];
 							ptrScreenBuffer = &v65[v62];
+							if (pdwScreenAlphaBuffer != nullptr)
+							{
+								memset(v65a, 255, v62);
+								ptrScreenAlphaBuffer = &v65a[v62];
+							}
 							v62 = 0;
 						}
 						if (!startOffsetX)
@@ -2814,17 +3018,26 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						qmemcpy(ptrScreenBuffer, texture, v62);
 						texture += v62;
 						ptrScreenBuffer += v62;
+						if (pdwScreenAlphaBuffer != nullptr)
+						{
+							memset(ptrScreenAlphaBuffer, 255, v62);
+							ptrScreenAlphaBuffer += v62;
+						}
 						v62 = 0;
 					}
 					ptrScreenBufferLineStart += screenWidth_18062C;
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBufferLineStart += screenWidth_18062C;
 					ptrScreenBuffer = ptrScreenBufferLineStart;
+					if (pdwScreenAlphaBuffer != nullptr)
+						ptrScreenAlphaBuffer = ptrScreenAlphaBufferLineStart;
 					--height;
 				} while (height);
 			}
 		}
 		else
 		{
-			GameBitmap::DrawBitmap(texture, pixel_buffer_index, screenWidth_18062C, tilex, tiley, height, scale);
+			GameBitmap::DrawBitmap(texture, pixel_buffer_index, screenWidth_18062C, tilex, tiley, height, scale, pixel_buffer_alpha_index);
 		}
 		return;
 	}
@@ -2836,8 +3049,12 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 		if (width <= v117)
 			return;
 		v118 = (x_BYTE*)(screenWidth_18062C * (height + tiley) + pixel_buffer_index);
+		if (pdwScreenAlphaBuffer != nullptr)
+			v118a = (x_BYTE*)(screenWidth_18062C * (height + tiley) + pixel_buffer_alpha_index);
 		v117 = height;
 		v119 = v118;
+		if (pdwScreenAlphaBuffer != nullptr)
+			v119a = v118a;
 		v139 = v117;
 		v120 = 0;
 		while (1)
@@ -2857,14 +3074,22 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 							v122 = *texture++;
 							v117 = v117 - 1;
 							if ((v117 & 0x80u) != 0)
+							{
 								*v118++ = v122;
+								if (pdwScreenAlphaBuffer != nullptr)
+									*v118a++ = (x_BYTE)255;
+							}
 							v120--;
 						} while (v120);
 					}
 					else
 					{
 						v119 -= screenWidth_18062C;
+						if (pdwScreenAlphaBuffer != nullptr)
+							v119a -= screenWidth_18062C;
 						v118 = v119;
+						if (pdwScreenAlphaBuffer != nullptr)
+							v118a = v119a;
 						v117 = __PAIR__(v117, v139) - 256;
 						if (!v117)
 							return;
@@ -2874,6 +3099,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 					break;
 			LABEL_225:
 				v118 -= v121;
+				if (pdwScreenAlphaBuffer != nullptr)
+					v118a -= v121;
 				v123 = *texture++;
 				v120 = v123;
 				do
@@ -2881,7 +3108,11 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 					v124 = *texture++;
 					v117 = v117 - 1;
 					if ((v117 & 0x80u) != 0)
+					{
 						*v118++ = v124;
+						if (pdwScreenAlphaBuffer != nullptr)
+							*v118a++ = (x_BYTE)255;
+					}
 					v120--;
 				} while (v120);
 			}
@@ -2896,6 +3127,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 	if (x_WORD_E36D4 & 2)
 	{
 		ptrScreenBuffer = (screenWidth_18062C * (height + tiley) + width + tilex + pixel_buffer_index);
+		if (pdwScreenAlphaBuffer != nullptr)
+			ptrScreenAlphaBuffer = (screenWidth_18062C * (height + tiley) + width + tilex + pixel_buffer_alpha_index);
 		v106 = 0;
 		v107 = width + tilex + 1;
 		if (v107 >= 0)
@@ -2903,6 +3136,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 			width = v107;
 			v137 = v107;
 			ptrScreenBufferLineStart = ptrScreenBuffer;
+			if (pdwScreenAlphaBuffer != nullptr)
+				ptrScreenAlphaBufferLineStart = ptrScreenAlphaBuffer;
 			startOffsetX = -1;
 			do
 			{
@@ -2917,6 +3152,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 							break;
 						}
 						ptrScreenBuffer += startOffsetX;
+						if (pdwScreenAlphaBuffer != nullptr)
+							ptrScreenAlphaBuffer += startOffsetX;
 						width = startOffsetX + width;
 					}
 					if (!startOffsetX)
@@ -2927,13 +3164,23 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						v110 = *texture++;
 						width = width - 1;
 						if ((width & 0x80u) == 0)
+						{
 							*ptrScreenBuffer = v110;
+							if (pdwScreenAlphaBuffer != nullptr)
+								*ptrScreenAlphaBuffer = 255;
+						}
 						ptrScreenBuffer--;
+						if (pdwScreenAlphaBuffer != nullptr)
+							ptrScreenAlphaBuffer--;
 						v106--;
 					} while (v106);
 				}
 				ptrScreenBufferLineStart -= screenWidth_18062C;
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBufferLineStart -= screenWidth_18062C;
 				ptrScreenBuffer = ptrScreenBufferLineStart;
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBuffer = ptrScreenAlphaBufferLineStart;
 				width = __PAIR__(height, v137) - 256;
 			} while (height);
 		}
@@ -2941,6 +3188,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 	else
 	{
 		ptrScreenBuffer = (screenWidth_18062C * tiley + width + tilex + pixel_buffer_index);
+		if (pdwScreenAlphaBuffer != nullptr)
+			ptrScreenAlphaBuffer = (screenWidth_18062C * tiley + width + tilex + pixel_buffer_alpha_index);
 		v112 = 0;
 		v113 = width + tilex + 1;
 		if (v113 >= 0)
@@ -2948,6 +3197,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 			width = v113;
 			v138 = v113;
 			ptrScreenBufferLineStart = ptrScreenBuffer;
+			if (pdwScreenAlphaBuffer != nullptr)
+				ptrScreenAlphaBufferLineStart = ptrScreenAlphaBuffer;
 			startOffsetX = -1;
 			do
 			{
@@ -2962,6 +3213,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 							break;
 						}
 						ptrScreenBuffer += startOffsetX;
+						if (pdwScreenAlphaBuffer != nullptr)
+							ptrScreenAlphaBuffer += startOffsetX;
 						width = startOffsetX + width;
 					}
 					if (!startOffsetX)
@@ -2972,13 +3225,23 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						v116 = *texture++;
 						width = width - 1;
 						if ((width & 0x80u) == 0)
+						{
 							*ptrScreenBuffer = v116;
+							if (pdwScreenAlphaBuffer != nullptr)
+								*ptrScreenAlphaBuffer = 255;
+						}
 						ptrScreenBuffer--;
+						if (pdwScreenAlphaBuffer != nullptr)
+							ptrScreenAlphaBuffer--;
 						posWidth--;
 					} while (posWidth);
 				}
 				ptrScreenBufferLineStart += screenWidth_18062C;
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBufferLineStart += screenWidth_18062C;
 				ptrScreenBuffer = ptrScreenBufferLineStart;
+				if (pdwScreenAlphaBuffer != nullptr)
+					ptrScreenAlphaBuffer = ptrScreenAlphaBufferLineStart;
 				width = __PAIR__(width, v138) - 256;
 			} while (height);
 		}
@@ -2997,9 +3260,9 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0008F920) --------------------------------------------------------
-void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6)//270920
+void DrawBitmapFinalUnscaled_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6)//270920
 {
-	sub_8F935_bitmap_draw_final(a1byte1, a1byte2, posx, posy, a4, a5, a6, 1);//270935
+	DrawBitmapFinal_8F935(a1byte1, a1byte2, posx, posy, a4, a5, a6, 1);//270935
 }
 
 signed int GetTrueWizardNumber_61790(signed int inputnumber)//242790

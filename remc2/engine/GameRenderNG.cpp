@@ -234,7 +234,7 @@ void GameRenderNG::SmoothViewPort()
 void GameRenderNG::DrawSky_40950(int16_t roll)
 {
 	SkyPlan& sky = m_sky;
-	sky.size = x_BYTE_D41B5_texture_size == 128 ? 1024 : 256;
+	sky.size = TileTextureSize_D41B5 == 128 ? 1024 : 256;
 	sky.mask = sky.size - 1;
 	const int width = viewPort.Width_DE564;
 	const int rollIndex = roll & 0x7FF;
@@ -332,7 +332,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	const int quadrantCos = Maths::sin_DB750[512 + quadrantYaw];
 	const int quadrantSin = Maths::sin_DB750[quadrantYaw];
 	SetBillboards_3B560(-roll & 0x7FF);//21d1aa
-	str_F2C20ar.dword0x18 = 7 * Maths::sub_7277A_radix_3d(viewPort.Width_DE564 * viewPort.Width_DE564 + viewPort.Height_DE568 * viewPort.Height_DE568) * fov >> 11;
+	str_F2C20ar.dword0x18 = 7 * Maths::IntegerSqrt_7277A(viewPort.Width_DE564 * viewPort.Width_DE564 + viewPort.Height_DE568 * viewPort.Height_DE568) * fov >> 11;
 	const uint8_t* steps = &m_tileSteps_D4328[10 * quadrant];
 
 	// the grid: x across the view, y (depth) along it
@@ -394,7 +394,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	{
 		uint8_t* line = ViewPortRenderBufferStart_DE558;
 		for (int row = 0; row < viewPort.Height_DE568; row++, line += iScreenWidth_DE560)
-			memset(line, keyColor1_D4B7C, DrawnWidth());
+			memset(line, m_BackgroundColour_D4B7C, DrawnWidth());
 	}
 	else
 		DrawSky_40950(roll);
@@ -707,7 +707,7 @@ void GameRenderNG::DrawReflectedTile(TerrainVertex quad[4], int index)
 		}
 	}
 	if (tile.haveBillboard_36)
-		sub_3FD60(index);
+		DrawTileSpriteReflections_3FD60(index);
 }
 
 // The terrain tile and its sprites; with water the tiles with flag 0x80 are drawn transparent (mode 26) over the reflection.
@@ -732,7 +732,7 @@ void GameRenderNG::DrawTerrainTile(TerrainVertex quad[4], int index, bool water)
 
 // Help (showHelp_10): the help text (str_E2A74) of the entity on the screen; the nearest entity of a text wins,
 // a text being shown follows its entity on the screen.
-void GameRenderNG::sub_88740(type_entity_0x6E8E* entity, int16_t posX, int16_t posY)
+void GameRenderNG::SetEntityHelpText_88740(type_entity_0x6E8E* entity, int16_t posX, int16_t posY)
 {
 	if (str_unk_1804B0ar.PopupStatusByte_0x9e & 1)
 		return;
@@ -985,7 +985,7 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 	if (m_shadows_F2CC7 && !tile.textAtyp_43 && !(entity->struct_byte_0xc_12_15.word[1] & 0x808))
 	{
 		//21f40c
-		const int height = sub_B5C60_getTerrainAlt2(entity->position_0x4C_76.x, entity->position_0x4C_76.y) - str_F2C20ar.dword0x20;
+		const int height = GetTerrainAlt2_B5C60(entity->position_0x4C_76.x, entity->position_0x4C_76.y) - str_F2C20ar.dword0x20;
 		const int64_t distance = static_cast<int64_t>(depth) * depth + static_cast<int64_t>(across) * across;
 		if (depth > 64 && distance < m_cutOffDistance)
 		{
@@ -1050,7 +1050,7 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 	const int64_t distance = static_cast<int64_t>(depth) * depth + static_cast<int64_t>(across) * across;
 	if (depth <= 64 || distance >= m_cutOffDistance)
 		return;
-	// a longer view: the game logic (sub_21490) reacts to the seen flag, only the entities of the original grid and
+	// a longer view: the game logic (EmuUpdateState_21490) reacts to the seen flag, only the entities of the original grid and
 	// cut-off set it (the rows behind the camera and the far tiles are drawn only here)
 	const int tileIndex = static_cast<int>(&tile - m_tiles);
 	const int row = tileIndex / m_tileColumns - m_standardFirstRow;
@@ -1091,7 +1091,7 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 }
 
 // The entities of the tile mirrored in the water (below the terrain, upside down).
-void GameRenderNG::sub_3FD60(int tileIndex)
+void GameRenderNG::DrawTileSpriteReflections_3FD60(int tileIndex)
 {
 	FlushQueue();
 	Type_Sprite* sprite = nullptr;
@@ -1142,7 +1142,7 @@ int GameRenderNG::SpriteLight(int64_t distance)
 }
 
 // The flying creature (sprites 295-302) is meant to come out of the fog near the player: with a longer view it fades in the fog
-// of view distance 1 in the steps of the vanishing of sub_21490 (InFog, Transparent) and is gone past it.
+// of view distance 1 in the steps of the vanishing of EmuUpdateState_21490 (InFog, Transparent) and is gone past it.
 static bool FadesInStandardFog(int spriteIndex)
 {
 	return spriteIndex >= 295 && spriteIndex <= 302;
@@ -1271,7 +1271,7 @@ void GameRenderNG::DrawSprite_41BD3(uint32 pass)
 	if (draw && !x_D41A0_BYTEARRAY_4_struct.byteindex_207 && entity->class_0x3F_63 == 3 && (!entity->model_0x40_64 || entity->model_0x40_64 == 1))
 		DrawSorcererNameAndHealthBar_2CB30(entity, str_F2C20ar.dword0x04_screenY, static_cast<int16_t>(str_F2C20ar.dword0x03_screenX), str_F2C20ar.dword0x09_realWidth);
 	if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
-		sub_88740(entity, str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1), str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1));
+		SetEntityHelpText_88740(entity, str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1), str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1));
 	if ((entity->struct_byte_0xc_12_15.byte[3] & 0x40) && m_standardView)
 		entity->subSpellIndex_0x2A_42 |= 0x40;
 }
@@ -1650,7 +1650,7 @@ void GameRenderNG::DrawUprightSprite(uint32 pass)
 		str_F2C20ar.dword0x0b += columnStep;
 	}
 	if (pass == (uint32_t)SpritePass::Main && x_D41A0_BYTEARRAY_4_struct.showHelp_10)
-		sub_88740(str_F2C20ar.dword0x14x, str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1), str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1));
+		SetEntityHelpText_88740(str_F2C20ar.dword0x14x, str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1), str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1));
 	uint8_t* line = &ViewPortRenderBufferStart_DE558[str_F2C20ar.dword0x03_screenX * iScreenWidth_DE560 + str_F2C20ar.dword0x04_screenY];
 	for (; str_F2C20ar.dword0x0c_realHeight; str_F2C20ar.dword0x0c_realHeight--)
 	{

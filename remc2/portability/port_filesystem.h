@@ -43,7 +43,7 @@ extern std::string highResGraphicsFolder;
 extern std::string fixedMenuGraphicsFolder;
 extern std::string fixedTmapsFolder;
 extern std::string extendedFontsFolder;
-extern std::string forceRender;
+extern std::string m_render;
 extern spdlog::logger* Logger;
 
 const char* GetStringFromLoggingLevel(spdlog::level::level_enum level);

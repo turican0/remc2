@@ -26,11 +26,11 @@ type_E9C08* animations_E9C08x; // weak
 bool big_sprites_inited = false;
 uint8_t* m_pColorPalette = NULL;
 
-// Sprites with an error in the original data: sub_70C60_decompress_tmap takes them from
+// Sprites with an error in the original data: DecompressTmap_70C60 takes them from
 // graphics/fixed/tmaps/TMAPS2-<map type>-<index>.data instead of the TMAPS file, the decompressed sprite
 // (u16 word_0, u16 width, u16 height, pixels). Day and cave 452 is a 320x200 canvas with the figure in the middle,
 // its neighbours 444-451 are cropped to the figure. Only drawing reads the size, the game state does not depend on it.
-// Read with the TMAPS files (sub_70A60_open_tmaps).
+// Read with the TMAPS files (OpenTmaps_70A60).
 MapType_t tmapsMapType = MapType_t::Day;
 static std::vector<uint8_t> fixedSprites[3][504];//[map type][sprite]
 
@@ -67,8 +67,8 @@ bool MainInitTmaps_71520(unsigned __int16 a1)
 	unsigned __int16 v4; // ax
 
 	v1 = 0;
-	v2 = sub_70EF0(a1);
-	for (i = v2 - sub_71E60(x_DWORD_E9C28_str) + 20; i > 0; i -= sub_71090(i))
+	v2 = GetTmapGroupSize_70EF0(a1);
+	for (i = v2 - GetTmapCacheFreeSize_71E60(x_DWORD_E9C28_str) + 20; i > 0; i -= EvictLeastUsedTmaps_71090(i))
 	{
 		v4 = v1++;
 		if (v4 >= 4u)
@@ -82,7 +82,7 @@ bool MainInitTmaps_71520(unsigned __int16 a1)
 	return m_ptrLoadedSprites_F66F0x[a1] != 0;
 }
 
-int sub_70EF0(unsigned __int16 a1)//251ef0
+int GetTmapGroupSize_70EF0(unsigned __int16 a1)//251ef0
 {
 	unsigned __int16 v1; // dx
 	int i; // ebx
@@ -98,7 +98,7 @@ int sub_70EF0(unsigned __int16 a1)//251ef0
 	return i;
 }
 
-int sub_71E60(type_x_DWORD_E9C28_str* a1y)//252e60
+int GetTmapCacheFreeSize_71E60(type_x_DWORD_E9C28_str* a1y)//252e60
 {
 	return a1y->dword_4;
 }
@@ -116,7 +116,7 @@ signed int GetIndex_71CD0(type_x_DWORD_E9C28_str* a1y)//252cd0
 	return -1;
 }
 
-unsigned int sub_71090(unsigned int a1)//252090
+unsigned int EvictLeastUsedTmaps_71090(unsigned int a1)//252090
 {
 	int v1; // eax
 	unsigned __int16 v2; // dx
@@ -242,17 +242,17 @@ unsigned int sub_71090(unsigned int a1)//252090
 		if (*(int*)((char*)&v21 + v19) <= -1)
 			break;
 		if (v31)
-			v18 = sub_70E10(*(x_WORD*)((char*)&v21 + v19));
+			v18 = UnloadTmapGroup_70E10(*(x_WORD*)((char*)&v21 + v19));
 		else
 			v18 = ResetTmap_70D20(*(x_WORD*)((char*)&v21 + v19));
 		if (v18)
-			v17 += sub_70EF0(*(x_WORD*)((char*)&v21 + v19));
+			v17 += GetTmapGroupSize_70EF0(*(x_WORD*)((char*)&v21 + v19));
 		++v16;
 	}
 	return v17;
 }
 
-char sub_70E10(unsigned __int16 a1)//251e10
+char UnloadTmapGroup_70E10(unsigned __int16 a1)//251e10
 {
 	//int v1; // edx
 	//__int16 v2; // di
@@ -274,7 +274,7 @@ char sub_70E10(unsigned __int16 a1)//251e10
 				v5x = GetAnimationByIndex_724F0(animations_E9C08x, i);
 				ResetAnimation_72410(v5x);
 			}
-			sub_71F20(x_DWORD_E9C28_str, str_F5F10[i]);
+			FreeTmapCacheEntry_71F20(x_DWORD_E9C28_str, str_F5F10[i]);
 			m_ptrLoadedSprites_F66F0x[i] = 0;
 			str_F5F10[i] = 0;
 			x_DWORD_F5730[i] = 0;
@@ -298,7 +298,7 @@ char ResetTmap_70D20(uint16 tmapsIndex)//251d20
 			{
 				ResetAnimation_72410(GetAnimationByIndex_724F0(animations_E9C08x, i));
 			}
-			sub_71F20(x_DWORD_E9C28_str, str_F5F10[i]);
+			FreeTmapCacheEntry_71F20(x_DWORD_E9C28_str, str_F5F10[i]);
 			m_ptrLoadedSprites_F66F0x[i] = 0;
 			str_F5F10[i] = 0;
 			x_DWORD_F5730[i] = 0;
@@ -323,7 +323,7 @@ type_animations1* GetAnimationByIndex_724F0(type_E9C08* animations, __int16 inde
 	return &(animations->dword_2[resulty]);
 }
 
-void sub_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252f20
+void FreeTmapCacheEntry_71F20(type_x_DWORD_E9C28_str* a1y, subtype_x_DWORD_E9C28_str* a2x)//252f20
 {
 	Type_Sprite* v2y;
 	subtype_x_DWORD_E9C28_str* v3x; // ecx
@@ -453,8 +453,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 			//v4 = index3;
 			if (index3x)
 			{
-				int index4 = sub_70C60_decompress_tmap(i, (uint8_t*)index3x->partstr_0);
-				//WriteTextureMapToBmp(i, index3x->partstr_0, D41A0_0.terrain_2FECE.MapType);
+				int index4 = DecompressTmap_70C60(i, (uint8_t*)index3x->partstr_0);
 				if (index4 != -1)
 				{
 					if (bigSprites)
@@ -529,7 +528,19 @@ void InitTmaps(unsigned __int16 a1)//251f50
 
 					//if (**(uint8_t**)index6 & 1)
 					if ((*index6x)->word_0 & 1)
-						index = sub_721C0_initTmap(animations_E9C08x, index6x, i);
+						index = InitTmapAnimation_721C0(animations_E9C08x, index6x, i);
+					else if ((*index6x)->height > 512 || (*index6x)->width == 0 || (*index6x)->height == 0)
+					{
+						//Error
+						Logger->error("Bad Texture Data!");
+					}
+					else
+					{
+						m_spriteFrameCount[i] = std::max<uint16_t>(1, 1);
+						EventDispatcher::I->DispatchEvent<ResourceType, uint32_t, uint8_t*, uint32_t, uint32_t>(
+							EventType::E_RESOURCE_CHANGE, ResourceType::TEXTURE_LOADED, i, (uint8_t*)(*index6x)->textureBuffer, (*index6x)->width, (*index6x)->height);
+					}
+
 					if (v2 < 480)
 					{
 						if (v2 != 311)
@@ -606,7 +617,7 @@ subtype_x_DWORD_E9C28_str* LoadTMapMetadata_71E70(type_x_DWORD_E9C28_str* a1y, u
 	return result;
 }
 
-void sub_70A60_open_tmaps()//251a60
+void OpenTmaps_70A60()//251a60
 {
 
 	std::string tMapPath0 = GetSubDirectoryFile(gameFolder.c_str(), "CDATA", "TMAPS0-0.DAT");
@@ -639,7 +650,7 @@ void sub_70A60_open_tmaps()//251a60
 	//return 1;
 }
 
-void sub_70BF0_close_tmaps()//251bf0
+void CloseTmaps_70BF0()//251bf0
 {
 	//int result; // eax
 
@@ -663,7 +674,7 @@ void sub_70BF0_close_tmaps()//251bf0
 }
 
 // Regression tests without the game (GitHub Actions): data.binz has no TMAPS?-0.DAT, but the simulation reads the
-// sprites - whether one is loaded and its frame count (CountOfFrames_16 of sub_721C0, e.g. sub_221F0 dword_0x10_16).
+// sprites - whether one is loaded and its frame count (CountOfFrames_16 of sub_721C0, e.g. SetEntitySpriteAndLoad_221F0 dword_0x10_16).
 // sub_70C60 reads the DAT of tmapsMapType at the offset and length of the TAB loaded now, which can be the TAB of
 // another map type (a day level loads night sprites with TMAPS0-0.TAB), so TMAPSMETA.DAT ("MC2TMAP2") keeps every
 // (DAT, offset, length) of the three TABs: u32 records; per record u8 DAT 0-2, u32 offset, i32 length, i32 result of
@@ -708,7 +719,7 @@ bool WriteTmapsMeta(const std::string& dataDir, const std::string& outPath)
 				if (std::find(done.begin(), done.end(), std::make_tuple(dat, offset, length)) != done.end())
 					continue;
 				done.emplace_back(dat, offset, length);
-				// as sub_70C60_decompress_tmap: a short read is -1, a decompression error -2, a plain block its length
+				// as DecompressTmap_70C60: a short read is -1, a decompression error -2, a plain block its length
 				std::fill(buffer.begin(), buffer.end(), 0);
 				int32_t result = -1;
 				if (length >= 0 && (size_t)offset + length <= dats[dat].size() && (size_t)length <= buffer.size())
@@ -786,7 +797,7 @@ static int PackedTmap(uint16_t texture_index, uint8_t* texture_buffer)
 	return r.result;
 }
 
-int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer)//251c60
+int DecompressTmap_70C60(uint16_t texture_index, uint8_t* texture_buffer)//251c60
 {
 	int result; // eax
 
@@ -820,7 +831,29 @@ int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer)//
 	return result;
 }
 
-void WriteTextureMapToBmp(uint16_t texture_index, Type_Sprite* ptextureMap, MapType_t mapType)
+void WriteTextureMapToBmp(uint16_t textureIndex, uint8_t* ptextureMap, uint16_t width, uint16_t height, MapType_t mapType)
+{
+	char name[MAX_PATH];
+	std::string path = GetSubDirectoryPath("BufferOut");
+	if (myaccess(path.c_str(), 0) < 0)
+	{
+		std::string exepath = get_exe_path();
+		mymkdir((exepath + "/" + "BufferOut").c_str());
+	}
+
+	if (m_pColorPalette == NULL)
+	{
+		m_pColorPalette = LoadTMapColorPalette(mapType);
+		path = GetSubDirectoryFilePath("BufferOut", "PalletOut.bmp");
+		BitmapIO::WritePaletteAsImageBMP(path.c_str(), 256, m_pColorPalette);
+	}
+
+	sprintf(name, "TmapOut%03d%s", textureIndex, ".bmp");
+	path = GetSubDirectoryFilePath("BufferOut", name);
+	BitmapIO::WriteRGBAImageBufferAsImageBMP(path.c_str(), width, height, m_pColorPalette, ptextureMap);
+}
+
+void WriteTextureMapToBmp(uint16_t textureIndex, uint16_t frameIndex, uint8_t* ptextureMap, uint16_t width, uint16_t height, MapType_t mapType)
 {
 	char name[MAX_PATH];
 	std::string path = GetSubDirectoryPath("BufferOut");
@@ -837,9 +870,156 @@ void WriteTextureMapToBmp(uint16_t texture_index, Type_Sprite* ptextureMap, MapT
 		BitmapIO::WritePaletteAsImageBMP(path.c_str(), 256, m_pColorPalette);
 	}
 
-	sprintf(name, "TmapOut%03d%s", texture_index, ".bmp");
+	sprintf(name, "TmapOut%03d-F%03d%s", textureIndex, frameIndex, ".bmp");
 	path = GetSubDirectoryFilePath("BufferOut", name);
-	BitmapIO::WriteRGBAImageBufferAsImageBMP(path.c_str(), ptextureMap->width, ptextureMap->height, m_pColorPalette, (uint8_t*)ptextureMap->textureBuffer);
+	BitmapIO::WriteRGBAImageBufferAsImageBMP(path.c_str(), width, height, m_pColorPalette, ptextureMap);
+}
+
+std::vector<uint8_t*> GetRawFrames(uint16_t frameCount, Type_Sprite* ptextureMap, size_t startOffset)
+{
+	std::vector<uint8_t*> frames;
+
+	if (!ptextureMap || !ptextureMap->textureBuffer)
+		return frames;
+
+	FlcState st;
+	st.width = ptextureMap->width;
+	st.height = ptextureMap->height;
+
+	size_t frameBytes = static_cast<size_t>(st.width) * st.height;
+	uint8_t* buf = reinterpret_cast<uint8_t*>(ptextureMap->textureBuffer);
+
+	// Working buffer containing the currently decoded frame.
+	std::vector<uint8_t> work(buf, buf + frameBytes);
+
+	// Allocate/copy frame 0.
+	uint8_t* frame0 = new uint8_t[frameBytes];
+	std::memcpy(frame0, work.data(), frameBytes);
+	frames.push_back(frame0);
+
+	size_t off = startOffset ? startOffset : frameBytes + 6;
+
+	for (uint16_t f = 1; f < frameCount; ++f)
+	{
+		const uint8_t* next = ApplyFlcFrame(buf + off, work.data(), st);
+
+		if (!next)
+			break;
+
+		off = static_cast<size_t>(next - buf);
+
+		// Allocate an independent buffer for this completed frame.
+		uint8_t* frame = new uint8_t[frameBytes];
+		std::memcpy(frame, work.data(), frameBytes);
+
+		frames.push_back(frame);
+	}
+	return frames;
+}
+
+static uint16_t FlcRd16(uint8_t* p) 
+{
+	return (uint16_t)(p[0] | (p[1] << 8)); 
+}
+
+uint8_t* ApplyDeltaFlc(uint8_t* p, uint8_t* img, const FlcState& st)
+{
+	int w = st.width, h = st.height;
+	int lines = FlcRd16(p); p += 2;          // line records (0x2c = 44 in your dump)
+	int y = 0;
+
+	while (lines > 0 && y < h) {
+		uint16_t op = FlcRd16(p); p += 2;
+
+		switch (op & 0xC000) {
+		case 0xC000: y += -(int16_t)op; continue;              // skip lines
+		case 0x8000: {                                         // last pixel of the line
+			const uint8_t v = op & 0xFF;
+			if (y < h && (!st.skipZero || v)) img[(size_t)y * w + (w - 1)] = v;
+			continue;                                          // then the packet count follows
+		}
+		case 0x4000: continue;                                 // undefined
+		}
+
+		int packets = op;                                      // 0x0000: packets on this line
+		int x = 0;
+		while (packets-- > 0) {
+			x += *p++;                                         // skip unchanged pixels
+			int8_t cnt = (int8_t)*p++;
+			if (cnt >= 0) {                                    // cnt words of literal pixels
+				for (int i = 0; i < cnt * 2; ++i, ++x)
+					if (x < w) img[(size_t)y * w + x] = p[i];
+				p += cnt * 2;
+			}
+			else {                                           // one word repeated -cnt times
+				uint8_t a = p[0], b = p[1]; p += 2;
+				for (int i = 0; i < -cnt; ++i) {
+					if (x < w) { img[(size_t)y * w + x] = a; } ++x;
+					if (x < w) { img[(size_t)y * w + x] = b; } ++x;
+				}
+			}
+		}
+		++y; --lines;
+	}
+	return p;
+}
+
+void ApplyByteRun(uint8_t* p, uint8_t* end, uint8_t* img, const FlcState& st)
+{
+	int w = st.width, h = st.height;
+	auto put = [&](int y, int& x, uint8_t v) {
+		if (x < w && !(st.skipZero && v == 0)) img[(size_t)y * w + x] = v;
+		++x;
+		};
+	for (int y = 0; y < h && p < end; ++y) {
+		++p;                                                   // obsolete packet count
+		int x = 0;
+		while (x < w && p + 1 < end) {
+			int8_t cnt = (int8_t)*p++;
+			if (cnt > 0) {
+				uint8_t v = *p++;
+				for (int i = 0; i < cnt; ++i) put(y, x, v);
+			}
+			else if (cnt < 0) {
+				for (int i = 0; i < -cnt; ++i, ++p) put(y, x, *p);
+			}
+			else {
+				++p;   // the game treats 0 as a 256-byte literal run; unused for widths < 256
+			}
+		}
+	}
+}
+
+uint8_t* ApplyFlcFrame(uint8_t* src, uint8_t* img, FlcState& st)
+{
+	uint8_t* p = src;
+	uint16_t magic;
+	for (;;) {
+		p += 4;
+		magic = FlcRd16(p); p += 2;
+		if (magic != 0xAF12) break;
+		st.width = FlcRd16(p + 2);
+		st.height = FlcRd16(p + 4);
+		p += 6;
+	}
+	if (magic != 0xF1FA) return nullptr;
+
+	int chunks = FlcRd16(p); p += 2; 
+	p += 8;
+	while (chunks-- > 0) {
+		uint16_t size16 = FlcRd16(p);
+		uint16_t type = FlcRd16(p + 4);
+		p += 6;
+		switch (type) {
+		case 7:  p = ApplyDeltaFlc(p, img, st);                         
+			break;
+		case 15: ApplyByteRun(p, p + size16 - 6, img, st); p += size16 - 6; 
+			break;
+		default: p += size16 - 6;                                        
+			break;
+		}
+	}
+	return p;
 }
 
 uint8_t* LoadTMapColorPalette(MapType_t mapType)
@@ -872,7 +1052,7 @@ uint8_t* LoadTMapColorPalette(MapType_t mapType)
 	return Palettebuffer;
 }
 
-type_animations1* sub_721C0_initTmap(type_E9C08* a1x, Type_Sprite** a2x, __int16 a3)//2531c0
+type_animations1* InitTmapAnimation_721C0(type_E9C08* a1x, Type_Sprite** a2x, int16_t index)//2531c0
 {
 	signed __int16 v3; // cx
 	signed __int16 v4; // si
@@ -920,8 +1100,46 @@ type_animations1* sub_721C0_initTmap(type_E9C08* a1x, Type_Sprite** a2x, __int16
 	a1x->dword_2[v12].FrameIndex_22 = 1;
 	a1x->dword_2[v12].dword_0 = 1;
 	a1x->dword_2[v12].word_24 = v12;
-	a1x->dword_2[v12].word_26 = a3;
-	//return v10 + a1x->dword_2;
+	a1x->dword_2[v12].word_26 = index;
+
+
+	auto rawData = new uint8_t[a1x->dword_2[v12].CountOfFrames_16 * a1x->dword_2[v12].Width_18 * a1x->dword_2[v12].Height_20]();
+	size_t frameBytes = a1x->dword_2[v12].Width_18 * a1x->dword_2[v12].Height_20;
+
+	if (bigSprites && index >= 0 && index < max_sprites && v7x == BIG_SPRITES_BUFFERx[index].actdatax)
+	{
+		// High-res sprite: the buffer only holds frame 0 and the frame count, the frames are
+		// already decoded in BIG_SPRITES_BUFFERx (AnimateSprite_72350 copies them in the same way).
+		for (int f = 0; f < a1x->dword_2[v12].CountOfFrames_16 && f < max_sprites_frames; f++)
+		{
+			if (BIG_SPRITES_BUFFERx[index].frames[f])
+				memcpy(rawData + (frameBytes * f), BIG_SPRITES_BUFFERx[index].frames[f], frameBytes);
+		}
+	}
+	else
+	{
+		auto frames = GetRawFrames(frameCount_v9, a1x->dword_2[v12].Sprite_4, a1x->dword_2[v12].NextFrameOffset_14);
+
+		for (int f = 0; f < frames.size(); f++)
+		{
+			memcpy(rawData + (frameBytes * f), frames[f], frameBytes);
+			//WriteTextureMapToBmp(v12, f, frames[f], a1x->dword_2[v12].Width_18, a1x->dword_2[v12].Height_20, D41A0_0.terrain_2FECE.MapType);
+		}
+
+		for (uint8_t* frame : frames)
+			delete[] frame;
+
+		frames.clear();
+	}
+
+	//WriteTextureMapToBmp(v12, rawData, a1x->dword_2[v12].Width_18, a1x->dword_2[v12].Height_20 * a1x->dword_2[v12].CountOfFrames_16, D41A0_0.terrain_2FECE.MapType);
+
+	m_spriteFrameCount[index] = std::max<uint16_t>(1, a1x->dword_2[v12].CountOfFrames_16);
+	EventDispatcher::I->DispatchEvent<ResourceType, uint32_t, uint8_t*, uint32_t, uint32_t>(
+		EventType::E_RESOURCE_CHANGE, ResourceType::TEXTURE_LOADED, index, rawData, a1x->dword_2[v12].Width_18, a1x->dword_2[v12].Height_20 * a1x->dword_2[v12].CountOfFrames_16);
+	
+	delete[] rawData;
+
 	return &a1x->dword_2[v12];
 }
 

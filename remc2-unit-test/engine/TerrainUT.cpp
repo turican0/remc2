@@ -4,7 +4,7 @@
 #include "../comparison/engine/OriginalTerrain.h"
 #include "../../remc2/engine/Terrain.h"
 
-TEST(Terrain, sub_B5C60_getTerrainAlt2)
+TEST(Terrain, GetTerrainAlt2_B5C60)
 {
 
 	for (int i = 0; i < 256 * 256; i++)
@@ -16,14 +16,14 @@ TEST(Terrain, sub_B5C60_getTerrainAlt2)
 			continue;
 		for (int x = 0; x < 256 * 256; x++)
 		{
-			int a = sub_B5C60_getTerrainAlt2(x, y);
+			int a = GetTerrainAlt2_B5C60(x, y);
 			int b = sub_B5C60_getTerrainAlt2_orig(x, y, mapHeightmap_11B4E0);
 			ASSERT_EQ(a, b);
 		}
 	}
 }
 
-TEST(Terrain, sub_44DB0_truncTerrainHeight)
+TEST(Terrain, TruncTerrainHeight_44DB0)
 {
 	int16_t* mapEntityIndex1 = (int16_t*)malloc(65536 * sizeof(int16_t));
 	int16_t* mapEntityIndex2 = (int16_t*)malloc(65536 * sizeof(int16_t));
@@ -41,7 +41,7 @@ TEST(Terrain, sub_44DB0_truncTerrainHeight)
 	sub_44DB0_truncTerrainHeight_orig(mapEntityIndex1, mapHeightmap1);
 
 	//Run current code
-	sub_44DB0_truncTerrainHeight(mapEntityIndex2, mapHeightmap2);
+	TruncTerrainHeight_44DB0(mapEntityIndex2, mapHeightmap2);
 
 	//Check results match
 	for (int i = 0; i < 256 * 256; i++)
@@ -55,7 +55,7 @@ TEST(Terrain, sub_44DB0_truncTerrainHeight)
 	free(mapHeightmap2);
 }
 
-TEST(Terrain, sub_44EE0_smooth_tiles) {
+TEST(Terrain, SmoothTiles_44EE0) {
 	uint8_t* tempTerr1 = (uint8_t*)malloc(65536);
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
 	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
@@ -84,7 +84,7 @@ TEST(Terrain, sub_44EE0_smooth_tiles) {
 		axis.word = j;
 		sub_44EE0_smooth_tiles_orig(axis, tempTerr1, tempHeight1, tempAng1);
 
-		sub_44EE0_smooth_tiles(axis);
+		SmoothTiles_44EE0(axis);
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
@@ -99,7 +99,7 @@ TEST(Terrain, sub_44EE0_smooth_tiles) {
 	free(tempHeight1);
 }
 
-TEST(Terrain, sub_44E40) {
+TEST(Terrain, MarkLandAndRivers_44E40) {
 	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
 	uint8_t* tempAngle1 = (uint8_t*)malloc(65536);
 	uint8_t* tempHeightmap1 = (uint8_t*)malloc(65536);
@@ -122,7 +122,7 @@ TEST(Terrain, sub_44E40) {
 		}
 		sub_44E40_orig(a1, a2, rand2_17B4E0, tempTerrainType1, tempHeightmap1, tempAngle1);
 
-		sub_44E40(a1, a2);
+		MarkLandAndRivers_44E40(a1, a2);
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
@@ -136,7 +136,7 @@ TEST(Terrain, sub_44E40) {
 	free(tempHeightmap1);
 }
 
-TEST(Terrain, sub_B5D68) {
+TEST(Terrain, GetCeilingAlt2_B5D68) {
 
 	x_BYTE_14B4E0_second_heightmap = (uint8_t*)malloc(65536);
 	uint8_t* x_BYTE_14B4E0_second_heightmap2 = (uint8_t*)malloc(65536);
@@ -152,14 +152,14 @@ TEST(Terrain, sub_B5D68) {
 	{
 		__int16 tempa1 = pseudoRand() % (256 * 256) - 127 * 256;
 		__int16 tempa2 = pseudoRand() % (256 * 256) - 127 * 256;
-		ASSERT_EQ(sub_B5D68_orig(tempa1, tempa2, x_BYTE_14B4E0_second_heightmap2), sub_B5D68(tempa1, tempa2));
+		ASSERT_EQ(sub_B5D68_orig(tempa1, tempa2, x_BYTE_14B4E0_second_heightmap2), GetCeilingAlt2_B5D68(tempa1, tempa2));
 	}
 
 	free(x_BYTE_14B4E0_second_heightmap);
 	free(x_BYTE_14B4E0_second_heightmap2);
 }
 
-TEST(Terrain, sub_45DC0) {
+TEST(Terrain, SetTileTerrainType_45DC0) {
 	uint8_t* tempTerrType1 = (uint8_t*)malloc(65536);
 	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
 	uint8_t* tempSecHeight1 = (uint8_t*)malloc(65536);
@@ -217,7 +217,7 @@ TEST(Terrain, sub_45DC0) {
 
 		sub_45DC0_orig(tempa2, tempa3x, tempa4, D41A0_0.terrain_2FECE.MapType, lowDiffHeightmap_D47DC, isCaveLevel_D41B6, &temprand2_17B4E0, building_F2CD0x, tempTerrType1, tempHeight1, tempAng1, tempShad1, tempSecHeight1);
 
-		sub_45DC0(tempa2, tempa3x, tempa4);
+		SetTileTerrainType_45DC0(tempa2, tempa3x, tempa4);
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
@@ -237,7 +237,7 @@ TEST(Terrain, sub_45DC0) {
 	free(tempShad1);
 }
 
-TEST(Terrain, sub_45BE0) {
+TEST(Terrain, GetTileHeightType_45BE0) {
 
 	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
 
@@ -256,7 +256,7 @@ TEST(Terrain, sub_45BE0) {
 		}
 		sub_45BE0_orig(testA2, testAxis2D, &tempx_DWORD_D47DC, tempHeight1);
 
-		sub_45BE0(testA2, testAxis2D, 0);
+		GetTileHeightType_45BE0(testA2, testAxis2D, 0);
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
@@ -267,7 +267,7 @@ TEST(Terrain, sub_45BE0) {
 	free(tempHeight1);
 }
 
-TEST(Terrain, sub_33F70) {
+TEST(Terrain, CheckTileType8Neighbours_33F70) {
 	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
 	uint8_t* tempHeightMap1 = (uint8_t*)malloc(65536);
 
@@ -286,7 +286,7 @@ TEST(Terrain, sub_33F70) {
 
 		sub_33F70_orig(testAxis2D.word, tempTerrainType1, tempHeightMap1);
 
-		sub_33F70(testAxis2D.word);
+		CheckTileType8Neighbours_33F70(testAxis2D.word);
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
@@ -298,7 +298,7 @@ TEST(Terrain, sub_33F70) {
 	free(tempHeightMap1);
 }
 
-TEST(Terrain, sub_1B830) {
+TEST(Terrain, GetTileSlopeWide_1B830) {
 	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
 
 	for (int j = 0; j < 400; j++)
@@ -316,7 +316,7 @@ TEST(Terrain, sub_1B830) {
 
 		sub_1B830_orig(&testAxis3D, tempHeight1);
 
-		sub_1B830(&testAxis3D);
+		GetTileSlopeWide_1B830(&testAxis3D);
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
@@ -343,7 +343,7 @@ TEST(Terrain, sub_1B7A0) {
 		}
 		sub_1B7A0_tile_compare_orig(&testAxis3D, tempHeight1);
 
-		sub_1B7A0_tile_compare(&testAxis3D);
+		GetTileSlope_1B7A0(&testAxis3D);
 		for (int i = 0; i < 256 * 256; i++)
 		{
 			ASSERT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
@@ -352,7 +352,7 @@ TEST(Terrain, sub_1B7A0) {
 	free(tempHeight1);
 }
 
-TEST(Terrain, sub_43D50) {
+TEST(Terrain, MarkWaterEdges_43D50) {
 
 	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
 	uint8_t* tempAngle1 = (uint8_t*)malloc(65536);
@@ -371,7 +371,7 @@ TEST(Terrain, sub_43D50) {
 
 	sub_43D50_orig(tempTerrainType1, tempHeightmap1, tempAngle1);
 
-	sub_43D50();
+	MarkWaterEdges_43D50();
 
 	for (int i = 0; i < 256 * 256; i++)
 	{
@@ -385,7 +385,7 @@ TEST(Terrain, sub_43D50) {
 	free(tempHeightmap1);
 }
 
-TEST(Terrain, sub_44D00) {
+TEST(Terrain, ComputeTerrainShading_44D00) {
 
 	uint8_t* tempShading1 = (uint8_t*)malloc(65536);
 	uint8_t* tempHeightmap1 = (uint8_t*)malloc(65536);
@@ -415,7 +415,7 @@ TEST(Terrain, sub_44D00) {
 
 		sub_44D00_orig(D41A0_0.terrain_2FECE.MapType, tempHeightmap1, tempShading1);
 
-		sub_44D00();
+		ComputeTerrainShading_44D00();
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
@@ -428,7 +428,7 @@ TEST(Terrain, sub_44D00) {
 	free(tempHeightmap1);
 }
 
-TEST(Terrain, sub_B5E70_decompress_terrain_map_level) {
+TEST(Terrain, DecompressTerrainMapLevel_B5E70) {
 
 	int16_t* tempEnt1 = (int16_t*)malloc(65536 * sizeof(int16_t));
 
@@ -447,7 +447,7 @@ TEST(Terrain, sub_B5E70_decompress_terrain_map_level) {
 
 		sub_B5E70_decompress_terrain_map_level_orig(a1, a2, a3, a4, tempEnt1);
 
-		sub_B5E70_decompress_terrain_map_level(a1, a2, a3, a4);
+		DecompressTerrainMapLevel_B5E70(a1, a2, a3, a4);
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
@@ -457,7 +457,7 @@ TEST(Terrain, sub_B5E70_decompress_terrain_map_level) {
 	free(tempEnt1);
 }
 
-TEST(Terrain, sub_439A0) {
+TEST(Terrain, GetSmoothedHeight_439A0) {
 
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
 	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
@@ -478,7 +478,7 @@ TEST(Terrain, sub_439A0) {
 
 		sub_439A0_orig(j, tempHeight1, tempAng1);
 
-		sub_439A0(j);
+		GetSmoothedHeight_439A0(j);
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
@@ -490,7 +490,7 @@ TEST(Terrain, sub_439A0) {
 	free(tempHeight1);
 }
 
-TEST(Terrain, sub_43B40) {
+TEST(Terrain, GenerateCaveCeiling_43B40) {
 
 	uint8_t* tempMapHeightmap1 = (uint8_t*)malloc(65536);
 	uint8_t* tempSecondHeightmap1 = (uint8_t*)malloc(65536);
@@ -513,7 +513,7 @@ TEST(Terrain, sub_43B40) {
 
 	sub_43B40_orig(temp_MapBasicHeight_D41B7_1, tempMapHeightmap1, tempAng1, tempSecondHeightmap1);
 
-	sub_43B40();
+	GenerateCaveCeiling_43B40();
 
 	ASSERT_EQ(temp_MapBasicHeight_D41B7_1, MapBasicHeight_D41B7);
 
@@ -530,7 +530,7 @@ TEST(Terrain, sub_43B40) {
 	free(x_BYTE_14B4E0_second_heightmap);
 }
 
-TEST(Terrain, sub_44580) {
+TEST(Terrain, SetTerrainAngles_44580) {
 
 	pdwScreenBuffer_351628 = (uint8_t*)malloc(100000);
 
@@ -564,7 +564,7 @@ TEST(Terrain, sub_44580) {
 
 	sub_44580_orig(tempScreenBuffer1, temp_rand2_17B4E0_1, tempbuilding_F2CD0x1, tempTerrainType1, tempAng1);
 
-	sub_44580();
+	SetTerrainAngles_44580();
 
 	for (int i = 0; i < 7 * 7 * 7 * 7; i++)
 		for (int m = 0; m < 2; m++)
@@ -589,7 +589,7 @@ TEST(Terrain, sub_44580) {
 	free(pdwScreenBuffer_351628);
 }
 
-TEST(Terrain, sub_43EE0) {
+TEST(Terrain, AddRivers_43EE0) {
 
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
 	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
@@ -605,7 +605,7 @@ TEST(Terrain, sub_43EE0) {
 
 	sub_43EE0_orig(tempHeight1, tempAng1);
 
-	sub_43EE0();
+	AddRivers_43EE0();
 
 	for (int i = 0; i < 256 * 256; i++)
 	{
@@ -616,7 +616,7 @@ TEST(Terrain, sub_43EE0) {
 	free(tempHeight1);
 }
 
-TEST(Terrain, sub_43FC0) {
+TEST(Terrain, RemoveIsolatedTerrainClasses_43FC0) {
 
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
 
@@ -629,7 +629,7 @@ TEST(Terrain, sub_43FC0) {
 
 	sub_43FC0_orig(tempAng1);
 
-	sub_43FC0();
+	RemoveIsolatedTerrainClasses_43FC0();
 
 	for (int i = 0; i < 256 * 256; i++)
 	{
@@ -638,7 +638,7 @@ TEST(Terrain, sub_43FC0) {
 	free(tempAng1);
 }
 
-TEST(Terrain, sub_45600) {
+TEST(Terrain, MarkSteepTerrain_45600) {
 
 	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
@@ -659,7 +659,7 @@ TEST(Terrain, sub_45600) {
 
 		sub_45600_orig(j, tempTerrainType1, tempHeight1, tempAng1);
 
-		sub_45600(j);
+		MarkSteepTerrain_45600(j);
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
@@ -673,7 +673,7 @@ TEST(Terrain, sub_45600) {
 	free(tempHeight1);
 }
 
-TEST(Terrain, sub_454F0) {
+TEST(Terrain, MarkFlatHighland_454F0) {
 
 	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
@@ -695,7 +695,7 @@ TEST(Terrain, sub_454F0) {
 
 			sub_454F0_orig(x, y, tempHeight1, tempAng1);
 
-			sub_454F0(x, y);
+			MarkFlatHighland_454F0(x, y);
 
 			for (int i = 0; i < 256 * 256; i++)
 			{
@@ -708,7 +708,7 @@ TEST(Terrain, sub_454F0) {
 	free(tempAng1);
 }
 
-TEST(Terrain, sub_45210) {
+TEST(Terrain, MarkFlatLowlandClass2_45210) {
 
 	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
@@ -732,7 +732,7 @@ TEST(Terrain, sub_45210) {
 			}
 			sub_45210_orig(x, y, tempTerrainType1, tempHeight1, tempAng1);
 
-			sub_45210(x, y);
+			MarkFlatLowlandClass2_45210(x, y);
 
 			for (int i = 0; i < 256 * 256; i++)
 			{
@@ -747,7 +747,7 @@ TEST(Terrain, sub_45210) {
 	free(tempHeight1);
 }
 
-TEST(Terrain, sub_45060) {
+TEST(Terrain, MarkFlatLowland_45060) {
 
 	uint8_t* tempTerrainType1 = (uint8_t*)malloc(65536);
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
@@ -772,7 +772,7 @@ TEST(Terrain, sub_45060) {
 
 			sub_45060_orig(x, y, tempTerrainType1, tempHeight1, tempAng1);
 			
-			sub_45060(x, y);
+			MarkFlatLowland_45060(x, y);
 
 			for (int i = 0; i < 256 * 256; i++)
 			{
@@ -787,7 +787,7 @@ TEST(Terrain, sub_45060) {
 	free(tempHeight1);
 }
 
-TEST(Terrain, sub_44320) {
+TEST(Terrain, SpreadTerrainClass4_44320) {
 
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
 
@@ -800,7 +800,7 @@ TEST(Terrain, sub_44320) {
 
 	sub_44320_orig(tempAng1);
 
-	sub_44320();
+	SpreadTerrainClass4_44320();
 
 	for (int i = 0; i < 256 * 256; i++)
 	{
@@ -809,7 +809,7 @@ TEST(Terrain, sub_44320) {
 	free(tempAng1);
 }
 
-TEST(Terrain, sub_440D0) {
+TEST(Terrain, ApplySnowLine_440D0) {
 
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
 	uint8_t* tempHeight1 = (uint8_t*)malloc(65536);
@@ -830,7 +830,7 @@ TEST(Terrain, sub_440D0) {
 
 		sub_440D0_orig(j, tempHeight1, tempAng1);
 
-		sub_440D0(j);
+		ApplySnowLine_440D0(j);
 
 		for (int i = 0; i < 256 * 256; i++)
 		{
@@ -858,7 +858,7 @@ TEST(Terrain, sub_45AA0) {
 
 	sub_45AA0_setMax4Tiles_orig(tempHeight1, tempAng1);
 
-	sub_45AA0_setMax4Tiles();
+	SetMax4Tiles_45AA0();
 
 	for (int i = 0; i < 256 * 256; i++)
 	{

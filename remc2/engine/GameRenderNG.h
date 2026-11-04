@@ -183,8 +183,8 @@ private:
 		int flatLight, int bandTop, int bandBottom);
 	template <int Mode>
 	void DrawTriangleRow(uint8_t* line, int left, int right, int u, int v, int light, int du, int dv, int dl, const uint8_t* texture, int flatLight);
-	void sub_3FD60(int tileIndex);
-	void sub_88740(type_entity_0x6E8E* entity, int16_t posX, int16_t posY);
+	void DrawTileSpriteReflections_3FD60(int tileIndex);
+	void SetEntityHelpText_88740(type_entity_0x6E8E* entity, int16_t posX, int16_t posY);
 	void SetBillboards_3B560(int16_t roll);
 	void DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* entity, int16_t screenX, int screenY, int16_t spriteWidth);
 

@@ -26,6 +26,7 @@ jobs:
         libgtest-dev \
         libspdlog-dev libfmt-dev \
         nlohmann-json3-dev \
+        libvulkan-dev glslang-tools \
         clang-tidy \
         libgtk-3-dev libgl1-mesa-dev
 

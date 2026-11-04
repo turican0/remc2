@@ -266,8 +266,6 @@ std::string Pack_Message(int32_t      message,
 	return DataToString(m);
 }
 
-void debug_net_printf(const char* format, ...);   // forward
-
 message_info Unpack_Message(const std::string& data)
 {
 	message_info out;

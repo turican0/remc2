@@ -96,6 +96,12 @@ public:
 			bool m_AssignToSpecificCores = false;
 		};
 
+		struct Hardware
+		{
+			bool m_BilinearFiltering = false;
+			int m_AntiAliasing = 0;   // MSAA samples: 0 = off, 2, 4 or 8 (capped to what the GPU supports)
+		};
+
 		struct Graphics
 		{
 			int m_DisplayIndex = 0;
@@ -103,8 +109,10 @@ public:
 			int m_WindowResHeight = 480;
 			bool m_MaintainAspectRatio = true;
 			bool m_StartWindowed = false;
+			std::string m_Render = "HW";
 			GameDetail m_GameDetail;
 			Threading m_Threading;
+			Hardware m_Hardware;
 		};
 
 		struct Game
@@ -213,6 +221,7 @@ public:
 	Settings::Graphics GetGraphics(const json& settings);
 	Settings::GameDetail GetGameDetail(const json& graphics);
 	Settings::Threading GetThreading(const json& graphics);
+	Settings::Hardware GetHardware(const json& graphics);
 	Settings::Sound GetSound(const json& settings);
 	Settings::Paths GetPaths(const json& settings);
 	Settings::Controls GetControls(const json& settings);
@@ -226,6 +235,7 @@ public:
 	void SaveGraphicsToDoc(Settings::Graphics graphics);
 	void SaveGameDetailToDoc(Settings::GameDetail gameDetail);
 	void SaveThreadingToDoc(Settings::Threading threading);
+	void SaveHardwareToDoc(Settings::Hardware hardware);
 	void SaveGameToDoc(Settings::Game gameSettings);
 	void SaveControlsToDoc(Settings::Controls controlSettings);
 };

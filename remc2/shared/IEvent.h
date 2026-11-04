@@ -6,5 +6,6 @@
 class IEvent
 {
 public:
+	virtual ~IEvent() = default;
 	virtual const EventType GetType() const = 0;
 };
