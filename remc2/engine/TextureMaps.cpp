@@ -10,17 +10,17 @@
 
 type_BIG_SPRITES_BUFFER BIG_SPRITES_BUFFERx[max_sprites];
 
-FILE* x_DWORD_DB73C_tmapsfile;
-FILE* x_DWORD_DB740_tmaps00file;
-FILE* x_DWORD_DB744_tmaps10file;
-FILE* x_DWORD_DB748_tmaps20file;
+FILE* tmapsFile_DB73C;
+FILE* tmaps0File_DB740;
+FILE* tmaps1File_DB744;
+FILE* tmaps2File_DB748;
 
 Type_Sprite** m_ptrLoadedSprites_F66F0x[504];
 char m_LevelSpriteList_F5340[504];
-int32_t x_DWORD_F5730[504];
+int32_t tmapGroupLastUse_F5730[504];
 subtype_x_DWORD_E9C28_str* str_F5F10[504];
 
-type_x_DWORD_E9C28_str* x_DWORD_E9C28_str;
+type_x_DWORD_E9C28_str* tmapCache_E9C28;
 
 type_E9C08* animations_E9C08x; // weak
 bool big_sprites_inited = false;
@@ -68,7 +68,7 @@ bool MainInitTmaps_71520(unsigned __int16 a1)
 
 	v1 = 0;
 	v2 = GetTmapGroupSize_70EF0(a1);
-	for (i = v2 - GetTmapCacheFreeSize_71E60(x_DWORD_E9C28_str) + 20; i > 0; i -= EvictLeastUsedTmaps_71090(i))
+	for (i = v2 - GetTmapCacheFreeSize_71E60(tmapCache_E9C28) + 20; i > 0; i -= EvictLeastUsedTmaps_71090(i))
 	{
 		v4 = v1++;
 		if (v4 >= 4u)
@@ -77,7 +77,7 @@ bool MainInitTmaps_71520(unsigned __int16 a1)
 	if (i <= 0)
 	{
 		InitTmaps(a1);
-		x_D41A0_BYTEARRAY_4_struct.byteindex_177 = 5;
+		gameState_D41A4.byteindex_177 = 5;
 	}
 	return m_ptrLoadedSprites_F66F0x[a1] != 0;
 }
@@ -184,7 +184,7 @@ unsigned int EvictLeastUsedTmaps_71090(unsigned int a1)//252090
 		v6 = str_TMAPS00TAB_BEGIN_BUFFER[v5].group_8;
 		if ((!m_LevelSpriteList_F5340[v6] || v31) && m_ptrLoadedSprites_F66F0x[v6])
 		{
-			v7 = x_DWORD_F5730[v6];
+			v7 = tmapGroupLastUse_F5730[v6];
 			v8 = str_TMAPS00TAB_BEGIN_BUFFER[v5].group_8;
 			if (v7 < v26)
 			{
@@ -274,10 +274,10 @@ char UnloadTmapGroup_70E10(unsigned __int16 a1)//251e10
 				v5x = GetAnimationByIndex_724F0(animations_E9C08x, i);
 				ResetAnimation_72410(v5x);
 			}
-			FreeTmapCacheEntry_71F20(x_DWORD_E9C28_str, str_F5F10[i]);
+			FreeTmapCacheEntry_71F20(tmapCache_E9C28, str_F5F10[i]);
 			m_ptrLoadedSprites_F66F0x[i] = 0;
 			str_F5F10[i] = 0;
-			x_DWORD_F5730[i] = 0;
+			tmapGroupLastUse_F5730[i] = 0;
 		}
 	}
 	return 1;
@@ -298,10 +298,10 @@ char ResetTmap_70D20(uint16 tmapsIndex)//251d20
 			{
 				ResetAnimation_72410(GetAnimationByIndex_724F0(animations_E9C08x, i));
 			}
-			FreeTmapCacheEntry_71F20(x_DWORD_E9C28_str, str_F5F10[i]);
+			FreeTmapCacheEntry_71F20(tmapCache_E9C28, str_F5F10[i]);
 			m_ptrLoadedSprites_F66F0x[i] = 0;
 			str_F5F10[i] = 0;
-			x_DWORD_F5730[i] = 0;
+			tmapGroupLastUse_F5730[i] = 0;
 		}
 	}
 	return 1;
@@ -421,7 +421,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 			sprintf(spritePath, "%s", gameDataPath.c_str());
 		}
 
-		switch (D41A0_0.terrain_2FECE.MapType) {
+		switch (world_D41A0.terrain_2FECE.MapType) {
 		case MapType_t::Day: {
 			sprintf(tmapsdirpost, "%s/%s", spritePath, "TMAPS/TMAPS2-0-");
 			break;
@@ -437,7 +437,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 		}
 	}
 
-	v5 = x_D41A0_BYTEARRAY_4_struct.FrameTimingIndex_26;
+	v5 = gameState_D41A4.FrameTimingIndex_26;
 	//index = (int)TMAPS00TAB_BEGIN_BUFFER;
 	//str_TMAPS00TAB_BEGIN_BUFFER[a1].word_8
 	v2 = str_TMAPS00TAB_BEGIN_BUFFER[a1].group_8;
@@ -449,7 +449,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 		v6 = i;
 		if (!m_ptrLoadedSprites_F66F0x[i])
 		{
-			index3x = LoadTMapMetadata_71E70(x_DWORD_E9C28_str, (unsigned __int16)(4 * ((unsigned int)(str_TMAPS00TAB_BEGIN_BUFFER[i].size_0 + 13) >> 2)), i);
+			index3x = LoadTMapMetadata_71E70(tmapCache_E9C28, (unsigned __int16)(4 * ((unsigned int)(str_TMAPS00TAB_BEGIN_BUFFER[i].size_0 + 13) >> 2)), i);
 			//v4 = index3;
 			if (index3x)
 			{
@@ -494,7 +494,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 								//Saves BigSprites to png
 								/*if (m_pColorPalette == NULL)
 								{
-									m_pColorPalette = LoadTMapColorPalette(D41A0_0.terrain_2FECE.MapType);
+									m_pColorPalette = LoadTMapColorPalette(world_D41A0.terrain_2FECE.MapType);
 								}
 								BitmapIO::WritePosistructToPng(m_pColorPalette, BIG_SPRITES_BUFFERx[i].frames[mm], oldwidth * 4, oldheight * 4, filebuffer, filebuffer);*/
 							}
@@ -523,7 +523,7 @@ void InitTmaps(unsigned __int16 a1)//251f50
 					}
 					str_F5F10[v6] = index3x;
 					m_ptrLoadedSprites_F66F0x[v6] = &index3x->partstr_0;
-					x_DWORD_F5730[v6] = v5;
+					tmapGroupLastUse_F5730[v6] = v5;
 					index6x = m_ptrLoadedSprites_F66F0x[v6];
 
 					//if (**(uint8_t**)index6 & 1)
@@ -621,27 +621,27 @@ void OpenTmaps_70A60()//251a60
 {
 
 	std::string tMapPath0 = GetSubDirectoryFile(gameFolder.c_str(), "CDATA", "TMAPS0-0.DAT");
-	x_DWORD_DB740_tmaps00file = DataFileIO::CreateOrOpenFile(tMapPath0.c_str(), 512);
-	if (x_DWORD_DB740_tmaps00file == NULL)
+	tmaps0File_DB740 = DataFileIO::CreateOrOpenFile(tMapPath0.c_str(), 512);
+	if (tmaps0File_DB740 == NULL)
 	{
 		tMapPath0 = GetSubDirectoryFile(gameFolder.c_str(), "DATA", "TMAPS0-0.DAT");
-		x_DWORD_DB740_tmaps00file = DataFileIO::CreateOrOpenFile(tMapPath0.c_str(), 512);
+		tmaps0File_DB740 = DataFileIO::CreateOrOpenFile(tMapPath0.c_str(), 512);
 	}
 	std::string tMapPath1 = GetSubDirectoryFile(gameFolder.c_str(), "CDATA", "TMAPS1-0.DAT");
-	x_DWORD_DB744_tmaps10file = DataFileIO::CreateOrOpenFile(tMapPath1.c_str(), 512);
-	if (x_DWORD_DB744_tmaps10file == NULL)
+	tmaps1File_DB744 = DataFileIO::CreateOrOpenFile(tMapPath1.c_str(), 512);
+	if (tmaps1File_DB744 == NULL)
 	{
 		tMapPath1 = GetSubDirectoryFile(gameFolder.c_str(), "DATA", "TMAPS1-0.DAT");
-		x_DWORD_DB744_tmaps10file = DataFileIO::CreateOrOpenFile(tMapPath1.c_str(), 512);
+		tmaps1File_DB744 = DataFileIO::CreateOrOpenFile(tMapPath1.c_str(), 512);
 	}
 	std::string tMapPath2 = GetSubDirectoryFile(gameFolder.c_str(), "CDATA", "TMAPS2-0.DAT");
-	x_DWORD_DB748_tmaps20file = DataFileIO::CreateOrOpenFile(tMapPath2.c_str(), 512);
-	if (x_DWORD_DB748_tmaps20file == NULL)
+	tmaps2File_DB748 = DataFileIO::CreateOrOpenFile(tMapPath2.c_str(), 512);
+	if (tmaps2File_DB748 == NULL)
 	{
 		tMapPath2 = GetSubDirectoryFile(gameFolder.c_str(), "DATA", "TMAPS2-0.DAT");
-		x_DWORD_DB748_tmaps20file = DataFileIO::CreateOrOpenFile(tMapPath2.c_str(), 512);
+		tmaps2File_DB748 = DataFileIO::CreateOrOpenFile(tMapPath2.c_str(), 512);
 	}
-	x_DWORD_DB73C_tmapsfile = x_DWORD_DB740_tmaps00file;
+	tmapsFile_DB73C = tmaps0File_DB740;
 	tmapsMapType = MapType_t::Day;
 	
 	if (fixedTmaps)
@@ -654,22 +654,22 @@ void CloseTmaps_70BF0()//251bf0
 {
 	//int result; // eax
 
-	if (x_DWORD_DB740_tmaps00file != NULL)
+	if (tmaps0File_DB740 != NULL)
 	{
-		DataFileIO::Close(x_DWORD_DB740_tmaps00file);
-		x_DWORD_DB740_tmaps00file = NULL;
+		DataFileIO::Close(tmaps0File_DB740);
+		tmaps0File_DB740 = NULL;
 	}
-	if (x_DWORD_DB744_tmaps10file != NULL)
+	if (tmaps1File_DB744 != NULL)
 	{
-		DataFileIO::Close(x_DWORD_DB744_tmaps10file);
-		x_DWORD_DB744_tmaps10file = NULL;
+		DataFileIO::Close(tmaps1File_DB744);
+		tmaps1File_DB744 = NULL;
 	}
-	if (x_DWORD_DB748_tmaps20file != NULL)
+	if (tmaps2File_DB748 != NULL)
 	{
-		DataFileIO::Close(x_DWORD_DB748_tmaps20file);
-		x_DWORD_DB748_tmaps20file = NULL;
+		DataFileIO::Close(tmaps2File_DB748);
+		tmaps2File_DB748 = NULL;
 	}
-	x_DWORD_DB73C_tmapsfile = NULL;
+	tmapsFile_DB73C = NULL;
 	//return result;
 }
 
@@ -807,15 +807,15 @@ int DecompressTmap_70C60(uint16_t texture_index, uint8_t* texture_buffer)//251c6
 		memcpy(texture_buffer, fixed.data(), fixed.size());
 		return (int)fixed.size();
 	}
-	if (PackedGameData() && x_DWORD_DB73C_tmapsfile == NULL)//regression tests without the game: the header and the frame count from TMAPSMETA.DAT
+	if (PackedGameData() && tmapsFile_DB73C == NULL)//regression tests without the game: the header and the frame count from TMAPSMETA.DAT
 		return PackedTmap(texture_index, texture_buffer);
-	if (x_DWORD_DB73C_tmapsfile == NULL) {
-		return 0; //(int)x_DWORD_DB73C_tmapsfile;
+	if (tmapsFile_DB73C == NULL) {
+		return 0; //(int)tmapsFile_DB73C;
 	}
 
-	DataFileIO::Seek(x_DWORD_DB73C_tmapsfile, str_TMAPS00TAB_BEGIN_BUFFER[texture_index].offset_4, 0);//lseek
+	DataFileIO::Seek(tmapsFile_DB73C, str_TMAPS00TAB_BEGIN_BUFFER[texture_index].offset_4, 0);//lseek
 	int v3 = str_TMAPS00TAB_BEGIN_BUFFER[texture_index + 1].offset_4 - str_TMAPS00TAB_BEGIN_BUFFER[texture_index].offset_4;
-	if (DataFileIO::Read(x_DWORD_DB73C_tmapsfile, texture_buffer, v3) != v3)
+	if (DataFileIO::Read(tmapsFile_DB73C, texture_buffer, v3) != v3)
 		return -1;
 	result = DataFileRNC::Decompress(texture_buffer, texture_buffer);
 	if (result >= 0)
@@ -1123,7 +1123,7 @@ type_animations1* InitTmapAnimation_721C0(type_E9C08* a1x, Type_Sprite** a2x, in
 		for (int f = 0; f < frames.size(); f++)
 		{
 			memcpy(rawData + (frameBytes * f), frames[f], frameBytes);
-			//WriteTextureMapToBmp(v12, f, frames[f], a1x->dword_2[v12].Width_18, a1x->dword_2[v12].Height_20, D41A0_0.terrain_2FECE.MapType);
+			//WriteTextureMapToBmp(v12, f, frames[f], a1x->dword_2[v12].Width_18, a1x->dword_2[v12].Height_20, world_D41A0.terrain_2FECE.MapType);
 		}
 
 		for (uint8_t* frame : frames)
@@ -1132,7 +1132,7 @@ type_animations1* InitTmapAnimation_721C0(type_E9C08* a1x, Type_Sprite** a2x, in
 		frames.clear();
 	}
 
-	//WriteTextureMapToBmp(v12, rawData, a1x->dword_2[v12].Width_18, a1x->dword_2[v12].Height_20 * a1x->dword_2[v12].CountOfFrames_16, D41A0_0.terrain_2FECE.MapType);
+	//WriteTextureMapToBmp(v12, rawData, a1x->dword_2[v12].Width_18, a1x->dword_2[v12].Height_20 * a1x->dword_2[v12].CountOfFrames_16, world_D41A0.terrain_2FECE.MapType);
 
 	m_spriteFrameCount[index] = std::max<uint16_t>(1, a1x->animations_2[v12].CountOfFrames_16);
 	EventDispatcher::I->DispatchEvent<ResourceType, uint32_t, uint8_t*, uint32_t, uint32_t>(

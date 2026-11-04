@@ -30,11 +30,11 @@ extern bool soundActive_E3799;
 extern bool musicActive_E37FD;
 extern bool soundAble_E3798;
 extern bool musicAble_E37FC;
-extern int x_DWORD_E3844;
-extern int x_DWORD_E387C;
-extern FILE* x_FILE_E3840;
+extern int soundEventDelay_E3844;
+extern int fileReadBuffer_E387C;
+extern FILE* soundEventFile_E3840;
 extern __int16 m_iNumberOfTracks;
-extern int x_DWORD_E387C;
+extern int fileReadBuffer_E387C;
 extern int8_t soundActiveL_E2A14;
 extern int8_t soundActiveH_E2A14;
 extern __int16 SoundNumber_E37B6;
@@ -55,14 +55,14 @@ extern int16_t CurrentPaletteFade_181B44;
 extern char cdSpeechEnabled_E2A28; // weak
 extern type_F4FE0 EntitySounds_F4FE0[70];
 
-extern uint8_t* x_DWORD_182188[];
-extern uint8_t* x_DWORD_1821A0[];
-extern uint8_t* x_DWORD_1821B8[];
-extern uint8_t* x_DWORD_1821D0[];
-extern uint8_t* x_DWORD_1821E8[];
+extern uint8_t* vrTableA_182188[];
+extern uint8_t* vrTableB_1821A0[];
+extern uint8_t* vrTableC_1821B8[];
+extern uint8_t* vrTableD_1821D0[];
+extern uint8_t* vrTableE_1821E8[];
 
 extern int x_DWORD_17FF10; // weak
-extern int x_DWORD_E2A6C;
+extern int cdDriveReady_E2A6C;
 
 const uint32_t AilSampleLoaded = 1;
 const uint32_t AilSampleStopped = 2;

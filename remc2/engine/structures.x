@@ -41,16 +41,16 @@ eax=[ebp+14]..1a6f44
 [ebp+14]+=6
 
 zameny
-x_DWORD_17DED4 za xy_DWORD_17DED4_spritestr
-x_DWORD_17DEC0 za xy_DWORD_17DEC0_spritestr
-x_DWORD_17DEC8 za xy_DWORD_17DEC8_spritestr
+x_DWORD_17DED4 za menuSprites_17DED4
+x_DWORD_17DEC0 za fontSprites_17DEC0
+x_DWORD_17DEC8 za font2Sprites_17DEC8
 
 x_WORD_E1F84 - upravit na strukturu
 unk_E24BCx - upravit na strukturu
 
 x_DWORD_17DE48c - nahrazeno heap?
 
-x_DWORD_E9B20 =
+fonts_E9B20 =
 
 x_DWORD_E9C2C == BLOCK32DAT_BEGIN_BUFFER tj. pstr[psxadatablock32dat].colorPalette_var28
 

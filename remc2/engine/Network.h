@@ -49,7 +49,7 @@ extern bool Iam_client;
 extern int NetworkPort;
 extern int ServerPort;
 extern char serverIP[256];
-extern uint8_t x_BYTE_E131C[8];
+extern uint8_t netWizardTypes_E131C[8];
 extern uint8_t connected_E12A6;
 
 void NetworkDisallocation_72D04();

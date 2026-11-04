@@ -193,11 +193,11 @@ typedef struct {
 }
 Type_Message;
 
-//extern int16_t m_iViewPortX_EA3D0; // weak?x_DWORD_E9C4C_langindexbuffer[481]
-//extern uint16_t m_uiViewPortWidth_EA3C4; // weak?x_DWORD_E9C4C_langindexbuffer[478]
+//extern int16_t m_iViewPortX_EA3D0; // weak?langStrings_E9C4C[481]
+//extern uint16_t m_uiViewPortWidth_EA3C4; // weak?langStrings_E9C4C[478]
 
-extern type_str_unk_1804B0ar str_unk_1804B0ar;
-extern __int16 x_WORD_180660_VGA_type_resolution;
+extern type_str_unk_1804B0ar helpPopup_1804B0;
+extern __int16 videoMode_180660;
 extern uint8_t playersColors_E88E0x[8][3];
 extern uint8_t unk_F0A20x[1024];//2c1a20
 extern uint8_t m_BackgroundColour_D4B7C; // weak
@@ -206,16 +206,16 @@ extern type_entity_0x6E8E* Entities_EA3E4[1001];//2bb3e4
 
 extern uint8_t ColourLookupTable_F6EE0[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites (offsets at the top: GameBitmap.h needs them)
 
-extern uint8_t* x_BYTE_F6EE0_tablesx_pre;
-extern uint8_t* x_BYTE_FAEE0_tablesx_pre;
+extern uint8_t* tables_F6EE0;
+extern uint8_t* tables2_FAEE0;
 
-extern std::array<uint8_t*, 256> x_DWORD_DDF50_texture_adresses; /*= { 0,32 }*/ // weak
+extern std::array<uint8_t*, 256> textureAddresses_DDF50; /*= { 0,32 }*/ // weak
 
 const uint16_t TILE_ROWS_COUNT = 21;
 const uint16_t TILE_COLUMNS_COUNT = 40;
-extern type_E9C38_smalltit Str_E9C38_smalltit[TILE_ROWS_COUNT * TILE_COLUMNS_COUNT];
+extern type_E9C38_smalltit terrainTiles_E9C38[TILE_ROWS_COUNT * TILE_COLUMNS_COUNT];
 
-extern type_F2C20ar str_F2C20ar;
+extern type_F2C20ar spriteRender_F2C20;
 
 extern std::string gameDataPath;
 extern std::string cdDataPath;
@@ -236,28 +236,28 @@ extern float m_fFps; // The frames rendered per second. Needs to be stored to be
 extern int readFileStatus_E3E2C;
 extern char DisplaySubtitles_D41C1; // weak
 extern char SubtitlesOn_D41CE; // weak
-extern char* x_DWORD_D41D0; // weak
-extern uint8_t* x_DWORD_17DB50; // weak
+extern char* subtitleText_D41D0; // weak
+extern uint8_t* chunkStream_17DB50; // weak
 extern int x_DWORD_E3890;
-extern int x_DWORD_E3768; // weak
-extern char x_BYTE_E3766; // weak
+extern int mouseInstalled_E3768; // weak
+extern char blitLock_E3766; // weak
 extern int16_t unk_1806EC; // weak
-extern uint16_t x_WORD_18072C_cursor_sizex; // weak
-extern uint16_t x_WORD_18072E_cursor_sizey; // weak
-extern uint8_t* x_DWORD_180730_cursor_data; // weak//351730
-extern char* x_DWORD_D41BC_langbuffer; // fix it
-extern char* x_DWORD_D41BC_langbuffer; // fix it
-extern int x_DWORD_18073A; // weak
+extern uint16_t cursorWidth_18072C; // weak
+extern uint16_t cursorHeight_18072E; // weak
+extern uint8_t* cursorData_180730; // weak//351730
+extern char* langBuffer_D41BC; // fix it
+extern char* langBuffer_D41BC; // fix it
+extern int cursorColumn_18073A; // weak
 
 //inputs
-extern __int16 x_WORD_180744_mouse_right_button; // weak//351744
-extern __int16 x_WORD_180746_mouse_left_button; // weak//351746
-extern __int16 x_WORD_18074A_mouse_right2_button; // weak//35174a
-extern __int16 x_WORD_18074C_mouse_left2_button; // weak//35174c
+extern __int16 mouseRightButton_180744; // weak//351744
+extern __int16 mouseLeftButton_180746; // weak//351746
+extern __int16 mouseRightButton2_18074A; // weak//35174a
+extern __int16 mouseLeftButton2_18074C; // weak//35174c
 
 //basic graphics
-extern type_x_DWORD_17DE38str x_DWORD_17DE38str;
-extern uint8_t* x_DWORD_E9C38_smalltit;
+extern type_x_DWORD_17DE38str menuState_17DE38;
+extern uint8_t* smalltitBuffer_E9C38;
 
 extern int Int386Request_17FF0C;
 extern int MscdexCommand_17FF44;
@@ -351,7 +351,7 @@ extern bitmap_pos_struct2_t* HFONT3TAB_END_BUFFER;
 
 extern uint8_t* CLRD0DAT_BEGIN_BUFFER;
 
-extern int x_DWORD_1806F4_mouse_byte_index2; // weak
+extern int cursorScreenIndex2_1806F4; // weak
 
 extern int help_VGA_type_resolution;
 
@@ -369,7 +369,7 @@ extern bitmap_pos_struct_t* posistruct9;//fix it
 extern bitmap_pos_struct_t* posistruct10;//fix it
 extern bitmap_pos_struct_t* posistruct11;//fix it
 
-extern bitmap_pos_struct_t* x_DWORD_EA3D4; // weak
+extern bitmap_pos_struct_t* fontSprites_EA3D4; // weak
 
 extern Pathstruct xasearchd_2bac30;
 #define psxasearchd_2bac30 0
@@ -469,48 +469,48 @@ extern Pathstruct xadatatables;
 //zero
 #define psxazero14 47
 
-extern axis_2d x_WORD_E3760_mouse;
+extern axis_2d mouse_E3760;
 extern uint8_t* ptrMemoryBuffer_E9C3C; // weak
 extern type_SPELLS_BEGIN_BUFFER_str SPELLS_BEGIN_BUFFER_str[];
 
-extern int16_t x_WORD_1806EE; // weak
+extern int16_t cursorRows_1806EE; // weak
 
 extern uint8_t* ptrScreenPos_180708; // weak
 extern uint8_t* ptrCursorBitmapPos_18070C; // weak
-extern uint8_t* x_DWORD_180714; // weak
-extern uint8_t* x_DWORD_180718; // weak
+extern uint8_t* cursorBackgroundPtr_180714; // weak
+extern uint8_t* cursorBackgroundPtr2_180718; // weak
 
-extern uint8_t* x_DWORD_1806F0; // weak
+extern uint8_t* cursorBackground2_1806F0; // weak
 
-extern __int16 x_WORD_180738; // weak
+extern __int16 cursorRow_180738; // weak
 
-extern uint8_t* x_DWORD_180700; // weak
+extern uint8_t* cursorBackground_180700; // weak
 
-extern int x_DWORD_1806F4_mouse_byte_index2; // weak
-extern int16_t x_DWORD_1806FC_mouse_invx; // weak
-extern int16_t x_DWORD_1806FC_mouse_invy; // weak
-extern uint8_t* x_DWORD_180700; // weak
-extern int x_DWORD_180704_mouse_byte_index1; // weak
+extern int cursorScreenIndex2_1806F4; // weak
+extern int16_t cursorVisibleWidth_1806FC; // weak
+extern int16_t cursorVisibleHeight_1806FC; // weak
+extern uint8_t* cursorBackground_180700; // weak
+extern int cursorScreenIndex_180704; // weak
 
-extern int x_DWORD_180644_map_resolution2_y; // weak
-extern int x_DWORD_180648_map_resolution2_x; // weak
+extern int clipHeight_180644; // weak
+extern int clipWidth_180648; // weak
 
-extern int16_t x_DWORD_1806F8_mousex; // weak
-extern int16_t x_DWORD_1806F8_mousey; // weak
+extern int16_t cursorX_1806F8; // weak
+extern int16_t cursorY_1806F8; // weak
 
-extern int x_DWORD_E3758; // weak
+extern int cursorDrawn_E3758; // weak
 
-extern int x_DWORD_180734; // weak
-extern int x_DWORD_18073A; // weak
+extern int cursorParam_180734; // weak
+extern int cursorColumn_18073A; // weak
 
-extern int x_DWORD_180650_positiony; // weak
+extern int viewportY_180650; // weak
 
-extern int x_DWORD_180630_screen_height; // weak
-extern int x_DWORD_180634_screen_width; // weak
+extern int viewportHeight_180630; // weak
+extern int viewportWidth_180634; // weak
 
-extern int x_DWORD_18063C_sprite_sizex; // weak
+extern int viewportX_18063C; // weak
 
-extern __int16 x_WORD_E36D4; // weak
+extern __int16 drawFlags_E36D4; // weak
 
 extern type_TMAPS00TAB_BEGIN_BUFFER* str_TMAPS00TAB_BEGIN_BUFFER;
 
@@ -553,7 +553,7 @@ void x__writeeflags(unsigned Value);
 unsigned int x__getcallerseflags(void);
 
 //language
-extern char* x_DWORD_E9C4C_langindexbuffer[]; // idb
+extern char* langStrings_E9C4C[]; // idb
 
 void dbgfprintf(FILE* file, const char* format, ...);
 

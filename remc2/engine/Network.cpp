@@ -7,8 +7,8 @@ void DestroyPlayerCastle(int player);
 //#define PRINT_UPDATE_CONNECTIONS
 
 //char x_BYTE_E126D = 0; // weak
-char x_BYTE_E1274 = 0; // weak
-char x_BYTE_E1275 = 0; // weak
+char netAllocated_E1274 = 0; // weak
+char netInSession_E1275 = 0; // weak
 int16_t IndexInNetwork_E1276 = -1; // 0x2B2276
 __int16 countConnected_E1278 = 0; // 0x2B2278
 __int16 maxPlayers_E127A = 8; // 0x2B227A
@@ -41,9 +41,9 @@ int NetworkPort = 15001;
 int ServerPort = -1;
 char serverIP[256] = "127.0.0.1";
 
-type_str_word_26 str_WORD_E1F70 = { 430, 78, 0, 0, 80, 0, 413, 0, 0 }; // idb // for scoll dialog drawing
+type_str_word_26 connectScroll_E1F70 = { 430, 78, 0, 0, 80, 0, 413, 0, 0 }; // idb // for scoll dialog drawing
 
-TColor str_BYTE_E1711[2][18] = { {//players Palette colors is halfed
+TColor playerColors_E1711[2][18] = { {//players Palette colors is halfed
 {0x36,0x36,0x36},//0 //grey
 {0x00,0x26,0x00},//1 //green
 {0x2D,0x00,0x00},//2 //red
@@ -97,7 +97,7 @@ void WaitForNcb_diag(myNCB* ncb, const char* what)
 //----- (00072D04) --------------------------------------------------------
 void NetworkDisallocation_72D04()
 {
-	if (x_BYTE_E1274)
+	if (netAllocated_E1274)
 	{
 		for (int i = 0; maxPlayers_E127A > i; i++)
 		{
@@ -112,7 +112,7 @@ void NetworkDisallocation_72D04()
 		}
 		FreeMem_83E80((uint8_t*)networkBuffer_E127E);
 		FreeMem_83E80((uint8_t*)paket_E1282);
-		x_BYTE_E1274 = 0;
+		netAllocated_E1274 = 0;
 	}
 }
 
@@ -208,13 +208,13 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 	int i;
 	int result;
 	//254093
-	if (!x_BYTE_E1274 || x_BYTE_E1275)
+	if (!netAllocated_E1274 || netInSession_E1275)
 		return -1;
 	if (a3)
 		maxPlayers_E127A = a3;
 	else
 		maxPlayers_E127A = 8;
-	x_BYTE_E1275 = 0;
+	netInSession_E1275 = 0;
 	connected_E12A6 = 0;
 	strcpy(nethID, (char*)a2);
 	extern char oldConnected[8];   // defined next to RemoveDeadClients, further down
@@ -329,7 +329,7 @@ int NetworkInitConnection_7308F(char* a2, __int16 a3)//25408f
 	else
 	{
 		NetworkUpdateConnections_74F76();
-		x_BYTE_E1275 = 1;
+		netInSession_E1275 = 1;
 		result = IndexInNetwork_E1276;
 	}
 	return result;
@@ -350,7 +350,7 @@ void NetworkCanceling_73669(__int16 a1)//254669
 		}
 		snprintf(printbuffer, printBufferSize, "%s%d", nethID, IndexInNetwork_E1276);
 		NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
-		x_BYTE_E1275 = 0;
+		netInSession_E1275 = 0;
 	}
 	else
 	{
@@ -423,7 +423,7 @@ static void SeedSurvivors(uint8_t locConnected[8], int16_t leaving)
 // to the menu and back into another one within a single run.
 void NetworkLeaveSession()
 {
-	if (!x_BYTE_E1274 || !x_BYTE_E1275) return;   // nothing allocated, or not in a session
+	if (!netAllocated_E1274 || !netInSession_E1275) return;   // nothing allocated, or not in a session
 	if (IndexInNetwork_E1276 < 0) return;
 	if (CommandLineParams.DoNetworkDebug())
 		debug_net_printf("MATCHEND: leaving the network session (index %d)\n", (int)IndexInNetwork_E1276);
@@ -439,7 +439,7 @@ void NetworkEvent_7373D(int16_t a1)//25473d
 	uint8_t locConnected[8]; // [esp+54h] [ebp-10h]
 	int i; // [esp+5Ch] [ebp-8h]
 
-	if (x_BYTE_E1274 && x_BYTE_E1275)
+	if (netAllocated_E1274 && netInSession_E1275)
 	{
 		if (IndexInNetwork2_E12A8 == a1)
 		{
@@ -521,7 +521,7 @@ void NetworkRemoveClient_739AD(__int16 a1)//2549ad
 		}
 		snprintf(printbuffer, printBufferSize, "%s%d", nethID, IndexInNetwork_E1276);
 		NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
-		x_BYTE_E1275 = 0;
+		netInSession_E1275 = 0;
 	}
 	else
 	{
@@ -538,7 +538,7 @@ void NetworkPeerLeft_73AA1(__int16 a1)//254aa1
 	uint8_t locConnected[8]; // [esp+54h] [ebp-10h]
 	int i; // [esp+5Ch] [ebp-8h]
 
-	if (x_BYTE_E1274 && x_BYTE_E1275)
+	if (netAllocated_E1274 && netInSession_E1275)
 	{
 		if (IndexInNetwork2_E12A8 == a1)
 		{
@@ -620,7 +620,7 @@ void NetworkEnd_73D11(__int16 a1)//254d11
 		}
 		snprintf(printbuffer, printBufferSize, "%s%d", nethID, IndexInNetwork_E1276);
 		NetworkDeleteName_74A86(connection_E12AE[a1], printbuffer);
-		x_BYTE_E1275 = 0;
+		netInSession_E1275 = 0;
 	}
 	else
 	{
@@ -634,7 +634,7 @@ void NetworkEnd_73D11(__int16 a1)//254d11
 //----- (00074006) --------------------------------------------------------
 void NetworkSendMessage2_74006(unsigned __int16 a1, uint8_t* buffer, unsigned int size)//255006
 {
-	if (x_BYTE_E1274)
+	if (netAllocated_E1274)
 	{
 		// Who is actually written to, and who is skipped for being "not connected".  The
 		// receiving end already logs what arrives (queued DIRECT_SEND), so the two together
@@ -660,7 +660,7 @@ void NetworkSendMessage2_74006(unsigned __int16 a1, uint8_t* buffer, unsigned in
 //----- (0007404E) --------------------------------------------------------
 void NetworkReceiveMessage2_7404E(unsigned __int16 connectionindex, uint8_t* buffer, unsigned int size)//25504e
 {
-	if (x_BYTE_E1274)
+	if (netAllocated_E1274)
 	{
 		if (connected_E12CE[connectionindex] == 1)
 			NetworkReceiveMessage_74D41(connection_E12AE[connectionindex], buffer, size);
@@ -687,14 +687,14 @@ void ReceiveSendAll_7438A(uint8_t* buffer, unsigned int size)//25538a
 	// found here and NOT in the menu loop, so a check placed there was never reached - measured,
 	// the follower stopped reporting for seventy seconds while this exchange kept running.
 	//
-	// Only in the lobby (!g_inGameLoop) and only while the session is up (x_BYTE_E1275): in a
+	// Only in the lobby (!g_inGameLoop) and only while the session is up (netInSession_E1275): in a
 	// level every pair already holds a session and there is nothing to re-aim, and doing this
 	// while a match is being torn down cancels NCBs that are on their way out, which killed an
 	// instance outright when this lived in the per-tick update.
-	if (!g_inGameLoop && x_BYTE_E1275)
+	if (!g_inGameLoop && netInSession_E1275)
 		NetworkRewireAfterServerChange();
 
-	if (x_BYTE_E1274)
+	if (netAllocated_E1274)
 	{
 		if (IndexInNetwork_E1276 == IndexInNetwork2_E12A8)
 		{
@@ -749,7 +749,7 @@ void ReceiveSendAll_7438A(uint8_t* buffer, unsigned int size)//25538a
 //----- (0007449C) --------------------------------------------------------
 void NetworkCancelAll_7449C()//25549c
 {
-	if (x_BYTE_E1274)
+	if (netAllocated_E1274)
 	{
 		if (IndexInNetwork_E1276 == IndexInNetwork2_E12A8)
 		{
@@ -780,7 +780,7 @@ const int maxSizeOfPacket = 2048 * 30;//original 2048
 uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 {
 	bool allocation_ok = true;
-	if (!x_BYTE_E1274 && !mainConnection_E12AA)
+	if (!netAllocated_E1274 && !mainConnection_E12AA)
 	{
 		mainConnection_E12AA = (myNCB*)Malloc_83D70(sizeof(myNCB));
 		memset(mainConnection_E12AA, 0, sizeof(myNCB));
@@ -815,7 +815,7 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 						}
 					}
 					if (i == 8)
-						x_BYTE_E1274 = 1;
+						netAllocated_E1274 = 1;
 				}
 				else
 				{
@@ -834,7 +834,7 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 	}
 	if (!allocation_ok)
 	{
-		x_BYTE_E1274 = 0;
+		netAllocated_E1274 = 0;
 		if (mainConnection_E12AA)
 			FreeMem_83E80((uint8_t*)mainConnection_E12AA);
 		if (networkBuffer_E127E)
@@ -849,7 +849,7 @@ uint8_t NetworkAllocation_74556()//255556 push ebp 355250
 				FreeMem_83E80(packetArray_E1286[j]);
 		}
 	}
-	return x_BYTE_E1274;
+	return netAllocated_E1274;
 }
 
 //----- (00074767) --------------------------------------------------------
@@ -1078,11 +1078,11 @@ char oldConnected[8] = { -1, -1, -1, -1, -1, -1, -1, -1 }; // idb
 // codes nor reacts to them: on a LAN of the day, a machine that died ended the session.
 static void NetworkPeerVanished_73AA1b(int16_t lost)
 {
-	if (!x_BYTE_E1274 || !x_BYTE_E1275)
+	if (!netAllocated_E1274 || !netInSession_E1275)
 		return;
 
 	NetworkCanceling_73669(lost);
-	D41A0_0.players_0x2BDE[lost].playerActive_0x006_2BE4_11236 = 0;   // no longer in the game
+	world_D41A0.players_0x2BDE[lost].playerActive_0x006_2BE4_11236 = 0;   // no longer in the game
 	if (CommandLineParams.DoNetworkDebug())
 		debug_net_printf("PEERGONE: player %d vanished (token holder was %d)\n",
 			(int)lost, (int)IndexInNetwork2_E12A8);
@@ -1245,14 +1245,14 @@ void NetworkRewireAfterServerChange()
 		// so when there is nothing to carry, leaving it alone is right.
 		const int oldToken = IndexInNetwork2_E12A8;
 		if (oldToken >= 0 && oldToken < 8 && serverSlot < 8
-			&& x_DWORD_17DE38str.netSessions_17DE68x[oldToken].makeUpdate_0)
+			&& menuState_17DE38.netSessions_17DE68x[oldToken].makeUpdate_0)
 		{
 			for (int c = 0; c < 8; c++)
-				x_DWORD_17DE38str.netSessions_17DE68x[serverSlot].playerIndex_1[c] =
-					x_DWORD_17DE38str.netSessions_17DE68x[oldToken].playerIndex_1[c];
-			if (x_DWORD_17DE38str.netSessions_17DE68x[oldToken].selectedLevel_10 >= 50)
-				x_DWORD_17DE38str.netSessions_17DE68x[serverSlot].selectedLevel_10 =
-					x_DWORD_17DE38str.netSessions_17DE68x[oldToken].selectedLevel_10;
+				menuState_17DE38.netSessions_17DE68x[serverSlot].playerIndex_1[c] =
+					menuState_17DE38.netSessions_17DE68x[oldToken].playerIndex_1[c];
+			if (menuState_17DE38.netSessions_17DE68x[oldToken].selectedLevel_10 >= 50)
+				menuState_17DE38.netSessions_17DE68x[serverSlot].selectedLevel_10 =
+					menuState_17DE38.netSessions_17DE68x[oldToken].selectedLevel_10;
 		}
 		IndexInNetwork2_E12A8 = (int16_t)serverSlot;
 	}
@@ -1294,8 +1294,8 @@ void RemoveDeadClients()
 				// stale action every frame, which for a "select character" action re-rolls
 				// colours through FindFreeColorIndex_7D230 and lands two wizards on one
 				// colour.
-				x_DWORD_17DE38str.netSessions_17DE68x[i].makeUpdate_0 = 1;
-				x_DWORD_17DE38str.netSessions_17DE68x[i].action_9 = 1;
+				menuState_17DE38.netSessions_17DE68x[i].makeUpdate_0 = 1;
+				menuState_17DE38.netSessions_17DE68x[i].action_9 = 1;
 				// What must NOT run for this slot is the ORDERLY hand-over that action_9 = 1
 				// normally triggers: NetworkPeerLeft_73AA1 begins by receiving the survivor
 				// list from the node that is leaving, and a node that was killed sent none.
@@ -1319,12 +1319,12 @@ void RemoveDeadClients()
 				// Only the listening node re-arms.  A joining node always calls the first one, and
 				// index 0 is the side that listens (NetworkInitConnection_7308F: index 0 listens on
 				// every other slot, everybody else calls).
-				// Only while the session is still up (x_BYTE_E1275).  Ending a match takes the peers
+				// Only while the session is still up (netInSession_E1275).  Ending a match takes the peers
 				// away as well, and arming a LISTEN on a session that is being torn down is pointless
 				// at best.  (It was suspected of breaking the next match too - it was not; that was
 				// the scores screen waiting for a keypress.  The guard is kept because it is right,
 				// not because it fixed that.)
-				if (x_BYTE_E1275 && IndexInNetwork_E1276 == 0 && i != IndexInNetwork_E1276)
+				if (netInSession_E1275 && IndexInNetwork_E1276 == 0 && i != IndexInNetwork_E1276)
 				{
 					if (CommandLineParams.DoNetworkDebug())
 						debug_net_printf("SLOTFREE: listening again on slot %d for a newcomer\n", i);
@@ -1456,20 +1456,20 @@ int SetNetbios_75044(myNCB* connection)//256044
 void WaitToConnect_7C230()//25d230
 {
 	long actTime;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (videoMode_180660 & 1)
 	{
-		CopyScreen((void*)x_DWORD_E9C38_smalltit, (void*)pdwScreenBuffer_351628, 320, 200);
+		CopyScreen((void*)smalltitBuffer_E9C38, (void*)pdwScreenBuffer_351628, 320, 200);
 	}
 	else
 	{
-		CopyScreen((void*)x_DWORD_E9C38_smalltit, (void*)pdwScreenBuffer_351628, 640, 480);
+		CopyScreen((void*)smalltitBuffer_E9C38, (void*)pdwScreenBuffer_351628, 640, 480);
 	}
-	DrawBitmap640_7C120(185, 232, xy_DWORD_17DED4_spritestr[66]);
+	DrawBitmap640_7C120(185, 232, menuSprites_17DED4[66]);
 	DrawMenuAnimations_7AB00();
-	if (DrawScrollDialog_7BF20(&str_WORD_E1F70))
+	if (DrawScrollDialog_7BF20(&connectScroll_E1F70))
 	{
 		x_WORD_E131A = 1;
-		ClearScrollDialogVars_7C020(&str_WORD_E1F70);
+		ClearScrollDialogVars_7C020(&connectScroll_E1F70);
 	}
 	actTime = j___clock();
 	if ((actTime - lastTime_E208C) >> 2 >= 1)
@@ -1480,8 +1480,8 @@ void WaitToConnect_7C230()//25d230
 			timeCounter_E2094 = minTimeCounter_E2096;
 		lastTime_E208C = actTime;
 	}
-	DrawBitmap640_7C120(x_DWORD_17DE38str.mouseX_17DEE4, x_DWORD_17DE38str.mouseY_17DEE6, xy_DWORD_17DED4_spritestr[timeCounter_E2094]);
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	DrawBitmap640_7C120(menuState_17DE38.mouseX_17DEE4, menuState_17DE38.mouseY_17DEE6, menuSprites_17DED4[timeCounter_E2094]);
+	if (videoMode_180660 & 1)
 		VgaBlit320_90478();
 	else
 		VgaBlit640_75200(480);
@@ -1494,34 +1494,34 @@ bool SetMultiplayerColors_7CE50()//25de50
 	__int16 colorIndex; // di
 	bool result = false;
 
-	x_DWORD_17DE38str.netSessions_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].makeUpdate_0 = 1;
+	menuState_17DE38.netSessions_17DE68x[menuState_17DE38.serverIndex_17DEFC].makeUpdate_0 = 1;
 	NetworkUpdateConnections2_74374();//some with network
 	printState(connection_E12AE);
-	ReceiveSendAll_7438A((uint8_t*)x_DWORD_17DE38str.netSessions_17DE68x, sizeof(type_BYTE_17DE68x));
+	ReceiveSendAll_7438A((uint8_t*)menuState_17DE38.netSessions_17DE68x, sizeof(type_BYTE_17DE68x));
 	for (int v0 = 0; v0 < 8; v0++)
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			x_DWORD_17DE38str.netSessions_17DE68x[v0].playerIndex_1[j] = x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[j];
-			x_BYTE_E131C[j] = x_DWORD_17DE38str.netSessions_17DE68x[v0].playerIndex_1[j];
+			menuState_17DE38.netSessions_17DE68x[v0].playerIndex_1[j] = menuState_17DE38.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[j];
+			netWizardTypes_E131C[j] = menuState_17DE38.netSessions_17DE68x[v0].playerIndex_1[j];
 		}
 	}
 	for (int i = 0; i < 8; i++)
 	{
-		if (x_DWORD_17DE38str.netSessions_17DE68x[i].makeUpdate_0)
+		if (menuState_17DE38.netSessions_17DE68x[i].makeUpdate_0)
 		{
-			switch (x_DWORD_17DE38str.netSessions_17DE68x[i].action_9)
+			switch (menuState_17DE38.netSessions_17DE68x[i].action_9)
 			{
 			case 1://end of select character
 				for (colorIndex = 134; colorIndex < 148; colorIndex++)
 				{
-					x_DWORD_17DE38str.palette_17DE38x[colorIndex].red = 0;
-					x_DWORD_17DE38str.palette_17DE38x[colorIndex].green = 0;
-					x_DWORD_17DE38str.palette_17DE38x[colorIndex].blue = 0;
+					menuState_17DE38.palette_17DE38x[colorIndex].red = 0;
+					menuState_17DE38.palette_17DE38x[colorIndex].green = 0;
+					menuState_17DE38.palette_17DE38x[colorIndex].blue = 0;
 				}
-				VgaPaletteInstall_41A90(x_DWORD_17DE38str.palette_17DE38x);
+				VgaPaletteInstall_41A90(menuState_17DE38.palette_17DE38x);
 
-				x_DWORD_17DE38str.netSessions_17DE68x[i].makeUpdate_0 = 0;
+				menuState_17DE38.netSessions_17DE68x[i].makeUpdate_0 = 0;
 				// A slot whose node vanished has already been handed over from the roster in
 				// RemoveDeadClients; the orderly path below would try to receive a survivor
 				// list that nobody sent.
@@ -1529,35 +1529,35 @@ bool SetMultiplayerColors_7CE50()//25de50
 					g_vanishedHandled[i] = false;
 				else
 					NetworkPeerLeft_73AA1(i);
-				if (i == x_DWORD_17DE38str.serverIndex_17DEFC)
+				if (i == menuState_17DE38.serverIndex_17DEFC)
 					result = true;
 				break;
 			case 2:
 				if (GetIndexNetwork2_74515() == GetIndexNetwork_74536())//begin of select character
 				{
 					if (i <= 0)
-						x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = i;
+						menuState_17DE38.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = i;
 					else
-						x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = i - 1;
-					x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = FindFreeColorIndex_7D230(1, x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i], i);
+						menuState_17DE38.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = i - 1;
+					menuState_17DE38.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = FindFreeColorIndex_7D230(1, menuState_17DE38.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i], i);
 				}
 				break;
 			case 3://change to left character
-				if (GetIndexNetwork2_74515() == GetIndexNetwork_74536() && x_DWORD_17DE38str.netPlayerCount_17DEFE < 7)
+				if (GetIndexNetwork2_74515() == GetIndexNetwork_74536() && menuState_17DE38.netPlayerCount_17DEFE < 7)
 				{
-					x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = FindFreeColorIndex_7D230(1, x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i], i);
+					menuState_17DE38.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = FindFreeColorIndex_7D230(1, menuState_17DE38.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i], i);
 				}
 				break;
 			case 4://change to right character
-				if (GetIndexNetwork2_74515() == GetIndexNetwork_74536() && x_DWORD_17DE38str.netPlayerCount_17DEFE < 7)
+				if (GetIndexNetwork2_74515() == GetIndexNetwork_74536() && menuState_17DE38.netPlayerCount_17DEFE < 7)
 				{
-					x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = FindFreeColorIndex_7D230(0, x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i], i);
+					menuState_17DE38.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i] = FindFreeColorIndex_7D230(0, menuState_17DE38.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i], i);
 				}
 				break;
 			case 5://start multiplayer level
-				D41A0_0.LevelIndex_0xc = x_DWORD_17DE38str.serverIndex_17DEFC;
-				x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].selectedLevel_10;
-				x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 |= Setting::MULTIPLAYER_MODE;
+				world_D41A0.LevelIndex_0xc = menuState_17DE38.serverIndex_17DEFC;
+				gameState_D41A4.levelnumber_43w = menuState_17DE38.netSessions_17DE68x[GetIndexNetwork2_74515()].selectedLevel_10;
+				gameState_D41A4.setting_byte1_22 |= Setting::MULTIPLAYER_MODE;
 				// NumberOfPlayers_0xe is used everywhere as a LOOP BOUND over array_0x2BDE,
 				// not as a population count, and the two agree only while the players fill
 				// slots 0..N-1.  After a server hand-over they do not: the node that died
@@ -1572,23 +1572,23 @@ bool SetMultiplayerColors_7CE50()//25de50
 				{
 					int highestSlot = -1;
 					for (int s = 0; s < 8; s++)
-						if (x_DWORD_17DE38str.netSessions_17DE68x[s].makeUpdate_0) highestSlot = s;
-					D41A0_0.NumberOfPlayers_0xe = (int16_t)(highestSlot + 1);
+						if (menuState_17DE38.netSessions_17DE68x[s].makeUpdate_0) highestSlot = s;
+					world_D41A0.NumberOfPlayers_0xe = (int16_t)(highestSlot + 1);
 				}
 				NetworkCancelAll_7449C();
 				m_ExitMenuLoop_E29DC = 1;
 				result = true;
 				break;
 			case 6:
-				x_DWORD_17DE38str.netSessions_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10 = x_DWORD_17DE38str.netSessions_17DE68x[i].selectedLevel_10;//select next level
+				menuState_17DE38.netSessions_17DE68x[menuState_17DE38.serverIndex_17DEFC].selectedLevel_10 = menuState_17DE38.netSessions_17DE68x[i].selectedLevel_10;//select next level
 				break;
 			default:
 				continue;
 			}
 		}
 	}
-	x_DWORD_17DE38str.netSessions_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].action_9 = 0;
-	x_DWORD_17DE38str.wizardIndex_17DEF4 = x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[x_DWORD_17DE38str.serverIndex_17DEFC];
+	menuState_17DE38.netSessions_17DE68x[menuState_17DE38.serverIndex_17DEFC].action_9 = 0;
+	menuState_17DE38.wizardIndex_17DEF4 = menuState_17DE38.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[menuState_17DE38.serverIndex_17DEFC];
 	DrawNetworkLevelName_7D1F0();
 	return result;
 }
@@ -1597,11 +1597,11 @@ bool SetMultiplayerColors_7CE50()//25de50
 void DrawNetworkLevelName_7D1F0()//25e1f0
 {
 	int index = 0;
-	x_DWORD_17DE38str.netPlayerCount_17DEFE = 0;
+	menuState_17DE38.netPlayerCount_17DEFE = 0;
 	do
 	{
-		if (x_DWORD_17DE38str.netSessions_17DE68x[index].makeUpdate_0)
-			x_DWORD_17DE38str.netPlayerCount_17DEFE++;
+		if (menuState_17DE38.netSessions_17DE68x[index].makeUpdate_0)
+			menuState_17DE38.netPlayerCount_17DEFE++;
 		index++;
 	} while (index < 8);
 }
@@ -1611,11 +1611,11 @@ void SetMultiplayerColors_7D310()//25e310
 {
 	for (int i = 0; i < 8; i++)
 	{
-		if (x_DWORD_17DE38str.netSessions_17DE68x[i].makeUpdate_0)
+		if (menuState_17DE38.netSessions_17DE68x[i].makeUpdate_0)
 		{
-			if (i != x_DWORD_17DE38str.serverIndex_17DEFC)
+			if (i != menuState_17DE38.serverIndex_17DEFC)
 			{
-				SetPaletteColor_7CDC0(i, x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i]);
+				SetPaletteColor_7CDC0(i, menuState_17DE38.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[i]);
 			}
 		}
 	}
@@ -1642,8 +1642,8 @@ int FindFreeColorIndex_7D230(char searchBackward, uint8 startColor, uint8 exclud
 			while (slotBwd < 8)
 			{
 				if (slotBwd != excludeSlot &&
-					x_DWORD_17DE38str.netSessions_17DE68x[slotBwd].makeUpdate_0 &&
-					x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[slotBwd] == (x_WORD)currentColor)
+					menuState_17DE38.netSessions_17DE68x[slotBwd].makeUpdate_0 &&
+					menuState_17DE38.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[slotBwd] == (x_WORD)currentColor)
 				{
 					colorTakenBwd = 1;
 					break;
@@ -1663,8 +1663,8 @@ int FindFreeColorIndex_7D230(char searchBackward, uint8 startColor, uint8 exclud
 			while (slotFwd < 8)
 			{
 				if (slotFwd != excludeSlot &&
-					x_DWORD_17DE38str.netSessions_17DE68x[slotFwd].makeUpdate_0 &&
-					x_DWORD_17DE38str.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[slotFwd] == (x_WORD)currentColor)
+					menuState_17DE38.netSessions_17DE68x[slotFwd].makeUpdate_0 &&
+					menuState_17DE38.netSessions_17DE68x[GetIndexNetwork2_74515()].playerIndex_1[slotFwd] == (x_WORD)currentColor)
 				{
 					colorTakenFwd = 1;
 					break;
@@ -1679,14 +1679,14 @@ int FindFreeColorIndex_7D230(char searchBackward, uint8 startColor, uint8 exclud
 //----- (0007CDC0) --------------------------------------------------------
 void SetPaletteColor_7CDC0(uint8 colorIndex, uint8 playerIndex)//25ddc0
 {
-	((TColor*)*xadatapald0dat2.colorPalette_var28)[134 + 2 * colorIndex] = str_BYTE_E1711[0][playerIndex];
-	((TColor*)*xadatapald0dat2.colorPalette_var28)[135 + 2 * colorIndex] = str_BYTE_E1711[1][playerIndex];
+	((TColor*)*xadatapald0dat2.colorPalette_var28)[134 + 2 * colorIndex] = playerColors_E1711[0][playerIndex];
+	((TColor*)*xadatapald0dat2.colorPalette_var28)[135 + 2 * colorIndex] = playerColors_E1711[1][playerIndex];
 }
 
 //----- (0005C450) --------------------------------------------------------
 void NetworkDisallocation2_5C450()//23d450
 {
-	if (x_D41A0_BYTEARRAY_4_struct.isNetwork_216w)
+	if (gameState_D41A4.isNetwork_216w)
 		NetworkDisallocation_72D04();
 }
 
@@ -1731,15 +1731,15 @@ void UpdateNetInfo()
 	char buffer[128];
 	VGA_GotoXY(0, 20);
 	snprintf(buffer, sizeof(buffer), "0: %02d %01d,%01d %02d",
-		x_DWORD_17DE38str.array_BYTE_17DE68x[0].action_9,
-		x_DWORD_17DE38str.array_BYTE_17DE68x[0].playerIndex_1[0],
-		x_DWORD_17DE38str.array_BYTE_17DE68x[0].playerIndex_1[0], x_DWORD_17DE38str.array_BYTE_17DE68x[0].selectedLevel_10);
+		menuState_17DE38.array_BYTE_17DE68x[0].action_9,
+		menuState_17DE38.array_BYTE_17DE68x[0].playerIndex_1[0],
+		menuState_17DE38.array_BYTE_17DE68x[0].playerIndex_1[0], menuState_17DE38.array_BYTE_17DE68x[0].selectedLevel_10);
 	VGA_Draw_stringXYtoBuffer(buffer, 0, 20, pdwScreenBuffer_351628);
 	VGA_GotoXY(0, 40);
 	snprintf(buffer, sizeof(buffer), "1: %02d %01d,%01d %02d",
-		x_DWORD_17DE38str.array_BYTE_17DE68x[1].action_9,
-		x_DWORD_17DE38str.array_BYTE_17DE68x[1].playerIndex_1[1],
-		x_DWORD_17DE38str.array_BYTE_17DE68x[1].playerIndex_1[1], x_DWORD_17DE38str.array_BYTE_17DE68x[1].selectedLevel_10);
+		menuState_17DE38.array_BYTE_17DE68x[1].action_9,
+		menuState_17DE38.array_BYTE_17DE68x[1].playerIndex_1[1],
+		menuState_17DE38.array_BYTE_17DE68x[1].playerIndex_1[1], menuState_17DE38.array_BYTE_17DE68x[1].selectedLevel_10);
 	VGA_Draw_stringXYtoBuffer(buffer, 0, 40, pdwScreenBuffer_351628);
 #endif
 }

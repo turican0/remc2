@@ -81,7 +81,7 @@ char outname[512];
 char buffer[512];
 sprintf(outname, "c:\\prenos\\remc2\\outstr.txt");
 FILE* file = fopen(outname, "wt");
-sprintf(buffer, "type_E17CC_0 str_E17CC_0[48] = {\n");
+sprintf(buffer, "type_E17CC_0 introSoundEvents_E17CC[48] = {\n");
 fwrite(buffer, strlen(buffer), 1, file);
 for (int i = 0; i < 0x100; i++)
 {
@@ -98,7 +98,7 @@ fclose(file);
 
 
 /*
-memcpy((uint8_t*)str_x_DWORD_D4C52ar_0x2F22, x_DWORD_D4C52ar + 0x2F22, 4000);
+memcpy((uint8_t*)class0ECreateTable_D7B74, x_DWORD_D4C52ar + 0x2F22, 4000);
 char outname[512];
 char buffer[512];
 sprintf(outname, "c:\\prenos\\remc2\\outstr.txt");
@@ -108,8 +108,8 @@ fwrite(buffer, strlen(buffer), 1, file);
 for (int i = 0; i < 168; i++)
 {
 	sprintf(buffer, "{0x%04X,0x%02X,0x%04X,0x%04X},\n",
-		str_x_DWORD_D4C52ar_0x2F22[i].dword_0, str_x_DWORD_D4C52ar_0x2F22[i].word_4, str_x_DWORD_D4C52ar_0x2F22[i].adress_6,
-		str_x_DWORD_D4C52ar_0x2F22[i].dword_10);
+		class0ECreateTable_D7B74[i].dword_0, class0ECreateTable_D7B74[i].word_4, class0ECreateTable_D7B74[i].adress_6,
+		class0ECreateTable_D7B74[i].dword_10);
 	fwrite(buffer, strlen(buffer), 1, file);
 }
 sprintf(buffer, "};\n");
@@ -203,7 +203,7 @@ uint8_t unk_E17CC_0x194x[0xE6C] = {
 	char buffer[512];
 	sprintf(outname, "c:\\prenos\\remc2\\outstr.txt");
 	FILE* file = fopen(outname, "wt");
-	sprintf(buffer, "type_D4C52ar2 x_DWORD_D4C52ar_strA0[32]={\n");
+	sprintf(buffer, "type_D4C52ar2 classAActions_D4C52[32]={\n");
 	fwrite(buffer, strlen(buffer), 1, file);
 	for (int i = 0; i < 500; i++)
 	{
@@ -273,7 +273,7 @@ type_SPELLS_BEGIN_BUFFER_str;
 
 void begin_plugin() {
 	//convert_x_WORD_E2970y_to_x_WORD_E2970();
-	//x_D41A0_BYTEARRAY_4_struct.dwordindex_2388 = 10022;//fix sound param
+	//gameState_D41A4.dwordindex_2388 = 10022;//fix sound param
 }
 
 void initposistruct() {//fix it
@@ -289,7 +289,7 @@ void initposistruct() {//fix it
 	posistruct10 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
 	posistruct11 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
 
-	x_DWORD_EA3D4 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
+	fontSprites_EA3D4 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
 };
 
 //----- (00056730) --------------------------------------------------------
@@ -301,9 +301,9 @@ int CleanMemory_56730()//237730
 //----- (0008B5A0) --------------------------------------------------------
 int FreeJoystickMemory_8B5A0()//26c5a0
 {
-	if (x_BYTE_E36D1)
+	if (joystickEnabled_E36D1)
 	{
-		switch (unk_18058Cstr.joystickMode_1805C2)
+		switch (inputState_18058C.joystickMode_1805C2)
 		{
 		case 1:
 			FreeJoystickBuffer_8B770();
@@ -314,11 +314,11 @@ int FreeJoystickMemory_8B5A0()//26c5a0
 		default:
 			break;
 		}
-		x_BYTE_E36D1 = 0;
+		joystickEnabled_E36D1 = 0;
 	}
 	return 0;
 }
-// E36D1: using guessed type char x_BYTE_E36D1;
+// E36D1: using guessed type char joystickEnabled_E36D1;
 // 1805C2: using guessed type __int16 x_WORD_1805C2_joystick;
 
 //----- (00053CF0) --------------------------------------------------------
@@ -379,7 +379,7 @@ void CreateSoundDir_560D0()//2370d0
 //----- (0008B770) --------------------------------------------------------
 int FreeJoystickBuffer_8B770()//26c770
 {
-	return FreeAndClear_9B234((int*)unk_18058Cstr.serialBuffer_1805CE);
+	return FreeAndClear_9B234((int*)inputState_18058C.serialBuffer_1805CE);
 }
 
 //----- (00053EF0) --------------------------------------------------------
@@ -493,7 +493,7 @@ char LoadFilesFromCDAndGameData(const char* cdPath, const char* gamePath, const 
 		}
 		v20 += v12;
 		v13 = v20;
-		settextposition(x_DWORD_F4720.x, x_DWORD_F4720.y);
+		settextposition(textPosition_F4720.x, textPosition_F4720.y);
 		v14 = 100 * v13 / v18;
 		if (v14 > 100)
 			v14 = 100;
@@ -522,7 +522,7 @@ void NoOp_8C2CD()//26d2cd
 //----- (0005C430) --------------------------------------------------------
 void NetworkAllocation2_5C430()//23d430
 {
-	x_D41A0_BYTEARRAY_4_struct.isNetwork_216w = NetworkAllocation_74556();//255556 push ebp 355250
+	gameState_D41A4.isNetwork_216w = NetworkAllocation_74556();//255556 push ebp 355250
 }
 
 //----- (00055F70) --------------------------------------------------------
@@ -654,7 +654,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 		}
 
 		if (CommandLineParams.DoCopySkipConfig() || config_skip_screen) {
-			x_BYTE_D41AD_skip_screen = config_skip_screen;
+			skipScreen_D41AD = config_skip_screen;
 		}
 
 		if (CommandLineParams.GetPlaybackPath().length() > 0 &&

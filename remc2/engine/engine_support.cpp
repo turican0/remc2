@@ -168,7 +168,7 @@ int32_t x_DWORD_D41A4_x9692 = -1;*/
 
 //int32_t x2124_x_DWORD_D41A4_xCx_x_DWORD_D41A0_11234 = 0;
 
-//uint8_t* x_DWORD_E9C38_smalltit; // weak
+//uint8_t* smalltitBuffer_E9C38; // weak
 
 //int32_t x_DWORD_D41A4 = -1;
 
@@ -182,7 +182,7 @@ int32_t x_DWORD_D41A4_x9692 = -1;*/
 
 //uint8_t* x_D41A0_BYTEARRAY_4;
 
-type_x_D41A0_BYTEARRAY_4_struct x_D41A0_BYTEARRAY_4_struct;
+type_x_D41A0_BYTEARRAY_4_struct gameState_D41A4;
 
 int16_t x_D41A0_WORDARRAY[10000];
 
@@ -1091,15 +1091,15 @@ static std::string compare_shadow_D41A0(size_t byteIndex)
 
 
 
-uint8_t* off_D41A8_sky;//graphics buffer// = (uint8_t*)&x_BYTE_14B4E0; // weak
+uint8_t* skyTexture_D41A8;//graphics buffer// = (uint8_t*)&x_BYTE_14B4E0; // weak
 
-bitmap_pos_struct_t* xy_DWORD_17DED4_spritestr;
-bitmap_pos_struct_t* xy_DWORD_17DEC0_spritestr;
-bitmap_pos_struct_t* xy_DWORD_17DEC8_spritestr;
+bitmap_pos_struct_t* menuSprites_17DED4;
+bitmap_pos_struct_t* fontSprites_17DEC0;
+bitmap_pos_struct_t* font2Sprites_17DEC8;
 
-bitmap_pos_struct_t* x_DWORD_D4188t_spritestr;
+bitmap_pos_struct_t* webSprites_D4188;
 
-bitmap_pos_struct_t* xy_DWORD_17DEC0_spritestr_orig;
+bitmap_pos_struct_t* fontSpritesAlloc_17DEC0;
 
 doublebyte doublebyte_conv(uint16_t a2) {
 	doublebyte result;
@@ -1149,7 +1149,7 @@ void support_begin() {
 	pre_pdwScreenBuffer_351628 = (uint8_t*)malloc((GAME_RES_MAX_WIDTH * GAME_RES_MAX_HEIGHT) * 3); // Allow x 3 padding for sprite rendering
 	pdwScreenBuffer_351628 = &pre_pdwScreenBuffer_351628[(GAME_RES_MAX_WIDTH * GAME_RES_MAX_HEIGHT)];
 
-	//x_DWORD_E9C38_smalltit= (uint8_t*)malloc(64000);
+	//smalltitBuffer_E9C38= (uint8_t*)malloc(64000);
 	//x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (uint8_t*)malloc(64000);
 
 	/*for (int i = 0;i < 0x1c+0x60;i++)
@@ -1164,24 +1164,24 @@ void support_begin() {
 			dword_E9C30[0][0] = 0;
 		dword_E9C30[2] = new uint8_t[4096];
 		dword_E9C30[4] = new uint8_t[4096];*/
-		//x_D41A0_BYTEARRAY_4_struct.player_name_57 =new char[256];
-		//x_D41A0_BYTEARRAY_4_struct.savestring_89 = new char[256];
+		//gameState_D41A4.player_name_57 =new char[256];
+		//gameState_D41A4.savestring_89 = new char[256];
 
 	// Zero-initialised: the game maintains this plane on every map type (the
 	// painters raise and lower it) but only the cave generator seeds it, so on
 	// a day/night level it starts as whatever is here. In the original that is
 	// a zeroed BSS block; a bare new[] made it uninitialised heap.
-	x_BYTE_14B4E0_second_heightmap = new uint8_t[65536]();
-	off_D41A8_sky = new uint8_t[1024 * 1024];
-	memcpy(off_D41A8_sky, &x_BYTE_14B4E0_second_heightmap, 4);
+	secondHeightmap_14B4E0 = new uint8_t[65536]();
+	skyTexture_D41A8 = new uint8_t[1024 * 1024];
+	memcpy(skyTexture_D41A8, &secondHeightmap_14B4E0, 4);
 
-	xy_DWORD_17DED4_spritestr = new bitmap_pos_struct_t[1000];
-	xy_DWORD_17DEC0_spritestr_orig = new bitmap_pos_struct_t[1000];
-	xy_DWORD_17DEC0_spritestr = xy_DWORD_17DEC0_spritestr_orig;
-	xy_DWORD_17DEC8_spritestr = new bitmap_pos_struct_t[1000];
+	menuSprites_17DED4 = new bitmap_pos_struct_t[1000];
+	fontSpritesAlloc_17DEC0 = new bitmap_pos_struct_t[1000];
+	fontSprites_17DEC0 = fontSpritesAlloc_17DEC0;
+	font2Sprites_17DEC8 = new bitmap_pos_struct_t[1000];
 
-	x_DWORD_D4188t_spritestr = new bitmap_pos_struct_t[1000];
-	//x_D41A0_BYTEARRAY_4_struct.player_name_57 = 0;
+	webSprites_D4188 = new bitmap_pos_struct_t[1000];
+	//gameState_D41A4.player_name_57 = 0;
 
 	//printbuffer2[0] = '\0';
 }
@@ -1190,24 +1190,24 @@ void support_end() {
 	if (printbuffer)free(printbuffer);//char* buffer; // [esp+0h] [ebp-2h]
 	if (printbuffer2)free(printbuffer2);//char v11; // [esp+40h] [ebp+3Eh]
 	if (pre_pdwScreenBuffer_351628)free(pre_pdwScreenBuffer_351628);
-	//free(x_DWORD_E9C38_smalltit);
+	//free(smalltitBuffer_E9C38);
 	/*for (int i = 0;i < 0x1c;i++)
 		free(off_D918C[i]);*/
 		//free(x_D41A0_BYTEARRAY_4_0xDE_heapbuffer);
 		/*xx free(dword_E9C30[0]);
 		free(dword_E9C30[2]);
 		free(dword_E9C30[4]);*/
-		//free(x_D41A0_BYTEARRAY_4_struct.player_name_57);
-		//if(x_D41A0_BYTEARRAY_4_struct.savestring_89)delete(x_D41A0_BYTEARRAY_4_struct.savestring_89);
+		//free(gameState_D41A4.player_name_57);
+		//if(gameState_D41A4.savestring_89)delete(gameState_D41A4.savestring_89);
 
-	if (x_BYTE_14B4E0_second_heightmap) delete[](x_BYTE_14B4E0_second_heightmap);
-	if (off_D41A8_sky) delete[](off_D41A8_sky);
+	if (secondHeightmap_14B4E0) delete[](secondHeightmap_14B4E0);
+	if (skyTexture_D41A8) delete[](skyTexture_D41A8);
 
-	if (xy_DWORD_17DED4_spritestr) delete[](xy_DWORD_17DED4_spritestr);
-	if (xy_DWORD_17DEC0_spritestr_orig) delete[](xy_DWORD_17DEC0_spritestr_orig);//fixed
-	if (xy_DWORD_17DEC8_spritestr) delete[](xy_DWORD_17DEC8_spritestr);
+	if (menuSprites_17DED4) delete[](menuSprites_17DED4);
+	if (fontSpritesAlloc_17DEC0) delete[](fontSpritesAlloc_17DEC0);//fixed
+	if (font2Sprites_17DEC8) delete[](font2Sprites_17DEC8);
 
-	if (x_DWORD_D4188t_spritestr) delete[](x_DWORD_D4188t_spritestr);
+	if (webSprites_D4188) delete[](webSprites_D4188);
 }
 
 void loadfromsnapshot(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size) {
@@ -2852,15 +2852,15 @@ void clean_x_D41A0_BYTEARRAY_0_0x2362() {
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[0x2362]), 0, 48);
 	for (int i = 0; i < 8; i++)
 	{
-		D41A0_0.playerStarts_0x2362[i].x = 0;
-		D41A0_0.playerStarts_0x2362[i].y = 0;
-		D41A0_0.playerStarts_0x2362[i].z = 0;
+		world_D41A0.playerStarts_0x2362[i].x = 0;
+		world_D41A0.playerStarts_0x2362[i].y = 0;
+		world_D41A0.playerStarts_0x2362[i].z = 0;
 	}
 };
 
 void clean_x_D41A0_BYTEARRAY_0_0x2BDE(int number) {
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[0x2BDE+2124*number]), 0, 2124);
-	memset((void*)(&D41A0_0.players_0x2BDE[number]), 0, 2124);
+	memset((void*)(&world_D41A0.players_0x2BDE[number]), 0, 2124);
 	/*for (int i = 0; i < 8; i++)
 	{
 		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x000_2BDE_11230=0;//0	//11230 - byte? - ne zacatek struktury

@@ -60,7 +60,7 @@ bool config_EDITOR = false;
 /*
 fix sub_3C080_draw_terrain_and_particles_old
 MoveEntity_57FA0(&x_WORD_EB398ar, v4, 0, v3);
-(char*)&D41A0_0+0x13de2
+(char*)&world_D41A0+0x13de2
 addprocedurestop(0x238cf3, 0x348, true, true, 0x356038 + 0x13de2, 0x12345678);
 
 2a000000 - ok
@@ -79,45 +79,45 @@ fix CreateLinkedLevelFeatures_49090
 fix x_WORD_D93C0_bldgprmbuffer
 
 x_DWORD_F66F0x[504]; ok, rewrited to Sprite// idb//2c76f0 //Sprite
-int x_DWORD_F5730[504]; must rewrite later!!!
+int tmapGroupLastUse_F5730[504]; must rewrite later!!!
 int x_DWORD_F5F10[504]; not used? // idb ?
 x_BYTE_D4750 ok
 unk_D47E0//terrain gen
 unk_D4A30//terrain gen
 xx211d50ar//removed
 unk_D7BD6 - ok, rewrited to str_D7BD6 (I must test FixPointersAfterLoad_57680 and fix in future)
-x_BYTE_D8A2E - ok this is array
+spriteKindFrames_D8A2E - ok this is array
 x_WORD_D93C0_bldgprmbuffer
 x_WORD_D951C - ok, rewrited to str_WORD_D951C, xxx->word_8 mayby must (unsigned __int64)
-x_BYTE_D9F50 - ? used only byte 0x87A,0x5b6,0x126 (error?)
-x_BYTE_DB038 - ok
+dataBlock_D9F50 - ? used only byte 0x87A,0x5b6,0x126 (error?)
+balloonChainTable_DB038 - ok
 x_BYTE_DB080 - ok, rewrited to str_BYTE_DB080
 x_BYTE_DB4EE - ok
 x_BYTE_DB507 - ok
-x_BYTE_DB520 - ok
+objectiveTextIndexes_DB520 - ok
 array_E1328 - ok, remowed at now, but maybe must rewrite in future
 byte_E16E0 - ok
-x_BYTE_E1711 - ok, rewrited to str_BYTE_E1711
+x_BYTE_E1711 - ok, rewrited to playerColors_E1711
 unk_E1748x - ok
-off_E1BAC - rewrited str_E1BAC_0x1b8 mainMenuButtons_E1BAC_0x3c4//buttons pos - must fix mainMenuButtons_E1BAC_0x3c4
+off_E1BAC - rewrited multiplayerButtons_E1D64 mainMenuButtons_E1BAC_0x3c4//buttons pos - must fix mainMenuButtons_E1BAC_0x3c4
 x_WORD_E1F70 //ok
 x_WORD_E1F84 - ok, rewrited to type_menuButtons_E1F84
-x_WORD_E2008 - ok, rewrited to str_WORD_E2008 //type_menuButtons_E1F84
-x_WORD_E20A4 - ok, rewrites to str_WORD_E20A4
+x_WORD_E2008 - ok, rewrited to regionButtons_E2008 //type_menuButtons_E1F84
+x_WORD_E20A4 - ok, rewrites to dragonAnims_E20A4
 off_E23E0 - ok, rewrited to mapMenuButtons_E23E0
 unk_E24BCx - ok, rewrited to textBoxStr_E24BCx
 x_WORD_E24BE ok ? only for clock? remove it?
 unk_E24F2 - ok, rewrited to textBoxStr_E24F2
 unk_E2516 - ok, rewrited to textBoxStr_E2516 and textBoxStr_E2570
 unk_E25DC - ok, rewrited to unk_E25DC
-x_BYTE_E25ED_0x - ok, rewrited to str_BYTE_E25ED_0x
+x_BYTE_E25ED_0x - ok, rewrited to goldMenuItems_E25ED
 x_BYTE_E25ED_a3 - ok, rewrited to str_BYTE_E25ED_a3
-x_BYTE_E25ED_2BB - ok, rewrited to str_BYTE_E25ED_2BB
-x_BYTE_E36DC - not needed - sound
+x_BYTE_E25ED_2BB - ok, rewrited to keysDialogItems_E28A8
+keyToButton_E36DC - not needed - sound
 ar_D404C - ok, rewrited to str_D404C
 unk_D4350 - ok
 sub_7BF20_draw_scroll_dialog - ok
-x_DWORD_E36C4 - rewrited to xx_array_E36C4
+x_DWORD_E36C4 - rewrited to externControl_E36C4
 x_DWORD_E12AE - rewrited to str_DWORD_E12AE
 x_DWORD_E12AA - rewrited to mainConnection_E12AA
 TMAPS00TAB_BEGIN_BUFFER rewrited to str_TMAPS00TAB_BEGIN_BUFFER
@@ -139,9 +139,9 @@ level1 - can not build castle (fix wall detections)
 must revide sub_loc_1B54A and etc - some events must be fixed
 must revide sub_loc_1B37D((type_E17CC_0*)a1_6E8E);//FIX ME
 must revide PlayInfoFmv(0, 1, str_E16E0[v3x].dword_0 - 0x2b2328 + (uint8_t*)array_E1328, cutScenePath);//FIXME
-must revide if (mapMenuButtons_E23E0[v6y].byte_23 && mapMenuButtons_E23E0[v6y].byte_22 == textBoxStr_E2516[unk_17DBA8str.unk_17DBB4+1].byte_17)// x_BYTE_E2527[18 * *((signed __int16 *)a2 + 6)] )
-must revide sub_7E9D0(&str_WORD_E20A4[v7y].word_18, &str_WORD_E20A4[v7y].word_20, str_WORD_E20A4[v7y].array_word_45);
-must revide qmemcpy(x_BYTE_E1B9C, &x_DWORD_17DE38str.x_BYTE_17DE68x[11 * sub_74515() + 1], sizeof(x_BYTE_E1B9C));
+must revide if (mapMenuButtons_E23E0[v6y].byte_23 && mapMenuButtons_E23E0[v6y].byte_22 == textBoxStr_E2516[mapHelpText_17DBA8.unk_17DBB4+1].byte_17)// x_BYTE_E2527[18 * *((signed __int16 *)a2 + 6)] )
+must revide sub_7E9D0(&dragonAnims_E20A4[v7y].word_18, &dragonAnims_E20A4[v7y].word_20, dragonAnims_E20A4[v7y].array_word_45);
+must revide qmemcpy(netPlayerColors_E1B9C, &menuState_17DE38.x_BYTE_17DE68x[11 * sub_74515() + 1], sizeof(netPlayerColors_E1B9C));
 fix this (uint8_t*)&mapScreenPortals_E17CC[ix]
 fix DrawGameDebugText_6FEC0 v45
 
@@ -176,7 +176,7 @@ next debugging:
 add_compare(0x0022860F, CommandLineParams.DoDebugafterload() && (count_begin == 1), 0x1a);
 
 //bug hunting 5 can not load save from this revision
-x_D41A0_BYTEARRAY_4_struct.byteindex_208 is set to 0
+gameState_D41A4.byteindex_208 is set to 0
 
 */
 
@@ -432,8 +432,8 @@ void watcomsrand(unsigned int seed)
 	}
 }
 
-//bitmap_pos_struct_t* x_DWORD_EA3D4; // weak
-//bitmap_pos_struct_t x_DWORD_EA3D4[1700];//fix it
+//bitmap_pos_struct_t* fontSprites_EA3D4; // weak
+//bitmap_pos_struct_t fontSprites_EA3D4[1700];//fix it
 
 /*typedef struct {
 	uint8_t* pointer;
@@ -447,12 +447,12 @@ int _no_support_loaded(x_DWORD  /*number1*/, x_DWORD  /*number2*/) { stub_fix_it
 
 //-------------------------------------------------------------------------
 
-char x_BYTE_E4CB2 = 0; // weak
+char driverType_E4CB2 = 0; // weak
 // Function declarations -weak
 //int /*__noreturn*/ sub_10000() { stub_fix_it();return 0; }; // weak
 void CopyDriverInfoIfType9_9A1B6(int  /*a1*/, void* a2, void* a3)
 {
-	if (x_BYTE_E4CB2 == 9)
+	if (driverType_E4CB2 == 9)
 	{
 		//__asm { int     21h; DOS - GET DISK TRANSFER AREA ADDRESS }
 		qmemcpy(a2, a3, 0x2Bu);
@@ -808,7 +808,7 @@ void MarkSteepTerrain_45600(unsigned __int8 a1);*/
 uint8_t algn_4BB85[11] = { 0x8d, 0x80, 0x00, 0x00, 0x00, 0x00, 0x8d, 0x52, 0x00, 0x8b, 0x00 };
 
 int x_DWORD_B184C[2] = { 0, 0 }; // weak
-void* off_B1854 = &loc_A0000_vga_buffer; // weak
+void* off_B1854 = &vgaBuffer_A0000; // weak
 int x_DWORD_B1858[2] = { 70, 0 }; // weak
 int x_DWORD_B3BEB[32] = {
 0x7FFFFFFF,0x3FFFFFFF,0x1FFFFFFF,0x0FFFFFFF,
@@ -858,18 +858,18 @@ void* off_D1F10 = (void*)0xD5221; // weak
 float flt_D1F40 = 0.000061035156; // weak
 void* off_D1F78 = &unk_D5621; // weak
 double dbl_D1F7C = 1.003; // weak
-char x_BYTE_D3EA0[6] = { 1, 2, 4, 8, 16, 32 }; // idb
-__int16 x_WORD_D3F4C[26] = { 2,10,40,32,300,1,1,1,1,4,1,1,0,0,0,0,0,0,400,600,600,400,400,0,0,0 }; // idb
+char bitMasks_D3EA0[6] = { 1, 2, 4, 8, 16, 32 }; // idb
+__int16 spellCooldownTable_D3F4C[26] = { 2,10,40,32,300,1,1,1,1,4,1,1,0,0,0,0,0,0,400,600,600,400,400,0,0,0 }; // idb
 uint8_t unk_D3F80x[9] = { 0x10,0x12,0x09,0x07,0x14,0x15,0x13,0x00,0xFF };
 uint8_t unk_D3F89x[8] = { 0x10,0x12,0x07,0x09,0x11,0x14,0x00,0xFF };
 uint8_t unk_D3F91x[5] = { 0x02,0x13,0x19,0x10,0xFF };
-char x_BYTE_D3F96[14] = { 0x00,0xff,0x00,0xff,0x01,0xff,0x00,0x00,0x00,0x00,0xff,0x00,0x00,0x00 }; // idb
-char x_BYTE_D3FA4[14] = { 0x00,0x00,0xff,0x00,0x00,0x00,0xff,0xff,0x01,0x01,0x00,0x01,0x00,0x00 }; // weak
-char x_BYTE_D3FB2[14] = { 0x00,0x01,0x00,0x00,0xff,0x01,0xff,0x00,0x00,0x01,0x01,0x00,0x00,0x00 }; // idb
-char x_BYTE_D3FC0[14] = { 0x00,0x00,0x01,0x01,0x00,0x00,0x00,0x01,0xff,0x00,0x00,0x01,0xff,0x00 }; // weak
-__int16 x_WORD_D3FCE[13] = { 0, 1536, 0, 1536, 512, 1536, 0, 0, 1024, 1024, 1536, 1024, 512 }; // idb
-__int16 x_WORD_D3FE8[14] = { 1024, 512, 1024, 1024, 1536, 512, 1536, 1024, 0, 512, 512, 1024, 0, 0 }; // idb
-char x_BYTE_D400C[8][8] =
+char avoidOffsetsX1_D3F96[14] = { 0x00,0xff,0x00,0xff,0x01,0xff,0x00,0x00,0x00,0x00,0xff,0x00,0x00,0x00 }; // idb
+char avoidOffsetsY1_D3FA4[14] = { 0x00,0x00,0xff,0x00,0x00,0x00,0xff,0xff,0x01,0x01,0x00,0x01,0x00,0x00 }; // weak
+char avoidOffsetsX2_D3FB2[14] = { 0x00,0x01,0x00,0x00,0xff,0x01,0xff,0x00,0x00,0x01,0x01,0x00,0x00,0x00 }; // idb
+char avoidOffsetsY2_D3FC0[14] = { 0x00,0x00,0x01,0x01,0x00,0x00,0x00,0x01,0xff,0x00,0x00,0x01,0xff,0x00 }; // weak
+__int16 steerYawTable1_D3FCE[13] = { 0, 1536, 0, 1536, 512, 1536, 0, 0, 1024, 1024, 1536, 1024, 512 }; // idb
+__int16 steerYawTable2_D3FE8[14] = { 1024, 512, 1024, 1024, 1536, 512, 1536, 1024, 0, 512, 512, 1024, 0, 0 }; // idb
+char manaSpriteTable_D400C[8][8] =
 {
 	{0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00},
 	{0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00},
@@ -881,7 +881,7 @@ char x_BYTE_D400C[8][8] =
 	{0x07,0x06,0x05,0x04,0x03,0x02,0x01,0x00}
 }; // idb
 
-int32_t xx_DWORD_D40BC[17][3] =  // weak//min 16*3 //2a50bc
+int32_t hydraSegmentOffsets_D40BC[17][3] =  // weak//min 16*3 //2a50bc
 {
 {0x00000000, 0x00000000, 0x00000000},
 {0x0000006A, 0x00000024, 0x00000000},
@@ -911,34 +911,34 @@ x_BYTE x_BYTE_D41A4_13 = 0;
 
 uint8_t TileTextureSize_D41B5 = 32; // weak
 
-char x_BYTE_D41C4 = 99; // weak
-char x_BYTE_D41C6_old_graphics_mode = 40; // weak
+char redrawFrame_D41C4 = 99; // weak
+char oldViewPortSize_D41C6 = 40; // weak
 int x_DWORD_D41C8 = 0; // weak
 
-char x_BYTE_D478C = 0; // weak
+char screenModeFlag_D478C = 0; // weak
 //int x_DWORD_D4790 = 20; // weak
 int x_DWORD_D4794 = 0; // weak
 //int x_DWORD_D4798 = 0; // weak
-char x_BYTE_D4B50 = 0; // weak
-char x_BYTE_D4B51 = 0; // weak
+char soundInitialized_D4B50 = 0; // weak
+char soundTimerInstalled_D4B51 = 0; // weak
 char FadeVolume_D4B78 = 0; // weak
-char x_BYTE_D4B79 = 0; // weak
+char fadeMusicVolume_D4B79 = 0; // weak
 char IsVolumeFaded_D4B7A = 0; // weak
-char x_BYTE_D4B80 = 0; // weak
+char gameInitialized_D4B80 = 0; // weak
 int speedIcrement_D4B84 = 16; // weak
-int x_DWORD_D4B88 = 4294967216; // weak
-int x_DWORD_D4B8C = 80; // weak
+int wizardSpeed1_D4B88 = 4294967216; // weak
+int wizardSpeed2_D4B8C = 80; // weak
 int moveBoosStep_D4B90 = 4294967292; // weak
-__int16 x_WORD_D4BA4 = 16; // weak
-int x_DWORD_D4BA8 = 4294967216; // weak
-int x_DWORD_D4BAC = 80; // weak
-__int16 x_WORD_D4BB0 = 65532; // weak
+__int16 strafeAccel1_D4BA4 = 16; // weak
+int wizardMinStrafe_D4BA8 = 4294967216; // weak
+int wizardMaxStrafe_D4BAC = 80; // weak
+__int16 strafeAccel2_D4BB0 = 65532; // weak
 
 type_D4C52ar2 x_DWORD_D4C52ar_strtest[1280];
-type_D4C52ar2 x_DWORD_D4C52ar_str10[1] = {
+type_D4C52ar2 class1Actions_D4C52[1] = {
 0x00000000,0x0000,0x00000000,0x00000000
 };
-type_D4C52ar2 x_DWORD_D4C52ar_str11[10] = {
+type_D4C52ar2 class1Models_D4C52[10] = {
 0x002A5C44,0x0001,0x00000000,0x00000001,
 0x002A5C44,0x0002,0x00000000,0x00000001,
 0x002A5C44,0x0003,0x00000000,0x00000001,
@@ -951,7 +951,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_str11[10] = {
 0x00000000,0x0000,0x00000000,0x00000000
 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str20[23] = {
+type_D4C52ar2 class2Actions_D4C52[23] = {
 0x002A5C44,0x0000,0x00245E20,0x00000001,
 0x002A5C44,0x0001,0x00245F60,0x00000001,
 0x002A5C44,0x0002,0x00245FF0,0x00000001,
@@ -977,7 +977,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_str20[23] = {
 0x00000000,0x0000,0x00000000,0x00000000
 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str21[10] = {
+type_D4C52ar2 class2Models_D4C52[10] = {
 0x002A5C44,0x0000,0x0022BC40,0x00000001,
 0x002A5C44,0x0001,0x0022BD70,0x00000001,
 0x002A5C44,0x0002,0x0022BDF0,0x00000001,
@@ -990,7 +990,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_str21[10] = {
 0x00000000,0x0000,0x00000000,0x00000000
 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str30[14] = {
+type_D4C52ar2 class3Actions_D4C52[14] = {
 0x002A5C44,0x0000,0x0023F010,0x00000001,
 0x002A5C44,0x0001,0x001F3910,0x00000001,
 0x002A5C44,0x0002,0x0023F310,0x00000001,
@@ -1007,7 +1007,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_str30[14] = {
 0x00000000,0x0000,0x00000000,0x00000000
 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str31[13] = {
+type_D4C52ar2 class3Models_D4C52[13] = {
 0x002A5C44,0x0000,0x0022B920,0x00000001,
 0x002A5C44,0x0001,0x0022B9C0,0x00000001,
 0x002A5C44,0x0002,0x0022BA40,0x00000001,
@@ -1023,15 +1023,15 @@ type_D4C52ar2 x_DWORD_D4C52ar_str31[13] = {
 0x00000000,0x0000,0x00000000,0x00000000
 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str40[1] = {
+type_D4C52ar2 class4Actions_D4C52[1] = {
 0x00000000,0x0000,0x00000000,0x00000000
 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str41[1] = {
+type_D4C52ar2 class4Models_D4C52[1] = {
 0x00000000,0x0000,0x00000000,0x00000000
 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str50[236] = {
+type_D4C52ar2 class5Actions_D4C52[236] = {
 0x002A5BC8,0x0000,0x001FFF20,0x00000001,
 0x002A5BC8,0x0001,0x001FFF40,0x00000001,
 0x002A5BC8,0x0002,0x001FFF70,0x00000001,
@@ -1270,7 +1270,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_str50[236] = {
 0x00000000,0x0000,0x00000000,0x00000000
 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str51[30] = {
+type_D4C52ar2 class5Models_D4C52[30] = {
 0x002A5BC8,0x0000,0x0022C240,0x00000001,
 0x002A5C3C,0x0001,0x0022C490,0x00000001,
 0x002A5BD0,0x0002,0x0022C590,0x00000001,
@@ -1303,25 +1303,25 @@ type_D4C52ar2 x_DWORD_D4C52ar_str51[30] = {
 0x00000000,0x0000,0x00000000,0x00000000
 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str60[1] = {
+type_D4C52ar2 class6Actions_D4C52[1] = {
 0x00000000,0x0000,0x00000000,0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str61[1] = {
+type_D4C52ar2 class6Models_D4C52[1] = {
 0x00000000,0x0000,0x00000000,0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str70[1] = {
+type_D4C52ar2 class7Actions_D4C52[1] = {
 0x00000000,0x0000,0x00000000,0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str71[1] = {
+type_D4C52ar2 class7Models_D4C52[1] = {
 0x00000000,0x0000,0x00000000,0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str80[1] = {
+type_D4C52ar2 class8Actions_D4C52[1] = {
 0x00000000,0x0000,0x00000000,0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str81[1] = {
+type_D4C52ar2 class8Models_D4C52[1] = {
 0x00000000,0x0000,0x00000000,0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str90[33] = {
+type_D4C52ar2 class9Actions_D4C52[33] = {
 0x002A5C44,0x0000,0x00246B30,0x00000001,
 0x002A5C44,0x0001,0x00246F60,0x00000001,
 0x002A5C44,0x0002,0x00247160,0x00000001,
@@ -1356,7 +1356,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_str90[33] = {
 0x002A5C44, 0x001F, 0x00248910,0x00000001,
 0x00000000, 0x0000, 0x00000000, 0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_str91[32] = {
+type_D4C52ar2 class9Models_D4C52[32] = {
 0x002A5C44,0x0000,0x0022E2E0,0x00000001,
 0x002A5C44,0x0001,0x0022E3B0,0x00000001,
 0x002A5C44,0x0002,0x0022E470,0x00000001,
@@ -1390,7 +1390,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_str91[32] = {
 0x002A5C44,0x001E,0x0022F210,0x00000001,
 0x00000000,0x0000,0x00000000,0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_strA0[100] = {
+type_D4C52ar2 classAActions_D4C52[100] = {
 0x002A5C44,0x0000,0x00211D50,0x00000001,
 0x002A5C44,0x0001,0x00211F60,0x00000001,
 0x002A5C44,0x0002,0x00212100,0x00000001,
@@ -1492,7 +1492,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_strA0[100] = {
 0x002A5C44, 0x0062, 0x00213CF0, 0x00000001,
 0x00000000, 0x0000, 0x00000000, 0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_strA1[93] = {
+type_D4C52ar2 classAModels_D4C52[93] = {
 0x002A5C44,0x0000,0x0022F320,0x00000001,
 0x002A5C44,0x0001,0x0022F3B0,0x00000001,
 0x002A5C44,0x0002,0x0022F430,0x00000001,
@@ -1587,7 +1587,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_strA1[93] = {
 0x002A5C44, 0x005B, 0x0022FF30, 0x00000001,
 0x00000000, 0x0000, 0x00000000, 0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_strB0[46] = {
+type_D4C52ar2 classBActions_D4C52[46] = {
 0x002A5C44,0x0000,0x00250030,0x00000001,
 0x002A5C44,0x0001,0x00250070,0x00000001,
 0x002A5C44,0x0002,0x002500B0,0x00000001,
@@ -1635,7 +1635,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_strB0[46] = {
 0x002A5C44, 0x002C, 0x002507A0,0x00000001,
 0x00000000, 0x0000, 0x00000000, 0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_strB1[46] = {
+type_D4C52ar2 classBModels_D4C52[46] = {
 0x002A5C44, 0x0000, 0x00231AE0,0x00000001,
 0x002A5C44, 0x0001, 0x00231B00,0x00000001,
 0x002A5C44, 0x0002, 0x00231B20,0x00000001,
@@ -1683,13 +1683,13 @@ type_D4C52ar2 x_DWORD_D4C52ar_strB1[46] = {
 0x002A5C44, 0x002C, 0x00231FB0,0x00000001,
 0x00000000, 0x0000, 0x00000000, 0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_strC0[1] = {
+type_D4C52ar2 classCActions_D4C52[1] = {
 0x00000000,0x0000,0x00000000,0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_strC1[1] = {
+type_D4C52ar2 classCModels_D4C52[1] = {
 0x00000000,0x0000,0x00000000,0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_strD0[11] = {
+type_D4C52ar2 classDActions_D4C52[11] = {
 0x002A5C44,0x0000,0x00000000,0x00000001,
 0x002A5C44,0x0001,0x00000000,0x00000002,
 0x002A5C44,0x0002,0x00000000,0x00000003,
@@ -1702,7 +1702,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_strD0[11] = {
 0x002A5C44,0x0009,0x00000000,0x0000000A,
 0x00000000,0x0000,0x00000000,0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_strD1[11] = {
+type_D4C52ar2 classDModels_D4C52[11] = {
 0x002A5C44,0x0000,0x00000000,0x00000001,
 0x002A5C44,0x0001,0x00000000,0x00000002,
 0x002A5C44,0x0002,0x00000000,0x00000003,
@@ -1715,7 +1715,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_strD1[11] = {
 0x002A5C44,0x0009,0x00000000,0x0000000A,
 0x00000000,0x0000,0x00000000,0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_strE0[12] = {
+type_D4C52ar2 classEActions_D4C52[12] = {
 0x002A5C44,0x0000,0x0023AD90,0x00000001,
 0x002A5C44,0x0001,0x0023AD90,0x00000001,
 0x002A5C44, 0x0002, 0x0023AD90,0x00000001,
@@ -1729,7 +1729,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_strE0[12] = {
 0x002A5C44, 0x000A, 0x0023AC80,0x00000001,
 0x00000000, 0x0000, 0x00000000, 0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_strE1[7] = {
+type_D4C52ar2 classEModels_D4C52[7] = {
 0x002A5C44,0x0000,0x00232530,0x00000001,
 0x002A5C44,0x0001,0x00232660,0x00000001,
 0x002A5C44,0x0002,0x002326C0,0x00000001,
@@ -1738,7 +1738,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_strE1[7] = {
 0x002A5C44,0x0005,0x00232610,0x00000001,
 0x00000000,0x0000,0x00000000,0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_strF0[80] = {
+type_D4C52ar2 classFActions_D4C52[80] = {
 0x002A5C44,0x0000,0x0024A3F0,0x00000001,
 0x002A5C44,0x0001,0x0024A600,0x00000001,
 0x002A5C44,0x0002,0x0024A620,0x00000001,
@@ -1820,7 +1820,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_strF0[80] = {
 0x002A5C44, 0x004E, 0x0024A2C0,0x00000001,
 0x00000000, 0x0000, 0x00000000, 0x00000000 };
 
-type_D4C52ar2 x_DWORD_D4C52ar_strF1[27] = {
+type_D4C52ar2 classFModels_D4C52[27] = {
 0x002A5C44,0x0000,0x002321A0,0x00000001,
 0x002A5C44,0x0001,0x002321C0,0x00000001,
 0x002A5C44,0x0002,0x002321E0,0x00000001,
@@ -1849,28 +1849,28 @@ type_D4C52ar2 x_DWORD_D4C52ar_strF1[27] = {
 0x002A5C44,0x0019,0x002324C0,0x00000001,
 0x00000000,0x0000,0x00000000,0x00000000 };
 
-std::array<type_D4C52ar, 17> str_D4C48ar = {
+std::array<type_D4C52ar, 17> entityTypeTables_D4C48 = {
 0x002A5C44,0x00000000,0x0000,NULL,NULL,//0
-0x002A5C44,0x00000001,0x0000,x_DWORD_D4C52ar_str10,x_DWORD_D4C52ar_str11,//1
-0x002A5C44,0x00000002,0x0000,x_DWORD_D4C52ar_str20,x_DWORD_D4C52ar_str21,//2
-0x002A5C44,0x00000003,0x0000,x_DWORD_D4C52ar_str30,x_DWORD_D4C52ar_str31,//3
-0x002A5C44,0x00000004,0x0000,x_DWORD_D4C52ar_str40,x_DWORD_D4C52ar_str41,//4
-0x002A5C44,0x00000005,0x0000,x_DWORD_D4C52ar_str50,x_DWORD_D4C52ar_str51,//5
-0x002A5C44,0x00000006,0x0000,x_DWORD_D4C52ar_str60,x_DWORD_D4C52ar_str61,//6
-0x002A5C44,0x00000007,0x0000,x_DWORD_D4C52ar_str70,x_DWORD_D4C52ar_str71,//7
-0x002A5C44,0x00000008,0x0000,x_DWORD_D4C52ar_str80,x_DWORD_D4C52ar_str81,//8
-0x002A5C44,0x00000009,0x0000,x_DWORD_D4C52ar_str90,x_DWORD_D4C52ar_str91,//9
-0x002A5C44,0x0000000A,0x0000,x_DWORD_D4C52ar_strA0,x_DWORD_D4C52ar_strA1,//10
-0x002A5C44,0x0000000B,0x0000,x_DWORD_D4C52ar_strB0,x_DWORD_D4C52ar_strB1,//11
-0x002A5C44,0x0000000C,0x0000,x_DWORD_D4C52ar_strC0,x_DWORD_D4C52ar_strC1,//12
-0x002A5C44,0x0000000D,0x0000,x_DWORD_D4C52ar_strD0,x_DWORD_D4C52ar_strD1,//13
-0x002A5C44,0x0000000E,0x0000,x_DWORD_D4C52ar_strE0,x_DWORD_D4C52ar_strE1,//14
-0x002A5C44,0x0000000F,0x0000,x_DWORD_D4C52ar_strF0,x_DWORD_D4C52ar_strF1,//15
+0x002A5C44,0x00000001,0x0000,class1Actions_D4C52,class1Models_D4C52,//1
+0x002A5C44,0x00000002,0x0000,class2Actions_D4C52,class2Models_D4C52,//2
+0x002A5C44,0x00000003,0x0000,class3Actions_D4C52,class3Models_D4C52,//3
+0x002A5C44,0x00000004,0x0000,class4Actions_D4C52,class4Models_D4C52,//4
+0x002A5C44,0x00000005,0x0000,class5Actions_D4C52,class5Models_D4C52,//5
+0x002A5C44,0x00000006,0x0000,class6Actions_D4C52,class6Models_D4C52,//6
+0x002A5C44,0x00000007,0x0000,class7Actions_D4C52,class7Models_D4C52,//7
+0x002A5C44,0x00000008,0x0000,class8Actions_D4C52,class8Models_D4C52,//8
+0x002A5C44,0x00000009,0x0000,class9Actions_D4C52,class9Models_D4C52,//9
+0x002A5C44,0x0000000A,0x0000,classAActions_D4C52,classAModels_D4C52,//10
+0x002A5C44,0x0000000B,0x0000,classBActions_D4C52,classBModels_D4C52,//11
+0x002A5C44,0x0000000C,0x0000,classCActions_D4C52,classCModels_D4C52,//12
+0x002A5C44,0x0000000D,0x0000,classDActions_D4C52,classDModels_D4C52,//13
+0x002A5C44,0x0000000E,0x0000,classEActions_D4C52,classEModels_D4C52,//14
+0x002A5C44,0x0000000F,0x0000,classFActions_D4C52,classFModels_D4C52,//15
 0x00000000,0x00000000,0x0000,NULL,NULL
 };
 
 //type_x_DWORD_D4C52ar_0x1D2C str_x_DWORD_D4C52ar_0x2f28[0x2000] = {
-type_D4C52ar2 str_x_DWORD_D4C52ar_0x2F22[7] = {
+type_D4C52ar2 class0ECreateTable_D7B74[7] = {
 {0x002A5C44,0x0000,0x00232530,0x00000001},
 {0x002A5C44,0x0001,0x00232660,0x00000001},
 {0x002A5C44,0x0002,0x002326C0,0x00000001},
@@ -2086,7 +2086,7 @@ uint8_t xx_unk_D7BD6[0xe58 + 0xee + 0x50c + 0xc0] = {
 
 //void *off_D89C8 = &loc_5002E; // weak
 //void *off_D89EA = &unk_11002F; // weak
-char x_BYTE_D8A2E[38] =
+char spriteKindFrames_D8A2E[38] =
 {
 	1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,
 	1,1,1,1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,0
@@ -2211,7 +2211,7 @@ const char* LevelsNames_D9204[61] = {
 //x_BYTE_D93C2[0x13d]
 //__int16 x_WORD_D951C[] = { 8 }; // weak //fix it
 
-int8_t x_BYTE_D9F50[2248] = {
+int8_t dataBlock_D9F50[2248] = {
 0x8C,0x00,0x00,0x01,0x00,0x00,0x00,0x00,0x2C,0x21,0x2A,0x00,0x00,0x00,//D9F50
 0xC8,0x00,0x00,0x01,0x00,0x00,0x00,0x00,0x2C,0x21,0x2A,0x00,0x00,0x00,//D9F50
 0x18,0x01,0x00,0x01,0x00,0x00,0x00,0x00,0x2C,0x21,0x2A,0x00,0x00,0x00,
@@ -2383,7 +2383,7 @@ int8_t x_BYTE_D9F50[2248] = {
 //0xc8+0x800+ x_DWORD_D9F50ar
 //load *xadataspellsdat.colorPalette_var28 - lenght 2080
 
-int8_t x_BYTE_DB038[52] = {
+int8_t balloonChainTable_DB038[52] = {
 0x00,0x00,0x01,0x00,0x04,0x01,0x04,0x01,0x04,0x05,0x04,0x05,0x08,0x09,0x08,0x09,0x00,0x00,0x04,0x04,0x03,0x03,
 0x11,0x03,0x03,0x11,0x11,0x11,0x03,0x03,0x1F,0x03,0x03,0x1F,0x1F,0x1F,0x03,0x03,0x18,0x03,0x2D,0x03,0x03,0x18,
 0x2D,0x18,0x03,0x2D,0x18,0x2D,0x2D,0x2D
@@ -2391,126 +2391,126 @@ int8_t x_BYTE_DB038[52] = {
 
 int manaSphereSizeTable_DB538[8] = { 256, 512, 1024, 2048, 4096, 9192, 18384, 36768 }; // idb//x_DWORD_DAF50ar[0x5e8]
 
-char* var_0x002A2144 = (char*)"Designed By";
-char* var_0x002A2150 = (char*)"Bullfrog Productions Ltd";
-char* var_0x002A216C = (char*)"!";
-char* var_0x002A2170 = (char*)"Project Leader";
-char* var_0x002A2180 = (char*)" ";
-char* var_0x002A2184 = (char*)"Alan Wright";
-char* var_0x002A2190 = (char*)"Engine Programming";
-char* var_0x002A21A4 = (char*)"Glenn Corpes";
-char* var_0x002A21B4 = (char*)"Lead Programming";
-char* var_0x002A21C8 = (char*)"Programming";
-char* var_0x002A21D4 = (char*)"Mark Lamport";
-char* var_0x002A21E4 = (char*)"Mark Adami";
-char* var_0x002A21F0 = (char*)"Lead Artist";
-char* var_0x002A21FC = (char*)"Eoin Rogan";
-char* var_0x002A2208 = (char*)"Graphics and Art";
-char* var_0x002A221C = (char*)"Darren Thomas";
-char* var_0x002A222C = (char*)"Fin McGechie";
-char* var_0x002A223C = (char*)"Introductory Sequence";
-char* var_0x002A2254 = (char*)"Chris Hill";
-char* var_0x002A2260 = (char*)"Scripting";
-char* var_0x002A226C = (char*)"Sean Masterson";
-char* var_0x002A227C = (char*)"Level Design";
-char* var_0x002A228C = (char*)"Adrian Moore";
-char* var_0x002A229C = (char*)"Vince Farquharson";
-char* var_0x002A22B0 = (char*)"Barry Meade";
-char* var_0x002A22BC = (char*)"Sound and Music";
-char* var_0x002A22CC = (char*)"Russell Shaw";
-char* var_0x002A22DC = (char*)"Voice Overs";
-char* var_0x002A22E8 = (char*)"Hugo Myatt";
-char* var_0x002A22F4 = (char*)"Technical Support";
-char* var_0x002A2308 = (char*)"Kevin Donkin";
-char* var_0x002A2318 = (char*)"Mike Burnham";
-char* var_0x002A2328 = (char*)"PR and Marketing";
-char* var_0x002A233C = (char*)"Cathy Campos";
-char* var_0x002A234C = (char*)"Sean Ratcliffe";
-char* var_0x002A235C = (char*)"Playguide";
-char* var_0x002A2368 = (char*)"Neil Cook";
-char* var_0x002A2374 = (char*)"Playguide Design";
-char* var_0x002A2388 = (char*)"Rachel Close";
-char* var_0x002A2398 = (char*)"Testing";
-char* var_0x002A23A0 = (char*)"Andy Robson, Jeff Brutus";
-char* var_0x002A23BC = (char*)"Andy Nuttall, Steve Fitton";
-char* var_0x002A23D8 = (char*)"Robert Byrne, Richard Elliot";
-char* var_0x002A23F8 = (char*)"David Rogan, Christopher Mitchell";
-char* var_0x002A241C = (char*)"Nick Hannah, Ken Malcolm";
-char* var_0x002A2438 = (char*)"Phil Norton, Andrew Trowers";
-char* var_0x002A2454 = (char*)"Darren Jones, Luke Ferris";
-char* var_0x002A2470 = (char*)"Charlie Right, Mike Man";
-char* var_0x002A2488 = (char*)"Richard Velati, Mark Stacey";
-char* var_0x002A24A4 = (char*)"Kenneth Chan, Mike Diskett";
-char* var_0x002A24C0 = (char*)"James Smith, Eoin Rogan";
-char* var_0x002A24D8 = (char*)"M Rowbottom, Gerard O'Donaghue";
-char* var_0x002A24F8 = (char*)"Peter Blow, Peter Hughes";
-char* var_0x002A2514 = (char*)"Barrie Parker";
-char* var_0x002A2524 = (char*)"Andrea Da Silva Goncalves";
-char* var_0x002A2540 = (char*)"Matt Sullivan, Andy Cakebread";
-char* var_0x002A2560 = (char*)"Barry Clarke, Justin Amoore";
-char* var_0x002A257C = (char*)"Graham Harbour, Simon Romans";
-char* var_0x002A259C = (char*)"Symeon Cosburn";
-char* var_0x002A25AC = (char*)"Thanks to";
-char* var_0x002A25B8 = (char*)"Jo Goodwin";
-char* var_0x002A25C4 = (char*)"Kathy McEntee";
-char* var_0x002A25D4 = (char*)"Denis";
-char* var_0x002A25DC = (char*)"QA";
-char* var_0x002A25E0 = (char*)"Iain Hancock";
-char* var_0x002A25F0 = (char*)"Producer";
-char* var_0x002A25FC = (char*)"Sean Cooper";
+char* creditsDesignedBy_2A2144 = (char*)"Designed By";
+char* creditsBullfrogProductionsLtd_2A2150 = (char*)"Bullfrog Productions Ltd";
+char* creditsSeparator_2A216C = (char*)"!";
+char* creditsProjectLeader_2A2170 = (char*)"Project Leader";
+char* creditsSpace_2A2180 = (char*)" ";
+char* creditsAlanWright_2A2184 = (char*)"Alan Wright";
+char* creditsEngineProgramming_2A2190 = (char*)"Engine Programming";
+char* creditsGlennCorpes_2A21A4 = (char*)"Glenn Corpes";
+char* creditsLeadProgramming_2A21B4 = (char*)"Lead Programming";
+char* creditsProgramming_2A21C8 = (char*)"Programming";
+char* creditsMarkLamport_2A21D4 = (char*)"Mark Lamport";
+char* creditsMarkAdami_2A21E4 = (char*)"Mark Adami";
+char* creditsLeadArtist_2A21F0 = (char*)"Lead Artist";
+char* creditsEoinRogan_2A21FC = (char*)"Eoin Rogan";
+char* creditsGraphicsAndArt_2A2208 = (char*)"Graphics and Art";
+char* creditsDarrenThomas_2A221C = (char*)"Darren Thomas";
+char* creditsFinMcGechie_2A222C = (char*)"Fin McGechie";
+char* creditsIntroductorySequence_2A223C = (char*)"Introductory Sequence";
+char* creditsChrisHill_2A2254 = (char*)"Chris Hill";
+char* creditsScripting_2A2260 = (char*)"Scripting";
+char* creditsSeanMasterson_2A226C = (char*)"Sean Masterson";
+char* creditsLevelDesign_2A227C = (char*)"Level Design";
+char* creditsAdrianMoore_2A228C = (char*)"Adrian Moore";
+char* creditsVinceFarquharson_2A229C = (char*)"Vince Farquharson";
+char* creditsBarryMeade_2A22B0 = (char*)"Barry Meade";
+char* creditsSoundAndMusic_2A22BC = (char*)"Sound and Music";
+char* creditsRussellShaw_2A22CC = (char*)"Russell Shaw";
+char* creditsVoiceOvers_2A22DC = (char*)"Voice Overs";
+char* creditsHugoMyatt_2A22E8 = (char*)"Hugo Myatt";
+char* creditsTechnicalSupport_2A22F4 = (char*)"Technical Support";
+char* creditsKevinDonkin_2A2308 = (char*)"Kevin Donkin";
+char* creditsMikeBurnham_2A2318 = (char*)"Mike Burnham";
+char* creditsPRAndMarketing_2A2328 = (char*)"PR and Marketing";
+char* creditsCathyCampos_2A233C = (char*)"Cathy Campos";
+char* creditsSeanRatcliffe_2A234C = (char*)"Sean Ratcliffe";
+char* creditsPlayguide_2A235C = (char*)"Playguide";
+char* creditsNeilCook_2A2368 = (char*)"Neil Cook";
+char* creditsPlayguideDesign_2A2374 = (char*)"Playguide Design";
+char* creditsRachelClose_2A2388 = (char*)"Rachel Close";
+char* creditsTesting_2A2398 = (char*)"Testing";
+char* creditsAndyRobsonJeffBrutus_2A23A0 = (char*)"Andy Robson, Jeff Brutus";
+char* creditsAndyNuttallSteveFitton_2A23BC = (char*)"Andy Nuttall, Steve Fitton";
+char* creditsRobertByrneRichardElliot_2A23D8 = (char*)"Robert Byrne, Richard Elliot";
+char* creditsDavidRoganChristopherMitchell_2A23F8 = (char*)"David Rogan, Christopher Mitchell";
+char* creditsNickHannahKenMalcolm_2A241C = (char*)"Nick Hannah, Ken Malcolm";
+char* creditsPhilNortonAndrewTrowers_2A2438 = (char*)"Phil Norton, Andrew Trowers";
+char* creditsDarrenJonesLukeFerris_2A2454 = (char*)"Darren Jones, Luke Ferris";
+char* creditsCharlieRightMikeMan_2A2470 = (char*)"Charlie Right, Mike Man";
+char* creditsRichardVelatiMarkStacey_2A2488 = (char*)"Richard Velati, Mark Stacey";
+char* creditsKennethChanMikeDiskett_2A24A4 = (char*)"Kenneth Chan, Mike Diskett";
+char* creditsJamesSmithEoinRogan_2A24C0 = (char*)"James Smith, Eoin Rogan";
+char* creditsMRowbottomGerardO_2A24D8 = (char*)"M Rowbottom, Gerard O'Donaghue";
+char* creditsPeterBlowPeterHughes_2A24F8 = (char*)"Peter Blow, Peter Hughes";
+char* creditsBarrieParker_2A2514 = (char*)"Barrie Parker";
+char* creditsAndreaDaSilvaGoncalves_2A2524 = (char*)"Andrea Da Silva Goncalves";
+char* creditsMattSullivanAndyCakebread_2A2540 = (char*)"Matt Sullivan, Andy Cakebread";
+char* creditsBarryClarkeJustinAmoore_2A2560 = (char*)"Barry Clarke, Justin Amoore";
+char* creditsGrahamHarbourSimonRomans_2A257C = (char*)"Graham Harbour, Simon Romans";
+char* creditsSymeonCosburn_2A259C = (char*)"Symeon Cosburn";
+char* creditsThanksTo_2A25AC = (char*)"Thanks to";
+char* creditsJoGoodwin_2A25B8 = (char*)"Jo Goodwin";
+char* creditsKathyMcEntee_2A25C4 = (char*)"Kathy McEntee";
+char* creditsDenis_2A25D4 = (char*)"Denis";
+char* creditsQA_2A25DC = (char*)"QA";
+char* creditsIainHancock_2A25E0 = (char*)"Iain Hancock";
+char* creditsProducer_2A25F0 = (char*)"Producer";
+char* creditsSeanCooper_2A25FC = (char*)"Sean Cooper";
 
 //2AC558:
 char* off_DB558[] = {
-var_0x002A2144, var_0x002A2150, var_0x002A216C, var_0x002A2170,
-var_0x002A2180, var_0x002A2184, var_0x002A2180, var_0x002A2190,
-var_0x002A2180, var_0x002A21A4, var_0x002A216C, var_0x002A21B4,
-var_0x002A2180, var_0x002A2184, var_0x002A2180, var_0x002A21C8,
-var_0x002A2180, var_0x002A21D4, var_0x002A21E4, var_0x002A216C,
-var_0x002A21F0, var_0x002A2180, var_0x002A21FC, var_0x002A2180,
-var_0x002A2208, var_0x002A2180, var_0x002A221C, var_0x002A222C,
-var_0x002A216C, var_0x002A223C, var_0x002A2180, var_0x002A2254,
-var_0x002A2180, var_0x002A2260, var_0x002A2180, var_0x002A226C,
-var_0x002A216C, var_0x002A227C, var_0x002A2180, var_0x002A226C,
-var_0x002A228C, var_0x002A229C, var_0x002A22B0, var_0x002A216C,
-var_0x002A22BC, var_0x002A2180, var_0x002A22CC, var_0x002A216C,
-var_0x002A22DC, var_0x002A2180, var_0x002A22E8, var_0x002A216C,
-var_0x002A22F4, var_0x002A2180, var_0x002A2308, var_0x002A2318,
-var_0x002A216C, var_0x002A2328, var_0x002A2180, var_0x002A233C,
-var_0x002A234C, var_0x002A216C, var_0x002A235C, var_0x002A2180,
-var_0x002A2368, var_0x002A226C, var_0x002A216C, var_0x002A2374,
-var_0x002A2180, var_0x002A2388, var_0x002A216C, var_0x002A2398,
-var_0x002A2180, var_0x002A23A0, var_0x002A23BC, var_0x002A23D8,
-var_0x002A216C, var_0x002A2180, var_0x002A23F8, var_0x002A241C,
-var_0x002A2438, var_0x002A216C, var_0x002A2180, var_0x002A2454,
-var_0x002A2470, var_0x002A2488, var_0x002A216C, var_0x002A2180,
-var_0x002A24A4, var_0x002A24C0, var_0x002A24D8, var_0x002A216C,
-var_0x002A2180, var_0x002A24F8, var_0x002A2514, var_0x002A2524,
-var_0x002A216C, var_0x002A2180, var_0x002A2540, var_0x002A2560,
-var_0x002A257C, var_0x002A259C, var_0x002A216C, var_0x002A2180,
-var_0x002A25AC, var_0x002A2180, var_0x002A25B8, var_0x002A25C4,
-var_0x002A25D4, var_0x002A216C, var_0x002A25DC, var_0x002A2180,
-var_0x002A25E0, var_0x002A216C, var_0x002A25F0, var_0x002A2180,
-var_0x002A25FC, NULL, NULL, NULL };
+creditsDesignedBy_2A2144, creditsBullfrogProductionsLtd_2A2150, creditsSeparator_2A216C, creditsProjectLeader_2A2170,
+creditsSpace_2A2180, creditsAlanWright_2A2184, creditsSpace_2A2180, creditsEngineProgramming_2A2190,
+creditsSpace_2A2180, creditsGlennCorpes_2A21A4, creditsSeparator_2A216C, creditsLeadProgramming_2A21B4,
+creditsSpace_2A2180, creditsAlanWright_2A2184, creditsSpace_2A2180, creditsProgramming_2A21C8,
+creditsSpace_2A2180, creditsMarkLamport_2A21D4, creditsMarkAdami_2A21E4, creditsSeparator_2A216C,
+creditsLeadArtist_2A21F0, creditsSpace_2A2180, creditsEoinRogan_2A21FC, creditsSpace_2A2180,
+creditsGraphicsAndArt_2A2208, creditsSpace_2A2180, creditsDarrenThomas_2A221C, creditsFinMcGechie_2A222C,
+creditsSeparator_2A216C, creditsIntroductorySequence_2A223C, creditsSpace_2A2180, creditsChrisHill_2A2254,
+creditsSpace_2A2180, creditsScripting_2A2260, creditsSpace_2A2180, creditsSeanMasterson_2A226C,
+creditsSeparator_2A216C, creditsLevelDesign_2A227C, creditsSpace_2A2180, creditsSeanMasterson_2A226C,
+creditsAdrianMoore_2A228C, creditsVinceFarquharson_2A229C, creditsBarryMeade_2A22B0, creditsSeparator_2A216C,
+creditsSoundAndMusic_2A22BC, creditsSpace_2A2180, creditsRussellShaw_2A22CC, creditsSeparator_2A216C,
+creditsVoiceOvers_2A22DC, creditsSpace_2A2180, creditsHugoMyatt_2A22E8, creditsSeparator_2A216C,
+creditsTechnicalSupport_2A22F4, creditsSpace_2A2180, creditsKevinDonkin_2A2308, creditsMikeBurnham_2A2318,
+creditsSeparator_2A216C, creditsPRAndMarketing_2A2328, creditsSpace_2A2180, creditsCathyCampos_2A233C,
+creditsSeanRatcliffe_2A234C, creditsSeparator_2A216C, creditsPlayguide_2A235C, creditsSpace_2A2180,
+creditsNeilCook_2A2368, creditsSeanMasterson_2A226C, creditsSeparator_2A216C, creditsPlayguideDesign_2A2374,
+creditsSpace_2A2180, creditsRachelClose_2A2388, creditsSeparator_2A216C, creditsTesting_2A2398,
+creditsSpace_2A2180, creditsAndyRobsonJeffBrutus_2A23A0, creditsAndyNuttallSteveFitton_2A23BC, creditsRobertByrneRichardElliot_2A23D8,
+creditsSeparator_2A216C, creditsSpace_2A2180, creditsDavidRoganChristopherMitchell_2A23F8, creditsNickHannahKenMalcolm_2A241C,
+creditsPhilNortonAndrewTrowers_2A2438, creditsSeparator_2A216C, creditsSpace_2A2180, creditsDarrenJonesLukeFerris_2A2454,
+creditsCharlieRightMikeMan_2A2470, creditsRichardVelatiMarkStacey_2A2488, creditsSeparator_2A216C, creditsSpace_2A2180,
+creditsKennethChanMikeDiskett_2A24A4, creditsJamesSmithEoinRogan_2A24C0, creditsMRowbottomGerardO_2A24D8, creditsSeparator_2A216C,
+creditsSpace_2A2180, creditsPeterBlowPeterHughes_2A24F8, creditsBarrieParker_2A2514, creditsAndreaDaSilvaGoncalves_2A2524,
+creditsSeparator_2A216C, creditsSpace_2A2180, creditsMattSullivanAndyCakebread_2A2540, creditsBarryClarkeJustinAmoore_2A2560,
+creditsGrahamHarbourSimonRomans_2A257C, creditsSymeonCosburn_2A259C, creditsSeparator_2A216C, creditsSpace_2A2180,
+creditsThanksTo_2A25AC, creditsSpace_2A2180, creditsJoGoodwin_2A25B8, creditsKathyMcEntee_2A25C4,
+creditsDenis_2A25D4, creditsSeparator_2A216C, creditsQA_2A25DC, creditsSpace_2A2180,
+creditsIainHancock_2A25E0, creditsSeparator_2A216C, creditsProducer_2A25F0, creditsSpace_2A2180,
+creditsSeanCooper_2A25FC, NULL, NULL, NULL };
 
-char x_BYTE_DB734 = 0; // weak//x_DWORD_DAF50ar[0x7e4]
+char timerInstalled_DB734 = 0; // weak//x_DWORD_DAF50ar[0x7e4]
 char x_BYTE_DB738 = 0; // weak//x_DWORD_DAF50ar[0x7e8]
 
-std::array<uint8_t*, 256> x_DWORD_DDF50_texture_adresses; /*= { 0,32 }*/ // weak
+std::array<uint8_t*, 256> textureAddresses_DDF50; /*= { 0,32 }*/ // weak
 //2aef50
 //int x_DWORD_DDF54 = 32; // weak
 
-char x_BYTE_E12EC = 0; // weak
-char x_BYTE_E12ED = 0; // weak
-int8_t* x_BYTE_E1304 = 0; // weak
-int8_t* x_BYTE_E1308 = 0;
-uint16_t x_WORD_E130C = 0; // weak
+char vrDeviceActive_E12EC = 0; // weak
+char vrDeviceDetected_E12ED = 0; // weak
+int8_t* animFrameBase_E1304 = 0; // weak
+int8_t* animStreamPos_E1308 = 0;
+uint16_t animChunkType_E130C = 0; // weak
 
-__int16 x_WORD_E130E = 0; // weak
-__int16 x_WORD_E1310 = 0; // weak
-__int16 x_WORD_E1312ar[2] = { 0,0 }; // weak
-__int16 x_WORD_E1316 = 0; // weak
-uint8_t x_BYTE_E131C[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
-char x_BYTE_E1324 = 50; // weak
+__int16 animPosX_E130E = 0; // weak
+__int16 animPosY_E1310 = 0; // weak
+__int16 animChunkSize_E1312[2] = { 0,0 }; // weak
+__int16 animChunkCount_E1316 = 0; // weak
+uint8_t netWizardTypes_E131C[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // idb
+char menuSoundVolume_E1324 = 50; // weak
 
 int TimerIdx_F4940 = -1;
 int TimerIdx_180078 = -1;
@@ -2670,41 +2670,41 @@ type_x_BYTE_E25ED_2BB str_BYTE_E25ED_a3[3] = {//set joy
 };
 
 MenuItem nextMenu_E29D8 = MenuItem::InitLanguage; // weak//2b39d8
-__int16 x_WORD_E29DA_type_resolution = 0; // weak
+__int16 menuVideoMode_E29DA = 0; // weak
 int16_t m_ExitMenuLoop_E29DC = 0; // weak
-char x_BYTE_E29DF_skip_screen = 0; // weak
-char x_BYTE_E29E0 = 1; // weak
+char selectedSession_E29DF = 0; // weak
+char langLoaded_E29E0 = 1; // weak
 char x_BYTE_E29EC = 0; // weak
 char x_BYTE_E29ED = 0; // weak
 char x_BYTE_E29EE = 0; // weak
 char x_BYTE_E29EF = 0; // weak
 char x_BYTE_E29F0 = 0; // weak
 char x_BYTE_E29F1 = 0; // weak
-char x_BYTE_E2A20 = 0; // weak
+char animDecodeMode_E2A20 = 0; // weak
 
 int x_DWORD_E36C8 = 1; // weak
-__int16 x_WORD_E36CC = 0; // weak
-__int16 x_WORD_E36CE = 0; // weak
-char x_BYTE_E36D0 = 0; // weak
-char x_BYTE_E36D1 = 0; // weak
-//__int16 x_WORD_E36D4 = 0; // weak
+__int16 joyFilteredX_E36CC = 0; // weak
+__int16 joyFilteredY_E36CE = 0; // weak
+char joystickInitialized_E36D0 = 0; // weak
+char joystickEnabled_E36D1 = 0; // weak
+//__int16 drawFlags_E36D4 = 0; // weak
 
-char x_BYTE_E390C_VGA_pal_not_begin = 0; // weak
+char paletteFadeActive_E390C = 0; // weak
 int x_DWORD_E3B40 = 0; // weak
 int x_DWORD_E3B44 = 0; // weak
 __int16 x_WORD_E3B4A = 0; // weak
 int x_DWORD_E3B94 = 0; // weak
 __int16 x_WORD_E3B98 = 32; // weak
 __int16 x_WORD_E3B9A = 0; // weak
-__int16 x_WORD_E3BA4 = 0; // weak
+__int16 vgaPaletteBank_E3BA4 = 0; // weak
 __int16 x_WORD_E3BA6 = 0; // weak
 __int16 x_WORD_E3BA8 = 0; // weak
 __int16 x_WORD_E3BAA = 0; // weak
-uint8_t* x_DWORD_E3BAC = 0; // weak
-int x_DWORD_E3BB0 = 0; // weak
-int x_DWORD_E3BB8 = 1; // weak
+uint8_t* testersInfoPtr_E3BAC = 0; // weak
+int testersInfoSize_E3BB0 = 0; // weak
+int testersInfoFlags_E3BB8 = 1; // weak
 FILE* file_E3BE0; // weak
-int x_DWORD_E3DE8 = 0; // weak
+int debugSerialEnabled_E3DE8 = 0; // weak
 int x_DWORD_E3DF8 = 1024; // weak
 int x_DWORD_E3DFC[6] = { 0x00000000,0x00000000,0x00000000,0x00000000,
 0x6E676973,0x0027CA00 }; // weak//2B4DFC
@@ -2712,11 +2712,11 @@ __int16 seg_E3E14[5] = { 0xCA2C0160,0x01600027,
 0x0027CA58,0xCA840160,0x01600027
 }; // weak
 char x_BYTE_E3E28 = 0; // weak
-int x_DWORD_E4CA4 = 0; // weak
+int keyboardFlag_E4CA4 = 0; // weak
 
 char x_BYTE_E4CB4 = 0; // weak
 int(/*__fastcall*/ *off_E4CBD)(x_DWORD) = &nullsub_3; // weak
-int x_DWORD_E4CCC = 0; // weak
+int vrTrackerInitialized_E4CCC = 0; // weak
 int x_DWORD_E4CD0 = 0; // weak
 int x_DWORD_E4D10 = 0; // weak
 __int16 x_WORD_E4D14 = 0; // weak
@@ -2733,8 +2733,8 @@ int x_DWORD_E4E38 = 0; // weak
 __int16 x_WORD_E4E3C = 0; // weak
 //int32_t unk_E52EE; // weak
 int x_DWORD_E731C = 16; // weak
-int x_DWORD_E7320[257] = { 0,
-//int x_DWORD_E7324[255] =//sound?//x_DWORD_E7320[1+
+int asinTable_E7320[257] = { 0,
+//int x_DWORD_E7324[255] =//sound?//asinTable_E7320[1+
 //{
   1647088,
   3294115,
@@ -2993,9 +2993,9 @@ int x_DWORD_E7320[257] = { 0,
   268430402,
   268435456
 }; // idb
-//int x_DWORD_E7720 = 268435456; // weak//x_DWORD_E7320[0x100+
-int x_DWORD_E7724[257] = {// 0 }; // weak
-	//void *off_E7728[255] =//x_DWORD_E7724[+1
+//int x_DWORD_E7720 = 268435456; // weak//asinTable_E7320[0x100+
+int sqrtTable_E7724[257] = {// 0 }; // weak
+	//void *off_E7728[255] =//sqrtTable_E7724[+1
 	//{
 	  0x0FFFFA,
 	  0x1FFFD5,
@@ -3254,75 +3254,75 @@ int x_DWORD_E7724[257] = {// 0 }; // weak
 	  0xC88F9A8,
 	  0xC90FDAA
 }; // idb
-//int x_DWORD_E7B24 = 210828714; // weak//x_DWORD_E7724[0x100+
+//int x_DWORD_E7B24 = 210828714; // weak//sqrtTable_E7724[0x100+
 __int16 x_WORD_E7C58 = 0; // weak
 uint32_t unk_E7C64x = 0; // weak
 double dbl_E7C6E = 1.7976931348623157e+308; // weak
 float flt_E7C76 = 3.4028235e38; // weak
 type_entity_0x6E8E* x_DWORD_E8840; // weak
 
-int x_DWORD_E9B90; // weak
-int x_DWORD_E9BA8; // weak
-int x_DWORD_E9C14; // weak
-int x_DWORD_E9C18; // weak
+int hitCounter_E9B90; // weak
+int segmentPoseFlag_E9BA8; // weak
+int debugTurn_E9C14; // weak
+int debugLastTurn_E9C18; // weak
 int x_DWORD_E9C1C; // weak
-int x_DWORD_E9C20; // weak
-int x_DWORD_E9C24_fps; // weak
+int debugLastValue_E9C20; // weak
+int debugFps_E9C24; // weak
 
 //uint8_t* x_DWORD_E9C28x; // weak
 
 axis_3d predictedAxis_EB398ar; // weak
-uint8_t x_BYTE_EB39E_keys[10]; // weak 0 - setting keys
+uint8_t keys_EB39E[10]; // weak 0 - setting keys
 uint8_t uiBackGroundColorIdx_EB3A8;
 void(*ptrDrawBitmap_F01EC)(int16_t, int16_t, bitmap_pos_struct_t, uint8_t scale); // eax
-char x_BYTE_F01FEx[34]; // fix it -  weak
-char x_BYTE_F0220[256]; // idb
-char x_BYTE_F0320[256]; // idb
-char x_BYTE_F0420[256]; // idb
-char x_BYTE_F0520[256]; // idb
-char x_BYTE_F0620[256]; // idb
-char x_BYTE_F0720[256]; // idb
-char x_BYTE_F0820[256]; // idb
-char x_BYTE_F0920[256]; // idb
+char arcPoints_F01FE[34]; // fix it -  weak
+char blendTable_F0220[256]; // idb
+char blendTable_F0320[256]; // idb
+char blendTable_F0420[256]; // idb
+char blendTable_F0520[256]; // idb
+char blendTable_F0620[256]; // idb
+char blendTable_F0720[256]; // idb
+char blendTable_F0820[256]; // idb
+char blendTable_F0920[256]; // idb
 
-TColor x_BYTE_F3FA0arx[256]; // fix it -  weak
+TColor palette_F3FA0[256]; // fix it -  weak
 
-int x_DWORD_F42A0; // weak
+int paletteComponent_F42A0; // weak
 
-POSITION x_DWORD_F4720; // weak
+POSITION textPosition_F4720; // weak
 //__int16 x_WORD_F4FE0[424]; // fix it -  weak
-uint8_t x_BYTE_F5538[504]; // idb
+uint8_t tmapGroupUsed_F5538[504]; // idb
 
-char x_BYTE_17D440[255]; // fix it -  weak
+char vrDeviceInfo_17D440[255]; // fix it -  weak
 uint8_t unk_17D540[256]; // weak
-int x_DWORD_17D640; // weak
-int x_DWORD_17D644; // weak
-int x_DWORD_17D648; // weak
-char x_BYTE_17D650[6]; // weak
-char x_BYTE_17D674[6]; // weak
-int x_DWORD_17D698; // weak
-int x_DWORD_17D6A0; // weak
-int x_DWORD_17D6A4; // weak
-int x_DWORD_17D6A8; // weak
-uint8_t* x_DWORD_17D6AC; // weak
-int x_DWORD_17D6B0; // weak
-char* x_DWORD_17D6B8; // weak
-char* x_DWORD_17D6BC; // weak
-char* x_DWORD_17D6C0; // weak
-char* x_DWORD_17D6C4; // weak
-int x_DWORD_17D6C8; // weak
-__int16 x_WORD_17D6CCar[3]; // weak
-uint8_t unk_17D6D4ar[50]; // weak
+int vrHandle_17D640; // weak
+int vrIndex_17D644; // weak
+int vrDataSize_17D648; // weak
+char vrPointer1_17D650[6]; // weak
+char vrPointer2_17D674[6]; // weak
+int vrDataPos_17D698; // weak
+int vrPortNext_17D6A0; // weak
+int vrRecordSize_17D6A4; // weak
+int vrIndex2_17D6A8; // weak
+uint8_t* vrBufferPtr_17D6AC; // weak
+int vrPort_17D6B0; // weak
+char* vrRecord1_17D6B8; // weak
+char* vrRecord2_17D6BC; // weak
+char* vrRecord3_17D6C0; // weak
+char* vrRecord4_17D6C4; // weak
+int vrMemBlock_17D6C8; // weak
+__int16 vrJoystick_17D6CC[3]; // weak
+uint8_t vrBuffer_17D6D4[50]; // weak
 
-uint8_t x_WORD_17D70Aar[7]; // weak//
+uint8_t vrData_17D70A[7]; // weak//
 
 char byte_17D711; // weak
 
 int32_t times_17DBB8[4]; // weak//times_17DBB8[0]
-char x_BYTE_17DBC6; // weak
-uint32_t x_DWORD_17DBC8x[125];
+char mainMenuState_17DBC6; // weak
+uint32_t levelScores_17DBC8[125];
 
-uint32_t x_DWORD_17DDBCx[26];
+uint32_t secretLevelScores_17DDBC[26];
 
 char* x_DWORD_17E0A0[768]; // fix it -  weak
 int x_DWORD_17E0A4[768]; // fix it -  weak
@@ -3334,8 +3334,8 @@ int x_DWORD_17ECAC; // weak
 char x_BYTE_17ECB0[1]; // fix it -  weak
 char x_BYTE_17ECB1[4590]; // idb
 int x_DWORD_17FEA0; // weak
-int x_DWORD_17FEA4_mem_free; // weak
-int x_DWORD_17FEA8_mem_used; // weak
+int memFree_17FEA4; // weak
+int memUsed_17FEA8; // weak
 int x_DWORD_17FEB0; // weak
 int x_DWORD_17FEC0; // weak
 int x_DWORD_17FEC4; // weak
@@ -3345,32 +3345,32 @@ __int16 x_WORD_17FF56; // weak
 __int16 x_WORD_17FF58; // weak
 __int16 x_WORD_17FF5A; // weak
 int TrackOffsets_180084[100]; // fix it -  weak
-int x_DWORD_180214[101]; // idb
+int cdTrackStarts_180214[101]; // idb
 uint8_t unk_1803A8x[16]; // weak
 __int16 x_WORD_1803AB; // weak
 __int16 x_WORD_1803C3; // weak
 __int16 PlayingTrackIdx_1803E8; // weak
 __int16 x_WORD_1803EA; // weak
-int16_t x_WORD_1803EC; // weak
-char x_BYTE_1803EE[100]; // idb
+int16_t cdDrive_1803EC; // weak
+char cdTrackAudio_1803EE[100]; // idb
 __int16 x_WORD_180455; // weak
-int x_DWORD_180473; // weak
-int x_DWORD_180486; // weak
-char x_BYTE_18048A; // weak
+int cdLeadOut_180473; // weak
+int cdTrackInfo_180486; // weak
+char cdTrackFlags_18048A; // weak
 uint8_t TrackEndIdx_18049E; // weak
 uint8_t TrackStartIdx_1804A1; // weak
 
 uint8_t unk_180560x[44]; // weak
 
-type_unk_18058Cstr unk_18058Cstr;
+type_unk_18058Cstr inputState_18058C;
 
-char x_BYTE_1806E5; // weak
-int8_t x_DWORD_1806E8_mousex;
-int8_t x_DWORD_1806E8_mousey;
-int x_DWORD_180720; // weak
-char x_BYTE_181504[64]; // idb
-TColor x_BYTE_181544_oldpalbufferx[256]; // idb
-uint8_t* x_DWORD_181C40_vga_init_buffer; // weak
+char keyShiftFlags_1806E5; // weak
+int8_t cursorPosX_1806E8;
+int8_t cursorPosY_1806E8;
+int mouseInstalled2_180720; // weak
+char gammaTable_181504[64]; // idb
+TColor oldPalette_181544[256]; // idb
+uint8_t* vesaInfoBuffer_181C40; // weak
 __int16 x_WORD_181C44; // weak
 
 
@@ -3642,7 +3642,7 @@ type_entity_0x6E8E* FindOverlappingHostileEntity_108B0(type_entity_0x6E8E* a1x)/
 						}
 						goto LABEL_22;
 					}
-					if (str_D93C0_bldgprmbuffer[v8x->levelPar3_0x46_70].flags_2 & 8)
+					if (buildingParams_D93C0[v8x->levelPar3_0x46_70].flags_2 & 8)
 						goto LABEL_22;
 				}
 			}
@@ -3754,7 +3754,7 @@ int SendMailToOverlappingEntities_10C80(type_entity_0x6E8E* entity, unsigned __i
 	int channelMask = 1 << channel;
 	if (!channel)
 	{
-		for (type_entity_0x6E8E* target = x_D41A0_BYTEARRAY_4_struct.class3List_38519; target > Entities_EA3E4[0]; target = target->next_0)
+		for (type_entity_0x6E8E* target = gameState_D41A4.class3List_38519; target > Entities_EA3E4[0]; target = target->next_0)
 		{
 			if (target->model_0x40_64 == 2 && target->id_0x1A_26 != entity->id_0x1A_26 && EntitiesOverlap_106C0(entity, target))
 			{
@@ -3767,7 +3767,7 @@ int SendMailToOverlappingEntities_10C80(type_entity_0x6E8E* entity, unsigned __i
 				mail->source = entity->id_0x1A_26;
 			}
 		}
-		for (type_entity_0x6E8E* target = x_D41A0_BYTEARRAY_4_struct.buildingList_38527; target > Entities_EA3E4[0]; target = target->next_0)
+		for (type_entity_0x6E8E* target = gameState_D41A4.buildingList_38527; target > Entities_EA3E4[0]; target = target->next_0)
 		{
 			/*if (debugcounter_10c80_2 >= 0x144a)
 				comp20 = compare_with_sequence_D41A0((char*)"001F1D54-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_10c80_2, 224790, &origbyte20, &remakebyte20);
@@ -3778,7 +3778,7 @@ int SendMailToOverlappingEntities_10C80(type_entity_0x6E8E* entity, unsigned __i
 				// BUILD00 table (dword_EA3BC): 0x1F1D73
 				int spriteWidth = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[target->levelPar3_0x46_70].width_4;
 				int spriteHeight = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[target->levelPar3_0x46_70].height_5;
-				if (x_WORD_180660_VGA_type_resolution == 1)
+				if (videoMode_180660 == 1)
 				{
 					spriteWidth >>= 1;
 					spriteHeight >>= 1;
@@ -3962,7 +3962,7 @@ void SendMailToOverlappingEntities2_11400(type_entity_0x6E8E* a1x, char a2, unsi
 	if (!a2)
 	{
 		//v4 = (a1x->flags_0xc_12_15.byte[2] & 1) == 0;
-		for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+		for (ix = gameState_D41A4.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 		{
 			if (ix->model_0x40_64 == 2 && ix->id_0x1A_26 != a1x->id_0x1A_26 && EntitiesOverlap_106C0(a1x, ix))
 			{
@@ -4054,7 +4054,7 @@ int SendMailToOverlappingEntities3_116A0(type_entity_0x6E8E* a1x, char a2, unsig
 	v3 = 0;
 	if (!a2)
 	{
-		for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+		for (ix = gameState_D41A4.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 		{
 			if (ix->model_0x40_64 == 2 && EntitiesOverlap_106C0(a1x, ix))
 			{
@@ -4138,7 +4138,7 @@ void KillEntitiesInArea_11960(type_entity_0x6E8E* a1)//1f2960
 	v6 = a1->params_0x52_82.pitch;
 	v1 = a1->position_0x4C_76.x;
 	v5 = a1->params_0x52_82.roll;
-	v2x = x_D41A0_BYTEARRAY_4_struct.buildingList_38527;
+	v2x = gameState_D41A4.buildingList_38527;
 	v4 = a1->position_0x4C_76.y;
 	while (v2x > Entities_EA3E4[0])
 	{
@@ -4184,7 +4184,7 @@ char CanPlaceCastleArea_11A10(type_entity_0x6E8E* a1)//1f2a10
 	v18 = a1->params_0x52_82.pitch >> 8;
 	v21 = a1->params_0x52_82.roll >> 8;
 	SetShiftByCastle_49EC0(a1, a1->param_0x10_16 + 1);
-	for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+	for (ix = gameState_D41A4.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (ix->model_0x40_64 == 2 && ix != a1 && EntitiesOverlap_106C0(ix, a1))
 		{
@@ -4306,7 +4306,7 @@ bool IsNearPlayer_11CB0(axis_3d* a1x)//1f2cb0
 
 	v1 = a1x->y;
 	v10 = 0;
-	v2x = x_D41A0_BYTEARRAY_4_struct.class3List_38519;
+	v2x = gameState_D41A4.class3List_38519;
 	v8 = a1x->x;
 	while (!v10 && v2x > Entities_EA3E4[0])
 	{
@@ -4320,7 +4320,7 @@ bool IsNearPlayer_11CB0(axis_3d* a1x)//1f2cb0
 	}
 	if (!v10)
 	{
-		for (ix = x_D41A0_BYTEARRAY_4_struct.buildingList_38527; !v10 && ix > Entities_EA3E4[0]; ix = ix->next_0)
+		for (ix = gameState_D41A4.buildingList_38527; !v10 && ix > Entities_EA3E4[0]; ix = ix->next_0)
 		{
 			if (abs((signed __int16)(ix->position_0x4C_76.x - v8)) <= ix->params_0x52_82.pitch + 2560
 				&& abs((signed __int16)(ix->position_0x4C_76.y - v1)) <= ix->params_0x52_82.roll + 2560)
@@ -4370,50 +4370,50 @@ void InitStageVars_11EE0()//1f2ee0
 {
 	int index2; // ax
 	int index; // eax
-	D41A0_0.countStageVars_0x36E00 = 0;
-	memset(D41A0_0.StageVars2_0x365F4, 0, sizeof(type_str_0x3647Ac) * 11);
+	world_D41A0.countStageVars_0x36E00 = 0;
+	memset(world_D41A0.StageVars2_0x365F4, 0, sizeof(type_str_0x3647Ac) * 11);
 	index2 = 0xA;
-	while (index2 > 0 && !(D41A0_0.terrain_2FECE.StageVars_0x3647A[index2].index_0x3647A_0 & 0xF))
+	while (index2 > 0 && !(world_D41A0.terrain_2FECE.StageVars_0x3647A[index2].index_0x3647A_0 & 0xF))
 		index2--;
-	D41A0_0.countStageVars_0x36E00 = index2;
-	for (index = 1; index <= D41A0_0.countStageVars_0x36E00; ++index)
+	world_D41A0.countStageVars_0x36E00 = index2;
+	for (index = 1; index <= world_D41A0.countStageVars_0x36E00; ++index)
 	{
-		D41A0_0.StageVars2_0x365F4[index].index_0x3647A_0 = D41A0_0.terrain_2FECE.StageVars_0x3647A[index].index_0x3647A_0 & 0xF;
-		if (D41A0_0.StageVars2_0x365F4[index].index_0x3647A_0)
+		world_D41A0.StageVars2_0x365F4[index].index_0x3647A_0 = world_D41A0.terrain_2FECE.StageVars_0x3647A[index].index_0x3647A_0 & 0xF;
+		if (world_D41A0.StageVars2_0x365F4[index].index_0x3647A_0)
 		{
-			if (D41A0_0.terrain_2FECE.StageVars_0x3647A[index].index_0x3647A_0 & 0x80)
-				D41A0_0.StageVars2_0x365F4[index].stage_0x3647A_1 |= 1u;
-			if (D41A0_0.terrain_2FECE.StageVars_0x3647A[index].index_0x3647A_0 & 0x40)
-				D41A0_0.StageVars2_0x365F4[index].stage_0x3647A_1 |= 2u;
-			if (D41A0_0.terrain_2FECE.StageVars_0x3647A[index].index_0x3647A_0 & 0x10)
-				D41A0_0.StageVars2_0x365F4[index].stage_0x3647A_1 |= 0x20u;
-			if (D41A0_0.terrain_2FECE.StageVars_0x3647A[index].index_0x3647A_0 & 0x20)
-				D41A0_0.StageVars2_0x365F4[index].stage_0x3647A_1 |= 0x40u;
-			switch (D41A0_0.StageVars2_0x365F4[index].index_0x3647A_0)
+			if (world_D41A0.terrain_2FECE.StageVars_0x3647A[index].index_0x3647A_0 & 0x80)
+				world_D41A0.StageVars2_0x365F4[index].stage_0x3647A_1 |= 1u;
+			if (world_D41A0.terrain_2FECE.StageVars_0x3647A[index].index_0x3647A_0 & 0x40)
+				world_D41A0.StageVars2_0x365F4[index].stage_0x3647A_1 |= 2u;
+			if (world_D41A0.terrain_2FECE.StageVars_0x3647A[index].index_0x3647A_0 & 0x10)
+				world_D41A0.StageVars2_0x365F4[index].stage_0x3647A_1 |= 0x20u;
+			if (world_D41A0.terrain_2FECE.StageVars_0x3647A[index].index_0x3647A_0 & 0x20)
+				world_D41A0.StageVars2_0x365F4[index].stage_0x3647A_1 |= 0x40u;
+			switch (world_D41A0.StageVars2_0x365F4[index].index_0x3647A_0)
 			{
 			case 1:
 			case 2:
-				D41A0_0.StageVars2_0x365F4[index].target_0x3647C_4.axis.x = D41A0_0.terrain_2FECE.StageVars_0x3647A[index].target_0x3647C_4.axis.x << 8;
-				D41A0_0.StageVars2_0x365F4[index].target_0x3647C_4.axis.y = D41A0_0.terrain_2FECE.StageVars_0x3647A[index].target_0x3647C_4.axis.y << 8;
+				world_D41A0.StageVars2_0x365F4[index].target_0x3647C_4.axis.x = world_D41A0.terrain_2FECE.StageVars_0x3647A[index].target_0x3647C_4.axis.x << 8;
+				world_D41A0.StageVars2_0x365F4[index].target_0x3647C_4.axis.y = world_D41A0.terrain_2FECE.StageVars_0x3647A[index].target_0x3647C_4.axis.y << 8;
 				break;
 			case 3:
 			case 4:
 			case 5:
 			case 8:
 			case 9:
-				D41A0_0.StageVars2_0x365F4[index].target_0x3647C_4.axis.x = 0;
-				if (D41A0_0.StageVars2_0x365F4[index].stage_0x3647A_1 & 2)
-					D41A0_0.StageVars2_0x365F4[index].target_0x3647C_4.axis.x =
-					D41A0_0.terrain_2FECE.entity_0x30311[D41A0_0.terrain_2FECE.StageVars_0x3647A[index].target_0x3647C_4.axis.x].subtype_0x30311;
+				world_D41A0.StageVars2_0x365F4[index].target_0x3647C_4.axis.x = 0;
+				if (world_D41A0.StageVars2_0x365F4[index].stage_0x3647A_1 & 2)
+					world_D41A0.StageVars2_0x365F4[index].target_0x3647C_4.axis.x =
+					world_D41A0.terrain_2FECE.entity_0x30311[world_D41A0.terrain_2FECE.StageVars_0x3647A[index].target_0x3647C_4.axis.x].subtype_0x30311;
 				break;
 			case 6:
 			case 7:
-				D41A0_0.StageVars2_0x365F4[index].target_0x3647C_4.axis.x = D41A0_0.terrain_2FECE.StageVars_0x3647A[index].target_0x3647C_4.axis.x;
+				world_D41A0.StageVars2_0x365F4[index].target_0x3647C_4.axis.x = world_D41A0.terrain_2FECE.StageVars_0x3647A[index].target_0x3647C_4.axis.x;
 				break;
 			default:
 				break;
 			}
-			D41A0_0.StageVars2_0x365F4[index].entityIndex_0x3647A_2._axis_2d.x = D41A0_0.terrain_2FECE.StageVars_0x3647A[index].stage_0x3647A_1;
+			world_D41A0.StageVars2_0x365F4[index].entityIndex_0x3647A_2._axis_2d.x = world_D41A0.terrain_2FECE.StageVars_0x3647A[index].stage_0x3647A_1;
 		}
 	}
 }
@@ -4426,12 +4426,12 @@ void SetStageVarForEntity_12100(type_entity_0x30311* entity, type_entity_0x6E8E*
 
 	v3 = 1;
 	v4 = 0;
-	while (v3 <= D41A0_0.countStageVars_0x36E00 && !v4)
+	while (v3 <= world_D41A0.countStageVars_0x36E00 && !v4)
 	{
-		if (D41A0_0.StageVars2_0x365F4[v3].index_0x3647A_0
-			&& !(D41A0_0.StageVars2_0x365F4[v3].stage_0x3647A_1 & 1)
-			&& entity - D41A0_0.terrain_2FECE.entity_0x30311 ==
-			D41A0_0.terrain_2FECE.StageVars_0x3647A[v3].entityIndex_0x3647A_2.word)
+		if (world_D41A0.StageVars2_0x365F4[v3].index_0x3647A_0
+			&& !(world_D41A0.StageVars2_0x365F4[v3].stage_0x3647A_1 & 1)
+			&& entity - world_D41A0.terrain_2FECE.entity_0x30311 ==
+			world_D41A0.terrain_2FECE.StageVars_0x3647A[v3].entityIndex_0x3647A_2.word)
 		{
 			v4 = v3;
 		}
@@ -4439,11 +4439,11 @@ void SetStageVarForEntity_12100(type_entity_0x30311* entity, type_entity_0x6E8E*
 	}
 	if (!v4)
 	{
-		for (int index = 1; index <= D41A0_0.countStageVars_0x36E00; index++)
+		for (int index = 1; index <= world_D41A0.countStageVars_0x36E00; index++)
 		{
-			if (D41A0_0.StageVars2_0x365F4[index].index_0x3647A_0//*v7
-				&& (D41A0_0.StageVars2_0x365F4[index].stage_0x3647A_1 & 1)
-				&& D41A0_0.terrain_2FECE.entity_0x30311[D41A0_0.terrain_2FECE.StageVars_0x3647A[index].entityIndex_0x3647A_2.word].subtype_0x30311 ==
+			if (world_D41A0.StageVars2_0x365F4[index].index_0x3647A_0//*v7
+				&& (world_D41A0.StageVars2_0x365F4[index].stage_0x3647A_1 & 1)
+				&& world_D41A0.terrain_2FECE.entity_0x30311[world_D41A0.terrain_2FECE.StageVars_0x3647A[index].entityIndex_0x3647A_2.word].subtype_0x30311 ==
 				entity->subtype_0x30311)
 			{
 				v4 = index;
@@ -4459,25 +4459,25 @@ void SetStageVarForEntity_12100(type_entity_0x30311* entity, type_entity_0x6E8E*
 			AdvanceStage_12330(event, v4);
 	}
 
-	for (int index = 1; index <= D41A0_0.countStageVars_0x36E00; index++)
+	for (int index = 1; index <= world_D41A0.countStageVars_0x36E00; index++)
 	{
-		if (D41A0_0.StageVars2_0x365F4[index].index_0x3647A_0)
+		if (world_D41A0.StageVars2_0x365F4[index].index_0x3647A_0)
 		{
-			switch (D41A0_0.StageVars2_0x365F4[index].index_0x3647A_0)
+			switch (world_D41A0.StageVars2_0x365F4[index].index_0x3647A_0)
 			{
 			case 3:
 			case 4:
 			case 5:
 			case 8:
 			case 9:
-				if (!(D41A0_0.StageVars2_0x365F4[index].stage_0x3647A_1 & 2)
-					&& D41A0_0.terrain_2FECE.StageVars_0x3647A[index].target_0x3647C_4.axis.x ==
-					entity - D41A0_0.terrain_2FECE.entity_0x30311)
+				if (!(world_D41A0.StageVars2_0x365F4[index].stage_0x3647A_1 & 2)
+					&& world_D41A0.terrain_2FECE.StageVars_0x3647A[index].target_0x3647C_4.axis.x ==
+					entity - world_D41A0.terrain_2FECE.entity_0x30311)
 				{
 					//fix it
-					D41A0_0.StageVars2_0x365F4[index].target_0x3647C_4.pointer_0x6E8E = event;
+					world_D41A0.StageVars2_0x365F4[index].target_0x3647C_4.pointer_0x6E8E = event;
 					//fix it
-					D41A0_0.StageVars2_0x365F4[index].stage_0x3647A_1 &= 0xFBu;
+					world_D41A0.StageVars2_0x365F4[index].stage_0x3647A_1 &= 0xFBu;
 				}
 				break;
 			default:
@@ -4698,10 +4698,10 @@ void AdvanceEntityStage_122A0(type_entity_0x6E8E* event)//1f32e0
 //----- (000122C0) --------------------------------------------------------
 void MarkStageVarsForIndex_122C0(__int16 a1)//1f32c0
 {
-	for (signed __int16 index = 1; index <= D41A0_0.countStageVars_0x36E00; index++)
+	for (signed __int16 index = 1; index <= world_D41A0.countStageVars_0x36E00; index++)
 	{
-		if (D41A0_0.StageVars2_0x365F4[index].index_0x3647A_0 == 7 && a1 == D41A0_0.StageVars2_0x365F4[index].target_0x3647C_4.axis.x)
-			D41A0_0.StageVars2_0x365F4[index].stage_0x3647A_1 |= 0x18u;
+		if (world_D41A0.StageVars2_0x365F4[index].index_0x3647A_0 == 7 && a1 == world_D41A0.StageVars2_0x365F4[index].target_0x3647C_4.axis.x)
+			world_D41A0.StageVars2_0x365F4[index].stage_0x3647A_1 |= 0x18u;
 	}
 }
 
@@ -4718,9 +4718,9 @@ void AdvanceStage_12330(type_entity_0x6E8E* event, __int16 a2)//1f3330
 	}
 	else
 	{
-		v8 = D41A0_0.StageVars2_0x365F4[a2].entityIndex_0x3647A_2._axis_2d.y & 3;
-		D41A0_0.StageVars2_0x365F4[a2].entityIndex_0x3647A_2._axis_2d.y++;
-		v7 = D41A0_0.StageVars2_0x365F4[a2].stage_0x3647A_1 & 0x60;
+		v8 = world_D41A0.StageVars2_0x365F4[a2].entityIndex_0x3647A_2._axis_2d.y & 3;
+		world_D41A0.StageVars2_0x365F4[a2].entityIndex_0x3647A_2._axis_2d.y++;
+		v7 = world_D41A0.StageVars2_0x365F4[a2].stage_0x3647A_1 & 0x60;
 		switch (v7) {
 		case 0x20u:
 		{
@@ -4753,17 +4753,17 @@ void AdvanceStage_12330(type_entity_0x6E8E* event, __int16 a2)//1f3330
 	event->actionIndex_0x45_69 = 8 * event->model_0x40_64 + 7;
 	event->StageVar1_0x48_72 = a2;
 	event->nextStage_0x4A_74 = 0;
-	event->StageVar2_0x49_73 = D41A0_0.StageVars2_0x365F4[a2].index_0x3647A_0;
+	event->StageVar2_0x49_73 = world_D41A0.StageVars2_0x365F4[a2].index_0x3647A_0;
 	if (event->StageVar2_0x49_73 == 6)
-		event->nextStage_0x4A_74 = D41A0_0.StageVars2_0x365F4[a2].target_0x3647C_4.axis.x;
+		event->nextStage_0x4A_74 = world_D41A0.StageVars2_0x365F4[a2].target_0x3647C_4.axis.x;
 }
 
 //----- (00012410) --------------------------------------------------------
 void AdvanceStageOrSetAction_12410(type_entity_0x6E8E* event, char actionIndex)//1f3410
 {
 	bool run = false;
-	if (D41A0_0.StageVars2_0x365F4[event->StageVar1_0x48_72].entityIndex_0x3647A_2._axis_2d.x)
-		AdvanceStage_12330(event, D41A0_0.StageVars2_0x365F4[event->StageVar1_0x48_72].entityIndex_0x3647A_2._axis_2d.x);
+	if (world_D41A0.StageVars2_0x365F4[event->StageVar1_0x48_72].entityIndex_0x3647A_2._axis_2d.x)
+		AdvanceStage_12330(event, world_D41A0.StageVars2_0x365F4[event->StageVar1_0x48_72].entityIndex_0x3647A_2._axis_2d.x);
 	else
 		run = true;
 	if (run)
@@ -4805,16 +4805,16 @@ void UpdateEntityStage_12500(type_entity_0x6E8E* entity)//1f3500
 					AdvanceStage_12330(entity, entity->StageVar1_0x48_72);
 				break;
 			default:
-				switch (D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].index_0x3647A_0)
+				switch (world_D41A0.StageVars2_0x365F4[entity->StageVar1_0x48_72].index_0x3647A_0)
 				{
 					case 1:
 						//1F35DE movsx edx,[ecx+4]; movsx eax,[ebx+4Ch]; sub edx,eax: 32-bit difference
-						if (abs((int16_t)D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].target_0x3647C_4.axis.x - (int16_t)entity->position_0x4C_76.x) <= 2048)
-							if (abs((int16_t)D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].target_0x3647C_4.axis.y - (int16_t)entity->position_0x4C_76.y) <= 2048)
+						if (abs((int16_t)world_D41A0.StageVars2_0x365F4[entity->StageVar1_0x48_72].target_0x3647C_4.axis.x - (int16_t)entity->position_0x4C_76.x) <= 2048)
+							if (abs((int16_t)world_D41A0.StageVars2_0x365F4[entity->StageVar1_0x48_72].target_0x3647C_4.axis.y - (int16_t)entity->position_0x4C_76.y) <= 2048)
 								AdvanceStageOrSetAction_12410(entity, 8 * entity->model_0x40_64 + 1);
 						break;
 					case 3:
-						if (D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].stage_0x3647A_1 & 4)
+						if (world_D41A0.StageVars2_0x365F4[entity->StageVar1_0x48_72].stage_0x3647A_1 & 4)
 						{
 							entity->nextStage_0x4A_74 = 0;
 							if ((entity->actionIndex_0x45_69 & 7) != 2 && (entity->actionIndex_0x45_69 & 7) != 6)
@@ -4822,7 +4822,7 @@ void UpdateEntityStage_12500(type_entity_0x6E8E* entity)//1f3500
 						}
 						else
 						{
-							if (D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].stage_0x3647A_1 & 2)
+							if (world_D41A0.StageVars2_0x365F4[entity->StageVar1_0x48_72].stage_0x3647A_1 & 2)
 								if (entity->nextStage_0x4A_74)
 									if (Entities_EA3E4[entity->nextStage_0x4A_74]->life_0x8 < 0 || Entities_EA3E4[entity->nextStage_0x4A_74]->flags_0xc_12_15.byte[1] & 4)
 										entity->nextStage_0x4A_74 = 0;
@@ -4832,22 +4832,22 @@ void UpdateEntityStage_12500(type_entity_0x6E8E* entity)//1f3500
 					case 5:
 					case 8:
 					case 9:
-						if (D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].stage_0x3647A_1 & 4)
+						if (world_D41A0.StageVars2_0x365F4[entity->StageVar1_0x48_72].stage_0x3647A_1 & 4)
 							AdvanceStageOrSetAction_12410(entity, 8 * entity->model_0x40_64 + 1);
-						else if (D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].stage_0x3647A_1 & 2)
+						else if (world_D41A0.StageVars2_0x365F4[entity->StageVar1_0x48_72].stage_0x3647A_1 & 2)
 						{
-							if (D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].index_0x3647A_0 >= 4u
-								&& D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].index_0x3647A_0 <= 5u
+							if (world_D41A0.StageVars2_0x365F4[entity->StageVar1_0x48_72].index_0x3647A_0 >= 4u
+								&& world_D41A0.StageVars2_0x365F4[entity->StageVar1_0x48_72].index_0x3647A_0 <= 5u
 								&& entity->nextStage_0x4A_74 != 0
 								&& (Entities_EA3E4[entity->nextStage_0x4A_74]->life_0x8 < 0 || (Entities_EA3E4[entity->nextStage_0x4A_74]->flags_0xc_12_15.byte[1] & 4)))
 								entity->nextStage_0x4A_74 = 0;
 						}
 						else
 						{
-							if (D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].index_0x3647A_0 == 9)
+							if (world_D41A0.StageVars2_0x365F4[entity->StageVar1_0x48_72].index_0x3647A_0 == 9)
 							{
 								//1F369A mov esi,[ecx+4]: the target entity; 1F36A5 movsx edx,[esi+4Ch]; movsx eax,[ebx+4Ch]; sub edx,eax
-								type_entity_0x6E8E* target = D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].target_0x3647C_4.pointer_0x6E8E;
+								type_entity_0x6E8E* target = world_D41A0.StageVars2_0x365F4[entity->StageVar1_0x48_72].target_0x3647C_4.pointer_0x6E8E;
 								if (target >= Entities_EA3E4[0] && target < Entities_EA3E4[1000])//fix
 									if (abs((int16_t)target->position_0x4C_76.x - (int16_t)entity->position_0x4C_76.x) <= 3072)
 										if (abs((int16_t)target->position_0x4C_76.y - (int16_t)entity->position_0x4C_76.y) <= 3072)
@@ -4861,7 +4861,7 @@ void UpdateEntityStage_12500(type_entity_0x6E8E* entity)//1f3500
 							AdvanceStageOrSetAction_12410(entity, 8 * entity->model_0x40_64 + 1);
 						break;
 					case 7:
-						if (D41A0_0.StageVars2_0x365F4[entity->StageVar1_0x48_72].stage_0x3647A_1 & 0x18)
+						if (world_D41A0.StageVars2_0x365F4[entity->StageVar1_0x48_72].stage_0x3647A_1 & 0x18)
 						{
 							CheckStageVarsComplete_12870();
 							AdvanceStageOrSetAction_12410(entity, 8 * entity->model_0x40_64 + 1);
@@ -4896,34 +4896,34 @@ void UpdateStageVars_12780()//1f3780
 	debugcount_sub_12780++;*/
 
 	v0 = 1;
-	while (v0 <= D41A0_0.countStageVars_0x36E00)
+	while (v0 <= world_D41A0.countStageVars_0x36E00)
 	{
-		/*if (!D41A0_0.StageVars2_0x365F4[v0].index_0x3647A_0)
+		/*if (!world_D41A0.StageVars2_0x365F4[v0].index_0x3647A_0)
 		{
 			v0++;
 			break;
 		}*/
 		v2 = 0;
-		switch (D41A0_0.StageVars2_0x365F4[v0].index_0x3647A_0)
+		switch (world_D41A0.StageVars2_0x365F4[v0].index_0x3647A_0)
 		{
 		case 3:
 		case 4:
 		case 5:
 		case 8:
 		case 9:
-			v3 = D41A0_0.StageVars2_0x365F4[v0].stage_0x3647A_1;
+			v3 = world_D41A0.StageVars2_0x365F4[v0].stage_0x3647A_1;
 			if (v3 & 4)
 			{
 				v2 = 1;
 			}
 			else if (v3 & 2)
 			{
-				if (!x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[D41A0_0.StageVars2_0x365F4[v0].target_0x3647C_4.axis.x])//fix it
+				if (!gameState_D41A4.creatureLists_38403x[world_D41A0.StageVars2_0x365F4[v0].target_0x3647C_4.axis.x])//fix it
 					v2 = 1;
 			}
 			else
 			{
-				v4x = D41A0_0.StageVars2_0x365F4[v0].target_0x3647C_4.pointer_0x6E8E;
+				v4x = world_D41A0.StageVars2_0x365F4[v0].target_0x3647C_4.pointer_0x6E8E;
 				if (v4x >= Entities_EA3E4[0] && v4x < Entities_EA3E4[1000])//fix
 				{
 					if (v4x && (v4x->life_0x8 < 0 || v4x->flags_0xc_12_15.byte[1] & 4))
@@ -4931,17 +4931,17 @@ void UpdateStageVars_12780()//1f3780
 				}
 			}
 			if (v2)
-				D41A0_0.StageVars2_0x365F4[v0].stage_0x3647A_1 |= 4u;
+				world_D41A0.StageVars2_0x365F4[v0].stage_0x3647A_1 |= 4u;
 			//v0++;
 			break;
 		case 7:
-			v5 = D41A0_0.StageVars2_0x365F4[v0].stage_0x3647A_1;
+			v5 = world_D41A0.StageVars2_0x365F4[v0].stage_0x3647A_1;
 			if (v5 & 0x18)
 			{
 				if (v5 & 0x10)
-					D41A0_0.StageVars2_0x365F4[v0].stage_0x3647A_1 = v5 & 0xEF;
+					world_D41A0.StageVars2_0x365F4[v0].stage_0x3647A_1 = v5 & 0xEF;
 				else
-					D41A0_0.StageVars2_0x365F4[v0].stage_0x3647A_1 = v5 & 0xF7;
+					world_D41A0.StageVars2_0x365F4[v0].stage_0x3647A_1 = v5 & 0xF7;
 			}
 			//v0++;
 			break;
@@ -4957,21 +4957,21 @@ void UpdateStageVars_12780()//1f3780
 void CheckStageVarsComplete_12870()//1f3870
 {
 	int index = 1;
-	while (index <= D41A0_0.countStageVars_0x36E00)
+	while (index <= world_D41A0.countStageVars_0x36E00)
 	{
-		if (D41A0_0.StageVars2_0x365F4[index].index_0x3647A_0)
+		if (world_D41A0.StageVars2_0x365F4[index].index_0x3647A_0)
 		{
-			switch (D41A0_0.StageVars2_0x365F4[index].index_0x3647A_0)
+			switch (world_D41A0.StageVars2_0x365F4[index].index_0x3647A_0)
 			{
 			case 3:
 			case 4:
 			case 5:
 			case 8:
 			case 9:
-				if (D41A0_0.StageVars2_0x365F4[index].stage_0x3647A_1 & 4)
+				if (world_D41A0.StageVars2_0x365F4[index].stage_0x3647A_1 & 4)
 				{
-					if (D41A0_0.StageVars2_0x365F4[index].stage_0x3647A_1 & 2)
-						D41A0_0.StageVars2_0x365F4[index].stage_0x3647A_1 &= 0xFB;
+					if (world_D41A0.StageVars2_0x365F4[index].stage_0x3647A_1 & 2)
+						world_D41A0.StageVars2_0x365F4[index].stage_0x3647A_1 &= 0xFB;
 				}
 				break;
 			default:
@@ -5854,7 +5854,7 @@ signed int WizardAiTryGrowCastle_13C50(type_entity_0x6E8E* a1x)//1f4c50
 	v1x = Entities_EA3E4[a1x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58];
 	if (v1x <= Entities_EA3E4[0] || v1x->actionIndex_0x45_69 != 4 || v1x->maxStage_0x30_48 || !WizardAiCanGrowCastle_155E0(a1x))
 		return 0;
-	a1x->targetId_0x96_150 = v1x - D41A0_0.entities_0x6E8E;
+	a1x->targetId_0x96_150 = v1x - world_D41A0.entities_0x6E8E;
 	a1x->targetKey_0x98_152 = GetEntityKey_14C40(v1x);
 	return 1;
 }
@@ -5880,7 +5880,7 @@ type_entity_0x6E8E* WizardAiFindTarget_13CE0(type_entity_0x6E8E* a1x)//1f4ce0
 				v3x = FindNearestOwnBalloon_148E0(a1x);
 				if (v3x)
 				{
-					a1x->targetId_0x96_150 = v3x - D41A0_0.entities_0x6E8E;
+					a1x->targetId_0x96_150 = v3x - world_D41A0.entities_0x6E8E;
 					a1x->targetKey_0x98_152 = GetEntityKey_14C40(v3x);
 					return (type_entity_0x6E8E*)1;
 				}
@@ -5891,7 +5891,7 @@ type_entity_0x6E8E* WizardAiFindTarget_13CE0(type_entity_0x6E8E* a1x)//1f4ce0
 			v4x = FindNearestOwnBalloon_148E0(a1x);
 			if (v4x)
 			{
-				a1x->targetId_0x96_150 = v4x - D41A0_0.entities_0x6E8E;
+				a1x->targetId_0x96_150 = v4x - world_D41A0.entities_0x6E8E;
 				a1x->targetKey_0x98_152 = GetEntityKey_14C40(v4x);
 				return (type_entity_0x6E8E*)1;
 			}
@@ -5914,7 +5914,7 @@ signed int WizardAiShouldRetreat_13DC0(type_entity_0x6E8E* a1x)//1f4dc0
 	if (v1x <= Entities_EA3E4[0])
 		return 0;
 	v2x = Entities_EA3E4[a1x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58];
-	a1x->targetId_0x96_150 = v1x - D41A0_0.entities_0x6E8E;
+	a1x->targetId_0x96_150 = v1x - world_D41A0.entities_0x6E8E;
 	a1x->targetKey_0x98_152 = GetEntityKey_14C40(v2x);
 	return 1;
 }
@@ -5936,7 +5936,7 @@ signed int WizardAiChooseEnemyWizard_13E40(type_entity_0x6E8E* a1x)//1f4e40
 	if (!HasAreaSpell_164B0(a1x) || !a1x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58 && GetPlayerSpellEntity_146C0(a1x, 2u))
 		return 0;
 	v1x = 0;
-	for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+	for (ix = gameState_D41A4.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (ix->id_0x1A_26 != a1x->id_0x1A_26 && ix->model_0x40_64 == 2)
 		{
@@ -5964,7 +5964,7 @@ signed int WizardAiChooseEnemyWizard_13E40(type_entity_0x6E8E* a1x)//1f4e40
 	if (Maths::EuclideanDistXY_584D0(&v1x->position_0x4C_76, &a1x->position_0x4C_76) >= (unsigned int)(v5 * v5))
 		return 0;
 	result = 1;
-	a1x->targetId_0x96_150 = v1x - D41A0_0.entities_0x6E8E;
+	a1x->targetId_0x96_150 = v1x - world_D41A0.entities_0x6E8E;
 	a1x->targetKey_0x98_152 = GetEntityKey_14C40(v1x);
 	return result;
 }
@@ -5988,7 +5988,7 @@ signed int WizardAiChooseEnemyCreature_14030(type_entity_0x6E8E* a1x)//1f5030
 	if (!HasAttackSpell_15E60(a1x) || !a1x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58 && GetPlayerSpellEntity_146C0(a1x, 2u))
 		return 0;
 	v1x = 0;
-	for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+	for (ix = gameState_D41A4.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (ix->id_0x1A_26 != a1x->id_0x1A_26)
 		{
@@ -5999,7 +5999,7 @@ signed int WizardAiChooseEnemyCreature_14030(type_entity_0x6E8E* a1x)//1f5030
 				//v5 = a1x->dword_0xA4_164 + 8 * ix->playerData_0xA4_164x->word_0x38_56;
 				if (a1x->playerData_0xA4_164x->aiTargets_0x1FC_508[1 + 4 + 4 * ix->playerData_0xA4_164x->playerColorIndex_0x38_56] == 1)
 				{
-					a1x->targetId_0x96_150 = ix - D41A0_0.entities_0x6E8E;
+					a1x->targetId_0x96_150 = ix - world_D41A0.entities_0x6E8E;
 					a1x->targetKey_0x98_152 = GetEntityKey_14C40(ix);
 					return 1;
 				}
@@ -6023,7 +6023,7 @@ signed int WizardAiChooseEnemyCreature_14030(type_entity_0x6E8E* a1x)//1f5030
 	v8 = a1x->typeParams_0xA0_160x->range_160_0x1c_28 + 10;
 	if (Maths::EuclideanDistXY_584D0(&v1x->position_0x4C_76, &a1x->position_0x4C_76) >= (unsigned int)(v8 * v8))
 		return 0;
-	a1x->targetId_0x96_150 = v1x - D41A0_0.entities_0x6E8E;
+	a1x->targetId_0x96_150 = v1x - world_D41A0.entities_0x6E8E;
 	a1x->targetKey_0x98_152 = GetEntityKey_14C40(v1x);
 	return 1;
 }
@@ -6047,7 +6047,7 @@ signed int WizardAiChooseEnemyCastle_14250(type_entity_0x6E8E* a1x)//1f5250
 	if (!HasAttackSpell_15E60(a1x))
 		return 0;
 	v1x = 0;
-	for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+	for (ix = gameState_D41A4.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (ix->id_0x1A_26 != a1x->id_0x1A_26 && ix->model_0x40_64 == 3)
 		{
@@ -6072,7 +6072,7 @@ signed int WizardAiChooseEnemyCastle_14250(type_entity_0x6E8E* a1x)//1f5250
 	v5 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 	if (Maths::EuclideanDistXY_584D0(&v1x->position_0x4C_76, &a1x->position_0x4C_76) >= (unsigned int)(v5 * v5))
 		return 0;
-	a1x->targetId_0x96_150 = v1x - D41A0_0.entities_0x6E8E;
+	a1x->targetId_0x96_150 = v1x - world_D41A0.entities_0x6E8E;
 	a1x->targetKey_0x98_152 = GetEntityKey_14C40(v1x);
 	return 1;
 }
@@ -6099,7 +6099,7 @@ signed int WizardAiChooseAttackTarget_14530(type_entity_0x6E8E* a1x)//1f5530
 		v7x = a1x;
 	for (i = 0; i < 29; i++)
 	{
-		for (jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[i]; jx > Entities_EA3E4[0]; jx = jx->next_0)
+		for (jx = gameState_D41A4.creatureLists_38403x[i]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 		{
 			if (jx->id_0x1A_26 != a1x->id_0x1A_26 && jx->mana_0x90_144 > 0)
 			{
@@ -6114,7 +6114,7 @@ signed int WizardAiChooseAttackTarget_14530(type_entity_0x6E8E* a1x)//1f5530
 	}
 	if (!v1x)
 		return 0;
-	a1x->targetId_0x96_150 = v1x - D41A0_0.entities_0x6E8E;
+	a1x->targetId_0x96_150 = v1x - world_D41A0.entities_0x6E8E;
 	a1x->targetKey_0x98_152 = GetEntityKey_14C40(v1x);
 	return 1;
 }
@@ -6134,7 +6134,7 @@ signed int WizardAiCheckHealth_14630(type_entity_0x6E8E* a1x)//1f5630
 	}
 	else
 	{
-		a1x->targetId_0x96_150 = v1x - D41A0_0.entities_0x6E8E;
+		a1x->targetId_0x96_150 = v1x - world_D41A0.entities_0x6E8E;
 		a1x->targetKey_0x98_152 = GetEntityKey_14C40(v1x);
 		a1x->playerData_0xA4_164x->aiState_0x1C1_449 = 11;
 	}
@@ -6278,7 +6278,7 @@ type_entity_0x6E8E* FindNearestOwnBalloon_148E0(type_entity_0x6E8E* a1x)//1f58e0
 
 	v1 = -1;
 	resultx = 0;
-	v2x = x_D41A0_BYTEARRAY_4_struct.manaSphereList_38523;
+	v2x = gameState_D41A4.manaSphereList_38523;
 	v15x = Entities_EA3E4[a1x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58];
 	while (v2x > Entities_EA3E4[0])
 	{
@@ -6335,7 +6335,7 @@ type_entity_0x6E8E* FindNearestOwnBalloon_148E0(type_entity_0x6E8E* a1x)//1f58e0
 	}
 	if (!resultx)
 	{
-		for (ix = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[88 / 4]; ix > Entities_EA3E4[0]; ix = ix->next_0)
+		for (ix = gameState_D41A4.creatureLists_38403x[88 / 4]; ix > Entities_EA3E4[0]; ix = ix->next_0)
 		{
 			if (ix->model_0x40_64 != 57 && ix->playerEntityIndex_0x94_148 != a1x->id_0x1A_26)
 			{
@@ -6375,7 +6375,7 @@ type_entity_0x6E8E* FindWizardTargetBySpell_14B10(type_entity_0x6E8E* a1x, unsig
 	{
 		if (a2 == 0xff)
 		{
-			for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+			for (ix = gameState_D41A4.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 			{
 				if (ix->id_0x1A_26 != a1x->id_0x1A_26)
 				{
@@ -6390,7 +6390,7 @@ type_entity_0x6E8E* FindWizardTargetBySpell_14B10(type_entity_0x6E8E* a1x, unsig
 		}
 		return resultx;
 	}
-	for (jx = x_D41A0_BYTEARRAY_4_struct.class3List_38519; jx > Entities_EA3E4[0]; jx = jx->next_0)
+	for (jx = gameState_D41A4.class3List_38519; jx > Entities_EA3E4[0]; jx = jx->next_0)
 	{
 		if (jx->id_0x1A_26 != a1x->id_0x1A_26 && jx->model_0x40_64 == a2)
 		{
@@ -6418,7 +6418,7 @@ type_entity_0x6E8E* FindNearestOtherWizard_14BD0(type_entity_0x6E8E* a1x, type_e
 
 	v2 = -1;
 	resultx = 0;
-	v4x = x_D41A0_BYTEARRAY_4_struct.class3List_38519;
+	v4x = gameState_D41A4.class3List_38519;
 	if (v4x <= Entities_EA3E4[0])
 		return 0;
 	do
@@ -6558,7 +6558,7 @@ signed int WizardAiCastSpell_14E10(type_entity_0x6E8E* a1x, unsigned __int8 a2)/
 			a1x->playerData_0xA4_164x->aiReactionDelay_0x1A2_418 = ((a1x->playerData_0xA4_164x->aiReflexes_0x246_582 - 255 - (my_sign32(a1x->playerData_0xA4_164x->aiReflexes_0x246_582 - 255) * 8) + (my_sign32(a1x->playerData_0xA4_164x->aiReflexes_0x246_582 - 255))) >> 3) - 1;
 		if (CastleAttackEntity_5F660(a1x, v6x, 0) != 1)
 			return 0;
-		a1x->playerData_0xA4_164x->str_611.spellCooldowns_0x367_871x.SpellEnabled[a2] = x_WORD_D3F4C[a2];
+		a1x->playerData_0xA4_164x->str_611.spellCooldowns_0x367_871x.SpellEnabled[a2] = spellCooldownTable_D3F4C[a2];
 		return 1;
 	case 2u:
 		v2x = GetPlayerSpellEntity_146C0(a1x, a2);
@@ -6568,7 +6568,7 @@ signed int WizardAiCastSpell_14E10(type_entity_0x6E8E* a1x, unsigned __int8 a2)/
 		{
 			if (CastleAttackEntity_5F660(a1x, v2x, 0) != 1)
 				return 0;
-			a1x->playerData_0xA4_164x->str_611.spellCooldowns_0x367_871x.SpellEnabled[a2] = x_WORD_D3F4C[a2];
+			a1x->playerData_0xA4_164x->str_611.spellCooldowns_0x367_871x.SpellEnabled[a2] = spellCooldownTable_D3F4C[a2];
 			result = 1;
 		}
 		else
@@ -6577,7 +6577,7 @@ signed int WizardAiCastSpell_14E10(type_entity_0x6E8E* a1x, unsigned __int8 a2)/
 			if (v4x)
 			{
 				v4x->id_0x1A_26 = a1x->id_0x1A_26;
-				a1x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58 = v4x - D41A0_0.entities_0x6E8E;
+				a1x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58 = v4x - world_D41A0.entities_0x6E8E;
 			}
 			result = 1;
 		}
@@ -6586,7 +6586,7 @@ signed int WizardAiCastSpell_14E10(type_entity_0x6E8E* a1x, unsigned __int8 a2)/
 		v5x = GetPlayerSpellEntity_146C0(a1x, a2);
 		if (!v5x || CastleAttackEntity_5F660(a1x, v5x, 0) != 1)
 			return 0;
-		a1x->playerData_0xA4_164x->str_611.spellCooldowns_0x367_871x.SpellEnabled[a2] = x_WORD_D3F4C[a2];
+		a1x->playerData_0xA4_164x->str_611.spellCooldowns_0x367_871x.SpellEnabled[a2] = spellCooldownTable_D3F4C[a2];
 		return 1;
 	case 4u:
 	case 9u:
@@ -6603,7 +6603,7 @@ signed int WizardAiCastSpell_14E10(type_entity_0x6E8E* a1x, unsigned __int8 a2)/
 		a1x->pitch_0x1E_30 = Maths::GetPitchAngle_58210(&a1x->position_0x4C_76, &Entities_EA3E4[a1x->targetId_0x96_150]->position_0x4C_76);
 		if (CastleAttackEntity_5F660(a1x, v8x, 0) != 1)
 			return 0;
-		a1x->playerData_0xA4_164x->str_611.spellCooldowns_0x367_871x.SpellEnabled[a2] = x_WORD_D3F4C[a2];
+		a1x->playerData_0xA4_164x->str_611.spellCooldowns_0x367_871x.SpellEnabled[a2] = spellCooldownTable_D3F4C[a2];
 		return 1;
 	case 5u:
 	case 6u:
@@ -6617,7 +6617,7 @@ signed int WizardAiCastSpell_14E10(type_entity_0x6E8E* a1x, unsigned __int8 a2)/
 		v9x = GetPlayerSpellEntity_146C0(a1x, a2);
 		if (!v9x || CastleAttackEntity_5F660(a1x, v9x, 0) != 1)
 			return 0;
-		a1x->playerData_0xA4_164x->str_611.spellCooldowns_0x367_871x.SpellEnabled[a2] = x_WORD_D3F4C[a2];
+		a1x->playerData_0xA4_164x->str_611.spellCooldowns_0x367_871x.SpellEnabled[a2] = spellCooldownTable_D3F4C[a2];
 		return 1;
 	case 0xFu:
 		return 0;
@@ -7072,7 +7072,7 @@ void UpdateWizardAiTargets_159E0()//1f69e0
 	type_entity_0x6E8E* v10x = NULL; // eax
 	uint16_t* v89;
 
-	v0x = x_D41A0_BYTEARRAY_4_struct.projectileList_38531;
+	v0x = gameState_D41A4.projectileList_38531;
 	if (v0x > Entities_EA3E4[0])
 	{
 		while (1)
@@ -7187,7 +7187,7 @@ type_entity_0x6E8E* FindNearestEntityTargeting_15CB0(/*type_str_0x6E8E* a1,*/ ty
 	a1 = 0;
 	//fix
 	v2 = -1;
-	for (ix = x_D41A0_BYTEARRAY_4_struct.projectileList_38531; ix > Entities_EA3E4[0]; ix = ix->next_0)
+	for (ix = gameState_D41A4.projectileList_38531; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (ix->targetId_0x96_150 == a2x->id_0x1A_26)
 		{
@@ -7305,7 +7305,7 @@ char FindLocalWizard_15EE0()//1f6ee0
 {
 	type_entity_0x6E8E* v0x; // eax
 
-	v0x = x_D41A0_BYTEARRAY_4_struct.class3List_38519;
+	v0x = gameState_D41A4.class3List_38519;
 	if (v0x <= Entities_EA3E4[0])
 		return 1;
 	do
@@ -7384,7 +7384,7 @@ signed int WizardAiMetamorph_15FC0(type_entity_0x6E8E* a1x)//1f6fc0
 		v12x = GetPlayerSpellEntity_146C0(a1x, 4u);
 		if (!v12x)
 			return 0;
-		for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+		for (ix = gameState_D41A4.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 		{
 			if (ix->id_0x1A_26 != a1x->id_0x1A_26)
 			{
@@ -7409,7 +7409,7 @@ signed int WizardAiMetamorph_15FC0(type_entity_0x6E8E* a1x)//1f6fc0
 			v9 = *j;
 			if (v9 == -1)
 				break;
-			for (kx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[v9]; kx > Entities_EA3E4[0]; kx = kx->next_0)
+			for (kx = gameState_D41A4.creatureLists_38403x[v9]; kx > Entities_EA3E4[0]; kx = kx->next_0)
 			{
 				if (kx->id_0x1A_26 != a1x->id_0x1A_26)
 				{
@@ -7453,7 +7453,7 @@ signed int WizardAiMetamorph_15FC0(type_entity_0x6E8E* a1x)//1f6fc0
 			}
 		}
 	LABEL_38:
-		a1x->targetId_0x96_150 = v16x - D41A0_0.entities_0x6E8E;
+		a1x->targetId_0x96_150 = v16x - world_D41A0.entities_0x6E8E;
 		a1x->targetKey_0x98_152 = GetEntityKey_14C40(v16x);
 		return 1;
 	}
@@ -7523,7 +7523,7 @@ signed int WizardAiAttackMetamorphed_161A0(type_entity_0x6E8E* a1x)//1f71a0
 			a1x->roll_0x20_32 &= 0x7ff;
 		}
 		v6x = 0;
-		for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+		for (ix = gameState_D41A4.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 		{
 			if (ix->id_0x1A_26 != a1x->id_0x1A_26)
 			{
@@ -7541,7 +7541,7 @@ signed int WizardAiAttackMetamorphed_161A0(type_entity_0x6E8E* a1x)//1f71a0
 		}
 		if (v6x != 0 && v15 < 0x1400 && v15 > 0xA00)//1f735d
 		{
-			a1x->targetId_0x96_150 = v6x - D41A0_0.entities_0x6E8E;
+			a1x->targetId_0x96_150 = v6x - world_D41A0.entities_0x6E8E;
 			a1x->targetKey_0x98_152 = GetEntityKey_14C40(v6x);
 			v10 = WizardAiChooseAttackSpell_15790(a1x);
 			a1x->playerData_0xA4_164x->speed_0xc_12 = 0;
@@ -7655,12 +7655,12 @@ signed int WizardAiSteer_16580(type_entity_0x6E8E* a1x)//1f7580
 	case 1:
 		v8 = FindAdjacentLavaDirection_16730(/*v2,*/ a1x, 0);
 		if (v8)
-			a1x->yaw_0x1C_28 = x_WORD_D3FCE[v8];
+			a1x->yaw_0x1C_28 = steerYawTable1_D3FCE[v8];
 		goto LABEL_11;
 	case 2:
 		v8 = FindAdjacentLavaDirection_16730(/*v2,*/ a1x, 1);
 		if (v8)
-			a1x->yaw_0x1C_28 = x_WORD_D3FE8[v8];
+			a1x->yaw_0x1C_28 = steerYawTable2_D3FE8[v8];
 		goto LABEL_11;
 	case 3:
 	case 4:
@@ -7908,8 +7908,8 @@ char WizardAiAvoidObstacles_169C0(type_entity_0x6E8E* a1x)//1f79c0
 			v5 = 0;
 			while (v5 < 0x28u)
 			{
-				v12.x += x_BYTE_D3F96[v15a];
-				v12.y += x_BYTE_D3FA4[v15a];
+				v12.x += avoidOffsetsX1_D3F96[v15a];
+				v12.y += avoidOffsetsY1_D3FA4[v15a];
 				v16 = v12;
 				v5++;
 				v15a = FindAdjacentLavaDirection2_16CA0(&v12, v15a, 0);
@@ -7920,8 +7920,8 @@ char WizardAiAvoidObstacles_169C0(type_entity_0x6E8E* a1x)//1f79c0
 			v6 = 0;
 			while (v6 < 0x28u)
 			{
-				v11.x += x_BYTE_D3FB2[v14a];
-				v11.y += x_BYTE_D3FC0[v14a];
+				v11.x += avoidOffsetsX2_D3FB2[v14a];
+				v11.y += avoidOffsetsY2_D3FC0[v14a];
 				v13 = v11;
 				v6++;
 				v14a = FindAdjacentLavaDirection2_16CA0(&v11, v14a, 1);
@@ -8251,7 +8251,7 @@ type_entity_0x6E8E* FindNearestOtherEntity_16FC0(type_entity_0x6E8E* a1x, type_e
 
 	v2 = -1;
 	v3x = 0;
-	v4x = x_D41A0_BYTEARRAY_4_struct.class3List_38519;
+	v4x = gameState_D41A4.class3List_38519;
 	if (v4x <= Entities_EA3E4[0])
 		return 0;
 	do
@@ -8285,7 +8285,7 @@ void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume)//1fad60
 	int16_t posY;
 	int16_t posX;
 
-	int posYbyType = 0; // set zero, add stopper for x_D41A0_BYTEARRAY_4_struct.byte_38591 ==0
+	int posYbyType = 0; // set zero, add stopper for gameState_D41A4.byte_38591 ==0
 	uint8_t scale = 1;
 
 	if (!DefaultResolutions())
@@ -8293,15 +8293,15 @@ void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume)//1fad60
 		scale = gameUiScale;
 	}
 
-	switch (x_D41A0_BYTEARRAY_4_struct.volumeKeyHeld_38591)
+	switch (gameState_D41A4.volumeKeyHeld_38591)
 	{
 	case 1:
 		volume = 127;
-		posYbyType = x_D41A0_BYTEARRAY_4_struct.soundVolume_6;
+		posYbyType = gameState_D41A4.soundVolume_6;
 		break;
 	case 2:
 		volume = 127;
-		posYbyType = x_D41A0_BYTEARRAY_4_struct.musicVolume_8;
+		posYbyType = gameState_D41A4.musicVolume_8;
 		break;
 	}
 	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height, scale);
@@ -8333,10 +8333,10 @@ void AdjustVolume_1A070(__int16 a2)//1fb070
 		scale = gameUiScale;
 	}
 
-	if (unk_18058Cstr.joystickMode_1805C2 == 7 || unk_18058Cstr.joystickMode_1805C2 == 1 || unk_18058Cstr.joystickMode_1805C2 == 2)
-		SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[CURSOR_SPRITE_INDEX_D419E]); //fixit
+	if (inputState_18058C.joystickMode_1805C2 == 7 || inputState_18058C.joystickMode_1805C2 == 1 || inputState_18058C.joystickMode_1805C2 == 2)
+		SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[cursorSpriteIndex_D419E]); //fixit
 	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height, scale);
-	v2 = x_D41A0_BYTEARRAY_4_struct.volumeKeyHeld_38591;
+	v2 = gameState_D41A4.volumeKeyHeld_38591;
 	if (v2 >= 1u)
 	{
 		if (v2 <= 1u)
@@ -8355,10 +8355,10 @@ void AdjustVolume_1A070(__int16 a2)//1fb070
 		a2 = (v3 - (__CFSHL__(v4 >> 31, 2) + 4 * (v4 >> 31))) >> 2;
 	}
 LABEL_12:
-	if (unk_18058Cstr.MouseButtonState_18059C & 1 || unk_18058Cstr.MouseButtonState_18059C & 2 || unk_18058Cstr.MouseButtonState_18059C & 4 || unk_18058Cstr.MouseButtonState_18059C & 8 || pressedKeys_180664[47] || pressedKeys_180664[50])
+	if (inputState_18058C.MouseButtonState_18059C & 1 || inputState_18058C.MouseButtonState_18059C & 2 || inputState_18058C.MouseButtonState_18059C & 4 || inputState_18058C.MouseButtonState_18059C & 8 || pressedKeys_180664[47] || pressedKeys_180664[50])
 	{
 		v5 = width - (12 * scale);
-		v6 = unk_18058Cstr.mouse_1805B0.x - (posX + (4 * scale));
+		v6 = inputState_18058C.mouse_1805B0.x - (posX + (4 * scale));
 		if (v6 < 0)
 			v6 = 0;
 		if (v6 > v5)
@@ -8370,25 +8370,25 @@ LABEL_12:
 			v9 ^= v7;
 		if (v9 > 127)
 			v9 = 127;
-		v10 = x_D41A0_BYTEARRAY_4_struct.volumeKeyHeld_38591;
+		v10 = gameState_D41A4.volumeKeyHeld_38591;
 		if (v10 >= 1u)
 		{
 			if (v10 <= 1u)
 			{
 				PrepareEventSound_6E450(
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240,
-					D41A0_0.LevelIndex_0xc,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240,
+					world_D41A0.LevelIndex_0xc,
 					8);
 				PlayEntitySounds_6E150();
-				if (x_D41A0_BYTEARRAY_4_struct.soundVolume_6 != v9)
+				if (gameState_D41A4.soundVolume_6 != v9)
 				{
-					x_D41A0_BYTEARRAY_4_struct.soundVolume_6 = v9;
+					gameState_D41A4.soundVolume_6 = v9;
 					SetSoundVolume_8E470((signed __int16)v9);
 				}
 			}
-			else if (v10 == 2 && x_D41A0_BYTEARRAY_4_struct.musicVolume_8 != v9)
+			else if (v10 == 2 && gameState_D41A4.musicVolume_8 != v9)
 			{
-				x_D41A0_BYTEARRAY_4_struct.musicVolume_8 = v9;
+				gameState_D41A4.musicVolume_8 = v9;
 				SetMusicVolume_8E410(v9);
 			}
 		}
@@ -8396,11 +8396,11 @@ LABEL_12:
 	}
 	else
 	{
-		x_D41A0_BYTEARRAY_4_struct.volumeKeyHeld_38591 = pressedKeys_180664[47];
-		HandleButtonClick_191B0(20, x_D41A0_BYTEARRAY_4_struct.savedMenuState_38544);
+		gameState_D41A4.volumeKeyHeld_38591 = pressedKeys_180664[47];
+		HandleButtonClick_191B0(20, gameState_D41A4.savedMenuState_38544);
 		SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]); //Set cursor to Null (Don't Draw)
 		SetMousePositionInMemory_5BDC0(posX + a2, posY + 5 * height / 2);
-		if (x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED)
+		if (gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED)
 		{
 			EndSample_8D8F0();
 			StopMusic_8E020();
@@ -8418,17 +8418,17 @@ void KillAllCreatures_1B5F0()//1fc5f0
 			case 10:
 				break;
 			case 27:
-				for (type_entity_0x6E8E* entity = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[27]; entity > Entities_EA3E4[0]; entity = entity->next_0)
+				for (type_entity_0x6E8E* entity = gameState_D41A4.creatureLists_38403x[27]; entity > Entities_EA3E4[0]; entity = entity->next_0)
 				{
 					entity->actionIndex_0x45_69 = 221;
-					entity->ownerPlayerId_0x24_36 = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240;
+					entity->ownerPlayerId_0x24_36 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240;
 				}
 				break;
 			default:
-				for (type_entity_0x6E8E* entity = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[index]; entity > Entities_EA3E4[0]; entity = entity->next_0)
+				for (type_entity_0x6E8E* entity = gameState_D41A4.creatureLists_38403x[index]; entity > Entities_EA3E4[0]; entity = entity->next_0)
 				{
 					entity->life_0x8 = -1;
-					entity->ownerPlayerId_0x24_36 = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240;
+					entity->ownerPlayerId_0x24_36 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240;
 				}
 				break;
 		}
@@ -8600,8 +8600,8 @@ signed int MoveCreature_1B8C0(type_entity_0x6E8E* a1x)//1fc8c0
 							if (a1x->life_0x8 == -1)
 							{
 								//v36 = *(x_DWORD *)(0x364D1 + x_D41A0_BYTEARRAY_0 + 1);
-								if (D41A0_0.creatureStats_0x364D2.livingCreatures_0x364D2)
-									D41A0_0.creatureStats_0x364D2.livingCreatures_0x364D2--;
+								if (world_D41A0.creatureStats_0x364D2.livingCreatures_0x364D2)
+									world_D41A0.creatureStats_0x364D2.livingCreatures_0x364D2--;
 							}
 							result = 4;
 						}
@@ -8767,7 +8767,7 @@ void CreatureIdle_1BD90(type_entity_0x6E8E* a1x, char a2)//1fcd90
 			v16 = -1;
 			v15 = a1x->typeParams_0xA0_160x->range_160_0x1c_28 * a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 			v17x = 0;
-			for (jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
+			for (jx = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 			{
 				if (!jx->leaderId_0x32_50 && jx != a1x)
 				{
@@ -8789,7 +8789,7 @@ void CreatureIdle_1BD90(type_entity_0x6E8E* a1x, char a2)//1fcd90
 			}
 			if (v17x)
 			{
-				a1x->leaderId_0x32_50 = v17x - D41A0_0.entities_0x6E8E;
+				a1x->leaderId_0x32_50 = v17x - world_D41A0.entities_0x6E8E;
 				v7 = a2 + 3;
 			LABEL_35:
 				a1x->actionIndex_0x45_69 = v7;
@@ -8887,7 +8887,7 @@ void CreatureWander_1BF90(type_entity_0x6E8E* a1x, char a2)//1fcf90
 					v11 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 					v23 = -1;
 					v24x = 0;
-					v12x = x_D41A0_BYTEARRAY_4_struct.class3List_38519;
+					v12x = gameState_D41A4.class3List_38519;
 					v27 = v11 * v11;
 					while (v12x > Entities_EA3E4[0])
 					{
@@ -8909,7 +8909,7 @@ void CreatureWander_1BF90(type_entity_0x6E8E* a1x, char a2)//1fcf90
 					}
 					if (v24x)
 					{
-						a1x->targetId_0x96_150 = v24x - D41A0_0.entities_0x6E8E;
+						a1x->targetId_0x96_150 = v24x - world_D41A0.entities_0x6E8E;
 						if (a1x->typeParams_0xA0_160x->flags_160_0x20_32 & 8)
 							a1x->actionIndex_0x45_69 = a2 + 6;
 						else
@@ -8923,7 +8923,7 @@ void CreatureWander_1BF90(type_entity_0x6E8E* a1x, char a2)//1fcf90
 							v28 = -1;
 							v26 = a1x->typeParams_0xA0_160x->range_160_0x1c_28 * a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 							v25x = 0;
-							for (jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
+							for (jx = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 							{
 								if (!jx->leaderId_0x32_50 && jx != a1x)
 								{
@@ -8945,7 +8945,7 @@ void CreatureWander_1BF90(type_entity_0x6E8E* a1x, char a2)//1fcf90
 							}
 							if (v25x)
 							{
-								a1x->leaderId_0x32_50 = v25x - D41A0_0.entities_0x6E8E;
+								a1x->leaderId_0x32_50 = v25x - world_D41A0.entities_0x6E8E;
 								v7 = a2 + 3;
 								goto LABEL_49;
 							}
@@ -9047,7 +9047,7 @@ signed int CreatureAttack_1C310(type_entity_0x6E8E* a1x, char a2, unsigned __int
 				v12 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v10x->position_0x4C_76);
 				a1x->roll_0x20_32 = v12;
 				// neighbour distance: movsx on each coordinate, 32-bit subtraction (0x1FD474)
-				for (jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
+				for (jx = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 				{
 					if (jx->id_0x1A_26 != a1x->id_0x1A_26
 						&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)jx->position_0x4C_76.x) < a1x->params_0x52_82.pitch
@@ -9197,7 +9197,7 @@ void CreatureFollowLeader_1C560(type_entity_0x6E8E* a1x, unsigned __int16 a2)//1
 				a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(
 					&a1x->position_0x4C_76,
 					&Entities_EA3E4[a1x->leaderId_0x32_50]->position_0x4C_76);
-				v14x = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64];
+				v14x = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64];
 				break;
 			case 6:
 				a1x->targetId_0x96_150 = v4x->targetId_0x96_150;
@@ -9380,9 +9380,9 @@ void CreatureFlee_1C980(type_entity_0x6E8E* a1x, char a2)//1fd980
 				HIBYTE(v11) += 4;
 				a1x->roll_0x20_32 = v11;
 				//v12 = 4 * *(char *)(a1 + 64);
-				//v13 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
+				//v13 = gameState_D41A4.dwordindex_0;
 				a1x->roll_0x20_32 &= 0x7ff;
-				for (jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
+				for (jx = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 				{
 					if (jx->id_0x1A_26 != a1x->id_0x1A_26
 						&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)jx->position_0x4C_76.x) < a1x->params_0x52_82.pitch
@@ -9782,7 +9782,7 @@ void CreatureScriptCmd4_1D700(type_entity_0x6E8E* a1x, __int16 a2)//1fe700
 	CreatureScriptAttack_1D8C0(a1x, a2);
 	if (!(a1x->instanceIndex_0x3E_62 & 7))
 	{
-		v2x = &D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72];
+		v2x = &world_D41A0.StageVars2_0x365F4[a1x->StageVar1_0x48_72];
 		if (v2x->stage_0x3647A_1 & 2)
 			v3x = Entities_EA3E4[a1x->nextStage_0x4A_74];
 		else
@@ -9820,7 +9820,7 @@ void CreatureScriptCmd3_1D7C0(type_entity_0x6E8E* a1x, __int16 a2)//1fe7c0
 	CreatureScriptAttack_1D8C0(a1x, a2);
 	if (!(a1x->instanceIndex_0x3E_62 & 7))
 	{
-		v2x = &D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72];
+		v2x = &world_D41A0.StageVars2_0x365F4[a1x->StageVar1_0x48_72];
 		if (v2x->stage_0x3647A_1 & 2)
 			v3x = Entities_EA3E4[a1x->nextStage_0x4A_74];
 		else
@@ -9830,7 +9830,7 @@ void CreatureScriptCmd3_1D7C0(type_entity_0x6E8E* a1x, __int16 a2)//1fe7c0
 			v4 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 			if (Distance3D_583F0(&a1x->position_0x4C_76, &v3x->position_0x4C_76) <= v4)
 			{
-				a1x->targetId_0x96_150 = v3x - D41A0_0.entities_0x6E8E;
+				a1x->targetId_0x96_150 = v3x - world_D41A0.entities_0x6E8E;
 				a1x->StageVar2_0x49_73 = 10;
 				CreatureScriptResume_1E040(a1x, a2);
 			}
@@ -9916,7 +9916,7 @@ void CreatureScriptAttack_1D8C0(type_entity_0x6E8E* a1x, __int16 a2)//1fe8c0
 			MoveCreature_1B8C0(a1x);
 			if (!(a1x->instanceIndex_0x3E_62 & 7))
 			{
-				if (D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].stage_0x3647A_1 & 2)
+				if (world_D41A0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].stage_0x3647A_1 & 2)
 				{
 					if (!a1x->nextStage_0x4A_74)
 						a1x->nextStage_0x4A_74 = FindScriptGroupLeader_1E3E0(a1x);
@@ -9924,7 +9924,7 @@ void CreatureScriptAttack_1D8C0(type_entity_0x6E8E* a1x, __int16 a2)//1fe8c0
 				}
 				else
 				{
-					v12x = D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].target_0x3647C_4.pointer_0x6E8E;
+					v12x = world_D41A0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].target_0x3647C_4.pointer_0x6E8E;
 				}
 				if (v12x && v12x > Entities_EA3E4[0])
 				{
@@ -9942,7 +9942,7 @@ void CreatureScriptAttack_1D8C0(type_entity_0x6E8E* a1x, __int16 a2)//1fe8c0
 							a1x->roll_0x20_32 &= 0x7ff;
 						}
 					}
-					for (jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
+					for (jx = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 					{
 						if (jx->id_0x1A_26 != a1x->id_0x1A_26
 							&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)jx->position_0x4C_76.x) < a1x->params_0x52_82.pitch
@@ -10007,7 +10007,7 @@ void CreatureScriptGuardPosition_1DBF0(type_entity_0x6E8E* a1x, unsigned __int16
 	unsigned int v12; // [esp+8h] [ebp-8h]
 	unsigned int v13; // [esp+Ch] [ebp-4h]
 
-	v2x = &D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72];
+	v2x = &world_D41A0.StageVars2_0x365F4[a1x->StageVar1_0x48_72];
 	if (abs((int16_t)v2x->target_0x3647C_4.axis.x - (int16_t)a1x->position_0x4C_76.x) > 3072
 		|| abs((int16_t)v2x->target_0x3647C_4.axis.y - (int16_t)a1x->position_0x4C_76.y) > 3072)
 	{
@@ -10029,7 +10029,7 @@ void CreatureScriptGuardPosition_1DBF0(type_entity_0x6E8E* a1x, unsigned __int16
 				//result = a1x->typeParams_0xA0_160x->word_160_0x1c_28 * a1x->typeParams_0xA0_160x->word_160_0x1c_28;
 				v5x = 0;
 				v12 = -1;
-				v6x = x_D41A0_BYTEARRAY_4_struct.class3List_38519;
+				v6x = gameState_D41A4.class3List_38519;
 				v11 = a1x->typeParams_0xA0_160x->range_160_0x1c_28 * a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 				while (v6x > Entities_EA3E4[0])
 				{
@@ -10056,7 +10056,7 @@ void CreatureScriptGuardPosition_1DBF0(type_entity_0x6E8E* a1x, unsigned __int16
 				}
 				if (v5x)
 				{
-					a1x->targetId_0x96_150 = v5x - D41A0_0.entities_0x6E8E;
+					a1x->targetId_0x96_150 = v5x - world_D41A0.entities_0x6E8E;
 					a1x->StageVar2_0x49_73 = 10;
 					/*result = */CreatureScriptResume_1E040(a1x, a2);
 				}
@@ -10131,8 +10131,8 @@ void CreatureScriptGoToPosition_1DDA0(type_entity_0x6E8E* a1x, __int16 a2)//1fed
 		MoveCreature_1B8C0(a1x);
 		if (!(a1x->instanceIndex_0x3E_62 & 7))
 		{
-			v14x.x = D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].target_0x3647C_4.axis.x;
-			v14x.y = D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].target_0x3647C_4.axis.y;
+			v14x.x = world_D41A0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].target_0x3647C_4.axis.x;
+			v14x.y = world_D41A0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].target_0x3647C_4.axis.y;
 			if (!(a1x->flags_0xc_12_15.byte[2] & 4))
 			{
 				a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v14x);
@@ -10146,7 +10146,7 @@ void CreatureScriptGoToPosition_1DDA0(type_entity_0x6E8E* a1x, __int16 a2)//1fed
 				}
 			}
 			//v16 = 0;
-			for (jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
+			for (jx = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 			{
 				if (jx->id_0x1A_26 != a1x->id_0x1A_26)
 				{
@@ -10364,9 +10364,9 @@ int FindScriptGroupLeader_1E3E0(type_entity_0x6E8E* a1x)//1ff3e0
 	v8 = -1;
 	v1x = 0;
 	v2x = 0;
-	if (D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].stage_0x3647A_1 & 1)
+	if (world_D41A0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].stage_0x3647A_1 & 1)
 	{
-		for (ix = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64]; ix > Entities_EA3E4[0] && !v2x; ix = ix->next_0)
+		for (ix = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64]; ix > Entities_EA3E4[0] && !v2x; ix = ix->next_0)
 		{
 			if (ix->StageVar1_0x48_72 == a1x->StageVar1_0x48_72)
 			{
@@ -10377,7 +10377,7 @@ int FindScriptGroupLeader_1E3E0(type_entity_0x6E8E* a1x)//1ff3e0
 	}
 	if (!v2x)
 	{
-		for (jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[D41A0_0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].target_0x3647C_4.axis.x]; jx > Entities_EA3E4[0]; jx = jx->next_0)
+		for (jx = gameState_D41A4.creatureLists_38403x[world_D41A0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].target_0x3647C_4.axis.x]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 		{
 			v6 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &jx->position_0x4C_76);
 			if (v6 < v8)
@@ -10387,7 +10387,7 @@ int FindScriptGroupLeader_1E3E0(type_entity_0x6E8E* a1x)//1ff3e0
 			}
 		}
 		if (v1x)
-			v2x = v1x - D41A0_0.entities_0x6E8E;
+			v2x = v1x - world_D41A0.entities_0x6E8E;
 	}
 	return v2x;
 }
@@ -10465,7 +10465,7 @@ void CreatureScriptEscortParent_1E580(type_entity_0x6E8E* a1x, __int16 a2)//1ff5
 		if (v3x <= Entities_EA3E4[0] && !(a1x->instanceIndex_0x3E_62 & 7))
 		{
 			v3x = FindNearestOtherEntity_16FC0(v2x, v2x);
-			a1x->targetId_0x96_150 = v3x - D41A0_0.entities_0x6E8E;
+			a1x->targetId_0x96_150 = v3x - world_D41A0.entities_0x6E8E;
 		}
 		if (v3x <= Entities_EA3E4[0])
 		{
@@ -10573,7 +10573,7 @@ void CreatureIdleNoHerd_1E700(type_entity_0x6E8E* a1x, char a2)//1ff700
 							a1x->roll_0x20_32 &= 0x7ff;
 						}
 					}
-					for (jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
+					for (jx = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 					{
 						if (jx->id_0x1A_26 != a1x->id_0x1A_26
 							&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)jx->position_0x4C_76.x) < a1x->params_0x52_82.pitch
@@ -10739,7 +10739,7 @@ void CreatureScriptCmd14_1E9C0(type_entity_0x6E8E* a1x, __int16 a2)//1ff9c0
 				v11 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 				if (Distance3D_583F0(&a1x->position_0x4C_76, &v10x->position_0x4C_76) < v11)
 				{
-					a1x->targetId_0x96_150 = v10x - D41A0_0.entities_0x6E8E;
+					a1x->targetId_0x96_150 = v10x - world_D41A0.entities_0x6E8E;
 					a1x->actionIndex_0x45_69 = a2 + 2;
 					SendSpellMessage_6D8B0(a1x->parentId_0x28_40, 0x18u, 1);
 				}
@@ -10949,7 +10949,7 @@ void DragonWander_1EF40(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)//1fff
 void DragonAttack_1EF70(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)//1fff70
 {
 	if ((unsigned __int16)CreatureAttack_1C310(a2x, 0, (unsigned __int16(*)(type_entity_0x6E8E*, type_entity_0x6E8E*))CreatureShootFireball_1CC20))
-		PrepareEventSound_6E450(a2x - D41A0_0.entities_0x6E8E, -1, 8);
+		PrepareEventSound_6E450(a2x - world_D41A0.entities_0x6E8E, -1, 8);
 	UpdateDragonBody_1F0C0(/*a1x,*/ a2x);
 	ApplyDragonGravity_1F040(a2x);
 }
@@ -11080,7 +11080,7 @@ void UpdateDragonBody_1F0C0(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x)//
 				ResetEvent08_10100(v3);
 				if (v13)
 				{
-					v5 = a1x - D41A0_0.entities_0x6E8E;
+					v5 = a1x - world_D41A0.entities_0x6E8E;
 					//v6 = a2x->byte_0x46_70;
 					a2x->param2_0x2C_44 = 5;
 					a2x->levelPar3_0x46_70++;// = v6 + 1;
@@ -11134,7 +11134,7 @@ void GoatIdle_1F340(type_entity_0x6E8E* a1x)//200340
 	CreatureIdle_1BD90(a1x, 8);
 	a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 	if (!(a1x->rand_0x14_20 % 0x4Du))
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 46);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 46);
 	if (a1x->actionIndex_0x45_69 == 14)
 		a1x->actSpeed_0x82_130 = a1x->minSpeed_0x84_132;
 }
@@ -11146,7 +11146,7 @@ void GoatWander_1F3C0(type_entity_0x6E8E* a1x)//2003c0
 	CreatureWander_1BF90(a1x, 8);
 	a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 	if (!(a1x->rand_0x14_20 % 0x4Du))
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 46);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 46);
 	if (a1x->actionIndex_0x45_69 == 14)
 		a1x->actSpeed_0x82_130 = a1x->minSpeed_0x84_132;
 }
@@ -11166,7 +11166,7 @@ void GoatFollow_1F470(type_entity_0x6E8E* a1x)//200470
 	CreatureFollowLeader_1C560(a1x, 8u);
 	a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 	if (!(a1x->rand_0x14_20 % 0x4Du))
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 46);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 46);
 	if (a1x->actionIndex_0x45_69 == 14)
 		a1x->actSpeed_0x82_130 = a1x->minSpeed_0x84_132;
 }
@@ -11191,7 +11191,7 @@ void HitGoat_1F530(type_entity_0x6E8E* entity)//200530
 		entity->actSpeed_0x82_130 = entity->maxSpeed_0x86_134;
 	entity->rand_0x14_20 = 9377 * entity->rand_0x14_20 + 9439;
 	if (!(entity->rand_0x14_20 % 0x2Bu))
-		PrepareEventSound_6E450(entity - D41A0_0.entities_0x6E8E, -1, 46);
+		PrepareEventSound_6E450(entity - world_D41A0.entities_0x6E8E, -1, 46);
 }
 
 //----- (0001F5B0) --------------------------------------------------------
@@ -11200,7 +11200,7 @@ void GoatRunScript_1F5B0(type_entity_0x6E8E* event)//2005b0
 	CreatureRunScript_1D5D0(event, 8);
 	event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
 	if (!(event->rand_0x14_20 % 0x4Du))
-		PrepareEventSound_6E450(event - D41A0_0.entities_0x6E8E, -1, 46);
+		PrepareEventSound_6E450(event - world_D41A0.entities_0x6E8E, -1, 46);
 	if (event->actionIndex_0x45_69 == 14)
 		event->actSpeed_0x82_130 = event->minSpeed_0x84_132;
 	else
@@ -11226,7 +11226,7 @@ void BeeWander_1F660(type_entity_0x6E8E* a1x)//200660
 	if (a1x->actionIndex_0x45_69 == 18)
 	{
 		a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, (a1x->rand_0x14_20 & 1) + 12);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, (a1x->rand_0x14_20 & 1) + 12);
 		a1x->param_0x10_16 = 1;
 	}
 }
@@ -11267,7 +11267,7 @@ void BeeAttack_1F6D0(type_entity_0x6E8E* a1x)//2006d0
 		if ((unsigned __int16)CreatureAttack_1C310(a1x, 16, (unsigned __int16(*)(type_entity_0x6E8E*, type_entity_0x6E8E*))CreatureMeleeAttack1024_1CE80))
 		{
 			a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, (a1x->rand_0x14_20 & 1) + 12);
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, (a1x->rand_0x14_20 & 1) + 12);
 			a1x->actSpeed_0x82_130 = -a1x->maxSpeed_0x86_134;
 			a1x->param_0x10_16 = 3 * a1x->typeParams_0xA0_160x->updateInterval_160_0x1a_26;
 		}
@@ -11339,7 +11339,7 @@ void WormWander_1F970(type_entity_0x6E8E* a1x)//200970
 void WormAttack_1F990(type_entity_0x6E8E* a1x)//200990
 {
 	if ((unsigned __int16)CreatureAttack_1C310(a1x, 24, (unsigned __int16(*)(type_entity_0x6E8E*, type_entity_0x6E8E*))CreatureShootFireball_1CC20))
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 8);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 8);
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
@@ -11511,7 +11511,7 @@ void ArcherWander_1FAA0(type_entity_0x6E8E* a1x)//200aa0
 			{
 				//jx = *(signed __int16 *)(v8 + 28) * *(signed __int16 *)(v8 + 28);
 				v32 = -1;
-				v10x = x_D41A0_BYTEARRAY_4_struct.class3List_38519;
+				v10x = gameState_D41A4.class3List_38519;
 				v11x = 0;
 				v31 = a1x->typeParams_0xA0_160x->range_160_0x1c_28 * a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 				while (v10x > Entities_EA3E4[0])
@@ -11554,7 +11554,7 @@ void ArcherWander_1FAA0(type_entity_0x6E8E* a1x)//200aa0
 					v33 = v17 * v17;
 					v18 = -1;
 					v19x = 0;
-					for (jz = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[36 / 4]; jz > Entities_EA3E4[0]; jz = jz->next_0)
+					for (jz = gameState_D41A4.creatureLists_38403x[36 / 4]; jz > Entities_EA3E4[0]; jz = jz->next_0)
 					{
 						v20 = (signed __int16)(jz->position_0x4C_76.x - a1x->position_0x4C_76.x);
 						v21 = v20 * v20
@@ -11572,7 +11572,7 @@ void ArcherWander_1FAA0(type_entity_0x6E8E* a1x)//200aa0
 				{
 					if (v15x->class_0x3F_63 == 10 && v15x->model_0x40_64 == 45)
 						goto LABEL_68;
-					a1x->targetId_0x96_150 = v15x - D41A0_0.entities_0x6E8E;
+					a1x->targetId_0x96_150 = v15x - world_D41A0.entities_0x6E8E;
 					jk = 34;
 				LABEL_60:
 					a1x->actionIndex_0x45_69 = jk;
@@ -11583,7 +11583,7 @@ void ArcherWander_1FAA0(type_entity_0x6E8E* a1x)//200aa0
 				v30 = v22 * v22;
 				//jx = a1x->byte_0x40_64;
 				v34 = -1;
-				for (kx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64]; kx > Entities_EA3E4[0]; kx = kx->next_0)
+				for (kx = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64]; kx > Entities_EA3E4[0]; kx = kx->next_0)
 				{
 					if (!kx->leaderId_0x32_50 && kx != a1x)
 					{
@@ -11611,7 +11611,7 @@ void ArcherWander_1FAA0(type_entity_0x6E8E* a1x)//200aa0
 				}
 				if (v23x)
 				{
-					a1x->leaderId_0x32_50 = v23x - D41A0_0.entities_0x6E8E;
+					a1x->leaderId_0x32_50 = v23x - world_D41A0.entities_0x6E8E;
 					jk = 35;
 					goto LABEL_60;
 				}
@@ -11862,7 +11862,7 @@ void SkeletonArcherWander_203D0(type_entity_0x6E8E* a1x)//2013d0
 		{
 			v8 = -1;
 			v9x = 0;
-			for (jx = x_D41A0_BYTEARRAY_4_struct.class3List_38519; jx > Entities_EA3E4[0]; jx = jx->next_0)
+			for (jx = gameState_D41A4.class3List_38519; jx > Entities_EA3E4[0]; jx = jx->next_0)
 			{
 				if (jx->model_0x40_64 == 2 && jx->id_0x1A_26 != a1x->id_0x1A_26)
 				{
@@ -11888,7 +11888,7 @@ void SkeletonArcherWander_203D0(type_entity_0x6E8E* a1x)//2013d0
 				}
 				else
 				{
-					a1x->targetId_0x96_150 = v9x - D41A0_0.entities_0x6E8E;
+					a1x->targetId_0x96_150 = v9x - world_D41A0.entities_0x6E8E;
 					a1x->actionIndex_0x45_69 = 74;
 				}
 			}
@@ -11907,7 +11907,7 @@ void SkeletonArcherWander_203D0(type_entity_0x6E8E* a1x)//2013d0
 					v15 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 					v16x = 0;
 					v44 = -1;
-					v17x = x_D41A0_BYTEARRAY_4_struct.class3List_38519;
+					v17x = gameState_D41A4.class3List_38519;
 					v42 = v15 * v15;
 					while (v17x > Entities_EA3E4[0])
 					{
@@ -11933,7 +11933,7 @@ void SkeletonArcherWander_203D0(type_entity_0x6E8E* a1x)//2013d0
 					v41x = v16x;
 					if (v16x)
 					{
-						a1x->targetId_0x96_150 = v16x - D41A0_0.entities_0x6E8E;
+						a1x->targetId_0x96_150 = v16x - world_D41A0.entities_0x6E8E;
 						a1x->actionIndex_0x45_69 = 74;
 					}
 				}
@@ -11968,7 +11968,7 @@ void SkeletonArcherWander_203D0(type_entity_0x6E8E* a1x)//2013d0
 						v45 = a1x->typeParams_0xA0_160x->range_160_0x1c_28 * a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 						v26 = -1;
 						v27x = 0;
-						for (kx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[16 / 4]; kx > Entities_EA3E4[0]; kx = kx->next_0)
+						for (kx = gameState_D41A4.creatureLists_38403x[16 / 4]; kx > Entities_EA3E4[0]; kx = kx->next_0)
 						{
 							v29 = (signed __int16)(kx->position_0x4C_76.x - a1x->position_0x4C_76.x);
 							v30 = v29 * v29
@@ -11986,7 +11986,7 @@ void SkeletonArcherWander_203D0(type_entity_0x6E8E* a1x)//2013d0
 						v46 = a1x->typeParams_0xA0_160x->range_160_0x1c_28 * a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 						v31 = -1;
 						v27x = 0;
-						for (lx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[48 / 4]; lx > Entities_EA3E4[0]; lx = lx->next_0)
+						for (lx = gameState_D41A4.creatureLists_38403x[48 / 4]; lx > Entities_EA3E4[0]; lx = lx->next_0)
 						{
 							v33 = (signed __int16)(lx->position_0x4C_76.x - a1x->position_0x4C_76.x);
 							v34 = v33 * v33
@@ -12006,7 +12006,7 @@ void SkeletonArcherWander_203D0(type_entity_0x6E8E* a1x)//2013d0
 						v40 = a1x->typeParams_0xA0_160x->range_160_0x1c_28 * a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 						v35 = -1;
 						v27x = 0;
-						for (mx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[52 / 4]; mx > Entities_EA3E4[0]; mx = mx->next_0)
+						for (mx = gameState_D41A4.creatureLists_38403x[52 / 4]; mx > Entities_EA3E4[0]; mx = mx->next_0)
 						{
 							v37 = (signed __int16)(mx->position_0x4C_76.x - a1x->position_0x4C_76.x);
 							v38 = v37 * v37
@@ -12161,7 +12161,7 @@ void SkeletonArcherUpdate_20940(type_entity_0x6E8E* a1x)//201940
 				return;
 			}
 			v10 = -1;
-			for (jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[16 / 4]; jx > Entities_EA3E4[0]; jx = jx->next_0)
+			for (jx = gameState_D41A4.creatureLists_38403x[16 / 4]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 			{
 				v12 = (signed __int16)(jx->position_0x4C_76.x - a1x->position_0x4C_76.x);//0x201ABE 16-bit sub + cwde
 				v13 = v12 * v12
@@ -12178,7 +12178,7 @@ void SkeletonArcherUpdate_20940(type_entity_0x6E8E* a1x)//201940
 		{
 			v14 = -1;
 			v9 = 0;
-			for (kx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[48 / 4]; kx > Entities_EA3E4[0]; kx = kx->next_0)
+			for (kx = gameState_D41A4.creatureLists_38403x[48 / 4]; kx > Entities_EA3E4[0]; kx = kx->next_0)
 			{
 				v16 = (signed __int16)(kx->position_0x4C_76.x - a1x->position_0x4C_76.x);//0x201B24 16-bit sub + cwde
 				v17 = v16 * v16
@@ -12197,7 +12197,7 @@ void SkeletonArcherUpdate_20940(type_entity_0x6E8E* a1x)//201940
 				goto LABEL_50;
 			v18 = -1;
 			v9 = 0;
-			for (lx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[52 / 4]; lx > Entities_EA3E4[0]; lx = lx->next_0)
+			for (lx = gameState_D41A4.creatureLists_38403x[52 / 4]; lx > Entities_EA3E4[0]; lx = lx->next_0)
 			{
 				v20 = (signed __int16)(lx->position_0x4C_76.x - a1x->position_0x4C_76.x);//0x201B7C 16-bit sub + cwde
 				v21 = v20 * v20
@@ -12425,7 +12425,7 @@ void EmuIdle_21030(type_entity_0x6E8E* a1x)//202030
 
 	v24 = 0;
 	CountWizards_223E0();
-	v1x = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	v1x = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	if (EmuCheckNearbyEntities_21F60(a1x))
 		a1x->subSpellIndex_0x2A_42 |= 1u;
 	v2 = a1x->levelPar3_0x46_70;
@@ -12435,15 +12435,15 @@ void EmuIdle_21030(type_entity_0x6E8E* a1x)//202030
 	{
 	case 0:
 		//v3 = (int)x_D41A0_BYTEARRAY_0;
-		D41A0_0.word_0x36548 = 1;
+		world_D41A0.word_0x36548 = 1;
 		a1x->levelPar3_0x46_70 = 1;
 		a1x->subSpellIndex_0x2A_42 = 8;
 		a1x->param_0x10_16 = 15;
 		//LOWORD(v3) = *(x_WORD *)(2124 * *(signed __int16 *)(x_D41A0_BYTEARRAY_0 + 12) + x_D41A0_BYTEARRAY_0 + 11240);
 		a1x->param2_0x2C_44 = 22;
-		a1x->targetId_0x96_150 = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240;
+		a1x->targetId_0x96_150 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240;
 		//*(int16_t*)& x_DWORD_D9F50ar[0x800+0x7a] = 60;
-		*(int16_t*)&x_BYTE_D9F50[0x87a] = 60;
+		*(int16_t*)&dataBlock_D9F50[0x87a] = 60;
 		ScanTilesAround_22490(a1x);
 		goto LABEL_10;
 	case 1:
@@ -12494,7 +12494,7 @@ void EmuIdle_21030(type_entity_0x6E8E* a1x)//202030
 		}
 	LABEL_48:
 		if (v24 && !(a1x->instanceIndex_0x3E_62 & 3))
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 63);
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 63);
 		EmuSnapToTerrain_22270(a1x);
 		return;
 	case 4:
@@ -12580,7 +12580,7 @@ void EmuIdle_21030(type_entity_0x6E8E* a1x)//202030
 		goto LABEL_48;
 	case 0xE:
 		v24 = 1;
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 10);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 10);
 		v16 = a1x->param_0x10_16 - 1;
 		a1x->param_0x10_16 = v16;
 		if (v16 <= 0)
@@ -12591,7 +12591,7 @@ void EmuIdle_21030(type_entity_0x6E8E* a1x)//202030
 			a1x->life_0x8 = -1;
 			a1x->flags_0xc_12_15.byte[0] = v17 | 1;
 			KillAllCreatures_1B5F0();
-			for (ix = x_D41A0_BYTEARRAY_4_struct.manaSphereList_38523; ix > Entities_EA3E4[0]; ix = ix->next_0)
+			for (ix = gameState_D41A4.manaSphereList_38523; ix > Entities_EA3E4[0]; ix = ix->next_0)
 			{
 				v19 = ix->flags_0xc_12_15.byte[1];
 				ix->maxLife_0x4 = 140;
@@ -12614,9 +12614,9 @@ void EmuIdle_21030(type_entity_0x6E8E* a1x)//202030
 				v21x->life_0x8 = 32;
 				v21x->maxLife_0x4 = 11;
 				v21x->id_0x1A_26 = v22;
-				D41A0_0.altSpawnMode_0x36E03 = 1;
+				world_D41A0.altSpawnMode_0x36E03 = 1;
 			}
-			D41A0_0.word_0x36548 = 0;
+			world_D41A0.word_0x36548 = 0;
 			DisableEntityDrawing04_57F10(a1x);
 		}
 		goto LABEL_48;
@@ -12698,7 +12698,7 @@ char EmuUpdateState_21490(type_entity_0x6E8E* a1x)//202490
 		}
 		else
 		{
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 10);
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 10);
 			v3 = AddE7EE0x_10080(0, 15 - a1x->param_0x10_16);
 			if (v3)
 			{
@@ -12741,7 +12741,7 @@ char EmuUpdateState_21490(type_entity_0x6E8E* a1x)//202490
 			}
 			else if (v7 == 70)
 			{
-				D41A0_0.countStageVars_0x36E00 = 0;
+				world_D41A0.countStageVars_0x36E00 = 0;
 			}
 		}
 	}
@@ -12755,7 +12755,7 @@ char EmuUpdateState_21490(type_entity_0x6E8E* a1x)//202490
 		}
 		else if (v1 & 0x40)
 		{
-			if (Maths::EuclideanDistXYZ_58490(&Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->position_0x4C_76,
+			if (Maths::EuclideanDistXYZ_58490(&Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->position_0x4C_76,
 				&a1x->position_0x4C_76) >= 0xA00)
 			{
 				a1x->subSpellIndex_0x2A_42 &= 0xBFu;
@@ -12784,7 +12784,7 @@ char EmuUpdateState_21490(type_entity_0x6E8E* a1x)//202490
 			a1x->param_0x10_16 = 1200;
 			a1x->subSpellIndex_0x2A_42 = v13 & 0xDF;
 		}
-		*(int16_t*)&x_BYTE_D9F50[0x87a] = a1x->param_0x10_16;
+		*(int16_t*)&dataBlock_D9F50[0x87a] = a1x->param_0x10_16;
 	}
 	else
 	{
@@ -12792,7 +12792,7 @@ char EmuUpdateState_21490(type_entity_0x6E8E* a1x)//202490
 	}
 	if (v29)
 	{
-		for (ix = x_D41A0_BYTEARRAY_4_struct.manaSphereList_38523; ix > Entities_EA3E4[0]; ix = ix->next_0)
+		for (ix = gameState_D41A4.manaSphereList_38523; ix > Entities_EA3E4[0]; ix = ix->next_0)
 		{
 			if (v29 < 2u)
 			{
@@ -12883,7 +12883,7 @@ void EmuUpdateMovement_21850(type_entity_0x6E8E* a1x)//202850
 		a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 		v4 = a1x->rand_0x14_20 % 0x46u;
 		v5 = a1x->subSpellIndex_0x2A_42;
-		a1x->rand_0x14_20 += x_D41A0_BYTEARRAY_4_struct.setting_30;
+		a1x->rand_0x14_20 += gameState_D41A4.setting_30;
 		if (v5 < 0)
 		{
 			v4 = 0;
@@ -12909,7 +12909,7 @@ void EmuUpdateMovement_21850(type_entity_0x6E8E* a1x)//202850
 					a1x->nextStage_0x4A_74 = 682;
 
 					//if (*(x_WORD*)(0x3653D + v9 + 3) < 12)
-					if (D41A0_0.dragonCount2_0x36540 < 12)
+					if (world_D41A0.dragonCount2_0x36540 < 12)
 					{
 						a1x->levelPar1_0x43_67 = 4;
 						goto LABEL_22;
@@ -12922,7 +12922,7 @@ void EmuUpdateMovement_21850(type_entity_0x6E8E* a1x)//202850
 					//v8 = (int)x_D41A0_BYTEARRAY_0;
 					a1x->nextStage_0x4A_74 = 682;
 					//if (*(x_WORD *)(0x36541 + v8 + 1) < 6)
-					if (D41A0_0.cymmerianCount_0x36542 < 6)
+					if (world_D41A0.cymmerianCount_0x36542 < 6)
 					{
 						a1x->levelPar1_0x43_67 = 5;
 						goto LABEL_22;
@@ -12936,7 +12936,7 @@ void EmuUpdateMovement_21850(type_entity_0x6E8E* a1x)//202850
 				//v7 = (int)x_D41A0_BYTEARRAY_0;
 				a1x->nextStage_0x4A_74 = 682;
 				//if (*(x_WORD *)(0x3653D + v7 + 1) < 4)
-				if (D41A0_0.dragonCount1_0x3653E < 4)
+				if (world_D41A0.dragonCount1_0x3653E < 4)
 				{
 					a1x->levelPar1_0x43_67 = 3;
 					goto LABEL_22;
@@ -12950,7 +12950,7 @@ void EmuUpdateMovement_21850(type_entity_0x6E8E* a1x)//202850
 			//v6 = (int)x_D41A0_BYTEARRAY_0;
 			a1x->nextStage_0x4A_74 = 256;
 			//if (*(x_WORD *)(0x36543 + v6 + 1) < 28)
-			if (D41A0_0.dragonCount3_0x36544 < 28)
+			if (world_D41A0.dragonCount3_0x36544 < 28)
 			{
 				a1x->levelPar1_0x43_67 = 6;
 				goto LABEL_22;
@@ -12963,7 +12963,7 @@ LABEL_22:
 	{
 		a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 		v10 = a1x->rand_0x14_20 % 0x1Du;
-		a1x->rand_0x14_20 += x_D41A0_BYTEARRAY_4_struct.setting_30;
+		a1x->rand_0x14_20 += gameState_D41A4.setting_30;
 		if (v10 > 7)
 		{
 			if (v10 > 17)
@@ -13054,9 +13054,9 @@ void EmuFindTarget_21AB0(type_entity_0x6E8E* a1x)//202ab0
 
 	v33x = 0;
 	v35x = 0;
-	//v1 = 2124 * D41A0_0.LevelIndex_0xc;
+	//v1 = 2124 * world_D41A0.LevelIndex_0xc;
 	v34 = -1;
-	v2x = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	v2x = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	v31x = v2x;
 	if (v2x > Entities_EA3E4[0] && v2x->life_0x8 >= 0 && !(v2x->flags_0xc_12_15.byte[1] & 4))
 	{
@@ -13133,7 +13133,7 @@ void EmuFindTarget_21AB0(type_entity_0x6E8E* a1x)//202ab0
 				}
 				if (v35x)
 				{
-					D41A0_0.creatureStats_0x364D2.livingCreatures_0x364D2++;
+					world_D41A0.creatureStats_0x364D2.livingCreatures_0x364D2++;
 					switch (a1x->levelPar1_0x43_67)
 					{
 					case 3:
@@ -13157,13 +13157,13 @@ void EmuFindTarget_21AB0(type_entity_0x6E8E* a1x)//202ab0
 					}
 					//v11 = x_D41A0_BYTEARRAY_0;
 					v12x = v35x;
-					v35x->targetId_0x96_150 = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240;
+					v35x->targetId_0x96_150 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240;
 					v12x->id_0x1A_26 = a1x->id_0x1A_26;
 					v13x = v35x;
 					v35x->StageVar2_0x49_73 = 17;
 					v13x->stage_0x2E_46 = 250;
 					v13x->actSpeed_0x82_130 = 320;
-					v13x->parentId_0x28_40 = a1x - D41A0_0.entities_0x6E8E;
+					v13x->parentId_0x28_40 = a1x - world_D41A0.entities_0x6E8E;
 					//LOWORD(v11) = v32;
 					v13x->yaw_0x1C_28 = v32;
 					v13x->roll_0x20_32 = v32;
@@ -13174,22 +13174,22 @@ void EmuFindTarget_21AB0(type_entity_0x6E8E* a1x)//202ab0
 				if (a1x->subSpellIndex_0x2A_42 & 2)
 				{
 					SetLocalPaletteSubMode_5C800(v31x, 6);
-					D41A0_0.emuTargetDistance_0x36546 = 1024;
+					world_D41A0.emuTargetDistance_0x36546 = 1024;
 					v14 = a1x->subSpellIndex_0x2A_42;
 					v34 = 19;
 					a1x->subSpellIndex_0x2A_42 = v14 & 0xFD;
 				}
 				//v15 = (int)x_D41A0_BYTEARRAY_0;
-				D41A0_0.emuTargetDistance_0x36546 -= 80;
-				if (D41A0_0.emuTargetDistance_0x36546 < 10)
-					D41A0_0.emuTargetDistance_0x36546 = 10;
-				if (D41A0_0.emuTargetDistance_0x36546 > 1024)
-					D41A0_0.emuTargetDistance_0x36546 = 1024;
+				world_D41A0.emuTargetDistance_0x36546 -= 80;
+				if (world_D41A0.emuTargetDistance_0x36546 < 10)
+					world_D41A0.emuTargetDistance_0x36546 = 10;
+				if (world_D41A0.emuTargetDistance_0x36546 > 1024)
+					world_D41A0.emuTargetDistance_0x36546 = 1024;
 				v17 = &v31x->position_0x4C_76;
 				predictedAxis_EB398ar = v31x->position_0x4C_76;
 				v18 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, v17);
 				v32 = v18;
-				MoveEntity_57FA0(&predictedAxis_EB398ar, v18, 0, D41A0_0.emuTargetDistance_0x36546);
+				MoveEntity_57FA0(&predictedAxis_EB398ar, v18, 0, world_D41A0.emuTargetDistance_0x36546);
 				v19x = v31x;
 				if (MoveTest_5D0A0(v31x))
 				{
@@ -13284,9 +13284,9 @@ char EmuCheckNearbyEntities_21F60(type_entity_0x6E8E* a1x)//202f60
 	char v19; // [esp+24h] [ebp-4h]
 
 	v19 = 0;
-	v16x = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	v16x = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	v17 = a1x->class_0x3F_63 != 5 || a1x->model_0x40_64 != 10;
-	for (ix = x_D41A0_BYTEARRAY_4_struct.projectileList_38531; ix > Entities_EA3E4[0]; ix = ix->next_0)
+	for (ix = gameState_D41A4.projectileList_38531; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		v2 = ix->model_0x40_64;
 		v18 = 0;
@@ -13450,7 +13450,7 @@ void EmuFacePlayer_222B0(type_entity_0x6E8E* a1x)//2032b0
 	__int16 v5; // ax
 	//char v6; // ch
 
-	v1x = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	v1x = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	v2 = (((a1x->yaw_0x1C_28 - v1x->yaw_0x1C_28) >> 3) & 0xF0) >> 4;
 	v3 = 0;
 	if (v2 <= 2)
@@ -13480,7 +13480,7 @@ void EmuFacePlayer_222B0(type_entity_0x6E8E* a1x)//2032b0
 			v3 = 1;
 			break;
 		case 2:
-			if (x_D41A0_BYTEARRAY_4_struct.FrameTimingIndex_26 & 1)
+			if (gameState_D41A4.FrameTimingIndex_26 & 1)
 				v4 = 512;
 			else
 				v4 = -512;
@@ -13536,20 +13536,20 @@ void CountWizards_223E0()//2033e0
 	//v0 = x_D41A0_BYTEARRAY_0;
 	//v1 = x_D41A0_BYTEARRAY_4;
 	//!!!!! 2033e0: the original also counts list 0 (dragons) three times, [ecx+9603h] - maybe a bug of the original game, investigate later
-	D41A0_0.dragonCount1_0x3653E = 0;
-	for (ix = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[0]; ix > Entities_EA3E4[0]; ix = ix->next_0)
-		D41A0_0.dragonCount1_0x3653E++;
-	D41A0_0.dragonCount2_0x36540 = 0;//!!!!! same list 0, investigate later
-	for (jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[0]; jx > Entities_EA3E4[0]; jx = jx->next_0)
-		D41A0_0.dragonCount2_0x36540++;
-	D41A0_0.dragonCount3_0x36544 = 0;//!!!!! same list 0, investigate later
-	for (kx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[0]; kx > Entities_EA3E4[0]; kx = kx->next_0)
-		D41A0_0.dragonCount3_0x36544++;
-	D41A0_0.cymmerianCount_0x36542 = 0;
-	for (indexx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[100 / 4]; indexx > Entities_EA3E4[0]; indexx = indexx->next_0)
+	world_D41A0.dragonCount1_0x3653E = 0;
+	for (ix = gameState_D41A4.creatureLists_38403x[0]; ix > Entities_EA3E4[0]; ix = ix->next_0)
+		world_D41A0.dragonCount1_0x3653E++;
+	world_D41A0.dragonCount2_0x36540 = 0;//!!!!! same list 0, investigate later
+	for (jx = gameState_D41A4.creatureLists_38403x[0]; jx > Entities_EA3E4[0]; jx = jx->next_0)
+		world_D41A0.dragonCount2_0x36540++;
+	world_D41A0.dragonCount3_0x36544 = 0;//!!!!! same list 0, investigate later
+	for (kx = gameState_D41A4.creatureLists_38403x[0]; kx > Entities_EA3E4[0]; kx = kx->next_0)
+		world_D41A0.dragonCount3_0x36544++;
+	world_D41A0.cymmerianCount_0x36542 = 0;
+	for (indexx = gameState_D41A4.creatureLists_38403x[100 / 4]; indexx > Entities_EA3E4[0]; indexx = indexx->next_0)
 	{
 		if (indexx->actionIndex_0x45_69 != 200)
-			D41A0_0.cymmerianCount_0x36542++;
+			world_D41A0.cymmerianCount_0x36542++;
 	}
 	//x_D41A0_BYTEARRAY_4 = (uint8_t*)v1;
 	//x_D41A0_BYTEARRAY_0 = v0;
@@ -13674,7 +13674,7 @@ void GetBuildingBitmapSize_226D0(unsigned __int16 a1, int16_t* exwidth, int16_t*
 	// BUILD00 table (dword_EA3BC): 0x2036E3
 	v3 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a1].height_5;
 	v4 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a1].width_4;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (videoMode_180660 == 1)
 	{
 		v3 >>= 1;
 		v4 >>= 1;
@@ -13685,7 +13685,7 @@ void GetBuildingBitmapSize_226D0(unsigned __int16 a1, int16_t* exwidth, int16_t*
 	//return result;
 }
 // EA3BC: using guessed type int **filearray_2aa18c[24];
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
+// 180660: using guessed type __int16 videoMode_180660;
 
 //----- (00022760) --------------------------------------------------------
 void BuilderIdle_22760(type_entity_0x6E8E* a1x)//203760
@@ -13790,7 +13790,7 @@ void BuilderIdle_22760(type_entity_0x6E8E* a1x)//203760
 	if ((x_BYTE)v8z)
 	{
 		v9 = 0;
-		for (ix = x_D41A0_BYTEARRAY_4_struct.buildingList_38527; !v9 && ix > Entities_EA3E4[0]; ix = ix->next_0)
+		for (ix = gameState_D41A4.buildingList_38527; !v9 && ix > Entities_EA3E4[0]; ix = ix->next_0)
 		{
 			v8z = abs((signed __int16)(ix->position_0x4C_76.x - v21));
 			if (v8z <= ix->params_0x52_82.pitch + exwidth)
@@ -13802,7 +13802,7 @@ void BuilderIdle_22760(type_entity_0x6E8E* a1x)//203760
 		}
 		if (!v9)
 		{
-			for (jx = x_D41A0_BYTEARRAY_4_struct.class3List_38519; !v9 && jx > Entities_EA3E4[0]; jx = jx->next_0)
+			for (jx = gameState_D41A4.class3List_38519; !v9 && jx > Entities_EA3E4[0]; jx = jx->next_0)
 			{
 				if (jx->model_0x40_64 == 2)
 				{
@@ -13818,7 +13818,7 @@ void BuilderIdle_22760(type_entity_0x6E8E* a1x)//203760
 		}
 		if (!v9)
 		{
-			for (kx = x_D41A0_BYTEARRAY_4_struct.miscList_38535; !v9 && kx > Entities_EA3E4[0]; kx = kx->next_0)//0x203B57 mov esi, [esi+9687h]
+			for (kx = gameState_D41A4.miscList_38535; !v9 && kx > Entities_EA3E4[0]; kx = kx->next_0)//0x203B57 mov esi, [esi+9687h]
 			{
 				if (kx->model_0x40_64 == 67)
 				{
@@ -13834,7 +13834,7 @@ void BuilderIdle_22760(type_entity_0x6E8E* a1x)//203760
 		}
 		if (!v9)
 		{
-			for (lx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[48 / 4]; !v9 && lx > Entities_EA3E4[0]; lx = lx->next_0)
+			for (lx = gameState_D41A4.creatureLists_38403x[48 / 4]; !v9 && lx > Entities_EA3E4[0]; lx = lx->next_0)
 			{
 				if (lx->fontTypeIndex_0x3D_61)
 					v9 = 1;
@@ -13846,7 +13846,7 @@ void BuilderIdle_22760(type_entity_0x6E8E* a1x)//203760
 			v14x = v8y;
 			if (v8y)
 			{
-				PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 10);
+				PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 10);
 				/*LOBYTE(v8) =*/ InitBuildingEntity_49A30(v14x, v22);
 				v14x->actionIndex_0x45_69 = 51;
 			}
@@ -14141,7 +14141,7 @@ void BuilderFollow_23020(type_entity_0x6E8E* a1x)//204020
 	if (!v1)
 	{
 		v7x = 0;
-		for (jx = x_D41A0_BYTEARRAY_4_struct.buildingList_38527; jx > Entities_EA3E4[0]; jx = jx->next_0)
+		for (jx = gameState_D41A4.buildingList_38527; jx > Entities_EA3E4[0]; jx = jx->next_0)
 		{
 			v9 = Distance3D_583F0(&a1x->position_0x4C_76, &jx->position_0x4C_76);
 			if (v9 && v9 < v11)
@@ -14152,7 +14152,7 @@ void BuilderFollow_23020(type_entity_0x6E8E* a1x)//204020
 		}
 		if (v7x)
 		{
-			a1x->targetId_0x96_150 = v7x - D41A0_0.entities_0x6E8E;
+			a1x->targetId_0x96_150 = v7x - world_D41A0.entities_0x6E8E;
 			a1x->param_0x10_16 = 10;
 			LOBYTE(v1) = 98;
 		}
@@ -14228,10 +14228,10 @@ char ChooseRandomBuilding_232C0()//2042c0
 
 	//v0 = (int)x_D41A0_BYTEARRAY_0;
 	//*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) = 9377 * *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) + 9439;
-	D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
+	world_D41A0.rand_0x8 = 9377 * world_D41A0.rand_0x8 + 9439;
 	v1 = 0;
-	v2 = D41A0_0.rand_0x8 % 0x3Cu + 17;
-	while (!(str_D93C0_bldgprmbuffer.at(v2).flags_2 & 2) && v1 < 0x4Du)
+	v2 = world_D41A0.rand_0x8 % 0x3Cu + 17;
+	while (!(buildingParams_D93C0.at(v2).flags_2 & 2) && v1 < 0x4Du)
 	{
 		LOBYTE(v2) = v2 + 1;
 		v1++;
@@ -14363,9 +14363,9 @@ void TownieWander_23340(type_entity_0x6E8E* a1x)//204340
 	{
 		v8 = -1;
 		v9x = 0;
-		for (jx = x_D41A0_BYTEARRAY_4_struct.buildingList_38527; jx > Entities_EA3E4[0]; jx = jx->next_0)
+		for (jx = gameState_D41A4.buildingList_38527; jx > Entities_EA3E4[0]; jx = jx->next_0)
 		{
-			if (str_D93C0_bldgprmbuffer[jx->levelPar3_0x46_70].flags_2 & 1)
+			if (buildingParams_D93C0[jx->levelPar3_0x46_70].flags_2 & 1)
 			{
 				v10 = (signed __int16)(jx->position_0x4C_76.x - a1x->position_0x4C_76.x);//0x204531 16-bit sub + movsx
 				v11 = v10 * v10
@@ -14380,7 +14380,7 @@ void TownieWander_23340(type_entity_0x6E8E* a1x)//204340
 		}
 		if (v9x)
 		{
-			a1x->targetId_0x96_150 = v9x - D41A0_0.entities_0x6E8E;
+			a1x->targetId_0x96_150 = v9x - world_D41A0.entities_0x6E8E;
 			//LOWORD(j) = *(x_WORD *)(a1 + 134) + 12;
 		//LABEL_42:
 			a1x->actSpeed_0x82_130 = a1x->maxSpeed_0x86_134 + 12;
@@ -14590,11 +14590,11 @@ void TraderWander_237B0(type_entity_0x6E8E* a1x)//2047b0
 	if (!(a1x->instanceIndex_0x3E_62 % a1x->typeParams_0xA0_160x->updateInterval_160_0x1a_26))
 	{
 		v9 = -1;
-		v1x = x_D41A0_BYTEARRAY_4_struct.buildingList_38527;
+		v1x = gameState_D41A4.buildingList_38527;
 		v10x = 0;
 		while (v1x > Entities_EA3E4[0])
 		{
-			if (str_D93C0_bldgprmbuffer[v1x->levelPar3_0x46_70].flags_2 & 1)
+			if (buildingParams_D93C0[v1x->levelPar3_0x46_70].flags_2 & 1)
 			{
 				v11 = (signed __int16)(v1x->position_0x4C_76.x - a1x->position_0x4C_76.x);
 				v12 = v11 * v11
@@ -14610,7 +14610,7 @@ void TraderWander_237B0(type_entity_0x6E8E* a1x)//2047b0
 		}
 		if (v10x)
 		{
-			a1x->targetId_0x96_150 = v10x - D41A0_0.entities_0x6E8E;
+			a1x->targetId_0x96_150 = v10x - world_D41A0.entities_0x6E8E;
 			//LOWORD(v1) = *(x_WORD *)(a1 + 134) + 12;
 		//LABEL_43:
 			a1x->actSpeed_0x82_130 = a1x->maxSpeed_0x86_134 + 12;
@@ -14773,7 +14773,7 @@ void ExplodedHumanWander_23C40(type_entity_0x6E8E* a1x)//204c40
 					v9 = a1x->typeParams_0xA0_160x->range_160_0x1c_28 * a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 					v16 = -1;
 					v18x = 0;
-					v10x = x_D41A0_BYTEARRAY_4_struct.class3List_38519;
+					v10x = gameState_D41A4.class3List_38519;
 					v17 = v9;
 					while (v10x > Entities_EA3E4[0])
 					{
@@ -14800,7 +14800,7 @@ void ExplodedHumanWander_23C40(type_entity_0x6E8E* a1x)//204c40
 					{
 						//v15 = v18x - D41A0_BYTESTR_0.struct_0x6E8E;
 						a1x->actionIndex_0x45_69 = 122;
-						a1x->targetId_0x96_150 = v18x - D41A0_0.entities_0x6E8E;
+						a1x->targetId_0x96_150 = v18x - world_D41A0.entities_0x6E8E;
 					}
 				}
 			}
@@ -15047,7 +15047,7 @@ void ExplodedHumanExplode_24190(type_entity_0x6E8E* a1x)//205190
 		}
 	}
 	//v13 = 0;
-	for (ix = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64]; ix > Entities_EA3E4[0]; ix = ix->next_0)
+	for (ix = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64]; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (ix->id_0x1A_26 != a1x->id_0x1A_26
 			&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)ix->position_0x4C_76.x) < 256
@@ -15109,7 +15109,7 @@ void WyvernWander_24440(type_entity_0x6E8E* a1x)//205440
 		{
 			v8 = a1x->typeParams_0xA0_160x->range_160_0x1c_28 * a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 			v3 = -1;
-			for (ix = x_D41A0_BYTEARRAY_4_struct.buildingList_38527; ix > Entities_EA3E4[0]; ix = ix->next_0)
+			for (ix = gameState_D41A4.buildingList_38527; ix > Entities_EA3E4[0]; ix = ix->next_0)
 			{
 				v5 = (signed __int16)(ix->position_0x4C_76.x - a1x->position_0x4C_76.x);
 				v6 = v5 * v5
@@ -15123,7 +15123,7 @@ void WyvernWander_24440(type_entity_0x6E8E* a1x)//205440
 			}
 			if (v2x)
 			{
-				v7 = v2x - D41A0_0.entities_0x6E8E;
+				v7 = v2x - world_D41A0.entities_0x6E8E;
 				a1x->actionIndex_0x45_69 = 130;
 				a1x->targetId_0x96_150 = v7;
 			}
@@ -15249,7 +15249,7 @@ void WyvernAttack_24510(type_entity_0x6E8E* a1x)//205510
 						if (iy < v13)
 						{
 							if (!(a1x->instanceIndex_0x3E_62 % (2 * a1x->typeParams_0xA0_160x->updateInterval_160_0x1a_26)))
-								PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 39);
+								PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 39);
 							v11 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v5x->position_0x4C_76);
 							LOWORD(iy) = AngleDifference_582B0(a1x->yaw_0x1C_28, v11);
 							if ((unsigned __int16)iy < 0xE3u)
@@ -15359,7 +15359,7 @@ void ManticoreAttack_24930(type_entity_0x6E8E* a1x)//205930
 	signed int v14; // [esp+4h] [ebp-Ch]
 	type_entity_0x6E8E* v15x; // [esp+8h] [ebp-8h]
 
-	PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 58);
+	PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 58);
 	v1 = 0;
 	if (a1x->mail_0x5E_94.channel[0].source)
 	{
@@ -15428,7 +15428,7 @@ void ManticoreAttack_24930(type_entity_0x6E8E* a1x)//205930
 			if (!v6 || v6 == 4)
 			{
 				a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v15x->position_0x4C_76);
-				for (jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
+				for (jx = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 				{
 					if (jx->id_0x1A_26 != a1x->id_0x1A_26
 						&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)jx->position_0x4C_76.x) < a1x->params_0x52_82.pitch
@@ -15650,7 +15650,7 @@ void SentinelIdle_24E20(type_entity_0x6E8E* a1x)//205e20
 						result = v3 * v3;
 						v13 = -1;
 						v4x = 0;
-						v5x = x_D41A0_BYTEARRAY_4_struct.class3List_38519;
+						v5x = gameState_D41A4.class3List_38519;
 						v12 = result;
 						while (v5x > Entities_EA3E4[0])
 						{
@@ -15678,7 +15678,7 @@ void SentinelIdle_24E20(type_entity_0x6E8E* a1x)//205e20
 						}
 						if (v4x && v4x->class_0x3F_63 == 3)
 						{
-							v9 = v4x - D41A0_0.entities_0x6E8E;
+							v9 = v4x - world_D41A0.entities_0x6E8E;
 							a1x->targetId_0x96_150 = v9;
 							/*result = */SentinelSetState_253B0(/*v9, */a1x, 0, 1u);
 						}
@@ -16142,7 +16142,7 @@ void HitFirefly_25610(type_entity_0x6E8E* a1x)//206610
 						a1x->roll_0x20_32 = v9;
 						if (v10 & 3)
 							return;
-						for (jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
+						for (jx = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 						{
 							if (jx->id_0x1A_26 != a1x->id_0x1A_26
 								&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)jx->position_0x4C_76.x) < a1x->params_0x52_82.pitch//20680F movsx edx, word ptr [ebx+4Ch]
@@ -16168,7 +16168,7 @@ void HitFirefly_25610(type_entity_0x6E8E* a1x)//206610
 					a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v34x->position_0x4C_76);
 					if (a1x->instanceIndex_0x3E_62 & 3)
 						return;
-					v15x = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64];
+					v15x = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64];
 					while (2)
 					{
 						if (v15x > Entities_EA3E4[0])
@@ -16223,7 +16223,7 @@ void HitFirefly_25610(type_entity_0x6E8E* a1x)//206610
 					v28 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v34x->position_0x4C_76);
 					//v29 = (int)x_D41A0_BYTEARRAY_4;
 					a1x->roll_0x20_32 = v28;
-					v30x = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64];
+					v30x = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64];
 					while (2)
 					{
 						if (v30x > Entities_EA3E4[0])
@@ -16255,7 +16255,7 @@ void HitFirefly_25610(type_entity_0x6E8E* a1x)//206610
 					a1x->actSpeed_0x82_130 = 3 * a1x->minSpeed_0x84_132;
 					a1x->rand_0x14_20 = 9377 * v18 + 9439;
 					v19 = (a1x->rand_0x14_20 & 1) + 43;
-					v20 = a1x - D41A0_0.entities_0x6E8E;
+					v20 = a1x - world_D41A0.entities_0x6E8E;
 					a1x->param_0x10_16 = 24;
 					a1x->levelPar3_0x46_70 = 8;
 					PrepareEventSound_6E450(v20, -1, v19);
@@ -16271,7 +16271,7 @@ void HitFirefly_25610(type_entity_0x6E8E* a1x)//206610
 						goto LABEL_70;
 					if (v21 > 16)
 						a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v34x->position_0x4C_76);
-					v22x = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64];
+					v22x = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64];
 					break;
 				default:
 					return;
@@ -16413,7 +16413,7 @@ void SpiderAttack_25E40(type_entity_0x6E8E* a1x)//206e40
 		a1x->actionIndex_0x45_69 = 161;
 		goto LABEL_21;
 	}
-	PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 32);
+	PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 32);
 	v2 = a1x->levelPar3_0x46_70;
 	if (v2 < 1u)
 	{
@@ -16544,7 +16544,7 @@ char DevilWander_26070(type_entity_0x6E8E* a1x)//207070
 			v1 = v3 * v3;
 			v4x = 0;
 			v13 = -1;
-			v5x = x_D41A0_BYTEARRAY_4_struct.class3List_38519;
+			v5x = gameState_D41A4.class3List_38519;
 			v12 = v1;
 			while (v5x > Entities_EA3E4[0])
 			{
@@ -16572,7 +16572,7 @@ char DevilWander_26070(type_entity_0x6E8E* a1x)//207070
 			}
 			if (v4x)
 			{
-				a1x->targetId_0x96_150 = v4x - D41A0_0.entities_0x6E8E;
+				a1x->targetId_0x96_150 = v4x - world_D41A0.entities_0x6E8E;
 				/*LOBYTE(v1) = */DevilSetMode_268F0(a1x, 2u);
 			}
 		}
@@ -16620,7 +16620,7 @@ void DevilAttack_26220(/*type_str_0x6E8E* a1x, */type_entity_0x6E8E* a2x)//20722
 			a2x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a2x->position_0x4C_76, &v4x->position_0x4C_76);
 			if (!(a2x->instanceIndex_0x3E_62 & 3))
 			{
-				for (ix = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a2x->model_0x40_64]; ix > Entities_EA3E4[0]; ix = ix->next_0)
+				for (ix = gameState_D41A4.creatureLists_38403x[a2x->model_0x40_64]; ix > Entities_EA3E4[0]; ix = ix->next_0)
 				{
 					if (ix->id_0x1A_26 != a2x->id_0x1A_26
 						&& abs((int16_t)a2x->position_0x4C_76.x - (int16_t)ix->position_0x4C_76.x) < a2x->params_0x52_82.pitch
@@ -16821,7 +16821,7 @@ void DevilUpdateState_265A0(type_entity_0x6E8E* a1x)//2075a0
 	case 9:
 		a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 		if (!(a1x->rand_0x14_20 % 0xBu))
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 42);
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 42);
 		if (a1x->levelPar1_0x43_67)
 		{
 			v4 = a1x->levelPar1_0x43_67;
@@ -17411,7 +17411,7 @@ void FlyingManaAvoidOthers_27120(type_entity_0x6E8E* a1x)//208120
 
 	v1 = 2 * a1x->params_0x52_82.fov + 32;
 	v2 = 2 * a1x->params_0x52_82.pitch;
-	v3x = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64];
+	v3x = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64];
 	if (v3x <= Entities_EA3E4[0])
 		return;
 	do
@@ -17484,7 +17484,7 @@ void FlyingManaUpdateAnimation_272C0(type_entity_0x6E8E* a1x)//2082c0
 		v2 = a1x->animationFrame_0x5C_92;
 		v9 = v1;
 		if (v2 && v2 < 0x10u)
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 48);
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 48);
 		if (a1x->param3_0x36_54 & 1)
 		{
 			v3 = v9 + a1x->animationFrame_0x5C_92;
@@ -17595,8 +17595,8 @@ type_entity_0x6E8E* GetChainSegment_27470(type_entity_0x6E8E* a1x, __int16 a2)//
 void AppendChainSegment_274C0(type_entity_0x6E8E* event1, type_entity_0x6E8E* event2, type_entity_0x6E8E* event3, int16_t a4)//2084c0
 {
 	*event2 = *event3;
-	event2->leaderId_0x32_50 = event3 - D41A0_0.entities_0x6E8E;
-	event3->nextLinkedId_0x34_52 = event2 - D41A0_0.entities_0x6E8E;
+	event2->leaderId_0x32_50 = event3 - world_D41A0.entities_0x6E8E;
+	event3->nextLinkedId_0x34_52 = event2 - world_D41A0.entities_0x6E8E;
 	event2->nextLinkedId_0x34_52 = 0;
 	event2->instanceIndex_0x3E_62 = abs((x_BYTE)a4) & 1;
 	event2->flags_0xc_12_15.byte[0] &= 0xFBu;
@@ -17605,7 +17605,7 @@ void AppendChainSegment_274C0(type_entity_0x6E8E* event1, type_entity_0x6E8E* ev
 	event2->param2_0x2C_44 = 0;
 	event2->playerEntityIndex_0x94_148 = 0;
 	event2->mana_0x90_144 = 0;
-	event2->targetId_0x96_150 = event1 - D41A0_0.entities_0x6E8E;
+	event2->targetId_0x96_150 = event1 - world_D41A0.entities_0x6E8E;
 	predictedAxis_EB398ar = event1->position_0x4C_76;
 	AddEventToMap_57D70(event2, &predictedAxis_EB398ar);
 	CopyMaxLifeToLife_49A20(event2);
@@ -17788,7 +17788,7 @@ int GetManaSpriteIndex_278F0(int a1, __int16 a2, __int16 a3)//2088f0
 	int v3; // eax
 
 	v3 = (signed __int16)abs(a3);
-	LOWORD(v3) = (unsigned __int8)x_BYTE_D400C[(signed __int16)(a2 >> 1)][(signed __int16)v3];
+	LOWORD(v3) = (unsigned __int8)manaSpriteTable_D400C[(signed __int16)(a2 >> 1)][(signed __int16)v3];
 	return a1 + v3;
 }
 
@@ -17820,7 +17820,7 @@ void MoonDwellerIdle_27950(type_entity_0x6E8E* event)//208950
 	//fix
 
 	MoveCreature_1B8C0(event);
-	for (ix = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[event->model_0x40_64]; ix > Entities_EA3E4[0]; ix = ix->next_0)
+	for (ix = gameState_D41A4.creatureLists_38403x[event->model_0x40_64]; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (ix->id_0x1A_26 != event->id_0x1A_26
 			&& abs((int16_t)event->position_0x4C_76.x - (int16_t)ix->position_0x4C_76.x) < event->params_0x52_82.pitch
@@ -17866,7 +17866,7 @@ void MoonDwellerIdle_27950(type_entity_0x6E8E* event)//208950
 		if (v6x)
 		{
 			event->param2_0x2C_44 = 0x2000;
-			event->targetId_0x96_150 = v6x - D41A0_0.entities_0x6E8E;
+			event->targetId_0x96_150 = v6x - world_D41A0.entities_0x6E8E;
 			SetEntityActionState_27FE0(event, 184, 2, 0);
 		}
 		else
@@ -17972,7 +17972,7 @@ void MoonDwellerFollow_27C10(type_entity_0x6E8E* a1x)//208c10
 
 	v10 = 0;
 	v9 = 0;
-	PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 59);
+	PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 59);
 	v1 = a1x->levelPar3_0x46_70;
 	if (v1 < 1u)
 	{
@@ -17996,7 +17996,7 @@ void MoonDwellerFollow_27C10(type_entity_0x6E8E* a1x)//208c10
 			a1x->targetId_0x96_150 = 0;
 			v7x = FindNearestCastle_28000(a1x);
 			if (v7x
-				&& (a1x->targetId_0x96_150 = v7x - D41A0_0.entities_0x6E8E,
+				&& (a1x->targetId_0x96_150 = v7x - world_D41A0.entities_0x6E8E,
 					(signed int)Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &v7x->position_0x4C_76) <= 3584))
 			{
 				SetEntityActionState_27FE0(a1x, 185, 0, 500);
@@ -18016,7 +18016,7 @@ void MoonDwellerFollow_27C10(type_entity_0x6E8E* a1x)//208c10
 		if (v3x && (v6 = a1x->param_0x10_16 - 1, (a1x->param_0x10_16 = v6) != 0))
 		{
 			v3x->flags_0xc_12_15.byte[0] |= 0x40u;
-			v3x->targetId_0x96_150 = a1x - D41A0_0.entities_0x6E8E;
+			v3x->targetId_0x96_150 = a1x - world_D41A0.entities_0x6E8E;
 			a1x->param2_0x2C_44 += 10;
 			if (EntitiesOverlap_106C0(a1x, v3x) || v4x->position_0x4C_76.z > a1x->position_0x4C_76.z)
 			{
@@ -18057,7 +18057,7 @@ void MoonDwellerAttack_27E00(type_entity_0x6E8E* a1x)//208e00
 
 	v1x = a1x;
 	v8 = 0;
-	PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 59);
+	PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 59);
 	v1x->actSpeed_0x82_130 = v1x->minSpeed_0x84_132;
 	MoveCreature_1B8C0(a1x);
 	v2x = GetCreatureTarget_1ED30(v1x, Entities_EA3E4[v1x->targetId_0x96_150]);
@@ -18071,7 +18071,7 @@ void MoonDwellerAttack_27E00(type_entity_0x6E8E* a1x)//208e00
 	if (!(a1x->instanceIndex_0x3E_62 & 3))
 	{
 		a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v2x->position_0x4C_76);
-		for (ix = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64]; ix > Entities_EA3E4[0]; ix = ix->next_0)
+		for (ix = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64]; ix > Entities_EA3E4[0]; ix = ix->next_0)
 		{
 			if (ix->id_0x1A_26 != a1x->id_0x1A_26
 				&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)ix->position_0x4C_76.x) < a1x->params_0x52_82.pitch
@@ -18140,7 +18140,7 @@ type_entity_0x6E8E* FindNearestCastle_28000(type_entity_0x6E8E* a1x)//209000
 
 	v1 = -1;
 	v2x = 0;
-	v3x = x_D41A0_BYTEARRAY_4_struct.manaSphereList_38523;
+	v3x = gameState_D41A4.manaSphereList_38523;
 	if (v3x <= Entities_EA3E4[0])
 		return 0;
 	do
@@ -18171,7 +18171,7 @@ char IsTooCloseToSameModel_28060(type_entity_0x6E8E* a1x)//209060
 
 	v5 = 0;
 	v1 = 2 * a1x->params_0x52_82.pitch;
-	for (ix = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64]; ix > Entities_EA3E4[0]; ix = ix->next_0)
+	for (ix = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64]; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (ix->id_0x1A_26 != a1x->id_0x1A_26
 			&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)ix->position_0x4C_76.x) < v1
@@ -18221,7 +18221,7 @@ void MoonDwellerCheckDamage_28110(type_entity_0x6E8E* a1x)//209110
 				v1 = 1;
 				v4x = GetBalloonTarget_28420(a1x);
 				//v5x = v4x;
-				if (v4x && v4x->flags_0xc_12_15.byte[0] & 0x40 && v4x->targetId_0x96_150 == a1x - D41A0_0.entities_0x6E8E)
+				if (v4x && v4x->flags_0xc_12_15.byte[0] & 0x40 && v4x->targetId_0x96_150 == a1x - world_D41A0.entities_0x6E8E)
 				{
 					v6 = v4x->flags_0xc_12_15.byte[0];
 					v4x->targetId_0x96_150 = 0;
@@ -18254,13 +18254,13 @@ void MoonDwellerCheckDamage_28110(type_entity_0x6E8E* a1x)//209110
 				v10x = GetBalloonTarget_28420(a1x);
 				if (v10x
 					&& v10x->flags_0xc_12_15.byte[0] & 0x40
-					&& v10x->targetId_0x96_150 == a1x - D41A0_0.entities_0x6E8E)
+					&& v10x->targetId_0x96_150 == a1x - world_D41A0.entities_0x6E8E)
 				{
 					v11 = v10x->flags_0xc_12_15.byte[0];
 					v10x->targetId_0x96_150 = 0;
 					v10x->flags_0xc_12_15.byte[0] = v11 & 0xBF;
 				}
-				a1x->targetId_0x96_150 = v7x - D41A0_0.entities_0x6E8E;
+				a1x->targetId_0x96_150 = v7x - world_D41A0.entities_0x6E8E;
 				SetEntityActionState_27FE0(a1x, 186, 0, 0);
 			}
 		}
@@ -18284,7 +18284,7 @@ type_entity_0x6E8E* FindBalloonTarget_282D0(type_entity_0x6E8E* a1x)//2092d0
 
 	v1 = -1;
 	v2x = 0;
-	for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+	for (ix = gameState_D41A4.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		v4 = ix->model_0x40_64;
 		if (v4 <= 1u)
@@ -18424,7 +18424,7 @@ void Creature24Wander_28500(type_entity_0x6E8E* a1x)//209500
 //----- (00028570) --------------------------------------------------------
 void Creature24Attack_28570(type_entity_0x6E8E* a1x)//209570
 {
-	PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 7);
+	PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 7);
 	if ((unsigned __int16)CreatureAttack_1C310(a1x, 192, (unsigned __int16(*)(type_entity_0x6E8E*, type_entity_0x6E8E*))CreatureMeleeAttack1536_1CF20))
 		a1x->actionIndex_0x45_69 = 198;
 	Creature24SetSprite_287B0(a1x);
@@ -18485,7 +18485,7 @@ void Creature24FindTarget_28690(type_entity_0x6E8E* a1x)//209690
 		v1 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 		v11 = -1;
 		v10x = 0;
-		v2x = x_D41A0_BYTEARRAY_4_struct.class3List_38519;
+		v2x = gameState_D41A4.class3List_38519;
 		v9 = v1 * v1;
 		while (v2x > Entities_EA3E4[0])
 		{
@@ -18511,7 +18511,7 @@ void Creature24FindTarget_28690(type_entity_0x6E8E* a1x)//209690
 			if (v7x > Entities_EA3E4[0] && v7x->life_0x8 >= 0 && !(v7x->flags_0xc_12_15.byte[1] & 4))
 			{
 				a1x->actionIndex_0x45_69 = 194;
-				a1x->targetId_0x96_150 = v7x - D41A0_0.entities_0x6E8E;
+				a1x->targetId_0x96_150 = v7x - world_D41A0.entities_0x6E8E;
 			}
 		}
 	}
@@ -18562,8 +18562,8 @@ LABEL_11:
 	{
 		a1x->spriteIndex_0x5A_90 = v3;
 		a1x->animationFrame_0x5C_92 = 0;
-		//a1x->byte_0x5D_93 = x_BYTE_D8A2E[(unsigned __int8)x_WORD_D951C[6 + 7 * v3]];
-		a1x->frameCount_0x5D_93 = x_BYTE_D8A2E[spriteDefsTable_D951C[v3].kind_12];
+		//a1x->byte_0x5D_93 = spriteKindFrames_D8A2E[(unsigned __int8)x_WORD_D951C[6 + 7 * v3]];
+		a1x->frameCount_0x5D_93 = spriteKindFrames_D8A2E[spriteDefsTable_D951C[v3].kind_12];
 
 	}
 	//return result;
@@ -18822,7 +18822,7 @@ signed int CymmerianAttack_28C60(type_entity_0x6E8E* a1x)//209c60
 {
 	signed int result; // eax
 
-	PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 37);
+	PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 37);
 	result = CreatureAttack_1C310(a1x, 200, (unsigned __int16(*)(type_entity_0x6E8E*, type_entity_0x6E8E*))CreatureShootFireball_1CC20);
 	if (a1x->life_0x8 < 0)
 		a1x->life_0x8 = 0;
@@ -18902,7 +18902,7 @@ void CymmerianPreKill_28CE0(type_entity_0x6E8E* a1x)//209ce0 //tex 393
 				v2x->mailMask_0x38_56 = 1;
 				//v6 = a1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0;
 				//LOBYTE(v5) = (*(x_BYTE *)(a1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0 + 16))++;
-				v2x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[a1x->model_0x40_64]++;
+				v2x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[a1x->model_0x40_64]++;
 				v2x->typeParams_0xA0_160x = &str_D7BD6[95]; //(type_str_160*)&unk_D7BD6[0xc9e];
 				v2x->timer_0x39_57 = 64;
 				v12 -= v9;
@@ -18923,7 +18923,7 @@ void CymmerianPreKill_28CE0(type_entity_0x6E8E* a1x)//209ce0 //tex 393
 		v7x->id_0x1A_26 = a1x->id_0x1A_26;
 	a1x->actionIndex_0x45_69 = 205;
 	//result = (int)x_D41A0_BYTEARRAY_0;
-	D41A0_0.creatureStats_0x364D2.livingCreatures_0x364D2 += 3;
+	world_D41A0.creatureStats_0x364D2.livingCreatures_0x364D2 += 3;
 	//return result;
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -18933,14 +18933,14 @@ void CymmerianKill_28EC0(type_entity_0x6E8E* a1x)//209ec0
 {
 	if (a1x->levelPar3_0x46_70)
 	{
-		if (a1x->ownerPlayerId_0x24_36 == D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240)
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.creaturesKilledPercent_373++;//0x209EEC/0x209F24 inc dword ptr [edx+3139h]
+		if (a1x->ownerPlayerId_0x24_36 == world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240)
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.creaturesKilledPercent_373++;//0x209EEC/0x209F24 inc dword ptr [edx+3139h]
 		KillEntity_1C930(a1x);
 	}
 	else
 	{
-		if (a1x->ownerPlayerId_0x24_36 == D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240)
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.creaturesKilledPercent_373++;//0x209EEC/0x209F24 inc dword ptr [edx+3139h]
+		if (a1x->ownerPlayerId_0x24_36 == world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240)
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.creaturesKilledPercent_373++;//0x209EEC/0x209F24 inc dword ptr [edx+3139h]
 		a1x->life_0x8 = -1;
 		DisableEntityDrawing04_57F10(a1x);
 	}
@@ -18997,7 +18997,7 @@ void MummyAttack_28FF0(type_entity_0x6E8E* a1x)//209ff0
 	__int16 v19; // cx
 
 	if (!(a1x->instanceIndex_0x3E_62 & 0x1F))
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 62);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 62);
 	v1 = 0;
 	if (a1x->mail_0x5E_94.channel[0].source)
 	{
@@ -19062,7 +19062,7 @@ void MummyAttack_28FF0(type_entity_0x6E8E* a1x)//209ff0
 			if (!(a1x->instanceIndex_0x3E_62 & 3))
 			{
 				a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v6x->position_0x4C_76);
-				for (jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
+				for (jx = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 				{
 					if (jx->id_0x1A_26 != a1x->id_0x1A_26
 						&& abs((int16_t)a1x->position_0x4C_76.x - (int16_t)jx->position_0x4C_76.x) < a1x->params_0x52_82.pitch
@@ -19088,8 +19088,8 @@ void MummyAttack_28FF0(type_entity_0x6E8E* a1x)//209ff0
 					return MummySetAttackFlag_293D0(a1x);
 				//v11 = (int)x_D41A0_BYTEARRAY_0;
 				//*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) = 9377 * *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) + 9439;
-				D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
-				v12 = D41A0_0.rand_0x8 % 0x3Fu;
+				world_D41A0.rand_0x8 = 9377 * world_D41A0.rand_0x8 + 9439;
+				v12 = world_D41A0.rand_0x8 % 0x3Fu;
 				if (v12 < 4)
 					return MummySetAttackFlag_293D0(a1x);
 				if (v12 <= 4)
@@ -19246,7 +19246,7 @@ void HydraIdle_29400(type_entity_0x6E8E* a1x)//20a400
 				MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, 768);
 			}
 			CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 22);
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 22);
 			goto LABEL_36;
 		}
 		if (v1 >= 0xF)
@@ -19610,7 +19610,7 @@ void HydraUpdateBody_29A90(type_entity_0x6E8E* a1x)//20aa90
 							{
 								//v1 = (uint8_t*)(v11 % 168);
 								ix->levelPar3_0x46_70 = 2;
-								ix->targetId_0x96_150 = v10x - D41A0_0.entities_0x6E8E;
+								ix->targetId_0x96_150 = v10x - world_D41A0.entities_0x6E8E;
 							}
 						}
 					}
@@ -19729,7 +19729,7 @@ void HydraUpdateBody_29A90(type_entity_0x6E8E* a1x)//20aa90
 					}
 					break;
 				case 6:
-					PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 17);
+					PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 17);
 					v16 = ix->param_0x10_16 + 1;
 					ix->param_0x10_16 = v16;
 					if (v16 >= 4)
@@ -19944,7 +19944,7 @@ void HydraUpdateBody_29A90(type_entity_0x6E8E* a1x)//20aa90
 				if (v37)
 				{
 					HydraChooseAttack_2A7F0(ix, v35x, v37 == 1);
-					PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 17);
+					PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 17);
 				}
 				goto LABEL_99;
 			case 6:
@@ -20208,7 +20208,7 @@ type_entity_0x6E8E* HydraFindTarget_2A6F0(type_entity_0x6E8E* a1x)//20b6f0
 	v1 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 	v2x = 0;
 	v9 = 0x10000000;
-	v3x = x_D41A0_BYTEARRAY_4_struct.class3List_38519;
+	v3x = gameState_D41A4.class3List_38519;
 	v8 = v1 * v1;
 	while (v3x > Entities_EA3E4[0])
 	{
@@ -20263,7 +20263,7 @@ void HydraChooseAttack_2A7F0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x, c
 	{
 		a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 		v4 = a1x->rand_0x14_20 % 0xCu;
-		a1x->rand_0x14_20 += x_D41A0_BYTEARRAY_4_struct.setting_30;
+		a1x->rand_0x14_20 += gameState_D41A4.setting_30;
 		a1x->manaRegen_0x88_136 = (v4 > 7) + 1;
 	}
 	v5 = a1x->manaRegen_0x88_136;
@@ -20319,7 +20319,7 @@ void HydraSetSegmentPose_2A940(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)
 	type_D404C* v3x; // edx
 
 	//result = a1;
-	if (x_DWORD_E9BA8)
+	if (segmentPoseFlag_E9BA8)
 	{
 		//v3 = (char*)ar_D404C + 22 * a2x->byte_0x3B_59;
 		v3x = &str_D404C[a2x->poseIndex_0x3B_59];
@@ -20347,7 +20347,7 @@ void HydraSetSegmentPose_2A940(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)
 	//return result;
 }
 // D404C: using guessed type void *off_D404C;
-// E9BA8: using guessed type int x_DWORD_E9BA8;
+// E9BA8: using guessed type int segmentPoseFlag_E9BA8;
 // EB398: using guessed type __int16 x_WORD_EB398;
 
 //----- (0002A9F0) --------------------------------------------------------
@@ -20432,21 +20432,21 @@ void HydraAttachSegment_2AA90(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x,
 			break;
 		case 1:
 		case 8:
-			v9 = xx_DWORD_D40BC[v18][0];
+			v9 = hydraSegmentOffsets_D40BC[v18][0];
 			goto LABEL_12;
 		case 2:
 		case 7:
-			v9 = xx_DWORD_D40BC[v18][1];
+			v9 = hydraSegmentOffsets_D40BC[v18][1];
 		LABEL_12:
 			a1y = -v9;//fix
 			break;
 		case 3:
 		case 6:
-			a1y = xx_DWORD_D40BC[v18][1];
+			a1y = hydraSegmentOffsets_D40BC[v18][1];
 			break;
 		case 4:
 		case 5:
-			a1y = xx_DWORD_D40BC[v18][0];
+			a1y = hydraSegmentOffsets_D40BC[v18][0];
 			break;
 		default:
 			break;
@@ -20492,14 +20492,14 @@ void HydraResetRotation_2AC50(type_entity_0x6E8E* a1x)//20bc50 //tex 394
 	a1x->life_0x8 = 1000000;
 	a1x->maxLife_0x4 = 36000;
 	a1x->mana_0x90_144 = 20000;
-	v1x->param_0x10_16 = (v1x - D41A0_0.entities_0x6E8E) % 100;
+	v1x->param_0x10_16 = (v1x - world_D41A0.entities_0x6E8E) % 100;
 	//v3 = a1x->byte_0x40_64;
 	a1x->fov_0x22_34 = 0;
 	//v4 = a1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0;
 	a1x->mailMask_0x38_56 = 1;
 	//LOBYTE(v3) = (*(_BYTE *)(a1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0 + 16))++;
 	a1x->typeParams_0xA0_160x = &str_D7BD6[97]; //(type_str_160*)&unk_D7BD6[0xce2];
-	a1x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[a1x->model_0x40_64]++;
+	a1x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[a1x->model_0x40_64]++;
 	//v5 = a1x->flags_0xc_12_15.dbyte3_4.byte2 | 0x80;
 	//LOBYTE(v3) = *(x_BYTE *)(a1x->dword_0xA0_160 + 26);
 	a1x->xtype_0x41_65 = 3;
@@ -20604,9 +20604,9 @@ void SetEntitySpriteIfChanged_2AED0(type_entity_0x6E8E* a1x, int a2)//20bed0
 	{
 		a1x->spriteIndex_0x5A_90 = a2;
 		a1x->animationFrame_0x5C_92 = 0;
-		//LOBYTE(v2) = x_BYTE_D8A2E[(unsigned __int8)x_WORD_D951C[6+7 * a2]];
-		//a1x->byte_0x5D_93 = x_BYTE_D8A2E[(unsigned __int8)x_WORD_D951C[6 + 7 * a2]];
-		a1x->frameCount_0x5D_93 = x_BYTE_D8A2E[spriteDefsTable_D951C[a2].kind_12];
+		//LOBYTE(v2) = spriteKindFrames_D8A2E[(unsigned __int8)x_WORD_D951C[6+7 * a2]];
+		//a1x->byte_0x5D_93 = spriteKindFrames_D8A2E[(unsigned __int8)x_WORD_D951C[6 + 7 * a2]];
+		a1x->frameCount_0x5D_93 = spriteKindFrames_D8A2E[spriteDefsTable_D951C[a2].kind_12];
 	}
 	//return v2;
 }
@@ -20824,7 +20824,7 @@ void ManaAttack_2B260(type_entity_0x6E8E* a1x)//20c260
 			if (a1x->instanceIndex_0x3E_62 & 3)
 				goto LABEL_22;
 			//v28 = 0;
-			v5x = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64];
+			v5x = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64];
 			while (2)
 			{
 				if (v5x > Entities_EA3E4[0])
@@ -20869,7 +20869,7 @@ void ManaAttack_2B260(type_entity_0x6E8E* a1x)//20c260
 			ManaSetState_2BA50(a1x, 4u);
 			ManaSetMode_2B860(a1x, 2u);
 			a1x->maxStage_0x30_48 = a1x->yaw_0x1C_28;
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 38);
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 38);
 			goto LABEL_35;
 		case 4:
 		case 5:
@@ -20908,7 +20908,7 @@ void ManaAttack_2B260(type_entity_0x6E8E* a1x)//20c260
 			if (v13 & 3)
 				goto LABEL_58;
 			//v27 = 0;
-			v14x = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a1x->model_0x40_64];
+			v14x = gameState_D41A4.creatureLists_38403x[a1x->model_0x40_64];
 			break;
 		case 6:
 			ManaSetMode_2B860(a1x, 3u);
@@ -21021,7 +21021,7 @@ char IsAnyCreature28Alive_2B7E0(type_entity_0x6E8E* a1x)//20c7e0
 	type_entity_0x6E8E* v1x; // eax
 	char v3; // bl
 
-	v1x = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[112 / 4];
+	v1x = gameState_D41A4.creatureLists_38403x[112 / 4];
 	if (v1x <= Entities_EA3E4[0])
 		return 0;
 	do
@@ -21077,7 +21077,7 @@ void ManaSetMode_2B860(type_entity_0x6E8E* a1x, unsigned __int8 a2)//20c860 //te
 		v4 = a1x->flags_0xc_12_15.byte[0] & 0xF6;
 		a1x->actSpeed_0x82_130 = a1x->minSpeed_0x84_132;
 		a1x->flags_0xc_12_15.byte[0] = v4;
-		v5 = *(int16_t*)&x_BYTE_D9F50[0x5b6];
+		v5 = *(int16_t*)&dataBlock_D9F50[0x5b6];
 		a1x->flags_0xc_12_15.byte[0] = v4 | 8;
 		SetEntityIndexAndRot_49CD0(a1x, 291);
 		SetEntityShiftRot_49EA0(a1x, 384, 768);
@@ -21188,7 +21188,7 @@ void DrawBitmapToScreenAndBuffer_2BBB0(int16_t posX, int16_t posY, bitmap_pos_st
 
 	ptrDrawBitmap_F01EC(posX, posY, a3, scale);
 	//result = (int)x_D41A0_BYTEARRAY_0;
-	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
+	if (world_D41A0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer_351628;
 		pdwScreenBuffer_351628 = (uint8_t*)ptrMemoryBuffer_E9C3C;
@@ -21249,12 +21249,12 @@ void DrawGameFrame_2BE30()//20CE30
 
 	SetTextBoxMinMaxForSetResolution();
 
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (videoMode_180660 & 1)
 		ClearScreenAlphaBuffer(320, 200, 0);
 	else
 		ClearScreenAlphaBuffer(screenWidth_18062C, screenHeight_180624, 0);
 
-	if (x_WORD_180660_VGA_type_resolution != 1)
+	if (videoMode_180660 != 1)
 	{
 		if (!DefaultResolutions())
 		{
@@ -21265,9 +21265,9 @@ void DrawGameFrame_2BE30()//20CE30
 	}
 
 	x_DWORD_D41C8 = 0;
-	if (D41A0_0.m_GameSettings.display_0x2196.transparency_0x2198)
+	if (world_D41A0.m_GameSettings.display_0x2196.transparency_0x2198)
 	{
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (videoMode_180660 & 1)
 			drawBitmapFunction = DrawBitmap320_8F8B0;
 		else
 			drawBitmapFunction = DrawBitmap640_8F8E8;
@@ -21279,16 +21279,16 @@ void DrawGameFrame_2BE30()//20CE30
 	}
 	ptrDrawBitmap_F01EC = ptrDrawBitmap_F01E8;
 	ptrDrawBitmap_F01E8 = DrawBitmapToScreenAndBuffer_2BBB0;
-	if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
+	if (gameState_D41A4.showHelp_10)
 		ResetHelpItemFlags_88580();
-	int actPlayerIndex = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244;
+	int actPlayerIndex = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244;
 
 	uint8_t* help_ScreenBuffer = nullptr;
 	if (CommandLineParams.DoTestRenderers()) {
 		help_ScreenBuffer = (uint8_t*)malloc(screenWidth_18062C * screenHeight_180624);
 		renderer_tests_frame_count++;
 	}
-	switch (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221)
+	switch (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221)
 	{
 	case 0:
 	case 3:
@@ -21296,36 +21296,36 @@ void DrawGameFrame_2BE30()//20CE30
 	case 9:
 	case 0xA:
 	case 0xD:
-		playerEntity = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
-		if (x_BYTE_D41C4 || D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize != x_BYTE_D41C6_old_graphics_mode)
+		playerEntity = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+		if (redrawFrame_D41C4 || world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize != oldViewPortSize_D41C6)
 		{
-			x_BYTE_D41C4 = 0;
-			x_BYTE_D41C6_old_graphics_mode = D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize;
-			if (D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize < 40)
+			redrawFrame_D41C4 = 0;
+			oldViewPortSize_D41C6 = world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize;
+			if (world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize < 40)
 			{
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (videoMode_180660 & 1)
 					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, uiBackGroundColorIdx_EB3A8);
 				else
 					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, uiBackGroundColorIdx_EB3A8);
 			}
 		}
-		if (D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize < 40)
+		if (world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize < 40)
 		{
-			if (x_WORD_180660_VGA_type_resolution & 1)
+			if (videoMode_180660 & 1)
 				ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, uiBackGroundColorIdx_EB3A8);
 			else
 				ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, uiBackGroundColorIdx_EB3A8);
 		}
 
-		viewPort.SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+		viewPort.SetRenderViewPortSize_40C50(world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize);
 		m_ptrGameRender->DrawWorld_411A0(//draw terrain and particles
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,//position of player
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,//position of player
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,//rotation of player z
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.z + 128,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.pitch,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.roll,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.fov);
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,//position of player
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,//position of player
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,//rotation of player z
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.z + 128,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.pitch,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.roll,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.fov);
 
 		if (CommandLineParams.DoTestRenderers()) {
 			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C * screenHeight_180624);
@@ -21350,13 +21350,13 @@ void DrawGameFrame_2BE30()//20CE30
 			}
 
 			m_ptrGameRender->DrawWorld_411A0(
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,//position of player
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,//position of player
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,//rotation of player z
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.z + 128,
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.pitch,
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.roll,
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.fov);
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,//position of player
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,//position of player
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,//rotation of player z
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.z + 128,
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.pitch,
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.roll,
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.fov);
 
 			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, screenbuffer_buffer_name.c_str());
 			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, help_buffer_name.c_str());
@@ -21396,7 +21396,7 @@ void DrawGameFrame_2BE30()//20CE30
 
 		if (playerEntity->life_0x8 < 0)
 		{
-			int menuIndex = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221;
+			int menuIndex = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221;
 			if (menuIndex == (int)MenuState::SHOW_IN_GAME_OPTIONS)
 			{
 				DrawInGameOptionsMenu_30050(scale);
@@ -21415,47 +21415,47 @@ void DrawGameFrame_2BE30()//20CE30
 		}
 		else
 		{
-			if (x_DWORD_D4188 && playerEntity->playerData_0xA4_164x->mobilizeCounter_0x14E_334)
+			if (webSpritesData_D4188 && playerEntity->playerData_0xA4_164x->mobilizeCounter_0x14E_334)
 			{
 				//Draw Spiders Web
 				actPlayerIndex = DrawSpiderWeb();
 			}
-			if (D41A0_0.m_GameSettings.m_Display.m_wMiniMap)
+			if (world_D41A0.m_GameSettings.m_Display.m_wMiniMap)
 			{
 				DrawMinimap_63600(//draw minimap
 					0,
 					0,
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.x,
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.y,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.x,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.y,
 					128 * scale,
 					128 * scale,
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].rotation__2BDE_11701.yaw,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].rotation__2BDE_11701.yaw,
 					256 / scale,
 					0);
 				DrawMinimapEntites_61880(//draw entites in minimap
 					0,
 					0,
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.x,
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.y,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.x,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.y,
 					128 * scale,
 					128 * scale,
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].rotation__2BDE_11701.yaw,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].rotation__2BDE_11701.yaw,
 					256 / scale,
 					scale);
 				DrawMinimapMarks_644F0(
 					0,
 					0,
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.x,
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.y,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.x,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.y,
 					128 * scale,
 					128 * scale,
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].rotation__2BDE_11701.yaw,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].rotation__2BDE_11701.yaw,
 					256 / scale,
 					scale);
 			}
 
 			GetFont_6FC50(FontType_D419D);
-			if (D41A0_0.m_GameSettings.m_Display.m_wTopBar)
+			if (world_D41A0.m_GameSettings.m_Display.m_wTopBar)
 			{
 
 				//Left
@@ -21476,7 +21476,7 @@ void DrawGameFrame_2BE30()//20CE30
 
 				DrawTopStatusBar_2D710(playerEntity, scale);
 			}
-			switch (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221)
+			switch (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221)
 			{
 			case (int)MenuState::SHOW_CHAT_MENU:
 				DrawChatMenu_2F6B0();
@@ -21497,7 +21497,7 @@ void DrawGameFrame_2BE30()//20CE30
 				break;
 			}
 			DrawTextPauseEndOfLevel_2CE30(132 * scale, 50 * scale, scale);
-			if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == (int)MenuState::SHOW_BOTTOM_MENU)
+			if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == (int)MenuState::SHOW_BOTTOM_MENU)
 				DrawBottomSpellsMenu_2ECC0();
 		}
 		break;
@@ -21507,8 +21507,8 @@ void DrawGameFrame_2BE30()//20CE30
 	case 0xB:
 	case 0xC:
 	case 0xE:
-		playerEntity = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		playerEntity = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+		if (videoMode_180660 & 1)
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, uiBackGroundColorIdx_EB3A8);
 		else
 			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, uiBackGroundColorIdx_EB3A8);
@@ -21518,7 +21518,7 @@ void DrawGameFrame_2BE30()//20CE30
 		int locViewportHeight;
 		int locMinimapHeight;
 
-		if (x_WORD_180660_VGA_type_resolution == 1)
+		if (videoMode_180660 == 1)
 		{
 			locViewportPosx = 384;//320x200
 			locViewportWidth = 256;
@@ -21552,35 +21552,35 @@ void DrawGameFrame_2BE30()//20CE30
 		DrawMinimap_63600(
 			0,
 			0,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,
 			locViewportPosx - 2,
 			locMinimapHeight,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,
 			204 / scale,
 			1);
 
 		DrawMinimapEntites_61880(
 			0,
 			0,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,
 			locViewportPosx - 2,
 			locMinimapHeight,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,
 			204 / scale,
 			scale);
 
 		viewPort.SetRenderViewPortSize_40BF0(locViewportPosx, 0, locViewportWidth, locViewportHeight);
 
 		m_ptrGameRender->DrawWorld_411A0(
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.z + 128,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.pitch,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.roll,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.fov);
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.z + 128,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.pitch,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.roll,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.fov);
 
 		if (CommandLineParams.DoTestRenderers()) {
 			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C * screenHeight_180624);
@@ -21605,13 +21605,13 @@ void DrawGameFrame_2BE30()//20CE30
 			}
 
 			m_ptrGameRender->DrawWorld_411A0(
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,//position of player
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,//position of player
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,//rotation of player z
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.z + 128,
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.pitch,
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.roll,
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.fov);
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,//position of player
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,//position of player
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,//rotation of player z
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.z + 128,
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.pitch,
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.roll,
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.fov);
 
 			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, screenbuffer_buffer_name.c_str());
 			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, help_buffer_name.c_str());
@@ -21642,26 +21642,26 @@ void DrawGameFrame_2BE30()//20CE30
 			}
 		}
 
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (videoMode_180660 & 1)
 			SetMouseBoundsScaled_9025C(locViewportPosx, 0, locViewportPosx, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
 		else
 			SetViewportBounds_90374(locViewportPosx, 0, locViewportPosx, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (videoMode_180660 & 1)
 			SetMouseBoundsScaled_9025C(locViewportPosx - 2, 0, locViewportPosx - 2, locMinimapHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
 		else
 			SetViewportBounds_90374(locViewportPosx - 2, 0, locViewportPosx - 2, locMinimapHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
-		viewPort.SetRenderViewPortSize_40C50(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);
+		viewPort.SetRenderViewPortSize_40C50(world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize);
 		DrawMinimapMarks_644F0(
 			0,
 			0,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,
 			locViewportPosx - 2,
 			locMinimapHeight,
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,
 			204 / scale,
 			scale);
-		switch (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221)
+		switch (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221)
 		{
 		case (int)MenuState::SHOW_MAP_SORCERER_SCORES:
 			DrawSorcererScores_2D1D0(scale);
@@ -21685,14 +21685,14 @@ void DrawGameFrame_2BE30()//20CE30
 			break;
 		}
 		DrawTextPauseEndOfLevel_2CE30(6, 6, scale);
-		if (x_D41A0_BYTEARRAY_4_struct.leftSpellPlayerIndex_38400)
+		if (gameState_D41A4.leftSpellPlayerIndex_38400)
 			DrawSpellIcon_2E260(
 				spellLeftPosX,
 				2,
 				Entities_EA3E4[playerEntity->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[playerEntity->playerData_0xA4_164x->str_611.SpellIndexLeft_0x451_1105]],
 				false,
 				scale);
-		if (x_D41A0_BYTEARRAY_4_struct.rightSpellPlayerIndex_38401)
+		if (gameState_D41A4.rightSpellPlayerIndex_38401)
 			DrawSpellIcon_2E260(
 				spellRightPosX,
 				2,
@@ -21709,49 +21709,49 @@ void DrawGameFrame_2BE30()//20CE30
 			help_ScreenBuffer = nullptr;
 		}
 	}
-	if (D41A0_0.objectiveBoxCounter_0x36E04)
+	if (world_D41A0.objectiveBoxCounter_0x36E04)
 		DrawCurrentObjectiveTextbox_30630(scale);
 	GetFont_6FC50(FontType_D419D);
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
+	if (!(gameState_D41A4.setting_byte1_22 & 4))
 		return;
 
-	if (x_D41A0_BYTEARRAY_4_struct.textState_204 == 3)
+	if (gameState_D41A4.textState_204 == 3)
 	{
-		if (x_D41A0_BYTEARRAY_4_struct.textDelay_210d <= 0)
-			x_D41A0_BYTEARRAY_4_struct.textState_204 = 2;
+		if (gameState_D41A4.textDelay_210d <= 0)
+			gameState_D41A4.textState_204 = 2;
 		else
-			x_D41A0_BYTEARRAY_4_struct.textDelay_210d--;// = v26 - 1;
+			gameState_D41A4.textDelay_210d--;// = v26 - 1;
 	}
-	if (x_D41A0_BYTEARRAY_4_struct.textState_204 == 2)
+	if (gameState_D41A4.textState_204 == 2)
 	{
-		x_D41A0_BYTEARRAY_4_struct.textState_204 = 1;
-		x_D41A0_BYTEARRAY_4_struct.textLineIndex_214w = 0;
-		x_D41A0_BYTEARRAY_4_struct.textDelay_210d = 50;
+		gameState_D41A4.textState_204 = 1;
+		gameState_D41A4.textLineIndex_214w = 0;
+		gameState_D41A4.textDelay_210d = 50;
 	}
-	if (x_D41A0_BYTEARRAY_4_struct.textState_204 != 1)
+	if (gameState_D41A4.textState_204 != 1)
 		return;
 
-	if (x_D41A0_BYTEARRAY_4_struct.textDelay_210d <= 0)
+	if (gameState_D41A4.textDelay_210d <= 0)
 	{
 		while (1)
 		{
-			if (*off_DB558[x_D41A0_BYTEARRAY_4_struct.textLineIndex_214w] == 33)
+			if (*off_DB558[gameState_D41A4.textLineIndex_214w] == 33)
 				break;
-			x_D41A0_BYTEARRAY_4_struct.textLineIndex_214w++;
+			gameState_D41A4.textLineIndex_214w++;
 		}
-		x_D41A0_BYTEARRAY_4_struct.textLineIndex_214w++;
-		if (*off_DB558[x_D41A0_BYTEARRAY_4_struct.textLineIndex_214w] == 35)
+		gameState_D41A4.textLineIndex_214w++;
+		if (*off_DB558[gameState_D41A4.textLineIndex_214w] == 35)
 		{
-			x_D41A0_BYTEARRAY_4_struct.textState_204 = 3;
-			x_D41A0_BYTEARRAY_4_struct.textDelay_210d = 200;
+			gameState_D41A4.textState_204 = 3;
+			gameState_D41A4.textDelay_210d = 200;
 			return;
 		}
-		x_D41A0_BYTEARRAY_4_struct.textDelay_210d = 50;
+		gameState_D41A4.textDelay_210d = 50;
 		return;
 	}
 	int height = 380;
 	int heightIndex = 0;
-	while (*off_DB558[heightIndex + x_D41A0_BYTEARRAY_4_struct.textLineIndex_214w] != 33)
+	while (*off_DB558[heightIndex + gameState_D41A4.textLineIndex_214w] != 33)
 	{
 		heightIndex++;
 		height -= GetLetterHeight_6FC30();
@@ -21761,21 +21761,21 @@ void DrawGameFrame_2BE30()//20CE30
 	while (heightIndex > 0)
 	{
 		if (index)
-			DrawText_2BC10(off_DB558[index + x_D41A0_BYTEARRAY_4_struct.textLineIndex_214w], 8, actHeight, (*xadataclrd0dat.colorPalette_var28)[0]);
+			DrawText_2BC10(off_DB558[index + gameState_D41A4.textLineIndex_214w], 8, actHeight, (*xadataclrd0dat.colorPalette_var28)[0]);
 		else
-			DrawText_2BC10(off_DB558[x_D41A0_BYTEARRAY_4_struct.textLineIndex_214w], 8, actHeight, (*xadataclrd0dat.colorPalette_var28)[4095]);
+			DrawText_2BC10(off_DB558[gameState_D41A4.textLineIndex_214w], 8, actHeight, (*xadataclrd0dat.colorPalette_var28)[4095]);
 		heightIndex--;
 		index++;
 		actHeight += GetLetterHeight_6FC30();
 	}
-	x_D41A0_BYTEARRAY_4_struct.textDelay_210d--;
+	gameState_D41A4.textDelay_210d--;
 }
 
 int DrawSpiderWeb()
 {
 	int tilesX, tilesY;
 
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (videoMode_180660 & 1)
 	{
 		tilesX = 4;
 		tilesY = 2;
@@ -21800,7 +21800,7 @@ int DrawSpiderWeb()
 
 		for (int col = 0; col < tilesX; col++, index++)
 		{
-			const auto& tile = x_DWORD_D4188t_spritestr[index];
+			const auto& tile = webSprites_D4188[index];
 			rowWidth += tile.width_4;
 			rowHeights[row] = std::max<int>(rowHeights[row], tile.height_5);
 		}
@@ -21815,7 +21815,7 @@ int DrawSpiderWeb()
 	int offsetX = 0;
 	int offsetY = 0;
 
-	if (x_WORD_180660_VGA_type_resolution != 1 && !DefaultResolutions())
+	if (videoMode_180660 != 1 && !DefaultResolutions())
 	{
 		scale = (std::min)(screenWidth_18062C / webWidth, screenHeight_180624 / webHeight);
 		scale = (std::max)(scale, 1); // screen smaller than the web: draw 1x
@@ -21834,7 +21834,7 @@ int DrawSpiderWeb()
 
 		for (int col = 0; col < tilesX; col++, tileIndex++)
 		{
-			auto& tile = x_DWORD_D4188t_spritestr[tileIndex];
+			auto& tile = webSprites_D4188[tileIndex];
 			DrawBitmap_2BB40(offsetX + x * scale, offsetY + y * scale, tile, scale);
 			x += tile.width_4;
 		}
@@ -21875,17 +21875,17 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 	//result = (int)x_D41A0_BYTEARRAY_4;
 	textPosX = posX;
 	indexedColor = (*xadataclrd0dat.colorPalette_var28)[3840];
-	if (!x_D41A0_BYTEARRAY_4_struct.pauseToggle_205 && !x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546)
+	if (!gameState_D41A4.pauseToggle_205 && !gameState_D41A4.SelectedMenuItem_38546)
 	{
-		if (x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED)
+		if (gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED)
 		{
-			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[425], posX, posY, (*xadataclrd0dat.colorPalette_var28)[240], scale);//Paused!
-			textPosX = ((8 * scale) * (strlen((const char*)x_DWORD_E9C4C_langindexbuffer[425]) + 2)) + posX;//Paused!
+			DrawText_2BC10(langStrings_E9C4C[425], posX, posY, (*xadataclrd0dat.colorPalette_var28)[240], scale);//Paused!
+			textPosX = ((8 * scale) * (strlen((const char*)langStrings_E9C4C[425]) + 2)) + posX;//Paused!
 		}
 
-		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x20) && D41A0_0.playerObjectives_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
+		if (!(gameState_D41A4.setting_byte1_22 & 0x20) && world_D41A0.playerObjectives_0x3659C[world_D41A0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
 		{
-			sprintf(printbuffer, "%s. %s.", x_DWORD_E9C4C_langindexbuffer[378], x_DWORD_E9C4C_langindexbuffer[379]);//Tasks completed,Fly to the exit point.
+			sprintf(printbuffer, "%s. %s.", langStrings_E9C4C[378], langStrings_E9C4C[379]);//Tasks completed,Fly to the exit point.
 			DrawText_2BC10(printbuffer, textPosX, posY, indexedColor, scale);
 			textPosX = posX;
 			LOWORD(v6) = GetLetterHeight_6FC30() * scale;
@@ -21897,9 +21897,9 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 		while (1)
 		{
 			//result = (int)x_D41A0_BYTEARRAY_0;
-			if (v22 >= D41A0_0.NumberOfPlayers_0xe)
+			if (v22 >= world_D41A0.NumberOfPlayers_0xe)
 				break;
-			v8 = D41A0_0.players_0x2BDE[v7y].endState_0x04f_2C2D_11309 - 1;
+			v8 = world_D41A0.players_0x2BDE[v7y].endState_0x04f_2C2D_11309 - 1;
 			if (v8 <= 4u)
 			{
 				//v21 = v7x + x_D41A0_BYTEARRAY_0 + 11230 + 28;
@@ -21907,10 +21907,10 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 				{
 				case 0u:
 					//v9 = *(x_WORD *)(v7x + x_D41A0_BYTEARRAY_0 + 11230 + 77);
-					D41A0_0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307--;// = v9 - 1;
-					if (D41A0_0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307 + 1 <= 0)
+					world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307--;// = v9 - 1;
+					if (world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307 + 1 <= 0)
 						goto LABEL_24;
-					sprintf(printbuffer, "%s %s", D41A0_0.players_0x2BDE[v7y].WizardName_0x39f_2BFA_12157, D41A0_0.players_0x2BDE[v7y].CurrentNotificationText_0x01c_2BFA_11258);
+					sprintf(printbuffer, "%s %s", world_D41A0.players_0x2BDE[v7y].WizardName_0x39f_2BFA_12157, world_D41A0.players_0x2BDE[v7y].CurrentNotificationText_0x01c_2BFA_11258);
 					DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[3840], scale);
 					textPosX = posX;
 					LOWORD(v10) = GetLetterHeight_6FC30() * scale;
@@ -21918,17 +21918,17 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 					break;
 				case 1u:
 					//v13 = *(x_WORD *)(v7x + x_D41A0_BYTEARRAY_0 + 11230 + 77);
-					D41A0_0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307--;
-					if (D41A0_0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307 + 1 <= 0)
+					world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307--;
+					if (world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307 + 1 <= 0)
 						goto LABEL_24;
-					sprintf(printbuffer, "[%s] %s", D41A0_0.players_0x2BDE[v7y].WizardName_0x39f_2BFA_12157, D41A0_0.players_0x2BDE[v7y].CurrentNotificationText_0x01c_2BFA_11258);
-					if (D41A0_0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307 <= 100)
+					sprintf(printbuffer, "[%s] %s", world_D41A0.players_0x2BDE[v7y].WizardName_0x39f_2BFA_12157, world_D41A0.players_0x2BDE[v7y].CurrentNotificationText_0x01c_2BFA_11258);
+					if (world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307 <= 100)
 					{
 						v15 = (*xadataclrd0dat.colorPalette_var28)[3840];
 					}
 					else
 					{
-						v14 = 4080 * x_D41A0_BYTEARRAY_4_struct.colorIndex_121[2];
+						v14 = 4080 * gameState_D41A4.colorIndex_121[2];
 						v15 = (*xadataclrd0dat.colorPalette_var28)[256 * ((signed int)(v14 - (__CFSHL__(HIDWORD(v14), 8) + (HIDWORD(v14) << 8))) >> 8)];
 					}
 					DrawText_2BC10(printbuffer, textPosX, textPosY, v15, scale);
@@ -21939,13 +21939,13 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 				case 2u:
 				case 4u:
 					//v11 = *(x_WORD *)(v7x + x_D41A0_BYTEARRAY_0 + 11230 + 77);
-					D41A0_0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307--;
-					if (D41A0_0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307 + 1 <= 0)
+					world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307--;
+					if (world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307 + 1 <= 0)
 						goto LABEL_24;
-					if (D41A0_0.players_0x2BDE[v7y].endState_0x04f_2C2D_11309 == 3 || v22 == D41A0_0.LevelIndex_0xc)
+					if (world_D41A0.players_0x2BDE[v7y].endState_0x04f_2C2D_11309 == 3 || v22 == world_D41A0.LevelIndex_0xc)
 					{
 						//Draw Selected Spell Name or Spell upgrade notification
-						sprintf(printbuffer, "%s", D41A0_0.players_0x2BDE[v7y].CurrentNotificationText_0x01c_2BFA_11258);
+						sprintf(printbuffer, "%s", world_D41A0.players_0x2BDE[v7y].CurrentNotificationText_0x01c_2BFA_11258);
 						DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[3840], scale);
 						textPosX = posX;
 						LOWORD(v12) = GetLetterHeight_6FC30() * scale;
@@ -21954,16 +21954,16 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 					break;
 				case 3u:
 					//v17 = *(x_WORD *)(v7x + x_D41A0_BYTEARRAY_0 + 11230 + 77);
-					D41A0_0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307--;
-					if (D41A0_0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307 + 1 <= 0)
+					world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307--;
+					if (world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307 + 1 <= 0)
 					{
 					LABEL_24:
-						D41A0_0.players_0x2BDE[v7y].endState_0x04f_2C2D_11309 = 0;
+						world_D41A0.players_0x2BDE[v7y].endState_0x04f_2C2D_11309 = 0;
 					}
 					else
 					{
-						sprintf(printbuffer, "[%s] %s", D41A0_0.players_0x2BDE[v7y].WizardName_0x39f_2BFA_12157, D41A0_0.players_0x2BDE[v7y].CurrentNotificationText_0x01c_2BFA_11258);
-						v18 = 4080 * x_D41A0_BYTEARRAY_4_struct.colorIndex_121[2];
+						sprintf(printbuffer, "[%s] %s", world_D41A0.players_0x2BDE[v7y].WizardName_0x39f_2BFA_12157, world_D41A0.players_0x2BDE[v7y].CurrentNotificationText_0x01c_2BFA_11258);
+						v18 = 4080 * gameState_D41A4.colorIndex_121[2];
 						DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[16 * ((signed int)(v18 - (__CFSHL__(HIDWORD(v18), 8) + (HIDWORD(v18) << 8))) >> 8)]);
 						textPosX = posX;
 						LOWORD(v19) = GetLetterHeight_6FC30() * scale;
@@ -22022,11 +22022,11 @@ void DrawSorcererScores_2D1D0(uint8_t scale)//20e1d0
 
 	int helpWidth = 640;
 	int helpHeight;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (videoMode_180660 == 1)
 		helpHeight = 400;
 	else
 		helpHeight = 480;
-	if (x_WORD_180660_VGA_type_resolution != 1)
+	if (videoMode_180660 != 1)
 		if (!DefaultResolutions())
 		{
 			helpWidth = screenWidth_18062C;
@@ -22038,9 +22038,9 @@ void DrawSorcererScores_2D1D0(uint8_t scale)//20e1d0
 	v1 = 0;
 	//v2 = x_D41A0_BYTEARRAY_0 + 11230;
 	v2x = 0;
-	while (v0 < D41A0_0.NumberOfPlayers_0xe)
+	while (v0 < world_D41A0.NumberOfPlayers_0xe)
 	{
-		if (D41A0_0.players_0x2BDE[v2x].playerActive_0x006_2BE4_11236)
+		if (world_D41A0.players_0x2BDE[v2x].playerActive_0x006_2BE4_11236)
 			v1++;
 		v0++;
 		//v2 += 2124;
@@ -22053,11 +22053,11 @@ void DrawSorcererScores_2D1D0(uint8_t scale)//20e1d0
 	//i=x_D41A0_BYTEARRAY_0 + 11230
 	for (ix = 0; ; ix++)
 	{
-		result = D41A0_0.NumberOfPlayers_0xe;
+		result = world_D41A0.NumberOfPlayers_0xe;
 		if (result <= v25)
 			break;
-		v6 = D41A0_0.players_0x2BDE[ix].playerActive_0x006_2BE4_11236;
-		v23x = Entities_EA3E4[D41A0_0.players_0x2BDE[ix].playerIndex_0x00a_2BE4_11240];
+		v6 = world_D41A0.players_0x2BDE[ix].playerActive_0x006_2BE4_11236;
+		v23x = Entities_EA3E4[world_D41A0.players_0x2BDE[ix].playerIndex_0x00a_2BE4_11240];
 		if (v6 == 1)
 		{
 			textColourIdx = playersColors_E88E0x[GetTrueWizardNumber_61790(v25)][1];
@@ -22070,40 +22070,40 @@ void DrawSorcererScores_2D1D0(uint8_t scale)//20e1d0
 				((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE].height_5 * scale) - (8 * scale),
 				playerColourIdx);
 			v22 = (signed __int16)(posX + (8 * scale));
-			DrawText_2BC10(D41A0_0.players_0x2BDE[ix].WizardName_0x39f_2BFA_12157, posX + (8 * scale), posY + (6 * scale), textColourIdx, scale);
+			DrawText_2BC10(world_D41A0.players_0x2BDE[ix].WizardName_0x39f_2BFA_12157, posX + (8 * scale), posY + (6 * scale), textColourIdx, scale);
 			sprintf(printbuffer, "%d", v23x->maxMana_0x8C_140);
 			v10 = v25;
 			DrawText_2BC10(printbuffer, v22, posY + (20 * scale), textColourIdx, scale);
-			if (!v10 && x_D41A0_BYTEARRAY_4_struct.showHelp_10)
+			if (!v10 && gameState_D41A4.showHelp_10)
 			{
-				str_unk_1804B0ar.scoresPosX_0x96 = posX + (20 * scale);
-				str_unk_1804B0ar.scoresPosY_0x98 = posY + (30 * scale);
+				helpPopup_1804B0.scoresPosX_0x96 = posX + (20 * scale);
+				helpPopup_1804B0.scoresPosY_0x98 = posY + (30 * scale);
 			}
 			//HIWORD(v11) = HIWORD(**filearray_2aa18c[6]);
 			blackBarX = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE].width_4 * scale) + posX;
-			if (x_D41A0_BYTEARRAY_4_struct.showHelp_10 && D41A0_0.NumberOfPlayers_0xe > 1u && !str_unk_1804B0ar.wizardNumber_0xa8)
+			if (gameState_D41A4.showHelp_10 && world_D41A0.NumberOfPlayers_0xe > 1u && !helpPopup_1804B0.wizardNumber_0xa8)
 			{
-				str_unk_1804B0ar.randSeed_0x82 = 9377 * str_unk_1804B0ar.randSeed_0x82 + 9439;
-				v13 = x_D41A0_BYTEARRAY_4_struct.FrameTimingIndex_26 & 0xFF;
-				str_unk_1804B0ar.wizardNumber_0xa8 = str_unk_1804B0ar.randSeed_0x82 % D41A0_0.NumberOfPlayers_0xe + 1;
-				v14 = v13 + str_unk_1804B0ar.randSeed_0x82;
+				helpPopup_1804B0.randSeed_0x82 = 9377 * helpPopup_1804B0.randSeed_0x82 + 9439;
+				v13 = gameState_D41A4.FrameTimingIndex_26 & 0xFF;
+				helpPopup_1804B0.wizardNumber_0xa8 = helpPopup_1804B0.randSeed_0x82 % world_D41A0.NumberOfPlayers_0xe + 1;
+				v14 = v13 + helpPopup_1804B0.randSeed_0x82;
 				v15 = 1;
-				str_unk_1804B0ar.randSeed_0x82 = v14;
+				helpPopup_1804B0.randSeed_0x82 = v14;
 				//Find next alive player
-				while (v15 < 8 && !D41A0_0.players_0x2BDE[v15].playerActive_0x006_2BE4_11236)
+				while (v15 < 8 && !world_D41A0.players_0x2BDE[v15].playerActive_0x006_2BE4_11236)
 				{
-					v16 = D41A0_0.NumberOfPlayers_0xe;
-					if ((unsigned __int8)++str_unk_1804B0ar.wizardNumber_0xa8 >= (signed int)v16)
-						str_unk_1804B0ar.wizardNumber_0xa8 = 1;
+					v16 = world_D41A0.NumberOfPlayers_0xe;
+					if ((unsigned __int8)++helpPopup_1804B0.wizardNumber_0xa8 >= (signed int)v16)
+						helpPopup_1804B0.wizardNumber_0xa8 = 1;
 					v15++;
 				}
-				if ((str_unk_1804B0ar.wizardNumber_0xa8 < 0 || str_unk_1804B0ar.wizardNumber_0xa8 > D41A0_0.NumberOfPlayers_0xe - 1) ||
-					!D41A0_0.players_0x2BDE[str_unk_1804B0ar.wizardNumber_0xa8].playerActive_0x006_2BE4_11236)
-					str_unk_1804B0ar.wizardNumber_0xa8 = 0;
+				if ((helpPopup_1804B0.wizardNumber_0xa8 < 0 || helpPopup_1804B0.wizardNumber_0xa8 > world_D41A0.NumberOfPlayers_0xe - 1) ||
+					!world_D41A0.players_0x2BDE[helpPopup_1804B0.wizardNumber_0xa8].playerActive_0x006_2BE4_11236)
+					helpPopup_1804B0.wizardNumber_0xa8 = 0;
 			}
 			for (j = 0; j < 8; j++)
 			{
-				if (D41A0_0.players_0x2BDE[j].playerActive_0x006_2BE4_11236 == 1)
+				if (world_D41A0.players_0x2BDE[j].playerActive_0x006_2BE4_11236 == 1)
 				{
 					barX = blackBarX + (4 * scale);
 					barY = posY + (4 * scale);
@@ -22130,10 +22130,10 @@ void DrawSorcererScores_2D1D0(uint8_t scale)//20e1d0
 							playerColourIdx);
 						sprintf(printbuffer, "%03d", v23x->playerData_0xA4_164x->kills_0x26_38[j]);
 						DrawText_2BC10(printbuffer, blackBarX + (8 * scale), posY + (10 * scale), textColourIdx, scale);
-						if (x_D41A0_BYTEARRAY_4_struct.showHelp_10 && str_unk_1804B0ar.wizardNumber_0xa8 && !v25 && j == (unsigned __int8)str_unk_1804B0ar.wizardNumber_0xa8)
+						if (gameState_D41A4.showHelp_10 && helpPopup_1804B0.wizardNumber_0xa8 && !v25 && j == (unsigned __int8)helpPopup_1804B0.wizardNumber_0xa8)
 						{
-							str_unk_1804B0ar.scoresBarX_0x9a = blackBarX + (20 * scale);
-							str_unk_1804B0ar.scoresBarY_0x9c = posY + (20 * scale);
+							helpPopup_1804B0.scoresBarX_0x9a = blackBarX + (20 * scale);
+							helpPopup_1804B0.scoresBarY_0x9c = posY + (20 * scale);
 						}
 					}
 					//HIWORD(v18) = HIWORD(**filearray_2aa18c[6]);
@@ -22158,7 +22158,7 @@ void DrawSorcererScores_2D1D0(uint8_t scale)//20e1d0
 // 18054A: using guessed type __int16 x_WORD_18054A;
 // 18054C: using guessed type __int16 x_WORD_18054C;
 // 180558: using guessed type char x_BYTE_180558;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
+// 180660: using guessed type __int16 videoMode_180660;
 
 //----- (0002E790) --------------------------------------------------------
 void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color)//20f790
@@ -22167,7 +22167,7 @@ void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t col
 	int locPosY = posY;
 	int locWidth = width;
 	int locHeight = height;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (videoMode_180660 == 1)
 	{
 		locPosX = posX / 2;
 		locPosY = posY / 2;
@@ -22220,18 +22220,18 @@ void DrawBottomSpellsMenu_2ECC0()//20fcc0
 	__int16 spellIndex2;
 	__int16 xAdd2;
 	bool canSummon;
-	type_entity_0x6E8E* playerEntity = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	type_entity_0x6E8E* playerEntity = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	uint8 color0 = playersColors_E88E0x[GetTrueWizardNumber_61790(playerEntity->playerData_0xA4_164x->playerColorIndex_0x38_56)][0];
 	uint8 color1 = playersColors_E88E0x[GetTrueWizardNumber_61790(playerEntity->playerData_0xA4_164x->playerColorIndex_0x38_56)][1];
-	x_D41A0_BYTEARRAY_4_struct.spellOnCursor_50 = -1;
+	gameState_D41A4.spellOnCursor_50 = -1;
 	int16_t posX = 0;
 	int16_t posY = 0;
 	uint8_t scale = 1;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (videoMode_180660 & 1)
 		posY = 400;
 	else
 		posY = 480;
-	if (x_WORD_180660_VGA_type_resolution != 1)
+	if (videoMode_180660 != 1)
 		if (!DefaultResolutions())
 		{
 			scale = gameUiScale;
@@ -22275,7 +22275,7 @@ void DrawBottomSpellsMenu_2ECC0()//20fcc0
 					int subSpellIndex;
 					if (spellIconIndex == playerEntity->playerData_0xA4_164x->str_611.spellIndex_0x458_1112)
 					{
-						x_D41A0_BYTEARRAY_4_struct.spellOnCursor_50 = spellIconIndex;
+						gameState_D41A4.spellOnCursor_50 = spellIconIndex;
 						subSpellIndex = playerEntity->playerData_0xA4_164x->str_611.subSpellIndex_0x459_1113;
 					}
 					else
@@ -22286,7 +22286,7 @@ void DrawBottomSpellsMenu_2ECC0()//20fcc0
 					bool skipToLabel43 = false;
 					if (SPELLS_BEGIN_BUFFER_str[spellEntity->model_0x40_64].isEnabled_1 & 4)
 					{
-						if (spellEntity->stage_0x2E_46 > 0 && spellEntity->stage_0x2E_46 < 32 && x_D41A0_BYTEARRAY_4_struct.colorIndex_121[1])
+						if (spellEntity->stage_0x2E_46 > 0 && spellEntity->stage_0x2E_46 < 32 && gameState_D41A4.colorIndex_121[1])
 						{
 							skipToLabel43 = true;
 						}
@@ -22300,7 +22300,7 @@ void DrawBottomSpellsMenu_2ECC0()//20fcc0
 						{
 							canSummon = true;
 						}
-						if (canSummon && x_D41A0_BYTEARRAY_4_struct.spellOnCursor_50 == spellIconIndex)
+						if (canSummon && gameState_D41A4.spellOnCursor_50 == spellIconIndex)
 						{
 							manaCost = GetSpellManaCost_6D710(playerEntity, spellIndex2, subSpellIndex);
 							if (manaCost > 0)
@@ -22368,7 +22368,7 @@ void DrawBottomSpellsMenu_2ECC0()//20fcc0
 	//Frame of selected spell
 	DrawBitmap_2BB40(posX + posIconsXStart + spellIconWidth * (playerEntity->playerData_0xA4_164x->str_611.spellIndex_0x458_1112 % 13), playerEntity->playerData_0xA4_164x->str_611.spellIndex_0x458_1112 / 13 * spellIconHeight + posIconsY2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME], scale);
 	//Draw spell selection
-	selectedSpellIndex = x_D41A0_BYTEARRAY_4_struct.spellOnCursor_50;
+	selectedSpellIndex = gameState_D41A4.spellOnCursor_50;
 	if (selectedSpellIndex != -1)
 	{
 		spellIndex = spellIndex_D94FF[selectedSpellIndex];
@@ -22426,7 +22426,7 @@ void DrawBottomSpellsMenu_2ECC0()//20fcc0
 			{
 				if (subSpellIndex2 == spellIndex3)
 				{
-					if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+					if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 					{
 						xPosNext = SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[subSpellIndex2 + 1].xpos2_0x12;
 						xPos = SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[subSpellIndex2].xpos2_0x12;
@@ -22467,15 +22467,15 @@ void DrawBottomSpellsMenu_2ECC0()//20fcc0
 		}
 	}
 
-	if (unk_18058Cstr.joystickMode_1805C2 == 8
-		|| unk_18058Cstr.joystickMode_1805C2 == 12
-		|| unk_18058Cstr.joystickMode_1805C2 == 13
-		|| unk_18058Cstr.joystickMode_1805C2 == 4
-		|| unk_18058Cstr.joystickMode_1805C2 == 6
-		|| unk_18058Cstr.joystickMode_1805C2 == 11
-		|| unk_18058Cstr.joystickMode_1805C2 == 5)
+	if (inputState_18058C.joystickMode_1805C2 == 8
+		|| inputState_18058C.joystickMode_1805C2 == 12
+		|| inputState_18058C.joystickMode_1805C2 == 13
+		|| inputState_18058C.joystickMode_1805C2 == 4
+		|| inputState_18058C.joystickMode_1805C2 == 6
+		|| inputState_18058C.joystickMode_1805C2 == 11
+		|| inputState_18058C.joystickMode_1805C2 == 5)
 	{
-		DrawBitmap_2BB40(unk_18058Cstr.mouse_1805B0.x, unk_18058Cstr.mouse_1805B0.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[CURSOR_SPRITE_INDEX_D419E]);
+		DrawBitmap_2BB40(inputState_18058C.mouse_1805B0.x, inputState_18058C.mouse_1805B0.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[cursorSpriteIndex_D419E]);
 	}
 	EventDispatcher::I->DispatchEvent(EventType::E_SCENE_CHANGE, Scene::SPELL_MENU);
 }
@@ -22538,7 +22538,7 @@ void UpdateImpactExplosion_30D50(type_entity_0x6E8E* a1x)//211d50
 				a1x->flags_0xc_12_15.byte[0] |= 2u;
 				a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 				a1x->param2_0x2C_44 = a1x->rand_0x14_20 % 0x41u - 32;
-				PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 3);
+				PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 3);
 			}
 			ClampAboveTerrain_580E0(&a1x->position_0x4C_76, v3, 0, 0, a1x->param2_0x2C_44);
 			if (isCaveLevel_D41B6)
@@ -22573,7 +22573,7 @@ void UpdateDeathExplosion_30F60(type_entity_0x6E8E* event)//211f60
 	if (!(event->flags_0xc_12_15.byte[0] & 2))
 	{
 		event->flags_0xc_12_15.byte[0] |= 2u;
-		PrepareEventSound_6E450(event - D41A0_0.entities_0x6E8E, -1, 3);
+		PrepareEventSound_6E450(event - world_D41A0.entities_0x6E8E, -1, 3);
 	}
 	strIndex = AddE7EE0x_10080(event->param_0x10_16, event->param_0x10_16);
 	if (strIndex)
@@ -22632,9 +22632,9 @@ void UpdateSpeedTrail_31120(type_entity_0x6E8E* a1x)//212120
 		//v2 = (int)x_D41A0_BYTEARRAY_0;
 		//v3 = 9377 * *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) + 9439;
 		//*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) = v3;
-		D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
-		if (!(D41A0_0.rand_0x8 & 1))
-			PrepareEventSound_6E450((a1x - D41A0_0.entities_0x6E8E), -1, a1x->spriteIndex_0x5A_90 - 282);
+		world_D41A0.rand_0x8 = 9377 * world_D41A0.rand_0x8 + 9439;
+		if (!(world_D41A0.rand_0x8 & 1))
+			PrepareEventSound_6E450((a1x - world_D41A0.entities_0x6E8E), -1, a1x->spriteIndex_0x5A_90 - 282);
 	}
 	//result = *(x_DWORD *)(a1 + 8);
 	if (a1x->life_0x8-- < 0)
@@ -22786,13 +22786,13 @@ LABEL_8:
 						v45 = (v11 >> 18) + v42;
 						if (mapHeightmap_11B4E0[ix] < v45)
 							FindFreeTileInArea_570F0(ix, HIBYTE(ix), v45, 0, 1, 1);
-						v13 = x_BYTE_14B4E0_second_heightmap[ix];
+						v13 = secondHeightmap_14B4E0[ix];
 						v45 = v32 - v12;
 						if (v32 - v12 < 0)
 							v45 = 0;
 						if (v13 > v45)
-							x_BYTE_14B4E0_second_heightmap[ix] = v45;
-						for (jx = x_D41A0_BYTEARRAY_4_struct.class3List_38519; jx > Entities_EA3E4[0]; jx = jx->next_0)
+							secondHeightmap_14B4E0[ix] = v45;
+						for (jx = gameState_D41A4.class3List_38519; jx > Entities_EA3E4[0]; jx = jx->next_0)
 						{
 							if (!jx->model_0x40_64)
 							{
@@ -22822,22 +22822,22 @@ LABEL_8:
 										v45 = 0;
 									if (v45 > 254)
 										v45 = 254;
-									if (x_BYTE_14B4E0_second_heightmap[ix] < v45)
-										x_BYTE_14B4E0_second_heightmap[ix] = v45;
+									if (secondHeightmap_14B4E0[ix] < v45)
+										secondHeightmap_14B4E0[ix] = v45;
 								}
 							}
 						}
 					}
 					v21 = ix;
 					v22 = mapHeightmap_11B4E0[ix];
-					if (x_BYTE_14B4E0_second_heightmap[ix] > v22)
+					if (secondHeightmap_14B4E0[ix] > v22)
 					{
 						mapAngle_13B4E0[ix] &= 0xF7u;
 					}
 					else
 					{
 						v23 = mapAngle_13B4E0[ix] | 8;
-						x_BYTE_14B4E0_second_heightmap[ix] = v22;
+						secondHeightmap_14B4E0[ix] = v22;
 						mapAngle_13B4E0[v21] = v23;
 					}
 					v9 = ix + 1;
@@ -22966,7 +22966,7 @@ void UpdateAsh_318B0(type_entity_0x6E8E* event)//2128b0
 		if (!(event->flags_0xc_12_15.byte[0] & 2))
 		{
 			event->flags_0xc_12_15.byte[0] |= 2u;
-			PrepareEventSound_6E450(event - D41A0_0.entities_0x6E8E, -1, 27);
+			PrepareEventSound_6E450(event - world_D41A0.entities_0x6E8E, -1, 27);
 		}
 	}
 	else
@@ -23096,7 +23096,7 @@ void UpdateManaSphereSpawner_31940(type_entity_0x6E8E* a1x)//212940
 				while (v28 < 2)
 				{
 					mapHeightmap_11B4E0[v26x.word] = v43 - 16;
-					if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+					if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 						v36 = 1;
 					else
 						v36 = 63;
@@ -23161,18 +23161,18 @@ void UpdateManaSphereSpawner_31940(type_entity_0x6E8E* a1x)//212940
 						if (v43 > 254)
 							v43 = 254;
 						v37x.word = v9x.word;
-						v38 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v9x.word];
+						v38 = (unsigned __int8)secondHeightmap_14B4E0[v9x.word];
 						if (v43 > v38)
 						{
 							v15 = (v38 - v43) / a1x->life_0x8;
 							v43 = v38 - v15;
-							x_BYTE_14B4E0_second_heightmap[v37x.word] = v38 - v15;
+							secondHeightmap_14B4E0[v37x.word] = v38 - v15;
 						}
 					}
 				}
 				if (isCaveLevel_D41B6)
 				{
-					if (x_BYTE_14B4E0_second_heightmap[v9x.word] > mapHeightmap_11B4E0[v9x.word])
+					if (secondHeightmap_14B4E0[v9x.word] > mapHeightmap_11B4E0[v9x.word])
 						mapAngle_13B4E0[v9x.word] &= 0xF7u;
 					else
 						mapAngle_13B4E0[v9x.word] |= 8u;
@@ -23181,13 +23181,13 @@ void UpdateManaSphereSpawner_31940(type_entity_0x6E8E* a1x)//212940
 			}
 			v8 = v41 + 1;
 		}
-		if (!D41A0_0.altSpawnMode_0x36E03)
+		if (!world_D41A0.altSpawnMode_0x36E03)
 			v39 = (signed __int16)SendMailToOverlappingEntities3_116A0(a1x, 0, a1x->subSpellIndex_0x2A_42);
 		if (v39)
 			SendSpellMessage_6D8B0(a1x->id_0x1A_26, 0x12u, v39);
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 10);
-		if (D41A0_0.altSpawnMode_0x36E03 && !(a1x->instanceIndex_0x3E_62 & 3))
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 63);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 10);
+		if (world_D41A0.altSpawnMode_0x36E03 && !(a1x->instanceIndex_0x3E_62 & 3))
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 63);
 		//LOBYTE(v1) = a1;
 		if (a1x->life_0x8 == 3)
 		{
@@ -23201,7 +23201,7 @@ void UpdateManaSphereSpawner_31940(type_entity_0x6E8E* a1x)//212940
 				while (v18 < 2)
 				{
 					mapHeightmap_11B4E0[v16x.word] = v43 - 16;
-					if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+					if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 						v35 = 1;
 					else
 						v35 = 63;
@@ -23215,7 +23215,7 @@ void UpdateManaSphereSpawner_31940(type_entity_0x6E8E* a1x)//212940
 			}
 			predictedAxis_EB398ar = a1x->position_0x4C_76;
 			predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
-			v1x = D41A0_0.altSpawnMode_0x36E03 ? CreateEntity_4A190(&predictedAxis_EB398ar, 10, 91) : CreateEntity_4A190(
+			v1x = world_D41A0.altSpawnMode_0x36E03 ? CreateEntity_4A190(&predictedAxis_EB398ar, 10, 91) : CreateEntity_4A190(
 				&predictedAxis_EB398ar, 10, 18);
 			if (v1x)
 				v1x->id_0x1A_26 = a1x->id_0x1A_26;
@@ -23329,7 +23329,7 @@ void UpdateSpellBlast_31FB0(type_entity_0x6E8E* a1x)//212fb0
 		}
 		a1x->flags_0xc_12_15.byte[0] |= 2u;
 		SpawnEffectAroundTile_31F00(a1x, 0, v6);
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 10);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 10);
 	}
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -23651,7 +23651,7 @@ void UpdateMeteor_32880(type_entity_0x6E8E* a1x)//213880
 		a1x->flags_0xc_12_15.dword |= 0x10002;
 		//a1x->byte_0xc_12 |= 0x02;
 		//a1x->byte_0xe_14 |= 0x1;
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 30);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 30);
 	}
 	//sub_49EA0(a1x,(768 * a1x->dword_0x10_16- (__CFSHL__(768 * a1x->dword_0x10_16 >> 31, 2)+ 4 * (768 * a1x->dword_0x10_16 >> 31))) >> 2,512);
 	SetEntityShiftRot_49EA0(a1x, (768 * a1x->param_0x10_16 - my_sign32(768 * a1x->param_0x10_16) * 3) >> 2, 512);//0x2138F3 shl edx, 2 / sbb eax, edx
@@ -23713,7 +23713,7 @@ void UpdateVolcanoEruption_32A70(type_entity_0x6E8E* a1x)//213a70
 	if (a1x->param_0x10_16 > 2500)
 	{
 		a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
-		if (!(a1x->rand_0x14_20 % 0x64u) && !D41A0_0.volcanoEntity_0x31)
+		if (!(a1x->rand_0x14_20 % 0x64u) && !world_D41A0.volcanoEntity_0x31)
 		{
 			v1 = a1x->position_0x4C_76.z;
 			v2 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
@@ -23737,23 +23737,23 @@ void UpdateVolcanoEruption_32A70(type_entity_0x6E8E* a1x)//213a70
 		if (v3 != v4)
 		{
 			DisableEntityDrawing04_57F10(a1x);
-			D41A0_0.volcanoEntity_0x31 = 0;
+			world_D41A0.volcanoEntity_0x31 = 0;
 			return;
 		}
 		if (!a1x->param_0x10_16)
 		{
-			v5x = Entities_EA3E4[D41A0_0.volcanoEntity_0x31];
+			v5x = Entities_EA3E4[world_D41A0.volcanoEntity_0x31];
 			if (v5x > Entities_EA3E4[0])
 				v5x->param_0x10_16 = 250;
-			D41A0_0.volcanoEntity_0x31 = a1x - D41A0_0.entities_0x6E8E;
+			world_D41A0.volcanoEntity_0x31 = a1x - world_D41A0.entities_0x6E8E;
 			v6x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 19);
 			//v7 = v6;
 			if (v6x)
 			{
 				v6x->id_0x1A_26 = a1x->id_0x1A_26;
-				if (Entities_EA3E4[D41A0_0.volcanoFireEntity_0x33] > Entities_EA3E4[0])
-					DisableEntityDrawing04_57F10(Entities_EA3E4[D41A0_0.volcanoFireEntity_0x33]);
-				D41A0_0.volcanoFireEntity_0x33 = v6x - D41A0_0.entities_0x6E8E;
+				if (Entities_EA3E4[world_D41A0.volcanoFireEntity_0x33] > Entities_EA3E4[0])
+					DisableEntityDrawing04_57F10(Entities_EA3E4[world_D41A0.volcanoFireEntity_0x33]);
+				world_D41A0.volcanoFireEntity_0x33 = v6x - world_D41A0.entities_0x6E8E;
 			}
 		}
 		v8x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 16);
@@ -23787,7 +23787,7 @@ void UpdateVolcanoEruption_32A70(type_entity_0x6E8E* a1x)//213a70
 		if (a1x->param_0x10_16 >= 127)
 		{
 			DisableEntityDrawing04_57F10(a1x);
-			D41A0_0.volcanoEntity_0x31 = 0;
+			world_D41A0.volcanoEntity_0x31 = 0;
 		}
 	}
 	a1x->param_0x10_16++;
@@ -23877,7 +23877,7 @@ void SpawnManaSpheres_32CF0(type_entity_0x6E8E* a1x)//213cf0
 			v15 = v13++;
 			//v12 += 80;
 			v12x++;
-			SendSpellMessage_6D8B0(D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240, v15, v14);
+			SendSpellMessage_6D8B0(world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240, v15, v14);
 		}
 	}
 }
@@ -23937,7 +23937,7 @@ void UpdateVolcanoFire_32F40(type_entity_0x6E8E* a1x)//213f40
 	else
 	{
 		DisableEntityDrawing04_57F10(a1x);
-		D41A0_0.volcanoFireEntity_0x33 = 0;
+		world_D41A0.volcanoFireEntity_0x33 = 0;
 	}
 	/*return */SendMailToOverlappingEntities_10C80(a1x, 0, a1x->subSpellIndex_0x2A_42);
 }
@@ -23952,7 +23952,7 @@ void UpdateWind_33110(type_entity_0x6E8E* a1x)//214110
 	a1x->life_0x8 = v1;
 	if (v1 < 0)
 	{
-		EndLoop_6EAB0(a1x - D41A0_0.entities_0x6E8E, -1, 49);
+		EndLoop_6EAB0(a1x - world_D41A0.entities_0x6E8E, -1, 49);
 		WindPullNearbyEntities_338D0(a1x);
 	}
 	else
@@ -23960,7 +23960,7 @@ void UpdateWind_33110(type_entity_0x6E8E* a1x)//214110
 		UpdateWindMovement_331A0(a1x);
 		UpdateWindPull_33340(a1x);
 		WindKillOverlapping_33710(a1x);
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 49);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 49);
 	}
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -24215,16 +24215,16 @@ void WindKillOverlapping_33710(type_entity_0x6E8E* a1x)//214710
 	v1 = 0;
 	if (!(a1x->instanceIndex_0x3E_62 & 7))
 	{
-		for (ix = x_D41A0_BYTEARRAY_4_struct.buildingList_38527; ix > Entities_EA3E4[0]; ix = ix->next_0)
+		for (ix = gameState_D41A4.buildingList_38527; ix > Entities_EA3E4[0]; ix = ix->next_0)
 		{
 			if (CompareAxisWithShift_10750(a1x, ix))
 				SendMailToEntity_11900(a1x, ix, 0, a1x->subSpellIndex_0x2A_42);
 		}
-		for (jx = x_D41A0_BYTEARRAY_4_struct.class3List_38519; jx > Entities_EA3E4[0]; jx = jx->next_0)
+		for (jx = gameState_D41A4.class3List_38519; jx > Entities_EA3E4[0]; jx = jx->next_0)
 		{
 			if (jx->model_0x40_64 == 2 && CompareAxisWithShift_10750(a1x, jx))
 			{
-				v4 = a1x - D41A0_0.entities_0x6E8E;
+				v4 = a1x - world_D41A0.entities_0x6E8E;
 				jx->maxStage_0x30_48 = 30;
 				jx->hitById_0x26_38 = v4;
 				jx->mail_0x5E_94.channel[0].amount.dword += a1x->subSpellIndex_0x2A_42;
@@ -24502,7 +24502,7 @@ void UpdateWhirlwindSegments_33C00(type_entity_0x6E8E* a1x)//214c00
 		if (!v2x->levelPar2_0x44_68)
 		{
 			if (SendMailToOverlappingEntities_10C80(v2x, 0, a1x->subSpellIndex_0x2A_42))
-				PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 3);
+				PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 3);
 		}
 	}
 	//return result;
@@ -24592,7 +24592,7 @@ void UpdateSmallExplosion_33D80(type_entity_0x6E8E* a1x)//214d80
 			v2 = SendMailToOverlappingEntities_10C80(a1x, 0, a1x->subSpellIndex_0x2A_42);
 			if (v2)
 				SendSpellMessage_6D8B0(a1x->id_0x1A_26, 7u, v2);
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 24);
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 24);
 			v3 = a1x->flags_0xc_12_15.byte[0];
 			a1x->life_0x8 = 1;
 			a1x->flags_0xc_12_15.byte[0] = v3 | 2;
@@ -24930,12 +24930,12 @@ void UpdateArcProjectile_34540(type_entity_0x6E8E* a1x)//215540
 		//HIBYTE(v39) = v25x.y>>8;
 		v39x._axis_2d.x = v25x.x >> 8;
 		v39x._axis_2d.y = v25x.y >> 8;
-		v1x = (mapHeightmap_11B4E0[v39x.word] + x_BYTE_14B4E0_second_heightmap[v39x.word]) / 2;
+		v1x = (mapHeightmap_11B4E0[v39x.word] + secondHeightmap_14B4E0[v39x.word]) / 2;
 		if (v1x < 0)
 			v1x = 0;
 		if (v1x > 254)
 			v1x = 254;
-		x_BYTE_F01FEx[2 + v33++] = v1x;
+		arcPoints_F01FE[2 + v33++] = v1x;
 		MoveEntity_57FA0(&v25x, v34, 0, 85);
 	}
 	v30 = 0;//adress 215637
@@ -24946,7 +24946,7 @@ void UpdateArcProjectile_34540(type_entity_0x6E8E* a1x)//215540
 		v36 = v2 * v2;
 		v3 = 2 * v2 + 128;
 		v40 = (unsigned __int16)(v23x.x + 128) >> 8;
-		v35 = (unsigned __int8)x_BYTE_F01FEx[2 + 0];
+		v35 = (unsigned __int8)arcPoints_F01FE[2 + 0];
 		v4 = v3 >> 8;
 		v3 >>= 9;
 		v41 = (unsigned __int16)(v23x.y + 128) >> 8;
@@ -24975,7 +24975,7 @@ void UpdateArcProjectile_34540(type_entity_0x6E8E* a1x)//215540
 				uint8_t remakebyte20 = 0;
 				int comp20;
 
-				comp20 = compare_with_sequence((char*)"002156D8-002C1200", (uint8_t*)& x_BYTE_F01FEx[2 + 0], 0x2c1200, debugcounter_215540, 0x20, 0x20, &origbyte20, &remakebyte20);
+				comp20 = compare_with_sequence((char*)"002156D8-002C1200", (uint8_t*)& arcPoints_F01FE[2 + 0], 0x2c1200, debugcounter_215540, 0x20, 0x20, &origbyte20, &remakebyte20);
 				*/
 
 				debugcounter_215540++;
@@ -25008,20 +25008,20 @@ void UpdateArcProjectile_34540(type_entity_0x6E8E* a1x)//215540
 						v16 = 0;
 					if (v16 > 254)
 						v16 = 254;
-					if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v39x.word] < v16)
-						x_BYTE_14B4E0_second_heightmap[v39x.word] = v16;
+					if ((unsigned __int8)secondHeightmap_14B4E0[v39x.word] < v16)
+						secondHeightmap_14B4E0[v39x.word] = v16;
 				}
 				//v17 = v39;
 				v17x.word = v39x.word;
 				v18 = mapHeightmap_11B4E0[v39x.word];
-				if (x_BYTE_14B4E0_second_heightmap[v39x.word] > v18)
+				if (secondHeightmap_14B4E0[v39x.word] > v18)
 				{
 					mapAngle_13B4E0[v39x.word] &= 0xF7u;
 				}
 				else
 				{
 					v19 = mapAngle_13B4E0[v39x.word] | 8;
-					x_BYTE_14B4E0_second_heightmap[v39x.word] = v18 - 1;
+					secondHeightmap_14B4E0[v39x.word] = v18 - 1;
 					mapAngle_13B4E0[v17x.word] = v19;
 				}
 				v32++;
@@ -25035,17 +25035,17 @@ void UpdateArcProjectile_34540(type_entity_0x6E8E* a1x)//215540
 		UpdateTileAngles_34B00(v37x._axis_2d.x - 1, v37x._axis_2d.y - 1, v4 + 1, v4 + 1);
 		MoveEntity_57FA0(&v23x, v34, 0, 85);
 		for (i = 1; i < 32; i++)
-			x_BYTE_F01FEx[i + 1] = x_BYTE_F01FEx[2 + i];
+			arcPoints_F01FE[i + 1] = arcPoints_F01FE[2 + i];
 		//LOBYTE(v39) = v25x.x >> 8;
 		//HIBYTE(v39) = v25x.y >> 8;
 		v39x._axis_2d.x = v25x.x >> 8;
 		v39x._axis_2d.y = v25x.y >> 8;
-		v21 = (mapHeightmap_11B4E0[v39x.word] + x_BYTE_14B4E0_second_heightmap[v39x.word]) / 2;
+		v21 = (mapHeightmap_11B4E0[v39x.word] + secondHeightmap_14B4E0[v39x.word]) / 2;
 		if (v21 < 0)
 			v21 = 0;
 		if (v21 > 254)
 			v21 = 254;
-		x_BYTE_F01FEx[2 + 31] = v21;
+		arcPoints_F01FE[2 + 31] = v21;
 		v30++;
 		MoveEntity_57FA0(&v25x, v34, 0, 85);
 	}
@@ -25102,17 +25102,17 @@ void UpdateTerrainDeform_34910(type_entity_0x6E8E* a1x)//215910
 				v7 = 0;
 			if (v7 > 254)
 				v7 = 254;
-			if (v7 > (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v17x.word])
-				x_BYTE_14B4E0_second_heightmap[v17x.word] = v7;
+			if (v7 > (unsigned __int8)secondHeightmap_14B4E0[v17x.word])
+				secondHeightmap_14B4E0[v17x.word] = v7;
 			v8 = mapHeightmap_11B4E0[v17x.word];
-			if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v17x.word] > v8)
+			if ((unsigned __int8)secondHeightmap_14B4E0[v17x.word] > v8)
 			{
 				mapAngle_13B4E0[v17x.word] &= 0xF7u;
 			}
 			else
 			{
 				v9 = mapAngle_13B4E0[v17x.word] | 8;
-				x_BYTE_14B4E0_second_heightmap[v17x.word] = v8 - 1;
+				secondHeightmap_14B4E0[v17x.word] = v8 - 1;
 				mapAngle_13B4E0[v17x.word] = v9;
 			}
 			v15++;
@@ -25293,7 +25293,7 @@ void UpdateCraterEffect_34C40(type_entity_0x6E8E* a1x)//215c40
 					if (v8 < v7)
 					{
 						v22 = mapHeightmap_11B4E0[i];
-						v25 = x_BYTE_14B4E0_second_heightmap[i];
+						v25 = secondHeightmap_14B4E0[i];
 						v18 = v14 * ((x_DWORD)(0x10000 + (signed int)Maths::sin_DB750[0x200 + (v8 << 10) / v7]) >> 1) >> 16;
 						v9 = v18 + v23;
 						if (v18 + v23 > 254)
@@ -25310,8 +25310,8 @@ void UpdateCraterEffect_34C40(type_entity_0x6E8E* a1x)//215c40
 						if (v10 < 0)
 							v10 = 0;
 						if (v10 < v25)
-							x_BYTE_14B4E0_second_heightmap[i] = v25 - (unsigned int)((v25 - v10) / a1x->life_0x8);
-						if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[i] > mapHeightmap_11B4E0[i])
+							secondHeightmap_14B4E0[i] = v25 - (unsigned int)((v25 - v10) / a1x->life_0x8);
+						if ((unsigned __int8)secondHeightmap_14B4E0[i] > mapHeightmap_11B4E0[i])
 							mapAngle_13B4E0[i] &= 0xF7u;
 						else
 							mapAngle_13B4E0[i] |= 8u;
@@ -25472,11 +25472,11 @@ void UpdateVolcanoEffect_34EE0(/*signed int a1, int a2, */type_entity_0x6E8E* a3
 								if (v19 < 0)
 									v19 = 0;
 								v32 = i;
-								v20 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[i];
+								v20 = (unsigned __int8)secondHeightmap_14B4E0[i];
 								v37 = v20;
 								v21 = (v20 - v19) / a3x->life_0x8;
 								if (v37 - v21 < v37)
-									x_BYTE_14B4E0_second_heightmap[v32] = v37 - v21;
+									secondHeightmap_14B4E0[v32] = v37 - v21;
 							}
 							else if (v17 == 85)
 							{
@@ -25492,14 +25492,14 @@ void UpdateVolcanoEffect_34EE0(/*signed int a1, int a2, */type_entity_0x6E8E* a3
 						}
 						v25 = i;
 						v26 = mapHeightmap_11B4E0[i];
-						if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[i] > v26)
+						if ((unsigned __int8)secondHeightmap_14B4E0[i] > v26)
 						{
 							mapAngle_13B4E0[i] &= 0xF7u;
 						}
 						else
 						{
 							v27 = mapAngle_13B4E0[i] | 8;
-							x_BYTE_14B4E0_second_heightmap[i] = v26 - 1;
+							secondHeightmap_14B4E0[i] = v26 - 1;
 							mapAngle_13B4E0[v25] = v27;
 						}
 					}
@@ -25543,7 +25543,7 @@ void UpdateEffectUntilWater_352C0(type_entity_0x6E8E* a1x)//2162c0
 	if (!SpawnAroundEntity_572C0(a1x, 0, 1024, a1x->rand_0x14_20 % 0xFu + 10, 0))
 	{
 		SendMailToOverlappingEntities_10C80(a1x, 0, a1x->subSpellIndex_0x2A_42);
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 10);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 10);
 	}
 	MoveEntity_57FA0(&a1x->position_0x4C_76, a1x->yaw_0x1C_28, 0, a1x->actSpeed_0x82_130);
 }
@@ -25569,7 +25569,7 @@ void UpdatePortal_35390(type_entity_0x6E8E* a1x)//216390
 	if (!(a1x->flags_0xc_12_15.byte[0] & 2))
 	{
 		a1x->flags_0xc_12_15.byte[0] |= 2u;
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 21);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 21);
 	}
 	v2 = a1x->life_0x8;
 	if (v2 <= 0 || (a1x->life_0x8 = v2 - 1, v2 != 1))
@@ -25578,10 +25578,10 @@ void UpdatePortal_35390(type_entity_0x6E8E* a1x)//216390
 		for (i = 0; ; i++)
 		{
 			v9 = &a1x->position_0x4C_76;
-			if (D41A0_0.NumberOfPlayers_0xe <= i)
+			if (world_D41A0.NumberOfPlayers_0xe <= i)
 				break;
-			v4x = Entities_EA3E4[D41A0_0.players_0x2BDE[v3x].playerIndex_0x00a_2BE4_11240];
-			if (EntitiesOverlap_106C0(a1x, Entities_EA3E4[D41A0_0.players_0x2BDE[v3x].playerIndex_0x00a_2BE4_11240]))
+			v4x = Entities_EA3E4[world_D41A0.players_0x2BDE[v3x].playerIndex_0x00a_2BE4_11240];
+			if (EntitiesOverlap_106C0(a1x, Entities_EA3E4[world_D41A0.players_0x2BDE[v3x].playerIndex_0x00a_2BE4_11240]))
 			{
 				v5 = Maths::GetYawAngle_581E0(&v4x->position_0x4C_76, v9);
 				if ((unsigned __int16)AngleDifference_582B0(v4x->yaw_0x1C_28, v5) < 0xAAu)
@@ -25590,7 +25590,7 @@ void UpdatePortal_35390(type_entity_0x6E8E* a1x)//216390
 					v7 = GetTerrainAlt_10C40(&a1x->axis_0x9A_154x);
 					//v8 = x_D41A0_BYTEARRAY_0;
 					a1x->axis_0x9A_154x.z = a1x->typeParams_0xA0_160x->minHeight_160_0xc_12 + v7;
-					PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 22);
+					PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 22);
 					CopyEntityPosition_57CF0(v4x, &a1x->axis_0x9A_154x);
 					SetLocalPaletteSubMode_5C800(v4x, 6);
 				}
@@ -25603,7 +25603,7 @@ void UpdatePortal_35390(type_entity_0x6E8E* a1x)//216390
 	else
 	{
 		DisableEntityDrawing04_57F10(a1x);
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 20);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 20);
 	}
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -25725,7 +25725,7 @@ void UpdateThunderball_35640(type_entity_0x6E8E* a1x)//216640
 					v9x->levelPar2_0x44_68 = 23;
 					v9x->subSpellIndex_0x2A_42 = v10;
 					if (!v11)
-						PrepareEventSound_6E450(v9x - D41A0_0.entities_0x6E8E, -1, 23);
+						PrepareEventSound_6E450(v9x - world_D41A0.entities_0x6E8E, -1, 23);
 				}
 				v11++;
 			} while (v11 < 2);
@@ -25762,7 +25762,7 @@ void UpdateSkeletonSpawn_357C0(type_entity_0x6E8E* a1x)//2167c0
 		if (v1 > 8)
 			v1 = 8;
 		v2 = 0;
-		for (ix = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[36 / 4]; ix > Entities_EA3E4[0]; ix = ix->next_0)
+		for (ix = gameState_D41A4.creatureLists_38403x[36 / 4]; ix > Entities_EA3E4[0]; ix = ix->next_0)
 		{
 			if (ix->playerEntityIndex_0x94_148 == a1x->id_0x1A_26)
 				v2++;
@@ -26308,7 +26308,7 @@ void UpdateManaSphere_35FB0(type_entity_0x6E8E* a1x)//216FB0
 						a1x->param2_0x2C_44 = 0;
 						v16x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 5);
 						if (v16x)
-							PrepareEventSound_6E450(v16x - D41A0_0.entities_0x6E8E, -1, 27);
+							PrepareEventSound_6E450(v16x - world_D41A0.entities_0x6E8E, -1, 27);
 					}
 					else
 					{
@@ -26478,12 +26478,12 @@ void ManaSphereShootFireball_36770(type_entity_0x6E8E* a1x)//217770
 		v1x->pitch_0x1E_30 = v1x->fov_0x22_34;
 		v1x->position_0x4C_76.z += a1x->params_0x52_82.fov;
 		v1x->subSpellIndex_0x2A_42 = a1x->subSpellIndex_0x2A_42;
-		PrepareEventSound_6E450(v1x - D41A0_0.entities_0x6E8E, -1, 9);
+		PrepareEventSound_6E450(v1x - world_D41A0.entities_0x6E8E, -1, 9);
 		if (TerrainTileIsWater_104D0(&v1x->position_0x4C_76) == 1)
 		{
 			v3x = CreateEntity_4A190(&a1x->position_0x4C_76, 10, 5);
 			if (v3x)
-				PrepareEventSound_6E450(v3x - D41A0_0.entities_0x6E8E, -1, 27);
+				PrepareEventSound_6E450(v3x - world_D41A0.entities_0x6E8E, -1, 27);
 		}
 	}
 }
@@ -26642,8 +26642,8 @@ void UpdatePlayerDeathEffect_36AE0(type_entity_0x6E8E* a1x)//217ae0
 		{
 			for (ix = Entities_EA3E4[1]; ix < Entities_EA3E4[1000]; ix++)
 			{
-				if (a1x - D41A0_0.entities_0x6E8E == ix->playerEntityIndex_0x94_148)
-					ix->playerEntityIndex_0x94_148 = v3x - D41A0_0.entities_0x6E8E;
+				if (a1x - world_D41A0.entities_0x6E8E == ix->playerEntityIndex_0x94_148)
+					ix->playerEntityIndex_0x94_148 = v3x - world_D41A0.entities_0x6E8E;
 			}
 		}
 		a1x->mail_0x5E_94.channel[1].source = 0;
@@ -26749,7 +26749,7 @@ void MergeManaSpheres_36D50(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//2
 		if (v3x->class_0x3F_63 == 10)
 		{
 			a1x->mana_0x90_144 += a2x->mana_0x90_144;
-			v6 = v4x - D41A0_0.entities_0x6E8E;
+			v6 = v4x - world_D41A0.entities_0x6E8E;
 		LABEL_22:
 			a1x->playerEntityIndex_0x94_148 = v6;
 			return ReleaseEntity_57F20(a2x);
@@ -26759,7 +26759,7 @@ void MergeManaSpheres_36D50(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//2
 			//v7 = a2x->dword_0x90_144 + a1x->dword_0x90_144;
 			//v8 = v3x-D41A0_BYTESTR_0.struct_0x6E8E;
 			//v9 = v8;
-			v6 = v3x - D41A0_0.entities_0x6E8E;
+			v6 = v3x - world_D41A0.entities_0x6E8E;
 		}
 		else
 		{
@@ -26771,13 +26771,13 @@ void MergeManaSpheres_36D50(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//2
 			if (v3x->maxMana_0x8C_140 > v4x->maxMana_0x8C_140)
 			{
 				a1x->mana_0x90_144 += a2x->mana_0x90_144;
-				v6 = v3x - D41A0_0.entities_0x6E8E;
+				v6 = v3x - world_D41A0.entities_0x6E8E;
 				goto LABEL_22;
 			}
 			//v7 = a2x->dword_0x90_144 + a1x->dword_0x90_144;
 			//v9 = (uint8_t*)v4x - (&x_D41A0_BYTEARRAY_0[2288330022]);
 			//v8 = v9;
-			v6 = v4x - D41A0_0.entities_0x6E8E;
+			v6 = v4x - world_D41A0.entities_0x6E8E;
 		}
 		//LODWORD(v11) = v9;
 		//HIDWORD(v11) = v8 >> 31;
@@ -26874,12 +26874,12 @@ void UpdateManaSphereMovement_36FC0(type_entity_0x6E8E* a1x)//217fc0
 	//result = 0;v3 = 0;v4 = 0;v17 = 0;  //fix it
 	if (!result)
 	{
-		if (x_WORD_180660_VGA_type_resolution == 1)
+		if (videoMode_180660 == 1)
 		{
 			v3 >>= 1;
 			v4 >>= 1;
 		}
-		if (isCaveLevel_D41B6 && !(str_D93C0_bldgprmbuffer[v1].flags_2 & 4))
+		if (isCaveLevel_D41B6 && !(buildingParams_D93C0[v1].flags_2 & 4))
 			v29 = 1;
 		v27x._axis_2d.x = v26 - (v4 >> 1);
 		v27x._axis_2d.y = v28 - (v3 >> 1);
@@ -26914,17 +26914,17 @@ void UpdateManaSphereMovement_36FC0(type_entity_0x6E8E* a1x)//217fc0
 					v11 = v10 + 80;
 					if (v11 > 255)
 						v11 = 255;
-					if (v11 > (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v6x.word])
-						x_BYTE_14B4E0_second_heightmap[v6x.word] = v11;
+					if (v11 > (unsigned __int8)secondHeightmap_14B4E0[v6x.word])
+						secondHeightmap_14B4E0[v6x.word] = v11;
 					v12 = mapHeightmap_11B4E0[v6x.word];
-					if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v6x.word] > v12)
+					if ((unsigned __int8)secondHeightmap_14B4E0[v6x.word] > v12)
 					{
 						mapAngle_13B4E0[v6x.word] &= 0xF7u;
 					}
 					else
 					{
 						v13 = mapAngle_13B4E0[v6x.word] | 8;
-						x_BYTE_14B4E0_second_heightmap[v6x.word] = v12 - 1;
+						secondHeightmap_14B4E0[v6x.word] = v12 - 1;
 						mapAngle_13B4E0[v6x.word] = v13;
 					}
 				}
@@ -26966,7 +26966,7 @@ void UpdateManaSphereMovement_36FC0(type_entity_0x6E8E* a1x)//217fc0
 }
 // D41B6: using guessed type char x_BYTE_D41B6;
 // EA3BC: using guessed type int **filearray_2aa18c[24];
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
+// 180660: using guessed type __int16 videoMode_180660;
 
 int debugcounter_218240 = 0;
 
@@ -27036,12 +27036,12 @@ void ApplyTerrainModification_37240(type_entity_0x6E8E* event)//218240
 		v3 = v2.height_5;
 		v26 = v2.data;
 		v4 = v2.width_4;
-		if (x_WORD_180660_VGA_type_resolution == 1)
+		if (videoMode_180660 == 1)
 		{
 			v3 >>= 1;
 			v4 >>= 1;
 		}
-		if (isCaveLevel_D41B6 && !(str_D93C0_bldgprmbuffer[event->levelPar3_0x46_70].flags_2 & 4))
+		if (isCaveLevel_D41B6 && !(buildingParams_D93C0[event->levelPar3_0x46_70].flags_2 & 4))
 			v50 = 1;
 		v22 = v3 >> 1;
 		event->life_0x8--;
@@ -27149,17 +27149,17 @@ void ApplyTerrainModification_37240(type_entity_0x6E8E* event)//218240
 						v9 = v8 + 80;
 						if (v9 > 255)
 							v9 = 255;
-						v10 = x_BYTE_14B4E0_second_heightmap[v46x.word];
+						v10 = secondHeightmap_14B4E0[v46x.word];
 						if (v9 > v10)
-							x_BYTE_14B4E0_second_heightmap[v46x.word] = v10 + (uint32_t)((v9 - v10) / event->life_0x8);
+							secondHeightmap_14B4E0[v46x.word] = v10 + (uint32_t)((v9 - v10) / event->life_0x8);
 						v11 = mapHeightmap_11B4E0[v46x.word];
-						if (x_BYTE_14B4E0_second_heightmap[v46x.word] > v11)
+						if (secondHeightmap_14B4E0[v46x.word] > v11)
 						{
 							mapAngle_13B4E0[v46x.word] &= 0xF7u;
 						}
 						else
 						{
-							x_BYTE_14B4E0_second_heightmap[v46x.word] = v11 - 1;
+							secondHeightmap_14B4E0[v46x.word] = v11 - 1;
 							mapAngle_13B4E0[v46x.word] |= 8u;
 						}
 					}
@@ -27224,12 +27224,12 @@ void ApplyTerrainModification_37240(type_entity_0x6E8E* event)//218240
 // D41B6: using guessed type char x_BYTE_D41B6;
 // EA3BC: using guessed type int **filearray_2aa18c[24];
 // EA3E4: using guessed type int Entities_EA3E4[];
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
+// 180660: using guessed type __int16 videoMode_180660;
 
 //----- (00037740) --------------------------------------------------------
 bool IsCastleEffect42At_37740(type_entity_0x6E8E* event)//218740
 {
-	type_entity_0x6E8E* event2 = x_D41A0_BYTEARRAY_4_struct.miscList_38535;
+	type_entity_0x6E8E* event2 = gameState_D41A4.miscList_38535;
 	if (event2 <= Entities_EA3E4[0])
 		return false;
 	while (event2->class_0x3F_63 != 0xA || event2->model_0x40_64 != 0x2A || !CompareAxisWithShift_10750(event, event2))
@@ -27246,7 +27246,7 @@ void DamageOverlappingWizards_377A0(type_entity_0x6E8E* a1x)//2187a0
 {
 	type_entity_0x6E8E* ix; // ebx
 
-	for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+	for (ix = gameState_D41A4.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (CompareAxisWithShift_10750(a1x, ix))
 			SpawnCastleEffect42_5FBD0(ix);
@@ -27285,28 +27285,28 @@ void UpdateCastleEffect41_377F0(type_entity_0x6E8E* a1x)//2187f0
 
 	LOBYTE(v1) = (unsigned __int16)(a1x->position_0x4C_76.x + 128) >> 8;
 	HIBYTE(v1) = (unsigned __int16)(a1x->position_0x4C_76.y + 128) >> 8;
-	/* if ( x_WORD_180660_VGA_type_resolution == 1 )
+	/* if ( videoMode_180660 == 1 )
 	   v2 = (signed int)*(unsigned __int8 *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 4) >> 1;
 	 else
 	   v2 = *(unsigned __int8 *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 4);
 	 v3 = v2;
-	 if ( x_WORD_180660_VGA_type_resolution == 1 )
+	 if ( videoMode_180660 == 1 )
 	   v4 = (signed int)*(unsigned __int8 *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 5) >> 1;
 	 else
 	   v4 = *(unsigned __int8 *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 5);
 	 v5 = v4;*/
 	// BUILD00 table (dword_EA3BC): 0x21883A
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (videoMode_180660 == 1)
 		v3 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a1x->levelPar3_0x46_70].width_4 >> 1;
 	else
 		v3 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a1x->levelPar3_0x46_70].width_4;
 	//v3 = v2;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (videoMode_180660 == 1)
 		v5 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a1x->levelPar3_0x46_70].height_5 >> 1;
 	else
 		v5 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a1x->levelPar3_0x46_70].height_5;
 	//v5 = v4;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (videoMode_180660 == 1)
 	{
 		v5 >>= 1;
 		v3 >>= 1;
@@ -27345,13 +27345,13 @@ void UpdateCastleEffect41_377F0(type_entity_0x6E8E* a1x)//2187f0
 						mapHeightmap_11B4E0[v14] = v16;
 						if (isCaveLevel_D41B6)
 						{
-							if (v16 < (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v14])
+							if (v16 < (unsigned __int8)secondHeightmap_14B4E0[v14])
 							{
 								mapAngle_13B4E0[v14] &= 0xF7u;
 							}
 							else
 							{
-								x_BYTE_14B4E0_second_heightmap[v14] = v16 - 1;
+								secondHeightmap_14B4E0[v14] = v16 - 1;
 								mapAngle_13B4E0[v14] |= 8u;
 							}
 						}
@@ -27397,13 +27397,13 @@ void UpdateCastleEffect41_377F0(type_entity_0x6E8E* a1x)//2187f0
 						mapHeightmap_11B4E0[(unsigned __int16)v8] = v19;
 						if (isCaveLevel_D41B6)
 						{
-							if (v19 < (unsigned __int8)x_BYTE_14B4E0_second_heightmap[(unsigned __int16)v8])
+							if (v19 < (unsigned __int8)secondHeightmap_14B4E0[(unsigned __int16)v8])
 							{
 								mapAngle_13B4E0[(unsigned __int16)v8] &= 0xF7u;
 							}
 							else
 							{
-								x_BYTE_14B4E0_second_heightmap[(unsigned __int16)v8] = v19 - 1;
+								secondHeightmap_14B4E0[(unsigned __int16)v8] = v19 - 1;
 								mapAngle_13B4E0[(unsigned __int16)v8] |= 8u;
 							}
 						}
@@ -27488,7 +27488,7 @@ void UpdateCastleEffect42_37BC0(type_entity_0x6E8E* a1x)//218bc0 // groove castl
 	char v49; // [esp+54h] [ebp-4h]
 	char v50; // [esp+54h] [ebp-4h]
 
-	v30 = x_DWORD_E9C38_smalltit;
+	v30 = smalltitBuffer_E9C38;
 	if (!(a1x->flags_0xc_12_15.byte[0] & 0x2))
 	{
 		a1x->param_0x10_16 = 0x13;
@@ -27507,12 +27507,12 @@ void UpdateCastleEffect42_37BC0(type_entity_0x6E8E* a1x)//218bc0 // groove castl
 			}//fix
 			else//fix
 			{
-				if (x_WORD_180660_VGA_type_resolution == 1)
+				if (videoMode_180660 == 1)
 					v23 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a1x->levelPar3_0x46_70].width_4 >> 1;
 				else
 					v23 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a1x->levelPar3_0x46_70].width_4;
 
-				if (x_WORD_180660_VGA_type_resolution == 1)
+				if (videoMode_180660 == 1)
 					v25 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a1x->levelPar3_0x46_70].height_5 >> 1;
 				else
 					v25 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a1x->levelPar3_0x46_70].height_5;
@@ -27572,12 +27572,12 @@ void UpdateCastleEffect42_37BC0(type_entity_0x6E8E* a1x)//218bc0 // groove castl
 				}//fix
 				else//fix
 				{
-					if (x_WORD_180660_VGA_type_resolution == 1)
+					if (videoMode_180660 == 1)
 						v3 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a1x->levelPar3_0x46_70].width_4 >> 1;
 					else
 						v3 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a1x->levelPar3_0x46_70].width_4;
 
-					if (x_WORD_180660_VGA_type_resolution == 1)
+					if (videoMode_180660 == 1)
 						v4 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a1x->levelPar3_0x46_70].height_5 >> 1;
 					else
 						v4 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a1x->levelPar3_0x46_70].height_5;
@@ -27592,12 +27592,12 @@ void UpdateCastleEffect42_37BC0(type_entity_0x6E8E* a1x)//218bc0 // groove castl
 				memset((void*)v30, 0, 2 * v4 * v36);
 				for (i = 1; i <= a1x->levelPar3_0x46_70; i++)
 				{
-					if (x_WORD_180660_VGA_type_resolution == 1)
+					if (videoMode_180660 == 1)
 						v6 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[i].width_4 >> 1;
 					else
 						v6 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[i].width_4;
 					v31 = v6;
-					if (x_WORD_180660_VGA_type_resolution == 1)
+					if (videoMode_180660 == 1)
 						v7 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[i].height_5 >> 1;
 					else
 						v7 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[i].height_5;
@@ -27672,17 +27672,17 @@ void UpdateCastleEffect42_37BC0(type_entity_0x6E8E* a1x)//218bc0 // groove castl
 							v20 = v19 + 100;
 							if (v20 > 255)
 								v20 = 255;
-							v21 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[jx.word];
+							v21 = (unsigned __int8)secondHeightmap_14B4E0[jx.word];
 							if (v20 > v21)
-								x_BYTE_14B4E0_second_heightmap[jx.word] += (v20 - v21) / a1x->param_0x10_16;
+								secondHeightmap_14B4E0[jx.word] += (v20 - v21) / a1x->param_0x10_16;
 							v22 = mapHeightmap_11B4E0[jx.word];
-							if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[jx.word] > v22)
+							if ((unsigned __int8)secondHeightmap_14B4E0[jx.word] > v22)
 							{
 								mapAngle_13B4E0[jx.word] &= 0xF7u;
 							}
 							else
 							{
-								x_BYTE_14B4E0_second_heightmap[jx.word] = v22 - 1;
+								secondHeightmap_14B4E0[jx.word] = v22 - 1;
 								mapAngle_13B4E0[jx.word] |= 8u;
 							}
 						}
@@ -27699,7 +27699,7 @@ void UpdateCastleEffect42_37BC0(type_entity_0x6E8E* a1x)//218bc0 // groove castl
 					int sizecpy = 2 * v4 * v36;//fix for debug
 					if (sizeof(type_E9C38_smalltit) * 40 * 21 < sizecpy)//fix for debug
 						sizecpy = sizeof(type_E9C38_smalltit) * 40 * 21;//fix for debug
-					memcpy(Str_E9C38_smalltit, x_DWORD_E9C38_smalltit, sizecpy);//fix for debug
+					memcpy(terrainTiles_E9C38, smalltitBuffer_E9C38, sizecpy);//fix for debug
 				}
 
 			}
@@ -27789,7 +27789,7 @@ int UpdateHouse_38330(type_entity_0x6E8E* event)//219330 //tex 96
 		{
 			v3 = event->levelPar3_0x46_70;
 			event->param_0x10_16 = v2 - 1;
-			if (v3 >= 0 && str_D93C0_bldgprmbuffer[v3].flags_2 & 1)//219378 movsx eax,byte ptr [ebx+46h]
+			if (v3 >= 0 && buildingParams_D93C0[v3].flags_2 & 1)//219378 movsx eax,byte ptr [ebx+46h]
 			{
 				predictedAxis_EB398ar = event->position_0x4C_76;
 				predictedAxis_EB398ar.x += event->params_0x52_82.pitch;
@@ -27840,7 +27840,7 @@ int UpdateHouse_38330(type_entity_0x6E8E* event)//219330 //tex 96
 	}
 	if (!(event->instanceIndex_0x3E_62 & 0x1F))
 	{
-		if (event->levelPar3_0x46_70 >= 0 && str_D93C0_bldgprmbuffer[event->levelPar3_0x46_70].flags_2 & 1)//2194FC movsx
+		if (event->levelPar3_0x46_70 >= 0 && buildingParams_D93C0[event->levelPar3_0x46_70].flags_2 & 1)//2194FC movsx
 		{
 			v9 = event->minSpeed_0x84_132;
 			if (v9 > 5 && v9 == event->param_0x10_16)
@@ -27858,7 +27858,7 @@ int UpdateHouse_38330(type_entity_0x6E8E* event)//219330 //tex 96
 			}
 		}
 	}
-	if (event->levelPar3_0x46_70 >= 0 && str_D93C0_bldgprmbuffer[event->levelPar3_0x46_70].flags_2 & 1)//219585 movsx
+	if (event->levelPar3_0x46_70 >= 0 && buildingParams_D93C0[event->levelPar3_0x46_70].flags_2 & 1)//219585 movsx
 		SetMaxDistance_5C8D0(event);
 	result = GetTerrainAlt_10C40(&event->position_0x4C_76);
 	event->position_0x4C_76.z = result;
@@ -27878,7 +27878,7 @@ void RemoveCastleStage_385C0(type_entity_0x6E8E* event)//2195c0 //remove castle 
 	uint8_t* locData = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[event->levelPar3_0x46_70].data;
 	unsigned int locHeight = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[event->levelPar3_0x46_70].height_5;
 	unsigned int locWidth = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[event->levelPar3_0x46_70].width_4;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (videoMode_180660 == 1)
 	{
 		locHeight >>= 1;
 		locWidth >>= 1;
@@ -27910,7 +27910,7 @@ void RemoveCastleStage_385C0(type_entity_0x6E8E* event)//2195c0 //remove castle 
 					if (event->param_0x10_16 > 0)
 					{
 						event->param_0x10_16--;
-						if (str_D93C0_bldgprmbuffer[event->levelPar3_0x46_70].flags_2 & 1)
+						if (buildingParams_D93C0[event->levelPar3_0x46_70].flags_2 & 1)
 						{
 							if (event->param_0x10_16)
 							{
@@ -27971,7 +27971,7 @@ void RemoveCastleStage_385C0(type_entity_0x6E8E* event)//2195c0 //remove castle 
 			ResetLevelState_4A1E0(event->xtype_0x41_65, 1);
 		if (event->levelPar3_0x46_70 == 68)
 		{
-			D41A0_0.buildingCheckEntity_0x3654A = 0;
+			world_D41A0.buildingCheckEntity_0x3654A = 0;
 			DisableEntityDrawing04_57F10(event);
 			return;
 		}
@@ -28110,7 +28110,7 @@ int UpdateProjectileTrail_38B90(type_entity_0x6E8E* a1x)//219b90
 		a1x->flags_0xc_12_15.dword |= 0x10002;
 		//a1x->byte_0xc_12 |= 0x02;
 		//a1x->byte_0xe_14 |= 0x1;
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 30);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 30);
 	}
 	SetEntityShiftRot_49EA0(
 		a1x,
@@ -28167,7 +28167,7 @@ unsigned int UpdateProjectileTimeout_38D80(type_entity_0x6E8E* a1x)//219d80
 		DisableEntityDrawing04_57F10(a1x);
 		return 0;
 	}
-	for (ix = x_D41A0_BYTEARRAY_4_struct.manaSphereList_38523; ix > Entities_EA3E4[0]; ix = ix->next_0)
+	for (ix = gameState_D41A4.manaSphereList_38523; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (!ix->mail_0x5E_94.channel[4].source)
 		{
@@ -28177,7 +28177,7 @@ unsigned int UpdateProjectileTimeout_38D80(type_entity_0x6E8E* a1x)//219d80
 				v3 = Maths::IntegerSqrt_7277A(result);
 				if (v3 > 0x2A)
 					v3 = 42;
-				result = a1x - D41A0_0.entities_0x6E8E;
+				result = a1x - world_D41A0.entities_0x6E8E;
 				ix->mail_0x5E_94.channel[4].amount.word[0] = LOWORD(v3);
 				ix->mail_0x5E_94.channel[4].amount.word[1] = HIWORD(v3);
 				ix->mail_0x5E_94.channel[4].source = result;
@@ -28316,7 +28316,7 @@ void UpdateLightning_39040(type_entity_0x6E8E* a1x)//21a040
 	v54 = 0;
 	//LOBYTE(v1) = a1;
 	v2 = a1x->life_0x8 - 1;
-	x_DWORD_E9B90 = 0;
+	hitCounter_E9B90 = 0;
 	a1x->life_0x8 = v2;
 	if (v2 <= 0)
 	{
@@ -28356,7 +28356,7 @@ void UpdateLightning_39040(type_entity_0x6E8E* a1x)//21a040
 				a1x->mana_0x90_144 = 0;
 				a1x->levelPar3_0x46_70 = 2;
 				a1x->param_0x10_16 = 12;
-				PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 64);
+				PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 64);
 				goto LABEL_11;
 			case 2u:
 			LABEL_11:
@@ -28414,11 +28414,11 @@ void UpdateLightning_39040(type_entity_0x6E8E* a1x)//21a040
 									v50 = v12 + 64;
 									if (v12 + 64 > 254)
 										v50 = 254;
-									v14 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v8x.word];
-									v15 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v8x.word];
+									v14 = (unsigned __int8)secondHeightmap_14B4E0[v8x.word];
+									v15 = (unsigned __int8)secondHeightmap_14B4E0[v8x.word];
 									v47x.word = v8x.word;
 									v50 = v14 - (v15 - v50) / a1x->param_0x10_16;
-									x_BYTE_14B4E0_second_heightmap[v47x.word] = v50;
+									secondHeightmap_14B4E0[v47x.word] = v50;
 								}
 								v16 = a1x->position_0x4C_76.z;
 								if (v12 <= v16 + 64 && v12 >= v16 + 6 * a1x->param_0x10_16 && IsSpellCastable_57450(mapTerrainType_10B4E0[v8x.word]))
@@ -28447,7 +28447,7 @@ void UpdateLightning_39040(type_entity_0x6E8E* a1x)//21a040
 							{
 								v20 = (v20 & 3) + 28;
 							}
-							if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+							if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 								v21 = 32 - v20 + 32;
 							else
 								LOBYTE(v21) = v20;
@@ -28455,7 +28455,7 @@ void UpdateLightning_39040(type_entity_0x6E8E* a1x)//21a040
 							mapShading_12B4E0[v8x.word] = v21;
 							if (v22)
 							{
-								if (x_BYTE_14B4E0_second_heightmap[v8x.word] > mapHeightmap_11B4E0[v8x.word])
+								if (secondHeightmap_14B4E0[v8x.word] > mapHeightmap_11B4E0[v8x.word])
 									mapAngle_13B4E0[v8x.word] &= 0xF7u;
 								else
 									mapAngle_13B4E0[v8x.word] |= 8u;
@@ -28493,7 +28493,7 @@ void UpdateLightning_39040(type_entity_0x6E8E* a1x)//21a040
 							mapHeightmap_11B4E0[v26x.word] = v27;
 							v28 = a1x->param_0x10_16;
 							v29 = 31 / v28 + 32;
-							if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+							if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 								v29 = -31 / v28 + 32;
 							mapShading_12B4E0[v26x.word] = v29;
 							v26x._axis_2d.x++;
@@ -28541,7 +28541,7 @@ void UpdateLightning_39040(type_entity_0x6E8E* a1x)//21a040
 					v35x._axis_2d.x = v52x._axis_2d.x - 1;
 					while (v37 < 2)
 					{
-						if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+						if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 							v45 = 1;
 						else
 							v45 = 63;
@@ -28566,7 +28566,7 @@ void UpdateLightning_39040(type_entity_0x6E8E* a1x)//21a040
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // D41B6: using guessed type char x_BYTE_D41B6;
 // DBF50: using guessed type void (/*__noreturn*/ *off_DBF50[2])();
-// E9B90: using guessed type int x_DWORD_E9B90;
+// E9B90: using guessed type int hitCounter_E9B90;
 
 //----- (000396A0) --------------------------------------------------------
 void UpdateEarthquake_396A0(type_entity_0x6E8E* a1x)//21a6a0
@@ -28680,7 +28680,7 @@ unsigned __int8 UpdateTremorTiles_396D0(type_entity_0x6E8E* a1x)//21a6d0
 		uaxis_2d temp_v8;
 		temp_v8.word = v8;*/
 		UpdateTerrainTiles_462A0(v7x, v8x);
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 64);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 64);
 	}
 	else if (resulty > 1u)
 	{
@@ -28703,11 +28703,11 @@ unsigned __int8 UpdateTremorTiles_396D0(type_entity_0x6E8E* a1x)//21a6d0
 				v22++;
 				HIBYTE(v21)++;
 			}
-			for (jx = x_D41A0_BYTEARRAY_4_struct.class3List_38519; jx > Entities_EA3E4[0]; jx = jx->next_0)
+			for (jx = gameState_D41A4.class3List_38519; jx > Entities_EA3E4[0]; jx = jx->next_0)
 			{
 				if (jx->model_0x40_64 == 2
 					&& jx->flags_0xc_12_15.byte[2] & 0x10
-					&& jx->hitById_0x26_38 == a1x - D41A0_0.entities_0x6E8E)
+					&& jx->hitById_0x26_38 == a1x - world_D41A0.entities_0x6E8E)
 				{
 					v27 = jx->flags_0xc_12_15.byte[2];
 					jx->hitById_0x26_38 = 0;
@@ -28764,7 +28764,7 @@ unsigned __int8 UpdateTremorTiles_396D0(type_entity_0x6E8E* a1x)//21a6d0
 							v15 = mapHeightmap_11B4E0[v10] + 64;
 							if (v15 > 254)
 								v15 = 254;
-							x_BYTE_14B4E0_second_heightmap[v10] -= ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v10] - v15) / a1x->param_0x10_16;
+							secondHeightmap_14B4E0[v10] -= ((unsigned __int8)secondHeightmap_14B4E0[v10] - v15) / a1x->param_0x10_16;
 						}
 					}
 					LOBYTE(v10)++;
@@ -28785,7 +28785,7 @@ unsigned __int8 UpdateTremorTiles_396D0(type_entity_0x6E8E* a1x)//21a6d0
 					{
 						v18 = (v18 & 3) + 28;
 					}
-					if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+					if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 						v19 = 32 - v18 + 32;
 					else
 						LOBYTE(v19) = v18;
@@ -28793,7 +28793,7 @@ unsigned __int8 UpdateTremorTiles_396D0(type_entity_0x6E8E* a1x)//21a6d0
 					mapShading_12B4E0[v10] = v19;
 					if (v20)
 					{
-						if (x_BYTE_14B4E0_second_heightmap[v10] > mapHeightmap_11B4E0[v10])
+						if (secondHeightmap_14B4E0[v10] > mapHeightmap_11B4E0[v10])
 							mapAngle_13B4E0[v10] &= 0xF7u;
 						else
 							mapAngle_13B4E0[v10] |= 8u;
@@ -28871,7 +28871,7 @@ void ApplyEarthquakeTiles_39B60(type_entity_0x6E8E* a1x)//21ab60
 					{
 						if (v10x->class_0x3F_63 != 3
 							|| v10x->model_0x40_64
-							|| v10x->playerData_0xA4_164x->playerColorIndex_0x38_56 != D41A0_0.LevelIndex_0xc)
+							|| v10x->playerData_0xA4_164x->playerColorIndex_0x38_56 != world_D41A0.LevelIndex_0xc)
 						{
 							v10x->flags_0xc_12_15.byte[0] &= 0xFEu;
 						}
@@ -29136,7 +29136,7 @@ void KillOverlappingEntities_3A090(type_entity_0x6E8E* a1x)//21b909
 	char v11; // [esp+Ch] [ebp-4h]
 
 	v8 = 0;
-	for (ix = x_D41A0_BYTEARRAY_4_struct.buildingList_38527; ix > Entities_EA3E4[0]; ix = ix->next_0)
+	for (ix = gameState_D41A4.buildingList_38527; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (CompareAxisWithShift_10750(a1x, ix))
 		{
@@ -29144,15 +29144,15 @@ void KillOverlappingEntities_3A090(type_entity_0x6E8E* a1x)//21b909
 			ix->fontTypeIndex_0x3D_61 = 0;
 		}
 	}
-	for (jx = x_D41A0_BYTEARRAY_4_struct.class3List_38519; jx > Entities_EA3E4[0]; jx = jx->next_0)
+	for (jx = gameState_D41A4.class3List_38519; jx > Entities_EA3E4[0]; jx = jx->next_0)
 	{
 		if (jx->model_0x40_64 == 2 && CompareAxisWithShift_10750(a1x, jx))
 		{
-			v3 = x_DWORD_E9B90 + 1;
+			v3 = hitCounter_E9B90 + 1;
 			jx->flags_0xc_12_15.byte[2] |= 0x10u;
-			x_DWORD_E9B90 = v3;
+			hitCounter_E9B90 = v3;
 			jx->maxStage_0x30_48 = 30;
-			jx->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+			jx->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 			jx->mail_0x5E_94.channel[0].amount.dword += a1x->subSpellIndex_0x2A_42;
 			v8 += 2;
 			jx->mail_0x5E_94.channel[0].source = a1x->id_0x1A_26;
@@ -29183,7 +29183,7 @@ void KillOverlappingEntities_3A090(type_entity_0x6E8E* a1x)//21b909
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // D41A4: using guessed type int x_DWORD_D41A4;
-// E9B90: using guessed type int x_DWORD_E9B90;
+// E9B90: using guessed type int hitCounter_E9B90;
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (0003A200) --------------------------------------------------------
@@ -29382,7 +29382,7 @@ void UpdateShield_3A2D0(type_entity_0x6E8E* a1x)//21b2d0
 			if (!(a1x->life_0x8 & 3))
 			{
 				SetEntityShiftRot_49EA0(a1x, (x_WORD)v6 << 8, 2048);
-				PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 10);
+				PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 10);
 				v15 = SendMailToOverlappingEntities_10C80(a1x, 0, a1x->subSpellIndex_0x2A_42);
 				if (v15)
 					SendSpellMessage_6D8B0(a1x->id_0x1A_26, 0xFu, v15);
@@ -29480,7 +29480,7 @@ int FollowTargetEntity_3A650(type_entity_0x6E8E* a1x)//21b650
 							&& v6x->model_0x40_64 == v1x->model_0x40_64
 							&& IsCreatureAffectable_3A7F0(v6x))
 						{
-							PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 6);
+							PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 6);
 							v6x->StageVar2_0x49_73 = 14;
 							v4 = v6x->StageVar1_0x48_72;
 							v6x->StageVar1_0x48_72 = 0;
@@ -29608,7 +29608,7 @@ void UpdatePossessedCreature_3A8B0(type_entity_0x6E8E* entity)//21b8b0
 		entity->life_0x8--;
 		if (entity->life_0x8 <= 0)
 			entity->levelPar3_0x46_70 = 6;
-		if (D41A0_0.LevelIndex_0xc == entity8->playerData_0xA4_164x->playerColorIndex_0x38_56)
+		if (world_D41A0.LevelIndex_0xc == entity8->playerData_0xA4_164x->playerColorIndex_0x38_56)
 		{
 			entity->flags_0xc_12_15.byte[0] &= 0xFEu;
 			if (entity->param3_0x36_54 != 0xFFFF)
@@ -29616,7 +29616,7 @@ void UpdatePossessedCreature_3A8B0(type_entity_0x6E8E* entity)//21b8b0
 		}
 		else if (!(entity->instanceIndex_0x3E_62 & 7))
 		{
-			type_entity_0x6E8E* entity3 = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[12]];
+			type_entity_0x6E8E* entity3 = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[12]];
 			if (entity3 > Entities_EA3E4[0] && entity3->stage_0x2E_46 && entity3->levelPar3_0x46_70 >= 2)
 				entity->flags_0xc_12_15.byte[0] &= 0xFEu;
 			else
@@ -29691,7 +29691,7 @@ void UpdatePossessedCreature_3A8B0(type_entity_0x6E8E* entity)//21b8b0
 		if (!(entity->instanceIndex_0x3E_62 & 0xF))
 		{
 			uint32_t nearestDistance = 0x10000;
-			for (type_entity_0x6E8E* entity4 = x_D41A0_BYTEARRAY_4_struct.class3List_38519; entity4 > Entities_EA3E4[0]; entity4 = entity4->next_0)
+			for (type_entity_0x6E8E* entity4 = gameState_D41A4.class3List_38519; entity4 > Entities_EA3E4[0]; entity4 = entity4->next_0)
 			{
 				if (entity4->model_0x40_64 <= 1u && entity4 != entity8)
 				{
@@ -29706,7 +29706,7 @@ void UpdatePossessedCreature_3A8B0(type_entity_0x6E8E* entity)//21b8b0
 			if (entity6)
 			{
 				entity->levelPar3_0x46_70 = 5;
-				entity->targetId_0x96_150 = entity6 - D41A0_0.entities_0x6E8E;
+				entity->targetId_0x96_150 = entity6 - world_D41A0.entities_0x6E8E;
 			}
 		}
 		return;
@@ -30003,7 +30003,7 @@ void CastleDefendEvent_3AF00(type_entity_0x6E8E* a1x)//21bf00 //tex 55
 		{
 			v17x->id_0x1A_26 = a1x->id_0x1A_26;
 			v17x->targetId_0x96_150 = a1x->targetId_0x96_150;
-			if (v38x->playerData_0xA4_164x->playerColorIndex_0x38_56 == D41A0_0.LevelIndex_0xc && !v40)
+			if (v38x->playerData_0xA4_164x->playerColorIndex_0x38_56 == world_D41A0.LevelIndex_0xc && !v40)
 				SetEntityIndex_49C90(v17x, 42);
 			AimAtEntity_655C0(v3.un_0x6E8E, v16x);
 			v3.un_0x6E8E->yaw_0x1C_28 = v3.un_0x6E8E->roll_0x20_32;
@@ -30102,7 +30102,7 @@ LABEL_33:
 		LABEL_28:
 			if (v39)
 			{
-				v10 = ix - D41A0_0.entities_0x6E8E;
+				v10 = ix - world_D41A0.entities_0x6E8E;
 				a1x->levelPar3_0x46_70 = 4;
 				a1x->targetId_0x96_150 = v10;
 			}
@@ -30232,7 +30232,7 @@ void FillD4350Table_3B4D0(int a1)//21c4d0
 /*
 int8_t* x_DWORD_D9F50ar_ret(uint32_t adress) {
 	if (adress >= 0x4400) return (int8_t*)&x_WORD_DE350[(adress - 0x4400)/2];
-	if (adress >= 0x4000) return (int8_t*)& x_DWORD_DDF50_texture_adresses[(adress - 0x4000)/4];
+	if (adress >= 0x4000) return (int8_t*)& textureAddresses_DDF50[(adress - 0x4000)/4];
 	//if (adress >= 0x2000) return (int8_t*)&off_DBF50[(adress - 0x2000)/4];
 	if (adress >= 0x1800) return (int8_t*)&Maths::x_DWORD_DB750[(adress - 0x1800)/4];
 	//if (adress >= 0x1400) return &x_DWORD_D9F50ar[0x800+0x800+(adress - 0x1400)];
@@ -30243,7 +30243,7 @@ int8_t* x_DWORD_D9F50ar_ret(uint32_t adress) {
 /*
 int8_t* x_DWORD_DA750ar_ret(uint32_t adress) {
 	if (adress >= 0x3c00) return (int8_t*)&x_WORD_DE350[(adress - 0x3c00)/2];
-	if (adress >= 0x3800) return (int8_t*)&x_DWORD_DDF50_texture_adresses[(adress - 0x3800)/4];
+	if (adress >= 0x3800) return (int8_t*)&textureAddresses_DDF50[(adress - 0x3800)/4];
 	//if (adress >= 0x1800) return (int8_t*)&off_DBF50[(adress - 0x1800)/4];
 	if (adress >= 0x1000) return (int8_t*)&Maths::x_DWORD_DB750[(adress - 0x1000)/4];
 	//if (adress >= 0xc00) return &x_DWORD_D9F50ar[0x800+0x800 + (adress - 0xc00)];
@@ -30253,7 +30253,7 @@ int8_t* x_DWORD_DA750ar_ret(uint32_t adress) {
 */
 /*int8_t* x_DWORD_DAF50ar_ret(uint32_t adress) {
 	if (adress >= 0x3400) return (int8_t*)&x_WORD_DE350[(adress - 0x3400) / 2];
-	if (adress >= 0x3000) return (int8_t*)&x_DWORD_DDF50_texture_adresses[(adress - 0x3000) / 4];
+	if (adress >= 0x3000) return (int8_t*)&textureAddresses_DDF50[(adress - 0x3000) / 4];
 	//if (adress >= 0x1000) return (int8_t*)&off_DBF50[(adress - 0x1000) / 4];
 	if (adress >= 0x800) return (int8_t*)&Maths::x_DWORD_DB750[(adress - 0x800) / 4];
 	//if (adress >= 0x400) return &x_DWORD_D9F50ar[0x800+0x800+(adress - 0x400)];
@@ -30262,7 +30262,7 @@ int8_t* x_DWORD_DA750ar_ret(uint32_t adress) {
 /*
 int8_t* x_DWORD_DB750ar_ret(uint32_t adress) {
 	if (adress >= 0x2c00) return (int8_t*)&x_WORD_DE350[(adress - 0x2c00) / 2];
-	if (adress >= 0x2800) return (int8_t*)&x_DWORD_DDF50_texture_adresses[(adress - 0x2800) / 4];
+	if (adress >= 0x2800) return (int8_t*)&textureAddresses_DDF50[(adress - 0x2800) / 4];
 	//if (adress >= 0x800) return (int8_t*)&off_DBF50[(adress - 0x800) / 4];
 	return (int8_t*)&Maths::x_DWORD_DB750[adress/4];
 }*/
@@ -30281,19 +30281,19 @@ int8_t* x_DWORD_DBF50ar_ret(uint32_t adress) {
 // DE560: using guessed type int iScreenWidth;
 // DE564: using guessed type int iViewPortWidth;
 // DE568: using guessed type int iViewPortHeight;
-// E9C38: using guessed type int x_DWORD_E9C38_smalltit;
-// F2C84: using guessed type int str_F2C20ar.dword0x19;
-// F2C88: using guessed type int str_F2C20ar.dword0x1a;
-// F2C8C: using guessed type int str_F2C20ar.dword0x1b;
-// F2C90: using guessed type int str_F2C20ar.dword0x1c;
-// F2C94: using guessed type int str_F2C20ar.dword0x1d;
-// F2C98: using guessed type int str_F2C20ar.dword0x1e;
-// F2C9C: using guessed type int str_F2C20ar.dword0x1f;
-// F2CA4: using guessed type int str_F2C20ar.dword0x21;
-// F2CAC: using guessed type int str_F2C20ar.dword0x23;
-// F2CB4: using guessed type int str_F2C20ar.dword0x25;
-// F2CB8: using guessed type int str_F2C20ar.dword0x26;
-// F2CBC: using guessed type int str_F2C20ar.dword0x27;
+// E9C38: using guessed type int smalltitBuffer_E9C38;
+// F2C84: using guessed type int spriteRender_F2C20.dword0x19;
+// F2C88: using guessed type int spriteRender_F2C20.dword0x1a;
+// F2C8C: using guessed type int spriteRender_F2C20.dword0x1b;
+// F2C90: using guessed type int spriteRender_F2C20.dword0x1c;
+// F2C94: using guessed type int spriteRender_F2C20.dword0x1d;
+// F2C98: using guessed type int spriteRender_F2C20.dword0x1e;
+// F2C9C: using guessed type int spriteRender_F2C20.dword0x1f;
+// F2CA4: using guessed type int spriteRender_F2C20.dword0x21;
+// F2CAC: using guessed type int spriteRender_F2C20.dword0x23;
+// F2CB4: using guessed type int spriteRender_F2C20.dword0x25;
+// F2CB8: using guessed type int spriteRender_F2C20.dword0x26;
+// F2CBC: using guessed type int spriteRender_F2C20.dword0x27;
 
 /*
 8 x_DWORD_D9F50ar[0x800] 800 * 0
@@ -30350,7 +30350,7 @@ int BlitToVgaPlanar_40D10()//221d10//fix vga
 
 	//__outx_WORD(0x3CEu, 0xFF08u);
 	HIWORD(v1) = 0;
-	v30 = (int*)&loc_A0000_vga_buffer;
+	v30 = (int*)&vgaBuffer_A0000;
 	v28 = pdwScreenBuffer_351628;
 	v27 = 200;
 	v29 = ptrMemoryBuffer_E9C3C;
@@ -30545,7 +30545,7 @@ int BlitToVgaPlanar_40D10()//221d10//fix vga
 void BlendAndBlit_40F80()//221f80
 {
 	// ── Half-size blending
-	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 2 && !x_BYTE_D478C) {
+	if (world_D41A0.m_GameSettings.m_Display.m_uiScreenSize == 2 && !screenModeFlag_D478C) {
 		const int stride = (uint16_t)iScreenWidth_DE560;
 		const int width_dwords = (uint16_t)viewPort.Width_DE564 >> 2;
 		const int half_height = (uint16_t)viewPort.Height_DE568 / 2;
@@ -30556,44 +30556,44 @@ void BlendAndBlit_40F80()//221f80
 			uint8_t* d = vp;
 			for (int col = width_dwords; col; col--, s += 4, d += 4) {
 				*(uint32_t*)d =
-					((uint32_t)(x_BYTE_F0520[d[2]] + x_BYTE_F0620[s[2]])) |
-					((uint32_t)(x_BYTE_F0920[d[3]] + x_BYTE_F0220[s[3]]) << 8) |
-					((uint32_t)(x_BYTE_F0520[d[0]] + x_BYTE_F0620[s[0]]) << 16) |
-					((uint32_t)(x_BYTE_F0920[d[1]] + x_BYTE_F0220[s[1]]) << 24);
+					((uint32_t)(blendTable_F0520[d[2]] + blendTable_F0620[s[2]])) |
+					((uint32_t)(blendTable_F0920[d[3]] + blendTable_F0220[s[3]]) << 8) |
+					((uint32_t)(blendTable_F0520[d[0]] + blendTable_F0620[s[0]]) << 16) |
+					((uint32_t)(blendTable_F0920[d[1]] + blendTable_F0220[s[1]]) << 24);
 			}
 			s = scan + stride;
 			d = vp + stride;
 			for (int col = width_dwords; col; col--, s += 4, d += 4) {
 				*(uint32_t*)d =
-					((uint32_t)(x_BYTE_F0820[d[2]] + x_BYTE_F0320[s[2]])) |
-					((uint32_t)(x_BYTE_F0720[d[3]] + x_BYTE_F0420[s[3]]) << 8) |
-					((uint32_t)(x_BYTE_F0820[d[0]] + x_BYTE_F0320[s[0]]) << 16) |
-					((uint32_t)(x_BYTE_F0720[d[1]] + x_BYTE_F0420[s[1]]) << 24);
+					((uint32_t)(blendTable_F0820[d[2]] + blendTable_F0320[s[2]])) |
+					((uint32_t)(blendTable_F0720[d[3]] + blendTable_F0420[s[3]]) << 8) |
+					((uint32_t)(blendTable_F0820[d[0]] + blendTable_F0320[s[0]]) << 16) |
+					((uint32_t)(blendTable_F0720[d[1]] + blendTable_F0420[s[1]]) << 24);
 			}
 			scan += 2 * stride;
 			vp += 2 * stride;
 		}
 	}
-	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
+	if (world_D41A0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 		BlitToVgaPlanar_40D10();
-	else if (x_WORD_180660_VGA_type_resolution & 1)
+	else if (videoMode_180660 & 1)
 	{
-		if (x_BYTE_D478C)
+		if (screenModeFlag_D478C)
 			BlitScreenToVgaBanks_BD2CB(unk_F0A20x);//maybe for virtual head set
-		else if ((!DefaultResolutions()) && (x_WORD_180660_VGA_type_resolution != 1))
+		else if ((!DefaultResolutions()) && (videoMode_180660 != 1))
 			VGA_BlitAny(maxGameFps);
-		else if (x_WORD_180660_VGA_type_resolution & 1)
+		else if (videoMode_180660 & 1)
 			VgaBlit320_90478(maxGameFps);
 		else
 			VgaBlit640_75200(480, maxGameFps);
 	}
-	else if (D41A0_0.m_GameSettings.graphics_0x2192.xxxx_0x2193 && D41A0_0.m_GameSettings.m_Display.m_uiScreenSize)
+	else if (world_D41A0.m_GameSettings.graphics_0x2192.xxxx_0x2193 && world_D41A0.m_GameSettings.m_Display.m_uiScreenSize)
 		BlitScreenToVga_BD3DD();
-	else if (x_BYTE_D478C)
+	else if (screenModeFlag_D478C)
 		DrawVrFrame_BD1B6(unk_F0A20x);
-	else if ((!DefaultResolutions()) && (x_WORD_180660_VGA_type_resolution != 1))
+	else if ((!DefaultResolutions()) && (videoMode_180660 != 1))
 		VGA_BlitAny(maxGameFps);
-	else if (x_WORD_180660_VGA_type_resolution & 1)
+	else if (videoMode_180660 & 1)
 		VgaBlit320_90478(maxGameFps);
 	else
 		VgaBlit640_75200(480, maxGameFps);
@@ -30642,11 +30642,11 @@ void VgaPaletteInstall_41A90(TColor* bufferx)//222a90
 	v2 = v5 + 1;
 	__outx_BYTE(0x3C9u, result);
   }
-  if ( x_BYTE_E12EC )
+  if ( vrDeviceActive_E12EC )
 	result = ReadVrPort_75A10(2, a1);//256a10
   return result;
 }
-// E12EC: using guessed type char x_BYTE_E12EC;*/
+// E12EC: using guessed type char vrDeviceActive_E12EC;*/
 
 /*
 void debug_testdraw_terrain(uint8_t* buffer) {
@@ -30693,7 +30693,7 @@ void RandomiseTerrainArea_43C60(unsigned __int8 a1, char a2, int a3, int a4)//22
 			if (!(mapAngle_13B4E0[v6] & 8))
 			{
 				v4 = 9377 * v4 + 9439;
-				x_BYTE_14B4E0_second_heightmap[v6] += v4 % 7 - 3;
+				secondHeightmap_14B4E0[v6] += v4 % 7 - 3;
 			}
 			LOBYTE(v6) = v6 + 1;
 		}
@@ -30708,13 +30708,13 @@ void RandomiseTerrainArea_43C60(unsigned __int8 a1, char a2, int a3, int a4)//22
 		while ((x_WORD)--v10 != -1)
 		{
 			v11 = mapHeightmap_11B4E0[v9];
-			if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v9] > v11)
+			if ((unsigned __int8)secondHeightmap_14B4E0[v9] > v11)
 			{
 				mapAngle_13B4E0[v9] &= 0xF7u;
 			}
 			else
 			{
-				x_BYTE_14B4E0_second_heightmap[v9] = v11 - 1;
+				secondHeightmap_14B4E0[v9] = v11 - 1;
 				mapAngle_13B4E0[v9] |= 8u;
 			}
 			LOBYTE(v9) = v9 + 1;
@@ -30775,12 +30775,12 @@ unsigned __int16 SetTerrainTypeAndNeighbours_46180(unsigned __int16 a1, char a2)
 			{
 				LOBYTE(v10) = (v10 & 3) + 28;
 			}
-			if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+			if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 				v10 = 32 - (char)v10 + 32;
 			mapShading_12B4E0[result] = v10;
-			if (isCaveLevel_D41B6 && (unsigned __int8)x_BYTE_14B4E0_second_heightmap[result] <= mapHeightmap_11B4E0[result])
+			if (isCaveLevel_D41B6 && (unsigned __int8)secondHeightmap_14B4E0[result] <= mapHeightmap_11B4E0[result])
 			{
-				x_BYTE_14B4E0_second_heightmap[result] = mapHeightmap_11B4E0[result] - 1;
+				secondHeightmap_14B4E0[result] = mapHeightmap_11B4E0[result] - 1;
 				mapAngle_13B4E0[result] |= 8u;
 			}
 			else
@@ -30902,14 +30902,14 @@ void AddBuildingToTerrain_46570(uaxis_2d axis1, uaxis_2d axis2)//227570
 				{
 					zTemp = (zTemp & 3) + 28;
 				}
-				if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+				if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 					mapShading_12B4E0[axis2.word] = 32 - zTemp + 32;
 				else
 					mapShading_12B4E0[axis2.word] = zTemp;
 				locAxis1.word = axis2.word;
-				if (isCaveLevel_D41B6 && x_BYTE_14B4E0_second_heightmap[axis2.word] <= mapHeightmap_11B4E0[axis2.word])
+				if (isCaveLevel_D41B6 && secondHeightmap_14B4E0[axis2.word] <= mapHeightmap_11B4E0[axis2.word])
 				{
-					x_BYTE_14B4E0_second_heightmap[axis2.word] = mapHeightmap_11B4E0[axis2.word] - 1;
+					secondHeightmap_14B4E0[axis2.word] = mapHeightmap_11B4E0[axis2.word] - 1;
 					mapAngle_13B4E0[axis2.word] |= 8u;
 				}
 				else
@@ -31007,15 +31007,15 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 		*/
 	}
 
-	x_D41A0_BYTEARRAY_4_struct.setting_30 = 0;//2a51a4
-	D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].syncReady_0x004_2BE0_11234 = 0;
+	gameState_D41A4.setting_30 = 0;//2a51a4
+	world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].syncReady_0x004_2BE0_11234 = 0;
 
 	setLevel = CommandLineParams.GetSetLevel();
 	customLevelPath = CommandLineParams.GetCustomLevelPath();
 	if ((setLevel > -1 || customLevelPath.length() > 0) || CommandLineParams.ModeRegressionsTestType() != -1)
 	{
 		if(CommandLineParams.ModeRegressionsTestType()==-1)
-			x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 |= LEVEL_LOADED_FROM_ARG;
+			gameState_D41A4.OptionsSettingFlag_24 |= LEVEL_LOADED_FROM_ARG;
 		skipMenus = true;
 	}
 
@@ -31027,7 +31027,7 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 	{
 		g_state_monitor.Update();
 
-		if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].syncReady_0x004_2BE0_11234)
+		if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].syncReady_0x004_2BE0_11234)
 		{
 			return;
 		}
@@ -31056,10 +31056,10 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 			uint32_t numLevelsCompleted = 0;
 			int locSavedGameIndex = CommandLineParams.ModeRegressionsSaveIndex();
 			type_menuButtons_E1F84* buttonStr = &mapMenuButtons_E23E0[locSavedGameIndex];
-			x_DWORD_17DE38str.savedGameIndex_17DF04 = locSavedGameIndex;
+			menuState_17DE38.savedGameIndex_17DF04 = locSavedGameIndex;
 			char path[512];
 			sprintf(path, "%s", unitTestsPath.c_str());
-			std::string loadFilePath = GetSaveGameFile(path, x_DWORD_17DE38str.savedGameIndex_17DF04);
+			std::string loadFilePath = GetSaveGameFile(path, menuState_17DE38.savedGameIndex_17DF04);
 			FILE* FILE = DataFileIO::CreateOrOpenFile(loadFilePath.c_str(), 512);
 			if (FILE != NULL)
 			{
@@ -31068,9 +31068,9 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 				DataFileIO::Read(FILE, (uint8_t*)&fileSing, 4);
 				if (fileSing == 0xFFFFFFF7u)
 				{
-					DataFileIO::Read(FILE, (uint8_t*)&x_DWORD_17DE38str.xx_BYTE_17DF14[(x_DWORD_17DE38str.savedGameIndex_17DF04 - 1)][0], 20);
-					DataFileIO::Read(FILE, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.player_name_57ar, 32);
-					DataFileIO::Read(FILE, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.savestring_89, 32);
+					DataFileIO::Read(FILE, (uint8_t*)&menuState_17DE38.xx_BYTE_17DF14[(menuState_17DE38.savedGameIndex_17DF04 - 1)][0], 20);
+					DataFileIO::Read(FILE, (uint8_t*)gameState_D41A4.player_name_57ar, 32);
+					DataFileIO::Read(FILE, (uint8_t*)gameState_D41A4.savestring_89, 32);
 					//Load completed Secret Portals
 					for (int ii = 0; ii < 6; ii++)
 					{
@@ -31081,14 +31081,14 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 						else
 							secretMapScreenPortals_E2970[ii].spriteIndex_14 = 270;
 					}
-					DataFileIO::Read(FILE, (uint8_t*)&D41A0_0.m_GameSettings, 16);
+					DataFileIO::Read(FILE, (uint8_t*)&world_D41A0.m_GameSettings, 16);
 					DataFileIO::Read(FILE, (uint8_t*)&numLevelsCompleted, 4);
 					DataFileIO::Read(FILE, (uint8_t*)&unknownVar, 4);
-					DataFileIO::Read(FILE, (uint8_t*)&D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611, 505);
-					DataFileIO::Read(FILE, (uint8_t*)x_DWORD_17DBC8x, 500);
-					DataFileIO::Read(FILE, (uint8_t*)x_DWORD_17DDBCx, 100);
+					DataFileIO::Read(FILE, (uint8_t*)&world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611, 505);
+					DataFileIO::Read(FILE, (uint8_t*)levelScores_17DBC8, 500);
+					DataFileIO::Read(FILE, (uint8_t*)secretLevelScores_17DDBC, 100);
 					DataFileIO::Close(FILE);
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.word[1] = 0;
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.word[1] = 0;
 					int i = 0;
 					//Reset all Portals to inactive
 					while (mapScreenPortals_E17CC[i].viewPortPosX_4)
@@ -31108,19 +31108,19 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 					while (mapScreenPortals_E17CC[i].viewPortPosX_4)
 					{
 						if (mapScreenPortals_E17CC[i].activated_18 == 1)
-							x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = i;
+							gameState_D41A4.levelnumber_43w = i;
 						i++;
 					}
-					x_DWORD_17DB70str.mapState_17DB8F = 1;
-					memset(&x_DWORD_17DE28str, 0, 13);
-					x_DWORD_17DB70str.selectedLevel_17DB8A = -1;
+					mapMenuState_17DB70.mapState_17DB8F = 1;
+					memset(&levelDescription_17DE28, 0, 13);
+					mapMenuState_17DB70.selectedLevel_17DB8A = -1;
 					if (buttonStr->active_25)
 					{
 						MapMenuPortalsDraw_81760();
 					}
 					else
 					{
-						x_DWORD_17DE38str.savedGameIndex_17DF04 = -1;
+						menuState_17DE38.savedGameIndex_17DF04 = -1;
 						NewGameDialog_77350(buttonStr);
 						buttonStr->state_4 = 2;
 					}
@@ -31129,10 +31129,10 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 		}
 		//debug
 
-		if (!D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].syncReady_0x004_2BE0_11234)
+		if (!world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].syncReady_0x004_2BE0_11234)
 		{
 			Logger->debug("MainLoop_46830:before load scr");
-			isSecretLevel = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 24 && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w < 50;
+			isSecretLevel = gameState_D41A4.levelnumber_43w > 24 && gameState_D41A4.levelnumber_43w < 50;
 			LoadScreen_47FC0(isSecretLevel);//vga smaltitle
 			Logger->debug("MainLoop_46830:load scr passed");
 			LevelInitGame_56A30(setLevel, customLevelPath);
@@ -31161,19 +31161,19 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 			//write_pngs2();//only for export
 			//fix
 
-			while (!D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].syncReady_0x004_2BE0_11234)
+			while (!world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].syncReady_0x004_2BE0_11234)
 			{
 				if (musicAble_E37FC && musicActive_E37FD && m_iNumberOfTracks)
 				{
-					switch (D41A0_0.terrain_2FECE.MapType) {
+					switch (world_D41A0.terrain_2FECE.MapType) {
 					case MapType_t::Day:
-						D41A0_0.maptypeMusic_0x235 = 2;
+						world_D41A0.maptypeMusic_0x235 = 2;
 						break;
 					case MapType_t::Night:
-						D41A0_0.maptypeMusic_0x235 = 1;
+						world_D41A0.maptypeMusic_0x235 = 1;
 						break;
 					case MapType_t::Cave:
-						D41A0_0.maptypeMusic_0x235 = 3;
+						world_D41A0.maptypeMusic_0x235 = 3;
 						break;
 					}
 				}
@@ -31205,10 +31205,10 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 				CloseMovie_53CC0();
 				EndSample_8D8F0();
 				StopMusic_8E020();
-				StopCdPlayback_86860(x_WORD_1803EC);
+				StopCdPlayback_86860(cdDrive_1803EC);
 				RestoreSoundVolume_59BF0();
 				VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (videoMode_180660 & 1)
 				{
 					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, GetPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0));
 					ClearScreenAlphaBuffer(320, 200, 255);
@@ -31218,49 +31218,49 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 640, 480, GetPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0));
 					ClearScreenAlphaBuffer(640, 480, 255);
 				}
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (videoMode_180660 & 1)
 					VgaBlit320_90478(maxGameFps);
 				else
 					VgaBlit640_75200(480, maxGameFps);
-				if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 2
-					&& !(x_D41A0_BYTEARRAY_4_struct.setting_38545 & 4))
+				if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 2
+					&& !(gameState_D41A4.setting_38545 & 4))
 				{
 					GrantSpellToPlayer_6DB50(1, 0);
 				}
 				FreeTmapsAndAnimations_713A0();
-				if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 4)
+				if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 4)
 				{
 					LoadLevel_56D60(actLevel, 0);
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] = 4;
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] = 4;
 				}
-				else if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 2)
+				else if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 2)
 				{
 					CollectLevelStats_5C530();
-					if (x_D41A0_BYTEARRAY_4_struct.setting_38545 & 0x20)
+					if (gameState_D41A4.setting_38545 & 0x20)
 						EnableAllSpells_6E0D0();
 				}
 				else
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] |= 8;
-				if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 0x10)
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] |= 8;
+				if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 0x10)
 				{
-					actLevel = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
+					actLevel = gameState_D41A4.levelnumber_43w;
 					if (actLevel >= 0x18u)
 					{
-						if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 2)
+						if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 2)
 							CollectLevelStats_5C530();
 						break;
 					}
-					if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 2)
+					if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 2)
 					{
 						Type_SecretMapScreenPortals_E2970* secretsPortals = GetSecretAndActivedPortal_824B0(actLevel);
 						if (secretsPortals)
 						{
 							count_begin++;//for debug
 
-							x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = secretsPortals->levelNumber_6;
+							gameState_D41A4.levelnumber_43w = secretsPortals->levelNumber_6;
 							
 							//fix level number-neoriginal code
-							actLevel = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
+							actLevel = gameState_D41A4.levelnumber_43w;
 							//fix level number-neoriginal code
 
 							//fix res before secret level-neoriginal code
@@ -31268,7 +31268,7 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 							screenWidth_18062C = 320;
 							screenHeight_180624 = 200;
 							SetViewport_A0D50(0, 0, 320, 200);
-							x_WORD_180660_VGA_type_resolution = 1;
+							videoMode_180660 = 1;
 							//fix res before secret level-neoriginal code
 
 							LoadScreen_47FC0(true);
@@ -31277,7 +31277,7 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 						}
 					}
 				}
-				else if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 0xA)
+				else if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 0xA)
 				{
 					break;//must be here
 				}
@@ -31285,7 +31285,7 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 			// The level is over and we are on our way back to the menu.  Give the network
 			// session back here, or the next network game is refused before it sends a
 			// single packet - see NetworkLeaveSession().
-			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+			if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 				NetworkLeaveSession();
 
 			if (CommandLineParams.DoNetworkDebug())
@@ -31295,7 +31295,7 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 			// while its numbers still stand.  The menu turns it into a popup when it opens its own
 			// message list; one posted from inside the game would go with the list the menu
 			// deletes on its way out.
-			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+			if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 			{
 				g_matchResultPending = MatchScoreResultLine();
 				if (CommandLineParams.DoNetworkDebug())
@@ -31320,7 +31320,7 @@ void MainLoop_46830(unsigned __int16 actLevel)//227830
 //----- (00046F50) --------------------------------------------------------
 void ReleaseSoundTimer_46F50()//227f50
 {
-	if (x_BYTE_D4B51)
+	if (soundTimerInstalled_D4B51)
 		AilReleaseTimer_92DC0(TimerIdx_F42A4);
 	else
 		ClearProgrammableIntervalTimer_6FE20();
@@ -31354,9 +31354,9 @@ void InGameLoop_47320()//228320
 
 	debugcounter_228320++;
 	*/
-	x_D41A0_BYTEARRAY_4_struct.paletteMod_51 = 0;
+	gameState_D41A4.paletteMod_51 = 0;
 	uint32_t gameTurn = 0;
-	D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.word[1] = 0;
+	world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.word[1] = 0;
 
 	//fix res on begin level for hidden levels-neoriginal code
 	if (!IsDefaultResolution320(gameResWidth, gameResHeight))
@@ -31365,7 +31365,7 @@ void InGameLoop_47320()//228320
 		screenWidth_18062C = 320;
 		screenHeight_180624 = 200;
 		SetViewport_A0D50(0, 0, 320, 200);
-		x_WORD_180660_VGA_type_resolution = 1;
+		videoMode_180660 = 1;
 		resindex_begin = 0;
 	}
 	//fix res on begin level for hidden levels-neoriginal code
@@ -31385,16 +31385,16 @@ void InGameLoop_47320()//228320
 			{
 				if (debug_first_run % 10 == 8)
 				{
-					if (!x_WORD_18074A_mouse_right2_button && !x_WORD_180744_mouse_right_button)//first cycle after press and ...
+					if (!mouseRightButton2_18074A && !mouseRightButton_180744)//first cycle after press and ...
 					{
-						//x_WORD_180744_mouse_right_button = 1;
-						x_WORD_180746_mouse_left_button = 1;
-						//x_WORD_E375C_mouse_position_x = temp_mouse_x;
+						//mouseRightButton_180744 = 1;
+						mouseLeftButton_180746 = 1;
+						//mousePosX_E375C = temp_mouse_x;
 						//mouse_state = temp_mouse_y;
-						//x_WORD_E375E_mouse_position_y = temp_mouse_y;
+						//mousePosY_E375E = temp_mouse_y;
 					}
-					//x_WORD_18074A_mouse_right2_button = 1;
-					x_WORD_18074C_mouse_left2_button = 1;
+					//mouseRightButton2_18074A = 1;
+					mouseLeftButton2_18074C = 1;
 				}
 				debug_first_run++;
 			}
@@ -31402,15 +31402,15 @@ void InGameLoop_47320()//228320
 
 		//debug
 
-		if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].syncReady_0x004_2BE0_11234 || D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 8)
+		if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].syncReady_0x004_2BE0_11234 || world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 8)
 			break;//end level
 		/*
 		//savetext
 		FILE* filesavetext;
 		filesavetext=fopen("testsavetext.data", "wb");
-		fwrite(x_DWORD_DDF50_texture_adresses[0],2621440,1, filesavetext);
+		fwrite(textureAddresses_DDF50[0],2621440,1, filesavetext);
 		fclose(filesavetext);
-		//x_DWORD_DDF50_texture_adresses
+		//textureAddresses_DDF50
 		//savetext
 		*/
 		DrawAndEventsInGame_47560(GameTimerTurn_17DB54);
@@ -31419,7 +31419,7 @@ void InGameLoop_47320()//228320
 			StopMusic_8E020();
 			if (gameTurn == 1)
 			{
-				StartMusic_8E160(D41A0_0.maptypeMusic_0x235, 0x7Fu);
+				StartMusic_8E160(world_D41A0.maptypeMusic_0x235, 0x7Fu);
 				SOUND_ShowMusicWarning();
 			}
 			gameTurn++;
@@ -31434,12 +31434,12 @@ void InGameLoop_47320()//228320
 			);
 
 			if (renderer_tests[CommandLineParams.GetSetLevel()].set_flatshader) {
-				D41A0_0.m_GameSettings.display_0x2196.flat_0x2199 = 1;
+				world_D41A0.m_GameSettings.display_0x2196.flat_0x2199 = 1;
 			}
 
 			// force up key pressed
 			LastPressedKey_1806E4 = 0x48;
-			pressedKeys_180664[x_BYTE_EB39E_keys[0]] = 1;
+			pressedKeys_180664[keys_EB39E[0]] = 1;
 
 			if (stop_renderer_tests()) {
 				break;
@@ -31448,7 +31448,7 @@ void InGameLoop_47320()//228320
 	}
 	g_inGameLoop = false;
 	//Clear pause status
-	x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 &= ~GAME_PAUSED;
+	gameState_D41A4.OptionsSettingFlag_24 &= ~GAME_PAUSED;
 
 	EventDispatcher::I->DispatchEvent(EventType::E_GAME_STATE_CHANGE, GameState::GAMEPLAY_ENDED);
 
@@ -31488,8 +31488,8 @@ void GiveAllSpells_Cheat(type_entity_0x6E8E* actEvent)
 			{
 				locEv->flags_0xc_12_15.byte[0] |= 1u;
 				locEv->manaRegen_0x88_136 = 0;
-				locEv->parentId_0x28_40 = actEvent - D41A0_0.entities_0x6E8E;
-				actEvent->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[k] = locEv - D41A0_0.entities_0x6E8E;
+				locEv->parentId_0x28_40 = actEvent - world_D41A0.entities_0x6E8E;
+				actEvent->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[k] = locEv - world_D41A0.entities_0x6E8E;
 				for (int n = 0; n < 10; n++)
 				{
 					if (actEvent->playerData_0xA4_164x->str_611.SpellIndexes_0x39B_923x.SpellIndex[n] == -1)
@@ -31512,10 +31512,10 @@ void GiveAllSpells_Cheat(type_entity_0x6E8E* actEvent)
 void RecordingLevelSave()
 {
 	if (CommandLineParams.DoAllSpells())//before the save of a recording
-		GiveAllSpells_Cheat(Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]);
+		GiveAllSpells_Cheat(Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]);
 	if (m_InputRecorder == nullptr)
 		return;
-	uint16_t level = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
+	uint16_t level = gameState_D41A4.levelnumber_43w;
 	m_InputRecorder->LevelStarted(level);//a restart of the level takes the save of its own start
 	const bool resave = m_InputRecorder->m_IsPlaying && !m_InputRecorder->m_ResavePath.empty();//a save of its own
 	const std::vector<uint8_t>* save = m_InputRecorder->GetLevelSave(level);
@@ -31528,9 +31528,9 @@ void RecordingLevelSave()
 void intervalsave(int index) {
 	char outname[512];
 	sprintf(outname, "-%d", index % 5000);
-	type_D41A0_BYTESTR_0 temp0x39 = D41A0_0;
-	SaveLevel_55080(0, x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, outname);
-	D41A0_0 = temp0x39;
+	type_D41A0_BYTESTR_0 temp0x39 = world_D41A0;
+	SaveLevel_55080(0, gameState_D41A4.levelnumber_43w, outname);
+	world_D41A0 = temp0x39;
 };
 
 //long debugcounter_47560_2=0;
@@ -31541,7 +31541,7 @@ void DrawAndEventsInGame_47560(int16_t turn)//228560
 	if ((CommandLineParams.ModeRegressionsTestType() != -1) && (count_begin == 1))
 		debugcounter_47560++;
 	PaletteChanges_47760();
-	if (!(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED))
+	if (!(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED))
 	{
 		UpdateSpriteAnimations_715B0();//nothing draw //animate sprites
 	}
@@ -31580,17 +31580,17 @@ void DrawAndEventsInGame_47560(int16_t turn)//228560
 		if (debug_first_run == 5)
 		{
 			//loadD41A0();
-			//x_D41A0_BYTEARRAY_4_struct.langIndex_4 = 1;
+			//gameState_D41A4.langIndex_4 = 1;
 			//InitLanguage_76A40_mod_only_language();
-			if (LoadLevel_555D0(0u, x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, true))
-				sprintf(printbuffer, "%s:%s.", x_DWORD_E9C4C_langindexbuffer[423], "OK");//Load Level
+			if (LoadLevel_555D0(0u, gameState_D41A4.levelnumber_43w, true))
+				sprintf(printbuffer, "%s:%s.", langStrings_E9C4C[423], "OK");//Load Level
 			else
-				sprintf(printbuffer, "%s:%s.", x_DWORD_E9C4C_langindexbuffer[423], x_DWORD_E9C4C_langindexbuffer[429]);//429 - Failed
+				sprintf(printbuffer, "%s:%s.", langStrings_E9C4C[423], langStrings_E9C4C[429]);//429 - Failed
 			ShowMessage_52D70(0, printbuffer);
-			x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 ^= GAME_PAUSED;
+			gameState_D41A4.OptionsSettingFlag_24 ^= GAME_PAUSED;
 		}
 		if (debug_first_run == 6)
-			x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 ^= GAME_PAUSED;
+			gameState_D41A4.OptionsSettingFlag_24 ^= GAME_PAUSED;
 		if (!CommandLineParams.DoRightButton())
 			debug_first_run++;
 	}
@@ -31611,7 +31611,7 @@ void DrawAndEventsInGame_47560(int16_t turn)//228560
 	//adress 228588
 	UpdateLightSourcesOld_848A0();//nothing draw
 	//adress 22858d
-	uint8_t speed = x_D41A0_BYTEARRAY_4_struct.speedIndex;
+	uint8_t speed = gameState_D41A4.speedIndex;
 	if (speed == 0)
 	{
 		if (!speed)
@@ -31630,7 +31630,7 @@ void DrawAndEventsInGame_47560(int16_t turn)//228560
 	UpdateLightSources_84B80();//prepare lightting
 	GameObjectives_58F00();//nothing draw
 	PresentObjective_59820();//nothing draw
-	if (!(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED))
+	if (!(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED))
 		CheckLevelEndReached_57570();//nothing draw
 	CheckLevelEndFlags_575C0();//nothing draw
 	PlayEntitySounds_6E150();//nothing draw
@@ -31662,7 +31662,7 @@ void DrawAndEventsInGame_47560(int16_t turn)//228560
 	if (CommandLineParams.DoAnalyzeEntity()) {
 		analyzeEntites();
 	}
-	if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
+	if (gameState_D41A4.showHelp_10)
 		DrawHelpPopUps_871F0();
 	//adress 22860f
 	if (CommandLineParams.DoDetectDwordA()) {
@@ -31671,15 +31671,15 @@ void DrawAndEventsInGame_47560(int16_t turn)//228560
 				allert_error();
 		for (int jx = 1; jx < 50; jx++)
 		{
-			if (D41A0_0.dynamicLights_0x3664C[jx].active_0)
-				if (D41A0_0.dynamicLights_0x3664C[jx].event_A.pointer_0x6E8E < D41A0_0.entities_0x6E8E || D41A0_0.dynamicLights_0x3664C[jx].event_A.pointer_0x6E8E >= &D41A0_0.entities_0x6E8E[1000])
+			if (world_D41A0.dynamicLights_0x3664C[jx].active_0)
+				if (world_D41A0.dynamicLights_0x3664C[jx].event_A.pointer_0x6E8E < world_D41A0.entities_0x6E8E || world_D41A0.dynamicLights_0x3664C[jx].event_A.pointer_0x6E8E >= &world_D41A0.entities_0x6E8E[1000])
 					allert_error();
 		}
 	}
-	x_D41A0_BYTEARRAY_4_struct.lastTurnTime_196 = GameTimerTurn_17DB54 - x_D41A0_BYTEARRAY_4_struct.lastTurnTime_196;
+	gameState_D41A4.lastTurnTime_196 = GameTimerTurn_17DB54 - gameState_D41A4.lastTurnTime_196;
 	DrawGameDebugText_6FEC0();
-	x_D41A0_BYTEARRAY_4_struct.lastTurnTime_196 = GameTimerTurn_17DB54;
-	if (x_D41A0_BYTEARRAY_4_struct.paletteMod_51 >= 3u)
+	gameState_D41A4.lastTurnTime_196 = GameTimerTurn_17DB54;
+	if (gameState_D41A4.paletteMod_51 >= 3u)
 		BlendAndBlit_40F80();
 }
 
@@ -31688,23 +31688,23 @@ void PaletteChanges_47760()//228760
 {
 	char dataPath[MAX_PATH];
 	TColor** DefaultPal = (TColor**)xadatapald0dat2.colorPalette_var28;
-	x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 0;
-	switch (x_D41A0_BYTEARRAY_4_struct.paletteMod_51)
+	gameState_D41A4.moveSpeedFlag_181 = 0;
+	switch (gameState_D41A4.paletteMod_51)
 	{
 	case 0:
 	case 1: //Fade out loading screen
 	{
 		PaletteFadeIn_480A0();
-		x_D41A0_BYTEARRAY_4_struct.paletteMod_51++;
+		gameState_D41A4.paletteMod_51++;
 		break;
 	}
 	case 2:
 	{
-		x_D41A0_BYTEARRAY_4_struct.paletteMod_51++;
-		x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 1;
+		gameState_D41A4.paletteMod_51++;
+		gameState_D41A4.paletteSubMod_180 = 1;
 		memset((void*)*DefaultPal, 0, 768);
 		VgaPaletteInstall_41A90(*DefaultPal);
-		switch (D41A0_0.terrain_2FECE.MapType)
+		switch (world_D41A0.terrain_2FECE.MapType)
 		{
 		case MapType_t::Day:
 		{
@@ -31716,7 +31716,7 @@ void PaletteChanges_47760()//228760
 		break;
 		case MapType_t::Night:
 		{
-			if (D41A0_0.terrain_2FECE.levelType_0x2FED2 & 2)
+			if (world_D41A0.terrain_2FECE.levelType_0x2FED2 & 2)
 			{
 				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/PALF-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.colorPalette_var28);
@@ -31748,171 +31748,171 @@ void PaletteChanges_47760()//228760
 	}
 	case 3:
 	{
-		switch (x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180)
+		switch (gameState_D41A4.paletteSubMod_180)
 		{
 		case 1:
 			//Fade back
-			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
+			gameState_D41A4.moveSpeedFlag_181 = 1;
 			if (VgaPalFadeInFadeOut_90B27(*DefaultPal, 4u, 1, 0) == 4)
 			{
-				x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 0;
+				gameState_D41A4.paletteSubMod_180 = 0;
 			}
 			break;
 		case 2:
 			//Hit (red flash)
 			for (int i = 1; i < 256; i++)
 			{
-				x_DWORD_F42A0 = (*DefaultPal)[i].red + 40;
-				if (x_DWORD_F42A0 < 0)
-					x_DWORD_F42A0 = 0;
-				if (x_DWORD_F42A0 > 63)
-					x_DWORD_F42A0 = 63;
-				x_BYTE_F3FA0arx[i].red = x_DWORD_F42A0;
-				x_DWORD_F42A0 = (*DefaultPal)[i].green;
-				if (x_DWORD_F42A0 < 0)
-					x_DWORD_F42A0 = 0;
-				if (x_DWORD_F42A0 > 63)
-					x_DWORD_F42A0 = 63;
-				x_BYTE_F3FA0arx[i].green = x_DWORD_F42A0;
-				x_DWORD_F42A0 = (*DefaultPal)[i].blue;
-				if (x_DWORD_F42A0 < 0)
-					x_DWORD_F42A0 = 0;
-				if (x_DWORD_F42A0 > 63)
-					x_DWORD_F42A0 = 63;
-				x_BYTE_F3FA0arx[i].blue = x_DWORD_F42A0;
+				paletteComponent_F42A0 = (*DefaultPal)[i].red + 40;
+				if (paletteComponent_F42A0 < 0)
+					paletteComponent_F42A0 = 0;
+				if (paletteComponent_F42A0 > 63)
+					paletteComponent_F42A0 = 63;
+				palette_F3FA0[i].red = paletteComponent_F42A0;
+				paletteComponent_F42A0 = (*DefaultPal)[i].green;
+				if (paletteComponent_F42A0 < 0)
+					paletteComponent_F42A0 = 0;
+				if (paletteComponent_F42A0 > 63)
+					paletteComponent_F42A0 = 63;
+				palette_F3FA0[i].green = paletteComponent_F42A0;
+				paletteComponent_F42A0 = (*DefaultPal)[i].blue;
+				if (paletteComponent_F42A0 < 0)
+					paletteComponent_F42A0 = 0;
+				if (paletteComponent_F42A0 > 63)
+					paletteComponent_F42A0 = 63;
+				palette_F3FA0[i].blue = paletteComponent_F42A0;
 			}
 			ResetPaletteFade_90D27();
-			VgaPaletteInstall_41A90(x_BYTE_F3FA0arx);
-			x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 1;
-			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
+			VgaPaletteInstall_41A90(palette_F3FA0);
+			gameState_D41A4.paletteSubMod_180 = 1;
+			gameState_D41A4.moveSpeedFlag_181 = 1;
 			break;
 		case 3:
 			for (int i = 1; i < 256; i++)
 			{
-				x_DWORD_F42A0 = (*DefaultPal)[i].red;
-				x_DWORD_F42A0 += -56 * x_D41A0_BYTEARRAY_4_struct.paletteCount_184w >> 8;
-				if (x_DWORD_F42A0 < 0)
-					x_DWORD_F42A0 = 0;
-				if (x_DWORD_F42A0 > 63)
-					x_DWORD_F42A0 = 63;
-				x_BYTE_F3FA0arx[i].red = x_DWORD_F42A0;
-				x_DWORD_F42A0 = (*DefaultPal)[i].green;
-				if (x_DWORD_F42A0 < 0)
-					x_DWORD_F42A0 = 0;
-				if (x_DWORD_F42A0 > 63)
-					x_DWORD_F42A0 = 63;
-				x_BYTE_F3FA0arx[i].green = x_DWORD_F42A0;
-				x_DWORD_F42A0 = (*DefaultPal)[i].blue;
-				x_DWORD_F42A0 += -56 * x_D41A0_BYTEARRAY_4_struct.paletteCount_184w >> 8;
-				if (x_DWORD_F42A0 < 0)
-					x_DWORD_F42A0 = 0;
-				if (x_DWORD_F42A0 > 63)
-					x_DWORD_F42A0 = 63;
-				x_BYTE_F3FA0arx[i].blue = x_DWORD_F42A0;
+				paletteComponent_F42A0 = (*DefaultPal)[i].red;
+				paletteComponent_F42A0 += -56 * gameState_D41A4.paletteCount_184w >> 8;
+				if (paletteComponent_F42A0 < 0)
+					paletteComponent_F42A0 = 0;
+				if (paletteComponent_F42A0 > 63)
+					paletteComponent_F42A0 = 63;
+				palette_F3FA0[i].red = paletteComponent_F42A0;
+				paletteComponent_F42A0 = (*DefaultPal)[i].green;
+				if (paletteComponent_F42A0 < 0)
+					paletteComponent_F42A0 = 0;
+				if (paletteComponent_F42A0 > 63)
+					paletteComponent_F42A0 = 63;
+				palette_F3FA0[i].green = paletteComponent_F42A0;
+				paletteComponent_F42A0 = (*DefaultPal)[i].blue;
+				paletteComponent_F42A0 += -56 * gameState_D41A4.paletteCount_184w >> 8;
+				if (paletteComponent_F42A0 < 0)
+					paletteComponent_F42A0 = 0;
+				if (paletteComponent_F42A0 > 63)
+					paletteComponent_F42A0 = 63;
+				palette_F3FA0[i].blue = paletteComponent_F42A0;
 			}
 			ResetPaletteFade_90D27();
-			VgaPaletteInstall_41A90(x_BYTE_F3FA0arx);
-			x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 1;
-			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
+			VgaPaletteInstall_41A90(palette_F3FA0);
+			gameState_D41A4.paletteSubMod_180 = 1;
+			gameState_D41A4.moveSpeedFlag_181 = 1;
 			break;
 		case 4:
 			for (int i = 1; i < 256; i++)
 			{
-				x_DWORD_F42A0 = 255;
-				x_BYTE_F3FA0arx[i].red = (*DefaultPal)[i].red;
-				x_BYTE_F3FA0arx[i].green = (*DefaultPal)[i].green;
-				x_BYTE_F3FA0arx[i].blue = 63;
+				paletteComponent_F42A0 = 255;
+				palette_F3FA0[i].red = (*DefaultPal)[i].red;
+				palette_F3FA0[i].green = (*DefaultPal)[i].green;
+				palette_F3FA0[i].blue = 63;
 			}
 			ResetPaletteFade_90D27();
-			VgaPaletteInstall_41A90(x_BYTE_F3FA0arx);
-			x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 1;
-			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
+			VgaPaletteInstall_41A90(palette_F3FA0);
+			gameState_D41A4.paletteSubMod_180 = 1;
+			gameState_D41A4.moveSpeedFlag_181 = 1;
 			break;
 		case 5:
 			memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
-			x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 10;
-			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
+			gameState_D41A4.paletteSubMod_180 = 10;
+			gameState_D41A4.moveSpeedFlag_181 = 1;
 			break;
 		case 6:
 			for (int i = 1; i < 256; i++)
 			{
-				x_DWORD_F42A0 = (*DefaultPal)[i].blue + 48;
-				if (x_DWORD_F42A0 < 0)
-					x_DWORD_F42A0 = 0;
-				if (x_DWORD_F42A0 > 63)
-					x_DWORD_F42A0 = 63;
-				x_BYTE_F3FA0arx[i].red = x_DWORD_F42A0;
-				x_DWORD_F42A0 = (*DefaultPal)[i].green + 32;
-				if (x_DWORD_F42A0 < 0)
-					x_DWORD_F42A0 = 0;
-				if (x_DWORD_F42A0 > 63)
-					x_DWORD_F42A0 = 63;
-				x_BYTE_F3FA0arx[i].green = x_DWORD_F42A0;
-				x_DWORD_F42A0 = (*DefaultPal)[i].blue + 32;
-				if (x_DWORD_F42A0 < 0)
-					x_DWORD_F42A0 = 0;
-				if (x_DWORD_F42A0 > 63)
-					x_DWORD_F42A0 = 63;
-				x_BYTE_F3FA0arx[i].blue = x_DWORD_F42A0;
+				paletteComponent_F42A0 = (*DefaultPal)[i].blue + 48;
+				if (paletteComponent_F42A0 < 0)
+					paletteComponent_F42A0 = 0;
+				if (paletteComponent_F42A0 > 63)
+					paletteComponent_F42A0 = 63;
+				palette_F3FA0[i].red = paletteComponent_F42A0;
+				paletteComponent_F42A0 = (*DefaultPal)[i].green + 32;
+				if (paletteComponent_F42A0 < 0)
+					paletteComponent_F42A0 = 0;
+				if (paletteComponent_F42A0 > 63)
+					paletteComponent_F42A0 = 63;
+				palette_F3FA0[i].green = paletteComponent_F42A0;
+				paletteComponent_F42A0 = (*DefaultPal)[i].blue + 32;
+				if (paletteComponent_F42A0 < 0)
+					paletteComponent_F42A0 = 0;
+				if (paletteComponent_F42A0 > 63)
+					paletteComponent_F42A0 = 63;
+				palette_F3FA0[i].blue = paletteComponent_F42A0;
 			}
 			ResetPaletteFade_90D27();
-			VgaPaletteInstall_41A90(x_BYTE_F3FA0arx);
-			x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 1;
-			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
+			VgaPaletteInstall_41A90(palette_F3FA0);
+			gameState_D41A4.paletteSubMod_180 = 1;
+			gameState_D41A4.moveSpeedFlag_181 = 1;
 			break;
 		case 7:
 			//Black and White
 			for (int i = 1; i < 256; i++)
 			{
-				x_DWORD_F42A0 = ((*DefaultPal)[i].red + (*DefaultPal)[i].green + (*DefaultPal)[i].blue) / 3;
-				x_BYTE_F3FA0arx[i].red = x_DWORD_F42A0;
-				x_BYTE_F3FA0arx[i].green = x_DWORD_F42A0;
-				x_BYTE_F3FA0arx[i].blue = x_DWORD_F42A0;
+				paletteComponent_F42A0 = ((*DefaultPal)[i].red + (*DefaultPal)[i].green + (*DefaultPal)[i].blue) / 3;
+				palette_F3FA0[i].red = paletteComponent_F42A0;
+				palette_F3FA0[i].green = paletteComponent_F42A0;
+				palette_F3FA0[i].blue = paletteComponent_F42A0;
 			}
 			ResetPaletteFade_90D27();
-			VgaPaletteInstall_41A90(x_BYTE_F3FA0arx);
-			x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 1;
-			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
+			VgaPaletteInstall_41A90(palette_F3FA0);
+			gameState_D41A4.paletteSubMod_180 = 1;
+			gameState_D41A4.moveSpeedFlag_181 = 1;
 			break;
 		case 8:
 			for (int i = 1; i < 256; i++)
 			{
-				x_DWORD_F42A0 = (*DefaultPal)[i].red + 48;
-				if (x_DWORD_F42A0 < 0)
-					x_DWORD_F42A0 = 0;
-				if (x_DWORD_F42A0 > 63)
-					x_DWORD_F42A0 = 63;
-				x_BYTE_F3FA0arx[i].red = x_DWORD_F42A0;
-				x_DWORD_F42A0 = (*DefaultPal)[i].green + 48;
-				if (x_DWORD_F42A0 < 0)
-					x_DWORD_F42A0 = 0;
-				if (x_DWORD_F42A0 > 63)
-					x_DWORD_F42A0 = 63;
-				x_BYTE_F3FA0arx[i].green = x_DWORD_F42A0;
-				x_DWORD_F42A0 = (*DefaultPal)[i].blue + 48;
-				if (x_DWORD_F42A0 < 0)
-					x_DWORD_F42A0 = 0;
-				if (x_DWORD_F42A0 > 63)
-					x_DWORD_F42A0 = 63;
-				x_BYTE_F3FA0arx[i].blue = x_DWORD_F42A0;
+				paletteComponent_F42A0 = (*DefaultPal)[i].red + 48;
+				if (paletteComponent_F42A0 < 0)
+					paletteComponent_F42A0 = 0;
+				if (paletteComponent_F42A0 > 63)
+					paletteComponent_F42A0 = 63;
+				palette_F3FA0[i].red = paletteComponent_F42A0;
+				paletteComponent_F42A0 = (*DefaultPal)[i].green + 48;
+				if (paletteComponent_F42A0 < 0)
+					paletteComponent_F42A0 = 0;
+				if (paletteComponent_F42A0 > 63)
+					paletteComponent_F42A0 = 63;
+				palette_F3FA0[i].green = paletteComponent_F42A0;
+				paletteComponent_F42A0 = (*DefaultPal)[i].blue + 48;
+				if (paletteComponent_F42A0 < 0)
+					paletteComponent_F42A0 = 0;
+				if (paletteComponent_F42A0 > 63)
+					paletteComponent_F42A0 = 63;
+				palette_F3FA0[i].blue = paletteComponent_F42A0;
 			}
 			ResetPaletteFade_90D27();
-			VgaPaletteInstall_41A90(x_BYTE_F3FA0arx);
-			x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 9;
-			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
+			VgaPaletteInstall_41A90(palette_F3FA0);
+			gameState_D41A4.paletteSubMod_180 = 9;
+			gameState_D41A4.moveSpeedFlag_181 = 1;
 			break;
 		case 9:
-			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
+			gameState_D41A4.moveSpeedFlag_181 = 1;
 			if (VgaPalFadeInFadeOut_90B27((TColor*)*xadatapald0dat2.colorPalette_var28, 0x10u, 1) == 16)
 			{
-				x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 0;
+				gameState_D41A4.paletteSubMod_180 = 0;
 			}
 			break;
 		case 0xA:
-			x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
+			gameState_D41A4.moveSpeedFlag_181 = 1;
 			if (VgaPalFadeInFadeOut_90B27((TColor*)*xadatapald0dat2.colorPalette_var28, 0x1Cu, 1) == 28)
 			{
-				x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 0;
+				gameState_D41A4.paletteSubMod_180 = 0;
 			}
 			break;
 		default:
@@ -31939,15 +31939,15 @@ void LoadScreen_47FC0(bool isSecretLevel)//228fc0
 	if (isSecretLevel)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SMATITL2.DAT");
-		DataFileIO::ReadFileAndDecompress(dataPath, &x_DWORD_E9C38_smalltit);
+		DataFileIO::ReadFileAndDecompress(dataPath, &smalltitBuffer_E9C38);
 	}
 	else
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SMATITLE.DAT");
-		DataFileIO::ReadFileAndDecompress(dataPath, &x_DWORD_E9C38_smalltit);
+		DataFileIO::ReadFileAndDecompress(dataPath, &smalltitBuffer_E9C38);
 	}
-	CopyScreen_85B20(x_DWORD_E9C38_smalltit, pdwScreenBuffer_351628, 400);
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	CopyScreen_85B20(smalltitBuffer_E9C38, pdwScreenBuffer_351628, 400);
+	if (videoMode_180660 & 1)
 		VgaBlit320_90478();
 	else
 		VgaBlit640_75200(480);
@@ -31966,9 +31966,9 @@ void LoadScreen_47FC0(bool isSecretLevel)//228fc0
 	/*D41A0_BYTESTR_0.dword_0x23a = 1;//0x23a
 	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 574) = 0;//0x23e
 	*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 578) = 0;//0x242*/
-	D41A0_0.dword_0x23a = 1;
-	D41A0_0.dword_0x23e = 0;
-	D41A0_0.dword_0x242 = 0;
+	world_D41A0.dword_0x23a = 1;
+	world_D41A0.dword_0x23e = 0;
+	world_D41A0.dword_0x242 = 0;
 }
 
 //----- (000480A0) --------------------------------------------------------
@@ -31982,7 +31982,7 @@ void PaletteFadeIn_480A0()//2290a0
 		timeDiff = j___clock() - time;
 	while (timeDiff < 50); //delay 50 mms
 	VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
-	D41A0_0.dword_0x23a = 0;
+	world_D41A0.dword_0x23a = 0;
 	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/PALD-0.DAT");
 	DataFileIO::ReadFileAndDecompress(dataPath, xadatapald0dat2.colorPalette_var28);
 	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/CLRD-0.DAT");
@@ -31993,7 +31993,7 @@ void PaletteFadeIn_480A0()//2290a0
 //----- (00048120) --------------------------------------------------------
 void SetPlayerColoursForMapType_48120()//229120
 {
-	MapType_t result = D41A0_0.terrain_2FECE.MapType;
+	MapType_t result = world_D41A0.terrain_2FECE.MapType;
 	// Note: these settings affect the color of player names and of spell power bars as well as some entities on the (mini)map
 	if (result != MapType_t::Day)
 	{
@@ -32102,10 +32102,10 @@ void ResetGameSettingsFlags_48350()//229350
 {
 	//int8_t* result; // eax
 
-	x_D41A0_BYTEARRAY_4_struct.setting_38545 &= 0x43u;
+	gameState_D41A4.setting_38545 &= 0x43u;
 	//result = (int8_t*)x_D41A0_BYTEARRAY_0;
 	//x_D41A0_BYTEARRAY_0[0x36E0B] &= 0xFEu;
-	D41A0_0.gameFlags_0x36E0B &= 0xFEu;
+	world_D41A0.gameFlags_0x36E0B &= 0xFEu;
 	//return result;
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -32344,13 +32344,13 @@ void SetHeightmapByBuilding_48B90(uaxis_2d axis)//229b90
 			mapHeightmap_11B4E0[axis.word] = heightSum / heightCount;
 			if (isCaveLevel_D41B6)
 			{
-				if (x_BYTE_14B4E0_second_heightmap[axis.word] > mapHeightmap_11B4E0[axis.word])
+				if (secondHeightmap_14B4E0[axis.word] > mapHeightmap_11B4E0[axis.word])
 				{
 					mapAngle_13B4E0[axis.word] &= 0xF7u;
 				}
 				else
 				{
-					x_BYTE_14B4E0_second_heightmap[axis.word] = mapHeightmap_11B4E0[axis.word] - 1;
+					secondHeightmap_14B4E0[axis.word] = mapHeightmap_11B4E0[axis.word] - 1;
 					mapAngle_13B4E0[axis.word] |= 8;
 				}
 			}
@@ -32372,7 +32372,7 @@ __int16 FindCeilingHeight_48D20(int a1, unsigned __int16 a2)//229d20
 
 	v2 = 0;
 	v3 = 0;
-	LOBYTE(v4) = x_BYTE_14B4E0_second_heightmap[(unsigned __int16)a1];
+	LOBYTE(v4) = secondHeightmap_14B4E0[(unsigned __int16)a1];
 	BYTE1(v4) = 3;
 	v5 = a1 - 257;
 	v9 = 3;
@@ -32385,10 +32385,10 @@ __int16 FindCeilingHeight_48D20(int a1, unsigned __int16 a2)//229d20
 			v10 = BYTE1(v4);
 			if (BYTE1(v4) == -1)
 				break;
-			v4 = abs((unsigned __int8)x_BYTE_14B4E0_second_heightmap[(unsigned __int16)v5] - (unsigned __int8)x_BYTE_14B4E0_second_heightmap[(unsigned __int16)a1]);
+			v4 = abs((unsigned __int8)secondHeightmap_14B4E0[(unsigned __int16)v5] - (unsigned __int8)secondHeightmap_14B4E0[(unsigned __int16)a1]);
 			if (v4 > a2)
 			{
-				v4 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[(unsigned __int16)v5];
+				v4 = (unsigned __int8)secondHeightmap_14B4E0[(unsigned __int16)v5];
 				++v3;
 				v2 += v4;
 			}
@@ -32401,14 +32401,14 @@ __int16 FindCeilingHeight_48D20(int a1, unsigned __int16 a2)//229d20
 		v6 = v2 / v3;
 		v4 = (unsigned __int16)a1;
 		v7 = mapHeightmap_11B4E0[(unsigned __int16)a1];
-		x_BYTE_14B4E0_second_heightmap[(unsigned __int16)a1] = v6;
+		secondHeightmap_14B4E0[(unsigned __int16)a1] = v6;
 		if (v6 > v7)
 		{
 			mapAngle_13B4E0[(unsigned __int16)a1] &= 0xF7u;
 		}
 		else
 		{
-			x_BYTE_14B4E0_second_heightmap[(unsigned __int16)a1] = v7 - 1;
+			secondHeightmap_14B4E0[(unsigned __int16)a1] = v7 - 1;
 			mapAngle_13B4E0[(unsigned __int16)a1] |= 8u;
 		}
 	}
@@ -32448,13 +32448,13 @@ signed int GetMaxHeightInArea_48E90(__int16 a1, __int16 a2, __int16 a3, unsigned
 //----- (00048EC0) --------------------------------------------------------
 signed int GetMinCeilingInArea_48EC0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4)//229ec0
 {
-	return GetMinHeightmapInArea_48F20(a1, a2, a3, a4, x_BYTE_14B4E0_second_heightmap);
+	return GetMinHeightmapInArea_48F20(a1, a2, a3, a4, secondHeightmap_14B4E0);
 }
 
 //----- (00048EF0) --------------------------------------------------------
 signed int GetMaxCeilingInArea_48EF0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4)//229ef0
 {
-	return GetMaxHeightmapInArea_48FD0(a1, a2, a3, a4, x_BYTE_14B4E0_second_heightmap);
+	return GetMaxHeightmapInArea_48FD0(a1, a2, a3, a4, secondHeightmap_14B4E0);
 }
 
 //----- (00048F20) --------------------------------------------------------
@@ -32580,7 +32580,7 @@ void InitBuildingEntity_49A30(type_entity_0x6E8E* a1x, unsigned __int16 a2)//22a
 	v8 = v2.height_5;
 	v9 = v2.width_4;
 	a1x->param_0x10_16 = 2;
-	v3 = x_WORD_180660_VGA_type_resolution;
+	v3 = videoMode_180660;
 	a1x->minSpeed_0x84_132 = v9 * v8 >> 4;
 	if (v3 == 1)
 	{
@@ -32605,12 +32605,12 @@ void InitBuildingEntity_49A30(type_entity_0x6E8E* a1x, unsigned __int16 a2)//22a
 	a1x->levelPar3_0x46_70 = a2;
 	//LOWORD(v4) = a2;
 	a1x->life_0x8 = 30;
-	a1x->subSpellIndex_0x2A_42 = str_D93C0_bldgprmbuffer[a2].subSpellIndex_0;
-	v5 = str_D93C0_bldgprmbuffer[a2].nextIndex_3;
+	a1x->subSpellIndex_0x2A_42 = buildingParams_D93C0[a2].subSpellIndex_0;
+	v5 = buildingParams_D93C0[a2].nextIndex_3;
 	a1x->xtype_0x41_65 = 0;
 	a1x->mana_0x90_144 = 0;
 	a1x->fontTypeIndex_0x3D_61 = v5;
-	if (!(str_D93C0_bldgprmbuffer[a2].flags_2 & 8))
+	if (!(buildingParams_D93C0[a2].flags_2 & 8))
 	{
 		v6 = a1x->mana_0x90_144;
 		a1x->mailMask_0x38_56 |= 2u;
@@ -32623,7 +32623,7 @@ void InitBuildingEntity_49A30(type_entity_0x6E8E* a1x, unsigned __int16 a2)//22a
 	}
 	if (a2 == 68)
 	{
-		D41A0_0.buildingCheckEntity_0x3654A = a1x - D41A0_0.entities_0x6E8E;
+		world_D41A0.buildingCheckEntity_0x3654A = a1x - world_D41A0.entities_0x6E8E;
 	}
 	//return v4;
 }
@@ -32632,7 +32632,7 @@ void InitBuildingEntity_49A30(type_entity_0x6E8E* a1x, unsigned __int16 a2)//22a
 // EA3BC: using guessed type int **filearray_2aa18c[24];
 // EB398: using guessed type __int16 x_WORD_EB398;
 // EB39A: using guessed type __int16 x_WORD_EB398ar[1];
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
+// 180660: using guessed type __int16 videoMode_180660;
 
 //----- (00049C70) --------------------------------------------------------
 void SetEvent144_49C70(type_entity_0x6E8E* event)//22ac70
@@ -32645,7 +32645,7 @@ void SetEntityIndex_49C90(type_entity_0x6E8E* event, int16_t entityIndex)//22ac9
 {
 	event->spriteIndex_0x5A_90 = entityIndex;
 	event->animationFrame_0x5C_92 = 0;
-	event->frameCount_0x5D_93 = x_BYTE_D8A2E[spriteDefsTable_D951C[entityIndex].kind_12];
+	event->frameCount_0x5D_93 = spriteKindFrames_D8A2E[spriteDefsTable_D951C[entityIndex].kind_12];
 }
 
 //----- (00049CD0) --------------------------------------------------------
@@ -32662,7 +32662,7 @@ void SetEntityIndexAndRot_49CD0(type_entity_0x6E8E* event, int16_t entityIndex)/
 void SetEntitySprite_49D50(type_entity_0x6E8E* event, int16_t entityIndex)//22ad50
 {
 	event->spriteIndex_0x5A_90 = entityIndex;
-	event->frameCount_0x5D_93 = x_BYTE_D8A2E[spriteDefsTable_D951C[entityIndex].kind_12];
+	event->frameCount_0x5D_93 = spriteKindFrames_D8A2E[spriteDefsTable_D951C[entityIndex].kind_12];
 	event->params_0x52_82.yaw = spriteDefsTable_D951C[entityIndex].worldSize_8 / 2;
 }
 
@@ -32696,7 +32696,7 @@ void SetEntityShiftRot_49EA0(type_entity_0x6E8E* event, int16_t shift, int16_t f
 void SetShiftByCastle_49EC0(type_entity_0x6E8E* event, int16_t a2)//22aec0 // get castle data
 {
 	bitmap_pos_struct_t posistruct = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a2];
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (videoMode_180660 == 1)
 	{
 		posistruct.height_5 >>= 1;
 		posistruct.width_4 >>= 1;
@@ -32710,14 +32710,14 @@ void SetShiftByCastle_49EC0(type_entity_0x6E8E* event, int16_t a2)//22aec0 // ge
 //----- (00049F30) --------------------------------------------------------
 void ResetEntityLists_49F30()//22af30
 {
-	D41A0_0.entities_0x6E8E[0].playerData_0xA4_164x = unk_F42B0x;
-	D41A0_0.freeEntityCount_0x35 = -1;
-	D41A0_0.freeEntityCount2_0x11e6 = -1;
+	world_D41A0.entities_0x6E8E[0].playerData_0xA4_164x = unk_F42B0x;
+	world_D41A0.freeEntityCount_0x35 = -1;
+	world_D41A0.freeEntityCount2_0x11e6 = -1;
 	int32_t index = 999;
 	do
 	{
-		D41A0_0.freeEntityCount_0x35++;
-		D41A0_0.freeEntities_0x246[D41A0_0.freeEntityCount_0x35] = Entities_EA3E4[index];
+		world_D41A0.freeEntityCount_0x35++;
+		world_D41A0.freeEntities_0x246[world_D41A0.freeEntityCount_0x35] = Entities_EA3E4[index];
 		index--;
 	} while (index > 0);
 }
@@ -32765,15 +32765,15 @@ void ResetLevelState_4A1E0(int a1, char a2)//22b1e0
 {
 	if (!a1)
 	{
-		D41A0_0.creatureStats_0x364D2.livingCreatures_0x364D2 = 0;
-		memset(D41A0_0.creatureStats_0x364D2.spawnCounts_0x364D6, 0, 104);
+		world_D41A0.creatureStats_0x364D2.livingCreatures_0x364D2 = 0;
+		memset(world_D41A0.creatureStats_0x364D2.spawnCounts_0x364D6, 0, 104);
 		ClearUsedTmapFlags_716A0();
 		for (int v3x = 1; v3x < 0x4b0; v3x++)
 		{
 			if (CommandLineParams.DoDebugSequences()) {
 				//add_compare(0x22b21a, CommandLineParams.DoDebugafterload());//0x9ac
 			}
-			LoadEntitySprites_716C0(D41A0_0.terrain_2FECE.entity_0x30311[v3x].type_0x30311, D41A0_0.terrain_2FECE.entity_0x30311[v3x].subtype_0x30311, 0xFFFFu);
+			LoadEntitySprites_716C0(world_D41A0.terrain_2FECE.entity_0x30311[v3x].type_0x30311, world_D41A0.terrain_2FECE.entity_0x30311[v3x].subtype_0x30311, 0xFFFFu);
 		}
 		ReloadSpritesForLevel_71780();
 	}
@@ -32793,20 +32793,20 @@ void ResetLevelState_4A1E0(int a1, char a2)//22b1e0
 		if (CommandLineParams.DoDebugSequences()) {
 			//add_compare(0x22b268, CommandLineParams.DoDebugafterload(),0x54);//0x9ac
 		}
-		if (D41A0_0.terrain_2FECE.entity_0x30311[iy].type_0x30311 && D41A0_0.terrain_2FECE.entity_0x30311[iy].DisId == a1)
+		if (world_D41A0.terrain_2FECE.entity_0x30311[iy].type_0x30311 && world_D41A0.terrain_2FECE.entity_0x30311[iy].DisId == a1)
 		{//adress 22b278
-			SpawnLevelEntity_4A310(&D41A0_0.terrain_2FECE.entity_0x30311[iy]);
-			if (D41A0_0.terrain_2FECE.entity_0x30311[iy].type_0x30311 == 0x05)
+			SpawnLevelEntity_4A310(&world_D41A0.terrain_2FECE.entity_0x30311[iy]);
+			if (world_D41A0.terrain_2FECE.entity_0x30311[iy].type_0x30311 == 0x05)
 			{
-				if (D41A0_0.terrain_2FECE.entity_0x30311[iy].subtype_0x30311 < 0xC || D41A0_0.terrain_2FECE.entity_0x30311[iy].subtype_0x30311 > 0x0F && D41A0_0.terrain_2FECE.entity_0x30311[iy].subtype_0x30311 != 0x16)
-					D41A0_0.creatureStats_0x364D2.livingCreatures_0x364D2++;
+				if (world_D41A0.terrain_2FECE.entity_0x30311[iy].subtype_0x30311 < 0xC || world_D41A0.terrain_2FECE.entity_0x30311[iy].subtype_0x30311 > 0x0F && world_D41A0.terrain_2FECE.entity_0x30311[iy].subtype_0x30311 != 0x16)
+					world_D41A0.creatureStats_0x364D2.livingCreatures_0x364D2++;
 			}
 			if (a2)
-				D41A0_0.terrain_2FECE.entity_0x30311[iy].type_0x30311 = 0;
+				world_D41A0.terrain_2FECE.entity_0x30311[iy].type_0x30311 = 0;
 		}
 	}
 	CheckStageVarsComplete_12870();
-	D41A0_0.freeEntityCount2_0x11e6 = -1;
+	world_D41A0.freeEntityCount2_0x11e6 = -1;
 }
 
 //----- (0004A310) --------------------------------------------------------
@@ -32823,7 +32823,7 @@ void SpawnLevelEntity_4A310(type_entity_0x30311* entity)//22b310
 	uint8_t v10; // al
 	axis_3d v11x; // [esp+0h] [ebp-8h]
 
-	if (!str_D4C48ar[entity->type_0x30311].models_14[entity->subtype_0x30311].enabled_10)
+	if (!entityTypeTables_D4C48[entity->type_0x30311].models_14[entity->subtype_0x30311].enabled_10)
 		return;
 	v11x.x = (entity->axis2d_4.x << 8) + 128;
 	v11x.y = (entity->axis2d_4.y << 8) + 128;
@@ -33067,62 +33067,62 @@ void SpawnLevelEntity_4A310(type_entity_0x30311* entity)//22b310
 //----- (0004A810) --------------------------------------------------------
 int GetFreeEntityCount_4A810()//22b810
 {
-	return D41A0_0.freeEntityCount_0x35 + 1;
+	return world_D41A0.freeEntityCount_0x35 + 1;
 }
 
 //----- (0004A820) --------------------------------------------------------
 type_entity_0x6E8E* SetPlayerStart0_4A820(axis_3d* position)//22b820
 {
-	D41A0_0.playerStarts_0x2362[0] = *position;
+	world_D41A0.playerStarts_0x2362[0] = *position;
 	return 0;
 }
 
 //----- (0004A840) --------------------------------------------------------
 type_entity_0x6E8E* SetPlayerStart1_4A840(axis_3d* position)//22b840
 {
-	D41A0_0.playerStarts_0x2362[1] = *position;
+	world_D41A0.playerStarts_0x2362[1] = *position;
 	return 0;
 }
 
 //----- (0004A860) --------------------------------------------------------
 type_entity_0x6E8E* SetPlayerStart2_4A860(axis_3d* position)//22b860
 {
-	D41A0_0.playerStarts_0x2362[2] = *position;
+	world_D41A0.playerStarts_0x2362[2] = *position;
 	return 0;
 }
 
 //----- (0004A880) --------------------------------------------------------
 type_entity_0x6E8E* SetPlayerStart3_4A880(axis_3d* position)//22b880
 {
-	D41A0_0.playerStarts_0x2362[3] = *position;
+	world_D41A0.playerStarts_0x2362[3] = *position;
 	return 0;
 }
 
 //----- (0004A8A0) --------------------------------------------------------
 type_entity_0x6E8E* SetPlayerStart4_4A8A0(axis_3d* position)//22b8a0
 {
-	D41A0_0.playerStarts_0x2362[4] = *position;
+	world_D41A0.playerStarts_0x2362[4] = *position;
 	return 0;
 }
 
 //----- (0004A8C0) --------------------------------------------------------
 type_entity_0x6E8E* SetPlayerStart5_4A8C0(axis_3d* position)//22b8c0
 {
-	D41A0_0.playerStarts_0x2362[5] = *position;
+	world_D41A0.playerStarts_0x2362[5] = *position;
 	return 0;
 }
 
 //----- (0004A8E0) --------------------------------------------------------
 type_entity_0x6E8E* SetPlayerStart6_4A8E0(axis_3d* position)//22b8e0
 {
-	D41A0_0.playerStarts_0x2362[6] = *position;
+	world_D41A0.playerStarts_0x2362[6] = *position;
 	return 0;
 }
 
 //----- (0004A900) --------------------------------------------------------
 type_entity_0x6E8E* SetPlayerStart7_4A900(axis_3d* position)//22b900
 {
-	D41A0_0.playerStarts_0x2362[7] = *position;
+	world_D41A0.playerStarts_0x2362[7] = *position;
 	return 0;
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -33139,8 +33139,8 @@ type_entity_0x6E8E* AddPlayer_4A920(axis_3d* position)//22b920 - add player 0 //
 		event->maxLife_0x4 = 10000;
 		event->minSpeed_0x84_132 = 80;
 		event->mailMask_0x38_56 = 29;
-		event->id_0x1A_26 = event - D41A0_0.entities_0x6E8E;
-		if (D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
+		event->id_0x1A_26 = event - world_D41A0.entities_0x6E8E;
+		if (world_D41A0.terrain_2FECE.MapType == MapType_t::Cave)
 			event->typeParams_0xA0_160x = &str_D7BD6[104]; //(type_str_160*)&unk_D7BD6[0xdd0];
 		else
 			event->typeParams_0xA0_160x = &str_D7BD6[66]; //(type_str_160*)&unk_D7BD6[0x8c4];
@@ -33164,7 +33164,7 @@ type_entity_0x6E8E* AddWizard_4A9C0(axis_3d* position)//22b9c0 //Other player sp
 		event->minSpeed_0x84_132 = 80;
 		event->typeParams_0xA0_160x = &str_D7BD6[67]; //(type_str_160*)&unk_D7BD6[0x8e6];
 		event->mailMask_0x38_56 = 29;
-		event->id_0x1A_26 = event - D41A0_0.entities_0x6E8E;
+		event->id_0x1A_26 = event - world_D41A0.entities_0x6E8E;
 		AddEventToMap_57D70(event, position);
 		SetEntityIndexAndRot_49CD0(event, 44);
 		CopyMaxLifeToLife_49A20(event);
@@ -33204,7 +33204,7 @@ type_entity_0x6E8E* AddCastle_4AA40(axis_3d* position)//22ba40 //Spawn Scenery B
 		v2x->axis_0x9A_154x = v6ar;
 		v4 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[1].width_4;
 		v5 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[1].height_5;
-		if (x_WORD_180660_VGA_type_resolution == 1)
+		if (videoMode_180660 == 1)
 		{
 			v5 >>= 1;
 			v4 >>= 1;
@@ -33252,7 +33252,7 @@ type_entity_0x6E8E* AddTree_4AC40(axis_3d* position)//22bc40 Spawn ??
 		event->actionIndex_0x45_69 = 0;
 		event->class_0x3F_63 = 2;
 		event->model_0x40_64 = 0;
-		event->param_0x10_16 = (event - D41A0_0.entities_0x6E8E) % 11;
+		event->param_0x10_16 = (event - world_D41A0.entities_0x6E8E) % 11;
 		event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
 		event->mailMask_0x38_56 = 1;
 		event->life_0x8 = event->rand_0x14_20 % 0x1388u + 2500;
@@ -33283,7 +33283,7 @@ type_entity_0x6E8E* AddStone_4AD70(axis_3d* position)//22bd70 //Spawn ??
 	if (entity)
 	{
 		entity->flags_0xc_12_15.byte[0] &= 0xF7u;
-		entity->param_0x10_16 = (entity - D41A0_0.entities_0x6E8E) % 11;
+		entity->param_0x10_16 = (entity - world_D41A0.entities_0x6E8E) % 11;
 		entity->actionIndex_0x45_69 = 3;
 		entity->class_0x3F_63 = 2;
 		entity->model_0x40_64 = 1;
@@ -33301,7 +33301,7 @@ type_entity_0x6E8E* AddDolmen_4ADF0(axis_3d* position)//22bdf0 - add scenery Dol
 	if (event)
 	{
 		event->flags_0xc_12_15.byte[0] &= 0xF7u;
-		event->param_0x10_16 = (event - D41A0_0.entities_0x6E8E) % 11;
+		event->param_0x10_16 = (event - world_D41A0.entities_0x6E8E) % 11;
 		event->actionIndex_0x45_69 = 6;
 		event->class_0x3F_63 = 2;
 		event->model_0x40_64 = 2;
@@ -33320,7 +33320,7 @@ type_entity_0x6E8E* AddSceneryType3_4AE80(axis_3d* position)//22be80 // Spawn Cr
 	if (v1x)
 	{
 		v1x->flags_0xc_12_15.byte[0] &= 0xF7u;
-		v1x->param_0x10_16 = (v1x - D41A0_0.entities_0x6E8E) % 11;
+		v1x->param_0x10_16 = (v1x - world_D41A0.entities_0x6E8E) % 11;
 		v1x->actionIndex_0x45_69 = 9;
 		v1x->class_0x3F_63 = 2;
 		v1x->model_0x40_64 = 3;
@@ -33340,7 +33340,7 @@ type_entity_0x6E8E* AddSceneryType4_4AF00(axis_3d* position)//22bf00 // Spawn 4?
 		v1x->actionIndex_0x45_69 = 12;
 		v1x->class_0x3F_63 = 2;
 		v1x->model_0x40_64 = 4;
-		v1x->param_0x10_16 = (v1x - D41A0_0.entities_0x6E8E) % 11;
+		v1x->param_0x10_16 = (v1x - world_D41A0.entities_0x6E8E) % 11;
 		AddEventToMap_57D70(v1x, position);
 		CopyMaxLifeToLife_49A20(v1x);
 		SetHalfSpeedEntity_49DA0(v1x, 48);
@@ -33357,7 +33357,7 @@ type_entity_0x6E8E* AddSceneryType5_4AF70(axis_3d* position)//22bf70 //Spawn 5??
 		v1x->actionIndex_0x45_69 = 15;
 		v1x->class_0x3F_63 = 2;
 		v1x->model_0x40_64 = 5;
-		v1x->param_0x10_16 = (v1x - D41A0_0.entities_0x6E8E) % 11;
+		v1x->param_0x10_16 = (v1x - world_D41A0.entities_0x6E8E) % 11;
 		AddEventToMap_57D70(v1x, position);
 		CopyMaxLifeToLife_49A20(v1x);
 		SetHalfSpeedEntity_49DA0(v1x, 48);
@@ -33372,7 +33372,7 @@ type_entity_0x6E8E* AddSceneryType6_4AFE0(axis_3d* position)//22bfe0 //Spawn Cre
 	type_entity_0x6E8E* v2x; // ebx
 	unsigned __int16 v4; // ax
 	axis_3d v6x; // [esp+0h] [ebp-8h]
-	if (D41A0_0.terrain_2FECE.MapType != MapType_t::Cave)
+	if (world_D41A0.terrain_2FECE.MapType != MapType_t::Cave)
 		return 0;
 	v1x = NewEvent_4A050();
 	v2x = v1x;
@@ -33401,7 +33401,7 @@ type_entity_0x6E8E* AddSceneryType6_4AFE0(axis_3d* position)//22bfe0 //Spawn Cre
 type_entity_0x6E8E* AddSceneryType7_4B0F0(axis_3d* position)//22c0f0
 {
 	type_entity_0x6E8E* event; // eax
-	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
+	if (world_D41A0.terrain_2FECE.MapType == MapType_t::Cave)
 		event = 0;
 	else
 		event = AddSceneryWithSprite_4B150(position, 7, 20, 322);
@@ -33412,7 +33412,7 @@ type_entity_0x6E8E* AddSceneryType7_4B0F0(axis_3d* position)//22c0f0
 type_entity_0x6E8E* AddSceneryType8_4B120(axis_3d* position)//22c120
 {
 	type_entity_0x6E8E* event; // eax
-	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
+	if (world_D41A0.terrain_2FECE.MapType == MapType_t::Cave)
 		event = 0;
 	else
 		event = AddSceneryWithSprite_4B150(position, 8, 21, 323);
@@ -33490,8 +33490,8 @@ type_entity_0x6E8E* AddDragon_4B240(axis_3d* position)//22c240 //tex 22
 	v2x->fov_0x22_34 = 0;
 	v2x->param3_0x36_54 = 96;
 	v2x->mailMask_0x38_56 = 1;
-	v2x->param_0x10_16 = (v2x - D41A0_0.entities_0x6E8E) % 100;
-	v6y = D41A0_0.modelCounters_0x10[v2x->model_0x40_64]++;
+	v2x->param_0x10_16 = (v2x - world_D41A0.entities_0x6E8E) % 100;
+	v6y = world_D41A0.modelCounters_0x10[v2x->model_0x40_64]++;
 	v2x->typeParams_0xA0_160x = &str_D7BD6[71]; //(type_str_160*)&unk_D7BD6[0x96e];
 	v2x->instanceIndex_0x3E_62 = v6y;
 	v6z = (signed __int16)v2x->instanceIndex_0x3E_62 % v2x->typeParams_0xA0_160x->updateInterval_160_0x1a_26;
@@ -33510,8 +33510,8 @@ type_entity_0x6E8E* AddDragon_4B240(axis_3d* position)//22c240 //tex 22
 		if (v8x)
 		{
 			qmemcpy(v8x, v12x, 0xA8u);
-			v8x->leaderId_0x32_50 = v14x - D41A0_0.entities_0x6E8E;
-			v14x->nextLinkedId_0x34_52 = v8x - D41A0_0.entities_0x6E8E;
+			v8x->leaderId_0x32_50 = v14x - world_D41A0.entities_0x6E8E;
+			v14x->nextLinkedId_0x34_52 = v8x - world_D41A0.entities_0x6E8E;
 			v8x->nextLinkedId_0x34_52 = 0;
 			v8x->actionIndex_0x45_69 = 232;
 			v12x->mana_0x90_144 = (v12x->maxMana_0x8C_140 - (__CFSHL__(v12x->maxMana_0x8C_140 >> 31, 5) + 32 * (v12x->maxMana_0x8C_140 >> 31))) >> 5;
@@ -33547,11 +33547,11 @@ type_entity_0x6E8E* AddGoat_4B490(axis_3d* position)//22c490 - add creature Vult
 		event->roll_0x20_32 = 0;
 		event->yaw_0x1C_28 = event->roll_0x20_32;
 		event->pitch_0x1E_30 = event->roll_0x20_32;
-		event->param_0x10_16 = (event - D41A0_0.entities_0x6E8E) % 100;
+		event->param_0x10_16 = (event - world_D41A0.entities_0x6E8E) % 100;
 		event->fov_0x22_34 = 0;
 		event->mailMask_0x38_56 = 1;
 		event->typeParams_0xA0_160x = &str_D7BD6[98]; //(type_str_160*)&unk_D7BD6[0xd04];
-		event->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[event->model_0x40_64]++;
+		event->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[event->model_0x40_64]++;
 		event->timer_0x39_57 = event->typeParams_0xA0_160x->updateInterval_160_0x1a_26 + 1;
 		event->xtype_0x41_65 = 3;
 		AddEventToMap_57D70(event, position);
@@ -33569,7 +33569,7 @@ type_entity_0x6E8E* AddBee_4B590(axis_3d* position)//22c590 //tex 14
 	int v3; // edx
 	int v8; // ecx
 
-	if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+	if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 		return 0;
 	v1x = NewEvent_4A050();
 	v2x = v1x;
@@ -33592,10 +33592,10 @@ type_entity_0x6E8E* AddBee_4B590(axis_3d* position)//22c590 //tex 14
 	v2x->subSpellIndex_0x2A_42 = 200;
 	v2x->xtype_0x41_65 = 3;
 	v2x->xsubtype_0x42_66 = 0;
-	v2x->param_0x10_16 = (v2x - D41A0_0.entities_0x6E8E) % 100;
+	v2x->param_0x10_16 = (v2x - world_D41A0.entities_0x6E8E) % 100;
 	v2x->mailMask_0x38_56 = 1;
 	v2x->typeParams_0xA0_160x = &str_D7BD6[73]; //(type_str_160*)&unk_D7BD6[0x9b2];
-	v2x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v1x->model_0x40_64]++;
+	v2x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v1x->model_0x40_64]++;
 	v8 = v2x->typeParams_0xA0_160x->updateInterval_160_0x1a_26
 		- v2x->instanceIndex_0x3E_62 % v2x->typeParams_0xA0_160x->updateInterval_160_0x1a_26;
 	v2x->xtype_0x41_65 = 3;
@@ -33640,9 +33640,9 @@ type_entity_0x6E8E* AddWorm_4B6F0(axis_3d* position)//22c6f0 //tex 30
 		resultx->fov_0x22_34 = 0;
 		resultx->param3_0x36_54 = 96;
 		resultx->mailMask_0x38_56 = 1;
-		resultx->param_0x10_16 = (resultx - D41A0_0.entities_0x6E8E) % 100;
+		resultx->param_0x10_16 = (resultx - world_D41A0.entities_0x6E8E) % 100;
 		resultx->typeParams_0xA0_160x = &str_D7BD6[74]; //(type_str_160*)&unk_D7BD6[0x9d4];
-		resultx->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[resultx->model_0x40_64]++;
+		resultx->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[resultx->model_0x40_64]++;
 		v11x = resultx;
 		resultx->xtype_0x41_65 = 3;
 		v12 = 0;
@@ -33655,8 +33655,8 @@ type_entity_0x6E8E* AddWorm_4B6F0(axis_3d* position)//22c6f0 //tex 30
 			if (v5x)
 			{
 				qmemcpy(v5x, v9x, 0xA8u);
-				v5x->leaderId_0x32_50 = v11x - D41A0_0.entities_0x6E8E;
-				v11x->nextLinkedId_0x34_52 = v5x - D41A0_0.entities_0x6E8E;
+				v5x->leaderId_0x32_50 = v11x - world_D41A0.entities_0x6E8E;
+				v11x->nextLinkedId_0x34_52 = v5x - world_D41A0.entities_0x6E8E;
 				v5x->nextLinkedId_0x34_52 = 0;
 				v5x->actionIndex_0x45_69 = 232;
 				v5x->mana_0x90_144 = (v9x->maxMana_0x8C_140
@@ -33707,11 +33707,11 @@ type_entity_0x6E8E* AddArchers_4BA10(axis_3d* position)//22ca10 //tex 8
 		entity->yaw_0x1C_28 = (entity->rand_0x14_20 & 0x7FF) - 1;
 		entity->pitch_0x1E_30 = entity->roll_0x20_32;
 		entity->fov_0x22_34 = 0;
-		entity->param_0x10_16 = (entity - D41A0_0.entities_0x6E8E) % 100;
+		entity->param_0x10_16 = (entity - world_D41A0.entities_0x6E8E) % 100;
 		entity->subSpellIndex_0x2A_42 = 500;
 		entity->mailMask_0x38_56 = 1;
 		entity->typeParams_0xA0_160x = &str_D7BD6[75]; //(type_str_160*)&unk_D7BD6[0x9f6];
-		entity->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[entity->model_0x40_64]++;
+		entity->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[entity->model_0x40_64]++;
 		entity->xtype_0x41_65 = 3;
 		entity->timer_0x39_57 = (entity->typeParams_0xA0_160x->updateInterval_160_0x1a_26 - entity->instanceIndex_0x3E_62 % entity->typeParams_0xA0_160x->updateInterval_160_0x1a_26) + 4;
 		AddEventToMap_57D70(entity, position);
@@ -33755,7 +33755,7 @@ type_entity_0x6E8E* AddSkeletonArcher_4BBB0(axis_3d* a1x)//22cbb0 //tex 158
 		v2x->subSpellIndex_0x2A_42 = 500;
 		v2x->mailMask_0x38_56 = 1;
 		v2x->typeParams_0xA0_160x = &str_D7BD6[80]; //(type_str_160*)&unk_D7BD6[0xaa0];
-		v2x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v2x->model_0x40_64]++;
+		v2x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v2x->model_0x40_64]++;
 		v9 = v2x->typeParams_0xA0_160x->updateInterval_160_0x1a_26
 			- v2x->instanceIndex_0x3E_62 % v2x->typeParams_0xA0_160x->updateInterval_160_0x1a_26;
 		v2x->xtype_0x41_65 = 3;
@@ -33780,7 +33780,7 @@ type_entity_0x6E8E* AddEmu_4BD00(axis_3d* position)//22cd00 //tex 464
 {
 	type_entity_0x6E8E* v1x; // eax
 	type_entity_0x6E8E* v2x; // ebx
-	if (!(D41A0_0.terrain_2FECE.levelType_0x2FED2 & 2))
+	if (!(world_D41A0.terrain_2FECE.levelType_0x2FED2 & 2))
 		return 0;
 	v1x = NewEvent_4A050();
 	v2x = v1x;
@@ -33799,7 +33799,7 @@ type_entity_0x6E8E* AddEmu_4BD00(axis_3d* position)//22cd00 //tex 464
 	v2x->xtype_0x41_65 = 3;
 	v2x->param_0x10_16 = 0;
 	v2x->levelPar3_0x46_70 = 0;
-	v2x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v2x->model_0x40_64]++;
+	v2x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v2x->model_0x40_64]++;
 	AddEventToMap_57D70(v2x, position);
 	v2x->position_0x4C_76.z = GetTerrainAlt_10C40(&v2x->position_0x4C_76);
 	CopyMaxLifeToLife_49A20(v2x);
@@ -33831,14 +33831,14 @@ type_entity_0x6E8E* AddBuilder_4BDF0(axis_3d* position)//22cdf0 //tex 141
 		v1x->pitch_0x1E_30 = v1x->roll_0x20_32;
 		v1x->mana_0x90_144 = 0;
 		v1x->fov_0x22_34 = 0;
-		v1x->param_0x10_16 = (v1x - D41A0_0.entities_0x6E8E) % 100;
+		v1x->param_0x10_16 = (v1x - world_D41A0.entities_0x6E8E) % 100;
 		v1x->subSpellIndex_0x2A_42 = 500;
 		v1x->mailMask_0x38_56 = 1;
 		v2x->typeParams_0xA0_160x = &str_D7BD6[101]; //(type_str_160*)&unk_D7BD6[0xd6a];
 		v2x->timer_0x39_57 = 64;
 		v2x->xtype_0x41_65 = 3;
 		v2x->param_0x10_16 = 2;
-		v2x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v1x->model_0x40_64]++;
+		v2x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v1x->model_0x40_64]++;
 		AddEventToMap_57D70(v2x, position);
 		CopyMaxLifeToLife_49A20(v2x);
 		SetEntityIndexAndRot_49CD0(v2x, 221);
@@ -33867,13 +33867,13 @@ type_entity_0x6E8E* AddVillager_4BF40(axis_3d* position)//22cf40 - add creature 
 		event->mana_0x90_144 = 0;
 		event->fov_0x22_34 = 0;
 		event->subSpellIndex_0x2A_42 = 500;
-		event->param_0x10_16 = (event - D41A0_0.entities_0x6E8E) % 100;
+		event->param_0x10_16 = (event - world_D41A0.entities_0x6E8E) % 100;
 		event->mailMask_0x38_56 = 1;
 		event->typeParams_0xA0_160x = &str_D7BD6[100]; //(type_str_160*)&unk_D7BD6[0xd48];
 		event->timer_0x39_57 = 64;
 		event->xtype_0x41_65 = 3;
 		event->param_0x10_16 = 2;
-		event->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[event->model_0x40_64]++;
+		event->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[event->model_0x40_64]++;
 		AddEventToMap_57D70(event, position);
 		CopyMaxLifeToLife_49A20(event);
 		event->rand_0x14_20 = 9377 * event->rand_0x14_20 + 9439;
@@ -33923,14 +33923,14 @@ type_entity_0x6E8E* AddTrader_4C0B0(axis_3d* position)//22d0b0 //tex 138
 		entity->pitch_0x1E_30 = entity->roll_0x20_32;
 		entity->mana_0x90_144 = 0;
 		entity->fov_0x22_34 = 0;
-		entity->param_0x10_16 = (entity - D41A0_0.entities_0x6E8E) % 100;
+		entity->param_0x10_16 = (entity - world_D41A0.entities_0x6E8E) % 100;
 		entity->subSpellIndex_0x2A_42 = 500;
 		entity->mailMask_0x38_56 = 1;
 		entity->typeParams_0xA0_160x = &str_D7BD6[100];
 		entity->timer_0x39_57 = 64;
 		entity->xtype_0x41_65 = 3;
 		entity->param_0x10_16 = 2;
-		entity->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[entity->model_0x40_64]++;
+		entity->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[entity->model_0x40_64]++;
 		AddEventToMap_57D70(entity, position);
 		CopyMaxLifeToLife_49A20(entity);
 		SetEntityIndexAndRot_49CD0(entity, 219);
@@ -33957,11 +33957,11 @@ type_entity_0x6E8E* AddExplodedHuman_4C1E0(axis_3d* position)//22d1e0 //tex 8
 		v1x->pitch_0x1E_30 = v1x->roll_0x20_32;
 		v1x->mana_0x90_144 = 0;
 		v1x->fov_0x22_34 = 0;
-		v1x->param_0x10_16 = (v1x - D41A0_0.entities_0x6E8E) % 100;
+		v1x->param_0x10_16 = (v1x - world_D41A0.entities_0x6E8E) % 100;
 		v1x->subSpellIndex_0x2A_42 = 500;
 		v1x->mailMask_0x38_56 = 1;
 		v1x->typeParams_0xA0_160x = &str_D7BD6[83]; //(type_str_160*)&unk_D7BD6[0xb06];
-		v1x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v1x->model_0x40_64]++;
+		v1x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v1x->model_0x40_64]++;
 		v1x->xtype_0x41_65 = 3;
 		v1x->timer_0x39_57 = (uint8_t)(v1x->typeParams_0xA0_160x->updateInterval_160_0x1a_26 - ((signed __int16)v1x->instanceIndex_0x3E_62 % v1x->typeParams_0xA0_160x->updateInterval_160_0x1a_26) + 4);
 		v1x->flags_0xc_12_15.byte[2] |= 2;
@@ -33994,18 +33994,18 @@ type_entity_0x6E8E* AddWyvern_4C310(axis_3d* position)//22d310 //tex 124
 		v1x->fov_0x22_34 = 0;
 		v1x->subSpellIndex_0x2A_42 = 500;
 		v1x->mailMask_0x38_56 = 1;
-		v1x->param_0x10_16 = (v1x - D41A0_0.entities_0x6E8E) % 100;
+		v1x->param_0x10_16 = (v1x - world_D41A0.entities_0x6E8E) % 100;
 		v1x->typeParams_0xA0_160x = &str_D7BD6[84]; //(type_str_160*)&unk_D7BD6[0xb28];
 		v1x->timer_0x39_57 = 64;
 		v1x->xtype_0x41_65 = 3;
 		v1x->param_0x10_16 = 0;
-		v1x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v1x->model_0x40_64]++;
+		v1x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v1x->model_0x40_64]++;
 		AddEventToMap_57D70(v1x, position);
 		CopyMaxLifeToLife_49A20(v1x);
 		SetEntityIndexAndRot_49CD0(v1x, 207);
-		v1x->params_0x52_82.yaw = (5 * (unsigned __int16)*(int16_t*)&x_BYTE_D9F50[294]
-			- (__CFSHL__(5 * (unsigned __int16)*(int16_t*)&x_BYTE_D9F50[294] >> 31, 3)
-				+ 8 * (5 * (unsigned __int16)*(int16_t*)&x_BYTE_D9F50[294] >> 31))) >> 3;
+		v1x->params_0x52_82.yaw = (5 * (unsigned __int16)*(int16_t*)&dataBlock_D9F50[294]
+			- (__CFSHL__(5 * (unsigned __int16)*(int16_t*)&dataBlock_D9F50[294] >> 31, 3)
+				+ 8 * (5 * (unsigned __int16)*(int16_t*)&dataBlock_D9F50[294] >> 31))) >> 3;
 		SetEntityShiftRot_49EA0(v1x, 128, 128);
 	}
 	return v1x;
@@ -34030,14 +34030,14 @@ type_entity_0x6E8E* AddManticore_4C460(axis_3d* position)//22d460 //tex 263
 		v1x->yaw_0x1C_28 = (v1x->rand_0x14_20 & 0x7FF) - 1;
 		v1x->pitch_0x1E_30 = v1x->roll_0x20_32;
 		v1x->fov_0x22_34 = 0;
-		v1x->param_0x10_16 = (v1x - D41A0_0.entities_0x6E8E) % 100;
+		v1x->param_0x10_16 = (v1x - world_D41A0.entities_0x6E8E) % 100;
 		v1x->subSpellIndex_0x2A_42 = 350;
 		v1x->mailMask_0x38_56 = 1;
 		v1x->typeParams_0xA0_160x = &str_D7BD6[85]; //(type_str_160*)&unk_D7BD6[0xb4a];
 		v1x->timer_0x39_57 = 64;
 		v1x->xtype_0x41_65 = 3;
 		v1x->param_0x10_16 = 0;
-		v1x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v1x->model_0x40_64]++;
+		v1x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v1x->model_0x40_64]++;
 		AddEventToMap_57D70(v1x, position);
 		CopyMaxLifeToLife_49A20(v1x);
 		SetEntityIndexAndRot_49CD0(v1x, 285);
@@ -34065,13 +34065,13 @@ type_entity_0x6E8E* AddSentinel_4C590(axis_3d* position)//22d590 //tex 271
 		v1x->yaw_0x1C_28 = (v1x->rand_0x14_20 & 0x7FF) - 1;
 		v1x->pitch_0x1E_30 = v1x->roll_0x20_32;
 		v1x->fov_0x22_34 = 0;
-		v1x->param_0x10_16 = (v1x - D41A0_0.entities_0x6E8E) % 100;
+		v1x->param_0x10_16 = (v1x - world_D41A0.entities_0x6E8E) % 100;
 		v1x->subSpellIndex_0x2A_42 = 500;
 		v1x->mailMask_0x38_56 = 1;
 		v1x->typeParams_0xA0_160x = &str_D7BD6[86]; //(type_str_160*)&unk_D7BD6[0xb6c];
 		v1x->timer_0x39_57 = 64;
 		v1x->xtype_0x41_65 = 3;
-		v1x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v1x->model_0x40_64]++;
+		v1x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v1x->model_0x40_64]++;
 		v1x->param_0x10_16 = 100;
 		AddEventToMap_57D70(v1x, position);
 		CopyMaxLifeToLife_49A20(v1x);
@@ -34102,11 +34102,11 @@ type_entity_0x6E8E* AddFirefly_4C6B0(axis_3d* position)//22d6b0 //tex 279
 		v1x->fov_0x22_34 = 0;
 		v1x->subSpellIndex_0x2A_42 = 300;
 		v1x->xtype_0x41_65 = 3;
-		v1x->param_0x10_16 = (v1x - D41A0_0.entities_0x6E8E) % 100;
+		v1x->param_0x10_16 = (v1x - world_D41A0.entities_0x6E8E) % 100;
 		v1x->xsubtype_0x42_66 = 0;
 		v1x->mailMask_0x38_56 = 1;
 		v1x->typeParams_0xA0_160x = &str_D7BD6[88]; //(type_str_160*)&unk_D7BD6[0xbb0];
-		v1x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v1x->model_0x40_64]++;
+		v1x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v1x->model_0x40_64]++;
 		v1x->xtype_0x41_65 = 3;
 		v1x->timer_0x39_57 = v1x->typeParams_0xA0_160x->updateInterval_160_0x1a_26 - v1x->instanceIndex_0x3E_62 % v1x->typeParams_0xA0_160x->updateInterval_160_0x1a_26 + 4;
 		AddEventToMap_57D70(v1x, position);
@@ -34141,7 +34141,7 @@ type_entity_0x6E8E* AddSpider_4C7F0(axis_3d* a1x)//22d7f0 //tex 287
 		v1x->typeParams_0xA0_160x = &str_D7BD6[89]; //(type_str_160*)&unk_D7BD6[0xbd2];
 		v1x->timer_0x39_57 = 64;
 		v1x->xtype_0x41_65 = 3;
-		v1x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v1x->model_0x40_64]++;
+		v1x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v1x->model_0x40_64]++;
 		AddEventToMap_57D70(v1x, a1x);
 		CopyMaxLifeToLife_49A20(v1x);
 		SetEntityIndexAndRot_49CD0(v1x, 288);
@@ -34170,7 +34170,7 @@ type_entity_0x6E8E* AddDevil_4C8F0(axis_3d* position)//22d8f0
 		v1x->roll_0x20_32 = (v1x->rand_0x14_20 & 0x7FF) - 1;
 		v1x->yaw_0x1C_28 = (v1x->rand_0x14_20 & 0x7FF) - 1;
 		v1x->pitch_0x1E_30 = v1x->roll_0x20_32;
-		v1x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v1x->model_0x40_64]++;//fixed
+		v1x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v1x->model_0x40_64]++;//fixed
 		v1x->typeParams_0xA0_160x = &str_D7BD6[96]; //(type_str_160*)&unk_D7BD6[0xcc0];
 		v1x->timer_0x39_57 = 64;
 		v1x->xtype_0x41_65 = 3;
@@ -34209,7 +34209,7 @@ type_entity_0x6E8E* AddFlyingMana_4CA00(axis_3d* position)//22da00
 	v1x->maxLife_0x4 = 2000;
 	v1x->fov_0x22_34 = 0;
 	v1x->typeParams_0xA0_160x = &str_D7BD6[90]; //(type_str_160*)&unk_D7BD6[0xbf4];
-	v1x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v1x->model_0x40_64]++;
+	v1x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v1x->model_0x40_64]++;
 	v1x->xtype_0x41_65 = 3;
 	v1x->mailMask_0x38_56 = 3;
 	v1x->playerEntityIndex_0x94_148 = 0;
@@ -34287,7 +34287,7 @@ type_entity_0x6E8E* AddMoonDweller_4CBF0(axis_3d* position)//22dbf0 //tex 295
 		v1x->timer_0x39_57 = 64;
 		v1x->xtype_0x41_65 = 3;
 		v1x->param2_0x2C_44 = 0x2000;
-		v1x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v1x->model_0x40_64]++;
+		v1x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v1x->model_0x40_64]++;
 		position->z = v1x->param2_0x2C_44;
 		AddEventToMap_57D70(v1x, position);
 		CopyMaxLifeToLife_49A20(v1x);
@@ -34301,7 +34301,7 @@ type_entity_0x6E8E* AddMoonDweller_4CBF0(axis_3d* position)//22dbf0 //tex 295
 type_entity_0x6E8E* AddCreature24_4CCF0(axis_3d* position)//22dcf0 //tex 437
 {
 	type_entity_0x6E8E* v1x; // eax
-	if (D41A0_0.terrain_2FECE.MapType != MapType_t::Cave)
+	if (world_D41A0.terrain_2FECE.MapType != MapType_t::Cave)
 		return 0;
 	v1x = NewEvent_4A050();
 	if (!v1x)
@@ -34322,7 +34322,7 @@ type_entity_0x6E8E* AddCreature24_4CCF0(axis_3d* position)//22dcf0 //tex 437
 	v1x->pitch_0x1E_30 = v1x->roll_0x20_32;
 	v1x->subSpellIndex_0x2A_42 = 1500;
 	v1x->mailMask_0x38_56 = 1;
-	v1x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v1x->model_0x40_64]++;
+	v1x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v1x->model_0x40_64]++;
 	v1x->typeParams_0xA0_160x = &str_D7BD6[102]; //(type_str_160*)&unk_D7BD6[0xd8c];
 	v1x->timer_0x39_57 = 64;
 	v1x->xtype_0x41_65 = 3;
@@ -34358,7 +34358,7 @@ type_entity_0x6E8E* AddCymmerian_4CE00(axis_3d* position)//22de00 //tex 303
 		v1x->typeParams_0xA0_160x = &str_D7BD6[92]; //(type_str_160*)&unk_D7BD6[0xc38];
 		v1x->timer_0x39_57 = 64;
 		v1x->xtype_0x41_65 = 3;
-		v1x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v1x->model_0x40_64]++;
+		v1x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v1x->model_0x40_64]++;
 		AddEventToMap_57D70(v1x, position);
 		CopyMaxLifeToLife_49A20(v1x);
 		SetEntityIndexAndRot_49CD0(v1x, 290);
@@ -34391,7 +34391,7 @@ type_entity_0x6E8E* AddMummy_4CF00(axis_3d* position)//22df00 //tex 411
 		v1x->typeParams_0xA0_160x = &str_D7BD6[99]; //(type_str_160*)&unk_D7BD6[0xd26];
 		v1x->timer_0x39_57 = 64;
 		v1x->xtype_0x41_65 = 3;
-		v1x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v1x->model_0x40_64]++;
+		v1x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v1x->model_0x40_64]++;
 		AddEventToMap_57D70(v1x, position);
 		CopyMaxLifeToLife_49A20(v1x);
 		SetEntityIndexAndRot_49CD0(v1x, 318);
@@ -34419,7 +34419,7 @@ type_entity_0x6E8E* AddHydra_4D000(axis_3d* position)//22e000
 	char v16; // [esp+10h] [ebp-4h]
 	type_entity_0x6E8E* a1x = 0;
 	v16 = 0;
-	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
+	if (world_D41A0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
 		v16 = 1;
 	}
@@ -34438,7 +34438,7 @@ type_entity_0x6E8E* AddHydra_4D000(axis_3d* position)//22e000
 				AddEventToMap_57D70(v2x, position);
 				v13x = v3x;
 				v15 = 0;
-				v4 = v3x - D41A0_0.entities_0x6E8E;
+				v4 = v3x - world_D41A0.entities_0x6E8E;
 				while (v15 < 5 && !v16)
 				{
 					v5x = NewEvent_4A050();
@@ -34451,7 +34451,7 @@ type_entity_0x6E8E* AddHydra_4D000(axis_3d* position)//22e000
 						v5x->poseIndex_0x3B_59 = v15;
 						v5x->id_0x1A_26 = v4;
 						v5x->leaderId_0x32_50 = v4;
-						v13x->nextLinkedId_0x34_52 = v5x - D41A0_0.entities_0x6E8E;
+						v13x->nextLinkedId_0x34_52 = v5x - world_D41A0.entities_0x6E8E;
 						v14x = v5x;
 						v5x->nextLinkedId_0x34_52 = 0;
 						AddEventToMap_57D70(v5x, position);
@@ -34466,7 +34466,7 @@ type_entity_0x6E8E* AddHydra_4D000(axis_3d* position)//22e000
 								v7x->class_0x3F_63 = 5;
 								v7x->model_0x40_64 = 27;
 								v7x->poseIndex_0x3B_59 = v15;
-								v9 = v7x - D41A0_0.entities_0x6E8E;
+								v9 = v7x - world_D41A0.entities_0x6E8E;
 								v8x->id_0x1A_26 = v4;
 								v8x->leaderId_0x32_50 = v4;
 								v14x->nextLinkedId_0x34_52 = v9;
@@ -34526,7 +34526,7 @@ type_entity_0x6E8E* AddMana_4D1D0(axis_3d* position)//22e1d0 //tex 319
 		v1x->pitch_0x1E_30 = v1x->roll_0x20_32;
 		v1x->subSpellIndex_0x2A_42 = 2000;
 		v1x->mailMask_0x38_56 = 1;
-		v1x->instanceIndex_0x3E_62 = D41A0_0.modelCounters_0x10[v1x->model_0x40_64]++;
+		v1x->instanceIndex_0x3E_62 = world_D41A0.modelCounters_0x10[v1x->model_0x40_64]++;
 		v1x->typeParams_0xA0_160x = &str_D7BD6[93]; //(type_str_160*)&unk_D7BD6[0xC5A];
 		v1x->timer_0x39_57 = 64;
 		v1x->xtype_0x41_65 = 3;
@@ -35338,7 +35338,7 @@ type_entity_0x6E8E* AddManaSphereSpawner_4E760(axis_3d* position)//22f760
 		event->subSpellIndex_0x2A_42 = 2000;
 		event->flags_0xc_12_15.byte[0] &= 0xF7u;
 		SetEntityShiftRot_49EA0(event, 7, 0x4000);
-		D41A0_0.altSpawnMode_0x36E03 = 0;
+		world_D41A0.altSpawnMode_0x36E03 = 0;
 	}
 	return event;
 }
@@ -35431,22 +35431,22 @@ type_entity_0x6E8E* AddEffectLifetime_4E950(axis_3d* position)//22f950 //tex 54
 //----- (0004E9E0) --------------------------------------------------------
 type_entity_0x6E8E* SetParticleSmoke3B_4E9E0(axis_3d* position)//22f9e0
 {
-	D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
-	return SetSmoke4_4EAA0(position, 0xD, 0xD, 67, D41A0_0.rand_0x8 % 0x17u + 17);
+	world_D41A0.rand_0x8 = 9377 * world_D41A0.rand_0x8 + 9439;
+	return SetSmoke4_4EAA0(position, 0xD, 0xD, 67, world_D41A0.rand_0x8 % 0x17u + 17);
 }
 
 //----- (0004EA20) --------------------------------------------------------
 type_entity_0x6E8E* SetParticleSmoke3C_4EA20(axis_3d* position)//22fa20
 {
-	D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
-	return SetSmoke4_4EAA0(position, 0xE, 0xE, 9, D41A0_0.rand_0x8 % 0x21u + 28);
+	world_D41A0.rand_0x8 = 9377 * world_D41A0.rand_0x8 + 9439;
+	return SetSmoke4_4EAA0(position, 0xE, 0xE, 9, world_D41A0.rand_0x8 % 0x21u + 28);
 }
 
 //----- (0004EA60) --------------------------------------------------------
 type_entity_0x6E8E* AddRandomSmoke_4EA60(axis_3d* position)//22fa60
 {
-	D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
-	return SetSmoke4_4EAA0(position, 0x57, 0x5E, 67, D41A0_0.rand_0x8 % 0x17u + 17);
+	world_D41A0.rand_0x8 = 9377 * world_D41A0.rand_0x8 + 9439;
+	return SetSmoke4_4EAA0(position, 0x57, 0x5E, 67, world_D41A0.rand_0x8 % 0x17u + 17);
 }
 
 //----- (0004EAA0) --------------------------------------------------------
@@ -35700,8 +35700,8 @@ type_entity_0x6E8E* AddWind_4F040(axis_3d* axis)//230040
 			entity2->model_0x40_64 = 75;
 			entity2->actionIndex_0x45_69 = 82;
 			entity2->param2_0x2C_44 = i + 1;
-			entity2->leaderId_0x32_50 = entity3 - D41A0_0.entities_0x6E8E;
-			entity3->nextLinkedId_0x34_52 = entity2 - D41A0_0.entities_0x6E8E;
+			entity2->leaderId_0x32_50 = entity3 - world_D41A0.entities_0x6E8E;
+			entity3->nextLinkedId_0x34_52 = entity2 - world_D41A0.entities_0x6E8E;
 			entity2->nextLinkedId_0x34_52 = 0;
 			entity2->instanceIndex_0x3E_62 = i;
 			AddEventToMap_57D70(entity2, axis);
@@ -35781,8 +35781,8 @@ type_entity_0x6E8E* AddFireSpheres_4F2A0(axis_3d* position)//2302a0
 					qmemcpy(entity2, entity, sizeof(type_entity_0x6E8E));
 					entity2->model_0x40_64 = 77;
 					entity2->actionIndex_0x45_69 = 84;
-					entity2->leaderId_0x32_50 = entity3 - D41A0_0.entities_0x6E8E;
-					entity3->nextLinkedId_0x34_52 = entity2 - D41A0_0.entities_0x6E8E;
+					entity2->leaderId_0x32_50 = entity3 - world_D41A0.entities_0x6E8E;
+					entity3->nextLinkedId_0x34_52 = entity2 - world_D41A0.entities_0x6E8E;
 					entity2->instanceIndex_0x3E_62 = i;
 					entity2->levelPar1_0x43_67 = i / 5;
 					entity2->nextLinkedId_0x34_52 = 0;
@@ -36478,7 +36478,7 @@ type_entity_0x6E8E* AddPlayerDeathEffect_501D0(axis_3d* position)//2311d0
 		event->actionIndex_0x45_69 = 0x2A;
 		event->class_0x3F_63 = 0xA;
 		event->model_0x40_64 = 0x28;
-		event->param_0x10_16 = (event - D41A0_0.entities_0x6E8E) % 11;
+		event->param_0x10_16 = (event - world_D41A0.entities_0x6E8E) % 11;
 		event->mailMask_0x38_56 = 2;
 		AddEventToMap_57D70(event, position);
 		CopyMaxLifeToLife_49A20(event);
@@ -36788,7 +36788,7 @@ type_entity_0x6E8E* AddPossessedCreatureMarker_50840(axis_3d* position)//231840 
 		event->fontTypeIndex_0x3D_61 = 1;
 		event->levelPar1_0x43_67 = 1;
 		event->levelPar2_0x44_68 = 0;
-		event->leaderId_0x32_50 = event - D41A0_0.entities_0x6E8E;
+		event->leaderId_0x32_50 = event - world_D41A0.entities_0x6E8E;
 		AddEventToMap_57D70(event, position);
 		CopyMaxLifeToLife_49A20(event);
 		SetEntityIndexAndRot_49CD0(event, 66);
@@ -36851,7 +36851,7 @@ type_entity_0x6E8E* AddSpeedTrail_50960(axis_3d* position)//231960
 type_entity_0x6E8E* AddSpeedSpell_50A20(axis_3d* position)//231a20
 {
 	type_entity_0x6E8E* event; // eax
-	if (D41A0_0.terrain_2FECE.MapType != MapType_t::Cave)
+	if (world_D41A0.terrain_2FECE.MapType != MapType_t::Cave)
 		return 0;
 	event = NewEvent_4A050();
 	if (event)
@@ -37113,13 +37113,13 @@ type_entity_0x6E8E* AddSwitch30_50FD0(axis_3d* position)//231fd0
 type_entity_0x6E8E* AddSwitch31atyp_50FF0(axis_3d* position)//231ff0
 {
 	type_entity_0x6E8E* event = 0;
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE) && !(x_D41A0_BYTEARRAY_4_struct.setting_38545 & 8))
+	if (!(gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE) && !(gameState_D41A4.setting_38545 & 8))
 	{
 		event = AddSwitchXX_50A90(position, 31, 31);
 		if (event)
 		{
-			D41A0_0.tempObjective_0x36E02 = 1;
-			D41A0_0.gameFlags_0x36E0B |= 1;
+			world_D41A0.tempObjective_0x36E02 = 1;
+			world_D41A0.gameFlags_0x36E0B |= 1;
 		}
 	}
 	return event;
@@ -37157,7 +37157,7 @@ type_entity_0x6E8E* AddClass0E03_51570(axis_3d* position)//232570
 	type_entity_0x6E8E* event = AddClass0EEntity_514E0(position, 3, 8, 338);
 	if (event)
 	{
-		D41A0_0.switchChainEntity_0x36DFE = event - D41A0_0.entities_0x6E8E;
+		world_D41A0.switchChainEntity_0x36DFE = event - world_D41A0.entities_0x6E8E;
 		event->flags_0xc_12_15.byte[0] |= 1u;
 	}
 	return event;
@@ -37169,7 +37169,7 @@ type_entity_0x6E8E* AddClass0E04_515C0(axis_3d* position)//2325c0
 	type_entity_0x6E8E* event = AddClass0EEntity_514E0(position, 4, 9, 339);
 	if (event)
 	{
-		D41A0_0.switchOnceEntity_0x36DFC = event - D41A0_0.entities_0x6E8E;
+		world_D41A0.switchOnceEntity_0x36DFC = event - world_D41A0.entities_0x6E8E;
 		event->flags_0xc_12_15.byte[0] |= 1u;
 	}
 	return event;
@@ -37182,7 +37182,7 @@ type_entity_0x6E8E* AddClass0E05_51610(axis_3d* position)//232610
 	if (event)
 	{
 		SetEntityShiftRot_49EA0(event, 768, 1280);
-		if (x_D41A0_BYTEARRAY_4_struct.setting_38545 & 4)
+		if (gameState_D41A4.setting_38545 & 4)
 			event->flags_0xc_12_15.byte[0] |= 1u;
 	}
 	return event;
@@ -37273,7 +37273,7 @@ type_entity_0x6E8E* AddShield_51790(axis_3d* position)//232790
 type_entity_0x6E8E* AddEffectIfEntitiesFree_51800(axis_3d* position)//232800 //tex 158
 {
 	type_entity_0x6E8E* event = nullptr;
-	if (GetFreeEntityCount_4A810() >= x_D41A0_BYTEARRAY_4_struct.summonCount_224)
+	if (GetFreeEntityCount_4A810() >= gameState_D41A4.summonCount_224)
 	{
 		event = NewEvent_4A050();
 		if (event)
@@ -37286,18 +37286,18 @@ type_entity_0x6E8E* AddEffectIfEntitiesFree_51800(axis_3d* position)//232800 //t
 			event->life_0x8 = event->maxLife_0x4;
 			event->instanceIndex_0x3E_62 = 0;
 			type_entity_0x6E8E* prevEvent = event;
-			for (int index = 1; x_D41A0_BYTEARRAY_4_struct.summonCount_224 > index; index++)
+			for (int index = 1; gameState_D41A4.summonCount_224 > index; index++)
 			{
 				type_entity_0x6E8E* newEvent = NewEvent_4A050();
 				if (newEvent)
 				{
 					qmemcpy(newEvent, event, sizeof(type_entity_0x6E8E));
-					newEvent->leaderId_0x32_50 = prevEvent - D41A0_0.entities_0x6E8E;
-					prevEvent->nextLinkedId_0x34_52 = newEvent - D41A0_0.entities_0x6E8E;
+					newEvent->leaderId_0x32_50 = prevEvent - world_D41A0.entities_0x6E8E;
+					prevEvent->nextLinkedId_0x34_52 = newEvent - world_D41A0.entities_0x6E8E;
 					newEvent->nextLinkedId_0x34_52 = 0;
 					newEvent->instanceIndex_0x3E_62 = index;
 					predictedAxis_EB398ar = *position;
-					MoveEntity_57FA0(&predictedAxis_EB398ar, index * (2048 / x_D41A0_BYTEARRAY_4_struct.summonCount_224), 0, 512);
+					MoveEntity_57FA0(&predictedAxis_EB398ar, index * (2048 / gameState_D41A4.summonCount_224), 0, 512);
 					predictedAxis_EB398ar.z = GetTerrainAlt_10C40(&predictedAxis_EB398ar);
 					AddEventToMap_57D70(newEvent, &predictedAxis_EB398ar);
 					SetEntityShiftRot_49EA0(newEvent, 128, 256);
@@ -37368,9 +37368,9 @@ static int  matchOutCounter = 0;
 // castle disappears on every screen without anything extra being sent.
 void DestroyPlayerCastle(int player)
 {
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)) return;
+	if (!(gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)) return;
 	if (player < 0 || player >= 8) return;
-	type_entity_0x6E8E* owner = Entities_EA3E4[D41A0_0.players_0x2BDE[player].playerIndex_0x00a_2BE4_11240];
+	type_entity_0x6E8E* owner = Entities_EA3E4[world_D41A0.players_0x2BDE[player].playerIndex_0x00a_2BE4_11240];
 	if (!owner || !owner->playerData_0xA4_164x) return;
 	const int16_t castle = owner->playerData_0xA4_164x->CastleEntityIndex_0x3A_58;
 	if (!castle) return;
@@ -37410,7 +37410,7 @@ void MatchScoreReset()
 // record anything outside it.
 void MatchScoreMarkPlaying(int player)
 {
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)) return;
+	if (!(gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)) return;
 	if (player >= 0 && player < 8) matchPlayed[player] = true;
 }
 
@@ -37422,7 +37422,7 @@ void MatchScoreMarkPlaying(int player)
 // still gets its place in the order; nobody is credited.
 void MatchScoreRecordKnockOut(int victim, type_entity_0x6E8E* victimEntity)
 {
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)) return;
+	if (!(gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)) return;
 	if (victim < 0 || victim >= 8) return;
 	if (matchOutSeq[victim]) return;                 // already counted, this can be re-entered
 	matchPlayed[victim] = true;
@@ -37488,7 +37488,7 @@ void PlayerEvents_51BB0()//232bb0
 	// thing keeping the nodes together.
 	// Scripted endings for unattended tests: leave the game, or drop the network link to
 	// see how the other side copes with a peer that vanishes.
-	if ((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+	if ((gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 		&& (CommandLineParams.QuitAfterS() > 0 || CommandLineParams.NetKillAfterS() > 0))
 	{
 		static long inGameSince = 0;
@@ -37510,7 +37510,7 @@ void PlayerEvents_51BB0()//232bb0
 				leftGame = true;
 				if (CommandLineParams.DoNetworkDebug())
 					debug_net_printf("AUTOTEST: leaving the game now\n");
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].syncReady_0x004_2BE0_11234 = 1;
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].syncReady_0x004_2BE0_11234 = 1;
 			}
 		}
 	}
@@ -37522,7 +37522,7 @@ void PlayerEvents_51BB0()//232bb0
 	// altogether.  Bit 3 of dw_w_b_0_2BDE_11230.byte[2] only breaks InGameLoop_47320, and the
 	// outer while(1) then runs MenusAndIntros_76930 again - which is exactly the path a
 	// player takes back to the menu, and the one that has to rebuild the network state.
-	if ((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+	if ((gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 		&& CommandLineParams.AutoTest() && CommandLineParams.AutoTestMatchSeconds() > 0
 		&& CommandLineParams.AutoTestMatches() > 1)
 	{
@@ -37539,214 +37539,214 @@ void PlayerEvents_51BB0()//232bb0
 					debug_net_printf("AUTOTEST: match %d over, returning to the menu for match %d\n",
 						g_autotest_match, g_autotest_match + 1);
 				g_autotest_match++;
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] |= 8;
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] |= 8;
 			}
 			else
 			{
 				if (CommandLineParams.DoNetworkDebug())
 					debug_net_printf("AUTOTEST: last match (%d) over, leaving\n", g_autotest_match);
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].syncReady_0x004_2BE0_11234 = 1;
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].syncReady_0x004_2BE0_11234 = 1;
 			}
 		}
 	}
 
 	bool replayingOverNetwork = false;
 	if (m_InputRecorder != nullptr && m_InputRecorder->m_IsPlaying
-		&& (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE))
+		&& (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE))
 	{
 		replayingOverNetwork = true;
 		if (GetIndexNetwork_74536() == GetIndexNetwork2_74515())
 		{
-			int32_t turn = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248;
-			for (int pi = 0; pi < D41A0_0.NumberOfPlayers_0xe; pi++)
+			int32_t turn = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248;
+			for (int pi = 0; pi < world_D41A0.NumberOfPlayers_0xe; pi++)
 			{
 				RecordedEventTurn* rec = m_InputRecorder->GetCurrentPlayerActions(
-					x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, pi, turn);
+					gameState_D41A4.levelnumber_43w, pi, turn);
 				if (rec && rec->Bytes)
 				{
 					size_t n = (size_t)rec->SizeBytes;
 					if (n > sizeof(Type_PlayerInput_0x6E3E)) n = sizeof(Type_PlayerInput_0x6E3E);
-					memcpy(&D41A0_0.playerInputs_0x6E3E[pi], rec->Bytes, n);
+					memcpy(&world_D41A0.playerInputs_0x6E3E[pi], rec->Bytes, n);
 				}
 			}
 		}
 	}
 
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+	if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 	{
 		NetworkUpdateConnections2_74374();
-		ReceiveSendAll_7438A((uint8_t*)D41A0_0.playerInputs_0x6E3E, sizeof(Type_PlayerInput_0x6E3E));//multi receive
+		ReceiveSendAll_7438A((uint8_t*)world_D41A0.playerInputs_0x6E3E, sizeof(Type_PlayerInput_0x6E3E));//multi receive
 
 
 		bool playerFound = false;
-		for (int i = 0; i < D41A0_0.NumberOfPlayers_0xe; i++)
+		for (int i = 0; i < world_D41A0.NumberOfPlayers_0xe; i++)
 		{
-			if (D41A0_0.playerInputs_0x6E3E[i].PlayerAction_byte0 == 1)
+			if (world_D41A0.playerInputs_0x6E3E[i].PlayerAction_byte0 == 1)
 			{
-				D41A0_0.players_0x2BDE[i].playerActive_0x006_2BE4_11236 = 1;
-				if (i == D41A0_0.LevelIndex_0xc && (x_D41A0_BYTEARRAY_4_struct.player_name_57ar[0]))
+				world_D41A0.players_0x2BDE[i].playerActive_0x006_2BE4_11236 = 1;
+				if (i == world_D41A0.LevelIndex_0xc && (gameState_D41A4.player_name_57ar[0]))
 				{
-					strcpy(D41A0_0.players_0x2BDE[i].WizardName_0x39f_2BFA_12157, x_D41A0_BYTEARRAY_4_struct.player_name_57ar); //copy wizard name
+					strcpy(world_D41A0.players_0x2BDE[i].WizardName_0x39f_2BFA_12157, gameState_D41A4.player_name_57ar); //copy wizard name
 				}
 				playerFound = true;
 			}
 		}
 		if (playerFound)
-			ReceiveSendAll_7438A((uint8_t*)&D41A0_0.players_0x2BDE[0], sizeof(type_str_0x2BDE));
+			ReceiveSendAll_7438A((uint8_t*)&world_D41A0.players_0x2BDE[0], sizeof(type_str_0x2BDE));
 	}
-	D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248++;
-	x_D41A0_BYTEARRAY_4_struct.FrameTimingIndex_26++;//232c9e
-	x_D41A0_BYTEARRAY_4_struct.setting_30++;
-	if (x_D41A0_BYTEARRAY_4_struct.leftSpellPlayerIndex_38400)
-		x_D41A0_BYTEARRAY_4_struct.leftSpellPlayerIndex_38400--;
-	if (x_D41A0_BYTEARRAY_4_struct.rightSpellPlayerIndex_38401)
-		x_D41A0_BYTEARRAY_4_struct.rightSpellPlayerIndex_38401--;
+	world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248++;
+	gameState_D41A4.FrameTimingIndex_26++;//232c9e
+	gameState_D41A4.setting_30++;
+	if (gameState_D41A4.leftSpellPlayerIndex_38400)
+		gameState_D41A4.leftSpellPlayerIndex_38400--;
+	if (gameState_D41A4.rightSpellPlayerIndex_38401)
+		gameState_D41A4.rightSpellPlayerIndex_38401--;
 	//adress 232cd2
 	for (int i = 1; i < 16; i++)
 	{
-		x_D41A0_BYTEARRAY_4_struct.colorIndex_121[i] = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248 / i & 1;
+		gameState_D41A4.colorIndex_121[i] = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248 / i & 1;
 	}
-	for (int i = 0; i < D41A0_0.NumberOfPlayers_0xe; i++)
+	for (int i = 0; i < world_D41A0.NumberOfPlayers_0xe; i++)
 	{
 		// !replayingOverNetwork: in a network game the recording was already applied
 		// above, before the exchange, so the array now holds what every node agreed on.
-		if (!replayingOverNetwork && m_InputRecorder != nullptr && m_InputRecorder->m_IsPlaying && m_InputRecorder->GetCurrentPlayerActions(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, i, D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248) != nullptr)
+		if (!replayingOverNetwork && m_InputRecorder != nullptr && m_InputRecorder->m_IsPlaying && m_InputRecorder->GetCurrentPlayerActions(gameState_D41A4.levelnumber_43w, i, world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248) != nullptr)
 		{
 			if (CommandLineParams.ModeRegressionsTestType()==-1)
 			{
-				std::string msg = "Playing Turn: " + std::to_string(D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248);
+				std::string msg = "Playing Turn: " + std::to_string(world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248);
 				SetCurrentNotificationMessage_19760(msg.c_str(), 3u, 50);
 			}
-			memcpy(&D41A0_0.playerInputs_0x6E3E[i], m_InputRecorder->GetCurrentPlayerActions(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, i, D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248)->Bytes, m_InputRecorder->GetCurrentPlayerActions(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, i, D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248)->SizeBytes);
+			memcpy(&world_D41A0.playerInputs_0x6E3E[i], m_InputRecorder->GetCurrentPlayerActions(gameState_D41A4.levelnumber_43w, i, world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248)->Bytes, m_InputRecorder->GetCurrentPlayerActions(gameState_D41A4.levelnumber_43w, i, world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248)->SizeBytes);
 			// the recorded rand_0x8 only checks the playback: the first turn of a level it differs in is logged
 			static int randDiffersLevel = -1;
-			const uint32_t recordedRand = m_InputRecorder->GetCurrentPlayerActions(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, i, D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248)->Rand;
-			if (recordedRand != 0 && recordedRand != D41A0_0.rand_0x8 && randDiffersLevel != x_D41A0_BYTEARRAY_4_struct.levelnumber_43w)
+			const uint32_t recordedRand = m_InputRecorder->GetCurrentPlayerActions(gameState_D41A4.levelnumber_43w, i, world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248)->Rand;
+			if (recordedRand != 0 && recordedRand != world_D41A0.rand_0x8 && randDiffersLevel != gameState_D41A4.levelnumber_43w)
 			{
-				Logger->warn("Playback differs from the recording: level {} turn {} rand {:X}, recorded {:X}", x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248, D41A0_0.rand_0x8, recordedRand);
-				randDiffersLevel = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
+				Logger->warn("Playback differs from the recording: level {} turn {} rand {:X}, recorded {:X}", gameState_D41A4.levelnumber_43w, world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248, world_D41A0.rand_0x8, recordedRand);
+				randDiffersLevel = gameState_D41A4.levelnumber_43w;
 			}
 		}
 		else if (m_InputRecorder != nullptr && m_InputRecorder->m_IsRecording)
 		{
-			std::string msg = "Recording Turn: " + std::to_string(D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248);
+			std::string msg = "Recording Turn: " + std::to_string(world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248);
 			SetCurrentNotificationMessage_19760(msg.c_str(), 3u, 50);
-			m_InputRecorder->RecordPlayerActions(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, i, D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248, D41A0_0.rand_0x8, sizeof(Type_PlayerInput_0x6E3E), (uint8_t*)&D41A0_0.playerInputs_0x6E3E[i]);
+			m_InputRecorder->RecordPlayerActions(gameState_D41A4.levelnumber_43w, i, world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248, world_D41A0.rand_0x8, sizeof(Type_PlayerInput_0x6E3E), (uint8_t*)&world_D41A0.playerInputs_0x6E3E[i]);
 			// recording started in a running level (a loaded game): 54A50 never ran, take the spells now
-			if (!m_InputRecorder->HasPlayerSpells(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, i))
-				m_InputRecorder->RecordPlayerSpells(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, i,
-					D41A0_0.players_0x2BDE[i].playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled,
-					D41A0_0.players_0x2BDE[i].playerData_0x3E6_2BE4_12228.str_611.SpellIndexes_0x39B_923x.SpellIndex,
-					D41A0_0.players_0x2BDE[i].playerData_0x3E6_2BE4_12228.str_611.SpellLevels_0x41D_1053z.SpellIndex,
-					D41A0_0.players_0x2BDE[i].playerData_0x3E6_2BE4_12228.str_611.SpellExperience_0x263_611x.SpellExperience);
+			if (!m_InputRecorder->HasPlayerSpells(gameState_D41A4.levelnumber_43w, i))
+				m_InputRecorder->RecordPlayerSpells(gameState_D41A4.levelnumber_43w, i,
+					world_D41A0.players_0x2BDE[i].playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled,
+					world_D41A0.players_0x2BDE[i].playerData_0x3E6_2BE4_12228.str_611.SpellIndexes_0x39B_923x.SpellIndex,
+					world_D41A0.players_0x2BDE[i].playerData_0x3E6_2BE4_12228.str_611.SpellLevels_0x41D_1053z.SpellIndex,
+					world_D41A0.players_0x2BDE[i].playerData_0x3E6_2BE4_12228.str_611.SpellExperience_0x263_611x.SpellExperience);
 		}
 
 		//adress 232d2f
-		actEvent = Entities_EA3E4[D41A0_0.players_0x2BDE[i].playerIndex_0x00a_2BE4_11240];
+		actEvent = Entities_EA3E4[world_D41A0.players_0x2BDE[i].playerIndex_0x00a_2BE4_11240];
 		// Anybody the loop runs for is in this match, which is how the result table knows which
 		// slots to list - the array has eight of them and a game rarely fills it.
 		MatchScoreMarkPlaying(i);
-		if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x20)
+		if (gameState_D41A4.setting_byte1_22 & 0x20)
 		{
-			RecordOrPlayMovieInput_53A40(&D41A0_0.playerInputs_0x6E3E[i]);
+			RecordOrPlayMovieInput_53A40(&world_D41A0.playerInputs_0x6E3E[i]);
 		}
 		//adress 233d56
-		switch (D41A0_0.playerInputs_0x6E3E[i].PlayerAction_byte0)
+		switch (world_D41A0.playerInputs_0x6E3E[i].PlayerAction_byte0)
 		{
 		case 1:
-			D41A0_0.players_0x2BDE[i].playerActive_0x006_2BE4_11236 = 1;
-			if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
-				&& i == D41A0_0.LevelIndex_0xc
-				&& *x_D41A0_BYTEARRAY_4_struct.player_name_57ar)
+			world_D41A0.players_0x2BDE[i].playerActive_0x006_2BE4_11236 = 1;
+			if (!(gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+				&& i == world_D41A0.LevelIndex_0xc
+				&& *gameState_D41A4.player_name_57ar)
 			{
-				strcpy(D41A0_0.players_0x2BDE[i].WizardName_0x39f_2BFA_12157, x_D41A0_BYTEARRAY_4_struct.player_name_57ar);
+				strcpy(world_D41A0.players_0x2BDE[i].WizardName_0x39f_2BFA_12157, gameState_D41A4.player_name_57ar);
 			}
-			UpdatePlayerWizard_5C950(&D41A0_0.players_0x2BDE[i], actEvent);
+			UpdatePlayerWizard_5C950(&world_D41A0.players_0x2BDE[i], actEvent);
 			SetCenterScreenForFlyAssistant_6EDB0();
-			BackupMousePosition_548F0(&D41A0_0.players_0x2BDE[i]);
-			SetMenuCursorPosition_52E90(&D41A0_0.players_0x2BDE[i], 0, false);
+			BackupMousePosition_548F0(&world_D41A0.players_0x2BDE[i]);
+			SetMenuCursorPosition_52E90(&world_D41A0.players_0x2BDE[i], 0, false);
 			break;
 		case 2:
 			CheckCdPresent_53120();
-			if (D41A0_0.LevelIndex_0xc == i)
-				D41A0_0.players_0x2BDE[i].syncReady_0x004_2BE0_11234 = 1;
-			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+			if (world_D41A0.LevelIndex_0xc == i)
+				world_D41A0.players_0x2BDE[i].syncReady_0x004_2BE0_11234 = 1;
+			if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 				DisableEntitesDrawing_5E660(actEvent);
 			MatchScoreRecordKnockOut(i, actEvent);
 			DestroyPlayerCastle(i);
 			NetworkEvent_7373D(i);
-			D41A0_0.players_0x2BDE[i].playerActive_0x006_2BE4_11236 = 0;
+			world_D41A0.players_0x2BDE[i].playerActive_0x006_2BE4_11236 = 0;
 			break;
 		case 3:
-			UpdatePlayerWizard_5C950(&D41A0_0.players_0x2BDE[i], actEvent);
+			UpdatePlayerWizard_5C950(&world_D41A0.players_0x2BDE[i], actEvent);
 			SetCenterScreenForFlyAssistant_6EDB0();
-			BackupMousePosition_548F0(&D41A0_0.players_0x2BDE[i]);
-			SetMenuCursorPosition_52E90(&D41A0_0.players_0x2BDE[i], 0, false);
+			BackupMousePosition_548F0(&world_D41A0.players_0x2BDE[i]);
+			SetMenuCursorPosition_52E90(&world_D41A0.players_0x2BDE[i], 0, false);
 			break;
 		case 4:
-			D41A0_0.players_0x2BDE[i].ShowDebugTextFlag_0x005_2BE0_11235 ^= D41A0_0.players_0x2BDE[i].stateFlags_0_2BDE_11230.byte[1];
+			world_D41A0.players_0x2BDE[i].ShowDebugTextFlag_0x005_2BE0_11235 ^= world_D41A0.players_0x2BDE[i].stateFlags_0_2BDE_11230.byte[1];
 			break;
 		case 6: //Move player
-			if (D41A0_0.playerInputs_0x6E3E[i].entityIndex_0x6E3E_byte5 & 0x40)
-				actEvent->playerData_0xA4_164x->str_611.spellIndex_0x458_1112 = D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
-			if (D41A0_0.playerInputs_0x6E3E[i].entityIndex_0x6E3E_byte5 < 0 && !D41A0_0.players_0x2BDE[i].rollState_0x846_2BDE)
-				D41A0_0.players_0x2BDE[i].rollState_0x846_2BDE = 1;
+			if (world_D41A0.playerInputs_0x6E3E[i].entityIndex_0x6E3E_byte5 & 0x40)
+				actEvent->playerData_0xA4_164x->str_611.spellIndex_0x458_1112 = world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
+			if (world_D41A0.playerInputs_0x6E3E[i].entityIndex_0x6E3E_byte5 < 0 && !world_D41A0.players_0x2BDE[i].rollState_0x846_2BDE)
+				world_D41A0.players_0x2BDE[i].rollState_0x846_2BDE = 1;
 			break;
 		case 7:
-			if (D41A0_0.players_0x2BDE[i].ActPlayerIndex_0x00e_2BDE_11244 + D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1 >= 0
-				&& D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1 + D41A0_0.players_0x2BDE[i].ActPlayerIndex_0x00e_2BDE_11244 < D41A0_0.players_0x2BDE[i].positionCount_0x010_2BDE_11246 - 1)
+			if (world_D41A0.players_0x2BDE[i].ActPlayerIndex_0x00e_2BDE_11244 + world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1 >= 0
+				&& world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1 + world_D41A0.players_0x2BDE[i].ActPlayerIndex_0x00e_2BDE_11244 < world_D41A0.players_0x2BDE[i].positionCount_0x010_2BDE_11246 - 1)
 			{
-				D41A0_0.players_0x2BDE[i].ActPlayerIndex_0x00e_2BDE_11244 += D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
+				world_D41A0.players_0x2BDE[i].ActPlayerIndex_0x00e_2BDE_11244 += world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
 			}
 			break;
 		case 8:
-			D41A0_0.players_0x2BDE[i].positions_0x1d1_2BDE_11695[0].rotation__2BDE_11701.fov += D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
+			world_D41A0.players_0x2BDE[i].positions_0x1d1_2BDE_11695[0].rotation__2BDE_11701.fov += world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
 			break;
 		case 0xC:
-			x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 = (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 | 0x22) & 0xFB;
+			gameState_D41A4.setting_byte1_22 = (gameState_D41A4.setting_byte1_22 | 0x22) & 0xFB;
 			break;
 		case 0xD:
-			x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 = (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 | 0x24) & 0xFD;
+			gameState_D41A4.setting_byte1_22 = (gameState_D41A4.setting_byte1_22 | 0x24) & 0xFD;
 			break;
 		case 0xF:
 			if (actEvent->playerData_0xA4_164x->CastleEntityIndex_0x3A_58)
 			{
-				UpdatePlayerWizard_5C950(&D41A0_0.players_0x2BDE[i], actEvent);
+				UpdatePlayerWizard_5C950(&world_D41A0.players_0x2BDE[i], actEvent);
 				SetCenterScreenForFlyAssistant_6EDB0();
-				BackupMousePosition_548F0(&D41A0_0.players_0x2BDE[i]);
-				SetMenuCursorPosition_52E90(&D41A0_0.players_0x2BDE[i], 0, false);
+				BackupMousePosition_548F0(&world_D41A0.players_0x2BDE[i]);
+				SetMenuCursorPosition_52E90(&world_D41A0.players_0x2BDE[i], 0, false);
 				break;
 			}
-			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+			if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 			{
-				strcpy(D41A0_0.players_0x2BDE[i].CurrentNotificationText_0x01c_2BFA_11258, x_DWORD_E9C4C_langindexbuffer[HAS_BEEN_BANISHED]);//has been banished from the realm.
-				D41A0_0.players_0x2BDE[i].endState_0x04f_2C2D_11309 = 1;
-				D41A0_0.players_0x2BDE[i].CurrentNotificationDuration_0x04d_2C2B_11307 = 100;
-				D41A0_0.players_0x2BDE[i].stateFlags_0_2BDE_11230.word[1] = 8;
+				strcpy(world_D41A0.players_0x2BDE[i].CurrentNotificationText_0x01c_2BFA_11258, langStrings_E9C4C[HAS_BEEN_BANISHED]);//has been banished from the realm.
+				world_D41A0.players_0x2BDE[i].endState_0x04f_2C2D_11309 = 1;
+				world_D41A0.players_0x2BDE[i].CurrentNotificationDuration_0x04d_2C2B_11307 = 100;
+				world_D41A0.players_0x2BDE[i].stateFlags_0_2BDE_11230.word[1] = 8;
 				MatchScoreRecordKnockOut(i, actEvent);
 				NetworkEvent_7373D(i);
-				D41A0_0.players_0x2BDE[i].playerActive_0x006_2BE4_11236 = 0;
-				if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+				world_D41A0.players_0x2BDE[i].playerActive_0x006_2BE4_11236 = 0;
+				if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 					DisableEntitesDrawing_5E660(actEvent);
-				x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 &= 0xD9u;
-				if (x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 24)
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] |= 0x10u;
+				gameState_D41A4.setting_byte1_22 &= 0xD9u;
+				if (gameState_D41A4.levelnumber_43w > 24)
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] |= 0x10u;
 				break;
 			}
-			D41A0_0.players_0x2BDE[i].stateFlags_0_2BDE_11230.byte[2] |= 0xCu;
-			UpdatePlayerWizard_5C950(&D41A0_0.players_0x2BDE[i], actEvent);
+			world_D41A0.players_0x2BDE[i].stateFlags_0_2BDE_11230.byte[2] |= 0xCu;
+			UpdatePlayerWizard_5C950(&world_D41A0.players_0x2BDE[i], actEvent);
 			SetCenterScreenForFlyAssistant_6EDB0();
-			BackupMousePosition_548F0(&D41A0_0.players_0x2BDE[i]);
-			SetMenuCursorPosition_52E90(&D41A0_0.players_0x2BDE[i], 0, false);
+			BackupMousePosition_548F0(&world_D41A0.players_0x2BDE[i]);
+			SetMenuCursorPosition_52E90(&world_D41A0.players_0x2BDE[i], 0, false);
 			break;
 		case 0x10:
-			if (D41A0_0.flyAssistant_0x36DEA && i == D41A0_0.LevelIndex_0xc)
+			if (world_D41A0.flyAssistant_0x36DEA && i == world_D41A0.LevelIndex_0xc)
 			{
-				D41A0_0.playerInputs_0x6E3E[i].roll = 0;
-				D41A0_0.playerInputs_0x6E3E[i].pitch = 0;
+				world_D41A0.playerInputs_0x6E3E[i].roll = 0;
+				world_D41A0.playerInputs_0x6E3E[i].pitch = 0;
 				SetCenterScreenForFlyAssistant_6EDB0();
 			}
-			SetMenuCursorPosition_52E90(&D41A0_0.players_0x2BDE[i], 3, true);
+			SetMenuCursorPosition_52E90(&world_D41A0.players_0x2BDE[i], 3, true);
 			// Opening the panel starts a fresh message, so the slot it types into starts empty.
 			//
 			// Sending (0x13) leaves the text in names_81, and only zeroing the counter here
@@ -37760,45 +37760,45 @@ void PlayerEvents_51BB0()//232bb0
 			// The eight slots stay usable: selecting one (0x23) does NOT clear, so picking a
 			// slot with Shift+F1..F8 and pressing Enter still sends what is stored in it.  Only
 			// the slot the panel opens on is treated as the scratch line.
-			D41A0_0.players_0x2BDE[i].names_81[D41A0_0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222][0] = 0;
-			D41A0_0.players_0x2BDE[i].chatLength_0x3E2_2BE4_12224 = 0;
-			if (i == D41A0_0.LevelIndex_0xc)
+			world_D41A0.players_0x2BDE[i].names_81[world_D41A0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222][0] = 0;
+			world_D41A0.players_0x2BDE[i].chatLength_0x3E2_2BE4_12224 = 0;
+			if (i == world_D41A0.LevelIndex_0xc)
 			{
 				DrawLoadingBar_54960();
 			}
 			break;
 		case 0x11:
-			if (D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1 == 8)
+			if (world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1 == 8)
 			{
 				// Backspace removes the last character: loc_520C4 zeroes names_81[len - 1].
 				// Taking one off that (as this used to) ate two characters at a time, and on a
 				// one-character message it wrote the byte in front of the string - which is
 				// word_0x04f_2C2D_11309, the notification type.
-				if (strlen(D41A0_0.players_0x2BDE[i].names_81[D41A0_0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222]) != 0)
+				if (strlen(world_D41A0.players_0x2BDE[i].names_81[world_D41A0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222]) != 0)
 				{
-					D41A0_0.players_0x2BDE[i].chatLength_0x3E2_2BE4_12224--;
-					D41A0_0.players_0x2BDE[i].names_81[D41A0_0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222][strlen(D41A0_0.players_0x2BDE[i].names_81[D41A0_0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222]) - 1] = 0;
+					world_D41A0.players_0x2BDE[i].chatLength_0x3E2_2BE4_12224--;
+					world_D41A0.players_0x2BDE[i].names_81[world_D41A0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222][strlen(world_D41A0.players_0x2BDE[i].names_81[world_D41A0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222]) - 1] = 0;
 				}
 			}
-			else if (D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1)
+			else if (world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1)
 			{
-				if (strlen(D41A0_0.players_0x2BDE[i].names_81[D41A0_0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222]) + 1 - 1 < 43)
+				if (strlen(world_D41A0.players_0x2BDE[i].names_81[world_D41A0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222]) + 1 - 1 < 43)
 				{
-					if (!D41A0_0.players_0x2BDE[i].chatLength_0x3E2_2BE4_12224)
-						D41A0_0.players_0x2BDE[i].names_81[D41A0_0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222][0] = 0;
-					D41A0_0.players_0x2BDE[i].chatLength_0x3E2_2BE4_12224++;
-					sprintf(printbuffer, "%c", D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1);
-					strcpy(&D41A0_0.players_0x2BDE[i].names_81[D41A0_0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222][strlen(D41A0_0.players_0x2BDE[i].names_81[D41A0_0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222])], printbuffer);
+					if (!world_D41A0.players_0x2BDE[i].chatLength_0x3E2_2BE4_12224)
+						world_D41A0.players_0x2BDE[i].names_81[world_D41A0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222][0] = 0;
+					world_D41A0.players_0x2BDE[i].chatLength_0x3E2_2BE4_12224++;
+					sprintf(printbuffer, "%c", world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1);
+					strcpy(&world_D41A0.players_0x2BDE[i].names_81[world_D41A0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222][strlen(world_D41A0.players_0x2BDE[i].names_81[world_D41A0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222])], printbuffer);
 				}
 			}
 			break;
 		case 0x12:
-			SetMenuCursorPosition_52E90(&D41A0_0.players_0x2BDE[i], 0, true);
+			SetMenuCursorPosition_52E90(&world_D41A0.players_0x2BDE[i], 0, true);
 			break;
 		case 0x14: //Exit menu
-			if (D41A0_0.flyAssistant_0x36DEA && i == D41A0_0.LevelIndex_0xc)
+			if (world_D41A0.flyAssistant_0x36DEA && i == world_D41A0.LevelIndex_0xc)
 			{
-				switch (D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1)
+				switch (world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1)
 				{
 				case 3:
 				case 5:
@@ -37809,64 +37809,64 @@ void PlayerEvents_51BB0()//232bb0
 				case 0xC:
 				case 0xD:
 				case 0xE:
-					D41A0_0.playerInputs_0x6E3E[i].roll = 0;
-					D41A0_0.playerInputs_0x6E3E[i].pitch = 0;
+					world_D41A0.playerInputs_0x6E3E[i].roll = 0;
+					world_D41A0.playerInputs_0x6E3E[i].pitch = 0;
 					SetCenterScreenForFlyAssistant_6EDB0();
 					break;
 				default:
 					break;
 				}
 			}
-			SetMenuCursorPosition_52E90(&D41A0_0.players_0x2BDE[i], D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1, true, gameUiScale);
+			SetMenuCursorPosition_52E90(&world_D41A0.players_0x2BDE[i], world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1, true, gameUiScale);
 			break;
 		case 0x17:
-			if (D41A0_0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2 != -1)
+			if (world_D41A0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2 != -1)
 			{
 				for (int k = 0; k < 26; k++)
 				{
-					if (actEvent->playerData_0xA4_164x->str_611.SpellIndexes_0x39B_923x.SpellIndex[k] == D41A0_0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2)
+					if (actEvent->playerData_0xA4_164x->str_611.SpellIndexes_0x39B_923x.SpellIndex[k] == world_D41A0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2)
 						actEvent->playerData_0xA4_164x->str_611.SpellIndexes_0x39B_923x.SpellIndex[k] = 0xff;
 				}
-				actEvent->playerData_0xA4_164x->str_611.SpellIndexes_0x39B_923x.SpellIndex[D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1] = D41A0_0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2;
-				PrepareEventSound_6E450(0, D41A0_0.players_0x2BDE[i].playerSlot_0x007_2BE4_11237, 14);
+				actEvent->playerData_0xA4_164x->str_611.SpellIndexes_0x39B_923x.SpellIndex[world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1] = world_D41A0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2;
+				PrepareEventSound_6E450(0, world_D41A0.players_0x2BDE[i].playerSlot_0x007_2BE4_11237, 14);
 			}
 			break;
 		case 0x19:
 		case 0x1A:
-			for (int k = 0; k < D41A0_0.NumberOfPlayers_0xe; k++)
+			for (int k = 0; k < world_D41A0.NumberOfPlayers_0xe; k++)
 			{
-				if (D41A0_0.players_0x2BDE[k].playerActive_0x006_2BE4_11236)
+				if (world_D41A0.players_0x2BDE[k].playerActive_0x006_2BE4_11236)
 				{
-					D41A0_0.players_0x2BDE[k].syncReady_0x004_2BE0_11234 = 1;
+					world_D41A0.players_0x2BDE[k].syncReady_0x004_2BE0_11234 = 1;
 					NetworkEvent_7373D(k);
 				}
 			}
 			break;
 		case 0x1B:
 			CheckCdPresent_53120();
-			D41A0_0.players_0x2BDE[i].stateFlags_0_2BDE_11230.word[1] = 10;
+			world_D41A0.players_0x2BDE[i].stateFlags_0_2BDE_11230.word[1] = 10;
 			NetworkEvent_7373D(i);
 			break;
 		case 0x1C:
-			D41A0_0.players_0x2BDE[i].stateFlags_0_2BDE_11230.word[1] = 12;
+			world_D41A0.players_0x2BDE[i].stateFlags_0_2BDE_11230.word[1] = 12;
 			NetworkEvent_7373D(i);
 			break;
 		case 0x1D: //Banished
-			strcpy(D41A0_0.players_0x2BDE[i].CurrentNotificationText_0x01c_2BFA_11258, x_DWORD_E9C4C_langindexbuffer[HAS_BEEN_BANISHED]);//has been banished from the realm.
-			D41A0_0.players_0x2BDE[i].endState_0x04f_2C2D_11309 = 1;
-			D41A0_0.players_0x2BDE[i].CurrentNotificationDuration_0x04d_2C2B_11307 = 100;
-			D41A0_0.players_0x2BDE[i].stateFlags_0_2BDE_11230.word[1] = 8;//SKIP FROM GAMELOOP
+			strcpy(world_D41A0.players_0x2BDE[i].CurrentNotificationText_0x01c_2BFA_11258, langStrings_E9C4C[HAS_BEEN_BANISHED]);//has been banished from the realm.
+			world_D41A0.players_0x2BDE[i].endState_0x04f_2C2D_11309 = 1;
+			world_D41A0.players_0x2BDE[i].CurrentNotificationDuration_0x04d_2C2B_11307 = 100;
+			world_D41A0.players_0x2BDE[i].stateFlags_0_2BDE_11230.word[1] = 8;//SKIP FROM GAMELOOP
 			NetworkEvent_7373D(i);
-			D41A0_0.players_0x2BDE[i].playerActive_0x006_2BE4_11236 = 0;
-			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+			world_D41A0.players_0x2BDE[i].playerActive_0x006_2BE4_11236 = 0;
+			if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 				DisableEntitesDrawing_5E660(actEvent);
-			x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 &= 0xD9u;
-			if (x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 24)
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] |= 0x10u;
+			gameState_D41A4.setting_byte1_22 &= 0xD9u;
+			if (gameState_D41A4.levelnumber_43w > 24)
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] |= 0x10u;
 			break;
 		case 0x1E: //Cheat
 			CheckCdPresent_53120();
-			switch (D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1)
+			switch (world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1)
 			{
 			case 1:
 				GiveAllSpells_Cheat(actEvent);
@@ -37877,13 +37877,13 @@ void PlayerEvents_51BB0()//232bb0
 				if (ifsEvent)
 				{
 					ifsEvent->mana_0x90_144 = 100000;
-					ifsEvent->playerEntityIndex_0x94_148 = actEvent - D41A0_0.entities_0x6E8E;
+					ifsEvent->playerEntityIndex_0x94_148 = actEvent - world_D41A0.entities_0x6E8E;
 				}
 				actEvent->mana_0x90_144 = actEvent->maxMana_0x8C_140;
 				ShowMessage_52D70(i, (char*)".. CHEAT: more mana");
 				break;
 			case 3:
-				for (type_entity_0x6E8E* evLoop = x_D41A0_BYTEARRAY_4_struct.class3List_38519; evLoop > Entities_EA3E4[0]; evLoop = evLoop->next_0)
+				for (type_entity_0x6E8E* evLoop = gameState_D41A4.class3List_38519; evLoop > Entities_EA3E4[0]; evLoop = evLoop->next_0)
 				{
 					if (evLoop->id_0x1A_26 != actEvent->id_0x1A_26)
 					{
@@ -37894,7 +37894,7 @@ void PlayerEvents_51BB0()//232bb0
 				ShowMessage_52D70(i, (char*)".. CHEAT: destroy all players");
 				break;
 			case 4:
-				for (type_entity_0x6E8E* evLoop = x_D41A0_BYTEARRAY_4_struct.class3List_38519; evLoop > Entities_EA3E4[0]; evLoop = evLoop->next_0)
+				for (type_entity_0x6E8E* evLoop = gameState_D41A4.class3List_38519; evLoop > Entities_EA3E4[0]; evLoop = evLoop->next_0)
 				{
 					if (evLoop->id_0x1A_26 != actEvent->id_0x1A_26 && evLoop->model_0x40_64 == 2)
 						evLoop->life_0x8 = -1;
@@ -37902,7 +37902,7 @@ void PlayerEvents_51BB0()//232bb0
 				ShowMessage_52D70(i, (char*)".. CHEAT: destroy all castles");
 				break;
 			case 5:
-				for (type_entity_0x6E8E* evLoop = x_D41A0_BYTEARRAY_4_struct.class3List_38519; evLoop > Entities_EA3E4[0]; evLoop = evLoop->next_0)
+				for (type_entity_0x6E8E* evLoop = gameState_D41A4.class3List_38519; evLoop > Entities_EA3E4[0]; evLoop = evLoop->next_0)
 				{
 					if (evLoop->id_0x1A_26 != actEvent->id_0x1A_26 && evLoop->model_0x40_64 == 3)
 						evLoop->life_0x8 = -1;
@@ -37926,24 +37926,24 @@ void PlayerEvents_51BB0()//232bb0
 				ShowMessage_52D70(i, (char*)".. CHEAT: More Spell Experience Points");
 				break;
 			case 9:
-				if (x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & 0x20)
+				if (gameState_D41A4.OptionsSettingFlag_24 & 0x20)
 				{
-					x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 &= 0xDF;
+					gameState_D41A4.OptionsSettingFlag_24 &= 0xDF;
 					ShowMessage_52D70(i, (char*)".. CHEAT: Free Spell Usage OFF");
 				}
 				else
 				{
-					x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 |= 0x20;
+					gameState_D41A4.OptionsSettingFlag_24 |= 0x20;
 					ShowMessage_52D70(i, (char*)".. CHEAT: Free Spell Usage ON");
 				}
 				break;
 			case 0xA:
-				if (x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 & 1) {
-					x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 &= 0xFE;
+				if (gameState_D41A4.setting_byte4_25 & 1) {
+					gameState_D41A4.setting_byte4_25 &= 0xFE;
 					ShowMessage_52D70(i, (char*)".. CHEAT: Invincability ON");
 				}
 				else {
-					x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 |= 1;
+					gameState_D41A4.setting_byte4_25 |= 1;
 					ShowMessage_52D70(i, (char*)".. CHEAT: Invincability OFF");
 				}
 				break;
@@ -37953,93 +37953,93 @@ void PlayerEvents_51BB0()//232bb0
 			break;
 		case 0x1F:
 		case 0x20: //Change Spell
-			if (D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1 != -1)
+			if (world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1 != -1)
 			{
-				PrepareEventSound_6E450(0, D41A0_0.players_0x2BDE[i].playerSlot_0x007_2BE4_11237, 14);
+				PrepareEventSound_6E450(0, world_D41A0.players_0x2BDE[i].playerSlot_0x007_2BE4_11237, 14);
 				CloseHelpPopup_87C10();
-				spellIndex = spellIndex_D94FF[D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1];
-				actEvent->playerData_0xA4_164x->str_611.selectedSubSpells_0x437_1079x.SpellIndex[spellIndex_D94FF[D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1]] = D41A0_0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2;
-				if (D41A0_0.playerInputs_0x6E3E[i].PlayerAction_byte0 >= 0x1Fu)
+				spellIndex = spellIndex_D94FF[world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1];
+				actEvent->playerData_0xA4_164x->str_611.selectedSubSpells_0x437_1079x.SpellIndex[spellIndex_D94FF[world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1]] = world_D41A0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2;
+				if (world_D41A0.playerInputs_0x6E3E[i].PlayerAction_byte0 >= 0x1Fu)
 				{
-					if (D41A0_0.playerInputs_0x6E3E[i].PlayerAction_byte0 <= 0x1Fu)
+					if (world_D41A0.playerInputs_0x6E3E[i].PlayerAction_byte0 <= 0x1Fu)
 					{
 						actEvent->playerData_0xA4_164x->str_611.SpellIndexLeft_0x451_1105 = spellIndex;
-						actEvent->playerData_0xA4_164x->str_611.SubSpellIndexLeft_1109 = D41A0_0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2;
-						x_D41A0_BYTEARRAY_4_struct.leftSpellPlayerIndex_38400 = 8;
+						actEvent->playerData_0xA4_164x->str_611.SubSpellIndexLeft_1109 = world_D41A0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2;
+						gameState_D41A4.leftSpellPlayerIndex_38400 = 8;
 					}
-					else if (D41A0_0.playerInputs_0x6E3E[i].PlayerAction_byte0 == 32)
+					else if (world_D41A0.playerInputs_0x6E3E[i].PlayerAction_byte0 == 32)
 					{
 						actEvent->playerData_0xA4_164x->str_611.SpellIndexRight_0x453_1107 = spellIndex;
-						actEvent->playerData_0xA4_164x->str_611.SubSpellIndexRight_1110 = D41A0_0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2;
-						x_D41A0_BYTEARRAY_4_struct.rightSpellPlayerIndex_38401 = 8;
+						actEvent->playerData_0xA4_164x->str_611.SubSpellIndexRight_1110 = world_D41A0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2;
+						gameState_D41A4.rightSpellPlayerIndex_38401 = 8;
 					}
 				}
-				SetSpell_6D5E0(Entities_EA3E4[actEvent->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex]], D41A0_0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2);
-				CopyAxisForSpellWithLife_6D830(Entities_EA3E4[actEvent->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex]], D41A0_0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2);
-				if (i == D41A0_0.LevelIndex_0xc)
+				SetSpell_6D5E0(Entities_EA3E4[actEvent->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex]], world_D41A0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2);
+				CopyAxisForSpellWithLife_6D830(Entities_EA3E4[actEvent->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex]], world_D41A0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2);
+				if (i == world_D41A0.LevelIndex_0xc)
 				{
-					strcpy(D41A0_0.players_0x2BDE[i].CurrentNotificationText_0x01c_2BFA_11258, x_DWORD_E9C4C_langindexbuffer[SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[D41A0_0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2].hintText_0x16x]);
-					D41A0_0.players_0x2BDE[i].CurrentNotificationDuration_0x04d_2C2B_11307 = 20;
-					D41A0_0.players_0x2BDE[i].endState_0x04f_2C2D_11309 = 3;
+					strcpy(world_D41A0.players_0x2BDE[i].CurrentNotificationText_0x01c_2BFA_11258, langStrings_E9C4C[SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[world_D41A0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2].hintText_0x16x]);
+					world_D41A0.players_0x2BDE[i].CurrentNotificationDuration_0x04d_2C2B_11307 = 20;
+					world_D41A0.players_0x2BDE[i].endState_0x04f_2C2D_11309 = 3;
 				}
-				if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4)
+				if (gameState_D41A4.setting_byte1_22 & 4)
 				{
-					if (i == D41A0_0.LevelIndex_0xc)
+					if (i == world_D41A0.LevelIndex_0xc)
 					{
-						MoveCursorToSelectedSpell_6D200(&D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc]);
+						MoveCursorToSelectedSpell_6D200(&world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc]);
 						FlvInitSet_473B0();
 					}
 				}
 			}
 			break;
 		case 0x23:
-			D41A0_0.players_0x2BDE[i].chatLength_0x3E2_2BE4_12224 = 0;
-			D41A0_0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222 = D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
+			world_D41A0.players_0x2BDE[i].chatLength_0x3E2_2BE4_12224 = 0;
+			world_D41A0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222 = world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
 			break;
 		case 0x24:
-			D41A0_0.players_0x2BDE[i].chatState_0x3E1_2BE4_12223 = D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
+			world_D41A0.players_0x2BDE[i].chatState_0x3E1_2BE4_12223 = world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
 			break;
 		case 0x25:
-			if (D41A0_0.players_0x2BDE[i].chatState_0x3E1_2BE4_12223 == 3)
-				D41A0_0.players_0x2BDE[i].chatRecipients_0x3E3_2BE4_12225 ^= 1 << D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
+			if (world_D41A0.players_0x2BDE[i].chatState_0x3E1_2BE4_12223 == 3)
+				world_D41A0.players_0x2BDE[i].chatRecipients_0x3E3_2BE4_12225 ^= 1 << world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
 			break;
 		case 0x26:
-			actEvent->playerData_0xA4_164x->str_611.spellSlotTypes_0x3B5_949x.SpellIndex[D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1] = D41A0_0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2;
-			PrepareEventSound_6E450(0, D41A0_0.players_0x2BDE[i].playerSlot_0x007_2BE4_11237, 14);
+			actEvent->playerData_0xA4_164x->str_611.spellSlotTypes_0x3B5_949x.SpellIndex[world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1] = world_D41A0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2;
+			PrepareEventSound_6E450(0, world_D41A0.players_0x2BDE[i].playerSlot_0x007_2BE4_11237, 14);
 			break;
 		case 0x27: //Full stop player
-			D41A0_0.playerInputs_0x6E3E[i].roll = 0;
-			D41A0_0.playerInputs_0x6E3E[i].pitch = 0;
-			if (D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1)
+			world_D41A0.playerInputs_0x6E3E[i].roll = 0;
+			world_D41A0.playerInputs_0x6E3E[i].pitch = 0;
+			if (world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1)
 			{
 				actEvent->actSpeed_0x82_130 = 0;
 				actEvent->playerData_0xA4_164x->speed_0xc_12 = 0;
 				if (actEvent->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[3])
 					Entities_EA3E4[actEvent->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[3]]->stage_0x2E_46 = 0;
 			}
-			if (D41A0_0.players_0x2BDE[i].playerSlot_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
+			if (world_D41A0.players_0x2BDE[i].playerSlot_0x007_2BE4_11237 == world_D41A0.LevelIndex_0xc)
 				SetCenterScreenForFlyAssistant_6EDB0();
 			break;
 		case 0x28: //Select Spell
-			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4)
+			if (gameState_D41A4.setting_byte1_22 & 4)
 			{
-				actEvent->playerData_0xA4_164x->str_611.spellIndex_0x458_1112 = D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
-				actEvent->playerData_0xA4_164x->str_611.selectSpellType_0x457_1111 = D41A0_0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2;
-				if (i == D41A0_0.LevelIndex_0xc)
+				actEvent->playerData_0xA4_164x->str_611.spellIndex_0x458_1112 = world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
+				actEvent->playerData_0xA4_164x->str_611.selectSpellType_0x457_1111 = world_D41A0.playerInputs_0x6E3E[i].param2_0x6E3E_byte2;
+				if (i == world_D41A0.LevelIndex_0xc)
 				{
-					MoveCursorToSelectedSpell_6D200(&D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc]);
+					MoveCursorToSelectedSpell_6D200(&world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc]);
 					FlvInitSet_473B0();
 				}
 			}
 			break;
 		case 0x29:
-			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4)
+			if (gameState_D41A4.setting_byte1_22 & 4)
 			{
-				actEvent->playerData_0xA4_164x->str_611.subSpellIndex_0x459_1113 = D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
-				actEvent->playerData_0xA4_164x->str_611.selectedSubSpells_0x437_1079x.SpellIndex[spellIndex_D94FF[actEvent->playerData_0xA4_164x->str_611.spellIndex_0x458_1112]] = D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
-				if (i == D41A0_0.LevelIndex_0xc)
+				actEvent->playerData_0xA4_164x->str_611.subSpellIndex_0x459_1113 = world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
+				actEvent->playerData_0xA4_164x->str_611.selectedSubSpells_0x437_1079x.SpellIndex[spellIndex_D94FF[actEvent->playerData_0xA4_164x->str_611.spellIndex_0x458_1112]] = world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
+				if (i == world_D41A0.LevelIndex_0xc)
 				{
-					MoveCursorToSelectedSpell_6D200(&D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc]);
+					MoveCursorToSelectedSpell_6D200(&world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc]);
 					FlvInitSet_473B0();
 				}
 			}
@@ -38053,9 +38053,9 @@ void PlayerEvents_51BB0()//232bb0
 			}
 			break;
 		case 0x2B:
-			D41A0_0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222 = D41A0_0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
+			world_D41A0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222 = world_D41A0.playerInputs_0x6E3E[i].param1_0x6E3E_byte1;
 		case 0x13:
-			strcpy(printbuffer, D41A0_0.players_0x2BDE[i].names_81[D41A0_0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222]);
+			strcpy(printbuffer, world_D41A0.players_0x2BDE[i].names_81[world_D41A0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222]);
 			useSound = false;
 			if (printbuffer[0])
 			{
@@ -38081,9 +38081,9 @@ void PlayerEvents_51BB0()//232bb0
 					// The word is still recognised and swallowed rather than passed on, so typing
 					// it in a network game does nothing at all - it is not broadcast as an
 					// ordinary chat line either.
-					if (i == D41A0_0.LevelIndex_0xc
-						&& !(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE))
-						x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 |= 0x80u;
+					if (i == world_D41A0.LevelIndex_0xc
+						&& !(gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE))
+						gameState_D41A4.setting_byte2_23 |= 0x80u;
 				}
 				else
 				{
@@ -38094,27 +38094,27 @@ void PlayerEvents_51BB0()//232bb0
 					// local player and remote messages were dropped without being read,
 					// so chat never arrived from anyone else in a network game.
 					bool bool1 = false;
-					if (i == D41A0_0.LevelIndex_0xc)
+					if (i == world_D41A0.LevelIndex_0xc)
 					{
 						bool1 = true;
 					}
 					else
 					{
-						switch (D41A0_0.players_0x2BDE[i].chatState_0x3E1_2BE4_12223)
+						switch (world_D41A0.players_0x2BDE[i].chatState_0x3E1_2BE4_12223)
 						{
 						case 0:
-							if (!(IsBalloonNearCastle_61810(actEvent, Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]) == 0))
+							if (!(IsBalloonNearCastle_61810(actEvent, Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]) == 0))
 								bool1 = true;
 							break;
 						case 1:
-							if (!(FindNearestManaForBalloon_61620(actEvent, Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]) == 0))
+							if (!(FindNearestManaForBalloon_61620(actEvent, Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]) == 0))
 								bool1 = true;
 							break;
 						case 2:
 							bool1 = true;
 							break;
 						case 3:
-							if ((1 << D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.playerColorIndex_0x38_56) & D41A0_0.players_0x2BDE[i].chatRecipients_0x3E3_2BE4_12225)
+							if ((1 << world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.playerColorIndex_0x38_56) & world_D41A0.players_0x2BDE[i].chatRecipients_0x3E3_2BE4_12225)
 								bool1 = true;
 							break;
 						default:
@@ -38123,33 +38123,33 @@ void PlayerEvents_51BB0()//232bb0
 					}
 					if (bool1)
 					{
-						strcpy(D41A0_0.players_0x2BDE[i].CurrentNotificationText_0x01c_2BFA_11258, printbuffer);
-						D41A0_0.players_0x2BDE[i].CurrentNotificationDuration_0x04d_2C2B_11307 = 200;
-						D41A0_0.players_0x2BDE[i].endState_0x04f_2C2D_11309 = 2;
+						strcpy(world_D41A0.players_0x2BDE[i].CurrentNotificationText_0x01c_2BFA_11258, printbuffer);
+						world_D41A0.players_0x2BDE[i].CurrentNotificationDuration_0x04d_2C2B_11307 = 200;
+						world_D41A0.players_0x2BDE[i].endState_0x04f_2C2D_11309 = 2;
 					}
 				}
 			}
-			SetMenuCursorPosition_52E90(&D41A0_0.players_0x2BDE[i], 0, useSound);
+			SetMenuCursorPosition_52E90(&world_D41A0.players_0x2BDE[i], 0, useSound);
 			break;
 		case 0x2C:
-			D41A0_0.players_0x2BDE[i].chatLength_0x3E2_2BE4_12224 = 0;
-			D41A0_0.players_0x2BDE[i].names_81[D41A0_0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222][0] = 0;
-			PrepareEventSound_6E450(0, D41A0_0.players_0x2BDE[i].playerSlot_0x007_2BE4_11237, 14);
+			world_D41A0.players_0x2BDE[i].chatLength_0x3E2_2BE4_12224 = 0;
+			world_D41A0.players_0x2BDE[i].names_81[world_D41A0.players_0x2BDE[i].chatLineIndex_0x3E0_2BE4_12222][0] = 0;
+			PrepareEventSound_6E450(0, world_D41A0.players_0x2BDE[i].playerSlot_0x007_2BE4_11237, 14);
 			break;
 		default:
 			break;
 		}
 		
 		//Player movement/actions
-		int rollEnv = 2 * D41A0_0.playerInputs_0x6E3E[i].roll - actEvent->playerData_0xA4_164x->roll_0x155_341;
+		int rollEnv = 2 * world_D41A0.playerInputs_0x6E3E[i].roll - actEvent->playerData_0xA4_164x->roll_0x155_341;
 		actEvent->playerData_0xA4_164x->rollDelta_0x4_4 = (rollEnv - (my_sign32(rollEnv) << 2) + my_sign32(rollEnv)) >> 2;
-		int pitchEnv = 2 * D41A0_0.playerInputs_0x6E3E[i].pitch - actEvent->playerData_0xA4_164x->pitch_0x157_343;
+		int pitchEnv = 2 * world_D41A0.playerInputs_0x6E3E[i].pitch - actEvent->playerData_0xA4_164x->pitch_0x157_343;
 		actEvent->playerData_0xA4_164x->pitchDelta_0x6_6 = (pitchEnv - (my_sign32(pitchEnv) << 2) + my_sign32(pitchEnv)) >> 2;
-		actEvent->playerData_0xA4_164x->entityIndex_0x0 = (uint8_t)D41A0_0.playerInputs_0x6E3E[i].entityIndex_0x6E3E_byte5;//233CD1 xor eax,eax; mov al,[edx+5]
-		actEvent->playerData_0xA4_164x->nextEntity_0x18_24 = D41A0_0.playerInputs_0x6E3E[i].nextEntity_0x6E3E_word6;
-		actEvent->playerData_0xA4_164x->entityIndex2_0x1A_26 = D41A0_0.playerInputs_0x6E3E[i].entityIndex2_0x6E3E_word8;
+		actEvent->playerData_0xA4_164x->entityIndex_0x0 = (uint8_t)world_D41A0.playerInputs_0x6E3E[i].entityIndex_0x6E3E_byte5;//233CD1 xor eax,eax; mov al,[edx+5]
+		actEvent->playerData_0xA4_164x->nextEntity_0x18_24 = world_D41A0.playerInputs_0x6E3E[i].nextEntity_0x6E3E_word6;
+		actEvent->playerData_0xA4_164x->entityIndex2_0x1A_26 = world_D41A0.playerInputs_0x6E3E[i].entityIndex2_0x6E3E_word8;
 
-		if ((CommandLineParams.DoKillMoveAndRotation()&&(D41A0_0.LevelIndex_0xc==i))&&
+		if ((CommandLineParams.DoKillMoveAndRotation()&&(world_D41A0.LevelIndex_0xc==i))&&
 			(CommandLineParams.GetPlaybackPath().length() <= 0))
 		{
 			actEvent->playerData_0xA4_164x->entityIndex_0x0 = 0;
@@ -38161,10 +38161,10 @@ void PlayerEvents_51BB0()//232bb0
 			actEvent->playerData_0xA4_164x->roll_0x155_341 = 0;
 		}
 
-		CopyPlayerPositionAndRotation_57B20(&D41A0_0.players_0x2BDE[i], Entities_EA3E4[D41A0_0.players_0x2BDE[i].playerIndex_0x00a_2BE4_11240]);
-		if (D41A0_0.players_0x2BDE[i].rollState_0x846_2BDE)
-			ApplyPlayerOptions_55C60(&D41A0_0.players_0x2BDE[i]);
-		memset(&D41A0_0.playerInputs_0x6E3E[i], 0, 10);
+		CopyPlayerPositionAndRotation_57B20(&world_D41A0.players_0x2BDE[i], Entities_EA3E4[world_D41A0.players_0x2BDE[i].playerIndex_0x00a_2BE4_11240]);
+		if (world_D41A0.players_0x2BDE[i].rollState_0x846_2BDE)
+			ApplyPlayerOptions_55C60(&world_D41A0.players_0x2BDE[i]);
+		memset(&world_D41A0.playerInputs_0x6E3E[i], 0, 10);
 	}
 }
 
@@ -38188,7 +38188,7 @@ void UpdateGameFrame_53160()//234160
 	/*
 	uint8_t origbyte20 = 0;
 	uint8_t remakebyte20 = 0;
-	int comp20 = compare_with_sequence_D41A0_4((char*)"00234160-0038CF50", (uint8_t*)& x_D41A0_BYTEARRAY_4_struct, 0x38cf50, debugcounter_234160, 0x94c, &origbyte20, &remakebyte20);
+	int comp20 = compare_with_sequence_D41A0_4((char*)"00234160-0038CF50", (uint8_t*)& gameState_D41A4, 0x38cf50, debugcounter_234160, 0x94c, &origbyte20, &remakebyte20);
 	comp20 = compare_with_sequence_D41A0((char*)"00234160-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_234160, 224790, &origbyte20, &remakebyte20);
 	debugcounter_234160++;
 	*/
@@ -38205,60 +38205,60 @@ void UpdateGameFrame_53160()//234160
 	{
 		//memset((x_BYTE *)(x_D41A0_BYTEARRAY_0 + 28222+ v11index*10), 0, 10);
 		//for (int kk = 0; kk < 10; kk++)
-		D41A0_0.playerInputs_0x6E3E[v11index].PlayerAction_byte0 = 0;
-		D41A0_0.playerInputs_0x6E3E[v11index].param1_0x6E3E_byte1 = 0;
-		D41A0_0.playerInputs_0x6E3E[v11index].param2_0x6E3E_byte2 = 0;
-		D41A0_0.playerInputs_0x6E3E[v11index].roll = 0;
-		D41A0_0.playerInputs_0x6E3E[v11index].pitch = 0;
-		D41A0_0.playerInputs_0x6E3E[v11index].entityIndex_0x6E3E_byte5 = 0;
-		D41A0_0.playerInputs_0x6E3E[v11index].nextEntity_0x6E3E_word6 = 0;
-		D41A0_0.playerInputs_0x6E3E[v11index].entityIndex2_0x6E3E_word8 = 0;
+		world_D41A0.playerInputs_0x6E3E[v11index].PlayerAction_byte0 = 0;
+		world_D41A0.playerInputs_0x6E3E[v11index].param1_0x6E3E_byte1 = 0;
+		world_D41A0.playerInputs_0x6E3E[v11index].param2_0x6E3E_byte2 = 0;
+		world_D41A0.playerInputs_0x6E3E[v11index].roll = 0;
+		world_D41A0.playerInputs_0x6E3E[v11index].pitch = 0;
+		world_D41A0.playerInputs_0x6E3E[v11index].entityIndex_0x6E3E_byte5 = 0;
+		world_D41A0.playerInputs_0x6E3E[v11index].nextEntity_0x6E3E_word6 = 0;
+		world_D41A0.playerInputs_0x6E3E[v11index].entityIndex2_0x6E3E_word8 = 0;
 
-		//qmemcpy(x_D41A0_BYTEARRAY_4_struct.byteindex_256ar, (void *)v0, 2124);
-		//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar = D41A0_BYTESTR_0.array_0x2BDE[v0index];
-		//qmemcpy(x_D41A0_BYTEARRAY_4_struct.byteindex_256ar, x_D41A0_BYTEARRAY_0 + 11230+2124* v0index, 2124);
-		x_D41A0_BYTEARRAY_4_struct.savedPlayer_256ar = D41A0_0.players_0x2BDE[v0index];
+		//qmemcpy(gameState_D41A4.byteindex_256ar, (void *)v0, 2124);
+		//gameState_D41A4.byteindex_256ar = D41A0_BYTESTR_0.array_0x2BDE[v0index];
+		//qmemcpy(gameState_D41A4.byteindex_256ar, x_D41A0_BYTEARRAY_0 + 11230+2124* v0index, 2124);
+		gameState_D41A4.savedPlayer_256ar = world_D41A0.players_0x2BDE[v0index];
 		//memset((void*)v0, 0, 2124);
 		clean_x_D41A0_BYTEARRAY_0_0x2BDE(v0index);
 		//v1 = &x_D41A0_BYTEARRAY_4[0x8CF];
-		//qmemcpy((void *)(v0 + 1999), (void *)(&x_D41A0_BYTEARRAY_4_struct.byteindex_2255ar[0]), 24);
-		//copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7CF(v0index,&x_D41A0_BYTEARRAY_4_struct.byteindex_2255ar[0]);
-		//qmemcpy((void *)(v0 + 2023), (void *)(&x_D41A0_BYTEARRAY_4_struct.byteindex_2255ar[24]), 2);
-		//copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7E7(v0index, &x_D41A0_BYTEARRAY_4_struct.byteindex_2255ar[24]);
-		D41A0_0.players_0x2BDE[v0index].playerData_0x3E6_2BE4_12228.str_611.availableSpells_0x3E9_1001x = x_D41A0_BYTEARRAY_4_struct.savedPlayer_256ar.playerData_0x3E6_2BE4_12228.str_611.availableSpells_0x3E9_1001x;
-		if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+		//qmemcpy((void *)(v0 + 1999), (void *)(&gameState_D41A4.byteindex_2255ar[0]), 24);
+		//copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7CF(v0index,&gameState_D41A4.byteindex_2255ar[0]);
+		//qmemcpy((void *)(v0 + 2023), (void *)(&gameState_D41A4.byteindex_2255ar[24]), 2);
+		//copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7E7(v0index, &gameState_D41A4.byteindex_2255ar[24]);
+		world_D41A0.players_0x2BDE[v0index].playerData_0x3E6_2BE4_12228.str_611.availableSpells_0x3E9_1001x = gameState_D41A4.savedPlayer_256ar.playerData_0x3E6_2BE4_12228.str_611.availableSpells_0x3E9_1001x;
+		if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 			v13 = 0;
 		if (v13)
-			//CopyPlayerSpellData_549A0(v0 + 1609, &x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[1609]);
-			CopyPlayerSpellData_549A0(&D41A0_0.players_0x2BDE[v0index].playerData_0x3E6_2BE4_12228.str_611, &x_D41A0_BYTEARRAY_4_struct.savedPlayer_256ar.playerData_0x3E6_2BE4_12228.str_611);
+			//CopyPlayerSpellData_549A0(v0 + 1609, &gameState_D41A4.byteindex_256ar[1609]);
+			CopyPlayerSpellData_549A0(&world_D41A0.players_0x2BDE[v0index].playerData_0x3E6_2BE4_12228.str_611, &gameState_D41A4.savedPlayer_256ar.playerData_0x3E6_2BE4_12228.str_611);
 		//v2 = (int)x_D41A0_BYTEARRAY_4;
-		//*(x_DWORD *)(v0 + 24) = x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[24];
-		D41A0_0.players_0x2BDE[v0index].dword_0x018_2BDE_11254 = x_D41A0_BYTEARRAY_4_struct.savedPlayer_256ar.dword_0x018_2BDE_11254;
+		//*(x_DWORD *)(v0 + 24) = gameState_D41A4.byteindex_256ar[24];
+		world_D41A0.players_0x2BDE[v0index].dword_0x018_2BDE_11254 = gameState_D41A4.savedPlayer_256ar.dword_0x018_2BDE_11254;
 		//*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + 28222 + v11index * 10) = 1;
-		D41A0_0.playerInputs_0x6E3E[v0index].PlayerAction_byte0 = 1;
+		world_D41A0.playerInputs_0x6E3E[v0index].PlayerAction_byte0 = 1;
 		//*(x_WORD *)(v0 + 7) = v12;
-		D41A0_0.players_0x2BDE[v0index].playerSlot_0x007_2BE4_11237 = v12;
-		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE) && v12 != D41A0_0.LevelIndex_0xc)
+		world_D41A0.players_0x2BDE[v0index].playerSlot_0x007_2BE4_11237 = v12;
+		if (!(gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE) && v12 != world_D41A0.LevelIndex_0xc)
 			//*(x_BYTE *)(v0 + 9) = 1;
-			D41A0_0.players_0x2BDE[v0index].IsAiPlayer_0x009_2BE4_11239 = 1;
+			world_D41A0.players_0x2BDE[v0index].IsAiPlayer_0x009_2BE4_11239 = 1;
 		//*(x_WORD *)(v0 + 16) = 32;
-		D41A0_0.players_0x2BDE[v0index].positionCount_0x010_2BDE_11246 = 32;
+		world_D41A0.players_0x2BDE[v0index].positionCount_0x010_2BDE_11246 = 32;
 		//*(x_WORD *)(v0 + 477) = 128;
-		D41A0_0.players_0x2BDE[v0index].positions_0x1d1_2BDE_11695[0].rotation__2BDE_11701.fov = 128;
+		world_D41A0.players_0x2BDE[v0index].positions_0x1d1_2BDE_11695[0].rotation__2BDE_11701.fov = 128;
 		//v3 = *(x_WORD *)(v0 + 16);
-		v3 = D41A0_0.players_0x2BDE[v0index].positionCount_0x010_2BDE_11246;
+		v3 = world_D41A0.players_0x2BDE[v0index].positionCount_0x010_2BDE_11246;
 		//*(x_BYTE *)(v0 + 993) = 2;
-		D41A0_0.players_0x2BDE[v0index].chatState_0x3E1_2BE4_12223 = 2;
+		world_D41A0.players_0x2BDE[v0index].chatState_0x3E1_2BE4_12223 = 2;
 		v4 = 0;
 		//*(x_WORD *)(v0 + 14) = v3 - 1;
-		D41A0_0.players_0x2BDE[v0index].ActPlayerIndex_0x00e_2BDE_11244 = v3 - 1;
-		while (v4 < D41A0_0.players_0x2BDE[v0index].positionCount_0x010_2BDE_11246)
+		world_D41A0.players_0x2BDE[v0index].ActPlayerIndex_0x00e_2BDE_11244 = v3 - 1;
+		while (v4 < world_D41A0.players_0x2BDE[v0index].positionCount_0x010_2BDE_11246)
 		{
 			//v5 = 7 * v4++;
 			v4++;
 			//*(x_DWORD *)(v0 + 2 * v5 + 479) = *(x_DWORD *)(v0 + 465);
 			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d1_2BDE_11707(v0index, v4/* + 1*/, get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d1_2BDE_11707(v0index, 0));
-			D41A0_0.players_0x2BDE[v0index].positions_0x1d1_2BDE_11695[v4].axis_2BDE_11695 = D41A0_0.players_0x2BDE[v0index].positions_0x1d1_2BDE_11695[0].axis_2BDE_11695;
+			world_D41A0.players_0x2BDE[v0index].positions_0x1d1_2BDE_11695[v4].axis_2BDE_11695 = world_D41A0.players_0x2BDE[v0index].positions_0x1d1_2BDE_11695[0].axis_2BDE_11695;
 			//*(x_DWORD *)(v0 + 2 * v5 + 483) = *(x_DWORD *)(v0 + 469);
 			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d5_2BDE_11707(v0index, v4/* + 1*/, get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d5_2BDE_11707(v0index, 0));
 			//D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x1d1_2BDE_11695[v4].axis_2BDE_11695.x = D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x1d1_2BDE_11695[0].axis_2BDE_11695.dd;
@@ -38267,18 +38267,18 @@ void UpdateGameFrame_53160()//234160
 			//D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x1d1_2BDE_11695[v4].axis_2BDE_11695.z = D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x1d1_2BDE_11695[0].axis_2BDE_11695.dd;
 			//*(x_WORD *)(v0 + 2 * v5 + 491) = *(x_WORD *)(v0 + 477);
 			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1dd_2BDE_11707(v0index, v4/* + 1*/, get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1dd_2BDE_11707(v0index, 0));
-			D41A0_0.players_0x2BDE[v0index].positions_0x1d1_2BDE_11695[v4].rotation__2BDE_11701.fov = D41A0_0.players_0x2BDE[v0index].positions_0x1d1_2BDE_11695[0].rotation__2BDE_11701.fov;
+			world_D41A0.players_0x2BDE[v0index].positions_0x1d1_2BDE_11695[v4].rotation__2BDE_11701.fov = world_D41A0.players_0x2BDE[v0index].positions_0x1d1_2BDE_11695[0].rotation__2BDE_11701.fov;
 		}
-		if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
-			//*(x_BYTE *)(v0 + 1446) = x_BYTE_E131C[v12];
-			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x5a6(x_BYTE_E131C[v12], x_BYTE_E131C[v12]);
-			D41A0_0.players_0x2BDE[v0index].playerData_0x3E6_2BE4_12228.wizardType_0x1C0_448 = x_BYTE_E131C[v12];
+		if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+			//*(x_BYTE *)(v0 + 1446) = netWizardTypes_E131C[v12];
+			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x5a6(netWizardTypes_E131C[v12], netWizardTypes_E131C[v12]);
+			world_D41A0.players_0x2BDE[v0index].playerData_0x3E6_2BE4_12228.wizardType_0x1C0_448 = netWizardTypes_E131C[v12];
 		//v6 = (char *)(v0 + 927);//wizard name
-		v6 = (char*)D41A0_0.players_0x2BDE[v0index].WizardName_0x39f_2BFA_12157;
+		v6 = (char*)world_D41A0.players_0x2BDE[v0index].WizardName_0x39f_2BFA_12157;
 		//adress 2342e4
 		auto wizard_name = std::string(WizardsNames_D93A0[GetTrueWizardNumber_61790(v12)]);
 		strcpy(v6, wizard_name.c_str());
-		strcpy(D41A0_0.players_0x2BDE[v0index].WizardName_0x39f_2BFA_12157, wizard_name.c_str());
+		strcpy(world_D41A0.players_0x2BDE[v0index].WizardName_0x39f_2BFA_12157, wizard_name.c_str());
 		/*do
 		{
 			v8 = *v7;
@@ -38331,21 +38331,21 @@ char LevelDecompress_533B0(int16 levelIndex, Type_Level_2FECE* levelData, std::s
 				return 0;
 			}
 		}
-		DataFileIO::Read(levelstabfile, x_DWORD_E9C38_smalltit, 4000);
+		DataFileIO::Read(levelstabfile, smalltitBuffer_E9C38, 4000);
 		DataFileIO::Close(levelstabfile);
 
 		if (DataFileIO::FileLengthBytes(levelsdatfile))
 		{
-			DataFileIO::Seek(levelsdatfile, ((uint32*)x_DWORD_E9C38_smalltit)[levelIndex], 0);
-			DataFileIO::Read(levelsdatfile, (uint8_t*)x_DWORD_E9C38_smalltit, ((uint32*)x_DWORD_E9C38_smalltit)[levelIndex + 1] - ((uint32*)x_DWORD_E9C38_smalltit)[levelIndex]);
-			if (DataFileRNC::Decompress((uint8_t*)x_DWORD_E9C38_smalltit, (uint8_t*)x_DWORD_E9C38_smalltit) < 0)
+			DataFileIO::Seek(levelsdatfile, ((uint32*)smalltitBuffer_E9C38)[levelIndex], 0);
+			DataFileIO::Read(levelsdatfile, (uint8_t*)smalltitBuffer_E9C38, ((uint32*)smalltitBuffer_E9C38)[levelIndex + 1] - ((uint32*)smalltitBuffer_E9C38)[levelIndex]);
+			if (DataFileRNC::Decompress((uint8_t*)smalltitBuffer_E9C38, (uint8_t*)smalltitBuffer_E9C38) < 0)
 			{
 				Logger->error("ERROR decompressing LEVELS.DAT\n");
 				return 0;
 			}
 			Type_CompressedLevel_2FECE shadow_2FECE;
-			qmemcpy(&shadow_2FECE, (Type_CompressedLevel_2FECE*)(const void*)x_DWORD_E9C38_smalltit, sizeof(Type_CompressedLevel_2FECE));//0x6604
-			memset((Type_CompressedLevel_2FECE*)x_DWORD_E9C38_smalltit, 0, sizeof(Type_CompressedLevel_2FECE));//0x6604
+			qmemcpy(&shadow_2FECE, (Type_CompressedLevel_2FECE*)(const void*)smalltitBuffer_E9C38, sizeof(Type_CompressedLevel_2FECE));//0x6604
+			memset((Type_CompressedLevel_2FECE*)smalltitBuffer_E9C38, 0, sizeof(Type_CompressedLevel_2FECE));//0x6604
 			DecompressLevel_2FECE(&shadow_2FECE, levelData);
 		}
 		DataFileIO::Close(levelsdatfile);
@@ -38361,7 +38361,7 @@ char LevelDecompress_533B0(int16 levelIndex, Type_Level_2FECE* levelData, std::s
 				/*for (int i = 0; i < sizeof(type_shadow_str_2FECE); i++)
 					if(((int8_t*)&shadow_2FECE)[i]!=((int8_t*)&D41A0_BYTESTR_0.terrain_2FECE)[i])
 						allert_error();*/
-				DecompressLevel_2FECE(&shadow_2FECE, &D41A0_0.terrain_2FECE);
+				DecompressLevel_2FECE(&shadow_2FECE, &world_D41A0.terrain_2FECE);
 			}
 			fclose(file);
 		}
@@ -38409,8 +38409,8 @@ void LoadBldgPrm_539A0()//2349a0
 	FILE* bldgprmfile = DataFileIO::CreateOrOpenFile(bldPath, 512);
 	if (bldgprmfile)
 	{
-		DataFileIO::Read(bldgprmfile, (uint8_t*)&str_D93C0_bldgprmbuffer[0], 76 * sizeof(type_D93C0_bldgprmbuffer));
-		memcpy(&str_D93C0_bldgprmbuffer[76], str_D94F0_bldgprmbuffer[0], sizeof(type_D93C0_bldgprmbuffer));//0x2AA4F0 index 76 = byte_D94F0
+		DataFileIO::Read(bldgprmfile, (uint8_t*)&buildingParams_D93C0[0], 76 * sizeof(type_D93C0_bldgprmbuffer));
+		memcpy(&buildingParams_D93C0[76], frameColors_D94F0[0], sizeof(type_D93C0_bldgprmbuffer));//0x2AA4F0 index 76 = byte_D94F0
 		DataFileIO::Close(bldgprmfile);
 	}
 }
@@ -38436,24 +38436,24 @@ void RecordOrPlayMovieInput_53A40(Type_PlayerInput_0x6E3E* a1x)//234a40
 	char v15; // [esp+40h] [ebp-8h]
 	char v16; // [esp+44h] [ebp-4h]
 
-	v1 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
+	v1 = gameState_D41A4.setting_byte1_22;
 	if (v1 & 4)
 	{
 		v15 = 0;
-		if (!x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 && !((a1x - &D41A0_0.playerInputs_0x6E3E[0]) / sizeof(Type_PlayerInput_0x6E3E)))
+		if (!gameState_D41A4.moviemvidatfile_byte4_35 && !((a1x - &world_D41A0.playerInputs_0x6E3E[0]) / sizeof(Type_PlayerInput_0x6E3E)))
 		{
-			sprintf(printbuffer, "%s/MVI%05d.DAT", "MOVIE", x_D41A0_BYTEARRAY_4_struct.moviemvinumber_byte4_39);
+			sprintf(printbuffer, "%s/MVI%05d.DAT", "MOVIE", gameState_D41A4.moviemvinumber_byte4_39);
 			//moviemvidatfile = sub_98817_open(printbuffer, 512);
 			//v3 = (int)x_D41A0_BYTEARRAY_4;
-			x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 = DataFileIO::CreateOrOpenFile(printbuffer, 512);
-			if (x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 == NULL || !SaveSMAPSLEVmovie_54D30(x_D41A0_BYTEARRAY_4_struct.moviemvinumber_byte4_39))
+			gameState_D41A4.moviemvidatfile_byte4_35 = DataFileIO::CreateOrOpenFile(printbuffer, 512);
+			if (gameState_D41A4.moviemvidatfile_byte4_35 == NULL || !SaveSMAPSLEVmovie_54D30(gameState_D41A4.moviemvinumber_byte4_39))
 				v15 = 1;
 			if (v15)
 			{
 				//v4 = (int)x_D41A0_BYTEARRAY_4;
-				v5 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
-				x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 = 0;
-				x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 = v5 & 0xFB;
+				v5 = gameState_D41A4.setting_byte1_22;
+				gameState_D41A4.moviemvidatfile_byte4_35 = 0;
+				gameState_D41A4.setting_byte1_22 = v5 & 0xFB;
 			}
 			else
 			{
@@ -38462,10 +38462,10 @@ void RecordOrPlayMovieInput_53A40(Type_PlayerInput_0x6E3E* a1x)//234a40
 		}
 		if (v15)
 			goto LABEL_21;
-		//v6 = x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_33;
-		if (!x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35)
+		//v6 = gameState_D41A4.moviemvidatfile_byte4_33;
+		if (!gameState_D41A4.moviemvidatfile_byte4_35)
 			goto LABEL_21;
-		if (a1x->PlayerAction_byte0 != 2 && DataFileIO::Read(x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35, (uint8_t*)a1x, 10) == 10)
+		if (a1x->PlayerAction_byte0 != 2 && DataFileIO::Read(gameState_D41A4.moviemvidatfile_byte4_35, (uint8_t*)a1x, 10) == 10)
 		{
 			v7 = a1x->PlayerAction_byte0;
 			if (a1x->PlayerAction_byte0 == 13)
@@ -38481,7 +38481,7 @@ void RecordOrPlayMovieInput_53A40(Type_PlayerInput_0x6E3E* a1x)//234a40
 		if (v15)
 		{
 			CloseMovie_53CC0();
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] = 8;
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] = 8;
 			StopMovieRecording_53CA0();
 			a1x->PlayerAction_byte0 = 0;
 		}
@@ -38489,22 +38489,22 @@ void RecordOrPlayMovieInput_53A40(Type_PlayerInput_0x6E3E* a1x)//234a40
 	}
 	if (v1 & 2)
 	{
-		//v8 = x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_33;
+		//v8 = gameState_D41A4.moviemvidatfile_byte4_33;
 		v16 = 0;
-		if (!x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 && !((a1x - &D41A0_0.playerInputs_0x6E3E[0]) / sizeof(Type_PlayerInput_0x6E3E)))
+		if (!gameState_D41A4.moviemvidatfile_byte4_35 && !((a1x - &world_D41A0.playerInputs_0x6E3E[0]) / sizeof(Type_PlayerInput_0x6E3E)))
 		{
-			sprintf(printbuffer, "%s/MVI%05d.DAT", "MOVIE", x_D41A0_BYTEARRAY_4_struct.moviemvinumber_byte4_39);
+			sprintf(printbuffer, "%s/MVI%05d.DAT", "MOVIE", gameState_D41A4.moviemvinumber_byte4_39);
 			//moviemvidatfile2 = sub_98817_open(printbuffer, 546);
 			//v10 = (int)x_D41A0_BYTEARRAY_4;
-			x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 = DataFileIO::CreateOrOpenFile(printbuffer, 546);
-			if (x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 == NULL || !SaveSMAPSLEVmovie2_54F00(x_D41A0_BYTEARRAY_4_struct.moviemvinumber_byte4_39))
+			gameState_D41A4.moviemvidatfile_byte4_35 = DataFileIO::CreateOrOpenFile(printbuffer, 546);
+			if (gameState_D41A4.moviemvidatfile_byte4_35 == NULL || !SaveSMAPSLEVmovie2_54F00(gameState_D41A4.moviemvinumber_byte4_39))
 				v16 = 1;
 			if (v16)
 			{
 				//v11 = (int)x_D41A0_BYTEARRAY_4;
-				v12 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
-				x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 = 0;
-				x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 = v12 & 0xFD;
+				v12 = gameState_D41A4.setting_byte1_22;
+				gameState_D41A4.moviemvidatfile_byte4_35 = 0;
+				gameState_D41A4.setting_byte1_22 = v12 & 0xFD;
 			}
 			else
 			{
@@ -38513,10 +38513,10 @@ void RecordOrPlayMovieInput_53A40(Type_PlayerInput_0x6E3E* a1x)//234a40
 		}
 		if (!v16)
 		{
-			//v13 = x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_33;
-			if (x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35)
+			//v13 = gameState_D41A4.moviemvidatfile_byte4_33;
+			if (gameState_D41A4.moviemvidatfile_byte4_35)
 			{
-				if (DataFileIO::WriteFile_98CAA(x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35, (uint8_t*)a1x, 10) != 10)
+				if (DataFileIO::WriteFile_98CAA(gameState_D41A4.moviemvidatfile_byte4_35, (uint8_t*)a1x, 10) != 10)
 					CloseMovie_53CC0();
 				if (a1x->PlayerAction_byte0 == 12)
 					a1x->PlayerAction_byte0 = 0;
@@ -38535,10 +38535,10 @@ void StartMovieRecording_53C70()//234c70
 	//int v1; // edx
 
 	//result = (int)x_D41A0_BYTEARRAY_4;
-	x_D41A0_BYTEARRAY_4_struct.FrameTimingIndex_26 = 0;
-	//v1 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
-	x_D41A0_BYTEARRAY_4_struct.setting_30 = 0;
-	x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 |= 0x1208000;
+	gameState_D41A4.FrameTimingIndex_26 = 0;
+	//v1 = gameState_D41A4.setting_byte1_22;
+	gameState_D41A4.setting_30 = 0;
+	gameState_D41A4.setting_byte1_22 |= 0x1208000;
 	//return result;
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
@@ -38549,7 +38549,7 @@ void StopMovieRecording_53CA0()//234ca0
 	//int result; // eax
 
 	//result = (int)x_D41A0_BYTEARRAY_4;
-	x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 &= 0xFEDF7FFF;
+	gameState_D41A4.setting_byte1_22 &= 0xFEDF7FFF;
 	//return result;
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
@@ -38561,13 +38561,13 @@ void CloseMovie_53CC0()//234cc0
 	//char v1; // dl
 
 	//result = (int)x_D41A0_BYTEARRAY_4;
-	if (x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35)
+	if (gameState_D41A4.moviemvidatfile_byte4_35)
 	{
-		DataFileIO::Close(x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35);
+		DataFileIO::Close(gameState_D41A4.moviemvidatfile_byte4_35);
 		//result = (int)x_D41A0_BYTEARRAY_4;
-		//v1 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
-		x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 = 0;
-		x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 &= 0xD9;
+		//v1 = gameState_D41A4.setting_byte1_22;
+		gameState_D41A4.moviemvidatfile_byte4_35 = 0;
+		gameState_D41A4.setting_byte1_22 &= 0xD9;
 	}
 	//return result;
 }
@@ -38635,10 +38635,10 @@ char CreateUserDirectories_54200()//235200
 	std::string dataTmapsPath0 = GetSubDirectoryFile(cdFolder.c_str(), "DATA", "TMAPS0-0.DAT");//2352BE - 26F3D5
 	if (v0h || IsEitherFileMissing_53EF0(cDataTmapsPath0.c_str(), dataTmapsPath0.c_str()))
 	{
-		x_BYTE_D41AD_skip_screen = 0;//fix can not exit from setup
+		skipScreen_D41AD = 0;//fix can not exit from setup
 		//fix it - whne file not exist
 		outtext("Creating Setup Directories 1 ..");//2352E4 -29EBED
-		x_DWORD_F4720 = gettextposition();//2352EC - 29E953
+		textPosition_F4720 = gettextposition();//2352EC - 29E953
 
 		std::string cDataTmapsPath = GetSubDirectoryPath(gameFolder.c_str(), "CDATA");//23531A - 26F3D5
 		std::string dataTmapsPath = GetSubDirectoryPath(cdFolder.c_str(), "DATA");//23531A - 26F3D5
@@ -38654,7 +38654,7 @@ char CreateUserDirectories_54200()//235200
 		{
 			//fix it - whne file not exist
 			outtext("Creating Setup Directories 2 ..");
-			x_DWORD_F4720 = gettextposition(/*v3, v4, v0*/);
+			textPosition_F4720 = gettextposition(/*v3, v4, v0*/);
 			std::string cDataTmapsPath = GetSubDirectoryPath(gameFolder.c_str(), "CDATA");//2353EE - 26F3D5
 			std::string dataTmapsPath = GetSubDirectoryPath(cdFolder.c_str(), "DATA");//23531A - 26F3D5
 			if (LoadFilesFromCDAndGameData(dataTmapsPath.c_str(), cDataTmapsPath.c_str(), "TMAPS1-0"))//235404 - 234F80
@@ -38670,7 +38670,7 @@ char CreateUserDirectories_54200()//235200
 		{
 			//fix it - whne file not exist
 			outtext("Creating Setup Directories 3 ..");
-			x_DWORD_F4720 = gettextposition(/*v5, v6, v0*/);
+			textPosition_F4720 = gettextposition(/*v5, v6, v0*/);
 			std::string cDataTmapsPath = GetSubDirectoryPath(gameFolder.c_str(), "CDATA");
 			std::string dataTmapsPath = GetSubDirectoryPath(cdFolder.c_str(), "DATA");
 			if (LoadFilesFromCDAndGameData(dataTmapsPath.c_str(), cDataTmapsPath.c_str(), "TMAPS2-0"))
@@ -38678,10 +38678,10 @@ char CreateUserDirectories_54200()//235200
 			outtext("\n");
 		}
 	}
-	if (v0l && !((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 8))//test it
+	if (v0l && !((gameState_D41A4.setting_byte1_22) & 8))//test it
 	{
 		outtext("Setting Up Levels ..");
-		x_DWORD_F4720 = gettextposition(/*v7, v8, v0*/);
+		textPosition_F4720 = gettextposition(/*v7, v8, v0*/);
 		std::string clevelsPath = LevelsDirectory();
 		std::string levelPath = GetSubDirectoryPath(cdFolder.c_str(), "LEVELS");
 		if (LoadFilesFromCDAndGameData(levelPath.c_str(), clevelsPath.c_str(), "LEVELS"))
@@ -38701,7 +38701,7 @@ char CreateUserDirectories_54200()//235200
 // BD953: using guessed type int /*__fastcall*/ gettextposition(x_DWORD, x_DWORD, x_DWORD);
 // BDBED: using guessed type x_DWORD outtext(x_DWORD);
 // D41A4: using guessed type int x_DWORD_D41A4;
-// F4720: using guessed type int x_DWORD_F4720;
+// F4720: using guessed type int textPosition_F4720;
 
 //----- (00054600) --------------------------------------------------------
 void MouseReset_54600()////235600 mouse reset see:https://www.equestionanswers.com/c/c-int33-mouse-service.php
@@ -38713,20 +38713,20 @@ void MouseReset_54600()////235600 mouse reset see:https://www.equestionanswers.c
 	//v2 = 0;
 //removed result = int386(0x33, (REGS*)&v2, (REGS*)&v1);//Mouse Reset/Get Mouse Installed Flag //fix
 	//result=1;
-	x_DWORD_E3768 = 0;
+	mouseInstalled_E3768 = 0;
 	//return result;
 }
-// E3768: using guessed type int x_DWORD_E3768;
+// E3768: using guessed type int mouseInstalled_E3768;
 
 //----- (00054960) --------------------------------------------------------
 void DrawLoadingBar_54960()//235960
 {
 	int16_t posY;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (videoMode_180660 & 1)
 		posY = 400;
 	else
 		posY = 480;
-	if (x_WORD_180660_VGA_type_resolution != 1)
+	if (videoMode_180660 != 1)
 		if (!DefaultResolutions())
 			posY = screenHeight_180624;
 	SetMousePositionInMemory_5BDC0(426, posY - 72 + 17);
@@ -38743,93 +38743,93 @@ void InitialiseSpells_54A50(int playerIndex2, int playerIndex)//235a50
 	//Unset all spells
 	for (int i = 0; i < 26; i++)
 	{
-		D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.selectedSubSpells_0x437_1079x.SpellIndex[i] = 0;
-		D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[i] = 0;
-		D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.pickedUpSpells_0x403_1027x.SpellIndex[i] = 0;
+		world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.selectedSubSpells_0x437_1079x.SpellIndex[i] = 0;
+		world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[i] = 0;
+		world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.pickedUpSpells_0x403_1027x.SpellIndex[i] = 0;
 	}
 
-	D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexLeft_0x451_1105 = -1;
-	D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexRight_0x453_1107 = -1;
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
+	world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexLeft_0x451_1105 = -1;
+	world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexRight_0x453_1107 = -1;
+	if (gameState_D41A4.setting_byte1_22 & 0x10)
 		tempPlayerIndex2 = 0;
 	else
 		tempPlayerIndex2 = playerIndex2;
 	int index = 0;
 
 	if (m_InputRecorder != nullptr && m_InputRecorder->m_IsPlaying &&
-		m_InputRecorder->GetCurrentPlayer(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, playerIndex) != nullptr)
+		m_InputRecorder->GetCurrentPlayer(gameState_D41A4.levelnumber_43w, playerIndex) != nullptr)
 	{
-		auto currentPlayer = m_InputRecorder->GetCurrentPlayer(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, playerIndex);
+		auto currentPlayer = m_InputRecorder->GetCurrentPlayer(gameState_D41A4.levelnumber_43w, playerIndex);
 
 		for (int i = 0; i < 26; i++)
 		{
-			D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[i] = currentPlayer->SpellsEnabled[i];
-			D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexes_0x39B_923x.SpellIndex[i] = currentPlayer->SpellIndexes[i];
-			D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellLevels_0x41D_1053z.SpellIndex[i] = currentPlayer->SpellLevels[i];
-			D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellExperience_0x263_611x.SpellExperience[i] = currentPlayer->SpellsExperience[i];
+			world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[i] = currentPlayer->SpellsEnabled[i];
+			world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexes_0x39B_923x.SpellIndex[i] = currentPlayer->SpellIndexes[i];
+			world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellLevels_0x41D_1053z.SpellIndex[i] = currentPlayer->SpellLevels[i];
+			world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellExperience_0x263_611x.SpellExperience[i] = currentPlayer->SpellsExperience[i];
 		}
 	}
 
 	for (int i = 0; i < 26; i++)
 	{
 		result = spellIndex_D94FF[i];
-		if (D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].spellLevels_0x360FBx[result] > 2u)
-			D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].spellLevels_0x360FBx[result] = 2;
-		if (D41A0_0.players_0x2BDE[playerIndex].IsAiPlayer_0x009_2BE4_11239 == 1)
+		if (world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].spellLevels_0x360FBx[result] > 2u)
+			world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].spellLevels_0x360FBx[result] = 2;
+		if (world_D41A0.players_0x2BDE[playerIndex].IsAiPlayer_0x009_2BE4_11239 == 1)
 		{
-			D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellLevels_0x41D_1053z.SpellIndex[result] = D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].spellLevels_0x360FBx[result];
+			world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellLevels_0x41D_1053z.SpellIndex[result] = world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].spellLevels_0x360FBx[result];
 		}
-		else if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8 || x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+		else if (gameState_D41A4.setting_byte1_22 & 8 || gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 		{
-			int tempByte0x360FB = D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].spellLevels_0x360FBx[result];
-			if (D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellLevels_0x41D_1053z.SpellIndex[result] < tempByte0x360FB)
+			int tempByte0x360FB = world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].spellLevels_0x360FBx[result];
+			if (world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellLevels_0x41D_1053z.SpellIndex[result] < tempByte0x360FB)
 			{
-				tempByte0x360FB = D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].spellLevels_0x360FBx[result];
+				tempByte0x360FB = world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].spellLevels_0x360FBx[result];
 				if (tempByte0x360FB < 0)
 					tempByte0x360FB = 0;
 				if (tempByte0x360FB > 2)
 					tempByte0x360FB = 2;
-				D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellLevels_0x41D_1053z.SpellIndex[result] = tempByte0x360FB;
-				D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellExperience_0x263_611x.SpellExperience[result] = SPELLS_BEGIN_BUFFER_str[result].subspell[tempByte0x360FB].xpos2_0x12 + 1;
+				world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellLevels_0x41D_1053z.SpellIndex[result] = tempByte0x360FB;
+				world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellExperience_0x263_611x.SpellExperience[result] = SPELLS_BEGIN_BUFFER_str[result].subspell[tempByte0x360FB].xpos2_0x12 + 1;
 			}
 		}
-		D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexes_0x39B_923x.SpellIndex[i] = -1;
+		world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexes_0x39B_923x.SpellIndex[i] = -1;
 		setSpell = false;
-		if (D41A0_0.players_0x2BDE[playerIndex].IsAiPlayer_0x009_2BE4_11239 == 1)
+		if (world_D41A0.players_0x2BDE[playerIndex].IsAiPlayer_0x009_2BE4_11239 == 1)
 		{
-			D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.blockedSpells_0x3CF_975x.SpellIndex[result] = D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].BlockedSpells_0x36115x[result];
-			if (D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].StartingSpells_0x360E1x[result])
+			world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.blockedSpells_0x3CF_975x.SpellIndex[result] = world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].BlockedSpells_0x36115x[result];
+			if (world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].StartingSpells_0x360E1x[result])
 			{
-				if (D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.blockedSpells_0x3CF_975x.SpellIndex[result] == 0)
+				if (world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.blockedSpells_0x3CF_975x.SpellIndex[result] == 0)
 					setSpell = true;
 			}
 		}
 		//Else If player is a user and spell is not blocked...
-		else if (!D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].BlockedSpells_0x36115x[result])
+		else if (!world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].BlockedSpells_0x36115x[result])
 		{
-			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+			if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 			{
-				if (D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].StartingSpells_0x360E1x[result])
+				if (world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].StartingSpells_0x360E1x[result])
 				{
-					if (D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].BlockedSpells_0x36115x[result] == 0)
+					if (world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].BlockedSpells_0x36115x[result] == 0)
 						setSpell = true;
 				}
 			}
 			//If not loading from level prompt and level is > 0
-			else if ((!(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & Setting::LEVEL_LOADED_FROM_ARG)) && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w)
+			else if ((!(gameState_D41A4.OptionsSettingFlag_24 & Setting::LEVEL_LOADED_FROM_ARG)) && gameState_D41A4.levelnumber_43w)
 			{
-				if (D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.availableSpells_0x3E9_1001x.SpellIndex[result])
+				if (world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.availableSpells_0x3E9_1001x.SpellIndex[result])
 					setSpell = true;
 			}
 			//Load from players save
-			else if (D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.availableSpells_0x3E9_1001x.SpellIndex[result])
+			else if (world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.availableSpells_0x3E9_1001x.SpellIndex[result])
 			{
 				setSpell = true;
 			}
 			//Load spells from Map file
-			else if (D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].StartingSpells_0x360E1x[result])
+			else if (world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].StartingSpells_0x360E1x[result])
 			{
-				if (!D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].BlockedSpells_0x36115x[result])
+				if (!world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[tempPlayerIndex2].BlockedSpells_0x36115x[result])
 				{
 					setSpell = true;
 				}
@@ -38837,28 +38837,28 @@ void InitialiseSpells_54A50(int playerIndex2, int playerIndex)//235a50
 		}
 		if (setSpell)//adress 235cc3
 		{
-			D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[result] = 1;
-			D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.availableSpells_0x3E9_1001x.SpellIndex[result] = 1;
-			if (D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexLeft_0x451_1105 == -1)
+			world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled[result] = 1;
+			world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.availableSpells_0x3E9_1001x.SpellIndex[result] = 1;
+			if (world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexLeft_0x451_1105 == -1)
 			{
-				D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexLeft_0x451_1105 = result;
+				world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexLeft_0x451_1105 = result;
 			}
-			else if (D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexRight_0x453_1107 == -1)
+			else if (world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexRight_0x453_1107 == -1)
 			{
-				D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexRight_0x453_1107 = result;
+				world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexRight_0x453_1107 = result;
 			}
 			result = index + 1;
-			D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexes_0x39B_923x.SpellIndex[index] = index;
+			world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexes_0x39B_923x.SpellIndex[index] = index;
 			index++;
 		}
 	}
 
 	if (m_InputRecorder != nullptr && m_InputRecorder->m_IsRecording)
-		m_InputRecorder->RecordPlayerSpells(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, playerIndex,
-			D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled,
-			D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexes_0x39B_923x.SpellIndex,
-			D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellLevels_0x41D_1053z.SpellIndex,
-			D41A0_0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellExperience_0x263_611x.SpellExperience);
+		m_InputRecorder->RecordPlayerSpells(gameState_D41A4.levelnumber_43w, playerIndex,
+			world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellsEnabled_0x333_819x.SpellEnabled,
+			world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellIndexes_0x39B_923x.SpellIndex,
+			world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellLevels_0x41D_1053z.SpellIndex,
+			world_D41A0.players_0x2BDE[playerIndex].playerData_0x3E6_2BE4_12228.str_611.SpellExperience_0x263_611x.SpellExperience);
 }
 
 //----- (00054D30) --------------------------------------------------------
@@ -38879,18 +38879,18 @@ bool SaveSMAPSLEVmovie_54D30(__int16 a1)//235d30 //in game load
 	type_str_0x2196 tempDispl;
 
 	bool result = true;
-	graphicsSettings = D41A0_0.m_GameSettings.m_Graphics;
-	displaySettings = D41A0_0.m_GameSettings.m_Display;
-	tempGraphics = D41A0_0.m_GameSettings.graphics_0x2192;
-	tempDispl = D41A0_0.m_GameSettings.display_0x2196;
-	temp0x219A = D41A0_0.dword_0x219A;
-	temp0x219E = D41A0_0.dword_0x219E;
-	temp0x21A2 = D41A0_0.dword_0x21A2;
-	temp0x21A6 = D41A0_0.dword_0x21A6;
-	temp0x21AA = D41A0_0.visualSettings_0x21AA;
-	temp0x21AE = D41A0_0.miscSettings_0x21AE;
-	temp0x21B2 = D41A0_0.screenSettings_0x21B2;
-	temp0x21B6 = D41A0_0.detailSettings_0x21B6;
+	graphicsSettings = world_D41A0.m_GameSettings.m_Graphics;
+	displaySettings = world_D41A0.m_GameSettings.m_Display;
+	tempGraphics = world_D41A0.m_GameSettings.graphics_0x2192;
+	tempDispl = world_D41A0.m_GameSettings.display_0x2196;
+	temp0x219A = world_D41A0.dword_0x219A;
+	temp0x219E = world_D41A0.dword_0x219E;
+	temp0x21A2 = world_D41A0.dword_0x21A2;
+	temp0x21A6 = world_D41A0.dword_0x21A6;
+	temp0x21AA = world_D41A0.visualSettings_0x21AA;
+	temp0x21AE = world_D41A0.miscSettings_0x21AE;
+	temp0x21B2 = world_D41A0.screenSettings_0x21B2;
+	temp0x21B6 = world_D41A0.detailSettings_0x21B6;
 	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SMAP", a1);
 	savedfile = DataFileIO::CreateOrOpenFile(printbuffer, 512);
 	if (savedfile)
@@ -38899,7 +38899,7 @@ bool SaveSMAPSLEVmovie_54D30(__int16 a1)//235d30 //in game load
 		DataFileIO::Read(savedfile, (uint8_t*)mapHeightmap_11B4E0, 0x10000);
 		DataFileIO::Read(savedfile, (uint8_t*)mapShading_12B4E0, 0x10000);
 		DataFileIO::Read(savedfile, (uint8_t*)mapAngle_13B4E0, 0x10000);
-		DataFileIO::Read(savedfile, (uint8_t*)x_BYTE_14B4E0_second_heightmap, 0x10000);
+		DataFileIO::Read(savedfile, (uint8_t*)secondHeightmap_14B4E0, 0x10000);
 		DataFileIO::Read(savedfile, (uint8_t*)mapEntityIndex_15B4E0, 0x20000);
 		DataFileIO::Read(savedfile, (uint8_t*)building_F2CD0x, 4802);
 		DataFileIO::Close(savedfile);
@@ -38907,27 +38907,27 @@ bool SaveSMAPSLEVmovie_54D30(__int16 a1)//235d30 //in game load
 	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SLEV", a1);
 
 	uint8_t* D41A0_pointer;
-	D41A0_pointer = (uint8_t*)&D41A0_0;
+	D41A0_pointer = (uint8_t*)&world_D41A0;
 	DataFileIO::ReadFileAndDecompress(printbuffer, &D41A0_pointer);
 
 	ConvertObjectivePointers_55100(2);
 	FixPointersAfterLoad_57680();
 	RebuildEntityLists_49F90();
-	D41A0_0.freeEntityCount2_0x11e6 = -1;
+	world_D41A0.freeEntityCount2_0x11e6 = -1;
 	ReloadLevelTmaps_71990();
 	FlvInitSet_473B0();
-	D41A0_0.m_GameSettings.m_Graphics = graphicsSettings;
-	D41A0_0.m_GameSettings.m_Display = displaySettings;
-	D41A0_0.m_GameSettings.graphics_0x2192 = tempGraphics;
-	D41A0_0.m_GameSettings.display_0x2196 = tempDispl;
-	D41A0_0.dword_0x219A = temp0x219A;
-	D41A0_0.dword_0x219E = temp0x219E;
-	D41A0_0.dword_0x21A2 = temp0x21A2;
-	D41A0_0.dword_0x21A6 = temp0x21A6;
-	D41A0_0.visualSettings_0x21AA = temp0x21AA;
-	D41A0_0.miscSettings_0x21AE = temp0x21AE;
-	D41A0_0.screenSettings_0x21B2 = temp0x21B2;
-	D41A0_0.detailSettings_0x21B6 = temp0x21B6;
+	world_D41A0.m_GameSettings.m_Graphics = graphicsSettings;
+	world_D41A0.m_GameSettings.m_Display = displaySettings;
+	world_D41A0.m_GameSettings.graphics_0x2192 = tempGraphics;
+	world_D41A0.m_GameSettings.display_0x2196 = tempDispl;
+	world_D41A0.dword_0x219A = temp0x219A;
+	world_D41A0.dword_0x219E = temp0x219E;
+	world_D41A0.dword_0x21A2 = temp0x21A2;
+	world_D41A0.dword_0x21A6 = temp0x21A6;
+	world_D41A0.visualSettings_0x21AA = temp0x21AA;
+	world_D41A0.miscSettings_0x21AE = temp0x21AE;
+	world_D41A0.screenSettings_0x21B2 = temp0x21B2;
+	world_D41A0.detailSettings_0x21B6 = temp0x21B6;
 	return result;
 }
 
@@ -38938,10 +38938,10 @@ bool SaveSMAPSLEVmovie2_54F00(__int16 a1)//235f00 //in game save
 	MarkLoadedTmaps_71930();
 	ConvertObjectivePointers_55100(1);
 	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SLEV", a1);
-	D41A0_0.typeParamsBase_0x36DF6 = &str_D7BD6[59];
+	world_D41A0.typeParamsBase_0x36DF6 = &str_D7BD6[59];
 
 	int size = sizeof(type_shadow_D41A0_BYTESTR_0);
-	DataFileIO::OpenWriteClose_98C48(printbuffer, (uint8_t*)&D41A0_0, size);
+	DataFileIO::OpenWriteClose_98C48(printbuffer, (uint8_t*)&world_D41A0, size);
 
 	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SMAP", a1);
 	FILE* file = DataFileIO::CreateOrOpenFile(printbuffer, 546);
@@ -38951,14 +38951,14 @@ bool SaveSMAPSLEVmovie2_54F00(__int16 a1)//235f00 //in game save
 		DataFileIO::WriteFile_98CAA(file, (uint8_t*)mapHeightmap_11B4E0, 0x10000);
 		DataFileIO::WriteFile_98CAA(file, (uint8_t*)mapShading_12B4E0, 0x10000);
 		DataFileIO::WriteFile_98CAA(file, (uint8_t*)mapAngle_13B4E0, 0x10000);
-		DataFileIO::WriteFile_98CAA(file, (uint8_t*)x_BYTE_14B4E0_second_heightmap, 0x10000);
+		DataFileIO::WriteFile_98CAA(file, (uint8_t*)secondHeightmap_14B4E0, 0x10000);
 		DataFileIO::WriteFile_98CAA(file, (uint8_t*)mapEntityIndex_15B4E0, 0x20000);
 		DataFileIO::WriteFile_98CAA(file, (uint8_t*)building_F2CD0x, 4802);
 		DataFileIO::Close(file);
 	}
 	ConvertObjectivePointers_55100(2);
 	RebuildEntityLists_49F90();
-	D41A0_0.freeEntityCount2_0x11e6 = -1;
+	world_D41A0.freeEntityCount2_0x11e6 = -1;
 	return success;
 }
 
@@ -38969,7 +38969,7 @@ void ApplyPlayerOptions_55C60(type_str_0x2BDE* loc0x2BDE)//236c60
 	int param2 = 0;
 	int param3 = 0;
 
-	if ((x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & 1) == 0)
+	if ((gameState_D41A4.OptionsSettingFlag_24 & 1) == 0)
 	{
 		int number1 = abs(loc0x2BDE->playerData_0x3E6_2BE4_12228.roll_0x155_341);
 		switch (loc0x2BDE->rollState_0x846_2BDE)
@@ -39017,7 +39017,7 @@ void ApplyPlayerOptions_55C60(type_str_0x2BDE* loc0x2BDE)//236c60
 			loc0x2BDE->rollSpeed_0x84A_2BDE = 91;
 			loc0x2BDE->rollAngle_0x848_2BDE = abs(loc0x2BDE->playerData_0x3E6_2BE4_12228.roll_0x155_341);
 			loc0x2BDE->rollState_0x846_2BDE++;
-			x_D41A0_BYTEARRAY_4_struct.lastMouseX_220 = x_WORD_E3760_mouse.x;
+			gameState_D41A4.lastMouseX_220 = mouse_E3760.x;
 			InitPlayerSlots_55EB0(loc0x2BDE->playerIndex_0x00a_2BE4_11240);
 		}
 		loc0x2BDE->rollAngle_0x848_2BDE += param1 * loc0x2BDE->rollSpeed_0x84A_2BDE;
@@ -39037,9 +39037,9 @@ void ApplyPlayerOptions_55C60(type_str_0x2BDE* loc0x2BDE)//236c60
 		}
 		if (loc0x2BDE->rollState_0x846_2BDE >= 4u)
 		{
-			if (abs(x_WORD_E3760_mouse.x - x_D41A0_BYTEARRAY_4_struct.lastMouseX_220) > 16)
+			if (abs(mouse_E3760.x - gameState_D41A4.lastMouseX_220) > 16)
 				loc0x2BDE->rollState_0x846_2BDE = 8;
-			x_D41A0_BYTEARRAY_4_struct.lastMouseX_220 = x_WORD_E3760_mouse.x;
+			gameState_D41A4.lastMouseX_220 = mouse_E3760.x;
 		}
 		loc0x2BDE->playerData_0x3E6_2BE4_12228.rollDelta_0x4_4 = 0;
 		if (loc0x2BDE->rollState_0x846_2BDE == 8)
@@ -39074,7 +39074,7 @@ void InitPlayerSlots_55EB0(__int16 a1)//236eb0
 		{
 			goto LABEL_13;
 		}
-		for (ix = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[index]; ix > Entities_EA3E4[0]; ix = ix->next_0)
+		for (ix = gameState_D41A4.creatureLists_38403x[index]; ix > Entities_EA3E4[0]; ix = ix->next_0)
 		{
 			if (ix->targetId_0x96_150 == a1)
 				ix->targetId_0x96_150 = 0;
@@ -39097,7 +39097,7 @@ void write_pngs()
 
 	for (int k = 0; k < 100; k++)
 	{
-		bitmap_pos_struct_t actposistruct = xy_DWORD_17DED4_spritestr[k];
+		bitmap_pos_struct_t actposistruct = menuSprites_17DED4[k];
 		if (actposistruct.width_4 > 0)
 		{
 			for (int i = 0; i < 10000; i++) {
@@ -39232,7 +39232,7 @@ void ProcessCommandLine_56210(int argc, char** argv)//237210
 			}
 			else if (!_stricmp("skipscreens", (char*)actarg))
 			{
-				x_BYTE_D41AD_skip_screen = 1;
+				skipScreen_D41AD = 1;
 			}
 			else if (!_stricmp("nocd", (char*)actarg))
 			{
@@ -39259,14 +39259,14 @@ void ProcessCommandLine_56210(int argc, char** argv)//237210
 				//v9 = argnumber + 1;
 				//v10 = argv[argnumber + 1];//*(x_DWORD *)((int)argv + 4 * v9);
 
-				unk_18058Cstr.vio1AnalogJoy_1805C4 = atoi(argv[argnumber + 1]);
+				inputState_18058C.vio1AnalogJoy_1805C4 = atoi(argv[argnumber + 1]);
 				argnumber += 2;
-				unk_18058Cstr.vio2AnalogJoy_1805C6 = atoi(argv[argnumber]/* *(char**)((int)argv + 4 * v2)*/);
+				inputState_18058C.vio2AnalogJoy_1805C6 = atoi(argv[argnumber]/* *(char**)((int)argv + 4 * v2)*/);
 				ApplySetting_89B60(1u);
 			}
 			else if (!_stricmp("extern", (char*)actarg))
 			{
-				*(uint32_t*)&xx_array_E36C4[0] = atoi(argv[++argnumber]/* *(char **)((int)argv + 4 * ++v2)*/);
+				*(uint32_t*)&externControl_E36C4[0] = atoi(argv[++argnumber]/* *(char **)((int)argv + 4 * ++v2)*/);
 				myprintf("External ctrl at %ul\n");
 				ApplySetting_89B60(6u);
 			}
@@ -39330,41 +39330,41 @@ void ProcessCommandLine_56210(int argc, char** argv)//237210
 
 	/*memset((void*)x_D41A0_BYTEARRAY_0[0], 0, 224791);
 	memset((void*)x_DWORD_D41A4, 0, 38547);*/
-	memset((void*)&D41A0_0, 0, sizeof(D41A0_0));
+	memset((void*)&world_D41A0, 0, sizeof(world_D41A0));
 	//clean_x_D41A0_BYTEARRAY_0();
 
 	//memset((void*)x_D41A0_BYTEARRAY_4, 0, 0x9693);
 
 	if (x_BYTE_35520C)
 	{
-		x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 |= 0x8;
-		x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 |= 0x8;
+		gameState_D41A4.setting_byte1_22 |= 0x8;
+		gameState_D41A4.OptionsSettingFlag_24 |= 0x8;
 	}
 	if (x_BYTE_355230)
-		x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 |= 2u;
+		gameState_D41A4.OptionsSettingFlag_24 |= 2u;
 	if (x_BYTE_355218)
-		x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 |= 8u;
+		gameState_D41A4.OptionsSettingFlag_24 |= 8u;
 	if (x_BYTE_355244_spellsedit)
-		x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 |= 0x10u;
+		gameState_D41A4.OptionsSettingFlag_24 |= 0x10u;
 	if (!x_BYTE_35522C_nocd && cdSpeechEnabled_E2A28)
-		x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 |= SPEECH_ENABLED;
+		gameState_D41A4.OptionsSettingFlag_24 |= SPEECH_ENABLED;
 	if (x_BYTE_355240_load_set_level)
-		x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 |= LEVEL_LOADED_FROM_ARG;
+		gameState_D41A4.OptionsSettingFlag_24 |= LEVEL_LOADED_FROM_ARG;
 	if (x_BYTE_355214)
-		x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 |= 2u;
+		gameState_D41A4.setting_byte2_23 |= 2u;
 	if (x_BYTE_355224_showversion)
-		x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 |= 8u;
+		gameState_D41A4.setting_byte4_25 |= 8u;
 	if (x_BYTE_355220_langcheck)
-		x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 |= 0x10u;
+		gameState_D41A4.setting_byte4_25 |= 0x10u;
 	if (x_BYTE_355238_music2)
-		x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 |= 0x40u;
+		gameState_D41A4.setting_byte4_25 |= 0x40u;
 	if (x_BYTE_35523C_detectoff)
 		autoScanForSoundHardware_E379B = true;
 	//result = x_D41A0_BYTEARRAY_4;
-	x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = x_BYTE_355210_level;
-	x_D41A0_BYTEARRAY_4_struct.setting_45w = x_DWORD_355208;
+	gameState_D41A4.levelnumber_43w = x_BYTE_355210_level;
+	gameState_D41A4.setting_45w = x_DWORD_355208;
 	if (x_BYTE_35521C_cc)
-		x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 = (x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 | 4) & 0xFD;
+		gameState_D41A4.setting_byte4_25 = (gameState_D41A4.setting_byte4_25 | 4) & 0xFD;
 	if (x_BYTE_355228_showversion2)
 	{
 		PrintHeader_70890();
@@ -39380,7 +39380,7 @@ void ProcessCommandLine_56210(int argc, char** argv)//237210
 // D419C: using guessed type char LoadLevelNumber_D419C;
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // D41A4: using guessed type int x_DWORD_D41A4;
-// D41AD: using guessed type char x_BYTE_D41AD_skip_screen;
+// D41AD: using guessed type char skipScreen_D41AD;
 // E2A28: using guessed type char x_BYTE_E2A28;
 // E36C4: using guessed type int x_DWORD_E36C4;
 // 1805C4: using guessed type __int16 x_WORD_1805C4_vio1_analog_joy;
@@ -39393,54 +39393,54 @@ void ClearSettings_567C0()//2377c0 // clean level
 	//int v1; // ebx
 
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[16]), 0, 29);
-	D41A0_0.modelCounters_0x10.fill(0);
+	world_D41A0.modelCounters_0x10.fill(0);
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[45]), 0, 4);
-	D41A0_0.dword_0x2d = 0;
+	world_D41A0.dword_0x2d = 0;
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[49]), 0, 2);
-	D41A0_0.volcanoEntity_0x31 = 0;
+	world_D41A0.volcanoEntity_0x31 = 0;
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[51]), 0, 2);
-	D41A0_0.volcanoFireEntity_0x33 = 0;
+	world_D41A0.volcanoFireEntity_0x33 = 0;
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[53]), 0, 4);
-	D41A0_0.freeEntityCount_0x35 = 0;
+	world_D41A0.freeEntityCount_0x35 = 0;
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[569]), 0, 1);
-	D41A0_0.byte_0x239 = 0;
-	memset(&D41A0_0.creatureStats_0x364D2, 0, sizeof(D41A0_0.creatureStats_0x364D2));
+	world_D41A0.byte_0x239 = 0;
+	memset(&world_D41A0.creatureStats_0x364D2, 0, sizeof(world_D41A0.creatureStats_0x364D2));
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[9058]), 0, 48);
-	memset(&D41A0_0.playerStarts_0x2362, 0, sizeof(D41A0_0.playerStarts_0x2362));
+	memset(&world_D41A0.playerStarts_0x2362, 0, sizeof(world_D41A0.playerStarts_0x2362));
 	//clean_x_D41A0_BYTEARRAY_0_0x2362();
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[28302]), 0, 168000);
-	memset(D41A0_0.entities_0x6E8E, 0, sizeof(type_entity_0x6E8E) * 0x3e8);
+	memset(world_D41A0.entities_0x6E8E, 0, sizeof(type_entity_0x6E8E) * 0x3e8);
 	memset(spellTableOverrun, 0, sizeof(spellTableOverrun));
 
-	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.paletteMod_51), 0, 1);
-	memset((void*)(x_D41A0_BYTEARRAY_4_struct.colorIndex_121), 0, 16);
-	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.speedIndex), 0, 1);
-	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180), 0, 1);
-	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.manaStats_242ar), 0, 14);
-	memset((void*)(x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x), 0, sizeof(type_entity_0x6E8E*) * 29);
-	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.class3List_38519), 0, sizeof(type_entity_0x6E8E*));
-	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.manaSphereList_38523), 0, sizeof(type_entity_0x6E8E*));
-	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.buildingList_38527), 0, sizeof(type_entity_0x6E8E*));
-	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.projectileList_38531), 0, sizeof(type_entity_0x6E8E*));
-	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.miscList_38535), 0, sizeof(type_entity_0x6E8E*));
+	memset((void*)(&gameState_D41A4.paletteMod_51), 0, 1);
+	memset((void*)(gameState_D41A4.colorIndex_121), 0, 16);
+	memset((void*)(&gameState_D41A4.speedIndex), 0, 1);
+	memset((void*)(&gameState_D41A4.paletteSubMod_180), 0, 1);
+	memset((void*)(&gameState_D41A4.manaStats_242ar), 0, 14);
+	memset((void*)(gameState_D41A4.creatureLists_38403x), 0, sizeof(type_entity_0x6E8E*) * 29);
+	memset((void*)(&gameState_D41A4.class3List_38519), 0, sizeof(type_entity_0x6E8E*));
+	memset((void*)(&gameState_D41A4.manaSphereList_38523), 0, sizeof(type_entity_0x6E8E*));
+	memset((void*)(&gameState_D41A4.buildingList_38527), 0, sizeof(type_entity_0x6E8E*));
+	memset((void*)(&gameState_D41A4.projectileList_38531), 0, sizeof(type_entity_0x6E8E*));
+	memset((void*)(&gameState_D41A4.miscList_38535), 0, sizeof(type_entity_0x6E8E*));
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
 	memset((void*)mapTerrainType_10B4E0, 0, 0x10000);
 	memset((void*)mapHeightmap_11B4E0, 0, 0x10000);
 	memset((void*)mapShading_12B4E0, 0, 0x10000);
 	memset((void*)mapAngle_13B4E0, 0, 0x10000);
-	memset((void*)x_DWORD_E9C38_smalltit, 0, 0xfa00);
+	memset((void*)smalltitBuffer_E9C38, 0, 0xfa00);
 	//result = (int)x_D41A0_BYTEARRAY_4;
-	x_D41A0_BYTEARRAY_4_struct.setting_30 = 0;
+	gameState_D41A4.setting_30 = 0;
 	//v1 = *(x_DWORD *)(x_D41A0_BYTEARRAY_4 + 22);
-	x_D41A0_BYTEARRAY_4_struct.FrameTimingIndex_26 = 0;
-	x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 &= 0xFFFE3FFF;
+	gameState_D41A4.FrameTimingIndex_26 = 0;
+	gameState_D41A4.setting_byte1_22 &= 0xFFFE3FFF;
 	//return result;
 }
 // 10000: using guessed type void /*__noreturn*/ sub_10000();
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // D41A4: using guessed type int x_DWORD_D41A4;
-// E9C38: using guessed type int x_DWORD_E9C38_smalltit;
+// E9C38: using guessed type int smalltitBuffer_E9C38;
 
 //----- (00056A30) --------------------------------------------------------
 void LevelInitGame_56A30(int16_t level, std::string customLevelPath)//237a30
@@ -39455,7 +39455,7 @@ void LevelInitGame_56A30(int16_t level, std::string customLevelPath)//237a30
 
 	if (CommandLineParams.DoMouseOff()) { mouseturnoff = true; }
 	if (level > -1) {
-		x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = (uint16_t)level;
+		gameState_D41A4.levelnumber_43w = (uint16_t)level;
 	}
 	Logger->debug("LevelInitGame_56A30:before sub_6EB90");
 	//fixing
@@ -39466,33 +39466,33 @@ void LevelInitGame_56A30(int16_t level, std::string customLevelPath)//237a30
 	char temp_x_BYTE_E3799_sound_card = soundActive_E3799;
 	soundActive_E3799 = false;
 	ClearSettings_567C0();
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8))
+	if (!(gameState_D41A4.setting_byte1_22 & 8))
 	{
 		PrintTextMessage_70910((char*)"Load Level\0");
 
 		Logger->debug("LevelInitGame_56A30:before LevelDecompress_533B0");
 
-		LevelDecompress_533B0(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, &D41A0_0.terrain_2FECE, customLevelPath);
+		LevelDecompress_533B0(gameState_D41A4.levelnumber_43w, &world_D41A0.terrain_2FECE, customLevelPath);
 
 		Logger->debug("LevelInitGame_56A30:LevelDecompress_533B0 passed");
 
 	}
-	ReadAndDecompressSkyAndBlocks_54660(D41A0_0.terrain_2FECE.MapType, TileTextureSize_D41B5);//235660
-	ReadAndDecompressTables_54800(D41A0_0.terrain_2FECE.MapType);//235800
+	ReadAndDecompressSkyAndBlocks_54660(world_D41A0.terrain_2FECE.MapType, TileTextureSize_D41B5);//235660
+	ReadAndDecompressTables_54800(world_D41A0.terrain_2FECE.MapType);//235800
 	//237ab3
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE))
-		D41A0_0.NumberOfPlayers_0xe = D41A0_0.terrain_2FECE.numberOfPlayers_0x2FED7;
+	if (!(gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE))
+		world_D41A0.NumberOfPlayers_0xe = world_D41A0.terrain_2FECE.numberOfPlayers_0x2FED7;
 	PrintTextMessage_70910((char*)"Generate map\0");
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
-		GenerateLevelMap_43830(&D41A0_0.terrain_2FECE);
+	if (!(gameState_D41A4.setting_byte1_22 & 4))
+		GenerateLevelMap_43830(&world_D41A0.terrain_2FECE);
 	ResetEntityLists_49F30();//prepare events pointers
 	//237B05
 	if (CommandLineParams.DoDebugSequences()) {
 		add_compare(0x237B05, CommandLineParams.DoDebugafterload());
 	}
 	PrintTextMessage_70910((char*)"Generate features\0");
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
-		GenerateLevelFeatures_49270(&D41A0_0.terrain_2FECE);
+	if (!(gameState_D41A4.setting_byte1_22 & 4))
+		GenerateLevelFeatures_49270(&world_D41A0.terrain_2FECE);
 	PrintTextMessage_70910((char*)"Initialise Models\0");
 	memset(&predictedAxis_EB398ar, 0, 6);
 	RebuildEntityLists_49F90();
@@ -39500,10 +39500,10 @@ void LevelInitGame_56A30(int16_t level, std::string customLevelPath)//237a30
 	if (CommandLineParams.DoDebugSequences()) {
 		add_compare(0x237B55, CommandLineParams.DoDebugafterload());
 	}
-	D41A0_0.freeEntityCount2_0x11e6 = -1;
-	SetTmapsFile_71A70(D41A0_0.terrain_2FECE.MapType);
+	world_D41A0.freeEntityCount2_0x11e6 = -1;
+	SetTmapsFile_71A70(world_D41A0.terrain_2FECE.MapType);
 	//adress 237b75
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
+	if (!(gameState_D41A4.setting_byte1_22 & 4))
 	{
 		InitStages_58940();
 		InitStageVars_11EE0();
@@ -39554,30 +39554,30 @@ void LoadLevel_56D60(unsigned int a1, char a2)//237d60
 	v2 = soundActive_E3799;
 	soundActive_E3799 = false;
 	ClearSettings_567C0();
-	LevelDecompress_533B0(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, &D41A0_0.terrain_2FECE);
+	LevelDecompress_533B0(gameState_D41A4.levelnumber_43w, &world_D41A0.terrain_2FECE);
 	if (a2)
 	{
-		ReadAndDecompressSkyAndBlocks_54660(D41A0_0.terrain_2FECE.MapType, TileTextureSize_D41B5);
-		ReadAndDecompressTables_54800(D41A0_0.terrain_2FECE.MapType);
+		ReadAndDecompressSkyAndBlocks_54660(world_D41A0.terrain_2FECE.MapType, TileTextureSize_D41B5);
+		ReadAndDecompressTables_54800(world_D41A0.terrain_2FECE.MapType);
 	}
 	//v3 = x_D41A0_BYTEARRAY_0 + 196302;
-	D41A0_0.NumberOfPlayers_0xe = D41A0_0.terrain_2FECE.numberOfPlayers_0x2FED7;
-	GenerateLevelMap_43830(&D41A0_0.terrain_2FECE);
+	world_D41A0.NumberOfPlayers_0xe = world_D41A0.terrain_2FECE.numberOfPlayers_0x2FED7;
+	GenerateLevelMap_43830(&world_D41A0.terrain_2FECE);
 	ResetEntityLists_49F30();
-	GenerateLevelFeatures_49270(&D41A0_0.terrain_2FECE);
+	GenerateLevelFeatures_49270(&world_D41A0.terrain_2FECE);
 	memset(&predictedAxis_EB398ar, 0, 6);
 	RebuildEntityLists_49F90();
 	//v4 = x_D41A0_BYTEARRAY_0;
-	D41A0_0.freeEntityCount2_0x11e6 = -1;
+	world_D41A0.freeEntityCount2_0x11e6 = -1;
 	if (a2)
-		SetTmapsFile_71A70(D41A0_0.terrain_2FECE.MapType);
+		SetTmapsFile_71A70(world_D41A0.terrain_2FECE.MapType);
 	InitStages_58940();
 	InitStageVars_11EE0();
 	ClearDynamicLights_84790();
 	ResetLevelState_4A1E0(0, 1);
 	soundActive_E3799 = v2;
 	UpdateGameFrame_53160();
-	//v5x = Entities_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	//v5x = Entities_EA3E4[world_D41A0.array_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	UpdateCastles_60F00();
 	RecordingLevelSave();
 }
@@ -39639,11 +39639,11 @@ char FindFreeTileNear_56F10(__int16 a1, __int16 a2, __int16 a3, char a4)//237f10
 	mapHeightmap_11B4E0[v12x.word] = v4;
 	if (v5)
 	{
-		v6 = (unsigned __int8)x_BYTE_14B4E0_second_heightmap[v12x.word] - a3;
+		v6 = (unsigned __int8)secondHeightmap_14B4E0[v12x.word] - a3;
 		if (v6 >= 255)
-			x_BYTE_14B4E0_second_heightmap[v12x.word] = -1;
+			secondHeightmap_14B4E0[v12x.word] = -1;
 		else
-			x_BYTE_14B4E0_second_heightmap[v12x.word] = v6;
+			secondHeightmap_14B4E0[v12x.word] = v6;
 	}
 	if (v4)
 	{
@@ -39924,16 +39924,16 @@ char IsSpellCastable_57450(uint8_t a1)//238450
 //----- (000574A0) --------------------------------------------------------
 void ResetLevelSpells_574A0()//2384a0
 {
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE))
+	if (!(gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE))
 	{
-		memset(D41A0_0.creatureStats_0x364D2.spawnCounts_0x364D6, 0, 104);
-		type_str_611* tempStr611 = &Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->playerData_0xA4_164x->str_611;
+		memset(world_D41A0.creatureStats_0x364D2.spawnCounts_0x364D6, 0, 104);
+		type_str_611* tempStr611 = &Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->playerData_0xA4_164x->str_611;
 		for (int index = 1; index < 0x4b0; index++)
 		{
-			if (D41A0_0.terrain_2FECE.entity_0x30311[index].type_0x30311 == 0x0F)
+			if (world_D41A0.terrain_2FECE.entity_0x30311[index].type_0x30311 == 0x0F)
 			{
-				if (!tempStr611->SpellsEnabled_0x333_819x.SpellEnabled[D41A0_0.terrain_2FECE.entity_0x30311[index].subtype_0x30311] && !tempStr611->availableSpells_0x3E9_1001x.SpellIndex[D41A0_0.terrain_2FECE.entity_0x30311[index].subtype_0x30311])
-					D41A0_0.creatureStats_0x364D2.spawnCounts_0x364D6[D41A0_0.terrain_2FECE.entity_0x30311[index].subtype_0x30311]++;
+				if (!tempStr611->SpellsEnabled_0x333_819x.SpellEnabled[world_D41A0.terrain_2FECE.entity_0x30311[index].subtype_0x30311] && !tempStr611->availableSpells_0x3E9_1001x.SpellIndex[world_D41A0.terrain_2FECE.entity_0x30311[index].subtype_0x30311])
+					world_D41A0.creatureStats_0x364D2.spawnCounts_0x364D6[world_D41A0.terrain_2FECE.entity_0x30311[index].subtype_0x30311]++;
 			}
 		}
 	}
@@ -39942,12 +39942,12 @@ void ResetLevelSpells_574A0()//2384a0
 //----- (00057570) --------------------------------------------------------
 void CheckLevelEndReached_57570()//238570
 {
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 & 1))
+	if (!(gameState_D41A4.setting_byte2_23 & 1))
 	{
-		if (D41A0_0.playerObjectives_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
+		if (world_D41A0.playerObjectives_0x3659C[world_D41A0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
 		{
-			if (!(D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 0x10))
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] | 2;
+			if (!(world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 0x10))
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] | 2;
 		}
 	}
 }
@@ -39955,16 +39955,16 @@ void CheckLevelEndReached_57570()//238570
 //----- (000575C0) --------------------------------------------------------
 void CheckLevelEndFlags_575C0()//2385c0
 {
-	if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 8)
+	if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 8)
 	{
-		if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 4)
+		if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] & 4)
 		{
-			if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE) && (x_D41A0_BYTEARRAY_4_struct.setting_38545 & 0x80))
+			if (!(gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE) && (gameState_D41A4.setting_38545 & 0x80))
 			{
-				if (LoadLevel_555D0(1u, x_D41A0_BYTEARRAY_4_struct.levelnumber_43w))
+				if (LoadLevel_555D0(1u, gameState_D41A4.levelnumber_43w))
 				{
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] &= 0xF7u;
-					D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] &= 0xFBu;
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] &= 0xF7u;
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] &= 0xFBu;
 				}
 			}
 		}
@@ -39974,11 +39974,11 @@ void CheckLevelEndFlags_575C0()//2385c0
 //----- (00057640) --------------------------------------------------------
 void AutoSaveLevel_57640()//238640
 {
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE) && !(x_D41A0_BYTEARRAY_4_struct.setting_38545 & 0x80))
+	if (!(gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE) && !(gameState_D41A4.setting_38545 & 0x80))
 	{
-		if (SaveLevel_55080(1u, x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, (char*)""))
+		if (SaveLevel_55080(1u, gameState_D41A4.levelnumber_43w, (char*)""))
 		{
-			x_D41A0_BYTEARRAY_4_struct.setting_38545 |= 0x80u;
+			gameState_D41A4.setting_38545 |= 0x80u;
 		}
 	}
 }
@@ -40006,7 +40006,7 @@ void UpdateEntities_57730()//238730
 		//add_compare(0x238734, CommandLineParams.DoDebugafterload());
 	}
 
-	D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
+	world_D41A0.rand_0x8 = 9377 * world_D41A0.rand_0x8 + 9439;
 	for (ix = Entities_EA3E4[1]; ix < Entities_EA3E4[1000]; ix++)
 	{
 		//adress 238756
@@ -40017,16 +40017,16 @@ void UpdateEntities_57730()//238730
 			ReleaseEntity_57F20(ix);
 	}
 	memset(v22x, 0, 29 * sizeof(type_entity_0x6E8E*));//adress 238779
-	memset(x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x, 0, 29 * sizeof(type_entity_0x6E8E*));
+	memset(gameState_D41A4.creatureLists_38403x, 0, 29 * sizeof(type_entity_0x6E8E*));
 	v2x = 0;
-	x_D41A0_BYTEARRAY_4_struct.manaSphereList_38523 = 0;
+	gameState_D41A4.manaSphereList_38523 = 0;
 	v24x = 0;
-	x_D41A0_BYTEARRAY_4_struct.buildingList_38527 = 0;
+	gameState_D41A4.buildingList_38527 = 0;
 	v23x = 0;
-	x_D41A0_BYTEARRAY_4_struct.class3List_38519 = 0;
-	x_D41A0_BYTEARRAY_4_struct.projectileList_38531 = 0;
+	gameState_D41A4.class3List_38519 = 0;
+	gameState_D41A4.projectileList_38531 = 0;
 	v3x = 0;
-	x_D41A0_BYTEARRAY_4_struct.miscList_38535 = 0;
+	gameState_D41A4.miscList_38535 = 0;
 	v4x = 0;
 	for (jx = Entities_EA3E4[1]; jx < Entities_EA3E4[1000]; jx++)
 	{
@@ -40040,7 +40040,7 @@ void UpdateEntities_57730()//238730
 					if (v3x)
 						v3x->next_0 = jx;
 					else
-						x_D41A0_BYTEARRAY_4_struct.class3List_38519 = jx;
+						gameState_D41A4.class3List_38519 = jx;
 					v3x = jx;
 					jx->next_0 = Entities_EA3E4[0];
 					continue;
@@ -40064,7 +40064,7 @@ void UpdateEntities_57730()//238730
 					if (v22x[jx->model_0x40_64])
 						v22x[jx->model_0x40_64]->next_0 = jx;
 					else
-						x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[jx->model_0x40_64] = jx;
+						gameState_D41A4.creatureLists_38403x[jx->model_0x40_64] = jx;
 					jx->next_0 = Entities_EA3E4[0];
 					v22x[jx->model_0x40_64] = jx;
 				}
@@ -40073,7 +40073,7 @@ void UpdateEntities_57730()//238730
 				if (v23x)
 					v23x->next_0 = jx;
 				else
-					x_D41A0_BYTEARRAY_4_struct.projectileList_38531 = jx;
+					gameState_D41A4.projectileList_38531 = jx;
 				v23x = jx;
 				jx->next_0 = Entities_EA3E4[0];
 				continue;
@@ -40087,7 +40087,7 @@ void UpdateEntities_57730()//238730
 						if (v2x)
 							v2x->next_0 = jx;
 						else
-							x_D41A0_BYTEARRAY_4_struct.manaSphereList_38523 = jx;
+							gameState_D41A4.manaSphereList_38523 = jx;
 						v2x = jx;
 						jx->next_0 = Entities_EA3E4[0];
 						continue;
@@ -40097,7 +40097,7 @@ void UpdateEntities_57730()//238730
 					if (v4x)
 						v4x->next_0 = jx;
 					else
-						x_D41A0_BYTEARRAY_4_struct.miscList_38535 = jx;
+						gameState_D41A4.miscList_38535 = jx;
 					jx->next_0 = Entities_EA3E4[0];
 					v4x = jx;
 					continue;
@@ -40107,7 +40107,7 @@ void UpdateEntities_57730()//238730
 					if (v24x)
 						v24x->next_0 = jx;
 					else
-						x_D41A0_BYTEARRAY_4_struct.buildingList_38527 = jx;
+						gameState_D41A4.buildingList_38527 = jx;
 					v24x = jx;
 					jx->next_0 = Entities_EA3E4[0];
 					continue;
@@ -40119,7 +40119,7 @@ void UpdateEntities_57730()//238730
 					if (v2x)
 						v2x->next_0 = jx;
 					else
-						x_D41A0_BYTEARRAY_4_struct.manaSphereList_38523 = jx;
+						gameState_D41A4.manaSphereList_38523 = jx;
 					v2x = jx;
 					jx->next_0 = Entities_EA3E4[0];
 					continue;
@@ -40129,7 +40129,7 @@ void UpdateEntities_57730()//238730
 					if (v4x)
 						v4x->next_0 = jx;
 					else
-						x_D41A0_BYTEARRAY_4_struct.miscList_38535 = jx;
+						gameState_D41A4.miscList_38535 = jx;
 					jx->next_0 = Entities_EA3E4[0];
 					v4x = jx;
 					continue;
@@ -40141,7 +40141,7 @@ void UpdateEntities_57730()//238730
 					if (v4x)
 						v4x->next_0 = jx;
 					else
-						x_D41A0_BYTEARRAY_4_struct.miscList_38535 = jx;
+						gameState_D41A4.miscList_38535 = jx;
 					jx->next_0 = Entities_EA3E4[0];
 					v4x = jx;
 				}
@@ -40152,12 +40152,12 @@ void UpdateEntities_57730()//238730
 		}
 	}
 	//adress 23899a
-	if (!(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED))
+	if (!(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED))
 	{
 		UpdateStageVars_12780();
 		for (k = 0; k < 29; k++)
 		{
-			for (lx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[k]; lx > Entities_EA3E4[0]; lx = lx->next_0)
+			for (lx = gameState_D41A4.creatureLists_38403x[k]; lx > Entities_EA3E4[0]; lx = lx->next_0)
 			{
 				if (lx->StageVar1_0x48_72 || lx->StageVar2_0x49_73)
 					UpdateEntityStage_12500(lx);
@@ -40166,7 +40166,7 @@ void UpdateEntities_57730()//238730
 		if (CommandLineParams.DoDebugSequences2()) {
 			//add_compare(0x2389eb, CommandLineParams.DoDebugafterload());
 		}
-		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE))
+		if (!(gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE))
 			UpdateAllCreatures_68BF0();
 		if (CommandLineParams.DoDebugSequences2()) {
 			//add_compare(0x2389f6, CommandLineParams.DoDebugafterload());
@@ -40189,9 +40189,9 @@ void UpdateEntities_57730()//238730
 			}
 			if (mx->class_0x3F_63)
 			{
-				if (mx->actionIndex_0x45_69 == str_D4C48ar[mx->class_0x3F_63].actions_10[mx->actionIndex_0x45_69].index_4)
+				if (mx->actionIndex_0x45_69 == entityTypeTables_D4C48[mx->class_0x3F_63].actions_10[mx->actionIndex_0x45_69].index_4)
 				{
-					if (str_D4C48ar[mx->class_0x3F_63].actions_10[mx->actionIndex_0x45_69].enabled_10)
+					if (entityTypeTables_D4C48[mx->class_0x3F_63].actions_10[mx->actionIndex_0x45_69].enabled_10)
 					{
 						if (CommandLineParams.DoDebugSequences()) {
 							if (debug_UpdateEntities_57730 == 0x72c0)
@@ -40230,7 +40230,7 @@ void UpdateEntities_57730()//238730
 							mx->actionIndex_0x45_69++;
 							mx->actionIndex_0x45_69--;
 						}*/
-						CallUpdateFunction_4A190(str_D4C48ar[mx->class_0x3F_63].actions_10[mx->actionIndex_0x45_69].address_6, mx);
+						CallUpdateFunction_4A190(entityTypeTables_D4C48[mx->class_0x3F_63].actions_10[mx->actionIndex_0x45_69].address_6, mx);
 						mx->instanceIndex_0x3E_62++;
 					}
 				}
@@ -40241,8 +40241,8 @@ void UpdateEntities_57730()//238730
 			}
 		}
 		UpdateWizardHeights_585D0();
-		if (D41A0_0.buildingCheckEntity_0x3654A)
-			EmuCheckNearbyEntities_21F60(Entities_EA3E4[D41A0_0.buildingCheckEntity_0x3654A]);
+		if (world_D41A0.buildingCheckEntity_0x3654A)
+			EmuCheckNearbyEntities_21F60(Entities_EA3E4[world_D41A0.buildingCheckEntity_0x3654A]);
 	}
 }
 
@@ -40307,7 +40307,7 @@ void CopyPlayerPositionAndRotation_57B20(type_str_0x2BDE* a1x, type_entity_0x6E8
 		debugcounter_238b2f++;
 	}
 
-	if (!(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED))
+	if (!(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED))
 	{
 		a1x->positions_0x1d1_2BDE_11695[a1x->positionCount_0x010_2BDE_11246].axis_2BDE_11695.x = a2x->position_0x4C_76.x;
 		a1x->positions_0x1d1_2BDE_11695[a1x->positionCount_0x010_2BDE_11246].axis_2BDE_11695.y = a2x->position_0x4C_76.y;
@@ -40322,12 +40322,12 @@ void CopyPlayerPositionAndRotation_57B20(type_str_0x2BDE* a1x, type_entity_0x6E8
 		//v3 = a2x->dword_0xA4_164;
 		v4 = a2x->playerData_0xA4_164x->moveBoost_0x1E_30;
 		/*a1x->struct_0x1d1_2BDE_11695[a1x->word_0x010_2BDE_11246].rotation__2BDE_11701.bb = a2x->playerData_0xA4_164x->word_0x157_343 / 2
-			+ x_D41A0_BYTEARRAY_4_struct.byteindex_121[1]
+			+ gameState_D41A4.byteindex_121[1]
 			* (unsigned __int16)((signed int)(v4 - (__CFSHL__((unsigned __int64)a2x->playerData_0xA4_164x->word_0x1E_30 >> 32, 4) + 16 * ((unsigned __int64)a2x->playerData_0xA4_164x->word_0x1E_30 >> 32))) >> 4)
 			- ((v4 - (__CFSHL__(v4 >> 31, 3) + 8 * (v4 >> 31))) >> 3);
 			*/
 		a1x->positions_0x1d1_2BDE_11695[a1x->positionCount_0x010_2BDE_11246].rotation__2BDE_11701.pitch = a2x->playerData_0xA4_164x->pitch_0x157_343 / 2
-			+ x_D41A0_BYTEARRAY_4_struct.colorIndex_121[1]
+			+ gameState_D41A4.colorIndex_121[1]
 			* ((v4 - (my_sign32(v4) << 4) + my_sign32(v4)) >> 4)
 			- ((v4 - (my_sign32(v4) << 3) + my_sign32(v4)) >> 3);
 
@@ -40382,8 +40382,8 @@ void AddEventToMap_57D70(type_entity_0x6E8E* entity, axis_3d* position)//238d70 
 		uint16_t mapIndex = ((position->y >> 8) << 8) + (position->x >> 8);
 		entity->oldMapEntity_0x16_22 = mapEntityIndex_15B4E0[mapIndex];//find old entity
 		if (entity->oldMapEntity_0x16_22)//if is entity set old entity next entity index to new entity
-			D41A0_0.entities_0x6E8E[entity->oldMapEntity_0x16_22].nextEntity_0x18_24 = entity - D41A0_0.entities_0x6E8E;
-		mapEntityIndex_15B4E0[mapIndex] = entity - D41A0_0.entities_0x6E8E;//set new entity as actual source
+			world_D41A0.entities_0x6E8E[entity->oldMapEntity_0x16_22].nextEntity_0x18_24 = entity - world_D41A0.entities_0x6E8E;
+		mapEntityIndex_15B4E0[mapIndex] = entity - world_D41A0.entities_0x6E8E;//set new entity as actual source
 		entity->position_0x4C_76 = *position;//set new position
 		entity->flags_0xc_12_15.byte[0] |= 4u;//added to map
 	}
@@ -40512,7 +40512,7 @@ void UpdateWizardHeights_585D0()//2395d0
 
 	//v0 = *(uint16_t*)&(unk_D7BD6[0x8d0]);  8C4 +0xc
 	v0 = str_D7BD6[66].minHeight_160_0xc_12;
-	for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+	for (ix = gameState_D41A4.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (!ix->model_0x40_64)
 		{
@@ -40551,14 +40551,14 @@ void UpdateMultiplayerRandom_58630()//239630
 
 	v0 = 0;
 	v1 = 0;
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+	if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 	{
 		//v2 = (int)x_D41A0_BYTEARRAY_0;
 		//*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) = 9377 * *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) + 9439;
-		D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
-		v1 = D41A0_0.rand_0x8 % D41A0_0.NumberOfPlayers_0xe;
+		world_D41A0.rand_0x8 = 9377 * world_D41A0.rand_0x8 + 9439;
+		v1 = world_D41A0.rand_0x8 % world_D41A0.NumberOfPlayers_0xe;
 	}
-	else if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248 & 7)
+	else if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248 & 7)
 		//D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc]+18
 	{
 		goto LABEL_5;
@@ -40566,11 +40566,11 @@ void UpdateMultiplayerRandom_58630()//239630
 	v0 = 1;
 LABEL_5:
 	//v3 = 2124 * v1 + (int)x_D41A0_BYTEARRAY_0 + 11230;
-	if (!D41A0_0.players_0x2BDE[v1].playerActive_0x006_2BE4_11236)
+	if (!world_D41A0.players_0x2BDE[v1].playerActive_0x006_2BE4_11236)
 		v0 = 0;
 	if (v0)
 	{
-		v4x = Entities_EA3E4[D41A0_0.players_0x2BDE[v1].playerIndex_0x00a_2BE4_11240];
+		v4x = Entities_EA3E4[world_D41A0.players_0x2BDE[v1].playerIndex_0x00a_2BE4_11240];
 		v15x = v4x->position_0x4C_76;
 		MoveEntity_57FA0(&v15x, v4x->yaw_0x1C_28, 0, 2560);
 		//LOBYTE(v5) = (unsigned __int16)(v15x.x + 128) >> 8;
@@ -40580,12 +40580,12 @@ LABEL_5:
 		v5x._axis_2d.y = (unsigned __int16)(v15x.y + 128) >> 8;
 		//v7 = 9377 * *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) + 9439;
 		//*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) = v7;
-		D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
+		world_D41A0.rand_0x8 = 9377 * world_D41A0.rand_0x8 + 9439;
 		//v8 = D41A0_BYTESTR_0.dword_0x8 % 0x14;
 		//v9 = 9377 * *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8);
-		v17 = D41A0_0.rand_0x8 % 0x14;
+		v17 = world_D41A0.rand_0x8 % 0x14;
 		//v3 = v9 + 9439;
-		D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
+		world_D41A0.rand_0x8 = 9377 * world_D41A0.rand_0x8 + 9439;
 		//*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) = v3;
 		//LOBYTE(v5) = v5 - 10;
 		//HIBYTE(v5) -= 10;
@@ -40593,8 +40593,8 @@ LABEL_5:
 		v5x._axis_2d.y -= 10;
 		//LOWORD(v18) = v5;
 		v18x.word = v5x.word;
-		v10 = D41A0_0.rand_0x8 % 0x14;
-		v18x._axis_2d.y = D41A0_0.rand_0x8 % 0x14 + v5x._axis_2d.y;
+		v10 = world_D41A0.rand_0x8 % 0x14;
+		v18x._axis_2d.y = world_D41A0.rand_0x8 % 0x14 + v5x._axis_2d.y;
 		v3x = 0;
 		while (v10 < 20 && !v3x)
 		{
@@ -40628,18 +40628,18 @@ LABEL_5:
 //----- (00058940) --------------------------------------------------------
 void InitStages_58940()//239940 //init games objectives
 {
-	Type_Level_2FECE* terrain = &D41A0_0.terrain_2FECE;
-	D41A0_0.stageIndex_0x36E01 = 0;
-	memset(D41A0_0.playerObjectives_0x3659C, 0, sizeof(type_str_3654C) * 8);
-	memset(D41A0_0.stages_0x3654C, 0, sizeof(type_str_3654C) * 8);
-	D41A0_0.terrain_2FECE.manaGoalPercent_0x2FED5 = 0;
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+	Type_Level_2FECE* terrain = &world_D41A0.terrain_2FECE;
+	world_D41A0.stageIndex_0x36E01 = 0;
+	memset(world_D41A0.playerObjectives_0x3659C, 0, sizeof(type_str_3654C) * 8);
+	memset(world_D41A0.stages_0x3654C, 0, sizeof(type_str_3654C) * 8);
+	world_D41A0.terrain_2FECE.manaGoalPercent_0x2FED5 = 0;
+	if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 	{
-		D41A0_0.stageIndex_0x36E01 = 1;
-		D41A0_0.stages_0x3654C[0].stages_3654C_byte0 = 8;
+		world_D41A0.stageIndex_0x36E01 = 1;
+		world_D41A0.stages_0x3654C[0].stages_3654C_byte0 = 8;
 		for (int result = 0; result < 8; result++)
 		{
-			D41A0_0.playerObjectives_0x3659C[result].substr_3659C.stage_0x3659F[0] = 1;
+			world_D41A0.playerObjectives_0x3659C[result].substr_3659C.stage_0x3659F[0] = 1;
 		}
 	}
 	else
@@ -40648,7 +40648,7 @@ void InitStages_58940()//239940 //init games objectives
 		{
 			if (terrain->stages_0x36442[result].index_0 != -1)
 			{
-				switch (D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].stages_3654C_byte0)
+				switch (world_D41A0.stages_0x3654C[world_D41A0.stageIndex_0x36E01].stages_3654C_byte0)
 				{
 				case 1:
 				case 2:
@@ -40665,44 +40665,44 @@ void InitStages_58940()//239940 //init games objectives
 			}
 			if (terrain->stages_0x36442[result].index_0 != -1)
 			{
-				D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].stages_3654C_byte0 = terrain->stages_0x36442[result].index_0;
+				world_D41A0.stages_0x3654C[world_D41A0.stageIndex_0x36E01].stages_3654C_byte0 = terrain->stages_0x36442[result].index_0;
 				for (int v7 = 0; v7 < 8; v7++)
 				{
-					D41A0_0.playerObjectives_0x3659C[v7].substr_3659C.stage_0x3659F[D41A0_0.stageIndex_0x36E01] = 1;
+					world_D41A0.playerObjectives_0x3659C[v7].substr_3659C.stage_0x3659F[world_D41A0.stageIndex_0x36E01] = 1;
 				}
-				switch (D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].stages_3654C_byte0)
+				switch (world_D41A0.stages_0x3654C[world_D41A0.stageIndex_0x36E01].stages_3654C_byte0)
 				{
 				case 0:
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].target_36552.dword = terrain->stages_0x36442[result].stage_1;//25973
+					world_D41A0.stages_0x3654C[world_D41A0.stageIndex_0x36E01].target_36552.dword = terrain->stages_0x36442[result].stage_1;//25973
 					break;
 				case 1:
 				case 2:
 				case 6:
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].target_36552.ptr16u = &terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].type_0x30311;
+					world_D41A0.stages_0x3654C[world_D41A0.stageIndex_0x36E01].target_36552.ptr16u = &terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].type_0x30311;
 					break;
 				case 4:
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].target_36552.ptr16u = &terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].type_0x30311;
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].position_3654E.x = terrain->stages_0x36442[result]._axis_2d.x << 8;//25975
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].position_3654E.y = terrain->stages_0x36442[result]._axis_2d.y << 8;//25977
+					world_D41A0.stages_0x3654C[world_D41A0.stageIndex_0x36E01].target_36552.ptr16u = &terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].type_0x30311;
+					world_D41A0.stages_0x3654C[world_D41A0.stageIndex_0x36E01].position_3654E.x = terrain->stages_0x36442[result]._axis_2d.x << 8;//25975
+					world_D41A0.stages_0x3654C[world_D41A0.stageIndex_0x36E01].position_3654E.y = terrain->stages_0x36442[result]._axis_2d.y << 8;//25977
 					break;
 				case 5:
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].position_3654E.x = terrain->stages_0x36442[result]._axis_2d.x << 8;
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].position_3654E.y = terrain->stages_0x36442[result]._axis_2d.y << 8;
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].target_36552.dword = terrain->stages_0x36442[result].stage_1;//25973
+					world_D41A0.stages_0x3654C[world_D41A0.stageIndex_0x36E01].position_3654E.x = terrain->stages_0x36442[result]._axis_2d.x << 8;
+					world_D41A0.stages_0x3654C[world_D41A0.stageIndex_0x36E01].position_3654E.y = terrain->stages_0x36442[result]._axis_2d.y << 8;
+					world_D41A0.stages_0x3654C[world_D41A0.stageIndex_0x36E01].target_36552.dword = terrain->stages_0x36442[result].stage_1;//25973
 					break;
 				case 7:
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].target_36552.dword = terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].subtype_0x30311;
+					world_D41A0.stages_0x3654C[world_D41A0.stageIndex_0x36E01].target_36552.dword = terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].subtype_0x30311;
 					break;
 				case 8:
 					break;
 				case 9:
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].target_36552.dword = terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].par1_14;
+					world_D41A0.stages_0x3654C[world_D41A0.stageIndex_0x36E01].target_36552.dword = terrain->entity_0x30311[terrain->stages_0x36442[result].stage_1].par1_14;
 					break;
 				default:
-					D41A0_0.stages_0x3654C[D41A0_0.stageIndex_0x36E01].target_36552.dword = terrain->stages_0x36442[result].stage_1 - 1;
+					world_D41A0.stages_0x3654C[world_D41A0.stageIndex_0x36E01].target_36552.dword = terrain->stages_0x36442[result].stage_1 - 1;
 					break;
 				}
-				D41A0_0.stageIndex_0x36E01++;
+				world_D41A0.stageIndex_0x36E01++;
 			}
 		}
 	}
@@ -40711,17 +40711,17 @@ void InitStages_58940()//239940 //init games objectives
 //----- (00058DA0) --------------------------------------------------------
 void LinkObjectiveToEntity_58DA0(type_entity_0x30311* a1x, type_entity_0x6E8E* a2x)//239da0
 {
-	for (int i = 0; i < D41A0_0.stageIndex_0x36E01; i++)
+	for (int i = 0; i < world_D41A0.stageIndex_0x36E01; i++)
 	{
-		switch (D41A0_0.stages_0x3654C[i].stages_3654C_byte0)
+		switch (world_D41A0.stages_0x3654C[i].stages_3654C_byte0)
 		{
 		case 1:
 		case 2:
 		case 4:
-			if (a1x == D41A0_0.stages_0x3654C[i].target_36552.ptr0x30311)
+			if (a1x == world_D41A0.stages_0x3654C[i].target_36552.ptr0x30311)
 			{
-				D41A0_0.stages_0x3654C[i].target_36552.ptr0x6E8E = a2x;
-				D41A0_0.stages_0x3654C[i].flags_3654D |= 1;
+				world_D41A0.stages_0x3654C[i].target_36552.ptr0x6E8E = a2x;
+				world_D41A0.stages_0x3654C[i].flags_3654D |= 1;
 			}
 			break;
 		case 3:
@@ -40729,19 +40729,19 @@ void LinkObjectiveToEntity_58DA0(type_entity_0x30311* a1x, type_entity_0x6E8E* a
 			{
 				if (!a2x->model_0x40_64 || a2x->model_0x40_64 == 1)
 				{
-					if (a2x->playerData_0xA4_164x->playerColorIndex_0x38_56 == D41A0_0.stages_0x3654C[i].target_36552.dword)
+					if (a2x->playerData_0xA4_164x->playerColorIndex_0x38_56 == world_D41A0.stages_0x3654C[i].target_36552.dword)
 					{
-						D41A0_0.stages_0x3654C[i].target_36552.ptr0x6E8E = a2x;
-						D41A0_0.stages_0x3654C[i].flags_3654D |= 1;
+						world_D41A0.stages_0x3654C[i].target_36552.ptr0x6E8E = a2x;
+						world_D41A0.stages_0x3654C[i].flags_3654D |= 1;
 					}
 				}
 			}
 			break;
 		case 6:
-			if (a1x == D41A0_0.stages_0x3654C[i].target_36552.ptr0x30311)
+			if (a1x == world_D41A0.stages_0x3654C[i].target_36552.ptr0x30311)
 			{
-				D41A0_0.stages_0x3654C[i].target_36552.dword = a2x - D41A0_0.entities_0x6E8E;
-				D41A0_0.stages_0x3654C[i].flags_3654D |= 1;
+				world_D41A0.stages_0x3654C[i].target_36552.dword = a2x - world_D41A0.entities_0x6E8E;
+				world_D41A0.stages_0x3654C[i].flags_3654D |= 1;
 			}
 			break;
 		default:
@@ -40773,8 +40773,8 @@ void GameObjectives_58F00()//239f00
 	char v25; // [esp+40h] [ebp-8h]
 	unsigned __int8 v26; // [esp+44h] [ebp-4h]
 
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
-		v22 = D41A0_0.NumberOfPlayers_0xe;
+	if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+		v22 = world_D41A0.NumberOfPlayers_0xe;
 	else
 		v22 = 1;
 	v24 = 0;
@@ -40783,144 +40783,144 @@ void GameObjectives_58F00()//239f00
 	{
 		do
 		{
-			if (D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveDone_2)//objective pause
+			if (world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveDone_2)//objective pause
 			{
-				D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveDone_2--;// = v2 - 1;
+				world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveDone_2--;// = v2 - 1;
 			}
-			else if (!D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.IsLevelEnd_0)
+			else if (!world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.IsLevelEnd_0)
 			{
 				v3 = 0;
 				achievedGoal = false;
 				v23 = 0;
-				v17x = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
-				while (v3 < D41A0_0.stageIndex_0x36E01)
+				v17x = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+				while (v3 < world_D41A0.stageIndex_0x36E01)
 				{
-					if (D41A0_0.stages_0x3654C[v3].flags_3654D & 2)
+					if (world_D41A0.stages_0x3654C[v3].flags_3654D & 2)
 					{
-						D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
+						world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
 						achievedGoal = true;
-						D41A0_0.stages_0x3654C[v3].flags_3654D &= 0xFDu;
+						world_D41A0.stages_0x3654C[v3].flags_3654D &= 0xFDu;
 					}
-					else if (D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] == 1)
+					else if (world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] == 1)
 					{
-						switch (D41A0_0.stages_0x3654C[v3].stages_3654C_byte0)
+						switch (world_D41A0.stages_0x3654C[v3].stages_3654C_byte0)
 						{
 						case 0://adress 239FE8 // minimal count of mana?
 							if (v17x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58)
 							{//adress 239Ffc
-								if (x_D41A0_BYTEARRAY_4_struct.manaStats_242ar.totalMana_4 > 0)
+								if (gameState_D41A4.manaStats_242ar.totalMana_4 > 0)
 								{//23a02d
-									if ((100 * (v17x->playerData_0xA4_164x->extraMana_0x13C_316 + Entities_EA3E4[v17x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58]->mana_0x90_144) / x_D41A0_BYTEARRAY_4_struct.manaStats_242ar.totalMana_4)
-										>= D41A0_0.stages_0x3654C[v3].target_36552.dword)
+									if ((100 * (v17x->playerData_0xA4_164x->extraMana_0x13C_316 + Entities_EA3E4[v17x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58]->mana_0x90_144) / gameState_D41A4.manaStats_242ar.totalMana_4)
+										>= world_D41A0.stages_0x3654C[v3].target_36552.dword)
 									{
-										D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
+										world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
 										achievedGoal = true;
-										D41A0_0.terrain_2FECE.manaGoalPercent_0x2FED5 = 0;
+										world_D41A0.terrain_2FECE.manaGoalPercent_0x2FED5 = 0;
 									}
 								}
 							}
-							if (!D41A0_0.terrain_2FECE.manaGoalPercent_0x2FED5 && v3 == D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1 && !achievedGoal)//D41A0_BYTESTR_0.struct_0x3659C[v0x].str_3659D_byte1
-								D41A0_0.terrain_2FECE.manaGoalPercent_0x2FED5 = D41A0_0.stages_0x3654C[D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1].target_36552.dword;
+							if (!world_D41A0.terrain_2FECE.manaGoalPercent_0x2FED5 && v3 == world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1 && !achievedGoal)//D41A0_BYTESTR_0.struct_0x3659C[v0x].str_3659D_byte1
+								world_D41A0.terrain_2FECE.manaGoalPercent_0x2FED5 = world_D41A0.stages_0x3654C[world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1].target_36552.dword;
 							break;
 						case 1:
-							if (D41A0_0.stages_0x3654C[v3].flags_3654D & 1
-								&& D41A0_0.stages_0x3654C[v3].target_36552.ptr0x6E8E->life_0x8 <= -1)
+							if (world_D41A0.stages_0x3654C[v3].flags_3654D & 1
+								&& world_D41A0.stages_0x3654C[v3].target_36552.ptr0x6E8E->life_0x8 <= -1)
 							{
 								achievedGoal = true;
-								D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
+								world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
 							}
 							break;
 						case 2:
-							if (D41A0_0.stages_0x3654C[v3].flags_3654D & 1
-								&& D41A0_0.stages_0x3654C[v3].target_36552.ptr0x6E8E->life_0x8 <= -1
-								&& !(D41A0_0.stages_0x3654C[v3].target_36552.ptr0x6E8E->fontTypeIndex_0x3D_61))
+							if (world_D41A0.stages_0x3654C[v3].flags_3654D & 1
+								&& world_D41A0.stages_0x3654C[v3].target_36552.ptr0x6E8E->life_0x8 <= -1
+								&& !(world_D41A0.stages_0x3654C[v3].target_36552.ptr0x6E8E->fontTypeIndex_0x3D_61))
 							{
 								achievedGoal = true;
-								D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
+								world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
 							}
 							break;
 						case 3:
-							if (!D41A0_0.players_0x2BDE[D41A0_0.stages_0x3654C[v3].target_36552.ptr0x6E8E->playerData_0xA4_164x->playerColorIndex_0x38_56].playerActive_0x006_2BE4_11236)
+							if (!world_D41A0.players_0x2BDE[world_D41A0.stages_0x3654C[v3].target_36552.ptr0x6E8E->playerData_0xA4_164x->playerColorIndex_0x38_56].playerActive_0x006_2BE4_11236)
 							{
 								achievedGoal = true;
-								D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
+								world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
 							}
 							break;
 						case 4:
-							if (D41A0_0.stages_0x3654C[v3].flags_3654D & 1)
+							if (world_D41A0.stages_0x3654C[v3].flags_3654D & 1)
 							{
-								v20 = D41A0_0.stages_0x3654C[v3].target_36552.dword;
+								v20 = world_D41A0.stages_0x3654C[v3].target_36552.dword;
 								if (v17x == Entities_EA3E4[*(unsigned __int16*)(v20 + 40)])
 								{
-									v11 = D41A0_0.stages_0x3654C[v3].position_3654E.x - (signed int)*(signed __int16*)(v20 + 76);
+									v11 = world_D41A0.stages_0x3654C[v3].position_3654E.x - (signed int)*(signed __int16*)(v20 + 76);
 									if ((signed int)((HIDWORD(v11) ^ v11) - HIDWORD(v11)) <= 768
-										&& abs(D41A0_0.stages_0x3654C[v3].position_3654E.y - *(signed __int16*)(v20 + 78)) <= 768)
+										&& abs(world_D41A0.stages_0x3654C[v3].position_3654E.y - *(signed __int16*)(v20 + 78)) <= 768)
 									{
 										achievedGoal = true;
-										D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
+										world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
 									}
 								}
 							}
 							break;
 						case 5:
-							if (v3 == D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1)
+							if (v3 == world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1)
 							{
-								v12 = D41A0_0.stages_0x3654C[v3].position_3654E.x - (int16_t)v17x->position_0x4C_76.x;
+								v12 = world_D41A0.stages_0x3654C[v3].position_3654E.x - (int16_t)v17x->position_0x4C_76.x;
 								if ((signed int)((HIDWORD(v12) ^ v12) - HIDWORD(v12)) <= 768
-									&& abs(D41A0_0.stages_0x3654C[v3].position_3654E.y - (int16_t)v17x->position_0x4C_76.y) <= 768)
+									&& abs(world_D41A0.stages_0x3654C[v3].position_3654E.y - (int16_t)v17x->position_0x4C_76.y) <= 768)
 								{
 									achievedGoal = true;
-									D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;//archieve point
+									world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;//archieve point
 								}
 							}
 							break;
 						case 6:
-							if (v3 == D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1 && D41A0_0.stages_0x3654C[v3].flags_3654D & 1)
+							if (v3 == world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1 && world_D41A0.stages_0x3654C[v3].flags_3654D & 1)
 							{
 								v13 = 0;
-								while (D41A0_0.players_0x2BDE[v24].playerData_0x3E6_2BE4_12228.objectiveTargets_0x1AC_428.completedTargets_2BDE_12658[v13] != D41A0_0.stages_0x3654C[v3].target_36552.dword)
+								while (world_D41A0.players_0x2BDE[v24].playerData_0x3E6_2BE4_12228.objectiveTargets_0x1AC_428.completedTargets_2BDE_12658[v13] != world_D41A0.stages_0x3654C[v3].target_36552.dword)
 								{
 									if (++v13 >= 8)
 										goto LABEL_72;
 								}
 								achievedGoal = true;
-								D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
+								world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
 							}
 							break;
 						case 7:
-							if (v3 == D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1 && !x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[D41A0_0.stages_0x3654C[v3].target_36552.dword])
+							if (v3 == world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1 && !gameState_D41A4.creatureLists_38403x[world_D41A0.stages_0x3654C[v3].target_36552.dword])
 							{
 								achievedGoal = true;
-								D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;//killed creatures
+								world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;//killed creatures
 							}
 							break;
 						case 8:
-							if (v3 == D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1)
+							if (v3 == world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1)
 							{
 								achievedGoal = true;
-								for (i = 0; i < D41A0_0.NumberOfPlayers_0xe; i++)
+								for (i = 0; i < world_D41A0.NumberOfPlayers_0xe; i++)
 								{
-									if (i != (x_WORD)v24 && D41A0_0.players_0x2BDE[i].playerActive_0x006_2BE4_11236)
+									if (i != (x_WORD)v24 && world_D41A0.players_0x2BDE[i].playerActive_0x006_2BE4_11236)
 									{
 										achievedGoal = false;
 										break;
 									}
 								}
 								if (achievedGoal)
-									D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
+									world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
 							}
 							break;
 						case 9:
-							if (v3 == D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1 && !(x_D41A0_BYTEARRAY_4_struct.FrameTimingIndex_26 & 0xF))
+							if (v3 == world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1 && !(gameState_D41A4.FrameTimingIndex_26 & 0xF))
 							{
-								v8x = x_D41A0_BYTEARRAY_4_struct.buildingList_38527;
+								v8x = gameState_D41A4.buildingList_38527;
 								v25 = 0;
 								while (v8x > Entities_EA3E4[0] && !v25)
 								{
 									v26 = 0;
-									for (j = D41A0_0.stages_0x3654C[v3].target_36552.dword;
+									for (j = world_D41A0.stages_0x3654C[v3].target_36552.dword;
 										j && !v25 && v26 < 8u;
-										j = str_D93C0_bldgprmbuffer[j].nextIndex_3)
+										j = buildingParams_D93C0[j].nextIndex_3)
 									{
 										if (j == v8x->levelPar3_0x46_70)
 											v25 = 1;
@@ -40931,7 +40931,7 @@ void GameObjectives_58F00()//239f00
 								if (!v25)
 								{
 									achievedGoal = true;
-									D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
+									world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[v3] = 2;
 								}
 							}
 							break;
@@ -40940,7 +40940,7 @@ void GameObjectives_58F00()//239f00
 						}
 					}
 				LABEL_72:
-					if (achievedGoal && v3 == D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1)
+					if (achievedGoal && v3 == world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1)
 						v23 = 1;
 					v3++;
 				}
@@ -40948,29 +40948,29 @@ void GameObjectives_58F00()//239f00
 				{
 					UpdateHelpItems_88B20();
 					v14 = 1;
-					for (k = 0; k < D41A0_0.stageIndex_0x36E01; k++)
+					for (k = 0; k < world_D41A0.stageIndex_0x36E01; k++)
 					{
-						if (D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[k] == 1)
+						if (world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.stage_0x3659F[k] == 1)
 						{
 							v14 = 0;
-							D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1 = k;
+							world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.ObjectiveText_1 = k;
 							break;
 						}
 					}
-					D41A0_0.playerObjectives_0x3659C[v0x].substr_3659C.IsLevelEnd_0 = v14;
+					world_D41A0.playerObjectives_0x3659C[v0x].substr_3659C.IsLevelEnd_0 = v14;
 					if (v23 || v14)
 					{
-						if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE && (x_WORD)v24 != D41A0_0.LevelIndex_0xc)
+						if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE && (x_WORD)v24 != world_D41A0.LevelIndex_0xc)
 						{
-							D41A0_0.players_0x2BDE[v24].CurrentNotificationDuration_0x04d_2C2B_11307 = 60;
-							D41A0_0.players_0x2BDE[v24].endState_0x04f_2C2D_11309 = 4;
+							world_D41A0.players_0x2BDE[v24].CurrentNotificationDuration_0x04d_2C2B_11307 = 60;
+							world_D41A0.players_0x2BDE[v24].endState_0x04f_2C2D_11309 = 4;
 							if (v14)
-								sprintf(D41A0_0.players_0x2BDE[v24].CurrentNotificationText_0x01c_2BFA_11258, "%s", (char*)x_DWORD_E9C4C_langindexbuffer[431]);//Has Completed All Objectives.
+								sprintf(world_D41A0.players_0x2BDE[v24].CurrentNotificationText_0x01c_2BFA_11258, "%s", (char*)langStrings_E9C4C[431]);//Has Completed All Objectives.
 							else
-								sprintf(D41A0_0.players_0x2BDE[v24].CurrentNotificationText_0x01c_2BFA_11258, "%s", (char*)x_DWORD_E9C4C_langindexbuffer[430]);//Has Completed Objective.
+								sprintf(world_D41A0.players_0x2BDE[v24].CurrentNotificationText_0x01c_2BFA_11258, "%s", (char*)langStrings_E9C4C[430]);//Has Completed Objective.
 						}
-						if ((x_WORD)v24 == D41A0_0.LevelIndex_0xc)
-							D41A0_0.tempObjective_0x36E02 = 1;
+						if ((x_WORD)v24 == world_D41A0.LevelIndex_0xc)
+							world_D41A0.tempObjective_0x36E02 = 1;
 					}
 				}
 			}
@@ -40988,25 +40988,25 @@ void CheckObjectiveKill_59760(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)/
 	int ix;
 	int j; // edx
 
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
-		v3 = D41A0_0.NumberOfPlayers_0xe;
+	if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+		v3 = world_D41A0.NumberOfPlayers_0xe;
 	else
 		v3 = 1;
 	v4 = 0;
 	for (ix = 0; v4 < v3; ix++)
 	{
-		if (!D41A0_0.playerObjectives_0x3659C[ix].substr_3659C.IsLevelEnd_0)
+		if (!world_D41A0.playerObjectives_0x3659C[ix].substr_3659C.IsLevelEnd_0)
 		{
 			for (j = 0; ; j++)
 			{
-				if (j >= D41A0_0.stageIndex_0x36E01)
+				if (j >= world_D41A0.stageIndex_0x36E01)
 					break;
-				if (D41A0_0.playerObjectives_0x3659C[ix].substr_3659C.stage_0x3659F[j] == 1)
+				if (world_D41A0.playerObjectives_0x3659C[ix].substr_3659C.stage_0x3659F[j] == 1)
 				{
-					if (D41A0_0.stages_0x3654C[j].stages_3654C_byte0 == 2 && D41A0_0.stages_0x3654C[j].target_36552.ptr0x6E8E == a1x)
+					if (world_D41A0.stages_0x3654C[j].stages_3654C_byte0 == 2 && world_D41A0.stages_0x3654C[j].target_36552.ptr0x6E8E == a1x)
 					{
-						if (D41A0_0.stages_0x3654C[j].flags_3654D & 1)
-							D41A0_0.stages_0x3654C[j].target_36552.ptr0x6E8E = a2x;
+						if (world_D41A0.stages_0x3654C[j].flags_3654D & 1)
+							world_D41A0.stages_0x3654C[j].target_36552.ptr0x6E8E = a2x;
 					}
 				}
 			}
@@ -41025,31 +41025,31 @@ void PresentObjective_59820()//23a820
 	char v10; // cl
 	int v11; // ebx
 
-	if (D41A0_0.objectiveBoxCounter_0x36E04)
+	if (world_D41A0.objectiveBoxCounter_0x36E04)
 	{
-		if (D41A0_0.objectiveBoxCounter_0x36E04-- == 1)
+		if (world_D41A0.objectiveBoxCounter_0x36E04-- == 1)
 			UpdateObjectiveHelp_88BA0();
 	}
-	if (x_D41A0_BYTEARRAY_4_struct.setting_38545 & 0x40 && GetCdTrackStatus_86180(x_WORD_1803EC) == 256)
+	if (gameState_D41A4.setting_38545 & 0x40 && GetCdTrackStatus_86180(cdDrive_1803EC) == 256)
 		StopCdPlayBackAndFadeUp_59AF0();
-	if (x_D41A0_BYTEARRAY_4_struct.paletteMod_51 >= 3u)
+	if (gameState_D41A4.paletteMod_51 >= 3u)
 	{
-		v3 = D41A0_0.tempObjective_0x36E02;
+		v3 = world_D41A0.tempObjective_0x36E02;
 		if (v3)
 		{
-			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+			if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 			{
 			LABEL_38:
-				D41A0_0.tempObjective_0x36E02 = 0;
+				world_D41A0.tempObjective_0x36E02 = 0;
 				return;
 			}
-			if (x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & SPEECH_ENABLED)
+			if (gameState_D41A4.OptionsSettingFlag_24 & SPEECH_ENABLED)
 			{
 				if (v3 < 7u)
 				{
 					if (v3 == 1)
 					{
-						D41A0_0.tempObjective_0x36E02++;
+						world_D41A0.tempObjective_0x36E02++;
 						return;
 					}
 					goto LABEL_32;
@@ -41061,27 +41061,27 @@ void PresentObjective_59820()//23a820
 						if (v3 != -56)
 						{
 						LABEL_32:
-							D41A0_0.tempObjective_0x36E02++;
+							world_D41A0.tempObjective_0x36E02++;
 							return;
 						}
 						goto LABEL_38;
 					}
-					v4 = D41A0_0.gameFlags_0x36E0B;
-					D41A0_0.tempObjective_0x36E02 = v3 + 1;
+					v4 = world_D41A0.gameFlags_0x36E0B;
+					world_D41A0.tempObjective_0x36E02 = v3 + 1;
 					if (v4 & 1)
 					{
-						x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 8;
-						PlayCDTrackSegmentForSecretLevel_86F20(D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].secretCounter_0x3E4_2BE4_12226);
+						gameState_D41A4.paletteSubMod_180 = 8;
+						PlayCDTrackSegmentForSecretLevel_86F20(world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].secretCounter_0x3E4_2BE4_12226);
 						FadeDownSoundVolume_59A50();
-						if (autoShowObjectivesForForeignLanguages && x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex != 2)
-							D41A0_0.objectiveBoxCounter_0x36E04 = 200;
+						if (autoShowObjectivesForForeignLanguages && gameState_D41A4.SelectedLangIndex != 2)
+							world_D41A0.objectiveBoxCounter_0x36E04 = 200;
 						return;
 					}
-					if (D41A0_0.playerObjectives_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1)
-						PrepareEventSound_6E450(D41A0_0.LevelIndex_0xc, -1, 61);
-					if (x_D41A0_BYTEARRAY_4_struct.levelnumber_43w >= 30 && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w <= 34)
+					if (world_D41A0.playerObjectives_0x3659C[world_D41A0.LevelIndex_0xc].substr_3659C.ObjectiveText_1)
+						PrepareEventSound_6E450(world_D41A0.LevelIndex_0xc, -1, 61);
+					if (gameState_D41A4.levelnumber_43w >= 30 && gameState_D41A4.levelnumber_43w <= 34)
 					{
-						if (!D41A0_0.playerObjectives_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
+						if (!world_D41A0.playerObjectives_0x3659C[world_D41A0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
 						{
 							v9 = 4;
 							v8 = 0;
@@ -41091,37 +41091,37 @@ void PresentObjective_59820()//23a820
 					}
 					else
 					{
-						v8 = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
-						if (!D41A0_0.playerObjectives_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
+						v8 = gameState_D41A4.levelnumber_43w;
+						if (!world_D41A0.playerObjectives_0x3659C[world_D41A0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
 						{
-							v9 = D41A0_0.playerObjectives_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1 + 1;
+							v9 = world_D41A0.playerObjectives_0x3659C[world_D41A0.LevelIndex_0xc].substr_3659C.ObjectiveText_1 + 1;
 						LABEL_30:
-							x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 8;
+							gameState_D41A4.paletteSubMod_180 = 8;
 							PlayCDTrackSegmentNumber_86EB0(v8, v9, 1);
 							FadeDownSoundVolume_59A50();
-							if (autoShowObjectivesForForeignLanguages && x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex != 2)
-								D41A0_0.objectiveBoxCounter_0x36E04 = 200;
+							if (autoShowObjectivesForForeignLanguages && gameState_D41A4.SelectedLangIndex != 2)
+								world_D41A0.objectiveBoxCounter_0x36E04 = 200;
 							return;
 						}
 					}
 					v9 = 9;
 					goto LABEL_30;
 				}
-				D41A0_0.tempObjective_0x36E02 = 8;
-				x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = 8;
+				world_D41A0.tempObjective_0x36E02 = 8;
+				gameState_D41A4.paletteSubMod_180 = 8;
 				goto LABEL_36;
 			}
-			D41A0_0.tempObjective_0x36E02 = 0;
-			v10 = D41A0_0.gameFlags_0x36E0B;
-			D41A0_0.objectiveBoxCounter_0x36E04 = 200; // set counter for displaying objective message box to 200
+			world_D41A0.tempObjective_0x36E02 = 0;
+			v10 = world_D41A0.gameFlags_0x36E0B;
+			world_D41A0.objectiveBoxCounter_0x36E04 = 200; // set counter for displaying objective message box to 200
 			if (v10 & 1)
 			{
 			LABEL_36:
-				PrepareEventSound_6E450(D41A0_0.LevelIndex_0xc, -1, 41);
+				PrepareEventSound_6E450(world_D41A0.LevelIndex_0xc, -1, 41);
 				return;
 			}
-			v11 = D41A0_0.LevelIndex_0xc;
-			if (D41A0_0.playerObjectives_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1)
+			v11 = world_D41A0.LevelIndex_0xc;
+			if (world_D41A0.playerObjectives_0x3659C[world_D41A0.LevelIndex_0xc].substr_3659C.ObjectiveText_1)
 				PrepareEventSound_6E450(v11, -1, 61);
 		}
 	}
@@ -41137,12 +41137,12 @@ uint32_t FadeDownSoundVolume_59A50()//23aa50
 		AilReleaseTimer_92DC0(TimerIdx_F4940);
 		IsVolumeFaded_D4B7A = 0;
 	}
-	SetSoundVolume_8E470(x_D41A0_BYTEARRAY_4_struct.soundVolume_6 / 3);
-	FadeVolume_D4B78 = x_D41A0_BYTEARRAY_4_struct.soundVolume_6 / 3;
-	SetMusicVolume_8E410((x_D41A0_BYTEARRAY_4_struct.musicVolume_8 / 3));
-	result = x_D41A0_BYTEARRAY_4_struct.musicVolume_8 / 3;
-	x_BYTE_D4B79 = x_D41A0_BYTEARRAY_4_struct.musicVolume_8 / 3;
-	x_D41A0_BYTEARRAY_4_struct.setting_38545 |= 0x40u;
+	SetSoundVolume_8E470(gameState_D41A4.soundVolume_6 / 3);
+	FadeVolume_D4B78 = gameState_D41A4.soundVolume_6 / 3;
+	SetMusicVolume_8E410((gameState_D41A4.musicVolume_8 / 3));
+	result = gameState_D41A4.musicVolume_8 / 3;
+	fadeMusicVolume_D4B79 = gameState_D41A4.musicVolume_8 / 3;
+	gameState_D41A4.setting_38545 |= 0x40u;
 	return result;
 }
 
@@ -41151,13 +41151,13 @@ void StopCdPlayBackAndFadeUp_59AF0()//23aaf0
 {
 	//int result; // eax
 
-	StopCdPlayback_86860(x_WORD_1803EC);
+	StopCdPlayback_86860(cdDrive_1803EC);
 	TimerIdx_F4940 = AilRegisterTimer_92600(FadeUpSoundVolume_59B50);
 	AilSetTimerFrequency_92930(TimerIdx_F4940, 120);
 	AilStartTimer_92BA0(TimerIdx_F4940);
 	IsVolumeFaded_D4B7A = 1;
 	//result = (int)x_D41A0_BYTEARRAY_4;
-	x_D41A0_BYTEARRAY_4_struct.setting_38545 &= 0xBFu;
+	gameState_D41A4.setting_38545 &= 0xBFu;
 	//return result;
 }
 
@@ -41167,14 +41167,14 @@ uint32_t FadeUpSoundVolume_59B50(uint32_t interval)
 	__int16 v0; // bx
 	__int16 v1; // dx
 
-	v0 = x_D41A0_BYTEARRAY_4_struct.soundVolume_6;
+	v0 = gameState_D41A4.soundVolume_6;
 	if ((unsigned __int8)FadeVolume_D4B78 != v0
-		|| (HIBYTE(v1) = HIBYTE(v0), LOBYTE(v1) = x_BYTE_D4B79, v1 != x_D41A0_BYTEARRAY_4_struct.musicVolume_8))
+		|| (HIBYTE(v1) = HIBYTE(v0), LOBYTE(v1) = fadeMusicVolume_D4B79, v1 != gameState_D41A4.musicVolume_8))
 	{
-		if ((signed __int16)(unsigned __int8)FadeVolume_D4B78 < x_D41A0_BYTEARRAY_4_struct.soundVolume_6)
+		if ((signed __int16)(unsigned __int8)FadeVolume_D4B78 < gameState_D41A4.soundVolume_6)
 			SetSoundVolume_8E470((unsigned __int8)++FadeVolume_D4B78);
-		if ((signed __int16)(unsigned __int8)x_BYTE_D4B79 < x_D41A0_BYTEARRAY_4_struct.musicVolume_8)
-			SetMusicVolume_8E410(++x_BYTE_D4B79);
+		if ((signed __int16)(unsigned __int8)fadeMusicVolume_D4B79 < gameState_D41A4.musicVolume_8)
+			SetMusicVolume_8E410(++fadeMusicVolume_D4B79);
 	}
 	else
 	{
@@ -41192,8 +41192,8 @@ void RestoreSoundVolume_59BF0()//23abf0
 		AilReleaseTimer_92DC0(TimerIdx_F4940);
 		IsVolumeFaded_D4B7A = 0;
 	}
-	SetSoundVolume_8E470(x_D41A0_BYTEARRAY_4_struct.soundVolume_6);
-	SetMusicVolume_8E410(x_D41A0_BYTEARRAY_4_struct.musicVolume_8);
+	SetSoundVolume_8E470(gameState_D41A4.soundVolume_6);
+	SetMusicVolume_8E410(gameState_D41A4.musicVolume_8);
 }
 
 //----- (00059C40) --------------------------------------------------------
@@ -41220,7 +41220,7 @@ int SnapEntityToTerrain2_59C60(type_entity_0x6E8E* a1x)//23ac60
 int UpdateScroll_59C80(type_entity_0x6E8E* entity)//23ac80
 {
 	type_entity_0x6E8E* entity2;
-	if (x_D41A0_BYTEARRAY_4_struct.setting_38545 & 4)
+	if (gameState_D41A4.setting_38545 & 4)
 	{
 		entity->flags_0xc_12_15.byte[0] |= 1u;
 		DisableEntityDrawing04_57F10(entity);
@@ -41228,23 +41228,23 @@ int UpdateScroll_59C80(type_entity_0x6E8E* entity)//23ac80
 	else
 	{
 		entity->position_0x4C_76.z = GetTerrainAlt_10C40(&entity->position_0x4C_76);
-		for (entity2 = x_D41A0_BYTEARRAY_4_struct.class3List_38519; entity2 > Entities_EA3E4[0]; entity2 = entity2->next_0)
+		for (entity2 = gameState_D41A4.class3List_38519; entity2 > Entities_EA3E4[0]; entity2 = entity2->next_0)
 		{
 			if (!entity2->model_0x40_64 && entity2->life_0x8 >= 0)
 			{
 				if (EntitiesOverlap_106C0(entity2, entity))
 				{
 					int playerIndex = entity2->playerData_0xA4_164x->playerColorIndex_0x38_56;
-					if (playerIndex == D41A0_0.LevelIndex_0xc)
+					if (playerIndex == world_D41A0.LevelIndex_0xc)
 					{
 						int countXP;
-						if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+						if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 							countXP = 50;
 						else
 							countXP = 4;
 						UpdateExperience_6E090(&entity2->playerData_0xA4_164x->str_611, countXP);
 						PrepareEventSound_6E450(playerIndex, -1, 63);
-						if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+						if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 							GrantAllSpellsMultiplayer_6DBD0();
 						else
 							GrantSpellToPlayer_6DB50(0, 1);
@@ -41605,13 +41605,13 @@ void UpdateCastle_59F60(type_entity_0x6E8E* a1x)//23af60
 							while (a1x->param_0x10_16 + 1 > v202)
 							{
 								v49 = mapHeightmap_11B4E0[v48x.word];
-								if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v48x.word] > v49)
+								if ((unsigned __int8)secondHeightmap_14B4E0[v48x.word] > v49)
 								{
 									mapAngle_13B4E0[v48x.word] &= 0xF7u;
 								}
 								else
 								{
-									x_BYTE_14B4E0_second_heightmap[v48x.word] = v49 - 1;
+									secondHeightmap_14B4E0[v48x.word] = v49 - 1;
 									mapAngle_13B4E0[v48x.word] |= 8u;
 								}
 								//HIBYTE(v48)++;
@@ -41672,7 +41672,7 @@ void UpdateCastle_59F60(type_entity_0x6E8E* a1x)//23af60
 						{
 							v54 = (v54 & 3) + 28;
 						}
-						if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+						if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 							v55 = 32 - v54 + 32;
 						else
 							v55 = v54;
@@ -41756,13 +41756,13 @@ void UpdateCastle_59F60(type_entity_0x6E8E* a1x)//23af60
 						while (v203 < 4)
 						{
 							v19 = mapHeightmap_11B4E0[v18x.word];
-							if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v18x.word] > v19)
+							if ((unsigned __int8)secondHeightmap_14B4E0[v18x.word] > v19)
 							{
 								mapAngle_13B4E0[v18x.word] &= 0xF7u;
 							}
 							else
 							{
-								x_BYTE_14B4E0_second_heightmap[v18x.word] = v19 - 1;
+								secondHeightmap_14B4E0[v18x.word] = v19 - 1;
 								mapAngle_13B4E0[v18x.word] |= 8u;
 							}
 							//HIBYTE(v18)--;
@@ -41825,7 +41825,7 @@ void UpdateCastle_59F60(type_entity_0x6E8E* a1x)//23af60
 					{
 						v24 = (v24 & 3) + 28;
 					}
-					if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+					if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 						v26 = 32 - v24 + 32;
 					else
 						v26 = v24;
@@ -41861,7 +41861,7 @@ void UpdateCastle_59F60(type_entity_0x6E8E* a1x)//23af60
 	{
 		if (a1x->subSpellIndex_0x2A_42 < 0x30u)
 		{
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 47);
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 47);
 			v207x._axis_2d.x = (unsigned __int16)(a1x->position_0x4C_76.x + 128) >> 8;
 			if (a1x->levelPar3_0x46_70)
 			{
@@ -42025,24 +42025,24 @@ void UpdateCastle_59F60(type_entity_0x6E8E* a1x)//23af60
 						while (v109 < a1x->param_0x10_16 - 3)
 						{
 							v111 = mapHeightmap_11B4E0[v110x.word];
-							if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v110x.word] > v111)
+							if ((unsigned __int8)secondHeightmap_14B4E0[v110x.word] > v111)
 							{
 								mapAngle_13B4E0[v110x.word] &= 0xF7u;
 							}
 							else
 							{
-								x_BYTE_14B4E0_second_heightmap[v110x.word] = v111 - 1;
+								secondHeightmap_14B4E0[v110x.word] = v111 - 1;
 								mapAngle_13B4E0[v110x.word] |= 8u;
 							}
 							v112x.word = v110x.word - 1;
 							v113 = mapHeightmap_11B4E0[v112x.word];
-							if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v112x.word] > v113)
+							if ((unsigned __int8)secondHeightmap_14B4E0[v112x.word] > v113)
 							{
 								mapAngle_13B4E0[v112x.word] &= 0xF7u;
 							}
 							else
 							{
-								x_BYTE_14B4E0_second_heightmap[v112x.word] = v113 - 1;
+								secondHeightmap_14B4E0[v112x.word] = v113 - 1;
 								mapAngle_13B4E0[v112x.word] |= 8u;
 							}
 							v110x.word = v112x.word + 1;
@@ -42077,25 +42077,25 @@ void UpdateCastle_59F60(type_entity_0x6E8E* a1x)//23af60
 					for (kx.word = v207x.word + 3; v99 < a1x->param_0x10_16 - 3; kx.word++)
 					{
 						v101 = mapHeightmap_11B4E0[kx.word];
-						if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[kx.word] > v101)
+						if ((unsigned __int8)secondHeightmap_14B4E0[kx.word] > v101)
 						{
 							mapAngle_13B4E0[kx.word] &= 0xF7u;
 						}
 						else
 						{
-							x_BYTE_14B4E0_second_heightmap[kx.word] = v101 - 1;
+							secondHeightmap_14B4E0[kx.word] = v101 - 1;
 							mapAngle_13B4E0[kx.word] |= 8u;
 						}
 						//HIBYTE(k)--;
 						kx._axis_2d.y--;
 						v102 = mapHeightmap_11B4E0[kx.word];
-						if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[kx.word] > v102)
+						if ((unsigned __int8)secondHeightmap_14B4E0[kx.word] > v102)
 						{
 							mapAngle_13B4E0[kx.word] &= 0xF7u;
 						}
 						else
 						{
-							x_BYTE_14B4E0_second_heightmap[kx.word] = v102 - 1;
+							secondHeightmap_14B4E0[kx.word] = v102 - 1;
 							mapAngle_13B4E0[kx.word] |= 8u;
 						}
 						//HIBYTE(k)++;
@@ -42139,7 +42139,7 @@ void UpdateCastle_59F60(type_entity_0x6E8E* a1x)//23af60
 							{
 								v127 = (v127 & 3) + 28;
 							}
-							if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+							if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 								v129 = 32 - v127 + 32;
 							else
 								v129 = v127;
@@ -42180,7 +42180,7 @@ void UpdateCastle_59F60(type_entity_0x6E8E* a1x)//23af60
 						{
 							v119 = (v119 & 3) + 28;
 						}
-						if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+						if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 							v121 = 32 - v119 + 32;
 						else
 							v121 = v119;
@@ -42194,7 +42194,7 @@ void UpdateCastle_59F60(type_entity_0x6E8E* a1x)//23af60
 		}
 		a1x->life_0x8 = 3;
 	LABEL_292:
-		EndLoop_6EAB0(a1x - D41A0_0.entities_0x6E8E, -1, 47);
+		EndLoop_6EAB0(a1x - world_D41A0.entities_0x6E8E, -1, 47);
 		return;
 	}
 	if (v1 != 2)
@@ -42204,7 +42204,7 @@ void UpdateCastle_59F60(type_entity_0x6E8E* a1x)//23af60
 		a1x->life_0x8 = 4;
 		goto LABEL_292;
 	}
-	PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 47);
+	PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 47);
 	v207x._axis_2d.x = (unsigned __int16)(a1x->position_0x4C_76.x + 128) >> 8;
 	if (a1x->levelPar3_0x46_70)
 	{
@@ -42324,46 +42324,46 @@ void UpdateCastle_59F60(type_entity_0x6E8E* a1x)//23af60
 					{
 						v186x.word = v185x.word + 1;
 						v187 = mapHeightmap_11B4E0[v186x.word];
-						if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v186x.word] > v187)
+						if ((unsigned __int8)secondHeightmap_14B4E0[v186x.word] > v187)
 						{
 							mapAngle_13B4E0[v186x.word] &= 0xF7u;
 						}
 						else
 						{
-							x_BYTE_14B4E0_second_heightmap[v186x.word] = v187 - 1;
+							secondHeightmap_14B4E0[v186x.word] = v187 - 1;
 							mapAngle_13B4E0[v186x.word] |= 8u;
 						}
 						v188x.word = v186x.word - 1;
 						v189 = mapHeightmap_11B4E0[v188x.word];
-						if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v188x.word] > v189)
+						if ((unsigned __int8)secondHeightmap_14B4E0[v188x.word] > v189)
 						{
 							mapAngle_13B4E0[v188x.word] &= 0xF7u;
 						}
 						else
 						{
-							x_BYTE_14B4E0_second_heightmap[v188x.word] = v189 - 1;
+							secondHeightmap_14B4E0[v188x.word] = v189 - 1;
 							mapAngle_13B4E0[v188x.word] |= 8u;
 						}
 						v190x.word = v188x.word - 1;
 						v191 = mapHeightmap_11B4E0[v190x.word];
-						if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v190x.word] > v191)
+						if ((unsigned __int8)secondHeightmap_14B4E0[v190x.word] > v191)
 						{
 							mapAngle_13B4E0[v190x.word] &= 0xF7u;
 						}
 						else
 						{
-							x_BYTE_14B4E0_second_heightmap[v190x.word] = v191 - 1;
+							secondHeightmap_14B4E0[v190x.word] = v191 - 1;
 							mapAngle_13B4E0[v190x.word] |= 8u;
 						}
 						v192x.word = v190x.word - 1;
 						v193 = mapHeightmap_11B4E0[v192x.word];
-						if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v192x.word] > v193)
+						if ((unsigned __int8)secondHeightmap_14B4E0[v192x.word] > v193)
 						{
 							mapAngle_13B4E0[v192x.word] &= 0xF7u;
 						}
 						else
 						{
-							x_BYTE_14B4E0_second_heightmap[v192x.word] = v193 - 1;
+							secondHeightmap_14B4E0[v192x.word] = v193 - 1;
 							mapAngle_13B4E0[v192x.word] |= 8u;
 						}
 						v185x.word = v192x.word + 2;
@@ -42459,49 +42459,49 @@ void UpdateCastle_59F60(type_entity_0x6E8E* a1x)//23af60
 					//++HIBYTE(v158);
 					v158x._axis_2d.y++;
 					v159 = mapHeightmap_11B4E0[v158x.word];
-					if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v158x.word] > v159)
+					if ((unsigned __int8)secondHeightmap_14B4E0[v158x.word] > v159)
 					{
 						mapAngle_13B4E0[v158x.word] &= 0xF7u;
 					}
 					else
 					{
-						x_BYTE_14B4E0_second_heightmap[v158x.word] = v159 - 1;
+						secondHeightmap_14B4E0[v158x.word] = v159 - 1;
 						mapAngle_13B4E0[v158x.word] |= 8u;
 					}
 					//--HIBYTE(v158);
 					v158x._axis_2d.y--;
 					v160 = mapHeightmap_11B4E0[v158x.word];
-					if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v158x.word] > v160)
+					if ((unsigned __int8)secondHeightmap_14B4E0[v158x.word] > v160)
 					{
 						mapAngle_13B4E0[v158x.word] &= 0xF7u;
 					}
 					else
 					{
-						x_BYTE_14B4E0_second_heightmap[v158x.word] = v160 - 1;
+						secondHeightmap_14B4E0[v158x.word] = v160 - 1;
 						mapAngle_13B4E0[v158x.word] |= 8u;
 					}
 					//--HIBYTE(v158);
 					v158x._axis_2d.y--;
 					v161 = mapHeightmap_11B4E0[v158x.word];
-					if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v158x.word] > v161)
+					if ((unsigned __int8)secondHeightmap_14B4E0[v158x.word] > v161)
 					{
 						mapAngle_13B4E0[v158x.word] &= 0xF7u;
 					}
 					else
 					{
-						x_BYTE_14B4E0_second_heightmap[v158x.word] = v161 - 1;
+						secondHeightmap_14B4E0[v158x.word] = v161 - 1;
 						mapAngle_13B4E0[v158x.word] |= 8u;
 					}
 					//--HIBYTE(v158);
 					v158x._axis_2d.y--;
 					v162 = mapHeightmap_11B4E0[v158x.word];
-					if ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v158x.word] > v162)
+					if ((unsigned __int8)secondHeightmap_14B4E0[v158x.word] > v162)
 					{
 						mapAngle_13B4E0[v158x.word] &= 0xF7u;
 					}
 					else
 					{
-						x_BYTE_14B4E0_second_heightmap[v158x.word] = v162 - 1;
+						secondHeightmap_14B4E0[v158x.word] = v162 - 1;
 						mapAngle_13B4E0[v158x.word] |= 8u;
 					}
 					//HIBYTE(v158) += 2;
@@ -42704,9 +42704,9 @@ void UpdateCastleBuilding_5B100(type_entity_0x6E8E* locEvent)//23c100
 		}
 		case 1:
 		{
-			PrepareEventSound_6E450(locEvent - D41A0_0.entities_0x6E8E, -1, 47);
+			PrepareEventSound_6E450(locEvent - world_D41A0.entities_0x6E8E, -1, 47);
 			koefZ1 = signLocKoef2 + mapHeightmap_11B4E0[eventPoint.word] + 1;
-			koefZ2 = x_BYTE_14B4E0_second_heightmap[eventPoint.word] - signLocKoef2 - 1;
+			koefZ2 = secondHeightmap_14B4E0[eventPoint.word] - signLocKoef2 - 1;
 			if (koefZ1 < 0)
 				koefZ1 = 0;
 			if (koefZ1 > locEventZ)
@@ -42732,16 +42732,16 @@ void UpdateCastleBuilding_5B100(type_entity_0x6E8E* locEvent)//23c100
 							mapHeightmap_11B4E0[indexPoint2.word] = koefZ5;
 							finded1 = false;
 						}
-						koefZ3 = x_BYTE_14B4E0_second_heightmap[indexPoint2.word] - signLocKoef2;
+						koefZ3 = secondHeightmap_14B4E0[indexPoint2.word] - signLocKoef2;
 						if (koefZ3 < koefZ2)
 							koefZ3 = koefZ2;
-						if (koefZ3 < x_BYTE_14B4E0_second_heightmap[indexPoint2.word])
+						if (koefZ3 < secondHeightmap_14B4E0[indexPoint2.word])
 						{
-							x_BYTE_14B4E0_second_heightmap[indexPoint2.word] = koefZ3;
+							secondHeightmap_14B4E0[indexPoint2.word] = koefZ3;
 							finded1 = false;
 						}
 					}
-					if (x_BYTE_14B4E0_second_heightmap[indexPoint2.word] > mapHeightmap_11B4E0[indexPoint2.word])
+					if (secondHeightmap_14B4E0[indexPoint2.word] > mapHeightmap_11B4E0[indexPoint2.word])
 						mapAngle_13B4E0[indexPoint2.word] &= 0xF7u;
 					else
 						mapAngle_13B4E0[indexPoint2.word] |= 8u;
@@ -42752,13 +42752,13 @@ void UpdateCastleBuilding_5B100(type_entity_0x6E8E* locEvent)//23c100
 			if (finded1)
 			{
 				locEvent->life_0x8 = 3;
-				EndLoop_6EAB0(locEvent - D41A0_0.entities_0x6E8E, -1, 47);
+				EndLoop_6EAB0(locEvent - world_D41A0.entities_0x6E8E, -1, 47);
 			}
 			break;
 		}
 		case 2:
 		{
-			PrepareEventSound_6E450(locEvent - D41A0_0.entities_0x6E8E, -1, 47);
+			PrepareEventSound_6E450(locEvent - world_D41A0.entities_0x6E8E, -1, 47);
 			bool finded1 = true;
 			indexPoint1 = koefPoint;
 			for (int i = 0; i < koefY; i++)
@@ -42803,26 +42803,26 @@ void UpdateCastleBuilding_5B100(type_entity_0x6E8E* locEvent)//23c100
 						mapHeightmap_11B4E0[indexPoint2.word] = koefZ2;
 						finded1 = false;
 					}
-					if (abs(x_BYTE_14B4E0_second_heightmap[indexPoint3.word] - x_BYTE_14B4E0_second_heightmap[indexPoint4.word]) <= 4)
+					if (abs(secondHeightmap_14B4E0[indexPoint3.word] - secondHeightmap_14B4E0[indexPoint4.word]) <= 4)
 					{
-						koefZ3 = (x_BYTE_14B4E0_second_heightmap[indexPoint3.word] + x_BYTE_14B4E0_second_heightmap[indexPoint4.word]) / 2;
+						koefZ3 = (secondHeightmap_14B4E0[indexPoint3.word] + secondHeightmap_14B4E0[indexPoint4.word]) / 2;
 					}
 					else
 					{
-						if (abs(x_BYTE_14B4E0_second_heightmap[indexPoint3.word] - x_BYTE_14B4E0_second_heightmap[indexPoint5.word]) > 4)
-							koefZ3 = x_BYTE_14B4E0_second_heightmap[indexPoint4.word];
+						if (abs(secondHeightmap_14B4E0[indexPoint3.word] - secondHeightmap_14B4E0[indexPoint5.word]) > 4)
+							koefZ3 = secondHeightmap_14B4E0[indexPoint4.word];
 						else
-							koefZ3 = x_BYTE_14B4E0_second_heightmap[indexPoint3.word];
+							koefZ3 = secondHeightmap_14B4E0[indexPoint3.word];
 					}
-					koefZ4 = signLocKoef2 + x_BYTE_14B4E0_second_heightmap[indexPoint2.word];
+					koefZ4 = signLocKoef2 + secondHeightmap_14B4E0[indexPoint2.word];
 					if (koefZ4 > koefZ3)
 						koefZ4 = koefZ3;
-					if (x_BYTE_14B4E0_second_heightmap[indexPoint2.word] < koefZ4)
+					if (secondHeightmap_14B4E0[indexPoint2.word] < koefZ4)
 					{
-						x_BYTE_14B4E0_second_heightmap[indexPoint2.word] = koefZ4;
+						secondHeightmap_14B4E0[indexPoint2.word] = koefZ4;
 						finded1 = false;
 					}
-					if (x_BYTE_14B4E0_second_heightmap[indexPoint2.word] > mapHeightmap_11B4E0[indexPoint2.word])
+					if (secondHeightmap_14B4E0[indexPoint2.word] > mapHeightmap_11B4E0[indexPoint2.word])
 						mapAngle_13B4E0[indexPoint2.word] &= 0xF7u;
 					else
 						mapAngle_13B4E0[indexPoint2.word] |= 8u;
@@ -42833,7 +42833,7 @@ void UpdateCastleBuilding_5B100(type_entity_0x6E8E* locEvent)//23c100
 			if (finded1)
 			{
 				locEvent->life_0x8 = 4;
-				EndLoop_6EAB0(locEvent - D41A0_0.entities_0x6E8E, -1, 47);
+				EndLoop_6EAB0(locEvent - world_D41A0.entities_0x6E8E, -1, 47);
 			}
 			break;
 		}
@@ -42864,7 +42864,7 @@ void PrepareTextures_5B7A0()//23C7A0
 		for (int xpos = 0; xpos < (256 / TileTextureSize_D41B5); xpos++)
 		{
 			uint8_t* ptrTexture = (uint8_t*)((ypos * TileTextureSize_D41B5 << 8) + (xpos * TileTextureSize_D41B5) + BLOCK32DAT_BEGIN_BUFFER);
-			x_DWORD_DDF50_texture_adresses.at(texture_addresses_index++) = ptrTexture;
+			textureAddresses_DDF50.at(texture_addresses_index++) = ptrTexture;
 		}
 	}
 	LoadPaletteAndHelpPalette_5B840();//23C840
@@ -42889,7 +42889,7 @@ void LoadPaletteAndHelpPalette_5B840()//23C840
 //----- (0005B870) --------------------------------------------------------
 void CopySentence_5B870(char* langbuffer, char** langindexbuffer, uint32_t count)//23c870
 {
-	//CopySentence_5B870((x_BYTE *)x_DWORD_D41BC_langbuffer, 0xE9C4C, 471);
+	//CopySentence_5B870((x_BYTE *)langBuffer_D41BC, 0xE9C4C, 471);
 	//edx 87ab14 ecx 1d7
   //x_BYTE *v3; // edx
   //int v4; // ecx
@@ -42911,11 +42911,11 @@ void CopySentence_5B870(char* langbuffer, char** langindexbuffer, uint32_t count
 void Initialize()//23c8d0
 {
 	PrintHeader_70890();//23C8D6 - 251890
-	if ((x_D41A0_BYTEARRAY_4_struct.setting_byte4_25) & 8)
+	if ((gameState_D41A4.setting_byte4_25) & 8)
 		TestersInfo_5C490();//23C8E6 - 23D490
 
 	if (useMagicCarpet1Music)
-		x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 |= 0x40u;
+		gameState_D41A4.setting_byte4_25 |= 0x40u;
 
 	Logger->debug("Init:Begin of creating dirs\n");
 
@@ -42960,11 +42960,11 @@ void Initialize()//23c8d0
 
 	//*xadataspellsdat.colorPalette_var28 = (uint8_t*)malloc(10000);//fix it
 
-	/*if ( !(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & 8) )
-	//fix it //x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24=50CF38 =0
+	/*if ( !(gameState_D41A4.OptionsSettingFlag_24 & 8) )
+	//fix it //gameState_D41A4.OptionsSettingFlag_24=50CF38 =0
 	*/
 	//*xadataspellsdat.colorPalette_var28 = (uint8_t*)malloc(50000);
-	if (!(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & 8))
+	if (!(gameState_D41A4.OptionsSettingFlag_24 & 8))
 	{
 		char spellDataPath[MAX_PATH];
 		sprintf(spellDataPath, "%s/%s", cdDataPath.c_str(), "DATA/SPELLS.DAT");
@@ -42973,11 +42973,11 @@ void Initialize()//23c8d0
 
 	//v0 = SetDefaultSpells_5C0A0();//23d0a0g
 	SetDefaultSpells_5C0A0();
-	if (x_BYTE_D4B80)
+	if (gameInitialized_D4B80)
 		exit(-1);
-	x_BYTE_D4B80 = 1;
-	x_WORD_180660_VGA_type_resolution = 1;//fix it
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	gameInitialized_D4B80 = 1;
+	videoMode_180660 = 1;//fix it
+	if (videoMode_180660 & 1)
 	{
 		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, 0);//253883
 		ClearScreenAlphaBuffer(320, 200, 255);
@@ -43002,10 +43002,10 @@ void Initialize()//23c8d0
   //*xadatapald0dat2.colorPalette_var28 = (uint8_t*)malloc(10000);//fix it
 	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
 	VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//222a90
-	x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 = 0;//fix it
-	if ((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 0x110)//2a51a4 // 38cf50+16 //00 druh grafiky/inicializace
+	gameState_D41A4.setting_byte1_22 = 0;//fix it
+	if ((gameState_D41A4.setting_byte1_22) & 0x110)//2a51a4 // 38cf50+16 //00 druh grafiky/inicializace
 	{
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (videoMode_180660 & 1)
 			VgaSetVideoMode320x200AndPalette_90D6E((TColor*)*xadatapald0dat2.colorPalette_var28);
 		else
 			VgaSetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
@@ -43015,15 +43015,15 @@ void Initialize()//23c8d0
 	else
 	{
 		VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
-		x_WORD_180660_VGA_type_resolution = 1;//fix it
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		videoMode_180660 = 1;//fix it
+		if (videoMode_180660 & 1)
 			VgaSetVideoMode320x200AndPalette_90D6E((TColor*)pdwScreenBuffer_351628);//3aa0a4
 		else
 			VgaSetVideoMode640x480AndPalette_90E07((TColor*)pdwScreenBuffer_351628);
 		memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 0x300);
 		VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//222a90
 	}
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8)
+	if (gameState_D41A4.setting_byte1_22 & 8)
 		NoOp_8C2CD();
 	else
 		ClearPressedKeys_753D0();
@@ -43032,7 +43032,7 @@ void Initialize()//23c8d0
 	soundActive_E3799 = soundAble_E3798;
 	musicActive_E37FD = musicAble_E37FC;
 	InstallMouse_8CEDF();
-	if (!x_DWORD_E3768)
+	if (!mouseInstalled_E3768)
 	{
 		ShutdownGame_5BC20();
 		myprintf("ERROR : MOUSE DRIVER NOT INSTALLED\n");
@@ -43072,10 +43072,10 @@ void InitSoundAndMusic_46DD0()//227DD0
 	// end
 
 	SetAllocationTag_83CC0(20);
-	if (!x_BYTE_D4B50)
+	if (!soundInitialized_D4B50)
 	{
-		x_BYTE_D4B50 = 1;
-		if (((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 0x40) || PackedGameData())//fix it; tests without the game: no sound data
+		soundInitialized_D4B50 = 1;
+		if (((gameState_D41A4.setting_byte1_22) & 0x40) || PackedGameData())//fix it; tests without the game: no sound data
 		{
 			PrintTextMessage_70910((char*)"Sound Disabled\0");
 			musicActive_E37FD = false;
@@ -43090,7 +43090,7 @@ void InitSoundAndMusic_46DD0()//227DD0
 			InitSoundAndMusic_90FD0(/*v3*//*v3, v4, a3*/); //fix it sound off here!
 			if (!soundActiveL_E2A14)
 				myprintf("ERROR: NOT ENOUGH MEMORY FOR SOUNDS\n");
-			if ((x_D41A0_BYTEARRAY_4_struct.setting_byte4_25) & 0x40)//fix it
+			if ((gameState_D41A4.setting_byte4_25) & 0x40)//fix it
 				InitMusicBank_8EAD0(1);
 		}
 		if (soundAble_E3798 || musicAble_E37FC)
@@ -43098,7 +43098,7 @@ void InitSoundAndMusic_46DD0()//227DD0
 			TimerIdx_F42A4 = AilRegisterTimer_92600(SimpleTimer_46820);
 			AilSetTimerFrequency_92930(TimerIdx_F42A4, 120);
 			AilStartTimer_92BA0(TimerIdx_F42A4);
-			x_BYTE_D4B51 = 1;
+			soundTimerInstalled_D4B51 = 1;
 		}
 		else
 		{
@@ -43107,11 +43107,11 @@ void InitSoundAndMusic_46DD0()//227DD0
 		//v5 = x_BYTE_E3798_sound_active2;
 		if (!soundAble_E3798 && !musicAble_E37FC && cdSpeechEnabled_E2A28)
 		{
-			StopCdPlayback_86860(x_WORD_1803EC);
+			StopCdPlayback_86860(cdDrive_1803EC);
 			CloseCdDriver_85F00();
-			//v6 = x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & 0xBF;
+			//v6 = gameState_D41A4.OptionsSettingFlag_24 & 0xBF;
 			cdSpeechEnabled_E2A28 = soundAble_E3798;
-			(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24) &= SPEECH_DISABLED;
+			(gameState_D41A4.OptionsSettingFlag_24) &= SPEECH_DISABLED;
 		}
 	}
 	SetAllocationTag_83CC0(21);
@@ -43135,10 +43135,10 @@ static void GameTimerThread_6FD30()
 		{
 			nextTick += interval;
 			GameTimerTurn_17DB54++;
-			x_D41A0_BYTEARRAY_4_struct.timerAccumulator_2392 += x_D41A0_BYTEARRAY_4_struct.timerStep_2388;
-			if (x_D41A0_BYTEARRAY_4_struct.timerAccumulator_2392 >= 0x10000)
+			gameState_D41A4.timerAccumulator_2392 += gameState_D41A4.timerStep_2388;
+			if (gameState_D41A4.timerAccumulator_2392 >= 0x10000)
 			{
-				x_D41A0_BYTEARRAY_4_struct.timerAccumulator_2392 -= 0x10000;
+				gameState_D41A4.timerAccumulator_2392 -= 0x10000;
 
 				if (slow_tick_cb)
 					slow_tick_cb();
@@ -43174,8 +43174,8 @@ void SetProgrammableIntervalTimer_6FDA0()//fix//250da0
 	//fix it
 
 	//v0 = (int)x_D41A0_BYTEARRAY_4;
-	x_D41A0_BYTEARRAY_4_struct.timerStep_2388 = 10022;
-	x_D41A0_BYTEARRAY_4_struct.timerAccumulator_2392 = 0;
+	gameState_D41A4.timerStep_2388 = 10022;
+	gameState_D41A4.timerAccumulator_2392 = 0;
 	//v1 = dos_getvect(8);
 	//x_WORD_F5334 = v2;
 	//x_DWORD_F5330 = v1;
@@ -43185,7 +43185,7 @@ void SetProgrammableIntervalTimer_6FDA0()//fix//250da0
 	 //Set vector method to call
 	 //result = dos_setvect(8, (DWORD)GameTimerThread_6FD30, (unsigned __int16)__CS__);
 	 //BYTE1(result) = 1;
-	x_BYTE_DB734 = 1;
+	timerInstalled_DB734 = 1;
 	if (gameTimerRunning.load()) return;
 	gameTimerRunning.store(true);
 	gameTimerThread = std::thread(GameTimerThread_6FD30);
@@ -43195,12 +43195,12 @@ void SetProgrammableIntervalTimer_6FDA0()//fix//250da0
 //----- (0005BC20) --------------------------------------------------------
 void ShutdownGame_5BC20()//23cc20
 {
-	if (x_BYTE_D4B80 == 1)
+	if (gameInitialized_D4B80 == 1)
 	{
 		NetworkDisallocation2_5C450();
-		if (x_DWORD_E3768)
+		if (mouseInstalled_E3768)
 			MouseReset_54600();//mouse reset
-		/*if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8)
+		/*if (gameState_D41A4.setting_byte1_22 & 8)
 			sub_8C2DE();
 		else
 			sub_75420();*/
@@ -43213,38 +43213,38 @@ void ShutdownGame_5BC20()//23cc20
 	//removed sub_83E80_freemem4(x_DWORD_D4198);
 		//sub_83E80_freemem4(x_D41A0_BYTEARRAY_0);
 		//sub_83E80_freemem4(x_D41A0_BYTEARRAY_4);
-	StopCdPlayback_86860(x_WORD_1803EC);
+	StopCdPlayback_86860(cdDrive_1803EC);
 	CloseCdDriver_85F00();
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // D41A4: using guessed type int x_DWORD_D41A4;
-// D4B80: using guessed type char x_BYTE_D4B80;
-// E3768: using guessed type int x_DWORD_E3768;
-// 1803EC: using guessed type __int16 x_WORD_1803EC;
+// D4B80: using guessed type char gameInitialized_D4B80;
+// E3768: using guessed type int mouseInstalled_E3768;
+// 1803EC: using guessed type __int16 cdDrive_1803EC;
 
 //----- (0005BCC0) --------------------------------------------------------
 void SetDefaultKeys_5BCC0()//23ccc0
 {
 	//int result; // eax //push ebx=0 ebp=355250
 
-	x_BYTE_EB39E_keys[0] = 0x48;//2bc39e//UP
-	x_BYTE_EB39E_keys[1] = 0x50;//2bc39f//DOWN
-	x_BYTE_EB39E_keys[3] = 0x4D;//2bc3a1//RIGHT
-	x_BYTE_EB39E_keys[7] = 0x36;//2bc3a5//RIGHT SHIFT
-	x_BYTE_EB39E_keys[8] = 0x36;//2bc3a6//RIGHT SHIFT
+	keys_EB39E[0] = 0x48;//2bc39e//UP
+	keys_EB39E[1] = 0x50;//2bc39f//DOWN
+	keys_EB39E[3] = 0x4D;//2bc3a1//RIGHT
+	keys_EB39E[7] = 0x36;//2bc3a5//RIGHT SHIFT
+	keys_EB39E[8] = 0x36;//2bc3a6//RIGHT SHIFT
 	//result = x_D41A0_BYTEARRAY_4;//2a51a4
-	x_BYTE_EB39E_keys[5] = 0x1D;//2bc3A3//CTRL
-	x_D41A0_BYTEARRAY_4_struct.langIndex_4 = 0;//dword 38cf54
-	x_D41A0_BYTEARRAY_4_struct.soundVolume_6 = 127;//dword 38cf56
-	x_D41A0_BYTEARRAY_4_struct.musicVolume_8 = 127;//dword 38cf58
-	x_BYTE_EB39E_keys[2] = 0x4B;//2BC3A0//LEFT
-	x_D41A0_BYTEARRAY_4_struct.showHelp_10 = 1;//byte 38cf5a
-	x_BYTE_EB39E_keys[4] = 0x1C;//2BC3A2//ENTER
-	x_D41A0_BYTEARRAY_4_struct.brightness_11 = 0;//byte 38cf5b
-	x_BYTE_EB39E_keys[6] = 0x38;//2BC3A4//ALT
-	D41A0_0.LevelIndex_0xc = 0;//byte 38cf5c
-	x_BYTE_EB39E_keys[9] = 0x38;//2BC3A7//ALT
-	x_D41A0_BYTEARRAY_4_struct.brightness_13 = 0;//byte 38cf5d
+	keys_EB39E[5] = 0x1D;//2bc3A3//CTRL
+	gameState_D41A4.langIndex_4 = 0;//dword 38cf54
+	gameState_D41A4.soundVolume_6 = 127;//dword 38cf56
+	gameState_D41A4.musicVolume_8 = 127;//dword 38cf58
+	keys_EB39E[2] = 0x4B;//2BC3A0//LEFT
+	gameState_D41A4.showHelp_10 = 1;//byte 38cf5a
+	keys_EB39E[4] = 0x1C;//2BC3A2//ENTER
+	gameState_D41A4.brightness_11 = 0;//byte 38cf5b
+	keys_EB39E[6] = 0x38;//2BC3A4//ALT
+	world_D41A0.LevelIndex_0xc = 0;//byte 38cf5c
+	keys_EB39E[9] = 0x38;//2BC3A7//ALT
+	gameState_D41A4.brightness_13 = 0;//byte 38cf5d
 	//return result;
 }
 
@@ -43294,8 +43294,8 @@ signed int LoadPsxData_5BF50()//23cf50 //find 2bc394
 {
 	signed int result; // eax
 
-	x_DWORD_181C40_vga_init_buffer = (uint8_t*)Malloc_83D70(0x100); //fix it 264D70
-	if (x_DWORD_181C40_vga_init_buffer)
+	vesaInfoBuffer_181C40 = (uint8_t*)Malloc_83D70(0x100); //fix it 264D70
+	if (vesaInfoBuffer_181C40)
 	{
 		if (DataFileIO::LoadFileArray_84250(psxasearchd_2bac30))//psxasearchd_2bac30~=2a9a54   set 2bc394(after 2A9A54) - set 2bab20
 		{
@@ -43323,7 +43323,7 @@ signed int LoadPsxData_5BF50()//23cf50 //find 2bc394
 				}
 				else
 				{
-					x_WORD_180660_VGA_type_resolution = 1;
+					videoMode_180660 = 1;
 					InitMemoryAndTextureSize_83B50();//264B50
 					result = 1;
 				}
@@ -43337,8 +43337,8 @@ signed int LoadPsxData_5BF50()//23cf50 //find 2bc394
 	}
 	return result;
 }
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
-// 181C40: using guessed type int x_DWORD_181C40_vga_init_buffer;
+// 180660: using guessed type __int16 videoMode_180660;
+// 181C40: using guessed type int vesaInfoBuffer_181C40;
 
 //----- (0005C060) --------------------------------------------------------
 signed int UnloadPsxData_5C060()//23d060
@@ -43363,93 +43363,93 @@ signed int SetDefaultSettings_5C1B0()//23A05 - 23D1B0
 
 	InitEntityPointers_5C330();//23D330
 	//x_D41A0_BYTEARRAY_0[8618] = 1;//0x21aa
-	D41A0_0.visualSettings_0x21AA.creflections_0x21AA = 1;
+	world_D41A0.visualSettings_0x21AA.creflections_0x21AA = 1;
 	//x_D41A0_BYTEARRAY_0[8619] = 1;//0x21ab
-	D41A0_0.visualSettings_0x21AA.cshadows_0x21AB = 1;
+	world_D41A0.visualSettings_0x21AA.cshadows_0x21AB = 1;
 	//x_D41A0_BYTEARRAY_0[8620] = 1;//0x21ac
-	D41A0_0.visualSettings_0x21AA.csky_0x21AC = 1;
+	world_D41A0.visualSettings_0x21AA.csky_0x21AC = 1;
 	//x_D41A0_BYTEARRAY_0[8621] = 1;//0x21ad
-	D41A0_0.visualSettings_0x21AA.calter_0x21AD = 1;
+	world_D41A0.visualSettings_0x21AA.calter_0x21AD = 1;
 	//x_D41A0_BYTEARRAY_0[8622] = 1;//0x21ae
-	D41A0_0.miscSettings_0x21AE.xxxx_0x21AE = 1;
+	world_D41A0.miscSettings_0x21AE.xxxx_0x21AE = 1;
 	//x_D41A0_BYTEARRAY_0[8623] = 1;//0x21af
-	D41A0_0.miscSettings_0x21AE.xxxx_0x21AF = 1;
+	world_D41A0.miscSettings_0x21AE.xxxx_0x21AF = 1;
 	//x_D41A0_BYTEARRAY_0[8624] = 1;//0x21b0
-	D41A0_0.miscSettings_0x21AE.xxxx_0x21B0 = 1;
+	world_D41A0.miscSettings_0x21AE.xxxx_0x21B0 = 1;
 	//x_D41A0_BYTEARRAY_0[8625] = 0;//0x21b1
-	D41A0_0.miscSettings_0x21AE.xxxx_0x21B1 = 0;
+	world_D41A0.miscSettings_0x21AE.xxxx_0x21B1 = 0;
 	//x_D41A0_BYTEARRAY_0[8626] = 1;//0x21b2
-	D41A0_0.screenSettings_0x21B2.xxxx_0x21B2 = 1;
+	world_D41A0.screenSettings_0x21B2.xxxx_0x21B2 = 1;
 	//x_D41A0_BYTEARRAY_0[8627] = 1;//0x21b3
-	D41A0_0.screenSettings_0x21B2.xxxx_0x21B3 = 1;
+	world_D41A0.screenSettings_0x21B2.xxxx_0x21B3 = 1;
 	//x_D41A0_BYTEARRAY_0[8628] = 1;//0x21b4
-	D41A0_0.screenSettings_0x21B2.cresolution_0x21B4 = 1;
+	world_D41A0.screenSettings_0x21B2.cresolution_0x21B4 = 1;
 	//x_D41A0_BYTEARRAY_0[8630] = 1;//0x21b6
-	D41A0_0.detailSettings_0x21B6.clights_0x21B6 = 1;
+	world_D41A0.detailSettings_0x21B6.clights_0x21B6 = 1;
 	//x_D41A0_BYTEARRAY_0[8631] = 1;//0x21b7
-	D41A0_0.detailSettings_0x21B6.csetting_0x21B7 = 1;
+	world_D41A0.detailSettings_0x21B6.csetting_0x21B7 = 1;
 	//x_D41A0_BYTEARRAY_0[8632] = 1;//0x21b8
-	D41A0_0.detailSettings_0x21B6.ctransparency_0x21B8 = 1;
+	world_D41A0.detailSettings_0x21B6.ctransparency_0x21B8 = 1;
 	//x_D41A0_BYTEARRAY_0[8633] = 1;//0x21b9
-	D41A0_0.detailSettings_0x21B6.cflat_0x21B9 = 1;
+	world_D41A0.detailSettings_0x21B6.cflat_0x21B9 = 1;
 
 	GetSystemSpeed();//265050 //get computer speed
 
 	//if (x_D41A0_BYTEARRAY_0[34])//0x22
-	if (x_D41A0_BYTEARRAY_4_struct.m_wHighSpeedSystem)//0x22
+	if (gameState_D41A4.m_wHighSpeedSystem)//0x22
 	{
 		//x_D41A0_BYTEARRAY_0[8586] = 1;//0x218a
-		D41A0_0.m_GameSettings.m_Graphics.m_wReflections = (reflections) ? 1 : 0;
+		world_D41A0.m_GameSettings.m_Graphics.m_wReflections = (reflections) ? 1 : 0;
 		//x_D41A0_BYTEARRAY_0[8588] = 1;//0x218c
-		D41A0_0.m_GameSettings.m_Graphics.m_wSky = (sky) ? 1 : 0;
+		world_D41A0.m_GameSettings.m_Graphics.m_wSky = (sky) ? 1 : 0;
 		//x_D41A0_BYTEARRAY_0[8598] = 1;//0x2196
-		D41A0_0.m_GameSettings.display_0x2196.m_wDynamicLighting = (dynamicLighting) ? 1 : 0;
+		world_D41A0.m_GameSettings.display_0x2196.m_wDynamicLighting = (dynamicLighting) ? 1 : 0;
 	}
 	else
 	{
 		//x_D41A0_BYTEARRAY_0[8586] = 0;//0x218a
-		D41A0_0.m_GameSettings.m_Graphics.m_wReflections = 0;
+		world_D41A0.m_GameSettings.m_Graphics.m_wReflections = 0;
 		//x_D41A0_BYTEARRAY_0[8588] = 0;//0x218c
-		D41A0_0.m_GameSettings.m_Graphics.m_wSky = 0;
+		world_D41A0.m_GameSettings.m_Graphics.m_wSky = 0;
 		//x_D41A0_BYTEARRAY_0[8598] = 0;//0x2196
-		D41A0_0.m_GameSettings.display_0x2196.m_wDynamicLighting = 0;
+		world_D41A0.m_GameSettings.display_0x2196.m_wDynamicLighting = 0;
 
 		//Disable options
-		D41A0_0.visualSettings_0x21AA.creflections_0x21AA = 0;
-		D41A0_0.visualSettings_0x21AA.csky_0x21AC = 0;
-		D41A0_0.detailSettings_0x21B6.clights_0x21B6 = 0;
+		world_D41A0.visualSettings_0x21AA.creflections_0x21AA = 0;
+		world_D41A0.visualSettings_0x21AA.csky_0x21AC = 0;
+		world_D41A0.detailSettings_0x21B6.clights_0x21B6 = 0;
 	}
 	//x_D41A0_BYTEARRAY_0[8587] = 1;//0x218b
-	D41A0_0.m_GameSettings.m_Graphics.m_wShadows = 1;
+	world_D41A0.m_GameSettings.m_Graphics.m_wShadows = 1;
 	//x_D41A0_BYTEARRAY_0[8591] = 1;//0x218f
-	D41A0_0.m_GameSettings.m_Display.m_wTopBar = 1;
+	world_D41A0.m_GameSettings.m_Display.m_wTopBar = 1;
 	//x_D41A0_BYTEARRAY_0[8590] = 1;//0x218e
-	D41A0_0.m_GameSettings.m_Display.m_wMiniMap = 1;
+	world_D41A0.m_GameSettings.m_Display.m_wMiniMap = 1;
 	//x_D41A0_BYTEARRAY_0[8589] = 40;//0x218d
-	D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize = 40;
+	world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize = 40;
 	//x_D41A0_BYTEARRAY_0[8599] = 0;//0x2197
-	D41A0_0.m_GameSettings.display_0x2196.setting_0x2197 = 0;
+	world_D41A0.m_GameSettings.display_0x2196.setting_0x2197 = 0;
 	//x_D41A0_BYTEARRAY_0[8600] = 0;//0x2198
-	D41A0_0.m_GameSettings.display_0x2196.transparency_0x2198 = 0;
+	world_D41A0.m_GameSettings.display_0x2196.transparency_0x2198 = 0;
 	//x_D41A0_BYTEARRAY_0[8601] = 0;//0x2199
-	D41A0_0.m_GameSettings.display_0x2196.flat_0x2199 = 0;
+	world_D41A0.m_GameSettings.display_0x2196.flat_0x2199 = 0;
 	//x_D41A0_BYTEARRAY_0[14] = 2;
-	D41A0_0.NumberOfPlayers_0xe = 2;;
-	strcpy(x_D41A0_BYTEARRAY_4_struct.netGameName_145ar, "NETHERW");
-	x_D41A0_BYTEARRAY_4_struct.paletteCount_184w = 256;
+	world_D41A0.NumberOfPlayers_0xe = 2;;
+	strcpy(gameState_D41A4.netGameName_145ar, "NETHERW");
+	gameState_D41A4.paletteCount_184w = 256;
 	//v5 = '\0';
-	x_D41A0_BYTEARRAY_4_struct.byteindex_218w = 25;
-	x_D41A0_BYTEARRAY_4_struct.player_name_57ar[0] = '\0';
-	v6 = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
-	v7 = x_D41A0_BYTEARRAY_4_struct.byteindex_218w;
-	x_D41A0_BYTEARRAY_4_struct.setting_30 = 0;
+	gameState_D41A4.byteindex_218w = 25;
+	gameState_D41A4.player_name_57ar[0] = '\0';
+	v6 = gameState_D41A4.levelnumber_43w;
+	v7 = gameState_D41A4.byteindex_218w;
+	gameState_D41A4.setting_30 = 0;
 	if (v6 >= v7)
-		x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = v7 - 1;
+		gameState_D41A4.levelnumber_43w = v7 - 1;
 	SetTextBoxMinMaxSizes_87090();
-	if (str_unk_1804B0ar.initialized_0xa2)
-		x_D41A0_BYTEARRAY_4_struct.showHelp_10 = 1;
+	if (helpPopup_1804B0.initialized_0xa2)
+		gameState_D41A4.showHelp_10 = 1;
 	//sub_2CA90(x_D41A0_BYTEARRAY_0[8589]);//268090//0x218d
-	viewPort.ResizeViewPort_2CA90(D41A0_0.m_GameSettings.m_Graphics.m_wViewPortSize);//268090//0x218d
+	viewPort.ResizeViewPort_2CA90(world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize);//268090//0x218d
 	return 1;
 }
 // D0C18: using guessed type char x_BYTE_D0C18;
@@ -43487,7 +43487,7 @@ void InitEntityPointers_5C330()//23D330
 		for (int i = 0; i < 0x3E9; i++)
 		{
 			//uint8_t* x=&x_D41A0_BYTEARRAY_0[0x6e8e + (168 * i)];
-			Entities_EA3E4[i] = &D41A0_0.entities_0x6E8E[i];// (type_str_0x6E8E*)& x_D41A0_BYTEARRAY_0[0x6e8e + (168 * i)];
+			Entities_EA3E4[i] = &world_D41A0.entities_0x6E8E[i];// (type_str_0x6E8E*)& x_D41A0_BYTEARRAY_0[0x6e8e + (168 * i)];
 			//int32_t x = *x_D41A0_BYTEARRAY_0 + 0x6e8e + 168 * i;//fix
 			//var_2BB3E0_x_DWORD_EA3D4_14.pointer
 		}
@@ -43537,15 +43537,15 @@ void TestersInfo_5C490()//23d490
 	myprintf("***********************************************************\n");
 	do
 	{
-		if (x_DWORD_E3BB0 <= 0 || x_DWORD_E3BB8 & 4 || *x_DWORD_E3BAC == 13 || *x_DWORD_E3BAC == 26)
+		if (testersInfoSize_E3BB0 <= 0 || testersInfoFlags_E3BB8 & 4 || *testersInfoPtr_E3BAC == 13 || *testersInfoPtr_E3BAC == 26)
 		{
-			v1 = fgetc((FILE*)&x_DWORD_E3BAC);
+			v1 = fgetc((FILE*)&testersInfoPtr_E3BAC);
 		}
 		else
 		{
-			v1 = *x_DWORD_E3BAC;
-			x_DWORD_E3BAC++;
-			x_DWORD_E3BB0--;
+			v1 = *testersInfoPtr_E3BAC;
+			testersInfoPtr_E3BAC++;
+			testersInfoSize_E3BB0--;
 		}
 	} while (v1 != 10);
 }
@@ -43585,18 +43585,18 @@ void CollectLevelStats_5C530()//23d530
 
 	v0x = 0;
 	v1 = 0;
-	v2x = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	v2x = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	for (i = 0; i < 26; i++)
 	{
 		v4x = v2x->playerData_0xA4_164x;
 		if (v4x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[i] || v4x->str_611.pickedUpSpells_0x403_1027x.SpellIndex[i])
 			v4x->str_611.availableSpells_0x3E9_1001x.SpellIndex[i] = 1;
 	}
-	if (D41A0_0.gameFlags_0x36E0B & 1)
-		D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].secretCounter_0x3E4_2BE4_12226++;
+	if (world_D41A0.gameFlags_0x36E0B & 1)
+		world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].secretCounter_0x3E4_2BE4_12226++;
 	for (j = 0; j < 26; j++)
 	{
-		if (D41A0_0.creatureStats_0x364D2.spawnCounts_0x364D6[j])
+		if (world_D41A0.creatureStats_0x364D2.spawnCounts_0x364D6[j])
 		{
 			v1++;
 			if (v2x->playerData_0xA4_164x->str_611.pickedUpSpells_0x403_1027x.SpellIndex[j])
@@ -43613,11 +43613,11 @@ void CollectLevelStats_5C530()//23d530
 	{
 		v2x->playerData_0xA4_164x->spellsCollectedPercent_377 = 100;
 	}
-	if (D41A0_0.creatureStats_0x364D2.livingCreatures_0x364D2)
+	if (world_D41A0.creatureStats_0x364D2.livingCreatures_0x364D2)
 	{
 		//v7 = v2x->dword_0xA4_164;
 		v8 = 100 * v2x->playerData_0xA4_164x->creaturesKilledPercent_373;
-		v9 = D41A0_0.creatureStats_0x364D2.livingCreatures_0x364D2;
+		v9 = world_D41A0.creatureStats_0x364D2.livingCreatures_0x364D2;
 		v10 = v8 / v9;
 		//v0 = v8 % v9;
 		v2x->playerData_0xA4_164x->creaturesKilledPercent_373 = v10;
@@ -43643,7 +43643,7 @@ void CollectLevelStats_5C530()//23d530
 	v16x = Entities_EA3E4[v2x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58];
 	if (v16x)
 	{
-		v17 = x_D41A0_BYTEARRAY_4_struct.manaStats_242ar.totalMana_4 - 1;
+		v17 = gameState_D41A4.manaStats_242ar.totalMana_4 - 1;
 		if (v17 <= 0)
 		{
 			v2x->playerData_0xA4_164x->manaCollectedPercent_385 = 100;
@@ -43683,7 +43683,7 @@ LABEL_29:
 	//v27 = v2x->dword_0xA4_164;
 	if (v2x->playerData_0xA4_164x->manaCollectedPercent_385 > 100)
 		v2x->playerData_0xA4_164x->manaCollectedPercent_385 = 100;
-	ActivateSecretPortal_82AB0(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);
+	ActivateSecretPortal_82AB0(gameState_D41A4.levelnumber_43w);
 }
 // 98786: using guessed type int /*__fastcall*/ j___clock(x_DWORD, x_DWORD, x_DWORD);
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -43696,10 +43696,10 @@ void SetLocalPaletteSubMode_5C800(type_entity_0x6E8E* a1x, char a2)//23d800
 	//__int16 result; // ax
 
 	//result = D41A0_BYTESTR_0.word_0xc;
-	if (D41A0_0.LevelIndex_0xc == a1x->playerData_0xA4_164x->playerColorIndex_0x38_56)
+	if (world_D41A0.LevelIndex_0xc == a1x->playerData_0xA4_164x->playerColorIndex_0x38_56)
 	{
 		//result = (short)x_D41A0_BYTEARRAY_4;
-		x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = a2;
+		gameState_D41A4.paletteSubMod_180 = a2;
 	}
 	//return result;
 }
@@ -43709,10 +43709,10 @@ void SetLocalPaletteSubMode_5C800(type_entity_0x6E8E* a1x, char a2)//23d800
 //----- (0005C830) --------------------------------------------------------
 void SetPaletteModification_5C830(type_entity_0x6E8E* event, char paletteSubMod, __int16 PaletteCount)//23d830
 {
-	if (D41A0_0.LevelIndex_0xc == event->playerData_0xA4_164x->playerColorIndex_0x38_56)
+	if (world_D41A0.LevelIndex_0xc == event->playerData_0xA4_164x->playerColorIndex_0x38_56)
 	{
-		x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180 = paletteSubMod;
-		x_D41A0_BYTEARRAY_4_struct.paletteCount_184w = PaletteCount;
+		gameState_D41A4.paletteSubMod_180 = paletteSubMod;
+		gameState_D41A4.paletteCount_184w = PaletteCount;
 	}
 }
 
@@ -43723,7 +43723,7 @@ void ShakeScreenNearPlayer_5C870(type_entity_0x6E8E* a1x)//23d870
 	//type_str_164* v2x; // esi
 	uint32_t index; // eax
 
-	v1x = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	v1x = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	//v2x = v1x->playerData_0xA4_164x;
 	index = Distance3D_583F0(&a1x->position_0x4C_76, &v1x->position_0x4C_76);
 	if (index <= v1x->playerData_0xA4_164x->screenShake_0x19A_410)
@@ -43737,7 +43737,7 @@ void ShakeScreenNearPlayer_5C870(type_entity_0x6E8E* a1x)//23d870
 void SetMaxDistance_5C8D0(type_entity_0x6E8E* event)//23d8d0
 {
 	uint32_t distance; // eax
-	type_entity_0x6E8E* event2 = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	type_entity_0x6E8E* event2 = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	distance = Distance3D_583F0(&event->position_0x4C_76, &event2->position_0x4C_76);
 	if (distance <= event2->playerData_0xA4_164x->maxDistance_0x19E_414)
 		event2->playerData_0xA4_164x->maxDistance_0x19E_414 = distance;
@@ -43800,7 +43800,7 @@ void UpdatePlayerWizard_5C950(type_str_0x2BDE* a1x, type_entity_0x6E8E* a2x)//23
 	RebuildEntityLists_49F90();
 	//*(uint32_t*)v35x = *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 6 * ((a1 - &x_D41A0_BYTEARRAY_0[11230]) / 2124) + 9058);//fix
 	//v35x[2] = *(x_WORD *)(x_D41A0_BYTEARRAY_0 + 6 * ((a1 - &x_D41A0_BYTEARRAY_0[11230]) / 2124) + 9062);
-	v35x = D41A0_0.playerStarts_0x2362[a1x - &D41A0_0.players_0x2BDE[0]]; // FIXME: pointer arithmetic for array_0x2362
+	v35x = world_D41A0.playerStarts_0x2362[a1x - &world_D41A0.players_0x2BDE[0]]; // FIXME: pointer arithmetic for array_0x2362
 	//v35x[2] = get_x_D41A0_BYTEARRAY_0_0x2366(((a1 - &x_D41A0_BYTEARRAY_0[11230]) / 2124));
 	v3 = GetTerrainAlt_10C40(&v35x);
 	v3 += 0x100;
@@ -43824,9 +43824,9 @@ void UpdatePlayerWizard_5C950(type_str_0x2BDE* a1x, type_entity_0x6E8E* a2x)//23
 		CopyEntityPosition_57CF0(a2x, &v35x);
 	}
 	//v7 = (int)x_D41A0_BYTEARRAY_0;
-	a1x->playerIndex_0x00a_2BE4_11240 = v2x - D41A0_0.entities_0x6E8E;
+	a1x->playerIndex_0x00a_2BE4_11240 = v2x - world_D41A0.entities_0x6E8E;
 	v2x->playerData_0xA4_164x = &a1x->playerData_0x3E6_2BE4_12228;
-	v2x->playerData_0xA4_164x->playerColorIndex_0x38_56 = a1x - &D41A0_0.players_0x2BDE[0]; // FIXME: pointer arithmetic
+	v2x->playerData_0xA4_164x->playerColorIndex_0x38_56 = a1x - &world_D41A0.players_0x2BDE[0]; // FIXME: pointer arithmetic
 	v2x->playerData_0xA4_164x->invulnerableTimer_0x159_345 = 100;
 	v2x->playerData_0xA4_164x->word_0x24C_588 = 0;
 	v2x->playerData_0xA4_164x->startTimer_0x16D_365 = 2000;
@@ -43880,11 +43880,11 @@ void UpdatePlayerWizard_5C950(type_str_0x2BDE* a1x, type_entity_0x6E8E* a2x)//23
 		if (a1x->IsAiPlayer_0x009_2BE4_11239 == 1)
 		{
 			//v12 = x_D41A0_BYTEARRAY_0;
-			v2x->playerData_0xA4_164x->aiAggression_0x242_578 = D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[v2x->playerData_0xA4_164x->playerColorIndex_0x38_56].Aggression_0x360D5;
-			v2x->playerData_0xA4_164x->aiPerception_0x244_580 = D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[v2x->playerData_0xA4_164x->playerColorIndex_0x38_56].Perception_0x360DD;
-			v2x->playerData_0xA4_164x->aiReflexes_0x246_582 = D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[v2x->playerData_0xA4_164x->playerColorIndex_0x38_56].Reflexes_0x360D9;
+			v2x->playerData_0xA4_164x->aiAggression_0x242_578 = world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[v2x->playerData_0xA4_164x->playerColorIndex_0x38_56].Aggression_0x360D5;
+			v2x->playerData_0xA4_164x->aiPerception_0x244_580 = world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[v2x->playerData_0xA4_164x->playerColorIndex_0x38_56].Perception_0x360DD;
+			v2x->playerData_0xA4_164x->aiReflexes_0x246_582 = world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[v2x->playerData_0xA4_164x->playerColorIndex_0x38_56].Reflexes_0x360D9;
 			//v13 = v2x->dword_0xA4_164;
-			v14 = D41A0_0.terrain_2FECE.WizardMapSettings_0x360D2[v2x->playerData_0xA4_164x->playerColorIndex_0x38_56].Life_0x3612F;
+			v14 = world_D41A0.terrain_2FECE.WizardMapSettings_0x360D2[v2x->playerData_0xA4_164x->playerColorIndex_0x38_56].Life_0x3612F;
 			if (v14)
 			{
 				v2x->playerData_0xA4_164x->lifeScale_0x24A_586 = v14;
@@ -43893,7 +43893,7 @@ void UpdatePlayerWizard_5C950(type_str_0x2BDE* a1x, type_entity_0x6E8E* a2x)//23
 			//v15 = v2x->dword_0xA4_164;
 			if (v2x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[2])
 			{
-				if (D41A0_0.terrain_2FECE.player_0x2FED9[v2x->playerData_0xA4_164x->playerColorIndex_0x38_56])
+				if (world_D41A0.terrain_2FECE.player_0x2FED9[v2x->playerData_0xA4_164x->playerColorIndex_0x38_56])
 				{
 					v16x = CreateEntity_4A190(&v2x->position_0x4C_76, 3, 2);
 					v39x = v16x;
@@ -43901,11 +43901,11 @@ void UpdatePlayerWizard_5C950(type_str_0x2BDE* a1x, type_entity_0x6E8E* a2x)//23
 					{
 						//v17 = &x_D41A0_BYTEARRAY_0[28302];
 						v16x->id_0x1A_26 = v2x->id_0x1A_26;
-						v2x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58 = v16x - D41A0_0.entities_0x6E8E;
-						PrepareEventSound_6E450(v2x - D41A0_0.entities_0x6E8E, -1, 30);
+						v2x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58 = v16x - world_D41A0.entities_0x6E8E;
+						PrepareEventSound_6E450(v2x - world_D41A0.entities_0x6E8E, -1, 30);
 						for (j = 0; ; j = v22 + 1)
 						{
-							v23 = D41A0_0.terrain_2FECE.player_0x2FED9[v2x->playerData_0xA4_164x->playerColorIndex_0x38_56];
+							v23 = world_D41A0.terrain_2FECE.player_0x2FED9[v2x->playerData_0xA4_164x->playerColorIndex_0x38_56];
 							if (v23 <= j)
 								break;
 							v18x = &Entities_EA3E4[0]->position_0x4C_76;
@@ -43941,7 +43941,7 @@ void UpdatePlayerWizard_5C950(type_str_0x2BDE* a1x, type_entity_0x6E8E* a2x)//23
 		}
 		v2x->playerData_0xA4_164x->creaturesKilledPercent_373 = 0;
 	}
-	if (D41A0_0.LevelIndex_0xc == v2x->playerData_0xA4_164x->playerColorIndex_0x38_56)
+	if (world_D41A0.LevelIndex_0xc == v2x->playerData_0xA4_164x->playerColorIndex_0x38_56)
 		v2x->flags_0xc_12_15.byte[0] |= 1u;
 	//23ddf7
 	v2x->life_0x8 = v2x->maxLife_0x4;
@@ -43949,7 +43949,7 @@ void UpdatePlayerWizard_5C950(type_str_0x2BDE* a1x, type_entity_0x6E8E* a2x)//23
 	//v30 = v2x->playerData_0xA4_164x;
 	v2x->mana_0x90_144 = v29;
 	v2x->playerData_0xA4_164x->maxMana_0x150_336 = v29;
-	for (kx = x_D41A0_BYTEARRAY_4_struct.class3List_38519; kx > Entities_EA3E4[0]; kx = kx->next_0)
+	for (kx = gameState_D41A4.class3List_38519; kx > Entities_EA3E4[0]; kx = kx->next_0)
 	{
 		if (kx->id_0x1A_26 != v2x->id_0x1A_26)
 		{
@@ -43974,11 +43974,11 @@ void UpdatePlayerWizard_5C950(type_str_0x2BDE* a1x, type_entity_0x6E8E* a2x)//23
 	v2x->playerData_0xA4_164x->hitTimer_0x36_54 = 0;
 	memset(v2x->playerData_0xA4_164x->array_0x15B_347, 16, 8);
 	//result = (int)x_D41A0_BYTEARRAY_0;
-	D41A0_0.freeEntityCount2_0x11e6 = -1;
-	if (v2x->playerData_0xA4_164x->playerColorIndex_0x38_56 == D41A0_0.LevelIndex_0xc)
+	world_D41A0.freeEntityCount2_0x11e6 = -1;
+	if (v2x->playerData_0xA4_164x->playerColorIndex_0x38_56 == world_D41A0.LevelIndex_0xc)
 	{
 		//result = (int)x_D41A0_BYTEARRAY_4;
-		x_D41A0_BYTEARRAY_4_struct.speedIndex = 0;
+		gameState_D41A4.speedIndex = 0;
 	}
 	//return result;
 }
@@ -44001,7 +44001,7 @@ void UpdateSpellAvailability_6D9C0(type_str_611* a1x, type_SPELLS_BEGIN_BUFFER_s
 	v5 = 0;
 	if ((a1x->availableSpells_0x3E9_1001x.SpellIndex[a3] || a1x->SpellsEnabled_0x333_819x.SpellEnabled[a3]) && (isCaveLevel_D41B6 || a3 != 25))
 		v5 = 1;
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 >= 0 && a1x->spellsExperience_0x2CB_715x.at((int)spell_t::castle) > 7) // FIXME: replace magic numbers 2 and 7
+	if (gameState_D41A4.setting_byte2_23 >= 0 && a1x->spellsExperience_0x2CB_715x.at((int)spell_t::castle) > 7) // FIXME: replace magic numbers 2 and 7
 		a1x->spellsExperience_0x2CB_715x.at((int)spell_t::castle) = 7;
 	//v6 = *a2;
 	v6 = a2x->levelCount_0;
@@ -44080,11 +44080,11 @@ void GrantSpellToPlayer_6DB50(char a1, char a2)//24eb50
 	type_str_611* v5; // edi
 	__int16 v6; // ST08_2
 
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE))
+	if (!(gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE))
 	{
 		v3x = 0;
 		v4 = 0;
-		v5 = &Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->playerData_0xA4_164x->str_611;
+		v5 = &Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->playerData_0xA4_164x->str_611;
 		while (v4 < 26)
 		{
 			v6 = v4++;
@@ -44103,12 +44103,12 @@ void GrantAllSpellsMultiplayer_6DBD0()//24ebd0
 	type_str_611* v2; // edi
 	__int16 v3; // ST08_2
 
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+	if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 	{
 		//v0 = (unsigned __int8 *)*xadataspellsdat.colorPalette_var28;
 		v0x = 0;
 		v1 = 0;
-		v2 = &Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->playerData_0xA4_164x->str_611;
+		v2 = &Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->playerData_0xA4_164x->str_611;
 		while (v1 < 26)
 		{
 			v3 = v1++;
@@ -44127,9 +44127,9 @@ void ImproveAbility_6DC40(uint8_t ability)//24ec40
 {
 	//char v1; // [esp+0h] [ebp-2h]
 
-	sprintf(printbuffer, (const char*)x_DWORD_E9C4C_langindexbuffer[159], x_DWORD_E9C4C_langindexbuffer[160 + ability]);//Your ability to cast %s has improved.
+	sprintf(printbuffer, (const char*)langStrings_E9C4C[159], langStrings_E9C4C[160 + ability]);//Your ability to cast %s has improved.
 	SetCurrentNotificationMessage_19760(printbuffer, 5u, 200);
-	PrepareEventSound_6E450(D41A0_0.LevelIndex_0xc, -1, 61);
+	PrepareEventSound_6E450(world_D41A0.LevelIndex_0xc, -1, 61);
 }
 // 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -44349,7 +44349,7 @@ LABEL_60:
 		if (v7x->actSpeed_0x82_130 > 0x2000)
 			v7x->actSpeed_0x82_130 = 0x2000;
 		if (a6)
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, v6);
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, v6);
 	}
 	return v7x;
 }
@@ -44385,7 +44385,7 @@ void UpdateExperience_6E090(type_str_611* spells, int countXP)//24f090
 		if (spells->SpellsEnabled_0x333_819x.SpellEnabled[i])
 			spells->spellsExperience_0x2CB_715x.at(i) += countXP;
 	}
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 >= 0 && spells->spellsExperience_0x2CB_715x.at((int)spell_t::castle) > 7)
+	if (gameState_D41A4.setting_byte2_23 >= 0 && spells->spellsExperience_0x2CB_715x.at((int)spell_t::castle) > 7)
 		spells->spellsExperience_0x2CB_715x.at((int)spell_t::castle) = 7;
 }
 
@@ -44397,7 +44397,7 @@ void EnableAllSpells_6E0D0()//24f0d0
 	int v2; // ebx
 
 	v0 = 0;
-	v1x = &Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->playerData_0xA4_164x->str_611;
+	v1x = &Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->playerData_0xA4_164x->str_611;
 	while (v0 < 26)
 	{
 		v1x->availableSpells_0x3E9_1001x.SpellIndex[v0] = 1;
@@ -44414,9 +44414,9 @@ void EnableAllSpells_6E0D0()//24f0d0
 //----- (0006E150) --------------------------------------------------------
 void PlayEntitySounds_6E150()//24f150
 {
-	auto playerEntity = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	auto playerEntity = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 
-	if (soundActive_E3799 && soundAble_E3798 && (!(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED) || x_D41A0_BYTEARRAY_4_struct.volumeKeyHeld_38591))
+	if (soundActive_E3799 && soundAble_E3798 && (!(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED) || gameState_D41A4.volumeKeyHeld_38591))
 	{
 		for (int i = 0; i < 70; i++)
 		{
@@ -44472,7 +44472,7 @@ void EndLoop_6EAB0(int  /*a1*/, __int16 a2, __int16 index)//24fab0
 			UpdatePlayingSampleStatus_8F710(0, index, 0, 4u, 1);
 		return;
 	}
-	if (a2 == D41A0_0.LevelIndex_0xc)
+	if (a2 == world_D41A0.LevelIndex_0xc)
 		UpdatePlayingSampleStatus_8F710(0, index, 0, 2u, 1);
 }
 
@@ -44481,7 +44481,7 @@ void CreateFileArrayIndexes_6EBF0(filearray_struct* a1)//24FBF0
 {
 	for (uint32_t i = 0; (a1[i].begin_buffer) != &ZERO_BUFFER_PST2; i++)
 	{
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (videoMode_180660 & 1)
 			CreateIndexDatTabHalved_99A77((uint8_t*)*a1[i].begin_buffer, (uint8_t*)*a1[i].end_buffer, *a1[i].dat_buffer, *a1[i].posistruct);
 		else
 			CreateIndexDatTabRelative_99AEB((uint8_t*)*a1[i].begin_buffer, (uint8_t*)*a1[i].end_buffer, *a1[i].dat_buffer, *a1[i].posistruct);
@@ -44494,7 +44494,7 @@ void CreateFileArrayIndexes_6EBF0(filearray_struct* a1)//24FBF0
 
   for ( ; a1[0]; a1 += 3 )
   {
-	if ( x_WORD_180660_VGA_type_resolution & 1 )
+	if ( videoMode_180660 & 1 )
 	  result = CreateIndexDatTabHalved_99A77((uint8_t*)*a1[0], *a1[1], *a1[2]);
 	else
 	  result = (unsigned int)CreateIndexDatTabRelative_99AEB((unsigned int *)*a1[0], *a1[1], *a1[2]);
@@ -44508,7 +44508,7 @@ void SetCenterScreenForFlyAssistant_6EDB0()//24FDB0
 	uint32_t display_w = screenWidth_18062C, display_h = screenHeight_180624;
 	uint32_t new_x, new_y;
 
-	if (x_WORD_180660_VGA_type_resolution & 1) {
+	if (videoMode_180660 & 1) {
 		// 640x480 virtual screen
 		display_w = 640;
 		display_h = 480;
@@ -44525,7 +44525,7 @@ void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 {
 #if 0
 	int locScreenWidth;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (videoMode_180660 == 1)
 	{
 		locScreenWidth = 640;
 	}
@@ -44534,7 +44534,7 @@ void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 		locScreenWidth = screenWidth_18062C;
 	}
 
-	if (x_DWORD_E3768 > 0)
+	if (mouseInstalled_E3768 > 0)
 	{
 		if (posX != -1 || posY != -1)
 		{
@@ -44542,46 +44542,46 @@ void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 			{
 				if (posX <= 0)
 				{
-					if (!(x_WORD_180660_VGA_type_resolution & 1))
+					if (!(videoMode_180660 & 1))
 						posX = 8 * posX;
 				}
 				else
 				{
 					if (posX > locScreenWidth - 2)
 						posX = locScreenWidth - 2;
-					x_WORD_E3760_mouse.x = posX;
-					if (!(x_WORD_180660_VGA_type_resolution & 1))
+					mouse_E3760.x = posX;
+					if (!(videoMode_180660 & 1))
 						posX *= 8;
 				}
 				if (posY <= 0)
 				{
-					if (x_WORD_180660_VGA_type_resolution & 1)
-						posY = x_WORD_E3760_mouse.y;
+					if (videoMode_180660 & 1)
+						posY = mouse_E3760.y;
 					else
-						posY = 8 * x_WORD_E3760_mouse.y;
+						posY = 8 * mouse_E3760.y;
 				}
 				else
 				{
-					if (x_WORD_180660_VGA_type_resolution & 1)
+					if (videoMode_180660 & 1)
 					{
 						if (posY > 398)
 							posY = 398;
-						x_WORD_E3760_mouse.y = posY;
-						if (!(x_WORD_180660_VGA_type_resolution & 1))
+						mouse_E3760.y = posY;
+						if (!(videoMode_180660 & 1))
 							posY *= 8;
 					}
 					else
 					{
 						if (posY > screenHeight_180624 - 2)
 							posY = screenHeight_180624 - 2;
-						x_WORD_E3760_mouse.y = posY;
-						if (!(x_WORD_180660_VGA_type_resolution & 1))
+						mouse_E3760.y = posY;
+						if (!(videoMode_180660 & 1))
 							posY *= 8;
 					}
 				}
 
 				//320x200 fix
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (videoMode_180660 & 1)
 				{
 					posX *= 8;
 					posY *= 8;
@@ -44601,7 +44601,7 @@ void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 	// we get in posX, posY the location of the pointer for a 640x480 display
 	// so recalculate the position based on what we actually have
 
-	if (x_WORD_180660_VGA_type_resolution & 1) {
+	if (videoMode_180660 & 1) {
 		// 320x240 virtual screen
 		display_w = 320;
 		display_h = 240;
@@ -44644,7 +44644,7 @@ type_entity_0x6E8E* InitSwitchChainZaxisAndSound_6F850(type_entity_0x6E8E* event
 	type_entity_0x6E8E* ix; // ebx
 	if (event->instanceIndex_0x3E_62 & 7)
 		return 0;
-	for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ; ix = ix->next_0)
+	for (ix = gameState_D41A4.class3List_38519; ; ix = ix->next_0)
 	{
 		if (ix <= Entities_EA3E4[0])
 		{
@@ -44655,7 +44655,7 @@ type_entity_0x6E8E* InitSwitchChainZaxisAndSound_6F850(type_entity_0x6E8E* event
 			break;
 	}
 	if (event->model_0x40_64 > 3u)
-		PrepareEventSound_6E450(ix - D41A0_0.entities_0x6E8E, -1, 41);
+		PrepareEventSound_6E450(ix - world_D41A0.entities_0x6E8E, -1, 41);
 	return ix;
 }
 
@@ -44667,19 +44667,19 @@ void ClearProgrammableIntervalTimer_6FE20()//fix//250e20
 	//int v0; // et1
 	//int v1; // eax
 
-	if (x_BYTE_DB734 == 1)
+	if (timerInstalled_DB734 == 1)
 	{
-		//v0 = x_D41A0_BYTEARRAY_4_struct.dwordindex_2380;
+		//v0 = gameState_D41A4.dwordindex_2380;
 		/*__outx_BYTE(0x43u, 0x36u);
 		__outx_BYTE(0x40u, 0);
 		__outx_BYTE(0x40u, 0);
 		v1 = dos_setvect(8, x_DWORD_F5330, (unsigned __int16)x_WORD_F5334);*/
 	}
-	x_BYTE_DB734 = 0;
+	timerInstalled_DB734 = 0;
 }
 // 99BDB: using guessed type x_DWORD dos_setvect(x_DWORD, x_DWORD, x_DWORD);
 // D41A4: using guessed type int x_DWORD_D41A4;
-// DB734: using guessed type char x_BYTE_DB734;
+// DB734: using guessed type char timerInstalled_DB734;
 // F5330: using guessed type int x_DWORD_F5330;
 // F5334: using guessed type __int16 x_WORD_F5334;
 
@@ -44757,7 +44757,7 @@ void DrawGameDebugText_6FEC0()//250ec0
 	//result = v0 + (int)x_D41A0_BYTEARRAY_0;
 	//v2 = *(x_BYTE *)(v0 + x_D41A0_BYTEARRAY_0 + 11235);
 	//!!!!!!!!!!!!!!!
-	if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].ShowDebugTextFlag_0x005_2BE0_11235 & 8)
+	if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ShowDebugTextFlag_0x005_2BE0_11235 & 8)
 	{
 		GetFont_6FC50(1);
 		DrawText_2BC10((char*)"Product name", 320, 0, (*xadataclrd0dat.colorPalette_var28)[3840]);
@@ -44794,33 +44794,33 @@ void DrawGameDebugText_6FEC0()//250ec0
 		DrawText_2BC10((char*)"Level Number", 320, v22, (*xadataclrd0dat.colorPalette_var28)[3840]);
 		LOWORD(v23) = GetLetterHeight_6FC30();
 		v24 = v23 + v22;
-		sprintf(printbuffer, "%d", x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);
+		sprintf(printbuffer, "%d", gameState_D41A4.levelnumber_43w);
 		DrawText_2BC10((char*)printbuffer, 320, v24, (*xadataclrd0dat.colorPalette_var28)[15]);
 		LOWORD(v25) = GetLetterHeight_6FC30();
 		v26 = v25 + v24;
-		if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+		if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 		{
 			DrawText_2BC10((char*)"Transfer rate:", 320, v26, (*xadataclrd0dat.colorPalette_var28)[3840]);
 			LOWORD(v27) = GetLetterHeight_6FC30();
 			v28 = v27 + v26;
-			sprintf(printbuffer, "%d", x_D41A0_BYTEARRAY_4_struct.transfer_rate_dwordindex_200);
+			sprintf(printbuffer, "%d", gameState_D41A4.transfer_rate_dwordindex_200);
 			DrawText_2BC10(printbuffer, 320, v28, (*xadataclrd0dat.colorPalette_var28)[15]);
 			LOWORD(v29) = GetLetterHeight_6FC30();
 			v26 = v29 + v28;
 		}
 		//v30 = 2124 * D41A0_BYTESTR_0.word_0xc;
-		x_DWORD_E9C14 = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248;
+		debugTurn_E9C14 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248;
 		v31 = j___clock() / 0x64u;
 		x_DWORD_E9C1C = v31;
-		if (v31 != x_DWORD_E9C20)
+		if (v31 != debugLastValue_E9C20)
 		{
-			x_DWORD_E9C20 = v31;
-			x_DWORD_E9C24_fps = x_DWORD_E9C14 - x_DWORD_E9C18;
-			x_DWORD_E9C18 = x_DWORD_E9C14;
+			debugLastValue_E9C20 = v31;
+			debugFps_E9C24 = debugTurn_E9C14 - debugLastTurn_E9C18;
+			debugLastTurn_E9C18 = debugTurn_E9C14;
 		}
 		DrawText_2BC10((char*)"FPS", 320, v26, (*xadataclrd0dat.colorPalette_var28)[3840]);
 		v32 = GetLetterHeight_6FC30() + v26;
-		sprintf(printbuffer, "%d", x_DWORD_E9C24_fps);
+		sprintf(printbuffer, "%d", debugFps_E9C24);
 		DrawText_2BC10(printbuffer, 320, v32, (*xadataclrd0dat.colorPalette_var28)[15]);
 		v33 = GetLetterHeight_6FC30() + v32;
 		DrawText_2BC10((char*)"Sound Number", 320, v33, (*xadataclrd0dat.colorPalette_var28)[3840]);
@@ -44830,7 +44830,7 @@ void DrawGameDebugText_6FEC0()//250ec0
 		v35 = GetLetterHeight_6FC30() + v34;
 		DrawText_2BC10((char*)"Game turn", 320, v35, (*xadataclrd0dat.colorPalette_var28)[3840]);
 		v36 = GetLetterHeight_6FC30() + v35;
-		sprintf(printbuffer, "%d %d", D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].Turn_2BE0_11248, GameTimerTurn_17DB54);
+		sprintf(printbuffer, "%d %d", world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248, GameTimerTurn_17DB54);
 		DrawText_2BC10(printbuffer, 320, v36, (*xadataclrd0dat.colorPalette_var28)[15]);
 		v37 = GetLetterHeight_6FC30() + v36;
 		DrawText_2BC10((char*)"Thing", 320, v37, (*xadataclrd0dat.colorPalette_var28)[3840]);
@@ -44845,13 +44845,13 @@ void DrawGameDebugText_6FEC0()//250ec0
 		sprintf(printbuffer, "Tape %d", 38547);
 		DrawText_2BC10(printbuffer, 320, v41, (*xadataclrd0dat.colorPalette_var28)[15]);
 		v42 = GetLetterHeight_6FC30() + v41;
-		sprintf(printbuffer, "Heap %d", x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230);
+		sprintf(printbuffer, "Heap %d", gameState_D41A4.dword_0xE6_heapsize_230);
 		DrawText_2BC10(printbuffer, 320, v42, (*xadataclrd0dat.colorPalette_var28)[15]);
 		v43 = GetLetterHeight_6FC30() + v42;
 		//sub_85350();
 		DrawText_2BC10((char*)"Memory (Used/Free)", 320, v43, (*xadataclrd0dat.colorPalette_var28)[3840]);
 		v44 = GetLetterHeight_6FC30() + v43;
-		sprintf(printbuffer, "%d/%d", x_DWORD_17FEA8_mem_used, x_DWORD_17FEA4_mem_free);
+		sprintf(printbuffer, "%d/%d", memUsed_17FEA8, memFree_17FEA4);
 		DrawText_2BC10(printbuffer, 320, v44, (*xadataclrd0dat.colorPalette_var28)[15]);
 		/*v45 = (int*)&x_DWORD_17ECA0;
 		//LOWORD(result) = GetLetterHeight_6FC30();
@@ -44877,7 +44877,7 @@ void DrawGameDebugText_6FEC0()//250ec0
 		}
 		*/ //original allocations
 	}
-	if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].ShowDebugTextFlag_0x005_2BE0_11235 & 0x40)
+	if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ShowDebugTextFlag_0x005_2BE0_11235 & 0x40)
 	{
 		v50 = 6 * GetLetterHeight_6FC30();
 		DrawText_2BC10((char*)"THING", 10, v50, (*xadataclrd0dat.colorPalette_var28)[3840]);
@@ -44885,8 +44885,8 @@ void DrawGameDebugText_6FEC0()//250ec0
 		sprintf(
 			printbuffer,
 			"%ld / %ld",
-			(long)(intptr_t)x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396,
-			(long)(x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396 - D41A0_0.entities_0x6E8E));
+			(long)(intptr_t)gameState_D41A4.nearestEntity_38396,
+			(long)(gameState_D41A4.nearestEntity_38396 - world_D41A0.entities_0x6E8E));
 		DrawText_2BC10(printbuffer, 10, v51, (*xadataclrd0dat.colorPalette_var28)[255]);
 		v52 = GetLetterHeight_6FC30() + v51;
 		DrawText_2BC10((char*)"CLASS / MODEL / STATE", 10, v52, (*xadataclrd0dat.colorPalette_var28)[3840]);
@@ -44894,9 +44894,9 @@ void DrawGameDebugText_6FEC0()//250ec0
 		sprintf(
 			printbuffer,
 			"%hhd / %hhd / %hhu",
-			x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396->class_0x3F_63,
-			x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396->model_0x40_64,
-			x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396->actionIndex_0x45_69);
+			gameState_D41A4.nearestEntity_38396->class_0x3F_63,
+			gameState_D41A4.nearestEntity_38396->model_0x40_64,
+			gameState_D41A4.nearestEntity_38396->actionIndex_0x45_69);
 		DrawText_2BC10(printbuffer, 10, v53, (*xadataclrd0dat.colorPalette_var28)[255]);
 		v54 = GetLetterHeight_6FC30() + v53;
 		DrawText_2BC10((char*)"LIFE / MAX LIFE", 10, v54, (*xadataclrd0dat.colorPalette_var28)[3840]);
@@ -44904,8 +44904,8 @@ void DrawGameDebugText_6FEC0()//250ec0
 		sprintf(
 			printbuffer,
 			"%d / %d",
-			x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396->life_0x8,
-			x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396->maxLife_0x4);
+			gameState_D41A4.nearestEntity_38396->life_0x8,
+			gameState_D41A4.nearestEntity_38396->maxLife_0x4);
 		DrawText_2BC10(printbuffer, 10, v55, (*xadataclrd0dat.colorPalette_var28)[255]);
 		v56 = GetLetterHeight_6FC30() + v55;
 		DrawText_2BC10((char*)"SPEED ACTUAL / MINIMUM / MAXIMUM", 10, v56, (*xadataclrd0dat.colorPalette_var28)[3840]);
@@ -44913,9 +44913,9 @@ void DrawGameDebugText_6FEC0()//250ec0
 		sprintf(
 			printbuffer,
 			"%hd / %hd / %hd",
-			x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396->actSpeed_0x82_130,
-			x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396->minSpeed_0x84_132,
-			x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396->maxSpeed_0x86_134);
+			gameState_D41A4.nearestEntity_38396->actSpeed_0x82_130,
+			gameState_D41A4.nearestEntity_38396->minSpeed_0x84_132,
+			gameState_D41A4.nearestEntity_38396->maxSpeed_0x86_134);
 		DrawText_2BC10(printbuffer, 10, v57, (*xadataclrd0dat.colorPalette_var28)[255]);
 		v58 = GetLetterHeight_6FC30() + v57;
 		DrawText_2BC10((char*)"ACTUAL X / Y / Z", 10, v58, (*xadataclrd0dat.colorPalette_var28)[3840]);
@@ -44923,9 +44923,9 @@ void DrawGameDebugText_6FEC0()//250ec0
 		sprintf(
 			printbuffer,
 			"%hu / %hu / %hu",
-			x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396->position_0x4C_76.x,
-			x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396->position_0x4C_76.y,
-			x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396->position_0x4C_76.z);
+			gameState_D41A4.nearestEntity_38396->position_0x4C_76.x,
+			gameState_D41A4.nearestEntity_38396->position_0x4C_76.y,
+			gameState_D41A4.nearestEntity_38396->position_0x4C_76.z);
 		DrawText_2BC10(printbuffer, 10, v59, (*xadataclrd0dat.colorPalette_var28)[255]);
 		v60 = GetLetterHeight_6FC30() + v59;
 		DrawText_2BC10((char*)"ID / WHO OWNS ME", 10, v60, (*xadataclrd0dat.colorPalette_var28)[3840]);
@@ -44933,8 +44933,8 @@ void DrawGameDebugText_6FEC0()//250ec0
 		sprintf(
 			printbuffer,
 			"%hu / %hu",
-			x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396->id_0x1A_26,
-			x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396->parentId_0x28_40);
+			gameState_D41A4.nearestEntity_38396->id_0x1A_26,
+			gameState_D41A4.nearestEntity_38396->parentId_0x28_40);
 		DrawText_2BC10(printbuffer, 10, v61, (*xadataclrd0dat.colorPalette_var28)[255]);
 		v62 = GetLetterHeight_6FC30() + v61;
 		DrawText_2BC10((char*)"MANA ACTUAL / MAXIMUM", 10, v62, (*xadataclrd0dat.colorPalette_var28)[3840]);
@@ -44942,13 +44942,13 @@ void DrawGameDebugText_6FEC0()//250ec0
 		sprintf(
 			printbuffer,
 			"%d / %d",
-			x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396->mana_0x90_144,
-			x_D41A0_BYTEARRAY_4_struct.nearestEntity_38396->maxMana_0x8C_140);
+			gameState_D41A4.nearestEntity_38396->mana_0x90_144,
+			gameState_D41A4.nearestEntity_38396->maxMana_0x8C_140);
 		DrawText_2BC10(printbuffer, 10, v63, (*xadataclrd0dat.colorPalette_var28)[255]);
 		//LOWORD(result) = GetLetterHeight_6FC30();
 	}
-	if (x_D41A0_BYTEARRAY_4_struct.byteindex_53 == 16273849)
-		x_D41A0_BYTEARRAY_4_struct.cdFlags_52 |= 2u;
+	if (gameState_D41A4.byteindex_53 == 16273849)
+		gameState_D41A4.cdFlags_52 |= 2u;
 	//return result;
 }
 // 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
@@ -44959,26 +44959,26 @@ void DrawGameDebugText_6FEC0()//250ec0
 // E890F: using guessed type char x_BYTE_E890F;
 // E89FF: using guessed type char x_BYTE_E89FF;
 // E9800: using guessed type char x_BYTE_E9800;
-// E9C14: using guessed type int x_DWORD_E9C14;
-// E9C18: using guessed type int x_DWORD_E9C18;
+// E9C14: using guessed type int debugTurn_E9C14;
+// E9C18: using guessed type int debugLastTurn_E9C18;
 // E9C1C: using guessed type int x_DWORD_E9C1C;
-// E9C20: using guessed type int x_DWORD_E9C20;
-// E9C24: using guessed type int x_DWORD_E9C24_fps;
+// E9C20: using guessed type int debugLastValue_E9C20;
+// E9C24: using guessed type int debugFps_E9C24;
 // 17DB54: using guessed type int GameTimerTurn_17DB54;
 // 17E0A4: using guessed type int x_DWORD_17E0A4[];
 // 17ECA0: using guessed type int x_DWORD_17ECA0;
-// 17FEA4: using guessed type int x_DWORD_17FEA4_mem_free;
-// 17FEA8: using guessed type int x_DWORD_17FEA8_mem_used;
+// 17FEA4: using guessed type int memFree_17FEA4;
+// 17FEA8: using guessed type int memUsed_17FEA8;
 
 //----- (000713A0) --------------------------------------------------------
 void FreeTmapsAndAnimations_713A0()//2523a0
 {
-	FreeTmapCache_720C0(&x_DWORD_E9C28_str);
+	FreeTmapCache_720C0(&tmapCache_E9C28);
 	FreeAnimations_72550(&animations_E9C08x);
 	ClearUsedTmapFlags_716A0();
 	memset(m_ptrLoadedSprites_F66F0x, 0, 504 * sizeof(Type_Sprite**));
 	memset(str_F5F10, 0, 504 * sizeof(Type_Sprite**));
-	memset(x_DWORD_F5730, 0, 2016);
+	memset(tmapGroupLastUse_F5730, 0, 2016);
 	x_BYTE_DB738 = 0;
 	CloseTmaps_70BF0();
 }
@@ -45098,7 +45098,7 @@ void UpdateSpriteAnimations_715B0()//2525b0
 //----- (000716A0) --------------------------------------------------------
 void ClearUsedTmapFlags_716A0()//2526a0
 {
-	memset(x_BYTE_F5538, 0, 504);
+	memset(tmapGroupUsed_F5538, 0, 504);
 }
 
 //----- (000716C0) --------------------------------------------------------
@@ -45134,7 +45134,7 @@ void LoadEntitySprites_716C0(unsigned __int16 entityType, unsigned __int16 entit
 //----- (00071730) --------------------------------------------------------
 void MarkSpriteTmapUsed_71730(unsigned __int16 a1)//252730
 {
-	x_BYTE_F5538[str_TMAPS00TAB_BEGIN_BUFFER[spriteDefsTable_D951C[a1].textureIdx_0].group_8] = spriteDefsTable_D951C[a1].levelSpriteGroup_11;
+	tmapGroupUsed_F5538[str_TMAPS00TAB_BEGIN_BUFFER[spriteDefsTable_D951C[a1].textureIdx_0].group_8] = spriteDefsTable_D951C[a1].levelSpriteGroup_11;
 }
 
 //----- (00071780) --------------------------------------------------------
@@ -45144,14 +45144,14 @@ void ReloadSpritesForLevel_71780()//252780
 	uint8_t i; // bl
 	unsigned __int16 j; // si
 	char v6 = 0;
-	if (!x_DWORD_E9C28_str)
+	if (!tmapCache_E9C28)
 		InitTmapsAndSprites_712F0();
-	SetTmapsFile_71A70(D41A0_0.terrain_2FECE.MapType);
+	SetTmapsFile_71A70(world_D41A0.terrain_2FECE.MapType);
 	v0 = 0;
-	memset(x_DWORD_F5730, 0, 2016);
+	memset(tmapGroupLastUse_F5730, 0, 2016);
 	do
 	{
-		if (!x_BYTE_F5538[v0])
+		if (!tmapGroupUsed_F5538[v0])
 			ResetTmap_70D20(v0);
 		v0++;
 	} while (v0 < 0x1F8u);
@@ -45159,11 +45159,11 @@ void ReloadSpritesForLevel_71780()//252780
 	{
 		for (j = 0; j < 0x1F8u && !v6; j++)
 		{
-			if (i == x_BYTE_F5538[j] && !m_ptrLoadedSprites_F66F0x[j])
+			if (i == tmapGroupUsed_F5538[j] && !m_ptrLoadedSprites_F66F0x[j])
 			{
-				if (GetTmapCacheFreeSize_71E60(x_DWORD_E9C28_str) <= GetTmapGroupSize_70EF0(j))
+				if (GetTmapCacheFreeSize_71E60(tmapCache_E9C28) <= GetTmapGroupSize_70EF0(j))
 				{
-					if (GetTmapCacheFreeSize_71E60(x_DWORD_E9C28_str) < 0x400)
+					if (GetTmapCacheFreeSize_71E60(tmapCache_E9C28) < 0x400)
 						v6 = 1;
 				}
 				else
@@ -45475,13 +45475,13 @@ int InitVrTracker_75440()
 	{
 		v1 = v0 << 8;
 		LOWORD(v1) = ((x_WORD)v0 << 8) | 0x7F;
-		memset(unk_17D6D4ar, 0, 50);
-		*(int32_t*)&unk_17D6D4ar[28] = v1;
-		*(int32_t*)&unk_17D6D4ar[16] = 0;
-		*(int32_t*)&unk_17D6D4ar[24] = 0;
-		*(int32_t*)&unk_17D6D4ar[20] = 0;
-		//sub_75AE0((int)unk_17D6D4ar);
-		if ((v0 | 0x7F00) == *(int32_t*)&unk_17D6D4ar[28])
+		memset(vrBuffer_17D6D4, 0, 50);
+		*(int32_t*)&vrBuffer_17D6D4[28] = v1;
+		*(int32_t*)&vrBuffer_17D6D4[16] = 0;
+		*(int32_t*)&vrBuffer_17D6D4[24] = 0;
+		*(int32_t*)&vrBuffer_17D6D4[20] = 0;
+		//sub_75AE0((int)vrBuffer_17D6D4);
+		if ((v0 | 0x7F00) == *(int32_t*)&vrBuffer_17D6D4[28])
 			return v1 & 0xFF00;
 		++v0;
 	} while (v0 <= 112);
@@ -45500,22 +45500,22 @@ int VrSendCommand3_754C0(int a1, x_DWORD* a2, uint8_t* a3)
 	int v4; // ecx
 	int i; // eax
 
-	memset(unk_17D6D4ar, 0, 50);
+	memset(vrBuffer_17D6D4, 0, 50);
 	v3 = a1;
 	LOBYTE(v3) = a1 | 3;
-	*(int32_t*)&unk_17D6D4ar[24] = 0;
-	*(int32_t*)&unk_17D6D4ar[28] = v3;
-	*(int32_t*)&unk_17D6D4ar[20] = 0;
-	*(int16_t*)&unk_17D6D4ar[34] = *(int16_t*)&unk_17D6D4ar[28];
-	//sub_75AE0((int)unk_17D6D4ar);
-	v4 = x_DWORD_17D6C8;
-	for (i = 0; i < *(int32_t*)&unk_17D6D4ar[24]; *(x_BYTE*)(a3 + i - 1) = *(x_BYTE*)(v4 + i - 1))
+	*(int32_t*)&vrBuffer_17D6D4[24] = 0;
+	*(int32_t*)&vrBuffer_17D6D4[28] = v3;
+	*(int32_t*)&vrBuffer_17D6D4[20] = 0;
+	*(int16_t*)&vrBuffer_17D6D4[34] = *(int16_t*)&vrBuffer_17D6D4[28];
+	//sub_75AE0((int)vrBuffer_17D6D4);
+	v4 = vrMemBlock_17D6C8;
+	for (i = 0; i < *(int32_t*)&vrBuffer_17D6D4[24]; *(x_BYTE*)(a3 + i - 1) = *(x_BYTE*)(v4 + i - 1))
 		++i;
-	*a2 = *(int32_t*)&unk_17D6D4ar[24];
-	return *(int32_t*)&unk_17D6D4ar[28];
+	*a2 = *(int32_t*)&vrBuffer_17D6D4[24];
+	return *(int32_t*)&vrBuffer_17D6D4[28];
 }
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 17D6C8: using guessed type int x_DWORD_17D6C8;
+// 17D6C8: using guessed type int vrMemBlock_17D6C8;
 // 17D6E8: using guessed type int x_DWORD_17D6E8;
 // 17D6EC: using guessed type int x_DWORD_17D6EC;
 // 17D6F0: using guessed type int x_DWORD_17D6F0;
@@ -45529,22 +45529,22 @@ int VrReadData_75540(int a1, uint8_t* a2)
 	signed int v3; // eax
 	int v4; // eax
 
-	v2 = x_DWORD_17D6C8;
+	v2 = vrMemBlock_17D6C8;
 	v3 = 0;
 	do
 	{
 		++v3;
 		*(x_BYTE*)(v2 + v3 - 1) = *(x_BYTE*)(a2 + v3 - 1);
 	} while (v3 < 256);
-	memset(unk_17D6D4ar, 0, 50);
+	memset(vrBuffer_17D6D4, 0, 50);
 	v4 = a1;
 	LOBYTE(v4) = a1 | 4;
-	*(int32_t*)&unk_17D6D4ar[24] = 0;
-	*(int32_t*)&unk_17D6D4ar[28] = v4;
-	*(int32_t*)&unk_17D6D4ar[20] = 0;
-	*(int16_t*)&unk_17D6D4ar[34] = *(int16_t*)&unk_17D6D4ar[28];
-	//sub_75AE0((int)unk_17D6D4ar);
-	return *(int32_t*)&unk_17D6D4ar[28];
+	*(int32_t*)&vrBuffer_17D6D4[24] = 0;
+	*(int32_t*)&vrBuffer_17D6D4[28] = v4;
+	*(int32_t*)&vrBuffer_17D6D4[20] = 0;
+	*(int16_t*)&vrBuffer_17D6D4[34] = *(int16_t*)&vrBuffer_17D6D4[28];
+	//sub_75AE0((int)vrBuffer_17D6D4);
+	return *(int32_t*)&vrBuffer_17D6D4[28];
 }
 
 //----- (000755B0) --------------------------------------------------------
@@ -45554,22 +45554,22 @@ int VrSendCommand5_755B0(int a1, x_DWORD* a2, uint8_t* a3)
 	int v4; // ecx
 	int i; // eax
 
-	memset(unk_17D6D4ar, 0, 50);
+	memset(vrBuffer_17D6D4, 0, 50);
 	v3 = a1;
 	LOBYTE(v3) = a1 | 5;
-	*(int32_t*)&unk_17D6D4ar[24] = 0;
-	*(int32_t*)&unk_17D6D4ar[28] = v3;
-	*(int32_t*)&unk_17D6D4ar[20] = 0;
-	*(int16_t*)&unk_17D6D4ar[34] = *(int16_t*)&unk_17D6D4ar[28];
-	//sub_75AE0((int)unk_17D6D4ar);
-	v4 = x_DWORD_17D6C8;
-	for (i = 0; i < *(int32_t*)&unk_17D6D4ar[24]; *(x_BYTE*)(a3 + i - 1) = *(x_BYTE*)(v4 + i - 1))
+	*(int32_t*)&vrBuffer_17D6D4[24] = 0;
+	*(int32_t*)&vrBuffer_17D6D4[28] = v3;
+	*(int32_t*)&vrBuffer_17D6D4[20] = 0;
+	*(int16_t*)&vrBuffer_17D6D4[34] = *(int16_t*)&vrBuffer_17D6D4[28];
+	//sub_75AE0((int)vrBuffer_17D6D4);
+	v4 = vrMemBlock_17D6C8;
+	for (i = 0; i < *(int32_t*)&vrBuffer_17D6D4[24]; *(x_BYTE*)(a3 + i - 1) = *(x_BYTE*)(v4 + i - 1))
 		++i;
-	*a2 = *(int32_t*)&unk_17D6D4ar[24];
-	return *(int32_t*)&unk_17D6D4ar[28];
+	*a2 = *(int32_t*)&vrBuffer_17D6D4[24];
+	return *(int32_t*)&vrBuffer_17D6D4[28];
 }
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 17D6C8: using guessed type int x_DWORD_17D6C8;
+// 17D6C8: using guessed type int vrMemBlock_17D6C8;
 // 17D6E8: using guessed type int x_DWORD_17D6E8;
 // 17D6EC: using guessed type int x_DWORD_17D6EC;
 // 17D6F0: using guessed type int x_DWORD_17D6F0;
@@ -45597,54 +45597,54 @@ bool DetectVrDevice_75650()//VR something
 
 	uint16 __DS__ = 0;
 
-	memset(x_WORD_17D6CCar, 0, 6);
-	memset(x_WORD_17D70Aar, 0, 7);
-	x_DWORD_17D6C8 = AllocMemBlock_75B80(256, (int16_t*)&unk_17D6D4ar[28], (int16_t*)&unk_17D6D4ar[50]);
-	if (!x_DWORD_17D6C8)
+	memset(vrJoystick_17D6CC, 0, 6);
+	memset(vrData_17D70A, 0, 7);
+	vrMemBlock_17D6C8 = AllocMemBlock_75B80(256, (int16_t*)&vrBuffer_17D6D4[28], (int16_t*)&vrBuffer_17D6D4[50]);
+	if (!vrMemBlock_17D6C8)
 		return false;
 	v1 = mygetenv("VIPPORT");
 	if (v1)
 	{
-		x_DWORD_17D6B0 = StringToLong2_99FF0((char*)v1, (char**)&v15, 16);
-		x_DWORD_17D6A0 = x_DWORD_17D6B0 + 1;
+		vrPort_17D6B0 = StringToLong2_99FF0((char*)v1, (char**)&v15, 16);
+		vrPortNext_17D6A0 = vrPort_17D6B0 + 1;
 		v2 = InitVrTracker_75440();
-		x_DWORD_17D640 = v2;
-		if (!v2 || VrSendCommand3_754C0(v2, &x_DWORD_17D648, (uint8_t*)x_BYTE_17D440))
+		vrHandle_17D640 = v2;
+		if (!v2 || VrSendCommand3_754C0(v2, &vrDataSize_17D648, (uint8_t*)vrDeviceInfo_17D440))
 		{
 			ResetVrDevice_75AB0();
 			return false;
 		}
-		x_DWORD_17D644 = 0;
-		x_DWORD_17D6A8 = 0;
-		x_DWORD_17D698 = 0;
-		x_DWORD_17D6AC = unk_17D540;
-		while (x_DWORD_17D698 < x_DWORD_17D648)
+		vrIndex_17D644 = 0;
+		vrIndex2_17D6A8 = 0;
+		vrDataPos_17D698 = 0;
+		vrBufferPtr_17D6AC = unk_17D540;
+		while (vrDataPos_17D698 < vrDataSize_17D648)
 		{
-			x_DWORD_17D6A4 = x_BYTE_17D440[x_DWORD_17D698];
-			v3 = &x_BYTE_17D440[x_DWORD_17D698];
-			switch (x_BYTE_17D440[x_DWORD_17D698 + 1])
+			vrRecordSize_17D6A4 = vrDeviceInfo_17D440[vrDataPos_17D698];
+			v3 = &vrDeviceInfo_17D440[vrDataPos_17D698];
+			switch (vrDeviceInfo_17D440[vrDataPos_17D698 + 1])
 			{
 			case 0:
-				x_DWORD_17D698 = x_DWORD_17D648;
+				vrDataPos_17D698 = vrDataSize_17D648;
 				break;
 			case 1:
-				x_DWORD_17D6C0 = &x_BYTE_17D440[x_DWORD_17D698];
+				vrRecord3_17D6C0 = &vrDeviceInfo_17D440[vrDataPos_17D698];
 				break;
 			case 2:
-				x_DWORD_17D6B8 = &x_BYTE_17D440[x_DWORD_17D698];
+				vrRecord1_17D6B8 = &vrDeviceInfo_17D440[vrDataPos_17D698];
 				byte_17D711 = strcmp(v3 + 34, "VFX1 CyberPuck") == 0;
 				break;
 			case 6:
-				if (x_DWORD_17D6A8 < 6)
+				if (vrIndex2_17D6A8 < 6)
 				{
-					v4 = x_DWORD_17D6A8;
-					v5 = 3 * x_DWORD_17D6A8;
-					v6 = x_DWORD_17D6AC;
-					x_DWORD_17D6C4 = &x_BYTE_17D440[x_DWORD_17D698];
-					*(_WORD*)&x_BYTE_17D674[2 * v5 + 4] = __DS__;
-					*(uint8_t**)&x_BYTE_17D674[2 * v5] = v6;
-					x_DWORD_17D6A8 = (int)(v4 + 1);
-					x_DWORD_17D6AC = v6 + 6;
+					v4 = vrIndex2_17D6A8;
+					v5 = 3 * vrIndex2_17D6A8;
+					v6 = vrBufferPtr_17D6AC;
+					vrRecord4_17D6C4 = &vrDeviceInfo_17D440[vrDataPos_17D698];
+					*(_WORD*)&vrPointer2_17D674[2 * v5 + 4] = __DS__;
+					*(uint8_t**)&vrPointer2_17D674[2 * v5] = v6;
+					vrIndex2_17D6A8 = (int)(v4 + 1);
+					vrBufferPtr_17D6AC = v6 + 6;
 					if (byte_17D711)
 					{
 						v7 = v3[14];
@@ -45656,16 +45656,16 @@ bool DetectVrDevice_75650()//VR something
 				}
 				break;
 			case 7:
-				if (x_DWORD_17D644 < 6)
+				if (vrIndex_17D644 < 6)
 				{
-					v9 = x_DWORD_17D6AC;
-					v10 = 3 * x_DWORD_17D644;
-					x_DWORD_17D6BC = &x_BYTE_17D440[x_DWORD_17D698];
-					v11 = x_DWORD_17D644 + 1;
-					*(uint8_t**)&x_BYTE_17D650[2 * v10] = x_DWORD_17D6AC;
-					*(_WORD*)&x_BYTE_17D650[2 * v10 + 4] = __DS__;
-					x_DWORD_17D6AC = v9 + 7;
-					x_DWORD_17D644 = v11;
+					v9 = vrBufferPtr_17D6AC;
+					v10 = 3 * vrIndex_17D644;
+					vrRecord2_17D6BC = &vrDeviceInfo_17D440[vrDataPos_17D698];
+					v11 = vrIndex_17D644 + 1;
+					*(uint8_t**)&vrPointer1_17D650[2 * v10] = vrBufferPtr_17D6AC;
+					*(_WORD*)&vrPointer1_17D650[2 * v10 + 4] = __DS__;
+					vrBufferPtr_17D6AC = v9 + 7;
+					vrIndex_17D644 = v11;
 					if (byte_17D711)
 					{
 						v12 = v3[22];
@@ -45681,9 +45681,9 @@ bool DetectVrDevice_75650()//VR something
 			default:
 				break;
 			}
-			x_DWORD_17D698 += x_DWORD_17D6A4;
+			vrDataPos_17D698 += vrRecordSize_17D6A4;
 		}
-		if (VrReadData_75540(x_DWORD_17D640, (uint8_t*)x_BYTE_17D440))
+		if (VrReadData_75540(vrHandle_17D640, (uint8_t*)vrDeviceInfo_17D440))
 		{
 		LABEL_22:
 			ResetVrDevice_75AB0();
@@ -45691,16 +45691,16 @@ bool DetectVrDevice_75650()//VR something
 		}
 		else
 		{
-			if (x_DWORD_17D6A8)
-				x_BYTE_E12EC = 1;
-			if (x_DWORD_17D644)
-				x_BYTE_E12ED = 1;
+			if (vrIndex2_17D6A8)
+				vrDeviceActive_E12EC = 1;
+			if (vrIndex_17D644)
+				vrDeviceDetected_E12ED = 1;
 			return true;
 		}
 	}
 	else
 	{
-		x_DWORD_17D6B0 = 768;
+		vrPort_17D6B0 = 768;
 		ResetVrDevice_75AB0();
 		return false;
 	}
@@ -45713,29 +45713,29 @@ signed int ShutdownVrDevice_75910()
 	unsigned __int16 v1; // ax
 	unsigned __int8 v2; // al
 
-	if (VrSendCommand5_755B0(x_DWORD_17D640, &x_DWORD_17D648, unk_17D540))
+	if (VrSendCommand5_755B0(vrHandle_17D640, &vrDataSize_17D648, unk_17D540))
 	{
 		ResetVrDevice_75AB0();
 		result = 0;
 	}
 	else
 	{
-		if (x_BYTE_E12EC)
+		if (vrDeviceActive_E12EC)
 		{
-			//__GS__ = *(x_WORD *)&x_BYTE_17D674[4];
-			x_WORD_17D6CCar[0] = __readgsx_WORD(*(unsigned int*)x_BYTE_17D674);
-			v1 = __readgsx_WORD(*(x_DWORD*)x_BYTE_17D674 + 4);
-			x_WORD_17D6CCar[1] = __readgsx_WORD(*(x_DWORD*)x_BYTE_17D674 + 2);
-			x_WORD_17D6CCar[2] = v1;
+			//__GS__ = *(x_WORD *)&vrPointer2_17D674[4];
+			vrJoystick_17D6CC[0] = __readgsx_WORD(*(unsigned int*)vrPointer2_17D674);
+			v1 = __readgsx_WORD(*(x_DWORD*)vrPointer2_17D674 + 4);
+			vrJoystick_17D6CC[1] = __readgsx_WORD(*(x_DWORD*)vrPointer2_17D674 + 2);
+			vrJoystick_17D6CC[2] = v1;
 		}
-		if (x_BYTE_E12ED)
+		if (vrDeviceDetected_E12ED)
 		{
-			//__GS__ = *(x_WORD *)&x_BYTE_17D650[4];
-			*(int16_t*)&x_WORD_17D70Aar[0] = __readgsx_WORD(*(unsigned int*)x_BYTE_17D650);
-			*(int16_t*)&x_WORD_17D70Aar[2] = __readgsx_WORD(*(x_DWORD*)x_BYTE_17D650 + 2);
-			v2 = __readgsx_BYTE(*(x_DWORD*)x_BYTE_17D650 + 6);
-			*(int16_t*)&x_WORD_17D70Aar[4] = __readgsx_WORD(*(x_DWORD*)x_BYTE_17D650 + 4);
-			x_WORD_17D70Aar[6] = v2;
+			//__GS__ = *(x_WORD *)&vrPointer1_17D650[4];
+			*(int16_t*)&vrData_17D70A[0] = __readgsx_WORD(*(unsigned int*)vrPointer1_17D650);
+			*(int16_t*)&vrData_17D70A[2] = __readgsx_WORD(*(x_DWORD*)vrPointer1_17D650 + 2);
+			v2 = __readgsx_BYTE(*(x_DWORD*)vrPointer1_17D650 + 6);
+			*(int16_t*)&vrData_17D70A[4] = __readgsx_WORD(*(x_DWORD*)vrPointer1_17D650 + 4);
+			vrData_17D70A[6] = v2;
 		}
 		result = 1;
 	}
@@ -45749,17 +45749,17 @@ void SetMouseMinMaxVert_759B0()
 	__int16 v1; // [esp+0h] [ebp-1Ch]
 	unsigned __int16 v2; // [esp+4h] [ebp-18h]
 
-	if (x_BYTE_E12EC)
+	if (vrDeviceActive_E12EC)
 	{
 		memset(&v1, 0, 28);
 		v1 = 0x6008;
-		v2 = bswap_16(*(x_WORD*)(x_DWORD_17D6C4 + 2));
+		v2 = bswap_16(*(x_WORD*)(vrRecord4_17D6C4 + 2));
 	}
 	//return result;
 }
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// E12EC: using guessed type char x_BYTE_E12EC;
-// 17D6C4: using guessed type int x_DWORD_17D6C4;
+// E12EC: using guessed type char vrDeviceActive_E12EC;
+// 17D6C4: using guessed type int vrRecord4_17D6C4;
 
 //----- (00075A10) --------------------------------------------------------
 unsigned __int8 ReadVrPort_75A10(int a1, unsigned __int8* a2)//256a10 // fix
@@ -45778,10 +45778,10 @@ unsigned __int8 ReadVrPort_75A10(int a1, unsigned __int8* a2)//256a10 // fix
 
 	v2 = 0;//fix
 
-	/*__outx_BYTE(x_DWORD_17D6B0, 7u);
-	__outx_BYTE(x_DWORD_17D6A0, 0xFFu);
-	__outx_BYTE(x_DWORD_17D6B0, 6u);
-	v2 = __inx_BYTE(x_DWORD_17D6A0);*/
+	/*__outx_BYTE(vrPort_17D6B0, 7u);
+	__outx_BYTE(vrPortNext_17D6A0, 0xFFu);
+	__outx_BYTE(vrPort_17D6B0, 6u);
+	v2 = __inx_BYTE(vrPortNext_17D6A0);*/
 	v3 = a2;
 	v4 = v2 & 0xF8;
 	//if (a1)
@@ -45795,41 +45795,41 @@ unsigned __int8 ReadVrPort_75A10(int a1, unsigned __int8* a2)//256a10 // fix
 	//{
 	//	v5 = v4 | 3;
 	//}
-	/*__outx_BYTE(x_DWORD_17D6A0, v5);
-	__outx_BYTE(x_DWORD_17D6B0, 9u);
-	__outx_BYTE(x_DWORD_17D6A0, 0);*/
+	/*__outx_BYTE(vrPortNext_17D6A0, v5);
+	__outx_BYTE(vrPort_17D6B0, 9u);
+	__outx_BYTE(vrPortNext_17D6A0, 0);*/
 	v6 = 0;
-	//__outx_BYTE(x_DWORD_17D6B0, 0xAu);
+	//__outx_BYTE(vrPort_17D6B0, 0xAu);
 	do
 	{
 		//v7 = *v3;
 		v8 = v3 + 1;
-		//__outx_BYTE(x_DWORD_17D6A0, v7);
+		//__outx_BYTE(vrPortNext_17D6A0, v7);
 		v9 = *v8++;
-		//__outx_BYTE(x_DWORD_17D6A0, v9);
+		//__outx_BYTE(vrPortNext_17D6A0, v9);
 		++v6;
 		result = *v8;
 		v3 = v8 + 1;
-		//__outx_BYTE(x_DWORD_17D6A0, result);
+		//__outx_BYTE(vrPortNext_17D6A0, result);
 	} while (v6 < 256);
 	return result;
 }
-// 17D6A0: using guessed type int x_DWORD_17D6A0;
-// 17D6B0: using guessed type int x_DWORD_17D6B0;
+// 17D6A0: using guessed type int vrPortNext_17D6A0;
+// 17D6B0: using guessed type int vrPort_17D6B0;
 
 //----- (00075AB0) --------------------------------------------------------
 void ResetVrDevice_75AB0()
 {
 	//int result; // eax
 
-	if (x_DWORD_17D6C8)
+	if (vrMemBlock_17D6C8)
 	{
-		//removed sub_75B50(*(int16_t*)&unk_17D6D4ar[50]);
-		x_DWORD_17D6C8 = 0;
+		//removed sub_75B50(*(int16_t*)&vrBuffer_17D6D4[50]);
+		vrMemBlock_17D6C8 = 0;
 	}
 	//return result;
 }
-// 17D6C8: using guessed type int x_DWORD_17D6C8;
+// 17D6C8: using guessed type int vrMemBlock_17D6C8;
 // 17D706: using guessed type __int16 x_WORD_17D706;
 
 //----- (00075AE0) --------------------------------------------------------
@@ -45891,35 +45891,35 @@ int AllocMemBlock_75B80(int a1, x_WORD* a2, x_WORD* a3)//see: https://github.com
 //----- (000765FC) --------------------------------------------------------
 void SetAnimationPosition_765FC(__int16 a1, __int16 a2)
 {
-	x_WORD_E130E = a1;
-	x_WORD_E1310 = a2;
+	animPosX_E130E = a1;
+	animPosY_E1310 = a2;
 }
-// E130E: using guessed type __int16 x_WORD_E130E;
-// E1310: using guessed type __int16 x_WORD_E1310;
+// E130E: using guessed type __int16 animPosX_E130E;
+// E1310: using guessed type __int16 animPosY_E1310;
 
 //----- (00076619) --------------------------------------------------------
 int8_t* DecodeAnimationFrame_76619(int8_t* a1x, int8_t* a2x)//animate sprite
 {
-	x_BYTE_E1308 = a1x;
-	x_BYTE_E1304 = a2x;
+	animStreamPos_E1308 = a1x;
+	animFrameBase_E1304 = a2x;
 	while (1)
 	{
-		qmemcpy(x_WORD_E1312ar, (void*)x_BYTE_E1308, 4u);
-		x_BYTE_E1308 += 4;
-		qmemcpy(&x_WORD_E130C, (void*)x_BYTE_E1308, sizeof(x_WORD_E130C));
-		x_BYTE_E1308 += 2;
-		if (x_WORD_E130C != 0xAF12)
+		qmemcpy(animChunkSize_E1312, (void*)animStreamPos_E1308, 4u);
+		animStreamPos_E1308 += 4;
+		qmemcpy(&animChunkType_E130C, (void*)animStreamPos_E1308, sizeof(animChunkType_E130C));
+		animStreamPos_E1308 += 2;
+		if (animChunkType_E130C != 0xAF12)
 			break;
 		ReadAnimationPosition_76752();
 	}
-	if (x_WORD_E130C != 0xF1FA)
+	if (animChunkType_E130C != 0xF1FA)
 		return 0;
 	DecodeAnimationChunks_766A4();
-	return x_BYTE_E1308;
+	return animStreamPos_E1308;
 }
 // E1304: using guessed type int x_DWORD_E1304;
 // E1308: using guessed type int x_DWORD_E1308;
-// E130C: using guessed type __int16 x_WORD_E130C;
+// E130C: using guessed type __int16 animChunkType_E130C;
 // E1312: using guessed type __int16 x_WORD_E1312;
 
 //----- (000766A4) --------------------------------------------------------
@@ -45927,17 +45927,17 @@ void DecodeAnimationChunks_766A4()//animate sprite
 {
 	__int16 result; // ax
 
-	qmemcpy(&x_WORD_E1316, (void*)x_BYTE_E1308, sizeof(x_WORD_E1316));
-	x_BYTE_E1308 += 2;
-	x_BYTE_E1308 += 8;
-	while (x_WORD_E1316)
+	qmemcpy(&animChunkCount_E1316, (void*)animStreamPos_E1308, sizeof(animChunkCount_E1316));
+	animStreamPos_E1308 += 2;
+	animStreamPos_E1308 += 8;
+	while (animChunkCount_E1316)
 	{
-		--x_WORD_E1316;
-		qmemcpy(x_WORD_E1312ar, (void*)x_BYTE_E1308, 4u);
-		x_BYTE_E1308 += 4;
-		qmemcpy(&x_WORD_E130C, (void*)x_BYTE_E1308, sizeof(x_WORD_E130C));
-		x_BYTE_E1308 += 2;
-		switch (x_WORD_E130C)
+		--animChunkCount_E1316;
+		qmemcpy(animChunkSize_E1312, (void*)animStreamPos_E1308, 4u);
+		animStreamPos_E1308 += 4;
+		qmemcpy(&animChunkType_E130C, (void*)animStreamPos_E1308, sizeof(animChunkType_E130C));
+		animStreamPos_E1308 += 2;
+		switch (animChunkType_E130C)
 		{
 		case 7:
 			result = DecodeAnimationDelta_7678D();
@@ -45956,32 +45956,32 @@ void DecodeAnimationChunks_766A4()//animate sprite
 	//return result;
 }
 // E1308: using guessed type int x_DWORD_E1308;
-// E130C: using guessed type __int16 x_WORD_E130C;
+// E130C: using guessed type __int16 animChunkType_E130C;
 // E1312: using guessed type __int16 x_WORD_E1312;
-// E1316: using guessed type __int16 x_WORD_E1316;
+// E1316: using guessed type __int16 animChunkCount_E1316;
 
 //----- (00076752) --------------------------------------------------------
 __int16 ReadAnimationPosition_76752()
 {
 	__int16 result; // ax
 
-	x_WORD_E130E = *(x_WORD*)(x_BYTE_E1308 + 2);
-	result = *(x_WORD*)(x_BYTE_E1308 + 4);
-	x_WORD_E1310 = *(x_WORD*)(x_BYTE_E1308 + 4);
-	x_BYTE_E1308 += 6;
+	animPosX_E130E = *(x_WORD*)(animStreamPos_E1308 + 2);
+	result = *(x_WORD*)(animStreamPos_E1308 + 4);
+	animPosY_E1310 = *(x_WORD*)(animStreamPos_E1308 + 4);
+	animStreamPos_E1308 += 6;
 	return result;
 }
 // E1308: using guessed type int x_DWORD_E1308;
-// E130E: using guessed type __int16 x_WORD_E130E;
-// E1310: using guessed type __int16 x_WORD_E1310;
+// E130E: using guessed type __int16 animPosX_E130E;
+// E1310: using guessed type __int16 animPosY_E1310;
 
 //----- (0007677C) --------------------------------------------------------
 int SkipAnimationChunk_7677C()
 {
 	int result; // eax
 
-	result = (unsigned __int16)x_WORD_E1312ar[0] - 6;
-	x_BYTE_E1308 += result;
+	result = (unsigned __int16)animChunkSize_E1312[0] - 6;
+	animStreamPos_E1308 += result;
 	return result;
 }
 // E1308: using guessed type int x_DWORD_E1308;
@@ -46002,10 +46002,10 @@ __int16 DecodeAnimationDelta_7678D()//animate sprite
 	__int16 v9; // [esp+8h] [ebp-8h]
 	int v10; // [esp+Ch] [ebp-4h]
 
-	v10 = (unsigned __int16)x_WORD_E130E;
-	v0 = (x_WORD*)x_BYTE_E1304;
-	v1 = (x_WORD*)(x_BYTE_E1308 + 2);
-	v9 = *(x_WORD*)x_BYTE_E1308;
+	v10 = (unsigned __int16)animPosX_E130E;
+	v0 = (x_WORD*)animFrameBase_E1304;
+	v1 = (x_WORD*)(animStreamPos_E1308 + 2);
+	v9 = *(x_WORD*)animStreamPos_E1308;
 	do
 	{
 		while (1)
@@ -46021,7 +46021,7 @@ __int16 DecodeAnimationDelta_7678D()//animate sprite
 		}
 		v6 = v0;
 		v3 = (char*)v0 + v10 - 1;
-		if (x_BYTE_E2A20 == 1)
+		if (animDecodeMode_E2A20 == 1)
 		{
 			if ((x_BYTE)result)
 				*v3 = result;
@@ -46067,15 +46067,15 @@ __int16 DecodeAnimationDelta_7678D()//animate sprite
 		v0 = (x_WORD*)((char*)v7 + v10);
 		--v9;
 	} while (v9);
-	x_BYTE_E1308 = (int8_t*)v1;
+	animStreamPos_E1308 = (int8_t*)v1;
 	return result;
 }
 // E1304: using guessed type int x_DWORD_E1304;
 // E1308: using guessed type int x_DWORD_E1308;
-// E130E: using guessed type __int16 x_WORD_E130E;
-// E1310: using guessed type __int16 x_WORD_E1310;
+// E130E: using guessed type __int16 animPosX_E130E;
+// E1310: using guessed type __int16 animPosY_E1310;
 // E1312: using guessed type __int16 x_WORD_E1312;
-// E2A20: using guessed type char x_BYTE_E2A20;
+// E2A20: using guessed type char animDecodeMode_E2A20;
 
 //----- (00076840) --------------------------------------------------------
 int DecodeAnimationRun_76840()
@@ -46093,12 +46093,12 @@ int DecodeAnimationRun_76840()
 	int v10; // [esp-4h] [ebp-8h]
 	__int16 v11; // [esp+2h] [ebp-2h]
 
-	v11 = x_WORD_E130E;
-	v0 = x_BYTE_E1304;
-	v1 = x_BYTE_E1308;
-	v10 = (unsigned __int16)x_WORD_E1312ar[0] - 6;
-	v9x = x_BYTE_E1308;
-	v2 = x_WORD_E1310;
+	v11 = animPosX_E130E;
+	v0 = animFrameBase_E1304;
+	v1 = animStreamPos_E1308;
+	v10 = (unsigned __int16)animChunkSize_E1312[0] - 6;
+	v9x = animStreamPos_E1308;
+	v2 = animPosY_E1310;
 	do
 	{
 		++v1;
@@ -46121,7 +46121,7 @@ int DecodeAnimationRun_76840()
 				v7 = *v1++;
 				do
 				{
-					if (x_BYTE_E2A20 == 1)
+					if (animDecodeMode_E2A20 == 1)
 					{
 						if (v7)
 							*v0 = v7;
@@ -46139,7 +46139,7 @@ int DecodeAnimationRun_76840()
 				do
 				{
 					v6 = *v1++;
-					if (x_BYTE_E2A20 == 1)
+					if (animDecodeMode_E2A20 == 1)
 					{
 						if (v6)
 							*v0 = v6;
@@ -46156,15 +46156,15 @@ int DecodeAnimationRun_76840()
 		--v2;
 	} while (v2);
 	result = v10;
-	x_BYTE_E1308 = v10 + v9x;
+	animStreamPos_E1308 = v10 + v9x;
 	return result;
 }
 // E1304: using guessed type int x_DWORD_E1304;
 // E1308: using guessed type int x_DWORD_E1308;
-// E130E: using guessed type __int16 x_WORD_E130E;
-// E1310: using guessed type __int16 x_WORD_E1310;
+// E130E: using guessed type __int16 animPosX_E130E;
+// E1310: using guessed type __int16 animPosY_E1310;
 // E1312: using guessed type __int16 x_WORD_E1312;
-// E2A20: using guessed type char x_BYTE_E2A20;
+// E2A20: using guessed type char animDecodeMode_E2A20;
 
 
 /*void Debug_Blit()
@@ -46175,18 +46175,18 @@ int DecodeAnimationRun_76840()
 //----- (0007A060) --------------------------------------------------------
 void GetMouseAndKeyboardEvents_7A060()//25B060
 {
-	x_DWORD_17DE38str.mouseButtons_17DEEE = 0;
-	if (x_WORD_180746_mouse_left_button)
-		x_DWORD_17DE38str.mouseButtons_17DEEE |= 1;
-	if (x_WORD_180744_mouse_right_button)
-		x_DWORD_17DE38str.mouseButtons_17DEEE |= 2;
-	x_DWORD_17DE38str.mouseX_17DEE4 = x_WORD_E3760_mouse.x;//2b4760
-	x_DWORD_17DE38str.mouseY_17DEE6 = x_WORD_E3760_mouse.y;//2b4762
+	menuState_17DE38.mouseButtons_17DEEE = 0;
+	if (mouseLeftButton_180746)
+		menuState_17DE38.mouseButtons_17DEEE |= 1;
+	if (mouseRightButton_180744)
+		menuState_17DE38.mouseButtons_17DEEE |= 2;
+	menuState_17DE38.mouseX_17DEE4 = mouse_E3760.x;//2b4760
+	menuState_17DE38.mouseY_17DEE6 = mouse_E3760.y;//2b4762
 	ReadKeyboardKeysInMenu_7C050();
-	x_WORD_180744_mouse_right_button = 0;
-	x_WORD_180746_mouse_left_button = 0;
-	x_WORD_18074A_mouse_right2_button = 0;
-	x_WORD_18074C_mouse_left2_button = 0;
+	mouseRightButton_180744 = 0;
+	mouseLeftButton_180746 = 0;
+	mouseRightButton2_18074A = 0;
+	mouseLeftButton2_18074C = 0;
 }
 
 //----- (0007A110) --------------------------------------------------------
@@ -46195,12 +46195,12 @@ void LoadHscreen_7A110(char a1, char a2)//25b110
 	char dataPath[MAX_PATH];
 	//int v2; // eax
 
-	x_DWORD_17DE38str.palette_17DE38x = (TColor*)*xadatapald0dat2.colorPalette_var28;
-	x_DWORD_17DE38str.x_WORD_17DEEC = 0;
-	x_DWORD_17DE38str.screenBuffer_17DE40 = pdwScreenBuffer_351628;
-	x_DWORD_17DE38str.fileHandle_17DEE0 = NULL;
-	x_DWORD_17DE38str.fileOffset_17DEDC = 0;
-	x_DWORD_17DE38str.menuSpritesData_17DE48c = x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226;
+	menuState_17DE38.palette_17DE38x = (TColor*)*xadatapald0dat2.colorPalette_var28;
+	menuState_17DE38.x_WORD_17DEEC = 0;
+	menuState_17DE38.screenBuffer_17DE40 = pdwScreenBuffer_351628;
+	menuState_17DE38.fileHandle_17DEE0 = NULL;
+	menuState_17DE38.fileOffset_17DEDC = 0;
+	menuState_17DE38.menuSpritesData_17DE48c = gameState_D41A4.pointer_0xE2_heapbuffer_226;
 	FadeClearBlit_7B5D0();//25c5d0
 
 	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
@@ -46210,39 +46210,39 @@ void LoadHscreen_7A110(char a1, char a2)//25b110
 		switch (a2)
 		{
 		case 4:
-			x_DWORD_17DE38str.menuSpritesTabEnd_17DED8 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c;
-			x_DWORD_17DE38str.menuSpritesTab_17DED4 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36c44];//(uint8_t*)&loc_36CAA + x_DWORD_17DE48c;
-			x_DWORD_17DE38str.menuData2_17DE4C = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 2];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 2;
-			x_DWORD_17DE38str.fontData_17DE54 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 16386];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 16386;
-			x_DWORD_17DE38str.fontTabEnd_17DEC4 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 24631];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 24631;
-			x_DWORD_17DE38str.playerNameText_17DE50 = (char*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 24631];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 24631;
-			x_DWORD_17DE38str.fontTab_17DEC0 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 22999];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 22999;
-			qmemcpy(&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 24631],
+			menuState_17DE38.menuSpritesTabEnd_17DED8 = (bitmap_pos_struct2_t*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c;
+			menuState_17DE38.menuSpritesTab_17DED4 = (bitmap_pos_struct2_t*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36c44];//(uint8_t*)&loc_36CAA + x_DWORD_17DE48c;
+			menuState_17DE38.menuData2_17DE4C = &gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 2];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 2;
+			menuState_17DE38.fontData_17DE54 = &gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 16386];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 16386;
+			menuState_17DE38.fontTabEnd_17DEC4 = (bitmap_pos_struct2_t*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 24631];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 24631;
+			menuState_17DE38.playerNameText_17DE50 = (char*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 24631];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 24631;
+			menuState_17DE38.fontTab_17DEC0 = (bitmap_pos_struct2_t*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 22999];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 22999;
+			qmemcpy(&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 24631],
 				//(char *)&loc_36F44 + x_DWORD_17DE48c + 24631,
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].WizardName_0x39f_2BFA_12157,
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].WizardName_0x39f_2BFA_12157,
 				0x20u);
-			x_DWORD_E9C38_smalltit = (uint8_t*)x_DWORD_17DE38str.playerNameText_17DE50 + 32;
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.palette_17DE38x, 0, 768);
-			LoadAndDecompressDatFile_7AA70(dataPath, x_DWORD_E9C38_smalltit, x_DWORD_17DE38str.fileOffset_17DEDC, 168081);
-			LoadAndDecompressDatFile_7AA70(dataPath, x_DWORD_17DE38str.menuSpritesData_17DE48c, x_DWORD_17DE38str.fileOffset_17DEDC, 102213);
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.menuSpritesTab_17DED4, x_DWORD_17DE38str.fileOffset_17DEDC, 411);//19b
-			LoadAndDecompressDatFile_7AA70(dataPath, x_DWORD_17DE38str.fontData_17DE54, 0x13ACCA, 1226);
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.fontTab_17DEC0, 0x13B194, 548);//25ba70
+			smalltitBuffer_E9C38 = (uint8_t*)menuState_17DE38.playerNameText_17DE50 + 32;
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.palette_17DE38x, 0, 768);
+			LoadAndDecompressDatFile_7AA70(dataPath, smalltitBuffer_E9C38, menuState_17DE38.fileOffset_17DEDC, 168081);
+			LoadAndDecompressDatFile_7AA70(dataPath, menuState_17DE38.menuSpritesData_17DE48c, menuState_17DE38.fileOffset_17DEDC, 102213);
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.menuSpritesTab_17DED4, menuState_17DE38.fileOffset_17DEDC, 411);//19b
+			LoadAndDecompressDatFile_7AA70(dataPath, menuState_17DE38.fontData_17DE54, 0x13ACCA, 1226);
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.fontTab_17DEC0, 0x13B194, 548);//25ba70
 			LoadAndDecompressDatFile_7AA70(0, 0, 0, 0);
-			if (x_WORD_180660_VGA_type_resolution & 1)
-				CreateIndexDatTabDoubled_98709(x_DWORD_17DE38str.menuSpritesTab_17DED4, x_DWORD_17DE38str.menuSpritesTabEnd_17DED8, x_DWORD_17DE38str.menuSpritesData_17DE48c, xy_DWORD_17DED4_spritestr);
+			if (videoMode_180660 & 1)
+				CreateIndexDatTabDoubled_98709(menuState_17DE38.menuSpritesTab_17DED4, menuState_17DE38.menuSpritesTabEnd_17DED8, menuState_17DE38.menuSpritesData_17DE48c, menuSprites_17DED4);
 			else
-				CreateIndexDatTab_9874D(x_DWORD_17DE38str.menuSpritesTab_17DED4, x_DWORD_17DE38str.menuSpritesTabEnd_17DED8, x_DWORD_17DE38str.menuSpritesData_17DE48c, xy_DWORD_17DED4_spritestr);
-			if (x_WORD_180660_VGA_type_resolution & 1)
-				CreateIndexDatTabDoubled_98709(x_DWORD_17DE38str.fontTab_17DEC0, x_DWORD_17DE38str.fontTabEnd_17DEC4, x_DWORD_17DE38str.fontData_17DE54, xy_DWORD_17DEC0_spritestr);
+				CreateIndexDatTab_9874D(menuState_17DE38.menuSpritesTab_17DED4, menuState_17DE38.menuSpritesTabEnd_17DED8, menuState_17DE38.menuSpritesData_17DE48c, menuSprites_17DED4);
+			if (videoMode_180660 & 1)
+				CreateIndexDatTabDoubled_98709(menuState_17DE38.fontTab_17DEC0, menuState_17DE38.fontTabEnd_17DEC4, menuState_17DE38.fontData_17DE54, fontSprites_17DEC0);
 			else
-				CreateIndexDatTab_9874D(x_DWORD_17DE38str.fontTab_17DEC0, x_DWORD_17DE38str.fontTabEnd_17DEC4, x_DWORD_17DE38str.fontData_17DE54, xy_DWORD_17DEC0_spritestr);
+				CreateIndexDatTab_9874D(menuState_17DE38.fontTab_17DEC0, menuState_17DE38.fontTabEnd_17DEC4, menuState_17DE38.fontData_17DE54, fontSprites_17DEC0);
 			
-			x_DWORD_17DE38str.scrollBorderSprite_17DF06 = 72;
-			x_DWORD_17DE38str.cancelSprite_17DF08 = 68;
-			x_DWORD_17DE38str.cancelHoverSprite_17DF0A = 69;
-			x_DWORD_17DE38str.okSprite_17DF0C = 70;
-			x_DWORD_17DE38str.okHoverSprite_17DF0E = 71;
+			menuState_17DE38.scrollBorderSprite_17DF06 = 72;
+			menuState_17DE38.cancelSprite_17DF08 = 68;
+			menuState_17DE38.cancelHoverSprite_17DF0A = 69;
+			menuState_17DE38.okSprite_17DF0C = 70;
+			menuState_17DE38.okHoverSprite_17DF0E = 71;
 
 			if (extendedFonts)
 			{
@@ -46251,52 +46251,52 @@ void LoadHscreen_7A110(char a1, char a2)//25b110
 			}
 			break;
 		case 6://adress 25b533
-			x_DWORD_17DE38str.fontData_17DE54 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 301787];//(uint8_t*)x_DWORD_17DE48c + 301787;//49adb * //44ffef
-			x_DWORD_17DE38str.fontTabEnd_17DEC4 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 316179];//(uint8_t*)x_DWORD_17DE48c + 316179;//4d313 //453827
-			x_DWORD_17DE38str.font2Data_17DE58 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 316179];//x_DWORD_17DE48c + 316179; * //453827
-			x_DWORD_17DE38str.font2Tab_17DEC8 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 322754];//x_DWORD_17DE48c + 322754; * //4551d6
-			x_DWORD_17DE38str.font2TabEnd_17DECC = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 324380];//x_DWORD_17DE48c + 324380; //455830
-			x_DWORD_17DE38str.menuSpritesTab_17DED4 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 324380];//(uint8_t*)x_DWORD_17DE48c + 324380; *//455830
-			x_DWORD_17DE38str.menuSpritesTabEnd_17DED8 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 326258];//(uint8_t*)x_DWORD_17DE48c + 326258; //455f86
-			x_DWORD_17DE38str.loadBuffer_17DE60 = x_DWORD_17DE38str.savedSmalltit_17DE44;//* //3f52a4
-			x_DWORD_17DE38str.gameWorldMap_17DE64 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 326258];//x_DWORD_17DE48c + 326258; * //455f86
-			x_DWORD_17DE38str.colorNextTable_17DE3C = (TcolNext*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x12C000 + 326258];//(uint8_t*)&unk_12C000 + x_DWORD_17DE48c + 326258;//* //581f86
-			x_DWORD_17DE38str.fontTab_17DEC0 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 314541];//(uint8_t*)x_DWORD_17DE48c + 314541; * //4531c1
-			x_DWORD_17DE38str.borderBitmap_17DE5C = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x12C000 + 326258 + 0x4000];//x_DWORD_17DE3C + 0x4000;//ok *//585f86
-			LoadAndDecompressDatFile_7AA70(dataPath, x_DWORD_17DE38str.fontData_17DE54, 0x1641FC, 1214);//*
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.fontTab_17DEC0, 0x1646BA, 589);
-			LoadAndDecompressDatFile_7AA70(dataPath, x_DWORD_17DE38str.font2Data_17DE58, 0x164907, 1191);
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.font2Tab_17DEC8, 0x164DAE, 543);//xx
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.palette_17DE38x, 0x13A9CA, 768);//ok
-			LoadAndDecompressDatFile_7AA70(dataPath, x_DWORD_17DE38str.gameWorldMap_17DE64, 0xB2C47, 0x87D83);
-			LoadAndDecompressDatFile_7AA70(dataPath, x_DWORD_17DE38str.menuSpritesData_17DE48c, 0x783BD, 103577);//ok
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.menuSpritesTab_17DED4, 0x91856, 1027);
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.colorNextTable_17DE3C, 0x13B3B8, 6760);
-			LoadAndDecompressDatFile_7AA70(dataPath, x_DWORD_17DE38str.loadBuffer_17DE60, 0x13CE20, 20581);
-			LoadAndDecompressDatFile_7AA70(dataPath, x_DWORD_17DE38str.borderBitmap_17DE5C, 0x141E85, 13195);
+			menuState_17DE38.fontData_17DE54 = &gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 301787];//(uint8_t*)x_DWORD_17DE48c + 301787;//49adb * //44ffef
+			menuState_17DE38.fontTabEnd_17DEC4 = (bitmap_pos_struct2_t*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 316179];//(uint8_t*)x_DWORD_17DE48c + 316179;//4d313 //453827
+			menuState_17DE38.font2Data_17DE58 = &gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 316179];//x_DWORD_17DE48c + 316179; * //453827
+			menuState_17DE38.font2Tab_17DEC8 = (bitmap_pos_struct2_t*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 322754];//x_DWORD_17DE48c + 322754; * //4551d6
+			menuState_17DE38.font2TabEnd_17DECC = (bitmap_pos_struct2_t*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 324380];//x_DWORD_17DE48c + 324380; //455830
+			menuState_17DE38.menuSpritesTab_17DED4 = (bitmap_pos_struct2_t*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 324380];//(uint8_t*)x_DWORD_17DE48c + 324380; *//455830
+			menuState_17DE38.menuSpritesTabEnd_17DED8 = (bitmap_pos_struct2_t*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 326258];//(uint8_t*)x_DWORD_17DE48c + 326258; //455f86
+			menuState_17DE38.loadBuffer_17DE60 = menuState_17DE38.savedSmalltit_17DE44;//* //3f52a4
+			menuState_17DE38.gameWorldMap_17DE64 = &gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 326258];//x_DWORD_17DE48c + 326258; * //455f86
+			menuState_17DE38.colorNextTable_17DE3C = (TcolNext*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 0x12C000 + 326258];//(uint8_t*)&unk_12C000 + x_DWORD_17DE48c + 326258;//* //581f86
+			menuState_17DE38.fontTab_17DEC0 = (bitmap_pos_struct2_t*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 314541];//(uint8_t*)x_DWORD_17DE48c + 314541; * //4531c1
+			menuState_17DE38.borderBitmap_17DE5C = &gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 0x12C000 + 326258 + 0x4000];//x_DWORD_17DE3C + 0x4000;//ok *//585f86
+			LoadAndDecompressDatFile_7AA70(dataPath, menuState_17DE38.fontData_17DE54, 0x1641FC, 1214);//*
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.fontTab_17DEC0, 0x1646BA, 589);
+			LoadAndDecompressDatFile_7AA70(dataPath, menuState_17DE38.font2Data_17DE58, 0x164907, 1191);
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.font2Tab_17DEC8, 0x164DAE, 543);//xx
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.palette_17DE38x, 0x13A9CA, 768);//ok
+			LoadAndDecompressDatFile_7AA70(dataPath, menuState_17DE38.gameWorldMap_17DE64, 0xB2C47, 0x87D83);
+			LoadAndDecompressDatFile_7AA70(dataPath, menuState_17DE38.menuSpritesData_17DE48c, 0x783BD, 103577);//ok
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.menuSpritesTab_17DED4, 0x91856, 1027);
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.colorNextTable_17DE3C, 0x13B3B8, 6760);
+			LoadAndDecompressDatFile_7AA70(dataPath, menuState_17DE38.loadBuffer_17DE60, 0x13CE20, 20581);
+			LoadAndDecompressDatFile_7AA70(dataPath, menuState_17DE38.borderBitmap_17DE5C, 0x141E85, 13195);
 			LoadAndDecompressDatFile_7AA70(0, 0, 0, 0);
-			if (x_WORD_180660_VGA_type_resolution & 1)
+			if (videoMode_180660 & 1)
 			{
-				CreateIndexDatTabDoubled_98709(x_DWORD_17DE38str.menuSpritesTab_17DED4, x_DWORD_17DE38str.menuSpritesTabEnd_17DED8, x_DWORD_17DE38str.menuSpritesData_17DE48c, xy_DWORD_17DED4_spritestr);
-				CreateIndexDatTabDoubled_98709(x_DWORD_17DE38str.fontTab_17DEC0, x_DWORD_17DE38str.fontTabEnd_17DEC4, x_DWORD_17DE38str.fontData_17DE54, xy_DWORD_17DEC0_spritestr);//here
-				CreateIndexDatTabDoubled_98709(x_DWORD_17DE38str.font2Tab_17DEC8, x_DWORD_17DE38str.font2TabEnd_17DECC, x_DWORD_17DE38str.font2Data_17DE58, xy_DWORD_17DEC8_spritestr);
+				CreateIndexDatTabDoubled_98709(menuState_17DE38.menuSpritesTab_17DED4, menuState_17DE38.menuSpritesTabEnd_17DED8, menuState_17DE38.menuSpritesData_17DE48c, menuSprites_17DED4);
+				CreateIndexDatTabDoubled_98709(menuState_17DE38.fontTab_17DEC0, menuState_17DE38.fontTabEnd_17DEC4, menuState_17DE38.fontData_17DE54, fontSprites_17DEC0);//here
+				CreateIndexDatTabDoubled_98709(menuState_17DE38.font2Tab_17DEC8, menuState_17DE38.font2TabEnd_17DECC, menuState_17DE38.font2Data_17DE58, font2Sprites_17DEC8);
 			}
 			else
 			{
-				CreateIndexDatTab_9874D(x_DWORD_17DE38str.menuSpritesTab_17DED4, x_DWORD_17DE38str.menuSpritesTabEnd_17DED8, x_DWORD_17DE38str.menuSpritesData_17DE48c, xy_DWORD_17DED4_spritestr);
-				CreateIndexDatTab_9874D(x_DWORD_17DE38str.fontTab_17DEC0, x_DWORD_17DE38str.fontTabEnd_17DEC4, x_DWORD_17DE38str.fontData_17DE54, xy_DWORD_17DEC0_spritestr);//here
+				CreateIndexDatTab_9874D(menuState_17DE38.menuSpritesTab_17DED4, menuState_17DE38.menuSpritesTabEnd_17DED8, menuState_17DE38.menuSpritesData_17DE48c, menuSprites_17DED4);
+				CreateIndexDatTab_9874D(menuState_17DE38.fontTab_17DEC0, menuState_17DE38.fontTabEnd_17DEC4, menuState_17DE38.fontData_17DE54, fontSprites_17DEC0);//here
 				//34eec0 34eec4 34ee54
-				CreateIndexDatTab_9874D(x_DWORD_17DE38str.font2Tab_17DEC8, x_DWORD_17DE38str.font2TabEnd_17DECC, x_DWORD_17DE38str.font2Data_17DE58, xy_DWORD_17DEC8_spritestr);
+				CreateIndexDatTab_9874D(menuState_17DE38.font2Tab_17DEC8, menuState_17DE38.font2TabEnd_17DECC, menuState_17DE38.font2Data_17DE58, font2Sprites_17DEC8);
 			}
 
-			x_DWORD_17DE38str.scrollBorderSprite_17DF06 = 254;
-			x_DWORD_17DE38str.cancelSprite_17DF08 = 255;
-			x_DWORD_17DE38str.cancelHoverSprite_17DF0A = 256;
-			x_DWORD_17DE38str.okSprite_17DF0C = 257;
-			x_DWORD_17DE38str.okHoverSprite_17DF0E = 258;
-			//x_DWORD_17DE38str.x_DWORD_17DEC0 += 6;
-			x_DWORD_17DE38str.fontTab_17DEC0++;
-			xy_DWORD_17DEC0_spritestr = &xy_DWORD_17DEC0_spritestr[1];
+			menuState_17DE38.scrollBorderSprite_17DF06 = 254;
+			menuState_17DE38.cancelSprite_17DF08 = 255;
+			menuState_17DE38.cancelHoverSprite_17DF0A = 256;
+			menuState_17DE38.okSprite_17DF0C = 257;
+			menuState_17DE38.okHoverSprite_17DF0E = 258;
+			//menuState_17DE38.x_DWORD_17DEC0 += 6;
+			menuState_17DE38.fontTab_17DEC0++;
+			fontSprites_17DEC0 = &fontSprites_17DEC0[1];
 
 			if (extendedFonts)
 			{
@@ -46307,30 +46307,30 @@ void LoadHscreen_7A110(char a1, char a2)//25b110
 
 			break;
 		case 7:
-			x_DWORD_17DE38str.menuSpritesData_17DE48c += 371200;
-			x_DWORD_17DE38str.fontData_17DE54 = x_DWORD_17DE38str.menuSpritesData_17DE48c + 42428;
-			x_DWORD_17DE38str.fontTabEnd_17DEC4 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.menuSpritesData_17DE48c + 50673);
-			x_DWORD_17DE38str.menuSpritesTab_17DED4 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.menuSpritesData_17DE48c + 50673);
-			x_DWORD_17DE38str.menuSpritesTabEnd_17DED8 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.menuSpritesData_17DE48c + 50871);
-			x_DWORD_17DE38str.colorNextTable_17DE3C = (TcolNext*)(x_DWORD_17DE38str.menuSpritesData_17DE48c + 50871);
-			x_DWORD_17DE38str.menuData2_17DE4C = x_DWORD_17DE38str.menuSpritesData_17DE48c + 51639;
-			x_DWORD_17DE38str.fontTab_17DEC0 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.menuSpritesData_17DE48c + 49041);
-			x_DWORD_17DE38str.playerNameText_17DE50 = (char*)x_DWORD_17DE38str.menuSpritesData_17DE48c + 68023;
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.palette_17DE38x, 0x42471, 768);
-			LoadAndDecompressDatFile_7AA70(dataPath, x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226, x_DWORD_17DE38str.fileOffset_17DEDC, 82233);
-			LoadAndDecompressDatFile_7AA70(dataPath, x_DWORD_17DE38str.menuSpritesData_17DE48c, 0x568AA, 21216);
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.menuSpritesTab_17DED4, 375690, 148);
-			LoadAndDecompressDatFile_7AA70(dataPath, x_DWORD_17DE38str.fontData_17DE54, 0x13ACCA, 1226);
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.fontTab_17DEC0, 0x13B194, 548);
-			if (x_WORD_180660_VGA_type_resolution & 1)
+			menuState_17DE38.menuSpritesData_17DE48c += 371200;
+			menuState_17DE38.fontData_17DE54 = menuState_17DE38.menuSpritesData_17DE48c + 42428;
+			menuState_17DE38.fontTabEnd_17DEC4 = (bitmap_pos_struct2_t*)(menuState_17DE38.menuSpritesData_17DE48c + 50673);
+			menuState_17DE38.menuSpritesTab_17DED4 = (bitmap_pos_struct2_t*)(menuState_17DE38.menuSpritesData_17DE48c + 50673);
+			menuState_17DE38.menuSpritesTabEnd_17DED8 = (bitmap_pos_struct2_t*)(menuState_17DE38.menuSpritesData_17DE48c + 50871);
+			menuState_17DE38.colorNextTable_17DE3C = (TcolNext*)(menuState_17DE38.menuSpritesData_17DE48c + 50871);
+			menuState_17DE38.menuData2_17DE4C = menuState_17DE38.menuSpritesData_17DE48c + 51639;
+			menuState_17DE38.fontTab_17DEC0 = (bitmap_pos_struct2_t*)(menuState_17DE38.menuSpritesData_17DE48c + 49041);
+			menuState_17DE38.playerNameText_17DE50 = (char*)menuState_17DE38.menuSpritesData_17DE48c + 68023;
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.palette_17DE38x, 0x42471, 768);
+			LoadAndDecompressDatFile_7AA70(dataPath, gameState_D41A4.pointer_0xE2_heapbuffer_226, menuState_17DE38.fileOffset_17DEDC, 82233);
+			LoadAndDecompressDatFile_7AA70(dataPath, menuState_17DE38.menuSpritesData_17DE48c, 0x568AA, 21216);
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.menuSpritesTab_17DED4, 375690, 148);
+			LoadAndDecompressDatFile_7AA70(dataPath, menuState_17DE38.fontData_17DE54, 0x13ACCA, 1226);
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.fontTab_17DEC0, 0x13B194, 548);
+			if (videoMode_180660 & 1)
 			{
-				CreateIndexDatTabDoubled_98709(x_DWORD_17DE38str.menuSpritesTab_17DED4, x_DWORD_17DE38str.menuSpritesTabEnd_17DED8, x_DWORD_17DE38str.menuSpritesData_17DE48c, xy_DWORD_17DED4_spritestr);
-				CreateIndexDatTabDoubled_98709(x_DWORD_17DE38str.fontTab_17DEC0, x_DWORD_17DE38str.fontTabEnd_17DEC4, x_DWORD_17DE38str.fontData_17DE54, xy_DWORD_17DEC0_spritestr);
+				CreateIndexDatTabDoubled_98709(menuState_17DE38.menuSpritesTab_17DED4, menuState_17DE38.menuSpritesTabEnd_17DED8, menuState_17DE38.menuSpritesData_17DE48c, menuSprites_17DED4);
+				CreateIndexDatTabDoubled_98709(menuState_17DE38.fontTab_17DEC0, menuState_17DE38.fontTabEnd_17DEC4, menuState_17DE38.fontData_17DE54, fontSprites_17DEC0);
 			}
 			else
 			{
-				CreateIndexDatTab_9874D(x_DWORD_17DE38str.menuSpritesTab_17DED4, x_DWORD_17DE38str.menuSpritesTabEnd_17DED8, x_DWORD_17DE38str.menuSpritesData_17DE48c, xy_DWORD_17DED4_spritestr);
-				CreateIndexDatTab_9874D(x_DWORD_17DE38str.fontTab_17DEC0, x_DWORD_17DE38str.fontTabEnd_17DEC4, x_DWORD_17DE38str.fontData_17DE54, xy_DWORD_17DEC0_spritestr);
+				CreateIndexDatTab_9874D(menuState_17DE38.menuSpritesTab_17DED4, menuState_17DE38.menuSpritesTabEnd_17DED8, menuState_17DE38.menuSpritesData_17DE48c, menuSprites_17DED4);
+				CreateIndexDatTab_9874D(menuState_17DE38.fontTab_17DEC0, menuState_17DE38.fontTabEnd_17DEC4, menuState_17DE38.fontData_17DE54, fontSprites_17DEC0);
 			}
 			if (extendedFonts)
 			{
@@ -46338,44 +46338,44 @@ void LoadHscreen_7A110(char a1, char a2)//25b110
 			}
 			break;
 		case 12:
-			LoadAndDecompressDatFile_7AA70(dataPath, x_DWORD_E9C38_smalltit, 0x91C59, 134382);
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.palette_17DE38x, 0xB2947, 768);
+			LoadAndDecompressDatFile_7AA70(dataPath, smalltitBuffer_E9C38, 0x91C59, 134382);
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.palette_17DE38x, 0xB2947, 768);
 			break;
 		case 14:
 			/*
 			34EE48->55CCE4[4D54A]
 
 			*/
-			//[x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226+0x4D54A]
+			//[gameState_D41A4.pointer_0xE2_heapbuffer_226+0x4D54A]
 
-			x_DWORD_17DE38str.fontData_17DE54 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 224426];
-			x_DWORD_17DE38str.fontTabEnd_17DEC4 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 232671];
-			x_DWORD_17DE38str.menuSpritesTab_17DED4 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 232671];
-			x_DWORD_17DE38str.menuSpritesTabEnd_17DED8 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 233337];
-			x_DWORD_17DE38str.menuData2_17DE4C = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 233339];
-			x_DWORD_17DE38str.playerNameText_17DE50 = (char*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 249723];
-			x_DWORD_17DE38str.fontTab_17DEC0 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 231039];
+			menuState_17DE38.fontData_17DE54 = &gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 224426];
+			menuState_17DE38.fontTabEnd_17DEC4 = (bitmap_pos_struct2_t*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 232671];
+			menuState_17DE38.menuSpritesTab_17DED4 = (bitmap_pos_struct2_t*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 232671];
+			menuState_17DE38.menuSpritesTabEnd_17DED8 = (bitmap_pos_struct2_t*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 233337];
+			menuState_17DE38.menuData2_17DE4C = &gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 233339];
+			menuState_17DE38.playerNameText_17DE50 = (char*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 249723];
+			menuState_17DE38.fontTab_17DEC0 = (bitmap_pos_struct2_t*)&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 231039];
 			qmemcpy(
-				&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 249723],
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].WizardName_0x39f_2BFA_12157,
+				&gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A + 249723],
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].WizardName_0x39f_2BFA_12157,
 				0x20u);//fix it
-			LoadAndDecompressDatFile_7AA70(dataPath, x_DWORD_17DE38str.fontData_17DE54, 0x13ACCA, 1226);
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.fontTab_17DEC0, 0x13B194, 548);
-			LoadAndDecompressDatFile_7AA70(dataPath, &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A], 168849, 102213);
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.menuSpritesTab_17DED4, 271062, 411);//19b
-			LoadAndDecompressDatFile_7AA70(dataPath, x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226, 0x91C59, 134382);
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.palette_17DE38x, 0xB2947, 768);
-			if (x_WORD_180660_VGA_type_resolution & 1) {
-				CreateIndexDatTabDoubled_98709(x_DWORD_17DE38str.menuSpritesTab_17DED4, x_DWORD_17DE38str.menuSpritesTabEnd_17DED8, &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A], xy_DWORD_17DED4_spritestr);
-				CreateIndexDatTabDoubled_98709(x_DWORD_17DE38str.fontTab_17DEC0, x_DWORD_17DE38str.fontTabEnd_17DEC4, x_DWORD_17DE38str.fontData_17DE54, xy_DWORD_17DEC0_spritestr);
+			LoadAndDecompressDatFile_7AA70(dataPath, menuState_17DE38.fontData_17DE54, 0x13ACCA, 1226);
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.fontTab_17DEC0, 0x13B194, 548);
+			LoadAndDecompressDatFile_7AA70(dataPath, &gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A], 168849, 102213);
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.menuSpritesTab_17DED4, 271062, 411);//19b
+			LoadAndDecompressDatFile_7AA70(dataPath, gameState_D41A4.pointer_0xE2_heapbuffer_226, 0x91C59, 134382);
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.palette_17DE38x, 0xB2947, 768);
+			if (videoMode_180660 & 1) {
+				CreateIndexDatTabDoubled_98709(menuState_17DE38.menuSpritesTab_17DED4, menuState_17DE38.menuSpritesTabEnd_17DED8, &gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A], menuSprites_17DED4);
+				CreateIndexDatTabDoubled_98709(menuState_17DE38.fontTab_17DEC0, menuState_17DE38.fontTabEnd_17DEC4, menuState_17DE38.fontData_17DE54, fontSprites_17DEC0);
 			}
 			else
 			{
-				CreateIndexDatTab_9874D(x_DWORD_17DE38str.menuSpritesTab_17DED4, x_DWORD_17DE38str.menuSpritesTabEnd_17DED8, &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A], xy_DWORD_17DED4_spritestr);
-				CreateIndexDatTab_9874D(x_DWORD_17DE38str.fontTab_17DEC0, x_DWORD_17DE38str.fontTabEnd_17DEC4, x_DWORD_17DE38str.fontData_17DE54, xy_DWORD_17DEC0_spritestr);
+				CreateIndexDatTab_9874D(menuState_17DE38.menuSpritesTab_17DED4, menuState_17DE38.menuSpritesTabEnd_17DED8, &gameState_D41A4.pointer_0xE2_heapbuffer_226[0x4D54A], menuSprites_17DED4);
+				CreateIndexDatTab_9874D(menuState_17DE38.fontTab_17DEC0, menuState_17DE38.fontTabEnd_17DEC4, menuState_17DE38.fontData_17DE54, fontSprites_17DEC0);
 			}
 
-			//xy_DWORD_17DED4_spritestr[37]
+			//menuSprites_17DED4[37]
 			//-34eed4
 			// 3dc74800d7c94800472c0b00050000004001c800
 			// 48c73d - 000000000000020000005d5fc2220000
@@ -46403,8 +46403,8 @@ void LoadHscreen_7A110(char a1, char a2)//25b110
 			*/
 			break;
 		case 15:
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_E9C38_smalltit, 0x145210, 126188);
-			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)x_DWORD_17DE38str.palette_17DE38x, 0x163EFC, 0x300);
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)smalltitBuffer_E9C38, 0x145210, 126188);
+			LoadAndDecompressDatFile_7AA70(dataPath, (uint8_t*)menuState_17DE38.palette_17DE38x, 0x163EFC, 0x300);
 			break;
 		default:
 			return;
@@ -46417,22 +46417,22 @@ void LoadAndDecompressDatFile_7AA70(const char* path, uint8_t* filebuffer, int p
 {
 	//FILE* result; // eax
 
-	if (x_DWORD_17DE38str.fileHandle_17DEE0 != NULL || (path && (x_DWORD_17DE38str.fileHandle_17DEE0 = DataFileIO::CreateOrOpenFile(path, 512))))//path 0: only close (a missing file was never opened)
+	if (menuState_17DE38.fileHandle_17DEE0 != NULL || (path && (menuState_17DE38.fileHandle_17DEE0 = DataFileIO::CreateOrOpenFile(path, 512))))//path 0: only close (a missing file was never opened)
 	{
 		//result = x_DWORD_17DEE0_filedesc;
-		if (x_DWORD_17DE38str.fileHandle_17DEE0 != NULL)
+		if (menuState_17DE38.fileHandle_17DEE0 != NULL)
 		{
 			if (filebuffer)
 			{
-				DataFileIO::Seek(x_DWORD_17DE38str.fileHandle_17DEE0, position, 0);
-				DataFileIO::Read(x_DWORD_17DE38str.fileHandle_17DEE0, filebuffer, lenght);
+				DataFileIO::Seek(menuState_17DE38.fileHandle_17DEE0, position, 0);
+				DataFileIO::Read(menuState_17DE38.fileHandle_17DEE0, filebuffer, lenght);
 				FileDecompress_5C3D0(filebuffer, filebuffer);
-				x_DWORD_17DE38str.fileOffset_17DEDC = lenght + position;//endbuffer
+				menuState_17DE38.fileOffset_17DEDC = lenght + position;//endbuffer
 			}
 			else
 			{
-				DataFileIO::Close(x_DWORD_17DE38str.fileHandle_17DEE0);
-				x_DWORD_17DE38str.fileHandle_17DEE0 = NULL;
+				DataFileIO::Close(menuState_17DE38.fileHandle_17DEE0);
+				menuState_17DE38.fileHandle_17DEE0 = NULL;
 			}
 		}
 	}
@@ -46448,25 +46448,25 @@ void ResetMouse_7B5A0()
 	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
 
 	//_disable();
-	x_DWORD_17DE38str.mouseButtons_17DEEE = 0;
-	x_WORD_180744_mouse_right_button = 0;
-	x_WORD_18074A_mouse_right2_button = 0;
-	x_WORD_180746_mouse_left_button = 0;
-	x_WORD_18074C_mouse_left2_button = 0;
+	menuState_17DE38.mouseButtons_17DEEE = 0;
+	mouseRightButton_180744 = 0;
+	mouseRightButton2_18074A = 0;
+	mouseLeftButton_180746 = 0;
+	mouseLeftButton2_18074C = 0;
 	//_enable();
 }
 // 17DEEE: using guessed type __int16 x_WORD_17DEEE_mouse_buttons;
-// 180744: using guessed type __int16 x_WORD_180744_mouse_right_button;
-// 180746: using guessed type __int16 x_WORD_180746_mouse_left_button;
-// 18074A: using guessed type __int16 x_WORD_18074A_mouse_right2_button;
-// 18074C: using guessed type __int16 x_WORD_18074C_mouse_left2_button;
+// 180744: using guessed type __int16 mouseRightButton_180744;
+// 180746: using guessed type __int16 mouseLeftButton_180746;
+// 18074A: using guessed type __int16 mouseRightButton2_18074A;
+// 18074C: using guessed type __int16 mouseLeftButton2_18074C;
 
 //----- (0007B5D0) --------------------------------------------------------
 void FadeClearBlit_7B5D0()
 {
 	VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (videoMode_180660 & 1)
 	{
 		ClearGraphicsBuffer_72883(pdwScreenBuffer_351628, 320, 200, 0);
 		ClearScreenAlphaBuffer(320, 200, 255);
@@ -46476,7 +46476,7 @@ void FadeClearBlit_7B5D0()
 		ClearGraphicsBuffer_72883(pdwScreenBuffer_351628, 640, 480, 0);
 		ClearScreenAlphaBuffer(640, 480, 255);
 	}
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (videoMode_180660 & 1)
 		VgaBlit320_90478(menuFps);
 	else
 		VgaBlit640_75200(480, menuFps);
@@ -46504,8 +46504,8 @@ signed int ReadKeyboardKeysInMenu_7C050()//25d050
 
 	if (CommandLineParams.DoShowDebugPerifery()) ShowPerifery();
 
-	x_DWORD_17DE38str.keyScancode_17DF10 = 0;
-	x_DWORD_17DE38str.lastKeyChar_17DF11 = 0;
+	menuState_17DE38.keyScancode_17DF10 = 0;
+	menuState_17DE38.lastKeyChar_17DF11 = 0;
 	//a1h = 2;
 
 	//fix - __asm { int     16h; KEYBOARD - GET SHIFT STATUS }
@@ -46516,19 +46516,19 @@ signed int ReadKeyboardKeysInMenu_7C050()//25d050
 	{
 		if (v2 & 1)//right_shift
 		{
-			x_DWORD_17DE38str.keyScancode_17DF10 = 54;
+			menuState_17DE38.keyScancode_17DF10 = 54;
 		}
 		else if (v2 & 2)//left_shift
 		{
-			x_DWORD_17DE38str.keyScancode_17DF10 = 42;
+			menuState_17DE38.keyScancode_17DF10 = 42;
 		}
 		else if (v2 & 4)//ctrl
 		{
-			x_DWORD_17DE38str.keyScancode_17DF10 = 29;
+			menuState_17DE38.keyScancode_17DF10 = 29;
 		}
 		else if (v2 & 8)//alt
 		{
-			x_DWORD_17DE38str.keyScancode_17DF10 = 56;
+			menuState_17DE38.keyScancode_17DF10 = 56;
 		}
 	}
 	v3 = j___clock();
@@ -46580,9 +46580,9 @@ signed int ReadKeyboardKeysInMenu_7C050()//25d050
 		//BYTE1(result) = 0;
 		result = VGA_read_char_from_buffer();
 		// fix - __asm { int     16h; KEYBOARD - READ CHAR FROM BUFFER, WAIT IF EMPTY }
-		x_DWORD_17DE38str.lastKeyChar_17DF11 = result;
+		menuState_17DE38.lastKeyChar_17DF11 = result;
 		v3 = result >> 8;
-		x_DWORD_17DE38str.keyScancode_17DF10 = v3;
+		menuState_17DE38.keyScancode_17DF10 = v3;
 	}
 	return result;
 }
@@ -46617,7 +46617,7 @@ bool DrawFrameAnim_7E5A0(__int16 posx, __int16 posy, Type_MapScreenPortals_E17CC
 		}
 		mapPortal->time_0 = actTime;
 	}
-	DrawBitmap640_7C120(mapPortal->portalPosX_12 - posx, mapPortal->portalPosY_14 - posy, xy_DWORD_17DED4_spritestr[mapPortal->spriteIndex_16]);
+	DrawBitmap640_7C120(mapPortal->portalPosX_12 - posx, mapPortal->portalPosY_14 - posy, menuSprites_17DED4[mapPortal->spriteIndex_16]);
 	return result;
 }
 
@@ -46637,7 +46637,7 @@ void DrawTextBoxWithLine_7E840(typeTextBoxtextBoxStr_E24BCx* testBoxStr, __int16
 		if (testBoxStr[i].left_2)
 		{
 			DrawBitmapLine_81360(testBoxStr[i].minx_6, testBoxStr[i].miny_8, testBoxStr[i].width_12, testBoxStr[i].maxy_14, lineColor);//262360
-			DrawTextWithBoarder_7FCB0(x_DWORD_E9C4C_langindexbuffer[testBoxStr[i].textIndex_0], testBoxStr[i].left_2, (testBoxStr[i].left_2 + 180), testBoxStr[i].top_4, 0, 0, borderColor);//260cb0
+			DrawTextWithBoarder_7FCB0(langStrings_E9C4C[testBoxStr[i].textIndex_0], testBoxStr[i].left_2, (testBoxStr[i].left_2 + 180), testBoxStr[i].top_4, 0, 0, borderColor);//260cb0
 			/*
 			Save Current Game
 			Exit Game
@@ -46785,7 +46785,7 @@ void MoveAnimIndex_81260(type_animStruct3* animStruct, __int16 x1, __int16 y1)//
 			animStruct->spriteIndex_8 = animStruct->firstSpriteIndex_10;
 		animStruct->lastTime_0 = time;
 	}
-	DrawBitmap640_7C120(x1, y1, xy_DWORD_17DED4_spritestr[animStruct->spriteIndex_8]);
+	DrawBitmap640_7C120(x1, y1, menuSprites_17DED4[animStruct->spriteIndex_8]);
 }
 
 //----- (000812D0) --------------------------------------------------------
@@ -46798,20 +46798,20 @@ int DrawMapObject_812D0(__int16 a1, __int16 a2)//2622d0
 
 	//_disable();
 	temp_screen_buffer = pdwScreenBuffer_351628;
-	pdwScreenBuffer_351628 = x_DWORD_17DE38str.gameWorldMap_17DE64;
+	pdwScreenBuffer_351628 = menuState_17DE38.gameWorldMap_17DE64;
 	v3 = screenHeight_180624;
-	x_DWORD_180644_map_resolution2_y = 960;
+	clipHeight_180644 = 960;
 	screenHeight_180624 = 960;
 	v4 = screenWidth_18062C;
-	x_DWORD_180648_map_resolution2_x = 1280;
+	clipWidth_180648 = 1280;
 	screenWidth_18062C = 1280;
-	DrawBitmap640_7C120(a1, a2, xy_DWORD_17DED4_spritestr[139]);
+	DrawBitmap640_7C120(a1, a2, menuSprites_17DED4[139]);
 	screenWidth_18062C = v4;
 	screenHeight_180624 = v3;
-	x_DWORD_180648_map_resolution2_x = v4;
+	clipWidth_180648 = v4;
 	result = v3;
 	pdwScreenBuffer_351628 = temp_screen_buffer;
-	x_DWORD_180644_map_resolution2_y = v3;
+	clipHeight_180644 = v3;
 	//_enable();
 	return result;
 }
@@ -46933,22 +46933,22 @@ void DrawBitmapLine_81360(int16_t minx, int16_t miny, int16_t maxx, int16_t maxy
 	//6*a5
 	//dosbox - 258
 	//toto - 64
-	v31 = 2 * abs((maxx - minx) / xy_DWORD_17DED4_spritestr[a5].width_4);//find errors
+	v31 = 2 * abs((maxx - minx) / menuSprites_17DED4[a5].width_4);//find errors
 	//v23 = x_DWORD_17DED4[v9 + 5];
-	v30 = 2 * abs((maxy - miny) / xy_DWORD_17DED4_spritestr[a5].height_5);
+	v30 = 2 * abs((maxy - miny) / menuSprites_17DED4[a5].height_5);
 	v10 = maxx - minx;
 	if ((maxx - minx) >= 0)
 	{
 		if (maxx != minx)
 		{
 			//HIWORD(v10) = HIWORD(x_DWORD_17DED4);
-			v10 = xy_DWORD_17DED4_spritestr[a5].width_4;
+			v10 = menuSprites_17DED4[a5].width_4;
 		}
 	}
 	else
 	{
 		//HIWORD(v11) = HIWORD(x_DWORD_17DED4);
-		v11 = xy_DWORD_17DED4_spritestr[a5].width_4;
+		v11 = menuSprites_17DED4[a5].width_4;
 		v10 = -v11;
 	}
 	v27 = v10;
@@ -46957,12 +46957,12 @@ void DrawBitmapLine_81360(int16_t minx, int16_t miny, int16_t maxx, int16_t maxy
 	{
 		if (v25)
 		{
-			v12 = xy_DWORD_17DED4_spritestr[a5].height_5;
+			v12 = menuSprites_17DED4[a5].height_5;
 		}
 	}
 	else
 	{
-		v13 = xy_DWORD_17DED4_spritestr[a5].height_5;
+		v13 = menuSprites_17DED4[a5].height_5;
 		v12 = -v13;
 	}
 	v26 = v12;
@@ -47001,7 +47001,7 @@ void DrawBitmapLine_81360(int16_t minx, int16_t miny, int16_t maxx, int16_t maxy
 		{
 			if (v6 == maxy)
 			{
-				DrawBitmap640_7C120(v5, maxy, xy_DWORD_17DED4_spritestr[v7]);
+				DrawBitmap640_7C120(v5, maxy, menuSprites_17DED4[v7]);
 				return;
 			}
 			if ((v32 & 0x8000u) == 0)
@@ -47017,7 +47017,7 @@ void DrawBitmapLine_81360(int16_t minx, int16_t miny, int16_t maxx, int16_t maxy
 		{
 			if (v5 == maxx)
 			{
-				DrawBitmap640_7C120(maxx, v6, xy_DWORD_17DED4_spritestr[v7]);
+				DrawBitmap640_7C120(maxx, v6, menuSprites_17DED4[v7]);
 				return;
 			}
 			if ((v32 & 0x8000u) == 0)
@@ -47036,14 +47036,14 @@ void DrawBitmapLine_81360(int16_t minx, int16_t miny, int16_t maxx, int16_t maxy
 			{
 				if (v5 < maxx)
 				{
-					DrawBitmap640_7C120(maxx, maxy, xy_DWORD_17DED4_spritestr[v7]);//draw ending
+					DrawBitmap640_7C120(maxx, maxy, menuSprites_17DED4[v7]);//draw ending
 					//ma byt ec a 141
 					return;
 				}
 			}
 			else if (v29 == 2 && v5 > maxx)
 			{
-				DrawBitmap640_7C120(maxx, maxy, xy_DWORD_17DED4_spritestr[v7]);
+				DrawBitmap640_7C120(maxx, maxy, menuSprites_17DED4[v7]);
 				return;
 			}
 		}
@@ -47053,17 +47053,17 @@ void DrawBitmapLine_81360(int16_t minx, int16_t miny, int16_t maxx, int16_t maxy
 			break;
 		if (v6 < maxy)
 		{
-			DrawBitmap640_7C120(maxx, maxy, xy_DWORD_17DED4_spritestr[v7]);
+			DrawBitmap640_7C120(maxx, maxy, menuSprites_17DED4[v7]);
 			return;
 		}
 	LABEL_70:
 		//18d 12a 141 ec - 18d 12a 141 ec -1
 		  //c4 26 11b 6a - c4 26 11b 6a -0 - chybi ocasek
-		DrawBitmap640_7C120(v5, v6, xy_DWORD_17DED4_spritestr[a5]);
+		DrawBitmap640_7C120(v5, v6, menuSprites_17DED4[a5]);
 	}
 	if (v28 != 2 || v6 <= maxy)
 		goto LABEL_70;
-	DrawBitmap640_7C120(maxx, maxy, xy_DWORD_17DED4_spritestr[v7]);//draw ending
+	DrawBitmap640_7C120(maxx, maxy, menuSprites_17DED4[v7]);//draw ending
 }
 // 17DED4: using guessed type int (int)x_DWORD_17DED4;
 
@@ -47101,8 +47101,8 @@ void DrawAnimSprite_81CA0(__int16 posx, __int16 posy, type_x_BYTE_E25ED_db_str* 
 		DrawBitmap640_7C120(
 			a5x->x1_8 - posx,
 			a5x->y1_10 - posy,
-			xy_DWORD_17DED4_spritestr[a5x->frameIndex_16]);
-		if (x_DWORD_17DE38str.mouseButtons_17DEEE & 1)
+			menuSprites_17DED4[a5x->frameIndex_16]);
+		if (menuState_17DE38.mouseButtons_17DEEE & 1)
 			a5x->frameIndex_16++;
 	}
 	else if (a5x->state_20 == 2)
@@ -47116,7 +47116,7 @@ void DrawAnimSprite_81CA0(__int16 posx, __int16 posy, type_x_BYTE_E25ED_db_str* 
 				PlaySample_8F100(
 					0,
 					a5x->wavIndex_24,
-					(unsigned __int8)x_BYTE_E1324,
+					(unsigned __int8)menuSoundVolume_E1324,
 					64,
 					0x64u,
 					a5x->loopCount_28,
@@ -47162,12 +47162,12 @@ void ActivateSecretPortal_82AB0(unsigned __int8 a1)//263ab0
 			{
 				//v6 = (int)x_D41A0_BYTEARRAY_0;
 				v7 = 5 * i;
-				x_DWORD_17DDBCx[v7] = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.spellsCollectedPercent_377;
-				x_DWORD_17DDBCx[1 + v7] = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.hitAccuracyPercent_381;
-				x_DWORD_17DDBCx[2 + v7] = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.creaturesKilledPercent_373;
-				x_DWORD_17DDBCx[3 + v7] = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.manaCollectedPercent_385;
+				secretLevelScores_17DDBC[v7] = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.spellsCollectedPercent_377;
+				secretLevelScores_17DDBC[1 + v7] = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.hitAccuracyPercent_381;
+				secretLevelScores_17DDBC[2 + v7] = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.creaturesKilledPercent_373;
+				secretLevelScores_17DDBC[3 + v7] = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.manaCollectedPercent_385;
 				//result = *(x_DWORD *)(2124 * *(signed __int16 *)(x_D41A0_BYTEARRAY_0 + 12) + x_D41A0_BYTEARRAY_0 + 12621);
-				x_DWORD_17DDBCx[4 + v7] = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.time_393;
+				secretLevelScores_17DDBC[4 + v7] = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.time_393;
 			}
 			v4i++;
 			//v4 = (x_WORD *)((char *)v4 + 17);
@@ -47177,12 +47177,12 @@ void ActivateSecretPortal_82AB0(unsigned __int8 a1)//263ab0
 	{
 		//v1 = (int)x_D41A0_BYTEARRAY_0;
 		v2 = 5 * a1;
-		x_DWORD_17DBC8x[v2] = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.spellsCollectedPercent_377;
-		x_DWORD_17DBC8x[1 + v2] = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.hitAccuracyPercent_381;
-		x_DWORD_17DBC8x[2 + v2] = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.creaturesKilledPercent_373;
-		x_DWORD_17DBC8x[3 + v2] = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.manaCollectedPercent_385;
+		levelScores_17DBC8[v2] = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.spellsCollectedPercent_377;
+		levelScores_17DBC8[1 + v2] = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.hitAccuracyPercent_381;
+		levelScores_17DBC8[2 + v2] = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.creaturesKilledPercent_373;
+		levelScores_17DBC8[3 + v2] = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.manaCollectedPercent_385;
 		//result = *(x_DWORD *)(2124 * *(signed __int16 *)(x_D41A0_BYTEARRAY_0 + 12) + x_D41A0_BYTEARRAY_0 + 12621);
-		x_DWORD_17DBC8x[4 + v2] = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.time_393;
+		levelScores_17DBC8[4 + v2] = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.time_393;
 	}
 	//return result;
 }
@@ -47206,7 +47206,7 @@ void InitMemoryAndTextureSize_83B50()//264B50
 	//int v4; // ST04_4
 
 	//result = x_D41A0_BYTEARRAY_4;//2A51A4d == ff //fix
-	if (!(x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226))//2A51B2F = ff
+	if (!(gameState_D41A4.pointer_0xE2_heapbuffer_226))//2A51B2F = ff
 	{
 		TileTextureSize_D41B5 = 32;
 		/*if ( (unsigned int)x_DWORD_17FEAC <= 0x800000 )//fix
@@ -47222,52 +47222,52 @@ void InitMemoryAndTextureSize_83B50()//264B50
 				{
 				  if ( (unsigned int)x_DWORD_17FEAC <= 0x300000 )
 				  {
-					x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 = 0x200000;
+					gameState_D41A4.dword_0xE6_heapsize_230 = 0x200000;
 					x_BYTE_D41B5 = 16;
 				  }
 				  else
 				  {
-					x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 = x_DWORD_17FEAC - 1398576;
+					gameState_D41A4.dword_0xE6_heapsize_230 = x_DWORD_17FEAC - 1398576;
 				  }
 				  sub_9A230_set_x_WORD_E37B4(811);
 				}
 				else
 				{
-				  x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 = v1;
+				  gameState_D41A4.dword_0xE6_heapsize_230 = v1;
 				  sub_9A230_set_x_WORD_E37B4(811);
 				}
 			  }
 			  else
 			  {
-				x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 = v1;
+				gameState_D41A4.dword_0xE6_heapsize_230 = v1;
 				sub_9A230_set_x_WORD_E37B4(822);
 			  }
 			}
 			else
 			{
-			  x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 = v1;
+			  gameState_D41A4.dword_0xE6_heapsize_230 = v1;
 			  sub_9A230_set_x_WORD_E37B4(822);
 			}
 			*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + 8628) = 0;
 		  }
 		  else
 		  {
-			x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 = x_DWORD_17FEAC - 3398576;
+			gameState_D41A4.dword_0xE6_heapsize_230 = x_DWORD_17FEAC - 3398576;
 			sub_9A230_set_x_WORD_E37B4(822);
 		  }
 		}
 		else*/
 		{
-			x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 = 0x400000;
+			gameState_D41A4.dword_0xE6_heapsize_230 = 0x400000;
 			//fix
-			x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230 += 0x1000000;
+			gameState_D41A4.dword_0xE6_heapsize_230 += 0x1000000;
 			//fix
 			SetSoundFreq_9A230(822);
 		}
-		//v2 = (int)sub_83CD0_malloc2(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230);
+		//v2 = (int)sub_83CD0_malloc2(gameState_D41A4.dword_0xE6_heapsize_230);
 		//v3 = x_D41A0_BYTEARRAY_4;
-		x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226 = (uint8_t*)Malloc_83CD0(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230);
-		if (!x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226)
+		gameState_D41A4.pointer_0xE2_heapbuffer_226 = (uint8_t*)Malloc_83CD0(gameState_D41A4.dword_0xE6_heapsize_230);
+		if (!gameState_D41A4.pointer_0xE2_heapbuffer_226)
 		{
 			//v4 = x_D41A0_BYTEARRAY_4[230]; //fix
 			myprintf("ERROR 1: NOT ENOUGH MEMORY. (%ld / %ld)\n");
@@ -47286,7 +47286,7 @@ void InitMemoryAndTextureSize_83B50()//264B50
 void GetSystemSpeed()
 {
 	//Just assume High spec for now
-	x_D41A0_BYTEARRAY_4_struct.m_wHighSpeedSystem = 5;
+	gameState_D41A4.m_wHighSpeedSystem = 5;
 }
 
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
@@ -47300,32 +47300,32 @@ void GetSystemSpeed()
 //----- (00084790) --------------------------------------------------------
 void ClearDynamicLights_84790()//265790
 {
-	memset(&D41A0_0.dynamicLights_0x3664C, 0, sizeof(type_str_0x3664C) * 50);//39x50
-	D41A0_0.activeLights_0x36DFA = 0;
-	D41A0_0.lightRandSeed_0x36DF2 = 0x3A013;
+	memset(&world_D41A0.dynamicLights_0x3664C, 0, sizeof(type_str_0x3664C) * 50);//39x50
+	world_D41A0.activeLights_0x36DFA = 0;
+	world_D41A0.lightRandSeed_0x36DF2 = 0x3A013;
 }
 
 //----- (000847D0) --------------------------------------------------------
 void AddDynamicLight_847D0(type_entity_0x6E8E* event, char a2, char a3, char a4)//2657d0
 {
-	if (D41A0_0.m_GameSettings.display_0x2196.m_wDynamicLighting)
+	if (world_D41A0.m_GameSettings.display_0x2196.m_wDynamicLighting)
 	{
-		if ((D41A0_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_0.terrain_2FECE.MapType == MapType_t::Cave) && D41A0_0.activeLights_0x36DFA < 50)
+		if ((world_D41A0.terrain_2FECE.MapType == MapType_t::Night || world_D41A0.terrain_2FECE.MapType == MapType_t::Cave) && world_D41A0.activeLights_0x36DFA < 50)
 		{
 			int16_t index = 0;
-			while (index < 50 && D41A0_0.dynamicLights_0x3664C[index].active_0)
+			while (index < 50 && world_D41A0.dynamicLights_0x3664C[index].active_0)
 			{
 				index++;
 			}
-			D41A0_0.dynamicLights_0x3664C[index].active_0 = 1;
-			D41A0_0.dynamicLights_0x3664C[index].flags_1 = a4;
-			D41A0_0.dynamicLights_0x3664C[index].intensity_2 = a2;
-			D41A0_0.dynamicLights_0x3664C[index].flickerRange_3 = a3;
-			D41A0_0.dynamicLights_0x3664C[index].axis3d_4 = event->position_0x4C_76;
-			D41A0_0.dynamicLights_0x3664C[index].event_A.pointer_0x6E8E = event;
+			world_D41A0.dynamicLights_0x3664C[index].active_0 = 1;
+			world_D41A0.dynamicLights_0x3664C[index].flags_1 = a4;
+			world_D41A0.dynamicLights_0x3664C[index].intensity_2 = a2;
+			world_D41A0.dynamicLights_0x3664C[index].flickerRange_3 = a3;
+			world_D41A0.dynamicLights_0x3664C[index].axis3d_4 = event->position_0x4C_76;
+			world_D41A0.dynamicLights_0x3664C[index].event_A.pointer_0x6E8E = event;
 			event->flags_0xc_12_15.byte[2] |= 8u;
-			memset(D41A0_0.dynamicLights_0x3664C[index].shading_E, 0, 25);
-			D41A0_0.activeLights_0x36DFA++;
+			memset(world_D41A0.dynamicLights_0x3664C[index].shading_E, 0, 25);
+			world_D41A0.activeLights_0x36DFA++;
 		}
 	}
 }
@@ -47339,7 +47339,7 @@ void FreeLightSource_84880(type_str_0x3664C* a1x)//265880
 
 	a1x->active_0 = 0;
 	//result = (int)x_D41A0_BYTEARRAY_0;
-	D41A0_0.activeLights_0x36DFA--;
+	world_D41A0.activeLights_0x36DFA--;
 	//return result;
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -47387,11 +47387,11 @@ void UpdateLightSourcesOld_848A0()//2658a0
 	}
 
 	//LOBYTE(v0) = D41A0_BYTESTR_0.str_2FECE.MapType;
-	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
+	if (world_D41A0.terrain_2FECE.MapType == MapType_t::Night || world_D41A0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
 		//v0 = D41A0_BYTESTR_0.word_0x36DFA;
-		v31 = D41A0_0.activeLights_0x36DFA;
-		if (D41A0_0.activeLights_0x36DFA)
+		v31 = world_D41A0.activeLights_0x36DFA;
+		if (world_D41A0.activeLights_0x36DFA)
 		{
 			//D41A0_BYTESTR_0.str_0x3664C[v1x].
 			//v1 = x_D41A0_BYTEARRAY_0 + 222796;
@@ -47400,112 +47400,112 @@ void UpdateLightSourcesOld_848A0()//2658a0
 			v3 = 0;
 			while (v2 < 50 && v3 < v31)
 			{
-				if (D41A0_0.dynamicLights_0x3664C[v1x].active_0)
+				if (world_D41A0.dynamicLights_0x3664C[v1x].active_0)
 				{
-					v4x._axis_2d.x = (D41A0_0.dynamicLights_0x3664C[v1x].axis3d_4.x >> 8) - 2;
-					v4x._axis_2d.y = (D41A0_0.dynamicLights_0x3664C[v1x].axis3d_4.y >> 8) - 2;
+					v4x._axis_2d.x = (world_D41A0.dynamicLights_0x3664C[v1x].axis3d_4.x >> 8) - 2;
+					v4x._axis_2d.y = (world_D41A0.dynamicLights_0x3664C[v1x].axis3d_4.y >> 8) - 2;
 					//v4x._axis_2d.x -=2;
 					//v5 = v4;
 					//LOBYTE(v4)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[0];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[0];
 					v4x._axis_2d.x++;
 					//v6 = v4;
 					//LOBYTE(v4)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[1];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[1];
 					v4x._axis_2d.x++;
 					//v7 = v4;
 					//LOBYTE(v4)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[2];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[2];
 					v4x._axis_2d.x++;
 					//v8 = v4;
 					//LOBYTE(v4)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[3];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[3];
 					v4x._axis_2d.x++;
 					//v9 = v4;
 					//HIBYTE(v4)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[4];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[4];
 					v4x._axis_2d.y++;
 					//v10 = v4;
 					//LOBYTE(v4)--;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[5];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[5];
 					v4x._axis_2d.x--;
 					//v11 = v4;
 					//LOBYTE(v4)--;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[6];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[6];
 					v4x._axis_2d.x--;
 					//v12 = v4;
 					//LOBYTE(v4)--;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[7];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[7];
 					v4x._axis_2d.x--;
 					//v13 = v4;
 					//LOBYTE(v4)--;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[8];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[8];
 					v4x._axis_2d.x--;
 					//v14 = v4;
 					//BYTE1(v4)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[9];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[9];
 					v4x._axis_2d.y++;
 					//v15 = v4;
 					//LOBYTE(v4)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[10];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[10];
 					v4x._axis_2d.x++;
 					//v16 = v4;
 					//LOBYTE(v4)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[11];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[11];
 					v4x._axis_2d.x++;
 					//v17 = v4;
 					//LOBYTE(v4)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[12];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[12];
 					v4x._axis_2d.x++;
 					//v18 = v4;
 					//LOBYTE(v4)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[13];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[13];
 					v4x._axis_2d.x++;
 					//v19 = v4;
 					//HIBYTE(v4)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[14];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[14];
 					v4x._axis_2d.y++;
 					//v20 = v4;
 					//LOBYTE(v4)--;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[15];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[15];
 					v4x._axis_2d.x--;
 					v3++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[16];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[16];
 					v4x._axis_2d.x--;
 					//LOBYTE(v4)--;
 					//v21 = v4;
 					//LOBYTE(v4)--;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[17];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[17];
 					v4x._axis_2d.x--;
 					//v22 = v4;
 					//LOBYTE(v4) = v4 - 1;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[18];//32
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[18];//32
 					v4x._axis_2d.x--;
 					//v23 = v4;
 					//HIBYTE(v0)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[19];//33
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[19];//33
 					v4x._axis_2d.y++;
 					//v0x.word=v4x.word;
 					//v24 = v0;
 					//LOBYTE(v0)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[20];//34
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[20];//34
 					v4x._axis_2d.x++;
 					//v25 = v0;
 					//LOBYTE(v0)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[21];//35
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[21];//35
 					v4x._axis_2d.x++;
 					//v26 = v0;
 					//LOBYTE(v0)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[22];//36
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[22];//36
 					v4x._axis_2d.x++;
 					//v27 = v0;
 					//v28 = x_BYTE_12B4E0_shading[v0] - D41A0_BYTESTR_0.str_0x3664C[v1x].array_E[23];
 					//LOBYTE(v0)++;
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[23];//37
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[23];//37
 					//v29 = v0;
 					v4x._axis_2d.x++;
 					//LOBYTE(v0) = D41A0_BYTESTR_0.str_0x3664C[v1x].array_E[24];
-					mapShading_12B4E0[v4x.word] -= D41A0_0.dynamicLights_0x3664C[v1x].shading_E[24];//38
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[24];//38
 				}
 				v2++;
 				//v1 += 39;
@@ -47533,19 +47533,19 @@ void UpdateLightSources_84B80()//265b80
 		//add_compare(0x265b84, CommandLineParams.DoDebugafterload());
 	}
 
-	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
+	if (world_D41A0.terrain_2FECE.MapType == MapType_t::Night || world_D41A0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
-		v9 = D41A0_0.activeLights_0x36DFA;
-		if (D41A0_0.activeLights_0x36DFA)
+		v9 = world_D41A0.activeLights_0x36DFA;
+		if (world_D41A0.activeLights_0x36DFA)
 		{
 			v7x = 0;
 			for (iy = 0; iy < 50; iy++)
 			{
 				if (v7x >= v9)
 					break;
-				if (D41A0_0.dynamicLights_0x3664C[iy].active_0)
+				if (world_D41A0.dynamicLights_0x3664C[iy].active_0)
 				{
-					v2x = D41A0_0.dynamicLights_0x3664C[iy].event_A.pointer_0x6E8E;
+					v2x = world_D41A0.dynamicLights_0x3664C[iy].event_A.pointer_0x6E8E;
 					v7x++;
 					//fix
 					if (v2x == 0)
@@ -47561,68 +47561,68 @@ void UpdateLightSources_84B80()//265b80
 
 					if (v2x->life_0x8 < 0 || v2x->flags_0xc_12_15.byte[1] & 4)
 					{
-						FreeLightSource_84880(&D41A0_0.dynamicLights_0x3664C[iy]);
+						FreeLightSource_84880(&world_D41A0.dynamicLights_0x3664C[iy]);
 					}
 					else
 					{
-						D41A0_0.dynamicLights_0x3664C[iy].axis3d_4 = v2x->position_0x4C_76;
-						v4x._axis_2d.x = D41A0_0.dynamicLights_0x3664C[iy].axis3d_4.x >> 8;
-						v4x._axis_2d.y = D41A0_0.dynamicLights_0x3664C[iy].axis3d_4.y >> 8;
-						D41A0_0.lightRandSeed_0x36DF2 = 9377 * D41A0_0.lightRandSeed_0x36DF2 + 9439;
-						v3 = D41A0_0.lightRandSeed_0x36DF2 % D41A0_0.dynamicLights_0x3664C[iy].flickerRange_3
-							- D41A0_0.dynamicLights_0x3664C[iy].flickerRange_3 / 2;
+						world_D41A0.dynamicLights_0x3664C[iy].axis3d_4 = v2x->position_0x4C_76;
+						v4x._axis_2d.x = world_D41A0.dynamicLights_0x3664C[iy].axis3d_4.x >> 8;
+						v4x._axis_2d.y = world_D41A0.dynamicLights_0x3664C[iy].axis3d_4.y >> 8;
+						world_D41A0.lightRandSeed_0x36DF2 = 9377 * world_D41A0.lightRandSeed_0x36DF2 + 9439;
+						v3 = world_D41A0.lightRandSeed_0x36DF2 % world_D41A0.dynamicLights_0x3664C[iy].flickerRange_3
+							- world_D41A0.dynamicLights_0x3664C[iy].flickerRange_3 / 2;
 						v4x._axis_2d.y -= 2;
 						v4x._axis_2d.x -= 2;
 						//adress 265c5d
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 0, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 0, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 1, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 1, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 2, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 2, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 3, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 3, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 4, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 4, v3);
 						v4x._axis_2d.y++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 5, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 5, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 6, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 6, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 7, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 7, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 8, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 8, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 9, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 9, v3);
 						v4x._axis_2d.y++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 10, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 10, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 11, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 11, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 12, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 12, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 13, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 13, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 14, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 14, v3);
 						v4x._axis_2d.y++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 15, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 15, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 16, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 16, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 17, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 17, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 18, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 18, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 19, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 19, v3);
 						v4x._axis_2d.y++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 20, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 20, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 21, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 21, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 22, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 22, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 23, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 23, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.dynamicLights_0x3664C[iy], 24, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 24, v3);
 					}
 				}
 			}
@@ -47645,18 +47645,18 @@ void UpdateLightSources_84B80()//265b80
 	if (CommandLineParams.DoDebugSequences()) {
 		//add_compare(0x265b84, CommandLineParams.DoDebugafterload());
 	}
-	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Night || D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
+	if (world_D41A0.terrain_2FECE.MapType == MapType_t::Night || world_D41A0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
-		if (D41A0_0.word_0x36DFA)
+		if (world_D41A0.word_0x36DFA)
 		{
 			v7x = 0;
 			for (iy = 0; iy < 50; iy++)
 			{
-				if (v7x >= D41A0_0.word_0x36DFA)
+				if (v7x >= world_D41A0.word_0x36DFA)
 					break;
-				if (D41A0_0.str_0x3664C[iy].byte_0)
+				if (world_D41A0.str_0x3664C[iy].byte_0)
 				{
-					v2x = D41A0_0.str_0x3664C[iy].event_A.pointer_0x6E8E;
+					v2x = world_D41A0.str_0x3664C[iy].event_A.pointer_0x6E8E;
 					v7x++;
 
 					//fix
@@ -47674,68 +47674,68 @@ void UpdateLightSources_84B80()//265b80
 
 					if (v2x->dword_0x8 < 0 || v2x->flags_0xc_12_15.byte[1] & 4)
 					{
-						FreeLightSource_84880(&D41A0_0.str_0x3664C[iy]);
+						FreeLightSource_84880(&world_D41A0.str_0x3664C[iy]);
 					}
 					else
 					{
-						D41A0_0.str_0x3664C[iy].axis3d_4 = v2x->position_0x4C_76;
-						v4x._axis_2d.x = D41A0_0.str_0x3664C[iy].axis3d_4.x >> 8;
-						v4x._axis_2d.y = D41A0_0.str_0x3664C[iy].axis3d_4.y >> 8;
-						D41A0_0.dword_0x36DF2 = 9377 * D41A0_0.dword_0x36DF2 + 9439;
-						v3 = D41A0_0.dword_0x36DF2 % D41A0_0.str_0x3664C[iy].byte_3
-							- D41A0_0.str_0x3664C[iy].byte_3 / 2;
+						world_D41A0.str_0x3664C[iy].axis3d_4 = v2x->position_0x4C_76;
+						v4x._axis_2d.x = world_D41A0.str_0x3664C[iy].axis3d_4.x >> 8;
+						v4x._axis_2d.y = world_D41A0.str_0x3664C[iy].axis3d_4.y >> 8;
+						world_D41A0.dword_0x36DF2 = 9377 * world_D41A0.dword_0x36DF2 + 9439;
+						v3 = world_D41A0.dword_0x36DF2 % world_D41A0.str_0x3664C[iy].byte_3
+							- world_D41A0.str_0x3664C[iy].byte_3 / 2;
 						v4x._axis_2d.y -= 2;
 						v4x._axis_2d.x -= 2;
 						//adress 265c5d
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 0, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 0, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 1, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 1, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 2, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 2, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 3, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 3, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 4, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 4, v3);
 						v4x._axis_2d.y++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 5, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 5, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 6, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 6, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 7, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 7, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 8, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 8, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 9, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 9, v3);
 						v4x._axis_2d.y++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 10, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 10, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 11, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 11, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 12, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 12, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 13, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 13, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 14, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 14, v3);
 						v4x._axis_2d.y++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 15, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 15, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 16, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 16, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 17, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 17, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 18, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 18, v3);
 						v4x._axis_2d.x--;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 19, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 19, v3);
 						v4x._axis_2d.y++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 20, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 20, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 21, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 21, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 22, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 22, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 23, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 23, v3);
 						v4x._axis_2d.x++;
-						ApplyLightToTile_84EA0(v4x, &D41A0_0.str_0x3664C[iy], 24, v3);
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 24, v3);
 					}
 				}
 			}
@@ -47829,7 +47829,7 @@ int ReadDwordAtOffset4_85060(int a1)//266060
 //----- (00085B20) --------------------------------------------------------
 void CopyScreen_85B20(uint8_t* src, uint8_t* dest, uint16_t rows_count) //266b20
 {
-	if (x_WORD_180660_VGA_type_resolution & 1) {
+	if (videoMode_180660 & 1) {
 		CopyScreen(src, dest, 320, 200);//copy 320x200 to 320x200
 	}
 	else {
@@ -47841,7 +47841,7 @@ void CopyScreen_85B20(uint8_t* src, uint8_t* dest, uint16_t rows_count) //266b20
 					dest[y * 2 * 320 + doubleRowIndex * 320 + x] = (scr_byte << 8) | scr_byte;//set two bytes
 				}
 		}
-		if (dest != loc_A0000_vga_buffer && rows_count >= 400)//clear last 80 rows
+		if (dest != vgaBuffer_A0000 && rows_count >= 400)//clear last 80 rows
 			memset(&dest[rows * 320 * 2], 0, 320 * 2 * 80);
 	}
 }
@@ -47963,7 +47963,7 @@ void* AllocMemory_85EB0(int32 a1)//266eb0 //malloc
 }
 // 17FF0C: using guessed type int Int386Request_17FF0C;
 // 17FF10: using guessed type int x_DWORD_17FF10;
-// 17FF24: using guessed type int x_DWORD_17FF24;
+// 17FF24: using guessed type int cdBuffer_17FF24;
 
 //----- (00085F00) --------------------------------------------------------
 __int16 FreeMemory_85F00(__int16  /*a1*/)//266f00 //https://github.com/videogamepreservation/descent2/blob/master/SOURCE/BIOS/DPMI.C
@@ -47973,15 +47973,15 @@ __int16 FreeMemory_85F00(__int16  /*a1*/)//266f00 //https://github.com/videogame
 	x_WORD_17FF18 = a1;
 	LOWORD(Int386Request_17FF0C) = 0x100;
 //removed int386(49, (REGS*)&Int386Request_17FF0C, (REGS*)&Int386Request_17FF0C);
-	if ( x_DWORD_17FF24 )
+	if ( cdBuffer_17FF24 )
 	  myprintf("fdm:error freeing %lx\n");
-	LOBYTE(result) = x_DWORD_17FF24 == 0;
+	LOBYTE(result) = cdBuffer_17FF24 == 0;
 	HIBYTE(result) = 0;
 	return result;*/
 
 	//__int16 result; // ax
-	free((void*)x_DWORD_17FF24);
-	if (x_DWORD_17FF24)
+	free((void*)cdBuffer_17FF24);
+	if (cdBuffer_17FF24)
 	{
 		myprintf("fdm:error freeing %lx\n");
 		return 1;
@@ -47990,7 +47990,7 @@ __int16 FreeMemory_85F00(__int16  /*a1*/)//266f00 //https://github.com/videogame
 }
 // 17FF0C: using guessed type int Int386Request_17FF0C;
 // 17FF18: using guessed type __int16 x_WORD_17FF18;
-// 17FF24: using guessed type int x_DWORD_17FF24;
+// 17FF24: using guessed type int cdBuffer_17FF24;
 
 //----- (00085F60) --------------------------------------------------------
 int MsfToFrames_85F60(int a1)//266f60
@@ -48003,12 +48003,12 @@ bool AllocCdBuffers_85FD0()//266fd0
 {
 	//int v0; // ax
 	// 2B3A6C - D5020000A11A0000
-	//x_DWORD_E2A6C
-	x_DWORD_E2A6C = (int)AllocMemory_85EB0(0x2);
+	//cdDriveReady_E2A6C
+	cdDriveReady_E2A6C = (int)AllocMemory_85EB0(0x2);
 	x_DWORD_E2A70 = (int)AllocMemory_85EB0(0x100);
-	return x_DWORD_E2A6C && x_DWORD_E2A70;
+	return cdDriveReady_E2A6C && x_DWORD_E2A70;
 }
-// E2A6C: using guessed type int x_DWORD_E2A6C;
+// E2A6C: using guessed type int cdDriveReady_E2A6C;
 // E2A70: using guessed type int x_DWORD_E2A70;
 */
 
@@ -48048,7 +48048,7 @@ void InitialiseCdAudio_86A00()//267a00
 			v1 = 0;
 			while (1)
 			{
-				v2x = QueryCdTracks_86270((uint16_t)x_WORD_1803EC);
+				v2x = QueryCdTracks_86270((uint16_t)cdDrive_1803EC);
 				if ((v2x & 0x8000) == 0)
 					break;
 				j___delay(1000);
@@ -48060,16 +48060,16 @@ void InitialiseCdAudio_86A00()//267a00
 			TrackEndIdx_18049E = MaxTrackIdx_180472;
 			while (v2 <= (signed int)(uint8_t)MaxTrackIdx_180472)
 			{
-				QueryCdTrack_86370(x_WORD_1803EC, v2);
+				QueryCdTrack_86370(cdDrive_1803EC, v2);
 				v3 = v2;
-				v4 = x_DWORD_180486;
-				x_BYTE_1803EE[v2++] = (x_BYTE_18048A & 0x40) == 0;
+				v4 = cdTrackInfo_180486;
+				cdTrackAudio_1803EE[v2++] = (cdTrackFlags_18048A & 0x40) == 0;
 				TrackOffsets_180084[v3] = MsfToFrames_85F60(v4);
 			}
 			v5 = 0;
 			for (i = (uint8_t)MinTrackIdx_180471; i <= (signed int)(uint8_t)MaxTrackIdx_180472; i++)
 			{
-				if (x_BYTE_1803EE[i])
+				if (cdTrackAudio_1803EE[i])
 					v5 = 1;
 			}
 			if (v5)
@@ -48089,16 +48089,16 @@ void InitialiseCdAudio_86A00()//267a00
 				{
 					v11 = v10;
 					if (v10 == (uint8_t)MaxTrackIdx_180472)
-						v12 = MsfToFrames_85F60(x_DWORD_180473) - v7;
+						v12 = MsfToFrames_85F60(cdLeadOut_180473) - v7;
 					else
 						v12 = TrackOffsets_180084[1 + v11];
-					x_DWORD_180214[v11] = v12;
+					cdTrackStarts_180214[v11] = v12;
 					v13 = v10;
 					v14 = TrackOffsets_180084[v10];
-					v15 = x_DWORD_180214[v10++];
-					x_DWORD_180214[v13] = v15 - v14;
+					v15 = cdTrackStarts_180214[v10++];
+					cdTrackStarts_180214[v13] = v15 - v14;
 				}
-				InitCdAudioRequest_86460(x_WORD_1803EC);
+				InitCdAudioRequest_86460(cdDrive_1803EC);
 				cdSpeechEnabled_E2A28 = 1;
 			}
 			else
@@ -48195,13 +48195,13 @@ void PlayCDTrackSegment_86FF0(uint8_t trackIdx, int32_t startPosSec, int32_t len
 	if (cdSpeechEnabled_E2A28 && (musicAble_E37FC || soundAble_E3798))
 	{
 		PlayingTrackIdx_1803E8 = trackIdx;
-		StopCdPlayback_86860(x_WORD_1803EC);
+		StopCdPlayback_86860(cdDrive_1803EC);
 		if ((uint16_t)PlayingTrackIdx_1803E8 >= TrackStartIdx_1804A1
 			&& (uint16_t)PlayingTrackIdx_1803E8 <= TrackEndIdx_18049E)
 		{
-			if (x_BYTE_1803EE[(uint16_t)PlayingTrackIdx_1803E8])
+			if (cdTrackAudio_1803EE[(uint16_t)PlayingTrackIdx_1803E8])
 			{
-				PlayCdAudio_86780(x_WORD_1803EC, TrackOffsets_180084[(uint16_t)PlayingTrackIdx_1803E8] + startPosSec, lengthMs);
+				PlayCdAudio_86780(cdDrive_1803EC, TrackOffsets_180084[(uint16_t)PlayingTrackIdx_1803E8] + startPosSec, lengthMs);
 				PlayCdTrackSegment(trackIdx, startPosSec, lengthMs);
 			}
 		}
@@ -48213,7 +48213,7 @@ void PlayCDTrackSegment_86FF0(uint8_t trackIdx, int32_t startPosSec, int32_t len
 // 180084: using guessed type int TrackOffsets_180084[];
 // 1803E8: using guessed type __int16 PlayingTrackIdx_1803E8;
 // 1803EA: using guessed type __int16 x_WORD_1803EA;
-// 1803EC: using guessed type __int16 x_WORD_1803EC;
+// 1803EC: using guessed type __int16 cdDrive_1803EC;
 
 //----- (00087090) --------------------------------------------------------
 void SetTextBoxMinMaxSizes_87090()//268090
@@ -48224,35 +48224,35 @@ void SetTextBoxMinMaxSizes_87090()//268090
 	int v2x;
 	int v3; // edx
 
-	memset(&str_unk_1804B0ar, 0, 171);
-	for (i = 1; i < 120 && !str_unk_1804B0ar.helpItemCount_0x66; i++)
+	memset(&helpPopup_1804B0, 0, 171);
+	for (i = 1; i < 120 && !helpPopup_1804B0.helpItemCount_0x66; i++)
 	{
 		//if (!*(int16_t*)&array_E2A74[30 * i])
 		if (!str_E2A74[i].type_0)
-			str_unk_1804B0ar.helpItemCount_0x66 = i - 1;
+			helpPopup_1804B0.helpItemCount_0x66 = i - 1;
 	}
 	result = (uint8_t*)ReturnTrue_871E0();
 	if (result)
 	{
-		str_unk_1804B0ar.initialized_0xa2 = 1;
-		str_unk_1804B0ar.type_sub_0[0].charWidth_0x10 = 8;
-		str_unk_1804B0ar.type_sub_0[0].charHeight_0x12 = 14;
-		str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight2_0xe = 400;
-		str_unk_1804B0ar.type_sub_0[0].maxPosX_0x16 = 600;
-		str_unk_1804B0ar.type_sub_0[0].minPosY_0x18 = 80;
-		str_unk_1804B0ar.type_sub_0[0].maxPosY_0x1a = 260;
-		str_unk_1804B0ar.type_sub_0[0].minPosX_0x14 = 40;
-		str_unk_1804B0ar.type_sub_0[1] = str_unk_1804B0ar.type_sub_0[0];
+		helpPopup_1804B0.initialized_0xa2 = 1;
+		helpPopup_1804B0.type_sub_0[0].charWidth_0x10 = 8;
+		helpPopup_1804B0.type_sub_0[0].charHeight_0x12 = 14;
+		helpPopup_1804B0.type_sub_0[0].maxTextboxHeight2_0xe = 400;
+		helpPopup_1804B0.type_sub_0[0].maxPosX_0x16 = 600;
+		helpPopup_1804B0.type_sub_0[0].minPosY_0x18 = 80;
+		helpPopup_1804B0.type_sub_0[0].maxPosY_0x1a = 260;
+		helpPopup_1804B0.type_sub_0[0].minPosX_0x14 = 40;
+		helpPopup_1804B0.type_sub_0[1] = helpPopup_1804B0.type_sub_0[0];
 		//qmemcpy(&unk_1804B0ar[51], unk_1804B0ar, 0x30u);
-		//qmemcpy(&unk_1804B0ar[0x33+0x30], &str_unk_1804B0ar.type_sub_0[0].byte_0x30, 3u);
+		//qmemcpy(&unk_1804B0ar[0x33+0x30], &helpPopup_1804B0.type_sub_0[0].byte_0x30, 3u);
 		//v2 = &array_E2A74[30];
 		v2x = 0;
-		str_unk_1804B0ar.type_sub_0[1].maxPosY_0x1a = 370;
-		str_unk_1804B0ar.type_sub_0[1].minPosX_0x14 = 30;
-		str_unk_1804B0ar.type_sub_0[1].maxPosX_0x16 = 610;
-		str_unk_1804B0ar.type_sub_0[1].minPosY_0x18 = 30;
+		helpPopup_1804B0.type_sub_0[1].maxPosY_0x1a = 370;
+		helpPopup_1804B0.type_sub_0[1].minPosX_0x14 = 30;
+		helpPopup_1804B0.type_sub_0[1].maxPosX_0x16 = 610;
+		helpPopup_1804B0.type_sub_0[1].minPosY_0x18 = 30;
 		v3 = 0;
-		while (v3 < str_unk_1804B0ar.helpItemCount_0x66)
+		while (v3 < helpPopup_1804B0.helpItemCount_0x66)
 		{
 			/* *(int32_t*)&v2[16] = *(int32_t*)&v2[24];
 			if (!v2[29])
@@ -48269,7 +48269,7 @@ void SetTextBoxMinMaxSizes_87090()//268090
 			v3++;
 			v2x++;
 		}
-		str_unk_1804B0ar.randSeed_0x82 = D41A0_0.rand_0x8;
+		helpPopup_1804B0.randSeed_0x82 = world_D41A0.rand_0x8;
 		/*result = */UpdateHelpItems_88B20();
 	}
 }
@@ -48278,23 +48278,23 @@ void SetTextBoxMinMaxForSetResolution()
 {
 	if (!DefaultResolutions())
 	{
-		str_unk_1804B0ar.type_sub_0[0].maxPosX_0x16 = screenWidth_18062C - 40;
-		str_unk_1804B0ar.type_sub_0[0].maxPosY_0x1a = screenHeight_180624 - 220;
-		str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight2_0xe = screenHeight_180624 - 80;
+		helpPopup_1804B0.type_sub_0[0].maxPosX_0x16 = screenWidth_18062C - 40;
+		helpPopup_1804B0.type_sub_0[0].maxPosY_0x1a = screenHeight_180624 - 220;
+		helpPopup_1804B0.type_sub_0[0].maxTextboxHeight2_0xe = screenHeight_180624 - 80;
 
-		str_unk_1804B0ar.type_sub_0[1] = str_unk_1804B0ar.type_sub_0[0];
-		str_unk_1804B0ar.type_sub_0[1].maxPosX_0x16 = screenWidth_18062C - 30;
-		str_unk_1804B0ar.type_sub_0[1].maxPosY_0x1a = screenHeight_180624 - 110;
+		helpPopup_1804B0.type_sub_0[1] = helpPopup_1804B0.type_sub_0[0];
+		helpPopup_1804B0.type_sub_0[1].maxPosX_0x16 = screenWidth_18062C - 30;
+		helpPopup_1804B0.type_sub_0[1].maxPosY_0x1a = screenHeight_180624 - 110;
 	}
 	else
 	{
-		str_unk_1804B0ar.type_sub_0[0].maxPosX_0x16 = 600;
-		str_unk_1804B0ar.type_sub_0[0].maxPosY_0x1a = 260;
-		str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight2_0xe = 400;
+		helpPopup_1804B0.type_sub_0[0].maxPosX_0x16 = 600;
+		helpPopup_1804B0.type_sub_0[0].maxPosY_0x1a = 260;
+		helpPopup_1804B0.type_sub_0[0].maxTextboxHeight2_0xe = 400;
 
-		str_unk_1804B0ar.type_sub_0[1] = str_unk_1804B0ar.type_sub_0[0];
-		str_unk_1804B0ar.type_sub_0[1].maxPosX_0x16 = 610;
-		str_unk_1804B0ar.type_sub_0[1].maxPosY_0x1a = 370;
+		helpPopup_1804B0.type_sub_0[1] = helpPopup_1804B0.type_sub_0[0];
+		helpPopup_1804B0.type_sub_0[1].maxPosX_0x16 = 610;
+		helpPopup_1804B0.type_sub_0[1].maxPosY_0x1a = 370;
 	}
 }
 
@@ -48310,24 +48310,24 @@ void DrawHelpPopUps_871F0()//2681f0
 	bool hintType1 = true;
 
 	DrawMenuState_872A0();
-	if (str_unk_1804B0ar.PopupStatusByte_0x9e & 0x10)
+	if (helpPopup_1804B0.PopupStatusByte_0x9e & 0x10)
 	{
 		CloseHelpPopup_87C10();
 	}
 	else
 	{
-		if (str_unk_1804B0ar.popupFlags_0x9f & 0x20 || str_unk_1804B0ar.popupFlags_0x9f & 0x10)
+		if (helpPopup_1804B0.popupFlags_0x9f & 0x20 || helpPopup_1804B0.popupFlags_0x9f & 0x10)
 			hintType1 = false;
-		if (str_unk_1804B0ar.PopupStatusByte_0x9e & 2 || str_unk_1804B0ar.popupFlags_0x9f & 0x8)
+		if (helpPopup_1804B0.PopupStatusByte_0x9e & 2 || helpPopup_1804B0.popupFlags_0x9f & 0x8)
 			hintType1 = true;
 		if (hintType1)
 		{
-			if (str_unk_1804B0ar.Index_0x86)
+			if (helpPopup_1804B0.Index_0x86)
 			{
 				DrawPopupTextBox_87610();
 				UpdateHelpPopupTimeout_87B30();
 			}
-			else if (--str_unk_1804B0ar.blinkCounter_0x72 <= 0)
+			else if (--helpPopup_1804B0.blinkCounter_0x72 <= 0)
 			{
 				SetHelpPopupCoords_87580();
 			}
@@ -48335,12 +48335,12 @@ void DrawHelpPopUps_871F0()//2681f0
 		}
 		else
 		{
-			if (str_unk_1804B0ar.popupFlags_0x9f & 0x10)
+			if (helpPopup_1804B0.popupFlags_0x9f & 0x10)
 			{
 				SetHelpPopupLine_87A30();
 				return;
 			}
-			if (str_unk_1804B0ar.popupFlags_0x9f & 0x20)
+			if (helpPopup_1804B0.popupFlags_0x9f & 0x20)
 			{
 				DrawPauseMenuPopUps_87860();
 				return;
@@ -48364,77 +48364,77 @@ void DrawMenuState_872A0()//2682a0
 		scale = gameUiScale;
 	}
 
-	v1 = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221;
-	v2x = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	v1 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221;
+	v2x = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	if (v1 < 6u || v1 > 8u)
-		str_unk_1804B0ar.PopupStatusByte_0x9e &= 0xFA;
+		helpPopup_1804B0.PopupStatusByte_0x9e &= 0xFA;
 	else
-		str_unk_1804B0ar.PopupStatusByte_0x9e |= 5;
-	str_unk_1804B0ar.PopupStatusByte_0x9e &= 0xFDu;
-	str_unk_1804B0ar.popupFlags_0x9f &= 0xC7u;
-	v3 = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221;
+		helpPopup_1804B0.PopupStatusByte_0x9e |= 5;
+	helpPopup_1804B0.PopupStatusByte_0x9e &= 0xFDu;
+	helpPopup_1804B0.popupFlags_0x9f &= 0xC7u;
+	v3 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221;
 	if (v3 != 5 && v3 != 8)
 	{
-		str_unk_1804B0ar.blinkPeriod_0x6e = 20;
-		str_unk_1804B0ar.spellHelpStep_0xa4 = 0;
-		str_unk_1804B0ar.lastSpellIndex_0xa5 = -1;
+		helpPopup_1804B0.blinkPeriod_0x6e = 20;
+		helpPopup_1804B0.spellHelpStep_0xa4 = 0;
+		helpPopup_1804B0.lastSpellIndex_0xa5 = -1;
 	}
 	else
 	{
-		str_unk_1804B0ar.PopupStatusByte_0x9e |= 2;
-		str_unk_1804B0ar.blinkPeriod_0x6e = 6;
+		helpPopup_1804B0.PopupStatusByte_0x9e |= 2;
+		helpPopup_1804B0.blinkPeriod_0x6e = 6;
 		v5 = v2x->playerData_0xA4_164x->str_611.spellIndex_0x458_1112;
-		if (v5 != (unsigned __int8)str_unk_1804B0ar.lastSpellIndex_0xa5 || v2x->playerData_0xA4_164x->str_611.subSpellIndex_0x459_1113 != str_unk_1804B0ar.lastSubSpellIndex_0xa6)
+		if (v5 != (unsigned __int8)helpPopup_1804B0.lastSpellIndex_0xa5 || v2x->playerData_0xA4_164x->str_611.subSpellIndex_0x459_1113 != helpPopup_1804B0.lastSubSpellIndex_0xa6)
 		{
 			v7 = spellIndex_D94FF[v2x->playerData_0xA4_164x->str_611.spellIndex_0x458_1112];
-			if ((unsigned __int8)str_unk_1804B0ar.spellHelpStep_0xa4 > 1u || !v2x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[v7] || !isCaveLevel_D41B6 && v7 == 25)
+			if ((unsigned __int8)helpPopup_1804B0.spellHelpStep_0xa4 > 1u || !v2x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[v7] || !isCaveLevel_D41B6 && v7 == 25)
 				CloseHelpPopup_87C10();
-			str_unk_1804B0ar.spellHelpStep_0xa4 = 0;
+			helpPopup_1804B0.spellHelpStep_0xa4 = 0;
 			SetSpellHelpPopupCoordinates_88D40(scale);
-			str_unk_1804B0ar.popupTimer_0x76 = 0;
+			helpPopup_1804B0.popupTimer_0x76 = 0;
 		}
-		str_unk_1804B0ar.lastSpellIndex_0xa5 = v2x->playerData_0xA4_164x->str_611.spellIndex_0x458_1112;
-		str_unk_1804B0ar.lastSubSpellIndex_0xa6 = v2x->playerData_0xA4_164x->str_611.subSpellIndex_0x459_1113;
+		helpPopup_1804B0.lastSpellIndex_0xa5 = v2x->playerData_0xA4_164x->str_611.spellIndex_0x458_1112;
+		helpPopup_1804B0.lastSubSpellIndex_0xa6 = v2x->playerData_0xA4_164x->str_611.subSpellIndex_0x459_1113;
 	}
-	if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == 7)
+	if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == 7)
 	{
-		str_unk_1804B0ar.popupFlags_0x9f |= 8u;
+		helpPopup_1804B0.popupFlags_0x9f |= 8u;
 	}
-	else if (str_E2A74[str_unk_1804B0ar.Index_0x86].type_0 == 12)
+	else if (str_E2A74[helpPopup_1804B0.Index_0x86].type_0 == 12)
 	{
 		CloseHelpPopup_87C10();
 	}
-	if (x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED)
-		str_unk_1804B0ar.popupFlags_0x9f |= 0x20u;
-	if (D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == 3)
-		str_unk_1804B0ar.popupFlags_0x9f |= 0x10u;
+	if (gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED)
+		helpPopup_1804B0.popupFlags_0x9f |= 0x20u;
+	if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == 3)
+		helpPopup_1804B0.popupFlags_0x9f |= 0x10u;
 	if (v2x->actSpeed_0x82_130)
-		str_unk_1804B0ar.uni_0x8a.dword[0] = 0;
+		helpPopup_1804B0.uni_0x8a.dword[0] = 0;
 	else
-		(str_unk_1804B0ar.uni_0x8a.dword[0])++;
-	str_unk_1804B0ar.popupFlags_0x9f &= 0xFBu;
+		(helpPopup_1804B0.uni_0x8a.dword[0])++;
+	helpPopup_1804B0.popupFlags_0x9f &= 0xFBu;
 	if (v2x->actionIndex_0x45_69 == 3)
-		str_unk_1804B0ar.popupFlags_0x9f = str_unk_1804B0ar.popupFlags_0x9f | 4;
-	str_unk_1804B0ar.PopupStatusByte_0x9e &= 0xEF;
-	if (D41A0_0.objectiveBoxCounter_0x36E04
-		|| x_D41A0_BYTEARRAY_4_struct.byteindex_225
+		helpPopup_1804B0.popupFlags_0x9f = helpPopup_1804B0.popupFlags_0x9f | 4;
+	helpPopup_1804B0.PopupStatusByte_0x9e &= 0xEF;
+	if (world_D41A0.objectiveBoxCounter_0x36E04
+		|| gameState_D41A4.byteindex_225
 		|| v2x->actionIndex_0x45_69 == 12
 		|| v2x->actionIndex_0x45_69 == 11
-		|| D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == 13
-		|| D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == 14)
+		|| world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == 13
+		|| world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == 14)
 	{
-		str_unk_1804B0ar.blinkCounter_0x72 = str_unk_1804B0ar.blinkPeriod_0x6e;
-		str_unk_1804B0ar.PopupStatusByte_0x9e |= 0x10;
+		helpPopup_1804B0.blinkCounter_0x72 = helpPopup_1804B0.blinkPeriod_0x6e;
+		helpPopup_1804B0.PopupStatusByte_0x9e |= 0x10;
 	}
-	if (str_unk_1804B0ar.Index_0x86)
+	if (helpPopup_1804B0.Index_0x86)
 	{	//adress 268509
-		if (str_E2A74[str_unk_1804B0ar.Index_0x86].type_0 == 2 || str_E2A74[str_unk_1804B0ar.Index_0x86].type_0 == 8)
+		if (str_E2A74[helpPopup_1804B0.Index_0x86].type_0 == 2 || str_E2A74[helpPopup_1804B0.Index_0x86].type_0 == 8)
 		{
-			if (!(str_unk_1804B0ar.popupFlags_0x9f & 0x2)
-				|| (str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[0] >= 0)
-				&& (str_E2A74[str_unk_1804B0ar.Index_0x86].entity_12 == 0
-					|| str_E2A74[str_unk_1804B0ar.Index_0x86].countdown_20 < 0
-					|| str_E2A74[str_unk_1804B0ar.Index_0x86].interval_24 & 0x400))
+			if (!(helpPopup_1804B0.popupFlags_0x9f & 0x2)
+				|| (str_E2A74[helpPopup_1804B0.Index_0x86].axis_2[0] >= 0)
+				&& (str_E2A74[helpPopup_1804B0.Index_0x86].entity_12 == 0
+					|| str_E2A74[helpPopup_1804B0.Index_0x86].countdown_20 < 0
+					|| str_E2A74[helpPopup_1804B0.Index_0x86].interval_24 & 0x400))
 			{
 				CloseHelpPopup_87C10();
 			}
@@ -48455,15 +48455,15 @@ void SetHelpPopupCoords_87580()//268580
 	}
 
 	ClearHelpItemFlags_87BE0();
-	if (str_unk_1804B0ar.popupFlags_0x9f & 0x4)
+	if (helpPopup_1804B0.popupFlags_0x9f & 0x4)
 	{
 		SetHelpPopupTextAndCoords_884D0(91, 1, &str_E2A74[91].axis_2[1], 1, 0, scale);
 	}
-	else if (str_unk_1804B0ar.PopupStatusByte_0x9e & 0x2)
+	else if (helpPopup_1804B0.PopupStatusByte_0x9e & 0x2)
 	{
 		SetSpellHelpPopupCoordinates_88D40(scale);
 	}
-	else if (str_unk_1804B0ar.popupFlags_0x9f & 0x8)
+	else if (helpPopup_1804B0.popupFlags_0x9f & 0x8)
 	{
 		SetPlayerScoresHelpPopupTextAndCoords_89360(scale);
 	}
@@ -48491,129 +48491,129 @@ void DrawPopupTextBox_87610()//268610
 		scale = gameUiScale;
 	}
 
-	textForDraw = x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2]];
-	if (str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[0] & 0x100 || str_unk_1804B0ar.Index_0x86 == 96)
+	textForDraw = langStrings_E9C4C[helpPopup_1804B0.uni_0x8a.word[2]];
+	if (str_E2A74[helpPopup_1804B0.Index_0x86].axis_2[0] & 0x100 || helpPopup_1804B0.Index_0x86 == 96)
 	{
 		textForDraw = textBuffer;
-		GetHintText_89AC0(textBuffer, str_unk_1804B0ar.Index_0x86);
+		GetHintText_89AC0(textBuffer, helpPopup_1804B0.Index_0x86);
 	}
-	str_unk_1804B0ar.type_sub_0[0].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[4095];//convert RGB to indexed color
-	str_unk_1804B0ar.type_sub_0[0].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
-	str_unk_1804B0ar.type_sub_0[0].color3_0x32 = (*xadataclrd0dat.colorPalette_var28)[3840];
+	helpPopup_1804B0.type_sub_0[0].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[4095];//convert RGB to indexed color
+	helpPopup_1804B0.type_sub_0[0].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
+	helpPopup_1804B0.type_sub_0[0].color3_0x32 = (*xadataclrd0dat.colorPalette_var28)[3840];
 
-	switch (str_unk_1804B0ar.drawTextType_0xa3)
+	switch (helpPopup_1804B0.drawTextType_0xa3)
 	{
 	case 1: // Draw in the top middle
 	{
-		if (str_unk_1804B0ar.PopupStatusByte_0x9e & 8)
+		if (helpPopup_1804B0.PopupStatusByte_0x9e & 8)
 		{
-			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth_0x0 = 320;
-			str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight_0x2 = 80;
-			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 320;
+			helpPopup_1804B0.type_sub_0[0].maxTextboxWidth_0x0 = 320;
+			helpPopup_1804B0.type_sub_0[0].maxTextboxHeight_0x2 = 80;
+			helpPopup_1804B0.type_sub_0[0].maxTextboxWidth2_0xc = 320;
 
 			if (!DefaultResolutions())
 			{
-				str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth_0x0 = screenWidth_18062C / 2;
-				str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight_0x2 = screenWidth_18062C / 6;
-				str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = screenWidth_18062C / 2;
+				helpPopup_1804B0.type_sub_0[0].maxTextboxWidth_0x0 = screenWidth_18062C / 2;
+				helpPopup_1804B0.type_sub_0[0].maxTextboxHeight_0x2 = screenWidth_18062C / 6;
+				helpPopup_1804B0.type_sub_0[0].maxTextboxWidth2_0xc = screenWidth_18062C / 2;
 			}
 
-			ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw, scale);
-			ConstrainTextboxSizes_89520(str_unk_1804B0ar.type_sub_0, scale);
-			ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0, scale);
+			ComputeTextboxSizesFromTextWords_89420(helpPopup_1804B0.type_sub_0, textForDraw, scale);
+			ConstrainTextboxSizes_89520(helpPopup_1804B0.type_sub_0, scale);
+			ComputeFrameSizes_89980(helpPopup_1804B0.type_sub_0, scale);
 		}
 		ColorizeScreen_2E790(
-			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
-			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
-			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
-			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
-			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
+			helpPopup_1804B0.type_sub_0[0].framePosX_0x24,
+			helpPopup_1804B0.type_sub_0[0].framePosY_0x26,
+			helpPopup_1804B0.type_sub_0[0].frameWidth_0x28,
+			helpPopup_1804B0.type_sub_0[0].frameHeight_0x2a,
+			helpPopup_1804B0.type_sub_0[0].color2_0x31);
 		AlphaRectangle(
-			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
-			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
-			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
-			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
+			helpPopup_1804B0.type_sub_0[0].framePosX_0x24,
+			helpPopup_1804B0.type_sub_0[0].framePosY_0x26,
+			helpPopup_1804B0.type_sub_0[0].frameWidth_0x28,
+			helpPopup_1804B0.type_sub_0[0].frameHeight_0x2a,
 			100
 		);
-		DrawTextboxText_895D0(str_unk_1804B0ar.type_sub_0, textForDraw, scale);
-		DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0, scale);
-		str_unk_1804B0ar.PopupStatusByte_0x9e &= 0xF7;
+		DrawTextboxText_895D0(helpPopup_1804B0.type_sub_0, textForDraw, scale);
+		DrawTextboxFrame_89690(helpPopup_1804B0.type_sub_0, scale);
+		helpPopup_1804B0.PopupStatusByte_0x9e &= 0xF7;
 		break;
 	}
 	case 2: // Draws Mini Map, Top Status Bar and Control Help
 	{
-		str_unk_1804B0ar.type_sub_0[0].lineSrcX_0x1c = str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[3];
-		str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 220 * scale;
-		str_unk_1804B0ar.type_sub_0[0].lineSrcY_0x1e = str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[4];
-		if (str_unk_1804B0ar.PopupStatusByte_0x9e & 0x8)
+		helpPopup_1804B0.type_sub_0[0].lineSrcX_0x1c = str_E2A74[helpPopup_1804B0.Index_0x86].axis_2[3];
+		helpPopup_1804B0.type_sub_0[0].maxTextboxWidth2_0xc = 220 * scale;
+		helpPopup_1804B0.type_sub_0[0].lineSrcY_0x1e = str_E2A74[helpPopup_1804B0.Index_0x86].axis_2[4];
+		if (helpPopup_1804B0.PopupStatusByte_0x9e & 0x8)
 		{
-			ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0, scale);//here
-			ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw, scale);
-			ConstrainTextboxSizes_89520(str_unk_1804B0ar.type_sub_0, scale);
-			ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0, scale);
+			ComputeTextboxSizes_89830(helpPopup_1804B0.type_sub_0, scale);//here
+			ComputeTextboxSizesFromTextWords_89420(helpPopup_1804B0.type_sub_0, textForDraw, scale);
+			ConstrainTextboxSizes_89520(helpPopup_1804B0.type_sub_0, scale);
+			ComputeFrameSizes_89980(helpPopup_1804B0.type_sub_0, scale);
 		}
-		ComputeTextboxLine_898A0(str_unk_1804B0ar.type_sub_0);
+		ComputeTextboxLine_898A0(helpPopup_1804B0.type_sub_0);
 		ColorizeScreen_2E790(
-			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
-			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
-			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
-			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
-			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
+			helpPopup_1804B0.type_sub_0[0].framePosX_0x24,
+			helpPopup_1804B0.type_sub_0[0].framePosY_0x26,
+			helpPopup_1804B0.type_sub_0[0].frameWidth_0x28,
+			helpPopup_1804B0.type_sub_0[0].frameHeight_0x2a,
+			helpPopup_1804B0.type_sub_0[0].color2_0x31);
 		AlphaRectangle(
-			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
-			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
-			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
-			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
+			helpPopup_1804B0.type_sub_0[0].framePosX_0x24,
+			helpPopup_1804B0.type_sub_0[0].framePosY_0x26,
+			helpPopup_1804B0.type_sub_0[0].frameWidth_0x28,
+			helpPopup_1804B0.type_sub_0[0].frameHeight_0x2a,
 			100
 		);
-		DrawTextboxText_895D0(str_unk_1804B0ar.type_sub_0, textForDraw, scale);
-		DrawTextboxLine_89A30(str_unk_1804B0ar.type_sub_0);
-		DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0, scale);
-		str_unk_1804B0ar.PopupStatusByte_0x9e &= 0xF7;
+		DrawTextboxText_895D0(helpPopup_1804B0.type_sub_0, textForDraw, scale);
+		DrawTextboxLine_89A30(helpPopup_1804B0.type_sub_0);
+		DrawTextboxFrame_89690(helpPopup_1804B0.type_sub_0, scale);
+		helpPopup_1804B0.PopupStatusByte_0x9e &= 0xF7;
 		break;
 	}
 	case 3: //Draw Spell Menu Help
 	{
-		str_unk_1804B0ar.type_sub_0[0].lineSrcX_0x1c = str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[3];//3
-		str_unk_1804B0ar.type_sub_0[0].lineSrcY_0x1e = str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[4];
-		ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0, scale);
-		ComputeTextboxSizesFromTextLines_89920(str_unk_1804B0ar.type_sub_0, str_unk_1804B0ar.lineCount_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2], scale);
-		ConstrainTextboxSizes_89520(str_unk_1804B0ar.type_sub_0, scale);
-		ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0, scale);
-		ComputeTextboxLine_898A0(str_unk_1804B0ar.type_sub_0);
+		helpPopup_1804B0.type_sub_0[0].lineSrcX_0x1c = str_E2A74[helpPopup_1804B0.Index_0x86].axis_2[3];//3
+		helpPopup_1804B0.type_sub_0[0].lineSrcY_0x1e = str_E2A74[helpPopup_1804B0.Index_0x86].axis_2[4];
+		ComputeTextboxSizes_89830(helpPopup_1804B0.type_sub_0, scale);
+		ComputeTextboxSizesFromTextLines_89920(helpPopup_1804B0.type_sub_0, helpPopup_1804B0.lineCount_0xa0, &helpPopup_1804B0.uni_0x8a.word[2], scale);
+		ConstrainTextboxSizes_89520(helpPopup_1804B0.type_sub_0, scale);
+		ComputeFrameSizes_89980(helpPopup_1804B0.type_sub_0, scale);
+		ComputeTextboxLine_898A0(helpPopup_1804B0.type_sub_0);
 		v4 = 0;
 		ColorizeScreen_2E790(
-			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
-			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
-			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
-			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
-			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
+			helpPopup_1804B0.type_sub_0[0].framePosX_0x24,
+			helpPopup_1804B0.type_sub_0[0].framePosY_0x26,
+			helpPopup_1804B0.type_sub_0[0].frameWidth_0x28,
+			helpPopup_1804B0.type_sub_0[0].frameHeight_0x2a,
+			helpPopup_1804B0.type_sub_0[0].color2_0x31);
 		AlphaRectangle(
-			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
-			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
-			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
-			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
+			helpPopup_1804B0.type_sub_0[0].framePosX_0x24,
+			helpPopup_1804B0.type_sub_0[0].framePosY_0x26,
+			helpPopup_1804B0.type_sub_0[0].frameWidth_0x28,
+			helpPopup_1804B0.type_sub_0[0].frameHeight_0x2a,
 			100
 		);
-		posY = str_unk_1804B0ar.type_sub_0[0].textboxPosY_0xa;
-		while (v4 < str_unk_1804B0ar.lineCount_0xa0)
+		posY = helpPopup_1804B0.type_sub_0[0].textboxPosY_0xa;
+		while (v4 < helpPopup_1804B0.lineCount_0xa0)
 		{
-			if (v4 == str_unk_1804B0ar.highlightLine_0xa1)
-				color = str_unk_1804B0ar.type_sub_0[0].color3_0x32;
+			if (v4 == helpPopup_1804B0.highlightLine_0xa1)
+				color = helpPopup_1804B0.type_sub_0[0].color3_0x32;
 			else
-				color = str_unk_1804B0ar.type_sub_0[0].color1_0x30;
+				color = helpPopup_1804B0.type_sub_0[0].color1_0x30;
 			//FireBall,Rapid Fire,Fire Storm
-			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2 + v4++]], str_unk_1804B0ar.type_sub_0[0].textboxPosX_0x8, posY, color, scale);
-			posY += str_unk_1804B0ar.type_sub_0[0].charHeight_0x12 * scale;
+			DrawText_2BC10(langStrings_E9C4C[helpPopup_1804B0.uni_0x8a.word[2 + v4++]], helpPopup_1804B0.type_sub_0[0].textboxPosX_0x8, posY, color, scale);
+			posY += helpPopup_1804B0.type_sub_0[0].charHeight_0x12 * scale;
 		}
-		DrawTextboxLine_89A30(str_unk_1804B0ar.type_sub_0);
-		DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0, scale);
-		str_unk_1804B0ar.PopupStatusByte_0x9e &= 0xF7;
+		DrawTextboxLine_89A30(helpPopup_1804B0.type_sub_0);
+		DrawTextboxFrame_89690(helpPopup_1804B0.type_sub_0, scale);
+		helpPopup_1804B0.PopupStatusByte_0x9e &= 0xF7;
 		break;
 	}
 	default:
 	{
-		str_unk_1804B0ar.PopupStatusByte_0x9e &= 0xF7;
+		helpPopup_1804B0.PopupStatusByte_0x9e &= 0xF7;
 		break;
 	}
 	}
@@ -48629,24 +48629,24 @@ void DrawPauseMenuPopUps_87860()//268860
 		scale = gameUiScale;
 	}
 
-	if (str_unk_1804B0ar.pauseMenuItem_0xaa >= 0)
+	if (helpPopup_1804B0.pauseMenuItem_0xaa >= 0)
 	{
 		SetPauseMenuCoordinates_87970(scale);
 		//Options | Load Level | Save Level | Music Volume | Sound Volume
-		str_unk_1804B0ar.type_sub_0[1].lineSrcX_0x1c = str_E2A74[(str_unk_1804B0ar.pauseMenuItem_0xaa + 86)].axis_2[3];
-		str_unk_1804B0ar.type_sub_0[1].lineSrcY_0x1e = str_E2A74[(str_unk_1804B0ar.pauseMenuItem_0xaa + 86)].axis_2[4];
-		str_unk_1804B0ar.type_sub_0[1].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[4095];
-		str_unk_1804B0ar.type_sub_0[1].maxTextboxWidth2_0xc = 220 * scale;
-		str_unk_1804B0ar.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
-		ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[1], scale);
-		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.pauseMenuItem_0xaa + 86)].axis_2[1]], scale);
-		ConstrainTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[1], scale);
-		ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[1], scale);
-		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[1]);
-		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
-		DrawTextboxText_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.pauseMenuItem_0xaa + 86)].axis_2[1]], scale);
-		DrawTextboxLine_89A30(&str_unk_1804B0ar.type_sub_0[1]);
-		DrawTextboxFrame_89690(&str_unk_1804B0ar.type_sub_0[1], scale);
+		helpPopup_1804B0.type_sub_0[1].lineSrcX_0x1c = str_E2A74[(helpPopup_1804B0.pauseMenuItem_0xaa + 86)].axis_2[3];
+		helpPopup_1804B0.type_sub_0[1].lineSrcY_0x1e = str_E2A74[(helpPopup_1804B0.pauseMenuItem_0xaa + 86)].axis_2[4];
+		helpPopup_1804B0.type_sub_0[1].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[4095];
+		helpPopup_1804B0.type_sub_0[1].maxTextboxWidth2_0xc = 220 * scale;
+		helpPopup_1804B0.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
+		ComputeTextboxSizes_89830(&helpPopup_1804B0.type_sub_0[1], scale);
+		ComputeTextboxSizesFromTextWords_89420(&helpPopup_1804B0.type_sub_0[1], langStrings_E9C4C[str_E2A74[(helpPopup_1804B0.pauseMenuItem_0xaa + 86)].axis_2[1]], scale);
+		ConstrainTextboxSizes_89520(&helpPopup_1804B0.type_sub_0[1], scale);
+		ComputeFrameSizes_89980(&helpPopup_1804B0.type_sub_0[1], scale);
+		ComputeTextboxLine_898A0(&helpPopup_1804B0.type_sub_0[1]);
+		ColorizeScreen_2E790(helpPopup_1804B0.type_sub_0[1].framePosX_0x24, helpPopup_1804B0.type_sub_0[1].framePosY_0x26, helpPopup_1804B0.type_sub_0[1].frameWidth_0x28, helpPopup_1804B0.type_sub_0[1].frameHeight_0x2a, helpPopup_1804B0.type_sub_0[1].color2_0x31);
+		DrawTextboxText_895D0(&helpPopup_1804B0.type_sub_0[1], (char*)langStrings_E9C4C[str_E2A74[(helpPopup_1804B0.pauseMenuItem_0xaa + 86)].axis_2[1]], scale);
+		DrawTextboxLine_89A30(&helpPopup_1804B0.type_sub_0[1]);
+		DrawTextboxFrame_89690(&helpPopup_1804B0.type_sub_0[1], scale);
 	}
 }
 
@@ -48675,29 +48675,29 @@ void SetPauseMenuCoordinates_87970(uint8_t scale)//268970
 //----- (00087A30) --------------------------------------------------------
 void SetHelpPopupLine_87A30()//268a30
 {
-	if (str_unk_1804B0ar.keyHelpItem_0xa9 > 0)
+	if (helpPopup_1804B0.keyHelpItem_0xa9 > 0)
 	{
-		str_unk_1804B0ar.type_sub_0[1].lineSrcX_0x1c = str_E2A74[str_unk_1804B0ar.keyHelpItem_0xa9].axis_2[3];
-		str_unk_1804B0ar.type_sub_0[1].lineSrcY_0x1e = str_E2A74[str_unk_1804B0ar.keyHelpItem_0xa9].axis_2[4];
-		str_unk_1804B0ar.type_sub_0[1].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[4095];
-		str_unk_1804B0ar.type_sub_0[1].maxTextboxWidth2_0xc = 220;
-		str_unk_1804B0ar.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
-		ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[1]);
-		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.keyHelpItem_0xa9].axis_2[1]]);
-		ConstrainTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[1]);
-		ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[1]);
-		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[1]);
-		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
-		DrawTextboxText_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.keyHelpItem_0xa9].axis_2[1]]);
-		DrawTextboxLine_89A30(&str_unk_1804B0ar.type_sub_0[1]);
-		DrawTextboxFrame_89690(&str_unk_1804B0ar.type_sub_0[1]);
+		helpPopup_1804B0.type_sub_0[1].lineSrcX_0x1c = str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[3];
+		helpPopup_1804B0.type_sub_0[1].lineSrcY_0x1e = str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[4];
+		helpPopup_1804B0.type_sub_0[1].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[4095];
+		helpPopup_1804B0.type_sub_0[1].maxTextboxWidth2_0xc = 220;
+		helpPopup_1804B0.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
+		ComputeTextboxSizes_89830(&helpPopup_1804B0.type_sub_0[1]);
+		ComputeTextboxSizesFromTextWords_89420(&helpPopup_1804B0.type_sub_0[1], langStrings_E9C4C[str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[1]]);
+		ConstrainTextboxSizes_89520(&helpPopup_1804B0.type_sub_0[1]);
+		ComputeFrameSizes_89980(&helpPopup_1804B0.type_sub_0[1]);
+		ComputeTextboxLine_898A0(&helpPopup_1804B0.type_sub_0[1]);
+		ColorizeScreen_2E790(helpPopup_1804B0.type_sub_0[1].framePosX_0x24, helpPopup_1804B0.type_sub_0[1].framePosY_0x26, helpPopup_1804B0.type_sub_0[1].frameWidth_0x28, helpPopup_1804B0.type_sub_0[1].frameHeight_0x2a, helpPopup_1804B0.type_sub_0[1].color2_0x31);
+		DrawTextboxText_895D0(&helpPopup_1804B0.type_sub_0[1], (char*)langStrings_E9C4C[str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[1]]);
+		DrawTextboxLine_89A30(&helpPopup_1804B0.type_sub_0[1]);
+		DrawTextboxFrame_89690(&helpPopup_1804B0.type_sub_0[1]);
 	}
 }
 
 //----- (00087B30) --------------------------------------------------------
 void UpdateHelpPopupTimeout_87B30()//268b30
 {
-	if (++str_unk_1804B0ar.popupTimer_0x76 >= str_unk_1804B0ar.popupTimeout_0x7a || !(str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[0] & 1))
+	if (++helpPopup_1804B0.popupTimer_0x76 >= helpPopup_1804B0.popupTimeout_0x7a || !(str_E2A74[helpPopup_1804B0.Index_0x86].axis_2[0] & 1))
 		CloseHelpPopup_87C10();
 }
 
@@ -48709,7 +48709,7 @@ void UpdateHelpItemTimers_87B70()//268b70
 	int v4; // edx
 
 	indexx = 1;
-	for (i = 0; i < str_unk_1804B0ar.helpItemCount_0x66; indexx++)
+	for (i = 0; i < helpPopup_1804B0.helpItemCount_0x66; indexx++)
 	{
 		str_E2A74[indexx].counter_16++;
 		v4 = str_E2A74[indexx].counter_16 - str_E2A74[indexx].interval_24;
@@ -48732,7 +48732,7 @@ void ClearHelpItemFlags_87BE0()//268be0
 	char v2; // bl
 
 	int index = 0;
-	for (int i = 0; i < str_unk_1804B0ar.helpItemCount_0x66; str_E2A74[index].axis_2[0] = v2 & 0xFE)
+	for (int i = 0; i < helpPopup_1804B0.helpItemCount_0x66; str_E2A74[index].axis_2[0] = v2 & 0xFE)
 	{
 		v2 = str_E2A74[index + 1].axis_2[0];
 		index++;
@@ -48777,7 +48777,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 	v34 = 0;
 	v37 = -1;
 	v0 = -1;
-	v1x = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	v1x = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	v3 = v1x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58;
 	if (v3)
 		v5x = Entities_EA3E4[v3];
@@ -48799,13 +48799,13 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 		v0 = v1x->playerData_0xA4_164x->str_611.SpellIndexLeft_0x451_1105;
 		v37 = v1x->playerData_0xA4_164x->str_611.SpellIndexRight_0x453_1107;
 	}
-	if (D41A0_0.playerObjectives_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
+	if (world_D41A0.playerObjectives_0x3659C[world_D41A0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
 		v33 = -1;
 	else
-		v33 = D41A0_0.stages_0x3654C[D41A0_0.stages_0x3654C[D41A0_0.LevelIndex_0xc].flags_3654D].stages_3654C_byte0;
+		v33 = world_D41A0.stages_0x3654C[world_D41A0.stages_0x3654C[world_D41A0.LevelIndex_0xc].flags_3654D].stages_3654C_byte0;
 	v35 = 1;
 	v9x = 1;
-	while ((signed int)v35 <= str_unk_1804B0ar.helpItemCount_0x66)
+	while ((signed int)v35 <= helpPopup_1804B0.helpItemCount_0x66)
 	{
 		switch (str_E2A74[v9x].type_0)
 		{
@@ -48825,7 +48825,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 				if (!v33)
 				{
 					str_E2A74[v9x].axis_2[0] |= 1u;
-					str_E2A74[35].axis_2[3] = (D41A0_0.terrain_2FECE.manaGoalPercent_0x2FED5 << 6) / 100
+					str_E2A74[35].axis_2[3] = (world_D41A0.terrain_2FECE.manaGoalPercent_0x2FED5 << 6) / 100
 						+ (*filearray_2aa18c[filearrayindex_FONTS1DATTAB].posistruct)[40].width_4
 						+ 60;
 					str_E2A74[35].axis_2[4] = 38;
@@ -48838,7 +48838,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 		case 0xD:
 			break;
 		case 6:
-			v13 = (str_unk_1804B0ar.PopupStatusByte_0x9e & 2) == 0;
+			v13 = (helpPopup_1804B0.PopupStatusByte_0x9e & 2) == 0;
 			goto LABEL_31;
 		case 8:
 			if (str_E2A74[v9x].axis_2[0] & 0x10 || str_E2A74[v9x].axis_2[0] & 0x40)
@@ -48857,7 +48857,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 		v9x++;
 		v35++;
 	}
-	if (str_unk_1804B0ar.PopupStatusByte_0x9e & 4)
+	if (helpPopup_1804B0.PopupStatusByte_0x9e & 4)
 	{
 		//Map screen open
 		str_E2A74[2].axis_2[3] = (190 * scale);
@@ -48869,7 +48869,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 		str_E2A74[2].axis_2[3] = (64 * scale);
 		str_E2A74[2].axis_2[4] = (66 * scale);
 	}
-	if (!v34 && !(str_unk_1804B0ar.PopupStatusByte_0x9e & 4))
+	if (!v34 && !(helpPopup_1804B0.PopupStatusByte_0x9e & 4))
 		str_E2A74[4].axis_2[0] |= 1u;
 	if (v1x->maxLife_0x4 >> 2 >= v1x->life_0x8)
 		str_E2A74[5].axis_2[0] |= 1u;
@@ -48880,8 +48880,8 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 	str_E2A74[12].axis_2[0] |= 4u;
 	if (v29)
 	{
-		v14 = str_unk_1804B0ar.PopupStatusByte_0x9e & 0x40;
-		if (str_unk_1804B0ar.PopupStatusByte_0x9e & 0x80)
+		v14 = helpPopup_1804B0.PopupStatusByte_0x9e & 0x40;
+		if (helpPopup_1804B0.PopupStatusByte_0x9e & 0x80)
 		{
 			if (v31)
 			{
@@ -48914,7 +48914,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 			{
 				str_E2A74[7].axis_2[0] |= 1u;
 			}
-			str_unk_1804B0ar.PopupStatusByte_0x9e &= 0x7F;
+			helpPopup_1804B0.PopupStatusByte_0x9e &= 0x7F;
 		}
 		if (v14)
 		{
@@ -48949,7 +48949,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 			{
 				str_E2A74[9].axis_2[0] |= 1u;
 			}
-			str_unk_1804B0ar.PopupStatusByte_0x9e &= 0xBF;
+			helpPopup_1804B0.PopupStatusByte_0x9e &= 0xBF;
 		}
 		if (v30)
 		{
@@ -49105,7 +49105,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 			break;
 		}
 	}
-	if (str_unk_1804B0ar.uni_0x8a.dword[0] > 100)
+	if (helpPopup_1804B0.uni_0x8a.dword[0] > 100)
 	{
 		str_E2A74[15].axis_2[0] |= 1u;
 		str_E2A74[16].axis_2[0] |= 1u;
@@ -49114,7 +49114,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 	{
 		v21 = 1;
 		v22x = 1;
-		while (v21 <= str_unk_1804B0ar.helpItemCount_0x66)
+		while (v21 <= helpPopup_1804B0.helpItemCount_0x66)
 		{
 			if (str_E2A74[v22x].axis_2[0] & 0x4ff)
 				str_E2A74[v22x].axis_2[0] &= 0xFEu;
@@ -49122,11 +49122,11 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 			v22x++;
 		}
 	}
-	if (str_unk_1804B0ar.PopupStatusByte_0x9e & 4)
+	if (helpPopup_1804B0.PopupStatusByte_0x9e & 4)
 	{
 		v23 = 1;
 		v24x = 1;
-		while (v23 <= str_unk_1804B0ar.helpItemCount_0x66)
+		while (v23 <= helpPopup_1804B0.helpItemCount_0x66)
 		{
 			v25 = str_E2A74[v24x].axis_2[0];
 			if (v25 & 0x20)
@@ -49135,11 +49135,11 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 			v24x++;
 		}
 	}
-	if (!D41A0_0.m_GameSettings.m_Display.m_wMiniMap)
+	if (!world_D41A0.m_GameSettings.m_Display.m_wMiniMap)
 	{
 		v27 = 1;
 		v28x = 1;
-		while (v27 <= str_unk_1804B0ar.helpItemCount_0x66)
+		while (v27 <= helpPopup_1804B0.helpItemCount_0x66)
 		{
 			if (str_E2A74[v28x].axis_2[0] & 0x2ff)
 				str_E2A74[v28x].axis_2[0] &= 0xFEu;
@@ -49192,10 +49192,10 @@ int16_t GetHelpPopupIndex_88450()//269450
 			//myprintf("i:%d,", debugcounter_GetHelpPopupIndex_88450);
 		}*/
 
-	if (str_unk_1804B0ar.pendingHelpIndex_0x88)
+	if (helpPopup_1804B0.pendingHelpIndex_0x88)
 	{
-		v1 = str_unk_1804B0ar.pendingHelpIndex_0x88;
-		str_unk_1804B0ar.pendingHelpIndex_0x88 = 0;
+		v1 = helpPopup_1804B0.pendingHelpIndex_0x88;
+		helpPopup_1804B0.pendingHelpIndex_0x88 = 0;
 	}
 	else
 	{
@@ -49207,7 +49207,7 @@ int16_t GetHelpPopupIndex_88450()//269450
 			v2x = 1;
 			v3 = 0;
 			v4 = 0;
-			while (v3 < str_unk_1804B0ar.helpItemCount_0x66)
+			while (v3 < helpPopup_1804B0.helpItemCount_0x66)
 			{
 				if (str_E2A74[v2x].axis_2[0] & 1
 					&& v0 == str_E2A74[v2x].stage_29
@@ -49250,24 +49250,24 @@ void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popup
 {
 	if (helpIdx)
 	{
-		str_unk_1804B0ar.popupTimeout_0x7a = str_E2A74[helpIdx].axis_2[2];
-		str_unk_1804B0ar.drawTextType_0xa3 = a4;
-		str_unk_1804B0ar.Index_0x86 = helpIdx;
-		str_unk_1804B0ar.PopupStatusByte_0x9e |= 8;
-		str_unk_1804B0ar.highlightLine_0xa1 = a5;
-		str_unk_1804B0ar.popupTimer_0x76 = 0;
-		str_unk_1804B0ar.lineCount_0xa0 = a2;
+		helpPopup_1804B0.popupTimeout_0x7a = str_E2A74[helpIdx].axis_2[2];
+		helpPopup_1804B0.drawTextType_0xa3 = a4;
+		helpPopup_1804B0.Index_0x86 = helpIdx;
+		helpPopup_1804B0.PopupStatusByte_0x9e |= 8;
+		helpPopup_1804B0.highlightLine_0xa1 = a5;
+		helpPopup_1804B0.popupTimer_0x76 = 0;
+		helpPopup_1804B0.lineCount_0xa0 = a2;
 		for (int i = 0; i < a2; i++)
-			str_unk_1804B0ar.uni_0x8a.word[i + 2] = popupSrcPos[i];
+			helpPopup_1804B0.uni_0x8a.word[i + 2] = popupSrcPos[i];
 
 		str_E2A74[helpIdx].axis_2[0] |= 3;
 		if (str_E2A74[helpIdx].axis_2[0] & 8)
 		{
-			str_unk_1804B0ar.PopupStatusByte_0x9e |= 0x20;
+			helpPopup_1804B0.PopupStatusByte_0x9e |= 0x20;
 		}
 		else if (str_E2A74[helpIdx].axis_2[0] & 0x10)
 		{
-			str_unk_1804B0ar.popupFlags_0x9f |= 1u;
+			helpPopup_1804B0.popupFlags_0x9f |= 1u;
 		}
 	}
 }
@@ -49280,8 +49280,8 @@ void ResetHelpItemFlags_88580()//269580
 	int index;
 
 	v0 = 1;
-	//for (result = &array_E2A74[30]; v0 <= str_unk_1804B0ar.dword_0x66; result += 30)
-	for (index = 1; v0 <= str_unk_1804B0ar.helpItemCount_0x66; index++)
+	//for (result = &array_E2A74[30]; v0 <= helpPopup_1804B0.dword_0x66; result += 30)
+	for (index = 1; v0 <= helpPopup_1804B0.helpItemCount_0x66; index++)
 	{
 		//if (*(int16_t*)result >= 2u && (*(int16_t*)result <= 2u || *(int16_t*)result == 8))
 		if (str_E2A74[index].type_0 == 2 || str_E2A74[index].type_0 == 8)
@@ -49290,7 +49290,7 @@ void ResetHelpItemFlags_88580()//269580
 			if (str_E2A74[index].entity_12)
 			{
 				if (str_E2A74[index].axis_2[0] & 2)
-					str_unk_1804B0ar.popupFlags_0x9f &= 0xFDu;
+					helpPopup_1804B0.popupFlags_0x9f &= 0xFDu;
 				else
 					str_E2A74[index].entity_12 = 0;
 			}
@@ -49312,12 +49312,12 @@ void UpdateHelpItems_88B20()//269b20
 	int v2x;
 
 	//result = x_D41A0_BYTEARRAY_4;
-	if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
+	if (gameState_D41A4.showHelp_10)
 	{
 		v1 = 1;
 		//v2 = &array_E2A74[30];
 		v2x = 1;
-		while (v1 <= str_unk_1804B0ar.helpItemCount_0x66)
+		while (v1 <= helpPopup_1804B0.helpItemCount_0x66)
 		{
 			if (str_E2A74[v2x].type_0 == 7)
 			{
@@ -49341,7 +49341,7 @@ void SetHelpItem41Active_88B60()//269b60
 	//int result; // eax
 
 	//result = x_D41A0_BYTEARRAY_0[4];
-	if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
+	if (gameState_D41A4.showHelp_10)
 		//array_E2A74[0x4eb] = 6;
 		str_E2A74[41].stage_29 = 6;
 	//return result;
@@ -49353,15 +49353,15 @@ void SetHelpItem41Active_88B60()//269b60
 void UpdateObjectiveHelp_88BA0()//269ba0
 {
 	char result = -1;
-	if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
+	if (gameState_D41A4.showHelp_10)
 	{
-		if (!D41A0_0.playerObjectives_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
-			result = D41A0_0.stages_0x3654C[D41A0_0.playerObjectives_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1].stages_3654C_byte0;
+		if (!world_D41A0.playerObjectives_0x3659C[world_D41A0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
+			result = world_D41A0.stages_0x3654C[world_D41A0.playerObjectives_0x3659C[world_D41A0.LevelIndex_0xc].substr_3659C.ObjectiveText_1].stages_3654C_byte0;
 		if (result == -1)
 		{
-			str_unk_1804B0ar.pendingHelpIndex_0x88 = 80;
+			helpPopup_1804B0.pendingHelpIndex_0x88 = 80;
 		LABEL_15:
-			str_unk_1804B0ar.blinkPeriod_0x6e = 8;
+			helpPopup_1804B0.blinkPeriod_0x6e = 8;
 			CloseHelpPopup_87C10();
 		}
 		else
@@ -49369,43 +49369,43 @@ void UpdateObjectiveHelp_88BA0()//269ba0
 			switch (result)
 			{
 			case 0:
-				str_unk_1804B0ar.pendingHelpIndex_0x88 = 72;
-				str_unk_1804B0ar.blinkPeriod_0x6e = 8;
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 72;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
 				CloseHelpPopup_87C10();
 				break;
 			case 1:
-				str_unk_1804B0ar.pendingHelpIndex_0x88 = 75;
-				str_unk_1804B0ar.blinkPeriod_0x6e = 8;
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 75;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
 				CloseHelpPopup_87C10();
 				break;
 			case 2:
-				str_unk_1804B0ar.pendingHelpIndex_0x88 = 73;
-				str_unk_1804B0ar.blinkPeriod_0x6e = 8;
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 73;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
 				CloseHelpPopup_87C10();
 				break;
 			case 3:
-				str_unk_1804B0ar.pendingHelpIndex_0x88 = 77;
-				str_unk_1804B0ar.blinkPeriod_0x6e = 8;
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 77;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
 				CloseHelpPopup_87C10();
 				break;
 			case 5:
-				str_unk_1804B0ar.pendingHelpIndex_0x88 = 79;
-				str_unk_1804B0ar.blinkPeriod_0x6e = 8;
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 79;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
 				CloseHelpPopup_87C10();
 				break;
 			case 7:
-				str_unk_1804B0ar.pendingHelpIndex_0x88 = 76;
-				str_unk_1804B0ar.blinkPeriod_0x6e = 8;
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 76;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
 				CloseHelpPopup_87C10();
 				break;
 			case 8:
-				str_unk_1804B0ar.pendingHelpIndex_0x88 = 78;
-				str_unk_1804B0ar.blinkPeriod_0x6e = 8;
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 78;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
 				CloseHelpPopup_87C10();
 				break;
 			case 9:
-				str_unk_1804B0ar.pendingHelpIndex_0x88 = 74;
-				str_unk_1804B0ar.blinkPeriod_0x6e = 8;
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 74;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
 				CloseHelpPopup_87C10();
 				break;
 			default:
@@ -49418,8 +49418,8 @@ void UpdateObjectiveHelp_88BA0()//269ba0
 //----- (00088D00) --------------------------------------------------------
 void SetHelpPopupIndex93_88D00()//269d00
 {
-	if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
-		str_unk_1804B0ar.pendingHelpIndex_0x88 = 93;
+	if (gameState_D41A4.showHelp_10)
+		helpPopup_1804B0.pendingHelpIndex_0x88 = 93;
 }
 
 //----- (00088D40) --------------------------------------------------------
@@ -49443,7 +49443,7 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 	char typeB = 0;
 	int hintIndex = 0;
 	int typeC = 0;
-	type_entity_0x6E8E* locEvent1 = Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	type_entity_0x6E8E* locEvent1 = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	if (locEvent1->playerData_0xA4_164x->CastleEntityIndex_0x3A_58)
 		locEvent2 = Entities_EA3E4[locEvent1->playerData_0xA4_164x->CastleEntityIndex_0x3A_58];
 	int countHints = 0;
@@ -49453,7 +49453,7 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 	}
 	if (countHints)
 	{
-		if ((x_WORD_180660_VGA_type_resolution & 1) != 0)
+		if ((videoMode_180660 & 1) != 0)
 			maxScreenHeight = 400;
 		else
 		{
@@ -49464,7 +49464,7 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 		sizeFromYEnd = maxScreenHeight - 2 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale);
 		spellIndex = spellIndex_D94FF[locEvent1->playerData_0xA4_164x->str_611.spellIndex_0x458_1112];
 		isStandardSpell = locEvent1->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex] != 0;
-		if (D41A0_0.terrain_2FECE.MapType != MapType_t::Cave && spellIndex == 25)
+		if (world_D41A0.terrain_2FECE.MapType != MapType_t::Cave && spellIndex == 25)
 			isStandardSpell = false;
 		spellType = locEvent1->playerData_0xA4_164x->str_611.SpellLevels_0x41D_1053z.SpellIndex[spellIndex];
 		spellPos = locEvent1->playerData_0xA4_164x->str_611.spellIndex_0x458_1112;
@@ -49495,7 +49495,7 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 			typeA = 2;
 			typeC = 1;
 			posY2 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].height_5 * scale) / 2 + sizeFromYEndPlus;
-			switch (str_unk_1804B0ar.spellHelpStep_0xa4)
+			switch (helpPopup_1804B0.spellHelpStep_0xa4)
 			{
 			case 0: //Selected Spell Name
 				if (isStandardSpell)
@@ -49599,8 +49599,8 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 			default:
 				break;
 			}
-			if ((unsigned __int8)++str_unk_1804B0ar.spellHelpStep_0xa4 > 7u)
-				str_unk_1804B0ar.spellHelpStep_0xa4 = 0;
+			if ((unsigned __int8)++helpPopup_1804B0.spellHelpStep_0xa4 > 7u)
+				helpPopup_1804B0.spellHelpStep_0xa4 = 0;
 		}
 		if (hintIndex)
 			SetHelpPopupTextAndCoords_884D0(hintIndex, typeC, hintText, typeA, typeB);
@@ -49612,15 +49612,15 @@ void SetPlayerScoresHelpPopupTextAndCoords_89360(uint8_t scale)//26a360
 {
 	char v0 = 0;
 	int16_t helpIdx = 0;
-	if (str_unk_1804B0ar.showPlayerScores_0xa7)
+	if (helpPopup_1804B0.showPlayerScores_0xa7)
 	{
-		str_unk_1804B0ar.showPlayerScores_0xa7 = 0;
-		if (str_unk_1804B0ar.wizardNumber_0xa8 && D41A0_0.NumberOfPlayers_0xe > 1u)
+		helpPopup_1804B0.showPlayerScores_0xa7 = 0;
+		if (helpPopup_1804B0.wizardNumber_0xa8 && world_D41A0.NumberOfPlayers_0xe > 1u)
 		{
 			// Number of times you have killed %s
-			str_E2A74[96].axis_2[3] = str_unk_1804B0ar.scoresBarX_0x9a;
+			str_E2A74[96].axis_2[3] = helpPopup_1804B0.scoresBarX_0x9a;
 			helpIdx = 96;
-			str_E2A74[96].axis_2[4] = str_unk_1804B0ar.scoresBarY_0x9c;
+			str_E2A74[96].axis_2[4] = helpPopup_1804B0.scoresBarY_0x9c;
 		}
 		else
 		{
@@ -49630,15 +49630,15 @@ void SetPlayerScoresHelpPopupTextAndCoords_89360(uint8_t scale)//26a360
 	else
 	{
 		v0 = 1;
-		str_unk_1804B0ar.showPlayerScores_0xa7 = 1;
+		helpPopup_1804B0.showPlayerScores_0xa7 = 1;
 	}
 	if (v0)
 	{
 		// Current spells mana value
 		helpIdx = 95;
-		str_E2A74[95].axis_2[3] = str_unk_1804B0ar.scoresPosX_0x96;
-		str_unk_1804B0ar.wizardNumber_0xa8 = 0;
-		str_E2A74[95].axis_2[4] = str_unk_1804B0ar.scoresPosY_0x98;
+		str_E2A74[95].axis_2[3] = helpPopup_1804B0.scoresPosX_0x96;
+		helpPopup_1804B0.wizardNumber_0xa8 = 0;
+		str_E2A74[95].axis_2[4] = helpPopup_1804B0.scoresPosY_0x98;
 	}
 	if (helpIdx)
 	{
@@ -49655,20 +49655,20 @@ int16_t ApplySetting_89B60(uint8_t a1)//26ab60
 	bool v3; // zf
 
 	v1 = -1;
-	unk_18058Cstr.joyCenterZ_1805AC = 0;
-	unk_18058Cstr.joyCenterY_1805A8 = 0;
-	unk_18058Cstr.joyCenterX_1805A4 = 0;
-	unk_18058Cstr.joyAxisZ_180598 = 0;
-	unk_18058Cstr.joyAxisY_180594 = 0;
-	unk_18058Cstr.joyAxisX_180590 = 0;
-	unk_18058Cstr.x_DWORD_1805A0 = 0;
-	unk_18058Cstr.MouseButtonState_18059C = 0;
-	unk_18058Cstr.x_WORD_1805C8 = 0;
+	inputState_18058C.joyCenterZ_1805AC = 0;
+	inputState_18058C.joyCenterY_1805A8 = 0;
+	inputState_18058C.joyCenterX_1805A4 = 0;
+	inputState_18058C.joyAxisZ_180598 = 0;
+	inputState_18058C.joyAxisY_180594 = 0;
+	inputState_18058C.joyAxisX_180590 = 0;
+	inputState_18058C.x_DWORD_1805A0 = 0;
+	inputState_18058C.MouseButtonState_18059C = 0;
+	inputState_18058C.x_WORD_1805C8 = 0;
 	switch (a1)
 	{
 	case 1u:
 		// i_Glasses (Virtual I-O) joystick
-		v1 = InitJoystickType3_8B600(unk_18058Cstr);//fix it
+		v1 = InitJoystickType3_8B600(inputState_18058C);//fix it
 		if ((signed __int16)v1 != -1)
 			goto LABEL_3;
 		break;
@@ -49678,10 +49678,10 @@ int16_t ApplySetting_89B60(uint8_t a1)//26ab60
 		{
 			v1 = 1;
 			myprintf("VFX INITIALISED\n");
-			unk_18058Cstr.x_WORD_1805C8 = 1;
+			inputState_18058C.x_WORD_1805C8 = 1;
 			v2 = a1;
-			unk_18058Cstr.x_DWORD_1805A0 = 0;
-			unk_18058Cstr.MouseButtonState_18059C = 0;
+			inputState_18058C.x_DWORD_1805A0 = 0;
+			inputState_18058C.MouseButtonState_18059C = 0;
 			goto LABEL_12;
 		}
 		break;
@@ -49702,7 +49702,7 @@ int16_t ApplySetting_89B60(uint8_t a1)//26ab60
 	case 8u:
 	case 9u:
 	LABEL_3:
-		unk_18058Cstr.x_WORD_1805C8 = 1;
+		inputState_18058C.x_WORD_1805C8 = 1;
 		break;
 	case 0xBu:
 		memset(unk_180560x, 0, 44);//fix it
@@ -49715,19 +49715,19 @@ int16_t ApplySetting_89B60(uint8_t a1)//26ab60
 			v1 = 1;
 			v2 = a1;
 		LABEL_12:
-			unk_18058Cstr.joystickMode_1805C2 = v2;
+			inputState_18058C.joystickMode_1805C2 = v2;
 		}
 		break;
 	default:
 		break;
 	}
-	unk_18058Cstr.joystickMode_1805C2 = a1;
+	inputState_18058C.joystickMode_1805C2 = a1;
 	if ((signed __int16)v1 > 0)
-		x_BYTE_E36D1 = a1;
+		joystickEnabled_E36D1 = a1;
 	return v1;
 }
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// E36D1: using guessed type char x_BYTE_E36D1;
+// E36D1: using guessed type char joystickEnabled_E36D1;
 // 180584: using guessed type char x_BYTE_180584;
 // 180590: using guessed type int x_DWORD_180590;
 // 180594: using guessed type int x_DWORD_180594;
@@ -49800,134 +49800,134 @@ int ReadGameUserInputs_89D10()//26ad10
 	int v61; // [esp+44h] [ebp-4h]
 
 	v61 = -1;
-	if (!x_BYTE_E36D0)
+	if (!joystickInitialized_E36D0)
 	{
-		unk_18058Cstr.x_DWORD_1805A0 = 0;
-		unk_18058Cstr.MouseButtonState_18059C = 0;
-		x_BYTE_E36D0 = 1;
+		inputState_18058C.x_DWORD_1805A0 = 0;
+		inputState_18058C.MouseButtonState_18059C = 0;
+		joystickInitialized_E36D0 = 1;
 	}
-	if (!x_BYTE_E36D1)
+	if (!joystickEnabled_E36D1)
 		return v61;
-	switch (unk_18058Cstr.joystickMode_1805C2)
+	switch (inputState_18058C.joystickMode_1805C2)
 	{
 	case 1:
 	case 8:
 	case 12:
-		unk_18058Cstr.x_WORD_1805C8 = 1;
-		v61 = InitJoystickType1_8B790(unk_18058Cstr);
-		if (unk_18058Cstr.joystickMode_1805C2 != 8 && unk_18058Cstr.joystickMode_1805C2 != 12)
+		inputState_18058C.x_WORD_1805C8 = 1;
+		v61 = InitJoystickType1_8B790(inputState_18058C);
+		if (inputState_18058C.joystickMode_1805C2 != 8 && inputState_18058C.joystickMode_1805C2 != 12)
 		{
-			unk_18058Cstr.mouse_1805B0.x = x_WORD_E3760_mouse.x;
-			unk_18058Cstr.mouse_1805B0.y = x_WORD_E3760_mouse.y;
-			unk_18058Cstr.mouseX_1805B8 = x_WORD_E375C_mouse_position_x;
-			unk_18058Cstr.mouseY_1805BC = x_WORD_E375E_mouse_position_y;
-			unk_18058Cstr.arrowKeys_1805C0 = 0;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[0]])//UP
-				unk_18058Cstr.arrowKeys_1805C0 |= 1u;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[1]])//DOWN
-				unk_18058Cstr.arrowKeys_1805C0 |= 2u;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[2]])//LEFT
-				unk_18058Cstr.arrowKeys_1805C0 |= 4u;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[3]])//RIGHT
-				unk_18058Cstr.arrowKeys_1805C0 |= 8u;
-			unk_18058Cstr.MouseButtonState_18059C = 0;
-			if (x_WORD_180746_mouse_left_button)
-				unk_18058Cstr.MouseButtonState_18059C = 1;
-			if (x_WORD_180744_mouse_right_button)
-				unk_18058Cstr.MouseButtonState_18059C |= 2;
-			if (x_WORD_18074C_mouse_left2_button)
-				unk_18058Cstr.MouseButtonState_18059C |= 4;
-			if (x_WORD_18074A_mouse_right2_button)
-				unk_18058Cstr.MouseButtonState_18059C |= 8;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[5]])//CTRL
-				unk_18058Cstr.MouseButtonState_18059C |= 0x10;
+			inputState_18058C.mouse_1805B0.x = mouse_E3760.x;
+			inputState_18058C.mouse_1805B0.y = mouse_E3760.y;
+			inputState_18058C.mouseX_1805B8 = mousePosX_E375C;
+			inputState_18058C.mouseY_1805BC = mousePosY_E375E;
+			inputState_18058C.arrowKeys_1805C0 = 0;
+			if (pressedKeys_180664[keys_EB39E[0]])//UP
+				inputState_18058C.arrowKeys_1805C0 |= 1u;
+			if (pressedKeys_180664[keys_EB39E[1]])//DOWN
+				inputState_18058C.arrowKeys_1805C0 |= 2u;
+			if (pressedKeys_180664[keys_EB39E[2]])//LEFT
+				inputState_18058C.arrowKeys_1805C0 |= 4u;
+			if (pressedKeys_180664[keys_EB39E[3]])//RIGHT
+				inputState_18058C.arrowKeys_1805C0 |= 8u;
+			inputState_18058C.MouseButtonState_18059C = 0;
+			if (mouseLeftButton_180746)
+				inputState_18058C.MouseButtonState_18059C = 1;
+			if (mouseRightButton_180744)
+				inputState_18058C.MouseButtonState_18059C |= 2;
+			if (mouseLeftButton2_18074C)
+				inputState_18058C.MouseButtonState_18059C |= 4;
+			if (mouseRightButton2_18074A)
+				inputState_18058C.MouseButtonState_18059C |= 8;
+			if (pressedKeys_180664[keys_EB39E[5]])//CTRL
+				inputState_18058C.MouseButtonState_18059C |= 0x10;
 		}
-		unk_18058Cstr.joyAxisY_180594 *= 4;
-		unk_18058Cstr.joyAxisX_180590 = (unk_18058Cstr.joyAxisX_180590 << 11) / 360;
-		if (unk_18058Cstr.joystickMode_1805C2 == 8)
+		inputState_18058C.joyAxisY_180594 *= 4;
+		inputState_18058C.joyAxisX_180590 = (inputState_18058C.joyAxisX_180590 << 11) / 360;
+		if (inputState_18058C.joystickMode_1805C2 == 8)
 			goto LABEL_53;
-		if (unk_18058Cstr.joystickMode_1805C2 == 12)
+		if (inputState_18058C.joystickMode_1805C2 == 12)
 			goto LABEL_217;
 		return v61;
 	case 2:
 	case 9:
 	case 13:
-		unk_18058Cstr.x_WORD_1805C8 = 1;
+		inputState_18058C.x_WORD_1805C8 = 1;
 		ShutdownVrDevice_75910();
-		if (unk_18058Cstr.joystickMode_1805C2 != 9 && unk_18058Cstr.joystickMode_1805C2 != 13)
+		if (inputState_18058C.joystickMode_1805C2 != 9 && inputState_18058C.joystickMode_1805C2 != 13)
 		{
-			unk_18058Cstr.mouse_1805B0.x = x_WORD_E3760_mouse.x;
-			unk_18058Cstr.mouse_1805B0.y = x_WORD_E3760_mouse.y;
-			unk_18058Cstr.mouseX_1805B8 = x_WORD_E375C_mouse_position_x;
-			unk_18058Cstr.mouseY_1805BC = x_WORD_E375E_mouse_position_y;
-			unk_18058Cstr.arrowKeys_1805C0 = 0;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[0]])//UP
-				unk_18058Cstr.arrowKeys_1805C0 |= 1u;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[1]])//DOWN
-				unk_18058Cstr.arrowKeys_1805C0 |= 2u;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[2]])//LEFT
-				unk_18058Cstr.arrowKeys_1805C0 |= 4u;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[3]])//RIGHT
-				unk_18058Cstr.arrowKeys_1805C0 |= 8u;
-			unk_18058Cstr.MouseButtonState_18059C = 0;
-			if (x_WORD_180746_mouse_left_button)
-				unk_18058Cstr.MouseButtonState_18059C = 1;
-			if (x_WORD_180744_mouse_right_button)
-				unk_18058Cstr.MouseButtonState_18059C |= 2;
-			if (x_WORD_18074C_mouse_left2_button)
-				unk_18058Cstr.MouseButtonState_18059C |= 4;
-			if (x_WORD_18074A_mouse_right2_button)
-				unk_18058Cstr.MouseButtonState_18059C |= 8;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[5]])//CTRL
-				unk_18058Cstr.MouseButtonState_18059C |= 0x10;
+			inputState_18058C.mouse_1805B0.x = mouse_E3760.x;
+			inputState_18058C.mouse_1805B0.y = mouse_E3760.y;
+			inputState_18058C.mouseX_1805B8 = mousePosX_E375C;
+			inputState_18058C.mouseY_1805BC = mousePosY_E375E;
+			inputState_18058C.arrowKeys_1805C0 = 0;
+			if (pressedKeys_180664[keys_EB39E[0]])//UP
+				inputState_18058C.arrowKeys_1805C0 |= 1u;
+			if (pressedKeys_180664[keys_EB39E[1]])//DOWN
+				inputState_18058C.arrowKeys_1805C0 |= 2u;
+			if (pressedKeys_180664[keys_EB39E[2]])//LEFT
+				inputState_18058C.arrowKeys_1805C0 |= 4u;
+			if (pressedKeys_180664[keys_EB39E[3]])//RIGHT
+				inputState_18058C.arrowKeys_1805C0 |= 8u;
+			inputState_18058C.MouseButtonState_18059C = 0;
+			if (mouseLeftButton_180746)
+				inputState_18058C.MouseButtonState_18059C = 1;
+			if (mouseRightButton_180744)
+				inputState_18058C.MouseButtonState_18059C |= 2;
+			if (mouseLeftButton2_18074C)
+				inputState_18058C.MouseButtonState_18059C |= 4;
+			if (mouseRightButton2_18074A)
+				inputState_18058C.MouseButtonState_18059C |= 8;
+			if (pressedKeys_180664[keys_EB39E[5]])//CTRL
+				inputState_18058C.MouseButtonState_18059C |= 0x10;
 		}
-		unk_18058Cstr.joyAxisX_180590 = -2048 * x_WORD_17D6CCar[0] / 0xFFFFu & 0x7FF;
+		inputState_18058C.joyAxisX_180590 = -2048 * vrJoystick_17D6CC[0] / 0xFFFFu & 0x7FF;
 		if (LastPressedKey_1806E4 == 46)
 			SetMouseMinMaxVert_759B0();
-		if (unk_18058Cstr.joystickMode_1805C2 == 9)
+		if (inputState_18058C.joystickMode_1805C2 == 9)
 			goto LABEL_53;
-		if (unk_18058Cstr.joystickMode_1805C2 == 13)
+		if (inputState_18058C.joystickMode_1805C2 == 13)
 			goto LABEL_217;
-		unk_18058Cstr.joyAxisY_180594 = 0;
+		inputState_18058C.joyAxisY_180594 = 0;
 		return v61;
 	case 4:
 	LABEL_53:
-		unk_18058Cstr.arrowKeys_1805C0 = 0;
+		inputState_18058C.arrowKeys_1805C0 = 0;
 		ReadJoystick_8BBE0(unk_180560x);
 		goto LABEL_54;
 	case 6:
 		memset(&v56, 0, 50);
-		GetJoystickButtons_8C140(*(x_WORD*)&xx_array_E36C4[0], (uint8_t*)&v56);
-		unk_18058Cstr.joyAxisX_180590 = *(uint32_t*)&xx_array_E36C4[4];
-		v28 = *(int16_t*)&xx_array_E36C4[62];
-		unk_18058Cstr.joyAxisY_180594 = *(uint32_t*)&xx_array_E36C4[8];
+		GetJoystickButtons_8C140(*(x_WORD*)&externControl_E36C4[0], (uint8_t*)&v56);
+		inputState_18058C.joyAxisX_180590 = *(uint32_t*)&externControl_E36C4[4];
+		v28 = *(int16_t*)&externControl_E36C4[62];
+		inputState_18058C.joyAxisY_180594 = *(uint32_t*)&externControl_E36C4[8];
 		if (!v28)
 		{
-			unk_18058Cstr.mouse_1805B0.x = x_WORD_E3760_mouse.x;
-			unk_18058Cstr.mouse_1805B0.y = x_WORD_E3760_mouse.y;
-			unk_18058Cstr.mouseX_1805B8 = x_WORD_E375C_mouse_position_x;
-			unk_18058Cstr.mouseY_1805BC = x_WORD_E375E_mouse_position_y;
-			unk_18058Cstr.arrowKeys_1805C0 = 0;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[0]])//UP
-				unk_18058Cstr.arrowKeys_1805C0 |= 1u;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[1]])//DOWN
-				unk_18058Cstr.arrowKeys_1805C0 |= 2u;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[2]])//LEFT
-				unk_18058Cstr.arrowKeys_1805C0 |= 4u;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[3]])//RIGHT
-				unk_18058Cstr.arrowKeys_1805C0 |= 8u;
-			unk_18058Cstr.MouseButtonState_18059C = 0;
-			if (x_WORD_180746_mouse_left_button)
-				unk_18058Cstr.MouseButtonState_18059C = 1;
-			if (x_WORD_180744_mouse_right_button)
-				unk_18058Cstr.MouseButtonState_18059C |= 2;
-			if (x_WORD_18074C_mouse_left2_button)
-				unk_18058Cstr.MouseButtonState_18059C |= 4;
-			if (x_WORD_18074A_mouse_right2_button)
-				unk_18058Cstr.MouseButtonState_18059C |= 8;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[5]])//CTRL
+			inputState_18058C.mouse_1805B0.x = mouse_E3760.x;
+			inputState_18058C.mouse_1805B0.y = mouse_E3760.y;
+			inputState_18058C.mouseX_1805B8 = mousePosX_E375C;
+			inputState_18058C.mouseY_1805BC = mousePosY_E375E;
+			inputState_18058C.arrowKeys_1805C0 = 0;
+			if (pressedKeys_180664[keys_EB39E[0]])//UP
+				inputState_18058C.arrowKeys_1805C0 |= 1u;
+			if (pressedKeys_180664[keys_EB39E[1]])//DOWN
+				inputState_18058C.arrowKeys_1805C0 |= 2u;
+			if (pressedKeys_180664[keys_EB39E[2]])//LEFT
+				inputState_18058C.arrowKeys_1805C0 |= 4u;
+			if (pressedKeys_180664[keys_EB39E[3]])//RIGHT
+				inputState_18058C.arrowKeys_1805C0 |= 8u;
+			inputState_18058C.MouseButtonState_18059C = 0;
+			if (mouseLeftButton_180746)
+				inputState_18058C.MouseButtonState_18059C = 1;
+			if (mouseRightButton_180744)
+				inputState_18058C.MouseButtonState_18059C |= 2;
+			if (mouseLeftButton2_18074C)
+				inputState_18058C.MouseButtonState_18059C |= 4;
+			if (mouseRightButton2_18074A)
+				inputState_18058C.MouseButtonState_18059C |= 8;
+			if (pressedKeys_180664[keys_EB39E[5]])//CTRL
 			{
-				unk_18058Cstr.MouseButtonState_18059C |= 0x10;
+				inputState_18058C.MouseButtonState_18059C |= 0x10;
 				return v61;
 			}
 			return v61;
@@ -49936,84 +49936,84 @@ int ReadGameUserInputs_89D10()//26ad10
 		{
 			if (v28 != 11)
 				return v61;
-			unk_180560x[26] = xx_array_E36C4[16];
-			unk_180560x[28] = unk_18058Cstr.mouse_1805B0.x;
-			unk_180560x[29] = unk_18058Cstr.mouse_1805B0.y;
+			unk_180560x[26] = externControl_E36C4[16];
+			unk_180560x[28] = inputState_18058C.mouse_1805B0.x;
+			unk_180560x[29] = inputState_18058C.mouse_1805B0.y;
 		LABEL_218:
 			if (!(unk_180560x[26] & 1) || unk_180560x[27] & 1)
 			{
 				if (!(unk_180560x[26] & 1) && unk_180560x[27] & 1)
 				{
-					LOBYTE(unk_18058Cstr.MouseButtonState_18059C) = unk_18058Cstr.MouseButtonState_18059C & 0xFA;
+					LOBYTE(inputState_18058C.MouseButtonState_18059C) = inputState_18058C.MouseButtonState_18059C & 0xFA;
 					unk_180560x[27] &= 0xFEu;
 				}
 			}
 			else
 			{
-				unk_18058Cstr.mouseX_1805B8 = unk_18058Cstr.mouse_1805B0.x;
-				unk_18058Cstr.MouseButtonState_18059C |= 0xffffff05u;
-				unk_18058Cstr.mouseY_1805BC = unk_18058Cstr.mouse_1805B0.y;
+				inputState_18058C.mouseX_1805B8 = inputState_18058C.mouse_1805B0.x;
+				inputState_18058C.MouseButtonState_18059C |= 0xffffff05u;
+				inputState_18058C.mouseY_1805BC = inputState_18058C.mouse_1805B0.y;
 				unk_180560x[27] |= 1u;
 			}
 			if (!(unk_180560x[26] & 2) || unk_180560x[27] & 2)
 			{
 				if (!(unk_180560x[26] & 2) && unk_180560x[27] & 2)
 				{
-					unk_18058Cstr.MouseButtonState_18059C |= 0xfffffff5u;
+					inputState_18058C.MouseButtonState_18059C |= 0xfffffff5u;
 					unk_180560x[27] &= 0xFDu;
 				}
 			}
 			else
 			{
-				unk_18058Cstr.mouseX_1805B8 = unk_18058Cstr.mouse_1805B0.x;
-				unk_18058Cstr.MouseButtonState_18059C |= 0xffffff0au;
-				unk_18058Cstr.mouseY_1805BC = unk_18058Cstr.mouse_1805B0.y;
+				inputState_18058C.mouseX_1805B8 = inputState_18058C.mouse_1805B0.x;
+				inputState_18058C.MouseButtonState_18059C |= 0xffffff0au;
+				inputState_18058C.mouseY_1805BC = inputState_18058C.mouse_1805B0.y;
 				unk_180560x[27] |= 2u;
 			}
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[5]])//CTRL
+			if (pressedKeys_180664[keys_EB39E[5]])//CTRL
 			{
 				unk_180560x[27] &= 0xF7u;
 				unk_180560x[26] &= 0xF7u;
-				unk_18058Cstr.MouseButtonState_18059C |= 0xffffff10u;
+				inputState_18058C.MouseButtonState_18059C |= 0xffffff10u;
 			}
-			else if (!(unk_180560x[26] & 8) || unk_180560x[27] & 8 || unk_18058Cstr.MouseButtonState_18059C & 0x10)
+			else if (!(unk_180560x[26] & 8) || unk_180560x[27] & 8 || inputState_18058C.MouseButtonState_18059C & 0x10)
 			{
-				if (unk_180560x[26] & 8 || !(unk_180560x[27] & 8) || unk_18058Cstr.MouseButtonState_18059C & 0x10)
+				if (unk_180560x[26] & 8 || !(unk_180560x[27] & 8) || inputState_18058C.MouseButtonState_18059C & 0x10)
 				{
-					if (unk_180560x[26] & 8 && unk_180560x[27] & 8 && unk_18058Cstr.MouseButtonState_18059C & 0x10)
+					if (unk_180560x[26] & 8 && unk_180560x[27] & 8 && inputState_18058C.MouseButtonState_18059C & 0x10)
 					{
 						unk_180560x[27] &= 0xF7u;
 						unk_180560x[26] &= 0xF7u;
 					}
-					else if (!(unk_180560x[26] & 8) && !(unk_180560x[27] & 8) && unk_18058Cstr.MouseButtonState_18059C & 0x10)
+					else if (!(unk_180560x[26] & 8) && !(unk_180560x[27] & 8) && inputState_18058C.MouseButtonState_18059C & 0x10)
 					{
-						unk_18058Cstr.MouseButtonState_18059C |= 0xffffffEF;
+						inputState_18058C.MouseButtonState_18059C |= 0xffffffEF;
 					}
 				}
 				else
 				{
-					unk_18058Cstr.MouseButtonState_18059C |= 0xffffff10;
+					inputState_18058C.MouseButtonState_18059C |= 0xffffff10;
 				}
 			}
 			else
 			{
 				unk_180560x[27] |= 8u;
 			}
-			v31 = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221;
+			v31 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221;
 			if (v31 < 5u)
 			{
 				if (v31 == 3)
 				{
-					if (82 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].width_4 <= unk_18058Cstr.mouse_1805B0.x)
+					if (82 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].width_4 <= inputState_18058C.mouse_1805B0.x)
 					{
-						if (unk_18058Cstr.mouse_1805B0.x >= 384)
+						if (inputState_18058C.mouse_1805B0.x >= 384)
 						{
-							if (x_WORD_180660_VGA_type_resolution & 1)
+							if (videoMode_180660 & 1)
 								v49 = 400;
 							else
 								v49 = 480;
 							posY = v49 - 72;
-							if (v49 - 46 >= unk_18058Cstr.mouse_1805B0.y)
+							if (v49 - 46 >= inputState_18058C.mouse_1805B0.y)
 								v50 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL2].width_4;
 							else
 								v50 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_MINISQUARE1].width_4;
@@ -50027,7 +50027,7 @@ int ReadGameUserInputs_89D10()//26ad10
 						}
 						else
 						{
-							if (x_WORD_180660_VGA_type_resolution & 1)
+							if (videoMode_180660 & 1)
 								v47 = 400;
 							else
 								v47 = 480;
@@ -50043,7 +50043,7 @@ int ReadGameUserInputs_89D10()//26ad10
 					}
 					else
 					{
-						if (x_WORD_180660_VGA_type_resolution & 1)
+						if (videoMode_180660 & 1)
 							v44 = 400;
 						else
 							v44 = 480;
@@ -50062,8 +50062,8 @@ int ReadGameUserInputs_89D10()//26ad10
 			}
 			else if (v31 <= 5u || v31 == 8)
 			{
-				v33 = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611.selectSpellType_0x457_1111;
-				v34 = &D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611;
+				v33 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611.selectSpellType_0x457_1111;
+				v34 = &world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611;
 				if (v33)
 				{
 					if (v33 <= 2u)
@@ -50089,7 +50089,7 @@ int ReadGameUserInputs_89D10()//26ad10
 							posX = screenWidth_18062C - height;
 						}
 						v41 = height + posX;
-						if (x_WORD_180660_VGA_type_resolution & 1)
+						if (videoMode_180660 & 1)
 							v40 = 400;
 						else
 							v40 = 480;
@@ -50114,12 +50114,12 @@ int ReadGameUserInputs_89D10()//26ad10
 				{
 					v41 = screenWidth_18062C;
 					posX = 0;
-					if (x_WORD_180660_VGA_type_resolution & 1)
+					if (videoMode_180660 & 1)
 						v35 = 400;
 					else
 						v35 = 480;
 					v9 = v35 - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].height_5 >> 1);
-					if (x_WORD_180660_VGA_type_resolution & 1)
+					if (videoMode_180660 & 1)
 						v36 = 400;
 					else
 						v36 = 480;
@@ -50130,7 +50130,7 @@ int ReadGameUserInputs_89D10()//26ad10
 				}
 				goto LABEL_301;
 			}
-			if (x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546)
+			if (gameState_D41A4.SelectedMenuItem_38546)
 			{
 				GetOkayCancelButtonPositions_30BE0(&posX, &posY);
 				posX += (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL1].width_4 >> 1;
@@ -50141,19 +50141,19 @@ int ReadGameUserInputs_89D10()//26ad10
 				v41 = v42 + posX;
 				v43 = 0;
 			}
-			else if (x_D41A0_BYTEARRAY_4_struct.byteindex_225)
+			else if (gameState_D41A4.byteindex_225)
 			{
-				v53 = x_D41A0_BYTEARRAY_4_struct.optionsMenuWidth_186;
+				v53 = gameState_D41A4.optionsMenuWidth_186;
 				v43 = 4;
 				posY = 67;
 				v54 = (v53 >> 1) + (screenWidth_18062C - v53) / 2;
 				v9 = 393;
-				unk_18058Cstr.mouse_1805B0.x = v54;
+				inputState_18058C.mouse_1805B0.x = v54;
 				v41 = (v53 >> 1) + (screenWidth_18062C - v53) / 2;
 				posX = v54;
 				v42 = 0;
 			}
-			else if (x_D41A0_BYTEARRAY_4_struct.volumeKeyHeld_38591)
+			else if (gameState_D41A4.volumeKeyHeld_38591)
 			{
 				GetPauseMenuCoordinates_2FFE0(&posX, &posY, &height, &width);
 				height -= 2;
@@ -50163,7 +50163,7 @@ int ReadGameUserInputs_89D10()//26ad10
 				v42 = 4;
 				posY += 4 * width + 12;
 			}
-			else if (x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED)
+			else if (gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED)
 			{
 				height = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MENU_ICON_LOAD].width_4;
 				width = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_SUB_FIREBALL1_SMALL].height_5
@@ -50188,138 +50188,138 @@ int ReadGameUserInputs_89D10()//26ad10
 				v42 = 12;
 			}
 		LABEL_301:
-			if (!(unk_18058Cstr.MouseButtonState_18059C & 0x10)
-				&& !(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED)
-				&& !x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546
-				&& !x_D41A0_BYTEARRAY_4_struct.byteindex_225
-				&& D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 != 3)
+			if (!(inputState_18058C.MouseButtonState_18059C & 0x10)
+				&& !(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED)
+				&& !gameState_D41A4.SelectedMenuItem_38546
+				&& !gameState_D41A4.byteindex_225
+				&& world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 != 3)
 			{
 				if (unk_180560x[26] & 4)
 				{
 					if (unk_180560x[29] < 0)
-						unk_18058Cstr.arrowKeys_1805C0 |= 1u;//UP
+						inputState_18058C.arrowKeys_1805C0 |= 1u;//UP
 					if (unk_180560x[29] > 0)
-						unk_18058Cstr.arrowKeys_1805C0 |= 2u;//DOWN
+						inputState_18058C.arrowKeys_1805C0 |= 2u;//DOWN
 					if (unk_180560x[28] < 0)
-						unk_18058Cstr.arrowKeys_1805C0 |= 4u;//LEFT
+						inputState_18058C.arrowKeys_1805C0 |= 4u;//LEFT
 					if (unk_180560x[28] > 0)
-						unk_18058Cstr.arrowKeys_1805C0 |= 8u;//RIGHT
+						inputState_18058C.arrowKeys_1805C0 |= 8u;//RIGHT
 				}
 				else
 				{
-					x_WORD_E36CC = unk_180560x[28];
-					x_WORD_E36CE = unk_180560x[29];
-					unk_18058Cstr.mouse_1805B0.x = 2 * unk_180560x[28] + 320;
-					unk_18058Cstr.mouse_1805B0.y = 2 * unk_180560x[29] + 200;
-					if (pressedKeys_180664[x_BYTE_EB39E_keys[0]])//UP
-						unk_18058Cstr.arrowKeys_1805C0 |= 1u;
-					if (pressedKeys_180664[x_BYTE_EB39E_keys[1]])//DOWN
-						unk_18058Cstr.arrowKeys_1805C0 |= 2u;
-					if (pressedKeys_180664[x_BYTE_EB39E_keys[2]])//LEFT
-						unk_18058Cstr.arrowKeys_1805C0 |= 4u;
-					if (pressedKeys_180664[x_BYTE_EB39E_keys[3]])//RIGHT
-						unk_18058Cstr.arrowKeys_1805C0 |= 8u;
+					joyFilteredX_E36CC = unk_180560x[28];
+					joyFilteredY_E36CE = unk_180560x[29];
+					inputState_18058C.mouse_1805B0.x = 2 * unk_180560x[28] + 320;
+					inputState_18058C.mouse_1805B0.y = 2 * unk_180560x[29] + 200;
+					if (pressedKeys_180664[keys_EB39E[0]])//UP
+						inputState_18058C.arrowKeys_1805C0 |= 1u;
+					if (pressedKeys_180664[keys_EB39E[1]])//DOWN
+						inputState_18058C.arrowKeys_1805C0 |= 2u;
+					if (pressedKeys_180664[keys_EB39E[2]])//LEFT
+						inputState_18058C.arrowKeys_1805C0 |= 4u;
+					if (pressedKeys_180664[keys_EB39E[3]])//RIGHT
+						inputState_18058C.arrowKeys_1805C0 |= 8u;
 				}
 				return v61;
 			}
 			if (unk_180560x[29] >= 0)
 			{
 				if (unk_180560x[29] > 0)
-					unk_18058Cstr.mouse_1805B0.y += v43;
+					inputState_18058C.mouse_1805B0.y += v43;
 			}
 			else
 			{
-				unk_18058Cstr.mouse_1805B0.y -= v43;
+				inputState_18058C.mouse_1805B0.y -= v43;
 			}
 			if (unk_180560x[28] >= 0)
 			{
 				if (unk_180560x[28] > 0)
-					unk_18058Cstr.mouse_1805B0.x += v42;
+					inputState_18058C.mouse_1805B0.x += v42;
 			}
 			else
 			{
-				unk_18058Cstr.mouse_1805B0.x -= v42;
+				inputState_18058C.mouse_1805B0.x -= v42;
 			}
-			if (unk_18058Cstr.mouse_1805B0.x >= posX)
+			if (inputState_18058C.mouse_1805B0.x >= posX)
 			{
-				if (v41 < unk_18058Cstr.mouse_1805B0.x)
-					unk_18058Cstr.mouse_1805B0.x = v41;
+				if (v41 < inputState_18058C.mouse_1805B0.x)
+					inputState_18058C.mouse_1805B0.x = v41;
 			}
 			else
 			{
-				unk_18058Cstr.mouse_1805B0.x = posX;
+				inputState_18058C.mouse_1805B0.x = posX;
 			}
-			v25 = unk_18058Cstr.mouse_1805B0.y;
-			if (unk_18058Cstr.mouse_1805B0.y < posY)
+			v25 = inputState_18058C.mouse_1805B0.y;
+			if (inputState_18058C.mouse_1805B0.y < posY)
 			{
-				unk_18058Cstr.mouse_1805B0.y = posY;
+				inputState_18058C.mouse_1805B0.y = posY;
 				return v61;
 			}
 		LABEL_157:
 			if (v9 >= v25)
 				return v61;
-			unk_18058Cstr.mouse_1805B0.y = v9;
+			inputState_18058C.mouse_1805B0.y = v9;
 			return v61;
 		}
-		unk_180560x[26] = xx_array_E36C4[16];
-		unk_180560x[28] = unk_18058Cstr.mouse_1805B0.x;
-		unk_180560x[29] = unk_18058Cstr.mouse_1805B0.y;
+		unk_180560x[26] = externControl_E36C4[16];
+		unk_180560x[28] = inputState_18058C.mouse_1805B0.x;
+		unk_180560x[29] = inputState_18058C.mouse_1805B0.y;
 	LABEL_54:
 		if (!(unk_180560x[26] & 1) || unk_180560x[27] & 1)
 		{
 			if (!(unk_180560x[26] & 1) && unk_180560x[27] & 1)
 			{
-				unk_18058Cstr.MouseButtonState_18059C |= 0xffffffFA;
+				inputState_18058C.MouseButtonState_18059C |= 0xffffffFA;
 				unk_180560x[27] &= 0xFEu;
 			}
 		}
 		else
 		{
-			unk_18058Cstr.MouseButtonState_18059C |= 0xffffff05;
-			unk_18058Cstr.mouseX_1805B8 = unk_18058Cstr.mouse_1805B0.x;
+			inputState_18058C.MouseButtonState_18059C |= 0xffffff05;
+			inputState_18058C.mouseX_1805B8 = inputState_18058C.mouse_1805B0.x;
 			unk_180560x[27] |= 1u;
-			unk_18058Cstr.mouseY_1805BC = unk_18058Cstr.mouse_1805B0.y;
+			inputState_18058C.mouseY_1805BC = inputState_18058C.mouse_1805B0.y;
 		}
 		if (!(unk_180560x[26] & 2) || unk_180560x[27] & 2)
 		{
 			if (!(unk_180560x[26] & 2) && unk_180560x[27] & 2)
 			{
-				unk_18058Cstr.MouseButtonState_18059C |= 0xffffffF5;
+				inputState_18058C.MouseButtonState_18059C |= 0xffffffF5;
 				unk_180560x[27] &= 0xFDu;
 			}
 		}
 		else
 		{
-			unk_18058Cstr.MouseButtonState_18059C |= 0xffffff0A;
-			unk_18058Cstr.mouseX_1805B8 = unk_18058Cstr.mouse_1805B0.x;
+			inputState_18058C.MouseButtonState_18059C |= 0xffffff0A;
+			inputState_18058C.mouseX_1805B8 = inputState_18058C.mouse_1805B0.x;
 			unk_180560x[27] |= 2u;
-			unk_18058Cstr.mouseY_1805BC = unk_18058Cstr.mouse_1805B0.y;
+			inputState_18058C.mouseY_1805BC = inputState_18058C.mouse_1805B0.y;
 		}
-		if (pressedKeys_180664[x_BYTE_EB39E_keys[5]])//CTRL
+		if (pressedKeys_180664[keys_EB39E[5]])//CTRL
 		{
 			unk_180560x[26] &= 0xF7u;
-			unk_18058Cstr.MouseButtonState_18059C |= 0xffffff10;
+			inputState_18058C.MouseButtonState_18059C |= 0xffffff10;
 			unk_180560x[27] &= 0xF7u;
 		}
-		else if (!(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED))
+		else if (!(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED))
 		{
-			if (!(unk_180560x[26] & 8) || unk_180560x[27] & 8 || unk_18058Cstr.MouseButtonState_18059C & 0x10)
+			if (!(unk_180560x[26] & 8) || unk_180560x[27] & 8 || inputState_18058C.MouseButtonState_18059C & 0x10)
 			{
-				if (unk_180560x[26] & 8 || !(unk_180560x[27] & 8) || unk_18058Cstr.MouseButtonState_18059C & 0x10)
+				if (unk_180560x[26] & 8 || !(unk_180560x[27] & 8) || inputState_18058C.MouseButtonState_18059C & 0x10)
 				{
-					if (unk_180560x[26] & 8 && unk_180560x[27] & 8 && unk_18058Cstr.MouseButtonState_18059C & 0x10)
+					if (unk_180560x[26] & 8 && unk_180560x[27] & 8 && inputState_18058C.MouseButtonState_18059C & 0x10)
 					{
 						unk_180560x[27] &= 0xF7u;
 						unk_180560x[26] &= 0xF7u;
 					}
-					else if (!(unk_180560x[26] & 8) && !(unk_180560x[27] & 8) && unk_18058Cstr.MouseButtonState_18059C & 0x10)
+					else if (!(unk_180560x[26] & 8) && !(unk_180560x[27] & 8) && inputState_18058C.MouseButtonState_18059C & 0x10)
 					{
-						unk_18058Cstr.MouseButtonState_18059C |= 0xffffffEF;
+						inputState_18058C.MouseButtonState_18059C |= 0xffffffEF;
 					}
 				}
 				else
 				{
-					unk_18058Cstr.MouseButtonState_18059C |= 0xffffff10;
+					inputState_18058C.MouseButtonState_18059C |= 0xffffff10;
 				}
 			}
 			else
@@ -50327,21 +50327,21 @@ int ReadGameUserInputs_89D10()//26ad10
 				unk_180560x[27] |= 8u;
 			}
 		}
-		v3 = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221;
+		v3 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221;
 		if (v3 < 5u)
 		{
 			if (v3 == 3)
 			{
-				if (82 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].width_4 <= unk_18058Cstr.mouse_1805B0.x) // fix it
+				if (82 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].width_4 <= inputState_18058C.mouse_1805B0.x) // fix it
 				{
-					if (unk_18058Cstr.mouse_1805B0.x >= 384)
+					if (inputState_18058C.mouse_1805B0.x >= 384)
 					{
-						if (x_WORD_180660_VGA_type_resolution & 1)
+						if (videoMode_180660 & 1)
 							v18 = 400;
 						else
 							v18 = 480;
 						posY = v18 - 72;
-						if (v18 - 46 >= unk_18058Cstr.mouse_1805B0.y)
+						if (v18 - 46 >= inputState_18058C.mouse_1805B0.y)
 							v19 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL2].width_4;
 						else
 							v19 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL1].width_4;
@@ -50355,7 +50355,7 @@ int ReadGameUserInputs_89D10()//26ad10
 					}
 					else
 					{
-						if (x_WORD_180660_VGA_type_resolution & 1)
+						if (videoMode_180660 & 1)
 							v17 = 400;
 						else
 							v17 = 480;
@@ -50370,7 +50370,7 @@ int ReadGameUserInputs_89D10()//26ad10
 				}
 				else
 				{
-					if (x_WORD_180660_VGA_type_resolution & 1)
+					if (videoMode_180660 & 1)
 						v15 = 400;
 					else
 						v15 = 480;
@@ -50388,18 +50388,18 @@ int ReadGameUserInputs_89D10()//26ad10
 		}
 		else if (v3 <= 5u || v3 == 8)
 		{
-			v5 = &D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611;
-			v6 = D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611.selectSpellType_0x457_1111;
+			v5 = &world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611;
+			v6 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611.selectSpellType_0x457_1111;
 			if (!v6)
 			{
 				v7 = screenWidth_18062C;
 				posX = 0;
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (videoMode_180660 & 1)
 					v8 = 400;
 				else
 					v8 = 480;
 				v9 = v8 - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].height_5 >> 1);
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (videoMode_180660 & 1)
 					v10 = 400;
 				else
 					v10 = 480;
@@ -50431,7 +50431,7 @@ int ReadGameUserInputs_89D10()//26ad10
 					posX = screenWidth_18062C - height;
 				}
 				v7 = height + posX;
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (videoMode_180660 & 1)
 					v14 = 400;
 				else
 					v14 = 480;
@@ -50445,7 +50445,7 @@ int ReadGameUserInputs_89D10()//26ad10
 			}
 			goto LABEL_137;
 		}
-		if (x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546)
+		if (gameState_D41A4.SelectedMenuItem_38546)
 		{
 			GetOkayCancelButtonPositions_30BE0(&posX, &posY);
 			posX += (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL1].width_4 >> 1;
@@ -50457,20 +50457,20 @@ int ReadGameUserInputs_89D10()//26ad10
 			v12 = 0;
 			goto LABEL_138;
 		}
-		if (x_D41A0_BYTEARRAY_4_struct.byteindex_225)
+		if (gameState_D41A4.byteindex_225)
 		{
-			v22 = x_D41A0_BYTEARRAY_4_struct.optionsMenuWidth_186;
+			v22 = gameState_D41A4.optionsMenuWidth_186;
 			v12 = 4;
 			posY = 67;
 			v23 = (v22 >> 1) + (screenWidth_18062C - v22) / 2;
 			v9 = 393;
-			unk_18058Cstr.mouse_1805B0.x = v23;
+			inputState_18058C.mouse_1805B0.x = v23;
 			v7 = (v22 >> 1) + (screenWidth_18062C - v22) / 2;
 			posX = v23;
 			v11 = 0;
 			goto LABEL_138;
 		}
-		if (x_D41A0_BYTEARRAY_4_struct.volumeKeyHeld_38591)
+		if (gameState_D41A4.volumeKeyHeld_38591)
 		{
 			GetPauseMenuCoordinates_2FFE0(&posX, &posY, &height, &width);
 			height -= 2;
@@ -50481,7 +50481,7 @@ int ReadGameUserInputs_89D10()//26ad10
 			posY += 4 * width + 12;
 			goto LABEL_138;
 		}
-		if (x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED)
+		if (gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED)
 		{
 			height = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MENU_ICON_LOAD].width_4;
 			width = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_SUB_FIREBALL1_SMALL].height_5
@@ -50505,43 +50505,43 @@ int ReadGameUserInputs_89D10()//26ad10
 		posY = 0;
 		v11 = 12;
 	LABEL_138:
-		if (unk_18058Cstr.MouseButtonState_18059C & 0x10
-			|| x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED
-			|| x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546
-			|| x_D41A0_BYTEARRAY_4_struct.byteindex_225
-			|| D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == 3)
+		if (inputState_18058C.MouseButtonState_18059C & 0x10
+			|| gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED
+			|| gameState_D41A4.SelectedMenuItem_38546
+			|| gameState_D41A4.byteindex_225
+			|| world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == 3)
 		{
 			if (unk_180560x[29] >= 0)
 			{
 				if (unk_180560x[29] > 0)
-					unk_18058Cstr.mouse_1805B0.y += v12;
+					inputState_18058C.mouse_1805B0.y += v12;
 			}
 			else
 			{
-				unk_18058Cstr.mouse_1805B0.y -= v12;
+				inputState_18058C.mouse_1805B0.y -= v12;
 			}
 			if (unk_180560x[28] >= 0)
 			{
 				if (unk_180560x[28] > 0)
-					unk_18058Cstr.mouse_1805B0.x += v11;
+					inputState_18058C.mouse_1805B0.x += v11;
 			}
 			else
 			{
-				unk_18058Cstr.mouse_1805B0.x -= v11;
+				inputState_18058C.mouse_1805B0.x -= v11;
 			}
-			if (unk_18058Cstr.mouse_1805B0.x >= posX)
+			if (inputState_18058C.mouse_1805B0.x >= posX)
 			{
-				if (v7 < unk_18058Cstr.mouse_1805B0.x)
-					unk_18058Cstr.mouse_1805B0.x = v7;
+				if (v7 < inputState_18058C.mouse_1805B0.x)
+					inputState_18058C.mouse_1805B0.x = v7;
 			}
 			else
 			{
-				unk_18058Cstr.mouse_1805B0.x = posX;
+				inputState_18058C.mouse_1805B0.x = posX;
 			}
-			v25 = unk_18058Cstr.mouse_1805B0.y;
-			if (unk_18058Cstr.mouse_1805B0.y < posY)
+			v25 = inputState_18058C.mouse_1805B0.y;
+			if (inputState_18058C.mouse_1805B0.y < posY)
 			{
-				unk_18058Cstr.mouse_1805B0.y = posY;
+				inputState_18058C.mouse_1805B0.y = posY;
 				return v61;
 			}
 			goto LABEL_157;
@@ -50549,62 +50549,62 @@ int ReadGameUserInputs_89D10()//26ad10
 		if (unk_180560x[26] & 4)
 		{
 			if (unk_180560x[29] < 0)
-				unk_18058Cstr.arrowKeys_1805C0 |= 1u;//UP
+				inputState_18058C.arrowKeys_1805C0 |= 1u;//UP
 			if (unk_180560x[29] > 0)
-				unk_18058Cstr.arrowKeys_1805C0 |= 2u;//DOWN
+				inputState_18058C.arrowKeys_1805C0 |= 2u;//DOWN
 			if (unk_180560x[28] < 0)
-				unk_18058Cstr.arrowKeys_1805C0 |= 4u;//LEFT
+				inputState_18058C.arrowKeys_1805C0 |= 4u;//LEFT
 			if (unk_180560x[28] > 0)
-				unk_18058Cstr.arrowKeys_1805C0 |= 8u;//RIGHT
+				inputState_18058C.arrowKeys_1805C0 |= 8u;//RIGHT
 		}
 		else
 		{
-			v26 = 28 * (signed __int16)(32 * unk_180560x[28] + x_WORD_E36CC);
-			x_WORD_E36CC = (signed int)(v26 - (__CFSHL__(HIDWORD(v26), 5) + 32 * HIDWORD(v26))) >> 5;
-			v27 = 31 * (signed __int16)(16 * unk_180560x[29] + x_WORD_E36CE);
-			x_WORD_E36CE = (signed int)(v27 - (__CFSHL__(HIDWORD(v27), 5) + 32 * HIDWORD(v27))) >> 5;
-			unk_18058Cstr.mouse_1805B0.x = 2 * x_WORD_E36CC + 320;
-			unk_18058Cstr.mouse_1805B0.y = 2 * x_WORD_E36CE + 200;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[0]])//UP
-				unk_18058Cstr.arrowKeys_1805C0 |= 1u;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[1]])//DOWN
-				unk_18058Cstr.arrowKeys_1805C0 |= 2u;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[2]])//LEFT
-				unk_18058Cstr.arrowKeys_1805C0 |= 4u;
-			if (pressedKeys_180664[x_BYTE_EB39E_keys[3]])//RIGHT
-				unk_18058Cstr.arrowKeys_1805C0 |= 8u;
+			v26 = 28 * (signed __int16)(32 * unk_180560x[28] + joyFilteredX_E36CC);
+			joyFilteredX_E36CC = (signed int)(v26 - (__CFSHL__(HIDWORD(v26), 5) + 32 * HIDWORD(v26))) >> 5;
+			v27 = 31 * (signed __int16)(16 * unk_180560x[29] + joyFilteredY_E36CE);
+			joyFilteredY_E36CE = (signed int)(v27 - (__CFSHL__(HIDWORD(v27), 5) + 32 * HIDWORD(v27))) >> 5;
+			inputState_18058C.mouse_1805B0.x = 2 * joyFilteredX_E36CC + 320;
+			inputState_18058C.mouse_1805B0.y = 2 * joyFilteredY_E36CE + 200;
+			if (pressedKeys_180664[keys_EB39E[0]])//UP
+				inputState_18058C.arrowKeys_1805C0 |= 1u;
+			if (pressedKeys_180664[keys_EB39E[1]])//DOWN
+				inputState_18058C.arrowKeys_1805C0 |= 2u;
+			if (pressedKeys_180664[keys_EB39E[2]])//LEFT
+				inputState_18058C.arrowKeys_1805C0 |= 4u;
+			if (pressedKeys_180664[keys_EB39E[3]])//RIGHT
+				inputState_18058C.arrowKeys_1805C0 |= 8u;
 		}
 		return v61;
 	case 7:
-		unk_18058Cstr.mouse_1805B0.x = x_WORD_E3760_mouse.x;
-		unk_18058Cstr.mouse_1805B0.y = x_WORD_E3760_mouse.y;
-		unk_18058Cstr.mouseX_1805B8 = x_WORD_E375C_mouse_position_x;
-		unk_18058Cstr.mouseY_1805BC = x_WORD_E375E_mouse_position_y;
-		unk_18058Cstr.arrowKeys_1805C0 = 0;
-		if (pressedKeys_180664[x_BYTE_EB39E_keys[0]])//UP
-			unk_18058Cstr.arrowKeys_1805C0 |= 1u;
-		if (pressedKeys_180664[x_BYTE_EB39E_keys[1]])//DOWN
-			unk_18058Cstr.arrowKeys_1805C0 |= 2u;
-		if (pressedKeys_180664[x_BYTE_EB39E_keys[2]])//RIGHT
-			unk_18058Cstr.arrowKeys_1805C0 |= 4u;
-		if (pressedKeys_180664[x_BYTE_EB39E_keys[3]])//LEFT
-			unk_18058Cstr.arrowKeys_1805C0 |= 8u;
-		unk_18058Cstr.MouseButtonState_18059C = 0;
-		if (x_WORD_180746_mouse_left_button)
-			unk_18058Cstr.MouseButtonState_18059C = 1;
-		if (x_WORD_180744_mouse_right_button)
-			unk_18058Cstr.MouseButtonState_18059C |= 2;
-		if (x_WORD_18074C_mouse_left2_button)
-			unk_18058Cstr.MouseButtonState_18059C |= 4;
-		if (x_WORD_18074A_mouse_right2_button)
-			unk_18058Cstr.MouseButtonState_18059C |= 8;
-		if (!pressedKeys_180664[x_BYTE_EB39E_keys[5]])//CTRL
+		inputState_18058C.mouse_1805B0.x = mouse_E3760.x;
+		inputState_18058C.mouse_1805B0.y = mouse_E3760.y;
+		inputState_18058C.mouseX_1805B8 = mousePosX_E375C;
+		inputState_18058C.mouseY_1805BC = mousePosY_E375E;
+		inputState_18058C.arrowKeys_1805C0 = 0;
+		if (pressedKeys_180664[keys_EB39E[0]])//UP
+			inputState_18058C.arrowKeys_1805C0 |= 1u;
+		if (pressedKeys_180664[keys_EB39E[1]])//DOWN
+			inputState_18058C.arrowKeys_1805C0 |= 2u;
+		if (pressedKeys_180664[keys_EB39E[2]])//RIGHT
+			inputState_18058C.arrowKeys_1805C0 |= 4u;
+		if (pressedKeys_180664[keys_EB39E[3]])//LEFT
+			inputState_18058C.arrowKeys_1805C0 |= 8u;
+		inputState_18058C.MouseButtonState_18059C = 0;
+		if (mouseLeftButton_180746)
+			inputState_18058C.MouseButtonState_18059C = 1;
+		if (mouseRightButton_180744)
+			inputState_18058C.MouseButtonState_18059C |= 2;
+		if (mouseLeftButton2_18074C)
+			inputState_18058C.MouseButtonState_18059C |= 4;
+		if (mouseRightButton2_18074A)
+			inputState_18058C.MouseButtonState_18059C |= 8;
+		if (!pressedKeys_180664[keys_EB39E[5]])//CTRL
 			return v61;
-		unk_18058Cstr.MouseButtonState_18059C |= 0x10;
+		inputState_18058C.MouseButtonState_18059C |= 0x10;
 		return v61;
 	case 11:
 	LABEL_217:
-		unk_18058Cstr.arrowKeys_1805C0 = 0;
+		inputState_18058C.arrowKeys_1805C0 = 0;
 		ReadJoystick_8BBE0(unk_180560x);
 		goto LABEL_218;
 	default:
@@ -50727,9 +50727,9 @@ signed int InitJoystickType1_8B790(type_unk_18058Cstr a1)//26c790
 	a1.joyAxisZ_180598 = (signed int)v7;
 	if (LastPressedKey_1806E4 == 0x2e)
 	{
-		unk_18058Cstr.joyCenterX_1805A4 = unk_18058Cstr.joyAxisX_180590;
-		unk_18058Cstr.joyCenterY_1805A8 = unk_18058Cstr.joyAxisY_180594;
-		unk_18058Cstr.joyCenterZ_1805AC = unk_18058Cstr.joyAxisZ_180598;
+		inputState_18058C.joyCenterX_1805A4 = inputState_18058C.joyAxisX_180590;
+		inputState_18058C.joyCenterY_1805A8 = inputState_18058C.joyAxisY_180594;
+		inputState_18058C.joyCenterZ_1805AC = inputState_18058C.joyAxisZ_180598;
 	}
 	else
 	{
@@ -51377,82 +51377,82 @@ int UpdateMouseCursorPosition_8C329()//26D329
 	x_BYTE* v1; // eax
 	x_BYTE* v2; // eax
 
-	x_DWORD_1806E8_mousex = x_WORD_E3760_mouse.x;
-	x_DWORD_1806E8_mousey = x_WORD_E3760_mouse.y;//fix it
+	cursorPosX_1806E8 = mouse_E3760.x;
+	cursorPosY_1806E8 = mouse_E3760.y;//fix it
 
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (videoMode_180660 & 1)
 	{
-		x_DWORD_1806E8_mousex >>= 1;
-		x_DWORD_1806E8_mousey >>= 1;
+		cursorPosX_1806E8 >>= 1;
+		cursorPosY_1806E8 >>= 1;
 	}
-	x_DWORD_1806F4_mouse_byte_index2 = (x_DWORD_1806E8_mousex >> 16) + (x_DWORD_1806E8_mousey >> 16) * screenWidth_18062C;
-	if (x_WORD_180660_VGA_type_resolution & 8)
+	cursorScreenIndex2_1806F4 = (cursorPosX_1806E8 >> 16) + (cursorPosY_1806E8 >> 16) * screenWidth_18062C;
+	if (videoMode_180660 & 8)
 	{
-		HIWORD(x_DWORD_18073A) = HIWORD(x_DWORD_1806F4_mouse_byte_index2);
-		SetVgaPaletteBank_9951B(SHIWORD(x_DWORD_1806F4_mouse_byte_index2));//GET VIDEO STATE
+		HIWORD(cursorColumn_18073A) = HIWORD(cursorScreenIndex2_1806F4);
+		SetVgaPaletteBank_9951B(SHIWORD(cursorScreenIndex2_1806F4));//GET VIDEO STATE
 	}
-	unk_1806EC = screenWidth_18062C - x_DWORD_1806E8_mousex;
-	if ((signed __int16)(screenWidth_18062C - x_DWORD_1806E8_mousex) > x_WORD_18072C_cursor_sizex)
-		unk_1806EC = x_WORD_18072C_cursor_sizex;
-	x_WORD_1806EE = screenHeight_180624 - x_DWORD_1806E8_mousey;
-	if ((signed __int16)(screenHeight_180624 - x_DWORD_1806E8_mousey) > x_WORD_18072E_cursor_sizey)
-		x_WORD_1806EE = x_WORD_18072E_cursor_sizey;
-	x_DWORD_180714 = x_DWORD_1806F0;
-	ptrScreenPos_180708 = (uint8_t*)&loc_A0000_vga_buffer + (unsigned __int16)x_DWORD_1806F4_mouse_byte_index2;
-	ptrCursorBitmapPos_18070C = x_DWORD_180730_cursor_data;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	unk_1806EC = screenWidth_18062C - cursorPosX_1806E8;
+	if ((signed __int16)(screenWidth_18062C - cursorPosX_1806E8) > cursorWidth_18072C)
+		unk_1806EC = cursorWidth_18072C;
+	cursorRows_1806EE = screenHeight_180624 - cursorPosY_1806E8;
+	if ((signed __int16)(screenHeight_180624 - cursorPosY_1806E8) > cursorHeight_18072E)
+		cursorRows_1806EE = cursorHeight_18072E;
+	cursorBackgroundPtr_180714 = cursorBackground2_1806F0;
+	ptrScreenPos_180708 = (uint8_t*)&vgaBuffer_A0000 + (unsigned __int16)cursorScreenIndex2_1806F4;
+	ptrCursorBitmapPos_18070C = cursorData_180730;
+	if (videoMode_180660 & 1)
 	{
-		for (x_WORD_180738 = 0; ; ++x_WORD_180738)
+		for (cursorRow_180738 = 0; ; ++cursorRow_180738)
 		{
 			result = unk_1806EC >> 16;
-			if ((signed int)(unsigned __int16)x_WORD_180738 >= (unk_1806EC >> 16))
+			if ((signed int)(unsigned __int16)cursorRow_180738 >= (unk_1806EC >> 16))
 				break;
-			LOWORD(x_DWORD_18073A) = 0;
-			while ((unsigned __int16)x_DWORD_18073A < (x_DWORD_1806E8_mousey >> 16))
+			LOWORD(cursorColumn_18073A) = 0;
+			while ((unsigned __int16)cursorColumn_18073A < (cursorPosY_1806E8 >> 16))
 			{
-				v1 = (x_BYTE*)x_DWORD_180714++;
+				v1 = (x_BYTE*)cursorBackgroundPtr_180714++;
 				*v1 = *(x_BYTE*)ptrScreenPos_180708;
 				if (*(x_BYTE*)ptrCursorBitmapPos_18070C != -2)
 					*(x_BYTE*)ptrScreenPos_180708 = *(x_BYTE*)ptrCursorBitmapPos_18070C;
 				++ptrScreenPos_180708;
 				++ptrCursorBitmapPos_18070C;
-				LOWORD(x_DWORD_18073A) = x_DWORD_18073A + 1;
+				LOWORD(cursorColumn_18073A) = cursorColumn_18073A + 1;
 			}
-			ptrScreenPos_180708 += screenWidth_18062C - (x_DWORD_1806E8_mousey >> 16);
-			ptrCursorBitmapPos_18070C += (*(int*)((char*)&x_DWORD_180730_cursor_data + 2) >> 16) - (x_DWORD_1806E8_mousey >> 16);
+			ptrScreenPos_180708 += screenWidth_18062C - (cursorPosY_1806E8 >> 16);
+			ptrCursorBitmapPos_18070C += (*(int*)((char*)&cursorData_180730 + 2) >> 16) - (cursorPosY_1806E8 >> 16);
 		}
 	}
 	else
 	{
-		for (x_WORD_180738 = 0; ; ++x_WORD_180738)
+		for (cursorRow_180738 = 0; ; ++cursorRow_180738)
 		{
 			result = unk_1806EC >> 16;
-			if ((signed int)(unsigned __int16)x_WORD_180738 >= unk_1806EC >> 16)
+			if ((signed int)(unsigned __int16)cursorRow_180738 >= unk_1806EC >> 16)
 				break;
-			LOWORD(x_DWORD_18073A) = 0;
-			while ((unsigned __int16)x_DWORD_18073A < x_DWORD_1806E8_mousey >> 16)
+			LOWORD(cursorColumn_18073A) = 0;
+			while ((unsigned __int16)cursorColumn_18073A < cursorPosY_1806E8 >> 16)
 			{
-				v2 = (x_BYTE*)x_DWORD_180714++;
+				v2 = (x_BYTE*)cursorBackgroundPtr_180714++;
 				*v2 = *(x_BYTE*)ptrScreenPos_180708;
 				if (*(x_BYTE*)ptrCursorBitmapPos_18070C != -2)
 					*(x_BYTE*)ptrScreenPos_180708 = *(x_BYTE*)ptrCursorBitmapPos_18070C;
 				if (++ptrScreenPos_180708 >= (uint8_t*)0xAFFFE + 2)
 				{
-					++HIWORD(x_DWORD_18073A);
-					SetVgaPaletteBank_9951B(SHIWORD(x_DWORD_18073A));
+					++HIWORD(cursorColumn_18073A);
+					SetVgaPaletteBank_9951B(SHIWORD(cursorColumn_18073A));
 					ptrScreenPos_180708 -= 0x10000;
 				}
 				++ptrCursorBitmapPos_18070C;
-				LOWORD(x_DWORD_18073A) = x_DWORD_18073A + 1;
+				LOWORD(cursorColumn_18073A) = cursorColumn_18073A + 1;
 			}
-			ptrScreenPos_180708 += screenWidth_18062C - (x_DWORD_1806E8_mousey >> 16);
+			ptrScreenPos_180708 += screenWidth_18062C - (cursorPosY_1806E8 >> 16);
 			if (ptrScreenPos_180708 >= (uint8_t*)0xAFFFE + 2)
 			{
-				++HIWORD(x_DWORD_18073A);
-				SetVgaPaletteBank_9951B(SHIWORD(x_DWORD_18073A));
+				++HIWORD(cursorColumn_18073A);
+				SetVgaPaletteBank_9951B(SHIWORD(cursorColumn_18073A));
 				ptrScreenPos_180708 -= 0x10000;
 			}
-			ptrCursorBitmapPos_18070C += (*(int*)((char*)&x_DWORD_180730_cursor_data + 2) >> 16) - (x_DWORD_1806E8_mousey >> 16);
+			ptrCursorBitmapPos_18070C += (*(int*)((char*)&cursorData_180730 + 2) >> 16) - (cursorPosY_1806E8 >> 16);
 		}
 	}
 	return result;
@@ -51467,57 +51467,57 @@ int SaveCursorBackground_8C839()//26d839
 	x_BYTE* v3; // eax
 	x_BYTE* v4; // edx
 
-	if (!(x_WORD_180660_VGA_type_resolution & 1))
+	if (!(videoMode_180660 & 1))
 	{
-		HIWORD(x_DWORD_18073A) = HIWORD(x_DWORD_1806F4_mouse_byte_index2);
-		SetVgaPaletteBank_9951B(SHIWORD(x_DWORD_1806F4_mouse_byte_index2));
+		HIWORD(cursorColumn_18073A) = HIWORD(cursorScreenIndex2_1806F4);
+		SetVgaPaletteBank_9951B(SHIWORD(cursorScreenIndex2_1806F4));
 	}
-	x_DWORD_180714 = x_DWORD_1806F0;
-	ptrScreenPos_180708 = (uint8_t*)&loc_A0000_vga_buffer + (unsigned __int16)x_DWORD_1806F4_mouse_byte_index2;//graphics memory maybe
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	cursorBackgroundPtr_180714 = cursorBackground2_1806F0;
+	ptrScreenPos_180708 = (uint8_t*)&vgaBuffer_A0000 + (unsigned __int16)cursorScreenIndex2_1806F4;//graphics memory maybe
+	if (videoMode_180660 & 1)
 	{
-		for (x_WORD_180738 = 0; ; ++x_WORD_180738)
+		for (cursorRow_180738 = 0; ; ++cursorRow_180738)
 		{
 			result = unk_1806EC >> 16;
-			if ((signed int)(unsigned __int16)x_WORD_180738 >= unk_1806EC >> 16)
+			if ((signed int)(unsigned __int16)cursorRow_180738 >= unk_1806EC >> 16)
 				break;
-			LOWORD(x_DWORD_18073A) = 0;
-			while ((unsigned __int16)x_DWORD_18073A < (x_DWORD_1806E8_mousey >> 16))
+			LOWORD(cursorColumn_18073A) = 0;
+			while ((unsigned __int16)cursorColumn_18073A < (cursorPosY_1806E8 >> 16))
 			{
-				v1 = (x_BYTE*)x_DWORD_180714++;
+				v1 = (x_BYTE*)cursorBackgroundPtr_180714++;
 				v2 = (x_BYTE*)ptrScreenPos_180708++;
 				*v2 = *v1;
-				LOWORD(x_DWORD_18073A) = x_DWORD_18073A + 1;
+				LOWORD(cursorColumn_18073A) = cursorColumn_18073A + 1;
 			}
-			ptrScreenPos_180708 += screenWidth_18062C - (x_DWORD_1806E8_mousey >> 16);
+			ptrScreenPos_180708 += screenWidth_18062C - (cursorPosY_1806E8 >> 16);
 		}
 	}
 	else
 	{
-		for (x_WORD_180738 = 0; ; ++x_WORD_180738)
+		for (cursorRow_180738 = 0; ; ++cursorRow_180738)
 		{
 			result = unk_1806EC >> 16;
-			if ((signed int)(unsigned __int16)x_WORD_180738 >= unk_1806EC >> 16)
+			if ((signed int)(unsigned __int16)cursorRow_180738 >= unk_1806EC >> 16)
 				break;
-			LOWORD(x_DWORD_18073A) = 0;
-			while ((unsigned __int16)x_DWORD_18073A < (x_DWORD_1806E8_mousey >> 16))
+			LOWORD(cursorColumn_18073A) = 0;
+			while ((unsigned __int16)cursorColumn_18073A < (cursorPosY_1806E8 >> 16))
 			{
-				v3 = (x_BYTE*)x_DWORD_180714++;
+				v3 = (x_BYTE*)cursorBackgroundPtr_180714++;
 				v4 = (x_BYTE*)ptrScreenPos_180708++;
 				*v4 = *v3;
 				if (ptrScreenPos_180708 >= (uint8_t*)0xAFFFE + 2)
 				{
-					++HIWORD(x_DWORD_18073A);
-					SetVgaPaletteBank_9951B(SHIWORD(x_DWORD_18073A));
+					++HIWORD(cursorColumn_18073A);
+					SetVgaPaletteBank_9951B(SHIWORD(cursorColumn_18073A));
 					ptrScreenPos_180708 -= 0x10000;
 				}
-				LOWORD(x_DWORD_18073A) = x_DWORD_18073A + 1;
+				LOWORD(cursorColumn_18073A) = cursorColumn_18073A + 1;
 			}
-			ptrScreenPos_180708 += screenWidth_18062C - (x_DWORD_1806E8_mousey >> 16);
+			ptrScreenPos_180708 += screenWidth_18062C - (cursorPosY_1806E8 >> 16);
 			if (ptrScreenPos_180708 >= (uint8_t*)0xAFFFE + 2)
 			{
-				++HIWORD(x_DWORD_18073A);
-				SetVgaPaletteBank_9951B(SHIWORD(x_DWORD_18073A));
+				++HIWORD(cursorColumn_18073A);
+				SetVgaPaletteBank_9951B(SHIWORD(cursorColumn_18073A));
 				ptrScreenPos_180708 -= 0x10000;
 			}
 		}
@@ -51532,22 +51532,22 @@ int RestoreCursorBackground_8CA16()//26da16
 	x_BYTE* v1; // eax
 	x_BYTE* v2; // edx
 
-	x_DWORD_180714 = x_DWORD_180700;
-	ptrScreenPos_180708 = x_DWORD_180704_mouse_byte_index1 + pdwScreenBuffer_351628;
-	for (x_WORD_180738 = 0; ; ++x_WORD_180738)
+	cursorBackgroundPtr_180714 = cursorBackground_180700;
+	ptrScreenPos_180708 = cursorScreenIndex_180704 + pdwScreenBuffer_351628;
+	for (cursorRow_180738 = 0; ; ++cursorRow_180738)
 	{
-		result = x_DWORD_1806FC_mouse_invx >> 16;
-		if (x_WORD_180738 >= x_DWORD_1806FC_mouse_invx >> 16)
+		result = cursorVisibleWidth_1806FC >> 16;
+		if (cursorRow_180738 >= cursorVisibleWidth_1806FC >> 16)
 			break;
-		LOWORD(x_DWORD_18073A) = 0;
-		while (x_DWORD_18073A < x_DWORD_1806F8_mousey >> 16)
+		LOWORD(cursorColumn_18073A) = 0;
+		while (cursorColumn_18073A < cursorY_1806F8 >> 16)
 		{
-			v1 = (x_BYTE*)x_DWORD_180714++;
+			v1 = (x_BYTE*)cursorBackgroundPtr_180714++;
 			v2 = (x_BYTE*)ptrScreenPos_180708++;
 			*v2 = *v1;
-			LOWORD(x_DWORD_18073A) = x_DWORD_18073A + 1;
+			LOWORD(cursorColumn_18073A) = cursorColumn_18073A + 1;
 		}
-		ptrScreenPos_180708 += screenWidth_18062C - (x_DWORD_1806F8_mousex >> 16);
+		ptrScreenPos_180708 += screenWidth_18062C - (cursorX_1806F8 >> 16);
 	}
 	return result;
 }
@@ -51555,7 +51555,7 @@ int RestoreCursorBackground_8CA16()//26da16
 //----- (0008CB1F) --------------------------------------------------------
 void ClearCursorDrawnFlag_8CB1F()//26db1f
 {
-	x_DWORD_E3758 = 0;
+	cursorDrawn_E3758 = 0;
 }
 
 void MouseEvents(uint32_t buttons, int x, int y)
@@ -51563,25 +51563,25 @@ void MouseEvents(uint32_t buttons, int x, int y)
 	// playback: the recording drives the mouse, but the menus outside the level and the pause
 	// menu keep the host mouse, otherwise there is no way to reach a playback at all
 	if (m_InputRecorder != nullptr && m_InputRecorder->m_IsPlaying && g_inGameLoop
-		&& !(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED))
+		&& !(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED))
 		return;
 	UpdateMouseEventData_8CB3A(buttons, x, y);
 };
 
 int x_BYTE_E3767;
-int x_DWORD_180710_mouse_buttons_states;
-int x_WORD_18073E;
+int mouseButtonStates_180710;
+int mouseRepeatTimer_18073E;
 int word_E3764;
 int x_WORD_180742;
-int x_WORD_180748;
-int x_WORD_180740;
+int mouseEventFlagB_180748;
+int mouseEventFlagA_180740;
 
 //----- (0008CB3A) --------------------------------------------------------
 void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t mouse_posy)//26db3a
 {
 	int helpWidth = 640;
 	int helpHeight = 480;
-	if (x_WORD_180660_VGA_type_resolution != 1)
+	if (videoMode_180660 != 1)
 		if (!DefaultResolutions())
 		{
 			helpWidth = screenWidth_18062C;
@@ -51595,11 +51595,11 @@ void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32
 		mouse_posy = 0xc8;
 	}
 
-	if (x_DWORD_E3768)//2b4768 - 00000001
+	if (mouseInstalled_E3768)//2b4768 - 00000001
 	{
 		x_BYTE_E3767 = 1;
-		x_DWORD_180710_mouse_buttons_states = mouse_states;//[ebp-c] - 00000001 // state of buttons 1 -change position
-		/*if (x_WORD_180660_VGA_type_resolution & 8)
+		mouseButtonStates_180710 = mouse_states;//[ebp-c] - 00000001 // state of buttons 1 -change position
+		/*if (videoMode_180660 & 8)
 		{
 			temp_mouse_x = mouse_posx >> 3;//[ss:ebp-8] 0 - x
 			temp_mouse_y = mouse_posy >> 3;//[ss:ebp-4] 0 - y
@@ -51618,70 +51618,70 @@ void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32
 			warpMouse = true;
 		}
 
-		x_WORD_E3760_mouse.x = mouse_posx; //set x
-		x_WORD_E3760_mouse.y = mouse_posy; //set y
+		mouse_E3760.x = mouse_posx; //set x
+		mouse_E3760.y = mouse_posy; //set y
 
 		if (warpMouse)
 			VGA_Set_mouse(mouse_posx, mouse_posy);
 
-		if (x_DWORD_180710_mouse_buttons_states & 2) // left button pressed
+		if (mouseButtonStates_180710 & 2) // left button pressed
 		{
-			if (!x_WORD_18074C_mouse_left2_button)//first cycle after press
+			if (!mouseLeftButton2_18074C)//first cycle after press
 			{
-				if (x_WORD_18073E <= 0)
+				if (mouseRepeatTimer_18073E <= 0)
 				{
 					//mouse_state = word_E3764;
-					x_WORD_18073E = word_E3764;
+					mouseRepeatTimer_18073E = word_E3764;
 				}
 				else
 				{
 					x_WORD_180742 = 1;
 				}
 			}
-			if (!x_WORD_18074C_mouse_left2_button && !x_WORD_180746_mouse_left_button)//first cycle after press and ...
+			if (!mouseLeftButton2_18074C && !mouseLeftButton_180746)//first cycle after press and ...
 			{
-				x_WORD_180746_mouse_left_button = 1;
-				x_WORD_E375C_mouse_position_x = mouse_posx;
+				mouseLeftButton_180746 = 1;
+				mousePosX_E375C = mouse_posx;
 				//mouse_state = temp_mouse_y;
-				x_WORD_E375E_mouse_position_y = mouse_posy;
+				mousePosY_E375E = mouse_posy;
 			}
-			x_WORD_18074C_mouse_left2_button = 1;
+			mouseLeftButton2_18074C = 1;
 		}
-		if (x_DWORD_180710_mouse_buttons_states & 4)// left button released
-			x_WORD_18074C_mouse_left2_button = 0;
-		if (x_DWORD_180710_mouse_buttons_states & 8)// right button pressed
+		if (mouseButtonStates_180710 & 4)// left button released
+			mouseLeftButton2_18074C = 0;
+		if (mouseButtonStates_180710 & 8)// right button pressed
 		{
-			if (!x_WORD_18074A_mouse_right2_button && !x_WORD_180744_mouse_right_button)//first cycle after press and ...
+			if (!mouseRightButton2_18074A && !mouseRightButton_180744)//first cycle after press and ...
 			{
-				x_WORD_180744_mouse_right_button = 1;
-				x_WORD_E375C_mouse_position_x = mouse_posx;
+				mouseRightButton_180744 = 1;
+				mousePosX_E375C = mouse_posx;
 				//mouse_state = temp_mouse_y;
-				x_WORD_E375E_mouse_position_y = mouse_posy;
+				mousePosY_E375E = mouse_posy;
 			}
-			x_WORD_18074A_mouse_right2_button = 1;
+			mouseRightButton2_18074A = 1;
 		}
-		if (x_DWORD_180710_mouse_buttons_states & 0x10)// right button released
-			x_WORD_18074A_mouse_right2_button = 0;
-		if (x_DWORD_180710_mouse_buttons_states & 0x20)// middle button pressed?
+		if (mouseButtonStates_180710 & 0x10)// right button released
+			mouseRightButton2_18074A = 0;
+		if (mouseButtonStates_180710 & 0x20)// middle button pressed?
 		{
-			if (!x_WORD_180748 && !x_WORD_180740)
+			if (!mouseEventFlagB_180748 && !mouseEventFlagA_180740)
 			{
-				x_WORD_180740 = 1;
-				x_WORD_E375C_mouse_position_x = mouse_posx;
+				mouseEventFlagA_180740 = 1;
+				mousePosX_E375C = mouse_posx;
 				//mouse_state = temp_mouse_y;
-				x_WORD_E375E_mouse_position_y = mouse_posy;
+				mousePosY_E375E = mouse_posy;
 			}
-			x_WORD_180748 = 1;
+			mouseEventFlagB_180748 = 1;
 		}
-		if (x_DWORD_180710_mouse_buttons_states & 0x40)// middle button released?
-			x_WORD_180748 = 0;
-		if (!x_DWORD_E3758)
+		if (mouseButtonStates_180710 & 0x40)// middle button released?
+			mouseEventFlagB_180748 = 0;
+		if (!cursorDrawn_E3758)
 		{
-			HIWORD(x_DWORD_180734) = x_WORD_E3BA4;
+			HIWORD(cursorParam_180734) = vgaPaletteBank_E3BA4;
 			SaveCursorBackground_8C839();//draw cursor maybe
 			/*mouse_state = */UpdateMouseCursorPosition_8C329();
-			if (x_WORD_180660_VGA_type_resolution & 8)
-				/*mouse_state = */SetVgaPaletteBank_9951B(SHIWORD(x_DWORD_180734));
+			if (videoMode_180660 & 8)
+				/*mouse_state = */SetVgaPaletteBank_9951B(SHIWORD(cursorParam_180734));
 		}
 	}
 }
@@ -51689,24 +51689,24 @@ void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32
 // 8CB3A: could not find valid save-restore pair for ebp
 // 8CB3A: could not find valid save-restore pair for edi
 // 8CB3A: could not find valid save-restore pair for esi
-// E3758: using guessed type int x_DWORD_E3758;
-// E375C: using guessed type __int16 x_WORD_E375C_mouse_position_x;
-// E375E: using guessed type __int16 x_WORD_E375E_mouse_position_y;
+// E3758: using guessed type int cursorDrawn_E3758;
+// E375C: using guessed type __int16 mousePosX_E375C;
+// E375E: using guessed type __int16 mousePosY_E375E;
 // E3760: using guessed type int x_DWORD_E3760;
 // E3767: using guessed type char x_BYTE_E3767;
-// E3768: using guessed type int x_DWORD_E3768;
-// E3BA4: using guessed type __int16 x_WORD_E3BA4;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
-// 180710: using guessed type int x_DWORD_180710_mouse_buttons_states;
-// 180734: using guessed type int x_DWORD_180734;
-// 18073E: using guessed type __int16 x_WORD_18073E;
-// 180740: using guessed type __int16 x_WORD_180740;
+// E3768: using guessed type int mouseInstalled_E3768;
+// E3BA4: using guessed type __int16 vgaPaletteBank_E3BA4;
+// 180660: using guessed type __int16 videoMode_180660;
+// 180710: using guessed type int mouseButtonStates_180710;
+// 180734: using guessed type int cursorParam_180734;
+// 18073E: using guessed type __int16 mouseRepeatTimer_18073E;
+// 180740: using guessed type __int16 mouseEventFlagA_180740;
 // 180742: using guessed type __int16 x_WORD_180742;
-// 180744: using guessed type __int16 x_WORD_180744_mouse_right_button;
-// 180746: using guessed type __int16 x_WORD_180746_mouse_left_button;
-// 180748: using guessed type __int16 x_WORD_180748;
-// 18074A: using guessed type __int16 x_WORD_18074A_mouse_right2_button;
-// 18074C: using guessed type __int16 x_WORD_18074C_mouse_left2_button;
+// 180744: using guessed type __int16 mouseRightButton_180744;
+// 180746: using guessed type __int16 mouseLeftButton_180746;
+// 180748: using guessed type __int16 mouseEventFlagB_180748;
+// 18074A: using guessed type __int16 mouseRightButton2_18074A;
+// 18074C: using guessed type __int16 mouseLeftButton2_18074C;
 
 //----- (0008CEDF) --------------------------------------------------------
 signed int InstallMouse_8CEDF()//26dedf
@@ -51720,7 +51720,7 @@ signed int InstallMouse_8CEDF()//26dedf
 	//int v7; // [esp+48h] [ebp-Ch]
 	int i; // [esp+4Ch] [ebp-8h]
 
-	x_DWORD_E3768 = 0;
+	mouseInstalled_E3768 = 0;
 	//segread((SREGS*)&v5);
 	//v2 = 0;
 //removed int386(0x33, (REGS*)&v2, (REGS*)&v1);//mouse reset
@@ -51739,44 +51739,44 @@ signed int InstallMouse_8CEDF()//26dedf
 	*/
 	//int386x(0x33, (REGS*)&v2, (REGS*)&v1, (SREGS*)&v5);//set mouse subroutine
 //removed sub_8D12F_set_mouse_viewport(); //set min/max of viewport
-	if (!x_DWORD_180730_cursor_data)
-		x_DWORD_180730_cursor_data = (uint8_t*)Malloc_83CD0(4096);//image buffers?-blit?
-	if (!x_DWORD_180700)
-		x_DWORD_180700 = (uint8_t*)Malloc_83CD0(4096);
-	if (!x_DWORD_1806F0)
-		x_DWORD_1806F0 = (uint8_t*)Malloc_83CD0(4096);
-	if (!x_DWORD_180730_cursor_data || !x_DWORD_180700 || !x_DWORD_1806F0)
+	if (!cursorData_180730)
+		cursorData_180730 = (uint8_t*)Malloc_83CD0(4096);//image buffers?-blit?
+	if (!cursorBackground_180700)
+		cursorBackground_180700 = (uint8_t*)Malloc_83CD0(4096);
+	if (!cursorBackground2_1806F0)
+		cursorBackground2_1806F0 = (uint8_t*)Malloc_83CD0(4096);
+	if (!cursorData_180730 || !cursorBackground_180700 || !cursorBackground2_1806F0)
 		return 0;
-	x_WORD_18072C_cursor_sizex = 0;
-	x_WORD_18072E_cursor_sizey = 0;
-	LOWORD(x_DWORD_180734) = 64;
+	cursorWidth_18072C = 0;
+	cursorHeight_18072E = 0;
+	LOWORD(cursorParam_180734) = 64;
 	for (i = 0; i < 4096; i++)
-		*(x_BYTE*)(i + x_DWORD_180730_cursor_data) = -2;
-	if (x_DWORD_180720)
-		;// fix it! SetCursor_8CD27((uint8_t**)x_DWORD_180720);
+		*(x_BYTE*)(i + cursorData_180730) = -2;
+	if (mouseInstalled2_180720)
+		;// fix it! SetCursor_8CD27((uint8_t**)mouseInstalled2_180720);
 	//v2 = 2;
 //removed int386(0x33, (REGS*)&v2, (REGS*)&v1);//hide mouse
-	if (x_WORD_180660_VGA_type_resolution & 8)
+	if (videoMode_180660 & 8)
 	{
 		//v2 = 0xF;
 		//v3 = 1;
 		LOWORD(v4) = 1;
 		//removed int386(0x33, (REGS*)&v2, (REGS*)&v1);//set pixel ratio
 	}
-	x_DWORD_E3768 = 1;//fix it
+	mouseInstalled_E3768 = 1;//fix it
 	return 1;
 }
 // 99DE6: using guessed type x_DWORD segread(x_DWORD);
 // 99E10: using guessed type x_DWORD int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);
-// E3768: using guessed type int x_DWORD_E3768;
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
-// 1806F0: using guessed type int x_DWORD_1806F0;
-// 180700: using guessed type int x_DWORD_180700;
-// 180720: using guessed type int x_DWORD_180720;
-// 18072C: using guessed type __int16 x_WORD_18072C_cursor_sizex;
-// 18072E: using guessed type __int16 x_WORD_18072E_cursor_sizey;
-// 180730: using guessed type int x_DWORD_180730_cursor_data;
-// 180734: using guessed type int x_DWORD_180734;
+// E3768: using guessed type int mouseInstalled_E3768;
+// 180660: using guessed type __int16 videoMode_180660;
+// 1806F0: using guessed type int cursorBackground2_1806F0;
+// 180700: using guessed type int cursorBackground_180700;
+// 180720: using guessed type int mouseInstalled2_180720;
+// 18072C: using guessed type __int16 cursorWidth_18072C;
+// 18072E: using guessed type __int16 cursorHeight_18072E;
+// 180730: using guessed type int cursorData_180730;
+// 180734: using guessed type int cursorParam_180734;
 
 //----- (0008D12F) --------------------------------------------------------
 // int sub_8D12F_set_mouse_viewport()//26e12f NOTE: unused -> removed 
@@ -51888,25 +51888,25 @@ int SetMouseBoundsScaled_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, u
 	v16 = 0;
 	//fix it
 
-	v6 = 2 * x_DWORD_180634_screen_width;
-	v7 = 2 * x_DWORD_180650_positiony;
-	v8 = 2 * x_DWORD_180630_screen_height;
-	if (a1 < (signed __int16)(2 * x_DWORD_18063C_sprite_sizex))
-		a1 = 2 * x_DWORD_18063C_sprite_sizex;
-	if (a3 < (signed __int16)(2 * x_DWORD_18063C_sprite_sizex))
+	v6 = 2 * viewportWidth_180634;
+	v7 = 2 * viewportY_180650;
+	v8 = 2 * viewportHeight_180630;
+	if (a1 < (signed __int16)(2 * viewportX_18063C))
+		a1 = 2 * viewportX_18063C;
+	if (a3 < (signed __int16)(2 * viewportX_18063C))
 		return v16;
 	if (a1 >= v6)
 		return v16;
 	if (a3 >= v6)
-		a3 = 2 * x_DWORD_180634_screen_width;
+		a3 = 2 * viewportWidth_180634;
 	if (a2 < v7)
-		a2 = 2 * x_DWORD_180650_positiony;
+		a2 = 2 * viewportY_180650;
 	if (a4 < v7)
 		return v16;
 	if (a2 >= v8)
 		return v16;
 	if (a4 >= v8)
-		a4 = 2 * x_DWORD_180630_screen_height;
+		a4 = 2 * viewportHeight_180630;
 	/*v10 = (x_BYTE*)(320 * ((unsigned int)(unsigned __int16)a2 >> 1)
 		+ (int)pdwScreenBuffer_351628
 		+ ((unsigned int)(unsigned __int16)a1 >> 1));*/
@@ -51974,23 +51974,23 @@ int SetViewportBounds_90374(uint16_t viewPortX, uint16_t viewPortY, uint16_t vie
 	v13 = 0;
 	//fix it
 
-	if (viewPortX < (signed __int16)x_DWORD_18063C_sprite_sizex)
-		viewPortX = x_DWORD_18063C_sprite_sizex;
-	if (viewPortWidth < (signed __int16)x_DWORD_18063C_sprite_sizex)
+	if (viewPortX < (signed __int16)viewportX_18063C)
+		viewPortX = viewportX_18063C;
+	if (viewPortWidth < (signed __int16)viewportX_18063C)
 		return v13;
-	if (viewPortX >= (signed __int16)x_DWORD_180634_screen_width)
+	if (viewPortX >= (signed __int16)viewportWidth_180634)
 		return v13;
-	if (viewPortWidth >= (signed __int16)x_DWORD_180634_screen_width)
-		viewPortWidth = x_DWORD_180634_screen_width;
-	if (viewPortY < (signed __int16)x_DWORD_180650_positiony)
-		viewPortY = x_DWORD_180650_positiony;
-	if (viewPortHeight < (signed __int16)x_DWORD_180650_positiony)
+	if (viewPortWidth >= (signed __int16)viewportWidth_180634)
+		viewPortWidth = viewportWidth_180634;
+	if (viewPortY < (signed __int16)viewportY_180650)
+		viewPortY = viewportY_180650;
+	if (viewPortHeight < (signed __int16)viewportY_180650)
 		return v13;
-	if (viewPortY >= (signed __int16)x_DWORD_180630_screen_height)
+	if (viewPortY >= (signed __int16)viewportHeight_180630)
 		return v13;
-	if (viewPortHeight >= (signed __int16)x_DWORD_180630_screen_height)
-		viewPortHeight = x_DWORD_180630_screen_height;
-	v7 = (x_BYTE*)(x_DWORD_180634_screen_width * (unsigned __int16)viewPortY + pdwScreenBuffer_351628 + (unsigned __int16)viewPortX);
+	if (viewPortHeight >= (signed __int16)viewportHeight_180630)
+		viewPortHeight = viewportHeight_180630;
+	v7 = (x_BYTE*)(viewportWidth_180634 * (unsigned __int16)viewPortY + pdwScreenBuffer_351628 + (unsigned __int16)viewPortX);
 	v8 = a5;
 	v9 = (unsigned __int16)viewPortWidth;
 	LOWORD(v9) = viewPortWidth - viewPortX;
@@ -52005,7 +52005,7 @@ int SetViewportBounds_90374(uint16_t viewPortX, uint16_t viewPortY, uint16_t vie
 			{
 				BYTE1(v8) = *v7;
 				*v7 = *(x_BYTE*)(v8 + v11);
-				v7 += x_DWORD_180634_screen_width;
+				v7 += viewportWidth_180634;
 				--v10;
 			} while (v10);
 		}
@@ -52014,7 +52014,7 @@ int SetViewportBounds_90374(uint16_t viewPortX, uint16_t viewPortY, uint16_t vie
 			do
 			{
 				*v7 = a5;
-				v7 += x_DWORD_180634_screen_width;
+				v7 += viewportWidth_180634;
 				--v10;
 			} while (v10);
 		}
@@ -52059,7 +52059,7 @@ char SetGammaCorrection_904C0(float a1)//2714c0
 		IF_DPOW(v1, 1.0 / v1);
 		v1 = v1 * 63.0 + 0.5;
 		result = (signed int)_CHP(v2);
-		x_BYTE_181504[v4] = result;
+		gammaTable_181504[v4] = result;
 	} while (v5 < 64);
 	return result;
 }
@@ -52102,17 +52102,17 @@ int16_t VgaPalFadeInFadeOut_90B27(TColor* newpalbufferx, uint8_t shadow_levels, 
 
 	if (singlestep)
 	{
-		if (x_BYTE_E390C_VGA_pal_not_begin)
+		if (paletteFadeActive_E390C)
 		{
 			CurrentPaletteFade_181B44++;
 			if (shadow_levels == CurrentPaletteFade_181B44)
-				x_BYTE_E390C_VGA_pal_not_begin = 0;
+				paletteFadeActive_E390C = 0;
 		}
 		else
 		{
 			CurrentPaletteFade_181B44 = 0;
-			x_BYTE_E390C_VGA_pal_not_begin = 1;
-			VgaGetPalette_A0D2C(x_BYTE_181544_oldpalbufferx);
+			paletteFadeActive_E390C = 1;
+			VgaGetPalette_A0D2C(oldPalette_181544);
 			if (!newpalbufferx)
 				memset(zero_bufferx, 0, 0x300);
 		}
@@ -52126,9 +52126,9 @@ int16_t VgaPalFadeInFadeOut_90B27(TColor* newpalbufferx, uint8_t shadow_levels, 
 			//LOWORD(v6) = x_BYTE_181544_oldpalbuffer[i];
 			//v10 = &v5[-v6];
 			//outbuffer[i] = x_BYTE_181544_oldpalbuffer[i] + ((unk_181B42 >> 16)* (newpalbuffer[i] - x_BYTE_181544_oldpalbuffer[i])/ shadow_levels);
-			outbufferx[i].red = x_BYTE_181544_oldpalbufferx[i].red + ((CurrentPaletteFade_181B44) * (newpalbufferx[i].red - x_BYTE_181544_oldpalbufferx[i].red) / shadow_levels);
-			outbufferx[i].green = x_BYTE_181544_oldpalbufferx[i].green + ((CurrentPaletteFade_181B44) * (newpalbufferx[i].green - x_BYTE_181544_oldpalbufferx[i].green) / shadow_levels);
-			outbufferx[i].blue = x_BYTE_181544_oldpalbufferx[i].blue + ((CurrentPaletteFade_181B44) * (newpalbufferx[i].blue - x_BYTE_181544_oldpalbufferx[i].blue) / shadow_levels);
+			outbufferx[i].red = oldPalette_181544[i].red + ((CurrentPaletteFade_181B44) * (newpalbufferx[i].red - oldPalette_181544[i].red) / shadow_levels);
+			outbufferx[i].green = oldPalette_181544[i].green + ((CurrentPaletteFade_181B44) * (newpalbufferx[i].green - oldPalette_181544[i].green) / shadow_levels);
+			outbufferx[i].blue = oldPalette_181544[i].blue + ((CurrentPaletteFade_181B44) * (newpalbufferx[i].blue - oldPalette_181544[i].blue) / shadow_levels);
 		}
 		//WaitToScreenBeam_9A0FC();
 		VgaPaletteInstall_41A90(outbufferx);
@@ -52137,7 +52137,7 @@ int16_t VgaPalFadeInFadeOut_90B27(TColor* newpalbufferx, uint8_t shadow_levels, 
 	}
 	else
 	{
-		VgaGetPalette_A0D2C(x_BYTE_181544_oldpalbufferx);
+		VgaGetPalette_A0D2C(oldPalette_181544);
 		if (!newpalbufferx)//ebp+14 - 355204
 		{
 			newpalbufferx = zero_bufferx;
@@ -52165,16 +52165,16 @@ int16_t VgaPalFadeInFadeOut_90B27(TColor* newpalbufferx, uint8_t shadow_levels, 
 				//v4 = x_BYTE_181544_oldpalbuffer[i];
 				//v10 = &v3[-v4];
 				//outbuffer[i] = x_BYTE_181544_oldpalbuffer[i] + ((unk_181B42 >> 16) * (newpalbuffer[i] - x_BYTE_181544_oldpalbuffer[i]) / shadow_levels);//352b42 352544
-				outbufferx[i].red = x_BYTE_181544_oldpalbufferx[i].red + ((CurrentPaletteFade_181B44) * (newpalbufferx[i].red - x_BYTE_181544_oldpalbufferx[i].red) / shadow_levels);//352b42 352544
-				outbufferx[i].green = x_BYTE_181544_oldpalbufferx[i].green + ((CurrentPaletteFade_181B44) * (newpalbufferx[i].green - x_BYTE_181544_oldpalbufferx[i].green) / shadow_levels);//352b42 352544
-				outbufferx[i].blue = x_BYTE_181544_oldpalbufferx[i].blue + ((CurrentPaletteFade_181B44) * (newpalbufferx[i].blue - x_BYTE_181544_oldpalbufferx[i].blue) / shadow_levels);//352b42 352544
+				outbufferx[i].red = oldPalette_181544[i].red + ((CurrentPaletteFade_181B44) * (newpalbufferx[i].red - oldPalette_181544[i].red) / shadow_levels);//352b42 352544
+				outbufferx[i].green = oldPalette_181544[i].green + ((CurrentPaletteFade_181B44) * (newpalbufferx[i].green - oldPalette_181544[i].green) / shadow_levels);//352b42 352544
+				outbufferx[i].blue = oldPalette_181544[i].blue + ((CurrentPaletteFade_181B44) * (newpalbufferx[i].blue - oldPalette_181544[i].blue) / shadow_levels);//352b42 352544
 			}
 			//WaitToScreenBeam_9A0FC();
 			VgaPaletteInstall_41A90(outbufferx);
 			fix_sub_9A0FC_wait_to_screen_beam(frameDelay);
 			//mydelay(10);
 		}
-		x_BYTE_E390C_VGA_pal_not_begin = 0;
+		paletteFadeActive_E390C = 0;
 	}
 
 	/*if ((a1 == NULL) && (a2 == 0x10) && (a3 == 0)) {//fix it - a1 not changed
@@ -52198,15 +52198,15 @@ __int16 VgaPalFadeInFadeOutOrig_90B27(char*  /*a1*/, unsigned __int8  /*a2*/, ch
 
   if ( a3 )
   {
-	if ( x_BYTE_E390C_VGA_pal_not_begin )
+	if ( paletteFadeActive_E390C )
 	{
 	  if ( a2 == ++CurrentPaletteFade_181B44 )
-		x_BYTE_E390C_VGA_pal_not_begin = 0;
+		paletteFadeActive_E390C = 0;
 	}
 	else
 	{
 	  CurrentPaletteFade_181B44 = 0;
-	  x_BYTE_E390C_VGA_pal_not_begin = 1;
+	  paletteFadeActive_E390C = 1;
 	  VgaGetPalette_A0D2C(x_BYTE_181544_oldpalbuffer);
 	  if ( !a1 )
 		memset(&unk_181844, 0, 768);
@@ -52253,22 +52253,22 @@ __int16 VgaPalFadeInFadeOutOrig_90B27(char*  /*a1*/, unsigned __int8  /*a2*/, ch
 	  WaitToScreenBeam_9A0FC();
 	  VgaPaletteInstall_41A90((unsigned __int8 *)v8);
 	}
-	x_BYTE_E390C_VGA_pal_not_begin = 0;
+	paletteFadeActive_E390C = 0;
   }
   return CurrentPaletteFade_181B44;*/
 	return 0;
 }
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// E390C: using guessed type char x_BYTE_E390C_VGA_pal_not_begin;
+// E390C: using guessed type char paletteFadeActive_E390C;
 // 181B44: using guessed type __int16 CurrentPaletteFade_181B44;
 // 90B27: using guessed type char var_30C[768];
 
 //----- (00090D27) --------------------------------------------------------
 void ResetPaletteFade_90D27()
 {
-	x_BYTE_E390C_VGA_pal_not_begin = 0;
+	paletteFadeActive_E390C = 0;
 }
-// E390C: using guessed type char x_BYTE_E390C_VGA_pal_not_begin;
+// E390C: using guessed type char paletteFadeActive_E390C;
 
 void VgaSetVideoMode320x200AndPalette_90D6E(TColor* Palettex)//271d6e
 {
@@ -52280,8 +52280,8 @@ void VgaSetVideoMode320x200AndPalette_90D6E(TColor* Palettex)//271d6e
 	//v3 = 0xf00;
 //removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
 	VGA_Resize(320, 200);
-	if (!x_WORD_180662_graphics_handle)
-		x_WORD_180662_graphics_handle = 0x13;
+	if (!videoModeNumber_180662)
+		videoModeNumber_180662 = 0x13;
 	//v3 = 0x13;
 	screenWidth_18062C = 320;
 	screenHeight_180624 = 200;
@@ -52305,8 +52305,8 @@ void VgaSetVideoMode320x200AndPaletteOrig_90D6E(TColor* a1x)
 
 	//v3 = 0xf00;
 //removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
-	if (!x_WORD_180662_graphics_handle)
-		x_WORD_180662_graphics_handle = v2;
+	if (!videoModeNumber_180662)
+		videoModeNumber_180662 = v2;
 	//v3 = 0x13;
 	screenWidth_18062C = 320;
 	screenHeight_180624 = 200;
@@ -52325,8 +52325,8 @@ void VgaSetVideoMode640x480AndPalette_90E07(TColor* Palettex)//271e07
 	//v3 = 0xf00;//
 //removed int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
 	VGA_Resize(640, 480);
-	if (!x_WORD_180662_graphics_handle)
-		x_WORD_180662_graphics_handle = 0x13;
+	if (!videoModeNumber_180662)
+		videoModeNumber_180662 = 0x13;
 	screenWidth_18062C = 640;
 	screenHeight_180624 = 480;
 	//removed sub_994BA_cursor_move(0x101); //set position of cursor?
@@ -52420,8 +52420,8 @@ int SetVideoMode_9937E(__int16  /*a1*/)//27a37e
 	char v11; // [esp+6Ch] [ebp-Ch]
 
 	memset(&v2, 0, 50);
-	v5 = (unsigned int)x_DWORD_181C40_vga_init_buffer >> 4;
-	v6 = (unsigned int)x_DWORD_181C40_vga_init_buffer >> 4;
+	v5 = (unsigned int)vesaInfoBuffer_181C40 >> 4;
+	v6 = (unsigned int)vesaInfoBuffer_181C40 >> 4;
 	v2 = 0;
 	v4 = 20225;
 	v3 = a1;
@@ -52433,12 +52433,12 @@ int SetVideoMode_9937E(__int16  /*a1*/)//27a37e
 	v9 = 0x10;
 	v10 = &v2;
 	int386x(0x31, (REGS*)&v8, (REGS*)&v7, (SREGS*)&v11);//Set video mode
-	x_WORD_181C44 = *(unsigned __int8 *)(x_DWORD_181C40_vga_init_buffer + 4) + (*(unsigned __int8 *)(x_DWORD_181C40_vga_init_buffer + 5) << 8);
-	x_WORD_E3BA6 = *(unsigned __int8 *)(x_DWORD_181C40_vga_init_buffer + 16) + (*(unsigned __int8 *)(x_DWORD_181C40_vga_init_buffer + 17) << 8);
-	x_WORD_E3BA8 = *(unsigned __int8 *)(x_DWORD_181C40_vga_init_buffer + 18) + (*(unsigned __int8 *)(x_DWORD_181C40_vga_init_buffer + 19) << 8);
-	HIWORD(result) = HIWORD(x_DWORD_181C40_vga_init_buffer);
-	LOWORD(result) = *(unsigned __int8 *)(x_DWORD_181C40_vga_init_buffer + 20);
-	x_WORD_E3BAA = (unsigned __int8)result + (*(unsigned __int8 *)(x_DWORD_181C40_vga_init_buffer + 21) << 8);
+	x_WORD_181C44 = *(unsigned __int8 *)(vesaInfoBuffer_181C40 + 4) + (*(unsigned __int8 *)(vesaInfoBuffer_181C40 + 5) << 8);
+	x_WORD_E3BA6 = *(unsigned __int8 *)(vesaInfoBuffer_181C40 + 16) + (*(unsigned __int8 *)(vesaInfoBuffer_181C40 + 17) << 8);
+	x_WORD_E3BA8 = *(unsigned __int8 *)(vesaInfoBuffer_181C40 + 18) + (*(unsigned __int8 *)(vesaInfoBuffer_181C40 + 19) << 8);
+	HIWORD(result) = HIWORD(vesaInfoBuffer_181C40);
+	LOWORD(result) = *(unsigned __int8 *)(vesaInfoBuffer_181C40 + 20);
+	x_WORD_E3BAA = (unsigned __int8)result + (*(unsigned __int8 *)(vesaInfoBuffer_181C40 + 21) << 8);
 	return result;*/
 	return 0;//fix it
 }
@@ -52448,7 +52448,7 @@ int SetVideoMode_9937E(__int16  /*a1*/)//27a37e
 // E3BA6: using guessed type __int16 x_WORD_E3BA6;
 // E3BA8: using guessed type __int16 x_WORD_E3BA8;
 // E3BAA: using guessed type __int16 x_WORD_E3BAA;
-// 181C40: using guessed type int x_DWORD_181C40_vga_init_buffer;
+// 181C40: using guessed type int vesaInfoBuffer_181C40;
 // 181C44: using guessed type __int16 x_WORD_181C44;
 
 //----- (000994BA) --------------------------------------------------------
@@ -52461,7 +52461,7 @@ signed int SetVgaPaletteBank_9951B(__int16 a1)//27a51b //fix graphics
 
 	signed int result; // eax
 
-	x_WORD_E3BA4 = a1;
+	vgaPaletteBank_E3BA4 = a1;
 	if (a1 > 5 || a1 < 0)
 	{
 		/*__outx_BYTE(0x3C8u, 0);
@@ -52474,8 +52474,8 @@ signed int SetVgaPaletteBank_9951B(__int16 a1)//27a51b //fix graphics
 	//fix it:__asm { int     10h; - VIDEO - VESA SuperVGA BIOS -  VESA SuperVGA BIOS - CPU VIDEO MEMORY CONTROL }
 	return result;
 }
-// E3BA4: using guessed type __int16 x_WORD_E3BA4;
-// 181C40: using guessed type int x_DWORD_181C40_vga_init_buffer;
+// E3BA4: using guessed type __int16 vgaPaletteBank_E3BA4;
+// 181C40: using guessed type int vesaInfoBuffer_181C40;
 
 //----- (000995B0) --------------------------------------------------------
 int TestVgaDriver_995B0() //27A5B0
@@ -52492,8 +52492,8 @@ int TestVgaDriver_995B0() //27A5B0
 	char v10; // [esp+6Ch] [ebp-10h]
 
 	memset(&v1, 0, 50);//3551A8
-	v4 = (unsigned int)x_DWORD_181C40_vga_init_buffer >> 4;//2C03
-	v5 = (unsigned int)x_DWORD_181C40_vga_init_buffer >> 4;//2C03
+	v4 = (unsigned int)vesaInfoBuffer_181C40 >> 4;//2C03
+	v5 = (unsigned int)vesaInfoBuffer_181C40 >> 4;//2C03
 
 	//ebp-7c=0 //dword
 	//ebp-60=4f//dword
@@ -52511,24 +52511,24 @@ int TestVgaDriver_995B0() //27A5B0
 	int386x(0x31, (REGS*)&v6, (REGS*)&v9, (SREGS*)&v10);//?video*/
 	//fix! initialize video
 
-	for (int i = 0; i < 20; i++)x_DWORD_181C40_vga_init_buffer[i] = 0x0;//fixed
-	memcpy((char*)x_DWORD_181C40_vga_init_buffer, "VESA\0", 5);//fixed
-	x_DWORD_181C40_vga_init_buffer[5] = 0x02;//fixed
-	x_DWORD_181C40_vga_init_buffer[6] = 0x67;//fixed
-	x_DWORD_181C40_vga_init_buffer[7] = 0x2f;//fixed
-	x_DWORD_181C40_vga_init_buffer[9] = 0xc0;//fixed
-	x_DWORD_181C40_vga_init_buffer[14] = 0xab;//fixed
-	x_DWORD_181C40_vga_init_buffer[15] = 0x2e;//fixed
-	x_DWORD_181C40_vga_init_buffer[17] = 0xc0;//fixed
-	x_DWORD_181C40_vga_init_buffer[18] = 0x20;//fixed
+	for (int i = 0; i < 20; i++)vesaInfoBuffer_181C40[i] = 0x0;//fixed
+	memcpy((char*)vesaInfoBuffer_181C40, "VESA\0", 5);//fixed
+	vesaInfoBuffer_181C40[5] = 0x02;//fixed
+	vesaInfoBuffer_181C40[6] = 0x67;//fixed
+	vesaInfoBuffer_181C40[7] = 0x2f;//fixed
+	vesaInfoBuffer_181C40[9] = 0xc0;//fixed
+	vesaInfoBuffer_181C40[14] = 0xab;//fixed
+	vesaInfoBuffer_181C40[15] = 0x2e;//fixed
+	vesaInfoBuffer_181C40[17] = 0xc0;//fixed
+	vesaInfoBuffer_181C40[18] = 0x20;//fixed
 
-	return strncmp((char*)x_DWORD_181C40_vga_init_buffer, "VESA", 4);
+	return strncmp((char*)vesaInfoBuffer_181C40, "VESA", 4);
 }
 // 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
 // 99682: using guessed type x_DWORD strncmp(x_DWORD, x_DWORD, x_DWORD);
 // 99DE6: using guessed type x_DWORD segread(x_DWORD);
 // 99E10: using guessed type x_DWORD int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);
-// 181C40: using guessed type int x_DWORD_181C40_vga_init_buffer;
+// 181C40: using guessed type int vesaInfoBuffer_181C40;
 
 //----- (00099FF0) --------------------------------------------------------
 signed int StringToLong2_99FF0(char* a1, char** a2, signed int a3)//27aff0
@@ -52541,7 +52541,7 @@ signed int CheckKeyboard_9A10A(/*signed int result*/)//27B10a
 {
 	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
 
-	if (x_DWORD_E4CA4)
+	if (keyboardFlag_E4CA4)
 		return 1;
 	return VGA_check_standart_input_status();
 	//fix it:__asm { int     21h; DOS - CHECK STANDARD INPUT STATUS }
@@ -52623,7 +52623,7 @@ void OriginalDebugOutput_9AEEC(x_DWORD** a1, char* a2)//27Beec
 	char v4; // [esp-4h] [ebp-Ch]
 
 	v2 = (char*)a2;
-	if (x_DWORD_E3DE8)
+	if (debugSerialEnabled_E3DE8)
 		Logger->debug("Writing %s\n", a2);
 	while (*v2)
 	{
@@ -52651,7 +52651,7 @@ char SerialWaitForByte_9AFC4(int a1, int a2, char* a3, int* a4, int a5)//27Bfc4
 		{
 			v6 = SerialReceiveByte_9C938((x_DWORD*)*a4);
 			//a3 = v6;
-			if (x_DWORD_E3DE8)
+			if (debugSerialEnabled_E3DE8)
 				/*v6 = */myprintf("Response: %c\n");
 			if (v6 == 79)
 				return 0;
@@ -52662,7 +52662,7 @@ char SerialWaitForByte_9AFC4(int a1, int a2, char* a3, int* a4, int a5)//27Bfc4
 	return 3;
 }
 // 9ADFC: using guessed type int /*__fastcall*/ j_j___clock(x_DWORD, x_DWORD, x_DWORD);
-// E3DE8: using guessed type int x_DWORD_E3DE8;
+// E3DE8: using guessed type int debugSerialEnabled_E3DE8;
 
 //----- (0009B038) --------------------------------------------------------
 char SerialDebugOutput_9B038(int* a1, char* a2, int a3)//27C038
@@ -53399,16 +53399,16 @@ __int16 /*__fastcall*/ ReadKeyboardShiftFlags_9D31C(__int16 result)//27e31c
 	bool v1; // zf
 
 	//fix it:__asm { int     16h; KEYBOARD - GET ENHANCED SHIFT FLAGS (AT model 339,XT2,XT286,PS) }
-	x_BYTE_1806E5 = 0;
+	keyShiftFlags_1806E5 = 0;
 	if (result & 3)
-		x_BYTE_1806E5 = 1;
+		keyShiftFlags_1806E5 = 1;
 	if (result & 4)
-		x_BYTE_1806E5 |= 2u;
+		keyShiftFlags_1806E5 |= 2u;
 	v1 = (result & 8) == 0;
 	if (result & 8)
 	{
-		v1 = ((unsigned __int8)x_BYTE_1806E5 | 4) == 0;
-		x_BYTE_1806E5 |= 4u;
+		v1 = ((unsigned __int8)keyShiftFlags_1806E5 | 4) == 0;
+		keyShiftFlags_1806E5 |= 4u;
 	}
 	LastPressedKey_1806E4 = 0;
 	//fix it:__asm { int     16h; KEYBOARD - CHECK ENHANCED KEYSTROKE (AT model 339,XT2,XT286,PS) }
@@ -53420,7 +53420,7 @@ __int16 /*__fastcall*/ ReadKeyboardShiftFlags_9D31C(__int16 result)//27e31c
 	return result;
 }
 // 1806E4: using guessed type char x_BYTE_1806E4;
-// 1806E5: using guessed type char x_BYTE_1806E5;
+// 1806E5: using guessed type char keyShiftFlags_1806E5;
 
 //----- (0009D3F0) --------------------------------------------------------
 /*void* (*sub_9D3F0_set_malloc_type(void* (*a1)(size_t size)))(size_t)//27e3f0
@@ -53612,33 +53612,33 @@ void InitVrTrackerData_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6
 	v18 = 0;
 	//fix it
 
-	if (x_DWORD_E4CCC)
+	if (vrTrackerInitialized_E4CCC)
 		goto LABEL_8;
-	result = AllocTable_B1138(x_DWORD_182188, 3);
+	result = AllocTable_B1138(vrTableA_182188, 3);
 	if (result)
 	{
-		result = AllocTable_B1138(x_DWORD_1821A0, 3);
+		result = AllocTable_B1138(vrTableB_1821A0, 3);
 		if (result)
 		{
-			result = AllocTable_B1138(x_DWORD_1821B8, 3);
+			result = AllocTable_B1138(vrTableC_1821B8, 3);
 			if (result)
 			{
-				result = AllocTable_B1138(x_DWORD_1821D0, 6);
+				result = AllocTable_B1138(vrTableD_1821D0, 6);
 				if (result)
 				{
-					result = AllocTable_B1138(x_DWORD_1821E8, 6);
+					result = AllocTable_B1138(vrTableE_1821E8, 6);
 					if (result)
 					{
-						x_DWORD_E4CCC = 1;
+						vrTrackerInitialized_E4CCC = 1;
 					LABEL_8:
-						v19 = FreeTable_B11E8((uint32_t*)x_DWORD_182188, a1);
-						v9 = FreeTable_B11E8((uint32_t*)x_DWORD_1821A0, a2);
-						v10 = FreeTable_B11E8((uint32_t*)x_DWORD_1821B8, a3);
+						v19 = FreeTable_B11E8((uint32_t*)vrTableA_182188, a1);
+						v9 = FreeTable_B11E8((uint32_t*)vrTableB_1821A0, a2);
+						v10 = FreeTable_B11E8((uint32_t*)vrTableC_1821B8, a3);
 						v11 = FreeTable_B11E8(
-							(uint32_t*)x_DWORD_1821D0,
+							(uint32_t*)vrTableD_1821D0,
 							((unsigned __int64)(51471 * a4) >> 32 != 0) + ((unsigned __int64)(51471 * a4) >> 14));
 						v12 = FreeTable_B11E8(
-							(uint32_t*)x_DWORD_1821E8,
+							(uint32_t*)vrTableE_1821E8,
 							((unsigned __int64)(51471 * a5) >> 32 != 0) + ((unsigned __int64)(51471 * a5) >> 14));
 						FixedSinCos_B14F8(&v17, v11);
 						FixedSinCos_B14F8(&v15, v12);
@@ -53667,7 +53667,7 @@ void InitVrTrackerData_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6
 		}
 	}
 }
-// E4CCC: using guessed type int x_DWORD_E4CCC;
+// E4CCC: using guessed type int vrTrackerInitialized_E4CCC;
 
 //----- (000AD09E) --------------------------------------------------------
 x_BYTE* ParseVrConfigLine_AD09E(x_BYTE* a1, int a2)//28e09e
@@ -53682,7 +53682,7 @@ x_BYTE* ParseVrConfigLine_AD09E(x_BYTE* a1, int a2)//28e09e
 	{
 		do
 		{
-			*(x_BYTE*)((v2 >> 3) + a2) |= x_BYTE_D3EA0[v2 & 7];
+			*(x_BYTE*)((v2 >> 3) + a2) |= bitMasks_D3EA0[v2 & 7];
 			v2 = (unsigned __int8)*v3;
 			if (!*v3)
 				break;
@@ -53793,20 +53793,20 @@ int FixedSqrt_B12A4(int a1)
 	v2 = v1 >> 6;
 	if (v1 >> 6 < 256)
 	{
-		v4 = x_DWORD_E7724[v2];
-		v5 = (v1 & 0x3F) * (signed __int64)((char*)x_DWORD_E7724[1 + v2] - v4);
+		v4 = sqrtTable_E7724[v2];
+		v5 = (v1 & 0x3F) * (signed __int64)((char*)sqrtTable_E7724[1 + v2] - v4);
 		v3 = v4 + (HIDWORD(v5) != 0) + (v5 >> 6);
 	}
 	else
 	{
-		v3 = x_DWORD_E7724[256];
+		v3 = sqrtTable_E7724[256];
 	}
 	result = v3 >> 14;
 	if (a1 < 0)
 		result = -result;
 	return result;
 }
-// E7724: using guessed type int x_DWORD_E7724[];
+// E7724: using guessed type int sqrtTable_E7724[];
 // E7B24: using guessed type int x_DWORD_E7B24;
 
 //----- (000B1304) --------------------------------------------------------
@@ -53893,20 +53893,20 @@ int FixedAsin_B1414(int a1)
 	v2 = v1 >> 6;
 	if (v1 >> 6 < 256)
 	{
-		v4 = x_DWORD_E7320[v2];
-		v5 = (v1 & 0x3F) * (signed __int64)(x_DWORD_E7320[1 + v2] - v4);
+		v4 = asinTable_E7320[v2];
+		v5 = (v1 & 0x3F) * (signed __int64)(asinTable_E7320[1 + v2] - v4);
 		v3 = v4 + (HIDWORD(v5) != 0) + (v5 >> 6);
 	}
 	else
 	{
-		v3 = x_DWORD_E7320[256];
+		v3 = asinTable_E7320[256];
 	}
 	result = v3 >> 14;
 	if (a1 < 0)
 		result = -result;
 	return result;
 }
-// E7320: using guessed type int x_DWORD_E7320[];
+// E7320: using guessed type int asinTable_E7320[];
 // E7720: using guessed type int x_DWORD_E7720;
 
 //----- (000B148C) --------------------------------------------------------
@@ -54138,7 +54138,7 @@ int BlitToVgaPlanar2_BD320(int result, int8_t* a2, int8_t* a3, int a4, int saved
 	int* v6; // edi
 	int v7; // eax
 
-	v6 = (int*)&loc_A0000_vga_buffer;
+	v6 = (int*)&vgaBuffer_A0000;
 	do
 	{
 		LOBYTE(a4) = a3[1];
@@ -54207,10 +54207,10 @@ void BlitScreenToVga_BD3DD()//29e3dd
 	char* v13; // edi
 	signed int v14; // edx
 
-	if (!x_BYTE_E3766)
+	if (!blitLock_E3766)
 		DrawCursorIfEnabled_8CACD();
 	SetVgaPaletteBank_9951B(0);
-	v0 = (char*)&loc_A0000_vga_buffer + 51200;
+	v0 = (char*)&vgaBuffer_A0000 + 51200;
 	v1 = (char*)pdwScreenBuffer_351628;
 	v2 = 11;
 	do
@@ -54223,9 +54223,9 @@ void BlitScreenToVga_BD3DD()//29e3dd
 	qmemcpy(v0, v1, 0x100u);
 	v3 = v1 + 256;
 	SetVgaPaletteBank_9951B(1);
-	qmemcpy(&loc_A0000_vga_buffer, v3, 0x180u);
+	qmemcpy(&vgaBuffer_A0000, v3, 0x180u);
 	v4 = v3 + 1024;
-	v5 = (char*)&loc_A0000_vga_buffer + 1024;
+	v5 = (char*)&vgaBuffer_A0000 + 1024;
 	v6 = 50;
 	do
 	{
@@ -54237,9 +54237,9 @@ void BlitScreenToVga_BD3DD()//29e3dd
 	qmemcpy(v5, v4, 0x200u);
 	v7 = v4 + 512;
 	SetVgaPaletteBank_9951B(2);
-	qmemcpy(&loc_A0000_vga_buffer, v7, 0x80u);
+	qmemcpy(&vgaBuffer_A0000, v7, 0x80u);
 	v8 = v7 + 768;
-	v9 = (char*)&loc_A0000_vga_buffer + 768;
+	v9 = (char*)&vgaBuffer_A0000 + 768;
 	v10 = 51;
 	do
 	{
@@ -54249,7 +54249,7 @@ void BlitScreenToVga_BD3DD()//29e3dd
 		--v10;
 	} while (v10);
 	SetVgaPaletteBank_9951B(3);
-	v11 = (char*)&loc_A0000_vga_buffer + 512;
+	v11 = (char*)&vgaBuffer_A0000 + 512;
 	v12 = 51;
 	do
 	{
@@ -54259,7 +54259,7 @@ void BlitScreenToVga_BD3DD()//29e3dd
 		--v12;
 	} while (v12);
 	SetVgaPaletteBank_9951B(4);
-	v13 = (char*)&loc_A0000_vga_buffer + 256;
+	v13 = (char*)&vgaBuffer_A0000 + 256;
 	v14 = 34;
 	do
 	{
@@ -54268,7 +54268,7 @@ void BlitScreenToVga_BD3DD()//29e3dd
 		v13 += 1280;
 		--v14;
 	} while (v14);
-	if (!x_BYTE_E3766)
+	if (!blitLock_E3766)
 		ClearCursorDrawnFlag_8CB1F();
 }
 
@@ -54455,7 +54455,7 @@ type_entity_0x6E8E* AddCaveInSpell_514C0(axis_3d* position)//2324c0
 	return AddSpellPickup_51120(position, 25, 75);
 }
 
-type_entity_0x6E8E* (*arsub_2a881e[])(axis_3d*) = { AddFireballSpell_511A0, AddPossessSpell_511C0, AddCastleSpell_511E0,AddSpeedUpSpell_51200,AddMorphSpell_51220,
+type_entity_0x6E8E* (*spellPickupCreators_2A881E[])(axis_3d*) = { AddFireballSpell_511A0, AddPossessSpell_511C0, AddCastleSpell_511E0,AddSpeedUpSpell_51200,AddMorphSpell_51220,
 AddHealSpell_51240 ,AddShieldSpell_51260,AddLightningSpell_51280,AddReboundSpell_512A0,AddMeteorSpell_512C0,AddTeleportSpell_512E0,AddInvisibleSpell_51300,AddBeyondSightSpell_51320,AddStealManaSpell_51340,
 AddDuelSpell_51360,AddTremorSpell_51380,AddCraterSpell_513A0,AddEarthquakeSpell_513C0,AddVolcanoSpell_513E0,AddSummonArmySpell_51400,AddGravityWellSpell_51420,AddWhirlwindSpell_51440,
 AddFoolsManaSpell_51460,AddMagicMineSpell_51480,AddAllianceSpell_514A0,AddCaveInSpell_514C0 };
@@ -54488,11 +54488,11 @@ type_entity_0x6E8E* SwitchCheckLevelEnd_6F150(type_entity_0x6E8E* a1x)//250150
 {
 	type_entity_0x6E8E* resultx; // eax
 
-	resultx = x_D41A0_BYTEARRAY_4_struct.class3List_38519;
+	resultx = gameState_D41A4.class3List_38519;
 	if (resultx > Entities_EA3E4[0])
 	{
 		while (resultx->model_0x40_64
-			|| !D41A0_0.playerObjectives_0x3659C[resultx->playerData_0xA4_164x->playerColorIndex_0x38_56].substr_3659C.IsLevelEnd_0)
+			|| !world_D41A0.playerObjectives_0x3659C[resultx->playerData_0xA4_164x->playerColorIndex_0x38_56].substr_3659C.IsLevelEnd_0)
 		{
 			resultx = resultx->next_0;
 			if (resultx <= Entities_EA3E4[0])
@@ -54514,19 +54514,19 @@ void SwitchCheckStage_6F1C0(type_entity_0x6E8E* a1x)//2501c0
 	signed __int16 v2; // bx
 	signed __int16 v3; // dx
 
-	if (a1x->levelPar3_0x46_70 < D41A0_0.stageIndex_0x36E01)
+	if (a1x->levelPar3_0x46_70 < world_D41A0.stageIndex_0x36E01)
 	{
-		if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
-			v2 = D41A0_0.NumberOfPlayers_0xe;
+		if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+			v2 = world_D41A0.NumberOfPlayers_0xe;
 		else
 			v2 = 1;
 		v3 = 0;
 		resultx = 0;
 		while (v3 < v2)
 		{
-			if (D41A0_0.playerObjectives_0x3659C[resultx].substr_3659C.stage_0x3659F[a1x->levelPar3_0x46_70] == 2)
+			if (world_D41A0.playerObjectives_0x3659C[resultx].substr_3659C.stage_0x3659F[a1x->levelPar3_0x46_70] == 2)
 			{
-				D41A0_0.playerObjectives_0x3659C[resultx].substr_3659C.ObjectiveDone_2 = 1;
+				world_D41A0.playerObjectives_0x3659C[resultx].substr_3659C.ObjectiveDone_2 = 1;
 				ResetLevelState_4A1E0(a1x->id_0x1A_26, 1);
 				DisableEntityDrawing04_57F10(a1x);
 				return;// 1;
@@ -54548,9 +54548,9 @@ type_entity_0x6E8E* FindPlayerTouchingSwitch_6F8E0(type_entity_0x6E8E* a1x, int 
 	v2 = 0;
 	//v3 = (int)x_D41A0_BYTEARRAY_0 + 11230;
 	v3x = 0;
-	while (v2 < D41A0_0.NumberOfPlayers_0xe)
+	while (v2 < world_D41A0.NumberOfPlayers_0xe)
 	{
-		v4x = Entities_EA3E4[D41A0_0.players_0x2BDE[v3x].playerIndex_0x00a_2BE4_11240];
+		v4x = Entities_EA3E4[world_D41A0.players_0x2BDE[v3x].playerIndex_0x00a_2BE4_11240];
 		if (CompareAxisWithShift_10750(a1x, v4x) == a2)
 			return v4x;
 		//v3 += 2124;
@@ -54599,11 +54599,11 @@ void ActivateSwitchChain_6F2B0(type_entity_0x6E8E* a1x)//2502b0
 		DisableEntityDrawing04_57F10(a1x);
 		//result = (x_BYTE *)x_D41A0_BYTEARRAY_0;
 		//v2 = D41A0_BYTESTR_0.word_0x36DFE;
-		if (D41A0_0.switchChainEntity_0x36DFE)
+		if (world_D41A0.switchChainEntity_0x36DFE)
 		{
 			//result = Entities_EA3E4[v2];
 			//result[12] &= 0xFEu;
-			Entities_EA3E4[D41A0_0.switchChainEntity_0x36DFE]->flags_0xc_12_15.byte[0] &= 0xFEu;
+			Entities_EA3E4[world_D41A0.switchChainEntity_0x36DFE]->flags_0xc_12_15.byte[0] &= 0xFEu;
 		}
 	}
 	//return result;
@@ -54622,7 +54622,7 @@ unsigned int CountCreaturesOfModel_6F300(type_entity_0x6E8E* a1x, signed int a2)
 	{
 		for (result = 0; (signed int)result <= 16; ++result)
 		{
-			if ((result <= 0xB || result >= 0x10 && result <= 0x1C) && x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[result])
+			if ((result <= 0xB || result >= 0x10 && result <= 0x1C) && gameState_D41A4.creatureLists_38403x[result])
 				return result;
 		}
 		v3 = a1x->param_0x10_16;
@@ -54633,7 +54633,7 @@ unsigned int CountCreaturesOfModel_6F300(type_entity_0x6E8E* a1x, signed int a2)
 		}
 		if (v3 == 1)
 		{
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 41);
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 41);
 			ResetLevelState_4A1E0(a1x->id_0x1A_26, 1);
 			DisableEntityDrawing04_57F10(a1x);
 			return 1;
@@ -54641,7 +54641,7 @@ unsigned int CountCreaturesOfModel_6F300(type_entity_0x6E8E* a1x, signed int a2)
 	}
 	else
 	{
-		if (x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[a2])
+		if (gameState_D41A4.creatureLists_38403x[a2])
 			return result;
 		v3 = a1x->param_0x10_16;
 		if (!v3)
@@ -54651,7 +54651,7 @@ unsigned int CountCreaturesOfModel_6F300(type_entity_0x6E8E* a1x, signed int a2)
 		}
 		if (v3 == 1)
 		{
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 41);
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 41);
 			ResetLevelState_4A1E0(a1x->id_0x1A_26, 1);
 			DisableEntityDrawing04_57F10(a1x);
 			return 1;
@@ -54847,7 +54847,7 @@ unsigned int CountAllCreatures_6F7C0(type_entity_0x6E8E* a1)//2507c0
 //----- (0006F7E0) --------------------------------------------------------
 void ActivateSwitchChainOnce_6F7E0(type_entity_0x6E8E* entity) //2507e0
 {
-	if (x_D41A0_BYTEARRAY_4_struct.setting_38545 & 8)
+	if (gameState_D41A4.setting_38545 & 8)
 		DisableEntityDrawing04_57F10(entity);
 	type_entity_0x6E8E* entity2 = InitSwitchChainZaxisAndSound_6F850(entity, 1);
 	if (entity2)
@@ -54855,9 +54855,9 @@ void ActivateSwitchChainOnce_6F7E0(type_entity_0x6E8E* entity) //2507e0
 		entity2->actionIndex_0x45_69 = 11;
 		entity2->levelPar3_0x46_70 = 0;
 		DisableEntityDrawing04_57F10(entity);
-		if (D41A0_0.switchOnceEntity_0x36DFC)
+		if (world_D41A0.switchOnceEntity_0x36DFC)
 		{
-			Entities_EA3E4[D41A0_0.switchOnceEntity_0x36DFC]->flags_0xc_12_15.byte[0] &= 0xFEu;
+			Entities_EA3E4[world_D41A0.switchOnceEntity_0x36DFC]->flags_0xc_12_15.byte[0] &= 0xFEu;
 		}
 	}
 }
@@ -54938,7 +54938,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 		v57 = -1;
 		v43x = Entities_EA3E4[a1x->id_0x1A_26];
 		v8x = 0;
-		for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+		for (ix = gameState_D41A4.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 		{
 			if (ix->id_0x1A_26 != a1x->id_0x1A_26 && !(ix->flags_0xc_12_15.byte[0] & 0x20))
 			{
@@ -54962,7 +54962,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 		{
 			if (j != 22)
 			{
-				for (kx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[j]; kx > Entities_EA3E4[0]; kx = kx->next_0)
+				for (kx = gameState_D41A4.creatureLists_38403x[j]; kx > Entities_EA3E4[0]; kx = kx->next_0)
 				{
 					v13 = a1x->id_0x1A_26;
 					if (kx->id_0x1A_26 != v13
@@ -54981,7 +54981,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 		}
 		if (!v8x)
 		{
-			for (lx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[88 / 4]; lx > Entities_EA3E4[0]; lx = lx->next_0)
+			for (lx = gameState_D41A4.creatureLists_38403x[88 / 4]; lx > Entities_EA3E4[0]; lx = lx->next_0)
 			{
 				if (lx->timer_0x39_57)
 				{
@@ -55002,7 +55002,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 		}
 		if (!v8x)
 			return 0;
-		a1x->targetId_0x96_150 = v8x - D41A0_0.entities_0x6E8E;
+		a1x->targetId_0x96_150 = v8x - world_D41A0.entities_0x6E8E;
 		IsCreatureModel0_68BD0(a1x, v8x);
 		AimAtEntity_655C0(a1x, v8x);
 		if (v8x->class_0x3F_63 == 3 && !v8x->model_0x40_64)
@@ -55012,7 +55012,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 	case 0x11:
 		v25 = -1;
 		v56x = 0;
-		v26x = x_D41A0_BYTEARRAY_4_struct.manaSphereList_38523;
+		v26x = gameState_D41A4.manaSphereList_38523;
 		break;
 	case 7:
 	case 8:
@@ -55021,7 +55021,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 		v48 = -1;
 		v36x = 0;
 		v44x = Entities_EA3E4[a1x->id_0x1A_26];
-		for (nx = x_D41A0_BYTEARRAY_4_struct.class3List_38519; nx > Entities_EA3E4[0]; nx = nx->next_0)
+		for (nx = gameState_D41A4.class3List_38519; nx > Entities_EA3E4[0]; nx = nx->next_0)
 		{
 			if (nx->id_0x1A_26 != a1x->id_0x1A_26 && !(nx->flags_0xc_12_15.byte[0] & 0x20))
 			{
@@ -55039,7 +55039,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 		}
 		if (!v36x)
 			return 0;
-		a1x->targetId_0x96_150 = v36x - D41A0_0.entities_0x6E8E;
+		a1x->targetId_0x96_150 = v36x - world_D41A0.entities_0x6E8E;
 		AimAtEntity_655C0(a1x, v36x);
 		if (v36x->class_0x3F_63 == 3 && !v36x->model_0x40_64)
 			SetWizardHitTimer_5EF70(v36x);
@@ -55047,7 +55047,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 	case 9:
 		v1 = -1;
 		v54x = 0;
-		for (iix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; iix > Entities_EA3E4[0]; iix = iix->next_0)
+		for (iix = gameState_D41A4.class3List_38519; iix > Entities_EA3E4[0]; iix = iix->next_0)
 		{
 			if (iix->id_0x1A_26 != a1x->id_0x1A_26 && !(iix->flags_0xc_12_15.byte[0] & 0x20))
 			{
@@ -55069,7 +55069,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 		}
 		for (jj = 0; jj < 29; ++jj)
 		{
-			for (kkx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[jj]; kkx > Entities_EA3E4[0]; kkx = kkx->next_0)
+			for (kkx = gameState_D41A4.creatureLists_38403x[jj]; kkx > Entities_EA3E4[0]; kkx = kkx->next_0)
 			{
 				if (kkx->id_0x1A_26 != a1x->id_0x1A_26
 					&& kkx->timer_0x39_57
@@ -55086,14 +55086,14 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 		}
 		if (!v54x)
 			return 0;
-		a1x->targetId_0x96_150 = v54x - D41A0_0.entities_0x6E8E;
+		a1x->targetId_0x96_150 = v54x - world_D41A0.entities_0x6E8E;
 		AimAtEntity_655C0(a1x, v54x);
 		return 1;
 	case 0x10:
 		v55 = -1;
 		v45x = Entities_EA3E4[a1x->id_0x1A_26];
 		v18x = 0;
-		for (llx = x_D41A0_BYTEARRAY_4_struct.class3List_38519; llx > Entities_EA3E4[0]; llx = llx->next_0)
+		for (llx = gameState_D41A4.class3List_38519; llx > Entities_EA3E4[0]; llx = llx->next_0)
 		{
 			if (llx->id_0x1A_26 != a1x->id_0x1A_26 && !(llx->flags_0xc_12_15.byte[0] & 0x20))
 			{
@@ -55115,7 +55115,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 		}
 		for (mm = 0; mm < 29; ++mm)
 		{
-			for (nnx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[mm]; nnx > Entities_EA3E4[0]; nnx = nnx->next_0)
+			for (nnx = gameState_D41A4.creatureLists_38403x[mm]; nnx > Entities_EA3E4[0]; nnx = nnx->next_0)
 			{
 				v23 = a1x->id_0x1A_26;
 				if (nnx->id_0x1A_26 != v23
@@ -55133,7 +55133,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 		}
 		if (!v18x)
 			return 0;
-		a1x->targetId_0x96_150 = v18x - D41A0_0.entities_0x6E8E;
+		a1x->targetId_0x96_150 = v18x - world_D41A0.entities_0x6E8E;
 		AimAtEntity_655C0(a1x, v18x);
 		if (v18x->class_0x3F_63 == 3 && !v18x->model_0x40_64)
 			SetWizardHitTimer_5EF70(v18x);
@@ -55143,7 +55143,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 		v47 = -1;
 		for (i1 = 0; i1 < 29; ++i1)
 		{
-			for (i2x = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[i1]; i2x > Entities_EA3E4[0]; i2x = i2x->next_0)
+			for (i2x = gameState_D41A4.creatureLists_38403x[i1]; i2x > Entities_EA3E4[0]; i2x = i2x->next_0)
 			{
 				if (i2x->id_0x1A_26 != a1x->id_0x1A_26)
 				{
@@ -55164,7 +55164,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 		}
 		if (!v40x)
 			return 0;
-		a1x->targetId_0x96_150 = v40x - D41A0_0.entities_0x6E8E;
+		a1x->targetId_0x96_150 = v40x - world_D41A0.entities_0x6E8E;
 		AimAtEntity_655C0(a1x, v40x);
 		return 1;
 	default:
@@ -55202,13 +55202,13 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 	LABEL_105:
 		v26x = v26x->next_0;
 	}//adress 2481ee
-	for (i3x = x_D41A0_BYTEARRAY_4_struct.buildingList_38527; i3x > Entities_EA3E4[0]; i3x = i3x->next_0)
+	for (i3x = gameState_D41A4.buildingList_38527; i3x > Entities_EA3E4[0]; i3x = i3x->next_0)
 	{
 		if (i3x->playerEntityIndex_0x94_148 != a1x->id_0x1A_26)
 		{
 			if (i3x->timer_0x39_57)
 			{
-				if (!(str_D93C0_bldgprmbuffer[i3x->levelPar3_0x46_70].flags_2 & 8))
+				if (!(buildingParams_D93C0[i3x->levelPar3_0x46_70].flags_2 & 8))
 				{
 					if (debugcounter_249226 >= 0x9)
 					{
@@ -55227,7 +55227,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 			}
 		}
 	}
-	for (i4x = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[88 / 4]; i4x > Entities_EA3E4[0]; i4x = i4x->next_0)
+	for (i4x = gameState_D41A4.creatureLists_38403x[88 / 4]; i4x > Entities_EA3E4[0]; i4x = i4x->next_0)
 	{
 		if (i4x->timer_0x39_57)
 		{
@@ -55247,7 +55247,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 	}
 	if (!v56x)
 		return 0;
-	a1x->targetId_0x96_150 = v56x - D41A0_0.entities_0x6E8E;
+	a1x->targetId_0x96_150 = v56x - world_D41A0.entities_0x6E8E;
 	AimAtEntity_655C0(a1x, v56x);
 	return 1;
 }
@@ -55365,7 +55365,7 @@ void CreditKillToWizard_686D0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)/
 			{
 				if (a2x > Entities_EA3E4[0])
 				{
-					v3x->targetId_0x96_150 = a2x - D41A0_0.entities_0x6E8E;
+					v3x->targetId_0x96_150 = a2x - world_D41A0.entities_0x6E8E;
 				}
 			}
 		}
@@ -55427,8 +55427,8 @@ char ProjectileHitTarget_68740(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x,
 LABEL_23:
 	if (v5)
 	{
-		PrepareEventSound_6E450(a2x - D41A0_0.entities_0x6E8E, -1, 28);
-		SendSpellMessage_6D8B0(a2x - D41A0_0.entities_0x6E8E, 8u, 1);
+		PrepareEventSound_6E450(a2x - world_D41A0.entities_0x6E8E, -1, 28);
+		SendSpellMessage_6D8B0(a2x - world_D41A0.entities_0x6E8E, 8u, 1);
 		a2x->mana_0x90_144 -= (a1x->mana_0x90_144
 			- (__CFSHL__(a1x->mana_0x90_144 >> 31, 2)
 				+ 4 * (a1x->mana_0x90_144 >> 31))) >> 2;
@@ -55517,7 +55517,7 @@ char FindProjectileTarget_68940(type_entity_0x6E8E* a1x)//249940
 		v9x = Entities_EA3E4[v2];
 		if (v9x->class_0x3F_63 == 3)
 		{
-			for (ix = x_D41A0_BYTEARRAY_4_struct.miscList_38535; ix > Entities_EA3E4[0]; ix = ix->next_0)
+			for (ix = gameState_D41A4.miscList_38535; ix > Entities_EA3E4[0]; ix = ix->next_0)
 			{
 				if (ix->model_0x40_64 == 78
 					&& ix->leaderId_0x32_50 == a1x->id_0x1A_26
@@ -55538,7 +55538,7 @@ char FindProjectileTarget_68940(type_entity_0x6E8E* a1x)//249940
 			}
 			if (v10x)
 			{
-				a1x->targetId_0x96_150 = v10x - D41A0_0.entities_0x6E8E;
+				a1x->targetId_0x96_150 = v10x - world_D41A0.entities_0x6E8E;
 				v11 = 1;
 				AimAtEntity_655C0(a1x, v10x);
 			}
@@ -55592,7 +55592,7 @@ char CanProjectileHitEntity_68AC0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a
 		&& a2x->param3_0x36_54 == 0xFFFF)
 	{
 		CreateEntity_4A190(&a1x->position_0x4C_76, 10, 0);
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 26);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 26);
 		v4 = a1x->hitById_0x26_38;
 		if (v4)
 		{
@@ -55628,7 +55628,7 @@ void UpdateAllCreatures_68BF0()//249bf0
 {
 	for (int i = 0; i < 29; i++)
 	{
-		for (type_entity_0x6E8E* jx = x_D41A0_BYTEARRAY_4_struct.creatureLists_38403x[i]; jx > Entities_EA3E4[0]; jx = jx->next_0)
+		for (type_entity_0x6E8E* jx = gameState_D41A4.creatureLists_38403x[i]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 		{
 			if (jx->life_0x8 >= 0)
 			{
@@ -55644,7 +55644,7 @@ void UpdateAllCreatures_68BF0()//249bf0
 			}
 		}
 	}
-	for (type_entity_0x6E8E* kx = x_D41A0_BYTEARRAY_4_struct.manaSphereList_38523; kx > Entities_EA3E4[0]; kx = kx->next_0)
+	for (type_entity_0x6E8E* kx = gameState_D41A4.manaSphereList_38523; kx > Entities_EA3E4[0]; kx = kx->next_0)
 		UpdateChainedProjectile_68C70(kx);
 }
 
@@ -55681,7 +55681,7 @@ int UpdateChainedProjectile_68C70(type_entity_0x6E8E* a1x)//249c70
 	else
 	{
 		if (Maths::EuclideanDistXY_584D0(
-			&a1x->position_0x4C_76, &Entities_EA3E4[D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->position_0x4C_76) < 0x2400000)
+			&a1x->position_0x4C_76, &Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->position_0x4C_76) < 0x2400000)
 		{
 			v2 = a1x->nextLinkedId_0x34_52;
 			a1x->timer_0x39_57 = 16;
@@ -55855,12 +55855,12 @@ signed int UpdateSpellPickupCommon_68FF0(type_entity_0x6E8E* a1x, char a2, char 
 		ClampAboveTerrain_580E0(&a1x->position_0x4C_76, v4, 0, 0x2000, -128);
 		if (!(a1x->instanceIndex_0x3E_62 & 3))
 		{
-			for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+			for (ix = gameState_D41A4.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 			{
 				if (!ix->model_0x40_64 && ix->life_0x8 >= 0)
 				{
 					//v6 = ix->dword_0xA4_164;
-					if (ix->playerData_0xA4_164x->playerColorIndex_0x38_56 == D41A0_0.LevelIndex_0xc
+					if (ix->playerData_0xA4_164x->playerColorIndex_0x38_56 == world_D41A0.LevelIndex_0xc
 						&& !(a1x->flags_0xc_12_15.byte[0] & 1)
 						&& ix->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[a1x->model_0x40_64])
 					{
@@ -55873,15 +55873,15 @@ signed int UpdateSpellPickupCommon_68FF0(type_entity_0x6E8E* a1x, char a2, char 
 							v7 = 1;
 						if (!v7)
 						{
-							PrepareEventSound_6E450(ix - D41A0_0.entities_0x6E8E, -1, 18);
+							PrepareEventSound_6E450(ix - world_D41A0.entities_0x6E8E, -1, 18);
 							//v8 = x_D41A0_BYTEARRAY_0;
 							a1x->flags_0xc_12_15.byte[0] |= 1u;
 							//v8 += 28302;
 							a1x->flags_0xc_12_15.byte[3] &= 0xFDu;
-							a1x->parentId_0x28_40 = ix - D41A0_0.entities_0x6E8E;
+							a1x->parentId_0x28_40 = ix - world_D41A0.entities_0x6E8E;
 							a1x->actionIndex_0x45_69 = a3;
 							a1x->param3_0x36_54 = 64;
-							ix->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[a2] = a1x - D41A0_0.entities_0x6E8E;
+							ix->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[a2] = a1x - world_D41A0.entities_0x6E8E;
 							ix->playerData_0xA4_164x->str_611.pickedUpSpells_0x403_1027x.SpellIndex[a2] = 1;
 							v9 = a1x->nextStage_0x4A_74;
 							if (v9)
@@ -55957,7 +55957,7 @@ void SpellHitByEntity_69300(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//2
 
 	if (!a1x->param3_0x36_54)
 	{
-		a1x->hitById_0x26_38 = a2x - D41A0_0.entities_0x6E8E;
+		a1x->hitById_0x26_38 = a2x - world_D41A0.entities_0x6E8E;
 		v2 = a1x->flags_0xc_12_15.byte[0];
 		a1x->actionIndex_0x45_69 = 78;
 		a1x->flags_0xc_12_15.byte[0] = v2 & 0xFE;
@@ -56017,7 +56017,7 @@ void SpellFireballActive_693F0(type_entity_0x6E8E* a1x)//24a3f0//spell fire //te
 					if (v2x)
 					{
 						LaunchSpellProjectile_68E50(v1x, v2x, a1x);
-						v6x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+						v6x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 						v6x->id_0x1A_26 = v1x->id_0x1A_26;
 						v6x->subSpellIndex_0x2A_42 = a1x->subSpellIndex_0x2A_42;
 						v6x->mana_0x90_144 = a1x->mana_0x90_144;
@@ -56032,7 +56032,7 @@ void SpellFireballActive_693F0(type_entity_0x6E8E* a1x)//24a3f0//spell fire //te
 							v1x->playerData_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28,
 							v1x->playerData_0xA4_164x->entityIndex2_0x1A_26 + v1x->pitch_0x1E_30,
 							0x4000);
-						if (v1x->playerData_0xA4_164x->playerColorIndex_0x38_56 == D41A0_0.LevelIndex_0xc)
+						if (v1x->playerData_0xA4_164x->playerColorIndex_0x38_56 == world_D41A0.LevelIndex_0xc)
 							SetEntityIndex_49C90(v6x, 42);
 					}
 				}
@@ -56110,7 +56110,7 @@ void SpellPossessionActive_69640(type_entity_0x6E8E* a1x)//24a640//spell posses
 							{
 								v4x->actSpeed_0x82_130 += v1x->actSpeed_0x82_130;
 								LaunchSpellProjectile_68E50(v1x, v4x, a1x);
-								v4x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+								v4x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 								//v5 = v2[24];
 								if (SPELLS_BEGIN_BUFFER_str[a1x->model_0x40_64].subspell[a1x->levelPar3_0x46_70].life_0x1A >= 1u)
 								{
@@ -56137,7 +56137,7 @@ void SpellPossessionActive_69640(type_entity_0x6E8E* a1x)//24a640//spell posses
 									v1x->playerData_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28,
 									v1x->playerData_0xA4_164x->entityIndex2_0x1A_26 + v1x->pitch_0x1E_30,
 									0x4000);
-								PrepareEventSound_6E450(v4x - D41A0_0.entities_0x6E8E, -1, 40);
+								PrepareEventSound_6E450(v4x - world_D41A0.entities_0x6E8E, -1, 40);
 								RechargeSpell_68DE0(a1x, v1x);
 								goto LABEL_26;
 							}
@@ -56207,7 +56207,7 @@ void CastPossessionProjectile_69900(type_entity_0x6E8E* a1x, type_entity_0x6E8E*
 		LaunchSpellProjectile_68E50(a2x, v2x, a1x);
 		//v3 = a1x - D41A0_BYTESTR_0.struct_0x6E8E);
 		v2x->levelPar1_0x43_67 = 10;
-		v2x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+		v2x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 		v2x->levelPar2_0x44_68 = 12;
 		v2x->id_0x1A_26 = a2x->id_0x1A_26;
 		v2x->position_0x4C_76.z += a2x->params_0x52_82.fov;
@@ -56223,7 +56223,7 @@ void CastPossessionProjectile_69900(type_entity_0x6E8E* a1x, type_entity_0x6E8E*
 		v2x->yaw_0x1C_28 = a2x->playerData_0xA4_164x->nextEntity_0x18_24 + a2x->yaw_0x1C_28;
 		//v4 = x_D41A0_BYTEARRAY_0 + 28302;
 		v2x->pitch_0x1E_30 = a2x->playerData_0xA4_164x->entityIndex2_0x1A_26 + a2x->pitch_0x1E_30;
-		PrepareEventSound_6E450(v2x - D41A0_0.entities_0x6E8E, -1, 40);
+		PrepareEventSound_6E450(v2x - world_D41A0.entities_0x6E8E, -1, 40);
 	}
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -56287,7 +56287,7 @@ type_entity_0x6E8E* SpellCastleActive_69AB0(type_entity_0x6E8E* a1x)//24aab0
 						v5x->actSpeed_0x82_130 += v1x->actSpeed_0x82_130;
 						LaunchSpellProjectile_68E50(v1x, v5x, a1x);
 						//v6 = (int)x_D41A0_BYTEARRAY_0 + 28302;
-						v12x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+						v12x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 						v12x->subSpellIndex_0x2A_42 = a1x->subSpellIndex_0x2A_42;
 						v12x->id_0x1A_26 = v1x->id_0x1A_26;
 						v12x->position_0x4C_76.z += v1x->params_0x52_82.fov;
@@ -56306,13 +56306,13 @@ type_entity_0x6E8E* SpellCastleActive_69AB0(type_entity_0x6E8E* a1x)//24aab0
 						{
 							v12x->levelPar1_0x43_67 = 10;
 							v12x->levelPar2_0x44_68 = 43;
-							v12x->targetId_0x96_150 = v7x - D41A0_0.entities_0x6E8E;
+							v12x->targetId_0x96_150 = v7x - world_D41A0.entities_0x6E8E;
 						}
 						v11x->param_0x10_16 = v1x->playerData_0xA4_164x->chargeTime_0x154_340;
 						v1x->playerData_0xA4_164x->chargeTime_0x154_340 = 0;
 						v11x->yaw_0x1C_28 = v1x->playerData_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28;
 						v11x->pitch_0x1E_30 = v1x->playerData_0xA4_164x->entityIndex2_0x1A_26 + v1x->pitch_0x1E_30;
-						PrepareEventSound_6E450(v11x - D41A0_0.entities_0x6E8E, -1, 15);
+						PrepareEventSound_6E450(v11x - world_D41A0.entities_0x6E8E, -1, 15);
 					}
 				}
 			}
@@ -56385,7 +56385,7 @@ void GetScroll_69DB0(type_entity_0x6E8E* a1x)//24adb0
 					{
 						//v4 = (int)x_D41A0_BYTEARRAY_0 + 28302;
 						a1x->flags_0xc_12_15.byte[0] = v3 | 0x80;
-						PrepareEventSound_6E450(v1x - D41A0_0.entities_0x6E8E, -1, 19);
+						PrepareEventSound_6E450(v1x - world_D41A0.entities_0x6E8E, -1, 19);
 					}
 				}
 				if (a1x->stage_0x2E_46 == a1x->maxStage_0x30_48 - v10)
@@ -56488,16 +56488,16 @@ void SpellMetamorphActive_6A030(type_entity_0x6E8E* a1x)//24b030
 					v5x->parentId_0x28_40 = a1x->parentId_0x28_40;
 					v5x->id_0x1A_26 = v2x->id_0x1A_26;
 					//v7 = x_D41A0_BYTEARRAY_0;
-					a1x->targetId_0x96_150 = v5x - D41A0_0.entities_0x6E8E;
+					a1x->targetId_0x96_150 = v5x - world_D41A0.entities_0x6E8E;
 					v5x->flags_0xc_12_15.byte[0] |= 1u;
 					//v8 = v2x->dword_0xA4_164;
 					v2x->flags_0xc_12_15.byte[0] |= 0x21u;
-					if (v2x->playerData_0xA4_164x->playerColorIndex_0x38_56 != D41A0_0.LevelIndex_0xc)
+					if (v2x->playerData_0xA4_164x->playerColorIndex_0x38_56 != world_D41A0.LevelIndex_0xc)
 					{
 						v5x->flags_0xc_12_15.byte[0] &= 0xFEu;
 						v2x->flags_0xc_12_15.byte[0] |= 1u;
 					}
-					PrepareEventSound_6E450(v2x - D41A0_0.entities_0x6E8E, -1, 60);
+					PrepareEventSound_6E450(v2x - world_D41A0.entities_0x6E8E, -1, 60);
 				}
 			}
 			RechargeSpell_68DE0(a1x, v2x);
@@ -56507,7 +56507,7 @@ void SpellMetamorphActive_6A030(type_entity_0x6E8E* a1x)//24b030
 			a1x->stage_0x2E_46 = 1;
 		}
 		v1 = v2x->playerData_0xA4_164x->playerColorIndex_0x38_56;
-		if (v1 != D41A0_0.LevelIndex_0xc)
+		if (v1 != world_D41A0.LevelIndex_0xc)
 		{
 			v1 = a1x->targetId_0x96_150;
 			v9x = Entities_EA3E4[v1];
@@ -56559,8 +56559,8 @@ void SpellMetamorphActive_6A030(type_entity_0x6E8E* a1x)//24b030
 			}
 			//v13 = v2x->dword_0xA4_164;
 			v2x->flags_0xc_12_15.byte[0] &= 0xDFu;
-			if (v2x->playerData_0xA4_164x->playerColorIndex_0x38_56 == D41A0_0.LevelIndex_0xc)
-				PrepareEventSound_6E450(v2x - D41A0_0.entities_0x6E8E, -1, 60);
+			if (v2x->playerData_0xA4_164x->playerColorIndex_0x38_56 == world_D41A0.LevelIndex_0xc)
+				PrepareEventSound_6E450(v2x - world_D41A0.entities_0x6E8E, -1, 60);
 			else
 				v2x->flags_0xc_12_15.byte[0] &= 0xFEu;
 			/*LOBYTE(v1) = */RestorePreviousSpell_6D880(a1x);
@@ -56604,7 +56604,7 @@ void SpellHealActive_6A300(type_entity_0x6E8E* a1x)//24b300
 			if (CanSpellOwnerCast_68D50(a1x, v1x) && v1x->mana_0x90_144 >= a1x->maxMana_0x8C_140)
 			{
 				if (a1x->stage_0x2E_46 == a1x->maxStage_0x30_48)
-					PrepareEventSound_6E450(v1x - D41A0_0.entities_0x6E8E, -1, 25);
+					PrepareEventSound_6E450(v1x - world_D41A0.entities_0x6E8E, -1, 25);
 				if (v1x->life_0x8 < v1x->maxLife_0x4)
 				{
 					if (a1x->stage_0x2E_46 == a1x->maxStage_0x30_48)
@@ -56769,7 +56769,7 @@ void SpellLightningActive_6A5C0(type_entity_0x6E8E* a1x)//24b5c0
 							if (v16x)
 							{
 								LaunchSpellProjectile_68E50(v1x, v16x, a1x);
-								v16x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+								v16x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 								v16x->subSpellIndex_0x2A_42 = a1x->subSpellIndex_0x2A_42;
 								v16x->id_0x1A_26 = v1x->id_0x1A_26;
 								v16x->position_0x4C_76.z += v1x->params_0x52_82.fov;
@@ -56809,8 +56809,8 @@ void SpellLightningActive_6A5C0(type_entity_0x6E8E* a1x)//24b5c0
 						if (v13x)
 						{
 							//v8 = x_D41A0_BYTEARRAY_0 + 28302;
-							v12x->nextLinkedId_0x34_52 = v13x - D41A0_0.entities_0x6E8E;
-							v13x->nextLinkedId_0x34_52 = v12x - D41A0_0.entities_0x6E8E;
+							v12x->nextLinkedId_0x34_52 = v13x - world_D41A0.entities_0x6E8E;
+							v13x->nextLinkedId_0x34_52 = v12x - world_D41A0.entities_0x6E8E;
 						}
 					}
 				}
@@ -56821,7 +56821,7 @@ void SpellLightningActive_6A5C0(type_entity_0x6E8E* a1x)//24b5c0
 					if (v4x)
 					{
 						LaunchSpellProjectile_68E50(v1x, v4x, a1x);
-						v15x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+						v15x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 						v15x->id_0x1A_26 = v1x->id_0x1A_26;
 						v15x->mana_0x90_144 = a1x->mana_0x90_144;
 						v15x->position_0x4C_76.z += v1x->params_0x52_82.fov;
@@ -56963,7 +56963,7 @@ void SpellMeteorActive_6AB00(type_entity_0x6E8E* a1x)//24bb00
 					if (v6x)
 					{
 						LaunchSpellProjectile_68E50(v1x, v6x, a1x);
-						v6x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+						v6x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 						v6x->id_0x1A_26 = v1x->id_0x1A_26;
 						v6x->position_0x4C_76.z += v1x->params_0x52_82.fov;
 						v6x->mana_0x90_144 = a1x->mana_0x90_144;
@@ -57137,9 +57137,9 @@ void SpellTeleportActive_6AD60(type_entity_0x6E8E* a1x)//24bd60
 							case 8:
 							case 9:
 								v15 = a1x->targetId_0x96_150 - 2;
-								if (v15 != v29x->playerData_0xA4_164x->playerColorIndex_0x38_56 && v15 < D41A0_0.NumberOfPlayers_0xe)
+								if (v15 != v29x->playerData_0xA4_164x->playerColorIndex_0x38_56 && v15 < world_D41A0.NumberOfPlayers_0xe)
 								{
-									v16x = Entities_EA3E4[D41A0_0.players_0x2BDE[v15].playerIndex_0x00a_2BE4_11240];
+									v16x = Entities_EA3E4[world_D41A0.players_0x2BDE[v15].playerIndex_0x00a_2BE4_11240];
 									if (v16x > Entities_EA3E4[0])
 									{
 										v12x = Entities_EA3E4[v16x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58];
@@ -57186,7 +57186,7 @@ void SpellTeleportActive_6AD60(type_entity_0x6E8E* a1x)//24bd60
 					v22 = v28;
 					v29x->playerData_0xA4_164x->speed_0xc_12 = 0;
 					if (v22)
-						PrepareEventSound_6E450(v29x - D41A0_0.entities_0x6E8E, -1, 22);
+						PrepareEventSound_6E450(v29x - world_D41A0.entities_0x6E8E, -1, 22);
 				}
 				RechargeSpell_68DE0(a1x, v29x);
 			}
@@ -57369,7 +57369,7 @@ void SpellStealManaActive_6B3E0(type_entity_0x6E8E* a1x)//24c3e0
 					if (v2x)
 					{
 						LaunchSpellProjectile_68E50(v1x, v2x, a1x);
-						v6x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+						v6x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 						v6x->id_0x1A_26 = v1x->id_0x1A_26;
 						v6x->position_0x4C_76.z += v1x->params_0x52_82.fov;
 						v6x->mana_0x90_144 = a1x->mana_0x90_144;
@@ -57459,7 +57459,7 @@ __int16 SpellDuelActive_6B610(type_entity_0x6E8E* a1x)//24c610
 					{
 						v3x = v2x;
 						LaunchSpellProjectile_68E50(v8x, v2x, a1x);
-						v3x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+						v3x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 						v4 = a1x->subSpellIndex_0x2A_42;
 						v3x->levelPar1_0x43_67 = 10;
 						v3x->subSpellIndex_0x2A_42 = v4;
@@ -57476,7 +57476,7 @@ __int16 SpellDuelActive_6B610(type_entity_0x6E8E* a1x)//24c610
 							10240);
 						v7x->yaw_0x1C_28 = v8x->playerData_0xA4_164x->nextEntity_0x18_24 + v8x->yaw_0x1C_28;
 						v7x->pitch_0x1E_30 = v8x->playerData_0xA4_164x->entityIndex2_0x1A_26 + v8x->pitch_0x1E_30;
-						PrepareEventSound_6E450(v7x - D41A0_0.entities_0x6E8E, -1, 9);
+						PrepareEventSound_6E450(v7x - world_D41A0.entities_0x6E8E, -1, 9);
 					}
 				}
 				RechargeSpell_68DE0(a1x, v8x);
@@ -57532,7 +57532,7 @@ void SpellTremorActive_6B870(type_entity_0x6E8E* a1x)//24c870
 					if (v6x)
 					{
 						LaunchSpellProjectile_68E50(v1x, v6x, a1x);
-						v6x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+						v6x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 						v6x->id_0x1A_26 = v1x->id_0x1A_26;
 						v6x->position_0x4C_76.z += v1x->params_0x52_82.fov;
 						v6x->yaw_0x1C_28 = v1x->playerData_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28;
@@ -57605,7 +57605,7 @@ void SpellCraterActive_6BAB0(type_entity_0x6E8E* a1x)//24cab0
 					if (v6x)
 					{
 						LaunchSpellProjectile_68E50(v1x, v6x, a1x);
-						v6x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+						v6x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 						v6x->id_0x1A_26 = v1x->id_0x1A_26;
 						v6x->position_0x4C_76.z += v1x->params_0x52_82.fov;
 						v6x->yaw_0x1C_28 = v1x->playerData_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28;
@@ -57677,7 +57677,7 @@ void SpellEarthquakeActive_6BCF0(type_entity_0x6E8E* a1x)//24ccf0
 					if (v6x)
 					{
 						LaunchSpellProjectile_68E50(v1x, v6x, a1x);
-						v6x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+						v6x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 						v6x->id_0x1A_26 = v1x->id_0x1A_26;
 						v6x->position_0x4C_76.z += v1x->params_0x52_82.fov;
 						v6x->yaw_0x1C_28 = v1x->playerData_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28;
@@ -57749,7 +57749,7 @@ void SpellVolcanoActive_6BF30(type_entity_0x6E8E* a1x)//24cf30
 					if (v6x)
 					{
 						LaunchSpellProjectile_68E50(v1x, v6x, a1x);
-						v6x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+						v6x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 						v6x->id_0x1A_26 = v1x->id_0x1A_26;
 						v6x->position_0x4C_76.z += v1x->params_0x52_82.fov;
 						v6x->mana_0x90_144 = a1x->mana_0x90_144;
@@ -57824,7 +57824,7 @@ void SpellSummonArmyActive_6C170(type_entity_0x6E8E* a1x)//24d170
 					{
 						v6x->actSpeed_0x82_130 += v7x->actSpeed_0x82_130;
 						LaunchSpellProjectile_68E50(v7x, v6x, a1x);
-						v3 = a1x - D41A0_0.entities_0x6E8E;
+						v3 = a1x - world_D41A0.entities_0x6E8E;
 						v6x->levelPar1_0x43_67 = 10;
 						v6x->hitById_0x26_38 = v3;
 						v6x->levelPar2_0x44_68 = 72;
@@ -57841,7 +57841,7 @@ void SpellSummonArmyActive_6C170(type_entity_0x6E8E* a1x)//24d170
 							0x4000);
 						v6x->yaw_0x1C_28 = v7x->playerData_0xA4_164x->nextEntity_0x18_24 + v7x->yaw_0x1C_28;
 						v6x->pitch_0x1E_30 = v7x->playerData_0xA4_164x->entityIndex2_0x1A_26 + v7x->pitch_0x1E_30;
-						PrepareEventSound_6E450(v6x - D41A0_0.entities_0x6E8E, -1, 9);
+						PrepareEventSound_6E450(v6x - world_D41A0.entities_0x6E8E, -1, 9);
 					}
 				}
 				RechargeSpell_68DE0(a1x, v7x);
@@ -57900,7 +57900,7 @@ void SpellGravityWellActive_6C3E0(type_entity_0x6E8E* a1x)//24d3e0
 					if (v6x)
 					{
 						LaunchSpellProjectile_68E50(v1x, v6x, a1x);
-						v6x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+						v6x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 						v6x->id_0x1A_26 = v1x->id_0x1A_26;
 						v6x->position_0x4C_76.z += v1x->params_0x52_82.fov;
 						v6x->yaw_0x1C_28 = v1x->playerData_0xA4_164x->nextEntity_0x18_24 + v1x->yaw_0x1C_28;
@@ -57974,7 +57974,7 @@ void SpellWhirlwindActive_6C620(type_entity_0x6E8E* a1x)//24d620
 					if (v3x)
 					{
 						LaunchSpellProjectile_68E50(v1x, v3x, a1x);
-						v3x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+						v3x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 						v3x->id_0x1A_26 = v1x->id_0x1A_26;
 						v3x->position_0x4C_76.z += v1x->params_0x52_82.fov;
 						v3x->mana_0x90_144 = a1x->mana_0x90_144;
@@ -58084,7 +58084,7 @@ void SpellFoolsManaActive_6C870(type_entity_0x6E8E* a1x)//24d870
 							v6++;
 						}
 						if (v1x)
-							PrepareEventSound_6E450(v1x - D41A0_0.entities_0x6E8E, -1, 11);
+							PrepareEventSound_6E450(v1x - world_D41A0.entities_0x6E8E, -1, 11);
 					}
 					RechargeSpell_68DE0(a1x, v2x);
 				}
@@ -58149,7 +58149,7 @@ void SpellMagicMineActive_6CAC0(type_entity_0x6E8E* a1x)//24dac0
 						//v3 = (uint8_t*)a1x - (&x_D41A0_BYTEARRAY_0[28302]);
 						v2x->levelPar1_0x43_67 = 10;
 						v2x->levelPar2_0x44_68 = 78;
-						v2x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+						v2x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 						v2x->id_0x1A_26 = v8x->id_0x1A_26;
 						v2x->position_0x4C_76.z += v8x->params_0x52_82.fov;
 						v2x->mana_0x90_144 = a1x->mana_0x90_144;
@@ -58162,7 +58162,7 @@ void SpellMagicMineActive_6CAC0(type_entity_0x6E8E* a1x)//24dac0
 						v2x->yaw_0x1C_28 = v8x->playerData_0xA4_164x->nextEntity_0x18_24 + v8x->yaw_0x1C_28;
 						//v4 = x_D41A0_BYTEARRAY_0 + 28302;
 						v2x->pitch_0x1E_30 = v8x->playerData_0xA4_164x->entityIndex2_0x1A_26 + v8x->pitch_0x1E_30;
-						PrepareEventSound_6E450(v2x - D41A0_0.entities_0x6E8E, -1, 15);
+						PrepareEventSound_6E450(v2x - world_D41A0.entities_0x6E8E, -1, 15);
 					}
 					RechargeSpell_68DE0(a1x, v8x);
 				}
@@ -58227,7 +58227,7 @@ void SpellAllianceActive_6CD20(type_entity_0x6E8E* a1x)//24dd20
 					{
 						v3x->actSpeed_0x82_130 += v9x->actSpeed_0x82_130;
 						LaunchSpellProjectile_68E50(v9x, v3x, a1x);
-						v4 = a1x - D41A0_0.entities_0x6E8E;
+						v4 = a1x - world_D41A0.entities_0x6E8E;
 						v3x->levelPar1_0x43_67 = 10;
 						v3x->hitById_0x26_38 = v4;
 						v3x->levelPar2_0x44_68 = 74;
@@ -58246,7 +58246,7 @@ void SpellAllianceActive_6CD20(type_entity_0x6E8E* a1x)//24dd20
 						v3x->yaw_0x1C_28 = v9x->playerData_0xA4_164x->nextEntity_0x18_24 + v9x->yaw_0x1C_28;
 						//v5 = x_D41A0_BYTEARRAY_0 + 28302;
 						v3x->pitch_0x1E_30 = v9x->playerData_0xA4_164x->entityIndex2_0x1A_26 + v9x->pitch_0x1E_30;
-						PrepareEventSound_6E450(v3x - D41A0_0.entities_0x6E8E, -1, 9);
+						PrepareEventSound_6E450(v3x - world_D41A0.entities_0x6E8E, -1, 9);
 					}
 				}
 				RechargeSpell_68DE0(a1x, v9x);
@@ -58308,7 +58308,7 @@ void SpellCaveInActive_6CFA0(type_entity_0x6E8E* a1x)//24dfa0
 					if (v3x)
 					{
 						LaunchSpellProjectile_68E50(v1x, v3x, a1x);
-						v3x->hitById_0x26_38 = a1x - D41A0_0.entities_0x6E8E;
+						v3x->hitById_0x26_38 = a1x - world_D41A0.entities_0x6E8E;
 						v3x->id_0x1A_26 = v1x->id_0x1A_26;
 						v3x->position_0x4C_76.z += v1x->params_0x52_82.fov;
 						v3x->mana_0x90_144 = a1x->mana_0x90_144;
@@ -58395,7 +58395,7 @@ void SendSpellMessage_6D8B0(unsigned __int16 a1, unsigned __int16 a2, __int16 a3
 	int v5; // ecx
 	//int v6; // ebx
 
-	if (!(x_D41A0_BYTEARRAY_4_struct.setting_38545 & 4))
+	if (!(gameState_D41A4.setting_38545 & 4))
 	{
 		if (a1)
 		{
@@ -58408,9 +58408,9 @@ void SendSpellMessage_6D8B0(unsigned __int16 a1, unsigned __int16 a2, __int16 a3
 				v3x->playerData_0xA4_164x->str_611.spellsExperience_0x2CB_715x.at(a2) = a3 + v5;
 				if (a2 == 2)
 					SetSpell_6D5E0(Entities_EA3E4[v3x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[2]], v3x->playerData_0xA4_164x->str_611.selectedSubSpells_0x437_1079x.SpellIndex[2]);
-				if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+				if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
 				{
-					if (a1 == D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240)
+					if (a1 == world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240)
 						//UpdateSpellExperience_6DAD0(&v3x->playerData_0xA4_164x->str_611, (unsigned __int8 *)&(*xadataspellsdat.colorPalette_var28)[80 * a2], a2);
 						UpdateSpellExperience_6DAD0(&v3x->playerData_0xA4_164x->str_611, &SPELLS_BEGIN_BUFFER_str[a2], a2);
 				}
@@ -58581,7 +58581,7 @@ void UpdateLightningProjectile_66750(type_entity_0x6E8E* a1x)//247750 //tex 151
 		v15x->targetId_0x96_150 = 0xae02;
 	else
 		//fix
-		v15x->targetId_0x96_150 = v13x - D41A0_0.entities_0x6E8E;
+		v15x->targetId_0x96_150 = v13x - world_D41A0.entities_0x6E8E;
 	if (!v13x || v13x->class_0x3F_63 != 3 || !(v13x->flags_0xc_12_15.word[0] & 0x8010))
 	{
 	LABEL_35:
@@ -58995,7 +58995,7 @@ LABEL_28:
 					v12x->targetId_0x96_150 = 0xae02;//fix
 				}
 				else
-					v12x->targetId_0x96_150 = v7x - D41A0_0.entities_0x6E8E;
+					v12x->targetId_0x96_150 = v7x - world_D41A0.entities_0x6E8E;
 				v12x->subSpellIndex_0x2A_42 = a1x->subSpellIndex_0x2A_42;
 				v12x->levelPar1_0x43_67 = a1x->levelPar1_0x43_67;
 				v12x->levelPar2_0x44_68 = a1x->levelPar2_0x44_68;
@@ -59025,8 +59025,8 @@ void UpdateArrow_672E0(type_entity_0x6E8E* a1x)//2482e0
 		//v1 = x_D41A0_BYTEARRAY_0;
 		//v2 = 9377 * *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) + 9439;
 		//*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8) = v2;
-		D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, (D41A0_0.rand_0x8 & 1) + 33);
+		world_D41A0.rand_0x8 = 9377 * world_D41A0.rand_0x8 + 9439;
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, (world_D41A0.rand_0x8 & 1) + 33);
 		a1x->flags_0xc_12_15.byte[0] |= 2u;
 	}
 	predictedAxis_EB398ar = a1x->position_0x4C_76;
@@ -59309,7 +59309,7 @@ type_entity_0x6E8E* UpdateSummonArmyProjectile_67800(type_entity_0x6E8E* a1x)//2
 		if (v1 != 2)
 			goto LABEL_10;
 	LABEL_8:
-		x_D41A0_BYTEARRAY_4_struct.summonCount_224 = 8;
+		gameState_D41A4.summonCount_224 = 8;
 		goto LABEL_11;
 	}
 	if (v1 <= 0x10u || v1 < 0x13u)
@@ -59318,11 +59318,11 @@ type_entity_0x6E8E* UpdateSummonArmyProjectile_67800(type_entity_0x6E8E* a1x)//2
 		goto LABEL_8;
 	if (v1 == 25)
 	{
-		x_D41A0_BYTEARRAY_4_struct.summonCount_224 = 4;
+		gameState_D41A4.summonCount_224 = 4;
 		goto LABEL_11;
 	}
 LABEL_10:
-	x_D41A0_BYTEARRAY_4_struct.summonCount_224 = 2;
+	gameState_D41A4.summonCount_224 = 2;
 LABEL_11:
 	resultx = UpdateProjectileTargeting_65820(a1x);
 	if (resultx)
@@ -59436,7 +59436,7 @@ void UpdateMagicMineProjectile_67960(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8
 		v16x = v3x;
 		if (v3x > Entities_EA3E4[0] && v3x->class_0x3F_63 == 3)
 		{
-			for (ix = x_D41A0_BYTEARRAY_4_struct.miscList_38535; ix > Entities_EA3E4[0]; ix = ix->next_0)
+			for (ix = gameState_D41A4.miscList_38535; ix > Entities_EA3E4[0]; ix = ix->next_0)
 			{
 				if (ix->model_0x40_64 == 78
 					&& ix->leaderId_0x32_50 != a2x->id_0x1A_26
@@ -59455,7 +59455,7 @@ void UpdateMagicMineProjectile_67960(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8
 			{
 				a2x->maxLife_0x4 = 32;
 				a2x->life_0x8 = a2x->maxLife_0x4 - 1;
-				a2x->targetId_0x96_150 = v15x - D41A0_0.entities_0x6E8E;
+				a2x->targetId_0x96_150 = v15x - world_D41A0.entities_0x6E8E;
 				AimAtEntity_655C0(a2x, v15x);
 			}
 		}
@@ -59558,8 +59558,8 @@ void UpdatePlayerSpellCharges_5CF40(type_entity_0x6E8E* a1x, char a2)//23df40
 			v4x = CreateEntity_4A190(&a1x->position_0x4C_76, 15, i);
 			if (v4x)
 			{
-				a1x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[i] = v4x - D41A0_0.entities_0x6E8E;
-				v4x->parentId_0x28_40 = a1x - D41A0_0.entities_0x6E8E;
+				a1x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[i] = v4x - world_D41A0.entities_0x6E8E;
+				v4x->parentId_0x28_40 = a1x - world_D41A0.entities_0x6E8E;
 				v4x->flags_0xc_12_15.byte[0] |= 1u;
 			}
 			else
@@ -59891,7 +59891,7 @@ void MovePlayerWizard_5D530(type_entity_0x6E8E* a1x)//*(x_DWORD *)(a1 + 160)//23
 			if (a1x->playerData_0xA4_164x->moveSpeed_0x14C_332)
 			{
 				a1x->playerData_0xA4_164x->moveSpeedCounter_0x14D_333 = 8;
-				x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181 = 1;
+				gameState_D41A4.moveSpeedFlag_181 = 1;
 			}
 			else
 			{
@@ -59945,61 +59945,61 @@ void MovePlayerWizard_5D530(type_entity_0x6E8E* a1x)//*(x_DWORD *)(a1 + 160)//23
 				switch (SPELLS_BEGIN_BUFFER_str[4].subspell[Entities_EA3E4[a1x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[4]]->levelPar3_0x46_70].life_0x1A)
 				{
 					case 0x2:
-						PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 12);//0x2
+						PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 12);//0x2
 						break;
 					case 0x10:
-						PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 39);//0x10
+						PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 39);//0x10
 						break;
 					case 0x13:
-						PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 43);//0x13
+						PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 43);//0x13
 						break;
 					case 0x19:
-						PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 37);//0x19
+						PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 37);//0x19
 						break;
 				}
 			}
 		}
 	}
-	if (D41A0_0.terrain_2FECE.MapType == MapType_t::Cave)
+	if (world_D41A0.terrain_2FECE.MapType == MapType_t::Cave)
 	{
-		D41A0_0.rand_0x8 = 9377 * D41A0_0.rand_0x8 + 9439;
-		D41A0_0.rand_0x8 = D41A0_0.rand_0x8 + x_D41A0_BYTEARRAY_4_struct.setting_30;
-		if ((int)(D41A0_0.rand_0x8 % 0x83) < 5)
+		world_D41A0.rand_0x8 = 9377 * world_D41A0.rand_0x8 + 9439;
+		world_D41A0.rand_0x8 = world_D41A0.rand_0x8 + gameState_D41A4.setting_30;
+		if ((int)(world_D41A0.rand_0x8 % 0x83) < 5)
 		{
-			if (D41A0_0.LevelIndex_0xc == a1x->playerData_0xA4_164x->playerColorIndex_0x38_56)
-				PrepareEventSound_6E450(0, D41A0_0.LevelIndex_0xc, D41A0_0.rand_0x8 % 0x83 + 65);
+			if (world_D41A0.LevelIndex_0xc == a1x->playerData_0xA4_164x->playerColorIndex_0x38_56)
+				PrepareEventSound_6E450(0, world_D41A0.LevelIndex_0xc, world_D41A0.rand_0x8 % 0x83 + 65);
 		}
 	}
 	else if (TerrainTileIsWater_104D0(&a1x->position_0x4C_76) == 1)
 	{
-		PrepareEventSound_6E450(0, D41A0_0.LevelIndex_0xc, 1);
-		EndLoop_6EAB0(0, D41A0_0.LevelIndex_0xc, 2);
+		PrepareEventSound_6E450(0, world_D41A0.LevelIndex_0xc, 1);
+		EndLoop_6EAB0(0, world_D41A0.LevelIndex_0xc, 2);
 	}
 	else
 	{
-		PrepareEventSound_6E450(0, D41A0_0.LevelIndex_0xc, 2);
-		EndLoop_6EAB0(0, D41A0_0.LevelIndex_0xc, 1);
+		PrepareEventSound_6E450(0, world_D41A0.LevelIndex_0xc, 2);
+		EndLoop_6EAB0(0, world_D41A0.LevelIndex_0xc, 1);
 	}
 	if (a1x->playerData_0xA4_164x->screenShake_0x19A_410 >= 1536)
 	{
-		EndLoop_6EAB0(0, D41A0_0.LevelIndex_0xc, 5);
+		EndLoop_6EAB0(0, world_D41A0.LevelIndex_0xc, 5);
 	}
 	else
 	{
-		PrepareEventSound_6E450(0, D41A0_0.LevelIndex_0xc, 5);
+		PrepareEventSound_6E450(0, world_D41A0.LevelIndex_0xc, 5);
 		a1x->playerData_0xA4_164x->screenShake_0x19A_410 = 2048;
 	}
 	if (a1x->playerData_0xA4_164x->maxDistance_0x19E_414 >= 1536)
 	{
 		//End building sound
-		EndLoop_6EAB0(0, D41A0_0.LevelIndex_0xc, 31);
+		EndLoop_6EAB0(0, world_D41A0.LevelIndex_0xc, 31);
 	}
 	else
 	{
-		PrepareEventSound_6E450(0, D41A0_0.LevelIndex_0xc, 31);
+		PrepareEventSound_6E450(0, world_D41A0.LevelIndex_0xc, 31);
 		a1x->playerData_0xA4_164x->maxDistance_0x19E_414 = 2048;
 	}
-	if (a1x->playerData_0xA4_164x->playerColorIndex_0x38_56 == D41A0_0.LevelIndex_0xc)
+	if (a1x->playerData_0xA4_164x->playerColorIndex_0x38_56 == world_D41A0.LevelIndex_0xc)
 	{
 		if (a1x->playerData_0xA4_164x->hitTimer_0x36_54 <= 0)
 		{
@@ -60118,8 +60118,8 @@ void UpdateWizardMount_5DE30(type_entity_0x6E8E* a1x)//23ee30
 void UpdatePlayer_5E010(type_entity_0x6E8E* a1x)//23f010
 {
 	bool locIsOk = false;
-	a1x->minSpeed_0x84_132 = x_DWORD_D4B8C;
-	if (!(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED))
+	a1x->minSpeed_0x84_132 = wizardSpeed2_D4B8C;
+	if (!(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED))
 	{
 		if (a1x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58)
 		{
@@ -60128,7 +60128,7 @@ void UpdatePlayer_5E010(type_entity_0x6E8E* a1x)//23f010
 		}
 	}
 	UpdateWizardSpeed_5F380(a1x);
-	if (!(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED) && locIsOk)
+	if (!(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED) && locIsOk)
 	{
 		if (a1x->mail_0x5E_94.channel[0].source)
 		{
@@ -60140,7 +60140,7 @@ void UpdatePlayer_5E010(type_entity_0x6E8E* a1x)//23f010
 		}
 		a1x->playerData_0xA4_164x->invulnerableTimer_0x159_345 = 2;
 	}
-	if (!(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED))
+	if (!(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED))
 	{
 		if (a1x->playerData_0xA4_164x->invulnerableTimer_0x159_345)
 		{
@@ -60157,7 +60157,7 @@ void UpdatePlayer_5E010(type_entity_0x6E8E* a1x)//23f010
 	MovePlayerWizard_5D530(a1x);
 	if (a1x->life_0x8 >= 0)
 	{
-		if (!(x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24 & GAME_PAUSED))
+		if (!(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED))
 		{
 			a1x->mana_0x90_144 += a1x->manaRegen_0x88_136;
 			if (a1x->playerData_0xA4_164x->dword_0x18D_397)
@@ -60199,7 +60199,7 @@ void UpdatePlayer_5E010(type_entity_0x6E8E* a1x)//23f010
 	{
 		a1x->actionIndex_0x45_69 = 2;
 		a1x->param2_0x2C_44 = 0;
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 16);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 16);
 		EventDispatcher::I->DispatchEvent(EventType::E_SCENE_CHANGE, Scene::DEAD);
 	}
 }
@@ -60235,11 +60235,11 @@ void MultiplayerTestDie_5E310(type_entity_0x6E8E* a1x)//23f310
 	type_entity_0x6E8E* v26x; // [esp+8h] [ebp-4h]
 
 	MovePlayerWizard_5D530(a1x);
-	if (x_D41A0_BYTEARRAY_4_struct.colorIndex_121[6])
+	if (gameState_D41A4.colorIndex_121[6])
 		SetLocalPaletteSubMode_5C800(a1x, 7);
 	//v1 = 2124 * a1x->playerData_0xA4_164x->word_0x38_56;
-	if (D41A0_0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].MenuState_0x3DF_2BE4_12221)
-		SetMenuCursorPosition_52E90(&D41A0_0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56], 0, false);
+	if (world_D41A0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].MenuState_0x3DF_2BE4_12221)
+		SetMenuCursorPosition_52E90(&world_D41A0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56], 0, false);
 	v2 = a1x->param2_0x2C_44 - 2;
 	a1x->position_0x4C_76.z += a1x->param2_0x2C_44;
 	a1x->param2_0x2C_44 = v2;
@@ -60280,9 +60280,9 @@ void MultiplayerTestDie_5E310(type_entity_0x6E8E* a1x)//23f310
 		}
 		memset((void*)&a1x->mail_0x5E_94, 0, 36);
 		//v13 = 2124 * a1x->playerData_0xA4_164x->word_0x38_56 + (int)x_D41A0_BYTEARRAY_0 + 11230;
-		v14 = (char*)x_DWORD_E9C4C_langindexbuffer[374];//has died.
+		v14 = (char*)langStrings_E9C4C[374];//has died.
 		//v15 = (char *)(v13 + 28);
-		v15 = D41A0_0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].CurrentNotificationText_0x01c_2BFA_11258;
+		v15 = world_D41A0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].CurrentNotificationText_0x01c_2BFA_11258;
 		strcpy(v15, v14);
 		/*do
 		{
@@ -60295,8 +60295,8 @@ void MultiplayerTestDie_5E310(type_entity_0x6E8E* a1x)//23f310
 			v15[1] = v17;
 			v15 += 2;
 		} while (v17);*/
-		D41A0_0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].endState_0x04f_2C2D_11309 = 1;
-		D41A0_0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].CurrentNotificationDuration_0x04d_2C2B_11307 = 100;
+		world_D41A0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].endState_0x04f_2C2D_11309 = 1;
+		world_D41A0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].CurrentNotificationDuration_0x04d_2C2B_11307 = 100;
 		for (i = 0; i < 26; i++)
 		{
 			//v18 = a1x->dword_0xA4_164 + 2 * i;
@@ -60331,15 +60331,15 @@ void MultiplayerTestDie_5E310(type_entity_0x6E8E* a1x)//23f310
 			//v22 = (int)x_D41A0_BYTEARRAY_4;
 			//v22 = (int)x_D41A0_BYTEARRAY_4;
 			a1x->param_0x10_16 = 1200;
-			for (jx = x_D41A0_BYTEARRAY_4_struct.manaSphereList_38523; jx > Entities_EA3E4[0]; jx = jx->next_0)
+			for (jx = gameState_D41A4.manaSphereList_38523; jx > Entities_EA3E4[0]; jx = jx->next_0)
 			{
-				if (jx->model_0x40_64 == 39 && jx->playerEntityIndex_0x94_148 == a1x - D41A0_0.entities_0x6E8E)
-					jx->playerEntityIndex_0x94_148 = v24x - D41A0_0.entities_0x6E8E;
+				if (jx->model_0x40_64 == 39 && jx->playerEntityIndex_0x94_148 == a1x - world_D41A0.entities_0x6E8E)
+					jx->playerEntityIndex_0x94_148 = v24x - world_D41A0.entities_0x6E8E;
 			}
 		}
 		a1x->flags_0xc_12_15.byte[0] |= 0x20u;
 		//result = (int)x_D41A0_BYTEARRAY_0;
-		D41A0_0.freeEntityCount2_0x11e6--;
+		world_D41A0.freeEntityCount2_0x11e6--;
 	}
 	//return result;
 }
@@ -60427,7 +60427,7 @@ void MultiplayerTestBanished_5E7C0(type_entity_0x6E8E* a1x)//23f7c0
 	a1x->playerData_0xA4_164x->moveBoost_0x1E_30 = 0;
 	//v1 = a1x->dword_0xA4_164;
 	//v2 = 2124 * *(signed __int16 *)(v1 + 56);
-	if (D41A0_0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].IsAiPlayer_0x009_2BE4_11239 == 1)
+	if (world_D41A0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].IsAiPlayer_0x009_2BE4_11239 == 1)
 	{
 		//v3 = &x_D41A0_BYTEARRAY_0[v2 + 11230];
 		if (a1x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58)
@@ -60436,14 +60436,14 @@ void MultiplayerTestBanished_5E7C0(type_entity_0x6E8E* a1x)//23f7c0
 			if (v4)
 				a1x->param_0x10_16 = v4 - 1;
 			else
-				/*LOBYTE(v1) = */UpdatePlayerWizard_5C950(&D41A0_0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56], a1x);
+				/*LOBYTE(v1) = */UpdatePlayerWizard_5C950(&world_D41A0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56], a1x);
 		}
 		else
 		{
-			if (D41A0_0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].playerActive_0x006_2BE4_11236)
+			if (world_D41A0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].playerActive_0x006_2BE4_11236)
 			{
-				v5 = x_DWORD_E9C4C_langindexbuffer[HAS_BEEN_BANISHED];//has been banished from the realm.
-				v6 = D41A0_0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].CurrentNotificationText_0x01c_2BFA_11258;//&v3[28];
+				v5 = langStrings_E9C4C[HAS_BEEN_BANISHED];//has been banished from the realm.
+				v6 = world_D41A0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].CurrentNotificationText_0x01c_2BFA_11258;//&v3[28];
 				strcpy(v6, v5);
 				/*do
 {
@@ -60456,14 +60456,14 @@ void MultiplayerTestBanished_5E7C0(type_entity_0x6E8E* a1x)//23f7c0
 	v6[1] = v1;
 	v6 += 2;
 } while ((x_BYTE)v1);*/
-				D41A0_0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].endState_0x04f_2C2D_11309 = 1;
-				D41A0_0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].CurrentNotificationDuration_0x04d_2C2B_11307 = 200;
+				world_D41A0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].endState_0x04f_2C2D_11309 = 1;
+				world_D41A0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].CurrentNotificationDuration_0x04d_2C2B_11307 = 200;
 			}
 			// An AI opponent leaving the realm counts on the scoreboard exactly like a human
 			// one: it holds a player slot, and whoever put it down gets the kill.  Its way out
 			// is here rather than through PlayerEvents, which is why it needs its own hook.
 			MatchScoreRecordKnockOut(a1x->playerData_0xA4_164x->playerColorIndex_0x38_56, a1x);
-			D41A0_0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].playerActive_0x006_2BE4_11236 = 0;
+			world_D41A0.players_0x2BDE[a1x->playerData_0xA4_164x->playerColorIndex_0x38_56].playerActive_0x006_2BE4_11236 = 0;
 		}
 	}
 	else
@@ -60514,10 +60514,10 @@ signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1x)//23f8c0 //end game seq
 	switch (a1x->levelPar3_0x46_70)
 	{
 	case 0:
-		SetMenuCursorPosition_52E90(&D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc], 0, false);
-		if (a1x->playerData_0xA4_164x->playerColorIndex_0x38_56 == D41A0_0.LevelIndex_0xc)
+		SetMenuCursorPosition_52E90(&world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc], 0, false);
+		if (a1x->playerData_0xA4_164x->playerColorIndex_0x38_56 == world_D41A0.LevelIndex_0xc)
 		{
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 41);
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 41);
 			SetLocalPaletteSubMode_5C800(a1x, 6);
 		}
 		a1x->playerData_0xA4_164x->mobilizeCounter_0x14E_334 = 0;
@@ -60528,20 +60528,20 @@ signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1x)//23f8c0 //end game seq
 		if (v1)
 			Entities_EA3E4[v1]->stage_0x2E_46 = 0;
 		//v2 = (int)x_D41A0_BYTEARRAY_0;
-		D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] |= 0x20u;
+		world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] |= 0x20u;
 		v3 = a1x->actionIndex_0x45_69;
 		a1x->targetId_0x96_150 = 0;
 		if (v3 >= 0xBu)
 		{
 			if (v3 <= 0xBu)
 			{
-				v5 = D41A0_0.switchOnceEntity_0x36DFC;
+				v5 = world_D41A0.switchOnceEntity_0x36DFC;
 				if (v5)
 					a1x->targetId_0x96_150 = v5;
 			}
 			else if (v3 == 12)
 			{
-				v4 = D41A0_0.switchChainEntity_0x36DFE;
+				v4 = world_D41A0.switchChainEntity_0x36DFE;
 				if (v4)
 					a1x->targetId_0x96_150 = v4;
 			}
@@ -60594,7 +60594,7 @@ signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1x)//23f8c0 //end game seq
 		a1x->param_0x10_16 = 12;//sequence steps
 		//v11 = (int)x_D41A0_BYTEARRAY_0;
 		a1x->levelPar3_0x46_70 = 5;
-		D41A0_0.gameFlags_0x36E0B |= 2u;
+		world_D41A0.gameFlags_0x36E0B |= 2u;
 		goto LABEL_34;
 	case 5:
 	LABEL_34:
@@ -60603,7 +60603,7 @@ signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1x)//23f8c0 //end game seq
 		if (a1x->param_0x10_16)
 		{
 			if (a1x->param_0x10_16 > 4)
-				D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[0].rotation__2BDE_11701.fov--;
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[0].rotation__2BDE_11701.fov--;
 
 			//--*(x_WORD *)(2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0 + 11707);
 		}
@@ -60613,11 +60613,11 @@ signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1x)//23f8c0 //end game seq
 				a1x->levelPar3_0x46_70 = 6;
 			else
 				a1x->levelPar3_0x46_70 = 8;
-			if (ptrMemoryBuffer_E9C3C && (D41A0_0.terrain_2FECE.MapType == MapType_t::Day))
+			if (ptrMemoryBuffer_E9C3C && (world_D41A0.terrain_2FECE.MapType == MapType_t::Day))
 			{
-				StopCdPlayback_86860(x_WORD_1803EC);
+				StopCdPlayback_86860(cdDrive_1803EC);
 				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/GTD2.DAT");
-				DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_FAEE0_tablesx_pre); //fix it
+				DataFileIO::ReadFileAndDecompress(dataPath, &tables2_FAEE0); //fix it
 			}
 		}
 		break;
@@ -60679,14 +60679,14 @@ signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1x)//23f8c0 //end game seq
 		a1x->levelPar3_0x46_70 = 11;
 		//v18 = a1x->dword_0xA4_164;
 		a1x->param_0x10_16 = 32;
-		if (a1x->playerData_0xA4_164x->playerColorIndex_0x38_56 == D41A0_0.LevelIndex_0xc)
+		if (a1x->playerData_0xA4_164x->playerColorIndex_0x38_56 == world_D41A0.LevelIndex_0xc)
 			SetLocalPaletteSubMode_5C800(a1x, 5);
 		goto LABEL_62;
 	case 0xB:
 	LABEL_62:
 		//v19 = a1x->dword_0x10_16 - 1;
 		a1x->param_0x10_16--;// = v19;
-		if (a1x->param_0x10_16 && x_D41A0_BYTEARRAY_4_struct.paletteSubMod_180)
+		if (a1x->param_0x10_16 && gameState_D41A4.paletteSubMod_180)
 		{
 			predictedAxis_EB398ar = a1x->position_0x4C_76;
 			MoveEntity_57FA0(&predictedAxis_EB398ar, a1x->yaw_0x1C_28, 0, 2);
@@ -60701,27 +60701,27 @@ signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1x)//23f8c0 //end game seq
 	case 0xC:
 		//v20 = (int)x_D41A0_BYTEARRAY_0;
 		//v21 = 2124 * D41A0_BYTESTR_0.word_0xc;
-		D41A0_0.miscSettings_0x21AE.xxxx_0x21B1 = 0;
-		D41A0_0.m_GameSettings.m_Display.xxxx_0x2191 = 0;
-		D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] = 10;
+		world_D41A0.miscSettings_0x21AE.xxxx_0x21B1 = 0;
+		world_D41A0.m_GameSettings.m_Display.xxxx_0x2191 = 0;
+		world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] = 10;
 		if (a1x->actionIndex_0x45_69 == 11)
-			x_D41A0_BYTEARRAY_4_struct.setting_38545 &= 0xFBu;
-		if (a1x->actionIndex_0x45_69 == 11 || x_D41A0_BYTEARRAY_4_struct.setting_38545 & 0x10)
-			D41A0_0.players_0x2BDE[D41A0_0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] |= 0x10u;
+			gameState_D41A4.setting_38545 &= 0xFBu;
+		if (a1x->actionIndex_0x45_69 == 11 || gameState_D41A4.setting_38545 & 0x10)
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.byte[2] |= 0x10u;
 		break;
 	default:
 		break;
 	}
 	if (v28)
 	{
-		if (a1x->playerData_0xA4_164x->playerColorIndex_0x38_56 == D41A0_0.LevelIndex_0xc)
+		if (a1x->playerData_0xA4_164x->playerColorIndex_0x38_56 == world_D41A0.LevelIndex_0xc)
 		{
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 19);
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 19);
 			if (ptrMemoryBuffer_E9C3C)
 			{
 				//v22 = (int)x_D41A0_BYTEARRAY_0;
-				D41A0_0.miscSettings_0x21AE.xxxx_0x21B1 = 1;
-				D41A0_0.m_GameSettings.m_Display.xxxx_0x2191 = 2;
+				world_D41A0.miscSettings_0x21AE.xxxx_0x21B1 = 1;
+				world_D41A0.m_GameSettings.m_Display.xxxx_0x2191 = 2;
 			}
 		}
 	}
@@ -60759,7 +60759,7 @@ signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1x)//23f8c0 //end game seq
 // E9C3C: using guessed type int ptrMemoryBuffer_E9C3C;
 // EA3E4: using guessed type int Entities_EA3E4[];
 // EB398: using guessed type __int16 x_WORD_EB398;
-// 1803EC: using guessed type __int16 x_WORD_1803EC;
+// 1803EC: using guessed type __int16 cdDrive_1803EC;
 
 //----- (0005EF70) --------------------------------------------------------
 type_entity_0x6E8E* SetWizardHitTimer_5EF70(type_entity_0x6E8E* a1x)//23ff70
@@ -60812,7 +60812,7 @@ signed int UpdateCastleTarget_5EFA0(type_entity_0x6E8E* a1x)//23ffa0
 			v3x = Entities_EA3E4[a1x->mail_0x5E_94.channel[4].source];
 			if (v3x)
 			{
-				v3x->playerData_0xA4_164x->mountId_0x146_326 = a1x - D41A0_0.entities_0x6E8E;
+				v3x->playerData_0xA4_164x->mountId_0x146_326 = a1x - world_D41A0.entities_0x6E8E;
 				v3x->playerData_0xA4_164x->targetDistance_0x142_322 = Distance3D_583F0(&a1x->position_0x4C_76, &v3x->position_0x4C_76);
 				v3x->playerData_0xA4_164x->duelLevel_0x14A_330 = a1x->mail_0x5E_94.channel[4].amount.word[0];
 				//v4 = v3x->dword_0xA4_164;
@@ -60833,7 +60833,7 @@ signed int UpdateCastleTarget_5EFA0(type_entity_0x6E8E* a1x)//23ffa0
 		if (a1x->mail_0x5E_94.channel[3].source)
 			UpdateBalloonCollection_61050(a1x);
 		//v7 = a1x->dword_0xA4_164;
-		if (a1x->playerData_0xA4_164x->moveSpeed_0x14C_332 && x_D41A0_BYTEARRAY_4_struct.moveSpeedFlag_181)
+		if (a1x->playerData_0xA4_164x->moveSpeed_0x14C_332 && gameState_D41A4.moveSpeedFlag_181)
 			SetPaletteModification_5C830(a1x, 3, 171 * a1x->playerData_0xA4_164x->moveSpeed_0x14C_332 / 3 + 85);
 		v8 = a1x->mail_0x5E_94.channel[0].source;
 		if (v8)
@@ -60842,7 +60842,7 @@ signed int UpdateCastleTarget_5EFA0(type_entity_0x6E8E* a1x)//23ffa0
 			a1x->hitById_0x26_38 = v8;
 			if (v9 & 0x40 || a1x->flags_0xc_12_15.byte[2] & 0x40)
 			{
-				SendSpellMessage_6D8B0(a1x - D41A0_0.entities_0x6E8E, 6u, 1);
+				SendSpellMessage_6D8B0(a1x - world_D41A0.entities_0x6E8E, 6u, 1);
 				if (a1x->flags_0xc_12_15.byte[1] & 0x40)
 				{
 					v10 = (a1x->mail_0x5E_94.channel[0].amount.dword - (__CFSHL__(a1x->mail_0x5E_94.channel[0].amount.dword >> 31, 2) + 4 * (a1x->mail_0x5E_94.channel[0].amount.dword >> 31))) >> 2;
@@ -60877,7 +60877,7 @@ signed int UpdateCastleTarget_5EFA0(type_entity_0x6E8E* a1x)//23ffa0
 			a1x->playerData_0xA4_164x->dword_0x18D_397 = 16;
 			a1x->playerData_0xA4_164x->word_0x24C_588 = 64;
 			a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
-			PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, (a1x->rand_0x14_20 & 3) + 54);
+			PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, (a1x->rand_0x14_20 & 3) + 54);
 			if (a1x->life_0x8 < 0)
 			{
 				a1x->ownerPlayerId_0x24_36 = a1x->mail_0x5E_94.channel[0].source;
@@ -60897,7 +60897,7 @@ signed int UpdateCastleTarget_5EFA0(type_entity_0x6E8E* a1x)//23ffa0
 	{
 		v1 = 2;
 	}
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 & 1 && !a1x->model_0x40_64)
+	if (gameState_D41A4.setting_byte4_25 & 1 && !a1x->model_0x40_64)
 	{
 		a1x->hitById_0x26_38 = 0;
 		a1x->ownerPlayerId_0x24_36 = 0;
@@ -60940,20 +60940,20 @@ void UpdateWizardSpeed_5F380(type_entity_0x6E8E* a1x)//240380
 	v1 = 0;
 	a1x->playerData_0xA4_164x->castLock_0xe_14 = 0;
 	//v2 = a1x->dword_0xA4_164;
-	if (a1x->playerData_0xA4_164x->entityIndex_0x0 & 1 && a1x->playerData_0xA4_164x->speed_0xc_12 < x_DWORD_D4B8C)
+	if (a1x->playerData_0xA4_164x->entityIndex_0x0 & 1 && a1x->playerData_0xA4_164x->speed_0xc_12 < wizardSpeed2_D4B8C)
 		v1 = 1;
 	//v3 = a1x->dword_0xA4_164;
-	if (a1x->playerData_0xA4_164x->entityIndex_0x0 & 2 && a1x->playerData_0xA4_164x->speed_0xc_12 > x_DWORD_D4B88)
+	if (a1x->playerData_0xA4_164x->entityIndex_0x0 & 2 && a1x->playerData_0xA4_164x->speed_0xc_12 > wizardSpeed1_D4B88)
 		v1 = -1;
 	if (v1)
 	{
 		a1x->playerData_0xA4_164x->speed_0xc_12 += speedIcrement_D4B84 * v1;
 		//v4 = a1x->dword_0xA4_164;
-		if (a1x->playerData_0xA4_164x->speed_0xc_12 < x_DWORD_D4B88)
-			a1x->playerData_0xA4_164x->speed_0xc_12 = x_DWORD_D4B88;
+		if (a1x->playerData_0xA4_164x->speed_0xc_12 < wizardSpeed1_D4B88)
+			a1x->playerData_0xA4_164x->speed_0xc_12 = wizardSpeed1_D4B88;
 		//v5 = a1x->dword_0xA4_164;
-		if (a1x->playerData_0xA4_164x->speed_0xc_12 > x_DWORD_D4B8C)
-			a1x->playerData_0xA4_164x->speed_0xc_12 = x_DWORD_D4B8C;
+		if (a1x->playerData_0xA4_164x->speed_0xc_12 > wizardSpeed2_D4B8C)
+			a1x->playerData_0xA4_164x->speed_0xc_12 = wizardSpeed2_D4B8C;
 		a1x->playerData_0xA4_164x->castLock_0xe_14 = 1;
 	}
 	v6 = 0;
@@ -60963,15 +60963,15 @@ void UpdateWizardSpeed_5F380(type_entity_0x6E8E* a1x)//240380
 		v6 = 1;
 	if (v6)
 	{
-		a1x->playerData_0xA4_164x->strafeSpeed_0x10_16 += x_WORD_D4BA4 * v6;
+		a1x->playerData_0xA4_164x->strafeSpeed_0x10_16 += strafeAccel1_D4BA4 * v6;
 		//v18 = a1x->dword_0xA4_164;
-		if (a1x->playerData_0xA4_164x->strafeSpeed_0x10_16 < x_DWORD_D4BA8)
-			a1x->playerData_0xA4_164x->strafeSpeed_0x10_16 = x_DWORD_D4BA8;
+		if (a1x->playerData_0xA4_164x->strafeSpeed_0x10_16 < wizardMinStrafe_D4BA8)
+			a1x->playerData_0xA4_164x->strafeSpeed_0x10_16 = wizardMinStrafe_D4BA8;
 		//v13 = a1x->dword_0xA4_164;
 		v19 = a1x->playerData_0xA4_164x->strafeSpeed_0x10_16;
-		v17 = __OFSUB__(v19, x_DWORD_D4BAC);
-		v15 = v19 == x_DWORD_D4BAC;
-		v16 = v19 - x_DWORD_D4BAC < 0;
+		v17 = __OFSUB__(v19, wizardMaxStrafe_D4BAC);
+		v15 = v19 == wizardMaxStrafe_D4BAC;
+		v16 = v19 - wizardMaxStrafe_D4BAC < 0;
 	}
 	else
 	{
@@ -60988,7 +60988,7 @@ void UpdateWizardSpeed_5F380(type_entity_0x6E8E* a1x)//240380
 			v8 = 0;
 		}
 		v9 = v8;
-		a1x->playerData_0xA4_164x->strafeSpeed_0x10_16 += v8 * x_WORD_D4BB0;
+		a1x->playerData_0xA4_164x->strafeSpeed_0x10_16 += v8 * strafeAccel2_D4BB0;
 		v10 = a1x->playerData_0xA4_164x->strafeSpeed_0x10_16;
 		if (v10)
 		{
@@ -61004,16 +61004,16 @@ void UpdateWizardSpeed_5F380(type_entity_0x6E8E* a1x)//240380
 		if (v9 != v11)
 			a1x->playerData_0xA4_164x->strafeSpeed_0x10_16 = 0;
 		//v12 = a1x->dword_0xA4_164;
-		if (a1x->playerData_0xA4_164x->strafeSpeed_0x10_16 < x_DWORD_D4BA8)
-			a1x->playerData_0xA4_164x->strafeSpeed_0x10_16 = x_DWORD_D4BA8;
+		if (a1x->playerData_0xA4_164x->strafeSpeed_0x10_16 < wizardMinStrafe_D4BA8)
+			a1x->playerData_0xA4_164x->strafeSpeed_0x10_16 = wizardMinStrafe_D4BA8;
 		//v13 = a1x->dword_0xA4_164;
 		v14 = a1x->playerData_0xA4_164x->strafeSpeed_0x10_16;
-		v17 = __OFSUB__(v14, x_DWORD_D4BAC);
-		v15 = v14 == x_DWORD_D4BAC;
-		v16 = v14 - x_DWORD_D4BAC < 0;
+		v17 = __OFSUB__(v14, wizardMaxStrafe_D4BAC);
+		v15 = v14 == wizardMaxStrafe_D4BAC;
+		v16 = v14 - wizardMaxStrafe_D4BAC < 0;
 	}
 	if (!((unsigned __int8)(v16 ^ v17) | (unsigned __int8)v15))
-		a1x->playerData_0xA4_164x->strafeSpeed_0x10_16 = x_DWORD_D4BAC;
+		a1x->playerData_0xA4_164x->strafeSpeed_0x10_16 = wizardMaxStrafe_D4BAC;
 	//v20 = a1x->dword_0xA4_164;
 	if (a1x->playerData_0xA4_164x->entityIndex_0x0 & 0x10)
 		CastleAttackEntity_5F660(a1x, Entities_EA3E4[a1x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[a1x->playerData_0xA4_164x->str_611.SpellIndexLeft_0x451_1105]], 256);
@@ -61030,12 +61030,12 @@ void UpdateWizardSpeed_5F380(type_entity_0x6E8E* a1x)//240380
 	//return (char)v22;
 }
 // D4B84: using guessed type int x_DWORD_D4B84;
-// D4B88: using guessed type int x_DWORD_D4B88;
-// D4B8C: using guessed type int x_DWORD_D4B8C;
-// D4BA4: using guessed type __int16 x_WORD_D4BA4;
-// D4BA8: using guessed type int x_DWORD_D4BA8;
-// D4BAC: using guessed type int x_DWORD_D4BAC;
-// D4BB0: using guessed type __int16 x_WORD_D4BB0;
+// D4B88: using guessed type int wizardSpeed1_D4B88;
+// D4B8C: using guessed type int wizardSpeed2_D4B8C;
+// D4BA4: using guessed type __int16 strafeAccel1_D4BA4;
+// D4BA8: using guessed type int wizardMinStrafe_D4BA8;
+// D4BAC: using guessed type int wizardMaxStrafe_D4BAC;
+// D4BB0: using guessed type __int16 strafeAccel2_D4BB0;
 // EA3E4: using guessed type int Entities_EA3E4[];
 
 //----- (0005F660) --------------------------------------------------------
@@ -61167,7 +61167,7 @@ type_entity_0x6E8E* FindNearestEnemyBalloon_5F810(type_entity_0x6E8E* a1x, type_
 
 	v3 = -1;
 	v4x = 0;
-	v5x = x_D41A0_BYTEARRAY_4_struct.manaSphereList_38523;
+	v5x = gameState_D41A4.manaSphereList_38523;
 	if (v5x <= Entities_EA3E4[0])
 		return 0;
 	do
@@ -61267,7 +61267,7 @@ void EndOfCastleProjectile_5F8F0(type_entity_0x6E8E* a1x)//2408f0
 			UpdateCastleStructure_5FF50(a1x);
 			if (a1x->mana_0x90_144 < a1x->maxMana_0x8C_140)
 			{
-				v3x = x_D41A0_BYTEARRAY_4_struct.manaSphereList_38523;
+				v3x = gameState_D41A4.manaSphereList_38523;
 				if (v3x > Entities_EA3E4[0])
 				{
 					while (v3x->model_0x40_64 != 39
@@ -61327,7 +61327,7 @@ void BeginOfCastleCreation_5FA70(type_entity_0x6E8E* locEvent)//240a70
 		if ((locEvent->instanceIndex_0x3E_62 & 0x1F) == 0)
 		{
 			bool is10_42Type = false;
-			for (type_entity_0x6E8E* i = x_D41A0_BYTEARRAY_4_struct.miscList_38535; i > Entities_EA3E4[0] && !is10_42Type; i = i->next_0)
+			for (type_entity_0x6E8E* i = gameState_D41A4.miscList_38535; i > Entities_EA3E4[0] && !is10_42Type; i = i->next_0)
 			{
 				if (i->class_0x3F_63 == 10 && i->model_0x40_64 == 42)
 					is10_42Type = true;
@@ -61357,7 +61357,7 @@ void SpawnCastleEffect42_5FBD0(type_entity_0x6E8E* a1x)//240bd0
 	{
 		indexx->levelPar3_0x46_70 = a1x->param_0x10_16;
 		indexx->id_0x1A_26 = a1x->id_0x1A_26;
-		indexx->parentId_0x28_40 = a1x - D41A0_0.entities_0x6E8E;
+		indexx->parentId_0x28_40 = a1x - world_D41A0.entities_0x6E8E;
 		v2 = a1x->param_0x10_16;
 		a1x->stage_0x2E_46 = 4;
 		/*result = */SetShiftByCastle_49EC0(indexx, v2);
@@ -61378,7 +61378,7 @@ type_entity_0x6E8E* SpawnCastleEffect41_5FC40(type_entity_0x6E8E* a1x)//240c40
 	{
 		resultx->levelPar3_0x46_70 = a1x->param_0x10_16;
 		resultx->id_0x1A_26 = a1x->id_0x1A_26;
-		v2x->parentId_0x28_40 = a1x - D41A0_0.entities_0x6E8E;
+		v2x->parentId_0x28_40 = a1x - world_D41A0.entities_0x6E8E;
 		a1x->stage_0x2E_46 = 6;
 	}
 	return resultx;
@@ -61446,7 +61446,7 @@ void TransferCastleMana_5FD00(type_entity_0x6E8E* a1x)//240d00
 				result = GetFreeEntityCount_4A810();
 				v3 = 8;//0x240D90 unconditional
 				v16 = result;
-				D41A0_0.freeEntityCount2_0x11e6 = -1;
+				world_D41A0.freeEntityCount2_0x11e6 = -1;
 			}
 			if (v16)
 			{
@@ -61551,7 +61551,7 @@ void UpdateCastleStructure_5FF50(type_entity_0x6E8E* a1x)//240f50
 						v8x->id_0x1A_26 = a1x->id_0x1A_26;
 						v8x->spriteIndex_0x5A_90 += TransformPlayerColorIndex_616D0(v18x->playerData_0xA4_164x->playerColorIndex_0x38_56);
 						v9x->playerEntityIndex_0x94_148 = a1x->id_0x1A_26;
-						v18x->playerData_0xA4_164x->balloons_0x3C_60[v1] = v9x - D41A0_0.entities_0x6E8E;
+						v18x->playerData_0xA4_164x->balloons_0x3C_60[v1] = v9x - world_D41A0.entities_0x6E8E;
 						v9x->actionIndex_0x45_69 = 9;
 					}
 					goto LABEL_17;
@@ -61567,7 +61567,7 @@ void UpdateCastleStructure_5FF50(type_entity_0x6E8E* a1x)//240f50
 			}
 			if (v18x->playerData_0xA4_164x->extraMana_0x13C_316 + a1x->mana_0x90_144 >= a1x->maxMana_0x8C_140)
 			{
-				v3x->targetId_0x96_150 = a1x - D41A0_0.entities_0x6E8E;
+				v3x->targetId_0x96_150 = a1x - world_D41A0.entities_0x6E8E;
 			}
 			else
 			{
@@ -61575,7 +61575,7 @@ void UpdateCastleStructure_5FF50(type_entity_0x6E8E* a1x)//240f50
 					goto LABEL_13;
 				if (v3x->actionIndex_0x45_69 != 9)
 					goto LABEL_13;
-				v3x->targetId_0x96_150 = a1x - D41A0_0.entities_0x6E8E;
+				v3x->targetId_0x96_150 = a1x - world_D41A0.entities_0x6E8E;
 				if (v3x->maxMana_0x8C_140 <= v3x->mana_0x90_144)
 					goto LABEL_13;
 				Entities_EA3E4[0]->targetId_0x96_150 = 0;
@@ -61585,7 +61585,7 @@ void UpdateCastleStructure_5FF50(type_entity_0x6E8E* a1x)//240f50
 					Entities_EA3E4[Entities_EA3E4[v18x->playerData_0xA4_164x->balloons_0x3C_60[((signed __int16)v1 + 2) % 3]]->targetId_0x96_150]);
 				if (!v4x)
 					goto LABEL_13;
-				v3x->targetId_0x96_150 = v4x - D41A0_0.entities_0x6E8E;
+				v3x->targetId_0x96_150 = v4x - world_D41A0.entities_0x6E8E;
 			}
 			//LODWORD(v7) = v5;
 			//HIDWORD(v7) = v6 >> 31;
@@ -61636,7 +61636,7 @@ LABEL_22:
 					comp20 = compare_with_sequence_D41A0((char*)"0024128D-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_240f50, 224790, &origbyte20, &remakebyte20);
 
 					comp20 = compare_with_sequence_array_E2A74((char*)"0024128D-002B3A74", (uint8_t*)& array_E2A74, 0x2b3a74, debugcounter_240f50, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
-					//comp20 = compare_with_sequence((char*)"0022860F-003514B0", (uint8_t*)& str_unk_1804B0ar, 0x3514b0, debugcounter_47560, 0xab, 0xab, &origbyte20, &remakebyte20);
+					//comp20 = compare_with_sequence((char*)"0022860F-003514B0", (uint8_t*)& helpPopup_1804B0, 0x3514b0, debugcounter_47560, 0xab, 0xab, &origbyte20, &remakebyte20);
 
 					//comp20 = compare_with_sequence((char*)"0022860F-003AA0A4", pdwScreenBuffer_351628, 0x3aa0a4, debugcounter_47560, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 
@@ -61657,7 +61657,7 @@ LABEL_22:
 						v15 = a1x->id_0x1A_26;
 						v17x->id_0x1A_26 = v15;
 						v17x->playerEntityIndex_0x94_148 = v15;
-						v18x->playerData_0xA4_164x->castleParts_0x5C_92.at(v20) = v17x - D41A0_0.entities_0x6E8E;
+						v18x->playerData_0xA4_164x->castleParts_0x5C_92.at(v20) = v17x - world_D41A0.entities_0x6E8E;
 						v17x->yaw_0x1C_28 = 512;
 						v17x->roll_0x20_32 = v17x->yaw_0x1C_28;
 						predictedAxis_EB398ar = v17x->position_0x4C_76;
@@ -61740,7 +61740,7 @@ void SpawnCastleBuildEffect_60480(type_entity_0x6E8E* a1x)//241480
 	v2x = v1x;
 	if (v1x)
 	{
-		PrepareEventSound_6E450(a1x - D41A0_0.entities_0x6E8E, -1, 10);
+		PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 10);
 		//v3 = a1x->dword_0x10_16 + 1;
 		a1x->flags_0xc_12_15.byte[0] &= 0xBFu;
 		a1x->param_0x10_16++;
@@ -61753,13 +61753,13 @@ void SpawnCastleBuildEffect_60480(type_entity_0x6E8E* a1x)//241480
 		a1x->params_0x52_82.fov = 0x4000;
 		SetShiftByCastle_49EC0(v2x, a1x->param_0x10_16);
 		v6x = Entities_EA3E4[a1x->id_0x1A_26];
-		v6x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58 = a1x - D41A0_0.entities_0x6E8E;
+		v6x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58 = a1x - world_D41A0.entities_0x6E8E;
 		v6x->playerData_0xA4_164x->word_0x1C2_450 = a1x->param_0x10_16;
 		v6x->playerData_0xA4_164x->castleBuilding_0x1BE_446 = 0;
 		GrowCastle_60810(a1x);
 		UpdateBalloonChain_613D0(a1x);
-		SendSpellMessage_6D8B0(v6x - D41A0_0.entities_0x6E8E, 2u, 1);
-		v2x->parentId_0x28_40 = a1x - D41A0_0.entities_0x6E8E;
+		SendSpellMessage_6D8B0(v6x - world_D41A0.entities_0x6E8E, 2u, 1);
+		v2x->parentId_0x28_40 = a1x - world_D41A0.entities_0x6E8E;
 		v2x->id_0x1A_26 = a1x->id_0x1A_26;
 		//v7 = v2x->flags_0xc_12_15.byte[2];
 		//LOBYTE(v1) = a1x->dword_0x10_16;
@@ -61787,13 +61787,13 @@ void ShrinkCastleMana_605E0(type_entity_0x6E8E* a1x)//2415e0
 		v1 = 10 * a1x->maxMana_0x8C_140 / 100;
 		a1x->maxMana_0x8C_140 -= v1;
 		TransferCastleMana_5FD00(a1x);
-		v2 = a1x - D41A0_0.entities_0x6E8E;
+		v2 = a1x - world_D41A0.entities_0x6E8E;
 		a1x->maxMana_0x8C_140 += v1;
 		PrepareEventSound_6E450(v2, -1, 30);
 		Entities_EA3E4[0]->position_0x4C_76 = a1x->axis_0x9A_154x;
 		Entities_EA3E4[0]->levelPar3_0x46_70 = a1x->param_0x10_16;
 		Entities_EA3E4[0]->id_0x1A_26 = a1x->id_0x1A_26;
-		v5 = a1x - D41A0_0.entities_0x6E8E;
+		v5 = a1x - world_D41A0.entities_0x6E8E;
 		v6x = Entities_EA3E4[0];
 		Entities_EA3E4[0]->model_0x40_64 = 0;
 		v6x->param_0x10_16 = 0;
@@ -61812,7 +61812,7 @@ void ShrinkCastleMana_605E0(type_entity_0x6E8E* a1x)//2415e0
 		v8x = Entities_EA3E4[a1x->id_0x1A_26];
 		if (v8x->model_0x40_64 == 1)
 		{
-			if (D41A0_0.terrain_2FECE.levelType_0x2FED2 & 4)
+			if (world_D41A0.terrain_2FECE.levelType_0x2FED2 & 4)
 			{
 				v9 = v8x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[2];
 				if (v9)
@@ -61967,7 +61967,7 @@ void UpdateCastleBalloon_60AB0(type_entity_0x6E8E* a1x)//241ab0
 			else
 			{
 				v16x->flags_0xc_12_15.byte[0] |= 0x40u;
-				v16x->targetId_0x96_150 = a1x - D41A0_0.entities_0x6E8E;
+				v16x->targetId_0x96_150 = a1x - world_D41A0.entities_0x6E8E;
 				if (EntitiesOverlap_106C0(v16x, a1x))
 				{
 					a1x->mana_0x90_144 += v16x->mana_0x90_144;
@@ -62074,7 +62074,7 @@ void SpawnCastleRubble_60D50(axis_3d* a1x, type_entity_0x6E8E* a2x)//241d50
 		a2x->levelPar3_0x46_70 = v3 - 1;
 	if (v12 && !a2x->levelPar3_0x46_70)
 	{
-		PrepareEventSound_6E450(a2x - D41A0_0.entities_0x6E8E, -1, 22);
+		PrepareEventSound_6E450(a2x - world_D41A0.entities_0x6E8E, -1, 22);
 		a2x->levelPar3_0x46_70 = 32;
 	}
 	//v4 = *(signed __int16 **)&a2x->dword_0xA0_160;
@@ -62147,9 +62147,9 @@ void UpdateCastles_60F00()//241f00
 	v0 = 0;
 	//v1 = &x_D41A0_BYTEARRAY_0[11230];
 	int v1index = 0;
-	while (v0 < D41A0_0.NumberOfPlayers_0xe)
+	while (v0 < world_D41A0.NumberOfPlayers_0xe)
 	{
-		v2x = Entities_EA3E4[D41A0_0.players_0x2BDE[v1index].playerIndex_0x00a_2BE4_11240];
+		v2x = Entities_EA3E4[world_D41A0.players_0x2BDE[v1index].playerIndex_0x00a_2BE4_11240];
 		v2x->maxMana_0x8C_140 = v2x->playerData_0xA4_164x->maxMana_0x150_336;
 		//v1 += 2124;
 		v1index++;
@@ -62159,8 +62159,8 @@ void UpdateCastles_60F00()//241f00
 	//v3 = (int32_t*)x_D41A0_BYTEARRAY_4;
 	//adress 241f53
 	v4x = Entities_EA3E4[1];
-	x_D41A0_BYTEARRAY_4_struct.manaStats_242ar.totalMana_4 = 1;
-	x_D41A0_BYTEARRAY_4_struct.manaStats_242ar.dword_8 = 0;
+	gameState_D41A4.manaStats_242ar.totalMana_4 = 1;
+	gameState_D41A4.manaStats_242ar.dword_8 = 0;
 
 	/**(_DWORD *)(dword_D41A4 + 246) = 1;
 	*(_DWORD *)(dword_D41A4 + 250) = 0;*/
@@ -62231,7 +62231,7 @@ type_entity_0x6E8E* AddBalloonManaToCastle_61000(type_entity_0x6E8E* a1x)//24200
 		//v1x = Entities_EA3E4[a1x->playerEntityIndex_0x94_148];
 		Entities_EA3E4[a1x->playerEntityIndex_0x94_148]->maxMana_0x8C_140 += a1x->mana_0x90_144;
 	}
-	x_D41A0_BYTEARRAY_4_struct.manaStats_242ar.totalMana_4 += a1x->mana_0x90_144;
+	gameState_D41A4.manaStats_242ar.totalMana_4 += a1x->mana_0x90_144;
 	return Entities_EA3E4[a1x->playerEntityIndex_0x94_148];
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
@@ -62346,7 +62346,7 @@ type_entity_0x6E8E* UpdateBalloonCollection_61050(type_entity_0x6E8E* a1x)//2420
 						MoveEntity_57FA0(&v17x->axis_0x9A_154x, v21, 0, v20);
 						v17x->mana_0x90_144 = v30;
 						if (SPELLS_BEGIN_BUFFER_str[13].subspell[a1x->mail_0x5E_94.channel[3].amount.dword].life_0x1A == 2)
-							v17x->playerEntityIndex_0x94_148 = v34x - D41A0_0.entities_0x6E8E;
+							v17x->playerEntityIndex_0x94_148 = v34x - world_D41A0.entities_0x6E8E;
 						else
 							v17x->playerEntityIndex_0x94_148 = 0;
 					}
@@ -62444,20 +62444,20 @@ void UpdateBalloonChain_613D0(type_entity_0x6E8E* a1x)//2423d0
 		if (v4)
 		{
 			/*v6 = 6 * v4;
-			i = x_WORD_180660_VGA_type_resolution == 1 ? (signed int)*(unsigned __int8 *)(v6 + **filearray_2aa18c[24] + 4) >> 1 : *(unsigned __int8 *)(v6 + **filearray_2aa18c[24] + 4);
+			i = videoMode_180660 == 1 ? (signed int)*(unsigned __int8 *)(v6 + **filearray_2aa18c[24] + 4) >> 1 : *(unsigned __int8 *)(v6 + **filearray_2aa18c[24] + 4);
 			v7 = 6 * v4;
-			v8 = x_WORD_180660_VGA_type_resolution == 1 ? (signed int)*(unsigned __int8 *)(v7 + **filearray_2aa18c[24] + 5) >> 1 : *(unsigned __int8 *)(v7 + **filearray_2aa18c[24] + 5);
+			v8 = videoMode_180660 == 1 ? (signed int)*(unsigned __int8 *)(v7 + **filearray_2aa18c[24] + 5) >> 1 : *(unsigned __int8 *)(v7 + **filearray_2aa18c[24] + 5);
 			*/
 			//filearrayindex_MSPRD00DATTAB
-			i1 = x_WORD_180660_VGA_type_resolution == 1 ? (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[v4].width_4 >> 1 : (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[v4].width_4;
-			v8 = x_WORD_180660_VGA_type_resolution == 1 ? (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[v4].height_5 >> 1 : (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[v4].height_5;
+			i1 = videoMode_180660 == 1 ? (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[v4].width_4 >> 1 : (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[v4].width_4;
+			v8 = videoMode_180660 == 1 ? (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[v4].height_5 >> 1 : (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[v4].height_5;
 
 			v20 = ((unsigned __int16)(a1x->position_0x4C_76.x + 128) >> 8) - (i1 >> 1);
 			v19 = ((unsigned __int16)(a1x->position_0x4C_76.y + 128) >> 8) - (v8 >> 1);
 			v15 = 0;
-			v14 = (unsigned __int8)x_BYTE_DB038[2 * v4];
+			v14 = (unsigned __int8)balloonChainTable_DB038[2 * v4];
 			v18x = a1x;
-			v13 = (char*)&x_BYTE_DB038[18] + 2 * (unsigned __int8)x_BYTE_DB038[1 + 2 * v4];
+			v13 = (char*)&balloonChainTable_DB038[18] + 2 * (unsigned __int8)balloonChainTable_DB038[1 + 2 * v4];
 			//LOWORD(i) = 0;
 			if (v14 > 0)
 			{
@@ -62470,8 +62470,8 @@ void UpdateBalloonChain_613D0(type_entity_0x6E8E* a1x)//2423d0
 					v17x = i2x;
 					if (!i2x)
 						break;
-					i2x->leaderId_0x32_50 = v18x - D41A0_0.entities_0x6E8E;
-					v18x->nextLinkedId_0x34_52 = i2x - D41A0_0.entities_0x6E8E;
+					i2x->leaderId_0x32_50 = v18x - world_D41A0.entities_0x6E8E;
+					v18x->nextLinkedId_0x34_52 = i2x - world_D41A0.entities_0x6E8E;
 					i2x->nextLinkedId_0x34_52 = 0;
 					i2x->id_0x1A_26 = a1x->id_0x1A_26;
 					i2x->levelPar1_0x43_67 = v16;
@@ -62494,7 +62494,7 @@ void UpdateBalloonChain_613D0(type_entity_0x6E8E* a1x)//2423d0
 // EA3E4: using guessed type int Entities_EA3E4[];
 // EB398: using guessed type __int16 x_WORD_EB398;
 // EB39A: using guessed type __int16 x_WORD_EB398ar[1];
-// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
+// 180660: using guessed type __int16 videoMode_180660;
 
 //----- (00061620) --------------------------------------------------------
 char FindNearestManaForBalloon_61620(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//242620
@@ -62508,7 +62508,7 @@ char FindNearestManaForBalloon_61620(type_entity_0x6E8E* a1x, type_entity_0x6E8E
 	v2x = 0x10000;
 	v3x = 0;
 	v7 = 0;
-	for (ix = x_D41A0_BYTEARRAY_4_struct.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
+	for (ix = gameState_D41A4.class3List_38519; ix > Entities_EA3E4[0]; ix = ix->next_0)
 	{
 		if (!ix->model_0x40_64 && ix != a1x)
 		{
@@ -62554,7 +62554,7 @@ void DrawMinimapEntites_61880(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 {
 	//char *result; // eax
 	// 0 0 4d80 ffffde80 80 0 0 100 c0 0
-	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
+	if (world_D41A0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 		DrawMinimapEntities_627F0(x, y, posX, posY, width, height, yaw, scaling, scale);
 	else
 		DrawMinimapEntitiesB_61A00(x, y, posX, posY, width, height, yaw, scaling, scale);
@@ -62689,9 +62689,9 @@ void UpdateStone_65040(type_entity_0x6E8E* event)//246040
 //----- (00065080) --------------------------------------------------------
 void UpdateDolmen_65080(type_entity_0x6E8E* event)//246080
 {
-	for (int v2x = 0; v2x < D41A0_0.NumberOfPlayers_0xe; v2x++)
+	for (int v2x = 0; v2x < world_D41A0.NumberOfPlayers_0xe; v2x++)
 	{
-		type_entity_0x6E8E* event2 = Entities_EA3E4[D41A0_0.players_0x2BDE[v2x].playerIndex_0x00a_2BE4_11240];
+		type_entity_0x6E8E* event2 = Entities_EA3E4[world_D41A0.players_0x2BDE[v2x].playerIndex_0x00a_2BE4_11240];
 		if (event2->life_0x8 >= 0 && EntitiesOverlap_106C0(event2, event))
 			event2->flags_0xc_12_15.byte[1] |= 0x10u;
 	}
@@ -63154,7 +63154,7 @@ LABEL_29:
 	v11x->yaw_0x1C_28 = a1x->yaw_0x1C_28;
 	v11x->pitch_0x1E_30 = a1x->pitch_0x1E_30;
 	if (v5x)
-		v11x->targetId_0x96_150 = v5x - D41A0_0.entities_0x6E8E;
+		v11x->targetId_0x96_150 = v5x - world_D41A0.entities_0x6E8E;
 	v11x->subSpellIndex_0x2A_42 = a1x->subSpellIndex_0x2A_42;
 	v11x->levelPar3_0x46_70 = a1x->levelPar3_0x46_70;
 	DisableEntityDrawing04_57F10(a1x);
@@ -63199,7 +63199,7 @@ void UpdateFireStormProjectile_65B50(type_entity_0x6E8E* a1x)//246b50 //tex 55
 			v5x = Entities_EA3E4[v4];
 			if (v5x->class_0x3F_63 == 3
 				&& !v5x->model_0x40_64
-				&& v5x->playerData_0xA4_164x->playerColorIndex_0x38_56 == D41A0_0.LevelIndex_0xc)
+				&& v5x->playerData_0xA4_164x->playerColorIndex_0x38_56 == world_D41A0.LevelIndex_0xc)
 			{
 				v7 = 1;
 			}
@@ -63719,7 +63719,7 @@ LABEL_26:
 				v12x->id_0x1A_26 = a1x->id_0x1A_26;
 				v12x->yaw_0x1C_28 = a1x->yaw_0x1C_28;
 				v12x->pitch_0x1E_30 = a1x->pitch_0x1E_30;
-				v12x->targetId_0x96_150 = v5x - D41A0_0.entities_0x6E8E;
+				v12x->targetId_0x96_150 = v5x - world_D41A0.entities_0x6E8E;
 				v12x->subSpellIndex_0x2A_42 = a1x->subSpellIndex_0x2A_42;
 				v12x->levelPar3_0x46_70 = a1x->levelPar3_0x46_70;
 				DisableEntityDrawing04_57F10(a1x);

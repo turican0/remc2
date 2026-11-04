@@ -270,9 +270,9 @@ typedef struct {//lenght 30
 } type_x_BYTE_E25ED_db_str;
 #pragma pack(pop)
 
-extern filearray_struct x_DWORD_E9B20[4];
+extern filearray_struct fonts_E9B20[4];
 
-extern __int16 x_WORD_E29DA_type_resolution; // weak
+extern __int16 menuVideoMode_E29DA; // weak
 
 #pragma pack(push, 1)
 typedef struct {//lenght 18
@@ -309,10 +309,10 @@ type_x_BYTE_E25ED_2BB;
 #pragma pack(push, 1)
 typedef struct {
 	int32_t x_DWORD_18058C;
-	int32_t joyAxisX_180590; // [4]//unk_18058Cstr.x_DWORD_180590//1
-	int32_t joyAxisY_180594; // [8]//unk_18058Cstr.x_DWORD_180594//2
-	int32_t joyAxisZ_180598; // [12]//unk_18058Cstr.x_DWORD_180598//3
-	int32_t MouseButtonState_18059C; // [16]//unk_18058Cstr.x_DWORD_18059C//4
+	int32_t joyAxisX_180590; // [4]//inputState_18058C.x_DWORD_180590//1
+	int32_t joyAxisY_180594; // [8]//inputState_18058C.x_DWORD_180594//2
+	int32_t joyAxisZ_180598; // [12]//inputState_18058C.x_DWORD_180598//3
+	int32_t MouseButtonState_18059C; // [16]//inputState_18058C.x_DWORD_18059C//4
 	int32_t x_DWORD_1805A0; // weak//unk_18058Car[20]//5
 	int32_t joyCenterX_1805A4; // weak//unk_18058Car[0x18]//6
 	int32_t joyCenterY_1805A8; // weak//unk_18058Car[28]//7
@@ -332,7 +332,7 @@ typedef struct {
 } type_unk_18058Cstr;//end 180624
 #pragma pack(pop)
 
-//extern type_x_DWORD_17DE38str x_DWORD_17DE38str;
+//extern type_x_DWORD_17DE38str menuState_17DE38;
 /*
 extern int16_t x_DWORD_17DEE4_mouse_positionx; // weak
 extern int16_t x_DWORD_17DEE4_mouse_positiony; // weak
@@ -426,31 +426,31 @@ type_menuButtons_E1F84;
 //BYTE     ncb_reserved[14];
 //		 } NCB;
 
-extern char x_BYTE_D4B80;
-extern char x_BYTE_E36D1;
-extern POSITION x_DWORD_F4720;
-extern char x_BYTE_D4B50;
-extern char x_BYTE_D4B51;
-extern char x_BYTE_DB734;
+extern char gameInitialized_D4B80;
+extern char joystickEnabled_E36D1;
+extern POSITION textPosition_F4720;
+extern char soundInitialized_D4B50;
+extern char soundTimerInstalled_D4B51;
+extern char timerInstalled_DB734;
 extern int resindex_begin;
 extern int x_DWORD_D41C8;
-extern char x_BYTE_D41C4;
+extern char redrawFrame_D41C4;
 extern void(*ptrDrawBitmap_F01EC)(int16_t, int16_t, bitmap_pos_struct_t, uint8_t scale);
-extern char x_BYTE_D41C6_old_graphics_mode;
+extern char oldViewPortSize_D41C6;
 
-extern TColor x_BYTE_181544_oldpalbufferx[];
-extern char x_BYTE_D478C;
-extern char x_BYTE_E390C_VGA_pal_not_begin;
-extern char x_BYTE_F0220[];
-extern char x_BYTE_F0320[];
-extern char x_BYTE_F0420[];
-extern char x_BYTE_F0520[];
-extern char x_BYTE_F0620[];
-extern char x_BYTE_F0720[];
-extern char x_BYTE_F0820[];
-extern char x_BYTE_F0920[];
-extern int x_DWORD_F42A0;
-extern TColor x_BYTE_F3FA0arx[];
+extern TColor oldPalette_181544[];
+extern char screenModeFlag_D478C;
+extern char paletteFadeActive_E390C;
+extern char blendTable_F0220[];
+extern char blendTable_F0320[];
+extern char blendTable_F0420[];
+extern char blendTable_F0520[];
+extern char blendTable_F0620[];
+extern char blendTable_F0720[];
+extern char blendTable_F0820[];
+extern char blendTable_F0920[];
+extern int paletteComponent_F42A0;
+extern TColor palette_F3FA0[];
 
 extern int save_debugcounter;
 
@@ -669,9 +669,9 @@ void Initialize();
 
 // FIXME: these functions and vars are used in Events.cpp and should be moved somewhere else
 extern axis_3d predictedAxis_EB398ar;
-extern type_D4C52ar2 str_x_DWORD_D4C52ar_0x2F22[7];
-extern std::array<type_D4C52ar, 17> str_D4C48ar;
-extern type_entity_0x6E8E* (*arsub_2a881e[])(axis_3d*);
+extern type_D4C52ar2 class0ECreateTable_D7B74[7];
+extern std::array<type_D4C52ar, 17> entityTypeTables_D4C48;
+extern type_entity_0x6E8E* (*spellPickupCreators_2A881E[])(axis_3d*);
 
 extern Type_CutScene_E16E0 cutScene_E16E0[];
 

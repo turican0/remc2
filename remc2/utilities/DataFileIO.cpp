@@ -193,7 +193,7 @@ bool DataFileIO::TestExistingSaveFile_55750(uint8_t fileindex, int levelindex, b
 		{
 			readState = DataFileIO::Read(saveslevfile, readbuffer, 8);
 			correctReadState = readState != 8;
-			if (readState == 8 && *(uint32_t*)&readbuffer[4] != D41A0_0.levelId_0x4)
+			if (readState == 8 && *(uint32_t*)&readbuffer[4] != world_D41A0.levelId_0x4)
 				correctReadState = true;
 			filesize2 = DataFileIO::FileLengthBytes(saveslevfile);
 			DataFileIO::Close(saveslevfile);

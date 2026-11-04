@@ -270,7 +270,7 @@ void GameBitmap::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, bitmap_
 	uint8_t* ptrScreenBufferLineStart = nullptr;
 	uint8_t* ptrScreenAlphaBufferLineStart = nullptr;
 
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (videoMode_180660 == 1)
 	{
 		posHeight = a3.height_5 / 2;
 		startOffsetX = posY / 2 * screenWidth_18062C + posX / 2;
@@ -484,7 +484,7 @@ void GameBitmap::DrawMenuGraphic(uint16_t width, uint16_t height, uint8_t scale,
 
 void GameBitmap::DrawColourizedBitmap(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, uint8_t colour, uint8_t scale)
 {
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (videoMode_180660 == 1)
 	{
 		DrawColourizedBitmap(a3.data, colour, pdwScreenBuffer_351628, screenWidth_18062C, posX / 2, posY / 2, a3.height_5 / 2, 1, pdwScreenAlphaBuffer);
 	}

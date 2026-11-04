@@ -55,11 +55,11 @@ private:
 
 
 extern char FontType_D419D;
-extern char x_BYTE_D47D8;
+extern char savedScreenSize_D47D8;
 extern char spellIndex_D94FF[29];
-extern int16_t x_WORD_E375C_mouse_position_x;
-extern int16_t x_WORD_E375E_mouse_position_y;
-extern uint8_t xx_array_E36C4[64];
+extern int16_t mousePosX_E375C;
+extern int16_t mousePosY_E375E;
+extern uint8_t externControl_E36C4[64];
 
 constexpr uint8_t ALPHA_HIDDEN = 0x00;
 constexpr uint8_t ALPHA_VISIBLE = 0xFF;
