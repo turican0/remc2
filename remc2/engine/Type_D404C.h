@@ -7,17 +7,17 @@
 
 #pragma pack (push,1)
 typedef struct {//lenght 22
-	int16_t word_0;
-	int16_t word_2;
-	int16_t word_4;
-	int16_t word_6;
+	int16_t distance_0;
+	int16_t angle_2;
+	int16_t height_4;
+	int16_t pitch_6;
 	int16_t word_8;
-	int16_t word_10;
-	int16_t word_12;
-	int16_t word_14;
-	int16_t word_16;
-	int16_t word_18;
-	int16_t word_20;
+	int16_t zOffset_10;
+	int16_t yawOffset_12;
+	int16_t fov_14;
+	int16_t depthOffset1_16;
+	int16_t depthOffset2_18;
+	int16_t depthOffset3_20;
 }
 type_D404C;
 #pragma pack (pop)

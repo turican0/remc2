@@ -9,7 +9,7 @@ typedef struct {//lenght 20
 	int16_t subtype_0x30311;//type_str_0x30313//type_str_0x30327//1091
 	axis_2du axis2d_4;
 	int16_t DisId;// must be signed
-	uint16_t word_10;//type_str_0x3031b//type_str_0x3032f
+	uint16_t par0_10;//type_str_0x3031b//type_str_0x3032f
 	int16_t stageTag_12;//type_str_0x3031d//type_str_0x30331
 	uint16_t par1_14;//type_str_0x3031f//type_str_0x30333//1105
 	uint16_t par2_16;//type_str_0x30321//type_str_0x30335
@@ -26,7 +26,7 @@ typedef struct {//lenght 110 //word_0x360D2
 	int16_t Perception_0x360DD;
 	uint8_t stubd[2];
 	uint8_t StartingSpells_0x360E1x[26];
-	uint8_t byte_0x360FBx[26];
+	uint8_t spellLevels_0x360FBx[26];
 	uint8_t BlockedSpells_0x36115x[26];
 	int16_t Life_0x3612F;
 	uint8_t stubf[15];
@@ -62,18 +62,18 @@ un1;
 typedef struct {//lenght 8
 	int8_t index_0x3647A_0;//array_0x3647a
 	int8_t stage_0x3647A_1;//array_0x3647b
-	uaxis_2d str_0x3647A_2;//array_0x3647c//str_0x3647A_2.word
-	un1 str_0x3647C_4;//array_0x3647e
+	uaxis_2d entityIndex_0x3647A_2;//array_0x3647c//str_0x3647A_2.word
+	un1 target_0x3647C_4;//array_0x3647e
 } type_str_0x3647Ac;
 
 typedef struct {//lenght 0x6604u
 	uint16_t word_2FECE;
 	uint16_t levelID_2FED0;
-	uint8_t byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
-	uint8_t byte_0x2FED3;
+	uint8_t levelType_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
+	uint8_t basicHeight_0x2FED3;
 	MapType_t MapType;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType
-	int16_t word_0x2FED5;
-	int16_t word_0x2FED7;
+	int16_t manaGoalPercent_0x2FED5;
+	int16_t numberOfPlayers_0x2FED7;
 	int8_t player_0x2FED9[8];
 	uint8_t stubb[4];
 	uint16_t seed_0x2FEE5;//2FEE5//23
@@ -108,6 +108,6 @@ typedef struct {//lenght 0x6604u
 #pragma pack(pop)
 
 extern bool isCaveLevel_D41B6;
-extern uint8_t* x_BYTE_14B4E0_second_heightmap;
+extern uint8_t* secondHeightmap_14B4E0;
 
 #endif //MAIN_BASIC_TERRAIN

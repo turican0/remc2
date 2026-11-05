@@ -110,7 +110,7 @@ void clean_terrain()
 		empty->stageTag_12 = 0;
 		empty->subtype_0x30311 = 0;
 		empty->type_0x30311 = 0;
-		empty->word_10 = 0;
+		empty->par0_10 = 0;
 	}
 
 	memcpy(temparray_0x30311, empty, sizeof(type_entity_0x30311) * 0x4b0);
@@ -126,8 +126,8 @@ void terrain_recalculate();
 int main_x(/*int argc, char** argv*/);
 
 void loadlevel(int levelnumber) {
-	LevelDecompress_533B0(levelnumber, &D41A0_0.terrain_2FECE);
-	memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311,sizeof(type_entity_0x30311)*0x4b0);
+	LevelDecompress_533B0(levelnumber, &world_D41A0.terrain_2FECE);
+	memcpy(temparray_0x30311, world_D41A0.terrain_2FECE.entity_0x30311,sizeof(type_entity_0x30311)*0x4b0);
 	for(int i=0;i< 0x4b0;i++)
 		temparray_0x30311_inactive[i]=0;
 	for (int i = 0; i < 0x4b0; i++)
@@ -168,21 +168,21 @@ void editor_run()
 
 	//init
 	CreateFileArrayIndexes_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
-	x_WORD_180660_VGA_type_resolution = 1;
-	x_WORD_E29DA_type_resolution = 1;
+	videoMode_180660 = 1;
+	menuVideoMode_E29DA = 1;
 
 	//sub_6FC50(1);//only for fonts?
 
 	//save D41A0_BYTESTR_0
-	D41A0_0.terrain_2FECE.seed_0x2FEE5 = 0;
-	D41A0_0.terrain_2FECE.offset_0x2FEE9 = 0;
-	D41A0_0.terrain_2FECE.raise_0x2FEED = 0;
-	D41A0_0.terrain_2FECE.gnarl_0x2FEF1 = 0;
-	D41A0_0.terrain_2FECE.source_0x2FEFD = 0;
-	D41A0_0.terrain_2FECE.snLin_0x2FF01 = 0;
-	D41A0_0.terrain_2FECE.bhFlt_0x2FF0D = 0;
-	D41A0_0.terrain_2FECE.rkSte_0x2FF11 = 0;
-	D41A0_0.terrain_2FECE.rkSte_0x2FF11 = 0;
+	world_D41A0.terrain_2FECE.seed_0x2FEE5 = 0;
+	world_D41A0.terrain_2FECE.offset_0x2FEE9 = 0;
+	world_D41A0.terrain_2FECE.raise_0x2FEED = 0;
+	world_D41A0.terrain_2FECE.gnarl_0x2FEF1 = 0;
+	world_D41A0.terrain_2FECE.source_0x2FEFD = 0;
+	world_D41A0.terrain_2FECE.snLin_0x2FF01 = 0;
+	world_D41A0.terrain_2FECE.bhFlt_0x2FF0D = 0;
+	world_D41A0.terrain_2FECE.rkSte_0x2FF11 = 0;
+	world_D41A0.terrain_2FECE.rkSte_0x2FF11 = 0;
 	//init_pal();
 	clean_terrain();
 	loadlevel(0);
@@ -204,21 +204,21 @@ void terrain_recalculate() {
 			j++;
 		else
 		{
-			D41A0_0.terrain_2FECE.entity_0x30311[j]= temparray_0x30311[i];
+			world_D41A0.terrain_2FECE.entity_0x30311[j]= temparray_0x30311[i];
 			j++;
 		}
 	}
 
 
-	rand2_17B4E0 = D41A0_0.terrain_2FECE.seed_0x2FEE5;
-	D41A0_0.rand_0x8 = D41A0_0.terrain_2FECE.seed_0x2FEE5;
+	rand2_17B4E0 = world_D41A0.terrain_2FECE.seed_0x2FEE5;
+	world_D41A0.rand_0x8 = world_D41A0.terrain_2FECE.seed_0x2FEE5;
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
-	DecompressTerrainMapLevel_B5E70(rand2_17B4E0, D41A0_0.terrain_2FECE.offset_0x2FEE9, D41A0_0.terrain_2FECE.raise_0x2FEED, D41A0_0.terrain_2FECE.gnarl_0x2FEF1);
+	DecompressTerrainMapLevel_B5E70(rand2_17B4E0, world_D41A0.terrain_2FECE.offset_0x2FEE9, world_D41A0.terrain_2FECE.raise_0x2FEED, world_D41A0.terrain_2FECE.gnarl_0x2FEF1);
 	TruncTerrainHeight_44DB0(mapEntityIndex_15B4E0, mapHeightmap_11B4E0);//225db0 //trunc and create
 	if (stage > 0)
 	{
 		memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
-		MarkLandAndRivers_44E40(D41A0_0.terrain_2FECE.river_0x2FEF5, D41A0_0.terrain_2FECE.lriver_0x2FEF9);//225e40 //add any fields
+		MarkLandAndRivers_44E40(world_D41A0.terrain_2FECE.river_0x2FEF5, world_D41A0.terrain_2FECE.lriver_0x2FEF9);//225e40 //add any fields
 	}
 	if (stage > 1)
 	{
@@ -227,11 +227,11 @@ void terrain_recalculate() {
 
 	if (stage > 2)
 	{
-		ApplySnowLine_440D0(D41A0_0.terrain_2FECE.snLin_0x2FF01);//2250d0
+		ApplySnowLine_440D0(world_D41A0.terrain_2FECE.snLin_0x2FF01);//2250d0
 	}
 	if (stage > 3)
 	{
-		MarkFlatLowland_45060(D41A0_0.terrain_2FECE.snFlt_0x2FF05, D41A0_0.terrain_2FECE.bhLin_0x2FF09);//226060
+		MarkFlatLowland_45060(world_D41A0.terrain_2FECE.snFlt_0x2FF05, world_D41A0.terrain_2FECE.bhLin_0x2FF09);//226060
 	}
 	if (stage > 4)
 	{
@@ -239,15 +239,15 @@ void terrain_recalculate() {
 	}
 	if (stage > 5)
 	{
-		MarkFlatLowlandClass2_45210(D41A0_0.terrain_2FECE.snFlt_0x2FF05, D41A0_0.terrain_2FECE.bhLin_0x2FF09);//226210
+		MarkFlatLowlandClass2_45210(world_D41A0.terrain_2FECE.snFlt_0x2FF05, world_D41A0.terrain_2FECE.bhLin_0x2FF09);//226210
 	}
 	if (stage > 6)
 	{
-		MarkFlatHighland_454F0(D41A0_0.terrain_2FECE.source_0x2FEFD, D41A0_0.terrain_2FECE.rkSte_0x2FF11);//2264f0
+		MarkFlatHighland_454F0(world_D41A0.terrain_2FECE.source_0x2FEFD, world_D41A0.terrain_2FECE.rkSte_0x2FF11);//2264f0
 	}
 	if (stage > 7)
 	{
-		MarkSteepTerrain_45600(D41A0_0.terrain_2FECE.bhFlt_0x2FF0D);//226600
+		MarkSteepTerrain_45600(world_D41A0.terrain_2FECE.bhFlt_0x2FF0D);//226600
 	}
 	if (stage > 8)
 	{
@@ -280,11 +280,11 @@ void terrain_recalculate() {
 	ResetEntityLists_49F30();//prepare events pointers
 	if (stage > 14)
 	{
-		SetStagetagForTermod_49830(&D41A0_0.terrain_2FECE);
+		SetStagetagForTermod_49830(&world_D41A0.terrain_2FECE);
 	}
 	if (stage > 15)
 	{
-		GenerateEvents_49290(&D41A0_0.terrain_2FECE, 1, 640, 480);
+		GenerateEvents_49290(&world_D41A0.terrain_2FECE, 1, 640, 480);
 	}
 	changed = false;
 };
@@ -564,7 +564,7 @@ void fillterrain(kiss_terrain* terrain, SDL_Surface* mapsurface,float zoom, int 
 	for (int i = 0; i < 0x4B0; i++)//same B
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];
-		if ((actfeat.subtype_0x30311 > 0) && (actfeat.type_0x30311 == 0xB) && (actfeat.word_10))
+		if ((actfeat.subtype_0x30311 > 0) && (actfeat.type_0x30311 == 0xB) && (actfeat.par0_10))
 		{
 			type_entity_0x30311* actfeat2 = NULL;
 			for (int j = 0; j < 0x4B0; j++)//switches
@@ -588,7 +588,7 @@ void fillterrain(kiss_terrain* terrain, SDL_Surface* mapsurface,float zoom, int 
 
 	for (int i = 0; i < 0x8; i++)//draw stages
 	{
-		type_str_0x36442 actstage = D41A0_0.terrain_2FECE.stages_0x36442[i];
+		type_str_0x36442 actstage = world_D41A0.terrain_2FECE.stages_0x36442[i];
 		if (actstage.index_0 == 5)
 		{
 			for (int i = -8; i <= 8; i++)
@@ -732,7 +732,7 @@ static void terrain_feat_append(kiss_textbox* textbox, kiss_vscrollbar* vscrollb
 	for (int i = first_terrain_feature; i < 0x4B0; i++)
 	{
 		type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, (uint16_t)actfeat.DisId, actfeat.word_10, (uint16_t)actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);
+		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, (uint16_t)actfeat.DisId, actfeat.par0_10, (uint16_t)actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);
 		if(temparray_0x30311_inactive[i])temp[strlen(temp) - 1] = 'I';//set last char as inactive
 		if(temparray_0x30311_selected[i])temp[strlen(temp) - 2] = 'S';//set last char as inactive
 		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
@@ -747,7 +747,7 @@ static void terrain_stages_append(kiss_textbox* textbox) {
 	//VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer_351628);
 	for (int i = 0; i < 8; i++)
 	{
-		type_str_0x36442 actstage = D41A0_0.terrain_2FECE.stages_0x36442[i];
+		type_str_0x36442 actstage = world_D41A0.terrain_2FECE.stages_0x36442[i];
 		sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (uint8_t)actstage.index_0, actstage.stage_1, actstage._axis_2d.x, actstage._axis_2d.y);
 		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 	}
@@ -761,8 +761,8 @@ char temp[256];
 //VGA_Draw_stringXYtoBuffer(temp, 304, 32, pdwScreenBuffer_351628);
 for (int i = 0; i < 0xb; i++)
 {
-	type_str_0x3647Ac actstage = D41A0_0.terrain_2FECE.StageVars_0x3647A[i];
-	sprintf(temp, "%01X |%02X|%02X|%04X|%04X|%04X", i, (uint8_t)actstage.index_0x3647A_0, (uint8_t)actstage.stage_0x3647A_1, actstage.str_0x3647A_2.word,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
+	type_str_0x3647Ac actstage = world_D41A0.terrain_2FECE.StageVars_0x3647A[i];
+	sprintf(temp, "%01X |%02X|%02X|%04X|%04X|%04X", i, (uint8_t)actstage.index_0x3647A_0, (uint8_t)actstage.stage_0x3647A_1, actstage.entityIndex_0x3647A_2.word,actstage.target_0x3647C_4.axis.x, actstage.target_0x3647C_4.axis.y);
 	kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 }
 //text_reset(textbox1, vscrollbar1);
@@ -946,10 +946,10 @@ static bool button_undo_event(kiss_button* button, SDL_Event* e, int* draw)
 		if (indexUndoPoint > 1)
 		{
 			indexUndoPoint--;
-			memcpy(&D41A0_0.terrain_2FECE, &UndoPoint[indexUndoPoint-1], sizeof(Type_Level_2FECE));
+			memcpy(&world_D41A0.terrain_2FECE, &UndoPoint[indexUndoPoint-1], sizeof(Type_Level_2FECE));
 			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
-			memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
+			memcpy(temparray_0x30311, world_D41A0.terrain_2FECE.entity_0x30311, sizeof(world_D41A0.terrain_2FECE.entity_0x30311));
 		}
 		return true;
 	}
@@ -963,10 +963,10 @@ static bool button_redo_event(kiss_button* button, SDL_Event* e, int* draw)
 		if (indexUndoPoint < MaxUndoPoints2)
 		{
 			indexUndoPoint++;
-			memcpy(&D41A0_0.terrain_2FECE, &UndoPoint[indexUndoPoint - 1], sizeof(Type_Level_2FECE));
+			memcpy(&world_D41A0.terrain_2FECE, &UndoPoint[indexUndoPoint - 1], sizeof(Type_Level_2FECE));
 			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
-			memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
+			memcpy(temparray_0x30311, world_D41A0.terrain_2FECE.entity_0x30311, sizeof(world_D41A0.terrain_2FECE.entity_0x30311));
 		}
 		return true;
 	}
@@ -997,8 +997,8 @@ static void SaveLevelFile(char const text[], char fullPath[KISS_MAX_LENGTH]) {
 	FixDir(fullPath, fileName);
 
 	FILE* file = fopen(fullPath, "wb");
-	memcpy(D41A0_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(type_entity_0x30311) * 0x4b0);
-	fwrite((void*)&D41A0_0.terrain_2FECE, 1, sizeof(Type_Level_2FECE), file);
+	memcpy(world_D41A0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(type_entity_0x30311) * 0x4b0);
+	fwrite((void*)&world_D41A0.terrain_2FECE, 1, sizeof(Type_Level_2FECE), file);
 	fclose(file);
 }
 
@@ -1011,8 +1011,8 @@ static bool LoadLevelFile(char const text[]) {
 	if (std::filesystem::exists(path))
 	{
 		FILE* file = fopen(path, "rb");
-		fread(&D41A0_0.terrain_2FECE, sizeof(D41A0_0.terrain_2FECE), 1, file);
-		memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
+		fread(&world_D41A0.terrain_2FECE, sizeof(world_D41A0.terrain_2FECE), 1, file);
+		memcpy(temparray_0x30311, world_D41A0.terrain_2FECE.entity_0x30311, sizeof(world_D41A0.terrain_2FECE.entity_0x30311));
 		fclose(file);
 		return true;
 	}
@@ -1056,7 +1056,7 @@ static void button_savelevelcsv_event(kiss_button* button, SDL_Event* e, int* dr
 			for (int i = 0; i < 0x4B0; i++)
 			{
 				type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-				fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);
+				fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.par0_10, actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);
 			}
 			fclose(file);
 		}
@@ -1072,7 +1072,7 @@ static int button_cleanlevelfeat_event(kiss_button* button, SDL_Event* e, int* d
 			memset(&temparray_0x30311[i],0,sizeof(temparray_0x30311[i]));
 			temparray_0x30311_inactive[i]=false;
 			temparray_0x30311_selected[i] = false;
-			D41A0_0.terrain_2FECE.entity_0x30311[i] = temparray_0x30311[i];
+			world_D41A0.terrain_2FECE.entity_0x30311[i] = temparray_0x30311[i];
 		}
 		return 1;
 	}
@@ -1103,11 +1103,11 @@ bool delete_entity(int index) {
 		}*/
 		for (int j = 0; j < 8; j++)
 		{
-			if ((D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 1) ||
-				(D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 7) ||
-				(D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 9))
-				if (D41A0_0.terrain_2FECE.stages_0x36442[j].stage_1 == i)
-					D41A0_0.terrain_2FECE.stages_0x36442[j].stage_1--;
+			if ((world_D41A0.terrain_2FECE.stages_0x36442[j].index_0 == 1) ||
+				(world_D41A0.terrain_2FECE.stages_0x36442[j].index_0 == 7) ||
+				(world_D41A0.terrain_2FECE.stages_0x36442[j].index_0 == 9))
+				if (world_D41A0.terrain_2FECE.stages_0x36442[j].stage_1 == i)
+					world_D41A0.terrain_2FECE.stages_0x36442[j].stage_1--;
 		}
 
 		temparray_0x30311[i - 1] = temparray_0x30311[i];
@@ -1506,11 +1506,11 @@ static int  CloneEvent(int x, int y) {
 		}*/
 		for (int j = 0; j < 8; j++)
 		{
-			if ((D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 1) ||
-				(D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 7) ||
-				(D41A0_0.terrain_2FECE.stages_0x36442[j].index_0 == 9))
-				if (D41A0_0.terrain_2FECE.stages_0x36442[j].stage_1 == i)
-					D41A0_0.terrain_2FECE.stages_0x36442[j].stage_1++;
+			if ((world_D41A0.terrain_2FECE.stages_0x36442[j].index_0 == 1) ||
+				(world_D41A0.terrain_2FECE.stages_0x36442[j].index_0 == 7) ||
+				(world_D41A0.terrain_2FECE.stages_0x36442[j].index_0 == 9))
+				if (world_D41A0.terrain_2FECE.stages_0x36442[j].stage_1 == i)
+					world_D41A0.terrain_2FECE.stages_0x36442[j].stage_1++;
 		}
 
 		temparray_0x30311[i] = temparray_0x30311[i - 1];
@@ -1536,7 +1536,7 @@ static int  CloneEvent(int x, int y) {
 	kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
 	kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
 	kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
-	kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
+	kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].par0_10);
 	kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
 	kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].par1_14);
 	kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].par2_16);
@@ -1582,7 +1582,7 @@ static int button_clean_event(kiss_button* button, SDL_Event* e, int* quit, int*
 		kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
 		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
 		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
-		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
+		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].par0_10);
 		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
 		kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].par1_14);
 		kiss_hex4edit_update_adress(&hex4edit9feat, &temparray_0x30311[edited_line_old + 1].par2_16);
@@ -2102,10 +2102,10 @@ void set_button_image_subsubtype(kiss_image** img, uint16_t acttype, uint16_t ac
 void SetUndoPoint() {
 	if (indexUndoPoint <= MaxUndoPoints)
 	{
-		memcpy(D41A0_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
+		memcpy(world_D41A0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(world_D41A0.terrain_2FECE.entity_0x30311));
 		memcpy(UndoInactive[indexUndoPoint], temparray_0x30311_inactive, sizeof(bool) * 0x4b0);
 		memcpy(UndoSelected[indexUndoPoint], temparray_0x30311_selected, sizeof(bool) * 0x4b0);
-		memcpy(&UndoPoint[indexUndoPoint],&D41A0_0.terrain_2FECE, sizeof(Type_Level_2FECE));
+		memcpy(&UndoPoint[indexUndoPoint],&world_D41A0.terrain_2FECE, sizeof(Type_Level_2FECE));
 		indexUndoPoint++;
 		MaxUndoPoints2 = indexUndoPoint;
 	}
@@ -3149,35 +3149,35 @@ int main_x(/*int argc, char** argv*/)
 
 
 
-	kiss_hex4edit_new(&hex4edit1, &window1, &D41A0_0.terrain_2FECE.seed_0x2FEE5, (char*)"SEED:", 10, 10, 70);
-	kiss_hex4edit_new(&hex4edit2, &window1, &D41A0_0.terrain_2FECE.offset_0x2FEE9, (char*)"OFFSET:", 10, 30, 70);
-	kiss_hex4edit_new(&hex4edit3, &window1, &D41A0_0.terrain_2FECE.raise_0x2FEED, (char*)"RAISE:", 10, 50, 70);
-	kiss_hex4edit_new(&hex4edit4, &window1, &D41A0_0.terrain_2FECE.gnarl_0x2FEF1, (char*)"GNARL:", 10, 70, 70);
-	kiss_hex4edit_new(&hex4edit5, &window1, &D41A0_0.terrain_2FECE.river_0x2FEF5, (char*)"RIVER:", 10, 90, 70);
-	kiss_hex4edit_new(&hex4edit6, &window1, &D41A0_0.terrain_2FECE.lriver_0x2FEF9, (char*)"LRIVER:", 10, 110, 70);
-	kiss_hex4edit_new(&hex4edit7, &window1, &D41A0_0.terrain_2FECE.source_0x2FEFD, (char*)"SOURCE:", 10, 130, 70);
-	kiss_hex4edit_new(&hex4edit8, &window1, &D41A0_0.terrain_2FECE.snLin_0x2FF01, (char*)"SnLin:", 10, 150, 70);
-	kiss_hex4edit_new(&hex4edit9, &window1, &D41A0_0.terrain_2FECE.snFlt_0x2FF05, (char*)"SnFlt:", 10, 170, 70);
-	kiss_hex4edit_new(&hex4edit10, &window1, &D41A0_0.terrain_2FECE.bhLin_0x2FF09, (char*)"BhLin:", 10, 190, 70);
-	kiss_hex4edit_new(&hex4edit11, &window1, &D41A0_0.terrain_2FECE.bhFlt_0x2FF0D, (char*)"BhFlt:", 10, 210, 70);
-	kiss_hex4edit_new(&hex4edit12, &window1, &D41A0_0.terrain_2FECE.rkSte_0x2FF11, (char*)"RkSte:", 10, 230, 70);
+	kiss_hex4edit_new(&hex4edit1, &window1, &world_D41A0.terrain_2FECE.seed_0x2FEE5, (char*)"SEED:", 10, 10, 70);
+	kiss_hex4edit_new(&hex4edit2, &window1, &world_D41A0.terrain_2FECE.offset_0x2FEE9, (char*)"OFFSET:", 10, 30, 70);
+	kiss_hex4edit_new(&hex4edit3, &window1, &world_D41A0.terrain_2FECE.raise_0x2FEED, (char*)"RAISE:", 10, 50, 70);
+	kiss_hex4edit_new(&hex4edit4, &window1, &world_D41A0.terrain_2FECE.gnarl_0x2FEF1, (char*)"GNARL:", 10, 70, 70);
+	kiss_hex4edit_new(&hex4edit5, &window1, &world_D41A0.terrain_2FECE.river_0x2FEF5, (char*)"RIVER:", 10, 90, 70);
+	kiss_hex4edit_new(&hex4edit6, &window1, &world_D41A0.terrain_2FECE.lriver_0x2FEF9, (char*)"LRIVER:", 10, 110, 70);
+	kiss_hex4edit_new(&hex4edit7, &window1, &world_D41A0.terrain_2FECE.source_0x2FEFD, (char*)"SOURCE:", 10, 130, 70);
+	kiss_hex4edit_new(&hex4edit8, &window1, &world_D41A0.terrain_2FECE.snLin_0x2FF01, (char*)"SnLin:", 10, 150, 70);
+	kiss_hex4edit_new(&hex4edit9, &window1, &world_D41A0.terrain_2FECE.snFlt_0x2FF05, (char*)"SnFlt:", 10, 170, 70);
+	kiss_hex4edit_new(&hex4edit10, &window1, &world_D41A0.terrain_2FECE.bhLin_0x2FF09, (char*)"BhLin:", 10, 190, 70);
+	kiss_hex4edit_new(&hex4edit11, &window1, &world_D41A0.terrain_2FECE.bhFlt_0x2FF0D, (char*)"BhFlt:", 10, 210, 70);
+	kiss_hex4edit_new(&hex4edit12, &window1, &world_D41A0.terrain_2FECE.rkSte_0x2FF11, (char*)"RkSte:", 10, 230, 70);
 
-	kiss_hex4edit_new(&hex4edit13, &window1, &D41A0_0.terrain_2FECE.word_2FECE, (char*)"2FECE:", 250, 10,80);
-	kiss_hex4edit_new(&hex4edit14, &window1, &D41A0_0.terrain_2FECE.levelID_2FED0, (char*)"2FED0:", 250, 30, 80);
-	kiss_hex2edit_new(&hex2edit15, &window1, &D41A0_0.terrain_2FECE.byte_0x2FED2, (char*)"2FED2:", 250, 50, 80);
-	kiss_hex2edit_new(&hex2edit16, &window1, &D41A0_0.terrain_2FECE.byte_0x2FED3, (char*)"2FED3:", 250, 70, 80);
-	kiss_hex2edit_new(&hex2edit17, &window1, &D41A0_0.terrain_2FECE.MapType, (char*)"DY/NG/CV:", 250, 90, 80);
-	kiss_hex4edit_new(&hex4edit18, &window1, &D41A0_0.terrain_2FECE.word_0x2FED5, (char*)"2FED5:", 250, 110, 80);
-	kiss_hex4edit_new(&hex4edit19, &window1, &D41A0_0.terrain_2FECE.word_0x2FED7, (char*)"2FED7:", 250, 130, 80);
+	kiss_hex4edit_new(&hex4edit13, &window1, &world_D41A0.terrain_2FECE.word_2FECE, (char*)"2FECE:", 250, 10,80);
+	kiss_hex4edit_new(&hex4edit14, &window1, &world_D41A0.terrain_2FECE.levelID_2FED0, (char*)"2FED0:", 250, 30, 80);
+	kiss_hex2edit_new(&hex2edit15, &window1, &world_D41A0.terrain_2FECE.levelType_0x2FED2, (char*)"2FED2:", 250, 50, 80);
+	kiss_hex2edit_new(&hex2edit16, &window1, &world_D41A0.terrain_2FECE.basicHeight_0x2FED3, (char*)"2FED3:", 250, 70, 80);
+	kiss_hex2edit_new(&hex2edit17, &window1, &world_D41A0.terrain_2FECE.MapType, (char*)"DY/NG/CV:", 250, 90, 80);
+	kiss_hex4edit_new(&hex4edit18, &window1, &world_D41A0.terrain_2FECE.manaGoalPercent_0x2FED5, (char*)"2FED5:", 250, 110, 80);
+	kiss_hex4edit_new(&hex4edit19, &window1, &world_D41A0.terrain_2FECE.numberOfPlayers_0x2FED7, (char*)"2FED7:", 250, 130, 80);
 
-	kiss_hex2edit_new(&hex2edit20, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[0], (char*)"D9-0", 250, 150, 40);
-	kiss_hex2edit_new(&hex2edit21, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[1], (char*)"D9-1", 385, 150, 40);
-	kiss_hex2edit_new(&hex2edit22, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[2], (char*)"D9-2", 250, 170, 40);
-	kiss_hex2edit_new(&hex2edit23, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[3], (char*)"D9-3", 385, 170, 40);
-	kiss_hex2edit_new(&hex2edit24, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[4], (char*)"D9-4", 250, 190, 40);
-	kiss_hex2edit_new(&hex2edit25, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[5], (char*)"D9-5", 385, 190, 40);
-	kiss_hex2edit_new(&hex2edit26, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[6], (char*)"D9-6", 250, 210, 40);
-	kiss_hex2edit_new(&hex2edit27, &window1, &D41A0_0.terrain_2FECE.player_0x2FED9[7], (char*)"D9-7", 385, 210, 40);
+	kiss_hex2edit_new(&hex2edit20, &window1, &world_D41A0.terrain_2FECE.player_0x2FED9[0], (char*)"D9-0", 250, 150, 40);
+	kiss_hex2edit_new(&hex2edit21, &window1, &world_D41A0.terrain_2FECE.player_0x2FED9[1], (char*)"D9-1", 385, 150, 40);
+	kiss_hex2edit_new(&hex2edit22, &window1, &world_D41A0.terrain_2FECE.player_0x2FED9[2], (char*)"D9-2", 250, 170, 40);
+	kiss_hex2edit_new(&hex2edit23, &window1, &world_D41A0.terrain_2FECE.player_0x2FED9[3], (char*)"D9-3", 385, 170, 40);
+	kiss_hex2edit_new(&hex2edit24, &window1, &world_D41A0.terrain_2FECE.player_0x2FED9[4], (char*)"D9-4", 250, 190, 40);
+	kiss_hex2edit_new(&hex2edit25, &window1, &world_D41A0.terrain_2FECE.player_0x2FED9[5], (char*)"D9-5", 385, 190, 40);
+	kiss_hex2edit_new(&hex2edit26, &window1, &world_D41A0.terrain_2FECE.player_0x2FED9[6], (char*)"D9-6", 250, 210, 40);
+	kiss_hex2edit_new(&hex2edit27, &window1, &world_D41A0.terrain_2FECE.player_0x2FED9[7], (char*)"D9-7", 385, 210, 40);
 
 	/*
 	uint16_t word_2FECE;
@@ -3380,7 +3380,7 @@ int main_x(/*int argc, char** argv*/)
 				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
 				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
 				kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
-				kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
+				kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].par0_10);
 				kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].stageTag_12);
 				kiss_hex4edit_update_adress(&hex4edit8feat, &temparray_0x30311[edited_line_old + 1].par1_14);
 				set_button_image_subsubtype(&act_img_subsubtype, temparray_0x30311[edited_line_old + 1].type_0x30311, temparray_0x30311[edited_line_old + 1].subtype_0x30311, temparray_0x30311[edited_line_old + 1].par1_14);
@@ -3415,14 +3415,14 @@ int main_x(/*int argc, char** argv*/)
 				window1.focus = 0;
 				sprintf(labelIndexWind3.text, "INDEX:%03X", edited_line2_old);
 				//type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old];
-				kiss_hex2edit_update_adress(&hex2edit1check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old].index_0);
-				kiss_hex4edit_update_adress(&hex4edit2check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old].stage_1);
-				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x);
-				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y);
+				kiss_hex2edit_update_adress(&hex2edit1check, &world_D41A0.terrain_2FECE.stages_0x36442[edited_line2_old].index_0);
+				kiss_hex4edit_update_adress(&hex4edit2check, &world_D41A0.terrain_2FECE.stages_0x36442[edited_line2_old].stage_1);
+				kiss_hex4edit_update_adress(&hex4edit3check, &world_D41A0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x);
+				kiss_hex4edit_update_adress(&hex4edit4check, &world_D41A0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y);
 				changed2 = true;
 				terrainzoomcheck = 4;
-				float cursorpixx = D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x;
-				float cursorpixy = D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y;
+				float cursorpixx = world_D41A0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x;
+				float cursorpixy = world_D41A0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y;
 				terrainbeginxcheck = cursorpixx - (terraincheck.rect.w / 2) / (terrainzoomcheck * 2);
 				terrainbeginycheck = cursorpixy - (terraincheck.rect.h / 2) / (terrainzoomcheck * 2);
 			}
@@ -3784,10 +3784,10 @@ int main_x(/*int argc, char** argv*/)
 			if (terevcheck == 20)
 			{
 				//type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old];
-				D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x = tersetposx;
-				D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y = tersetposy;
-				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x);
-				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y);
+				world_D41A0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x = tersetposx;
+				world_D41A0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y = tersetposy;
+				kiss_hex4edit_update_adress(&hex4edit3check, &world_D41A0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.x);
+				kiss_hex4edit_update_adress(&hex4edit4check, &world_D41A0.terrain_2FECE.stages_0x36442[edited_line2_old]._axis_2d.y);
 				changed2 = true;
 				changed3 = true;
 			}

@@ -92,7 +92,7 @@ extern uint8_t* readbuffer;
 extern const int printBufferSize;
 extern char* printbuffer;//char* buffer; // [esp+0h] [ebp-2h]
 extern char* printbuffer2;//char v11; // [esp+40h] [ebp+3Eh]
-//extern uint8_t *x_DWORD_E9C38_smalltit; // weak
+//extern uint8_t *smalltitBuffer_E9C38; // weak
 /*extern int32_t x_DWORD_D41A4_x6x;
 extern int32_t x_DWORD_D41A4_x8x;
 extern int32_t x_DWORD_D41A4_xAx;
@@ -162,7 +162,7 @@ extern int32_t x_DWORD_D41A4_x96BF;*/
 //extern uint8_t* x_D41A0_BYTEARRAY_0;
 //extern uint8_t* x_D41A0_BYTEARRAY_4;
 
-extern uint8_t* off_D41A8_sky;
+extern uint8_t* skyTexture_D41A8;
 
 #pragma pack(push, 1)
 
@@ -173,7 +173,7 @@ type_dword_0x649_2BDE;
 
 typedef struct {//size 5152
 	//type_particle_str_0 un_0;//lenght?
-	uint16_t word_0;
+	uint16_t flags_0;
 	uint16_t width;
 	uint16_t height;
 	int8_t textureBuffer[];
@@ -182,10 +182,10 @@ Type_Sprite;
 
 typedef struct {//size 14
 	Type_Sprite* partstr_0;//Sprite?
-	int32_t dword_4;
-	int16_t word_8;
+	int32_t size_4;
+	int16_t slotIndex_8;
 	int16_t Index;
-	int16_t word_12;
+	int16_t tmapIndex_12;
 }
 subtype_x_DWORD_E9C28_str;
 
@@ -198,21 +198,21 @@ typedef struct {//size 4
 subtype_x_DWORD_E9C28_str2;
 
 typedef struct {//size 26
-	int32_t dword_0;
-	int32_t dword_4;
-	subtype_x_DWORD_E9C28_str* str_8_data;
-	subtype_x_DWORD_E9C28_str** dword_12x;//uint32_t*
-	uint32_t* dword_16x;//uint32_t*
-	int16_t word_20;
-	int16_t word_22;
-	int16_t word_24;
+	int32_t capacity_0;
+	int32_t freeSize_4;
+	subtype_x_DWORD_E9C28_str* entries_8;
+	subtype_x_DWORD_E9C28_str** entryPtrs_12x;//uint32_t*
+	uint32_t* buffer_16x;//uint32_t*
+	int16_t usedCount_20;
+	int16_t maxEntries_22;
+	int16_t allocMode_24;
 	subtype_x_DWORD_E9C28_str data[];
 	//uint32_t dword_26;
 } type_x_DWORD_E9C28_str;
 
 typedef struct {//lenght 14
 	int8_t stuba[4];
-	int32_t dword_4;
+	int32_t totalMana_4;
 	uint32_t dword_8;
 	int8_t stubb[2];
 } type_index_242ar;
@@ -221,155 +221,155 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	//uint8_t harddisk_number;
 
 	//uint8_t setting_byte5_19;
-	uint32_t configDatSign_0;//x_D41A0_BYTEARRAY_4_struct.dwordindex_0
-	uint16_t langIndex_4;//x_D41A0_BYTEARRAY_4_struct.byteindex_4
-	uint16_t soundVolume_6;//x_D41A0_BYTEARRAY_4_struct.wordindex_6
-	uint16_t musicVolume_8;//x_D41A0_BYTEARRAY_4_struct.wordindex_8
-	uint8_t showHelp_10;//0xa//x_D41A0_BYTEARRAY_4_struct.byteindex_10//show help
-	int8_t brightness_11;//0xb//x_D41A0_BYTEARRAY_4_struct.byteindex_11
-	int8_t brightness_12;//0xc//x_D41A0_BYTEARRAY_4_struct.byteindex_12
-	int8_t brightness_13;//0xd//x_D41A0_BYTEARRAY_4_struct.byteindex_13
+	uint32_t configDatSign_0;//gameState_D41A4.dwordindex_0
+	uint16_t langIndex_4;//gameState_D41A4.byteindex_4
+	uint16_t soundVolume_6;//gameState_D41A4.wordindex_6
+	uint16_t musicVolume_8;//gameState_D41A4.wordindex_8
+	uint8_t showHelp_10;//0xa//gameState_D41A4.byteindex_10//show help
+	int8_t brightness_11;//0xb//gameState_D41A4.byteindex_11
+	int8_t brightness_12;//0xc//gameState_D41A4.byteindex_12
+	int8_t brightness_13;//0xd//gameState_D41A4.byteindex_13
 	uint16_t wordindex_14;
-	uint32_t dwordindex_16;//0x10//x_D41A0_BYTEARRAY_4_struct.dwordindex_16
+	uint32_t dwordindex_16;//0x10//gameState_D41A4.dwordindex_16
 	uint8_t stubb[2];
-	uint8_t setting_byte1_22;//x_D41A0_BYTEARRAY_4_struct.setting_byte1_22
-	int8_t setting_byte2_23;//0x17//x_D41A0_BYTEARRAY_4_struct.setting_byte2_23
-	uint8_t OptionsSettingFlag_24;//cheats? 0x20==free spell//x_D41A0_BYTEARRAY_4_struct.OptionsSettingFlag_24
+	uint8_t setting_byte1_22;//gameState_D41A4.setting_byte1_22
+	int8_t setting_byte2_23;//0x17//gameState_D41A4.setting_byte2_23
+	uint8_t OptionsSettingFlag_24;//cheats? 0x20==free spell//gameState_D41A4.OptionsSettingFlag_24
 	//spell on - 0x20
 	uint8_t setting_byte4_25;//cheats? 0x1==Invincability 0x8==tester 0x40==music
 	//invincability - 1;
 	uint8_t FrameTimingIndex_26 = 0;//Used to time flashing indicators
 	uint8_t stubc[3];
 	// The per-level tick counter, a dword in the original (mov esi,[eax+1Eh] / inc esi at 0x51C9B,
-	// read whole in MovePlayerWizard_5D530 and added to D41A0_0.rand_0x8). As a byte followed by three bytes
+	// read whole in MovePlayerWizard_5D530 and added to world_D41A0.rand_0x8). As a byte followed by three bytes
 	// of padding it wrapped at 256 and the global RNG came out 0x100 short from turn 256 on.
 	// Replaces the padding, so the fields after it keep their place.
-	uint32_t setting_30;//x_D41A0_BYTEARRAY_4_struct.setting_30
+	uint32_t setting_30;//gameState_D41A4.setting_30
 	//FILE* moviemvidatfile_byte4_33;
 	uint8_t m_wHighSpeedSystem;
 	FILE* moviemvidatfile_byte4_35;
-	uint16_t moviemvinumber_byte4_39;//x_D41A0_BYTEARRAY_4_struct.moviemvinumber_byte4_39
+	uint16_t moviemvinumber_byte4_39;//gameState_D41A4.moviemvinumber_byte4_39
 	uint8_t stube[2];
-	uint16_t levelnumber_43w;//x_D41A0_BYTEARRAY_4_struct.levelnumber_43
+	uint16_t levelnumber_43w;//gameState_D41A4.levelnumber_43
 	//uint8_t stubf[1];
 	uint16_t setting_45w;
 	uint8_t stubg[3];
-	int8_t spellOnCursor_50;//0x32//x_D41A0_BYTEARRAY_4_struct.byteindex_50
-	uint8_t paletteMod_51;//0x33//x_D41A0_BYTEARRAY_4_struct.byteindex_51
-	uint8_t byteindex_52;//0x34//x_D41A0_BYTEARRAY_4_struct.byteindex_52
-	uint8_t byteindex_53;//0x35//x_D41A0_BYTEARRAY_4_struct.byteindex_53
+	int8_t spellOnCursor_50;//0x32//gameState_D41A4.byteindex_50
+	uint8_t paletteMod_51;//0x33//gameState_D41A4.byteindex_51
+	uint8_t cdFlags_52;//0x34//gameState_D41A4.byteindex_52
+	uint8_t byteindex_53;//0x35//gameState_D41A4.byteindex_53
 	uint8_t stubh[3];
 	char player_name_57ar[32];
 	char savestring_89[32];
-	uint8_t colorIndex_121[16];//0x79//x_D41A0_BYTEARRAY_4_struct.byteindex_121
-	//uint8_t byteindex_122;//0x7a//x_D41A0_BYTEARRAY_4_struct.byteindex_121[1]
-	//uint8_t byteindex_123;//0x7b//x_D41A0_BYTEARRAY_4_struct.byteindex_121[2]
-	//uint8_t byteindex_124;//0x7c//x_D41A0_BYTEARRAY_4_struct.byteindex_121[3]
-	//uint8_t byteindex_125;//0x7d//x_D41A0_BYTEARRAY_4_struct.byteindex_121[4]
-	//uint8_t byteindex_127;//0x7f//x_D41A0_BYTEARRAY_4_struct.byteindex_121[6]
+	uint8_t colorIndex_121[16];//0x79//gameState_D41A4.byteindex_121
+	//uint8_t byteindex_122;//0x7a//gameState_D41A4.byteindex_121[1]
+	//uint8_t byteindex_123;//0x7b//gameState_D41A4.byteindex_121[2]
+	//uint8_t byteindex_124;//0x7c//gameState_D41A4.byteindex_121[3]
+	//uint8_t byteindex_125;//0x7d//gameState_D41A4.byteindex_121[4]
+	//uint8_t byteindex_127;//0x7f//gameState_D41A4.byteindex_121[6]
 	uint8_t stubi[8];
-	char byteindex_145ar[32];//x_D41A0_BYTEARRAY_4_struct.byteindex_145ar
+	char netGameName_145ar[32];//gameState_D41A4.byteindex_145ar
 
-	uint8_t byteindex_177;//0xb1//x_D41A0_BYTEARRAY_4_struct.byteindex_177
-	uint8_t speedIndex;//0xb2//x_D41A0_BYTEARRAY_4_struct.byteindex_178
+	uint8_t byteindex_177;//0xb1//gameState_D41A4.byteindex_177
+	uint8_t speedIndex;//0xb2//gameState_D41A4.byteindex_178
 	uint8_t SelectedLangIndex;
-	uint8_t paletteSubMod_180;//0xb4//x_D41A0_BYTEARRAY_4_struct.byteindex_180
-	uint8_t moveSpeedFlag_181;//0xb5//x_D41A0_BYTEARRAY_4_struct.byteindex_181
-	uint8_t byteindex_183;//0xb7//x_D41A0_BYTEARRAY_4_struct.byteindex_183
-	uint16_t paletteCount_184w;//0xb8//x_D41A0_BYTEARRAY_4_struct.byteindex_184
+	uint8_t paletteSubMod_180;//0xb4//gameState_D41A4.byteindex_180
+	uint8_t moveSpeedFlag_181;//0xb5//gameState_D41A4.byteindex_181
+	uint8_t arrowKeyFlags_183;//0xb7//gameState_D41A4.byteindex_183
+	uint16_t paletteCount_184w;//0xb8//gameState_D41A4.byteindex_184
 	//uint8_t stubj[1];
-	uint8_t byteindex_186;//0xba//x_D41A0_BYTEARRAY_4_struct.byteindex_186
+	uint8_t optionsMenuWidth_186;//0xba//gameState_D41A4.byteindex_186
 	uint8_t stubk[1];
-	uint32_t dwordindex_188;//x_D41A0_BYTEARRAY_4_struct.byteindex_188
-	//uint8_t byteindex_189;//x_D41A0_BYTEARRAY_4_struct.byteindex_189
-	//uint8_t byteindex_190;//x_D41A0_BYTEARRAY_4_struct.byteindex_190
+	uint32_t optionsMenuFlags_188;//gameState_D41A4.byteindex_188
+	//uint8_t byteindex_189;//gameState_D41A4.byteindex_189
+	//uint8_t byteindex_190;//gameState_D41A4.byteindex_190
 
 	//1(0x1)-help//2(0x2)-sound//3(0x4)-music//4(0x8)-speek//5(0x10)-fly//6(0x20)-bright//7(0x40)speed//8(0x80)screen
 	//9(0x100)-reflection//10(0x200)-sky//11(0x400)-shadows//12(0x800)-light/13(0x1000)-icons//14(0x2000)-transparency//15(0x4000)-flat	//16(0x8000)-resolution
 	//17(0x10000)-names
 
-	uint32_t dwordindex_192;//0xc0//x_D41A0_BYTEARRAY_4_struct.byteindex_192
-	//uint8_t byteindex_193;//0xc1//x_D41A0_BYTEARRAY_4_struct.byteindex_193
-	//uint8_t byteindex_194;//0xc2//x_D41A0_BYTEARRAY_4_struct.byteindex_194
+	uint32_t optionsMenuFlags2_192;//0xc0//gameState_D41A4.byteindex_192
+	//uint8_t byteindex_193;//0xc1//gameState_D41A4.byteindex_193
+	//uint8_t byteindex_194;//0xc2//gameState_D41A4.byteindex_194
 
 	//1(0x1)-help//2(0x2)-sound//3(0x4)-music//4(0x8)-speek//5(0x10)-fly//6(0x20)-bright//7(0x40)speed//8(0x80)screen
 	//9(0x100)-reflection//10(0x200)-sky//11(0x400)-shadows//12(0x800)-light/13(0x1000)-icons//14(0x2000)-transparency//15(0x4000)-flat	//16(0x8000)-resolution
 	//17(0x10000)-names
 
-	uint8_t byteindex_196;//0xc4//x_D41A0_BYTEARRAY_4_struct.byteindex_196
+	uint8_t lastTurnTime_196;//0xc4//gameState_D41A4.byteindex_196
 	uint8_t stubl[3];
-	uint8_t transfer_rate_dwordindex_200;//0xc8//x_D41A0_BYTEARRAY_4_struct.transfer_rate_dwordindex_200
+	uint8_t transfer_rate_dwordindex_200;//0xc8//gameState_D41A4.transfer_rate_dwordindex_200
 	uint8_t stubm[3];
-	uint8_t byteindex_204;//0xCC//x_D41A0_BYTEARRAY_4_struct.byteindex_204
-	uint8_t byteindex_205;//0xCD//x_D41A0_BYTEARRAY_4_struct.byteindex_205
-	uint8_t byteindex_206;//0xce//x_D41A0_BYTEARRAY_4_struct.byteindex_206
-	uint8_t byteindex_207;//0xcf//x_D41A0_BYTEARRAY_4_struct.byteindex_207
-	uint8_t byteindex_208;//0xd0//x_D41A0_BYTEARRAY_4_struct.byteindex_208
+	uint8_t textState_204;//0xCC//gameState_D41A4.byteindex_204
+	uint8_t pauseToggle_205;//0xCD//gameState_D41A4.byteindex_205
+	uint8_t pauseState_206;//0xce//gameState_D41A4.byteindex_206
+	uint8_t byteindex_207;//0xcf//gameState_D41A4.byteindex_207
+	uint8_t saveFileExists_208;//0xd0//gameState_D41A4.byteindex_208
 	uint8_t stubmm[1];
-	uint32_t byteindex_210d;//0xd2//x_D41A0_BYTEARRAY_4_struct.byteindex_210
+	uint32_t textDelay_210d;//0xd2//gameState_D41A4.byteindex_210
 	//uint8_t stubn[3];
-	uint16_t byteindex_214w;//0xd6//x_D41A0_BYTEARRAY_4_struct.byteindex_214
+	uint16_t textLineIndex_214w;//0xd6//gameState_D41A4.byteindex_214
 	//uint8_t stubo[1];
 	uint16_t isNetwork_216w;
 	//uint8_t stubp[1];
-	uint16_t byteindex_218w;//0xda//x_D41A0_BYTEARRAY_4_struct.byteindex_218
+	uint16_t byteindex_218w;//0xda//gameState_D41A4.byteindex_218
 	//uint8_t stubq[1];
 
-	uint8_t byteindex_220;//0xdc//x_D41A0_BYTEARRAY_4_struct.byteindex_220
-	uint8_t byteindex_221ar[3];//0xe0//x_D41A0_BYTEARRAY_4_struct.byteindex_221ar
-	uint8_t byteindex_224;//0xe0//x_D41A0_BYTEARRAY_4_struct.byteindex_224
-	uint8_t byteindex_225;//0xe1//x_D41A0_BYTEARRAY_4_struct.byteindex_225
-	uint8_t* pointer_0xE2_heapbuffer_226;//x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226
-	uint32_t dword_0xE6_heapsize_230;//x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230
+	uint8_t lastMouseX_220;//0xdc//gameState_D41A4.byteindex_220
+	uint8_t byteindex_221ar[3];//0xe0//gameState_D41A4.byteindex_221ar
+	uint8_t summonCount_224;//0xe0//gameState_D41A4.byteindex_224
+	uint8_t byteindex_225;//0xe1//gameState_D41A4.byteindex_225
+	uint8_t* pointer_0xE2_heapbuffer_226;//gameState_D41A4.pointer_0xE2_heapbuffer_226
+	uint32_t dword_0xE6_heapsize_230;//gameState_D41A4.dword_0xE6_heapsize_230
 	uint8_t stubr[8];
-	type_index_242ar str_index_242ar;//0xf2//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar
-	//uint8_t byteindex_246;//0xf6//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4]
-	//uint8_t byteindex_250;//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[8]
+	type_index_242ar manaStats_242ar;//0xf2//gameState_D41A4.byteindex_242ar
+	//uint8_t byteindex_246;//0xf6//gameState_D41A4.byteindex_242ar[4]
+	//uint8_t byteindex_250;//gameState_D41A4.byteindex_242ar[8]
 
-	type_str_0x2BDE byteindex_256ar;//0x100//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar
-	//280=byteindex_256ar[24];//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[24]
-	//565=byteindex_256ar[309];//0x235//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[309]
-	//1865=byteindex_256ar[1609];//0x749//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[1609]
+	type_str_0x2BDE savedPlayer_256ar;//0x100//gameState_D41A4.byteindex_256ar
+	//280=byteindex_256ar[24];//gameState_D41A4.byteindex_256ar[24]
+	//565=byteindex_256ar[309];//0x235//gameState_D41A4.byteindex_256ar[309]
+	//1865=byteindex_256ar[1609];//0x749//gameState_D41A4.byteindex_256ar[1609]
 	//end 2224
 
-	//uint8_t byteindex_2255ar[26];//0x100//x_D41A0_BYTEARRAY_4_struct.byteindex_2255ar
+	//uint8_t byteindex_2255ar[26];//0x100//gameState_D41A4.byteindex_2255ar
 	//type_2255ar str_2255ar;
 	//end 2281
 	//uint8_t stubs[9];
-	uint32_t dwordindex_2380;//0x94c//x_D41A0_BYTEARRAY_4_struct.dwordindex_2380
+	uint32_t dwordindex_2380;//0x94c//gameState_D41A4.dwordindex_2380
 	uint8_t stubt[4];
-	uint32_t dwordindex_2388;//0x954//x_D41A0_BYTEARRAY_4_struct.dwordindex_2388
-	uint32_t dwordindex_2392;//0x958//x_D41A0_BYTEARRAY_4_struct.dwordindex_2392
+	uint32_t timerStep_2388;//0x954//gameState_D41A4.dwordindex_2388
+	uint32_t timerAccumulator_2392;//0x958//gameState_D41A4.dwordindex_2392
 
-	//uint8_t byteindex_8618;//0x21aa//x_D41A0_BYTEARRAY_4_struct.byteindex_8618
+	//uint8_t byteindex_8618;//0x21aa//gameState_D41A4.byteindex_8618
 	//uint8_t setting_38545;
 	uint8_t stubu[36000];
-	type_entity_0x6E8E* dwordindex_38396;//0x95FC//x_D41A0_BYTEARRAY_4_struct.dwordindex_38396
-	uint8_t leftSpellPlayerIndex_38400;//0x9600//x_D41A0_BYTEARRAY_4_struct.leftSpellPlayerIndex_38400
-	uint8_t rightSpellPlayerIndex_38401;//0x9601//x_D41A0_BYTEARRAY_4_struct.rightSpellPlayerIndex_38401
+	type_entity_0x6E8E* nearestEntity_38396;//0x95FC//gameState_D41A4.dwordindex_38396
+	uint8_t leftSpellPlayerIndex_38400;//0x9600//gameState_D41A4.leftSpellPlayerIndex_38400
+	uint8_t rightSpellPlayerIndex_38401;//0x9601//gameState_D41A4.rightSpellPlayerIndex_38401
 
-	uint8_t setting_38402;//0x9602//x_D41A0_BYTEARRAY_4_struct.setting_38402
+	uint8_t setting_38402;//0x9602//gameState_D41A4.setting_38402
 
-	type_entity_0x6E8E* bytearray_38403x[29];//array 116//0x9603//x_D41A0_BYTEARRAY_4_struct.bytearray_38403
+	type_entity_0x6E8E* creatureLists_38403x[29];//array 116//0x9603//gameState_D41A4.bytearray_38403
 	/*
 	creatures
 		8-dead
 		69-dead
 	*/
-	//bytearray_38419=bytearray_38403[16]//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[16]
-	//bytearray_38439=bytearray_38403[36]//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[36]
-	//bytearray_38403[88]//uint32_t dword_38491;//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[88]
+	//bytearray_38419=bytearray_38403[16]//0x965b//gameState_D41A4.bytearray_38403[16]
+	//bytearray_38439=bytearray_38403[36]//0x965b//gameState_D41A4.bytearray_38403[36]
+	//bytearray_38403[88]//uint32_t dword_38491;//0x965b//gameState_D41A4.bytearray_38403[88]
 
-	//bytearray_38451=bytearray_38403[48]//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[48]
-	//bytearray_38455=bytearray_38403[52]//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[52]
+	//bytearray_38451=bytearray_38403[48]//0x965b//gameState_D41A4.bytearray_38403[48]
+	//bytearray_38455=bytearray_38403[52]//0x965b//gameState_D41A4.bytearray_38403[52]
 
-	//bytearray_38511=bytearray_38403[108]//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[108]
-	//bytearray_38515=bytearray_38403[112]//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[112]
+	//bytearray_38511=bytearray_38403[108]//0x965b//gameState_D41A4.bytearray_38403[108]
+	//bytearray_38515=bytearray_38403[112]//0x965b//gameState_D41A4.bytearray_38403[112]
 
-	//bytearray_38535=bytearray_38403[132]//0x965b//x_D41A0_BYTEARRAY_4_struct.bytearray_38403[132]
+	//bytearray_38535=bytearray_38403[132]//0x965b//gameState_D41A4.bytearray_38403[132]
 
 	//endarray - dword_38519
-	type_entity_0x6E8E* dword_38519;//0x9677//x_D41A0_BYTEARRAY_4_struct.dword_38519
+	type_entity_0x6E8E* class3List_38519;//0x9677//gameState_D41A4.dword_38519
 	/*
 	entite
 	8-dead
@@ -380,23 +380,23 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 		3-ballon
 	144-mana
 	*/
-	type_entity_0x6E8E* dword_38523;//0x967b//x_D41A0_BYTEARRAY_4_struct.dword_38523
-	type_entity_0x6E8E* dword_38527;//0x967F//x_D41A0_BYTEARRAY_4_struct.dword_38527
-	type_entity_0x6E8E* dword_38531;//0x9683//x_D41A0_BYTEARRAY_4_struct.dword_38531
-	type_entity_0x6E8E* dword_38535;//x_D41A0_BYTEARRAY_4_struct.dword_38535
+	type_entity_0x6E8E* manaSphereList_38523;//0x967b//gameState_D41A4.dword_38523
+	type_entity_0x6E8E* buildingList_38527;//0x967F//gameState_D41A4.dword_38527
+	type_entity_0x6E8E* projectileList_38531;//0x9683//gameState_D41A4.dword_38531
+	type_entity_0x6E8E* miscList_38535;//gameState_D41A4.dword_38535
 	uint8_t stubv[5];
-	uint8_t byte_38544;//x_D41A0_BYTEARRAY_4_struct.byte_38544
-	uint8_t setting_38545;//0x9691//x_D41A0_BYTEARRAY_4_struct.setting_38545
-	uint8_t SelectedMenuItem_38546;//0x9692//x_D41A0_BYTEARRAY_4_struct.byte_38546
+	uint8_t savedMenuState_38544;//gameState_D41A4.byte_38544
+	uint8_t setting_38545;//0x9691//gameState_D41A4.setting_38545
+	uint8_t SelectedMenuItem_38546;//0x9692//gameState_D41A4.byte_38546
 	uint8_t stubw[44];
-	uint8_t byte_38591;//0x96BF//x_D41A0_BYTEARRAY_4_struct.byte_38591
+	uint8_t volumeKeyHeld_38591;//0x96BF//gameState_D41A4.byte_38591
 
 	//uint32_t dword_616432;
 }type_x_D41A0_BYTEARRAY_4_struct;
 
 doublebyte doublebyte_conv(uint16_t a2);
 
-extern type_x_D41A0_BYTEARRAY_4_struct x_D41A0_BYTEARRAY_4_struct;
+extern type_x_D41A0_BYTEARRAY_4_struct gameState_D41A4;
 extern int16_t x_D41A0_WORDARRAY[];
 
 //extern uint32_t x_D41A0_BYTEARRAY_4_0xE6_heapsize;
@@ -406,11 +406,11 @@ extern int16_t x_D41A0_WORDARRAY[];
 
 //xx extern uint8_t* dword_E9C30[]; // weak
 
-extern bitmap_pos_struct_t* xy_DWORD_17DED4_spritestr;
-extern bitmap_pos_struct_t* xy_DWORD_17DEC0_spritestr;
-extern bitmap_pos_struct_t* xy_DWORD_17DEC8_spritestr;
+extern bitmap_pos_struct_t* menuSprites_17DED4;
+extern bitmap_pos_struct_t* fontSprites_17DEC0;
+extern bitmap_pos_struct_t* font2Sprites_17DEC8;
 
-extern bitmap_pos_struct_t* x_DWORD_D4188t_spritestr;
+extern bitmap_pos_struct_t* webSprites_D4188;
 
 /*extern x_DWORD x_DWORD_355208;//3551CE+3A DWORD
 extern x_BYTE x_BYTE_355234_hardisknumber;//harddrive//3551CE+66 BYTE
@@ -430,17 +430,17 @@ extern x_BYTE x_BYTE_355220;//Langcheck//3551CE+52 BYTE
 extern x_BYTE x_BYTE_355238;//aMusic2//3551CE+6a BYTE*/
 
 typedef struct {//lenght 30
-	int16_t word_0;//str_E2A74[].word_0
+	int16_t type_0;//str_E2A74[].word_0
 	std::array<int16_t, 5> axis_2; // 1=textIndex 3=lineX1, 4=lineY1
 	//int16_t axis_4[3];//?? str_E2A74[].axis_2[0]
 	//int16_t stuba;
-	type_entity_0x6E8E* dword_12;//str_E2A74[].dword_12
-	int32_t dword_16;
-	int32_t dword_20;//str_E2A74[].dword_20
-	int32_t dword_24;//str_E2A74[].dword_24
+	type_entity_0x6E8E* entity_12;//str_E2A74[].dword_12
+	int32_t counter_16;
+	int32_t countdown_20;//str_E2A74[].dword_20
+	int32_t interval_24;//str_E2A74[].dword_24
 	//int8_t byte_25;
-	int8_t byte_28;
-	int8_t byte_29;
+	int8_t resetStage_28;
+	int8_t stage_29;
 }
 type_str_E2A74;
 
@@ -700,36 +700,36 @@ struct {//0xb0 nebo spis 171(0xab)
 	//0x66
 	*/
 
-	int32_t dword_0x66;//66
+	int32_t helpItemCount_0x66;//66
 	int32_t dword_0x6a;//6a
-	int32_t dword_0x6e;//6e
-	int32_t dword_0x72;//72
-	int32_t dword_0x76;//76
-	int32_t dword_0x7a;//7a
+	int32_t blinkPeriod_0x6e;//6e
+	int32_t blinkCounter_0x72;//72
+	int32_t popupTimer_0x76;//76
+	int32_t popupTimeout_0x7a;//7a
 	int8_t stub[4];
-	int32_t dword_0x82;//82
+	int32_t randSeed_0x82;//82
 	int16_t Index_0x86;//86
-	int16_t word_0x88;//88
+	int16_t pendingHelpIndex_0x88;//88
 	type_uni_0x8a uni_0x8a;
 	//int32_t dword_0x8a;//8a
 	//int16_t array_0x8e[4];//8e //text lines
-	int16_t word_0x96;//96
-	int16_t word_0x98;//98
-	int16_t word_0x9a;//9A
-	int16_t word_0x9c;//9C
+	int16_t scoresPosX_0x96;//96
+	int16_t scoresPosY_0x98;//98
+	int16_t scoresBarX_0x9a;//9A
+	int16_t scoresBarY_0x9c;//9C
 	int8_t PopupStatusByte_0x9e;//9e
-	int8_t byte_0x9f;//9f
-	int8_t byte_0xa0;//a0
-	int8_t byte_0xa1;//a1
-	int8_t byte_0xa2;//a2
+	int8_t popupFlags_0x9f;//9f
+	int8_t lineCount_0xa0;//a0
+	int8_t highlightLine_0xa1;//a1
+	int8_t initialized_0xa2;//a2
 	int8_t drawTextType_0xa3;//a3
-	int8_t byte_0xa4;//a4
-	int8_t byte_0xa5;//a5
-	int8_t byte_0xa6;//a6
+	int8_t spellHelpStep_0xa4;//a4
+	int8_t lastSpellIndex_0xa5;//a5
+	int8_t lastSubSpellIndex_0xa6;//a6
 	int8_t showPlayerScores_0xa7;//a7
-	int8_t byte_0xa8;//a8 - wizard number
-	int8_t byte_0xa9;//a9
-	int8_t byte_0xaa;//aa
+	int8_t wizardNumber_0xa8;//a8 - wizard number
+	int8_t keyHelpItem_0xa9;//a9
+	int8_t pauseMenuItem_0xaa;//aa
 	//int8_t stubb[1];
 }
 typedef type_str_unk_1804B0ar;

@@ -19,7 +19,7 @@ int debugcounter_224959 = 0;
 void GenerateLevelMap_43830(Type_Level_2FECE* a2x)//224830
 {
 	rand2_17B4E0 = a2x->seed_0x2FEE5;
-	D41A0_0.rand_0x8 = a2x->seed_0x2FEE5;
+	world_D41A0.rand_0x8 = a2x->seed_0x2FEE5;
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
 	DecompressTerrainMapLevel_B5E70(rand2_17B4E0, a2x->offset_0x2FEE9, a2x->raise_0x2FEED, a2x->gnarl_0x2FEF1);
 
@@ -1165,14 +1165,14 @@ void GenerateCaveCeiling_43B40()//224b40
 		locHeight = mapHeightmap_11B4E0[index.word];
 		if (locHeight > MapBasicHeight_D41B7)
 			locHeight = MapBasicHeight_D41B7;
-		x_BYTE_14B4E0_second_heightmap[index.word] = MapBasicHeight_D41B7 - locHeight;
+		secondHeightmap_14B4E0[index.word] = MapBasicHeight_D41B7 - locHeight;
 		if (MapBasicHeight_D41B7 - locHeight > mapHeightmap_11B4E0[index.word])
 		{
 			mapAngle_13B4E0[index.word] &= 0xF7u;
 		}
 		else
 		{
-			x_BYTE_14B4E0_second_heightmap[index.word] = mapHeightmap_11B4E0[index.word] - 1;
+			secondHeightmap_14B4E0[index.word] = mapHeightmap_11B4E0[index.word] - 1;
 			mapAngle_13B4E0[index.word] |= 8;
 		}
 	}
@@ -1278,7 +1278,7 @@ void ComputeTerrainShading_44D00()//225d00
 		{
 			tempIndex._axis_2d.x = (tempIndex._axis_2d.x & 3) + 28;
 		}
-		if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+		if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 		{
 			mapShading_12B4E0[index.word] = (64 - tempIndex._axis_2d.x);
 		}
@@ -1552,23 +1552,23 @@ void RandomiseCeilingHeight_43BB0()//224bb0
 		if (!(mapAngle_13B4E0[i] & 8))
 		{
 			randSeed = 9377 * randSeed + 9439;
-			fuzzyHeight = randSeed % 7 - 3 + x_BYTE_14B4E0_second_heightmap[i];
+			fuzzyHeight = randSeed % 7 - 3 + secondHeightmap_14B4E0[i];
 			if (fuzzyHeight < 0)
 				fuzzyHeight = 0;
 			if (fuzzyHeight > 254)
 				fuzzyHeight = 254;
-			x_BYTE_14B4E0_second_heightmap[i] = fuzzyHeight;
+			secondHeightmap_14B4E0[i] = fuzzyHeight;
 		}
 	}
 	for (int i = 0; i < 256 * 256; i++)
 	{
-		if (x_BYTE_14B4E0_second_heightmap[i] > mapHeightmap_11B4E0[i])
+		if (secondHeightmap_14B4E0[i] > mapHeightmap_11B4E0[i])
 		{
 			mapAngle_13B4E0[i] &= 0xF7u;
 		}
 		else
 		{
-			x_BYTE_14B4E0_second_heightmap[i] = mapHeightmap_11B4E0[i] - 1;
+			secondHeightmap_14B4E0[i] = mapHeightmap_11B4E0[i] - 1;
 			mapAngle_13B4E0[i] |= 8;
 		}
 	}
@@ -1873,39 +1873,39 @@ void SetTileTerrainType_45DC0(uint8_t inType, uaxis_2d axis2d, uint8_t type2, ui
 		mapAngle_13B4E0[axis2d.word] |= 0x80;
 		if (isCaveLevel_D41B6)
 		{
-			if (x_BYTE_14B4E0_second_heightmap[axis2d.word] > mapHeightmap_11B4E0[axis2d.word])
+			if (secondHeightmap_14B4E0[axis2d.word] > mapHeightmap_11B4E0[axis2d.word])
 			{
 				mapAngle_13B4E0[axis2d.word] &= 0xF7;
 			}
 			else
 			{
 				mapAngle_13B4E0[axis2d.word] |= 8;
-				x_BYTE_14B4E0_second_heightmap[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
+				secondHeightmap_14B4E0[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
 			}
 			axis2d._axis_2d.x++;
-			if (x_BYTE_14B4E0_second_heightmap[axis2d.word] > mapHeightmap_11B4E0[axis2d.word])
+			if (secondHeightmap_14B4E0[axis2d.word] > mapHeightmap_11B4E0[axis2d.word])
 			{
 				mapAngle_13B4E0[axis2d.word] &= 0xF7u;
 			}
 			else
 			{
-				x_BYTE_14B4E0_second_heightmap[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
+				secondHeightmap_14B4E0[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
 				mapAngle_13B4E0[axis2d.word] |= 8;
 			}
 			axis2d._axis_2d.y++;
-			if (x_BYTE_14B4E0_second_heightmap[axis2d.word] > mapHeightmap_11B4E0[axis2d.word])
+			if (secondHeightmap_14B4E0[axis2d.word] > mapHeightmap_11B4E0[axis2d.word])
 			{
 				mapAngle_13B4E0[axis2d.word] &= 0xF7u;
 			}
 			else
 			{
-				x_BYTE_14B4E0_second_heightmap[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
+				secondHeightmap_14B4E0[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
 				mapAngle_13B4E0[axis2d.word] |= 8;
 			}
 			axis2d._axis_2d.x--;
-			if (x_BYTE_14B4E0_second_heightmap[axis2d.word] <= mapHeightmap_11B4E0[axis2d.word])
+			if (secondHeightmap_14B4E0[axis2d.word] <= mapHeightmap_11B4E0[axis2d.word])
 			{
-				x_BYTE_14B4E0_second_heightmap[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
+				secondHeightmap_14B4E0[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
 				mapAngle_13B4E0[axis2d.word] |= 8;
 				return;
 			}
@@ -2026,13 +2026,13 @@ void UpdateTerrainTiles_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
 				{
 					tempShad = (tempShad & 3) + 28;
 				}
-				if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+				if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 					mapShading_12B4E0[tempAxis.word] = 32 - tempShad + 32;
 				else
 					mapShading_12B4E0[tempAxis.word] = tempShad;
-				if (isCaveLevel_D41B6 && (x_BYTE_14B4E0_second_heightmap[tempAxis.word] <= mapHeightmap_11B4E0[tempAxis.word]))
+				if (isCaveLevel_D41B6 && (secondHeightmap_14B4E0[tempAxis.word] <= mapHeightmap_11B4E0[tempAxis.word]))
 				{
-					x_BYTE_14B4E0_second_heightmap[tempAxis.word] = mapHeightmap_11B4E0[tempAxis.word] - 1;
+					secondHeightmap_14B4E0[tempAxis.word] = mapHeightmap_11B4E0[tempAxis.word] - 1;
 					mapAngle_13B4E0[tempAxis.word] |= 8u;
 				}
 				else
@@ -2142,7 +2142,7 @@ uint32_t TerrainTileType_10590(char tileType)//1f1590
 }
 
 //----- (00010C40) --------------------------------------------------------
-int getTerrainAlt_10C40(axis_3d* axis3d)//1f1c40
+int GetTerrainAlt_10C40(axis_3d* axis3d)//1f1c40
 {
 	return GetTerrainAlt2_B5C60(axis3d->x, axis3d->y);
 }
@@ -2150,7 +2150,7 @@ int getTerrainAlt_10C40(axis_3d* axis3d)//1f1c40
 //----- (00011E70) --------------------------------------------------------
 bool IsTouchingCeiling_11E70(type_entity_0x6E8E* event, axis_3d* axis3d)//1f2e70
 {
-	return event->array_0x52_82.fov + getTerrainAlt_10C40(axis3d) + event->dword_0xA0_160x->word_160_0xc_12 > GetCeilingAlt_10C60(axis3d);
+	return event->params_0x52_82.fov + GetTerrainAlt_10C40(axis3d) + event->typeParams_0xA0_160x->minHeight_160_0xc_12 > GetCeilingAlt_10C60(axis3d);
 }
 
 //----- (00010C60) --------------------------------------------------------
@@ -2180,21 +2180,21 @@ int GetCeilingAlt2_B5D68(uint16_t inX, uint16_t inY)//296d68
 		if (tempInY._axis_2d.x > (tempInY._axis_2d.x + tempInX._axis_2d.x) % 256)
 		{
 			tempAxis._axis_2d.y++;
-			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point1 = secondHeightmap_14B4E0[tempAxis.word];
 			tempAxis._axis_2d.x++;
-			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point2 = secondHeightmap_14B4E0[tempAxis.word];
 			tempInY._axis_2d.x = 255 - tempInY._axis_2d.x;
 			tempAxis._axis_2d.y--;
-			finalComp = tempInY._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point2) + tempInX._axis_2d.x * (point2 - point1);
+			finalComp = tempInY._axis_2d.x * (secondHeightmap_14B4E0[tempAxis.word] - point2) + tempInX._axis_2d.x * (point2 - point1);
 		}
 		else
 		{
-			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point1 = secondHeightmap_14B4E0[tempAxis.word];
 			tempAxis._axis_2d.x++;
-			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point2 = secondHeightmap_14B4E0[tempAxis.word];
 			tempAxis._axis_2d.x--;
 			tempAxis._axis_2d.y++;
-			finalComp = tempInY._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point1) + tempInX._axis_2d.x * (point2 - point1);
+			finalComp = tempInY._axis_2d.x * (secondHeightmap_14B4E0[tempAxis.word] - point1) + tempInX._axis_2d.x * (point2 - point1);
 		}
 		result = (finalComp >> 3) + 32 * point1;
 	}
@@ -2202,19 +2202,19 @@ int GetCeilingAlt2_B5D68(uint16_t inX, uint16_t inY)//296d68
 	{
 		if (tempInX._axis_2d.x <= tempInY._axis_2d.x)
 		{
-			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point1 = secondHeightmap_14B4E0[tempAxis.word];
 			tempAxis._axis_2d.y++;
-			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point2 = secondHeightmap_14B4E0[tempAxis.word];
 			tempAxis._axis_2d.x++;
-			finalComp = tempInY._axis_2d.x * (point2 - point1) + tempInX._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point2);
+			finalComp = tempInY._axis_2d.x * (point2 - point1) + tempInX._axis_2d.x * (secondHeightmap_14B4E0[tempAxis.word] - point2);
 		}
 		else
 		{
-			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point1 = secondHeightmap_14B4E0[tempAxis.word];
 			tempAxis._axis_2d.x++;
-			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point2 = secondHeightmap_14B4E0[tempAxis.word];
 			tempAxis._axis_2d.y++;
-			finalComp = tempInY._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point2) + tempInX._axis_2d.x * (point2 - point1);
+			finalComp = tempInY._axis_2d.x * (secondHeightmap_14B4E0[tempAxis.word] - point2) + tempInX._axis_2d.x * (point2 - point1);
 		}
 		result = (finalComp >> 3) + 32 * point1;
 	}

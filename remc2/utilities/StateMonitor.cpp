@@ -171,30 +171,30 @@ void StateMonitor::RegisterChange(const string& key, const string& old_value, co
 
 void StateMonitor::MonitorD41A0() {
 #ifdef REMC2_CODE
-    // compare D41A0_0 with with last state if different, add to observed changes
+    // compare world_D41A0 with with last state if different, add to observed changes
 	// uint8_t stub0[4];
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x4);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, LevelIndex_0xc);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, NumberOfPlayers_0xe);
-	MONITOR_STRUCT_ARRAY_HEX(D41A0_0, array_0x10);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x2d);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x31);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x33);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x35); // entity counter(max 1000 entity changes per step)
-    MONITOR_STRUCT_ARRAY_HEX(D41A0_0, array_0x39);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, maptypeMusic_0x235);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x239);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x23a);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x23e);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x242);
-    //MONITOR_STRUCT_ARRAY_POINTERS(D41A0_0, pointers_0x246);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x11e6); // second entity counter
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, levelId_0x4);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, LevelIndex_0xc);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, NumberOfPlayers_0xe);
+	MONITOR_STRUCT_ARRAY_HEX(world_D41A0, modelCounters_0x10);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, dword_0x2d);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, volcanoEntity_0x31);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, volcanoFireEntity_0x33);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, freeEntityCount_0x35); // entity counter(max 1000 entity changes per step)
+    MONITOR_STRUCT_ARRAY_HEX(world_D41A0, usedTmaps_0x39);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, maptypeMusic_0x235);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, byte_0x239);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, dword_0x23a);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, dword_0x23e);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, dword_0x242);
+    //MONITOR_STRUCT_ARRAY_POINTERS(world_D41A0, pointers_0x246);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, freeEntityCount2_0x11e6); // second entity counter
 	// type_entity_0x6E8E* dword_0x11EA[1000];//??4586
 	// GameSettingsStruct_t m_GameSettings;
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x219A);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x219E);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x21A2);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x21A6);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, dword_0x219A);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, dword_0x219E);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, dword_0x21A2);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, dword_0x21A6);
 	// type_str_0x21AA str_0x21AA;
 	// type_str_0x21AE str_0x21AE;
 	// type_str_0x21B2 str_0x21B2;
@@ -208,113 +208,113 @@ void StateMonitor::MonitorD41A0() {
 	// type_entity_0x6E8E struct_0x6E8E[1000];//28302 a8*3e8
 	// Type_Level_2FECE terrain_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level
 	// type_str_0x364D2 str_0x364D2;//lenght 108
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x3653E);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36540);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36542);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36544);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36546);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36548);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x3654A);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, dragonCount1_0x3653E);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, dragonCount2_0x36540);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, cymmerianCount_0x36542);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, dragonCount3_0x36544);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, emuTargetDistance_0x36546);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, word_0x36548);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, buildingCheckEntity_0x3654A);
 	// type_str_3654C stages_0x3654C[8];//size 10 count 8
 	// type_str_3659C struct_0x3659C[8];//size 11 count 8 C-0 D-1 E-2 F-3
 	// type_str_0x3647Ac StageVars2_0x365F4[11];//8x11	//set 0x58 // end 0x3664c
 	// type_str_0x3664C str_0x3664C[50];// lenght 0x79e//39x50 (end-0x36dea)
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36DEA_fly_asistant);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36DEB_xx);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DEC_mousex);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DEE_mousey);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DF0_mousexx);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x36DF2);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, flyAssistant_0x36DEA);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, byte_0x36DEB_xx);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, lastMouseX_0x36DEC);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, lastMouseY_0x36DEE);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, mouseIdleCounter_0x36DF0);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, lightRandSeed_0x36DF2);
 	// type_str_160* dword_0x36DF6;//pointer
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DFA);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DFC);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DFE);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, countStageVars_0x36E00);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, stageIndex_0x36E01);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E02);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E03);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_counter_current_objective_box_0x36E04);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, activeLights_0x36DFA);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, switchOnceEntity_0x36DFC);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, switchChainEntity_0x36DFE);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, countStageVars_0x36E00);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, stageIndex_0x36E01);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, tempObjective_0x36E02);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, altSpawnMode_0x36E03);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, objectiveBoxCounter_0x36E04);
 	// uint8_t stub3k[6];
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E0B);
+    MONITOR_STRUCT_VARIABLE_HEX(world_D41A0, gameFlags_0x36E0B);
 	// uint8_t stubend[11];
 
-    // shallow copy of D41A0_0
-    m_last_states.D41A0_0 = D41A0_0;
+    // shallow copy of world_D41A0
+    m_last_states.world_D41A0 = world_D41A0;
 #endif //REMC2_CODE
 }
 
-extern type_x_DWORD_17DB70str x_DWORD_17DB70str;
+extern type_x_DWORD_17DB70str mapMenuState_17DB70;
 void StateMonitor::Monitor17DB70str() {
 #ifdef REMC2_CODE
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, time_17DB70);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB74);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB76_posx);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB78_posy);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, fill1);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, fill2);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB7E);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB80);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB82_shift_step);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB84);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB86);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB88);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB8A);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB8C);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_BYTE_17DB8E);
-    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_BYTE_17DB8F);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.diffX_0);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.diffY_1);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.absDiffX2_2);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.absDiffY2_3);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.maxX_4);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.maxY_5);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.beginX_6);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.beginY_7);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.secondAdd_8);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.field_9);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.stateX_10);
-	MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90.stateY_11);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, time_17DB70);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, portalAnimState_17DB74);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, posX_17DB76);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, posY_17DB78);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, fill1);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, fill2);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, portPosX_17DB7E);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, portPosY_17DB80);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, shiftStep_17DB82);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, portalPosX_17DB84);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, portalPosY_17DB86);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, portalActivated_17DB88);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, selectedLevel_17DB8A);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, targetLevel_17DB8C);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, levelChosen_17DB8E);
+    MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, mapState_17DB8F);
+	MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, anim_17DB90.diffX_0);
+	MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, anim_17DB90.diffY_1);
+	MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, anim_17DB90.absDiffX2_2);
+	MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, anim_17DB90.absDiffY2_3);
+	MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, anim_17DB90.maxX_4);
+	MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, anim_17DB90.maxY_5);
+	MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, anim_17DB90.beginX_6);
+	MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, anim_17DB90.beginY_7);
+	MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, anim_17DB90.secondAdd_8);
+	MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, anim_17DB90.secondAddY_9);
+	MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, anim_17DB90.stateX_10);
+	MONITOR_STRUCT_VARIABLE_HEX(mapMenuState_17DB70, anim_17DB90.stateY_11);
 
-    // shallow copy of x_DWORD_17DB70str
-    m_last_states.x_DWORD_17DB70str = x_DWORD_17DB70str;
+    // shallow copy of mapMenuState_17DB70
+    m_last_states.mapMenuState_17DB70 = mapMenuState_17DB70;
 #endif //REMC2_CODE
 }
 
-extern std::array<type_D4C52ar, 17> str_D4C48ar;
+extern std::array<type_D4C52ar, 17> entityTypeTables_D4C48;
 void StateMonitor::Monitor_str_D4C48ar() {
-    for (int i = 0; i < str_D4C48ar.size(); i++) {
+    for (int i = 0; i < entityTypeTables_D4C48.size(); i++) {
         bool different = 
-            m_last_states.str_D4C48ar[i].dword_0 != str_D4C48ar[i].dword_0 ||
-            m_last_states.str_D4C48ar[i].dword_4 != str_D4C48ar[i].dword_4 ||
-            m_last_states.str_D4C48ar[i].word_8 != str_D4C48ar[i].word_8 ||
-            m_last_states.str_D4C48ar[i].dword_10 != str_D4C48ar[i].dword_10 ||
-            m_last_states.str_D4C48ar[i].dword_14 != str_D4C48ar[i].dword_14;
+            m_last_states.entityTypeTables_D4C48[i].address_0 != entityTypeTables_D4C48[i].address_0 ||
+            m_last_states.entityTypeTables_D4C48[i].classIndex_4 != entityTypeTables_D4C48[i].classIndex_4 ||
+            m_last_states.entityTypeTables_D4C48[i].word_8 != entityTypeTables_D4C48[i].word_8 ||
+            m_last_states.entityTypeTables_D4C48[i].actions_10 != entityTypeTables_D4C48[i].actions_10 ||
+            m_last_states.entityTypeTables_D4C48[i].models_14 != entityTypeTables_D4C48[i].models_14;
         if (different) {
 #ifdef REMC2_CODE
             RegisterChange(
-                fmt::format("str_D4C48ar[{}]", i),
+                fmt::format("entityTypeTables_D4C48[{}]", i),
                 fmt::format("{:x} {:x} {:x} {:x} {:x}", 
-                    m_last_states.str_D4C48ar[i].dword_0, 
-                    m_last_states.str_D4C48ar[i].dword_4, 
-                    m_last_states.str_D4C48ar[i].word_8, 
-                    reinterpret_cast<std::uintptr_t>(m_last_states.str_D4C48ar[i].dword_10), 
-                    reinterpret_cast<std::uintptr_t>(m_last_states.str_D4C48ar[i].dword_14)),
+                    m_last_states.entityTypeTables_D4C48[i].address_0, 
+                    m_last_states.entityTypeTables_D4C48[i].classIndex_4, 
+                    m_last_states.entityTypeTables_D4C48[i].word_8, 
+                    reinterpret_cast<std::uintptr_t>(m_last_states.entityTypeTables_D4C48[i].actions_10), 
+                    reinterpret_cast<std::uintptr_t>(m_last_states.entityTypeTables_D4C48[i].models_14)),
                 fmt::format("{:x} {:x} {:x} {:x} {:x}", 
-                    str_D4C48ar[i].dword_0, 
-                    str_D4C48ar[i].dword_4, 
-                    str_D4C48ar[i].word_8, 
-                    reinterpret_cast<std::uintptr_t>(str_D4C48ar[i].dword_10), 
-                    reinterpret_cast<std::uintptr_t>(str_D4C48ar[i].dword_14))
+                    entityTypeTables_D4C48[i].address_0, 
+                    entityTypeTables_D4C48[i].classIndex_4, 
+                    entityTypeTables_D4C48[i].word_8, 
+                    reinterpret_cast<std::uintptr_t>(entityTypeTables_D4C48[i].actions_10), 
+                    reinterpret_cast<std::uintptr_t>(entityTypeTables_D4C48[i].models_14))
             );
 #endif //REMC2_CODE
         }
     }
 
-    // shallow copy of str_D4C48ar
-    m_last_states.str_D4C48ar = str_D4C48ar;
+    // shallow copy of entityTypeTables_D4C48
+    m_last_states.entityTypeTables_D4C48 = entityTypeTables_D4C48;
 }
 
 // TODO: check these 
-// - unk_17DBA8str
-// - x_DWORD_17DE28str
+// - mapHelpText_17DBA8
+// - levelDescription_17DE28
 // - all the type_D4C52ar2 in sub_main.cpp

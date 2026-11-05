@@ -2709,7 +2709,7 @@ MyNetworkLib::NetworkClass* locNetworkClass = nullptr;
 std::string                 IHaveNameStrP = "";
 
 // ---------------------------------------------------------------------------
-// simulateInterupt — called by setNetbios_75044() in Network.cpp
+// simulateInterupt — called by SetNetbios_75044() in Network.cpp
 // ---------------------------------------------------------------------------
 int lastnetworkname = 0;
 

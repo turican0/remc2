@@ -16,12 +16,12 @@ extern int16_t MOUSE_MAX_Y;
 #pragma pack(push, 1)
 typedef struct // size 16
 {
-	uint32_t unk_17DBA8; // weak 40
-	uint32_t unk_17DBAC; //1(+4)
+	uint32_t helpTextTime_17DBA8; // weak 40
+	uint32_t currentTime_17DBAC; //1(+4)
 	uint32_t unk_17DBB0; //2(+8)
-	uint16_t unk_17DBB4; //3(+12)
+	uint16_t helpTextIndex_17DBB4; //3(+12)
 	uint8_t x_BYTE_17DBB5; //(+14)
-	uint8_t x_BYTE_17DBB6; //(+15)
+	uint8_t helpMode_17DBB6; //(+15)
 } Type_unk_17DBA8str; //16
 #pragma pack(pop)
 
@@ -29,22 +29,22 @@ typedef struct // size 16
 typedef struct //lenght 56
 {
 	uint32_t time_17DB70; // weak
-	int16_t x_WORD_17DB74; // weak 4
-	int16_t unk_17DB76_posx; // weak 6
-	int16_t unk_17DB78_posy; // weak 8
+	int16_t portalAnimState_17DB74; // weak 4
+	int16_t posX_17DB76; // weak 6
+	int16_t posY_17DB78; // weak 8
 	int16_t fill1; // test 10
 	int16_t fill2; // test 12
-	int16_t unk_17DB7E; // weak 14
-	int16_t unk_17DB80; // weak 16
-	int16_t x_WORD_17DB82_shift_step; // weak 18
-	int16_t x_WORD_17DB84; // weak 20
-	int16_t x_WORD_17DB86; // weak 22
-	int16_t x_WORD_17DB88; // weak 24
-	int16_t x_WORD_17DB8A; // weak 26
-	int16_t x_WORD_17DB8C; // weak 28
-	int8_t x_BYTE_17DB8E; // weak 30
-	int8_t x_BYTE_17DB8F; // weak 31
-	type_animStruct unk_17DB90; // weak 32
+	int16_t portPosX_17DB7E; // weak 14
+	int16_t portPosY_17DB80; // weak 16
+	int16_t shiftStep_17DB82; // weak 18
+	int16_t portalPosX_17DB84; // weak 20
+	int16_t portalPosY_17DB86; // weak 22
+	int16_t portalActivated_17DB88; // weak 24
+	int16_t selectedLevel_17DB8A; // weak 26
+	int16_t targetLevel_17DB8C; // weak 28
+	int8_t levelChosen_17DB8E; // weak 30
+	int8_t mapState_17DB8F; // weak 31
+	type_animStruct anim_17DB90; // weak 32
 	//std::array<uint8_t, 6> unk_17DB92; // weak 32
 	//std::array<uint8_t, 16> fill3; // fill
 } type_x_DWORD_17DB70str;
@@ -53,11 +53,11 @@ typedef struct //lenght 56
 #pragma pack(push, 1)
 typedef struct //lenght 13
 {
-	int32_t time_17DE28; // weak x_DWORD_17DE28str
-	int32_t time2_17DE2C; // weak x_DWORD_17DE28str+4
-	int16_t x_WORD_17DE30_posx; // weak x_DWORD_17DE28str+8
-	int16_t x_WORD_17DE32_posy; // weak x_DWORD_17DE28str+10
-	int8_t DisplayLevelDescriptionText_17DE34; // weak x_DWORD_17DE28str+12
+	int32_t time_17DE28; // weak levelDescription_17DE28
+	int32_t time2_17DE2C; // weak levelDescription_17DE28+4
+	int16_t posX_17DE30; // weak levelDescription_17DE28+8
+	int16_t posY_17DE32; // weak levelDescription_17DE28+10
+	int8_t DisplayLevelDescriptionText_17DE34; // weak levelDescription_17DE28+12
 } Type_DWORD_17DE28str;
 #pragma pack(pop)
 
@@ -70,31 +70,31 @@ typedef struct {//lenght 69
 	uint8_t stub_7;//7
 	uint8_t stub_8;//8
 	uint8_t stub_9;//9
-	int16_t word_10;//10	
-	int8_t byte_12;//12
+	int16_t sample1_10;//10	
+	int8_t sample1PlayType_12;//12
 	uint8_t stub_13;//13
-	int16_t word_14;//14	
-	int8_t byte_16;//16
+	int16_t sample2_14;//14	
+	int8_t sample2PlayType_16;//16
 	uint8_t stub_17;//17
-	type_animStruct2 array_word_18;////18
-	int8_t byte_42;//42
-	int8_t byte_43;//43
-	uint8_t byte_44;//44
-	type_animStruct array_word_45;//45
+	type_animStruct2 anim_18;////18
+	int8_t animKind_42;//42
+	int8_t animState_43;//43
+	uint8_t portalIndex_44;//44
+	type_animStruct animObject_45;//45
 }
 type_WORD_E20A4;
 #pragma pack(pop)
 
 #pragma pack(push, 1)
 typedef struct {//lenght 24
-	uint32_t dword_0;
-	uint32_t dword_4;
-	uint32_t dword_8;
-	uint32_t dword_12;
-	uint16_t word_16;
-	uint16_t word_18;
-	uint16_t word_20;
-	uint16_t word_22;
+	uint32_t dataOffset_0;
+	uint32_t dataSize_4;
+	uint32_t paletteOffset_8;
+	uint32_t paletteSize_12;
+	uint16_t posX_16;
+	uint16_t posY_18;
+	uint16_t width_20;
+	uint16_t height_22;
 }
 type_E1BAC_0x3c4;
 #pragma pack(pop)
@@ -111,7 +111,7 @@ enum class MenuItem : int {
 
 #pragma pack(push, 1)
 typedef struct {//lenght 18
-	uint8_t byte_0;
+	uint8_t buttonId_0;
 	uint8_t stub[17];
 }
 type_BYTE_E25ED_0x;
@@ -119,11 +119,11 @@ type_BYTE_E25ED_0x;
 
 // from sub_main
 extern int8_t LoadLevelNumber_D419C;
-extern char x_BYTE_D41AD_skip_screen;
+extern char skipScreen_D41AD;
 extern const char* LevelsNames_D9204[61];
 extern char* off_DB558[];
 extern __int16 x_WORD_E131A;
-extern char x_BYTE_E1324;
+extern char menuSoundVolume_E1324;
 extern type_menuButtons_E1F84 mainMenuButtons_E1BAC[10];
 extern long lastTime_E208C;
 extern __int16 timeCounter_E2094;
@@ -132,41 +132,41 @@ extern char maxTimeCounter_E2097;
 extern type_x_BYTE_E25ED_db_str x_BYTE_E25ED_db_str[16];
 extern MenuItem nextMenu_E29D8;
 extern int16_t m_ExitMenuLoop_E29DC;
-extern char x_BYTE_E29DF_skip_screen;
-extern char x_BYTE_E29E0;
-extern uint8_t* pre_ptrMemoryBuffer_E9C3C;
-extern uint8_t x_BYTE_EB39E_keys[10];
+extern char selectedSession_E29DF;
+extern char langLoaded_E29E0;
+extern uint8_t* memoryBufferAlloc_E9C3C;
+extern uint8_t keys_EB39E[10];
 extern uint8_t uiBackGroundColorIdx_EB3A8;
 extern int32_t times_17DBB8[4];
-extern char x_BYTE_17DBC6;
-extern uint32_t x_DWORD_17DBC8x[125];
-extern uint32_t x_DWORD_17DDBCx[26];
+extern char mainMenuState_17DBC6;
+extern uint32_t levelScores_17DBC8[125];
+extern uint32_t secretLevelScores_17DDBC[26];
 extern char IsPlayingCDTrack_17E09D;
-extern int16_t x_WORD_1803EC;
+extern int16_t cdDrive_1803EC;
 extern uint8_t unk_180560x[44];
-extern type_unk_18058Cstr unk_18058Cstr;
+extern type_unk_18058Cstr inputState_18058C;
 
 extern int test_regression_level;
-extern Type_SoundEvent_E17CC str_E17CC_0[];
-extern bool map_not_moving_WORD_E29D6;
-extern Type_unk_17DBA8str unk_17DBA8str;
-extern type_x_DWORD_17DB70str x_DWORD_17DB70str;
-extern type_x_BYTE_E25ED_db_str x_BYTE_E26C8_str[];
+extern Type_SoundEvent_E17CC introSoundEvents_E17CC[];
+extern bool mapNotMoving_E29D6;
+extern Type_unk_17DBA8str mapHelpText_17DBA8;
+extern type_x_DWORD_17DB70str mapMenuState_17DB70;
+extern type_x_BYTE_E25ED_db_str mapAnimSprites_E26C8[];
 extern typeTextBoxtextBoxStr_E24BCx textBoxStr_E24F2[];
-extern Type_DWORD_17DE28str x_DWORD_17DE28str;
-extern type_WORD_E20A4 str_WORD_E20A4[];
+extern Type_DWORD_17DE28str levelDescription_17DE28;
+extern type_WORD_E20A4 dragonAnims_E20A4[];
 extern type_menuButtons_E1F84 mapMenuButtons_E23E0[];
 extern typeTextBoxtextBoxStr_E24BCx textBoxStr_E2516[];
-extern Type_SoundEvent_E17CC str_E17CC_0x160[];
+extern Type_SoundEvent_E17CC intro2SoundEvents_E192C[];
 extern int16_t x_WORD_17DE26;
-extern char x_BYTE_E29DE;
-extern char x_BYTE_E29E1;
+extern char initialMenuMode_E29DE;
+extern char directStart_E29E1;
 extern bool first_enter;
-extern int16_t x_WORD_17DBC4;
+extern int16_t mainMenuTextIndex_17DBC4;
 extern typeTextBoxtextBoxStr_E24BCx textBoxStr_E25DC[];
-extern type_BYTE_E25ED_0x str_BYTE_E25ED_0x[];
-extern type_x_BYTE_E25ED_2BB str_BYTE_E25ED_2BB[];
-extern type_E1BAC_0x3c4 str_E1BAC_0x2ec[];
+extern type_BYTE_E25ED_0x goldMenuItems_E25ED[];
+extern type_x_BYTE_E25ED_2BB keysDialogItems_E28A8[];
+extern type_E1BAC_0x3c4 colourMenuBackgrounds_E1E98[];
 
 // Result of the multiplayer game that has just finished, waiting to be shown.  It is set as
 // the level is torn down and displayed after the exit of the level

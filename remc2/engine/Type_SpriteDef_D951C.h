@@ -12,7 +12,7 @@ typedef struct {//lenght 14
 	uint16_t speed_6;//shift
 	uint16_t worldSize_8;
 	uint8_t lightingTableIdx_10;
-	int8_t byte_11;
+	int8_t levelSpriteGroup_11;
 	uint8_t kind_12;
 	uint8_t byte_13;
 }

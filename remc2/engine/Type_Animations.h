@@ -8,9 +8,9 @@
 
 #pragma pack (push,1)
 typedef struct {//lenght 28
-	int32_t dword_0;
+	int32_t active_0;
 	Type_Sprite* Sprite_4;
-	int32_t dword_8;
+	int32_t frameOffset_8;
 	int16_t word_12;
 	uint16_t NextFrameOffset_14;
 	int16_t CountOfFrames_16;
@@ -18,13 +18,13 @@ typedef struct {//lenght 28
 	int16_t Height_20;//height
 	int16_t FrameIndex_22;//anim frame index
 	int16_t word_24;
-	int16_t word_26;
+	int16_t spriteIndex_26;
 }
 type_animations1;
 
 typedef struct {//lenght 6
-	int16_t word_0;
-	type_animations1* dword_2;
+	int16_t count_0;
+	type_animations1* animations_2;
 }
 type_E9C08;
 #pragma pack (pop)

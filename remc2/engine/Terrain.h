@@ -60,7 +60,7 @@ void UpdateTerrainTiles_462A0(uaxis_2d a1x, uaxis_2d a2x);
 signed int GetTileAngleBit_104A0(axis_3d* a1);
 uint32_t TerrainTileIsWater_104D0(axis_3d* a1);
 uint32_t TerrainTileType_10590(char a1);
-int getTerrainAlt_10C40(axis_3d* a1);
+int GetTerrainAlt_10C40(axis_3d* a1);
 bool IsTouchingCeiling_11E70(type_entity_0x6E8E* a1, axis_3d* a2);
 int GetCeilingAlt_10C60(axis_3d* a1);
 int GetCeilingAlt2_B5D68(uint16_t a1, uint16_t a2);

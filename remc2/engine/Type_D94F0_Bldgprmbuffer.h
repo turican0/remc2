@@ -5,6 +5,6 @@
 
 #include "stdint.h"
 
-extern uint8_t str_D94F0_bldgprmbuffer[3][5];
+extern uint8_t frameColors_D94F0[3][5];
 
 #endif //TYPE_D94F0_BLDGPRMBUFFER_H

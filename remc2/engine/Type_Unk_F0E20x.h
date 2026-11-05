@@ -7,9 +7,9 @@
 
 #pragma pack (push,1)
 typedef struct {//lenght 12
-	int32_t dword_0;
-	int32_t dword_1;
-	int32_t dword_2;
+	int32_t destDelta_0;
+	int32_t destOffset_1;
+	int32_t lineIndex_2;
 }type_unk_F0E20x;
 #pragma pack (pop)
 

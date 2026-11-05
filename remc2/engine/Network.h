@@ -49,7 +49,7 @@ extern bool Iam_client;
 extern int NetworkPort;
 extern int ServerPort;
 extern char serverIP[256];
-extern uint8_t x_BYTE_E131C[8];
+extern uint8_t netWizardTypes_E131C[8];
 extern uint8_t connected_E12A6;
 
 void NetworkDisallocation_72D04();
@@ -70,7 +70,7 @@ void NetworkCanceling_73669(__int16 a1);
 void NetworkLeaveSession();
 void NetworkEvent_7373D(int16_t a1);
 void NetworkRemoveClient_739AD(__int16 a1);
-void NetworkSomeChange_73AA1(__int16 a1);
+void NetworkPeerLeft_73AA1(__int16 a1);
 void NetworkEnd_73D11(__int16 a1);
 void NetworkSendMessage2_74006(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
 void NetworkReceiveMessage2_7404E(unsigned __int16 a1, uint8_t* a2, unsigned int a3);
@@ -93,7 +93,7 @@ int NetworkSendPacket_74E6D(myNCB* a1x, uint8_t* a2, int a3);
 void NetworkSendMessage_74EF1(myNCB* a1x, uint8_t* inbuffer, unsigned int size);
 void NetworkUpdateConnections_74F76();
 signed int NetworkGetState_74FE1(__int16 clientIndex);
-int setNetbios_75044(myNCB* a1x);
+int SetNetbios_75044(myNCB* a1x);
 void WaitToConnect_7C230(/*int a1,*/ /*int a2*//*, signed __int16* a3*/);
 
 bool SetMultiplayerColors_7CE50();

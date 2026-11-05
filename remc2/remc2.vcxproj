@@ -158,7 +158,10 @@
   </PropertyGroup>
   <PropertyGroup Label="Shaders">
     <GlslcExe Condition="'$(VULKAN_SDK)' != ''">$(VULKAN_SDK)\Bin\glslc.exe</GlslcExe>
-    <GlslcExe Condition="'$(GlslcExe)' == ''">glslc.exe</GlslcExe>
+    <!-- without the Vulkan SDK use glslc from the vcpkg host dependency shaderc -->
+    <GlslcTriplet Condition="'$(Platform)' == 'Win32'">x86-windows</GlslcTriplet>
+    <GlslcTriplet Condition="'$(GlslcTriplet)' == ''">$(Platform.ToLower())-windows</GlslcTriplet>
+    <GlslcExe Condition="'$(GlslcExe)' == ''">$(MSBuildProjectDirectory)\vcpkg_installed\$(GlslcTriplet)\x64-windows\tools\shaderc\glslc.exe</GlslcExe>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnableManifest>true</VcpkgEnableManifest>
@@ -648,4 +651,6 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
+  <!-- vcpkg installs before ClCompile, the shaders need glslc already in CustomBuild -->
+  <Target Name="VcpkgInstallBeforeShaders" BeforeTargets="CustomBuild" DependsOnTargets="VcpkgInstallManifestDependencies" Condition="'$(VULKAN_SDK)' == ''" />
 </Project>

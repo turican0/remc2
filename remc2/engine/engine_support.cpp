@@ -168,7 +168,7 @@ int32_t x_DWORD_D41A4_x9692 = -1;*/
 
 //int32_t x2124_x_DWORD_D41A4_xCx_x_DWORD_D41A0_11234 = 0;
 
-//uint8_t* x_DWORD_E9C38_smalltit; // weak
+//uint8_t* smalltitBuffer_E9C38; // weak
 
 //int32_t x_DWORD_D41A4 = -1;
 
@@ -182,7 +182,7 @@ int32_t x_DWORD_D41A4_x9692 = -1;*/
 
 //uint8_t* x_D41A0_BYTEARRAY_4;
 
-type_x_D41A0_BYTEARRAY_4_struct x_D41A0_BYTEARRAY_4_struct;
+type_x_D41A0_BYTEARRAY_4_struct gameState_D41A4;
 
 int16_t x_D41A0_WORDARRAY[10000];
 
@@ -598,7 +598,7 @@ static const std::vector<FieldRange>& field_table()
 
 #define BASE(field)   offsetof(S, field)
 #define BDEBASE(i,f)  (offsetof(S,array_0x2BDE) + (i)*sizeof(BDE) + offsetof(BDE,f))
-#define S164BASE(i,f) (offsetof(S,array_0x2BDE) + (i)*sizeof(BDE) + offsetof(BDE,dword_0x3E6_2BE4_12228) + offsetof(S164,f))
+#define S164BASE(i,f) (offsetof(S,array_0x2BDE) + (i)*sizeof(BDE) + offsetof(BDE,playerData_0x3E6_2BE4_12228) + offsetof(S164,f))
 #define S611BASE(i,f) (S164BASE(i,str_611) + offsetof(S611,f))
 #define ENTBASE(i,f)  (offsetof(S,struct_0x6E8E) + (i)*sizeof(ENT) + offsetof(ENT,f))
 #define LEVBASE(f)    (offsetof(S,str_2FECE) + offsetof(LEV,f))
@@ -642,10 +642,10 @@ static const std::vector<FieldRange>& field_table()
 	GS(m_Graphics.m_wSky, 1);         GS(m_Graphics.m_wViewPortSize, 1);
 	GS(m_Display.m_wMiniMap, 1);      GS(m_Display.m_wTopBar, 1);
 	GS(m_Display.m_uiScreenSize, 1);  GS(m_Display.xxxx_0x2191, 1);
-	GS(str_0x2192.xxxx_0x2192, 1);    GS(str_0x2192.xxxx_0x2193, 1);
-	GS(str_0x2192.m_wResolution, 1);  GS(str_0x2192.shadows_0x2195, 1);
-	GS(str_0x2196.m_wDynamicLighting, 1); GS(str_0x2196.setting_0x2197, 1);
-	GS(str_0x2196.transparency_0x2198, 1); GS(str_0x2196.flat_0x2199, 1);
+	GS(graphics_0x2192.xxxx_0x2192, 1);    GS(graphics_0x2192.xxxx_0x2193, 1);
+	GS(graphics_0x2192.m_wResolution, 1);  GS(graphics_0x2192.shadows_0x2195, 1);
+	GS(display_0x2196.m_wDynamicLighting, 1); GS(display_0x2196.setting_0x2197, 1);
+	GS(display_0x2196.transparency_0x2198, 1); GS(display_0x2196.flat_0x2199, 1);
 #undef GS
 
 	tbl.push_back({ BASE(dword_0x219A),4,"dword_0x219A",0 });
@@ -691,12 +691,12 @@ static const std::vector<FieldRange>& field_table()
     snprintf(nm,sizeof(nm),"array_0x2BDE[%d]." #f, i); \
     tbl.push_back({BDEBASE(i,f), sz, strdup(nm), 0}); \
 } while(0)
-		BDESC(dw_w_b_0_2BDE_11230, 4);
-		BDESC(byte_0x004_2BE0_11234, 1); BDESC(ShowDebugTextFlag_0x005_2BE0_11235, 1);
-		BDESC(byte_0x006_2BE4_11236, 1); BDESC(word_0x007_2BE4_11237, 2);
+		BDESC(stateFlags_0_2BDE_11230, 4);
+		BDESC(syncReady_0x004_2BE0_11234, 1); BDESC(ShowDebugTextFlag_0x005_2BE0_11235, 1);
+		BDESC(playerActive_0x006_2BE4_11236, 1); BDESC(playerSlot_0x007_2BE4_11237, 2);
 		BDESC(IsAiPlayer_0x009_2BE4_11239, 1); BDESC(playerIndex_0x00a_2BE4_11240, 2);
 		BDESC(byte_0x00c_2BE0_11242_xx, 1); BDESC(byte_0x00d_2BE0_11243_xx, 1);
-		BDESC(ActPlayerIndex_0x00e_2BDE_11244, 2); BDESC(word_0x010_2BDE_11246, 2);
+		BDESC(ActPlayerIndex_0x00e_2BDE_11244, 2); BDESC(positionCount_0x010_2BDE_11246, 2);
 		BDESC(Turn_2BE0_11248, 4); BDESC(byte_0x016_2BE0_11252_xx, 1);
 		BDESC(byte_0x017_2BE0_11253_xx, 1); BDESC(dword_0x018_2BDE_11254, 4);
 
@@ -705,7 +705,7 @@ static const std::vector<FieldRange>& field_table()
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].CurrentNotificationText_0x01c_2BFA_11258[%d]", i, k);
 			tbl.push_back({ BDEBASE(i,CurrentNotificationText_0x01c_2BFA_11258) + k,1,strdup(nm),0 });
 		}
-		BDESC(CurrentNotificationDuration_0x04d_2C2B_11307, 2); BDESC(word_0x04f_2C2D_11309, 2);
+		BDESC(CurrentNotificationDuration_0x04d_2C2B_11307, 2); BDESC(endState_0x04f_2C2D_11309, 2);
 
 		// names_81[8][48]
 		for (int r = 0; r < 8; r++) for (int c = 0; c < 48; c++) {
@@ -715,7 +715,7 @@ static const std::vector<FieldRange>& field_table()
 
 		// struct_0x1d1_2BDE_11695[33]
 		for (int j = 0; j < 33; j++) {
-			size_t jb = BDEBASE(i, struct_0x1d1_2BDE_11695) + j * sizeof(type_struct_0x1d1_2BDE_11695);
+			size_t jb = BDEBASE(i, positions_0x1d1_2BDE_11695) + j * sizeof(type_struct_0x1d1_2BDE_11695);
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].struct_0x1d1_2BDE_11695[%d].axis_2BDE_11695.x", i, j); tbl.push_back({ jb + offsetof(type_struct_0x1d1_2BDE_11695,axis_2BDE_11695) + 0,2,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].struct_0x1d1_2BDE_11695[%d].axis_2BDE_11695.y", i, j); tbl.push_back({ jb + offsetof(type_struct_0x1d1_2BDE_11695,axis_2BDE_11695) + 2,2,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].struct_0x1d1_2BDE_11695[%d].axis_2BDE_11695.z", i, j); tbl.push_back({ jb + offsetof(type_struct_0x1d1_2BDE_11695,axis_2BDE_11695) + 4,2,strdup(nm),0 });
@@ -730,9 +730,9 @@ static const std::vector<FieldRange>& field_table()
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].WizardName_0x39f_2BFA_12157[%d]", i, k);
 			tbl.push_back({ BDEBASE(i,WizardName_0x39f_2BFA_12157) + k,1,strdup(nm),0 });
 		}
-		BDESC(MenuState_0x3DF_2BE4_12221, 1); BDESC(byte_0x3E0_2BE4_12222, 1);
-		BDESC(byte_0x3E1_2BE4_12223, 1);      BDESC(byte_0x3E2_2BE4_12224, 1);
-		BDESC(byte_0x3E3_2BE4_12225, 1);      BDESC(byte_0x3E4_2BE4_12226, 1);
+		BDESC(MenuState_0x3DF_2BE4_12221, 1); BDESC(chatLineIndex_0x3E0_2BE4_12222, 1);
+		BDESC(chatState_0x3E1_2BE4_12223, 1);      BDESC(chatLength_0x3E2_2BE4_12224, 1);
+		BDESC(chatRecipients_0x3E3_2BE4_12225, 1);      BDESC(secretCounter_0x3E4_2BE4_12226, 1);
 		snprintf(nm, sizeof(nm), "array_0x2BDE[%d].stub3[0]", i);
 		tbl.push_back({ BDEBASE(i,stub3),1,strdup(nm),0 });
 
@@ -742,61 +742,61 @@ static const std::vector<FieldRange>& field_table()
     tbl.push_back({S164BASE(i,f), sz, strdup(nm), 0}); \
 } while(0)
 		S164SC(entityIndex_0x0, 4); S164SC(rollDelta_0x4_4, 2); S164SC(pitchDelta_0x6_6, 2);
-		S164SC(speed_0xc_12, 2); S164SC(word_0xe_14, 2); S164SC(strafeSpeed_0x10_16, 2);
+		S164SC(speed_0xc_12, 2); S164SC(castLock_0xe_14, 2); S164SC(strafeSpeed_0x10_16, 2);
 		S164SC(position_backup_20.x, 2); S164SC(position_backup_20.y, 2);
 		S164SC(nextEntity_0x18_24, 2); S164SC(entityIndex2_0x1A_26, 2);
 		S164SC(moveBoost_0x1E_30, 2); S164SC(yaw_0x1E_30, 2);
 		S164SC(fov_0x22_34, 2); S164SC(pitch_0x24_36, 2);
 		for (int k = 0; k < 8; k++) {
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.word_0x26_38[%d]", i, k);
-			tbl.push_back({ S164BASE(i,word_0x26_38) + k * 2,2,strdup(nm),0 });
+			tbl.push_back({ S164BASE(i,kills_0x26_38) + k * 2,2,strdup(nm),0 });
 		}
-		S164SC(word_0x36_54, 2); S164SC(playerColorIndex_0x38_56, 2); S164SC(CastleEntityIndex_0x3A_58, 2);
+		S164SC(hitTimer_0x36_54, 2); S164SC(playerColorIndex_0x38_56, 2); S164SC(CastleEntityIndex_0x3A_58, 2);
 		for (int k = 0; k < 16; k++) {
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.array_0x3C_60[%d]", i, k);
-			tbl.push_back({ S164BASE(i,array_0x3C_60) + k * 2,2,strdup(nm),0 });
+			tbl.push_back({ S164BASE(i,balloons_0x3C_60) + k * 2,2,strdup(nm),0 });
 		}
 		for (int k = 0; k < 103; k++) {
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.array_0x5C_92[%d]", i, k);
-			tbl.push_back({ S164BASE(i,array_0x5C_92) + k * 2,2,strdup(nm),0 });
+			tbl.push_back({ S164BASE(i,castleParts_0x5C_92) + k * 2,2,strdup(nm),0 });
 		}
-		S164SC(dword_0x12A_298, 4); S164SC(dword_0x12E_302, 4); S164SC(dword_0x13C_316, 4);
-		S164SC(dword_0x142_322, 4); S164SC(word_0x146_326, 2); S164SC(word_0x148_328, 2);
-		S164SC(word_0x14A_330, 2); S164SC(moveSpeed_0x14C_332, 1); S164SC(moveSpeedCounter_0x14D_333, 1);
+		S164SC(castleMaxManaSum_0x12A_298, 4); S164SC(castleManaSum_0x12E_302, 4); S164SC(extraMana_0x13C_316, 4);
+		S164SC(targetDistance_0x142_322, 4); S164SC(mountId_0x146_326, 2); S164SC(word_0x148_328, 2);
+		S164SC(duelLevel_0x14A_330, 2); S164SC(moveSpeed_0x14C_332, 1); S164SC(moveSpeedCounter_0x14D_333, 1);
 		S164SC(mobilizeCounter_0x14E_334, 1); S164SC(mobilizeCounter2_0x150_336, 1);
-		S164SC(byte_0x150_336, 4); S164SC(byte_0x154_340, 1);
-		S164SC(roll_0x155_341, 2); S164SC(pitch_0x157_343, 2); S164SC(word_0x159_345, 2);
+		S164SC(maxMana_0x150_336, 4); S164SC(chargeTime_0x154_340, 1);
+		S164SC(roll_0x155_341, 2); S164SC(pitch_0x157_343, 2); S164SC(invulnerableTimer_0x159_345, 2);
 		for (int k = 0; k < 8; k++) {
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.array_0x15B_347[%d]", i, k);
 			tbl.push_back({ S164BASE(i,array_0x15B_347) + k,1,strdup(nm),0 });
 		}
-		S164SC(lifeRegen_0x163_355, 2); S164SC(dword_0x165_357, 4); S164SC(dword_0x169_361, 4);
-		S164SC(dword_0x16D_365, 4); S164SC(creaturesKilledPercent_373, 4);
+		S164SC(lifeRegen_0x163_355, 2); S164SC(shotsFired_0x165_357, 4); S164SC(shotsHit_0x169_361, 4);
+		S164SC(startTimer_0x16D_365, 4); S164SC(creaturesKilledPercent_373, 4);
 		S164SC(spellsCollectedPercent_377, 4); S164SC(hitAccuracyPercent_381, 4);
 		S164SC(manaCollectedPercent_385, 4); S164SC(dword_0x185_389, 4);
 		S164SC(time_393, 4); S164SC(dword_0x18D_397, 4);
-		S164SC(byte_0x195_405, 1); S164SC(PlayerHitFrameTime_406, 1); S164SC(byte_0x197_407, 1);
-		S164SC(dword_0x19A_410, 4); S164SC(maxDistance_0x19E_414, 4);
-		S164SC(word_0x1A2_418, 2); S164SC(word_0x1A4_420, 2);
+		S164SC(castleDestroyedBlink_0x195_405, 1); S164SC(PlayerHitFrameTime_406, 1); S164SC(castleDamagedBlink_0x197_407, 1);
+		S164SC(screenShake_0x19A_410, 4); S164SC(maxDistance_0x19E_414, 4);
+		S164SC(aiReactionDelay_0x1A2_418, 2); S164SC(word_0x1A4_420, 2);
 		S164SC(xAdd_0x1A6_422, 2); S164SC(yAdd_0x1A8_424, 2); S164SC(zAdd_0x1AA_426, 2);
-		S164SC(str_0x1AC_428.word_0, 2);
+		S164SC(objectiveTargets_0x1AC_428.word_0, 2);
 		for (int k = 0; k < 8; k++) {
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_0x1AC_428.word_2BDE_12658[%d]", i, k);
-			tbl.push_back({ S164BASE(i,str_0x1AC_428.word_2BDE_12658) + k * 2,2,strdup(nm),0 });
+			tbl.push_back({ S164BASE(i,objectiveTargets_0x1AC_428.completedTargets_2BDE_12658) + k * 2,2,strdup(nm),0 });
 		}
-		S164SC(byte_0x1BE_446, 1); S164SC(byte_0x1BF_447, 1); S164SC(byte_0x1C0_448, 1);
-		S164SC(byte_0x1C1_449, 1); S164SC(word_0x1C2_450, 2);
+		S164SC(castleBuilding_0x1BE_446, 1); S164SC(invisibleTime_0x1BF_447, 1); S164SC(wizardType_0x1C0_448, 1);
+		S164SC(aiState_0x1C1_449, 1); S164SC(word_0x1C2_450, 2);
 		for (int k = 0; k < 32; k++) {
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.array_0x1FC_508[%d]", i, k);
-			tbl.push_back({ S164BASE(i,array_0x1FC_508) + k * 2,2,strdup(nm),0 });
+			tbl.push_back({ S164BASE(i,aiTargets_0x1FC_508) + k * 2,2,strdup(nm),0 });
 		}
-		S164SC(word_0x242_578, 2); S164SC(word_0x244_580, 2); S164SC(word_0x246_582, 2);
-		S164SC(word_0x248_584, 2); S164SC(word_0x24A_586, 2); S164SC(word_0x24C_588, 2);
+		S164SC(aiAggression_0x242_578, 2); S164SC(aiPerception_0x244_580, 2); S164SC(aiReflexes_0x246_582, 2);
+		S164SC(attackedTimer_0x248_584, 2); S164SC(lifeScale_0x24A_586, 2); S164SC(word_0x24C_588, 2);
 		for (int k = 0; k < 19; k++) {
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.array_0x24E_590[%d]", i, k);
-			tbl.push_back({ S164BASE(i,array_0x24E_590) + k,1,strdup(nm),0 });
+			tbl.push_back({ S164BASE(i,castleSpells_0x24E_590) + k,1,strdup(nm),0 });
 		}
-		S164SC(byte_0x261_609, 1); S164SC(waterCounter_0x262_610, 1);
+		S164SC(nearCeiling_0x261_609, 1); S164SC(waterCounter_0x262_610, 1);
 
 		// str_611
 #define S611SC(f,sz) do { \
@@ -811,33 +811,33 @@ static const std::vector<FieldRange>& field_table()
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x333_819x.SpellEnabled[%d]", i, k);
 			tbl.push_back({ S611BASE(i,SpellsEnabled_0x333_819x) + k * 2,2,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x367_871x.SpellEnabled[%d]", i, k);
-			tbl.push_back({ S611BASE(i,array_0x367_871x) + k * 2,2,strdup(nm),0 });
+			tbl.push_back({ S611BASE(i,spellCooldowns_0x367_871x) + k * 2,2,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x39B_923x.SpellIndex[%d]", i, k);
 			tbl.push_back({ S611BASE(i,SpellIndexes_0x39B_923x) + k,1,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x3B5_949x.SpellIndex[%d]", i, k);
-			tbl.push_back({ S611BASE(i,array_0x3B5_949x) + k,1,strdup(nm),0 });
+			tbl.push_back({ S611BASE(i,spellSlotTypes_0x3B5_949x) + k,1,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x3CF_975x.SpellIndex[%d]", i, k);
-			tbl.push_back({ S611BASE(i,array_0x3CF_975x) + k,1,strdup(nm),0 });
+			tbl.push_back({ S611BASE(i,blockedSpells_0x3CF_975x) + k,1,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x.SpellIndex[%d]", i, k);
-			tbl.push_back({ S611BASE(i,array_0x3E9_1001x) + k,1,strdup(nm),0 });
+			tbl.push_back({ S611BASE(i,availableSpells_0x3E9_1001x) + k,1,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x403_1027x.SpellIndex[%d]", i, k);
-			tbl.push_back({ S611BASE(i,array_0x403_1027x) + k,1,strdup(nm),0 });
+			tbl.push_back({ S611BASE(i,pickedUpSpells_0x403_1027x) + k,1,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x41D_1053z.SpellIndex[%d]", i, k);
 			tbl.push_back({ S611BASE(i,SpellLevels_0x41D_1053z) + k,1,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "array_0x2BDE[%d].dword_0x3E6_2BE4_12228.str_611.array_0x437_1079x.SpellIndex[%d]", i, k);
-			tbl.push_back({ S611BASE(i,array_0x437_1079x) + k,1,strdup(nm),0 });
+			tbl.push_back({ S611BASE(i,selectedSubSpells_0x437_1079x) + k,1,strdup(nm),0 });
 		}
 		S611SC(SpellIndexLeft_0x451_1105, 2); S611SC(SpellIndexRight_0x453_1107, 2);
 		S611SC(SubSpellIndexLeft_1109, 1);    S611SC(SubSpellIndexRight_1110, 1);
-		S611SC(byte_0x457_1111, 1); S611SC(spellIndex_0x458_1112, 1);
+		S611SC(selectSpellType_0x457_1111, 1); S611SC(spellIndex_0x458_1112, 1);
 		S611SC(subSpellIndex_0x459_1113, 1); S611SC(byte_0x45A_1114, 1); S611SC(byte_0x45B_1115, 1);
 #undef S611SC
-		S164SC(str_611_byte_0x45C_1116, 1); S164SC(str_611_byte_0x45D_1117, 1);
-		S164SC(str_611_byte_0x45E_1118, 1); S164SC(str_611_byte_0x45E_1119, 1);
+		S164SC(aiCombatMode_0x45C_1116, 1); S164SC(aiCombatCounter_0x45D_1117, 1);
+		S164SC(aiSteerCounter_0x45E_1118, 1); S164SC(aiLavaDirection_0x45E_1119, 1);
 #undef S164SC
 
-		BDESC(byte_0x846_2BDE, 1); BDESC(byte_0x847_2BDE, 1);
-		BDESC(word_0x848_2BDE, 2); BDESC(word_0x84A_2BDE, 2);
+		BDESC(rollState_0x846_2BDE, 1); BDESC(rollDirection_0x847_2BDE, 1);
+		BDESC(rollAngle_0x848_2BDE, 2); BDESC(rollSpeed_0x84A_2BDE, 2);
 #undef BDESC
 	}
 
@@ -845,7 +845,7 @@ static const std::vector<FieldRange>& field_table()
 	for (int i = 0; i < 8; i++) {
 		char nm[128];
 #define PISC(f,sz) do { snprintf(nm,sizeof(nm),"playerInputs_0x6E3E[%d]." #f,i); tbl.push_back({PIBASE(i,f),sz,strdup(nm),0}); } while(0)
-		PISC(PlayerAction_byte0, 1); PISC(str_0x6E3E_byte1, 1); PISC(str_0x6E3E_byte2, 1);
+		PISC(PlayerAction_byte0, 1); PISC(param1_0x6E3E_byte1, 1); PISC(param2_0x6E3E_byte2, 1);
 		PISC(roll, 1); PISC(pitch, 1); PISC(entityIndex_0x6E3E_byte5, 1);
 		PISC(nextEntity_0x6E3E_word6, 2); PISC(entityIndex2_0x6E3E_word8, 2);
 #undef PISC
@@ -916,7 +916,7 @@ static const std::vector<FieldRange>& field_table()
 		XSC(type_0x30311, 2); XSC(subtype_0x30311, 2);
 		snprintf(nm, sizeof(nm), "str_2FECE.array_0x30311[%d].axis2d_4.x", k); tbl.push_back({ ENT2BASE(k,axis2d_4) + 0,2,strdup(nm),0 });
 		snprintf(nm, sizeof(nm), "str_2FECE.array_0x30311[%d].axis2d_4.y", k); tbl.push_back({ ENT2BASE(k,axis2d_4) + 2,2,strdup(nm),0 });
-		XSC(DisId, 2); XSC(word_10, 2); XSC(stageTag_12, 2); XSC(par1_14, 2); XSC(par2_16, 2); XSC(par3_18, 2);
+		XSC(DisId, 2); XSC(par0_10, 2); XSC(stageTag_12, 2); XSC(par1_14, 2); XSC(par2_16, 2); XSC(par3_18, 2);
 #undef XSC
 	}
 
@@ -930,7 +930,7 @@ static const std::vector<FieldRange>& field_table()
 			snprintf(nm, sizeof(nm), "str_2FECE.WizardMapSettings_0x360D2[%d].StartingSpells_0x360E1x[%d]", k, s);
 			tbl.push_back({ WIZBASE(k,StartingSpells_0x360E1x) + s,1,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "str_2FECE.WizardMapSettings_0x360D2[%d].byte_0x360FBx[%d]", k, s);
-			tbl.push_back({ WIZBASE(k,byte_0x360FBx) + s,1,strdup(nm),0 });
+			tbl.push_back({ WIZBASE(k,spellLevels_0x360FBx) + s,1,strdup(nm),0 });
 			snprintf(nm, sizeof(nm), "str_2FECE.WizardMapSettings_0x360D2[%d].BlockedSpells_0x36115x[%d]", k, s);
 			tbl.push_back({ WIZBASE(k,BlockedSpells_0x36115x) + s,1,strdup(nm),0 });
 		}
@@ -949,15 +949,15 @@ static const std::vector<FieldRange>& field_table()
 		char nm[128];
 		snprintf(nm, sizeof(nm), "str_2FECE.array_0x3647A[%d].index_0x3647A_0", k);  tbl.push_back({ SVBASE(k,index_0x3647A_0),1,strdup(nm),0 });
 		snprintf(nm, sizeof(nm), "str_2FECE.array_0x3647A[%d].stage_0x3647A_1", k);  tbl.push_back({ SVBASE(k,stage_0x3647A_1),1,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "str_2FECE.array_0x3647A[%d].str_0x3647A_2.word", k); tbl.push_back({ SVBASE(k,str_0x3647A_2),2,strdup(nm),0 });
-		snprintf(nm, sizeof(nm), "str_2FECE.array_0x3647A[%d].str_0x3647C_4.dword", k); tbl.push_back({ SVBASE(k,str_0x3647C_4),4,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "str_2FECE.array_0x3647A[%d].str_0x3647A_2.word", k); tbl.push_back({ SVBASE(k,entityIndex_0x3647A_2),2,strdup(nm),0 });
+		snprintf(nm, sizeof(nm), "str_2FECE.array_0x3647A[%d].str_0x3647C_4.dword", k); tbl.push_back({ SVBASE(k,target_0x3647C_4),4,strdup(nm),0 });
 	}
 
 	// ── str_0x364D2 ─────────────────────────────────────────────────────────
-	tbl.push_back({ BASE(str_0x364D2) + offsetof(type_str_0x364D2,dword_0x364D2),4,"str_0x364D2.dword_0x364D2",0 });
+	tbl.push_back({ BASE(str_0x364D2) + offsetof(type_str_0x364D2,livingCreatures_0x364D2),4,"str_0x364D2.dword_0x364D2",0 });
 	for (int i = 0; i < 26; i++) {
 		char nm[64]; snprintf(nm, sizeof(nm), "str_0x364D2.dword_0x364D6[%d]", i);
-		tbl.push_back({ BASE(str_0x364D2) + offsetof(type_str_0x364D2,dword_0x364D6) + i * 4,4,strdup(nm),0 });
+		tbl.push_back({ BASE(str_0x364D2) + offsetof(type_str_0x364D2,spawnCounts_0x364D6) + i * 4,4,strdup(nm),0 });
 	}
 
 	tbl.push_back({ BASE(word_0x3653E),2,"word_0x3653E",0 });
@@ -1091,15 +1091,15 @@ static std::string compare_shadow_D41A0(size_t byteIndex)
 
 
 
-uint8_t* off_D41A8_sky;//graphics buffer// = (uint8_t*)&x_BYTE_14B4E0; // weak
+uint8_t* skyTexture_D41A8;//graphics buffer// = (uint8_t*)&x_BYTE_14B4E0; // weak
 
-bitmap_pos_struct_t* xy_DWORD_17DED4_spritestr;
-bitmap_pos_struct_t* xy_DWORD_17DEC0_spritestr;
-bitmap_pos_struct_t* xy_DWORD_17DEC8_spritestr;
+bitmap_pos_struct_t* menuSprites_17DED4;
+bitmap_pos_struct_t* fontSprites_17DEC0;
+bitmap_pos_struct_t* font2Sprites_17DEC8;
 
-bitmap_pos_struct_t* x_DWORD_D4188t_spritestr;
+bitmap_pos_struct_t* webSprites_D4188;
 
-bitmap_pos_struct_t* xy_DWORD_17DEC0_spritestr_orig;
+bitmap_pos_struct_t* fontSpritesAlloc_17DEC0;
 
 doublebyte doublebyte_conv(uint16_t a2) {
 	doublebyte result;
@@ -1149,7 +1149,7 @@ void support_begin() {
 	pre_pdwScreenBuffer_351628 = (uint8_t*)malloc((GAME_RES_MAX_WIDTH * GAME_RES_MAX_HEIGHT) * 3); // Allow x 3 padding for sprite rendering
 	pdwScreenBuffer_351628 = &pre_pdwScreenBuffer_351628[(GAME_RES_MAX_WIDTH * GAME_RES_MAX_HEIGHT)];
 
-	//x_DWORD_E9C38_smalltit= (uint8_t*)malloc(64000);
+	//smalltitBuffer_E9C38= (uint8_t*)malloc(64000);
 	//x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (uint8_t*)malloc(64000);
 
 	/*for (int i = 0;i < 0x1c+0x60;i++)
@@ -1164,24 +1164,24 @@ void support_begin() {
 			dword_E9C30[0][0] = 0;
 		dword_E9C30[2] = new uint8_t[4096];
 		dword_E9C30[4] = new uint8_t[4096];*/
-		//x_D41A0_BYTEARRAY_4_struct.player_name_57 =new char[256];
-		//x_D41A0_BYTEARRAY_4_struct.savestring_89 = new char[256];
+		//gameState_D41A4.player_name_57 =new char[256];
+		//gameState_D41A4.savestring_89 = new char[256];
 
 	// Zero-initialised: the game maintains this plane on every map type (the
 	// painters raise and lower it) but only the cave generator seeds it, so on
 	// a day/night level it starts as whatever is here. In the original that is
 	// a zeroed BSS block; a bare new[] made it uninitialised heap.
-	x_BYTE_14B4E0_second_heightmap = new uint8_t[65536]();
-	off_D41A8_sky = new uint8_t[1024 * 1024];
-	memcpy(off_D41A8_sky, &x_BYTE_14B4E0_second_heightmap, 4);
+	secondHeightmap_14B4E0 = new uint8_t[65536]();
+	skyTexture_D41A8 = new uint8_t[1024 * 1024];
+	memcpy(skyTexture_D41A8, &secondHeightmap_14B4E0, 4);
 
-	xy_DWORD_17DED4_spritestr = new bitmap_pos_struct_t[1000];
-	xy_DWORD_17DEC0_spritestr_orig = new bitmap_pos_struct_t[1000];
-	xy_DWORD_17DEC0_spritestr = xy_DWORD_17DEC0_spritestr_orig;
-	xy_DWORD_17DEC8_spritestr = new bitmap_pos_struct_t[1000];
+	menuSprites_17DED4 = new bitmap_pos_struct_t[1000];
+	fontSpritesAlloc_17DEC0 = new bitmap_pos_struct_t[1000];
+	fontSprites_17DEC0 = fontSpritesAlloc_17DEC0;
+	font2Sprites_17DEC8 = new bitmap_pos_struct_t[1000];
 
-	x_DWORD_D4188t_spritestr = new bitmap_pos_struct_t[1000];
-	//x_D41A0_BYTEARRAY_4_struct.player_name_57 = 0;
+	webSprites_D4188 = new bitmap_pos_struct_t[1000];
+	//gameState_D41A4.player_name_57 = 0;
 
 	//printbuffer2[0] = '\0';
 }
@@ -1190,24 +1190,24 @@ void support_end() {
 	if (printbuffer)free(printbuffer);//char* buffer; // [esp+0h] [ebp-2h]
 	if (printbuffer2)free(printbuffer2);//char v11; // [esp+40h] [ebp+3Eh]
 	if (pre_pdwScreenBuffer_351628)free(pre_pdwScreenBuffer_351628);
-	//free(x_DWORD_E9C38_smalltit);
+	//free(smalltitBuffer_E9C38);
 	/*for (int i = 0;i < 0x1c;i++)
 		free(off_D918C[i]);*/
 		//free(x_D41A0_BYTEARRAY_4_0xDE_heapbuffer);
 		/*xx free(dword_E9C30[0]);
 		free(dword_E9C30[2]);
 		free(dword_E9C30[4]);*/
-		//free(x_D41A0_BYTEARRAY_4_struct.player_name_57);
-		//if(x_D41A0_BYTEARRAY_4_struct.savestring_89)delete(x_D41A0_BYTEARRAY_4_struct.savestring_89);
+		//free(gameState_D41A4.player_name_57);
+		//if(gameState_D41A4.savestring_89)delete(gameState_D41A4.savestring_89);
 
-	if (x_BYTE_14B4E0_second_heightmap) delete[](x_BYTE_14B4E0_second_heightmap);
-	if (off_D41A8_sky) delete[](off_D41A8_sky);
+	if (secondHeightmap_14B4E0) delete[](secondHeightmap_14B4E0);
+	if (skyTexture_D41A8) delete[](skyTexture_D41A8);
 
-	if (xy_DWORD_17DED4_spritestr) delete[](xy_DWORD_17DED4_spritestr);
-	if (xy_DWORD_17DEC0_spritestr_orig) delete[](xy_DWORD_17DEC0_spritestr_orig);//fixed
-	if (xy_DWORD_17DEC8_spritestr) delete[](xy_DWORD_17DEC8_spritestr);
+	if (menuSprites_17DED4) delete[](menuSprites_17DED4);
+	if (fontSpritesAlloc_17DEC0) delete[](fontSpritesAlloc_17DEC0);//fixed
+	if (font2Sprites_17DEC8) delete[](font2Sprites_17DEC8);
 
-	if (x_DWORD_D4188t_spritestr) delete[](x_DWORD_D4188t_spritestr);
+	if (webSprites_D4188) delete[](webSprites_D4188);
 }
 
 void loadfromsnapshot(const char* filename, uint8_t* adress, uint32_t adressdos, uint32_t size) {
@@ -2852,15 +2852,15 @@ void clean_x_D41A0_BYTEARRAY_0_0x2362() {
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[0x2362]), 0, 48);
 	for (int i = 0; i < 8; i++)
 	{
-		D41A0_0.array_0x2362[i].x = 0;
-		D41A0_0.array_0x2362[i].y = 0;
-		D41A0_0.array_0x2362[i].z = 0;
+		world_D41A0.playerStarts_0x2362[i].x = 0;
+		world_D41A0.playerStarts_0x2362[i].y = 0;
+		world_D41A0.playerStarts_0x2362[i].z = 0;
 	}
 };
 
 void clean_x_D41A0_BYTEARRAY_0_0x2BDE(int number) {
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[0x2BDE+2124*number]), 0, 2124);
-	memset((void*)(&D41A0_0.array_0x2BDE[number]), 0, 2124);
+	memset((void*)(&world_D41A0.players_0x2BDE[number]), 0, 2124);
 	/*for (int i = 0; i < 8; i++)
 	{
 		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x000_2BDE_11230=0;//0	//11230 - byte? - ne zacatek struktury
