@@ -1,5 +1,6 @@
 #pragma once
 
+#include "BasicMini.h"
 #include "global_types.h"
 #include "../portability/bitmap_pos_struct.h"
 

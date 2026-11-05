@@ -2,6 +2,7 @@
 #ifndef MAIN_SPELLS
 #define MAIN_SPELLS
 #include <cstdint>
+#include "BasicMini.h"
 #include "global_types.h"
 
 #pragma pack (push,1)
