@@ -72,4 +72,32 @@ typedef struct {
 
 extern type_compstr compstr[100];
 
+void RandomiseTerrainArea_43C60(unsigned __int8 a1, char a2, int a3, int a4);
+unsigned __int16 SetTerrainTypeAndNeighbours_46180(unsigned __int16 a1, char a2);
+void AddBuildingToTerrain_46570(uaxis_2d axis1, uaxis_2d axis2);
+int GetAreaHeightRange_48990(char a1, char a2, char a3, char a4);
+void DrawTerrainLine_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
+void SetHeightmapByBuildingArea_48B50(uint8 x, uint8 y, int height, int width);
+void SetHeightmapByBuilding_48B90(uaxis_2d axis);
+__int16 FindCeilingHeight_48D20(int a1, unsigned __int16 a2);
+__int16 GetTerrainHeightFromSquare_48DF0(char x, char y, char height, char width);
+signed int GetMinHeightInArea_48E60(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4);
+signed int GetMaxHeightInArea_48E90(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4);
+signed int GetMinCeilingInArea_48EC0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4);
+signed int GetMaxCeilingInArea_48EF0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4);
+signed int GetMinHeightmapInArea_48F20(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t* a5x);
+signed int GetMaxHeightmapInArea_48FD0(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t* a5x);
+bool IsTileFreeOfFeatures_56EE0(uaxis_2d a1);
+char FindFreeTileNear_56F10(__int16 a1, __int16 a2, __int16 a3, char a4);
+char FindFreeTileInArea_570F0(__int16 a1, __int16 a2, signed __int16 a3, char a4, char a5, char a6);
+void DamageSceneryOnTile_57390(uaxis_2d axis, uint16_t id);
+void GetTerrainHeightAt_58030(axis_3d* a1, axis_3d* a2);
+void ClampAboveTerrain_580E0(axis_3d* a1, signed int a2, int a3, int a4, __int16 a5);
+void ClearDynamicLights_84790();
+void AddDynamicLight_847D0(type_entity_0x6E8E* a1, char a2, char a3, char a4);
+void FreeLightSource_84880(type_str_0x3664C* a1);
+void UpdateLightSourcesOld_848A0();
+void UpdateLightSources_84B80();
+void ApplyLightToTile_84EA0(uaxis_2d a1x, type_str_0x3664C* a2, char a3, __int16 a4);
+
 #endif //MAIN_TERRAIN

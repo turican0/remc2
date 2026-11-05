@@ -63,4 +63,17 @@ uint8_t* ApplyDeltaFlc(uint8_t* p, uint8_t* img, const FlcState& st);
 void ApplyByteRun(uint8_t* p, uint8_t* end, uint8_t* img, const FlcState& st);
 uint8_t* ApplyFlcFrame(uint8_t* src, uint8_t* img, FlcState& st);
 
+void FreeTmapsAndAnimations_713A0();
+void ProcessTmaps_71410();
+void UpdateSpriteAnimations_715B0();
+void ClearUsedTmapFlags_716A0();
+void LoadEntitySprites_716C0(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3);
+void MarkSpriteTmapUsed_71730(unsigned __int16 a1);
+void ReloadSpritesForLevel_71780();
+void MarkTmapGroupUsed_71AB0(__int16 a1, char a2);
+void FreeTmapCache_720C0(type_x_DWORD_E9C28_str** a1);
+void AnimateSprite_72350(type_animations1* a1);
+void AnimateSpriteFrames_723B0(type_animations1* a1, char a2);
+void FreeAnimations_72550(type_E9C08** a1);
+
 #endif //TEXTURE_MAPS_H

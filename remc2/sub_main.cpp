@@ -50,6 +50,7 @@ after NetworkCancel_748F7 not changed
 
 #include <filesystem>
 #include "./engine/EventsFunctions.h"
+#include "engine/Vr.h"
 
 InputRecorder* m_InputRecorder = nullptr;
 Scene m_CurrentScene = Scene::PREAMBLE_MENU;

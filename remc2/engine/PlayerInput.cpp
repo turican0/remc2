@@ -12,6 +12,43 @@
 #include "Sound.h"
 #include "engine_support.h"
 #include "DatTabIndexes.h"
+#include "EventsFunctions.h"
+#include "Vr.h"
+#include "CommandLineParser.h"
+#include "Network.h"
+#include "Player.h"
+#include "../utilities/StateMonitor.h"
+#include "../utilities/RendererTests.h"
+#include "ConvertMapInfo.h"
+#include "LevelInit.h"
+#include "MouseOnOff.h"
+#include "PrintMessages.h"
+#include "ReadAndDecompress.h"
+#include "Type_DB080_CdTrack.h"
+
+__int16 joyFilteredX_E36CC = 0; // weak
+
+__int16 joyFilteredY_E36CE = 0; // weak
+
+char joystickInitialized_E36D0 = 0; // weak
+
+int keyboardFlag_E4CA4 = 0; // weak
+
+uint8_t keys_EB39E[10]; // weak 0 - setting keys
+
+char* vrRecord4_17D6C4; // weak
+
+uint8_t unk_180560x[44]; // weak
+
+type_unk_18058Cstr inputState_18058C;
+
+char keyShiftFlags_1806E5; // weak
+
+int8_t cursorPosX_1806E8;
+
+int8_t cursorPosY_1806E8;
+
+int mouseInstalled2_180720; // weak
 
 
 char cursorSpriteIndex_D419E = 0; // weak//2a519e
@@ -2855,3 +2892,2187 @@ void FreeWebSprites_47130()//228130
 // D4188: using guessed type int webSpritesData_D4188;
 // D418C: using guessed type int webSpritesTab_D418C;
 // D4190: using guessed type int webSpritesTabEnd_D4190;
+
+
+//----- (00054600) --------------------------------------------------------
+void MouseReset_54600()////235600 mouse reset see:https://www.equestionanswers.com/c/c-int33-mouse-service.php
+{
+	//int result; // eax
+	//char v1; // [esp+0h] [ebp-38h]
+	//__int16 v2; // [esp+1Ch] [ebp-1Ch]
+
+	//v2 = 0;
+//removed result = int386(0x33, (REGS*)&v2, (REGS*)&v1);//Mouse Reset/Get Mouse Installed Flag //fix
+	//result=1;
+	mouseInstalled_E3768 = 0;
+	//return result;
+}
+// E3768: using guessed type int mouseInstalled_E3768;
+
+//----- (0005BCC0) --------------------------------------------------------
+void SetDefaultKeys_5BCC0()//23ccc0
+{
+	//int result; // eax //push ebx=0 ebp=355250
+
+	keys_EB39E[0] = 0x48;//2bc39e//UP
+	keys_EB39E[1] = 0x50;//2bc39f//DOWN
+	keys_EB39E[3] = 0x4D;//2bc3a1//RIGHT
+	keys_EB39E[7] = 0x36;//2bc3a5//RIGHT SHIFT
+	keys_EB39E[8] = 0x36;//2bc3a6//RIGHT SHIFT
+	//result = x_D41A0_BYTEARRAY_4;//2a51a4
+	keys_EB39E[5] = 0x1D;//2bc3A3//CTRL
+	gameState_D41A4.langIndex_4 = 0;//dword 38cf54
+	gameState_D41A4.soundVolume_6 = 127;//dword 38cf56
+	gameState_D41A4.musicVolume_8 = 127;//dword 38cf58
+	keys_EB39E[2] = 0x4B;//2BC3A0//LEFT
+	gameState_D41A4.showHelp_10 = 1;//byte 38cf5a
+	keys_EB39E[4] = 0x1C;//2BC3A2//ENTER
+	gameState_D41A4.brightness_11 = 0;//byte 38cf5b
+	keys_EB39E[6] = 0x38;//2BC3A4//ALT
+	world_D41A0.LevelIndex_0xc = 0;//byte 38cf5c
+	keys_EB39E[9] = 0x38;//2BC3A7//ALT
+	gameState_D41A4.brightness_13 = 0;//byte 38cf5d
+	//return result;
+}
+
+//----- (0006EDE0) --------------------------------------------------------
+void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
+{
+#if 0
+	int locScreenWidth;
+	if (videoMode_180660 == 1)
+	{
+		locScreenWidth = 640;
+	}
+	else
+	{
+		locScreenWidth = screenWidth_18062C;
+	}
+
+	if (mouseInstalled_E3768 > 0)
+	{
+		if (posX != -1 || posY != -1)
+		{
+			if (posX != -1)
+			{
+				if (posX <= 0)
+				{
+					if (!(videoMode_180660 & 1))
+						posX = 8 * posX;
+				}
+				else
+				{
+					if (posX > locScreenWidth - 2)
+						posX = locScreenWidth - 2;
+					mouse_E3760.x = posX;
+					if (!(videoMode_180660 & 1))
+						posX *= 8;
+				}
+				if (posY <= 0)
+				{
+					if (videoMode_180660 & 1)
+						posY = mouse_E3760.y;
+					else
+						posY = 8 * mouse_E3760.y;
+				}
+				else
+				{
+					if (videoMode_180660 & 1)
+					{
+						if (posY > 398)
+							posY = 398;
+						mouse_E3760.y = posY;
+						if (!(videoMode_180660 & 1))
+							posY *= 8;
+					}
+					else
+					{
+						if (posY > screenHeight_180624 - 2)
+							posY = screenHeight_180624 - 2;
+						mouse_E3760.y = posY;
+						if (!(videoMode_180660 & 1))
+							posY *= 8;
+					}
+				}
+
+				//320x200 fix
+				if (videoMode_180660 & 1)
+				{
+					posX *= 8;
+					posY *= 8;
+				}
+				//320x200 fix
+				//Logger->info("set wonky center {} {} for {},{} {},{}", posX / 8, posY / 8, posX, posY, screenHeight_180624, screenWidth_18062C);
+				VGA_Set_mouse(posX / 8, posY / 8);
+			}
+		}
+	}
+#else
+
+	uint32_t display_w = screenWidth_18062C, display_h = screenHeight_180624;
+	uint32_t new_x, new_y;
+
+
+	// we get in posX, posY the location of the pointer for a 640x480 display
+	// so recalculate the position based on what we actually have
+
+	if (videoMode_180660 & 1) {
+		// 320x240 virtual screen
+		display_w = 320;
+		display_h = 240;
+	}
+
+	new_x = display_w * posX / 640;
+	new_y = display_h * posY / 480;
+
+	VGA_Set_mouse(new_x, new_y);
+#endif
+}
+
+//----- (000753D0) --------------------------------------------------------
+void ClearPressedKeys_753D0()
+{
+	__int16 v0; // ax
+	int v1; // edx
+	//void (*v2)(); // eax
+	//__int16 v3; // dx
+
+	//fix it
+	//v3 = 0;
+	//v2 = 0;
+	//fix it
+
+	v0 = 0;
+	while (v0 < 128)
+	{
+		v1 = v0++;
+		pressedKeys_180664[v1] = 0;
+	}
+	//v2 = dos_getvect(9);
+	//x_WORD_17D434 = v3;
+	//x_DWORD_17D430 = v2;
+	//return 0;//fix it
+}
+// 99BA7: using guessed type x_DWORD dos_getvect(x_DWORD);
+// 99BDB: using guessed type x_DWORD dos_setvect(x_DWORD, x_DWORD, x_DWORD);
+// 17D430: using guessed type int x_DWORD_17D430;
+// 17D434: using guessed type __int16 x_WORD_17D434;
+
+//----- (000759B0) --------------------------------------------------------
+void SetMouseMinMaxVert_759B0()
+{
+	//int result; // eax
+	__int16 v1; // [esp+0h] [ebp-1Ch]
+	unsigned __int16 v2; // [esp+4h] [ebp-18h]
+
+	if (vrDeviceActive_E12EC)
+	{
+		memset(&v1, 0, 28);
+		v1 = 0x6008;
+		v2 = bswap_16(*(x_WORD*)(vrRecord4_17D6C4 + 2));
+	}
+	//return result;
+}
+// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
+// E12EC: using guessed type char vrDeviceActive_E12EC;
+// 17D6C4: using guessed type int vrRecord4_17D6C4;
+
+
+/*void Debug_Blit()
+{
+	VgaBlit640_75200(480);
+}*/
+
+//----- (0007A060) --------------------------------------------------------
+void GetMouseAndKeyboardEvents_7A060()//25B060
+{
+	menuState_17DE38.mouseButtons_17DEEE = 0;
+	if (mouseLeftButton_180746)
+		menuState_17DE38.mouseButtons_17DEEE |= 1;
+	if (mouseRightButton_180744)
+		menuState_17DE38.mouseButtons_17DEEE |= 2;
+	menuState_17DE38.mouseX_17DEE4 = mouse_E3760.x;//2b4760
+	menuState_17DE38.mouseY_17DEE6 = mouse_E3760.y;//2b4762
+	ReadKeyboardKeysInMenu_7C050();
+	mouseRightButton_180744 = 0;
+	mouseLeftButton_180746 = 0;
+	mouseRightButton2_18074A = 0;
+	mouseLeftButton2_18074C = 0;
+}
+
+
+//----- (0007B5A0) --------------------------------------------------------
+void ResetMouse_7B5A0()
+{
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
+	//_disable();
+	menuState_17DE38.mouseButtons_17DEEE = 0;
+	mouseRightButton_180744 = 0;
+	mouseRightButton2_18074A = 0;
+	mouseLeftButton_180746 = 0;
+	mouseLeftButton2_18074C = 0;
+	//_enable();
+}
+// 17DEEE: using guessed type __int16 x_WORD_17DEEE_mouse_buttons;
+// 180744: using guessed type __int16 mouseRightButton_180744;
+// 180746: using guessed type __int16 mouseLeftButton_180746;
+// 18074A: using guessed type __int16 mouseRightButton2_18074A;
+// 18074C: using guessed type __int16 mouseLeftButton2_18074C;
+
+//----- (00089D10) --------------------------------------------------------
+int ReadGameUserInputs_89D10()//26ad10
+{
+	unsigned __int8 v3; // al
+	type_str_611* v5; // ecx
+	unsigned __int8 v6; // al
+	int v7; // ebx
+	signed int v8; // edx
+	int v9; // edx
+	signed int v10; // eax
+	signed int v11; // eax
+	signed int v12; // ecx
+	int v13; // eax
+	signed int v14; // edx
+	signed int v15; // eax
+	int v16; // ecx
+	signed int v17; // eax
+	signed int v18; // eax
+	unsigned __int8 v19; // al
+	int v20; // esi
+	int v21; // ecx
+	int v22; // ebx
+	int v23; // eax
+	int v24; // ecx
+	int v25; // eax
+	__int64 v26; // rax
+	__int64 v27; // rax
+	__int16 v28; // si
+	unsigned __int8 v31; // al
+	unsigned __int8 v33; // al
+	type_str_611* v34; // edx
+	signed int v35; // edx
+	signed int v36; // eax
+	char v37; // ch
+	int v38; // edx
+	int v39; // edx
+	signed int v40; // edx
+	int v41; // ebx
+	signed int v42; // eax
+	signed int v43; // ecx
+	signed int v44; // eax
+	int v45; // ebx
+	int v46; // ecx
+	signed int v47; // eax
+	int v48; // esi
+	signed int v49; // eax
+	unsigned __int8 v50; // al
+	int v51; // esi
+	int v52; // ecx
+	int v53; // ebx
+	int v54; // eax
+	int v55; // ecx
+	char v56; // [esp+0h] [ebp-48h]
+	int16_t width; // [esp+34h] [ebp-14h]
+	int16_t height; // [esp+38h] [ebp-10h]
+	int16_t posX; // [esp+3Ch] [ebp-Ch]
+	int16_t posY; // [esp+40h] [ebp-8h]
+	int v61; // [esp+44h] [ebp-4h]
+
+	v61 = -1;
+	if (!joystickInitialized_E36D0)
+	{
+		inputState_18058C.x_DWORD_1805A0 = 0;
+		inputState_18058C.MouseButtonState_18059C = 0;
+		joystickInitialized_E36D0 = 1;
+	}
+	if (!joystickEnabled_E36D1)
+		return v61;
+	switch (inputState_18058C.joystickMode_1805C2)
+	{
+	case 1:
+	case 8:
+	case 12:
+		inputState_18058C.x_WORD_1805C8 = 1;
+		v61 = ReadSerialTracker_8B790(inputState_18058C);
+		if (inputState_18058C.joystickMode_1805C2 != 8 && inputState_18058C.joystickMode_1805C2 != 12)
+		{
+			inputState_18058C.mouse_1805B0.x = mouse_E3760.x;
+			inputState_18058C.mouse_1805B0.y = mouse_E3760.y;
+			inputState_18058C.mouseX_1805B8 = mousePosX_E375C;
+			inputState_18058C.mouseY_1805BC = mousePosY_E375E;
+			inputState_18058C.arrowKeys_1805C0 = 0;
+			if (pressedKeys_180664[keys_EB39E[0]])//UP
+				inputState_18058C.arrowKeys_1805C0 |= 1u;
+			if (pressedKeys_180664[keys_EB39E[1]])//DOWN
+				inputState_18058C.arrowKeys_1805C0 |= 2u;
+			if (pressedKeys_180664[keys_EB39E[2]])//LEFT
+				inputState_18058C.arrowKeys_1805C0 |= 4u;
+			if (pressedKeys_180664[keys_EB39E[3]])//RIGHT
+				inputState_18058C.arrowKeys_1805C0 |= 8u;
+			inputState_18058C.MouseButtonState_18059C = 0;
+			if (mouseLeftButton_180746)
+				inputState_18058C.MouseButtonState_18059C = 1;
+			if (mouseRightButton_180744)
+				inputState_18058C.MouseButtonState_18059C |= 2;
+			if (mouseLeftButton2_18074C)
+				inputState_18058C.MouseButtonState_18059C |= 4;
+			if (mouseRightButton2_18074A)
+				inputState_18058C.MouseButtonState_18059C |= 8;
+			if (pressedKeys_180664[keys_EB39E[5]])//CTRL
+				inputState_18058C.MouseButtonState_18059C |= 0x10;
+		}
+		inputState_18058C.joyAxisY_180594 *= 4;
+		inputState_18058C.joyAxisX_180590 = (inputState_18058C.joyAxisX_180590 << 11) / 360;
+		if (inputState_18058C.joystickMode_1805C2 == 8)
+			goto LABEL_53;
+		if (inputState_18058C.joystickMode_1805C2 == 12)
+			goto LABEL_217;
+		return v61;
+	case 2:
+	case 9:
+	case 13:
+		inputState_18058C.x_WORD_1805C8 = 1;
+		ShutdownVrDevice_75910();
+		if (inputState_18058C.joystickMode_1805C2 != 9 && inputState_18058C.joystickMode_1805C2 != 13)
+		{
+			inputState_18058C.mouse_1805B0.x = mouse_E3760.x;
+			inputState_18058C.mouse_1805B0.y = mouse_E3760.y;
+			inputState_18058C.mouseX_1805B8 = mousePosX_E375C;
+			inputState_18058C.mouseY_1805BC = mousePosY_E375E;
+			inputState_18058C.arrowKeys_1805C0 = 0;
+			if (pressedKeys_180664[keys_EB39E[0]])//UP
+				inputState_18058C.arrowKeys_1805C0 |= 1u;
+			if (pressedKeys_180664[keys_EB39E[1]])//DOWN
+				inputState_18058C.arrowKeys_1805C0 |= 2u;
+			if (pressedKeys_180664[keys_EB39E[2]])//LEFT
+				inputState_18058C.arrowKeys_1805C0 |= 4u;
+			if (pressedKeys_180664[keys_EB39E[3]])//RIGHT
+				inputState_18058C.arrowKeys_1805C0 |= 8u;
+			inputState_18058C.MouseButtonState_18059C = 0;
+			if (mouseLeftButton_180746)
+				inputState_18058C.MouseButtonState_18059C = 1;
+			if (mouseRightButton_180744)
+				inputState_18058C.MouseButtonState_18059C |= 2;
+			if (mouseLeftButton2_18074C)
+				inputState_18058C.MouseButtonState_18059C |= 4;
+			if (mouseRightButton2_18074A)
+				inputState_18058C.MouseButtonState_18059C |= 8;
+			if (pressedKeys_180664[keys_EB39E[5]])//CTRL
+				inputState_18058C.MouseButtonState_18059C |= 0x10;
+		}
+		inputState_18058C.joyAxisX_180590 = -2048 * vrJoystick_17D6CC[0] / 0xFFFFu & 0x7FF;
+		if (LastPressedKey_1806E4 == 46)
+			SetMouseMinMaxVert_759B0();
+		if (inputState_18058C.joystickMode_1805C2 == 9)
+			goto LABEL_53;
+		if (inputState_18058C.joystickMode_1805C2 == 13)
+			goto LABEL_217;
+		inputState_18058C.joyAxisY_180594 = 0;
+		return v61;
+	case 4:
+	LABEL_53:
+		inputState_18058C.arrowKeys_1805C0 = 0;
+		ReadJoystick_8BBE0(unk_180560x);
+		goto LABEL_54;
+	case 6:
+		memset(&v56, 0, 50);
+		GetJoystickButtons_8C140(*(x_WORD*)&externControl_E36C4[0], (uint8_t*)&v56);
+		inputState_18058C.joyAxisX_180590 = *(uint32_t*)&externControl_E36C4[4];
+		v28 = *(int16_t*)&externControl_E36C4[62];
+		inputState_18058C.joyAxisY_180594 = *(uint32_t*)&externControl_E36C4[8];
+		if (!v28)
+		{
+			inputState_18058C.mouse_1805B0.x = mouse_E3760.x;
+			inputState_18058C.mouse_1805B0.y = mouse_E3760.y;
+			inputState_18058C.mouseX_1805B8 = mousePosX_E375C;
+			inputState_18058C.mouseY_1805BC = mousePosY_E375E;
+			inputState_18058C.arrowKeys_1805C0 = 0;
+			if (pressedKeys_180664[keys_EB39E[0]])//UP
+				inputState_18058C.arrowKeys_1805C0 |= 1u;
+			if (pressedKeys_180664[keys_EB39E[1]])//DOWN
+				inputState_18058C.arrowKeys_1805C0 |= 2u;
+			if (pressedKeys_180664[keys_EB39E[2]])//LEFT
+				inputState_18058C.arrowKeys_1805C0 |= 4u;
+			if (pressedKeys_180664[keys_EB39E[3]])//RIGHT
+				inputState_18058C.arrowKeys_1805C0 |= 8u;
+			inputState_18058C.MouseButtonState_18059C = 0;
+			if (mouseLeftButton_180746)
+				inputState_18058C.MouseButtonState_18059C = 1;
+			if (mouseRightButton_180744)
+				inputState_18058C.MouseButtonState_18059C |= 2;
+			if (mouseLeftButton2_18074C)
+				inputState_18058C.MouseButtonState_18059C |= 4;
+			if (mouseRightButton2_18074A)
+				inputState_18058C.MouseButtonState_18059C |= 8;
+			if (pressedKeys_180664[keys_EB39E[5]])//CTRL
+			{
+				inputState_18058C.MouseButtonState_18059C |= 0x10;
+				return v61;
+			}
+			return v61;
+		}
+		if (v28 != 4)
+		{
+			if (v28 != 11)
+				return v61;
+			unk_180560x[26] = externControl_E36C4[16];
+			unk_180560x[28] = inputState_18058C.mouse_1805B0.x;
+			unk_180560x[29] = inputState_18058C.mouse_1805B0.y;
+		LABEL_218:
+			if (!(unk_180560x[26] & 1) || unk_180560x[27] & 1)
+			{
+				if (!(unk_180560x[26] & 1) && unk_180560x[27] & 1)
+				{
+					LOBYTE(inputState_18058C.MouseButtonState_18059C) = inputState_18058C.MouseButtonState_18059C & 0xFA;
+					unk_180560x[27] &= 0xFEu;
+				}
+			}
+			else
+			{
+				inputState_18058C.mouseX_1805B8 = inputState_18058C.mouse_1805B0.x;
+				inputState_18058C.MouseButtonState_18059C |= 0xffffff05u;
+				inputState_18058C.mouseY_1805BC = inputState_18058C.mouse_1805B0.y;
+				unk_180560x[27] |= 1u;
+			}
+			if (!(unk_180560x[26] & 2) || unk_180560x[27] & 2)
+			{
+				if (!(unk_180560x[26] & 2) && unk_180560x[27] & 2)
+				{
+					inputState_18058C.MouseButtonState_18059C |= 0xfffffff5u;
+					unk_180560x[27] &= 0xFDu;
+				}
+			}
+			else
+			{
+				inputState_18058C.mouseX_1805B8 = inputState_18058C.mouse_1805B0.x;
+				inputState_18058C.MouseButtonState_18059C |= 0xffffff0au;
+				inputState_18058C.mouseY_1805BC = inputState_18058C.mouse_1805B0.y;
+				unk_180560x[27] |= 2u;
+			}
+			if (pressedKeys_180664[keys_EB39E[5]])//CTRL
+			{
+				unk_180560x[27] &= 0xF7u;
+				unk_180560x[26] &= 0xF7u;
+				inputState_18058C.MouseButtonState_18059C |= 0xffffff10u;
+			}
+			else if (!(unk_180560x[26] & 8) || unk_180560x[27] & 8 || inputState_18058C.MouseButtonState_18059C & 0x10)
+			{
+				if (unk_180560x[26] & 8 || !(unk_180560x[27] & 8) || inputState_18058C.MouseButtonState_18059C & 0x10)
+				{
+					if (unk_180560x[26] & 8 && unk_180560x[27] & 8 && inputState_18058C.MouseButtonState_18059C & 0x10)
+					{
+						unk_180560x[27] &= 0xF7u;
+						unk_180560x[26] &= 0xF7u;
+					}
+					else if (!(unk_180560x[26] & 8) && !(unk_180560x[27] & 8) && inputState_18058C.MouseButtonState_18059C & 0x10)
+					{
+						inputState_18058C.MouseButtonState_18059C |= 0xffffffEF;
+					}
+				}
+				else
+				{
+					inputState_18058C.MouseButtonState_18059C |= 0xffffff10;
+				}
+			}
+			else
+			{
+				unk_180560x[27] |= 8u;
+			}
+			v31 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221;
+			if (v31 < 5u)
+			{
+				if (v31 == 3)
+				{
+					if (82 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].width_4 <= inputState_18058C.mouse_1805B0.x)
+					{
+						if (inputState_18058C.mouse_1805B0.x >= 384)
+						{
+							if (videoMode_180660 & 1)
+								v49 = 400;
+							else
+								v49 = 480;
+							posY = v49 - 72;
+							if (v49 - 46 >= inputState_18058C.mouse_1805B0.y)
+								v50 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL2].width_4;
+							else
+								v50 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_MINISQUARE1].width_4;
+							v42 = (signed int)v50 >> 2;
+							v9 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_MINISQUARE1].height_5 >> 1) + posY + 26;
+							v51 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL2].height_5 >> 1) + 4 + posY;
+							posX = 0;
+							posY = v51;
+							v41 = screenWidth_18062C;
+							v43 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL2].height_5;
+						}
+						else
+						{
+							if (videoMode_180660 & 1)
+								v47 = 400;
+							else
+								v47 = 480;
+							posY = v47 - 72;
+							v48 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_MINISQUARE1_WITH_FRAME].height_5 >> 1) + 32 + v47 - 72;
+							posX = 0;
+							posY = v48;
+							v41 = screenWidth_18062C;
+							v9 = v48;
+							v42 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_MINISQUARE1_WITH_FRAME].width_4 >> 2;
+							v43 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_MINISQUARE1_WITH_FRAME].height_5 >> 1;
+						}
+					}
+					else
+					{
+						if (videoMode_180660 & 1)
+							v44 = 400;
+						else
+							v44 = 480;
+						posY = v44 - 72;
+						v45 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].height_5 >> 1) + 28 + v44 - 72;
+						posY = v45;
+						posX = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].width_4 >> 1) + 4;
+						v46 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].height_5;
+						v9 = v45 + v46;
+						v43 = v46 >> 1;
+						v42 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].width_4 >> 2;
+						v41 = posX + screenWidth_18062C - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].width_4 >> 1);
+					}
+					goto LABEL_301;
+				}
+			}
+			else if (v31 <= 5u || v31 == 8)
+			{
+				v33 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611.selectSpellType_0x457_1111;
+				v34 = &world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611;
+				if (v33)
+				{
+					if (v33 <= 2u)
+					{
+						height = 3 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4;
+						v37 = v34->spellIndex_0x458_1112;
+						if (v37 < 13)
+							v38 = v37;
+						else
+							v38 = v37 - 13;
+						v39 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].width_4
+							+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].width_4 * v38
+							+ ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].width_4 >> 1)
+							- (height >> 1);
+						posX = v39;
+						if (screenWidth_18062C - height >= v39)
+						{
+							if (v39 < 0)
+								posX = 0;
+						}
+						else
+						{
+							posX = screenWidth_18062C - height;
+						}
+						v41 = height + posX;
+						if (videoMode_180660 & 1)
+							v40 = 400;
+						else
+							v40 = 480;
+						v9 = v40
+							- 2 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].height_5
+							- ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].height_5 >> 1);
+						posY = v9;
+						v42 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_GOLD_FRAME].width_4 >> 2;
+						v43 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_GOLD_FRAME].height_5 >> 1;
+					}
+					else
+					{
+						v41 = screenWidth_18062C;
+						v9 = 480;
+						v42 = 12;
+						v43 = 32;
+						posX = 0;
+						posY = 0;
+					}
+				}
+				else
+				{
+					v41 = screenWidth_18062C;
+					posX = 0;
+					if (videoMode_180660 & 1)
+						v35 = 400;
+					else
+						v35 = 480;
+					v9 = v35 - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].height_5 >> 1);
+					if (videoMode_180660 & 1)
+						v36 = 400;
+					else
+						v36 = 480;
+					posY = v36 - 2 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].height_5;
+					posY += (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].height_5 >> 1;
+					v42 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].width_4 >> 2;
+					v43 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].height_5 >> 1;
+				}
+				goto LABEL_301;
+			}
+			if (gameState_D41A4.SelectedMenuItem_38546)
+			{
+				GetOkayCancelButtonPositions_30BE0(&posX, &posY);
+				posX += (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL1].width_4 >> 1;
+				v52 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL1].height_5 >> 1) + posY;
+				posY = v52;
+				v42 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL1].width_4;
+				v9 = v52;
+				v41 = v42 + posX;
+				v43 = 0;
+			}
+			else if (gameState_D41A4.byteindex_225)
+			{
+				v53 = gameState_D41A4.optionsMenuWidth_186;
+				v43 = 4;
+				posY = 67;
+				v54 = (v53 >> 1) + (screenWidth_18062C - v53) / 2;
+				v9 = 393;
+				inputState_18058C.mouse_1805B0.x = v54;
+				v41 = (v53 >> 1) + (screenWidth_18062C - v53) / 2;
+				posX = v54;
+				v42 = 0;
+			}
+			else if (gameState_D41A4.volumeKeyHeld_38591)
+			{
+				GetPauseMenuCoordinates_2FFE0(&posX, &posY, &height, &width);
+				height -= 2;
+				v41 = height + posX;
+				v9 = 4 * width + 12 + posY;
+				v43 = 0;
+				v42 = 4;
+				posY += 4 * width + 12;
+			}
+			else if (gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED)
+			{
+				height = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MENU_ICON_LOAD].width_4;
+				width = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_SUB_FIREBALL1_SMALL].height_5
+					+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MUSIC_ICON].height_5
+					+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SOUND_ICON].height_5
+					+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MENU_ICON_LOAD].height_5;
+				posY = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MENU_ICON_LOAD].height_5 >> 1) + (400 - width) / 2 - 60;
+				posX = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MENU_ICON_LOAD].width_4 >> 2) + (screenWidth_18062C - height) / 2;
+				v55 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MENU_ICON_LOAD].height_5;
+				v9 = width + posY - v55;
+				v43 = v55 >> 2;
+				v42 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MENU_ICON_LOAD].width_4 >> 2;
+				v41 = height + posX - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MENU_ICON_LOAD].width_4 >> 1);
+			}
+			else
+			{
+				v41 = screenWidth_18062C;
+				v9 = 480;
+				v43 = 32;
+				posX = 0;
+				posY = 0;
+				v42 = 12;
+			}
+		LABEL_301:
+			if (!(inputState_18058C.MouseButtonState_18059C & 0x10)
+				&& !(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED)
+				&& !gameState_D41A4.SelectedMenuItem_38546
+				&& !gameState_D41A4.byteindex_225
+				&& world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 != 3)
+			{
+				if (unk_180560x[26] & 4)
+				{
+					if (unk_180560x[29] < 0)
+						inputState_18058C.arrowKeys_1805C0 |= 1u;//UP
+					if (unk_180560x[29] > 0)
+						inputState_18058C.arrowKeys_1805C0 |= 2u;//DOWN
+					if (unk_180560x[28] < 0)
+						inputState_18058C.arrowKeys_1805C0 |= 4u;//LEFT
+					if (unk_180560x[28] > 0)
+						inputState_18058C.arrowKeys_1805C0 |= 8u;//RIGHT
+				}
+				else
+				{
+					joyFilteredX_E36CC = unk_180560x[28];
+					joyFilteredY_E36CE = unk_180560x[29];
+					inputState_18058C.mouse_1805B0.x = 2 * unk_180560x[28] + 320;
+					inputState_18058C.mouse_1805B0.y = 2 * unk_180560x[29] + 200;
+					if (pressedKeys_180664[keys_EB39E[0]])//UP
+						inputState_18058C.arrowKeys_1805C0 |= 1u;
+					if (pressedKeys_180664[keys_EB39E[1]])//DOWN
+						inputState_18058C.arrowKeys_1805C0 |= 2u;
+					if (pressedKeys_180664[keys_EB39E[2]])//LEFT
+						inputState_18058C.arrowKeys_1805C0 |= 4u;
+					if (pressedKeys_180664[keys_EB39E[3]])//RIGHT
+						inputState_18058C.arrowKeys_1805C0 |= 8u;
+				}
+				return v61;
+			}
+			if (unk_180560x[29] >= 0)
+			{
+				if (unk_180560x[29] > 0)
+					inputState_18058C.mouse_1805B0.y += v43;
+			}
+			else
+			{
+				inputState_18058C.mouse_1805B0.y -= v43;
+			}
+			if (unk_180560x[28] >= 0)
+			{
+				if (unk_180560x[28] > 0)
+					inputState_18058C.mouse_1805B0.x += v42;
+			}
+			else
+			{
+				inputState_18058C.mouse_1805B0.x -= v42;
+			}
+			if (inputState_18058C.mouse_1805B0.x >= posX)
+			{
+				if (v41 < inputState_18058C.mouse_1805B0.x)
+					inputState_18058C.mouse_1805B0.x = v41;
+			}
+			else
+			{
+				inputState_18058C.mouse_1805B0.x = posX;
+			}
+			v25 = inputState_18058C.mouse_1805B0.y;
+			if (inputState_18058C.mouse_1805B0.y < posY)
+			{
+				inputState_18058C.mouse_1805B0.y = posY;
+				return v61;
+			}
+		LABEL_157:
+			if (v9 >= v25)
+				return v61;
+			inputState_18058C.mouse_1805B0.y = v9;
+			return v61;
+		}
+		unk_180560x[26] = externControl_E36C4[16];
+		unk_180560x[28] = inputState_18058C.mouse_1805B0.x;
+		unk_180560x[29] = inputState_18058C.mouse_1805B0.y;
+	LABEL_54:
+		if (!(unk_180560x[26] & 1) || unk_180560x[27] & 1)
+		{
+			if (!(unk_180560x[26] & 1) && unk_180560x[27] & 1)
+			{
+				inputState_18058C.MouseButtonState_18059C |= 0xffffffFA;
+				unk_180560x[27] &= 0xFEu;
+			}
+		}
+		else
+		{
+			inputState_18058C.MouseButtonState_18059C |= 0xffffff05;
+			inputState_18058C.mouseX_1805B8 = inputState_18058C.mouse_1805B0.x;
+			unk_180560x[27] |= 1u;
+			inputState_18058C.mouseY_1805BC = inputState_18058C.mouse_1805B0.y;
+		}
+		if (!(unk_180560x[26] & 2) || unk_180560x[27] & 2)
+		{
+			if (!(unk_180560x[26] & 2) && unk_180560x[27] & 2)
+			{
+				inputState_18058C.MouseButtonState_18059C |= 0xffffffF5;
+				unk_180560x[27] &= 0xFDu;
+			}
+		}
+		else
+		{
+			inputState_18058C.MouseButtonState_18059C |= 0xffffff0A;
+			inputState_18058C.mouseX_1805B8 = inputState_18058C.mouse_1805B0.x;
+			unk_180560x[27] |= 2u;
+			inputState_18058C.mouseY_1805BC = inputState_18058C.mouse_1805B0.y;
+		}
+		if (pressedKeys_180664[keys_EB39E[5]])//CTRL
+		{
+			unk_180560x[26] &= 0xF7u;
+			inputState_18058C.MouseButtonState_18059C |= 0xffffff10;
+			unk_180560x[27] &= 0xF7u;
+		}
+		else if (!(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED))
+		{
+			if (!(unk_180560x[26] & 8) || unk_180560x[27] & 8 || inputState_18058C.MouseButtonState_18059C & 0x10)
+			{
+				if (unk_180560x[26] & 8 || !(unk_180560x[27] & 8) || inputState_18058C.MouseButtonState_18059C & 0x10)
+				{
+					if (unk_180560x[26] & 8 && unk_180560x[27] & 8 && inputState_18058C.MouseButtonState_18059C & 0x10)
+					{
+						unk_180560x[27] &= 0xF7u;
+						unk_180560x[26] &= 0xF7u;
+					}
+					else if (!(unk_180560x[26] & 8) && !(unk_180560x[27] & 8) && inputState_18058C.MouseButtonState_18059C & 0x10)
+					{
+						inputState_18058C.MouseButtonState_18059C |= 0xffffffEF;
+					}
+				}
+				else
+				{
+					inputState_18058C.MouseButtonState_18059C |= 0xffffff10;
+				}
+			}
+			else
+			{
+				unk_180560x[27] |= 8u;
+			}
+		}
+		v3 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221;
+		if (v3 < 5u)
+		{
+			if (v3 == 3)
+			{
+				if (82 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].width_4 <= inputState_18058C.mouse_1805B0.x) // fix it
+				{
+					if (inputState_18058C.mouse_1805B0.x >= 384)
+					{
+						if (videoMode_180660 & 1)
+							v18 = 400;
+						else
+							v18 = 480;
+						posY = v18 - 72;
+						if (v18 - 46 >= inputState_18058C.mouse_1805B0.y)
+							v19 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL2].width_4;
+						else
+							v19 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL1].width_4;
+						v11 = (signed int)v19 >> 2;
+						v9 = posY + 26 + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL1].height_5 >> 1);
+						v20 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL2].height_5 >> 1) + 4 + posY;
+						posX = 0;
+						posY = v20;
+						v7 = screenWidth_18062C;
+						v12 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL2].height_5;
+					}
+					else
+					{
+						if (videoMode_180660 & 1)
+							v17 = 400;
+						else
+							v17 = 480;
+						posY = v17 - 72;
+						v9 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_MINISQUARE1_WITH_FRAME].height_5 >> 1) + 32 + v17 - 72;
+						posX = 0;
+						posY = v9;
+						v7 = screenWidth_18062C;
+						v11 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_MINISQUARE1_WITH_FRAME].width_4 >> 2;
+						v12 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_MINISQUARE1_WITH_FRAME].height_5 >> 1;
+					}
+				}
+				else
+				{
+					if (videoMode_180660 & 1)
+						v15 = 400;
+					else
+						v15 = 480;
+					posY = v15 - 72;
+					posY = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].height_5 >> 1) + 28 + v15 - 72;
+					posX = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].width_4 >> 1) + 4;
+					v16 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].height_5;
+					v9 = posY + v16;
+					v12 = v16 >> 1;
+					v11 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].width_4 >> 2;
+					v7 = posX + screenWidth_18062C - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME].width_4 >> 1);
+				}
+				goto LABEL_138;
+			}
+		}
+		else if (v3 <= 5u || v3 == 8)
+		{
+			v5 = &world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611;
+			v6 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerData_0x3E6_2BE4_12228.str_611.selectSpellType_0x457_1111;
+			if (!v6)
+			{
+				v7 = screenWidth_18062C;
+				posX = 0;
+				if (videoMode_180660 & 1)
+					v8 = 400;
+				else
+					v8 = 480;
+				v9 = v8 - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].height_5 >> 1);
+				if (videoMode_180660 & 1)
+					v10 = 400;
+				else
+					v10 = 480;
+				posY = v10 - 2 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].height_5;
+				posY += (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].height_5 >> 1;
+				v11 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].width_4 >> 2;
+				v12 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].height_5 >> 1;
+				goto LABEL_138;
+			}
+			if (v6 <= 2u)
+			{
+				height = 3 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_GOLD_FRAME].width_4;
+				LOBYTE(v13) = v5->spellIndex_0x458_1112;
+				if ((char)v13 < 13)
+					v13 = (char)v13;
+				else
+					v13 = (char)v13 - 13;
+				posX = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].width_4 * v13
+					+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].width_4
+					+ ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].width_4 >> 1)
+					- (height >> 1);
+				if (screenWidth_18062C - height >= posX)
+				{
+					if (posX < 0)
+						posX = 0;
+				}
+				else
+				{
+					posX = screenWidth_18062C - height;
+				}
+				v7 = height + posX;
+				if (videoMode_180660 & 1)
+					v14 = 400;
+				else
+					v14 = 480;
+				v9 = v14
+					- 2 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].height_5
+					- ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME].height_5 >> 1);
+				posY = v9;
+				v11 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_GOLD_FRAME].width_4 >> 2;
+				v12 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_GOLD_FRAME].height_5 >> 1;
+				goto LABEL_138;
+			}
+			goto LABEL_137;
+		}
+		if (gameState_D41A4.SelectedMenuItem_38546)
+		{
+			GetOkayCancelButtonPositions_30BE0(&posX, &posY);
+			posX += (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL1].width_4 >> 1;
+			v21 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL1].height_5 >> 1) + posY;
+			posY = v21;
+			v11 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL1].width_4;
+			v9 = v21;
+			v7 = v11 + posX;
+			v12 = 0;
+			goto LABEL_138;
+		}
+		if (gameState_D41A4.byteindex_225)
+		{
+			v22 = gameState_D41A4.optionsMenuWidth_186;
+			v12 = 4;
+			posY = 67;
+			v23 = (v22 >> 1) + (screenWidth_18062C - v22) / 2;
+			v9 = 393;
+			inputState_18058C.mouse_1805B0.x = v23;
+			v7 = (v22 >> 1) + (screenWidth_18062C - v22) / 2;
+			posX = v23;
+			v11 = 0;
+			goto LABEL_138;
+		}
+		if (gameState_D41A4.volumeKeyHeld_38591)
+		{
+			GetPauseMenuCoordinates_2FFE0(&posX, &posY, &height, &width);
+			height -= 2;
+			v7 = height + posX;
+			v9 = 4 * width + 12 + posY;
+			v12 = 0;
+			v11 = 4;
+			posY += 4 * width + 12;
+			goto LABEL_138;
+		}
+		if (gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED)
+		{
+			height = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MENU_ICON_LOAD].width_4;
+			width = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_SUB_FIREBALL1_SMALL].height_5
+				+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MUSIC_ICON].height_5
+				+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SOUND_ICON].height_5
+				+ (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_SUB_FIREBALL1_SMALL].height_5;
+			posY = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_SUB_FIREBALL1_SMALL].height_5 >> 1) + (400 - width) / 2 - 60;
+			posX = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_SUB_FIREBALL1_SMALL].width_4 >> 2) + (screenWidth_18062C - height) / 2;
+			v24 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_SUB_FIREBALL1_SMALL].height_5;
+			v9 = width + posY - v24;
+			v12 = v24 >> 2;
+			v11 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_SUB_FIREBALL1_SMALL].width_4 >> 2;
+			v7 = height + posX - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_SUB_FIREBALL1_SMALL].width_4 >> 1);
+			goto LABEL_138;
+		}
+	LABEL_137:
+		v7 = screenWidth_18062C;
+		v9 = 480;
+		v12 = 32;
+		posX = 0;
+		posY = 0;
+		v11 = 12;
+	LABEL_138:
+		if (inputState_18058C.MouseButtonState_18059C & 0x10
+			|| gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED
+			|| gameState_D41A4.SelectedMenuItem_38546
+			|| gameState_D41A4.byteindex_225
+			|| world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == 3)
+		{
+			if (unk_180560x[29] >= 0)
+			{
+				if (unk_180560x[29] > 0)
+					inputState_18058C.mouse_1805B0.y += v12;
+			}
+			else
+			{
+				inputState_18058C.mouse_1805B0.y -= v12;
+			}
+			if (unk_180560x[28] >= 0)
+			{
+				if (unk_180560x[28] > 0)
+					inputState_18058C.mouse_1805B0.x += v11;
+			}
+			else
+			{
+				inputState_18058C.mouse_1805B0.x -= v11;
+			}
+			if (inputState_18058C.mouse_1805B0.x >= posX)
+			{
+				if (v7 < inputState_18058C.mouse_1805B0.x)
+					inputState_18058C.mouse_1805B0.x = v7;
+			}
+			else
+			{
+				inputState_18058C.mouse_1805B0.x = posX;
+			}
+			v25 = inputState_18058C.mouse_1805B0.y;
+			if (inputState_18058C.mouse_1805B0.y < posY)
+			{
+				inputState_18058C.mouse_1805B0.y = posY;
+				return v61;
+			}
+			goto LABEL_157;
+		}
+		if (unk_180560x[26] & 4)
+		{
+			if (unk_180560x[29] < 0)
+				inputState_18058C.arrowKeys_1805C0 |= 1u;//UP
+			if (unk_180560x[29] > 0)
+				inputState_18058C.arrowKeys_1805C0 |= 2u;//DOWN
+			if (unk_180560x[28] < 0)
+				inputState_18058C.arrowKeys_1805C0 |= 4u;//LEFT
+			if (unk_180560x[28] > 0)
+				inputState_18058C.arrowKeys_1805C0 |= 8u;//RIGHT
+		}
+		else
+		{
+			v26 = 28 * (signed __int16)(32 * unk_180560x[28] + joyFilteredX_E36CC);
+			joyFilteredX_E36CC = (signed int)(v26 - (__CFSHL__(HIDWORD(v26), 5) + 32 * HIDWORD(v26))) >> 5;
+			v27 = 31 * (signed __int16)(16 * unk_180560x[29] + joyFilteredY_E36CE);
+			joyFilteredY_E36CE = (signed int)(v27 - (__CFSHL__(HIDWORD(v27), 5) + 32 * HIDWORD(v27))) >> 5;
+			inputState_18058C.mouse_1805B0.x = 2 * joyFilteredX_E36CC + 320;
+			inputState_18058C.mouse_1805B0.y = 2 * joyFilteredY_E36CE + 200;
+			if (pressedKeys_180664[keys_EB39E[0]])//UP
+				inputState_18058C.arrowKeys_1805C0 |= 1u;
+			if (pressedKeys_180664[keys_EB39E[1]])//DOWN
+				inputState_18058C.arrowKeys_1805C0 |= 2u;
+			if (pressedKeys_180664[keys_EB39E[2]])//LEFT
+				inputState_18058C.arrowKeys_1805C0 |= 4u;
+			if (pressedKeys_180664[keys_EB39E[3]])//RIGHT
+				inputState_18058C.arrowKeys_1805C0 |= 8u;
+		}
+		return v61;
+	case 7:
+		inputState_18058C.mouse_1805B0.x = mouse_E3760.x;
+		inputState_18058C.mouse_1805B0.y = mouse_E3760.y;
+		inputState_18058C.mouseX_1805B8 = mousePosX_E375C;
+		inputState_18058C.mouseY_1805BC = mousePosY_E375E;
+		inputState_18058C.arrowKeys_1805C0 = 0;
+		if (pressedKeys_180664[keys_EB39E[0]])//UP
+			inputState_18058C.arrowKeys_1805C0 |= 1u;
+		if (pressedKeys_180664[keys_EB39E[1]])//DOWN
+			inputState_18058C.arrowKeys_1805C0 |= 2u;
+		if (pressedKeys_180664[keys_EB39E[2]])//RIGHT
+			inputState_18058C.arrowKeys_1805C0 |= 4u;
+		if (pressedKeys_180664[keys_EB39E[3]])//LEFT
+			inputState_18058C.arrowKeys_1805C0 |= 8u;
+		inputState_18058C.MouseButtonState_18059C = 0;
+		if (mouseLeftButton_180746)
+			inputState_18058C.MouseButtonState_18059C = 1;
+		if (mouseRightButton_180744)
+			inputState_18058C.MouseButtonState_18059C |= 2;
+		if (mouseLeftButton2_18074C)
+			inputState_18058C.MouseButtonState_18059C |= 4;
+		if (mouseRightButton2_18074A)
+			inputState_18058C.MouseButtonState_18059C |= 8;
+		if (!pressedKeys_180664[keys_EB39E[5]])//CTRL
+			return v61;
+		inputState_18058C.MouseButtonState_18059C |= 0x10;
+		return v61;
+	case 11:
+	LABEL_217:
+		inputState_18058C.arrowKeys_1805C0 = 0;
+		ReadJoystick_8BBE0(unk_180560x);
+		goto LABEL_218;
+	default:
+		return v61;
+	}
+}
+
+//----- (0008BB40) --------------------------------------------------------
+void InitJoystickState_8BB40(uint8_t* a1, char a2)//26cb40
+{
+	a1[37] = a2;
+	a1[36] = 2;
+	*(x_DWORD*)&a1[8] = 10000000;
+	*(x_DWORD*)&a1[20] = 10000000;
+	*(x_DWORD*)&a1[12] = 0;
+	*(x_DWORD*)&a1[24] = 0;
+	if (a2 == 8)
+	{
+		a1[37] = 7;
+		a1[36] = 3;
+	}
+}
+
+//----- (0008BBE0) --------------------------------------------------------
+signed int ReadJoystick_8BBE0(uint8_t* a1)//fix//26cbe0
+{
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
+	char v1 = 0; // dl
+	unsigned __int8 v2; // al
+	char v3; // al
+	signed int result; // eax
+	signed int v5; // ecx
+	unsigned __int8 v6; // al
+	signed int v7; // ecx
+	unsigned __int8 v8; // al
+	signed int v9; // ecx
+	unsigned __int8 v10; // al
+	unsigned __int8 v11; // al
+	int v12; // esi
+	int v13; // esi
+	int v14; // edi
+	int v15; // ecx
+	int v16; // eax
+	int v17; // ecx
+	int v18; // esi
+	int v19; // eax
+	int v20; // eax
+	int v21; // ecx
+	int v22; // esi
+	int v23; // eax
+	int v24; // ecx
+	int v25; // edi
+	int v26; // eax
+	int v27; // ecx
+	int v28; // esi
+	int v29; // eax
+	int v30; // eax
+	int v31; // ecx
+	int v32; // esi
+	int v33; // eax
+	char v34; // al
+	int v35; // edx
+	int v36; // esi
+	unsigned __int8 v37; // al
+	int v38; // eax
+	char v39; // dh
+	int v40; // [esp+0h] [ebp-14h]
+	int v41; // [esp+4h] [ebp-10h]
+	int v42; // [esp+8h] [ebp-Ch]
+	int v43; // [esp+Ch] [ebp-8h]
+	unsigned __int8 v44; // [esp+10h] [ebp-4h]
+	char v45; // [esp+10h] [ebp-4h]
+
+	//fix it
+	v6 = 0;
+	v8 = 0;
+	v10 = 0;
+	//fix it
+
+	v1 = 0;
+	v43 = 0;
+	v42 = 0;
+	v41 = 0;
+	v40 = 0;
+	v44 = 0;
+	if (*(x_BYTE*)(a1 + 36))
+	{
+		//_disable();
+		v2 = *(x_BYTE*)(a1 + 37);
+		switch (v2)
+		{
+		case 0u:
+		LABEL_3:
+			*(x_BYTE*)(a1 + 38) = 0;
+			*(x_BYTE*)(a1 + 43) = 0;
+			v3 = *(x_BYTE*)(a1 + 43);
+			*(x_BYTE*)(a1 + 42) = v3;
+			*(x_BYTE*)(a1 + 41) = v3;
+			*(x_BYTE*)(a1 + 40) = v3;
+			return 0;
+		case 1u:
+		case 2u:
+		case 3u:
+		case 4u:
+			v5 = 10000;
+			//_disable();
+			v1 = 1;
+			//__outx_BYTE(0x201u, v2);
+			do
+			{
+				// v6 = __inx_BYTE(0x201u);
+				if (!(v6 & 3))
+					break;
+				if (v6 & 1)
+					++v43;
+				if (v6 & 2)
+					++v42;
+				--v5;
+			} while (v5);
+			//_enable();
+			v44 = v6;
+			if (!v5)
+				*(x_BYTE*)(a1 + 36) = 0;
+			break;
+		case 5u:
+		case 6u:
+			v7 = 10000;
+			//_disable();
+			v1 = 1;
+			//__outx_BYTE(0x201u, v2);
+			do
+			{
+				//v8 = __inx_BYTE(0x201u);
+
+				if (!(v8 & 0xB))
+					break;
+				if (v8 & 1)
+					v43++;
+				if (v8 & 2)
+					v42++;
+				if (v8 & 8)
+					v40++;
+				v7--;
+			} while (v7);
+			//_enable();
+			v44 = v8;
+			if (!v7)
+				*(x_BYTE*)(a1 + 36) = 0;
+			break;
+		case 7u:
+			v9 = 10000;
+			//_disable();
+			v1 = 1;
+			//__outx_BYTE(0x201u, v2);
+			do
+			{
+				//v10 = __inx_BYTE(0x201u);
+
+				if (!(v10 & 0xF))
+					break;
+				if (v10 & 1)
+					++v43;
+				if (v10 & 2)
+					++v42;
+				if (v10 & 4)
+					++v41;
+				if (v10 & 8)
+					++v40;
+				--v9;
+			} while (v9);
+			//_enable();
+			v44 = v10;
+			if (!v9)
+			{
+				if (*(x_BYTE*)(a1 + 36) == 3)
+				{
+					v1 = 123;
+					*(x_BYTE*)(a1 + 37) = 2;
+				}
+				else
+				{
+					*(x_BYTE*)(a1 + 36) = 1;
+				}
+			}
+			break;
+		default:
+			break;
+		}
+		//_enable();
+	}
+	v45 = (~v44 >> 4) & 0xF;
+	v11 = *(x_BYTE*)(a1 + 37);
+	if (v11 < 3u)
+	{
+		if (v11 != 1)
+			goto LABEL_46;
+		goto LABEL_45;
+	}
+	if (v11 <= 3u || v11 == 5)
+		LABEL_45:
+	v45 &= 3u;
+LABEL_46:
+	switch (*(x_BYTE*)(a1 + 36))
+	{
+	case 0:
+		goto LABEL_3;
+	case 1:
+		*(x_BYTE*)(a1 + 38) = v45;
+		switch (*(x_BYTE*)(a1 + 37))
+		{
+		case 1:
+		case 2:
+			goto LABEL_52;
+		case 3:
+		case 4:
+			goto LABEL_66;
+		case 5:
+		case 6:
+			switch (8 * v40 / *(x_DWORD*)(a1 + 32))
+			{
+			case 0:
+				*(x_BYTE*)(a1 + 42) = 0;
+				*(x_BYTE*)(a1 + 43) = -1;
+				goto LABEL_66;
+			case 1:
+			case 2:
+				*(x_BYTE*)(a1 + 42) = 1;
+				break;
+			case 3:
+			case 4:
+				*(x_BYTE*)(a1 + 42) = 0;
+				*(x_BYTE*)(a1 + 43) = 1;
+				goto LABEL_66;
+			case 5:
+			case 6:
+				*(x_BYTE*)(a1 + 42) = -1;
+				break;
+			default:
+				*(x_BYTE*)(a1 + 42) = 0;
+				break;
+			}
+			*(x_BYTE*)(a1 + 43) = 0;
+		LABEL_66:
+			v14 = *(x_DWORD*)(a1 + 16);
+			v15 = v43 - v14;
+			if (v43 - v14 < 0)
+			{
+				v20 = (*(x_DWORD*)(a1 + 8) - v14) >> 3;
+				v21 = v15 - v20;
+				v22 = *(x_DWORD*)(a1 + 8) - v14 - 2 * v20;
+				if (v21 <= 0)
+				{
+					if (*(x_DWORD*)(a1 + 8) - v14 == 2 * v20)
+						v22 = 1;
+					v23 = -127 * v21 / v22;
+					if (v23 <= -127)
+						*(x_BYTE*)(a1 + 40) = -127;
+					else
+						*(x_BYTE*)(a1 + 40) = v23;
+				}
+				else
+				{
+					*(x_BYTE*)(a1 + 40) = 0;
+				}
+			}
+			else
+			{
+				v16 = (*(x_DWORD*)(a1 + 12) - v14) >> 3;
+				v17 = v15 - v16;
+				v18 = *(x_DWORD*)(a1 + 12) - v14 - 2 * v16;
+				if (v17 >= 0)
+				{
+					if (*(x_DWORD*)(a1 + 12) - v14 == 2 * v16)
+						v18 = 1;
+					v19 = 127 * v17 / v18;
+					if (v19 >= 127)
+						*(x_BYTE*)(a1 + 40) = 127;
+					else
+						*(x_BYTE*)(a1 + 40) = v19;
+				}
+				else
+				{
+					*(x_BYTE*)(a1 + 40) = 0;
+				}
+			}
+			v24 = v42 - *(x_DWORD*)(a1 + 28);
+			if (v24 < 0)
+			{
+				v30 = (*(x_DWORD*)(a1 + 20) - *(x_DWORD*)(a1 + 28)) >> 3;
+				v31 = v24 - v30;
+				v32 = *(x_DWORD*)(a1 + 20) - *(x_DWORD*)(a1 + 28) - 2 * v30;
+				if (v31 <= 0)
+				{
+					if (*(x_DWORD*)(a1 + 20) - *(x_DWORD*)(a1 + 28) == 2 * v30)
+						v32 = 1;
+					v33 = -127 * v31 / v32;
+					if (v33 <= -127)
+						*(x_BYTE*)(a1 + 41) = -127;
+					else
+						*(x_BYTE*)(a1 + 41) = v33;
+					result = 0;
+				}
+				else
+				{
+					*(x_BYTE*)(a1 + 41) = 0;
+					result = 0;
+				}
+			}
+			else
+			{
+				v25 = *(x_DWORD*)(a1 + 28);
+				v26 = (*(x_DWORD*)(a1 + 24) - v25) >> 3;
+				v27 = v24 - v26;
+				v28 = *(x_DWORD*)(a1 + 24) - v25 - 2 * v26;
+				if (v27 >= 0)
+				{
+					if (*(x_DWORD*)(a1 + 24) - v25 == 2 * v26)
+						v28 = 1;
+					v29 = 127 * v27 / v28;
+					if (v29 >= 127)
+						*(x_BYTE*)(a1 + 41) = 127;
+					else
+						*(x_BYTE*)(a1 + 41) = v29;
+					result = 0;
+				}
+				else
+				{
+					*(x_BYTE*)(a1 + 41) = 0;
+					result = 0;
+				}
+			}
+			break;
+		case 7:
+			if (v41 < *(x_DWORD*)(a1 + 32))
+				*(x_BYTE*)(a1 + 38) |= 0x10u;
+			if (v40 < *(x_DWORD*)(a1 + 32))
+				*(x_BYTE*)(a1 + 38) |= 0x20u;
+		LABEL_52:
+			v12 = *(x_DWORD*)(a1 + 16);
+			if ((v12 + *(x_DWORD*)(a1 + 8)) >> 1 <= v43)
+				*(x_BYTE*)(a1 + 40) = (v12 + *(x_DWORD*)(a1 + 12)) >> 1 < v43;
+			else
+				*(x_BYTE*)(a1 + 40) = -1;
+			v13 = *(x_DWORD*)(a1 + 28);
+			if ((v13 + *(x_DWORD*)(a1 + 20)) >> 1 <= v42)
+				*(x_BYTE*)(a1 + 41) = (v13 + *(x_DWORD*)(a1 + 24)) >> 1 < v42;
+			else
+				*(x_BYTE*)(a1 + 41) = -1;
+			*(x_DWORD*)a1 = v43;
+			*(x_DWORD*)(a1 + 4) = v42;
+			result = 0;
+			break;
+		default:
+			goto LABEL_123;
+		}
+		return result;
+	case 2:
+		*(x_BYTE*)(a1 + 38) = 0;
+		*(x_BYTE*)(a1 + 43) = 0;
+		v34 = *(x_BYTE*)(a1 + 43);
+		*(x_BYTE*)(a1 + 42) = v34;
+		*(x_BYTE*)(a1 + 41) = v34;
+		*(x_BYTE*)(a1 + 40) = v34;
+		if (!(v45 & 1)
+			|| (*(x_DWORD*)(a1 + 16) = v43,
+				*(x_DWORD*)(a1 + 28) = v42,
+				v35 = *(x_DWORD*)(a1 + 16),
+				v35 <= *(x_DWORD*)(a1 + 8))
+			|| v35 >= *(x_DWORD*)(a1 + 12)
+			|| (v36 = *(x_DWORD*)(a1 + 28), *(x_DWORD*)(a1 + 20) >= v36)
+			|| v36 >= *(x_DWORD*)(a1 + 24))
+		{
+			if (v43 < *(x_DWORD*)(a1 + 8))
+				*(x_DWORD*)(a1 + 8) = v43;
+			if (v43 > *(x_DWORD*)(a1 + 12))
+				*(x_DWORD*)(a1 + 12) = v43;
+			if (v42 < *(x_DWORD*)(a1 + 20))
+				*(x_DWORD*)(a1 + 20) = v42;
+			if (v42 > *(x_DWORD*)(a1 + 24))
+				*(x_DWORD*)(a1 + 24) = v42;
+			return 1;
+		}
+		v37 = *(x_BYTE*)(a1 + 37);
+		if (v37 < 5u)
+			goto LABEL_122;
+		if (v37 <= 6u)
+		{
+			v38 = v40;
+		}
+		else
+		{
+			if (v37 != 7)
+				goto LABEL_122;
+			v38 = (v40 + v41) >> 2;
+		}
+		*(x_DWORD*)(a1 + 32) = v38;
+	LABEL_122:
+		*(x_BYTE*)(a1 + 36) = 1;
+	LABEL_123:
+		result = 0;
+		break;
+	case 3:
+		if (v1 == 123)
+			goto LABEL_123;
+		*(x_DWORD*)(a1 + 16) = v43;
+		*(x_DWORD*)(a1 + 28) = v42;
+		*(x_DWORD*)(a1 + 12) = v43 / 2 + v43;
+		*(x_DWORD*)(a1 + 24) = v42 / 2 + v42;
+		*(x_DWORD*)(a1 + 8) = v43 / 6;
+		v39 = *(x_BYTE*)(a1 + 37);
+		*(x_DWORD*)(a1 + 20) = v42 / 6;
+		if (v39 == 7)
+			*(x_DWORD*)(a1 + 32) = (v40 + v41) >> 2;
+		goto LABEL_122;
+	default:
+		goto LABEL_123;
+	}
+	return result;
+}
+
+//----- (0008C140) --------------------------------------------------------
+char GetJoystickButtons_8C140(unsigned __int16 a1, uint8_t* a2)//26d140
+{
+	int v3; // [esp+0h] [ebp-28h]
+	//int v4; // [esp+4h] [ebp-24h]
+	//int v5; // [esp+14h] [ebp-14h]
+	//char v6; // [esp+1Ch] [ebp-Ch]
+
+	memset(&v3, 0, 28);
+	//v4 = a1;
+	v3 = 0x300;
+	//segread((SREGS*)&v6);
+	//v5 = a2;
+	//int386x(0x31, (REGS*)&v3, (REGS*)&v3, (SREGS*)&v6);
+	return *(x_BYTE*)(a2 + 28);
+}
+// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
+// 99DE6: using guessed type x_DWORD segread(x_DWORD);
+// 99E10: using guessed type x_DWORD int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);
+
+//----- (0008C21F) --------------------------------------------------------
+// int sub_8C21F_any_graphics_command()//26d21f NOTE: removed as it did DOS memory handling
+
+//----- (0008C2DE) --------------------------------------------------------
+/*void sub_8C2DE()//26d2de
+{
+	;
+}*/
+
+//----- (0008C329) --------------------------------------------------------
+int UpdateMouseCursorPosition_8C329()//26D329
+{
+	int result; // eax
+	x_BYTE* v1; // eax
+	x_BYTE* v2; // eax
+
+	cursorPosX_1806E8 = mouse_E3760.x;
+	cursorPosY_1806E8 = mouse_E3760.y;//fix it
+
+	if (videoMode_180660 & 1)
+	{
+		cursorPosX_1806E8 >>= 1;
+		cursorPosY_1806E8 >>= 1;
+	}
+	cursorScreenIndex2_1806F4 = (cursorPosX_1806E8 >> 16) + (cursorPosY_1806E8 >> 16) * screenWidth_18062C;
+	if (videoMode_180660 & 8)
+	{
+		HIWORD(cursorColumn_18073A) = HIWORD(cursorScreenIndex2_1806F4);
+		SetVgaPaletteBank_9951B(SHIWORD(cursorScreenIndex2_1806F4));//GET VIDEO STATE
+	}
+	unk_1806EC = screenWidth_18062C - cursorPosX_1806E8;
+	if ((signed __int16)(screenWidth_18062C - cursorPosX_1806E8) > cursorWidth_18072C)
+		unk_1806EC = cursorWidth_18072C;
+	cursorRows_1806EE = screenHeight_180624 - cursorPosY_1806E8;
+	if ((signed __int16)(screenHeight_180624 - cursorPosY_1806E8) > cursorHeight_18072E)
+		cursorRows_1806EE = cursorHeight_18072E;
+	cursorBackgroundPtr_180714 = cursorBackground2_1806F0;
+	ptrScreenPos_180708 = (uint8_t*)&vgaBuffer_A0000 + (unsigned __int16)cursorScreenIndex2_1806F4;
+	ptrCursorBitmapPos_18070C = cursorData_180730;
+	if (videoMode_180660 & 1)
+	{
+		for (cursorRow_180738 = 0; ; ++cursorRow_180738)
+		{
+			result = unk_1806EC >> 16;
+			if ((signed int)(unsigned __int16)cursorRow_180738 >= (unk_1806EC >> 16))
+				break;
+			LOWORD(cursorColumn_18073A) = 0;
+			while ((unsigned __int16)cursorColumn_18073A < (cursorPosY_1806E8 >> 16))
+			{
+				v1 = (x_BYTE*)cursorBackgroundPtr_180714++;
+				*v1 = *(x_BYTE*)ptrScreenPos_180708;
+				if (*(x_BYTE*)ptrCursorBitmapPos_18070C != -2)
+					*(x_BYTE*)ptrScreenPos_180708 = *(x_BYTE*)ptrCursorBitmapPos_18070C;
+				++ptrScreenPos_180708;
+				++ptrCursorBitmapPos_18070C;
+				LOWORD(cursorColumn_18073A) = cursorColumn_18073A + 1;
+			}
+			ptrScreenPos_180708 += screenWidth_18062C - (cursorPosY_1806E8 >> 16);
+			ptrCursorBitmapPos_18070C += (*(int*)((char*)&cursorData_180730 + 2) >> 16) - (cursorPosY_1806E8 >> 16);
+		}
+	}
+	else
+	{
+		for (cursorRow_180738 = 0; ; ++cursorRow_180738)
+		{
+			result = unk_1806EC >> 16;
+			if ((signed int)(unsigned __int16)cursorRow_180738 >= unk_1806EC >> 16)
+				break;
+			LOWORD(cursorColumn_18073A) = 0;
+			while ((unsigned __int16)cursorColumn_18073A < cursorPosY_1806E8 >> 16)
+			{
+				v2 = (x_BYTE*)cursorBackgroundPtr_180714++;
+				*v2 = *(x_BYTE*)ptrScreenPos_180708;
+				if (*(x_BYTE*)ptrCursorBitmapPos_18070C != -2)
+					*(x_BYTE*)ptrScreenPos_180708 = *(x_BYTE*)ptrCursorBitmapPos_18070C;
+				if (++ptrScreenPos_180708 >= (uint8_t*)0xAFFFE + 2)
+				{
+					++HIWORD(cursorColumn_18073A);
+					SetVgaPaletteBank_9951B(SHIWORD(cursorColumn_18073A));
+					ptrScreenPos_180708 -= 0x10000;
+				}
+				++ptrCursorBitmapPos_18070C;
+				LOWORD(cursorColumn_18073A) = cursorColumn_18073A + 1;
+			}
+			ptrScreenPos_180708 += screenWidth_18062C - (cursorPosY_1806E8 >> 16);
+			if (ptrScreenPos_180708 >= (uint8_t*)0xAFFFE + 2)
+			{
+				++HIWORD(cursorColumn_18073A);
+				SetVgaPaletteBank_9951B(SHIWORD(cursorColumn_18073A));
+				ptrScreenPos_180708 -= 0x10000;
+			}
+			ptrCursorBitmapPos_18070C += (*(int*)((char*)&cursorData_180730 + 2) >> 16) - (cursorPosY_1806E8 >> 16);
+		}
+	}
+	return result;
+}
+
+//----- (0008C839) --------------------------------------------------------
+int SaveCursorBackground_8C839()//26d839
+{
+	int result; // eax
+	x_BYTE* v1; // eax
+	x_BYTE* v2; // edx
+	x_BYTE* v3; // eax
+	x_BYTE* v4; // edx
+
+	if (!(videoMode_180660 & 1))
+	{
+		HIWORD(cursorColumn_18073A) = HIWORD(cursorScreenIndex2_1806F4);
+		SetVgaPaletteBank_9951B(SHIWORD(cursorScreenIndex2_1806F4));
+	}
+	cursorBackgroundPtr_180714 = cursorBackground2_1806F0;
+	ptrScreenPos_180708 = (uint8_t*)&vgaBuffer_A0000 + (unsigned __int16)cursorScreenIndex2_1806F4;//graphics memory maybe
+	if (videoMode_180660 & 1)
+	{
+		for (cursorRow_180738 = 0; ; ++cursorRow_180738)
+		{
+			result = unk_1806EC >> 16;
+			if ((signed int)(unsigned __int16)cursorRow_180738 >= unk_1806EC >> 16)
+				break;
+			LOWORD(cursorColumn_18073A) = 0;
+			while ((unsigned __int16)cursorColumn_18073A < (cursorPosY_1806E8 >> 16))
+			{
+				v1 = (x_BYTE*)cursorBackgroundPtr_180714++;
+				v2 = (x_BYTE*)ptrScreenPos_180708++;
+				*v2 = *v1;
+				LOWORD(cursorColumn_18073A) = cursorColumn_18073A + 1;
+			}
+			ptrScreenPos_180708 += screenWidth_18062C - (cursorPosY_1806E8 >> 16);
+		}
+	}
+	else
+	{
+		for (cursorRow_180738 = 0; ; ++cursorRow_180738)
+		{
+			result = unk_1806EC >> 16;
+			if ((signed int)(unsigned __int16)cursorRow_180738 >= unk_1806EC >> 16)
+				break;
+			LOWORD(cursorColumn_18073A) = 0;
+			while ((unsigned __int16)cursorColumn_18073A < (cursorPosY_1806E8 >> 16))
+			{
+				v3 = (x_BYTE*)cursorBackgroundPtr_180714++;
+				v4 = (x_BYTE*)ptrScreenPos_180708++;
+				*v4 = *v3;
+				if (ptrScreenPos_180708 >= (uint8_t*)0xAFFFE + 2)
+				{
+					++HIWORD(cursorColumn_18073A);
+					SetVgaPaletteBank_9951B(SHIWORD(cursorColumn_18073A));
+					ptrScreenPos_180708 -= 0x10000;
+				}
+				LOWORD(cursorColumn_18073A) = cursorColumn_18073A + 1;
+			}
+			ptrScreenPos_180708 += screenWidth_18062C - (cursorPosY_1806E8 >> 16);
+			if (ptrScreenPos_180708 >= (uint8_t*)0xAFFFE + 2)
+			{
+				++HIWORD(cursorColumn_18073A);
+				SetVgaPaletteBank_9951B(SHIWORD(cursorColumn_18073A));
+				ptrScreenPos_180708 -= 0x10000;
+			}
+		}
+	}
+	return result;
+}
+
+//----- (0008CA16) --------------------------------------------------------
+int RestoreCursorBackground_8CA16()//26da16
+{
+	int result; // eax
+	x_BYTE* v1; // eax
+	x_BYTE* v2; // edx
+
+	cursorBackgroundPtr_180714 = cursorBackground_180700;
+	ptrScreenPos_180708 = cursorScreenIndex_180704 + pdwScreenBuffer_351628;
+	for (cursorRow_180738 = 0; ; ++cursorRow_180738)
+	{
+		result = cursorVisibleWidth_1806FC >> 16;
+		if (cursorRow_180738 >= cursorVisibleWidth_1806FC >> 16)
+			break;
+		LOWORD(cursorColumn_18073A) = 0;
+		while (cursorColumn_18073A < cursorY_1806F8 >> 16)
+		{
+			v1 = (x_BYTE*)cursorBackgroundPtr_180714++;
+			v2 = (x_BYTE*)ptrScreenPos_180708++;
+			*v2 = *v1;
+			LOWORD(cursorColumn_18073A) = cursorColumn_18073A + 1;
+		}
+		ptrScreenPos_180708 += screenWidth_18062C - (cursorX_1806F8 >> 16);
+	}
+	return result;
+}
+
+//----- (0008CB1F) --------------------------------------------------------
+void ClearCursorDrawnFlag_8CB1F()//26db1f
+{
+	cursorDrawn_E3758 = 0;
+}
+
+void MouseEvents(uint32_t buttons, int x, int y)
+{
+	// playback: the recording drives the mouse, but the menus outside the level and the pause
+	// menu keep the host mouse, otherwise there is no way to reach a playback at all
+	if (m_InputRecorder != nullptr && m_InputRecorder->m_IsPlaying && g_inGameLoop
+		&& !(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED))
+		return;
+	UpdateMouseEventData_8CB3A(buttons, x, y);
+};
+
+int x_BYTE_E3767;
+int mouseButtonStates_180710;
+int mouseRepeatTimer_18073E;
+int word_E3764;
+int x_WORD_180742;
+int mouseEventFlagB_180748;
+int mouseEventFlagA_180740;
+
+//----- (0008CB3A) --------------------------------------------------------
+void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t mouse_posy)//26db3a
+{
+	int helpWidth = 640;
+	int helpHeight = 480;
+	if (videoMode_180660 != 1)
+		if (!DefaultResolutions())
+		{
+			helpWidth = screenWidth_18062C;
+			helpHeight = screenHeight_180624;
+		}
+
+	//!!!!!!!! debug
+	if (mouseturnoff)
+	{
+		mouse_posx = 0x140;
+		mouse_posy = 0xc8;
+	}
+
+	if (mouseInstalled_E3768)//2b4768 - 00000001
+	{
+		x_BYTE_E3767 = 1;
+		mouseButtonStates_180710 = mouse_states;//[ebp-c] - 00000001 // state of buttons 1 -change position
+		/*if (videoMode_180660 & 8)
+		{
+			temp_mouse_x = mouse_posx >> 3;//[ss:ebp-8] 0 - x
+			temp_mouse_y = mouse_posy >> 3;//[ss:ebp-4] 0 - y
+			//only for text mode?
+		}*/
+
+		bool warpMouse = false;
+		if (mouse_posx > (helpWidth - 2))
+		{
+			mouse_posx = (helpWidth - 2);
+			warpMouse = true;
+		}
+		if (mouse_posy > (helpHeight - 2))
+		{
+			mouse_posy = (helpHeight - 2);
+			warpMouse = true;
+		}
+
+		mouse_E3760.x = mouse_posx; //set x
+		mouse_E3760.y = mouse_posy; //set y
+
+		if (warpMouse)
+			VGA_Set_mouse(mouse_posx, mouse_posy);
+
+		if (mouseButtonStates_180710 & 2) // left button pressed
+		{
+			if (!mouseLeftButton2_18074C)//first cycle after press
+			{
+				if (mouseRepeatTimer_18073E <= 0)
+				{
+					//mouse_state = word_E3764;
+					mouseRepeatTimer_18073E = word_E3764;
+				}
+				else
+				{
+					x_WORD_180742 = 1;
+				}
+			}
+			if (!mouseLeftButton2_18074C && !mouseLeftButton_180746)//first cycle after press and ...
+			{
+				mouseLeftButton_180746 = 1;
+				mousePosX_E375C = mouse_posx;
+				//mouse_state = temp_mouse_y;
+				mousePosY_E375E = mouse_posy;
+			}
+			mouseLeftButton2_18074C = 1;
+		}
+		if (mouseButtonStates_180710 & 4)// left button released
+			mouseLeftButton2_18074C = 0;
+		if (mouseButtonStates_180710 & 8)// right button pressed
+		{
+			if (!mouseRightButton2_18074A && !mouseRightButton_180744)//first cycle after press and ...
+			{
+				mouseRightButton_180744 = 1;
+				mousePosX_E375C = mouse_posx;
+				//mouse_state = temp_mouse_y;
+				mousePosY_E375E = mouse_posy;
+			}
+			mouseRightButton2_18074A = 1;
+		}
+		if (mouseButtonStates_180710 & 0x10)// right button released
+			mouseRightButton2_18074A = 0;
+		if (mouseButtonStates_180710 & 0x20)// middle button pressed?
+		{
+			if (!mouseEventFlagB_180748 && !mouseEventFlagA_180740)
+			{
+				mouseEventFlagA_180740 = 1;
+				mousePosX_E375C = mouse_posx;
+				//mouse_state = temp_mouse_y;
+				mousePosY_E375E = mouse_posy;
+			}
+			mouseEventFlagB_180748 = 1;
+		}
+		if (mouseButtonStates_180710 & 0x40)// middle button released?
+			mouseEventFlagB_180748 = 0;
+		if (!cursorDrawn_E3758)
+		{
+			HIWORD(cursorParam_180734) = vgaPaletteBank_E3BA4;
+			SaveCursorBackground_8C839();//draw cursor maybe
+			/*mouse_state = */UpdateMouseCursorPosition_8C329();
+			if (videoMode_180660 & 8)
+				/*mouse_state = */SetVgaPaletteBank_9951B(SHIWORD(cursorParam_180734));
+		}
+	}
+}
+
+// 8CB3A: could not find valid save-restore pair for ebx
+// 8CB3A: could not find valid save-restore pair for ebp
+// 8CB3A: could not find valid save-restore pair for edi
+// 8CB3A: could not find valid save-restore pair for esi
+// E3758: using guessed type int cursorDrawn_E3758;
+// E375C: using guessed type __int16 mousePosX_E375C;
+// E375E: using guessed type __int16 mousePosY_E375E;
+// E3760: using guessed type int x_DWORD_E3760;
+// E3767: using guessed type char x_BYTE_E3767;
+// E3768: using guessed type int mouseInstalled_E3768;
+// E3BA4: using guessed type __int16 vgaPaletteBank_E3BA4;
+// 180660: using guessed type __int16 videoMode_180660;
+// 180710: using guessed type int mouseButtonStates_180710;
+// 180734: using guessed type int cursorParam_180734;
+// 18073E: using guessed type __int16 mouseRepeatTimer_18073E;
+// 180740: using guessed type __int16 mouseEventFlagA_180740;
+// 180742: using guessed type __int16 x_WORD_180742;
+// 180744: using guessed type __int16 mouseRightButton_180744;
+// 180746: using guessed type __int16 mouseLeftButton_180746;
+// 180748: using guessed type __int16 mouseEventFlagB_180748;
+// 18074A: using guessed type __int16 mouseRightButton2_18074A;
+// 18074C: using guessed type __int16 mouseLeftButton2_18074C;
+
+//----- (0008CEDF) --------------------------------------------------------
+signed int InstallMouse_8CEDF()//26dedf
+{
+	//__int16 v1; // [esp+0h] [ebp-54h]
+	//__int16 v2; // [esp+1Ch] [ebp-38h]
+	//__int16 v3; // [esp+24h] [ebp-30h]
+	void(*v4)(uint32_t a1, int32_t a2, int32_t a4); // [esp+28h] [ebp-2Ch]
+	//__int16 v5; // [esp+38h] [ebp-1Ch]
+	void(*v6)(uint32_t a1, int32_t a2, int32_t a4); // [esp+44h] [ebp-10h]
+	//int v7; // [esp+48h] [ebp-Ch]
+	int i; // [esp+4Ch] [ebp-8h]
+
+	mouseInstalled_E3768 = 0;
+	//segread((SREGS*)&v5);
+	//v2 = 0;
+//removed int386(0x33, (REGS*)&v2, (REGS*)&v1);//mouse reset
+	//if ( v1 != -1 )
+	//  return 0;
+	//v2 = 0xc;
+	//v3 = 127;
+	//fix it LOWORD(v7) = __CS__;
+	v6 = UpdateMouseEventData_8CB3A;
+	v4 = UpdateMouseEventData_8CB3A;
+	//fix it v5 = __CS__;
+	/*
+	adress: 160:26db3a - sub_8CB3A
+	mask:7f
+	http://stanislavs.org/helppc/int_33-c.html
+	*/
+	//int386x(0x33, (REGS*)&v2, (REGS*)&v1, (SREGS*)&v5);//set mouse subroutine
+//removed sub_8D12F_set_mouse_viewport(); //set min/max of viewport
+	if (!cursorData_180730)
+		cursorData_180730 = (uint8_t*)Malloc_83CD0(4096);//image buffers?-blit?
+	if (!cursorBackground_180700)
+		cursorBackground_180700 = (uint8_t*)Malloc_83CD0(4096);
+	if (!cursorBackground2_1806F0)
+		cursorBackground2_1806F0 = (uint8_t*)Malloc_83CD0(4096);
+	if (!cursorData_180730 || !cursorBackground_180700 || !cursorBackground2_1806F0)
+		return 0;
+	cursorWidth_18072C = 0;
+	cursorHeight_18072E = 0;
+	LOWORD(cursorParam_180734) = 64;
+	for (i = 0; i < 4096; i++)
+		*(x_BYTE*)(i + cursorData_180730) = -2;
+	if (mouseInstalled2_180720)
+		;// fix it! SetCursor_8CD27((uint8_t**)mouseInstalled2_180720);
+	//v2 = 2;
+//removed int386(0x33, (REGS*)&v2, (REGS*)&v1);//hide mouse
+	if (videoMode_180660 & 8)
+	{
+		//v2 = 0xF;
+		//v3 = 1;
+		LOWORD(v4) = 1;
+		//removed int386(0x33, (REGS*)&v2, (REGS*)&v1);//set pixel ratio
+	}
+	mouseInstalled_E3768 = 1;//fix it
+	return 1;
+}
+// 99DE6: using guessed type x_DWORD segread(x_DWORD);
+// 99E10: using guessed type x_DWORD int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);
+// E3768: using guessed type int mouseInstalled_E3768;
+// 180660: using guessed type __int16 videoMode_180660;
+// 1806F0: using guessed type int cursorBackground2_1806F0;
+// 180700: using guessed type int cursorBackground_180700;
+// 180720: using guessed type int mouseInstalled2_180720;
+// 18072C: using guessed type __int16 cursorWidth_18072C;
+// 18072E: using guessed type __int16 cursorHeight_18072E;
+// 180730: using guessed type int cursorData_180730;
+// 180734: using guessed type int cursorParam_180734;
+
+//----- (0008D12F) --------------------------------------------------------
+// int sub_8D12F_set_mouse_viewport()//26e12f NOTE: unused -> removed 
+
+/*
+bool Sprite::loadSprite(uint8 * tabData, uint8 * spriteData, uint32 offset,
+	bool rle)
+{
+	assert(tabData);
+	assert(spriteData);
+
+	uint8 *tabEntry = tabData + offset * TABENTRY_SIZE;
+
+	uint32 spriteOffset = READ_LE_UINT32(tabEntry);
+
+	tabEntry += 4;
+	width_ = *tabEntry;
+	tabEntry += 1;
+	height_ = *tabEntry;
+
+	if (width_ == 0 || height_ == 0)
+		return true;
+
+	stride_ = ceil8(width_);
+	uint8 *spriteBlocks = spriteData + spriteOffset;
+
+	sprite_data_ = new uint8[stride_ * height_];
+	memset(sprite_data_, 255, stride_ * height_);
+
+	uint8 *currentPixel;
+
+	if (rle) {
+		for (int i = 0; i < height_; ++i) {
+			int spriteWidth = width_;
+			currentPixel = sprite_data_ + i * stride_;
+
+			uint8 b = *spriteBlocks++;
+			int runLength = b < 128 ? b : -(256 - b);
+			while (runLength != 0) {
+				spriteWidth -= runLength;
+
+				if (runLength > 0) {
+					if (currentPixel < sprite_data_)
+						currentPixel = sprite_data_;
+					if (currentPixel + runLength >
+						sprite_data_ + height_ * stride_)
+						runLength =
+						sprite_data_ + height_ * stride_ -
+						currentPixel;
+					// pixel run
+					for (int j = 0; j < runLength; ++j)
+						*currentPixel++ = *spriteBlocks++;
+				}
+				else if (runLength < 0) {
+					// transparent run
+					runLength *= -1;
+					if (currentPixel < sprite_data_)
+						currentPixel = sprite_data_;
+					if (currentPixel + runLength >
+						sprite_data_ + height_ * stride_)
+						runLength =
+						sprite_data_ + height_ * stride_ -
+						currentPixel;
+					memset(currentPixel, 255, runLength);
+					currentPixel += runLength;
+				}
+				else if (runLength == 0) {
+					// end of the row
+					spriteWidth = 0;
+				}
+
+				b = *spriteBlocks++;
+				runLength = b < 128 ? b : -(256 - b);
+			}
+		}
+	}
+	else {
+		for (int j = 0; j < height_; ++j) {
+			currentPixel = sprite_data_ + j * stride_;
+
+			for (int i = 0; i < width_; i += PIXELS_PER_BLOCK) {
+				unpackBlocks1(spriteBlocks, currentPixel);
+
+				spriteBlocks += BLOCK_LENGTH;
+				currentPixel += PIXELS_PER_BLOCK;
+			}
+		}
+	}
+
+	return true;
+}
+*/
+
+//----- (0009025C) --------------------------------------------------------
+int SetMouseBoundsScaled_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int16 a5, __int16 a6)//27125c
+{
+	__int16 v6; // bx
+	__int16 v7; // cx
+	__int16 v8; // dx
+	uint8_t* v10; // edi
+	int v11; // eax
+	unsigned int v12; // ecx
+	int v13; // ecx
+	int v14; // esi
+	int v15; // esi
+	int v16; // [esp+4h] [ebp-4h]
+
+	//fix it
+	v16 = 0;
+	//fix it
+
+	v6 = 2 * viewportWidth_180634;
+	v7 = 2 * viewportY_180650;
+	v8 = 2 * viewportHeight_180630;
+	if (a1 < (signed __int16)(2 * viewportX_18063C))
+		a1 = 2 * viewportX_18063C;
+	if (a3 < (signed __int16)(2 * viewportX_18063C))
+		return v16;
+	if (a1 >= v6)
+		return v16;
+	if (a3 >= v6)
+		a3 = 2 * viewportWidth_180634;
+	if (a2 < v7)
+		a2 = 2 * viewportY_180650;
+	if (a4 < v7)
+		return v16;
+	if (a2 >= v8)
+		return v16;
+	if (a4 >= v8)
+		a4 = 2 * viewportHeight_180630;
+	/*v10 = (x_BYTE*)(320 * ((unsigned int)(unsigned __int16)a2 >> 1)
+		+ (int)pdwScreenBuffer_351628
+		+ ((unsigned int)(unsigned __int16)a1 >> 1));*/
+	v10 = &pdwScreenBuffer_351628[320 * (a2 >> 1) + (a1 >> 1)];
+	v11 = a5;
+	v12 = (unsigned __int16)a3;
+	if (a3 == a1)
+	{
+		v13 = (unsigned __int16)a4;
+		LOWORD(v13) = (unsigned __int16)(a4 - a2) >> 1;
+		if (a6 & 4)
+		{
+			v14 = x_DWORD_E3890;
+			do
+			{
+				BYTE1(v11) = *v10;
+				*v10 = *(x_BYTE*)(v11 + v14);
+				v10 += 320;
+				--v13;
+			} while (v13);
+		}
+		else
+		{
+			do
+			{
+				*v10 = a5;
+				v10 += 320;
+				--v13;
+			} while (v13);
+		}
+	}
+	else
+	{
+		LOWORD(v12) = (unsigned __int16)(a3 - a1) >> 1;
+		if (a6 & 4)
+		{
+			v15 = x_DWORD_E3890;
+			do
+			{
+				BYTE1(v11) = *v10;
+				*v10++ = *(x_BYTE*)(v11 + v15);
+				--v12;
+			} while (v12);
+		}
+		else
+		{
+			memset(v10, a5, v12);
+		}
+	}
+	return v16;
+}
+
+//----- (0009A10A) --------------------------------------------------------
+signed int CheckKeyboard_9A10A(/*signed int result*/)//27B10a
+{
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
+	if (keyboardFlag_E4CA4)
+		return 1;
+	return VGA_check_standart_input_status();
+	//fix it:__asm { int     21h; DOS - CHECK STANDARD INPUT STATUS }
+	/*
+	on return:
+	  AL = 00 if no character available
+		 = FF if character available
+
+	  - checks STDIN for available characters
+	  - character is not returned
+	  - if Ctrl-Break is detected INT 23 is executed
+	*/
+	return 0;//fix it
+}
+
+//----- (0009D31C) --------------------------------------------------------
+__int16 /*__fastcall*/ ReadKeyboardShiftFlags_9D31C(__int16 result)//27e31c
+{
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
+	bool v1; // zf
+
+	//fix it:__asm { int     16h; KEYBOARD - GET ENHANCED SHIFT FLAGS (AT model 339,XT2,XT286,PS) }
+	keyShiftFlags_1806E5 = 0;
+	if (result & 3)
+		keyShiftFlags_1806E5 = 1;
+	if (result & 4)
+		keyShiftFlags_1806E5 |= 2u;
+	v1 = (result & 8) == 0;
+	if (result & 8)
+	{
+		v1 = ((unsigned __int8)keyShiftFlags_1806E5 | 4) == 0;
+		keyShiftFlags_1806E5 |= 4u;
+	}
+	LastPressedKey_1806E4 = 0;
+	//fix it:__asm { int     16h; KEYBOARD - CHECK ENHANCED KEYSTROKE (AT model 339,XT2,XT286,PS) }
+	if (!v1)
+	{
+		//fix it:__asm { int     16h; KEYBOARD - GET ENHANCED KEYSTROKE (AT model 339,XT2,XT286,PS) }
+		LastPressedKey_1806E4 = 16;
+	}
+	return result;
+}
+// 1806E4: using guessed type char x_BYTE_1806E4;
+// 1806E5: using guessed type char keyShiftFlags_1806E5;

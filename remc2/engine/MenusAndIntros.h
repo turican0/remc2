@@ -7,6 +7,126 @@
 #include "TypeConfigDat.h"
 #include "Network.h"
 
+#pragma pack(push, 1)
+typedef struct {//lenght 7
+	Type_SoundEvent_E17CC* pSoundEvent_0;
+	uint8_t levelNumber_4;
+	uint8_t overplayed_5;
+	uint8_t fileIndex_6;
+}
+Type_CutScene_E16E0;
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+typedef struct {
+	unsigned long LastTimeRendered_0;
+	int16_t PosX_4;
+	int16_t PosY_6;
+	int16_t ActSprite_8;
+	int8_t FirstSprite_10;
+	int8_t LastSprite_11;
+} type_MainMenuAnimations_E1748;
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+typedef struct {//lenght 30
+	int32_t time1_0;
+	int32_t time2_4;
+	int16_t x1_8;
+	int16_t y1_10;
+	int16_t firstFrame_12;
+	int16_t lastFrame_14;
+	int16_t frameIndex_16;
+	int16_t time3_18;
+	int8_t state_20;
+	int8_t playOnce_21;
+	int16_t time4_22;
+	int16_t wavIndex_24;
+	int16_t playType_26;
+	//int8_t stuba[1];
+	int16_t loopCount_28;
+	//int8_t stubb[1];
+} type_x_BYTE_E25ED_db_str;
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+typedef struct {//lenght 18
+	int16_t textIndex_0;
+	int16_t left_2;
+	int16_t top_4;
+	int16_t minx_6;
+	int16_t miny_8;
+	int16_t word_10;
+	int16_t width_12;
+	int16_t maxy_14;
+	int8_t mapButtonId_16;
+	int8_t buttonId_17;
+}
+typeTextBoxtextBoxStr_E24BCx;
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+typedef struct {//lenght 18
+	int16_t posX_0;
+	int16_t posY_2;
+	int16_t word_4;
+	int16_t word_6;
+	int16_t word_8;
+	int16_t word_10;
+	int16_t textIndex_12;
+	int16_t state_14;
+	int16_t type_16;
+}
+type_x_BYTE_E25ED_2BB;
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+typedef struct {//lenght 16
+	int16_t x1_26_0;//0 x
+	int16_t y1_28_1;//1 y
+	int16_t word_30_2;//2
+	int16_t word_32_3;//3
+	int16_t height_34_4;//4
+	int16_t scrollPos_36_5;//5
+	int16_t textIndex_38_6;//6
+	int16_t click_40_7;//7
+	int16_t nocl_42_8;//8
+} type_str_word_26;
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+typedef struct {//lenght 44
+	uint32_t callback_0;
+	//int16_t word_2;
+	int32_t state_4;//4 dword
+	//int16_t word_6;//remove it
+	int16_t selected_8;
+	int16_t xmin_10;
+	int16_t ymin_12;
+	int16_t sizex_14;
+	int16_t sizey_16;
+	int16_t word_18;
+	uint8_t goldSprite_20;//index of gold sprite
+	uint8_t graySprite_21;//index of gray sprite
+	int8_t id_22;
+	int8_t canSelect_23;
+	int8_t gold_color_24;
+	int8_t active_25;
+	//int16_t word_24;//23 and 24 byte
+	type_str_word_26 scroll_26;//0
+	//int16_t word_28;//1
+	//int16_t word_30;//2
+	//int16_t word_32;//3
+	//int16_t word_34;//4
+	//int16_t word_36;//5
+	//int16_t word_38;//6
+	//int16_t click_40;//7
+	//int16_t nocl_42;
+}
+type_menuButtons_E1F84;
+#pragma pack(pop)
+
+
 // types
 
 extern int16_t MOUSE_MIN;
@@ -121,30 +241,21 @@ type_BYTE_E25ED_0x;
 extern int8_t LoadLevelNumber_D419C;
 extern char skipScreen_D41AD;
 extern const char* LevelsNames_D9204[61];
-extern char* off_DB558[];
 extern __int16 x_WORD_E131A;
 extern char menuSoundVolume_E1324;
 extern type_menuButtons_E1F84 mainMenuButtons_E1BAC[10];
-extern long lastTime_E208C;
-extern __int16 timeCounter_E2094;
 extern char minTimeCounter_E2096;
-extern char maxTimeCounter_E2097;
 extern type_x_BYTE_E25ED_db_str x_BYTE_E25ED_db_str[16];
 extern MenuItem nextMenu_E29D8;
 extern int16_t m_ExitMenuLoop_E29DC;
 extern char selectedSession_E29DF;
 extern char langLoaded_E29E0;
 extern uint8_t* memoryBufferAlloc_E9C3C;
-extern uint8_t keys_EB39E[10];
-extern uint8_t uiBackGroundColorIdx_EB3A8;
 extern int32_t times_17DBB8[4];
 extern char mainMenuState_17DBC6;
 extern uint32_t levelScores_17DBC8[125];
 extern uint32_t secretLevelScores_17DDBC[26];
 extern char IsPlayingCDTrack_17E09D;
-extern int16_t cdDrive_1803EC;
-extern uint8_t unk_180560x[44];
-extern type_unk_18058Cstr inputState_18058C;
 
 extern int test_regression_level;
 extern Type_SoundEvent_E17CC introSoundEvents_E17CC[];
@@ -248,3 +359,20 @@ void DrawAnimTextsAndPlaySounds_7D400(__int16 posx, __int16 posy, char a4);
 signed int DrawBitmapAndPlaySound_7E320();
 int GetMapMenuDialogIndex_7E320(uint32_t adress, type_menuButtons_E1F84* a1x);
 signed int NewGameDialog_7E640(type_menuButtons_E1F84* a1x);
+
+extern __int16 menuVideoMode_E29DA; // weak
+void LoadHscreen_7A110(char a1, char a2);
+void LoadAndDecompressDatFile_7AA70(const char* a1, uint8_t* a2, int a3, int a4);
+void ClearScrollDialogVars_7C020(type_str_word_26* a1x);
+signed int ReadKeyboardKeysInMenu_7C050();
+char IsAlphanumericOrSpace_7C200(uint8_t a1);
+bool DrawFrameAnim_7E5A0(__int16 posx, __int16 posy, Type_MapScreenPortals_E17CC* mapPortal, __int16 beginIndex, __int16 endIndex);
+void DrawTextBox(std::string message, uint16_t left, uint16_t right, uint16_t top, int16_t borderColour = 80);
+void DrawTextBoxWithLine_7E840(typeTextBoxtextBoxStr_E24BCx* testBoxStr, __int16 borderColor, __int16 lineColor);
+int DrawMapObject_812D0(__int16 a1, __int16 a2);
+void DrawBitmapLine_81360(int16_t a1, int16_t a2, int16_t a3, int16_t a4, __int16 a5);
+void DrawAnimSprite_81CA0(__int16 a3, __int16 a4, type_x_BYTE_E25ED_db_str* a5);
+Type_SecretMapScreenPortals_E2970* GetSecretAndActivedPortal_824B0(__int16 actLevel);
+void ActivateSecretPortal_82AB0(unsigned __int8 a1);
+void DrawRoundFrame_85CC3(/*unsigned int a1, int a2, */unsigned __int16* a3);
+extern Type_CutScene_E16E0 cutScene_E16E0[];

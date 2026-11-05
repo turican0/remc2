@@ -1,10 +1,97 @@
 #include "Sound.h"
+#include "Type_DB080_CdTrack.h"
 
 #include "PlayerInput.h"
 
 #include "../utilities/Maths.h"
 #include "../portability/awe32/Awe32Mdi.h"
 #include <mutex>
+#include "EventsFunctions.h"
+#include "CommandLineParser.h"
+#include "GameUI.h"
+#include "Graphics.h"
+#include "MenusAndIntros.h"
+#include "Network.h"
+#include "Player.h"
+#include "Events.h"
+#include "Level.h"
+#include "../utilities/StateMonitor.h"
+#include "../utilities/RendererTests.h"
+#include "ConvertMapInfo.h"
+#include "LevelInit.h"
+#include "DatTabIndexes.h"
+#include "MouseOnOff.h"
+#include "PrintMessages.h"
+#include "ReadAndDecompress.h"
+#include "Type_DB080_CdTrack.h"
+
+Type_DB080_CdTrack CdTracks_DB080[28] = {
+{0x0001,{{0x0000,0x02EE},{0x0339,0x012C},{0x04B0,0x01C2},{0x06BD,0x01C2},{0x08CA,0x0177},{0x0A8C,0x0177},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0C4E,0x020D}}},
+{0x0002,{{0x0000,0x0465},{0x04B0,0x020D},{0x0708,0x0258},{0x09AB,0x012C},{0x0B22,0x020D},{0x0D7A,0x01C2},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0F87,0x0258}}},
+{0x0003,{{0x0000,0x0384},{0x03CF,0x02A3},{0x06BD,0x0177},{0x087F,0x01C2},{0x0A8C,0x0177},{0x0C4E,0x012C},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0DC5,0x0177}}},
+{0x0004,{{0x0000,0x020D},{0x0258,0x012C},{0x03CF,0x01C2},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x05DC,0x0258}}},
+{0x0005,{{0x0000,0x02EE},{0x0339,0x0177},{0x04FB,0x012C},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0672,0x02A3}}},
+{0x0006,{{0x0000,0x0384},{0x03CF,0x0177},{0x0591,0x0177},{0x0753,0x020D},{0x09AB,0x01C2},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0BB8,0x0177}}},
+{0x0007,{{0x0000,0x0465},{0x04B0,0x0177},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0672,0x020D}}},
+{0x0008,{{0x0000,0x0384},{0x03CF,0x01C2},{0x05DC,0x0177},{0x079E,0x012C},{0x0915,0x012C},{0x0A8C,0x0258},{0x0D2F,0x020D},{0x0000,0x0000},{0x0000,0x0000},{0x0F87,0x012C}}},
+{0x0009,{{0x0000,0x03CF},{0x041A,0x0177},{0x05DC,0x0096},{0x06BD,0x00E1},{0x07E9,0x020D},{0x0A41,0x020D},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0C99,0x020D}}},
+{0x000A,{{0x0000,0x02A3},{0x02EE,0x020D},{0x0546,0x0177},{0x0708,0x0258},{0x09AB,0x020D},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0C03,0x012C}}},
+{0x000B,{{0x0000,0x0258},{0x02A3,0x0177},{0x0465,0x020D},{0x06BD,0x0177},{0x087F,0x01C2},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0A8C,0x012C}}},
+{0x000C,{{0x0000,0x0546},{0x0591,0x0258},{0x0834,0x01C2},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0A41,0x012C}}},
+{0x000D,{{0x0000,0x03CF},{0x041A,0x01C2},{0x0627,0x0177},{0x07E9,0x0177},{0x09AB,0x012C},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0B22,0x01C2}}},
+{0x000E,{{0x0000,0x02EE},{0x0339,0x02A3},{0x0627,0x020D},{0x087F,0x01C2},{0x0A8C,0x0177},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0C4E,0x020D}}},
+{0x000F,{{0x0000,0x0465},{0x04B0,0x00E1},{0x05DC,0x020D},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0834,0x020D}}},
+{0x0010,{{0x0000,0x0339},{0x0384,0x020D},{0x05DC,0x00E1},{0x0708,0x00E1},{0x0834,0x0177},{0x09F6,0x012C},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0B6D,0x0177}}},
+{0x0011,{{0x0000,0x0465},{0x04B0,0x0177},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0672,0x012C}}},
+{0x0012,{{0x0000,0x05DC},{0x0627,0x01C2},{0x0834,0x012C},{0x09AB,0x01C2},{0x0BB8,0x0177},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0D7A,0x012C}}},
+{0x0013,{{0x0000,0x020D},{0x0258,0x012C},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x03CF,0x00E1}}},
+{0x0014,{{0x0000,0x0339},{0x0384,0x020D},{0x05DC,0x020D},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0834,0x01C2}}},
+{0x0015,{{0x0000,0x0339},{0x0384,0x01C2},{0x0591,0x0177},{0x0753,0x020D},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x09AB,0x0177}}},
+{0x0016,{{0x0000,0x0465},{0x04B0,0x00E1},{0x05DC,0x020D},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0834,0x01C2}}},
+{0x0017,{{0x0000,0x03CF},{0x041A,0x012C},{0x0591,0x0177},{0x0753,0x020D},{0x09AB,0x012C},{0x0B22,0x012C},{0x0C99,0x01C2},{0x0EA6,0x0177},{0x0000,0x0000},{0x1068,0x012C}}},
+{0x0018,{{0x0000,0x0339},{0x0384,0x0177},{0x0546,0x020D},{0x079E,0x012C},{0x0915,0x012C},{0x0A8C,0x012C},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0C03,0x0177}}},
+{0x0019,{{0x0000,0x04B0},{0x0000,0x0000},{0x04FB,0x02A3},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x07E9,0x0627}}},
+{0x001A,{{0x0000,0x0177},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000}}},
+{0x001B,{{0x0000,0x0177},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000}}},
+{0x001C,{{0x5BD0,0x0107},{0x5BE0,0x0107},{0x5BF0,0x0107},{0x5C00,0x0107},{0x5C10,0x0107},{0x5C24,0x0107},{0x5C34,0x0107},{0x5C44,0x0107},{0x5C60,0x0107},{0x5C70,0x0107}}}
+};
+
+//int x_DWORD_D4798 = 0; // weak
+char soundInitialized_D4B50 = 0; // weak
+
+char soundTimerInstalled_D4B51 = 0; // weak
+
+char FadeVolume_D4B78 = 0; // weak
+
+char fadeMusicVolume_D4B79 = 0; // weak
+
+char IsVolumeFaded_D4B7A = 0; // weak
+
+int TimerIdx_F4940 = -1;
+
+int TimerIdx_180078 = -1;
+
+int TimerIdx_F42A4 = -1;
+
+int TrackOffsets_180084[100]; // fix it -  weak
+
+int cdTrackStarts_180214[101]; // idb
+
+__int16 PlayingTrackIdx_1803E8; // weak
+
+int16_t cdDrive_1803EC; // weak
+
+char cdTrackAudio_1803EE[100]; // idb
+
+int cdLeadOut_180473; // weak
+
+int cdTrackInfo_180486; // weak
+
+char cdTrackFlags_18048A; // weak
+
+uint8_t TrackEndIdx_18049E; // weak
+
+uint8_t TrackStartIdx_1804A1; // weak
 
 //fix str2_E37A4_sound_buffer3 = str_E37A0_sound_buffer2->next_str + v8x[a2].dword_8;
 //fix x_DWORD_E380C = str_E3808_music_header->next_str + headerx[drivernumber].dword_8;
@@ -6713,4 +6800,569 @@ int AngleTurnDirection_582F0(int a1, __int16 a2)//2392f0
 bool ShouldUpdateSound_6EA90(int volume1, int volume2)//24fa90
 {
 	return volume1 - volume2 >= -8;
+}
+
+
+//----- (00019D60) --------------------------------------------------------
+void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume)//1fad60
+{
+	int16_t height;
+	int16_t width;
+	int16_t posY;
+	int16_t posX;
+
+	int posYbyType = 0; // set zero, add stopper for gameState_D41A4.byte_38591 ==0
+	uint8_t scale = 1;
+
+	if (!DefaultResolutions())
+	{
+		scale = gameUiScale;
+	}
+
+	switch (gameState_D41A4.volumeKeyHeld_38591)
+	{
+	case 1:
+		volume = 127;
+		posYbyType = gameState_D41A4.soundVolume_6;
+		break;
+	case 2:
+		volume = 127;
+		posYbyType = gameState_D41A4.musicVolume_8;
+		break;
+	}
+	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height, scale);
+	SetMousePositionInMemory_5BDC0(((int)((posYbyType * scale) * (width - (12 * scale)) / (volume * scale)) + (5 * scale)) + posX, (int)(9 * height / 2) + posY);
+}
+
+//----- (0001A070) --------------------------------------------------------
+void AdjustVolume_1A070(__int16 a2)//1fb070
+{
+	unsigned __int8 v2; // al
+	int v3; // eax
+	int v4; // edx
+	int v5; // esi
+	int v6; // ebx
+	int v7; // eax
+	int v8; // ett
+	int v9; // ebx
+	unsigned __int8 v10; // dl
+	int16_t height; // [esp+0h] [ebp-10h]
+	int16_t width; // [esp+4h] [ebp-Ch]
+	int16_t posY; // [esp+8h] [ebp-8h]
+	int16_t posX; // [esp+Ch] [ebp-4h]
+	uint8_t scale = 1;
+
+	int a1 = 0;
+
+	if (!DefaultResolutions())
+	{
+		scale = gameUiScale;
+	}
+
+	if (inputState_18058C.joystickMode_1805C2 == 7 || inputState_18058C.joystickMode_1805C2 == 1 || inputState_18058C.joystickMode_1805C2 == 2)
+		SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[cursorSpriteIndex_D419E]); //fixit
+	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height, scale);
+	v2 = gameState_D41A4.volumeKeyHeld_38591;
+	if (v2 >= 1u)
+	{
+		if (v2 <= 1u)
+		{
+			v3 = width;
+			v4 = width;
+		}
+		else
+		{
+			if (v2 != 2)
+				goto LABEL_12;
+			v4 = 3 * width;
+			v3 = 3 * width;
+		}
+		a1 = 127;
+		a2 = (v3 - (__CFSHL__(v4 >> 31, 2) + 4 * (v4 >> 31))) >> 2;
+	}
+LABEL_12:
+	if (inputState_18058C.MouseButtonState_18059C & 1 || inputState_18058C.MouseButtonState_18059C & 2 || inputState_18058C.MouseButtonState_18059C & 4 || inputState_18058C.MouseButtonState_18059C & 8 || pressedKeys_180664[47] || pressedKeys_180664[50])
+	{
+		v5 = width - (12 * scale);
+		v6 = inputState_18058C.mouse_1805B0.x - (posX + (4 * scale));
+		if (v6 < 0)
+			v6 = 0;
+		if (v6 > v5)
+			v6 = width - (12 * scale);
+		v8 = a1 * v6;
+		v7 = a1 * v6 / v5;
+		v9 = a1 * v6 / v5;
+		if (v8 / v5 < 0)
+			v9 ^= v7;
+		if (v9 > 127)
+			v9 = 127;
+		v10 = gameState_D41A4.volumeKeyHeld_38591;
+		if (v10 >= 1u)
+		{
+			if (v10 <= 1u)
+			{
+				PrepareEventSound_6E450(
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240,
+					world_D41A0.LevelIndex_0xc,
+					8);
+				PlayEntitySounds_6E150();
+				if (gameState_D41A4.soundVolume_6 != v9)
+				{
+					gameState_D41A4.soundVolume_6 = v9;
+					SetSoundVolume_8E470((signed __int16)v9);
+				}
+			}
+			else if (v10 == 2 && gameState_D41A4.musicVolume_8 != v9)
+			{
+				gameState_D41A4.musicVolume_8 = v9;
+				SetMusicVolume_8E410(v9);
+			}
+		}
+		ClearMouseButtonState_19A50();
+	}
+	else
+	{
+		gameState_D41A4.volumeKeyHeld_38591 = pressedKeys_180664[47];
+		HandleButtonClick_191B0(20, gameState_D41A4.savedMenuState_38544);
+		SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]); //Set cursor to Null (Don't Draw)
+		SetMousePositionInMemory_5BDC0(posX + a2, posY + 5 * height / 2);
+		if (gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED)
+		{
+			EndSample_8D8F0();
+			StopMusic_8E020();
+		}
+	}
+}
+
+//----- (00046DD0) --------------------------------------------------------
+void InitSoundAndMusic_46DD0()//227DD0
+{
+	//char* v3; // eax
+	//int v4; // edx
+	//char v5; // bl
+	//char v6; // dl
+	//char v8[512]; // [esp+0h] [ebp-40h]
+	// fix if begin
+	//v4 = 0;
+	// end
+
+	SetAllocationTag_83CC0(20);
+	if (!soundInitialized_D4B50)
+	{
+		soundInitialized_D4B50 = 1;
+		if (((gameState_D41A4.setting_byte1_22) & 0x40) || PackedGameData())//fix it; tests without the game: no sound data
+		{
+			PrintTextMessage_70910((char*)"Sound Disabled\0");
+			musicActive_E37FD = false;
+			soundActive_E3799 = false;
+			musicAble_E37FC = false;
+			soundAble_E3798 = false;
+		}
+		else
+		{
+			sprintf(printbuffer, "%s/%s", gameDataPath.c_str(), "sound");
+			PrintTextMessage_70910((char*)"Initialise Sound\0");
+			InitSoundAndMusic_90FD0(/*v3*//*v3, v4, a3*/); //fix it sound off here!
+			if (!soundActiveL_E2A14)
+				myprintf("ERROR: NOT ENOUGH MEMORY FOR SOUNDS\n");
+			if ((gameState_D41A4.setting_byte4_25) & 0x40)//fix it
+				InitMusicBank_8EAD0(1);
+		}
+		if (soundAble_E3798 || musicAble_E37FC)
+		{
+			TimerIdx_F42A4 = AilRegisterTimer_92600(SimpleTimer_46820);
+			AilSetTimerFrequency_92930(TimerIdx_F42A4, 120);
+			AilStartTimer_92BA0(TimerIdx_F42A4);
+			soundTimerInstalled_D4B51 = 1;
+		}
+		else
+		{
+			SetProgrammableIntervalTimer_6FDA0();
+		}
+		//v5 = x_BYTE_E3798_sound_active2;
+		if (!soundAble_E3798 && !musicAble_E37FC && cdSpeechEnabled_E2A28)
+		{
+			StopCdPlayback_86860(cdDrive_1803EC);
+			CloseCdDriver_85F00();
+			//v6 = gameState_D41A4.OptionsSettingFlag_24 & 0xBF;
+			cdSpeechEnabled_E2A28 = soundAble_E3798;
+			(gameState_D41A4.OptionsSettingFlag_24) &= SPEECH_DISABLED;
+		}
+	}
+	SetAllocationTag_83CC0(21);
+}
+
+//----- (00046F50) --------------------------------------------------------
+void ReleaseSoundTimer_46F50()//227f50
+{
+	if (soundTimerInstalled_D4B51)
+		AilReleaseTimer_92DC0(TimerIdx_F42A4);
+	else
+		ClearProgrammableIntervalTimer_6FE20();
+	EndAllSound_986E0();
+}
+
+//----- (00059A50) --------------------------------------------------------
+uint32_t FadeDownSoundVolume_59A50()//23aa50
+{
+	int result; // eax
+
+	if (IsVolumeFaded_D4B7A == 1)
+	{
+		AilReleaseTimer_92DC0(TimerIdx_F4940);
+		IsVolumeFaded_D4B7A = 0;
+	}
+	SetSoundVolume_8E470(gameState_D41A4.soundVolume_6 / 3);
+	FadeVolume_D4B78 = gameState_D41A4.soundVolume_6 / 3;
+	SetMusicVolume_8E410((gameState_D41A4.musicVolume_8 / 3));
+	result = gameState_D41A4.musicVolume_8 / 3;
+	fadeMusicVolume_D4B79 = gameState_D41A4.musicVolume_8 / 3;
+	gameState_D41A4.setting_38545 |= 0x40u;
+	return result;
+}
+
+//----- (00059AF0) --------------------------------------------------------
+void StopCdPlayBackAndFadeUp_59AF0()//23aaf0
+{
+	//int result; // eax
+
+	StopCdPlayback_86860(cdDrive_1803EC);
+	TimerIdx_F4940 = AilRegisterTimer_92600(FadeUpSoundVolume_59B50);
+	AilSetTimerFrequency_92930(TimerIdx_F4940, 120);
+	AilStartTimer_92BA0(TimerIdx_F4940);
+	IsVolumeFaded_D4B7A = 1;
+	//result = (int)x_D41A0_BYTEARRAY_4;
+	gameState_D41A4.setting_38545 &= 0xBFu;
+	//return result;
+}
+
+//----- (00059B50) --------------------------------------------------------
+uint32_t FadeUpSoundVolume_59B50(uint32_t interval)
+{
+	__int16 v0; // bx
+	__int16 v1; // dx
+
+	v0 = gameState_D41A4.soundVolume_6;
+	if ((unsigned __int8)FadeVolume_D4B78 != v0
+		|| (HIBYTE(v1) = HIBYTE(v0), LOBYTE(v1) = fadeMusicVolume_D4B79, v1 != gameState_D41A4.musicVolume_8))
+	{
+		if ((signed __int16)(unsigned __int8)FadeVolume_D4B78 < gameState_D41A4.soundVolume_6)
+			SetSoundVolume_8E470((unsigned __int8)++FadeVolume_D4B78);
+		if ((signed __int16)(unsigned __int8)fadeMusicVolume_D4B79 < gameState_D41A4.musicVolume_8)
+			SetMusicVolume_8E410(++fadeMusicVolume_D4B79);
+	}
+	else
+	{
+		IsVolumeFaded_D4B7A = 0;
+		AilReleaseTimer_92DC0(TimerIdx_F4940);
+	}
+	return interval;
+}
+
+//----- (00059BF0) --------------------------------------------------------
+void RestoreSoundVolume_59BF0()//23abf0
+{
+	if (IsVolumeFaded_D4B7A == 1)
+	{
+		AilReleaseTimer_92DC0(TimerIdx_F4940);
+		IsVolumeFaded_D4B7A = 0;
+	}
+	SetSoundVolume_8E470(gameState_D41A4.soundVolume_6);
+	SetMusicVolume_8E410(gameState_D41A4.musicVolume_8);
+}
+
+//----- (0006E150) --------------------------------------------------------
+void PlayEntitySounds_6E150()//24f150
+{
+	auto playerEntity = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+
+	if (soundActive_E3799 && soundAble_E3798 && (!(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED) || gameState_D41A4.volumeKeyHeld_38591))
+	{
+		for (int i = 0; i < 70; i++)
+		{
+			switch (EntitySounds_F4FE0[i].playType_0)
+			{
+			case 1:
+				RestartOrIfNotExistingPlaySample_75110(EntitySounds_F4FE0[i].flags_3, i, EntitySounds_F4FE0[i].volume_2, EntitySounds_F4FE0[i].volumePan_1, EntitySounds_F4FE0[i].playRate_5);
+				SetSamplePositionFromPlayer(EntitySounds_F4FE0[i].flags_3, i, EntitySounds_F4FE0[i].positionFromPlayer);
+				EntitySounds_F4FE0[i].playType_0 = 0;
+				EntitySounds_F4FE0[i].word_4 = 2;
+				break;
+			case 2:
+				AlwaysPlaySample_751B0(EntitySounds_F4FE0[i].flags_3, i, EntitySounds_F4FE0[i].volume_2, EntitySounds_F4FE0[i].volumePan_1, EntitySounds_F4FE0[i].playRate_5);
+				SetSamplePositionFromPlayer(EntitySounds_F4FE0[i].flags_3, i, EntitySounds_F4FE0[i].positionFromPlayer);
+				EntitySounds_F4FE0[i].playType_0 = 0;
+				EntitySounds_F4FE0[i].word_4 = 2;
+				break;
+			case 3:
+				IfNotPlayingPlaySample_75160(EntitySounds_F4FE0[i].flags_3, i, EntitySounds_F4FE0[i].volume_2, EntitySounds_F4FE0[i].volumePan_1, EntitySounds_F4FE0[i].playRate_5);
+				SetSamplePositionFromPlayer(EntitySounds_F4FE0[i].flags_3, i, EntitySounds_F4FE0[i].positionFromPlayer);
+				EntitySounds_F4FE0[i].playType_0 = 0;
+				EntitySounds_F4FE0[i].word_4 = 2;
+				break;
+			case 4:
+				if (EntitySounds_F4FE0[i].volume_2 == 512)
+					AilEndSamplePlayingByIndex_8F420(0, i);
+				else
+					PlaySample_8F100(0, i, (signed int)EntitySounds_F4FE0[i].volume_2 >> 8, 64, 0x64u, 0, IfNotPlayingPlaySample);
+				EntitySounds_F4FE0[i].playRate_5 = 2;
+				EntitySounds_F4FE0[i].playType_0 = 0;
+				break;
+			default:
+				break;
+			}
+			EntitySounds_F4FE0[i].volume_2 = 0;
+		}
+	}
+}
+
+//----- (00072CB0) --------------------------------------------------------
+/*int sub_72CB0(unsigned __int8* a1, int a2)
+{
+	int v3; // [esp+4h] [ebp-Ch]
+	int v4; // [esp+8h] [ebp-8h]
+		v3 += *v5++;
+	}
+	return v3;
+}*/
+
+//----- (00075110) --------------------------------------------------------
+void RestartOrIfNotExistingPlaySample_75110(int16_t flags, int16_t wavIndex, int16_t volume, uint16_t volumePan, int16_t playRate)
+{
+	PlaySample_8F100(flags, wavIndex, volume >> 8, 127 * volumePan / 0xFFFF, playRate + 100, 0, RestartOrIfNotExistingPlaySample);
+}
+
+//----- (00075160) --------------------------------------------------------
+void IfNotPlayingPlaySample_75160(int16_t flags, int16_t wavIndex, int16_t volume, uint16_t volumePan, int16_t playRate)
+{
+	PlaySample_8F100(flags, wavIndex, volume >> 8, 127 * volumePan / 0xFFFF, playRate + 100, 0, IfNotPlayingPlaySample);
+}
+
+//----- (000751B0) --------------------------------------------------------
+void AlwaysPlaySample_751B0(int16_t flags, int16_t wavIndex, int16_t volume, uint16_t volumePan, int16_t playRate)
+{
+	PlaySample_8F100(flags, wavIndex, volume >> 8, 127 * volumePan / 0xFFFF, playRate + 100, 0, AlwaysPlaySample);
+}
+
+//----- (00085F60) --------------------------------------------------------
+int MsfToFrames_85F60(int a1)//266f60
+{
+	return 75 * BYTE1(a1) + 4500 * BYTE2(a1) + (unsigned __int8)a1;
+}
+
+/*
+//----- (00085FD0) --------------------------------------------------------
+bool AllocCdBuffers_85FD0()//266fd0
+{
+	//int v0; // ax
+	// 2B3A6C - D5020000A11A0000
+	//cdDriveReady_E2A6C
+	cdDriveReady_E2A6C = (int)AllocMemory_85EB0(0x2);
+	x_DWORD_E2A70 = (int)AllocMemory_85EB0(0x100);
+	return cdDriveReady_E2A6C && x_DWORD_E2A70;
+}
+// E2A6C: using guessed type int cdDriveReady_E2A6C;
+// E2A70: using guessed type int x_DWORD_E2A70;
+*/
+
+//----- (00086A00) --------------------------------------------------------
+void InitialiseCdAudio_86A00()//267a00
+{
+	//int result; // eax
+	int v1; // ebx
+	int v2x; // ebx
+	unsigned __int16 v2; // bx
+	int v3; // esi
+	int v4; // ST04_4
+	signed __int16 v5; // bx
+	unsigned __int16 i; // ax
+	int v7; // edi
+	unsigned __int16 v8; // bx
+	int v9; // eax
+	unsigned __int16 v10; // bx
+	int v11; // esi
+	int v12; // eax
+	unsigned __int16 v13; // ax
+	int v14; // edx
+	int v15; // ecx
+
+	//v0 = malloc(1000 * sizeof(uint8_t));/
+
+	if (CheckReadyCdDriveIsReady_85FD0())
+	{
+		if (QueryInstalledCdDrives_86010())
+		{
+			if (!CheckCdDrive_86550())
+			{
+				CloseCdDriver_85F00();
+				return;
+			}
+
+			v1 = 0;
+			while (1)
+			{
+				v2x = QueryCdTracks_86270((uint16_t)cdDrive_1803EC);
+				if ((v2x & 0x8000) == 0)
+					break;
+				j___delay(1000);
+				if ((_WORD)++v1 == 4)
+					CloseCdDriver_85F00();
+			}
+			TrackStartIdx_1804A1 = MinTrackIdx_180471;
+			v2 = (uint8_t)MinTrackIdx_180471;
+			TrackEndIdx_18049E = MaxTrackIdx_180472;
+			while (v2 <= (signed int)(uint8_t)MaxTrackIdx_180472)
+			{
+				QueryCdTrack_86370(cdDrive_1803EC, v2);
+				v3 = v2;
+				v4 = cdTrackInfo_180486;
+				cdTrackAudio_1803EE[v2++] = (cdTrackFlags_18048A & 0x40) == 0;
+				TrackOffsets_180084[v3] = MsfToFrames_85F60(v4);
+			}
+			v5 = 0;
+			for (i = (uint8_t)MinTrackIdx_180471; i <= (signed int)(uint8_t)MaxTrackIdx_180472; i++)
+			{
+				if (cdTrackAudio_1803EE[i])
+					v5 = 1;
+			}
+			if (v5)
+			{
+				v7 = TrackOffsets_180084[1];
+				v8 = (uint8_t)MinTrackIdx_180471;
+				while (1)
+				{
+					v9 = v8;
+					if (v8 > (signed int)(uint8_t)MaxTrackIdx_180472)
+						break;
+					++v8;
+					TrackOffsets_180084[v9] -= v7;
+				}
+				v10 = (uint8_t)MinTrackIdx_180471;
+				while (v10 <= (signed int)(uint8_t)MaxTrackIdx_180472)
+				{
+					v11 = v10;
+					if (v10 == (uint8_t)MaxTrackIdx_180472)
+						v12 = MsfToFrames_85F60(cdLeadOut_180473) - v7;
+					else
+						v12 = TrackOffsets_180084[1 + v11];
+					cdTrackStarts_180214[v11] = v12;
+					v13 = v10;
+					v14 = TrackOffsets_180084[v10];
+					v15 = cdTrackStarts_180214[v10++];
+					cdTrackStarts_180214[v13] = v15 - v14;
+				}
+				InitCdAudioRequest_86460(cdDrive_1803EC);
+				cdSpeechEnabled_E2A28 = 1;
+			}
+			else
+			{
+				CloseCdDriver_85F00();
+			}
+		}
+		else
+		{
+			CloseCdDriver_85F00();
+		}
+	}
+}
+
+//----- (00086EB0) --------------------------------------------------------
+void PlayCDTrackSegmentNumber_86EB0(uint8_t trackIdx, uint8_t segmentIdx, bool paletteFlash)//267eb0
+{
+	//int v3; // eax
+	uint8_t trackId_v4; // dl
+	//int v5; // eax
+	int32_t startPos_v6; // bx
+	int32_t length_v7; // ax
+
+	//v3 = 42 * a1;
+	//v4 = x_BYTE_DB080[v3];
+	trackId_v4 = CdTracks_DB080[trackIdx].TrackIdx_0;
+	/*v5 = 4 * a2 + v3;
+	v6 = *(__int16*)((char*)&x_BYTE_DB080[2] + v5);
+	v7 = *(__int16*)((char*)&x_BYTE_DB080[4] + v5);*/
+	startPos_v6 = CdTracks_DB080[trackIdx].TrackSegments_DB080[segmentIdx].startPos_0 * 13.33333333333;
+	length_v7 = CdTracks_DB080[trackIdx].TrackSegments_DB080[segmentIdx].length_2 * 13.33333333333;
+	if (trackId_v4 && length_v7)
+	{
+		if (paletteFlash)
+			PlayCDTrackSegmentWithPaletteFlash_86F70(trackId_v4, startPos_v6, length_v7);
+		else
+			PlayCDTrackSegment_86FF0(trackId_v4, startPos_v6, length_v7);
+	}
+}
+// DB082: using guessed type __int16 x_WORD_DB082[];
+// DB084: using guessed type __int16 x_WORD_DB084[];
+
+void PlayCDTrackSegmentForSecretLevel_86F20(char a1)//267f20
+{
+	int trackIdx; // eax
+	unsigned __int8 trackIdx_v2; // dl
+	int32_t startPos_v3; // bx
+	int32_t length_v4; // ax
+
+	//v1 = 21 * ((a1 != 0) + 25);
+	//v2 = x_BYTE_DB080[v1 * 2];
+	/*v3 = *(int16_t*)&x_BYTE_DB080[2 + v1 * 2];
+	v4 = *(int16_t*)&x_BYTE_DB080[4 + v1 * 2];*/
+	trackIdx = ((a1 != 0) + 25);
+	trackIdx_v2 = CdTracks_DB080[trackIdx].TrackIdx_0;
+	startPos_v3 = CdTracks_DB080[trackIdx].TrackSegments_DB080[0].startPos_0;
+	length_v4 = CdTracks_DB080[trackIdx].TrackSegments_DB080[0].length_2;
+	if (trackIdx_v2)
+	{
+		if (length_v4)
+			PlayCDTrackSegmentWithPaletteFlash_86F70(trackIdx_v2, startPos_v3, length_v4);
+	}
+}
+// DB082: using guessed type __int16 x_WORD_DB082[];
+// DB084: using guessed type __int16 x_WORD_DB084[];
+
+//----- (00086F70) --------------------------------------------------------
+void PlayCDTrackSegmentWithPaletteFlash_86F70(uint8_t trackIdx, int32_t startPosMs, int32_t lengthMs)//267f70
+{
+	if (cdSpeechEnabled_E2A28 && (musicAble_E37FC || soundAble_E3798))
+	{
+		TimerIdx_180078 = AilRegisterTimer_92600(FadePalettes_86EA0);
+		AilSetTimerFrequency_92930(TimerIdx_180078, 50);
+		AilStartTimer_92BA0(TimerIdx_180078);
+		PlayCDTrackSegment_86FF0(trackIdx, startPosMs, lengthMs);
+		AilReleaseTimer_92DC0(TimerIdx_180078);
+	}
+}
+// E2A28: using guessed type char x_BYTE_E2A28;
+// E3798: using guessed type char x_BYTE_E3798_sound_active2;
+// E37FC: using guessed type char x_BYTE_E37FC;
+// 180078: using guessed type int x_DWORD_180078;
+
+//----- (00086FF0) --------------------------------------------------------
+void PlayCDTrackSegment_86FF0(uint8_t trackIdx, int32_t startPosSec, int32_t lengthMs)//267ff0
+{
+	if (cdSpeechEnabled_E2A28 && (musicAble_E37FC || soundAble_E3798))
+	{
+		PlayingTrackIdx_1803E8 = trackIdx;
+		StopCdPlayback_86860(cdDrive_1803EC);
+		if ((uint16_t)PlayingTrackIdx_1803E8 >= TrackStartIdx_1804A1
+			&& (uint16_t)PlayingTrackIdx_1803E8 <= TrackEndIdx_18049E)
+		{
+			if (cdTrackAudio_1803EE[(uint16_t)PlayingTrackIdx_1803E8])
+			{
+				PlayCdAudio_86780(cdDrive_1803EC, TrackOffsets_180084[(uint16_t)PlayingTrackIdx_1803E8] + startPosSec, lengthMs);
+				PlayCdTrackSegment(trackIdx, startPosSec, lengthMs);
+			}
+		}
+	}
+}
+// E2A28: using guessed type char x_BYTE_E2A28;
+// E3798: using guessed type char x_BYTE_E3798_sound_active2;
+// E37FC: using guessed type char x_BYTE_E37FC;
+// 180084: using guessed type int TrackOffsets_180084[];
+// 1803E8: using guessed type __int16 PlayingTrackIdx_1803E8;
+// 1803EA: using guessed type __int16 x_WORD_1803EA;
+// 1803EC: using guessed type __int16 cdDrive_1803EC;
+
+//----- (00092160) --------------------------------------------------------
+int AilBackground_92160()
+{
+	return AilApiBackground_A16A2();
 }

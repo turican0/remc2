@@ -1,4 +1,39 @@
 #include "Animation.h"
+#include "EventsFunctions.h"
+#include "CommandLineParser.h"
+#include "GameUI.h"
+#include "Graphics.h"
+#include "MenusAndIntros.h"
+#include "Network.h"
+#include "Player.h"
+#include "PlayerInput.h"
+#include "Events.h"
+#include "Level.h"
+#include "../utilities/StateMonitor.h"
+#include "../utilities/RendererTests.h"
+#include "ConvertMapInfo.h"
+#include "LevelInit.h"
+#include "DatTabIndexes.h"
+#include "MouseOnOff.h"
+#include "PrintMessages.h"
+#include "ReadAndDecompress.h"
+#include "Type_DB080_CdTrack.h"
+
+int8_t* animFrameBase_E1304 = 0; // weak
+
+int8_t* animStreamPos_E1308 = 0;
+
+uint16_t animChunkType_E130C = 0; // weak
+
+__int16 animPosX_E130E = 0; // weak
+
+__int16 animPosY_E1310 = 0; // weak
+
+__int16 animChunkSize_E1312[2] = { 0,0 }; // weak
+
+__int16 animChunkCount_E1316 = 0; // weak
+
+char animDecodeMode_E2A20 = 0; // weak
 
 __int16 redrawTextInVideo_E12FC = 1; // weak
 __int16 soundEventIndex_D4004 = 0; // weak//index of act key in anim
@@ -691,3 +726,407 @@ void ReadIntroPalettes_76260()
 }
 
 
+//----- (000765FC) --------------------------------------------------------
+void SetAnimationPosition_765FC(__int16 a1, __int16 a2)
+{
+	animPosX_E130E = a1;
+	animPosY_E1310 = a2;
+}
+// E130E: using guessed type __int16 animPosX_E130E;
+// E1310: using guessed type __int16 animPosY_E1310;
+
+//----- (00076619) --------------------------------------------------------
+int8_t* DecodeAnimationFrame_76619(int8_t* a1x, int8_t* a2x)//animate sprite
+{
+	animStreamPos_E1308 = a1x;
+	animFrameBase_E1304 = a2x;
+	while (1)
+	{
+		qmemcpy(animChunkSize_E1312, (void*)animStreamPos_E1308, 4u);
+		animStreamPos_E1308 += 4;
+		qmemcpy(&animChunkType_E130C, (void*)animStreamPos_E1308, sizeof(animChunkType_E130C));
+		animStreamPos_E1308 += 2;
+		if (animChunkType_E130C != 0xAF12)
+			break;
+		ReadAnimationPosition_76752();
+	}
+	if (animChunkType_E130C != 0xF1FA)
+		return 0;
+	DecodeAnimationChunks_766A4();
+	return animStreamPos_E1308;
+}
+// E1304: using guessed type int x_DWORD_E1304;
+// E1308: using guessed type int x_DWORD_E1308;
+// E130C: using guessed type __int16 animChunkType_E130C;
+// E1312: using guessed type __int16 x_WORD_E1312;
+
+//----- (000766A4) --------------------------------------------------------
+void DecodeAnimationChunks_766A4()//animate sprite
+{
+	__int16 result; // ax
+
+	qmemcpy(&animChunkCount_E1316, (void*)animStreamPos_E1308, sizeof(animChunkCount_E1316));
+	animStreamPos_E1308 += 2;
+	animStreamPos_E1308 += 8;
+	while (animChunkCount_E1316)
+	{
+		--animChunkCount_E1316;
+		qmemcpy(animChunkSize_E1312, (void*)animStreamPos_E1308, 4u);
+		animStreamPos_E1308 += 4;
+		qmemcpy(&animChunkType_E130C, (void*)animStreamPos_E1308, sizeof(animChunkType_E130C));
+		animStreamPos_E1308 += 2;
+		switch (animChunkType_E130C)
+		{
+		case 7:
+			result = DecodeAnimationDelta_7678D();
+			break;
+		case 4:
+			result = SkipAnimationChunk_7677C();
+			break;
+		case 15:
+			result = DecodeAnimationRun_76840();
+			break;
+		default:
+			result = SkipAnimationChunk_7677C();
+			break;
+		}
+	}
+	//return result;
+}
+// E1308: using guessed type int x_DWORD_E1308;
+// E130C: using guessed type __int16 animChunkType_E130C;
+// E1312: using guessed type __int16 x_WORD_E1312;
+// E1316: using guessed type __int16 animChunkCount_E1316;
+
+//----- (00076752) --------------------------------------------------------
+__int16 ReadAnimationPosition_76752()
+{
+	__int16 result; // ax
+
+	animPosX_E130E = *(x_WORD*)(animStreamPos_E1308 + 2);
+	result = *(x_WORD*)(animStreamPos_E1308 + 4);
+	animPosY_E1310 = *(x_WORD*)(animStreamPos_E1308 + 4);
+	animStreamPos_E1308 += 6;
+	return result;
+}
+// E1308: using guessed type int x_DWORD_E1308;
+// E130E: using guessed type __int16 animPosX_E130E;
+// E1310: using guessed type __int16 animPosY_E1310;
+
+//----- (0007677C) --------------------------------------------------------
+int SkipAnimationChunk_7677C()
+{
+	int result; // eax
+
+	result = (unsigned __int16)animChunkSize_E1312[0] - 6;
+	animStreamPos_E1308 += result;
+	return result;
+}
+// E1308: using guessed type int x_DWORD_E1308;
+// E1312: using guessed type __int16 x_WORD_E1312;
+
+//----- (0007678D) --------------------------------------------------------
+__int16 DecodeAnimationDelta_7678D()//animate sprite
+{
+	x_WORD* v0; // edi
+	x_WORD* v1; // esi
+	__int16 result; // ax
+	x_BYTE* v3; // edi
+	x_BYTE* v4; // esi
+	char v5; // dl
+	x_WORD* v6; // [esp-4h] [ebp-14h]
+	x_WORD* v7; // [esp+0h] [ebp-10h]
+	__int16 i; // [esp+6h] [ebp-Ah]
+	__int16 v9; // [esp+8h] [ebp-8h]
+	int v10; // [esp+Ch] [ebp-4h]
+
+	v10 = (unsigned __int16)animPosX_E130E;
+	v0 = (x_WORD*)animFrameBase_E1304;
+	v1 = (x_WORD*)(animStreamPos_E1308 + 2);
+	v9 = *(x_WORD*)animStreamPos_E1308;
+	do
+	{
+		while (1)
+		{
+			result = *v1;
+			++v1;
+			v7 = v0;
+			if (result >= 0)
+				goto LABEL_10;
+			if (!(result & 0x4000))
+				break;
+			v0 = (x_WORD*)((char*)v0 + v10 * -result);
+		}
+		v6 = v0;
+		v3 = (char*)v0 + v10 - 1;
+		if (animDecodeMode_E2A20 == 1)
+		{
+			if ((x_BYTE)result)
+				*v3 = result;
+		}
+		else
+		{
+			*v3 = result;
+		}
+		v0 = v6;
+	LABEL_10:
+		for (i = result; i; i--)
+		{
+			while (1)
+			{
+				LOBYTE(result) = *(x_BYTE*)v1;
+				v4 = (char*)v1 + 1;
+				result = (unsigned __int8)result;
+				v0 = (x_WORD*)((char*)v0 + (unsigned __int8)result);
+				v5 = *v4;
+				v1 = (x_WORD*)(v4 + 1);
+				if (v5 > 0)
+					break;
+				result = *v1;
+				++v1;
+				do
+				{
+					*v0 = result;
+					++v0;
+					++v5;
+				} while (v5);
+				if (!--i)
+					goto LABEL_18;
+			}
+			do
+			{
+				*v0 = *v1;
+				++v1;
+				++v0;
+				--v5;
+			} while (v5);
+		}
+	LABEL_18:
+		v0 = (x_WORD*)((char*)v7 + v10);
+		--v9;
+	} while (v9);
+	animStreamPos_E1308 = (int8_t*)v1;
+	return result;
+}
+// E1304: using guessed type int x_DWORD_E1304;
+// E1308: using guessed type int x_DWORD_E1308;
+// E130E: using guessed type __int16 animPosX_E130E;
+// E1310: using guessed type __int16 animPosY_E1310;
+// E1312: using guessed type __int16 x_WORD_E1312;
+// E2A20: using guessed type char animDecodeMode_E2A20;
+
+//----- (00076840) --------------------------------------------------------
+int DecodeAnimationRun_76840()
+{
+	int8_t* v0; // edi
+	int8_t* v1; // esi
+	__int16 v2; // bx
+	__int16 v3; // cx
+	unsigned __int8 v4; // dl
+	__int16 v5; // ax
+	char v6; // dh
+	char v7; // dh
+	int result; // eax
+	int8_t* v9x; // [esp-8h] [ebp-Ch]
+	int v10; // [esp-4h] [ebp-8h]
+	__int16 v11; // [esp+2h] [ebp-2h]
+
+	v11 = animPosX_E130E;
+	v0 = animFrameBase_E1304;
+	v1 = animStreamPos_E1308;
+	v10 = (unsigned __int16)animChunkSize_E1312[0] - 6;
+	v9x = animStreamPos_E1308;
+	v2 = animPosY_E1310;
+	do
+	{
+		++v1;
+		v3 = v11;
+		do
+		{
+			v4 = *v1++;
+			if ((char)v4 > 0)
+			{
+				v3 -= v4;
+			}
+			else
+			{
+				HIBYTE(v5) = -1;
+				LOBYTE(v5) = v4;
+				v3 += v5;
+			}
+			if ((char)v4 > 0)
+			{
+				v7 = *v1++;
+				do
+				{
+					if (animDecodeMode_E2A20 == 1)
+					{
+						if (v7)
+							*v0 = v7;
+					}
+					else
+					{
+						*v0 = v7;
+					}
+					++v0;
+					--v4;
+				} while (v4);
+			}
+			else
+			{
+				do
+				{
+					v6 = *v1++;
+					if (animDecodeMode_E2A20 == 1)
+					{
+						if (v6)
+							*v0 = v6;
+					}
+					else
+					{
+						*v0 = v6;
+					}
+					++v0;
+					++v4;
+				} while (v4);
+			}
+		} while (v3);
+		--v2;
+	} while (v2);
+	result = v10;
+	animStreamPos_E1308 = v10 + v9x;
+	return result;
+}
+// E1304: using guessed type int x_DWORD_E1304;
+// E1308: using guessed type int x_DWORD_E1308;
+// E130E: using guessed type __int16 animPosX_E130E;
+// E1310: using guessed type __int16 animPosY_E1310;
+// E1312: using guessed type __int16 x_WORD_E1312;
+// E2A20: using guessed type char animDecodeMode_E2A20;
+
+//----- (0007E8D0) --------------------------------------------------------
+void CreateAnimObject_7E8D0(type_animStruct* animStruct, __int16 x1, __int16 y1, __int16 x2, __int16 y2, __int16 countX, __int16 countY)//25f8d0
+{
+	animStruct->diffX_0 = x1 - x2;
+	animStruct->diffY_1 = y1 - y2;
+	animStruct->absDiffX2_2 = 2 * abs(animStruct->diffX_0);
+	animStruct->absDiffY2_3 = 2 * abs(animStruct->diffY_1);
+	if (animStruct->diffX_0 >= 0)
+	{
+		if (animStruct->diffX_0)
+			animStruct->maxX_4 = countX;
+		else
+			animStruct->maxX_4 = 0;
+	}
+	else
+	{
+		animStruct->maxX_4 = -countX;
+	}
+	if (animStruct->diffY_1 >= 0)
+	{
+		if (animStruct->diffY_1)
+			animStruct->maxY_5 = countY;
+		else
+			animStruct->maxY_5 = 0;
+	}
+	else
+	{
+		animStruct->maxY_5 = -countY;
+	}
+	animStruct->beginX_6 = x1;
+	animStruct->beginY_7 = y1;
+	if (animStruct->absDiffX2_2 <= animStruct->absDiffY2_3)
+	{
+		animStruct->secondAdd_8 = animStruct->absDiffX2_2 - (animStruct->absDiffY2_3 >> 1);
+	}
+	else
+	{
+		animStruct->secondAdd_8 = (animStruct->absDiffY2_3 - animStruct->absDiffX2_2) >> 1;
+	}
+	animStruct->secondAddY_9 = 0;
+	if (x2 >= animStruct->beginX_6)
+	{
+		if (x2 > animStruct->beginX_6)
+			animStruct->stateX_10 = 1;
+	}
+	else
+	{
+		animStruct->stateX_10 = 2;
+	}
+	if (y2 >= animStruct->beginY_7)
+	{
+		if (y2 > animStruct->beginY_7)
+			animStruct->stateY_11 = 1;
+	}
+	else
+	{
+		animStruct->stateY_11 = 2;
+	}
+}
+
+//----- (0007E9D0) --------------------------------------------------------
+bool MoveAnimObject_7E9D0(x_WORD* x1, x_WORD* y1, type_animStruct* animStruct)//25f9d0
+{
+	__int16 field;
+	if (animStruct->absDiffX2_2 <= animStruct->absDiffY2_3)
+	{
+		if (*y1 == animStruct->beginY_7)
+			return true;
+		if (animStruct->secondAdd_8 >= 0)
+		{
+			*x1 += animStruct->maxX_4;
+			animStruct->secondAdd_8 -= animStruct->absDiffY2_3;
+		}
+		*y1 += animStruct->maxY_5;
+		field = animStruct->absDiffX2_2;
+	}
+	else
+	{
+		if (*x1 == animStruct->beginX_6)
+			return true;
+		if (animStruct->secondAdd_8 >= 0)
+		{
+			*y1 += animStruct->maxY_5;
+			animStruct->secondAdd_8 -= animStruct->absDiffX2_2;
+		}
+		*x1 += animStruct->maxX_4;
+		field = animStruct->absDiffY2_3;
+	}
+	animStruct->secondAdd_8 += field;
+	if (animStruct->stateX_10 == 1)
+	{
+		if (*x1 < animStruct->beginX_6)
+			*x1 = animStruct->beginX_6;
+	}
+	else if (animStruct->stateX_10 == 2)
+	{
+		if (*x1 > animStruct->beginX_6)
+			*x1 = animStruct->beginX_6;
+	}
+	if (animStruct->stateY_11 == 1)
+	{
+		if (*y1 < animStruct->beginY_7)
+			*y1 = animStruct->beginY_7;
+	}
+	else if (animStruct->stateY_11 == 2)
+	{
+		if (*y1 > animStruct->beginY_7)
+			*y1 = animStruct->beginY_7;
+	}
+	return false;
+}
+
+//----- (00081260) --------------------------------------------------------
+void MoveAnimIndex_81260(type_animStruct3* animStruct, __int16 x1, __int16 y1)//262260
+{
+	int time = j___clock();
+	if ((unsigned int)(time - animStruct->lastTime_0) >> 4 >= 1)
+	{
+		if (animStruct->spriteIndex_8 <= animStruct->lastSpriteIndex_11 - 1)
+			animStruct->spriteIndex_8++;
+		else
+			animStruct->spriteIndex_8 = animStruct->firstSpriteIndex_10;
+		animStruct->lastTime_0 = time;
+	}
+	DrawBitmap640_7C120(x1, y1, menuSprites_17DED4[animStruct->spriteIndex_8]);
+}

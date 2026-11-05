@@ -578,7 +578,6 @@ void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5,
 void DrawBitmap640_7C120(int16_t posx, int16_t posy, bitmap_pos_struct_t tempstr);
 uint8_t GetPaletteIndex_5BE80(TColor* a1x, uint8_t a2, uint8_t a3, uint8_t a4);
 void DrawTextBackground_7C140(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
-void VgaPaletteInstall_41A90(TColor* a1x);
 void SetSubtitleColourAndRedraw_2EC90(char a1);
 uint32_t DrawText_7FAE0(char* text, int16_t x, int16_t width, int16_t posy, uint8_t color);
 void VgaBlit320_90478(uint8_t maxFps = 0);
@@ -625,4 +624,16 @@ unsigned long j___clock();
 
 void SetPlayerLocation(uint16_t x, uint16_t y, int16_t z, int16_t pitch, int16_t roll, int16_t yaw);
 
-void fix_sub_9A0FC_wait_to_screen_beam(int32_t delay);
+int TurnTowardsAngle_58350(unsigned __int16 a1, __int16 a2, int a3, unsigned __int16 a4);
+int GetChebyshevDistXY_583B0(axis_3d* a1, axis_3d* a2);
+unsigned int Distance3D_583F0(axis_3d* a1, axis_3d* a2);
+int DistanceSquared3D_58440(axis_3d* a1, axis_3d* a2);
+int DistanceSquared3DAlt_84FB0(axis_3d* a1, axis_3d* a2);
+int FixedSqrt_B12A4(int a1);
+int FixedAtan2_B1304(int a1, int a2);
+int FixedAsin_B1414(int a1);
+int FixedSin_B148C(int a1);
+int FixedSinCos_B14F8(int* a1, int a2);
+extern filearray_struct fonts_E9B20[4];
+void fix_sub_9A0FC_wait_to_screen_beam(int32_t delay = 10);
+

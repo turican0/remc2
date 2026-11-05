@@ -7,6 +7,30 @@
 #include <algorithm>
 #include "../utilities/DataFileRNC.h"
 #include "../utilities/BitmapIO.h"
+#include "EventsFunctions.h"
+#include "CommandLineParser.h"
+#include "GameUI.h"
+#include "Graphics.h"
+#include "MenusAndIntros.h"
+#include "Network.h"
+#include "Player.h"
+#include "PlayerInput.h"
+#include "Events.h"
+#include "Level.h"
+#include "../utilities/StateMonitor.h"
+#include "../utilities/RendererTests.h"
+#include "ConvertMapInfo.h"
+#include "LevelInit.h"
+#include "DatTabIndexes.h"
+#include "MouseOnOff.h"
+#include "PrintMessages.h"
+#include "ReadAndDecompress.h"
+#include "Type_DB080_CdTrack.h"
+
+char x_BYTE_DB738 = 0; // weak//x_DWORD_DAF50ar[0x7e8]
+
+//__int16 x_WORD_F4FE0[424]; // fix it -  weak
+uint8_t tmapGroupUsed_F5538[504]; // idb
 
 type_BIG_SPRITES_BUFFER BIG_SPRITES_BUFFERx[max_sprites];
 
@@ -1149,5 +1173,373 @@ void ResetAnimation_72410(type_animations1* animation)
 	{
 		animation->active_0 = 0;
 		animation->Sprite_4 = 0;
+	}
+}
+
+
+//----- (000713A0) --------------------------------------------------------
+void FreeTmapsAndAnimations_713A0()//2523a0
+{
+	FreeTmapCache_720C0(&tmapCache_E9C28);
+	FreeAnimations_72550(&animations_E9C08x);
+	ClearUsedTmapFlags_716A0();
+	memset(m_ptrLoadedSprites_F66F0x, 0, 504 * sizeof(Type_Sprite**));
+	memset(str_F5F10, 0, 504 * sizeof(Type_Sprite**));
+	memset(tmapGroupLastUse_F5730, 0, 2016);
+	x_BYTE_DB738 = 0;
+	CloseTmaps_70BF0();
+}
+
+//----- (00071410) --------------------------------------------------------
+void ProcessTmaps_71410()//252410
+{
+	//Type_SpriteDef_D951C* v0x; // esi
+	int v0y;
+	uint8_t* v1; // ebx
+	uint16_t v2; // di
+
+	OpenTmaps_70A60();
+	//v0x = &str_WORD_D951C[0];
+	v0y = 0;
+	v1 = pdwScreenBuffer_351628;
+	while (spriteDefsTable_D951C[v0y].speed_6 || spriteDefsTable_D951C[v0y].worldSize_8)
+	{
+		v2 = spriteDefsTable_D951C[v0y].textureIdx_0;
+		memset((void*)v1, 0, str_TMAPS00TAB_BEGIN_BUFFER[spriteDefsTable_D951C[v0y].textureIdx_0 + 1].offset_4 - str_TMAPS00TAB_BEGIN_BUFFER[spriteDefsTable_D951C[v0y].textureIdx_0].offset_4);
+		if (DecompressTmap_70C60(v2, v1) == -1)
+		{
+			*(x_WORD*)(v1 + 2) = 255;
+			*(x_WORD*)(v1 + 4) = 255;
+			*(x_BYTE*)(v1 + 1) = 1;
+		}
+		if (!*(x_WORD*)(v1 + 4) || !*(x_WORD*)(v1 + 2))
+		{
+			*(x_WORD*)(v1 + 2) = 255;
+			*(x_WORD*)(v1 + 4) = 255;
+			*(x_BYTE*)(v1 + 1) = 1;
+		}
+		if (spriteDefsTable_D951C[v0y].speed_6)
+		{
+			if (!spriteDefsTable_D951C[v0y].worldSize_8)
+				spriteDefsTable_D951C[v0y].worldSize_8 = *(unsigned __int16*)(v1 + 4) * spriteDefsTable_D951C[v0y].speed_6 / *(unsigned __int16*)(v1 + 2);
+		}
+		else
+		{
+			spriteDefsTable_D951C[v0y].speed_6 = *(unsigned __int16*)(v1 + 2) * spriteDefsTable_D951C[v0y].worldSize_8 / *(unsigned __int16*)(v1 + 4);
+		}
+		/*v0 += 7;
+		*((x_BYTE*)v0 - 2) = *(x_BYTE*)(v1 + 1);*/
+		spriteDefsTable_D951C[v0y].kind_12 = *(x_BYTE*)(v1 + 1);
+		v0y++;
+	}
+	CloseTmaps_70BF0();
+}
+
+//----- (000715B0) --------------------------------------------------------
+void UpdateSpriteAnimations_715B0()//2525b0
+{
+	unsigned __int16 v0; // bx
+	//int result; // eax
+	Type_Sprite** v2x; // ecx
+	//char v3; // cl
+	type_animations1* v5x; // eax
+	__int16 v6; // si
+	unsigned __int16 i; // bx
+	Type_Sprite** v8x; // edi
+	//char v9; // cl
+	type_animations1* v10x; // eax
+
+	v0 = 0;
+	do
+	{
+		//result = 4 * v0;
+		v2x = m_ptrLoadedSprites_F66F0x[v0];
+		if (v2x)
+		{
+			//result = *v2;
+			//v3 = (*v2x)->un_0.byte[0];
+			if ((*v2x)->flags_0 & 8)
+			{
+				if ((*v2x)->flags_0 & 0x20)
+				{
+					//result = 5 * v0;
+					v6 = str_TMAPS00TAB_BEGIN_BUFFER[v0].group_8;
+					for (i = str_TMAPS00TAB_BEGIN_BUFFER[v0].group_8; i < 504; i++)
+					{
+						//result = 5 * i;
+						if (v6 != str_TMAPS00TAB_BEGIN_BUFFER[i].group_8)
+							break;
+						//result = 4 * i;
+						v8x = m_ptrLoadedSprites_F66F0x[i];
+						if (v8x)
+						{
+							//result = *v8;
+							(*v8x)->flags_0 &= 0xFFF7;//byte write of the low byte & 0xF7
+							if ((*v8x)->flags_0 & 1)
+							{
+								v10x = GetAnimationByIndex_724F0(animations_E9C08x, i);
+								/*result = */AnimateSprite_72350(v10x);
+							}
+						}
+					}
+					v0 = i - 1;
+				}
+				else
+				{
+					(*v2x)->flags_0 &= 0xFFF7;//*(x_BYTE*)result = v4: the drawn flag is cleared
+					if ((*v2x)->flags_0 & 1)
+					{
+						v5x = GetAnimationByIndex_724F0(animations_E9C08x, v0);
+						/*result = */AnimateSprite_72350(v5x);
+					}
+				}
+			}
+		}
+		v0++;
+	} while (v0 < 0x1F8u);
+	//return result;
+}
+// E9C08: using guessed type int x_DWORD_E9C08;
+// F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
+
+//----- (000716A0) --------------------------------------------------------
+void ClearUsedTmapFlags_716A0()//2526a0
+{
+	memset(tmapGroupUsed_F5538, 0, 504);
+}
+
+//----- (000716C0) --------------------------------------------------------
+void LoadEntitySprites_716C0(unsigned __int16 entityType, unsigned __int16 entitySubtype, unsigned __int16 a3)//2526c0
+{
+	int16_t* v4; // ebx
+	int16_t v5; // cx
+	int index_int = 0;
+	v4 = 0;
+	while (str_D7BD6[index_int].type_160_0x0_0 >= 0)
+	{
+		if (str_D7BD6[index_int].type_160_0x0_0 == entityType && str_D7BD6[index_int].subtype_160_0x2_2 == entitySubtype)
+			v4 = &str_D7BD6[index_int].yawTurnLimit_160_0x4_4;
+		index_int++;
+	}
+	if (v4)//maybe this must be fixed
+	{
+		while (1)
+		{
+			v5 = v4[0];
+			if ((v4[0] & 0x8000u) != 0)
+				break;
+			v4++;
+			MarkSpriteTmapUsed_71730(v5);
+		}
+	}
+	else if ((a3 & 0x8000u) == 0)
+	{
+		MarkSpriteTmapUsed_71730(a3);
+	}
+}
+
+//----- (00071730) --------------------------------------------------------
+void MarkSpriteTmapUsed_71730(unsigned __int16 a1)//252730
+{
+	tmapGroupUsed_F5538[str_TMAPS00TAB_BEGIN_BUFFER[spriteDefsTable_D951C[a1].textureIdx_0].group_8] = spriteDefsTable_D951C[a1].levelSpriteGroup_11;
+}
+
+//----- (00071780) --------------------------------------------------------
+void ReloadSpritesForLevel_71780()//252780
+{
+	unsigned __int16 v0; // bx
+	uint8_t i; // bl
+	unsigned __int16 j; // si
+	char v6 = 0;
+	if (!tmapCache_E9C28)
+		InitTmapsAndSprites_712F0();
+	SetTmapsFile_71A70(world_D41A0.terrain_2FECE.MapType);
+	v0 = 0;
+	memset(tmapGroupLastUse_F5730, 0, 2016);
+	do
+	{
+		if (!tmapGroupUsed_F5538[v0])
+			ResetTmap_70D20(v0);
+		v0++;
+	} while (v0 < 0x1F8u);
+	for (i = 0xff; i && !v6; i--)
+	{
+		for (j = 0; j < 0x1F8u && !v6; j++)
+		{
+			if (i == tmapGroupUsed_F5538[j] && !m_ptrLoadedSprites_F66F0x[j])
+			{
+				if (GetTmapCacheFreeSize_71E60(tmapCache_E9C28) <= GetTmapGroupSize_70EF0(j))
+				{
+					if (GetTmapCacheFreeSize_71E60(tmapCache_E9C28) < 0x400)
+						v6 = 1;
+				}
+				else
+				{
+					//adress 25283c
+					InitTmaps(j);
+				}
+			}
+		}
+	}
+}
+
+//----- (00071AB0) --------------------------------------------------------
+void MarkTmapGroupUsed_71AB0(__int16 a1, char a2)//252ab0
+{
+	//Sprite* v2x; // eax
+	__int16 v3; // si
+	__int16 i; // bx
+	Type_Sprite** v5x; // ecx
+	type_animations1* v6x; // eax
+
+	//LOWORD(v2) = 5 * a1;
+	v3 = str_TMAPS00TAB_BEGIN_BUFFER[a1].group_8;
+	for (i = str_TMAPS00TAB_BEGIN_BUFFER[a1].group_8; i < 504; i++)
+	{
+		//LOWORD(v2) = v3;
+		if (str_TMAPS00TAB_BEGIN_BUFFER[i].group_8 != v3)
+			break;
+		v5x = m_ptrLoadedSprites_F66F0x[i];
+		if (v5x)
+		{
+			//v2x = *v5x;
+			if ((*v5x)->flags_0 & 1)
+			{
+				v6x = GetAnimationByIndex_724F0(animations_E9C08x, i);
+				/*LOWORD(v2) = */AnimateSpriteFrames_723B0(v6x, a2);
+			}
+		}
+	}
+	//return (signed __int16)v2;
+}
+// E9C08: using guessed type int x_DWORD_E9C08;
+// F6ED0: using guessed type int TMAPS00TAB_BEGIN_BUFFER;
+
+//----- (000720C0) --------------------------------------------------------
+void FreeTmapCache_720C0(type_x_DWORD_E9C28_str** a1y)//2530c0
+{
+	//type_x_DWORD_E9C28_str* v1y; // edx
+
+	//v1y = *a1x;
+	if (*a1y)
+	{
+		if ((*a1y)->allocMode_24 == 1)
+		{
+			FreeMem_83E80((uint8_t*)(*a1y)->buffer_16x);
+			FreeMem_83E80((uint8_t*)(*a1y)->entries_8);
+			FreeMem_83E80((uint8_t*)(*a1y)->entryPtrs_12x);
+			FreeMem_83E80((uint8_t*)*a1y);
+		}
+		*a1y = 0;
+	}
+}
+
+//----- (00072350) --------------------------------------------------------
+void AnimateSprite_72350(type_animations1* a1x)//253350 //animates sprite
+{
+	//int v1; // esi
+	//int v2; // edi
+	int8_t* v3x; // eax
+	//__int16 v4; // cx
+	//int result; // eax
+
+	if (bigSprites)
+	{
+		if (a1x->FrameIndex_22 > a1x->CountOfFrames_16)
+		{
+			a1x->FrameIndex_22 = 1;
+			a1x->frameOffset_8 = a1x->NextFrameOffset_14;
+		}
+
+		if (m_ptrLoadedSprites_F66F0x[a1x->spriteIndex_26] != NULL)
+		{
+			Type_Sprite* baseadr = *m_ptrLoadedSprites_F66F0x[a1x->spriteIndex_26];
+			if (baseadr != NULL)
+			{
+				int animwidth = baseadr->width;
+				int animheight = baseadr->height;
+				if ((animwidth > 0) && (animheight > 0) && (animwidth < 1000) && (animheight < 1000))
+					memcpy(&baseadr->textureBuffer, BIG_SPRITES_BUFFERx[a1x->spriteIndex_26].frames[a1x->FrameIndex_22 - 1], (animwidth * animheight));
+			}
+		}
+
+		//memcpy();
+		/*{
+			if (m_ptrLoadedSprites_F66F0x[ianim] != NULL)
+			{
+				uint8_t* baseadr = *(uint8_t * *)x_DWORD_F66F0x[ianim];
+				if (baseadr != NULL)
+				{
+					int animwidth = *(uint16_t*)(baseadr + 2);
+					int animheight = *(uint16_t*)(baseadr + 4);
+					if ((animwidth > 0) && (animheight > 0) && (animwidth < 1000) && (animheight < 1000))
+						if (animstate == 0)
+							memcpy(baseadr + 6, baseadr + 6 + (animwidth * animheight), (animwidth * animheight));
+						else
+							memcpy(baseadr + 6, baseadr + 6 + (animwidth * animheight) * 2, (animwidth * animheight));
+				}
+			}
+		}*/
+
+		a1x->FrameIndex_22++;
+	}
+	else
+	{
+		if (a1x->FrameIndex_22 > a1x->CountOfFrames_16)
+		{
+			a1x->FrameIndex_22 = 1;
+			a1x->frameOffset_8 = a1x->NextFrameOffset_14;
+		}
+		//v1 = *(x_DWORD*)a1x->particle_str_4;
+		SetAnimationPosition_765FC(a1x->Width_18, 0);
+		//v1 += 6;
+		/*v3 = DecodeAnimationFrame_76619(v1 + a1x->dword_8, v1);
+		a1x->dword_8 = v3 - v1;
+		a1x->word_22 = a1x->word_22 + 1;*/
+		if (!PackedGameData())//tests without the game: no frame data in the sprites (TMAPSMETA), the counter goes on
+		{
+			v3x = DecodeAnimationFrame_76619(&a1x->Sprite_4->textureBuffer[a1x->frameOffset_8], a1x->Sprite_4->textureBuffer);
+			a1x->frameOffset_8 = v3x - a1x->Sprite_4->textureBuffer;
+		}
+		a1x->FrameIndex_22++;
+	}
+}
+
+//----- (000723B0) --------------------------------------------------------
+void AnimateSpriteFrames_723B0(type_animations1* a1x, char a2)
+{
+	//unsigned __int16 result; // ax
+
+	if (a2)
+	{
+		while (1)
+		{
+			//result = a1x->word_22;
+			if (a1x->FrameIndex_22 > a1x->CountOfFrames_16)
+				break;
+			AnimateSprite_72350(a1x);
+		}
+	}
+	else
+	{
+		//memset((void*)(*(x_DWORD*)a1x->dword_4 + 6), 0, a1x->word_18 * a1x->word_20);
+		memset((void*)(&a1x->Sprite_4[1]), 0, a1x->Width_18 * a1x->Height_20);
+		a1x->FrameIndex_22 = 1;
+		//result = a1x->word_14;
+		a1x->frameOffset_8 = a1x->NextFrameOffset_14;
+	}
+	//return result;
+}
+// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
+
+//----- (00072550) --------------------------------------------------------
+void FreeAnimations_72550(type_E9C08** a1x)
+{
+	if (*a1x)
+	{
+		FreeMem_83E80((uint8_t*)(*a1x)->animations_2);
+		(*a1x)->animations_2 = 0;
+		FreeMem_83E80((uint8_t*)*a1x);
+		*a1x = 0;
 	}
 }

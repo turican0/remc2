@@ -78,4 +78,15 @@ void WaitToScreenBeam_9A0FC();
 
 
 
+void SetAnimationPosition_765FC(__int16 a1, __int16 a2);
+int8_t* DecodeAnimationFrame_76619(int8_t* a1x, int8_t* a2x);
+void DecodeAnimationChunks_766A4();
+__int16 ReadAnimationPosition_76752();
+int SkipAnimationChunk_7677C();
+__int16 DecodeAnimationDelta_7678D();
+int DecodeAnimationRun_76840();
+void CreateAnimObject_7E8D0(type_animStruct* animStruct, __int16 x1, __int16 y1, __int16 x2, __int16 y2, __int16 countX, __int16 countY);
+bool MoveAnimObject_7E9D0(x_WORD* x1, x_WORD* y1, type_animStruct* a3);
+void MoveAnimIndex_81260(type_animStruct3* animStruct, __int16 x1, __int16 y1);
+
 #endif //MAIN_ANIMATION

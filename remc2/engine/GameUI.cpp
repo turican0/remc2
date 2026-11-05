@@ -13,6 +13,213 @@
 #include "Type_D93C0_Bldgprmbuffer.h"
 #include "MapColourIndexs.h"
 #include "read_config.h"
+#include "EventsFunctions.h"
+#include "CommandLineParser.h"
+#include "Graphics.h"
+#include "Network.h"
+#include "Events.h"
+#include "Level.h"
+#include "../utilities/StateMonitor.h"
+#include "../utilities/RendererTests.h"
+#include "ConvertMapInfo.h"
+#include "LevelInit.h"
+#include "DatTabIndexes.h"
+#include "MouseOnOff.h"
+#include "PrintMessages.h"
+#include "ReadAndDecompress.h"
+#include "Type_DB080_CdTrack.h"
+
+
+char redrawFrame_D41C4 = 99; // weak
+
+char oldViewPortSize_D41C6 = 40; // weak
+
+int x_DWORD_D41C8 = 0; // weak
+
+char* creditsDesignedBy_2A2144 = (char*)"Designed By";
+
+char* creditsBullfrogProductionsLtd_2A2150 = (char*)"Bullfrog Productions Ltd";
+
+char* creditsSeparator_2A216C = (char*)"!";
+
+char* creditsProjectLeader_2A2170 = (char*)"Project Leader";
+
+char* creditsSpace_2A2180 = (char*)" ";
+
+char* creditsAlanWright_2A2184 = (char*)"Alan Wright";
+
+char* creditsEngineProgramming_2A2190 = (char*)"Engine Programming";
+
+char* creditsGlennCorpes_2A21A4 = (char*)"Glenn Corpes";
+
+char* creditsLeadProgramming_2A21B4 = (char*)"Lead Programming";
+
+char* creditsProgramming_2A21C8 = (char*)"Programming";
+
+char* creditsMarkLamport_2A21D4 = (char*)"Mark Lamport";
+
+char* creditsMarkAdami_2A21E4 = (char*)"Mark Adami";
+
+char* creditsLeadArtist_2A21F0 = (char*)"Lead Artist";
+
+char* creditsEoinRogan_2A21FC = (char*)"Eoin Rogan";
+
+char* creditsGraphicsAndArt_2A2208 = (char*)"Graphics and Art";
+
+char* creditsDarrenThomas_2A221C = (char*)"Darren Thomas";
+
+char* creditsFinMcGechie_2A222C = (char*)"Fin McGechie";
+
+char* creditsIntroductorySequence_2A223C = (char*)"Introductory Sequence";
+
+char* creditsChrisHill_2A2254 = (char*)"Chris Hill";
+
+char* creditsScripting_2A2260 = (char*)"Scripting";
+
+char* creditsSeanMasterson_2A226C = (char*)"Sean Masterson";
+
+char* creditsLevelDesign_2A227C = (char*)"Level Design";
+
+char* creditsAdrianMoore_2A228C = (char*)"Adrian Moore";
+
+char* creditsVinceFarquharson_2A229C = (char*)"Vince Farquharson";
+
+char* creditsBarryMeade_2A22B0 = (char*)"Barry Meade";
+
+char* creditsSoundAndMusic_2A22BC = (char*)"Sound and Music";
+
+char* creditsRussellShaw_2A22CC = (char*)"Russell Shaw";
+
+char* creditsVoiceOvers_2A22DC = (char*)"Voice Overs";
+
+char* creditsHugoMyatt_2A22E8 = (char*)"Hugo Myatt";
+
+char* creditsTechnicalSupport_2A22F4 = (char*)"Technical Support";
+
+char* creditsKevinDonkin_2A2308 = (char*)"Kevin Donkin";
+
+char* creditsMikeBurnham_2A2318 = (char*)"Mike Burnham";
+
+char* creditsPRAndMarketing_2A2328 = (char*)"PR and Marketing";
+
+char* creditsCathyCampos_2A233C = (char*)"Cathy Campos";
+
+char* creditsSeanRatcliffe_2A234C = (char*)"Sean Ratcliffe";
+
+char* creditsPlayguide_2A235C = (char*)"Playguide";
+
+char* creditsNeilCook_2A2368 = (char*)"Neil Cook";
+
+char* creditsPlayguideDesign_2A2374 = (char*)"Playguide Design";
+
+char* creditsRachelClose_2A2388 = (char*)"Rachel Close";
+
+char* creditsTesting_2A2398 = (char*)"Testing";
+
+char* creditsAndyRobsonJeffBrutus_2A23A0 = (char*)"Andy Robson, Jeff Brutus";
+
+char* creditsAndyNuttallSteveFitton_2A23BC = (char*)"Andy Nuttall, Steve Fitton";
+
+char* creditsRobertByrneRichardElliot_2A23D8 = (char*)"Robert Byrne, Richard Elliot";
+
+char* creditsDavidRoganChristopherMitchell_2A23F8 = (char*)"David Rogan, Christopher Mitchell";
+
+char* creditsNickHannahKenMalcolm_2A241C = (char*)"Nick Hannah, Ken Malcolm";
+
+char* creditsPhilNortonAndrewTrowers_2A2438 = (char*)"Phil Norton, Andrew Trowers";
+
+char* creditsDarrenJonesLukeFerris_2A2454 = (char*)"Darren Jones, Luke Ferris";
+
+char* creditsCharlieRightMikeMan_2A2470 = (char*)"Charlie Right, Mike Man";
+
+char* creditsRichardVelatiMarkStacey_2A2488 = (char*)"Richard Velati, Mark Stacey";
+
+char* creditsKennethChanMikeDiskett_2A24A4 = (char*)"Kenneth Chan, Mike Diskett";
+
+char* creditsJamesSmithEoinRogan_2A24C0 = (char*)"James Smith, Eoin Rogan";
+
+char* creditsMRowbottomGerardO_2A24D8 = (char*)"M Rowbottom, Gerard O'Donaghue";
+
+char* creditsPeterBlowPeterHughes_2A24F8 = (char*)"Peter Blow, Peter Hughes";
+
+char* creditsBarrieParker_2A2514 = (char*)"Barrie Parker";
+
+char* creditsAndreaDaSilvaGoncalves_2A2524 = (char*)"Andrea Da Silva Goncalves";
+
+char* creditsMattSullivanAndyCakebread_2A2540 = (char*)"Matt Sullivan, Andy Cakebread";
+
+char* creditsBarryClarkeJustinAmoore_2A2560 = (char*)"Barry Clarke, Justin Amoore";
+
+char* creditsGrahamHarbourSimonRomans_2A257C = (char*)"Graham Harbour, Simon Romans";
+
+char* creditsSymeonCosburn_2A259C = (char*)"Symeon Cosburn";
+
+char* creditsThanksTo_2A25AC = (char*)"Thanks to";
+
+char* creditsJoGoodwin_2A25B8 = (char*)"Jo Goodwin";
+
+char* creditsKathyMcEntee_2A25C4 = (char*)"Kathy McEntee";
+
+char* creditsDenis_2A25D4 = (char*)"Denis";
+
+char* creditsQA_2A25DC = (char*)"QA";
+
+char* creditsIainHancock_2A25E0 = (char*)"Iain Hancock";
+
+char* creditsProducer_2A25F0 = (char*)"Producer";
+
+char* creditsSeanCooper_2A25FC = (char*)"Sean Cooper";
+
+//2AC558:
+char* off_DB558[] = {
+creditsDesignedBy_2A2144, creditsBullfrogProductionsLtd_2A2150, creditsSeparator_2A216C, creditsProjectLeader_2A2170,
+creditsSpace_2A2180, creditsAlanWright_2A2184, creditsSpace_2A2180, creditsEngineProgramming_2A2190,
+creditsSpace_2A2180, creditsGlennCorpes_2A21A4, creditsSeparator_2A216C, creditsLeadProgramming_2A21B4,
+creditsSpace_2A2180, creditsAlanWright_2A2184, creditsSpace_2A2180, creditsProgramming_2A21C8,
+creditsSpace_2A2180, creditsMarkLamport_2A21D4, creditsMarkAdami_2A21E4, creditsSeparator_2A216C,
+creditsLeadArtist_2A21F0, creditsSpace_2A2180, creditsEoinRogan_2A21FC, creditsSpace_2A2180,
+creditsGraphicsAndArt_2A2208, creditsSpace_2A2180, creditsDarrenThomas_2A221C, creditsFinMcGechie_2A222C,
+creditsSeparator_2A216C, creditsIntroductorySequence_2A223C, creditsSpace_2A2180, creditsChrisHill_2A2254,
+creditsSpace_2A2180, creditsScripting_2A2260, creditsSpace_2A2180, creditsSeanMasterson_2A226C,
+creditsSeparator_2A216C, creditsLevelDesign_2A227C, creditsSpace_2A2180, creditsSeanMasterson_2A226C,
+creditsAdrianMoore_2A228C, creditsVinceFarquharson_2A229C, creditsBarryMeade_2A22B0, creditsSeparator_2A216C,
+creditsSoundAndMusic_2A22BC, creditsSpace_2A2180, creditsRussellShaw_2A22CC, creditsSeparator_2A216C,
+creditsVoiceOvers_2A22DC, creditsSpace_2A2180, creditsHugoMyatt_2A22E8, creditsSeparator_2A216C,
+creditsTechnicalSupport_2A22F4, creditsSpace_2A2180, creditsKevinDonkin_2A2308, creditsMikeBurnham_2A2318,
+creditsSeparator_2A216C, creditsPRAndMarketing_2A2328, creditsSpace_2A2180, creditsCathyCampos_2A233C,
+creditsSeanRatcliffe_2A234C, creditsSeparator_2A216C, creditsPlayguide_2A235C, creditsSpace_2A2180,
+creditsNeilCook_2A2368, creditsSeanMasterson_2A226C, creditsSeparator_2A216C, creditsPlayguideDesign_2A2374,
+creditsSpace_2A2180, creditsRachelClose_2A2388, creditsSeparator_2A216C, creditsTesting_2A2398,
+creditsSpace_2A2180, creditsAndyRobsonJeffBrutus_2A23A0, creditsAndyNuttallSteveFitton_2A23BC, creditsRobertByrneRichardElliot_2A23D8,
+creditsSeparator_2A216C, creditsSpace_2A2180, creditsDavidRoganChristopherMitchell_2A23F8, creditsNickHannahKenMalcolm_2A241C,
+creditsPhilNortonAndrewTrowers_2A2438, creditsSeparator_2A216C, creditsSpace_2A2180, creditsDarrenJonesLukeFerris_2A2454,
+creditsCharlieRightMikeMan_2A2470, creditsRichardVelatiMarkStacey_2A2488, creditsSeparator_2A216C, creditsSpace_2A2180,
+creditsKennethChanMikeDiskett_2A24A4, creditsJamesSmithEoinRogan_2A24C0, creditsMRowbottomGerardO_2A24D8, creditsSeparator_2A216C,
+creditsSpace_2A2180, creditsPeterBlowPeterHughes_2A24F8, creditsBarrieParker_2A2514, creditsAndreaDaSilvaGoncalves_2A2524,
+creditsSeparator_2A216C, creditsSpace_2A2180, creditsMattSullivanAndyCakebread_2A2540, creditsBarryClarkeJustinAmoore_2A2560,
+creditsGrahamHarbourSimonRomans_2A257C, creditsSymeonCosburn_2A259C, creditsSeparator_2A216C, creditsSpace_2A2180,
+creditsThanksTo_2A25AC, creditsSpace_2A2180, creditsJoGoodwin_2A25B8, creditsKathyMcEntee_2A25C4,
+creditsDenis_2A25D4, creditsSeparator_2A216C, creditsQA_2A25DC, creditsSpace_2A2180,
+creditsIainHancock_2A25E0, creditsSeparator_2A216C, creditsProducer_2A25F0, creditsSpace_2A2180,
+creditsSeanCooper_2A25FC, NULL, NULL, NULL };
+
+int debugTurn_E9C14; // weak
+
+int debugLastTurn_E9C18; // weak
+
+int x_DWORD_E9C1C; // weak
+
+int debugLastValue_E9C20; // weak
+
+int debugFps_E9C24; // weak
+
+uint8_t uiBackGroundColorIdx_EB3A8;
+
+void(*ptrDrawBitmap_F01EC)(int16_t, int16_t, bitmap_pos_struct_t, uint8_t scale); // eax
+
+int memFree_17FEA4; // weak
+
+int memUsed_17FEA8; // weak
 
 char FontType_D419D = 1; // weak
 int16_t debugLangIndex_D41D4 = 1; // weak
@@ -4859,4 +5066,3049 @@ static inline void FillAlphaRect(int x, int y, int w, int h, uint8_t alpha)
 	if (!pdwScreenAlphaBuffer) return;
 	for (int j = y; j < y + h; j++)
 		memset(&pdwScreenAlphaBuffer[screenWidth_18062C * j + x], alpha, w);
+}
+
+
+//----- (0002BBB0) --------------------------------------------------------
+void DrawBitmapToScreenAndBuffer_2BBB0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, uint8_t scale)//20cbb0
+{
+	//int result; // eax
+	uint8_t* temp_screen_buffer; // edi
+
+	ptrDrawBitmap_F01EC(posX, posY, a3, scale);
+	//result = (int)x_D41A0_BYTEARRAY_0;
+	if (world_D41A0.m_GameSettings.m_Display.m_uiScreenSize == 1)
+	{
+		temp_screen_buffer = pdwScreenBuffer_351628;
+		pdwScreenBuffer_351628 = (uint8_t*)ptrMemoryBuffer_E9C3C;
+		/*result = */ptrDrawBitmap_F01EC(posX, posY, a3, scale);
+		pdwScreenBuffer_351628 = temp_screen_buffer;
+	}
+	//return result;
+}
+// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
+// E9C3C: using guessed type int ptrMemoryBuffer_E9C3C;
+// F01EC: using guessed type int (*ptrDrawBitmap_F01EC)(x_DWORD, x_DWORD, x_DWORD);
+// 180628: using guessed type int pdwScreenBuffer_351628;
+
+/*
+void debugtestscreen() {
+	//save
+#ifdef OLD_PARTICLES
+	bool save = true;
+#else
+	bool save = false;
+#endif
+
+	if (save)
+	{
+		FILE* file = fopen("c:/prenos/remc2/testscreen.dat", "wb");
+		fwrite(pdwScreenBuffer_351628, 320 * 200, 1, file);
+		fclose(file);
+	}
+	else
+	{
+		uint8_t buffer[320 * 200];
+		FILE* file = fopen("c:/prenos/remc2/testscreen.dat", "rb");
+		fread(buffer, 320 * 200, 1, file);
+		for (int i = 0; i < 320 * 200; i++)
+		{
+			if (pdwScreenBuffer_351628[i] != buffer[i])
+			{
+				myprintf("screen compare error:\n%X\n", i);
+				break;
+			}
+		}
+		fclose(file);
+	}
+
+	//compare
+}
+*/
+
+//----- (0002BE30) --------------------------------------------------------
+void DrawGameFrame_2BE30()//20CE30
+{
+	int16_t spellLeftPosX = 510;
+	int16_t spellRightPosX = 574;
+	uint8_t scale = 1;
+
+	type_entity_0x6E8E* playerEntity;
+	void (*drawBitmapFunction)(int16_t, int16_t, bitmap_pos_struct_t, uint8_t scale); // eax
+
+	SetTextBoxMinMaxForSetResolution();
+
+	if (videoMode_180660 & 1)
+		ClearScreenAlphaBuffer(320, 200, 0);
+	else
+		ClearScreenAlphaBuffer(screenWidth_18062C, screenHeight_180624, 0);
+
+	if (videoMode_180660 != 1)
+	{
+		if (!DefaultResolutions())
+		{
+			scale = gameUiScale;
+			spellLeftPosX = screenWidth_18062C - (130 * scale);
+			spellRightPosX = screenWidth_18062C - (66 * scale);
+		}
+	}
+
+	x_DWORD_D41C8 = 0;
+	if (world_D41A0.m_GameSettings.display_0x2196.transparency_0x2198)
+	{
+		if (videoMode_180660 & 1)
+			drawBitmapFunction = DrawBitmap320_8F8B0;
+		else
+			drawBitmapFunction = DrawBitmap640_8F8E8;
+		ptrDrawBitmap_F01E8 = drawBitmapFunction;
+	}
+	else
+	{
+		ptrDrawBitmap_F01E8 = GameBitmap::DrawTransparentBitmap_2DE80;
+	}
+	ptrDrawBitmap_F01EC = ptrDrawBitmap_F01E8;
+	ptrDrawBitmap_F01E8 = DrawBitmapToScreenAndBuffer_2BBB0;
+	if (gameState_D41A4.showHelp_10)
+		ResetHelpItemFlags_88580();
+	int actPlayerIndex = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244;
+
+	uint8_t* help_ScreenBuffer = nullptr;
+	if (CommandLineParams.DoTestRenderers()) {
+		help_ScreenBuffer = (uint8_t*)malloc(screenWidth_18062C * screenHeight_180624);
+		renderer_tests_frame_count++;
+	}
+	switch (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221)
+	{
+	case 0:
+	case 3:
+	case 5:
+	case 9:
+	case 0xA:
+	case 0xD:
+		playerEntity = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+		if (redrawFrame_D41C4 || world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize != oldViewPortSize_D41C6)
+		{
+			redrawFrame_D41C4 = 0;
+			oldViewPortSize_D41C6 = world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize;
+			if (world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize < 40)
+			{
+				if (videoMode_180660 & 1)
+					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, uiBackGroundColorIdx_EB3A8);
+				else
+					ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, uiBackGroundColorIdx_EB3A8);
+			}
+		}
+		if (world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize < 40)
+		{
+			if (videoMode_180660 & 1)
+				ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, uiBackGroundColorIdx_EB3A8);
+			else
+				ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, uiBackGroundColorIdx_EB3A8);
+		}
+
+		viewPort.SetRenderViewPortSize_40C50(world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize);
+		m_ptrGameRender->DrawWorld_411A0(//draw terrain and particles
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,//position of player
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,//position of player
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,//rotation of player z
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.z + 128,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.pitch,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.roll,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.fov);
+
+		if (CommandLineParams.DoTestRenderers()) {
+			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C * screenHeight_180624);
+
+			std::string help_buffer_name;
+			std::string screenbuffer_buffer_name;
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderNG))
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+				help_buffer_name = "ScreenBuffer_HD.bmp";
+				screenbuffer_buffer_name = "ScreenBuffer_Original.bmp";
+			}
+			else
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				help_buffer_name = "ScreenBuffer_Original.bmp";
+				screenbuffer_buffer_name = "ScreenBuffer_HD.bmp";
+			}
+
+			m_ptrGameRender->DrawWorld_411A0(
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,//position of player
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,//position of player
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,//rotation of player z
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.z + 128,
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.pitch,
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.roll,
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.fov);
+
+			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, screenbuffer_buffer_name.c_str());
+			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, help_buffer_name.c_str());
+
+			int difference = 0;
+			for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++) {
+				if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi]) {
+					difference++;
+				}
+			}
+
+			if (difference > 0) {
+				std::ostringstream screenBufferName;
+				screenBufferName << "Level-" << CommandLineParams.GetSetLevel() << "-Frame-" << renderer_tests_frame_count << "-" << screenbuffer_buffer_name;
+				std::ostringstream helpScreenBufferName;
+				helpScreenBufferName << "Level-" << CommandLineParams.GetSetLevel() << "-Frame-" << renderer_tests_frame_count << "-" << help_buffer_name;
+
+				renderer_tests[CommandLineParams.GetSetLevel()].differences += difference;
+				Logger->error("Differences between HD and Original renderer in frame {0}: {1}", renderer_tests_frame_count, difference);
+				WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, screenBufferName.str().c_str());
+				WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, helpScreenBufferName.str().c_str());
+			}
+
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderNG))
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+			}
+			else
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+			}
+		}
+
+		if (playerEntity->life_0x8 < 0)
+		{
+			int menuIndex = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221;
+			if (menuIndex == (int)MenuState::SHOW_IN_GAME_OPTIONS)
+			{
+				DrawInGameOptionsMenu_30050(scale);
+				break;
+			}
+			else if (menuIndex == 10)
+			{
+				DrawVolumeSettings_303D0();
+			}
+			else if (menuIndex == (int)MenuState::SHOW_OK_CANCEL_OPTIONS)
+			{
+				DrawOkCancelMenu_30A60(6, 6, scale);
+				break;
+			}
+			DrawPauseMenu_2FD90(scale);
+		}
+		else
+		{
+			if (webSpritesData_D4188 && playerEntity->playerData_0xA4_164x->mobilizeCounter_0x14E_334)
+			{
+				//Draw Spiders Web
+				actPlayerIndex = DrawSpiderWeb();
+			}
+			if (world_D41A0.m_GameSettings.m_Display.m_wMiniMap)
+			{
+				DrawMinimap_63600(//draw minimap
+					0,
+					0,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.x,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.y,
+					128 * scale,
+					128 * scale,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].rotation__2BDE_11701.yaw,
+					256 / scale,
+					0);
+				DrawMinimapEntites_61880(//draw entites in minimap
+					0,
+					0,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.x,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.y,
+					128 * scale,
+					128 * scale,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].rotation__2BDE_11701.yaw,
+					256 / scale,
+					scale);
+				DrawMinimapMarks_644F0(
+					0,
+					0,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.x,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.y,
+					128 * scale,
+					128 * scale,
+					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].rotation__2BDE_11701.yaw,
+					256 / scale,
+					scale);
+			}
+
+			GetFont_6FC50(FontType_D419D);
+			if (world_D41A0.m_GameSettings.m_Display.m_wTopBar)
+			{
+
+				//Left
+				DrawSpellIcon_2E260(
+					spellLeftPosX,
+					2 * scale,
+					Entities_EA3E4[playerEntity->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[playerEntity->playerData_0xA4_164x->str_611.SpellIndexLeft_0x451_1105]],
+					false,
+					scale);
+
+				//Right
+				DrawSpellIcon_2E260(
+					spellRightPosX,
+					2 * scale,
+					Entities_EA3E4[playerEntity->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[playerEntity->playerData_0xA4_164x->str_611.SpellIndexRight_0x453_1107]],
+					false,
+					scale);
+
+				DrawTopStatusBar_2D710(playerEntity, scale);
+			}
+			switch (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221)
+			{
+			case (int)MenuState::SHOW_CHAT_MENU:
+				DrawChatMenu_2F6B0();
+				DrawPauseMenu_2FD90(scale);
+				break;
+			case (int)MenuState::SHOW_IN_GAME_OPTIONS:
+				DrawInGameOptionsMenu_30050(scale);
+				break;
+			case (int)MenuState::SHOW_VOLUME_OPTIONS:
+				DrawVolumeSettings_303D0(scale);
+				DrawPauseMenu_2FD90(scale);
+				break;
+			case (int)MenuState::SHOW_OK_CANCEL_OPTIONS:
+				DrawOkCancelMenu_30A60(132, 50, scale);
+				break;
+			default:
+				DrawPauseMenu_2FD90(scale);
+				break;
+			}
+			DrawTextPauseEndOfLevel_2CE30(132 * scale, 50 * scale, scale);
+			if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == (int)MenuState::SHOW_BOTTOM_MENU)
+				DrawBottomSpellsMenu_2ECC0();
+		}
+		break;
+	case 6:
+	case 7:
+	case 8:
+	case 0xB:
+	case 0xC:
+	case 0xE:
+		playerEntity = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+		if (videoMode_180660 & 1)
+			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, uiBackGroundColorIdx_EB3A8);
+		else
+			ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, uiBackGroundColorIdx_EB3A8);
+
+		int locViewportPosx;
+		int locViewportWidth;
+		int locViewportHeight;
+		int locMinimapHeight;
+
+		if (videoMode_180660 == 1)
+		{
+			locViewportPosx = 384;//320x200
+			locViewportWidth = 256;
+			locViewportHeight = 400;
+			locMinimapHeight = 400;
+		}
+		else
+		{
+			locViewportPosx = 0.6 * screenWidth_18062C;//bigger than 320x200
+			if (locViewportPosx > 384)
+				locViewportPosx = 384;
+			locViewportWidth = screenWidth_18062C - locViewportPosx;
+			locViewportHeight = screenHeight_180624;
+			locMinimapHeight = screenHeight_180624;
+			if (locMinimapHeight > 400)
+				locMinimapHeight = 400;
+
+			if (scale > 1)
+			{
+				locViewportPosx *= scale;
+				locMinimapHeight *= scale;
+				locViewportWidth = screenWidth_18062C - locViewportPosx;
+
+				if (locMinimapHeight > screenHeight_180624)
+				{
+					locMinimapHeight = screenHeight_180624;
+				}
+			}
+		}
+
+		DrawMinimap_63600(
+			0,
+			0,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,
+			locViewportPosx - 2,
+			locMinimapHeight,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,
+			204 / scale,
+			1);
+
+		DrawMinimapEntites_61880(
+			0,
+			0,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,
+			locViewportPosx - 2,
+			locMinimapHeight,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,
+			204 / scale,
+			scale);
+
+		viewPort.SetRenderViewPortSize_40BF0(locViewportPosx, 0, locViewportWidth, locViewportHeight);
+
+		m_ptrGameRender->DrawWorld_411A0(
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.z + 128,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.pitch,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.roll,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.fov);
+
+		if (CommandLineParams.DoTestRenderers()) {
+			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C * screenHeight_180624);
+
+			std::string help_buffer_name;
+			std::string screenbuffer_buffer_name;
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderNG))
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+				help_buffer_name = "ScreenBuffer_HD.bmp";
+				screenbuffer_buffer_name = "ScreenBuffer_Original.bmp";
+			}
+			else
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				help_buffer_name = "ScreenBuffer_Original.bmp";
+				screenbuffer_buffer_name = "ScreenBuffer_HD.bmp";
+			}
+
+			m_ptrGameRender->DrawWorld_411A0(
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,//position of player
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,//position of player
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,//rotation of player z
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.z + 128,
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.pitch,
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.roll,
+				world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.fov);
+
+			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, screenbuffer_buffer_name.c_str());
+			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, help_buffer_name.c_str());
+
+			int difference = 0;
+			for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++) {
+				if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi]) {
+					difference++;
+				}
+			}
+
+			if (difference > 0) {
+				renderer_tests[CommandLineParams.GetSetLevel()].differences += difference;
+				Logger->error("Differences between HD and Original renderer in frame {0}: {1}", renderer_tests_frame_count, difference);
+			}
+
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderNG))
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+			}
+			else
+			{
+				delete m_ptrGameRender;
+				m_ptrGameRender = nullptr;
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderNG(viewDistanceScale, fogScale, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+			}
+		}
+
+		if (videoMode_180660 & 1)
+			SetMouseBoundsScaled_9025C(locViewportPosx, 0, locViewportPosx, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
+		else
+			SetViewportBounds_90374(locViewportPosx, 0, locViewportPosx, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
+		if (videoMode_180660 & 1)
+			SetMouseBoundsScaled_9025C(locViewportPosx - 2, 0, locViewportPosx - 2, locMinimapHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
+		else
+			SetViewportBounds_90374(locViewportPosx - 2, 0, locViewportPosx - 2, locMinimapHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
+		viewPort.SetRenderViewPortSize_40C50(world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize);
+		DrawMinimapMarks_644F0(
+			0,
+			0,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.x,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].axis_2BDE_11695.y,
+			locViewportPosx - 2,
+			locMinimapHeight,
+			world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[actPlayerIndex + 1].rotation__2BDE_11701.yaw,
+			204 / scale,
+			scale);
+		switch (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221)
+		{
+		case (int)MenuState::SHOW_MAP_SORCERER_SCORES:
+			DrawSorcererScores_2D1D0(scale);
+			break;
+		case (int)MenuState::SHOW_MAP_BOTTOM_MENU:
+			DrawPauseMenu_2FD90(scale);
+			DrawBottomSpellsMenu_2ECC0();
+			break;
+		case (int)MenuState::SHOW_MAP_GAME_OPTIONS:
+			DrawInGameOptionsMenu_30050(scale);
+			break;
+		case (int)MenuState::SHOW_MAP_VOLUME_OPTIONS:
+			DrawVolumeSettings_303D0();
+			DrawPauseMenu_2FD90(scale);
+			break;
+		case (int)MenuState::SHOW_MAP_OK_CANCEL_OPTIONS:
+			DrawOkCancelMenu_30A60(6, 6, scale);
+			break;
+		default:
+			DrawPauseMenu_2FD90(scale);
+			break;
+		}
+		DrawTextPauseEndOfLevel_2CE30(6, 6, scale);
+		if (gameState_D41A4.leftSpellPlayerIndex_38400)
+			DrawSpellIcon_2E260(
+				spellLeftPosX,
+				2,
+				Entities_EA3E4[playerEntity->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[playerEntity->playerData_0xA4_164x->str_611.SpellIndexLeft_0x451_1105]],
+				false,
+				scale);
+		if (gameState_D41A4.rightSpellPlayerIndex_38401)
+			DrawSpellIcon_2E260(
+				spellRightPosX,
+				2,
+				Entities_EA3E4[playerEntity->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[playerEntity->playerData_0xA4_164x->str_611.SpellIndexRight_0x453_1107]],
+				false,
+				scale);
+		break;
+	default:
+		break;
+	}
+	if (CommandLineParams.DoTestRenderers()) {
+		if (help_ScreenBuffer) {
+			free(help_ScreenBuffer);
+			help_ScreenBuffer = nullptr;
+		}
+	}
+	if (world_D41A0.objectiveBoxCounter_0x36E04)
+		DrawCurrentObjectiveTextbox_30630(scale);
+	GetFont_6FC50(FontType_D419D);
+	if (!(gameState_D41A4.setting_byte1_22 & 4))
+		return;
+
+	if (gameState_D41A4.textState_204 == 3)
+	{
+		if (gameState_D41A4.textDelay_210d <= 0)
+			gameState_D41A4.textState_204 = 2;
+		else
+			gameState_D41A4.textDelay_210d--;// = v26 - 1;
+	}
+	if (gameState_D41A4.textState_204 == 2)
+	{
+		gameState_D41A4.textState_204 = 1;
+		gameState_D41A4.textLineIndex_214w = 0;
+		gameState_D41A4.textDelay_210d = 50;
+	}
+	if (gameState_D41A4.textState_204 != 1)
+		return;
+
+	if (gameState_D41A4.textDelay_210d <= 0)
+	{
+		while (1)
+		{
+			if (*off_DB558[gameState_D41A4.textLineIndex_214w] == 33)
+				break;
+			gameState_D41A4.textLineIndex_214w++;
+		}
+		gameState_D41A4.textLineIndex_214w++;
+		if (*off_DB558[gameState_D41A4.textLineIndex_214w] == 35)
+		{
+			gameState_D41A4.textState_204 = 3;
+			gameState_D41A4.textDelay_210d = 200;
+			return;
+		}
+		gameState_D41A4.textDelay_210d = 50;
+		return;
+	}
+	int height = 380;
+	int heightIndex = 0;
+	while (*off_DB558[heightIndex + gameState_D41A4.textLineIndex_214w] != 33)
+	{
+		heightIndex++;
+		height -= GetLetterHeight_6FC30();
+	}
+	int index = 0;
+	int actHeight = 8;
+	while (heightIndex > 0)
+	{
+		if (index)
+			DrawText_2BC10(off_DB558[index + gameState_D41A4.textLineIndex_214w], 8, actHeight, (*xadataclrd0dat.colorPalette_var28)[0]);
+		else
+			DrawText_2BC10(off_DB558[gameState_D41A4.textLineIndex_214w], 8, actHeight, (*xadataclrd0dat.colorPalette_var28)[4095]);
+		heightIndex--;
+		index++;
+		actHeight += GetLetterHeight_6FC30();
+	}
+	gameState_D41A4.textDelay_210d--;
+}
+
+int DrawSpiderWeb()
+{
+	int tilesX, tilesY;
+
+	if (videoMode_180660 & 1)
+	{
+		tilesX = 4;
+		tilesY = 2;
+	}
+	else
+	{
+		tilesX = 6;
+		tilesY = 4;
+	}
+
+	// Pass 1: measure. Row height = tallest tile in the row,
+	// web width = widest row, web height = sum of row heights.
+	constexpr int kMaxRows = 4;
+	int rowHeights[kMaxRows] = {};
+	int webWidth = 0;
+	int webHeight = 0;
+
+	int index = 1; // sprites are 1-based
+	for (int row = 0; row < tilesY; row++)
+	{
+		int rowWidth = 0;
+
+		for (int col = 0; col < tilesX; col++, index++)
+		{
+			const auto& tile = webSprites_D4188[index];
+			rowWidth += tile.width_4;
+			rowHeights[row] = std::max<int>(rowHeights[row], tile.height_5);
+		}
+
+		webWidth = (std::max)(webWidth, rowWidth);
+		webHeight += rowHeights[row];
+	}
+
+	// Largest whole-number scale at which the web fits on screen.
+	// Default resolutions keep the original 1x behavior and position.
+	int scale = 1;
+	int offsetX = 0;
+	int offsetY = 0;
+
+	if (videoMode_180660 != 1 && !DefaultResolutions())
+	{
+		scale = (std::min)(screenWidth_18062C / webWidth, screenHeight_180624 / webHeight);
+		scale = (std::max)(scale, 1); // screen smaller than the web: draw 1x
+
+		offsetX = (screenWidth_18062C - webWidth * scale) / 2;
+		offsetY = (screenHeight_180624 - webHeight * scale) / 2;
+	}
+
+	// Pass 2: draw. Positions are tracked in unscaled web space.
+	int tileIndex = 1;
+	int y = 0;
+
+	for (int row = 0; row < tilesY; row++)
+	{
+		int x = 0;
+
+		for (int col = 0; col < tilesX; col++, tileIndex++)
+		{
+			auto& tile = webSprites_D4188[tileIndex];
+			DrawBitmap_2BB40(offsetX + x * scale, offsetY + y * scale, tile, scale);
+			x += tile.width_4;
+		}
+
+		y += rowHeights[row];
+	}
+
+	return tileIndex;
+}
+
+//----- (0002CE30) --------------------------------------------------------
+void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//20de30
+{
+	int16_t textPosX;
+	int16_t textPosY;
+	unsigned __int8 indexedColor; // bl
+	int v6; // eax
+	//uint8_t* v7; // ebx
+	int v7y;
+	unsigned __int16 v8; // ax
+	//__int16 v9; // ax
+	int v10; // eax
+	//__int16 v11; // ax
+	int v12; // eax
+	//__int16 v13; // ax
+	__int64 v14; // rax
+	unsigned __int8 v15; // al
+	int v16; // eax
+	//__int16 v17; // ax
+	__int64 v18; // rax
+	int v19; // eax
+	//char v20; // [esp+0h] [ebp-Eh]
+	//uint8_t* v21; // [esp+80h] [ebp+72h]
+	int v22; // [esp+84h] [ebp+76h]
+
+	textPosY = posY;
+	GetFont_6FC50(FontType_D419D);
+	//result = (int)x_D41A0_BYTEARRAY_4;
+	textPosX = posX;
+	indexedColor = (*xadataclrd0dat.colorPalette_var28)[3840];
+	if (!gameState_D41A4.pauseToggle_205 && !gameState_D41A4.SelectedMenuItem_38546)
+	{
+		if (gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED)
+		{
+			DrawText_2BC10(langStrings_E9C4C[425], posX, posY, (*xadataclrd0dat.colorPalette_var28)[240], scale);//Paused!
+			textPosX = ((8 * scale) * (strlen((const char*)langStrings_E9C4C[425]) + 2)) + posX;//Paused!
+		}
+
+		if (!(gameState_D41A4.setting_byte1_22 & 0x20) && world_D41A0.playerObjectives_0x3659C[world_D41A0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
+		{
+			sprintf(printbuffer, "%s. %s.", langStrings_E9C4C[378], langStrings_E9C4C[379]);//Tasks completed,Fly to the exit point.
+			DrawText_2BC10(printbuffer, textPosX, posY, indexedColor, scale);
+			textPosX = posX;
+			LOWORD(v6) = GetLetterHeight_6FC30() * scale;
+			textPosY = v6 + posY;
+		}
+		v22 = 0;
+		//v7 = x_D41A0_BYTEARRAY_0 + 11230;
+		v7y = 0;
+		while (1)
+		{
+			//result = (int)x_D41A0_BYTEARRAY_0;
+			if (v22 >= world_D41A0.NumberOfPlayers_0xe)
+				break;
+			v8 = world_D41A0.players_0x2BDE[v7y].endState_0x04f_2C2D_11309 - 1;
+			if (v8 <= 4u)
+			{
+				//v21 = v7x + x_D41A0_BYTEARRAY_0 + 11230 + 28;
+				switch (v8)
+				{
+				case 0u:
+					//v9 = *(x_WORD *)(v7x + x_D41A0_BYTEARRAY_0 + 11230 + 77);
+					world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307--;// = v9 - 1;
+					if (world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307 + 1 <= 0)
+						goto LABEL_24;
+					sprintf(printbuffer, "%s %s", world_D41A0.players_0x2BDE[v7y].WizardName_0x39f_2BFA_12157, world_D41A0.players_0x2BDE[v7y].CurrentNotificationText_0x01c_2BFA_11258);
+					DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[3840], scale);
+					textPosX = posX;
+					LOWORD(v10) = GetLetterHeight_6FC30() * scale;
+					textPosY += v10;
+					break;
+				case 1u:
+					//v13 = *(x_WORD *)(v7x + x_D41A0_BYTEARRAY_0 + 11230 + 77);
+					world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307--;
+					if (world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307 + 1 <= 0)
+						goto LABEL_24;
+					sprintf(printbuffer, "[%s] %s", world_D41A0.players_0x2BDE[v7y].WizardName_0x39f_2BFA_12157, world_D41A0.players_0x2BDE[v7y].CurrentNotificationText_0x01c_2BFA_11258);
+					if (world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307 <= 100)
+					{
+						v15 = (*xadataclrd0dat.colorPalette_var28)[3840];
+					}
+					else
+					{
+						v14 = 4080 * gameState_D41A4.colorIndex_121[2];
+						v15 = (*xadataclrd0dat.colorPalette_var28)[256 * ((signed int)(v14 - (__CFSHL__(HIDWORD(v14), 8) + (HIDWORD(v14) << 8))) >> 8)];
+					}
+					DrawText_2BC10(printbuffer, textPosX, textPosY, v15, scale);
+					LOWORD(v16) = GetLetterHeight_6FC30() * scale;
+					textPosX = posX;
+					textPosY += v16;
+					break;
+				case 2u:
+				case 4u:
+					//v11 = *(x_WORD *)(v7x + x_D41A0_BYTEARRAY_0 + 11230 + 77);
+					world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307--;
+					if (world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307 + 1 <= 0)
+						goto LABEL_24;
+					if (world_D41A0.players_0x2BDE[v7y].endState_0x04f_2C2D_11309 == 3 || v22 == world_D41A0.LevelIndex_0xc)
+					{
+						//Draw Selected Spell Name or Spell upgrade notification
+						sprintf(printbuffer, "%s", world_D41A0.players_0x2BDE[v7y].CurrentNotificationText_0x01c_2BFA_11258);
+						DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[3840], scale);
+						textPosX = posX;
+						LOWORD(v12) = GetLetterHeight_6FC30() * scale;
+						textPosY += v12;
+					}
+					break;
+				case 3u:
+					//v17 = *(x_WORD *)(v7x + x_D41A0_BYTEARRAY_0 + 11230 + 77);
+					world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307--;
+					if (world_D41A0.players_0x2BDE[v7y].CurrentNotificationDuration_0x04d_2C2B_11307 + 1 <= 0)
+					{
+					LABEL_24:
+						world_D41A0.players_0x2BDE[v7y].endState_0x04f_2C2D_11309 = 0;
+					}
+					else
+					{
+						sprintf(printbuffer, "[%s] %s", world_D41A0.players_0x2BDE[v7y].WizardName_0x39f_2BFA_12157, world_D41A0.players_0x2BDE[v7y].CurrentNotificationText_0x01c_2BFA_11258);
+						v18 = 4080 * gameState_D41A4.colorIndex_121[2];
+						DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[16 * ((signed int)(v18 - (__CFSHL__(HIDWORD(v18), 8) + (HIDWORD(v18) << 8))) >> 8)]);
+						textPosX = posX;
+						LOWORD(v19) = GetLetterHeight_6FC30() * scale;
+						textPosY += v19;
+					}
+					break;
+				}
+			}
+			//v7x += 2124;
+			v7y++;
+			v22++;
+		}
+	}
+	//return result;
+}
+// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
+// D419D: using guessed type char FontType_D419D;
+// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
+// D41A4: using guessed type int x_DWORD_D41A4;
+// E89F0: using guessed type char x_BYTE_E89F0;
+// E9800: using guessed type char x_BYTE_E9800;
+// EA234: using guessed type int x_DWORD_EA234;
+// EA238: using guessed type int x_DWORD_EA238;
+// EA2F0: using guessed type int x_DWORD_EA2F0;
+
+//----- (0002D1D0) --------------------------------------------------------
+void DrawSorcererScores_2D1D0(uint8_t scale)//20e1d0
+{
+	signed int v0; // esi
+	int v1; // eax
+	//uint8_t* v2; // edx
+	int v2x;
+	int v3; // ebx
+	//signed int v4; // edx
+	int16_t posY; // ebx
+	char v6; // cl
+	int v10; // esi
+	int blackBarX; // edi
+	int v13; // eax
+	int v14; // esi
+	signed int v15; // eax
+	unsigned __int16 v16; // cx
+	signed int j; // esi
+	int result; // eax
+	//char v21; // [esp+0h] [ebp-124h]
+	int v22; // [esp+100h] [ebp-24h]
+	type_entity_0x6E8E* v23x; // [esp+104h] [ebp-20h]
+	//uint8_t* i; // [esp+108h] [ebp-1Ch]
+	int ix;
+	int v25; // [esp+10Ch] [ebp-18h]
+	int barY; // [esp+110h] [ebp-14h]
+	int barX; // [esp+114h] [ebp-10h]
+	int16_t posX; // [esp+118h] [ebp-Ch]
+	uint8_t textColourIdx; // [esp+11Ch] [ebp-8h]
+	uint8_t playerColourIdx; // [esp+120h] [ebp-4h]
+
+	int helpWidth = 640;
+	int helpHeight;
+	if (videoMode_180660 == 1)
+		helpHeight = 400;
+	else
+		helpHeight = 480;
+	if (videoMode_180660 != 1)
+		if (!DefaultResolutions())
+		{
+			helpWidth = screenWidth_18062C;
+			helpHeight = screenHeight_180624;
+		}
+
+	v0 = 0;
+	GetFont_6FC50(FontType_D419D);
+	v1 = 0;
+	//v2 = x_D41A0_BYTEARRAY_0 + 11230;
+	v2x = 0;
+	while (v0 < world_D41A0.NumberOfPlayers_0xe)
+	{
+		if (world_D41A0.players_0x2BDE[v2x].playerActive_0x006_2BE4_11236)
+			v1++;
+		v0++;
+		//v2 += 2124;
+		v2x++;
+	}
+	v3 = v1 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE].height_5 * scale);
+	posX = (helpWidth - (v1 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE_MINI].width_4 * scale) + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE_MINI].width_4) * scale)) / 2;
+	posY = (helpHeight - v3) / 2;
+	v25 = 0;
+	//i=x_D41A0_BYTEARRAY_0 + 11230
+	for (ix = 0; ; ix++)
+	{
+		result = world_D41A0.NumberOfPlayers_0xe;
+		if (result <= v25)
+			break;
+		v6 = world_D41A0.players_0x2BDE[ix].playerActive_0x006_2BE4_11236;
+		v23x = Entities_EA3E4[world_D41A0.players_0x2BDE[ix].playerIndex_0x00a_2BE4_11240];
+		if (v6 == 1)
+		{
+			textColourIdx = playersColors_E88E0x[GetTrueWizardNumber_61790(v25)][1];
+			playerColourIdx = playersColors_E88E0x[GetTrueWizardNumber_61790(v25)][0];
+			DrawBitmap_2BB40(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE], scale);
+			DrawLine_2BC80(
+				posX + (4 * scale),
+				posY + (4 * scale),
+				((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE].width_4 * scale) - (8 * scale),
+				((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE].height_5 * scale) - (8 * scale),
+				playerColourIdx);
+			v22 = (signed __int16)(posX + (8 * scale));
+			DrawText_2BC10(world_D41A0.players_0x2BDE[ix].WizardName_0x39f_2BFA_12157, posX + (8 * scale), posY + (6 * scale), textColourIdx, scale);
+			sprintf(printbuffer, "%d", v23x->maxMana_0x8C_140);
+			v10 = v25;
+			DrawText_2BC10(printbuffer, v22, posY + (20 * scale), textColourIdx, scale);
+			if (!v10 && gameState_D41A4.showHelp_10)
+			{
+				helpPopup_1804B0.scoresPosX_0x96 = posX + (20 * scale);
+				helpPopup_1804B0.scoresPosY_0x98 = posY + (30 * scale);
+			}
+			//HIWORD(v11) = HIWORD(**filearray_2aa18c[6]);
+			blackBarX = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE].width_4 * scale) + posX;
+			if (gameState_D41A4.showHelp_10 && world_D41A0.NumberOfPlayers_0xe > 1u && !helpPopup_1804B0.wizardNumber_0xa8)
+			{
+				helpPopup_1804B0.randSeed_0x82 = 9377 * helpPopup_1804B0.randSeed_0x82 + 9439;
+				v13 = gameState_D41A4.FrameTimingIndex_26 & 0xFF;
+				helpPopup_1804B0.wizardNumber_0xa8 = helpPopup_1804B0.randSeed_0x82 % world_D41A0.NumberOfPlayers_0xe + 1;
+				v14 = v13 + helpPopup_1804B0.randSeed_0x82;
+				v15 = 1;
+				helpPopup_1804B0.randSeed_0x82 = v14;
+				//Find next alive player
+				while (v15 < 8 && !world_D41A0.players_0x2BDE[v15].playerActive_0x006_2BE4_11236)
+				{
+					v16 = world_D41A0.NumberOfPlayers_0xe;
+					if ((unsigned __int8)++helpPopup_1804B0.wizardNumber_0xa8 >= (signed int)v16)
+						helpPopup_1804B0.wizardNumber_0xa8 = 1;
+					v15++;
+				}
+				if ((helpPopup_1804B0.wizardNumber_0xa8 < 0 || helpPopup_1804B0.wizardNumber_0xa8 > world_D41A0.NumberOfPlayers_0xe - 1) ||
+					!world_D41A0.players_0x2BDE[helpPopup_1804B0.wizardNumber_0xa8].playerActive_0x006_2BE4_11236)
+					helpPopup_1804B0.wizardNumber_0xa8 = 0;
+			}
+			for (j = 0; j < 8; j++)
+			{
+				if (world_D41A0.players_0x2BDE[j].playerActive_0x006_2BE4_11236 == 1)
+				{
+					barX = blackBarX + (4 * scale);
+					barY = posY + (4 * scale);
+					if (j == v25)
+					{
+						DrawBitmap_2BB40(blackBarX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE_MINI], scale);
+						DrawLine_2BC80(
+							barX,
+							barY,
+							((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE_MINI].width_4 * scale) - (8 * scale),
+							((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE_MINI].height_5 * scale) - (8 * scale),
+							(*xadataclrd0dat.colorPalette_var28)[0]);
+					}
+					else
+					{
+						textColourIdx = playersColors_E88E0x[GetTrueWizardNumber_61790(j)][1];
+						playerColourIdx = playersColors_E88E0x[GetTrueWizardNumber_61790(j)][0];
+						DrawBitmap_2BB40(blackBarX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE_MINI], scale);
+						DrawLine_2BC80(
+							barX,
+							barY,
+							((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE_MINI].width_4 * scale) - (8 * scale),
+							((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE_MINI].height_5 * scale) - (8 * scale),
+							playerColourIdx);
+						sprintf(printbuffer, "%03d", v23x->playerData_0xA4_164x->kills_0x26_38[j]);
+						DrawText_2BC10(printbuffer, blackBarX + (8 * scale), posY + (10 * scale), textColourIdx, scale);
+						if (gameState_D41A4.showHelp_10 && helpPopup_1804B0.wizardNumber_0xa8 && !v25 && j == (unsigned __int8)helpPopup_1804B0.wizardNumber_0xa8)
+						{
+							helpPopup_1804B0.scoresBarX_0x9a = blackBarX + (20 * scale);
+							helpPopup_1804B0.scoresBarY_0x9c = posY + (20 * scale);
+						}
+					}
+					//HIWORD(v18) = HIWORD(**filearray_2aa18c[6]);
+					blackBarX += (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE_MINI].width_4 * scale;
+				}
+			}
+			//HIWORD(v19) = HIWORD(**filearray_2aa18c[6]);
+			posY += (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE_MINI].height_5 * scale;
+		}
+		v25++;
+	}
+}
+// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
+// D419D: using guessed type char FontType_D419D;
+// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
+// D41A4: using guessed type int x_DWORD_D41A4;
+// EA3DC: using guessed type int **filearray_2aa18c[6];
+// EA3E4: using guessed type int Entities_EA3E4[];
+// 180532: using guessed type int x_DWORD_180532;
+// 180546: using guessed type __int16 x_WORD_180546;
+// 180548: using guessed type __int16 x_WORD_180548;
+// 18054A: using guessed type __int16 x_WORD_18054A;
+// 18054C: using guessed type __int16 x_WORD_18054C;
+// 180558: using guessed type char x_BYTE_180558;
+// 180660: using guessed type __int16 videoMode_180660;
+
+//----- (0002E790) --------------------------------------------------------
+void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color)//20f790
+{
+	int locPosX = posX;
+	int locPosY = posY;
+	int locWidth = width;
+	int locHeight = height;
+	if (videoMode_180660 == 1)
+	{
+		locPosX = posX / 2;
+		locPosY = posY / 2;
+		locWidth = width / 2;
+		locHeight = height / 2;
+	}
+
+	const uint8_t overViewAlpha = (uint8_t)((1.0f - COLOUR_BLEND_ALPHA) * 255.0f + 0.5f);
+	for (int indexY = locPosY; indexY < locPosY + locHeight; indexY++)
+	{
+		for (int indexX = locPosX; indexX < locWidth + locPosX; indexX++)
+		{
+			const int index = screenWidth_18062C * indexY + indexX;
+			if (pdwScreenAlphaBuffer != nullptr && pdwScreenAlphaBuffer[index] == 0)
+			{
+				pdwScreenBuffer_351628[index] = color;
+				pdwScreenAlphaBuffer[index] = overViewAlpha;
+			}
+			else
+				pdwScreenBuffer_351628[index] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + 256 * color + pdwScreenBuffer_351628[index]];
+		}
+	}
+}
+
+//----- (0002ECC0) --------------------------------------------------------
+void DrawBottomSpellsMenu_2ECC0()//20fcc0
+{
+	__int16 posIconsY;
+	int16_t posIconsX;
+	int16_t selectedSpellIndex;
+	int16_t posSubMenuSpellX;
+	int16_t posIconsXStart;
+	int16_t spellIconWidth;
+	int16_t spellIconHeight;
+	int16_t posSubMenuIconWidth;
+	int16_t spellIconIndex;
+
+	int posIconsY2;
+	bool drawBitmap;
+	type_entity_0x6E8E* spellEntity;
+	unsigned __int16 entityIndex;
+	bitmap_pos_struct_t bitmap;
+	uint8 spellIndex;
+	int xPosNext;
+	int xPos;
+	int xDiff;
+	int subSpellPos;
+	int16_t posEndX;
+	int manaCost;
+	__int16 spellIndex2;
+	__int16 xAdd2;
+	bool canSummon;
+	type_entity_0x6E8E* playerEntity = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	uint8 color0 = playersColors_E88E0x[GetTrueWizardNumber_61790(playerEntity->playerData_0xA4_164x->playerColorIndex_0x38_56)][0];
+	uint8 color1 = playersColors_E88E0x[GetTrueWizardNumber_61790(playerEntity->playerData_0xA4_164x->playerColorIndex_0x38_56)][1];
+	gameState_D41A4.spellOnCursor_50 = -1;
+	int16_t posX = 0;
+	int16_t posY = 0;
+	uint8_t scale = 1;
+	if (videoMode_180660 & 1)
+		posY = 400;
+	else
+		posY = 480;
+	if (videoMode_180660 != 1)
+		if (!DefaultResolutions())
+		{
+			scale = gameUiScale;
+			posX = (screenWidth_18062C - (640 * scale)) / 2;
+			posY = screenHeight_180624;
+		}
+	posIconsXStart = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[EDGE_PANEL].width_4 * scale;
+	spellIconHeight = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale;
+	posIconsY2 = posY - (2 * spellIconHeight);
+	spellIconWidth = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].width_4 * scale;
+	spellIconIndex = 0;
+	xAdd2 = spellIconWidth - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TOP_LEFT_CORNER].width_4 * scale);
+	posIconsY = posY - (2 * spellIconHeight);
+	uint8_t iconXIdx = 0;
+	uint8_t iconYIdx = 0;
+	while (iconYIdx < 2)
+	{
+		if (!iconYIdx)
+		{
+			//Draw left frame
+			ptrDrawBitmap_F01E8(posX, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[EDGE_PANEL], scale);
+		}
+		posIconsX = posIconsXStart;
+		//Draw Spell Icons
+		iconXIdx = 0;
+		while (iconXIdx < 13)
+		{
+			spellIndex2 = spellIndex_D94FF[spellIconIndex];
+			drawBitmap = true;
+			if (!SPELLS_BEGIN_BUFFER_str[spellIndex_D94FF[spellIconIndex]].levelCount_0 || (!isCaveLevel_D41B6 && spellIndex2 == 25))
+				drawBitmap = false;
+			if (!drawBitmap)
+			{
+				ptrDrawBitmap_F01E8(posX + posIconsX, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL], scale);
+			}
+			else
+			{
+				spellEntity = Entities_EA3E4[playerEntity->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex_D94FF[spellIconIndex]]];
+				if (spellEntity > Entities_EA3E4[0])
+				{
+					int subSpellIndex;
+					if (spellIconIndex == playerEntity->playerData_0xA4_164x->str_611.spellIndex_0x458_1112)
+					{
+						gameState_D41A4.spellOnCursor_50 = spellIconIndex;
+						subSpellIndex = playerEntity->playerData_0xA4_164x->str_611.subSpellIndex_0x459_1113;
+					}
+					else
+					{
+						subSpellIndex = playerEntity->playerData_0xA4_164x->str_611.selectedSubSpells_0x437_1079x.SpellIndex[spellIndex_D94FF[spellIconIndex]];
+					}
+
+					bool skipToLabel43 = false;
+					if (SPELLS_BEGIN_BUFFER_str[spellEntity->model_0x40_64].isEnabled_1 & 4)
+					{
+						if (spellEntity->stage_0x2E_46 > 0 && spellEntity->stage_0x2E_46 < 32 && gameState_D41A4.colorIndex_121[1])
+						{
+							skipToLabel43 = true;
+						}
+					}
+					if (!skipToLabel43)
+					{
+						canSummon = false;
+						if (!SPELLS_BEGIN_BUFFER_str[spellIndex2].subspell[subSpellIndex].maxManaLimit_A
+							|| ((entityIndex = playerEntity->playerData_0xA4_164x->CastleEntityIndex_0x3A_58) != 0
+								&& SPELLS_BEGIN_BUFFER_str[spellIndex2].subspell[subSpellIndex].maxManaLimit_A <= Entities_EA3E4[entityIndex]->mana_0x90_144))
+						{
+							canSummon = true;
+						}
+						if (canSummon && gameState_D41A4.spellOnCursor_50 == spellIconIndex)
+						{
+							manaCost = GetSpellManaCost_6D710(playerEntity, spellIndex2, subSpellIndex);
+							if (manaCost > 0)
+							{
+								//Draw mana needed for extra shot for spell
+								DrawBitmap_2BB40(posX + posIconsX, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TILE_BAR], scale);
+								DrawLine_2BC80(posX + posIconsX + (6 * scale), posIconsY + (28 * scale), (36 * scale) * (playerEntity->mana_0x90_144 % manaCost) / manaCost, (4 * scale), color1);
+
+								//Draw mana shot for spell
+								int manaPosX = playerEntity->mana_0x90_144 / manaCost;
+								for (int x = 0; x < 36 && manaPosX > 0; x += 2)
+								{
+									int y = 0;
+									while (y < (4 * scale) && manaPosX > 0)
+									{
+										DrawLine_2BC80((x * scale) + posX + posIconsX + (6 * scale), y + posIconsY + (28 * scale), (2 * scale), (2 * scale), color0);
+										y += (2 * scale);
+										manaPosX--;
+									}
+								}
+							}
+						}
+						else
+						{
+							if (canSummon)
+								bitmap = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL];
+							else
+								bitmap = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL2];
+
+							ptrDrawBitmap_F01E8(posX + posIconsX, posIconsY, bitmap, scale);
+						}
+						if (canSummon)
+							DrawBitmap_2BB40(posX + posIconsX, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[spellIndex2 + SPELL_FIREBALL_SMALL], scale);
+						else
+							GameBitmap::DrawTransparentBitmap_2DE80(posX + posIconsX, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[spellIndex2 + SPELL_FIREBALL_SMALL], scale);
+					}
+					//Draw the mouse button marker of a spell favourited with shift + mouse button
+					uint8_t bitmapType = playerEntity->playerData_0xA4_164x->str_611.spellSlotTypes_0x3B5_949x.SpellIndex[spellIndex2];
+					if (bitmapType == 1)
+						GameBitmap::DrawTransparentBitmap_2DE80(posX + posIconsX, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TOP_LEFT_CORNER], scale);
+					else if (bitmapType == 2)
+						GameBitmap::DrawTransparentBitmap_2DE80(posX + posIconsX + xAdd2, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_TOP_RIGHT_CORNER], scale);
+				}
+				else
+				{
+					ptrDrawBitmap_F01E8(posX + posIconsX, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL], scale);
+					if (playerEntity->playerData_0xA4_164x->str_611.availableSpells_0x3E9_1001x.SpellIndex[spellIndex2] || playerEntity->playerData_0xA4_164x->str_611.pickedUpSpells_0x403_1027x.SpellIndex[spellIndex2])
+					{
+						GameBitmap::DrawColourizedBitmap(posX + posIconsX, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[spellIndex2 + SPELL_FIREBALL_SMALL], 0xA6u, scale);
+					}
+				}
+			}
+			iconXIdx++;
+			posIconsX += spellIconWidth;
+			spellIconIndex++;
+		}
+		if (!iconYIdx)
+		{
+			//Draw right part for frame
+			ptrDrawBitmap_F01E8(posX + posIconsX, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[EDGE_PANEL], scale);
+		}
+		posIconsY += (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale;
+		iconYIdx++;
+	}
+	//Frame of selected spell
+	DrawBitmap_2BB40(posX + posIconsXStart + spellIconWidth * (playerEntity->playerData_0xA4_164x->str_611.spellIndex_0x458_1112 % 13), playerEntity->playerData_0xA4_164x->str_611.spellIndex_0x458_1112 / 13 * spellIconHeight + posIconsY2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME], scale);
+	//Draw spell selection
+	selectedSpellIndex = gameState_D41A4.spellOnCursor_50;
+	if (selectedSpellIndex != -1)
+	{
+		spellIndex = spellIndex_D94FF[selectedSpellIndex];
+		signed __int16 spellIndex3 = playerEntity->playerData_0xA4_164x->str_611.SpellLevels_0x41D_1053z.SpellIndex[spellIndex];
+		__int16 xAdd = 3 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4 * scale);
+		__int16 posY2 = posIconsY2 - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].height_5 * scale);
+		posSubMenuSpellX = spellIconWidth / 2 + spellIconWidth * (playerEntity->playerData_0xA4_164x->str_611.spellIndex_0x458_1112 % 13) + posIconsXStart - xAdd / 2;
+		if (posSubMenuSpellX <= (640 * scale) - xAdd)
+		{
+			if ((posSubMenuSpellX & 0x8000u) != 0)
+				posSubMenuSpellX = 0;
+		}
+		else
+		{
+			posSubMenuSpellX = (640 * scale) - xAdd;
+		}
+		int subSpellIndex2 = 0;
+		posSubMenuIconWidth = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4 * scale;
+		while (2)
+		{
+			if (subSpellIndex2 >= 3)
+				break;
+			int manaPart = 0;
+			bool canSubSummon = false;
+			if (!SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[subSpellIndex2].maxManaLimit_A
+				|| (entityIndex = playerEntity->playerData_0xA4_164x->CastleEntityIndex_0x3A_58) != 0
+				&& SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[subSpellIndex2].maxManaLimit_A <= Entities_EA3E4[entityIndex]->mana_0x90_144)
+			{
+				canSubSummon = true;
+				manaPart = playerEntity->mana_0x90_144 / GetSpellManaCost_6D710(playerEntity, spellIndex, subSpellIndex2);
+			}
+			if (subSpellIndex2 > spellIndex3)
+			{
+				DrawBitmap_2BB40(posX + posSubMenuSpellX, posY2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2], scale);
+			}
+			else
+			{
+				int bitmapIndex;
+				if (canSubSummon && manaPart)
+					bitmapIndex = SPELL_ICON2_PANEL2_WITH_FRAME;
+				else
+					bitmapIndex = SPELL_ICON2_PANEL2_WITH_FRAME_DARK;
+				DrawBitmap_2BB40(posX + posSubMenuSpellX, posY2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[bitmapIndex], scale);
+				DrawBitmap_2BB40(posX + posSubMenuSpellX + 6, posY2 + 10, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[subSpellIndex2 + SPELL_BACKGROUND_NUMBER1], scale);
+				int bitmapIndex2 = subSpellIndex2 + 3 * spellIndex + SPELL_SUB_FIREBALL1_SMALL;
+				if (canSubSummon)
+					DrawBitmap_2BB40(posX + posSubMenuSpellX + (18 * scale), posY2 + (6 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[bitmapIndex2], scale);
+				else
+					GameBitmap::DrawTransparentBitmap_2DE80(posX + posSubMenuSpellX + (18 * scale), posY2 + (6 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[bitmapIndex2], scale);
+			}
+			if (subSpellIndex2 == playerEntity->playerData_0xA4_164x->str_611.subSpellIndex_0x459_1113)
+				DrawBitmap_2BB40(posX + posSubMenuSpellX, posY2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_GOLD_FRAME], scale);
+
+			if (subSpellIndex2 <= spellIndex3 && subSpellIndex2 < 2)
+			{
+				if (subSpellIndex2 == spellIndex3)
+				{
+					if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+					{
+						xPosNext = SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[subSpellIndex2 + 1].xpos2_0x12;
+						xPos = SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[subSpellIndex2].xpos2_0x12;
+					}
+					else
+					{
+						xPosNext = SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[subSpellIndex2 + 1].xpos1_E;
+						xPos = SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[subSpellIndex2].xpos1_E;
+					}
+
+					xDiff = xPosNext - xPos;
+					subSpellPos = playerEntity->playerData_0xA4_164x->str_611.SpellExperience_0x263_611x.SpellExperience[spellIndex] + playerEntity->playerData_0xA4_164x->str_611.spellsExperience_0x2CB_715x.at(spellIndex) - xPos;
+					if (xDiff > 0)
+					{
+						posEndX = (54 * scale) * subSpellPos / xDiff;
+					}
+					else
+					{
+						posEndX = 0;
+					}
+				}
+				else
+				{
+					posEndX = (54 * scale);
+				}
+				//Draw Experience for Spell
+				if ((posEndX & 0x8000u) != 0)
+					posEndX = 0;
+				if (posEndX > (54 * scale))
+					posEndX = (54 * scale);
+				DrawLine_2BC80(posX + posSubMenuSpellX + (6 * scale), posY2 + (28 * scale), (54 * scale), (2 * scale), (*xadataclrd0dat.colorPalette_var28)[0]);
+				if (posEndX)
+					DrawLine_2BC80(posX + posSubMenuSpellX + (6 * scale), posY2 + (28 * scale), posEndX, (2 * scale), (*xadataclrd0dat.colorPalette_var28)[3840]);
+			}
+			subSpellIndex2++;
+			posSubMenuSpellX += posSubMenuIconWidth;
+			continue;
+		}
+	}
+
+	if (inputState_18058C.joystickMode_1805C2 == 8
+		|| inputState_18058C.joystickMode_1805C2 == 12
+		|| inputState_18058C.joystickMode_1805C2 == 13
+		|| inputState_18058C.joystickMode_1805C2 == 4
+		|| inputState_18058C.joystickMode_1805C2 == 6
+		|| inputState_18058C.joystickMode_1805C2 == 11
+		|| inputState_18058C.joystickMode_1805C2 == 5)
+	{
+		DrawBitmap_2BB40(inputState_18058C.mouse_1805B0.x, inputState_18058C.mouse_1805B0.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[cursorSpriteIndex_D419E]);
+	}
+	EventDispatcher::I->DispatchEvent(EventType::E_SCENE_CHANGE, Scene::SPELL_MENU);
+}
+
+//----- (00054960) --------------------------------------------------------
+void DrawLoadingBar_54960()//235960
+{
+	int16_t posY;
+	if (videoMode_180660 & 1)
+		posY = 400;
+	else
+		posY = 480;
+	if (videoMode_180660 != 1)
+		if (!DefaultResolutions())
+			posY = screenHeight_180624;
+	SetMousePositionInMemory_5BDC0(426, posY - 72 + 17);
+}
+
+//----- (00061880) --------------------------------------------------------
+void DrawMinimapEntites_61880(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale)//242880
+{
+	//char *result; // eax
+	// 0 0 4d80 ffffde80 80 0 0 100 c0 0
+	if (world_D41A0.m_GameSettings.m_Display.m_uiScreenSize == 1)
+		DrawMinimapEntities_627F0(x, y, posX, posY, width, height, yaw, scaling, scale);
+	else
+		DrawMinimapEntitiesB_61A00(x, y, posX, posY, width, height, yaw, scaling, scale);
+}
+
+//----- (0006FEC0) --------------------------------------------------------
+void DrawGameDebugText_6FEC0()//250ec0
+{
+	//int v0; // edx
+	//int result; // eax
+	//char v2; // dl
+	int v3; // eax
+	int v4; // ebx
+	int v5; // eax
+	int v6; // ebx
+	int v7; // eax
+	int v8; // ebx
+	int v9; // eax
+	int v10; // ebx
+	int v11; // eax
+	int v12; // ebx
+	int v13; // eax
+	int v14; // ebx
+	int v15; // eax
+	int v16; // ebx
+	int v17; // eax
+	int v18; // ebx
+	int v19; // eax
+	int v20; // ebx
+	int v21; // eax
+	int v22; // ebx
+	int v23; // eax
+	int v24; // ebx
+	int v25; // eax
+	int v26; // ebx
+	int v27; // eax
+	int v28; // ebx
+	int v29; // eax
+	//int v30; // edx
+	unsigned int v31; // eax
+	__int16 v32; // bx
+	__int16 v33; // bx
+	__int16 v34; // bx
+	__int16 v35; // bx
+	__int16 v36; // bx
+	__int16 v37; // bx
+	__int16 v38; // bx
+	int v39; // eax
+	__int16 v40; // bx
+	__int16 v41; // bx
+	__int16 v42; // bx
+	__int16 v43; // bx
+	__int16 v44; // bx
+	//int* v45; // edi
+	//int v46; // ebx
+	//unsigned __int8 v47; // al
+	//int v48; // eax
+	//int v49; // eax
+	__int16 v50; // bx
+	__int16 v51; // bx
+	__int16 v52; // bx
+	__int16 v53; // bx
+	__int16 v54; // bx
+	__int16 v55; // bx
+	__int16 v56; // bx
+	__int16 v57; // bx
+	__int16 v58; // bx
+	__int16 v59; // bx
+	__int16 v60; // bx
+	__int16 v61; // bx
+	__int16 v62; // bx
+	__int16 v63; // bx
+	//char v64; // [esp+0h] [ebp+7Eh]
+	//int i; // [esp+100h] [ebp+17Eh]
+
+	//v0 = 2124 * D41A0_BYTESTR_0.word_0xc;
+	//result = v0 + (int)x_D41A0_BYTEARRAY_0;
+	//v2 = *(x_BYTE *)(v0 + x_D41A0_BYTEARRAY_0 + 11235);
+	//!!!!!!!!!!!!!!!
+	if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ShowDebugTextFlag_0x005_2BE0_11235 & 8)
+	{
+		GetFont_6FC50(1);
+		DrawText_2BC10((char*)"Product name", 320, 0, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		LOWORD(v3) = GetLetterHeight_6FC30();
+		v4 = v3;
+		DrawText_2BC10((char*)"Magic Carpet 2 (Netherworlds)", 320, v3, (*xadataclrd0dat.colorPalette_var28)[15]);
+		LOWORD(v5) = GetLetterHeight_6FC30();
+		v6 = v5 + v4;
+		DrawText_2BC10((char*)"Version number", 320, v6, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		LOWORD(v7) = GetLetterHeight_6FC30();
+		v8 = v7 + v6;
+		DrawText_2BC10(VersionNumber, 320, v8, (*xadataclrd0dat.colorPalette_var28)[15]);
+		LOWORD(v9) = GetLetterHeight_6FC30();
+		v10 = v9 + v8;
+		DrawText_2BC10((char*)"Version date", 320, v10, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		LOWORD(v11) = GetLetterHeight_6FC30();
+		v12 = v11 + v10;
+		sprintf(printbuffer, "%s %s", "03:42:13", "Sep 06 1995");
+		DrawText_2BC10(printbuffer, 320, v12, (*xadataclrd0dat.colorPalette_var28)[15]);
+		LOWORD(v13) = GetLetterHeight_6FC30();
+		v14 = v13 + v12;
+		DrawText_2BC10((char*)"Programmer", 320, v14, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		LOWORD(v15) = GetLetterHeight_6FC30();
+		v16 = v15 + v14;
+		DrawText_2BC10((char*)"Bullfrog, Alan Wright.", 320, v16, (*xadataclrd0dat.colorPalette_var28)[15]);
+		LOWORD(v17) = GetLetterHeight_6FC30();
+		v18 = v17 + v16;
+		DrawText_2BC10((char*)"Supplied to", 320, v18, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		LOWORD(v19) = GetLetterHeight_6FC30();
+		v20 = v19 + v18;
+		DrawText_2BC10((char*)"PUBLIC", 320, v20, (*xadataclrd0dat.colorPalette_var28)[15]);
+		LOWORD(v21) = GetLetterHeight_6FC30();
+		v22 = v21 + v20;
+		DrawText_2BC10((char*)"Level Number", 320, v22, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		LOWORD(v23) = GetLetterHeight_6FC30();
+		v24 = v23 + v22;
+		sprintf(printbuffer, "%d", gameState_D41A4.levelnumber_43w);
+		DrawText_2BC10((char*)printbuffer, 320, v24, (*xadataclrd0dat.colorPalette_var28)[15]);
+		LOWORD(v25) = GetLetterHeight_6FC30();
+		v26 = v25 + v24;
+		if (gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE)
+		{
+			DrawText_2BC10((char*)"Transfer rate:", 320, v26, (*xadataclrd0dat.colorPalette_var28)[3840]);
+			LOWORD(v27) = GetLetterHeight_6FC30();
+			v28 = v27 + v26;
+			sprintf(printbuffer, "%d", gameState_D41A4.transfer_rate_dwordindex_200);
+			DrawText_2BC10(printbuffer, 320, v28, (*xadataclrd0dat.colorPalette_var28)[15]);
+			LOWORD(v29) = GetLetterHeight_6FC30();
+			v26 = v29 + v28;
+		}
+		//v30 = 2124 * D41A0_BYTESTR_0.word_0xc;
+		debugTurn_E9C14 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248;
+		v31 = j___clock() / 0x64u;
+		x_DWORD_E9C1C = v31;
+		if (v31 != debugLastValue_E9C20)
+		{
+			debugLastValue_E9C20 = v31;
+			debugFps_E9C24 = debugTurn_E9C14 - debugLastTurn_E9C18;
+			debugLastTurn_E9C18 = debugTurn_E9C14;
+		}
+		DrawText_2BC10((char*)"FPS", 320, v26, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		v32 = GetLetterHeight_6FC30() + v26;
+		sprintf(printbuffer, "%d", debugFps_E9C24);
+		DrawText_2BC10(printbuffer, 320, v32, (*xadataclrd0dat.colorPalette_var28)[15]);
+		v33 = GetLetterHeight_6FC30() + v32;
+		DrawText_2BC10((char*)"Sound Number", 320, v33, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		v34 = GetLetterHeight_6FC30() + v33;
+		sprintf(printbuffer, "%d", SoundNumber_E37B6);
+		DrawText_2BC10(printbuffer, 320, v34, (*xadataclrd0dat.colorPalette_var28)[15]);
+		v35 = GetLetterHeight_6FC30() + v34;
+		DrawText_2BC10((char*)"Game turn", 320, v35, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		v36 = GetLetterHeight_6FC30() + v35;
+		sprintf(printbuffer, "%d %d", world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248, GameTimerTurn_17DB54);
+		DrawText_2BC10(printbuffer, 320, v36, (*xadataclrd0dat.colorPalette_var28)[15]);
+		v37 = GetLetterHeight_6FC30() + v36;
+		DrawText_2BC10((char*)"Thing", 320, v37, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		v38 = GetLetterHeight_6FC30() + v37;
+		v39 = GetFreeEntityCount_4A810();
+		sprintf(printbuffer, "Thing %d, Active %d", 168, 1000 - v39);
+		DrawText_2BC10(printbuffer, 320, v38, (*xadataclrd0dat.colorPalette_var28)[15]);
+		v40 = GetLetterHeight_6FC30() + v38;
+		sprintf(printbuffer, "Carpet %zu", sizeof(type_shadow_D41A0_BYTESTR_0));
+		DrawText_2BC10(printbuffer, 320, v40, (*xadataclrd0dat.colorPalette_var28)[15]);
+		v41 = GetLetterHeight_6FC30() + v40;
+		sprintf(printbuffer, "Tape %d", 38547);
+		DrawText_2BC10(printbuffer, 320, v41, (*xadataclrd0dat.colorPalette_var28)[15]);
+		v42 = GetLetterHeight_6FC30() + v41;
+		sprintf(printbuffer, "Heap %d", gameState_D41A4.dword_0xE6_heapsize_230);
+		DrawText_2BC10(printbuffer, 320, v42, (*xadataclrd0dat.colorPalette_var28)[15]);
+		v43 = GetLetterHeight_6FC30() + v42;
+		//sub_85350();
+		DrawText_2BC10((char*)"Memory (Used/Free)", 320, v43, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		v44 = GetLetterHeight_6FC30() + v43;
+		sprintf(printbuffer, "%d/%d", memUsed_17FEA8, memFree_17FEA4);
+		DrawText_2BC10(printbuffer, 320, v44, (*xadataclrd0dat.colorPalette_var28)[15]);
+		/*v45 = (int*)&x_DWORD_17ECA0;
+		//LOWORD(result) = GetLetterHeight_6FC30();
+		v46 = 0;
+		for (i = 0; v45; v45 = (int*)v45[2])
+		{
+			sprintf(printbuffer, "s%7.7d,u%01d", v45[1], *((unsigned __int8*)v45 + 16));
+			if (x_DWORD_17E0A4[3 * *((unsigned __int8*)v45 + 17)])
+				v47 = (*xadataclrd0dat.colorPalette_var28)[0x000];
+			else
+				v47 = (*xadataclrd0dat.colorPalette_var28)[3840];
+			DrawText_2BC10(printbuffer, i, v46, v47);
+			//LOWORD(v48) = GetLetterHeight_6FC30();
+			v46 += GetLetterHeight_6FC30();
+			//result = 400 - GetLetterHeight_6FC30();
+			if ((signed __int16)v46 > 400 - GetLetterHeight_6FC30())
+			{
+				//LOWORD(v49) = GetLetterWidth_6FC10();
+				//result = 12 * v49;
+				i += 12 * GetLetterWidth_6FC10();
+				v46 = 0;
+			}
+		}
+		*/ //original allocations
+	}
+	if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ShowDebugTextFlag_0x005_2BE0_11235 & 0x40)
+	{
+		v50 = 6 * GetLetterHeight_6FC30();
+		DrawText_2BC10((char*)"THING", 10, v50, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		v51 = GetLetterHeight_6FC30() + v50;
+		sprintf(
+			printbuffer,
+			"%ld / %ld",
+			(long)(intptr_t)gameState_D41A4.nearestEntity_38396,
+			(long)(gameState_D41A4.nearestEntity_38396 - world_D41A0.entities_0x6E8E));
+		DrawText_2BC10(printbuffer, 10, v51, (*xadataclrd0dat.colorPalette_var28)[255]);
+		v52 = GetLetterHeight_6FC30() + v51;
+		DrawText_2BC10((char*)"CLASS / MODEL / STATE", 10, v52, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		v53 = GetLetterHeight_6FC30() + v52;
+		sprintf(
+			printbuffer,
+			"%hhd / %hhd / %hhu",
+			gameState_D41A4.nearestEntity_38396->class_0x3F_63,
+			gameState_D41A4.nearestEntity_38396->model_0x40_64,
+			gameState_D41A4.nearestEntity_38396->actionIndex_0x45_69);
+		DrawText_2BC10(printbuffer, 10, v53, (*xadataclrd0dat.colorPalette_var28)[255]);
+		v54 = GetLetterHeight_6FC30() + v53;
+		DrawText_2BC10((char*)"LIFE / MAX LIFE", 10, v54, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		v55 = GetLetterHeight_6FC30() + v54;
+		sprintf(
+			printbuffer,
+			"%d / %d",
+			gameState_D41A4.nearestEntity_38396->life_0x8,
+			gameState_D41A4.nearestEntity_38396->maxLife_0x4);
+		DrawText_2BC10(printbuffer, 10, v55, (*xadataclrd0dat.colorPalette_var28)[255]);
+		v56 = GetLetterHeight_6FC30() + v55;
+		DrawText_2BC10((char*)"SPEED ACTUAL / MINIMUM / MAXIMUM", 10, v56, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		v57 = GetLetterHeight_6FC30() + v56;
+		sprintf(
+			printbuffer,
+			"%hd / %hd / %hd",
+			gameState_D41A4.nearestEntity_38396->actSpeed_0x82_130,
+			gameState_D41A4.nearestEntity_38396->minSpeed_0x84_132,
+			gameState_D41A4.nearestEntity_38396->maxSpeed_0x86_134);
+		DrawText_2BC10(printbuffer, 10, v57, (*xadataclrd0dat.colorPalette_var28)[255]);
+		v58 = GetLetterHeight_6FC30() + v57;
+		DrawText_2BC10((char*)"ACTUAL X / Y / Z", 10, v58, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		v59 = GetLetterHeight_6FC30() + v58;
+		sprintf(
+			printbuffer,
+			"%hu / %hu / %hu",
+			gameState_D41A4.nearestEntity_38396->position_0x4C_76.x,
+			gameState_D41A4.nearestEntity_38396->position_0x4C_76.y,
+			gameState_D41A4.nearestEntity_38396->position_0x4C_76.z);
+		DrawText_2BC10(printbuffer, 10, v59, (*xadataclrd0dat.colorPalette_var28)[255]);
+		v60 = GetLetterHeight_6FC30() + v59;
+		DrawText_2BC10((char*)"ID / WHO OWNS ME", 10, v60, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		v61 = GetLetterHeight_6FC30() + v60;
+		sprintf(
+			printbuffer,
+			"%hu / %hu",
+			gameState_D41A4.nearestEntity_38396->id_0x1A_26,
+			gameState_D41A4.nearestEntity_38396->parentId_0x28_40);
+		DrawText_2BC10(printbuffer, 10, v61, (*xadataclrd0dat.colorPalette_var28)[255]);
+		v62 = GetLetterHeight_6FC30() + v61;
+		DrawText_2BC10((char*)"MANA ACTUAL / MAXIMUM", 10, v62, (*xadataclrd0dat.colorPalette_var28)[3840]);
+		v63 = GetLetterHeight_6FC30() + v62;
+		sprintf(
+			printbuffer,
+			"%d / %d",
+			gameState_D41A4.nearestEntity_38396->mana_0x90_144,
+			gameState_D41A4.nearestEntity_38396->maxMana_0x8C_140);
+		DrawText_2BC10(printbuffer, 10, v63, (*xadataclrd0dat.colorPalette_var28)[255]);
+		//LOWORD(result) = GetLetterHeight_6FC30();
+	}
+	if (gameState_D41A4.byteindex_53 == 16273849)
+		gameState_D41A4.cdFlags_52 |= 2u;
+	//return result;
+}
+// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
+// 98786: using guessed type int /*__fastcall*/ j___clock(x_DWORD, x_DWORD, x_DWORD);
+// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
+// D41A4: using guessed type int x_DWORD_D41A4;
+// E37B6: using guessed type __int16 x_WORD_E37B6_sound_number;
+// E890F: using guessed type char x_BYTE_E890F;
+// E89FF: using guessed type char x_BYTE_E89FF;
+// E9800: using guessed type char x_BYTE_E9800;
+// E9C14: using guessed type int debugTurn_E9C14;
+// E9C18: using guessed type int debugLastTurn_E9C18;
+// E9C1C: using guessed type int x_DWORD_E9C1C;
+// E9C20: using guessed type int debugLastValue_E9C20;
+// E9C24: using guessed type int debugFps_E9C24;
+// 17DB54: using guessed type int GameTimerTurn_17DB54;
+// 17E0A4: using guessed type int x_DWORD_17E0A4[];
+// 17ECA0: using guessed type int x_DWORD_17ECA0;
+// 17FEA4: using guessed type int memFree_17FEA4;
+// 17FEA8: using guessed type int memUsed_17FEA8;
+
+//----- (00087090) --------------------------------------------------------
+void SetTextBoxMinMaxSizes_87090()//268090
+{
+	signed int i; // edx
+	uint8_t* result; // al
+	//uint8_t* v2; // eax
+	int v2x;
+	int v3; // edx
+
+	memset(&helpPopup_1804B0, 0, 171);
+	for (i = 1; i < 120 && !helpPopup_1804B0.helpItemCount_0x66; i++)
+	{
+		//if (!*(int16_t*)&array_E2A74[30 * i])
+		if (!str_E2A74[i].type_0)
+			helpPopup_1804B0.helpItemCount_0x66 = i - 1;
+	}
+	result = (uint8_t*)ReturnTrue_871E0();
+	if (result)
+	{
+		helpPopup_1804B0.initialized_0xa2 = 1;
+		helpPopup_1804B0.type_sub_0[0].charWidth_0x10 = 8;
+		helpPopup_1804B0.type_sub_0[0].charHeight_0x12 = 14;
+		helpPopup_1804B0.type_sub_0[0].maxTextboxHeight2_0xe = 400;
+		helpPopup_1804B0.type_sub_0[0].maxPosX_0x16 = 600;
+		helpPopup_1804B0.type_sub_0[0].minPosY_0x18 = 80;
+		helpPopup_1804B0.type_sub_0[0].maxPosY_0x1a = 260;
+		helpPopup_1804B0.type_sub_0[0].minPosX_0x14 = 40;
+		helpPopup_1804B0.type_sub_0[1] = helpPopup_1804B0.type_sub_0[0];
+		//qmemcpy(&unk_1804B0ar[51], unk_1804B0ar, 0x30u);
+		//qmemcpy(&unk_1804B0ar[0x33+0x30], &helpPopup_1804B0.type_sub_0[0].byte_0x30, 3u);
+		//v2 = &array_E2A74[30];
+		v2x = 0;
+		helpPopup_1804B0.type_sub_0[1].maxPosY_0x1a = 370;
+		helpPopup_1804B0.type_sub_0[1].minPosX_0x14 = 30;
+		helpPopup_1804B0.type_sub_0[1].maxPosX_0x16 = 610;
+		helpPopup_1804B0.type_sub_0[1].minPosY_0x18 = 30;
+		v3 = 0;
+		while (v3 < helpPopup_1804B0.helpItemCount_0x66)
+		{
+			/* *(int32_t*)&v2[16] = *(int32_t*)&v2[24];
+			if (!v2[29])
+				v2[29] = v2[28];
+			v2 += 30;
+			*(uint8_t*)(v2 - 18) = 0;
+			v3++;
+			*(uint8_t*)(v2 - 10) = 0;*/
+			str_E2A74[v2x].counter_16 = str_E2A74[v2x].interval_24;
+			if (!str_E2A74[v2x].stage_29)
+				str_E2A74[v2x].stage_29 = str_E2A74[v2x].resetStage_28;
+			str_E2A74[v2x].entity_12 = 0;
+			str_E2A74[v2x].countdown_20 = 0;
+			v3++;
+			v2x++;
+		}
+		helpPopup_1804B0.randSeed_0x82 = world_D41A0.rand_0x8;
+		/*result = */UpdateHelpItems_88B20();
+	}
+}
+
+void SetTextBoxMinMaxForSetResolution()
+{
+	if (!DefaultResolutions())
+	{
+		helpPopup_1804B0.type_sub_0[0].maxPosX_0x16 = screenWidth_18062C - 40;
+		helpPopup_1804B0.type_sub_0[0].maxPosY_0x1a = screenHeight_180624 - 220;
+		helpPopup_1804B0.type_sub_0[0].maxTextboxHeight2_0xe = screenHeight_180624 - 80;
+
+		helpPopup_1804B0.type_sub_0[1] = helpPopup_1804B0.type_sub_0[0];
+		helpPopup_1804B0.type_sub_0[1].maxPosX_0x16 = screenWidth_18062C - 30;
+		helpPopup_1804B0.type_sub_0[1].maxPosY_0x1a = screenHeight_180624 - 110;
+	}
+	else
+	{
+		helpPopup_1804B0.type_sub_0[0].maxPosX_0x16 = 600;
+		helpPopup_1804B0.type_sub_0[0].maxPosY_0x1a = 260;
+		helpPopup_1804B0.type_sub_0[0].maxTextboxHeight2_0xe = 400;
+
+		helpPopup_1804B0.type_sub_0[1] = helpPopup_1804B0.type_sub_0[0];
+		helpPopup_1804B0.type_sub_0[1].maxPosX_0x16 = 610;
+		helpPopup_1804B0.type_sub_0[1].maxPosY_0x1a = 370;
+	}
+}
+
+//----- (000871E0) --------------------------------------------------------
+char ReturnTrue_871E0()//2681e0
+{
+	return 1;
+}
+
+//----- (000871F0) --------------------------------------------------------
+void DrawHelpPopUps_871F0()//2681f0
+{
+	bool hintType1 = true;
+
+	DrawMenuState_872A0();
+	if (helpPopup_1804B0.PopupStatusByte_0x9e & 0x10)
+	{
+		CloseHelpPopup_87C10();
+	}
+	else
+	{
+		if (helpPopup_1804B0.popupFlags_0x9f & 0x20 || helpPopup_1804B0.popupFlags_0x9f & 0x10)
+			hintType1 = false;
+		if (helpPopup_1804B0.PopupStatusByte_0x9e & 2 || helpPopup_1804B0.popupFlags_0x9f & 0x8)
+			hintType1 = true;
+		if (hintType1)
+		{
+			if (helpPopup_1804B0.Index_0x86)
+			{
+				DrawPopupTextBox_87610();
+				UpdateHelpPopupTimeout_87B30();
+			}
+			else if (--helpPopup_1804B0.blinkCounter_0x72 <= 0)
+			{
+				SetHelpPopupCoords_87580();
+			}
+			UpdateHelpItemTimers_87B70();
+		}
+		else
+		{
+			if (helpPopup_1804B0.popupFlags_0x9f & 0x10)
+			{
+				SetHelpPopupLine_87A30();
+				return;
+			}
+			if (helpPopup_1804B0.popupFlags_0x9f & 0x20)
+			{
+				DrawPauseMenuPopUps_87860();
+				return;
+			}
+		}
+	}
+}
+
+//----- (000872A0) --------------------------------------------------------
+void DrawMenuState_872A0()//2682a0
+{
+	unsigned __int8 v1; // al
+	type_entity_0x6E8E* v2x; // esi
+	char v3; // dh
+	int v5; // edx
+	int v7; // eax
+	uint8_t scale = 1;
+
+	if (!DefaultResolutions())
+	{
+		scale = gameUiScale;
+	}
+
+	v1 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221;
+	v2x = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	if (v1 < 6u || v1 > 8u)
+		helpPopup_1804B0.PopupStatusByte_0x9e &= 0xFA;
+	else
+		helpPopup_1804B0.PopupStatusByte_0x9e |= 5;
+	helpPopup_1804B0.PopupStatusByte_0x9e &= 0xFDu;
+	helpPopup_1804B0.popupFlags_0x9f &= 0xC7u;
+	v3 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221;
+	if (v3 != 5 && v3 != 8)
+	{
+		helpPopup_1804B0.blinkPeriod_0x6e = 20;
+		helpPopup_1804B0.spellHelpStep_0xa4 = 0;
+		helpPopup_1804B0.lastSpellIndex_0xa5 = -1;
+	}
+	else
+	{
+		helpPopup_1804B0.PopupStatusByte_0x9e |= 2;
+		helpPopup_1804B0.blinkPeriod_0x6e = 6;
+		v5 = v2x->playerData_0xA4_164x->str_611.spellIndex_0x458_1112;
+		if (v5 != (unsigned __int8)helpPopup_1804B0.lastSpellIndex_0xa5 || v2x->playerData_0xA4_164x->str_611.subSpellIndex_0x459_1113 != helpPopup_1804B0.lastSubSpellIndex_0xa6)
+		{
+			v7 = spellIndex_D94FF[v2x->playerData_0xA4_164x->str_611.spellIndex_0x458_1112];
+			if ((unsigned __int8)helpPopup_1804B0.spellHelpStep_0xa4 > 1u || !v2x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[v7] || !isCaveLevel_D41B6 && v7 == 25)
+				CloseHelpPopup_87C10();
+			helpPopup_1804B0.spellHelpStep_0xa4 = 0;
+			SetSpellHelpPopupCoordinates_88D40(scale);
+			helpPopup_1804B0.popupTimer_0x76 = 0;
+		}
+		helpPopup_1804B0.lastSpellIndex_0xa5 = v2x->playerData_0xA4_164x->str_611.spellIndex_0x458_1112;
+		helpPopup_1804B0.lastSubSpellIndex_0xa6 = v2x->playerData_0xA4_164x->str_611.subSpellIndex_0x459_1113;
+	}
+	if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == 7)
+	{
+		helpPopup_1804B0.popupFlags_0x9f |= 8u;
+	}
+	else if (str_E2A74[helpPopup_1804B0.Index_0x86].type_0 == 12)
+	{
+		CloseHelpPopup_87C10();
+	}
+	if (gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED)
+		helpPopup_1804B0.popupFlags_0x9f |= 0x20u;
+	if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == 3)
+		helpPopup_1804B0.popupFlags_0x9f |= 0x10u;
+	if (v2x->actSpeed_0x82_130)
+		helpPopup_1804B0.uni_0x8a.dword[0] = 0;
+	else
+		(helpPopup_1804B0.uni_0x8a.dword[0])++;
+	helpPopup_1804B0.popupFlags_0x9f &= 0xFBu;
+	if (v2x->actionIndex_0x45_69 == 3)
+		helpPopup_1804B0.popupFlags_0x9f = helpPopup_1804B0.popupFlags_0x9f | 4;
+	helpPopup_1804B0.PopupStatusByte_0x9e &= 0xEF;
+	if (world_D41A0.objectiveBoxCounter_0x36E04
+		|| gameState_D41A4.byteindex_225
+		|| v2x->actionIndex_0x45_69 == 12
+		|| v2x->actionIndex_0x45_69 == 11
+		|| world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == 13
+		|| world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == 14)
+	{
+		helpPopup_1804B0.blinkCounter_0x72 = helpPopup_1804B0.blinkPeriod_0x6e;
+		helpPopup_1804B0.PopupStatusByte_0x9e |= 0x10;
+	}
+	if (helpPopup_1804B0.Index_0x86)
+	{	//adress 268509
+		if (str_E2A74[helpPopup_1804B0.Index_0x86].type_0 == 2 || str_E2A74[helpPopup_1804B0.Index_0x86].type_0 == 8)
+		{
+			if (!(helpPopup_1804B0.popupFlags_0x9f & 0x2)
+				|| (str_E2A74[helpPopup_1804B0.Index_0x86].axis_2[0] >= 0)
+				&& (str_E2A74[helpPopup_1804B0.Index_0x86].entity_12 == 0
+					|| str_E2A74[helpPopup_1804B0.Index_0x86].countdown_20 < 0
+					|| str_E2A74[helpPopup_1804B0.Index_0x86].interval_24 & 0x400))
+			{
+				CloseHelpPopup_87C10();
+			}
+		}
+		if (v2x->actionIndex_0x45_69 == 2)
+			CloseHelpPopup_87C10();
+	}
+}
+
+//----- (00087580) --------------------------------------------------------
+void SetHelpPopupCoords_87580()//268580
+{
+	uint8_t scale = 1;
+
+	if (!DefaultResolutions())
+	{
+		scale = gameUiScale;
+	}
+
+	ClearHelpItemFlags_87BE0();
+	if (helpPopup_1804B0.popupFlags_0x9f & 0x4)
+	{
+		SetHelpPopupTextAndCoords_884D0(91, 1, &str_E2A74[91].axis_2[1], 1, 0, scale);
+	}
+	else if (helpPopup_1804B0.PopupStatusByte_0x9e & 0x2)
+	{
+		SetSpellHelpPopupCoordinates_88D40(scale);
+	}
+	else if (helpPopup_1804B0.popupFlags_0x9f & 0x8)
+	{
+		SetPlayerScoresHelpPopupTextAndCoords_89360(scale);
+	}
+	else
+	{
+		GetHelpPopupTextAndCoords_87CF0(scale);
+		int16_t helpIdx = GetHelpPopupIndex_88450();
+		SetHelpPopupTextAndCoords_884D0(helpIdx, 1, &str_E2A74[helpIdx].axis_2[1], ((str_E2A74[helpIdx].axis_2[0] & 4) == 0) + 1, 0, scale);
+	}
+}
+
+//----- (00087610) --------------------------------------------------------
+void DrawPopupTextBox_87610()//268610
+{
+	char* textForDraw; // edi
+	signed int v4; // esi
+	int posY; // edi
+	unsigned __int8 color; // al
+	char textBuffer[256]; // [esp+0h] [ebp-80h]
+
+	uint8_t scale = 1;
+
+	if (!DefaultResolutions())
+	{
+		scale = gameUiScale;
+	}
+
+	textForDraw = langStrings_E9C4C[helpPopup_1804B0.uni_0x8a.word[2]];
+	if (str_E2A74[helpPopup_1804B0.Index_0x86].axis_2[0] & 0x100 || helpPopup_1804B0.Index_0x86 == 96)
+	{
+		textForDraw = textBuffer;
+		GetHintText_89AC0(textBuffer, helpPopup_1804B0.Index_0x86);
+	}
+	helpPopup_1804B0.type_sub_0[0].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[4095];//convert RGB to indexed color
+	helpPopup_1804B0.type_sub_0[0].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
+	helpPopup_1804B0.type_sub_0[0].color3_0x32 = (*xadataclrd0dat.colorPalette_var28)[3840];
+
+	switch (helpPopup_1804B0.drawTextType_0xa3)
+	{
+	case 1: // Draw in the top middle
+	{
+		if (helpPopup_1804B0.PopupStatusByte_0x9e & 8)
+		{
+			helpPopup_1804B0.type_sub_0[0].maxTextboxWidth_0x0 = 320;
+			helpPopup_1804B0.type_sub_0[0].maxTextboxHeight_0x2 = 80;
+			helpPopup_1804B0.type_sub_0[0].maxTextboxWidth2_0xc = 320;
+
+			if (!DefaultResolutions())
+			{
+				helpPopup_1804B0.type_sub_0[0].maxTextboxWidth_0x0 = screenWidth_18062C / 2;
+				helpPopup_1804B0.type_sub_0[0].maxTextboxHeight_0x2 = screenWidth_18062C / 6;
+				helpPopup_1804B0.type_sub_0[0].maxTextboxWidth2_0xc = screenWidth_18062C / 2;
+			}
+
+			ComputeTextboxSizesFromTextWords_89420(helpPopup_1804B0.type_sub_0, textForDraw, scale);
+			ConstrainTextboxSizes_89520(helpPopup_1804B0.type_sub_0, scale);
+			ComputeFrameSizes_89980(helpPopup_1804B0.type_sub_0, scale);
+		}
+		ColorizeScreen_2E790(
+			helpPopup_1804B0.type_sub_0[0].framePosX_0x24,
+			helpPopup_1804B0.type_sub_0[0].framePosY_0x26,
+			helpPopup_1804B0.type_sub_0[0].frameWidth_0x28,
+			helpPopup_1804B0.type_sub_0[0].frameHeight_0x2a,
+			helpPopup_1804B0.type_sub_0[0].color2_0x31);
+		AlphaRectangle(
+			helpPopup_1804B0.type_sub_0[0].framePosX_0x24,
+			helpPopup_1804B0.type_sub_0[0].framePosY_0x26,
+			helpPopup_1804B0.type_sub_0[0].frameWidth_0x28,
+			helpPopup_1804B0.type_sub_0[0].frameHeight_0x2a,
+			100
+		);
+		DrawTextboxText_895D0(helpPopup_1804B0.type_sub_0, textForDraw, scale);
+		DrawTextboxFrame_89690(helpPopup_1804B0.type_sub_0, scale);
+		helpPopup_1804B0.PopupStatusByte_0x9e &= 0xF7;
+		break;
+	}
+	case 2: // Draws Mini Map, Top Status Bar and Control Help
+	{
+		helpPopup_1804B0.type_sub_0[0].lineSrcX_0x1c = str_E2A74[helpPopup_1804B0.Index_0x86].axis_2[3];
+		helpPopup_1804B0.type_sub_0[0].maxTextboxWidth2_0xc = 220 * scale;
+		helpPopup_1804B0.type_sub_0[0].lineSrcY_0x1e = str_E2A74[helpPopup_1804B0.Index_0x86].axis_2[4];
+		if (helpPopup_1804B0.PopupStatusByte_0x9e & 0x8)
+		{
+			ComputeTextboxSizes_89830(helpPopup_1804B0.type_sub_0, scale);//here
+			ComputeTextboxSizesFromTextWords_89420(helpPopup_1804B0.type_sub_0, textForDraw, scale);
+			ConstrainTextboxSizes_89520(helpPopup_1804B0.type_sub_0, scale);
+			ComputeFrameSizes_89980(helpPopup_1804B0.type_sub_0, scale);
+		}
+		ComputeTextboxLine_898A0(helpPopup_1804B0.type_sub_0);
+		ColorizeScreen_2E790(
+			helpPopup_1804B0.type_sub_0[0].framePosX_0x24,
+			helpPopup_1804B0.type_sub_0[0].framePosY_0x26,
+			helpPopup_1804B0.type_sub_0[0].frameWidth_0x28,
+			helpPopup_1804B0.type_sub_0[0].frameHeight_0x2a,
+			helpPopup_1804B0.type_sub_0[0].color2_0x31);
+		AlphaRectangle(
+			helpPopup_1804B0.type_sub_0[0].framePosX_0x24,
+			helpPopup_1804B0.type_sub_0[0].framePosY_0x26,
+			helpPopup_1804B0.type_sub_0[0].frameWidth_0x28,
+			helpPopup_1804B0.type_sub_0[0].frameHeight_0x2a,
+			100
+		);
+		DrawTextboxText_895D0(helpPopup_1804B0.type_sub_0, textForDraw, scale);
+		DrawTextboxLine_89A30(helpPopup_1804B0.type_sub_0);
+		DrawTextboxFrame_89690(helpPopup_1804B0.type_sub_0, scale);
+		helpPopup_1804B0.PopupStatusByte_0x9e &= 0xF7;
+		break;
+	}
+	case 3: //Draw Spell Menu Help
+	{
+		helpPopup_1804B0.type_sub_0[0].lineSrcX_0x1c = str_E2A74[helpPopup_1804B0.Index_0x86].axis_2[3];//3
+		helpPopup_1804B0.type_sub_0[0].lineSrcY_0x1e = str_E2A74[helpPopup_1804B0.Index_0x86].axis_2[4];
+		ComputeTextboxSizes_89830(helpPopup_1804B0.type_sub_0, scale);
+		ComputeTextboxSizesFromTextLines_89920(helpPopup_1804B0.type_sub_0, helpPopup_1804B0.lineCount_0xa0, &helpPopup_1804B0.uni_0x8a.word[2], scale);
+		ConstrainTextboxSizes_89520(helpPopup_1804B0.type_sub_0, scale);
+		ComputeFrameSizes_89980(helpPopup_1804B0.type_sub_0, scale);
+		ComputeTextboxLine_898A0(helpPopup_1804B0.type_sub_0);
+		v4 = 0;
+		ColorizeScreen_2E790(
+			helpPopup_1804B0.type_sub_0[0].framePosX_0x24,
+			helpPopup_1804B0.type_sub_0[0].framePosY_0x26,
+			helpPopup_1804B0.type_sub_0[0].frameWidth_0x28,
+			helpPopup_1804B0.type_sub_0[0].frameHeight_0x2a,
+			helpPopup_1804B0.type_sub_0[0].color2_0x31);
+		AlphaRectangle(
+			helpPopup_1804B0.type_sub_0[0].framePosX_0x24,
+			helpPopup_1804B0.type_sub_0[0].framePosY_0x26,
+			helpPopup_1804B0.type_sub_0[0].frameWidth_0x28,
+			helpPopup_1804B0.type_sub_0[0].frameHeight_0x2a,
+			100
+		);
+		posY = helpPopup_1804B0.type_sub_0[0].textboxPosY_0xa;
+		while (v4 < helpPopup_1804B0.lineCount_0xa0)
+		{
+			if (v4 == helpPopup_1804B0.highlightLine_0xa1)
+				color = helpPopup_1804B0.type_sub_0[0].color3_0x32;
+			else
+				color = helpPopup_1804B0.type_sub_0[0].color1_0x30;
+			//FireBall,Rapid Fire,Fire Storm
+			DrawText_2BC10(langStrings_E9C4C[helpPopup_1804B0.uni_0x8a.word[2 + v4++]], helpPopup_1804B0.type_sub_0[0].textboxPosX_0x8, posY, color, scale);
+			posY += helpPopup_1804B0.type_sub_0[0].charHeight_0x12 * scale;
+		}
+		DrawTextboxLine_89A30(helpPopup_1804B0.type_sub_0);
+		DrawTextboxFrame_89690(helpPopup_1804B0.type_sub_0, scale);
+		helpPopup_1804B0.PopupStatusByte_0x9e &= 0xF7;
+		break;
+	}
+	default:
+	{
+		helpPopup_1804B0.PopupStatusByte_0x9e &= 0xF7;
+		break;
+	}
+	}
+}
+
+//----- (00087860) --------------------------------------------------------
+void DrawPauseMenuPopUps_87860()//268860
+{
+	uint8_t scale = 1;
+
+	if (!DefaultResolutions())
+	{
+		scale = gameUiScale;
+	}
+
+	if (helpPopup_1804B0.pauseMenuItem_0xaa >= 0)
+	{
+		SetPauseMenuCoordinates_87970(scale);
+		//Options | Load Level | Save Level | Music Volume | Sound Volume
+		helpPopup_1804B0.type_sub_0[1].lineSrcX_0x1c = str_E2A74[(helpPopup_1804B0.pauseMenuItem_0xaa + 86)].axis_2[3];
+		helpPopup_1804B0.type_sub_0[1].lineSrcY_0x1e = str_E2A74[(helpPopup_1804B0.pauseMenuItem_0xaa + 86)].axis_2[4];
+		helpPopup_1804B0.type_sub_0[1].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[4095];
+		helpPopup_1804B0.type_sub_0[1].maxTextboxWidth2_0xc = 220 * scale;
+		helpPopup_1804B0.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
+		ComputeTextboxSizes_89830(&helpPopup_1804B0.type_sub_0[1], scale);
+		ComputeTextboxSizesFromTextWords_89420(&helpPopup_1804B0.type_sub_0[1], langStrings_E9C4C[str_E2A74[(helpPopup_1804B0.pauseMenuItem_0xaa + 86)].axis_2[1]], scale);
+		ConstrainTextboxSizes_89520(&helpPopup_1804B0.type_sub_0[1], scale);
+		ComputeFrameSizes_89980(&helpPopup_1804B0.type_sub_0[1], scale);
+		ComputeTextboxLine_898A0(&helpPopup_1804B0.type_sub_0[1]);
+		ColorizeScreen_2E790(helpPopup_1804B0.type_sub_0[1].framePosX_0x24, helpPopup_1804B0.type_sub_0[1].framePosY_0x26, helpPopup_1804B0.type_sub_0[1].frameWidth_0x28, helpPopup_1804B0.type_sub_0[1].frameHeight_0x2a, helpPopup_1804B0.type_sub_0[1].color2_0x31);
+		DrawTextboxText_895D0(&helpPopup_1804B0.type_sub_0[1], (char*)langStrings_E9C4C[str_E2A74[(helpPopup_1804B0.pauseMenuItem_0xaa + 86)].axis_2[1]], scale);
+		DrawTextboxLine_89A30(&helpPopup_1804B0.type_sub_0[1]);
+		DrawTextboxFrame_89690(&helpPopup_1804B0.type_sub_0[1], scale);
+	}
+}
+
+//----- (00087970) --------------------------------------------------------
+void SetPauseMenuCoordinates_87970(uint8_t scale)//268970
+{
+	int16_t height; // [esp+0h] [ebp-10h]
+	int16_t width; // [esp+4h] [ebp-Ch]
+	int16_t posY; // [esp+8h] [ebp-8h]
+	int16_t posX; // [esp+Ch] [ebp-4h]
+
+	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height, scale);
+	str_E2A74[0x56].axis_2[3] = width + posX - 12;//0x56 tj 0xa14 8
+	str_E2A74[0x56].axis_2[4] = posY + 6;//0x56 tj 0xa14 a
+	str_E2A74[0x57].axis_2[3] = width + posX - 12;//0x57 tj 0xa32 8
+	str_E2A74[0x57].axis_2[4] = height + posY + 6;//0x57 tj 0xa32 a
+	str_E2A74[0x58].axis_2[3] = posX + width / 2 - 12;//0x58 tj 0xa50 8
+	str_E2A74[0x58].axis_2[4] = posY + 2 * height + 6;//0x58 tj 0xa50 a
+	str_E2A74[0x59].axis_2[3] = width + posX - 12;//0x59 tj 0xa6e 8
+	str_E2A74[0x59].axis_2[4] = posY + 2 * height + 6;//0x59 tj 0xa6e a
+	str_E2A74[0x5a].axis_2[3] = width + posX - 12;//0x5a tj 0xa8c 8
+	str_E2A74[0x5a].axis_2[4] = posY + 3 * height + 6;//0x5a tj 0xa8c a
+}
+
+
+//----- (00087A30) --------------------------------------------------------
+void SetHelpPopupLine_87A30()//268a30
+{
+	if (helpPopup_1804B0.keyHelpItem_0xa9 > 0)
+	{
+		helpPopup_1804B0.type_sub_0[1].lineSrcX_0x1c = str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[3];
+		helpPopup_1804B0.type_sub_0[1].lineSrcY_0x1e = str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[4];
+		helpPopup_1804B0.type_sub_0[1].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[4095];
+		helpPopup_1804B0.type_sub_0[1].maxTextboxWidth2_0xc = 220;
+		helpPopup_1804B0.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
+		ComputeTextboxSizes_89830(&helpPopup_1804B0.type_sub_0[1]);
+		ComputeTextboxSizesFromTextWords_89420(&helpPopup_1804B0.type_sub_0[1], langStrings_E9C4C[str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[1]]);
+		ConstrainTextboxSizes_89520(&helpPopup_1804B0.type_sub_0[1]);
+		ComputeFrameSizes_89980(&helpPopup_1804B0.type_sub_0[1]);
+		ComputeTextboxLine_898A0(&helpPopup_1804B0.type_sub_0[1]);
+		ColorizeScreen_2E790(helpPopup_1804B0.type_sub_0[1].framePosX_0x24, helpPopup_1804B0.type_sub_0[1].framePosY_0x26, helpPopup_1804B0.type_sub_0[1].frameWidth_0x28, helpPopup_1804B0.type_sub_0[1].frameHeight_0x2a, helpPopup_1804B0.type_sub_0[1].color2_0x31);
+		DrawTextboxText_895D0(&helpPopup_1804B0.type_sub_0[1], (char*)langStrings_E9C4C[str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[1]]);
+		DrawTextboxLine_89A30(&helpPopup_1804B0.type_sub_0[1]);
+		DrawTextboxFrame_89690(&helpPopup_1804B0.type_sub_0[1]);
+	}
+}
+
+//----- (00087B30) --------------------------------------------------------
+void UpdateHelpPopupTimeout_87B30()//268b30
+{
+	if (++helpPopup_1804B0.popupTimer_0x76 >= helpPopup_1804B0.popupTimeout_0x7a || !(str_E2A74[helpPopup_1804B0.Index_0x86].axis_2[0] & 1))
+		CloseHelpPopup_87C10();
+}
+
+//----- (00087B70) --------------------------------------------------------
+void UpdateHelpItemTimers_87B70()//268b70
+{
+	int indexx;
+	int i; // ebx
+	int v4; // edx
+
+	indexx = 1;
+	for (i = 0; i < helpPopup_1804B0.helpItemCount_0x66; indexx++)
+	{
+		str_E2A74[indexx].counter_16++;
+		v4 = str_E2A74[indexx].counter_16 - str_E2A74[indexx].interval_24;
+		if (v4 > 0 && v4 > 2 * str_E2A74[indexx].interval_24)
+		{
+			str_E2A74[indexx].counter_16 = str_E2A74[indexx].interval_24;
+			str_E2A74[indexx].stage_29++;
+			if (str_E2A74[indexx].stage_29 < 0)
+				str_E2A74[indexx].stage_29 = 0;
+			if (str_E2A74[indexx].stage_29 > 5)
+				str_E2A74[indexx].stage_29 = 5;
+		}
+		i++;
+	}
+}
+
+//----- (00087BE0) --------------------------------------------------------
+void ClearHelpItemFlags_87BE0()//268be0
+{
+	char v2; // bl
+
+	int index = 0;
+	for (int i = 0; i < helpPopup_1804B0.helpItemCount_0x66; str_E2A74[index].axis_2[0] = v2 & 0xFE)
+	{
+		v2 = str_E2A74[index + 1].axis_2[0];
+		index++;
+		i++;
+	}//shift array_E2A74[2] by 1
+}
+
+//----- (00087CF0) --------------------------------------------------------
+void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
+{
+	signed int v0; // ecx
+	type_entity_0x6E8E* v1x; // esi
+	unsigned __int16 v3; // bx
+	type_entity_0x6E8E* v5x; // eax
+	signed int v6; // ebx
+	int v7; // eax
+	int v9x;
+	bool v13; // zf
+	int v14; // eax
+	bool v16; // bl
+	type_entity_0x6E8E* v17x; // edx
+	type_entity_0x6E8E* v18x; // edx
+	bool v19; // al
+	char v20; // al
+	signed int v21; // edx
+	int v22x;
+	signed int v23; // edx
+	int v24x;
+	char v25; // ah
+	signed int v27; // edx
+	int v28x;
+	int v29; // [esp+0h] [ebp-28h]
+	bool v30; // [esp+8h] [ebp-20h]
+	bool v31; // [esp+Ch] [ebp-1Ch]
+	bool v32; // [esp+10h] [ebp-18h]
+	signed int v33; // [esp+14h] [ebp-14h]
+	int v34; // [esp+18h] [ebp-10h]
+	uint32_t v35; // [esp+1Ch] [ebp-Ch]
+	type_entity_0x6E8E* v36x; // [esp+20h] [ebp-8h]
+	signed int v37; // [esp+24h] [ebp-4h]
+
+	v34 = 0;
+	v37 = -1;
+	v0 = -1;
+	v1x = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	v3 = v1x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58;
+	if (v3)
+		v5x = Entities_EA3E4[v3];
+	else
+		v5x = 0;
+	v36x = v5x;
+	v6 = 0;
+	v29 = 0;
+	while (v6 < 26)
+	{
+		v7 = v1x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[v6++] != 0;
+		v29 += v7;
+	}
+	if (v29)
+	{
+		v30 = v1x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[2] != 0;
+		v32 = v1x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[1] != 0;
+		v31 = v1x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[0] != 0;
+		v0 = v1x->playerData_0xA4_164x->str_611.SpellIndexLeft_0x451_1105;
+		v37 = v1x->playerData_0xA4_164x->str_611.SpellIndexRight_0x453_1107;
+	}
+	if (world_D41A0.playerObjectives_0x3659C[world_D41A0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
+		v33 = -1;
+	else
+		v33 = world_D41A0.stages_0x3654C[world_D41A0.stages_0x3654C[world_D41A0.LevelIndex_0xc].flags_3654D].stages_3654C_byte0;
+	v35 = 1;
+	v9x = 1;
+	while ((signed int)v35 <= helpPopup_1804B0.helpItemCount_0x66)
+	{
+		switch (str_E2A74[v9x].type_0)
+		{
+		case 1:
+			if (v35 >= 1 && (v35 <= 2 || v35 == 92))
+				goto LABEL_32;
+			break;
+		case 2:
+			if (str_E2A74[v9x].axis_2[0] & 0x18)
+				str_E2A74[v9x].axis_2[0] |= 1;
+			break;
+		case 3:
+			if (v36x)
+			{
+				if (v35 != 35)
+					goto LABEL_32;
+				if (!v33)
+				{
+					str_E2A74[v9x].axis_2[0] |= 1u;
+					str_E2A74[35].axis_2[3] = (world_D41A0.terrain_2FECE.manaGoalPercent_0x2FED5 << 6) / 100
+						+ (*filearray_2aa18c[filearrayindex_FONTS1DATTAB].posistruct)[40].width_4
+						+ 60;
+					str_E2A74[35].axis_2[4] = 38;
+				}
+			}
+			break;
+		case 5:
+		case 7:
+		case 0xC:
+		case 0xD:
+			break;
+		case 6:
+			v13 = (helpPopup_1804B0.PopupStatusByte_0x9e & 2) == 0;
+			goto LABEL_31;
+		case 8:
+			if (str_E2A74[v9x].axis_2[0] & 0x10 || str_E2A74[v9x].axis_2[0] & 0x40)
+				str_E2A74[v9x].axis_2[0] |= 1u;
+			if (str_E2A74[v9x].axis_2[0] & 0x40)
+				v34++;
+			break;
+		default:
+			v13 = v35 == 85;
+		LABEL_31:
+			if (!v13)
+				LABEL_32 :
+				str_E2A74[v9x].axis_2[0] |= 1u;
+			break;
+		}
+		v9x++;
+		v35++;
+	}
+	if (helpPopup_1804B0.PopupStatusByte_0x9e & 4)
+	{
+		//Map screen open
+		str_E2A74[2].axis_2[3] = (190 * scale);
+		str_E2A74[2].axis_2[4] = (202 * scale);
+	}
+	else
+	{
+		//You are here
+		str_E2A74[2].axis_2[3] = (64 * scale);
+		str_E2A74[2].axis_2[4] = (66 * scale);
+	}
+	if (!v34 && !(helpPopup_1804B0.PopupStatusByte_0x9e & 4))
+		str_E2A74[4].axis_2[0] |= 1u;
+	if (v1x->maxLife_0x4 >> 2 >= v1x->life_0x8)
+		str_E2A74[5].axis_2[0] |= 1u;
+	if (v1x->playerData_0xA4_164x->waterCounter_0x262_610)
+		str_E2A74[3].axis_2[0] |= 1u;
+	str_E2A74[10].axis_2[0] |= 4u;
+	str_E2A74[11].axis_2[0] |= 4u;
+	str_E2A74[12].axis_2[0] |= 4u;
+	if (v29)
+	{
+		v14 = helpPopup_1804B0.PopupStatusByte_0x9e & 0x40;
+		if (helpPopup_1804B0.PopupStatusByte_0x9e & 0x80)
+		{
+			if (v31)
+			{
+				str_E2A74[10].axis_2[0] |= 1u;
+				if (v0 && v37)
+				{
+					str_E2A74[14].axis_2[0] |= 1u;
+				}
+				else
+				{
+					//Currently selected Spell Help
+					str_E2A74[10].axis_2[0] &= 0xFBu;
+					if (v0)
+						str_E2A74[10].axis_2[3] = 600;
+					else
+						str_E2A74[10].axis_2[3] = 540;
+
+					if (!DefaultResolutions())
+					{
+						if (v0)
+							str_E2A74[10].axis_2[3] = screenWidth_18062C - (40 * scale);
+						else
+							str_E2A74[10].axis_2[3] = screenWidth_18062C - (100 * scale);
+					}
+
+					str_E2A74[10].axis_2[4] = (32 * scale);
+				}
+			}
+			else
+			{
+				str_E2A74[7].axis_2[0] |= 1u;
+			}
+			helpPopup_1804B0.PopupStatusByte_0x9e &= 0x7F;
+		}
+		if (v14)
+		{
+			if (v32)
+			{
+				str_E2A74[11].axis_2[0] |= 1u;
+				if (v0 != 1 && v37 != 1)
+				{
+					str_E2A74[14].axis_2[0] |= 1u;
+				}
+				else
+				{
+					//Currently selected Spell Help
+					str_E2A74[11].axis_2[0] &= 0xFBu;
+					if (v0 == 1)
+						str_E2A74[11].axis_2[3] = 540;
+					else
+						str_E2A74[11].axis_2[3] = 600;
+
+					if (!DefaultResolutions())
+					{
+						if (v0 == 1)
+							str_E2A74[11].axis_2[3] = screenWidth_18062C - (100 * scale);
+						else
+							str_E2A74[11].axis_2[3] = screenWidth_18062C - (40 * scale);
+					}
+
+					str_E2A74[11].axis_2[4] = (32 * scale);
+				}
+			}
+			else
+			{
+				str_E2A74[9].axis_2[0] |= 1u;
+			}
+			helpPopup_1804B0.PopupStatusByte_0x9e &= 0xBF;
+		}
+		if (v30)
+		{
+			if (!v36x)
+			{
+				str_E2A74[12].axis_2[0] |= 1u;
+				if (v0 != 2 && v37 != 2)
+				{
+					str_E2A74[13].axis_2[0] |= 1u;
+				}
+				else
+				{
+					//Currently selected Spell Help
+					str_E2A74[12].axis_2[0] &= 0xFBu;
+					if (v0 == 2)
+						str_E2A74[12].axis_2[3] = 540;
+					else
+						str_E2A74[12].axis_2[3] = 600;
+
+					if (!DefaultResolutions())
+					{
+						if (v0 == 2)
+							str_E2A74[12].axis_2[3] = screenWidth_18062C - (100 * scale);
+						else
+							str_E2A74[12].axis_2[3] = screenWidth_18062C - (40 * scale);
+					}
+
+					str_E2A74[12].axis_2[4] = (32 * scale);
+				}
+			}
+		}
+		else
+		{
+			str_E2A74[8].axis_2[0] |= 1u;
+		}
+	}
+	else
+	{
+		str_E2A74[6].axis_2[0] |= 1u;
+	}
+	if (v36x)
+	{
+		if (v1x->mana_0x90_144 >= Entities_EA3E4[v1x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[2]]->maxMana_0x8C_140 && v36x->param_0x10_16 < 6)
+			str_E2A74[14].axis_2[0] |= 1u;
+		if (v1x->playerData_0xA4_164x->castleDestroyedBlink_0x195_405)
+			str_E2A74[17].countdown_20 = 100;
+		if (str_E2A74[17].countdown_20)
+			(str_E2A74[17].countdown_20)--;
+		if (str_E2A74[17].countdown_20)
+			str_E2A74[17].axis_2[0] |= 1u;
+	}
+	if (v29)
+	{
+		if (v0 > -1)
+			str_E2A74[38].axis_2[0] |= 1u;
+		if (v37 > -1)
+			str_E2A74[39].axis_2[0] |= 1u;
+		if (v0 > -1)
+		{
+			//Your current objective is to fly to a point
+			str_E2A74[40].axis_2[3] = 540;
+			str_E2A74[40].axis_2[0] |= 1u;
+			str_E2A74[40].axis_2[4] = (40 * scale);
+			str_E2A74[42].axis_2[0] |= 1u;
+			str_E2A74[42].axis_2[4] = (16 * scale);
+			str_E2A74[42].axis_2[3] = 560;
+
+			if (!DefaultResolutions())
+			{
+				str_E2A74[40].axis_2[3] = screenWidth_18062C - (100 * scale);
+				str_E2A74[42].axis_2[3] = screenWidth_18062C - (80 * scale);
+			}
+		}
+		v16 = 0;
+		if (v0 > -1)
+		{
+			v17x = Entities_EA3E4[v1x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[v0]];
+			if (v0 == 2)
+			{
+				if (v1x->mana_0x90_144 < v17x->maxMana_0x8C_140)
+					v16 = 1;
+			}
+			else
+			{
+				v16 = CanSpellOwnerCast_68D50(v17x, v1x) == 0;
+			}
+			if (v16)
+			{
+				str_E2A74[41].axis_2[3] = 540;
+				str_E2A74[41].axis_2[4] = (48 * scale);
+				str_E2A74[41].axis_2[0] |= 1u;
+
+				if (!DefaultResolutions())
+				{
+					str_E2A74[41].axis_2[3] = screenWidth_18062C - (100 * scale);
+				}
+			}
+		}
+		if (v37 > -1 && !v16)
+		{
+			v18x = Entities_EA3E4[v1x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[v37]];
+			v19 = v37 == 2 ? v1x->mana_0x90_144 < v18x->maxMana_0x8C_140 : CanSpellOwnerCast_68D50(v18x, v1x) == 0;
+			if (v19)
+			{
+				str_E2A74[41].axis_2[0] |= 1u;
+				str_E2A74[41].axis_2[4] = (48 * scale);
+				str_E2A74[41].axis_2[3] = 600;
+
+				if (!DefaultResolutions())
+				{
+					str_E2A74[41].axis_2[3] = screenWidth_18062C - (40 * scale);
+				}
+			}
+		}
+	}
+	if (v33 == -1)
+	{
+		v20 = 1;
+		str_E2A74[80].axis_2[0] |= 1u;
+		if (str_E2A74[83].axis_2[0] & 0x40)
+			str_E2A74[83].axis_2[0] |= 1u;
+	}
+	else
+	{
+		v20 = 0;
+		switch (v33)
+		{
+		case 0:
+			str_E2A74[72].axis_2[0] |= 1u;
+			break;
+		case 1:
+			str_E2A74[75].axis_2[0] |= 1u;
+			break;
+		case 2:
+			str_E2A74[73].axis_2[0] |= 1u;
+			break;
+		case 3:
+			str_E2A74[77].axis_2[0] |= 1u;
+			break;
+		case 5:
+			str_E2A74[79].axis_2[0] |= 1u;
+			break;
+		case 7:
+			str_E2A74[76].axis_2[0] |= 1u;
+			break;
+		case 8:
+			str_E2A74[78].axis_2[0] |= 1u;
+			break;
+		case 9:
+			str_E2A74[74].axis_2[0] |= 1u;
+			break;
+		default:
+			break;
+		}
+	}
+	if (helpPopup_1804B0.uni_0x8a.dword[0] > 100)
+	{
+		str_E2A74[15].axis_2[0] |= 1u;
+		str_E2A74[16].axis_2[0] |= 1u;
+	}
+	if (v20)
+	{
+		v21 = 1;
+		v22x = 1;
+		while (v21 <= helpPopup_1804B0.helpItemCount_0x66)
+		{
+			if (str_E2A74[v22x].axis_2[0] & 0x4ff)
+				str_E2A74[v22x].axis_2[0] &= 0xFEu;
+			v21++;
+			v22x++;
+		}
+	}
+	if (helpPopup_1804B0.PopupStatusByte_0x9e & 4)
+	{
+		v23 = 1;
+		v24x = 1;
+		while (v23 <= helpPopup_1804B0.helpItemCount_0x66)
+		{
+			v25 = str_E2A74[v24x].axis_2[0];
+			if (v25 & 0x20)
+				str_E2A74[v24x].axis_2[0] = v25 & 0xFE;
+			v23++;
+			v24x++;
+		}
+	}
+	if (!world_D41A0.m_GameSettings.m_Display.m_wMiniMap)
+	{
+		v27 = 1;
+		v28x = 1;
+		while (v27 <= helpPopup_1804B0.helpItemCount_0x66)
+		{
+			if (str_E2A74[v28x].axis_2[0] & 0x2ff)
+				str_E2A74[v28x].axis_2[0] &= 0xFEu;
+			v27++;
+			v28x++;
+		}
+	}
+
+	// Correct locations for "This is your life" 36 and "This is your Spells Mana" 37
+	// "Click on LMB to cast this spell" 38, "Click on RMB to cast this spell" 39
+	if (!DefaultResolutions())
+	{
+		str_E2A74[36].axis_2[3] = 470 * scale;
+		str_E2A74[36].axis_2[4] = 16 * scale;
+		str_E2A74[37].axis_2[3] = 470 * scale;
+		str_E2A74[37].axis_2[4] = 32 * scale;
+		str_E2A74[38].axis_2[3] = screenWidth_18062C - (100 * scale);
+		str_E2A74[38].axis_2[4] = 32 * scale;
+		str_E2A74[39].axis_2[3] = screenWidth_18062C - (40 * scale);
+		str_E2A74[39].axis_2[4] = 32 * scale;
+	}
+}
+
+//----- (00088450) --------------------------------------------------------
+int16_t GetHelpPopupIndex_88450()//269450
+{
+	signed int v0; // ebx
+	int v1; // edx
+	//uint8_t* v2; // eax
+	int v2x;
+	int v3; // ecx
+	int v4; // edi
+
+	/*uint8_t origbyte2z;
+	uint8_t remakebyte2z;
+	uint8_t origbyte2y[100];
+	uint8_t remakebyte2y[100];
+	int remakepos2y[100];
+	int comp15 = compare_with_sequence((char*)"00269450", (uint8_t*)unk_1804B0ar, 0x3514b0, debugcounter_GetHelpPopupIndex_88450, 0xb0, &origbyte2z, &remakebyte2z);
+	int comp16 = compare_with_sequence_array_E2A74((char*)"00269450-2", (uint8_t*)array_E2A74, 0x2b3a74, debugcounter_GetHelpPopupIndex_88450, 0xc4e, origbyte2y, remakebyte2y, remakepos2y);
+	//int comp16 = compare_with_sequence_array_E2A74((char*)"00269450", (uint8_t*)array_E2A74, 0x2b3a74, debugcounter11, 0x1000, origbyte2y, remakebyte2y, remakepos2y);
+	//debugcounter_SetHelpPopupCoords_87580++;
+	if (comp15 < 0xb0)
+		comp15 = comp15;
+	if (comp16 < 0xc4e)
+		comp16 = comp16;*/
+
+		/*if (debugcounter_GetHelpPopupIndex_88450 >= 0x10)
+		{
+			//myprintf("i:%d,", debugcounter_GetHelpPopupIndex_88450);
+		}*/
+
+	if (helpPopup_1804B0.pendingHelpIndex_0x88)
+	{
+		v1 = helpPopup_1804B0.pendingHelpIndex_0x88;
+		helpPopup_1804B0.pendingHelpIndex_0x88 = 0;
+	}
+	else
+	{
+		v0 = 6;
+		v1 = 0;
+		while (v0 >= 0 && !v1)
+		{
+			//v2 = &array_E2A74[30];
+			v2x = 1;
+			v3 = 0;
+			v4 = 0;
+			while (v3 < helpPopup_1804B0.helpItemCount_0x66)
+			{
+				if (str_E2A74[v2x].axis_2[0] & 1
+					&& v0 == str_E2A74[v2x].stage_29
+					&& str_E2A74[v2x].counter_16 - str_E2A74[v2x].interval_24 > 0
+					&& str_E2A74[v2x].counter_16 - str_E2A74[v2x].interval_24 > v4
+					&& v3 != 0x5b)//fixed
+				{
+					v1 = v3 + 1;
+					v4 = str_E2A74[v2x].counter_16 - str_E2A74[v2x].interval_24;
+					//adress 269497
+				}
+				v3++;
+				//v2 += 0x1e;
+				v2x++;
+			}
+			v0--;
+		}
+	}
+	//if (v1 == 0x5c)
+		//v1 = v1;//fix
+	/*
+	//adress 2694bc
+	int comp17 = compare_with_sequence((char*)"002694BC", (uint8_t*)unk_1804B0ar, 0x3514b0, debugcounter_GetHelpPopupIndex_88450, 0xb0, &origbyte2z, &remakebyte2z);
+	int comp18 = compare_with_sequence_array_E2A74((char*)"002694BC-2", (uint8_t*)array_E2A74, 0x2b3a74, debugcounter_GetHelpPopupIndex_88450, 0xc4e, origbyte2y, remakebyte2y, remakepos2y);
+	//int comp16 = compare_with_sequence_array_E2A74((char*)"00269450", (uint8_t*)array_E2A74, 0x2b3a74, debugcounter11, 0x1000, origbyte2y, remakebyte2y, remakepos2y);
+	//debugcounter_SetHelpPopupCoords_87580++;
+	if (comp17 < 0xb0)
+		comp17 = comp17;
+	if (comp18 < 0xc4e)
+		comp18 = comp18;
+	debugcounter_GetHelpPopupIndex_88450++;*/
+	return v1;
+}
+// E2A92: using guessed type void *off_E2A92;
+// 180516: using guessed type int x_DWORD_180516;
+// 180538: using guessed type __int16 x_WORD_180538;
+
+//----- (000884D0) --------------------------------------------------------
+void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popupSrcPos, char a4, char a5, uint8_t scale)//2694d0
+{
+	if (helpIdx)
+	{
+		helpPopup_1804B0.popupTimeout_0x7a = str_E2A74[helpIdx].axis_2[2];
+		helpPopup_1804B0.drawTextType_0xa3 = a4;
+		helpPopup_1804B0.Index_0x86 = helpIdx;
+		helpPopup_1804B0.PopupStatusByte_0x9e |= 8;
+		helpPopup_1804B0.highlightLine_0xa1 = a5;
+		helpPopup_1804B0.popupTimer_0x76 = 0;
+		helpPopup_1804B0.lineCount_0xa0 = a2;
+		for (int i = 0; i < a2; i++)
+			helpPopup_1804B0.uni_0x8a.word[i + 2] = popupSrcPos[i];
+
+		str_E2A74[helpIdx].axis_2[0] |= 3;
+		if (str_E2A74[helpIdx].axis_2[0] & 8)
+		{
+			helpPopup_1804B0.PopupStatusByte_0x9e |= 0x20;
+		}
+		else if (str_E2A74[helpIdx].axis_2[0] & 0x10)
+		{
+			helpPopup_1804B0.popupFlags_0x9f |= 1u;
+		}
+	}
+}
+
+//----- (00088580) --------------------------------------------------------
+void ResetHelpItemFlags_88580()//269580
+{
+	signed int v0; // edx
+	//uint8_t* result; // eax
+	int index;
+
+	v0 = 1;
+	//for (result = &array_E2A74[30]; v0 <= helpPopup_1804B0.dword_0x66; result += 30)
+	for (index = 1; v0 <= helpPopup_1804B0.helpItemCount_0x66; index++)
+	{
+		//if (*(int16_t*)result >= 2u && (*(int16_t*)result <= 2u || *(int16_t*)result == 8))
+		if (str_E2A74[index].type_0 == 2 || str_E2A74[index].type_0 == 8)
+		{
+			str_E2A74[index].axis_2[0] &= 0xA7u;
+			if (str_E2A74[index].entity_12)
+			{
+				if (str_E2A74[index].axis_2[0] & 2)
+					helpPopup_1804B0.popupFlags_0x9f &= 0xFDu;
+				else
+					str_E2A74[index].entity_12 = 0;
+			}
+		}
+		v0++;
+	}
+	//return result;
+}
+// E2A92: using guessed type void *off_E2A92;
+// 180516: using guessed type int x_DWORD_180516;
+// 18054E: using guessed type __int16 x_WORD_18054E;
+
+//----- (00088B20) --------------------------------------------------------
+void UpdateHelpItems_88B20()//269b20
+{
+	//uint8_t* result; // eax
+	signed int v1; // edx
+	//uint8_t* v2; // ebx
+	int v2x;
+
+	//result = x_D41A0_BYTEARRAY_4;
+	if (gameState_D41A4.showHelp_10)
+	{
+		v1 = 1;
+		//v2 = &array_E2A74[30];
+		v2x = 1;
+		while (v1 <= helpPopup_1804B0.helpItemCount_0x66)
+		{
+			if (str_E2A74[v2x].type_0 == 7)
+			{
+				//result = (uint8_t*)(15 * v1);
+				str_E2A74[v1].stage_29 = 6;
+			}
+			v1++;
+			//v2 += 30;
+			v2x++;
+		}
+	}
+	//return result;
+}
+// D41A4: using guessed type int x_DWORD_D41A4;
+// E2A92: using guessed type void *off_E2A92;
+// 180516: using guessed type int x_DWORD_180516;
+
+//----- (00088B60) --------------------------------------------------------
+void SetHelpItem41Active_88B60()//269b60
+{
+	//int result; // eax
+
+	//result = x_D41A0_BYTEARRAY_0[4];
+	if (gameState_D41A4.showHelp_10)
+		//array_E2A74[0x4eb] = 6;
+		str_E2A74[41].stage_29 = 6;
+	//return result;
+}
+// D41A4: using guessed type int x_DWORD_D41A4;
+// E2F5F: using guessed type char x_BYTE_E2F5F;
+
+//----- (00088BA0) --------------------------------------------------------
+void UpdateObjectiveHelp_88BA0()//269ba0
+{
+	char result = -1;
+	if (gameState_D41A4.showHelp_10)
+	{
+		if (!world_D41A0.playerObjectives_0x3659C[world_D41A0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
+			result = world_D41A0.stages_0x3654C[world_D41A0.playerObjectives_0x3659C[world_D41A0.LevelIndex_0xc].substr_3659C.ObjectiveText_1].stages_3654C_byte0;
+		if (result == -1)
+		{
+			helpPopup_1804B0.pendingHelpIndex_0x88 = 80;
+		LABEL_15:
+			helpPopup_1804B0.blinkPeriod_0x6e = 8;
+			CloseHelpPopup_87C10();
+		}
+		else
+		{
+			switch (result)
+			{
+			case 0:
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 72;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
+				CloseHelpPopup_87C10();
+				break;
+			case 1:
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 75;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
+				CloseHelpPopup_87C10();
+				break;
+			case 2:
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 73;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
+				CloseHelpPopup_87C10();
+				break;
+			case 3:
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 77;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
+				CloseHelpPopup_87C10();
+				break;
+			case 5:
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 79;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
+				CloseHelpPopup_87C10();
+				break;
+			case 7:
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 76;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
+				CloseHelpPopup_87C10();
+				break;
+			case 8:
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 78;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
+				CloseHelpPopup_87C10();
+				break;
+			case 9:
+				helpPopup_1804B0.pendingHelpIndex_0x88 = 74;
+				helpPopup_1804B0.blinkPeriod_0x6e = 8;
+				CloseHelpPopup_87C10();
+				break;
+			default:
+				goto LABEL_15;
+			}
+		}
+	}
+}
+
+//----- (00088D00) --------------------------------------------------------
+void SetHelpPopupIndex93_88D00()//269d00
+{
+	if (gameState_D41A4.showHelp_10)
+		helpPopup_1804B0.pendingHelpIndex_0x88 = 93;
+}
+
+//----- (00088D40) --------------------------------------------------------
+void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
+{
+	int maxScreenHeight;
+	int spellPos;
+	int posX2;
+	__int16 hintText[4];
+	int posY2;
+	int posY1;
+	int sizeFromYEnd;
+	int posX1;
+	int spellType;
+	int sizeFromYEndPlus;
+	int spellIndex;
+	char typeA;
+	bool isStandardSpell;
+
+	type_entity_0x6E8E* locEvent2 = 0;
+	char typeB = 0;
+	int hintIndex = 0;
+	int typeC = 0;
+	type_entity_0x6E8E* locEvent1 = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
+	if (locEvent1->playerData_0xA4_164x->CastleEntityIndex_0x3A_58)
+		locEvent2 = Entities_EA3E4[locEvent1->playerData_0xA4_164x->CastleEntityIndex_0x3A_58];
+	int countHints = 0;
+	for (int i = 0; i < 26; i++)
+	{
+		countHints += (locEvent1->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[i] != 0);
+	}
+	if (countHints)
+	{
+		if ((videoMode_180660 & 1) != 0)
+			maxScreenHeight = 400;
+		else
+		{
+			maxScreenHeight = 480;
+			if (!DefaultResolutions())
+				maxScreenHeight = screenHeight_180624;
+		}
+		sizeFromYEnd = maxScreenHeight - 2 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale);
+		spellIndex = spellIndex_D94FF[locEvent1->playerData_0xA4_164x->str_611.spellIndex_0x458_1112];
+		isStandardSpell = locEvent1->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex] != 0;
+		if (world_D41A0.terrain_2FECE.MapType != MapType_t::Cave && spellIndex == 25)
+			isStandardSpell = false;
+		spellType = locEvent1->playerData_0xA4_164x->str_611.SpellLevels_0x41D_1053z.SpellIndex[spellIndex];
+		spellPos = locEvent1->playerData_0xA4_164x->str_611.spellIndex_0x458_1112;
+		posX1 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].width_4 * scale) / 2 + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].width_4 * scale) * (spellPos % 13) + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[EDGE_PANEL].width_4 * scale);
+		sizeFromYEndPlus = sizeFromYEnd - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].height_5 * scale);
+		posY1 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale) / 2 + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale) * (spellPos / 13) + sizeFromYEnd;
+		posX2 = posX1 - 3 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4 * scale) / 2;
+		if (posX2 <= (640 * scale) - 3 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4) * scale)
+		{
+			if (posX2 < 0)
+				posX2 = 0;
+		}
+		else
+		{
+			posX2 = (640 * scale) - 3 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4 * scale);
+		}
+		bool endLoop = 0;
+		int posX3 = posX2 + 3 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4 * scale) / 2;
+		if (!DefaultResolutions())
+		{
+			int xKoef = (screenWidth_18062C - (640 * scale)) / 2;
+			posX3 += xKoef;
+			posX2 += xKoef;
+			posX1 += xKoef;
+		}
+		for (int i = 0; i < 8 && !endLoop; i++)
+		{
+			typeA = 2;
+			typeC = 1;
+			posY2 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].height_5 * scale) / 2 + sizeFromYEndPlus;
+			switch (helpPopup_1804B0.spellHelpStep_0xa4)
+			{
+			case 0: //Selected Spell Name
+				if (isStandardSpell)
+				{
+					hintIndex = 85;
+					typeA = 3;
+					hintText[0] = SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[0].hintText_0x16x;
+					hintText[1] = SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[1].hintText_0x16x;
+					hintText[2] = SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[2].hintText_0x16x;
+					str_E2A74[85].axis_2[3] = posX3;
+					str_E2A74[85].axis_2[4] = sizeFromYEndPlus;
+					endLoop = true;
+					typeC = 3;
+					typeB = locEvent1->playerData_0xA4_164x->str_611.subSpellIndex_0x459_1113;
+				}
+				break;
+			case 1: //Spell Experience Points
+				if (isStandardSpell)
+				{
+					hintIndex = SPELL_EXPERIENCE_POINTS;
+					hintText[0] = str_E2A74[SPELL_EXPERIENCE_POINTS].axis_2[1];
+					endLoop = true;
+					str_E2A74[SPELL_EXPERIENCE_POINTS].axis_2[3] = posX2 + (33 * scale);
+					if (spellType > 0)
+						str_E2A74[SPELL_EXPERIENCE_POINTS].axis_2[3] = posX2 + (33 * scale) + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4 * scale);
+					str_E2A74[SPELL_EXPERIENCE_POINTS].axis_2[4] = sizeFromYEndPlus + (29 * scale);
+				}
+				break;
+			case 2: //Can cast spell?
+				if (isStandardSpell)
+				{
+					for (int j = 0; j < 3 && !endLoop; j++)
+					{
+						if (SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[j].maxManaLimit_A && (!locEvent2 || locEvent2->mana_0x90_144 < SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[j].maxManaLimit_A))
+						{
+							hintIndex = NOT_ENOUGH_CASTLED_MANA_TO_USE;
+							hintText[0] = str_E2A74[NOT_ENOUGH_CASTLED_MANA_TO_USE].axis_2[1];
+							str_E2A74[NOT_ENOUGH_CASTLED_MANA_TO_USE].axis_2[3] = posX2 + j * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4 * scale) + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4 * scale) / 2;
+							endLoop = true;
+							str_E2A74[NOT_ENOUGH_CASTLED_MANA_TO_USE].axis_2[4] = sizeFromYEndPlus + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].height_5 * scale) / 2;
+						}
+					}
+				}
+				break;
+			case 3:
+				if (isStandardSpell && spellType)
+				{
+					hintIndex = ACHIEVED_SPELL_LEVEL;
+					hintText[0] = str_E2A74[ACHIEVED_SPELL_LEVEL].axis_2[1];
+					str_E2A74[ACHIEVED_SPELL_LEVEL].axis_2[3] = (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4 * scale) / 2) + posX2 + spellType * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale);
+					endLoop = true;
+					str_E2A74[ACHIEVED_SPELL_LEVEL].axis_2[4] = posY2;
+				}
+				break;
+			case 4:
+				if (isStandardSpell)
+				{
+					if (!SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[locEvent1->playerData_0xA4_164x->str_611.subSpellIndex_0x459_1113].maxManaLimit_A || locEvent2 && locEvent2->mana_0x90_144 >= SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[locEvent1->playerData_0xA4_164x->str_611.subSpellIndex_0x459_1113].maxManaLimit_A)
+					{
+						hintIndex = SPELL_RECHARGE_AND_SHOTS;
+						hintText[0] = str_E2A74[SPELL_RECHARGE_AND_SHOTS].axis_2[1];
+						str_E2A74[SPELL_RECHARGE_AND_SHOTS].axis_2[3] = posX1;
+						str_E2A74[SPELL_RECHARGE_AND_SHOTS].axis_2[4] = posY1 + (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale) - (my_sign32(((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale)) * 3)) >> 2;
+					}
+				}
+				break;
+			case 5:
+				if (isStandardSpell)
+				{
+					hintIndex = SELECTED_SPELL_LEVEL;
+					hintText[0] = str_E2A74[SELECTED_SPELL_LEVEL].axis_2[1];
+					str_E2A74[SELECTED_SPELL_LEVEL].axis_2[3] = (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4 * scale) / 2) + posX2 + locEvent1->playerData_0xA4_164x->str_611.subSpellIndex_0x459_1113 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale);
+					endLoop = true;
+					str_E2A74[SELECTED_SPELL_LEVEL].axis_2[4] = posY2;
+				}
+				break;
+			case 6:
+				if (isStandardSpell)
+				{
+					if (Entities_EA3E4[locEvent1->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex]] > Entities_EA3E4[0])
+					{
+						if (spellIndex == 2)
+						{
+							if (locEvent1->mana_0x90_144 < Entities_EA3E4[locEvent1->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex]]->maxMana_0x8C_140)
+								endLoop = true;
+						}
+						else
+						{
+							endLoop = !CanSpellOwnerCast_68D50(Entities_EA3E4[locEvent1->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex]], locEvent1);
+						}
+						if (endLoop)
+						{
+							hintIndex = NOT_ENOUGH_MANA_TO_CAST;
+							hintText[0] = str_E2A74[NOT_ENOUGH_MANA_TO_CAST].axis_2[1];
+							str_E2A74[NOT_ENOUGH_MANA_TO_CAST].axis_2[3] = posX1;
+							str_E2A74[NOT_ENOUGH_MANA_TO_CAST].axis_2[4] = posY1 + (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale) - (my_sign32(((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale)) * 3)) >> 2;
+						}
+					}
+				}
+				break;
+			default:
+				break;
+			}
+			if ((unsigned __int8)++helpPopup_1804B0.spellHelpStep_0xa4 > 7u)
+				helpPopup_1804B0.spellHelpStep_0xa4 = 0;
+		}
+		if (hintIndex)
+			SetHelpPopupTextAndCoords_884D0(hintIndex, typeC, hintText, typeA, typeB);
+	}
+}
+
+//----- (00089360) --------------------------------------------------------
+void SetPlayerScoresHelpPopupTextAndCoords_89360(uint8_t scale)//26a360
+{
+	char v0 = 0;
+	int16_t helpIdx = 0;
+	if (helpPopup_1804B0.showPlayerScores_0xa7)
+	{
+		helpPopup_1804B0.showPlayerScores_0xa7 = 0;
+		if (helpPopup_1804B0.wizardNumber_0xa8 && world_D41A0.NumberOfPlayers_0xe > 1u)
+		{
+			// Number of times you have killed %s
+			str_E2A74[96].axis_2[3] = helpPopup_1804B0.scoresBarX_0x9a;
+			helpIdx = 96;
+			str_E2A74[96].axis_2[4] = helpPopup_1804B0.scoresBarY_0x9c;
+		}
+		else
+		{
+			v0 = 1;
+		}
+	}
+	else
+	{
+		v0 = 1;
+		helpPopup_1804B0.showPlayerScores_0xa7 = 1;
+	}
+	if (v0)
+	{
+		// Current spells mana value
+		helpIdx = 95;
+		str_E2A74[95].axis_2[3] = helpPopup_1804B0.scoresPosX_0x96;
+		helpPopup_1804B0.wizardNumber_0xa8 = 0;
+		str_E2A74[95].axis_2[4] = helpPopup_1804B0.scoresPosY_0x98;
+	}
+	if (helpIdx)
+	{
+		Logger->debug("helpIdx: {}", helpIdx);
+		SetHelpPopupTextAndCoords_884D0(helpIdx, 1, &str_E2A74[helpIdx].axis_2[1], 2, 0);
+	}
 }

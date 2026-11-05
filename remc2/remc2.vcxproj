@@ -361,6 +361,12 @@
     <ClInclude Include="engine\CommandLineParser.h" />
     <ClInclude Include="engine\Compare.h" />
     <ClInclude Include="engine\EventsFunctions.h" />
+    <ClInclude Include="engine\Castle.h" />
+    <ClInclude Include="engine\Creatures.h" />
+    <ClInclude Include="engine\Effects.h" />
+    <ClInclude Include="engine\Projectiles.h" />
+    <ClInclude Include="engine\Vr.h" />
+    <ClInclude Include="engine\WizardAi.h" />
     <ClInclude Include="engine\GameBitmap.h" />
     <ClInclude Include="engine\GameState.h" />
     <ClInclude Include="engine\GameUiConstants.h" />
@@ -485,6 +491,12 @@
     <ClCompile Include="engine\ConvertMapInfo.cpp" />
     <ClCompile Include="engine\DatTabIndexes.cpp" />
     <ClCompile Include="engine\EventsFunctions.cpp" />
+    <ClCompile Include="engine\Castle.cpp" />
+    <ClCompile Include="engine\Creatures.cpp" />
+    <ClCompile Include="engine\Effects.cpp" />
+    <ClCompile Include="engine\Projectiles.cpp" />
+    <ClCompile Include="engine\Vr.cpp" />
+    <ClCompile Include="engine\WizardAi.cpp" />
     <ClCompile Include="engine\GameBitmap.cpp" />
     <ClCompile Include="engine\GameRenderHW.cpp" />
     <ClCompile Include="engine\GameRenderHD.cpp" />

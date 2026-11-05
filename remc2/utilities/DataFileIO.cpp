@@ -2,6 +2,7 @@
 
 #include "../engine/Basic.h"
 #include "../engine/engine_support.h"
+#include "../engine/Graphics.h"
 
 Pathstruct pstr[100] = {
 xasearchd_2bac30 ,//00

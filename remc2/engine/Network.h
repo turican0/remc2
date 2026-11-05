@@ -49,7 +49,6 @@ extern bool Iam_client;
 extern int NetworkPort;
 extern int ServerPort;
 extern char serverIP[256];
-extern uint8_t netWizardTypes_E131C[8];
 extern uint8_t connected_E12A6;
 
 void NetworkDisallocation_72D04();
@@ -112,5 +111,12 @@ void UpdateNetInfo();
 void RemoveDeadClients();
 
 void InitNetworkInfo();
+
+extern long lastTime_E208C;
+extern __int16 timeCounter_E2094;
+extern char maxTimeCounter_E2097;
+int NetworkInitConnection_7308F(char* a2, __int16 a3);
+void NetworkUpdateConnections2_74374();
+int16_t GetIndexNetwork2_74515();
 
 #endif //MAIN_NETWORK
