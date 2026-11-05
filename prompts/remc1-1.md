@@ -57,6 +57,14 @@ The Magic Carpet Plus selector: loads `DATA\SELP0-0.DAT` (palette) and `DATA\SEL
 the choice to `C:\CARPET.CD\CP.DAT` (removed when cancelled); a batch file then starts CARPET.EXE or HIDDEN.EXE.
 Part of the code only creates the install directories when installing from the CD.
 
+## MC1 and Hidden Worlds
+
+CARPET.EXE (MC1) and HIDDEN.EXE (MC1 Hidden Worlds) share most of the code, but at different addresses.
+- Identical functions/globals exist once and carry both addresses in the name (MC1 first, then HW),
+  e.g. `DrawSprite_1A2B0_1A3C0`.
+- Functions/globals that differ are duplicated, one per game, each with its own address.
+- Everything is verified against both executables (both asm listings, both games in DOSBox).
+
 ## Memory
 
 The original did not care much about freeing memory (one exe ended and started the next one). In the port every
