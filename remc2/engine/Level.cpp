@@ -1215,7 +1215,7 @@ void ConvertObjectivePointers_55100(char a1)//236100
 							world_D41A0.stages_0x3654C[v4].target_36552.ptr0x30311 = &world_D41A0.terrain_2FECE.entity_0x30311[count];
 						}
 #ifdef x32_BIT_ENVIRONMENT
-						if (world_D41A0.stages_0x3654C[v4].str_36552_un.ptr0x30311 != (type_entity_0x30311*)((uint8_t*)temp_0x30311 + (xBITINT)v5))
+						if (world_D41A0.stages_0x3654C[v4].target_36552.ptr0x30311 != (type_entity_0x30311*)((uint8_t*)temp_0x30311 + (xBITINT)v5))
 							allert_error();  // only for x86
 #endif
 					}
@@ -1239,7 +1239,7 @@ void ConvertObjectivePointers_55100(char a1)//236100
 						world_D41A0.stages_0x3654C[v4].target_36552.ptr0x6E8E = &world_D41A0.entities_0x6E8E[count];
 					}
 #ifdef x32_BIT_ENVIRONMENT
-					if (world_D41A0.stages_0x3654C[v4].str_36552_un.ptr0x6E8E != (type_entity_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
+					if (world_D41A0.stages_0x3654C[v4].target_36552.ptr0x6E8E != (type_entity_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
 						allert_error();  // only for x86
 #endif
 				}
@@ -1276,7 +1276,7 @@ void ConvertObjectivePointers_55100(char a1)//236100
 						world_D41A0.StageVars2_0x365F4[i].target_0x3647C_4.pointer_0x6E8E = &world_D41A0.entities_0x6E8E[count];
 					}
 #ifdef x32_BIT_ENVIRONMENT
-					if (world_D41A0.StageVars2_0x365F4[i].str_0x3647C_4.pointer_0x6E8E != (type_entity_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
+					if (world_D41A0.StageVars2_0x365F4[i].target_0x3647C_4.pointer_0x6E8E != (type_entity_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
 						allert_error();  // only for x86
 #endif
 				}
@@ -1306,7 +1306,7 @@ void ConvertObjectivePointers_55100(char a1)//236100
 				world_D41A0.dynamicLights_0x3664C[j].event_A.pointer_0x6E8E = &world_D41A0.entities_0x6E8E[count];//0x36656
 			}
 #ifdef x32_BIT_ENVIRONMENT
-			if (world_D41A0.str_0x3664C[j].event_A.pointer_0x6E8E != (type_entity_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
+			if (world_D41A0.dynamicLights_0x3664C[j].event_A.pointer_0x6E8E != (type_entity_0x6E8E*)((uint8_t*)temp_0x6E8E + (xBITINT)v3))
 				allert_error();  // only for x86
 #endif
 		}

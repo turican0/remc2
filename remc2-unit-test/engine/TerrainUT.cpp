@@ -138,14 +138,14 @@ TEST(Terrain, MarkLandAndRivers_44E40) {
 
 TEST(Terrain, GetCeilingAlt2_B5D68) {
 
-	x_BYTE_14B4E0_second_heightmap = (uint8_t*)malloc(65536);
+	secondHeightmap_14B4E0 = (uint8_t*)malloc(65536);
 	uint8_t* x_BYTE_14B4E0_second_heightmap2 = (uint8_t*)malloc(65536);
 
 	//Create Test Data
 	for (int i = 0; i < 256 * 256; i++)
 	{
-		x_BYTE_14B4E0_second_heightmap[i] = pseudoRand() % 256;
-		x_BYTE_14B4E0_second_heightmap2[i] = x_BYTE_14B4E0_second_heightmap[i];
+		secondHeightmap_14B4E0[i] = pseudoRand() % 256;
+		x_BYTE_14B4E0_second_heightmap2[i] = secondHeightmap_14B4E0[i];
 	}
 
 	for (int j = 0; j < 400; j++)
@@ -155,7 +155,7 @@ TEST(Terrain, GetCeilingAlt2_B5D68) {
 		ASSERT_EQ(sub_B5D68_orig(tempa1, tempa2, x_BYTE_14B4E0_second_heightmap2), GetCeilingAlt2_B5D68(tempa1, tempa2));
 	}
 
-	free(x_BYTE_14B4E0_second_heightmap);
+	free(secondHeightmap_14B4E0);
 	free(x_BYTE_14B4E0_second_heightmap2);
 }
 
@@ -165,7 +165,7 @@ TEST(Terrain, SetTileTerrainType_45DC0) {
 	uint8_t* tempSecHeight1 = (uint8_t*)malloc(65536);
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
 	uint8_t* tempShad1 = (uint8_t*)malloc(65536);
-	x_BYTE_14B4E0_second_heightmap = (uint8_t*)malloc(65536);
+	secondHeightmap_14B4E0 = (uint8_t*)malloc(65536);
 
 	for (int j = 0; j < 400; j++)
 	{
@@ -179,15 +179,15 @@ TEST(Terrain, SetTileTerrainType_45DC0) {
 		switch (pseudoRand() % 3)
 		{
 		case 0:
-			D41A0_0.terrain_2FECE.MapType = MapType_t::Day;
+			world_D41A0.terrain_2FECE.MapType = MapType_t::Day;
 			isCaveLevel_D41B6 = false;
 			break;
 		case 1:
-			D41A0_0.terrain_2FECE.MapType = MapType_t::Night;
+			world_D41A0.terrain_2FECE.MapType = MapType_t::Night;
 			isCaveLevel_D41B6 = false;
 			break;
 		case 2:
-			D41A0_0.terrain_2FECE.MapType = MapType_t::Cave;
+			world_D41A0.terrain_2FECE.MapType = MapType_t::Cave;
 			isCaveLevel_D41B6 = true;
 			break;
 		}
@@ -205,17 +205,17 @@ TEST(Terrain, SetTileTerrainType_45DC0) {
 			mapTerrainType_10B4E0[i] = pseudoRand() % 256;
 			mapHeightmap_11B4E0[i] = pseudoRand() % 256;
 			mapAngle_13B4E0[i] = pseudoRand() % 256;
-			x_BYTE_14B4E0_second_heightmap[i] = pseudoRand() % 256;
+			secondHeightmap_14B4E0[i] = pseudoRand() % 256;
 			mapShading_12B4E0[i] = pseudoRand() % 256;
 
 			tempTerrType1[i] = mapTerrainType_10B4E0[i];
 			tempShad1[i] = mapShading_12B4E0[i];
-			tempSecHeight1[i] = x_BYTE_14B4E0_second_heightmap[i];
+			tempSecHeight1[i] = secondHeightmap_14B4E0[i];
 			tempAng1[i] = mapAngle_13B4E0[i];
 			tempHeight1[i] = mapHeightmap_11B4E0[i];
 		}
 
-		sub_45DC0_orig(tempa2, tempa3x, tempa4, D41A0_0.terrain_2FECE.MapType, lowDiffHeightmap_D47DC, isCaveLevel_D41B6, &temprand2_17B4E0, building_F2CD0x, tempTerrType1, tempHeight1, tempAng1, tempShad1, tempSecHeight1);
+		sub_45DC0_orig(tempa2, tempa3x, tempa4, world_D41A0.terrain_2FECE.MapType, lowDiffHeightmap_D47DC, isCaveLevel_D41B6, &temprand2_17B4E0, building_F2CD0x, tempTerrType1, tempHeight1, tempAng1, tempShad1, tempSecHeight1);
 
 		SetTileTerrainType_45DC0(tempa2, tempa3x, tempa4);
 
@@ -224,12 +224,12 @@ TEST(Terrain, SetTileTerrainType_45DC0) {
 			ASSERT_EQ(tempHeight1[i], mapHeightmap_11B4E0[i]);
 			ASSERT_EQ(tempTerrType1[i], mapTerrainType_10B4E0[i]);
 			ASSERT_EQ(tempShad1[i], mapShading_12B4E0[i]);
-			ASSERT_EQ(tempSecHeight1[i], x_BYTE_14B4E0_second_heightmap[i]);
+			ASSERT_EQ(tempSecHeight1[i], secondHeightmap_14B4E0[i]);
 			ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
 		}
 		ASSERT_EQ(rand2_17B4E0, temprand2_17B4E0);
 	}
-	free(x_BYTE_14B4E0_second_heightmap);
+	free(secondHeightmap_14B4E0);
 	free(tempTerrType1);
 	free(tempHeight1);
 	free(tempSecHeight1);
@@ -396,13 +396,13 @@ TEST(Terrain, ComputeTerrainShading_44D00) {
 		switch (pseudoRand() % 3)
 		{
 		case 0:
-			D41A0_0.terrain_2FECE.MapType = MapType_t::Day;
+			world_D41A0.terrain_2FECE.MapType = MapType_t::Day;
 			break;
 		case 1:
-			D41A0_0.terrain_2FECE.MapType = MapType_t::Night;
+			world_D41A0.terrain_2FECE.MapType = MapType_t::Night;
 			break;
 		case 2:
-			D41A0_0.terrain_2FECE.MapType = MapType_t::Cave;
+			world_D41A0.terrain_2FECE.MapType = MapType_t::Cave;
 			break;
 		}
 		for (int i = 0; i < 256 * 256; i++)
@@ -413,7 +413,7 @@ TEST(Terrain, ComputeTerrainShading_44D00) {
 			tempShading1[i] = mapShading_12B4E0[i];
 		}
 
-		sub_44D00_orig(D41A0_0.terrain_2FECE.MapType, tempHeightmap1, tempShading1);
+		sub_44D00_orig(world_D41A0.terrain_2FECE.MapType, tempHeightmap1, tempShading1);
 
 		ComputeTerrainShading_44D00();
 
@@ -495,7 +495,7 @@ TEST(Terrain, GenerateCaveCeiling_43B40) {
 	uint8_t* tempMapHeightmap1 = (uint8_t*)malloc(65536);
 	uint8_t* tempSecondHeightmap1 = (uint8_t*)malloc(65536);
 	uint8_t* tempAng1 = (uint8_t*)malloc(65536);
-	x_BYTE_14B4E0_second_heightmap = (uint8_t*)malloc(65536);
+	secondHeightmap_14B4E0 = (uint8_t*)malloc(65536);
 	uint16_t temp_MapBasicHeight_D41B7_1;
 
 	//Create Test Data
@@ -503,10 +503,10 @@ TEST(Terrain, GenerateCaveCeiling_43B40) {
 	{
 		mapAngle_13B4E0[i] = pseudoRand() % 256;
 		mapHeightmap_11B4E0[i] = pseudoRand() % 256;
-		x_BYTE_14B4E0_second_heightmap[i] = pseudoRand() % 256;
+		secondHeightmap_14B4E0[i] = pseudoRand() % 256;
 		tempAng1[i] = mapAngle_13B4E0[i];
 		tempMapHeightmap1[i] = mapHeightmap_11B4E0[i];
-		tempSecondHeightmap1[i] = x_BYTE_14B4E0_second_heightmap[i];
+		tempSecondHeightmap1[i] = secondHeightmap_14B4E0[i];
 	}
 	MapBasicHeight_D41B7 = pseudoRand() % 256;
 	temp_MapBasicHeight_D41B7_1 = MapBasicHeight_D41B7;
@@ -521,13 +521,13 @@ TEST(Terrain, GenerateCaveCeiling_43B40) {
 	{
 		ASSERT_EQ(tempAng1[i], mapAngle_13B4E0[i]);
 		ASSERT_EQ(tempMapHeightmap1[i], mapHeightmap_11B4E0[i]);
-		ASSERT_EQ(tempSecondHeightmap1[i], x_BYTE_14B4E0_second_heightmap[i]);
+		ASSERT_EQ(tempSecondHeightmap1[i], secondHeightmap_14B4E0[i]);
 	}
 
 	free(tempMapHeightmap1);
 	free(tempSecondHeightmap1);
 	free(tempAng1);
-	free(x_BYTE_14B4E0_second_heightmap);
+	free(secondHeightmap_14B4E0);
 }
 
 TEST(Terrain, SetTerrainAngles_44580) {

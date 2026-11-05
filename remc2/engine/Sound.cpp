@@ -2441,7 +2441,7 @@ void LoadSoundDataFromBuffer_844A0(uint16_t count)//2654a0
 		for (index = 0; index < count; index++)
 		{
 #ifdef x32_BIT_ENVIRONMENT
-			soundIndex_E37A0->str_8.wavs_10[index].wavData_18 = reinterpret_cast<uint32_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_18) + soundBuffer1_E37A8;
+			soundIndex_E37A0->soundBank_8.wavs_10[index].wavData_18 = reinterpret_cast<uint32_t>(soundIndex_E37A0->soundBank_8.wavs_10[index].wavData_18) + soundBuffer1_E37A8;
 #endif //x32_BIT_ENVIRONMENT
 #ifdef x64_BIT_ENVIRONMENT
 			soundIndex_E37A0->soundBank_8.wavs_10[index].wavData_18 = reinterpret_cast<uint64_t>(soundIndex_E37A0->soundBank_8.wavs_10[index].wavData_18) + soundBuffer1_E37A8;

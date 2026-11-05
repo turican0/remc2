@@ -1234,7 +1234,7 @@ void NetworkRewireAfterServerChange()
 			debug_net_printf("REWIRE: token moves from %d to %d\n",
 				(int)IndexInNetwork2_E12A8, serverSlot);
 		// Carry the table the token holder keeps.  Colours live in the token holder's record
-		// (FindFreeColorIndex_7D230 reads array_BYTE_17DE68x[token].playerIndex_1[]), and so does
+		// (FindFreeColorIndex_7D230 reads netSessions_17DE68x[token].playerIndex_1[]), and so does
 		// the chosen level.  Moving the token to a record that has never held them leaves every
 		// slot reading colour 0, and "the first free colour" then hands the same one to everybody
 		// - which is what two wizards in one colour looks like.
@@ -1731,15 +1731,15 @@ void UpdateNetInfo()
 	char buffer[128];
 	VGA_GotoXY(0, 20);
 	snprintf(buffer, sizeof(buffer), "0: %02d %01d,%01d %02d",
-		menuState_17DE38.array_BYTE_17DE68x[0].action_9,
-		menuState_17DE38.array_BYTE_17DE68x[0].playerIndex_1[0],
-		menuState_17DE38.array_BYTE_17DE68x[0].playerIndex_1[0], menuState_17DE38.array_BYTE_17DE68x[0].selectedLevel_10);
+		menuState_17DE38.netSessions_17DE68x[0].action_9,
+		menuState_17DE38.netSessions_17DE68x[0].playerIndex_1[0],
+		menuState_17DE38.netSessions_17DE68x[0].playerIndex_1[0], menuState_17DE38.netSessions_17DE68x[0].selectedLevel_10);
 	VGA_Draw_stringXYtoBuffer(buffer, 0, 20, pdwScreenBuffer_351628);
 	VGA_GotoXY(0, 40);
 	snprintf(buffer, sizeof(buffer), "1: %02d %01d,%01d %02d",
-		menuState_17DE38.array_BYTE_17DE68x[1].action_9,
-		menuState_17DE38.array_BYTE_17DE68x[1].playerIndex_1[1],
-		menuState_17DE38.array_BYTE_17DE68x[1].playerIndex_1[1], menuState_17DE38.array_BYTE_17DE68x[1].selectedLevel_10);
+		menuState_17DE38.netSessions_17DE68x[1].action_9,
+		menuState_17DE38.netSessions_17DE68x[1].playerIndex_1[1],
+		menuState_17DE38.netSessions_17DE68x[1].playerIndex_1[1], menuState_17DE38.netSessions_17DE68x[1].selectedLevel_10);
 	VGA_Draw_stringXYtoBuffer(buffer, 0, 40, pdwScreenBuffer_351628);
 #endif
 }
