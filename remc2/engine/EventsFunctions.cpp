@@ -2716,7 +2716,7 @@ int keyboardFlag_E4CA4 = 0; // weak
 
 char x_BYTE_E4CB4 = 0; // weak
 int(/*__fastcall*/ *off_E4CBD)(x_DWORD) = &nullsub_3; // weak
-int vrTrackerInitialized_E4CCC = 0; // weak
+int trackerFiltersReady_E4CCC = 0; // weak
 int x_DWORD_E4CD0 = 0; // weak
 int x_DWORD_E4D10 = 0; // weak
 __int16 x_WORD_E4D14 = 0; // weak
@@ -49814,7 +49814,7 @@ int ReadGameUserInputs_89D10()//26ad10
 	case 8:
 	case 12:
 		inputState_18058C.x_WORD_1805C8 = 1;
-		v61 = InitJoystickType1_8B790(inputState_18058C);
+		v61 = ReadSerialTracker_8B790(inputState_18058C);
 		if (inputState_18058C.joystickMode_1805C2 != 8 && inputState_18058C.joystickMode_1805C2 != 12)
 		{
 			inputState_18058C.mouse_1805B0.x = mouse_E3760.x;
@@ -50689,7 +50689,7 @@ LABEL_16:
 // D1F10: using guessed type void *off_D1F10;
 
 //----- (0008B790) --------------------------------------------------------
-signed int InitJoystickType1_8B790(type_unk_18058Cstr a1)//26c790
+signed int ReadSerialTracker_8B790(type_unk_18058Cstr a1)//26c790
 {
 	int v1; // eax
 	signed int v2; // esi
@@ -50713,7 +50713,7 @@ signed int InitJoystickType1_8B790(type_unk_18058Cstr a1)//26c790
 
 	v1 = TimeoutMultiplyBy100_9AD9C(1);
 	v2 = 1;
-	if (SerialHandshake_9B274((x_DWORD*)((char*)a1.serialBuffer_1805CE), v1 / 2))
+	if (ReadTrackerPacket_9B274((x_DWORD*)((char*)a1.serialBuffer_1805CE), v1 / 2))
 		v2 = -1;
 	v3 = SerialSendS_9B260((x_DWORD**)((char*)a1.serialBuffer_1805CE));
 	v4 = (double)*(signed int*)((char*)&a1.serialBuffer_1805CE[10]) * flt_D1F40;
@@ -52687,7 +52687,7 @@ signed int SerialSendS_9B260(x_DWORD** a1)//27C260
 }
 
 //----- (0009B274) --------------------------------------------------------
-char SerialHandshake_9B274(int* a1, int a2)//27C274
+char ReadTrackerPacket_9B274(int* a1, int a2)//27C274
 {
 	char result = 0; // al
 	//int v3; // ebp
@@ -52750,7 +52750,7 @@ char SerialHandshake_9B274(int* a1, int a2)//27C274
 		} while (v7 < 11);
 		if (v5 == v20)
 		{
-			InitVrTrackerData_AC250(
+			ComputeTrackerAngles_AC250(
 				(signed __int16)(v10 << 8) | v11,
 				v24,
 				v25,
@@ -53592,7 +53592,7 @@ int ReturnZero_AC24B()//28d24b
 }
 
 //----- (000AC250) --------------------------------------------------------
-void InitVrTrackerData_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6, x_DWORD* a7, signed int* a8)//28d250
+void ComputeTrackerAngles_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6, x_DWORD* a7, signed int* a8)//28d250
 {
 	uint8_t* result; // eax
 	int v9; // ebx
@@ -53612,33 +53612,33 @@ void InitVrTrackerData_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6
 	v18 = 0;
 	//fix it
 
-	if (vrTrackerInitialized_E4CCC)
+	if (trackerFiltersReady_E4CCC)
 		goto LABEL_8;
-	result = AllocTable_B1138(vrTableA_182188, 3);
+	result = InitMovingAverage_B1138(trackerFilterA_182188, 3);
 	if (result)
 	{
-		result = AllocTable_B1138(vrTableB_1821A0, 3);
+		result = InitMovingAverage_B1138(trackerFilterB_1821A0, 3);
 		if (result)
 		{
-			result = AllocTable_B1138(vrTableC_1821B8, 3);
+			result = InitMovingAverage_B1138(trackerFilterC_1821B8, 3);
 			if (result)
 			{
-				result = AllocTable_B1138(vrTableD_1821D0, 6);
+				result = InitMovingAverage_B1138(trackerFilterD_1821D0, 6);
 				if (result)
 				{
-					result = AllocTable_B1138(vrTableE_1821E8, 6);
+					result = InitMovingAverage_B1138(trackerFilterE_1821E8, 6);
 					if (result)
 					{
-						vrTrackerInitialized_E4CCC = 1;
+						trackerFiltersReady_E4CCC = 1;
 					LABEL_8:
-						v19 = FreeTable_B11E8((uint32_t*)vrTableA_182188, a1);
-						v9 = FreeTable_B11E8((uint32_t*)vrTableB_1821A0, a2);
-						v10 = FreeTable_B11E8((uint32_t*)vrTableC_1821B8, a3);
-						v11 = FreeTable_B11E8(
-							(uint32_t*)vrTableD_1821D0,
+						v19 = AddMovingAverage_B11E8((uint32_t*)trackerFilterA_182188, a1);
+						v9 = AddMovingAverage_B11E8((uint32_t*)trackerFilterB_1821A0, a2);
+						v10 = AddMovingAverage_B11E8((uint32_t*)trackerFilterC_1821B8, a3);
+						v11 = AddMovingAverage_B11E8(
+							(uint32_t*)trackerFilterD_1821D0,
 							((unsigned __int64)(51471 * a4) >> 32 != 0) + ((unsigned __int64)(51471 * a4) >> 14));
-						v12 = FreeTable_B11E8(
-							(uint32_t*)vrTableE_1821E8,
+						v12 = AddMovingAverage_B11E8(
+							(uint32_t*)trackerFilterE_1821E8,
 							((unsigned __int64)(51471 * a5) >> 32 != 0) + ((unsigned __int64)(51471 * a5) >> 14));
 						FixedSinCos_B14F8(&v17, v11);
 						FixedSinCos_B14F8(&v15, v12);
@@ -53667,10 +53667,10 @@ void InitVrTrackerData_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6
 		}
 	}
 }
-// E4CCC: using guessed type int vrTrackerInitialized_E4CCC;
+// E4CCC: using guessed type int trackerFiltersReady_E4CCC;
 
 //----- (000AD09E) --------------------------------------------------------
-x_BYTE* ParseVrConfigLine_AD09E(x_BYTE* a1, int a2)//28e09e
+x_BYTE* ScanfParseCharset_AD09E(x_BYTE* a1, int a2)//28e09e
 {
 	int v2; // eax
 	x_BYTE* v3; // ebx
@@ -53711,7 +53711,7 @@ int HexCharToDigit_AD754(signed int a1)//28e754
 // AB952: using guessed type x_DWORD x_tolower(x_DWORD);
 
 //----- (000B1138) --------------------------------------------------------
-uint8_t* AllocTable_B1138(uint8_t** a1, signed int a2)
+uint8_t* InitMovingAverage_B1138(uint8_t** a1, signed int a2)
 {
 	uint8_t* result = 0; // eax
 	//uint8_t* zero = NULL; // eax
@@ -53751,7 +53751,7 @@ uint8_t* AllocTable_B1138(uint8_t** a1, signed int a2)
 // 9B513: using guessed type x_DWORD calloc(x_DWORD, x_DWORD);
 
 //----- (000B11E8) --------------------------------------------------------
-int FreeTable_B11E8(uint32_t* a1, int a2)
+int AddMovingAverage_B11E8(uint32_t* a1, int a2)
 {
 	//x_DWORD* v2; // eax
 	//x_DWORD* v3; // esi

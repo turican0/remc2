@@ -55,11 +55,11 @@ extern int16_t CurrentPaletteFade_181B44;
 extern char cdSpeechEnabled_E2A28; // weak
 extern type_F4FE0 EntitySounds_F4FE0[70];
 
-extern uint8_t* vrTableA_182188[];
-extern uint8_t* vrTableB_1821A0[];
-extern uint8_t* vrTableC_1821B8[];
-extern uint8_t* vrTableD_1821D0[];
-extern uint8_t* vrTableE_1821E8[];
+extern uint8_t* trackerFilterA_182188[];
+extern uint8_t* trackerFilterB_1821A0[];
+extern uint8_t* trackerFilterC_1821B8[];
+extern uint8_t* trackerFilterD_1821D0[];
+extern uint8_t* trackerFilterE_1821E8[];
 
 extern int x_DWORD_17FF10; // weak
 extern int cdDriveReady_E2A6C;

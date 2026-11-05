@@ -175,11 +175,11 @@ int x_DWORD_181ED4; // weak
 int x_DWORD_181ED8; // weak
 int x_DWORD_181EDC; // weak
 uint8_t unk_181EE0x[512]; // weak
-uint8_t* vrTableA_182188[6]; // idb
-uint8_t* vrTableB_1821A0[6]; // idb
-uint8_t* vrTableC_1821B8[6]; // idb
-uint8_t* vrTableD_1821D0[6]; // idb
-uint8_t* vrTableE_1821E8[6]; // idb
+uint8_t* trackerFilterA_182188[6]; // idb
+uint8_t* trackerFilterB_1821A0[6]; // idb
+uint8_t* trackerFilterC_1821B8[6]; // idb
+uint8_t* trackerFilterD_1821D0[6]; // idb
+uint8_t* trackerFilterE_1821E8[6]; // idb
 
 int x_DWORD_E4E1C = 0; // weak
 
