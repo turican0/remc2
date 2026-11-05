@@ -1618,16 +1618,9 @@ void ComputeTrackerAngles_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD*
 	int v12; // edi
 	int v13; // ecx
 	int v14; // eax
-	int v15; // [esp+Ch] [ebp-24h]
-	int v16; // [esp+10h] [ebp-20h]
-	int v17; // [esp+14h] [ebp-1Ch]
-	int v18; // [esp+18h] [ebp-18h]
+	int sinCosA[2]; // [ebp-1Ch] sin/cos of v11 - FixedSinCos_B14F8 writes two ints
+	int sinCosB[2]; // [ebp-24h] sin/cos of v12
 	int v19; // [esp+1Ch] [ebp-14h]
-
-	//fix it
-	v16 = 0;
-	v18 = 0;
-	//fix it
 
 	if (trackerFiltersReady_E4CCC)
 		goto LABEL_8;
@@ -1657,21 +1650,21 @@ void ComputeTrackerAngles_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD*
 						v12 = AddMovingAverage_B11E8(
 							(uint32_t*)trackerFilterE_1821E8,
 							((unsigned __int64)(51471 * a5) >> 32 != 0) + ((unsigned __int64)(51471 * a5) >> 14));
-						FixedSinCos_B14F8(&v17, v11);
-						FixedSinCos_B14F8(&v15, v12);
-						v13 = ((unsigned __int64)(v9 * (signed __int64)v18) >> 32 != 0)
-							+ ((unsigned __int64)(v9 * (signed __int64)v18) >> 14)
-							- (((unsigned __int64)(v10 * (signed __int64)v17) >> 32 != 0)
-								+ ((unsigned __int64)(v10 * (signed __int64)v17) >> 14));
+						FixedSinCos_B14F8(sinCosA, v11);
+						FixedSinCos_B14F8(sinCosB, v12);
+						v13 = ((unsigned __int64)(v9 * (signed __int64)sinCosA[1]) >> 32 != 0)
+							+ ((unsigned __int64)(v9 * (signed __int64)sinCosA[1]) >> 14)
+							- (((unsigned __int64)(v10 * (signed __int64)sinCosA[0]) >> 32 != 0)
+								+ ((unsigned __int64)(v10 * (signed __int64)sinCosA[0]) >> 14));
 						v14 = FixedAtan2_B1304(
-							((unsigned __int64)(v10 * (signed __int64)v18) >> 32 != 0)
-							+ ((unsigned __int64)(v10 * (signed __int64)v18) >> 14)
-							+ ((unsigned __int64)(v9 * (signed __int64)v17) >> 32 != 0)
-							+ ((unsigned __int64)(v9 * (signed __int64)v17) >> 14),
-							((unsigned __int64)(v19 * (signed __int64)v16) >> 32 != 0)
-							+ ((unsigned __int64)(v19 * (signed __int64)v16) >> 14)
-							- (((unsigned __int64)(v13 * (signed __int64)v15) >> 32 != 0)
-								+ ((unsigned __int64)(v13 * (signed __int64)v15) >> 14)));
+							((unsigned __int64)(v10 * (signed __int64)sinCosA[1]) >> 32 != 0)
+							+ ((unsigned __int64)(v10 * (signed __int64)sinCosA[1]) >> 14)
+							+ ((unsigned __int64)(v9 * (signed __int64)sinCosA[0]) >> 32 != 0)
+							+ ((unsigned __int64)(v9 * (signed __int64)sinCosA[0]) >> 14),
+							((unsigned __int64)(v19 * (signed __int64)sinCosB[1]) >> 32 != 0)
+							+ ((unsigned __int64)(v19 * (signed __int64)sinCosB[1]) >> 14)
+							- (((unsigned __int64)(v13 * (signed __int64)sinCosB[0]) >> 32 != 0)
+								+ ((unsigned __int64)(v13 * (signed __int64)sinCosB[0]) >> 14)));
 						*a6 = ((unsigned __int64)(0xE52EE * (signed __int64)v14) >> 32 != 0)
 							+ ((unsigned __int64)(0xE52EE * (signed __int64)v14) >> 14);
 						*a7 = ((unsigned __int64)(0xE52EE * (signed __int64)v11) >> 32 != 0)
