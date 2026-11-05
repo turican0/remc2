@@ -49,6 +49,12 @@
     <Filter Include="Source Files\shared">
       <UniqueIdentifier>{105f20fd-7c5b-45f0-bfd0-6187f64995bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\remc1">
+      <UniqueIdentifier>{6f3c2a1e-8d4b-4c7a-9e21-5b0d7c3a1f01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\remc1">
+      <UniqueIdentifier>{6f3c2a1e-8d4b-4c7a-9e21-5b0d7c3a1f02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -437,6 +443,18 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\remc1\Mc1Main.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Select.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClInclude Include="..\remc1\Mc1Main.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Select.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
     <ClCompile Include="remc2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

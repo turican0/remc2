@@ -3,6 +3,7 @@
 #include "engine/CommandLineParser.h"
 #include "engine/engine_support.h"
 #include "sub_main.h"
+#include "../remc1/Mc1Main.h"
 
 using namespace std;
 
@@ -22,6 +23,8 @@ int main(int argc, char** argv)
 	//mine_texts((char*)"0160-0022A288", 0x2a1000, 1000, (char*)"mined-texts.txt");
 
 	CommandLineParams.Init(argc, argv);
+	if (CommandLineParams.DoMagicCarpet1())
+		return Mc1Main(argc, argv);
 
 	support_begin();
 	int retval = sub_main(argc, argv, envp);

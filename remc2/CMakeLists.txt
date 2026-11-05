@@ -239,12 +239,20 @@ set(SOURCE_FILES__portability
     "portability/xmi2mid.h"
 )
 source_group("Source Files\\portability" FILES ${SOURCE_FILES__portability})
+set(SOURCE_FILES_REMC1
+    "../remc1/Mc1Main.cpp"
+    "../remc1/Mc1Main.h"
+    "../remc1/engine/Select.cpp"
+    "../remc1/engine/Select.h"
+)
+source_group("Source Files\\remc1" FILES ${SOURCE_FILES_REMC1})
 set(ALL_FILES
     ${HEADER_FILES}
     ${SOURCE_FILES}
     ${SOURCE_FILES_ENGINE}
     ${SOURCE_FILES__portability}
     ${SOURCE_FILES__networklib}
+    ${SOURCE_FILES_REMC1}
 )
 
 ################################################################################
