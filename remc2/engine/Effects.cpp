@@ -349,7 +349,7 @@ LABEL_8:
 						break;
 					v28x.x = LOBYTE(ix) << 8;
 					v28x.y = HIBYTE(ix) << 8;
-					v10 = Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &v28x);
+					v10 = Maths::DistanceXY_58490(&a1x->position_0x4C_76, &v28x);
 					if (v10 < v35 && v10 >= v43)
 					{
 						v11 = (v44 * ((x_DWORD)(0x10000 + (signed int)Maths::sin_DB750[0x200 + (v10 << 10) / v35]) >> 1) >> 16)
@@ -712,7 +712,7 @@ void UpdateManaSphereSpawner_31940(type_entity_0x6E8E* a1x)//212940
 					break;
 				v31x.x = v9x._axis_2d.x << 8;
 				v31x.y = v9x._axis_2d.y << 8;
-				v11 = Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &v31x);
+				v11 = Maths::DistanceXY_58490(&a1x->position_0x4C_76, &v31x);
 				v33 = v11;
 				if (v11 < v6)
 				{
@@ -1574,7 +1574,7 @@ void UpdateWindMovement_331A0(type_entity_0x6E8E* a1x)//2141a0
 		predictedAxis_EB398ar = v7x->position_0x4C_76;
 		v4 = &resultx->position_0x4C_76;
 		v7x->yaw_0x1C_28 = Maths::GetYawAngle_581E0(&v7x->position_0x4C_76, &resultx->position_0x4C_76);
-		v5 = Maths::EuclideanDistXYZ_58490(v4, &v7x->position_0x4C_76);
+		v5 = Maths::DistanceXY_58490(v4, &v7x->position_0x4C_76);
 		v6 = 72 - 4 * (12 - v7x->param2_0x2C_44);
 		if (v5 > v6)
 			MoveEntity_57FA0(&predictedAxis_EB398ar, v7x->yaw_0x1C_28, 0, v5 - v6);
@@ -1665,7 +1665,7 @@ void UpdateWindPull_33340(type_entity_0x6E8E* a1x)//214340
 					else
 						v4 = 768;
 					v34 = v4;
-					v5 = Maths::EuclideanDistXY_584D0(&a1x->axis_0x9A_154x, &ix->position_0x4C_76);
+					v5 = Maths::DistanceSquaredXY_584D0(&a1x->axis_0x9A_154x, &ix->position_0x4C_76);
 					v33 = v5;
 					if (v5 >= 3211264)
 					{
@@ -2676,7 +2676,7 @@ void UpdateCraterEffect_34C40(type_entity_0x6E8E* a1x)//215c40
 					v12x.x = (unsigned __int8)i << 8;
 					v12x.y = HIBYTE(i) << 8;
 					v16 = 0;
-					v8 = Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &v12x);
+					v8 = Maths::DistanceXY_58490(&a1x->position_0x4C_76, &v12x);
 					v15 = v8;
 					if (v8 < v7)
 					{
@@ -2845,7 +2845,7 @@ void UpdateVolcanoEffect_34EE0(/*signed int a1, int a2, */type_entity_0x6E8E* a3
 				{
 					v28x.x = (unsigned __int8)i << 8;
 					v28x.y = HIBYTE(i) << 8;
-					v15 = Maths::EuclideanDistXYZ_58490(&a3x->position_0x4C_76, &v28x);
+					v15 = Maths::DistanceXY_58490(&a3x->position_0x4C_76, &v28x);
 					v31 = v15;
 					if (v15 < v35)
 					{
@@ -2972,7 +2972,7 @@ void UpdatePortal_35390(type_entity_0x6E8E* a1x)//216390
 			if (EntitiesOverlap_106C0(a1x, Entities_EA3E4[world_D41A0.players_0x2BDE[v3x].playerIndex_0x00a_2BE4_11240]))
 			{
 				v5 = Maths::GetYawAngle_581E0(&v4x->position_0x4C_76, v9);
-				if ((unsigned __int16)AngleDifference_582B0(v4x->yaw_0x1C_28, v5) < 0xAAu)
+				if ((unsigned __int16)Maths::AngleDifference_582B0(v4x->yaw_0x1C_28, v5) < 0xAAu)
 				{
 					//v6 = a1x->dword_0xA0_160;
 					v7 = GetTerrainAlt_10C40(&a1x->axis_0x9A_154x);
@@ -3314,7 +3314,7 @@ void TransformArcherToMana_35940(type_entity_0x6E8E* a1x)//216940 //move mana sp
 				v10 = a1x->targetId_0x96_150;
 				a1x->param2_0x2C_44 = 128;
 				a1x->yaw_0x1C_28 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &Entities_EA3E4[v10]->position_0x4C_76);
-				v11 = Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &Entities_EA3E4[a1x->targetId_0x96_150]->position_0x4C_76);
+				v11 = Maths::DistanceXY_58490(&a1x->position_0x4C_76, &Entities_EA3E4[a1x->targetId_0x96_150]->position_0x4C_76);
 				if (v11 <= 1024)
 				{
 					if (v11 >= 16)
@@ -3591,7 +3591,7 @@ void UpdateManaSphere_35FB0(type_entity_0x6E8E* a1x)//216FB0
 				v8 = a1x->targetId_0x96_150;
 				a1x->param2_0x2C_44 = 128;
 				a1x->yaw_0x1C_28 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &Entities_EA3E4[v8]->position_0x4C_76);
-				v9 = Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &Entities_EA3E4[a1x->targetId_0x96_150]->position_0x4C_76);
+				v9 = Maths::DistanceXY_58490(&a1x->position_0x4C_76, &Entities_EA3E4[a1x->targetId_0x96_150]->position_0x4C_76);
 				if (v9 <= 1024)
 				{
 					if (v9 >= 16)
@@ -5285,7 +5285,7 @@ unsigned int UpdateProjectileTimeout_38D80(type_entity_0x6E8E* a1x)//219d80
 	{
 		if (!ix->mail_0x5E_94.channel[4].source)
 		{
-			result = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
+			result = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
 			if (result < a1x->param_0x10_16)
 			{
 				v3 = Maths::IntegerSqrt_7277A(result);
@@ -5493,7 +5493,7 @@ void UpdateLightning_39040(type_entity_0x6E8E* a1x)//21a040
 						{
 							v40x.x = v8x._axis_2d.x << 8;
 							v40x.y = v8x._axis_2d.y << 8;
-							v9 = Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &v40x);
+							v9 = Maths::DistanceXY_58490(&a1x->position_0x4C_76, &v40x);
 							v48 = v9;
 							if (v9 < 3840)
 							{
@@ -5852,7 +5852,7 @@ unsigned __int8 UpdateTremorTiles_396D0(type_entity_0x6E8E* a1x)//21a6d0
 				{
 					v30x.x = (unsigned __int8)v10 << 8;
 					v30x.y = HIBYTE(v10) << 8;
-					v36 = Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &v30x);
+					v36 = Maths::DistanceXY_58490(&a1x->position_0x4C_76, &v30x);
 					if (v36 < 3840)
 					{
 						v11 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v30x);
@@ -5964,7 +5964,7 @@ void ApplyEarthquakeTiles_39B60(type_entity_0x6E8E* a1x)//21ab60
 		{
 			v12x.x = (unsigned __int8)v16 << 8;
 			v12x.y = HIBYTE(v16) << 8;
-			if ((unsigned int)Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &v12x) < 0xA90000)
+			if ((unsigned int)Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &v12x) < 0xA90000)
 			{
 				for (i = mapEntityIndex_15B4E0[v16]; ; i = v10x->oldMapEntity_0x16_22)
 				{
@@ -5973,7 +5973,7 @@ void ApplyEarthquakeTiles_39B60(type_entity_0x6E8E* a1x)//21ab60
 						goto LABEL_35;
 					if (CanSpellAffectEntity_39FA0(a1x, Entities_EA3E4[i]))
 					{
-						v3 = Maths::EuclideanDistXYZ_58490(&v10x->position_0x4C_76, &a1x->position_0x4C_76);
+						v3 = Maths::DistanceXY_58490(&v10x->position_0x4C_76, &a1x->position_0x4C_76);
 						v4 = a1x->param2_0x2C_44;
 						v5 = v10x->position_0x4C_76.z - v4;
 						v14 = v10x->position_0x4C_76.z - v4;

@@ -6750,7 +6750,7 @@ void CreateSubtype32MovingToPoint_487D0(uint16_t posX2, uint16_t posY2, uint16_t
 	v11x.x = posX << 8;
 	v11x.y = posY << 8;
 	v5 = Maths::GetYawAngle_581E0(&v8x, &v11x);
-	v6 = Maths::EuclideanDistXYZ_58490(&v8x, &v11x);
+	v6 = Maths::DistanceXY_58490(&v8x, &v11x);
 	resultx = CreateEntity_4A190(&v8x, 10, 32);
 	if (resultx)
 	{
@@ -6780,7 +6780,7 @@ void CreateSubtype51MovingToPoint_48880(uint16_t posX2, uint16_t posY2, uint16_t
 	v12x.x = posX << 8;
 	v12x.y = posY << 8;
 	v4 = Maths::GetYawAngle_581E0(&v9x, &v12x);
-	v5 = Maths::EuclideanDistXYZ_58490(&v9x, &v12x);
+	v5 = Maths::DistanceXY_58490(&v9x, &v12x);
 	resultx = CreateEntity_4A190(&v9x, 10, 51);
 	//v7x = resultx;
 	if (resultx)
@@ -7027,20 +7027,20 @@ int CheckPositionCollision_102D0(type_entity_0x6E8E* a1x, axis_3d* a2, char a3)/
 	{
 		v11 = Maths::GetPitchAngle_58210(&a1x->position_0x4C_76, a2);
 		v12 = v11;
-		v13 = AngleTurnDirection_582F0(0, v11);
+		v13 = Maths::AngleTurnDirection_582F0(0, v11);
 		if (v13 < 0)
 		{
 			if (v13 == -1)
 			{
 				v15 = a1x->typeParams_0xA0_160x->maxSlope_160_0x10_16;
-				if ((unsigned __int16)AngleDifference_582B0(0, v12) > v15)
+				if ((unsigned __int16)Maths::AngleDifference_582B0(0, v12) > v15)
 					return 1;
 			}
 		}
 		else if (v13 > 0 && v13 == 1)
 		{
 			v14 = a1x->typeParams_0xA0_160x->word_160_0x12_18;
-			if ((unsigned __int16)AngleDifference_582B0(0, v12) > v14)
+			if ((unsigned __int16)Maths::AngleDifference_582B0(0, v12) > v14)
 				return 1;
 		}
 	}
@@ -7276,7 +7276,7 @@ signed int IsEntityOfModelNearby_10B70(axis_3d* a1x, char a2, char a3)//1f1b70
 				jx > Entities_EA3E4[0];
 				jx = Entities_EA3E4[jx->oldMapEntity_0x16_22])
 			{
-				if (jx->class_0x3F_63 == a2 && a3 == jx->model_0x40_64 && Distance3D_583F0(a1x, &jx->position_0x4C_76) <= 0x80)
+				if (jx->class_0x3F_63 == a2 && a3 == jx->model_0x40_64 && Maths::Distance3D_583F0(a1x, &jx->position_0x4C_76) <= 0x80)
 					return 1;
 			}
 		}
@@ -7859,8 +7859,8 @@ void TurnTowardsEntity_254E0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x, u
 
 	v3x = a1x;
 	a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &a2x->position_0x4C_76);
-	//result = TurnTowardsAngle_58350(v3x->word_0x1C_28, v3x->roll_0x20_32, 5, (a3 << 11) / 360);
-	v3x->yaw_0x1C_28 += TurnTowardsAngle_58350(v3x->yaw_0x1C_28, v3x->roll_0x20_32, 5, (a3 << 11) / 360);
+	//result = Maths::TurnTowardsAngle_58350(v3x->word_0x1C_28, v3x->roll_0x20_32, 5, (a3 << 11) / 360);
+	v3x->yaw_0x1C_28 += Maths::TurnTowardsAngle_58350(v3x->yaw_0x1C_28, v3x->roll_0x20_32, 5, (a3 << 11) / 360);
 	//BYTE1(result) = *(x_BYTE *)(a1 + 29) & 7;
 	a1x->yaw_0x1C_28 &= 0x7ff;// BYTE1(result);
 	//return result;
@@ -7884,7 +7884,7 @@ char MoveTowardsEntity_28390(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)//
 	char v3; // [esp+0h] [ebp-4h]
 
 	v3 = 1;
-	if ((signed int)Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &a2x->position_0x4C_76) > 128)
+	if ((signed int)Maths::DistanceXY_58490(&a1x->position_0x4C_76, &a2x->position_0x4C_76) > 128)
 	{
 		v3 = 0;
 		a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &a2x->position_0x4C_76);

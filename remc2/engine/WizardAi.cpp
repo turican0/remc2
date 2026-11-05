@@ -610,7 +610,7 @@ signed int WizardAiReturnToCastle_133B0(type_entity_0x6E8E* a1x)//1f43b0
 	}
 	else
 	{
-		if ((unsigned int)Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &v2x->position_0x4C_76) > 0x6400000)
+		if ((unsigned int)Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &v2x->position_0x4C_76) > 0x6400000)
 		{
 			for (k = a1x->playerData_0xA4_164x->str_611.SpellLevels_0x41D_1053z.SpellIndex[1]; k >= 0; k--)
 			{
@@ -672,7 +672,7 @@ signed int WizardAiPossessTarget_135C0(type_entity_0x6E8E* a1x)//1f45c0
 		if (v7 == 1 && WizardAiCastSpell_14E10(a1x, 1u))
 		{
 			v3 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v1x->position_0x4C_76);
-			if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, v3) < 0x1Cu)
+			if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v3) < 0x1Cu)
 				v1x->playerEntityIndex_0x94_148 = a1x->id_0x1A_26;
 			goto LABEL_17;
 		}
@@ -910,13 +910,13 @@ signed int WizardAiTryBuildCastle_13B00(type_entity_0x6E8E* a1x)//1f4b00
 				v1x->position_0x4C_76.x = (((x_BYTE)v13 + (x_BYTE)i) & 3) << 14;
 				v1x->position_0x4C_76.y = (((x_BYTE)v2 + (x_BYTE)v11) & 3) << 14;
 				v3x = FindWizardTargetBySpell_14B10(v1x, 2u);
-				if (!v3x || (unsigned int)GetChebyshevDistXY_583B0(&v3x->position_0x4C_76, &v1x->position_0x4C_76) > 0x3000)
+				if (!v3x || (unsigned int)Maths::GetChebyshevDistXY_583B0(&v3x->position_0x4C_76, &v1x->position_0x4C_76) > 0x3000)
 				{
 					a1x->axis_0x9A_154x = v1x->position_0x4C_76;
 					return 1;
 				}
 				v7x = FindWizardTargetBySpell_14B10(v1x, 2u);
-				if (!v7x || (unsigned int)GetChebyshevDistXY_583B0(&v7x->position_0x4C_76, &v1x->position_0x4C_76) > 0x3000)
+				if (!v7x || (unsigned int)Maths::GetChebyshevDistXY_583B0(&v7x->position_0x4C_76, &v1x->position_0x4C_76) > 0x3000)
 				{
 					a1x->axis_0x9A_154x = v1x->position_0x4C_76;
 					return 1;
@@ -1025,14 +1025,14 @@ signed int WizardAiChooseEnemyWizard_13E40(type_entity_0x6E8E* a1x)//1f4e40
 		{
 			if ((v3x = Entities_EA3E4[ix->id_0x1A_26],
 				50000 - a1x->playerData_0xA4_164x->aiAggression_0x242_578 * (v3x->maxMana_0x8C_140 / 10) / 255 < a1x->playerData_0xA4_164x->aiTargets_0x1FC_508[4 * v3x->playerData_0xA4_164x->playerColorIndex_0x38_56 + 4])
-				&& (unsigned int)Maths::EuclideanDistXY_584D0(&v3x->position_0x4C_76, &ix->position_0x4C_76) > 0x3840000
+				&& (unsigned int)Maths::DistanceSquaredXY_584D0(&v3x->position_0x4C_76, &ix->position_0x4C_76) > 0x3840000
 				&& !EntitiesOverlap_106C0(Entities_EA3E4[ix->id_0x1A_26], ix)
 				|| Entities_EA3E4[a1x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58]->mana_0x90_144 > 640
 				* (255
 					- a1x->playerData_0xA4_164x->aiAggression_0x242_578)
 				+ ix->mana_0x90_144)
 			{
-				v4 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
+				v4 = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
 				if (v4 < v8)
 				{
 					v1x = ix;
@@ -1044,7 +1044,7 @@ signed int WizardAiChooseEnemyWizard_13E40(type_entity_0x6E8E* a1x)//1f4e40
 	if (!v1x)
 		return 0;
 	v5 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
-	if (Maths::EuclideanDistXY_584D0(&v1x->position_0x4C_76, &a1x->position_0x4C_76) >= (unsigned int)(v5 * v5))
+	if (Maths::DistanceSquaredXY_584D0(&v1x->position_0x4C_76, &a1x->position_0x4C_76) >= (unsigned int)(v5 * v5))
 		return 0;
 	result = 1;
 	a1x->targetId_0x96_150 = v1x - world_D41A0.entities_0x6E8E;
@@ -1091,7 +1091,7 @@ signed int WizardAiChooseEnemyCreature_14030(type_entity_0x6E8E* a1x)//1f5030
 					&& GetPlayerSpellEntity_146C0(ix, 2u)
 					&& ix->mana_0x90_144 + 32 * (255 - a1x->playerData_0xA4_164x->aiAggression_0x242_578) < a1x->mana_0x90_144)
 				{
-					v7 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
+					v7 = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
 					if (v7 < v9)
 					{
 						v1x = ix;
@@ -1104,7 +1104,7 @@ signed int WizardAiChooseEnemyCreature_14030(type_entity_0x6E8E* a1x)//1f5030
 	if (!v1x)
 		return 0;
 	v8 = a1x->typeParams_0xA0_160x->range_160_0x1c_28 + 10;
-	if (Maths::EuclideanDistXY_584D0(&v1x->position_0x4C_76, &a1x->position_0x4C_76) >= (unsigned int)(v8 * v8))
+	if (Maths::DistanceSquaredXY_584D0(&v1x->position_0x4C_76, &a1x->position_0x4C_76) >= (unsigned int)(v8 * v8))
 		return 0;
 	a1x->targetId_0x96_150 = v1x - world_D41A0.entities_0x6E8E;
 	a1x->targetKey_0x98_152 = GetEntityKey_14C40(v1x);
@@ -1141,7 +1141,7 @@ signed int WizardAiChooseEnemyCastle_14250(type_entity_0x6E8E* a1x)//1f5250
 				&& 10 * (275 - v7) < ix->mana_0x90_144
 				&& !EntitiesOverlap_106C0(ix, Entities_EA3E4[v3x->playerData_0xA4_164x->CastleEntityIndex_0x3A_58]))
 			{
-				v4 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
+				v4 = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
 				if (v4 < v9)
 				{
 					v1x = ix;
@@ -1153,7 +1153,7 @@ signed int WizardAiChooseEnemyCastle_14250(type_entity_0x6E8E* a1x)//1f5250
 	if (!v1x)
 		return 0;
 	v5 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
-	if (Maths::EuclideanDistXY_584D0(&v1x->position_0x4C_76, &a1x->position_0x4C_76) >= (unsigned int)(v5 * v5))
+	if (Maths::DistanceSquaredXY_584D0(&v1x->position_0x4C_76, &a1x->position_0x4C_76) >= (unsigned int)(v5 * v5))
 		return 0;
 	a1x->targetId_0x96_150 = v1x - world_D41A0.entities_0x6E8E;
 	a1x->targetKey_0x98_152 = GetEntityKey_14C40(v1x);
@@ -1186,7 +1186,7 @@ signed int WizardAiChooseAttackTarget_14530(type_entity_0x6E8E* a1x)//1f5530
 		{
 			if (jx->id_0x1A_26 != a1x->id_0x1A_26 && jx->mana_0x90_144 > 0)
 			{
-				v4 = Maths::EuclideanDistXY_584D0(&v7x->position_0x4C_76, &jx->position_0x4C_76);
+				v4 = Maths::DistanceSquaredXY_584D0(&v7x->position_0x4C_76, &jx->position_0x4C_76);
 				if (v4 < v6)
 				{
 					v1x = jx;
@@ -1310,7 +1310,7 @@ void UpdateWizardMovement_146F0(type_entity_0x6E8E* a1x)//1f56f0
 		a1x->actSpeed_0x82_130 += 16 * v12;
 		//v13 = a1x->roll_0x20_32;
 		//HIBYTE(v13) &= 7ffu;
-		v14 = AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32 & 0x7ffu);
+		v14 = Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32 & 0x7ffu);
 		v15 = 255 - a1x->playerData_0xA4_164x->aiReflexes_0x246_582;
 		//v16 = v14	/ (signed int)(unsigned __int16)(((signed int)(v15 - (__CFSHL__(HIDWORD(v15), 4) + 16 * HIDWORD(v15))) >> 4) + 8);
 		v16 = v14 / (((v15 - (my_sign32(v15) << 4) + my_sign32(v15)) >> 4) + 8);
@@ -1325,7 +1325,7 @@ void UpdateWizardMovement_146F0(type_entity_0x6E8E* a1x)//1f56f0
 		{
 			v18 = a1x->typeParams_0xA0_160x->subtype_160_0x2_2;
 		}
-		v19 = AngleTurnDirection_582F0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) * v18;
+		v19 = Maths::AngleTurnDirection_582F0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) * v18;
 		v20 = a1x->yaw_0x1C_28;
 		v21 = (v20 + v19) & 0x7FF;
 		v22 = a1x->roll_0x20_32;
@@ -1389,24 +1389,24 @@ type_entity_0x6E8E* FindNearestOwnBalloon_148E0(type_entity_0x6E8E* a1x)//1f58e0
 				v8x = (v15x <= Entities_EA3E4[0] ? FindWizardTargetBySpell_14B10(v2x, 2u) : FindNearestOtherWizard_14BD0(v2x, v15x));//fix uint8_t*
 				v14x = v8x;
 				if (a1x->id_0x1A_26 != v12x->id_0x1A_26
-					&& (unsigned int)Maths::EuclideanDistXY_584D0(&v2x->position_0x4C_76, &v12x->position_0x4C_76) <= 0x1900000)
+					&& (unsigned int)Maths::DistanceSquaredXY_584D0(&v2x->position_0x4C_76, &v12x->position_0x4C_76) <= 0x1900000)
 				{
 					goto LABEL_22;
 				}
 				if (v14x && EntitiesOverlap_106C0(v2x, v14x))
 					goto LABEL_22;
-				v7 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &v2x->position_0x4C_76);
+				v7 = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &v2x->position_0x4C_76);
 			}
 			else
 			{
-				v7 = Maths::EuclideanDistXY_584D0(&v15x->position_0x4C_76, v13);
+				v7 = Maths::DistanceSquaredXY_584D0(&v15x->position_0x4C_76, v13);
 			}
 		}
 		else
 		{
 			if (v6 == 3)
 				goto LABEL_22;
-			v7 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, v13);
+			v7 = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, v13);
 		}
 		if (v7 < v1)
 		{
@@ -1422,7 +1422,7 @@ type_entity_0x6E8E* FindNearestOwnBalloon_148E0(type_entity_0x6E8E* a1x)//1f58e0
 		{
 			if (ix->model_0x40_64 != 57 && ix->playerEntityIndex_0x94_148 != a1x->id_0x1A_26)
 			{
-				v10 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
+				v10 = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
 				if (v10 < v1)
 				{
 					resultx = ix;
@@ -1462,7 +1462,7 @@ type_entity_0x6E8E* FindWizardTargetBySpell_14B10(type_entity_0x6E8E* a1x, unsig
 			{
 				if (ix->id_0x1A_26 != a1x->id_0x1A_26)
 				{
-					v5 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
+					v5 = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
 					if (v5 < v2)
 					{
 						resultx = ix;
@@ -1477,7 +1477,7 @@ type_entity_0x6E8E* FindWizardTargetBySpell_14B10(type_entity_0x6E8E* a1x, unsig
 	{
 		if (jx->id_0x1A_26 != a1x->id_0x1A_26 && jx->model_0x40_64 == a2)
 		{
-			v7 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &jx->position_0x4C_76);
+			v7 = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &jx->position_0x4C_76);
 			if (v7 < v2)
 			{
 				resultx = jx;
@@ -1509,7 +1509,7 @@ type_entity_0x6E8E* FindNearestOtherWizard_14BD0(type_entity_0x6E8E* a1x, type_e
 		v6 = v4x->id_0x1A_26;
 		if (v6 != a1x->id_0x1A_26 && v6 != a2x->id_0x1A_26 && v4x->model_0x40_64 == 2)
 		{
-			v7 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &v4x->position_0x4C_76);
+			v7 = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &v4x->position_0x4C_76);
 			if (v7 < v2)
 			{
 				resultx = v4x;
@@ -1544,7 +1544,7 @@ signed int WizardAiMoveTowards_14C90(type_entity_0x6E8E* a1x, type_entity_0x6E8E
 	a1x->playerData_0xA4_164x->castLock_0xe_14 = 0;
 	if (!a2x)
 	{
-		v4 = Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &a1x->axis_0x9A_154x);
+		v4 = Maths::DistanceXY_58490(&a1x->position_0x4C_76, &a1x->axis_0x9A_154x);
 		if (v4 > a3)
 		{
 			if (v4 > a4 && WizardCanCastSpell_15170(a1x, 3u))
@@ -1564,7 +1564,7 @@ signed int WizardAiMoveTowards_14C90(type_entity_0x6E8E* a1x, type_entity_0x6E8E
 		a1x->playerData_0xA4_164x->castLock_0xe_14 = 1;
 		return 1;
 	}
-	v6 = Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &a2x->position_0x4C_76);
+	v6 = Maths::DistanceXY_58490(&a1x->position_0x4C_76, &a2x->position_0x4C_76);
 	if (v6 <= a3)
 		goto LABEL_16;
 	if (v6 > a4 && WizardCanCastSpell_15170(a1x, 3u))
@@ -1629,7 +1629,7 @@ signed int WizardAiCastSpell_14E10(type_entity_0x6E8E* a1x, unsigned __int8 a2)/
 		v6x = GetPlayerSpellEntity_146C0(a1x, a2);
 		if (!v6x
 			|| a1x->playerData_0xA4_164x->aiReactionDelay_0x1A2_418 < 0
-			|| (unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) >= 0xAAu)
+			|| (unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) >= 0xAAu)
 		{
 			return 0;
 		}
@@ -1681,7 +1681,7 @@ signed int WizardAiCastSpell_14E10(type_entity_0x6E8E* a1x, unsigned __int8 a2)/
 		v8x = GetPlayerSpellEntity_146C0(a1x, a2);
 		if (!v8x)
 			return 0;
-		if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) >= 0xE3u)
+		if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) >= 0xE3u)
 			return 0;
 		a1x->pitch_0x1E_30 = Maths::GetPitchAngle_58210(&a1x->position_0x4C_76, &Entities_EA3E4[a1x->targetId_0x96_150]->position_0x4C_76);
 		if (CastleAttackEntity_5F660(a1x, v8x, 0) != 1)
@@ -1799,7 +1799,7 @@ type_entity_0x6E8E* WizardCanCastSpell_15170(type_entity_0x6E8E* a1x, unsigned _
 				/ 360;*/
 			v25 = (((((255 - a1x->playerData_0xA4_164x->aiPerception_0x244_580) - (my_sign32(255 - a1x->playerData_0xA4_164x->aiPerception_0x244_580) << 2) + my_sign32(255 - a1x->playerData_0xA4_164x->aiPerception_0x244_580)) >> 2) + 20) << 11) / 360;
 
-			if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) >= v25)
+			if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) >= v25)
 				return 0;
 			return v22x;
 		case 1u:
@@ -1834,7 +1834,7 @@ type_entity_0x6E8E* WizardCanCastSpell_15170(type_entity_0x6E8E* a1x, unsigned _
 				/ 360;*/
 			v14 = (((((255 - a1x->playerData_0xA4_164x->aiPerception_0x244_580) - (my_sign32(255 - a1x->playerData_0xA4_164x->aiPerception_0x244_580) << 2) + my_sign32(255 - a1x->playerData_0xA4_164x->aiPerception_0x244_580)) >> 2) + 20) << 11) / 360;
 
-			if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) >= v14)
+			if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) >= v14)
 				return 0;
 			return v11x;
 		case 2u:
@@ -1861,7 +1861,7 @@ type_entity_0x6E8E* WizardCanCastSpell_15170(type_entity_0x6E8E* a1x, unsigned _
 						if (a1x->mana_0x90_144 >= v16x->maxMana_0x8C_140)
 						{
 							v20 = 255 - a1x->playerData_0xA4_164x->aiPerception_0x244_580;
-							if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) < ((((signed int)(v20 - (__CFSHL__(HIDWORD(v20), 2) + 4 * HIDWORD(v20))) >> 2)
+							if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) < ((((signed int)(v20 - (__CFSHL__(HIDWORD(v20), 2) + 4 * HIDWORD(v20))) >> 2)
 								+ 20) << 11)
 								/ 360)
 								return v16x;
@@ -1943,7 +1943,7 @@ signed int WizardAiCanGrowCastle_155E0(type_entity_0x6E8E* a1x)//1f65e0
 					if (a1x->maxMana_0x8C_140 >= v1x->maxMana_0x8C_140)
 					{
 						v4 = 255 - a1x->playerData_0xA4_164x->aiPerception_0x244_580;
-						if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) < ((((signed int)(v4 - (__CFSHL__(HIDWORD(v4), 2) + 4 * HIDWORD(v4))) >> 2)
+						if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) < ((((signed int)(v4 - (__CFSHL__(HIDWORD(v4), 2) + 4 * HIDWORD(v4))) >> 2)
 							+ 20) << 11)
 							/ 360)
 							return 1;
@@ -2275,7 +2275,7 @@ type_entity_0x6E8E* FindNearestEntityTargeting_15CB0(/*type_str_0x6E8E* a1,*/ ty
 	{
 		if (ix->targetId_0x96_150 == a2x->id_0x1A_26)
 		{
-			v4 = Maths::EuclideanDistXY_584D0(&a2x->position_0x4C_76, &ix->position_0x4C_76);
+			v4 = Maths::DistanceSquaredXY_584D0(&a2x->position_0x4C_76, &ix->position_0x4C_76);
 			if (v4 < v2)
 			{
 				v2 = v4;
@@ -2311,7 +2311,7 @@ char RateWizardTarget_15D40(__int16 a1, type_entity_0x6E8E* a2x, type_entity_0x6
 	signed __int16 v5; // si
 	signed __int16 v6; // si
 
-	result = Maths::EuclideanDistXY_584D0(&a2x->position_0x4C_76, &a3->position_0x4C_76);
+	result = Maths::DistanceSquaredXY_584D0(&a2x->position_0x4C_76, &a3->position_0x4C_76);
 	if (result >= 0x100000)
 		return result;
 	result = a3->model_0x40_64;
@@ -2475,7 +2475,7 @@ signed int WizardAiMetamorph_15FC0(type_entity_0x6E8E* a1x)//1f6fc0
 				v5 = ix->model_0x40_64;
 				if (!v5 || v5 == 1)
 				{
-					v6 = Distance3D_583F0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
+					v6 = Maths::Distance3D_583F0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
 					if (v6 < v14)
 					{
 						v11x = ix;
@@ -2497,7 +2497,7 @@ signed int WizardAiMetamorph_15FC0(type_entity_0x6E8E* a1x)//1f6fc0
 			{
 				if (kx->id_0x1A_26 != a1x->id_0x1A_26)
 				{
-					v8 = Distance3D_583F0(&v11x->position_0x4C_76, &kx->position_0x4C_76);
+					v8 = Maths::Distance3D_583F0(&v11x->position_0x4C_76, &kx->position_0x4C_76);
 					if (v8 < v13)
 					{
 						v16x = kx;
@@ -2571,7 +2571,7 @@ signed int WizardAiAttackMetamorphed_161A0(type_entity_0x6E8E* a1x)//1f71a0
 	if (IsTargetStillValid_14C60(a1x, Entities_EA3E4[a1x->targetId_0x96_150]))
 	{
 		WizardAiCastSpell_14E10(a1x, 4u);
-		Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &v1x->position_0x4C_76);
+		Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &v1x->position_0x4C_76);
 		a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v1x->position_0x4C_76);
 		v2 = a1x->position_0x4C_76.z - (int16_t)(v1x->position_0x4C_76.z + 512);
 		if (a1x->position_0x4C_76.z != v1x->position_0x4C_76.z + 512)
@@ -2614,7 +2614,7 @@ signed int WizardAiAttackMetamorphed_161A0(type_entity_0x6E8E* a1x)//1f71a0
 				v8 = ix->model_0x40_64;
 				if (!v8 || v8 == 1)
 				{
-					v9 = Distance3D_583F0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
+					v9 = Maths::Distance3D_583F0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
 					if (v9 < v15)
 					{
 						v6x = ix;
@@ -3346,7 +3346,7 @@ type_entity_0x6E8E* FindNearestOtherEntity_16FC0(type_entity_0x6E8E* a1x, type_e
 			v7 = v4x->model_0x40_64;
 			if (!v7 || v7 == 1)
 			{
-				v8 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &v4x->position_0x4C_76);
+				v8 = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &v4x->position_0x4C_76);
 				if (v8 < v2)
 				{
 					v3x = v4x;

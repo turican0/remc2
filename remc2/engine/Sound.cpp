@@ -6149,7 +6149,7 @@ void SetSamplePositionFromPlayer(uint32_t flags, int16_t wavIndex, axis_3d_32 en
 	auto rotatedCoords = Maths::RotateZ({ (float)entityPosition.x, (float)entityPosition.y, (float)entityPosition.z }, -playerYawDeg);
 	float angleDeg = Maths::MeasureYawAngleDegrees(rotatedCoords);
 
-	float dinstancePercent = (float)Maths::EuclideanDistXYFromZero(&entityPosition) / (float)MaxSoundDistance;
+	float dinstancePercent = (float)Maths::DistanceSquaredXYFromZero(&entityPosition) / (float)MaxSoundDistance;
 	if (dinstancePercent > 1)
 		dinstancePercent = 1;
 
@@ -6484,24 +6484,24 @@ void PrepareEventSound_6E450(int16_t entityIndex, int16_t levelIndex, int16_t wa
 		if (currentEntity->flags_0xc_12_15.byte[0] < 0)
 			return;
 		entityPos = &currentEntity->position_0x4C_76;
-		if (Maths::EuclideanDistXY_584D0(
+		if (Maths::DistanceSquaredXY_584D0(
 			&Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->position_0x4C_76,
 			&currentEntity->position_0x4C_76) > MaxSoundDistance)
 			return;
 		playerEntity = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 		soundFlags = cachedEntity->id_0x1A_26;
-		distXYZ = Maths::EuclideanDistXYZ_58490(&playerEntity->position_0x4C_76, entityPos);
+		distXYZ = Maths::DistanceXY_58490(&playerEntity->position_0x4C_76, entityPos);
 		positionFromPlayer = Maths::RelativeXYZCoordinate(&currentEntity->position_0x4C_76, &playerEntity->position_0x4C_76);
 		distanceToPlayer = distXYZ;
 		distanceXYZ = distXYZ;
 		targetAngle = Maths::GetYawAngle_581E0(&playerEntity->position_0x4C_76, entityPos);
 		rawAngle = targetAngle;
-		relativeYaw = AngleDifference_582B0(playerEntity->yaw_0x1C_28, targetAngle);
+		relativeYaw = Maths::AngleDifference_582B0(playerEntity->yaw_0x1C_28, targetAngle);
 		absoluteYaw = relativeYaw;
 		volCalc1 = 12288 * (512 - relativeYaw / 2 + 512);
 		volCalc2 = (volCalc1 - (__CFSHL__(volCalc1 >> 31, 10) + (volCalc1 >> 31 << 10))) >> 10;
 		volume = volCalc2 ? (0x7FFF * (volCalc2 - distanceToPlayer)) / volCalc2 : 0x7FFF;
-		panSide = AngleTurnDirection_582F0(playerEntity->yaw_0x1C_28, rawAngle);
+		panSide = Maths::AngleTurnDirection_582F0(playerEntity->yaw_0x1C_28, rawAngle);
 		if (volume < 512)
 			return;
 		if (volume > 0x7FFF)
@@ -6756,44 +6756,6 @@ void ChangeSoundLevel_19CA0(uint8_t option)//1faca0
 		else
 			HandleButtonClick_191B0(20, 12);
 	}
-}
-
-//----- (000582B0) --------------------------------------------------------
-int AngleDifference_582B0(__int16 a1, __int16 a2)//2392b0
-{
-	int result; // eax
-
-	result = abs((a1 & 0x7FF) - (a2 & 0x7FF));
-	if ((unsigned __int16)result > 0x400u)
-		result = 2048 - result;
-	return result;
-}
-
-//----- (000582F0) --------------------------------------------------------
-int AngleTurnDirection_582F0(int a1, __int16 a2)//2392f0
-{
-	int v2; // edx
-	int v3; // ebx
-
-	v2 = a1;
-	BYTE1(v2) &= 7u;
-	v3 = (a2 & 0x7FF) - (unsigned __int16)v2;
-	if ((a2 & 0x7FF) == (unsigned __int16)v2)
-		return v2 ^ (unsigned __int16)v2;
-	if (abs(v3) > 1024)
-	{
-		if (v3 >= 0)
-			v3 -= 2048;
-		else
-			v3 += 2048;
-	}
-	if (v3)
-	{
-		if (v3 > 0)
-			return 1;
-		v3 = -1;
-	}
-	return v3;
 }
 
 //----- (0006EA90) --------------------------------------------------------

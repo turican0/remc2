@@ -36,7 +36,7 @@ public:
 	static int32_t sin_DB750[2560]; //2ac750 //speed table1 //sin and cos table
 	static char x_BYTE_D41D8[328];
 
-	static unsigned int EuclideanDistXYZ_58490(axis_3d* a1, axis_3d* a2);
+	static unsigned int DistanceXY_58490(axis_3d* a1, axis_3d* a2);
 	static unsigned int IntegerSqrt_7277A(unsigned int a1);
 	static int16_t GetPitchAngle_58210(axis_3d* a1, axis_3d* a2);
 	static uint16_t Atan2_72633(int16_t a1, int16_t a2);
@@ -44,8 +44,8 @@ public:
 	static void x_BitScanReverse(uint32_t* Destination, uint32_t Source);
 	static int SubtrackUntilZero(int x, int y);
 	static uint16_t CurveCoords(uint16_t x, uint16_t y, std::vector<Maths::Zone>& zones);
-	static uint32_t EuclideanDistXY_584D0(axis_3d* a1, axis_3d* a2);
-	static uint32_t EuclideanDistXYFromZero(axis_3d_32* a1);
+	static uint32_t DistanceSquaredXY_584D0(axis_3d* a1, axis_3d* a2);
+	static uint32_t DistanceSquaredXYFromZero(axis_3d_32* a1);
 	static axis_3d_32 RelativeXYZCoordinate(axis_3d* a1, axis_3d* a2);
 	static float ConvertYawToDegrees(int16_t yaw);
 	static Vec3 RotateX(const Vec3& v, float angle);
@@ -53,6 +53,13 @@ public:
 	static Vec3 RotateZ(const Vec3& v, float angle);
 	static float MeasureYawAngleDegrees(const Vec3& v);
 	static int32_t Abs16(int16_t value);
+	static int AngleDifference_582B0(int16_t a1, int16_t a2);
+	static int AngleTurnDirection_582F0(int a1, int16_t a2);
+	static int TurnTowardsAngle_58350(uint16_t a1, int16_t a2, int a3, uint16_t a4);
+	static int GetChebyshevDistXY_583B0(axis_3d* a1, axis_3d* a2);
+	static uint32_t Distance3D_583F0(axis_3d* a1, axis_3d* a2);
+	static int DistanceSquared3D_58440(axis_3d* a1, axis_3d* a2);
+	static int DistanceSquared3DAlt_84FB0(axis_3d* a1, axis_3d* a2);
 };
 
 #endif //MATHS_H

@@ -624,11 +624,6 @@ unsigned long j___clock();
 
 void SetPlayerLocation(uint16_t x, uint16_t y, int16_t z, int16_t pitch, int16_t roll, int16_t yaw);
 
-int TurnTowardsAngle_58350(unsigned __int16 a1, __int16 a2, int a3, unsigned __int16 a4);
-int GetChebyshevDistXY_583B0(axis_3d* a1, axis_3d* a2);
-unsigned int Distance3D_583F0(axis_3d* a1, axis_3d* a2);
-int DistanceSquared3D_58440(axis_3d* a1, axis_3d* a2);
-int DistanceSquared3DAlt_84FB0(axis_3d* a1, axis_3d* a2);
 int FixedSqrt_B12A4(int a1);
 int FixedAtan2_B1304(int a1, int a2);
 int FixedAsin_B1414(int a1);

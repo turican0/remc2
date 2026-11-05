@@ -735,7 +735,7 @@ uint16_t Maths::x_WORD_DE350[257] = { //speed table3//2af350 tang?
 		0x00FA,0x00FB,0x00FC,0x00FC,0x00FD,0x00FE,0x00FE,0x00FF,
 		0x0100};
 
-unsigned int Maths::EuclideanDistXYZ_58490(axis_3d* a1, axis_3d* a2)//239490
+unsigned int Maths::DistanceXY_58490(axis_3d* a1, axis_3d* a2)//239490
 {
 	uint32_t radix = ((int16_t)(a2->x - a1->x)) * ((int16_t)(a2->x - a1->x)) + ((int16_t)(a2->y - a1->y)) * ((int16_t)(a2->y - a1->y));
 	return Maths::IntegerSqrt_7277A(radix);
@@ -757,7 +757,7 @@ unsigned int Maths::IntegerSqrt_7277A(unsigned int a1)//25377a
 int16_t Maths::GetPitchAngle_58210(axis_3d* a1, axis_3d* a2)//239210
 {
 	int16_t v2; // ax
-	v2 = EuclideanDistXYZ_58490(a1, a2);//
+	v2 = DistanceXY_58490(a1, a2);//
 	return Atan2_72633(a1->z - a2->z, -v2);
 }
 
@@ -1040,13 +1040,13 @@ uint16_t Maths::CurveCoords(uint16_t x, uint16_t y, std::vector<Maths::Zone>& zo
 }
 
 //----- (000584D0) --------------------------------------------------------
-uint32_t Maths::EuclideanDistXY_584D0(axis_3d* a1, axis_3d* a2)//2394d0
+uint32_t Maths::DistanceSquaredXY_584D0(axis_3d* a1, axis_3d* a2)//2394d0
 {
 	return (int16_t)(a2->x - a1->x) * (int16_t)(a2->x - a1->x)
 		+ (int16_t)(a2->y - a1->y) * (int16_t)(a2->y - a1->y);
 }
 
-uint32_t Maths::EuclideanDistXYFromZero(axis_3d_32* a1)
+uint32_t Maths::DistanceSquaredXYFromZero(axis_3d_32* a1)
 {
 	return (int16_t)(a1->x) * (int16_t)(a1->x)
 		+ (int16_t)(a1->y) * (int16_t)(a1->y);
@@ -1121,3 +1121,95 @@ int32_t Maths::Abs16(int16_t value)
 {
 	return abs(value);
 };
+
+//----- (000582B0) --------------------------------------------------------
+int Maths::AngleDifference_582B0(int16_t a1, int16_t a2)//2392b0
+{
+	int result; // eax
+
+	result = abs((a1 & 0x7FF) - (a2 & 0x7FF));
+	if ((uint16_t)result > 0x400u)
+		result = 2048 - result;
+	return result;
+}
+
+//----- (000582F0) --------------------------------------------------------
+int Maths::AngleTurnDirection_582F0(int a1, int16_t a2)//2392f0
+{
+	int v2; // edx
+	int v3; // ebx
+
+	v2 = a1 & 0xFFFF07FF; // was BYTE1(v2) &= 7u - keep low 11 bits of the 16-bit angle
+	v3 = (a2 & 0x7FF) - (uint16_t)v2;
+	if ((a2 & 0x7FF) == (uint16_t)v2)
+		return v2 ^ (uint16_t)v2;
+	if (abs(v3) > 1024)
+	{
+		if (v3 >= 0)
+			v3 -= 2048;
+		else
+			v3 += 2048;
+	}
+	if (v3)
+	{
+		if (v3 > 0)
+			return 1;
+		v3 = -1;
+	}
+	return v3;
+}
+
+//----- (00058350) --------------------------------------------------------
+int Maths::TurnTowardsAngle_58350(uint16_t a1, int16_t a2, int  /*a3*/, uint16_t a4)//239350
+{
+	int v4; // ebx
+	int v5; // esi
+	int v6; // eax
+
+	if (a1 == a2)
+		return 0;
+	v4 = AngleDifference_582B0(a1, a2);
+	v5 = AngleTurnDirection_582F0(a1, a2);
+	v6 = v4;
+	if ((int16_t)v4 > (int)a4)
+		v6 = a4;
+	return v5 * v6;
+}
+
+//----- (000583B0) --------------------------------------------------------
+int Maths::GetChebyshevDistXY_583B0(axis_3d* a1, axis_3d* a2)//2393b0
+{
+	int v2; // ebx
+	int v3; // eax
+
+	v2 = abs((int16_t)(a2->x - a1->x));//0x2393BB 16-bit sub + cwde
+	v3 = abs((int16_t)(a2->y - a1->y));//0x2393C9 16-bit sub + cwde
+	if (v2 < v3)
+		v2 = v3;
+	return v2;
+}
+
+//----- (000583F0) --------------------------------------------------------
+uint32_t Maths::Distance3D_583F0(axis_3d* a1, axis_3d* a2)//2393f0
+{
+	return IntegerSqrt_7277A(
+		(int16_t)(a2->y - a1->y) * (int16_t)(a2->y - a1->y)
+		+ (int16_t)(a2->x - a1->x) * (int16_t)(a2->x - a1->x)
+		+ (int16_t)(a2->z - a1->z) * (int16_t)(a2->z - a1->z));
+}
+
+//----- (00058440) --------------------------------------------------------
+int Maths::DistanceSquared3D_58440(axis_3d* a1, axis_3d* a2)//239440
+{
+	return (int16_t)(a2->y - a1->y) * (int16_t)(a2->y - a1->y)
+		+ (int16_t)(a2->x - a1->x) * (int16_t)(a2->x - a1->x)
+		+ (int16_t)(a2->z - a1->z) * (int16_t)(a2->z - a1->z);
+}
+
+//----- (00084FB0) --------------------------------------------------------
+int Maths::DistanceSquared3DAlt_84FB0(axis_3d* a1, axis_3d* a2)//265fb0
+{
+	return ((int16_t)a1->x - (int16_t)a2->x) * ((int16_t)a1->x - (int16_t)a2->x)
+		+ ((int16_t)a1->y - (int16_t)a2->y) * ((int16_t)a1->y - (int16_t)a2->y)
+		+ ((int16_t)a1->z - (int16_t)a2->z) * ((int16_t)a1->z - (int16_t)a2->z);
+}

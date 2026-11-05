@@ -97,7 +97,7 @@ void UpdateArcProjectile_34540(type_entity_0x6E8E* a1x)//215540
 
 	v28 = (a1x->levelPar3_0x46_70 >> 4 << 8) + 512;
 	v27 = ((a1x->levelPar3_0x46_70 & 0xF) << 8) + 512;
-	v29 = Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &a1x->axis_0x9A_154x) / 0x55;
+	v29 = Maths::DistanceXY_58490(&a1x->position_0x4C_76, &a1x->axis_0x9A_154x) / 0x55;
 	v34 = (unsigned __int16)Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &a1x->axis_0x9A_154x);
 	v33 = 0;
 	v25x = a1x->position_0x4C_76;
@@ -1026,12 +1026,12 @@ void AimAtEntityLeading_65610(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x)/
 	//v4 = a1x->dword_0xA0_160;
 	a1x->fov_0x22_34 = v3;
 	v5 = v2x->yaw_0x1C_28
-		+ TurnTowardsAngle_58350(v2x->yaw_0x1C_28, v2x->roll_0x20_32, a1x->typeParams_0xA0_160x->yawTurnLimit_160_0x4_4, a1x->typeParams_0xA0_160x->subtype_160_0x2_2);
+		+ Maths::TurnTowardsAngle_58350(v2x->yaw_0x1C_28, v2x->roll_0x20_32, a1x->typeParams_0xA0_160x->yawTurnLimit_160_0x4_4, a1x->typeParams_0xA0_160x->subtype_160_0x2_2);
 	HIBYTE(v5) &= 7u;
 	//v6 = a1x->dword_0xA0_160;
 	a1x->yaw_0x1C_28 = v5;
 	v7 = v2x->pitch_0x1E_30
-		+ TurnTowardsAngle_58350(v2x->pitch_0x1E_30, v2x->fov_0x22_34, a1x->typeParams_0xA0_160x->pitchTurnLimit_160_0x8_8, a1x->typeParams_0xA0_160x->pitchTurnSpeed_160_0x6_6);
+		+ Maths::TurnTowardsAngle_58350(v2x->pitch_0x1E_30, v2x->fov_0x22_34, a1x->typeParams_0xA0_160x->pitchTurnLimit_160_0x8_8, a1x->typeParams_0xA0_160x->pitchTurnSpeed_160_0x6_6);
 	HIBYTE(v7) &= 7u;
 	a1x->pitch_0x1E_30 = v7;
 	LowerFromEntityCentre_655A0(a2x);
@@ -1053,12 +1053,12 @@ __int16 AimAtEntityDirect_656D0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2x
 	//v4 = a1x->dword_0xA0_160;
 	a1x->fov_0x22_34 = v3;
 	v5 = v2x->yaw_0x1C_28
-		+ TurnTowardsAngle_58350(v2x->yaw_0x1C_28, v2x->roll_0x20_32, a1x->typeParams_0xA0_160x->yawTurnLimit_160_0x4_4, a1x->typeParams_0xA0_160x->subtype_160_0x2_2);
+		+ Maths::TurnTowardsAngle_58350(v2x->yaw_0x1C_28, v2x->roll_0x20_32, a1x->typeParams_0xA0_160x->yawTurnLimit_160_0x4_4, a1x->typeParams_0xA0_160x->subtype_160_0x2_2);
 	HIBYTE(v5) &= 7u;
 	//v6 = a1x->dword_0xA0_160;
 	a1x->yaw_0x1C_28 = v5;
 	result = v2x->pitch_0x1E_30
-		+ TurnTowardsAngle_58350(v2x->pitch_0x1E_30, v2x->fov_0x22_34, a1x->typeParams_0xA0_160x->pitchTurnLimit_160_0x8_8, a1x->typeParams_0xA0_160x->pitchTurnSpeed_160_0x6_6);
+		+ Maths::TurnTowardsAngle_58350(v2x->pitch_0x1E_30, v2x->fov_0x22_34, a1x->typeParams_0xA0_160x->pitchTurnLimit_160_0x8_8, a1x->typeParams_0xA0_160x->pitchTurnSpeed_160_0x6_6);
 	HIBYTE(result) &= 7u;
 	a1x->pitch_0x1E_30 = result;
 	return result;
@@ -1324,12 +1324,12 @@ type_entity_0x6E8E* UpdateProjectileTargeting2_65C20(type_entity_0x6E8E* a1x)//2
 		a1x->flags_0xc_12_15.byte[0] = v2 | 2;
 		if (FindProjectileTarget_68940(a1x))
 		{
-			v6 = AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32);
+			v6 = Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32);
 			if (v6 < 0)
 				v6 = 0;
 			if (v6 > 34)
 				v6 = 34;
-			v7 = v6 * AngleTurnDirection_582F0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) + a1x->yaw_0x1C_28;
+			v7 = v6 * Maths::AngleTurnDirection_582F0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) + a1x->yaw_0x1C_28;
 			v5 = a1x->fov_0x22_34;
 			a1x->yaw_0x1C_28 = v7;
 		}
@@ -1341,12 +1341,12 @@ type_entity_0x6E8E* UpdateProjectileTargeting2_65C20(type_entity_0x6E8E* a1x)//2
 				a1x->fov_0x22_34 = a1x->pitch_0x1E_30;
 				goto LABEL_18;
 			}
-			v3 = AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32);
+			v3 = Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, a1x->roll_0x20_32);
 			if (v3 < 0)
 				v3 = 0;
 			if (v3 > 34)
 				v3 = 34;
-			v4 = v3 * AngleTurnDirection_582F0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) + a1x->yaw_0x1C_28;
+			v4 = v3 * Maths::AngleTurnDirection_582F0(a1x->yaw_0x1C_28, a1x->roll_0x20_32) + a1x->yaw_0x1C_28;
 			v5 = a1x->fov_0x22_34;
 			a1x->yaw_0x1C_28 = v4;
 		}
@@ -2195,7 +2195,7 @@ void UpdateHomingProjectile_66D00(type_entity_0x6E8E* a1x)//247d00
 	a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &a1x->axis_0x9A_154x);
 	a1x->fov_0x22_34 = Maths::GetPitchAngle_58210(&a1x->position_0x4C_76, &a1x->axis_0x9A_154x);
 	v3 = a1x->yaw_0x1C_28
-		+ TurnTowardsAngle_58350(
+		+ Maths::TurnTowardsAngle_58350(
 			a1x->yaw_0x1C_28,
 			a1x->roll_0x20_32,
 			a1x->typeParams_0xA0_160x->yawTurnLimit_160_0x4_4,
@@ -2203,7 +2203,7 @@ void UpdateHomingProjectile_66D00(type_entity_0x6E8E* a1x)//247d00
 	HIBYTE(v3) &= 7u;
 	a1x->yaw_0x1C_28 = v3;
 	v4 = a1x->pitch_0x1E_30
-		+ TurnTowardsAngle_58350(
+		+ Maths::TurnTowardsAngle_58350(
 			a1x->pitch_0x1E_30,
 			a1x->fov_0x22_34,
 			a1x->typeParams_0xA0_160x->pitchTurnLimit_160_0x8_8,
@@ -2881,7 +2881,7 @@ void UpdateMagicMineProjectile_67960(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8
 					&& ix->subSpellIndex_0x2A_42 < 2u)
 				{
 					v5 = v16x->typeParams_0xA0_160x->range_160_0x1c_28;
-					v6 = Distance3D_583F0(&ix->position_0x4C_76, &a2x->position_0x4C_76);
+					v6 = Maths::Distance3D_583F0(&ix->position_0x4C_76, &a2x->position_0x4C_76);
 					if (v6 < v5 && v6 < (signed int)v14)
 					{
 						v15x = ix;
@@ -3052,7 +3052,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 			if (ix->id_0x1A_26 != a1x->id_0x1A_26 && !(ix->flags_0xc_12_15.byte[0] & 0x20))
 			{
 				v10 = v43x->typeParams_0xA0_160x->range_160_0x1c_28;
-				if (Distance3D_583F0(&ix->position_0x4C_76, &ix->position_0x4C_76) <= v10)
+				if (Maths::Distance3D_583F0(&ix->position_0x4C_76, &ix->position_0x4C_76) <= v10)
 				{
 					v11 = ix->model_0x40_64 == 2 ? ProjectileTurnTowardsTarget_685D0(a1x, ix, 0x71u, 0x71u) : ProjectileHomeOnTarget_68490(
 						a1x,
@@ -3135,7 +3135,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 			if (nx->id_0x1A_26 != a1x->id_0x1A_26 && !(nx->flags_0xc_12_15.byte[0] & 0x20))
 			{
 				v38 = v44x->typeParams_0xA0_160x->range_160_0x1c_28;
-				if (Distance3D_583F0(&nx->position_0x4C_76, &a1x->position_0x4C_76) <= v38)
+				if (Maths::Distance3D_583F0(&nx->position_0x4C_76, &a1x->position_0x4C_76) <= v38)
 				{
 					v39 = ProjectileHomeOnTarget_68490(a1x, nx, 0x71u, 0x71u);
 					if (v39 < v48)
@@ -3161,7 +3161,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 			if (iix->id_0x1A_26 != a1x->id_0x1A_26 && !(iix->flags_0xc_12_15.byte[0] & 0x20))
 			{
 				v3 = a1x->minSpeed_0x84_132 * a1x->maxLife_0x4;
-				if (Distance3D_583F0(&iix->position_0x4C_76, &a1x->position_0x4C_76) <= v3)
+				if (Maths::Distance3D_583F0(&iix->position_0x4C_76, &a1x->position_0x4C_76) <= v3)
 				{
 					v4 = iix->model_0x40_64 == 2 ? ProjectileTurnTowardsTarget_685D0(a1x, iix, 0x71u, 0x71u) : ProjectileHomeOnTarget_68490(
 						a1x,
@@ -3207,7 +3207,7 @@ signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1x)//248cb0
 			if (llx->id_0x1A_26 != a1x->id_0x1A_26 && !(llx->flags_0xc_12_15.byte[0] & 0x20))
 			{
 				v20 = v45x->typeParams_0xA0_160x->range_160_0x1c_28;
-				if (Distance3D_583F0(&llx->position_0x4C_76, &a1x->position_0x4C_76) <= v20)
+				if (Maths::Distance3D_583F0(&llx->position_0x4C_76, &a1x->position_0x4C_76) <= v20)
 				{
 					v21 = llx->model_0x40_64 == 2 ? ProjectileTurnTowardsTarget_685D0(a1x, llx, 0x100u, 0x71u) : ProjectileHomeOnTarget_68490(
 						a1x,
@@ -3382,14 +3382,14 @@ int ProjectileHomeOnTarget_68490(type_entity_0x6E8E* a1y, type_entity_0x6E8E* a2
 	RaiseToEntityCentre_65580(a2x);
 	//v4 = a1 + 38;
 	v5 = Maths::GetYawAngle_581E0(&a1y->position_0x4C_76, &a2x->position_0x4C_76);//problem je zde
-	v13 = AngleDifference_582B0(a1y->yaw_0x1C_28, v5);
+	v13 = Maths::AngleDifference_582B0(a1y->yaw_0x1C_28, v5);
 	if (v13 <= a3)
 	{
 		v7 = Maths::GetPitchAngle_58210(&a1y->position_0x4C_76, &a2x->position_0x4C_76);
-		v14 = AngleDifference_582B0(a1y->pitch_0x1E_30, v7);
+		v14 = Maths::AngleDifference_582B0(a1y->pitch_0x1E_30, v7);
 		if (v14 <= a4)
 		{
-			v8 = Maths::EuclideanDistXYZ_58490(&a1y->position_0x4C_76, &a2x->position_0x4C_76);
+			v8 = Maths::DistanceXY_58490(&a1y->position_0x4C_76, &a2x->position_0x4C_76);
 			if (v8 <= 5120)
 			{
 				LowerFromEntityCentre_655A0(a2x);
@@ -3438,14 +3438,14 @@ int ProjectileTurnTowardsTarget_685D0(type_entity_0x6E8E* a1x, type_entity_0x6E8
 	v4x = &a2x->position_0x4C_76;
 	v5x = &a1x->position_0x4C_76;
 	v6 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &a2x->position_0x4C_76);
-	v15 = AngleDifference_582B0(a1x->yaw_0x1C_28, v6);
+	v15 = Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v6);
 	if (v15 > a3)
 		return -1;
 	v8 = Maths::GetPitchAngle_58210(v5x, v4x);
-	v9 = AngleDifference_582B0(a1x->pitch_0x1E_30, v8);
+	v9 = Maths::AngleDifference_582B0(a1x->pitch_0x1E_30, v8);
 	if (v9 > a4)
 		return -1;
-	v10 = Maths::EuclideanDistXYZ_58490(v5x, v4x);
+	v10 = Maths::DistanceXY_58490(v5x, v4x);
 	if (v10 > 5120)
 		return -1;
 	v11 = v10 * (x_DWORD)Maths::sin_DB750[0x200 + v15];
@@ -3516,8 +3516,8 @@ LABEL_23:
 		v7 = a1x->yaw_0x1C_28;
 		HIBYTE(v7) = (HIBYTE(v7) + 4) & 7;
 		a1x->roll_0x20_32 = v7;
-		v8 = AngleTurnDirection_582F0(0, a1x->pitch_0x1E_30);
-		v9 = -(v8 * AngleDifference_582B0(0, a1x->pitch_0x1E_30));
+		v8 = Maths::AngleTurnDirection_582F0(0, a1x->pitch_0x1E_30);
+		v9 = -(v8 * Maths::AngleDifference_582B0(0, a1x->pitch_0x1E_30));
 		BYTE1(v9) &= 7u;
 		a1x->fov_0x22_34 = v9;
 		a1x->pitch_0x1E_30 = v9;
@@ -3605,11 +3605,11 @@ char FindProjectileTarget_68940(type_entity_0x6E8E* a1x)//249940
 					&& ix->param3_0x36_54 == 0xFFFF)
 				{
 					v4 = v9x->typeParams_0xA0_160x->range_160_0x1c_28;
-					v5 = Distance3D_583F0(&ix->position_0x4C_76, &v9x->position_0x4C_76);
+					v5 = Maths::Distance3D_583F0(&ix->position_0x4C_76, &v9x->position_0x4C_76);
 					if (v5 < v4 && v5 < (signed int)v8)
 					{
 						v6 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
-						if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, v6) < 0xAAu)
+						if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v6) < 0xAAu)
 						{
 							v10x = ix;
 							v8 = v5;
@@ -3721,7 +3721,7 @@ int UpdateChainedProjectile_68C70(type_entity_0x6E8E* a1x)//249c70
 	}
 	else
 	{
-		if (Maths::EuclideanDistXY_584D0(
+		if (Maths::DistanceSquaredXY_584D0(
 			&a1x->position_0x4C_76, &Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->position_0x4C_76) < 0x2400000)
 		{
 			v2 = a1x->nextLinkedId_0x34_52;

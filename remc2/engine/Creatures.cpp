@@ -506,7 +506,7 @@ signed int MoveCreature_1B8C0(type_entity_0x6E8E* a1x)//1fc8c0
 						{
 							CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
 							v35 = a1x->yaw_0x1C_28
-								+ TurnTowardsAngle_58350(
+								+ Maths::TurnTowardsAngle_58350(
 									a1x->yaw_0x1C_28,
 									a1x->roll_0x20_32,
 									a1x->typeParams_0xA0_160x->yawTurnLimit_160_0x4_4,
@@ -520,7 +520,7 @@ signed int MoveCreature_1B8C0(type_entity_0x6E8E* a1x)//1fc8c0
 					{
 						CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
 						v28 = a1x->yaw_0x1C_28
-							+ TurnTowardsAngle_58350(
+							+ Maths::TurnTowardsAngle_58350(
 								a1x->yaw_0x1C_28,
 								a1x->roll_0x20_32,
 								a1x->typeParams_0xA0_160x->yawTurnLimit_160_0x4_4,
@@ -534,7 +534,7 @@ signed int MoveCreature_1B8C0(type_entity_0x6E8E* a1x)//1fc8c0
 				{
 					CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
 					v20 = a1x->yaw_0x1C_28
-						+ TurnTowardsAngle_58350(
+						+ Maths::TurnTowardsAngle_58350(
 							a1x->yaw_0x1C_28,
 							a1x->roll_0x20_32,
 							a1x->typeParams_0xA0_160x->yawTurnLimit_160_0x4_4,
@@ -548,7 +548,7 @@ signed int MoveCreature_1B8C0(type_entity_0x6E8E* a1x)//1fc8c0
 			{
 				CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
 				v11 = a1x->yaw_0x1C_28
-					+ TurnTowardsAngle_58350(
+					+ Maths::TurnTowardsAngle_58350(
 						a1x->yaw_0x1C_28,
 						a1x->roll_0x20_32,
 						a1x->typeParams_0xA0_160x->yawTurnLimit_160_0x4_4,
@@ -564,7 +564,7 @@ signed int MoveCreature_1B8C0(type_entity_0x6E8E* a1x)//1fc8c0
 		{
 			CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
 			v9 = a1x->yaw_0x1C_28
-				+ TurnTowardsAngle_58350(
+				+ Maths::TurnTowardsAngle_58350(
 					a1x->yaw_0x1C_28,
 					a1x->roll_0x20_32,
 					a1x->typeParams_0xA0_160x->yawTurnLimit_160_0x4_4,
@@ -676,7 +676,7 @@ void CreatureIdle_1BD90(type_entity_0x6E8E* a1x, char a2)//1fcd90
 					{
 						v12 = a1x->typeParams_0xA0_160x->wanderAngle_160_0x1e_30;
 						v13 = Maths::GetYawAngle_581E0(&jx->position_0x4C_76, &a1x->position_0x4C_76);
-						if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, v13) < v12 && v11 < v16)
+						if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v13) < v12 && v11 < v16)
 						{
 							v17x = jx;
 							v16 = v11;
@@ -796,7 +796,7 @@ void CreatureWander_1BF90(type_entity_0x6E8E* a1x, char a2)//1fcf90
 						{
 							v15 = a1x->typeParams_0xA0_160x->wanderAngle_160_0x1e_30;
 							v16 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v12x->position_0x4C_76);
-							if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, v16) < v15 && v14 < v23)
+							if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v16) < v15 && v14 < v23)
 							{
 								v24x = v12x;
 								v23 = v14;
@@ -832,7 +832,7 @@ void CreatureWander_1BF90(type_entity_0x6E8E* a1x, char a2)//1fcf90
 									{
 										v21 = a1x->typeParams_0xA0_160x->wanderAngle_160_0x1e_30;
 										v22 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &jx->position_0x4C_76);
-										if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, v22) < v21 && v20 < v28)
+										if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v22) < v21 && v20 < v28)
 										{
 											v25x = jx;
 											v28 = v20;
@@ -958,7 +958,7 @@ signed int CreatureAttack_1C310(type_entity_0x6E8E* a1x, char a2, unsigned __int
 			if (!(a1x->instanceIndex_0x3E_62 % a1x->typeParams_0xA0_160x->updateInterval_160_0x1a_26))
 			{
 				v16 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
-				if (Distance3D_583F0(&a1x->position_0x4C_76, &v11x->position_0x4C_76) >= v16)
+				if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v11x->position_0x4C_76) >= v16)
 				{
 					a1x->actionIndex_0x45_69 = a2 + 1;
 					return 0;
@@ -1255,7 +1255,7 @@ void CreatureFlee_1C980(type_entity_0x6E8E* a1x, char a2)//1fd980
 			if (a1x->instanceIndex_0x3E_62 % a1x->typeParams_0xA0_160x->updateInterval_160_0x1a_26)
 				return;// 0;
 			v16 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
-			if (Distance3D_583F0(&a1x->position_0x4C_76, &v10x->position_0x4C_76) < v16)
+			if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v10x->position_0x4C_76) < v16)
 				return;// 0;
 		}
 		v7 = a2 + 1;
@@ -1377,7 +1377,7 @@ signed int CreatureMeleeAttack1024_1CE80(type_entity_0x6E8E* a1x, type_entity_0x
 	signed int v2; // ebx
 
 	v2 = 0;
-	if ((signed int)Distance3D_583F0(&a1x->position_0x4C_76, &a2x->position_0x4C_76) < 1024)
+	if ((signed int)Maths::Distance3D_583F0(&a1x->position_0x4C_76, &a2x->position_0x4C_76) < 1024)
 	{
 		v2 = 1;
 		SendMailToEntity_11900(a1x, a2x, 0, a1x->subSpellIndex_0x2A_42);
@@ -1391,7 +1391,7 @@ signed int CreatureMeleeAttack768_1CED0(type_entity_0x6E8E* a1x, type_entity_0x6
 	signed int v2; // ebx
 
 	v2 = 0;
-	if ((signed int)Distance3D_583F0(&a1x->position_0x4C_76, &a2x->position_0x4C_76) < 768)
+	if ((signed int)Maths::Distance3D_583F0(&a1x->position_0x4C_76, &a2x->position_0x4C_76) < 768)
 	{
 		v2 = 1;
 		SendMailToEntity_11900(a1x, a2x, 0, a1x->subSpellIndex_0x2A_42);
@@ -1405,7 +1405,7 @@ signed int CreatureMeleeAttack1536_1CF20(type_entity_0x6E8E* a1x, type_entity_0x
 	signed int v2; // ebx
 
 	v2 = 0;
-	if ((signed int)Distance3D_583F0(&a1x->position_0x4C_76, &a2x->position_0x4C_76) < 1536)
+	if ((signed int)Maths::Distance3D_583F0(&a1x->position_0x4C_76, &a2x->position_0x4C_76) < 1536)
 	{
 		v2 = 1;
 		SendMailToEntity_11900(a1x, a2x, 0, a1x->subSpellIndex_0x2A_42);
@@ -1654,7 +1654,7 @@ void CreatureScriptCmd4_1D700(type_entity_0x6E8E* a1x, __int16 a2)//1fe700
 				if (v4)
 				{
 					v5 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
-					if (Distance3D_583F0(&a1x->position_0x4C_76, &Entities_EA3E4[v4]->position_0x4C_76) <= v5)
+					if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &Entities_EA3E4[v4]->position_0x4C_76) <= v5)
 					{
 						a1x->targetId_0x96_150 = v3x->targetId_0x96_150;
 						a1x->StageVar2_0x49_73 = 10;
@@ -1686,7 +1686,7 @@ void CreatureScriptCmd3_1D7C0(type_entity_0x6E8E* a1x, __int16 a2)//1fe7c0
 		if (v3x && v3x > Entities_EA3E4[0])
 		{
 			v4 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
-			if (Distance3D_583F0(&a1x->position_0x4C_76, &v3x->position_0x4C_76) <= v4)
+			if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v3x->position_0x4C_76) <= v4)
 			{
 				a1x->targetId_0x96_150 = v3x - world_D41A0.entities_0x6E8E;
 				a1x->StageVar2_0x49_73 = 10;
@@ -1899,8 +1899,8 @@ void CreatureScriptGuardPosition_1DBF0(type_entity_0x6E8E* a1x, unsigned __int16
 					{
 						v9 = a1x->typeParams_0xA0_160x->wanderAngle_160_0x1e_30;
 						v10 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v6x->position_0x4C_76);
-						//result = (unsigned __int16)AngleDifference_582B0(a1x->word_0x1C_28, v10);
-						if (AngleDifference_582B0(a1x->yaw_0x1C_28, v10) < v9)
+						//result = (unsigned __int16)Maths::AngleDifference_582B0(a1x->word_0x1C_28, v10);
+						if (Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v10) < v9)
 						{
 							//result = v13;
 							if (v13 < v12)
@@ -2237,7 +2237,7 @@ int FindScriptGroupLeader_1E3E0(type_entity_0x6E8E* a1x)//1ff3e0
 	{
 		for (jx = gameState_D41A4.creatureLists_38403x[world_D41A0.StageVars2_0x365F4[a1x->StageVar1_0x48_72].target_0x3647C_4.axis.x]; jx > Entities_EA3E4[0]; jx = jx->next_0)
 		{
-			v6 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &jx->position_0x4C_76);
+			v6 = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &jx->position_0x4C_76);
 			if (v6 < v8)
 			{
 				v8 = v6;
@@ -2339,7 +2339,7 @@ void CreatureScriptEscortParent_1E580(type_entity_0x6E8E* a1x, __int16 a2)//1ff5
 			if (!(a1x->instanceIndex_0x3E_62 & 7))
 			{
 				v4 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
-				if (Distance3D_583F0(&a1x->position_0x4C_76, &v3x->position_0x4C_76) < v4)
+				if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v3x->position_0x4C_76) < v4)
 					a1x->actionIndex_0x45_69 = a2 + 2;
 			}
 		}
@@ -2595,7 +2595,7 @@ void CreatureScriptCmd14_1E9C0(type_entity_0x6E8E* a1x, __int16 a2)//1ff9c0
 			if (v10x > Entities_EA3E4[0])
 			{
 				v11 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
-				if (Distance3D_583F0(&a1x->position_0x4C_76, &v10x->position_0x4C_76) < v11)
+				if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v10x->position_0x4C_76) < v11)
 				{
 					a1x->targetId_0x96_150 = v10x - world_D41A0.entities_0x6E8E;
 					a1x->actionIndex_0x45_69 = a2 + 2;
@@ -3343,7 +3343,7 @@ void ArcherWander_1FAA0(type_entity_0x6E8E* a1x)//200aa0
 				{
 					a1x->targetId_0x96_150 = 0;
 				}
-				else if (Distance3D_583F0(&a1x->position_0x4C_76, &v28x->position_0x4C_76) > 0x1000)
+				else if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v28x->position_0x4C_76) > 0x1000)
 				{
 					//LOWORD(jx) = Maths::GetYawAngle_581E0(&a1x->array_0x4C_76, &v28x->array_0x4C_76);
 					a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v28x->position_0x4C_76);
@@ -3383,8 +3383,8 @@ void ArcherWander_1FAA0(type_entity_0x6E8E* a1x)//200aa0
 					{
 						v13 = a1x->typeParams_0xA0_160x->wanderAngle_160_0x1e_30;
 						v14 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v10x->position_0x4C_76);
-						//jx = (unsigned __int16)AngleDifference_582B0(a1x->word_0x1C_28, v14);
-						if (AngleDifference_582B0(a1x->yaw_0x1C_28, v14) < v13)
+						//jx = (unsigned __int16)Maths::AngleDifference_582B0(a1x->word_0x1C_28, v14);
+						if (Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v14) < v13)
 						{
 							//LOBYTE(jx) = v35;
 							if (v35 < v32)
@@ -3454,8 +3454,8 @@ void ArcherWander_1FAA0(type_entity_0x6E8E* a1x)//200aa0
 						{
 							v26 = a1x->typeParams_0xA0_160x->wanderAngle_160_0x1e_30;
 							v27 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &kx->position_0x4C_76);
-							//jx = (unsigned __int16)AngleDifference_582B0(a1x->word_0x1C_28, v27);
-							if (AngleDifference_582B0(a1x->yaw_0x1C_28, v27) < v26)
+							//jx = (unsigned __int16)Maths::AngleDifference_582B0(a1x->word_0x1C_28, v27);
+							if (Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v27) < v26)
 							{
 								//LOBYTE(jx) = v36;
 								if (v36 < v34)
@@ -3740,7 +3740,7 @@ void SkeletonArcherWander_203D0(type_entity_0x6E8E* a1x)//2013d0
 			{
 				a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v9x->position_0x4C_76);
 				v13 = v9x->params_0x52_82.pitch + a1x->typeParams_0xA0_160x->range_160_0x1c_28;
-				if (Distance3D_583F0(&a1x->position_0x4C_76, &v9x->position_0x4C_76) > v13)
+				if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v9x->position_0x4C_76) > v13)
 				{
 					v41x = 0;
 				}
@@ -3779,7 +3779,7 @@ void SkeletonArcherWander_203D0(type_entity_0x6E8E* a1x)//2013d0
 							{
 								v21 = a1x->typeParams_0xA0_160x->wanderAngle_160_0x1e_30;
 								v22 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v17x->position_0x4C_76);
-								if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, v22) < v21 && v43 < v44)
+								if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v22) < v21 && v43 < v44)
 								{
 									v16x = v17x;
 									v44 = v43;
@@ -3809,7 +3809,7 @@ void SkeletonArcherWander_203D0(type_entity_0x6E8E* a1x)//2013d0
 						LABEL_79:
 							if (v41x)
 							{
-								if (Distance3D_583F0(&a1x->position_0x4C_76, &v41x->position_0x4C_76) <= 0x600)
+								if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v41x->position_0x4C_76) <= 0x600)
 								{
 									predictedAxis_EB398ar = v41x->position_0x4C_76;
 									DisableEntityDrawing04_57F10(v41x);
@@ -4155,7 +4155,7 @@ void SkeletonArcherAttack_20C50(type_entity_0x6E8E* a1x)//201c50
 		v9 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 		if (v7x->class_0x3F_63 == 3 && v7x->model_0x40_64 == 2)
 			v9 += v7x->params_0x52_82.pitch;
-		if (Distance3D_583F0(&a1x->position_0x4C_76, &v7x->position_0x4C_76) < v9)
+		if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v7x->position_0x4C_76) < v9)
 		{
 			CreatureShootArrow2_1CDA0(a1x, v7x);
 			goto LABEL_32;
@@ -4339,7 +4339,7 @@ void EmuIdle_21030(type_entity_0x6E8E* a1x)//202030
 		if (a1x->subSpellIndex_0x2A_42 & 1)
 			goto LABEL_26;
 		a1x->param_0x10_16--;
-		if ((signed int)Maths::EuclideanDistXYZ_58490(&v1x->position_0x4C_76, &a1x->position_0x4C_76) < 0x2000 && a1x->param_0x10_16 <= 0)
+		if ((signed int)Maths::DistanceXY_58490(&v1x->position_0x4C_76, &a1x->position_0x4C_76) < 0x2000 && a1x->param_0x10_16 <= 0)
 		{
 			a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 			if ((signed int)(a1x->rand_0x14_20 % 0xCu) < 9)
@@ -4613,7 +4613,7 @@ char EmuUpdateState_21490(type_entity_0x6E8E* a1x)//202490
 		}
 		else if (v1 & 0x40)
 		{
-			if (Maths::EuclideanDistXYZ_58490(&Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->position_0x4C_76,
+			if (Maths::DistanceXY_58490(&Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->position_0x4C_76,
 				&a1x->position_0x4C_76) >= 0xA00)
 			{
 				a1x->subSpellIndex_0x2A_42 &= 0xBFu;
@@ -5168,7 +5168,7 @@ char EmuCheckNearbyEntities_21F60(type_entity_0x6E8E* a1x)//202f60
 		LABEL_19:
 			if (!v17)
 			{
-				if (Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &ix->position_0x4C_76) <= 0xC00)
+				if (Maths::DistanceXY_58490(&a1x->position_0x4C_76, &ix->position_0x4C_76) <= 0xC00)
 				{
 					v19 = 1;
 					v18 = 1;
@@ -5340,12 +5340,12 @@ void EmuFacePlayer_222B0(type_entity_0x6E8E* a1x)//2032b0
 		}
 		if (v3)
 		{
-			/*LOWORD(v1) = TurnTowardsAngle_58350(
+			/*LOWORD(v1) = Maths::TurnTowardsAngle_58350(
 				*(x_WORD *)(a1 + 28),
 				*(x_WORD *)(a1 + 32),
 				*(unsigned __int16 *)(*(x_DWORD *)(a1 + 160) + 4),
 				*(x_WORD *)(a1 + 44));*/
-			a1x->yaw_0x1C_28 += TurnTowardsAngle_58350(
+			a1x->yaw_0x1C_28 += Maths::TurnTowardsAngle_58350(
 				a1x->yaw_0x1C_28,
 				a1x->roll_0x20_32,
 				a1x->typeParams_0xA0_160x->yawTurnLimit_160_0x4_4,
@@ -5849,7 +5849,7 @@ void BuilderAttack_22E60(type_entity_0x6E8E* a1x)//203e60
 			}
 			v9 = &v8x->position_0x4C_76;
 			a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v8x->position_0x4C_76);
-			v1 = Distance3D_583F0(&a1x->position_0x4C_76, v9);
+			v1 = Maths::Distance3D_583F0(&a1x->position_0x4C_76, v9);
 			if (v1 < 0xA00)
 			{
 				LOBYTE(v1) = 96;
@@ -5943,7 +5943,7 @@ void BuilderFollow_23020(type_entity_0x6E8E* a1x)//204020
 		v7x = 0;
 		for (jx = gameState_D41A4.buildingList_38527; jx > Entities_EA3E4[0]; jx = jx->next_0)
 		{
-			v9 = Distance3D_583F0(&a1x->position_0x4C_76, &jx->position_0x4C_76);
+			v9 = Maths::Distance3D_583F0(&a1x->position_0x4C_76, &jx->position_0x4C_76);
 			if (v9 && v9 < v11)
 			{
 				v7x = jx;
@@ -6132,7 +6132,7 @@ void TownieWander_23340(type_entity_0x6E8E* a1x)//204340
 		v12x = Entities_EA3E4[a1x->targetId_0x96_150];
 		if (v12x->class_0x3F_63 == 10 && v12x->model_0x40_64 == 45)
 		{
-			if (Distance3D_583F0(&a1x->position_0x4C_76, &v12x->position_0x4C_76) > 0x800)
+			if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v12x->position_0x4C_76) > 0x800)
 			{
 				//LOWORD(j) = Maths::GetYawAngle_581E0((uint16_t*)(a1 + 76), (uint16_t*)(v12 + 76));
 				a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v12x->position_0x4C_76);
@@ -6360,7 +6360,7 @@ void TraderWander_237B0(type_entity_0x6E8E* a1x)//2047b0
 		v13x = Entities_EA3E4[v7];
 		if (v13x->class_0x3F_63 == 10 && v13x->model_0x40_64 == 45)
 		{
-			if (Distance3D_583F0(&a1x->position_0x4C_76, &v13x->position_0x4C_76) > 0x800)
+			if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v13x->position_0x4C_76) > 0x800)
 			{
 				//LOWORD(v1) = Maths::GetYawAngle_581E0((uint16_t*)(a1 + 76), (uint16_t*)(v13 + 76));
 				a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v13x->position_0x4C_76);
@@ -6587,7 +6587,7 @@ void ExplodedHumanWander_23C40(type_entity_0x6E8E* a1x)//204c40
 							{
 								v13 = a1x->typeParams_0xA0_160x->wanderAngle_160_0x1e_30;
 								v14 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v10x->position_0x4C_76);
-								if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, v14) < v13 && v12 < v16)
+								if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v14) < v13 && v12 < v16)
 								{
 									v18x = v10x;
 									v16 = v12;
@@ -6695,7 +6695,7 @@ void ExplodedHumanAttack_23E60(type_entity_0x6E8E* a1x)//204e60
 			v11 = &v6x->position_0x4C_76;
 			v8 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
 			v12 = &a1x->position_0x4C_76;
-			if (Distance3D_583F0(&a1x->position_0x4C_76, &v6x->position_0x4C_76) >= v8)
+			if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v6x->position_0x4C_76) >= v8)
 			{
 				a1x->actionIndex_0x45_69 = 121;
 				goto LABEL_26;
@@ -7003,7 +7003,7 @@ void WyvernAttack_24510(type_entity_0x6E8E* a1x)//205510
 			{
 				if (!(a1x->instanceIndex_0x3E_62 & 7))
 				{
-					if (iz->class_0x3F_63 == 3 || (iy = Distance3D_583F0(&a1x->position_0x4C_76, &iz->position_0x4C_76), iy >= 0x200))//0x205616 cmp byte ptr [eax+3Fh], 3 (eax = target)
+					if (iz->class_0x3F_63 == 3 || (iy = Maths::Distance3D_583F0(&a1x->position_0x4C_76, &iz->position_0x4C_76), iy >= 0x200))//0x205616 cmp byte ptr [eax+3Fh], 3 (eax = target)
 					{
 						//LOWORD(i) = Maths::GetYawAngle_581E0((uint16_t*)(a1 + 76), (uint16_t*)(v5 + 76));
 						a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v5x->position_0x4C_76);
@@ -7051,7 +7051,7 @@ void WyvernAttack_24510(type_entity_0x6E8E* a1x)//205510
 							if (!(a1x->instanceIndex_0x3E_62 % (2 * a1x->typeParams_0xA0_160x->updateInterval_160_0x1a_26)))
 								PrepareEventSound_6E450(a1x - world_D41A0.entities_0x6E8E, -1, 39);
 							v11 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v5x->position_0x4C_76);
-							LOWORD(iy) = AngleDifference_582B0(a1x->yaw_0x1C_28, v11);
+							LOWORD(iy) = Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v11);
 							if ((unsigned __int16)iy < 0xE3u)
 							{
 								a1x->param_0x10_16 = 15;
@@ -7247,7 +7247,7 @@ void ManticoreAttack_24930(type_entity_0x6E8E* a1x)//205930
 			LOWORD(v1) = a1x->instanceIndex_0x3E_62 / a1x->typeParams_0xA0_160x->updateInterval_160_0x1a_26;
 			if (!(a1x->instanceIndex_0x3E_62 % a1x->typeParams_0xA0_160x->updateInterval_160_0x1a_26))
 			{
-				v1 = Distance3D_583F0(&a1x->position_0x4C_76, &v15x->position_0x4C_76);
+				v1 = Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v15x->position_0x4C_76);
 				if (v1 >= a1x->typeParams_0xA0_160x->range_160_0x1c_28)
 				{
 					a1x->actionIndex_0x45_69 = 137;
@@ -7418,7 +7418,7 @@ void SentinelIdle_24E20(type_entity_0x6E8E* a1x)//205e20
 			if ((x_BYTE)result == 1 && a1x->targetId_0x96_150)
 			{
 				v10x = Entities_EA3E4[a1x->targetId_0x96_150];
-				v11 = Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &v10x->position_0x4C_76);
+				v11 = Maths::DistanceXY_58490(&a1x->position_0x4C_76, &v10x->position_0x4C_76);
 				if (v11 < a1x->typeParams_0xA0_160x->range_160_0x1c_28)
 				{
 					TurnTowardsEntity_254E0(a1x, v10x, 4u);
@@ -7463,7 +7463,7 @@ void SentinelIdle_24E20(type_entity_0x6E8E* a1x)//205e20
 							{
 								v7 = a1x->typeParams_0xA0_160x->wanderAngle_160_0x1e_30;
 								v8 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v5x->position_0x4C_76);
-								result = (unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, v8);
+								result = (unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v8);
 								if (result < v7)
 								{
 									result = v14;
@@ -7584,7 +7584,7 @@ void SentinelAttack_250B0(type_entity_0x6E8E* a1x)//2060b0
 				else
 				{
 					a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v5x->position_0x4C_76);
-					a1x->yaw_0x1C_28 += TurnTowardsAngle_58350(a1x->yaw_0x1C_28, a1x->roll_0x20_32, 5, 0x400u);
+					a1x->yaw_0x1C_28 += Maths::TurnTowardsAngle_58350(a1x->yaw_0x1C_28, a1x->roll_0x20_32, 5, 0x400u);
 					a1x->yaw_0x1C_28 &= 0x7ff;
 					/*LOWORD(v1) = */CreatureShootSpread_1D460(a1x, v6x);
 				}
@@ -7916,7 +7916,7 @@ void HitFirefly_25610(type_entity_0x6E8E* a1x)//206610
 						(v34x->yaw_0x1C_28 - 256 + (signed int)(a1x->rand_0x14_20 % 0x5Au << 11) / 360) & 0x7FF,
 						0,
 						2048);
-					if (Distance3D_583F0(&a1x->position_0x4C_76, &predictedAxis_EB398ar) <= 0x500)
+					if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &predictedAxis_EB398ar) <= 0x500)
 					{
 						a1x->levelPar3_0x46_70 = 2;
 					}
@@ -7971,7 +7971,7 @@ void HitFirefly_25610(type_entity_0x6E8E* a1x)//206610
 					}
 					predictedAxis_EB398ar = v34x->position_0x4C_76;
 					MoveEntity_57FA0(&predictedAxis_EB398ar, v34x->yaw_0x1C_28, 0, 2048);
-					if (Distance3D_583F0(&a1x->position_0x4C_76, &predictedAxis_EB398ar) > 0x500)
+					if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &predictedAxis_EB398ar) > 0x500)
 					{
 					LABEL_57:
 						a1x->levelPar3_0x46_70 = 0;
@@ -8029,7 +8029,7 @@ void HitFirefly_25610(type_entity_0x6E8E* a1x)//206610
 					if (a1x->instanceIndex_0x3E_62 % a1x->typeParams_0xA0_160x->updateInterval_160_0x1a_26)
 						return;
 					v32 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
-					if (Distance3D_583F0(&a1x->position_0x4C_76, &v34x->position_0x4C_76) >= v32)
+					if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v34x->position_0x4C_76) >= v32)
 						goto LABEL_79;
 					CreatureShootFireball_1CC20(a1x, v34x);
 					return;
@@ -8089,7 +8089,7 @@ void HitFirefly_25610(type_entity_0x6E8E* a1x)//206610
 				if (!(a1x->instanceIndex_0x3E_62 % a1x->typeParams_0xA0_160x->updateInterval_160_0x1a_26))
 				{
 					v26 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
-					if (Distance3D_583F0(&a1x->position_0x4C_76, &v34x->position_0x4C_76) >= v26)
+					if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v34x->position_0x4C_76) >= v26)
 						LABEL_79:
 					a1x->levelPar3_0x46_70 = 6;
 				}
@@ -8342,7 +8342,7 @@ char DevilWander_26070(type_entity_0x6E8E* a1x)//207070
 				{
 					v9 = a1x->typeParams_0xA0_160x->wanderAngle_160_0x1e_30;
 					v10 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v5x->position_0x4C_76);
-					v1 = (unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, v10);
+					v1 = (unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v10);
 					if (v1 < v9)
 					{
 						LOBYTE(v1) = v14;
@@ -8420,7 +8420,7 @@ void DevilAttack_26220(/*type_str_0x6E8E* a1x, */type_entity_0x6E8E* a2x)//20722
 		if (a2x->instanceIndex_0x3E_62 & 0x1F)
 			goto LABEL_22;
 		v6 = a2x->typeParams_0xA0_160x->range_160_0x1c_28;
-		if (Distance3D_583F0(&a2x->position_0x4C_76, &v4x->position_0x4C_76) < v6)
+		if (Maths::Distance3D_583F0(&a2x->position_0x4C_76, &v4x->position_0x4C_76) < v6)
 			CreatureShootFireball_1CC20(a2x, v4x);
 		else
 			LABEL_26:
@@ -8880,7 +8880,7 @@ void FlyingManaAttack_26AA0(type_entity_0x6E8E* a1x)//207aa0
 		v5 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v4x->position_0x4C_76);
 		v6 = a1x->instanceIndex_0x3E_62;
 		a1x->roll_0x20_32 = v5;
-		if (v6 & 3 || Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &v4x->position_0x4C_76) > 0x100)
+		if (v6 & 3 || Maths::DistanceXY_58490(&a1x->position_0x4C_76, &v4x->position_0x4C_76) > 0x100)
 			goto LABEL_13;
 		if (a1x->mana_0x90_144 + v4x->mana_0x90_144 < v4x->maxMana_0x8C_140)
 		{
@@ -9676,7 +9676,7 @@ void MoonDwellerIdle_27950(type_entity_0x6E8E* event)//208950
 	{
 		v9x = &v5x->position_0x4C_76;
 		event->roll_0x20_32 = Maths::GetYawAngle_581E0(&event->position_0x4C_76, &v5x->position_0x4C_76);
-		if ((signed int)Maths::EuclideanDistXYZ_58490(&event->position_0x4C_76, v9x) < 768)
+		if ((signed int)Maths::DistanceXY_58490(&event->position_0x4C_76, v9x) < 768)
 		{
 			v13 = 500;
 			v12 = 0;
@@ -9782,7 +9782,7 @@ void MoonDwellerFollow_27C10(type_entity_0x6E8E* a1x)//208c10
 			v7x = FindNearestCastle_28000(a1x);
 			if (v7x
 				&& (a1x->targetId_0x96_150 = v7x - world_D41A0.entities_0x6E8E,
-					(signed int)Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &v7x->position_0x4C_76) <= 3584))
+					(signed int)Maths::DistanceXY_58490(&a1x->position_0x4C_76, &v7x->position_0x4C_76) <= 3584))
 			{
 				SetEntityActionState_27FE0(a1x, 185, 0, 500);
 			}
@@ -9871,7 +9871,7 @@ void MoonDwellerAttack_27E00(type_entity_0x6E8E* a1x)//208e00
 	if (!(a1x->typeParams_0xA0_160x->updateInterval_160_0x1a_26 & a1x->instanceIndex_0x3E_62))
 	{
 		v6 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
-		if (Distance3D_583F0(&a1x->position_0x4C_76, &v3x->position_0x4C_76) < v6)
+		if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v3x->position_0x4C_76) < v6)
 		{
 			CreatureShootProjectile9_1D260(a1x, v3x);
 			goto LABEL_16;
@@ -9920,7 +9920,7 @@ type_entity_0x6E8E* FindNearestCastle_28000(type_entity_0x6E8E* a1x)//209000
 	{
 		if (v3x->model_0x40_64 == 39)
 		{
-			v5 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &v3x->position_0x4C_76);
+			v5 = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &v3x->position_0x4C_76);
 			if (v5 < v1)
 			{
 				v2x = v3x;
@@ -10022,7 +10022,7 @@ void MoonDwellerCheckDamage_28110(type_entity_0x6E8E* a1x)//209110
 		if (v7x)
 		{
 			v9 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
-			if (Distance3D_583F0(&a1x->position_0x4C_76, &v7x->position_0x4C_76) < v9)
+			if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v7x->position_0x4C_76) < v9)
 			{
 				v10x = GetBalloonTarget_28420(a1x);
 				if (v10x
@@ -10080,7 +10080,7 @@ type_entity_0x6E8E* FindBalloonTarget_282D0(type_entity_0x6E8E* a1x)//2092d0
 		{
 			if (!CompareAxisWithShift_10750(ix, v7x))
 			{
-				v8 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
+				v8 = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &ix->position_0x4C_76);
 				if (v8 < v1)
 				{
 					v1 = v8;
@@ -10247,7 +10247,7 @@ void Creature24FindTarget_28690(type_entity_0x6E8E* a1x)//209690
 			{
 				v5 = a1x->typeParams_0xA0_160x->wanderAngle_160_0x1e_30;
 				v6 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v2x->position_0x4C_76);
-				if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, v6) < v5 && v4 < v11)
+				if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v6) < v5 && v4 < v11)
 				{
 					v10x = v2x;
 					v11 = v4;
@@ -10829,7 +10829,7 @@ void MummyAttack_28FF0(type_entity_0x6E8E* a1x)//209ff0
 				v6x->mana_0x90_144 = 0;
 			if (a1x->instanceIndex_0x3E_62 & 3)
 				return MummySetAttackFlag_293D0(a1x);
-			v10 = Distance3D_583F0(&a1x->position_0x4C_76, &v6x->position_0x4C_76);
+			v10 = Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v6x->position_0x4C_76);
 			if (v10 <= a1x->typeParams_0xA0_160x->range_160_0x1c_28)
 			{
 				if (v10 >= 2048)
@@ -11128,7 +11128,7 @@ void HydraAttack_29710(type_entity_0x6E8E* a1x)//20a710
 		{
 			v4 = a1x->typeParams_0xA0_160x->wanderAngle_160_0x1e_30;
 			v5 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v3x->position_0x4C_76);
-			if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, v5) <= v4)
+			if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v5) <= v4)
 			{
 				a1x->levelPar3_0x46_70 = 1;
 				SetEntitySpriteIfChanged_2AED0(a1x, 337);
@@ -11139,7 +11139,7 @@ void HydraAttack_29710(type_entity_0x6E8E* a1x)//20a710
 				SetEntitySpriteIfChanged_2AED0(a1x, 315);
 			}
 			v6 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
-			if (Distance3D_583F0(&a1x->position_0x4C_76, &v3x->position_0x4C_76) >= v6)
+			if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v3x->position_0x4C_76) >= v6)
 				LABEL_24:
 			v8 = 1;
 		}
@@ -11962,12 +11962,12 @@ type_entity_0x6E8E* HydraFindTarget_2A6F0(type_entity_0x6E8E* a1x)//20b6f0
 	v8 = v1 * v1;
 	while (v3x > Entities_EA3E4[0])
 	{
-		v4 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &v3x->position_0x4C_76);
+		v4 = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &v3x->position_0x4C_76);
 		if (v4 < v8)
 		{
 			v5 = a1x->typeParams_0xA0_160x->wanderAngle_160_0x1e_30;
 			v6 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v3x->position_0x4C_76);
-			if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, v6) < v5 && v4 < v9)
+			if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v6) < v5 && v4 < v9)
 			{
 				v2x = v3x;
 				v9 = v4;
@@ -12155,7 +12155,7 @@ void HydraAttachSegment_2AA90(/*type_str_0x6E8E* a1x,*/ type_entity_0x6E8E* a2x,
 	MoveEntity_57FA0(&v12x, v3x->angle_2 + a2x->yaw_0x1C_28, 0, v4);
 	v12x.z += v3x->height_4;
 	v14x = a3x->position_0x4C_76;
-	v5 = (signed int)(Distance3D_583F0(&v12x, &v14x) - 468) / 24;
+	v5 = (signed int)(Maths::Distance3D_583F0(&v12x, &v14x) - 468) / 24;
 	v18 = 16 - v5;
 	if (16 - v5 <= 15)
 	{
@@ -12443,7 +12443,7 @@ char MoveDragonEntity_2AF10(type_entity_0x6E8E* a1x, char a2)//20bf10
 		if (v12)
 		{
 			v5 = a1x->yaw_0x1C_28
-				+ TurnTowardsAngle_58350(
+				+ Maths::TurnTowardsAngle_58350(
 					a1x->yaw_0x1C_28,
 					a1x->roll_0x20_32,
 					a1x->typeParams_0xA0_160x->yawTurnLimit_160_0x4_4,
@@ -12582,7 +12582,7 @@ void ManaAttack_2B260(type_entity_0x6E8E* a1x)//20c260
 			}
 			else if (!(a1x->instanceIndex_0x3E_62 & 3) && a1x->param_0x10_16 < 14)
 			{
-				v1 = Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &v23x);
+				v1 = Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &v23x);
 				if (v1 < 2768896)
 				{
 					LOBYTE(v1) = IsAnyCreature28Alive_2B7E0(a1x);
@@ -12629,7 +12629,7 @@ void ManaAttack_2B260(type_entity_0x6E8E* a1x)//20c260
 				}
 				if (v10)
 				{
-					if (!(a1x->instanceIndex_0x3E_62 & 7) && Maths::EuclideanDistXY_584D0(&a1x->position_0x4C_76, &v25x->position_0x4C_76) > 802816)
+					if (!(a1x->instanceIndex_0x3E_62 & 7) && Maths::DistanceSquaredXY_584D0(&a1x->position_0x4C_76, &v25x->position_0x4C_76) > 802816)
 						a1x->roll_0x20_32 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v25x->position_0x4C_76);
 					v12 = a1x->param_0x10_16;
 					if (a1x->param2_0x2C_44 - 3 > v12 && v12 > 3 && CreatureMeleeAttack768_1CED0(a1x, v25x))
@@ -12659,7 +12659,7 @@ void ManaAttack_2B260(type_entity_0x6E8E* a1x)//20c260
 			if (v17)
 			{
 				v20 = a1x->typeParams_0xA0_160x->range_160_0x1c_28;
-				if (Distance3D_583F0(&a1x->position_0x4C_76, &v25x->position_0x4C_76) < v20)
+				if (Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v25x->position_0x4C_76) < v20)
 					v26 = 1;
 			}
 			if (v26)

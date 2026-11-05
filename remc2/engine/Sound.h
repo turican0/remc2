@@ -313,8 +313,6 @@ void AIL_fix();
 const char* mygetenv(const char* a1);
 void PrepareEventSound_6E450(int16_t entityIdx, int16_t levelIndex, int16_t wavIndex);
 void ChangeSoundLevel_19CA0(uint8_t option);
-int AngleDifference_582B0(__int16 a1, __int16 a2);
-int AngleTurnDirection_582F0(int a1, __int16 a2);
 bool ShouldUpdateSound_6EA90(int a1, int a2);
 
 extern char soundInitialized_D4B50;

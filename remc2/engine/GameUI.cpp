@@ -3081,8 +3081,8 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 			v81 = 1;
 		LABEL_47:
 			v67x = *v17x;
-			//i = (uint8_t*)Maths::EuclideanDistXYZ_58490(v16x, v36x);
-			v8 = Maths::EuclideanDistXYZ_58490(v16x, v36x);
+			//i = (uint8_t*)Maths::DistanceXY_58490(v16x, v36x);
+			v8 = Maths::DistanceXY_58490(v16x, v36x);
 		}
 		break;
 	case 0xA: //Markers around Enemies
@@ -3096,7 +3096,7 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 			v51x.v51y = v72x->position_0x4C_76;
 			if (DrawObjectiveRectangle_64CE0(&v51x, scale))
 				SetHelpItemTarget_885E0(v72x, v51x.v62xw_42, v51x.v63xw_44, 0x52u);
-			v19 = Maths::EuclideanDistXYZ_58490(&v75x->position_0x4C_76, &v72x->position_0x4C_76);
+			v19 = Maths::DistanceXY_58490(&v75x->position_0x4C_76, &v72x->position_0x4C_76);
 			if (v19 < v8)
 			{
 				v81 = 1;
@@ -3121,7 +3121,7 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 					v51x.v51y = v72x->position_0x4C_76;
 					if (DrawObjectiveRectangle_64CE0(&v51x, scale))
 						SetHelpItemTarget_885E0(v72x, v51x.v62xw_42, v51x.v63xw_44, 0x52u);
-					v20 = Maths::EuclideanDistXYZ_58490(&v75x->position_0x4C_76, &v72x->position_0x4C_76);
+					v20 = Maths::DistanceXY_58490(&v75x->position_0x4C_76, &v72x->position_0x4C_76);
 					if (v20 < v8)
 					{
 						v8 = v20;
@@ -3406,7 +3406,7 @@ void SetHelpItemTarget_885E0(type_entity_0x6E8E* a1x, int16_t posX, int16_t posY
 			{
 				v12 = 0;
 				if (!a1x
-					|| (v4 = Maths::EuclideanDistXYZ_58490(
+					|| (v4 = Maths::DistanceXY_58490(
 						&Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->position_0x4C_76,
 						&a1x->position_0x4C_76),
 						v5 = v4,

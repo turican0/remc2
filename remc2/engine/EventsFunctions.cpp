@@ -3009,7 +3009,7 @@ void SetMaxDistance_5C8D0(type_entity_0x6E8E* event)//23d8d0
 {
 	uint32_t distance; // eax
 	type_entity_0x6E8E* event2 = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
-	distance = Distance3D_583F0(&event->position_0x4C_76, &event2->position_0x4C_76);
+	distance = Maths::Distance3D_583F0(&event->position_0x4C_76, &event2->position_0x4C_76);
 	if (distance <= event2->playerData_0xA4_164x->maxDistance_0x19E_414)
 		event2->playerData_0xA4_164x->maxDistance_0x19E_414 = distance;
 }

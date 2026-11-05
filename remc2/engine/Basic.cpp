@@ -4283,66 +4283,6 @@ void fix_sub_9A0FC_wait_to_screen_beam(int32_t delay)//27B0fc
 }
 
 
-//----- (00058350) --------------------------------------------------------
-int TurnTowardsAngle_58350(unsigned __int16 a1, __int16 a2, int  /*a3*/, unsigned __int16 a4)//239350
-{
-	int v4; // ebx
-	int v5; // esi
-	int v6; // eax
-
-	if (a1 == a2)
-		return 0;
-	v4 = AngleDifference_582B0(a1, a2);
-	v5 = AngleTurnDirection_582F0(a1, a2);
-	v6 = v4;
-	if ((signed __int16)v4 > (signed int)a4)
-		v6 = a4;
-	return v5 * v6;
-}
-
-//----- (000583B0) --------------------------------------------------------
-int GetChebyshevDistXY_583B0(axis_3d* a1, axis_3d* a2)//2393b0
-{
-	int v2; // ebx
-	int v3; // eax
-
-	v2 = abs((int16_t)(a2->x - a1->x));//0x2393BB 16-bit sub + cwde
-	v3 = abs((int16_t)(a2->y - a1->y));//0x2393C9 16-bit sub + cwde
-	if (v2 < v3)
-		v2 = v3;
-	return v2;
-}
-
-//----- (000583F0) --------------------------------------------------------
-uint32_t Distance3D_583F0(axis_3d* a1, axis_3d* a2)//2393f0
-{
-	return Maths::IntegerSqrt_7277A(
-		(int16_t)(a2->y - a1->y) * (int16_t)(a2->y - a1->y)
-		+ (int16_t)(a2->x - a1->x) * (int16_t)(a2->x - a1->x)
-		+ (int16_t)(a2->z - a1->z) * (int16_t)(a2->z - a1->z));
-}
-
-//----- (00058440) --------------------------------------------------------
-int DistanceSquared3D_58440(axis_3d* a1, axis_3d* a2)//239440
-{
-	return (signed __int16)(a2->y - a1->y) * (signed __int16)(a2->y - a1->y)
-		+ (signed __int16)(a2->x - a1->x) * (signed __int16)(a2->x - a1->x)
-		+ (signed __int16)(a2->z - a1->z) * (signed __int16)(a2->z - a1->z);
-}
-
-//----- (00084FB0) --------------------------------------------------------
-int DistanceSquared3DAlt_84FB0(axis_3d* a1, axis_3d* a2)//265fb0
-{
-	//int v2; // eax
-	//int v3; // edx
-	//int v4; // eax
-
-	//v2 = a1[1] - a2[1];
-	//v3 = v2 * v2;
-	//v4 = a1[0] - a2[0];
-	return ((int16_t)a1->x - (int16_t)a2->x) * ((int16_t)a1->x - (int16_t)a2->x) + ((int16_t)a1->y - (int16_t)a2->y) * ((int16_t)a1->y - (int16_t)a2->y) + ((int16_t)a1->z - (int16_t)a2->z) * ((int16_t)a1->z - (int16_t)a2->z);
-}
-
 //----- (0009D3F0) --------------------------------------------------------
 /*void* (*sub_9D3F0_set_malloc_type(void* (*a1)(size_t size)))(size_t)//27e3f0
 {

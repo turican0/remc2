@@ -527,7 +527,7 @@ void UpdatePossessedCreature_3A8B0(type_entity_0x6E8E* entity)//21b8b0
 			{
 				if (entity4->model_0x40_64 <= 1u && entity4 != entity8)
 				{
-					uint32_t distance = Distance3D_583F0(&entity->position_0x4C_76, &entity4->position_0x4C_76);
+					uint32_t distance = Maths::Distance3D_583F0(&entity->position_0x4C_76, &entity4->position_0x4C_76);
 					if (distance < 3584 && distance < nearestDistance)
 					{
 						entity6 = entity4;

@@ -1725,13 +1725,13 @@ bool MoveTest_5D0A0(type_entity_0x6E8E* a1x)//23e0a0
 		//v1 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &x_WORD_EB398ar);
 		//LOWORD(v2) = Maths::GetPitchAngle_58210(&a1x->position_0x4C_76, &x_WORD_EB398ar);
 		v45 = Maths::GetPitchAngle_58210(&a1x->position_0x4C_76, &predictedAxis_EB398ar);
-		v42 = Distance3D_583F0(&a1x->position_0x4C_76, &predictedAxis_EB398ar);
+		v42 = Maths::Distance3D_583F0(&a1x->position_0x4C_76, &predictedAxis_EB398ar);
 		v41 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &predictedAxis_EB398ar);
 		v3 = (v41 - (__CFSHL__(v41 >> 31, 9) + (v41 >> 31 << 9))) >> 9;
 		predictedAxis_EB398ar = a1x->position_0x4C_76;
 		v4 = (x_WORD)v3 << 9;
 		v49 = (((x_WORD)v3 + 1) << 9) & 0x7FF;
-		v5 = AngleDifference_582B0(v41, (x_WORD)v3 << 9);
+		v5 = Maths::AngleDifference_582B0(v41, (x_WORD)v3 << 9);
 		v36 = (unsigned __int16)v42;
 		v35 = (unsigned __int16)v45;
 		MoveEntity_57FA0(
@@ -1744,7 +1744,7 @@ bool MoveTest_5D0A0(type_entity_0x6E8E* a1x)//23e0a0
 		if (TerrainTileIsWater_104D0(&predictedAxis_EB398ar) == 256)
 		{
 			predictedAxis_EB398ar = a1x->position_0x4C_76;
-			v6 = AngleDifference_582B0(v41, v49);
+			v6 = Maths::AngleDifference_582B0(v41, v49);
 			MoveEntity_57FA0(
 				&predictedAxis_EB398ar,
 				v49,
@@ -2156,7 +2156,7 @@ void UpdateWizardMount_5DE30(type_entity_0x6E8E* a1x)//23ee30
 		v4 = a1x->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[14];
 		if (v4)
 			v3x = Entities_EA3E4[v4];
-		v5 = Distance3D_583F0(&a1x->position_0x4C_76, &v2x->position_0x4C_76);
+		v5 = Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v2x->position_0x4C_76);
 		if (v3x && v3x->stage_0x2E_46 && v5 < SPELLS_BEGIN_BUFFER_str[14].subspell[a1x->playerData_0xA4_164x->duelLevel_0x14A_330].subSpellIndex_2 && v2x->life_0x8 >= 0)
 		{
 			v12 = 3 * a1x->minSpeed_0x84_132 / 2;
@@ -2167,7 +2167,7 @@ void UpdateWizardMount_5DE30(type_entity_0x6E8E* a1x)//23ee30
 				LOWORD(v6) = v12;
 			v7 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &v2x->position_0x4C_76);
 			v8 = v7;
-			v9 = a1x->yaw_0x1C_28 + TurnTowardsAngle_58350(a1x->yaw_0x1C_28, v7, 5, 0x82u);
+			v9 = a1x->yaw_0x1C_28 + Maths::TurnTowardsAngle_58350(a1x->yaw_0x1C_28, v7, 5, 0x82u);
 			HIBYTE(v9) &= 7u;
 			a1x->yaw_0x1C_28 = v9;
 			MoveEntity_57FA0(&predictedAxis_EB398ar, v8, a1x->pitch_0x1E_30, v6);
@@ -2463,12 +2463,12 @@ __int16 CheckWizardKiller_5E6C0(type_entity_0x6E8E* a1x)//23f6c0
 		v4 = a1x->roll_0x20_32;
 		v5 = a1x->yaw_0x1C_28;
 		a1x->fov_0x22_34 = v3;
-		v6 = TurnTowardsAngle_58350(v5, v4, 5, 0x16u);
+		v6 = Maths::TurnTowardsAngle_58350(v5, v4, 5, 0x16u);
 		//LOWORD(v2) = a1x->fov_0x22_34;
 		a1x->yaw_0x1C_28 += v6;
 		//v7 = a1x->word_0x1E_30;
 		a1x->yaw_0x1C_28 &= 0x7ff;
-		a1x->pitch_0x1E_30 += TurnTowardsAngle_58350(a1x->pitch_0x1E_30, a1x->fov_0x22_34, 5, 0x16u);
+		a1x->pitch_0x1E_30 += Maths::TurnTowardsAngle_58350(a1x->pitch_0x1E_30, a1x->fov_0x22_34, 5, 0x16u);
 		a1x->pitch_0x1E_30 &= 0x7ff;
 		v8 = GetTerrainAlt_10C40(&a1x->position_0x4C_76);
 	}
@@ -2647,14 +2647,14 @@ signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1x)//23f8c0 //end game seq
 		break;
 	case 3://change rotation
 		v10 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &Entities_EA3E4[a1x->targetId_0x96_150]->position_0x4C_76);
-		if ((unsigned __int16)AngleDifference_582B0(a1x->yaw_0x1C_28, v10) <= 0xBu)
+		if ((unsigned __int16)Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v10) <= 0xBu)
 		{
 			a1x->levelPar3_0x46_70 = 4;
 			a1x->yaw_0x1C_28 = v10;
 		}
 		else
 		{
-			a1x->yaw_0x1C_28 += TurnTowardsAngle_58350(a1x->yaw_0x1C_28, v10, 0, 0xBu);
+			a1x->yaw_0x1C_28 += Maths::TurnTowardsAngle_58350(a1x->yaw_0x1C_28, v10, 0, 0xBu);
 			a1x->yaw_0x1C_28 &= 0x7ff;
 		}
 		break;
@@ -2714,7 +2714,7 @@ signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1x)//23f8c0 //end game seq
 		if (!MoveTest_5D0A0(a1x))
 			goto LABEL_51;
 		CopyEntityPosition_57CF0(a1x, &predictedAxis_EB398ar);
-		if (Maths::EuclideanDistXYZ_58490(&a1x->position_0x4C_76, &v14x->position_0x4C_76) < 0x180)
+		if (Maths::DistanceXY_58490(&a1x->position_0x4C_76, &v14x->position_0x4C_76) < 0x180)
 			goto LABEL_51;
 		break;
 	case 8:

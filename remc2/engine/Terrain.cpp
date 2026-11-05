@@ -3795,7 +3795,7 @@ void ApplyLightToTile_84EA0(uaxis_2d a1x, type_str_0x3664C* a2x, char a3, __int1
 		v12.x = (a1x._axis_2d.x << 8) + 128;
 		v12.y = (a1x._axis_2d.y << 8) + 128;
 		v12.z = GetTerrainAlt_10C40(&v12);
-		v7 = DistanceSquared3DAlt_84FB0(&a2x->axis3d_4, &v12);//fix v7 = sub_84FB0(a2 + 4, &v12);
+		v7 = Maths::DistanceSquared3DAlt_84FB0(&a2x->axis3d_4, &v12);//fix v7 = sub_84FB0(a2 + 4, &v12);
 		if (v7 < 0x48000)
 		{
 			if (a2x->flags_1 & 1)

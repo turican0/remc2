@@ -2539,7 +2539,7 @@ signed int UpdateCastleTarget_5EFA0(type_entity_0x6E8E* a1x)//23ffa0
 			if (v3x)
 			{
 				v3x->playerData_0xA4_164x->mountId_0x146_326 = a1x - world_D41A0.entities_0x6E8E;
-				v3x->playerData_0xA4_164x->targetDistance_0x142_322 = Distance3D_583F0(&a1x->position_0x4C_76, &v3x->position_0x4C_76);
+				v3x->playerData_0xA4_164x->targetDistance_0x142_322 = Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v3x->position_0x4C_76);
 				v3x->playerData_0xA4_164x->duelLevel_0x14A_330 = a1x->mail_0x5E_94.channel[4].amount.word[0];
 				//v4 = v3x->dword_0xA4_164;
 				if (v3x->playerData_0xA4_164x->targetDistance_0x142_322 < 1024)
@@ -2893,7 +2893,7 @@ type_entity_0x6E8E* FindNearestEnemyBalloon_5F810(type_entity_0x6E8E* a1x, type_
 			&& v5x != a2x
 			&& v5x != a3x)
 		{
-			v7 = DistanceSquared3D_58440(&a1x->position_0x4C_76, &v5x->position_0x4C_76);
+			v7 = Maths::DistanceSquared3D_58440(&a1x->position_0x4C_76, &v5x->position_0x4C_76);
 			if (v7 < v3)
 			{
 				v4x = v5x;
@@ -3674,7 +3674,7 @@ void UpdateCastleBalloon_60AB0(type_entity_0x6E8E* a1x)//241ab0
 				v4 = 2048;
 			else
 				v4 = 1024;
-			v5 = Maths::EuclideanDistXYZ_58490(&predictedAxis_EB398ar, &v16x->position_0x4C_76);
+			v5 = Maths::DistanceXY_58490(&predictedAxis_EB398ar, &v16x->position_0x4C_76);
 			if (v5 > v4)
 			{
 				v16x->flags_0xc_12_15.byte[0] &= 0xBFu;
@@ -3705,7 +3705,7 @@ void UpdateCastleBalloon_60AB0(type_entity_0x6E8E* a1x)//241ab0
 			if (v3 == 3)
 			{
 				v7 = a1x->actSpeed_0x82_130 * v16x->param_0x10_16;
-				if (Maths::EuclideanDistXYZ_58490(&predictedAxis_EB398ar, v2) <= v7)
+				if (Maths::DistanceXY_58490(&predictedAxis_EB398ar, v2) <= v7)
 				{
 					v8 = a1x->typeParams_0xA0_160x->minHeight_160_0xc_12;
 					if (predictedAxis_EB398ar.z <= v8 + (signed __int16)GetTerrainAlt_10C40(&predictedAxis_EB398ar) && v16x->param_0x10_16 > 0)
@@ -4254,11 +4254,11 @@ signed int IsBalloonNearCastle_61810(type_entity_0x6E8E* a1x, type_entity_0x6E8E
 	__int16 v4; // ax
 
 	v2 = 0;
-	v3 = Distance3D_583F0(&a1x->position_0x4C_76, &a2x->position_0x4C_76);
+	v3 = Maths::Distance3D_583F0(&a1x->position_0x4C_76, &a2x->position_0x4C_76);
 	if (v3 < 5376)
 	{
 		v4 = Maths::GetYawAngle_581E0(&a1x->position_0x4C_76, &a2x->position_0x4C_76);
-		if (AngleDifference_582B0(a1x->yaw_0x1C_28, v4) < 0x100u)
+		if (Maths::AngleDifference_582B0(a1x->yaw_0x1C_28, v4) < 0x100u)
 			v2 = v3;
 	}
 	return v2;

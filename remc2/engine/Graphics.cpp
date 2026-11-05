@@ -807,7 +807,7 @@ void ShakeScreenNearPlayer_5C870(type_entity_0x6E8E* a1x)//23d870
 
 	v1x = Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240];
 	//v2x = v1x->playerData_0xA4_164x;
-	index = Distance3D_583F0(&a1x->position_0x4C_76, &v1x->position_0x4C_76);
+	index = Maths::Distance3D_583F0(&a1x->position_0x4C_76, &v1x->position_0x4C_76);
 	if (index <= v1x->playerData_0xA4_164x->screenShake_0x19A_410)
 		v1x->playerData_0xA4_164x->screenShake_0x19A_410 = index;
 	//return result;

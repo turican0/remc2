@@ -926,7 +926,7 @@ LABEL_48:
 		else
 		{
 			v18 = 0;
-			v13 = Maths::EuclideanDistXYZ_58490(&v4x->position_0x4C_76, &a1x->position_0x4C_76);
+			v13 = Maths::DistanceXY_58490(&v4x->position_0x4C_76, &a1x->position_0x4C_76);
 			if (!str_E2A74[v3].entity_12 || v13 < str_E2A74[v3].countdown_20 && v13 > 1024)
 				v18 = 1;
 			if (v18)
