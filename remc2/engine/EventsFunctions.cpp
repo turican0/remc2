@@ -918,7 +918,7 @@ int x_DWORD_E4E38 = 0; // weak
 __int16 x_WORD_E4E3C = 0; // weak
 //int32_t unk_E52EE; // weak
 int x_DWORD_E731C = 16; // weak
-//int x_DWORD_E7B24 = 210828714; // weak//sqrtTable_E7724[0x100+
+//int x_DWORD_E7B24 = 210828714; // weak//atanTable_E7724[0x100+
 __int16 x_WORD_E7C58 = 0; // weak
 uint32_t unk_E7C64x = 0; // weak
 double dbl_E7C6E = 1.7976931348623157e+308; // weak

@@ -624,11 +624,6 @@ unsigned long j___clock();
 
 void SetPlayerLocation(uint16_t x, uint16_t y, int16_t z, int16_t pitch, int16_t roll, int16_t yaw);
 
-int FixedSqrt_B12A4(int a1);
-int FixedAtan2_B1304(int a1, int a2);
-int FixedAsin_B1414(int a1);
-int FixedSin_B148C(int a1);
-int FixedSinCos_B14F8(int* a1, int a2);
 extern filearray_struct fonts_E9B20[4];
 void fix_sub_9A0FC_wait_to_screen_beam(int32_t delay = 10);
 
