@@ -68,6 +68,7 @@ void CommandLineParser::Init(int argc, char **argv) {
     m_kill_move_and_rotation = false;
     m_use_old_map_drawing = false;
     m_vulkan_validation = false;
+    m_magic_carpet_1 = false;
     m_memimages_path = "../remc2/memimages/";
     m_config_file_path = "";
 
@@ -267,6 +268,7 @@ void CommandLineParser::InterpretParams() {
         else if (param == "--kill_move_and_rotation")           m_kill_move_and_rotation = true;
         else if (param == "--use_old_map_drawing")              m_use_old_map_drawing = true;
         else if (param == "--vulkan_validation")                m_vulkan_validation = true;
+        else if (param == "-MC1" || param == "--MC1")           m_magic_carpet_1 = true;
         else if (param == "--memimages_path") {
             m_memimages_path = *(++p);
         }
