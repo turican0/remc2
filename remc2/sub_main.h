@@ -77,7 +77,6 @@ extern InputRecorder* m_InputRecorder;
 void begin_plugin();
 void preconvert();
 void initposistruct();
-void ProcessCommandLine_56210(int a1, char** a2);
 int CleanMemory_56730();
 int FreeJoystickMemory_8B5A0();
 int FreeJoystickBuffer_8B770();
@@ -92,8 +91,6 @@ void NoOp_8C2CD();
 void NetworkAllocation2_5C430();
 Scene GetCurrentScene();
 void SetCurrentScene(const Scene scene);
-uint8_t CreateNetherSubdir_53D10(const std::string& gameDir, const std::string& subDir);
-void Initialize();
 
 void StartRecording(const char* outputFileName);
 void StopRecording();

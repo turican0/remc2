@@ -7,6 +7,7 @@
 #endif //REMC2_CODE
 
 #include "../portability/port_filesystem.h"
+#include "../engine/Events.h"
 
 StateMonitor g_state_monitor;
 

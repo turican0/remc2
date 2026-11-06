@@ -3,6 +3,29 @@
 #include "engine_support.h"
 #include "CommandLineParser.h"
 #include "../portability/port_net.h"
+#include "EventsFunctions.h"
+#include "GameUI.h"
+#include "Graphics.h"
+#include "MenusAndIntros.h"
+#include "Network.h"
+#include "Player.h"
+#include "PlayerInput.h"
+#include "Events.h"
+#include "Level.h"
+#include "../utilities/StateMonitor.h"
+#include "../utilities/RendererTests.h"
+#include "ConvertMapInfo.h"
+#include "LevelInit.h"
+#include "DatTabIndexes.h"
+#include "MouseOnOff.h"
+#include "PrintMessages.h"
+#include "ReadAndDecompress.h"
+#include "Type_DB080_CdTrack.h"
+
+
+uint8_t TileTextureSize_D41B5 = 32; // weak
+
+std::array<uint8_t*, 256> textureAddresses_DDF50; /*= { 0,32 }*/ // weak
 
 std::string gameDataPath;
 std::string cdDataPath;
@@ -3734,4 +3757,78 @@ void fix_sub_9A0FC_wait_to_screen_beam(int32_t delay)//27B0fc
 	VGA_Blit(nullptr);
 	if (delay > 0)
 		mydelay(delay);
+}
+
+
+//----- (0009D3F0) --------------------------------------------------------
+/*void* (*sub_9D3F0_set_malloc_type(void* (*a1)(size_t size)))(size_t)//27e3f0
+{
+	//void* sub_83CD0_malloc2(int a1)
+  void* ( *v1)(size_t size); // ST04_4
+  v1 = off_E3E30_mallocx;
+  off_E3E30_mallocx = a1;
+  return v1;
+}*/
+// E3E30: using guessed type int (*off_E3E30_mallocx)(x_DWORD);
+
+//----- (0009D420) --------------------------------------------------------
+/*int (*sub_9D420(int (*a1)(void*)))(void*)//27e420
+{
+  int ( *v1)(void*); // ST04_4
+
+  v1 = off_E3E34_freex;
+  off_E3E34_freex = a1;
+  return v1;
+}*/
+// E3E34: using guessed type int (*off_E3E34_freex)(int);
+
+//----- (0009DEA0) --------------------------------------------------------
+uint8_t* ReadFile_9DEA0(char* filename, uint8_t* buffer)//27eea0
+{
+	uint8_t* locBuffer;
+	uint8_t* result;
+
+	readFileStatus_E3E2C = 0;
+	int fileLenght = GetFileLenght_9DE20(filename);
+	if (fileLenght == -1)
+	{
+		readFileStatus_E3E2C = 3;
+		result = 0;
+	}
+	else
+	{
+		if (buffer)
+			locBuffer = buffer;
+		else
+		{
+			locBuffer = (uint8_t*)malloc(fileLenght);
+		}
+		if (locBuffer)
+		{
+			FILE* locFile = x_open(filename, 512);
+			if (locFile == nullptr)
+			{
+				x_free((void*)locBuffer);
+				readFileStatus_E3E2C = 3;
+				result = 0;
+			}
+			else if (DataFileIO::Read(locFile, locBuffer, fileLenght) == fileLenght)
+			{
+				DataFileIO::Close(locFile);
+				result = locBuffer;
+			}
+			else
+			{
+				x_free((void*)locBuffer);
+				readFileStatus_E3E2C = 5;
+				result = 0;
+			}
+		}
+		else
+		{
+			readFileStatus_E3E2C = 2;
+			result = 0;
+		}
+	}
+	return result;
 }

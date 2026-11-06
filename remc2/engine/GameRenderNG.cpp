@@ -798,7 +798,7 @@ void GameRenderNG::SetEntityHelpText_88740(type_entity_0x6E8E* entity, int16_t p
 	}
 	else
 	{
-		const int distance = Maths::EuclideanDistXYZ_58490(&player->position_0x4C_76, &entity->position_0x4C_76);
+		const int distance = Maths::DistanceXY_58490(&player->position_0x4C_76, &entity->position_0x4C_76);
 		if (!str_E2A74[text].entity_12 || (distance < str_E2A74[text].countdown_20 && distance > 1024))
 		{
 			str_E2A74[text].countdown_20 = distance;
