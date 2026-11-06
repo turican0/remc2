@@ -4,7 +4,10 @@
 #include <cstdlib>
 #include <cstring>
 
+#include "Mc1Files.h"
+#include "Mc1Graphics.h"
 #include "Mc1NotPorted.h"
+#include "Mc1Search.h"
 #include "Mc1System.h"
 #include "../../remc2/portability/port_filesystem.h"
 
@@ -17,9 +20,7 @@ Mc1Variant mc1Variant = MC1_VARIANT_MC1;
 Type_Mc1State_AE400_AE3F0* mc1State_AE400_AE3F0 = nullptr;
 Type_Mc1Settings_AE408_AE3F8* mc1Settings_AE408_AE3F8 = nullptr;
 uint8_t* blurBuffer_AE404_AE3F4 = nullptr;
-uint8_t* textData_AE41C_AE40C = nullptr;
 uint8_t* textPointers_AE238_AE228[80];
-uint8_t* pointersTable_AE450_AE440 = nullptr;
 uint8_t byte_939CC_939CC = 0;
 uint8_t byte_939CD_939CD = 0;
 uint8_t byte_939E4_939E4 = 0;
@@ -56,7 +57,7 @@ int TopProcedure_340B0(int argc, char** argv)
 {
 	if (ProcessCommandLine_34DD0_35190((uint16_t)argc, argv) == -1)
 		return -1;
-	sub_34B40_34F00();
+	InitGameData_34B40_34F00();
 	if (!(mc1Settings_AE408_AE3F8->flags_0x00_0 & 8))
 	{
 		mc1Settings_AE408_AE3F8->flag_0x17_23 = 0;
@@ -70,7 +71,7 @@ int TopProcedure_340B0(int argc, char** argv)
 			byte_939E5_939E5 = 0;
 			byte_939CC_939CC = 0;
 			byte_939E4_939E4 = 0;
-			sub_40440_40780("data/ftext.dat");
+			LoadFileGroup_40440_40780(ftextFiles_995D8_995D8);
 			sub_44700_44A40(textData_AE41C_AE40C, textPointers_AE238_AE228, 80);
 		}
 		else
@@ -102,10 +103,10 @@ int TopProcedure_340B0(int argc, char** argv)
 				while (!menuDone_96880_96880);
 				SkipMissingLevel_34070();
 				FadeInOut_61CC0_621D0(nullptr, 0x10, 0);
-				sub_5C05C_5C56C(pointersTable_AE450_AE440);
+				sub_5C05C_5C56C(pointersTab_AE450_AE440);
 				if (!CurrentPlayer()->exitGame_0x04_4)
 					sub_34460_34820();
-				sub_34B00_34EC0();
+				LoadGameData_34B00_34EC0();
 				sub_61610_61B20("data/snds0-0.dat");
 				sub_61610_61B20("data/music0-0.dat");
 				sub_41540_41880();
@@ -175,7 +176,7 @@ int TopProcedure_34470(int argc, char** argv)
 {
 	if (ProcessCommandLine_34DD0_35190((uint16_t)argc, argv) == -1)
 		return -1;
-	sub_34B40_34F00();
+	InitGameData_34B40_34F00();
 	if (!(mc1Settings_AE408_AE3F8->flags_0x00_0 & 8))
 	{
 		mc1Settings_AE408_AE3F8->flag_0x17_23 = 0;
@@ -189,7 +190,7 @@ int TopProcedure_34470(int argc, char** argv)
 			byte_939E5_939E5 = 0;
 			byte_939CC_939CC = 0;
 			byte_939E4_939E4 = 0;
-			sub_40440_40780("data/ftext.dat");
+			LoadFileGroup_40440_40780(ftextFiles_995D8_995D8);
 			sub_44700_44A40(textData_AE41C_AE40C, textPointers_AE238_AE228, 80);
 		}
 		else
@@ -221,10 +222,10 @@ int TopProcedure_34470(int argc, char** argv)
 				while (!menuDone_96880_96880);
 				// Hidden Worlds has all levels, no SkipMissingLevel here
 				FadeInOut_61CC0_621D0(nullptr, 0x10, 0);
-				sub_5C05C_5C56C(pointersTable_AE450_AE440);
+				sub_5C05C_5C56C(pointersTab_AE450_AE440);
 				if (!CurrentPlayer()->exitGame_0x04_4)
 					sub_34460_34820();
-				sub_34B00_34EC0();
+				LoadGameData_34B00_34EC0();
 				sub_61610_61B20("data/snds0-0.dat");
 				sub_61610_61B20("data/music0-0.dat");
 				sub_41540_41880();
@@ -541,4 +542,45 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 		videoMode_12F02E_12F01E = (int16_t)videoMode;
 	(void)setSound;
 	return result;
+}
+
+void PrintStartTexts_5ACA0_5B1B0()
+{
+	printf("Copyright (c) 1995 Bullfrog Productions Ltd.\n");
+	printf("All rights reserved.\n");
+	printf("%s \n", "Magic Carpet");
+}
+
+void PrintLoadingText_5AD10_5B220(const char* text)
+{
+	// the format is the address of off_ABCE0 read as a string: its bytes are "%s\n"
+	if (mc1Settings_AE408_AE3F8->flags_0x00_0 & 0x100)
+		printf("%s\n", text);
+}
+
+void LoadGameData_34B00_34EC0()
+{
+	LoadFileGroup_40440_40780(searchDFiles_99318_99318);
+	if (videoMode_12F02E_12F01E == 1)
+		LoadFileGroup_40440_40780(screenFilesMcga_997BC_997BC);
+	else
+		LoadFileGroup_40440_40780(screenFilesHires_99898_99898);
+	RelocateTabs_59500_59A10(tabRelocations_99974_99974);
+	InitSearchRings_11540_11540();
+}
+
+void InitGameData_34B40_34F00()
+{
+	PrintStartTexts_5ACA0_5B1B0();
+	PrintLoadingText_5AD10_5B220("Load all data files");
+	LoadGameData_34B00_34EC0();
+	PrintLoadingText_5AD10_5B220("Initialise Colour Lookup");
+	// 4 bit components, the middle of each step (r * 4 + 3), indexed r * 256 + g * 16 + b
+	for (int32_t red = 0; red < 16; red++)
+		for (int32_t green = 0; green < 16; green++)
+			for (int32_t blue = 0; blue < 16; blue++)
+				colorLookup_AD168_AD158[red * 256 + green * 16 + blue] = FindNearestColor_5CC70_5D180(
+					palette_AE428_AE418, (uint8_t)(red * 4 + 3), (uint8_t)(green * 4 + 3), (uint8_t)(blue * 4 + 3));
+	mc1Settings_AE408_AE3F8->flag_0x17_23 = 1;
+	SetFont_5A3C0_5A8D0(0);
 }

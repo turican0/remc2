@@ -1,5 +1,6 @@
 #include "Mc1System.h"
 
+#include <algorithm>
 #include <cstdlib>
 #include <vector>
 
@@ -28,6 +29,16 @@ void* LowMalloc_425C0_42900(uint32_t size)
 	// the original rounds to 16 bytes and takes a DOS low memory block
 	size = (size + 0x0F) & 0xFFFFFFF0;
 	return AllocateZeroed(size);
+}
+
+void Free_426E0_42A20(void* block)
+{
+	if (!block)
+		return;
+	auto found = std::find(mc1Allocations.begin(), mc1Allocations.end(), block);
+	if (found != mc1Allocations.end())
+		mc1Allocations.erase(found);
+	free(block);
 }
 
 void FreeMc1Memory()

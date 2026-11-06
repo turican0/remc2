@@ -449,6 +449,15 @@
     <ClCompile Include="..\remc1\engine\Select.cpp">
       <Filter>Source Files\remc1</Filter>
     </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Files.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Graphics.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Search.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
     <ClCompile Include="..\remc1\engine\Mc1System.cpp">
       <Filter>Source Files\remc1</Filter>
     </ClCompile>
@@ -462,6 +471,15 @@
       <Filter>Header Files\remc1</Filter>
     </ClInclude>
     <ClInclude Include="..\remc1\engine\Select.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Files.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Graphics.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Search.h">
       <Filter>Header Files\remc1</Filter>
     </ClInclude>
     <ClInclude Include="..\remc1\engine\Mc1System.h">

@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "engine/Mc1Files.h"
 #include "engine/Mc1Game.h"
 #include "engine/Mc1System.h"
 #include "engine/Select.h"
@@ -43,6 +44,7 @@ int Mc1Main(int argc, char** argv)
 	{
 		// the game gets the parameters remc2 does not know (e.g. -level 5 -cheat 1), as on the DOS command line
 		mc1Variant = game == SELECTED_HIDDEN_WORLDS ? MC1_VARIANT_HW : MC1_VARIANT_MC1;
+		mc1DataPath = GetSubDirectoryPath("MC1");
 		std::vector<std::string> gameArgs;
 		gameArgs.push_back(argc > 0 ? argv[0] : "remc2");
 		for (const std::string& param : CommandLineParams.GetUnknownParams())

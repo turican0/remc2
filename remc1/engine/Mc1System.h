@@ -6,5 +6,6 @@
 
 void* Malloc_42540_42880(uint32_t size);
 void* LowMalloc_425C0_42900(uint32_t size);
+void Free_426E0_42A20(void* block);
 void FreeMc1Memory();
 void DetectCpu_19470_19470();

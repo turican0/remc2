@@ -17,8 +17,6 @@ static void NotPorted(const char* name)
 //!!!!! not ported yet
 void CreateInstallDirectory_3EC90_3EFD0(char /*drive*/, const char* /*basePath*/, const char* /*subDirectory*/) { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_34B40_34F00() { NotPorted(__func__); }
-//!!!!! not ported yet
 void sub_3F1D0() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_3F510() { NotPorted(__func__); }
@@ -32,8 +30,6 @@ void sub_41570() { NotPorted(__func__); }
 void sub_44730_44A70() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_4A980_4ACC0() { NotPorted(__func__); }
-//!!!!! not ported yet
-void sub_40440_40780(const char* /*path*/) { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_44700_44A40(uint8_t* /*text*/, uint8_t** /*pointers*/, int32_t /*count*/) { NotPorted(__func__); }
 //!!!!! not ported yet
@@ -66,8 +62,6 @@ void sub_4AE60()
 void sub_5C05C_5C56C(uint8_t* /*table*/) { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_34460_34820() { NotPorted(__func__); }
-//!!!!! not ported yet
-void sub_34B00_34EC0() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_61610_61B20(const char* /*path*/) { NotPorted(__func__); }
 //!!!!! not ported yet

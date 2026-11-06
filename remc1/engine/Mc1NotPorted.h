@@ -5,7 +5,6 @@
 // temporary stubs of functions not ported yet; each one moves to its real file when ported from IDA
 
 void CreateInstallDirectory_3EC90_3EFD0(char drive, const char* basePath, const char* subDirectory);
-void sub_34B40_34F00();
 void sub_3F1D0();
 void sub_3F510();
 void sub_58F90_594A0();
@@ -13,7 +12,6 @@ void sub_41230();
 void sub_41570();
 void sub_44730_44A70();
 void sub_4A980_4ACC0();
-void sub_40440_40780(const char* path);
 void sub_44700_44A40(uint8_t* text, uint8_t** pointers, int32_t count);
 void FadeInOut_61CC0_621D0(uint8_t* palette, uint8_t steps, int32_t mode);
 void sub_31A00_31A40();
@@ -25,7 +23,6 @@ void sub_4AB20();
 void sub_4AE60();
 void sub_5C05C_5C56C(uint8_t* table);
 void sub_34460_34820();
-void sub_34B00_34EC0();
 void sub_61610_61B20(const char* path);
 void sub_41540_41880();
 void sub_5D070_5D580(int32_t value);
