@@ -4,7 +4,8 @@ Specifically, we’ll add support for the games:
 
 Magic Carpet 1 and Magic Carpet 1 Hidden Worlds (collectively known as Magic Carpet Plus)
 
-If the game is launched with the -MC1 parameter,
+If the game is launched with the -game parameter (`-game mc1` Magic Carpet 1, `-game mc1hw` Hidden Worlds,
+`-game select` the Magic Carpet Plus selector, `-game mc2` or no parameter the classic MC2),
 
 the code will switch to this version.
 
@@ -57,6 +58,37 @@ The Magic Carpet Plus selector: loads `DATA\SELP0-0.DAT` (palette) and `DATA\SEL
 the choice to `C:\CARPET.CD\CP.DAT` (removed when cancelled); a batch file then starts CARPET.EXE or HIDDEN.EXE.
 Part of the code only creates the install directories when installing from the CD.
 
+## How the game code is written
+
+- Game logic is written primarily from the IDA listings (CARPET.EXE and HIDDEN.EXE); the GitHub projects
+  (REMC1, Magic-Carpet-1-SDL) help with names, structs and understanding, but are not copied blindly.
+- Function maps (in `c:\prenos\dosbox-x-remc1\ida\`): `mc1_hw_map.txt` (CARPET <-> HIDDEN functions),
+  `mc1_hw_data_map.txt` (data labels), `mc1_mc2_map.txt` (CARPET <-> NETHERW, identical / similar).
+- Shared with remc2 where the code is the same: rasterizer, 2D blitters, cursor, lines, VGA/palette, RNC, FLI.
+- One renderer for MC1, MC1 HW and MC2: renderers get the game state through a scene interface instead of
+  reading MC2 globals directly; what MC1 has extra or different is added to the renderer as variants.
+  The same applies to the in-game 2D graphics (shared drawing, game-specific UI logic).
+
+## Milestones and not ported functions
+
+- The port goes by runnable milestones: start -> intro, menu, level + game loop, renderer (scene interface).
+- Functions already called but not ported yet are temporary stubs with the final name and signature in
+  `remc1/engine/Mc1NotPorted.cpp`, each marked `//!!!!! not ported yet` and logging it when called.
+  A stub is removed (moved to its real file) when the function is ported from IDA.
+- File names in `remc1` must not clash with remc2 file names (same MSBuild project, object files would collide):
+  MC1 files start with `Mc1` (e.g. `Mc1Game.cpp`).
+
+## Sound
+
+MC1 uses the HMI (SOS) sound library, MC2 uses Miles (MSS/AIL). The MC1 port is rewritten to use MSS,
+i.e. the remc2 MSS emulation (the AIL layer over SDL, including AWE32), not HMI.
+
+## Addresses
+
+- CARPET.EXE / HIDDEN.EXE in DOSBox: code = IDA + 0x1D1000, data = IDA + 0x1BE000
+  (e.g. `TopProcedure_340B0_34470` = DOSBox 2050B0 / 205470, `begTextDat_AE41C_AE40C` = 26C41C / 26C40C).
+- REMC1 / Magic-Carpet-1-SDL already use the same style of names with MC1 and HW addresses.
+
 ## MC1 and Hidden Worlds
 
 CARPET.EXE (MC1) and HIDDEN.EXE (MC1 Hidden Worlds) share most of the code, but at different addresses.
@@ -90,4 +122,4 @@ selector returns to the caller.
 ## First step
 
 Start with SELECT: port it into `remc1\` as clean functions verified against `SELECT.EXE.asm`,
-wire the `-MC1` command line switch to it, and use DOSBox (`dosbox-x-remc1`) to compare with the original.
+wire the `-game` command line option to it, and use DOSBox (`dosbox-x-remc1`) to compare with the original.

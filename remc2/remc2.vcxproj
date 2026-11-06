@@ -477,6 +477,9 @@
     <ClInclude Include="sub_main.h" />
     <ClInclude Include="..\remc1\Mc1Main.h" />
     <ClInclude Include="..\remc1\engine\Select.h" />
+    <ClInclude Include="..\remc1\engine\Mc1Game.h" />
+    <ClInclude Include="..\remc1\engine\Mc1GameState.h" />
+    <ClInclude Include="..\remc1\engine\Mc1NotPorted.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="utilities\Maths.h" />
     <ClInclude Include="utilities\SafeQueue.h" />
@@ -578,6 +581,8 @@
     <ClCompile Include="remc2.cpp" />
     <ClCompile Include="..\remc1\Mc1Main.cpp" />
     <ClCompile Include="..\remc1\engine\Select.cpp" />
+    <ClCompile Include="..\remc1\engine\Mc1Game.cpp" />
+    <ClCompile Include="..\remc1\engine\Mc1NotPorted.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-nonASA|Win32'">Create</PrecompiledHeader>

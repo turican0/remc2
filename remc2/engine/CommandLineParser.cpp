@@ -1,6 +1,8 @@
 #include "CommandLineParser.h"
 
 #include <algorithm>
+#include <cctype>
+#include <iostream>
 
 CommandLineParser CommandLineParams;
 
@@ -68,7 +70,7 @@ void CommandLineParser::Init(int argc, char **argv) {
     m_kill_move_and_rotation = false;
     m_use_old_map_drawing = false;
     m_vulkan_validation = false;
-    m_magic_carpet_1 = false;
+    m_game_type = GameType::MC2;
     m_memimages_path = "../remc2/memimages/";
     m_config_file_path = "";
 
@@ -268,7 +270,20 @@ void CommandLineParser::InterpretParams() {
         else if (param == "--kill_move_and_rotation")           m_kill_move_and_rotation = true;
         else if (param == "--use_old_map_drawing")              m_use_old_map_drawing = true;
         else if (param == "--vulkan_validation")                m_vulkan_validation = true;
-        else if (param == "-MC1" || param == "--MC1")           m_magic_carpet_1 = true;
+        else if (param == "-game" || param == "--game") {
+            std::string game = (p + 1 != params.cend()) ? *(++p) : "";
+            std::transform(game.begin(), game.end(), game.begin(), [](unsigned char c) { return (char)std::tolower(c); });
+            if (game == "mc1")
+                m_game_type = GameType::MC1;
+            else if (game == "mc1hw")
+                m_game_type = GameType::MC1HW;
+            else if (game == "select")
+                m_game_type = GameType::SELECT;
+            else if (game == "mc2")
+                m_game_type = GameType::MC2;
+            else
+                std::cout << "Unknown -game value: " << game << ", using mc2\n";
+        }
         else if (param == "--memimages_path") {
             m_memimages_path = *(++p);
         }
