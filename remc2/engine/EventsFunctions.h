@@ -209,130 +209,17 @@ extern x_WORD __SS__;*/
 
 //extern char IsTable[];
 
-#pragma pack(push, 1)
-typedef struct {//lenght 7
-	Type_SoundEvent_E17CC* pSoundEvent_0;
-	uint8_t levelNumber_4;
-	uint8_t overplayed_5;
-	uint8_t fileIndex_6;
-}
-Type_CutScene_E16E0;
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-typedef struct {//lenght 14
-	uint32_t dword_0;//ok
-	int16_t word_4;//ok
-	uint32_t address_6;
-	int32_t dword_10;//ok
-}
-type_D4C52ar2;
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-typedef struct {//lenght 18
-	uint32_t dword_0;
-	uint32_t dword_4;
-	int16_t word_8;
-	type_D4C52ar2* dword_10;
-	type_D4C52ar2* dword_14;
-}
-type_D4C52ar;
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-typedef struct {
-	unsigned long LastTimeRendered_0;
-	int16_t PosX_4;
-	int16_t PosY_6;
-	int16_t ActSprite_8;
-	int8_t FirstSprite_10;
-	int8_t LastSprite_11;
-} type_MainMenuAnimations_E1748;
-
-typedef struct {//lenght 30
-	int32_t time1_0;
-	int32_t time2_4;
-	int16_t x1_8;
-	int16_t y1_10;
-	int16_t firstFrame_12;
-	int16_t lastFrame_14;
-	int16_t frameIndex_16;
-	int16_t time3_18;
-	int8_t byte_20;
-	int8_t byte_21;
-	int16_t time4_22;
-	int16_t word_24;
-	int16_t word_26;
-	//int8_t stuba[1];
-	int16_t word_28;
-	//int8_t stubb[1];
-} type_x_BYTE_E25ED_db_str;
-#pragma pack(pop)
-
-extern filearray_struct x_DWORD_E9B20[4];
-
-extern __int16 x_WORD_E29DA_type_resolution; // weak
-
-#pragma pack(push, 1)
-typedef struct {//lenght 18
-	int16_t textIndex_0;
-	int16_t left_2;
-	int16_t top_4;
-	int16_t minx_6;
-	int16_t miny_8;
-	int16_t word_10;
-	int16_t width_12;
-	int16_t maxy_14;
-	int8_t byte_16;
-	int8_t byte_17;
-}
-typeTextBoxtextBoxStr_E24BCx;
-#pragma pack(pop)
 
 
-#pragma pack(push, 1)
-typedef struct {//lenght 18
-	int16_t word_0;
-	int16_t word_2;
-	int16_t word_4;
-	int16_t word_6;
-	int16_t word_8;
-	int16_t word_10;
-	int16_t word_12;
-	int16_t word_14;
-	int16_t word_16;
-}
-type_x_BYTE_E25ED_2BB;
-#pragma pack(pop)
 
-#pragma pack(push, 1)
-typedef struct {
-	int32_t x_DWORD_18058C;
-	int32_t x_DWORD_180590; // [4]//unk_18058Cstr.x_DWORD_180590//1
-	int32_t x_DWORD_180594; // [8]//unk_18058Cstr.x_DWORD_180594//2
-	int32_t x_DWORD_180598; // [12]//unk_18058Cstr.x_DWORD_180598//3
-	int32_t MouseButtonState_18059C; // [16]//unk_18058Cstr.x_DWORD_18059C//4
-	int32_t x_DWORD_1805A0; // weak//unk_18058Car[20]//5
-	int32_t x_DWORD_1805A4; // weak//unk_18058Car[0x18]//6
-	int32_t x_DWORD_1805A8; // weak//unk_18058Car[28]//7
-	int32_t x_DWORD_1805AC; // weak//unk_18058Car[0x20]//8
-	axis_2d_32 x_DWORD_1805B0_mouse;
-	//int32_t x_DWORD_1805B0_mouse.x; // weak//unk_18058Car[36]
-	//int32_t x_DWORD_1805B0_mouse.y; // weak//unk_18058Car[40]
-	int32_t x_DWORD_1805B8_mouse_position_x; // weak//unk_18058Car[44]
-	int32_t x_DWORD_1805BC_mouse_position_y; // weak//unk_18058Car[48]
-	int16_t x_WORD_1805C0_arrow_keys; // weak//unk_18058Car[52] // keyboard buttons
-	int16_t x_WORD_1805C2_joystick; // weak//unk_18058Car[54]
-	int16_t x_WORD_1805C4_vio1_analog_joy; // weak//unk_18058Car[56]
-	int16_t x_WORD_1805C6_vio2_analog_joy; // weak//unk_18058Car[58]
-	int16_t x_WORD_1805C8; // weak//unk_18058Car[60]
-	uint8_t unk_1805CE[84]; // weak//unk_18058Car[66]
-	int16_t stub_180622;
-} type_unk_18058Cstr;//end 180624
-#pragma pack(pop)
 
-//extern type_x_DWORD_17DE38str x_DWORD_17DE38str;
+
+
+
+
+
+
+//extern type_x_DWORD_17DE38str menuState_17DE38;
 /*
 extern int16_t x_DWORD_17DEE4_mouse_positionx; // weak
 extern int16_t x_DWORD_17DEE4_mouse_positiony; // weak
@@ -358,54 +245,9 @@ extern char x_BYTE_17DF10_get_key_scancode; // weak
 extern char x_BYTE_17DF11_last_key_status; // weak
 */
 
-extern uint16_t rand2_17B4E0; // 34c4e0
 
 // needed from GameUI
-extern void(*ptrDrawBitmap_F01E8)(int16_t, int16_t, bitmap_pos_struct_t, uint8_t scale);
 
-#pragma pack(push, 1)
-typedef struct {//lenght 16
-	int16_t x1_26_0;//0 x
-	int16_t y1_28_1;//1 y
-	int16_t word_30_2;//2
-	int16_t word_32_3;//3
-	int16_t word_34_4;//4
-	int16_t word_36_5;//5
-	int16_t word_38_6;//6
-	int16_t click_40_7;//7
-	int16_t nocl_42_8;//8
-} type_str_word_26;
-
-typedef struct {//lenght 44
-	uint32_t dword_0;
-	//int16_t word_2;
-	int32_t dword_4;//4 dword
-	//int16_t word_6;//remove it
-	int16_t selected_8;
-	int16_t xmin_10;
-	int16_t ymin_12;
-	int16_t sizex_14;
-	int16_t sizey_16;
-	int16_t word_18;
-	uint8_t byte_20;//index of gold sprite
-	uint8_t byte_21;//index of gray sprite
-	int8_t byte_22;
-	int8_t canSelect_23;
-	int8_t gold_color_24;
-	int8_t byte_25;
-	//int16_t word_24;//23 and 24 byte
-	type_str_word_26 str_26;//0
-	//int16_t word_28;//1
-	//int16_t word_30;//2
-	//int16_t word_32;//3
-	//int16_t word_34;//4
-	//int16_t word_36;//5
-	//int16_t word_38;//6
-	//int16_t click_40;//7
-	//int16_t nocl_42;
-}
-type_menuButtons_E1F84;
-#pragma pack(pop)
 
 // typedef struct NCB{
 //				BYTE     ncb_command;	/* NetBIOS command (see netbios.h) */
@@ -426,31 +268,11 @@ type_menuButtons_E1F84;
 //BYTE     ncb_reserved[14];
 //		 } NCB;
 
-extern char x_BYTE_D4B80;
-extern char x_BYTE_E36D1;
-extern POSITION x_DWORD_F4720;
-extern char x_BYTE_D4B50;
-extern char x_BYTE_D4B51;
-extern char x_BYTE_DB734;
+extern char gameInitialized_D4B80;
+extern char joystickEnabled_E36D1;
+extern char timerInstalled_DB734;
 extern int resindex_begin;
-extern int x_DWORD_D41C8;
-extern char x_BYTE_D41C4;
-extern void(*ptrDrawBitmap_F01EC)(int16_t, int16_t, bitmap_pos_struct_t, uint8_t scale);
-extern char x_BYTE_D41C6_old_graphics_mode;
 
-extern TColor x_BYTE_181544_oldpalbufferx[];
-extern char x_BYTE_D478C;
-extern char x_BYTE_E390C_VGA_pal_not_begin;
-extern char x_BYTE_F0220[];
-extern char x_BYTE_F0320[];
-extern char x_BYTE_F0420[];
-extern char x_BYTE_F0520[];
-extern char x_BYTE_F0620[];
-extern char x_BYTE_F0720[];
-extern char x_BYTE_F0820[];
-extern char x_BYTE_F0920[];
-extern int x_DWORD_F42A0;
-extern TColor x_BYTE_F3FA0arx[];
 
 extern int save_debugcounter;
 
@@ -459,73 +281,40 @@ void j___delay(x_DWORD); // weak
 void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer, const char* fileName = "BufferOut.bmp");
 void WriteMenuGraphicToBMP(uint16_t width, uint16_t height, uint8_t scale, uint8_t* ptrPalette, uint8_t* ptrBuffer);
 
-void RandomiseTerrainArea_43C60(unsigned __int8 a1, char a2, int a3, int a4);
 
 
-void ResetEntityLists_49F30();
 
 
 void CreateFileArrayIndexes_6EBF0(filearray_struct* a1);
 
-char LevelDecompress_533B0(int16 levelIndex, Type_Level_2FECE* levelData, std::string customLevelPath = "");
 
 //int /*__noreturn*/ sub_10000(); // weak
-type_entity_0x6E8E* FindNearestEntityTargeting_15CB0(/*type_str_0x6E8E* a1,*/ type_entity_0x6E8E* a2); // weak
-char RateWizardTarget_15D40(__int16 a1, type_entity_0x6E8E* a2, type_entity_0x6E8E* a3); // weak
-int16_t FindAdjacentLavaDirection_16730(/*int a1,*/ type_entity_0x6E8E* a2, char a3); // weak
-int16_t FindAdjacentLavaDirection2_16CA0(baxis_2d* a2, __int16 a3, char a4); // weak
 void sub_17A00(int8_t* a1, signed int a2, __int16 a3); // weak
 int _wcpp_1_unwind_leave__120(int32_t a, int32_t b, int32_t c);// weak
-void AdjustVolume_1A070(__int16 a2);
 void JUMPOUT(int* adr);
 void JUMPOUT(int32_t cs, int* adr);
 void JUMPOUT(int32_t cs, int a, int* adr);
-void UpdateFlyingWormBody_1F0C0(/*type_str_0x6E8E* a1,*/ type_entity_0x6E8E* a2);
-void HeadSetState_253B0(/*int result, */type_entity_0x6E8E* a2, unsigned __int8 a3, unsigned __int8 a4);
-int GetManaSphereColorIndexFromEntityId_369F0(int playerEntityIndex);
 //void qmemcpy(void* a, void* b, size_t c);
-void BigDragonMoveSegment_2A340(/*int a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3, int a4, *//*type_str_0x6E8E* a5, */type_entity_0x6E8E* a6);
-void BigDragonAttachSegment_2AA90(/*type_str_0x6E8E* a1, */type_entity_0x6E8E* a2, type_entity_0x6E8E* a3);
-void ClearGraphicsBuffer_72883(void* ptrBuffer, uint16_t width, uint16_t height, uint8_t value);
-void ClearScreenAlphaBuffer(uint16_t width, uint16_t height, uint8_t value);
 int _wcpp_1_unwind_leave__62(void); //weak
-int GetManaSphereIndexFromId_36A50(/*signed int a1, */char a2);
-void SetManaSphereColorAndRot_36920(/*signed __int16 a1, */type_entity_0x6E8E* a2);
-void DrawTerrainLine_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
 //void __outx_WORD(unsigned short Port, unsigned short Data);
 //void __outx_BYTE(unsigned short Port, unsigned char Data);
 //unsigned char __inx_BYTE(unsigned short Port);
-void SmoothTiles_44EE0(/*int a1, */uaxis_2d a2);
-void MouseReset_54600();
 void LevelInitGame_56A30(int16_t level = -1, std::string customLevelPath = "");
 void CopySentence_5B870(char* langbuffer, char** langindexbuffer, uint32_t count);
 void InGameLoop_47320();
-void LoadLevel_56D60(unsigned int a1, char a2);
 void SetCenterScreenForFlyAssistant_6EDB0();
-int NetworkInitConnection_7308F(char* a2, __int16 a3);
-void NetworkUpdateConnections2_74374();
-int16_t GetIndexNetwork2_74515();
-void GetMouseAndKeyboardEvents_7A060();
-void LoadAndDecompressDatFile_7AA70(const char* a1, uint8_t* a2, int a3, int a4);
 // Multiplayer scoreboard for the end-of-game result line.  Worked out on every node from
 // the same inputs, so all of them arrive at the same table without anything being sent.
 // A leaving player's castle is destroyed rather than left standing; see the definition.
-void DestroyPlayerCastle(int player);
-void MatchScoreReset();
-void MatchScoreMarkPlaying(int player);
-void MatchScoreRecordKnockOut(int victim, type_entity_0x6E8E* victimEntity);
-std::string MatchScoreResultLine();
 
-void PlayerEvents_51BB0();
 void DrawAndEventsInGame_47560(int16_t turn);
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
-void ApplyPlayerOptions_55C60(type_str_0x2BDE* loc0x2BDE);
 int32_t /*__cdecl*/ fix_filelength(int32_t);// weak
 //x_DWORD /*__cdecl*/ access(char* path, uint32_t flags);// weak
 //x_DWORD /*__cdecl*/ mkdir(char* path);
 int32_t /*__cdecl*/ settextposition(int32_t, int32_t);// weak
 void outtext(const char* text);// weak
-int /*__fastcall*/ gettextposition(int32_t, int32_t, int32_t);// weak
+POSITION gettextposition();
 int32_t /*__cdecl*/ signal(int32_t, int32_t);// weak
 //int __cdecl unknown_libname_1(char *a1);
 //void _disable();
@@ -542,23 +331,7 @@ int32_t /*__cdecl*/ signal(int32_t, int32_t);// weak
 //int int386x(int, REGS *, REGS *, struct SREGS *);
 //unsigned char __readgsx_BYTE(unsigned long Offset);
 //unsigned short __readgsx_WORD(unsigned long Offset);
-void ClearPressedKeys_753D0();
-void LoadHscreen_7A110(char a1, char a2);
-void ResetMouse_7B5A0();
-void FadeClearBlit_7B5D0();
-void ClearScrollDialogVars_7C020(type_str_word_26* a1x);
-char IsAlphanumericOrSpace_7C200(uint8_t a1);
-void DrawTextBoxWithLine_7E840(typeTextBoxtextBoxStr_E24BCx* testBoxStr, __int16 borderColor, __int16 lineColor);
-void DrawTextBox(std::string message, uint16_t left, uint16_t right, uint16_t top, int16_t borderColour = 80);
-void CreateAnimObject_7E8D0(type_animStruct* animStruct, __int16 x1, __int16 y1, __int16 x2, __int16 y2, __int16 countX, __int16 countY);
-bool MoveAnimObject_7E9D0(x_WORD* x1, x_WORD* y1, type_animStruct* a3);
-void DrawAnimSprite_81CA0(__int16 a3, __int16 a4, type_x_BYTE_E25ED_db_str* a5);
-bool DrawFrameAnim_7E5A0(__int16 posx, __int16 posy, Type_MapScreenPortals_E17CC* mapPortal, __int16 beginIndex, __int16 endIndex);
-void MoveAnimIndex_81260(type_animStruct3* animStruct, __int16 x1, __int16 y1);
-int DrawMapObject_812D0(__int16 a1, __int16 a2);
 signed __int16 sub_81EE0(int a1, int a2, int a3, signed __int16 a4, __int16 a5, __int16 a6);
-void DrawRoundFrame_85CC3(/*unsigned int a1, int a2, */unsigned __int16* a3);
-void fix_sub_9A0FC_wait_to_screen_beam(int32_t delay = 10);
 //void sub_840B8(char a1, bool a2, char a3, char a4);
 //unsigned     int __readeflags(void);
 
@@ -581,26 +354,14 @@ void  sub_841CE(__int16 a1);//ShowPerifery
 //sub_B5015 ShowPerifery
 //sub_840B8 ShowPerifery
 
-void InitialiseCdAudio_86A00();
-void PlayCDTrackSegmentNumber_86EB0(uint8_t trackIdx, uint8_t segmentIdx, bool paletteFlash);
 int16_t ApplySetting_89B60(uint8_t a1);
 //void __writeeflags(unsigned Value);
 int32_t /*__cdecl*/ gets(int32_t);// weak
 //x_DWORD /*__cdecl*/ fix_tell(x_DWORD);// weak
 int32_t /*__cdecl*/ expand(int32_t, int32_t);// weak
 //int /*__fastcall*/ _wcpp_1_unwind_leave__132(x_DWORD);// weak
-void CalibrateJoystick_8BA10(int a2, int* a3, char* a4, int a5);
 double /*__fastcall*/ _CHP(int32_t);// weak
-char WaitForJoystickResponse_8B980(int a1, int a2, char* a3, int a4);
-signed int ReadJoystick_8BBE0(uint8_t* a1);
-signed int InstallMouse_8CEDF();
 
-int16_t VGA_PalFadeInFadeOut_90B27(TColor* a1x, uint8_t shadow_levels, bool a3, int32_t frameDelay = 10);
-void VGA_SetVideoMode320x200AndPalette_90D6E(TColor* Palette);
-void VGA_SetVideoMode640x480AndPalette_90E07(TColor* Palette);
-void CopyScreen(void* source, void* desc, unsigned __int16 width, unsigned __int16 height);
-signed int CheckKeyboard_9A10A();
-bool HasTimeElapsed_9AE04(int a1, int a2);
 
 /*
 HDIGDRIVER sub_93330_AIL_install_DIG_driver_file(char* filename, IO_PARMS* IO);
@@ -627,7 +388,6 @@ int32_t /*__cdecl*/ x_setmode(FILE* path, int mode);// weak
 //uint32_t sub_98AE0(uint8_t *a1);
 //__int16 ReadBits_98B2C(unsigned __int8 a1, int a2);
 //char sub_98BAF(int a1);
-__int16 DecodeHuffmanSymbol_98AE9(__int16* a1, int a2);
 unsigned __CFRCR__(__int16 a, unsigned __int8 b);
 uint32_t /*__cdecl*/ x_write(FILE* descriptor, uint8_t* buffer, uint32_t size_t);
 //int32_t /*__cdecl*/ x_tolower(int32_t);// weak
@@ -643,17 +403,11 @@ void __inx_BYTEstring(unsigned short Port, unsigned char* Buffer, unsigned long 
 int sub_ACE8D(int16_t* a1, int a2, int* a3);
 void sub_AD0E2(int8_t* a1, int a2, int* a3, int8_t** a4);
 void sub_ACF1A(int8_t* a1, int a2, int* a3);
-void TerrainSquareStep_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
-int BlitToVgaPlanar2_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, uint8_t* a6);
-void TerrainDiamondStep_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
-Type_SecretMapScreenPortals_E2970* GetSecretAndActivedPortal_824B0(__int16 actLevel);
 
 void LoadSearchData_101C0();
-void SetDefaultKeys_5BCC0();
 signed int SetDefaultSettings_5C1B0();
 signed int LoadPsxData_5BF50();
 
-void CleanF5538_716A0();
 
 //type_str_0x6E8E* pre_sub_4A190(uint32_t adress, int16_t* a1,int type);
 
@@ -662,1209 +416,52 @@ void CleanF5538_716A0();
 
 //char sub_54200();
 
-void ProcessTmaps_71410();
 
 void Initialize();
 
 
 // FIXME: these functions and vars are used in Events.cpp and should be moved somewhere else
-extern axis_3d predictedAxis_EB398ar;
-extern type_D4C52ar2 str_x_DWORD_D4C52ar_0x2F22[7];
-extern std::array<type_D4C52ar, 17> str_D4C48ar;
-extern type_entity_0x6E8E* (*arsub_2a881e[])(axis_3d*);
+extern type_entity_0x6E8E* (*spellPickupCreators_2A881E[])(axis_3d*);
 
-extern Type_CutScene_E16E0 cutScene_E16E0[];
 
-void InitBuildingEntity_49A30(type_entity_0x6E8E* event, unsigned __int16 a2);
-int GetSpellIndex_6E020(int entitySubtype);
-void DisableEntityDrawing04_57F10(type_entity_0x6E8E* entity);
-void test_pre_sub_4a190(uint32_t adress);
-signed int UpdateWizardAi_12910(type_entity_0x6E8E* a1);
-signed int UpdateWizardAiState_12A70(type_entity_0x6E8E* a1);
-signed int WizardAiChooseState_12E70(type_entity_0x6E8E* a1);
-signed int WizardAiAttackTarget_12FF0(type_entity_0x6E8E* a1);
-signed int WizardAiMoveToPosition_13100(type_entity_0x6E8E* a1);
-signed int WizardAiFaceTarget_131F0(type_entity_0x6E8E* a1);
-signed int WizardAiCastFoolsMana_13270(type_entity_0x6E8E* a1);
-signed int WizardAiReturnToCastle_133B0(type_entity_0x6E8E* a1);
-signed int WizardAiPossessTarget_135C0(type_entity_0x6E8E* a1);
-signed int WizardAiAttackWithSpell_13710(type_entity_0x6E8E* a1);
-signed int WizardAiCombat2_13830(type_entity_0x6E8E* a1);
-signed int WizardAiCombat3_13850(type_entity_0x6E8E* a1);
-int WizardAiCombat4_13870(type_entity_0x6E8E* a1);
-signed int WizardAiCombat_13890(type_entity_0x6E8E* a1);
-signed int WizardAiTryBuildCastle_13B00(type_entity_0x6E8E* a1);
-signed int WizardAiTryGrowCastle_13C50(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* WizardAiFindTarget_13CE0(type_entity_0x6E8E* a1);
-signed int WizardAiShouldRetreat_13DC0(type_entity_0x6E8E* a1);
-signed int WizardAiChooseEnemyWizard_13E40(type_entity_0x6E8E* a1);
-signed int WizardAiChooseEnemyCreature_14030(type_entity_0x6E8E* a1);
-signed int WizardAiChooseEnemyCastle_14250(type_entity_0x6E8E* a1);
-signed int WizardAiChooseAttackTarget_14530(type_entity_0x6E8E* a1);
-signed int WizardAiCheckHealth_14630(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* GetPlayerSpellEntity_146C0(type_entity_0x6E8E* a1, unsigned __int8 a2);
-void UpdateWizardMovement_146F0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* FindNearestOwnBalloon_148E0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* FindWizardTargetBySpell_14B10(type_entity_0x6E8E* a1, unsigned __int8 a2);
-type_entity_0x6E8E* FindNearestOtherWizard_14BD0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-__int16 GetEntityKey_14C40(type_entity_0x6E8E* a1);
-bool IsTargetStillValid_14C60(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-signed int WizardAiMoveTowards_14C90(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2, signed int a3, signed int a4);
-signed int WizardAiCastSpell_14E10(type_entity_0x6E8E* a1, unsigned __int8 a2);
-type_entity_0x6E8E* WizardCanCastSpell_15170(type_entity_0x6E8E* a1, unsigned __int8 a2);
-signed int WizardAiCanGrowCastle_155E0(type_entity_0x6E8E* a1);
-bool IsPlayerSpellActive_156F0(type_entity_0x6E8E* a1, unsigned __int8 a2);
-bool HasEnoughManaForSpell_15730(type_entity_0x6E8E* a1, unsigned __int8 a2);
-type_entity_0x6E8E* GetActivePlayerSpellEntity_15760(type_entity_0x6E8E* a1, unsigned __int8 a2);
-char WizardAiChooseAttackSpell_15790(type_entity_0x6E8E* a1);
-char WizardAiChooseSpell_15910(type_entity_0x6E8E* a1);
-void UpdateWizardAiTargets_159E0();
-void SetWizardStrafeSpeed_15D20(type_entity_0x6E8E* a1);
-bool HasAttackSpell_15E60(type_entity_0x6E8E* a1);
-char FindLocalWizard_15EE0();
-signed int WizardTrySelectSpell_15F20(type_entity_0x6E8E* a1, signed __int16 a2, signed int a3);
-signed int WizardAiMetamorph_15FC0(type_entity_0x6E8E* a1);
-signed int WizardAiAttackMetamorphed_161A0(type_entity_0x6E8E* a1);
-bool HasAreaSpell_164B0(type_entity_0x6E8E* a1);
-signed int WizardAiSteer_16580(type_entity_0x6E8E* a1);
-char WizardAiAvoidObstacles_169C0(type_entity_0x6E8E* a1);
-int TraceTileLine_16E70(baxis_2d* a1, baxis_2d* a2);
-type_entity_0x6E8E* FindNearestOtherEntity_16FC0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-void KillAllCreatures_1B5F0();
-void CreatureFollowParent_1B6B0(type_entity_0x6E8E* a1);
-signed int MoveCreature_1B8C0(type_entity_0x6E8E* a1);
-void CreatureIdle_1BD90(type_entity_0x6E8E* a1, char a2);
-void CreatureWander_1BF90(type_entity_0x6E8E* a1, char a2);
-signed int CreatureAttack_1C310(type_entity_0x6E8E* a1, char a2, unsigned __int16(*a3)(type_entity_0x6E8E*, type_entity_0x6E8E*));
-void CreatureFollowLeader_1C560(type_entity_0x6E8E* a1, unsigned __int16 a2);
-void PreKillEntity_1C890(type_entity_0x6E8E* entity, char state);
-void KillEntity_1C930(type_entity_0x6E8E* entity);
-void CreatureFlee_1C980(type_entity_0x6E8E* a1, char a2);
-signed int CreatureShootFireball_1CC20(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-signed int CreatureShootArrow_1CCE0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-signed int CreatureShootArrow2_1CDA0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-signed int CreatureMeleeAttack1024_1CE80(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-signed int CreatureMeleeAttack768_1CED0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-signed int CreatureMeleeAttack1536_1CF20(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-signed int CreatureShootProjectile20_1D0E0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-signed int CreatureShootProjectile21_1D1A0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-signed int CreatureShootProjectile9_1D260(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-void CreatureShootSpread_1D460(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-void CreatureRunScript_1D5D0(type_entity_0x6E8E* a1, __int16 a2);
-void CreatureScriptCmd4_1D700(type_entity_0x6E8E* a1, __int16 a2);
-void CreatureScriptCmd3_1D7C0(type_entity_0x6E8E* a1, __int16 a2);
-void CreatureScriptCmd8_1D880(type_entity_0x6E8E* a1, __int16 a2);
-void CreatureScriptCmd9_1D8A0(type_entity_0x6E8E* a1, __int16 a2);
-void CreatureScriptAttack_1D8C0(type_entity_0x6E8E* a1, __int16 a2);
-void CreatureScriptGuardPosition_1DBF0(type_entity_0x6E8E* a1, unsigned __int16 a2);
-void CreatureScriptGoToPosition_1DDA0(type_entity_0x6E8E* a1, __int16 a2);
-void CreatureScriptCmd6_1E000(type_entity_0x6E8E* a1, __int16 a2);
-void CreatureScriptCmd7_1E020(type_entity_0x6E8E* a1, __int16 a2);
-void CreatureScriptResume_1E040(type_entity_0x6E8E* a1, char a2);
-void CreatureScriptIdle_1E1C0(type_entity_0x6E8E* a1, __int16 a2);
-void CreatureScriptChaseTarget_1E320(type_entity_0x6E8E* a1);
-int FindScriptGroupLeader_1E3E0(type_entity_0x6E8E* a1);
-void CreatureScriptFollowParent_1E4D0(type_entity_0x6E8E* a1);
-void CreatureScriptEscortParent_1E580(type_entity_0x6E8E* a1, __int16 a2);
-void CreatureIdleNoHerd_1E700(type_entity_0x6E8E* a1, char a2);
-void CreatureScriptCmd14_1E9C0(type_entity_0x6E8E* a1, __int16 a2);
-type_entity_0x6E8E* GetCreatureTarget_1ED30(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-void KeepCreatureAboveTerrain_1EEE0(type_entity_0x6E8E* a1);
-void FlyingWormIdle_1EF20(type_entity_0x6E8E* a1);
-void FlyingWormPreKill_1F000(type_entity_0x6E8E* a1);
-void FlyingWormKill_1F020(type_entity_0x6E8E* a1);
-void ApplyFlyingWormGravity_1F040(type_entity_0x6E8E* a1);
-void GoatIdle_1F340(type_entity_0x6E8E* a1);
-void GoatWander_1F3C0(type_entity_0x6E8E* a1);
-void GoatAttack_1F440(type_entity_0x6E8E* a1);
-void GoatFollow_1F470(type_entity_0x6E8E* a1);
-void PreKillGoat_1F4F0(type_entity_0x6E8E* entity);
-void KillGoat_1F510(type_entity_0x6E8E* entity);
-void HitGoat_1F530(type_entity_0x6E8E* entity);
-void AddGoat05_01_1F5B0(type_entity_0x6E8E* entity);
-void BeeIdle_1F630(type_entity_0x6E8E* a1);
-void BeeWander_1F660(type_entity_0x6E8E* a1);
-void BeeAttack_1F6D0(type_entity_0x6E8E* a1);
-void BeeFollow_1F800(type_entity_0x6E8E* a1);
-void BeePreKill_1F830(type_entity_0x6E8E* a1);
-void BeeKill_1F850(type_entity_0x6E8E* a1);
-void BeeScripted_1F8A0(type_entity_0x6E8E* a1);
-void WormIdle_1F950(type_entity_0x6E8E* a1);
-void WormWander_1F970(type_entity_0x6E8E* a1);
-void WormAttack_1F990(type_entity_0x6E8E* a1);
-void WormFollow_1F9E0(type_entity_0x6E8E* a1);
-void WormPreKill_1FA00(type_entity_0x6E8E* a1);
-void WormKill_1FA20(type_entity_0x6E8E* a1);
-void WormScripted_1FA50(type_entity_0x6E8E* a1);
-void ArcherIdle_1FA70(type_entity_0x6E8E* a1);
-void ArcherWander_1FAA0(type_entity_0x6E8E* a1);
-void AddArcher0504_1FF40(type_entity_0x6E8E* a1);
-void ArcherFollow_1FFE0(type_entity_0x6E8E* a1);
-void HitArcher_20010(type_entity_0x6E8E* a1);
-void KillArcher_20040(type_entity_0x6E8E* a1);
-void ArcherStartShooting_20060(type_entity_0x6E8E* a1);
-void ArcherResetAnimation_200F0(type_entity_0x6E8E* a1);
-void AddScroll05_04_20140(type_entity_0x6E8E* a1);
-void SkeletonArcherIdle_20370(type_entity_0x6E8E* a1);
-void SkeletonArcherWander_203D0(type_entity_0x6E8E* a1);
-void SkeletonArcherUpdate_20940(type_entity_0x6E8E* a1);
-void SkeletonArcherAttack_20C50(type_entity_0x6E8E* a1);
-void SkeletonArcherFollow_20E50(type_entity_0x6E8E* a1);
-void SkeletonArcherPreKill_20E80(type_entity_0x6E8E* a1);
-void SkeletonArcherKill_20EA0(type_entity_0x6E8E* a1);
-void SkeletonArcherCheckTarget_20EC0(type_entity_0x6E8E* a1);
-void SkeletonArcherReset_20F20(type_entity_0x6E8E* a1);
-void SkeletonArcherStartAnimation_20F60(type_entity_0x6E8E* a1);
-void SkeletonArcherSetCooldown_20F80(type_entity_0x6E8E* a1);
-void SkeletonArcherScripted_20FC0(type_entity_0x6E8E* a1);
-void EmuIdle_21030(type_entity_0x6E8E* a1);
-char EmuUpdateState_21490(type_entity_0x6E8E* a1);
-void EmuUpdateMovement_21850(type_entity_0x6E8E* a1);
-void EmuFindTarget_21AB0(type_entity_0x6E8E* a1);
-char EmuCheckNearbyEntities_21F60(type_entity_0x6E8E* a1);
-char EmuCheckDamage_22190(type_entity_0x6E8E* a1);
-void SetEntitySpriteAndLoad_221F0(type_entity_0x6E8E* a1, __int16 a2);
-void EmuSnapToTerrain_22270(type_entity_0x6E8E* a1);
-void EmuFacePlayer_222B0(type_entity_0x6E8E* a1);
-void CountWizards_223E0();
-void ScanTilesAround_22490(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* EmuWander_22530(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* EmuAttack_22540(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* EmuFollow_22550(type_entity_0x6E8E* a1);
-void EmuPreKill_22560(type_entity_0x6E8E* a1);
-void EmuKill_22580(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* EmuHit_225A0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* EmuScripted_225B0(type_entity_0x6E8E* a1);
-bool CanPlaceBuilding_22640(axis_3d* a1, unsigned __int16 a2, unsigned __int16 a3, unsigned __int16 a4);
-void GetBuildingBitmapSize_226D0(unsigned __int16 a1, int16_t* exwidth, int16_t* expheight);
-void BuilderIdle_22760(type_entity_0x6E8E* a1);
-void BuilderWander_22C80(type_entity_0x6E8E* a1);
-void BuilderAttack_22E60(type_entity_0x6E8E* a1);
-void BuilderFollow_23020(type_entity_0x6E8E* a1);
-void BuilderPreKill_231E0(type_entity_0x6E8E* a1);
-void BuilderKill_23200(type_entity_0x6E8E* a1);
-void BuilderHit_23260(type_entity_0x6E8E* a1);
-void BuilderScripted_232A0(type_entity_0x6E8E* a1);
-char ChooseRandomBuilding_232C0();
-void TownieIdle_23320(type_entity_0x6E8E* a1);
-void TownieWander_23340(type_entity_0x6E8E* a1);
-void TownieAttack_23640(type_entity_0x6E8E* a1);
-void TownieFollow_23660(type_entity_0x6E8E* a1);
-void KillTownie_23680(type_entity_0x6E8E* a1);
-void TownieKill_236F0(type_entity_0x6E8E* a1);
-void HitTownie_23710(type_entity_0x6E8E* a1);
-void AddTownie05_0D_23750(type_entity_0x6E8E* a1);
-void TraderIdle_23790(type_entity_0x6E8E* a1);
-void TraderWander_237B0(type_entity_0x6E8E* a1);
-void TraderAttack_23AC0(type_entity_0x6E8E* a1);
-void TraderFollow_23AE0(type_entity_0x6E8E* a1);
-void TraderPreKill_23B00(type_entity_0x6E8E* a1);
-void TraderKill_23B30(type_entity_0x6E8E* a1);
-void TraderHit_23B90(type_entity_0x6E8E* a1);
-void TraderScripted_23BD0(type_entity_0x6E8E* a1);
-void ExplodedHumanIdle_23C20(type_entity_0x6E8E* a1);
-void ExplodedHumanWander_23C40(type_entity_0x6E8E* a1);
-void ExplodedHumanAttack_23E60(type_entity_0x6E8E* a1);
-void ExplodedHumanFollow_240A0(type_entity_0x6E8E* a1);
-void ExplodedHumanPreKill_240C0(type_entity_0x6E8E* a1);
-void ExplodedHumanKill_240E0(type_entity_0x6E8E* a1);
-void ExplodedHumanStartAttack_24100(type_entity_0x6E8E* a1);
-void ExplodedHumanResetAnimation_24150(type_entity_0x6E8E* a1);
-void ExplodedHumanExplode_24190(type_entity_0x6E8E* a1);
-void ExplodedHumanScripted_24400(type_entity_0x6E8E* a1);
-void WyvernIdle_24420(type_entity_0x6E8E* a1);
-void WyvernWander_24440(type_entity_0x6E8E* a1);
-void WyvernAttack_24510(type_entity_0x6E8E* a1);
-void WyvernFollow_247D0(type_entity_0x6E8E* a1);
-void WyvernPreKill_247F0(type_entity_0x6E8E* a1);
-void WyvernKill_24810(type_entity_0x6E8E* a1);
-void WyvernScripted_24840(type_entity_0x6E8E* a1);
-void LionIdle_24860(type_entity_0x6E8E* a1);
-void LionWander_248C0(type_entity_0x6E8E* a1);
-void LionAttack_24930(type_entity_0x6E8E* a1);
-void LionFollow_24D40(type_entity_0x6E8E* a1);
-void LionPreKill_24DA0(type_entity_0x6E8E* a1);
-void LionKill_24DC0(type_entity_0x6E8E* a1);
-void LionScripted_24DF0(type_entity_0x6E8E* a1);
-void HeadIdle_24E20(type_entity_0x6E8E* a1);
-void HeadWander_25050(type_entity_0x6E8E* a1);
-void HeadAttack_250B0(type_entity_0x6E8E* a1);
-void HeadPreKill_252A0(type_entity_0x6E8E* a1);
-void HeadKill_252C0(type_entity_0x6E8E* a1);
-unsigned int HeadCheckDamage_252E0(type_entity_0x6E8E* a1);
-void TurnTowardsEntity_254E0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2, unsigned __int8 a3);
-void HeadScripted_25550(type_entity_0x6E8E* a1x);
-void FirebugIdle_25590(type_entity_0x6E8E* a1x);
-void FirebugWander_255C0(type_entity_0x6E8E* a1x);
-void HitFirebug_25610(type_entity_0x6E8E* a1x);
-void FirebugFollow_25CD0(type_entity_0x6E8E* a1);
-void FirebugPreKill_25D00(type_entity_0x6E8E* a1);
-void FirebugKill_25D20(type_entity_0x6E8E* a1);
-void AddFirebug05_13_25D50(type_entity_0x6E8E* a1);
-void SpiderIdle_25D80(type_entity_0x6E8E* a1);
-void SpiderWander_25DE0(type_entity_0x6E8E* a1);
-void SpiderAttack_25E40(type_entity_0x6E8E* a1);
-void SpiderFollow_25F70(type_entity_0x6E8E* a1);
-void SpiderPreKill_25FD0(type_entity_0x6E8E* a1);
-void SpiderKill_25FF0(type_entity_0x6E8E* a1);
-void SpiderScripted_26020(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* DiabloIdle_26050(type_entity_0x6E8E* a1);
-char DiabloWander_26070(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* DiabloFollow_263C0(type_entity_0x6E8E* a1);
-void DiabloPreKill_263E0(type_entity_0x6E8E* a1);
-void DiabloKill_26400(type_entity_0x6E8E* a1);
-void DiabloScripted_26470(type_entity_0x6E8E* a1);
-void DiabloUpdateState_265A0(type_entity_0x6E8E* a1);
-signed int DiabloCheckDamage_26830(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* DiabloSetMode_268F0(type_entity_0x6E8E* a1, unsigned __int8 a2);
-char DiabloIsAttacking_26930(type_entity_0x6E8E* a1);
-void FlyingManaIdle_26960(type_entity_0x6E8E* a1);
-void FlyingManaWander_26990(type_entity_0x6E8E* a1);
-void FlyingManaAttack_26AA0(type_entity_0x6E8E* a1);
-void FlyingManaFollow_26BD0(type_entity_0x6E8E* a1);
-void FlyingManaPreKill_26CA0(type_entity_0x6E8E* a1);
-void FlyingManaKill_26CC0(type_entity_0x6E8E* a1);
-void FlyingManaFollowTarget_26D20(type_entity_0x6E8E* a1);
-void FlyingManaApplyDamage_26F10(type_entity_0x6E8E* a1);
-void FlyingManaUpdateSpeed_26FF0(type_entity_0x6E8E* a1);
-void FlyingManaAvoidOthers_27120(type_entity_0x6E8E* a1);
-void FlyingManaSteerToTarget_271D0(type_entity_0x6E8E* a1);
-void FlyingManaUpdateAnimation_272C0(type_entity_0x6E8E* a1);
-void FlyingWormWander_1EF40(type_entity_0x6E8E* a2x);
-void FlyingWormAttack_1EF70(type_entity_0x6E8E* a2x);
-void FlyingWormFollow_1EFD0(type_entity_0x6E8E* a2x);
-void FlyingWormScripted_1F300(type_entity_0x6E8E* a2x);
-void HeadFollow_25280(type_entity_0x6E8E* a2x);
-void DiabloAttack_26220(type_entity_0x6E8E* a2x);
-void DiabloSetSprite_26500(type_entity_0x6E8E* a2x);
-type_entity_0x6E8E* GetChainSegment_27470(type_entity_0x6E8E* a1, __int16 a2);
-void AppendChainSegment_274C0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2, type_entity_0x6E8E* a3, __int16 a4);
-void UpdateChainSegments_276E0(type_entity_0x6E8E* a1);
-void SetFlyingManaLevel_27720(type_entity_0x6E8E* a1, signed __int16 a2);
-void FlyingManaCountdown_27880(type_entity_0x6E8E* a1);
-int GetManaSpriteIndex_278F0(int a1, __int16 a2, __int16 a3);
-void FlyingManaScripted_27930(type_entity_0x6E8E* a1);
-void BalloonIdle_27950(type_entity_0x6E8E* a1);
-void BalloonWander_27B20(type_entity_0x6E8E* a1);
-void BalloonFollow_27C10(type_entity_0x6E8E* a1);
-void BalloonAttack_27E00(type_entity_0x6E8E* a1);
-void BalloonPreKill_27FA0(type_entity_0x6E8E* a1);
-void BalloonKill_27FC0(type_entity_0x6E8E* a1);
-void SetEntityActionState_27FE0(type_entity_0x6E8E* a1, char a2, char a3, int a4);
-type_entity_0x6E8E* FindNearestCastle_28000(type_entity_0x6E8E* a1);
-char IsTooCloseToSameModel_28060(type_entity_0x6E8E* a1);
-void BalloonCheckDamage_28110(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* FindBalloonTarget_282D0(type_entity_0x6E8E* a1);
-char MoveTowardsEntity_28390(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-type_entity_0x6E8E* GetBalloonTarget_28420(type_entity_0x6E8E* a1);
-void BalloonScripted_28470(type_entity_0x6E8E* a1);
-void Creature24Idle_28490(type_entity_0x6E8E* a1);
-void Creature24Wander_28500(type_entity_0x6E8E* a1);
-void Creature24Attack_28570(type_entity_0x6E8E* a1);
-void Creature24Follow_285D0(type_entity_0x6E8E* a1);
-void Creature24PreKill_285F0(type_entity_0x6E8E* a1);
-void Creature24Kill_28610(type_entity_0x6E8E* a1);
-void Creature24Hit_28630(type_entity_0x6E8E* a1);
-void Creature24Scripted_28660(type_entity_0x6E8E* a1);
-void Creature24FindTarget_28690(type_entity_0x6E8E* a1);
-void Creature24SetSprite_287B0(type_entity_0x6E8E* a1);
-__int16 FlyingCreatureIdle_28860(type_entity_0x6E8E* a1);
-int FlyingCreatureWander_28C30(type_entity_0x6E8E* a1);
-signed int FlyingCreatureAttack_28C60(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* FlyingCreatureFollow_28CC0(type_entity_0x6E8E* a1);
-void FlyingCreaturePreKill_28CE0(type_entity_0x6E8E* a1x);
-void FlyingCreatureKill_28EC0(type_entity_0x6E8E* a1);
-void FlyingCreatureScripted_28F50(type_entity_0x6E8E* a1);
-void MummyIdle_28F90(type_entity_0x6E8E* a1);
-void MummyWander_28FC0(type_entity_0x6E8E* a1);
-void MummyAttack_28FF0(type_entity_0x6E8E* a1);
-void MummyFollow_29300(type_entity_0x6E8E* a1);
-void MummyPreKill_29330(type_entity_0x6E8E* a1);
-void MummyKill_29350(type_entity_0x6E8E* a1);
-void MummyScripted_29380(type_entity_0x6E8E* a1);
-void MummyResetAttackFlag_293B0(type_entity_0x6E8E* a1);
-void MummySetAttackFlag_293D0(type_entity_0x6E8E* a1);
-void BigDragonIdle_29400(type_entity_0x6E8E* a1);
-void BigDragonWander_29670(type_entity_0x6E8E* a1);
-void BigDragonAttack_29710(type_entity_0x6E8E* a1);
-void BigDragonFollow_29890(type_entity_0x6E8E* a1);
-void BigDragonPreKill_298B0(type_entity_0x6E8E* a1);
-int BigDragonKill_298D0(type_entity_0x6E8E* a1);
-void BigDragonScripted_29930(type_entity_0x6E8E* a1);
-void BigDragonUpdateBody_29A90(type_entity_0x6E8E* a1);
-void SetFlyingManaSprite_27590(type_entity_0x6E8E* a2x);
-void SetFlyingManaChainSize_27610(type_entity_0x6E8E* a2x);
-void BigDragonPlaceSegment_2A5B0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2, __int16 a3);
-void BigDragonForwardDamage_2A660(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-signed int BigDragonCheckDamage_2A6B0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* BigDragonFindTarget_2A6F0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* BigDragonGetTarget_2A7B0(type_entity_0x6E8E* a1);
-void BigDragonChooseAttack_2A7F0(type_entity_0x6E8E* a1x, type_entity_0x6E8E* a2, char a3);
-void BigDragonSetSegmentPose_2A940(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-void BigDragonShootFromSegment_2A9F0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-void BigDragonResetRotation_2AC50(type_entity_0x6E8E* a1);
-void BigDragonCheckSegmentsDead_2AD40(type_entity_0x6E8E* a1);
-void BigDragonKillSegments_2AE30(type_entity_0x6E8E* a1);
-void BigDragonHideSegments_2AE80(type_entity_0x6E8E* a1);
-void SetEntitySpriteIfChanged_2AED0(type_entity_0x6E8E* a1, int a2);
-char MoveDragonEntity_2AF10(type_entity_0x6E8E* a1, char a2);
-void ManaIdle_2B1D0(type_entity_0x6E8E* a1);
-void ManaWander_2B200(type_entity_0x6E8E* a1);
-void ManaAttack_2B260(type_entity_0x6E8E* a1);
-void ManaFollow_2B750(type_entity_0x6E8E* a1);
-void ManaPreKill_2B760(type_entity_0x6E8E* a1);
-void ManaKill_2B780(type_entity_0x6E8E* a1);
-void ManaScripted_2B7B0(type_entity_0x6E8E* a1);
-char IsAnyCreature28Alive_2B7E0(type_entity_0x6E8E* a1);
-void ManaStartAttack_2B840(type_entity_0x6E8E* a1);
-void ManaSetMode_2B860(type_entity_0x6E8E* a1, unsigned __int8 a2);
-signed int ManaCheckDamage_2B9A0(type_entity_0x6E8E* a1x);
-void ManaSetState_2BA50(type_entity_0x6E8E* a1, unsigned __int8 a2);
-void DrawBitmapToScreenAndBuffer_2BBB0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, uint8_t scale = 1);
-void UpdateEffect0A_00_30D50(type_entity_0x6E8E* a1/*, uint8_t v2, uint8_t v4*/);
-void AddQuickfair0A_01_30F60(type_entity_0x6E8E* a1);
-void CastSpeedSpell_31100(type_entity_0x6E8E* a1);
-void UpdateSpeedTrail_31120(type_entity_0x6E8E* a1);
-void UpdateSpeedSpell_311E0(type_entity_0x6E8E* a1);
-void UpdateEffect0A_06_31760(type_entity_0x6E8E* a1);
-void UpdateEffect0A_07_31870(type_entity_0x6E8E* a1);
-void UpdateEffect0A_03_31890(type_entity_0x6E8E* a1);
-void AddAsh0A_05_318B0(type_entity_0x6E8E* a1);
-void UpdateEffect0A_08_31920(type_entity_0x6E8E* a1);
-void UpdateEffect0A_09_31940(type_entity_0x6E8E* a1);
-void UpdateEffect0A_0A_31E90(type_entity_0x6E8E* a1);
-void SpawnEffectAroundTile_31F00(type_entity_0x6E8E* a1, __int16 a2, __int16 a3);
-void UpdateEffect0A_0B_31FB0(type_entity_0x6E8E* a1x);
-void PossesHitMana_320E0(type_entity_0x6E8E* entity);
-void UpdateEffectLifetime_32120(type_entity_0x6E8E* entity);
-void UpdateEffect0A_0D_32160(type_entity_0x6E8E* entity);
-void UpdateEffect0A_0E_322A0(type_entity_0x6E8E* entity);
-void AddParticleSmoke0A_3B_323E0(type_entity_0x6E8E* a1);
-void AddParticleSmoke0A_3C_32400(type_entity_0x6E8E* a1);
-void AddParticleSmoke0A_3D_32420(type_entity_0x6E8E* a1);
-void UpdateEffect0A_0F_32530(type_entity_0x6E8E* a1);
-void UpdateEffect0A_10_32600(type_entity_0x6E8E* a1);
-void UpdateMeteor_32880(type_entity_0x6E8E* a1);
-void UpdateEffect0A_12_32A70(type_entity_0x6E8E* a1);
-void SpawnManaSpheres_32CF0(type_entity_0x6E8E* a1);
-void UpdateEffect0A_13_32F40(type_entity_0x6E8E* a1);
-void UpdateWind_33110(type_entity_0x6E8E* a1);
-void UpdateWindMovement_331A0(type_entity_0x6E8E* a1);
-void UpdateWindPull_33340(type_entity_0x6E8E* a1);
-void WindKillOverlapping_33710(type_entity_0x6E8E* a1);
-char CanWindAffectEntity_33810(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-void WindPullNearbyEntities_338D0(type_entity_0x6E8E* a1);
-void UpdateWhirlwindState_339B0(type_entity_0x6E8E* a1);
-void UpdateWhirlwindSpeed_33AD0(type_entity_0x6E8E* a1);
-void SpinEntity_33B20(type_entity_0x6E8E* a1);
-void UpdateWhirlwindSegments_33C00(type_entity_0x6E8E* a1);
-void UpdateWhirlwindTarget_33C70(type_entity_0x6E8E* a1);
-void RemoveWhirlwindSegments_33D40(type_entity_0x6E8E* a1);
-void UpdateEffect0A_17_33D80(type_entity_0x6E8E* a1);
-void UpdateEffect0A_19_33E20(type_entity_0x6E8E* a1);
-void UpdateEffect0A_1A_33E80(type_entity_0x6E8E* a1);
-void UpdateEffect0A_1C_34000(type_entity_0x6E8E* a1);
-void UpdateEffect0A_1B_34110(type_entity_0x6E8E* a1);
-void UpdateEffect0A_1D_34210(type_entity_0x6E8E* a1);
-void UpdateEffect0A_1E_34330(type_entity_0x6E8E* a1);
-void UpdateEffect0A_1F_34350(type_entity_0x6E8E* a1);
-void SetLinkedEntityLife2AndHide_34390(type_entity_0x6E8E* a1);
-void SetLinkedEntityLife1AndHide_343C0(type_entity_0x6E8E* a1);
-void ApplyPointToPath_343F0(type_entity_0x6E8E* a1);
-void UpdateEffect0A_21_34480(type_entity_0x6E8E* a1);
-void UpdateEffect0A_22_344A0(type_entity_0x6E8E* a1);
-void HideEntity_34520(type_entity_0x6E8E* a1);
-void UpdateArcProjectile_34540(type_entity_0x6E8E* a1);
-void UpdateTerrainDeform_34910(type_entity_0x6E8E* a1);
-void UpdateTileAngles_34B00(char a1, char a2, __int16 a3, __int16 a4);
-void UpdateCraterEffect_34C40(type_entity_0x6E8E* a1);
-void HideEntity2_352A0(type_entity_0x6E8E* a1);
-void UpdateEffectUntilWater_352C0(type_entity_0x6E8E* a1);
-void UpdateEffect0A_24_35390(type_entity_0x6E8E* a1);
-void UpdateEffect0A_25_35530(type_entity_0x6E8E* a1);
-void UpdateEffect0A_23_35600(type_entity_0x6E8E* a1);
-void UpdateEffect0A_28_35640(type_entity_0x6E8E* a1);
-void UpdateEffect0A_26_357C0(type_entity_0x6E8E* a1);
-void UpdateVolcanoEffect_34EE0(type_entity_0x6E8E* a3x);
-void TransformArcherToMana_35940(type_entity_0x6E8E* a1);
-char ManaSphereCheckCollector_36680(type_entity_0x6E8E* a1);
-void ManaSphereShootFireball_36770(type_entity_0x6E8E* a1);
-void ManaSphereShootProjectile9_36850(type_entity_0x6E8E* a1);
-void UpdateEffect0A_2A_36AE0(type_entity_0x6E8E* a1);
-void UpdateManaSphere_35FB0(type_entity_0x6E8E* a1x);
-void TransformEntityToManaSphere_36BA0(type_entity_0x6E8E* entity, bool useManaFraction);
-void MergeManaSpheres_36D50(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-void ManaSphereCollide_36F30(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-void UpdateManaSphereMovement_36FC0(type_entity_0x6E8E* a1x);
-void ApplyTerrainModification_37240(type_entity_0x6E8E* a1x);
-bool IsNextEvent0A_2A_37740(type_entity_0x6E8E* a1);
-void DamageOverlappingWizards_377A0(type_entity_0x6E8E* a1);
-void UpdateEffect0A_2B_377F0(type_entity_0x6E8E* a1);
-void AddTerrainMod0A_2A_37BC0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* GetRandManaSphere_38270(type_entity_0x6E8E* event);
-int AddHouse0A_2D_38330(type_entity_0x6E8E* a1);
-void RemoveCastleStage_385C0(type_entity_0x6E8E* event);
-int UpdateProjectileLife_389F0(type_entity_0x6E8E* a1);
-signed int CompareEvent08_38B00(type_entity_0x6E8E* a1);
-int UpdateProjectileTrail_38B90(type_entity_0x6E8E* a1);
-unsigned int UpdateProjectileTimeout_38D80(type_entity_0x6E8E* a1);
-int HideProjectile_38E20(type_entity_0x6E8E* a1);
-int HideProjectile2_38E40(type_entity_0x6E8E* a1);
-void SlowDownWizard_38E70(type_entity_0x6E8E* event);
-int MobilizeWizard_38F70(type_entity_0x6E8E* a1);
-void UpdateLightning_39040(type_entity_0x6E8E* a1);
-void UpdateEarthquake_396A0(type_entity_0x6E8E* a1);
-unsigned __int8 UpdateTremorTiles_396D0(type_entity_0x6E8E* a1);
-void ApplyEarthquakeTiles_39B60(type_entity_0x6E8E* a1);
-char FindTremorTarget_39E40(type_entity_0x6E8E* a1);
-char CanSpellAffectEntity_39FA0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-void KillOverlappingEntities_3A090(type_entity_0x6E8E* a1);
-void ApplySpellToEntity_3A200(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-void UpdateShield_3A2D0(type_entity_0x6E8E* a1);
-void UpdateEffectFade_3A5B0(type_entity_0x6E8E* a1);
-void UpdateEffectCountdown_3A630(type_entity_0x6E8E* a1);
-int FollowTargetEntity_3A650(type_entity_0x6E8E* a1);
-char IsCreatureAffectable_3A7F0(type_entity_0x6E8E* a1);
-void UpdatePossessedCreature_3A8B0(type_entity_0x6E8E* entity);
-void CastleDefendEvent_3AF00(type_entity_0x6E8E* a1);
 void UpdateGameFrame_53160();
-void SnapEntityToTerrain_59C40(type_entity_0x6E8E* a1);
-int SnapEntityToTerrain2_59C60(type_entity_0x6E8E* a1);
-int UpdateScroll_59C80(type_entity_0x6E8E* entity);
-char CheckParentAlive_59DC0(type_entity_0x6E8E* a1);
-void UpdateCastle_59F60(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* FindEntityOnTile_5B070(type_entity_0x6E8E* a1);
-void UpdateCastleBuilding_5B100(type_entity_0x6E8E* locEvent);
-void AddPlayer03_00_5E010(type_entity_0x6E8E* a1);
-void MultiplayerTestDie_5E310(type_entity_0x6E8E* a1);
-void DisableEntitesDrawing_5E660(type_entity_0x6E8E* entity);
-__int16 CheckWizardKiller_5E6C0(type_entity_0x6E8E* a1);
-void MultiplayerTestBanished_5E7C0(type_entity_0x6E8E* a1);
-signed int EndGameSequence_5E8C0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* SetWizardHitTimer_5EF70(type_entity_0x6E8E* a1);
-signed int UpdateCastleTarget_5EFA0(type_entity_0x6E8E* a1);
-void UpdateWizardSpeed_5F380(type_entity_0x6E8E* a1);
-char CastleAttackEntity_5F660(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2, int a3);
-void SetCastleCooldown_5F7B0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2, int a3);
-void ClearEntityVisibleFlag_5F7E0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-type_entity_0x6E8E* FindNearestEnemyBalloon_5F810(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2, type_entity_0x6E8E* a3);
-void UpdateCastleLevel_5F890(type_entity_0x6E8E* a1, __int16 a2);
-void EndOfCastleProjectile_5F8F0(type_entity_0x6E8E* a1);
-void BeginOfCastleCreation_5FA70(type_entity_0x6E8E* locEvent);
-void SpawnCastleEffect42_5FBD0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* SpawnCastleEffect41_5FC40(type_entity_0x6E8E* a1);
-void DestroyCastleLevel_5FCA0(type_entity_0x6E8E* a1);
-void TransferCastleMana_5FD00(type_entity_0x6E8E* a1);
-void UpdateCastleStructure_5FF50(type_entity_0x6E8E* a1);
-void SpawnCastleBuildEffect_60480(type_entity_0x6E8E* a1);
-void ShrinkCastleMana_605E0(type_entity_0x6E8E* a1);
-void SetCastleLifeAndMana_60780(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2, int a3, int a4);
-void GrowCastle_60810(type_entity_0x6E8E* locEvent);
-int CheckCastleDestroyed_609E0(type_entity_0x6E8E* locEvent);
-void AddBallon_60AB0(type_entity_0x6E8E* a1);
-void SpawnCastleRubble_60D50(axis_3d* a1, type_entity_0x6E8E* a2);
-void ApplyCastleDamage_60EA0(type_entity_0x6E8E* a1);
-void UpdateCastles_60F00();
-type_entity_0x6E8E* AddBalloonManaToCastle_61000(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateBalloonCollection_61050(type_entity_0x6E8E* a1);
-void UpdateBalloonChain_613D0(type_entity_0x6E8E* a1);
-char FindNearestManaForBalloon_61620(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-signed int IsBalloonNearCastle_61810(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-uint32_t AddTree02_00_64E20(type_entity_0x6E8E* a1);
-uint32_t UpdateScenery02_01_64F60(type_entity_0x6E8E* a1);
-uint32_t UpdateScenery02_02_64FF0(type_entity_0x6E8E* a1);
-void AddStatue02_01_65040(type_entity_0x6E8E* a1);
-void AddDolmen02_02_65080(type_entity_0x6E8E* a1);
-int UpdateScenery02_09_65110(type_entity_0x6E8E* a1);
-uint32_t UpdateScenery02_12_651B0(type_entity_0x6E8E* a1);
-uint32_t UpdateScenery02_13_65240(type_entity_0x6E8E* a1);
-void UpdateScenery02_15_65280(type_entity_0x6E8E* a1);
-void UpdateScenery02_14_652A0(type_entity_0x6E8E* a1);
-void MoveProjectile_652C0(type_entity_0x6E8E* a1);
-void BounceProjectileOffTerrain_654B0(type_entity_0x6E8E* a2);
-void RaiseToEntityCentre_65580(type_entity_0x6E8E* a1);
-void LowerFromEntityCentre_655A0(type_entity_0x6E8E* a1);
-void AimAtEntity_655C0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-void AimAtEntityLeading_65610(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-__int16 AimAtEntityDirect_656D0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-void SetProjectileDamage_65780(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2, type_entity_0x6E8E* a3);
-type_entity_0x6E8E* UpdateProjectileTargeting_65820(type_entity_0x6E8E* a1);
-void CastPlayerFire_65B30(type_entity_0x6E8E* a1);
-void UpdateProjectile09_1D_65B50(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectileTargeting2_65C20(type_entity_0x6E8E* a1);
-void CastPosses_65F60(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_02_66160(type_entity_0x6E8E* a1);
-void UpdateProjectile09_03_66180(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_04_66250(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_05_66280(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_06_662A0(type_entity_0x6E8E* a1);
-void UpdateProjectile09_07_662C0(type_entity_0x6E8E* a1);
-void UpdateProjectile09_08_662E0(type_entity_0x6E8E* a1);
-void UpdateProjectileExplosion_66610(type_entity_0x6E8E* a1);
-void UpdateProjectile09_09_66750(type_entity_0x6E8E* a1);
-void CastCastleProjectile_66B30(type_entity_0x6E8E* a1);
-void UpdateHomingProjectile_66D00(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_0B_66FB0(type_entity_0x6E8E* a1);
-void UpdateProjectile09_0C_66FD0(type_entity_0x6E8E* a1);
-void AddArcherArrow_672E0(type_entity_0x6E8E* a1);
-void UpdateProjectile09_0E_67410(type_entity_0x6E8E* a1);
-void UpdateProjectile09_0F_67430(type_entity_0x6E8E* a1);
-void UpdateProjectile09_10_67450(type_entity_0x6E8E* a1);
-void UpdateProjectile09_11_67470(type_entity_0x6E8E* a1);
-void UpdateProjectile09_12_674C0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_13_676F0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_14_67740(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_15_67760(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_16_67780(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_17_677A0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_18_677D0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_19_67800(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_1A_67890(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_1B_678E0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_1F_67910(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* UpdateProjectile09_1C_67940(type_entity_0x6E8E* a1);
-void UpdateProjectile09_1E_67960(type_entity_0x6E8E* a2x);
-signed int UpdateProjectile_67CB0(type_entity_0x6E8E* a1);
-int ProjectileHomeOnTarget_68490(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2, unsigned __int16 a3, unsigned __int16 a4);
-int ProjectileTurnTowardsTarget_685D0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2, unsigned __int16 a3, unsigned __int16 a4);
-void CreditKillToWizard_686D0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-char ProjectileHitTarget_68740(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2, unsigned __int16 a3, __int16 a4);
-char FindProjectileTarget_68940(type_entity_0x6E8E* a1);
-char CanProjectileHitEntity_68AC0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-char IsCreatureModel0_68BD0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-void UpdateAllCreatures_68BF0();
-int UpdateChainedProjectile_68C70(type_entity_0x6E8E* a1);
-bool CanSpellOwnerCast_68D50(type_entity_0x6E8E* locEvent1, type_entity_0x6E8E* locEvent2);
-signed int RechargeSpell_68DE0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-signed int LaunchSpellProjectile_68E50(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2, type_entity_0x6E8E* a3);
-signed int UpdateSpellPickupCommon_68FF0(type_entity_0x6E8E* a1, char a2, char a3);
-signed int UpdateSpellPickupFloating_692A0(type_entity_0x6E8E* a1);
-char ResetSpellToPickup_692C0(type_entity_0x6E8E* a1);
-void SpellHitByEntity_69300(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-void SpellFireballActive_693F0(type_entity_0x6E8E* a1);
-signed int SpellFireballPickup_69600(type_entity_0x6E8E* a1);
-signed int SpellFireballPickupUpgrade_69620(type_entity_0x6E8E* a1);
-void SpellPossessionActive_69640(type_entity_0x6E8E* a1);
-void CastPossessionProjectile_69900(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-signed int SpellPossessionPickup_69A70(type_entity_0x6E8E* a1);
-signed int SpellPossessionPickupUpgrade_69A90(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* SpellCastleActive_69AB0(type_entity_0x6E8E* a1);
-signed int SpellCastlePickup_69D70(type_entity_0x6E8E* a1);
-signed int SpellCastlePickupUpgrade_69D90(type_entity_0x6E8E* a1);
-void GetScroll_69DB0(type_entity_0x6E8E* a1);
-signed int AllCreaturesKilled_69FF0(type_entity_0x6E8E* a1);
-signed int SpellSpeedUpPickupUpgrade_6A010(type_entity_0x6E8E* a1);
-void SpellMetamorphActive_6A030(type_entity_0x6E8E* a1);
-signed int SpellMetamorphPickup_6A2C0(type_entity_0x6E8E* a1);
-signed int SpellMetamorphPickupUpgrade_6A2E0(type_entity_0x6E8E* a1);
-void SpellHealActive_6A300(type_entity_0x6E8E* a1);
-signed int SpellHealPickup_6A440(type_entity_0x6E8E* a1);
-signed int SpellHealPickupUpgrade_6A460(type_entity_0x6E8E* a1);
-void SpellShieldActive_6A480(type_entity_0x6E8E* a1);
-signed int SpellShieldPickup_6A580(type_entity_0x6E8E* a1);
-signed int SpellShieldPickupUpgrade_6A5A0(type_entity_0x6E8E* a1);
-void SpellLightningActive_6A5C0(type_entity_0x6E8E* a1);
-signed int SpellLightningPickup_6A9C0(type_entity_0x6E8E* a1);
-signed int SpellLightningPickupUpgrade_6A9E0(type_entity_0x6E8E* a1);
-__int16 SpellReboundActive_6AA00(type_entity_0x6E8E* a1);
-signed int SpellReboundPickup_6AAC0(type_entity_0x6E8E* a1);
-signed int SpellReboundPickupUpgrade_6AAE0(type_entity_0x6E8E* a1);
-void SpellMeteorActive_6AB00(type_entity_0x6E8E* a1);
-signed int SpellMeteorPickup_6AD00(type_entity_0x6E8E* a1);
-signed int SpellMeteorPickupUpgrade_6AD20(type_entity_0x6E8E* a1);
-void SpellTeleportActive_6AD60(type_entity_0x6E8E* a1);
-signed int SpellTeleportPickup_6B180(type_entity_0x6E8E* a1);
-signed int SpellTeleportPickupUpgrade_6B1A0(type_entity_0x6E8E* a1);
-void SpellInvisibleActive_6B1C0(type_entity_0x6E8E* a1);
-signed int SpellInvisiblePickup_6B2D0(type_entity_0x6E8E* a1);
-signed int SpellInvisiblePickupUpgrade_6B2F0(type_entity_0x6E8E* a1);
-__int16 SpellBeyondSightActive_6B310(type_entity_0x6E8E* a1);
-signed int SpellBeyondSightPickup_6B3A0(type_entity_0x6E8E* a1);
-signed int SpellBeyondSightPickupUpgrade_6B3C0(type_entity_0x6E8E* a1);
-void SpellStealManaActive_6B3E0(type_entity_0x6E8E* a1);
-signed int SpellStealManaPickup_6B5D0(type_entity_0x6E8E* a1);
-signed int SpellStealManaPickupUpgrade_6B5F0(type_entity_0x6E8E* a1);
-__int16 SpellDuelActive_6B610(type_entity_0x6E8E* a1);
-signed int SpellDuelPickup_6B830(type_entity_0x6E8E* a1);
-signed int SpellDuelPickupUpgrade_6B850(type_entity_0x6E8E* a1);
-void SpellTremorActive_6B870(type_entity_0x6E8E* a1);
-signed int SpellTremorPickup_6BA70(type_entity_0x6E8E* a1);
-signed int SpellTremorPickupUpgrade_6BA90(type_entity_0x6E8E* a1);
-void SpellCraterActive_6BAB0(type_entity_0x6E8E* a1);
-signed int SpellCraterPickup_6BCB0(type_entity_0x6E8E* a1);
-signed int SpellCraterPickupUpgrade_6BCD0(type_entity_0x6E8E* a1);
-void SpellEarthquakeActive_6BCF0(type_entity_0x6E8E* a1);
-signed int SpellEarthquakePickup_6BEF0(type_entity_0x6E8E* a1);
-signed int SpellEarthquakePickupUpgrade_6BF10(type_entity_0x6E8E* a1);
-void SpellVolcanoActive_6BF30(type_entity_0x6E8E* a1);
-signed int SpellVolcanoPickup_6C130(type_entity_0x6E8E* a1);
-signed int SpellVolcanoPickupUpgrade_6C150(type_entity_0x6E8E* a1);
-void SpellSummonArmyActive_6C170(type_entity_0x6E8E* a1);
-signed int SpellSummonArmyPickup_6C3A0(type_entity_0x6E8E* a1);
-signed int SpellSummonArmyPickupUpgrade_6C3C0(type_entity_0x6E8E* a1);
-void SpellGravityWellActive_6C3E0(type_entity_0x6E8E* a1);
-signed int SpellGravityWellPickup_6C5E0(type_entity_0x6E8E* a1);
-signed int SpellGravityWellPickupUpgrade_6C600(type_entity_0x6E8E* a1);
-void SpellWhirlwindActive_6C620(type_entity_0x6E8E* a1);
-signed int SpellWhirlwindPickup_6C830(type_entity_0x6E8E* a1);
-signed int SpellWhirlwindPickupUpgrade_6C850(type_entity_0x6E8E* a1);
-void SpellFoolsManaActive_6C870(type_entity_0x6E8E* a1);
-signed int SpellFoolsManaPickup_6CA80(type_entity_0x6E8E* a1);
-signed int SpellFoolsManaPickupUpgrade_6CAA0(type_entity_0x6E8E* a1);
-void SpellMagicMineActive_6CAC0(type_entity_0x6E8E* a1);
-signed int SpellMagicMinePickup_6CCE0(type_entity_0x6E8E* a1);
-signed int SpellMagicMinePickupUpgrade_6CD00(type_entity_0x6E8E* a1);
-void SpellAllianceActive_6CD20(type_entity_0x6E8E* a1);
-signed int SpellAlliancePickup_6CF60(type_entity_0x6E8E* a1);
-signed int SpellAlliancePickupUpgrade_6CF80(type_entity_0x6E8E* a1);
-void SpellCaveInActive_6CFA0(type_entity_0x6E8E* a1);
-signed int SpellCaveInPickup_6D1C0(type_entity_0x6E8E* a1);
-signed int SpellCaveInPickupUpgrade_6D1E0(type_entity_0x6E8E* a1);
-void CopyAxisForSpellWithLife_6D830(type_entity_0x6E8E* entity, int spellId);
-void RestorePreviousSpell_6D880(type_entity_0x6E8E* a1);
-void UpdateSpellAvailability_6D9C0(type_str_611* a1, type_SPELLS_BEGIN_BUFFER_str* a2, __int16 a3, char a4, char a5);
-void UpdateSpellExperience_6DAD0(type_str_611* a1, type_SPELLS_BEGIN_BUFFER_str* a2, __int16 a3);
-void GrantSpellToPlayer_6DB50(char a1, char a2);
-void GrantAllSpellsMultiplayer_6DBD0();
-void ImproveAbility_6DC40(unsigned __int8 a1);
-type_entity_0x6E8E* CastSpell_6DCA0(type_entity_0x6E8E* a1, axis_3d* a2, unsigned __int16 a3, type_SPELLS_BEGIN_BUFFER_str_sub* a4, __int16 a5, char a6);
-void UpdateExperience_6E090(type_str_611* spells, int countXP);
-void EnableAllSpells_6E0D0();
-void RestartOrIfNotExistingPlaySample_75110(int16_t flags, int16_t wavIndex, int16_t volume, uint16_t volumePan, int16_t playRate);
-void IfNotPlayingPlaySample_75160(int16_t flags, int16_t wavIndex, int16_t volume, uint16_t volumePan, int16_t playRate);
-void AlwaysPlaySample_751B0(int16_t flags, int16_t wavIndex, int16_t volume, uint16_t volumePan, int16_t playRate);
-void PlayEntitySounds_6E150();
 void EndLoop_6EAB0(int a1, __int16 a2, __int16 index);
-void SetMousePosition_6EDE0(int16_t posX, int16_t posY);
-type_entity_0x6E8E* AddSwitch0B_00_6F030(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* CheckpointArrived_6F070(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* SwitchCheckPlayersNear_6F100(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* AddSwitch0B_04_6F150(type_entity_0x6E8E* a1);
-void AddSwitch0B_20_6F1C0(type_entity_0x6E8E* a1);
-void ActivateSwitchChain_6F2B0(type_entity_0x6E8E* a1);
-unsigned int CountCreaturesOfModel_6F300(type_entity_0x6E8E* a1, signed int a2);
-unsigned int CountCreatures00_6F420(type_entity_0x6E8E* a1);
-unsigned int CountCreatures01_6F440(type_entity_0x6E8E* a1);
-unsigned int CountCreatures02_6F460(type_entity_0x6E8E* a1);
-unsigned int CountCreatures03_6F480(type_entity_0x6E8E* a1);
-unsigned int AddSwitch0B_11_6F4A0(type_entity_0x6E8E* a1);
-unsigned int CountCreatures05_6F4C0(type_entity_0x6E8E* a1);
-unsigned int CountCreatures06_6F4E0(type_entity_0x6E8E* a1);
-unsigned int CountCreatures07_6F500(type_entity_0x6E8E* a1);
-unsigned int CountCreatures08_6F520(type_entity_0x6E8E* a1);
-unsigned int CountCreatures09_6F540(type_entity_0x6E8E* a1);
-unsigned int CountCreatures0A_6F560(type_entity_0x6E8E* a1);
-unsigned int CountCreatures0B_6F580(type_entity_0x6E8E* a1);
-unsigned int CountCreatures0C_6F5A0(type_entity_0x6E8E* a1);
-unsigned int CountCreatures0D_6F5C0(type_entity_0x6E8E* a1);
-unsigned int CountCreatures0E_6F5E0(type_entity_0x6E8E* a1);
-unsigned int CountCreatures0F_6F600(type_entity_0x6E8E* a1);
-unsigned int CountCreatures10_6F620(type_entity_0x6E8E* a1);
-unsigned int CountCreatures11_6F640(type_entity_0x6E8E* a1);
-unsigned int CountCreatures12_6F660(type_entity_0x6E8E* a1);
-unsigned int CountCreatures13_6F680(type_entity_0x6E8E* a1);
-unsigned int CountCreatures14_6F6A0(type_entity_0x6E8E* a1);
-unsigned int CountCreatures15_6F6C0(type_entity_0x6E8E* a1);
-unsigned int CountCreatures16_6F6E0(type_entity_0x6E8E* a1);
-unsigned int CountCreatures17_6F700(type_entity_0x6E8E* a1);
-unsigned int CountCreatures18_6F720(type_entity_0x6E8E* a1);
-unsigned int CountCreatures19_6F740(type_entity_0x6E8E* a1);
-unsigned int CountCreatures1A_6F760(type_entity_0x6E8E* a1);
-unsigned int CountCreatures1B_6F780(type_entity_0x6E8E* a1);
-unsigned int CountCreatures1C_6F7A0(type_entity_0x6E8E* a1);
-unsigned int CountAllCreatures_6F7C0(type_entity_0x6E8E* a1);
-void ActivateSwitchChainOnce_6F7E0(type_entity_0x6E8E* entity);
-void SwitchCheckPlayersNear2_6F0B0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* InitSwitchChainZaxisAndSound_6F850(type_entity_0x6E8E* a1, int a2);
-type_entity_0x6E8E* FindPlayerTouchingSwitch_6F8E0(type_entity_0x6E8E* a1, int a2);
-type_entity_0x6E8E* SetPlayerStart0_4A820(axis_3d* a1);
-type_entity_0x6E8E* SetPlayerStart1_4A840(axis_3d* a1);
-type_entity_0x6E8E* SetPlayerStart2_4A860(axis_3d* a1);
-type_entity_0x6E8E* SetPlayerStart3_4A880(axis_3d* a1);
-type_entity_0x6E8E* SetPlayerStart4_4A8A0(axis_3d* a1);
-type_entity_0x6E8E* SetPlayerStart5_4A8C0(axis_3d* a1);
-type_entity_0x6E8E* SetPlayerStart6_4A8E0(axis_3d* a1);
-type_entity_0x6E8E* SetPlayerStart7_4A900(axis_3d* a1);
-type_entity_0x6E8E* AddPlayer_4A920(axis_3d* a1);
-type_entity_0x6E8E* AddWizard03_01_4A9C0(axis_3d* a1);
-type_entity_0x6E8E* AddCastle03_02_4AA40(axis_3d* a1);
-type_entity_0x6E8E* AddPlayer03_03_4ABA0(axis_3d* a1);
-type_entity_0x6E8E* AddTree_4AC40(axis_3d* a1);
-type_entity_0x6E8E* AddStone_4AD70(axis_3d* a1);
-type_entity_0x6E8E* AddDolmen_4ADF0(axis_3d* a1);
-type_entity_0x6E8E* AddScenery02_03_4AE80(axis_3d* a1);
-type_entity_0x6E8E* AddScenery02_04_4AF00(axis_3d* a1);
-type_entity_0x6E8E* AddScenery02_05_4AF70(axis_3d* a1);
-type_entity_0x6E8E* AddScenery02_06_4AFE0(axis_3d* a1);
-type_entity_0x6E8E* AddScenery02_07_4B0F0(axis_3d* a1);
-type_entity_0x6E8E* AddScenery02_08_4B120(axis_3d* a1);
-type_entity_0x6E8E* AddSceneryWithSprite_4B150(axis_3d* a1, char a2, char a3, __int16 a4);
-type_entity_0x6E8E* AddFlyingWorm05_00_4B240(axis_3d* a1);
-type_entity_0x6E8E* AddCreature_4B490(axis_3d* a1);
-type_entity_0x6E8E* AddBee05_02_4B590(axis_3d* a1);
-type_entity_0x6E8E* AddWorm05_03_4B6F0(axis_3d* a1);
-type_entity_0x6E8E* AddArchers_4BA10(axis_3d* a1);
-type_entity_0x6E8E* AddSkeletonArcher05_09_4BBB0(axis_3d* a1);
-type_entity_0x6E8E* AddEmu05_0A_4BD00(axis_3d* a1);
-type_entity_0x6E8E* AddBuilder05_0C_4BDF0(axis_3d* a1);
-type_entity_0x6E8E* AddVilliger_4BF40(axis_3d* a1);
-type_entity_0x6E8E* AddTrader_4C0B0(axis_3d* a1);
-type_entity_0x6E8E* AddExplodedHuman05_0F_4C1E0(axis_3d* a1);
-type_entity_0x6E8E* AddWyvern05_10_4C310(axis_3d* a1);
-type_entity_0x6E8E* AddLion05_11_4C460(axis_3d* a1);
-type_entity_0x6E8E* AddHead05_12_4C590(axis_3d* a1);
-type_entity_0x6E8E* AddFirebug05_13_4C6B0(axis_3d* a1);
-type_entity_0x6E8E* AddSpider05_14_4C7F0(axis_3d* a1);
-type_entity_0x6E8E* AddDiablo05_15_4C8F0(axis_3d* a1);
-type_entity_0x6E8E* AddFlyingMana05_16_4CA00(axis_3d* a1);
-void AddFlyingManaSegments_4CB60(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* AddBalloon05_17_4CBF0(axis_3d* a1);
-type_entity_0x6E8E* AddCreature05_18_4CCF0(axis_3d* a1);
-type_entity_0x6E8E* AddFlyingCreature05_19_4CE00(axis_3d* a1);
-type_entity_0x6E8E* AddMummy05_1A_4CF00(axis_3d* a1);
-type_entity_0x6E8E* AddBigDragon05_1B_4D000(axis_3d* a2);
-type_entity_0x6E8E* AddMana05_1C_4D1D0(axis_3d* a1);
-type_entity_0x6E8E* SummonFireball_4D2E0(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_1C_4D380(axis_3d* a1);
-type_entity_0x6E8E* SummonManaPosession_4D3B0(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_02_4D470(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_03_4D500(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_04_4D590(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_05_4D620(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_06_4D6B0(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_07_4D740(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_08_4D7D0(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_09_4D860(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_0A_4D900(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_0B_4D990(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_0C_4DA20(axis_3d* a1);
-type_entity_0x6E8E* AddEvent09_0D_4DAB0(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_0E_4DBC0(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_14_4DC40(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_15_4DCC0(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_0F_4DD50(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_11_4DDD0(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_16_4DEA0(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_1B_4DF30(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_17_4DFC0(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_18_4E050(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_19_4E0F0(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_1A_4E180(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_1E_4E210(axis_3d* a1);
-type_entity_0x6E8E* AddProjectile09_1D_4E2A0(axis_3d* a1);
-type_entity_0x6E8E* NewAdd0A00_4E320(axis_3d* a1);
-type_entity_0x6E8E* NewAdd0A01_4E3B0(axis_3d* a1);
-type_entity_0x6E8E* NewAdd0A02_4E430(axis_3d* a1);
-type_entity_0x6E8E* NewAdd0A03_4E490(axis_3d* a1);
-type_entity_0x6E8E* NewAdd0A04_4E500(axis_3d* a1);
-type_entity_0x6E8E* NewAdd0A05_4E570(axis_3d* a1);
-type_entity_0x6E8E* NewAdd0A06_4E5F0(axis_3d* a1);
-type_entity_0x6E8E* NewAdd0A07_4E6A0(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_08_4E750();
-type_entity_0x6E8E* NewAdd0A09_4E760(axis_3d* a1);
-type_entity_0x6E8E* NewAdd0A0A_4E7D0(axis_3d* a1);
-type_entity_0x6E8E* NewAdd0A0B_4E840(axis_3d* a1);
-type_entity_0x6E8E* NewAdd0A0C_4E8C0(axis_3d* a1);
-type_entity_0x6E8E* NewAdd0A46_4E950(axis_3d* a1);
-type_entity_0x6E8E* SetParticleSmoke3B_4E9E0(axis_3d* a1);
-type_entity_0x6E8E* SetParticleSmoke3C_4EA20(axis_3d* a1);
-type_entity_0x6E8E* AddRandomSmoke_4EA60(axis_3d* a1);
-type_entity_0x6E8E* SetSmoke4_4EAA0(axis_3d* a1, char a2, char a3, __int16 a4, int a5);
-type_entity_0x6E8E* ArriveCheckpoint_4EB50(axis_3d* a1);
-type_entity_0x6E8E* AddSmoke_4EC10(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_0F_4ECD0(axis_3d* a1);
-type_entity_0x6E8E* AddMeteor_4ED70(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_10_4EDC0(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_12_4EED0(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction98_4EF30(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_13_4EF90(axis_3d* a1);
-type_entity_0x6E8E* AddWind_4F040(axis_3d* axis);
-unsigned __int16 SetChainToTerrainHeight_4F1C0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* AddFireSpheres_4F2A0(axis_3d* position);
-__int16 InitWindEntity_4F440(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* AddEffect0A_17_4F5F0(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_19_4F6A0(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_1A_4F720(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_1B_4F7A0(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_1C_4F800(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction66_4F860(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction67_4F8B0(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction68_4F900(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction69_4F950(axis_3d* a1);
-type_entity_0x6E8E* AddPointToPath_4F9A0(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_1D_4FA00(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_20_4FA60(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_1F_4FAC0(axis_3d* a1);
-type_entity_0x6E8E* AddCaveEffect1_4FB20(axis_3d* a1);
-type_entity_0x6E8E* AddCaveEffect2_4FB80(axis_3d* a1);
-type_entity_0x6E8E* AddCaveEffect3_4FBE0(axis_3d* a1);
-type_entity_0x6E8E* AddCaveEffect4_4FC30(axis_3d* a1);
-type_entity_0x6E8E* AddCaveEffectAction91_4FCA0(axis_3d* a1);
-type_entity_0x6E8E* AddCaveEffectAction92_4FCD0(axis_3d* a1);
-type_entity_0x6E8E* AddCaveEffect_4FD00(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction55_4FD70(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction54_4FDE0(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_22_4FE40(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_23_4FF20();
-type_entity_0x6E8E* AddEffect0A_24_4FF30(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_26_4FFB0(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_21_50020(axis_3d* a1);
-type_entity_0x6E8E* CreateManaSphere512_50080(axis_3d* a1);
-type_entity_0x6E8E* CreateManaSphere2560_500A0(axis_3d* a1);
-type_entity_0x6E8E* CreateManaSphere_500C0(axis_3d* a1, __int16 mana);
-type_entity_0x6E8E* AddEffectAction62_50130(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_28_501D0(axis_3d* a1);
-type_entity_0x6E8E* AddTerrainModification_50250(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction45_502B0(axis_3d* a1);
-type_entity_0x6E8E* AddEffect0A_29_50320(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction44_50370(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction46_503D0(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction56_50430(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction58_504B0(axis_3d* a1);
-type_entity_0x6E8E* AddAuxiliary_50500(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction75_505A0(axis_3d* a1);
-type_entity_0x6E8E* AddMovingEffect_505E0(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction60_50640(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction61_506E0(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction70_50780(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction71_507C0(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction81_50800();
-type_entity_0x6E8E* AddEffectAction85_50840(axis_3d* a1);
-type_entity_0x6E8E* CastleDefendCreate_508E0(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction93_50960(axis_3d* a1);
-type_entity_0x6E8E* AddCaveEffect5_50A20(axis_3d* a1);
-type_entity_0x6E8E* AddSwitchXX_50A90(axis_3d* a1, char a2, char a3);
-type_entity_0x6E8E* AddSwitch00_50AE0(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch01_50B00(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch02_50B20(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch03_50B40(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch04_50B60(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch32_50B80(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch12_50C10(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch13_50C30(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch14_50C50(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch15_50C70(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch16_50C90(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch17_50CB0(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch18_50CD0(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch19_50CF0(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch20_50D10(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch21_50D30(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch22_50D50(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch23_50D70(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch24_50D90(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch25_50DB0(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch26_50DD0(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch27_50DF0(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch28_50E10(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch29_50E30(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch33_50E50(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch34_50E70(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch35_50E90(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch36_50EB0(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch37_50ED0(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch38_50EF0(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch39_50F10(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch40_50F30(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch41_50F50(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch42_50F70(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch43_50F90(axis_3d* a1);
-type_entity_0x6E8E* addCheckpoint44_50FB0(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch30_50FD0(axis_3d* a1);
-type_entity_0x6E8E* AddSwitch31atyp_50FF0(axis_3d* a1);
-type_entity_0x6E8E* AddClass0EEntity_514E0(axis_3d* a1, char a2, char a3, __int16 a4);
-type_entity_0x6E8E* AddClass0E_00_51530(axis_3d* a1);
-type_entity_0x6E8E* AddClass0E_03_51570(axis_3d* a1);
-type_entity_0x6E8E* AddClass0E_04_515C0(axis_3d* a1);
-type_entity_0x6E8E* AddClass0E_05_51610(axis_3d* a1);
-type_entity_0x6E8E* AddClass0E_01_51660(axis_3d* a1);
-type_entity_0x6E8E* AddClass0E_02_516C0(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction72_51730(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction78_51790(axis_3d* a1);
-type_entity_0x6E8E* AddEffectIfEntitiesFree_51800(axis_3d* a1);
-type_entity_0x6E8E* AddEffectAction80_51A00(axis_3d* a1);
-type_entity_0x6E8E* AddSpellXX_XX_51120(axis_3d* a1, char a2, char a3);
-type_entity_0x6E8E* AddSpell00_00_511A0(axis_3d* a1);
-type_entity_0x6E8E* AddSpell01_03_511C0(axis_3d* a1);
-type_entity_0x6E8E* AddSpell02_06_511E0(axis_3d* a1);
-type_entity_0x6E8E* AddSpell03_09_51200(axis_3d* a1);
-type_entity_0x6E8E* AddSpell04_12_51220(axis_3d* a1);
-type_entity_0x6E8E* AddSpell05_15_51240(axis_3d* a1);
-type_entity_0x6E8E* AddSpell06_18_51260(axis_3d* a1);
-type_entity_0x6E8E* AddSpell07_21_51280(axis_3d* a1);
-type_entity_0x6E8E* AddSpell08_24_512A0(axis_3d* a1);
-type_entity_0x6E8E* AddSpell09_27_512C0(axis_3d* a1);
-type_entity_0x6E8E* AddSpell10_30_512E0(axis_3d* a1);
-type_entity_0x6E8E* AddSpell11_33_51300(axis_3d* a1);
-type_entity_0x6E8E* AddSpell12_36_51320(axis_3d* a1);
-type_entity_0x6E8E* AddSpell13_39_51340(axis_3d* a1);
-type_entity_0x6E8E* AddSpell14_42_51360(axis_3d* a1);
-type_entity_0x6E8E* AddSpell15_45_51380(axis_3d* a1);
-type_entity_0x6E8E* AddSpell16_48_513A0(axis_3d* a1);
-type_entity_0x6E8E* AddSpell17_51_513C0(axis_3d* a1);
-type_entity_0x6E8E* AddSpell18_54_513E0(axis_3d* a1);
-type_entity_0x6E8E* AddSpell19_57_51400(axis_3d* a1);
-type_entity_0x6E8E* AddSpell20_60_51420(axis_3d* a1);
-type_entity_0x6E8E* AddSpell21_63_51440(axis_3d* a1);
-type_entity_0x6E8E* AddSpell22_66_51460(axis_3d* a1);
-type_entity_0x6E8E* AddSpell23_69_51480(axis_3d* a1);
-type_entity_0x6E8E* AddSpell24_72_514A0(axis_3d* a1);
-type_entity_0x6E8E* AddSpell25_75_514C0(axis_3d* a1);
-x_WORD* GetCastleLevelSize_60400(__int16 a1, x_WORD* a2, x_WORD* a3);
-void SendSpellMessage_6D8B0(unsigned __int16 a1, unsigned __int16 a2, __int16 a3);
-void CollectLevelStats_5C530();
 void ProcessCommandLine_56210(int a1, char** a2);
 void MainLoop_46830(unsigned __int16 a3);
 void ShutdownGame_5BC20();
-void ResetVrDevice_75AB0();
-void InitStageVars_11EE0();
-void ResetLevelState_4A1E0(int a1, char a2);
 void ClearSettings_567C0();
-void InitStages_58940(/*uint8_t* a1*/);
-void Init0x3664C_84790();
-void UpdateEntities_57730();
-int ReadGameUserInputs_89D10();
-void PaletteChanges_47760();
-void UpdateSpriteAnimations_715B0();
-void UpdateLightSources_84B80();
-void GameObjectives_58F00();
-void CheckLevelEndReached_57570();
-void CheckLevelEndFlags_575C0();
 void SetProgrammableIntervalTimer_6FDA0();
 void ClearProgrammableIntervalTimer_6FE20();
-void PlayCDTrackSegmentForSecretLevel_86F20(char a1);
-void PlayCDTrackSegmentWithPaletteFlash_86F70(uint8_t trackIdx, int32_t startPosMs, int32_t lengthMs);
-void PlayCDTrackSegment_86FF0(uint8_t trackIdx, int32_t startPosMs, int32_t lengthMs);
-void StopCdPlayBackAndFadeUp_59AF0();
-uint32_t FadeDownSoundVolume_59A50();
-uint32_t FadeUpSoundVolume_59B50(uint32_t interval);
-void RestoreSoundVolume_59BF0();
-void InitSoundAndMusic_46DD0();
-uint32_t FadePalettes_86EA0(/*int a1, int a2, int a3*/uint32_t interval);
-void PresentObjective_59820();
 signed int FileDecompress_5C3D0(uint8_t* a1, uint8_t* a2);
-void LoadScreen_47FC0(bool isSecretLevel);
 void ResetGameSettingsFlags_48350();
-void CloseMovie_53CC0();
-void FreeTmapsAndAnimations_713A0();
-signed int ReadKeyboardKeysInMenu_7C050();
-void UpdateLightSourcesOld_848A0();
-void InitialiseSpells_54A50(int playerIndex2, int playerIndex);
 void intervalsave(int index);
-void AnimateSprite_72350(type_animations1* a1);
-void FreeAnimations_72550(type_E9C08** a1);
-void CopyScreen_85B20(uint8_t* src, uint8_t* dest, uint16_t rows_count);
-void ResetHelpItemFlags_88580();
-int SetMouseBoundsScaled_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int16 a5, __int16 a6);
-int SetViewportBounds_90374(uint16_t viewPortX, uint16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight, unsigned __int16 a5, __int16 a6);
-int BlitToVgaPlanar_40D10();
-void SetPlayerColoursForMapType_48120();
-void AutoSaveLevel_57640();
-void ResetPaletteFade_90D27();
-void VGA_GetPalette_A0D2C(TColor* a1);
-void DrawVrFrame_BD1B6(uint8_t* a1);
-void BlitScreenToVgaBanks_BD2CB(uint8_t* a1);
-void BlitScreenToVga_BD3DD();
-void DrawGameDebugText_6FEC0();
-int DrawSpiderWeb();
-int CheckPositionCollision_102D0(type_entity_0x6E8E* a1, axis_3d* a2, char a3);
-bool BoundsOverlap_10630(axis_3d* a1, axis_4d* a2, axis_3d* a3, axis_4d* a4);
-bool EntitiesOverlap_106C0(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-bool CompareAxisWithShift_106F0(axis_3d* a1, axis_4d* a2, axis_3d* a3, axis_4d* a4);
-bool CompareAxisWithShift_10750(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
-type_entity_0x6E8E* FindOverlappingSelectableEntity_10780(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* FindOverlappingHostileEntity_108B0(type_entity_0x6E8E* a1);
-type_entity_0x6E8E* FindOverlappingEntityOfType_10A50(type_entity_0x6E8E* a1);
-signed int IsEntityOfModelNearby_10B70(axis_3d* a1, char a2, char a3);
-int SendMailToOverlappingEntities_10C80(type_entity_0x6E8E* entity, unsigned __int8 channel, unsigned __int16 amount);
-void SendMailToNearbyEntities_112D0(type_entity_0x6E8E* a1, unsigned __int16 a2);
-void SendMailToOverlappingEntities2_11400(type_entity_0x6E8E* a1, char a2, unsigned __int16 a3);
-int SendMailToOverlappingEntities3_116A0(type_entity_0x6E8E* a1, char a2, unsigned __int16 a3);
-int SendMailToEntity_11900(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2, unsigned __int8 a3, unsigned __int16 a4);
-void KillEntitiesInArea_11960(x_WORD* a1);
-char CanPlaceCastleArea_11A10(type_entity_0x6E8E* a1);
-char IsTilePassable_11C80(uaxis_2d a1);
-bool IsNearPlayer_11CB0(axis_3d* a1);
-bool IsNearCeiling_11E20(type_entity_0x6E8E* a1, axis_3d* a2);
-void SetStageVarForEntity_12100(type_entity_0x30311* a1, type_entity_0x6E8E* a2, char a3);
-void AdvanceEntityStage_122A0(type_entity_0x6E8E* event);
-void MarkStageVarsForIndex_122C0(__int16 a1);
-void AdvanceStage_12330(type_entity_0x6E8E* a1, __int16 a2);
-void AdvanceStageOrSetAction_12410(type_entity_0x6E8E* event, char actionIndex);
-void ClearEntityStage_12470(type_entity_0x6E8E* a1, char a2);
-void UpdateEntityStage_12500(uint8_t* a1);
-void UpdateStageVars_12780();
-void CheckStageVarsComplete_12870();
-int GetSegmentAngle_273C0(__int16 a1, char a2, __int16 a3, __int16 a4);
-int GetAnimationPhase_27430(int a1);
-void DrawGameFrame_2BE30();
 void FillD4350Table_3B4D0(int a1);
-void BlendAndBlit_40F80();
-unsigned __int16 SetTerrainTypeAndNeighbours_46180(unsigned __int16 a1, char a2);
-void AddBuildingToTerrain_46570(uaxis_2d axis1, uaxis_2d axis2);
-void ReleaseSoundTimer_46F50();
-void PaletteFadeIn_480A0(/*int a1, int a2, int a3*/);
-int GetAreaHeightRange_48990(char a1, char a2, char a3, char a4);
-void SetHeightmapByBuildingArea_48B50(uint8 x, uint8 y, int height, int width);
-void SetHeightmapByBuilding_48B90(uaxis_2d axis);
-__int16 FindCeilingHeight_48D20(int a1, unsigned __int16 a2);
-__int16 GetTerrainHeightFromSquare_48DF0(char x, char y, char height, char width);
-signed int GetMinHeightInArea_48E60(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4);
-signed int GetMaxHeightInArea_48E90(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4);
-signed int GetMinCeilingInArea_48EC0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4);
-signed int GetMaxCeilingInArea_48EF0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4);
-signed int GetMinHeightmapInArea_48F20(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t* a5x);
-signed int GetMaxHeightmapInArea_48FD0(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t* a5x);
-void SetEvent144_49C70(type_entity_0x6E8E* event);
-void SetEntityIndex_49C90(type_entity_0x6E8E* event, int16_t entityIndex);
-void SetEntityIndexAndRot_49CD0(type_entity_0x6E8E* event, int16_t entityIndex);
-void SetEntitySprite_49D50(type_entity_0x6E8E* event, int16_t entityIndex);
-void SetHalfSpeedEntity_49DA0(type_entity_0x6E8E* event, int16_t entityIndex);
-void SetEntitySpriteDoubleSize_49E10(type_entity_0x6E8E* event, int16_t entityIndex);
-void SetEntityShiftRot_49EA0(type_entity_0x6E8E* event, int16_t shift, int16_t rotation);
-void SetShiftByCastle_49EC0(type_entity_0x6E8E* event, int16_t a2);
-void SpawnLevelEntity_4A310(type_entity_0x30311* a1);
-int GetFreeEntityCount_4A810();
-char TestOpenMovieGam_53770(uint16_t a1);
-char TestOpenMovieMap_53950(uint16_t a1);
-void LoadBldgPrm_539A0();
-void RecordOrPlayMovieInput_53A40(Type_PlayerInput_0x6E3E* a1);
-void StartMovieRecording_53C70();
-void StopMovieRecording_53CA0();
-void DrawLoadingBar_54960();
-bool SaveSMAPSLEVmovie_54D30(__int16 a1);
-bool SaveSMAPSLEVmovie2_54F00(__int16 a1);
 void InitPlayerSlots_55EB0(__int16 a1);
-bool IsTileFreeOfFeatures_56EE0(uaxis_2d a1);
-char FindFreeTileNear_56F10(__int16 a1, __int16 a2, __int16 a3, char a4);
-char FindFreeTileInArea_570F0(__int16 a1, __int16 a2, signed __int16 a3, char a4, char a5, char a6);
-char SpawnAroundEntity_572C0(type_entity_0x6E8E* a1, __int16 a2, __int16 a3, __int16 a4, char a5);
-void DamageSceneryOnTile_57390(uaxis_2d axis, uint16_t id);
-char IsSpellCastable_57450(unsigned __int8 a1);
-void ResetLevelSpells_574A0();
-void CopyPlayerPositionAndRotation_57B20(type_str_0x2BDE* a1, type_entity_0x6E8E* a2);
-void CopyEntityPosition_57CF0(type_entity_0x6E8E* entity, axis_3d* position);
-void MoveEntityOnMap_57D40(type_entity_0x6E8E* entity, axis_3d* position);
-void AddEventToMap_57D70(type_entity_0x6E8E* entity, axis_3d* position);
-void GetTerrainHeightAt_58030(axis_3d* a1, axis_3d* a2);
-void ClampAboveTerrain_580E0(axis_3d* a1, signed int a2, int a3, int a4, __int16 a5);
-int TurnTowardsAngle_58350(unsigned __int16 a1, __int16 a2, int a3, unsigned __int16 a4);
-int GetChebyshevDistXY_583B0(axis_3d* a1, axis_3d* a2);
-unsigned int Distance3D_583F0(axis_3d* a1, axis_3d* a2);
-int DistanceSquared3D_58440(axis_3d* a1, axis_3d* a2);
-void AdvanceAnimationFrame_585A0(type_entity_0x6E8E* a1);
-void UpdateWizardHeights_585D0();
-void UpdateMultiplayerRandom_58630();
-void LinkObjectiveToEntity_58DA0(type_entity_0x30311* a1, type_entity_0x6E8E* a2);
-void CheckObjectiveKill_59760(type_entity_0x6E8E* a1, type_entity_0x6E8E* a2);
 void PrepareTextures_5B7A0();
 void LoadPaletteAndHelpPalette_5B840();
 signed int UnloadPsxData_5C060();
-void InitEntityPointers_5C330();
 void TestersInfo_5C490();
-void SetLocalPaletteSubMode_5C800(type_entity_0x6E8E* a1, char a2);
-void SetPaletteModification_5C830(type_entity_0x6E8E* event, char paletteSubMod, __int16 PaletteCount);
-void ShakeScreenNearPlayer_5C870(type_entity_0x6E8E* a1);
 void SetMaxDistance_5C8D0(type_entity_0x6E8E* a1);
-void UpdatePlayerWizard_5C950(type_str_0x2BDE* a1, type_entity_0x6E8E* a2);
-void UpdatePlayerSpellCharges_5CF40(type_entity_0x6E8E* a1, char a2);
-bool moveTest_5D0A0(type_entity_0x6E8E* a1);
-void MovePlayerWizard_5D530(type_entity_0x6E8E* a1);
-void UpdateWizardWaterEffect_5DD50(type_entity_0x6E8E* a1);
-void UpdateWizardMount_5DE30(type_entity_0x6E8E* a1);
-void LoadEntitySprites_716C0(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3);
-void SetF5538ByStrTMAP00TAB_71730(unsigned __int16 a1);
-void ReloadSpritesForLevel_71780();
-void MarkTmapGroupUsed_71AB0(__int16 a1, char a2);
-void FreeTmapCache_720C0(type_x_DWORD_E9C28_str** a1);
-void AnimateSpriteFrames_723B0(type_animations1* a1, char a2);
-void SetVgaPaletteEntry_727F0(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a3, unsigned __int8 a4);
-int InitVrTracker_75440();
-int VrSendCommand3_754C0(int a1, x_DWORD* a2, uint8_t* a3);
-int VrReadData_75540(int a1, uint8_t* a2);
-int VrSendCommand5_755B0(int a1, x_DWORD* a2, uint8_t* a3);
-bool DetectVrDevice_75650();
-signed int ShutdownVrDevice_75910();
-void SetMouseMinMaxVert_759B0();
-unsigned __int8 ReadVrPort_75A10(int a1, unsigned __int8* a2);
 int AllocMemBlock_75B80(int a1, x_WORD* a2, x_WORD* a3);
-void SetAnimationPosition_765FC(__int16 a1, __int16 a2);
-int8_t* DecodeAnimationFrame_76619(int8_t* a1x, int8_t* a2x);
-void DecodeAnimationChunks_766A4();
-__int16 ReadAnimationPosition_76752();
-int SkipAnimationChunk_7677C();
-__int16 DecodeAnimationDelta_7678D();
-int DecodeAnimationRun_76840();
-void DrawBitmapLine_81360(int16_t a1, int16_t a2, int16_t a3, int16_t a4, __int16 a5);
-void ActivateSecretPortal_82AB0(unsigned __int8 a1);
 void InitMemoryAndTextureSize_83B50();
 void GetSystemSpeed();
-void AddEvent2_847D0(type_entity_0x6E8E* a1, char a2, char a3, char a4);
-void FreeLightSource_84880(type_str_0x3664C* a1);
-void ApplyLightToTile_84EA0(uaxis_2d a1x, type_str_0x3664C* a2, char a3, __int16 a4);
-int DistanceSquared3DAlt_84FB0(axis_3d* a1, axis_3d* a2);
 int ReadDwordAtOffset4_85060(int a1);
 __int16 FreeMemory_85F00(__int16 a1);
-int MsfToFrames_85F60(int a1);
-char ReturnTrue_871E0();
-void DrawMenuState_872A0();
-void SetHelpPopupLine_87A30();
-void UpdateHelpPopupTimeout_87B30();
-void UpdateHelpItemTimers_87B70();
-void ClearHelpItemFlags_87BE0();
-void UpdateHelpItems_88B20();
-void SetHelpItem41Active_88B60();
-void UpdateObjectiveHelp_88BA0();
-void SetHelpPopupIndex93_88D00();
-signed int InitJoystickType3_8B600(type_unk_18058Cstr a1);
-signed int InitJoystickType1_8B790(type_unk_18058Cstr a1);
-char ReadJoystickValue_8B880(uint8_t** a1, char a2, signed int a3, int a4);
-void InitJoystickState_8BB40(uint8_t* a1, char a2);
-char GetJoystickButtons_8C140(unsigned __int16 a1, uint8_t* a2);
-int UpdateMouseCursorPosition_8C329();
-int SaveCursorBackground_8C839();
-int RestoreCursorBackground_8CA16();
-void ClearCursorDrawnFlag_8CB1F();
-void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t mouse_posy);
-char SetGammaCorrection_904C0(float a1);
-int SetVideoMode_9937E(__int16 a1);
-signed int SetVgaPaletteBank_9951B(__int16 a1);
-int TestVgaDriver_995B0();
 signed int StringToLong2_99FF0(char* a1, char** a2, signed int a3);
 int FreeMemPool_9AD16(void* a1);
-int TimeoutMultiplyBy100_9AD9C(int a1);
-int TimeoutMultiplyBy10_9ADB4(int a1);
-void OriginalDebugOutput_9AEEC(x_DWORD** a1, char* a2);
-char SerialDebugOutput_9B038(int* a1, char* a2, int a3);
-signed int SerialSendS_9B260(x_DWORD** a1);
-char SerialHandshake_9B274(int* a1, int a2);
-char* GetTrackerStatusText_9B498(char a1);
-int ReadPort_9B63C(int a1);
-void SerialInterruptHandler_9B688(_DWORD* a1);
-int SerialTransmit_9B7E8(_DWORD* a1);
-void NoOp_9BAB0();
-int SerialSetBaudRate_9BAC4(uint8_t* a1, signed int a2);
-int SerialOpenPort_9BE18(uint8_t* a1, int a2, char a3, unsigned int a4, unsigned int a5);
-signed int SerialSendByte_9C810(x_DWORD* a1, char a2);
-signed int SerialReceiveByte_9C938(x_DWORD* a1);
-bool SerialIsReceiveEmpty_9C9D0(int a1);
-void SerialClearBuffer_9CBBC(x_DWORD* a1);
-int SerialSetRts_9CCB4(uint8_t* a1, int a2);
-int SerialSetDtr_9CCF8(uint8_t* a1, int a2);
-int SerialSetLineControl_9CD9C(uint8_t* a1, int a2);
-__int16 ReadKeyboardShiftFlags_9D31C(__int16 result);
-int SetVgaRegister_A0B24(int a1);
-int ReadVgaCrtcRegisters_A0BB0(int* a1, int a2);
 int ReturnZero_AC24B();
-void InitVrTrackerData_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD* a6, x_DWORD* a7, signed int* a8);
-x_BYTE* ParseVrConfigLine_AD09E(x_BYTE* a1, int a2);
+x_BYTE* ScanfParseCharset_AD09E(x_BYTE* a1, int a2);
 int HexCharToDigit_AD754(signed int a1);
-uint8_t* AllocTable_B1138(uint8_t** a1, signed int a2);
-int FreeTable_B11E8(uint32_t* a1, int a2);
-int FixedSqrt_B12A4(int a1);
-int FixedAtan2_B1304(int a1, int a2);
-int FixedAsin_B1414(int a1);
-int FixedSin_B148C(int a1);
-int FixedSinCos_B14F8(int* a1, int a2);
+
+extern int count_begin;
+int watcomrand(void);
+int _nmemneed(uint8_t*);
+int _nmemneed_0(uint8_t*);
+int j_j___clock(x_DWORD, x_DWORD, char*);
+extern uint8_t netWizardTypes_E131C[8];
+extern int debug_first_run;
+void GiveAllSpells_Cheat(type_entity_0x6E8E* actEvent);
+void RecordingLevelSave();
+void RestoreInterruptFlags_91F50(unsigned int a1);
 
 #endif

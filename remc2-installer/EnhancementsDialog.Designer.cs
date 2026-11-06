@@ -53,9 +53,10 @@ namespace WixSharpSetup
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.White;
             this.label2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(30, 31);
+            this.label2.Location = new System.Drawing.Point(17, 18);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(556, 24);
+            this.label2.Size = new System.Drawing.Size(300, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Would you like to install enhanced assets for Magic Carpet 2?";
             // 
@@ -64,9 +65,10 @@ namespace WixSharpSetup
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.White;
             this.label1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 8);
+            this.label1.Location = new System.Drawing.Point(9, 5);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(261, 25);
+            this.label1.Size = new System.Drawing.Size(152, 14);
             this.label1.TabIndex = 1;
             this.label1.Text = "Install Enhanced Assets";
             // 
@@ -78,9 +80,10 @@ namespace WixSharpSetup
             this.pnlBottom.Controls.Add(this.btnNext);
             this.pnlBottom.Controls.Add(this.btnCancel);
             this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBottom.Location = new System.Drawing.Point(3, 312);
+            this.pnlBottom.Location = new System.Drawing.Point(2, 179);
+            this.pnlBottom.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pnlBottom.Name = "pnlBottom";
-            this.pnlBottom.Size = new System.Drawing.Size(480, 54);
+            this.pnlBottom.Size = new System.Drawing.Size(280, 30);
             this.pnlBottom.TabIndex = 9;
             // 
             // btnBack
@@ -88,9 +91,10 @@ namespace WixSharpSetup
             this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBack.AutoSize = true;
             this.btnBack.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack.Location = new System.Drawing.Point(229, 12);
+            this.btnBack.Location = new System.Drawing.Point(136, 1);
+            this.btnBack.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(75, 34);
+            this.btnBack.Size = new System.Drawing.Size(43, 23);
             this.btnBack.TabIndex = 6;
             this.btnBack.Text = "Back";
             this.btnBack.UseVisualStyleBackColor = true;
@@ -101,9 +105,10 @@ namespace WixSharpSetup
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNext.AutoSize = true;
             this.btnNext.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNext.Location = new System.Drawing.Point(310, 12);
+            this.btnNext.Location = new System.Drawing.Point(182, 1);
+            this.btnNext.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(75, 34);
+            this.btnNext.Size = new System.Drawing.Size(43, 23);
             this.btnNext.TabIndex = 5;
             this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = true;
@@ -115,9 +120,10 @@ namespace WixSharpSetup
             this.btnCancel.AutoSize = true;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(391, 12);
+            this.btnCancel.Location = new System.Drawing.Point(224, 1);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(79, 34);
+            this.btnCancel.Size = new System.Drawing.Size(49, 23);
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -128,10 +134,10 @@ namespace WixSharpSetup
             this.chkInstallTextures.AutoSize = true;
             this.chkInstallTextures.Checked = true;
             this.chkInstallTextures.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkInstallTextures.Location = new System.Drawing.Point(18, 44);
-            this.chkInstallTextures.Margin = new System.Windows.Forms.Padding(10);
+            this.chkInstallTextures.Location = new System.Drawing.Point(10, 25);
+            this.chkInstallTextures.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.chkInstallTextures.Name = "chkInstallTextures";
-            this.chkInstallTextures.Size = new System.Drawing.Size(267, 28);
+            this.chkInstallTextures.Size = new System.Drawing.Size(151, 17);
             this.chkInstallTextures.TabIndex = 0;
             this.chkInstallTextures.Text = "Install Enhanced Textures";
             this.chkInstallTextures.UseVisualStyleBackColor = true;
@@ -141,10 +147,10 @@ namespace WixSharpSetup
             this.chkSpeech.AutoSize = true;
             this.chkSpeech.Checked = true;
             this.chkSpeech.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSpeech.Location = new System.Drawing.Point(16, 193);
-            this.chkSpeech.Margin = new System.Windows.Forms.Padding(10);
+            this.chkSpeech.Location = new System.Drawing.Point(9, 110);
+            this.chkSpeech.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.chkSpeech.Name = "chkSpeech";
-            this.chkSpeech.Size = new System.Drawing.Size(161, 28);
+            this.chkSpeech.Size = new System.Drawing.Size(93, 17);
             this.chkSpeech.TabIndex = 4;
             this.chkSpeech.Text = "Install Speech";
             this.chkSpeech.UseVisualStyleBackColor = true;
@@ -154,10 +160,10 @@ namespace WixSharpSetup
             this.chkFixedMenuGraphics.AutoSize = true;
             this.chkFixedMenuGraphics.Checked = true;
             this.chkFixedMenuGraphics.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkFixedMenuGraphics.Location = new System.Drawing.Point(18, 81);
-            this.chkFixedMenuGraphics.Margin = new System.Windows.Forms.Padding(10);
+            this.chkFixedMenuGraphics.Location = new System.Drawing.Point(10, 46);
+            this.chkFixedMenuGraphics.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.chkFixedMenuGraphics.Name = "chkFixedMenuGraphics";
-            this.chkFixedMenuGraphics.Size = new System.Drawing.Size(280, 28);
+            this.chkFixedMenuGraphics.Size = new System.Drawing.Size(157, 17);
             this.chkFixedMenuGraphics.TabIndex = 1;
             this.chkFixedMenuGraphics.Text = "Install Fixed Menu Graphics";
             this.chkFixedMenuGraphics.UseVisualStyleBackColor = true;
@@ -167,10 +173,10 @@ namespace WixSharpSetup
             this.chkExtendedFonts.AutoSize = true;
             this.chkExtendedFonts.Checked = true;
             this.chkExtendedFonts.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkExtendedFonts.Location = new System.Drawing.Point(16, 156);
-            this.chkExtendedFonts.Margin = new System.Windows.Forms.Padding(10);
+            this.chkExtendedFonts.Location = new System.Drawing.Point(9, 89);
+            this.chkExtendedFonts.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.chkExtendedFonts.Name = "chkExtendedFonts";
-            this.chkExtendedFonts.Size = new System.Drawing.Size(234, 28);
+            this.chkExtendedFonts.Size = new System.Drawing.Size(134, 17);
             this.chkExtendedFonts.TabIndex = 3;
             this.chkExtendedFonts.Text = "Install Extended Fonts";
             this.chkExtendedFonts.UseVisualStyleBackColor = true;
@@ -184,12 +190,13 @@ namespace WixSharpSetup
             this.tblMain.Controls.Add(this.grpOptions, 0, 1);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
+            this.tblMain.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tblMain.Name = "tblMain";
             this.tblMain.RowCount = 3;
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tblMain.Size = new System.Drawing.Size(486, 369);
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tblMain.Size = new System.Drawing.Size(284, 211);
             this.tblMain.TabIndex = 2;
             // 
             // panel2
@@ -199,9 +206,10 @@ namespace WixSharpSetup
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Location = new System.Drawing.Point(2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(480, 64);
+            this.panel2.Size = new System.Drawing.Size(280, 36);
             this.panel2.TabIndex = 10;
             // 
             // grpOptions
@@ -212,10 +220,11 @@ namespace WixSharpSetup
             this.grpOptions.Controls.Add(this.chkSpeech);
             this.grpOptions.Controls.Add(this.chkFixedMenuGraphics);
             this.grpOptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpOptions.Location = new System.Drawing.Point(3, 73);
+            this.grpOptions.Location = new System.Drawing.Point(2, 42);
+            this.grpOptions.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.grpOptions.Name = "grpOptions";
-            this.grpOptions.Padding = new System.Windows.Forms.Padding(10);
-            this.grpOptions.Size = new System.Drawing.Size(480, 233);
+            this.grpOptions.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.grpOptions.Size = new System.Drawing.Size(280, 133);
             this.grpOptions.TabIndex = 11;
             this.grpOptions.TabStop = false;
             this.grpOptions.Text = "Options";
@@ -225,10 +234,10 @@ namespace WixSharpSetup
             this.chkFixedTmaps.AutoSize = true;
             this.chkFixedTmaps.Checked = true;
             this.chkFixedTmaps.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkFixedTmaps.Location = new System.Drawing.Point(16, 118);
-            this.chkFixedTmaps.Margin = new System.Windows.Forms.Padding(10);
+            this.chkFixedTmaps.Location = new System.Drawing.Point(9, 67);
+            this.chkFixedTmaps.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.chkFixedTmaps.Name = "chkFixedTmaps";
-            this.chkFixedTmaps.Size = new System.Drawing.Size(208, 28);
+            this.chkFixedTmaps.Size = new System.Drawing.Size(118, 17);
             this.chkFixedTmaps.TabIndex = 2;
             this.chkFixedTmaps.Text = "Install Fixed TMaps";
             this.chkFixedTmaps.UseVisualStyleBackColor = true;
@@ -236,14 +245,15 @@ namespace WixSharpSetup
             // EnhancedDataDialog
             // 
             this.AcceptButton = this.btnNext;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(168F, 168F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(486, 369);
+            this.ClientSize = new System.Drawing.Size(284, 211);
             this.Controls.Add(this.tblMain);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(510, 400);
+            this.MinimumSize = new System.Drawing.Size(300, 250);
             this.Name = "EnhancedDataDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Enhanced Assets";

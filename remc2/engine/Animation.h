@@ -27,11 +27,11 @@ typedef struct {//lenght 12
 Type_17DB40;
 #pragma pack(pop)
 
-extern Type_17DB40 unk_17DB40str;//uint8_t unk_17DB40[12]; // weak
+extern Type_17DB40 fmvHeader_17DB40;//uint8_t unk_17DB40[12]; // weak
 
-extern int x_DWORD_EA3B4; // weak?x_DWORD_E9C4C_langindexbuffer[474]
-extern __int16 x_WORD_F42AE; // weak
-extern __int16 x_WORD_F42A8; // weak
+extern int skipInput_EA3B4; // weak?langStrings_E9C4C[474]
+extern __int16 lastKey_F42AE; // weak
+extern __int16 skipDelay_F42A8; // weak
 extern TColor* framebuffer_E12F4x; // weak
 extern int16_t height_17DB48; // weak
 extern char DisplaySubtitles_D41C0; // weak
@@ -40,7 +40,7 @@ extern __int16 redrawTextInVideo_E12FC;
 extern __int16 soundEventIndex_D4004;
 //extern __int16 x_WORD_17DB58;
 extern uint16_t ActualKeyframe_17DB60;
-extern FILE* x_DWORD_17DB38_intro_file_handle;
+extern FILE* fmvFile_17DB38;
 //extern uint8_t unk_17DB40[];
 extern int16_t LastKeyframe_17DB46;
 extern int16_t width_17DB4A;
@@ -52,7 +52,7 @@ extern __int16 redrawTextInVideo_E12FC;
 extern __int16 soundEventIndex_D4004;
 //extern __int16 x_WORD_17DB58;
 extern uint16_t ActualKeyframe_17DB60;
-extern FILE* x_DWORD_17DB38_intro_file_handle;
+extern FILE* fmvFile_17DB38;
 //extern uint8_t unk_17DB40[];
 extern int16_t LastKeyframe_17DB46;
 extern int16_t width_17DB4A;
@@ -77,5 +77,16 @@ void WaitForNextAnimationFrame_75CB0();
 void WaitToScreenBeam_9A0FC();
 
 
+
+void SetAnimationPosition_765FC(__int16 a1, __int16 a2);
+int8_t* DecodeAnimationFrame_76619(int8_t* a1x, int8_t* a2x);
+void DecodeAnimationChunks_766A4();
+__int16 ReadAnimationPosition_76752();
+int SkipAnimationChunk_7677C();
+__int16 DecodeAnimationDelta_7678D();
+int DecodeAnimationRun_76840();
+void CreateAnimObject_7E8D0(type_animStruct* animStruct, __int16 x1, __int16 y1, __int16 x2, __int16 y2, __int16 countX, __int16 countY);
+bool MoveAnimObject_7E9D0(x_WORD* x1, x_WORD* y1, type_animStruct* a3);
+void MoveAnimIndex_81260(type_animStruct3* animStruct, __int16 x1, __int16 y1);
 
 #endif //MAIN_ANIMATION

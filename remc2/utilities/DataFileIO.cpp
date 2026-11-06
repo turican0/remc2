@@ -2,6 +2,7 @@
 
 #include "../engine/Basic.h"
 #include "../engine/engine_support.h"
+#include "../engine/Graphics.h"
 
 Pathstruct pstr[100] = {
 xasearchd_2bac30 ,//00
@@ -193,7 +194,7 @@ bool DataFileIO::TestExistingSaveFile_55750(uint8_t fileindex, int levelindex, b
 		{
 			readState = DataFileIO::Read(saveslevfile, readbuffer, 8);
 			correctReadState = readState != 8;
-			if (readState == 8 && *(uint32_t*)&readbuffer[4] != D41A0_0.dword_0x4)
+			if (readState == 8 && *(uint32_t*)&readbuffer[4] != world_D41A0.levelId_0x4)
 				correctReadState = true;
 			filesize2 = DataFileIO::FileLengthBytes(saveslevfile);
 			DataFileIO::Close(saveslevfile);
@@ -254,12 +255,12 @@ bool DataFileIO::LoadFileArray_84250(int psindex)//265250
 				psindex++;
 				continue;
 			}
-			VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//install Palette for text mode(show error)
+			VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//install Palette for text mode(show error)
 			myprintf("ERROR: File %s.\n","palette");
 		}
 		else
 		{
-			VGA_PaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//install Palette for text mode(show error)
+			VgaPaletteInstall_41A90((TColor*)*xadatapald0dat2.colorPalette_var28);//install Palette for text mode(show error)
 			myprintf("ERROR: Allocation %s.\n","palette");
 		}
 		myprintf("Press return to continue\n");

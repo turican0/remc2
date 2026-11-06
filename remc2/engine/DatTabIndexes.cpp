@@ -106,7 +106,7 @@ void CreateIndexes_6EB90(filearray_struct* a1)//24fb90
 {
 	for (uint32_t i = 0; (a1[i].begin_buffer) != &ZERO_BUFFER_PST2; i++)
 	{
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (videoMode_180660 & 1)
 			CreateIndexDatTabDoubled_98709(*a1[i].begin_buffer, *a1[i].end_buffer, *a1[i].dat_buffer, *a1[i].posistruct);//279709 //1a6f44,1a6f86,1a6578
 		else
 			CreateIndexDatTab_9874D(*a1[i].begin_buffer, *a1[i].end_buffer, *a1[i].dat_buffer, *a1[i].posistruct);

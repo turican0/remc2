@@ -6,8 +6,8 @@
 ViewPort viewPort = ViewPort(0, 0, 0, 0, 0, 0);
 //int iViewPortWidth_DE564 = 0;  // DE564 viewPort.Width_DE564
 //int iViewPortHeight_DE568 = 0; // DE568 viewPort.Height_DE568
-// //int iViewPortPosX_EA3D0; // weak?x_DWORD_E9C4C_langindexbuffer[481] viewPort.PosX_EA3D0
-//int iViewPortPosY_EA3CC; // weak?x_DWORD_E9C4C_langindexbuffer[480] viewPort.PosY_EA3CC
+// //int iViewPortPosX_EA3D0; // weak?langStrings_E9C4C[481] viewPort.PosX_EA3D0
+//int iViewPortPosY_EA3CC; // weak?langStrings_E9C4C[480] viewPort.PosY_EA3CC
 
 ViewPort::ViewPort()
 {
@@ -60,15 +60,15 @@ void ViewPort::SetRenderViewPortSize_40BF0(int width, int height, int viewPortWi
 	height_help = height;
 	viewPortWidth_help = viewPortWidth;
 	viewPortHeight_help = viewPortHeight;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (videoMode_180660 & 1)
 	{
 		width_help = width >> 1;
 		height_help = height >> 1;
 		viewPortWidth_help = viewPortWidth >> 1;
 		viewPortHeight_help = viewPortHeight >> 1;
 	}
-	str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart = width_help + screenWidth_18062C * height_help;
-	SetRenderViewPortSize_BCD45(str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart + pdwScreenBuffer_351628, screenWidth_18062C, viewPortWidth_help, viewPortHeight_help);
+	spriteRender_F2C20.renderBufferStart_0x0e = width_help + screenWidth_18062C * height_help;
+	SetRenderViewPortSize_BCD45(spriteRender_F2C20.renderBufferStart_0x0e + pdwScreenBuffer_351628, screenWidth_18062C, viewPortWidth_help, viewPortHeight_help);
 	EventDispatcher::I->DispatchEvent<uint16_t, uint16_t, uint16_t, uint16_t>(EventType::E_VIEWPORT_CHANGE, (uint16_t)width_help, (uint16_t)height_help, Width_DE564, Height_DE568);
 }
 
@@ -76,7 +76,7 @@ void ViewPort::SetRenderViewPortSize_40C50(uint8_t viewPortSizeSetting)//221c50
 {
 	Rectangle rectangle = SetRenderViewPortSize_40C50(viewPortSizeSetting, screenWidth_18062C, screenHeight_180624);
 	int32_t ptr = (screenWidth_18062C * rectangle.PosY_EA3CC) + rectangle.PosX_EA3D0;
-	str_F2C20ar.dword0x0e_ptrScreenRenderBufferStart = ptr;
+	spriteRender_F2C20.renderBufferStart_0x0e = ptr;
 	SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628 + ptr, screenWidth_18062C, rectangle.Width_DE564, rectangle.Height_DE568);
 }
 

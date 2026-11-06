@@ -10,7 +10,7 @@ void PrintHeader_70890()//251890
 //----- (00070910) --------------------------------------------------------
 void PrintTextMessage_70910(char* text)//251910
 {
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 & 1)//fix it
+	if (gameState_D41A4.setting_byte2_23 & 1)//fix it
 		myprintf("%s\n", text);
 }
 

@@ -36,7 +36,7 @@ private:
 		0x00,0xFF,0xFF,0x00,0xFF,0x28,0x00,0xFF
 	};//2a5328
 
-	uint8_t unk_DE56Cx[1][4194304]; //Number of possible render threads (8) //number of polygons (2048 * 2048)
+	uint8_t polygonBuffer_DE56Cx[1][4194304]; //Number of possible render threads (8) //number of polygons (2048 * 2048)
 	
 	int offsets_B8845[16] = {
 		  0, -15, -14, -13,
@@ -45,7 +45,7 @@ private:
 		 -4,  -3,  -2,  -1
 	};
 
-	char x_BYTE_D4750[60] = {
+	char directionTable_D4750[60] = {
 		0x00,0x00,0x02,0x03,0x04,0x05,0x01,0x00,0x06,0x07,0x04,0x05,0x00,0x01,0x01,0x02,
 		0x02,0x03,0x03,0x04,0x04,0x03,0x03,0x02,0x02,0x01,0x01,0x00,0x00,0x00,0x00,0x01,
 		0x01,0x01,0x02,0x02,0x02,0x02,0x02,0x01,0x01,0x01,0x00,0x00,0x03,0x03,0x03,0x03,
@@ -57,19 +57,19 @@ private:
 
 	std::array<uint8_t*, 256> m_textureAddresses;
 	
-	int x_DWORD_D4794 = 0;
-	int x_DWORD_D4798 = 0;
-	char x_BYTE_E126D = 0;
-	char x_BYTE_E126C = 112;
+	int viewOffsetX_D4794 = 0;
+	int viewOffsetY_D4798 = 0;
+	char polygonDrawMode_E126D = 0;
+	char triangleShade_E126C = 112;
 	int x_DWORD_D4790 = 20;
-	int x_DWORD_D4324 = 0;
+	int viewShiftX_D4324 = 0;
 	char shadows_F2CC7 = 0;
 	char notDay_D4320 = 0;
 	char x_BYTE_F2CC6 = 0;
 	int16_t yaw_F2CC0 = 0;
 	int16_t cameraY_F2CC2 = 0;
 	int16_t cameraX_F2CC4 = 0;
-	uint8_t* x_DWORD_DE55C_ActTexture = 0;
+	uint8_t* actTexture_DE55C = 0;
 
 	void DrawSky_40950(int16_t roll);
 	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov);

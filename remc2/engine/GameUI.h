@@ -55,11 +55,11 @@ private:
 
 
 extern char FontType_D419D;
-extern char x_BYTE_D47D8;
+extern char savedScreenSize_D47D8;
 extern char spellIndex_D94FF[29];
-extern int16_t x_WORD_E375C_mouse_position_x;
-extern int16_t x_WORD_E375E_mouse_position_y;
-extern uint8_t xx_array_E36C4[64];
+extern int16_t mousePosX_E375C;
+extern int16_t mousePosY_E375E;
+extern uint8_t externControl_E36C4[64];
 
 constexpr uint8_t ALPHA_HIDDEN = 0x00;
 constexpr uint8_t ALPHA_VISIBLE = 0xFF;
@@ -93,7 +93,6 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale = 1);
 void SetPlayerScoresHelpPopupTextAndCoords_89360(uint8_t scale = 1);
 void SetTextBoxMinMaxSizes_87090();
 void SetTextBoxMinMaxForSetResolution();
-void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume);
 
 void DrawPauseMenuPopUps_87860();
 void CloseHelpPopup_87C10();
@@ -151,7 +150,7 @@ void DrawMapRows(uint8_t* ptrScreenBuffer, int height, int rowU, int rowV, int d
 void DrawMapLowRes_63670(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
 void DrawMapHighRes_63C90(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
 void DrawMinimapEntities_627F0(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale);
-void DrawMinimapEntities_B_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale);
+void DrawMinimapEntitiesB_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale);
 uint8_t CalculateScaleOffset(uint8_t scale);
 void DrawRectangle(uint8_t* ptrImageBufferStart, int posX, int poxY, int width, int height, uint8_t lineThickness, uint32_t pitch, uint8_t colour);
 
@@ -178,3 +177,27 @@ void ShowMessage_52D70(uint16_t playerIndex, char* cheatMessage);
 static void SetAlphaAt(const uint8_t* screenPixel, uint8_t alpha);
 static void SetAlphaXY(int x, int y, uint8_t alpha);
 static void FillAlphaRect(int x, int y, int w, int h, uint8_t alpha);
+
+extern char redrawFrame_D41C4;
+extern char oldViewPortSize_D41C6;
+extern int x_DWORD_D41C8;
+extern char* off_DB558[];
+extern uint8_t uiBackGroundColorIdx_EB3A8;
+extern void(*ptrDrawBitmap_F01EC)(int16_t, int16_t, bitmap_pos_struct_t, uint8_t scale);
+void DrawBitmapToScreenAndBuffer_2BBB0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, uint8_t scale = 1);
+void DrawGameFrame_2BE30();
+int DrawSpiderWeb();
+void DrawLoadingBar_54960();
+void DrawGameDebugText_6FEC0();
+char ReturnTrue_871E0();
+void DrawMenuState_872A0();
+void SetHelpPopupLine_87A30();
+void UpdateHelpPopupTimeout_87B30();
+void UpdateHelpItemTimers_87B70();
+void ClearHelpItemFlags_87BE0();
+void ResetHelpItemFlags_88580();
+void UpdateHelpItems_88B20();
+void SetHelpItem41Active_88B60();
+void UpdateObjectiveHelp_88BA0();
+void SetHelpPopupIndex93_88D00();
+extern void(*ptrDrawBitmap_F01E8)(int16_t, int16_t, bitmap_pos_struct_t, uint8_t scale);

@@ -9,6 +9,7 @@
 
 #include "../engine/engine_support.h"
 #include "../engine/MenusAndIntros.h"
+#include "../engine/Events.h"
 
 using namespace std;
 
@@ -24,9 +25,9 @@ typedef struct {
 } ObservedChange;
 
 typedef struct {
-    type_D41A0_BYTESTR_0 D41A0_0;
-    type_x_DWORD_17DB70str x_DWORD_17DB70str;
-    std::array<type_D4C52ar, 17> str_D4C48ar;
+    type_D41A0_BYTESTR_0 world_D41A0;
+    type_x_DWORD_17DB70str mapMenuState_17DB70;
+    std::array<type_D4C52ar, 17> entityTypeTables_D4C48;
 } LastStates;
 
 class StateMonitor {

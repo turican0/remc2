@@ -59,9 +59,9 @@ typedef struct {
 #pragma pack(push, 1)
 typedef struct //lenght 24
 {
-	int32_t field_0;
-	int16_t field_4;
-	int16_t field_6;
+	int32_t lastTime_0;
+	int16_t posX_4;
+	int16_t posY_6;
 	int16_t spriteIndex_8;
 	int8_t firstSpriteIndex_10;
 	int8_t lastSpriteIndex_11;
@@ -80,7 +80,7 @@ typedef struct //lenght 24
 	int16_t beginX_6;
 	int16_t beginY_7;
 	int16_t secondAdd_8;
-	int16_t field_9;
+	int16_t secondAddY_9;
 	int16_t stateX_10;
 	int16_t stateY_11;
 } type_animStruct;
@@ -108,17 +108,17 @@ typedef struct //lenght 24
 typedef struct//lenght 613 // end 17E09D
 {
 	TColor* palette_17DE38x; // weak
-	TcolNext* x_DWORD_17DE3C; // weak//1
-	uint8_t* x_DWORD_17DE40; // weak//2
-	uint8_t* x_DWORD_17DE44; // weak//3
-	uint8_t* x_DWORD_17DE48c; // weak//4
-	uint8_t* x_DWORD_17DE4C; // weak
-	char* x_DWORD_17DE50; // weak
-	uint8_t* x_DWORD_17DE54; // weak
-	uint8_t* x_DWORD_17DE58; // weak
-	uint8_t* x_DWORD_17DE5C_border_bitmap; // weak
-	uint8_t* x_DWORD_17DE60; // weak
-	uint8_t* x_DWORD_17DE64_game_world_map; // weak
+	TcolNext* colorNextTable_17DE3C; // weak//1
+	uint8_t* screenBuffer_17DE40; // weak//2
+	uint8_t* savedSmalltit_17DE44; // weak//3
+	uint8_t* menuSpritesData_17DE48c; // weak//4
+	uint8_t* menuData2_17DE4C; // weak
+	char* playerNameText_17DE50; // weak
+	uint8_t* fontData_17DE54; // weak
+	uint8_t* font2Data_17DE58; // weak
+	uint8_t* borderBitmap_17DE5C; // weak
+	uint8_t* loadBuffer_17DE60; // weak
+	uint8_t* gameWorldMap_17DE64; // weak
 
 	/*
 	int8_t byte_0
@@ -126,44 +126,44 @@ typedef struct//lenght 613 // end 17E09D
 	int8_t byte_9;
 	int8_t byte_10;
 	*/
-	type_BYTE_17DE68x array_BYTE_17DE68x[8];
+	type_BYTE_17DE68x netSessions_17DE68x[8];
 	//uint8_t x_BYTE_17DE68x[88]; // fix it -  weak //8*11
 	//char x_BYTE_17DE69[1]; //x_BYTE_17DE68x[1] fix it -  weak
 	//char x_BYTE_17DE71[1]; //x_BYTE_17DE68x[9] fix it -  weak
 	//char x_BYTE_17DE72[78]; //x_BYTE_17DE68x[10] idb
-	bitmap_pos_struct2_t* x_DWORD_17DEC0; // weak
-	bitmap_pos_struct2_t* x_DWORD_17DEC4; // weak
-	bitmap_pos_struct2_t* x_DWORD_17DEC8; // weak
-	bitmap_pos_struct2_t* x_DWORD_17DECC; // weak
-	int x_DWORD_17DED0; // weak
-	bitmap_pos_struct2_t* x_DWORD_17DED4; // weak
-	bitmap_pos_struct2_t* x_DWORD_17DED8; // weak
-	int x_DWORD_17DEDC; // weak
-	FILE* x_DWORD_17DEE0_filedesc; // weak
-	int16_t x_DWORD_17DEE4_mouse_positionx; // weak
-	int16_t x_DWORD_17DEE6_mouse_positiony; // weak
+	bitmap_pos_struct2_t* fontTab_17DEC0; // weak
+	bitmap_pos_struct2_t* fontTabEnd_17DEC4; // weak
+	bitmap_pos_struct2_t* font2Tab_17DEC8; // weak
+	bitmap_pos_struct2_t* font2TabEnd_17DECC; // weak
+	int cursorBlinkTime_17DED0; // weak
+	bitmap_pos_struct2_t* menuSpritesTab_17DED4; // weak
+	bitmap_pos_struct2_t* menuSpritesTabEnd_17DED8; // weak
+	int fileOffset_17DEDC; // weak
+	FILE* fileHandle_17DEE0; // weak
+	int16_t mouseX_17DEE4; // weak
+	int16_t mouseY_17DEE6; // weak
 	char stub0[2];
 	char stub1[2];
 	__int16 x_WORD_17DEEC; // weak
-	__int16 x_WORD_17DEEE_mouse_buttons; // weak
-	__int16 x_WORD_17DEF0; // weak
-	__int16 x_WORD_17DEF2; // weak
-	__int16 x_WORD_17DEF4; // weak
-	__int16 x_WORD_17DEF6; // weak
+	__int16 mouseButtons_17DEEE; // weak
+	__int16 playerNameLength_17DEF0; // weak
+	__int16 prevWizardIndex_17DEF2; // weak
+	__int16 wizardIndex_17DEF4; // weak
+	__int16 colourMenuState_17DEF6; // weak
 	__int16 x_WORD_17DEF8; // weak
 	__int16 networkSession_17DEFA; // weak
 	__int16 serverIndex_17DEFC; // weak
-	__int16 x_WORD_17DEFE; // weak
-	__int16 x_WORD_17DF00; // weak
+	__int16 netPlayerCount_17DEFE; // weak
+	__int16 lastNetPlayerCount_17DF00; // weak
 	uint16_t palMulti_17DF02; // weak
 	int16_t savedGameIndex_17DF04; // selected save game number to load/save (set in load/save_game_dialog)
-	__int16 x_WORD_17DF06; // weak
-	__int16 x_WORD_17DF08; // weak
-	__int16 x_WORD_17DF0A; // weak
-	__int16 x_WORD_17DF0C; // weak
-	__int16 x_WORD_17DF0E; // weak
-	char x_BYTE_17DF10_get_key_scancode; // weak
-	char x_BYTE_17DF11_last_key_status; // weak
+	__int16 scrollBorderSprite_17DF06; // weak
+	__int16 cancelSprite_17DF08; // weak
+	__int16 cancelHoverSprite_17DF0A; // weak
+	__int16 okSprite_17DF0C; // weak
+	__int16 okHoverSprite_17DF0E; // weak
+	char keyScancode_17DF10; // weak
+	char lastKeyChar_17DF11; // weak
 	char stuba[1];
 	char showHelp_17DF13; // weak
 	char xx_BYTE_17DF14[8][43]; // 43*8, used for load_dialog_dialog
@@ -172,18 +172,18 @@ typedef struct//lenght 613 // end 17E09D
 	//char x_BYTE_17DF3E[400]; // idb//&x_BYTE_17DF14[42]
 	__int16 x_17E06C; // weak
 	__int16 y_17E06E; // weak
-	__int16 x_WORD_17E070; // weak
-	__int16 x_WORD_17E072; // weak
+	__int16 lastX_17E070; // weak
+	__int16 lastY_17E072; // weak
 	__int16 x2_17E074; // weak
 	__int16 y2_17E076; // weak
-	type_animStruct3 unk_17E078x; // weak [11]
+	type_animStruct3 mapAnimation_17E078x; // weak [11]
 	//__int16 x_WORD_17E07C; // weak unk_17E078x[4]
 	//__int16 x_WORD_17E07E; // weak unk_17E078x[6]
 	//__int16 x_WORD_17E080; // weak unk_17E078x[8]
 	//char x_BYTE_17E082; // weak unk_17E078x[10]
 	//char x_BYTE_17E083; // weak unk_17E078x[11]
-	type_animStruct unk_17E084x; // weak [11]
-	char x_BYTE_17E09C; // weak
+	type_animStruct mapAnimObject_17E084x; // weak [11]
+	char mapAnimState_17E09C; // weak
 } type_x_DWORD_17DE38str;
 #pragma pack (pop)
 
@@ -193,11 +193,11 @@ typedef struct {
 }
 Type_Message;
 
-//extern int16_t m_iViewPortX_EA3D0; // weak?x_DWORD_E9C4C_langindexbuffer[481]
-//extern uint16_t m_uiViewPortWidth_EA3C4; // weak?x_DWORD_E9C4C_langindexbuffer[478]
+//extern int16_t m_iViewPortX_EA3D0; // weak?langStrings_E9C4C[481]
+//extern uint16_t m_uiViewPortWidth_EA3C4; // weak?langStrings_E9C4C[478]
 
-extern type_str_unk_1804B0ar str_unk_1804B0ar;
-extern __int16 x_WORD_180660_VGA_type_resolution;
+extern type_str_unk_1804B0ar helpPopup_1804B0;
+extern __int16 videoMode_180660;
 extern uint8_t playersColors_E88E0x[8][3];
 extern uint8_t unk_F0A20x[1024];//2c1a20
 extern uint8_t m_BackgroundColour_D4B7C; // weak
@@ -206,16 +206,16 @@ extern type_entity_0x6E8E* Entities_EA3E4[1001];//2bb3e4
 
 extern uint8_t ColourLookupTable_F6EE0[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites (offsets at the top: GameBitmap.h needs them)
 
-extern uint8_t* x_BYTE_F6EE0_tablesx_pre;
-extern uint8_t* x_BYTE_FAEE0_tablesx_pre;
+extern uint8_t* tables_F6EE0;
+extern uint8_t* tables2_FAEE0;
 
-extern std::array<uint8_t*, 256> x_DWORD_DDF50_texture_adresses; /*= { 0,32 }*/ // weak
+extern std::array<uint8_t*, 256> textureAddresses_DDF50; /*= { 0,32 }*/ // weak
 
 const uint16_t TILE_ROWS_COUNT = 21;
 const uint16_t TILE_COLUMNS_COUNT = 40;
-extern type_E9C38_smalltit Str_E9C38_smalltit[TILE_ROWS_COUNT * TILE_COLUMNS_COUNT];
+extern type_E9C38_smalltit terrainTiles_E9C38[TILE_ROWS_COUNT * TILE_COLUMNS_COUNT];
 
-extern type_F2C20ar str_F2C20ar;
+extern type_F2C20ar spriteRender_F2C20;
 
 extern std::string gameDataPath;
 extern std::string cdDataPath;
@@ -236,28 +236,28 @@ extern float m_fFps; // The frames rendered per second. Needs to be stored to be
 extern int readFileStatus_E3E2C;
 extern char DisplaySubtitles_D41C1; // weak
 extern char SubtitlesOn_D41CE; // weak
-extern char* x_DWORD_D41D0; // weak
-extern uint8_t* x_DWORD_17DB50; // weak
+extern char* subtitleText_D41D0; // weak
+extern uint8_t* chunkStream_17DB50; // weak
 extern int x_DWORD_E3890;
-extern int x_DWORD_E3768; // weak
-extern char x_BYTE_E3766; // weak
+extern int mouseInstalled_E3768; // weak
+extern char blitLock_E3766; // weak
 extern int16_t unk_1806EC; // weak
-extern uint16_t x_WORD_18072C_cursor_sizex; // weak
-extern uint16_t x_WORD_18072E_cursor_sizey; // weak
-extern uint8_t* x_DWORD_180730_cursor_data; // weak//351730
-extern char* x_DWORD_D41BC_langbuffer; // fix it
-extern char* x_DWORD_D41BC_langbuffer; // fix it
-extern int x_DWORD_18073A; // weak
+extern uint16_t cursorWidth_18072C; // weak
+extern uint16_t cursorHeight_18072E; // weak
+extern uint8_t* cursorData_180730; // weak//351730
+extern char* langBuffer_D41BC; // fix it
+extern char* langBuffer_D41BC; // fix it
+extern int cursorColumn_18073A; // weak
 
 //inputs
-extern __int16 x_WORD_180744_mouse_right_button; // weak//351744
-extern __int16 x_WORD_180746_mouse_left_button; // weak//351746
-extern __int16 x_WORD_18074A_mouse_right2_button; // weak//35174a
-extern __int16 x_WORD_18074C_mouse_left2_button; // weak//35174c
+extern __int16 mouseRightButton_180744; // weak//351744
+extern __int16 mouseLeftButton_180746; // weak//351746
+extern __int16 mouseRightButton2_18074A; // weak//35174a
+extern __int16 mouseLeftButton2_18074C; // weak//35174c
 
 //basic graphics
-extern type_x_DWORD_17DE38str x_DWORD_17DE38str;
-extern uint8_t* x_DWORD_E9C38_smalltit;
+extern type_x_DWORD_17DE38str menuState_17DE38;
+extern uint8_t* smalltitBuffer_E9C38;
 
 extern int Int386Request_17FF0C;
 extern int MscdexCommand_17FF44;
@@ -276,9 +276,9 @@ typedef struct {
 } filearray_struct;
 
 typedef struct {//lenght 10
-	int32_t dword_0;
-	int32_t dword_4;
-	int16_t word_8;
+	int32_t size_0;
+	int32_t offset_4;
+	int16_t group_8;
 }
 type_TMAPS00TAB_BEGIN_BUFFER;
 #pragma pack (pop)
@@ -351,7 +351,7 @@ extern bitmap_pos_struct2_t* HFONT3TAB_END_BUFFER;
 
 extern uint8_t* CLRD0DAT_BEGIN_BUFFER;
 
-extern int x_DWORD_1806F4_mouse_byte_index2; // weak
+extern int cursorScreenIndex2_1806F4; // weak
 
 extern int help_VGA_type_resolution;
 
@@ -369,7 +369,7 @@ extern bitmap_pos_struct_t* posistruct9;//fix it
 extern bitmap_pos_struct_t* posistruct10;//fix it
 extern bitmap_pos_struct_t* posistruct11;//fix it
 
-extern bitmap_pos_struct_t* x_DWORD_EA3D4; // weak
+extern bitmap_pos_struct_t* fontSprites_EA3D4; // weak
 
 extern Pathstruct xasearchd_2bac30;
 #define psxasearchd_2bac30 0
@@ -469,48 +469,48 @@ extern Pathstruct xadatatables;
 //zero
 #define psxazero14 47
 
-extern axis_2d x_WORD_E3760_mouse;
+extern axis_2d mouse_E3760;
 extern uint8_t* ptrMemoryBuffer_E9C3C; // weak
 extern type_SPELLS_BEGIN_BUFFER_str SPELLS_BEGIN_BUFFER_str[];
 
-extern int16_t x_WORD_1806EE; // weak
+extern int16_t cursorRows_1806EE; // weak
 
 extern uint8_t* ptrScreenPos_180708; // weak
 extern uint8_t* ptrCursorBitmapPos_18070C; // weak
-extern uint8_t* x_DWORD_180714; // weak
-extern uint8_t* x_DWORD_180718; // weak
+extern uint8_t* cursorBackgroundPtr_180714; // weak
+extern uint8_t* cursorBackgroundPtr2_180718; // weak
 
-extern uint8_t* x_DWORD_1806F0; // weak
+extern uint8_t* cursorBackground2_1806F0; // weak
 
-extern __int16 x_WORD_180738; // weak
+extern __int16 cursorRow_180738; // weak
 
-extern uint8_t* x_DWORD_180700; // weak
+extern uint8_t* cursorBackground_180700; // weak
 
-extern int x_DWORD_1806F4_mouse_byte_index2; // weak
-extern int16_t x_DWORD_1806FC_mouse_invx; // weak
-extern int16_t x_DWORD_1806FC_mouse_invy; // weak
-extern uint8_t* x_DWORD_180700; // weak
-extern int x_DWORD_180704_mouse_byte_index1; // weak
+extern int cursorScreenIndex2_1806F4; // weak
+extern int16_t cursorVisibleWidth_1806FC; // weak
+extern int16_t cursorVisibleHeight_1806FC; // weak
+extern uint8_t* cursorBackground_180700; // weak
+extern int cursorScreenIndex_180704; // weak
 
-extern int x_DWORD_180644_map_resolution2_y; // weak
-extern int x_DWORD_180648_map_resolution2_x; // weak
+extern int clipHeight_180644; // weak
+extern int clipWidth_180648; // weak
 
-extern int16_t x_DWORD_1806F8_mousex; // weak
-extern int16_t x_DWORD_1806F8_mousey; // weak
+extern int16_t cursorX_1806F8; // weak
+extern int16_t cursorY_1806F8; // weak
 
-extern int x_DWORD_E3758; // weak
+extern int cursorDrawn_E3758; // weak
 
-extern int x_DWORD_180734; // weak
-extern int x_DWORD_18073A; // weak
+extern int cursorParam_180734; // weak
+extern int cursorColumn_18073A; // weak
 
-extern int x_DWORD_180650_positiony; // weak
+extern int viewportY_180650; // weak
 
-extern int x_DWORD_180630_screen_height; // weak
-extern int x_DWORD_180634_screen_width; // weak
+extern int viewportHeight_180630; // weak
+extern int viewportWidth_180634; // weak
 
-extern int x_DWORD_18063C_sprite_sizex; // weak
+extern int viewportX_18063C; // weak
 
-extern __int16 x_WORD_E36D4; // weak
+extern __int16 drawFlags_E36D4; // weak
 
 extern type_TMAPS00TAB_BEGIN_BUFFER* str_TMAPS00TAB_BEGIN_BUFFER;
 
@@ -553,7 +553,7 @@ void x__writeeflags(unsigned Value);
 unsigned int x__getcallerseflags(void);
 
 //language
-extern char* x_DWORD_E9C4C_langindexbuffer[]; // idb
+extern char* langStrings_E9C4C[]; // idb
 
 void dbgfprintf(FILE* file, const char* format, ...);
 
@@ -576,13 +576,12 @@ void StartSubtitles_2EB60();
 void DrawSubtitleTextWithBorder_2EBB0(char* textString);
 void DrawTextWithBoarder_7FCB0(char* textString, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
 void DrawBitmap640_7C120(int16_t posx, int16_t posy, bitmap_pos_struct_t tempstr);
-uint8_t getPaletteIndex_5BE80(TColor* a1x, uint8_t a2, uint8_t a3, uint8_t a4);
+uint8_t GetPaletteIndex_5BE80(TColor* a1x, uint8_t a2, uint8_t a3, uint8_t a4);
 void DrawTextBackground_7C140(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
-void VGA_PaletteInstall_41A90(TColor* a1x);
 void SetSubtitleColourAndRedraw_2EC90(char a1);
 uint32_t DrawText_7FAE0(char* text, int16_t x, int16_t width, int16_t posy, uint8_t color);
-void VGA_Blit320_90478(uint8_t maxFps = 0);
-void VGA_Blit640_75200(uint16_t height, uint8_t maxFps = 0);
+void VgaBlit320_90478(uint8_t maxFps = 0);
+void VgaBlit640_75200(uint16_t height, uint8_t maxFps = 0);
 uint8_t GetLetterHeight_6FC30();
 void DrawBitmap_2BB40(int16_t posx, int16_t posy, bitmap_pos_struct_t temposstr, uint8_t scale = 1);
 
@@ -604,8 +603,8 @@ void LockFps(uint8_t maxFps);
 void SetMouseMinMax_6EF10(__int16 a1, signed __int16 a2, __int16 a3, signed __int16 a4);
 void DrawText_7FB90(char* textbuffer, int16_t posx, int16_t posy, uint8_t color);
 void DrawCursorIfEnabled_8CACD();
-void drawBitmap320_8F8B0(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale = 1);
-void drawBitmap640_8F8E8(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale = 1);
+void DrawBitmap320_8F8B0(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale = 1);
+void DrawBitmap640_8F8E8(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale = 1);
 void DrawLineLowRes_90164(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
 void DrawLineHighRes_901E4(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
 void DrawTextRaw_6F940(const char* textbuffer, int posx, int posy, uint8_t color, uint8_t scale = 1);//250940
@@ -625,4 +624,6 @@ unsigned long j___clock();
 
 void SetPlayerLocation(uint16_t x, uint16_t y, int16_t z, int16_t pitch, int16_t roll, int16_t yaw);
 
-void fix_sub_9A0FC_wait_to_screen_beam(int32_t delay);
+extern filearray_struct fonts_E9B20[4];
+void fix_sub_9A0FC_wait_to_screen_beam(int32_t delay = 10);
+

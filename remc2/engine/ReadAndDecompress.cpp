@@ -77,8 +77,8 @@ void ReadAndDecompressSkyAndBlocks_54660(MapType_t GraphicsType, uint8_t Graphic
 			sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BLOCK32.DAT");
 			DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
 			sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYD0-0.DAT");
-			DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
-			UpdateSkyTexture(256, off_D41A8_sky);
+			DataFileIO::ReadFileAndDecompress(dataPath, &skyTexture_D41A8);//2a51a8
+			UpdateSkyTexture(256, skyTexture_D41A8);
 			break;
 		}
 		case 128:
@@ -86,8 +86,8 @@ void ReadAndDecompressSkyAndBlocks_54660(MapType_t GraphicsType, uint8_t Graphic
 			sprintf(dataPath, "%s/%s", highResGraphicsPath.c_str(), "block128.data");
 			ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
 			sprintf(dataPath, "%s/%s", highResGraphicsPath.c_str(), "skyd1024.data");
-			ReadGraphicsfile(dataPath, off_D41A8_sky);//2a51a8
-			UpdateSkyTexture(1024, off_D41A8_sky);
+			ReadGraphicsfile(dataPath, skyTexture_D41A8);//2a51a8
+			UpdateSkyTexture(1024, skyTexture_D41A8);
 			break;
 		}
 		}
@@ -101,7 +101,7 @@ void ReadAndDecompressSkyAndBlocks_54660(MapType_t GraphicsType, uint8_t Graphic
 		{
 		case 16:
 		{
-			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+			if (world_D41A0.terrain_2FECE.levelType_0x2FED2 & 2)
 			{
 				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL16F0-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
@@ -115,7 +115,7 @@ void ReadAndDecompressSkyAndBlocks_54660(MapType_t GraphicsType, uint8_t Graphic
 		}
 		case 32:
 		{
-			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+			if (world_D41A0.terrain_2FECE.levelType_0x2FED2 & 2)
 			{
 				sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/BL32F0-0.DAT");
 				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
@@ -126,13 +126,13 @@ void ReadAndDecompressSkyAndBlocks_54660(MapType_t GraphicsType, uint8_t Graphic
 				DataFileIO::ReadFileAndDecompress(dataPath, &BLOCK32DAT_BEGIN_BUFFER);//2bac2c
 			}
 			sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SKYN0-0.DAT");
-			DataFileIO::ReadFileAndDecompress(dataPath, &off_D41A8_sky);//2a51a8
-			UpdateSkyTexture(256, off_D41A8_sky);
+			DataFileIO::ReadFileAndDecompress(dataPath, &skyTexture_D41A8);//2a51a8
+			UpdateSkyTexture(256, skyTexture_D41A8);
 			break;
 		}
 		case 128:
 		{
-			if (D41A0_0.terrain_2FECE.byte_0x2FED2 & 2)
+			if (world_D41A0.terrain_2FECE.levelType_0x2FED2 & 2)
 			{
 				sprintf(dataPath, "%s/%s", highResGraphicsPath.c_str(), "bl128f0-0.data");
 				ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
@@ -143,8 +143,8 @@ void ReadAndDecompressSkyAndBlocks_54660(MapType_t GraphicsType, uint8_t Graphic
 				ReadGraphicsfile(dataPath, BigTextureBuffer);//advance graphics
 			}
 			sprintf(dataPath, "%s/%s", highResGraphicsPath.c_str(), "skyn1024.data");
-			ReadGraphicsfile(dataPath, off_D41A8_sky);//2a51a8
-			UpdateSkyTexture(1024, off_D41A8_sky);
+			ReadGraphicsfile(dataPath, skyTexture_D41A8);//2a51a8
+			UpdateSkyTexture(1024, skyTexture_D41A8);
 			break;
 		}
 		}
@@ -195,21 +195,21 @@ void ReadAndDecompressTables_54800(MapType_t a1)//235800
 	if (a1 == MapType_t::Day)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TABLESD.DAT");
-		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);//2c7ee0
+		DataFileIO::ReadFileAndDecompress(dataPath, &tables_F6EE0);//2c7ee0
 		m_BackgroundColour_D4B7E = 0x00;
 		m_BackgroundColour_D4B7C = 0xfe;
 	}
 	else if (a1 == MapType_t::Night)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TABLESN.DAT");
-		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);
+		DataFileIO::ReadFileAndDecompress(dataPath, &tables_F6EE0);
 		m_BackgroundColour_D4B7E = 0xff;
 		m_BackgroundColour_D4B7C = 0x00;
 	}
 	else if (a1 == MapType_t::Cave)
 	{
 		sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/TABLESC.DAT");
-		DataFileIO::ReadFileAndDecompress(dataPath, &x_BYTE_F6EE0_tablesx_pre);
+		DataFileIO::ReadFileAndDecompress(dataPath, &tables_F6EE0);
 		m_BackgroundColour_D4B7C = 0xfe;
 		m_BackgroundColour_D4B7E = 0xff;
 	}

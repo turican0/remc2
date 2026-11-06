@@ -94,10 +94,10 @@ void add_compare(uint32_t adress, bool debugafterload, int stopstep, bool skip, 
 
 #ifdef TEST_x64
 					type_shadow_D41A0_BYTESTR_0 shadow_D41A0_BYTESTR_0;
-					Convert_to_shadow_D41A0_BYTESTR_0(&D41A0_0, &shadow_D41A0_BYTESTR_0);
+					Convert_to_shadow_D41A0_BYTESTR_0(&world_D41A0, &shadow_D41A0_BYTESTR_0);
 					comp20 = compare_with_sequence_D41A0(buffer2, (uint8_t*)&shadow_D41A0_BYTESTR_0, 0x356038, index - skip2, 224790, &origbyte20, &remakebyte20, 0, (exitindex != 1000000));
 #else
-					comp20 = compare_with_sequence_D41A0(buffer2, (uint8_t*)&D41A0_0, 0x356038, index, 224790, &origbyte20, &remakebyte20, 0, (exitindex != 1000000));
+					comp20 = compare_with_sequence_D41A0(buffer2, (uint8_t*)&world_D41A0, 0x356038, index, 224790, &origbyte20, &remakebyte20, 0, (exitindex != 1000000));
 #endif
 
 					// FIXME: skip the test of str_E2A74 for the moment as there are differences with the memimage that need to be clarified

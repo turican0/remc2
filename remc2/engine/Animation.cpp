@@ -1,12 +1,47 @@
 #include "Animation.h"
+#include "EventsFunctions.h"
+#include "CommandLineParser.h"
+#include "GameUI.h"
+#include "Graphics.h"
+#include "MenusAndIntros.h"
+#include "Network.h"
+#include "Player.h"
+#include "PlayerInput.h"
+#include "Events.h"
+#include "Level.h"
+#include "../utilities/StateMonitor.h"
+#include "../utilities/RendererTests.h"
+#include "ConvertMapInfo.h"
+#include "LevelInit.h"
+#include "DatTabIndexes.h"
+#include "MouseOnOff.h"
+#include "PrintMessages.h"
+#include "ReadAndDecompress.h"
+#include "Type_DB080_CdTrack.h"
+
+int8_t* animFrameBase_E1304 = 0; // weak
+
+int8_t* animStreamPos_E1308 = 0;
+
+uint16_t animChunkType_E130C = 0; // weak
+
+__int16 animPosX_E130E = 0; // weak
+
+__int16 animPosY_E1310 = 0; // weak
+
+__int16 animChunkSize_E1312[2] = { 0,0 }; // weak
+
+__int16 animChunkCount_E1316 = 0; // weak
+
+char animDecodeMode_E2A20 = 0; // weak
 
 __int16 redrawTextInVideo_E12FC = 1; // weak
 __int16 soundEventIndex_D4004 = 0; // weak//index of act key in anim
 //__int16 x_WORD_17DB58; // weak
 uint16_t ActualKeyframe_17DB60; // weak
 TColor* framebuffer_E12F4x = 0; // weak
-FILE* x_DWORD_17DB38_intro_file_handle; // weak
-Type_17DB40 unk_17DB40str; // weak
+FILE* fmvFile_17DB38; // weak
+Type_17DB40 fmvHeader_17DB40; // weak
 
 int16_t LastKeyframe_17DB46; // weak
 int16_t height_17DB48; // weak
@@ -18,24 +53,24 @@ __int16 stopPlaybackFlag_17DB5A; // weak
 
 __int16 allowSkipVideo_17DB5C; // weak
 
-int x_DWORD_EA3B4; // bool
+int skipInput_EA3B4; // bool
 
-__int16 x_WORD_F42AE; // weak
+__int16 lastKey_F42AE; // weak
 
-__int16 x_WORD_F42A8; // weak
+__int16 skipDelay_F42A8; // weak
 
 char DisplaySubtitles_D41C0 = 0; // weak
 
-int x_DWORD_17D730; // weak
+int frameOffset_17D730; // weak
 
-uint32_t x_DWORD_17D720[4]; // weak 0
+uint32_t frameHeader_17D720[4]; // weak 0
 
-uint16_t x_WORD_17D724; // weak 4
-uint16_t x_WORD_17D726; // weak 6
+uint16_t chunkType_17D724; // weak 4
+uint16_t chunkCount_17D726; // weak 6
 
-char x_BYTE_17D738[256]; // idb
+char frameInfoText_17D738[256]; // idb
 
-__int16 x_WORD_E12FE = 0; // weak
+__int16 allowSkip_E12FE = 0; // weak
 
 long AnimCurrentTick = 0;
 std::chrono::system_clock::time_point AnimCurrentTime = std::chrono::system_clock::now();
@@ -51,15 +86,15 @@ void PlayInfoFmv(__int16 allowSkip, __int16 redrawText, Type_SoundEvent_E17CC* p
 	ActualKeyframe_17DB60 = 0;
 	framebuffer_E12F4x = (TColor*)pdwScreenBuffer_351628;
 	tempfile = DataFileIO::CreateOrOpenFile(path, 512);
-	x_DWORD_17DB38_intro_file_handle = tempfile;
+	fmvFile_17DB38 = tempfile;
 	if (tempfile)
 	{
-		DataFileIO::Read(tempfile, (uint8_t*)&unk_17DB40str, sizeof(Type_17DB40));//ecx=12
-		LastKeyframe_17DB46 = unk_17DB40str.frameCount_6;
-		height_17DB48 = unk_17DB40str.height_8;
-		width_17DB4A = unk_17DB40str.width_alt_10;
-		x_WORD_180744_mouse_right_button = 0;
-		x_WORD_180746_mouse_left_button = 0;
+		DataFileIO::Read(tempfile, (uint8_t*)&fmvHeader_17DB40, sizeof(Type_17DB40));//ecx=12
+		LastKeyframe_17DB46 = fmvHeader_17DB40.frameCount_6;
+		height_17DB48 = fmvHeader_17DB40.height_8;
+		width_17DB4A = fmvHeader_17DB40.width_alt_10;
+		mouseRightButton_180744 = 0;
+		mouseLeftButton_180746 = 0;
 		fileOffset_E1300 += 12;
 		LastPressedKey_1806E4 = 0;
 		stopPlaybackFlag_17DB5A = 0;
@@ -80,16 +115,16 @@ void PlayInfoFmv(__int16 allowSkip, __int16 redrawText, Type_SoundEvent_E17CC* p
 			DrawFrame_75E70();//256e70 - draw intro frame
 			ActualKeyframe_17DB60++;
 		} while (LastPressedKey_1806E4 != 1);//while not key pressed
-		DataFileIO::Close(x_DWORD_17DB38_intro_file_handle);
+		DataFileIO::Close(fmvFile_17DB38);
 	}
 }
 
 //----- (000473B0) --------------------------------------------------------
 void FlvInitSet_473B0()//2283b0
 {
-	x_DWORD_EA3B4 = 0;
-	x_WORD_F42AE = LastPressedKey_1806E4;
-	x_WORD_F42A8 = 64;
+	skipInput_EA3B4 = 0;
+	lastKey_F42AE = LastPressedKey_1806E4;
+	skipDelay_F42A8 = 64;
 }
 
 //----- (0001B280) --------------------------------------------------------
@@ -105,7 +140,7 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 		{
 		case 'A':
 		case 'a':
-			x_DWORD_E3844 = pSoundEvent[soundEventIndex_D4004].index;
+			soundEventDelay_E3844 = pSoundEvent[soundEventIndex_D4004].index;
 			break;
 		case 'B':
 		case 'b':
@@ -125,7 +160,7 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 		case 'f':
 			//Stop loop
 			if (soundAble_E3798)
-				Update_Playing_Sample_Status_8F710(0, pSoundEvent[soundEventIndex_D4004].index, 0, 4u, 1);
+				UpdatePlayingSampleStatus_8F710(0, pSoundEvent[soundEventIndex_D4004].index, 0, 4u, 1);
 			break;
 		case 'H':
 		case 'h':
@@ -138,8 +173,8 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 			break;
 		case 'L':
 		case 'l':
-			if (x_DWORD_E387C)
-				ReadIntoFileBuffer_8F0AB(x_FILE_E3840, /*x_DWORD_E387C, */pSoundEvent[soundEventIndex_D4004].index);
+			if (fileReadBuffer_E387C)
+				ReadIntoFileBuffer_8F0AB(soundEventFile_E3840, /*fileReadBuffer_E387C, */pSoundEvent[soundEventIndex_D4004].index);
 			StartMusic_8E160(pSoundEvent[soundEventIndex_D4004].index, 0x7Fu, true);
 			break;
 		case 'M':
@@ -152,16 +187,16 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 		case 'o':
 			//Materialisation Sound
 			if (soundAble_E3798)
-				Update_Playing_Sample_Status_8F710(0, pSoundEvent[soundEventIndex_D4004].index, 0x7Fu, 2u, 0);
+				UpdatePlayingSampleStatus_8F710(0, pSoundEvent[soundEventIndex_D4004].index, 0x7Fu, 2u, 0);
 			break;
 		case 'P':
 		case 'p':
 			//People Sound
 			if (soundAble_E3798)
-				Update_Playing_Sample_Status_8F710(0, pSoundEvent[soundEventIndex_D4004].index, 0x50u, 2u, 0);
+				UpdatePlayingSampleStatus_8F710(0, pSoundEvent[soundEventIndex_D4004].index, 0x50u, 2u, 0);
 			break;
 		case 'Q':
-			DrawSubtitleTextWithBorder_2EBB0(x_DWORD_E9C4C_langindexbuffer[pSoundEvent[soundEventIndex_D4004].index]);
+			DrawSubtitleTextWithBorder_2EBB0(langStrings_E9C4C[pSoundEvent[soundEventIndex_D4004].index]);
 			break;
 		case 'R':
 		case 'r':
@@ -189,7 +224,7 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 			}
 			break;
 		case 'U':
-			DrawSubtitleTextWithBorder_2EBB0(x_DWORD_E9C4C_langindexbuffer[pSoundEvent[soundEventIndex_D4004].index]);
+			DrawSubtitleTextWithBorder_2EBB0(langStrings_E9C4C[pSoundEvent[soundEventIndex_D4004].index]);
 			break;
 		case 'V':
 			if (DisplaySubtitles_D41C0)
@@ -212,17 +247,17 @@ void PlayIntoSoundEvents_1B280(Type_SoundEvent_E17CC* pSoundEvent)//1fc280
 //----- (00075DB0) --------------------------------------------------------
 void ReadFrame_75DB0()//256db0
 {
-	x_DWORD_17D730 = fileOffset_E1300;
-	DataFileIO::Read(x_DWORD_17DB38_intro_file_handle, (uint8_t*)x_DWORD_17D720, 16);
-	x_WORD_17D724 = x_DWORD_17D720[1] & 0xffff;
-	x_WORD_17D726 = (x_DWORD_17D720[1] & 0xffff0000) >> 16;
-	while (x_WORD_17D724 != 0xf1fa/*-3590*/)
+	frameOffset_17D730 = fileOffset_E1300;
+	DataFileIO::Read(fmvFile_17DB38, (uint8_t*)frameHeader_17D720, 16);
+	chunkType_17D724 = frameHeader_17D720[1] & 0xffff;
+	chunkCount_17D726 = (frameHeader_17D720[1] & 0xffff0000) >> 16;
+	while (chunkType_17D724 != 0xf1fa/*-3590*/)
 		Logger->error("ERROR UNKNOWN FRAME TYPE");
-	DataFileIO::Read(x_DWORD_17DB38_intro_file_handle, x_DWORD_E9C38_smalltit, x_DWORD_17D720[0] - 16);
-	fileOffset_E1300 += x_DWORD_17D720[0];
+	DataFileIO::Read(fmvFile_17DB38, smalltitBuffer_E9C38, frameHeader_17D720[0] - 16);
+	fileOffset_E1300 += frameHeader_17D720[0];
 }
 
-int(/*__fastcall*/ *x_DWORD_17DB3C)(); // weak
+int(/*__fastcall*/ *frameCallback_17DB3C)(); // weak
 
 #pragma pack(push, 1)
 typedef struct {
@@ -245,89 +280,89 @@ void DrawFrame_75E70()//256e70
 	FliChunkHeader chunkHeader;
 	uint8_t* chunkStreamPos;
 	bool paletteChanged = false;
-	x_DWORD_17DB50 = x_DWORD_E9C38_smalltit;
-	x_BYTE_17D738[0] = 0;
-	if (x_WORD_17D724 == 0xf100)
+	chunkStream_17DB50 = smalltitBuffer_E9C38;
+	frameInfoText_17D738[0] = 0;
+	if (chunkType_17D724 == 0xf100)
 	{
-		CopyAndShiftFrom17DB50_75D70(0, x_DWORD_17D720[0] - 16);
+		CopyAndShiftFrom17DB50_75D70(0, frameHeader_17D720[0] - 16);
 		ReadFrame_75DB0();
 		DrawFrame_75E70();
 	}
-	else if (x_WORD_17D724 == 0xF1FA)
+	else if (chunkType_17D724 == 0xF1FA)
 	{
 		frameChunkIndex = 0;
 		while (1)
 		{
-			if (frameChunkIndex >= x_WORD_17D726)
+			if (frameChunkIndex >= chunkCount_17D726)
 				break;
-			chunkStreamPos = x_DWORD_17DB50;
+			chunkStreamPos = chunkStream_17DB50;
 			CopyAndShiftFrom17DB50_75D70((uint8_t*)&chunkHeader, sizeof(chunkHeader));
 			switch (chunkHeader.type)
 			{
 			case 4:
 				ReadIntroPalettes_76260();
-				strcpy(&x_BYTE_17D738[strlen(x_BYTE_17D738)], (char*)"COLOUR256 ");
+				strcpy(&frameInfoText_17D738[strlen(frameInfoText_17D738)], (char*)"COLOUR256 ");
 				paletteChanged = true;
 				break;
 			case 7:
 				DecodeFlcDeltaChunk_76300();//257300 - uz by mel byt vykreslen text
-				strcpy(&x_BYTE_17D738[strlen(x_BYTE_17D738)], (char*)"SS2 ");
+				strcpy(&frameInfoText_17D738[strlen(frameInfoText_17D738)], (char*)"SS2 ");
 				break;
 			case 11:
 				ReadIntroPalettes_76260();
-				strcpy(&x_BYTE_17D738[strlen(x_BYTE_17D738)], (char*)"COLOUR ");
+				strcpy(&frameInfoText_17D738[strlen(frameInfoText_17D738)], (char*)"COLOUR ");
 				paletteChanged = true;
 				break;
 			case 12:
 				DecodeFliLineCompressChunk_76430();
-				strcpy(&x_BYTE_17D738[strlen(x_BYTE_17D738)], (char*)"LC ");
+				strcpy(&frameInfoText_17D738[strlen(frameInfoText_17D738)], (char*)"LC ");
 				break;
 			case 13:
 				memset((void*)framebuffer_E12F4x, 0, height_17DB48 * width_17DB4A);
-				strcpy(&x_BYTE_17D738[strlen(x_BYTE_17D738)], (char*)"BLACK ");
+				strcpy(&frameInfoText_17D738[strlen(frameInfoText_17D738)], (char*)"BLACK ");
 				break;
 			case 15:
 				DecodeFliByteRunChunk_76540();//257540
-				strcpy(&x_BYTE_17D738[strlen(x_BYTE_17D738)], (char*)"BRUN ");
+				strcpy(&frameInfoText_17D738[strlen(frameInfoText_17D738)], (char*)"BRUN ");
 				break;
 			case 16:
 				CopyAndShiftFrom17DB50_75D70((uint8_t*)framebuffer_E12F4x, width_17DB4A * height_17DB48);
-				strcpy(&x_BYTE_17D738[strlen(x_BYTE_17D738)], (char*)"COPY ");
+				strcpy(&frameInfoText_17D738[strlen(frameInfoText_17D738)], (char*)"COPY ");
 				chunkHeader.size = width_17DB4A * height_17DB48;//added
 				break;
 			case 18:
 				CopyAndShiftFrom17DB50_75D70(0, chunkHeader.size - 6);//added
-				strcpy(&x_BYTE_17D738[strlen(x_BYTE_17D738)], (char*)"PSTAMP ");
+				strcpy(&frameInfoText_17D738[strlen(frameInfoText_17D738)], (char*)"PSTAMP ");
 				break;
 			default:
 				break;
 			}
 			frameChunkIndex++;
-			x_DWORD_17DB50 = chunkHeader.size + chunkStreamPos;
+			chunkStream_17DB50 = chunkHeader.size + chunkStreamPos;
 		}
 	}
-	if (x_DWORD_17DB3C)
-		x_DWORD_17DB3C();
+	if (frameCallback_17DB3C)
+		frameCallback_17DB3C();
 	WaitForNextAnimationFrame_75CB0();//256cb0
 	if (paletteChanged)
 	{
 		fix_sub_9A0FC_wait_to_screen_beam(0);//27b0fc
 		if (redrawTextInVideo_E12FC)
 		{
-			VGA_PaletteInstall_41A90(unk_17D838x);
-			SetSubtitleColourAndRedraw_2EC90(getPaletteIndex_5BE80(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu));//20fc90 -zde se prekresli texty
+			VgaPaletteInstall_41A90(unk_17D838x);
+			SetSubtitleColourAndRedraw_2EC90(GetPaletteIndex_5BE80(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu));//20fc90 -zde se prekresli texty
 		}
 	}
 
 	if (DisplaySubtitles_D41C1)
 	{
 		pdwScreenBuffer_351628 += 0x26C0;
-		VGA_Blit320_90478(UINT8_MAX);
+		VgaBlit320_90478(UINT8_MAX);
 		pdwScreenBuffer_351628 -= 0x26C0;
 	}
 	else
 	{
-		VGA_Blit320_90478(UINT8_MAX);
+		VgaBlit320_90478(UINT8_MAX);
 	}
 }
 
@@ -339,7 +374,7 @@ void ClearSubtitles_2EC60()//20fc60
 		ClearSubtitleImageMemory_2EC30();
 		DisplaySubtitles_D41C1 = 0;
 		SubtitlesOn_D41CE = 0;
-		x_DWORD_D41D0 = 0;
+		subtitleText_D41D0 = 0;
 	}
 }
 
@@ -553,28 +588,28 @@ std::string get_current_time_str() {
 //----- (00075CB0) --------------------------------------------------------
 void WaitForNextAnimationFrame_75CB0()//256cb0
 {
-	if (x_WORD_E12FE && HasSkipInput_473E0())
+	if (allowSkip_E12FE && HasSkipInput_473E0())
 	{
 		stopPlaybackFlag_17DB5A = 1;
 	}
-	else if (allowSkipVideo_17DB5C && (LastPressedKey_1806E4 || x_WORD_180746_mouse_left_button || x_WORD_180744_mouse_right_button))
+	else if (allowSkipVideo_17DB5C && (LastPressedKey_1806E4 || mouseLeftButton_180746 || mouseRightButton_180744))
 	{
 		stopPlaybackFlag_17DB5A = 1;
 	}
 	else
 	{
-		AnimCurrentTick += x_DWORD_E3844;
+		AnimCurrentTick += soundEventDelay_E3844;
 		std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
 		std::chrono::system_clock::time_point deadline = AnimCurrentTime + std::chrono::milliseconds(static_cast<long long>(AnimCurrentTick * AnimTickTime));
 		while (now < deadline)
-		//while (GameTimerTurn_17DB54 < x_DWORD_E3844)
+		//while (GameTimerTurn_17DB54 < soundEventDelay_E3844)
 		{
-			if (x_WORD_E12FE && HasSkipInput_473E0())
+			if (allowSkip_E12FE && HasSkipInput_473E0())
 			{
 				stopPlaybackFlag_17DB5A = 1;
 				return;
 			}
-			if (allowSkipVideo_17DB5C && (LastPressedKey_1806E4 || x_WORD_180746_mouse_left_button || x_WORD_180744_mouse_right_button))
+			if (allowSkipVideo_17DB5C && (LastPressedKey_1806E4 || mouseLeftButton_180746 || mouseRightButton_180744))
 			{
 				stopPlaybackFlag_17DB5A = 1;
 				return;
@@ -602,11 +637,11 @@ int HasSkipInput_473E0()//2283e0
 	//__int16 v1; // ax
 
 	v0 = 0;
-	if (x_DWORD_EA3B4)
-		return x_DWORD_EA3B4;
-	if (x_WORD_F42A8)
-		--x_WORD_F42A8;
-	if (!x_WORD_18074C_mouse_left2_button && !x_WORD_18074A_mouse_right2_button)
+	if (skipInput_EA3B4)
+		return skipInput_EA3B4;
+	if (skipDelay_F42A8)
+		--skipDelay_F42A8;
+	if (!mouseLeftButton2_18074C && !mouseRightButton2_18074A)
 	{
 		if (pressedKeys_180664[42] || pressedKeys_180664[54])
 		{
@@ -630,15 +665,15 @@ int HasSkipInput_473E0()//2283e0
 			&& (LastPressedKey_1806E4 < 0x3Fu || LastPressedKey_1806E4 > 0x41u))
 		{
 		LABEL_24:
-			//HIBYTE(v1) = HIBYTE(x_WORD_F42A8);
-			if (x_WORD_F42A8)
+			//HIBYTE(v1) = HIBYTE(skipDelay_F42A8);
+			if (skipDelay_F42A8)
 			{
-				x_WORD_F42AE = LastPressedKey_1806E4;
+				lastKey_F42AE = LastPressedKey_1806E4;
 			}
 			else
 			{
 				//LOBYTE(v1) = LastPressedKey_1806E4;
-				if (LastPressedKey_1806E4 != x_WORD_F42AE)
+				if (LastPressedKey_1806E4 != lastKey_F42AE)
 					v0 = 1;
 			}
 			goto LABEL_28;
@@ -649,17 +684,17 @@ int HasSkipInput_473E0()//2283e0
 	v0 = 1;
 LABEL_28:
 	if (v0)
-		x_DWORD_EA3B4 = 1;
-	return x_DWORD_EA3B4;
+		skipInput_EA3B4 = 1;
+	return skipInput_EA3B4;
 }
-// EA3B4: using guessed type int x_DWORD_EA3B4;
-// F42A8: using guessed type __int16 x_WORD_F42A8;
-// F42AE: using guessed type __int16 x_WORD_F42AE;
+// EA3B4: using guessed type int skipInput_EA3B4;
+// F42A8: using guessed type __int16 skipDelay_F42A8;
+// F42AE: using guessed type __int16 lastKey_F42AE;
 // 18068E: using guessed type char x_BYTE_18068E;
 // 18069A: using guessed type char x_BYTE_18069A;
 // 1806E4: using guessed type char x_BYTE_1806E4;
-// 18074A: using guessed type __int16 x_WORD_18074A_mouse_right2_button;
-// 18074C: using guessed type __int16 x_WORD_18074C_mouse_left2_button;
+// 18074A: using guessed type __int16 mouseRightButton2_18074A;
+// 18074C: using guessed type __int16 mouseLeftButton2_18074C;
 
 //----- (00076260) --------------------------------------------------------
 void ReadIntroPalettes_76260()
@@ -691,3 +726,407 @@ void ReadIntroPalettes_76260()
 }
 
 
+//----- (000765FC) --------------------------------------------------------
+void SetAnimationPosition_765FC(__int16 a1, __int16 a2)
+{
+	animPosX_E130E = a1;
+	animPosY_E1310 = a2;
+}
+// E130E: using guessed type __int16 animPosX_E130E;
+// E1310: using guessed type __int16 animPosY_E1310;
+
+//----- (00076619) --------------------------------------------------------
+int8_t* DecodeAnimationFrame_76619(int8_t* a1x, int8_t* a2x)//animate sprite
+{
+	animStreamPos_E1308 = a1x;
+	animFrameBase_E1304 = a2x;
+	while (1)
+	{
+		qmemcpy(animChunkSize_E1312, (void*)animStreamPos_E1308, 4u);
+		animStreamPos_E1308 += 4;
+		qmemcpy(&animChunkType_E130C, (void*)animStreamPos_E1308, sizeof(animChunkType_E130C));
+		animStreamPos_E1308 += 2;
+		if (animChunkType_E130C != 0xAF12)
+			break;
+		ReadAnimationPosition_76752();
+	}
+	if (animChunkType_E130C != 0xF1FA)
+		return 0;
+	DecodeAnimationChunks_766A4();
+	return animStreamPos_E1308;
+}
+// E1304: using guessed type int x_DWORD_E1304;
+// E1308: using guessed type int x_DWORD_E1308;
+// E130C: using guessed type __int16 animChunkType_E130C;
+// E1312: using guessed type __int16 x_WORD_E1312;
+
+//----- (000766A4) --------------------------------------------------------
+void DecodeAnimationChunks_766A4()//animate sprite
+{
+	__int16 result; // ax
+
+	qmemcpy(&animChunkCount_E1316, (void*)animStreamPos_E1308, sizeof(animChunkCount_E1316));
+	animStreamPos_E1308 += 2;
+	animStreamPos_E1308 += 8;
+	while (animChunkCount_E1316)
+	{
+		--animChunkCount_E1316;
+		qmemcpy(animChunkSize_E1312, (void*)animStreamPos_E1308, 4u);
+		animStreamPos_E1308 += 4;
+		qmemcpy(&animChunkType_E130C, (void*)animStreamPos_E1308, sizeof(animChunkType_E130C));
+		animStreamPos_E1308 += 2;
+		switch (animChunkType_E130C)
+		{
+		case 7:
+			result = DecodeAnimationDelta_7678D();
+			break;
+		case 4:
+			result = SkipAnimationChunk_7677C();
+			break;
+		case 15:
+			result = DecodeAnimationRun_76840();
+			break;
+		default:
+			result = SkipAnimationChunk_7677C();
+			break;
+		}
+	}
+	//return result;
+}
+// E1308: using guessed type int x_DWORD_E1308;
+// E130C: using guessed type __int16 animChunkType_E130C;
+// E1312: using guessed type __int16 x_WORD_E1312;
+// E1316: using guessed type __int16 animChunkCount_E1316;
+
+//----- (00076752) --------------------------------------------------------
+__int16 ReadAnimationPosition_76752()
+{
+	__int16 result; // ax
+
+	animPosX_E130E = *(x_WORD*)(animStreamPos_E1308 + 2);
+	result = *(x_WORD*)(animStreamPos_E1308 + 4);
+	animPosY_E1310 = *(x_WORD*)(animStreamPos_E1308 + 4);
+	animStreamPos_E1308 += 6;
+	return result;
+}
+// E1308: using guessed type int x_DWORD_E1308;
+// E130E: using guessed type __int16 animPosX_E130E;
+// E1310: using guessed type __int16 animPosY_E1310;
+
+//----- (0007677C) --------------------------------------------------------
+int SkipAnimationChunk_7677C()
+{
+	int result; // eax
+
+	result = (unsigned __int16)animChunkSize_E1312[0] - 6;
+	animStreamPos_E1308 += result;
+	return result;
+}
+// E1308: using guessed type int x_DWORD_E1308;
+// E1312: using guessed type __int16 x_WORD_E1312;
+
+//----- (0007678D) --------------------------------------------------------
+__int16 DecodeAnimationDelta_7678D()//animate sprite
+{
+	x_WORD* v0; // edi
+	x_WORD* v1; // esi
+	__int16 result; // ax
+	x_BYTE* v3; // edi
+	x_BYTE* v4; // esi
+	char v5; // dl
+	x_WORD* v6; // [esp-4h] [ebp-14h]
+	x_WORD* v7; // [esp+0h] [ebp-10h]
+	__int16 i; // [esp+6h] [ebp-Ah]
+	__int16 v9; // [esp+8h] [ebp-8h]
+	int v10; // [esp+Ch] [ebp-4h]
+
+	v10 = (unsigned __int16)animPosX_E130E;
+	v0 = (x_WORD*)animFrameBase_E1304;
+	v1 = (x_WORD*)(animStreamPos_E1308 + 2);
+	v9 = *(x_WORD*)animStreamPos_E1308;
+	do
+	{
+		while (1)
+		{
+			result = *v1;
+			++v1;
+			v7 = v0;
+			if (result >= 0)
+				goto LABEL_10;
+			if (!(result & 0x4000))
+				break;
+			v0 = (x_WORD*)((char*)v0 + v10 * -result);
+		}
+		v6 = v0;
+		v3 = (char*)v0 + v10 - 1;
+		if (animDecodeMode_E2A20 == 1)
+		{
+			if ((x_BYTE)result)
+				*v3 = result;
+		}
+		else
+		{
+			*v3 = result;
+		}
+		v0 = v6;
+	LABEL_10:
+		for (i = result; i; i--)
+		{
+			while (1)
+			{
+				LOBYTE(result) = *(x_BYTE*)v1;
+				v4 = (char*)v1 + 1;
+				result = (unsigned __int8)result;
+				v0 = (x_WORD*)((char*)v0 + (unsigned __int8)result);
+				v5 = *v4;
+				v1 = (x_WORD*)(v4 + 1);
+				if (v5 > 0)
+					break;
+				result = *v1;
+				++v1;
+				do
+				{
+					*v0 = result;
+					++v0;
+					++v5;
+				} while (v5);
+				if (!--i)
+					goto LABEL_18;
+			}
+			do
+			{
+				*v0 = *v1;
+				++v1;
+				++v0;
+				--v5;
+			} while (v5);
+		}
+	LABEL_18:
+		v0 = (x_WORD*)((char*)v7 + v10);
+		--v9;
+	} while (v9);
+	animStreamPos_E1308 = (int8_t*)v1;
+	return result;
+}
+// E1304: using guessed type int x_DWORD_E1304;
+// E1308: using guessed type int x_DWORD_E1308;
+// E130E: using guessed type __int16 animPosX_E130E;
+// E1310: using guessed type __int16 animPosY_E1310;
+// E1312: using guessed type __int16 x_WORD_E1312;
+// E2A20: using guessed type char animDecodeMode_E2A20;
+
+//----- (00076840) --------------------------------------------------------
+int DecodeAnimationRun_76840()
+{
+	int8_t* v0; // edi
+	int8_t* v1; // esi
+	__int16 v2; // bx
+	__int16 v3; // cx
+	unsigned __int8 v4; // dl
+	__int16 v5; // ax
+	char v6; // dh
+	char v7; // dh
+	int result; // eax
+	int8_t* v9x; // [esp-8h] [ebp-Ch]
+	int v10; // [esp-4h] [ebp-8h]
+	__int16 v11; // [esp+2h] [ebp-2h]
+
+	v11 = animPosX_E130E;
+	v0 = animFrameBase_E1304;
+	v1 = animStreamPos_E1308;
+	v10 = (unsigned __int16)animChunkSize_E1312[0] - 6;
+	v9x = animStreamPos_E1308;
+	v2 = animPosY_E1310;
+	do
+	{
+		++v1;
+		v3 = v11;
+		do
+		{
+			v4 = *v1++;
+			if ((char)v4 > 0)
+			{
+				v3 -= v4;
+			}
+			else
+			{
+				HIBYTE(v5) = -1;
+				LOBYTE(v5) = v4;
+				v3 += v5;
+			}
+			if ((char)v4 > 0)
+			{
+				v7 = *v1++;
+				do
+				{
+					if (animDecodeMode_E2A20 == 1)
+					{
+						if (v7)
+							*v0 = v7;
+					}
+					else
+					{
+						*v0 = v7;
+					}
+					++v0;
+					--v4;
+				} while (v4);
+			}
+			else
+			{
+				do
+				{
+					v6 = *v1++;
+					if (animDecodeMode_E2A20 == 1)
+					{
+						if (v6)
+							*v0 = v6;
+					}
+					else
+					{
+						*v0 = v6;
+					}
+					++v0;
+					++v4;
+				} while (v4);
+			}
+		} while (v3);
+		--v2;
+	} while (v2);
+	result = v10;
+	animStreamPos_E1308 = v10 + v9x;
+	return result;
+}
+// E1304: using guessed type int x_DWORD_E1304;
+// E1308: using guessed type int x_DWORD_E1308;
+// E130E: using guessed type __int16 animPosX_E130E;
+// E1310: using guessed type __int16 animPosY_E1310;
+// E1312: using guessed type __int16 x_WORD_E1312;
+// E2A20: using guessed type char animDecodeMode_E2A20;
+
+//----- (0007E8D0) --------------------------------------------------------
+void CreateAnimObject_7E8D0(type_animStruct* animStruct, __int16 x1, __int16 y1, __int16 x2, __int16 y2, __int16 countX, __int16 countY)//25f8d0
+{
+	animStruct->diffX_0 = x1 - x2;
+	animStruct->diffY_1 = y1 - y2;
+	animStruct->absDiffX2_2 = 2 * abs(animStruct->diffX_0);
+	animStruct->absDiffY2_3 = 2 * abs(animStruct->diffY_1);
+	if (animStruct->diffX_0 >= 0)
+	{
+		if (animStruct->diffX_0)
+			animStruct->maxX_4 = countX;
+		else
+			animStruct->maxX_4 = 0;
+	}
+	else
+	{
+		animStruct->maxX_4 = -countX;
+	}
+	if (animStruct->diffY_1 >= 0)
+	{
+		if (animStruct->diffY_1)
+			animStruct->maxY_5 = countY;
+		else
+			animStruct->maxY_5 = 0;
+	}
+	else
+	{
+		animStruct->maxY_5 = -countY;
+	}
+	animStruct->beginX_6 = x1;
+	animStruct->beginY_7 = y1;
+	if (animStruct->absDiffX2_2 <= animStruct->absDiffY2_3)
+	{
+		animStruct->secondAdd_8 = animStruct->absDiffX2_2 - (animStruct->absDiffY2_3 >> 1);
+	}
+	else
+	{
+		animStruct->secondAdd_8 = (animStruct->absDiffY2_3 - animStruct->absDiffX2_2) >> 1;
+	}
+	animStruct->secondAddY_9 = 0;
+	if (x2 >= animStruct->beginX_6)
+	{
+		if (x2 > animStruct->beginX_6)
+			animStruct->stateX_10 = 1;
+	}
+	else
+	{
+		animStruct->stateX_10 = 2;
+	}
+	if (y2 >= animStruct->beginY_7)
+	{
+		if (y2 > animStruct->beginY_7)
+			animStruct->stateY_11 = 1;
+	}
+	else
+	{
+		animStruct->stateY_11 = 2;
+	}
+}
+
+//----- (0007E9D0) --------------------------------------------------------
+bool MoveAnimObject_7E9D0(x_WORD* x1, x_WORD* y1, type_animStruct* animStruct)//25f9d0
+{
+	__int16 field;
+	if (animStruct->absDiffX2_2 <= animStruct->absDiffY2_3)
+	{
+		if (*y1 == animStruct->beginY_7)
+			return true;
+		if (animStruct->secondAdd_8 >= 0)
+		{
+			*x1 += animStruct->maxX_4;
+			animStruct->secondAdd_8 -= animStruct->absDiffY2_3;
+		}
+		*y1 += animStruct->maxY_5;
+		field = animStruct->absDiffX2_2;
+	}
+	else
+	{
+		if (*x1 == animStruct->beginX_6)
+			return true;
+		if (animStruct->secondAdd_8 >= 0)
+		{
+			*y1 += animStruct->maxY_5;
+			animStruct->secondAdd_8 -= animStruct->absDiffX2_2;
+		}
+		*x1 += animStruct->maxX_4;
+		field = animStruct->absDiffY2_3;
+	}
+	animStruct->secondAdd_8 += field;
+	if (animStruct->stateX_10 == 1)
+	{
+		if (*x1 < animStruct->beginX_6)
+			*x1 = animStruct->beginX_6;
+	}
+	else if (animStruct->stateX_10 == 2)
+	{
+		if (*x1 > animStruct->beginX_6)
+			*x1 = animStruct->beginX_6;
+	}
+	if (animStruct->stateY_11 == 1)
+	{
+		if (*y1 < animStruct->beginY_7)
+			*y1 = animStruct->beginY_7;
+	}
+	else if (animStruct->stateY_11 == 2)
+	{
+		if (*y1 > animStruct->beginY_7)
+			*y1 = animStruct->beginY_7;
+	}
+	return false;
+}
+
+//----- (00081260) --------------------------------------------------------
+void MoveAnimIndex_81260(type_animStruct3* animStruct, __int16 x1, __int16 y1)//262260
+{
+	int time = j___clock();
+	if ((unsigned int)(time - animStruct->lastTime_0) >> 4 >= 1)
+	{
+		if (animStruct->spriteIndex_8 <= animStruct->lastSpriteIndex_11 - 1)
+			animStruct->spriteIndex_8++;
+		else
+			animStruct->spriteIndex_8 = animStruct->firstSpriteIndex_10;
+		animStruct->lastTime_0 = time;
+	}
+	DrawBitmap640_7C120(x1, y1, menuSprites_17DED4[animStruct->spriteIndex_8]);
+}

@@ -1,4 +1,26 @@
 #include "Terrain.h"
+#include "EventsFunctions.h"
+#include "CommandLineParser.h"
+#include "GameUI.h"
+#include "Graphics.h"
+#include "MenusAndIntros.h"
+#include "Network.h"
+#include "Player.h"
+#include "PlayerInput.h"
+#include "Events.h"
+#include "Level.h"
+#include "../utilities/StateMonitor.h"
+#include "../utilities/RendererTests.h"
+#include "ConvertMapInfo.h"
+#include "LevelInit.h"
+#include "DatTabIndexes.h"
+#include "MouseOnOff.h"
+#include "PrintMessages.h"
+#include "ReadAndDecompress.h"
+#include "Type_DB080_CdTrack.h"
+
+
+#define FIX_SetHeightmapByBuilding_48B90// - when set game have error, but compactible with original
 
 uint16_t rand2_17B4E0; // 34c4e0
 bool lowDiffHeightmap_D47DC = true;
@@ -19,7 +41,7 @@ int debugcounter_224959 = 0;
 void GenerateLevelMap_43830(Type_Level_2FECE* a2x)//224830
 {
 	rand2_17B4E0 = a2x->seed_0x2FEE5;
-	D41A0_0.rand_0x8 = a2x->seed_0x2FEE5;
+	world_D41A0.rand_0x8 = a2x->seed_0x2FEE5;
 	memset((void*)mapEntityIndex_15B4E0, 0, 0x20000);
 	DecompressTerrainMapLevel_B5E70(rand2_17B4E0, a2x->offset_0x2FEE9, a2x->raise_0x2FEED, a2x->gnarl_0x2FEF1);
 
@@ -1165,14 +1187,14 @@ void GenerateCaveCeiling_43B40()//224b40
 		locHeight = mapHeightmap_11B4E0[index.word];
 		if (locHeight > MapBasicHeight_D41B7)
 			locHeight = MapBasicHeight_D41B7;
-		x_BYTE_14B4E0_second_heightmap[index.word] = MapBasicHeight_D41B7 - locHeight;
+		secondHeightmap_14B4E0[index.word] = MapBasicHeight_D41B7 - locHeight;
 		if (MapBasicHeight_D41B7 - locHeight > mapHeightmap_11B4E0[index.word])
 		{
 			mapAngle_13B4E0[index.word] &= 0xF7u;
 		}
 		else
 		{
-			x_BYTE_14B4E0_second_heightmap[index.word] = mapHeightmap_11B4E0[index.word] - 1;
+			secondHeightmap_14B4E0[index.word] = mapHeightmap_11B4E0[index.word] - 1;
 			mapAngle_13B4E0[index.word] |= 8;
 		}
 	}
@@ -1278,7 +1300,7 @@ void ComputeTerrainShading_44D00()//225d00
 		{
 			tempIndex._axis_2d.x = (tempIndex._axis_2d.x & 3) + 28;
 		}
-		if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+		if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 		{
 			mapShading_12B4E0[index.word] = (64 - tempIndex._axis_2d.x);
 		}
@@ -1552,23 +1574,23 @@ void RandomiseCeilingHeight_43BB0()//224bb0
 		if (!(mapAngle_13B4E0[i] & 8))
 		{
 			randSeed = 9377 * randSeed + 9439;
-			fuzzyHeight = randSeed % 7 - 3 + x_BYTE_14B4E0_second_heightmap[i];
+			fuzzyHeight = randSeed % 7 - 3 + secondHeightmap_14B4E0[i];
 			if (fuzzyHeight < 0)
 				fuzzyHeight = 0;
 			if (fuzzyHeight > 254)
 				fuzzyHeight = 254;
-			x_BYTE_14B4E0_second_heightmap[i] = fuzzyHeight;
+			secondHeightmap_14B4E0[i] = fuzzyHeight;
 		}
 	}
 	for (int i = 0; i < 256 * 256; i++)
 	{
-		if (x_BYTE_14B4E0_second_heightmap[i] > mapHeightmap_11B4E0[i])
+		if (secondHeightmap_14B4E0[i] > mapHeightmap_11B4E0[i])
 		{
 			mapAngle_13B4E0[i] &= 0xF7u;
 		}
 		else
 		{
-			x_BYTE_14B4E0_second_heightmap[i] = mapHeightmap_11B4E0[i] - 1;
+			secondHeightmap_14B4E0[i] = mapHeightmap_11B4E0[i] - 1;
 			mapAngle_13B4E0[i] |= 8;
 		}
 	}
@@ -1873,39 +1895,39 @@ void SetTileTerrainType_45DC0(uint8_t inType, uaxis_2d axis2d, uint8_t type2, ui
 		mapAngle_13B4E0[axis2d.word] |= 0x80;
 		if (isCaveLevel_D41B6)
 		{
-			if (x_BYTE_14B4E0_second_heightmap[axis2d.word] > mapHeightmap_11B4E0[axis2d.word])
+			if (secondHeightmap_14B4E0[axis2d.word] > mapHeightmap_11B4E0[axis2d.word])
 			{
 				mapAngle_13B4E0[axis2d.word] &= 0xF7;
 			}
 			else
 			{
 				mapAngle_13B4E0[axis2d.word] |= 8;
-				x_BYTE_14B4E0_second_heightmap[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
+				secondHeightmap_14B4E0[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
 			}
 			axis2d._axis_2d.x++;
-			if (x_BYTE_14B4E0_second_heightmap[axis2d.word] > mapHeightmap_11B4E0[axis2d.word])
+			if (secondHeightmap_14B4E0[axis2d.word] > mapHeightmap_11B4E0[axis2d.word])
 			{
 				mapAngle_13B4E0[axis2d.word] &= 0xF7u;
 			}
 			else
 			{
-				x_BYTE_14B4E0_second_heightmap[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
+				secondHeightmap_14B4E0[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
 				mapAngle_13B4E0[axis2d.word] |= 8;
 			}
 			axis2d._axis_2d.y++;
-			if (x_BYTE_14B4E0_second_heightmap[axis2d.word] > mapHeightmap_11B4E0[axis2d.word])
+			if (secondHeightmap_14B4E0[axis2d.word] > mapHeightmap_11B4E0[axis2d.word])
 			{
 				mapAngle_13B4E0[axis2d.word] &= 0xF7u;
 			}
 			else
 			{
-				x_BYTE_14B4E0_second_heightmap[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
+				secondHeightmap_14B4E0[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
 				mapAngle_13B4E0[axis2d.word] |= 8;
 			}
 			axis2d._axis_2d.x--;
-			if (x_BYTE_14B4E0_second_heightmap[axis2d.word] <= mapHeightmap_11B4E0[axis2d.word])
+			if (secondHeightmap_14B4E0[axis2d.word] <= mapHeightmap_11B4E0[axis2d.word])
 			{
-				x_BYTE_14B4E0_second_heightmap[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
+				secondHeightmap_14B4E0[axis2d.word] = mapHeightmap_11B4E0[axis2d.word] - 1;
 				mapAngle_13B4E0[axis2d.word] |= 8;
 				return;
 			}
@@ -2026,13 +2048,13 @@ void UpdateTerrainTiles_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
 				{
 					tempShad = (tempShad & 3) + 28;
 				}
-				if (D41A0_0.terrain_2FECE.MapType != MapType_t::Day)
+				if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
 					mapShading_12B4E0[tempAxis.word] = 32 - tempShad + 32;
 				else
 					mapShading_12B4E0[tempAxis.word] = tempShad;
-				if (isCaveLevel_D41B6 && (x_BYTE_14B4E0_second_heightmap[tempAxis.word] <= mapHeightmap_11B4E0[tempAxis.word]))
+				if (isCaveLevel_D41B6 && (secondHeightmap_14B4E0[tempAxis.word] <= mapHeightmap_11B4E0[tempAxis.word]))
 				{
-					x_BYTE_14B4E0_second_heightmap[tempAxis.word] = mapHeightmap_11B4E0[tempAxis.word] - 1;
+					secondHeightmap_14B4E0[tempAxis.word] = mapHeightmap_11B4E0[tempAxis.word] - 1;
 					mapAngle_13B4E0[tempAxis.word] |= 8u;
 				}
 				else
@@ -2142,7 +2164,7 @@ uint32_t TerrainTileType_10590(char tileType)//1f1590
 }
 
 //----- (00010C40) --------------------------------------------------------
-int getTerrainAlt_10C40(axis_3d* axis3d)//1f1c40
+int GetTerrainAlt_10C40(axis_3d* axis3d)//1f1c40
 {
 	return GetTerrainAlt2_B5C60(axis3d->x, axis3d->y);
 }
@@ -2150,7 +2172,7 @@ int getTerrainAlt_10C40(axis_3d* axis3d)//1f1c40
 //----- (00011E70) --------------------------------------------------------
 bool IsTouchingCeiling_11E70(type_entity_0x6E8E* event, axis_3d* axis3d)//1f2e70
 {
-	return event->array_0x52_82.fov + getTerrainAlt_10C40(axis3d) + event->dword_0xA0_160x->word_160_0xc_12 > GetCeilingAlt_10C60(axis3d);
+	return event->params_0x52_82.fov + GetTerrainAlt_10C40(axis3d) + event->typeParams_0xA0_160x->minHeight_160_0xc_12 > GetCeilingAlt_10C60(axis3d);
 }
 
 //----- (00010C60) --------------------------------------------------------
@@ -2180,21 +2202,21 @@ int GetCeilingAlt2_B5D68(uint16_t inX, uint16_t inY)//296d68
 		if (tempInY._axis_2d.x > (tempInY._axis_2d.x + tempInX._axis_2d.x) % 256)
 		{
 			tempAxis._axis_2d.y++;
-			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point1 = secondHeightmap_14B4E0[tempAxis.word];
 			tempAxis._axis_2d.x++;
-			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point2 = secondHeightmap_14B4E0[tempAxis.word];
 			tempInY._axis_2d.x = 255 - tempInY._axis_2d.x;
 			tempAxis._axis_2d.y--;
-			finalComp = tempInY._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point2) + tempInX._axis_2d.x * (point2 - point1);
+			finalComp = tempInY._axis_2d.x * (secondHeightmap_14B4E0[tempAxis.word] - point2) + tempInX._axis_2d.x * (point2 - point1);
 		}
 		else
 		{
-			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point1 = secondHeightmap_14B4E0[tempAxis.word];
 			tempAxis._axis_2d.x++;
-			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point2 = secondHeightmap_14B4E0[tempAxis.word];
 			tempAxis._axis_2d.x--;
 			tempAxis._axis_2d.y++;
-			finalComp = tempInY._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point1) + tempInX._axis_2d.x * (point2 - point1);
+			finalComp = tempInY._axis_2d.x * (secondHeightmap_14B4E0[tempAxis.word] - point1) + tempInX._axis_2d.x * (point2 - point1);
 		}
 		result = (finalComp >> 3) + 32 * point1;
 	}
@@ -2202,24 +2224,1608 @@ int GetCeilingAlt2_B5D68(uint16_t inX, uint16_t inY)//296d68
 	{
 		if (tempInX._axis_2d.x <= tempInY._axis_2d.x)
 		{
-			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point1 = secondHeightmap_14B4E0[tempAxis.word];
 			tempAxis._axis_2d.y++;
-			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point2 = secondHeightmap_14B4E0[tempAxis.word];
 			tempAxis._axis_2d.x++;
-			finalComp = tempInY._axis_2d.x * (point2 - point1) + tempInX._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point2);
+			finalComp = tempInY._axis_2d.x * (point2 - point1) + tempInX._axis_2d.x * (secondHeightmap_14B4E0[tempAxis.word] - point2);
 		}
 		else
 		{
-			point1 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point1 = secondHeightmap_14B4E0[tempAxis.word];
 			tempAxis._axis_2d.x++;
-			point2 = x_BYTE_14B4E0_second_heightmap[tempAxis.word];
+			point2 = secondHeightmap_14B4E0[tempAxis.word];
 			tempAxis._axis_2d.y++;
-			finalComp = tempInY._axis_2d.x * (x_BYTE_14B4E0_second_heightmap[tempAxis.word] - point2) + tempInX._axis_2d.x * (point2 - point1);
+			finalComp = tempInY._axis_2d.x * (secondHeightmap_14B4E0[tempAxis.word] - point2) + tempInX._axis_2d.x * (point2 - point1);
 		}
 		result = (finalComp >> 3) + 32 * point1;
 	}
 	return result;
 }
 
+//----- (00041A90) --------------------------------------------------------
+/*char sub_41A90_VGA_Palette_install_orig(unsigned __int8 *a1)//insgtalace palety viz:http://www.hoschl.cz/cyril/voxel5.c
+{
+  char result; // al
+  unsigned __int8 *v2; // ebx
+  unsigned __int16 v3; // cx
+  unsigned __int8 v4; // al
+  unsigned __int8 *v5; // ebx
+  unsigned __int8 v6; // al
+
+  result = -1;
+  v2 = a1;
+  __outx_BYTE(0x3C6u, 0xFFu);
+  v3 = 0;
+  while ( v3 < 0x100u )
+  {
+	__outx_BYTE(0x3C8u, v3);
+	v4 = *v2;
+	v5 = v2 + 1;
+	__outx_BYTE(0x3C9u, v4);
+	v6 = *v5++;
+	__outx_BYTE(0x3C9u, v6);
+	++v3;
+	result = *v5;
+	v2 = v5 + 1;
+	__outx_BYTE(0x3C9u, result);
+  }
+  if ( vrDeviceActive_E12EC )
+	result = ReadVrPort_75A10(2, a1);//256a10
+  return result;
+}
+// E12EC: using guessed type char vrDeviceActive_E12EC;*/
+
+/*
+void debug_testdraw_terrain(uint8_t* buffer) {
+	uint8_t temppal[768];
+	for (int i = 0; i < 256; i++)
+	{
+		temppal[i * 3] = i;
+		temppal[i * 3 + 1] = i;
+		temppal[i * 3 + 2] = i;
+	}
+	VGA_Set_Palette2(temppal);
+	int k = 0;
+	for (int i = 0; i < 256; i++)
+		for (int j = 0; j < 256; j++)
+		{
+			pdwScreenBuffer_351628[j * 320 + i] = buffer[k];
+			k++;
+		}
+	VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
+}*/
 
 
+//----- (00043C60) --------------------------------------------------------
+void RandomiseTerrainArea_43C60(unsigned __int8 a1, char a2, int a3, int a4)//224c60
+{
+	unsigned int v4; // ecx
+	int v5; // esi
+	unsigned __int16 v6; // bx
+	int v7; // edi
+	int v8; // ecx
+	unsigned __int16 v9; // bx
+	int v10; // esi
+	unsigned __int8 v11; // dh
+
+	v4 = 37487429;
+	LOBYTE(v6) = a1;
+	v5 = a3;
+	HIBYTE(v6) = a2;
+	while ((x_WORD)--v5 != -1)
+	{
+		v7 = a4;
+		while ((x_WORD)--v7 != -1)
+		{
+			if (!(mapAngle_13B4E0[v6] & 8))
+			{
+				v4 = 9377 * v4 + 9439;
+				secondHeightmap_14B4E0[v6] += v4 % 7 - 3;
+			}
+			LOBYTE(v6) = v6 + 1;
+		}
+		v6 = __PAIR__(HIBYTE(v6), a1) + 256;
+	}
+	LOBYTE(v9) = a1;
+	v8 = a3;
+	HIBYTE(v9) = a2;
+	while ((x_WORD)--v8 != -1)
+	{
+		v10 = a4;
+		while ((x_WORD)--v10 != -1)
+		{
+			v11 = mapHeightmap_11B4E0[v9];
+			if ((unsigned __int8)secondHeightmap_14B4E0[v9] > v11)
+			{
+				mapAngle_13B4E0[v9] &= 0xF7u;
+			}
+			else
+			{
+				secondHeightmap_14B4E0[v9] = v11 - 1;
+				mapAngle_13B4E0[v9] |= 8u;
+			}
+			LOBYTE(v9) = v9 + 1;
+		}
+		v9 = __PAIR__(HIBYTE(v9), a1) + 256;
+	}
+}
+
+//----- (00046180) --------------------------------------------------------
+unsigned __int16 SetTerrainTypeAndNeighbours_46180(unsigned __int16 a1, char a2)//227180
+{
+	//unsigned __int16 v2; // ax
+	unsigned __int16 v3; // bx
+	unsigned __int16 v4; // bx
+	unsigned __int16 v5; // bx
+	unsigned __int16 result; // ax
+	char v7; // bl
+	char i; // bh
+	unsigned __int16 v9; // si
+	int v10; // edx
+
+	//HIBYTE(v2) = HIBYTE(a1);
+	//LOBYTE(v2) = a1 - 1;
+	HIBYTE(result) = HIBYTE(a1);
+	LOBYTE(result) = a1 - 1;
+
+	mapTerrainType_10B4E0[a1] = a2;
+	//v3 = v2;
+	v3 = result;
+	HIBYTE(result) = HIBYTE(a1) - 1;
+	mapTerrainType_10B4E0[v3] = a2;
+	v4 = result;
+	LOBYTE(result) = a1;
+	mapTerrainType_10B4E0[v4] = a2;
+	v5 = result;
+	LOBYTE(result) = a1 - 1;
+	mapTerrainType_10B4E0[v5] = a2;
+	v7 = 3;
+	do
+	{
+		for (i = 3; i; i--)
+		{
+			LOBYTE(result) = result + 1;
+			++HIBYTE(result);
+			LOWORD(v10) = result;
+			LOBYTE(result) = result - 2;
+			HIBYTE(result) -= 2;
+			v9 = result;
+			LOBYTE(result) = result + 1;
+			LOBYTE(v10) = mapHeightmap_11B4E0[v9] - mapHeightmap_11B4E0[(unsigned __int16)v10] + 32;
+			++HIBYTE(result);
+			if ((char)v10 >= 28)
+			{
+				if ((char)v10 > 40)
+					LOBYTE(v10) = (v10 & 7) + 40;
+			}
+			else
+			{
+				LOBYTE(v10) = (v10 & 3) + 28;
+			}
+			if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
+				v10 = 32 - (char)v10 + 32;
+			mapShading_12B4E0[result] = v10;
+			if (isCaveLevel_D41B6 && (unsigned __int8)secondHeightmap_14B4E0[result] <= mapHeightmap_11B4E0[result])
+			{
+				secondHeightmap_14B4E0[result] = mapHeightmap_11B4E0[result] - 1;
+				mapAngle_13B4E0[result] |= 8u;
+			}
+			else
+			{
+				mapAngle_13B4E0[result] &= 0xF7u;
+			}
+			LOBYTE(result) = result + 1;
+		}
+		LOBYTE(result) = result - 3;
+		--v7;
+		++HIBYTE(result);
+	} while (v7);
+	return result;
+}
+
+//----- (00046570) --------------------------------------------------------
+void AddBuildingToTerrain_46570(uaxis_2d axis1, uaxis_2d axis2)//227570
+{
+	uaxis_2d locAxis1;
+	uaxis_2d locAxis2;
+
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x227573,CommandLineParams.DoDebugafterload());
+	}
+
+	locAxis1._axis_2d.x = axis2._axis_2d.x - axis1._axis_2d.x + 1;
+	locAxis1._axis_2d.y = axis2._axis_2d.y - axis1._axis_2d.y + 1;
+	locAxis2.word = axis1.word;
+	char xAdd = axis2._axis_2d.x - axis1._axis_2d.x + 1;
+	bool yIsZero = locAxis1._axis_2d.y == 0;
+	char yAdd = axis2._axis_2d.y - axis1._axis_2d.y + 1;
+
+	while (!yIsZero)
+	{
+		locAxis1._axis_2d.x = axis2._axis_2d.x - axis1._axis_2d.x + 1;
+		while (locAxis1._axis_2d.x)
+		{
+			mapTerrainType_10B4E0[locAxis2.word] = 1;
+			locAxis2._axis_2d.x--;
+			mapTerrainType_10B4E0[locAxis2.word] = 1;
+			locAxis2._axis_2d.y--;
+			mapTerrainType_10B4E0[locAxis2.word] = 1;
+			locAxis2._axis_2d.x++;			
+			mapTerrainType_10B4E0[locAxis2.word] = 1;
+			locAxis2._axis_2d.x++;
+			locAxis2._axis_2d.y++;
+			locAxis1._axis_2d.x--;
+		}
+		locAxis2._axis_2d.x -= xAdd;
+		locAxis2._axis_2d.y++;
+		yIsZero = --locAxis1._axis_2d.y == 0;
+	}
+	axis1._axis_2d.x--;
+	axis1._axis_2d.y--;
+	char yAddPlus = yAdd + 1;
+	char yIndex = yAddPlus;
+	axis2.word = axis1.word;
+	char xAddPlus = xAdd + 1;
+	//adress 2275eb
+	while (yIndex)
+	{
+		if (CommandLineParams.DoDebugSequences()) {
+			//add_compare(0x227607, CommandLineParams.DoDebugafterload());
+		}
+		locAxis1._axis_2d.x = xAddPlus;
+		for (int i = xAddPlus; i; i--)
+		{
+			if (mapTerrainType_10B4E0[axis2.word] == 1)
+			{
+				int buildingIndex = 343 * (mapAngle_13B4E0[axis2.word] & 7);
+				axis2._axis_2d.x++;
+				buildingIndex += 49 * (mapAngle_13B4E0[axis2.word] & 7);
+				axis2._axis_2d.y++;
+				buildingIndex += 7 * (mapAngle_13B4E0[axis2.word] & 7);
+				axis2._axis_2d.x--;
+				buildingIndex += mapAngle_13B4E0[axis2.word] & 7;
+				axis2._axis_2d.y--;
+				mapTerrainType_10B4E0[axis2.word] = building_F2CD0x[buildingIndex][0];
+				if (mapTerrainType_10B4E0[axis2.word] >= 8u)
+				{
+					mapAngle_13B4E0[axis2.word] = building_F2CD0x[buildingIndex][1] + (mapAngle_13B4E0[axis2.word] & 0x87);
+				}
+				else
+				{
+					rand2_17B4E0 = 9377 * rand2_17B4E0 + 9439;
+					mapAngle_13B4E0[axis2.word] = (mapAngle_13B4E0[axis2.word] & 0x87) + 16 * ((unsigned __int16)rand2_17B4E0 % 7u);
+				}
+			}
+			axis2._axis_2d.x++;
+		}
+		axis2._axis_2d.x -= xAddPlus;
+		axis2._axis_2d.y++;
+		yIndex--;
+	}
+	char xIndex = xAddPlus + 1;
+	axis2.word = axis1.word;
+	yIndex = yAddPlus + 1;
+	//adress 227737
+	if (yAddPlus != -1)
+	{
+		do
+		{
+			for (int j = xIndex; j; j--)
+			{
+				axis2._axis_2d.x++;
+				axis2._axis_2d.y++;
+				char zTemp = -mapHeightmap_11B4E0[axis2.word] + 32;
+				axis2._axis_2d.x -= 2;
+				axis2._axis_2d.y -= 2;
+				zTemp += mapHeightmap_11B4E0[axis2.word];
+				axis2._axis_2d.x++;
+				axis2._axis_2d.y++;
+				if (zTemp >= 28)
+				{
+					if (zTemp > 40)
+						zTemp = (zTemp & 7) + 40;
+				}
+				else
+				{
+					zTemp = (zTemp & 3) + 28;
+				}
+				if (world_D41A0.terrain_2FECE.MapType != MapType_t::Day)
+					mapShading_12B4E0[axis2.word] = 32 - zTemp + 32;
+				else
+					mapShading_12B4E0[axis2.word] = zTemp;
+				locAxis1.word = axis2.word;
+				if (isCaveLevel_D41B6 && secondHeightmap_14B4E0[axis2.word] <= mapHeightmap_11B4E0[axis2.word])
+				{
+					secondHeightmap_14B4E0[axis2.word] = mapHeightmap_11B4E0[axis2.word] - 1;
+					mapAngle_13B4E0[axis2.word] |= 8u;
+				}
+				else
+				{
+					mapAngle_13B4E0[axis2.word] &= 0xF7u;
+				}
+				axis2._axis_2d.x++;
+			}
+			axis2._axis_2d.x -= xIndex;
+			yIndex--;
+			axis2._axis_2d.y++;
+		} while (yIndex);
+	}
+}
+
+//----- (00048990) --------------------------------------------------------
+int GetAreaHeightRange_48990(char a1, char a2, char a3, char a4)//229990
+{
+	unsigned __int16 v4; // ax
+	unsigned __int16 v5; // dx
+	unsigned int v6; // eax
+	unsigned int v7; // ebx
+	unsigned int v8; // ecx
+	unsigned int v9; // ecx
+	unsigned int v10; // ecx
+
+	LOBYTE(v4) = a1;
+	HIBYTE(v4) = a2;
+	HIBYTE(v5) = a2;
+	LOBYTE(v5) = a4 + a1;
+	v6 = mapHeightmap_11B4E0[v4];
+	v7 = v6;
+	v8 = mapHeightmap_11B4E0[v5];
+	if (v8 <= v6)
+	{
+		if (v8 < v6)
+			v7 = mapHeightmap_11B4E0[v5];
+	}
+	else
+	{
+		v6 = mapHeightmap_11B4E0[v5];
+	}
+	HIBYTE(v5) = a3 + a2;
+	v9 = mapHeightmap_11B4E0[v5];
+	if (v9 <= v6)
+	{
+		if (v9 < v7)
+			v7 = mapHeightmap_11B4E0[v5];
+	}
+	else
+	{
+		v6 = mapHeightmap_11B4E0[v5];
+	}
+	LOBYTE(v5) = a1;
+	v10 = mapHeightmap_11B4E0[v5];
+	if (v10 > v6)
+		return v10 - v7;
+	if (v10 < v7)
+		v7 = mapHeightmap_11B4E0[v5];
+	return v6 - v7;
+}
+
+//----- (00048A20) --------------------------------------------------------
+void DrawTerrainLine_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6)//229a20
+{
+	int v6; // eax
+	int v7; // esi
+	uaxis_2d v8x; // bx
+	uaxis_2d v9x; // bx
+	int v10; // eax
+	int v11; // edi
+	uint8_t v13; // [esp+0h] [ebp-8h]
+	uint8_t v14; // [esp+1h] [ebp-7h]
+	//__int16 v15; // [esp+2h] [ebp-6h]
+	uaxis_2d v16x; // [esp+4h] [ebp-4h]
+	uaxis_2d v17x; // [esp+4h] [ebp-4h]
+
+	// fix if begin
+	//v15 = 0;
+	// end
+	v6 = 0;
+
+	v13 = a2 - a5;
+	v14 = a3 - a4;
+	HIWORD(v6) = v13 + (v14 << 8);//v15;//eax
+	//esi=a1
+	//[ebp-4]=HIWORD(v6)
+	//ebx= HIWORD(v6)
+	//HIBYTE(v16) = a3 - a4;
+	//HIBYTE(v8) = a3 - a4;
+	v16x._axis_2d.y = a3 - a4;
+	v8x._axis_2d.y = a3 - a4;
+	v7 = 2 * a4;
+	//LOBYTE(v8) = a2 - a5 - a6;
+	//LOBYTE(v16) = 2 * a5 + a2 - a5;
+	v8x._axis_2d.x = a2 - a5 - a6;
+	v16x._axis_2d.x = 2 * a5 + a2 - a5;
+	//dh=a6
+	//bl=v13
+	while ((x_WORD)--v7 != -1)
+	{
+		LOWORD(a1) = a6;
+		a1++;
+		while ((x_WORD)--a1 != -1)
+		{
+			SetHeightmapByBuilding_48B90(v8x);
+			SetHeightmapByBuilding_48B90(v16x);
+			//LOBYTE(v8)++;
+			//LOBYTE(v16)++;
+			v8x._axis_2d.x++;
+			v16x._axis_2d.x++;
+		}
+		//LOBYTE(v16) = 2 * a5 + v13;
+		//LOBYTE(v8) = v13 - a6;
+		v16x._axis_2d.x = 2 * a5 + v13;
+		v8x._axis_2d.x = v13 - a6;
+		//HIBYTE(v8)++;
+		//HIBYTE(v16)++;
+		v8x._axis_2d.y++;
+		v16x._axis_2d.y++;
+	}
+	//LOBYTE(v9) = v13 - a6;
+	//LOBYTE(v17) = v13 - a6;
+	v9x._axis_2d.x = v13 - a6;
+	v17x._axis_2d.x = v13 - a6;
+
+	//HIBYTE(v9) = v14 - a6;
+	//HIBYTE(v17) = 2 * a4 + v14;
+	v9x._axis_2d.y = v14 - a6;
+	v17x._axis_2d.y = 2 * a4 + v14;
+	LOWORD(v6) = a6;
+	v10 = 2 * v6;
+	v11 = v10 + 2 * a5;
+	while ((x_WORD)--v11 != -1)
+	{
+		LOWORD(v7) = a6;
+		v7++;
+		while ((x_WORD)--v7 != -1)
+		{
+			SetHeightmapByBuilding_48B90(v9x);
+			SetHeightmapByBuilding_48B90(v17x);
+			//HIBYTE(v9)++;
+			//HIBYTE(v17)++;
+			v9x._axis_2d.y++;
+			v17x._axis_2d.y++;
+		}
+		LOBYTE(v10) = 2 * a4;
+		//HIBYTE(v9) = v14 - a6;
+		//LOBYTE(v9) = v9 + 1;
+		v9x._axis_2d.y = v14 - a6;
+		v9x._axis_2d.x++;
+		BYTE1(v10) = 2 * a4 + v14;
+		//HIBYTE(v17) = 2 * a4 + v14;
+		//LOBYTE(v17) = v17 + 1;
+		v17x._axis_2d.y = 2 * a4 + v14;
+		v17x._axis_2d.x++;
+	}
+	//return v10;
+}
+
+//----- (00048B50) --------------------------------------------------------
+void SetHeightmapByBuildingArea_48B50(uint8 x, uint8 y, int height, int width)//229b50
+{
+	uaxis_2d axis;
+	axis._axis_2d.x = x;
+	axis._axis_2d.y = y;
+	int indexH = height;
+	while (--indexH != -1)
+	{
+		int indexW = width;
+		while (--indexW != -1)
+		{
+			SetHeightmapByBuilding_48B90(axis);
+			axis._axis_2d.x++;
+		}
+		axis._axis_2d.y++;
+		axis._axis_2d.x = x;
+	}
+}
+
+uint8_t fix_10B4E0_terraintype(int index) {
+#ifdef FIX_SetHeightmapByBuilding_48B90
+	if (index < 0)
+		return 0;
+#endif
+	return mapTerrainType_10B4E0[index];
+};
+
+int debugcounter_229b90 = 0;
+//----- (00048B90) --------------------------------------------------------
+void SetHeightmapByBuilding_48B90(uaxis_2d axis)//229b90
+{
+	/*if (debugcounter2 >= 0x2450)//0x234c//0x057e
+	{
+		origbyte = 0;
+		remakebyte = 0;
+		comp1 = compare_with_snapshot((char*)"0160-00229B94", (uint8_t*)x_WORD_15B4E0_source, 0x32c4e0, 0x20000, &origbyte, &remakebyte);
+		comp2 = compare_with_snapshot((char*)"0160-00229B94", x_BYTE_11B4E0_height, 0x2ec4e0, 0x10000, &origbyte, &remakebyte);
+		comp3 = compare_with_snapshot((char*)"0160-00229B94", x_BYTE_13B4E0_angle, 0x30c4e0, 0x10000, &origbyte, &remakebyte);
+		comp4 = compare_with_snapshot((char*)"0160-00229B94", fix_10B4E0_terraintype, 0x2dc4e0, 0x10000, &origbyte, &remakebyte);
+		comp5 = compare_with_snapshot((char*)"0160-00229B94", x_BYTE_12B4E0_shading, 0x2fc4e0, 0x10000, &origbyte, &remakebyte);
+
+		//myprintf("i:%d,", debugcounter2);
+	}
+	debugcounter2++;*/
+	if (CommandLineParams.DoDebugSequences()) {
+		//if (debugcounter_229b90 >= 0x00001C43) {
+		if (debugcounter_229b90 >= 0x00001d5d) {
+			debugcounter_229b90++;
+			debugcounter_229b90--;
+		}
+		debugcounter_229b90++;
+		//add_compare(0x229B94, CommandLineParams.DoDebugafterload());
+	}
+
+	uint32 heightSum = 0;
+	uint32 heightCount = 0;
+	if (mapAngle_13B4E0[axis.word] & 7
+		&& mapHeightmap_11B4E0[axis.word]
+		&& (fix_10B4E0_terraintype(-0x101 + axis.word) <= 5u
+			|| fix_10B4E0_terraintype(-0x101 + axis.word) > 0x22u)
+		&& (fix_10B4E0_terraintype(-0x100 + axis.word) <= 5u
+			|| fix_10B4E0_terraintype(-0x100 + axis.word) > 0x22u)
+		&& (fix_10B4E0_terraintype(-0x1 + axis.word) <= 5u
+			|| fix_10B4E0_terraintype(-0x1 + axis.word) > 0x22u)
+		&& (fix_10B4E0_terraintype(axis.word) <= 5u
+			|| fix_10B4E0_terraintype(axis.word) > 0x22u))
+	{
+		char indexB = 3;
+		for (uint16 i = axis.word - 0x101; --indexB != -1; i += 0xfd)
+		{
+			char indexC = 3;
+			while (--indexC != -1)
+			{
+				if (fix_10B4E0_terraintype(i) <= 5u
+					|| fix_10B4E0_terraintype(i) > 0x22u)
+				{
+					heightCount++;
+					heightSum += mapHeightmap_11B4E0[i];
+				}
+				i++;
+			}
+		}
+		if (heightCount)
+		{
+			mapHeightmap_11B4E0[axis.word] = heightSum / heightCount;
+			if (isCaveLevel_D41B6)
+			{
+				if (secondHeightmap_14B4E0[axis.word] > mapHeightmap_11B4E0[axis.word])
+				{
+					mapAngle_13B4E0[axis.word] &= 0xF7u;
+				}
+				else
+				{
+					secondHeightmap_14B4E0[axis.word] = mapHeightmap_11B4E0[axis.word] - 1;
+					mapAngle_13B4E0[axis.word] |= 8;
+				}
+			}
+		}
+	}
+}
+
+//----- (00048D20) --------------------------------------------------------
+__int16 FindCeilingHeight_48D20(int a1, unsigned __int16 a2)//229d20
+{
+	unsigned int v2; // esi
+	unsigned int v3; // ecx
+	signed int v4; // eax
+	int v5; // ebx
+	unsigned __int8 v6; // bl
+	unsigned __int8 v7; // dh
+	char v9; // [esp+8h] [ebp-8h]
+	char v10; // [esp+Ch] [ebp-4h]
+
+	v2 = 0;
+	v3 = 0;
+	LOBYTE(v4) = secondHeightmap_14B4E0[(unsigned __int16)a1];
+	BYTE1(v4) = 3;
+	v5 = a1 - 257;
+	v9 = 3;
+	while (--v9 != -1)
+	{
+		v10 = 3;
+		while (1)
+		{
+			BYTE1(v4) = v10 - 1;
+			v10 = BYTE1(v4);
+			if (BYTE1(v4) == -1)
+				break;
+			v4 = abs((unsigned __int8)secondHeightmap_14B4E0[(unsigned __int16)v5] - (unsigned __int8)secondHeightmap_14B4E0[(unsigned __int16)a1]);
+			if (v4 > a2)
+			{
+				v4 = (unsigned __int8)secondHeightmap_14B4E0[(unsigned __int16)v5];
+				++v3;
+				v2 += v4;
+			}
+			++v5;
+		}
+		v5 += 253;
+	}
+	if (v3)
+	{
+		v6 = v2 / v3;
+		v4 = (unsigned __int16)a1;
+		v7 = mapHeightmap_11B4E0[(unsigned __int16)a1];
+		secondHeightmap_14B4E0[(unsigned __int16)a1] = v6;
+		if (v6 > v7)
+		{
+			mapAngle_13B4E0[(unsigned __int16)a1] &= 0xF7u;
+		}
+		else
+		{
+			secondHeightmap_14B4E0[(unsigned __int16)a1] = v7 - 1;
+			mapAngle_13B4E0[(unsigned __int16)a1] |= 8u;
+		}
+	}
+	return v4;
+}
+
+//----- (00048DF0) --------------------------------------------------------
+__int16 GetTerrainHeightFromSquare_48DF0(char x, char y, char height, char width)//229df0
+{
+	uaxis_2d locAxis1;
+	uaxis_2d locAxis2;
+	uaxis_2d locAxis3;
+	uaxis_2d locAxis4;
+	locAxis1._axis_2d.x = x;
+	locAxis1._axis_2d.y = y;
+	locAxis2._axis_2d.x = x + width;
+	locAxis2._axis_2d.y = y;
+	locAxis3._axis_2d.x = x + width;
+	locAxis3._axis_2d.y = y + height;
+	locAxis4._axis_2d.x = x;
+	locAxis4._axis_2d.y = y + height;
+	return (mapHeightmap_11B4E0[locAxis1.word] + mapHeightmap_11B4E0[locAxis2.word] + mapHeightmap_11B4E0[locAxis3.word] + mapHeightmap_11B4E0[locAxis4.word]) >> 2;
+}
+
+//----- (00048E60) --------------------------------------------------------
+signed int GetMinHeightInArea_48E60(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4)//229e60
+{
+	return GetMinHeightmapInArea_48F20(a1, a2, a3, a4, mapHeightmap_11B4E0);
+}
+
+//----- (00048E90) --------------------------------------------------------
+signed int GetMaxHeightInArea_48E90(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4)//229e90
+{
+	return GetMaxHeightmapInArea_48FD0(a1, a2, a3, a4, mapHeightmap_11B4E0);
+}
+
+//----- (00048EC0) --------------------------------------------------------
+signed int GetMinCeilingInArea_48EC0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4)//229ec0
+{
+	return GetMinHeightmapInArea_48F20(a1, a2, a3, a4, secondHeightmap_14B4E0);
+}
+
+//----- (00048EF0) --------------------------------------------------------
+signed int GetMaxCeilingInArea_48EF0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4)//229ef0
+{
+	return GetMaxHeightmapInArea_48FD0(a1, a2, a3, a4, secondHeightmap_14B4E0);
+}
+
+//----- (00048F20) --------------------------------------------------------
+signed int GetMinHeightmapInArea_48F20(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t* a5x)//229f20
+{
+	signed int result; // eax
+	unsigned __int16 v6; // dx
+	int v7; // esi
+	unsigned __int16 v8; // ebx
+	signed int v9; // ebx
+	unsigned __int16 v10; // ebx
+	signed int v11; // ebx
+
+	LOBYTE(v6) = a1;
+	result = 250;
+	HIBYTE(v6) = a2;
+	v7 = a4;
+	if (a4)
+	{
+		do
+		{
+			LOBYTE(v8) = v6;
+			if (result > a5x[v6])
+				result = a5x[v6];
+			HIBYTE(v8) = a3 + a2;
+			v9 = a5x[v8];
+			if (v9 < result)
+				result = v9;
+			LOBYTE(v6)++;
+			v7--;
+		} while (v7);
+		LOWORD(v7) = a3;
+		if (a3)
+			goto LABEL_9;
+	}
+	else
+	{
+		LOWORD(v7) = a3;
+		while (v7)
+		{
+		LABEL_9:
+			HIBYTE(v10) = HIBYTE(v6);
+			if (result > a5x[v6])
+				result = a5x[v6];
+			LOBYTE(v10) = v6 - a4;
+			v11 = a5x[v10];
+			if (v11 < result)
+				result = v11;
+			HIBYTE(v6)++;
+			v7--;
+		}
+	}
+	return result;
+}
+
+//----- (00048FD0) --------------------------------------------------------
+signed int GetMaxHeightmapInArea_48FD0(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t* a5x)//229fd0
+{
+	signed int result; // eax
+	unsigned __int16 v6; // dx
+	int v7; // esi
+	unsigned __int16 v8; // ebx
+	signed int v9; // ebx
+	unsigned __int16 v10; // ebx
+	signed int v11; // ebx
+
+	LOBYTE(v6) = a1;
+	result = 0;
+	HIBYTE(v6) = a2;
+	v7 = a4;
+	if (a4)
+	{
+		do
+		{
+			LOBYTE(v8) = v6;
+			if (result < a5x[v6])
+				result = a5x[v6];
+			BYTE1(v8) = a3 + a2;
+			v9 = a5x[v8];
+			if (v9 > result)
+				result = v9;
+			LOBYTE(v6) = v6 + 1;
+			--v7;
+		} while (v7);
+		LOWORD(v7) = a3;
+		if (a3)
+			goto LABEL_9;
+	}
+	else
+	{
+		LOWORD(v7) = a3;
+		while (v7)
+		{
+		LABEL_9:
+			BYTE1(v10) = HIBYTE(v6);
+			if (result < a5x[v6])
+				result = a5x[v6];
+			LOBYTE(v10) = v6 - a4;
+			v11 = a5x[v10];
+			if (v11 > result)
+				result = v11;
+			++HIBYTE(v6);
+			--v7;
+		}
+	}
+	return result;
+}
+
+//----- (00056EE0) --------------------------------------------------------
+bool IsTileFreeOfFeatures_56EE0(uaxis_2d a1x)//237ee0
+{
+	char v1; // al
+
+	v1 = mapAngle_13B4E0[a1x.word] & 7;
+	return v1 != 5 && v1 != 2 && v1 != 3;
+}
+
+int debugcounter_237f10 = 0;
+//----- (00056F10) --------------------------------------------------------
+char FindFreeTileNear_56F10(__int16 a1, __int16 a2, __int16 a3, char a4)//237f10
+{
+	signed __int16 v4; // bx
+	char v5; // dh
+	int v6; // edx
+	uaxis_2d v7x; // eax
+	char v8; // dl
+	uaxis_2d v9x; // bx
+	char v11; // [esp+0h] [ebp-8h]
+	uaxis_2d v12x; // [esp+4h] [ebp-4h]
+
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x237f12,CommandLineParams.DoDebugafterload(),1);
+	}
+
+	//LOBYTE(v12) = a1;
+	//HIBYTE(v12) = a2;
+	v12x._axis_2d.x = a1;
+	v12x._axis_2d.y = a2;
+	v11 = 0;
+	v4 = a3 + mapHeightmap_11B4E0[v12x.word];
+	if (v4 > 200)
+	{
+		v4 = 200;
+		if (!a1 && !a2)
+			v11 = 1;
+	}
+	if (v4 < 0)
+	{
+		v4 = 0;
+		if (!a1 && !a2)
+			v11 = 1;
+	}
+	if (a4 && (mapAngle_13B4E0[v12x.word] & 0x80))
+		return 1;
+	v5 = isCaveLevel_D41B6;
+	mapHeightmap_11B4E0[v12x.word] = v4;
+	if (v5)
+	{
+		v6 = (unsigned __int8)secondHeightmap_14B4E0[v12x.word] - a3;
+		if (v6 >= 255)
+			secondHeightmap_14B4E0[v12x.word] = -1;
+		else
+			secondHeightmap_14B4E0[v12x.word] = v6;
+	}
+	if (v4)
+	{
+		v7x.word = v12x.word;
+		v8 = mapAngle_13B4E0[v12x.word] & 0xF8 | 1;
+	}
+	else
+	{
+		//LOBYTE(v9) = a1 - 1;
+		//HIBYTE(v9) = a2 - 1;
+		v9x._axis_2d.x = a1 - 1;
+		v9x._axis_2d.y = a2 - 1;
+		if (!IsTileFreeOfFeatures_56EE0(v9x))
+			goto LABEL_28;
+		//LOBYTE(v9) = v9 + 1;
+		v9x._axis_2d.x++;
+		if (!IsTileFreeOfFeatures_56EE0(v9x))
+			goto LABEL_28;
+		//LOBYTE(v9) = v9 + 1;
+		v9x._axis_2d.x++;
+		if (!IsTileFreeOfFeatures_56EE0(v9x))
+			goto LABEL_28;
+		//HIBYTE(v9) = a2;
+		v9x._axis_2d.y = a2;
+		if (!IsTileFreeOfFeatures_56EE0(v9x))
+			goto LABEL_28;
+		//LOBYTE(v9) = v9 - 2;
+		v9x._axis_2d.x -= 2;
+		if (!IsTileFreeOfFeatures_56EE0(v9x))
+			goto LABEL_28;
+		//HIBYTE(v9) = a2 + 1;
+		v9x._axis_2d.y = a2 + 1;
+		if (!IsTileFreeOfFeatures_56EE0(v9x))
+			goto LABEL_28;
+		//LOBYTE(v9) = v9 + 1;
+		v9x._axis_2d.x++;
+		if (!IsTileFreeOfFeatures_56EE0(v9x))
+			goto LABEL_28;
+		//LOBYTE(v9) = v9 + 1;
+		v9x._axis_2d.x++;
+		if (!IsTileFreeOfFeatures_56EE0(v9x))
+			goto LABEL_28;
+		v7x.word = v12x.word;
+		v8 = mapAngle_13B4E0[v12x.word] & 0xF0;
+	}
+	mapAngle_13B4E0[v7x.word] = v8;
+LABEL_28:
+	if (a4)
+	{
+		UpdateTerrainTiles_462A0(v12x, v12x);
+	}
+	else
+		AddBuildingToTerrain_46570(v12x, v12x);
+	return v11;
+}
+// D41B6: using guessed type char x_BYTE_D41B6;
+
+int debugcounter_2380f0 = 0;
+int debugcounter_2380f0_2 = 0;
+//----- (000570F0) --------------------------------------------------------
+char FindFreeTileInArea_570F0(__int16 a1, __int16 a2, signed __int16 a3, char a4, char a5, char a6)//2380f0
+{
+	uaxis_2d v6x; // bx
+	char v8; // [esp+0h] [ebp-8h]
+	uaxis_2d v9x; // [esp+4h] [ebp-4h]
+
+	if (CommandLineParams.DoDebugSequences()) {
+		/*uint8_t origbyte20 = 0;
+		uint8_t remakebyte20 = 0;
+		int comp20;
+		if (debugcounter_2380f0_2 >= 0xce70)
+		{
+			debugcounter_2380f0_2++;
+			debugcounter_2380f0_2--;
+		}
+		debugcounter_2380f0_2++;
+		if (debugafter_215540)
+		{
+			if (debugcounter_2380f0 >= 0x1000)
+			{
+				comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_10B4E0_terraintype, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20);
+				comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_11B4E0_height, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x10000);
+				comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_12B4E0_shading, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x20000);
+				comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_BYTE_13B4E0_angle, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x10000, &origbyte20, &remakebyte20, 0x30000);
+				comp20 = compare_with_sequence((char*)"002380f0-002DC4E0", (uint8_t*)x_WORD_15B4E0_source, 0x2dc4e0, debugcounter_2380f0, 0x70000, 0x20000, &origbyte20, &remakebyte20, 0x50000);
+				comp20 = compare_with_sequence_D41A0((char*)"002380f0-00356038", (uint8_t*)& D41A0_BYTESTR_0, 0x356038, debugcounter_2380f0, 224790, &origbyte20, &remakebyte20);
+			}
+			debugcounter_2380f0++;
+		}*/
+	}
+
+	//LOBYTE(v9) = a1;
+	//HIBYTE(v9) = a2;
+	v9x._axis_2d.x = a1;
+	v9x._axis_2d.y = a2;
+	v8 = 0;
+	if (a3 > 255)
+	{
+		a3 = 255;
+		if (!a1 && !a2)
+			v8 = 1;
+	}
+	if (a3 < 0)
+	{
+		a3 = 0;
+		if (!a1 && !a2)
+			v8 = 1;
+	}
+	if (a4 && mapAngle_13B4E0[v9x.word] < 0)
+		return 1;
+	mapHeightmap_11B4E0[v9x.word] = a3;
+	if (a5 || IsSpellCastable_57450(mapTerrainType_10B4E0[v9x.word]))
+		mapAngle_13B4E0[v9x.word] = mapAngle_13B4E0[v9x.word] & 0xF8 | 1;
+	if (!a3)
+	{
+		if (!a6)
+			goto LABEL_32;
+		//LOBYTE(v6) = a1 - 1;
+		//HIBYTE(v6) = a2 - 1;
+		v6x._axis_2d.x = a1 - 1;
+		v6x._axis_2d.y = a2 - 1;
+		if (IsTileFreeOfFeatures_56EE0(v6x))
+		{
+			//LOBYTE(v6) = v6 + 1;
+			v6x._axis_2d.x++;
+			if (IsTileFreeOfFeatures_56EE0(v6x))
+			{
+				//LOBYTE(v6) = v6 + 1;
+				v6x._axis_2d.x++;
+				if (IsTileFreeOfFeatures_56EE0(v6x))
+				{
+					//HIBYTE(v6) = a2;
+					v6x._axis_2d.y = a2;
+					if (IsTileFreeOfFeatures_56EE0(v6x))
+					{
+						//LOBYTE(v6) = v6 - 2;
+						v6x._axis_2d.x -= 2;
+						if (IsTileFreeOfFeatures_56EE0(v6x))
+						{
+							//HIBYTE(v6) = a2 + 1;
+							v6x._axis_2d.y = a2 + 1;
+							if (IsTileFreeOfFeatures_56EE0(v6x))
+							{
+								//LOBYTE(v6) = v6 + 1;
+								v6x._axis_2d.x++;
+								if (IsTileFreeOfFeatures_56EE0(v6x))
+								{
+									//LOBYTE(v6) = v6 + 1;
+									v6x._axis_2d.x++;
+									if (IsTileFreeOfFeatures_56EE0(v6x))
+										LABEL_32:
+									mapAngle_13B4E0[v9x.word] &= 0xF0u;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	if (a4)
+	{
+		UpdateTerrainTiles_462A0(v9x, v9x);
+	}
+	else
+		AddBuildingToTerrain_46570(v9x, v9x);
+	return v8;
+}
+
+//----- (00057390) --------------------------------------------------------
+void DamageSceneryOnTile_57390(uaxis_2d axis, uint16_t id)//238390
+{
+	for (int i = mapEntityIndex_15B4E0[axis.word]; Entities_EA3E4[i] != Entities_EA3E4[0]; i = Entities_EA3E4[i]->oldMapEntity_0x16_22)
+	{
+		type_entity_0x6E8E* ix = Entities_EA3E4[i];
+		if (ix->id_0x1A_26 != id)
+		{
+			if (ix->class_0x3F_63 == 2)
+			{
+				DisableEntityDrawing04_57F10(ix);
+			}
+			else if (ix->class_0x3F_63 == 5
+				&& ix->model_0x40_64 != 6
+				&& ix->model_0x40_64 != 8
+				&& ix->model_0x40_64 != 10
+				&& ix->model_0x40_64 != 0x10
+				&& ix->model_0x40_64 != 0x16
+				&& ix->model_0x40_64 != 0x17
+				&& ix->model_0x40_64 != 27
+				&& (ix->model_0x40_64 != 0x19 || ix->actionIndex_0x45_69 != 0xC8))
+			{
+				ix->life_0x8 = -1;
+				ix->ownerPlayerId_0x24_36 = id;
+				ix->hitById_0x26_38 = id;
+			}
+		}
+	}
+}
+
+int debugcounter29x = 0;
+
+//----- (00058030) --------------------------------------------------------
+void GetTerrainHeightAt_58030(axis_3d* a1x, axis_3d* a2)//239030
+{
+	axis_3d* result; // eax
+	uaxis_2d v3x; // dx
+	unsigned __int8 v4; // bl
+	unsigned __int8 v5; // bl
+	unsigned __int8 v6; // bl
+
+	result = a2;
+	v3x._axis_2d.x = a1x->x >> 8;
+	v3x._axis_2d.y = a1x->y >> 8;
+	v4 = mapHeightmap_11B4E0[v3x.word];
+	a2->x = v4;
+	//LOBYTE(v3) = v3 + 1;
+	v3x._axis_2d.x++;
+	a2->y = v4;
+	a2->x -= mapHeightmap_11B4E0[v3x.word];
+	v5 = mapHeightmap_11B4E0[v3x.word];
+	//++HIBYTE(v3);
+	v3x._axis_2d.y++;
+	result->y += v5;
+	a2->x -= mapHeightmap_11B4E0[v3x.word];
+	v6 = mapHeightmap_11B4E0[v3x.word];
+	//LOBYTE(v3) = v3 - 1;
+	v3x._axis_2d.x--;
+	result->y -= v6;
+	result->x += mapHeightmap_11B4E0[v3x.word];
+	a2->y -= mapHeightmap_11B4E0[v3x.word];
+	//return result;
+}
+
+//----- (000580E0) --------------------------------------------------------
+void ClampAboveTerrain_580E0(axis_3d* a1x, signed int a2, int a3, int  /*a4*/, __int16 a5)//2390e0
+{
+	//signed int result; // eax
+
+	//result = 0;
+	if (a1x->z > a2)
+	{
+		//result = 1;
+		a1x->z += a5;
+	}
+	if ((int16_t)a1x->z <= a2 + a3)
+	{
+		//result = 3;
+		a1x->z = a3 + a2;
+	}
+	//return result;
+}
+
+// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
+// D41A4: using guessed type int x_DWORD_D41A4;
+// E29EC: using guessed type char x_BYTE_E29EC;
+// E29ED: using guessed type char x_BYTE_E29ED;
+// E29EE: using guessed type char x_BYTE_E29EE;
+// E29EF: using guessed type char x_BYTE_E29EF;
+// E29F0: using guessed type char x_BYTE_E29F0;
+
+//----- (00084790) --------------------------------------------------------
+void ClearDynamicLights_84790()//265790
+{
+	memset(&world_D41A0.dynamicLights_0x3664C, 0, sizeof(type_str_0x3664C) * 50);//39x50
+	world_D41A0.activeLights_0x36DFA = 0;
+	world_D41A0.lightRandSeed_0x36DF2 = 0x3A013;
+}
+
+//----- (000847D0) --------------------------------------------------------
+void AddDynamicLight_847D0(type_entity_0x6E8E* event, char a2, char a3, char a4)//2657d0
+{
+	if (world_D41A0.m_GameSettings.display_0x2196.m_wDynamicLighting)
+	{
+		if ((world_D41A0.terrain_2FECE.MapType == MapType_t::Night || world_D41A0.terrain_2FECE.MapType == MapType_t::Cave) && world_D41A0.activeLights_0x36DFA < 50)
+		{
+			int16_t index = 0;
+			while (index < 50 && world_D41A0.dynamicLights_0x3664C[index].active_0)
+			{
+				index++;
+			}
+			world_D41A0.dynamicLights_0x3664C[index].active_0 = 1;
+			world_D41A0.dynamicLights_0x3664C[index].flags_1 = a4;
+			world_D41A0.dynamicLights_0x3664C[index].intensity_2 = a2;
+			world_D41A0.dynamicLights_0x3664C[index].flickerRange_3 = a3;
+			world_D41A0.dynamicLights_0x3664C[index].axis3d_4 = event->position_0x4C_76;
+			world_D41A0.dynamicLights_0x3664C[index].event_A.pointer_0x6E8E = event;
+			event->flags_0xc_12_15.byte[2] |= 8u;
+			memset(world_D41A0.dynamicLights_0x3664C[index].shading_E, 0, 25);
+			world_D41A0.activeLights_0x36DFA++;
+		}
+	}
+}
+// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
+// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
+
+//----- (00084880) --------------------------------------------------------
+void FreeLightSource_84880(type_str_0x3664C* a1x)//265880
+{
+	//int result; // eax
+
+	a1x->active_0 = 0;
+	//result = (int)x_D41A0_BYTEARRAY_0;
+	world_D41A0.activeLights_0x36DFA--;
+	//return result;
+}
+// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
+
+//int debugcounter_2658a0 = 0;
+
+//----- (000848A0) --------------------------------------------------------
+void UpdateLightSourcesOld_848A0()//2658a0
+{
+	//uaxis_2d v0x; // ax
+	//uint8_t* v1; // edx
+	int v1x;
+	__int16 v2; // bx
+	__int16 v3; // si
+	uaxis_2d v4x; // eax
+	/*unsigned __int16 v5; // di
+	unsigned __int16 v6; // di
+	unsigned __int16 v7; // di
+	unsigned __int16 v8; // di
+	unsigned __int16 v9; // di
+	unsigned __int16 v10; // di
+	unsigned __int16 v11; // di
+	unsigned __int16 v12; // di
+	unsigned __int16 v13; // di
+	unsigned __int16 v14; // di
+	unsigned __int16 v15; // di
+	unsigned __int16 v16; // di
+	unsigned __int16 v17; // di
+	unsigned __int16 v18; // di
+	unsigned __int16 v19; // di
+	unsigned __int16 v20; // di
+	unsigned __int16 v21; // di
+	unsigned __int16 v22; // di
+	unsigned __int16 v23; // di
+	unsigned __int16 v24; // di
+	unsigned __int16 v25; // di
+	unsigned __int16 v26; // di
+	unsigned __int16 v27; // di
+	char v28; // ch
+	unsigned __int16 v29; // di*/
+	__int16 v31; // [esp+4h] [ebp-4h]
+
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x2658a4, CommandLineParams.DoDebugafterload());
+	}
+
+	//LOBYTE(v0) = D41A0_BYTESTR_0.str_2FECE.MapType;
+	if (world_D41A0.terrain_2FECE.MapType == MapType_t::Night || world_D41A0.terrain_2FECE.MapType == MapType_t::Cave)
+	{
+		//v0 = D41A0_BYTESTR_0.word_0x36DFA;
+		v31 = world_D41A0.activeLights_0x36DFA;
+		if (world_D41A0.activeLights_0x36DFA)
+		{
+			//D41A0_BYTESTR_0.str_0x3664C[v1x].
+			//v1 = x_D41A0_BYTEARRAY_0 + 222796;
+			v1x = 0;
+			v2 = 0;
+			v3 = 0;
+			while (v2 < 50 && v3 < v31)
+			{
+				if (world_D41A0.dynamicLights_0x3664C[v1x].active_0)
+				{
+					v4x._axis_2d.x = (world_D41A0.dynamicLights_0x3664C[v1x].axis3d_4.x >> 8) - 2;
+					v4x._axis_2d.y = (world_D41A0.dynamicLights_0x3664C[v1x].axis3d_4.y >> 8) - 2;
+					//v4x._axis_2d.x -=2;
+					//v5 = v4;
+					//LOBYTE(v4)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[0];
+					v4x._axis_2d.x++;
+					//v6 = v4;
+					//LOBYTE(v4)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[1];
+					v4x._axis_2d.x++;
+					//v7 = v4;
+					//LOBYTE(v4)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[2];
+					v4x._axis_2d.x++;
+					//v8 = v4;
+					//LOBYTE(v4)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[3];
+					v4x._axis_2d.x++;
+					//v9 = v4;
+					//HIBYTE(v4)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[4];
+					v4x._axis_2d.y++;
+					//v10 = v4;
+					//LOBYTE(v4)--;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[5];
+					v4x._axis_2d.x--;
+					//v11 = v4;
+					//LOBYTE(v4)--;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[6];
+					v4x._axis_2d.x--;
+					//v12 = v4;
+					//LOBYTE(v4)--;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[7];
+					v4x._axis_2d.x--;
+					//v13 = v4;
+					//LOBYTE(v4)--;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[8];
+					v4x._axis_2d.x--;
+					//v14 = v4;
+					//BYTE1(v4)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[9];
+					v4x._axis_2d.y++;
+					//v15 = v4;
+					//LOBYTE(v4)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[10];
+					v4x._axis_2d.x++;
+					//v16 = v4;
+					//LOBYTE(v4)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[11];
+					v4x._axis_2d.x++;
+					//v17 = v4;
+					//LOBYTE(v4)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[12];
+					v4x._axis_2d.x++;
+					//v18 = v4;
+					//LOBYTE(v4)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[13];
+					v4x._axis_2d.x++;
+					//v19 = v4;
+					//HIBYTE(v4)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[14];
+					v4x._axis_2d.y++;
+					//v20 = v4;
+					//LOBYTE(v4)--;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[15];
+					v4x._axis_2d.x--;
+					v3++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[16];
+					v4x._axis_2d.x--;
+					//LOBYTE(v4)--;
+					//v21 = v4;
+					//LOBYTE(v4)--;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[17];
+					v4x._axis_2d.x--;
+					//v22 = v4;
+					//LOBYTE(v4) = v4 - 1;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[18];//32
+					v4x._axis_2d.x--;
+					//v23 = v4;
+					//HIBYTE(v0)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[19];//33
+					v4x._axis_2d.y++;
+					//v0x.word=v4x.word;
+					//v24 = v0;
+					//LOBYTE(v0)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[20];//34
+					v4x._axis_2d.x++;
+					//v25 = v0;
+					//LOBYTE(v0)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[21];//35
+					v4x._axis_2d.x++;
+					//v26 = v0;
+					//LOBYTE(v0)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[22];//36
+					v4x._axis_2d.x++;
+					//v27 = v0;
+					//v28 = x_BYTE_12B4E0_shading[v0] - D41A0_BYTESTR_0.str_0x3664C[v1x].array_E[23];
+					//LOBYTE(v0)++;
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[23];//37
+					//v29 = v0;
+					v4x._axis_2d.x++;
+					//LOBYTE(v0) = D41A0_BYTESTR_0.str_0x3664C[v1x].array_E[24];
+					mapShading_12B4E0[v4x.word] -= world_D41A0.dynamicLights_0x3664C[v1x].shading_E[24];//38
+				}
+				v2++;
+				//v1 += 39;
+				v1x++;
+			}
+		}
+	}
+	//return v0;
+}
+// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
+
+//int debugcounter_265b80 = 0;
+//----- (00084B80) --------------------------------------------------------
+void UpdateLightSources_84B80()//265b80
+{
+	type_entity_0x6E8E* v2x; // esi
+	int v3; // esi
+	uaxis_2d v4x; // bx
+	int iy;
+	int16_t v7x;
+	int16_t v9; // [esp+Ch] [ebp-4h]
+	type_entity_0x6E8E FIXx;
+
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x265b84, CommandLineParams.DoDebugafterload());
+	}
+
+	if (world_D41A0.terrain_2FECE.MapType == MapType_t::Night || world_D41A0.terrain_2FECE.MapType == MapType_t::Cave)
+	{
+		v9 = world_D41A0.activeLights_0x36DFA;
+		if (world_D41A0.activeLights_0x36DFA)
+		{
+			v7x = 0;
+			for (iy = 0; iy < 50; iy++)
+			{
+				if (v7x >= v9)
+					break;
+				if (world_D41A0.dynamicLights_0x3664C[iy].active_0)
+				{
+					v2x = world_D41A0.dynamicLights_0x3664C[iy].event_A.pointer_0x6E8E;
+					v7x++;
+					//fix
+					if (v2x == 0)
+					{
+						FIXx.life_0x8 = 0x00700008;
+						FIXx.position_0x4C_76.x = 0xe98c;
+						FIXx.position_0x4C_76.y = 0xf000;
+						FIXx.position_0x4C_76.z = 0xe60c;
+						FIXx.flags_0xc_12_15.byte[1] = 0;
+						v2x = &FIXx;
+					}
+					//fix
+
+					if (v2x->life_0x8 < 0 || v2x->flags_0xc_12_15.byte[1] & 4)
+					{
+						FreeLightSource_84880(&world_D41A0.dynamicLights_0x3664C[iy]);
+					}
+					else
+					{
+						world_D41A0.dynamicLights_0x3664C[iy].axis3d_4 = v2x->position_0x4C_76;
+						v4x._axis_2d.x = world_D41A0.dynamicLights_0x3664C[iy].axis3d_4.x >> 8;
+						v4x._axis_2d.y = world_D41A0.dynamicLights_0x3664C[iy].axis3d_4.y >> 8;
+						world_D41A0.lightRandSeed_0x36DF2 = 9377 * world_D41A0.lightRandSeed_0x36DF2 + 9439;
+						v3 = world_D41A0.lightRandSeed_0x36DF2 % world_D41A0.dynamicLights_0x3664C[iy].flickerRange_3
+							- world_D41A0.dynamicLights_0x3664C[iy].flickerRange_3 / 2;
+						v4x._axis_2d.y -= 2;
+						v4x._axis_2d.x -= 2;
+						//adress 265c5d
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 0, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 1, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 2, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 3, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 4, v3);
+						v4x._axis_2d.y++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 5, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 6, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 7, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 8, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 9, v3);
+						v4x._axis_2d.y++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 10, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 11, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 12, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 13, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 14, v3);
+						v4x._axis_2d.y++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 15, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 16, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 17, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 18, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 19, v3);
+						v4x._axis_2d.y++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 20, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 21, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 22, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 23, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.dynamicLights_0x3664C[iy], 24, v3);
+					}
+				}
+			}
+		}
+	}
+}
+
+/*
+//int debugcounter_265b80 = 0;
+//----- (00084B80) --------------------------------------------------------
+void UpdateLightSources_84B80()//265b80
+{
+	type_entity_0x6E8E* v2x; // esi
+	int v3; // esi
+	uaxis_2d v4x; // bx
+	int iy;
+	int16_t v7x;
+	//__int16 v8; // [esp+8h] [ebp-8h]
+
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x265b84, CommandLineParams.DoDebugafterload());
+	}
+	if (world_D41A0.terrain_2FECE.MapType == MapType_t::Night || world_D41A0.terrain_2FECE.MapType == MapType_t::Cave)
+	{
+		if (world_D41A0.word_0x36DFA)
+		{
+			v7x = 0;
+			for (iy = 0; iy < 50; iy++)
+			{
+				if (v7x >= world_D41A0.word_0x36DFA)
+					break;
+				if (world_D41A0.str_0x3664C[iy].byte_0)
+				{
+					v2x = world_D41A0.str_0x3664C[iy].event_A.pointer_0x6E8E;
+					v7x++;
+
+					//fix
+					if (v2x == 0)
+					{
+						type_entity_0x6E8E FIXx;
+						FIXx.dword_0x8 = 0x00700008;
+						FIXx.position_0x4C_76.x = 0xe98c;
+						FIXx.position_0x4C_76.y = 0xf000;
+						FIXx.position_0x4C_76.z = 0xe60c;
+						FIXx.flags_0xc_12_15.byte[1] = 0;
+						v2x = &FIXx;
+					}
+					//fix
+
+					if (v2x->dword_0x8 < 0 || v2x->flags_0xc_12_15.byte[1] & 4)
+					{
+						FreeLightSource_84880(&world_D41A0.str_0x3664C[iy]);
+					}
+					else
+					{
+						world_D41A0.str_0x3664C[iy].axis3d_4 = v2x->position_0x4C_76;
+						v4x._axis_2d.x = world_D41A0.str_0x3664C[iy].axis3d_4.x >> 8;
+						v4x._axis_2d.y = world_D41A0.str_0x3664C[iy].axis3d_4.y >> 8;
+						world_D41A0.dword_0x36DF2 = 9377 * world_D41A0.dword_0x36DF2 + 9439;
+						v3 = world_D41A0.dword_0x36DF2 % world_D41A0.str_0x3664C[iy].byte_3
+							- world_D41A0.str_0x3664C[iy].byte_3 / 2;
+						v4x._axis_2d.y -= 2;
+						v4x._axis_2d.x -= 2;
+						//adress 265c5d
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 0, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 1, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 2, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 3, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 4, v3);
+						v4x._axis_2d.y++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 5, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 6, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 7, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 8, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 9, v3);
+						v4x._axis_2d.y++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 10, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 11, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 12, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 13, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 14, v3);
+						v4x._axis_2d.y++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 15, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 16, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 17, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 18, v3);
+						v4x._axis_2d.x--;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 19, v3);
+						v4x._axis_2d.y++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 20, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 21, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 22, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 23, v3);
+						v4x._axis_2d.x++;
+						ApplyLightToTile_84EA0(v4x, &world_D41A0.str_0x3664C[iy], 24, v3);
+					}
+				}
+			}
+		}
+	}
+}
+*/
+int debugcounter_265ea0 = 0;
+
+//----- (00084EA0) --------------------------------------------------------
+void ApplyLightToTile_84EA0(uaxis_2d a1x, type_str_0x3664C* a2x, char a3, __int16 a4)//265ea0
+{
+	signed int v4; // esi
+	signed int v5; // edi
+	int v6; // ebx
+	int v7; // ecx
+	//int v8; // edx
+	//signed int v9; // ebx
+	int v10; // edx
+	//int result; // eax
+	axis_3d v12; // [esp+0h] [ebp-8h]
+	//__int16 v13; // [esp+2h] [ebp-6h]
+	//__int16 v14; // [esp+4h] [ebp-4h]
+
+	if (CommandLineParams.DoDebugSequences()) {
+		//add_compare(0x265ea4, CommandLineParams.DoDebugafterload(),0x19);
+	}
+
+	v4 = 31;
+	v5 = (unsigned __int8)mapShading_12B4E0[a1x.word];
+	v6 = 0;
+	if (v5 < 63)
+	{
+		v12.x = (a1x._axis_2d.x << 8) + 128;
+		v12.y = (a1x._axis_2d.y << 8) + 128;
+		v12.z = GetTerrainAlt_10C40(&v12);
+		v7 = Maths::DistanceSquared3DAlt_84FB0(&a2x->axis3d_4, &v12);//fix v7 = sub_84FB0(a2 + 4, &v12);
+		if (v7 < 0x48000)
+		{
+			if (a2x->flags_1 & 1)
+			{
+				//a2x->dword_A->dword_0x8
+				//v8 = *(x_DWORD *)(a2 + 10);
+				//v9 = *(x_DWORD *)(v8 + 8);
+				if ((a2x->event_A.pointer_0x6E8E == 0) || a2x->event_A.pointer_0x6E8E->life_0x8 <= 0)
+				{
+					v4 = 0;
+				}
+				else if (a2x->event_A.pointer_0x6E8E->life_0x8 < 31)
+				{
+					v4 = a2x->event_A.pointer_0x6E8E->life_0x8;
+				}
+			}
+			v10 = 31 * (0x48000 - v7) / 0x48000 * a2x->intensity_2;
+			//v6 = a4 + ((v10 - (__CFSHL__(v10 >> 31, 7) + (v10 >> 31 << 7))) >> 7);
+			v6 = a4 + ((v10 - (my_sign32(v10) << 7) + my_sign32(v10)) >> 7);
+			if (v6 > v4)
+				v6 = v4;
+			if (v5 + v6 > 63)
+				v6 = 63 - v5;
+			if (v6 < 0)
+				v6 = 0;
+			mapShading_12B4E0[a1x.word] += v6;
+		}
+	}
+	//result = a2 + a3;
+	a2x->shading_E[a3] = v6;
+	//*(x_BYTE *)(result + 14) = v6;
+	//return result;
+}
