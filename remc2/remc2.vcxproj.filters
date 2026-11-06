@@ -449,6 +449,15 @@
     <ClCompile Include="..\remc1\engine\Select.cpp">
       <Filter>Source Files\remc1</Filter>
     </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Blocks.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1TextureMaps.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Install.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
     <ClCompile Include="..\remc1\engine\Mc1Files.cpp">
       <Filter>Source Files\remc1</Filter>
     </ClCompile>
@@ -471,6 +480,15 @@
       <Filter>Header Files\remc1</Filter>
     </ClInclude>
     <ClInclude Include="..\remc1\engine\Select.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Blocks.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1TextureMaps.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Install.h">
       <Filter>Header Files\remc1</Filter>
     </ClInclude>
     <ClInclude Include="..\remc1\engine\Mc1Files.h">

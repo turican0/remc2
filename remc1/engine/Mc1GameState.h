@@ -29,8 +29,10 @@ typedef struct { // size 232713, DOSBox 26C400 (pointer)
 	uint8_t icons_0x219A_8602;
 	uint8_t unknown_0x219B_8603[0x219E - 0x219B];
 	uint8_t vfx_0x219E_8606;
-	uint8_t unknown_0x219F_8607[0x21AD - 0x219F];
-	uint8_t options_0x21AD_8621[11]; // all 1 by default
+	uint8_t unknown_0x219F_8607;
+	int8_t tileTextureSize_0x21A0_8608; // 0x20 (blk?-1) or 0x10 (blk?-0), by the memory
+	uint8_t unknown_0x21A1_8609[0x21AD - 0x21A1];
+	uint8_t options_0x21AD_8621[11]; // all 1 by default, [10] cleared with less memory
 	uint8_t unknown_0x21B8_8632[0x340B - 0x21B8];
 	Type_Mc1Player_340B players_0x340B_13323[8];
 	uint8_t unknown_0x7413_29715[232713 - 0x7413];
@@ -51,10 +53,13 @@ typedef struct { // size 36478
 	uint8_t unknown_0x1D_29; // copied from byte_A9058
 	uint8_t unknown_0x1E_30[0x75 - 0x1E];
 	char sessionName_0x75_117[32];
-	uint8_t unknown_0x95_149[36478 - 0x95];
+	uint8_t unknown_0x95_149[0xA8 - 0x95];
+	uint8_t* heap_0xA8_168; // allocated by InitMemory
+	uint32_t heapSize_0xAC_172;
+	uint8_t unknown_0xB0_176[36478 - 0xB0];
 } Type_Mc1Settings_AE408_AE3F8;
 #pragma pack(pop)
 
 static_assert(sizeof(Type_Mc1Player_340B) == 0x801, "Type_Mc1Player_340B");
 static_assert(sizeof(Type_Mc1State_AE400_AE3F0) == 232713, "Type_Mc1State_AE400_AE3F0");
-static_assert(sizeof(Type_Mc1Settings_AE408_AE3F8) == 36478, "Type_Mc1Settings_AE408_AE3F8");
+static_assert(sizeof(Type_Mc1Settings_AE408_AE3F8) == 36478 + sizeof(uint8_t*) - 4, "Type_Mc1Settings_AE408_AE3F8"); // pointers are 4 bytes in DOS

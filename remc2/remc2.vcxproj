@@ -477,6 +477,9 @@
     <ClInclude Include="sub_main.h" />
     <ClInclude Include="..\remc1\Mc1Main.h" />
     <ClInclude Include="..\remc1\engine\Select.h" />
+    <ClInclude Include="..\remc1\engine\Mc1Blocks.h" />
+    <ClInclude Include="..\remc1\engine\Mc1TextureMaps.h" />
+    <ClInclude Include="..\remc1\engine\Mc1Install.h" />
     <ClInclude Include="..\remc1\engine\Mc1Files.h" />
     <ClInclude Include="..\remc1\engine\Mc1Graphics.h" />
     <ClInclude Include="..\remc1\engine\Mc1Search.h" />
@@ -585,6 +588,9 @@
     <ClCompile Include="remc2.cpp" />
     <ClCompile Include="..\remc1\Mc1Main.cpp" />
     <ClCompile Include="..\remc1\engine\Select.cpp" />
+    <ClCompile Include="..\remc1\engine\Mc1Blocks.cpp" />
+    <ClCompile Include="..\remc1\engine\Mc1TextureMaps.cpp" />
+    <ClCompile Include="..\remc1\engine\Mc1Install.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Files.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Graphics.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Search.cpp" />

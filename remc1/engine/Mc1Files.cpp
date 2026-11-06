@@ -35,6 +35,8 @@ uint8_t* spritesData_AE444_AE434 = nullptr;
 uint8_t* spritesTab_AE42C_AE41C = nullptr;
 uint8_t* spritesTabEnd_AE434_AE424 = nullptr;
 uint8_t* textData_AE41C_AE40C = nullptr;
+uint8_t* blockData_AE3F0_AE3E0 = nullptr;
+uint8_t* skyData_AE3D8_AE3C8 = nullptr;
 
 bitmap_pos_struct_t* pointersIndex = nullptr;
 bitmap_pos_struct_t* fontIndexes[8];
@@ -90,6 +92,17 @@ Type_Mc1FileEntry ftextFiles_995D8_995D8[2] = {
 
 Type_Mc1FileEntry itextFiles_99688_99688[2] = {
 	{ { "data/itext.dat", "data/itext.dat" }, &textData_AE41C_AE40C, nullptr, 0, 0 },
+	{ { "", "" }, nullptr, nullptr, 0, 0 },
+};
+
+Type_Mc1FileEntry blockFiles16_996E0_996E0[2] = {
+	{ { "data/blk0-0.dat", "data/blk1-0.dat" }, &blockData_AE3F0_AE3E0, nullptr, 0, 0 },
+	{ { "", "" }, nullptr, nullptr, 0, 0 },
+};
+
+Type_Mc1FileEntry blockFiles32_99738_99738[3] = {
+	{ { "data/blk0-1.dat", "data/blk1-1.dat" }, &blockData_AE3F0_AE3E0, nullptr, 0, 0 },
+	{ { "data/sky.dat", "data/sky1-0.dat" }, &skyData_AE3D8_AE3C8, nullptr, 0, 0 },
 	{ { "", "" }, nullptr, nullptr, 0, 0 },
 };
 

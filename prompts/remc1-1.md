@@ -43,6 +43,10 @@ We always want clean functions—no GOTO statements, well-separated structs, nam
 - DOSBox for comparing with the original: `c:\prenos\dosbox-x-remc1` = clone of `turican0/dosbox-x-remc2`,
   branch `mc1` (from `master`). `vs2015\dosbox.conf` mounts `mc1-orig` as C: and starts `SELECT.EXE`.
   Engine hooks (`src\engine\engine.cpp`) are keyed by EIP of NETHERW.EXE (MC2) and must be adapted for MC1.
+  Memory dumps without the debugger UI (`src\debug\debug.cpp`, normal core):
+  `REMC1_DUMP=<code linear>,<data linear>,<length>,<file>[;...]` (hex) writes the memory when the instruction
+  at the code address runs, `REMC1_DUMP_EXIT=1` ends DOSBox after the last dump. The port's data is compared
+  with such a dump (e.g. the sprite table after `ProcessTmaps_58F90_594A0`: 212230 / 212570, 257BA0, FA4).
 - Reference code (local clones in `c:\prenos\mc1-ref\`):
   - https://github.com/turican0/remc1 - REMC1 decompilation of the MC1 CD executable.
   - https://github.com/drdanick/Magic-Carpet-1-SDL/tree/port/64bit - playable 64-bit SDL port built on REMC1

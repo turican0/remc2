@@ -4,12 +4,6 @@
 
 // temporary stubs of functions not ported yet; each one moves to its real file when ported from IDA
 
-void CreateInstallDirectory_3EC90_3EFD0(char drive, const char* basePath, const char* subDirectory);
-void sub_3F1D0();
-void sub_3F510();
-void sub_58F90_594A0();
-void sub_41230();
-void sub_41570();
 void sub_44730_44A70();
 void sub_4A980_4ACC0();
 void sub_44700_44A40(uint8_t* text, uint8_t** pointers, int32_t count);

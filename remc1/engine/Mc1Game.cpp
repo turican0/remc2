@@ -4,10 +4,13 @@
 #include <cstdlib>
 #include <cstring>
 
+#include "Mc1Blocks.h"
 #include "Mc1Files.h"
 #include "Mc1Graphics.h"
+#include "Mc1Install.h"
 #include "Mc1NotPorted.h"
 #include "Mc1Search.h"
+#include "Mc1TextureMaps.h"
 #include "Mc1System.h"
 #include "../../remc2/portability/port_filesystem.h"
 
@@ -61,9 +64,9 @@ int TopProcedure_340B0(int argc, char** argv)
 	if (!(mc1Settings_AE408_AE3F8->flags_0x00_0 & 8))
 	{
 		mc1Settings_AE408_AE3F8->flag_0x17_23 = 0;
-		sub_3F1D0();
-		sub_58F90_594A0();
-		sub_41230();
+		SetupInstallFiles_3F1D0_3F510();
+		ProcessTmaps_58F90_594A0();
+		InitMemory_41230_41570();
 		sub_44730_44A70();
 		if (mc1Settings_AE408_AE3F8->flags_0x00_0 & 0x100)
 		{
@@ -180,9 +183,9 @@ int TopProcedure_34470(int argc, char** argv)
 	if (!(mc1Settings_AE408_AE3F8->flags_0x00_0 & 8))
 	{
 		mc1Settings_AE408_AE3F8->flag_0x17_23 = 0;
-		sub_3F510();
-		sub_58F90_594A0();
-		sub_41570();
+		SetupInstallFiles_3F1D0_3F510();
+		ProcessTmaps_58F90_594A0();
+		InitMemory_41230_41570();
 		sub_44730_44A70();
 		if (mc1Settings_AE408_AE3F8->flags_0x00_0 & 0x100)
 		{

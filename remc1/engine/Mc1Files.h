@@ -41,6 +41,8 @@ extern uint8_t* spritesData_AE444_AE434;
 extern uint8_t* spritesTab_AE42C_AE41C;
 extern uint8_t* spritesTabEnd_AE434_AE424;
 extern uint8_t* textData_AE41C_AE40C;
+extern uint8_t* blockData_AE3F0_AE3E0; // 256 tiles in a 256 pixel wide image
+extern uint8_t* skyData_AE3D8_AE3C8;
 
 // tab, tabEnd and data of a sprite table; the port builds the index instead of relocating the tab in place
 typedef struct {
@@ -61,6 +63,8 @@ extern Type_Mc1FileEntry screenFilesMcga_997BC_997BC[5];
 extern Type_Mc1FileEntry screenFilesHires_99898_99898[5];
 extern Type_Mc1FileEntry ftextFiles_995D8_995D8[2];
 extern Type_Mc1FileEntry itextFiles_99688_99688[2];
+extern Type_Mc1FileEntry blockFiles16_996E0_996E0[2];
+extern Type_Mc1FileEntry blockFiles32_99738_99738[3];
 
 std::string Mc1DataFilePath(const char* path);
 int16_t LoadFileGroup_40440_40780(Type_Mc1FileEntry* group);

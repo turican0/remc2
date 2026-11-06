@@ -15,17 +15,11 @@ static void NotPorted(const char* name)
 }
 
 //!!!!! not ported yet
-void CreateInstallDirectory_3EC90_3EFD0(char /*drive*/, const char* /*basePath*/, const char* /*subDirectory*/) { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_3F1D0() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_3F510() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_58F90_594A0() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_41230() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_41570() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_44730_44A70() { NotPorted(__func__); }
 //!!!!! not ported yet
