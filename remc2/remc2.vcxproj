@@ -477,6 +477,7 @@
     <ClInclude Include="sub_main.h" />
     <ClInclude Include="..\remc1\Mc1Main.h" />
     <ClInclude Include="..\remc1\engine\Select.h" />
+    <ClInclude Include="..\remc1\engine\Mc1System.h" />
     <ClInclude Include="..\remc1\engine\Mc1Game.h" />
     <ClInclude Include="..\remc1\engine\Mc1GameState.h" />
     <ClInclude Include="..\remc1\engine\Mc1NotPorted.h" />
@@ -581,6 +582,7 @@
     <ClCompile Include="remc2.cpp" />
     <ClCompile Include="..\remc1\Mc1Main.cpp" />
     <ClCompile Include="..\remc1\engine\Select.cpp" />
+    <ClCompile Include="..\remc1\engine\Mc1System.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Game.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1NotPorted.cpp" />
     <ClCompile Include="stdafx.cpp">

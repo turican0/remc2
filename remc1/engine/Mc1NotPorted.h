@@ -5,7 +5,6 @@
 // temporary stubs of functions not ported yet; each one moves to its real file when ported from IDA
 
 void CreateInstallDirectory_3EC90_3EFD0(char drive, const char* basePath, const char* subDirectory);
-int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv);
 void sub_34B40_34F00();
 void sub_3F1D0();
 void sub_3F510();
@@ -33,7 +32,6 @@ void sub_5D070_5D580(int32_t value);
 void sub_5CEF0_5D400(int32_t value);
 void sub_31A60_31AA0();
 void sub_407A0_40AE0();
-void* Malloc_42540_42880(uint32_t size);
 void sub_5D290_5D7A0(int16_t variant);
 void sub_59720_59C30();
 void GameLoop_34610_349D0();
@@ -44,3 +42,9 @@ void sub_408D0_40C10();
 void sub_358A0_35C60();
 void sub_34C60_35020();
 void sub_433C0_43700();
+void InitNetwork_43270_435B0();
+int32_t InitVfx_5AF50_5B460();
+void InitDigitalJoystick_3F7D0_3FB10();
+void InitAnalogJoystick_3F820();
+void InitAnalogJoystick_3FB60();
+int16_t JoinNetworkSession_43430_43770(char* sessionName, uint16_t playerCount);

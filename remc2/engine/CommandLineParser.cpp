@@ -75,6 +75,7 @@ void CommandLineParser::Init(int argc, char **argv) {
     m_config_file_path = "";
 
     this->m_params.clear();
+    this->m_unknown_params.clear();
     for (int i=1; i < argc; ++i) {
         this->m_params.emplace_back(argv[i]);
     }
@@ -318,6 +319,8 @@ void CommandLineParser::InterpretParams() {
 		else if (param == "--play_file") {
 			m_play_file = *(++p);
 		}
+		else
+			m_unknown_params.push_back(param); // passed to MC1 (-game mc1/mc1hw/select)
     }
 #ifdef _DEBUG
 	m_enable_in_game_debug = true;

@@ -92,6 +92,8 @@ i.e. the remc2 MSS emulation (the AIL layer over SDL, including AWE32), not HMI.
 ## MC1 and Hidden Worlds
 
 CARPET.EXE (MC1) and HIDDEN.EXE (MC1 Hidden Worlds) share most of the code, but at different addresses.
+- There are no separate executables: both games are one code base inside remc2, selected at run time
+  (`mc1Variant`). The game gets the command line parameters remc2 does not know (e.g. `-game mc1 -level 5`).
 - Identical functions/globals exist once and carry both addresses in the name (MC1 first, then HW),
   e.g. `DrawSprite_1A2B0_1A3C0`.
 - Functions/globals that differ are duplicated, one per game, each with its own address.

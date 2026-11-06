@@ -1,6 +1,17 @@
 #include "Mc1Game.h"
 
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+
 #include "Mc1NotPorted.h"
+#include "Mc1System.h"
+#include "../../remc2/portability/port_filesystem.h"
+
+#if defined(__linux__) || defined(__APPLE__)
+#include <strings.h>
+#define _stricmp strcasecmp
+#endif
 
 Mc1Variant mc1Variant = MC1_VARIANT_MC1;
 Type_Mc1State_AE400_AE3F0* mc1State_AE400_AE3F0 = nullptr;
@@ -17,6 +28,11 @@ uint16_t word_939D6_939D6 = 0;
 uint8_t menuDone_96880_96880 = 0;
 uint8_t byte_12CA7C_12CA6C = 0;
 int16_t videoMode_12F02E_12F01E = 0;
+uint8_t* vesaInfo_12F080_12F070 = nullptr;
+uint8_t debugOption_AE45A_AE44A = 0;
+uint8_t inputDevices_90B23_90B23 = 0;
+uint8_t joystickFound_B7700_B76F0 = 0;
+uint8_t byte_A9058_A9058 = 0;
 
 static Type_Mc1Player_340B* CurrentPlayer()
 {
@@ -278,4 +294,251 @@ void SkipMissingLevel_34070()
 	uint16_t level = mc1Settings_AE408_AE3F8->levelIndex_0x11_17;
 	if (level == 8 || level == 0x11 || level == 0x1C || level == 0x21 || level == 0x27)
 		mc1Settings_AE408_AE3F8->levelIndex_0x11_17++;
+}
+
+static void CopyArgument(char* target, const char* source)
+{
+	// the original copies into 32 byte buffers without a length check
+	snprintf(target, 32, "%s", source);
+}
+
+int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
+{
+	char option[32];
+	char value[32];
+	char playerName[32]; // read but never used
+	char sessionName[32];
+	int8_t result = 0;
+	uint8_t digitalJoystick = 0;
+	uint8_t analogJoystick = 0;
+	uint8_t analogJoystick2 = 0; // never set
+	int32_t help = 0;
+	int32_t custom = 0;
+	int32_t network = 0;
+	int32_t setup = 0; // never set
+	int32_t videoMode = 1;
+	int32_t setSound = 0; // read but never used
+	int32_t detail = 1;
+	int32_t cheat = 0;
+	int32_t level = 0;
+	int32_t movie = 0;
+	int32_t roll = 0;
+	int32_t time = 0;
+	int32_t password = 0;
+	int32_t vfx = 0;
+	int32_t demo = 0;
+	int32_t players = 2;
+
+	debugOption_AE45A_AE44A = 0;
+	CopyArgument(playerName, "PLAYER");
+	CopyArgument(sessionName, "CARPET");
+	for (int32_t i = 1; i < argc; i++)
+	{
+		if (argv[i][0] != '-' && argv[i][0] != '/')
+		{
+			printf("ERROR : Incorrect command : %d\n", i);
+			result = -1;
+			break;
+		}
+		CopyArgument(option, argv[i] + 1);
+		value[0] = 0;
+		if (i + 1 < argc)
+			CopyArgument(value, argv[i + 1]);
+
+		if (!_stricmp("digijoy", option))
+			digitalJoystick = 1;
+		else if (!_stricmp("anojoy", option) || !_stricmp("anojoy4", option))
+			analogJoystick = 1;
+		else if (!_stricmp("vfx", option))
+			vfx = 1;
+		else if (!_stricmp("help", option))
+			help = 1;
+		else if (!_stricmp("debug", option))
+			debugOption_AE45A_AE44A = 1;
+		else if (!_stricmp("network", option))
+			network = 1;
+		else if (!_stricmp("custom", option))
+			custom = 1;
+		else if (!_stricmp("setsound", option))
+			setSound = 1;
+		else if (!_stricmp("demo", option))
+		{
+			demo = atoi(value);
+			i++;
+		}
+		else if (!_stricmp("detail", option))
+		{
+			detail = atoi(value);
+			i++;
+		}
+		else if (!_stricmp("cheat", option))
+		{
+			cheat = atoi(value);
+			i++;
+		}
+		else if (!_stricmp("name", option))
+		{
+			CopyArgument(playerName, value);
+			i++;
+		}
+		else if (!_stricmp("level", option))
+		{
+			level = atoi(value);
+			i++;
+		}
+		else if (!_stricmp("movie", option))
+		{
+			movie = atoi(value);
+			i++;
+		}
+		else if (!_stricmp("roll", option))
+		{
+			roll = atoi(value);
+			i++;
+		}
+		else if (!_stricmp("time", option))
+			time = 1;
+		else if (!_stricmp("password", option))
+		{
+			password = atoi(value);
+			i++;
+		}
+		else if (!_stricmp("players", option))
+		{
+			players = atoi(value);
+			i++;
+		}
+		else if (!_stricmp("session", option))
+		{
+			CopyArgument(sessionName, value);
+			i++;
+		}
+		else
+		{
+			printf("ERROR : Incorrect command : %d\n", i);
+			result = -1;
+			break;
+		}
+	}
+	if (result == -1)
+		return result;
+
+	if (network)
+	{
+		InitNetwork_43270_435B0();
+		network = 0; // cleared here, so the session code below never runs
+	}
+	if (vfx && InitVfx_5AF50_5B460())
+	{
+		//!!!!! the original writes into the game state before it is allocated (null pointer), investigate later
+		mc1State_AE400_AE3F0->vfx_0x219E_8606 = 1;
+		inputDevices_90B23_90B23 |= 8;
+		printf("VFX\n");
+	}
+	if (digitalJoystick)
+	{
+		InitDigitalJoystick_3F7D0_3FB10();
+		if (joystickFound_B7700_B76F0)
+			inputDevices_90B23_90B23 |= 2;
+	}
+	if (analogJoystick)
+	{
+		// the shared command line calls the game's own joystick setup
+		if (mc1Variant == MC1_VARIANT_HW)
+			InitAnalogJoystick_3FB60();
+		else
+			InitAnalogJoystick_3F820();
+		if (joystickFound_B7700_B76F0)
+		{
+			joystickFound_B7700_B76F0 = 1;
+			inputDevices_90B23_90B23 |= 1;
+		}
+	}
+	if (analogJoystick2)
+	{
+		if (mc1Variant == MC1_VARIANT_HW)
+			InitAnalogJoystick_3FB60();
+		else
+			InitAnalogJoystick_3F820();
+		if (joystickFound_B7700_B76F0)
+		{
+			joystickFound_B7700_B76F0 = 1;
+			inputDevices_90B23_90B23 |= 0x20;
+		}
+	}
+
+	vesaInfo_12F080_12F070 = (uint8_t*)LowMalloc_425C0_42900(0x100);
+	mc1State_AE400_AE3F0 = (Type_Mc1State_AE400_AE3F0*)Malloc_42540_42880(sizeof(Type_Mc1State_AE400_AE3F0));
+	mc1Settings_AE408_AE3F8 = (Type_Mc1Settings_AE408_AE3F8*)Malloc_42540_42880(sizeof(Type_Mc1Settings_AE408_AE3F8));
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	Type_Mc1Settings_AE408_AE3F8* settings = mc1Settings_AE408_AE3F8;
+	for (uint8_t& option_ : state->options_0x21AD_8621)
+		option_ = 1;
+	DetectCpu_19470_19470();
+	state->reflections_0x2195_8597 = settings->fastCpu_0x08_8 ? 1 : 0;
+	state->sky_0x2197_8599 = settings->fastCpu_0x08_8 ? 1 : 0;
+	state->shadows_0x2196_8598 = 1;
+	state->icons_0x219A_8602 = 1;
+	state->map_0x2199_8601 = 1;
+	state->setting_0x2198_8600 = 40;
+	state->playerCount_0x0A_10 = (uint16_t)players;
+	strcpy(settings->sessionName_0x75_117, sessionName);
+	settings->unknown_0x1D_29 = byte_A9058_A9058;
+	if (!detail)
+	{
+		state->reflections_0x2195_8597 = 0;
+		state->sky_0x2197_8599 = 0;
+		state->shadows_0x2196_8598 = 0;
+		state->setting_0x2198_8600 = 40;
+	}
+	if (demo)
+	{
+		if (demo >= 1 && demo <= 5)
+			settings->flags_0x00_0 |= 0x200 << (demo - 1);
+		settings->flags_0x00_0 |= 0x100;
+	}
+	if (time)
+		settings->flags_0x00_0 |= 0x40;
+	if (custom)
+		settings->flags_0x00_0 |= 0x100;
+	if (help)
+		result = -1;
+	if (network)
+	{
+		if (state->playerCount_0x0A_10 > 1)
+		{
+			state->currentPlayer_0x08_8 = JoinNetworkSession_43430_43770(settings->sessionName_0x75_117, state->playerCount_0x0A_10);
+			if (state->currentPlayer_0x08_8 >= 0)
+				settings->flags_0x00_0 |= 0x10;
+			else
+				state->currentPlayer_0x08_8 = 0;
+		}
+		settings->flags_0x00_0 |= 0x100;
+	}
+	if (setup)
+	{
+		videoMode = 8;
+		setSound = 0;
+		settings->flags_0x00_0 |= 8;
+	}
+	state->players_0x340B_13323[state->currentPlayer_0x08_8].cheat_0x18_24 = cheat;
+	settings->levelIndex_0x11_17 = (uint16_t)level;
+	if (movie)
+		settings->movie_0x0D_13 = (uint16_t)movie;
+	if (roll)
+	{
+		settings->movie_0x0D_13 = 0;
+		settings->roll_0x0F_15 = (uint16_t)roll;
+		settings->flags_0x00_0 |= 0x120;
+	}
+	if (debugOption_AE45A_AE44A)
+	{
+		debugOption_AE45A_AE44A = 0;
+		settings->flags_0x00_0 |= 0x80;
+	}
+	settings->password_0x19_25 = password;
+	if (result != -1)
+		videoMode_12F02E_12F01E = (int16_t)videoMode;
+	(void)setSound;
+	return result;
 }

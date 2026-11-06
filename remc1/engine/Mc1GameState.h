@@ -9,26 +9,49 @@ typedef struct { // size 0x801
 	uint8_t unknown_0x00_0[2];
 	uint16_t levelResult_0x02_2; // 2 next level, 4 play again, 8 end
 	uint8_t exitGame_0x04_4;
-	uint8_t unknown_0x05_5[0x801 - 0x05];
+	uint8_t unknown_0x05_5[0x18 - 0x05];
+	int32_t cheat_0x18_24;
+	uint8_t unknown_0x1C_28[0x801 - 0x1C];
 } Type_Mc1Player_340B;
 
 typedef struct { // size 232713, DOSBox 26C400 (pointer)
 	uint8_t unknown_0x00_0[0x08];
 	int16_t currentPlayer_0x08_8;
-	uint8_t unknown_0x0A_10[0x240 - 0x0A];
+	uint16_t playerCount_0x0A_10;
+	uint8_t unknown_0x0C_12[0x240 - 0x0C];
 	int32_t levelVariant_0x240_576;
-	uint8_t unknown_0x244_580[0x340B - 0x244];
+	uint8_t unknown_0x244_580[0x2195 - 0x244];
+	uint8_t reflections_0x2195_8597;
+	uint8_t shadows_0x2196_8598;
+	uint8_t sky_0x2197_8599;
+	uint8_t setting_0x2198_8600; // 40 by default
+	uint8_t map_0x2199_8601;
+	uint8_t icons_0x219A_8602;
+	uint8_t unknown_0x219B_8603[0x219E - 0x219B];
+	uint8_t vfx_0x219E_8606;
+	uint8_t unknown_0x219F_8607[0x21AD - 0x219F];
+	uint8_t options_0x21AD_8621[11]; // all 1 by default
+	uint8_t unknown_0x21B8_8632[0x340B - 0x21B8];
 	Type_Mc1Player_340B players_0x340B_13323[8];
 	uint8_t unknown_0x7413_29715[232713 - 0x7413];
 } Type_Mc1State_AE400_AE3F0;
 
 typedef struct { // size 36478
-	uint32_t flags_0x00_0; // 4 no exit screen, 8 no game, 0x100 roll (no menu)
-	uint8_t unknown_0x04_4[0x11 - 0x04];
+	uint32_t flags_0x00_0; // 4 no exit screen, 8 no game, 0x10 network, 0x40 time, 0x80 debug, 0x100 no menu (demo, custom, roll), 0x200-0x2000 demo number, 0x20 roll
+	uint8_t unknown_0x04_4[0x08 - 0x04];
+	uint8_t fastCpu_0x08_8;
+	uint8_t unknown_0x09_9[0x0D - 0x09];
+	uint16_t movie_0x0D_13;
+	uint16_t roll_0x0F_15;
 	uint16_t levelIndex_0x11_17;
 	uint8_t unknown_0x13_19[0x17 - 0x13];
 	uint8_t flag_0x17_23;
-	uint8_t unknown_0x18_24[36478 - 0x18];
+	uint8_t unknown_0x18_24;
+	int32_t password_0x19_25;
+	uint8_t unknown_0x1D_29; // copied from byte_A9058
+	uint8_t unknown_0x1E_30[0x75 - 0x1E];
+	char sessionName_0x75_117[32];
+	uint8_t unknown_0x95_149[36478 - 0x95];
 } Type_Mc1Settings_AE408_AE3F8;
 #pragma pack(pop)
 

@@ -4,7 +4,7 @@
 
 #include "Mc1GameState.h"
 
-// MC1 (CARPET.EXE) and Hidden Worlds (HIDDEN.EXE) entry; names carry the MC1 and HW addresses
+// MC1 and Hidden Worlds in one code base (mc1Variant); names carry the addresses of the original CARPET.EXE and HIDDEN.EXE
 
 enum Mc1Variant : uint8_t {
 	MC1_VARIANT_MC1 = 0,
@@ -26,8 +26,14 @@ extern uint16_t word_939D6_939D6;
 extern uint8_t menuDone_96880_96880;
 extern uint8_t byte_12CA7C_12CA6C;
 extern int16_t videoMode_12F02E_12F01E;
+extern uint8_t* vesaInfo_12F080_12F070;
+extern uint8_t debugOption_AE45A_AE44A;
+extern uint8_t inputDevices_90B23_90B23;
+extern uint8_t joystickFound_B7700_B76F0;
+extern uint8_t byte_A9058_A9058;
 
 int Main_404F0_40830(int argc, char** argv);
 int TopProcedure_340B0(int argc, char** argv);
 int TopProcedure_34470(int argc, char** argv);
 void SkipMissingLevel_34070();
+int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv);

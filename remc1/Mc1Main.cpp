@@ -1,10 +1,12 @@
 #include "Mc1Main.h"
 
-#include <cstdio>
 #include <exception>
 #include <iostream>
+#include <string>
+#include <vector>
 
 #include "engine/Mc1Game.h"
+#include "engine/Mc1System.h"
 #include "engine/Select.h"
 #include "../remc2/engine/CommandLineParser.h"
 #include "../remc2/engine/read_config.h"
@@ -12,7 +14,7 @@
 #include "../remc2/portability/port_time.h"
 #include "../remc2/shared/EventDispatcher.h"
 
-int Mc1Main(int /*argc*/, char** /*argv*/)
+int Mc1Main(int argc, char** argv)
 {
 	SetTimeStart();
 	std::cout << "Initializing logger...\n";
@@ -39,12 +41,23 @@ int Mc1Main(int /*argc*/, char** /*argv*/)
 		game = SELECTED_HIDDEN_WORLDS;
 	if (game != SELECTED_NONE)
 	{
-		// the batch file starts CARPET.EXE or HIDDEN.EXE without arguments
+		// the game gets the parameters remc2 does not know (e.g. -level 5 -cheat 1), as on the DOS command line
 		mc1Variant = game == SELECTED_HIDDEN_WORLDS ? MC1_VARIANT_HW : MC1_VARIANT_MC1;
-		char exeName[16];
-		snprintf(exeName, sizeof(exeName), "%s", mc1Variant == MC1_VARIANT_HW ? "HIDDEN.EXE" : "CARPET.EXE");
-		char* gameArgv[] = { exeName, nullptr };
-		Main_404F0_40830(1, gameArgv);
+		std::vector<std::string> gameArgs;
+		gameArgs.push_back(argc > 0 ? argv[0] : "remc2");
+		for (const std::string& param : CommandLineParams.GetUnknownParams())
+			gameArgs.push_back(param);
+		std::vector<char*> gameArgv;
+		for (std::string& arg : gameArgs)
+			gameArgv.push_back(&arg[0]);
+		gameArgv.push_back(nullptr);
+		Main_404F0_40830((int)gameArgs.size(), gameArgv.data());
+		// the original left its memory to DOS
+		FreeMc1Memory();
+		mc1State_AE400_AE3F0 = nullptr;
+		mc1Settings_AE408_AE3F8 = nullptr;
+		vesaInfo_12F080_12F070 = nullptr;
+		blurBuffer_AE404_AE3F4 = nullptr;
 	}
 
 	delete EventDispatcher::I;

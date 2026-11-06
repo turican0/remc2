@@ -244,6 +244,8 @@ set(SOURCE_FILES_REMC1
     "../remc1/Mc1Main.h"
     "../remc1/engine/Select.cpp"
     "../remc1/engine/Select.h"
+    "../remc1/engine/Mc1System.cpp"
+    "../remc1/engine/Mc1System.h"
     "../remc1/engine/Mc1Game.cpp"
     "../remc1/engine/Mc1Game.h"
     "../remc1/engine/Mc1GameState.h"
