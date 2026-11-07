@@ -855,11 +855,11 @@ void PlayerEvents_51BB0()//232bb0
 			case 0xA:
 				if (gameState_D41A4.setting_byte4_25 & 1) {
 					gameState_D41A4.setting_byte4_25 &= 0xFE;
-					ShowMessage_52D70(i, (char*)".. CHEAT: Invincability ON");
+					ShowMessage_52D70(i, (char*)".. CHEAT: Invincibility OFF");
 				}
 				else {
 					gameState_D41A4.setting_byte4_25 |= 1;
-					ShowMessage_52D70(i, (char*)".. CHEAT: Invincability OFF");
+					ShowMessage_52D70(i, (char*)".. CHEAT: Invincibility ON");
 				}
 				break;
 			default:
