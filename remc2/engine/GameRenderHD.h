@@ -133,7 +133,7 @@ private:
 	uint16_t DrawTileSpriteReflections_3FD60(int a2x, uint8_t playersColors_E88E0x[][3], type_entity_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar helpPopup_1804B0, Type_Sprite** m_ptrLoadedSprites_F66F0x[], int32_t tmapGroupLastUse_F5730[], ViewPort viewPort, uint16_t screenWidth);
 	void SetEntityHelpText_88740(type_entity_0x6E8E* a1, int16_t posX, int16_t posY);
 	void SetBillboards_3B560(int16_t roll);
-	void DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* a1, int16_t a2, int a3, int16_t a4);
+	void DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* entity, int16_t screenX, int screenY, int16_t spriteWidth);
 	bool ShouldThreadSprite(int width, int height) const;
 	void RunSpriteJob(const SpriteDrawJob& job, int width);
 	void DrawSpriteLines(const SpriteDrawJob& job, uint8_t startLine, uint8_t nth);
