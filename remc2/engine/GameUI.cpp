@@ -1154,6 +1154,28 @@ uint8_t CalculateScaleOffset(uint8_t scale)
 	return 0;
 }
 
+//Draws an enemy player's position on the minimap as a scale x scale block centred on (posX, posY), clipped to the minimap shape
+void DrawMinimapPlayerDot(uint8_t* mapBuffer, uint8_t* mapBuffer2, int posX, int posY, uint16_t width, uint16_t height, uint8_t colour, uint8_t scale, bool setAlpha)
+{
+	const int offset = CalculateScaleOffset(scale);
+	for (int y = posY - offset; y < posY - offset + scale; y++)
+	{
+		if (y < 0 || y >= height)
+			continue;
+		for (int x = posX - offset; x < posX - offset + scale; x++)
+		{
+			if (x < 0 || x >= width || x < mapSpans_F4960[1 + 2 * y] || x >= mapSpans_F4960[2 * y])
+				continue;
+			uint8_t* pixel = &mapBuffer[y * screenWidth_18062C + x];
+			*pixel = colour;
+			if (setAlpha)
+				SetAlphaAt(pixel, ALPHA_VISIBLE);
+			if (mapBuffer2 != nullptr)
+				mapBuffer2[y * screenWidth_18062C + x] = colour;
+		}
+	}
+}
+
 void AlphaRectangle(int posX, int posY, int width, int height, uint8_t alphaAmount)
 {
 	if (pdwScreenAlphaBuffer == nullptr)
@@ -1241,7 +1263,6 @@ void DrawMinimapEntitiesB_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY
 	int v62; // eax
 	int v63; // esi
 	int v64; // edi
-	uint8_t* v65; // ST14_4
 	uint8_t v66; // al
 	int v72; // [esp+0h] [ebp-60h]
 	int v73; // [esp+8h] [ebp-58h]
@@ -1749,14 +1770,12 @@ void DrawMinimapEntitiesB_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY
 							v64 = v76 + projection.Y(v61, v62);
 							if (v64 >= 0 && v64 < height && v63 >= mapSpans_F4960[1 + 2 * v64] && v63 < mapSpans_F4960[2 * v64])
 							{
-								v65 = (uint8_t*)(v64 * screenWidth_18062C + v63 + ptrMapBufferStart_v84);
 								v66 = playersColors_E88E0x[GetTrueWizardNumber_61790(v60x->playerData_0xA4_164x->playerColorIndex_0x38_56)][0];
-								*v65 = v66;
-								SetAlphaAt(v65, ALPHA_VISIBLE);
+								DrawMinimapPlayerDot(ptrMapBufferStart_v84, nullptr, v63, v64, width, height, v66, scale, true);
 								if (videoMode_180660 == 1)
 									DrawText_2BC10(world_D41A0.players_0x2BDE[v87].WizardName_0x39f_2BFA_12157, 2 * v63 + 4, 2 * v64, v66);
 								else
-									DrawText_2BC10(world_D41A0.players_0x2BDE[v87].WizardName_0x39f_2BFA_12157, v63 + 4, v64, v66);
+									DrawText_2BC10(world_D41A0.players_0x2BDE[v87].WizardName_0x39f_2BFA_12157, v63 - CalculateScaleOffset(scale) + (4 * scale), v64 - CalculateScaleOffset(scale), v66, scale);
 							}
 						}
 					}
@@ -1891,8 +1910,6 @@ void DrawMinimapEntities_627F0(int16_t x, int16_t y, int16_t posX, int16_t posY,
 	int v68; // eax
 	int v69; // esi
 	int v70; // edi
-	uint8_t* v71; // ST2C_4
-	uint8_t* v72; // ST28_4
 	uint8_t v73; // al
 	int v74; // eax
 	uint8_t* v75; // esi
@@ -2401,15 +2418,12 @@ void DrawMinimapEntities_627F0(int16_t x, int16_t y, int16_t posX, int16_t posY,
 							v70 = projection.Y(v67, v68) + v85;
 							if (v70 >= 0 && v70 < height && v69 >= mapSpans_F4960[1 + 2 * v70] && v69 < mapSpans_F4960[2 * v70])
 							{
-								v71 = &v99x[v70 * screenWidth_18062C + v69];
-								v72 = &v100x[v70 * screenWidth_18062C + v69];
 								v73 = playersColors_E88E0x[GetTrueWizardNumber_61790(v66x->playerData_0xA4_164x->playerColorIndex_0x38_56)][1];
-								*v72 = v73;
-								*v71 = v73;
+								DrawMinimapPlayerDot(v99x, v100x, v69, v70, width, height, v73, scale, false);
 								if (videoMode_180660 == 1)
 									DrawText_2BC10(world_D41A0.players_0x2BDE[j].WizardName_0x39f_2BFA_12157, 2 * v69 + 4, 2 * v70, v73);
 								else
-									DrawText_2BC10(world_D41A0.players_0x2BDE[j].WizardName_0x39f_2BFA_12157, v69 + 4, v70, v73);
+									DrawText_2BC10(world_D41A0.players_0x2BDE[j].WizardName_0x39f_2BFA_12157, v69 - CalculateScaleOffset(scale) + (4 * scale), v70 - CalculateScaleOffset(scale), v73, scale);
 							}
 						}
 					}
