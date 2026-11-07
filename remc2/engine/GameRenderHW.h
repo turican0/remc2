@@ -119,7 +119,7 @@ private:
 	void DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* polygons);
 	void DrawTileBillboards_3FD60(int tileIndex, std::vector<RenderPolygon>* polygons);
 	void SetEntityHelpText_88740(type_entity_0x6E8E* a1, int16_t posX, int16_t posY);
-	void DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* a1, int16_t a2, int a3, int16_t a4);
+	void DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* entity, int16_t screenX, int screenY, int16_t spriteWidth);
 	void BuildTileRenderStepTable(TileStepQuadrant* table, int cols);
 	bool CheckViewPortCull(ProjectionVertex v1, ProjectionVertex v2, ProjectionVertex v3, int maxCoordinate = 2147483647, int minCoordinate = -2147483647);
 	int SpriteLight(int64_t distance) const;

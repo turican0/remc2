@@ -2796,87 +2796,59 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 	}
 }
 
-void GameRenderHD::DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* a1x, int16_t a2, int a3, int16_t a4)
+void GameRenderHD::DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* entity, int16_t screenX, int screenY, int16_t spriteWidth)//20db30
 {
-	char* v5; // esi
-	int v9x; // eax
-	int v9y; // eax
-	__int16 v10; // bx
-	__int16 v11; // bx
-	int v12; // edi
-	int v13; // esi
-	char v24[32]; // [esp+0h] [ebp-58h]
-	int v25; // [esp+20h] [ebp-38h]
-	int v26; // [esp+24h] [ebp-34h]
-	//int v27; // [esp+28h] [ebp-30h]
-	//int v28; // [esp+2Ch] [ebp-2Ch]
-	int v29; // [esp+30h] [ebp-28h]
-	int v30; // [esp+34h] [ebp-24h]
-	int v31; // [esp+38h] [ebp-20h]
-	int v32; // [esp+3Ch] [ebp-1Ch]
-	uint8_t v33; // [esp+40h] [ebp-18h]
-	char v34; // [esp+44h] [ebp-14h]
-	char v35; // [esp+48h] [ebp-10h]
-	char v36; // [esp+4Ch] [ebp-Ch]
-	char v37; // [esp+50h] [ebp-8h]
-	uint8_t v38; // [esp+54h] [ebp-4h]
-	int v39; // [esp+74h] [ebp+1Ch]
-	v31 = viewPort.PreWidth_EA3C4 + viewPort.PosX_EA3D0 - 4;
-	v29 = viewPort.PreHeight_EA3C0 + viewPort.PosY_EA3CC - 22;
-	v25 = a1x->playerData_0xA4_164x->playerColorIndex_0x38_56;
-	v5 = world_D41A0.players_0x2BDE[v25].WizardName_0x39f_2BFA_12157;
-	strcpy(v24, v5);
-	v36 = playersColors_E88E0x[GetTrueWizardNumber_61790(v25)][0];//c
-	v35 = m_ptrColorPalette[0];//10 //v19
-	v34 = playersColors_E88E0x[GetTrueWizardNumber_61790(v25)][0];	//14 //v18
-	v33 = frameColors_D94F0[static_cast<std::underlying_type<MapType_t>::type>(world_D41A0.terrain_2FECE.MapType)][2];//18 v14
-	v38 = frameColors_D94F0[static_cast<std::underlying_type<MapType_t>::type>(world_D41A0.terrain_2FECE.MapType)][3];//4 v15
-	v37 = frameColors_D94F0[static_cast<std::underlying_type<MapType_t>::type>(world_D41A0.terrain_2FECE.MapType)][0];//?v22
-	v10 = (a4 >> 1) + a2;
+	uint8_t scale = 1;
+	if (!DefaultResolutions())
+		scale = gameUiScale;
+	const int right = viewPort.PreWidth_EA3C4 + viewPort.PosX_EA3D0 - (4 * scale);
+	const int bottom = viewPort.PreHeight_EA3C0 + viewPort.PosY_EA3CC - (22 * scale);
+	const int wizard = entity->playerData_0xA4_164x->playerColorIndex_0x38_56;
+	char name[32];
+	strcpy(name, world_D41A0.players_0x2BDE[wizard].WizardName_0x39f_2BFA_12157);
+	const uint8_t wizardColor = playersColors_E88E0x[GetTrueWizardNumber_61790(wizard)][0];
+	const uint8_t barColor = m_ptrColorPalette[0];
+	const uint8_t* frameColors = frameColors_D94F0[static_cast<std::underlying_type<MapType_t>::type>(world_D41A0.terrain_2FECE.MapType)];
+	const uint8_t lightColor = frameColors[2];
+	const uint8_t darkColor = frameColors[3];
+	const uint8_t backgroundColor = frameColors[0];
+	int16_t center = (spriteWidth >> 1) + screenX;
 	if (videoMode_180660 & 1)
 	{
-		v10 *= 2;
-		a3 *= 2;
+		center *= 2;
+		screenY *= 2;
 	}
-	v11 = viewPort.PosX_EA3D0 + v10;
-	v12 = viewPort.PosY_EA3CC + a3 - 20;
-	v39 = viewPort.PosY_EA3CC + a3 - 20;
-	if (v11 >= viewPort.PosX_EA3D0)
+	const int16_t left = viewPort.PosX_EA3D0 + center;
+	const int top = viewPort.PosY_EA3CC + screenY - (20 * scale);
+	if (left < viewPort.PosX_EA3D0 || static_cast<int16_t>(top) < viewPort.PosY_EA3CC || left >= right || static_cast<int16_t>(top) >= bottom)
+		return;
+	const int border = 2 * scale;
+	const int letterWidth = 8 * scale;
+	int length = strlen(name);
+	int width = letterWidth * length + (4 * scale);
+	if (left + width > right)
 	{
-		if ((int16_t)v12 >= viewPort.PosY_EA3CC && v11 < v31 && (int16_t)v12 < v29)
-		{
-			v9x = strlen(v24);
-			v13 = 8 * v9x + 4;
-			if (v11 + v13 > v31)
-			{
-				v13 = v31 - v11;
-				v9x = ((v31 - v11 - 4) - (my_sign32(v31 - v11 - 4) << 3) + my_sign32(v31 - v11 - 4)) >> 3;
-			}
-			if (v9x > 0)
-			{
-				v24[v9x] = 0;
-				v32 = v13 + 2;
-				v26 = (int16_t)(v13 + 2);
-				v30 = v11;
-				DrawLine_2BC80(v11, v39, v13 + 2, 18, v37);//8
-				//v27 = v33;//30// v16
-				DrawLine_2BC80(v30, v39, v26, 2, v33);//18
-				//v28 = v38;//2c//v17
-				DrawLine_2BC80(v30, v39 + 16, v26, 2, v38);//4
-				DrawLine_2BC80(v30, v39, 2, 16, v33);//30,tj.18
-				DrawLine_2BC80(v11 + v32 - 2, v39, 2, 18, v38);//2c tj. 4
-				DrawText_2BC10(v24, v11 + 4, v39, v34);//14
-				DrawLine_2BC80(v11 + 2, v39 + 14, v13 - 2, 2, v35);//10
-				if (a1x->maxLife_0x4)
-				{
-					v9y = a1x->life_0x8 * (v13 - 2) / a1x->maxLife_0x4;
-					if (v30 + 2 + v9y > v31 - 2)
-						v9y = v31 - 2 - (v30 + 2);
-					if (v9y > 0)
-						DrawLine_2BC80(v11 + 2, v39 + 14, v9y, 2, v36);
-				}
-			}
-		}
+		width = right - left;
+		length = (right - left - (4 * scale)) / letterWidth;
+	}
+	if (length <= 0)
+		return;
+	name[length] = 0;
+	const int16_t frameWidth = width + border;
+	DrawLine_2BC80(left, top, frameWidth, 18 * scale, backgroundColor);
+	DrawLine_2BC80(left, top, frameWidth, border, lightColor);
+	DrawLine_2BC80(left, top + (16 * scale), frameWidth, border, darkColor);
+	DrawLine_2BC80(left, top, border, 16 * scale, lightColor);
+	DrawLine_2BC80(left + width, top, border, 18 * scale, darkColor);
+	DrawText_2BC10(name, left + (4 * scale), top, wizardColor, scale);
+	DrawLine_2BC80(left + border, top + (14 * scale), width - border, border, barColor);
+	if (entity->maxLife_0x4)
+	{
+		int health = entity->life_0x8 * (width - border) / entity->maxLife_0x4;
+		if (left + border + health > right - border)
+			health = right - border - (left + border);
+		if (health > 0)
+			DrawLine_2BC80(left + border, top + (14 * scale), health, border, wizardColor);
 	}
 }
 
