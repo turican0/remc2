@@ -795,13 +795,14 @@ void DrawCurrentObjectiveTextbox_30630(uint8_t scale)//211630
 
 			if (!DefaultResolutions())
 			{
-				textbox.maxPosX_0x16 = screenWidth_18062C - 40;
+				textbox.minPosX_0x14 = 40 * scale;
+				textbox.maxPosX_0x16 = screenWidth_18062C - (40 * scale);
 				textbox.maxPosY_0x1a = screenHeight_180624 / 2;
 			}
 
 			textbox.color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[3840];
 			textbox.color2_0x31 = ((*xadataclrd0dat.colorPalette_var28)[0]);
-			textbox.minPosY_0x18 = 80;
+			textbox.minPosY_0x18 = 80 * scale;
 			textbox.maxTextboxWidth_0x0 = 320;
 			textbox.maxTextboxHeight_0x2 = 300;
 			textbox.maxTextboxWidth2_0xc = 320;
@@ -6744,13 +6745,18 @@ void SetTextBoxMinMaxForSetResolution()
 {
 	if (!DefaultResolutions())
 	{
-		helpPopup_1804B0.type_sub_0[0].maxPosX_0x16 = screenWidth_18062C - 40;
-		helpPopup_1804B0.type_sub_0[0].maxPosY_0x1a = screenHeight_180624 - 220;
+		const int scale = gameUiScale;
+		helpPopup_1804B0.type_sub_0[0].minPosX_0x14 = 40 * scale;
+		helpPopup_1804B0.type_sub_0[0].minPosY_0x18 = 80 * scale;
+		helpPopup_1804B0.type_sub_0[0].maxPosX_0x16 = screenWidth_18062C - (40 * scale);
+		helpPopup_1804B0.type_sub_0[0].maxPosY_0x1a = screenHeight_180624 - (220 * scale);
 		helpPopup_1804B0.type_sub_0[0].maxTextboxHeight2_0xe = screenHeight_180624 - 80;
 
 		helpPopup_1804B0.type_sub_0[1] = helpPopup_1804B0.type_sub_0[0];
-		helpPopup_1804B0.type_sub_0[1].maxPosX_0x16 = screenWidth_18062C - 30;
-		helpPopup_1804B0.type_sub_0[1].maxPosY_0x1a = screenHeight_180624 - 110;
+		helpPopup_1804B0.type_sub_0[1].minPosX_0x14 = 30 * scale;
+		helpPopup_1804B0.type_sub_0[1].minPosY_0x18 = 30 * scale;
+		helpPopup_1804B0.type_sub_0[1].maxPosX_0x16 = screenWidth_18062C - (30 * scale);
+		helpPopup_1804B0.type_sub_0[1].maxPosY_0x1a = screenHeight_180624 - (110 * scale);
 	}
 	else
 	{
@@ -7141,22 +7147,26 @@ void SetPauseMenuCoordinates_87970(uint8_t scale)//268970
 //----- (00087A30) --------------------------------------------------------
 void SetHelpPopupLine_87A30()//268a30
 {
+	uint8_t scale = 1;
+	if (!DefaultResolutions())
+		scale = gameUiScale;
+
 	if (helpPopup_1804B0.keyHelpItem_0xa9 > 0)
 	{
 		helpPopup_1804B0.type_sub_0[1].lineSrcX_0x1c = str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[3];
 		helpPopup_1804B0.type_sub_0[1].lineSrcY_0x1e = str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[4];
 		helpPopup_1804B0.type_sub_0[1].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[4095];
-		helpPopup_1804B0.type_sub_0[1].maxTextboxWidth2_0xc = 220;
+		helpPopup_1804B0.type_sub_0[1].maxTextboxWidth2_0xc = 220 * scale;
 		helpPopup_1804B0.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
-		ComputeTextboxSizes_89830(&helpPopup_1804B0.type_sub_0[1]);
-		ComputeTextboxSizesFromTextWords_89420(&helpPopup_1804B0.type_sub_0[1], langStrings_E9C4C[str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[1]]);
-		ConstrainTextboxSizes_89520(&helpPopup_1804B0.type_sub_0[1]);
-		ComputeFrameSizes_89980(&helpPopup_1804B0.type_sub_0[1]);
+		ComputeTextboxSizes_89830(&helpPopup_1804B0.type_sub_0[1], scale);
+		ComputeTextboxSizesFromTextWords_89420(&helpPopup_1804B0.type_sub_0[1], langStrings_E9C4C[str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[1]], scale);
+		ConstrainTextboxSizes_89520(&helpPopup_1804B0.type_sub_0[1], scale);
+		ComputeFrameSizes_89980(&helpPopup_1804B0.type_sub_0[1], scale);
 		ComputeTextboxLine_898A0(&helpPopup_1804B0.type_sub_0[1]);
 		ColorizeScreen_2E790(helpPopup_1804B0.type_sub_0[1].framePosX_0x24, helpPopup_1804B0.type_sub_0[1].framePosY_0x26, helpPopup_1804B0.type_sub_0[1].frameWidth_0x28, helpPopup_1804B0.type_sub_0[1].frameHeight_0x2a, helpPopup_1804B0.type_sub_0[1].color2_0x31);
-		DrawTextboxText_895D0(&helpPopup_1804B0.type_sub_0[1], (char*)langStrings_E9C4C[str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[1]]);
+		DrawTextboxText_895D0(&helpPopup_1804B0.type_sub_0[1], (char*)langStrings_E9C4C[str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[1]], scale);
 		DrawTextboxLine_89A30(&helpPopup_1804B0.type_sub_0[1]);
-		DrawTextboxFrame_89690(&helpPopup_1804B0.type_sub_0[1]);
+		DrawTextboxFrame_89690(&helpPopup_1804B0.type_sub_0[1], scale);
 	}
 }
 
