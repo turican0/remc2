@@ -84,6 +84,16 @@ Type_Mc1FileEntry screenFilesHires_99898_99898[5] = {
 	{ { "", "" }, nullptr, nullptr, 0, 0 },
 };
 
+Type_Mc1FileEntry etextFiles_99580_99580[2] = {
+	{ { "data/etext.dat", "data/etext.dat" }, &textData_AE41C_AE40C, nullptr, 0, 0 },
+	{ { "", "" }, nullptr, nullptr, 0, 0 },
+};
+
+Type_Mc1FileEntry gtextFiles_99630_99630[2] = {
+	{ { "data/gtext.dat", "data/gtext.dat" }, &textData_AE41C_AE40C, nullptr, 0, 0 },
+	{ { "", "" }, nullptr, nullptr, 0, 0 },
+};
+
 Type_Mc1FileEntry ftextFiles_995D8_995D8[2] = {
 	{ { "data/ftext.dat", "data/ftext.dat" }, &textData_AE41C_AE40C, nullptr, 0, 0 },
 	{ { "", "" }, nullptr, nullptr, 0, 0 },

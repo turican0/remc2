@@ -5,6 +5,7 @@
 #include "../../remc2/engine/Basic.h"
 #include "../../remc2/engine/DatTabIndexes.h"
 #include "../../remc2/engine/EventsFunctions.h"
+#include "../../remc2/engine/GameUI.h"
 #include "../../remc2/engine/globals.h"
 #include "../../remc2/engine/Graphics.h"
 #include "../../remc2/engine/PlayerInput.h"
@@ -25,6 +26,14 @@ inline constexpr uint8_t** cursorBackground_12EF98_12EF88 = &cursorBackground_18
 inline constexpr uint8_t** cursorBackground2_12EF88_12EF78 = &cursorBackground2_1806F0;
 inline constexpr int8_t (*pressedKeys_12EEF0_12EEE0)[128] = &pressedKeys_180664;
 inline constexpr uint32_t (*uvTable_902DC_902DC)[32][8] = &UVTable_D4350; // the same initial data
+inline constexpr axis_2d* mousePos_9AD90_9AD90 = &mouse_E3760; // x 9AD90, y 9AD92
+inline constexpr int16_t* mouseClickX_9AD8C_9AD8C = &mousePosX_E375C;
+inline constexpr int16_t* mouseClickY_9AD8E_9AD8E = &mousePosY_E375E;
+inline constexpr int16_t* mouseRightPressed_12EFDC_12EFCC = &mouseRightButton_180744;
+inline constexpr int16_t* mouseLeftPressed_12EFDE_12EFCE = &mouseLeftButton_180746;
+inline constexpr int* mouseMiddleDown_12EFE0_12EFD0 = &mouseEventFlagB_180748;
+inline constexpr int16_t* mouseRightDown_12EFE2_12EFD2 = &mouseRightButton2_18074A;
+inline constexpr int16_t* mouseLeftDown_12EFE4_12EFD4 = &mouseLeftButton2_18074C;
 inline constexpr int* screenWidth_93AD4_93AD4 = &iScreenWidth_DE560; // set by 79495 / 799A5 (MC2 BCD45)
 
 // functions
@@ -35,6 +44,13 @@ inline constexpr auto SetVideoMode640x480AndPalette_61C30_62140 = &VgaSetVideoMo
 inline constexpr auto FadeInOut_61CC0_621D0 = &VgaPalFadeInFadeOut_90B27; // the last argument is the port's frame delay
 inline constexpr auto InstallMouse_5C214_5C724 = &InstallMouse_8CEDF;
 inline constexpr auto SetCursor_5C05C_5C56C = &SetCursor_8CD27; // a pointers.tab record
+inline constexpr auto Blit320_5CDA0_5D2B0 = &VgaBlit320_90478; // the argument 200 rows, port: max fps
+inline constexpr auto Blit640_599B0_59EC0 = &VgaBlit640_75200;
+inline constexpr auto DrawBitmap320_60CE0_611F0 = &DrawBitmap320_8F8B0;
+inline constexpr auto DrawBitmap640_60D18_61228 = &DrawBitmap640_8F8E8;
+inline constexpr auto CopyScreen320_62FA8_634B8 = &CopyScreen; // rows of 320 (MC2 9A128)
+inline constexpr auto CopyScreen640_62FC4_634D4 = &CopyScreen; // rows of 640 (MC2 9A144)
+inline constexpr auto SetTextPointers_44700_44A40 = &CopySentence_5B870;
 inline constexpr auto ClearPressedKeys_36D83_37143 = &ClearPressedKeys_753D0; // and hooks int 9 (SDL events in the port)
 inline constexpr auto PaletteInstall_319A0_319E0 = &VgaPaletteInstall_41A90;
 inline constexpr auto ClearScreenAndBlit_5B560_5BA70 = &ClearScreenAndBlit_75C50;
@@ -45,3 +61,19 @@ inline constexpr auto WriteFile_62ED0_633E0 = &DataFileIO::WriteFile_98CAA;
 inline constexpr auto DecompressRnc_62B60_63070 = &DataFileRNC::Decompress;
 inline constexpr auto CreateIndexDatTabDoubled_65D70_66280 = &CreateIndexDatTabDoubled_98709;
 inline constexpr auto CreateIndexDatTab_65DC0_662D0 = &CreateIndexDatTab_9874D;
+
+// SELECT.EXE, the selector (one executable, one address)
+inline constexpr uint8_t** screenBuffer_23144 = &pdwScreenBuffer_351628;
+inline constexpr int16_t* videoMode_2317E = &videoMode_180660; // 1 MCGA 320x200, 8 hires
+inline constexpr uint8_t* scanCode_23210 = &LastPressedKey_1806E4;
+inline constexpr auto SetVideoModeMcga_11460 = &VgaSetVideoMode320x200AndPalette_90D6E;
+inline constexpr auto SetVideoModeHires_11500 = &VgaSetVideoMode640x480AndPalette_90E07;
+inline constexpr auto CopyScreenMcga_11704 = &CopyScreen; // rows of 320 (MC2 9A128)
+inline constexpr auto CopyScreenHires_11720 = &CopyScreen; // rows of 640 (MC2 9A144)
+inline constexpr auto PresentMcga_11744 = &VgaBlit320_90478;
+inline constexpr auto PresentHires_11780 = &VgaBlit640_75200;
+inline constexpr auto SetClipRect_13F90 = &SetViewport_A0D50;
+inline constexpr auto ReadKeyboard_1406C = &ReadKeyboard_9D31C;
+inline constexpr auto DrawLineMcga_15748 = &DrawLine320_9025C;
+inline constexpr auto DrawLineHires_15860 = &DrawLine640_90374;
+inline constexpr auto WriteFile_10CF0 = &DataFileIO::WriteFile_98CAA;

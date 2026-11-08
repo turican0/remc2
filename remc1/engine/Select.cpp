@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <cstring>
 
+#include "Mc1Shared.h"
 #include "../../remc2/engine/read_config.h"
 #include "../../remc2/portability/port_filesystem.h"
 #include "../../remc2/portability/port_sdl_vga_mouse.h"
@@ -58,7 +59,7 @@ int16_t RunSelect_10010(const std::string& cdPath)
 		FILE* file = DataFileIO::CreateOrOpenFile(cpDat.c_str(), 0x222);
 		if (file)
 		{
-			DataFileIO::WriteFile_98CAA(file, (uint8_t*)&selectState.selectedGame_202A0, 2);
+			WriteFile_10CF0(file, (uint8_t*)&selectState.selectedGame_202A0, 2);
 			DataFileIO::Close(file);
 		}
 		else
@@ -72,13 +73,13 @@ bool InitSelect_10080()
 	printf("\nCopyright (c) 1995\nBullfrog Productions Ltd.\n");
 	printf("All Rights Reserved.\n");
 	printf("Magic Carpet Plus.\n");
-	selectState.videoMode_2317E = SELECT_MODE_MCGA;
+	*videoMode_2317E = SELECT_MODE_MCGA;
 
 	// the original takes MCGA (0x1F500 bytes) only when 0x96100 bytes or the VESA info block cannot be allocated
 	selectState.memory_23144.assign(0x96100, 0);
-	selectState.screen_23144 = selectState.memory_23144.data();
-	selectState.videoMode_2317E = SELECT_MODE_HIRES;
-	selectState.background_2312C = selectState.screen_23144 + 0x4B000;
+	*screenBuffer_23144 = selectState.memory_23144.data();
+	*videoMode_2317E = SELECT_MODE_HIRES;
+	selectState.background_2312C = *screenBuffer_23144 + 0x4B000;
 	printf("\nSetting up Hires Screen\n");
 	LoadPackedFile_11060((selectState.cdPath + "/data/selp1-0.dat").c_str(), selectState.palette_22E20);
 	LoadPackedFile_11060((selectState.cdPath + "/data/sel1-0.dat").c_str(), selectState.background_2312C);
@@ -87,18 +88,20 @@ bool InitSelect_10080()
 	CreateInstallDirectory_10320("data");
 	CreateInstallDirectory_10320("levels");
 	SetupInstallFiles_107E0();
-	if (selectState.videoMode_2317E & SELECT_MODE_MCGA)
-		SetVideoModeMcga_11460(selectState.palette_22E20);
+	// port: opens the window, it stays open for the game
+	VGA_Init(windowResWidth, windowResHeight, gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
+	if (*videoMode_2317E & SELECT_MODE_MCGA)
+		SetVideoModeMcga_11460((TColor*)selectState.palette_22E20);
 	else
-		SetVideoModeHires_11500(selectState.palette_22E20);
+		SetVideoModeHires_11500((TColor*)selectState.palette_22E20);
 	return true;
 }
 
 void FreeSelect_10230()
 {
-	RestoreVideoMode_10D90();
+	// 10D90 restores the text mode of the start (MC2 8C21F, removed in remc2); Mc1Main closes the window
 	std::vector<uint8_t>().swap(selectState.memory_23144);
-	selectState.screen_23144 = nullptr;
+	*screenBuffer_23144 = nullptr;
 	selectState.background_2312C = nullptr;
 }
 
@@ -108,20 +111,20 @@ void SelectLoop_10260()
 	selectState.blinkTime_23128 = mygethundredths();
 	while (selectState.selectedGame_202A0 == SELECTED_NONE)
 	{
-		if (selectState.scanCode_23210 == 1) // Esc
+		if (*scanCode_23210 == 1) // Esc
 		{
 			selectState.selectedGame_202A0 = SELECTED_NONE;
 			return;
 		}
-		if (selectState.videoMode_2317E & SELECT_MODE_MCGA)
-			CopyScreenMcga_11704(selectState.background_2312C, selectState.screen_23144, 200);
+		if (*videoMode_2317E & SELECT_MODE_MCGA)
+			CopyScreenMcga_11704(selectState.background_2312C, *screenBuffer_23144, 320, 200);
 		else
-			CopyScreenHires_11720(selectState.background_2312C, selectState.screen_23144, 480);
+			CopyScreenHires_11720(selectState.background_2312C, *screenBuffer_23144, 640, 480);
 		UpdateSelection_10930();
-		if (selectState.videoMode_2317E & SELECT_MODE_MCGA)
-			PresentMcga_11744();
+		if (*videoMode_2317E & SELECT_MODE_MCGA)
+			PresentMcga_11744(0);
 		else
-			PresentHires_11780(480);
+			PresentHires_11780(480, 0);
 		ReadKey_116C8();
 	}
 }
@@ -179,8 +182,8 @@ uint8_t CopyDataFiles_10560(const char* sourceDirectory, const char* targetDirec
 		return 3;
 	}
 	uint32_t length = (uint32_t)DataFileIO::FileLengthBytes(source);
-	size_t read = DataFileIO::Read(source, selectState.screen_23144, length);
-	DataFileIO::WriteFile_98CAA(target, selectState.screen_23144, (uint32_t)read);
+	size_t read = DataFileIO::Read(source, *screenBuffer_23144, length);
+	WriteFile_10CF0(target, *screenBuffer_23144, (uint32_t)read);
 	DataFileIO::Close(source);
 	DataFileIO::Close(target);
 
@@ -198,11 +201,11 @@ uint8_t CopyDataFiles_10560(const char* sourceDirectory, const char* targetDirec
 			while (remaining)
 			{
 				int32_t chunk = remaining <= 64000 ? remaining : 64000;
-				int32_t done = (int32_t)DataFileIO::Read(source, selectState.screen_23144, chunk);
+				int32_t done = (int32_t)DataFileIO::Read(source, *screenBuffer_23144, chunk);
 				if (done <= 0)
 					break; // a read error loops forever in the original
 				remaining -= done;
-				DataFileIO::WriteFile_98CAA(target, selectState.screen_23144, done);
+				WriteFile_10CF0(target, *screenBuffer_23144, done);
 				copied += done;
 				int16_t percent = (int16_t)(100 * copied / total);
 				if (percent > 100)
@@ -215,7 +218,7 @@ uint8_t CopyDataFiles_10560(const char* sourceDirectory, const char* targetDirec
 		//!!!!! the original leaves the source file open when the target cannot be created
 		DataFileIO::Close(source);
 	}
-	memset(selectState.screen_23144, 0, 64000);
+	memset(*screenBuffer_23144, 0, 64000);
 	return 0;
 }
 
@@ -242,11 +245,11 @@ void SetupInstallFiles_107E0()
 
 void UpdateSelection_10930()
 {
-	if (selectState.scanCode_23210 == 0x4D) // right
+	if (*scanCode_23210 == 0x4D) // right
 		selectState.cursor_23130 = 1;
-	else if (selectState.scanCode_23210 == 0x4B) // left
+	else if (*scanCode_23210 == 0x4B) // left
 		selectState.cursor_23130 = 0;
-	if (selectState.scanCode_23210 == 0x1C) // Enter
+	if (*scanCode_23210 == 0x1C) // Enter
 		selectState.selectedGame_202A0 = selectState.cursor_23130 ? SELECTED_HIDDEN_WORLDS : SELECTED_MAGIC_CARPET;
 
 	selectState.time_23120 = mygethundredths();
@@ -257,7 +260,7 @@ void UpdateSelection_10930()
 	}
 	if (selectState.frameVisible_202A2)
 	{
-		if (selectState.videoMode_2317E == SELECT_MODE_MCGA)
+		if (*videoMode_2317E == SELECT_MODE_MCGA)
 			DrawSelectionFrame_10C00(&selectFramesMcga_202B4[selectState.cursor_23130]);
 		else
 			DrawSelectionFrame_10C00(&selectFramesHires_202A4[selectState.cursor_23130]);
@@ -297,16 +300,10 @@ void DrawRectHires_10B80(int32_t x, int32_t y, int32_t width, int32_t height, ui
 void DrawSelectionFrame_10C00(const SelectFrame* frame)
 {
 	uint8_t white = FindNearestColor_11C70(selectState.palette_22E20, 63, 63, 63);
-	if (selectState.videoMode_2317E & SELECT_MODE_MCGA)
+	if (*videoMode_2317E & SELECT_MODE_MCGA)
 		DrawRectMcga_10B00(frame->x_0, frame->y_2, frame->width_4, frame->height_6, white);
 	else
 		DrawRectHires_10B80(frame->x_0, frame->y_2, frame->width_4, frame->height_6, white);
-}
-
-void RestoreVideoMode_10D90()
-{
-	// the original sets the video mode saved at start (int 10h), the port closes the window
-	VGA_close();
 }
 
 int32_t LoadPackedFile_11060(const char* path, uint8_t* buffer)
@@ -324,53 +321,12 @@ int32_t LoadPackedFile_11060(const char* path, uint8_t* buffer)
 	return result;
 }
 
-void SetVideoModeMcga_11460(uint8_t* palette)
-{
-	selectState.screenWidth_23140 = 320;
-	selectState.screenHeight_23148 = 200;
-	VGA_Init(windowResWidth, windowResHeight, 320, 200, maintainAspectRatio, displayIndex);
-	VGA_Set_Palette(palette);
-	// the mouse ranges set by the original (int 33h) are not used, the selector has no mouse handler
-	SetClipRect_13F90(0, 0, 320, 200);
-}
-
-void SetVideoModeHires_11500(uint8_t* palette)
-{
-	selectState.screenWidth_23140 = 640;
-	selectState.screenHeight_23148 = 480;
-	VGA_Init(windowResWidth, windowResHeight, 640, 480, maintainAspectRatio, displayIndex);
-	VGA_Set_Palette(palette);
-	SetClipRect_13F90(0, 0, 640, 480);
-}
-
 uint8_t ReadKey_116C8()
 {
 	ReadKeyboard_1406C();
-	if (selectState.scanCode_23210 >= 0x80)
+	if (*scanCode_23210 >= 0x80)
 		return 0;
-	return scanCodeChars_202EC[selectState.scanCode_23210];
-}
-
-void CopyScreenMcga_11704(const uint8_t* source, uint8_t* target, uint16_t lines)
-{
-	memcpy(target, source, lines * 320);
-}
-
-void CopyScreenHires_11720(const uint8_t* source, uint8_t* target, uint16_t lines)
-{
-	memcpy(target, source, lines * 640);
-}
-
-void PresentMcga_11744()
-{
-	// the original hides the mouse cursor around the copy when a mouse handler is installed (never in the selector)
-	VGA_Blit(selectState.screen_23144);
-}
-
-void PresentHires_11780(uint16_t /*lines*/)
-{
-	// the original copies the lines through the VESA banks
-	VGA_Blit(selectState.screen_23144);
+	return scanCodeChars_202EC[*scanCode_23210];
 }
 
 void DrawRectOutlineMcga_11AD0(int16_t x, int16_t y, int16_t width, int16_t height, uint16_t color)
@@ -395,7 +351,7 @@ void DrawRectOutlineHires_11BA0(int16_t x, int16_t y, int16_t width, int16_t hei
 
 uint8_t FindNearestColor_11C70(const uint8_t* palette, uint8_t red, uint8_t green, uint8_t blue)
 {
-	uint16_t count = (selectState.videoMode_2317E & 6) ? 16 : 256;
+	uint16_t count = (*videoMode_2317E & 6) ? 16 : 256;
 	int32_t bestDistance = 9999;
 	//!!!!! the original returns an uninitialized value when no color is closer than 9999
 	uint8_t bestIndex = 0;
@@ -413,91 +369,4 @@ uint8_t FindNearestColor_11C70(const uint8_t* palette, uint8_t red, uint8_t gree
 		}
 	}
 	return bestIndex;
-}
-
-void SetClipRect_13F90(int16_t x, int16_t y, int16_t width, int16_t height)
-{
-	selectState.clipMinX_23158 = x;
-	selectState.clipMinY_23168 = y;
-	selectState.clipWidth_23150 = width;
-	selectState.clipHeight_23178 = height;
-	selectState.clipMaxX_23174 = x + width;
-	selectState.clipMaxY_23160 = y + height;
-}
-
-void ReadKeyboard_1406C()
-{
-	int16_t shift = VGA_get_shift_status();
-	selectState.shiftFlags_23211 = 0;
-	if (shift & 3)
-		selectState.shiftFlags_23211 = 1;
-	if (shift & 4)
-		selectState.shiftFlags_23211 |= 2;
-	if (shift & 8)
-		selectState.shiftFlags_23211 |= 4;
-	selectState.scanCode_23210 = 0;
-	if (VGA_check_standart_input_status())
-		selectState.scanCode_23210 = (uint8_t)(VGA_read_char_from_buffer() >> 8);
-}
-
-void DrawLineMcga_15748(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color, int16_t /*flags*/)
-{
-	// coordinates are in 640x400, the buffer is 320x200
-	int16_t minX = (int16_t)(selectState.clipMinX_23158 << 1);
-	int16_t maxX = (int16_t)(selectState.clipMaxX_23174 << 1);
-	int16_t minY = (int16_t)(selectState.clipMinY_23168 << 1);
-	int16_t maxY = (int16_t)(selectState.clipMaxY_23160 << 1);
-	if (x1 < minX)
-		x1 = minX;
-	if (x2 < minX || x1 >= maxX)
-		return;
-	if (x2 >= maxX)
-		x2 = maxX;
-	if (y1 < minY)
-		y1 = minY;
-	if (y2 < minY || y1 >= maxY)
-		return;
-	if (y2 >= maxY)
-		y2 = maxY;
-	uint8_t* target = selectState.screen_23144 + ((uint16_t)x1 >> 1) + ((uint16_t)y1 >> 1) * 320;
-	// flag 4 (translucent through the table at 20858) is never used by the selector
-	uint16_t lengthX = (uint16_t)(x2 - x1);
-	if (lengthX)
-	{
-		memset(target, (uint8_t)color, lengthX >> 1);
-		return;
-	}
-	//!!!!! a zero length makes the original loop 2^32 times, never happens for the selector frames
-	for (uint16_t count = (uint16_t)(y2 - y1) >> 1; count; count--, target += 320)
-		*target = (uint8_t)color;
-}
-
-void DrawLineHires_15860(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color, int16_t /*flags*/)
-{
-	int16_t minX = (int16_t)selectState.clipMinX_23158;
-	int16_t maxX = (int16_t)selectState.clipMaxX_23174;
-	int16_t minY = (int16_t)selectState.clipMinY_23168;
-	int16_t maxY = (int16_t)selectState.clipMaxY_23160;
-	if (x1 < minX)
-		x1 = minX;
-	if (x2 < minX || x1 >= maxX)
-		return;
-	if (x2 >= maxX)
-		x2 = maxX;
-	if (y1 < minY)
-		y1 = minY;
-	if (y2 < minY || y1 >= maxY)
-		return;
-	if (y2 >= maxY)
-		y2 = maxY;
-	uint8_t* target = selectState.screen_23144 + (uint16_t)x1 + (uint16_t)y1 * 640;
-	uint16_t lengthX = (uint16_t)(x2 - x1);
-	if (lengthX)
-	{
-		memset(target, (uint8_t)color, lengthX);
-		return;
-	}
-	//!!!!! a zero length makes the original loop 2^32 times, never happens for the selector frames
-	for (uint16_t count = (uint16_t)(y2 - y1); count; count--, target += 640)
-		*target = (uint8_t)color;
 }

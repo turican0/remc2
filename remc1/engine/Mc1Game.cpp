@@ -77,7 +77,7 @@ int TopProcedure_340B0(int argc, char** argv)
 			byte_939CC_939CC = 0;
 			byte_939E4_939E4 = 0;
 			LoadFileGroup_40440_40780(ftextFiles_995D8_995D8);
-			sub_44700_44A40(textData_AE41C_AE40C, textPointers_AE238_AE228, 80);
+			SetTextPointers_44700_44A40((char*)textData_AE41C_AE40C, (char**)textPointers_AE238_AE228, 80);
 		}
 		else
 			InitMenu_4A980_4ACC0();
@@ -196,7 +196,7 @@ int TopProcedure_34470(int argc, char** argv)
 			byte_939CC_939CC = 0;
 			byte_939E4_939E4 = 0;
 			LoadFileGroup_40440_40780(ftextFiles_995D8_995D8);
-			sub_44700_44A40(textData_AE41C_AE40C, textPointers_AE238_AE228, 80);
+			SetTextPointers_44700_44A40((char*)textData_AE41C_AE40C, (char**)textPointers_AE238_AE228, 80);
 		}
 		else
 			InitMenu_4A980_4ACC0();

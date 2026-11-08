@@ -67,7 +67,7 @@ void ShutdownGraphics_44840_44B80()
 		return;
 	ResetMouse_3F370_3F6B0();
 	// flag 8: 5B5F4 / 5BB04 is empty, otherwise 36DC2 / 37182 restores int 9, nothing to do in the port
-	VGA_close(); // 5CD70 / 5D280 restores the text mode of the start (MC2 8C21F, removed in remc2)
+	// 5CD70 / 5D280 restores the text mode of the start (MC2 8C21F, removed in remc2); Mc1Main closes the window
 	sub_433C0_43700();
 	RestoreTimer_5A4EA_5A9FA();
 }

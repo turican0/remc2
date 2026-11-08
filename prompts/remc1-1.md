@@ -80,7 +80,9 @@ Part of the code only creates the install directories when installing from the C
   What remc2 already replaced by the portability layer is called the remc2 way, without an MC1 name: files go
   only through the file port (`DataFileIO::CreateOrOpenFile/Read/Close/Seek/FileLengthBytes`, modes 0x200 / 0x222
   like remc2); a function remc2 keeps with its address (`WriteFile_98CAA`, `OpenWriteClose_98C48`) gets the MC1 name.
-  Find the remc2 equivalent first and follow it.
+  Find the remc2 equivalent first and follow it. The same applies to SELECT.EXE (one address in the name).
+- The selector and the game are one program, not two executables: one window opened by the first VGA_Init and
+  closed once at the end of Mc1Main; the selector and the game shutdown do not close it.
 - One renderer for MC1, MC1 HW and MC2: renderers get the game state through a scene interface instead of
   reading MC2 globals directly; what MC1 has extra or different is added to the renderer as variants.
   The same applies to the in-game 2D graphics (shared drawing, game-specific UI logic).

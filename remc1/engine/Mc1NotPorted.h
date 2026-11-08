@@ -4,16 +4,14 @@
 
 // temporary stubs of functions not ported yet; each one moves to its real file when ported from IDA
 
-void sub_44700_44A40(uint8_t* text, uint8_t** pointers, int32_t count);
 void sub_34C80();
 void sub_35040();
-void sub_50770_50AB0();
+void sub_3FCA0_3FFE0(int32_t mode, int32_t minX, int32_t minY, int32_t maxX, int32_t maxY, int32_t stepX, int32_t stepY);
 void sub_4D3B0_4D6F0();
 void sub_4AC70_4AFB0();
 void sub_4BD60_4C0A0();
 void sub_4D680_4D9C0();
 void sub_4E5B0_4E8F0();
-void sub_4F3F0_4F730();
 void sub_4EFC0_4F300();
 void sub_4F1E0_4F520();
 void sub_4EE70_4F1B0();

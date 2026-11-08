@@ -33,6 +33,20 @@ extern bitmap_pos_struct_t* menuSpritesIndex; // port: the tab with real pointer
 extern Type_Mc1FileEntry menuFiles_49B80_49EC0[6];
 extern uint32_t loadMenuFiles_12CA7C_12CA6C;
 
+// language screen sprites (group at 4A050 / 4A390 of the code segment)
+extern uint8_t* languageSpritesTab_12CB58_12CB48;
+extern uint8_t* languageSpritesTabEnd_12CB5C_12CB4C;
+extern uint8_t* languageSpritesData_12CB60_12CB50;
+extern bitmap_pos_struct_t* languageSpritesIndex; // port: the tab with real pointers
+extern Type_Mc1FileEntry languageFiles_4A050_4A390[3];
+
+// menu input: 3 bits per button / key (pressed, released, held), see UpdateMenuInput_50770_50AB0
+extern int16_t mouseX_12CADC_12CACC;
+extern int16_t mouseY_12CADE_12CACE;
+extern int16_t clickX_12CAE0_12CAD0;
+extern int16_t clickY_12CAE2_12CAD2;
+extern uint8_t inputFlags_12CAE4_12CAD4[5];
+
 // menu state
 extern uint32_t dword_12CBB0_12CBA0;
 extern int16_t word_12CBBC_12CBAC;
@@ -45,7 +59,7 @@ extern uint8_t byte_12CBCA_12CBBA;
 extern uint8_t byte_12CBCC_12CBBC;
 extern uint8_t byte_12CBCD_12CBBD;
 extern uint8_t mainMenuItem_12CBCE_12CBBE;
-extern uint8_t byte_12CBCF_12CBBF;
+extern uint8_t inputMode_12CBCF_12CBBF; // 0 none, 1 keyboard, 2 mouse
 extern uint8_t byte_12CBD0_12CBC0;
 extern uint8_t byte_12CBD1_12CBC1;
 extern uint8_t byte_12CBD2_12CBC2;
@@ -56,4 +70,6 @@ extern uint8_t byte_12CBD6_12CBC6;
 
 void InitMenu_4A980_4ACC0();
 void RunMenu_4AB20_4AE60();
+void UpdateMenuInput_50770_50AB0();
+void SelectLanguage_4F3F0_4F730();
 int32_t LoadSoundSetup_505A0_508E0();
