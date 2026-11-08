@@ -888,7 +888,7 @@ uint32_t FadePalettes_86EA0(uint32_t interval)
 }
 
 //----- (00090374) --------------------------------------------------------
-int SetViewportBounds_90374(uint16_t viewPortX, uint16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight, unsigned __int16 a5, __int16 a6)//271374
+void DrawLine640_90374(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color, int16_t flags)//271374
 {
 	x_BYTE* v7; // edi
 	int v8; // eax
@@ -896,37 +896,32 @@ int SetViewportBounds_90374(uint16_t viewPortX, uint16_t viewPortY, uint16_t vie
 	int v10; // ecx
 	int v11; // esi
 	int v12; // esi
-	int v13; // [esp+4h] [ebp-4h]
 
-	//fix it
-	v13 = 0;
-	//fix it
-
-	if (viewPortX < (signed __int16)viewportX_18063C)
-		viewPortX = viewportX_18063C;
-	if (viewPortWidth < (signed __int16)viewportX_18063C)
-		return v13;
-	if (viewPortX >= (signed __int16)viewportWidth_180634)
-		return v13;
-	if (viewPortWidth >= (signed __int16)viewportWidth_180634)
-		viewPortWidth = viewportWidth_180634;
-	if (viewPortY < (signed __int16)viewportY_180650)
-		viewPortY = viewportY_180650;
-	if (viewPortHeight < (signed __int16)viewportY_180650)
-		return v13;
-	if (viewPortY >= (signed __int16)viewportHeight_180630)
-		return v13;
-	if (viewPortHeight >= (signed __int16)viewportHeight_180630)
-		viewPortHeight = viewportHeight_180630;
-	v7 = (x_BYTE*)(viewportWidth_180634 * (unsigned __int16)viewPortY + pdwScreenBuffer_351628 + (unsigned __int16)viewPortX);
-	v8 = a5;
-	v9 = (unsigned __int16)viewPortWidth;
-	LOWORD(v9) = viewPortWidth - viewPortX;
-	if (viewPortWidth == viewPortX)
+	if (x1 < (signed __int16)viewportX_18063C)
+		x1 = viewportX_18063C;
+	if (x2 < (signed __int16)viewportX_18063C)
+		return;
+	if (x1 >= (signed __int16)viewportWidth_180634)
+		return;
+	if (x2 >= (signed __int16)viewportWidth_180634)
+		x2 = viewportWidth_180634;
+	if (y1 < (signed __int16)viewportY_180650)
+		y1 = viewportY_180650;
+	if (y2 < (signed __int16)viewportY_180650)
+		return;
+	if (y1 >= (signed __int16)viewportHeight_180630)
+		return;
+	if (y2 >= (signed __int16)viewportHeight_180630)
+		y2 = viewportHeight_180630;
+	v7 = (x_BYTE*)(viewportWidth_180634 * (unsigned __int16)y1 + pdwScreenBuffer_351628 + (unsigned __int16)x1);
+	v8 = color;
+	v9 = (unsigned __int16)x2;
+	LOWORD(v9) = x2 - x1;
+	if (x2 == x1)
 	{
-		v10 = (unsigned __int16)viewPortHeight;
-		LOWORD(v10) = viewPortHeight - viewPortY;
-		if (a6 & 4)
+		v10 = (unsigned __int16)y2;
+		LOWORD(v10) = y2 - y1;
+		if (flags & 4)
 		{
 			v11 = x_DWORD_E3890;
 			do
@@ -941,13 +936,13 @@ int SetViewportBounds_90374(uint16_t viewPortX, uint16_t viewPortY, uint16_t vie
 		{
 			do
 			{
-				*v7 = a5;
+				*v7 = color;
 				v7 += viewportWidth_180634;
 				--v10;
 			} while (v10);
 		}
 	}
-	else if (a6 & 4)
+	else if (flags & 4)
 	{
 		v12 = x_DWORD_E3890;
 		do
@@ -959,9 +954,8 @@ int SetViewportBounds_90374(uint16_t viewPortX, uint16_t viewPortY, uint16_t vie
 	}
 	else
 	{
-		memset(v7, a5, v9);
+		memset(v7, color, v9);
 	}
-	return v13;
 }
 
 //----- (000904C0) --------------------------------------------------------

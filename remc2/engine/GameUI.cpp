@@ -5532,13 +5532,13 @@ void DrawGameFrame_2BE30()//20CE30
 		}
 
 		if (videoMode_180660 & 1)
-			SetMouseBoundsScaled_9025C(locViewportPosx, 0, locViewportPosx, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
+			DrawLine320_9025C(locViewportPosx, 0, locViewportPosx, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
 		else
-			SetViewportBounds_90374(locViewportPosx, 0, locViewportPosx, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
+			DrawLine640_90374(locViewportPosx, 0, locViewportPosx, locViewportHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
 		if (videoMode_180660 & 1)
-			SetMouseBoundsScaled_9025C(locViewportPosx - 2, 0, locViewportPosx - 2, locMinimapHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
+			DrawLine320_9025C(locViewportPosx - 2, 0, locViewportPosx - 2, locMinimapHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
 		else
-			SetViewportBounds_90374(locViewportPosx - 2, 0, locViewportPosx - 2, locMinimapHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
+			DrawLine640_90374(locViewportPosx - 2, 0, locViewportPosx - 2, locMinimapHeight, (unsigned short)(*xadataclrd0dat.colorPalette_var28)[0], 0);
 		viewPort.SetRenderViewPortSize_40C50(world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize);
 		DrawMinimapMarks_644F0(
 			0,

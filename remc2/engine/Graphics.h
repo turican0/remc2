@@ -47,7 +47,7 @@ void ClearScreenAlphaBuffer(uint16_t width, uint16_t height, uint8_t value);
 void FadeClearBlit_7B5D0();
 void CopyScreen_85B20(uint8_t* src, uint8_t* dest, uint16_t rows_count);
 uint32_t FadePalettes_86EA0(/*int a1, int a2, int a3*/uint32_t interval);
-int SetViewportBounds_90374(uint16_t viewPortX, uint16_t viewPortY, uint16_t viewPortWidth, uint16_t viewPortHeight, unsigned __int16 a5, __int16 a6);
+void DrawLine640_90374(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color, int16_t flags);
 char SetGammaCorrection_904C0(float a1);
 int16_t VgaPalFadeInFadeOut_90B27(TColor* a1x, uint8_t shadow_levels, bool a3, int32_t frameDelay = 10);
 void ResetPaletteFade_90D27();

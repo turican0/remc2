@@ -4936,7 +4936,7 @@ bool Sprite::loadSprite(uint8 * tabData, uint8 * spriteData, uint32 offset,
 */
 
 //----- (0009025C) --------------------------------------------------------
-int SetMouseBoundsScaled_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int16 a5, __int16 a6)//27125c
+void DrawLine320_9025C(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color, int16_t flags)//27125c
 {
 	__int16 v6; // bx
 	__int16 v7; // cx
@@ -4947,42 +4947,37 @@ int SetMouseBoundsScaled_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, u
 	int v13; // ecx
 	int v14; // esi
 	int v15; // esi
-	int v16; // [esp+4h] [ebp-4h]
-
-	//fix it
-	v16 = 0;
-	//fix it
 
 	v6 = 2 * viewportWidth_180634;
 	v7 = 2 * viewportY_180650;
 	v8 = 2 * viewportHeight_180630;
-	if (a1 < (signed __int16)(2 * viewportX_18063C))
-		a1 = 2 * viewportX_18063C;
-	if (a3 < (signed __int16)(2 * viewportX_18063C))
-		return v16;
-	if (a1 >= v6)
-		return v16;
-	if (a3 >= v6)
-		a3 = 2 * viewportWidth_180634;
-	if (a2 < v7)
-		a2 = 2 * viewportY_180650;
-	if (a4 < v7)
-		return v16;
-	if (a2 >= v8)
-		return v16;
-	if (a4 >= v8)
-		a4 = 2 * viewportHeight_180630;
-	/*v10 = (x_BYTE*)(320 * ((unsigned int)(unsigned __int16)a2 >> 1)
+	if (x1 < (signed __int16)(2 * viewportX_18063C))
+		x1 = 2 * viewportX_18063C;
+	if (x2 < (signed __int16)(2 * viewportX_18063C))
+		return;
+	if (x1 >= v6)
+		return;
+	if (x2 >= v6)
+		x2 = 2 * viewportWidth_180634;
+	if (y1 < v7)
+		y1 = 2 * viewportY_180650;
+	if (y2 < v7)
+		return;
+	if (y1 >= v8)
+		return;
+	if (y2 >= v8)
+		y2 = 2 * viewportHeight_180630;
+	/*v10 = (x_BYTE*)(320 * ((unsigned int)(unsigned __int16)y1 >> 1)
 		+ (int)pdwScreenBuffer_351628
-		+ ((unsigned int)(unsigned __int16)a1 >> 1));*/
-	v10 = &pdwScreenBuffer_351628[320 * (a2 >> 1) + (a1 >> 1)];
-	v11 = a5;
-	v12 = (unsigned __int16)a3;
-	if (a3 == a1)
+		+ ((unsigned int)(unsigned __int16)x1 >> 1));*/
+	v10 = &pdwScreenBuffer_351628[320 * (y1 >> 1) + (x1 >> 1)];
+	v11 = color;
+	v12 = (unsigned __int16)x2;
+	if (x2 == x1)
 	{
-		v13 = (unsigned __int16)a4;
-		LOWORD(v13) = (unsigned __int16)(a4 - a2) >> 1;
-		if (a6 & 4)
+		v13 = (unsigned __int16)y2;
+		LOWORD(v13) = (unsigned __int16)(y2 - y1) >> 1;
+		if (flags & 4)
 		{
 			v14 = x_DWORD_E3890;
 			do
@@ -4997,7 +4992,7 @@ int SetMouseBoundsScaled_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, u
 		{
 			do
 			{
-				*v10 = a5;
+				*v10 = color;
 				v10 += 320;
 				--v13;
 			} while (v13);
@@ -5005,8 +5000,8 @@ int SetMouseBoundsScaled_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, u
 	}
 	else
 	{
-		LOWORD(v12) = (unsigned __int16)(a3 - a1) >> 1;
-		if (a6 & 4)
+		LOWORD(v12) = (unsigned __int16)(x2 - x1) >> 1;
+		if (flags & 4)
 		{
 			v15 = x_DWORD_E3890;
 			do
@@ -5018,10 +5013,9 @@ int SetMouseBoundsScaled_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, u
 		}
 		else
 		{
-			memset(v10, a5, v12);
+			memset(v10, color, v12);
 		}
 	}
-	return v16;
 }
 
 //----- (0009A10A) --------------------------------------------------------
@@ -5046,32 +5040,23 @@ signed int CheckKeyboard_9A10A(/*signed int result*/)//27B10a
 }
 
 //----- (0009D31C) --------------------------------------------------------
-__int16 /*__fastcall*/ ReadKeyboardShiftFlags_9D31C(__int16 result)//27e31c
+void ReadKeyboard_9D31C()//27e31c
 {
 	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
 
-	bool v1; // zf
-
-	//fix it:__asm { int     16h; KEYBOARD - GET ENHANCED SHIFT FLAGS (AT model 339,XT2,XT286,PS) }
+	// int 16h 12h: shift flags
+	int16_t shiftFlags = VGA_get_shift_status();
 	keyShiftFlags_1806E5 = 0;
-	if (result & 3)
+	if (shiftFlags & 3)
 		keyShiftFlags_1806E5 = 1;
-	if (result & 4)
-		keyShiftFlags_1806E5 |= 2u;
-	v1 = (result & 8) == 0;
-	if (result & 8)
-	{
-		v1 = ((unsigned __int8)keyShiftFlags_1806E5 | 4) == 0;
-		keyShiftFlags_1806E5 |= 4u;
-	}
+	if (shiftFlags & 4)
+		keyShiftFlags_1806E5 |= 2;
+	if (shiftFlags & 8)
+		keyShiftFlags_1806E5 |= 4;
 	LastPressedKey_1806E4 = 0;
-	//fix it:__asm { int     16h; KEYBOARD - CHECK ENHANCED KEYSTROKE (AT model 339,XT2,XT286,PS) }
-	if (!v1)
-	{
-		//fix it:__asm { int     16h; KEYBOARD - GET ENHANCED KEYSTROKE (AT model 339,XT2,XT286,PS) }
-		LastPressedKey_1806E4 = 16;
-	}
-	return result;
+	// int 16h 11h / 10h: the scan code of a waiting key
+	if (VGA_check_standart_input_status())
+		LastPressedKey_1806E4 = (uint8_t)(VGA_read_char_from_buffer() >> 8);
 }
 // 1806E4: using guessed type char x_BYTE_1806E4;
 // 1806E5: using guessed type char keyShiftFlags_1806E5;
