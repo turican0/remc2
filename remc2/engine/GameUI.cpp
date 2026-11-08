@@ -7064,13 +7064,14 @@ void SetHelpPopupLine_87A30()//268a30
 	{
 		helpPopup_1804B0.type_sub_0[1].lineSrcX_0x1c = str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[3];
 		helpPopup_1804B0.type_sub_0[1].lineSrcY_0x1e = str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[4];
-		if (helpPopup_1804B0.keyHelpItem_0xa9 >= 97 && helpPopup_1804B0.keyHelpItem_0xa9 <= 102 && !DefaultResolutions())
+		const bool isChatHelp = helpPopup_1804B0.keyHelpItem_0xa9 >= 97 && helpPopup_1804B0.keyHelpItem_0xa9 <= 102;
+		int16_t chatPosX = 0;
+		int16_t chatPosY = 0;
+		if (isChatHelp)
 		{
-			int16_t chatPosX;
-			int16_t chatPosY;
 			GetChatMenuCoordinates(&chatPosX, &chatPosY, scale);
 			helpPopup_1804B0.type_sub_0[1].lineSrcX_0x1c = chatPosX + (helpPopup_1804B0.type_sub_0[1].lineSrcX_0x1c * scale);
-			helpPopup_1804B0.type_sub_0[1].lineSrcY_0x1e = chatPosY + ((helpPopup_1804B0.type_sub_0[1].lineSrcY_0x1e - (480 - CHAT_MENU_HEIGHT)) * scale);
+			helpPopup_1804B0.type_sub_0[1].lineSrcY_0x1e = chatPosY + ((helpPopup_1804B0.type_sub_0[1].lineSrcY_0x1e - (400 - CHAT_MENU_HEIGHT)) * scale);
 		}
 		helpPopup_1804B0.type_sub_0[1].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[4095];
 		helpPopup_1804B0.type_sub_0[1].maxTextboxWidth2_0xc = 220 * scale;
@@ -7079,6 +7080,17 @@ void SetHelpPopupLine_87A30()//268a30
 		ComputeTextboxSizesFromTextWords_89420(&helpPopup_1804B0.type_sub_0[1], langStrings_E9C4C[str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[1]], scale);
 		ConstrainTextboxSizes_89520(&helpPopup_1804B0.type_sub_0[1], scale);
 		ComputeFrameSizes_89980(&helpPopup_1804B0.type_sub_0[1], scale);
+		if (isChatHelp)
+		{
+			Type_TextBox_1804B0& textbox = helpPopup_1804B0.type_sub_0[1];
+			const int overlap = (textbox.framePosY_0x26 + textbox.frameHeight_0x2a) - (chatPosY - (2 * scale));
+			if (overlap > 0)
+			{
+				textbox.textboxPosY_0xa -= overlap;
+				textbox.framePosY_0x26 -= overlap;
+				textbox.maxTextboxHeight_0x2 -= overlap;
+			}
+		}
 		ComputeTextboxLine_898A0(&helpPopup_1804B0.type_sub_0[1]);
 		ColorizeScreen_2E790(helpPopup_1804B0.type_sub_0[1].framePosX_0x24, helpPopup_1804B0.type_sub_0[1].framePosY_0x26, helpPopup_1804B0.type_sub_0[1].frameWidth_0x28, helpPopup_1804B0.type_sub_0[1].frameHeight_0x2a, helpPopup_1804B0.type_sub_0[1].color2_0x31);
 		DrawTextboxText_895D0(&helpPopup_1804B0.type_sub_0[1], (char*)langStrings_E9C4C[str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[1]], scale);

@@ -2779,11 +2779,15 @@ void GetPauseMenuCoordinates_2FFE0(int16_t* posX, int16_t* posY, int16_t* width,
 
 void GetChatMenuCoordinates(int16_t* posX, int16_t* posY, uint8_t scale)
 {
+	int16_t locScreenWidth = screenWidth_18062C;
 	int16_t locScreenHeight = screenHeight_180624;
 	if (videoMode_180660 & 1)
+	{
+		locScreenWidth = 640;
 		locScreenHeight = 400;
+	}
 
-	*posX = 0;
+	*posX = (locScreenWidth - (CHAT_MENU_WIDTH * scale)) / 2;
 	*posY = locScreenHeight - (CHAT_MENU_HEIGHT * scale);
 }
 
