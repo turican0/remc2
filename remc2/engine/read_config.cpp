@@ -150,6 +150,9 @@ bool SetConfig() {
 
 	musicType = settingsValue.m_Sound.m_MusicType;
 	strcpy(oggmusicFolder, settingsValue.m_Sound.m_OggFolder.c_str());
+	// MC1 has the AWE32 music only
+	if (CommandLineParams.GetGameType() != GameType::MC2)
+		musicType = "awe32";
 
 	if (musicType.compare("ogg") == 0)
 	{
@@ -171,6 +174,9 @@ bool SetConfig() {
 
 	if (settingsValue.m_Sound.m_MaxSimultaniousSounds > 10)
 		maxSimultaniousSounds = settingsValue.m_Sound.m_MaxSimultaniousSounds;
+	// MC1 mixes the 32 sample voices of HMI
+	if (CommandLineParams.GetGameType() != GameType::MC2 && maxSimultaniousSounds < 32)
+		maxSimultaniousSounds = 32;
 
 	strcpy(speechFolder, settingsValue.m_Sound.m_SpeechFolder.c_str());
 

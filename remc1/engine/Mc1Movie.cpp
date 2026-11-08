@@ -385,29 +385,29 @@ void MovieEvents_111B0_111B0(const Type_Mc1MovieEvent* events)
 			break;
 		case 'B':
 		case 'b':
-			sub_20E60_20E60();
-			sub_5CEF0_5D400((uint16_t)value);
+			StopMusic_20E60_20E60();
+			LoadMusicBank_5CEF0_5D400((uint16_t)value);
 			break;
 		case 'E':
 		case 'e':
-			sub_5D010_5D520();
-			sub_5D070_5D580((uint8_t)value);
+			StopAllSamples_5D010_5D520();
+			LoadSoundBank_5D070_5D580((uint8_t)value);
 			break;
 		case 'L':
 		case 'l':
 			if (dword_9AF08_9AF08)
 				sub_5D230_5D740(dword_9ADC0_9ADC0, dword_9AF08_9AF08, value);
-			sub_5D290_5D7A0(value);
+			PlayMusic_5D290_5D7A0(value);
 			musicLoop_AC5DA_AC5CA = 0;
 			break;
 		case 'M':
 		case 'm':
-			sub_5D290_5D7A0(value);
+			PlayMusic_5D290_5D7A0(value);
 			musicLoop_AC5DA_AC5CA = 0;
 			break;
 		case 'Z':
 		case 'z':
-			sub_5D290_5D7A0(value);
+			PlayMusic_5D290_5D7A0(value);
 			musicLoop_AC5DA_AC5CA = value + 1;
 			break;
 		case 'O':
@@ -426,16 +426,16 @@ void MovieEvents_111B0_111B0(const Type_Mc1MovieEvent* events)
 		case 'R':
 		case 'r':
 			if (byte_939E4_939E4)
-				sub_5D460_5D970(0, value, -1);
+				PlaySampleLooped_5D460_5D970(0, value, -1);
 			break;
 		case 'S':
 		case 's':
 			if (byte_939E4_939E4)
 			{
 				if (value)
-					sub_5D610_5DB20(0, value);
+					PlaySample_5D610_5DB20(0, value);
 				else
-					sub_5D010_5D520();
+					StopAllSamples_5D010_5D520();
 			}
 			break;
 		case 'T':
@@ -443,24 +443,24 @@ void MovieEvents_111B0_111B0(const Type_Mc1MovieEvent* events)
 			if (byte_939E4_939E4)
 			{
 				if (value)
-					sub_5D750_5DC60(0, value);
+					StopSample_5D750_5DC60(0, value);
 				else
-					sub_5D010_5D520();
+					StopAllSamples_5D010_5D520();
 			}
 			break;
 		case 'X':
 		case 'x':
-			sub_20E60_20E60();
+			StopMusic_20E60_20E60();
 			musicLoop_AC5DA_AC5CA = 0;
 			break;
 		}
 	}
 	*movieEventIndex_90030_90030 = index;
-	if (musicLoop_AC5DA_AC5CA && sub_5D7F0_5DD00(dword_CBFD8_CBFC8))
+	if (musicLoop_AC5DA_AC5CA && sosMIDISongDone_5D7F0_5DD00(song_CBFD8_CBFC8))
 	{
 		// the looped music ended, start it again
-		sub_20E60_20E60();
-		sub_5D290_5D7A0(musicLoop_AC5DA_AC5CA - 1);
+		StopMusic_20E60_20E60();
+		PlayMusic_5D290_5D7A0(musicLoop_AC5DA_AC5CA - 1);
 	}
 }
 
@@ -554,8 +554,8 @@ void PlayIntelIntro_4EFC0_4F300()
 		PlayMovie_107C0_107C0(1, 1, intelEvents_4A1E4_4A524);
 		WaitSeconds_4B480_4B7C0(nullptr, 1);
 		FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
-		sub_5D010_5D520();
-		sub_20E60_20E60();
+		StopAllSamples_5D010_5D520();
+		StopMusic_20E60_20E60();
 		ClearAndBlitScreen();
 	}
 	mainMenuItem_12CBCE_12CBBE = 9;
@@ -576,8 +576,8 @@ void PlayLogoIntro_4EE70_4F1B0()
 	PlayMovie_107C0_107C0(1, 1, logoEvents_4A620_4A960);
 	WaitSeconds_4B480_4B7C0(nullptr, 8);
 	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
-	sub_5D010_5D520();
-	sub_20E60_20E60();
+	StopAllSamples_5D010_5D520();
+	StopMusic_20E60_20E60();
 	ClearAndBlitScreen();
 	mainMenuItem_12CBCE_12CBBE = 0;
 }
@@ -605,8 +605,8 @@ void PlayMainIntro_4D3B0_4D6F0()
 		PlayMovie_107C0_107C0(0, 1, introEvents_4A1FC_4A53C);
 	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 	sub_24BB0_24BB0(0); //!!!!! the original calls it without an argument (stack garbage)
-	sub_5D010_5D520();
-	sub_20E60_20E60();
+	StopAllSamples_5D010_5D520();
+	StopMusic_20E60_20E60();
 	ClearAndBlitScreen();
 	menuFlags_12CBD5_12CBC5 |= 6;
 	if (!(byte_12CBD6_12CBC6 & 1))
@@ -670,8 +670,8 @@ void TitleScreen_4F1E0_4F520()
 		WaitSeconds_4B480_4B7C0(animated ? AnimateTitle_4F120_4F460 : nullptr, 6);
 	dword_12CBB0_12CBA0 = 0;
 	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
-	sub_5D010_5D520();
-	sub_20E60_20E60();
+	StopAllSamples_5D010_5D520();
+	StopMusic_20E60_20E60();
 	ClearAndBlitScreen();
 	if (animated)
 		FreeFileGroup_61610_61B20(titleFiles_4A0D4_4A414);

@@ -10,6 +10,7 @@
 #include "Mc1Movie.h"
 #include "Mc1NotPorted.h"
 #include "Mc1Shared.h"
+#include "Mc1Sound.h"
 #include "Mc1System.h"
 #include "../../remc2/utilities/DataFileIO.h"
 
@@ -137,51 +138,23 @@ void InitMenu_4A980_4ACC0()
 
 int32_t LoadSoundSetup_505A0_508E0()
 {
-	int32_t result = 0;
-	// C:\carpet.cd\sndsetup.inf
-	std::string path = Mc1InstallPath() + "/sndsetup.inf";
-	FILE* file = DataFileIO::CreateOrOpenFile(path.c_str(), 0x200); // port: 0x202, only read
-	if (file)
-	{
-		DataFileIO::Close(file);
-		path = Mc1InstallPath() + "/sndsetup.dat";
-		file = DataFileIO::CreateOrOpenFile(path.c_str(), 0x200);
-		if (file)
-		{
-			DataFileIO::Read(file, (uint8_t*)soundDriver_12C9A0_12C990, 32);
-			DataFileIO::Read(file, (uint8_t*)soundCardText_12C9C0_12C9B0, 32);
-			DataFileIO::Read(file, (uint8_t*)musicDriver_12CA00_12C9F0, 32);
-			DataFileIO::Read(file, (uint8_t*)musicCardText_12C9E0_12C9D0, 32);
-			DataFileIO::Read(file, (uint8_t*)soundPort_12CA9E_12CA8E, 10);
-			DataFileIO::Read(file, (uint8_t*)soundPortText_12CA80_12CA70, 10);
-			DataFileIO::Read(file, (uint8_t*)soundIrq_12CAB2_12CAA2, 10);
-			DataFileIO::Read(file, (uint8_t*)soundIrqText_12CA8A_12CA7A, 10);
-			DataFileIO::Read(file, (uint8_t*)soundDma_12CAC6_12CAB6, 10);
-			DataFileIO::Read(file, (uint8_t*)soundDmaText_12CAD0_12CAC0, 10);
-			DataFileIO::Read(file, (uint8_t*)musicPort_12CAA8_12CA98, 10);
-			DataFileIO::Read(file, (uint8_t*)musicPortText_12CA94_12CA84, 10);
-			result = 1;
-			DataFileIO::Close(file);
-		}
-	}
-	else
-	{
-		memcpy(soundCardText_12C9C0_12C9B0, zeroText_A9990_A99A8, 2);
-		memcpy(musicCardText_12C9E0_12C9D0, zeroText_A9990_A99A8, 2);
-		memcpy(soundPort_12CA9E_12CA8E, zeroText_A9990_A99A8, 2);
-		memcpy(soundPortText_12CA80_12CA70, zeroText_A9990_A99A8, 2);
-		memcpy(soundIrq_12CAB2_12CAA2, zeroText_A9990_A99A8, 2);
-		memcpy(soundIrqText_12CA8A_12CA7A, zeroText_A9990_A99A8, 2);
-		memcpy(soundDma_12CAC6_12CAB6, zeroText_A9990_A99A8, 2);
-		strcpy(soundDriver_12C9A0_12C990, "NONE");
-		memcpy(soundDmaText_12CAD0_12CAC0, zeroText_A9990_A99A8, 2);
-		memcpy(musicPort_12CAA8_12CA98, zeroText_A9990_A99A8, 2);
-		memcpy(musicPortText_12CA94_12CA84, zeroText_A9990_A99A8, 2);
-		strcpy(musicDriver_12CA00_12C9F0, "NONE");
-	}
+	// port: no sndsetup.inf / sndsetup.dat; the sound comes from the port (AWE32 music, SB16 effects), the setup
+	// is made in memory with the values the sound setup screen stores for these cards and is not saved
+	strcpy(soundDriver_12C9A0_12C990, "SB16");
+	strcpy(soundCardText_12C9C0_12C9B0, "Soundblaster 16");
+	strcpy(musicDriver_12CA00_12C9F0, "SBAWE32");
+	strcpy(musicCardText_12C9E0_12C9D0, "Soundblaster AWE 32");
+	strcpy(soundPort_12CA9E_12CA8E, "220");
+	strcpy(soundPortText_12CA80_12CA70, "220");
+	strcpy(soundIrq_12CAB2_12CAA2, "5");
+	strcpy(soundIrqText_12CA8A_12CA7A, "5");
+	strcpy(soundDma_12CAC6_12CAB6, "1");
+	strcpy(soundDmaText_12CAD0_12CAC0, "1");
+	strcpy(musicPort_12CAA8_12CA98, "330");
+	strcpy(musicPortText_12CA94_12CA84, "330");
 	memcpy(saveSetup_12CABC_12CAAC, yesText_A99A0_A99B8, 4);
 	memcpy(saveSetupText_12CA20_12CA10, zeroText_A9990_A99A8, 2);
-	return result;
+	return 1; // as with sndsetup.dat present
 }
 
 // port: a separate index with real pointers instead of relocating the tab in place (65D70 / 65DC0)
@@ -218,7 +191,7 @@ void RunMenu_4AB20_4AE60()
 		PlayMainIntro_4D3B0_4D6F0();
 		break;
 	case 1:
-		SoundSetup_4AC70_4AFB0();
+		SkipSoundSetup(); // port: instead of SoundSetup_4AC70_4AFB0
 		break;
 	case 2:
 		sub_4BD60_4C0A0();
@@ -246,7 +219,7 @@ void RunMenu_4AB20_4AE60()
 		break;
 	}
 	dword_12CBB0_12CBA0++;
-	sub_65E00_66310();
+	RestartMenuMusic_65E00_66310();
 	if (menuDone_96880_96880)
 	{
 		FreeFileGroup_61610_61B20(menuFiles_49B80_49EC0);
@@ -257,7 +230,7 @@ void RunMenu_4AB20_4AE60()
 			//!!!!! 480 rows of 640 do not fit the 0x11170 byte *BScreen; not reached, 34C80 / 35040 switch the menu to MCGA
 			ClearScreen640_411FD_4153D(backScreen_AE3FC_AE3EC, 640, 480, 0);
 		loadMenuFiles_12CA7C_12CA6C = 1;
-		sub_20E60_20E60();
+		StopMusic_20E60_20E60();
 	}
 }
 

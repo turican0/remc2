@@ -9,6 +9,7 @@
 #include "Mc1Graphics.h"
 #include "Mc1Install.h"
 #include "Mc1Menu.h"
+#include "Mc1Sound.h"
 #include "Mc1NotPorted.h"
 #include "Mc1Screen.h"
 #include "Mc1Search.h"
@@ -28,11 +29,10 @@ Type_Mc1State_AE400_AE3F0* mc1State_AE400_AE3F0 = nullptr;
 Type_Mc1Settings_AE408_AE3F8* mc1Settings_AE408_AE3F8 = nullptr;
 uint8_t* blurBuffer_AE404_AE3F4 = nullptr;
 uint8_t* textPointers_AE238_AE228[80];
-uint8_t byte_939CC_939CC = 0;
-uint8_t byte_939CD_939CD = 0;
-uint8_t byte_939E4_939E4 = 0;
-uint8_t byte_939E5_939E5 = 0;
-uint16_t word_939D6_939D6 = 0;
+uint8_t byte_939CC_939CC = 1;
+uint8_t byte_939CD_939CD = 1;
+uint8_t byte_939E4_939E4 = 1;
+uint8_t byte_939E5_939E5 = 1;
 uint8_t menuDone_96880_96880 = 0;
 uint8_t* vesaInfo_12F080_12F070 = nullptr;
 uint8_t debugOption_AE45A_AE44A = 0;
@@ -112,13 +112,13 @@ int TopProcedure_340B0(int argc, char** argv)
 				if (!CurrentPlayer()->exitGame_0x04_4)
 					sub_34460_34820();
 				LoadGameData_34B00_34EC0();
-				FreeSoundFileGroup_61610_61B20("data/snds0-0.dat");
-				FreeSoundFileGroup_61610_61B20("data/music0-0.dat");
+				FreeFileGroup_61610_61B20(soundFiles_9AE84_9AE84);
+				FreeFileGroup_61610_61B20(musicFiles_9AE00_9AE00);
 				GrowHeapAfterMenu_41540_41880();
 				if (!CurrentPlayer()->exitGame_0x04_4)
 				{
-					sub_5D070_5D580(0);
-					sub_5CEF0_5D400(0);
+					LoadSoundBank_5D070_5D580(0);
+					LoadMusicBank_5CEF0_5D400(0);
 				}
 				if (!(mc1Settings_AE408_AE3F8->flags_0x00_0 & 4))
 				{
@@ -138,17 +138,17 @@ int TopProcedure_340B0(int argc, char** argv)
 			}
 			while (!CurrentPlayer()->exitGame_0x04_4)
 			{
-				if (byte_939CC_939CC && byte_939CD_939CD && word_939D6_939D6)
+				if (byte_939CC_939CC && byte_939CD_939CD && musicCount_939D6_939D6)
 				{
 					seed = seed * 0x24A1 + 0x24DF;
 					// movsx + unsigned div: the 16-bit seed is sign extended before the division
 					mc1State_AE400_AE3F0->levelVariant_0x240_576 = (int32_t)((uint32_t)(int32_t)(int16_t)seed % 3 + 1);
-					sub_5D290_5D7A0((int16_t)mc1State_AE400_AE3F0->levelVariant_0x240_576);
+					PlayMusic_5D290_5D7A0((int16_t)mc1State_AE400_AE3F0->levelVariant_0x240_576);
 				}
 				sub_59720_59C30();
 				GameLoop_34610_349D0();
-				sub_5D010_5D520();
-				sub_20E60_20E60();
+				StopAllSamples_5D010_5D520();
+				StopMusic_20E60_20E60();
 				FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 				Type_Mc1Player_340B* player = CurrentPlayer();
 				if ((player->levelResult_0x02_2 & 6) != 4)
@@ -168,7 +168,7 @@ int TopProcedure_340B0(int argc, char** argv)
 			}
 			FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 		}
-		sub_358A0_35C60();
+		ShutdownSound_358A0_35C60();
 	}
 	// the original calls an empty function (nullsub_2) when flag 8 is set
 	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
@@ -231,13 +231,13 @@ int TopProcedure_34470(int argc, char** argv)
 				if (!CurrentPlayer()->exitGame_0x04_4)
 					sub_34460_34820();
 				LoadGameData_34B00_34EC0();
-				FreeSoundFileGroup_61610_61B20("data/snds0-0.dat");
-				FreeSoundFileGroup_61610_61B20("data/music0-0.dat");
+				FreeFileGroup_61610_61B20(soundFiles_9AE84_9AE84);
+				FreeFileGroup_61610_61B20(musicFiles_9AE00_9AE00);
 				GrowHeapAfterMenu_41540_41880();
 				if (!CurrentPlayer()->exitGame_0x04_4)
 				{
-					sub_5D070_5D580(0);
-					sub_5CEF0_5D400(0);
+					LoadSoundBank_5D070_5D580(0);
+					LoadMusicBank_5CEF0_5D400(0);
 				}
 				if (!(mc1Settings_AE408_AE3F8->flags_0x00_0 & 4))
 				{
@@ -257,17 +257,17 @@ int TopProcedure_34470(int argc, char** argv)
 			}
 			while (!CurrentPlayer()->exitGame_0x04_4)
 			{
-				if (byte_939CC_939CC && byte_939CD_939CD && word_939D6_939D6)
+				if (byte_939CC_939CC && byte_939CD_939CD && musicCount_939D6_939D6)
 				{
 					seed = seed * 0x24A1 + 0x24DF;
 					// movsx + unsigned div: the 16-bit seed is sign extended before the division
 					mc1State_AE400_AE3F0->levelVariant_0x240_576 = (int32_t)((uint32_t)(int32_t)(int16_t)seed % 3 + 1);
-					sub_5D290_5D7A0((int16_t)mc1State_AE400_AE3F0->levelVariant_0x240_576);
+					PlayMusic_5D290_5D7A0((int16_t)mc1State_AE400_AE3F0->levelVariant_0x240_576);
 				}
 				sub_59720_59C30();
 				GameLoop_34610_349D0();
-				sub_5D010_5D520();
-				sub_20E60_20E60();
+				StopAllSamples_5D010_5D520();
+				StopMusic_20E60_20E60();
 				FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 				Type_Mc1Player_340B* player = CurrentPlayer();
 				if ((player->levelResult_0x02_2 & 6) != 4)
@@ -287,7 +287,7 @@ int TopProcedure_34470(int argc, char** argv)
 			}
 			FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 		}
-		sub_358A0_35C60();
+		ShutdownSound_358A0_35C60();
 	}
 	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 	Cleanup_34C60_35020();

@@ -480,3 +480,19 @@ void SetControlDevice_51DF0_52130(uint16_t flags)
 		inputDevices_90B23_90B23 |= 8;
 	}
 }
+
+void SkipSoundSetup()
+{
+	// port: the sound setup screen is not shown (the sound comes from the port), the menu goes on as after its OK
+	SetControlDevice_51DF0_52130(controlDevices_4A8BE_4ABFE[controlDevice_12CBD3_12CBC3].flags_6);
+	if (!(menuFlags_12CBD5_12CBC5 & 0x80))
+	{
+		SoundInit_357C0_35B80();
+		menuFlags_12CBD5_12CBC5 |= 0x80;
+	}
+	if ((menuFlags_12CBD5_12CBC5 & 2) && (menuFlags_12CBD5_12CBC5 & 4) && !(inputFlags_12CAE4_12CAD4[0] & 0x40))
+		mainMenuItem_12CBCE_12CBBE = 2;
+	else
+		mainMenuItem_12CBCE_12CBBE = 7;
+	inputFlags_12CAE4_12CAD4[0] &= 0xBE;
+}

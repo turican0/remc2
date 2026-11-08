@@ -39,3 +39,4 @@ void DrawSoundSummary_4B8D0_4BC10(int32_t y);
 void OpenSoundSetup_4BB20_4BE60();
 void CloseSoundSetup_4BC90_4BFD0();
 void SetControlDevice_51DF0_52130(uint16_t flags);
+void SkipSoundSetup();

@@ -22,7 +22,6 @@ extern uint8_t byte_939CC_939CC;
 extern uint8_t byte_939CD_939CD;
 extern uint8_t byte_939E4_939E4;
 extern uint8_t byte_939E5_939E5;
-extern uint16_t word_939D6_939D6;
 extern uint8_t menuDone_96880_96880;
 extern uint8_t* vesaInfo_12F080_12F070;
 extern uint8_t debugOption_AE45A_AE44A;
