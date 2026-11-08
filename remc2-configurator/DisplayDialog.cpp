@@ -131,9 +131,11 @@ DisplayDialog::DisplayDialog(wxWindow* parent, const Config::Settings::Graphics&
 		0, wxALIGN_CENTER_VERTICAL);
 	m_spinUiScale = new wxSpinCtrl(this, wxID_ANY,
 		wxEmptyString, wxDefaultPosition, wxDefaultSize,
-		wxSP_ARROW_KEYS, 1, 8, cfg.m_GameDetail.m_GameUiScale);
+		wxSP_ARROW_KEYS, 1, MaxUiScale(GetInGameWidth()),
+		(std::min)(cfg.m_GameDetail.m_GameUiScale, MaxUiScale(GetInGameWidth())));
 	m_spinUiScale->SetToolTip(
-		"Scale of the Game Mini/Map and UI '2' recommended for HD, 3 for higher. "
+		"Scale of the Game Mini/Map and UI. Set automatically when the in-game resolution "
+		"changes (largest scale where 640 x scale fits in 4/5 of the width). "
 		"(Max 8) Will not allow spell menu to be wider than screen width.");
 	grid->Add(m_spinUiScale, 0, wxEXPAND);
 
@@ -187,11 +189,42 @@ void DisplayDialog::OnResolutionChanged(wxCommandEvent&)
 void DisplayDialog::OnInGameResolutionChanged(wxCommandEvent&)
 {
 	const int customIdx = (int)std::size(s_resolutions);
-	if (m_choiceInGame->GetSelection() != customIdx)
-		return;
+	if (m_choiceInGame->GetSelection() == customIdx)
+	{
+		if (!ShowCustomResDlg(this, m_choiceInGame, customIdx, m_customIGWidth, m_customIGHeight))
+			m_choiceInGame->SetSelection(FindResIndex(m_customIGWidth, m_customIGHeight));
+	}
 
-	if (!ShowCustomResDlg(this, m_choiceInGame, customIdx, m_customIGWidth, m_customIGHeight))
-		m_choiceInGame->SetSelection(FindResIndex(m_customIGWidth, m_customIGHeight));
+	const int gameWidth = GetInGameWidth();
+	m_spinUiScale->SetRange(1, MaxUiScale(gameWidth));
+	m_spinUiScale->SetValue(CalculateUiScale(gameWidth));
+}
+
+// Largest scale where the 640 wide UI is not wider than the game width
+int DisplayDialog::MaxUiScale(int gameWidth)
+{
+	int scale = 1;
+	while (scale < 8 && 640 * (scale + 1) <= gameWidth)
+		scale++;
+	return scale;
+}
+
+int DisplayDialog::GetInGameWidth() const
+{
+	const int customIdx = (int)std::size(s_resolutions);
+	const int sel = m_choiceInGame->GetSelection();
+	if (sel >= 0 && sel < customIdx)
+		return s_resolutions[sel].w;
+	return m_customIGWidth;
+}
+
+// Largest scale where the 640 wide UI fits within 4/5 of the game width
+int DisplayDialog::CalculateUiScale(int gameWidth)
+{
+	int scale = 1;
+	while (scale < 8 && 640 * (scale + 1) * 5 <= gameWidth * 4)
+		scale++;
+	return scale;
 }
 
 void DisplayDialog::OnOK(wxCommandEvent&)
