@@ -31,7 +31,7 @@ void sub_3FCA0_3FFE0(int32_t /*mode*/, int32_t /*minX*/, int32_t /*minY*/, int32
 //!!!!! not ported yet
 void sub_4D3B0_4D6F0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
-void sub_4AC70_4AFB0() { MenuScreenNotPorted(__func__); }
+void SoundInit_357C0_35B80() { NotPorted(__func__); } // remc2 InitSound / InitMusic (MSS), the driver from the remc2 config
 //!!!!! not ported yet
 void sub_4BD60_4C0A0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
@@ -88,10 +88,10 @@ void InitNetwork_43270_435B0() { NotPorted(__func__); }
 //!!!!! not ported yet, 0 = no VFX1 headset
 int32_t InitVfx_5AF50_5B460() { NotPorted(__func__); return 0; }
 //!!!!! not ported yet
-void InitDigitalJoystick_3F7D0_3FB10() { NotPorted(__func__); }
+void InitDigitalJoystick_3F7D0_3FB10(bitmap_pos_struct_t* /*sprite*/) { NotPorted(__func__); }
 //!!!!! not ported yet
-void InitAnalogJoystick_3F820() { NotPorted(__func__); }
+void InitAnalogJoystick_3F820(bitmap_pos_struct_t* /*sprite1*/, bitmap_pos_struct_t* /*sprite2*/, bitmap_pos_struct_t* /*sprite3*/, uint8_t /*flags*/) { NotPorted(__func__); }
 //!!!!! not ported yet
-void InitAnalogJoystick_3FB60() { NotPorted(__func__); }
+void InitAnalogJoystick_3FB60(bitmap_pos_struct_t* /*sprite1*/, bitmap_pos_struct_t* /*sprite2*/, bitmap_pos_struct_t* /*sprite3*/, uint8_t /*flags*/) { NotPorted(__func__); }
 //!!!!! not ported yet
 int16_t JoinNetworkSession_43430_43770(char* /*sessionName*/, uint16_t /*playerCount*/) { NotPorted(__func__); return -1; }

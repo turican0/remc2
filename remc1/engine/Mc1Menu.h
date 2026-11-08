@@ -55,7 +55,8 @@ extern int16_t word_12CBC0_12CBB0;
 extern int16_t word_12CBC2_12CBB2;
 extern uint8_t byte_12CBC6_12CBB6;
 extern uint8_t menuPage_12CBC9_12CBB9; // 0 sound setup, 7 with sndsetup.dat
-extern uint8_t byte_12CBCA_12CBBA;
+extern uint8_t byte_12CBCA_12CBBA; // the highlighted option
+extern uint8_t hoveredOption_12CBCB_12CBBB; // the option under the mouse, FFh none
 extern uint8_t byte_12CBCC_12CBBC;
 extern uint8_t byte_12CBCD_12CBBD;
 extern uint8_t mainMenuItem_12CBCE_12CBBE;
@@ -63,7 +64,7 @@ extern uint8_t inputMode_12CBCF_12CBBF; // 0 none, 1 keyboard, 2 mouse
 extern uint8_t byte_12CBD0_12CBC0;
 extern uint8_t byte_12CBD1_12CBC1;
 extern uint8_t byte_12CBD2_12CBC2;
-extern uint8_t byte_12CBD3_12CBC3;
+extern uint8_t controlDevice_12CBD3_12CBC3;
 extern uint8_t byte_12CBD4_12CBC4;
 extern uint8_t menuFlags_12CBD5_12CBC5; // 2 intro.pld existed
 extern uint8_t byte_12CBD6_12CBC6;
@@ -73,3 +74,11 @@ void RunMenu_4AB20_4AE60();
 void UpdateMenuInput_50770_50AB0();
 void SelectLanguage_4F3F0_4F730();
 int32_t LoadSoundSetup_505A0_508E0();
+
+extern const char yesText_A99A0_A99B8[4];
+
+// port helpers of the menu screens
+void BuildSpritesIndex(bitmap_pos_struct_t** index, uint8_t* tabStart, uint8_t* tabEnd, uint8_t* data, bool doubleInMcga);
+void FreeSpritesIndex(bitmap_pos_struct_t** index);
+void CopyBackScreen();
+void BlitScreen();

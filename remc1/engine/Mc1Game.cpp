@@ -443,7 +443,7 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 	}
 	if (digitalJoystick)
 	{
-		InitDigitalJoystick_3F7D0_3FB10();
+		InitDigitalJoystick_3F7D0_3FB10(nullptr); //!!!!! the original passes stack garbage as the sprite
 		if (joystickFound_B7700_B76F0)
 			inputDevices_90B23_90B23 |= 2;
 	}
@@ -451,9 +451,9 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 	{
 		// the shared command line calls the game's own joystick setup
 		if (mc1Variant == MC1_VARIANT_HW)
-			InitAnalogJoystick_3FB60();
+			InitAnalogJoystick_3FB60(nullptr, nullptr, nullptr, 0); //!!!!! stack garbage in the original
 		else
-			InitAnalogJoystick_3F820();
+			InitAnalogJoystick_3F820(nullptr, nullptr, nullptr, 0); //!!!!! stack garbage in the original
 		if (joystickFound_B7700_B76F0)
 		{
 			joystickFound_B7700_B76F0 = 1;
@@ -463,9 +463,9 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 	if (analogJoystick2)
 	{
 		if (mc1Variant == MC1_VARIANT_HW)
-			InitAnalogJoystick_3FB60();
+			InitAnalogJoystick_3FB60(nullptr, nullptr, nullptr, 0); //!!!!! stack garbage in the original
 		else
-			InitAnalogJoystick_3F820();
+			InitAnalogJoystick_3F820(nullptr, nullptr, nullptr, 0); //!!!!! stack garbage in the original
 		if (joystickFound_B7700_B76F0)
 		{
 			joystickFound_B7700_B76F0 = 1;

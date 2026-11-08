@@ -348,25 +348,3 @@ void DrawRectOutlineHires_11BA0(int16_t x, int16_t y, int16_t width, int16_t hei
 	DrawLineHires_15860(x, (int16_t)(y + height), (int16_t)(x + width + 1), (int16_t)(y + height), color, 0);
 	DrawLineHires_15860(x, y, x, (int16_t)(y + height), color, 0);
 }
-
-uint8_t FindNearestColor_11C70(const uint8_t* palette, uint8_t red, uint8_t green, uint8_t blue)
-{
-	uint16_t count = (*videoMode_2317E & 6) ? 16 : 256;
-	int32_t bestDistance = 9999;
-	//!!!!! the original returns an uninitialized value when no color is closer than 9999
-	uint8_t bestIndex = 0;
-	const uint8_t* color = palette;
-	for (int16_t index = 0; index < count; index++, color += 3)
-	{
-		int32_t dg = green - color[1];
-		int32_t dr = red - color[0];
-		int32_t db = blue - color[2];
-		int32_t distance = dg * dg + dr * dr + db * db;
-		if ((int16_t)distance < (int16_t)bestDistance)
-		{
-			bestDistance = distance;
-			bestIndex = (uint8_t)index;
-		}
-	}
-	return bestIndex;
-}

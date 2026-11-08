@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "Mc1Graphics.h"
+
 // Magic Carpet Plus selector (SELECT.EXE), addresses are IDA addresses of SELECT.EXE;
 // the functions and variables shared with remc2 are in Mc1Shared.h (screen, video mode, viewport, lines, keyboard)
 
@@ -62,4 +64,4 @@ int32_t LoadPackedFile_11060(const char* path, uint8_t* buffer);
 uint8_t ReadKey_116C8();
 void DrawRectOutlineMcga_11AD0(int16_t x, int16_t y, int16_t width, int16_t height, uint16_t color);
 void DrawRectOutlineHires_11BA0(int16_t x, int16_t y, int16_t width, int16_t height, uint16_t color);
-uint8_t FindNearestColor_11C70(const uint8_t* palette, uint8_t red, uint8_t green, uint8_t blue);
+inline constexpr auto FindNearestColor_11C70 = &FindNearestColor_5CC70_5D180; // the same code as MC1 5CC70

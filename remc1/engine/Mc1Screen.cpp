@@ -98,7 +98,7 @@ void SetFullScreen_31A00_31A40()
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
 	if (!state->screenSize_0x219B_8603)
 		return;
-	if (state->vfx_0x219E_8606 && *screenWidth_93AD4_93AD4 == 640)
+	if (state->vfx_0x219E_8606 && *renderWidth_93AD4_93AD4 == 640)
 		ClearScreenAndBlit_5B560_5BA70();
 	savedScreenSize_90754_90754 = state->screenSize_0x219B_8603;
 	SetScreenModeAndPalette_315C0_31600();

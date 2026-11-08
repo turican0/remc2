@@ -6,6 +6,7 @@
 
 #include "Mc1Game.h"
 #include "Mc1Install.h"
+#include "Mc1MenuSound.h"
 #include "Mc1NotPorted.h"
 #include "Mc1Shared.h"
 #include "Mc1System.h"
@@ -72,6 +73,7 @@ int16_t word_12CBC2_12CBB2 = 0;
 uint8_t byte_12CBC6_12CBB6 = 0;
 uint8_t menuPage_12CBC9_12CBB9 = 0;
 uint8_t byte_12CBCA_12CBBA = 0;
+uint8_t hoveredOption_12CBCB_12CBBB = 0;
 uint8_t byte_12CBCC_12CBBC = 0;
 uint8_t byte_12CBCD_12CBBD = 0;
 uint8_t mainMenuItem_12CBCE_12CBBE = 0;
@@ -79,13 +81,13 @@ uint8_t inputMode_12CBCF_12CBBF = 0;
 uint8_t byte_12CBD0_12CBC0 = 0;
 uint8_t byte_12CBD1_12CBC1 = 0;
 uint8_t byte_12CBD2_12CBC2 = 0;
-uint8_t byte_12CBD3_12CBC3 = 0;
+uint8_t controlDevice_12CBD3_12CBC3 = 0;
 uint8_t byte_12CBD4_12CBC4 = 0;
 uint8_t menuFlags_12CBD5_12CBC5 = 0;
 uint8_t byte_12CBD6_12CBC6 = 0;
 
 static const char zeroText_A9990_A99A8[2] = { '0', 0 }; // copied as a word
-static const char yesText_A99A0_A99B8[4] = "YES"; // copied as a dword
+const char yesText_A99A0_A99B8[4] = "YES"; // copied as a dword
 
 void InitMenu_4A980_4ACC0()
 {
@@ -110,7 +112,7 @@ void InitMenu_4A980_4ACC0()
 	byte_12CBD2_12CBC2 = 6;
 	byte_12CBD6_12CBC6 &= 0xF8;
 	mainMenuItem_12CBCE_12CBBE = 6;
-	byte_12CBD3_12CBC3 = 0;
+	controlDevice_12CBD3_12CBC3 = 0;
 	sprintf(mc1Settings_AE408_AE3F8->sessionName_0x75_117, "CARPET%d", 0);
 
 	// C:\carpet.cd\intro.pld
@@ -182,19 +184,19 @@ int32_t LoadSoundSetup_505A0_508E0()
 }
 
 // port: a separate index with real pointers instead of relocating the tab in place (65D70 / 65DC0)
-static void BuildSpritesIndex(bitmap_pos_struct_t** index, uint8_t* tabStart, uint8_t* tabEnd, uint8_t* data)
+void BuildSpritesIndex(bitmap_pos_struct_t** index, uint8_t* tabStart, uint8_t* tabEnd, uint8_t* data, bool doubleInMcga)
 {
 	bitmap_pos_struct2_t* tab = (bitmap_pos_struct2_t*)tabStart;
 	bitmap_pos_struct2_t* end = (bitmap_pos_struct2_t*)tabEnd;
 	Free_426E0_42A20(*index);
 	*index = (bitmap_pos_struct_t*)Malloc_42540_42880((uint32_t)((end - tab) * sizeof(bitmap_pos_struct_t)));
-	if (*videoMode_12F02E_12F01E & 1)
+	if (doubleInMcga && (*videoMode_12F02E_12F01E & 1))
 		CreateIndexDatTabDoubled_65D70_66280(tab, end, data, *index);
 	else
 		CreateIndexDatTab_65DC0_662D0(tab, end, data, *index);
 }
 
-static void FreeSpritesIndex(bitmap_pos_struct_t** index)
+void FreeSpritesIndex(bitmap_pos_struct_t** index)
 {
 	Free_426E0_42A20(*index);
 	*index = nullptr;
@@ -205,7 +207,7 @@ void RunMenu_4AB20_4AE60()
 	if (loadMenuFiles_12CA7C_12CA6C)
 	{
 		LoadFileGroup_40440_40780(menuFiles_49B80_49EC0);
-		BuildSpritesIndex(&menuSpritesIndex, menuSpritesTab_12CAEC_12CADC, menuSpritesTabEnd_12CAF0_12CAE0, menuSpritesData_12CAF4_12CAE4);
+		BuildSpritesIndex(&menuSpritesIndex, menuSpritesTab_12CAEC_12CADC, menuSpritesTabEnd_12CAF0_12CAE0, menuSpritesData_12CAF4_12CAE4, true);
 		loadMenuFiles_12CA7C_12CA6C = 0;
 	}
 	UpdateMenuInput_50770_50AB0();
@@ -215,7 +217,7 @@ void RunMenu_4AB20_4AE60()
 		sub_4D3B0_4D6F0();
 		break;
 	case 1:
-		sub_4AC70_4AFB0();
+		SoundSetup_4AC70_4AFB0();
 		break;
 	case 2:
 		sub_4BD60_4C0A0();
@@ -332,7 +334,7 @@ void UpdateMenuInput_50770_50AB0()
 	*mouseLeftPressed_12EFDE_12EFCE = 0;
 }
 
-static void CopyBackScreen()
+void CopyBackScreen()
 {
 	if (*videoMode_12F02E_12F01E & 1)
 		CopyScreen320_62FA8_634B8(backScreen_AE3FC_AE3EC, *workScreen_12EFF4_12EFE4, 320, 200);
@@ -340,7 +342,7 @@ static void CopyBackScreen()
 		CopyScreen640_62FC4_634D4(backScreen_AE3FC_AE3EC, *workScreen_12EFF4_12EFE4, 640, 480);
 }
 
-static void BlitScreen()
+void BlitScreen()
 {
 	if (*videoMode_12F02E_12F01E & 1)
 		Blit320_5CDA0_5D2B0(0);
@@ -371,7 +373,7 @@ void SelectLanguage_4F3F0_4F730()
 		ReadPackedFile_3EEA0_3F1E0("data/screens/language.dat", backScreen_AE3FC_AE3EC);
 		LoadFileGroup_40440_40780(languageFiles_4A050_4A390);
 		BuildSpritesIndex(&languageSpritesIndex, languageSpritesTab_12CB58_12CB48, languageSpritesTabEnd_12CB5C_12CB4C,
-			languageSpritesData_12CB60_12CB50);
+			languageSpritesData_12CB60_12CB50, true);
 		CopyBackScreen();
 		BlitScreen();
 		if (!inputDevices_90B23_90B23)

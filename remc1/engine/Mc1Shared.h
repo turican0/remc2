@@ -34,7 +34,8 @@ inline constexpr int16_t* mouseLeftPressed_12EFDE_12EFCE = &mouseLeftButton_1807
 inline constexpr int* mouseMiddleDown_12EFE0_12EFD0 = &mouseEventFlagB_180748;
 inline constexpr int16_t* mouseRightDown_12EFE2_12EFD2 = &mouseRightButton2_18074A;
 inline constexpr int16_t* mouseLeftDown_12EFE4_12EFD4 = &mouseLeftButton2_18074C;
-inline constexpr int* screenWidth_93AD4_93AD4 = &iScreenWidth_DE560; // set by 79495 / 799A5 (MC2 BCD45)
+inline constexpr uint32_t* screenWidth_12EFF0_12EFE0 = &screenWidth_18062C;
+inline constexpr int* renderWidth_93AD4_93AD4 = &iScreenWidth_DE560; // set by 79495 / 799A5 (MC2 BCD45)
 
 // functions
 inline constexpr auto ClearScreen320_411D7_41517 = &ClearGraphicsBuffer_72883; // rows of 320 (MC2 72883)
