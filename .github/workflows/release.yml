@@ -207,7 +207,8 @@ jobs:
       - name: Build installer
         shell: pwsh
         run: |
-          dotnet build remc2-installer.sln --configuration Release -p:Platform=${{ matrix.arch }} -p:AcceptEula=true || true
+          dotnet build remc2-installer.sln --configuration Release -p:Platform=${{ matrix.arch }} -p:AcceptEula=true
+          if ($LASTEXITCODE -ne 0) { Write-Error "Installer build failed with exit code $LASTEXITCODE"; exit $LASTEXITCODE }
           $msi = Get-ChildItem -Recurse -Filter "*.msi" | Select-Object -First 1
           if (-not $msi) { Write-Error "Build failed - MSI not found!"; exit 1 }
           Write-Host "MSI built: $($msi.FullName)"
