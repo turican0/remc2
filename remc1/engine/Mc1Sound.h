@@ -53,8 +53,6 @@ extern uint16_t sampleOwners_CBFF0_CBFE0[32][2]; // owner, sample
 extern uint16_t sampleVolumes_CC070_CC060[32];
 
 // HMI music state used by the movie events
-extern int32_t dword_9ADC0_9ADC0;
-extern int32_t dword_9AF08_9AF08;
 
 void StopMusic_20E60_20E60();
 void SoundInit_357C0_35B80();

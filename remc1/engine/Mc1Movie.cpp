@@ -10,6 +10,7 @@
 #include "Mc1Game.h"
 #include "Mc1Graphics.h"
 #include "Mc1Menu.h"
+#include "Mc1MenuText.h"
 #include "Mc1NotPorted.h"
 #include "Mc1Shared.h"
 #include "Mc1Sound.h"
@@ -27,6 +28,22 @@ int16_t savedMouseX_B7314_B7304 = 0;
 int16_t savedMouseY_B7316_B7306 = 0;
 int16_t savedKey_B7318_B7308 = 0;
 int32_t inputChanged_AE410_AE400 = 0;
+
+uint8_t subtitlesLoaded_9009E_9009E = 0;
+const char* subtitleText_900A0_900A0 = nullptr;
+Type_Mc1Font_96884 subtitleFont_AE460_AE450 = {};
+uint8_t* subtitleFontTab_B3288_B3278 = nullptr;
+uint8_t* subtitleFontTabEnd_B328C_B327C = nullptr;
+uint8_t* subtitleFontData_B3290_B3280 = nullptr;
+uint8_t* subtitleArea_B3294_B3284 = nullptr;
+uint16_t subtitleAreaSize_B329C_B328C = 0;
+static bitmap_pos_struct_t* subtitleFontIndex = nullptr; // port: the index of sfont1.tab with real pointers
+
+Type_Mc1FileEntry subtitleFiles_20EF0_20EF0[3] = {
+	{ { "data/screens/sfont1.dat", "data/screens/sfont1.dat" }, &subtitleFontData_B3290_B3280, nullptr, 0, 0 },
+	{ { "data/screens/sfont1.tab", "data/screens/sfont1.tab" }, &subtitleFontTab_B3288_B3278, &subtitleFontTabEnd_B328C_B327C, 0, 0 },
+	{ { "", "" }, nullptr, nullptr, 0, 0 },
+};
 
 // 4A1E4 / 4A524; the fourth record never matches (frame 0), its last bytes are the start of the next table
 const Type_Mc1MovieEvent intelEvents_4A1E4_4A524[4] = {
@@ -315,7 +332,7 @@ void DrawMovieFrame_104D0_104D0()
 		if (*movieRedrawText_90024_90024)
 		{
 			PaletteInstall_319A0_319E0(moviePalette_AC2B8_AC2A8);
-			sub_24BF0_24BF0(FindNearestColor_5CC70_5D180((const uint8_t*)moviePalette_AC2B8_AC2A8, 0x3F, 0x3F, 0x3F));
+			SetSubtitleColor_24BF0_24BF0(FindNearestColor_5CC70_5D180((const uint8_t*)moviePalette_AC2B8_AC2A8, 0x3F, 0x3F, 0x3F));
 		}
 	}
 	// port: the frame timing is done above, the blit does not limit the frame rate
@@ -395,8 +412,8 @@ void MovieEvents_111B0_111B0(const Type_Mc1MovieEvent* events)
 			break;
 		case 'L':
 		case 'l':
-			if (dword_9AF08_9AF08)
-				sub_5D230_5D740(dword_9ADC0_9ADC0, dword_9AF08_9AF08, value);
+			if (*fileReadBuffer_9AF08_9AF08)
+				ReadIntoFileBuffer_5D230_5D740(*soundEventFile_9ADC0_9ADC0, value);
 			PlayMusic_5D290_5D7A0(value);
 			musicLoop_AC5DA_AC5CA = 0;
 			break;
@@ -412,16 +429,16 @@ void MovieEvents_111B0_111B0(const Type_Mc1MovieEvent* events)
 			break;
 		case 'O':
 			if (*subtitles_90090_90090)
-				sub_24AB0_24AB0(value);
+				InitSubtitles_24AB0_24AB0();
 			break;
 		case 'K':
-			sub_24B80_24B80();
+			ClearSubtitles_24B80_24B80();
 			break;
 		case 'P':
-			sub_24BB0_24BB0(value);
+			FreeSubtitles_24BB0_24BB0();
 			break;
 		case 'Q':
-			sub_24B50_24B50((const char*)textPointers_AE238_AE228[value]);
+			ShowSubtitle_24B50_24B50((const char*)textPointers_AE238_AE228[value]);
 			break;
 		case 'R':
 		case 'r':
@@ -604,7 +621,7 @@ void PlayMainIntro_4D3B0_4D6F0()
 	else
 		PlayMovie_107C0_107C0(0, 1, introEvents_4A1FC_4A53C);
 	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
-	sub_24BB0_24BB0(0); //!!!!! the original calls it without an argument (stack garbage)
+	FreeSubtitles_24BB0_24BB0();
 	StopAllSamples_5D010_5D520();
 	StopMusic_20E60_20E60();
 	ClearAndBlitScreen();
@@ -677,4 +694,60 @@ void TitleScreen_4F1E0_4F520()
 		FreeFileGroup_61610_61B20(titleFiles_4A0D4_4A414);
 	mainMenuItem_12CBCE_12CBBE = 2;
 	byte_12CBD6_12CBC6 &= 0xFD;
+}
+
+void InitSubtitles_24AB0_24AB0()
+{
+	if (subtitlesLoaded_9009E_9009E)
+		return;
+	subtitlesLoaded_9009E_9009E = 1;
+	*subtitlesShown_90091_90091 = 1;
+	LoadFileGroup_40440_40780(subtitleFiles_20EF0_20EF0);
+	SetTextWindow_51360_516A0(10, 180, 300, 50);
+	// 519E0 relocates sfont1.tab in place (not doubled)
+	BuildSpritesIndex(&subtitleFontIndex, subtitleFontTab_B3288_B3278, subtitleFontTabEnd_B328C_B327C,
+		subtitleFontData_B3290_B3280, false);
+	InitFont_51480_517C0(&subtitleFont_AE460_AE450, subtitleFontIndex, palette_AE428_AE418);
+	subtitleFont_AE460_AE450.color1_0x06_6 = FindNearestColor_5CC70_5D180(palette_AE428_AE418, 0x3F, 0x3F, 0x3F);
+	// the rows 180-239 of the work screen
+	subtitleAreaSize_B329C_B328C = 0x4B00;
+	subtitleArea_B3294_B3284 = *workScreen_12EFF4_12EFE4 + 0xE100;
+	ClearSubtitles_24B80_24B80();
+}
+
+void ShowSubtitle_24B50_24B50(const char* text)
+{
+	if (!subtitlesLoaded_9009E_9009E)
+		return;
+	ClearSubtitles_24B80_24B80();
+	DrawText_51560_518A0(&subtitleFont_AE460_AE450, 0, 0, text);
+	subtitleText_900A0_900A0 = text;
+}
+
+void ClearSubtitles_24B80_24B80()
+{
+	if (subtitlesLoaded_9009E_9009E)
+		memset(subtitleArea_B3294_B3284, 0, subtitleAreaSize_B329C_B328C);
+}
+
+void FreeSubtitles_24BB0_24BB0()
+{
+	if (!subtitlesLoaded_9009E_9009E)
+		return;
+	ClearSubtitles_24B80_24B80();
+	FreeFileGroup_61610_61B20(subtitleFiles_20EF0_20EF0);
+	FreeSpritesIndex(&subtitleFontIndex);
+	*subtitlesShown_90091_90091 = 0;
+	subtitlesLoaded_9009E_9009E = 0;
+	subtitleText_900A0_900A0 = nullptr;
+}
+
+void SetSubtitleColor_24BF0_24BF0(uint8_t color)
+{
+	if (!subtitlesLoaded_9009E_9009E)
+		return;
+	// the palette of the movie changed, the text is drawn again in its white
+	subtitleFont_AE460_AE450.color1_0x06_6 = color;
+	if (subtitleText_900A0_900A0)
+		ShowSubtitle_24B50_24B50(subtitleText_900A0_900A0);
 }

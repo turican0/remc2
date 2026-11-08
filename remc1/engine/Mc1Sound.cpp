@@ -64,8 +64,6 @@ uint16_t soundCount_CC1C6_CC1B6 = 0;
 uint16_t sampleOwners_CBFF0_CBFE0[32][2];
 uint16_t sampleVolumes_CC070_CC060[32];
 
-int32_t dword_9ADC0_9ADC0 = 0;
-int32_t dword_9AF08_9AF08 = 0;
 
 // the 32-byte records of the bank tabs: name, data offset (+12h), size (+1Ah); port: the offsets stay offsets
 static uint8_t* BankData(uint8_t* tab, uint8_t* data, int16_t index)
@@ -107,14 +105,14 @@ void SoundInit_357C0_35B80()
 	soundInitialized_90AD4_90AD4 = 1;
 	if (!(mc1Settings_AE408_AE3F8->flags_0x00_0 & 0x48))
 	{
-		PrintMessage_5AD10_5B220("Initialise Music");
+		PrintLoadingText_5AD10_5B220("Initialise Music");
 		InitMusic_3C570_3C8B0();
-		PrintMessage_5AD10_5B220("Initialise Sound");
+		PrintLoadingText_5AD10_5B220("Initialise Sound");
 		InitSound_3C800_3CB40();
 	}
 	else
 	{
-		PrintMessage_5AD10_5B220("Sound Disabled");
+		PrintLoadingText_5AD10_5B220("Sound Disabled");
 		byte_939CD_939CD = 0;
 		byte_939E5_939E5 = 0;
 		byte_939CC_939CC = 0;

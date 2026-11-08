@@ -10,6 +10,7 @@
 #include "../../remc2/engine/globals.h"
 #include "../../remc2/engine/Graphics.h"
 #include "../../remc2/engine/PlayerInput.h"
+#include "../../remc2/engine/Sound.h"
 #include "../../remc2/portability/port_sdl_vga_mouse.h"
 #include "../../remc2/utilities/DataFileIO.h"
 #include "../../remc2/utilities/DataFileRNC.h"
@@ -89,6 +90,9 @@ inline constexpr auto DecodeSs2_10960_10960 = &DecodeFlcDeltaChunk_76300;
 inline constexpr auto DecodeLc_10AB0_10AB0 = &DecodeFliLineCompressChunk_76430;
 inline constexpr auto DecodeBrun_10BD0_10BD0 = &DecodeFliByteRunChunk_76540;
 inline constexpr auto DecodeAnimationFrame_1002D_1002D = &DecodeAnimationFrame_76619;
+inline constexpr FILE** soundEventFile_9ADC0_9ADC0 = &soundEventFile_E3840; // opened by 5C468 (MC2 8D12F)
+inline constexpr int* fileReadBuffer_9AF08_9AF08 = &fileReadBuffer_E387C; // set neither in MC1 nor in MC2
+inline constexpr auto ReadIntoFileBuffer_5D230_5D740 = &ReadIntoFileBuffer_8F0AB;
 inline constexpr auto WaitBeam_5CC54_5D164 = &fix_sub_9A0FC_wait_to_screen_beam; // port: the frame delay argument
 
 // SELECT.EXE, the selector (one executable, one address)

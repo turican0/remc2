@@ -47,20 +47,6 @@ void sub_59720_59C30() { NotPorted(__func__); }
 //!!!!! not ported yet
 void GameLoop_34610_349D0() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_5D230_5D740(int32_t /*a1*/, int32_t /*a2*/, int16_t /*music*/) { NotPorted(__func__); }
-//!!!!! not ported yet (subtitles)
-void sub_24AB0_24AB0(int16_t /*value*/) { NotPorted(__func__); }
-//!!!!! not ported yet (subtitles)
-void sub_24B80_24B80() { NotPorted(__func__); }
-//!!!!! not ported yet (subtitles)
-void sub_24BB0_24BB0(int16_t /*value*/) { NotPorted(__func__); }
-//!!!!! not ported yet (subtitles)
-void sub_24B50_24B50(const char* /*text*/) { NotPorted(__func__); }
-//!!!!! not ported yet (subtitle color, MC2 2EC90)
-void sub_24BF0_24BF0(uint8_t /*color*/) { NotPorted(__func__); }
-//!!!!! not ported yet (MC2 PrintTextMessage_70910)
-void PrintMessage_5AD10_5B220(const char* /*text*/) { NotPorted(__func__); }
-//!!!!! not ported yet
 void sub_448E0_44C20() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_408D0_40C10() { NotPorted(__func__); }
