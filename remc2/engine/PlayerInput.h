@@ -91,6 +91,7 @@ void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32
 signed int InstallMouse_8CEDF();
 void ClearScreenAndBlit_75C50();
 extern int mouseEventFlagB_180748;
+extern int mouseEventFlagA_180740;
 void DrawLine320_9025C(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color, int16_t flags);
 signed int CheckKeyboard_9A10A();
 void ReadKeyboard_9D31C();

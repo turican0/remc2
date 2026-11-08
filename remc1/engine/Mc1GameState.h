@@ -59,7 +59,10 @@ typedef struct { // size 36478
 	uint8_t unknown_0x98_152[0xA8 - 0x98];
 	uint8_t* heap_0xA8_168; // allocated by InitMemory
 	uint32_t heapSize_0xAC_172;
-	uint8_t unknown_0xB0_176[36478 - 0xB0];
+	uint8_t unknown_0xB0_176[0xCE - 0xB0];
+	uint32_t timerDivisor_0xCE_206; // 26AFh, the PIT divisor of the own 120 Hz timer
+	uint32_t unknown_0xD2_210;
+	uint8_t unknown_0xD6_214[36478 - 0xD6];
 } Type_Mc1Settings_AE408_AE3F8;
 #pragma pack(pop)
 

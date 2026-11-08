@@ -12,6 +12,7 @@
 #include "Mc1NotPorted.h"
 #include "Mc1Screen.h"
 #include "Mc1Shared.h"
+#include "Mc1Sound.h"
 #include "Mc1System.h"
 #include "../../remc2/utilities/DataFileIO.h"
 

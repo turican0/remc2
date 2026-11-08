@@ -477,6 +477,8 @@
     <ClInclude Include="sub_main.h" />
     <ClInclude Include="..\remc1\Mc1Main.h" />
     <ClInclude Include="..\remc1\engine\Select.h" />
+    <ClInclude Include="..\remc1\engine\Mc1Sound.h" />
+    <ClInclude Include="..\remc1\engine\Mc1Movie.h" />
     <ClInclude Include="..\remc1\engine\Mc1MenuText.h" />
     <ClInclude Include="..\remc1\engine\Mc1MenuSound.h" />
     <ClInclude Include="..\remc1\engine\Mc1Menu.h" />
@@ -593,6 +595,8 @@
     <ClCompile Include="remc2.cpp" />
     <ClCompile Include="..\remc1\Mc1Main.cpp" />
     <ClCompile Include="..\remc1\engine\Select.cpp" />
+    <ClCompile Include="..\remc1\engine\Mc1Sound.cpp" />
+    <ClCompile Include="..\remc1\engine\Mc1Movie.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1MenuText.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1MenuSound.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Menu.cpp" />

@@ -2,6 +2,7 @@
 
 #include <cstdint>
 
+#include "../../remc2/engine/Animation.h"
 #include "../../remc2/engine/Basic.h"
 #include "../../remc2/engine/DatTabIndexes.h"
 #include "../../remc2/engine/EventsFunctions.h"
@@ -62,6 +63,32 @@ inline constexpr auto WriteFile_62ED0_633E0 = &DataFileIO::WriteFile_98CAA;
 inline constexpr auto DecompressRnc_62B60_63070 = &DataFileRNC::Decompress;
 inline constexpr auto CreateIndexDatTabDoubled_65D70_66280 = &CreateIndexDatTabDoubled_98709;
 inline constexpr auto CreateIndexDatTab_65DC0_662D0 = &CreateIndexDatTab_9874D;
+
+// FLI player (MC1 107C0-10BD0, the same addresses in HW; MC2 76160-76540)
+inline constexpr FILE** movieFile_AC5C0_AC5B0 = &fmvFile_17DB38;
+inline constexpr Type_17DB40* movieHeader_AC5C8_AC5B8 = &fmvHeader_17DB40;
+inline constexpr int16_t* movieFrames_AC5CE_AC5BE = &LastKeyframe_17DB46; // header +6, remc2 keeps a copy
+inline constexpr int16_t* movieWidth_AC5D0_AC5C0 = &height_17DB48; // header +8, the row length (remc2 calls it height)
+inline constexpr int16_t* movieHeight_AC5D2_AC5C2 = &width_17DB4A; // header +0Ah
+inline constexpr uint16_t* movieFrame_AC5E0_AC5D0 = &ActualKeyframe_17DB60;
+inline constexpr int16_t* movieStop_AC5DC_AC5CC = &stopPlaybackFlag_17DB5A;
+inline constexpr int16_t* movieAllowSkip_AC5DE_AC5CE = &allowSkipVideo_17DB5C;
+inline constexpr int16_t* movieRedrawText_90024_90024 = &redrawTextInVideo_E12FC;
+inline constexpr int16_t* movieEventIndex_90030_90030 = &soundEventIndex_D4004;
+inline constexpr int* movieFileOffset_90028_90028 = &fileOffset_E1300;
+inline constexpr uint8_t** chunkStream_AC5BC_AC5AC = &chunkStream_17DB50;
+inline constexpr TColor** movieScreen_9001C_9001C = &framebuffer_E12F4x;
+inline constexpr TColor* moviePalette_AC2B8_AC2A8 = unk_17D838x;
+inline constexpr char* subtitles_90090_90090 = &DisplaySubtitles_D41C0;
+inline constexpr char* subtitlesShown_90091_90091 = &DisplaySubtitles_D41C1;
+inline constexpr uint8_t* lastKey_12EF70_12EF60 = &LastPressedKey_1806E4;
+inline constexpr int* mouseMiddlePressed_12EFDA_12EFCA = &mouseEventFlagA_180740;
+inline constexpr auto CopyChunk_103C0_103C0 = &CopyAndShiftFrom17DB50_75D70;
+inline constexpr auto ReadPalette_108C0_108C0 = &ReadIntroPalettes_76260; // the argument 100h / 40h is not used
+inline constexpr auto DecodeSs2_10960_10960 = &DecodeFlcDeltaChunk_76300;
+inline constexpr auto DecodeLc_10AB0_10AB0 = &DecodeFliLineCompressChunk_76430;
+inline constexpr auto DecodeBrun_10BD0_10BD0 = &DecodeFliByteRunChunk_76540;
+inline constexpr auto WaitBeam_5CC54_5D164 = &fix_sub_9A0FC_wait_to_screen_beam; // port: the frame delay argument
 
 // SELECT.EXE, the selector (one executable, one address)
 inline constexpr uint8_t** screenBuffer_23144 = &pdwScreenBuffer_351628;

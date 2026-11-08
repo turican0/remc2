@@ -6,6 +6,7 @@
 #include "Mc1Files.h"
 #include "Mc1Game.h"
 #include "Mc1NotPorted.h"
+#include "Mc1Sound.h"
 #include "../../remc2/engine/Basic.h"
 #include "../../remc2/engine/Graphics.h"
 #include "../../remc2/engine/PlayerInput.h"

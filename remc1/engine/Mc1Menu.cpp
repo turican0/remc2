@@ -7,6 +7,7 @@
 #include "Mc1Game.h"
 #include "Mc1Install.h"
 #include "Mc1MenuSound.h"
+#include "Mc1Movie.h"
 #include "Mc1NotPorted.h"
 #include "Mc1Shared.h"
 #include "Mc1System.h"
@@ -232,7 +233,7 @@ void RunMenu_4AB20_4AE60()
 		SelectLanguage_4F3F0_4F730();
 		break;
 	case 7:
-		sub_4EFC0_4F300();
+		PlayIntelIntro_4EFC0_4F300();
 		break;
 	case 8:
 		sub_4F1E0_4F520();
