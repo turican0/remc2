@@ -54,6 +54,8 @@ char gammaTable_181504[64]; // idb
 
 TColor oldPalette_181544[256]; // idb
 
+TColor blackPalette_181844[256]; // the target of a fade with no palette
+
 uint8_t* vesaInfoBuffer_181C40; // weak
 
 GameRenderInterface* m_ptrGameRender;
@@ -1022,8 +1024,6 @@ int16_t VgaPalFadeInFadeOut_90B27(TColor* newpalbufferx, uint8_t shadow_levels, 
 	//uint8_t j = 0;
 	//uint8_t* v10; // [esp+308h] [ebp-4h]
 
-	TColor zero_bufferx[256];
-
 	VGA_Init(windowResWidth, windowResHeight, gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
 
 	if (singlestep)
@@ -1040,10 +1040,10 @@ int16_t VgaPalFadeInFadeOut_90B27(TColor* newpalbufferx, uint8_t shadow_levels, 
 			paletteFadeActive_E390C = 1;
 			VgaGetPalette_A0D2C(oldPalette_181544);
 			if (!newpalbufferx)
-				memset(zero_bufferx, 0, 0x300);
+				memset(blackPalette_181844, 0, 0x300);
 		}
 		if (!newpalbufferx)
-			newpalbufferx = zero_bufferx;
+			newpalbufferx = blackPalette_181844; // 271C8A: mov [ebp+arg_0], offset unk_181844
 		for (i = 0; i < 0x100; i++)
 		{
 			//v5 = &buffer[i];
@@ -1066,10 +1066,11 @@ int16_t VgaPalFadeInFadeOut_90B27(TColor* newpalbufferx, uint8_t shadow_levels, 
 		VgaGetPalette_A0D2C(oldPalette_181544);
 		if (!newpalbufferx)//ebp+14 - 355204
 		{
-			newpalbufferx = zero_bufferx;
-			memset(zero_bufferx, 0, 768);
+			newpalbufferx = blackPalette_181844;
+			memset(blackPalette_181844, 0, 768);
 		}
-		for (CurrentPaletteFade_181B44 = 0; CurrentPaletteFade_181B44 < shadow_levels; CurrentPaletteFade_181B44++)
+		// 271B79: cmp ax, word_181B44; jge - steps 0..shadow_levels
+		for (CurrentPaletteFade_181B44 = 0; CurrentPaletteFade_181B44 <= shadow_levels; CurrentPaletteFade_181B44++)
 		{
 			for (i = 0; i < 0x100; i++)
 			{

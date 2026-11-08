@@ -30,6 +30,7 @@ extern char blendTable_F0920[];
 extern TColor palette_F3FA0[];
 extern int paletteComponent_F42A0;
 extern TColor oldPalette_181544[];
+extern TColor blackPalette_181844[];
 extern uint8_t* vesaInfoBuffer_181C40;
 int BlitToVgaPlanar_40D10();
 void BlendAndBlit_40F80();
