@@ -86,7 +86,6 @@ void HandleOptionsMenuButtonClick_19A70();
 void SwitchHelpMode_18AA0();
 int SelectSpell_6D4F0(type_str_611* a1, int16_t mouseX);
 void ChangeGameResolution_46B40();
-void ClearScreenAndBlit_75C50();
 int ClearVgaMemory_906B4();
 signed int InitScanlineOffsets_90668(int a1);
 void VgaSetVideoModeAltAndPalette_90E07(TColor* Palette);

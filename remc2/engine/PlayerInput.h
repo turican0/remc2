@@ -89,6 +89,7 @@ int RestoreCursorBackground_8CA16();
 void ClearCursorDrawnFlag_8CB1F();
 void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t mouse_posy);
 signed int InstallMouse_8CEDF();
+void ClearScreenAndBlit_75C50();
 int SetMouseBoundsScaled_9025C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int16 a5, __int16 a6);
 signed int CheckKeyboard_9A10A();
 __int16 ReadKeyboardShiftFlags_9D31C(__int16 result);

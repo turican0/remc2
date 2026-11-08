@@ -8,7 +8,7 @@ Type_Mc1Unknown_AC5E0 unknownTable_AC5E0_AC5D0[101];
 void InitSearchRings_11540_11540()
 {
 	// the 32x32 ring map is loaded into the work screen, the records go to the *SearchD buffer
-	uint8_t* grid = workScreen_12EFF4_12EFE4;
+	uint8_t* grid = *workScreen_12EFF4_12EFE4;
 	ReadPackedFile_3EEA0_3F1E0("data/search.dat", grid);
 	for (int32_t i = 2; i <= 100; i++)
 		unknownTable_AC5E0_AC5D0[i].value_0 = -1;

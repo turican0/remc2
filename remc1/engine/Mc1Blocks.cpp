@@ -1,7 +1,10 @@
 #include "Mc1Blocks.h"
 
+#include <algorithm>
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
+#include <vector>
 
 #include "Mc1Files.h"
 #include "Mc1Game.h"
@@ -13,7 +16,7 @@
 uint8_t* blockPointers_9334C_9334C[256];
 Type_Mc1Tables_B7934 tables_B7934_B7924;
 uint8_t tablesMissing_90B48_90B48 = 0;
-// the original walks the heap after each allocation (63338) and keeps the largest free block;
+// the original walks the heap after each allocation (63338 / 63848) and keeps the largest free block;
 // the port is not short of memory, so the largest heap and 32x32 blocks are always chosen
 uint32_t largestFreeBlock_1314AC_13149C = 0x1000000;
 uint8_t byte_968F0_968F0 = 0;
@@ -76,11 +79,10 @@ void InitMemory_41230_41570()
 	else if (size == 0x20)
 		LoadFileGroup_40440_40780(blockFiles32_99738_99738);
 	InitBlockTables_44470_447B0();
-	void TempVerifyBlocks(); TempVerifyBlocks(); // TEMP
 	Free_426E0_42A20(temp);
 }
 
-// 44547-446E0 of InitBlockTables, a function of its own in the port
+// 44547-446E0 / 44887-44A20 of InitBlockTables, a function of its own in the port
 static void GenerateTables(Type_Mc1Tables_B7934* tables)
 {
 	const uint8_t* palette = palette_AE428_AE418;
@@ -103,14 +105,14 @@ static void GenerateTables(Type_Mc1Tables_B7934* tables)
 		MakeFadeTable_40EDC_4121C(palette, tables->blend_0x4000[i], palette[i * 3], palette[i * 3 + 1],
 			palette[i * 3 + 2], 0x55, 0x55, 0x55);
 	for (uint32_t i = 0; i < 256; i++)
-		tables->distances_0x14300[i] = (uint8_t)Maths::IntegerSqrt_7277A(0x10000 - i * i); // MC1 410CE
+		tables->distances_0x14300[i] = (uint8_t)IntegerSqrt_410CE_4140E(0x10000 - i * i);
 	tables->distances_0x14300[0] = 0xFF;
 }
 
 void InitBlockTables_44470_447B0()
 {
 	int32_t size = mc1State_AE400_AE3F0->tileTextureSize_0x21A0_8608;
-	FillD4350Table_3B4D0(size); // MC1 29BA0 / HW 29BE0, UVTable_D4350 = MC1 902DC (the same data)
+	FillUVTable_29BA0_29BE0(size);
 	uint32_t perRow = 256 / size;
 	int32_t rows = (int32_t)(256 / perRow);
 	uint8_t** pointer = blockPointers_9334C_9334C;
@@ -127,31 +129,12 @@ void InitBlockTables_44470_447B0()
 
 	GenerateTables(&tables_B7934_B7924);
 	std::string fullPath = Mc1DataFilePath(path);
-	DataFileIO::OpenWriteClose_98C48(fullPath.c_str(), tables, sizeof(tables_B7934_B7924)); // MC1 62E60
+	OpenWriteClose_62E60_63370(fullPath.c_str(), tables, sizeof(tables_B7934_B7924));
 }
-// TEMP-BEGIN
-#include <cstring>
-#include <vector>
-void TempVerifyBlocks()
-{
-	const char* dir = getenv("REMC1_PORT_DUMP");
-	if (!dir) return;
-	auto write = [&](const char* name, const void* data, size_t length) { std::string p = std::string(dir) + "/" + (mc1Variant == MC1_VARIANT_HW ? "hw_" : "mc1_") + name + ".bin"; FILE* f = fopen(p.c_str(), "wb"); fwrite(data, 1, length, f); fclose(f); };
-	write("tables", &tables_B7934_B7924, sizeof(tables_B7934_B7924));
-	std::vector<uint32_t> offsets; for (auto ptr : blockPointers_9334C_9334C) offsets.push_back((uint32_t)(ptr - blockData_AE3F0_AE3E0));
-	write("blkoff", offsets.data(), offsets.size() * 4);
-	write("uv", UVTable_D4350, sizeof(UVTable_D4350));
-	uint8_t flags[3] = { byte_968F0_968F0, byte_939EC_939EC, tablesMissing_90B48_90B48 }; write("flags", flags, 3);
-	write("st21A0", &mc1State_AE400_AE3F0->unknown_0x219F_8607 + 1, 0x20);
-	uint32_t heapSize = mc1Settings_AE408_AE3F8->heapSize_0xAC_172; write("heapsize", &heapSize, 4);
-	Type_Mc1Tables_B7934* generated = new Type_Mc1Tables_B7934(); GenerateTables(generated);
-	write("generated", generated, sizeof(*generated)); delete generated;
-}
-// TEMP-END
 
 static uint8_t FadeComponent(uint8_t color, uint8_t target, int16_t factor)
 {
-	// 40EF4: al = target - color, movsx ax, al, imul factor, color += ah
+	// 40EF4 / 41234: al = target - color, movsx ax, al, imul factor, color += ah
 	int32_t product = (int16_t)(int8_t)(uint8_t)(target - color) * factor;
 	return (uint8_t)(color + (uint8_t)(product >> 8));
 }
@@ -187,12 +170,30 @@ void MakeFadeTable_40EDC_4121C(const uint8_t* palette, uint8_t* table, uint8_t t
 	}
 }
 
+static std::vector<uint8_t> DosBlockMemory()
+{
+	// the original reads 0x40000 bytes from the block data (blk?-1 has only 0x26000): in DOS sky.dat follows
+	// directly, then zeros (and 8 bytes of heap headers, not emulated); the port copies that into one image
+	std::vector<uint8_t> image(0x40000, 0);
+	Type_Mc1FileEntry* group = mc1State_AE400_AE3F0->tileTextureSize_0x21A0_8608 == 0x10 ? blockFiles16_996E0_996E0 : blockFiles32_99738_99738;
+	size_t offset = 0;
+	for (Type_Mc1FileEntry* entry = group; entry->data_0x1C && offset < image.size(); entry++)
+	{
+		size_t length = (std::min)((size_t)entry->size_0x24, image.size() - offset);
+		if (*entry->data_0x1C)
+			memcpy(image.data() + offset, *entry->data_0x1C, length);
+		offset += length;
+	}
+	return image;
+}
+
 void MakeBlockColors_72807_72D17(const uint8_t* palette, uint8_t* colors)
 {
+	std::vector<uint8_t> memory = DosBlockMemory();
 	for (int32_t block = 0; block < 256; block++)
 	{
 		// average of 32x32 pixels whatever the block size, rows 256 bytes apart
-		const uint8_t* pixel = blockPointers_9334C_9334C[block];
+		const uint8_t* pixel = memory.data() + (blockPointers_9334C_9334C[block] - blockData_AE3F0_AE3E0);
 		uint32_t red = 0;
 		uint32_t green = 0;
 		uint32_t blue = 0;

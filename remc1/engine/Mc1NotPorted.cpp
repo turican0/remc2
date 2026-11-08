@@ -14,58 +14,55 @@ static void NotPorted(const char* name)
 		Logger->warn("MC1: {} is not ported yet", name);
 }
 
-//!!!!! not ported yet
-//!!!!! not ported yet
-//!!!!! not ported yet
-//!!!!! not ported yet
-//!!!!! not ported yet
-//!!!!! not ported yet
-//!!!!! not ported yet
-void sub_44730_44A70() { NotPorted(__func__); }
-//!!!!! not ported yet
-void sub_4A980_4ACC0() { NotPorted(__func__); }
+// a menu screen not ported yet behaves as if the player quit the game in it
+static void MenuScreenNotPorted(const char* name)
+{
+	NotPorted(name);
+	mc1State_AE400_AE3F0->players_0x340B_13323[mc1State_AE400_AE3F0->currentPlayer_0x08_8].exitGame_0x04_4 = 1;
+	menuDone_96880_96880 = 1;
+}
+
 //!!!!! not ported yet
 void sub_44700_44A40(uint8_t* /*text*/, uint8_t** /*pointers*/, int32_t /*count*/) { NotPorted(__func__); }
-//!!!!! not ported yet
-void FadeInOut_61CC0_621D0(uint8_t* /*palette*/, uint8_t /*steps*/, int32_t /*mode*/) { NotPorted(__func__); }
-//!!!!! not ported yet
-void sub_31A00_31A40() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_34C80() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_35040() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_41490_417D0() { NotPorted(__func__); }
+void sub_50770_50AB0() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_42530_42870(int32_t /*value*/) { NotPorted(__func__); }
-//!!!!! not ported yet, behaves as if the player quit the game in the menu
-void sub_4AB20()
-{
-	NotPorted(__func__);
-	mc1State_AE400_AE3F0->players_0x340B_13323[mc1State_AE400_AE3F0->currentPlayer_0x08_8].exitGame_0x04_4 = 1;
-	menuDone_96880_96880 = 1;
-}
-//!!!!! not ported yet, behaves as if the player quit the game in the menu
-void sub_4AE60()
-{
-	NotPorted(__func__);
-	mc1State_AE400_AE3F0->players_0x340B_13323[mc1State_AE400_AE3F0->currentPlayer_0x08_8].exitGame_0x04_4 = 1;
-	menuDone_96880_96880 = 1;
-}
+void sub_4D3B0_4D6F0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
-void sub_5C05C_5C56C(uint8_t* /*table*/) { NotPorted(__func__); }
+void sub_4AC70_4AFB0() { MenuScreenNotPorted(__func__); }
+//!!!!! not ported yet
+void sub_4BD60_4C0A0() { MenuScreenNotPorted(__func__); }
+//!!!!! not ported yet
+void sub_4D680_4D9C0() { MenuScreenNotPorted(__func__); }
+//!!!!! not ported yet
+void sub_4E5B0_4E8F0() { MenuScreenNotPorted(__func__); }
+//!!!!! not ported yet
+void sub_4F3F0_4F730() { MenuScreenNotPorted(__func__); }
+//!!!!! not ported yet
+void sub_4EFC0_4F300() { MenuScreenNotPorted(__func__); }
+//!!!!! not ported yet
+void sub_4F1E0_4F520() { MenuScreenNotPorted(__func__); }
+//!!!!! not ported yet
+void sub_4EE70_4F1B0() { MenuScreenNotPorted(__func__); }
+//!!!!! not ported yet
+void sub_4D560_4D8A0() { MenuScreenNotPorted(__func__); }
+//!!!!! not ported yet
+void sub_65E00_66310() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_34460_34820() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_61610_61B20(const char* /*path*/) { NotPorted(__func__); }
-//!!!!! not ported yet
-void sub_41540_41880() { NotPorted(__func__); }
+// the sound file groups are not ported yet; the real function is FreeFileGroup_61610_61B20
+void FreeSoundFileGroup_61610_61B20(const char* /*group*/) { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_5D070_5D580(int32_t /*value*/) { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_5CEF0_5D400(int32_t /*value*/) { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_31A60_31AA0() { NotPorted(__func__); }
+void sub_31600_31640() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_407A0_40AE0() { NotPorted(__func__); }
 //!!!!! not ported yet
@@ -85,7 +82,9 @@ void sub_408D0_40C10() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_358A0_35C60() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_34C60_35020() { NotPorted(__func__); }
+void sub_58F00_59410() { NotPorted(__func__); }
+//!!!!! not ported yet
+void RestoreTimer_5A4EA_5A9FA() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_433C0_43700() { NotPorted(__func__); }
 //!!!!! not ported yet

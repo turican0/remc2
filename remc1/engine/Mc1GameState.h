@@ -27,7 +27,8 @@ typedef struct { // size 232713, DOSBox 26C400 (pointer)
 	uint8_t setting_0x2198_8600; // 40 by default
 	uint8_t map_0x2199_8601;
 	uint8_t icons_0x219A_8602;
-	uint8_t unknown_0x219B_8603[0x219E - 0x219B];
+	uint8_t screenSize_0x219B_8603; // 0 full screen (MC2 0x2190)
+	uint8_t unknown_0x219C_8604[0x219E - 0x219C];
 	uint8_t vfx_0x219E_8606;
 	uint8_t unknown_0x219F_8607;
 	int8_t tileTextureSize_0x21A0_8608; // 0x20 (blk?-1) or 0x10 (blk?-0), by the memory
@@ -53,7 +54,9 @@ typedef struct { // size 36478
 	uint8_t unknown_0x1D_29; // copied from byte_A9058
 	uint8_t unknown_0x1E_30[0x75 - 0x1E];
 	char sessionName_0x75_117[32];
-	uint8_t unknown_0x95_149[0xA8 - 0x95];
+	uint8_t unknown_0x95_149[0x97 - 0x95];
+	uint8_t language_0x97_151; // 0-3, chosen on the language screen
+	uint8_t unknown_0x98_152[0xA8 - 0x98];
 	uint8_t* heap_0xA8_168; // allocated by InitMemory
 	uint32_t heapSize_0xAC_172;
 	uint8_t unknown_0xB0_176[36478 - 0xB0];

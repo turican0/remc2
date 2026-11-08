@@ -29,7 +29,6 @@ uint8_t* pointersData_AE448_AE438 = nullptr;
 uint8_t* pointersTab_AE450_AE440 = nullptr;
 uint8_t* pointersTabEnd_AE43C_AE42C = nullptr;
 uint8_t* palette_AE428_AE418 = nullptr;
-uint8_t* workScreen_12EFF4_12EFE4 = nullptr;
 uint8_t* backScreen_AE3FC_AE3EC = nullptr;
 uint8_t* spritesData_AE444_AE434 = nullptr;
 uint8_t* spritesTab_AE42C_AE41C = nullptr;
@@ -70,7 +69,7 @@ Type_Mc1FileEntry searchDFiles_99318_99318[14] = {
 };
 
 Type_Mc1FileEntry screenFilesMcga_997BC_997BC[5] = {
-	{ { "*WScreen", "*WScreen" }, &workScreen_12EFF4_12EFE4, nullptr, 0x11580, 0 },
+	{ { "*WScreen", "*WScreen" }, workScreen_12EFF4_12EFE4, nullptr, 0x11580, 0 },
 	{ { "*BScreen", "*BScreen" }, &backScreen_AE3FC_AE3EC, nullptr, 0x11170, 0 },
 	{ { "data/mspr0-0.dat", "data/mspr1-0.dat" }, &spritesData_AE444_AE434, nullptr, 0, 0 },
 	{ { "data/mspr0-0.tab", "data/mspr1-0.tab" }, &spritesTab_AE42C_AE41C, &spritesTabEnd_AE434_AE424, 0, 0 },
@@ -78,7 +77,7 @@ Type_Mc1FileEntry screenFilesMcga_997BC_997BC[5] = {
 };
 
 Type_Mc1FileEntry screenFilesHires_99898_99898[5] = {
-	{ { "*WScreen", "*WScreen" }, &workScreen_12EFF4_12EFE4, nullptr, 0x4B000, 0 },
+	{ { "*WScreen", "*WScreen" }, workScreen_12EFF4_12EFE4, nullptr, 0x4B000, 0 },
 	{ { "*BScreen", "*BScreen" }, &backScreen_AE3FC_AE3EC, nullptr, 0x11170, 0 },
 	{ { "data/hspr0-0.dat", "data/hspr1-0.dat" }, &spritesData_AE444_AE434, nullptr, 0, 0 },
 	{ { "data/hspr0-0.tab", "data/hspr1-0.tab" }, &spritesTab_AE42C_AE41C, &spritesTabEnd_AE434_AE424, 0, 0 },
@@ -142,6 +141,12 @@ int16_t LoadFileGroup_40440_40780(Type_Mc1FileEntry* group)
 	return errors;
 }
 
+void FreeFileGroup_61610_61B20(Type_Mc1FileEntry* group)
+{
+	for (Type_Mc1FileEntry* entry = group; entry->data_0x1C; entry++)
+		FreeFileEntry_634A0_639B0(entry);
+}
+
 void FreeFileEntry_634A0_639B0(Type_Mc1FileEntry* entry)
 {
 	if (*entry->data_0x1C)
@@ -200,7 +205,7 @@ int32_t ReadPackedFile_3EEA0_3F1E0(const char* path, uint8_t* buffer)
 	int32_t length = (int32_t)DataFileIO::FileLengthBytes(file);
 	DataFileIO::Read(file, buffer, length);
 	DataFileIO::Close(file);
-	int32_t result = DataFileRNC::Decompress(buffer, buffer);
+	int32_t result = DecompressRnc_62B60_63070(buffer, buffer);
 	if (result < 0)
 	{
 		printf("ERROR decompressing %s\n", path);
@@ -225,9 +230,9 @@ void RelocateTabs_59500_59A10(Type_Mc1TabRelocation* list)
 		if (!tab || !tabEnd)
 			continue;
 		*list->index = (bitmap_pos_struct_t*)Malloc_42540_42880((uint32_t)((tabEnd - tab) * sizeof(bitmap_pos_struct_t)));
-		if (videoMode_12F02E_12F01E & 1)
-			CreateIndexDatTabDoubled_98709(tab, tabEnd, *list->data_8, *list->index);
+		if (*videoMode_12F02E_12F01E & 1)
+			CreateIndexDatTabDoubled_65D70_66280(tab, tabEnd, *list->data_8, *list->index);
 		else
-			CreateIndexDatTab_9874D(tab, tabEnd, *list->data_8, *list->index);
+			CreateIndexDatTab_65DC0_662D0(tab, tabEnd, *list->data_8, *list->index);
 	}
 }

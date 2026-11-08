@@ -4,6 +4,7 @@
 #include <string>
 
 #include "../../remc2/portability/bitmap_pos_struct.h"
+#include "Mc1Shared.h"
 
 // MC1 data file tables and loading; DOS record: path[28], data, dataEnd, size, flags (44 bytes)
 
@@ -35,7 +36,7 @@ extern uint8_t* pointersData_AE448_AE438;
 extern uint8_t* pointersTab_AE450_AE440;
 extern uint8_t* pointersTabEnd_AE43C_AE42C;
 extern uint8_t* palette_AE428_AE418;
-extern uint8_t* workScreen_12EFF4_12EFE4;
+// *WScreen is workScreen_12EFF4_12EFE4 (Mc1Shared.h)
 extern uint8_t* backScreen_AE3FC_AE3EC;
 extern uint8_t* spritesData_AE444_AE434;
 extern uint8_t* spritesTab_AE42C_AE41C;
@@ -68,6 +69,7 @@ extern Type_Mc1FileEntry blockFiles32_99738_99738[3];
 
 std::string Mc1DataFilePath(const char* path);
 int16_t LoadFileGroup_40440_40780(Type_Mc1FileEntry* group);
+void FreeFileGroup_61610_61B20(Type_Mc1FileEntry* group);
 void FreeFileEntry_634A0_639B0(Type_Mc1FileEntry* entry);
 int32_t LoadFileEntry_634E0_639F0(Type_Mc1FileEntry* entry);
 int32_t GetFileUnpackSize_63910_63E20(Type_Mc1FileEntry* entry);

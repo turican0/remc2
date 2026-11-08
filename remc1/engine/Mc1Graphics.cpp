@@ -8,7 +8,7 @@ bitmap_pos_struct_t* currentFont_AE44C_AE43C = nullptr;
 
 uint8_t FindNearestColor_5CC70_5D180(const uint8_t* palette, uint8_t red, uint8_t green, uint8_t blue)
 {
-	uint16_t count = (videoMode_12F02E_12F01E & 6) ? 16 : 256;
+	uint16_t count = (*videoMode_12F02E_12F01E & 6) ? 16 : 256;
 	int32_t bestDistance = 9999;
 	//!!!!! the original returns an uninitialized value when no color is closer than 9999
 	uint8_t bestIndex = 0;

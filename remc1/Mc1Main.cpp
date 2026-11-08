@@ -7,6 +7,7 @@
 
 #include "engine/Mc1Files.h"
 #include "engine/Mc1Game.h"
+#include "engine/Mc1Screen.h"
 #include "engine/Mc1System.h"
 #include "engine/Select.h"
 #include "../remc2/engine/CommandLineParser.h"
@@ -56,6 +57,8 @@ int Mc1Main(int argc, char** argv)
 		Main_404F0_40830((int)gameArgs.size(), gameArgv.data());
 		// the original left its memory to DOS
 		FreeMc1Memory();
+		FreeCursorBuffers();
+		*workScreen_12EFF4_12EFE4 = nullptr;
 		mc1State_AE400_AE3F0 = nullptr;
 		mc1Settings_AE408_AE3F8 = nullptr;
 		vesaInfo_12F080_12F070 = nullptr;

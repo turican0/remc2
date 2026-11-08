@@ -4,24 +4,26 @@
 
 // temporary stubs of functions not ported yet; each one moves to its real file when ported from IDA
 
-void sub_44730_44A70();
-void sub_4A980_4ACC0();
 void sub_44700_44A40(uint8_t* text, uint8_t** pointers, int32_t count);
-void FadeInOut_61CC0_621D0(uint8_t* palette, uint8_t steps, int32_t mode);
-void sub_31A00_31A40();
 void sub_34C80();
 void sub_35040();
-void sub_41490_417D0();
-void sub_42530_42870(int32_t value);
-void sub_4AB20();
-void sub_4AE60();
-void sub_5C05C_5C56C(uint8_t* table);
+void sub_50770_50AB0();
+void sub_4D3B0_4D6F0();
+void sub_4AC70_4AFB0();
+void sub_4BD60_4C0A0();
+void sub_4D680_4D9C0();
+void sub_4E5B0_4E8F0();
+void sub_4F3F0_4F730();
+void sub_4EFC0_4F300();
+void sub_4F1E0_4F520();
+void sub_4EE70_4F1B0();
+void sub_4D560_4D8A0();
+void sub_65E00_66310();
 void sub_34460_34820();
-void sub_61610_61B20(const char* path);
-void sub_41540_41880();
+void FreeSoundFileGroup_61610_61B20(const char* group);
 void sub_5D070_5D580(int32_t value);
 void sub_5CEF0_5D400(int32_t value);
-void sub_31A60_31AA0();
+void sub_31600_31640();
 void sub_407A0_40AE0();
 void sub_5D290_5D7A0(int16_t variant);
 void sub_59720_59C30();
@@ -31,7 +33,8 @@ void sub_20E60_20E60();
 void sub_448E0_44C20();
 void sub_408D0_40C10();
 void sub_358A0_35C60();
-void sub_34C60_35020();
+void sub_58F00_59410();
+void RestoreTimer_5A4EA_5A9FA();
 void sub_433C0_43700();
 void InitNetwork_43270_435B0();
 int32_t InitVfx_5AF50_5B460();

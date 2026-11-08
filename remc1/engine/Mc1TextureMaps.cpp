@@ -329,7 +329,7 @@ int32_t ReadTmap_58860_58D70(uint16_t index, uint8_t* buffer)
 	DataFileIO::Seek(tmapsFile_968EC_968EC, TmapOffset(index), 0);
 	int32_t length = (int32_t)(TmapOffset(index + 1) - TmapOffset(index));
 	DataFileIO::Read(tmapsFile_968EC_968EC, buffer, length); // the read length is not checked
-	int32_t result = DataFileRNC::Decompress(buffer, buffer);
+	int32_t result = DecompressRnc_62B60_63070(buffer, buffer);
 	if (result < 0)
 	{
 		printf("ERROR decompressing tmap%03d\n", index);
@@ -352,7 +352,7 @@ void CloseTmaps_58F70_59480()
 void ProcessTmaps_58F90_594A0()
 {
 	OpenTmaps_587E0_58CF0();
-	uint8_t* buffer = workScreen_12EFF4_12EFE4;
+	uint8_t* buffer = *workScreen_12EFF4_12EFE4;
 	for (Type_Mc1SpriteDef_99BA0* def = spriteDefs_99BA0_99BA0; def->width_0x06_6 || def->height_0x08_8; def++)
 	{
 		if (ReadTmap_58860_58D70(def->textureIndex_0x00_0, buffer) == -1)

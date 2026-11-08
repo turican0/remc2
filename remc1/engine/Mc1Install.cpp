@@ -48,7 +48,7 @@ uint8_t CopyDataFiles_3EF50_3F290(const char* sourceDirectory, const char* targe
 {
 	char sourcePath[144];
 	char targetPath[144];
-	uint8_t* buffer = workScreen_12EFF4_12EFE4;
+	uint8_t* buffer = *workScreen_12EFF4_12EFE4;
 
 	if (!PathExists_3EF30_3F270(sourceDirectory))
 		return 2;
@@ -69,7 +69,7 @@ uint8_t CopyDataFiles_3EF50_3F290(const char* sourceDirectory, const char* targe
 	}
 	uint32_t length = (uint32_t)DataFileIO::FileLengthBytes(source);
 	size_t read = DataFileIO::Read(source, buffer, length);
-	DataFileIO::WriteFile_98CAA(target, buffer, (uint32_t)read);
+	WriteFile_62ED0_633E0(target, buffer, (uint32_t)read);
 	DataFileIO::Close(source);
 	DataFileIO::Close(target);
 
@@ -91,7 +91,7 @@ uint8_t CopyDataFiles_3EF50_3F290(const char* sourceDirectory, const char* targe
 				if (done <= 0)
 					break; // a read error loops forever in the original
 				remaining -= done;
-				DataFileIO::WriteFile_98CAA(target, buffer, done);
+				WriteFile_62ED0_633E0(target, buffer, done);
 				copied += done;
 				int16_t percent = (int16_t)(100 * copied / total);
 				if (percent > 100)

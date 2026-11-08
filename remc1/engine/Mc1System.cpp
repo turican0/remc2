@@ -4,10 +4,14 @@
 #include <cstdlib>
 #include <vector>
 
+#include "Mc1Blocks.h"
 #include "Mc1Game.h"
 
 // every block the port allocates, the original left them to DOS at exit
 static std::vector<void*> mc1Allocations;
+
+uint8_t enoughMemory_93950_93950 = 0;
+uint8_t allocationTag_93954_93954 = 1; // stored in every heap block (+10h) by the original allocator
 
 static void* AllocateZeroed(uint32_t size)
 {
@@ -50,7 +54,32 @@ void FreeMc1Memory()
 
 void DetectCpu_19470_19470()
 {
-	// the original reads the CPU and FPU type (192F3, 193EE) and sets the flag for a Pentium with FPU,
+	// the original reads the CPU and FPU type (192F3 and 193EE in both) and sets the flag for a Pentium with FPU,
 	// every machine running the port is at least that
 	mc1Settings_AE408_AE3F8->fastCpu_0x08_8 = 1;
+}
+
+void ShrinkHeapForMenu_41490_417D0()
+{
+	if (largestFreeBlock_1314AC_13149C > 0x96000)
+	{
+		enoughMemory_93950_93950 = 1;
+		return;
+	}
+	enoughMemory_93950_93950 = 0;
+	// port: not reached, largestFreeBlock_1314AC_13149C is 0x1000000; the original frees sound samples (58C30)
+	// until 0x96000 bytes are free and shrinks the heap block of InitMemory_41230_41570 (42730)
+}
+
+void GrowHeapAfterMenu_41540_41880()
+{
+	if (enoughMemory_93950_93950)
+		return;
+	// port: not reached (see ShrinkHeapForMenu_41490_417D0); the original grows the heap block back (427A0)
+	// and fails with "ERROR : UNABLE TO GROW MEMORY.\n"
+}
+
+void SetAllocationTag_42530_42870(uint8_t tag)
+{
+	allocationTag_93954_93954 = tag;
 }

@@ -8,10 +8,14 @@
 #include "Mc1Files.h"
 #include "Mc1Graphics.h"
 #include "Mc1Install.h"
+#include "Mc1Menu.h"
 #include "Mc1NotPorted.h"
+#include "Mc1Screen.h"
 #include "Mc1Search.h"
 #include "Mc1TextureMaps.h"
 #include "Mc1System.h"
+#include "../../remc2/engine/Graphics.h"
+#include "../../remc2/engine/PlayerInput.h"
 #include "../../remc2/portability/port_filesystem.h"
 
 #if defined(__linux__) || defined(__APPLE__)
@@ -30,8 +34,6 @@ uint8_t byte_939E4_939E4 = 0;
 uint8_t byte_939E5_939E5 = 0;
 uint16_t word_939D6_939D6 = 0;
 uint8_t menuDone_96880_96880 = 0;
-uint8_t byte_12CA7C_12CA6C = 0;
-int16_t videoMode_12F02E_12F01E = 0;
 uint8_t* vesaInfo_12F080_12F070 = nullptr;
 uint8_t debugOption_AE45A_AE44A = 0;
 uint8_t inputDevices_90B23_90B23 = 0;
@@ -67,7 +69,7 @@ int TopProcedure_340B0(int argc, char** argv)
 		SetupInstallFiles_3F1D0_3F510();
 		ProcessTmaps_58F90_594A0();
 		InitMemory_41230_41570();
-		sub_44730_44A70();
+		InitGraphics_44730_44A70();
 		if (mc1Settings_AE408_AE3F8->flags_0x00_0 & 0x100)
 		{
 			byte_939CD_939CD = 0;
@@ -78,41 +80,41 @@ int TopProcedure_340B0(int argc, char** argv)
 			sub_44700_44A40(textData_AE41C_AE40C, textPointers_AE238_AE228, 80);
 		}
 		else
-			sub_4A980_4ACC0();
+			InitMenu_4A980_4ACC0();
 
 		CurrentPlayer()->exitGame_0x04_4 = 0;
 		int16_t screenMode = 1;
 		uint32_t seed = 0;
 		while (!CurrentPlayer()->exitGame_0x04_4)
 		{
-			FadeInOut_61CC0_621D0(nullptr, 0x10, 0);
+			FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 			if (!(mc1Settings_AE408_AE3F8->flags_0x00_0 & 0x100))
 			{
-				sub_31A00_31A40();
+				SetFullScreen_31A00_31A40();
 				screenMode = 1;
-				if (videoMode_12F02E_12F01E == 8)
+				if (*videoMode_12F02E_12F01E == 8)
 				{
 					sub_34C80();
 					screenMode = 8;
 				}
-				sub_41490_417D0();
-				sub_42530_42870(2);
+				ShrinkHeapForMenu_41490_417D0();
+				SetAllocationTag_42530_42870(2);
 				byte_939E5_939E5 = byte_939E4_939E4;
-				byte_12CA7C_12CA6C = 1;
+				loadMenuFiles_12CA7C_12CA6C = 1;
 				byte_939CD_939CD = byte_939CC_939CC;
 				menuDone_96880_96880 = 0;
 				do
-					sub_4AB20();
+					RunMenu_4AB20_4AE60();
 				while (!menuDone_96880_96880);
 				SkipMissingLevel_34070();
-				FadeInOut_61CC0_621D0(nullptr, 0x10, 0);
-				sub_5C05C_5C56C(pointersTab_AE450_AE440);
+				FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+				SetCursor_5C05C_5C56C(pointersIndex[0]);
 				if (!CurrentPlayer()->exitGame_0x04_4)
 					sub_34460_34820();
 				LoadGameData_34B00_34EC0();
-				sub_61610_61B20("data/snds0-0.dat");
-				sub_61610_61B20("data/music0-0.dat");
-				sub_41540_41880();
+				FreeSoundFileGroup_61610_61B20("data/snds0-0.dat");
+				FreeSoundFileGroup_61610_61B20("data/music0-0.dat");
+				GrowHeapAfterMenu_41540_41880();
 				if (!CurrentPlayer()->exitGame_0x04_4)
 				{
 					sub_5D070_5D580(0);
@@ -120,18 +122,18 @@ int TopProcedure_340B0(int argc, char** argv)
 				}
 				if (!(mc1Settings_AE408_AE3F8->flags_0x00_0 & 4))
 				{
-					sub_31A00_31A40();
+					SetFullScreen_31A00_31A40();
 					if (screenMode == 8)
 						sub_34C80();
-					sub_31A60_31AA0();
+					RestoreScreenSize_31A60_31AA0();
 				}
-				sub_42530_42870(3);
+				SetAllocationTag_42530_42870(3);
 			}
 			if (!CurrentPlayer()->exitGame_0x04_4)
 			{
 				seed = mc1Settings_AE408_AE3F8->levelIndex_0x11_17;
 				sub_407A0_40AE0();
-				if (videoMode_12F02E_12F01E == 1 && !blurBuffer_AE404_AE3F4)
+				if (*videoMode_12F02E_12F01E == 1 && !blurBuffer_AE404_AE3F4)
 					blurBuffer_AE404_AE3F4 = (uint8_t*)Malloc_42540_42880(64000);
 			}
 			while (!CurrentPlayer()->exitGame_0x04_4)
@@ -147,7 +149,7 @@ int TopProcedure_340B0(int argc, char** argv)
 				GameLoop_34610_349D0();
 				sub_5D010_5D520();
 				sub_20E60_20E60();
-				FadeInOut_61CC0_621D0(nullptr, 0x10, 0);
+				FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 				Type_Mc1Player_340B* player = CurrentPlayer();
 				if ((player->levelResult_0x02_2 & 6) != 4)
 				{
@@ -164,13 +166,13 @@ int TopProcedure_340B0(int argc, char** argv)
 				sub_408D0_40C10();
 				CurrentPlayer()->levelResult_0x02_2 = 4;
 			}
-			FadeInOut_61CC0_621D0(nullptr, 0x10, 0);
+			FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 		}
 		sub_358A0_35C60();
 	}
 	// the original calls an empty function (nullsub_2) when flag 8 is set
-	FadeInOut_61CC0_621D0(nullptr, 0x10, 0);
-	sub_34C60_35020();
+	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+	Cleanup_34C60_35020();
 	sub_433C0_43700();
 	return 0;
 }
@@ -186,7 +188,7 @@ int TopProcedure_34470(int argc, char** argv)
 		SetupInstallFiles_3F1D0_3F510();
 		ProcessTmaps_58F90_594A0();
 		InitMemory_41230_41570();
-		sub_44730_44A70();
+		InitGraphics_44730_44A70();
 		if (mc1Settings_AE408_AE3F8->flags_0x00_0 & 0x100)
 		{
 			byte_939CD_939CD = 0;
@@ -197,41 +199,41 @@ int TopProcedure_34470(int argc, char** argv)
 			sub_44700_44A40(textData_AE41C_AE40C, textPointers_AE238_AE228, 80);
 		}
 		else
-			sub_4A980_4ACC0();
+			InitMenu_4A980_4ACC0();
 
 		CurrentPlayer()->exitGame_0x04_4 = 0;
 		int16_t screenMode = 1;
 		uint32_t seed = 0;
 		while (!CurrentPlayer()->exitGame_0x04_4)
 		{
-			FadeInOut_61CC0_621D0(nullptr, 0x10, 0);
+			FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 			if (!(mc1Settings_AE408_AE3F8->flags_0x00_0 & 0x100))
 			{
-				sub_31A00_31A40();
+				SetFullScreen_31A00_31A40();
 				screenMode = 1;
-				if (videoMode_12F02E_12F01E == 8)
+				if (*videoMode_12F02E_12F01E == 8)
 				{
 					sub_35040();
 					screenMode = 8;
 				}
-				sub_41490_417D0();
-				sub_42530_42870(2);
+				ShrinkHeapForMenu_41490_417D0();
+				SetAllocationTag_42530_42870(2);
 				byte_939E5_939E5 = byte_939E4_939E4;
-				byte_12CA7C_12CA6C = 1;
+				loadMenuFiles_12CA7C_12CA6C = 1;
 				byte_939CD_939CD = byte_939CC_939CC;
 				menuDone_96880_96880 = 0;
 				do
-					sub_4AE60();
+					RunMenu_4AB20_4AE60();
 				while (!menuDone_96880_96880);
 				// Hidden Worlds has all levels, no SkipMissingLevel here
-				FadeInOut_61CC0_621D0(nullptr, 0x10, 0);
-				sub_5C05C_5C56C(pointersTab_AE450_AE440);
+				FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+				SetCursor_5C05C_5C56C(pointersIndex[0]);
 				if (!CurrentPlayer()->exitGame_0x04_4)
 					sub_34460_34820();
 				LoadGameData_34B00_34EC0();
-				sub_61610_61B20("data/snds0-0.dat");
-				sub_61610_61B20("data/music0-0.dat");
-				sub_41540_41880();
+				FreeSoundFileGroup_61610_61B20("data/snds0-0.dat");
+				FreeSoundFileGroup_61610_61B20("data/music0-0.dat");
+				GrowHeapAfterMenu_41540_41880();
 				if (!CurrentPlayer()->exitGame_0x04_4)
 				{
 					sub_5D070_5D580(0);
@@ -239,18 +241,18 @@ int TopProcedure_34470(int argc, char** argv)
 				}
 				if (!(mc1Settings_AE408_AE3F8->flags_0x00_0 & 4))
 				{
-					sub_31A00_31A40();
+					SetFullScreen_31A00_31A40();
 					if (screenMode == 8)
 						sub_35040();
-					sub_31A60_31AA0();
+					RestoreScreenSize_31A60_31AA0();
 				}
-				sub_42530_42870(3);
+				SetAllocationTag_42530_42870(3);
 			}
 			if (!CurrentPlayer()->exitGame_0x04_4)
 			{
 				seed = mc1Settings_AE408_AE3F8->levelIndex_0x11_17;
 				sub_407A0_40AE0();
-				if (videoMode_12F02E_12F01E == 1 && !blurBuffer_AE404_AE3F4)
+				if (*videoMode_12F02E_12F01E == 1 && !blurBuffer_AE404_AE3F4)
 					blurBuffer_AE404_AE3F4 = (uint8_t*)Malloc_42540_42880(64000);
 			}
 			while (!CurrentPlayer()->exitGame_0x04_4)
@@ -266,7 +268,7 @@ int TopProcedure_34470(int argc, char** argv)
 				GameLoop_34610_349D0();
 				sub_5D010_5D520();
 				sub_20E60_20E60();
-				FadeInOut_61CC0_621D0(nullptr, 0x10, 0);
+				FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 				Type_Mc1Player_340B* player = CurrentPlayer();
 				if ((player->levelResult_0x02_2 & 6) != 4)
 				{
@@ -283,12 +285,12 @@ int TopProcedure_34470(int argc, char** argv)
 				sub_408D0_40C10();
 				CurrentPlayer()->levelResult_0x02_2 = 4;
 			}
-			FadeInOut_61CC0_621D0(nullptr, 0x10, 0);
+			FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 		}
 		sub_358A0_35C60();
 	}
-	FadeInOut_61CC0_621D0(nullptr, 0x10, 0);
-	sub_34C60_35020();
+	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+	Cleanup_34C60_35020();
 	sub_433C0_43700();
 	return 0;
 }
@@ -542,9 +544,17 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 	}
 	settings->password_0x19_25 = password;
 	if (result != -1)
-		videoMode_12F02E_12F01E = (int16_t)videoMode;
+		*videoMode_12F02E_12F01E = (int16_t)videoMode;
 	(void)setSound;
 	return result;
+}
+
+void Cleanup_34C60_35020()
+{
+	sub_58F00_59410();
+	ShutdownGraphics_44840_44B80();
+	FreeFileGroup_61610_61B20(searchDFiles_99318_99318);
+	PrintStartTexts_5ACA0_5B1B0();
 }
 
 void PrintStartTexts_5ACA0_5B1B0()
@@ -564,7 +574,7 @@ void PrintLoadingText_5AD10_5B220(const char* text)
 void LoadGameData_34B00_34EC0()
 {
 	LoadFileGroup_40440_40780(searchDFiles_99318_99318);
-	if (videoMode_12F02E_12F01E == 1)
+	if (*videoMode_12F02E_12F01E == 1)
 		LoadFileGroup_40440_40780(screenFilesMcga_997BC_997BC);
 	else
 		LoadFileGroup_40440_40780(screenFilesHires_99898_99898);

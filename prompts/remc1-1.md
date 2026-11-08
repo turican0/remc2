@@ -47,6 +47,8 @@ We always want clean functions—no GOTO statements, well-separated structs, nam
   `REMC1_DUMP=<code linear>,<data linear>,<length>,<file>[;...]` (hex) writes the memory when the instruction
   at the code address runs, `REMC1_DUMP_EXIT=1` ends DOSBox after the last dump. The port's data is compared
   with such a dump (e.g. the sprite table after `ProcessTmaps_58F90_594A0`: 212230 / 212570, 257BA0, FA4).
+  `REMC1_POKE=<code linear>,<data linear>,<hex bytes>[;...]` writes bytes when the instruction runs, to force
+  rarely used paths (e.g. `byte_90B48 = 1` makes the game compute tables.dat; back up the files it writes).
 - Reference code (local clones in `c:\prenos\mc1-ref\`):
   - https://github.com/turican0/remc1 - REMC1 decompilation of the MC1 CD executable.
   - https://github.com/drdanick/Magic-Carpet-1-SDL/tree/port/64bit - playable 64-bit SDL port built on REMC1
@@ -69,6 +71,16 @@ Part of the code only creates the install directories when installing from the C
 - Function maps (in `c:\prenos\dosbox-x-remc1\ida\`): `mc1_hw_map.txt` (CARPET <-> HIDDEN functions),
   `mc1_hw_data_map.txt` (data labels), `mc1_mc2_map.txt` (CARPET <-> NETHERW, identical / similar).
 - Shared with remc2 where the code is the same: rasterizer, 2D blitters, cursor, lines, VGA/palette, RNC, FLI.
+  Every shared variable and function keeps its original identification: `remc1/engine/Mc1Shared.h` declares the
+  MC1 name with the MC1 and HW addresses as a `constexpr` pointer to the remc2 one
+  (`inline constexpr auto FadeInOut_61CC0_621D0 = &VgaPalFadeInFadeOut_90B27;`,
+  `inline constexpr uint8_t** workScreen_12EFF4_12EFE4 = &pdwScreenBuffer_351628;`) and the MC1 code uses only
+  these names. A constexpr pointer compiles to the direct access / call in Release (checked in MSVC asm);
+  references are not used, MSVC loads them through a pointer.
+  What remc2 already replaced by the portability layer is called the remc2 way, without an MC1 name: files go
+  only through the file port (`DataFileIO::CreateOrOpenFile/Read/Close/Seek/FileLengthBytes`, modes 0x200 / 0x222
+  like remc2); a function remc2 keeps with its address (`WriteFile_98CAA`, `OpenWriteClose_98C48`) gets the MC1 name.
+  Find the remc2 equivalent first and follow it.
 - One renderer for MC1, MC1 HW and MC2: renderers get the game state through a scene interface instead of
   reading MC2 globals directly; what MC1 has extra or different is added to the renderer as variants.
   The same applies to the in-game 2D graphics (shared drawing, game-specific UI logic).
