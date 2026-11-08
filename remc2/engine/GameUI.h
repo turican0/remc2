@@ -99,7 +99,7 @@ void CloseHelpPopup_87C10();
 void DrawBottomSpellsMenu_2ECC0();
 void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color);
 void AlphaRectangle(int posX, int posY, int width, int height, uint8_t alphaAmount);
-void DrawChatMenu_2F6B0();
+void DrawChatMenu_2F6B0(uint8_t scale);
 void DrawPopupTextBox_87610();
 void DrawHelpPopUps_871F0();
 void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale = 1);

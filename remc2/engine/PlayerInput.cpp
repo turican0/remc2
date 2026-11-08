@@ -517,10 +517,6 @@ void MouseAndKeysEvents_17A00(int16_t turn)//1f8a00
 	char v23; // al
 	type_entity_0x6E8E* v24x; // ebx
 	unsigned char v27; // al
-	signed int v28; // eax
-	int v29; // eax
-	int v30; // ecx
-	char v32; // [esp-4h] [ebp-Ch]
 	char v33; // [esp+0h] [ebp-8h]
 	char v34; // [esp+4h] [ebp-4h]
 
@@ -744,97 +740,92 @@ void MouseAndKeysEvents_17A00(int16_t turn)//1f8a00
 		LABEL_215:
 			LastPressedKey_1806E4 = 0;
 		LABEL_216:
-			if (videoMode_180660 & 1)
-				v28 = 400;
-			else
-				v28 = screenHeight_180624;
-			v29 = v28 - 72;
-			if (inputState_18058C.mouse_1805B0.x < 4 || inputState_18058C.mouse_1805B0.x >= 66 || v29 + 28 > inputState_18058C.mouse_1805B0.y || v29 + 66 <= inputState_18058C.mouse_1805B0.y)
 			{
-				if (inputState_18058C.mouse_1805B0.x < 384 || inputState_18058C.mouse_1805B0.x >= 654 || v29 + 26 > inputState_18058C.mouse_1805B0.y || v29 + 48 <= inputState_18058C.mouse_1805B0.y)
+				uint8_t scale = 1;
+				if (videoMode_180660 != 1)
+					if (!DefaultResolutions())
+						scale = gameUiScale;
+
+				int16_t chatPosX;
+				int16_t chatPosY;
+				GetChatMenuCoordinates(&chatPosX, &chatPosY, scale);
+
+				const int mouseX = inputState_18058C.mouse_1805B0.x;
+				const int mouseY = inputState_18058C.mouse_1805B0.y;
+				const bool leftClick = inputState_18058C.MouseButtonState_18059C & 1;
+
+				// Rectangle given in the 640 wide layout, relative to the top left of the chat panel
+				auto isMouseOver = [&](int x, int y, int width, int height) {
+					return mouseX >= chatPosX + (x * scale) && mouseX < chatPosX + ((x + width) * scale)
+						&& mouseY >= chatPosY + (y * scale) && mouseY < chatPosY + ((y + height) * scale);
+				};
+
+				if (isMouseOver(4, 28, 62, 38)) // Chat line buttons 1-8, two rows of four
 				{
-					if (inputState_18058C.mouse_1805B0.x < 82 || inputState_18058C.mouse_1805B0.x >= 378 || v29 + 32 > inputState_18058C.mouse_1805B0.y || v29 + 60 <= inputState_18058C.mouse_1805B0.y)
+					if (gameState_D41A4.showHelp_10)
+						helpPopup_1804B0.keyHelpItem_0xa9 = 97;
+					if (leftClick)
 					{
-						if (inputState_18058C.mouse_1805B0.x < 384 || inputState_18058C.mouse_1805B0.x >= 440 || v29 + 4 > inputState_18058C.mouse_1805B0.y || v29 + 22 <= inputState_18058C.mouse_1805B0.y)
-						{
-							if (inputState_18058C.mouse_1805B0.x < 474 || inputState_18058C.mouse_1805B0.x >= 530 || v29 + 4 > inputState_18058C.mouse_1805B0.y || v29 + 22 <= inputState_18058C.mouse_1805B0.y)
-							{
-								if (inputState_18058C.mouse_1805B0.x >= 564
-									&& inputState_18058C.mouse_1805B0.x < 620
-									&& v29 + 4 <= inputState_18058C.mouse_1805B0.y
-									&& v29 + 22 > inputState_18058C.mouse_1805B0.y
-									&& inputState_18058C.MouseButtonState_18059C & 1)
-								{
-									HandleButtonClick_191B0(18, 0);
-								}
-							}
-							else if (inputState_18058C.MouseButtonState_18059C & 1)
-							{
-								HandleButtonClick_191B0(44, 0);
-							}
-						}
-						else if (inputState_18058C.MouseButtonState_18059C & 1)
-						{
-							HandleButtonClick_191B0(19, 0);
-						}
-						goto LABEL_292;
+						int column = (mouseX - (chatPosX + (4 * scale))) / (16 * scale);
+						int row = (mouseY - (chatPosY + (28 * scale))) / (20 * scale);
+						HandleButtonClick_191B0(35, (4 * row) + column);
 					}
-					if (inputState_18058C.mouse_1805B0.x < 82 || inputState_18058C.mouse_1805B0.x >= 150 || v29 + 32 > inputState_18058C.mouse_1805B0.y || v29 + 60 <= inputState_18058C.mouse_1805B0.y)
-					{
-						if (inputState_18058C.mouse_1805B0.x >= 152 && inputState_18058C.mouse_1805B0.x < 220 && v29 + 32 <= inputState_18058C.mouse_1805B0.y && v29 + 60 > inputState_18058C.mouse_1805B0.y)
-						{
-							if (gameState_D41A4.showHelp_10)
-								helpPopup_1804B0.keyHelpItem_0xa9 = 99;
-							if (inputState_18058C.MouseButtonState_18059C & 1)
-								HandleButtonClick_191B0(36, 1);
-							goto LABEL_292;
-						}
-						if (inputState_18058C.mouse_1805B0.x >= 222 && inputState_18058C.mouse_1805B0.x < 290 && v29 + 32 <= inputState_18058C.mouse_1805B0.y && v29 + 60 > inputState_18058C.mouse_1805B0.y)
-						{
-							if (gameState_D41A4.showHelp_10)
-								helpPopup_1804B0.keyHelpItem_0xa9 = 100;
-							if (inputState_18058C.MouseButtonState_18059C & 1)
-								HandleButtonClick_191B0(36, 2);
-							goto LABEL_292;
-						}
-						if (inputState_18058C.mouse_1805B0.x < 310 || inputState_18058C.mouse_1805B0.x >= 378 || v29 + 32 > inputState_18058C.mouse_1805B0.y || v29 + 60 <= inputState_18058C.mouse_1805B0.y)
-							goto LABEL_292;
-						if (gameState_D41A4.showHelp_10)
-							helpPopup_1804B0.keyHelpItem_0xa9 = 101;
-						if (!(inputState_18058C.MouseButtonState_18059C & 1))
-							goto LABEL_292;
-						v32 = 3;
-					}
-					else
-					{
-						if (gameState_D41A4.showHelp_10)
-							helpPopup_1804B0.keyHelpItem_0xa9 = 98;
-						if (!(inputState_18058C.MouseButtonState_18059C & 1))
-							goto LABEL_292;
-						v32 = 0;
-					}
-					HandleButtonClick_191B0(36, v32);
-					goto LABEL_292;
 				}
-				if (gameState_D41A4.showHelp_10)
-					helpPopup_1804B0.keyHelpItem_0xa9 = 102;
-				if (inputState_18058C.MouseButtonState_18059C & 1)
+				else if (isMouseOver(384, 26, 270, 22)) // Player recipient buttons, the local player is skipped
 				{
-					v30 = (inputState_18058C.mouse_1805B0.x - 384) / 34;
-					if (v30 >= world_D41A0.LevelIndex_0xc)
-						v30++;
-					HandleButtonClick_191B0(37, v30);
+					if (gameState_D41A4.showHelp_10)
+						helpPopup_1804B0.keyHelpItem_0xa9 = 102;
+					if (leftClick)
+					{
+						int playerIdx = (mouseX - (chatPosX + (384 * scale))) / (34 * scale);
+						if (playerIdx >= world_D41A0.LevelIndex_0xc)
+							playerIdx++;
+						HandleButtonClick_191B0(37, playerIdx);
+					}
 				}
-			}
-			else
-			{
-				if (gameState_D41A4.showHelp_10)
-					helpPopup_1804B0.keyHelpItem_0xa9 = 97;
-				if (inputState_18058C.MouseButtonState_18059C & 1)
-					HandleButtonClick_191B0(
-						35,
-						4 * ((inputState_18058C.mouse_1805B0.y - (v29 + 28)) / 20)
-						+ ((inputState_18058C.mouse_1805B0.x - 4 - (__CFSHL__((inputState_18058C.mouse_1805B0.x - 4) >> 31, 4) + 16 * ((inputState_18058C.mouse_1805B0.x - 4) >> 31))) >> 4));
+				else if (isMouseOver(82, 32, 68, 28)) // Chat state: all
+				{
+					if (gameState_D41A4.showHelp_10)
+						helpPopup_1804B0.keyHelpItem_0xa9 = 98;
+					if (leftClick)
+						HandleButtonClick_191B0(36, 0);
+				}
+				else if (isMouseOver(152, 32, 68, 28))
+				{
+					if (gameState_D41A4.showHelp_10)
+						helpPopup_1804B0.keyHelpItem_0xa9 = 99;
+					if (leftClick)
+						HandleButtonClick_191B0(36, 1);
+				}
+				else if (isMouseOver(222, 32, 68, 28))
+				{
+					if (gameState_D41A4.showHelp_10)
+						helpPopup_1804B0.keyHelpItem_0xa9 = 100;
+					if (leftClick)
+						HandleButtonClick_191B0(36, 2);
+				}
+				else if (isMouseOver(310, 32, 68, 28)) // Chat state: selected players
+				{
+					if (gameState_D41A4.showHelp_10)
+						helpPopup_1804B0.keyHelpItem_0xa9 = 101;
+					if (leftClick)
+						HandleButtonClick_191B0(36, 3);
+				}
+				else if (isMouseOver(384, 4, 56, 18)) // OK
+				{
+					if (leftClick)
+						HandleButtonClick_191B0(19, 0);
+				}
+				else if (isMouseOver(474, 4, 56, 18)) // Back
+				{
+					if (leftClick)
+						HandleButtonClick_191B0(44, 0);
+				}
+				else if (isMouseOver(564, 4, 56, 18)) // Cancel
+				{
+					if (leftClick)
+						HandleButtonClick_191B0(18, 0);
+				}
 			}
 		LABEL_292:
 			inputState_18058C.MouseButtonState_18059C &= 0xFC;
@@ -2338,8 +2329,8 @@ void ReadOptionMenuEvents_19AB0()//1faab0
 		{
 			helpWidth = screenWidth_18062C;
 			scale = gameUiScale;
-			menuBtnPosY = (screenHeight_180624 / 2) - ((17 * (OPTIONS_MENU_BTN_HEIGHT * scale)) / 2);
-			okayBtnPosY = menuBtnPosY + ((OPTIONS_MENU_BTN_HEIGHT * scale) * 17) + 4;
+			menuBtnPosY = (screenHeight_180624 / 2) - ((OPTIONS_MENU_BTN_COUNT * (OPTIONS_MENU_BTN_HEIGHT * scale)) / 2);
+			okayBtnPosY = menuBtnPosY + ((OPTIONS_MENU_BTN_HEIGHT * scale) * OPTIONS_MENU_BTN_COUNT) + (4 * scale);
 		}
 
 	if (inputState_18058C.joystickMode_1805C2 == 7 || inputState_18058C.joystickMode_1805C2 == 1 || inputState_18058C.joystickMode_1805C2 == 2)
@@ -2784,6 +2775,16 @@ void GetPauseMenuCoordinates_2FFE0(int16_t* posX, int16_t* posY, int16_t* width,
 	*posX = locWidth;
 	locHeight &= 0xFFFFFFFE;
 	*posY = locHeight;
+}
+
+void GetChatMenuCoordinates(int16_t* posX, int16_t* posY, uint8_t scale)
+{
+	int16_t locScreenHeight = screenHeight_180624;
+	if (videoMode_180660 & 1)
+		locScreenHeight = 400;
+
+	*posX = 0;
+	*posY = locScreenHeight - (CHAT_MENU_HEIGHT * scale);
 }
 
 //----- (00010130) --------------------------------------------------------
