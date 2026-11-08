@@ -36,6 +36,162 @@ const Type_Mc1MovieEvent intelEvents_4A1E4_4A524[4] = {
 	{ 0, 1, 0, 0x054F },
 };
 
+// 4A620 / 4A960; the fourth record never matches, its last bytes are the start of the table at 4A638
+const Type_Mc1MovieEvent logoEvents_4A620_4A960[4] = {
+	{ 0, 'A', 10, 0 },
+	{ 0, 'E', 11, 0 },
+	{ 1, 'S', 1, 0 },
+	{ 0, 0x18, 0, 0x0841 },
+};
+
+// 4A1FC / 4A53C; the last record never matches (its frame is lower)
+const Type_Mc1MovieEvent introEvents_4A1FC_4A53C[126] = {
+	{ 0, 'O', 5, 0x0 },
+	{ 0, 'E', 1, 0x0 },
+	{ 0, 'B', 1, 0x0 },
+	{ 1, 'M', 1, 0x0 },
+	{ 1, 'A', 300, 0x0 },
+	{ 4, 'A', 10, 0x0 },
+	{ 20, 'S', 1, 0x0 },
+	{ 20, 'Q', 0, 0x0 },
+	{ 54, 'A', 400, 0x0 },
+	{ 55, 'A', 20, 0x0 },
+	{ 56, 'S', 2, 0x0 },
+	{ 56, 'Q', 1, 0x0 },
+	{ 65, 'A', 90, 0x0 },
+	{ 66, 'Q', 2, 0x0 },
+	{ 66, 'A', 400, 0x0 },
+	{ 68, 'A', 20, 0x0 },
+	{ 76, 'S', 3, 0x0 },
+	{ 76, 'Q', 3, 0x0 },
+	{ 80, 'A', 600, 0x0 },
+	{ 81, 'A', 20, 0x0 },
+	{ 84, 'Q', 4, 0x0 },
+	{ 84, 'S', 4, 0x0 },
+	{ 93, 'A', 700, 0x0 },
+	{ 94, 'A', 20, 0x0 },
+	{ 98, 'S', 5, 0x0 },
+	{ 98, 'Q', 5, 0x0 },
+	{ 106, 'A', 200, 0x0 },
+	{ 107, 'A', 20, 0x0 },
+	{ 110, 'Q', 6, 0x0 },
+	{ 118, 'A', 150, 0x0 },
+	{ 119, 'E', 2, 0x0 },
+	{ 120, 'A', 20, 0x0 },
+	{ 129, 'S', 1, 0x0 },
+	{ 129, 'Q', 7, 0x0 },
+	{ 132, 'A', 400, 0x0 },
+	{ 133, 'A', 20, 0x0 },
+	{ 136, 'Q', 8, 0x0 },
+	{ 145, 'A', 500, 0x0 },
+	{ 146, 'A', 20, 0x0 },
+	{ 152, 'S', 2, 0x0 },
+	{ 152, 'Q', 9, 0x0 },
+	{ 156, 'A', 250, 0x0 },
+	{ 157, 'Q', 10, 0x0 },
+	{ 159, 'A', 20, 0x0 },
+	{ 165, 'S', 3, 0x0 },
+	{ 165, 'Q', 11, 0x0 },
+	{ 169, 'A', 300, 0x0 },
+	{ 170, 'Q', 12, 0x0 },
+	{ 172, 'A', 20, 0x0 },
+	{ 179, 'S', 4, 0x0 },
+	{ 179, 'Q', 13, 0x0 },
+	{ 184, 'A', 500, 0x0 },
+	{ 185, 'A', 20, 0x0 },
+	{ 188, 'S', 5, 0x0 },
+	{ 188, 'Q', 14, 0x0 },
+	{ 197, 'A', 200, 0x0 },
+	{ 198, 'A', 20, 0x0 },
+	{ 210, 'A', 100, 0x0 },
+	{ 211, 'A', 20, 0x0 },
+	{ 211, 'Q', 15, 0x0 },
+	{ 212, 'S', 6, 0x0 },
+	{ 221, 'A', 5, 0x0 },
+	{ 290, 'M', 2, 0x0 },
+	{ 300, 'A', 5, 0x0 },
+	{ 308, 'E', 3, 0x0 },
+	{ 318, 'S', 3, 0x0 },
+	{ 343, 'R', 2, 0x0 },
+	{ 371, 'A', 10, 0x0 },
+	{ 371, 'Q', 16, 0x0 },
+	{ 372, 'S', 1, 0x0 },
+	{ 420, 'A', 2, 0x0 },
+	{ 421, 'I', 0, 0x0 },
+	{ 425, 'P', 5, 0x0 },
+	{ 642, 'T', 2, 0x0 },
+	{ 643, 'S', 4, 0x0 },
+	{ 685, 'A', 80, 0x0 },
+	{ 686, 'A', 2, 0x0 },
+	{ 686, 'E', 4, 0x0 },
+	{ 950, 'S', 1, 0x0 },
+	{ 996, 'Z', 3, 0x0 },
+	{ 1059, 'S', 2, 0x0 },
+	{ 1080, 'S', 11, 0x0 },
+	{ 1214, 'S', 3, 0x0 },
+	{ 1234, 'S', 4, 0x0 },
+	{ 1318, 'R', 5, 0x0 },
+	{ 1534, 'T', 5, 0x0 },
+	{ 1534, 'S', 12, 0x0 },
+	{ 1545, 'S', 2, 0x0 },
+	{ 1655, 'S', 14, 0x0 },
+	{ 1667, 'S', 6, 0x0 },
+	{ 1720, 'S', 7, 0x0 },
+	{ 1800, 'S', 11, 0x0 },
+	{ 1893, 'S', 8, 0x0 },
+	{ 1950, 'S', 13, 0x0 },
+	{ 2027, 'S', 2, 0x0 },
+	{ 2062, 'S', 9, 0x0 },
+	{ 2087, 'S', 6, 0x0 },
+	{ 2125, 'S', 7, 0x0 },
+	{ 2180, 'S', 15, 0x0 },
+	{ 2234, 'S', 6, 0x0 },
+	{ 2282, 'S', 10, 0x0 },
+	{ 2310, 'S', 9, 0x0 },
+	{ 2372, 'A', 100, 0x0 },
+	{ 2373, 'E', 12, 0x0 },
+	{ 2374, 'A', 2, 0x0 },
+	{ 2374, 'S', 4, 0x0 },
+	{ 2395, 'S', 5, 0x0 },
+	{ 2484, 'R', 2, 0x0 },
+	{ 2537, 'S', 1, 0x0 },
+	{ 2594, 'T', 2, 0x0 },
+	{ 2594, 'R', 3, 0x0 },
+	{ 2674, 'T', 3, 0x0 },
+	{ 2697, 'S', 9, 0x0 },
+	{ 2725, 'R', 3, 0x0 },
+	{ 2792, 'T', 3, 0x0 },
+	{ 2796, 'S', 7, 0x0 },
+	{ 2818, 'S', 10, 0x0 },
+	{ 2822, 'S', 8, 0x0 },
+	{ 2831, 'S', 6, 0x0 },
+	{ 2844, 'S', 8, 0x0 },
+	{ 2844, 'S', 11, 0x0 },
+	{ 2925, 'S', 5, 0x0 },
+	{ 2930, 'M', 2, 0x0 },
+	{ 2943, 'A', 200, 0x0 },
+	{ 2944, 'A', 5, 0x0 },
+	{ 234, 0x0, 1345, 0x0 },
+};
+
+// 4A568 / 4A8A8
+const Type_Mc1MovieEvent titleEvents_4A568_4A8A8[16] = {
+	{ 0, 'A', 5, 0 }, { 0, 'E', 10, 0 }, { 2, 'S', 1, 0 }, { 12, 'S', 2, 0 }, { 18, 'S', 2, 0 },
+	{ 24, 'S', 1, 0 }, { 34, 'S', 2, 0 }, { 40, 'S', 1, 0 }, { 48, 'S', 1, 0 }, { 56, 'S', 2, 0 },
+	{ 62, 'S', 1, 0 }, { 80, 'S', 2, 0 }, { 86, 'S', 1, 0 }, { 92, 'S', 1, 0 }, { 100, 'S', 2, 0 },
+	{ 0xFFFF, 0, 0, 0 },
+};
+
+uint8_t* titleAnimation_12CB64_12CB54 = nullptr;
+uint8_t* titleLoop_12CB68_12CB58 = nullptr;
+uint8_t* titleFrame_12CB6C_12CB5C = nullptr;
+int16_t titleFrameIndex_12CB70_12CB60 = 0;
+
+Type_Mc1FileEntry titleFiles_4A0D4_4A414[2] = {
+	{ { "intro/title-02.dat", "intro/title-04.dat" }, &titleAnimation_12CB64_12CB54, nullptr, 0, 0 },
+	{ { "", "" }, nullptr, nullptr, 0, 0 },
+};
+
 static void WaitForEvents()
 {
 	// port: the original waits for the timer interrupt, the port lets SDL deliver the input and the timer
@@ -403,4 +559,122 @@ void PlayIntelIntro_4EFC0_4F300()
 		ClearAndBlitScreen();
 	}
 	mainMenuItem_12CBCE_12CBBE = 9;
+}
+
+void PlayLogoIntro_4EE70_4F1B0()
+{
+	if (!inputDevices_90B23_90B23)
+		SetCursor_5C05C_5C56C(bitmap_pos_struct_t{});
+	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+	ClearAndBlitScreen();
+	sprintf(moviePath_9ADC8_9ADC8, "intro/logo.dat"); // intro\logo.dat
+	*mouseMiddlePressed_12EFDA_12EFCA = 0;
+	*mouseRightPressed_12EFDC_12EFCC = 0;
+	*mouseLeftPressed_12EFDE_12EFCE = 0;
+	*lastKey_12EF70_12EF60 = 0;
+	skipOnInput_90026_90026 = 0;
+	PlayMovie_107C0_107C0(1, 1, logoEvents_4A620_4A960);
+	WaitSeconds_4B480_4B7C0(nullptr, 8);
+	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+	sub_5D010_5D520();
+	sub_20E60_20E60();
+	ClearAndBlitScreen();
+	mainMenuItem_12CBCE_12CBBE = 0;
+}
+
+void PlayMainIntro_4D3B0_4D6F0()
+{
+	if (!inputDevices_90B23_90B23)
+		SetCursor_5C05C_5C56C(bitmap_pos_struct_t{});
+	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+	ClearAndBlitScreen();
+	sprintf(moviePath_9ADC8_9ADC8, "intro/intro.dat"); // intro\intro.dat
+	*mouseRightPressed_12EFDC_12EFCC = 0;
+	*mouseLeftPressed_12EFDE_12EFCE = 0;
+	(*pressedKeys_12EEF0_12EEE0)[1] = 0;
+	*lastKey_12EF70_12EF60 = 0;
+	if (menuFlags_12CBD5_12CBC5 & 2)
+	{
+		// intro.pld existed, the intro can be skipped
+		if (byte_12CBD6_12CBC6 & 1)
+			skipOnInput_90026_90026 = 1;
+		PlayMovie_107C0_107C0(1, 1, introEvents_4A1FC_4A53C);
+		skipOnInput_90026_90026 = 0;
+	}
+	else
+		PlayMovie_107C0_107C0(0, 1, introEvents_4A1FC_4A53C);
+	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+	sub_24BB0_24BB0(0); //!!!!! the original calls it without an argument (stack garbage)
+	sub_5D010_5D520();
+	sub_20E60_20E60();
+	ClearAndBlitScreen();
+	menuFlags_12CBD5_12CBC5 |= 6;
+	if (!(byte_12CBD6_12CBC6 & 1))
+		mainMenuItem_12CBCE_12CBBE = 8;
+	else
+	{
+		mainMenuItem_12CBCE_12CBBE = 2;
+		byte_12CBD6_12CBC6 &= 0xFE;
+	}
+	menuFlags_12CBD5_12CBC5 &= 0xFE;
+}
+
+void AnimateTitle_4F120_4F460()
+{
+	uint32_t start = timerTicks_AC5D4_AC5C4;
+	titleFrame_12CB6C_12CB5C = (uint8_t*)DecodeAnimationFrame_1002D_1002D((int8_t*)titleFrame_12CB6C_12CB5C,
+		(int8_t*)*workScreen_12EFF4_12EFE4);
+	titleFrameIndex_12CB70_12CB60++;
+	if (titleFrameIndex_12CB70_12CB60 == 5)
+	{
+		// frames 1-4 loop
+		titleFrameIndex_12CB70_12CB60 = 1;
+		titleFrame_12CB6C_12CB5C = titleLoop_12CB68_12CB58;
+	}
+	else if (titleFrameIndex_12CB70_12CB60 == 1 && !titleLoop_12CB68_12CB58)
+		titleLoop_12CB68_12CB58 = titleFrame_12CB6C_12CB5C;
+	BlitScreen();
+	if (*mouseLeftPressed_12EFDE_12EFCE || *mouseRightPressed_12EFDC_12EFCC || *mouseMiddlePressed_12EFDA_12EFCA
+		|| *lastKey_12EF70_12EF60)
+		return;
+	while (start + 16 >= timerTicks_AC5D4_AC5C4)
+		WaitForEvents();
+}
+
+void TitleScreen_4F1E0_4F520()
+{
+	if (!inputDevices_90B23_90B23)
+		SetCursor_5C05C_5C56C(bitmap_pos_struct_t{});
+	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+	ClearAndBlitScreen();
+	// the animated title needs the big textures (enough memory)
+	bool animated = mc1State_AE400_AE3F0->tileTextureSize_0x21A0_8608 == 0x20;
+	if (animated)
+	{
+		LoadFileGroup_40440_40780(titleFiles_4A0D4_4A414);
+		titleFrame_12CB6C_12CB5C = titleAnimation_12CB64_12CB54;
+		titleLoop_12CB68_12CB58 = nullptr;
+		titleFrameIndex_12CB70_12CB60 = 0;
+	}
+	// intro\title-01.dat / intro\title-03.dat
+	sprintf(moviePath_9ADC8_9ADC8, "%s", mc1Variant == MC1_VARIANT_HW ? "intro/title-03.dat" : "intro/title-01.dat");
+	*mouseMiddlePressed_12EFDA_12EFCA = 0;
+	*mouseRightPressed_12EFDC_12EFCC = 0;
+	*mouseLeftPressed_12EFDE_12EFCE = 0;
+	*lastKey_12EF70_12EF60 = 0;
+	if (byte_12CBD6_12CBC6 & 2)
+		skipOnInput_90026_90026 = 1;
+	PlayMovie_107C0_107C0(1, 1, titleEvents_4A568_4A8A8);
+	skipOnInput_90026_90026 = 0;
+	if (!*movieStop_AC5DC_AC5CC)
+		WaitSeconds_4B480_4B7C0(animated ? AnimateTitle_4F120_4F460 : nullptr, 6);
+	dword_12CBB0_12CBA0 = 0;
+	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+	sub_5D010_5D520();
+	sub_20E60_20E60();
+	ClearAndBlitScreen();
+	if (animated)
+		FreeFileGroup_61610_61B20(titleFiles_4A0D4_4A414);
+	mainMenuItem_12CBCE_12CBBE = 2;
+	byte_12CBD6_12CBC6 &= 0xFD;
 }

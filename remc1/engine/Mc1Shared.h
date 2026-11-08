@@ -88,6 +88,7 @@ inline constexpr auto ReadPalette_108C0_108C0 = &ReadIntroPalettes_76260; // the
 inline constexpr auto DecodeSs2_10960_10960 = &DecodeFlcDeltaChunk_76300;
 inline constexpr auto DecodeLc_10AB0_10AB0 = &DecodeFliLineCompressChunk_76430;
 inline constexpr auto DecodeBrun_10BD0_10BD0 = &DecodeFliByteRunChunk_76540;
+inline constexpr auto DecodeAnimationFrame_1002D_1002D = &DecodeAnimationFrame_76619;
 inline constexpr auto WaitBeam_5CC54_5D164 = &fix_sub_9A0FC_wait_to_screen_beam; // port: the frame delay argument
 
 // SELECT.EXE, the selector (one executable, one address)

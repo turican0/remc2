@@ -29,17 +29,11 @@ void sub_35040() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_3FCA0_3FFE0(int32_t /*mode*/, int32_t /*minX*/, int32_t /*minY*/, int32_t /*maxX*/, int32_t /*maxY*/, int32_t /*stepX*/, int32_t /*stepY*/) { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_4D3B0_4D6F0() { MenuScreenNotPorted(__func__); }
-//!!!!! not ported yet
 void sub_4BD60_4C0A0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
 void sub_4D680_4D9C0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
 void sub_4E5B0_4E8F0() { MenuScreenNotPorted(__func__); }
-//!!!!! not ported yet
-void sub_4F1E0_4F520() { MenuScreenNotPorted(__func__); }
-//!!!!! not ported yet
-void sub_4EE70_4F1B0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
 void sub_4D560_4D8A0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet

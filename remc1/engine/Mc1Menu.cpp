@@ -215,7 +215,7 @@ void RunMenu_4AB20_4AE60()
 	switch (mainMenuItem_12CBCE_12CBBE)
 	{
 	case 0:
-		sub_4D3B0_4D6F0();
+		PlayMainIntro_4D3B0_4D6F0();
 		break;
 	case 1:
 		SoundSetup_4AC70_4AFB0();
@@ -236,10 +236,10 @@ void RunMenu_4AB20_4AE60()
 		PlayIntelIntro_4EFC0_4F300();
 		break;
 	case 8:
-		sub_4F1E0_4F520();
+		TitleScreen_4F1E0_4F520();
 		break;
 	case 9:
-		sub_4EE70_4F1B0();
+		PlayLogoIntro_4EE70_4F1B0();
 		break;
 	case 10:
 		sub_4D560_4D8A0();

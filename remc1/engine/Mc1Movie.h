@@ -2,6 +2,8 @@
 
 #include <cstdint>
 
+#include "Mc1Files.h"
+
 // MC1 FLI player (intro\*.dat) with its frame events; the chunk decoders and the player state are shared with
 // remc2 (Mc1Shared.h), the frame reading, the timing and the events are MC1's own
 
@@ -34,6 +36,14 @@ extern int16_t savedMouseY_B7316_B7306;
 extern int16_t savedKey_B7318_B7308;
 extern int32_t inputChanged_AE410_AE400;
 extern const Type_Mc1MovieEvent intelEvents_4A1E4_4A524[4];
+extern const Type_Mc1MovieEvent logoEvents_4A620_4A960[4];
+extern const Type_Mc1MovieEvent titleEvents_4A568_4A8A8[16];
+extern uint8_t* titleAnimation_12CB64_12CB54; // intro\title-02.dat / title-04.dat
+extern uint8_t* titleLoop_12CB68_12CB58;
+extern uint8_t* titleFrame_12CB6C_12CB5C;
+extern int16_t titleFrameIndex_12CB70_12CB60;
+extern Type_Mc1FileEntry titleFiles_4A0D4_4A414[2];
+extern const Type_Mc1MovieEvent introEvents_4A1FC_4A53C[126];
 
 void WaitMovieFrame_10300_10300();
 void ReadMovieFrame_103F0_103F0();
@@ -44,4 +54,8 @@ void InitInputChange_356E0_35AA0();
 int32_t InputChanged_35710_35AD0();
 int32_t CheckQuitKey_4B430_4B770();
 void WaitSeconds_4B480_4B7C0(void (*callback)(), int32_t seconds);
+void PlayMainIntro_4D3B0_4D6F0();
+void PlayLogoIntro_4EE70_4F1B0();
+void AnimateTitle_4F120_4F460();
+void TitleScreen_4F1E0_4F520();
 void PlayIntelIntro_4EFC0_4F300();
