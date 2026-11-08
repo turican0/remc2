@@ -998,7 +998,10 @@ void PlayerEvents_51BB0()//232bb0
 					// ordinary chat line either.
 					if (i == world_D41A0.LevelIndex_0xc
 						&& !(gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE))
+					{
 						gameState_D41A4.setting_byte2_23 |= 0x80u;
+						ShowMessage_52D70(i, (char*)".. CHEATS ENABLED");
+					}
 				}
 				else
 				{
