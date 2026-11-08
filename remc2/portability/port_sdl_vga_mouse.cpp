@@ -1305,6 +1305,8 @@ void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
 
 void VGA_close()
 {
+	if (!m_initiated)
+		return;
 	clean_up_sound();
 	gamepad_sdl_close();
 	SDL_FreeSurface(m_surfaceFont);
@@ -1316,6 +1318,7 @@ void VGA_close()
 	SDL_DestroyWindow(m_window);
 	m_window = nullptr;
 	SDL_Quit();
+	m_initiated = false; // a later VGA_Init (MC1 after the selector) opens the window again
 	//free(m_currentPalletColours);
 }
 
