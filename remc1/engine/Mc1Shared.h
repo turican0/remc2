@@ -38,6 +38,12 @@ inline constexpr int16_t* mouseRightDown_12EFE2_12EFD2 = &mouseRightButton2_1807
 inline constexpr int16_t* mouseLeftDown_12EFE4_12EFD4 = &mouseLeftButton2_18074C;
 inline constexpr uint32_t* screenWidth_12EFF0_12EFE0 = &screenWidth_18062C;
 inline constexpr uint32_t* screenHeight_12EFF8_12EFE8 = &screenHeight_180624;
+inline constexpr int* viewportWidth_12F000_12EFF0 = &clipWidth_180648; // set by SetViewport_65EB0_663C0
+inline constexpr int* viewportX_12F008_12EFF8 = &viewportX_18063C;
+inline constexpr int* viewportBottom_12F010_12F000 = &viewportHeight_180630; // y + height
+inline constexpr int* viewportY_12F018_12F008 = &viewportY_180650;
+inline constexpr int* viewportRight_12F024_12F014 = &viewportWidth_180634; // x + width
+inline constexpr int* viewportHeight_12F028_12F018 = &clipHeight_180644;
 inline constexpr int* renderWidth_93AD4_93AD4 = &iScreenWidth_DE560; // set by 79495 / 799A5 (MC2 BCD45)
 
 // functions

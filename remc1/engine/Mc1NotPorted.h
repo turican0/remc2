@@ -9,10 +9,6 @@
 void sub_34C80();
 void sub_35040();
 void sub_3FCA0_3FFE0(int32_t mode, int32_t minX, int32_t minY, int32_t maxX, int32_t maxY, int32_t stepX, int32_t stepY);
-void sub_50030_50370(); // name and password
-int32_t SaveDialog_4CCA0_4CFE0();
-void LoadGame_51AF0_51E30(uint16_t slot);
-void SaveGame_51C90_51FD0(uint16_t slot);
 void sub_4D680_4D9C0();
 void sub_4E5B0_4E8F0();
 void sub_4D560_4D8A0();

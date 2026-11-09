@@ -489,7 +489,7 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 	state->setting_0x2198_8600 = 40;
 	state->playerCount_0x0A_10 = (uint16_t)players;
 	strcpy(settings->sessionName_0x75_117, sessionName);
-	settings->unknown_0x1D_29 = byte_A9058_A9058;
+	settings->playerName_0x1D_29[0] = byte_A9058_A9058;
 	if (!detail)
 	{
 		state->reflections_0x2195_8597 = 0;

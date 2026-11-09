@@ -9,7 +9,6 @@
 #include "Mc1Graphics.h"
 #include "Mc1Install.h"
 #include "Mc1Menu.h"
-#include "Mc1NotPorted.h"
 #include "Mc1Shared.h"
 #include "Mc1Sound.h"
 #include "Mc1System.h"
@@ -52,7 +51,7 @@ const Type_Mc1SlotWindow slotWindows_4A7EC_4AB2C[6] = {
 const Type_Mc1MainMenuArea mainMenuAreas_4A12C_4A46C[13] = {
 	{ nullptr, 0 },
 	{ NewGame_4FF30_50270, 0 },
-	{ sub_50030_50370, 0 },
+	{ EnterNameAndPassword_50030_50370, 0 },
 	{ NetworkGame_4FEB0_501F0, 0 },
 	{ QuitGame_4FD20_50060, 0 },
 	{ nullptr, 1 },
@@ -218,13 +217,13 @@ void MainMenu_4BD60_4C0A0()
 				break;
 			case 1:
 				if (area.type_4 >= 1 && area.type_4 <= 6 && Confirm_4F8D0_4FC10(DrawLoadConfirm_4CC00_4CF40))
-					LoadGame_51AF0_51E30(area.type_4);
+					LoadGame_51AF0_51E30((uint8_t)area.type_4);
 				redrawn = true;
 				RedrawMainMenu();
 				break;
 			case 2:
 				if (area.type_4 >= 1 && area.type_4 <= 6 && SaveDialog_4CCA0_4CFE0())
-					SaveGame_51C90_51FD0(area.type_4);
+					SaveGame_51C90_51FD0((uint8_t)area.type_4);
 				redrawn = true;
 				RedrawMainMenu();
 				break;
@@ -677,4 +676,450 @@ void HighlightArea_51E84_521C4(const uint8_t* source, uint8_t* dest, const uint8
 	uint32_t count = *screenHeight_12EFF8_12EFE8 * *screenWidth_12EFF0_12EFE0;
 	for (uint32_t i = 0; i < count; i++)
 		dest[i] = mask[i] == area ? table[source[i]] : source[i];
+}
+
+// scan code -> allowed in the password (12CBD5 & 20h), without / with Shift
+const uint8_t passwordKeys_4A84B_4AB8B[0x3A] = {
+	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00,
+	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
+	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01,
+	0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+};
+const uint8_t passwordKeysShift_4A884_4ABC4[0x3A] = {
+	0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
+	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01,
+	0x01, 0x01, 0x01, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00,
+};
+// scan code -> character, without / with Shift (UK keyboard); each table ends with the first byte of the next
+const uint8_t keyChars_4A905_4AC45[0x3A] = {
+	0x00, 0x00, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x30, 0x2D, 0x3D, 0x00, 0x00,
+	0x71, 0x77, 0x65, 0x72, 0x74, 0x79, 0x75, 0x69, 0x6F, 0x70, 0x5B, 0x5D, 0x00, 0x00, 0x61, 0x73,
+	0x64, 0x66, 0x67, 0x68, 0x6A, 0x6B, 0x6C, 0x3B, 0x27, 0x60, 0x00, 0x23, 0x7A, 0x78, 0x63, 0x76,
+	0x62, 0x6E, 0x6D, 0x2C, 0x2E, 0x2F, 0x00, 0x00, 0x00, 0x20,
+};
+const uint8_t keyCharsShift_4A93E_4AC7E[0x3A] = {
+	0x20, 0x00, 0x21, 0x22, 0x5C, 0x24, 0x25, 0x5E, 0x26, 0x2A, 0x28, 0x29, 0x5F, 0x2B, 0x00, 0x00,
+	0x51, 0x57, 0x45, 0x52, 0x54, 0x59, 0x55, 0x49, 0x4F, 0x50, 0x7B, 0x7D, 0x00, 0x00, 0x41, 0x53,
+	0x44, 0x46, 0x47, 0x48, 0x4A, 0x4B, 0x4C, 0x3A, 0x40, 0x7E, 0x00, 0x7C, 0x5A, 0x58, 0x43, 0x56,
+	0x42, 0x4E, 0x4D, 0x3C, 0x3E, 0x3F, 0x00, 0x00, 0x00, 0x20,
+};
+
+static void DrawPrompt(const char* text)
+{
+	Type_Mc1TextWindow_12C970 window;
+	GetTextWindow_513A0_516E0(&window);
+	CopyFullScreen(backScreen_AE3FC_AE3EC, *workScreen_12EFF4_12EFE4);
+	int32_t width = TextWidth_51420_51760(&mainMenuFont_9688C_9688C, text);
+	DrawText_51560_518A0(&mainMenuFont_9688C_9688C, (int16_t)((window.width_16 - width) / 2), 0x0A, text);
+}
+
+// the scroll unrolls over the menu (4F8D0, 50030, 4CCA0)
+static void UnrollScroll()
+{
+	CopyFullScreen(backScreen_AE3FC_AE3EC, screenBackup_12CBA4_12CB94);
+	if (!inputDevices_90B23_90B23)
+		SetCursor_5C05C_5C56C(bitmap_pos_struct_t{});
+	BlitScreen();
+	sprintf(moviePath_9ADC8_9ADC8, "%s", "intro/scroll.dat");
+	frameCallback_AC5C4_AC5B4 = ScrollFrame_50470_507B0;
+	skipOnInput_90026_90026 = 0;
+	PlayMovie_107C0_107C0(0, 0, scrollEvents_4A17C_4A4BC);
+	CopyFullScreen(*workScreen_12EFF4_12EFE4, backScreen_AE3FC_AE3EC);
+	frameCallback_AC5C4_AC5B4 = nullptr;
+	if (!inputDevices_90B23_90B23)
+		SetCursor_5C05C_5C56C(menuSpritesIndex[mainMenuItem_12CBCE_12CBBE]);
+}
+
+void EnterNameAndPassword_50030_50370()
+{
+	int8_t* keys = *pressedKeys_12EEF0_12EEE0;
+	UnrollScroll();
+	SaveTextWindow_513E0_51720();
+	SetTextWindow_51360_516A0(0x46, 0x49, 0xB3, 0x30);
+	TextInput_50D40_51080(8, 0x19, 0x1E, nullptr, mc1Settings_AE408_AE3F8->playerName_0x1D_29, 0xFF, 0,
+		DrawNamePrompt_50350_50690, 1, &mainMenuFont_9688C_9688C);
+	// the password only of the letters and digits of passwordKeys_4A84B_4AB8B
+	menuFlags_12CBD5_12CBC5 |= 0x20;
+	keys[0x1C] = 0;
+	inputFlags_12CAE4_12CAD4[0] &= 0xFE;
+	TextInput_50D40_51080(8, 0x19, 8, nullptr, mc1Settings_AE408_AE3F8->password_0x3D_61, 0xFF, 0,
+		DrawPasswordPrompt_503E0_50720, 1, &mainMenuFont_9688C_9688C);
+	keys[0x1C] = 0;
+	menuFlags_12CBD5_12CBC5 &= 0xDF;
+	inputFlags_12CAE4_12CAD4[0] &= 0xFE;
+	CopyFullScreen(screenBackup_12CBA4_12CB94, backScreen_AE3FC_AE3EC);
+	mainMenuItem_12CBCE_12CBBE = 2;
+	DrawMainMenuIntoBackScreen();
+	// the drawn menu is covered again, the next frame of the menu draws it
+	CopyFullScreen(screenBackup_12CBA4_12CB94, backScreen_AE3FC_AE3EC);
+	CopyFullScreen(backScreen_AE3FC_AE3EC, *workScreen_12EFF4_12EFE4);
+	BlitScreen();
+	RestoreTextWindow_51400_51740();
+}
+
+void DrawNamePrompt_50350_50690()
+{
+	// AE2C0: text 34
+	DrawPrompt((const char*)textPointers_AE238_AE228[34]);
+}
+
+void DrawPasswordPrompt_503E0_50720()
+{
+	// AE2C4: text 35
+	DrawPrompt((const char*)textPointers_AE238_AE228[35]);
+}
+
+int32_t TextInput_50D40_51080(int32_t x, int16_t y, int16_t maxLength, const char* prompt, char* text, uint8_t color,
+	int32_t /*unused*/, void (*draw)(), uint8_t align, Type_Mc1Font_96884* font)
+{
+	char* cursor = text;
+	char* end = text + strlen(text);
+	char* limit = text + maxLength;
+	const bool insert = true; // never changed, Insert does nothing
+	int32_t textX = 0;
+	int32_t result = 0; // 1 Enter / click, 2 Esc
+	*mouseRightPressed_12EFDC_12EFCC = 0;
+	*mouseLeftPressed_12EFDE_12EFCE = 0;
+	Type_Mc1TextWindow_12C970 window;
+	GetTextWindow_513A0_516E0(&window);
+	if (prompt)
+		textX = TextWidth_51420_51760(font, prompt);
+	textX += x;
+	do
+	{
+		if (*mouseLeftPressed_12EFDE_12EFCE)
+			result = 1;
+		uint8_t key = *lastKey_12EF70_12EF60;
+		switch (key)
+		{
+		case 0x0F: // Tab
+		case 0x2A: // Shift
+		case 0x36:
+		case 0x52: // Insert
+			break;
+		case 0x01: // Esc
+			result = 2;
+			break;
+		case 0x1C: // Enter
+			result = 1;
+			break;
+		case 0x0E: // Backspace
+			if (cursor > text)
+			{
+				cursor--;
+				end--;
+				DeleteText_51330_51670(cursor, 1);
+			}
+			break;
+		case 0x53: // Delete
+			if (cursor < end)
+			{
+				end--;
+				DeleteText_51330_51670(cursor, 1);
+			}
+			break;
+		case 0x4B: // Left
+			if (cursor > text)
+				cursor--;
+			break;
+		case 0x4D: // Right
+			if (cursor < end)
+				cursor++;
+			break;
+		case 0x47: // Home
+			cursor = text;
+			break;
+		case 0x4F: // End
+			cursor = end;
+			break;
+		default:
+		{
+			bool shift = (*pressedKeys_12EEF0_12EEE0)[0x2A] || (*pressedKeys_12EEF0_12EEE0)[0x36];
+			// port: the keys over 39h are tested first, the original reads its tables beyond their end for them
+			if (!key || key > 0x39)
+				break;
+			if ((menuFlags_12CBD5_12CBC5 & 0x20) && !(shift ? passwordKeysShift_4A884_4ABC4 : passwordKeys_4A84B_4AB8B)[key])
+				break;
+			if (!((insert && end < limit) || (!insert && cursor < limit)))
+				break;
+			char typed[2] = { (char)(shift ? keyCharsShift_4A93E_4AC7E : keyChars_4A905_4AC45)[key], 0 };
+			if (insert)
+			{
+				InsertText_512D0_51610(cursor, typed);
+				if (cursor < limit)
+				{
+					cursor++;
+					end++;
+				}
+			}
+			else
+			{
+				*cursor = typed[0];
+				if (cursor < limit)
+					cursor++;
+				if (cursor > end)
+				{
+					end = cursor;
+					*cursor = 0;
+				}
+			}
+			// 50FE0: the character that does not fit the window is removed again
+			int32_t room = align == 1 ? window.width_16 - 2 * (int16_t)x : window.width_16 - (int16_t)x;
+			if (TextWidth_51420_51760(font, text) >= room && insert && cursor > text)
+			{
+				cursor--;
+				end--;
+				DeleteText_51330_51670(cursor, 1);
+			}
+			break;
+		}
+		}
+		*lastKey_12EF70_12EF60 = 0;
+		draw();
+		font->color1_0x06_6 = color;
+		DrawText_51560_518A0(font, (int16_t)x, y, prompt);
+		if (align == 0)
+			DrawText_51560_518A0(font, (int16_t)textX, y, text);
+		else if (align == 1)
+			DrawText_51560_518A0(font, (int16_t)((window.width_16 - TextWidth_51420_51760(font, text)) / 2), y, text);
+		// 5110F: the cursor under the character at the cursor (a space at the end)
+		char before[0x90];
+		int16_t index = (int16_t)(cursor - text);
+		strcpy(before, text);
+		uint8_t under = (uint8_t)before[index];
+		if (!under)
+			under = ' ';
+		before[index] = 0;
+		const bitmap_pos_struct_t& glyph = font->glyphs_0x00_0[under - 0x20];
+		int32_t cursorX;
+		if (align == 0)
+			cursorX = TextWidth_51420_51760(font, before) + (int16_t)textX + window.left_0;
+		else
+			cursorX = (window.width_16 - TextWidth_51420_51760(font, text)) / 2 + TextWidth_51420_51760(font, before)
+				+ window.left_0;
+		FillRect_51ECC_5220C(cursorX, y + glyph.height_5 - 2 + window.top_8, glyph.width_4, 2, 0xFF, 0);
+		BlitScreen();
+	} while (!(int16_t)result);
+	*mouseRightPressed_12EFDC_12EFCC = 0;
+	*mouseLeftPressed_12EFDE_12EFCE = 0;
+	*lastKey_12EF70_12EF60 = 0;
+	(*pressedKeys_12EEF0_12EEE0)[0x01] = 0;
+	(*pressedKeys_12EEF0_12EEE0)[0x1C] = 0;
+	return (int16_t)result == 1;
+}
+
+char* InsertText_512D0_51610(char* dest, const char* text)
+{
+	int16_t length = (int16_t)strlen(text);
+	memmove(dest + length, dest, strlen(dest) + 1);
+	memcpy(dest, text, length);
+	return dest;
+}
+
+void DeleteText_51330_51670(char* dest, int16_t count)
+{
+	memmove(dest, dest + count, strlen(dest + count) + 1);
+}
+
+void FillRect_51ECC_5220C(int32_t x, int32_t y, int32_t width, int32_t height, uint8_t color, uint8_t mode)
+{
+	// in the viewport of SetViewport_65EB0_663C0
+	if (y >= *viewportBottom_12F010_12F000)
+		return;
+	if (y < 0)
+	{
+		height += y;
+		y = 0;
+	}
+	if (y + height > *viewportHeight_12F028_12F018)
+		height = *viewportHeight_12F028_12F018 - y;
+	if (height <= 0)
+		return;
+	if (x >= *viewportRight_12F024_12F014)
+		return;
+	if (x < 0)
+	{
+		width += x;
+		x = 0;
+	}
+	if (x + width > *viewportWidth_12F000_12EFF0)
+		width = *viewportWidth_12F000_12EFF0 - x;
+	if (width <= 0)
+		return;
+	// 51F68: modes 1-3 draw nothing
+	if ((mode & 3) != 0)
+		return;
+	uint8_t* dest = *workScreen_12EFF4_12EFE4 + (y + *viewportY_12F018_12F008) * (int32_t)*screenWidth_12EFF0_12EFE0 + x
+		+ *viewportX_12F008_12EFF8;
+	for (int32_t row = 0; row < height; row++, dest += *screenWidth_12EFF0_12EFE0)
+		memset(dest, color, width);
+}
+
+int32_t SaveDialog_4CCA0_4CFE0()
+{
+	int8_t* keys = *pressedKeys_12EEF0_12EEE0;
+	bool done = false;
+	int32_t result = 0;
+	menuFlags_12CBD5_12CBC5 &= 0xBF;
+	UnrollScroll();
+	SaveTextWindow_513E0_51720();
+	SetTextWindow_51360_516A0(0x50, 0x49, 0x9F, 0x30);
+	// an empty slot asks for the name first
+	if (!strcmp(slotNames_96864_96864[mainMenuAreas_4A12C_4A46C[mainMenuArea_12CBC6_12CBB6].type_4 - 1], "--"))
+		EditSlotName_4D0F0_4D430();
+	for (uint32_t frame = 0; !done; frame++)
+	{
+		if (!inputDevices_90B23_90B23 || ((inputDevices_90B23_90B23 & 0x23) && !(frame & 3)))
+			UpdateMenuInput_50770_50AB0();
+		if (keys[0x1C])
+		{
+			done = true;
+			result = 1;
+			*mouseLeftPressed_12EFDE_12EFCE = 0;
+			inputFlags_12CAE4_12CAD4[0] &= 0xFE;
+			keys[0x1C] = 0;
+			keys[0x01] = 0;
+		}
+		if (keys[0x01])
+		{
+			done = true;
+			result = 0;
+			*mouseLeftPressed_12EFDE_12EFCE = 0;
+			keys[0x1C] = 0;
+			inputFlags_12CAE4_12CAD4[0] &= 0xFE;
+			keys[0x01] = 0;
+		}
+		if (inputFlags_12CAE4_12CAD4[0] & 1)
+		{
+			int16_t x = clickX_12CAE0_12CAD0 >> 1;
+			int16_t y = clickY_12CAE2_12CAD2 >> 1;
+			if (x >= 0x44 && x <= 0x51 && y >= 0x6A && y <= 0x74)
+			{
+				done = true;
+				result = 1;
+			}
+			if (x >= 0xF0 && x <= 0xFA && y >= 0x69 && y <= 0x73)
+			{
+				done = true;
+				result = 0;
+			}
+			// the name
+			if (x >= 0x6E && x <= 0xE6 && y >= 0x55 && y <= 0x5F)
+			{
+				EditSlotName_4D0F0_4D430();
+				keys[0x1C] = 0;
+				keys[0x01] = 0;
+			}
+			*mouseLeftPressed_12EFDE_12EFCE = 0;
+			inputFlags_12CAE4_12CAD4[0] &= 0xFE;
+			keys[0x1C] = 0;
+			keys[0x01] = 0;
+		}
+		DrawSaveDialog_4D190_4D4D0();
+		if (inputDevices_90B23_90B23 & 0x23)
+			DrawSprite(mousePos_9AD90_9AD90->x, mousePos_9AD90_9AD90->y, menuSpritesIndex[mainMenuItem_12CBCE_12CBBE]);
+		BlitScreen();
+	}
+	RestoreTextWindow_51400_51740();
+	CopyFullScreen(screenBackup_12CBA4_12CB94, backScreen_AE3FC_AE3EC);
+	CopyFullScreen(backScreen_AE3FC_AE3EC, *workScreen_12EFF4_12EFE4);
+	BlitScreen();
+	*mouseRightPressed_12EFDC_12EFCC = 0;
+	*mouseLeftPressed_12EFDE_12EFCE = 0;
+	inputFlags_12CAE4_12CAD4[0] &= 0xBE;
+	keys[0x01] = 0;
+	keys[0x1C] = 0;
+	return result;
+}
+
+void EditSlotName_4D0F0_4D430()
+{
+	int8_t* keys = *pressedKeys_12EEF0_12EEE0;
+	menuFlags_12CBD5_12CBC5 |= 0x40;
+	keys[0x1C] = 0;
+	*mouseRightPressed_12EFDC_12EFCC = 0;
+	keys[0x01] = 0;
+	*mouseMiddlePressed_12EFDA_12EFCA = 0;
+	*mouseLeftPressed_12EFDE_12EFCE = 0;
+	TextInput_50D40_51080(0x1E, 0x0C, 0x14, nullptr,
+		slotNames_96864_96864[mainMenuAreas_4A12C_4A46C[mainMenuArea_12CBC6_12CBB6].type_4 - 1], 0xFF, 0,
+		DrawSaveDialog_4D190_4D4D0, 0, &mainMenuFont_9688C_9688C);
+	menuFlags_12CBD5_12CBC5 &= 0xBF;
+}
+
+void DrawSaveDialog_4D190_4D4D0()
+{
+	CopyFullScreen(backScreen_AE3FC_AE3EC, *workScreen_12EFF4_12EFE4);
+	SetViewport_65EB0_663C0(0x41, 0x4B, 0xBD, 0x2C);
+	DrawSprite(0x18, 8, mainMenuSpritesIndex[2]);
+	SetViewport_65EB0_663C0(0, 0, 0x140, 0xC8);
+	// 12CBD5 & 40h: the name is being edited (TextInput_50D40_51080 draws it)
+	if (menuFlags_12CBD5_12CBC5 & 0x40)
+		return;
+	DrawText_51560_518A0(&mainMenuFont_9688C_9688C, 0x1E, 0x0C,
+		slotNames_96864_96864[mainMenuAreas_4A12C_4A46C[mainMenuArea_12CBC6_12CBB6].type_4 - 1]);
+	DrawSprite(0x88, 0xD2, mainMenuSpritesIndex[5]);
+	DrawSprite(0x1E0, 0xD2, mainMenuSpritesIndex[6]);
+}
+
+// the saved game C:\carpet.cd\save\carpdd%02X.gam: only bytes, no pointers (the save in the game needs shadow
+// structures as remc2 has them)
+static std::string SavePath(uint8_t slot)
+{
+	char name[64];
+	sprintf(name, "/save/carpdd%02X.gam", slot);
+	return Mc1InstallPath() + name;
+}
+
+int32_t LoadGame_51AF0_51E30(uint8_t slot)
+{
+	int32_t version = 4;
+	int32_t result = 0;
+	uint8_t index = slot - 1;
+	// the level is written as (level + 12CBD0 + 12CBD1) * 4
+	int32_t level = (mc1Settings_AE408_AE3F8->levelIndex_0x11_17 + byte_12CBD0_12CBC0 + byte_12CBD1_12CBC1) * 4;
+	FILE* file = DataFileIO::CreateOrOpenFile(SavePath(index).c_str(), 0x200);
+	if (!file)
+		return 0;
+	DataFileIO::Read(file, (uint8_t*)&version, 4);
+	if (version == 4)
+	{
+		DataFileIO::Read(file, (uint8_t*)slotNames_96864_96864[index], 0x14);
+		DataFileIO::Read(file, (uint8_t*)mc1Settings_AE408_AE3F8->playerName_0x1D_29, 0x20);
+		DataFileIO::Read(file, (uint8_t*)mc1Settings_AE408_AE3F8->password_0x3D_61, 0x20);
+		DataFileIO::Read(file, &mc1State_AE400_AE3F0->reflections_0x2195_8597, 0x0C);
+		DataFileIO::Read(file, (uint8_t*)&level, 4);
+		DataFileIO::Read(file, mc1State_AE400_AE3F0->players_0x340B_13323[0].progress_0x7CB_1995, 0x18);
+		DataFileIO::Read(file, &byte_12CBD0_12CBC0, 1);
+		DataFileIO::Read(file, &byte_12CBD1_12CBC1, 1);
+		DataFileIO::Read(file, &mc1State_AE400_AE3F0->reflections_0x2195_8597, 0x0C);
+		newGame_9687C_9687C = 0;
+		mc1Settings_AE408_AE3F8->levelIndex_0x11_17 = (uint16_t)(level / version - byte_12CBD0_12CBC0 - byte_12CBD1_12CBC1);
+		result = 1;
+	}
+	DataFileIO::Close(file);
+	return result;
+}
+
+int32_t SaveGame_51C90_51FD0(uint8_t slot)
+{
+	int32_t version = 4;
+	uint8_t index = slot - 1;
+	int32_t level = (mc1Settings_AE408_AE3F8->levelIndex_0x11_17 + byte_12CBD0_12CBC0 + byte_12CBD1_12CBC1) * 4;
+	FILE* file = DataFileIO::CreateOrOpenFile(SavePath(index).c_str(), 0x222);
+	if (!file)
+		return 0;
+	WriteFile_62ED0_633E0(file, (uint8_t*)&version, 4);
+	WriteFile_62ED0_633E0(file, (uint8_t*)slotNames_96864_96864[index], 0x14);
+	WriteFile_62ED0_633E0(file, (uint8_t*)mc1Settings_AE408_AE3F8->playerName_0x1D_29, 0x20);
+	WriteFile_62ED0_633E0(file, (uint8_t*)mc1Settings_AE408_AE3F8->password_0x3D_61, 0x20);
+	WriteFile_62ED0_633E0(file, &mc1State_AE400_AE3F0->reflections_0x2195_8597, 0x0C);
+	WriteFile_62ED0_633E0(file, (uint8_t*)&level, 4);
+	WriteFile_62ED0_633E0(file, mc1State_AE400_AE3F0->players_0x340B_13323[0].progress_0x7CB_1995, 0x18);
+	WriteFile_62ED0_633E0(file, &byte_12CBD0_12CBC0, 1);
+	WriteFile_62ED0_633E0(file, &byte_12CBD1_12CBC1, 1);
+	WriteFile_62ED0_633E0(file, &mc1State_AE400_AE3F0->reflections_0x2195_8597, 0x0C);
+	DataFileIO::Close(file);
+	return 1;
 }

@@ -56,8 +56,9 @@ typedef struct { // size 36478
 	uint8_t flag_0x17_23;
 	uint8_t unknown_0x18_24;
 	int32_t password_0x19_25;
-	uint8_t unknown_0x1D_29; // copied from byte_A9058
-	uint8_t unknown_0x1E_30[0x75 - 0x1E];
+	char playerName_0x1D_29[32]; // the first byte from byte_A9058
+	char password_0x3D_61[32];
+	uint8_t unknown_0x5D_93[0x75 - 0x5D];
 	char sessionName_0x75_117[32];
 	uint8_t unknown_0x95_149[0x97 - 0x95];
 	uint8_t language_0x97_151; // 0-3, chosen on the language screen
