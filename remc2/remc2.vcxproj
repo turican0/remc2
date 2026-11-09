@@ -487,6 +487,7 @@
     <ClInclude Include="..\remc1\engine\Mc1Scenery.h" />
     <ClInclude Include="..\remc1\engine\Mc1Terrain.h" />
     <ClInclude Include="..\remc1\engine\Mc1SceneryActions.h" />
+    <ClInclude Include="..\remc1\engine\Mc1Models.h" />
     <ClInclude Include="..\remc1\engine\Mc1MenuText.h" />
     <ClInclude Include="..\remc1\engine\Mc1MenuSound.h" />
     <ClInclude Include="..\remc1\engine\Mc1Menu.h" />
@@ -613,6 +614,7 @@
     <ClCompile Include="..\remc1\engine\Mc1Scenery.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Terrain.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1SceneryActions.cpp" />
+    <ClCompile Include="..\remc1\engine\Mc1Models.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1MenuText.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1MenuSound.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Menu.cpp" />

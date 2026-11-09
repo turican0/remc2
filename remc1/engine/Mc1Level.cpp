@@ -6,12 +6,14 @@
 
 #include "Mc1Files.h"
 #include "Mc1Entity.h"
+#include "Mc1EntityTables.h"
 #include "Mc1Game.h"
 #include "Mc1Install.h"
 #include "Mc1Menu.h"
 #include "Mc1NotPorted.h"
 #include "Mc1Shared.h"
 #include "Mc1Sound.h"
+#include "Mc1TextureMaps.h"
 #include "../../remc2/utilities/DataFileIO.h"
 
 // 9075C: the heights (0-6) of the corners of a tile, x/y, x+1/y, x+1/y+1, x/y+1; -1 not used
@@ -81,7 +83,7 @@ void LoadLevel_407A0_40AE0()
 	memset(&featurePosition_AE454_AE444, 0, sizeof(featurePosition_AE454_AE444));
 	RebuildFreeLists_37220_375E0();
 	state->reuseTop_0x11F1_4593 = -1;
-	sub_37440_37800(0, 1);
+	CreateLevelModels_37440_37800(0, 1);
 	byte_939E5_939E5 = sound;
 	sub_3DD50_3E090();
 	Type_Mc1Player_340B* player = &state->players_0x340B_13323[state->currentPlayer_0x08_8];
@@ -98,7 +100,7 @@ void ClearLevel_40550_40890()
 	state->word_0x26_38 = 0;
 	state->freeTop_0x28_40 = 0;
 	state->byte_0x244_580 = 0;
-	memset(state->creatureStats_0x38C9F_232607, 0, sizeof(state->creatureStats_0x38C9F_232607));
+	memset(&state->creatureStats_0x38C9F_232607, 0, sizeof(state->creatureStats_0x38C9F_232607));
 	memset(state->playerStarts_0x23D9_9177, 0, sizeof(state->playerStarts_0x23D9_9177));
 	memset(state->entities_0x7463_29795, 0, sizeof(state->entities_0x7463_29795));
 	settings->flag_0x17_23 = 0;
@@ -396,5 +398,97 @@ void ComputeTerrainShading_329C0_32DB0()
 		else if ((int8_t)shade > 0x28)
 			shade = (shade & 7) + 0x28;
 		mapShading_EC1E0_EC1D0[i] = shade;
+	}
+}
+
+void CreateLevelModels_37440_37800(int32_t group, uint8_t clear)
+{
+	// the features of the group; group 0 first counts the creatures and marks the sprites of the level
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	Type_Mc1LevelFeature* features = state->level_0x2F503_193795.features_0x430_1072;
+	if (!group)
+	{
+		Type_Mc1CreatureStats& stats = state->creatureStats_0x38C9F_232607;
+		stats.creatures_0x00 = 0;
+		memset(stats.class12_0x04, 0, sizeof(stats.class12_0x04));
+		ClearUsedTmapGroups_59140_59650();
+		for (int i = 1; i < 2000; i++)
+		{
+			Type_Mc1LevelFeature* feature = &features[i];
+			MarkModelSprites_59160_59670(feature->type_0x00_0, feature->model_0x02_2, -1);
+			if (feature->type_0x00_0 == 5)
+			{
+				uint16_t model = feature->model_0x02_2;
+				if (model != 0x0C && model != 0x0D && model != 0x0E && model != 0x0F && model != 9)
+					stats.creatures_0x00++;
+			}
+			else if (feature->type_0x00_0 == 0x0C)
+				stats.class12_0x04[feature->model_0x02_2]++;
+		}
+		sub_59230_59740();
+	}
+	RebuildFreeLists_37220_375E0();
+	for (int i = 1; i < 2000; i++)
+	{
+		Type_Mc1LevelFeature* feature = &features[i];
+		if (!feature->type_0x00_0 || feature->word_0x08_8 != (uint32_t)group)
+			continue;
+		CreateFeatureModel_37560_37920(feature);
+		if (clear)
+			feature->type_0x00_0 = 0;
+	}
+	state->reuseTop_0x11F1_4593 = -1;
+}
+
+void CreateFeatureModel_37560_37920(Type_Mc1LevelFeature* feature)
+{
+	const Type_Mc1ClassModel& record = classes_96902_96902[feature->type_0x00_0].models_4[feature->model_0x02_2];
+	if (!record.flag_10)
+		return;
+	Type_Mc1Position position;
+	position.x = (int16_t)((feature->x_0x04_4 << 8) + 0x80);
+	position.y = (int16_t)((feature->y_0x06_6 << 8) + 0x80);
+	position.z = 0; // not read
+	position.z = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&position);
+	Type_Mc1Entity* entity = CreateEntity_373F0_377B0(&position, feature->type_0x00_0, feature->model_0x02_2);
+	if (!entity)
+		return;
+	switch (entity->class_0x40_64)
+	{
+	case 0x0A:
+		switch (entity->model_0x41_65)
+		{
+		case 4:
+		{
+			entity->id_0x18_24 = feature->word_0x0C_12;
+			int16_t size = (int16_t)(feature->word_0x0A_10 << 8);
+			SetBox_37130_374F0(entity, size, size);
+			ResetLife_36DE0_371A0(entity);
+			break;
+		}
+		case 0x22:
+			entity->target_0x96_150.x = (int16_t)((feature->link_0x10_16 << 8) + 0x80);
+			entity->target_0x96_150.y = (int16_t)((feature->next_0x0E_14 << 8) + 0x80);
+			break;
+		case 0x2D:
+			InitBuildingEntity_36DF0_371B0(entity, (uint16_t)(feature->next_0x0E_14 + 0x10));
+			break;
+		}
+		break;
+	case 0x0B:
+		entity->id_0x18_24 = feature->word_0x0C_12;
+		SetBox_37130_374F0(entity, (int16_t)(feature->word_0x0A_10 << 8), 0x1000);
+		ResetLife_36DE0_371A0(entity);
+		entity->flags_0x10_16 |= 1;
+		break;
+	case 0x0C:
+		entity->actionIndex_0x46_70 = (uint8_t)(entity->actionIndex_0x46_70 + feature->word_0x0C_12);
+		if (feature->word_0x0C_12 >= 3)
+		{
+			entity->actionIndex_0x46_70 -= 3;
+			entity->sprite_0x56_86 = 0x118;
+			entity->flags_0x10_16 |= 0x40000;
+		}
+		break;
 	}
 }

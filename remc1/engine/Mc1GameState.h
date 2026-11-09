@@ -11,6 +11,13 @@ typedef struct {
 	int16_t z;
 } Type_Mc1Position;
 
+// the features of the level counted by CreateLevelModels_37440
+typedef struct { // 0x6A bytes
+	int32_t creatures_0x00; // class 5, not the models 9 and 0Ch-0Fh
+	int32_t class12_0x04[24]; // class 12 by the model
+	uint8_t unknown_0x64[6];
+} Type_Mc1CreatureStats;
+
 // a mail to an entity: the values of one kind are summed while the sender is set
 typedef struct {
 	int32_t value_0;
@@ -31,17 +38,22 @@ typedef struct Type_Mc1Entity {
 	uint16_t mailMask_0x1C_28; // the kinds of mail the entity takes, bit by the kind
 	int16_t word_0x1E_30;
 	int16_t word_0x20_32;
-	uint8_t unknown_0x22_34[0x2A - 0x22];
+	int16_t word_0x22_34; // set with word_0x1E / word_0x20 by the creatures
+	int16_t word_0x24_36;
+	uint8_t unknown_0x26_38[0x2A - 0x26];
 	uint16_t word_0x2A_42; // 27D30: the entity whose word_0x30 is set when the building is done
 	int16_t word_0x2C_44;
 	int16_t word_0x2E_46;
 	int16_t word_0x30_48;
 	int16_t word_0x32_50; // 127E0 sets 1Eh
-	uint8_t unknown_0x34_52[0x3A - 0x34];
+	uint16_t word_0x34_52; // the previous segment of a creature (entity index)
+	uint16_t word_0x36_54; // the next segment
+	int16_t word_0x38_56;
 	uint8_t byte_0x3A_58;
 	uint8_t byte_0x3B_59;
 	uint8_t byte_0x3C_60;
-	uint8_t unknown_0x3D_61[0x3F - 0x3D];
+	uint8_t byte_0x3D_61;
+	uint8_t byte_0x3E_62;
 	uint8_t index_0x3F_63; // the low byte of the entity index
 	uint8_t class_0x40_64; // MC2 class_0x3F
 	uint8_t model_0x41_65; // MC2 model_0x40
@@ -59,7 +71,8 @@ typedef struct Type_Mc1Entity {
 	Type_Mc1Mail mails_0x5A_90[6]; // by the kind, added by 127E0 / 120B0
 	int16_t word_0x7E_126;
 	int16_t word_0x80_128;
-	uint8_t unknown_0x82_130[0x88 - 0x82];
+	int16_t word_0x82_130;
+	int32_t dword_0x84_132;
 	int32_t dword_0x88_136;
 	int32_t mana_0x8C_140; // MC2 mana_0x90
 	uint8_t unknown_0x90_144[0x96 - 0x90];
@@ -82,17 +95,22 @@ typedef struct {
 	uint16_t mailMask_0x1C_28; // the kinds of mail the entity takes, bit by the kind
 	int16_t word_0x1E_30;
 	int16_t word_0x20_32;
-	uint8_t unknown_0x22_34[0x2A - 0x22];
+	int16_t word_0x22_34; // set with word_0x1E / word_0x20 by the creatures
+	int16_t word_0x24_36;
+	uint8_t unknown_0x26_38[0x2A - 0x26];
 	uint16_t word_0x2A_42; // 27D30: the entity whose word_0x30 is set when the building is done
 	int16_t word_0x2C_44;
 	int16_t word_0x2E_46;
 	int16_t word_0x30_48;
 	int16_t word_0x32_50; // 127E0 sets 1Eh
-	uint8_t unknown_0x34_52[0x3A - 0x34];
+	uint16_t word_0x34_52; // the previous segment of a creature (entity index)
+	uint16_t word_0x36_54; // the next segment
+	int16_t word_0x38_56;
 	uint8_t byte_0x3A_58;
 	uint8_t byte_0x3B_59;
 	uint8_t byte_0x3C_60;
-	uint8_t unknown_0x3D_61[0x3F - 0x3D];
+	uint8_t byte_0x3D_61;
+	uint8_t byte_0x3E_62;
 	uint8_t index_0x3F_63; // the low byte of the entity index
 	uint8_t class_0x40_64; // MC2 class_0x3F
 	uint8_t model_0x41_65; // MC2 model_0x40
@@ -110,7 +128,8 @@ typedef struct {
 	Type_Mc1Mail mails_0x5A_90[6]; // by the kind, added by 127E0 / 120B0
 	int16_t word_0x7E_126;
 	int16_t word_0x80_128;
-	uint8_t unknown_0x82_130[0x88 - 0x82];
+	int16_t word_0x82_130;
+	int32_t dword_0x84_132;
 	int32_t dword_0x88_136;
 	int32_t mana_0x8C_140; // MC2 mana_0x90
 	uint8_t unknown_0x90_144[0x96 - 0x90];
@@ -205,14 +224,14 @@ typedef struct { // size 232713, DOSBox 26C400 (pointer)
 	uint8_t unknown_0x21A1_8609[0x21AD - 0x21A1];
 	uint8_t options_0x21AD_8621[11]; // all 1 by default, [10] cleared with less memory
 	uint8_t unknown_0x21B8_8632[0x23D9 - 0x21B8];
-	uint8_t playerStarts_0x23D9_9177[0x30]; // MC2 playerStarts_0x2362
+	Type_Mc1Position playerStarts_0x23D9_9177[8]; // set by the class 3 models 4-11 (MC2 playerStarts_0x2362)
 	Type_Mc1Player_340B networkPlayer_0x2409_9225; // player 0 kept by the network game (4FEB0)
 	uint8_t unknown_0x2C0A_11274[0x340B - 0x2C0A];
 	Type_Mc1Player_340B players_0x340B_13323[8];
 	uint8_t unknown_0x7413_29715[0x7463 - 0x7413];
 	Type_Mc1Entity entities_0x7463_29795[1000];
 	Type_Mc1Level_2F503 level_0x2F503_193795;
-	uint8_t creatureStats_0x38C9F_232607[0x6A]; // MC2 creatureStats_0x364D2
+	Type_Mc1CreatureStats creatureStats_0x38C9F_232607; // MC2 creatureStats_0x364D2
 } Type_Mc1State_AE400_AE3F0;
 
 typedef struct { // size 36478

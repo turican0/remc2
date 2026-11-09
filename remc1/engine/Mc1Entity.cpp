@@ -731,3 +731,13 @@ void SendMailAround_120B0_120B0(Type_Mc1Entity* entity, uint8_t kind, int32_t va
 					AddMail(other, kind, (uint16_t)value, entity->id_0x18_24);
 			}
 }
+
+void SetHalfMana_36F90_37350(Type_Mc1Entity* entity)
+{
+	entity->mana_0x8C_140 = entity->maxLife_0x08_8 >> 1;
+}
+
+int32_t GetFreeEntityCount_37710_37AD0()
+{
+	return mc1State_AE400_AE3F0->freeTop_0x28_40 + 1;
+}

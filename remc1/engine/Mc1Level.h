@@ -20,3 +20,5 @@ void MarkWaterEdges_31D40_32130();
 void SetTerrainAngles_32560_32950();
 void ComputeTerrainShading_329C0_32DB0();
 void MarkSteepTerrain_33180_33570(uint8_t minRange);
+void CreateLevelModels_37440_37800(int32_t group, uint8_t clear);
+void CreateFeatureModel_37560_37920(Type_Mc1LevelFeature* feature);

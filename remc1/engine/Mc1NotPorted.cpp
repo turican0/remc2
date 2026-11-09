@@ -37,7 +37,7 @@ void sub_4D560_4D8A0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
 void sub_31600_31640() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_37440_37800(int32_t /*a1*/, int32_t /*a2*/) { NotPorted(__func__); }
+void sub_59230_59740() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_3DD50_3E090() { NotPorted(__func__); }
 //!!!!! not ported yet
@@ -335,30 +335,6 @@ void sub_29920_29960(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_299D0_29A10(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_37720_37AE0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_37740_37B00(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_37760_37B20(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_37780_37B40(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_377A0_37B60(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_377C0_37B80(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_377E0_37BA0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_37800_37BC0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_37820_37BE0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_378A0_37C60(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_37920_37CE0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_37A00_37DC0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
 Type_Mc1Entity* sub_37A80_37E40(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
 //!!!!! not ported yet (class model)
 Type_Mc1Entity* sub_37AA0_37E60(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
@@ -378,52 +354,6 @@ Type_Mc1Entity* sub_37B60_37F20(Type_Mc1Position* /*position*/) { NotPorted(__fu
 Type_Mc1Entity* sub_37B80_37F40(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
 //!!!!! not ported yet (class model)
 Type_Mc1Entity* sub_37BA0_37F60(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_37BC0_37F80(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_37CF0_38070(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_37D70_380F0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_37E00_38180(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_37E80_38200(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_37EF0_38270(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_38030_383B0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_38270_385F0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_38370_386F0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_384B0_38830(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_386E0_38A60(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_38890_38C10(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_389E0_38D60(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_38C60_38FE0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_38D60_390E0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_38E70_391F0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_38FC0_39340(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_390D0_39450(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_39200_39580(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_39340_396C0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_39490_39810(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_395B0_39930(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_396E0_39A60(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
 //!!!!! not ported yet (class model)
 Type_Mc1Entity* sub_39800_39B80(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
 //!!!!! not ported yet (class model)
@@ -490,118 +420,6 @@ Type_Mc1Entity* sub_3A2F0_3A670(Type_Mc1Position* /*position*/) { NotPorted(__fu
 Type_Mc1Entity* sub_3A390_3A710(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
 //!!!!! not ported yet (class model)
 Type_Mc1Entity* sub_3A410_3A790(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BB70_3BEB0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BB90_3BED0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BBB0_3BEF0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BBD0_3BF10(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BBF0_3BF30(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BC10_3BF50(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BC30_3BF70(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BC50_3BF90(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BC70_3BFB0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BC90_3BFD0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BCB0_3BFF0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BCD0_3C010(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BCF0_3C030(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BD10_3C050(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BD30_3C070(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BD50_3C090(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BD70_3C0B0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BD90_3C0D0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BDB0_3C0F0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BDD0_3C110(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BDF0_3C130(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BE10_3C150(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BE30_3C170(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BE50_3C190(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BE70_3C1B0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BE90_3C1D0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BEB0_3C1F0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BED0_3C210(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BEF0_3C230(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BF10_3C250(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BF30_3C270(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3BF50_3C290(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C040_3C380(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C060_3C3A0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C090_3C3D0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C0C0_3C400(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C0F0_3C430(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C120_3C460(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C150_3C490(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C180_3C4C0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C1B0_3C4F0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C1E0_3C520(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C210_3C550(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C240_3C580(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C270_3C5B0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C2A0_3C5E0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C2D0_3C610(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C300_3C640(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C330_3C670(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C360_3C6A0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C390_3C6D0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C3C0_3C700(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C3F0_3C730(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C420_3C760(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C450_3C790(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class model)
-Type_Mc1Entity* sub_3C480_3C7C0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
 //!!!!! not ported yet (class model)
 Type_Mc1Entity* sub_3C4B0_3C7F0(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
 //!!!!! not ported yet (class model)

@@ -22,3 +22,8 @@ uint8_t OpenTmaps_587E0_58CF0();
 int32_t ReadTmap_58860_58D70(uint16_t index, uint8_t* buffer);
 void CloseTmaps_58F70_59480();
 void ProcessTmaps_58F90_594A0();
+
+extern uint8_t usedTmapGroups_12E9E1_12E9D1[0x211]; // the level sprite group of the tmap groups the level uses
+void ClearUsedTmapGroups_59140_59650();
+void MarkModelSprites_59160_59670(uint16_t entityClass, int32_t model, int32_t sprite);
+void MarkSpriteTmapGroup_591E0_596F0(uint16_t sprite);
