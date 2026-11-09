@@ -86,6 +86,8 @@ static void TempDump()
 	save("starts", state->playerStarts_0x23D9_9177, 0x30);
 	save("stats", &state->creatureStats_0x38C9F_232607, 0x6A);
 	save("groups", usedTmapGroups_12E9E1_12E9D1, 0x211);
+	save("players", &state->networkPlayer_0x2409_9225, 0x7463 - 0x2409);
+	save("mana", &mc1Settings_AE408_AE3F8->manaStats_0xB8_184, 14);
 	int32_t tops[2] = { state->freeTop_0x28_40, state->reuseTop_0x11F1_4593 };
 	save("tops", tops, 8);
 	static uint32_t lists[2000];
@@ -131,10 +133,10 @@ void LoadLevel_407A0_40AE0()
 	state->reuseTop_0x11F1_4593 = -1;
 	CreateLevelModels_37440_37800(0, 1);
 	byte_939E5_939E5 = sound;
-	TempDump(); //TEMPDUMP
 	InitPlayers_3DD50_3E090();
 	Type_Mc1Player_340B* player = &state->players_0x340B_13323[state->currentPlayer_0x08_8];
 	SumLevelMana_48230_48570(&state->entities_0x7463_29795[player->entityIndex_0x0A_10]);
+	TempDump(); //TEMPDUMP
 }
 
 void ClearLevel_40550_40890()
