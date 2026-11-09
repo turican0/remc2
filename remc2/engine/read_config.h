@@ -28,8 +28,7 @@
 #ifndef READ_CONFIG
 #define READ_CONFIG
 
-bool SetConfig();
-std::vector<Maths::Zone> ReadZones(std::vector<Maths::Zone> zonesArray);
+bool SetConfig();std::vector<Maths::Zone> ReadZones(std::vector<Maths::Zone> zonesArray);
 extern int config_skip_screen;
 extern int texturepixels;
 extern int maxGameFps;

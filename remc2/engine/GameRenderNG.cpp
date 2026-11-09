@@ -892,8 +892,11 @@ void GameRenderNG::SetBillboards_3B560(int16_t roll)
 // the health bar under it, shortened at the right edge of the view port.
 void GameRenderNG::DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* entity, int16_t screenX, int screenY, int16_t spriteWidth)//20db30
 {
-	const int right = viewPort.PreWidth_EA3C4 + viewPort.PosX_EA3D0 - 4;
-	const int bottom = viewPort.PreHeight_EA3C0 + viewPort.PosY_EA3CC - 22;
+	uint8_t scale = 1;
+	if (!DefaultResolutions())
+		scale = gameUiScale;
+	const int right = viewPort.PreWidth_EA3C4 + viewPort.PosX_EA3D0 - (4 * scale);
+	const int bottom = viewPort.PreHeight_EA3C0 + viewPort.PosY_EA3CC - (22 * scale);
 	const int wizard = entity->playerData_0xA4_164x->playerColorIndex_0x38_56;
 	char name[32];
 	strcpy(name, world_D41A0.players_0x2BDE[wizard].WizardName_0x39f_2BFA_12157);
@@ -910,34 +913,36 @@ void GameRenderNG::DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* entity
 		screenY *= 2;
 	}
 	const int16_t left = viewPort.PosX_EA3D0 + center;
-	const int top = viewPort.PosY_EA3CC + screenY - 20;
+	const int top = viewPort.PosY_EA3CC + screenY - (20 * scale);
 	if (left < viewPort.PosX_EA3D0 || static_cast<int16_t>(top) < viewPort.PosY_EA3CC || left >= right || static_cast<int16_t>(top) >= bottom)
 		return;
+	const int border = 2 * scale;
+	const int letterWidth = 8 * scale;
 	int length = strlen(name);
-	int width = 8 * length + 4;
+	int width = letterWidth * length + (4 * scale);
 	if (left + width > right)
 	{
 		width = right - left;
-		length = (right - left - 4) / 8;
+		length = (right - left - (4 * scale)) / letterWidth;
 	}
 	if (length <= 0)
 		return;
 	name[length] = 0;
-	const int16_t frameWidth = width + 2;
-	DrawLine_2BC80(left, top, width + 2, 18, backgroundColor);
-	DrawLine_2BC80(left, top, frameWidth, 2, lightColor);
-	DrawLine_2BC80(left, top + 16, frameWidth, 2, darkColor);
-	DrawLine_2BC80(left, top, 2, 16, lightColor);
-	DrawLine_2BC80(left + width, top, 2, 18, darkColor);
-	DrawText_2BC10(name, left + 4, top, wizardColor);
-	DrawLine_2BC80(left + 2, top + 14, width - 2, 2, barColor);
+	const int16_t frameWidth = width + border;
+	DrawLine_2BC80(left, top, frameWidth, 18 * scale, backgroundColor);
+	DrawLine_2BC80(left, top, frameWidth, border, lightColor);
+	DrawLine_2BC80(left, top + (16 * scale), frameWidth, border, darkColor);
+	DrawLine_2BC80(left, top, border, 16 * scale, lightColor);
+	DrawLine_2BC80(left + width, top, border, 18 * scale, darkColor);
+	DrawText_2BC10(name, left + (4 * scale), top, wizardColor, scale);
+	DrawLine_2BC80(left + border, top + (14 * scale), width - border, border, barColor);
 	if (entity->maxLife_0x4)
 	{
-		int health = entity->life_0x8 * (width - 2) / entity->maxLife_0x4;
-		if (left + 2 + health > right - 2)
-			health = right - 2 - (left + 2);
+		int health = entity->life_0x8 * (width - border) / entity->maxLife_0x4;
+		if (left + border + health > right - border)
+			health = right - border - (left + border);
 		if (health > 0)
-			DrawLine_2BC80(left + 2, top + 14, health, 2, wizardColor);
+			DrawLine_2BC80(left + border, top + (14 * scale), health, border, wizardColor);
 	}
 }
 

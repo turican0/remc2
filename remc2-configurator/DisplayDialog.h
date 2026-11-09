@@ -28,6 +28,9 @@ private:
 	void OnOK(wxCommandEvent& evt);
 	void OnResolutionChanged(wxCommandEvent& evt);
 	void OnInGameResolutionChanged(wxCommandEvent& evt);
+	int GetInGameWidth() const;
+	static int CalculateUiScale(int gameWidth);
+	static int MaxUiScale(int gameWidth);
 
 	// Common resolutions list  { label, width, height }
 	struct ResEntry { const char* label; int w; int h; };
