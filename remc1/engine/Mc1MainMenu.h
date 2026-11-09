@@ -59,8 +59,8 @@ extern uint32_t idleStart_12CBB4_12CBA4; // timer ticks of the last input
 extern uint32_t demoLevel_12CBB8_12CBA8; // the level of the settings while the demo plays
 extern uint8_t demoProgress_12CA60_12CA50[0x18]; // the progress of player 0 while the demo plays
 extern Type_Mc1FileEntry mainMenuFiles_49D64_4A0A4[9];
-extern const uint8_t passwordKeys_4A84B_4AB8B[0x3A];
-extern const uint8_t passwordKeysShift_4A884_4ABC4[0x3A];
+extern const uint8_t nicknameKeys_4A84B_4AB8B[0x3A];
+extern const uint8_t nicknameKeysShift_4A884_4ABC4[0x3A];
 extern const uint8_t keyChars_4A905_4AC45[0x3A];
 extern const uint8_t keyCharsShift_4A93E_4AC7E[0x3A];
 
@@ -86,9 +86,9 @@ void ScrollFrame_50470_507B0();
 void BuildBrightTable_504A0_507E0();
 void ReadSlotNames_51A10_51D50();
 void HighlightArea_51E84_521C4(const uint8_t* source, uint8_t* dest, const uint8_t* mask, const uint8_t* table, uint8_t area);
-void EnterNameAndPassword_50030_50370();
+void EnterNameAndNickname_50030_50370();
 void DrawNamePrompt_50350_50690();
-void DrawPasswordPrompt_503E0_50720();
+void DrawNicknamePrompt_503E0_50720();
 int32_t TextInput_50D40_51080(int32_t x, int16_t y, int16_t maxLength, const char* prompt, char* text, uint8_t color,
 	int32_t unused, void (*draw)(), uint8_t align, Type_Mc1Font_96884* font);
 char* InsertText_512D0_51610(char* dest, const char* text);

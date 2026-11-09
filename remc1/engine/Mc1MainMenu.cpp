@@ -51,7 +51,7 @@ const Type_Mc1SlotWindow slotWindows_4A7EC_4AB2C[6] = {
 const Type_Mc1MainMenuArea mainMenuAreas_4A12C_4A46C[13] = {
 	{ nullptr, 0 },
 	{ NewGame_4FF30_50270, 0 },
-	{ EnterNameAndPassword_50030_50370, 0 },
+	{ EnterNameAndNickname_50030_50370, 0 },
 	{ NetworkGame_4FEB0_501F0, 0 },
 	{ QuitGame_4FD20_50060, 0 },
 	{ nullptr, 1 },
@@ -678,14 +678,14 @@ void HighlightArea_51E84_521C4(const uint8_t* source, uint8_t* dest, const uint8
 		dest[i] = mask[i] == area ? table[source[i]] : source[i];
 }
 
-// scan code -> allowed in the password (12CBD5 & 20h), without / with Shift
-const uint8_t passwordKeys_4A84B_4AB8B[0x3A] = {
+// scan code -> allowed in the nickname (12CBD5 & 20h), without / with Shift
+const uint8_t nicknameKeys_4A84B_4AB8B[0x3A] = {
 	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00,
 	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
 	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01,
 	0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
-const uint8_t passwordKeysShift_4A884_4ABC4[0x3A] = {
+const uint8_t nicknameKeysShift_4A884_4ABC4[0x3A] = {
 	0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
 	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01,
@@ -731,7 +731,7 @@ static void UnrollScroll()
 		SetCursor_5C05C_5C56C(menuSpritesIndex[mainMenuItem_12CBCE_12CBBE]);
 }
 
-void EnterNameAndPassword_50030_50370()
+void EnterNameAndNickname_50030_50370()
 {
 	int8_t* keys = *pressedKeys_12EEF0_12EEE0;
 	UnrollScroll();
@@ -739,12 +739,12 @@ void EnterNameAndPassword_50030_50370()
 	SetTextWindow_51360_516A0(0x46, 0x49, 0xB3, 0x30);
 	TextInput_50D40_51080(8, 0x19, 0x1E, nullptr, mc1Settings_AE408_AE3F8->playerName_0x1D_29, 0xFF, 0,
 		DrawNamePrompt_50350_50690, 1, &mainMenuFont_9688C_9688C);
-	// the password only of the letters and digits of passwordKeys_4A84B_4AB8B
+	// the nickname only of the letters and digits of nicknameKeys_4A84B_4AB8B
 	menuFlags_12CBD5_12CBC5 |= 0x20;
 	keys[0x1C] = 0;
 	inputFlags_12CAE4_12CAD4[0] &= 0xFE;
-	TextInput_50D40_51080(8, 0x19, 8, nullptr, mc1Settings_AE408_AE3F8->password_0x3D_61, 0xFF, 0,
-		DrawPasswordPrompt_503E0_50720, 1, &mainMenuFont_9688C_9688C);
+	TextInput_50D40_51080(8, 0x19, 8, nullptr, mc1Settings_AE408_AE3F8->nickname_0x3D_61, 0xFF, 0,
+		DrawNicknamePrompt_503E0_50720, 1, &mainMenuFont_9688C_9688C);
 	keys[0x1C] = 0;
 	menuFlags_12CBD5_12CBC5 &= 0xDF;
 	inputFlags_12CAE4_12CAD4[0] &= 0xFE;
@@ -764,7 +764,7 @@ void DrawNamePrompt_50350_50690()
 	DrawPrompt((const char*)textPointers_AE238_AE228[34]);
 }
 
-void DrawPasswordPrompt_503E0_50720()
+void DrawNicknamePrompt_503E0_50720()
 {
 	// AE2C4: text 35
 	DrawPrompt((const char*)textPointers_AE238_AE228[35]);
@@ -839,7 +839,7 @@ int32_t TextInput_50D40_51080(int32_t x, int16_t y, int16_t maxLength, const cha
 			// port: the keys over 39h are tested first, the original reads its tables beyond their end for them
 			if (!key || key > 0x39)
 				break;
-			if ((menuFlags_12CBD5_12CBC5 & 0x20) && !(shift ? passwordKeysShift_4A884_4ABC4 : passwordKeys_4A84B_4AB8B)[key])
+			if ((menuFlags_12CBD5_12CBC5 & 0x20) && !(shift ? nicknameKeysShift_4A884_4ABC4 : nicknameKeys_4A84B_4AB8B)[key])
 				break;
 			if (!((insert && end < limit) || (!insert && cursor < limit)))
 				break;
@@ -1087,7 +1087,7 @@ int32_t LoadGame_51AF0_51E30(uint8_t slot)
 	{
 		DataFileIO::Read(file, (uint8_t*)slotNames_96864_96864[index], 0x14);
 		DataFileIO::Read(file, (uint8_t*)mc1Settings_AE408_AE3F8->playerName_0x1D_29, 0x20);
-		DataFileIO::Read(file, (uint8_t*)mc1Settings_AE408_AE3F8->password_0x3D_61, 0x20);
+		DataFileIO::Read(file, (uint8_t*)mc1Settings_AE408_AE3F8->nickname_0x3D_61, 0x20);
 		DataFileIO::Read(file, &mc1State_AE400_AE3F0->reflections_0x2195_8597, 0x0C);
 		DataFileIO::Read(file, (uint8_t*)&level, 4);
 		DataFileIO::Read(file, mc1State_AE400_AE3F0->players_0x340B_13323[0].progress_0x7CB_1995, 0x18);
@@ -1113,7 +1113,7 @@ int32_t SaveGame_51C90_51FD0(uint8_t slot)
 	WriteFile_62ED0_633E0(file, (uint8_t*)&version, 4);
 	WriteFile_62ED0_633E0(file, (uint8_t*)slotNames_96864_96864[index], 0x14);
 	WriteFile_62ED0_633E0(file, (uint8_t*)mc1Settings_AE408_AE3F8->playerName_0x1D_29, 0x20);
-	WriteFile_62ED0_633E0(file, (uint8_t*)mc1Settings_AE408_AE3F8->password_0x3D_61, 0x20);
+	WriteFile_62ED0_633E0(file, (uint8_t*)mc1Settings_AE408_AE3F8->nickname_0x3D_61, 0x20);
 	WriteFile_62ED0_633E0(file, &mc1State_AE400_AE3F0->reflections_0x2195_8597, 0x0C);
 	WriteFile_62ED0_633E0(file, (uint8_t*)&level, 4);
 	WriteFile_62ED0_633E0(file, mc1State_AE400_AE3F0->players_0x340B_13323[0].progress_0x7CB_1995, 0x18);
