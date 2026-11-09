@@ -18,6 +18,13 @@ typedef struct { // 0x6A bytes
 	uint8_t unknown_0x64[6];
 } Type_Mc1CreatureStats;
 
+typedef struct { // 14 bytes in the settings at 0xB8, cleared by ClearLevel_40550
+	uint8_t unknown_0x00[4];
+	int32_t total_0x04; // the mana of the entities with mana counted by SumLevelMana_48230 (+ the start of the player)
+	int32_t dword_0x08;
+	uint8_t unknown_0x0C[2];
+} Type_Mc1ManaStats;
+
 // a mail to an entity: the values of one kind are summed while the sender is set
 typedef struct {
 	int32_t value_0;
@@ -175,22 +182,44 @@ typedef struct { // size 0x979C, levels.dat (ddlevels.dat in HW) unpacked, at st
 	uint16_t bhFlt_0x2C_44;
 	uint8_t unknown_0x2E_46[0x430 - 0x2E];
 	Type_Mc1LevelFeature features_0x430_1072[2000];
-	uint8_t unknown_0x90D0_37072[0x9792 - 0x90D0];
+	uint8_t unknown_0x90D0_37072[0x90E0 - 0x90D0];
+	uint8_t playerSpells_0x90E0_37088[0x9792 - 0x90E0]; // by the player 0D8h: +0 available, +64h kind (1 by the progress)
 	uint16_t playerCount_0x9792_38802;
 	uint8_t unknown_0x9794_38804[0x979C - 0x9794];
 } Type_Mc1Level_2F503;
+
+typedef struct { // 14 bytes
+	uint8_t unknown_0x00_0[0x0C];
+	uint16_t word_0x0C_12; // 80h
+} Type_Mc1PlayerRecord;
 
 typedef struct { // size 0x801
 	uint8_t unknown_0x00_0[2];
 	uint16_t levelResult_0x02_2; // 2 next level, 4 play again, 8 end
 	uint8_t exitGame_0x04_4;
-	uint8_t unknown_0x05_5[0x0A - 0x05];
+	uint8_t unknown_0x05_5[0x07 - 0x05];
+	uint16_t index_0x07_7; // the number of the player
+	uint8_t computer_0x09_9; // 1 played by the computer
 	uint16_t entityIndex_0x0A_10; // the entity of the player (wizard)
-	uint8_t unknown_0x0C_12[0x18 - 0x0C];
+	uint8_t unknown_0x0C_12[0x0E - 0x0C];
+	uint16_t word_0x0E_14; // recordCount_0x10 - 1
+	uint16_t recordCount_0x10_16;
+	uint8_t unknown_0x12_18[0x18 - 0x12];
 	int32_t cheat_0x18_24;
-	uint8_t unknown_0x1C_28[0x7CB - 0x1C];
+	uint8_t unknown_0x1C_28[0x23C - 0x1C];
+	Type_Mc1PlayerRecord recordTemplate_0x23C_572; // copied to the records by InitPlayers_3DD50
+	Type_Mc1PlayerRecord records_0x24A_586[0x20];
+	char name_0x40A_1034[0x20];
+	uint8_t unknown_0x42A_1066[0x663 - 0x42A];
+	int32_t spells_0x663_1635[24]; // the spells the player has, -1 none
+	uint8_t unknown_0x6C3_1731[0x753 - 0x6C3];
+	uint8_t spellSlots_0x753_1875[24]; // the slot of the spell, FFh none
+	uint8_t spellsAllowed_0x76B_1899[0x60]; // by the spell, a computer player from the level
 	uint8_t progress_0x7CB_1995[0x18]; // cleared by a new game, kept by the demo, in the saved games
-	uint8_t unknown_0x7E3_2019[0x801 - 0x7E3];
+	uint8_t unknown_0x7E3_2019[0x7FB - 0x7E3];
+	uint16_t spellSlot_0x7FB_2043; // the first spell, FFh none
+	uint8_t unknown_0x7FD_2045[2];
+	uint16_t spellSlot2_0x7FF_2047; // the second spell, FFh none
 } Type_Mc1Player_340B;
 
 typedef struct { // size 232713, DOSBox 26C400 (pointer)
@@ -228,9 +257,9 @@ typedef struct { // size 232713, DOSBox 26C400 (pointer)
 	uint8_t unknown_0x21B8_8632[0x23D9 - 0x21B8];
 	Type_Mc1Position playerStarts_0x23D9_9177[8]; // set by the class 3 models 4-11 (MC2 playerStarts_0x2362)
 	Type_Mc1Player_340B networkPlayer_0x2409_9225; // player 0 kept by the network game (4FEB0)
-	uint8_t unknown_0x2C0A_11274[0x340B - 0x2C0A];
+	Type_Mc1Player_340B playerBackup_0x2C0A_11274; // the player before InitPlayers_3DD50 clears it
 	Type_Mc1Player_340B players_0x340B_13323[8];
-	uint8_t unknown_0x7413_29715[0x7463 - 0x7413];
+	uint8_t playerSlots_0x7413_29715[8][10]; // [0] 1 used
 	Type_Mc1Entity entities_0x7463_29795[1000];
 	Type_Mc1Level_2F503 level_0x2F503_193795;
 	Type_Mc1CreatureStats creatureStats_0x38C9F_232607; // MC2 creatureStats_0x364D2
@@ -265,7 +294,7 @@ typedef struct { // size 36478
 	uint8_t* heap_0xA8_168; // allocated by InitMemory
 	uint32_t heapSize_0xAC_172;
 	uint8_t unknown_0xB0_176[0xB8 - 0xB0];
-	uint8_t manaStats_0xB8_184[14];
+	Type_Mc1ManaStats manaStats_0xB8_184;
 	uint8_t unknown_0xC6_198[0xCE - 0xC6];
 	uint32_t timerDivisor_0xCE_206; // 26AFh, the PIT divisor of the own 120 Hz timer
 	uint32_t unknown_0xD2_210;

@@ -16,8 +16,6 @@ void sub_4E5B0_4E8F0();
 void sub_4D560_4D8A0();
 void sub_31600_31640();
 void sub_59230_59740(); // the tmaps of the used groups into the cache (renderer, later)
-void sub_3DD50_3E090();
-void sub_48230_48570(Type_Mc1Entity* entity);
 void sub_59720_59C30();
 void GameLoop_34610_349D0();
 void sub_448E0_44C20();

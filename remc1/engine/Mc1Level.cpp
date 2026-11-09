@@ -132,9 +132,9 @@ void LoadLevel_407A0_40AE0()
 	CreateLevelModels_37440_37800(0, 1);
 	byte_939E5_939E5 = sound;
 	TempDump(); //TEMPDUMP
-	sub_3DD50_3E090();
+	InitPlayers_3DD50_3E090();
 	Type_Mc1Player_340B* player = &state->players_0x340B_13323[state->currentPlayer_0x08_8];
-	sub_48230_48570(&state->entities_0x7463_29795[player->entityIndex_0x0A_10]);
+	SumLevelMana_48230_48570(&state->entities_0x7463_29795[player->entityIndex_0x0A_10]);
 }
 
 void ClearLevel_40550_40890()
@@ -154,7 +154,7 @@ void ClearLevel_40550_40890()
 	memset(settings->colorIndex_0x5D_93, 0, sizeof(settings->colorIndex_0x5D_93));
 	settings->speedIndex_0x96_150 = 0;
 	settings->paletteSubMod_0x98_152 = 0;
-	memset(settings->manaStats_0xB8_184, 0, sizeof(settings->manaStats_0xB8_184));
+	memset(&settings->manaStats_0xB8_184, 0, sizeof(settings->manaStats_0xB8_184));
 	memset(settings->entityLists_0x8E1A_36378, 0, sizeof(settings->entityLists_0x8E1A_36378));
 	memset(mapEntityIndex_10C1E0_10C1D0, 0, 0x20000);
 	memset(mapTerrainType_CC1E0_CC1D0, 0, 0x10000);
@@ -538,4 +538,137 @@ void CreateFeatureModel_37560_37920(Type_Mc1LevelFeature* feature)
 		}
 		break;
 	}
+}
+
+// 99B68
+static const char* playerNames_99B68_99B68[8] = { "Zanzamar", "Vodor", "Gryshnak", "Mahmoud", "Syed", "Raschid", "Alhabbal", "Scheherazade" };
+// 99B88: the spells in the order of the slots
+static const uint8_t spellOrder_99B88_99B88[24] = {
+	0x00, 0x03, 0x02, 0x10, 0x01, 0x0E, 0x04, 0x0C, 0x06, 0x09, 0x07, 0x08, 0x0F, 0x12, 0x11, 0x13, 0x0D, 0x05, 0x0B, 0x0A, 0x14, 0x15, 0x16, 0x17,
+};
+
+void InitPlayers_3DD50_3E090()
+{
+	// the 8 players again, the progress and the cheat are kept; the spells from the level (network: the level of player 0)
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	uint32_t flags = mc1Settings_AE408_AE3F8->flags_0x00_0;
+	const uint8_t* levelSpells = state->level_0x2F503_193795.playerSpells_0x90E0_37088;
+	for (uint16_t i = 0; i < 8; i++)
+	{
+		Type_Mc1Player_340B* player = &state->players_0x340B_13323[i];
+		memset(state->playerSlots_0x7413_29715[i], 0, sizeof(state->playerSlots_0x7413_29715[i]));
+		state->playerBackup_0x2C0A_11274 = *player;
+		memset(player, 0, sizeof(Type_Mc1Player_340B));
+		memcpy(player->progress_0x7CB_1995, state->playerBackup_0x2C0A_11274.progress_0x7CB_1995, sizeof(player->progress_0x7CB_1995));
+		player->cheat_0x18_24 = state->playerBackup_0x2C0A_11274.cheat_0x18_24;
+		state->playerSlots_0x7413_29715[i][0] = 1;
+		player->index_0x07_7 = i;
+		if (!(flags & 0x10) && i != state->currentPlayer_0x08_8)
+			player->computer_0x09_9 = 1;
+		player->recordCount_0x10_16 = 0x20;
+		player->word_0x0E_14 = player->recordCount_0x10_16 - 1;
+		player->recordTemplate_0x23C_572.word_0x0C_12 = 0x80;
+		strcpy(player->name_0x40A_1034, playerNames_99B68_99B68[i]);
+		for (int16_t j = 0; j < player->recordCount_0x10_16; j++)
+			player->records_0x24A_586[j] = player->recordTemplate_0x23C_572;
+		for (int32_t& spell : player->spells_0x663_1635)
+			spell = -1;
+		player->spellSlot_0x7FB_2043 = 0xFF;
+		player->spellSlot2_0x7FF_2047 = 0xFF;
+		uint16_t source = (flags & 0x10) ? 0 : i;
+		uint16_t count = 0;
+		for (int32_t slot = 0; slot < 24; slot++)
+		{
+			uint8_t spell = spellOrder_99B88_99B88[slot];
+			player->spellSlots_0x753_1875[slot] = 0xFF;
+			uint8_t kind = levelSpells[source * 0xD8 + 0x64 + spell];
+			bool has = false;
+			if (player->computer_0x09_9 == 1)
+			{
+				player->spellsAllowed_0x76B_1899[spell] = kind;
+				has = levelSpells[i * 0xD8 + spell] && player->spellsAllowed_0x76B_1899[spell];
+			}
+			else if (kind == 1)
+			{
+				if (!(flags & 0x10))
+					has = player->progress_0x7CB_1995[spell] != 0;
+				else
+					has = levelSpells[source * 0xD8 + spell] && kind;
+			}
+			if (!has)
+				continue;
+			player->spells_0x663_1635[count] = spell;
+			if (player->spellSlot_0x7FB_2043 == 0xFF)
+				player->spellSlot_0x7FB_2043 = count;
+			else if (player->spellSlot2_0x7FF_2047 == 0xFF)
+				player->spellSlot2_0x7FF_2047 = count;
+			player->spellSlots_0x753_1875[count] = (uint8_t)count;
+			count++;
+		}
+	}
+}
+
+static int32_t PlayerDataInt(const Type_Mc1Entity* entity, int offset)
+{
+	int32_t value;
+	memcpy(&value, entity->playerData_0xA0_160 + offset, sizeof(value));
+	return value;
+}
+
+static void SetPlayerDataInt(Type_Mc1Entity* entity, int offset, int32_t value)
+{
+	memcpy(entity->playerData_0xA0_160 + offset, &value, sizeof(value));
+}
+
+void SumLevelMana_48230_48570(Type_Mc1Entity* playerEntity)
+{
+	// the players start from playerData +142h, the owners and the total get the mana of the entities
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	Type_Mc1Settings_AE408_AE3F8* settings = mc1Settings_AE408_AE3F8;
+	Type_Mc1Entity* entities = state->entities_0x7463_29795;
+	for (uint16_t i = 0; i < state->playerCount_0x0A_10; i++)
+	{
+		Type_Mc1Entity* entity = &entities[state->players_0x340B_13323[i].entityIndex_0x0A_10];
+		entity->dword_0x88_136 = PlayerDataInt(entity, 0x142);
+		SetPlayerDataInt(entity, 0x134, 0);
+	}
+	settings->manaStats_0xB8_184.dword_0x08 = 0;
+	settings->manaStats_0xB8_184.total_0x04 = PlayerDataInt(playerEntity, 0x142);
+	for (int i = 1; i < 1000; i++)
+	{
+		Type_Mc1Entity* entity = &entities[i];
+		switch (entity->class_0x40_64)
+		{
+		case 3:
+			if (entity->model_0x41_65 == 2 || entity->model_0x41_65 == 3)
+				AddManaToOwner_48340_48680(entity);
+			break;
+		case 5:
+			AddManaToOwner_48340_48680(entity);
+			break;
+		case 0x0A:
+			if (entity->model_0x41_65 == 0x27)
+				AddManaToOwner_48340_48680(entity);
+			else if (entity->model_0x41_65 == 0x2D)
+			{
+				// a building adds it to the player data of the owner too
+				Type_Mc1Entity* owner = AddManaToOwner_48340_48680(entity);
+				if (owner && owner->playerData_0xA0_160)
+					SetPlayerDataInt(owner, 0x134, PlayerDataInt(owner, 0x134) + entity->mana_0x8C_140);
+			}
+			break;
+		}
+	}
+}
+
+Type_Mc1Entity* AddManaToOwner_48340_48680(Type_Mc1Entity* entity)
+{
+	Type_Mc1Entity* owner = nullptr;
+	if (entity->owner_0x90_144)
+	{
+		owner = &mc1State_AE400_AE3F0->entities_0x7463_29795[entity->owner_0x90_144];
+		owner->dword_0x88_136 += entity->mana_0x8C_140;
+	}
+	mc1Settings_AE408_AE3F8->manaStats_0xB8_184.total_0x04 += entity->mana_0x8C_140;
+	return owner;
 }

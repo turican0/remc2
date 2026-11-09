@@ -39,10 +39,6 @@ void sub_31600_31640() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_59230_59740() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_3DD50_3E090() { NotPorted(__func__); }
-//!!!!! not ported yet
-void sub_48230_48570(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
-//!!!!! not ported yet
 void sub_59720_59C30() { NotPorted(__func__); }
 //!!!!! not ported yet
 void GameLoop_34610_349D0() { NotPorted(__func__); }
