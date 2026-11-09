@@ -52,9 +52,9 @@ static Type_Mc1Entity* NewClass2(uint8_t model, uint8_t action, bool keepNew)
 	return entity;
 }
 
-Type_Mc1Entity* CreateClass02Model00_37BC0_37F80(Type_Mc1Position* position)
+static Type_Mc1Entity* CreateClass2Model0(Type_Mc1Position* position)
 {
-	// placed up to 20h off, one of two sprites
+	// placed up to 20h off
 	Type_Mc1Entity* entity = NewEntity(2, 0, 0);
 	if (!entity)
 		return nullptr;
@@ -66,7 +66,23 @@ Type_Mc1Entity* CreateClass02Model00_37BC0_37F80(Type_Mc1Position* position)
 	place.y = (int16_t)(place.y + (int32_t)(NextRand(entity) & 0x3F) - 0x20);
 	AddToMap_41CF0_42030(entity, &place);
 	ResetLife_36DE0_371A0(entity);
-	SetSpriteBox_37030_373F0(entity, (NextRand(entity) & 1) ? 0x54 : 0x53);
+	return entity;
+}
+
+Type_Mc1Entity* CreateClass02Model00_37BC0(Type_Mc1Position* position)
+{
+	// one of two sprites
+	Type_Mc1Entity* entity = CreateClass2Model0(position);
+	if (entity)
+		SetSpriteBox_37030_373F0(entity, (NextRand(entity) & 1) ? 0x54 : 0x53);
+	return entity;
+}
+
+Type_Mc1Entity* CreateClass02Model00Hw_37F80(Type_Mc1Position* position)
+{
+	Type_Mc1Entity* entity = CreateClass2Model0(position);
+	if (entity)
+		SetSpriteBox_37030_373F0(entity, 0x53);
 	return entity;
 }
 

@@ -4,7 +4,8 @@
 
 // the create functions of the models of the classes 2, 3, 5, 11 and 12
 
-Type_Mc1Entity* CreateClass02Model00_37BC0_37F80(Type_Mc1Position* position);
+Type_Mc1Entity* CreateClass02Model00_37BC0(Type_Mc1Position* position);
+Type_Mc1Entity* CreateClass02Model00Hw_37F80(Type_Mc1Position* position);
 Type_Mc1Entity* CreateClass02Model01_37CF0_38070(Type_Mc1Position* position);
 Type_Mc1Entity* CreateClass02Model02_37D70_380F0(Type_Mc1Position* position);
 Type_Mc1Entity* CreateClass02Model03_37E00_38180(Type_Mc1Position* position);
