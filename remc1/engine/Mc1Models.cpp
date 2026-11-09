@@ -276,7 +276,7 @@ static void InitCreature(Type_Mc1Entity* entity, uint8_t typeIndex, int16_t word
 
 // the models 0 and 3: a head and 16 segments linked by word_0x34 / word_0x36
 static Type_Mc1Entity* CreateLongCreature(Type_Mc1Position* position, uint8_t model, uint8_t action, int16_t speed,
-	uint8_t typeIndex, int16_t firstSprite, int16_t headSprite)
+	uint8_t typeIndex, int16_t firstSprite, int16_t headSprite, bool segmentMana)
 {
 	Type_Mc1Entity* head = NewEntity(5, model, action);
 	if (!head)
@@ -304,7 +304,8 @@ static Type_Mc1Entity* CreateLongCreature(Type_Mc1Position* position, uint8_t mo
 				previous->word_0x36_54 = (uint16_t)EntityIndex(segment);
 			segment->word_0x36_54 = 0;
 			segment->actionIndex_0x46_70 = 0x78;
-			head->mana_0x8C_140 = head->dword_0x88_136 / 32;
+			// model 0 sets it on the head, model 3 on the segment
+			(segmentMana ? segment : head)->mana_0x8C_140 = head->dword_0x88_136 / 32;
 			segment->index_0x3F_63 = (uint8_t)i;
 			SetSprite_36FA0_37360(segment, (int16_t)(firstSprite + i));
 			segment->word_0x38_56 = segment->box_0x4E_78[1];
@@ -323,7 +324,7 @@ Type_Mc1Entity* CreateClass05Model00_38030_383B0(Type_Mc1Position* position)
 {
 	if (GetFreeEntityCount_37710_37AD0() < 16)
 		return nullptr;
-	return CreateLongCreature(position, 0, 1, 0x50, 12, 0x13, 0x28);
+	return CreateLongCreature(position, 0, 1, 0x50, 12, 0x13, 0x28, false);
 }
 
 Type_Mc1Entity* CreateClass05Model01_38270_385F0(Type_Mc1Position* position)
@@ -370,7 +371,7 @@ Type_Mc1Entity* CreateClass05Model02_38370_386F0(Type_Mc1Position* position)
 
 Type_Mc1Entity* CreateClass05Model03_384B0_38830(Type_Mc1Position* position)
 {
-	return CreateLongCreature(position, 3, 0x13, 0x40, 15, 0x59, 0x58);
+	return CreateLongCreature(position, 3, 0x13, 0x40, 15, 0x59, 0x58, true);
 }
 
 // the creatures with a random yaw and a box of 80h

@@ -52,3 +52,4 @@ Type_Mc1Entity* CreateScenery53_3B8E0_3BC60(Type_Mc1Position* position);
 Type_Mc1Entity* CreateScenery54_3B970_3BCB0(Type_Mc1Position* position);
 Type_Mc1Entity* CreateScenery55_3BA00_3BD40(Type_Mc1Position* position);
 Type_Mc1Entity* CreateScenery56_3BA90_3BDD0(Type_Mc1Position* position);
+void SetManaSprite_274D0_274D0(Type_Mc1Entity* entity);

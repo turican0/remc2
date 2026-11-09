@@ -63,6 +63,52 @@ void LoadingScreen_34460_34820()
 	mc1State_AE400_AE3F0->dword_0x24D_589 = 0;
 }
 
+//TEMPDUMP
+static void TempDump()
+{
+	const char* dir = getenv("MC1_TEMPDUMP");
+	if (!dir)
+		return;
+	auto save = [&](const char* name, const void* data, size_t length) {
+		std::string path = std::string(dir) + "/port_" + name + ".bin";
+		FILE* file = fopen(path.c_str(), "wb");
+		fwrite(data, 1, length, file);
+		fclose(file);
+	};
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	Type_Mc1Entity* entities = state->entities_0x7463_29795;
+	save("terrain", mapTerrainType_CC1E0_CC1D0, 0x10000);
+	save("height", mapHeightmap_DC1E0_DC1D0, 0x10000);
+	save("shading", mapShading_EC1E0_EC1D0, 0x10000);
+	save("angle", mapAngle_FC1E0_FC1D0, 0x10000);
+	save("index", mapEntityIndex_10C1E0_10C1D0, 0x20000);
+	save("counters", state->modelCounters_0x0C_12, 0x14);
+	save("starts", state->playerStarts_0x23D9_9177, 0x30);
+	save("stats", &state->creatureStats_0x38C9F_232607, 0x6A);
+	save("groups", usedTmapGroups_12E9E1_12E9D1, 0x211);
+	int32_t tops[2] = { state->freeTop_0x28_40, state->reuseTop_0x11F1_4593 };
+	save("tops", tops, 8);
+	static uint32_t lists[2000];
+	for (int i = 0; i < 1000; i++)
+	{
+		lists[i] = state->freeEntities_0x251_593[i] ? (uint32_t)(state->freeEntities_0x251_593[i] - entities) : 0xFFFFFFFF;
+		lists[1000 + i] = state->reuseEntities_0x11F5_4597[i] ? (uint32_t)(state->reuseEntities_0x11F5_4597[i] - entities) : 0xFFFFFFFF;
+	}
+	save("lists", lists, sizeof(lists));
+	static Type_Mc1EntityShadow shadow[1000];
+	for (int i = 0; i < 1000; i++)
+	{
+		Type_Mc1Entity& entity = entities[i];
+		Type_Mc1EntityShadow& out = shadow[i];
+		memcpy((uint8_t*)&out + 4, (uint8_t*)&entity + sizeof(void*), 0x9C - 4);
+		out.next_0x00_0 = entity.next_0x00_0 ? (uint32_t)(entity.next_0x00_0 - entities) : 0xFFFFFFFF;
+		out.typeParams_0x9C_156 = entity.typeParams_0x9C_156 ? (uint32_t)(entity.typeParams_0x9C_156 - creatureTypes_98F38_98F38[0]) : 0xFFFFFFFF;
+		out.playerData_0xA0_160 = entity.playerData_0xA0_160 ? (uint32_t)(entity.playerData_0xA0_160 - playerData_B7330_B7320) : 0xFFFFFFFF;
+	}
+	save("entities", shadow, sizeof(shadow));
+	exit(0);
+}
+
 void LoadLevel_407A0_40AE0()
 {
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
@@ -85,6 +131,7 @@ void LoadLevel_407A0_40AE0()
 	state->reuseTop_0x11F1_4593 = -1;
 	CreateLevelModels_37440_37800(0, 1);
 	byte_939E5_939E5 = sound;
+	TempDump(); //TEMPDUMP
 	sub_3DD50_3E090();
 	Type_Mc1Player_340B* player = &state->players_0x340B_13323[state->currentPlayer_0x08_8];
 	sub_48230_48570(&state->entities_0x7463_29795[player->entityIndex_0x0A_10]);

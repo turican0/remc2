@@ -1,5 +1,7 @@
 #include "Mc1Scenery.h"
 
+#include <cstring>
+
 #include "Mc1Entity.h"
 #include "Mc1Game.h"
 #include "Mc1NotPorted.h"
@@ -576,7 +578,7 @@ Type_Mc1Entity* CreateScenery39_3B5A0_3B920(Type_Mc1Position* position)
 	entity->byte_0x3B_59 = 0;
 	AddToMap_41CF0_42030(entity, position);
 	ResetLife_36DE0_371A0(entity);
-	sub_274D0_274D0(entity);
+	SetManaSprite_274D0_274D0(entity);
 	return entity;
 }
 
@@ -713,4 +715,32 @@ Type_Mc1Entity* CreateScenery55_3BA00_3BD40(Type_Mc1Position* position)
 Type_Mc1Entity* CreateScenery56_3BA90_3BDD0(Type_Mc1Position* position)
 {
 	return CreateTurningScenery(position, 0x38, 0x3D, 0x80, 0, true);
+}
+
+// 900A4: the mana limits of the sprites
+static const int32_t manaSpriteLimits_900A4_900A4[8] = { 0x100, 0x200, 0x400, 0x800, 0x1000, 0x23E8, 0x47D0, 0x8FA0 };
+
+void SetManaSprite_274D0_274D0(Type_Mc1Entity* entity)
+{
+	// the sprite by the mana from the colour of the owner (class 3), else 34h
+	int16_t step = 0;
+	while (step < 7 && entity->mana_0x8C_140 > manaSpriteLimits_900A4_900A4[step])
+		step++;
+	Type_Mc1Entity* owner = &mc1State_AE400_AE3F0->entities_0x7463_29795[entity->owner_0x90_144];
+	int16_t first = 0x34;
+	if (entity->owner_0x90_144 && owner->class_0x40_64 == 3)
+	{
+		int16_t colour;
+		memcpy(&colour, owner->playerData_0xA0_160 + 0x30, sizeof(colour));
+		static const int16_t sprites[9] = { 0x34, 0x69, 0x71, 0x79, 0x81, 0x89, 0x91, 0x99, 0xA1 };
+		// other colours keep the caller's cx in the original, not reached
+		if (colour >= -1 && colour <= 7)
+			first = sprites[colour + 1];
+	}
+	int16_t sprite = (int16_t)(first + step);
+	if (entity->sprite_0x56_86 == sprite)
+		return;
+	SetSprite_36FA0_37360(entity, sprite);
+	if (step)
+		SetSpriteHalfBox_370E0_374A0(entity, sprite);
 }

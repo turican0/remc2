@@ -596,8 +596,6 @@ void sub_5A050_5A560(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 void sub_5A060_5A570(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_5A070_5A580(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
-//!!!!! not ported yet
-void sub_274D0_274D0(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 
 //!!!!! not ported yet
 void sub_55370_558A0(int16_t /*entityIndex*/, int32_t /*sound*/, int32_t /*volume*/)

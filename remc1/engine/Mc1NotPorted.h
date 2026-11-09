@@ -296,5 +296,4 @@ void sub_5A040_5A550(Type_Mc1Entity* entity);
 void sub_5A050_5A560(Type_Mc1Entity* entity);
 void sub_5A060_5A570(Type_Mc1Entity* entity);
 void sub_5A070_5A580(Type_Mc1Entity* entity);
-void sub_274D0_274D0(Type_Mc1Entity* entity);
 void sub_55370_558A0(int16_t entityIndex, int32_t sound, int32_t volume); // the sound of an entity by its position

@@ -75,7 +75,8 @@ typedef struct Type_Mc1Entity {
 	int32_t dword_0x84_132;
 	int32_t dword_0x88_136;
 	int32_t mana_0x8C_140; // MC2 mana_0x90
-	uint8_t unknown_0x90_144[0x96 - 0x90];
+	uint16_t owner_0x90_144; // the entity index of the owner
+	uint8_t unknown_0x92_146[0x96 - 0x92];
 	Type_Mc1Position target_0x96_150; // moved by MoveEntity_41EC0 (MC2 axis_0x9A_154x)
 	uint8_t* typeParams_0x9C_156; // dword_98F38 records (MC2 typeParams_0xA0)
 	uint8_t* playerData_0xA0_160; // dword_B7330 (MC2 playerData_0xA4)
@@ -132,7 +133,8 @@ typedef struct {
 	int32_t dword_0x84_132;
 	int32_t dword_0x88_136;
 	int32_t mana_0x8C_140; // MC2 mana_0x90
-	uint8_t unknown_0x90_144[0x96 - 0x90];
+	uint16_t owner_0x90_144; // the entity index of the owner
+	uint8_t unknown_0x92_146[0x96 - 0x92];
 	Type_Mc1Position target_0x96_150; // moved by MoveEntity_41EC0 (MC2 axis_0x9A_154x)
 	uint32_t typeParams_0x9C_156; // dword_98F38 records (MC2 typeParams_0xA0)
 	uint32_t playerData_0xA0_160; // dword_B7330 (MC2 playerData_0xA4)
