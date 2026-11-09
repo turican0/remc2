@@ -146,11 +146,11 @@ jobs:
         with:
           dotnet-version: '8.x'
 
-      - name: Install WiX Toolset v4
+      - name: Install WiX Toolset v6
         run: |
-          dotnet tool install --global wix --version 4.0.5
-          wix extension add -g WixToolset.Util.wixext/4.0.5
-          wix extension add -g WixToolset.UI.wixext/4.0.5
+          dotnet tool install --global wix --version 6.0.1
+          wix extension add -g WixToolset.Util.wixext/6.0.1
+          wix extension add -g WixToolset.UI.wixext/6.0.1
 
       - name: Download win-${{ matrix.arch }} artifact
         uses: actions/download-artifact@v4
@@ -207,7 +207,8 @@ jobs:
       - name: Build installer
         shell: pwsh
         run: |
-          dotnet build remc2-installer.sln --configuration Release -p:Platform=${{ matrix.arch }} -p:AcceptEula=true || true
+          dotnet build remc2-installer.sln --configuration Release -p:Platform=${{ matrix.arch }} -p:AcceptEula=true
+          if ($LASTEXITCODE -ne 0) { Write-Error "Installer build failed with exit code $LASTEXITCODE"; exit $LASTEXITCODE }
           $msi = Get-ChildItem -Recurse -Filter "*.msi" | Select-Object -First 1
           if (-not $msi) { Write-Error "Build failed - MSI not found!"; exit 1 }
           Write-Host "MSI built: $($msi.FullName)"

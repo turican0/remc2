@@ -795,13 +795,14 @@ void DrawCurrentObjectiveTextbox_30630(uint8_t scale)//211630
 
 			if (!DefaultResolutions())
 			{
-				textbox.maxPosX_0x16 = screenWidth_18062C - 40;
+				textbox.minPosX_0x14 = 40 * scale;
+				textbox.maxPosX_0x16 = screenWidth_18062C - (40 * scale);
 				textbox.maxPosY_0x1a = screenHeight_180624 / 2;
 			}
 
 			textbox.color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[3840];
 			textbox.color2_0x31 = ((*xadataclrd0dat.colorPalette_var28)[0]);
-			textbox.minPosY_0x18 = 80;
+			textbox.minPosY_0x18 = 80 * scale;
 			textbox.maxTextboxWidth_0x0 = 320;
 			textbox.maxTextboxHeight_0x2 = 300;
 			textbox.maxTextboxWidth2_0xc = 320;
@@ -1154,6 +1155,28 @@ uint8_t CalculateScaleOffset(uint8_t scale)
 	return 0;
 }
 
+//Draws an enemy player's position on the minimap as a scale x scale block centred on (posX, posY), clipped to the minimap shape
+void DrawMinimapPlayerDot(uint8_t* mapBuffer, uint8_t* mapBuffer2, int posX, int posY, uint16_t width, uint16_t height, uint8_t colour, uint8_t scale, bool setAlpha)
+{
+	const int offset = CalculateScaleOffset(scale);
+	for (int y = posY - offset; y < posY - offset + scale; y++)
+	{
+		if (y < 0 || y >= height)
+			continue;
+		for (int x = posX - offset; x < posX - offset + scale; x++)
+		{
+			if (x < 0 || x >= width || x < mapSpans_F4960[1 + 2 * y] || x >= mapSpans_F4960[2 * y])
+				continue;
+			uint8_t* pixel = &mapBuffer[y * screenWidth_18062C + x];
+			*pixel = colour;
+			if (setAlpha)
+				SetAlphaAt(pixel, ALPHA_VISIBLE);
+			if (mapBuffer2 != nullptr)
+				mapBuffer2[y * screenWidth_18062C + x] = colour;
+		}
+	}
+}
+
 void AlphaRectangle(int posX, int posY, int width, int height, uint8_t alphaAmount)
 {
 	if (pdwScreenAlphaBuffer == nullptr)
@@ -1241,7 +1264,6 @@ void DrawMinimapEntitiesB_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY
 	int v62; // eax
 	int v63; // esi
 	int v64; // edi
-	uint8_t* v65; // ST14_4
 	uint8_t v66; // al
 	int v72; // [esp+0h] [ebp-60h]
 	int v73; // [esp+8h] [ebp-58h]
@@ -1749,14 +1771,12 @@ void DrawMinimapEntitiesB_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY
 							v64 = v76 + projection.Y(v61, v62);
 							if (v64 >= 0 && v64 < height && v63 >= mapSpans_F4960[1 + 2 * v64] && v63 < mapSpans_F4960[2 * v64])
 							{
-								v65 = (uint8_t*)(v64 * screenWidth_18062C + v63 + ptrMapBufferStart_v84);
 								v66 = playersColors_E88E0x[GetTrueWizardNumber_61790(v60x->playerData_0xA4_164x->playerColorIndex_0x38_56)][0];
-								*v65 = v66;
-								SetAlphaAt(v65, ALPHA_VISIBLE);
+								DrawMinimapPlayerDot(ptrMapBufferStart_v84, nullptr, v63, v64, width, height, v66, scale, true);
 								if (videoMode_180660 == 1)
 									DrawText_2BC10(world_D41A0.players_0x2BDE[v87].WizardName_0x39f_2BFA_12157, 2 * v63 + 4, 2 * v64, v66);
 								else
-									DrawText_2BC10(world_D41A0.players_0x2BDE[v87].WizardName_0x39f_2BFA_12157, v63 + 4, v64, v66);
+									DrawText_2BC10(world_D41A0.players_0x2BDE[v87].WizardName_0x39f_2BFA_12157, v63 - CalculateScaleOffset(scale) + (4 * scale), v64 - CalculateScaleOffset(scale), v66, scale);
 							}
 						}
 					}
@@ -1891,8 +1911,6 @@ void DrawMinimapEntities_627F0(int16_t x, int16_t y, int16_t posX, int16_t posY,
 	int v68; // eax
 	int v69; // esi
 	int v70; // edi
-	uint8_t* v71; // ST2C_4
-	uint8_t* v72; // ST28_4
 	uint8_t v73; // al
 	int v74; // eax
 	uint8_t* v75; // esi
@@ -2401,15 +2419,12 @@ void DrawMinimapEntities_627F0(int16_t x, int16_t y, int16_t posX, int16_t posY,
 							v70 = projection.Y(v67, v68) + v85;
 							if (v70 >= 0 && v70 < height && v69 >= mapSpans_F4960[1 + 2 * v70] && v69 < mapSpans_F4960[2 * v70])
 							{
-								v71 = &v99x[v70 * screenWidth_18062C + v69];
-								v72 = &v100x[v70 * screenWidth_18062C + v69];
 								v73 = playersColors_E88E0x[GetTrueWizardNumber_61790(v66x->playerData_0xA4_164x->playerColorIndex_0x38_56)][1];
-								*v72 = v73;
-								*v71 = v73;
+								DrawMinimapPlayerDot(v99x, v100x, v69, v70, width, height, v73, scale, false);
 								if (videoMode_180660 == 1)
 									DrawText_2BC10(world_D41A0.players_0x2BDE[j].WizardName_0x39f_2BFA_12157, 2 * v69 + 4, 2 * v70, v73);
 								else
-									DrawText_2BC10(world_D41A0.players_0x2BDE[j].WizardName_0x39f_2BFA_12157, v69 + 4, v70, v73);
+									DrawText_2BC10(world_D41A0.players_0x2BDE[j].WizardName_0x39f_2BFA_12157, v69 - CalculateScaleOffset(scale) + (4 * scale), v70 - CalculateScaleOffset(scale), v73, scale);
 							}
 						}
 					}
@@ -4414,239 +4429,136 @@ void ShowMessage_52D70(uint16_t playerIndex, char* cheatMessage)//233d70
 }
 
 //----- (0002F6B0) --------------------------------------------------------
-void DrawChatMenu_2F6B0()//2106b0
+void DrawChatMenu_2F6B0(uint8_t scale)//2106b0
 {
-	signed int v0; // eax
-	//int v1; // eax
-	unsigned __int8 v2; // dl
-	char v3; // dh
-	__int16 v4; // bx
-	unsigned __int8 v5; // di
-	unsigned __int8 v6; // al
-	__int16 v7; // si
-	int v8; // ebx
-	__int16 v9; // di
-	unsigned int v10; // ebx
-	__int16 v11; // si
-	unsigned __int8 v12; // al
-	__int16 v13; // ST04_2
-	__int16 v14; // ST00_2
-	__int16 v15; // si
-	__int16 v16; // bx
-	__int16 v17; // si
-	__int16 v18; // bx
-	bitmap_pos_struct_t v19; // eax
-	int v20; // ebx
-	__int16 v21; // si
-	bitmap_pos_struct_t v22; // eax
-	signed int v23; // eax
-	int v24; // ebx
-	int v25; // esi
-	char v26; // al
-	bitmap_pos_struct_t v27; // eax
-	__int16 v28; // si
-	__int16 v29; // bx
-	__int16 v30; // si
-	unsigned __int8 v31; // di
-	//int result; // eax
-	//char v33; // [esp+0h] [ebp-Eh]
-	int v34; // [esp+48h] [ebp+3Ah]
-	int v35; // [esp+4Ch] [ebp+3Eh]
-	int v36; // [esp+50h] [ebp+42h]
-	int v37; // [esp+54h] [ebp+46h]
-	int v38; // [esp+58h] [ebp+4Ah]
-	int v39; // [esp+5Ch] [ebp+4Eh]
-	int v40; // [esp+60h] [ebp+52h]
-	//x_BYTE *v41; // [esp+64h] [ebp+56h]
-	unsigned __int8 v42; // [esp+68h] [ebp+5Ah]
-	unsigned __int8 v43; // [esp+6Ch] [ebp+5Eh]
-	unsigned __int8 v44; // [esp+70h] [ebp+62h]
-	unsigned __int8 v45; // [esp+74h] [ebp+66h]
-	unsigned __int8 v46; // [esp+78h] [ebp+6Ah]
-	unsigned __int8 v47; // [esp+7Ch] [ebp+6Eh]
-	unsigned __int8 v48; // [esp+80h] [ebp+72h]
-	unsigned __int8 v49; // [esp+84h] [ebp+76h]
-	bool v50; // [esp+88h] [ebp+7Ah]
-	char v51; // [esp+8Ch] [ebp+7Eh]
+	int16_t chatPosX;
+	int16_t chatPosY;
+	GetChatMenuCoordinates(&chatPosX, &chatPosY, scale);
 
-	//v41 = (x_BYTE *)(2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0 + 11230);
-	if (videoMode_180660 & 1)
-		v0 = 400;
-	else
-		v0 = screenHeight_180624;
-	v40 = v0 - 72;
-	v36 = 0;
-	//v1 = 5 * static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
-	v2 = frameColors_D94F0[static_cast<std::underlying_type<MapType_t>::type>(world_D41A0.terrain_2FECE.MapType)][0];
-	v47 = frameColors_D94F0[static_cast<std::underlying_type<MapType_t>::type>(world_D41A0.terrain_2FECE.MapType)][1];
-	v3 = frameColors_D94F0[static_cast<std::underlying_type<MapType_t>::type>(world_D41A0.terrain_2FECE.MapType)][2];
-	v48 = frameColors_D94F0[static_cast<std::underlying_type<MapType_t>::type>(world_D41A0.terrain_2FECE.MapType)][3];
-	v42 = (*xadataclrd0dat.colorPalette_var28)[4095];
-	v44 = (*xadataclrd0dat.colorPalette_var28)[0];
-	v49 = v3;
-	v45 = (*xadataclrd0dat.colorPalette_var28)[240];
-	v43 = (*xadataclrd0dat.colorPalette_var28)[3840];
-	v4 = v40;
-	v51 = -1;
-	DrawLine_2BC80(0, v40, 640, 72, v2);
-	v34 = v49;
-	DrawLine_2BC80(0, v4, 640, 2, v49);
-	v5 = v48;
-	DrawLine_2BC80(0, v40 + 70, 640, 2, v48);
-	DrawLine_2BC80(0, v4, 2, 70, v34);
-	DrawLine_2BC80(v36 + 638, v4, 2, 72, v5);
-	if (mouse_E3760.x < 4
-		|| mouse_E3760.x >= 66
-		|| mouse_E3760.y < v40 + 28
-		|| mouse_E3760.y >= v40 + 66)
+	uint8_t mapType = static_cast<std::underlying_type<MapType_t>::type>(world_D41A0.terrain_2FECE.MapType);
+	uint8_t backColour = frameColors_D94F0[mapType][0];
+	uint8_t boxColour = frameColors_D94F0[mapType][1];
+	uint8_t lightColour = frameColors_D94F0[mapType][2];
+	uint8_t darkColour = frameColors_D94F0[mapType][3];
+	uint8_t textColour = (*xadataclrd0dat.colorPalette_var28)[4095];
+	uint8_t blinkColour = (*xadataclrd0dat.colorPalette_var28)[3840];
+	uint8_t numberColour = (*xadataclrd0dat.colorPalette_var28)[0];
+	uint8_t nameColour = (*xadataclrd0dat.colorPalette_var28)[240];
+	int hoveredPlayer = -1;
+	int16_t mouseX = mouse_E3760.x;
+	int16_t mouseY = mouse_E3760.y;
+
+	//Panel and frame
+	DrawLine_2BC80(chatPosX, chatPosY, CHAT_MENU_WIDTH * scale, CHAT_MENU_HEIGHT * scale, backColour);
+	DrawLine_2BC80(chatPosX, chatPosY, CHAT_MENU_WIDTH * scale, 2 * scale, lightColour);
+	DrawLine_2BC80(chatPosX, chatPosY + (70 * scale), CHAT_MENU_WIDTH * scale, 2 * scale, darkColour);
+	DrawLine_2BC80(chatPosX, chatPosY, 2 * scale, 70 * scale, lightColour);
+	DrawLine_2BC80(chatPosX + (638 * scale), chatPosY, 2 * scale, CHAT_MENU_HEIGHT * scale, darkColour);
+
+	//Line shown in the text box: the one under the mouse in the 4x2 line grid, else the selected one
+	uint8_t shownLine = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].chatLineIndex_0x3E0_2BE4_12222;
+	if (mouseX >= chatPosX + (4 * scale)
+		&& mouseX < chatPosX + (66 * scale)
+		&& mouseY >= chatPosY + (28 * scale)
+		&& mouseY < chatPosY + (66 * scale))
 	{
-		v6 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].chatLineIndex_0x3E0_2BE4_12222;
+		shownLine = 4 * ((mouseY - (chatPosY + (28 * scale))) / (20 * scale)) + ((mouseX - (chatPosX + (4 * scale))) / (16 * scale));
 	}
-	else
+
+	//Text box
+	int16_t boxPosX = chatPosX + (4 * scale);
+	int16_t boxPosY = chatPosY + (4 * scale);
+	DrawLine_2BC80(boxPosX, boxPosY, 372 * scale, 20 * scale, boxColour);
+	DrawLine_2BC80(boxPosX, boxPosY, 372 * scale, 2 * scale, darkColour);
+	DrawLine_2BC80(boxPosX, boxPosY + (18 * scale), 372 * scale, 2 * scale, lightColour);
+	DrawLine_2BC80(boxPosX, boxPosY, 2 * scale, 18 * scale, darkColour);
+	DrawLine_2BC80(boxPosX + (370 * scale), boxPosY, 2 * scale, 20 * scale, lightColour);
+	sprintf(printbuffer, "%s", world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].names_81[shownLine]);
+	DrawText_2BC10(printbuffer, boxPosX + (6 * scale), boxPosY + (2 * scale), textColour, scale);
+
+	//Blinking text cursor
+	DrawLine_2BC80(
+		boxPosX + (6 * scale) + ((8 * scale) * strlen(printbuffer)),
+		boxPosY + (4 * scale),
+		6 * scale,
+		12 * scale,
+		(gameState_D41A4.FrameTimingIndex_26 & 8) ? blinkColour : boxColour);
+
+	//Chat line buttons 1-8, two rows of four
+	int16_t btnPosX = chatPosX + (4 * scale);
+	int16_t btnPosY = chatPosY + (28 * scale);
+	for (int i = 0; i < 8; i++)
 	{
-		v6 = 4 * ((mouse_E3760.y - (v40 + 28)) / 20)
-			+ ((mouse_E3760.x
-				- 4
-				- (__CFSHL__((mouse_E3760.x - 4) >> 31, 4)
-					+ 16 * ((mouse_E3760.x - 4) >> 31))) >> 4);
-	}
-	v46 = v6;
-	v7 = v40 + 4;
-	v8 = v36 + 4;
-	v9 = v36 + 4;
-	v34 = (signed __int16)(v40 + 4);
-	DrawLine_2BC80(v36 + 4, v40 + 4, 372, 20, v47);
-	v35 = v48;
-	DrawLine_2BC80(v9, v34, 372, 2, v48);
-	v38 = v49;
-	DrawLine_2BC80(v9, v7 + 18, 372, 2, v49);
-	DrawLine_2BC80(v9, v34, 2, 18, v35);
-	DrawLine_2BC80(v8 + 370, v34, 2, 20, v38);
-	sprintf(printbuffer, "%s", world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].names_81[v46]);
-	v7 += 2;
-	v8 += 6;
-	DrawText_2BC10(printbuffer, v8, v7, v42);
-	v10 = 8 * strlen(printbuffer) + v8;
-	v11 = v7 + 2;
-	if (gameState_D41A4.FrameTimingIndex_26 & 8)
-		v12 = v43;
-	else
-		v12 = v47;
-	v13 = v11;
-	v39 = 0;
-	v14 = v10;
-	v15 = v40;
-	v16 = v36;
-	DrawLine_2BC80(v14, v13, 6, 12, v12);
-	v17 = v15 + 28;
-	v18 = v16 + 4;
-	while (v39 < 8)
-	{
-		if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].chatLineIndex_0x3E0_2BE4_12222 == v39)
-			v19 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_MINISQUARE1_WITH_FRAME];//930
+		if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].chatLineIndex_0x3E0_2BE4_12222 == i)
+			DrawBitmap_2BB40(btnPosX, btnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_MINISQUARE1_WITH_FRAME], scale);//930
 		else
-			v19 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_MINISQUARE1];//948
-		DrawBitmap_2BB40(v18, v17, v19);
-		sprintf(printbuffer, "%d", v39 + 1);
-		DrawText_2BC10(printbuffer, v18 + 4, v17 + 2, v44);
-		if (++v39 == 4)
+			DrawBitmap_2BB40(btnPosX, btnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_MINISQUARE1], scale);//948
+		sprintf(printbuffer, "%d", i + 1);
+		DrawText_2BC10(printbuffer, btnPosX + (4 * scale), btnPosY + (2 * scale), numberColour, scale);
+		if (i == 3)
 		{
-			v18 = 4;
-			v17 += 20;
+			btnPosX = chatPosX + (4 * scale);
+			btnPosY += (20 * scale);
 		}
 		else
 		{
-			v18 += 16;
+			btnPosX += (16 * scale);
 		}
 	}
-	v39 = 0;
-	v20 = v36 + 82;
-	v21 = v40 + 32;
-	while (v39 < 4)
+
+	//Chat state buttons (recipients mode)
+	btnPosX = chatPosX + (82 * scale);
+	btnPosY = chatPosY + (32 * scale);
+	for (int i = 0; i < 4; i++)
 	{
-		if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].chatState_0x3E1_2BE4_12223 == v39)
-			v22 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME];
+		if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].chatState_0x3E1_2BE4_12223 == i)
+			DrawBitmap_2BB40(btnPosX, btnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_WITH_FRAME], scale);
 		else
-			v22 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL];
-		DrawBitmap_2BB40(v20, v21, v22);
-		switch (v39)
-		{
-		case 0:
-			v37 = 154;
-			break;
-		case 1:
-			v37 = 153;
-			break;
-		case 2:
-			v37 = 152;
-			break;
-		case 3:
-			v37 = 151;
-			break;
-		default:
-			break;
-		}
-		//DrawBitmap_2BB40(v20 + 2, v21 + 2, (uint8_t**)(6 * v37 + **filearray_2aa18c[6]));
-		DrawBitmap_2BB40(v20 + 2, v21 + 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v37]);
-		if (++v39 == 3)
-			v23 = 20;
-		else
-			v23 = 2;
-		v20 += v23 + 68;
+			DrawBitmap_2BB40(btnPosX, btnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL], scale);
+		DrawBitmap_2BB40(btnPosX + (2 * scale), btnPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[154 - i], scale);
+		//82, 152, 222, then a wider gap to 310
+		btnPosX += ((i == 2) ? 88 : 70) * scale;
 	}
-	v50 = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].chatState_0x3E1_2BE4_12223 != 3;
-	v39 = 0;
-	v24 = v36 + 384;
-	v25 = v40 + 26;
-	while (v39 < 8)
+
+	//Player recipient buttons, the local player is skipped
+	bool chatToSelected = world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].chatState_0x3E1_2BE4_12223 == 3;
+	btnPosX = chatPosX + (384 * scale);
+	btnPosY = chatPosY + (26 * scale);
+	for (int i = 0; i < 8; i++)
 	{
-		if (world_D41A0.LevelIndex_0xc == v39)
-			++v39;
-		v26 = 1;
-		if (!v50 && (1 << v39) & world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].chatRecipients_0x3E3_2BE4_12225)
-			v26 = 0;
-		/*if ( v26 )
-		  v27 = **filearray_2aa18c[6] + 960;
+		if (world_D41A0.LevelIndex_0xc == i)
+			++i;
+		if (chatToSelected && (1 << i) & world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].chatRecipients_0x3E3_2BE4_12225)
+			DrawBitmap_2BB40(btnPosX, btnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_SMALL_WITH_FRAME], scale);
 		else
-		  v27 = **filearray_2aa18c[6] + 942;
-		DrawBitmap_2BB40(v24, v25, (uint8_t**)v27);
-		DrawBitmap_2BB40(v24 + 2, v25 + 2, (uint8_t**)(6 * (v39 + 74) + **filearray_2aa18c[6]));*/
-		if (v26)
-			v27 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_SMALL];
-		else
-			v27 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_SMALL_WITH_FRAME];
-		DrawBitmap_2BB40(v24, v25, v27);
-		DrawBitmap_2BB40(v24 + 2, v25 + 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v39 + INCHAT_PLAYER1]);
-		if (mouse_E3760.x >= v24
-			&& mouse_E3760.x < v24 + 32
-			&& mouse_E3760.y >= v25
-			&& mouse_E3760.y < v25 + 22)
+			DrawBitmap_2BB40(btnPosX, btnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL_SMALL], scale);
+		DrawBitmap_2BB40(btnPosX + (2 * scale), btnPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[i + INCHAT_PLAYER1], scale);
+		if (mouseX >= btnPosX
+			&& mouseX < btnPosX + (32 * scale)
+			&& mouseY >= btnPosY
+			&& mouseY < btnPosY + (22 * scale))
 		{
-			v51 = v39;
+			hoveredPlayer = i;
 		}
-		v24 += 34;
-		v39++;
+		btnPosX += (34 * scale);
 	}
-	v28 = v40 + 4;
-	v29 = v36 + 384;
-	/*DrawBitmap_2BB40(v36 + 384, v40 + 4, (uint8_t**)(**filearray_2aa18c[6] + 1554));
-	DrawBitmap_2BB40(v36 + 474, v28, (uint8_t**)(**filearray_2aa18c[6] + 1566));
-	DrawBitmap_2BB40(v36 + 564, v28, (uint8_t**)(**filearray_2aa18c[6] + 1560));*/
-	DrawBitmap_2BB40(v36 + 384, v40 + 4, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_OK2]);
-	DrawBitmap_2BB40(v36 + 474, v28, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_BACK]);
-	DrawBitmap_2BB40(v36 + 564, v28, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL2]);
-	v30 = v40 + 50;
-	DrawLine_2BC80(v29, v40 + 50, 236, 18, v47);
-	v31 = v48;
-	DrawLine_2BC80(v29, v30, 236, 2, v48);
-	v38 = v49;
-	DrawLine_2BC80(v29, v40 + 66, 236, 2, v49);
-	DrawLine_2BC80(v29, v30, 2, 16, v31);
-	DrawLine_2BC80(v36 + 618, v30, 2, 18, v38);
-	//result = v51;
-	if (v51 != -1)
-		//v51
-		DrawText_2BC10(world_D41A0.players_0x2BDE[v51].WizardName_0x39f_2BFA_12157, v36 + 390, v40 + 52, v45);
+
+	//OK, Back and Cancel
+	DrawBitmap_2BB40(chatPosX + (384 * scale), chatPosY + (4 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_OK2], scale);
+	DrawBitmap_2BB40(chatPosX + (474 * scale), chatPosY + (4 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_BACK], scale);
+	DrawBitmap_2BB40(chatPosX + (564 * scale), chatPosY + (4 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_BUTTON_CANCEL2], scale);
+
+	//Name box for the hovered player
+	boxPosX = chatPosX + (384 * scale);
+	boxPosY = chatPosY + (50 * scale);
+	DrawLine_2BC80(boxPosX, boxPosY, 236 * scale, 18 * scale, boxColour);
+	DrawLine_2BC80(boxPosX, boxPosY, 236 * scale, 2 * scale, darkColour);
+	DrawLine_2BC80(boxPosX, boxPosY + (16 * scale), 236 * scale, 2 * scale, lightColour);
+	DrawLine_2BC80(boxPosX, boxPosY, 2 * scale, 16 * scale, darkColour);
+	DrawLine_2BC80(boxPosX + (234 * scale), boxPosY, 2 * scale, 18 * scale, lightColour);
+	if (hoveredPlayer != -1)
+		DrawText_2BC10(world_D41A0.players_0x2BDE[hoveredPlayer].WizardName_0x39f_2BFA_12157, boxPosX + (6 * scale), boxPosY + (2 * scale), nameColour, scale);
+
 	if (inputState_18058C.joystickMode_1805C2 == 8
 		|| inputState_18058C.joystickMode_1805C2 == 12
 		|| inputState_18058C.joystickMode_1805C2 == 13
@@ -4655,10 +4567,8 @@ void DrawChatMenu_2F6B0()//2106b0
 		|| inputState_18058C.joystickMode_1805C2 == 11
 		|| inputState_18058C.joystickMode_1805C2 == 5)
 	{
-		//result = DrawBitmap_2BB40(x_DWORD_1805B0_mouse.x, x_DWORD_1805B0_mouse.y, (uint8_t**)(**filearray_2aa18c[0] + 6 * (unsigned __int8)cursorSpriteIndex_D419E));
-		DrawBitmap_2BB40(inputState_18058C.mouse_1805B0.x, inputState_18058C.mouse_1805B0.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[cursorSpriteIndex_D419E]);
+		DrawBitmap_2BB40(inputState_18058C.mouse_1805B0.x, inputState_18058C.mouse_1805B0.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[cursorSpriteIndex_D419E], scale);
 	}
-	//return result;
 	EventDispatcher::I->DispatchEvent(EventType::E_SCENE_CHANGE, Scene::CHAT_MENU);
 }
 // 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
@@ -5368,7 +5278,7 @@ void DrawGameFrame_2BE30()//20CE30
 			switch (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221)
 			{
 			case (int)MenuState::SHOW_CHAT_MENU:
-				DrawChatMenu_2F6B0();
+				DrawChatMenu_2F6B0(scale);
 				DrawPauseMenu_2FD90(scale);
 				break;
 			case (int)MenuState::SHOW_IN_GAME_OPTIONS:
@@ -6744,13 +6654,18 @@ void SetTextBoxMinMaxForSetResolution()
 {
 	if (!DefaultResolutions())
 	{
-		helpPopup_1804B0.type_sub_0[0].maxPosX_0x16 = screenWidth_18062C - 40;
-		helpPopup_1804B0.type_sub_0[0].maxPosY_0x1a = screenHeight_180624 - 220;
+		const int scale = gameUiScale;
+		helpPopup_1804B0.type_sub_0[0].minPosX_0x14 = 40 * scale;
+		helpPopup_1804B0.type_sub_0[0].minPosY_0x18 = 80 * scale;
+		helpPopup_1804B0.type_sub_0[0].maxPosX_0x16 = screenWidth_18062C - (40 * scale);
+		helpPopup_1804B0.type_sub_0[0].maxPosY_0x1a = screenHeight_180624 - (220 * scale);
 		helpPopup_1804B0.type_sub_0[0].maxTextboxHeight2_0xe = screenHeight_180624 - 80;
 
 		helpPopup_1804B0.type_sub_0[1] = helpPopup_1804B0.type_sub_0[0];
-		helpPopup_1804B0.type_sub_0[1].maxPosX_0x16 = screenWidth_18062C - 30;
-		helpPopup_1804B0.type_sub_0[1].maxPosY_0x1a = screenHeight_180624 - 110;
+		helpPopup_1804B0.type_sub_0[1].minPosX_0x14 = 30 * scale;
+		helpPopup_1804B0.type_sub_0[1].minPosY_0x18 = 30 * scale;
+		helpPopup_1804B0.type_sub_0[1].maxPosX_0x16 = screenWidth_18062C - (30 * scale);
+		helpPopup_1804B0.type_sub_0[1].maxPosY_0x1a = screenHeight_180624 - (110 * scale);
 	}
 	else
 	{
@@ -6980,7 +6895,7 @@ void DrawPopupTextBox_87610()//268610
 			if (!DefaultResolutions())
 			{
 				helpPopup_1804B0.type_sub_0[0].maxTextboxWidth_0x0 = screenWidth_18062C / 2;
-				helpPopup_1804B0.type_sub_0[0].maxTextboxHeight_0x2 = screenWidth_18062C / 6;
+				helpPopup_1804B0.type_sub_0[0].maxTextboxHeight_0x2 = screenHeight_180624 / 6; // 80 on the original 480 high screen
 				helpPopup_1804B0.type_sub_0[0].maxTextboxWidth2_0xc = screenWidth_18062C / 2;
 			}
 
@@ -7125,38 +7040,62 @@ void SetPauseMenuCoordinates_87970(uint8_t scale)//268970
 	int16_t posX; // [esp+Ch] [ebp-4h]
 
 	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height, scale);
-	str_E2A74[0x56].axis_2[3] = width + posX - 12;//0x56 tj 0xa14 8
-	str_E2A74[0x56].axis_2[4] = posY + 6;//0x56 tj 0xa14 a
-	str_E2A74[0x57].axis_2[3] = width + posX - 12;//0x57 tj 0xa32 8
-	str_E2A74[0x57].axis_2[4] = height + posY + 6;//0x57 tj 0xa32 a
-	str_E2A74[0x58].axis_2[3] = posX + width / 2 - 12;//0x58 tj 0xa50 8
-	str_E2A74[0x58].axis_2[4] = posY + 2 * height + 6;//0x58 tj 0xa50 a
-	str_E2A74[0x59].axis_2[3] = width + posX - 12;//0x59 tj 0xa6e 8
-	str_E2A74[0x59].axis_2[4] = posY + 2 * height + 6;//0x59 tj 0xa6e a
-	str_E2A74[0x5a].axis_2[3] = width + posX - 12;//0x5a tj 0xa8c 8
-	str_E2A74[0x5a].axis_2[4] = posY + 3 * height + 6;//0x5a tj 0xa8c a
+	str_E2A74[0x56].axis_2[3] = width + posX - (12 * scale);//0x56 tj 0xa14 8
+	str_E2A74[0x56].axis_2[4] = posY + (6 * scale);//0x56 tj 0xa14 a
+	str_E2A74[0x57].axis_2[3] = width + posX - (12 * scale);//0x57 tj 0xa32 8
+	str_E2A74[0x57].axis_2[4] = height + posY + (6 * scale);//0x57 tj 0xa32 a
+	str_E2A74[0x58].axis_2[3] = posX + width / 2 - (12 * scale);//0x58 tj 0xa50 8
+	str_E2A74[0x58].axis_2[4] = posY + 2 * height + (6 * scale);//0x58 tj 0xa50 a
+	str_E2A74[0x59].axis_2[3] = width + posX - (12 * scale);//0x59 tj 0xa6e 8
+	str_E2A74[0x59].axis_2[4] = posY + 2 * height + (6 * scale);//0x59 tj 0xa6e a
+	str_E2A74[0x5a].axis_2[3] = width + posX - (12 * scale);//0x5a tj 0xa8c 8
+	str_E2A74[0x5a].axis_2[4] = posY + 3 * height + (6 * scale);//0x5a tj 0xa8c a
 }
 
 
 //----- (00087A30) --------------------------------------------------------
 void SetHelpPopupLine_87A30()//268a30
 {
+	uint8_t scale = 1;
+	if (!DefaultResolutions())
+		scale = gameUiScale;
+
 	if (helpPopup_1804B0.keyHelpItem_0xa9 > 0)
 	{
 		helpPopup_1804B0.type_sub_0[1].lineSrcX_0x1c = str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[3];
 		helpPopup_1804B0.type_sub_0[1].lineSrcY_0x1e = str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[4];
+		const bool isChatHelp = helpPopup_1804B0.keyHelpItem_0xa9 >= 97 && helpPopup_1804B0.keyHelpItem_0xa9 <= 102;
+		int16_t chatPosX = 0;
+		int16_t chatPosY = 0;
+		if (isChatHelp)
+		{
+			GetChatMenuCoordinates(&chatPosX, &chatPosY, scale);
+			helpPopup_1804B0.type_sub_0[1].lineSrcX_0x1c = chatPosX + (helpPopup_1804B0.type_sub_0[1].lineSrcX_0x1c * scale);
+			helpPopup_1804B0.type_sub_0[1].lineSrcY_0x1e = chatPosY + ((helpPopup_1804B0.type_sub_0[1].lineSrcY_0x1e - (400 - CHAT_MENU_HEIGHT)) * scale);
+		}
 		helpPopup_1804B0.type_sub_0[1].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[4095];
-		helpPopup_1804B0.type_sub_0[1].maxTextboxWidth2_0xc = 220;
+		helpPopup_1804B0.type_sub_0[1].maxTextboxWidth2_0xc = 220 * scale;
 		helpPopup_1804B0.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
-		ComputeTextboxSizes_89830(&helpPopup_1804B0.type_sub_0[1]);
-		ComputeTextboxSizesFromTextWords_89420(&helpPopup_1804B0.type_sub_0[1], langStrings_E9C4C[str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[1]]);
-		ConstrainTextboxSizes_89520(&helpPopup_1804B0.type_sub_0[1]);
-		ComputeFrameSizes_89980(&helpPopup_1804B0.type_sub_0[1]);
+		ComputeTextboxSizes_89830(&helpPopup_1804B0.type_sub_0[1], scale);
+		ComputeTextboxSizesFromTextWords_89420(&helpPopup_1804B0.type_sub_0[1], langStrings_E9C4C[str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[1]], scale);
+		ConstrainTextboxSizes_89520(&helpPopup_1804B0.type_sub_0[1], scale);
+		ComputeFrameSizes_89980(&helpPopup_1804B0.type_sub_0[1], scale);
+		if (isChatHelp)
+		{
+			Type_TextBox_1804B0& textbox = helpPopup_1804B0.type_sub_0[1];
+			const int overlap = (textbox.framePosY_0x26 + textbox.frameHeight_0x2a) - (chatPosY - (2 * scale));
+			if (overlap > 0)
+			{
+				textbox.textboxPosY_0xa -= overlap;
+				textbox.framePosY_0x26 -= overlap;
+				textbox.maxTextboxHeight_0x2 -= overlap;
+			}
+		}
 		ComputeTextboxLine_898A0(&helpPopup_1804B0.type_sub_0[1]);
 		ColorizeScreen_2E790(helpPopup_1804B0.type_sub_0[1].framePosX_0x24, helpPopup_1804B0.type_sub_0[1].framePosY_0x26, helpPopup_1804B0.type_sub_0[1].frameWidth_0x28, helpPopup_1804B0.type_sub_0[1].frameHeight_0x2a, helpPopup_1804B0.type_sub_0[1].color2_0x31);
-		DrawTextboxText_895D0(&helpPopup_1804B0.type_sub_0[1], (char*)langStrings_E9C4C[str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[1]]);
+		DrawTextboxText_895D0(&helpPopup_1804B0.type_sub_0[1], (char*)langStrings_E9C4C[str_E2A74[helpPopup_1804B0.keyHelpItem_0xa9].axis_2[1]], scale);
 		DrawTextboxLine_89A30(&helpPopup_1804B0.type_sub_0[1]);
-		DrawTextboxFrame_89690(&helpPopup_1804B0.type_sub_0[1]);
+		DrawTextboxFrame_89690(&helpPopup_1804B0.type_sub_0[1], scale);
 	}
 }
 
@@ -7291,10 +7230,10 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 				if (!v33)
 				{
 					str_E2A74[v9x].axis_2[0] |= 1u;
-					str_E2A74[35].axis_2[3] = (world_D41A0.terrain_2FECE.manaGoalPercent_0x2FED5 << 6) / 100
+					str_E2A74[35].axis_2[3] = ((world_D41A0.terrain_2FECE.manaGoalPercent_0x2FED5 << 6) / 100
 						+ (*filearray_2aa18c[filearrayindex_FONTS1DATTAB].posistruct)[40].width_4
-						+ 60;
-					str_E2A74[35].axis_2[4] = 38;
+						+ 60) * scale;
+					str_E2A74[35].axis_2[4] = 38 * scale;
 				}
 			}
 			break;
@@ -7618,6 +7557,20 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 	// "Click on LMB to cast this spell" 38, "Click on RMB to cast this spell" 39
 	if (!DefaultResolutions())
 	{
+		str_E2A74[5].axis_2[3] = 470 * scale;
+		str_E2A74[5].axis_2[4] = 16 * scale;
+		str_E2A74[29].axis_2[3] = 214 * scale; // Castled mana, current and capacity
+		str_E2A74[29].axis_2[4] = 32 * scale;
+		str_E2A74[30].axis_2[3] = 214 * scale; // Castle life
+		str_E2A74[30].axis_2[4] = 16 * scale;
+		str_E2A74[31].axis_2[3] = 130 * scale; // Current size of castle
+		str_E2A74[31].axis_2[4] = 16 * scale;
+		str_E2A74[32].axis_2[3] = 320 * scale; // Mana held by balloons
+		str_E2A74[32].axis_2[4] = 32 * scale;
+		str_E2A74[33].axis_2[3] = 260 * scale; // Number of balloons
+		str_E2A74[33].axis_2[4] = 16 * scale;
+		str_E2A74[34].axis_2[3] = 320 * scale; // Balloons life
+		str_E2A74[34].axis_2[4] = 16 * scale;
 		str_E2A74[36].axis_2[3] = 470 * scale;
 		str_E2A74[36].axis_2[4] = 16 * scale;
 		str_E2A74[37].axis_2[3] = 470 * scale;

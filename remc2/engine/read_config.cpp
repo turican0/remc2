@@ -2,6 +2,8 @@
 
 #include <cstdlib>
 #include <ctype.h>
+
+#include "global_types.h"
 #include <filesystem>
 #include <stdio.h>
 #include <stdlib.h>
@@ -197,6 +199,11 @@ bool SetConfig() {
 	{
 		gameResWidth = 320;
 		gameResHeight = 200;
+	}
+	if (static_cast<int64_t>(gameResWidth) * gameResHeight > static_cast<int64_t>(GAME_RES_MAX_WIDTH) * GAME_RES_MAX_HEIGHT)
+	{
+		gameResWidth = GAME_RES_MAX_WIDTH;
+		gameResHeight = GAME_RES_MAX_HEIGHT;
 	}
 	gameUiScale = settingsValue.m_Graphics.m_GameDetail.m_GameUiScale;
 	if (gameUiScale < 1)

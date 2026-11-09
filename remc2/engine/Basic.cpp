@@ -2154,11 +2154,11 @@ void DrawCursor_8C635()//26d635
 	}
 	cursorScreenIndex_180704 = cursorX_1806F8 + cursorY_1806F8 * screenWidth_18062C;
 	cursorScreenIndex2_1806F4 = cursorScreenIndex_180704;
-	cursorVisibleWidth_1806FC = screenWidth_18062C - cursorX_1806F8;
+	cursorVisibleWidth_1806FC = ((int)screenWidth_18062C - cursorX_1806F8) / scale;
 	if (cursorVisibleWidth_1806FC > cursorWidth_18072C)//35172c je to 13001500!
 		cursorVisibleWidth_1806FC = cursorWidth_18072C;
 	unk_1806EC = cursorVisibleWidth_1806FC;
-	cursorVisibleHeight_1806FC = screenHeight_180624 - cursorY_1806F8;
+	cursorVisibleHeight_1806FC = ((int)screenHeight_180624 - cursorY_1806F8) / scale;
 	if (cursorVisibleHeight_1806FC > cursorHeight_18072E)
 		cursorVisibleHeight_1806FC = cursorHeight_18072E;
 	cursorRows_1806EE = cursorVisibleHeight_1806FC;

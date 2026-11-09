@@ -64,6 +64,7 @@ void ReadOkayCancelButtonEvents_19E00();
 void SetCurrentNotificationMessage_19760(const char* message, uint8_t a2, int16_t duration);
 void ApplyBrightnessToPalette_47650(int a1/*, int a2*/);
 void GetPauseMenuCoordinates_2FFE0(int16_t* posX, int16_t* posY, int16_t* width, int16_t* height, uint8_t scale = 1);
+void GetChatMenuCoordinates(int16_t* posX, int16_t* posY, uint8_t scale = 1);
 signed int GetNextSearchOffset_10130(int a1, x_DWORD* a2, x_DWORD* a3);
 void ClearMouseButtonState_19A50();
 void FreeWebSprites_47130();

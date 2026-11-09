@@ -99,7 +99,7 @@ void CloseHelpPopup_87C10();
 void DrawBottomSpellsMenu_2ECC0();
 void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color);
 void AlphaRectangle(int posX, int posY, int width, int height, uint8_t alphaAmount);
-void DrawChatMenu_2F6B0();
+void DrawChatMenu_2F6B0(uint8_t scale);
 void DrawPopupTextBox_87610();
 void DrawHelpPopUps_871F0();
 void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale = 1);
@@ -152,6 +152,7 @@ void DrawMapHighRes_63C90(int16_t x, int16_t y, int16_t posX, int16_t posY, uint
 void DrawMinimapEntities_627F0(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale);
 void DrawMinimapEntitiesB_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, uint8_t scale);
 uint8_t CalculateScaleOffset(uint8_t scale);
+void DrawMinimapPlayerDot(uint8_t* mapBuffer, uint8_t* mapBuffer2, int posX, int posY, uint16_t width, uint16_t height, uint8_t colour, uint8_t scale, bool setAlpha);
 void DrawRectangle(uint8_t* ptrImageBufferStart, int posX, int poxY, int width, int height, uint8_t lineThickness, uint32_t pitch, uint8_t colour);
 
 void SetHelpItemTarget_885E0(type_entity_0x6E8E* a1, int16_t posX, int16_t posY, uint16_t a4);

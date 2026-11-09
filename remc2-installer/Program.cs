@@ -274,7 +274,11 @@ namespace remc2_installer
             project.BannerImage = @"Resources\MagicCarpet2HD.dialog_banner.png";
 			ValidateAssemblyCompatibility();
             project.AfterInstall += OnAfterInstall;
-            project.BuildMsi();
+            if (project.BuildMsi() == null)
+            {
+                Console.Error.WriteLine("error: WixSharp failed to build the MSI");
+                Environment.Exit(1);
+            }
         }
 
         static void ValidateAssemblyCompatibility()
