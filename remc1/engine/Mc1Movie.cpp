@@ -613,7 +613,7 @@ void PlayMainIntro_4D3B0_4D6F0()
 	if (menuFlags_12CBD5_12CBC5 & 2)
 	{
 		// intro.pld existed, the intro can be skipped
-		if (byte_12CBD6_12CBC6 & 1)
+		if (attractFlags_12CBD6_12CBC6 & 1)
 			skipOnInput_90026_90026 = 1;
 		PlayMovie_107C0_107C0(1, 1, introEvents_4A1FC_4A53C);
 		skipOnInput_90026_90026 = 0;
@@ -626,12 +626,12 @@ void PlayMainIntro_4D3B0_4D6F0()
 	StopMusic_20E60_20E60();
 	ClearAndBlitScreen();
 	menuFlags_12CBD5_12CBC5 |= 6;
-	if (!(byte_12CBD6_12CBC6 & 1))
+	if (!(attractFlags_12CBD6_12CBC6 & 1))
 		mainMenuItem_12CBCE_12CBBE = 8;
 	else
 	{
 		mainMenuItem_12CBCE_12CBBE = 2;
-		byte_12CBD6_12CBC6 &= 0xFE;
+		attractFlags_12CBD6_12CBC6 &= 0xFE;
 	}
 	menuFlags_12CBD5_12CBC5 &= 0xFE;
 }
@@ -679,7 +679,7 @@ void TitleScreen_4F1E0_4F520()
 	*mouseRightPressed_12EFDC_12EFCC = 0;
 	*mouseLeftPressed_12EFDE_12EFCE = 0;
 	*lastKey_12EF70_12EF60 = 0;
-	if (byte_12CBD6_12CBC6 & 2)
+	if (attractFlags_12CBD6_12CBC6 & 2)
 		skipOnInput_90026_90026 = 1;
 	PlayMovie_107C0_107C0(1, 1, titleEvents_4A568_4A8A8);
 	skipOnInput_90026_90026 = 0;
@@ -693,7 +693,7 @@ void TitleScreen_4F1E0_4F520()
 	if (animated)
 		FreeFileGroup_61610_61B20(titleFiles_4A0D4_4A414);
 	mainMenuItem_12CBCE_12CBBE = 2;
-	byte_12CBD6_12CBC6 &= 0xFD;
+	attractFlags_12CBD6_12CBC6 &= 0xFD;
 }
 
 void InitSubtitles_24AB0_24AB0()

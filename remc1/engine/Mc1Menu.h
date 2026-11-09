@@ -53,21 +53,21 @@ extern int16_t word_12CBBC_12CBAC;
 extern int16_t word_12CBBE_12CBAE;
 extern int16_t word_12CBC0_12CBB0;
 extern int16_t word_12CBC2_12CBB2;
-extern uint8_t byte_12CBC6_12CBB6;
+extern uint8_t mainMenuArea_12CBC6_12CBB6; // the area of the main menu under the cursor (mmmask.dat)
 extern uint8_t menuPage_12CBC9_12CBB9; // 0 sound setup, 7 with sndsetup.dat
 extern uint8_t byte_12CBCA_12CBBA; // the highlighted option
 extern uint8_t hoveredOption_12CBCB_12CBBB; // the option under the mouse, FFh none
 extern uint8_t byte_12CBCC_12CBBC;
-extern uint8_t byte_12CBCD_12CBBD;
+extern uint8_t mainMenuMode_12CBCD_12CBBD; // 0 main, 1 load, 2 save
 extern uint8_t mainMenuItem_12CBCE_12CBBE;
 extern uint8_t inputMode_12CBCF_12CBBF; // 0 none, 1 keyboard, 2 mouse
 extern uint8_t byte_12CBD0_12CBC0;
 extern uint8_t byte_12CBD1_12CBC1;
 extern uint8_t byte_12CBD2_12CBC2;
 extern uint8_t controlDevice_12CBD3_12CBC3;
-extern uint8_t byte_12CBD4_12CBC4;
+extern uint8_t attractStep_12CBD4_12CBC4; // the next of the intro, the title and the demo when idle
 extern uint8_t menuFlags_12CBD5_12CBC5; // 2 intro.pld existed
-extern uint8_t byte_12CBD6_12CBC6;
+extern uint8_t attractFlags_12CBD6_12CBC6; // 1 intro, 2 title, 4 demo started when idle
 
 void InitMenu_4A980_4ACC0();
 void RunMenu_4AB20_4AE60();

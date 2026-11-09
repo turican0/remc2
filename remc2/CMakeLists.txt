@@ -250,6 +250,8 @@ set(SOURCE_FILES_REMC1
     "../remc1/engine/Mc1Sound.h"
     "../remc1/engine/Mc1Movie.cpp"
     "../remc1/engine/Mc1Movie.h"
+    "../remc1/engine/Mc1MainMenu.cpp"
+    "../remc1/engine/Mc1MainMenu.h"
     "../remc1/engine/Mc1MenuText.cpp"
     "../remc1/engine/Mc1MenuText.h"
     "../remc1/engine/Mc1MenuSound.cpp"

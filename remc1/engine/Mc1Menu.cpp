@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Mc1Game.h"
+#include "Mc1MainMenu.h"
 #include "Mc1Install.h"
 #include "Mc1MenuSound.h"
 #include "Mc1Movie.h"
@@ -72,21 +73,21 @@ int16_t word_12CBBC_12CBAC = 0;
 int16_t word_12CBBE_12CBAE = 0;
 int16_t word_12CBC0_12CBB0 = 0;
 int16_t word_12CBC2_12CBB2 = 0;
-uint8_t byte_12CBC6_12CBB6 = 0;
+uint8_t mainMenuArea_12CBC6_12CBB6 = 0;
 uint8_t menuPage_12CBC9_12CBB9 = 0;
 uint8_t byte_12CBCA_12CBBA = 0;
 uint8_t hoveredOption_12CBCB_12CBBB = 0;
 uint8_t byte_12CBCC_12CBBC = 0;
-uint8_t byte_12CBCD_12CBBD = 0;
+uint8_t mainMenuMode_12CBCD_12CBBD = 0;
 uint8_t mainMenuItem_12CBCE_12CBBE = 0;
 uint8_t inputMode_12CBCF_12CBBF = 0;
 uint8_t byte_12CBD0_12CBC0 = 0;
 uint8_t byte_12CBD1_12CBC1 = 0;
 uint8_t byte_12CBD2_12CBC2 = 0;
 uint8_t controlDevice_12CBD3_12CBC3 = 0;
-uint8_t byte_12CBD4_12CBC4 = 0;
+uint8_t attractStep_12CBD4_12CBC4 = 0;
 uint8_t menuFlags_12CBD5_12CBC5 = 0;
-uint8_t byte_12CBD6_12CBC6 = 0;
+uint8_t attractFlags_12CBD6_12CBC6 = 0;
 
 static const char zeroText_A9990_A99A8[2] = { '0', 0 }; // copied as a word
 const char yesText_A99A0_A99B8[4] = "YES"; // copied as a dword
@@ -97,14 +98,14 @@ void InitMenu_4A980_4ACC0()
 		menuPage_12CBC9_12CBB9 = 7;
 	else
 		menuPage_12CBC9_12CBB9 = 0;
-	byte_12CBD4_12CBC4 = 0;
+	attractStep_12CBD4_12CBC4 = 0;
 	word_12CBC0_12CBB0 = 0;
 	word_12CBC2_12CBB2 = 0;
 	word_12CBBC_12CBAC = 0;
 	word_12CBBE_12CBAE = 0;
 	byte_12CBCA_12CBBA = 0;
-	byte_12CBC6_12CBB6 = 0;
-	byte_12CBCD_12CBBD = 0;
+	mainMenuArea_12CBC6_12CBB6 = 0;
+	mainMenuMode_12CBCD_12CBBD = 0;
 	byte_12CBD0_12CBC0 = 0;
 	inputMode_12CBCF_12CBBF = 2;
 	byte_12CBD1_12CBC1 = 2;
@@ -112,7 +113,7 @@ void InitMenu_4A980_4ACC0()
 	dword_12CBB0_12CBA0 = 0;
 	menuFlags_12CBD5_12CBC5 = (menuFlags_12CBD5_12CBC5 | 2) & 0x42;
 	byte_12CBD2_12CBC2 = 6;
-	byte_12CBD6_12CBC6 &= 0xF8;
+	attractFlags_12CBD6_12CBC6 &= 0xF8;
 	mainMenuItem_12CBCE_12CBBE = 6;
 	controlDevice_12CBD3_12CBC3 = 0;
 	sprintf(mc1Settings_AE408_AE3F8->sessionName_0x75_117, "CARPET%d", 0);
@@ -194,7 +195,7 @@ void RunMenu_4AB20_4AE60()
 		SkipSoundSetup(); // port: instead of SoundSetup_4AC70_4AFB0
 		break;
 	case 2:
-		sub_4BD60_4C0A0();
+		MainMenu_4BD60_4C0A0();
 		break;
 	case 4:
 		sub_4D680_4D9C0();

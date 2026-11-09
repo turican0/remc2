@@ -11,7 +11,9 @@ typedef struct { // size 0x801
 	uint8_t exitGame_0x04_4;
 	uint8_t unknown_0x05_5[0x18 - 0x05];
 	int32_t cheat_0x18_24;
-	uint8_t unknown_0x1C_28[0x801 - 0x1C];
+	uint8_t unknown_0x1C_28[0x7CB - 0x1C];
+	uint8_t progress_0x7CB_1995[0x18]; // cleared by a new game, kept by the demo, in the saved games
+	uint8_t unknown_0x7E3_2019[0x801 - 0x7E3];
 } Type_Mc1Player_340B;
 
 typedef struct { // size 232713, DOSBox 26C400 (pointer)
@@ -34,7 +36,9 @@ typedef struct { // size 232713, DOSBox 26C400 (pointer)
 	int8_t tileTextureSize_0x21A0_8608; // 0x20 (blk?-1) or 0x10 (blk?-0), by the memory
 	uint8_t unknown_0x21A1_8609[0x21AD - 0x21A1];
 	uint8_t options_0x21AD_8621[11]; // all 1 by default, [10] cleared with less memory
-	uint8_t unknown_0x21B8_8632[0x340B - 0x21B8];
+	uint8_t unknown_0x21B8_8632[0x2409 - 0x21B8];
+	Type_Mc1Player_340B networkPlayer_0x2409_9225; // player 0 kept by the network game (4FEB0)
+	uint8_t unknown_0x2C0A_11274[0x340B - 0x2C0A];
 	Type_Mc1Player_340B players_0x340B_13323[8];
 	uint8_t unknown_0x7413_29715[232713 - 0x7413];
 } Type_Mc1State_AE400_AE3F0;
@@ -47,7 +51,8 @@ typedef struct { // size 36478
 	uint16_t movie_0x0D_13;
 	uint16_t roll_0x0F_15;
 	uint16_t levelIndex_0x11_17;
-	uint8_t unknown_0x13_19[0x17 - 0x13];
+	uint16_t networkLevel_0x13_19; // the level when the network game was chosen
+	uint8_t unknown_0x15_21[0x17 - 0x15];
 	uint8_t flag_0x17_23;
 	uint8_t unknown_0x18_24;
 	int32_t password_0x19_25;
@@ -56,7 +61,10 @@ typedef struct { // size 36478
 	char sessionName_0x75_117[32];
 	uint8_t unknown_0x95_149[0x97 - 0x95];
 	uint8_t language_0x97_151; // 0-3, chosen on the language screen
-	uint8_t unknown_0x98_152[0xA8 - 0x98];
+	uint8_t unknown_0x98_152[0xA1 - 0x98];
+	uint8_t unknown_0xA1_161; // 3 in the demo
+	uint32_t unknown_0xA2_162; // 200 in the demo
+	uint8_t unknown_0xA6_166[0xA8 - 0xA6];
 	uint8_t* heap_0xA8_168; // allocated by InitMemory
 	uint32_t heapSize_0xAC_172;
 	uint8_t unknown_0xB0_176[0xCE - 0xB0];

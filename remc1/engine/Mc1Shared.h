@@ -37,6 +37,7 @@ inline constexpr int* mouseMiddleDown_12EFE0_12EFD0 = &mouseEventFlagB_180748;
 inline constexpr int16_t* mouseRightDown_12EFE2_12EFD2 = &mouseRightButton2_18074A;
 inline constexpr int16_t* mouseLeftDown_12EFE4_12EFD4 = &mouseLeftButton2_18074C;
 inline constexpr uint32_t* screenWidth_12EFF0_12EFE0 = &screenWidth_18062C;
+inline constexpr uint32_t* screenHeight_12EFF8_12EFE8 = &screenHeight_180624;
 inline constexpr int* renderWidth_93AD4_93AD4 = &iScreenWidth_DE560; // set by 79495 / 799A5 (MC2 BCD45)
 
 // functions
@@ -64,6 +65,7 @@ inline constexpr auto WriteFile_62ED0_633E0 = &DataFileIO::WriteFile_98CAA;
 inline constexpr auto DecompressRnc_62B60_63070 = &DataFileRNC::Decompress;
 inline constexpr auto CreateIndexDatTabDoubled_65D70_66280 = &CreateIndexDatTabDoubled_98709;
 inline constexpr auto CreateIndexDatTab_65DC0_662D0 = &CreateIndexDatTab_9874D;
+inline constexpr auto SetViewport_65EB0_663C0 = &SetViewport_A0D50; // x, y, width, height of the bitmaps
 
 // FLI player (MC1 107C0-10BD0, the same addresses in HW; MC2 76160-76540)
 inline constexpr FILE** movieFile_AC5C0_AC5B0 = &fmvFile_17DB38;
@@ -89,6 +91,8 @@ inline constexpr auto ReadPalette_108C0_108C0 = &ReadIntroPalettes_76260; // the
 inline constexpr auto DecodeSs2_10960_10960 = &DecodeFlcDeltaChunk_76300;
 inline constexpr auto DecodeLc_10AB0_10AB0 = &DecodeFliLineCompressChunk_76430;
 inline constexpr auto DecodeBrun_10BD0_10BD0 = &DecodeFliByteRunChunk_76540;
+inline constexpr char* animDecodeMode_967E4_967E4 = &animDecodeMode_E2A20; // 1 in the main menu
+inline constexpr auto SetAnimationPosition_10010_10010 = &SetAnimationPosition_765FC;
 inline constexpr auto DecodeAnimationFrame_1002D_1002D = &DecodeAnimationFrame_76619;
 inline constexpr FILE** soundEventFile_9ADC0_9ADC0 = &soundEventFile_E3840; // opened by 5C468 (MC2 8D12F)
 inline constexpr int* fileReadBuffer_9AF08_9AF08 = &fileReadBuffer_E387C; // set neither in MC1 nor in MC2
