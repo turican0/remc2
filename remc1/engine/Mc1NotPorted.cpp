@@ -35,11 +35,19 @@ void sub_4E5B0_4E8F0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
 void sub_4D560_4D8A0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
-void sub_34460_34820() { NotPorted(__func__); }
-//!!!!! not ported yet
 void sub_31600_31640() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_407A0_40AE0() { NotPorted(__func__); }
+void sub_371C0_37580() { NotPorted(__func__); }
+//!!!!! not ported yet
+void sub_36430_367F0(Type_Mc1Level_2F503* /*level*/) { NotPorted(__func__); }
+//!!!!! not ported yet
+void sub_37220_375E0() { NotPorted(__func__); }
+//!!!!! not ported yet
+void sub_37440_37800(int32_t /*a1*/, int32_t /*a2*/) { NotPorted(__func__); }
+//!!!!! not ported yet
+void sub_3DD50_3E090() { NotPorted(__func__); }
+//!!!!! not ported yet
+void sub_48230_48570(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_59720_59C30() { NotPorted(__func__); }
 //!!!!! not ported yet

@@ -32,6 +32,7 @@ MC1 tree: 20955 asm lines, MC2 tree: 23099.
 - Same role, different code: the rest. The differences have to be read function by function; the biggest
   one is DrawTerrainAndParticles (0.29).
 - MC1 has one extra sprite pass (sub_2F170); MC2 has names/health bars over wizards in DrawSprite.
+- MC1 has extra 3D modes (stereo / VFX1 output) - to be added to the renderer later, not forgotten.
 
 ## Plan
 

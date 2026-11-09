@@ -3,6 +3,7 @@
 #include <cstdio>
 
 #include "Mc1Game.h"
+#include "Mc1Install.h"
 #include "Mc1System.h"
 #include "../../remc2/portability/port_filesystem.h"
 #include "../../remc2/utilities/DataFileIO.h"
@@ -122,8 +123,9 @@ static const char* EntryPath(const Type_Mc1FileEntry* entry)
 
 std::string Mc1DataFilePath(const char* path)
 {
-	// the original runs in the CD root, paths mix '/' and '\'
-	std::string full = mc1DataPath + "/" + path;
+	// the original runs in the CD root, paths mix '/' and '\'; c:\carpet.cd is the install directory
+	bool install = !_strnicmp(path, "c:/carpet.cd", 12) || !_strnicmp(path, "c:\\carpet.cd", 12);
+	std::string full = install ? Mc1InstallPath() + (path + 12) : mc1DataPath + "/" + path;
 	for (char& c : full)
 		if (c == '\\')
 			c = '/';

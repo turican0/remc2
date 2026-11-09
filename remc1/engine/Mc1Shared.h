@@ -11,6 +11,7 @@
 #include "../../remc2/engine/Graphics.h"
 #include "../../remc2/engine/PlayerInput.h"
 #include "../../remc2/engine/Sound.h"
+#include "../../remc2/engine/Terrain.h"
 #include "../../remc2/portability/port_sdl_vga_mouse.h"
 #include "../../remc2/utilities/DataFileIO.h"
 #include "../../remc2/utilities/DataFileRNC.h"
@@ -72,6 +73,25 @@ inline constexpr auto DecompressRnc_62B60_63070 = &DataFileRNC::Decompress;
 inline constexpr auto CreateIndexDatTabDoubled_65D70_66280 = &CreateIndexDatTabDoubled_98709;
 inline constexpr auto CreateIndexDatTab_65DC0_662D0 = &CreateIndexDatTab_9874D;
 inline constexpr auto SetViewport_65EB0_663C0 = &SetViewport_A0D50; // x, y, width, height of the bitmaps
+
+// level maps (cleared in the same order by ClearLevel_40550 / ClearSettings_567C0)
+inline constexpr uint8_t* mapTerrainType_CC1E0_CC1D0 = mapTerrainType_10B4E0;
+inline constexpr uint8_t* mapHeightmap_DC1E0_DC1D0 = mapHeightmap_11B4E0;
+inline constexpr uint8_t* mapShading_EC1E0_EC1D0 = mapShading_12B4E0;
+inline constexpr uint8_t* mapAngle_FC1E0_FC1D0 = mapAngle_13B4E0;
+inline constexpr int16_t* mapEntityIndex_10C1E0_10C1D0 = mapEntityIndex_15B4E0;
+inline constexpr uint16_t* randSeed_12C1E0_12C1D0 = &rand2_17B4E0;
+// terrain passes of GenerateLevelMap_31AA0 that are the same code as in MC2 (checked against DOSBox)
+inline constexpr auto DecompressTerrainMapLevel_725C8_72AD8 = &DecompressTerrainMapLevel_B5E70;
+inline constexpr auto TruncTerrainHeight_32A50_32E40 = &TruncTerrainHeight_44DB0;
+inline constexpr auto MarkLandAndRivers_32AE0_32ED0 = &MarkLandAndRivers_44E40;
+inline constexpr auto SetMax4Tiles_33500_338F0 = &SetMax4Tiles_45AA0;
+inline constexpr auto ApplySnowLine_320A0_32490 = &ApplySnowLine_440D0;
+inline constexpr auto MarkFlatLowland_32D00_330F0 = &MarkFlatLowland_45060;
+inline constexpr auto SpreadTerrainClass4_32300_326F0 = &SpreadTerrainClass4_44320;
+inline constexpr auto MarkFlatLowlandClass2_32EB0_332A0 = &MarkFlatLowlandClass2_45210;
+inline constexpr auto RemoveIsolatedTerrainClasses_31FA0_32390 = &RemoveIsolatedTerrainClasses_43FC0;
+inline constexpr auto AddRivers_31EC0_322B0 = &AddRivers_43EE0;
 
 // FLI player (MC1 107C0-10BD0, the same addresses in HW; MC2 76160-76540)
 inline constexpr FILE** movieFile_AC5C0_AC5B0 = &fmvFile_17DB38;

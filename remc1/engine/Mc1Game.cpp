@@ -8,6 +8,7 @@
 #include "Mc1Files.h"
 #include "Mc1Graphics.h"
 #include "Mc1Install.h"
+#include "Mc1Level.h"
 #include "Mc1Menu.h"
 #include "Mc1Sound.h"
 #include "Mc1NotPorted.h"
@@ -110,7 +111,7 @@ int TopProcedure_340B0(int argc, char** argv)
 				FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 				SetCursor_5C05C_5C56C(pointersIndex[0]);
 				if (!CurrentPlayer()->exitGame_0x04_4)
-					sub_34460_34820();
+					LoadingScreen_34460_34820();
 				LoadGameData_34B00_34EC0();
 				FreeFileGroup_61610_61B20(soundFiles_9AE84_9AE84);
 				FreeFileGroup_61610_61B20(musicFiles_9AE00_9AE00);
@@ -132,7 +133,7 @@ int TopProcedure_340B0(int argc, char** argv)
 			if (!CurrentPlayer()->exitGame_0x04_4)
 			{
 				seed = mc1Settings_AE408_AE3F8->levelIndex_0x11_17;
-				sub_407A0_40AE0();
+				LoadLevel_407A0_40AE0();
 				if (*videoMode_12F02E_12F01E == 1 && !blurBuffer_AE404_AE3F4)
 					blurBuffer_AE404_AE3F4 = (uint8_t*)Malloc_42540_42880(64000);
 			}
@@ -229,7 +230,7 @@ int TopProcedure_34470(int argc, char** argv)
 				FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 				SetCursor_5C05C_5C56C(pointersIndex[0]);
 				if (!CurrentPlayer()->exitGame_0x04_4)
-					sub_34460_34820();
+					LoadingScreen_34460_34820();
 				LoadGameData_34B00_34EC0();
 				FreeFileGroup_61610_61B20(soundFiles_9AE84_9AE84);
 				FreeFileGroup_61610_61B20(musicFiles_9AE00_9AE00);
@@ -251,7 +252,7 @@ int TopProcedure_34470(int argc, char** argv)
 			if (!CurrentPlayer()->exitGame_0x04_4)
 			{
 				seed = mc1Settings_AE408_AE3F8->levelIndex_0x11_17;
-				sub_407A0_40AE0();
+				LoadLevel_407A0_40AE0();
 				if (*videoMode_12F02E_12F01E == 1 && !blurBuffer_AE404_AE3F4)
 					blurBuffer_AE404_AE3F4 = (uint8_t*)Malloc_42540_42880(64000);
 			}

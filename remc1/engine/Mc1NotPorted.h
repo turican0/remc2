@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Mc1GameState.h"
+
 #include <cstdint>
 
 #include "../../remc2/portability/bitmap_pos_struct.h"
@@ -12,9 +14,13 @@ void sub_3FCA0_3FFE0(int32_t mode, int32_t minX, int32_t minY, int32_t maxX, int
 void sub_4D680_4D9C0();
 void sub_4E5B0_4E8F0();
 void sub_4D560_4D8A0();
-void sub_34460_34820();
 void sub_31600_31640();
-void sub_407A0_40AE0();
+void sub_371C0_37580();
+void sub_36430_367F0(Type_Mc1Level_2F503* level); // features
+void sub_37220_375E0();
+void sub_37440_37800(int32_t a1, int32_t a2); // models
+void sub_3DD50_3E090();
+void sub_48230_48570(Type_Mc1Entity* entity);
 void sub_59720_59C30();
 void GameLoop_34610_349D0();
 void sub_448E0_44C20();
