@@ -9,6 +9,7 @@
 #include "../../remc2/engine/GameUI.h"
 #include "../../remc2/engine/globals.h"
 #include "../../remc2/engine/Graphics.h"
+#include "../../remc2/engine/Player.h"
 #include "../../remc2/engine/PlayerInput.h"
 #include "../../remc2/engine/Sound.h"
 #include "../../remc2/engine/Terrain.h"
@@ -92,6 +93,12 @@ inline constexpr auto SpreadTerrainClass4_32300_326F0 = &SpreadTerrainClass4_443
 inline constexpr auto MarkFlatLowlandClass2_32EB0_332A0 = &MarkFlatLowlandClass2_45210;
 inline constexpr auto RemoveIsolatedTerrainClasses_31FA0_32390 = &RemoveIsolatedTerrainClasses_43FC0;
 inline constexpr auto AddRivers_31EC0_322B0 = &AddRivers_43EE0;
+inline constexpr auto GetTerrainAlt_11F50_11F50 = &GetTerrainAlt_10C40; // Type_Mc1Position as axis_3d
+inline constexpr auto GetTerrainHeightFromSquare_361C0_36580 = &GetTerrainHeightFromSquare_48DF0;
+inline constexpr auto GetYawAngle_42150_42490 = &Maths::GetYawAngle_581E0;
+inline constexpr auto MoveEntity_41EC0_42200 = &MoveEntity_57FA0; // a position by yaw, pitch and speed
+inline constexpr auto GetTileAngleBit_11760_11760 = &GetTileAngleBit_104A0; // 1 << (angle & 0Fh) of the tile, Type_Mc1Position as axis_3d
+inline constexpr auto IsTileFreeOfFeatures_409E0_40D20 = &IsTileFreeOfFeatures_56EE0; // not the angle types 2, 3, 5
 
 // FLI player (MC1 107C0-10BD0, the same addresses in HW; MC2 76160-76540)
 inline constexpr FILE** movieFile_AC5C0_AC5B0 = &fmvFile_17DB38;

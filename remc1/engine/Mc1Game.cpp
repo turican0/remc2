@@ -8,6 +8,7 @@
 #include "Mc1Files.h"
 #include "Mc1Graphics.h"
 #include "Mc1Install.h"
+#include "Mc1EntityTables.h"
 #include "Mc1Level.h"
 #include "Mc1Menu.h"
 #include "Mc1Sound.h"
@@ -180,6 +181,7 @@ int TopProcedure_340B0(int argc, char** argv)
 
 int TopProcedure_34470(int argc, char** argv)
 {
+	PatchClassTablesHw();
 	if (ProcessCommandLine_34DD0_35190((uint16_t)argc, argv) == -1)
 		return -1;
 	InitGameData_34B40_34F00();

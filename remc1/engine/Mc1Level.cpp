@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Mc1Files.h"
+#include "Mc1Entity.h"
 #include "Mc1Game.h"
 #include "Mc1Install.h"
 #include "Mc1Menu.h"
@@ -12,8 +13,6 @@
 #include "Mc1Shared.h"
 #include "Mc1Sound.h"
 #include "../../remc2/utilities/DataFileIO.h"
-
-uint8_t word_AE454_AE444[6];
 
 // 9075C: the heights (0-6) of the corners of a tile, x/y, x+1/y, x+1/y+1, x/y+1; -1 not used
 const int8_t anglePatterns_9075C_9075C[148][4] = {
@@ -75,13 +74,13 @@ void LoadLevel_407A0_40AE0()
 		state->playerCount_0x0A_10 = state->level_0x2F503_193795.playerCount_0x9792_38802;
 	PrintLoadingText_5AD10_5B220("Generate map");
 	GenerateLevelMap_31AA0_31AE0(&state->level_0x2F503_193795);
-	sub_371C0_37580();
+	InitEntities_371C0_37580();
 	PrintLoadingText_5AD10_5B220("Generate features");
-	sub_36430_367F0(&state->level_0x2F503_193795);
+	CreateFeatures_36430_367F0(&state->level_0x2F503_193795);
 	PrintLoadingText_5AD10_5B220("Initialise Models");
-	memset(word_AE454_AE444, 0, sizeof(word_AE454_AE444));
-	sub_37220_375E0();
-	state->dword_0x11F1_4593 = -1;
+	memset(&featurePosition_AE454_AE444, 0, sizeof(featurePosition_AE454_AE444));
+	RebuildFreeLists_37220_375E0();
+	state->reuseTop_0x11F1_4593 = -1;
 	sub_37440_37800(0, 1);
 	byte_939E5_939E5 = sound;
 	sub_3DD50_3E090();
@@ -97,7 +96,7 @@ void ClearLevel_40550_40890()
 	state->dword_0x20_32 = 0;
 	state->word_0x24_36 = 0;
 	state->word_0x26_38 = 0;
-	state->dword_0x28_40 = 0;
+	state->freeTop_0x28_40 = 0;
 	state->byte_0x244_580 = 0;
 	memset(state->creatureStats_0x38C9F_232607, 0, sizeof(state->creatureStats_0x38C9F_232607));
 	memset(state->playerStarts_0x23D9_9177, 0, sizeof(state->playerStarts_0x23D9_9177));

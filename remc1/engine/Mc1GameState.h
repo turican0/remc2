@@ -11,59 +11,125 @@ typedef struct {
 	int16_t z;
 } Type_Mc1Position;
 
+// a mail to an entity: the values of one kind are summed while the sender is set
+typedef struct {
+	int32_t value_0;
+	uint16_t sender_4; // the id of the last sender, 0 none
+} Type_Mc1Mail;
+
 // an entity (DOS 0xA4 bytes at state + 0x7463 + n * 0xA4); members as far as they are checked in the MC1 asm
 typedef struct Type_Mc1Entity {
 	struct Type_Mc1Entity* next_0x00_0;
-	uint32_t rand_0x04_4;
+	uint32_t rand_0x04_4; // the entity index + the level seed
 	int32_t maxLife_0x08_8; // MC2 maxLife_0x4
 	int32_t life_0x0C_12; // MC2 life_0x8
-	uint32_t flags_0x10_16; // MC2 flags_0xc_12_15
-	uint16_t oldMapEntity_0x14_20; // MC2 oldMapEntity_0x16
-	uint16_t nextEntity_0x16_22; // MC2 nextEntity_0x18
+	uint32_t flags_0x10_16; // 4 on the map, 8 new, 0x400 to free, 0x20400 reusable (MC2 flags_0xc_12_15)
+	uint16_t mapNext_0x14_20; // the next entity in the map cell (MC2 oldMapEntity_0x16)
+	uint16_t mapPrevious_0x16_22; // the previous entity in the map cell (MC2 nextEntity_0x18)
 	uint16_t id_0x18_24; // MC2 id_0x1A
-	uint16_t word_0x1A_26;
-	uint8_t unknown_0x1C_28[0x40 - 0x1C];
+	int16_t word_0x1A_26;
+	uint16_t mailMask_0x1C_28; // the kinds of mail the entity takes, bit by the kind
+	int16_t word_0x1E_30;
+	int16_t word_0x20_32;
+	uint8_t unknown_0x22_34[0x2A - 0x22];
+	uint16_t word_0x2A_42; // 27D30: the entity whose word_0x30 is set when the building is done
+	int16_t word_0x2C_44;
+	int16_t word_0x2E_46;
+	int16_t word_0x30_48;
+	int16_t word_0x32_50; // 127E0 sets 1Eh
+	uint8_t unknown_0x34_52[0x3A - 0x34];
+	uint8_t byte_0x3A_58;
+	uint8_t byte_0x3B_59;
+	uint8_t byte_0x3C_60;
+	uint8_t unknown_0x3D_61[0x3F - 0x3D];
+	uint8_t index_0x3F_63; // the low byte of the entity index
 	uint8_t class_0x40_64; // MC2 class_0x3F
 	uint8_t model_0x41_65; // MC2 model_0x40
-	uint8_t unknown_0x42_66[0x46 - 0x42];
-	uint8_t actionIndex_0x46_70; // the record of 14 bytes in the table of the class (MC2 actionIndex_0x45)
-	uint8_t unknown_0x47_71;
+	uint8_t byte_0x42_66;
+	uint8_t byte_0x43_67;
+	uint8_t byte_0x44_68;
+	uint8_t unknown_0x45_69;
+	uint8_t actionIndex_0x46_70; // the record of 14 bytes in the actions of the class (MC2 actionIndex_0x45)
+	uint8_t byte_0x47_71;
 	Type_Mc1Position position_0x48_72; // MC2 position_0x4C
-	uint8_t unknown_0x4E_78[0x80 - 0x4E];
+	int16_t box_0x4E_78[4];
+	int16_t sprite_0x56_86;
+	uint8_t frame_0x58_88;
+	uint8_t frameCount_0x59_89;
+	Type_Mc1Mail mails_0x5A_90[6]; // by the kind, added by 127E0 / 120B0
+	int16_t word_0x7E_126;
 	int16_t word_0x80_128;
-	uint8_t unknown_0x82_130[0x8C - 0x82];
+	uint8_t unknown_0x82_130[0x88 - 0x82];
+	int32_t dword_0x88_136;
 	int32_t mana_0x8C_140; // MC2 mana_0x90
-	uint8_t unknown_0x90_144[0x9C - 0x90];
-	uint8_t* typeParams_0x9C_156; // MC2 typeParams_0xA0
-	uint8_t* playerData_0xA0_160; // MC2 playerData_0xA4
+	uint8_t unknown_0x90_144[0x96 - 0x90];
+	Type_Mc1Position target_0x96_150; // moved by MoveEntity_41EC0 (MC2 axis_0x9A_154x)
+	uint8_t* typeParams_0x9C_156; // dword_98F38 records (MC2 typeParams_0xA0)
+	uint8_t* playerData_0xA0_160; // dword_B7330 (MC2 playerData_0xA4)
 } Type_Mc1Entity;
 
 // the entity with the 32-bit pointers of DOS: saved games and the checks against DOSBox
 typedef struct {
 	uint32_t next_0x00_0;
-	uint32_t rand_0x04_4;
+	uint32_t rand_0x04_4; // the entity index + the level seed
 	int32_t maxLife_0x08_8; // MC2 maxLife_0x4
 	int32_t life_0x0C_12; // MC2 life_0x8
-	uint32_t flags_0x10_16; // MC2 flags_0xc_12_15
-	uint16_t oldMapEntity_0x14_20; // MC2 oldMapEntity_0x16
-	uint16_t nextEntity_0x16_22; // MC2 nextEntity_0x18
+	uint32_t flags_0x10_16; // 4 on the map, 8 new, 0x400 to free, 0x20400 reusable (MC2 flags_0xc_12_15)
+	uint16_t mapNext_0x14_20; // the next entity in the map cell (MC2 oldMapEntity_0x16)
+	uint16_t mapPrevious_0x16_22; // the previous entity in the map cell (MC2 nextEntity_0x18)
 	uint16_t id_0x18_24; // MC2 id_0x1A
-	uint16_t word_0x1A_26;
-	uint8_t unknown_0x1C_28[0x40 - 0x1C];
+	int16_t word_0x1A_26;
+	uint16_t mailMask_0x1C_28; // the kinds of mail the entity takes, bit by the kind
+	int16_t word_0x1E_30;
+	int16_t word_0x20_32;
+	uint8_t unknown_0x22_34[0x2A - 0x22];
+	uint16_t word_0x2A_42; // 27D30: the entity whose word_0x30 is set when the building is done
+	int16_t word_0x2C_44;
+	int16_t word_0x2E_46;
+	int16_t word_0x30_48;
+	int16_t word_0x32_50; // 127E0 sets 1Eh
+	uint8_t unknown_0x34_52[0x3A - 0x34];
+	uint8_t byte_0x3A_58;
+	uint8_t byte_0x3B_59;
+	uint8_t byte_0x3C_60;
+	uint8_t unknown_0x3D_61[0x3F - 0x3D];
+	uint8_t index_0x3F_63; // the low byte of the entity index
 	uint8_t class_0x40_64; // MC2 class_0x3F
 	uint8_t model_0x41_65; // MC2 model_0x40
-	uint8_t unknown_0x42_66[0x46 - 0x42];
-	uint8_t actionIndex_0x46_70; // the record of 14 bytes in the table of the class (MC2 actionIndex_0x45)
-	uint8_t unknown_0x47_71;
+	uint8_t byte_0x42_66;
+	uint8_t byte_0x43_67;
+	uint8_t byte_0x44_68;
+	uint8_t unknown_0x45_69;
+	uint8_t actionIndex_0x46_70; // the record of 14 bytes in the actions of the class (MC2 actionIndex_0x45)
+	uint8_t byte_0x47_71;
 	Type_Mc1Position position_0x48_72; // MC2 position_0x4C
-	uint8_t unknown_0x4E_78[0x80 - 0x4E];
+	int16_t box_0x4E_78[4];
+	int16_t sprite_0x56_86;
+	uint8_t frame_0x58_88;
+	uint8_t frameCount_0x59_89;
+	Type_Mc1Mail mails_0x5A_90[6]; // by the kind, added by 127E0 / 120B0
+	int16_t word_0x7E_126;
 	int16_t word_0x80_128;
-	uint8_t unknown_0x82_130[0x8C - 0x82];
+	uint8_t unknown_0x82_130[0x88 - 0x82];
+	int32_t dword_0x88_136;
 	int32_t mana_0x8C_140; // MC2 mana_0x90
-	uint8_t unknown_0x90_144[0x9C - 0x90];
-	uint32_t typeParams_0x9C_156; // MC2 typeParams_0xA0
-	uint32_t playerData_0xA0_160; // MC2 playerData_0xA4
+	uint8_t unknown_0x90_144[0x96 - 0x90];
+	Type_Mc1Position target_0x96_150; // moved by MoveEntity_41EC0 (MC2 axis_0x9A_154x)
+	uint32_t typeParams_0x9C_156; // dword_98F38 records (MC2 typeParams_0xA0)
+	uint32_t playerData_0xA0_160; // dword_B7330 (MC2 playerData_0xA4)
 } Type_Mc1EntityShadow;
+
+typedef struct { // 18 bytes, a feature of the level (2000 at level + 0x430, 0 not used)
+	uint16_t type_0x00_0; // 10 created by CreateFeatures_36430, then 0
+	uint16_t model_0x02_2;
+	uint16_t x_0x04_4;
+	uint16_t y_0x06_6;
+	uint16_t word_0x08_8; // FFFFh created
+	uint16_t word_0x0A_10;
+	uint16_t word_0x0C_12; // a line to the linked feature
+	uint16_t next_0x0E_14; // the previous feature of a line (the building sprite - 10h for model 2Dh)
+	uint16_t link_0x10_16; // the next feature of a line
+} Type_Mc1LevelFeature;
 
 typedef struct { // size 0x979C, levels.dat (ddlevels.dat in HW) unpacked, at state + 0x2F503, no pointers
 	uint8_t unknown_0x00_0[4];
@@ -86,7 +152,9 @@ typedef struct { // size 0x979C, levels.dat (ddlevels.dat in HW) unpacked, at st
 	uint16_t bhLin_0x28_40;
 	uint8_t unknown_0x2A_42[2];
 	uint16_t bhFlt_0x2C_44;
-	uint8_t unknown_0x2E_46[0x9792 - 0x2E];
+	uint8_t unknown_0x2E_46[0x430 - 0x2E];
+	Type_Mc1LevelFeature features_0x430_1072[2000];
+	uint8_t unknown_0x90D0_37072[0x9792 - 0x90D0];
 	uint16_t playerCount_0x9792_38802;
 	uint8_t unknown_0x9794_38804[0x979C - 0x9794];
 } Type_Mc1Level_2F503;
@@ -113,16 +181,16 @@ typedef struct { // size 232713, DOSBox 26C400 (pointer)
 	uint32_t dword_0x20_32;
 	uint16_t word_0x24_36;
 	uint16_t word_0x26_38;
-	uint32_t dword_0x28_40;
+	int32_t freeTop_0x28_40; // the top of freeEntities_0x251, -1 empty
 	uint8_t unknown_0x2C_44[0x240 - 0x2C];
 	int32_t levelVariant_0x240_576;
 	uint8_t byte_0x244_580;
 	uint32_t dword_0x245_581; // 1 after the loading screen
 	uint32_t dword_0x249_585;
 	uint32_t dword_0x24D_589;
-	uint8_t unknown_0x251_593[0x11F1 - 0x251];
-	int32_t dword_0x11F1_4593; // -1 at the level start
-	uint8_t unknown_0x11F5_4597[0x2195 - 0x11F5];
+	Type_Mc1Entity* freeEntities_0x251_593[1000];
+	int32_t reuseTop_0x11F1_4593; // the top of reuseEntities_0x11F5, -1 empty
+	Type_Mc1Entity* reuseEntities_0x11F5_4597[1000]; // entities with the flags 0x20400, taken when none is free
 	uint8_t reflections_0x2195_8597;
 	uint8_t shadows_0x2196_8598;
 	uint8_t sky_0x2197_8599;
@@ -188,6 +256,7 @@ typedef struct { // size 36478
 static_assert(sizeof(Type_Mc1Player_340B) == 0x801, "Type_Mc1Player_340B");
 static_assert(sizeof(Type_Mc1EntityShadow) == 0xA4, "Type_Mc1EntityShadow");
 static_assert(sizeof(Type_Mc1Entity) == 0xA4 + 3 * (sizeof(uint8_t*) - 4), "Type_Mc1Entity");
-static_assert(sizeof(Type_Mc1State_AE400_AE3F0) == 232713 + 1000 * (sizeof(Type_Mc1Entity) - 0xA4), "Type_Mc1State_AE400_AE3F0");
+static_assert(sizeof(Type_Mc1State_AE400_AE3F0) == 232713 + 1000 * (sizeof(Type_Mc1Entity) - 0xA4) + 2000 * (sizeof(uint8_t*) - 4),
+	"Type_Mc1State_AE400_AE3F0");
 static_assert(sizeof(Type_Mc1Settings_AE408_AE3F8) == 36478 + 26 * (sizeof(uint8_t*) - 4), "Type_Mc1Settings_AE408_AE3F8"); // pointers are 4 bytes in DOS
 static_assert(sizeof(Type_Mc1Level_2F503) == 0x979C, "Type_Mc1Level_2F503");

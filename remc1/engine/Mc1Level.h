@@ -6,7 +6,6 @@
 
 // MC1 level start: the loading screen, the level data (levels.dat, ddlevels.dat in HW) and the generated map
 
-extern uint8_t word_AE454_AE444[6];
 extern const int8_t anglePatterns_9075C_9075C[148][4]; // the heights of the 4 corners of a tile, -1 unused
 extern uint8_t angleTypes_B5D40_B5D30[2401][2]; // terrain type and angle for 4 corner heights 0-6 (7^4)
 
