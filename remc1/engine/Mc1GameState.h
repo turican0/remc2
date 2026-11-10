@@ -83,7 +83,8 @@ typedef struct Type_Mc1Entity {
 	int32_t dword_0x88_136;
 	int32_t mana_0x8C_140; // MC2 mana_0x90
 	uint16_t owner_0x90_144; // the entity index of the owner
-	uint8_t unknown_0x92_146[0x96 - 0x92];
+	uint16_t target_0x92_146; // the entity index of the target
+	uint8_t unknown_0x94_148[0x96 - 0x94];
 	Type_Mc1Position target_0x96_150; // moved by MoveEntity_41EC0 (MC2 axis_0x9A_154x)
 	uint8_t* typeParams_0x9C_156; // dword_98F38 records (MC2 typeParams_0xA0)
 	uint8_t* playerData_0xA0_160; // dword_B7330 (MC2 playerData_0xA4)
@@ -141,7 +142,8 @@ typedef struct {
 	int32_t dword_0x88_136;
 	int32_t mana_0x8C_140; // MC2 mana_0x90
 	uint16_t owner_0x90_144; // the entity index of the owner
-	uint8_t unknown_0x92_146[0x96 - 0x92];
+	uint16_t target_0x92_146; // the entity index of the target
+	uint8_t unknown_0x94_148[0x96 - 0x94];
 	Type_Mc1Position target_0x96_150; // moved by MoveEntity_41EC0 (MC2 axis_0x9A_154x)
 	uint32_t typeParams_0x9C_156; // dword_98F38 records (MC2 typeParams_0xA0)
 	uint32_t playerData_0xA0_160; // dword_B7330 (MC2 playerData_0xA4)
@@ -287,7 +289,8 @@ typedef struct { // size 36478
 	uint8_t speedIndex_0x96_150;
 	uint8_t language_0x97_151; // 0-3, chosen on the language screen
 	uint8_t paletteSubMod_0x98_152;
-	uint8_t unknown_0x99_153[0xA1 - 0x99];
+	uint32_t frameTicks_0x99_153; // the timer at the end of the last frame (GameFrame_34530)
+	uint8_t unknown_0x9D_157[0xA1 - 0x9D];
 	uint8_t unknown_0xA1_161; // 3 in the demo
 	uint32_t unknown_0xA2_162; // 200 in the demo
 	uint8_t unknown_0xA6_166[0xA8 - 0xA6];

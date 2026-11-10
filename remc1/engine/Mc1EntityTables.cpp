@@ -624,7 +624,7 @@ static Type_Mc1ClassModel class12Models[25] = {
 	{ textOmitted_968F4, 17, CreateClass12Model17_3C3C0_3C700, 1 },
 	{ textOmitted_968F4, 18, CreateClass12Model18_3C360_3C6A0, 1 },
 	{ textOmitted_968F4, 19, CreateClass12Model19_3C180_3C4C0, 1 },
-	{ textOmitted_968F4, 20, CreateClass12Model20_3C3F0_3C730, 1 },
+	{ textOmitted_968F4, 20, CreateClass12Model20_3C3F0, 1 },
 	{ textOmitted_968F4, 21, CreateClass12Model21_3C420_3C760, 1 },
 	{ textOmitted_968F4, 22, CreateClass12Model22_3C450_3C790, 1 },
 	{ textOmitted_968F4, 23, CreateClass12Model23_3C480_3C7C0, 1 },
@@ -667,4 +667,5 @@ void PatchClassTablesHw()
 	// the entries of HIDDEN.EXE with another function than CARPET.EXE
 	class9Actions[17].action_6 = sub_54600;
 	class2Models[0].create_6 = CreateClass02Model00Hw_37F80;
+	class12Models[20].create_6 = CreateClass12Model20Hw_3C730;
 }

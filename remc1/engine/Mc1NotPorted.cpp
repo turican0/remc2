@@ -41,8 +41,6 @@ void sub_59230_59740() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_59720_59C30() { NotPorted(__func__); }
 //!!!!! not ported yet
-void GameLoop_34610_349D0() { NotPorted(__func__); }
-//!!!!! not ported yet
 void sub_448E0_44C20() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_408D0_40C10() { NotPorted(__func__); }
@@ -600,4 +598,27 @@ void sub_55370_558A0(int16_t /*entityIndex*/, int32_t /*sound*/, int32_t /*volum
 	if (!byte_939E5_939E5 || !byte_939E4_939E4)
 		return;
 	NotPorted(__func__);
+}
+//!!!!! not ported yet
+void sub_34690_34A50() { NotPorted(__func__); }
+//!!!!! not ported yet
+void sub_590D0_595E0() { NotPorted(__func__); }
+//!!!!! not ported yet
+void sub_3C9D0_3CD10() { NotPorted(__func__); }
+//!!!!! not ported yet
+void sub_415C0_41900() { NotPorted(__func__); }
+//!!!!! not ported yet
+void sub_55100_55630() { NotPorted(__func__); }
+//!!!!! not ported yet
+void sub_20FB0_20FB0() { NotPorted(__func__); }
+//!!!!! not ported yet
+void sub_5A560_5AA70() { NotPorted(__func__); }
+//!!!!! not ported yet
+void sub_30B30_30B70() { NotPorted(__func__); }
+//!!!!! not ported yet
+void sub_17C20_17C20()
+{
+	// without the input the game ends after the first frame
+	NotPorted(__func__);
+	mc1State_AE400_AE3F0->players_0x340B_13323[mc1State_AE400_AE3F0->currentPlayer_0x08_8].exitGame_0x04_4 = 1;
 }

@@ -482,6 +482,9 @@
     <ClCompile Include="..\remc1\engine\Mc1Models.cpp">
       <Filter>Source Files\remc1</Filter>
     </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1World.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
     <ClCompile Include="..\remc1\engine\Mc1MenuText.cpp">
       <Filter>Source Files\remc1</Filter>
     </ClCompile>
@@ -558,6 +561,9 @@
       <Filter>Header Files\remc1</Filter>
     </ClInclude>
     <ClInclude Include="..\remc1\engine\Mc1Models.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1World.h">
       <Filter>Header Files\remc1</Filter>
     </ClInclude>
     <ClInclude Include="..\remc1\engine\Mc1MenuText.h">

@@ -17,7 +17,6 @@ void sub_4D560_4D8A0();
 void sub_31600_31640();
 void sub_59230_59740(); // the tmaps of the used groups into the cache (renderer, later)
 void sub_59720_59C30();
-void GameLoop_34610_349D0();
 void sub_448E0_44C20();
 void sub_408D0_40C10();
 void sub_58F00_59410();
@@ -295,3 +294,12 @@ void sub_5A050_5A560(Type_Mc1Entity* entity);
 void sub_5A060_5A570(Type_Mc1Entity* entity);
 void sub_5A070_5A580(Type_Mc1Entity* entity);
 void sub_55370_558A0(int16_t entityIndex, int32_t sound, int32_t volume); // the sound of an entity by its position
+void sub_34690_34A50(); // the window frame of the smaller screen
+void sub_590D0_595E0();
+void sub_3C9D0_3CD10(); // the events of the game
+void sub_415C0_41900();
+void sub_55100_55630();
+void sub_20FB0_20FB0(); // the drawing of the frame (renderer)
+void sub_5A560_5AA70();
+void sub_30B30_30B70();
+void sub_17C20_17C20(); // the input of the player
