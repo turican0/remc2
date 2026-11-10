@@ -2218,15 +2218,13 @@ int SelectSpell_6D4F0(type_str_611* a1x, int16_t mouseX)//24e4f0
 	int subCategoryIdx; // eax
 	int16_t maxIdx;
 
-	int16_t posXOffSet = 0;
+	int16_t posXOffSet;
+	int16_t spellMenuPosY;
 	uint8_t scale = 1;
 
-	if (videoMode_180660 != 1)
-		if (!DefaultResolutions())
-		{
-			scale = gameUiScale;
-			posXOffSet = ((screenWidth_18062C - (640 * scale)) / 2);
-		}
+	if (UseInGameUiLayout())
+		scale = gameUiScale;
+	GetSpellMenuPosition(&posXOffSet, &spellMenuPosY);
 
 	subCategoryTotalWidth = 3 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4 * scale);
 	spellMenuXPos = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].width_4 * scale) / 2
@@ -2263,26 +2261,15 @@ int SelectSpell_6D4F0(type_str_611* a1x, int16_t mouseX)//24e4f0
 //----- (0006D420) --------------------------------------------------------
 int SelectSpellCategory_6D420(int16_t posX, int16_t posY)//24e420
 {
-	int16_t posXOffSet = 0;
+	int16_t posXOffSet;
 	int spellPosY; // ebx
 	int spellPosX; // eax
 	uint8_t scale = 1;
-	int16_t spellMenuPosY;
+	int16_t spellMenuPosY;   // the bottom of the spell menu
 
-	if (videoMode_180660 & 1)
-		spellMenuPosY = 400;
-	else
-		spellMenuPosY = 480;
-	if (videoMode_180660 != 1)
-		if (!DefaultResolutions())
-		{
-			spellMenuPosY = screenHeight_180624;
-			if (screenWidth_18062C > 640)
-			{
-				scale = gameUiScale;
-				posXOffSet = (screenWidth_18062C - (640 * scale)) / 2;
-			}
-		}
+	if (UseInGameUiLayout())
+		scale = gameUiScale;
+	GetSpellMenuPosition(&posXOffSet, &spellMenuPosY);
 
 	spellPosY = (posY - (spellMenuPosY - 2 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale)) / ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale);
 	spellPosX = ((posX - posXOffSet) - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[EDGE_PANEL].width_4 * scale) / ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].width_4 * scale);

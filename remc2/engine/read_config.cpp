@@ -1,5 +1,6 @@
 #include "read_config.h"
 
+#include <algorithm>
 #include <cstdlib>
 #include <ctype.h>
 
@@ -56,10 +57,35 @@ bool invertXAxis = false;
 float mouseScaleX = 1.0f;
 float mouseScaleY = 1.0f;
 bool disableLRButtonsMenuOpen = false;
+UiElementLayout topBarLayout = { UiAlignment::Left };
+UiElementLayout spellIconsLayout = { UiAlignment::Right };
+UiElementLayout spellMenuLayout = { UiAlignment::Center };
 
 gamepad_config_t gpc;
 MouseInputMapping_t mouseMapping;
 KeyboardInputMapping_t inputMapping;
+
+UiAlignment ParseUiAlignment(std::string alignment, UiAlignment defaultAlignment)
+{
+	for (auto& c : alignment)
+		c = (char)tolower((unsigned char)c);
+	if (alignment == "left")
+		return UiAlignment::Left;
+	if (alignment == "center" || alignment == "centre")
+		return UiAlignment::Center;
+	if (alignment == "right")
+		return UiAlignment::Right;
+	return defaultAlignment;
+}
+
+UiElementLayout ReadUiElementLayout(const Config::Settings::UiElement& element, UiAlignment defaultAlignment)
+{
+	UiElementLayout layout;
+	layout.alignment = ParseUiAlignment(element.m_Alignment, defaultAlignment);
+	layout.marginX = element.m_MarginX;
+	layout.marginY = element.m_MarginY;
+	return layout;
+}
 
 std::string findConfigFile() {
 	// find location of Config and read it
@@ -253,6 +279,9 @@ bool SetConfig() {
 	m_render = settingsValue.m_Graphics.m_Render;
 	bilinearFiltering = settingsValue.m_Graphics.m_Hardware.m_BilinearFiltering;
 	antiAliasing = settingsValue.m_Graphics.m_Hardware.m_AntiAliasing;
+	topBarLayout = ReadUiElementLayout(settingsValue.m_Graphics.m_InGameUi.m_TopBar, UiAlignment::Left);
+	spellIconsLayout = ReadUiElementLayout(settingsValue.m_Graphics.m_InGameUi.m_SpellIcons, UiAlignment::Right);
+	spellMenuLayout = ReadUiElementLayout(settingsValue.m_Graphics.m_InGameUi.m_SpellMenu, UiAlignment::Center);
 	multiThreadedRender = settingsValue.m_Graphics.m_Threading.m_IsActive;
 	sizePercentToThreadRender = settingsValue.m_Graphics.m_Threading.m_SizePercentToThreadRender;
 	numberOfRenderThreads = settingsValue.m_Graphics.m_Threading.m_NumberOfRenderThreads;

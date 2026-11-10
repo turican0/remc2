@@ -102,6 +102,21 @@ public:
 			int m_AntiAliasing = 0;   // MSAA samples: 0 = off, 2, 4 or 8 (capped to what the GPU supports)
 		};
 
+		// Position of one element of the in-game UI on the screen (not used at the 320x200 / 640x480 default resolutions)
+		struct UiElement
+		{
+			std::string m_Alignment = "left";   // "left", "center" or "right"
+			int m_MarginX = 0;   // from the aligned edge (left/right), or from the middle (center, + = right)
+			int m_MarginY = 0;   // down from the top (top bar, spell icons) or up from the bottom (spell menu)
+		};
+
+		struct InGameUi
+		{
+			UiElement m_TopBar = { "left" };      // the mini-map and the health/mana bars
+			UiElement m_SpellIcons = { "right" }; // the selected left/right spell icons
+			UiElement m_SpellMenu = { "center" }; // the spell selection menu at the bottom
+		};
+
 		struct Graphics
 		{
 			int m_DisplayIndex = 0;
@@ -113,6 +128,7 @@ public:
 			GameDetail m_GameDetail;
 			Threading m_Threading;
 			Hardware m_Hardware;
+			InGameUi m_InGameUi;
 		};
 
 		struct Game
@@ -222,6 +238,8 @@ public:
 	Settings::GameDetail GetGameDetail(const json& graphics);
 	Settings::Threading GetThreading(const json& graphics);
 	Settings::Hardware GetHardware(const json& graphics);
+	Settings::InGameUi GetInGameUi(const json& graphics);
+	Settings::UiElement GetUiElement(const json& inGameUi, const char* name, const Settings::UiElement& defaults);
 	Settings::Sound GetSound(const json& settings);
 	Settings::Paths GetPaths(const json& settings);
 	Settings::Controls GetControls(const json& settings);
@@ -236,6 +254,7 @@ public:
 	void SaveGameDetailToDoc(Settings::GameDetail gameDetail);
 	void SaveThreadingToDoc(Settings::Threading threading);
 	void SaveHardwareToDoc(Settings::Hardware hardware);
+	void SaveInGameUiToDoc(Settings::InGameUi inGameUi);
 	void SaveGameToDoc(Settings::Game gameSettings);
 	void SaveControlsToDoc(Settings::Controls controlSettings);
 };
