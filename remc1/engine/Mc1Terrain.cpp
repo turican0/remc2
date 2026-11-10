@@ -425,3 +425,63 @@ void SmoothTileHeight_360C0_36480(uint16_t tile)
 	if (count)
 		height[tile] = (uint8_t)(sum / count);
 }
+
+uint32_t GetTileTypeBit_11810_11810(const Type_Mc1Position* position)
+{
+	// a bit by the terrain type of the tile (MC2 TerrainTileType_10590 takes the type)
+	uint8_t type = mapTerrainType_CC1E0_CC1D0[Tile(position->x >> 8, position->y >> 8)];
+	switch (type)
+	{
+	case 0:
+		return 1;
+	case 1:
+		return 2;
+	case 2:
+		return 4;
+	case 3:
+		return 8;
+	case 4:
+		return 0x10;
+	case 5:
+		return 0x20;
+	case 8:
+		return 0x100;
+	case 9:
+		return 0x200;
+	case 10:
+		return 0x100000;
+	case 11:
+		return 0x200000;
+	case 12:
+		return 0x400000;
+	case 13:
+	case 14:
+		return 0;
+	case 15:
+	case 16:
+	case 17:
+	case 18:
+	case 19:
+	case 20:
+	case 28:
+	case 29:
+	case 30:
+	case 31:
+	case 32:
+	case 33:
+	case 34:
+		return 0x400;
+	case 21:
+	case 22:
+	case 24:
+		return 0x20000;
+	case 23:
+		return 0x40000;
+	case 25:
+	case 27:
+		return 0x80000;
+	case 26:
+		return 0x10000;
+	}
+	return 0x800000;
+}

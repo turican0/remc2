@@ -41,3 +41,25 @@ MC1 tree: 20955 asm lines, MC2 tree: 23099.
 2. MC1 differences go into the renderer as variants (sky, billboards, extra pass, terrain loop),
    so MC1 gets all four renderers.
 3. Each step is checked against both MC1 asm listings and, for MC2, with the regression tests.
+
+## Deeper look (2026-11-10)
+
+Opcode alignment of the pairs (difflib over the opcodes, registers and frames ignored):
+
+| MC1 | MC2 | matched (MC1 / MC2) | unmatched blocks |
+|---|---|---|---|
+| sub_30D90 | DrawWorld_411A0 | 0.50 / 0.70 | MC1 +296: the VFX1 / stereo views (219Ch, 219Eh), sub_2A700 called per eye |
+| sub_2A700 | DrawTerrainAndParticles_3C080 | 0.65 / 0.50 | MC2 +833 (one block, the caves); MC1 +486 in 4 blocks, to check |
+| sub_29C30 | SetBillboards_3B560 | 0.73 / 0.70 | MC2 +166, MC1 +157 |
+| sub_30730 | DrawSky_40950 | 0.82 / 0.75 | none over 50 |
+| sub_2FC50 | DrawTileSpriteReflections_3FD60 | 0.87 / 0.80 | none over 50 |
+| sub_2DCB0 | DrawSprites_3E360 | 0.57 / 0.45 | MC2 +590 in 3 blocks; MC1 +340 in 2 blocks |
+| sub_2C410 | DrawSprite_41BD3 | 0.72 / 0.65 | MC2 +107 (names / health bars) |
+
+- sub_2F170 is called by sub_2A700 instead of sub_2DCB0 in one branch: another sprite pass of MC1.
+- The frame (sub_20FB0, 27k lines with the world) is: the world sub_30D90 (20.9k, of it the shared
+  rasterizer 7.3k) + the 2D screen of MC1 (about 6k: sub_20FB0 itself, sub_48710 map, sub_22E50, sub_23D40,
+  sub_22880, sub_49300 ...), which has no MC2 counterpart.
+- remc2 renderers read from the game: world_D41A0 (about 30 uses: display / sky / shadows / reflections settings,
+  players, LevelIndex, MapType), the maps (the same arrays MC1 uses), type_entity_0x6E8E (position, sprite,
+  frame, flags, yaw, id, parent, map chain) and the sprite / tmap tables. MC1 uses the same tmaps format.

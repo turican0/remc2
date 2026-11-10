@@ -437,15 +437,9 @@ void sub_470E0_47420(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_47F90_482D0(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
-void sub_49890_49BD0(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
-//!!!!! not ported yet (class action)
 void sub_499C0_49D00(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_49A50_49D90(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
-//!!!!! not ported yet (class action)
-void sub_49AA0_49DE0(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
-//!!!!! not ported yet (class action)
-void sub_49AD0_49E10(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_49B50_49E90(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)

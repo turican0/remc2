@@ -741,3 +741,10 @@ int32_t GetFreeEntityCount_37710_37AD0()
 {
 	return mc1State_AE400_AE3F0->freeTop_0x28_40 + 1;
 }
+
+int32_t MoveOnMap_41CC0_42000(Type_Mc1Entity* entity, Type_Mc1Position* position)
+{
+	RemoveFromMap_41DD0_42110(entity);
+	AddToMap_41CF0_42030(entity, position);
+	return 1;
+}

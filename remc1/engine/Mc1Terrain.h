@@ -21,3 +21,4 @@ uint8_t ChangeHeightsAround_40D30_41070(Type_Mc1Entity* entity, int16_t first, i
 void LowerHeightsAround_255D0_255D0(Type_Mc1Entity* entity, int16_t first, int32_t last);
 void SmoothBuildingBorder_35F30_362F0(uint8_t x, uint8_t y, int32_t halfHeight, int32_t halfWidth, uint8_t border);
 void SmoothTileHeight_360C0_36480(uint16_t tile);
+uint32_t GetTileTypeBit_11810_11810(const Type_Mc1Position* position);

@@ -1,6 +1,7 @@
 #include "Mc1EntityTables.h"
 
 #include "Mc1NotPorted.h"
+#include "Mc1Actions.h"
 #include "Mc1Models.h"
 #include "Mc1Scenery.h"
 #include "Mc1SceneryActions.h"
@@ -40,13 +41,13 @@ static Type_Mc1ClassModel class1Models[12] = {
 	{ nullptr, 0, nullptr, 0 },
 };
 static Type_Mc1ClassAction class2Actions[19] = {
-	{ textOmitted_968F4, 0, sub_49890_49BD0, 1 },
+	{ textOmitted_968F4, 0, UpdateClass2Model0Action_49890_49BD0, 1 },
 	{ textOmitted_968F4, 1, sub_499C0_49D00, 1 },
 	{ textOmitted_968F4, 2, sub_49A50_49D90, 1 },
-	{ textOmitted_968F4, 3, sub_49AA0_49DE0, 1 },
+	{ textOmitted_968F4, 3, UpdateClass2Model1Action_49AA0_49DE0, 1 },
 	{ textOmitted_968F4, 4, EntityNoAction, 1 },
 	{ textOmitted_968F4, 5, EntityNoAction, 1 },
-	{ textOmitted_968F4, 6, sub_49AD0_49E10, 1 },
+	{ textOmitted_968F4, 6, UpdateClass2Model2Action_49AD0_49E10, 1 },
 	{ textOmitted_968F4, 7, EntityNoAction, 1 },
 	{ textOmitted_968F4, 8, EntityNoAction, 1 },
 	{ textOmitted_968F4, 9, sub_49B50_49E90, 1 },
