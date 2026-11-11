@@ -1,5 +1,6 @@
 #include "DisplayDialog.h"
 #include "GraphicsFoldersDialog.h"
+#include "UiAlignmentDialog.h"
 
 // ── Resolution table ─────────────────────────────────────────────────────────
 const DisplayDialog::ResEntry DisplayDialog::s_resolutions[] =
@@ -72,7 +73,7 @@ static bool ShowCustomResDlg(wxWindow* parent, wxChoice* choice, int customIdx,
 // ── DisplayDialog ────────────────────────────────────────────────────────────
 DisplayDialog::DisplayDialog(wxWindow* parent, const Config::Settings::Graphics& cfg)
 	: wxDialog(parent, wxID_ANY, "Display Settings",
-		wxDefaultPosition, wxSize(270, 300), 
+		wxDefaultPosition, wxSize(270, 320),
 		wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX)
 {
 	m_cfg = cfg;
@@ -82,7 +83,7 @@ DisplayDialog::DisplayDialog(wxWindow* parent, const Config::Settings::Graphics&
 	m_customIGHeight = cfg.m_GameDetail.m_GameResHeight;
 
 	auto* main = new wxBoxSizer(wxVERTICAL);
-	auto* grid = new wxFlexGridSizer(/*rows*/6, /*cols*/2, /*vgap*/10, /*hgap*/12);
+	auto* grid = new wxFlexGridSizer(/*rows*/7, /*cols*/2, /*vgap*/10, /*hgap*/12);
 	grid->AddGrowableCol(1, 1);
 
 	// ── Display index ────────────────────────────────────────────────────────
@@ -138,6 +139,17 @@ DisplayDialog::DisplayDialog(wxWindow* parent, const Config::Settings::Graphics&
 		"changes (largest scale where 640 x scale fits in 4/5 of the width). "
 		"(Max 8) Will not allow spell menu to be wider than screen width.");
 	grid->Add(m_spinUiScale, 0, wxEXPAND);
+
+	// ── UI Alignment button (under the UI Scale) ─────────────────────────────
+	grid->AddSpacer(0);
+	auto* btnUiAlignment = new wxButton(this, wxID_ANY, "UI Alignment...");
+	btnUiAlignment->SetToolTip("Position of the top bar, the spell icons and the spell menu on the screen.");
+	btnUiAlignment->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) {
+		UiAlignmentDialog dlg(this, m_cfg.m_InGameUi);
+		if (dlg.ShowModal() == wxID_OK)
+			m_cfg.m_InGameUi = dlg.GetSettings();
+	});
+	grid->Add(btnUiAlignment, 0, wxEXPAND);
 
 	// ── Maintain aspect ratio ─────────────────────────────────────────────────
 	grid->Add(new wxStaticText(this, wxID_ANY, "Maintain aspect ratio:"),

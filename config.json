@@ -118,6 +118,30 @@
 					],
 					"bilinearFiltering": true,
 					"antiAliasing": 2
+				},
+				"inGameUi": {
+					"description": [
+						"Position of the in-game UI elements. Not used at the 320x200 and 640x480 resolutions, where the original positions are kept",
+						"topBar: The mini-map and the health and mana bars. spellIcons: The selected left and right spell icons. spellMenu: The spell selection menu at the bottom of the screen",
+						"alignment: Horizontal position on the screen: 'left', 'center' or 'right'",
+						"marginX: Pixels in from the left edge (left), in from the right edge (right), or moved from the middle (center: + = right, - = left)",
+						"marginY: Pixels down from the top of the screen (topBar, spellIcons) or up from the bottom of the screen (spellMenu)"
+					],
+					"topBar": {
+						"alignment": "left",
+						"marginX": 0,
+						"marginY": 0
+					},
+					"spellIcons": {
+						"alignment": "right",
+						"marginX": 0,
+						"marginY": 0
+					},
+					"spellMenu": {
+						"alignment": "center",
+						"marginX": 0,
+						"marginY": 0
+					}
 				}
 			},
 			"game": {

@@ -7,6 +7,7 @@
 
 #include "global_types.h"
 #include "engine_support.h"
+#include "read_config.h"
 
 using namespace std::string_view_literals;
 
@@ -72,7 +73,16 @@ constexpr std::array WizardsNames_D93A0 {
 
 void DrawLine_2BD10(int16_t posX1, int16_t posY1, int16_t posX2, int16_t posY2, uint8_t color, uint8_t thickness = 1);
 
-void DrawTopStatusBar_2D710(type_entity_0x6E8E* a1, uint8_t scale = 1);
+// In-game UI layout (config: graphics.inGameUi). Used at resolutions other than 320x200 / 640x480;
+// at those the getters return the original hard coded positions
+bool UseInGameUiLayout();
+int GetUiElementPosX(const UiElementLayout& layout, int elementWidth);
+int GetTopBarWidth(uint8_t scale);
+void GetTopBarPosition(int16_t* posX, int16_t* posY);  // top left of the mini-map / top bar
+void GetSpellIconsPosition(int16_t* leftIconPosX, int16_t* rightIconPosX, int16_t* posY);
+void GetSpellMenuPosition(int16_t* posX, int16_t* bottomPosY);  // left and bottom of the spell menu
+
+void DrawTopStatusBar_2D710(type_entity_0x6E8E* a1, int16_t barPosX, int16_t barPosY, uint8_t scale = 1);
 void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_entity_0x6E8E* playerEvent, bool drawNextBitmap, uint8_t scale = 1);
 
 void ComputeTextboxSizes_89830(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
