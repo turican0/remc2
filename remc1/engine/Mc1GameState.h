@@ -190,9 +190,14 @@ typedef struct { // size 0x979C, levels.dat (ddlevels.dat in HW) unpacked, at st
 	uint8_t unknown_0x9794_38804[0x979C - 0x9794];
 } Type_Mc1Level_2F503;
 
-typedef struct { // 14 bytes
-	uint8_t unknown_0x00_0[0x0C];
-	uint16_t word_0x0C_12; // 80h
+typedef struct { // 14 bytes, the camera (20FB0 -> 30D90; MC2 positions_0x1d1_2BDE_11695)
+	int16_t x_0x00_0;
+	int16_t y_0x02_2;
+	int16_t z_0x04_4;
+	int16_t yaw_0x06_6;
+	int16_t pitch_0x08_8;
+	int16_t roll_0x0A_10;
+	uint16_t word_0x0C_12; // 80h, the field of view
 } Type_Mc1PlayerRecord;
 
 typedef struct { // size 0x801

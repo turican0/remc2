@@ -12,3 +12,4 @@ void WorldTick_41780_41AC0();
 void UpdateCreatureAlerts_54F00_55430();
 int32_t UpdateCreatureAlert_54F80_554B0(Type_Mc1Entity* entity);
 void UpdateAttackRecords_16540_16540();
+uint8_t SetPlayerCamera_41B20_41E60(Type_Mc1Player_340B* player, Type_Mc1Entity* entity);
