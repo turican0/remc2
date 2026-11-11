@@ -42,6 +42,9 @@
     <ClCompile Include="GraphicsDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UiAlignmentDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="HardwareDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,6 +99,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UiAlignmentDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HardwareDialog.h">

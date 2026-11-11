@@ -339,6 +339,7 @@ Config::Settings::Graphics Config::GetGraphics(const json& settings)
 		graphicsValues.m_GameDetail = GetGameDetail(graphics);
 		graphicsValues.m_Threading = GetThreading(graphics);
 		graphicsValues.m_Hardware = GetHardware(graphics);
+		graphicsValues.m_InGameUi = GetInGameUi(graphics);
 	}
 	return graphicsValues;
 }
@@ -396,6 +397,33 @@ Config::Settings::Hardware Config::GetHardware(const json& graphics)
 		hardwareValues.m_AntiAliasing = ReadIntValue(hardware, "antiAliasing");
 	}
 	return hardwareValues;
+}
+
+Config::Settings::InGameUi Config::GetInGameUi(const json& graphics)
+{
+	Config::Settings::InGameUi inGameUiValues;
+	if (graphics.contains("inGameUi"))
+	{
+		const auto& inGameUi = graphics["inGameUi"];
+		inGameUiValues.m_TopBar = GetUiElement(inGameUi, "topBar", inGameUiValues.m_TopBar);
+		inGameUiValues.m_SpellIcons = GetUiElement(inGameUi, "spellIcons", inGameUiValues.m_SpellIcons);
+		inGameUiValues.m_SpellMenu = GetUiElement(inGameUi, "spellMenu", inGameUiValues.m_SpellMenu);
+	}
+	return inGameUiValues;
+}
+
+Config::Settings::UiElement Config::GetUiElement(const json& inGameUi, const char* name, const Config::Settings::UiElement& defaults)
+{
+	Config::Settings::UiElement elementValues = defaults;
+	if (inGameUi.contains(name) && inGameUi[name].is_object())
+	{
+		const auto& element = inGameUi[name];
+		if (element.contains("alignment") && element["alignment"].is_string())
+			elementValues.m_Alignment = ReadStringValue(element, "alignment");
+		elementValues.m_MarginX = ReadIntValue(element, "marginX");
+		elementValues.m_MarginY = ReadIntValue(element, "marginY");
+	}
+	return elementValues;
 }
 
 Config::Settings::Sound Config::GetSound(const json& settings)
@@ -512,6 +540,7 @@ void Config::SaveGraphicsToDoc(Config::Settings::Graphics graphics)
 	SaveGameDetailToDoc(graphics.m_GameDetail);
 	SaveThreadingToDoc(graphics.m_Threading);
 	SaveHardwareToDoc(graphics.m_Hardware);
+	SaveInGameUiToDoc(graphics.m_InGameUi);
 }
 
 void Config::SaveGameDetailToDoc(Config::Settings::GameDetail gameDetail)
@@ -556,6 +585,24 @@ void Config::SaveHardwareToDoc(Config::Settings::Hardware hardware)
 	auto& h = GetOrCreate(gfx, "hardware");
 	SetBool(h, "bilinearFiltering", hardware.m_BilinearFiltering);
 	SetInt(h, "antiAliasing", hardware.m_AntiAliasing);
+}
+
+void Config::SaveInGameUiToDoc(Config::Settings::InGameUi inGameUi)
+{
+	auto& settingsEntry = GetOrCreateActiveSettingsEntry();
+	auto& gfx = GetOrCreate(settingsEntry, "graphics");
+	auto& ui = GetOrCreate(gfx, "inGameUi");
+	const std::pair<const char*, const Settings::UiElement*> elements[] = {
+		{ "topBar", &inGameUi.m_TopBar },
+		{ "spellIcons", &inGameUi.m_SpellIcons },
+		{ "spellMenu", &inGameUi.m_SpellMenu } };
+	for (const auto& [name, element] : elements)
+	{
+		auto& e = GetOrCreate(ui, name);
+		SetString(e, "alignment", element->m_Alignment);
+		SetInt(e, "marginX", element->m_MarginX);
+		SetInt(e, "marginY", element->m_MarginY);
+	}
 }
 
 void Config::SaveGameToDoc(Config::Settings::Game gameSettings)

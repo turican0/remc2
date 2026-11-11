@@ -28,7 +28,27 @@
 #ifndef READ_CONFIG
 #define READ_CONFIG
 
-bool SetConfig();std::vector<Maths::Zone> ReadZones(std::vector<Maths::Zone> zonesArray);
+// Horizontal alignment of an in-game UI element on the screen
+enum class UiAlignment
+{
+	Left,
+	Center,
+	Right
+};
+
+// Where an in-game UI element sits on the screen: aligned to the left, center or right, then moved by the margins
+// (in screen pixels). Only used when not at the default 320x200 / 640x480 resolutions
+struct UiElementLayout
+{
+	UiAlignment alignment = UiAlignment::Left;
+	int marginX = 0;   // from the aligned edge (left/right), or from the middle (center, + = right)
+	int marginY = 0;   // down from the top (top bar, spell icons) or up from the bottom (spell menu)
+};
+
+bool SetConfig();
+std::vector<Maths::Zone> ReadZones(std::vector<Maths::Zone> zonesArray);
+UiAlignment ParseUiAlignment(std::string alignment, UiAlignment defaultAlignment);
+UiElementLayout ReadUiElementLayout(const Config::Settings::UiElement& element, UiAlignment defaultAlignment);
 extern int config_skip_screen;
 extern int texturepixels;
 extern int maxGameFps;
@@ -64,6 +84,9 @@ extern bool invertXAxis;
 extern float mouseScaleX;
 extern float mouseScaleY;
 extern bool disableLRButtonsMenuOpen;
+extern UiElementLayout topBarLayout;     // the mini-map and the health/mana bars
+extern UiElementLayout spellIconsLayout; // the selected left/right spell icons
+extern UiElementLayout spellMenuLayout;  // the spell selection menu at the bottom
 
 #define   GAMEPAD_ITEM_DISABLED  0x0
 #define    GAMEPAD_ITEM_ENABLED  0x1

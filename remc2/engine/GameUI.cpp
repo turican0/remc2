@@ -325,8 +325,81 @@ void DrawBar_2D190(int16_t posStartX, int16_t posStartY, int16_t maxPosEndX, int
 		DrawLine_2BC80(posStartX, posStartY, posEndX, posEndY, colorIdx);
 }
 
+bool UseInGameUiLayout()
+{
+	return videoMode_180660 != 1 && !DefaultResolutions();
+}
+
+int GetUiElementPosX(const UiElementLayout& layout, int elementWidth)
+{
+	const int screenWidth = screenWidth_18062C;
+	int posX;
+	switch (layout.alignment)
+	{
+	case UiAlignment::Right:
+		posX = screenWidth - layout.marginX - elementWidth;   // in from the right edge
+		break;
+	case UiAlignment::Center:
+		posX = (screenWidth - elementWidth) / 2 + layout.marginX;   // moved right (+) or left (-) of the middle
+		break;
+	case UiAlignment::Left:
+	default:
+		posX = layout.marginX;   // in from the left edge
+		break;
+	}
+
+	// Keep the element on the screen
+	const int maxPosX = (std::max)(screenWidth - elementWidth, 0);
+	return (std::clamp)(posX, 0, maxPosX);
+}
+
+int GetTopBarWidth(uint8_t scale)
+{
+	// 2 pixel border either side, the panel around the mini-map and the 3 health/mana panels
+	return (4 + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MINI_MAP_PANEL].width_4
+		+ 3 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL].width_4) * scale;
+}
+
+void GetTopBarPosition(int16_t* posX, int16_t* posY)
+{
+	*posX = 0;
+	*posY = 0;
+	if (UseInGameUiLayout())
+	{
+		*posX = GetUiElementPosX(topBarLayout, GetTopBarWidth(gameUiScale));
+		*posY = (std::clamp)(topBarLayout.marginY, 0, (int)screenHeight_180624);   // down from the top
+	}
+}
+
+void GetSpellIconsPosition(int16_t* leftIconPosX, int16_t* rightIconPosX, int16_t* posY)
+{
+	*leftIconPosX = 510;
+	*rightIconPosX = 574;
+	*posY = 2;
+	if (UseInGameUiLayout())
+	{
+		const int scale = gameUiScale;
+		// 2 pixel border either side of the 2 icons
+		const int posX = GetUiElementPosX(spellIconsLayout, 132 * scale);
+		*leftIconPosX = posX + (2 * scale);
+		*rightIconPosX = posX + (66 * scale);
+		*posY = (2 * scale) + (std::clamp)(spellIconsLayout.marginY, 0, (int)screenHeight_180624);   // down from the top
+	}
+}
+
+void GetSpellMenuPosition(int16_t* posX, int16_t* bottomPosY)
+{
+	*posX = 0;
+	*bottomPosY = (videoMode_180660 & 1) ? 400 : 480;
+	if (UseInGameUiLayout())
+	{
+		*posX = GetUiElementPosX(spellMenuLayout, 640 * gameUiScale);
+		*bottomPosY = (int)screenHeight_180624 - (std::clamp)(spellMenuLayout.marginY, 0, (int)screenHeight_180624);   // up from the bottom
+	}
+}
+
 //----- (0002D710) --------------------------------------------------------
-void DrawTopStatusBar_2D710(type_entity_0x6E8E* a1x, uint8_t scale)//20e710
+void DrawTopStatusBar_2D710(type_entity_0x6E8E* a1x, int16_t barPosX, int16_t barPosY, uint8_t scale)//20e710
 {
     int16_t posX; // bx
 	type_entity_0x6E8E* v2x; // ecx
@@ -355,10 +428,10 @@ void DrawTopStatusBar_2D710(type_entity_0x6E8E* a1x, uint8_t scale)//20e710
 	//ptrDrawBitmap_F01E8(2, 2, **filearray_2aa18c[6] + 240);
 
 	//Panel around MiniMap
-	ptrDrawBitmap_F01E8((2 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MINI_MAP_PANEL], scale);
+	ptrDrawBitmap_F01E8(barPosX + (2 * scale), barPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MINI_MAP_PANEL], scale);
 
 	//v1 = *(uint8_t *)(*filearray_2aa18c[6] + 244) + 2;
-	posX = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MINI_MAP_PANEL].width_4 * scale) + (2 * scale);
+	posX = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MINI_MAP_PANEL].width_4 * scale) + (2 * scale) + barPosX;
 	//adress 20e7db
 	v18 = gameState_D41A4.manaStats_242ar.totalMana_4;
 	//v20 = a1x->dword_0xA4_164;
@@ -370,22 +443,22 @@ void DrawTopStatusBar_2D710(type_entity_0x6E8E* a1x, uint8_t scale)//20e710
 		{
 			//ptrDrawBitmap_F01E8(v1, 2, **filearray_2aa18c[6] + 330);
 			//Draw Castle Health Panel Hit
-			ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL_HIT], scale);
+			ptrDrawBitmap_F01E8(posX, barPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL_HIT], scale);
 			a1x->playerData_0xA4_164x->castleDestroyedBlink_0x195_405--;
 		}
 		else
 		{
 			//Draw Castle Health Panel
-			ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL], scale);
+			ptrDrawBitmap_F01E8(posX, barPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL], scale);
 		}
 		//DrawBitmap_2BB40(v1 + 2, 2, (uint8_t**)(6 * (v23[4] + 43) + **filearray_2aa18c[6]));
 		
 		//Castle Icon
-		DrawBitmap_2BB40(posX + (2 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v23x->param_0x10_16 + 43], scale);
+		DrawBitmap_2BB40(posX + (2 * scale), barPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v23x->param_0x10_16 + 43], scale);
 		//Castle Health And Mana Icon
-		DrawBitmap_2BB40(posX + (38 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS], scale);
+		DrawBitmap_2BB40(posX + (38 * scale), barPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS], scale);
 		barStartXPos = posX + (58 * scale);
-		DrawBar_2D190(posX + (58 * scale), 10 * scale, 64 * scale, 10 * scale, ((v23x->life_0x8 << 6) / v23x->maxLife_0x4) * scale, 0x7Bu);
+		DrawBar_2D190(posX + (58 * scale), barPosY + 10 * scale, 64 * scale, 10 * scale, ((v23x->life_0x8 << 6) / v23x->maxLife_0x4) * scale, 0x7Bu);
 		v17 = (v23x->mana_0x90_144 + a1x->playerData_0xA4_164x->extraMana_0x13C_316) << 6;
 		if (v23x->mana_0x90_144 + a1x->playerData_0xA4_164x->extraMana_0x13C_316 == v23x->maxMana_0x8C_140)
 		{
@@ -406,7 +479,7 @@ void DrawTopStatusBar_2D710(type_entity_0x6E8E* a1x, uint8_t scale)//20e710
 		}
 		else
 		{
-			DrawBar_2D190(barStartXPos, 28 * scale, 64 * scale, 10 * scale, ((v23x->maxMana_0x8C_140 << 6) / v18) * scale, manaMaxColourIdx);
+			DrawBar_2D190(barStartXPos, barPosY + 28 * scale, 64 * scale, 10 * scale, ((v23x->maxMana_0x8C_140 << 6) / v18) * scale, manaMaxColourIdx);
 			v16 = manaColourIdx;
 			v5 = v17;
 			//v4 = v17;
@@ -414,19 +487,19 @@ void DrawTopStatusBar_2D710(type_entity_0x6E8E* a1x, uint8_t scale)//20e710
 		}
 		//LODWORD(v6) = v5;
 		//HIDWORD(v6) = v4 >> 31;
-		DrawBar_2D190(barStartXPos, 28 * scale, 64 * scale, 10 * scale, /*v6*/(v5 / v3) * scale, v16);
+		DrawBar_2D190(barStartXPos, barPosY + 28 * scale, 64 * scale, 10 * scale, /*v6*/(v5 / v3) * scale, v16);
 
 		//Draw Mana Goal Lines
 		if (!(gameState_D41A4.setting_byte1_22 & Setting::MULTIPLAYER_MODE) && world_D41A0.terrain_2FECE.manaGoalPercent_0x2FED5)
 		{
-			DrawLine_2BC80(barStartXPos + ((world_D41A0.terrain_2FECE.manaGoalPercent_0x2FED5 << 6) / 100) * scale, 26 * scale, 2 * scale, 2 * scale, v26);
-			DrawLine_2BC80(barStartXPos + ((world_D41A0.terrain_2FECE.manaGoalPercent_0x2FED5 << 6) / 100) * scale, 38 * scale, 2 * scale, 2 * scale, v26);
+			DrawLine_2BC80(barStartXPos + ((world_D41A0.terrain_2FECE.manaGoalPercent_0x2FED5 << 6) / 100) * scale, barPosY + 26 * scale, 2 * scale, 2 * scale, v26);
+			DrawLine_2BC80(barStartXPos + ((world_D41A0.terrain_2FECE.manaGoalPercent_0x2FED5 << 6) / 100) * scale, barPosY + 38 * scale, 2 * scale, 2 * scale, v26);
 		}
 	}
 	else
 	{
 		//Panel Next to MiniMap
-		ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[PANEL], scale);
+		ptrDrawBitmap_F01E8(posX, barPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[PANEL], scale);
 	}
 	//v8 = *(uint8_t *)(**filearray_2aa18c[6] + 250) + v1;
 	//adress 20eaa0
@@ -436,7 +509,7 @@ void DrawTopStatusBar_2D710(type_entity_0x6E8E* a1x, uint8_t scale)//20e710
 		//20eca6
 		//VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
 	    //2nd Panel 
-		ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[PANEL], scale);
+		ptrDrawBitmap_F01E8(posX, barPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[PANEL], scale);
 		//VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
 	}
 	else
@@ -444,13 +517,13 @@ void DrawTopStatusBar_2D710(type_entity_0x6E8E* a1x, uint8_t scale)//20e710
 		if (a1x->playerData_0xA4_164x->castleDamagedBlink_0x197_407 > 0 && gameState_D41A4.colorIndex_121[1])
 		{
 			//Draw Balloon Health Panel Hit
-			ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL_HIT], scale);
+			ptrDrawBitmap_F01E8(posX, barPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL_HIT], scale);
 			a1x->playerData_0xA4_164x->castleDamagedBlink_0x197_407--;
 		}
 		else
 		{
 			//Draw Balloon Health Panel Hit
-			ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL], scale);
+			ptrDrawBitmap_F01E8(posX, barPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL], scale);
 		}
 		switch (v23x->param_0x10_16)
 		{
@@ -472,10 +545,10 @@ void DrawTopStatusBar_2D710(type_entity_0x6E8E* a1x, uint8_t scale)//20e710
 			break;
 		}
 		//Draw Balloon Icon
-		DrawBitmap_2BB40(posX + (2 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[numBalloons_v25 + BALLON1_ICON - 1], scale);
+		DrawBitmap_2BB40(posX + (2 * scale), barPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[numBalloons_v25 + BALLON1_ICON - 1], scale);
 		balloonIdx_v24 = 0;
 		//Draw Balloon Health Icon
-		DrawBitmap_2BB40(posX + (38 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS], scale);
+		DrawBitmap_2BB40(posX + (38 * scale), barPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS], scale);
 		if (numBalloons_v25 > 0)
 		{
 			do
@@ -487,10 +560,10 @@ void DrawTopStatusBar_2D710(type_entity_0x6E8E* a1x, uint8_t scale)//20e710
 				{
 					//Life
 					if (v9x->life_0x8 >= 0)
-						DrawBar_2D190(v21, (2 * balloonIdx_v24 * scale) + (12 * scale), 64 * scale, 2 * scale, ((v9x->life_0x8 << 6) / v9x->maxLife_0x4) * scale, 0x7Bu);
+						DrawBar_2D190(v21, barPosY + (2 * balloonIdx_v24 * scale) + (12 * scale), 64 * scale, 2 * scale, ((v9x->life_0x8 << 6) / v9x->maxLife_0x4) * scale, 0x7Bu);
 
 					//Mana collected
-					DrawBar_2D190(v21, (2 * balloonIdx_v24 * scale) + (30 * scale), 64 * scale, 2 * scale, ((v9x->mana_0x90_144 << 6) / v9x->maxMana_0x8C_140) * scale, manaColourIdx);
+					DrawBar_2D190(v21, barPosY + (2 * balloonIdx_v24 * scale) + (30 * scale), 64 * scale, 2 * scale, ((v9x->mana_0x90_144 << 6) / v9x->maxMana_0x8C_140) * scale, manaColourIdx);
 				}
 				balloonIdx_v24++;
 			} while (balloonIdx_v24 < numBalloons_v25);
@@ -501,36 +574,36 @@ void DrawTopStatusBar_2D710(type_entity_0x6E8E* a1x, uint8_t scale)//20e710
 	if (a1x->playerData_0xA4_164x->PlayerHitFrameTime_406 > 0 && gameState_D41A4.colorIndex_121[1])
 	{
 		//Player Health Panel on Hit
-		ptrDrawBitmap_F01E8(posX, 2 * scale, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL_HIT], scale);
+		ptrDrawBitmap_F01E8(posX, barPosY + 2 * scale, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL_HIT], scale);
 		a1x->playerData_0xA4_164x->PlayerHitFrameTime_406--;
 	}
 	else
 	{//adress 20ed35
 		//Player Health Panel
-		ptrDrawBitmap_F01E8(posX, 2 * scale, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL], scale);
+		ptrDrawBitmap_F01E8(posX, barPosY + 2 * scale, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL], scale);
 	}
 
 	if ((a1x->flags_0xc_12_15.byte[0] & 0x20 || a1x->playerData_0xA4_164x->invulnerableTimer_0x159_345) && gameState_D41A4.colorIndex_121[2])
 	{
 		//Draw Player Health and Mana flickering
-		GameBitmap::DrawTransparentBitmap_2DE80(posX + (2 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[PLAYER_ICON], scale);
-		GameBitmap::DrawTransparentBitmap_2DE80(posX + (38 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS], scale);
+		GameBitmap::DrawTransparentBitmap_2DE80(posX + (2 * scale), barPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[PLAYER_ICON], scale);
+		GameBitmap::DrawTransparentBitmap_2DE80(posX + (38 * scale), barPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS], scale);
 	}
 	else
 	{
 		//Draw Player Health and Mana
-		DrawBitmap_2BB40(posX + (2 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[PLAYER_ICON], scale);
-		DrawBitmap_2BB40(posX + (38 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS], scale);
+		DrawBitmap_2BB40(posX + (2 * scale), barPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[PLAYER_ICON], scale);
+		DrawBitmap_2BB40(posX + (38 * scale), barPosY + (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS], scale);
 	}
 	//VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
 	posX = posX + (58 * scale);
-	DrawBar_2D190(posX, 10 * scale, 64 * scale, 10 * scale, ((a1x->life_0x8 << 6) / a1x->maxLife_0x4) * scale, 0x7Bu);
+	DrawBar_2D190(posX, barPosY + 10 * scale, 64 * scale, 10 * scale, ((a1x->life_0x8 << 6) / a1x->maxLife_0x4) * scale, 0x7Bu);
 	//adress 20ee1a
 	//1b8 1c 40 0a 03 aa
 	//0xfa00/4c79=3
 	//v18=0x4c79
-	DrawBar_2D190(posX, 28 * scale, 64 * scale, 10 * scale, ((a1x->maxMana_0x8C_140 << 6) / v18) * scale, manaMaxColourIdx);
-	DrawBar_2D190(posX, 28 * scale, 64 * scale, 10 * scale, ((a1x->mana_0x90_144 << 6) / v18) * scale, manaColourIdx);
+	DrawBar_2D190(posX, barPosY + 28 * scale, 64 * scale, 10 * scale, ((a1x->maxMana_0x8C_140 << 6) / v18) * scale, manaMaxColourIdx);
+	DrawBar_2D190(posX, barPosY + 28 * scale, 64 * scale, 10 * scale, ((a1x->mana_0x90_144 << 6) / v18) * scale, manaColourIdx);
 	//VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
 }
 
@@ -1708,20 +1781,20 @@ void DrawMinimapEntitiesB_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY
 								{
 									if (v31 == 83 || v31 == 84)
 										DrawBitmap_2BB40(
-											2 * posx - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].width_4 / 2,
-											2 * posy - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].height_5 / 2,
+											x + 2 * posx - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].width_4 / 2,
+											y + 2 * posy - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].height_5 / 2,
 											(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31]);
 								}
 								else
 								{
-									DrawBitmap_2BB40(2 * posx, 2 * posy - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].height_5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31]);
+									DrawBitmap_2BB40(x + 2 * posx, y + 2 * posy - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].height_5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31]);
 								}
 							}
 							else
 							{
 								DrawBitmap_2BB40(
-									2 * posx - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].width_4 / 2,
-									2 * posy - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].height_5,
+									x + 2 * posx - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].width_4 / 2,
+									y + 2 * posy - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].height_5,
 									(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31]);
 							}
 						}
@@ -1729,8 +1802,8 @@ void DrawMinimapEntitiesB_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY
 						{
 							//Draw other stuff (ballon icons)
 							DrawBitmap_2BB40(
-								posx - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].width_4 / 2) * scale,
-								posy - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].height_5 * scale),
+								x + posx - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].width_4 / 2) * scale,
+								y + posy - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].height_5 * scale),
 								(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31], scale);
 						}
 						else
@@ -1738,11 +1811,11 @@ void DrawMinimapEntitiesB_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY
 							//Draw Flag
 							
 							//DrawBitmap_2BB40(posx, posy - *(uint8_t *)(6 * v31 + **filearray_2aa18c[6] + 5), (uint8_t**)(6 * v31 + **filearray_2aa18c[6]));
-							DrawBitmap_2BB40(posx, posy - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].height_5 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31], scale);
+							DrawBitmap_2BB40(x + posx, y + posy - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31].height_5 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v31], scale);
 						}
 					}
 					if (v88)
-						SetHelpItemTarget_885E0(jy, (int16_t)posx, (int16_t)posy, v88);
+						SetHelpItemTarget_885E0(jy, (int16_t)(v8 + posx), (int16_t)(v9 + posy), v88);   // v8, v9: the map's position
 				}
 			}
 		}
@@ -1774,9 +1847,9 @@ void DrawMinimapEntitiesB_61A00(int16_t x, int16_t y, int16_t posX, int16_t posY
 								v66 = playersColors_E88E0x[GetTrueWizardNumber_61790(v60x->playerData_0xA4_164x->playerColorIndex_0x38_56)][0];
 								DrawMinimapPlayerDot(ptrMapBufferStart_v84, nullptr, v63, v64, width, height, v66, scale, true);
 								if (videoMode_180660 == 1)
-									DrawText_2BC10(world_D41A0.players_0x2BDE[v87].WizardName_0x39f_2BFA_12157, 2 * v63 + 4, 2 * v64, v66);
+									DrawText_2BC10(world_D41A0.players_0x2BDE[v87].WizardName_0x39f_2BFA_12157, x + 2 * v63 + 4, y + 2 * v64, v66);
 								else
-									DrawText_2BC10(world_D41A0.players_0x2BDE[v87].WizardName_0x39f_2BFA_12157, v63 - CalculateScaleOffset(scale) + (4 * scale), v64 - CalculateScaleOffset(scale), v66, scale);
+									DrawText_2BC10(world_D41A0.players_0x2BDE[v87].WizardName_0x39f_2BFA_12157, x + v63 - CalculateScaleOffset(scale) + (4 * scale), y + v64 - CalculateScaleOffset(scale), v66, scale);
 							}
 						}
 					}
@@ -2352,14 +2425,14 @@ void DrawMinimapEntities_627F0(int16_t x, int16_t y, int16_t posX, int16_t posY,
 										  (uint8_t**)(6 * v36 + **filearray_2aa18c[6]));*/
 									if (v36 == 83 || v36 == 84)
 										DrawBitmap_2BB40(
-											2 * v59 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].width_4 / 2,
-											2 * v60 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].height_5 / 2,
+											x + 2 * v59 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].width_4 / 2,
+											y + 2 * v60 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].height_5 / 2,
 											(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36]);
 								}
 								else
 								{
 									//DrawBitmap_2BB40(2 * v59, 2 * v60 - *(uint8_t *)(**filearray_2aa18c[6] + 6 * v36 + 5), (uint8_t**)(**filearray_2aa18c[6] + 6 * v36));
-									DrawBitmap_2BB40(2 * v59, 2 * v60 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].height_5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36]);
+									DrawBitmap_2BB40(x + 2 * v59, y + 2 * v60 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].height_5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36]);
 								}
 							}
 							else
@@ -2369,8 +2442,8 @@ void DrawMinimapEntities_627F0(int16_t x, int16_t y, int16_t posX, int16_t posY,
 								  2 * v60 - *(uint8_t *)(6 * v36 + **filearray_2aa18c[6] + 5),
 									(uint8_t**)(6 * v36 + **filearray_2aa18c[6]));*/
 								DrawBitmap_2BB40(
-									2 * v59 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].width_4 / 2,
-									2 * v60 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].height_5,
+									x + 2 * v59 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].width_4 / 2,
+									y + 2 * v60 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].height_5,
 									(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36]);
 							}
 						}
@@ -2381,18 +2454,18 @@ void DrawMinimapEntities_627F0(int16_t x, int16_t y, int16_t posX, int16_t posY,
 							  v60 - *(uint8_t *)(6 * v36 + **filearray_2aa18c[6] + 5),
 								(uint8_t**)(6 * v36 + **filearray_2aa18c[6]));*/
 							DrawBitmap_2BB40(
-								v59 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].width_4 / 2,
-								v60 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].height_5,
+								x + v59 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].width_4 / 2,
+								y + v60 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].height_5,
 								(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36]);
 						}
 						else
 						{
 							//DrawBitmap_2BB40(v59, v60 - *(uint8_t *)(6 * v36 + **filearray_2aa18c[6] + 5), (uint8_t**)(6 * v36 + **filearray_2aa18c[6]));
-							DrawBitmap_2BB40(v59, v60 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].height_5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36]);
+							DrawBitmap_2BB40(x + v59, y + v60 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36].height_5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v36]);
 						}
 					}
 					if (v104)
-						SetHelpItemTarget_885E0(iy, (int16_t)v59, (int16_t)v60, v104);
+						SetHelpItemTarget_885E0(iy, (int16_t)(v8 + v59), (int16_t)(v9 + v60), v104);   // v8, v9: the map's position
 				}
 			}
 		}
@@ -2422,9 +2495,9 @@ void DrawMinimapEntities_627F0(int16_t x, int16_t y, int16_t posX, int16_t posY,
 								v73 = playersColors_E88E0x[GetTrueWizardNumber_61790(v66x->playerData_0xA4_164x->playerColorIndex_0x38_56)][1];
 								DrawMinimapPlayerDot(v99x, v100x, v69, v70, width, height, v73, scale, false);
 								if (videoMode_180660 == 1)
-									DrawText_2BC10(world_D41A0.players_0x2BDE[j].WizardName_0x39f_2BFA_12157, 2 * v69 + 4, 2 * v70, v73);
+									DrawText_2BC10(world_D41A0.players_0x2BDE[j].WizardName_0x39f_2BFA_12157, x + 2 * v69 + 4, y + 2 * v70, v73);
 								else
-									DrawText_2BC10(world_D41A0.players_0x2BDE[j].WizardName_0x39f_2BFA_12157, v69 - CalculateScaleOffset(scale) + (4 * scale), v70 - CalculateScaleOffset(scale), v73, scale);
+									DrawText_2BC10(world_D41A0.players_0x2BDE[j].WizardName_0x39f_2BFA_12157, x + v69 - CalculateScaleOffset(scale) + (4 * scale), y + v70 - CalculateScaleOffset(scale), v73, scale);
 							}
 						}
 					}
@@ -2992,6 +3065,8 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 
 	v8 = 0x1000000;
 	v81 = 0;
+	const int uiX = x;
+	const int uiY = y;
 	if (videoMode_180660 & 1)
 	{
 		x >>= 1;
@@ -3074,7 +3149,7 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 			v51x.v64xb_46 = (*xadataclrd0dat.colorPalette_var28)[3840];
 			v51x.v51y = v72x->position_0x4C_76;
 			if (DrawObjectiveRectangle_64CE0(&v51x, scale))
-				SetHelpItemTarget_885E0(v72x, v51x.v62xw_42, v51x.v63xw_44, 0x52u);
+				SetHelpItemTarget_885E0(v72x, x + v51x.v62xw_42, y + v51x.v63xw_44, 0x52u);
 			v36x = &v72x->position_0x4C_76;
 			v17x = &v72x->position_0x4C_76;
 			v16x = &v75x->position_0x4C_76;
@@ -3089,7 +3164,7 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 			v51x.v64xb_46 = (*xadataclrd0dat.colorPalette_var28)[0xff0];
 			v51x.v51y = v65y;
 			if (DrawObjectiveRectangle_64CE0(&v51x, scale))
-				SetHelpItemTarget_885E0(0, v51x.v62xw_42, v51x.v63xw_44, 0x51u);
+				SetHelpItemTarget_885E0(0, x + v51x.v62xw_42, y + v51x.v63xw_44, 0x51u);
 			v36x = &v65y;
 			v17x = &v65y;
 			v16x = &v75x->position_0x4C_76;
@@ -3110,7 +3185,7 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 				break;
 			v51x.v51y = v72x->position_0x4C_76;
 			if (DrawObjectiveRectangle_64CE0(&v51x, scale))
-				SetHelpItemTarget_885E0(v72x, v51x.v62xw_42, v51x.v63xw_44, 0x52u);
+				SetHelpItemTarget_885E0(v72x, x + v51x.v62xw_42, y + v51x.v63xw_44, 0x52u);
 			v19 = Maths::DistanceXY_58490(&v75x->position_0x4C_76, &v72x->position_0x4C_76);
 			if (v19 < v8)
 			{
@@ -3135,7 +3210,7 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 				{
 					v51x.v51y = v72x->position_0x4C_76;
 					if (DrawObjectiveRectangle_64CE0(&v51x, scale))
-						SetHelpItemTarget_885E0(v72x, v51x.v62xw_42, v51x.v63xw_44, 0x52u);
+						SetHelpItemTarget_885E0(v72x, x + v51x.v62xw_42, y + v51x.v63xw_44, 0x52u);
 					v20 = Maths::DistanceXY_58490(&v75x->position_0x4C_76, &v72x->position_0x4C_76);
 					if (v20 < v8)
 					{
@@ -3214,9 +3289,9 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 				while (v31 < 7)
 				{
 					v32 = 3 * v31;
-					v37x[2 * v32] = v25 + x + v37x[6 * v31];
+					v37x[2 * v32] = v25 + uiX + v37x[6 * v31];
 					v33 = v37x[1 + (6 * v31++)];
-					v37x[1 + 2 * v32] = v77 + y + v33;
+					v37x[1 + 2 * v32] = v77 + uiY + v33;
 				}
 				//adress 245be1
 				//v34 = v30;
@@ -3837,16 +3912,10 @@ void MoveCursorToSelectedSpell_6D200(type_str_0x2BDE* a1x)//24e200
 	int16_t spellIdxX; // [esp+14h] [ebp-8h]
 	uint8_t scale = 1;
 
-	int16_t helpHeight = 480;
-	if (videoMode_180660 & 1)
-		helpHeight = 400;
-	if (videoMode_180660 != 1)
-		if(!DefaultResolutions())
-		{
-			scale = gameUiScale;
-			helpHeight = screenHeight_180624;
-			offsetPosX = (screenWidth_18062C - (640 * scale)) / 2;
-		}
+	int16_t helpHeight;   // the bottom of the spell menu
+	if (UseInGameUiLayout())
+		scale = gameUiScale;
+	GetSpellMenuPosition(&offsetPosX, &helpHeight);
 
 	if (a1x->playerSlot_0x007_2BE4_11237 == world_D41A0.LevelIndex_0xc)
 	{
@@ -5039,8 +5108,11 @@ void debugtestscreen() {
 //----- (0002BE30) --------------------------------------------------------
 void DrawGameFrame_2BE30()//20CE30
 {
-	int16_t spellLeftPosX = 510;
-	int16_t spellRightPosX = 574;
+	int16_t spellLeftPosX;
+	int16_t spellRightPosX;
+	int16_t spellIconsPosY;
+	int16_t topBarPosX;
+	int16_t topBarPosY;
 	uint8_t scale = 1;
 
 	type_entity_0x6E8E* playerEntity;
@@ -5053,15 +5125,10 @@ void DrawGameFrame_2BE30()//20CE30
 	else
 		ClearScreenAlphaBuffer(screenWidth_18062C, screenHeight_180624, 0);
 
-	if (videoMode_180660 != 1)
-	{
-		if (!DefaultResolutions())
-		{
-			scale = gameUiScale;
-			spellLeftPosX = screenWidth_18062C - (130 * scale);
-			spellRightPosX = screenWidth_18062C - (66 * scale);
-		}
-	}
+	if (UseInGameUiLayout())
+		scale = gameUiScale;
+	GetSpellIconsPosition(&spellLeftPosX, &spellRightPosX, &spellIconsPosY);
+	GetTopBarPosition(&topBarPosX, &topBarPosY);
 
 	x_DWORD_D41C8 = 0;
 	if (world_D41A0.m_GameSettings.display_0x2196.transparency_0x2198)
@@ -5222,8 +5289,8 @@ void DrawGameFrame_2BE30()//20CE30
 			if (world_D41A0.m_GameSettings.m_Display.m_wMiniMap)
 			{
 				DrawMinimap_63600(//draw minimap
-					0,
-					0,
+					topBarPosX,
+					topBarPosY,
 					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.x,
 					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.y,
 					128 * scale,
@@ -5232,8 +5299,8 @@ void DrawGameFrame_2BE30()//20CE30
 					256 / scale,
 					0);
 				DrawMinimapEntites_61880(//draw entites in minimap
-					0,
-					0,
+					topBarPosX,
+					topBarPosY,
 					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.x,
 					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.y,
 					128 * scale,
@@ -5242,8 +5309,8 @@ void DrawGameFrame_2BE30()//20CE30
 					256 / scale,
 					scale);
 				DrawMinimapMarks_644F0(
-					0,
-					0,
+					topBarPosX,
+					topBarPosY,
 					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.x,
 					world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].positions_0x1d1_2BDE_11695[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].ActPlayerIndex_0x00e_2BDE_11244 + 1].axis_2BDE_11695.y,
 					128 * scale,
@@ -5260,7 +5327,7 @@ void DrawGameFrame_2BE30()//20CE30
 				//Left
 				DrawSpellIcon_2E260(
 					spellLeftPosX,
-					2 * scale,
+					spellIconsPosY,
 					Entities_EA3E4[playerEntity->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[playerEntity->playerData_0xA4_164x->str_611.SpellIndexLeft_0x451_1105]],
 					false,
 					scale);
@@ -5268,12 +5335,12 @@ void DrawGameFrame_2BE30()//20CE30
 				//Right
 				DrawSpellIcon_2E260(
 					spellRightPosX,
-					2 * scale,
+					spellIconsPosY,
 					Entities_EA3E4[playerEntity->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[playerEntity->playerData_0xA4_164x->str_611.SpellIndexRight_0x453_1107]],
 					false,
 					scale);
 
-				DrawTopStatusBar_2D710(playerEntity, scale);
+				DrawTopStatusBar_2D710(playerEntity, topBarPosX, topBarPosY, scale);
 			}
 			switch (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221)
 			{
@@ -5295,7 +5362,7 @@ void DrawGameFrame_2BE30()//20CE30
 				DrawPauseMenu_2FD90(scale);
 				break;
 			}
-			DrawTextPauseEndOfLevel_2CE30(132 * scale, 50 * scale, scale);
+			DrawTextPauseEndOfLevel_2CE30(topBarPosX + (132 * scale), topBarPosY + (50 * scale), scale);
 			if (world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].MenuState_0x3DF_2BE4_12221 == (int)MenuState::SHOW_BOTTOM_MENU)
 				DrawBottomSpellsMenu_2ECC0();
 		}
@@ -5487,14 +5554,14 @@ void DrawGameFrame_2BE30()//20CE30
 		if (gameState_D41A4.leftSpellPlayerIndex_38400)
 			DrawSpellIcon_2E260(
 				spellLeftPosX,
-				2,
+				spellIconsPosY,
 				Entities_EA3E4[playerEntity->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[playerEntity->playerData_0xA4_164x->str_611.SpellIndexLeft_0x451_1105]],
 				false,
 				scale);
 		if (gameState_D41A4.rightSpellPlayerIndex_38401)
 			DrawSpellIcon_2E260(
 				spellRightPosX,
-				2,
+				spellIconsPosY,
 				Entities_EA3E4[playerEntity->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[playerEntity->playerData_0xA4_164x->str_611.SpellIndexRight_0x453_1107]],
 				false,
 				scale);
@@ -6026,17 +6093,9 @@ void DrawBottomSpellsMenu_2ECC0()//20fcc0
 	int16_t posX = 0;
 	int16_t posY = 0;
 	uint8_t scale = 1;
-	if (videoMode_180660 & 1)
-		posY = 400;
-	else
-		posY = 480;
-	if (videoMode_180660 != 1)
-		if (!DefaultResolutions())
-		{
-			scale = gameUiScale;
-			posX = (screenWidth_18062C - (640 * scale)) / 2;
-			posY = screenHeight_180624;
-		}
+	if (UseInGameUiLayout())
+		scale = gameUiScale;
+	GetSpellMenuPosition(&posX, &posY);
 	posIconsXStart = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[EDGE_PANEL].width_4 * scale;
 	spellIconHeight = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale;
 	posIconsY2 = posY - (2 * spellIconHeight);
@@ -7179,6 +7238,23 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 	type_entity_0x6E8E* v36x; // [esp+20h] [ebp-8h]
 	signed int v37; // [esp+24h] [ebp-4h]
 
+	// The in-game UI's layout moves the top bar and the spell icons (and their help pointers)
+	// from their original positions: the top bar at the top left, the spell icons at the top right
+	int topBarOffsetX = 0;
+	int topBarOffsetY = 0;
+	int spellIconsOffsetX = 0;
+	int spellIconsOffsetY = 0;
+	if (UseInGameUiLayout())
+	{
+		int16_t topBarPosX, topBarPosY, spellLeftPosX, spellRightPosX, spellIconsPosY;
+		GetTopBarPosition(&topBarPosX, &topBarPosY);
+		GetSpellIconsPosition(&spellLeftPosX, &spellRightPosX, &spellIconsPosY);
+		topBarOffsetX = topBarPosX;
+		topBarOffsetY = topBarPosY;
+		spellIconsOffsetX = spellLeftPosX - (screenWidth_18062C - (130 * scale));
+		spellIconsOffsetY = spellIconsPosY - (2 * scale);
+	}
+
 	v34 = 0;
 	v37 = -1;
 	v0 = -1;
@@ -7232,8 +7308,8 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 					str_E2A74[v9x].axis_2[0] |= 1u;
 					str_E2A74[35].axis_2[3] = ((world_D41A0.terrain_2FECE.manaGoalPercent_0x2FED5 << 6) / 100
 						+ (*filearray_2aa18c[filearrayindex_FONTS1DATTAB].posistruct)[40].width_4
-						+ 60) * scale;
-					str_E2A74[35].axis_2[4] = 38 * scale;
+						+ 60) * scale + topBarOffsetX;
+					str_E2A74[35].axis_2[4] = 38 * scale + topBarOffsetY;
 				}
 			}
 			break;
@@ -7271,8 +7347,8 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 	else
 	{
 		//You are here
-		str_E2A74[2].axis_2[3] = (64 * scale);
-		str_E2A74[2].axis_2[4] = (66 * scale);
+		str_E2A74[2].axis_2[3] = (64 * scale) + topBarOffsetX;
+		str_E2A74[2].axis_2[4] = (66 * scale) + topBarOffsetY;
 	}
 	if (!v34 && !(helpPopup_1804B0.PopupStatusByte_0x9e & 4))
 		str_E2A74[4].axis_2[0] |= 1u;
@@ -7307,12 +7383,12 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 					if (!DefaultResolutions())
 					{
 						if (v0)
-							str_E2A74[10].axis_2[3] = screenWidth_18062C - (40 * scale);
+							str_E2A74[10].axis_2[3] = screenWidth_18062C - (40 * scale) + spellIconsOffsetX;
 						else
-							str_E2A74[10].axis_2[3] = screenWidth_18062C - (100 * scale);
+							str_E2A74[10].axis_2[3] = screenWidth_18062C - (100 * scale) + spellIconsOffsetX;
 					}
 
-					str_E2A74[10].axis_2[4] = (32 * scale);
+					str_E2A74[10].axis_2[4] = (32 * scale) + spellIconsOffsetY;
 				}
 			}
 			else
@@ -7342,12 +7418,12 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 					if (!DefaultResolutions())
 					{
 						if (v0 == 1)
-							str_E2A74[11].axis_2[3] = screenWidth_18062C - (100 * scale);
+							str_E2A74[11].axis_2[3] = screenWidth_18062C - (100 * scale) + spellIconsOffsetX;
 						else
-							str_E2A74[11].axis_2[3] = screenWidth_18062C - (40 * scale);
+							str_E2A74[11].axis_2[3] = screenWidth_18062C - (40 * scale) + spellIconsOffsetX;
 					}
 
-					str_E2A74[11].axis_2[4] = (32 * scale);
+					str_E2A74[11].axis_2[4] = (32 * scale) + spellIconsOffsetY;
 				}
 			}
 			else
@@ -7377,12 +7453,12 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 					if (!DefaultResolutions())
 					{
 						if (v0 == 2)
-							str_E2A74[12].axis_2[3] = screenWidth_18062C - (100 * scale);
+							str_E2A74[12].axis_2[3] = screenWidth_18062C - (100 * scale) + spellIconsOffsetX;
 						else
-							str_E2A74[12].axis_2[3] = screenWidth_18062C - (40 * scale);
+							str_E2A74[12].axis_2[3] = screenWidth_18062C - (40 * scale) + spellIconsOffsetX;
 					}
 
-					str_E2A74[12].axis_2[4] = (32 * scale);
+					str_E2A74[12].axis_2[4] = (32 * scale) + spellIconsOffsetY;
 				}
 			}
 		}
@@ -7417,15 +7493,15 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 			//Your current objective is to fly to a point
 			str_E2A74[40].axis_2[3] = 540;
 			str_E2A74[40].axis_2[0] |= 1u;
-			str_E2A74[40].axis_2[4] = (40 * scale);
+			str_E2A74[40].axis_2[4] = (40 * scale) + spellIconsOffsetY;
 			str_E2A74[42].axis_2[0] |= 1u;
-			str_E2A74[42].axis_2[4] = (16 * scale);
+			str_E2A74[42].axis_2[4] = (16 * scale) + spellIconsOffsetY;
 			str_E2A74[42].axis_2[3] = 560;
 
 			if (!DefaultResolutions())
 			{
-				str_E2A74[40].axis_2[3] = screenWidth_18062C - (100 * scale);
-				str_E2A74[42].axis_2[3] = screenWidth_18062C - (80 * scale);
+				str_E2A74[40].axis_2[3] = screenWidth_18062C - (100 * scale) + spellIconsOffsetX;
+				str_E2A74[42].axis_2[3] = screenWidth_18062C - (80 * scale) + spellIconsOffsetX;
 			}
 		}
 		v16 = 0;
@@ -7444,12 +7520,12 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 			if (v16)
 			{
 				str_E2A74[41].axis_2[3] = 540;
-				str_E2A74[41].axis_2[4] = (48 * scale);
+				str_E2A74[41].axis_2[4] = (48 * scale) + spellIconsOffsetY;
 				str_E2A74[41].axis_2[0] |= 1u;
 
 				if (!DefaultResolutions())
 				{
-					str_E2A74[41].axis_2[3] = screenWidth_18062C - (100 * scale);
+					str_E2A74[41].axis_2[3] = screenWidth_18062C - (100 * scale) + spellIconsOffsetX;
 				}
 			}
 		}
@@ -7460,12 +7536,12 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 			if (v19)
 			{
 				str_E2A74[41].axis_2[0] |= 1u;
-				str_E2A74[41].axis_2[4] = (48 * scale);
+				str_E2A74[41].axis_2[4] = (48 * scale) + spellIconsOffsetY;
 				str_E2A74[41].axis_2[3] = 600;
 
 				if (!DefaultResolutions())
 				{
-					str_E2A74[41].axis_2[3] = screenWidth_18062C - (40 * scale);
+					str_E2A74[41].axis_2[3] = screenWidth_18062C - (40 * scale) + spellIconsOffsetX;
 				}
 			}
 		}
@@ -7557,28 +7633,28 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 	// "Click on LMB to cast this spell" 38, "Click on RMB to cast this spell" 39
 	if (!DefaultResolutions())
 	{
-		str_E2A74[5].axis_2[3] = 470 * scale;
-		str_E2A74[5].axis_2[4] = 16 * scale;
-		str_E2A74[29].axis_2[3] = 214 * scale; // Castled mana, current and capacity
-		str_E2A74[29].axis_2[4] = 32 * scale;
-		str_E2A74[30].axis_2[3] = 214 * scale; // Castle life
-		str_E2A74[30].axis_2[4] = 16 * scale;
-		str_E2A74[31].axis_2[3] = 130 * scale; // Current size of castle
-		str_E2A74[31].axis_2[4] = 16 * scale;
-		str_E2A74[32].axis_2[3] = 320 * scale; // Mana held by balloons
-		str_E2A74[32].axis_2[4] = 32 * scale;
-		str_E2A74[33].axis_2[3] = 260 * scale; // Number of balloons
-		str_E2A74[33].axis_2[4] = 16 * scale;
-		str_E2A74[34].axis_2[3] = 320 * scale; // Balloons life
-		str_E2A74[34].axis_2[4] = 16 * scale;
-		str_E2A74[36].axis_2[3] = 470 * scale;
-		str_E2A74[36].axis_2[4] = 16 * scale;
-		str_E2A74[37].axis_2[3] = 470 * scale;
-		str_E2A74[37].axis_2[4] = 32 * scale;
-		str_E2A74[38].axis_2[3] = screenWidth_18062C - (100 * scale);
-		str_E2A74[38].axis_2[4] = 32 * scale;
-		str_E2A74[39].axis_2[3] = screenWidth_18062C - (40 * scale);
-		str_E2A74[39].axis_2[4] = 32 * scale;
+		str_E2A74[5].axis_2[3] = 470 * scale + topBarOffsetX;
+		str_E2A74[5].axis_2[4] = 16 * scale + topBarOffsetY;
+		str_E2A74[29].axis_2[3] = 214 * scale + topBarOffsetX; // Castled mana, current and capacity
+		str_E2A74[29].axis_2[4] = 32 * scale + topBarOffsetY;
+		str_E2A74[30].axis_2[3] = 214 * scale + topBarOffsetX; // Castle life
+		str_E2A74[30].axis_2[4] = 16 * scale + topBarOffsetY;
+		str_E2A74[31].axis_2[3] = 130 * scale + topBarOffsetX; // Current size of castle
+		str_E2A74[31].axis_2[4] = 16 * scale + topBarOffsetY;
+		str_E2A74[32].axis_2[3] = 320 * scale + topBarOffsetX; // Mana held by balloons
+		str_E2A74[32].axis_2[4] = 32 * scale + topBarOffsetY;
+		str_E2A74[33].axis_2[3] = 260 * scale + topBarOffsetX; // Number of balloons
+		str_E2A74[33].axis_2[4] = 16 * scale + topBarOffsetY;
+		str_E2A74[34].axis_2[3] = 320 * scale + topBarOffsetX; // Balloons life
+		str_E2A74[34].axis_2[4] = 16 * scale + topBarOffsetY;
+		str_E2A74[36].axis_2[3] = 470 * scale + topBarOffsetX;
+		str_E2A74[36].axis_2[4] = 16 * scale + topBarOffsetY;
+		str_E2A74[37].axis_2[3] = 470 * scale + topBarOffsetX;
+		str_E2A74[37].axis_2[4] = 32 * scale + topBarOffsetY;
+		str_E2A74[38].axis_2[3] = screenWidth_18062C - (100 * scale) + spellIconsOffsetX;
+		str_E2A74[38].axis_2[4] = 32 * scale + spellIconsOffsetY;
+		str_E2A74[39].axis_2[3] = screenWidth_18062C - (40 * scale) + spellIconsOffsetX;
+		str_E2A74[39].axis_2[4] = 32 * scale + spellIconsOffsetY;
 	}
 }
 
@@ -7872,14 +7948,10 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 	}
 	if (countHints)
 	{
-		if ((videoMode_180660 & 1) != 0)
-			maxScreenHeight = 400;
-		else
-		{
-			maxScreenHeight = 480;
-			if (!DefaultResolutions())
-				maxScreenHeight = screenHeight_180624;
-		}
+		int16_t spellMenuPosX;
+		int16_t spellMenuBottomPosY;
+		GetSpellMenuPosition(&spellMenuPosX, &spellMenuBottomPosY);
+		maxScreenHeight = spellMenuBottomPosY;
 		sizeFromYEnd = maxScreenHeight - 2 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale);
 		spellIndex = spellIndex_D94FF[locEvent1->playerData_0xA4_164x->str_611.spellIndex_0x458_1112];
 		isStandardSpell = locEvent1->playerData_0xA4_164x->str_611.SpellsEnabled_0x333_819x.SpellEnabled[spellIndex] != 0;
@@ -7902,13 +7974,9 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 		}
 		bool endLoop = 0;
 		int posX3 = posX2 + 3 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4 * scale) / 2;
-		if (!DefaultResolutions())
-		{
-			int xKoef = (screenWidth_18062C - (640 * scale)) / 2;
-			posX3 += xKoef;
-			posX2 += xKoef;
-			posX1 += xKoef;
-		}
+		posX3 += spellMenuPosX;
+		posX2 += spellMenuPosX;
+		posX1 += spellMenuPosX;
 		for (int i = 0; i < 8 && !endLoop; i++)
 		{
 			typeA = 2;
