@@ -122,6 +122,15 @@ void GameRenderOriginal::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_
 		viewShiftX_D4324 = 0;
 		viewPort.SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628, screenWidth_18062C, screenWidth_18062C, screenHeight_180624);
 	}
+	else if (Mc1StereogramMode())
+	{
+		// MC1 30D90: the depth image into the blur buffer, then the random dot stereogram from it
+		uint8_t* screen = ViewPortRenderBufferStart_DE558;
+		viewPort.SetRenderViewPortSize_BCD45(ptrMemoryBuffer_E9C3C, 0, 0, 0);
+		DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov);
+		viewPort.SetRenderViewPortSize_BCD45(screen, 0, 0, 0);
+		Mc1DrawStereogram(ViewPortRenderBufferStart_DE558, ptrMemoryBuffer_E9C3C, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+	}
 	else if (world_D41A0.m_GameSettings.m_Display.m_uiScreenSize != 1 || world_D41A0.m_GameSettings.graphics_0x2192.xxxx_0x2193)
 	{
 		v52 = world_D41A0.m_GameSettings.m_Display.xxxx_0x2191;
@@ -143,7 +152,8 @@ void GameRenderOriginal::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_
 				}
 			}
 		}
-		if (world_D41A0.miscSettings_0x21AE.xxxx_0x21B1 && world_D41A0.m_GameSettings.m_Display.xxxx_0x2191 && ptrMemoryBuffer_E9C3C)
+		// MC1 blurs without the setting 0x21B1
+		if ((RenderMc1() || world_D41A0.miscSettings_0x21AE.xxxx_0x21B1) && world_D41A0.m_GameSettings.m_Display.xxxx_0x2191 && ptrMemoryBuffer_E9C3C)
 		{
 			//Blur
 			v35 = ViewPortRenderBufferStart_DE558;
@@ -599,11 +609,14 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 	spriteRender_F2C20.sin2_0x17 = v11;
 	v13 = Maths::sin_DB750[v12];
 	SetBillboards_3B560(-roll & 0x7FF);//21d1aa
-	spriteRender_F2C20.projectionScale_0x18 = 7
-		* Maths::IntegerSqrt_7277A(
-			(unsigned __int16)viewPort.Width_DE564 * (unsigned __int16)viewPort.Width_DE564
-			+ (unsigned __int16)viewPort.Height_DE568 * (unsigned __int16)viewPort.Height_DE568)
-		* fov >> 11;
+	if (RenderMc1())
+		spriteRender_F2C20.projectionScale_0x18 = Mc1ProjectionScale(viewPort.Width_DE564, viewPort.Height_DE568, fov);
+	else
+		spriteRender_F2C20.projectionScale_0x18 = 7
+			* Maths::IntegerSqrt_7277A(
+				(unsigned __int16)viewPort.Width_DE564 * (unsigned __int16)viewPort.Width_DE564
+				+ (unsigned __int16)viewPort.Height_DE568 * (unsigned __int16)viewPort.Height_DE568)
+			* fov >> 11;
 	v277 = unk_D4328x + 10 * v248x[32];
 	switch ((unsigned __int8)v248x[32])//fixed? //rotations
 	{
@@ -677,16 +690,19 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 	spriteRender_F2C20.fogEnd_0x16 = 23658496;
 	spriteRender_F2C20.sin_0x0d = Maths::sin_DB750[v23];
 	spriteRender_F2C20.fogStart_0x13 = 14745600;
-	if (!world_D41A0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel_D41B6)
+	// MC1: the stereogram clears with 40h (the far depth), without the sky with FFh
+	bool mc1Stereogram = Mc1StereogramMode();
+	if (mc1Stereogram || !world_D41A0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel_D41B6)
 	{
+		uint8_t background = mc1Stereogram ? 0x40 : RenderMc1() ? 0xFF : m_BackgroundColour_D4B7C;
 		v26 = viewPort.Width_DE564;
 		v27 = iScreenWidth_DE560 - viewPort.Width_DE564;
 		v28 = (v26 - (__CFSHL__((signed int)v26 >> 31, 2) + 4 * ((signed int)v26 >> 31))) >> 2;
 		v29 = viewPort.Height_DE568;
 		v25x = ViewPortRenderBufferStart_DE558;
 		v30 = (v26 - (__CFSHL__((signed int)v26 >> 31, 2) + 4 * ((signed int)v26 >> 31))) >> 2;
-		LOBYTE(v28) = m_BackgroundColour_D4B7C;
-		HIBYTE(v28) = m_BackgroundColour_D4B7C;
+		LOBYTE(v28) = background;
+		HIBYTE(v28) = background;
 		v31 = v28;
 		v32 = v28 << 16;
 		LOWORD(v32) = v31;
@@ -1101,7 +1117,7 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 			LOBYTE(v279) = v45;
 }
 	}
-	if (world_D41A0.m_GameSettings.m_Graphics.m_wReflections)//21de79 nothing changed
+	if (world_D41A0.m_GameSettings.m_Graphics.m_wReflections && !mc1Stereogram)//21de79 nothing changed
 	{
 		for (l = 21; ; l--)
 		{
@@ -1562,7 +1578,7 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 						//v25y = (uint32_t*)(((uint32_t*)v278)[1] - (v113 >> 10)),
 						//v115 = v248x[31],
 						(terrainTiles_E9C38[v278x].alt_4 -= (v113 >> 10)),
-						v248x[31] >= 14464))
+						!RenderMc1() && v248x[31] >= 14464))
 					/*if (!(x_BYTE_13B4E0_angle[v111] & 8)
 						|| (v114 = (int32_t*)v25y, v25y = (uint32_t*)(v25y[1] - (v113 >> 10)), v115 = v248x[31], v114[1] = (x_DWORD)v25y, v115 >= 14464))*/
 				{
@@ -1588,7 +1604,7 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 				terrainTiles_E9C38[v278x].textIndex_41 = v119;
 				if (Maths::x_BYTE_D41D8[164 + v119])
 					terrainTiles_E9C38[v278x].triangleFeatures_38 |= 0x80u;
-				if (world_D41A0.m_GameSettings.display_0x2196.flat_0x2199)
+				if (RenderMc1() ? Mc1TerrainTypeFlat(v119) : world_D41A0.m_GameSettings.display_0x2196.flat_0x2199)
 					terrainTiles_E9C38[v278x].triangleFeatures_38 |= 0x1000u;
 				terrainTiles_E9C38[v278x].textAtyp_43 = Maths::x_BYTE_D41D8[terrainTiles_E9C38[v278x].textIndex_41];
 				terrainTiles_E9C38[v278x].textUV_42 = v248x[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v118] >> 2) & 0x1C);
@@ -1644,7 +1660,7 @@ LABEL_259:
 		v201 = (unsigned __int16)world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].Turn_2BE0_11248 << 6;
 		v248x[26] = Maths::sin_DB750[(v201 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8;
 		v202 = v248x[26] * (Maths::sin_DB750[(((unsigned __int8)v279 << 7) + v201) & 0x7FF] >> 8);
-		if (!(mapAngle_13B4E0[v200] & 8) || (terrainTiles_E9C38[v278x].alt_4 -= v202 >> 10, v197 >= 14464))
+		if (!(mapAngle_13B4E0[v200] & 8) || (terrainTiles_E9C38[v278x].alt_4 -= v202 >> 10, !RenderMc1() && v197 >= 14464))
 			v202 = 0;
 		v203 = (v197 << 8) + 8 * v202;
 		if (v199 > spriteRender_F2C20.fogStart_0x13)
@@ -1706,6 +1722,11 @@ LABEL_259:
 		}
 		v56x++;
 		v209--;
+	}
+	if (mc1Stereogram)
+	{
+		DrawMc1StereogramDepth_2A700();
+		return;
 	}
 	//adress 3de7d
 	//v217 = &smalltitBuffer_E9C38[35200];//21ee85
@@ -1845,6 +1866,58 @@ LABEL_259:
 		v217x -= 40;
 		v289--;
 	} while (v289);
+}
+
+void GameRenderOriginal::DrawMc1StereogramDepth_2A700()
+{
+	// MC1 2A700 in the stereogram mode: the tiles shaded by their depth (mode 1, no texture), the sprites by 2F170
+	x_DWORD vertex[24] = {};
+	polygonDrawMode_E126D = 1;
+	auto setVertex = [&](int first, int tile) {
+		vertex[first] = terrainTiles_E9C38[tile].pnt1_16;
+		vertex[first + 1] = terrainTiles_E9C38[tile].pnt2_20;
+		vertex[first + 4] = Mc1StereogramShade(terrainTiles_E9C38[tile].y_12);
+	};
+	auto drawTile = [&](int tile) {
+		setVertex(18, tile);
+		setVertex(12, tile + 1);
+		setVertex(6, tile - 39);
+		setVertex(0, tile - 40);
+		uint8_t any = (terrainTiles_E9C38[tile].triangleFeatures_38 | terrainTiles_E9C38[tile + 1].triangleFeatures_38
+			| terrainTiles_E9C38[tile - 39].triangleFeatures_38 | terrainTiles_E9C38[tile - 40].triangleFeatures_38) & 0xFF;
+		uint8_t all = (terrainTiles_E9C38[tile].triangleFeatures_38 & terrainTiles_E9C38[tile + 1].triangleFeatures_38
+			& terrainTiles_E9C38[tile - 39].triangleFeatures_38 & terrainTiles_E9C38[tile - 40].triangleFeatures_38) & 0xFF;
+		if (!(any & 2) && !(all & 0x78))
+		{
+			if (terrainTiles_E9C38[tile].triangleFeatures_38 & 1)
+			{
+				DrawTriangleInProjectionSpace_B6253(&vertex[18], &vertex[12], &vertex[0]);
+				DrawTriangleInProjectionSpace_B6253(&vertex[0], &vertex[12], &vertex[6]);
+			}
+			else
+			{
+				DrawTriangleInProjectionSpace_B6253(&vertex[18], &vertex[12], &vertex[6]);
+				DrawTriangleInProjectionSpace_B6253(&vertex[18], &vertex[6], &vertex[0]);
+			}
+		}
+		if (terrainTiles_E9C38[tile].haveBillboard_36)
+			DrawSprites_3E360(tile, true);
+	};
+	// the rows from far to near, in a row from the left up to the camera column, then from the right back to it
+	for (int row = 20, rowStart = 800; row; row--, rowStart -= 40)
+	{
+		int tile = rowStart;
+		int column;
+		for (column = 39; column; column--, tile++)
+		{
+			if (terrainTiles_E9C38[tile + 1].triangleFeatures_38 & 4)
+				break;
+			drawTile(tile);
+		}
+		if (column)
+			for (int back = rowStart + 38; back >= tile; back--)
+				drawTile(back);
+	}
 }
 
 int32_t* GameRenderOriginal::x_DWORD_DB350_ret(uint32_t address) {
@@ -3048,7 +3121,7 @@ void GameRenderOriginal::DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* 
 	}
 }
 
-void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
+void GameRenderOriginal::DrawSprites_3E360(int a2x, bool mc1Depth)//21f360
 {
 	unsigned __int16 result; // ax
 	type_entity_0x6E8E* v3x; // eax
@@ -3153,6 +3226,8 @@ void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
 	{
 		//adress 21f370
 
+		if (mc1Depth && result >= 1000)
+			break;
 		v3x = Entities_EA3E4[result];
 		spriteRender_F2C20.entity_0x14x = v3x;
 		if (!(v3x->flags_0xc_12_15.byte[0] & 0x21))
@@ -3160,9 +3235,10 @@ void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
 			v4 = v3x->position_0x4C_76.y;
 			v96 = (signed __int16)(v3x->position_0x4C_76.x - cameraX_F2CC4);
 			v97 = (signed __int16)(cameraY_F2CC2 - v4);
-			if (shadows_F2CC7)
+			// MC1: no shadows in the depth pass, the shadow is not hidden by the flags 808h
+			if (shadows_F2CC7 && !mc1Depth)
 			{
-				if (!terrainTiles_E9C38[a2x].textAtyp_43 && !(v3x->flags_0xc_12_15.word[1] & 0x808))
+				if (!terrainTiles_E9C38[a2x].textAtyp_43 && (RenderMc1() || !(v3x->flags_0xc_12_15.word[1] & 0x808)))
 				{
 					//adress 21f40c
 					v98 = GetTerrainAlt2_B5C60(v3x->position_0x4C_76.x, v4) - spriteRender_F2C20.cameraZ_0x20;
@@ -3456,13 +3532,14 @@ void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
 					}
 				}
 			}
-			if (spriteRender_F2C20.entity_0x14x->flags_0xc_12_15.byte[3] >= 0)
+			// MC1: no lower position and no depth offsets of the segments
+			if (RenderMc1() || spriteRender_F2C20.entity_0x14x->flags_0xc_12_15.byte[3] >= 0)
 				v48 = spriteRender_F2C20.entity_0x14x->position_0x4C_76.z;
 			else
 				v48 = spriteRender_F2C20.entity_0x14x->position_0x4C_76.z - 160;
 			v100 = (spriteRender_F2C20.sin2_0x17 * v96 + spriteRender_F2C20.cos2_0x0f * v97) >> 16;
 			v49 = (spriteRender_F2C20.cos2_0x0f * v96 - spriteRender_F2C20.sin2_0x17 * v97) >> 16;
-			if (spriteRender_F2C20.entity_0x14x->flags_0xc_12_15.byte[3] & 0x20)
+			if (!RenderMc1() && (spriteRender_F2C20.entity_0x14x->flags_0xc_12_15.byte[3] & 0x20))
 			{
 				v50x = &str_D404C[spriteRender_F2C20.entity_0x14x->poseIndex_0x3B_59];
 				switch ((((Entities_EA3E4[spriteRender_F2C20.entity_0x14x->leaderId_0x32_50]->yaw_0x1C_28
@@ -3497,9 +3574,14 @@ void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
 				}
 			}
 			v51 = v100 * v100 + v49 * v49;
-			if (v100 > 64 && v51 < spriteRender_F2C20.tileCutOffDistance_0x15)
+			// MC1 2F170: no cut off, the depth as the shade
+			if (v100 > 64 && (mc1Depth || v51 < spriteRender_F2C20.tileCutOffDistance_0x15))
 			{
-				if (v51 <= spriteRender_F2C20.fogStart_0x13)
+				if (mc1Depth)
+				{
+					spriteRender_F2C20.fogShade_0x00 = Mc1StereogramShade(v100);
+				}
+				else if (v51 <= spriteRender_F2C20.fogStart_0x13)
 				{
 					spriteRender_F2C20.fogShade_0x00 = 0x2000;
 				}
@@ -3779,7 +3861,11 @@ void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
 					a1y->flags_0 |= 8u;
 					v91 = v90x->flags_0xc_12_15.word[1];
 					spriteRender_F2C20.texture_0x02 = a1y->textureBuffer;
-					if (v91 & 0x380)
+					if (mc1Depth)
+					{
+						spriteRender_F2C20.visibility_0x01 = 9; // MC1: filled with the depth
+					}
+					else if (!RenderMc1() && (v91 & 0x380))
 					{
 						v93 = v90x->flags_0xc_12_15.byte[3];
 						if (v93 & 2)
@@ -4423,7 +4509,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 									v169x = &m_str_F0E20x[*v165];
 									v155 = 8 * (v165[2] - v116) + &smalltitBuffer_E9C38[36960];
 									v121x = &spriteRender_F2C20.texture_0x02[spriteRender_F2C20.width_0x08 * (spriteRender_F2C20.rowIndex_0x0a >> 16)];
-									if ((unsigned int)spriteRender_F2C20.visibility_0x01 <= 8)
+									if ((unsigned int)spriteRender_F2C20.visibility_0x01 <= 9)
 									{
 										switch (spriteRender_F2C20.visibility_0x01)
 										{
@@ -4605,7 +4691,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 											v81 = (x_BYTE*)(v169x->destOffset_1 + v123);
 											v82 = (x_DWORD*)(8 * (v165[2] - v116) + &smalltitBuffer_E9C38[36960]);
 											v83x = &m_str_F0E20x[*v165];
-											BYTE1(v84) = spriteRender_F2C20.tint_0x07;
+											BYTE1(v84) = RenderMc1() ? 0 : spriteRender_F2C20.tint_0x07; // MC1: 0
 											v85 = v133 >> 1;
 											if (!(v133 & 1))
 											{
@@ -4635,7 +4721,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 											break;
 										case 5:
 											v86x = &v121x[*(x_DWORD*)(v155 + 4)];
-											v87 = spriteRender_F2C20.tint_0x07;
+											v87 = RenderMc1() ? 0 : spriteRender_F2C20.tint_0x07; // MC1: 0
 											v88 = (x_BYTE*)(v169x->destOffset_1 + v123);
 											v89 = (x_DWORD*)(8 * (v165[2] - v116) + &smalltitBuffer_E9C38[36960]);
 											v90x = &m_str_F0E20x[*v165];
@@ -4747,6 +4833,46 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 												{
 													LOBYTE(v105) = *v106;
 													*v106 = ColourLookupTable_F6EE0[v105];
+												}
+												v106 += v108x->destDelta_0;
+											}
+											break;
+										case 9:
+											if (!RenderMc1())
+												break;
+											// MC1: the sprite filled with one colour, the depth of the stereogram
+											v104x = &v121x[*(x_DWORD*)(v155 + 4)];
+											v105 = (uint8_t)(spriteRender_F2C20.fogShade_0x00 >> 16);
+											v106 = (x_BYTE*)(v169x->destOffset_1 + v123);
+											v107 = (x_DWORD*)(8 * (v165[2] - v116) + &smalltitBuffer_E9C38[36960]);
+											v108x = &m_str_F0E20x[*v165];
+											v109 = v133 >> 1;
+											if (!(v133 & 1))
+											{
+												v107 = (x_DWORD*)(v155 + 8);
+												v108x = &v169x[1];
+												goto LABEL_267_MC1;
+											}
+											v109++;
+											while (1)
+											{
+												v111 = v104x[0];
+												v104x += v107[2];
+												if (v111)
+												{
+													*v106 = (uint8_t)v105;
+												}
+												v106 += v108x[1].destDelta_0;//the next entry, as cases 1-7
+												v107 += 4;
+												v108x += 2;
+												if (!--v109)
+													break;
+											LABEL_267_MC1:
+												v110 = v104x[0];
+												v104x += *v107;
+												if (v110)
+												{
+													*v106 = (uint8_t)v105;
 												}
 												v106 += v108x->destDelta_0;
 											}
@@ -4899,7 +5025,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 						goto LABEL_172;
 					}
 				}
-				if (pass == 1)
+				if (pass == 1 && !RenderMc1())
 				{
 					if (!gameState_D41A4.byteindex_207
 						&& spriteRender_F2C20.entity_0x14x->class_0x3F_63 == 3
@@ -4987,7 +5113,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 				spriteRender_F2C20.columnIndex_0x0b += v136;
 				v153 += 2;
 			}
-			if (pass == 1 && gameState_D41A4.showHelp_10)
+			if (pass == 1 && gameState_D41A4.showHelp_10 && !RenderMc1())
 				SetEntityHelpText_88740(
 					spriteRender_F2C20.entity_0x14x,
 					(signed __int16)(spriteRender_F2C20.screenY_0x04 + (spriteRender_F2C20.realWidth_0x09 >> 1)),
@@ -4998,7 +5124,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 			//height
 			while (spriteRender_F2C20.realHeight_0x0c)
 			{
-				if ((unsigned int)spriteRender_F2C20.visibility_0x01 <= 7)
+				if ((unsigned int)spriteRender_F2C20.visibility_0x01 <= 7 || (RenderMc1() && spriteRender_F2C20.visibility_0x01 == 9))
 				{
 					switch (spriteRender_F2C20.visibility_0x01)//mirroring
 					{
@@ -5168,7 +5294,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 						v28 = (x_BYTE*)(spriteRender_F2C20.width_0x08 * (spriteRender_F2C20.rowIndex_0x0a >> 16) + spriteRender_F2C20.texture_0x02 + *(x_DWORD*)(smalltitBuffer_E9C38 + 36964));
 						v29 = (x_DWORD*)(&smalltitBuffer_E9C38[36960]);
 						v30 = v122x;
-						HIBYTE(v31) = spriteRender_F2C20.tint_0x07;
+						HIBYTE(v31) = RenderMc1() ? 4 : spriteRender_F2C20.tint_0x07; // MC1: the number of the mode
 						v32 = spriteRender_F2C20.realWidth_0x09 >> 1;
 						if (!(spriteRender_F2C20.realWidth_0x09 & 1))
 						{
@@ -5195,7 +5321,7 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 						}
 						break;
 					case 5:
-						v33 = spriteRender_F2C20.tint_0x07;
+						v33 = RenderMc1() ? 5 : spriteRender_F2C20.tint_0x07; // MC1: the number of the mode
 						v34 = (x_BYTE*)(spriteRender_F2C20.width_0x08 * (spriteRender_F2C20.rowIndex_0x0a >> 16) + spriteRender_F2C20.texture_0x02 + *(x_DWORD*)(smalltitBuffer_E9C38 + 36964));
 						v35 = (x_DWORD*)(&smalltitBuffer_E9C38[36960]);
 						v36 = v122x;
@@ -5302,6 +5428,17 @@ void GameRenderOriginal::DrawSprite_41BD3(uint32 pass)
 							}
 						}
 						break;
+					case 9:
+					{
+						// MC1: the sprite filled with one colour, the depth of the stereogram
+						uint8_t colour = (uint8_t)(spriteRender_F2C20.fogShade_0x00 >> 16);
+						x_BYTE* row = (x_BYTE*)(spriteRender_F2C20.width_0x08 * (spriteRender_F2C20.rowIndex_0x0a >> 16) + spriteRender_F2C20.texture_0x02);
+						x_DWORD* columns = (x_DWORD*)(&smalltitBuffer_E9C38[36960]);
+						for (int column = 0; column < spriteRender_F2C20.realWidth_0x09; column++)
+							if (row[columns[2 * column + 1]])
+								v122x[column] = colour;
+						break;
+					}
 					}
 				}
 				spriteRender_F2C20.rowIndex_0x0a += v134;

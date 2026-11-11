@@ -25,6 +25,7 @@ set(SOURCE_FILES_EDITOR
     "../remc2/engine/GameRenderOriginal.h"
     "../remc2/engine/Graphics.cpp"
     "../remc2/engine/Graphics.h"
+    "../remc2/engine/GameRenderInterface.cpp"
     "../remc2/engine/GameRenderInterface.h"
     "../remc2/engine/GameUI.cpp"
     "../remc2/engine/GameUI.h"

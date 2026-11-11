@@ -118,13 +118,16 @@ private:
 	void DrawSky_40950_TH(int16_t roll);
 	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov);
 	void SubDrawTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch);
+	void SubDrawMc1StereogramDepth(std::vector<int>& projectedVertexBuffer, int pitch); // MC1 2A700: the depth image of the stereogram
 	void SubDrawInverseTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch);
 	void SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch);
 	void DrawSprite_41BD3(uint32 pass);
-	void DrawSquareInProjectionSpace(std::vector<int>& vertexs, int index);
+	void DrawSquareInProjectionSpace(std::vector<int>& vertexs, int index, bool textured = true);
+	void SetSquareTexture(std::vector<int>& vertexs, int index);
+	void DrawSquareTriangles(std::vector<int>& vertexs, int index);
 	void DrawInverseSquareInProjectionSpace(int* vertexs, int index);
 	void DrawInverseSquareInProjectionSpace(int* vertexs, int index, uint8_t* pTexture);
-	void DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F66F0x[], uint8_t playersColors_E88E0x[][3], int32_t tmapGroupLastUse_F5730[], type_entity_0x6E8E* Entities_EA3E4[], type_str_unk_1804B0ar helpPopup_1804B0, ViewPort viewPort, uint16_t screenWidth);
+	void DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F66F0x[], uint8_t playersColors_E88E0x[][3], int32_t tmapGroupLastUse_F5730[], type_entity_0x6E8E* Entities_EA3E4[], type_str_unk_1804B0ar helpPopup_1804B0, ViewPort viewPort, uint16_t screenWidth, bool mc1Depth = false); // mc1Depth: MC1 2F170
 	void DrawTriangleInProjectionSpace_B6253(const ProjectionVertex* vertex1, const ProjectionVertex* vertex2, const ProjectionVertex* vertex3, uint8_t startLine, uint8_t drawEveryNthLine);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int s0, int s1, int* line);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v4, int s0, int s1, int s4, int* line);

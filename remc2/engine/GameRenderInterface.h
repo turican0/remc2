@@ -21,6 +21,31 @@ inline uint8_t ClampReflectionTexel(int texel, const uint8_t* tile)
 	return tile[texel];
 };
 
+// the game the renderers draw: MC1 (Magic Carpet 1 / Hidden Worlds) switches its differences on, MC2 stays as it was
+enum class RenderGame : uint8_t
+{
+	MC2 = 0,
+	MC1 = 1
+};
+
+extern RenderGame renderGame;
+
+inline bool RenderMc1()
+{
+	return renderGame != RenderGame::MC2;
+}
+
+// MC1 helpers shared by the renderers (GameRenderInterface.cpp)
+int Mc1ProjectionScale(uint16_t width, uint16_t height, int fov); // 2A700: isqrt(w*w+h*h)*fov >> 8 (MC2 7*...>>11)
+bool Mc1TerrainTypeFlat(uint8_t terrainType); // 90168: the types shaded flat (mode 7), MC2 uses the flat setting
+bool Mc1StereogramMode(); // screen size 2 without VFX1: the world is a depth image turned into a random dot stereogram
+inline int Mc1StereogramShade(int depth) // 2A700 / 2F170: the depth as the shade of the depth image
+{
+	return 0x400000 - (0x1400 - depth) * 0x15E;
+}
+// 30D90: the random dot stereogram from the depth image (width/height of the view port, rows by pitch)
+void Mc1DrawStereogram(uint8_t* screen, const uint8_t* depth, uint16_t width, uint16_t height, int pitch);
+
 class GameRenderInterface
 {
 public:

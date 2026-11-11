@@ -534,6 +534,7 @@
     <ClCompile Include="engine\LevelInit.cpp" />
     <ClCompile Include="engine\LevelStructs.cpp" />
     <ClCompile Include="engine\MenusAndIntros.cpp" />
+    <ClCompile Include="engine\GameRenderInterface.cpp" />
     <ClCompile Include="engine\GameRenderOriginal.cpp" />
     <ClCompile Include="engine\Graphics.cpp" />
     <ClCompile Include="engine\MouseOnOff.cpp" />

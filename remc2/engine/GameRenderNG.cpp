@@ -129,6 +129,15 @@ void GameRenderNG::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 		m_eyeShift_D4324 = 0;
 		viewPort.SetRenderViewPortSize_BCD45(pdwScreenBuffer_351628, screenWidth_18062C, screenWidth_18062C, screenHeight_180624);
 	}
+	else if (Mc1StereogramMode())
+	{
+		// MC1 30D90: the depth image into the blur buffer, then the random dot stereogram from it
+		uint8_t* screen = ViewPortRenderBufferStart_DE558;
+		viewPort.SetRenderViewPortSize_BCD45(m_blurBuffer, 0, 0, 0);
+		DrawTerrainAndParticles_3C080(cameraX, cameraY, yawIndex, posZ, pitch, roll, fov);
+		viewPort.SetRenderViewPortSize_BCD45(screen, 0, 0, 0);
+		Mc1DrawStereogram(ViewPortRenderBufferStart_DE558, m_blurBuffer, viewPort.Width_DE564, viewPort.Height_DE568, iScreenWidth_DE560);
+	}
 	else if (world_D41A0.m_GameSettings.m_Display.m_uiScreenSize != 1 || world_D41A0.m_GameSettings.graphics_0x2192.xxxx_0x2193)
 	{
 		const auto savedBlur = world_D41A0.m_GameSettings.m_Display.xxxx_0x2191;
@@ -137,7 +146,8 @@ void GameRenderNG::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 			&& std::abs(Entities_EA3E4[world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].playerIndex_0x00a_2BE4_11240]->actSpeed_0x82_130) > 80)
 			world_D41A0.m_GameSettings.m_Display.xxxx_0x2191 = 1;
 
-		if (world_D41A0.miscSettings_0x21AE.xxxx_0x21B1 && world_D41A0.m_GameSettings.m_Display.xxxx_0x2191 && m_blurBuffer)
+		// MC1 blurs without the setting 0x21B1
+		if ((RenderMc1() || world_D41A0.miscSettings_0x21AE.xxxx_0x21B1) && world_D41A0.m_GameSettings.m_Display.xxxx_0x2191 && m_blurBuffer)
 		{
 			//Blur: the frame into the buffer, then blended with the previous one on the screen
 			uint8_t* screen = ViewPortRenderBufferStart_DE558;
@@ -332,7 +342,10 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	const int quadrantCos = Maths::sin_DB750[512 + quadrantYaw];
 	const int quadrantSin = Maths::sin_DB750[quadrantYaw];
 	SetBillboards_3B560(-roll & 0x7FF);//21d1aa
-	spriteRender_F2C20.projectionScale_0x18 = 7 * Maths::IntegerSqrt_7277A(viewPort.Width_DE564 * viewPort.Width_DE564 + viewPort.Height_DE568 * viewPort.Height_DE568) * fov >> 11;
+	if (RenderMc1())
+		spriteRender_F2C20.projectionScale_0x18 = Mc1ProjectionScale(viewPort.Width_DE564, viewPort.Height_DE568, fov);
+	else
+		spriteRender_F2C20.projectionScale_0x18 = 7 * Maths::IntegerSqrt_7277A(viewPort.Width_DE564 * viewPort.Width_DE564 + viewPort.Height_DE568 * viewPort.Height_DE568) * fov >> 11;
 	const uint8_t* steps = &m_tileSteps_D4328[10 * quadrant];
 
 	// the grid: x across the view, y (depth) along it
@@ -390,11 +403,14 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	spriteRender_F2C20.sin_0x0d = Maths::sin_DB750[rollIndex];
 	spriteRender_F2C20.fogStart_0x13 = static_cast<int>(m_fogStart);
 
-	if (!world_D41A0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel_D41B6)
+	// MC1: the stereogram clears with 40h (the far depth), without the sky with FFh
+	const bool mc1Stereogram = Mc1StereogramMode();
+	if (mc1Stereogram || !world_D41A0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel_D41B6)
 	{
+		const uint8_t background = mc1Stereogram ? 0x40 : RenderMc1() ? 0xFF : m_BackgroundColour_D4B7C;
 		uint8_t* line = ViewPortRenderBufferStart_DE558;
 		for (int row = 0; row < viewPort.Height_DE568; row++, line += iScreenWidth_DE560)
-			memset(line, m_BackgroundColour_D4B7C, DrawnWidth());
+			memset(line, background, DrawnWidth());
 	}
 	else
 		DrawSky_40950(roll);
@@ -411,7 +427,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 		});
 		return;
 	}
-	if (world_D41A0.m_GameSettings.m_Graphics.m_wReflections)//21de79
+	if (world_D41A0.m_GameSettings.m_Graphics.m_wReflections && !mc1Stereogram)//21de79
 	{
 		ProjectTiles(TerrainProjection::Reflections, mapX, mapY, steps, quadrant, posZ);
 		RotateTiles(true);
@@ -430,6 +446,14 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	spriteRender_F2C20.sin_0x0d = Maths::sin_DB750[rollIndex];//21edb7
 	spriteRender_F2C20.cos_0x11 = Maths::sin_DB750[512 + rollIndex];
 	RotateTiles(false);
+	if (mc1Stereogram)
+	{
+		// MC1 2A700: the tiles shaded by their depth (mode 1, no texture), the sprites by 2F170
+		ForEachTileFarToNear([&](int tile) {
+			DrawMc1StereogramDepthTile(quad, tile);
+		});
+		return;
+	}
 	ForEachTileFarToNear([&](int tile) {//21ee85
 		DrawTerrainTile(quad, tile, false);
 	});
@@ -481,7 +505,7 @@ void GameRenderNG::ProjectTiles(TerrainProjection projection, uint8_t mapX, uint
 						tile.inverse_alt_8 = -(mapHeightmap_11B4E0[map] * ((wave >> 4) + 0x8000) >> 10) - posZ;
 					if (mapAngle_13B4E0[map] & 8)
 						tile.alt_4 -= wave >> 10;
-					if (!(mapAngle_13B4E0[map] & 8) || shade >= 14464)
+					if (!(mapAngle_13B4E0[map] & 8) || (!RenderMc1() && shade >= 14464))
 						wave = 0;
 				}
 				const int light = (shade << 8) + 8 * wave;
@@ -503,7 +527,9 @@ void GameRenderNG::ProjectTiles(TerrainProjection projection, uint8_t mapX, uint
 				tile.textIndex_41 = mapTerrainType_10B4E0[textureMap];
 				if (projection == TerrainProjection::Reflections && Maths::x_BYTE_D41D8[164 + tile.textIndex_41])
 					tile.triangleFeatures_38 |= 0x80;
-				if (projection != TerrainProjection::Plain && world_D41A0.m_GameSettings.display_0x2196.flat_0x2199)
+				// MC1: the types 8 and 9 are flat (90168), not the setting
+				if (projection != TerrainProjection::Plain && (RenderMc1() && projection == TerrainProjection::Reflections
+					? Mc1TerrainTypeFlat(tile.textIndex_41) : world_D41A0.m_GameSettings.display_0x2196.flat_0x2199))
 					tile.triangleFeatures_38 |= 0x1000;
 				tile.textAtyp_43 = Maths::x_BYTE_D41D8[tile.textIndex_41];
 				tile.textUV_42 = quadrant + ((mapAngle_13B4E0[textureMap] >> 2) & 0x1C);
@@ -730,6 +756,23 @@ void GameRenderNG::DrawTerrainTile(TerrainVertex quad[4], int index, bool water)
 		DrawSprites_3E360(index);
 }
 
+// MC1 stereogram: the tile with the depth as its light (mode 1) and its sprites filled with their depth.
+void GameRenderNG::DrawMc1StereogramDepthTile(TerrainVertex quad[4], int index)
+{
+	const type_E9C38_smalltit& tile = m_tiles[index];
+	uint8_t anyFlags;
+	uint8_t allFlags;
+	LoadTileQuad(quad, index, false, anyFlags, allFlags);
+	const int corners[4] = { index - m_tileColumns, index - m_tileColumns + 1, index + 1, index };
+	for (int corner = 0; corner < 4; corner++)
+		quad[corner].light = Mc1StereogramShade(m_tiles[corners[corner]].y_12);
+	m_triangleMode_E126D = 1;
+	if (!(anyFlags & 2) && !(allFlags & 0x78))
+		DrawTileTriangles(quad, tile, false);
+	if (tile.haveBillboard_36)
+		DrawSprites_3E360(index, true);
+}
+
 // Help (showHelp_10): the help text (str_E2A74) of the entity on the screen; the nearest entity of a text wins,
 // a text being shown follows its entity on the screen.
 void GameRenderNG::SetEntityHelpText_88740(type_entity_0x6E8E* entity, int16_t posX, int16_t posY)
@@ -947,17 +990,19 @@ void GameRenderNG::DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* entity
 }
 
 // The entities standing on the tile (a list by oldMapEntity_0x16_22): the shadow on the terrain, then the entity.
-void GameRenderNG::DrawSprites_3E360(int tileIndex)//21f360
+void GameRenderNG::DrawSprites_3E360(int tileIndex, bool mc1Depth)//21f360
 {
 	FlushQueue();
 	Type_Sprite* sprite = nullptr;
 	uint16_t entityIndex = m_tiles[tileIndex].haveBillboard_36;
 	do
 	{
+		if (mc1Depth && entityIndex >= 1000)
+			break;
 		type_entity_0x6E8E* entity = Entities_EA3E4[entityIndex];
 		spriteRender_F2C20.entity_0x14x = entity;
 		if (!(entity->flags_0xc_12_15.byte[0] & 0x21))
-			DrawEntity(entity, m_tiles[tileIndex], sprite);
+			DrawEntity(entity, m_tiles[tileIndex], sprite, mc1Depth);
 		entityIndex = spriteRender_F2C20.entity_0x14x->oldMapEntity_0x16_22;
 	} while (entityIndex);
 }
@@ -982,12 +1027,13 @@ void GameRenderNG::EntityViewPosition(const type_entity_0x6E8E* entity, const ty
 }
 
 // The shadow and the entity; nothing more when a sprite cannot be loaded (MainInitTmaps_71520).
-void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_smalltit& tile, Type_Sprite*& sprite)
+void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_smalltit& tile, Type_Sprite*& sprite, bool mc1Depth)
 {
 	int across;
 	int depth;
 	EntityViewPosition(entity, tile, across, depth);
-	if (m_shadows_F2CC7 && !tile.textAtyp_43 && !(entity->flags_0xc_12_15.word[1] & 0x808))
+	// MC1: no shadows in the depth pass, the shadow is not hidden by the flags 808h
+	if (!mc1Depth && m_shadows_F2CC7 && !tile.textAtyp_43 && (RenderMc1() || !(entity->flags_0xc_12_15.word[1] & 0x808)))
 	{
 		//21f40c
 		const int height = GetTerrainAlt2_B5C60(entity->position_0x4C_76.x, entity->position_0x4C_76.y) - spriteRender_F2C20.cameraZ_0x20;
@@ -1017,8 +1063,9 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 	}
 
 	type_entity_0x6E8E* owner = spriteRender_F2C20.entity_0x14x;
-	const int z = owner->flags_0xc_12_15.byte[3] >= 0 ? owner->position_0x4C_76.z : owner->position_0x4C_76.z - 160;
-	if (owner->flags_0xc_12_15.byte[3] & 0x20)
+	// MC1: no lower position and no depth offsets of the segments
+	const int z = RenderMc1() || owner->flags_0xc_12_15.byte[3] >= 0 ? owner->position_0x4C_76.z : owner->position_0x4C_76.z - 160;
+	if (!RenderMc1() && (owner->flags_0xc_12_15.byte[3] & 0x20))
 	{
 		// a part of a bigger entity: shifted by the direction of the parent
 		const type_D404C& offsets = str_D404C[owner->poseIndex_0x3B_59];
@@ -1053,7 +1100,7 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 		}
 	}
 	const int64_t distance = static_cast<int64_t>(depth) * depth + static_cast<int64_t>(across) * across;
-	if (depth <= 64 || distance >= m_cutOffDistance)
+	if (depth <= 64 || (!mc1Depth && distance >= m_cutOffDistance))//MC1 2F170: no cut off
 		return;
 	// a longer view: the game logic (EmuUpdateState_21490) reacts to the seen flag, only the entities of the original grid and
 	// cut-off set it (the rows behind the camera and the far tiles are drawn only here)
@@ -1061,14 +1108,16 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 	const int row = tileIndex / m_tileColumns - m_standardFirstRow;
 	const int column = tileIndex % m_tileColumns - m_standardFirstColumn;
 	m_standardView = m_viewDistanceScale == 1 || (row >= 1 && row <= 20 && column >= 0 && column <= 38 && distance < m_standardCutOff);
-	spriteRender_F2C20.fogShade_0x00 = SpriteLight(distance);
+	spriteRender_F2C20.fogShade_0x00 = mc1Depth ? Mc1StereogramShade(depth) : SpriteLight(distance);
 	const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[owner->spriteIndex_0x5A_90];
 	ProjectSprite(across, z - spriteRender_F2C20.cameraZ_0x20, depth);
 	if (ChooseSprite(owner, def, depth, distance, true, true, sprite) == SpriteChoice::Skip)
 		return;
 	sprite->flags_0 |= 8;
 	spriteRender_F2C20.texture_0x02 = sprite->textureBuffer;
-	if (owner->flags_0xc_12_15.word[1] & 0x380)//220ba6: mov cx, [ebx+0Eh]; test cx, 380h
+	if (mc1Depth)
+		spriteRender_F2C20.visibility_0x01 = 9; // MC1: filled with the depth
+	else if (!RenderMc1() && (owner->flags_0xc_12_15.word[1] & 0x380))//220ba6: mov cx, [ebx+0Eh]; test cx, 380h
 	{
 		const int8_t flags = owner->flags_0xc_12_15.byte[3];
 		if (flags & 2)
@@ -1088,7 +1137,7 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 	}
 	else
 		spriteRender_F2C20.visibility_0x01 = m_spriteTables_D4750[(spriteRender_F2C20.fogShade_0x00 == 0x2000 ? 0 : 6) + def.lightingTableIdx_10];
-	if (m_fadeVisibility >= 0)
+	if (m_fadeVisibility >= 0 && !mc1Depth)
 		spriteRender_F2C20.visibility_0x01 = m_fadeVisibility;
 	spriteRender_F2C20.realWidth_0x09++;
 	spriteRender_F2C20.realHeight_0x0c++;
@@ -1270,7 +1319,7 @@ void GameRenderNG::DrawSprite_41BD3(uint32 pass)
 	}
 	if (draw)
 		DrawRotatedSprite(pass);
-	if (pass != (uint32_t)SpritePass::Main)
+	if (pass != (uint32_t)SpritePass::Main || RenderMc1())
 		return;
 	type_entity_0x6E8E* entity = spriteRender_F2C20.entity_0x14x;
 	if (draw && !gameState_D41A4.byteindex_207 && entity->class_0x3F_63 == 3 && (!entity->model_0x40_64 || entity->model_0x40_64 == 1))
@@ -1654,7 +1703,7 @@ void GameRenderNG::DrawUprightSprite(uint32 pass)
 		columns[column].step = column ? columns[column].offset - columns[column - 1].offset : 22;
 		spriteRender_F2C20.columnIndex_0x0b += columnStep;
 	}
-	if (pass == (uint32_t)SpritePass::Main && gameState_D41A4.showHelp_10)
+	if (pass == (uint32_t)SpritePass::Main && gameState_D41A4.showHelp_10 && !RenderMc1())
 		SetEntityHelpText_88740(spriteRender_F2C20.entity_0x14x, spriteRender_F2C20.screenY_0x04 + (spriteRender_F2C20.realWidth_0x09 >> 1), spriteRender_F2C20.screenX_0x03 + (spriteRender_F2C20.realHeight_0x0c >> 1));
 	uint8_t* line = &ViewPortRenderBufferStart_DE558[spriteRender_F2C20.screenX_0x03 * iScreenWidth_DE560 + spriteRender_F2C20.screenY_0x04];
 	for (; spriteRender_F2C20.realHeight_0x0c; spriteRender_F2C20.realHeight_0x0c--)
@@ -1685,10 +1734,18 @@ static void DrawSpritePixels(const int8_t* texels, const GameRenderNG::SpriteCol
 void GameRenderNG::DrawSpriteSpan(const int8_t* texels, const SpriteColumn* columns, uint8_t* screen, const type_unk_F0E20x* steps, int length, int lastMode)
 {
 	const int mode = spriteRender_F2C20.visibility_0x01;
+	if (mode == 9 && RenderMc1())
+	{
+		// MC1: filled with one colour, the depth of the stereogram
+		const uint8_t depth = static_cast<uint8_t>(spriteRender_F2C20.fogShade_0x00 >> 16);
+		DrawSpritePixels(texels, columns, screen, steps, length, [=](uint8_t& pixel, uint8_t) { pixel = depth; });
+		return;
+	}
 	if ((unsigned)mode > (unsigned)lastMode)
 		return;
 	const int light = spriteRender_F2C20.fogShade_0x00 & ~0xFF;
-	const int color = spriteRender_F2C20.tint_0x07;
+	// MC1: the modes 4/5 blend with the number of the mode (upright, lastMode 7), the rotated ones with 0
+	const int color = RenderMc1() ? (lastMode == 7 ? mode : 0) : spriteRender_F2C20.tint_0x07;
 	const uint8_t* lit = ColourLookupTable_F6EE0;
 	const uint8_t* blend = &ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET];
 	switch (mode)
@@ -1770,7 +1827,7 @@ static int CrossStep(int to, int64_t edgeOffset, int from, int divisor)
 void GameRenderNG::DrawTriangleInProjectionSpace_B6253(const TerrainVertex& vertex1, const TerrainVertex& vertex2, const TerrainVertex& vertex3)//sub_B6253 - 297253
 {
 	const int mode = m_triangleMode_E126D;
-	if (mode != 5 && mode != 7 && mode != 26)
+	if (mode != 5 && mode != 7 && mode != 26 && !(mode == 1 && RenderMc1()))
 		return;
 	if (m_largeScreen || m_viewDistanceScale > 1)
 	{
@@ -2061,6 +2118,8 @@ void GameRenderNG::DrawTriangle(const TerrainVertex& vertex1, const TerrainVerte
 	};
 	if (mode == 5)
 		drawRows(std::integral_constant<int, 5>());
+	else if (mode == 1)
+		drawRows(std::integral_constant<int, 1>());
 	else if (mode == 7)
 		drawRows(std::integral_constant<int, 7>());
 	else
@@ -2160,7 +2219,13 @@ void GameRenderNG::DrawTriangleRow(uint8_t* line, int left, int right, int u, in
 	uint32_t textureV = v;
 	uint32_t shade = light;
 	uint8_t* const end = pixel + count;
-	if constexpr (Mode == 5)
+	if constexpr (Mode == 1)
+		for (; pixel < end; pixel++)
+		{
+			*pixel = static_cast<uint8_t>(shade >> 16);//MC1 stereogram: the light is the colour
+			shade += dl;
+		}
+	else if constexpr (Mode == 5)
 		for (; pixel < end; pixel++)
 		{
 			*pixel = lit[((shade >> 8) & 0xFF00) | texture[((textureV >> 8) & 0xFF00) | ((textureU >> 16) & 0xFF)]];
