@@ -14,10 +14,8 @@ void sub_3FCA0_3FFE0(int32_t mode, int32_t minX, int32_t minY, int32_t maxX, int
 void sub_4D680_4D9C0();
 void sub_4E5B0_4E8F0();
 void sub_4D560_4D8A0();
-void sub_59230_59740(); // the tmaps of the used groups into the cache (renderer, later)
 void sub_448E0_44C20();
 void sub_408D0_40C10();
-void sub_58F00_59410();
 void sub_433C0_43700();
 void InitNetwork_43270_435B0();
 int32_t InitVfx_5AF50_5B460();
@@ -290,14 +288,11 @@ void sub_5A060_5A570(Type_Mc1Entity* entity);
 void sub_5A070_5A580(Type_Mc1Entity* entity);
 void sub_55370_558A0(int16_t entityIndex, int32_t sound, int32_t volume); // the sound of an entity by its position
 void sub_34690_34A50(); // the window frame of the smaller screen
-void sub_590D0_595E0();
 // the movie (demo): the state and the level saved / loaded, the tmaps of the movie
 int32_t sub_3E350_3E690(int16_t movie);
 int32_t sub_3E410_3E750(int16_t movie);
 int32_t sub_3E4B0_3E7F0(int16_t movie);
 int32_t sub_3E580_3E8C0(int16_t movie);
-void sub_59420_59930();
-void sub_593B0_598C0();
 // the network
 void sub_42C70_42FB0(int16_t player);
 void sub_42DE0_43120(uint32_t handle);

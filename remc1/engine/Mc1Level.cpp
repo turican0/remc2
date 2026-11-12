@@ -425,7 +425,7 @@ void CreateLevelModels_37440_37800(int32_t group, uint8_t clear)
 			else if (feature->type_0x00_0 == 0x0C)
 				stats.class12_0x04[feature->model_0x02_2]++;
 		}
-		sub_59230_59740();
+		LoadLevelTmaps_59230_59740();
 	}
 	RebuildFreeLists_37220_375E0();
 	for (int i = 1; i < 2000; i++)

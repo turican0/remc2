@@ -7,6 +7,7 @@
 #include "Mc1EntityTables.h"
 #include "Mc1Files.h"
 #include "Mc1Game.h"
+#include "Mc1TextureMaps.h"
 #include "Mc1Level.h"
 #include "Mc1MainMenu.h"
 #include "Mc1Movie.h"
@@ -463,7 +464,7 @@ void RecordOrPlayMovieInput_3E9D0_3ED10(Type_Mc1PlayerInput* input)
 			}
 			sub_3E350_3E690(settings->movie_0x0D_13);
 			sub_3E4B0_3E7F0(settings->movie_0x0D_13);
-			sub_59420_59930();
+			ReloadTmaps_59420_59930();
 			InitInputChange_356E0_35AA0();
 		}
 		FILE* file = settings->movieFile_0x09_9;
@@ -498,7 +499,7 @@ void RecordOrPlayMovieInput_3E9D0_3ED10(Type_Mc1PlayerInput* input)
 			settings->flags_0x00_0 &= ~2u;
 			return;
 		}
-		sub_593B0_598C0();
+		MarkLoadedTmaps_593B0_598C0();
 		sub_3E410_3E750(settings->movie_0x0D_13);
 		sub_3E580_3E8C0(settings->movie_0x0D_13);
 		RebuildFreeLists_37220_375E0();

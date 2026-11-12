@@ -5,6 +5,7 @@
 #include "Mc1Entity.h"
 #include "Mc1EntityTables.h"
 #include "Mc1Game.h"
+#include "Mc1TextureMaps.h"
 #include "Mc1Level.h"
 #include "Mc1NotPorted.h"
 #include "Mc1PlayerEvents.h"
@@ -66,7 +67,7 @@ void GameFrame_34530_348F0()
 	if (!mc1State_AE400_AE3F0->screenSize_0x219B_8603)
 		sub_34690_34A50();
 	if (!(settings->flags_0x00_0 & 0x10000))
-		sub_590D0_595E0();
+		UpdateSpriteAnimations_590D0_595E0();
 	if (!(settings->flags_0x00_0 & 4))
 		sub_17C20_17C20();
 	PlayerEvents_3C9D0_3CD10();

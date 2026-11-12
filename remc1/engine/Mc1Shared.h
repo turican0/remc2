@@ -13,6 +13,7 @@
 #include "../../remc2/engine/PlayerInput.h"
 #include "../../remc2/engine/Sound.h"
 #include "../../remc2/engine/Terrain.h"
+#include "../../remc2/engine/TextureMaps.h"
 #include "../../remc2/engine/Vr.h"
 #include "../../remc2/portability/port_sdl_vga_mouse.h"
 #include "../../remc2/utilities/DataFileIO.h"
@@ -134,6 +135,9 @@ inline constexpr auto DecodeBrun_10BD0_10BD0 = &DecodeFliByteRunChunk_76540;
 inline constexpr char* animDecodeMode_967E4_967E4 = &animDecodeMode_E2A20; // 1 in the main menu
 inline constexpr auto SetAnimationPosition_10010_10010 = &SetAnimationPosition_765FC;
 inline constexpr auto DecodeAnimationFrame_1002D_1002D = &DecodeAnimationFrame_76619;
+inline constexpr auto GetAnimationByIndex_10FD0_10FD0 = &GetAnimationByIndex_724F0;
+inline constexpr auto ResetAnimation_10F10_10F10 = &ResetAnimation_72410;
+inline constexpr auto GetIndex_36850_36C10 = &GetIndex_71CD0; // the first free entry of the tmap cache
 inline constexpr FILE** soundEventFile_9ADC0_9ADC0 = &soundEventFile_E3840; // opened by 5C468 (MC2 8D12F)
 inline constexpr int* fileReadBuffer_9AF08_9AF08 = &fileReadBuffer_E387C; // set neither in MC1 nor in MC2
 inline constexpr auto ReadIntoFileBuffer_5D230_5D740 = &ReadIntoFileBuffer_8F0AB;

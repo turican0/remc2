@@ -265,7 +265,7 @@ typedef struct { // size 232713, DOSBox 26C400 (pointer)
 	uint16_t word_0x24_36;
 	uint16_t word_0x26_38;
 	int32_t freeTop_0x28_40; // the top of freeEntities_0x251, -1 empty
-	uint8_t unknown_0x2C_44[0x240 - 0x2C];
+	uint8_t usedTmaps_0x2C_44[0x214]; // the tmaps of a movie: 1 loaded, 2 loaded and locked (593B0 / 59420)
 	int32_t levelVariant_0x240_576;
 	uint8_t byte_0x244_580;
 	uint32_t dword_0x245_581; // 1 after the loading screen
@@ -316,7 +316,7 @@ typedef struct { // size 36478
 	uint8_t colorIndex_0x5D_93[16];
 	uint8_t unknown_0x6D_109[0x75 - 0x6D];
 	char sessionName_0x75_117[32];
-	uint8_t unknown_0x95_149;
+	uint8_t tmapsLoaded_0x95_149; // 5 after 59050 loaded a group (not read)
 	uint8_t speedIndex_0x96_150;
 	uint8_t language_0x97_151; // 0-3, chosen on the language screen
 	uint8_t paletteSubMod_0x98_152;

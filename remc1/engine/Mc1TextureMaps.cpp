@@ -6,6 +6,9 @@
 #include "Mc1Files.h"
 #include "Mc1Game.h"
 #include "Mc1Install.h"
+#include "Mc1Blocks.h"
+#include "Mc1System.h"
+#include <algorithm>
 #include "../../remc2/utilities/DataFileIO.h"
 #include "../../remc2/utilities/DataFileRNC.h"
 
@@ -448,4 +451,491 @@ void MarkSpriteTmapGroup_591E0_596F0(uint16_t sprite)
 	uint16_t group;
 	memcpy(&group, tmapsTab_12D744_12D734 + def.textureIndex_0x00_0 * 10 + 8, sizeof(group));
 	usedTmapGroups_12E9E1_12E9D1[group] = (uint8_t)def.levelSpriteGroup_0x0B_11;
+}
+
+// the cache of the tmaps: InitMemory gives it its heap; the entries (14 bytes) and their order (by the place in the
+// data) as MC2, 211h tmaps (MC2 1F8h)
+type_x_DWORD_E9C28_str* tmapCache_AE3EC_AE3DC = nullptr;
+type_E9C08* animations_AE3E0_AE3D0 = nullptr;
+int32_t tmapLastUse_12CF00_12CEF0[0x211];
+subtype_x_DWORD_E9C28_str* tmapEntries_12D748_12D738[0x211];
+Type_Sprite** loadedTmaps_12DF8C_12DF7C[0x211];
+uint8_t lockedTmaps_12E7D0_12E7C0[0x211];
+uint8_t byte_968E8_968E8 = 0;
+
+// 12D744: the records of tmaps?-0.tab (10 bytes: the size, the offset, the group = the first tmap of the group)
+static uint32_t TmapSize(uint16_t tmap)
+{
+	uint32_t size;
+	memcpy(&size, tmapsTab_12D744_12D734 + tmap * 10, sizeof(size));
+	return size;
+}
+
+static uint16_t TmapGroup(uint16_t tmap)
+{
+	uint16_t group;
+	memcpy(&group, tmapsTab_12D744_12D734 + tmap * 10 + 8, sizeof(group));
+	return group;
+}
+
+type_x_DWORD_E9C28_str* InitTmapCache_36700_36AC0(uint32_t size, uint16_t count, uint8_t* buffer)
+{
+	type_x_DWORD_E9C28_str* cache;
+	if (buffer)
+	{
+		// the header, the entries and their order at the start of the buffer, the data after them (DOS 1Ah + 14 and 4
+		// bytes each; the port sizes of the structures as the MC2 port, 71B40)
+		const uint32_t entries = count * sizeof(subtype_x_DWORD_E9C28_str);
+		const uint32_t order = count * sizeof(subtype_x_DWORD_E9C28_str*);
+		const uint32_t free = size - (entries + sizeof(type_x_DWORD_E9C28_str) + order);
+		if (!free)
+			return nullptr;
+		cache = (type_x_DWORD_E9C28_str*)buffer;
+		cache->usedCount_20 = 0;
+		cache->allocMode_24 = 2;
+		cache->capacity_0 = free;
+		cache->freeSize_4 = free;
+		cache->maxEntries_22 = count;
+		cache->entries_8 = cache->data;
+		cache->entryPtrs_12x = (subtype_x_DWORD_E9C28_str**)((uint8_t*)cache->data + entries);
+		cache->buffer_16x = (uint32_t*)((uint8_t*)cache->data + entries + order);
+		return cache;
+	}
+	cache = (type_x_DWORD_E9C28_str*)Malloc_42540_42880(0x1A);
+	if (cache)
+	{
+		cache->buffer_16x = (uint32_t*)Malloc_42540_42880(size);
+		if (cache->buffer_16x)
+		{
+			cache->entries_8 = (subtype_x_DWORD_E9C28_str*)Malloc_42540_42880(count * 14);
+			if (cache->entries_8)
+			{
+				cache->entryPtrs_12x = (subtype_x_DWORD_E9C28_str**)Malloc_42540_42880(count * 4);
+				if (cache->entryPtrs_12x)
+				{
+					cache->usedCount_20 = 0;
+					cache->allocMode_24 = 1;
+					cache->maxEntries_22 = count;
+					cache->capacity_0 = size;
+					cache->freeSize_4 = size;
+					for (int i = count - 1; i >= 0; i--)
+						cache->entries_8[i].size_4 = 0;
+					return cache;
+				}
+			}
+		}
+		if (cache->buffer_16x)
+		{
+			if (cache->entries_8)
+				Free_426E0_42A20(cache->entries_8);
+			Free_426E0_42A20(cache->buffer_16x);
+		}
+		Free_426E0_42A20(cache);
+	}
+	exit(1);
+}
+
+int32_t GetTmapCacheFreeSize_369D0_36D90(type_x_DWORD_E9C28_str* cache)
+{
+	// IDA: W?cause$_failure$_ios$n_x__i (a library name matched by mistake)
+	return cache->freeSize_4;
+}
+
+subtype_x_DWORD_E9C28_str* AddTmapCacheEntry_369E0_36DA0(type_x_DWORD_E9C28_str* cache, uint32_t size, int16_t tmap)
+{
+	if (size >= (uint32_t)cache->freeSize_4)
+		return nullptr;
+	const int16_t index = (int16_t)GetIndex_36850_36C10(cache);
+	if (index <= -1)
+		return nullptr;
+	subtype_x_DWORD_E9C28_str& entry = cache->entries_8[index];
+	entry.Index = index;
+	entry.size_4 = size;
+	entry.partstr_0 = (Type_Sprite*)((uint8_t*)cache->buffer_16x + cache->capacity_0 - cache->freeSize_4);
+	entry.tmapIndex_12 = tmap;
+	cache->freeSize_4 -= size;
+	entry.slotIndex_8 = cache->usedCount_20;
+	cache->entryPtrs_12x[(uint16_t)cache->usedCount_20] = &entry;
+	cache->usedCount_20++;
+	return &entry;
+}
+
+void FreeTmapCacheEntry_36A90_36E50(type_x_DWORD_E9C28_str* cache, subtype_x_DWORD_E9C28_str* entry)
+{
+	if ((uint16_t)entry->Index >= (uint16_t)cache->maxEntries_22)
+		return;
+	subtype_x_DWORD_E9C28_str& freed = cache->entries_8[(uint16_t)entry->Index];
+	if (!freed.size_4)
+		return;
+	// the data after it moved down, the order closed up
+	uint16_t slot = (uint16_t)freed.slotIndex_8;
+	cache->freeSize_4 += freed.size_4;
+	freed.size_4 = 0;
+	uint8_t* target = (uint8_t*)freed.partstr_0;
+	uint16_t used;
+	for (;;)
+	{
+		slot++;
+		used = (uint16_t)cache->usedCount_20;
+		if (slot >= used)
+			break;
+		cache->entryPtrs_12x[slot - 1] = cache->entryPtrs_12x[slot];
+		subtype_x_DWORD_E9C28_str* moved = cache->entryPtrs_12x[slot];
+		moved->slotIndex_8 = (int16_t)(slot - 1);
+		const uint8_t* source = (const uint8_t*)moved->partstr_0;
+		moved->partstr_0 = (Type_Sprite*)target;
+		memmove(target, source, moved->size_4);
+		target += moved->size_4;
+	}
+	cache->usedCount_20 = (int16_t)(used - 1);
+}
+
+void FreeTmapCache_36C10_36FD0(type_x_DWORD_E9C28_str** cache)
+{
+	if (!*cache)
+		return;
+	if ((*cache)->allocMode_24 == 1)
+	{
+		Free_426E0_42A20((*cache)->buffer_16x);
+		Free_426E0_42A20((*cache)->entries_8);
+		Free_426E0_42A20((*cache)->entryPtrs_12x);
+		Free_426E0_42A20(*cache);
+	}
+	*cache = nullptr;
+}
+
+type_E9C08* AllocateAnimations_10CB0_10CB0(uint16_t count)
+{
+	SetAllocationTag_42530_42870(9);
+	type_E9C08* animations = (type_E9C08*)Malloc_42540_42880(6);
+	if (animations)
+	{
+		animations->animations_2 = (type_animations1*)Malloc_42540_42880(count * 0x1C);
+		if (animations->animations_2)
+		{
+			animations->count_0 = count;
+			for (int i = count - 1; i >= 0; i--)
+			{
+				animations->animations_2[i].Sprite_4 = nullptr;
+				animations->animations_2[i].active_0 = 0;
+			}
+		}
+		else
+		{
+			Free_426E0_42A20(animations);
+			animations = nullptr;
+		}
+	}
+	SetAllocationTag_42530_42870(10);
+	return animations;
+}
+
+type_animations1* InitTmapAnimation_10D40_10D40(type_E9C08* animations, Type_Sprite** sprite, int16_t index)
+{
+	// a record without a sprite (the last one), else one not active
+	int16_t free = -1;
+	int16_t inactive = -1;
+	if (!animations->count_0)
+		return nullptr;
+	for (int16_t i = 0; i < (uint16_t)animations->count_0; i++)
+	{
+		type_animations1& record = animations->animations_2[i];
+		if (!record.Sprite_4)
+			free = i;
+		else if (!record.active_0)
+			inactive = i;
+	}
+	if (free <= 0)
+		free = inactive;
+	if (free <= -1)
+		return nullptr;
+	// the frames follow the first one: a word with their count after it
+	const Type_Sprite* first = *sprite;
+	const uint32_t frameSize = first->width * first->height;
+	uint16_t frames;
+	memcpy(&frames, (const uint8_t*)first + frameSize + 6, sizeof(frames));
+	type_animations1& record = animations->animations_2[free];
+	record.Sprite_4 = (Type_Sprite*)sprite;
+	record.word_12 = 6;
+	record.NextFrameOffset_14 = (uint16_t)(frameSize + 6);
+	record.CountOfFrames_16 = (int16_t)frames;
+	record.Width_18 = (int16_t)first->width;
+	record.Height_20 = (int16_t)first->height;
+	record.frameOffset_8 = (int32_t)(frameSize + 6);
+	record.FrameIndex_22 = 1;
+	record.active_0 = 1;
+	record.word_24 = free;
+	record.spriteIndex_26 = index;
+	return &record;
+}
+
+void AnimateSprite_10EB0_10EB0(type_animations1* animation)
+{
+	// the next frame decoded over the image (MC2 72350 without the big sprites of the port)
+	if ((uint16_t)animation->FrameIndex_22 > (uint16_t)animation->CountOfFrames_16)
+	{
+		animation->FrameIndex_22 = 1;
+		animation->frameOffset_8 = animation->NextFrameOffset_14;
+	}
+	int8_t* image = (int8_t*)*(Type_Sprite**)animation->Sprite_4 + 6;
+	SetAnimationPosition_10010_10010(animation->Width_18, 0);
+	int8_t* next = DecodeAnimationFrame_1002D_1002D(image + animation->frameOffset_8, image);
+	animation->frameOffset_8 = (int32_t)(next - image);
+	animation->FrameIndex_22++;
+}
+
+void FreeAnimations_11010_11010(type_E9C08** animations)
+{
+	if (!*animations)
+		return;
+	Free_426E0_42A20((*animations)->animations_2);
+	(*animations)->animations_2 = nullptr;
+	Free_426E0_42A20(*animations);
+	*animations = nullptr;
+}
+
+// 58910 / 58A00: the tmaps of the group out of the cache (an animation stopped)
+static void UnloadGroup(uint16_t group)
+{
+	for (uint16_t tmap = group; tmap < 0x211 && TmapGroup(tmap) == group; tmap++)
+	{
+		if (!loadedTmaps_12DF8C_12DF7C[tmap])
+			continue;
+		if ((*loadedTmaps_12DF8C_12DF7C[tmap])->flags_0 & 1)
+			ResetAnimation_10F10_10F10(GetAnimationByIndex_10FD0_10FD0(animations_AE3E0_AE3D0, (int16_t)tmap));
+		FreeTmapCacheEntry_36A90_36E50(tmapCache_AE3EC_AE3DC, tmapEntries_12D748_12D738[tmap]);
+		loadedTmaps_12DF8C_12DF7C[tmap] = nullptr;
+		tmapEntries_12D748_12D738[tmap] = nullptr;
+		tmapLastUse_12CF00_12CEF0[tmap] = 0;
+	}
+}
+
+uint8_t ResetTmapGroup_58910_58E20(uint16_t tmap)
+{
+	// not the locked ones
+	const uint16_t group = TmapGroup(tmap);
+	if (lockedTmaps_12E7D0_12E7C0[group] || !loadedTmaps_12DF8C_12DF7C[group])
+		return 0;
+	UnloadGroup(group);
+	return 1;
+}
+
+uint8_t UnloadTmapGroup_58A00_58F10(uint16_t tmap)
+{
+	const uint16_t group = TmapGroup(tmap);
+	if (!loadedTmaps_12DF8C_12DF7C[group])
+		return 0;
+	UnloadGroup(group);
+	return 1;
+}
+
+uint32_t GetTmapGroupSize_58AD0_58FE0(uint16_t tmap)
+{
+	const uint16_t group = TmapGroup(tmap);
+	uint32_t size = 0;
+	for (uint16_t i = group; i < 0x211 && TmapGroup(i) == group; i++)
+		size += TmapSize(i) + 10;
+	return size;
+}
+
+void LoadTmapGroup_58B30_59040(uint16_t tmap)
+{
+	const uint16_t group = TmapGroup(tmap);
+	const int32_t frame = (int32_t)mc1Settings_AE408_AE3F8->frames_0x04_4;
+	for (uint16_t i = group; i < 0x211 && TmapGroup(i) == group; i++)
+	{
+		if (loadedTmaps_12DF8C_12DF7C[i])
+			continue;
+		subtype_x_DWORD_E9C28_str* entry = AddTmapCacheEntry_369E0_36DA0(tmapCache_AE3EC_AE3DC, ((TmapSize(i) + 0x0D) >> 2) * 4 & 0xFFFF, (int16_t)i);
+		if (!entry || ReadTmap_58860_58D70(i, (uint8_t*)entry->partstr_0) == -1)
+			continue;
+		tmapEntries_12D748_12D738[i] = entry;
+		loadedTmaps_12DF8C_12DF7C[i] = (Type_Sprite**)entry;
+		tmapLastUse_12CF00_12CEF0[i] = frame;
+		if ((*loadedTmaps_12DF8C_12DF7C[i])->flags_0 & 1)
+			InitTmapAnimation_10D40_10D40(animations_AE3E0_AE3D0, loadedTmaps_12DF8C_12DF7C[i], (int16_t)i);
+	}
+}
+
+uint32_t EvictLeastUsedTmaps_58C30_59140(uint32_t needed)
+{
+	// the 5 groups used the longest ago; the locked ones only when no other is loaded
+	uint32_t times[5];
+	int32_t groups[5];
+	for (int i = 0; i < 5; i++)
+	{
+		times[i] = 0xFFFFFFFF;
+		groups[i] = -1;
+	}
+	uint8_t onlyLocked = 1;
+	for (uint16_t i = 0; i < 0x211; i++)
+	{
+		const uint16_t group = TmapGroup(i);
+		if (loadedTmaps_12DF8C_12DF7C[group] && !lockedTmaps_12E7D0_12E7C0[group])
+			onlyLocked = 0;
+		while (i + 1 < 0x211 && TmapGroup(i + 1) == group)
+			i++;
+	}
+	for (uint16_t i = 0; i < 0x211; i++)
+	{
+		const uint16_t group = TmapGroup(i);
+		if ((!lockedTmaps_12E7D0_12E7C0[group] || onlyLocked) && loadedTmaps_12DF8C_12DF7C[group])
+		{
+			uint32_t time = (uint32_t)tmapLastUse_12CF00_12CEF0[group];
+			int32_t candidate = group;
+			for (int k = 0; k < 5; k++)
+				if (time < times[k])
+				{
+					std::swap(time, times[k]);
+					std::swap(candidate, groups[k]);
+				}
+		}
+		while (i + 1 < 0x211 && TmapGroup(i + 1) == group)
+			i++;
+	}
+	uint32_t freed = 0;
+	for (int k = 0; k < 5; k++)
+	{
+		if (freed >= needed || groups[k] <= -1)
+			return freed;
+		const uint8_t done = onlyLocked ? UnloadTmapGroup_58A00_58F10((uint16_t)groups[k]) : ResetTmapGroup_58910_58E20((uint16_t)groups[k]);
+		if (done)
+			freed += GetTmapGroupSize_58AD0_58FE0((uint16_t)groups[k]);
+	}
+	return freed;
+}
+
+void InitTmapsAndSprites_58E70_59380()
+{
+	Type_Mc1Settings_AE408_AE3F8* settings = mc1Settings_AE408_AE3F8;
+	tmapCache_AE3EC_AE3DC = InitTmapCache_36700_36AC0(settings->heapSize_0xAC_172, 0x211, settings->heap_0xA8_168);
+	if (tmapCache_AE3EC_AE3DC)
+		animations_AE3E0_AE3D0 = AllocateAnimations_10CB0_10CB0(0x211);
+	OpenTmaps_587E0_58CF0();
+	memset(loadedTmaps_12DF8C_12DF7C, 0, sizeof(loadedTmaps_12DF8C_12DF7C));
+	memset(tmapEntries_12D748_12D738, 0, sizeof(tmapEntries_12D748_12D738));
+	memset(tmapLastUse_12CF00_12CEF0, 0, sizeof(tmapLastUse_12CF00_12CEF0));
+	LockLevelSprites_59320_59830();
+	LoadLockedTmaps_59370_59880();
+}
+
+void FreeTmaps_58F00_59410()
+{
+	FreeTmapCache_36C10_36FD0(&tmapCache_AE3EC_AE3DC);
+	FreeAnimations_11010_11010(&animations_AE3E0_AE3D0);
+	ClearUsedTmapGroups_59140_59650();
+	memset(loadedTmaps_12DF8C_12DF7C, 0, sizeof(loadedTmaps_12DF8C_12DF7C));
+	memset(tmapEntries_12D748_12D738, 0, sizeof(tmapEntries_12D748_12D738));
+	memset(tmapLastUse_12CF00_12CEF0, 0, sizeof(tmapLastUse_12CF00_12CEF0));
+	byte_968E8_968E8 = 0;
+	// no return in the original: it goes on in 58F70
+	CloseTmaps_58F70_59480();
+}
+
+int32_t MainInitTmaps_59050_59560(uint16_t tmap)
+{
+	int32_t needed = (int32_t)GetTmapGroupSize_58AD0_58FE0(tmap) - GetTmapCacheFreeSize_369D0_36D90(tmapCache_AE3EC_AE3DC) + 0x14;
+	for (uint16_t tries = 0; needed > 0 && tries < 4; tries++)
+		needed -= (int32_t)EvictLeastUsedTmaps_58C30_59140((uint32_t)needed);
+	if (needed <= 0)
+	{
+		LoadTmapGroup_58B30_59040(tmap);
+		mc1Settings_AE408_AE3F8->tmapsLoaded_0x95_149 = 5;
+	}
+	return loadedTmaps_12DF8C_12DF7C[tmap] != nullptr;
+}
+
+void UpdateSpriteAnimations_590D0_595E0()
+{
+	// the animated sprites drawn in the frame (flag 8) step on
+	for (uint16_t i = 0; i < 0x211; i++)
+	{
+		if (!loadedTmaps_12DF8C_12DF7C[i])
+			continue;
+		Type_Sprite* sprite = *loadedTmaps_12DF8C_12DF7C[i];
+		if (!(sprite->flags_0 & 8))
+			continue;
+		sprite->flags_0 &= ~8;
+		if (sprite->flags_0 & 1)
+			AnimateSprite_10EB0_10EB0(GetAnimationByIndex_10FD0_10FD0(animations_AE3E0_AE3D0, (int16_t)i));
+	}
+}
+
+void LoadLevelTmaps_59230_59740()
+{
+	if (!tmapCache_AE3EC_AE3DC)
+		InitTmapsAndSprites_58E70_59380();
+	memset(tmapLastUse_12CF00_12CEF0, 0, sizeof(tmapLastUse_12CF00_12CEF0));
+	// the groups the level does not use out, then the used ones by their level sprite group from 0FFh down
+	for (uint16_t i = 0; i < 0x211; i++)
+		if (!usedTmapGroups_12E9E1_12E9D1[i])
+			ResetTmapGroup_58910_58E20(i);
+	uint8_t full = 0;
+	for (uint8_t priority = 0xFF; priority && !full; priority--)
+		for (uint16_t i = 0; i < 0x211 && !full; i++)
+		{
+			if (priority != usedTmapGroups_12E9E1_12E9D1[i] || loadedTmaps_12DF8C_12DF7C[i])
+				continue;
+			if (GetTmapGroupSize_58AD0_58FE0(i) < (uint32_t)GetTmapCacheFreeSize_369D0_36D90(tmapCache_AE3EC_AE3DC))
+				LoadTmapGroup_58B30_59040(i);
+			// 592D7: the original compares 400h with the address of 369D0, not its result: never full
+		}
+}
+
+void LockLevelSprites_59320_59830()
+{
+	memset(lockedTmaps_12E7D0_12E7C0, 0, sizeof(lockedTmaps_12E7D0_12E7C0));
+	if (!byte_968F0_968F0)
+		return;
+	for (const Type_Mc1SpriteDef_99BA0& def : spriteDefs_99BA0_99BA0)
+	{
+		if (!def.width_0x06_6 && !def.height_0x08_8)
+			return;
+		if ((uint8_t)def.levelSpriteGroup_0x0B_11 == 0xFF)
+			lockedTmaps_12E7D0_12E7C0[def.textureIndex_0x00_0] = 0xFF;
+	}
+}
+
+void LoadLockedTmaps_59370_59880()
+{
+	for (uint16_t i = 0; i < 0x211; i++)
+		if (lockedTmaps_12E7D0_12E7C0[i])
+			LoadTmapGroup_58B30_59040(i);
+}
+
+void MarkLoadedTmaps_593B0_598C0()
+{
+	// for the movie: 1 loaded, 2 loaded and locked
+	uint8_t* used = mc1State_AE400_AE3F0->usedTmaps_0x2C_44;
+	memset(used, 0, sizeof(mc1State_AE400_AE3F0->usedTmaps_0x2C_44));
+	for (uint16_t i = 0; i < 0x211; i++)
+	{
+		if (!loadedTmaps_12DF8C_12DF7C[i])
+			continue;
+		used[i] = 1;
+		if (lockedTmaps_12E7D0_12E7C0[i])
+			used[i]++;
+	}
+}
+
+void ReloadTmaps_59420_59930()
+{
+	// after the state of a movie: the tmaps it had (593B0), the locked ones first
+	if (!tmapCache_AE3EC_AE3DC)
+		InitTmapsAndSprites_58E70_59380();
+	const uint8_t* used = mc1State_AE400_AE3F0->usedTmaps_0x2C_44;
+	for (uint16_t i = 0; i < 0x211; i++)
+		if (!used[i])
+			ResetTmapGroup_58910_58E20(i);
+	uint8_t full = 0;
+	for (uint8_t priority = 2; priority && !full; priority--)
+		for (uint16_t i = 0; i < 0x211 && !full; i++)
+		{
+			if (priority != used[i] || loadedTmaps_12DF8C_12DF7C[i])
+				continue;
+			if (GetTmapGroupSize_58AD0_58FE0(i) < (uint32_t)GetTmapCacheFreeSize_369D0_36D90(tmapCache_AE3EC_AE3DC))
+				LoadTmapGroup_58B30_59040(i);
+			else if ((uint32_t)GetTmapCacheFreeSize_369D0_36D90(tmapCache_AE3EC_AE3DC) < 0x400)
+				full = 1;
+		}
 }

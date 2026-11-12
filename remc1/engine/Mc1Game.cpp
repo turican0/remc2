@@ -555,7 +555,7 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 
 void Cleanup_34C60_35020()
 {
-	sub_58F00_59410();
+	FreeTmaps_58F00_59410();
 	ShutdownGraphics_44840_44B80();
 	FreeFileGroup_61610_61B20(searchDFiles_99318_99318);
 	PrintStartTexts_5ACA0_5B1B0();
