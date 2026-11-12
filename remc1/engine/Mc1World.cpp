@@ -8,6 +8,7 @@
 #include "Mc1Level.h"
 #include "Mc1NotPorted.h"
 #include "Mc1Shared.h"
+#include "Mc1Screen.h"
 #include "Mc1Sound.h"
 
 // MC1 game loop: the frames and the tick of the world (the actions of the entities), the same in HW
@@ -89,7 +90,7 @@ void GameFrame_34530_348F0()
 	settings->frameTicks_0x99_153 = timerTicks_AC5D4_AC5C4 - settings->frameTicks_0x99_153;
 	sub_5A560_5AA70();
 	settings->frameTicks_0x99_153 = timerTicks_AC5D4_AC5C4;
-	sub_30B30_30B70();
+	BlendAndBlit_30B30_30B70();
 }
 
 // a list of the settings: the previous entity links to the next one, the last to entity 0

@@ -63,7 +63,7 @@ int Mc1Main(int argc, char** argv)
 		mc1State_AE400_AE3F0 = nullptr;
 		mc1Settings_AE408_AE3F8 = nullptr;
 		vesaInfo_12F080_12F070 = nullptr;
-		blurBuffer_AE404_AE3F4 = nullptr;
+		*blurBuffer_AE404_AE3F4 = nullptr;
 	}
 
 	// one window for the selector and the game, closed once at the end

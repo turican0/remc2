@@ -35,7 +35,6 @@ void sub_4E5B0_4E8F0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
 void sub_4D560_4D8A0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
-void sub_31600_31640() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_59230_59740() { NotPorted(__func__); }
 //!!!!! not ported yet
@@ -608,7 +607,6 @@ void sub_20FB0_20FB0() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_5A560_5AA70() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_30B30_30B70() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_17C20_17C20()
 {

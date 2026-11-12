@@ -88,7 +88,7 @@ private:
 	char shadows_F2CC7 = 0;
 	char notDay_D4320 = 0;
 	bool m_reflectionPass = false;   // set while the reflection pass emits its polygons (RenderPolygon::Reflection)
-	std::unique_ptr<GameRenderNG> m_mc1Stereogram;   // MC1 stereogram: drawn in software, created when first needed
+	std::unique_ptr<GameRenderNG> m_mc1Software;   // MC1 stereogram, red-blue, VFX1: drawn in software, created when first needed
 	int m_mc1ClearColour = -1;   // MC1: the clear colour last sent to the GPU
 	char x_BYTE_F2CC6 = 0;
 	int16_t yaw_F2CC0 = 0;
@@ -112,7 +112,8 @@ private:
 	void DrawSprite_41BD3(uint32_t pass, std::vector<RenderPolygon>* polygons, int spriteIndex, int spriteFrame);
 	void EmitSpriteQuad(std::vector<RenderPolygon>* polygons, int spriteIndex, int spriteFrame,
 		float x, float y, float rx, float ry, float dx, float dy, bool flipV, uint8_t tint);
-	void DrawMc1Stereogram(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov);
+	static bool Mc1SoftwareMode();
+	void DrawMc1Software(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov);
 	bool ProjectTileCorners(int* vertexs, int tileIndex, uint32_t textureIndex, HWVertex corners[4]);
 	void DrawSquareInProjectionSpace(std::vector<int>& vertexs, int tileIndex, std::vector<RenderPolygon>* polygons);
 	HWVertex MakeHWVertex(const ProjectionVertex& v, uint32_t textureIndex);

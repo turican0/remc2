@@ -14,7 +14,6 @@ void sub_3FCA0_3FFE0(int32_t mode, int32_t minX, int32_t minY, int32_t maxX, int
 void sub_4D680_4D9C0();
 void sub_4E5B0_4E8F0();
 void sub_4D560_4D8A0();
-void sub_31600_31640();
 void sub_59230_59740(); // the tmaps of the used groups into the cache (renderer, later)
 void sub_59720_59C30();
 void sub_448E0_44C20();
@@ -298,5 +297,4 @@ void sub_415C0_41900();
 void sub_55100_55630();
 void sub_20FB0_20FB0(); // the drawing of the frame (renderer)
 void sub_5A560_5AA70();
-void sub_30B30_30B70();
 void sub_17C20_17C20(); // the input of the player

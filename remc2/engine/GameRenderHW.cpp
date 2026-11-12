@@ -150,9 +150,9 @@ void GameRenderHW::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 	int v31; // edi
 	int vPosX; // [esp+34h] [ebp+18h]
 	int vPosY; // [esp+38h] [ebp+1Ch]
-	if (Mc1StereogramMode())
+	if (Mc1SoftwareMode())
 	{
-		DrawMc1Stereogram(posX, posY, yaw, posZ, pitch, roll, fov);
+		DrawMc1Software(posX, posY, yaw, posZ, pitch, roll, fov);
 		return;
 	}
 	LOBYTE(v8) = HIBYTE(posX);
@@ -254,14 +254,26 @@ void GameRenderHW::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 	}
 }
 
-// MC1 30D90 (screen size 2 without VFX1): the random dot stereogram is drawn in software (GameRenderNG) into the screen
-// buffer, shown over the 3D view (no polygons) through the alpha of the view port
-void GameRenderHW::DrawMc1Stereogram(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov)
+// MC1 30D90: the views which need the screen buffers - the stereogram (screen size 2), red-blue (screen size 1: the
+// second eye into the blur buffer, joined by 30B30) and VFX1 (both eyes side by side, 640x480)
+bool GameRenderHW::Mc1SoftwareMode()
+{
+	if (!RenderMc1())
+		return false;
+	const auto& settings = world_D41A0.m_GameSettings;
+	if (settings.graphics_0x2192.xxxx_0x2193)
+		return settings.m_Display.m_uiScreenSize && screenWidth_18062C == 640;
+	return settings.m_Display.m_uiScreenSize == 1 || settings.m_Display.m_uiScreenSize == 2;
+}
+
+// drawn in software (GameRenderNG) into the screen buffer, shown over the 3D view (no polygons) through the alpha of
+// the view port
+void GameRenderHW::DrawMc1Software(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov)
 {
 	SetBlurActive(false);
-	if (!m_mc1Stereogram)
-		m_mc1Stereogram = std::make_unique<GameRenderNG>();
-	m_mc1Stereogram->DrawWorld_411A0(posX, posY, yaw, posZ, pitch, roll, fov);
+	if (!m_mc1Software)
+		m_mc1Software = std::make_unique<GameRenderNG>();
+	m_mc1Software->DrawWorld_411A0(posX, posY, yaw, posZ, pitch, roll, fov);
 
 	m_polygons.clear();
 	EventDispatcher::I->DispatchEvent<ResourceType, std::vector<RenderPolygon>*>(EventType::E_RESOURCE_CHANGE, ResourceType::POLYGONS_UPDATED, &m_polygons);

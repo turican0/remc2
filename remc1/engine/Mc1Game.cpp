@@ -30,7 +30,6 @@
 Mc1Variant mc1Variant = MC1_VARIANT_MC1;
 Type_Mc1State_AE400_AE3F0* mc1State_AE400_AE3F0 = nullptr;
 Type_Mc1Settings_AE408_AE3F8* mc1Settings_AE408_AE3F8 = nullptr;
-uint8_t* blurBuffer_AE404_AE3F4 = nullptr;
 uint8_t* textPointers_AE238_AE228[80];
 uint8_t byte_939CC_939CC = 1;
 uint8_t byte_939CD_939CD = 1;
@@ -136,8 +135,8 @@ int TopProcedure_340B0(int argc, char** argv)
 			{
 				seed = mc1Settings_AE408_AE3F8->levelIndex_0x11_17;
 				LoadLevel_407A0_40AE0();
-				if (*videoMode_12F02E_12F01E == 1 && !blurBuffer_AE404_AE3F4)
-					blurBuffer_AE404_AE3F4 = (uint8_t*)Malloc_42540_42880(64000);
+				if (*videoMode_12F02E_12F01E == 1 && !*blurBuffer_AE404_AE3F4)
+					*blurBuffer_AE404_AE3F4 = (uint8_t*)Malloc_42540_42880(64000);
 			}
 			while (!CurrentPlayer()->exitGame_0x04_4)
 			{
@@ -256,8 +255,8 @@ int TopProcedure_34470(int argc, char** argv)
 			{
 				seed = mc1Settings_AE408_AE3F8->levelIndex_0x11_17;
 				LoadLevel_407A0_40AE0();
-				if (*videoMode_12F02E_12F01E == 1 && !blurBuffer_AE404_AE3F4)
-					blurBuffer_AE404_AE3F4 = (uint8_t*)Malloc_42540_42880(64000);
+				if (*videoMode_12F02E_12F01E == 1 && !*blurBuffer_AE404_AE3F4)
+					*blurBuffer_AE404_AE3F4 = (uint8_t*)Malloc_42540_42880(64000);
 			}
 			while (!CurrentPlayer()->exitGame_0x04_4)
 			{

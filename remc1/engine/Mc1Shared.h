@@ -13,6 +13,7 @@
 #include "../../remc2/engine/PlayerInput.h"
 #include "../../remc2/engine/Sound.h"
 #include "../../remc2/engine/Terrain.h"
+#include "../../remc2/engine/Vr.h"
 #include "../../remc2/portability/port_sdl_vga_mouse.h"
 #include "../../remc2/utilities/DataFileIO.h"
 #include "../../remc2/utilities/DataFileRNC.h"
@@ -47,6 +48,7 @@ inline constexpr int* viewportY_12F018_12F008 = &viewportY_180650;
 inline constexpr int* viewportRight_12F024_12F014 = &viewportWidth_180634; // x + width
 inline constexpr int* viewportHeight_12F028_12F018 = &clipHeight_180644;
 inline constexpr int* renderWidth_93AD4_93AD4 = &iScreenWidth_DE560; // set by 79495 / 799A5 (MC2 BCD45)
+inline constexpr uint8_t** blurBuffer_AE404_AE3F4 = &ptrMemoryBuffer_E9C3C; // the blur / second eye buffer
 
 // functions
 inline constexpr auto ClearScreen320_411D7_41517 = &ClearGraphicsBuffer_72883; // rows of 320 (MC2 72883)
@@ -74,6 +76,9 @@ inline constexpr auto DecompressRnc_62B60_63070 = &DataFileRNC::Decompress;
 inline constexpr auto CreateIndexDatTabDoubled_65D70_66280 = &CreateIndexDatTabDoubled_98709;
 inline constexpr auto CreateIndexDatTab_65DC0_662D0 = &CreateIndexDatTab_9874D;
 inline constexpr auto SetViewport_65EB0_663C0 = &SetViewport_A0D50; // x, y, width, height of the bitmaps
+inline constexpr auto BlitHiColorBanks_79A1B_79F2B = &BlitScreenToVgaBanks_BD2CB; // 320x200 hicolor (B3AA0), VGA banks
+inline constexpr auto BlitHiColor_79906_79E16 = &DrawVrFrame_BD1B6; // 640x480 hicolor (B3AA0)
+inline constexpr auto BlitVfx_79B2D_7A03D = &BlitScreenToVga_BD3DD; // VFX1: the two eyes into the VGA banks
 
 // level maps (cleared in the same order by ClearLevel_40550 / ClearSettings_567C0)
 inline constexpr uint8_t* mapTerrainType_CC1E0_CC1D0 = mapTerrainType_10B4E0;

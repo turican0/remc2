@@ -20,7 +20,6 @@ struct SavedSettings
 {
 	type_D41A0_BYTESTR_0 world;
 	uint8_t* skyTexture;
-	uint8_t* blurBuffer;
 	uint8_t highSpeedSystem;
 	bool isCave;
 };
@@ -41,7 +40,6 @@ void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int
 	static SavedSettings saved;
 	saved.world = world_D41A0;
 	saved.skyTexture = skyTexture_D41A8;
-	saved.blurBuffer = ptrMemoryBuffer_E9C3C;
 	saved.highSpeedSystem = gameState_D41A4.m_wHighSpeedSystem;
 	saved.isCave = isCaveLevel_D41B6;
 
@@ -60,7 +58,6 @@ void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int
 	memcpy(&turn, (uint8_t*)&state->players_0x340B_13323[state->currentPlayer_0x08_8] + 0x12, sizeof(turn));
 	world_D41A0.players_0x2BDE[0].Turn_2BE0_11248 = turn;
 	skyTexture_D41A8 = skyData_AE3D8_AE3C8;
-	ptrMemoryBuffer_E9C3C = blurBuffer_AE404_AE3F4;
 	gameState_D41A4.m_wHighSpeedSystem = 0;
 	isCaveLevel_D41B6 = 0;
 
@@ -75,7 +72,6 @@ void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int
 	memcpy(mapEntityIndex_15B4E0, entityIndex.data(), entityIndex.size());
 	world_D41A0 = saved.world;
 	skyTexture_D41A8 = saved.skyTexture;
-	ptrMemoryBuffer_E9C3C = saved.blurBuffer;
 	gameState_D41A4.m_wHighSpeedSystem = saved.highSpeedSystem;
 	isCaveLevel_D41B6 = saved.isCave;
 	renderGame = RenderGame::MC2;
