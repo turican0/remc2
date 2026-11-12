@@ -880,7 +880,10 @@ void LoadLevelTmaps_59230_59740()
 				continue;
 			if (GetTmapGroupSize_58AD0_58FE0(i) < (uint32_t)GetTmapCacheFreeSize_369D0_36D90(tmapCache_AE3EC_AE3DC))
 				LoadTmapGroup_58B30_59040(i);
-			// 592D7: the original compares 400h with the address of 369D0, not its result: never full
+			// 592D7 fixed: the original compares 400h with the address of 369D0, not its result (never full);
+			// dosbox-x-remc1 fixes the same
+			else if ((uint32_t)GetTmapCacheFreeSize_369D0_36D90(tmapCache_AE3EC_AE3DC) < 0x400)
+				full = 1;
 		}
 }
 
