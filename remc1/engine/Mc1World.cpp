@@ -51,8 +51,6 @@ static void WriteU16(uint8_t* data, uint16_t value)
 	memcpy(data, &value, sizeof(value));
 }
 
-
-
 void GameLoop_34610_349D0()
 {
 	mc1Settings_AE408_AE3F8->flag_0x17_23 = 0;

@@ -501,16 +501,17 @@ type_x_DWORD_E9C28_str* InitTmapCache_36700_36AC0(uint32_t size, uint16_t count,
 		cache->buffer_16x = (uint32_t*)((uint8_t*)cache->data + entries + order);
 		return cache;
 	}
-	cache = (type_x_DWORD_E9C28_str*)Malloc_42540_42880(0x1A);
+	// DOS 1Ah, 14 and 4 bytes; the port sizes of the structures
+	cache = (type_x_DWORD_E9C28_str*)Malloc_42540_42880(sizeof(type_x_DWORD_E9C28_str));
 	if (cache)
 	{
 		cache->buffer_16x = (uint32_t*)Malloc_42540_42880(size);
 		if (cache->buffer_16x)
 		{
-			cache->entries_8 = (subtype_x_DWORD_E9C28_str*)Malloc_42540_42880(count * 14);
+			cache->entries_8 = (subtype_x_DWORD_E9C28_str*)Malloc_42540_42880(count * sizeof(subtype_x_DWORD_E9C28_str));
 			if (cache->entries_8)
 			{
-				cache->entryPtrs_12x = (subtype_x_DWORD_E9C28_str**)Malloc_42540_42880(count * 4);
+				cache->entryPtrs_12x = (subtype_x_DWORD_E9C28_str**)Malloc_42540_42880(count * sizeof(subtype_x_DWORD_E9C28_str*));
 				if (cache->entryPtrs_12x)
 				{
 					cache->usedCount_20 = 0;
@@ -607,10 +608,11 @@ void FreeTmapCache_36C10_36FD0(type_x_DWORD_E9C28_str** cache)
 type_E9C08* AllocateAnimations_10CB0_10CB0(uint16_t count)
 {
 	SetAllocationTag_42530_42870(9);
-	type_E9C08* animations = (type_E9C08*)Malloc_42540_42880(6);
+	// DOS 6 and 1Ch bytes; the port sizes of the structures (8 byte pointers)
+	type_E9C08* animations = (type_E9C08*)Malloc_42540_42880(sizeof(type_E9C08));
 	if (animations)
 	{
-		animations->animations_2 = (type_animations1*)Malloc_42540_42880(count * 0x1C);
+		animations->animations_2 = (type_animations1*)Malloc_42540_42880(count * sizeof(type_animations1));
 		if (animations->animations_2)
 		{
 			animations->count_0 = count;
