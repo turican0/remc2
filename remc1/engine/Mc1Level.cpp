@@ -494,7 +494,7 @@ void CreateFeatureModel_37560_37920(Type_Mc1LevelFeature* feature)
 }
 
 // 99B68
-static const char* playerNames_99B68_99B68[8] = { "Zanzamar", "Vodor", "Gryshnak", "Mahmoud", "Syed", "Raschid", "Alhabbal", "Scheherazade" };
+const char* playerNames_99B68_99B68[8] = { "Zanzamar", "Vodor", "Gryshnak", "Mahmoud", "Syed", "Raschid", "Alhabbal", "Scheherazade" };
 // 99B88: the spells in the order of the slots
 static const uint8_t spellOrder_99B88_99B88[24] = {
 	0x00, 0x03, 0x02, 0x10, 0x01, 0x0E, 0x04, 0x0C, 0x06, 0x09, 0x07, 0x08, 0x0F, 0x12, 0x11, 0x13, 0x0D, 0x05, 0x0B, 0x0A, 0x14, 0x15, 0x16, 0x17,
@@ -509,12 +509,12 @@ void InitPlayers_3DD50_3E090()
 	for (uint16_t i = 0; i < 8; i++)
 	{
 		Type_Mc1Player_340B* player = &state->players_0x340B_13323[i];
-		memset(state->playerSlots_0x7413_29715[i], 0, sizeof(state->playerSlots_0x7413_29715[i]));
+		memset(&state->playerInputs_0x7413_29715[i], 0, sizeof(state->playerInputs_0x7413_29715[i]));
 		state->playerBackup_0x2C0A_11274 = *player;
 		memset(player, 0, sizeof(Type_Mc1Player_340B));
 		memcpy(player->progress_0x7CB_1995, state->playerBackup_0x2C0A_11274.progress_0x7CB_1995, sizeof(player->progress_0x7CB_1995));
 		player->cheat_0x18_24 = state->playerBackup_0x2C0A_11274.cheat_0x18_24;
-		state->playerSlots_0x7413_29715[i][0] = 1;
+		state->playerInputs_0x7413_29715[i].command_0x00_0 = 1;
 		player->index_0x07_7 = i;
 		if (!(flags & 0x10) && i != state->currentPlayer_0x08_8)
 			player->computer_0x09_9 = 1;

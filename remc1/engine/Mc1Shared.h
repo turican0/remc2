@@ -49,6 +49,7 @@ inline constexpr int* viewportRight_12F024_12F014 = &viewportWidth_180634; // x 
 inline constexpr int* viewportHeight_12F028_12F018 = &clipHeight_180644;
 inline constexpr int* renderWidth_93AD4_93AD4 = &iScreenWidth_DE560; // set by 79495 / 799A5 (MC2 BCD45)
 inline constexpr uint8_t** blurBuffer_AE404_AE3F4 = &ptrMemoryBuffer_E9C3C; // the blur / second eye buffer
+inline constexpr char* cdChecked_9002C_9002C = &cdChecked_D3F48;
 
 // functions
 inline constexpr auto ClearScreen320_411D7_41517 = &ClearGraphicsBuffer_72883; // rows of 320 (MC2 72883)
@@ -76,6 +77,7 @@ inline constexpr auto DecompressRnc_62B60_63070 = &DataFileRNC::Decompress;
 inline constexpr auto CreateIndexDatTabDoubled_65D70_66280 = &CreateIndexDatTabDoubled_98709;
 inline constexpr auto CreateIndexDatTab_65DC0_662D0 = &CreateIndexDatTab_9874D;
 inline constexpr auto SetViewport_65EB0_663C0 = &SetViewport_A0D50; // x, y, width, height of the bitmaps
+inline constexpr auto IsCdPresent_11050_11050 = &IsCdPresent_10010; // int 21h 36h, removed in the port
 inline constexpr auto BlitHiColorBanks_79A1B_79F2B = &BlitScreenToVgaBanks_BD2CB; // 320x200 hicolor (B3AA0), VGA banks
 inline constexpr auto BlitHiColor_79906_79E16 = &DrawVrFrame_BD1B6; // 640x480 hicolor (B3AA0)
 inline constexpr auto BlitVfx_79B2D_7A03D = &BlitScreenToVga_BD3DD; // VFX1: the two eyes into the VGA banks

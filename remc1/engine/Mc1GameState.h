@@ -1,10 +1,29 @@
 #pragma once
 
 #include <cstdint>
+#include <cstdio>
 
 // MC1 game state and settings, members only as far as they are used by the ported code
 
 #pragma pack(push, 1)
+// a command of a player in a frame (10 bytes, MC2 Type_PlayerInput_0x6E3E)
+typedef struct {
+	uint8_t command_0x00_0; // 1 join, 2 leave, 4 pause ... (3C9D0)
+	int8_t param_0x01_1;
+	int8_t param2_0x02_2;
+	int8_t moveX_0x03_3;
+	int8_t moveY_0x04_4;
+	uint8_t buttons_0x05_5;
+	uint8_t unknown_0x06_6[4];
+} Type_Mc1PlayerInput;
+
+// a message of a player (0x44 bytes)
+typedef struct {
+	char text_0x00_0[0x40];
+	int16_t time_0x40_64; // 7D00h typing, else the frames shown
+	int16_t kind_0x42_66;
+} Type_Mc1Message;
+
 typedef struct {
 	int16_t x;
 	int16_t y;
@@ -203,21 +222,28 @@ typedef struct { // 14 bytes, the camera (20FB0 -> 30D90; MC2 positions_0x1d1_2B
 typedef struct { // size 0x801
 	uint8_t unknown_0x00_0[2];
 	uint16_t levelResult_0x02_2; // 2 next level, 4 play again, 8 end
-	uint8_t exitGame_0x04_4;
-	uint8_t unknown_0x05_5[0x07 - 0x05];
+	uint8_t exitGame_0x04_4; // 1 the player left, 2 the CD is missing (3DD10)
+	uint8_t pause_0x05_5; // switched by the command 4
+	uint8_t active_0x06_6; // the player joined (the command 1)
 	uint16_t index_0x07_7; // the number of the player
 	uint8_t computer_0x09_9; // 1 played by the computer
 	uint16_t entityIndex_0x0A_10; // the entity of the player (wizard)
 	uint8_t unknown_0x0C_12[0x0E - 0x0C];
 	uint16_t word_0x0E_14; // recordCount_0x10 - 1
 	uint16_t recordCount_0x10_16;
-	uint8_t unknown_0x12_18[0x18 - 0x12];
+	int32_t turn_0x12_18; // the frames of the level (3C9D0), MC2 Turn_2BE0_11248
+	uint8_t unknown_0x16_22[2];
 	int32_t cheat_0x18_24;
-	uint8_t unknown_0x1C_28[0x23C - 0x1C];
+	Type_Mc1Message messages_0x1C_28[8]; // by the player, the text being typed and the shown ones
 	Type_Mc1PlayerRecord recordTemplate_0x23C_572; // copied to the records by InitPlayers_3DD50
 	Type_Mc1PlayerRecord records_0x24A_586[0x20];
 	char name_0x40A_1034[0x20];
-	uint8_t unknown_0x42A_1066[0x663 - 0x42A];
+	uint8_t unknown_0x42A_1066[0x44A - 0x42A];
+	uint8_t mode_0x44A_1098; // 0 the game, 1 the map, 2 the full screen menu (3DC90)
+	uint8_t byte_0x44B_1099; // cleared every frame by 3C9D0
+	uint8_t unknown_0x44C_1100[0x44F - 0x44C];
+	// 44Fh-801h: the player data of the wizard (its playerData_0xA0 points here, MC2 playerData_0x3E6)
+	uint8_t playerData_0x44F_1103[0x663 - 0x44F];
 	int32_t spells_0x663_1635[24]; // the spells the player has, -1 none
 	uint8_t unknown_0x6C3_1731[0x753 - 0x6C3];
 	uint8_t spellSlots_0x753_1875[24]; // the slot of the spell, FFh none
@@ -266,24 +292,24 @@ typedef struct { // size 232713, DOSBox 26C400 (pointer)
 	Type_Mc1Player_340B networkPlayer_0x2409_9225; // player 0 kept by the network game (4FEB0)
 	Type_Mc1Player_340B playerBackup_0x2C0A_11274; // the player before InitPlayers_3DD50 clears it
 	Type_Mc1Player_340B players_0x340B_13323[8];
-	uint8_t playerSlots_0x7413_29715[8][10]; // [0] 1 used
+	Type_Mc1PlayerInput playerInputs_0x7413_29715[8]; // the commands of the players in the frame (MC2 playerInputs_0x6E3E)
 	Type_Mc1Entity entities_0x7463_29795[1000];
 	Type_Mc1Level_2F503 level_0x2F503_193795;
 	Type_Mc1CreatureStats creatureStats_0x38C9F_232607; // MC2 creatureStats_0x364D2
 } Type_Mc1State_AE400_AE3F0;
 
 typedef struct { // size 36478
-	uint32_t flags_0x00_0; // 4 no exit screen, 8 no game, 0x10 network, 0x40 time, 0x80 debug, 0x100 no menu (demo, custom, roll), 0x200-0x2000 demo number, 0x20 roll
-	uint8_t unknown_0x04_4[0x08 - 0x04];
+	uint32_t flags_0x00_0; // 2 record the movie, 4 play the movie (no exit screen), 8 no game, 0x10 network, 0x40 time, 0x80 debug, 0x100 no menu (demo, custom, roll), 0x200-0x2000 demo number, 0x20 roll
+	uint32_t frames_0x04_4; // counted by 3C9D0
 	uint8_t fastCpu_0x08_8;
-	uint8_t unknown_0x09_9[0x0D - 0x09];
-	uint16_t movie_0x0D_13;
+	FILE* movieFile_0x09_9; // the movie being played or recorded (DOS: a handle of 4 bytes, MC2 port: FILE* too)
+	uint16_t movie_0x0D_13; // the number of the movie (movie/mvi%05d.dat)
 	uint16_t roll_0x0F_15;
 	uint16_t levelIndex_0x11_17;
 	uint16_t networkLevel_0x13_19; // the level when the network game was chosen
 	uint8_t unknown_0x15_21[0x17 - 0x15];
 	uint8_t flag_0x17_23;
-	uint8_t unknown_0x18_24;
+	uint8_t cd_0x18_24; // & 3 == 1: the CD is checked every frame (3DD10)
 	int32_t password_0x19_25;
 	char playerName_0x1D_29[32]; // the first byte from byte_A9058
 	char nickname_0x3D_61[32];
@@ -295,7 +321,7 @@ typedef struct { // size 36478
 	uint8_t language_0x97_151; // 0-3, chosen on the language screen
 	uint8_t paletteSubMod_0x98_152;
 	uint32_t frameTicks_0x99_153; // the timer at the end of the last frame (GameFrame_34530)
-	uint8_t unknown_0x9D_157[0xA1 - 0x9D];
+	uint32_t networkTicks_0x9D_157; // the ticks of the network exchange (3C9D0)
 	uint8_t unknown_0xA1_161; // 3 in the demo
 	uint32_t unknown_0xA2_162; // 200 in the demo
 	uint8_t unknown_0xA6_166[0xA8 - 0xA6];
@@ -316,5 +342,5 @@ static_assert(sizeof(Type_Mc1EntityShadow) == 0xA4, "Type_Mc1EntityShadow");
 static_assert(sizeof(Type_Mc1Entity) == 0xA4 + 3 * (sizeof(uint8_t*) - 4), "Type_Mc1Entity");
 static_assert(sizeof(Type_Mc1State_AE400_AE3F0) == 232713 + 1000 * (sizeof(Type_Mc1Entity) - 0xA4) + 2000 * (sizeof(uint8_t*) - 4),
 	"Type_Mc1State_AE400_AE3F0");
-static_assert(sizeof(Type_Mc1Settings_AE408_AE3F8) == 36478 + 26 * (sizeof(uint8_t*) - 4), "Type_Mc1Settings_AE408_AE3F8"); // pointers are 4 bytes in DOS
+static_assert(sizeof(Type_Mc1Settings_AE408_AE3F8) == 36478 + 27 * (sizeof(uint8_t*) - 4), "Type_Mc1Settings_AE408_AE3F8"); // pointers (and the FILE* of the movie) are 4 bytes in DOS
 static_assert(sizeof(Type_Mc1Level_2F503) == 0x979C, "Type_Mc1Level_2F503");

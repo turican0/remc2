@@ -7,6 +7,7 @@
 #include "Mc1Game.h"
 #include "Mc1Level.h"
 #include "Mc1NotPorted.h"
+#include "Mc1PlayerEvents.h"
 #include "Mc1Shared.h"
 #include "Mc1Screen.h"
 #include "Mc1Sound.h"
@@ -49,6 +50,8 @@ static void WriteU16(uint8_t* data, uint16_t value)
 	memcpy(data, &value, sizeof(value));
 }
 
+
+
 void GameLoop_34610_349D0()
 {
 	mc1Settings_AE408_AE3F8->flag_0x17_23 = 0;
@@ -66,7 +69,7 @@ void GameFrame_34530_348F0()
 		sub_590D0_595E0();
 	if (!(settings->flags_0x00_0 & 4))
 		sub_17C20_17C20();
-	sub_3C9D0_3CD10();
+	PlayerEvents_3C9D0_3CD10();
 	if (!(settings->flags_0x00_0 & 0x10000))
 		sub_415C0_41900();
 	// the speed: 1, 4 or 16 ticks of the world in a frame

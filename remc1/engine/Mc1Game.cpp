@@ -10,6 +10,7 @@
 #include "Mc1Install.h"
 #include "Mc1EntityTables.h"
 #include "Mc1Level.h"
+#include "Mc1PlayerEvents.h"
 #include "Mc1Menu.h"
 #include "Mc1Sound.h"
 #include "Mc1World.h"
@@ -147,7 +148,7 @@ int TopProcedure_340B0(int argc, char** argv)
 					mc1State_AE400_AE3F0->levelVariant_0x240_576 = (int32_t)((uint32_t)(int32_t)(int16_t)seed % 3 + 1);
 					PlayMusic_5D290_5D7A0((int16_t)mc1State_AE400_AE3F0->levelVariant_0x240_576);
 				}
-				sub_59720_59C30();
+				SetCenterMouse_59720_59C30();
 				GameLoop_34610_349D0();
 				StopAllSamples_5D010_5D520();
 				StopMusic_20E60_20E60();
@@ -267,7 +268,7 @@ int TopProcedure_34470(int argc, char** argv)
 					mc1State_AE400_AE3F0->levelVariant_0x240_576 = (int32_t)((uint32_t)(int32_t)(int16_t)seed % 3 + 1);
 					PlayMusic_5D290_5D7A0((int16_t)mc1State_AE400_AE3F0->levelVariant_0x240_576);
 				}
-				sub_59720_59C30();
+				SetCenterMouse_59720_59C30();
 				GameLoop_34610_349D0();
 				StopAllSamples_5D010_5D520();
 				StopMusic_20E60_20E60();

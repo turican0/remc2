@@ -9,6 +9,8 @@
 extern const int8_t anglePatterns_9075C_9075C[148][4]; // the heights of the 4 corners of a tile, -1 unused
 extern uint8_t angleTypes_B5D40_B5D30[2401][2]; // terrain type and angle for 4 corner heights 0-6 (7^4)
 
+extern const char* playerNames_99B68_99B68[8];
+
 void LoadingScreen_34460_34820();
 void LoadLevel_407A0_40AE0();
 void ClearLevel_40550_40890();

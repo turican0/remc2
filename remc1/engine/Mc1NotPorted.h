@@ -15,7 +15,6 @@ void sub_4D680_4D9C0();
 void sub_4E5B0_4E8F0();
 void sub_4D560_4D8A0();
 void sub_59230_59740(); // the tmaps of the used groups into the cache (renderer, later)
-void sub_59720_59C30();
 void sub_448E0_44C20();
 void sub_408D0_40C10();
 void sub_58F00_59410();
@@ -292,7 +291,20 @@ void sub_5A070_5A580(Type_Mc1Entity* entity);
 void sub_55370_558A0(int16_t entityIndex, int32_t sound, int32_t volume); // the sound of an entity by its position
 void sub_34690_34A50(); // the window frame of the smaller screen
 void sub_590D0_595E0();
-void sub_3C9D0_3CD10(); // the events of the game
+// the movie (demo): the state and the level saved / loaded, the tmaps of the movie
+int32_t sub_3E350_3E690(int16_t movie);
+int32_t sub_3E410_3E750(int16_t movie);
+int32_t sub_3E4B0_3E7F0(int16_t movie);
+int32_t sub_3E580_3E8C0(int16_t movie);
+void sub_59420_59930();
+void sub_593B0_598C0();
+// the network
+void sub_42C70_42FB0(int16_t player);
+void sub_42DE0_43120(uint32_t handle);
+void sub_42D40_43080(uint32_t handle, char* name);
+void sub_43150_43490();
+void sub_438D0_43C10(uint16_t player, uint8_t* buffer, uint32_t size);
+void sub_43870_43BB0(uint16_t player, uint8_t* buffer, uint32_t size);
 void sub_415C0_41900();
 void sub_55100_55630();
 void sub_20FB0_20FB0(); // the drawing of the frame (renderer)

@@ -38,7 +38,6 @@ void sub_4D560_4D8A0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
 void sub_59230_59740() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_59720_59C30() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_448E0_44C20() { NotPorted(__func__); }
 //!!!!! not ported yet
@@ -597,7 +596,18 @@ void sub_34690_34A50() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_590D0_595E0() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_3C9D0_3CD10() { NotPorted(__func__); }
+int32_t sub_3E350_3E690(int16_t /*movie*/) { NotPorted(__func__); return 0; }
+int32_t sub_3E410_3E750(int16_t /*movie*/) { NotPorted(__func__); return 0; }
+int32_t sub_3E4B0_3E7F0(int16_t /*movie*/) { NotPorted(__func__); return 0; }
+int32_t sub_3E580_3E8C0(int16_t /*movie*/) { NotPorted(__func__); return 0; }
+void sub_59420_59930() { NotPorted(__func__); }
+void sub_593B0_598C0() { NotPorted(__func__); }
+void sub_42C70_42FB0(int16_t /*player*/) { NotPorted(__func__); }
+void sub_42DE0_43120(uint32_t /*handle*/) { NotPorted(__func__); }
+void sub_42D40_43080(uint32_t /*handle*/, char* /*name*/) { NotPorted(__func__); }
+void sub_43150_43490() { NotPorted(__func__); }
+void sub_438D0_43C10(uint16_t /*player*/, uint8_t* /*buffer*/, uint32_t /*size*/) { NotPorted(__func__); }
+void sub_43870_43BB0(uint16_t /*player*/, uint8_t* /*buffer*/, uint32_t /*size*/) { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_415C0_41900() { NotPorted(__func__); }
 //!!!!! not ported yet
