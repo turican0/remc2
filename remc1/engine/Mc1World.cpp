@@ -9,9 +9,6 @@
 #include "Mc1NotPorted.h"
 #include "Mc1Shared.h"
 #include "Mc1Sound.h"
-#include "Mc1Render.h"//TEMPRENDER
-#include "Mc1Files.h"//TEMPRENDER
-#include <string>//TEMPRENDER
 
 // MC1 game loop: the frames and the tick of the world (the actions of the entities), the same in HW
 
@@ -87,43 +84,6 @@ void GameFrame_34530_348F0()
 		break;
 	}
 	sub_55100_55630();
-	if (const char* dir = getenv("REMC1_RENDER"))//TEMPRENDER
-	{//TEMPRENDER
-		int c[7];//TEMPRENDER
-		const char* cam = getenv("REMC1_CAMERA");//TEMPRENDER
-		{//TEMPRENDER
-			int32_t turn;//TEMPRENDER
-			memcpy(&turn, (uint8_t*)&mc1State_AE400_AE3F0->players_0x340B_13323[mc1State_AE400_AE3F0->currentPlayer_0x08_8] + 0x12, 4);//TEMPRENDER
-			printf("TEMPRENDER turn %d\n", turn);//TEMPRENDER
-			if (const char* t = getenv("REMC1_TURN")) { turn = atoi(t); memcpy((uint8_t*)&mc1State_AE400_AE3F0->players_0x340B_13323[mc1State_AE400_AE3F0->currentPlayer_0x08_8] + 0x12, &turn, 4); }//TEMPRENDER
-		}//TEMPRENDER
-		if (const char* set = getenv("REMC1_SETTINGS"))//TEMPRENDER
-			for (int i = 0; i < 10 && set[2 * i] && set[2 * i + 1]; i++)//TEMPRENDER
-			{//TEMPRENDER
-				unsigned v; sscanf(set + 2 * i, "%2x", &v);//TEMPRENDER
-				printf("TEMPRENDER setting %X: %02X -> %02X\n", 0x2195 + i, (&mc1State_AE400_AE3F0->reflections_0x2195_8597)[i], v);//TEMPRENDER
-				(&mc1State_AE400_AE3F0->reflections_0x2195_8597)[i] = (uint8_t)v;//TEMPRENDER
-			}//TEMPRENDER
-		if (cam && sscanf(cam, "%d,%d,%d,%d,%d,%d,%d", &c[0], &c[1], &c[2], &c[3], &c[4], &c[5], &c[6]) == 7)//TEMPRENDER
-		{//TEMPRENDER
-			viewPort.SetRenderViewPortSize_40C50(mc1State_AE400_AE3F0->setting_0x2198_8600);//TEMPRENDER
-			DrawWorld_30D90_30DD0(*workScreen_12EFF4_12EFE4, c[0], c[1], (int16_t)c[2], (int16_t)c[3], (int16_t)c[4], (int16_t)c[5], (int16_t)c[6]);//TEMPRENDER
-		}//TEMPRENDER
-		else//TEMPRENDER
-		{//TEMPRENDER
-			Type_Mc1Player_340B& player = CurrentPlayer();//TEMPRENDER
-			printf("TEMPRENDER entity %u start %d,%d,%d\n", player.entityIndex_0x0A_10, mc1State_AE400_AE3F0->playerStarts_0x23D9_9177[0].x, mc1State_AE400_AE3F0->playerStarts_0x23D9_9177[0].y, mc1State_AE400_AE3F0->playerStarts_0x23D9_9177[0].z);//TEMPRENDER
-			SetPlayerCamera_41B20_41E60(&player, &Entities()[player.entityIndex_0x0A_10]);//TEMPRENDER
-			const Type_Mc1PlayerRecord& r = player.records_0x24A_586[player.word_0x0E_14];//TEMPRENDER
-			printf("TEMPRENDER camera %d,%d,%d,%d,%d,%d,%d\n", r.x_0x00_0, r.y_0x02_2, r.yaw_0x06_6, r.z_0x04_4 + 0x80, r.pitch_0x08_8, r.roll_0x0A_10, r.word_0x0C_12);//TEMPRENDER
-			DrawPlayerView();//TEMPRENDER
-		}//TEMPRENDER
-		FILE* f = fopen((std::string(dir) + "/port_screen.bin").c_str(), "wb");//TEMPRENDER
-		if (f) { fwrite(*workScreen_12EFF4_12EFE4, 1, screenWidth_18062C * screenHeight_180624, f); fclose(f); }//TEMPRENDER
-		f = fopen((std::string(dir) + "/port_palette.bin").c_str(), "wb");//TEMPRENDER
-		if (f) { fwrite(palette_AE428_AE418, 1, 768, f); fclose(f); }//TEMPRENDER
-		printf("TEMPRENDER %u x %u mode %d\n", screenWidth_18062C, screenHeight_180624, videoMode_180660);//TEMPRENDER
-	}//TEMPRENDER
 	sub_20FB0_20FB0();
 	// the ticks of the frame for 5A560, then the time of the frame
 	settings->frameTicks_0x99_153 = timerTicks_AC5D4_AC5C4 - settings->frameTicks_0x99_153;
