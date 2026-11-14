@@ -553,10 +553,12 @@ void InitTmaps(unsigned __int16 a1)//251f50
 					//if (**(uint8_t**)index6 & 1)
 					if ((*index6x)->flags_0 & 1)
 						index = InitTmapAnimation_721C0(animations_E9C08x, index6x, i);
-					else if ((*index6x)->height > 512 || (*index6x)->width == 0 || (*index6x)->height == 0)
+					else if (index4 < (int)sizeof(Type_Sprite))
 					{
-						//Error
-						Logger->error("Bad Texture Data!");
+						// An unused slot in the TMAPS files: a 1 byte placeholder, too small for even the sprite header
+						// (the rest is the cache's leftover bytes). It stays loaded as in the original, as the game
+						// reads whether a sprite is loaded, but there is no picture to upload.
+						Logger->debug("Placeholder Texture Found, skipping!");
 					}
 					else
 					{
