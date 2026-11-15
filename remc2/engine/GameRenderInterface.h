@@ -6,6 +6,7 @@
 #include <cstdint>
 #include "engine_support.h"
 #include "ViewPort.h"
+#include "Type_SpriteDef_D951C.h"
 
 enum class SpritePass : uint32_t
 {
@@ -45,6 +46,22 @@ inline int Mc1StereogramShade(int depth) // 2A700 / 2F170: the depth as the shad
 }
 // 30D90: the random dot stereogram from the depth image (width/height of the view port, rows by pitch)
 void Mc1DrawStereogram(uint8_t* screen, const uint8_t* depth, uint16_t width, uint16_t height, int pitch);
+
+// the sprites the renderers draw (the reflections, DrawSprites): MC2 reads its globals, MC1 sets a source while drawing
+struct RenderSpriteSource
+{
+	type_entity_0x6E8E* (*entity)(uint16_t index);
+	Type_Sprite** (*loadedTmap)(uint16_t tmap);
+	bool (*loadTmap)(uint16_t tmap);
+	void (*tmapUsed)(uint16_t tmap); // the frame of the last use of the group of the tmap
+	Type_SpriteDef_D951C* (*spriteDef)(int16_t index);
+};
+extern const RenderSpriteSource* renderSprites; // nullptr: MC2
+type_entity_0x6E8E* RenderEntity(uint16_t index);
+Type_Sprite** RenderLoadedTmap(uint16_t tmap);
+bool RenderLoadTmap(uint16_t tmap);
+void RenderTmapUsed(uint16_t tmap);
+Type_SpriteDef_D951C* RenderSpriteDef(int16_t index);
 
 class GameRenderInterface
 {

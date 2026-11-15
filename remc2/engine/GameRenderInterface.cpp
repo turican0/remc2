@@ -2,6 +2,8 @@
 #include "LevelStructs.h"
 #include "Terrain.h"
 #include "../utilities/Maths.h"
+#include "Basic.h"
+#include "TextureMaps.h"
 
 // MC1 helpers shared by all renderers
 
@@ -82,4 +84,34 @@ void Mc1DrawStereogram(uint8_t* screen, const uint8_t* depth, uint16_t width, ui
 		target += pitch;
 		shift += pitch;
 	}
+}
+
+const RenderSpriteSource* renderSprites = nullptr;
+
+type_entity_0x6E8E* RenderEntity(uint16_t index)
+{
+	return renderSprites ? renderSprites->entity(index) : Entities_EA3E4[index];
+}
+
+Type_Sprite** RenderLoadedTmap(uint16_t tmap)
+{
+	return renderSprites ? renderSprites->loadedTmap(tmap) : m_ptrLoadedSprites_F66F0x[tmap];
+}
+
+bool RenderLoadTmap(uint16_t tmap)
+{
+	return renderSprites ? renderSprites->loadTmap(tmap) : MainInitTmaps_71520(tmap);
+}
+
+void RenderTmapUsed(uint16_t tmap)
+{
+	if (renderSprites)
+		renderSprites->tmapUsed(tmap);
+	else
+		tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[tmap].group_8] = gameState_D41A4.FrameTimingIndex_26;
+}
+
+Type_SpriteDef_D951C* RenderSpriteDef(int16_t index)
+{
+	return renderSprites ? renderSprites->spriteDef(index) : &spriteDefsTable_D951C[index];
 }

@@ -7,13 +7,79 @@
 #include "Mc1Files.h"
 #include "Mc1Game.h"
 #include "Mc1Shared.h"
+#include "Mc1TextureMaps.h"
 #include "../../remc2/engine/GameRenderOriginal.h"
 
 // The MC1 world drawn by the renderer of remc2 (RenderGame::MC1 switches the differences of MC1 on).
-// The renderer reads the tables, the textures, the sky and the settings of MC2: they are set from MC1 here.
-// Not yet: the sprites (the entity index map holds MC1 entities, hidden while drawing), the motion blur by the speed.
+// The renderer reads the tables, the textures, the sky and the settings of MC2: they are set from MC1 here, the sprites
+// come from the source below. Not yet: the motion blur by the speed.
 
 static GameRenderOriginal* mc1Renderer = nullptr;
+
+// the sprites (2DCB0, 2FC50): the MC1 entities as the entities of MC2, only what the sprites read (the flags 21h, the
+// next in the map cell, the yaw, the position, the sprite and its frame), the tmaps of MC1 and 99BA0 as D951C
+static type_entity_0x6E8E renderEntities[1000];
+static Type_SpriteDef_D951C renderSpriteDefs[286];
+
+static type_entity_0x6E8E* Mc1RenderEntity(uint16_t index)
+{
+	return &renderEntities[index];
+}
+
+static Type_Sprite** Mc1LoadedTmap(uint16_t tmap)
+{
+	return loadedTmaps_12DF8C_12DF7C[tmap];
+}
+
+static bool Mc1LoadTmap(uint16_t tmap)
+{
+	return MainInitTmaps_59050_59560(tmap) != 0;
+}
+
+static void Mc1TmapUsed(uint16_t tmap)
+{
+	// the group of the tmap (+ 8 in the tab) gets the frame of the game
+	uint16_t group;
+	memcpy(&group, tmapsTab_12D744_12D734 + tmap * 10 + 8, sizeof(group));
+	tmapLastUse_12CF00_12CEF0[group] = mc1Settings_AE408_AE3F8->frames_0x04_4;
+}
+
+static Type_SpriteDef_D951C* Mc1SpriteDef(int16_t index)
+{
+	return &renderSpriteDefs[index];
+}
+
+static const RenderSpriteSource mc1Sprites = { Mc1RenderEntity, Mc1LoadedTmap, Mc1LoadTmap, Mc1TmapUsed, Mc1SpriteDef };
+
+static void SetRenderSprites()
+{
+	const Type_Mc1Entity* entities = mc1State_AE400_AE3F0->entities_0x7463_29795;
+	for (int i = 0; i < 1000; i++)
+	{
+		const Type_Mc1Entity& entity = entities[i];
+		type_entity_0x6E8E& render = renderEntities[i];
+		render.flags_0xc_12_15.dword = entity.flags_0x10_16 & 0x21;
+		render.oldMapEntity_0x16_22 = entity.mapNext_0x14_20;
+		render.yaw_0x1C_28 = entity.word_0x1E_30;
+		render.position_0x4C_76.x = entity.position_0x48_72.x;
+		render.position_0x4C_76.y = entity.position_0x48_72.y;
+		render.position_0x4C_76.z = entity.position_0x48_72.z;
+		render.spriteIndex_0x5A_90 = entity.sprite_0x56_86;
+		render.animationFrame_0x5C_92 = (int8_t)entity.frame_0x58_88;
+	}
+	for (int i = 0; i < 286; i++)
+	{
+		const Type_Mc1SpriteDef_99BA0& def = spriteDefs_99BA0_99BA0[i];
+		Type_SpriteDef_D951C& render = renderSpriteDefs[i];
+		render.textureIdx_0 = def.textureIndex_0x00_0;
+		render.speed_6 = def.width_0x06_6;
+		render.worldSize_8 = def.height_0x08_8;
+		render.lightingTableIdx_10 = def.lightingTableIdx_0x0A_10;
+		render.levelSpriteGroup_11 = def.levelSpriteGroup_0x0B_11;
+		render.kind_12 = def.kind_0x0C_12;
+	}
+	renderSprites = &mc1Sprites;
+}
 
 // the settings of MC2 the renderer reads, kept and put back after the drawing
 struct SavedSettings
@@ -61,15 +127,16 @@ void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int
 	gameState_D41A4.m_wHighSpeedSystem = 0;
 	isCaveLevel_D41B6 = 0;
 
-	// no sprites yet: the entity index map is hidden while drawing
-	static std::vector<uint8_t> entityIndex;
-	entityIndex.assign((uint8_t*)mapEntityIndex_15B4E0, (uint8_t*)mapEntityIndex_15B4E0 + sizeof(mapEntityIndex_15B4E0));
-	memset(mapEntityIndex_15B4E0, 0, sizeof(mapEntityIndex_15B4E0));
+	SetRenderSprites();
+	// the scratch of the billboards and the sprites (E9C38 *BScreen) is AE3FC (*BScreen) in MC1
+	uint8_t* savedScratch = smalltitBuffer_E9C38;
+	smalltitBuffer_E9C38 = backScreen_AE3FC_AE3EC;
 
 	(void)screen; // the work screen, as pdwScreenBuffer_351628 in remc2
 	mc1Renderer->DrawWorld_411A0(posX, posY, yaw, posZ, pitch, roll, fov);
 
-	memcpy(mapEntityIndex_15B4E0, entityIndex.data(), entityIndex.size());
+	smalltitBuffer_E9C38 = savedScratch;
+	renderSprites = nullptr;
 	world_D41A0 = saved.world;
 	skyTexture_D41A8 = saved.skyTexture;
 	gameState_D41A4.m_wHighSpeedSystem = saved.highSpeedSystem;
