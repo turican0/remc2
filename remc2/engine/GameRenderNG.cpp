@@ -998,7 +998,7 @@ void GameRenderNG::DrawSprites_3E360(int tileIndex, bool mc1Depth)//21f360
 	{
 		if (mc1Depth && entityIndex >= 1000)
 			break;
-		type_entity_0x6E8E* entity = Entities_EA3E4[entityIndex];
+		type_entity_0x6E8E* entity = RenderEntity(entityIndex);
 		spriteRender_F2C20.entity_0x14x = entity;
 		if (!(entity->flags_0xc_12_15.byte[0] & 0x21))
 			DrawEntity(entity, m_tiles[tileIndex], sprite, mc1Depth);
@@ -1040,7 +1040,7 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 		if (depth > 64 && distance < m_cutOffDistance)
 		{
 			spriteRender_F2C20.fogShade_0x00 = SpriteLight(distance);
-			const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[spriteRender_F2C20.entity_0x14x->spriteIndex_0x5A_90];
+			const Type_SpriteDef_D951C& def = *RenderSpriteDef(spriteRender_F2C20.entity_0x14x->spriteIndex_0x5A_90);
 			if (!def.lightingTableIdx_10)
 			{
 				ProjectSprite(across, height, depth);
@@ -1108,7 +1108,7 @@ void GameRenderNG::DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_small
 	const int column = tileIndex % m_tileColumns - m_standardFirstColumn;
 	m_standardView = m_viewDistanceScale == 1 || (row >= 1 && row <= 20 && column >= 0 && column <= 38 && distance < m_standardCutOff);
 	spriteRender_F2C20.fogShade_0x00 = mc1Depth ? Mc1StereogramShade(depth) : SpriteLight(distance);
-	const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[owner->spriteIndex_0x5A_90];
+	const Type_SpriteDef_D951C& def = *RenderSpriteDef(owner->spriteIndex_0x5A_90);
 	ProjectSprite(across, z - spriteRender_F2C20.cameraZ_0x20, depth);
 	if (ChooseSprite(owner, def, depth, distance, true, true, sprite) == SpriteChoice::Skip)
 		return;
@@ -1154,7 +1154,7 @@ void GameRenderNG::DrawTileSpriteReflections_3FD60(int tileIndex)
 	{
 		if (entityIndex < 1000)
 		{
-			entity = Entities_EA3E4[entityIndex];
+			entity = RenderEntity(entityIndex);
 			if (!(entity->flags_0xc_12_15.byte[0] & 0x21))
 			{
 				const int height = -entity->position_0x4C_76.z - spriteRender_F2C20.cameraZ_0x20;
@@ -1165,7 +1165,7 @@ void GameRenderNG::DrawTileSpriteReflections_3FD60(int tileIndex)
 				if (depth > 64 && distance < m_cutOffDistance)
 				{
 					spriteRender_F2C20.fogShade_0x00 = SpriteLight(distance);
-					const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[entity->spriteIndex_0x5A_90];
+					const Type_SpriteDef_D951C& def = *RenderSpriteDef(entity->spriteIndex_0x5A_90);
 					ProjectSprite(across, height, depth);
 					if (ChooseSprite(entity, def, depth, distance, true, false, sprite) != SpriteChoice::Skip)
 					{
@@ -1213,10 +1213,10 @@ void GameRenderNG::ProjectSprite(int across, int height, int depth)
 // The sprite loaded (MainInitTmaps_71520 when needed) and marked as used in this frame; nullptr when it cannot be loaded.
 Type_Sprite* GameRenderNG::UseSprite(int index)
 {
-	if (!m_ptrLoadedSprites_F66F0x[index] && !MainInitTmaps_71520(index))
+	if (!RenderLoadedTmap(index) && !RenderLoadTmap(index))
 		return nullptr;
-	tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[index].group_8] = gameState_D41A4.FrameTimingIndex_26;
-	return *m_ptrLoadedSprites_F66F0x[index];
+	RenderTmapUsed(index);
+	return *RenderLoadedTmap(index);
 }
 
 // The sprite of the entity by its kind: one picture, an animation frame or one of the directions the camera sees it from

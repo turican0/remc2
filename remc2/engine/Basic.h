@@ -525,7 +525,7 @@ extern std::vector<Type_Message*>* m_Messages;
 constexpr uint32_t kTerrainAtlasId = 1024;
 constexpr uint32_t kSkyId = 1025;
 
-extern std::array<uint16_t, 504> m_spriteFrameCount;
+extern std::array<uint16_t, 0x211> m_spriteFrameCount; // MC2 504 tmaps, MC1 211h
 
 bool DefaultResolutions();
 

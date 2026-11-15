@@ -789,10 +789,10 @@ void GameRenderHW::SubDrawTerrainAndParticles(std::vector<int>& vertexs, std::ve
 // The sprite loaded (MainInitTmaps_71520 when needed) and marked as used in this frame; nullptr when it cannot be loaded.
 Type_Sprite* GameRenderHW::UseSprite(int index)
 {
-	if (!m_ptrLoadedSprites_F66F0x[index] && !MainInitTmaps_71520(index))
+	if (!RenderLoadedTmap(index) && !RenderLoadTmap(index))
 		return nullptr;
-	tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[index].group_8] = gameState_D41A4.FrameTimingIndex_26;
-	return *m_ptrLoadedSprites_F66F0x[index];
+	RenderTmapUsed(index);
+	return *RenderLoadedTmap(index);
 }
 
 // The sprite of the entity by its kind: one picture, an animation frame or one of the directions the camera sees it from
@@ -878,7 +878,7 @@ void GameRenderHW::DrawTileBillboards_3FD60(int tileIndex, std::vector<RenderPol
 	{
 		if (entityIndex < 0x3E8u)
 		{
-			entity = Entities_EA3E4[entityIndex];
+			entity = RenderEntity(entityIndex);
 			if (!(entity->flags_0xc_12_15.byte[0] & 0x21))
 			{
 				const int dx = (int16_t)(entity->position_0x4C_76.x - cameraX_F2CC4);
@@ -890,7 +890,7 @@ void GameRenderHW::DrawTileBillboards_3FD60(int tileIndex, std::vector<RenderPol
 				if (depth > 64 && distance < m_cutOffDistance)
 				{
 					spriteRender_F2C20.fogShade_0x00 = SpriteLight(distance);
-					const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[entity->spriteIndex_0x5A_90];
+					const Type_SpriteDef_D951C& def = *RenderSpriteDef(entity->spriteIndex_0x5A_90);
 					ProjectSprite(across, height, depth);
 					Type_Sprite* sprite = nullptr;
 					int spriteBase = 0, spriteFrame = 0;
@@ -1255,7 +1255,7 @@ void GameRenderHW::DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* 
 	do
 	{
 		//adress 21f370
-		type_entity_0x6E8E* entity = Entities_EA3E4[entityIndex];
+		type_entity_0x6E8E* entity = RenderEntity(entityIndex);
 		spriteRender_F2C20.entity_0x14x = entity;
 		if (!(entity->flags_0xc_12_15.byte[0] & 0x21))
 		{
@@ -1275,7 +1275,7 @@ void GameRenderHW::DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* 
 				if (depth > 64 && distance < m_cutOffDistance)
 				{
 					spriteRender_F2C20.fogShade_0x00 = SpriteLight(distance);
-					const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[entity->spriteIndex_0x5A_90];
+					const Type_SpriteDef_D951C& def = *RenderSpriteDef(entity->spriteIndex_0x5A_90);
 					if (!def.lightingTableIdx_10)
 					{
 						ProjectSprite(across, height, depth);
@@ -1327,7 +1327,7 @@ void GameRenderHW::DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* 
 			if (depth > 64 && distance < m_cutOffDistance)
 			{
 				spriteRender_F2C20.fogShade_0x00 = SpriteLight(distance);
-				const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[spriteRender_F2C20.entity_0x14x->spriteIndex_0x5A_90];
+				const Type_SpriteDef_D951C& def = *RenderSpriteDef(spriteRender_F2C20.entity_0x14x->spriteIndex_0x5A_90);
 				ProjectSprite(across, z - spriteRender_F2C20.cameraZ_0x20, depth);
 				if (ChooseSprite(spriteRender_F2C20.entity_0x14x, def, depth, true, true, sprite, spriteBase, spriteFrame) == SpriteChoice::Draw)
 				{
@@ -1474,9 +1474,9 @@ uint32_t GameRenderHW::SpriteFrameRow(int spriteIndex, int spriteFrame)
 	if (frames <= 1)
 		return 0;
 
-	if (m_ptrLoadedSprites_F66F0x[spriteIndex] && ((*m_ptrLoadedSprites_F66F0x[spriteIndex])->flags_0 & 1))
+	if (RenderLoadedTmap(spriteIndex) && ((*RenderLoadedTmap(spriteIndex))->flags_0 & 1))
 	{
-		if (const type_animations1* anim = GetAnimationByIndex_724F0(animations_E9C08x, spriteIndex))
+		if (const type_animations1* anim = RenderTmapAnimation(spriteIndex))
 			return (uint32_t)std::clamp(anim->FrameIndex_22 - 2, 0, (int)frames - 1);
 	}
 

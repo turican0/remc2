@@ -111,6 +111,11 @@ void RenderTmapUsed(uint16_t tmap)
 		tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[tmap].group_8] = gameState_D41A4.FrameTimingIndex_26;
 }
 
+type_animations1* RenderTmapAnimation(uint16_t tmap)
+{
+	return renderSprites ? renderSprites->animation(tmap) : GetAnimationByIndex_724F0(animations_E9C08x, tmap);
+}
+
 Type_SpriteDef_D951C* RenderSpriteDef(int16_t index)
 {
 	return renderSprites ? renderSprites->spriteDef(index) : &spriteDefsTable_D951C[index];

@@ -7,6 +7,7 @@
 #include "engine_support.h"
 #include "ViewPort.h"
 #include "Type_SpriteDef_D951C.h"
+#include "Type_Animations.h"
 
 enum class SpritePass : uint32_t
 {
@@ -55,6 +56,7 @@ struct RenderSpriteSource
 	bool (*loadTmap)(uint16_t tmap);
 	void (*tmapUsed)(uint16_t tmap); // the frame of the last use of the group of the tmap
 	Type_SpriteDef_D951C* (*spriteDef)(int16_t index);
+	type_animations1* (*animation)(uint16_t tmap); // the animation of an animated tmap
 };
 extern const RenderSpriteSource* renderSprites; // nullptr: MC2
 type_entity_0x6E8E* RenderEntity(uint16_t index);
@@ -62,6 +64,7 @@ Type_Sprite** RenderLoadedTmap(uint16_t tmap);
 bool RenderLoadTmap(uint16_t tmap);
 void RenderTmapUsed(uint16_t tmap);
 Type_SpriteDef_D951C* RenderSpriteDef(int16_t index);
+type_animations1* RenderTmapAnimation(uint16_t tmap);
 
 class GameRenderInterface
 {

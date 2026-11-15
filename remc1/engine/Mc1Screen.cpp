@@ -278,3 +278,112 @@ void SetMapViewPort_309D0_30A10(int32_t size)
 	}
 	viewPort.SetRenderViewPortSize_BCD45(*workScreen_12EFF4_12EFE4 + *viewPortOffset_B5CA0_B5C90, *screenWidth_12EFF0_12EFE0, width, height);
 }
+
+uint8_t workPalette_B7010_B7000[0x300]; // the palette of a flash (34690)
+int32_t paletteComponent_B7310_B7300;
+
+// 344F0: the screen faded out, the palette of the level loaded
+static void LoadLevelPalette_344F0_348B0()
+{
+	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+	mc1State_AE400_AE3F0->dword_0x245_581 = 0;
+	ReadPackedFile_3EEA0_3F1E0(mc1Variant == MC1_VARIANT_HW ? "data/pal1-0.dat" : "data/pal0-0.dat", palette_AE428_AE418);
+}
+
+// a component of the palette moved by delta, 0-3Fh
+static uint8_t ShiftComponent(uint8_t component, int32_t delta)
+{
+	paletteComponent_B7310_B7300 = component + delta;
+	if (paletteComponent_B7310_B7300 < 0)
+		paletteComponent_B7310_B7300 = 0;
+	if (paletteComponent_B7310_B7300 > 0x3F)
+		paletteComponent_B7310_B7300 = 0x3F;
+	return (uint8_t)paletteComponent_B7310_B7300;
+}
+
+void UpdatePalette_34690_34A50()
+{
+	Type_Mc1Settings_AE408_AE3F8* settings = mc1Settings_AE408_AE3F8;
+	const uint8_t* palette = palette_AE428_AE418;
+	uint8_t* work = workPalette_B7010_B7000;
+	switch (settings->flag_0x17_23)
+	{
+	case 0:
+	case 1:
+		LoadLevelPalette_344F0_348B0();
+		settings->flag_0x17_23++;
+		return;
+	case 2:
+		settings->paletteSubMod_0x98_152 = 1;
+		settings->flag_0x17_23 = 3;
+		return;
+	case 3:
+		break;
+	default:
+		return;
+	}
+	if (mc1State_AE400_AE3F0->screenSize_0x219B_8603)
+		ResetPaletteFade_90D27();
+	// the palette by paletteSubMod: 1 faded in, 2-7 the flashes (colours 1-255 into B7010), back to 1
+	switch (settings->paletteSubMod_0x98_152)
+	{
+	case 1:
+		if (FadeInOut_61CC0_621D0((TColor*)palette_AE428_AE418, 4, true, 0) == 4)
+			settings->paletteSubMod_0x98_152 = 0;
+		return;
+	case 2: // red
+		for (int i = 3; i < 0x300; i += 3)
+		{
+			paletteComponent_B7310_B7300 = 0xFF;
+			work[i] = 0x3F;
+			work[i + 1] = palette[i + 1];
+			work[i + 2] = palette[i + 2];
+		}
+		break;
+	case 3: // red and blue
+		for (int i = 3; i < 0x300; i += 3)
+		{
+			work[i] = ShiftComponent(palette[i], 0x30);
+			work[i + 1] = palette[i + 1];
+			work[i + 2] = ShiftComponent(palette[i + 2], 0x40);
+		}
+		break;
+	case 4: // blue
+		for (int i = 3; i < 0x300; i += 3)
+		{
+			paletteComponent_B7310_B7300 = 0xFF;
+			work[i] = palette[i];
+			work[i + 1] = palette[i + 1];
+			work[i + 2] = 0x3F;
+		}
+		break;
+	case 5: // darker (the red from the blue)
+		for (int i = 3; i < 0x300; i += 3)
+		{
+			work[i] = ShiftComponent(palette[i + 2], -0x20);
+			work[i + 1] = ShiftComponent(palette[i + 1], -0x20);
+			work[i + 2] = ShiftComponent(palette[i + 2], -0x20);
+		}
+		break;
+	case 6: // lighter (the red from the blue)
+		for (int i = 3; i < 0x300; i += 3)
+		{
+			work[i] = ShiftComponent(palette[i + 2], 0x30);
+			work[i + 1] = ShiftComponent(palette[i + 1], 0x20);
+			work[i + 2] = ShiftComponent(palette[i + 2], 0x20);
+		}
+		break;
+	case 7: // grey
+		for (int i = 3; i < 0x300; i += 3)
+		{
+			paletteComponent_B7310_B7300 = (palette[i] + palette[i + 1] + palette[i + 2]) / 3;
+			work[i] = work[i + 1] = work[i + 2] = (uint8_t)paletteComponent_B7310_B7300;
+		}
+		break;
+	default:
+		return;
+	}
+	ResetPaletteFade_90D27();
+	PaletteInstall_319A0_319E0((TColor*)work);
+	settings->paletteSubMod_0x98_152 = 1;
+}

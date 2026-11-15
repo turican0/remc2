@@ -291,7 +291,6 @@ void sub_5A050_5A560(Type_Mc1Entity* entity);
 void sub_5A060_5A570(Type_Mc1Entity* entity);
 void sub_5A070_5A580(Type_Mc1Entity* entity);
 void sub_55370_558A0(int16_t entityIndex, int32_t sound, int32_t volume); // the sound of an entity by its position
-void sub_34690_34A50(); // the window frame of the smaller screen
 // the movie (demo): the state and the level saved / loaded, the tmaps of the movie
 int32_t sub_3E350_3E690(int16_t movie);
 int32_t sub_3E410_3E750(int16_t movie);

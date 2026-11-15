@@ -37,13 +37,9 @@ void sub_4E5B0_4E8F0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
 void sub_4D560_4D8A0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
-//!!!!! not ported yet
-//!!!!! not ported yet
-//!!!!! not ported yet
 void sub_448E0_44C20() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_408D0_40C10() { NotPorted(__func__); }
-//!!!!! not ported yet
 //!!!!! not ported yet
 void sub_433C0_43700() { NotPorted(__func__); }
 //!!!!! not ported yet
@@ -420,7 +416,7 @@ Type_Mc1Entity* sub_3C4E0_3C820(Type_Mc1Position* /*position*/) { NotPorted(__fu
 Type_Mc1Entity* sub_3C510_3C850(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
 //!!!!! not ported yet (class model)
 Type_Mc1Entity* sub_3C540_3C880(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
-//!!!!! not ported yet (class action)
+//!!!!! not ported yet
 // 45C90: the sounds of the flight (HMI)
 void sub_55890_55DC0(int16_t /*a1*/, int32_t /*a2*/, int32_t /*a3*/) { NotPorted(__func__); }
 void sub_20D00_20D00(int32_t /*a1*/) { NotPorted(__func__); }
@@ -593,9 +589,6 @@ void sub_55370_558A0(int16_t /*entityIndex*/, int32_t /*sound*/, int32_t /*volum
 		return;
 	NotPorted(__func__);
 }
-//!!!!! not ported yet
-void sub_34690_34A50() { NotPorted(__func__); }
-//!!!!! not ported yet
 //!!!!! not ported yet
 int32_t sub_3E350_3E690(int16_t /*movie*/) { NotPorted(__func__); return 0; }
 int32_t sub_3E410_3E750(int16_t /*movie*/) { NotPorted(__func__); return 0; }

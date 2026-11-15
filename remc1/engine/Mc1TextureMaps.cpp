@@ -9,6 +9,10 @@
 #include "Mc1Blocks.h"
 #include "Mc1System.h"
 #include <algorithm>
+#include <vector>
+#include "../../remc2/engine/Basic.h"
+#include "../../remc2/engine/TextureMaps.h"
+#include "../../remc2/shared/EventDispatcher.h"
 #include "../../remc2/utilities/DataFileIO.h"
 #include "../../remc2/utilities/DataFileRNC.h"
 
@@ -740,6 +744,45 @@ uint32_t GetTmapGroupSize_58AD0_58FE0(uint16_t tmap)
 	return size;
 }
 
+// port: the picture of a loaded tmap to the HW renderer (TEXTURE_LOADED), as MC2 InitTmaps / InitTmapAnimation_721C0:
+// the frames of an animation one under the other
+void UploadTmapTexture(uint16_t tmap)
+{
+	Type_Sprite** entry = loadedTmaps_12DF8C_12DF7C[tmap];
+	if (!entry)
+		return;
+	const Type_Sprite* sprite = *entry;
+	if (sprite->flags_0 & 1)
+	{
+		const type_animations1* animation = GetAnimationByIndex_10FD0_10FD0(animations_AE3E0_AE3D0, (int16_t)tmap);
+		if (!animation)
+			return;
+		const size_t frameBytes = (size_t)animation->Width_18 * animation->Height_20;
+		std::vector<uint8_t> raw(frameBytes * std::max<int16_t>(1, animation->CountOfFrames_16));
+		std::vector<uint8_t*> frames = GetRawFrames(animation->CountOfFrames_16, *(Type_Sprite**)animation->Sprite_4, animation->NextFrameOffset_14);
+		for (size_t f = 0; f < frames.size(); f++)
+		{
+			memcpy(raw.data() + frameBytes * f, frames[f], frameBytes);
+			delete[] frames[f];
+		}
+		m_spriteFrameCount[tmap] = std::max<uint16_t>(1, animation->CountOfFrames_16);
+		EventDispatcher::I->DispatchEvent<ResourceType, uint32_t, uint8_t*, uint32_t, uint32_t>(EventType::E_RESOURCE_CHANGE,
+			ResourceType::TEXTURE_LOADED, tmap, raw.data(), animation->Width_18, animation->Height_20 * std::max<int16_t>(1, animation->CountOfFrames_16));
+		return;
+	}
+	if (TmapSize(tmap) < sizeof(Type_Sprite))
+		return; // a placeholder without a picture
+	m_spriteFrameCount[tmap] = 1;
+	EventDispatcher::I->DispatchEvent<ResourceType, uint32_t, uint8_t*, uint32_t, uint32_t>(EventType::E_RESOURCE_CHANGE,
+		ResourceType::TEXTURE_LOADED, tmap, (uint8_t*)sprite->textureBuffer, sprite->width, sprite->height);
+}
+
+void UploadLoadedTmapTextures()
+{
+	for (uint16_t i = 0; i < 0x211; i++)
+		UploadTmapTexture(i);
+}
+
 void LoadTmapGroup_58B30_59040(uint16_t tmap)
 {
 	const uint16_t group = TmapGroup(tmap);
@@ -756,6 +799,7 @@ void LoadTmapGroup_58B30_59040(uint16_t tmap)
 		tmapLastUse_12CF00_12CEF0[i] = frame;
 		if ((*loadedTmaps_12DF8C_12DF7C[i])->flags_0 & 1)
 			InitTmapAnimation_10D40_10D40(animations_AE3E0_AE3D0, loadedTmaps_12DF8C_12DF7C[i], (int16_t)i);
+		UploadTmapTexture(i);
 	}
 }
 

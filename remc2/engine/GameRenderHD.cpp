@@ -1825,7 +1825,7 @@ uint16_t GameRenderHD::DrawTileSpriteReflections_3FD60(int a2x, uint8_t playersC
 	{
 		if (result < 0x3E8u)
 		{
-			v3x = Entities_EA3E4[result];
+			v3x = RenderEntity(result);
 			v41x = v3x;
 			if (!(v3x->flags_0xc_12_15.byte[0] & 0x21))
 			{
@@ -1850,7 +1850,7 @@ uint16_t GameRenderHD::DrawTileSpriteReflections_3FD60(int a2x, uint8_t playersC
 					{
 						spriteRender_F2C20.fogShade_0x00 = 0;
 					}
-					v9x = &spriteDefsTable_D951C[v41x->spriteIndex_0x5A_90];
+					v9x = RenderSpriteDef(v41x->spriteIndex_0x5A_90);
 					v10 = v6 * spriteRender_F2C20.projectionScale_0x18 / v40;
 					v11 = spriteRender_F2C20.projectionScale_0x18 * v42 / v40 + spriteRender_F2C20.horizonOffset_0x22;
 					spriteRender_F2C20.screenY_0x04 = ((v10 * spriteRender_F2C20.cos_0x11 - spriteRender_F2C20.sin_0x0d * v11) >> 16) + spriteRender_F2C20.centerX_0x24;
@@ -1860,27 +1860,27 @@ uint16_t GameRenderHD::DrawTileSpriteReflections_3FD60(int a2x, uint8_t playersC
 					switch (v12)
 					{
 					case 0:
-						if (m_ptrLoadedSprites_F66F0x[v9x->textureIdx_0])//tree
+						if (RenderLoadedTmap(v9x->textureIdx_0))//tree
 						{
 							//v14 = v9x->word_0;
 							//v15 = 4 * v9x->word_0;
 							goto LABEL_16;
 						}
-						if (MainInitTmaps_71520(v9x->textureIdx_0))
+						if (RenderLoadTmap(v9x->textureIdx_0))
 						{
 							//v14 = v9x->word_0;
 							//v15 = 4 * v14;
 						LABEL_16:
-							tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->textureIdx_0].group_8] = gameState_D41A4.FrameTimingIndex_26;
-							a1x = *m_ptrLoadedSprites_F66F0x[v9x->textureIdx_0];
+							RenderTmapUsed(v9x->textureIdx_0);
+							a1x = *RenderLoadedTmap(v9x->textureIdx_0);
 							goto LABEL_47;
 						}
 						break;
 					case 1:
-						if (!m_ptrLoadedSprites_F66F0x[v9x->textureIdx_0] && !MainInitTmaps_71520(v9x->textureIdx_0))
+						if (!RenderLoadedTmap(v9x->textureIdx_0) && !RenderLoadTmap(v9x->textureIdx_0))
 							break;
-						tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->textureIdx_0].group_8] = gameState_D41A4.FrameTimingIndex_26;
-						a1x = *m_ptrLoadedSprites_F66F0x[v9x->textureIdx_0];
+						RenderTmapUsed(v9x->textureIdx_0);
+						a1x = *RenderLoadedTmap(v9x->textureIdx_0);
 						goto LABEL_47;
 					case 2:
 					case 3:
@@ -1902,30 +1902,30 @@ uint16_t GameRenderHD::DrawTileSpriteReflections_3FD60(int a2x, uint8_t playersC
 						v26 = (((v41x->yaw_0x1C_28 - (uint16_t)yaw_F2CC0) >> 3) & 0xF0) >> 4;
 						if (v26 < 8)
 						{
-							if (m_ptrLoadedSprites_F66F0x[v26 + v9x->textureIdx_0])
+							if (RenderLoadedTmap(v26 + v9x->textureIdx_0))
 							{
-								tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v26 + v9x->textureIdx_0].group_8] = gameState_D41A4.FrameTimingIndex_26;
+								RenderTmapUsed(v26 + v9x->textureIdx_0);
 							}
 							else
 							{
-								if (!MainInitTmaps_71520(v26 + v9x->textureIdx_0))
+								if (!RenderLoadTmap(v26 + v9x->textureIdx_0))
 									break;
-								tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v26 + v9x->textureIdx_0].group_8] = gameState_D41A4.FrameTimingIndex_26;
+								RenderTmapUsed(v26 + v9x->textureIdx_0);
 							}
-							a1x = *m_ptrLoadedSprites_F66F0x[v26 + v9x->textureIdx_0];
+							a1x = *RenderLoadedTmap(v26 + v9x->textureIdx_0);
 							goto LABEL_47;
 						}
-						if (m_ptrLoadedSprites_F66F0x[v9x->textureIdx_0 + 15 - v26])
+						if (RenderLoadedTmap(v9x->textureIdx_0 + 15 - v26))
 						{
-							tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->textureIdx_0 + 15 - v26].group_8] = gameState_D41A4.FrameTimingIndex_26;
+							RenderTmapUsed(v9x->textureIdx_0 + 15 - v26);
 						}
 						else
 						{
-							if (!MainInitTmaps_71520(v9x->textureIdx_0 + 15 - v26))
+							if (!RenderLoadTmap(v9x->textureIdx_0 + 15 - v26))
 								break;
-							tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->textureIdx_0 + 15 - v26].group_8] = gameState_D41A4.FrameTimingIndex_26;
+							RenderTmapUsed(v9x->textureIdx_0 + 15 - v26);
 						}
-						a1x = *m_ptrLoadedSprites_F66F0x[v9x->textureIdx_0 + 15 - v26];
+						a1x = *RenderLoadedTmap(v9x->textureIdx_0 + 15 - v26);
 						spriteRender_F2C20.width_0x08 = a1x->width;
 						spriteRender_F2C20.height_0x06 = a1x->height;
 						v28 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v9x->worldSize_8) / v40;
@@ -1936,17 +1936,17 @@ uint16_t GameRenderHD::DrawTileSpriteReflections_3FD60(int a2x, uint8_t playersC
 					case 18:
 						v29 = (((v41x->yaw_0x1C_28 - (uint16_t)yaw_F2CC0) >> 3) & 0xF0) >> 4;
 						v30 = v29 + v9x->textureIdx_0;
-						if (m_ptrLoadedSprites_F66F0x[v30])
+						if (RenderLoadedTmap(v30))
 						{
-							tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v30].group_8] = gameState_D41A4.FrameTimingIndex_26;
+							RenderTmapUsed(v30);
 						}
 						else
 						{
-							if (!MainInitTmaps_71520(v29 + v9x->textureIdx_0))
+							if (!RenderLoadTmap(v29 + v9x->textureIdx_0))
 								break;
-							tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v29 + v9x->textureIdx_0].group_8] = gameState_D41A4.FrameTimingIndex_26;
+							RenderTmapUsed(v29 + v9x->textureIdx_0);
 						}
-						a1x = *m_ptrLoadedSprites_F66F0x[v9x->textureIdx_0 + v29];
+						a1x = *RenderLoadedTmap(v9x->textureIdx_0 + v29);
 						spriteRender_F2C20.width_0x08 = a1x->width;
 						spriteRender_F2C20.height_0x06 = a1x->height;
 						v31 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v9x->worldSize_8) / v40;
@@ -1959,14 +1959,14 @@ uint16_t GameRenderHD::DrawTileSpriteReflections_3FD60(int a2x, uint8_t playersC
 						if (v19 >= 8)
 						{
 							v24 = v9x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v19];
-							if (!m_ptrLoadedSprites_F66F0x[v24])
+							if (!RenderLoadedTmap(v24))
 							{
-								if (!MainInitTmaps_71520(v9x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v19]))
+								if (!RenderLoadTmap(v9x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v19]))
 									break;
 								v24 = v9x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v19];
 							}
-							tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v24].group_8] = gameState_D41A4.FrameTimingIndex_26;
-							a1x = *m_ptrLoadedSprites_F66F0x[v9x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v19]];
+							RenderTmapUsed(v24);
+							a1x = *RenderLoadedTmap(v9x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v19]);
 							spriteRender_F2C20.width_0x08 = a1x->width;
 							spriteRender_F2C20.height_0x06 = a1x->height;
 							v25 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v9x->worldSize_8) / v40;
@@ -1978,17 +1978,17 @@ uint16_t GameRenderHD::DrawTileSpriteReflections_3FD60(int a2x, uint8_t playersC
 						{
 							v20 = (uint8_t)directionTable_D4750[12 + v19];
 							v21 = v20 + v9x->textureIdx_0;
-							if (m_ptrLoadedSprites_F66F0x[v21])
+							if (RenderLoadedTmap(v21))
 							{
-								tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v21].group_8] = gameState_D41A4.FrameTimingIndex_26;
+								RenderTmapUsed(v21);
 							}
 							else
 							{
-								if (!MainInitTmaps_71520(v9x->textureIdx_0 + (uint8_t)v20))
+								if (!RenderLoadTmap(v9x->textureIdx_0 + (uint8_t)v20))
 									break;
-								tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v19]].group_8] = gameState_D41A4.FrameTimingIndex_26;
+								RenderTmapUsed(v9x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v19]);
 							}
-							a1x = *m_ptrLoadedSprites_F66F0x[v9x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v19]];
+							a1x = *RenderLoadedTmap(v9x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v19]);
 							spriteRender_F2C20.width_0x08 = a1x->width;
 							spriteRender_F2C20.height_0x06 = a1x->height;
 							v22 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v9x->worldSize_8) / v40;
@@ -2002,17 +2002,17 @@ uint16_t GameRenderHD::DrawTileSpriteReflections_3FD60(int a2x, uint8_t playersC
 						if (v32 >= 8)
 						{
 							v35 = v9x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v32];//goat rotations
-							if (m_ptrLoadedSprites_F66F0x[v35])
+							if (RenderLoadedTmap(v35))
 							{
-								tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v35].group_8] = gameState_D41A4.FrameTimingIndex_26;
+								RenderTmapUsed(v35);
 							}
 							else
 							{
-								if (!MainInitTmaps_71520(v9x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v32]))
+								if (!RenderLoadTmap(v9x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v32]))
 									break;
-								tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v32]].group_8] = gameState_D41A4.FrameTimingIndex_26;
+								RenderTmapUsed(v9x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v32]);
 							}
-							a1x = *m_ptrLoadedSprites_F66F0x[(uint8_t)directionTable_D4750[28 + v32] + v9x->textureIdx_0];
+							a1x = *RenderLoadedTmap((uint8_t)directionTable_D4750[28 + v32] + v9x->textureIdx_0);
 							spriteRender_F2C20.width_0x08 = a1x->width;
 							spriteRender_F2C20.height_0x06 = a1x->height;
 							v36 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v9x->worldSize_8) / v40;
@@ -2023,17 +2023,17 @@ uint16_t GameRenderHD::DrawTileSpriteReflections_3FD60(int a2x, uint8_t playersC
 						else
 						{
 							v33 = v9x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v32];//goat rotations
-							if (m_ptrLoadedSprites_F66F0x[v33])
+							if (RenderLoadedTmap(v33))
 							{
-								tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v33].group_8] = gameState_D41A4.FrameTimingIndex_26;
+								RenderTmapUsed(v33);
 							}
 							else
 							{
-								if (!MainInitTmaps_71520(v9x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v32]))
+								if (!RenderLoadTmap(v9x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v32]))
 									break;
-								tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v32]].group_8] = gameState_D41A4.FrameTimingIndex_26;
+								RenderTmapUsed(v9x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v32]);
 							}
-							a1x = *m_ptrLoadedSprites_F66F0x[v9x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v32]];
+							a1x = *RenderLoadedTmap(v9x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v32]);
 							spriteRender_F2C20.width_0x08 = a1x->width;
 							spriteRender_F2C20.height_0x06 = a1x->height;
 							v34 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v9x->worldSize_8) / v40;
@@ -2044,17 +2044,17 @@ uint16_t GameRenderHD::DrawTileSpriteReflections_3FD60(int a2x, uint8_t playersC
 						goto LABEL_69;
 					case 21:
 						v16 = v9x->textureIdx_0;
-						if (m_ptrLoadedSprites_F66F0x[v16])
+						if (RenderLoadedTmap(v16))
 						{
-							tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v16].group_8] = gameState_D41A4.FrameTimingIndex_26;
+							RenderTmapUsed(v16);
 						}
 						else
 						{
-							if (!MainInitTmaps_71520(v16))
+							if (!RenderLoadTmap(v16))
 								break;
-							tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->textureIdx_0].group_8] = gameState_D41A4.FrameTimingIndex_26;
+							RenderTmapUsed(v9x->textureIdx_0);
 						}
-						v17x = m_ptrLoadedSprites_F66F0x[v9x->textureIdx_0];
+						v17x = RenderLoadedTmap(v9x->textureIdx_0);
 						x_BYTE_F2CC6 = 1;
 						a1x = *v17x;
 						goto LABEL_47;
@@ -2076,17 +2076,17 @@ uint16_t GameRenderHD::DrawTileSpriteReflections_3FD60(int a2x, uint8_t playersC
 						x_BYTE_F2CC6 = 1;
 					LABEL_26:
 						v18 = v41x->animationFrame_0x5C_92 + v9x->textureIdx_0;//fair animation
-						if (m_ptrLoadedSprites_F66F0x[v18])
+						if (RenderLoadedTmap(v18))
 						{
-							tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v18].group_8] = gameState_D41A4.FrameTimingIndex_26;
+							RenderTmapUsed(v18);
 						}
 						else
 						{
-							if (!MainInitTmaps_71520(v9x->textureIdx_0 + v41x->animationFrame_0x5C_92))
+							if (!RenderLoadTmap(v9x->textureIdx_0 + v41x->animationFrame_0x5C_92))
 								break;
-							tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->textureIdx_0 + v41x->animationFrame_0x5C_92].group_8] = gameState_D41A4.FrameTimingIndex_26;
+							RenderTmapUsed(v9x->textureIdx_0 + v41x->animationFrame_0x5C_92);
 						}
-						a1x = *m_ptrLoadedSprites_F66F0x[v9x->textureIdx_0 + v41x->animationFrame_0x5C_92];
+						a1x = *RenderLoadedTmap(v9x->textureIdx_0 + v41x->animationFrame_0x5C_92);
 					LABEL_47:
 						spriteRender_F2C20.width_0x08 = a1x->width;
 						spriteRender_F2C20.height_0x06 = a1x->height;
@@ -4211,7 +4211,7 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 
 		if (mc1Depth && result >= 1000)
 			break;
-		v3x = Entities_EA3E4[result];
+		v3x = RenderEntity(result);
 		spriteRender_F2C20.entity_0x14x = v3x;
 		if (!(v3x->flags_0xc_12_15.byte[0] & 0x21))
 		{
@@ -4234,7 +4234,7 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 							spriteRender_F2C20.fogShade_0x00 = 0x2000;
 						else
 							spriteRender_F2C20.fogShade_0x00 = v6 < spriteRender_F2C20.fogEnd_0x16 ? (int)(32 * (signed __int64)(spriteRender_F2C20.fogEnd_0x16 - (v99 * v99 + v5 * v5)) / spriteRender_F2C20.fogThickness_0x12) << 8 : 0;
-						v7x = &spriteDefsTable_D951C[spriteRender_F2C20.entity_0x14x->spriteIndex_0x5A_90];
+						v7x = RenderSpriteDef(spriteRender_F2C20.entity_0x14x->spriteIndex_0x5A_90);
 						if (!v7x->lightingTableIdx_10)
 						{
 							v8 = v5 * spriteRender_F2C20.projectionScale_0x18 / v99;
@@ -4246,26 +4246,26 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 							switch (v10)
 							{
 							case 0:
-								if (m_ptrLoadedSprites_F66F0x[v7x->textureIdx_0])//tree
+								if (RenderLoadedTmap(v7x->textureIdx_0))//tree
 								{
 									//v12 = v7x->word_0;
 									//v13 = 4 * v7x->word_0;
 								}
 								else
 								{
-									if (!MainInitTmaps_71520(v7x->textureIdx_0))
+									if (!RenderLoadTmap(v7x->textureIdx_0))
 										goto LABEL_178;
 									//v12 = v7x->word_0;
 									//v13 = 4 * v12;
 								}
-								tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->textureIdx_0].group_8] = gameState_D41A4.FrameTimingIndex_26;
-								a1y = *m_ptrLoadedSprites_F66F0x[v7x->textureIdx_0];
+								RenderTmapUsed(v7x->textureIdx_0);
+								a1y = *RenderLoadedTmap(v7x->textureIdx_0);
 								goto LABEL_51;
 							case 1:
-								if (!m_ptrLoadedSprites_F66F0x[v7x->textureIdx_0] && !MainInitTmaps_71520(v7x->textureIdx_0))
+								if (!RenderLoadedTmap(v7x->textureIdx_0) && !RenderLoadTmap(v7x->textureIdx_0))
 									goto LABEL_178;
-								tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->textureIdx_0].group_8] = gameState_D41A4.FrameTimingIndex_26;
-								a1y = *m_ptrLoadedSprites_F66F0x[v7x->textureIdx_0];
+								RenderTmapUsed(v7x->textureIdx_0);
+								a1y = *RenderLoadedTmap(v7x->textureIdx_0);
 								goto LABEL_51;
 							case 2:
 							case 3:
@@ -4287,32 +4287,32 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 								v25 = (((spriteRender_F2C20.entity_0x14x->yaw_0x1C_28 - (uint16_t)yaw_F2CC0) >> 3) & 0xF0) >> 4;
 								if (v25 < 8)
 								{
-									if (m_ptrLoadedSprites_F66F0x[v25 + v7x->textureIdx_0])
+									if (RenderLoadedTmap(v25 + v7x->textureIdx_0))
 									{
-										v27 = str_TMAPS00TAB_BEGIN_BUFFER[v25 + v7x->textureIdx_0].group_8;
+										v27 = v25 + v7x->textureIdx_0; // the tmap (RenderTmapUsed)
 									}
 									else
 									{
-										if (!MainInitTmaps_71520(v25 + v7x->textureIdx_0))
+										if (!RenderLoadTmap(v25 + v7x->textureIdx_0))
 											goto LABEL_178;
-										v27 = str_TMAPS00TAB_BEGIN_BUFFER[v25 + v7x->textureIdx_0].group_8;
+										v27 = v25 + v7x->textureIdx_0; // the tmap (RenderTmapUsed)
 									}
-									tmapGroupLastUse_F5730[v27] = gameState_D41A4.FrameTimingIndex_26;
-									a1y = *m_ptrLoadedSprites_F66F0x[v25 + v7x->textureIdx_0];
+									RenderTmapUsed(v27);
+									a1y = *RenderLoadedTmap(v25 + v7x->textureIdx_0);
 									goto LABEL_51;
 								}
-								if (m_ptrLoadedSprites_F66F0x[v7x->textureIdx_0 + 15 - v25])
+								if (RenderLoadedTmap(v7x->textureIdx_0 + 15 - v25))
 								{
-									v30 = str_TMAPS00TAB_BEGIN_BUFFER[v7x->textureIdx_0 + 15 - v25].group_8;
+									v30 = v7x->textureIdx_0 + 15 - v25; // the tmap (RenderTmapUsed)
 								}
 								else
 								{
-									if (!MainInitTmaps_71520(v7x->textureIdx_0 + 15 - v25))
+									if (!RenderLoadTmap(v7x->textureIdx_0 + 15 - v25))
 										goto LABEL_178;
-									v30 = str_TMAPS00TAB_BEGIN_BUFFER[v7x->textureIdx_0 + 15 - v25].group_8;
+									v30 = v7x->textureIdx_0 + 15 - v25; // the tmap (RenderTmapUsed)
 								}
-								tmapGroupLastUse_F5730[v30] = gameState_D41A4.FrameTimingIndex_26;
-								a1y = *m_ptrLoadedSprites_F66F0x[v7x->textureIdx_0 + 15 - v25];
+								RenderTmapUsed(v30);
+								a1y = *RenderLoadedTmap(v7x->textureIdx_0 + 15 - v25);
 								spriteRender_F2C20.width_0x08 = a1y->width;
 								spriteRender_F2C20.height_0x06 = a1y->height;
 								v31 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v7x->worldSize_8) / v99;
@@ -4323,18 +4323,18 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 							case 18:
 								v32 = (((spriteRender_F2C20.entity_0x14x->yaw_0x1C_28 - (uint16_t)yaw_F2CC0) >> 3) & 0xF0) >> 4;
 								v33 = v32 + v7x->textureIdx_0;
-								if (m_ptrLoadedSprites_F66F0x[v33])
+								if (RenderLoadedTmap(v33))
 								{
-									v35 = str_TMAPS00TAB_BEGIN_BUFFER[v33].group_8;
+									v35 = v33; // the tmap (RenderTmapUsed)
 								}
 								else
 								{
-									if (!MainInitTmaps_71520(v32 + v7x->textureIdx_0))
+									if (!RenderLoadTmap(v32 + v7x->textureIdx_0))
 										goto LABEL_178;
-									v35 = str_TMAPS00TAB_BEGIN_BUFFER[v32 + v7x->textureIdx_0].group_8;
+									v35 = v32 + v7x->textureIdx_0; // the tmap (RenderTmapUsed)
 								}
-								tmapGroupLastUse_F5730[v35] = gameState_D41A4.FrameTimingIndex_26;
-								a1y = *m_ptrLoadedSprites_F66F0x[v32 + v7x->textureIdx_0];
+								RenderTmapUsed(v35);
+								a1y = *RenderLoadedTmap(v32 + v7x->textureIdx_0);
 								spriteRender_F2C20.width_0x08 = a1y->width;
 								spriteRender_F2C20.height_0x06 = a1y->height;
 								v36 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v7x->worldSize_8) / v99;
@@ -4348,17 +4348,17 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 								{
 									v22 = (uint8_t)directionTable_D4750[12 + v18];
 									v23 = v22 + v7x->textureIdx_0;
-									if (m_ptrLoadedSprites_F66F0x[v23])
+									if (RenderLoadedTmap(v23))
 									{
-										tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v23].group_8] = gameState_D41A4.FrameTimingIndex_26;
+										RenderTmapUsed(v23);
 									}
 									else
 									{
-										if (!MainInitTmaps_71520(v7x->textureIdx_0 + (uint8_t)v22))
+										if (!RenderLoadTmap(v7x->textureIdx_0 + (uint8_t)v22))
 											goto LABEL_178;
-										tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v18]].group_8] = gameState_D41A4.FrameTimingIndex_26;
+										RenderTmapUsed(v7x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v18]);
 									}
-									a1y = *m_ptrLoadedSprites_F66F0x[v7x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v18]];
+									a1y = *RenderLoadedTmap(v7x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v18]);
 									spriteRender_F2C20.width_0x08 = a1y->width;
 									spriteRender_F2C20.height_0x06 = a1y->height;
 									v24 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v7x->worldSize_8) / v99;
@@ -4369,17 +4369,17 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 								else
 								{
 									v19 = (uint8_t)directionTable_D4750[12 + v18] + v7x->textureIdx_0;
-									if (m_ptrLoadedSprites_F66F0x[v19])
+									if (RenderLoadedTmap(v19))
 									{
-										tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v19].group_8] = gameState_D41A4.FrameTimingIndex_26;
+										RenderTmapUsed(v19);
 									}
 									else
 									{
-										if (!MainInitTmaps_71520(v7x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v18]))
+										if (!RenderLoadTmap(v7x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v18]))
 											goto LABEL_178;
-										tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v18]].group_8] = gameState_D41A4.FrameTimingIndex_26;
+										RenderTmapUsed(v7x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v18]);
 									}
-									a1y = *m_ptrLoadedSprites_F66F0x[v7x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v18]];
+									a1y = *RenderLoadedTmap(v7x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v18]);
 									spriteRender_F2C20.width_0x08 = a1y->width;
 									spriteRender_F2C20.height_0x06 = a1y->height;
 									v20 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v7x->worldSize_8) / v99;
@@ -4393,14 +4393,14 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 								if (v37 >= 8)
 								{
 									v41 = v7x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v37];//goat rotations
-									if (!m_ptrLoadedSprites_F66F0x[v41])
+									if (!RenderLoadedTmap(v41))
 									{
-										if (!MainInitTmaps_71520(v7x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v37]))
+										if (!RenderLoadTmap(v7x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v37]))
 											goto LABEL_178;
 										v41 = (uint8_t)directionTable_D4750[28 + v37] + v7x->textureIdx_0;
 									}
-									tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v41].group_8] = gameState_D41A4.FrameTimingIndex_26;
-									a1y = *m_ptrLoadedSprites_F66F0x[v7x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v37]];
+									RenderTmapUsed(v41);
+									a1y = *RenderLoadedTmap(v7x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v37]);
 									spriteRender_F2C20.width_0x08 = a1y->width;
 									spriteRender_F2C20.height_0x06 = a1y->height;
 									v42 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v7x->worldSize_8) / v99;
@@ -4412,17 +4412,17 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 								{
 									v38 = (uint8_t)directionTable_D4750[28 + v37];
 									v39 = v38 + v7x->textureIdx_0;//villiger rotations
-									if (m_ptrLoadedSprites_F66F0x[v39])
+									if (RenderLoadedTmap(v39))
 									{
-										tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v39].group_8] = gameState_D41A4.FrameTimingIndex_26;
+										RenderTmapUsed(v39);
 									}
 									else
 									{
-										if (!MainInitTmaps_71520(v7x->textureIdx_0 + (uint8_t)v38))
+										if (!RenderLoadTmap(v7x->textureIdx_0 + (uint8_t)v38))
 											goto LABEL_178;
-										tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v37]].group_8] = gameState_D41A4.FrameTimingIndex_26;
+										RenderTmapUsed(v7x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v37]);
 									}
-									a1y = *m_ptrLoadedSprites_F66F0x[v7x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v37]];
+									a1y = *RenderLoadedTmap(v7x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v37]);
 									spriteRender_F2C20.width_0x08 = a1y->width;
 									spriteRender_F2C20.height_0x06 = a1y->height;
 									v40 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v7x->worldSize_8) / v99;
@@ -4432,20 +4432,20 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 								}
 								goto LABEL_72;
 							case 21:
-								if (m_ptrLoadedSprites_F66F0x[v7x->textureIdx_0])//white sphere ball
+								if (RenderLoadedTmap(v7x->textureIdx_0))//white sphere ball
 								{
 									//v15 = v7x->textureIdx_0;
 									//v16 = 4 * v7x->textureIdx_0;
 								}
 								else
 								{
-									if (!MainInitTmaps_71520(v7x->textureIdx_0))
+									if (!RenderLoadTmap(v7x->textureIdx_0))
 										goto LABEL_178;
 									//v15 = v7x->textureIdx_0;
 									//v16 = 4 * v15;
 								}
-								tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->textureIdx_0].group_8] = gameState_D41A4.FrameTimingIndex_26;
-								a1y = *m_ptrLoadedSprites_F66F0x[v7x->textureIdx_0];
+								RenderTmapUsed(v7x->textureIdx_0);
+								a1y = *RenderLoadedTmap(v7x->textureIdx_0);
 								goto LABEL_51;
 							case 22:
 							case 23:
@@ -4465,17 +4465,17 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 								x_BYTE_F2CC6 = 1;
 							LABEL_29:
 								v17 = v7x->textureIdx_0 + spriteRender_F2C20.entity_0x14x->animationFrame_0x5C_92;
-								if (m_ptrLoadedSprites_F66F0x[v17])
+								if (RenderLoadedTmap(v17))
 								{
-									tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v17].group_8] = gameState_D41A4.FrameTimingIndex_26;
+									RenderTmapUsed(v17);
 								}
 								else
 								{
-									if (!MainInitTmaps_71520(v7x->textureIdx_0 + spriteRender_F2C20.entity_0x14x->animationFrame_0x5C_92))
+									if (!RenderLoadTmap(v7x->textureIdx_0 + spriteRender_F2C20.entity_0x14x->animationFrame_0x5C_92))
 										goto LABEL_178;
-									tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v7x->textureIdx_0 + spriteRender_F2C20.entity_0x14x->animationFrame_0x5C_92].group_8] = gameState_D41A4.FrameTimingIndex_26;
+									RenderTmapUsed(v7x->textureIdx_0 + spriteRender_F2C20.entity_0x14x->animationFrame_0x5C_92);
 								}
-								a1y = *m_ptrLoadedSprites_F66F0x[v7x->textureIdx_0 + spriteRender_F2C20.entity_0x14x->animationFrame_0x5C_92];
+								a1y = *RenderLoadedTmap(v7x->textureIdx_0 + spriteRender_F2C20.entity_0x14x->animationFrame_0x5C_92);
 							LABEL_51:
 								spriteRender_F2C20.width_0x08 = a1y->width;
 								spriteRender_F2C20.height_0x06 = a1y->height;
@@ -4575,7 +4575,7 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 				{
 					spriteRender_F2C20.fogShade_0x00 = 0;
 				}
-				v52x = &spriteDefsTable_D951C[spriteRender_F2C20.entity_0x14x->spriteIndex_0x5A_90];
+				v52x = RenderSpriteDef(spriteRender_F2C20.entity_0x14x->spriteIndex_0x5A_90);
 				v53 = v49 * spriteRender_F2C20.projectionScale_0x18 / v100;
 				v54 = spriteRender_F2C20.projectionScale_0x18 * (v48 - spriteRender_F2C20.cameraZ_0x20) / v100 + spriteRender_F2C20.horizonOffset_0x22;
 				spriteRender_F2C20.screenY_0x04 = ((v53 * spriteRender_F2C20.cos_0x11 - spriteRender_F2C20.sin_0x0d * v54) >> 16) + spriteRender_F2C20.centerX_0x24;
@@ -4585,30 +4585,30 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 				switch (v55)
 				{
 				case 0:
-					if (m_ptrLoadedSprites_F66F0x[v52x->textureIdx_0])//tree
+					if (RenderLoadedTmap(v52x->textureIdx_0))//tree
 					{
 						goto LABEL_105;
 					}
-					if (MainInitTmaps_71520(v52x->textureIdx_0))
+					if (RenderLoadTmap(v52x->textureIdx_0))
 					{
 					LABEL_105:
-						tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v52x->textureIdx_0].group_8] = gameState_D41A4.FrameTimingIndex_26;
-						a1y = *m_ptrLoadedSprites_F66F0x[v52x->textureIdx_0];
+						RenderTmapUsed(v52x->textureIdx_0);
+						a1y = *RenderLoadedTmap(v52x->textureIdx_0);
 						goto LABEL_141;
 					}
 					break;
 				case 1:
-					if (m_ptrLoadedSprites_F66F0x[v52x->textureIdx_0])
+					if (RenderLoadedTmap(v52x->textureIdx_0))
 					{
-						tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v52x->textureIdx_0].group_8] = gameState_D41A4.FrameTimingIndex_26;
+						RenderTmapUsed(v52x->textureIdx_0);
 					}
 					else
 					{
-						if (!MainInitTmaps_71520(v52x->textureIdx_0))
+						if (!RenderLoadTmap(v52x->textureIdx_0))
 							break;
-						tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v52x->textureIdx_0].group_8] = gameState_D41A4.FrameTimingIndex_26;
+						RenderTmapUsed(v52x->textureIdx_0);
 					}
-					a1y = *m_ptrLoadedSprites_F66F0x[v52x->textureIdx_0];
+					a1y = *RenderLoadedTmap(v52x->textureIdx_0);
 					goto LABEL_141;
 				case 2:
 				case 3:
@@ -4633,32 +4633,32 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 					if (v72 < 8)
 					{
 						v73 = v72 + v52x->textureIdx_0;
-						if (m_ptrLoadedSprites_F66F0x[v73])
+						if (RenderLoadedTmap(v73))
 						{
-							v75 = str_TMAPS00TAB_BEGIN_BUFFER[v73].group_8;
+							v75 = v73; // the tmap (RenderTmapUsed)
 						}
 						else
 						{
-							if (!MainInitTmaps_71520(v72 + v52x->textureIdx_0))
+							if (!RenderLoadTmap(v72 + v52x->textureIdx_0))
 								break;
-							v75 = str_TMAPS00TAB_BEGIN_BUFFER[v72 + v52x->textureIdx_0].group_8;
+							v75 = v72 + v52x->textureIdx_0; // the tmap (RenderTmapUsed)
 						}
-						tmapGroupLastUse_F5730[v75] = gameState_D41A4.FrameTimingIndex_26;
-						a1y = *m_ptrLoadedSprites_F66F0x[v52x->textureIdx_0 + v72];
+						RenderTmapUsed(v75);
+						a1y = *RenderLoadedTmap(v52x->textureIdx_0 + v72);
 						goto LABEL_141;
 					}
 					v77 = v52x->textureIdx_0 + 15 - v72;
-					if (m_ptrLoadedSprites_F66F0x[v77])
+					if (RenderLoadedTmap(v77))
 					{
-						tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v77].group_8] = gameState_D41A4.FrameTimingIndex_26;
+						RenderTmapUsed(v77);
 					}
 					else
 					{
-						if (!MainInitTmaps_71520(v52x->textureIdx_0 + 15 - v72))
+						if (!RenderLoadTmap(v52x->textureIdx_0 + 15 - v72))
 							break;
-						tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v52x->textureIdx_0 + 15 - v72].group_8] = gameState_D41A4.FrameTimingIndex_26;
+						RenderTmapUsed(v52x->textureIdx_0 + 15 - v72);
 					}
-					a1y = *m_ptrLoadedSprites_F66F0x[v52x->textureIdx_0 + 15 - v72];
+					a1y = *RenderLoadedTmap(v52x->textureIdx_0 + 15 - v72);
 					spriteRender_F2C20.width_0x08 = a1y->width;
 					spriteRender_F2C20.height_0x06 = a1y->height;
 					v78 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v52x->worldSize_8) / v100;
@@ -4669,17 +4669,17 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 				case 18:
 					v79 = (((spriteRender_F2C20.entity_0x14x->yaw_0x1C_28 - (uint16_t)yaw_F2CC0) >> 3) & 0xF0) >> 4;
 					v80 = v79 + v52x->textureIdx_0;
-					if (m_ptrLoadedSprites_F66F0x[v80])
+					if (RenderLoadedTmap(v80))
 					{
-						tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v80].group_8] = gameState_D41A4.FrameTimingIndex_26;
+						RenderTmapUsed(v80);
 					}
 					else
 					{
-						if (!MainInitTmaps_71520(v79 + v52x->textureIdx_0))
+						if (!RenderLoadTmap(v79 + v52x->textureIdx_0))
 							break;
-						tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v79 + v52x->textureIdx_0].group_8] = gameState_D41A4.FrameTimingIndex_26;
+						RenderTmapUsed(v79 + v52x->textureIdx_0);
 					}
-					a1y = *m_ptrLoadedSprites_F66F0x[v79 + v52x->textureIdx_0];
+					a1y = *RenderLoadedTmap(v79 + v52x->textureIdx_0);
 					spriteRender_F2C20.width_0x08 = a1y->width;
 					spriteRender_F2C20.height_0x06 = a1y->height;
 					v81 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v52x->worldSize_8) / v100;
@@ -4692,18 +4692,18 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 					if (v62 >= 8)
 					{
 						v68 = v52x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v62];
-						if (m_ptrLoadedSprites_F66F0x[v68])
+						if (RenderLoadedTmap(v68))
 						{
-							v70 = str_TMAPS00TAB_BEGIN_BUFFER[v68].group_8;
+							v70 = v68; // the tmap (RenderTmapUsed)
 						}
 						else
 						{
-							if (!MainInitTmaps_71520(v52x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v62]))
+							if (!RenderLoadTmap(v52x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v62]))
 								break;
-							v70 = str_TMAPS00TAB_BEGIN_BUFFER[v52x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v62]].group_8;
+							v70 = v52x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v62]; // the tmap (RenderTmapUsed)
 						}
-						tmapGroupLastUse_F5730[v70] = gameState_D41A4.FrameTimingIndex_26;
-						a1y = *m_ptrLoadedSprites_F66F0x[v52x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v62]];
+						RenderTmapUsed(v70);
+						a1y = *RenderLoadedTmap(v52x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v62]);
 						spriteRender_F2C20.width_0x08 = a1y->width;
 						spriteRender_F2C20.height_0x06 = a1y->height;
 						v71 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v52x->worldSize_8) / v100;
@@ -4714,18 +4714,18 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 					else
 					{
 						v63 = v52x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v62];
-						if (m_ptrLoadedSprites_F66F0x[v63])
+						if (RenderLoadedTmap(v63))
 						{
-							v65 = str_TMAPS00TAB_BEGIN_BUFFER[v63].group_8;
+							v65 = v63; // the tmap (RenderTmapUsed)
 						}
 						else
 						{
-							if (!MainInitTmaps_71520(v52x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v62]))
+							if (!RenderLoadTmap(v52x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v62]))
 								break;
-							v65 = str_TMAPS00TAB_BEGIN_BUFFER[(uint8_t)directionTable_D4750[12 + v62] + v52x->textureIdx_0].group_8;
+							v65 = (uint8_t)directionTable_D4750[12 + v62] + v52x->textureIdx_0; // the tmap (RenderTmapUsed)
 						}
-						tmapGroupLastUse_F5730[v65] = gameState_D41A4.FrameTimingIndex_26;
-						a1y = *m_ptrLoadedSprites_F66F0x[v52x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v62]];
+						RenderTmapUsed(v65);
+						a1y = *RenderLoadedTmap(v52x->textureIdx_0 + (uint8_t)directionTable_D4750[12 + v62]);
 						spriteRender_F2C20.width_0x08 = a1y->width;
 						spriteRender_F2C20.height_0x06 = a1y->height;
 						v66 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v52x->worldSize_8) / v100;
@@ -4739,18 +4739,18 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 					if (v82 >= 8)
 					{
 						v86 = (uint8_t)directionTable_D4750[28 + v82] + v52x->textureIdx_0;//goat rotations
-						if (m_ptrLoadedSprites_F66F0x[v86])
+						if (RenderLoadedTmap(v86))
 						{
-							v88 = str_TMAPS00TAB_BEGIN_BUFFER[v86].group_8;
+							v88 = v86; // the tmap (RenderTmapUsed)
 						}
 						else
 						{
-							if (!MainInitTmaps_71520(v52x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v82]))
+							if (!RenderLoadTmap(v52x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v82]))
 								break;
-							v88 = str_TMAPS00TAB_BEGIN_BUFFER[v52x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v82]].group_8;
+							v88 = v52x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v82]; // the tmap (RenderTmapUsed)
 						}
-						tmapGroupLastUse_F5730[v88] = gameState_D41A4.FrameTimingIndex_26;
-						a1y = *m_ptrLoadedSprites_F66F0x[v52x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v82]];
+						RenderTmapUsed(v88);
+						a1y = *RenderLoadedTmap(v52x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v82]);
 						spriteRender_F2C20.width_0x08 = a1y->width;
 						spriteRender_F2C20.height_0x06 = a1y->height;
 						v89 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v52x->worldSize_8) / v100;
@@ -4762,17 +4762,17 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 					{
 						v83 = (uint8_t)directionTable_D4750[28 + v82];
 						v84 = v83 + v52x->textureIdx_0;//villiger rotations
-						if (m_ptrLoadedSprites_F66F0x[v84])
+						if (RenderLoadedTmap(v84))
 						{
-							tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v84].group_8] = gameState_D41A4.FrameTimingIndex_26;
+							RenderTmapUsed(v84);
 						}
 						else
 						{
-							if (!MainInitTmaps_71520(v52x->textureIdx_0 + (uint8_t)v83))
+							if (!RenderLoadTmap(v52x->textureIdx_0 + (uint8_t)v83))
 								break;
-							tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v52x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v82]].group_8] = gameState_D41A4.FrameTimingIndex_26;
+							RenderTmapUsed(v52x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v82]);
 						}
-						a1y = *m_ptrLoadedSprites_F66F0x[v52x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v82]];//villiger rotations
+						a1y = *RenderLoadedTmap(v52x->textureIdx_0 + (uint8_t)directionTable_D4750[28 + v82]);//villiger rotations
 						spriteRender_F2C20.width_0x08 = a1y->width;
 						spriteRender_F2C20.height_0x06 = a1y->height;
 						v85 = (signed __int64)(spriteRender_F2C20.projectionScale_0x18 * v52x->worldSize_8) / v100;
@@ -4783,17 +4783,17 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 					goto LABEL_163;
 				case 21:
 					v59 = v52x->textureIdx_0;//white sphere ball
-					if (m_ptrLoadedSprites_F66F0x[v59])
+					if (RenderLoadedTmap(v59))
 					{
-						tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v59].group_8] = gameState_D41A4.FrameTimingIndex_26;
+						RenderTmapUsed(v59);
 					}
 					else
 					{
-						if (!MainInitTmaps_71520(v59))
+						if (!RenderLoadTmap(v59))
 							break;
-						tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v52x->textureIdx_0].group_8] = gameState_D41A4.FrameTimingIndex_26;
+						RenderTmapUsed(v52x->textureIdx_0);
 					}
-					a1y = *m_ptrLoadedSprites_F66F0x[v52x->textureIdx_0];//white sphere ball
+					a1y = *RenderLoadedTmap(v52x->textureIdx_0);//white sphere ball
 					x_BYTE_F2CC6 = 1;
 					goto LABEL_141;
 				case 22:
@@ -4814,17 +4814,17 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 					x_BYTE_F2CC6 = 1;
 				LABEL_117:
 					v61 = v52x->textureIdx_0 + spriteRender_F2C20.entity_0x14x->animationFrame_0x5C_92;//fair animation
-					if (m_ptrLoadedSprites_F66F0x[v61])
+					if (RenderLoadedTmap(v61))
 					{
-						tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v61].group_8] = gameState_D41A4.FrameTimingIndex_26;
+						RenderTmapUsed(v61);
 					}
 					else
 					{
-						if (!MainInitTmaps_71520(v52x->textureIdx_0 + spriteRender_F2C20.entity_0x14x->animationFrame_0x5C_92))
+						if (!RenderLoadTmap(v52x->textureIdx_0 + spriteRender_F2C20.entity_0x14x->animationFrame_0x5C_92))
 							break;
-						tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v52x->textureIdx_0 + spriteRender_F2C20.entity_0x14x->animationFrame_0x5C_92].group_8] = gameState_D41A4.FrameTimingIndex_26;
+						RenderTmapUsed(v52x->textureIdx_0 + spriteRender_F2C20.entity_0x14x->animationFrame_0x5C_92);
 					}
-					a1y = *m_ptrLoadedSprites_F66F0x[v52x->textureIdx_0 + spriteRender_F2C20.entity_0x14x->animationFrame_0x5C_92];
+					a1y = *RenderLoadedTmap(v52x->textureIdx_0 + spriteRender_F2C20.entity_0x14x->animationFrame_0x5C_92);
 				LABEL_141:
 					spriteRender_F2C20.width_0x08 = a1y->width;
 					spriteRender_F2C20.height_0x06 = a1y->height;

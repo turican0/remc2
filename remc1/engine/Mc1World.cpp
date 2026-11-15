@@ -69,7 +69,7 @@ void GameFrame_34530_348F0()
 {
 	Type_Mc1Settings_AE408_AE3F8* settings = mc1Settings_AE408_AE3F8;
 	if (!mc1State_AE400_AE3F0->screenSize_0x219B_8603)
-		sub_34690_34A50();
+		UpdatePalette_34690_34A50();
 	if (!(settings->flags_0x00_0 & 0x10000))
 		UpdateSpriteAnimations_590D0_595E0();
 	if (!(settings->flags_0x00_0 & 4))

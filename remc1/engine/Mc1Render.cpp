@@ -8,13 +8,34 @@
 #include "Mc1Game.h"
 #include "Mc1Shared.h"
 #include "Mc1TextureMaps.h"
+#include "../../remc2/engine/GameRenderHD.h"
+#include "../../remc2/engine/GameRenderHW.h"
+#include "../../remc2/engine/GameRenderNG.h"
 #include "../../remc2/engine/GameRenderOriginal.h"
+#include "../../remc2/engine/ReadAndDecompress.h"
+#include "../../remc2/engine/read_config.h"
+#include "../../remc2/portability/port_filesystem.h"
 
 // The MC1 world drawn by the renderer of remc2 (RenderGame::MC1 switches the differences of MC1 on).
 // The renderer reads the tables, the textures, the sky and the settings of MC2: they are set from MC1 here, the sprites
 // come from the source below. Not yet: the motion blur by the speed.
 
-static GameRenderOriginal* mc1Renderer = nullptr;
+static GameRenderInterface* mc1Renderer = nullptr;
+
+// the renderer of the config, as MC2 chooses it (EventsFunctions)
+static GameRenderInterface* CreateMc1Renderer()
+{
+	if (m_render == "HW")
+		return new GameRenderHW(*workScreen_12EFF4_12EFE4, palette_AE428_AE418, viewDistanceScale);
+	if (m_render == "Original")
+		return new GameRenderOriginal();
+	if (m_render == "HD")
+		return new GameRenderHD(*workScreen_12EFF4_12EFE4, palette_AE428_AE418, multiThreadedRender ? numberOfRenderThreads : 0,
+			assignToSpecificCores, sizePercentToThreadRender, sizePercentToThreadRenderSprites, viewDistanceScale);
+	if (gameResWidth <= 640 && gameResHeight <= 480)
+		return new GameRenderOriginal();
+	return new GameRenderNG(viewDistanceScale, fogScale, multiThreadedRender ? numberOfRenderThreads : 0, assignToSpecificCores, sizePercentToThreadRender);
+}
 
 // the sprites (2DCB0, 2FC50): the MC1 entities as the entities of MC2, only what the sprites read (the flags 21h, the
 // next in the map cell, the yaw, the position, the sprite and its frame), the tmaps of MC1 and 99BA0 as D951C
@@ -49,7 +70,12 @@ static Type_SpriteDef_D951C* Mc1SpriteDef(int16_t index)
 	return &renderSpriteDefs[index];
 }
 
-static const RenderSpriteSource mc1Sprites = { Mc1RenderEntity, Mc1LoadedTmap, Mc1LoadTmap, Mc1TmapUsed, Mc1SpriteDef };
+static type_animations1* Mc1TmapAnimation(uint16_t tmap)
+{
+	return GetAnimationByIndex_10FD0_10FD0(animations_AE3E0_AE3D0, (int16_t)tmap);
+}
+
+static const RenderSpriteSource mc1Sprites = { Mc1RenderEntity, Mc1LoadedTmap, Mc1LoadTmap, Mc1TmapUsed, Mc1SpriteDef, Mc1TmapAnimation };
 
 static void SetRenderSprites()
 {
@@ -94,7 +120,15 @@ void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int
 {
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
 	if (!mc1Renderer)
-		mc1Renderer = new GameRenderOriginal();
+	{
+		mc1Renderer = CreateMc1Renderer();
+		// port: the textures to the HW renderer (MC2 sends them when it loads them): the 256 blocks as the atlas, the
+		// sky and the tmaps loaded so far (the next ones by LoadTmapGroup_58B30)
+		UpdateTileTextures(state->tileTextureSize_0x21A0_8608, blockData_AE3F0_AE3E0, MapType_t::Day, 256);
+		if (skyData_AE3D8_AE3C8)
+			UpdateSkyTexture(256, skyData_AE3D8_AE3C8);
+		UploadLoadedTmapTextures();
+	}
 	renderGame = RenderGame::MC1;
 
 	// the tables B7934 have the layout of ColourLookupTable_F6EE0 (fades, blend 4000h, colours 14000h), the tiles 9334C
@@ -126,6 +160,8 @@ void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int
 	skyTexture_D41A8 = skyData_AE3D8_AE3C8;
 	gameState_D41A4.m_wHighSpeedSystem = 0;
 	isCaveLevel_D41B6 = 0;
+	const uint8_t savedTileSize = TileTextureSize_D41B5;
+	TileTextureSize_D41B5 = (uint8_t)state->tileTextureSize_0x21A0_8608; // the atlas of the HW renderer
 
 	SetRenderSprites();
 	// the scratch of the billboards and the sprites (E9C38 *BScreen) is AE3FC (*BScreen) in MC1
@@ -141,6 +177,7 @@ void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int
 	skyTexture_D41A8 = saved.skyTexture;
 	gameState_D41A4.m_wHighSpeedSystem = saved.highSpeedSystem;
 	isCaveLevel_D41B6 = saved.isCave;
+	TileTextureSize_D41B5 = savedTileSize;
 	renderGame = RenderGame::MC2;
 }
 

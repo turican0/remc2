@@ -63,3 +63,6 @@ void LockLevelSprites_59320_59830();
 void LoadLockedTmaps_59370_59880();
 void MarkLoadedTmaps_593B0_598C0();
 void ReloadTmaps_59420_59930();
+// port: the pictures of the loaded tmaps to the HW renderer (TEXTURE_LOADED), one or all
+void UploadTmapTexture(uint16_t tmap);
+void UploadLoadedTmapTextures();
