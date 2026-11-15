@@ -207,7 +207,9 @@ Type_Mc1Entity* sub_3C4B0_3C7F0(Type_Mc1Position* position);
 Type_Mc1Entity* sub_3C4E0_3C820(Type_Mc1Position* position);
 Type_Mc1Entity* sub_3C510_3C850(Type_Mc1Position* position);
 Type_Mc1Entity* sub_3C540_3C880(Type_Mc1Position* position);
-void sub_45C90_45FD0(Type_Mc1Entity* entity);
+// 45C90: the sounds of the flight (HMI)
+void sub_55890_55DC0(int16_t a1, int32_t a2, int32_t a3);
+void sub_20D00_20D00(int32_t a1);
 void sub_45FC0_46300(Type_Mc1Entity* entity);
 void sub_46480_467C0(Type_Mc1Entity* entity);
 void sub_46DB0_470F0(Type_Mc1Entity* entity);

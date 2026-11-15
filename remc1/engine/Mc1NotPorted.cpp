@@ -421,7 +421,9 @@ Type_Mc1Entity* sub_3C510_3C850(Type_Mc1Position* /*position*/) { NotPorted(__fu
 //!!!!! not ported yet (class model)
 Type_Mc1Entity* sub_3C540_3C880(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
 //!!!!! not ported yet (class action)
-void sub_45C90_45FD0(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
+// 45C90: the sounds of the flight (HMI)
+void sub_55890_55DC0(int16_t /*a1*/, int32_t /*a2*/, int32_t /*a3*/) { NotPorted(__func__); }
+void sub_20D00_20D00(int32_t /*a1*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_45FC0_46300(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)

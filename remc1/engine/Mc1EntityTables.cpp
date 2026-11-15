@@ -5,6 +5,7 @@
 #include "Mc1Models.h"
 #include "Mc1Scenery.h"
 #include "Mc1SceneryActions.h"
+#include "Mc1Wizard.h"
 
 // generated from the class tables of CARPET.EXE / HIDDEN.EXE (dword_96902, scratchpad gen_classes.py)
 
@@ -71,7 +72,7 @@ static Type_Mc1ClassModel class2Models[7] = {
 	{ nullptr, 0, nullptr, 0 },
 };
 static Type_Mc1ClassAction class3Actions[12] = {
-	{ textOmitted_968F4, 0, sub_45C90_45FD0, 1 },
+	{ textOmitted_968F4, 0, UpdatePlayerWizard_45C90_45FD0, 1 },
 	{ textOmitted_968F4, 1, sub_13170_13170, 1 },
 	{ textOmitted_968F4, 2, sub_45FC0_46300, 1 },
 	{ textOmitted_968F4, 3, sub_46480_467C0, 1 },

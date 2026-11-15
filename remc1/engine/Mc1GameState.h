@@ -67,7 +67,8 @@ typedef struct Type_Mc1Entity {
 	int16_t word_0x20_32;
 	int16_t word_0x22_34; // set with word_0x1E / word_0x20 by the creatures
 	int16_t word_0x24_36;
-	uint8_t unknown_0x26_38[0x2A - 0x26];
+	uint16_t word_0x26_38; // the sender of the damage that killed the wizard (46540)
+	uint8_t unknown_0x28_40[2];
 	uint16_t word_0x2A_42; // 27D30: the entity whose word_0x30 is set when the building is done
 	int16_t word_0x2C_44;
 	int16_t word_0x2E_46;
