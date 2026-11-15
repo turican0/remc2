@@ -7,6 +7,7 @@
 #include "Mc1Game.h"
 #include "Mc1Graphics.h"
 #include "Mc1Level.h"
+#include "Mc1Minimap.h"
 #include "Mc1NotPorted.h"
 #include "Mc1Render.h"
 #include "Mc1Screen.h"
@@ -158,8 +159,8 @@ static void DrawGame(Type_Mc1State_AE400_AE3F0* state, Type_Mc1Player_340B& play
 	const int32_t mapWidth = *viewportWidth_12F000_12EFF0 - 2 * (int32_t)((uint32_t)*viewportWidth_12F000_12EFF0 / 5);
 	if (state->map_0x2199_8601)
 	{
-		sub_49300_49640(0, 0, camera.x_0x00_0, camera.y_0x02_2, 0x80, 0x80, camera.yaw_0x06_6, 0x100, mapWidth, 0);
-		sub_48710_48A50(0, 0, camera.x_0x00_0, camera.y_0x02_2, 0x80, 0x80, camera.yaw_0x06_6, 0x100, mapWidth, 0);
+		DrawMinimapTerrain_49300_49640(0, 0, camera.x_0x00_0, camera.y_0x02_2, 0x80, 0x80, camera.yaw_0x06_6, 0x100, mapWidth, 0);
+		DrawMinimapEntities_48710_48A50(0, 0, camera.x_0x00_0, camera.y_0x02_2, 0x80, 0x80, camera.yaw_0x06_6, 0x100, mapWidth, 0);
 	}
 	SetFont_5A3C0_5A8D0(1);
 	if (state->icons_0x219A_8602)
@@ -274,13 +275,13 @@ static void DrawMap(Type_Mc1State_AE400_AE3F0* state, Type_Mc1Player_340B& playe
 	// 320: 48710 has 17Eh where 49300 has 17Ah
 	if (*videoMode_12F02E_12F01E == 1)
 	{
-		sub_49300_49640(0, 0, camera.x_0x00_0, camera.y_0x02_2, 0x17E, 0x17A, camera.yaw_0x06_6, 0xAA, width, 1);
-		sub_48710_48A50(0, 0, camera.x_0x00_0, camera.y_0x02_2, 0x17E, 0x17E, camera.yaw_0x06_6, 0xAA, width, 1);
+		DrawMinimapTerrain_49300_49640(0, 0, camera.x_0x00_0, camera.y_0x02_2, 0x17E, 0x17A, camera.yaw_0x06_6, 0xAA, width, 1);
+		DrawMinimapEntities_48710_48A50(0, 0, camera.x_0x00_0, camera.y_0x02_2, 0x17E, 0x17E, camera.yaw_0x06_6, 0xAA, width, 1);
 	}
 	else
 	{
-		sub_49300_49640(0, 0, camera.x_0x00_0, camera.y_0x02_2, 0x17E, 0x19E, camera.yaw_0x06_6, 0xAA, width, 1);
-		sub_48710_48A50(0, 0, camera.x_0x00_0, camera.y_0x02_2, 0x17E, 0x19E, camera.yaw_0x06_6, 0xAA, width, 1);
+		DrawMinimapTerrain_49300_49640(0, 0, camera.x_0x00_0, camera.y_0x02_2, 0x17E, 0x19E, camera.yaw_0x06_6, 0xAA, width, 1);
+		DrawMinimapEntities_48710_48A50(0, 0, camera.x_0x00_0, camera.y_0x02_2, 0x17E, 0x19E, camera.yaw_0x06_6, 0xAA, width, 1);
 	}
 	if (mousePos_9AD90_9AD90->y >= 0x17E)
 		sub_22880_22880();

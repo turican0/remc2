@@ -304,9 +304,7 @@ void sub_438D0_43C10(uint16_t player, uint8_t* buffer, uint32_t size);
 void sub_43870_43BB0(uint16_t player, uint8_t* buffer, uint32_t size);
 void sub_415C0_41900();
 void sub_55100_55630();
-// 20FB0: the minimaps (game: 128 x 128 at the top left, map mode: at 17Eh), the icons and the spells
-void sub_49300_49640(int32_t a1, int32_t a2, int32_t worldX, int32_t worldY, int32_t screenX, int32_t screenY, int32_t yaw, int32_t scale, int32_t width, int32_t mode);
-void sub_48710_48A50(int32_t a1, int32_t a2, int32_t worldX, int32_t worldY, int32_t screenX, int32_t screenY, int32_t yaw, int32_t scale, int32_t width, int32_t mode);
+// 20FB0: the icons and the spells
 void sub_23D40_23D40(int32_t x, int32_t y, Type_Mc1Entity* spell, int32_t selected);
 void sub_22E50_22E50(Type_Mc1Entity* wizard);
 void sub_24230_24230(int32_t x, int32_t y, Type_Mc1Entity* spell, int32_t a4);
