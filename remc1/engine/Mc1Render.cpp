@@ -77,17 +77,6 @@ void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int
 	renderGame = RenderGame::MC2;
 }
 
-void DrawPlayerView()
-{
-	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
-	// 210A8: the view port by the setting 2198h (30A70 = SetRenderViewPortSize_40C50), the camera of the player
-	viewPort.SetRenderViewPortSize_40C50(state->setting_0x2198_8600);
-	const Type_Mc1Player_340B& player = state->players_0x340B_13323[state->currentPlayer_0x08_8];
-	const Type_Mc1PlayerRecord& camera = player.records_0x24A_586[player.word_0x0E_14];
-	DrawWorld_30D90_30DD0(*workScreen_12EFF4_12EFE4, camera.x_0x00_0, camera.y_0x02_2, camera.yaw_0x06_6,
-		camera.z_0x04_4 + 0x80, camera.pitch_0x08_8, camera.roll_0x0A_10, camera.word_0x0C_12);
-}
-
 void FreeMc1Renderer()
 {
 	delete mc1Renderer;

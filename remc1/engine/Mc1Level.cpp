@@ -496,7 +496,7 @@ void CreateFeatureModel_37560_37920(Type_Mc1LevelFeature* feature)
 // 99B68
 const char* playerNames_99B68_99B68[8] = { "Zanzamar", "Vodor", "Gryshnak", "Mahmoud", "Syed", "Raschid", "Alhabbal", "Scheherazade" };
 // 99B88: the spells in the order of the slots
-static const uint8_t spellOrder_99B88_99B88[24] = {
+const uint8_t spellOrder_99B88_99B88[24] = {
 	0x00, 0x03, 0x02, 0x10, 0x01, 0x0E, 0x04, 0x0C, 0x06, 0x09, 0x07, 0x08, 0x0F, 0x12, 0x11, 0x13, 0x0D, 0x05, 0x0B, 0x0A, 0x14, 0x15, 0x16, 0x17,
 };
 

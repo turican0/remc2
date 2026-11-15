@@ -239,7 +239,7 @@ typedef struct { // size 0x801
 	Type_Mc1PlayerRecord records_0x24A_586[0x20];
 	char name_0x40A_1034[0x20];
 	uint8_t unknown_0x42A_1066[0x44A - 0x42A];
-	uint8_t mode_0x44A_1098; // 0 the game, 1 the map, 2 the full screen menu (3DC90)
+	uint8_t mode_0x44A_1098; // 20FB0: 0 and 3 the game, 1 the help, 2 the spells, 4 the map (3DC90)
 	uint8_t byte_0x44B_1099; // cleared every frame by 3C9D0
 	uint8_t unknown_0x44C_1100[0x44F - 0x44C];
 	// 44Fh-801h: the player data of the wizard (its playerData_0xA0 points here, MC2 playerData_0x3E6)
@@ -307,13 +307,14 @@ typedef struct { // size 36478
 	uint16_t roll_0x0F_15;
 	uint16_t levelIndex_0x11_17;
 	uint16_t networkLevel_0x13_19; // the level when the network game was chosen
-	uint8_t unknown_0x15_21[0x17 - 0x15];
+	uint8_t unknown_0x15_21;
+	int8_t selectedSpell_0x16_22; // the spell under the mouse in the spells mode (20FB0), -1 none
 	uint8_t flag_0x17_23;
 	uint8_t cd_0x18_24; // & 3 == 1: the CD is checked every frame (3DD10)
 	int32_t password_0x19_25;
 	char playerName_0x1D_29[32]; // the first byte from byte_A9058
 	char nickname_0x3D_61[32];
-	uint8_t colorIndex_0x5D_93[16];
+	uint8_t colorIndex_0x5D_93[16]; // [i]: the frame / i & 1 (3C9D0), the blinking of the texts
 	uint8_t unknown_0x6D_109[0x75 - 0x6D];
 	char sessionName_0x75_117[32];
 	uint8_t tmapsLoaded_0x95_149; // 5 after 59050 loaded a group (not read)
@@ -322,9 +323,9 @@ typedef struct { // size 36478
 	uint8_t paletteSubMod_0x98_152;
 	uint32_t frameTicks_0x99_153; // the timer at the end of the last frame (GameFrame_34530)
 	uint32_t networkTicks_0x9D_157; // the ticks of the network exchange (3C9D0)
-	uint8_t unknown_0xA1_161; // 3 in the demo
-	uint32_t unknown_0xA2_162; // 200 in the demo
-	uint8_t unknown_0xA6_166[0xA8 - 0xA6];
+	uint8_t credits_0xA1_161; // the credits over the demo (20FB0): 3 wait, 2 start, 1 a page shown
+	int32_t creditsTime_0xA2_162; // the frames of the page or of the wait
+	uint16_t creditsLine_0xA6_166; // the first line of the page in off_9AB44
 	uint8_t* heap_0xA8_168; // allocated by InitMemory
 	uint32_t heapSize_0xAC_172;
 	uint8_t unknown_0xB0_176[0xB8 - 0xB0];

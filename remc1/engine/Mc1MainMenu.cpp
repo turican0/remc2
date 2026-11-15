@@ -274,8 +274,8 @@ void MainMenu_4BD60_4C0A0()
 				menuDone_96880_96880 = 1;
 				memcpy(demoProgress_12CA60_12CA50, mc1State_AE400_AE3F0->players_0x340B_13323[0].progress_0x7CB_1995, 0x18);
 				mc1Settings_AE408_AE3F8->movie_0x0D_13 = 0;
-				mc1Settings_AE408_AE3F8->unknown_0xA1_161 = 3;
-				mc1Settings_AE408_AE3F8->unknown_0xA2_162 = 200;
+				mc1Settings_AE408_AE3F8->credits_0xA1_161 = 3;
+				mc1Settings_AE408_AE3F8->creditsTime_0xA2_162 = 200;
 				mc1Settings_AE408_AE3F8->flags_0x00_0 |= 0x24; // 4 no exit screen, 0x20 roll
 				break;
 			}

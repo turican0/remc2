@@ -256,3 +256,22 @@ void BlendAndBlit_30B30_30B70()
 	else
 		Blit640_599B0_59EC0(480, maxGameFps);
 }
+
+void SetMapViewPort_309D0_30A10(int32_t size)
+{
+	// the view port in the top right corner: size * 8 x size * 5 (320), size * 16 x size * 12 (640)
+	uint16_t width, height;
+	if (*videoMode_12F02E_12F01E & 1)
+	{
+		*viewPortOffset_B5CA0_B5C90 = *screenWidth_12EFF0_12EFE0 - size * 8;
+		width = (uint16_t)(size * 8);
+		height = (uint16_t)(size * 5);
+	}
+	else
+	{
+		*viewPortOffset_B5CA0_B5C90 = *screenWidth_12EFF0_12EFE0 - size * 16;
+		width = (uint16_t)(size * 16);
+		height = (uint16_t)(size * 12);
+	}
+	viewPort.SetRenderViewPortSize_BCD45(*workScreen_12EFF4_12EFE4 + *viewPortOffset_B5CA0_B5C90, *screenWidth_12EFF0_12EFE0, width, height);
+}

@@ -24,3 +24,5 @@ void ClearScreenAndBlitVfx_5B500_5BA10();
 void SetStereoScreen_31600_31640();
 // the frame to the screen: red-blue of the two eyes with screen size 1, then the blit of the mode
 void BlendAndBlit_30B30_30B70();
+// the view port of the map mode (20FB0), size 10h
+void SetMapViewPort_309D0_30A10(int32_t size);

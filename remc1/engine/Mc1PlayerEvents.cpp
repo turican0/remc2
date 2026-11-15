@@ -504,8 +504,8 @@ void RecordOrPlayMovieInput_3E9D0_3ED10(Type_Mc1PlayerInput* input)
 		sub_3E580_3E8C0(settings->movie_0x0D_13);
 		RebuildFreeLists_37220_375E0();
 		state->reuseTop_0x11F1_4593 = -1;
-		settings->unknown_0xA1_161 = 3;
-		settings->unknown_0xA2_162 = 200;
+		settings->credits_0xA1_161 = 3;
+		settings->creditsTime_0xA2_162 = 200;
 	}
 	FILE* file = settings->movieFile_0x09_9;
 	if (!file)

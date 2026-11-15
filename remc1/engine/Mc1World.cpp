@@ -4,6 +4,7 @@
 
 #include "Mc1Entity.h"
 #include "Mc1EntityTables.h"
+#include "Mc1Frame.h"
 #include "Mc1Game.h"
 #include "Mc1TextureMaps.h"
 #include "Mc1Level.h"
@@ -87,7 +88,7 @@ void GameFrame_34530_348F0()
 		break;
 	}
 	sub_55100_55630();
-	sub_20FB0_20FB0();
+	DrawFrame_20FB0_20FB0();
 	// the ticks of the frame for 5A560, then the time of the frame
 	settings->frameTicks_0x99_153 = timerTicks_AC5D4_AC5C4 - settings->frameTicks_0x99_153;
 	sub_5A560_5AA70();
