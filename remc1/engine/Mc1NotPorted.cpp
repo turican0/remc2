@@ -621,9 +621,4 @@ void sub_22880_22880() { NotPorted(__func__); }
 void sub_5A560_5AA70() { NotPorted(__func__); }
 //!!!!! not ported yet
 //!!!!! not ported yet
-void sub_17C20_17C20()
-{
-	// without the input the game ends after the first frame
-	NotPorted(__func__);
-	mc1State_AE400_AE3F0->players_0x340B_13323[mc1State_AE400_AE3F0->currentPlayer_0x08_8].exitGame_0x04_4 = 1;
-}
+void sub_16B00_16B00() { NotPorted(__func__); }

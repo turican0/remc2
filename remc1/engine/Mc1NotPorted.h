@@ -313,4 +313,4 @@ void sub_24D20_24D20(int32_t x, int32_t y, int32_t width, int32_t height, int32_
 void sub_24DA0_24DA0(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);
 void sub_22880_22880();
 void sub_5A560_5AA70();
-void sub_17C20_17C20(); // the input of the player
+void sub_16B00_16B00(); // 17C20: the function keys (F5-F10 toggles, the sound, the pause, the messages)

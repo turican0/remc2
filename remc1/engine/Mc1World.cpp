@@ -6,6 +6,7 @@
 #include "Mc1EntityTables.h"
 #include "Mc1Frame.h"
 #include "Mc1Game.h"
+#include "Mc1Input.h"
 #include "Mc1TextureMaps.h"
 #include "Mc1Level.h"
 #include "Mc1NotPorted.h"
@@ -68,7 +69,7 @@ void GameFrame_34530_348F0()
 	if (!(settings->flags_0x00_0 & 0x10000))
 		UpdateSpriteAnimations_590D0_595E0();
 	if (!(settings->flags_0x00_0 & 4))
-		sub_17C20_17C20();
+		ProcessInput_17C20_17C20();
 	PlayerEvents_3C9D0_3CD10();
 	if (!(settings->flags_0x00_0 & 0x10000))
 		sub_415C0_41900();
