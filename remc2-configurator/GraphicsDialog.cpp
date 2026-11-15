@@ -3,7 +3,7 @@
 // ── GraphicsDialog ────────────────────────────────────────────────────────────
 GraphicsDialog::GraphicsDialog(wxWindow* parent, const Config::Settings::Graphics& cfg)
 	: wxDialog(parent, wxID_ANY, "Graphics Settings",
-		wxDefaultPosition, wxSize(245, 370),
+		wxDefaultPosition, wxSize(245, 440),
 		wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX)
 {
 	m_cfg = cfg;
@@ -73,6 +73,43 @@ GraphicsDialog::GraphicsDialog(wxWindow* parent, const Config::Settings::Graphic
 	// ── Hardware Settings button (hardware renderer only) ─────────────────────
 	m_btnHardwareSettings = new wxButton(this, wxID_ANY, "Hardware Settings...");
 	main->Add(m_btnHardwareSettings, 0, wxALIGN_CENTER | wxLEFT | wxTOP | wxBOTTOM, 10);
+
+	// ── Looking Glass button (hardware renderer only) ─────────────────────────
+	m_btnLookingGlass = new wxButton(this, wxID_ANY, "Looking Glass...");
+	m_btnLookingGlass->SetToolTip("Settings for Looking Glass light field displays.");
+	main->Add(m_btnLookingGlass, 0, wxALIGN_CENTER | wxLEFT | wxBOTTOM, 10);
+	m_btnLookingGlass->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) {
+		LookingGlassDialog dlg(this, m_cfg.m_Hardware.m_LookingGlass);
+		SetDialogMinSize(dlg, wxSize(455, 460));
+		if (dlg.ShowModal() == wxID_OK)
+		{
+			m_cfg.m_Hardware.m_LookingGlass = dlg.GetSettings();
+			// Turned on: the view distance and UI margins it needs (the dialog told the user when it was ticked)
+			if (dlg.TurnedOn())
+			{
+				m_spinViewDistanceScale->SetValue(LookingGlassDialog::kViewDistanceScale);
+				auto& ui = m_cfg.m_InGameUi;
+				for (Config::Settings::UiElement* element : { &ui.m_TopBar, &ui.m_SpellIcons, &ui.m_SpellMenu })
+				{
+					// a centred element's X margin is its offset from the middle: it stays centred
+					if (element->m_Alignment != "center")
+						element->m_MarginX = LookingGlassDialog::kUiMargin;
+					element->m_MarginY = LookingGlassDialog::kUiMargin;
+				}
+			}
+		}
+		});
+
+	// ── Anaglyph 3D button (hardware renderer only) ───────────────────────────
+	m_btnAnaglyph = new wxButton(this, wxID_ANY, "Anaglyph 3D...");
+	m_btnAnaglyph->SetToolTip("Lens colours for anaglyph (red / cyan glasses) 3D. F11 in game turns it on and off.");
+	main->Add(m_btnAnaglyph, 0, wxALIGN_CENTER | wxLEFT | wxBOTTOM, 10);
+	m_btnAnaglyph->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) {
+		AnaglyphDialog dlg(this, m_cfg.m_Hardware.m_Anaglyph);
+		SetDialogMinSize(dlg, wxSize(675, 650));
+		if (dlg.ShowModal() == wxID_OK)
+			m_cfg.m_Hardware.m_Anaglyph = dlg.GetSettings();
+		});
 
 	// ── Render Threads button (software renderer only) ────────────────────────
 	m_btnRenderThreads = new wxButton(this, wxID_ANY, "Render Threads...");
@@ -147,6 +184,8 @@ void GraphicsDialog::UpdateRenderButtons()
 {
 	bool hardware = m_choiceRender->GetSelection() == RENDER_HARDWARE;
 	m_btnHardwareSettings->Show(hardware);
+	m_btnLookingGlass->Show(hardware);
+	m_btnAnaglyph->Show(hardware);
 	m_btnRenderThreads->Show(!hardware);
 	Layout();
 }

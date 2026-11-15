@@ -528,6 +528,16 @@ constexpr uint32_t kSkyId = 1025;
 extern std::array<uint16_t, 504> m_spriteFrameCount;
 
 bool DefaultResolutions();
+
+// A resolution that isn't 320x200 or 640x480 lays the UI out to the screen (the HD layout: !DefaultResolutions()).
+// Narrower than 640 it uses the low res UI (videoMode_180660 == 1: the MSPRD sprites and FONTS0), whose coordinates
+// are doubled (640-based) and halved when drawn, so the layout works in UiScreenWidth/Height, not the screen's pixels.
+extern bool lowResScaledUi;    // set while in a level in this mode
+extern bool anaglyphMode;      // F11: the hardware renderer draws both eyes, combined red / cyan (AnaglyphRenderer)
+bool UseLowResScaledUi();      // the game resolution asks for it
+int UiScreenWidth();           // the screen in the UI's coordinates: pixels, doubled in the low res UI
+int UiScreenHeight();
+void SetLowResScaledUiScreen(); // the screen at the game resolution with the low res UI (Graphics.cpp)
 bool IsDefaultResolution(int width, int height);
 bool IsDefaultResolution320(int width, int height);
 bool IsDefaultResolution640(int width, int height);

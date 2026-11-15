@@ -68,6 +68,7 @@ enum GameKey
 	F8 = 0x4200,
 	F9 = 0x4300,
 	F10 = 0x4400,
+	F11 = 0x5700,
 	HOME = 0x4700,
 	UP = 0x4800,
 	PAGEUP = 0x4900,

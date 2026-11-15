@@ -16,6 +16,7 @@
 #endif
 
 #include "../portability/Config.h"
+#include "../portability/LookingGlassBridge.h"
 #include "../portability/port_time.h"
 #include "../portability/port_filesystem.h"
 #include "../portability/port_sdl_sound.h"
@@ -27,6 +28,8 @@
 
 #ifndef READ_CONFIG
 #define READ_CONFIG
+
+constexpr int MAX_VIEW_GRID = 16;
 
 // Horizontal alignment of an in-game UI element on the screen
 enum class UiAlignment
@@ -59,6 +62,7 @@ extern int windowResHeight;
 extern int gameResWidth;
 extern int gameResHeight;
 extern int gameUiScale;
+extern int mapEntityScale; // extra multiplier (1-4) for the size of the map markings
 extern bool maintainAspectRatio;
 extern bool startWindowed;
 extern bool bigTextures;
@@ -79,11 +83,24 @@ extern int numberOfRenderThreads;
 extern bool assignToSpecificCores;
 extern bool bilinearFiltering;
 extern int antiAliasing;   // MSAA samples, 0 = off
+extern bool lookingGlassEnabled;
+extern int viewRows;
+extern int viewColumns;
+extern int viewSpacing;
+extern int viewConvergence;
+extern bool lookingGlassDisplay;
+extern LookingGlassDevice lookingGlassDevice;
+extern uint8_t anaglyphLeftColour[3];    // the anaglyph glasses' lenses (F11 in game), rgb 0 - 255
+extern uint8_t anaglyphRightColour[3];
+extern float anaglyphGhostReduction;   // 0 - 0.5: how much of the other eye each lens lets through, cancelled out
+bool ParseHexColour(const std::string& text, uint8_t rgb[3]);
+
 extern bool invertYAxis;
 extern bool invertXAxis;
 extern float mouseScaleX;
 extern float mouseScaleY;
 extern bool disableLRButtonsMenuOpen;
+extern bool disableLRKeyRoll;
 extern UiElementLayout topBarLayout;     // the mini-map and the health/mana bars
 extern UiElementLayout spellIconsLayout; // the selected left/right spell icons
 extern UiElementLayout spellMenuLayout;  // the spell selection menu at the bottom

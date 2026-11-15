@@ -401,6 +401,15 @@ void ProcessKeyboardPresses_17190()//1f8190
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
+					case 0x57: {//f11 anaglyph (red / cyan glasses) on / off: the hardware renderer only
+						if (m_render == "HW")
+						{
+							anaglyphMode = !anaglyphMode;
+							SetCurrentNotificationMessage_19760(anaglyphMode ? "Anaglyph On" : "Anaglyph Off", 3u, 50);
+						}
+						LastPressedKey_1806E4 = 0;
+						break;
+					}
 					case 0x1f: {//s
 						if (!(gameState_D41A4.OptionsSettingFlag_24 & GAME_PAUSED)
 							&& videoMode_180660 & 1
@@ -1522,6 +1531,8 @@ void ChangeSettings_1A970(char a1, int a2, int a3)//1fb970
 	case 16://change resolution
 		if (!world_D41A0.screenSettings_0x21B2.cresolution_0x21B4 || world_D41A0.m_GameSettings.m_Display.m_uiScreenSize)
 			return;
+		if (lowResScaledUi)   // narrower than 640: there is no high res UI to change to
+			return;
 		ClearPauseMenuState_41BC0();
 		ChangeGameResolution_46B40();
 		return;
@@ -2118,8 +2129,11 @@ void HandleArrowKeyPresses_1A8A0()//1fb8a0
 	{
 		if (inputState_18058C.arrowKeys_1805C0 & 8)
 		{
-			if (!(gameState_D41A4.arrowKeyFlags_183 & 1) && !(gameState_D41A4.arrowKeyFlags_183 & 2))
+			if (!disableLRKeyRoll && !(gameState_D41A4.arrowKeyFlags_183 & 1) && !(gameState_D41A4.arrowKeyFlags_183 & 2))
+			{
+				//Barrel Roll
 				HandleButtonClick_191B0(6, 128);
+			}
 		}
 	}
 	gameState_D41A4.arrowKeyFlags_183 &= 0xFC;
@@ -2144,15 +2158,16 @@ void ComputeMousePlayerMovement_17060(int16_t x, int16_t y)//1f8060
 
 	if (!gameState_D41A4.speedIndex)
 	{
-		if (videoMode_180660 == 1)
+		if (videoMode_180660 == 1 && DefaultResolutions())
 		{
 			roll = ((x << 7) - 40960) / 320;
 			pitch = ((y << 7) - 25600) / -200;
 		}
 		else
 		{
-			const int centerX = screenWidth_18062C / 2;//640x480: 320, 240 as the original
-			const int centerY = screenHeight_180624 / 2;
+			// in the UI's coordinates, as the mouse (doubled with the low res UI)
+			const int centerX = UiScreenWidth() / 2;//640x480: 320, 240 as the original
+			const int centerY = UiScreenHeight() / 2;
 			roll = ((x << 7) - (centerX << 7)) / centerX;//1f80c5: lea edx, [eax-0A000h]
 			pitch = ((y << 7) - (centerY << 7)) / -centerY;//1f80df: lea edx, [eax-7800h]
 		}
@@ -2225,7 +2240,7 @@ int SelectSpell_6D4F0(type_str_611* a1x, int16_t mouseX)//24e4f0
 		scale = gameUiScale;
 	GetSpellMenuPosition(&posXOffSet, &spellMenuPosY);
 
-	subCategoryTotalWidth = 3 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4 * scale);
+	subCategoryTotalWidth =3 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON2_PANEL2].width_4 * scale);
 	spellMenuXPos = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].width_4 * scale) / 2
 		+ ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[EDGE_PANEL].width_4 * scale)
 		+ ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].width_4 * scale) * (a1x->spellIndex_0x458_1112 % 13)
@@ -2310,14 +2325,13 @@ void ReadOptionMenuEvents_19AB0()//1faab0
 	int helpWidth = 640;
 	uint8_t scale = 1;
 
-	if (videoMode_180660 != 1)
-		if (!DefaultResolutions())
-		{
-			helpWidth = screenWidth_18062C;
-			scale = gameUiScale;
-			menuBtnPosY = (screenHeight_180624 / 2) - ((OPTIONS_MENU_BTN_COUNT * (OPTIONS_MENU_BTN_HEIGHT * scale)) / 2);
-			okayBtnPosY = menuBtnPosY + ((OPTIONS_MENU_BTN_HEIGHT * scale) * OPTIONS_MENU_BTN_COUNT) + (4 * scale);
-		}
+	if (!DefaultResolutions())
+	{
+		helpWidth = UiScreenWidth();
+		scale = gameUiScale;
+		menuBtnPosY = (UiScreenHeight() / 2) - ((OPTIONS_MENU_BTN_COUNT * (OPTIONS_MENU_BTN_HEIGHT * scale)) / 2);
+		okayBtnPosY = menuBtnPosY + ((OPTIONS_MENU_BTN_HEIGHT * scale) * OPTIONS_MENU_BTN_COUNT) + (4 * scale);
+	}
 
 	if (inputState_18058C.joystickMode_1805C2 == 7 || inputState_18058C.joystickMode_1805C2 == 1 || inputState_18058C.joystickMode_1805C2 == 2)
 		SetCursor_8CD27((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[cursorSpriteIndex_D419E]); //fix it
@@ -2560,6 +2574,9 @@ void ChangeGameResolution_46B40()//227b40
 	unsigned __int8 v2; // al
 	unsigned __int8 v3; // al
 
+	if (lowResScaledUi)   // narrower than 640: there is no high res UI to change to
+		return;
+
 	int16_t v0_tempmousex = mouse_E3760.x;//227b46: mov si, word_E3760
 	int16_t v0_tempmousey = mouse_E3760.y;//227b53: mov bx, word_E3762
 
@@ -2750,12 +2767,11 @@ void GetPauseMenuCoordinates_2FFE0(int16_t* posX, int16_t* posY, int16_t* width,
 	*height = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SHOW_ICON].height_5 * scale);
 	int32_t locHeight = (400 - 4 * *height) / 2 - 60;
 	int32_t locWidth = (640 - *width) / 2;
-	if (videoMode_180660 != 1)
-		if (!DefaultResolutions())
-		{
-			locHeight = ((screenHeight_180624 - (4 * *height)) / 2) - (60 * scale);
-			locWidth = (screenWidth_18062C - *width) / 2;
-		}
+	if (!DefaultResolutions())
+	{
+		locHeight = ((UiScreenHeight() - (4 * *height)) / 2) - (60 * scale);
+		locWidth = (UiScreenWidth() - *width) / 2;
+	}
 
 	locWidth &= 0xFFFFFFFE;
 	*posX = locWidth;
@@ -2765,13 +2781,9 @@ void GetPauseMenuCoordinates_2FFE0(int16_t* posX, int16_t* posY, int16_t* width,
 
 void GetChatMenuCoordinates(int16_t* posX, int16_t* posY, uint8_t scale)
 {
-	int16_t locScreenWidth = screenWidth_18062C;
-	int16_t locScreenHeight = screenHeight_180624;
-	if (videoMode_180660 & 1)
-	{
-		locScreenWidth = 640;
-		locScreenHeight = 400;
-	}
+	// In the UI's coordinates: 640 x 400 for 320x200, doubled with the low res UI at other resolutions
+	int16_t locScreenWidth = UiScreenWidth();
+	int16_t locScreenHeight = UiScreenHeight();
 
 	*posX = (locScreenWidth - (CHAT_MENU_WIDTH * scale)) / 2;
 	*posY = locScreenHeight - (CHAT_MENU_HEIGHT * scale);
@@ -3007,7 +3019,12 @@ void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 	// we get in posX, posY the location of the pointer for a 640x480 display
 	// so recalculate the position based on what we actually have
 
-	if (videoMode_180660 & 1) {
+	if (lowResScaledUi) {
+		// the low res UI at another resolution: the mouse is in the UI's (doubled) coordinates
+		display_w = UiScreenWidth();
+		display_h = UiScreenHeight();
+	}
+	else if (videoMode_180660 & 1) {
 		// 320x240 virtual screen
 		display_w = 320;
 		display_h = 240;
@@ -4637,12 +4654,12 @@ void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32
 {
 	int helpWidth = 640;
 	int helpHeight = 480;
-	if (videoMode_180660 != 1)
-		if (!DefaultResolutions())
-		{
-			helpWidth = screenWidth_18062C;
-			helpHeight = screenHeight_180624;
-		}
+	if (!DefaultResolutions())
+	{
+		// in the UI's coordinates (doubled with the low res UI)
+		helpWidth = UiScreenWidth();
+		helpHeight = UiScreenHeight();
+	}
 
 	//!!!!!!!! debug
 	if (mouseturnoff)
@@ -4962,7 +4979,8 @@ void DrawLine320_9025C(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t 
 	/*v10 = (x_BYTE*)(320 * ((unsigned int)(unsigned __int16)y1 >> 1)
 		+ (int)pdwScreenBuffer_351628
 		+ ((unsigned int)(unsigned __int16)x1 >> 1));*/
-	v10 = &pdwScreenBuffer_351628[320 * (y1 >> 1) + (x1 >> 1)];
+	// rows of the screen's width: 320, or wider with the low res UI at another resolution
+	v10 = &pdwScreenBuffer_351628[screenWidth_18062C * (y1 >> 1) + (x1 >> 1)];
 	v11 = color;
 	v12 = (unsigned __int16)x2;
 	if (x2 == x1)
@@ -4976,7 +4994,7 @@ void DrawLine320_9025C(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t 
 			{
 				BYTE1(v11) = *v10;
 				*v10 = *(x_BYTE*)(v11 + v14);
-				v10 += 320;
+				v10 += screenWidth_18062C;
 				--v13;
 			} while (v13);
 		}
@@ -4985,7 +5003,7 @@ void DrawLine320_9025C(int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t 
 			do
 			{
 				*v10 = color;
-				v10 += 320;
+				v10 += screenWidth_18062C;
 				--v13;
 			} while (v13);
 		}
