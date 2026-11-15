@@ -398,6 +398,28 @@ bool DefaultResolutions()
 	return false;
 }
 
+bool lowResScaledUi = false;
+bool anaglyphMode = false;
+
+bool UseLowResScaledUi()
+{
+	// Not in the regression tests: they compare with the original, whose levels run at 320x200
+	// (the mouse's pitch / roll and its scaling follow the screen in this mode)
+	if (CommandLineParams.ModeRegressionsTestType() != -1)
+		return false;
+	return !IsDefaultResolution(gameResWidth, gameResHeight) && gameResWidth < 640;
+}
+
+int UiScreenWidth()
+{
+	return (videoMode_180660 & 1) ? 2 * screenWidth_18062C : screenWidth_18062C;
+}
+
+int UiScreenHeight()
+{
+	return (videoMode_180660 & 1) ? 2 * screenHeight_180624 : screenHeight_180624;
+}
+
 //----- (00083E80) --------------------------------------------------------
 void FreeMem_83E80(uint8_t* ptr)//264e80
 {
@@ -1898,13 +1920,15 @@ void DrawLineLowRes_90164(int16_t posStartX, int16_t posStartY, int16_t posEndX,
 	uint16_t v10; // [esp+0h] [ebp-4h]
 	uint16_t v11; // [esp+14h] [ebp+10h]
 
-	pixel = &pdwScreenBuffer_351628[320 * (posStartY >> 1) + (posStartX >> 1)];
+	// Rows of the screen's width: 320, or wider with the low res UI at another resolution
+	const int pitch = screenWidth_18062C;
+	pixel = &pdwScreenBuffer_351628[pitch * (posStartY >> 1) + (posStartX >> 1)];
 	if (pdwScreenAlphaBuffer != nullptr)
-		alpha = &pdwScreenAlphaBuffer[320 * (posStartY >> 1) + (posStartX >> 1)];
+		alpha = &pdwScreenAlphaBuffer[pitch * (posStartY >> 1) + (posStartX >> 1)];
 
 	v6 = posEndY >> 1;
 	v11 = posEndX >> 1;
-	v10 = (320 - v11);
+	v10 = (pitch - v11);
 	if (drawFlags_E36D4 & 4)
 	{
 		v7 = colorIdx;
@@ -2019,9 +2043,8 @@ void DrawTextRaw_6F940(const char* textbuffer, int posx, int posy, uint8_t color
 
 	int helpWidth = 640;
 
-	if (videoMode_180660 != 1)
-		if (!DefaultResolutions())
-			helpWidth = screenWidth_18062C;
+	if (!DefaultResolutions())
+		helpWidth = UiScreenWidth();   // in the UI's coordinates (doubled with the low res UI)
 
 	v4 = (uint8_t*)const_cast<char*>(textbuffer); // FIXME: temporary const cast hack
 	v5 = posx;

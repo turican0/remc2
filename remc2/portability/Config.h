@@ -72,6 +72,7 @@ public:
 			int m_GameResWidth = 640;
 			int m_GameResHeight = 480;
 			int m_GameUiScale = 1;
+			int m_MapEntityScale = 1;
 			bool m_UseHighResGraphics = false;
 			std::string m_HighResGraphicsFolder = "";
 			bool m_UseFixedMenuGraphics = false;
@@ -96,10 +97,34 @@ public:
 			bool m_AssignToSpecificCores = false;
 		};
 
+		// Looking Glass (lenticular) output: a quilt of rows x columns cells, each the whole frame at the cell size
+		struct LookingGlass
+		{
+			bool m_Enabled = false;
+			int m_Rows = 6;
+			int m_Columns = 8;
+			int m_CellWidth = 420;    // the game resolution (menus, UI and each view); the window is the whole quilt
+			int m_CellHeight = 560;
+			int m_ViewSpacing = 8;    // camera step between neighbouring views, in world units (a tile is 256)
+			int m_Convergence = 2048;   // distance at the display surface (zero parallax), in world units; 0 = parallel views
+			bool m_Display = false;     // the hologram on the Looking Glass (calibration from Bridge); false = the quilt in a window
+			std::string m_BridgePath;   // Looking Glass Bridge's folder; empty = the newest in the default install location
+		};
+
+		// Anaglyph stereo (F11 in game): the glasses' lens colours, "#RRGGBB"
+		struct Anaglyph
+		{
+			std::string m_LeftColour = "#FF0000";
+			std::string m_RightColour = "#00A8A8";
+			float m_GhostReduction = 0.1f;   // how much of the other eye each lens lets through, cancelled out (0 - 0.5; 0 = off)
+		};
+
 		struct Hardware
 		{
 			bool m_BilinearFiltering = false;
 			int m_AntiAliasing = 0;   // MSAA samples: 0 = off, 2, 4 or 8 (capped to what the GPU supports)
+			LookingGlass m_LookingGlass;
+			Anaglyph m_Anaglyph;
 		};
 
 		// Position of one element of the in-game UI on the screen (not used at the 320x200 / 640x480 default resolutions)
@@ -162,6 +187,7 @@ public:
 			uint16_t m_Map = 0;
 			uint16_t m_SpellMenu = 0;
 			uint16_t m_SpellMenuMark = 0;
+			bool m_DisableLRKeyRoll = false;
 		};
 
 		struct GamePad

@@ -435,6 +435,9 @@
     <ClInclude Include="portability\port_show_perifery.h" />
     <ClInclude Include="portability\RenderPolygon.h" />
     <ClInclude Include="portability\SfxEffectWrapper.h" />
+    <ClInclude Include="portability\LookingGlassBridge.h" />
+    <ClInclude Include="portability\LookingGlassRenderer.h" />
+    <ClInclude Include="portability\AnaglyphRenderer.h" />
     <ClInclude Include="portability\VulkanPolygonRenderer.h" />
     <ClInclude Include="shared\Event.h" />
     <ClInclude Include="shared\EventDispatcher.h" />
@@ -541,6 +544,9 @@
     <ClCompile Include="portability\port_net.cpp" />
     <ClCompile Include="portability\port_sdl_joystick.cpp" />
     <ClCompile Include="portability\port_show_perifery.cpp" />
+    <ClCompile Include="portability\LookingGlassBridge.cpp" />
+    <ClCompile Include="portability\LookingGlassRenderer.cpp" />
+    <ClCompile Include="portability\AnaglyphRenderer.cpp" />
     <ClCompile Include="portability\VulkanPolygonRenderer.cpp" />
     <ClCompile Include="shared\EventDispatcher.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />
@@ -641,6 +647,24 @@
       <Message>Compiling %(Filename)%(Extension)</Message>
     </CustomBuild>
     <CustomBuild Include="portability\shaders\hud.frag">
+      <Command>
+				rem Compiling %(Identity)
+				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"
+				"$(GlslcExe)" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
+			</Command>
+      <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
+      <Message>Compiling %(Filename)%(Extension)</Message>
+    </CustomBuild>
+    <CustomBuild Include="portability\shaders\lenticular.frag">
+      <Command>
+				rem Compiling %(Identity)
+				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"
+				"$(GlslcExe)" "%(FullPath)" -o "$(OutDir)shaders\%(Filename)%(Extension).spv"
+			</Command>
+      <Outputs>$(OutDir)shaders\%(Filename)%(Extension).spv</Outputs>
+      <Message>Compiling %(Filename)%(Extension)</Message>
+    </CustomBuild>
+    <CustomBuild Include="portability\shaders\anaglyph.frag">
       <Command>
 				rem Compiling %(Identity)
 				if not exist "$(OutDir)shaders" mkdir "$(OutDir)shaders"

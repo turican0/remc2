@@ -1,6 +1,7 @@
 #include "read_config.h"
 
 #include <algorithm>
+#include <cmath>
 #include <cstdlib>
 #include <ctype.h>
 
@@ -32,6 +33,7 @@ int windowResHeight = 480;
 int gameResWidth = 640;
 int gameResHeight = 480;
 int gameUiScale = 1;
+int mapEntityScale = 1;
 bool maintainAspectRatio = false;
 bool startWindowed = false;
 bool bigTextures = false;
@@ -51,12 +53,23 @@ int numberOfRenderThreads = 0;
 bool assignToSpecificCores = false;
 bool bilinearFiltering = false;
 int antiAliasing = 0;
+bool lookingGlassEnabled = false;
+int viewRows = 1;
+int viewColumns = 1;
+int viewSpacing = 8;
+int viewConvergence = 0;
+bool lookingGlassDisplay = false;
+LookingGlassDevice lookingGlassDevice;
+uint8_t anaglyphLeftColour[3] = { 255, 0, 0 };
+uint8_t anaglyphRightColour[3] = { 0, 168, 168 };
+float anaglyphGhostReduction = 0.1f;
 bool openGLRender = false;
 bool invertYAxis = true;
 bool invertXAxis = false;
 float mouseScaleX = 1.0f;
 float mouseScaleY = 1.0f;
 bool disableLRButtonsMenuOpen = false;
+bool disableLRKeyRoll = false;
 UiElementLayout topBarLayout = { UiAlignment::Left };
 UiElementLayout spellIconsLayout = { UiAlignment::Right };
 UiElementLayout spellMenuLayout = { UiAlignment::Center };
@@ -85,6 +98,17 @@ UiElementLayout ReadUiElementLayout(const Config::Settings::UiElement& element, 
 	layout.marginX = element.m_MarginX;
 	layout.marginY = element.m_MarginY;
 	return layout;
+}
+
+// "#RRGGBB" (the # optional) to 0 - 255 per channel; false (rgb unchanged) if it isn't one
+bool ParseHexColour(const std::string& text, uint8_t rgb[3])
+{
+	const size_t start = (!text.empty() && text[0] == '#') ? 1 : 0;
+	if (text.size() != start + 6 || !std::all_of(text.begin() + start, text.end(), [](char c) { return std::isxdigit((unsigned char)c) != 0; }))
+		return false;
+	for (int channel = 0; channel < 3; channel++)
+		rgb[channel] = (uint8_t)std::stoi(text.substr(start + 2 * channel, 2), nullptr, 16);
+	return true;
 }
 
 std::string findConfigFile() {
@@ -215,6 +239,35 @@ bool SetConfig() {
 	startWindowed = settingsValue.m_Graphics.m_StartWindowed;
 	gameResWidth = settingsValue.m_Graphics.m_GameDetail.m_GameResWidth;
 	gameResHeight = settingsValue.m_Graphics.m_GameDetail.m_GameResHeight;
+
+	// Looking Glass (hardware renderer only): the game runs at the cell size (menus, UI and each view) and the window
+	// shows the whole quilt of rows x columns cells
+	const auto& lookingGlass = settingsValue.m_Graphics.m_Hardware.m_LookingGlass;
+	lookingGlassEnabled = lookingGlass.m_Enabled && settingsValue.m_Graphics.m_Render == "HW";
+
+	// Anaglyph lens colours (F11 in game); a colour that isn't "#RRGGBB" keeps red / cyan
+	const auto& anaglyph = settingsValue.m_Graphics.m_Hardware.m_Anaglyph;
+	if (!ParseHexColour(anaglyph.m_LeftColour, anaglyphLeftColour))
+		Logger->warn("anaglyph leftColour '{}' isn't #RRGGBB: using red", anaglyph.m_LeftColour);
+	if (!ParseHexColour(anaglyph.m_RightColour, anaglyphRightColour))
+		Logger->warn("anaglyph rightColour '{}' isn't #RRGGBB: using #00A8A8", anaglyph.m_RightColour);
+	anaglyphGhostReduction = std::clamp(anaglyph.m_GhostReduction, 0.0f, 0.5f);
+
+	if (lookingGlassEnabled)
+	{
+		viewRows = std::clamp(lookingGlass.m_Rows, 1, MAX_VIEW_GRID);
+		viewColumns = std::clamp(lookingGlass.m_Columns, 1, MAX_VIEW_GRID);
+		viewSpacing = lookingGlass.m_ViewSpacing;
+		viewConvergence = (std::max)(lookingGlass.m_Convergence, 0);
+		gameResWidth = lookingGlass.m_CellWidth;
+		gameResHeight = lookingGlass.m_CellHeight;
+	}
+	else
+	{
+		viewRows = 1;
+		viewColumns = 1;
+	}
+
 	if (gameResWidth < 320 || gameResHeight < 200)
 	{
 		gameResWidth = 320;
@@ -224,6 +277,33 @@ bool SetConfig() {
 	{
 		gameResWidth = GAME_RES_MAX_WIDTH;
 		gameResHeight = GAME_RES_MAX_HEIGHT;
+	}
+	lookingGlassDisplay = false;
+	if (lookingGlassEnabled && lookingGlass.m_Display)
+	{
+		// The hologram: the window is the display (fullscreen on it), the quilt is interleaved into it
+		lookingGlassDevice = QueryLookingGlassDevice(lookingGlass.m_BridgePath);
+		lookingGlassDisplay = lookingGlassDevice.found;
+		if (!lookingGlassDisplay)
+			Logger->warn("Looking Glass: no display, showing the quilt in a window instead");
+		else
+		{
+			const float cellAspect = (float)gameResWidth / (float)gameResHeight;
+			const float displayAspect = (float)lookingGlassDevice.width / (float)lookingGlassDevice.height;
+			if (std::abs(cellAspect - displayAspect) > 0.01f)
+				Logger->warn("Looking Glass: the cells ({}x{}) are not the display's shape ({}x{}), the views are stretched",
+					gameResWidth, gameResHeight, lookingGlassDevice.width, lookingGlassDevice.height);
+		}
+	}
+	if (lookingGlassDisplay)
+	{
+		windowResWidth = lookingGlassDevice.width;
+		windowResHeight = lookingGlassDevice.height;
+	}
+	else if (lookingGlassEnabled)
+	{
+		windowResWidth = gameResWidth * viewColumns;
+		windowResHeight = gameResHeight * viewRows;
 	}
 	gameUiScale = settingsValue.m_Graphics.m_GameDetail.m_GameUiScale;
 	if (gameUiScale < 1)
@@ -235,6 +315,7 @@ bool SetConfig() {
 			gameUiScale--;
 		}
 	}
+	mapEntityScale = std::clamp(settingsValue.m_Graphics.m_GameDetail.m_MapEntityScale, 1, 4);
 	highResGraphicsFolder = settingsValue.m_Graphics.m_GameDetail.m_HighResGraphicsFolder;
 	if (settingsValue.m_Graphics.m_GameDetail.m_UseHighResGraphics && strlen(highResGraphicsFolder.c_str()) > 0
 		&& std::filesystem::is_directory(GetSubDirectoryPath(highResGraphicsFolder.c_str())))
@@ -321,6 +402,7 @@ bool SetConfig() {
 	inputMapping.Map = settingsValue.m_Controls.m_Keyboard.m_Map;
 	inputMapping.SpellMenu = settingsValue.m_Controls.m_Keyboard.m_SpellMenu;
 	inputMapping.SpellMenuMark = settingsValue.m_Controls.m_Keyboard.m_SpellMenuMark;
+	disableLRKeyRoll = settingsValue.m_Controls.m_Keyboard.m_DisableLRKeyRoll;
 
 	gpc.axis_yaw = settingsValue.m_Controls.m_GamePad.m_AxisYaw;
 	gpc.axis_pitch = settingsValue.m_Controls.m_GamePad.m_AxisPitch;

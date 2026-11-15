@@ -842,7 +842,13 @@ void FadeClearBlit_7B5D0()
 {
 	VgaPalFadeInFadeOut_90B27(0, 0x10u, 0);
 	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
-	if (videoMode_180660 & 1)
+	if (lowResScaledUi)
+	{
+		// the low res UI at another resolution
+		ClearGraphicsBuffer_72883(pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, 0);
+		ClearScreenAlphaBuffer(screenWidth_18062C, screenHeight_180624, 255);
+	}
+	else if (videoMode_180660 & 1)
 	{
 		ClearGraphicsBuffer_72883(pdwScreenBuffer_351628, 320, 200, 0);
 		ClearScreenAlphaBuffer(320, 200, 255);
@@ -1196,8 +1202,26 @@ void ResetPaletteFade_90D27()
 }
 // E390C: using guessed type char paletteFadeActive_E390C;
 
+void SetLowResScaledUiScreen()
+{
+	VGA_Resize(gameResWidth, gameResHeight);
+	screenWidth_18062C = gameResWidth;
+	screenHeight_180624 = gameResHeight;
+	videoMode_180660 = 1;
+	SetViewport_A0D50(0, 0, gameResWidth, gameResHeight);
+}
+
 void VgaSetVideoMode320x200AndPalette_90D6E(TColor* Palettex)//271d6e
 {
+	if (lowResScaledUi)
+	{
+		if (!videoModeNumber_180662)
+			videoModeNumber_180662 = 0x13;
+		SetLowResScaledUiScreen();
+		VgaPaletteInstall_41A90(Palettex);
+		return;
+	}
+
 	//find 351662 - 3;//fix it
 	//unsigned __int8 v2=3; // [esp+0h] [ebp-38h]
 	//int v3; // [esp+1Ch] [ebp-1Ch]

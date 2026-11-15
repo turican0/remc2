@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <filesystem>
 #include <iostream>
 #include <fstream>
@@ -231,6 +232,7 @@ Config::Settings::Controls Config::GetControls(const json& settings)
 				controlValues.m_Keyboard.m_Map = ReadKeyScancode(keyboard, "map");
 				controlValues.m_Keyboard.m_SpellMenu = ReadKeyScancode(keyboard, "spellMenu");
 				controlValues.m_Keyboard.m_SpellMenuMark = ReadKeyScancode(keyboard, "spellMenuMark");
+				controlValues.m_Keyboard.m_DisableLRKeyRoll = ReadBoolValue(keyboard, "disableLRKeyRoll");
 				break;
 			}
 		}
@@ -354,6 +356,7 @@ Config::Settings::GameDetail Config::GetGameDetail(const json& graphics)
 		gameDetailValues.m_GameResWidth = ReadIntValue(gameDetail, "gameResWidth");
 		gameDetailValues.m_GameResHeight = ReadIntValue(gameDetail, "gameResHeight");
 		gameDetailValues.m_GameUiScale = ReadIntValue(gameDetail, "gameUiScale");
+		gameDetailValues.m_MapEntityScale = std::clamp(gameDetail.contains("mapEntityScale") ? ReadIntValue(gameDetail, "mapEntityScale") : 1, 1, 4);
 		gameDetailValues.m_UseHighResGraphics = ReadBoolValue(gameDetail, "useHighResGraphics");
 		gameDetailValues.m_HighResGraphicsFolder = ReadStringValue(gameDetail, "highResGraphicsFolder");
 		gameDetailValues.m_UseFixedMenuGraphics = ReadBoolValue(gameDetail, "useFixedMenuGraphics");
@@ -395,6 +398,38 @@ Config::Settings::Hardware Config::GetHardware(const json& graphics)
 		const auto& hardware = graphics["hardware"];
 		hardwareValues.m_BilinearFiltering = ReadBoolValue(hardware, "bilinearFiltering");
 		hardwareValues.m_AntiAliasing = ReadIntValue(hardware, "antiAliasing");
+		if (hardware.contains("lookingGlass"))
+		{
+			const auto& lookingGlass = hardware["lookingGlass"];
+			auto& values = hardwareValues.m_LookingGlass;
+			values.m_Enabled = ReadBoolValue(lookingGlass, "enabled");
+			if (lookingGlass.contains("rows"))
+				values.m_Rows = ReadIntValue(lookingGlass, "rows");
+			if (lookingGlass.contains("columns"))
+				values.m_Columns = ReadIntValue(lookingGlass, "columns");
+			if (lookingGlass.contains("cellWidth"))
+				values.m_CellWidth = ReadIntValue(lookingGlass, "cellWidth");
+			if (lookingGlass.contains("cellHeight"))
+				values.m_CellHeight = ReadIntValue(lookingGlass, "cellHeight");
+			if (lookingGlass.contains("viewSpacing"))
+				values.m_ViewSpacing = ReadIntValue(lookingGlass, "viewSpacing");
+			if (lookingGlass.contains("convergence"))
+				values.m_Convergence = ReadIntValue(lookingGlass, "convergence");
+			if (lookingGlass.contains("display"))
+				values.m_Display = ReadBoolValue(lookingGlass, "display");
+			if (lookingGlass.contains("bridgePath"))
+				values.m_BridgePath = ReadStringValue(lookingGlass, "bridgePath");
+		}
+		if (hardware.contains("anaglyph"))
+		{
+			const auto& anaglyph = hardware["anaglyph"];
+			if (anaglyph.contains("leftColour"))
+				hardwareValues.m_Anaglyph.m_LeftColour = ReadStringValue(anaglyph, "leftColour");
+			if (anaglyph.contains("rightColour"))
+				hardwareValues.m_Anaglyph.m_RightColour = ReadStringValue(anaglyph, "rightColour");
+			if (anaglyph.contains("ghostReduction"))
+				hardwareValues.m_Anaglyph.m_GhostReduction = ReadFloatValue(anaglyph, "ghostReduction");
+		}
 	}
 	return hardwareValues;
 }
@@ -551,6 +586,7 @@ void Config::SaveGameDetailToDoc(Config::Settings::GameDetail gameDetail)
 	SetInt(gd, "gameResWidth", gameDetail.m_GameResWidth);
 	SetInt(gd, "gameResHeight", gameDetail.m_GameResHeight);
 	SetInt(gd, "gameUiScale", gameDetail.m_GameUiScale);
+	SetInt(gd, "mapEntityScale", gameDetail.m_MapEntityScale);
 	SetBool(gd, "useHighResGraphics", gameDetail.m_UseHighResGraphics);
 	SetString(gd, "highResGraphicsFolder", gameDetail.m_HighResGraphicsFolder);
 	SetBool(gd, "useFixedMenuGraphics", gameDetail.m_UseFixedMenuGraphics);
@@ -585,6 +621,20 @@ void Config::SaveHardwareToDoc(Config::Settings::Hardware hardware)
 	auto& h = GetOrCreate(gfx, "hardware");
 	SetBool(h, "bilinearFiltering", hardware.m_BilinearFiltering);
 	SetInt(h, "antiAliasing", hardware.m_AntiAliasing);
+	auto& lg = GetOrCreate(h, "lookingGlass");
+	SetBool(lg, "enabled", hardware.m_LookingGlass.m_Enabled);
+	SetInt(lg, "rows", hardware.m_LookingGlass.m_Rows);
+	SetInt(lg, "columns", hardware.m_LookingGlass.m_Columns);
+	SetInt(lg, "cellWidth", hardware.m_LookingGlass.m_CellWidth);
+	SetInt(lg, "cellHeight", hardware.m_LookingGlass.m_CellHeight);
+	SetInt(lg, "viewSpacing", hardware.m_LookingGlass.m_ViewSpacing);
+	SetInt(lg, "convergence", hardware.m_LookingGlass.m_Convergence);
+	SetBool(lg, "display", hardware.m_LookingGlass.m_Display);
+	SetString(lg, "bridgePath", hardware.m_LookingGlass.m_BridgePath);
+	auto& anaglyph = GetOrCreate(h, "anaglyph");
+	SetString(anaglyph, "leftColour", hardware.m_Anaglyph.m_LeftColour);
+	SetString(anaglyph, "rightColour", hardware.m_Anaglyph.m_RightColour);
+	SetFloat(anaglyph, "ghostReduction", hardware.m_Anaglyph.m_GhostReduction);
 }
 
 void Config::SaveInGameUiToDoc(Config::Settings::InGameUi inGameUi)
@@ -644,6 +694,7 @@ void Config::SaveControlsToDoc(Config::Settings::Controls controlSettings)
 	SetString(keyboard, "map", m_ConfigToSdlScancode.GetName(controlSettings.m_Keyboard.m_Map));
 	SetString(keyboard, "spellMenu", m_ConfigToSdlScancode.GetName(controlSettings.m_Keyboard.m_SpellMenu));
 	SetString(keyboard, "spellMenuMark", m_ConfigToSdlScancode.GetName(controlSettings.m_Keyboard.m_SpellMenuMark));
+	SetBool(keyboard, "disableLRKeyRoll", controlSettings.m_Keyboard.m_DisableLRKeyRoll);
 
 	if (!controls.contains("gamePad"))
 		controls["gamePad"] = json::array({ json::object() });

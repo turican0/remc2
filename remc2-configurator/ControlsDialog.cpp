@@ -160,6 +160,14 @@ void ControlsDialog::CreateKeyboardPage()
 
 	sizer->Add(presetSizer, 0, wxEXPAND | wxALL, 5);
 
+	// -- Misc --
+	wxStaticBoxSizer* miscSizer = new wxStaticBoxSizer(wxVERTICAL, m_keyboardPage, "Misc");
+	m_disableLRKeyRoll = new wxCheckBox(m_keyboardPage, wxID_ANY, "Disable L+R Keys Barrel Roll");
+	m_disableLRKeyRoll->SetValue(m_cfg.m_Keyboard.m_DisableLRKeyRoll);
+	m_disableLRKeyRoll->SetToolTip("When enabled, stops pressing the left and right keys together from barrel rolling the carpet");
+	miscSizer->Add(m_disableLRKeyRoll, 0, wxALL, 5);
+	sizer->Add(miscSizer, 0, wxEXPAND | wxALL, 5);
+
 	//
 	// Key bindings
 	//
@@ -682,6 +690,7 @@ Config::Settings::Controls ControlsDialog::GetSettings() const
 	cfg.m_Keyboard.m_Map = GetSelectedScancode(m_mapKey);
 	cfg.m_Keyboard.m_SpellMenu = GetSelectedScancode(m_spellMenuKey);
 	cfg.m_Keyboard.m_SpellMenuMark = GetSelectedScancode(m_spellMenuMarkKey);
+	cfg.m_Keyboard.m_DisableLRKeyRoll = m_disableLRKeyRoll->GetValue();
 
 	cfg.m_GamePad.m_ControllerId = m_controllerId->GetValue();
 	cfg.m_GamePad.m_ButtonMiniMap = m_buttonMiniMap->GetValue();

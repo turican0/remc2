@@ -411,6 +411,15 @@
     <ClInclude Include="engine\axis_3d.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="portability\LookingGlassRenderer.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\AnaglyphRenderer.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\LookingGlassBridge.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
     <ClInclude Include="portability\VulkanPolygonRenderer.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
@@ -692,6 +701,15 @@
     <ClCompile Include="lib\stb_impl.cpp">
       <Filter>Source Files\portability\lib</Filter>
     </ClCompile>
+    <ClCompile Include="portability\LookingGlassRenderer.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\AnaglyphRenderer.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\LookingGlassBridge.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
     <ClCompile Include="portability\VulkanPolygonRenderer.cpp">
       <Filter>Source Files\portability</Filter>
     </ClCompile>
@@ -743,6 +761,12 @@
       <Filter>Source Files\portability\shaders</Filter>
     </CustomBuild>
     <CustomBuild Include="portability\shaders\hud.frag">
+      <Filter>Source Files\portability\shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="portability\shaders\lenticular.frag">
+      <Filter>Source Files\portability\shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="portability\shaders\anaglyph.frag">
       <Filter>Source Files\portability\shaders</Filter>
     </CustomBuild>
   </ItemGroup>

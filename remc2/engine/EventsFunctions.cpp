@@ -1457,7 +1457,16 @@ void InGameLoop_47320()//228320
 	world_D41A0.players_0x2BDE[world_D41A0.LevelIndex_0xc].stateFlags_0_2BDE_11230.word[1] = 0;
 
 	//fix res on begin level for hidden levels-neoriginal code
-	if (!IsDefaultResolution320(gameResWidth, gameResHeight))
+	lowResScaledUi = UseLowResScaledUi();
+	if (lowResScaledUi)
+	{
+		// Narrower than 640: the level stays with the low res UI, laid out to the screen at the game resolution
+		SetLowResScaledUiScreen();
+		resindex_begin = 0;
+		EventDispatcher::I->DispatchEvent(EventType::E_RESOLUTION_CHANGE, screenWidth_18062C, screenHeight_180624);
+		viewPort.ResizeViewPort_2CA90(world_D41A0.m_GameSettings.m_Graphics.m_wViewPortSize);
+	}
+	else if (!IsDefaultResolution320(gameResWidth, gameResHeight))
 	{
 		VGA_Resize(320, 200);
 		screenWidth_18062C = 320;
@@ -1553,6 +1562,7 @@ void InGameLoop_47320()//228320
 	if(IsRecording())
 		m_InputRecorder->SaveRecording();
 
+	lowResScaledUi = false;
 	VgaSetVideoMode640x480AndPalette_90E07((TColor*)*xadatapald0dat2.colorPalette_var28);
 }
 

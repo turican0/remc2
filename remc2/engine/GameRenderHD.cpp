@@ -2801,8 +2801,12 @@ void GameRenderHD::DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* entity
 	uint8_t scale = 1;
 	if (!DefaultResolutions())
 		scale = gameUiScale;
-	const int right = viewPort.PreWidth_EA3C4 + viewPort.PosX_EA3D0 - (4 * scale);
-	const int bottom = viewPort.PreHeight_EA3C0 + viewPort.PosY_EA3CC - (22 * scale);
+	// The low res UI (320 mode) draws in doubled coordinates, so the view port's pixels are doubled to match
+	const int uiFactor = (videoMode_180660 & 1) ? 2 : 1;
+	const int viewLeft = uiFactor * viewPort.PosX_EA3D0;
+	const int viewTop = uiFactor * viewPort.PosY_EA3CC;
+	const int right = uiFactor * (viewPort.PreWidth_EA3C4 + viewPort.PosX_EA3D0) - (4 * scale);
+	const int bottom = uiFactor * (viewPort.PreHeight_EA3C0 + viewPort.PosY_EA3CC) - (22 * scale);
 	const int wizard = entity->playerData_0xA4_164x->playerColorIndex_0x38_56;
 	char name[32];
 	strcpy(name, world_D41A0.players_0x2BDE[wizard].WizardName_0x39f_2BFA_12157);
@@ -2812,15 +2816,10 @@ void GameRenderHD::DrawSorcererNameAndHealthBar_2CB30(type_entity_0x6E8E* entity
 	const uint8_t lightColor = frameColors[2];
 	const uint8_t darkColor = frameColors[3];
 	const uint8_t backgroundColor = frameColors[0];
-	int16_t center = (spriteWidth >> 1) + screenX;
-	if (videoMode_180660 & 1)
-	{
-		center *= 2;
-		screenY *= 2;
-	}
-	const int16_t left = viewPort.PosX_EA3D0 + center;
-	const int top = viewPort.PosY_EA3CC + screenY - (20 * scale);
-	if (left < viewPort.PosX_EA3D0 || static_cast<int16_t>(top) < viewPort.PosY_EA3CC || left >= right || static_cast<int16_t>(top) >= bottom)
+	const int16_t center = (spriteWidth >> 1) + screenX;
+	const int16_t left = uiFactor * (viewPort.PosX_EA3D0 + center);
+	const int top = uiFactor * (viewPort.PosY_EA3CC + screenY) - (20 * scale);
+	if (left < viewLeft || static_cast<int16_t>(top) < viewTop || left >= right || static_cast<int16_t>(top) >= bottom)
 		return;
 	const int border = 2 * scale;
 	const int letterWidth = 8 * scale;

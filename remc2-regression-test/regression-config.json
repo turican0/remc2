@@ -24,6 +24,7 @@
 					"gameResWidth": 320,
 					"gameResHeight": 320,
 					"gameUiScale": 1,
+					"mapEntityScale": 1,
 					"useEnhancedGraphics": false,
 					"bigGraphicsFolder": "biggraphics",
 					"sky": true,
@@ -70,7 +71,8 @@
 					{
 						"description": [
 							"spellMenu: Ctrl by default. Opens the Spell menu",
-							"spellMenuMark: LShift By default, Hold down with spell menu open to mark a spell to the mouse button pressed"
+							"spellMenuMark: LShift By default, Hold down with spell menu open to mark a spell to the mouse button pressed",
+							"disableLRKeyRoll: when enabled stops pressing the left and right keys together from barrel rolling the carpet"
 						],
 						"name": "Modern",
 						"isActive": true,
@@ -80,12 +82,14 @@
 						"right": "D",
 						"map": "TAB",
 						"spellMenu": "LCTRL",
-						"spellMenuMark": "LSHIFT"
+						"spellMenuMark": "LSHIFT",
+						"disableLRKeyRoll": false
 					},
 					{
 						"description": [
 							"spellMenu: Ctrl by default. Opens the Spell menu",
-							"spellMenuMark: LShift By default, Hold down with spell menu open to mark a spell to the mouse button pressed"
+							"spellMenuMark: LShift By default, Hold down with spell menu open to mark a spell to the mouse button pressed",
+							"disableLRKeyRoll: when enabled stops pressing the left and right keys together from barrel rolling the carpet"
 						],
 						"name": "Classic",
 						"isActive": false,
@@ -95,7 +99,8 @@
 						"right": "RIGHT",
 						"map": "RETURN",
 						"spellMenu": "RCTRL",
-						"spellMenuMark": "RSHIFT"
+						"spellMenuMark": "RSHIFT",
+						"disableLRKeyRoll": false
 					}
 				],
 				"gamePad": [

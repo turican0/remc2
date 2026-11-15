@@ -19,6 +19,7 @@ private:
 	wxCheckBox* m_invertYAxis;
 	wxCheckBox* m_invertXAxis;
 	wxCheckBox* m_disableLRButtonsMenuOpen;
+	wxCheckBox* m_disableLRKeyRoll;
 
 	wxSpinCtrlDouble* m_mouseScaleX;
 	wxSpinCtrlDouble* m_mouseScaleY;

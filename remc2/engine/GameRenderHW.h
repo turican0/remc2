@@ -37,7 +37,13 @@ private:
 	const float kTileUVInset = 1.0f / 64.0f;   // texels kept clear of each tile edge in the atlas
 
 	static constexpr size_t kReservedSprites = 200;
-	std::vector<RenderPolygon> m_polygons;
+	// One polygon list per view and the views' layout (1 x 1, the VR eyes 1 x 2, or the viewRows x viewColumns quilt);
+	// sent to the renderer together once a frame
+	RenderViews m_frameViews;
+	// The centre view: the only one that draws into the HUD (sorcerer names, health bars) and sets the help text
+	bool m_primaryView = true;
+	// The camera's sideways step of the view being drawn (world units); with viewConvergence it shears the projection
+	int m_viewOffset = 0;
 
 	struct TileStepQuadrant {
 		uint8_t startX;      // [0] starting X map coordinate offset
@@ -95,7 +101,8 @@ private:
 	enum class SpriteChoice { Draw, LoadFailed, Unknown };
 
 	void DrawSky_40950(int16_t roll, std::vector<RenderPolygon>* polygons);
-	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov);
+	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov,
+		std::vector<RenderPolygon>* polygons);
 	void ProjectTiles(TerrainProjection projection, uint8_t mapX, uint8_t mapY, const TileStepQuadrant& steps, uint8_t quadrant, int posZ);
 	void RotateTiles(bool secondPoints);
 	template<typename DrawTile> void ForEachTileFarToNear(DrawTile drawTile);

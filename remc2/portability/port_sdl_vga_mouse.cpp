@@ -15,6 +15,8 @@ extern DOS_Device* DOS_CON;
 #include "GameKey.h"
 #include "KeyboardInputMapping.h"
 #include "VulkanPolygonRenderer.h"
+#include "LookingGlassRenderer.h"
+#include "AnaglyphRenderer.h"
 
 SDL_Window* m_window = nullptr;
 SDL_Renderer* m_renderer = nullptr;
@@ -148,7 +150,12 @@ void VGA_Init(Uint32  /*flags*/, int windowWidth, int windowHeight, int gameResW
 			SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 
 			SDL_Rect display = GetDisplayByIndex(displayIndex);
-			if (windowWidth > display.w || windowHeight > display.h)
+			if (lookingGlassDisplay)
+			{
+				// The hologram: the window covers the Looking Glass, where Bridge says it is
+				display = SDL_Rect{ lookingGlassDevice.x, lookingGlassDevice.y, lookingGlassDevice.width, lookingGlassDevice.height };
+			}
+			else if (windowWidth > display.w || windowHeight > display.h)
 			{
 				display = FindDisplayByResolution(windowWidth, windowHeight);
 			}
@@ -304,7 +311,24 @@ void CreateRenderSurfaces(int width, int height)
 
 bool CreateRenderer(int width, int height)
 {
-	m_vulkanRenderer = new VulkanPolygonRenderer(GetSubDirectoryPath("shaders"), CommandLineParams.DoVulkanValidation());
+	const std::string shaderFolder = GetSubDirectoryPath("shaders");
+	if (lookingGlassEnabled)
+	{
+		// The quilt of views (the game sends its grid with the polygons): side by side in the window, or interleaved on
+		// the Looking Glass display
+		auto* lookingGlassRenderer = new LookingGlassRenderer(shaderFolder, CommandLineParams.DoVulkanValidation());
+		if (lookingGlassDisplay)
+			lookingGlassRenderer->SetLookingGlassDevice(lookingGlassDevice);
+		m_vulkanRenderer = lookingGlassRenderer;
+	}
+	else
+	{
+		// The plain frame, and the anaglyph's two eyes combined red / cyan while F11 has it on
+		auto* anaglyphRenderer = new AnaglyphRenderer(shaderFolder, CommandLineParams.DoVulkanValidation());
+		anaglyphRenderer->SetColours(anaglyphLeftColour, anaglyphRightColour);
+		anaglyphRenderer->SetGhostReduction(anaglyphGhostReduction);
+		m_vulkanRenderer = anaglyphRenderer;
+	}
 	m_vulkanRenderer->SetBilinearFiltering(bilinearFiltering);
 	m_vulkanRenderer->SetAntiAliasing(antiAliasing);
 	try
@@ -890,7 +914,15 @@ void ToggleFullscreen() {
 }
 
 void ToggleFullscreen(bool fullScreen) {
-	
+	if (lookingGlassDisplay)
+	{
+		// Always fullscreen on the Looking Glass: the interleave needs the window to be exactly the display
+		SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		m_settingWindowGrabbed = true;
+		SDL_SetWindowGrab(m_window, SDL_TRUE);
+		return;
+	}
+
 	SDL_DisplayMode dm;
 	if (SDL_GetDesktopDisplayMode(0, &dm) != 0) {
 		SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
@@ -1066,6 +1098,14 @@ void VGA_Set_mouse(int16_t x, int16_t y)
 
 void ScaleUpMouseCoordsToVga(int16_t& x, int16_t& y)
 {
+	if (lowResScaledUi)
+	{
+		// The low res UI at a resolution narrower than 640: the 640 x 480 mouse area to the UI's (doubled) coordinates
+		x = (int16_t)(x * UiScreenWidth() / 640);
+		y = (int16_t)(y * UiScreenHeight() / 480);
+		return;
+	}
+
 	if (m_iOrigw > 640)
 	{
 		float fx = 1;
@@ -1089,6 +1129,13 @@ void ScaleUpMouseCoordsToVga(int16_t& x, int16_t& y)
 
 void ScaleDownMouseCoordsToVga(int16_t& x, int16_t& y)
 {
+	if (lowResScaledUi)
+	{
+		x = (int16_t)(x * 640 / UiScreenWidth());
+		y = (int16_t)(y * 480 / UiScreenHeight());
+		return;
+	}
+
 	if (m_iOrigw > 640)
 	{
 		float fx = 1;
@@ -1162,23 +1209,27 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight, uint8_t* alp
 	rectSrc.w = originalResWidth;
 	rectSrc.h = originalResHeight;
 
+	// The Vulkan renderer puts the whole Looking Glass quilt (rows x columns frames) into dscrect
+	const int outputWidth = m_vulkanRenderer ? originalResWidth * viewColumns : originalResWidth;
+	const int outputHeight = m_vulkanRenderer ? originalResHeight * viewRows : originalResHeight;
+
 	SDL_Rect dscrect;
 	if (m_bMaintainAspectRatio)
 	{
-		float widthRatio = (float)m_iWindowWidth / (float)originalResWidth;
-		float heightRatio = (float)m_iWindowHeight / (float)originalResHeight;
+		float widthRatio = (float)m_iWindowWidth / (float)outputWidth;
+		float heightRatio = (float)m_iWindowHeight / (float)outputHeight;
 
 		if (widthRatio >= heightRatio)
 		{
-			dscrect.w = (int)((float)originalResWidth * heightRatio);
-			dscrect.h = (int)((float)originalResHeight * heightRatio);
+			dscrect.w = (int)((float)outputWidth * heightRatio);
+			dscrect.h = (int)((float)outputHeight * heightRatio);
 			dscrect.x = (m_iWindowWidth - dscrect.w) / 2;
 			dscrect.y = 0;
 		}
 		else
 		{
-			dscrect.w = (int)((float)originalResWidth * widthRatio);
-			dscrect.h = (int)((float)originalResHeight * widthRatio);
+			dscrect.w = (int)((float)outputWidth * widthRatio);
+			dscrect.h = (int)((float)outputHeight * widthRatio);
 			dscrect.x = 0;
 			dscrect.y = (m_iWindowHeight - dscrect.h) / 2;
 		}
@@ -1657,6 +1708,9 @@ uint16_t TranslateSdlKeysToGameKeys(uint16_t scancode)
 		break;
 	case SDL_SCANCODE_F9://f9
 		return GameKey::F9;
+		break;
+	case SDL_SCANCODE_F11://f11: the anaglyph on / off
+		return GameKey::F11;
 		break;
 	case SDL_SCANCODE_F10://f10
 		return GameKey::F10;
