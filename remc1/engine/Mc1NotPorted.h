@@ -10,7 +10,9 @@
 
 void sub_34C80();
 void sub_35040();
-void sub_3FCA0_3FFE0(int32_t mode, int32_t minX, int32_t minY, int32_t maxX, int32_t maxY, int32_t stepX, int32_t stepY);
+// the VFX1 head tracker: 5B210 reads it (vfxTrackerX / Y), 5B2B0 (int 33h 8)
+int32_t sub_5B210_5B720();
+void sub_5B2B0_5B7C0();
 void sub_4D680_4D9C0();
 void sub_4E5B0_4E8F0();
 void sub_4D560_4D8A0();
@@ -313,4 +315,8 @@ void sub_24D20_24D20(int32_t x, int32_t y, int32_t width, int32_t height, int32_
 void sub_24DA0_24DA0(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);
 void sub_22880_22880();
 void sub_5A560_5AA70();
-void sub_16B00_16B00(); // 17C20: the function keys (F5-F10 toggles, the sound, the pause, the messages)
+// 16B00: the game loaded (3E690 the state, 3E7F0 the maps) and saved (3E750, 3E8C0)
+int32_t sub_3E690_3E9D0(int16_t number);
+int32_t sub_3E750_3EA90(int16_t number);
+int32_t sub_3E7F0_3EB30(int16_t number);
+int32_t sub_3E8C0_3EC00(int16_t number);

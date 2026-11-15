@@ -12,6 +12,7 @@
 #include "../../remc2/engine/Graphics.h"
 #include "../../remc2/engine/PlayerInput.h"
 #include "../../remc2/engine/read_config.h"
+#include "../../remc2/portability/port_sdl_joystick.h"
 #include "../../remc2/portability/port_sdl_vga_mouse.h"
 
 uint8_t graphicsInitialized_93A84_93A84 = 0;
@@ -33,6 +34,8 @@ void InitGraphics_44730_44A70()
 	graphicsInitialized_93A84_93A84 = 1;
 	// port: opens the window, the first palette call does it in MC2
 	VGA_Init(windowResWidth, windowResHeight, gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
+	// port: the gamepad of remc2 as the mouse and the keys (MC2 sub_main)
+	gamepad_init(gameResWidth, gameResHeight);
 	if (*videoMode_12F02E_12F01E & 1)
 		ClearScreen320_411D7_41517(*workScreen_12EFF4_12EFE4, 320, 200, 0);
 	else

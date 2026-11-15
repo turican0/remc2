@@ -34,7 +34,8 @@ typedef struct {
 typedef struct { // 0x6A bytes
 	int32_t creatures_0x00; // class 5, not the models 9 and 0Ch-0Fh
 	int32_t class12_0x04[24]; // class 12 by the model
-	uint8_t unknown_0x64[6];
+	uint16_t savedLevel_0x64; // the level and the timer of the game saved by Alt+S (16B00)
+	uint32_t savedTimer_0x66;
 } Type_Mc1CreatureStats;
 
 typedef struct { // 14 bytes in the settings at 0xB8, cleared by ClearLevel_40550
@@ -281,7 +282,8 @@ typedef struct { // size 232713, DOSBox 26C400 (pointer)
 	uint8_t map_0x2199_8601;
 	uint8_t icons_0x219A_8602;
 	uint8_t screenSize_0x219B_8603; // 0 full screen (MC2 0x2190)
-	uint8_t unknown_0x219C_8604[0x219E - 0x219C];
+	uint8_t blur_0x219C_8604; // F9: 0 off, 1 light, 2 heavy speed blur
+	uint8_t soften_0x219D_8605; // F4
 	uint8_t vfx_0x219E_8606;
 	uint8_t unknown_0x219F_8607;
 	int8_t tileTextureSize_0x21A0_8608; // 0x20 (blk?-1) or 0x10 (blk?-0), by the memory

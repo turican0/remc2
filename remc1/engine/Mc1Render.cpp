@@ -49,7 +49,7 @@ void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int
 	settings.m_Graphics.m_wSky = state->sky_0x2197_8599;
 	settings.m_Graphics.m_wViewPortSize = state->setting_0x2198_8600;
 	settings.m_Display.m_uiScreenSize = state->screenSize_0x219B_8603;
-	settings.m_Display.xxxx_0x2191 = state->unknown_0x219C_8604[0]; // the blur (219Ch)
+	settings.m_Display.xxxx_0x2191 = state->blur_0x219C_8604;
 	settings.graphics_0x2192.xxxx_0x2193 = state->vfx_0x219E_8606;
 	world_D41A0.terrain_2FECE.MapType = MapType_t::Day;
 	// the waves: the turn of the player (+12h in both)

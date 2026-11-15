@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Mc1Game.h"
+#include "Mc1Input.h"
 #include "Mc1MainMenu.h"
 #include "Mc1Install.h"
 #include "Mc1MenuSound.h"
@@ -295,7 +296,7 @@ void UpdateMenuInput_50770_50AB0()
 		break;
 	case 2:
 		if (inputDevices_90B23_90B23 & 0x23)
-			sub_3FCA0_3FFE0(2, 0, 0, 640, 400, 4, 4); // the joystick moves the mouse
+			JoystickInput_3FCA0_3FFE0(2, 0, 0, 640, 400, 4, 4); // the joystick moves the mouse
 		mouseX_12CADC_12CACC = mousePos_9AD90_9AD90->x;
 		mouseY_12CADE_12CACE = mousePos_9AD90_9AD90->y;
 		clickX_12CAE0_12CAD0 = *mouseClickX_9AD8C_9AD8C;

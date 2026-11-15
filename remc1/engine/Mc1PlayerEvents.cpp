@@ -17,6 +17,8 @@
 #include "Mc1Terrain.h"
 #include "Mc1World.h"
 #include "../../remc2/engine/read_config.h"
+#include "../../remc2/engine/Scene.h"
+#include "../../remc2/shared/EventDispatcher.h"
 
 uint8_t networkJoined_93959_93959 = 0;
 int16_t networkIndex_9395A_9395A = 0;
@@ -434,6 +436,10 @@ void SetPlayerMode_3DC90_3DFD0(Type_Mc1Player_340B* player, uint8_t mode)
 			RestoreScreenSize_31A60_31AA0();
 		}
 		sub_55370_558A0(0, player->index_0x07_7, 0x0E);
+		// port: the scene of the gamepad of remc2 (MC2 SetMenuCursorPosition_52E90, DrawBottomSpellsMenu_2ECC0)
+		static const Scene scenes[5] = { Scene::FLIGHT, Scene::FLIGHT_MENU, Scene::SPELL_MENU, Scene::CHAT_MENU, Scene::FLIGHT_MENU };
+		if (mode < 5)
+			EventDispatcher::I->DispatchEvent(EventType::E_SCENE_CHANGE, scenes[mode]);
 	}
 	CheckCd_3DD10_3E050();
 }

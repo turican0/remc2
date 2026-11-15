@@ -27,7 +27,9 @@ void sub_34C80() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_35040() { NotPorted(__func__); }
 //!!!!! not ported yet
-void sub_3FCA0_3FFE0(int32_t /*mode*/, int32_t /*minX*/, int32_t /*minY*/, int32_t /*maxX*/, int32_t /*maxY*/, int32_t /*stepX*/, int32_t /*stepY*/) { NotPorted(__func__); }
+// 3FCA0: the VFX1 head tracker (only with vfxTracking_9AD08, InitVfx_5AF50 finds none)
+int32_t sub_5B210_5B720() { NotPorted(__func__); return 1; }
+void sub_5B2B0_5B7C0() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_4D680_4D9C0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
@@ -620,5 +622,9 @@ void sub_22880_22880() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_5A560_5AA70() { NotPorted(__func__); }
 //!!!!! not ported yet
-//!!!!! not ported yet
-void sub_16B00_16B00() { NotPorted(__func__); }
+// 16B00 Alt+S / Alt+L: the game saved to save/gam00199.dat (the state) and save/map00199.dat (the maps), needs the
+// state without pointers
+int32_t sub_3E690_3E9D0(int16_t /*number*/) { NotPorted(__func__); return 0; }
+int32_t sub_3E750_3EA90(int16_t /*number*/) { NotPorted(__func__); return 0; }
+int32_t sub_3E7F0_3EB30(int16_t /*number*/) { NotPorted(__func__); return 0; }
+int32_t sub_3E8C0_3EC00(int16_t /*number*/) { NotPorted(__func__); return 0; }

@@ -14,6 +14,8 @@
 #include "Mc1Shared.h"
 #include "Mc1Screen.h"
 #include "Mc1Sound.h"
+#include "../../remc2/engine/Scene.h"
+#include "../../remc2/shared/EventDispatcher.h"
 
 // MC1 game loop: the frames and the tick of the world (the actions of the entities), the same in HW
 
@@ -59,6 +61,8 @@ void GameLoop_34610_349D0()
 	CurrentPlayer().levelResult_0x02_2 = 0;
 	while (!CurrentPlayer().exitGame_0x04_4 && !(CurrentPlayer().levelResult_0x02_2 & 8))
 		GameFrame_34530_348F0();
+	// port: the gamepad of remc2 back to the menus (MC2 DrawEndGameTable_82C20)
+	EventDispatcher::I->DispatchEvent(EventType::E_SCENE_CHANGE, Scene::PREAMBLE_MENU);
 }
 
 void GameFrame_34530_348F0()
