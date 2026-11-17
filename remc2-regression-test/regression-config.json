@@ -3,9 +3,25 @@
 		{
 			"name": "RegressionTest",
 			"isActive": true,
-			"paths": {
-				"gameFolder": "NETHERW",
-				"cdFolder": "CD_Files"
+			"games": {
+				"MagicCarpet": {
+					"paths": {
+						"gameFolder": "MC1/CARPET.CD",
+						"cdFolder": "MC1/CD_Files"
+					}
+				},
+				"HiddenWorlds": {
+					"paths": {
+						"gameFolder": "MC1/CARPET.CD",
+						"cdFolder": "MC1/CD_Files"
+					}
+				},
+				"MagicCarpet2": {
+					"paths": {
+						"gameFolder": "NETHERW",
+						"cdFolder": "CD_Files"
+					}
+				}
 			},
 			"sound": {
 				"hqSound": true,

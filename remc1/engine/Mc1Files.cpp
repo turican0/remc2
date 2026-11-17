@@ -11,6 +11,7 @@
 #include "../../remc2/engine/DatTabIndexes.h"
 
 std::string mc1DataPath;
+std::string mc1InstallPath;
 
 uint8_t* searchData_AE3F4_AE3E4 = nullptr;
 uint8_t* searchDataEnd_AE414_AE404 = nullptr;

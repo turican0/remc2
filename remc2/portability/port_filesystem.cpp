@@ -11,8 +11,8 @@ using namespace std;
 #endif
 */
 
-std::string gameFolder = "NETHERW";
-std::string cdFolder = "CD_Files";
+std::string gameFolder = "MC2/NETHERW";
+std::string cdFolder = "MC2/CD_Files";
 std::string highResGraphicsFolder = "graphics/high-res";
 std::string fixedMenuGraphicsFolder = "graphics/fixed/menu";
 std::string fixedTmapsFolder = "graphics/fixed/tmaps";//sprites taken instead of the TMAPS ones (TextureMaps.cpp LoadFixedTmaps)

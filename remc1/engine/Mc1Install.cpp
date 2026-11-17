@@ -12,7 +12,7 @@ static const char* progressText = "";
 
 std::string Mc1InstallPath()
 {
-	return mc1DataPath + "/CARPET.CD";
+	return mc1InstallPath;
 }
 
 int16_t Access_3EC80_3EFC0(const char* path)

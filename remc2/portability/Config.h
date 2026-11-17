@@ -33,12 +33,33 @@ private:
 
 public:
 
+	// the version of the config file format ("version" of a settings entry)
+	static constexpr const char* ConfigVersion = "2.0";
+
 	struct Settings
 	{
 		struct Paths
 		{
 			std::string m_GameFolder = "";
 			std::string m_CdFolder = "";
+		};
+
+		// The settings of one game (an entry of "games")
+		struct GameEntry
+		{
+			Paths m_Paths;
+		};
+
+		// "games": one entry per game, the keys are the names below
+		struct Games
+		{
+			static constexpr const char* MagicCarpetName = "MagicCarpet";
+			static constexpr const char* HiddenWorldsName = "HiddenWorlds";
+			static constexpr const char* MagicCarpet2Name = "MagicCarpet2";
+
+			GameEntry m_MagicCarpet;
+			GameEntry m_HiddenWorlds;
+			GameEntry m_MagicCarpet2;
 		};
 
 		struct Multiplayer
@@ -244,7 +265,7 @@ public:
 		std::string m_Name;
 		std::string m_Version;
 		std::string m_LaunchArguments;
-		Paths m_Paths;
+		Games m_Games;
 		Multiplayer m_Multiplayer;
 		Sound m_Sound;
 		Graphics m_Graphics;
@@ -267,14 +288,18 @@ public:
 	Settings::InGameUi GetInGameUi(const json& graphics);
 	Settings::UiElement GetUiElement(const json& inGameUi, const char* name, const Settings::UiElement& defaults);
 	Settings::Sound GetSound(const json& settings);
-	Settings::Paths GetPaths(const json& settings);
+	Settings::Games GetGames(const json& settings);
+	Settings::GameEntry GetGameEntry(const json& games, const char* name);
+	Settings::Paths GetPaths(const json& gameEntry);
 	Settings::Controls GetControls(const json& settings);
 	Settings::Multiplayer GetMultiplayer(const json& settings);
 	Settings::Game GetGame(const json& settings);
 
 	void SaveLaunchArgumentsToDoc(Config::Settings settings);
 	void SaveSoundToDoc(Settings::Sound soundSettings);
-	void SavePathsToDoc(Settings::Paths pathSettings);
+	void SaveGamesToDoc(Settings::Games games);
+	void SaveGameEntryToDoc(const char* name, Settings::GameEntry gameEntry);
+	void SavePathsToDoc(const char* gameName, Settings::Paths pathSettings);
 	void SaveMultiplayerToDoc(Settings::Multiplayer multiplayerSettings);
 	void SaveGraphicsToDoc(Settings::Graphics graphics);
 	void SaveGameDetailToDoc(Settings::GameDetail gameDetail);

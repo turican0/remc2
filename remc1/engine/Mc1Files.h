@@ -16,7 +16,8 @@ typedef struct {
 	uint32_t flags_0x28; // 1 low memory
 } Type_Mc1FileEntry;
 
-extern std::string mc1DataPath;
+extern std::string mc1DataPath;    // the CD content (cdFolder of the game in the config)
+extern std::string mc1InstallPath; // the install folder, c:\carpet.cd of the original (gameFolder of the game in the config)
 
 extern uint8_t* searchData_AE3F4_AE3E4;
 extern uint8_t* searchDataEnd_AE414_AE404;

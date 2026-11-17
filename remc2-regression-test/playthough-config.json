@@ -2,15 +2,32 @@
 	"settings": [
 		{
 			"name": "Main",
-			"version": "1.0",
+			"version": "2.0",
 			"isActive": true,
-			"paths": {
+			"games": {
 				"description": [
-					"gameFolder: Main game content folder (after install). Path is relative to .exe",
-					"cdFolder: Main game cd content folder (after install). Path is relative to .exe"
+					"MagicCarpet, HiddenWorlds, MagicCarpet2: the settings of each game",
+					"paths.gameFolder: Main game content folder (after install; MagicCarpet/HiddenWorlds: the CARPET.CD install folder). Path is relative to .exe",
+					"paths.cdFolder: Main game cd content folder (MagicCarpet/HiddenWorlds: the folder of the CD files). Path is relative to .exe"
 				],
-				"gameFolder": "NETHERW",
-				"cdFolder": "CD_Files"
+				"MagicCarpet": {
+					"paths": {
+						"gameFolder": "MC1/CARPET.CD",
+						"cdFolder": "MC1/CD_Files"
+					}
+				},
+				"HiddenWorlds": {
+					"paths": {
+						"gameFolder": "MC1/CARPET.CD",
+						"cdFolder": "MC1/CD_Files"
+					}
+				},
+				"MagicCarpet2": {
+					"paths": {
+						"gameFolder": "NETHERW",
+						"cdFolder": "CD_Files"
+					}
+				}
 			},
 			"sound": {
 				"description": [

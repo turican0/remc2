@@ -49,6 +49,8 @@ struct UiElementLayout
 };
 
 bool SetConfig();
+extern Config::Settings::Paths magicCarpetPaths;
+extern Config::Settings::Paths hiddenWorldsPaths;
 std::vector<Maths::Zone> ReadZones(std::vector<Maths::Zone> zonesArray);
 UiAlignment ParseUiAlignment(std::string alignment, UiAlignment defaultAlignment);
 UiElementLayout ReadUiElementLayout(const Config::Settings::UiElement& element, UiAlignment defaultAlignment);

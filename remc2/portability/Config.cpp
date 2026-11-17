@@ -152,7 +152,7 @@ Config::Settings Config::GetSettings(json& document)
 			settings.m_Name = ReadStringValue(entry, "name");
 			settings.m_Version = ReadStringValue(entry, "version");
 			settings.m_LaunchArguments = ReadStringValue(entry, "launchArguments");
-			settings.m_Paths = GetPaths(entry);
+			settings.m_Games = GetGames(entry);
 			settings.m_Multiplayer = GetMultiplayer(entry);
 			settings.m_Sound = GetSound(entry);
 			settings.m_Graphics = GetGraphics(entry);
@@ -483,12 +483,40 @@ Config::Settings::Sound Config::GetSound(const json& settings)
 	return soundValues;
 }
 
-Config::Settings::Paths Config::GetPaths(const json& settings)
+Config::Settings::Games Config::GetGames(const json& settings)
+{
+	Config::Settings::Games gameValues;
+	if (settings.contains("games"))
+	{
+		const auto& games = settings["games"];
+		gameValues.m_MagicCarpet = GetGameEntry(games, Settings::Games::MagicCarpetName);
+		gameValues.m_HiddenWorlds = GetGameEntry(games, Settings::Games::HiddenWorldsName);
+		gameValues.m_MagicCarpet2 = GetGameEntry(games, Settings::Games::MagicCarpet2Name);
+	}
+	else
+	{
+		// version 1.0 config: the "paths" of the settings entry are those of Magic Carpet 2
+		gameValues.m_MagicCarpet2.m_Paths = GetPaths(settings);
+	}
+	return gameValues;
+}
+
+Config::Settings::GameEntry Config::GetGameEntry(const json& games, const char* name)
+{
+	Config::Settings::GameEntry entryValues;
+	if (games.contains(name) && games[name].is_object())
+	{
+		entryValues.m_Paths = GetPaths(games[name]);
+	}
+	return entryValues;
+}
+
+Config::Settings::Paths Config::GetPaths(const json& gameEntry)
 {
 	Config::Settings::Paths pathValues;
-	if (settings.contains("paths"))
+	if (gameEntry.contains("paths"))
 	{
-		const auto& paths = settings["paths"];
+		const auto& paths = gameEntry["paths"];
 		pathValues.m_GameFolder = ReadStringValue(paths, "gameFolder");
 		pathValues.m_CdFolder = ReadStringValue(paths, "cdFolder");
 	}
@@ -522,10 +550,27 @@ void Config::SaveLaunchArgumentsToDoc(Config::Settings settings)
 	SetString(settingsEntry, "launchArguments", settings.m_LaunchArguments);
 }
 
-void Config::SavePathsToDoc(Config::Settings::Paths pathSettings)
+void Config::SaveGamesToDoc(Config::Settings::Games games)
+{
+	SaveGameEntryToDoc(Settings::Games::MagicCarpetName, games.m_MagicCarpet);
+	SaveGameEntryToDoc(Settings::Games::HiddenWorldsName, games.m_HiddenWorlds);
+	SaveGameEntryToDoc(Settings::Games::MagicCarpet2Name, games.m_MagicCarpet2);
+}
+
+void Config::SaveGameEntryToDoc(const char* name, Config::Settings::GameEntry gameEntry)
+{
+	SavePathsToDoc(name, gameEntry.m_Paths);
+}
+
+void Config::SavePathsToDoc(const char* gameName, Config::Settings::Paths pathSettings)
 {
 	auto& settingsEntry = GetOrCreateActiveSettingsEntry();
-	auto& paths = GetOrCreate(settingsEntry, "paths");
+	// the version 1.0 "paths" of the settings entry are replaced by those of the games
+	settingsEntry.erase("paths");
+	SetString(settingsEntry, "version", ConfigVersion);
+	auto& games = GetOrCreate(settingsEntry, "games");
+	auto& gameEntry = GetOrCreate(games, gameName);
+	auto& paths = GetOrCreate(gameEntry, "paths");
 	SetString(paths, "gameFolder", pathSettings.m_GameFolder);
 	SetString(paths, "cdFolder", pathSettings.m_CdFolder);
 }

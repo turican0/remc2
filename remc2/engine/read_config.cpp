@@ -23,6 +23,18 @@
 #include "../portability/port_sdl_sound.h"
 #include "../portability/port_time.h"
 
+Config::Settings::Paths magicCarpetPaths = { "MC1/CARPET.CD", "MC1/CD_Files" };
+Config::Settings::Paths hiddenWorldsPaths = { "MC1/CARPET.CD", "MC1/CD_Files" };
+
+// the folders of a game from the config, the defaults for the folders it leaves out (e.g. a version 1.0 config)
+static void SetGamePaths(Config::Settings::Paths& paths, const Config::Settings::Paths& configPaths)
+{
+	if (!configPaths.m_GameFolder.empty())
+		paths.m_GameFolder = configPaths.m_GameFolder;
+	if (!configPaths.m_CdFolder.empty())
+		paths.m_CdFolder = configPaths.m_CdFolder;
+}
+
 int config_skip_screen;
 int texturepixels = 32;
 int maxGameFps = 30;
@@ -192,8 +204,10 @@ bool SetConfig() {
 		config_skip_screen = 0;
 
 	//Path
-	gameFolder = settingsValue.m_Paths.m_GameFolder;
-	cdFolder = settingsValue.m_Paths.m_CdFolder;
+	gameFolder = settingsValue.m_Games.m_MagicCarpet2.m_Paths.m_GameFolder;
+	cdFolder = settingsValue.m_Games.m_MagicCarpet2.m_Paths.m_CdFolder;
+	SetGamePaths(magicCarpetPaths, settingsValue.m_Games.m_MagicCarpet.m_Paths);
+	SetGamePaths(hiddenWorldsPaths, settingsValue.m_Games.m_HiddenWorlds.m_Paths);
 
 	//Sound
 	hqsound = settingsValue.m_Sound.m_HqSound;
