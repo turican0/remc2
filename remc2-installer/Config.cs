@@ -8,7 +8,7 @@ namespace remc2_installer
 		public string version { get; set; }
 		public bool isActive { get; set; }
 		public string launchArguments { get; set; }
-		public Paths paths { get; set; }
+		public Games games { get; set; }
 		public Multiplayer multiplayer { get; set; }
 		public Sound sound { get; set; }
 		public Graphics graphics { get; set; }
@@ -24,9 +24,21 @@ namespace remc2_installer
 		public string clientServerIp { get; set; }
 	}
 
-	public class Paths
+	public class Games
 	{
 		public string[] description { get; set; }
+		public GameEntry MagicCarpet { get; set; }
+		public GameEntry HiddenWorlds { get; set; }
+		public GameEntry MagicCarpet2 { get; set; }
+	}
+
+	public class GameEntry
+	{
+		public Paths paths { get; set; }
+	}
+
+	public class Paths
+	{
 		public string gameFolder { get; set; }
 		public string cdFolder { get; set; }
 	}

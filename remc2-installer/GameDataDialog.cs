@@ -11,6 +11,10 @@ namespace WixSharpSetup
     {
 		private bool _runClicked;
 
+        // the Magic Carpet 2 folders in the install directory, the defaults of the config ("games" MagicCarpet2 paths)
+        private static readonly string Mc2GameFolder = Path.Combine("MC2", "NETHERW");
+        private static readonly string Mc2CdFolder = Path.Combine("MC2", "CD_Files");
+
         public GameDataDialog()
         {
             //NOTE: If this assembly is compiled for v4.0.30319 runtime, it may not be compatible with the MSI hosted CLR.
@@ -32,9 +36,9 @@ namespace WixSharpSetup
             }
             catch { };
 
-            return $"The installer will now atempt to copy the NETHERW directory from: 'this.txtPath.Text' to: '{Path.Combine(installPath, "NETHERW")}'.\n" +
-                $"It will then extract the CD Files to: '{Path.Combine(this.txtPath.Text, "CD_Files")}' and copy them to: '{Path.Combine(installPath, "CD_Files")}'.\n\n" +
-                $"If this extract fails you can run '{Path.Combine(this.txtPath.Text, "Extract.bat")}' to extract the files and manually copy them to '{Path.Combine(installPath, "CD_Files")}'.\n\n" +
+            return $"The installer will now atempt to copy the NETHERW directory from: 'this.txtPath.Text' to: '{Path.Combine(installPath, Mc2GameFolder)}'.\n" +
+                $"It will then extract the CD Files to: '{Path.Combine(this.txtPath.Text, "CD_Files")}' and copy them to: '{Path.Combine(installPath, Mc2CdFolder)}'.\n\n" +
+                $"If this extract fails you can run '{Path.Combine(this.txtPath.Text, "Extract.bat")}' to extract the files and manually copy them to '{Path.Combine(installPath, Mc2CdFolder)}'.\n\n" +
                 "Click [Extract Game Data] to continue";
         }
 
@@ -48,8 +52,8 @@ namespace WixSharpSetup
             }
             catch { };
 
-            return $"The installer will now attempt to install the game from the CD: '{this.txtPath.Text}' to: '{Path.Combine(installPath, @"NETHERW")}'.\n" +
-                $"It will then attempt to extract the CD Files from: '{this.txtPath.Text}' and copy them to: '{Path.Combine(installPath, "CD_Files")}'.\n\n" +
+            return $"The installer will now attempt to install the game from the CD: '{this.txtPath.Text}' to: '{Path.Combine(installPath, Mc2GameFolder)}'.\n" +
+                $"It will then attempt to extract the CD Files from: '{this.txtPath.Text}' and copy them to: '{Path.Combine(installPath, Mc2CdFolder)}'.\n\n" +
 				"Click [Extract Game Data] to continue";
         }
 
@@ -170,7 +174,7 @@ namespace WixSharpSetup
             {
                 if (Directory.Exists(gamePath))
                 {
-                    Utils.CopyDirectory(gamePath, Path.Combine(Runtime.InstallDir, @"NETHERW"), true);
+                    Utils.CopyDirectory(gamePath, Path.Combine(Runtime.InstallDir, Mc2GameFolder), true);
                 }
                 else
                 {
@@ -197,13 +201,13 @@ namespace WixSharpSetup
 				if (Directory.Exists(cdPath))
 				{
 					// Create the destination directory
-					if (!Directory.Exists(Path.Combine(Runtime.InstallDir, @"NETHERW")))
-						Directory.CreateDirectory(Path.Combine(Runtime.InstallDir, @"NETHERW"));
+					if (!Directory.Exists(Path.Combine(Runtime.InstallDir, Mc2GameFolder)))
+						Directory.CreateDirectory(Path.Combine(Runtime.InstallDir, Mc2GameFolder));
 
-					if (!Directory.Exists(Path.Combine(Runtime.InstallDir, @"NETHERW/SOUND")))
-						Directory.CreateDirectory(Path.Combine(Runtime.InstallDir, @"NETHERW/SOUND"));
+					if (!Directory.Exists(Path.Combine(Runtime.InstallDir, Mc2GameFolder, "SOUND")))
+						Directory.CreateDirectory(Path.Combine(Runtime.InstallDir, Mc2GameFolder, "SOUND"));
 
-					Utils.CopyDirectory(Path.Combine(cdPath, "SOUND"), Path.Combine(Runtime.InstallDir, @"NETHERW/SOUND"), true);
+					Utils.CopyDirectory(Path.Combine(cdPath, "SOUND"), Path.Combine(Runtime.InstallDir, Mc2GameFolder, "SOUND"), true);
 				}
 				else
 				{
@@ -283,7 +287,7 @@ namespace WixSharpSetup
             {
                 if (Directory.Exists(cdPath))
                 {
-                    Utils.CopyDirectory(cdPath, Path.Combine(Runtime.InstallDir, "CD_Files"), true);
+                    Utils.CopyDirectory(cdPath, Path.Combine(Runtime.InstallDir, Mc2CdFolder), true);
                 }
                 else
                 {
