@@ -124,7 +124,12 @@ void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int
 		mc1Renderer = CreateMc1Renderer();
 		// port: the textures to the HW renderer (MC2 sends them when it loads them): the 256 blocks as the atlas, the
 		// sky and the tmaps loaded so far (the next ones by LoadTmapGroup_58B30)
-		UpdateTileTextures(state->tileTextureSize_0x21A0_8608, blockData_AE3F0_AE3E0, MapType_t::Day, 256);
+		// the block file holds whole rows of 256 / size tiles, not 256 tiles (blk0-1.dat 32px: 8 x 19, blk0-0.dat 16px: 16 x 11)
+		const uint32_t tileSize = state->tileTextureSize_0x21A0_8608;
+		const Type_Mc1FileEntry& blocks = tileSize == 0x10 ? blockFiles16_996E0_996E0[0] : blockFiles32_99738_99738[0];
+		const uint32_t tileCount = tileSize ? blocks.size_0x24 / (tileSize * tileSize) : 0;
+		if (blockData_AE3F0_AE3E0 && tileCount > 0)
+			UpdateTileTextures(tileSize, blockData_AE3F0_AE3E0, MapType_t::Day, tileCount);
 		if (skyData_AE3D8_AE3C8)
 			UpdateSkyTexture(256, skyData_AE3D8_AE3C8);
 		UploadLoadedTmapTextures();

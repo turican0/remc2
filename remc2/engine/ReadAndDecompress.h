@@ -12,7 +12,7 @@ extern uint8_t BigTextureBuffer[128 * 128 * 160];//main
 //uint8_t* ClearMemoryForPath(Pathstruct path);//dataIO
 //bool sub_84250_load_file_array(int psindex);//level
 void LoadPsxBlock_54630(uint16_t TextSize);//main
-void UpdateTileTextures(uint32_t tileSize, uint8_t* tileBuffer, MapType_t mapType, uint32_t tileCount = 8 * 19); // MC1: 256
+void UpdateTileTextures(uint32_t tileSize, uint8_t* tileBuffer, MapType_t mapType, uint32_t tileCount = 8 * 19); // MC1: from the size of its block file
 void UpdateSkyTexture(uint32_t size, uint8_t* skyBuffer);
 void ReadAndDecompressSkyAndBlocks_54660(MapType_t GraphicsType, uint8_t GraphicsSize);//main
 void ReadAndDecompressTables_54800(MapType_t a1);//main
