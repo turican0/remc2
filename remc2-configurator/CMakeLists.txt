@@ -20,6 +20,8 @@ set(SOURCE_FILES_CONFIGURATOR
     "DisplayDialog.h"
     "GameDialog.cpp"
     "GameDialog.h"
+    "GameFilesCheck.cpp"
+    "GameFilesCheck.h"
     "GameFilesDialog.cpp"
     "GameFilesDialog.h"
     "GraphicsDialog.cpp"

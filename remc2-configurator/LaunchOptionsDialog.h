@@ -11,6 +11,15 @@ public:
 	std::string GetLaunchArguments() const;
 
 private:
+	// the games of the drop down: the label and the value of --game
+	struct GameOption
+	{
+		const char* label;
+		const char* argument;
+	};
+	static const GameOption s_games[];
+
+	wxChoice* m_game;
 	wxTextCtrl* m_extraArgs;
 	wxCheckBox* m_setLevel;
 	wxSpinCtrl* m_levelSpin;

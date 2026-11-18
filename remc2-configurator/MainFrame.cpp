@@ -1,6 +1,6 @@
 #include "MainFrame.h"
 
-#include <filesystem>
+#include "GameFilesCheck.h"
 
 MainFrame::MainFrame(const wxString& title, const std::string fileName) : wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxSize(416, 616), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX)
 {
@@ -32,10 +32,10 @@ MainFrame::MainFrame(const wxString& title, const std::string fileName) : wxFram
 	m_btnPlayMagicCarpet2->SetMinSize(wxSize(-1, 40));
 	wxButton* btnLaunchOptions = new wxButton(panel, ID_BTN_LAUNCH_OPTIONS, "Launch Options");
 	btnLaunchOptions->SetMinSize(wxSize(-1, 40));
-	wxButton* btnMultiplayer = new wxButton(panel, ID_BTN_MULTIPLAYER, "Multiplayer");
-	btnMultiplayer->SetMinSize(wxSize(-1, 40));
 	wxButton* btnFile = new wxButton(panel, ID_BTN_FILE, "Game Files");
 	btnFile->SetMinSize(wxSize(-1, 40));
+	wxButton* btnMultiplayer = new wxButton(panel, ID_BTN_MULTIPLAYER, "Multiplayer");
+	btnMultiplayer->SetMinSize(wxSize(-1, 40));
 	wxButton* btnSettings = new wxButton(panel, ID_BTN_SETTINGS, "Settings");
 	btnSettings->SetMinSize(wxSize(-1, 40));
 	wxButton* btnExit = new wxButton(panel, ID_BTN_EXIT, "Exit");
@@ -55,8 +55,8 @@ MainFrame::MainFrame(const wxString& title, const std::string fileName) : wxFram
 	buttonSizer->Add(m_btnPlayHiddenWorlds, flags);
 	buttonSizer->Add(m_btnPlayMagicCarpet2, flags);
 	buttonSizer->Add(btnLaunchOptions, flags);
-	buttonSizer->Add(btnMultiplayer, flags);
 	buttonSizer->Add(btnFile, flags);
+	buttonSizer->Add(btnMultiplayer, flags);
 	buttonSizer->Add(btnSettings, flags);
 	buttonSizer->Add(btnExit, flags);
 
@@ -95,43 +95,15 @@ void MainFrame::UpdatePlayButtons()
 {
 	const auto paths = m_ptrConfig->GetSettingsFromDoc().m_Paths;
 	using GameName = Config::Settings::GameName;
-	using PathKey = Config::Settings::PathKey;
-	// the installer fills both folders of each game (the game files and the extracted CD files)
-	auto folders = [&paths](const char* name) {
-		return std::vector<std::string>{ paths.Get(name, PathKey::GameFolder), paths.Get(name, PathKey::CdFolder) };
-	};
-	UpdatePlayButton(m_btnPlayMagicCarpet, folders(GameName::MagicCarpet));
-	UpdatePlayButton(m_btnPlayHiddenWorlds, folders(GameName::HiddenWorlds));
-	UpdatePlayButton(m_btnPlayMagicCarpet2, folders(GameName::MagicCarpet2));
+	UpdatePlayButton(m_btnPlayMagicCarpet, GameFilesCheck::Missing(paths, GameName::MagicCarpet));
+	UpdatePlayButton(m_btnPlayHiddenWorlds, GameFilesCheck::Missing(paths, GameName::HiddenWorlds));
+	UpdatePlayButton(m_btnPlayMagicCarpet2, GameFilesCheck::Missing(paths, GameName::MagicCarpet2));
 }
 
-void MainFrame::UpdatePlayButton(wxButton* button, const std::vector<std::string>& folders)
+void MainFrame::UpdatePlayButton(wxButton* button, const std::vector<wxString>& missing)
 {
-	wxString missing;
-	for (const auto& folder : folders)
-	{
-		if (!FolderHasFiles(folder))
-			missing += "\n" + (folder.empty() ? wxString("(no folder set)") : ToAbsolute(wxString::FromUTF8(folder)));
-	}
 	button->Enable(missing.empty());
-	button->SetToolTip(missing.empty() ? wxString() : "No game files in:" + missing);
-}
-
-bool MainFrame::FolderHasFiles(const std::string& folder)
-{
-	if (folder.empty())
-		return false;
-	std::error_code error;
-	const std::filesystem::path path(ToAbsolute(wxString::FromUTF8(folder)).ToStdWstring());
-	if (!std::filesystem::is_directory(path, error))
-		return false;
-	for (std::filesystem::recursive_directory_iterator it(path, std::filesystem::directory_options::skip_permission_denied, error), end;
-		!error && it != end; it.increment(error))
-	{
-		if (it->is_regular_file(error))
-			return true;
-	}
-	return false;
+	button->SetToolTip(missing.empty() ? wxString() : "Missing game files:\n" + GameFilesCheck::ToText(missing));
 }
 
 // ── Button handlers ──────────────────────────────────────────────────────────
@@ -209,7 +181,7 @@ void MainFrame::OnFile(wxCommandEvent&)
 {
 	auto settings = m_ptrConfig->GetSettingsFromDoc();
 	GameFilesDialog dlg(this, settings.m_Paths);
-	SetDialogMinSize(dlg, wxSize(430, 195));
+	SetDialogMinSize(dlg, wxSize(430, 230));
 	if (dlg.ShowModal() == wxID_OK) {
 		m_ptrConfig->SavePathsToDoc(dlg.GetPaths());
 		m_ptrConfig->SaveToFile();

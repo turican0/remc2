@@ -1,10 +1,30 @@
 #include "LaunchOptionsDialog.h"
 
+const LaunchOptionsDialog::GameOption LaunchOptionsDialog::s_games[] = {
+	{ "Magic Carpet", "mc1" },
+	{ "Magic Carpet Hidden Worlds", "mc1hw" },
+	{ "Magic Carpet 2", "mc2" },
+};
+static constexpr int kDefaultGame = 2; // Magic Carpet 2, as the game without --game
+
 LaunchOptionsDialog::LaunchOptionsDialog(wxWindow* parent, std::string launchArguments)
-	: wxDialog(parent, wxID_ANY, "Launch Options", wxDefaultPosition, wxSize(430, 460),
+	: wxDialog(parent, wxID_ANY, "Launch Options", wxDefaultPosition, wxSize(430, 500),
 		wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX)
 {
 	auto* mainSizer = new wxBoxSizer(wxVERTICAL);
+
+	// --- Game ---
+	auto* gameSizer = new wxBoxSizer(wxHORIZONTAL);
+	m_game = new wxChoice(this, wxID_ANY);
+	for (const auto& game : s_games)
+		m_game->Append(game.label);
+	m_game->SetSelection(kDefaultGame);
+	m_game->SetToolTip("The game Launch Game starts (--game)");
+	gameSizer->Add(new wxStaticText(this, wxID_ANY, "Game"), 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 10);
+	gameSizer->Add(m_game, 1, wxALIGN_CENTER_VERTICAL);
+	mainSizer->Add(gameSizer, 0, wxEXPAND | wxLEFT | wxRIGHT | wxTOP, 10);
+
+	mainSizer->Add(new wxStaticLine(this), 0, wxEXPAND | wxLEFT | wxRIGHT | wxTOP, 10);
 
 	// --- Set Level ---
 	auto* levelSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -100,6 +120,7 @@ LaunchOptionsDialog::LaunchOptionsDialog(wxWindow* parent, std::string launchArg
 	SetSizerAndFit(mainSizer);
 
 	// --- Bindings ---
+	m_game->Bind(wxEVT_CHOICE, &LaunchOptionsDialog::OnControlChanged, this);
 	m_extraArgs->Bind(wxEVT_TEXT, &LaunchOptionsDialog::OnControlChanged, this);
 	m_customMap->Bind(wxEVT_TEXT, &LaunchOptionsDialog::OnControlChanged, this);
 	m_setLevel->Bind(wxEVT_CHECKBOX, &LaunchOptionsDialog::OnSetLevel, this);
@@ -112,8 +133,8 @@ LaunchOptionsDialog::LaunchOptionsDialog(wxWindow* parent, std::string launchArg
 	m_browseMapBtn->Bind(wxEVT_BUTTON, &LaunchOptionsDialog::OnBrowseMap, this);
 	browseRecordBtn->Bind(wxEVT_BUTTON, &LaunchOptionsDialog::OnBrowseRecordPlay, this);
 
-	SetMinSize(wxSize(430, 460));
-	SetSize(wxSize(430, 460));
+	SetMinSize(wxSize(430, 500));
+	SetSize(wxSize(430, 500));
 	Centre();
 
 	btnOK->Bind(wxEVT_BUTTON, &LaunchOptionsDialog::OnOK, this);
@@ -138,7 +159,11 @@ void LaunchOptionsDialog::BuildCommandLine()
 			result += token;
 		};
 
-	// Free-text additional arguments go first
+	// the game first
+	if (m_game->GetSelection() != wxNOT_FOUND)
+		append(std::string("--game ") + s_games[m_game->GetSelection()].argument);
+
+	// then the free-text additional arguments
 	const auto extra = m_extraArgs->GetValue().ToStdString();
 	if (!extra.empty())
 		append(extra);
@@ -219,7 +244,7 @@ static std::string ExtractValue(const std::string& args, const std::string& flag
 static std::string StripKnownFlags(std::string args)
 {
 	static const std::vector<std::string> valuedFlags = {
-		"--custom_level", "--set_level", "--record_file", "--play_file", "--log_level"
+		"--game", "--custom_level", "--set_level", "--record_file", "--play_file", "--log_level"
 	};
 	static const std::vector<std::string> boolFlags = {
 		"--enable_in_game_debug"
@@ -280,6 +305,13 @@ static std::string StripKnownFlags(std::string args)
 
 void LaunchOptionsDialog::ParseAndApplyArguments(const std::string& args)
 {
+	// --game: one of the drop down, else (none or e.g. select) Magic Carpet 2
+	const auto game = ExtractValue(args, "--game");
+	m_game->SetSelection(kDefaultGame);
+	for (int i = 0; i < static_cast<int>(std::size(s_games)); i++)
+		if (game == s_games[i].argument)
+			m_game->SetSelection(i);
+
 	const auto customLevel = ExtractValue(args, "--custom_level");
 	if (!customLevel.empty())
 		m_customMap->SetValue(wxString::FromUTF8(customLevel));

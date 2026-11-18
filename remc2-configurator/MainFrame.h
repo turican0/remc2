@@ -19,10 +19,9 @@ private:
 	wxButton* m_btnPlayHiddenWorlds = nullptr;
 	wxButton* m_btnPlayMagicCarpet2 = nullptr;
 
-	// enables each play button only when the folders of its game in the config hold files
+	// enables each play button only when its game has the folders and files it needs (the tooltip lists what is missing)
 	void UpdatePlayButtons();
-	static void UpdatePlayButton(wxButton* button, const std::vector<std::string>& folders);
-	static bool FolderHasFiles(const std::string& folder);
+	static void UpdatePlayButton(wxButton* button, const std::vector<wxString>& missing);
 
 	void OnPlayMagicCarpet(wxCommandEvent& evt);
 	void OnPlayHiddenWorlds(wxCommandEvent& evt);
