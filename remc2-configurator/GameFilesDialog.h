@@ -16,4 +16,5 @@ private:
 
 	wxTextCtrl* m_gameFolderCtrl = nullptr;
 	wxTextCtrl* m_cdFolderCtrl = nullptr;
+	Config::Settings::Paths m_initialPaths; // keeps the paths of the other games
 };

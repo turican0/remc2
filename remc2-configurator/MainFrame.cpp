@@ -93,11 +93,16 @@ MainFrame::MainFrame(const wxString& title, const std::string fileName) : wxFram
 // ── Play buttons ─────────────────────────────────────────────────────────────
 void MainFrame::UpdatePlayButtons()
 {
-	const auto games = m_ptrConfig->GetSettingsFromDoc().m_Games;
+	const auto paths = m_ptrConfig->GetSettingsFromDoc().m_Paths;
+	using GameName = Config::Settings::GameName;
+	using PathKey = Config::Settings::PathKey;
 	// the installer fills both folders of each game (the game files and the extracted CD files)
-	UpdatePlayButton(m_btnPlayMagicCarpet, { games.m_MagicCarpet.m_Paths.m_GameFolder, games.m_MagicCarpet.m_Paths.m_CdFolder });
-	UpdatePlayButton(m_btnPlayHiddenWorlds, { games.m_HiddenWorlds.m_Paths.m_GameFolder, games.m_HiddenWorlds.m_Paths.m_CdFolder });
-	UpdatePlayButton(m_btnPlayMagicCarpet2, { games.m_MagicCarpet2.m_Paths.m_GameFolder, games.m_MagicCarpet2.m_Paths.m_CdFolder });
+	auto folders = [&paths](const char* name) {
+		return std::vector<std::string>{ paths.Get(name, PathKey::GameFolder), paths.Get(name, PathKey::CdFolder) };
+	};
+	UpdatePlayButton(m_btnPlayMagicCarpet, folders(GameName::MagicCarpet));
+	UpdatePlayButton(m_btnPlayHiddenWorlds, folders(GameName::HiddenWorlds));
+	UpdatePlayButton(m_btnPlayMagicCarpet2, folders(GameName::MagicCarpet2));
 }
 
 void MainFrame::UpdatePlayButton(wxButton* button, const std::vector<std::string>& folders)
@@ -203,11 +208,10 @@ void MainFrame::OnMultiplayer(wxCommandEvent&)
 void MainFrame::OnFile(wxCommandEvent&)
 {
 	auto settings = m_ptrConfig->GetSettingsFromDoc();
-	GameFilesDialog dlg(this, settings.m_Games.m_MagicCarpet2.m_Paths);
+	GameFilesDialog dlg(this, settings.m_Paths);
 	SetDialogMinSize(dlg, wxSize(430, 195));
 	if (dlg.ShowModal() == wxID_OK) {
-		auto pathSettings = dlg.GetPaths();
-		m_ptrConfig->SavePathsToDoc(Config::Settings::Games::MagicCarpet2Name, pathSettings);
+		m_ptrConfig->SavePathsToDoc(dlg.GetPaths());
 		m_ptrConfig->SaveToFile();
 		UpdatePlayButtons();
 	}

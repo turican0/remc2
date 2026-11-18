@@ -166,7 +166,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+        XCOPY "$(SolutionDir)enhancedassets\MC2\music-ogg" "$(TargetDir)MC2\music-ogg\" /S /Y
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -192,7 +192,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+        XCOPY "$(SolutionDir)enhancedassets\MC2\music-ogg" "$(TargetDir)MC2\music-ogg\" /S /Y
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -219,7 +219,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+        XCOPY "$(SolutionDir)enhancedassets\MC2\music-ogg" "$(TargetDir)MC2\music-ogg\" /S /Y
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -249,7 +249,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
+        XCOPY "$(SolutionDir)enhancedassets\MC2\music-ogg" "$(TargetDir)MC2\music-ogg\" /S /Y
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

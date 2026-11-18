@@ -6,7 +6,7 @@ class GraphicsFoldersDialog : public wxDialog
 {
 public:
 	GraphicsFoldersDialog(wxWindow* parent, const Config::Settings::GameDetail& d);
-	Config::Settings::GameDetail GetFolders() const;
+	Config::Settings::GameDetail GetFolders() const; // the folders in the paths of Magic Carpet 2
 
 private:
 	wxCheckBox* m_chkHighRes;

@@ -57,7 +57,7 @@ int Mc1Main(int argc, char** argv)
 	{
 		// the game gets the parameters remc2 does not know (e.g. -level 5 -cheat 1), as on the DOS command line
 		mc1Variant = game == SELECTED_HIDDEN_WORLDS ? MC1_VARIANT_HW : MC1_VARIANT_MC1;
-		const Config::Settings::Paths& paths = game == SELECTED_HIDDEN_WORLDS ? hiddenWorldsPaths : magicCarpetPaths;
+		const GamePaths& paths = game == SELECTED_HIDDEN_WORLDS ? hiddenWorldsPaths : magicCarpetPaths;
 		mc1DataPath = Mc1FolderPath(paths.m_CdFolder);
 		mc1InstallPath = Mc1FolderPath(paths.m_GameFolder);
 		std::vector<std::string> gameArgs;

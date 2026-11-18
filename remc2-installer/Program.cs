@@ -182,37 +182,37 @@ namespace remc2_installer
 									new Files(@"..\Release\kiss\*.*")),
 								new Dir(new Id("FONT_INSTALLDIR"), @"font",
 									new Files(@"..\Release\font\*.*")),
-								new Dir(new Id("LANGUAGE_INSTALLDIR"), @"CD_FILES\LANGUAGE",
-									new Files(@"..\enhancedassets\languages\*.*")),
-								new Dir(new Id("HIGHRESGRAPHICS_INSTALLDIR"), @"graphics\high-res",
-									new Files(@"..\enhancedassets\graphics\high-res\*.*")
+								new Dir(new Id("LANGUAGE_INSTALLDIR"), @"MC2\CD_Files\LANGUAGE",
+									new Files(@"..\enhancedassets\MC2\languages\*.*")),
+								new Dir(new Id("HIGHRESGRAPHICS_INSTALLDIR"), @"MC2\graphics\high-res",
+									new Files(@"..\enhancedassets\MC2\graphics\high-res\*.*")
                                     {
                                         ComponentCondition = "HIGHTEX=\"yes\""
                                     }),
-								new Dir(new Id("FIXEDMENUGRAPHICS_INSTALLDIR"), @"graphics\fixed\menu",
-									new Files(@"..\enhancedassets\graphics\fixed\menu\*.*")
+								new Dir(new Id("FIXEDMENUGRAPHICS_INSTALLDIR"), @"MC2\graphics\fixed\menu",
+									new Files(@"..\enhancedassets\MC2\graphics\fixed\menu\*.*")
 									{
 										ComponentCondition = "FIXEDMENUGRAPHICS=\"yes\""
 									}),
-								new Dir(new Id("FIXEDTMAPS_INSTALLDIR"), @"graphics\fixed\tmaps",
-									new Files(@"..\enhancedassets\graphics\fixed\tmaps\*.*")
+								new Dir(new Id("FIXEDTMAPS_INSTALLDIR"), @"MC2\graphics\fixed\tmaps",
+									new Files(@"..\enhancedassets\MC2\graphics\fixed\tmaps\*.*")
 									{
 										ComponentCondition = "FIXEDTMAPS=\"yes\""
 									}),
-								new Dir(new Id("EXTENDEDFONTS_INSTALLDIR"), @"graphics\fixed\fonts",
-									new Files(@"..\enhancedassets\graphics\fixed\fonts\*.*")
+								new Dir(new Id("EXTENDEDFONTS_INSTALLDIR"), @"MC2\graphics\fixed\fonts",
+									new Files(@"..\enhancedassets\MC2\graphics\fixed\fonts\*.*")
 									{
 										ComponentCondition = "EXTENDEDFONTS=\"yes\""
 									}),
-								new Dir(new Id("SPEECH_INSTALLDIR"), @"CD_FILES\SPEECH",
-									new Files(@"..\enhancedassets\sound\speech\*.*")
+								new Dir(new Id("SPEECH_INSTALLDIR"), @"MC2\CD_Files\SPEECH",
+									new Files(@"..\enhancedassets\MC2\sound\speech\*.*")
 									{
 										ComponentCondition = "SPEECH=\"yes\""
 									}),
-								new Dir(new Id("MUSICOGG_INSTALLDIR"), @"music-ogg",
-                                    new Files(@"..\enhancedassets\music-ogg\*.*")),
-								new Dir(new Id("AWE32DATA_INSTALLDIR"), @"awe32data",
-                                    new Files(@"..\enhancedassets\awe32data\*.*")),
+								new Dir(new Id("MUSICOGG_INSTALLDIR"), @"MC2\music-ogg",
+                                    new Files(@"..\enhancedassets\MC2\music-ogg\*.*")),
+								new Dir(new Id("AWE32DATA_INSTALLDIR"), @"MC2\awe32data",
+                                    new Files(@"..\enhancedassets\MC2\awe32data\*.*")),
                                 new Dir(new Id("EXTRACT_INSTALLDIR"), @"Extract",
                                     new File(new Id("DOSBOXEXTRACT_CONF"), @"Extract\dosboxExtract-GOG-CD.conf"),
                                     new File(new Id("XXCOPY16_EXE"), @"Extract\XXCOPY16.EXE"),

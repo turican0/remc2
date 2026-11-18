@@ -357,10 +357,14 @@ install(
 )
 install(
     DIRECTORY
-    ${CMAKE_SOURCE_DIR}/enhancedassets/music-ogg
-    ${CMAKE_SOURCE_DIR}/enhancedassets/graphics
-    ${CMAKE_SOURCE_DIR}/awe32data
-    DESTINATION bin
+    ${CMAKE_SOURCE_DIR}/enhancedassets/MC2/music-ogg
+    ${CMAKE_SOURCE_DIR}/enhancedassets/MC2/awe32data
+    DESTINATION bin/MC2
+)
+install(
+    DIRECTORY
+    ${CMAKE_SOURCE_DIR}/enhancedassets/MC2/graphics
+    DESTINATION bin/MC2
 )
 
 if (WIN32)

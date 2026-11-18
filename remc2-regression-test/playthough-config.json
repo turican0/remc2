@@ -4,31 +4,34 @@
 			"name": "Main",
 			"version": "2.0",
 			"isActive": true,
-			"games": {
-				"description": [
-					"MagicCarpet, HiddenWorlds, MagicCarpet2: the settings of each game",
-					"paths.gameFolder: Main game content folder (after install; MagicCarpet/HiddenWorlds: the CARPET.CD install folder). Path is relative to .exe",
-					"paths.cdFolder: Main game cd content folder (MagicCarpet/HiddenWorlds: the folder of the CD files). Path is relative to .exe"
-				],
-				"MagicCarpet": {
-					"paths": {
-						"gameFolder": "MC1/CARPET.CD",
-						"cdFolder": "MC1/CD_Files"
-					}
+			"description": [
+				"paths: the folders of each game. name: MagicCarpet, HiddenWorlds or MagicCarpet2, path: the folders of the game (key, value)",
+				"gameFolder: Main game content folder (after install; MagicCarpet/HiddenWorlds: the CARPET.CD install folder). Path is relative to .exe",
+				"cdFolder: Main game cd content folder (MagicCarpet/HiddenWorlds: the folder of the CD files). Path is relative to .exe"
+			],
+			"paths": [
+				{
+					"name": "MagicCarpet",
+					"path": [
+						{ "key": "gameFolder", "value": "MC1/CARPET.CD" },
+						{ "key": "cdFolder", "value": "MC1/CD_Files" }
+					]
 				},
-				"HiddenWorlds": {
-					"paths": {
-						"gameFolder": "MC1/CARPET.CD",
-						"cdFolder": "MC1/CD_Files"
-					}
+				{
+					"name": "HiddenWorlds",
+					"path": [
+						{ "key": "gameFolder", "value": "MC1/CARPET.CD" },
+						{ "key": "cdFolder", "value": "MC1/CD_Files" }
+					]
 				},
-				"MagicCarpet2": {
-					"paths": {
-						"gameFolder": "NETHERW",
-						"cdFolder": "CD_Files"
-					}
+				{
+					"name": "MagicCarpet2",
+					"path": [
+						{ "key": "gameFolder", "value": "NETHERW" },
+						{ "key": "cdFolder", "value": "CD_Files" }
+					]
 				}
-			},
+			],
 			"sound": {
 				"description": [
 					"hqSound: sound is transfered from 11025,8bit,mono to 44000,16bit,stereo. using AWE32 record of MIDI",
@@ -37,15 +40,23 @@
 					"fixspeedsound: set true when sounds play double speed",
 					"maxSimultaniousSounds: Original was 10. Increasing might impact performance",
 					"speechFolder: location of the ripped CD speech tracks",
-					"autoShowObjectivesForForeignLanguages: auto displays objective and mission text when not english"
+					"autoShowObjectivesForForeignLanguages: auto displays objective and mission text when not english",
+					"paths: the folders of each game (name), path: speechFolder, oggFolder, awe32RomFolder (key, value)"
+				],
+				"paths": [
+					{
+						"name": "MagicCarpet2",
+						"path": [
+							{ "key": "speechFolder", "value": "CD_Files/SPEECH" },
+							{ "key": "oggFolder", "value": "MC2/music-ogg" }
+						]
+					}
 				],
 				"hqSound": true,
 				"oggMusic": true,
-				"oggFolder": "music-ogg",
 				"oggMusicAlternative": false,
 				"fixSpeedSound": false,
 				"maxSimultaniousSounds": 20,
-				"speechFolder": "CD_Files/SPEECH",
 				"autoShowObjectivesForForeignLanguages": true
 			},
 			"graphics": {
@@ -65,23 +76,31 @@
 						"gameResWidth: In Game resolution. If using software render keep this low",
 						"gameUiScale: Scale of the Game Mini/Map and UI '2' recommended for HD, 3 for higher. (Max 8) Will not allow spell menu to be wider than screen width",
 						"mapEntityScale: Makes the map markings bigger on top of their normal or gameUiScale size. 1 = normal, up to 4 = 4x bigger",
-						"useHighResGraphics: If set to true, highResGraphicsFolder must be set as well",
-						"highResGraphicsFolder: Directory with 128x128 textures. Path is relative to .exe",
-						"useFixedMenuGraphics: If set to true, fixedMenuGraphicsFolder folder must be set as well",
-						"fixedMenuGraphicsFolder: Directory with fixed menu graphics. Path is relative to .exe",
+						"useHighResGraphics: If set to true, the highResGraphicsFolder path must be set as well",
+						"useFixedMenuGraphics: If set to true, the fixedMenuGraphicsFolder path must be set as well",
 						"sky: Turns the sky on or off. Can be changed in-game",
 						"reflections: Turns the reflections on or off. Can be changed in-game",
 						"dynamicLighting: Turns the reflections on or off. Can be changed in-game",
-						"viewDistanceScale: Increases the view distance (will effect performance). '1' = Original distance, '2' = 2x, '3' = 3x (Max)"
+						"viewDistanceScale: Increases the view distance (will effect performance). '1' = Original distance, '2' = 2x, '3' = 3x (Max)",
+						"paths: the folders of each game (name), path: the graphics folders below (key, value)",
+						"highResGraphicsFolder: Directory with 128x128 textures. Path is relative to .exe",
+						"fixedMenuGraphicsFolder: Directory with fixed menu graphics. Path is relative to .exe"
+					],
+					"paths": [
+						{
+							"name": "MagicCarpet2",
+							"path": [
+								{ "key": "highResGraphicsFolder", "value": "MC2/graphics/high-res" },
+								{ "key": "fixedMenuGraphicsFolder", "value": "MC2/graphics/fixed/menu" }
+							]
+						}
 					],
 					"gameResWidth": 640,
 					"gameResHeight": 480,
 					"gameUiScale": 2,
 					"mapEntityScale": 1,
 					"useHighResGraphics": false,
-					"highResGraphicsFolder": "graphics/high-res",
 					"useFixedMenuGraphics": false,
-					"fixedMenuGraphicsFolder": "graphics/fixed/menu",
 					"sky": true,
 					"reflections": true,
 					"dynamicLighting": true,

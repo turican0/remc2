@@ -152,12 +152,13 @@ Config::Settings Config::GetSettings(json& document)
 			settings.m_Name = ReadStringValue(entry, "name");
 			settings.m_Version = ReadStringValue(entry, "version");
 			settings.m_LaunchArguments = ReadStringValue(entry, "launchArguments");
-			settings.m_Games = GetGames(entry);
+			settings.m_Paths = GetSettingsPaths(entry);
 			settings.m_Multiplayer = GetMultiplayer(entry);
 			settings.m_Sound = GetSound(entry);
 			settings.m_Graphics = GetGraphics(entry);
 			settings.m_Game = GetGame(entry);
 			settings.m_Controls = GetControls(entry);
+			ReadOldFolders(entry, settings);
 			break;
 		}
 	}
@@ -358,19 +359,16 @@ Config::Settings::GameDetail Config::GetGameDetail(const json& graphics)
 		gameDetailValues.m_GameUiScale = ReadIntValue(gameDetail, "gameUiScale");
 		gameDetailValues.m_MapEntityScale = std::clamp(gameDetail.contains("mapEntityScale") ? ReadIntValue(gameDetail, "mapEntityScale") : 1, 1, 4);
 		gameDetailValues.m_UseHighResGraphics = ReadBoolValue(gameDetail, "useHighResGraphics");
-		gameDetailValues.m_HighResGraphicsFolder = ReadStringValue(gameDetail, "highResGraphicsFolder");
 		gameDetailValues.m_UseFixedMenuGraphics = ReadBoolValue(gameDetail, "useFixedMenuGraphics");
-		gameDetailValues.m_FixedMenuGraphicsFolder = ReadStringValue(gameDetail, "fixedMenuGraphicsFolder");
 		gameDetailValues.m_UseFixedTmaps = ReadBoolValue(gameDetail, "useFixedTmaps");
-		gameDetailValues.m_FixedTmapsFolder = ReadStringValue(gameDetail, "fixedTmapsFolder");
 		gameDetailValues.m_UseExtendedFonts = ReadBoolValue(gameDetail, "useExtendedFonts");
-		gameDetailValues.m_ExtendedFontsFolder = ReadStringValue(gameDetail, "extendedFontsFolder");
 		gameDetailValues.m_Sky = ReadBoolValue(gameDetail, "sky");
 		gameDetailValues.m_Reflections = ReadBoolValue(gameDetail, "reflections");
 		gameDetailValues.m_DynamicLighting = ReadBoolValue(gameDetail, "dynamicLighting");
 		gameDetailValues.m_ViewDistanceScale = ReadIntValue(gameDetail, "viewDistanceScale");
 		if (gameDetail.contains("fogScale"))
 			gameDetailValues.m_FogScale = ReadFloatValue(gameDetail, "fogScale");
+		gameDetailValues.m_Paths = GetPaths(gameDetail);
 	}
 	return gameDetailValues;
 }
@@ -471,10 +469,8 @@ Config::Settings::Sound Config::GetSound(const json& settings)
 		soundValues.m_FixSpeedSound = ReadBoolValue(sound, "fixSpeedSound");
 		soundValues.m_AutoShowObjectivesForForeignLanguages = ReadBoolValue(sound, "autoShowObjectivesForForeignLanguages");
 		soundValues.m_MaxSimultaniousSounds = ReadIntValue(sound, "maxSimultaniousSounds");
-		soundValues.m_SpeechFolder = ReadStringValue(sound, "speechFolder");
 		soundValues.m_MusicType = ReadStringValue(sound, "musicType");
-		soundValues.m_Awe32RomFolder = ReadStringValue(sound, "awe32RomFolder");
-		soundValues.m_OggFolder = ReadStringValue(sound, "oggFolder");
+		soundValues.m_Paths = GetPaths(sound);
 		soundValues.m_OggMusicAlternative = ReadBoolValue(sound, "oggMusicAlternative");
 		soundValues.m_UseMagicCarpet1Music = ReadBoolValue(sound, "useMagicCarpet1Music");
 		soundValues.m_Awe32GmIntroMusic = ReadBoolValue(sound, "awe32GmIntroMusic");
@@ -483,44 +479,119 @@ Config::Settings::Sound Config::GetSound(const json& settings)
 	return soundValues;
 }
 
-Config::Settings::Games Config::GetGames(const json& settings)
+std::string Config::Settings::Paths::Get(const std::string& name, const std::string& key) const
 {
-	Config::Settings::Games gameValues;
-	if (settings.contains("games"))
-	{
-		const auto& games = settings["games"];
-		gameValues.m_MagicCarpet = GetGameEntry(games, Settings::Games::MagicCarpetName);
-		gameValues.m_HiddenWorlds = GetGameEntry(games, Settings::Games::HiddenWorldsName);
-		gameValues.m_MagicCarpet2 = GetGameEntry(games, Settings::Games::MagicCarpet2Name);
-	}
-	else
-	{
-		// version 1.0 config: the "paths" of the settings entry are those of Magic Carpet 2
-		gameValues.m_MagicCarpet2.m_Paths = GetPaths(settings);
-	}
-	return gameValues;
+	for (const auto& entry : m_Entries)
+		if (entry.m_Name == name)
+			for (const auto& path : entry.m_Path)
+				if (path.m_Key == key)
+					return path.m_Value;
+	return "";
 }
 
-Config::Settings::GameEntry Config::GetGameEntry(const json& games, const char* name)
+bool Config::Settings::Paths::Has(const std::string& name, const std::string& key) const
 {
-	Config::Settings::GameEntry entryValues;
-	if (games.contains(name) && games[name].is_object())
-	{
-		entryValues.m_Paths = GetPaths(games[name]);
-	}
-	return entryValues;
+	for (const auto& entry : m_Entries)
+		if (entry.m_Name == name)
+			for (const auto& path : entry.m_Path)
+				if (path.m_Key == key)
+					return true;
+	return false;
 }
 
-Config::Settings::Paths Config::GetPaths(const json& gameEntry)
+void Config::Settings::Paths::Set(const std::string& name, const std::string& key, const std::string& value)
 {
-	Config::Settings::Paths pathValues;
-	if (gameEntry.contains("paths"))
+	auto entry = std::find_if(m_Entries.begin(), m_Entries.end(), [&name](const NamedPaths& e) { return e.m_Name == name; });
+	if (entry == m_Entries.end())
 	{
-		const auto& paths = gameEntry["paths"];
-		pathValues.m_GameFolder = ReadStringValue(paths, "gameFolder");
-		pathValues.m_CdFolder = ReadStringValue(paths, "cdFolder");
+		m_Entries.push_back({ name, {} });
+		entry = m_Entries.end() - 1;
 	}
-	return pathValues;
+	for (auto& path : entry->m_Path)
+	{
+		if (path.m_Key == key)
+		{
+			path.m_Value = value;
+			return;
+		}
+	}
+	entry->m_Path.push_back({ key, value });
+}
+
+// "paths": [ { "name": "<game>", "path": [ { "key": "<key>", "value": "<value>" }, ... ] }, ... ]
+Config::Settings::Paths Config::GetPaths(const json& parent)
+{
+	Config::Settings::Paths pathsValues;
+	if (!parent.contains("paths") || !parent["paths"].is_array())
+		return pathsValues;
+	for (const auto& entry : parent["paths"])
+	{
+		if (!entry.is_object())
+			continue;
+		const std::string name = ReadStringValue(entry, "name");
+		if (name.empty() || !entry.contains("path") || !entry["path"].is_array())
+			continue;
+		for (const auto& path : entry["path"])
+		{
+			if (path.is_object())
+			{
+				const std::string key = ReadStringValue(path, "key");
+				if (!key.empty())
+					pathsValues.Set(name, key, ReadStringValue(path, "value"));
+			}
+		}
+	}
+	return pathsValues;
+}
+
+Config::Settings::Paths Config::GetSettingsPaths(const json& settings)
+{
+	if (settings.contains("paths") && settings["paths"].is_array())
+		return GetPaths(settings);
+
+	// older configs
+	Config::Settings::Paths pathsValues;
+	const char* keys[] = { Settings::PathKey::GameFolder, Settings::PathKey::CdFolder };
+	if (settings.contains("games") && settings["games"].is_object())
+	{
+		// version 2.0: "games": { "<game>": { "paths": { "gameFolder": ..., "cdFolder": ... } } }
+		for (const auto& [name, game] : settings["games"].items())
+			if (game.is_object() && game.contains("paths") && game["paths"].is_object())
+				for (const char* key : keys)
+					if (game["paths"].contains(key))
+						pathsValues.Set(name, key, ReadStringValue(game["paths"], key));
+	}
+	else if (settings.contains("paths") && settings["paths"].is_object())
+	{
+		// version 1.0: "paths": { "gameFolder": ..., "cdFolder": ... } of Magic Carpet 2
+		for (const char* key : keys)
+			pathsValues.Set(Settings::GameName::MagicCarpet2, key, ReadStringValue(settings["paths"], key));
+	}
+	return pathsValues;
+}
+
+// older configs: the folders of Magic Carpet 2 were settings of sound and gameDetail (or of its "games" entry)
+void Config::ReadOldFolders(const json& settings, Settings& values)
+{
+	const char* mc2 = Settings::GameName::MagicCarpet2;
+	auto readOld = [&](Settings::Paths& paths, const json& section, const char* key) {
+		if (!paths.Has(mc2, key) && section.contains(key) && section[key].is_string())
+			paths.Set(mc2, key, section[key].get<std::string>());
+	};
+
+	if (settings.contains("sound"))
+		for (const char* key : { Settings::PathKey::SpeechFolder, Settings::PathKey::OggFolder, Settings::PathKey::Awe32RomFolder })
+			readOld(values.m_Sound.m_Paths, settings["sound"], key);
+
+	const char* graphicsKeys[] = { Settings::PathKey::HighResGraphicsFolder, Settings::PathKey::FixedMenuGraphicsFolder,
+		Settings::PathKey::FixedTmapsFolder, Settings::PathKey::ExtendedFontsFolder };
+	auto& gameDetailPaths = values.m_Graphics.m_GameDetail.m_Paths;
+	if (settings.contains("games") && settings["games"].contains(mc2) && settings["games"][mc2].contains("paths"))
+		for (const char* key : graphicsKeys)
+			readOld(gameDetailPaths, settings["games"][mc2]["paths"], key);
+	if (settings.contains("graphics") && settings["graphics"].contains("gameDetail"))
+		for (const char* key : graphicsKeys)
+			readOld(gameDetailPaths, settings["graphics"]["gameDetail"], key);
 }
 
 std::string Config::ReadFileToString(std::string fileName)
@@ -550,29 +621,36 @@ void Config::SaveLaunchArgumentsToDoc(Config::Settings settings)
 	SetString(settingsEntry, "launchArguments", settings.m_LaunchArguments);
 }
 
-void Config::SaveGamesToDoc(Config::Settings::Games games)
-{
-	SaveGameEntryToDoc(Settings::Games::MagicCarpetName, games.m_MagicCarpet);
-	SaveGameEntryToDoc(Settings::Games::HiddenWorldsName, games.m_HiddenWorlds);
-	SaveGameEntryToDoc(Settings::Games::MagicCarpet2Name, games.m_MagicCarpet2);
-}
-
-void Config::SaveGameEntryToDoc(const char* name, Config::Settings::GameEntry gameEntry)
-{
-	SavePathsToDoc(name, gameEntry.m_Paths);
-}
-
-void Config::SavePathsToDoc(const char* gameName, Config::Settings::Paths pathSettings)
+void Config::SavePathsToDoc(const Config::Settings::Paths& paths)
 {
 	auto& settingsEntry = GetOrCreateActiveSettingsEntry();
-	// the version 1.0 "paths" of the settings entry are replaced by those of the games
-	settingsEntry.erase("paths");
+	// the "games" of version 2.0 and the "paths" object of version 1.0 are replaced by the "paths" array
+	settingsEntry.erase("games");
+	if (settingsEntry.contains("paths") && !settingsEntry["paths"].is_array())
+		settingsEntry.erase("paths");
 	SetString(settingsEntry, "version", ConfigVersion);
-	auto& games = GetOrCreate(settingsEntry, "games");
-	auto& gameEntry = GetOrCreate(games, gameName);
-	auto& paths = GetOrCreate(gameEntry, "paths");
-	SetString(paths, "gameFolder", pathSettings.m_GameFolder);
-	SetString(paths, "cdFolder", pathSettings.m_CdFolder);
+	SetPaths(settingsEntry, paths);
+}
+
+void Config::SetPaths(json& parent, const Config::Settings::Paths& paths)
+{
+	json entries = json::array();
+	for (const auto& namedPaths : paths.m_Entries)
+	{
+		json entry = json::object();
+		entry["name"] = namedPaths.m_Name;
+		json pathArray = json::array();
+		for (const auto& path : namedPaths.m_Path)
+		{
+			json pathEntry = json::object();
+			pathEntry["key"] = path.m_Key;
+			pathEntry["value"] = path.m_Value;
+			pathArray.push_back(pathEntry);
+		}
+		entry["path"] = pathArray;
+		entries.push_back(entry);
+	}
+	parent["paths"] = entries;
 }
 
 void Config::SaveMultiplayerToDoc(Config::Settings::Multiplayer multiplayerSettings)
@@ -593,18 +671,19 @@ void Config::SaveSoundToDoc(Config::Settings::Sound soundSettings)
 {
 	auto& settingsEntry = GetOrCreateActiveSettingsEntry();
 	auto& sound = GetOrCreate(settingsEntry, "sound");
+	SetPaths(sound, soundSettings.m_Paths);
 	SetBool(sound, "hqSound", soundSettings.m_HqSound);
-	SetString(sound, "oggFolder", soundSettings.m_OggFolder);
 	SetBool(sound, "oggMusicAlternative", soundSettings.m_OggMusicAlternative);
 	SetBool(sound, "fixSpeedSound", soundSettings.m_FixSpeedSound);
 	SetBool(sound, "autoShowObjectivesForForeignLanguages", soundSettings.m_AutoShowObjectivesForForeignLanguages);
 	SetInt(sound, "maxSimultaniousSounds", soundSettings.m_MaxSimultaniousSounds);
-	SetString(sound, "speechFolder", soundSettings.m_SpeechFolder);
 	SetString(sound, "musicType", soundSettings.m_MusicType);
-	SetString(sound, "awe32RomFolder", soundSettings.m_Awe32RomFolder);
 	SetBool(sound, "useMagicCarpet1Music", soundSettings.m_UseMagicCarpet1Music);
 	SetBool(sound, "awe32GmIntroMusic", soundSettings.m_Awe32GmIntroMusic);
 	SetInt(sound, "awe32BufferMs", soundSettings.m_Awe32BufferMs);
+	// the folders of older configs, now in the paths
+	for (const char* key : { Settings::PathKey::SpeechFolder, Settings::PathKey::OggFolder, Settings::PathKey::Awe32RomFolder })
+		sound.erase(key);
 }
 
 void Config::SaveGraphicsToDoc(Config::Settings::Graphics graphics)
@@ -628,23 +707,24 @@ void Config::SaveGameDetailToDoc(Config::Settings::GameDetail gameDetail)
 	auto& settingsEntry = GetOrCreateActiveSettingsEntry();
 	auto& gfx = GetOrCreate(settingsEntry, "graphics");
 	auto& gd = GetOrCreate(gfx, "gameDetail");
+	SetPaths(gd, gameDetail.m_Paths);
 	SetInt(gd, "gameResWidth", gameDetail.m_GameResWidth);
 	SetInt(gd, "gameResHeight", gameDetail.m_GameResHeight);
 	SetInt(gd, "gameUiScale", gameDetail.m_GameUiScale);
 	SetInt(gd, "mapEntityScale", gameDetail.m_MapEntityScale);
 	SetBool(gd, "useHighResGraphics", gameDetail.m_UseHighResGraphics);
-	SetString(gd, "highResGraphicsFolder", gameDetail.m_HighResGraphicsFolder);
 	SetBool(gd, "useFixedMenuGraphics", gameDetail.m_UseFixedMenuGraphics);
-	SetString(gd, "fixedMenuGraphicsFolder", gameDetail.m_FixedMenuGraphicsFolder);
 	SetBool(gd, "useFixedTmaps", gameDetail.m_UseFixedTmaps);
-	SetString(gd, "fixedTmapsFolder", gameDetail.m_FixedTmapsFolder);
 	SetBool(gd, "useExtendedFonts", gameDetail.m_UseExtendedFonts);
-	SetString(gd, "extendedFontsFolder", gameDetail.m_ExtendedFontsFolder);
 	SetBool(gd, "sky", gameDetail.m_Sky);
 	SetBool(gd, "reflections", gameDetail.m_Reflections);
 	SetBool(gd, "dynamicLighting", gameDetail.m_DynamicLighting);
 	SetInt(gd, "viewDistanceScale", gameDetail.m_ViewDistanceScale);
 	SetFloat(gd, "fogScale", gameDetail.m_FogScale);
+	// the folders of older configs, now in the paths
+	for (const char* key : { Settings::PathKey::HighResGraphicsFolder, Settings::PathKey::FixedMenuGraphicsFolder,
+		Settings::PathKey::FixedTmapsFolder, Settings::PathKey::ExtendedFontsFolder })
+		gd.erase(key);
 }
 
 void Config::SaveThreadingToDoc(Config::Settings::Threading threading)

@@ -3,7 +3,7 @@
 
 GameFilesDialog::GameFilesDialog(wxWindow* parent, const Config::Settings::Paths& p)
 	: wxDialog(parent, wxID_ANY, "Select Game Files Folders",
-		wxDefaultPosition, wxSize(430, 195), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX)
+		wxDefaultPosition, wxSize(430, 195), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX), m_initialPaths(p)
 {
 	wxPanel* panel = new wxPanel(this, wxID_ANY);
 
@@ -34,9 +34,9 @@ GameFilesDialog::GameFilesDialog(wxWindow* parent, const Config::Settings::Paths
 	Bind(wxEVT_BUTTON, &GameFilesDialog::OnBrowseGameFiles, this, ID_BTN_GAME_BROWSE);
 	Bind(wxEVT_BUTTON, &GameFilesDialog::OnBrowseCdFiles, this, ID_BTN_CD_BROWSE);
 
-	m_gameFolderCtrl->SetValue(p.m_GameFolder);
+	m_gameFolderCtrl->SetValue(p.Get(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::GameFolder));
 	m_gameFolderCtrl->SetToolTip("Path to the NETHERW Folder");
-	m_cdFolderCtrl->SetValue(p.m_CdFolder);
+	m_cdFolderCtrl->SetValue(p.Get(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::CdFolder));
 	m_cdFolderCtrl->SetToolTip("Path to the Contents of the CD");
 
 	Centre();
@@ -81,9 +81,10 @@ void GameFilesDialog::OnBrowseCdFiles(wxCommandEvent& evt)
 
 Config::Settings::Paths GameFilesDialog::GetPaths() const
 {
-	Config::Settings::Paths p;
-	p.m_GameFolder = m_gameFolderCtrl->GetValue();
-	p.m_CdFolder = m_cdFolderCtrl->GetValue();
+	Config::Settings::Paths p = m_initialPaths;
+	// the folders of Magic Carpet 2
+	p.Set(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::GameFolder, m_gameFolderCtrl->GetValue().ToStdString());
+	p.Set(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::CdFolder, m_cdFolderCtrl->GetValue().ToStdString());
 	return p;
 }
 

@@ -23,16 +23,18 @@
 #include "../portability/port_sdl_sound.h"
 #include "../portability/port_time.h"
 
-Config::Settings::Paths magicCarpetPaths = { "MC1/CARPET.CD", "MC1/CD_Files" };
-Config::Settings::Paths hiddenWorldsPaths = { "MC1/CARPET.CD", "MC1/CD_Files" };
+GamePaths magicCarpetPaths = { "MC1/CARPET.CD", "MC1/CD_Files" };
+GamePaths hiddenWorldsPaths = { "MC1/CARPET.CD", "MC1/CD_Files" };
 
-// the folders of a game from the config, the defaults for the folders it leaves out (e.g. a version 1.0 config)
-static void SetGamePaths(Config::Settings::Paths& paths, const Config::Settings::Paths& configPaths)
+// the folders of a game from the "paths" of the config, the defaults for the folders it leaves out (e.g. a version 1.0 config)
+static void SetGamePaths(GamePaths& paths, const Config::Settings::Paths& configPaths, const char* name)
 {
-	if (!configPaths.m_GameFolder.empty())
-		paths.m_GameFolder = configPaths.m_GameFolder;
-	if (!configPaths.m_CdFolder.empty())
-		paths.m_CdFolder = configPaths.m_CdFolder;
+	const std::string gameFolder = configPaths.Get(name, Config::Settings::PathKey::GameFolder);
+	const std::string cdFolder = configPaths.Get(name, Config::Settings::PathKey::CdFolder);
+	if (!gameFolder.empty())
+		paths.m_GameFolder = gameFolder;
+	if (!cdFolder.empty())
+		paths.m_CdFolder = cdFolder;
 }
 
 int config_skip_screen;
@@ -204,10 +206,14 @@ bool SetConfig() {
 		config_skip_screen = 0;
 
 	//Path
-	gameFolder = settingsValue.m_Games.m_MagicCarpet2.m_Paths.m_GameFolder;
-	cdFolder = settingsValue.m_Games.m_MagicCarpet2.m_Paths.m_CdFolder;
-	SetGamePaths(magicCarpetPaths, settingsValue.m_Games.m_MagicCarpet.m_Paths);
-	SetGamePaths(hiddenWorldsPaths, settingsValue.m_Games.m_HiddenWorlds.m_Paths);
+	using GameName = Config::Settings::GameName;
+	using PathKey = Config::Settings::PathKey;
+	gameFolder = settingsValue.m_Paths.Get(GameName::MagicCarpet2, PathKey::GameFolder);
+	cdFolder = settingsValue.m_Paths.Get(GameName::MagicCarpet2, PathKey::CdFolder);
+	SetGamePaths(magicCarpetPaths, settingsValue.m_Paths, GameName::MagicCarpet);
+	SetGamePaths(hiddenWorldsPaths, settingsValue.m_Paths, GameName::HiddenWorlds);
+	const auto& soundPaths = settingsValue.m_Sound.m_Paths;
+	const auto& graphicsPaths = settingsValue.m_Graphics.m_GameDetail.m_Paths;
 
 	//Sound
 	hqsound = settingsValue.m_Sound.m_HqSound;
@@ -215,7 +221,7 @@ bool SetConfig() {
 	autoShowObjectivesForForeignLanguages = settingsValue.m_Sound.m_AutoShowObjectivesForForeignLanguages;
 
 	musicType = settingsValue.m_Sound.m_MusicType;
-	strcpy(oggmusicFolder, settingsValue.m_Sound.m_OggFolder.c_str());
+	strcpy(oggmusicFolder, soundPaths.Get(GameName::MagicCarpet2, PathKey::OggFolder).c_str());
 	// MC1 has the AWE32 music only
 	if (CommandLineParams.GetGameType() != GameType::MC2)
 		musicType = "awe32";
@@ -230,7 +236,7 @@ bool SetConfig() {
 	{
 		awe32Music = true;
 		hqsound = true;
-		awe32RomFolder = settingsValue.m_Sound.m_Awe32RomFolder;
+		awe32RomFolder = soundPaths.Get(GameName::MagicCarpet2, PathKey::Awe32RomFolder);
 		useMagicCarpet1Music = settingsValue.m_Sound.m_UseMagicCarpet1Music;
 		awe32GmIntroMusic = settingsValue.m_Sound.m_Awe32GmIntroMusic;
 		awe32BufferMs = settingsValue.m_Sound.m_Awe32BufferMs;
@@ -244,7 +250,7 @@ bool SetConfig() {
 	if (CommandLineParams.GetGameType() != GameType::MC2 && maxSimultaniousSounds < 32)
 		maxSimultaniousSounds = 32;
 
-	strcpy(speechFolder, settingsValue.m_Sound.m_SpeechFolder.c_str());
+	strcpy(speechFolder, soundPaths.Get(GameName::MagicCarpet2, PathKey::SpeechFolder).c_str());
 
 	//Graphics
 	displayIndex = settingsValue.m_Graphics.m_DisplayIndex;
@@ -336,7 +342,7 @@ bool SetConfig() {
 		}
 	}
 	mapEntityScale = std::clamp(settingsValue.m_Graphics.m_GameDetail.m_MapEntityScale, 1, 4);
-	highResGraphicsFolder = settingsValue.m_Graphics.m_GameDetail.m_HighResGraphicsFolder;
+	highResGraphicsFolder = graphicsPaths.Get(GameName::MagicCarpet2, PathKey::HighResGraphicsFolder);
 	if (settingsValue.m_Graphics.m_GameDetail.m_UseHighResGraphics && strlen(highResGraphicsFolder.c_str()) > 0
 		&& std::filesystem::is_directory(GetSubDirectoryPath(highResGraphicsFolder.c_str())))
 	{
@@ -349,21 +355,21 @@ bool SetConfig() {
 		texturepixels = 32;
 	}
 
-	fixedMenuGraphicsFolder = settingsValue.m_Graphics.m_GameDetail.m_FixedMenuGraphicsFolder;
+	fixedMenuGraphicsFolder = graphicsPaths.Get(GameName::MagicCarpet2, PathKey::FixedMenuGraphicsFolder);
 	if (settingsValue.m_Graphics.m_GameDetail.m_UseFixedMenuGraphics && strlen(fixedMenuGraphicsFolder.c_str()) > 0
 		&& std::filesystem::is_directory(GetSubDirectoryPath(fixedMenuGraphicsFolder.c_str())))
 	{
 		fixedMenuGraphics = true;
 	}
 
-	fixedTmapsFolder = settingsValue.m_Graphics.m_GameDetail.m_FixedTmapsFolder;
+	fixedTmapsFolder = graphicsPaths.Get(GameName::MagicCarpet2, PathKey::FixedTmapsFolder);
 	if (settingsValue.m_Graphics.m_GameDetail.m_UseFixedTmaps && strlen(fixedTmapsFolder.c_str()) > 0
 		&& std::filesystem::is_directory(GetSubDirectoryPath(fixedTmapsFolder.c_str())))
 	{
 		fixedTmaps = true;
 	}
 
-	extendedFontsFolder = settingsValue.m_Graphics.m_GameDetail.m_ExtendedFontsFolder;
+	extendedFontsFolder = graphicsPaths.Get(GameName::MagicCarpet2, PathKey::ExtendedFontsFolder);
 	if (settingsValue.m_Graphics.m_GameDetail.m_UseExtendedFonts && strlen(extendedFontsFolder.c_str()) > 0
 		&& std::filesystem::is_directory(GetSubDirectoryPath(extendedFontsFolder.c_str())))
 	{

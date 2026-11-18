@@ -37,7 +37,7 @@ bool autoShowObjectivesForForeignLanguages = false;
 int maxSimultaniousSounds = 10;
 
 std::string musicType = "ogg";
-std::string awe32RomFolder = "awe32data";
+std::string awe32RomFolder = "MC2/awe32data";
 bool awe32Music = false;
 bool useMagicCarpet1Music = false;
 bool awe32GmIntroMusic = true;
