@@ -5,7 +5,7 @@ Forked from Tomas Vesely's repo here: https://github.com/turican0/remc2
 ### find us on Discord here: https://discord.gg/GR55HCbJJ4 ###
 
 ## Current Features ##
-- **Support for HD, 2k and even 4k gameplay**
+- **Support for Anaglygh 3D, HD, 2K and even 4k**
 - Modern Controls
 - Easy to use **Configurator:**
 <img width="200" height="253" alt="image" src="https://github.com/user-attachments/assets/c6507af5-3be5-4a24-806f-9bb5338ece3b" />
@@ -25,6 +25,7 @@ Move Left = A</br>
 Move Right = D</br>
 Open Spell Menu = LCtrl / Mouse 4</br>
 Open Map = Tab / Middle Mouse</br>
+Switch to Anaglyph 3D (Red/Cyan Glasses. Colours configurable) F11
 
 # Community links #
 - **Magic Balls:** A project that uses the same engine but renders the image via the Godot engine: https://github.com/turican0/MagicBalls<br>
