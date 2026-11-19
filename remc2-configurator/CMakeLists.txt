@@ -100,6 +100,7 @@ install(
 
 install(
     DIRECTORY
+    ${CMAKE_CURRENT_SOURCE_DIR}/images
     DESTINATION bin
 )
 

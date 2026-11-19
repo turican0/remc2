@@ -90,7 +90,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
-				XCOPY "$(ProjectDir)mc2_hd_logo.png" "$(TargetDir)/" /Y /F
+				if exist "$(ProjectDir)images" XCOPY "$(ProjectDir)images" "$(TargetDir)images\" /S /Y /I /F
 			</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -111,7 +111,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
-				XCOPY "$(ProjectDir)mc2_hd_logo.png" "$(TargetDir)/" /Y /F
+				if exist "$(ProjectDir)images" XCOPY "$(ProjectDir)images" "$(TargetDir)images\" /S /Y /I /F
 			</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -130,7 +130,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
-				XCOPY "$(ProjectDir)mc2_hd_logo.png" "$(TargetDir)/" /Y /F
+				if exist "$(ProjectDir)images" XCOPY "$(ProjectDir)images" "$(TargetDir)images\" /S /Y /I /F
 			</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -151,7 +151,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
-				XCOPY "$(ProjectDir)mc2_hd_logo.png" "$(TargetDir)/" /Y /F
+				if exist "$(ProjectDir)images" XCOPY "$(ProjectDir)images" "$(TargetDir)images\" /S /Y /I /F
 			</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -204,7 +204,10 @@
     <ClInclude Include="ZoneEditorDialog.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="mc2_hd_logo.png">
+    <Image Include="images\hidden_worlds.png" />
+    <Image Include="images\magic_carpet.png" />
+    <Image Include="images\magic_carpet2.png" />
+    <Image Include="images\mc2_hd_logo.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
   </ItemGroup>

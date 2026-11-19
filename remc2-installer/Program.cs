@@ -138,7 +138,8 @@ namespace remc2_installer
 								new File(new Id("PCRE2_16_DLL"), @"..\x64\Release\pcre2-16.dll"),
 								new File(new Id("TIFF_DLL"), @"..\x64\Release\tiff.dll"),
 								new File(new Id("VULKAN_1_DLL"), @"..\x64\Release\vulkan-1.dll"),
-								new File(new Id("MC_HD_LOGO_PNG"), @"..\x64\Release\mc2_hd_logo.png"),
+								new Dir(new Id("CONFIGURATOR_IMAGES_INSTALLDIR"), @"images",
+									new Files(@"..\x64\Release\images\*.png")),
 #else
 								new File(new Id("BROTLICOMMON_DLL"), @"..\Release\brotlicommon.dll"),
 								new File(new Id("BROTLIDEC_DLL"), @"..\Release\brotlidec.dll"),
@@ -161,7 +162,8 @@ namespace remc2_installer
 								new File(new Id("PCRE2_16_DLL"), @"..\Release\pcre2-16.dll"),
 								new File(new Id("TIFF_DLL"), @"..\Release\tiff.dll"),
 								new File(new Id("VULKAN_1_DLL"), @"..\Release\vulkan-1.dll"),
-								new File(new Id("MC_HD_LOGO_PNG"), @"..\Release\mc2_hd_logo.png"),
+								new Dir(new Id("CONFIGURATOR_IMAGES_INSTALLDIR"), @"images",
+									new Files(@"..\Release\images\*.png")),
 #endif
 #if WIN64
 								new Dir(new Id("SHADERS_INSTALLDIR"), @"shaders",

@@ -2,7 +2,7 @@
 
 #include "GameFilesCheck.h"
 
-MainFrame::MainFrame(const wxString& title, const std::string fileName) : wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxSize(416, 616), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX)
+MainFrame::MainFrame(const wxString& title, const std::string fileName) : wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxSize(430, 710), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX)
 {
 	wxInitAllImageHandlers();
 
@@ -12,13 +12,13 @@ MainFrame::MainFrame(const wxString& title, const std::string fileName) : wxFram
 	// ── Panel (gives a native background) ───────────────────────────────────
 	wxPanel* panel = new wxPanel(this, wxID_ANY);
 
-	wxString path = wxFileName(wxStandardPaths::Get().GetExecutablePath()).GetPathWithSep() + "mc2_hd_logo.png";
+	wxString path = wxFileName(wxStandardPaths::Get().GetExecutablePath()).GetPathWithSep() + "images" + wxFileName::GetPathSeparator() + "mc2_hd_logo.png";
 
 	wxBitmap logo(path, wxBITMAP_TYPE_PNG);
 
 	if (!logo.IsOk())
 	{
-		wxMessageBox("Failed to load mc2_hd_logo.png");
+		wxMessageBox("Failed to load images/mc2_hd_logo.png");
 	}
 
 	wxStaticBitmap* image = new wxStaticBitmap(panel, wxID_ANY, logo);
@@ -30,6 +30,10 @@ MainFrame::MainFrame(const wxString& title, const std::string fileName) : wxFram
 	m_btnPlayHiddenWorlds->SetMinSize(wxSize(-1, 40));
 	m_btnPlayMagicCarpet2 = new wxButton(panel, ID_BTN_PLAY_MAGIC_CARPET_2, "Magic Carpet 2");
 	m_btnPlayMagicCarpet2->SetMinSize(wxSize(-1, 40));
+	// the picture of each game (images next to the .exe), the text only without it
+	SetButtonImage(m_btnPlayMagicCarpet, "magic_carpet.png");
+	SetButtonImage(m_btnPlayHiddenWorlds, "hidden_worlds.png");
+	SetButtonImage(m_btnPlayMagicCarpet2, "magic_carpet2.png");
 	wxButton* btnLaunchOptions = new wxButton(panel, ID_BTN_LAUNCH_OPTIONS, "Launch Options");
 	btnLaunchOptions->SetMinSize(wxSize(-1, 40));
 	wxButton* btnFile = new wxButton(panel, ID_BTN_FILE, "Game Files");
@@ -87,10 +91,32 @@ MainFrame::MainFrame(const wxString& title, const std::string fileName) : wxFram
 
 	UpdatePlayButtons();
 
+	// taller with the pictures of the games: the window grows to show every button
+	const wxSize best = panel->GetBestSize();
+	SetClientSize(wxSize(std::max(GetClientSize().x, best.x), std::max(GetClientSize().y, best.y)));
+
 	Centre(); // centre on screen
 }
 
 // ── Play buttons ─────────────────────────────────────────────────────────────
+void MainFrame::SetButtonImage(wxButton* button, const wxString& fileName)
+{
+	const wxString path = wxFileName(wxStandardPaths::Get().GetExecutablePath()).GetPathWithSep() + "images" +
+		wxFileName::GetPathSeparator() + fileName;
+	if (!wxFileExists(path))
+		return;
+	wxImage image(path, wxBITMAP_TYPE_PNG);
+	if (!image.IsOk())
+		return;
+	// the height of the picture on the button, the width as the picture
+	constexpr int kImageHeight = 64;
+	if (image.GetHeight() != kImageHeight)
+		image.Rescale(image.GetWidth() * kImageHeight / image.GetHeight(), kImageHeight, wxIMAGE_QUALITY_HIGH);
+	button->SetBitmap(wxBitmap(image), wxLEFT);
+	button->SetBitmapMargins(8, 4);
+	button->SetMinSize(wxSize(-1, kImageHeight + 12));
+}
+
 void MainFrame::UpdatePlayButtons()
 {
 	const auto paths = m_ptrConfig->GetSettingsFromDoc().m_Paths;
