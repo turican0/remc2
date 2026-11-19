@@ -1,4 +1,5 @@
 #include "Select.h"
+#include "../../remc2/portability/port_outputs.h"
 
 #include <cstdio>
 #include <cstring>
@@ -63,16 +64,16 @@ int16_t RunSelect_10010(const std::string& cdPath)
 			DataFileIO::Close(file);
 		}
 		else
-			printf("ERROR OPENING FILE C:\\CARPET.CD\\CP.DAT\n");
+			myprintf("ERROR OPENING FILE C:\\CARPET.CD\\CP.DAT\n");
 	}
 	return selectState.selectedGame_202A0;
 }
 
 bool InitSelect_10080()
 {
-	printf("\nCopyright (c) 1995\nBullfrog Productions Ltd.\n");
-	printf("All Rights Reserved.\n");
-	printf("Magic Carpet Plus.\n");
+	myprintf("\nCopyright (c) 1995\nBullfrog Productions Ltd.\n");
+	myprintf("All Rights Reserved.\n");
+	myprintf("Magic Carpet Plus.\n");
 	*videoMode_2317E = SELECT_MODE_MCGA;
 
 	// the original takes MCGA (0x1F500 bytes) only when 0x96100 bytes or the VESA info block cannot be allocated
@@ -80,7 +81,7 @@ bool InitSelect_10080()
 	*screenBuffer_23144 = selectState.memory_23144.data();
 	*videoMode_2317E = SELECT_MODE_HIRES;
 	selectState.background_2312C = *screenBuffer_23144 + 0x4B000;
-	printf("\nSetting up Hires Screen\n");
+	myprintf("\nSetting up Hires Screen\n");
 	LoadPackedFile_11060((selectState.cdPath + "/data/selp1-0.dat").c_str(), selectState.palette_22E20);
 	LoadPackedFile_11060((selectState.cdPath + "/data/sel1-0.dat").c_str(), selectState.background_2312C);
 
@@ -211,7 +212,7 @@ uint8_t CopyDataFiles_10560(const char* sourceDirectory, const char* targetDirec
 				if (percent > 100)
 					percent = 100;
 				snprintf(progress, sizeof(progress), "%d%c", percent, '%');
-				printf("\r%s%s", selectState.progressText, progress);
+				myprintf("\r%s%s", selectState.progressText, progress);
 			}
 			DataFileIO::Close(target);
 		}
@@ -229,16 +230,16 @@ void SetupInstallFiles_107E0()
 	{
 		std::string target = selectState.installPath + "/data";
 		selectState.progressText = "Creating Setup Directories..";
-		printf("%s", selectState.progressText);
+		myprintf("%s", selectState.progressText);
 		CopyDataFiles_10560((selectState.cdPath + "/data").c_str(), target.c_str(), "tmaps");
 	}
-	printf("\n");
+	myprintf("\n");
 	std::string levels = selectState.installPath + "/levels/levels.dat";
 	if (FileMissing_10520(levels.c_str()))
 	{
 		std::string target = selectState.installPath + "/levels";
 		selectState.progressText = "Setup levels..";
-		printf("%s", selectState.progressText);
+		myprintf("%s", selectState.progressText);
 		CopyDataFiles_10560((selectState.cdPath + "/levels").c_str(), target.c_str(), "levels");
 	}
 }
@@ -315,7 +316,7 @@ int32_t LoadPackedFile_11060(const char* path, uint8_t* buffer)
 	int result = DataFileIO::ReadFileAndDecompress(path, &buffer);
 	if (result == -2)
 	{
-		printf("ERROR decompressing %s\n", path);
+		myprintf("ERROR decompressing %s\n", path);
 		return -2;
 	}
 	return result;

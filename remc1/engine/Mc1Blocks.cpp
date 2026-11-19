@@ -1,4 +1,5 @@
 #include "Mc1Blocks.h"
+#include "../../remc2/portability/port_outputs.h"
 
 #include <algorithm>
 #include <cstdio>
@@ -24,7 +25,7 @@ uint8_t byte_939EC_939EC = 0;
 
 static void NotEnoughMemory()
 {
-	printf("ERROR : NOT ENOUGH MEMORY.\n");
+	myprintf("ERROR : NOT ENOUGH MEMORY.\n");
 	exit(1);
 }
 

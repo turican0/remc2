@@ -1,4 +1,5 @@
 #include "Mc1Game.h"
+#include "../../remc2/portability/port_outputs.h"
 
 #include <cstdio>
 #include <cstdlib>
@@ -346,7 +347,7 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 	{
 		if (argv[i][0] != '-' && argv[i][0] != '/')
 		{
-			printf("ERROR : Incorrect command : %d\n", i);
+			myprintf("ERROR : Incorrect command : %d\n", i);
 			result = -1;
 			break;
 		}
@@ -425,7 +426,7 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 		}
 		else
 		{
-			printf("ERROR : Incorrect command : %d\n", i);
+			myprintf("ERROR : Incorrect command : %d\n", i);
 			result = -1;
 			break;
 		}
@@ -443,7 +444,7 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 		//!!!!! the original writes into the game state before it is allocated (null pointer), investigate later
 		mc1State_AE400_AE3F0->vfx_0x219E_8606 = 1;
 		inputDevices_90B23_90B23 |= 8;
-		printf("VFX\n");
+		myprintf("VFX\n");
 	}
 	if (digitalJoystick)
 	{
@@ -563,16 +564,16 @@ void Cleanup_34C60_35020()
 
 void PrintStartTexts_5ACA0_5B1B0()
 {
-	printf("Copyright (c) 1995 Bullfrog Productions Ltd.\n");
-	printf("All rights reserved.\n");
-	printf("%s \n", "Magic Carpet");
+	myprintf("Copyright (c) 1995 Bullfrog Productions Ltd.\n");
+	myprintf("All rights reserved.\n");
+	myprintf("%s \n", "Magic Carpet");
 }
 
 void PrintLoadingText_5AD10_5B220(const char* text)
 {
 	// the format is the address of off_ABCE0 read as a string: its bytes are "%s\n"
 	if (mc1Settings_AE408_AE3F8->flags_0x00_0 & 0x100)
-		printf("%s\n", text);
+		myprintf("%s\n", text);
 }
 
 void LoadGameData_34B00_34EC0()

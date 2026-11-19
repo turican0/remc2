@@ -1,4 +1,5 @@
 #include "Mc1Sound.h"
+#include "../../remc2/portability/port_outputs.h"
 
 #include <cstdio>
 #include <cstdlib>
@@ -206,7 +207,7 @@ void InitMusicDriver_43B20_43E60(uint16_t device)
 	// sosTIMERInitSystem / sosMIDIInitSystem: nothing to do in the port
 	if (sosMIDIInitDriver_6035F_6086F(device, &midiDriver_CBFDC_CBFCC))
 	{
-		printf("\nError : %s\n", "MIDI driver");
+		myprintf("\nError : %s\n", "MIDI driver");
 		byte_939CC_939CC = 0;
 		byte_939CD_939CD = 0;
 		return;
@@ -233,7 +234,7 @@ void InitMusicDriver_43B20_43E60(uint16_t device)
 	}
 	if (byte_939CC_939CC && LoadMusicBank_5CEF0_5D400(0))
 	{
-		printf("\nError opening music files\n");
+		myprintf("\nError opening music files\n");
 		sosMIDIUnInitDriver_6080C_60D1C(midiDriver_CBFDC_CBFCC, true);
 		byte_939CC_939CC = 0;
 		byte_939CD_939CD = 0;
@@ -247,7 +248,7 @@ void InitDigitalDriver_43EC0_44200()
 	uint16_t sampleRate = byte_939EC_939EC == 1 ? 0x5622 : 0x2B11;
 	if (sosDIGIInitDriver_64846_64D56(sampleRate, &digiDriver_CC140_CC130))
 	{
-		printf("\nError : %s\n", "digital driver");
+		myprintf("\nError : %s\n", "digital driver");
 		byte_939E4_939E4 = 0;
 		byte_939E5_939E5 = 0;
 		FreeFileGroup_61610_61B20(soundFiles_9AE84_9AE84);
@@ -354,14 +355,14 @@ void PlayMusic_5D290_5D7A0(int16_t music)
 	initSong_12F030_12F020.songCallback_0x06_6 = nullptr;
 	if (sosMIDIInitSong_5EE22_5F332(&initSong_12F030_12F020, trackMap_9AF18_9AF18, &song_CBFD8_CBFC8))
 	{
-		printf("\nError : %s", "song");
+		myprintf("\nError : %s", "song");
 		sosMIDIUnInitDriver_6080C_60D1C(midiDriver_CBFDC_CBFCC, true);
 		byte_939CC_939CC = 0;
 		return;
 	}
 	if (sosMIDIStartSong_5F398_5F8A8(song_CBFD8_CBFC8))
 	{
-		printf("\nError : %s", "song");
+		myprintf("\nError : %s", "song");
 		sosMIDIUnInitDriver_6080C_60D1C(midiDriver_CBFDC_CBFCC, true);
 		return;
 	}

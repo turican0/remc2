@@ -1,4 +1,5 @@
 #include "Mc1Movie.h"
+#include "../../remc2/portability/port_outputs.h"
 
 #include <chrono>
 #include <cstdio>
@@ -251,9 +252,9 @@ void ReadMovieFrame_103F0_103F0()
 	frameOffset_AC1B0_AC1A0 = *movieFileOffset_90028_90028;
 	DataFileIO::Read(*movieFile_AC5C0_AC5B0, (uint8_t*)&frameHeader_AC1A0_AC190, 16);
 	while (frameHeader_AC1A0_AC190.type_4 != 0xF1FA)
-		printf("ERROR UNKNOWN FRAME TYPE\n"); //!!!!! an endless loop in the original
+		myprintf("ERROR UNKNOWN FRAME TYPE\n"); //!!!!! an endless loop in the original
 	while (frameHeader_AC1A0_AC190.size_0 >= 0xFA00)
-		printf("PAGE SIZE IS > BSCREEN\n"); //!!!!! an endless loop in the original
+		myprintf("PAGE SIZE IS > BSCREEN\n"); //!!!!! an endless loop in the original
 	DataFileIO::Read(*movieFile_AC5C0_AC5B0, backScreen_AE3FC_AE3EC, frameHeader_AC1A0_AC190.size_0 - 16);
 	*movieFileOffset_90028_90028 += frameHeader_AC1A0_AC190.size_0;
 }

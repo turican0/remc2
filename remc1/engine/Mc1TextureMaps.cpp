@@ -339,7 +339,7 @@ int32_t ReadTmap_58860_58D70(uint16_t index, uint8_t* buffer)
 	int32_t result = DecompressRnc_62B60_63070(buffer, buffer);
 	if (result < 0)
 	{
-		printf("ERROR decompressing tmap%03d\n", index);
+		myprintf("ERROR decompressing tmap%03d\n", index);
 		return -2;
 	}
 	if (result == 0)

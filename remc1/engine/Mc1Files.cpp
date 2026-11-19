@@ -1,4 +1,5 @@
 #include "Mc1Files.h"
+#include "../../remc2/portability/port_outputs.h"
 
 #include <cstdio>
 
@@ -145,9 +146,9 @@ int16_t LoadFileGroup_40440_40780(Type_Mc1FileEntry* group)
 			continue;
 		// the original installs the palette at AE428 for the text, prints the error and waits for return
 		if (result < 0)
-			printf("ERROR: Allocation %s.\n", EntryPath(entry));
+			myprintf("ERROR: Allocation %s.\n", EntryPath(entry));
 		else
-			printf("ERROR: File %s.\n", EntryPath(entry));
+			myprintf("ERROR: File %s.\n", EntryPath(entry));
 		Logger->error("MC1: loading {} failed", EntryPath(entry));
 		errors++;
 	}
@@ -221,7 +222,7 @@ int32_t ReadPackedFile_3EEA0_3F1E0(const char* path, uint8_t* buffer)
 	int32_t result = DecompressRnc_62B60_63070(buffer, buffer);
 	if (result < 0)
 	{
-		printf("ERROR decompressing %s\n", path);
+		myprintf("ERROR decompressing %s\n", path);
 		return -2;
 	}
 	return result ? result : length;

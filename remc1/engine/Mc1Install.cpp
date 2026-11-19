@@ -1,4 +1,5 @@
 #include "Mc1Install.h"
+#include "../../remc2/portability/port_outputs.h"
 
 #include <cstdio>
 #include <cstring>
@@ -97,7 +98,7 @@ uint8_t CopyDataFiles_3EF50_3F290(const char* sourceDirectory, const char* targe
 				if (percent > 100)
 					percent = 100;
 				// the original writes the percent at the text position saved after the label
-				printf("\r%s%d%c", progressText, percent, '%');
+				myprintf("\r%s%d%c", progressText, percent, '%');
 			}
 			DataFileIO::Close(target);
 		}
@@ -116,7 +117,7 @@ static void SetupInstallFile(const char* directory, const char* name, const char
 	if (!FileMissing_3EF20_3F260(targetFile.c_str(), sourceFile.c_str()))
 		return;
 	progressText = label;
-	printf("%s", label);
+	myprintf("%s", label);
 	CopyDataFiles_3EF50_3F290(Mc1DataFilePath(directory).c_str(), target.c_str(), name);
 }
 
@@ -124,6 +125,6 @@ void SetupInstallFiles_3F1D0_3F510()
 {
 	bool hw = mc1Variant == MC1_VARIANT_HW;
 	SetupInstallFile("data", hw ? "tmaps1-0" : "tmaps0-0", "Creating Setup Directories..");
-	printf("\n");
+	myprintf("\n");
 	SetupInstallFile("levels", hw ? "ddlevels" : "levels", "Setup levels..");
 }

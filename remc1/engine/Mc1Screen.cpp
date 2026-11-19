@@ -51,7 +51,7 @@ void InitGraphics_44730_44A70()
 	if (!*mouseInstalled_9AD98_9AD98)
 	{
 		ShutdownGraphics_44840_44B80();
-		printf("ERROR : MOUSE DRIVER NOT FOUND.\n");
+		myprintf("ERROR : MOUSE DRIVER NOT FOUND.\n");
 		exit(1);
 	}
 	SetCursor_5C05C_5C56C(pointersIndex[0]); // the first record of pointers.tab

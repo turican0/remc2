@@ -615,6 +615,14 @@ void Draw_letterToBuffer(int letter_number, int pozx, int pozy, uint8_t* buffer,
 		}
 };
 
+void VGA_ClearTextScreen() {
+	if (!m_gamePalletisedSurface)
+		return;
+	Set_basic_Palette1();
+	Draw_black();
+	VGA_GotoXY(0, 0);
+}
+
 void VGA_GotoXY(int x, int y) {
 	lastpoz = y * textwidth + x;
 };
@@ -648,6 +656,11 @@ void VGA_Draw_string(char* wrstring) {
 		if (wrstring[i] == '\n')
 		{
 			lastpoz += textwidth - lastpoz % textwidth;
+		}
+		else if (wrstring[i] == '\r')
+		{
+			// back to the start of the line (the progress of MC1 rewrites its line)
+			lastpoz -= lastpoz % textwidth;
 		}
 		else
 		{

@@ -1,4 +1,5 @@
 #include "Mc1Level.h"
+#include "../../remc2/portability/port_outputs.h"
 
 #include <cstdio>
 #include <cstring>
@@ -150,7 +151,7 @@ uint8_t LoadLevelData_3E100_3E440(int16_t levelIndex, Type_Mc1Level_2F503* level
 	DataFileIO::Read(data, buffer, size);
 	if (DecompressRnc_62B60_63070(buffer, buffer) < 0)
 	{
-		printf("ERROR decompressing levels.dat\n");
+		myprintf("ERROR decompressing levels.dat\n");
 		DataFileIO::Close(data); // port: the original leaves the file open
 		return 0;
 	}

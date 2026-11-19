@@ -50,6 +50,9 @@ int Mc1Main(int argc, char** argv)
 	{
 		game = RunSelect_10010(Mc1FolderPath(magicCarpetPaths.m_CdFolder));
 		Logger->info("MC1 selector result: {}", game);
+		// the game starts on the empty text screen, as the DOS game after SELECT.EXE
+		if (game != SELECTED_NONE)
+			VGA_ClearTextScreen();
 	}
 	else if (CommandLineParams.GetGameType() == GameType::MC1HW)
 		game = SELECTED_HIDDEN_WORLDS;
