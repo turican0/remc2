@@ -257,8 +257,6 @@
     <PostBuildEvent>
       <Command>
 		XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
 		XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
 		XCOPY "$(SolutionDir)enhancedassets\MC2\music-ogg" "$(TargetDir)MC2\music-ogg\" /S /Y
 		XCOPY "$(SolutionDir)enhancedassets\MC2\awe32data" "$(TargetDir)MC2\awe32data\" /S /Y
@@ -297,8 +295,6 @@
     <PostBuildEvent>
       <Command>
 		XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
 		XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
 		XCOPY "$(SolutionDir)enhancedassets\MC2\music-ogg" "$(TargetDir)MC2\music-ogg\" /S /Y
 		XCOPY "$(SolutionDir)enhancedassets\MC2\awe32data" "$(TargetDir)MC2\awe32data\" /S /Y

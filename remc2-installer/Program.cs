@@ -12,25 +12,17 @@ namespace remc2_installer
         {
 			var version = new Version(0, 0, 0, 0);
 #if WIN64
-            var project = new ManagedProject("Magic Carpet 2 HD x64",
+            var project = new ManagedProject("Magic Carpet HD x64",
 #else
-			var project = new ManagedProject("Magic Carpet 2 HD x86",
+			var project = new ManagedProject("Magic Carpet HD x86",
 #endif
-				new Dir(new Id("SHORTCUTDIR"), @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"),
-					new Dir(new Id("INSTALLDIR"), @"%ProgramFiles%\ReMC\Magic Carpet 2 HD",
+				new Dir(new Id("SHORTCUTDIR"), @"%ProgramMenu%\Magic Carpet HD"),
+					new Dir(new Id("INSTALLDIR"), @"%ProgramFiles%\Magic Carpet HD",
 						new DirPermission("Everyone", GenericPermission.All),
 #if WIN64
-							new WixSharp.File(new Id("PRODUCT_EXE"), @"..\x64\Release\remc2.exe", 
-								new FileShortcut(new Id("PRODUCT_EXE_SHORTCUT"), "Magic Carpet 2 HD", "SHORTCUTDIR")
-                                {
-									IconFile = "Resources/app.ico"
-                                })
+							new WixSharp.File(new Id("PRODUCT_EXE"), @"..\x64\Release\remc2.exe")
 #else
-							new WixSharp.File(new Id("PRODUCT_EXE"), @"..\Release\remc2.exe", 
-								new FileShortcut(new Id("PRODUCT_EXE_SHORTCUT"), "Magic Carpet 2 HD", "SHORTCUTDIR")
-                                {
-									IconFile = "Resources/app.ico"
-                                })
+							new WixSharp.File(new Id("PRODUCT_EXE"), @"..\Release\remc2.exe")
 #endif
 								{
 									Permissions = new[] {
@@ -63,15 +55,15 @@ namespace remc2_installer
 								},
 #if WIN64
 							new WixSharp.File(new Id("CONFIG_EXE"), @"..\x64\Release\remc2-configurator.exe",
-								new FileShortcut(new Id("CONFIG_EXE_SHORTCUT"), "Configure", "SHORTCUTDIR")
+								new FileShortcut(new Id("CONFIG_EXE_SHORTCUT"), "Magic Carpet HD", "SHORTCUTDIR")
 								{
-									IconFile = "Resources/config.ico"
+									IconFile = "Resources/app.ico"
 								})
 #else
 							new WixSharp.File(new Id("CONFIG_EXE"), @"..\Release\remc2-configurator.exe", 
-								new FileShortcut(new Id("CONFIG_EXE_SHORTCUT"), "Configure", "SHORTCUTDIR")
+								new FileShortcut(new Id("CONFIG_EXE_SHORTCUT"), "Magic Carpet HD", "SHORTCUTDIR")
 								{
-									IconFile = "Resources/config.ico"
+									IconFile = "Resources/app.ico"
 								})
 #endif
 							{
@@ -214,8 +206,6 @@ namespace remc2_installer
 								new Dir(new Id("AWE32DATA_INSTALLDIR"), @"MC2\awe32data",
                                     new Files(@"..\enhancedassets\MC2\awe32data\*.*")),
                                 new Dir(new Id("EXTRACT_INSTALLDIR"), @"Extract",
-                                    new File(new Id("DOSBOXEXTRACT_CONF"), @"Extract\dosboxExtract-GOG-CD.conf"),
-                                    new File(new Id("XXCOPY16_EXE"), @"Extract\XXCOPY16.EXE"),
 #if WIN64
 									new File(new Id("VC_Redist_EXE"), @"Extract\VC_redist.x64.exe"))),
 #else
@@ -252,22 +242,24 @@ namespace remc2_installer
                                             .Add(Dialogs.InstallDir)
                                             .Add<EnhancedDataDialog>()
                                             .Add(Dialogs.Progress)
-                                            .Add<GameDataDialog>()
+                                            .Add<GameDataMc1Dialog>()
+                                            .Add<GameDataMc2Dialog>()
 											.Add<RedistDialog>()
 											.Add(Dialogs.Exit);
 
             project.ManagedUI.ModifyDialogs.Add(Dialogs.MaintenanceType)
                                            .Add<EnhancedDataDialog>()
                                            .Add(Dialogs.Progress)
-										   .Add<GameDataDialog>()
+										   .Add<GameDataMc1Dialog>()
+										   .Add<GameDataMc2Dialog>()
 										   .Add<RedistDialog>()
 										   .Add(Dialogs.Exit);
 
             project.ControlPanelInfo.ProductIcon = @"Resources\app.ico";
             project.ControlPanelInfo.Comments = "Enhanced Edition of Magic Carpet 2 " + version.ToString();
             project.ControlPanelInfo.UrlInfoAbout = "https://github.com/thobbsinteractive/magic-carpet-2-hd";
-            project.ControlPanelInfo.Contact = "Magic Carpet 2 HD";
-            project.ControlPanelInfo.Manufacturer = "Magic Carpet 2 HD";
+            project.ControlPanelInfo.Contact = "Magic Carpet HD";
+            project.ControlPanelInfo.Manufacturer = "Magic Carpet HD";
 
             project.LicenceFile = @"Resources\MagicCarpet2HD.licence.rtf";
             project.BackgroundImage = @"Resources\MagicCarpet2HD.dialog_bmp.png";

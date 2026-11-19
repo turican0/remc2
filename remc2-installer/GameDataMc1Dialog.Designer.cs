@@ -1,6 +1,6 @@
 namespace WixSharpSetup
 {
-    partial class GameDataDialog
+    partial class GameDataMc1Dialog
     {
         /// <summary>
         /// Required designer variable.
@@ -29,8 +29,8 @@ namespace WixSharpSetup
         private void InitializeComponent()
         {
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("CD_Files");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("NETHERW");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("C:\\Program Files x86\\Remc2\\Magic Carpet 2 HD", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("CARPET.CD");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("C:\\Program Files x86\\Magic Carpet HD", new System.Windows.Forms.TreeNode[] {
             treeNode4,
             treeNode5});
             this.panel2 = new System.Windows.Forms.Panel();
@@ -79,7 +79,7 @@ namespace WixSharpSetup
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(307, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Please select where to get the Magic Carpet 2 game data from";
+            this.label2.Text = "Please select where to get the Magic Carpet game data from";
             // 
             // label1
             // 
@@ -91,7 +91,7 @@ namespace WixSharpSetup
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 14);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Game Data Location";
+            this.label1.Text = "Magic Carpet Game Data";
             // 
             // panel1
             // 
@@ -178,7 +178,7 @@ namespace WixSharpSetup
             this.lblGameData.Name = "lblGameData";
             this.lblGameData.Size = new System.Drawing.Size(154, 13);
             this.lblGameData.TabIndex = 15;
-            this.lblGameData.Text = "Magic Carpet 2 GOG directory:";
+            this.lblGameData.Text = "Magic Carpet Plus GOG directory:";
             // 
             // grpBox
             // 
@@ -248,11 +248,11 @@ namespace WixSharpSetup
             this.treeViewInstallProgress.Name = "treeViewInstallProgress";
             treeNode4.Name = "CDFiles";
             treeNode4.Text = "CD_Files";
-            treeNode5.Name = "NETHERW";
-            treeNode5.Text = "NETHERW";
+            treeNode5.Name = "CARPETCD";
+            treeNode5.Text = "CARPET.CD";
             treeNode6.Checked = true;
             treeNode6.Name = "InstallPath";
-            treeNode6.Text = "C:\\Program Files x86\\Remc2\\Magic Carpet 2 HD";
+            treeNode6.Text = "C:\\Program Files x86\\Magic Carpet HD";
             this.treeViewInstallProgress.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode6});
             this.treeViewInstallProgress.ShowPlusMinus = false;
@@ -283,7 +283,7 @@ namespace WixSharpSetup
             this.tblMain.Size = new System.Drawing.Size(284, 211);
             this.tblMain.TabIndex = 20;
             // 
-            // GameDataDialog
+            // GameDataMc1Dialog
             // 
             this.AcceptButton = this.btnRun;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -294,7 +294,7 @@ namespace WixSharpSetup
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(300, 250);
-            this.Name = "GameDataDialog";
+            this.Name = "GameDataMc1Dialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game Data";
             this.Load += new System.EventHandler(this.dialog_Load);

@@ -49,7 +49,7 @@ bool m_pressed = false;
 uint16_t m_lastScancode = 0;
 Scene m_Scene = Scene::PREAMBLE_MENU;
 
-const char* default_caption = "Magic Carpet 2 HD - (Community Update)";
+const char* default_caption = "Magic Carpet HD";
 
 bool m_initiated = false;
 Uint8 tempPalettebuffer[768];

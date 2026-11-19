@@ -120,7 +120,7 @@ namespace WixSharpSetup
             this.lblDescription.Padding = new System.Windows.Forms.Padding(10);
             this.lblDescription.Size = new System.Drawing.Size(278, 71);
             this.lblDescription.TabIndex = 11;
-            this.lblDescription.Text = "The LATEST C++ Redistributable is required to run Magic Carpet 2 HD and the Edito" +
+            this.lblDescription.Text = "The LATEST C++ Redistributable is required to run Magic Carpet HD and the Edito" +
     "r.\r\n\r\nI am working to removed this dependancy, but it is a complex process to re" +
     "place the component that uses it.";
             // 

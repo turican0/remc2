@@ -1,29 +1,29 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using remc2_installer;
 using WixSharp;
 using WixSharp.UI.Forms;
 
 namespace WixSharpSetup
 {
-    public partial class GameDataDialog : ManagedForm
+    public partial class GameDataMc2Dialog : ManagedForm
     {
 		private bool _runClicked;
 
-        // the Magic Carpet 2 folders in the install directory, the defaults of the config ("games" MagicCarpet2 paths)
-        private static readonly string Mc2GameFolder = Path.Combine("MC2", "NETHERW");
-        private static readonly string Mc2CdFolder = Path.Combine("MC2", "CD_Files");
+        // the Magic Carpet 2 folders in the install directory, the defaults of the config ("paths" MagicCarpet2)
+        private static readonly string Mc2GameFolder = Mc2GameData.GameFolder;
+        private static readonly string Mc2CdFolder = Mc2GameData.CdFolder;
 
-        public GameDataDialog()
+        public GameDataMc2Dialog()
         {
             //NOTE: If this assembly is compiled for v4.0.30319 runtime, it may not be compatible with the MSI hosted CLR.
             //The incompatibility is particularly possible for the Embedded UI scenarios.
             //The safest way to avoid the problem is to compile the assembly for v3.5 Target Framework.remc2_installer
             InitializeComponent();
 
-            this.Shown += GameDataDialog_Shown;
-            this.FormClosing += GameDataDialog_FormClosing;
+            this.Shown += GameDataMc2Dialog_Shown;
+            this.FormClosing += GameDataMc2Dialog_FormClosing;
         }
 
         private string GetGoGInstructions()
@@ -36,9 +36,8 @@ namespace WixSharpSetup
             }
             catch { };
 
-            return $"The installer will now atempt to copy the NETHERW directory from: 'this.txtPath.Text' to: '{Path.Combine(installPath, Mc2GameFolder)}'.\n" +
-                $"It will then extract the CD Files to: '{Path.Combine(this.txtPath.Text, "CD_Files")}' and copy them to: '{Path.Combine(installPath, Mc2CdFolder)}'.\n\n" +
-                $"If this extract fails you can run '{Path.Combine(this.txtPath.Text, "Extract.bat")}' to extract the files and manually copy them to '{Path.Combine(installPath, Mc2CdFolder)}'.\n\n" +
+            return $"The installer will now copy the NETHERW directory from: '{Path.Combine(this.txtPath.Text, Mc2GameData.GogGameFolder)}' to: '{Path.Combine(installPath, Mc2GameFolder)}'.\n" +
+                $"It will then extract the CD Files from the CD image: '{Path.Combine(this.txtPath.Text, Mc2GameData.GogImageName)}' to: '{Path.Combine(installPath, Mc2CdFolder)}'.\n\n" +
                 "Click [Extract Game Data] to continue";
         }
 
@@ -159,15 +158,6 @@ namespace WixSharpSetup
             return foundData && foundIntro && foundLanguage && foundLevels && foundSound;
         }
 
-        public bool CopyExtractBatchFile(string gamePath)
-        {
-            if (System.IO.File.Exists(Path.Combine(Runtime.InstallDir, @"Extract.bat")))
-            {
-                System.IO.File.Copy(Path.Combine(Runtime.InstallDir, @"Extract.bat"), Path.Combine(gamePath, @"Extract.bat"), true);
-            }
-            return true;
-        }
-
         public bool MoveGameData(string gamePath)
         {
             try
@@ -227,48 +217,13 @@ namespace WixSharpSetup
 			return true;
 		}
 
-        public bool CopyExtractFolder(string gamePath)
-        {
-            string path = Runtime.InstallDir;
-
-            try
-            {
-                if (Directory.Exists(Path.Combine(path, "Extract")))
-                {
-					Utils.CopyDirectory(Path.Combine(path, "Extract"), Path.Combine(gamePath, "Extract"), true);
-                }
-                else
-                {
-                    MessageBox.Show($"Error copying extract folder not present in: {Path.Combine(path, "Extract")}");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error copying extract folder: {ex.Message}");
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool ExtractCDFiles(string gamePath)
+        private bool ExtractGogImage(string gogPath)
         {
             try
             {
-                if (Directory.Exists(Path.Combine(gamePath, "CD_Files")))
-                {
-                    Directory.Delete(Path.Combine(gamePath, "CD_Files"), true);
-                }
-
-                if (Directory.Exists(Path.Combine(gamePath, "Extract")))
-                {
-                    ProcessStartInfo processStartInfo = new ProcessStartInfo(Path.Combine(gamePath, @"DOSBOX\dosbox.exe"), "-conf \"Extract\\dosboxExtract-GOG-CD.conf\" -c exit");
-                    processStartInfo.WorkingDirectory = gamePath;
-                    processStartInfo.UseShellExecute = false;
-                    processStartInfo.ErrorDialog = true;
-                    Process.Start(processStartInfo).Wait();
-                }
+                Cursor.Current = Cursors.WaitCursor;
+                Mc2GameData.ExtractGogImage(gogPath, Runtime.InstallDir);
+                treeViewInstallProgress.Nodes["InstallPath"].Nodes["CDFiles"].Checked = true;
             }
             catch (Exception ex)
             {
@@ -277,6 +232,10 @@ namespace WixSharpSetup
                     return true;
                 }
                 return false;
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
             }
             return true;
         }
@@ -481,7 +440,7 @@ namespace WixSharpSetup
 			
 		}
 
-        private void GameDataDialog_Shown(object sender, EventArgs e)
+        private void GameDataMc2Dialog_Shown(object sender, EventArgs e)
         {
 			this.cboInstallLocation.SelectedIndexChanged += CboInstallLocation_SelectedIndexChanged;
 			this.cboInstallLocation.SelectedIndex = 0;
@@ -489,9 +448,9 @@ namespace WixSharpSetup
 			treeViewInstallProgress.ExpandAll();
         }
 
-        private void GameDataDialog_FormClosing(object sender, FormClosingEventArgs e)
+        private void GameDataMc2Dialog_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.Shown -= GameDataDialog_Shown;
+            this.Shown -= GameDataMc2Dialog_Shown;
         }
 
         private void dialog_Load(object sender, EventArgs e)
@@ -530,11 +489,8 @@ namespace WixSharpSetup
             {
                 //GOG
                 if (ValidateGoGGameDataLocation(this.txtPath.Text) &&
-                CopyExtractBatchFile(this.txtPath.Text) &&
-                MoveGameData(Path.Combine(this.txtPath.Text, @"GAME\NETHERW")) &&
-                CopyExtractFolder(this.txtPath.Text) &&
-                ExtractCDFiles(this.txtPath.Text) &&
-                MoveCDFiles(Path.Combine(this.txtPath.Text, "CD_Files")))
+                MoveGameData(Path.Combine(this.txtPath.Text, Mc2GameData.GogGameFolder)) &&
+                ExtractGogImage(this.txtPath.Text))
                 {
 					success = true;
 				}
