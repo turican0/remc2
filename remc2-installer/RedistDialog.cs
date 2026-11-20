@@ -77,7 +77,7 @@ namespace WixSharpSetup
         {
 			if (!_runClicked)
 			{
-				if (MessageBox.Show("Are you sure you want to skip installing the C++ Redistributable? You cannot run Magic Carpet 2 HD without it!", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+				if (MessageBox.Show("Are you sure you want to skip installing the C++ Redistributable? You cannot run Magic Carpet HD without it!", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
 					Shell.GoNext();
 			}
 			else

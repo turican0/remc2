@@ -107,4 +107,4 @@ jobs:
         name: enhanced-graphics
         path: |
           ${{env.SOLUTION_FILE_PATH}}/enhancedassets/
-          !${{env.SOLUTION_FILE_PATH}}/enhancedassets/music-ogg/
+          !${{env.SOLUTION_FILE_PATH}}/enhancedassets/MC2/music-ogg/

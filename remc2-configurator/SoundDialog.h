@@ -21,4 +21,5 @@ private:
 	wxSpinCtrl* m_maxSimSounds = nullptr;
 	wxTextCtrl* m_speechFolder = nullptr;
 	wxCheckBox* m_autoShowObjectives = nullptr;
+	Config::Settings::Paths m_initialPaths; // keeps the paths of the other games
 };

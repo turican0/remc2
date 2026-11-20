@@ -8,7 +8,8 @@ namespace remc2_installer
 		public string version { get; set; }
 		public bool isActive { get; set; }
 		public string launchArguments { get; set; }
-		public Paths paths { get; set; }
+		public string[] description { get; set; }
+		public List<NamedPaths> paths { get; set; }
 		public Multiplayer multiplayer { get; set; }
 		public Sound sound { get; set; }
 		public Graphics graphics { get; set; }
@@ -24,27 +25,31 @@ namespace remc2_installer
 		public string clientServerIp { get; set; }
 	}
 
-	public class Paths
+	// a "paths" section: per game ("name") its path entries
+	public class NamedPaths
 	{
-		public string[] description { get; set; }
-		public string gameFolder { get; set; }
-		public string cdFolder { get; set; }
+		public string name { get; set; }
+		public List<PathEntry> path { get; set; }
+	}
+
+	public class PathEntry
+	{
+		public string key { get; set; }
+		public string value { get; set; }
 	}
 
 	public class Sound
 	{
 		public string[] description { get; set; }
+		public List<NamedPaths> paths { get; set; }
 		public bool hqSound { get; set; }
 		public bool fixSpeedSound { get; set; }
 		public int maxSimultaniousSounds { get; set; }
-		public string speechFolder { get; set; }
 		public bool autoShowObjectivesForForeignLanguages { get; set; }
 		public string musicType { get; set; }
-		public string awe32RomFolder { get; set; }
 		public bool useMagicCarpet1Music { get; set; }
 		public bool awe32GmIntroMusic { get; set; } = true;
 		public int awe32BufferMs { get; set; } = 200;
-		public string oggFolder { get; set; }
 		public bool oggMusicAlternative { get; set; }
 	}
 
@@ -66,18 +71,15 @@ namespace remc2_installer
 	public class GameDetail
 	{
 		public string[] description { get; set; }
+		public List<NamedPaths> paths { get; set; }
 		public int gameResWidth { get; set; }
 		public int gameResHeight { get; set; }
 		public int gameUiScale { get; set; }
 		public int mapEntityScale { get; set; }
 		public bool useHighResGraphics { get; set; }
-		public string highResGraphicsFolder { get; set; }
 		public bool useFixedMenuGraphics { get; set; }
-		public string fixedMenuGraphicsFolder { get; set; }
 		public bool useFixedTmaps { get; set; }
-		public string fixedTmapsFolder { get; set; }
 		public bool useExtendedFonts { get; set; }
-		public string extendedFontsFolder { get; set; }
 		public bool sky { get; set; }
 		public bool reflections { get; set; }
 		public bool dynamicLighting { get; set; }

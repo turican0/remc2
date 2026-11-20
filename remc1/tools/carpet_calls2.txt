@@ -1,0 +1,3540 @@
+sub_10010      16 lines  called by: sub_10EB0,sub_4C7E0
+    globals: word_9000E word_90010
+sub_1002D      77 lines  called by: sub_10EB0,sub_4C6F0,sub_4F120
+    calls: sub_10166 sub_100B8
+    globals: dword_90004 dword_90008 word_9000C word_90012
+sub_100B8      69 lines  called by: sub_1002D
+    calls: sub_101A1 sub_10190 sub_10254
+    globals: dword_90008 word_9000C word_90012 word_90016
+sub_10166      11 lines  called by: sub_1002D
+    globals: dword_90008 word_9000E word_90010 word_90012
+sub_10190       6 lines  called by: sub_100B8
+    globals: dword_90008 word_90012
+sub_101A1     102 lines  called by: sub_100B8
+    globals: byte_967E4 dword_90004 dword_90008 word_9000E word_90010 word_90012
+sub_10254      99 lines  called by: sub_100B8
+    globals: byte_967E4 dword_90004 dword_90008 word_9000E word_90010 word_90012
+sub_10300      80 lines  called by: sub_104D0
+    calls: sub_35710
+    globals: byte_12EF70 dword_9ADC4 dword_AC5D4 word_12EFDC word_12EFDE word_90026 word_AC5DC word_AC5DE
+sub_103C0      28 lines  called by: sub_104D0,sub_108C0,sub_10960,sub_10AB0,sub_10BD0
+    globals: dword_AC5BC
+sub_103F0      53 lines  called by: sub_104D0,sub_107C0
+    calls: sub_5CBD0 printf
+    strings: ERROR UNKNOWN FRAME TYPE\n | PAGE SIZE IS > BSCREEN\n
+    globals: dword_90028 dword_AC1A0 dword_AC1B0 dword_AC5C0 dword_AE3FC word_AC1A4
+sub_104D0     309 lines  called by: sub_104D0,sub_107C0
+    calls: sub_103C0 sub_103F0 sub_104D0 sub_108C0 sub_10960 sub_10AB0 memset sub_10BD0 dword_AC5C4 sub_10300 sub_5CC54 sub_319A0 sub_5CC70 sub_24BF0 sub_5CDA0
+    strings: BLACK  | COLOUR  | COLOUR256  | COPY  | PSTAMP 
+    globals: byte_90091 byte_AC1B8 dword_12EFF4 dword_9001C dword_AC1A0 dword_AC2B8 dword_AC5BC dword_AC5C4 dword_AE3FC word_90024 word_AC1A4 word_AC1A6 word_AC5D0 word_AC5D2
+sub_107C0      75 lines  called by: sub_4CCA0,sub_4D3B0,sub_4D560,sub_4E5B0,sub_4EE70,sub_4EFC0,sub_4F1E0,sub_4F8D0,sub_50030
+    calls: sub_5CDE0 sub_5CBD0 sub_356E0 sub_111B0 sub_103F0 sub_104D0 sub_5CE50
+    globals: byte_12EF70 dword_12EFF4 dword_9001C dword_90028 dword_9ADC8 dword_AC5C0 dword_AC5C8 dword_AC5E0 word_12EFDC word_12EFDE word_90024 word_90030 word_AC5CE word_AC5DA ...
+sub_108C0      75 lines  called by: sub_104D0
+    calls: sub_103C0
+    globals: dword_AC2B8
+sub_10960     148 lines  called by: sub_104D0
+    calls: sub_103C0
+    globals: dword_9001C word_AC5D0
+sub_10AB0     128 lines  called by: sub_104D0
+    calls: sub_103C0 memset
+    globals: dword_9001C word_AC5D0
+sub_10BD0      96 lines  called by: sub_104D0
+    calls: sub_103C0 memset
+    globals: dword_9001C word_AC5D0 word_AC5D2
+sub_10CB0      65 lines  called by: sub_58E70
+    calls: sub_42530 sub_42540 sub_426E0
+sub_10D40     135 lines  called by: sub_58B30
+sub_10E80      28 lines  called by: -
+    calls: sub_10EB0
+sub_10EB0      42 lines  called by: sub_10E80,sub_590D0
+    calls: sub_10010 sub_1002D
+sub_10F10      13 lines  called by: sub_58910,sub_58A00
+sub_10F30      26 lines  called by: -
+sub_10F70      20 lines  called by: -
+sub_10FD0      32 lines  called by: sub_58910,sub_58A00,sub_590D0
+sub_11010      26 lines  called by: sub_58F00
+    calls: sub_426E0
+sub_11050      52 lines  called by: sub_3DD10
+    calls: _dos_getdrive _dos_getdiskfree
+    globals: byte_9002C
+sub_111B0     242 lines  called by: sub_107C0
+    calls: sub_20E60 sub_5CEF0 sub_5D010 sub_5D070 sub_5D230 sub_5D290 sub_24AB0 sub_24B80 sub_24BB0 sub_24B50 sub_5D460 sub_5D610 sub_5D750 sub_5D7F0
+    globals: byte_90090 byte_939E4 dword_9ADC0 dword_9ADC4 dword_9AF08 dword_AC5E0 dword_AE238 dword_CBFD8 word_90030 word_AC5DA
+sub_11410      39 lines  called by: sub_11980,sub_11AC0,sub_11C00,sub_11D10,sub_25130,sub_255D0,sub_25CE0,sub_26140,sub_29780,sub_40D30
+    globals: dword_AC5F0 dword_AC5F4 dword_AC5F8 dword_AC5FC dword_AC600 dword_AC604 dword_AD008
+sub_11490      11 lines  called by: sub_11980,sub_11AC0,sub_11C00,sub_11D10,sub_25130,sub_255D0,sub_25CE0,sub_26140,sub_29780,sub_40D30
+    globals: dword_AC5F8
+sub_114B0      60 lines  called by: sub_11980,sub_11AC0,sub_11C00,sub_11D10,sub_25130,sub_255D0,sub_25CE0,sub_26140,sub_29780,sub_40D30
+    globals: dword_AC5F0
+sub_11540      96 lines  called by: -
+    calls: sub_3EEA0
+    strings: data/search.dat
+    globals: dword_12EFF4 dword_AC5E0 dword_AD008 dword_AE3F4 word_AD00C
+sub_11640     133 lines  called by: sub_196E0,sub_20480
+    calls: sub_11F50 sub_11810 sub_42180 sub_42240 sub_42210
+sub_11760      16 lines  called by: sub_24F60,sub_25570,sub_25670,sub_25990,sub_26920,sub_269A0,sub_42090
+    globals: byte_FC1E0
+sub_11810     142 lines  called by: sub_11640,sub_1EA40,sub_20480,sub_252D0,sub_25A60,sub_45410,sub_455D0,sub_49890,sub_499C0,sub_49A50,sub_52770,sub_52B30,sub_530C0,sub_53DC0
+    globals: byte_CC1E0 dword_100000 dword_80000
+sub_118C0      70 lines  called by: sub_11950
+sub_11950      20 lines  called by: sub_11980,sub_11AC0,sub_11C00,sub_11D10,sub_120B0,sub_124F0,sub_127E0,sub_12A70,sub_12D10,sub_132B0,sub_143A0,sub_147E0,sub_15080,sub_26A60,sub_293D0,sub_45C90,sub_46DB0,sub_47F90,sub_49AD0,sub_53980,sub_53B50,sub_54CD0,sub_55A40,sub_5A090,sub_5A120
+    calls: sub_118C0
+sub_11980     135 lines  called by: sub_52770,sub_52B30,sub_530C0,sub_534C0,sub_535E0,sub_53DC0,sub_54180
+    calls: sub_11410 sub_11950 sub_11490 sub_114B0
+    globals: dword_AE400 word_10C1E0
+sub_11AC0     131 lines  called by: sub_52ED0
+    calls: sub_11410 sub_11950 sub_11490 sub_114B0
+    globals: dword_AE400 word_10C1E0
+sub_11C00     114 lines  called by: sub_542B0
+    calls: sub_11410 sub_11950 sub_11490 sub_114B0
+    globals: dword_AE400 word_10C1E0
+sub_11D10     132 lines  called by: sub_27030
+    calls: sub_11410 sub_11950 sub_11490 sub_114B0
+    globals: dword_AE400 word_10C1E0
+sub_11E50      98 lines  called by: sub_25A60
+    calls: sub_42340
+    globals: dword_AE400 word_10C1E0
+sub_11F50      13 lines  called by: sub_11640,sub_12040,sub_132B0,sub_14EB0,sub_196E0,sub_1B120,sub_20480,sub_24F60,sub_252D0,sub_25470,sub_257B0,sub_258A0,sub_25A60,sub_25EC0,sub_26140,sub_26A60,sub_26C00,sub_26D20,sub_27030,sub_275C0,sub_27690,sub_27D30,sub_293D0,sub_29540,sub_296A0,sub_29700,sub_36480,sub_37560,sub_37920,sub_38E70,sub_3A640,sub_3A6B0,sub_3A730,sub_3A7D0,sub_3ACC0,sub_3B300,sub_41B20,sub_44D30,sub_45410,sub_455D0,sub_45FC0,sub_46DB0,sub_46F10,sub_47130,sub_47400,sub_47F90,sub_49890,sub_499C0,sub_49A50,sub_49AA0,sub_49AD0,sub_49B50,sub_52770,sub_52B30,sub_52ED0,sub_530C0,sub_534C0,sub_53980,sub_53B50,sub_53DC0,sub_54180,sub_542B0,sub_54CD0,sub_55A40,sub_55EF0,sub_567A0,sub_56AF0,sub_56CA0,sub_57610,sub_5A090
+    calls: sub_724C0
+sub_11F70      32 lines  called by: -
+    calls: sub_724C0
+    globals: dword_90B4C off_9134C
+sub_11FC0      48 lines  called by: -
+    globals: byte_DC1E0
+sub_12040      54 lines  called by: -
+    calls: sub_11F50 sub_41EC0
+sub_120B0     409 lines  called by: sub_24F60,sub_25760,sub_25CE0,sub_26140,sub_262D0,sub_26360,sub_263C0,sub_269A0,sub_29540,sub_29780,sub_54180
+    calls: sub_11950
+    globals: dword_AE400 dword_AE408 word_10C1E0
+sub_124F0     290 lines  called by: sub_252D0
+    calls: sub_11950
+    globals: dword_AE400 dword_AE408 word_10C1E0
+sub_127E0     253 lines  called by: sub_25470,sub_25670
+    calls: sub_11950
+    globals: dword_AE400 dword_AE408 word_10C1E0
+sub_12A70      89 lines  called by: -
+    calls: sub_11950
+sub_12B50      44 lines  called by: sub_1AB10,sub_299D0
+sub_12BB0      70 lines  called by: -
+    globals: dword_AE400 dword_AE408
+sub_12C50      80 lines  called by: sub_46F10
+    calls: sub_37150
+    globals: dword_AE400 dword_AE408
+sub_12D10     283 lines  called by: sub_14120,sub_15A00,sub_15D40,sub_46F10
+    calls: sub_37150 sub_11950
+    globals: byte_FC1E0 dword_AE400 dword_AE408
+sub_12F70     119 lines  called by: sub_53B50
+    globals: byte_FC1E0 dword_AE400 dword_AE408
+sub_13070      11 lines  called by: -
+sub_13170     175 lines  called by: -
+    calls: sub_132B0 sub_136C0 sub_13A70 sub_13800 sub_138E0 sub_138F0 sub_13990 sub_13DC0 sub_13BA0 sub_13CA0 sub_13A10
+sub_132B0     344 lines  called by: sub_13170
+    calls: sub_16990 sub_45C10 sub_11950 sub_46540 memset sub_14EB0 sub_15EC0 sub_16800 sub_16870 sub_16890 sub_155F0 sub_11F50
+    globals: dword_AE400
+sub_136C0     147 lines  called by: sub_13170
+    calls: sub_13F00 sub_14C80 sub_14310 sub_14DA0 sub_14120 sub_14C40 sub_143A0 sub_14D00 sub_145B0 sub_14D60 sub_147E0 sub_14D40 sub_14230 sub_14CE0 sub_14B10 sub_14D20 sub_14DC0
+sub_13800      94 lines  called by: sub_13170
+    calls: sub_15440 sub_42150 sub_15470 sub_155F0
+    globals: dword_AE400
+sub_138E0       4 lines  called by: sub_13170
+sub_138F0      72 lines  called by: sub_13170
+    calls: sub_42150 sub_15470 sub_155F0
+sub_13990      51 lines  called by: sub_13170
+    calls: sub_15440 sub_42150 sub_15470
+    globals: dword_AE400
+sub_13A10      39 lines  called by: sub_13170,sub_149A0
+    calls: sub_15E60 sub_15A00 sub_155F0
+sub_13A70     123 lines  called by: sub_13170
+    calls: sub_42410 sub_155F0 sub_15440 sub_42150 sub_15470 sub_15A00 sub_15E60
+    globals: dword_AE400
+sub_13BA0     102 lines  called by: sub_13170
+    calls: sub_15440 sub_42150 sub_15470 sub_155F0 sub_42210
+    globals: dword_AE400
+sub_13CA0     115 lines  called by: sub_13170
+    calls: sub_15440 sub_42150 sub_15470 sub_16310 sub_155F0
+    globals: dword_AE400
+sub_13DC0      10 lines  called by: sub_13170
+    calls: sub_13DD0
+sub_13DD0     116 lines  called by: sub_13DC0
+    calls: sub_15440 sub_42150 sub_15470 sub_16030 sub_15A00 sub_155F0
+    globals: dword_AE400
+sub_13F00     163 lines  called by: sub_136C0
+    calls: sub_14E60 sub_15E90 sub_15260 sub_42300
+    globals: dword_AE400
+sub_140A0      46 lines  called by: -
+    calls: sub_15420
+    globals: dword_AE400
+sub_14120      83 lines  called by: sub_136C0
+    calls: sub_14E60 sub_12D10 sub_15420
+    globals: dword_AE400
+sub_14230      80 lines  called by: sub_136C0
+    calls: sub_14E60 sub_15080 sub_15420
+    globals: dword_AE400
+sub_14310      50 lines  called by: sub_136C0
+    calls: sub_15420
+    globals: dword_AE400
+sub_143A0     177 lines  called by: sub_136C0
+    calls: sub_16920 sub_14E60 sub_42410 sub_11950 sub_15420
+    globals: dword_AE400 dword_AE408
+sub_145B0     191 lines  called by: sub_136C0
+    calls: sub_16920 sub_14E60 sub_16000 sub_15420 sub_42410
+    globals: dword_AE400 dword_AE408
+sub_147E0     139 lines  called by: sub_136C0
+    calls: sub_16920 sub_11950 sub_42410 sub_15420
+    globals: dword_AE400 dword_AE408
+sub_149A0     126 lines  called by: -
+    calls: sub_13A10 sub_42410 sub_15420
+    globals: dword_AE400 dword_AE408
+sub_14B10     108 lines  called by: sub_136C0
+    calls: sub_16920 sub_42410 sub_15420
+    globals: dword_AE400 dword_AE408
+sub_14C20       9 lines  called by: -
+sub_14C40       9 lines  called by: sub_136C0
+sub_14C60       9 lines  called by: -
+sub_14C80       9 lines  called by: sub_136C0
+sub_14CA0       9 lines  called by: -
+sub_14CC0       9 lines  called by: -
+sub_14CE0       9 lines  called by: sub_136C0
+sub_14D00       9 lines  called by: sub_136C0
+sub_14D20       9 lines  called by: sub_136C0
+sub_14D40       9 lines  called by: sub_136C0
+sub_14D60       9 lines  called by: sub_136C0
+sub_14D80       9 lines  called by: -
+sub_14DA0       9 lines  called by: sub_136C0
+sub_14DC0      49 lines  called by: sub_136C0
+    calls: sub_15420
+    globals: dword_AE400
+sub_14E60      27 lines  called by: sub_13F00,sub_14120,sub_14230,sub_143A0,sub_145B0,sub_155F0,sub_15A00,sub_15D40,sub_15E60,sub_15E90,sub_16000,sub_16030,sub_16310,sub_16920
+    globals: dword_AE400
+sub_14EB0     182 lines  called by: sub_132B0
+    calls: sub_11F50 sub_42000 sub_41EC0 sub_41C70 sub_42210 sub_42240
+    globals: word_AE454
+sub_15080     182 lines  called by: sub_14230
+    calls: sub_42410 sub_15340 sub_153B0 sub_15260 sub_11950
+    globals: dword_AE400 dword_AE408
+sub_15260     115 lines  called by: sub_13F00,sub_15080
+    calls: sub_42410
+    globals: dword_AE400 dword_AE408
+sub_15340      58 lines  called by: sub_15080
+    calls: sub_42410
+    globals: dword_AE400 dword_AE408
+sub_153B0      53 lines  called by: sub_15080
+    calls: sub_42410
+    globals: dword_AE400 dword_AE408
+sub_15420      14 lines  called by: sub_140A0,sub_14120,sub_14230,sub_14310,sub_143A0,sub_145B0,sub_147E0,sub_149A0,sub_14B10,sub_14DC0,sub_15440
+sub_15440      15 lines  called by: sub_13800,sub_13990,sub_13A70,sub_13BA0,sub_13CA0,sub_13DD0
+    calls: sub_15420
+sub_15470     125 lines  called by: sub_13800,sub_138F0,sub_13990,sub_13A70,sub_13BA0,sub_13CA0,sub_13DD0
+    calls: sub_42340 sub_423D0 sub_15E60 sub_15A00 sub_155F0
+sub_155F0     300 lines  called by: sub_132B0,sub_13800,sub_138F0,sub_13A10,sub_13A70,sub_13BA0,sub_13CA0,sub_13DD0,sub_15470,sub_16890
+    calls: sub_15A00 sub_14E60 sub_42210 sub_42180 sub_373F0
+    globals: dword_AE400 word_90034
+sub_15A00     276 lines  called by: sub_13A10,sub_13A70,sub_13DD0,sub_15470,sub_155F0,sub_16030,sub_16310,sub_16890
+    calls: sub_14E60 sub_42210 sub_12D10
+    globals: dword_AE400
+sub_15D40      94 lines  called by: -
+    calls: sub_14E60 sub_12D10 sub_42210
+    globals: dword_AE400
+sub_15E60      27 lines  called by: sub_13A10,sub_13A70,sub_15470
+    calls: sub_14E60
+sub_15E90      21 lines  called by: sub_13F00,sub_16030,sub_16310
+    calls: sub_14E60
+sub_15EC0     114 lines  called by: sub_132B0
+    calls: off_987DE
+    globals: dword_AE400 dword_AE408 off_987DE
+sub_16000      26 lines  called by: sub_145B0,sub_16030
+    calls: sub_14E60
+sub_16030     299 lines  called by: sub_13DD0
+    calls: sub_14E60 sub_15A00 sub_15E90 sub_16000 rand
+    globals: dword_AE400
+sub_16310     239 lines  called by: sub_13CA0
+    calls: sub_14E60 sub_15A00 sub_15E90
+sub_16540     241 lines  called by: sub_41780
+    globals: dword_AE400 dword_AE408
+sub_16800      59 lines  called by: sub_132B0
+    calls: sub_42410
+    globals: dword_AE400 dword_AE408
+sub_16870       8 lines  called by: sub_132B0
+sub_16890      79 lines  called by: sub_132B0
+    calls: sub_42410 sub_15A00 sub_155F0
+    globals: dword_100000
+sub_16920      55 lines  called by: sub_143A0,sub_145B0,sub_147E0,sub_14B10
+    calls: sub_14E60
+sub_16990      26 lines  called by: sub_132B0
+    globals: dword_ACF50 dword_AE400 dword_AE408
+sub_169E0      83 lines  called by: sub_17C20
+    globals: dword_AE400 dword_AE408 word_12F02E word_9AD90 word_9AD92
+sub_16B00    1586 lines  called by: sub_17C20
+    calls: sub_188A0 sub_593B0 sub_3E750 sub_3E8C0 sub_37220 sub_3E690 sub_3E7F0 sub_59420 sub_356E0 sub_5D010 sub_20E60 sub_5D290 sub_34C80 sub_31600 sub_315C0
+    strings: Game loaded. | Game saved.
+    globals: byte_12EF1A byte_12EF26 byte_12EF28 byte_12EF70 byte_939CC byte_939CD byte_939E4 byte_939E5 dword_AC5D4 dword_AE2CC dword_AE2D0 dword_AE2D4 dword_AE2D8 dword_AE2DC ...
+sub_17C20    1162 lines  called by: sub_34530
+    calls: sub_188A0 sub_16B00 sub_3FCA0 sub_169E0 sub_34C80
+    globals: byte_12EF0D byte_12EF1A byte_12EF26 byte_12EF28 byte_12EF2B byte_12EF38 byte_12EF3B byte_12EF3D byte_12EF40 byte_12EF70 byte_99B88 byte_9AD0C dword_AE400 dword_AE408 ...
+sub_188A0     628 lines  called by: sub_16B00,sub_17C20,sub_190D0
+    globals: dword_AE400 dword_AE408
+sub_190D0     243 lines  called by: -
+    calls: sub_188A0
+    globals: byte_12EEF0 byte_12EF70 word_12EFDC word_12EFDE word_12EFE2 word_12EFE4 word_9AD8C word_9AD8E word_9AD90 word_9AD92
+sub_192D8      20 lines  called by: sub_19470
+    calls: sub_192F3 sub_193EE
+sub_192F3      79 lines  called by: sub_192D8
+    globals: byte_90076 byte_90084 byte_90085 byte_90086 byte_90087 dword_90066 dword_9006A dword_9006E dword_90072 dword_90078
+sub_193EE      43 lines  called by: sub_192D8
+    globals: byte_90084 byte_90088 byte_90089 word_90064
+sub_19470      44 lines  called by: sub_34DD0,sub_4EFC0
+    calls: sub_192D8 memset
+    globals: byte_90084 byte_90085 byte_90086 byte_90087 byte_90088 dword_AE408
+sub_194F0      37 lines  called by: sub_3C9D0
+    globals: dword_AE400 dword_AE408
+sub_19550     102 lines  called by: -
+    calls: sub_41E80 sub_42150 sub_42180 sub_41EC0 sub_41C70
+    globals: dword_AE400 word_AE454
+sub_19650      62 lines  called by: sub_196E0
+    globals: byte_DC1E0
+sub_196E0     369 lines  called by: sub_19D70,sub_1A120,sub_1A390,sub_1B160,sub_1B5D0,sub_1BD20,sub_1C170,sub_1C4F0,sub_1CA50,sub_1D060,sub_1DA60,sub_1DFE0,sub_1E380,sub_1EED0,sub_1F120,sub_1F640,sub_1FAC0,sub_207E0
+    calls: sub_11F50 sub_42000 sub_41EC0 sub_41C70 sub_422A0 sub_11640 sub_19650
+    globals: word_AE454 word_AE456
+sub_19B10     224 lines  called by: sub_1B060,sub_1B160,sub_1B350,sub_1B500,sub_1B5A0,sub_1C490,sub_1C8F0,sub_1CA40,sub_1DDD0,sub_1FF40,sub_20700
+    calls: sub_42150 sub_42210 sub_424F0
+    globals: dword_AE400 dword_AE408
+sub_19D70     339 lines  called by: sub_1B070,sub_1B200,sub_1B370,sub_1B510,sub_1C4A0,sub_1C900,sub_1DDE0,sub_20710
+    calls: sub_196E0 sub_42150 sub_42210 sub_424F0
+    globals: dword_AE400 dword_AE408
+sub_1A120     236 lines  called by: sub_1B090,sub_1B2D0,sub_1B3C0,sub_1B520,sub_1BB20,sub_1C110,sub_1C960,sub_1CE30,sub_1DDF0
+    calls: sub_424F0 sub_196E0 sub_42150 sub_42340
+    globals: dword_AE400
+sub_1A390     308 lines  called by: sub_1B0E0,sub_1B320,sub_1B4C0,sub_1B570,sub_1BBE0,sub_1C880,sub_1CA00,sub_1CF50,sub_1DC80,sub_1DE10,sub_1E6F0,sub_203E0,sub_20B60
+    calls: sub_424F0 sub_196E0 sub_42150
+    globals: dword_AE400 dword_AE408
+sub_1A6C0     109 lines  called by: sub_1B100,sub_1B330,sub_1B4E0,sub_1B580,sub_1BC10,sub_1C3C0,sub_1C8D0,sub_1CA20,sub_1CF60,sub_1DCB0,sub_1DE20,sub_1E700,sub_1F5A0,sub_1FA00,sub_1FE90,sub_203F0,sub_20B70
+    calls: sub_424F0
+    globals: dword_AE400
+sub_1A800      36 lines  called by: sub_1B110,sub_1B340,sub_1B4F0,sub_1B590,sub_1BC40,sub_1C3D0,sub_1C8E0,sub_1CA30,sub_1CFE0,sub_1DCC0,sub_1DE30,sub_1E710,sub_1F5B0,sub_1FAA0,sub_1FEC0,sub_20400,sub_20B80
+    calls: sub_27690 sub_373F0 sub_41E80
+    globals: dword_AE408
+sub_1A850      56 lines  called by: -
+    globals: dword_AE400
+sub_1A8E0      62 lines  called by: -
+    calls: sub_373F0 sub_42150 sub_42180
+    globals: dword_98FF8
+sub_1A990      63 lines  called by: -
+    calls: sub_373F0 sub_42150 sub_42180 sub_370A0
+sub_1AA40      76 lines  called by: sub_1DA60
+    calls: sub_373F0 sub_42150 sub_42180 sub_370A0
+sub_1AB10      35 lines  called by: -
+    calls: sub_42340 sub_12B50
+sub_1AB70     247 lines  called by: -
+    calls: sub_42150 sub_42180 sub_373F0
+    globals: dword_98F38 off_98F98
+sub_1AE30      62 lines  called by: -
+    calls: sub_373F0 sub_42150 sub_42180
+    globals: dword_98FF8
+sub_1AEE0      59 lines  called by: -
+    calls: sub_373F0 sub_42150 sub_42180
+    globals: dword_98FF8
+sub_1AF80      79 lines  called by: -
+    calls: sub_373F0 sub_42150 sub_42180 sub_41EC0 sub_41C70
+    globals: dword_98F78 word_AE454
+sub_1B060      10 lines  called by: -
+    calls: sub_19B10
+sub_1B070      16 lines  called by: -
+    calls: sub_19D70 sub_1B120
+sub_1B090      36 lines  called by: -
+    calls: sub_1A120 sub_55370 sub_1B120
+    globals: dword_AE400
+sub_1B0E0      16 lines  called by: -
+    calls: sub_1A390 sub_1B120
+sub_1B100      10 lines  called by: -
+    calls: sub_1A6C0
+sub_1B110      10 lines  called by: -
+    calls: sub_1A800
+sub_1B120      28 lines  called by: sub_1B070,sub_1B090,sub_1B0E0
+    calls: sub_11F50
+sub_1B160      58 lines  called by: -
+    calls: sub_19B10 sub_196E0 sub_42150 sub_424F0
+    globals: dword_AE400
+sub_1B200      83 lines  called by: -
+    calls: sub_19D70 sub_424F0
+    globals: dword_AE400 dword_AE408
+sub_1B2D0      31 lines  called by: -
+    calls: sub_1A120 sub_55370
+    globals: dword_AE400
+sub_1B320      10 lines  called by: -
+    calls: sub_1A390
+sub_1B330      10 lines  called by: -
+    calls: sub_1A6C0
+sub_1B340      10 lines  called by: -
+    calls: sub_1A800
+sub_1B350      18 lines  called by: -
+    calls: sub_19B10
+sub_1B370      32 lines  called by: -
+    calls: sub_19D70 sub_55370
+    globals: dword_AE400
+sub_1B3C0      96 lines  called by: -
+    calls: sub_1A120 sub_55370
+    globals: dword_AE400
+sub_1B4C0      18 lines  called by: -
+    calls: sub_1A390
+sub_1B4E0      10 lines  called by: -
+    calls: sub_1A6C0
+sub_1B4F0      10 lines  called by: -
+    calls: sub_1A800
+sub_1B500      10 lines  called by: -
+    calls: sub_19B10
+sub_1B510      10 lines  called by: -
+    calls: sub_19D70
+sub_1B520      31 lines  called by: -
+    calls: sub_1A120 sub_55370
+    globals: dword_AE400
+sub_1B570      10 lines  called by: -
+    calls: sub_1A390
+sub_1B580      10 lines  called by: -
+    calls: sub_1A6C0
+sub_1B590      10 lines  called by: -
+    calls: sub_1A800
+sub_1B5A0      20 lines  called by: -
+    calls: sub_19B10 sub_1BC50
+sub_1B5D0     497 lines  called by: -
+    calls: sub_424F0 sub_196E0 sub_42150 sub_42210 sub_42340 sub_1BC50
+    globals: dword_AE400 dword_AE408
+sub_1BB20      63 lines  called by: -
+    calls: sub_1A120 sub_1BCE0
+    globals: dword_AE400
+sub_1BBE0      20 lines  called by: -
+    calls: sub_1A390 sub_1BC50
+sub_1BC10      19 lines  called by: -
+    calls: sub_41E80 sub_1A6C0
+sub_1BC40      10 lines  called by: -
+    calls: sub_1A800
+sub_1BC50      46 lines  called by: sub_1B5A0,sub_1B5D0,sub_1BBE0
+    calls: sub_36FA0
+    globals: dword_AE400
+sub_1BCE0      16 lines  called by: sub_1BB20
+    calls: sub_36FA0
+sub_1BD10      10 lines  called by: -
+    calls: sub_424F0
+sub_1BD20     369 lines  called by: -
+    calls: sub_424F0 sub_196E0 sub_42150 sub_42210 sub_423D0 sub_373F0
+    globals: dword_AE400 dword_AE408
+sub_1C110      42 lines  called by: -
+    calls: sub_1A120 sub_55370
+    globals: dword_AE400
+sub_1C170     211 lines  called by: -
+    calls: sub_424F0 sub_196E0 sub_423D0 sub_41E80 sub_38820 sub_42150
+    globals: dword_AE400
+sub_1C3C0      10 lines  called by: -
+    calls: sub_1A6C0
+sub_1C3D0      10 lines  called by: -
+    calls: sub_1A800
+sub_1C3E0      71 lines  called by: -
+    calls: sub_42340
+    globals: dword_AE400
+sub_1C490      10 lines  called by: -
+    calls: sub_19B10
+sub_1C4A0      32 lines  called by: -
+    calls: sub_19D70 sub_55370
+    globals: dword_AE400
+sub_1C4F0     326 lines  called by: -
+    calls: sub_424F0 sub_196E0 sub_42150 sub_55370 sub_42340 sub_373F0 sub_42180
+    globals: dword_98FF8 dword_AE400
+sub_1C880      32 lines  called by: -
+    calls: sub_1A390 sub_55370
+    globals: dword_AE400
+sub_1C8D0      10 lines  called by: -
+    calls: sub_1A6C0
+sub_1C8E0      10 lines  called by: -
+    calls: sub_1A800
+sub_1C8F0      10 lines  called by: -
+    calls: sub_19B10
+sub_1C900      45 lines  called by: -
+    calls: sub_19D70
+sub_1C960      62 lines  called by: -
+    calls: sub_36FA0 sub_1A120
+sub_1CA00      18 lines  called by: -
+    calls: sub_1A390
+sub_1CA20      10 lines  called by: -
+    calls: sub_1A6C0
+sub_1CA30      10 lines  called by: -
+    calls: sub_1A800
+sub_1CA40      10 lines  called by: -
+    calls: sub_19B10
+sub_1CA50     357 lines  called by: -
+    calls: sub_196E0 sub_42150 sub_42210 sub_424F0
+    globals: dword_AE400 dword_AE408
+sub_1CE30      94 lines  called by: -
+    calls: sub_1A120 sub_55370
+    globals: dword_AE400
+sub_1CF50      10 lines  called by: -
+    calls: sub_1A390
+sub_1CF60      43 lines  called by: -
+    calls: sub_1A6C0
+    globals: dword_AE400
+sub_1CFE0      10 lines  called by: -
+    calls: sub_1A800
+sub_1CFF0      53 lines  called by: -
+    calls: sub_1DD50 sub_424F0 sub_36FA0 sub_42510
+sub_1D060     605 lines  called by: -
+    calls: sub_1DD90 sub_424F0 sub_196E0 sub_42150 sub_42340 sub_42210 sub_41E80 sub_373F0 sub_1D6D0 sub_1DCD0
+    globals: dword_AE400 dword_AE408 word_AE454
+sub_1D6D0     376 lines  called by: sub_1D060
+    calls: sub_424F0 sub_1DDB0 sub_410CE sub_41E80 sub_373F0
+    globals: dword_AE400 dword_AE408 word_AE454
+sub_1DA60     219 lines  called by: -
+    calls: sub_424F0 sub_196E0 sub_42150 sub_42340 sub_1AA40 sub_1DD50
+    globals: dword_AE400
+sub_1DC80      20 lines  called by: -
+    calls: sub_1A390 sub_1DCD0
+sub_1DCB0      10 lines  called by: -
+    calls: sub_1A6C0
+sub_1DCC0      10 lines  called by: -
+    calls: sub_1A800
+sub_1DCD0      43 lines  called by: sub_1D060,sub_1DC80
+    calls: sub_424F0 sub_36FA0
+    globals: dword_AE400
+sub_1DD50      19 lines  called by: sub_1CFF0,sub_1DA60
+    calls: sub_36FA0
+sub_1DD90      12 lines  called by: sub_1D060
+    calls: sub_36FA0
+sub_1DDB0      12 lines  called by: sub_1D6D0
+    calls: sub_36FA0
+sub_1DDD0      10 lines  called by: -
+    calls: sub_19B10
+sub_1DDE0      10 lines  called by: -
+    calls: sub_19D70
+sub_1DDF0      11 lines  called by: -
+    calls: sub_1A120
+sub_1DE10      10 lines  called by: -
+    calls: sub_1A390
+sub_1DE20      10 lines  called by: -
+    calls: sub_1A6C0
+sub_1DE30      10 lines  called by: -
+    calls: sub_1A800
+sub_1DE40     148 lines  called by: -
+    calls: sub_373F0 sub_55370 sub_41C70 sub_424F0
+    globals: dword_AE400 word_AE454 word_AE456
+sub_1DFE0     361 lines  called by: -
+    calls: sub_424F0 sub_196E0 sub_42150 sub_42210 sub_1E770 sub_1E810
+    globals: dword_AE400 dword_AE408
+sub_1E380     334 lines  called by: -
+    calls: sub_424F0 sub_196E0 sub_1E720 sub_1E810 sub_42150 sub_42340 sub_55370 sub_373F0 sub_42180
+    globals: dword_AE400
+sub_1E6F0      10 lines  called by: -
+    calls: sub_1A390
+sub_1E700      10 lines  called by: -
+    calls: sub_1A6C0
+sub_1E710      10 lines  called by: -
+    calls: sub_1A800
+sub_1E720      29 lines  called by: sub_1E380
+    calls: sub_424F0 sub_55370
+    globals: dword_AE400
+sub_1E770      51 lines  called by: sub_1DFE0
+    calls: sub_424F0 sub_41EC0 sub_41C70
+    globals: dword_AE400 word_AE454
+sub_1E810     104 lines  called by: sub_1DFE0,sub_1E380
+    calls: sub_41E80 sub_373F0 sub_55370
+    globals: dword_AE400 dword_AE408 word_AE454
+sub_1E920      64 lines  called by: sub_1EA40
+    calls: sub_35EA0
+sub_1E9B0      46 lines  called by: sub_1EA40
+    globals: dword_AE440 word_12F02E
+sub_1EA40     403 lines  called by: -
+    calls: sub_1E9B0 sub_11810 sub_1E920 sub_373F0 sub_55370 sub_36DF0 sub_424F0
+    globals: dword_AE400 dword_AE408 word_AE454 word_AE456
+sub_1EED0     204 lines  called by: -
+    calls: sub_196E0 sub_424F0
+    globals: dword_AE400
+sub_1F120     225 lines  called by: -
+    calls: sub_196E0 sub_424F0 sub_42150 sub_42340
+    globals: dword_AE400
+sub_1F390     207 lines  called by: -
+    calls: sub_42340 sub_424F0
+    globals: dword_AE400 dword_AE408
+sub_1F5A0      10 lines  called by: -
+    calls: sub_1A6C0
+sub_1F5B0      43 lines  called by: -
+    calls: sub_1A800
+    globals: dword_AE400
+sub_1F640     334 lines  called by: -
+    calls: sub_424F0 sub_196E0 sub_42340 sub_42150
+    globals: dword_AE400 dword_AE408
+sub_1FA00      54 lines  called by: -
+    calls: sub_41E80 sub_1A6C0
+    globals: dword_AE400
+sub_1FAA0      10 lines  called by: -
+    calls: sub_1A800
+sub_1FAC0     339 lines  called by: -
+    calls: sub_424F0 sub_196E0 sub_42340 sub_42150
+    globals: dword_AE400 dword_AE408
+sub_1FE90      19 lines  called by: -
+    calls: sub_41E80 sub_1A6C0
+sub_1FEC0      43 lines  called by: -
+    calls: sub_1A800
+    globals: dword_AE400
+sub_1FF40      15 lines  called by: -
+    calls: sub_19B10
+sub_1FF60     238 lines  called by: -
+    calls: sub_20480 sub_42150 sub_42210 sub_424F0 sub_20410
+    globals: dword_AE400 dword_AE408
+sub_201D0     201 lines  called by: -
+    calls: sub_42150 sub_424F0 sub_42340 sub_373F0 sub_42180 sub_20450
+    globals: dword_AE400
+sub_203E0      10 lines  called by: -
+    calls: sub_1A390
+sub_203F0      10 lines  called by: -
+    calls: sub_1A6C0
+sub_20400      11 lines  called by: -
+    calls: sub_1A800
+sub_20410      29 lines  called by: sub_1FF60
+    calls: sub_36FA0
+sub_20450      12 lines  called by: sub_201D0
+    calls: sub_36FA0
+sub_20480     239 lines  called by: sub_1FF60
+    calls: sub_11810 sub_41EC0 sub_11640 sub_42150 sub_11F50 sub_42000 sub_41C70
+    globals: dword_AE400 dword_AE408 word_AE454 word_AE456
+sub_20700      10 lines  called by: -
+    calls: sub_19B10
+sub_20710      85 lines  called by: -
+    calls: sub_19D70 sub_424F0
+    globals: dword_AE400 dword_AE408
+sub_207E0     329 lines  called by: -
+    calls: sub_424F0 sub_196E0 sub_42340 sub_42150 sub_373F0 sub_42180 sub_55370 sub_42210
+    globals: dword_98F78 dword_AE400
+sub_20B60      10 lines  called by: -
+    calls: sub_1A390
+sub_20B70      10 lines  called by: -
+    calls: sub_1A6C0
+sub_20B80      10 lines  called by: -
+    calls: sub_1A800
+sub_20BD0      99 lines  called by: -
+    calls: sub_5DC91 sub_5EDA0
+    globals: byte_9008C byte_9008D byte_9008E byte_9008F byte_ACFF0 byte_ACFF1 byte_ACFF2 dword_80000 dword_CBFDC word_939D2
+sub_20D00     124 lines  called by: sub_455D0
+    calls: sub_5DC91 sub_5D7F0 sub_5F529 sub_5F398 sub_5D97B
+    globals: byte_9008C byte_9008D byte_9008E byte_9008F byte_939CC byte_939CD dword_12F030 dword_80000 dword_CBFD8 word_939D0 word_939D2
+sub_20E60      49 lines  called by: sub_111B0,sub_16B00,sub_340B0,sub_4AB20,sub_4BD60,sub_4D3B0,sub_4D560,sub_4E0E0,sub_4E5B0,sub_4EE70,sub_4EFC0,sub_4F1E0,sub_55960
+    calls: sub_5D7F0 sub_5F420 sub_5F355 sub_6091D
+    globals: byte_939CC byte_939CD byte_9AF9C dword_12F074 dword_CBFD8 dword_CBFDC word_939D2
+sub_20FB0    2076 lines  called by: sub_34530
+    calls: sub_411D7 sub_411FD sub_30A70 sub_30D90 sub_49300 sub_48710 sub_5A3C0 sub_23D40 sub_22E50 sub_5A180 sub_5A3B0 sprintf memset sub_5A3A0 sub_24230 sub_24D20 sub_23CF0 sub_24DA0 sub_309D0 sub_22880
+    strings:              Designed by | %s | %s %s | 1 - 0           Select assigned spells. | >%s? | And will be released on the 15th Novemb | Copyright 1994 Bullfrog Productions Ltd | Cursor down     Move backwards. | Cursor left     Move left. | Cursor right    Move right. | Cursor up       Move forwards. | F10             Stereo modes toggle. | F5              Reflections toggle. | F6              Sky toggle. | F7              Shadows toggle. | F8              Icons toggle. | F9              Speed blur toggle. | Good Luck! | If you are experiencing slowness, try P | Left and Right  Spell selection. | Left button     Use spell to the left. | MOVIE: %d | Magic Carpet comes to you from Bullfrog | PAUSED! | Return           | Right button    Use spell to the right. | Shift Q         Exit to dos. | Space           Rebirth. | [%s] %s
+    globals: byte_90094 byte_90096 byte_99B88 byte_AD168 byte_AE068 byte_AE167 byte_B7700 dword_12EFF0 dword_12EFF4 dword_12EFF8 dword_12F000 dword_90098 dword_AE328 dword_AE32C ...
+sub_22810      58 lines  called by: sub_22E50
+    calls: sub_24C20 sub_24CA0
+    globals: word_12F02E
+sub_22880     485 lines  called by: sub_20FB0
+    calls: sub_5A3C0 sub_60CE0 sub_60D18 sub_24C20 sub_24CA0 sub_5A180 sprintf
+    strings: %03d | %d
+    globals: byte_99B58 byte_99B59 byte_AD168 dword_AE400 dword_AE42C word_12F02E
+sub_22E50    1014 lines  called by: sub_20FB0
+    calls: sub_23940 sub_60CE0 sub_60D18 sub_22810 sub_24C20 sub_24CA0
+    globals: byte_99B58 byte_99B59 dword_AE400 dword_AE408 dword_AE42C word_12F02E
+sub_23940     178 lines  called by: sub_22E50,sub_23CF0,sub_23D40,sub_24230
+    globals: byte_BB934 dword_12EFF0 dword_12EFF4 word_12F02E
+sub_23AE0     163 lines  called by: sub_23CF0,sub_23D40,sub_24230,sub_5A270
+    globals: byte_BB934 dword_12EFF0 dword_12EFF4 word_12F02E
+sub_23C30      92 lines  called by: -
+    globals: byte_B7934 dword_12EFF0 dword_12EFF4 word_12F02E
+sub_23CF0      33 lines  called by: sub_20FB0
+    calls: sub_23940 sub_23AE0
+    globals: dword_AE42C
+sub_23D40     465 lines  called by: sub_20FB0
+    calls: sub_5A3C0 sub_60CE0 sub_60D18 sub_23940 sub_24C20 sub_24CA0 sub_61594 sub_615D4 sub_23AE0 sub_247C0
+    globals: byte_99B58 byte_99B59 byte_AD168 byte_AD258 dword_AE400 dword_AE408 dword_AE42C off_9359C word_12F02E
+sub_24230     255 lines  called by: sub_20FB0
+    calls: sub_5A3C0 sub_60CE0 sub_60D18 sub_23940 sub_23AE0 sub_247C0
+    globals: byte_AD168 dword_AE400 dword_AE408 dword_AE42C word_12F02E
+sub_24500      86 lines  called by: -
+    calls: sprintf sub_5A180 sub_5A3B0
+    strings: %d
+    globals: byte_AD168 byte_AE068 byte_AE167 word_12F02E
+sub_245F0     113 lines  called by: -
+    globals: dword_12EFF0 dword_12EFF4 word_12F02E
+sub_24710      81 lines  called by: -
+    globals: byte_BB934 dword_12EFF0 dword_12EFF4 word_12F02E
+sub_247C0      82 lines  called by: sub_23D40,sub_24230
+    globals: byte_B7934 dword_12EFF0 dword_12EFF4 word_12F02E
+sub_24870     126 lines  called by: -
+    globals: byte_BB934 dword_12EFF0 dword_12EFF4 word_12F02E
+sub_249B0     112 lines  called by: -
+    calls: sub_60CE0 sub_60D18
+    globals: dword_12EFF4 dword_AE3FC dword_AE42C word_12F02E
+sub_24AB0      40 lines  called by: sub_111B0
+    calls: sub_40440 sub_51360 sub_51480 sub_5CC70 sub_24B80
+    strings: data\\screens\\sfont1.dat
+    globals: byte_90091 byte_9009E byte_AE466 dword_12EFF4 dword_AE428 dword_AE460 dword_B3288 dword_B3294 word_B329C
+sub_24B50      20 lines  called by: sub_111B0,sub_24BF0
+    calls: sub_24B80 sub_51560
+    globals: byte_9009E dword_900A0 dword_AE460
+sub_24B80      15 lines  called by: sub_111B0,sub_24AB0,sub_24B50,sub_24BB0
+    calls: memset
+    globals: byte_9009E dword_B3294 word_B329C
+sub_24BB0      16 lines  called by: sub_111B0,sub_4D3B0
+    calls: sub_24B80 sub_61610
+    strings: data\\screens\\sfont1.dat
+    globals: byte_90091 byte_9009E dword_900A0
+sub_24BF0      18 lines  called by: sub_104D0
+    calls: sub_24B50
+    globals: byte_9009E byte_AE466 dword_900A0
+sub_24C20      62 lines  called by: sub_22810,sub_22880,sub_22E50,sub_23D40
+    calls: sub_61640
+sub_24CA0      62 lines  called by: sub_22810,sub_22880,sub_22E50,sub_23D40
+    calls: sub_616C0
+sub_24D20      62 lines  called by: sub_20FB0
+    calls: sub_61740
+sub_24DA0      61 lines  called by: sub_20FB0
+    calls: sub_61810
+sub_24E30     132 lines  called by: -
+    globals: byte_DC1E0
+sub_24F60     187 lines  called by: -
+    calls: sub_41E80 sub_11F50 sub_120B0 sub_33800 sub_11760 sub_40D30 sub_55370 sub_42000 sub_42510
+    globals: byte_CC1E0 byte_FC1E0 dword_AE400
+sub_25130     145 lines  called by: -
+    calls: sub_41E80 sub_55370 sub_11410 sub_373F0 sub_114B0 sub_11490
+    globals: dword_AE400
+sub_252B0      18 lines  called by: -
+    calls: sub_41E80
+sub_252D0     102 lines  called by: -
+    calls: sub_44C10 sub_373F0 sub_11F50 sub_11810 sub_41E80 sub_124F0
+sub_253E0      10 lines  called by: -
+    calls: sub_41E80
+sub_253F0      18 lines  called by: -
+    calls: sub_41E80
+sub_25410      46 lines  called by: -
+    calls: sub_41E80 sub_42510 sub_55370
+    globals: dword_AE400
+sub_25470     101 lines  called by: -
+    calls: sub_40D30 sub_11F50 sub_373F0 sub_41E80 sub_127E0 sub_55370
+    globals: dword_AE400 word_AE454 word_AE458
+sub_25570      41 lines  called by: -
+    calls: sub_11760 sub_40D30 sub_41E80
+sub_255D0      77 lines  called by: sub_25670
+    calls: sub_11410 sub_40A10 sub_114B0 sub_11490
+sub_25670     112 lines  called by: -
+    calls: sub_11760 sub_41E80 sub_127E0 sub_255D0 sub_55370
+    globals: dword_AE400
+sub_25760      34 lines  called by: -
+    calls: sub_41E80 sub_42510 sub_120B0
+sub_257B0      96 lines  called by: -
+    calls: sub_41E80 sub_11F50 sub_41EC0 nullsub_19 sub_41C70
+    globals: word_AE454 word_AE458
+sub_258A0      93 lines  called by: -
+    calls: sub_41E80 sub_11F50 sub_41EC0 nullsub_19 sub_41C70
+    globals: word_AE454 word_AE458
+sub_25990      88 lines  called by: -
+    calls: sub_11760 sub_41E80 sub_41EC0 sub_373F0
+sub_25A60     204 lines  called by: -
+    calls: sub_41E80 sub_11F50 sub_11810 sub_373F0 sub_11E50 sub_41C70 sub_41F50
+    globals: word_AE454 word_AE456 word_AE458
+sub_25CE0     167 lines  called by: -
+    calls: sub_41E80 sub_55370 sub_37130 sub_120B0 sub_11410 sub_373F0 sub_114B0 sub_11490
+    globals: dword_AE400
+sub_25EC0     225 lines  called by: -
+    calls: sub_11F50 sub_41E80 sub_373F0 sub_41EC0
+    globals: dword_AE400
+sub_26140     157 lines  called by: -
+    calls: sub_41E80 sub_11410 sub_373F0 sub_114B0 sub_11490 sub_11F50 sub_120B0
+sub_262D0      57 lines  called by: -
+    calls: sub_41E80 sub_120B0 sub_55370
+    globals: dword_AE400
+sub_26360      42 lines  called by: -
+    calls: sub_41E80 sub_42510 sub_120B0
+sub_263C0      34 lines  called by: -
+    calls: sub_41E80 sub_42510 sub_120B0
+sub_26420     100 lines  called by: -
+    globals: byte_DC1E0
+sub_264D0      56 lines  called by: sub_26560,sub_26670,sub_26760
+    globals: byte_CC1E0 byte_DC1E0
+sub_26560     105 lines  called by: -
+    calls: sub_264D0 sub_33AE0 sub_41E80
+    globals: byte_CC1E0 byte_DC1E0 byte_FC1E0
+sub_26670      94 lines  called by: -
+    calls: sub_264D0 sub_33AE0 sub_41E80
+    globals: byte_CC1E0 byte_DC1E0 byte_FC1E0
+sub_26760     129 lines  called by: -
+    calls: sub_264D0 sub_33AE0 sub_41E80
+    globals: byte_CC1E0 byte_DC1E0 byte_FC1E0
+sub_26890      57 lines  called by: -
+    calls: sub_33B90 sub_41E80
+    globals: byte_FC1E0
+sub_26920      56 lines  called by: -
+    calls: sub_11760 sub_41E80 sub_373F0 sub_41EC0
+sub_269A0      79 lines  called by: -
+    calls: sub_11760 sub_41E80 sub_40D30 sub_120B0 sub_55370 sub_41EC0
+    globals: dword_AE400
+sub_26A60     158 lines  called by: -
+    calls: sub_55370 sub_41E80 sub_11950 sub_42150 sub_42210 sub_11F50 sub_41C70 sub_44BE0
+    globals: dword_AE400
+sub_26C00      66 lines  called by: -
+    calls: sub_41E80 sub_41EC0 sub_11F50 sub_41C70
+    globals: dword_AE400 word_AE454 word_AE458
+sub_26CB0      19 lines  called by: -
+    calls: sub_41E80
+sub_26CE0      30 lines  called by: -
+    calls: sub_41E80
+sub_26D20     135 lines  called by: -
+    calls: sub_11F50 sub_41E80 sub_373F0 sub_55370
+    globals: dword_AE400 word_AE454 word_AE458
+sub_26E90     154 lines  called by: -
+    calls: sub_37710 sub_41EC0 sub_373F0 sub_41E80
+    globals: dword_AE400 dword_AE408 word_AE454
+sub_27030     352 lines  called by: -
+    calls: sub_55370 sub_42150 sub_41EC0 sub_423D0 sub_11F50 sub_41C70 sub_11D10 sub_277D0 sub_41F50 sub_274D0
+    globals: dword_AE400 word_AE454 word_AE456 word_AE458
+sub_274D0     122 lines  called by: sub_27030,sub_3B5A0
+    calls: sub_36FA0 sub_370E0
+    globals: dword_900A4 dword_AE400
+sub_275C0      76 lines  called by: -
+    calls: sub_11F50 sub_41E80
+    globals: dword_AE400
+sub_27690     100 lines  called by: sub_1A800,sub_47400
+    calls: sub_373F0 sub_11F50 sub_41EC0
+sub_277D0     174 lines  called by: sub_27030
+    calls: sub_41E90
+    globals: dword_AE400
+sub_279D0     372 lines  called by: sub_44D30
+    calls: sub_33B90 sub_33800
+    globals: byte_DC1E0 byte_FC1E0 dword_AE440 word_12F02E
+sub_27D30     501 lines  called by: -
+    calls: sub_33B90 sub_33800 sub_41E80 sub_11F50 sub_35F30
+    globals: byte_DC1E0 byte_FC1E0 dword_AE400 dword_AE440 word_12F02E
+sub_28200     386 lines  called by: -
+    calls: sub_361C0 sub_35F30 sub_41E80
+    globals: byte_DC1E0 byte_FC1E0 dword_AE400 dword_AE440 word_12F02E
+sub_285C0     684 lines  called by: -
+    calls: memset sub_40E20 sub_33800 sub_33E10 sub_41E80
+    globals: byte_DC1E0 byte_FC1E0 dword_AE3FC dword_AE400 dword_AE440 word_12F02E
+sub_28D10      88 lines  called by: sub_28DC0,sub_28FE0
+    calls: sub_373F0
+    globals: word_AE454
+sub_28DC0     183 lines  called by: -
+    calls: sub_29640 sub_373F0 sub_55370 sub_36FA0 sub_28D10 sub_44C90
+    globals: dword_AE400 word_AE454
+sub_28FE0     389 lines  called by: sub_47A70
+    calls: sub_361C0 sub_373F0 sub_28D10 sub_33E10 sub_36080 sub_41E80
+    globals: byte_DC1E0 byte_FC1E0 dword_AE440 word_12F02E word_AE454 word_AE456 word_AE458
+sub_293D0     108 lines  called by: -
+    calls: sub_42510 sub_11F50 sub_46D20 sub_11950 sub_41E80
+    globals: dword_AE400
+sub_29540      72 lines  called by: -
+    calls: sub_41F50 sub_11F50 sub_41C70 sub_120B0
+    globals: word_AE454 word_AE456 word_AE458
+sub_29640      44 lines  called by: sub_28DC0
+sub_296A0      39 lines  called by: -
+    calls: sub_11F50 sub_41E80 sub_424F0
+sub_29700      50 lines  called by: -
+    calls: sub_11F50 sub_373F0 sub_41E80
+    globals: dword_AE400 word_AE454
+sub_29780     151 lines  called by: -
+    calls: sub_37130 sub_120B0 sub_11410 sub_373F0 sub_114B0 sub_11490 sub_41E80
+sub_29920      63 lines  called by: -
+    calls: sub_41E80 sub_42410
+    globals: dword_AE400 dword_AE408
+sub_299D0     167 lines  called by: -
+    calls: sub_41E80 sub_423D0 sub_12B50 sub_55370 sub_44BE0
+    globals: dword_AE400
+sub_29B80      17 lines  called by: -
+sub_29BA0      62 lines  called by: sub_44470
+    globals: dword_902DC
+sub_29C30     786 lines  called by: sub_2A700
+    globals: dword_90B4C dword_93AD4 dword_93AD8 dword_93ADC dword_AE3FC dword_B3EA0 dword_B5CD8 dword_B5CE0 dword_B5CF4 dword_B5D04 dword_B5D18 dword_B5D1C dword_B5D20 dword_B5D24 ...
+sub_2A700    2381 lines  called by: sub_30D90
+    calls: sub_29C30 sub_410CE sub_30730 sub_729A3 sub_2FC50 sub_2DCB0 sub_2F170
+    globals: byte_900C4 byte_90168 byte_9020C byte_967E0 byte_967E1 byte_B5D3F byte_CC1E0 byte_DC1E0 byte_EC1E0 byte_FC1E0 dword_902B0 dword_902B4 dword_902DC dword_9074C ...
+sub_2C410    2510 lines  called by: sub_2DCB0,sub_2F170,sub_2FC50
+    globals: byte_B5D3E byte_B7934 byte_BB934 dword_93ACC dword_93AD4 dword_93AD8 dword_93ADC dword_AE3FC dword_B3EA0 dword_B5CA4 dword_B5CA8 dword_B5CAC dword_B5CB0 dword_B5CB4 ...
+sub_2DCB0    1600 lines  called by: sub_2A700
+    calls: nullsub_1 sub_724C0 sub_59050 sub_2C410
+    globals: byte_906DC byte_906E2 byte_906E8 byte_906F8 byte_99BA0 byte_B5D3E byte_B5D3F dword_12CF00 dword_12D744 dword_12DF8C dword_AE400 dword_AE408 dword_B5CA4 dword_B5CA8 ...
+sub_2F170     813 lines  called by: sub_2A700
+    calls: sub_59050 sub_2C410
+    globals: byte_906E8 byte_906F8 byte_99BA0 byte_B5D3E dword_12CF00 dword_12D744 dword_12DF8C dword_AE400 dword_AE408 dword_B5CA4 dword_B5CA8 dword_B5CAC dword_B5CB0 dword_B5CB4 ...
+sub_2FC50     870 lines  called by: sub_2A700
+    calls: sub_59050 sub_2C410
+    globals: byte_906DC byte_906E2 byte_906E8 byte_906F8 byte_99BA0 byte_B5D3E dword_12CF00 dword_12D744 dword_12DF8C dword_AE400 dword_AE408 dword_B5CA4 dword_B5CA8 dword_B5CAC ...
+sub_30730     182 lines  called by: sub_2A700
+    globals: dword_90B4C dword_93ACC dword_93AD4 dword_93AD8 dword_93ADC dword_AE3D8 dword_B5CD4 dword_B5CE4 dword_B5CE8 dword_B5CFC dword_B5D08 off_9134C word_B5D38
+sub_309D0      54 lines  called by: sub_20FB0
+    calls: sub_79495
+    globals: dword_12EFF0 dword_12EFF4 dword_B5CA0 word_12F02E
+sub_30A70      70 lines  called by: sub_20FB0
+    calls: sub_79495
+    globals: dword_12EFF0 dword_12EFF4 dword_B5CA0 word_12F02E
+sub_30B30     179 lines  called by: sub_34530
+    calls: sub_79A1B sub_5CDA0 sub_79B2D sub_79906 sub_599B0
+    globals: byte_90708 byte_B32A0 byte_B33A0 byte_B34A0 byte_B35A0 byte_B36A0 byte_B37A0 byte_B38A0 byte_B39A0 dword_93ACC dword_93AD4 dword_93AD8 dword_93ADC dword_AE400 ...
+sub_30D30      46 lines  called by: sub_31600
+    calls: sub_61AB0
+    globals: dword_12F080
+sub_30D90     752 lines  called by: sub_20FB0
+    calls: sub_79495 sub_2A700
+    globals: byte_BB934 byte_DC1E0 dword_12EFF0 dword_12EFF4 dword_12EFF8 dword_902B0 dword_9070C dword_90710 dword_90714 dword_90B4C dword_93ACC dword_93AD4 dword_93AD8 dword_93ADC ...
+sub_315C0      22 lines  called by: sub_16B00,sub_31A00,sub_34C80
+    calls: sub_61B90 sub_61C30
+    globals: byte_90708 dword_AE428 word_12F02E
+sub_31600     361 lines  called by: sub_16B00,sub_31A60
+    calls: sub_5B500 sub_30D30 sub_619B8 sub_319A0
+    globals: byte_90708 byte_B32A0 byte_B33A0 byte_B34A0 byte_B35A0 byte_B36A0 byte_B37A0 byte_B38A0 byte_B39A0 dword_12EFF0 dword_93AD4 dword_AE400 dword_AE404 dword_AE428 ...
+sub_319A0      49 lines  called by: sub_104D0,sub_31600,sub_31A00,sub_34690,sub_40440,sub_5C8F4,sub_61B90,sub_61C30,sub_61CC0
+    calls: sub_5B310
+    globals: byte_9AD08
+sub_31A00      28 lines  called by: sub_340B0,sub_3DC90
+    calls: sub_5B560 sub_315C0 sub_319A0
+    globals: byte_90754 dword_93AD4 dword_AE400 dword_AE428
+sub_31A60      16 lines  called by: sub_340B0,sub_3DC90
+    calls: sub_31600
+    globals: byte_90754 dword_AE400
+sub_31AA0      88 lines  called by: sub_407A0,sub_408D0
+    calls: sub_3EEA0 sub_725C8 sub_32A50 memset sub_32AE0 sub_33500 sub_320A0 sub_32D00 sub_32300 sub_32EB0 sub_33180 sub_31FA0 sub_31BB0 sub_31EC0 sub_32560 sub_31D40 sub_329C0
+    strings: c:/carpet.cd/save/scanned.rmd
+    globals: byte_CC1E0 byte_DC1E0 dword_AE400 word_10C1E0 word_12C1E0
+sub_31BB0     202 lines  called by: sub_31AA0
+    globals: byte_DC1E0 byte_FC1E0
+sub_31D40     129 lines  called by: sub_31AA0
+    globals: byte_CC1E0 byte_DC1E0 byte_FC1E0
+sub_31EC0     103 lines  called by: sub_31AA0
+    globals: byte_DC1E0 byte_FC1E0
+sub_31FA0      97 lines  called by: sub_31AA0
+    globals: byte_FC1E0
+sub_320A0     268 lines  called by: sub_31AA0
+    globals: byte_DC1E0 byte_FC1E0
+sub_32300     218 lines  called by: sub_31AA0
+    globals: byte_FC1E0
+sub_32510      27 lines  called by: -
+    globals: byte_DC1E0 byte_FC1E0 word_12C1E0
+sub_32560     436 lines  called by: sub_31AA0
+    globals: byte_B5D40 byte_CC1E0 byte_FC1E0 dword_12EFF4 dword_9075C word_12C1E0
+sub_329C0      58 lines  called by: sub_31AA0
+    globals: byte_DC1E0 byte_EC1E0 word_12C1E0
+sub_32A50      65 lines  called by: sub_31AA0
+    globals: byte_DC1E0 word_10C1E0
+sub_32AE0      84 lines  called by: sub_31AA0
+    calls: sub_32B90
+    globals: byte_CC1E0 byte_DC1E0 byte_FC1E0 word_12C1E0
+sub_32B90     168 lines  called by: sub_32AE0
+    globals: byte_CC1E0 byte_DC1E0 byte_FC1E0
+sub_32D00     205 lines  called by: sub_31AA0
+    globals: byte_CC1E0 byte_DC1E0 byte_FC1E0
+sub_32EB0     328 lines  called by: sub_31AA0
+    globals: byte_CC1E0 byte_DC1E0 byte_FC1E0
+sub_33180     411 lines  called by: sub_31AA0
+    globals: byte_CC1E0 byte_DC1E0 byte_FC1E0
+sub_33500     130 lines  called by: sub_31AA0
+    globals: byte_DC1E0 byte_FC1E0
+sub_33640     217 lines  called by: sub_33800
+    globals: byte_DC1E0 dword_90758
+sub_33800     309 lines  called by: sub_24F60,sub_279D0,sub_27D30,sub_285C0
+    calls: sub_33B90 sub_33640
+    globals: byte_CC1E0 byte_FC1E0 dword_90758 dword_909AC dword_909BC dword_909EC dword_909FC dword_90A2C
+sub_33AE0      75 lines  called by: sub_26560,sub_26670,sub_26760
+    globals: byte_CC1E0 byte_DC1E0 byte_EC1E0 byte_FC1E0
+sub_33B90     247 lines  called by: sub_26890,sub_279D0,sub_27D30,sub_33800,sub_40A10,sub_40BC0
+    globals: byte_B5D40 byte_B5D41 byte_CC1E0 byte_DC1E0 byte_EC1E0 byte_FC1E0 word_12C1E0
+sub_33E10     235 lines  called by: sub_285C0,sub_28FE0,sub_40A10
+    globals: byte_B5D40 byte_B5D41 byte_CC1E0 byte_DC1E0 byte_EC1E0 byte_FC1E0 word_12C1E0
+sub_34070      29 lines  called by: sub_340B0
+    globals: dword_AE408
+sub_340B0     289 lines  called by: main
+    calls: sub_34DD0 sub_34B40 nullsub_2 sub_3F1D0 sub_58F90 sub_41230 sub_44730 sub_4A980 sub_40440 sub_44700 sub_61CC0 sub_31A00 sub_34C80 sub_41490 sub_42530 sub_4AB20 sub_34070 sub_5C05C sub_34460 sub_34B00 sub_61610 sub_41540 sub_5D070 sub_5CEF0 sub_31A60 sub_407A0 sub_42540 sub_5D290 sub_59720 sub_34610 sub_5D010 sub_20E60 sub_448E0 sub_408D0 sub_358A0 sub_34C60 sub_433C0
+    strings: data/ftext.dat | data/music0-0.dat | data/snds0-0.dat
+    globals: byte_939CC byte_939CD byte_939E4 byte_939E5 dword_12CA7C dword_96880 dword_AE238 dword_AE400 dword_AE404 dword_AE408 dword_AE41C dword_AE450 word_12F02E word_939D6
+sub_34460      38 lines  called by: sub_340B0
+    calls: sub_3EEA0 sub_5CDA0 sub_599B0 sub_61CC0
+    strings: data/smatitle.dat | data/smatitle.pal
+    globals: dword_12EFF4 dword_AE400 dword_AE428 word_12F02E
+sub_344F0      14 lines  called by: sub_34690
+    calls: sub_61CC0 sub_3EEA0
+    strings: data/pal0-0.dat
+    globals: dword_AE400 dword_AE428
+sub_34530      85 lines  called by: sub_34610
+    calls: sub_34690 sub_590D0 sub_17C20 sub_3C9D0 sub_415C0 sub_41780 sub_55100 sub_20FB0 sub_5A560 sub_30B30
+    globals: dword_AC5D4 dword_AE400 dword_AE408
+sub_34610      29 lines  called by: sub_340B0
+    calls: sub_34530
+    globals: dword_AE400 dword_AE408
+sub_34690     359 lines  called by: sub_34530
+    calls: sub_344F0 sub_61EC8 sub_61CC0 sub_319A0
+    globals: byte_B700D byte_B700E byte_B700F byte_B7010 byte_B7011 dword_AE400 dword_AE408 dword_AE428 dword_B7310
+sub_34B00      22 lines  called by: sub_340B0,sub_34B40
+    calls: sub_40440 sub_59500
+    strings: *SearchD | *WScreen
+    globals: off_99974 word_12F02E
+sub_34B40     107 lines  called by: sub_340B0
+    calls: sub_5ACA0 sub_5AD10 sub_34B00 sub_5CC70 sub_5A3C0
+    strings: Initialise Colour Lookup | Load all data files
+    globals: byte_AD167 dword_AE408 dword_AE428
+sub_34C60       7 lines  called by: sub_340B0
+    calls: sub_58F00 sub_44840 sub_61610
+    strings: *SearchD
+sub_34C80     102 lines  called by: sub_16B00,sub_17C20,sub_340B0
+    calls: sub_61CC0 sub_315C0 sub_426E0 sub_3F370 sub_59560 sub_61610 sub_40440 sub_42540 sub_59500 sub_61B90 sub_61C30 sub_411D7 sub_411FD sub_5C214 sub_5C05C
+    strings: *WScreen
+    globals: dword_12EFF4 dword_AE404 dword_AE408 dword_AE450 off_99974 word_12F02E
+sub_34DD0     790 lines  called by: sub_340B0
+    calls: stricmp unknown_libname_1 printf sub_43270 sub_5AF50 sub_3F7D0 sub_3F820 sub_425C0 sub_42540 sub_19470 sub_43430
+    strings: CARPET | ERROR : Incorrect command : %d\n | PLAYER | VFX\n | anojoy | anojoy4 | cheat | custom | debug | demo | detail | digijoy | help | level | movie | name | network | password | players | roll | session | setsound | time | vfx
+    globals: byte_90B23 byte_A9058 byte_AE45A byte_B7700 dword_12F080 dword_AE400 dword_AE408 word_12F02E
+sub_356E0      12 lines  called by: sub_107C0,sub_16B00,sub_3E9D0,sub_4C7E0
+    globals: byte_12EF70 dword_AE410 word_9AD90 word_9AD92 word_B7314 word_B7316 word_B7318
+sub_35710      38 lines  called by: sub_10300,sub_3E9D0
+    globals: byte_12EF70 dword_AE410 word_12EFE2 word_12EFE4 word_9AD90 word_9AD92 word_B7314 word_B7316 word_B7318
+sub_357C0      74 lines  called by: sub_4AC70
+    calls: sub_5AD10 sub_3C570 sub_3C800 sub_5D97B sub_5A459
+    strings: Initialise Music | Initialise Sound | Sound Disabled
+    globals: byte_90090 byte_90AD4 byte_90AD5 byte_939CC byte_939CD byte_939E4 byte_939E5 dword_80010 dword_AE408
+sub_358A0       9 lines  called by: sub_340B0
+    calls: sub_5DC91 sub_61F90
+    globals: byte_90AD5 dword_80010
+sub_358D0      32 lines  called by: sub_35960,sub_35BF0
+sub_35900      37 lines  called by: sub_35960
+    globals: byte_DC1E0 word_AE454 word_AE456 word_AE458
+sub_35960     267 lines  called by: -
+    calls: sub_358D0 sub_35900 sub_373F0
+    globals: word_AE454
+sub_35BF0     132 lines  called by: -
+    calls: sub_358D0 sub_373F0
+    globals: word_AE454 word_AE456
+sub_35D30      69 lines  called by: -
+    calls: sub_42150 sub_423D0 sub_373F0
+    globals: byte_DC1E0
+sub_35DE0      75 lines  called by: -
+    calls: sub_42150 sub_423D0 sub_373F0
+    globals: byte_DC1E0
+sub_35EA0      72 lines  called by: sub_1E920
+    globals: byte_DC1E0
+sub_35F30     151 lines  called by: sub_27D30,sub_28200
+    calls: sub_360C0
+sub_36080      38 lines  called by: sub_28FE0
+    calls: sub_360C0
+sub_360C0     114 lines  called by: sub_35F30,sub_36080
+    globals: byte_CC0DF byte_CC0E0 byte_CC1DF byte_CC1E0 byte_DC1E0 byte_FC1E0
+sub_361C0      37 lines  called by: sub_28200,sub_28FE0,sub_36DF0
+    globals: byte_DC1E0
+sub_36230      73 lines  called by: -
+    globals: byte_DC1E0
+sub_362C0     123 lines  called by: sub_36480
+sub_363E0      39 lines  called by: -
+    calls: sub_37220 sub_36480 sub_365C0 sub_36620
+sub_36430      37 lines  called by: sub_407A0,sub_408D0
+    calls: sub_36480 sub_36620
+sub_36480     103 lines  called by: sub_363E0,sub_36430
+    calls: sub_11F50 off_97D12 sub_36DF0 sub_362C0
+    globals: off_97D12 word_AE454 word_AE456 word_AE458
+sub_365C0      44 lines  called by: sub_363E0
+sub_36620     107 lines  called by: sub_363E0,sub_36430
+    calls: sub_41E80 sub_41E90
+    globals: dword_96902 dword_AE400
+sub_36700     137 lines  called by: sub_58E70
+    calls: sub_42540 sub_426E0 exit
+sub_36850      29 lines  called by: sub_368E0,sub_369E0
+sub_368A0      29 lines  called by: -
+sub_368E0      97 lines  called by: -
+    calls: sub_36850
+sub_369E0      77 lines  called by: sub_58B30
+    calls: sub_36850
+sub_36A90      94 lines  called by: sub_58910,sub_58A00
+sub_36B70      46 lines  called by: -
+sub_36BD0      34 lines  called by: -
+sub_36C10      43 lines  called by: sub_58F00
+    calls: sub_426E0
+sub_36C65     108 lines  called by: -
+    calls: __GETDS inp outp sub_41144 _chain_intr
+    globals: byte_12EEF0 byte_12EF70 byte_AE45A byte_B7326 byte_B7327 dword_AE408 dword_B7320 word_B7324
+sub_36D83      27 lines  called by: sub_44730
+    calls: _dos_getvect _dos_setvect
+    globals: byte_12EEF0 dword_B7320 word_B7324
+sub_36DC2      10 lines  called by: sub_44840
+    calls: _dos_setvect
+    globals: dword_B7320 word_B7324
+sub_36DE0       9 lines  called by: sub_37560,sub_37820,sub_378A0,sub_37920,sub_37A00,sub_37A80,sub_37AA0,sub_37AC0,sub_37AE0,sub_37B00,sub_37B20,sub_37B40,sub_37B60,sub_37B80,sub_37BA0,sub_37BC0,sub_37CF0,sub_37D70,sub_37E00,sub_37E80,sub_37EF0,sub_38030,sub_38270,sub_38370,sub_384B0,sub_386E0,sub_38890,sub_389E0,sub_38D60,sub_38E70,sub_38FC0,sub_390D0,sub_39200,sub_39340,sub_39490,sub_395B0,sub_396E0,sub_39800,sub_39820,sub_39840,sub_39860,sub_39880,sub_398A0,sub_398C0,sub_39940,sub_39960,sub_39980,sub_399A0,sub_399C0,sub_399E0,sub_39A10,sub_39A90,sub_39B40,sub_39BC0,sub_39C40,sub_39CC0,sub_39D40,sub_39DC0,sub_39E40,sub_39EC0,sub_39F40,sub_39FC0,sub_3A040,sub_3A0C0,sub_3A130,sub_3A1A0,sub_3A210,sub_3A270,sub_3A2F0,sub_3A390,sub_3A410,sub_3A490,sub_3A510,sub_3A570,sub_3A5D0,sub_3A640,sub_3A6B0,sub_3A730,sub_3A7D0,sub_3A870,sub_3A8D0,sub_3A930,sub_3A9A0,sub_3AA10,sub_3AAA0,sub_3AB40,sub_3ABE0,sub_3AC70,sub_3ACC0,sub_3ADB0,sub_3AE00,sub_3AE80,sub_3AF00,sub_3AF80,sub_3B000,sub_3B060,sub_3B0C0,sub_3B120,sub_3B180,sub_3B1D0,sub_3B230,sub_3B2A0,sub_3B300,sub_3B3E0,sub_3B460,sub_3B4D0,sub_3B520,sub_3B5A0,sub_3B620,sub_3B6F0,sub_3B760,sub_3B7B0,sub_3B800,sub_3B860,sub_3B8E0,sub_3B970,sub_3BA00,sub_3BA90,sub_3BB20,sub_3BF70,sub_3C4B0,sub_3C4E0,sub_3C510,sub_3C540,sub_535E0
+sub_36DF0     143 lines  called by: sub_1EA40,sub_36480,sub_37560
+    calls: sub_41C70 sub_37150 sub_361C0
+    globals: dword_AE440 word_12F02E word_AE454 word_AE456
+sub_36F90      10 lines  called by: sub_38030,sub_38270,sub_38370,sub_384B0,sub_386E0,sub_389E0,sub_38C00,sub_38D60,sub_38E70,sub_38FC0,sub_390D0,sub_396E0
+sub_36FA0      49 lines  called by: sub_1BC50,sub_1BCE0,sub_1C960,sub_1CFF0,sub_1DCD0,sub_1DD50,sub_1DD90,sub_1DDB0,sub_20410,sub_20450,sub_274D0,sub_28DC0,sub_37030,sub_370A0,sub_370E0,sub_37820,sub_378A0,sub_37920,sub_37A00,sub_38030,sub_38270,sub_38370,sub_384B0,sub_386E0,sub_38820,sub_38890,sub_389E0,sub_38C00,sub_38D60,sub_38E70,sub_38FC0,sub_390D0,sub_39200,sub_39340,sub_39490,sub_395B0,sub_396E0,sub_39A10,sub_39A90,sub_39B40,sub_39BC0,sub_39C40,sub_39CC0,sub_39D40,sub_39DC0,sub_39E40,sub_39EC0,sub_39F40,sub_39FC0,sub_3A040,sub_3A1A0,sub_3A210,sub_3A270,sub_3A2F0,sub_3A390,sub_3A410,sub_3A490,sub_3A510,sub_3A5D0,sub_3A6B0,sub_3A730,sub_3AA10,sub_3ACC0,sub_3AE00,sub_3AE80,sub_3AF00,sub_3AF80,sub_3B300,sub_3B3E0,sub_3B460,sub_3B520,sub_3B690,sub_3B6F0,sub_3B800,sub_3B860,sub_3BF70,sub_44D30,sub_535E0
+    globals: byte_90AD8 byte_99BAC word_99BA6 word_99BA8
+sub_37030      41 lines  called by: sub_37BC0,sub_37CF0,sub_37D70,sub_37E00,sub_37E80,sub_37EF0,sub_3A7D0,sub_3AAA0,sub_3AB40,sub_3B620,sub_499C0
+    calls: sub_36FA0
+    globals: word_99BA6 word_99BA8
+sub_370A0      26 lines  called by: sub_1A990,sub_1AA40,sub_3A0C0,sub_3A130
+    calls: sub_36FA0
+sub_370E0      29 lines  called by: sub_274D0
+    calls: sub_36FA0
+sub_37130      14 lines  called by: sub_25CE0,sub_29780,sub_37560,sub_37D70,sub_38370,sub_386E0,sub_38890,sub_38C60,sub_38D60,sub_38E70,sub_38FC0,sub_390D0,sub_39200,sub_39340,sub_39490,sub_395B0,sub_396E0,sub_39A90,sub_3A2F0,sub_3A490,sub_3A730,sub_3A870,sub_3A8D0,sub_3A930,sub_3A9A0,sub_3AA10,sub_3ABE0,sub_3AE00,sub_3AE80,sub_3AF00,sub_3AF80,sub_3B230,sub_3B300,sub_3B3E0,sub_3B460,sub_3B4D0,sub_3B520,sub_3B6F0,sub_3B8E0,sub_3B970,sub_3BA00,sub_3BA90,sub_3BF70
+sub_37150      38 lines  called by: sub_12C50,sub_12D10,sub_36DF0,sub_44D30,sub_46DB0,sub_47960,sub_47A70
+    globals: dword_AE440 word_12F02E
+sub_371C0      25 lines  called by: sub_407A0,sub_408D0
+    globals: dword_AE400 dword_B7330
+sub_37220      50 lines  called by: sub_16B00,sub_363E0,sub_37440,sub_3E350,sub_3E690,sub_3E9D0,sub_407A0,sub_408D0,sub_44D30,sub_45FC0,sub_47130
+    globals: dword_AE400
+sub_372C0      80 lines  called by: sub_37820,sub_378A0,sub_37920,sub_37A00,sub_37A80,sub_37AA0,sub_37AC0,sub_37AE0,sub_37B00,sub_37B20,sub_37B40,sub_37B60,sub_37B80,sub_37BA0,sub_37BC0,sub_37CF0,sub_37D70,sub_37E00,sub_37E80,sub_37EF0,sub_38030,sub_38270,sub_38370,sub_384B0,sub_386E0,sub_38890,sub_389E0,sub_38C60,sub_38D60,sub_38E70,sub_38FC0,sub_390D0,sub_39200,sub_39340,sub_39490,sub_395B0,sub_396E0,sub_39800,sub_39820,sub_39840,sub_39860,sub_39880,sub_398A0,sub_398C0,sub_39940,sub_39960,sub_39980,sub_399A0,sub_399C0,sub_399E0,sub_39A10,sub_39A90,sub_39B40,sub_39BC0,sub_39C40,sub_39CC0,sub_39D40,sub_39DC0,sub_39E40,sub_39EC0,sub_39F40,sub_39FC0,sub_3A040,sub_3A0C0,sub_3A130,sub_3A1A0,sub_3A210,sub_3A270,sub_3A2F0,sub_3A390,sub_3A410,sub_3A490,sub_3A510,sub_3A570,sub_3A5D0,sub_3A640,sub_3A6B0,sub_3A730,sub_3A7D0,sub_3A870,sub_3A8D0,sub_3A930,sub_3A9A0,sub_3AA10,sub_3AAA0,sub_3AB40,sub_3ABE0,sub_3AC70,sub_3ACC0,sub_3ADB0,sub_3AE00,sub_3AE80,sub_3AF00,sub_3AF80,sub_3B000,sub_3B060,sub_3B0C0,sub_3B120,sub_3B180,sub_3B1D0,sub_3B230,sub_3B2A0,sub_3B300,sub_3B3D0,sub_3B3E0,sub_3B460,sub_3B4D0,sub_3B520,sub_3B5A0,sub_3B620,sub_3B690,sub_3B6F0,sub_3B760,sub_3B7B0,sub_3B800,sub_3B860,sub_3B8E0,sub_3B970,sub_3BA00,sub_3BA90,sub_3BB20,sub_3BF70,sub_3C4B0,sub_3C4E0,sub_3C510,sub_3C540,sub_535E0
+    calls: memset sub_41DD0
+    globals: dword_98F38 dword_AE400 dword_AE408 dword_B7330
+sub_373F0      36 lines  called by: sub_155F0,sub_1A800,sub_1A8E0,sub_1A990,sub_1AA40,sub_1AB70,sub_1AE30,sub_1AEE0,sub_1AF80,sub_1BD20,sub_1C4F0,sub_1D060,sub_1D6D0,sub_1DE40,sub_1E380,sub_1E810,sub_1EA40,sub_201D0,sub_207E0,sub_25130,sub_252D0,sub_25470,sub_25990,sub_25A60,sub_25CE0,sub_25EC0,sub_26140,sub_26920,sub_26D20,sub_26E90,sub_27690,sub_28D10,sub_28DC0,sub_28FE0,sub_29700,sub_29780,sub_35960,sub_35BF0,sub_35D30,sub_35DE0,sub_37560,sub_3C9D0,sub_44D30,sub_45FC0,sub_47020,sub_47080,sub_47130,sub_47400,sub_49890,sub_499C0,sub_49A50,sub_52770,sub_52B30,sub_52ED0,sub_53070,sub_530C0,sub_535E0,sub_53980,sub_53B50,sub_53DC0,sub_542B0,sub_54480,sub_56090,sub_56380,sub_56510,sub_567A0,sub_56950,sub_56AF0,sub_56CA0,sub_57040,sub_57250,sub_57470,sub_57610,sub_57800,sub_579D0,sub_57B80,sub_57D40,sub_57F00,sub_580A0,sub_58240
+    calls: dword
+    globals: dword_96906
+sub_37440     113 lines  called by: sub_407A0,sub_408D0,sub_59A80,sub_59AB0,sub_59AE0,sub_59B30,sub_59B80,sub_59C40,sub_59C70,sub_59CA0,sub_59CF0,sub_59D40,sub_59D70,sub_59DA0,sub_59DF0,sub_59E40
+    calls: memset sub_59140 sub_59160 sub_59230 sub_37220 sub_37560
+    globals: dword_AE400
+sub_37560     176 lines  called by: sub_37440
+    calls: sub_11F50 sub_373F0 sub_37130 sub_36DE0 sub_36DF0
+    globals: dword_96906
+sub_37710       6 lines  called by: sub_26E90,sub_38030,sub_389E0,sub_470E0,sub_47130,sub_5A560
+    globals: dword_AE400
+sub_37720      16 lines  called by: -
+    globals: dword_AE400
+sub_37740      16 lines  called by: -
+    globals: dword_AE400
+sub_37760      16 lines  called by: -
+    globals: dword_AE400
+sub_37780      16 lines  called by: -
+    globals: dword_AE400
+sub_377A0      16 lines  called by: -
+    globals: dword_AE400
+sub_377C0      16 lines  called by: -
+    globals: dword_AE400
+sub_377E0      16 lines  called by: -
+    globals: dword_AE400
+sub_37800      16 lines  called by: -
+    globals: dword_AE400
+sub_37820      41 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36FA0 sub_36DE0
+    globals: dword_99018 dword_AE400
+sub_378A0      41 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36FA0 sub_36DE0
+    globals: dword_99038 dword_AE400
+sub_37920      82 lines  called by: -
+    calls: sub_372C0 sub_11F50 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: word_AE454
+sub_37A00      35 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: dword_99058
+sub_37A80      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_37AA0      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_37AC0      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_37AE0      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_37B00      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_37B20      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_37B40      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_37B60      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_37B80      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_37BA0      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_37BC0     118 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_37030
+    globals: dword_AE400
+sub_37CF0      45 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_37030
+    globals: dword_AE400
+sub_37D70      50 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_37030 sub_37130
+    globals: dword_AE400
+sub_37E00      45 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_37030
+    globals: dword_AE400
+sub_37E80      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_37030
+    globals: dword_AE400
+sub_37EF0      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_37030
+    globals: dword_AE400
+sub_38030     187 lines  called by: -
+    calls: sub_37710 sub_372C0 sub_36F90 sub_36FA0 sub_41CF0 sub_36DE0
+    globals: dword_990B8 dword_AE400
+sub_38270      82 lines  called by: -
+    calls: sub_372C0 sub_36F90 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: dword_990D8 dword_AE400
+sub_38370     101 lines  called by: -
+    calls: sub_372C0 sub_36F90 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+    globals: dword_990F8 dword_AE400
+sub_384B0     182 lines  called by: -
+    calls: sub_372C0 sub_36F90 sub_36FA0 sub_41CF0 sub_36DE0
+    globals: dword_99118 dword_AE400
+sub_386E0      96 lines  called by: -
+    calls: sub_372C0 sub_36F90 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+    globals: dword_99138 dword_AE400
+sub_38820      43 lines  called by: sub_1C170
+    calls: sub_36FA0
+sub_38890      97 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+    globals: dword_99158 dword_AE400
+sub_389E0     179 lines  called by: -
+    calls: sub_37710 sub_372C0 sub_36F90 sub_36FA0 sub_41CF0 sub_36DE0
+    globals: dword_99178 dword_AE400
+sub_38C00      40 lines  called by: sub_38C60
+    calls: sub_36FA0 sub_36F90
+sub_38C60      87 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_38C00 sub_37130
+    globals: dword_99198 dword_AE400
+sub_38D60      78 lines  called by: -
+    calls: sub_372C0 sub_36F90 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+    globals: dword_991B8 dword_AE400
+sub_38E70     104 lines  called by: -
+    calls: sub_372C0 sub_36F90 sub_41CF0 sub_11F50 sub_36DE0 sub_36FA0 sub_37130
+    globals: dword_991D8 dword_AE400
+sub_38FC0      78 lines  called by: -
+    calls: sub_372C0 sub_36F90 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+    globals: dword_991F8 dword_AE400
+sub_390D0      83 lines  called by: -
+    calls: sub_372C0 sub_36F90 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+    globals: dword_99218 dword_AE400
+sub_39200      78 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+    globals: dword_99078 dword_AE400
+sub_39340     105 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+    globals: dword_99078 dword_AE400
+sub_39490      78 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+    globals: dword_99078 dword_AE400
+sub_395B0      93 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+    globals: dword_99238 dword_AE400
+sub_396E0      79 lines  called by: -
+    calls: sub_372C0 sub_36F90 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+    globals: dword_99258 dword_AE400
+sub_39800      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_39820      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_39840      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_39860      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_39880      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_398A0      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_398C0      36 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_39940      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_39960      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_39980      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_399A0      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_399C0      11 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_399E0      15 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_39A10      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: off_98FD8
+sub_39A90      54 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+    globals: dword_98F78
+sub_39B40      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: dword_98F58
+sub_39BC0      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: dword_98F58
+sub_39C40      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: dword_98F58
+sub_39CC0      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: dword_98F58
+sub_39D40      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: dword_98F58
+sub_39DC0      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: dword_98F58
+sub_39E40      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: off_98FB8
+sub_39EC0      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: off_98FB8
+sub_39F40      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: dword_98F58
+sub_39FC0      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: dword_98F58
+sub_3A040      43 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: dword_98F58
+sub_3A0C0      41 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_370A0
+sub_3A130      40 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_370A0
+sub_3A1A0      40 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+sub_3A210      35 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+sub_3A270      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: off_98FD8
+sub_3A2F0      53 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+    globals: dword_98F78
+sub_3A390      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: off_98FD8
+sub_3A410      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+    globals: off_98FD8
+sub_3A490      45 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+sub_3A510      37 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+sub_3A570      35 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_3A5D0      38 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+sub_3A640      42 lines  called by: -
+    calls: sub_372C0 sub_11F50 sub_36DE0
+sub_3A6B0      43 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_11F50 sub_36DE0 sub_36FA0
+sub_3A730      51 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_11F50 sub_36DE0 sub_36FA0 sub_37130
+sub_3A7D0      56 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_11F50 sub_37030 sub_36DE0
+sub_3A870      38 lines  called by: -
+    calls: sub_372C0 sub_36DE0 sub_37130
+sub_3A8D0      38 lines  called by: -
+    calls: sub_372C0 sub_36DE0 sub_37130
+sub_3A930      41 lines  called by: -
+    calls: sub_372C0 sub_36DE0 sub_37130
+sub_3A9A0      41 lines  called by: -
+    calls: sub_372C0 sub_36DE0 sub_37130
+sub_3AA10      54 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+sub_3AAA0      56 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_37030 sub_36DE0
+sub_3AB40      56 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_37030 sub_36DE0
+sub_3ABE0      46 lines  called by: -
+    calls: sub_372C0 sub_36DE0 sub_37130
+sub_3AC70      33 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_3ACC0      76 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_11F50 sub_41EC0 sub_36DE0 sub_36FA0
+sub_3ADB0      34 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_3AE00      45 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+sub_3AE80      45 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+sub_3AF00      49 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+sub_3AF80      49 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+sub_3B000      35 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0
+sub_3B060      39 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0
+sub_3B0C0      39 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0
+sub_3B120      39 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0
+sub_3B180      33 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_3B1D0      39 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0
+sub_3B230      39 lines  called by: -
+    calls: sub_372C0 sub_37130 sub_36DE0
+sub_3B2A0      39 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0
+sub_3B300      72 lines  called by: -
+    calls: sub_372C0 sub_36FA0 sub_37130 sub_36DE0 sub_41CF0 sub_11F50 sub_41EC0
+sub_3B3D0       4 lines  called by: -
+    calls: sub_372C0
+sub_3B3E0      49 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+sub_3B460      38 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+sub_3B4D0      36 lines  called by: -
+    calls: sub_372C0 sub_36DE0 sub_37130
+sub_3B520      49 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+sub_3B5A0      42 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_274D0
+    globals: dword_AE408
+sub_3B620      43 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_37030
+    globals: dword_AE400
+sub_3B690      31 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36FA0
+sub_3B6F0      39 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0 sub_37130
+sub_3B760      32 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_3B7B0      34 lines  called by: sub_47960
+    calls: sub_372C0 sub_36DE0
+sub_3B800      34 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+sub_3B860      37 lines  called by: -
+    calls: sub_372C0 sub_41CF0 sub_36DE0 sub_36FA0
+sub_3B8E0      49 lines  called by: -
+    calls: sub_372C0 sub_36DE0 sub_37130
+sub_3B970      49 lines  called by: -
+    calls: sub_372C0 sub_36DE0 sub_37130
+sub_3BA00      49 lines  called by: -
+    calls: sub_372C0 sub_36DE0 sub_37130
+sub_3BA90      49 lines  called by: -
+    calls: sub_372C0 sub_36DE0 sub_37130
+sub_3BB20      37 lines  called by: sub_3BB70,sub_3BB90,sub_3BBB0,sub_3BBD0,sub_3BBF0,sub_3BC10,sub_3BC30,sub_3BC50,sub_3BC70,sub_3BC90,sub_3BCB0,sub_3BCD0,sub_3BCF0,sub_3BD10,sub_3BD30,sub_3BD50,sub_3BD70,sub_3BD90,sub_3BDB0,sub_3BDD0,sub_3BDF0,sub_3BE10,sub_3BE30,sub_3BE50,sub_3BE70,sub_3BE90,sub_3BEB0,sub_3BED0,sub_3BEF0,sub_3BF10,sub_3BF30,sub_3BF50
+    calls: sub_372C0 sub_36DE0
+sub_3BB70      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BB90      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BBB0      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BBD0      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BBF0      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BC10      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BC30      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BC50      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BC70      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BC90      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BCB0      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BCD0      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BCF0      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BD10      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BD30      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BD50      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BD70      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BD90      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BDB0      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BDD0      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BDF0      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BE10      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BE30      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BE50      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BE70      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BE90      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BEB0      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BED0      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BEF0      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BF10      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BF30      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BF50      11 lines  called by: -
+    calls: sub_3BB20
+sub_3BF70      83 lines  called by: sub_3C040,sub_3C060,sub_3C090,sub_3C0C0,sub_3C0F0,sub_3C120,sub_3C150,sub_3C180,sub_3C1B0,sub_3C1E0,sub_3C210,sub_3C240,sub_3C270,sub_3C2A0,sub_3C2D0,sub_3C300,sub_3C330,sub_3C360,sub_3C390,sub_3C3C0,sub_3C3F0,sub_3C420,sub_3C450,sub_3C480
+    calls: sub_372C0 sub_41CF0 sub_36FA0 sub_37130 sub_36DE0
+sub_3C040      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C060      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C090      18 lines  called by: -
+    calls: sub_3BF70
+sub_3C0C0      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C0F0      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C120      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C150      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C180      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C1B0      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C1E0      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C210      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C240      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C270      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C2A0      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C2D0      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C300      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C330      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C360      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C390      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C3C0      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C3F0      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C420      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C450      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C480      17 lines  called by: -
+    calls: sub_3BF70
+sub_3C4B0      20 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_3C4E0      20 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_3C510      20 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_3C540      20 lines  called by: -
+    calls: sub_372C0 sub_36DE0
+sub_3C570     207 lines  called by: sub_357C0
+    calls: sprintf fopen fprintf fclose fscanf getenv sscanf stricmp sub_43B20
+    strings: %s %x | %s = %s %x | %s = %s %x %d %d | %s%s/sndsetup.inf | ADLIB | ADLIBG | BF_MUSIC | C: | COMPATIBLE | GENERAL | GRAVIS | MUSIC = none 388 0 0\n | PASFM | ROLAND | SB16FM | SBAWE32 | SBLAST | SBPRO | SOUNDFX = none 0 0 0\n | WBLAST | \\carpet.cd | none
+    globals: byte_939CC byte_939CD dword_A90B8 dword_A90BC dword_CBF70 dword_CBF74
+sub_3C800      94 lines  called by: sub_357C0
+    calls: sprintf fopen fprintf fclose fscanf getenv sscanf stricmp sub_43EC0
+    strings: %s %x %d %d | %s = %s %x %d %d | %s%s/sndsetup.inf | BF_SOUND | MUSIC = none 388 0 0\n | SOUNDFX = none 0 0 0\n | \\carpet.cd | none
+    globals: byte_939E4 byte_939E5 dword_A919C dword_A91B4 dword_A91B8 dword_CC14C dword_CC150 dword_CC158 dword_CC1BC
+sub_3C9D0    1480 lines  called by: sub_34530
+    calls: sub_43930 sub_3E9D0 sub_44D30 sub_3DC90 sub_3DD10 sub_43760 sub_3E410 sub_3E350 memset sprintf sub_55370 off_987DE sub_373F0 sub_194F0 sub_3EC50 sub_41B20
+    strings: %c | .. CHEAT: Kill all creatures | .. CHEAT: access all spells | .. CHEAT: destroy all balloons | .. CHEAT: destroy all castles | .. CHEAT: destroy all players | .. CHEAT: heal | .. CHEAT: more mana | Zanzamar
+    globals: dword_AC5D4 dword_AE330 dword_AE400 dword_AE408 off_987DE off_99B68
+sub_3DC90      45 lines  called by: sub_3C9D0
+    calls: sub_5C05C sub_31A00 sub_59720 sub_31A60 sub_55370 sub_3DD10
+    globals: dword_AE400 dword_AE450
+sub_3DD10      24 lines  called by: sub_3C9D0,sub_3DC90
+    calls: sub_11050
+    globals: dword_AE400 dword_AE408
+sub_3DD50     291 lines  called by: sub_407A0,sub_408D0
+    calls: memset
+    strings: Zanzamar
+    globals: byte_99B88 dword_AE400 dword_AE408 off_99B68
+sub_3E0A0      33 lines  called by: -
+    calls: memset
+    globals: dword_AE400
+sub_3E100     161 lines  called by: sub_407A0,sub_408D0
+    calls: sprintf sub_5CDE0 sub_5CE50 sub_5CBD0 sub_62B30 sub_62B60 printf memset
+    strings: %s%s/%s/levels.dat | %s%s/%s/levels.tab | C: | ERROR decompressing levels.dat\n | \\carpet.cd | levels | levels/levels.dat | levels/levels.tab
+    globals: dword_AE3FC
+sub_3E2A0      26 lines  called by: -
+    calls: sprintf sub_62E60
+    strings: %s/lev%05d.dat | levels
+sub_3E2F0      36 lines  called by: -
+    calls: sprintf sub_5CDE0 sub_5CE50
+    strings: %s/lev%05d%s | levels
+sub_3E350      77 lines  called by: sub_3C9D0,sub_3E9D0
+    calls: sub_3E460 sprintf sub_3EEA0 sub_416B0 sub_37220
+    strings: %s/gam%05d.dat | movie
+    globals: dword_AE400
+sub_3E410      26 lines  called by: sub_3C9D0,sub_3E9D0
+    calls: sprintf sub_62E60
+    strings: %s/gam%05d.dat | movie
+    globals: dword_AE400
+sub_3E460      33 lines  called by: sub_3E350
+    calls: sprintf sub_5CDE0 sub_5CE50
+    strings: %s/gam%05d.dat | movie
+sub_3E4B0      65 lines  called by: sub_3E9D0
+    calls: sub_3E640 sprintf sub_5CDE0 sub_5CBD0 sub_5CE50
+    strings: %s/map%05d.dat | movie
+    globals: byte_B5D40 byte_CC1E0 byte_DC1E0 byte_EC1E0 byte_FC1E0 word_10C1E0
+sub_3E580      58 lines  called by: sub_3E9D0
+    calls: sprintf sub_5CDE0 sub_62ED0 sub_5CE50
+    strings: %s/map%05d.dat | movie
+    globals: byte_B5D40 byte_CC1E0 byte_DC1E0 byte_EC1E0 byte_FC1E0 word_10C1E0
+sub_3E640      33 lines  called by: sub_3E4B0
+    calls: sprintf sub_5CDE0 sub_5CE50
+    strings: %s/map%05d.dat | movie
+sub_3E690      76 lines  called by: sub_16B00
+    calls: sub_3E7A0 sprintf sub_3EEA0 sub_416B0 sub_37220
+    strings: c:/CARPET.CD/%s/gam%05d.dat | save
+    globals: dword_AE400
+sub_3E750      25 lines  called by: sub_16B00
+    calls: sprintf sub_62E60
+    strings: c:/CARPET.CD/%s/gam%05d.dat | save
+    globals: dword_AE400
+sub_3E7A0      33 lines  called by: sub_3E690
+    calls: sprintf sub_5CDE0 sub_5CE50
+    strings: c:/CARPET.CD/%s/gam%05d.dat | save
+sub_3E7F0      65 lines  called by: sub_16B00
+    calls: sub_3E980 sprintf sub_5CDE0 sub_5CBD0 sub_5CE50
+    strings: c:/CARPET.CD/%s/map%05d.dat | save
+    globals: byte_B5D40 byte_CC1E0 byte_DC1E0 byte_EC1E0 byte_FC1E0 word_10C1E0
+sub_3E8C0      58 lines  called by: sub_16B00
+    calls: sprintf sub_5CDE0 sub_62ED0 sub_5CE50
+    strings: c:/CARPET.CD/%s/map%05d.dat | save
+    globals: byte_B5D40 byte_CC1E0 byte_DC1E0 byte_EC1E0 byte_FC1E0 word_10C1E0
+sub_3E980      33 lines  called by: sub_3E7F0
+    calls: sprintf sub_5CDE0 sub_5CE50
+    strings: c:/CARPET.CD/%s/map%05d.dat | save
+sub_3E9D0     219 lines  called by: sub_3C9D0
+    calls: sprintf sub_5CDE0 sub_3E350 sub_3E4B0 sub_59420 sub_356E0 sub_5CBD0 sub_3EC50 sub_35710 sub_593B0 sub_3E410 sub_3E580 sub_37220 sub_62ED0
+    strings: %s/mvi%05d.dat | movie
+    globals: dword_AE400 dword_AE408
+sub_3EC50      17 lines  called by: sub_3C9D0,sub_3E9D0
+    calls: sub_5CE50
+    globals: dword_AE408
+sub_3EC80      11 lines  called by: sub_3EC90
+    calls: access
+sub_3EC90     239 lines  called by: main
+    calls: _dos_getdiskfree sprintf sub_3EC80 mkdir
+    strings: %c:%s | /
+sub_3EEA0      59 lines  called by: sub_11540,sub_31AA0,sub_34460,sub_344F0,sub_3E350,sub_3E690,sub_43E50,sub_44470,sub_4BB20,sub_4C7E0,sub_4E0E0,sub_4E5B0,sub_4F3F0,sub_634E0
+    calls: sub_5CDE0 filelength sub_5CBD0 sub_5CE50 sub_62B60 printf
+    strings: ERROR decompressing %s\n
+sub_3EF20       4 lines  called by: sub_3F1D0
+sub_3EF30      14 lines  called by: sub_3EF50
+    calls: access
+sub_3EF50     235 lines  called by: sub_3F1D0
+    calls: sub_3EF30 sprintf sub_5CDE0 filelength sub_5CBD0 sub_62ED0 sub_5CE50 _settextposition _outtext memset
+    strings: %d%c | %s/%s.dat | %s/%s.tab
+    globals: dword_12EFF4 dword_B76F0
+sub_3F1D0     114 lines  called by: sub_340B0
+    calls: sprintf sub_3EF20 _outtext _gettextposition sub_3EF50
+    strings: %s%s/%s | %s%s/%s/%s.dat | %s%s/%s/levels.dat | C: | Creating Setup Directories.. | Setup levels.. | \\carpet.cd | \n | data | data/%s.dat | levels | levels/levels.dat | tmaps0-0
+    globals: dword_B76F0
+sub_3F370      19 lines  called by: sub_34C80,sub_3FCA0,sub_44840,sub_51DF0
+    calls: int386
+    globals: dword_9AD98
+sub_3F398      62 lines  called by: sub_3F7D0,sub_3F820
+    globals: byte_B7700 word_B7706 word_B7708 word_B770A word_B770C
+sub_3F413      94 lines  called by: sub_3FB30,sub_3FCA0
+    globals: byte_B7700 byte_B772A word_B7702 word_B7704 word_B7706 word_B7708 word_B770A word_B770C
+sub_3F4CE      83 lines  called by: sub_3F7D0,sub_3F820
+    globals: byte_B7700 byte_B7701
+sub_3F54D      25 lines  called by: sub_3F820
+    calls: sub_3F76D
+    globals: byte_B772A word_B7702 word_B7704 word_B7716 word_B7718
+sub_3F587     168 lines  called by: sub_3FCA0
+    calls: sub_3F76D
+    globals: byte_B7700 byte_B7701 byte_B772A word_B7702 word_B7704 word_B7706 word_B7708 word_B770A word_B770C word_B770E word_B7710 word_B7712 word_B7714 word_B7716 ...
+sub_3F76D      59 lines  called by: sub_3F54D,sub_3F587
+    globals: byte_B7700 byte_B7701
+sub_3F7D0      28 lines  called by: sub_34DD0,sub_51DF0
+    calls: memset sub_3F4CE sub_3F398 sub_3FB30
+    globals: byte_90B23 byte_B7700 word_90B34 word_90B36
+sub_3F820     274 lines  called by: sub_34DD0,sub_51DF0
+    calls: sub_3F4CE sub_3F398 sub_3FB30 sub_3F54D
+    globals: byte_90B23 byte_B7700 word_90B24 word_90B26 word_90B2C word_90B2E word_90B34 word_90B36 word_B7702 word_B7704 word_B7706 word_B7708 word_B770A word_B770C ...
+sub_3FB30     151 lines  called by: sub_3F7D0,sub_3F820
+    calls: sub_62FA8 sub_62FC4 sub_4B560 sub_60CE0 sub_60D18 sub_3F413 sub_5CDA0 sub_599B0 sub_5CC54
+    globals: byte_B772A dword_12EFF4 dword_AE3FC word_12F02E
+sub_3FCA0     626 lines  called by: sub_17C20,sub_50770
+    calls: sub_3F370 sub_5B210 sub_3F413 sub_5B2B0 sub_3F587
+    globals: byte_12EF38 byte_12EF3B byte_12EF3D byte_12EF40 byte_12EF70 byte_90B20 byte_90B21 byte_90B22 byte_90B23 byte_9AD08 byte_B7700 byte_B772A dword_90B04 dword_90B14 ...
+sub_40440      84 lines  called by: sub_24AB0,sub_340B0,sub_34B00,sub_34C80,sub_41230,sub_4AB20,sub_4BB20,sub_4C7E0,sub_4E0E0,sub_4E5B0,sub_4F1E0,sub_4F3F0
+    calls: sub_63010 sub_634A0 sub_634E0 sub_319A0 printf gets
+    strings: ERROR: Allocation %s.\n | ERROR: File %s.\n | Press return to continue\n
+    globals: dword_AE428
+main           30 lines  called by: -
+    calls: sub_3EC90 sub_340B0
+    strings: \\carpet.cd | data | levels | save
+sub_40550     179 lines  called by: sub_407A0,sub_408D0
+    calls: memset
+    globals: byte_CC1E0 byte_DC1E0 byte_EC1E0 byte_FC1E0 dword_AE3FC dword_AE400 dword_AE408 word_10C1E0
+sub_407A0      79 lines  called by: sub_340B0
+    calls: sub_40550 sub_5AD10 sub_3E100 sub_31AA0 sub_371C0 sub_36430 memset sub_37220 sub_37440 sub_3DD50 sub_48230
+    strings: Generate features | Generate map | Initialise Models | Load Level
+    globals: byte_939E5 dword_AE400 dword_AE408 word_AE454
+sub_408D0      61 lines  called by: sub_340B0
+    calls: sub_40550 sub_3E100 sub_31AA0 sub_371C0 sub_36430 memset sub_37220 sub_37440 sub_3DD50 sub_48230
+    globals: byte_939E5 dword_AE400 dword_AE408 word_AE454
+sub_409E0      23 lines  called by: sub_40A10,sub_40BC0
+    globals: byte_FC1E0
+sub_40A10     174 lines  called by: sub_255D0,sub_40D30
+    calls: sub_409E0 sub_33B90 sub_33E10
+    globals: byte_DC1E0 byte_FC1E0
+sub_40BC0     149 lines  called by: -
+    calls: sub_409E0 sub_33B90
+    globals: byte_DC1E0 byte_FC1E0
+sub_40D30      97 lines  called by: sub_24F60,sub_25470,sub_25570,sub_269A0
+    calls: sub_11410 sub_40A10 sub_11490 sub_114B0
+sub_40E20      73 lines  called by: sub_285C0
+    calls: sub_41E80
+    globals: dword_AE400 word_10C1E0
+sub_40EDC      90 lines  called by: sub_44470
+sub_40F87     144 lines  called by: sub_42150,sub_42180,sub_48710
+    globals: word_9374C
+sub_410CE      43 lines  called by: sub_1D6D0,sub_2A700,sub_42340,sub_423D0,sub_44470,sub_48710,sub_54F80
+    globals: word_41104
+sub_41144      27 lines  called by: sub_36C65
+sub_411D7      26 lines  called by: sub_20FB0,sub_34C80,sub_44730,sub_4AB20,sub_4BC90,sub_4CAC0,sub_4D3B0,sub_4D560,sub_4E270,sub_4E5B0,sub_4EE70,sub_4EFC0,sub_4F1E0
+sub_411FD      26 lines  called by: sub_20FB0,sub_34C80,sub_44730,sub_4AB20,sub_4BC90,sub_4CAC0,sub_4D3B0,sub_4D560,sub_4E270,sub_4E5B0,sub_4EE70,sub_4EFC0,sub_4F1E0
+sub_41230     184 lines  called by: sub_340B0
+    calls: sub_42540 printf exit sub_40440 sub_44470 sub_426E0
+    strings: ERROR : NOT ENOUGH MEMORY.\n | data/blk0-0.dat | data/blk0-1.dat
+    globals: byte_939CC byte_939E4 byte_939EC byte_968F0 dword_100000 dword_1314AC dword_96000 dword_AE400 dword_AE408
+sub_41490      67 lines  called by: sub_340B0
+    calls: W?cause$_failure$_ios$n_x__i sub_42730 sub_58C30
+    globals: byte_93950 dword_1314AC dword_96000 dword_AE3EC dword_AE408
+sub_41540      26 lines  called by: sub_340B0
+    calls: sub_427A0 sub_44840 printf exit
+    strings: ERROR : UNABLE TO GROW MEMORY.\n
+    globals: byte_93950 dword_AE408
+sub_415C0      76 lines  called by: sub_34530
+    globals: dword_AE400 dword_AE408
+sub_416B0      59 lines  called by: sub_3E350,sub_3E690
+    globals: dword_99018 dword_AE400
+sub_41780     312 lines  called by: sub_34530
+    calls: sub_41E90 memset sub_54F00 sub_16540 sub_48230 sprintf sub_41E80 dword nullsub_3
+    strings: STATE-ID does not match. CLASS %d, MODE
+    globals: byte_12EF04 byte_12EF16 dword_96902 dword_AE400 dword_AE408
+sub_41AD0      28 lines  called by: -
+    calls: sub_41E90
+    globals: dword_AE400
+sub_41B20      99 lines  called by: sub_3C9D0
+    calls: sub_11F50
+    globals: dword_AE408
+sub_41C70      40 lines  called by: sub_14EB0,sub_19550,sub_196E0,sub_1AF80,sub_1DE40,sub_1E770,sub_20480,sub_257B0,sub_258A0,sub_25A60,sub_26A60,sub_26C00,sub_27030,sub_29540,sub_36DF0,sub_44D30,sub_455D0,sub_45FC0,sub_47130,sub_47400,sub_47F90,sub_52770,sub_52B30,sub_52ED0,sub_530C0,sub_53980,sub_53B50,sub_53DC0,sub_54180,sub_542B0,sub_55EF0,sub_56E50
+    calls: sub_41DD0 sub_41CF0
+sub_41CC0      19 lines  called by: sub_49890
+    calls: sub_41DD0 sub_41CF0
+sub_41CF0      79 lines  called by: sub_37820,sub_378A0,sub_37920,sub_37A00,sub_37BC0,sub_37CF0,sub_37D70,sub_37E00,sub_37E80,sub_37EF0,sub_38030,sub_38270,sub_38370,sub_384B0,sub_386E0,sub_38890,sub_389E0,sub_38C60,sub_38D60,sub_38E70,sub_38FC0,sub_390D0,sub_39200,sub_39340,sub_39490,sub_395B0,sub_396E0,sub_39A10,sub_39A90,sub_39B40,sub_39BC0,sub_39C40,sub_39CC0,sub_39D40,sub_39DC0,sub_39E40,sub_39EC0,sub_39F40,sub_39FC0,sub_3A040,sub_3A0C0,sub_3A130,sub_3A1A0,sub_3A210,sub_3A270,sub_3A2F0,sub_3A390,sub_3A410,sub_3A490,sub_3A510,sub_3A5D0,sub_3A6B0,sub_3A730,sub_3A7D0,sub_3AA10,sub_3AAA0,sub_3AB40,sub_3ACC0,sub_3AE00,sub_3AE80,sub_3AF00,sub_3AF80,sub_3B000,sub_3B060,sub_3B0C0,sub_3B120,sub_3B1D0,sub_3B2A0,sub_3B300,sub_3B3E0,sub_3B460,sub_3B520,sub_3B5A0,sub_3B620,sub_3B690,sub_3B6F0,sub_3B800,sub_3B860,sub_3BF70,sub_41C70,sub_41CC0,sub_535E0
+    globals: dword_AE400 word_10C1E0
+sub_41DD0      59 lines  called by: sub_372C0,sub_41C70,sub_41CC0,sub_41E90,sub_535E0
+    globals: dword_AE400 word_10C1E0
+sub_41E80       8 lines  called by: sub_19550,sub_1A800,sub_1BC10,sub_1C170,sub_1D060,sub_1D6D0,sub_1E810,sub_1FA00,sub_1FE90,sub_24F60,sub_25130,sub_252B0,sub_252D0,sub_253E0,sub_253F0,sub_25410,sub_25470,sub_25570,sub_25670,sub_25760,sub_257B0,sub_258A0,sub_25990,sub_25A60,sub_25CE0,sub_25EC0,sub_26140,sub_262D0,sub_26360,sub_263C0,sub_26560,sub_26670,sub_26760,sub_26890,sub_26920,sub_269A0,sub_26A60,sub_26C00,sub_26CB0,sub_26CE0,sub_26D20,sub_26E90,sub_275C0,sub_27D30,sub_28200,sub_285C0,sub_28FE0,sub_293D0,sub_296A0,sub_29700,sub_29780,sub_29920,sub_299D0,sub_36620,sub_40E20,sub_41780,sub_46DB0,sub_47400,sub_47A70,sub_47F90,sub_49890,sub_499C0,sub_49A50,sub_52770,sub_52B30,sub_52ED0,sub_530C0,sub_534C0,sub_53980,sub_53B50,sub_53DC0,sub_54180,sub_54290,sub_542B0,sub_54480,sub_55A40,sub_59A80,sub_59AB0,sub_59B80,sub_59C40,sub_59C70,sub_59D40,sub_59D70,sub_59E40
+sub_41E90      18 lines  called by: sub_277D0,sub_36620,sub_41780,sub_41AD0
+    calls: sub_41DD0
+    globals: dword_AE400
+sub_41EC0      54 lines  called by: sub_12040,sub_14EB0,sub_19550,sub_196E0,sub_1AF80,sub_1E770,sub_20480,sub_257B0,sub_258A0,sub_25990,sub_25EC0,sub_26920,sub_269A0,sub_26C00,sub_26E90,sub_27030,sub_27690,sub_3ACC0,sub_3B300,sub_45410,sub_455D0,sub_47130,sub_47F90,sub_52770,sub_52B30,sub_52ED0,sub_530C0,sub_534C0,sub_535E0,sub_53980,sub_53B50,sub_53DC0,sub_54180,sub_542B0,sub_54CD0,sub_55EF0,sub_56090,sub_56510,sub_567A0,sub_56950,sub_56AF0,sub_56CA0,sub_56E50,sub_57040,sub_57250,sub_57470,sub_57610,sub_57800,sub_579D0,sub_57B80,sub_57D40,sub_580A0,sub_58240
+    globals: dword_90B4C off_9134C
+sub_41F50      65 lines  called by: sub_25A60,sub_27030,sub_29540
+    globals: byte_DC1E0
+sub_42000      63 lines  called by: sub_14EB0,sub_196E0,sub_20480,sub_24F60,sub_47F90
+sub_42090      80 lines  called by: sub_55A40
+    calls: sub_11760
+sub_42150      22 lines  called by: sub_13800,sub_138F0,sub_13990,sub_13A70,sub_13BA0,sub_13CA0,sub_13DD0,sub_19550,sub_19B10,sub_19D70,sub_1A120,sub_1A390,sub_1A8E0,sub_1A990,sub_1AA40,sub_1AB70,sub_1AE30,sub_1AEE0,sub_1AF80,sub_1B160,sub_1B5D0,sub_1BD20,sub_1C170,sub_1C4F0,sub_1CA50,sub_1D060,sub_1DA60,sub_1DFE0,sub_1E380,sub_1F120,sub_1F640,sub_1FAC0,sub_1FF60,sub_201D0,sub_20480,sub_207E0,sub_26A60,sub_27030,sub_35D30,sub_35DE0,sub_45410,sub_455D0,sub_463B0,sub_46540,sub_47F90,sub_52500,sub_52550,sub_52610,sub_53B50,sub_54A90,sub_54BD0,sub_54CD0,sub_55370
+    calls: sub_40F87
+sub_42180      25 lines  called by: sub_11640,sub_155F0,sub_19550,sub_1A8E0,sub_1A990,sub_1AA40,sub_1AB70,sub_1AE30,sub_1AEE0,sub_1AF80,sub_1C4F0,sub_1E380,sub_201D0,sub_207E0,sub_45410,sub_463B0,sub_46540,sub_52500,sub_52550,sub_52610,sub_53B50,sub_54A90,sub_54BD0,sub_54CD0
+    calls: sub_423D0 sub_40F87
+sub_421D0      33 lines  called by: -
+sub_42210      24 lines  called by: sub_11640,sub_13BA0,sub_14EB0,sub_155F0,sub_15A00,sub_15D40,sub_19B10,sub_19D70,sub_1B5D0,sub_1BD20,sub_1CA50,sub_1D060,sub_1DFE0,sub_1FF60,sub_207E0,sub_26A60,sub_422A0,sub_45410,sub_52770,sub_52B30,sub_530C0,sub_53DC0,sub_54A90,sub_54BD0,sub_54CD0,sub_55370
+sub_42240      59 lines  called by: sub_11640,sub_14EB0,sub_422A0,sub_52770,sub_52B30,sub_530C0,sub_53DC0,sub_55370
+sub_422A0      50 lines  called by: sub_196E0,sub_455D0,sub_463B0,sub_52550,sub_52610,sub_53B50
+    calls: sub_42210 sub_42240
+sub_42300      31 lines  called by: sub_13F00
+sub_42340      35 lines  called by: sub_11E50,sub_15470,sub_1A120,sub_1AB10,sub_1B5D0,sub_1C3E0,sub_1C4F0,sub_1D060,sub_1DA60,sub_1E380,sub_1F120,sub_1F390,sub_1F640,sub_1FAC0,sub_201D0,sub_207E0,sub_42440,sub_44C10,sub_44C90,sub_45410,sub_455D0,sub_46540,sub_54520,sub_54CD0
+    calls: sub_410CE
+sub_42390      31 lines  called by: sub_46CA0
+sub_423D0      27 lines  called by: sub_15470,sub_1BD20,sub_1C170,sub_27030,sub_299D0,sub_35D30,sub_35DE0,sub_42180,sub_47F90,sub_54A90,sub_54BD0,sub_55370
+    calls: sub_410CE
+sub_42410      24 lines  called by: sub_13A70,sub_143A0,sub_145B0,sub_147E0,sub_149A0,sub_14B10,sub_15080,sub_15260,sub_15340,sub_153B0,sub_16800,sub_16890,sub_29920,sub_54F80,sub_55370
+sub_42440      68 lines  called by: -
+    calls: sub_42340
+    globals: dword_AE400
+sub_424F0      11 lines  called by: sub_19B10,sub_19D70,sub_1A120,sub_1A390,sub_1A6C0,sub_1B160,sub_1B200,sub_1B5D0,sub_1BD10,sub_1BD20,sub_1C170,sub_1C4F0,sub_1CA50,sub_1CFF0,sub_1D060,sub_1D6D0,sub_1DA60,sub_1DCD0,sub_1DE40,sub_1DFE0,sub_1E380,sub_1E720,sub_1E770,sub_1EA40,sub_1EED0,sub_1F120,sub_1F390,sub_1F640,sub_1FAC0,sub_1FF60,sub_201D0,sub_20710,sub_207E0,sub_296A0
+sub_42510      22 lines  called by: sub_1CFF0,sub_24F60,sub_25410,sub_25760,sub_26360,sub_263C0,sub_293D0
+sub_42530       8 lines  called by: sub_10CB0,sub_340B0
+    globals: byte_93954
+sub_42540      72 lines  called by: sub_10CB0,sub_340B0,sub_34C80,sub_34DD0,sub_36700,sub_41230,sub_43E50,sub_5C214,sub_60BDC
+    calls: sub_63010 sub_425C0 sub_42650 sub_63338 memset
+    globals: dword_1302A0
+sub_425C0      70 lines  called by: sub_34DD0,sub_42540,sub_43270
+    calls: sub_63010 sub_42650 sub_63338 memset
+    globals: dword_12F6A4 dword_1302A0
+sub_42650      68 lines  called by: sub_42540,sub_425C0,sub_42730
+    globals: byte_93954 dword_1302A0 dword_1314A0
+sub_426E0      50 lines  called by: sub_10CB0,sub_11010,sub_34C80,sub_36700,sub_36C10,sub_41230,sub_43270,sub_433C0,sub_43E50,sub_5C3D4,sub_62128,sub_634A0
+    calls: sub_42860 sub_63338
+    globals: dword_1302A0
+sub_42730      61 lines  called by: sub_41490
+    calls: sub_42650 sub_42860 sub_63338
+    globals: dword_1302A0
+sub_427A0     107 lines  called by: sub_41540
+    calls: sub_42860 sub_63338
+    globals: byte_93954 dword_1302A0
+sub_42860      34 lines  called by: sub_426E0,sub_42730,sub_427A0
+sub_428B0      43 lines  called by: sub_42930,sub_42A00,sub_43430
+    calls: sub_61CC0
+    globals: byte_12EF70 word_12EFDE word_93988 word_9AD8C word_9AD8E
+sub_42930     116 lines  called by: sub_43430
+    calls: sub_431A0 sub_428B0 sub_4E3D0 sub_4E470 sub_4E510
+    strings:  
+sub_42A00     218 lines  called by: sub_43430
+    calls: sprintf sub_431A0 sub_4E3D0 sub_428B0 sub_42C70 sub_4E470
+    strings:   | %s%d | TESTER
+    globals: dword_93990 word_9395A word_93988
+sub_42C70      48 lines  called by: sub_42A00,sub_43430,sub_43760
+    calls: sub_431A0
+    globals: dword_9398C dword_93990
+sub_42CF0      35 lines  called by: sub_43270
+    calls: _dos_getvect sub_431A0
+    globals: dword_9398C
+sub_42D40      91 lines  called by: sub_43430,sub_43760
+    calls: sub_431A0
+    strings:  
+sub_42DE0      28 lines  called by: sub_43430,sub_43760
+    calls: sub_431A0
+sub_42E10     117 lines  called by: sub_43430,sub_43870,sub_438D0
+    calls: sprintf sub_431A0
+    strings:   | %s%d | TESTER
+    globals: dword_93990
+sub_42F30      62 lines  called by: sub_42FB0
+    calls: sub_431A0
+    globals: dword_93964
+sub_42FB0      48 lines  called by: sub_438D0
+    calls: sub_42F30
+sub_43010      25 lines  called by: sub_43050
+    calls: sub_431A0
+    globals: dword_93968
+sub_43050      19 lines  called by: -
+    calls: sub_43010
+sub_43080      51 lines  called by: sub_430F0
+    calls: sub_431A0
+    globals: dword_93960
+sub_430F0      53 lines  called by: sub_43870
+    calls: sub_43080
+sub_43150      18 lines  called by: sub_43430,sub_43760
+    calls: sub_43170
+    globals: byte_939B0
+sub_43170      26 lines  called by: sub_43150
+    globals: dword_93990 word_9395A
+sub_431A0      80 lines  called by: sub_42930,sub_42A00,sub_42C70,sub_42CF0,sub_42D40,sub_42DE0,sub_42E10,sub_42F30,sub_43010,sub_43080
+    calls: memset segread int386x
+sub_43270     127 lines  called by: sub_34DD0
+    calls: system sub_425C0 sub_42CF0 sub_426E0
+    strings: netbios
+    globals: byte_93958 dword_93960 dword_93964 dword_93968 dword_9398C dword_93990
+sub_433C0      43 lines  called by: sub_340B0,sub_44840
+    calls: sub_426E0
+    globals: byte_93958 dword_93960 dword_93964 dword_93968 dword_9398C dword_93990
+sub_43430     346 lines  called by: sub_34DD0,sub_4D680
+    calls: sprintf sub_42930 sub_42D40 sub_42E10 sub_42A00 sub_428B0 sub_4E470 sub_42DE0 sub_42C70 sub_43150
+    strings: %s%d | TESTER
+    globals: byte_93958 byte_93959 byte_939AF dword_93990 word_9395A word_9395C word_93988 word_9398A
+sub_43760      99 lines  called by: sub_3C9D0
+    calls: sub_42C70 sub_42DE0 sprintf sub_42D40 sub_43150
+    strings: %s%d | TESTER
+    globals: byte_93958 byte_93959 byte_939B0 dword_93990 word_9395A word_9395C word_9398A
+sub_43870      36 lines  called by: sub_43930,sub_43A20
+    calls: sub_430F0 sub_42E10
+    globals: byte_93958 byte_939B0 dword_93990
+sub_438D0      36 lines  called by: sub_43930,sub_43A20
+    calls: sub_42FB0 sub_42E10
+    globals: byte_93958 byte_939B0 dword_93990
+sub_43930      95 lines  called by: sub_3C9D0,sub_4D680
+    calls: sub_438D0 sub_43870
+    globals: byte_93958 word_9395A word_9395C word_9398A
+sub_43A20      81 lines  called by: -
+    calls: sub_43870 sub_438D0
+    globals: byte_93958 byte_939B0 word_9395A word_9395C
+sub_43B20     256 lines  called by: sub_3C570
+    calls: sub_5D883 sub_60199 sub_6035F sub_6378C printf sub_60335 sub_5D948 sub_43E50 sub_637D1 sub_6080C sub_5CEF0
+    strings: \nError : %s\n | \nError : Unable to load drum.bnk.\n | \nError : Unable to load inst.bnk.\n | \nError opening music files\n | data\\drum.bnk
+    globals: byte_939CC byte_939CD byte_939D4 byte_9EBDD byte_9EBE7 byte_9EBE8 byte_9EBE9 byte_9EBEA byte_9EBEB byte_9EBEC byte_9EBED byte_9EBF7 byte_9EBF8 byte_9EBF9 ...
+sub_43E50      57 lines  called by: sub_43B20
+    calls: sub_63910 sub_42540 sub_3EEA0 sub_426E0
+sub_43EC0     477 lines  called by: sub_3C800
+    calls: stricmp strcmp sub_63A9D sub_6378C printf sub_63C5A sub_63C06 sub_64248 sub_61610 sub_647C0 sub_5D883 sub_64846 sub_5D948 sub_6481C sub_5D97B sub_64F78
+    strings:  | ADLIBG | COMPATIBLE | GRAVIS | MICROSOFT16 | MICROSOFT8 | PAS16 | PAS8 | SB16 | SBLAST | SBPRO | SOUNDMASTERII | \nError : %s\n | data/snds0-0.dat
+    globals: byte_939D4 byte_939E4 byte_939E5 byte_939E6 byte_939EC byte_939ED dword_93A44 dword_93A54 dword_93A60 dword_CC126 dword_CC134 dword_CC138 dword_CC13C dword_CC140 ...
+sub_44470     242 lines  called by: sub_41230
+    calls: sub_29BA0 sub_3EEA0 sub_72807 sub_40EDC sub_410CE sub_62E60
+    strings: data/tables.dat
+    globals: byte_90B48 byte_B7934 byte_BB934 byte_CB934 byte_CBC34 dword_9334C dword_AE3F0 dword_AE400 dword_AE428 dword_CBF34
+sub_44700      31 lines  called by: sub_340B0,sub_4F3F0
+sub_44730     110 lines  called by: sub_340B0
+    calls: sub_411D7 sub_411FD sub_61B90 sub_61CC0 sub_61C30 sub_5C214 sub_44840 printf exit sub_5C05C sub_5B5E0 sub_36D83
+    strings: ERROR : MOUSE DRIVER NOT FOUND.\n
+    globals: byte_93A84 dword_12EFF4 dword_9AD98 dword_AE408 dword_AE428 dword_AE450 word_12F02E
+sub_44840      19 lines  called by: sub_34C60,sub_41540,sub_44730
+    calls: sub_3F370 sub_5B5F4 sub_36DC2 sub_5CD70 sub_433C0
+    globals: byte_93A84 dword_AE408
+sub_448E0     223 lines  called by: sub_340B0
+    globals: dword_AC5D4 dword_AE400 dword_AE408
+sub_44BE0      18 lines  called by: sub_26A60,sub_299D0,sub_45FC0,sub_46480,sub_46540
+    globals: dword_AE400 dword_AE408
+sub_44C10      38 lines  called by: sub_252D0
+    calls: sub_42340
+    globals: dword_AE400
+sub_44C90      38 lines  called by: sub_28DC0
+    calls: sub_42340
+    globals: dword_AE400
+sub_44D30     533 lines  called by: sub_3C9D0,sub_46480
+    calls: sub_37220 sub_11F50 sub_373F0 sub_41C70 sub_36FA0 sub_45C10 sub_55370 sub_279D0 sub_37150 sub_47C60 sub_47DD0 memset
+    globals: dword_AC5D4 dword_AE400 dword_AE408 dword_F4240 word_AE89E
+sub_45410     156 lines  called by: sub_455D0
+    calls: sub_11810 sub_42150 sub_42180 sub_42340 sub_42210 sub_41EC0 sub_11F50
+    globals: word_AE454 word_AE458
+sub_455D0     537 lines  called by: sub_45C90,sub_45FC0
+    calls: sub_11F50 sub_41EC0 sub_42340 sub_42150 sub_422A0 sub_45410 sub_41C70 sub_11810 sub_55370 sub_55890 sub_20D00
+    globals: dword_93A88 dword_93A94 dword_AE400 word_AE454 word_AE456 word_AE458
+sub_45C10      43 lines  called by: sub_132B0,sub_44D30,sub_45C90
+    calls: memset
+    globals: dword_AE400
+sub_45C90     273 lines  called by: -
+    calls: sub_45C10 sub_11950 sub_46840 sub_46540 memset sub_455D0 sub_55370
+    globals: dword_93A90 dword_AE400 dword_AE408
+sub_45FC0     322 lines  called by: -
+    calls: sub_455D0 sub_44BE0 sub_11F50 sub_373F0 sub_37220 memset sub_41C70
+    globals: dword_AE310 dword_AE400 dword_AE408 word_AE454 word_AE456
+sub_463B0      65 lines  called by: sub_46480
+    calls: sub_42150 sub_42180 sub_422A0
+    globals: dword_AE400
+sub_46480      71 lines  called by: -
+    calls: sub_44D30 sub_44BE0 sub_463B0
+    globals: dword_AE400 dword_AE408
+sub_46520      13 lines  called by: sub_46540,sub_54520
+sub_46540     230 lines  called by: sub_132B0,sub_45C90
+    calls: sub_42340 sub_46520 sub_42150 sub_42180 sub_44BE0 sub_55370
+    globals: dword_AE400
+sub_46840     235 lines  called by: sub_45C90
+    calls: sub_46B00
+    globals: dword_93A88 dword_93A8C dword_93A90 dword_93AAC dword_93AB0 dword_AE400 word_93AA8 word_93AB4
+sub_46B00     165 lines  called by: sub_46840
+    calls: sub_55370
+    globals: dword_AE400
+sub_46CA0      57 lines  called by: sub_47400
+    calls: sub_42390
+    globals: dword_AE400 dword_AE408
+sub_46D20      46 lines  called by: sub_293D0,sub_46DB0,sub_46F10,sub_47A70,sub_53980,sub_53B50
+    globals: dword_AE400
+sub_46DB0     131 lines  called by: -
+    calls: sub_47EC0 sub_11F50 sub_47130 sub_37150 sub_47400 sub_11950 sub_41E80 sub_46D20
+    globals: dword_AE400 dword_AE408
+sub_46F10     122 lines  called by: -
+    calls: sub_12C50 sub_12D10 sub_47960 sub_46D20 sub_47020 sub_11F50 sub_47080
+    globals: dword_AE400
+sub_47020      35 lines  called by: sub_46F10
+    calls: sub_373F0
+    globals: dword_AE400
+sub_47080      35 lines  called by: sub_46F10
+    calls: sub_373F0
+    globals: dword_AE400
+sub_470E0      29 lines  called by: -
+    calls: sub_37710 sub_47A70 sub_47130 sub_47400
+sub_47130     228 lines  called by: sub_46DB0,sub_470E0,sub_47A70
+    calls: sub_37710 sub_37220 sub_373F0 sub_11F50 sub_41EC0 sub_41C70
+    globals: dword_AE400 word_AE454
+sub_47400     442 lines  called by: sub_46DB0,sub_470E0
+    calls: sub_27690 sub_41E80 sub_46CA0 sub_373F0 sub_11F50 sub_41C70
+    globals: dword_AE400 word_AE454 word_AE456 word_AE458
+sub_47960      80 lines  called by: sub_46F10
+    calls: sub_3B7B0 sub_55370 sub_37150 sub_47C60
+    globals: dword_AE400
+sub_47A60       7 lines  called by: -
+sub_47A70     106 lines  called by: sub_470E0
+    calls: sub_47130 sub_55370 sub_28FE0 sub_37150 sub_47C60 sub_46D20 sub_41E80
+    globals: dword_AE400
+sub_47BD0      55 lines  called by: sub_47C60
+sub_47C60     147 lines  called by: sub_44D30,sub_47960,sub_47A70
+    calls: sub_47BD0
+    globals: dword_AE400
+sub_47DD0     114 lines  called by: sub_44D30
+    globals: dword_AE400
+sub_47EC0      80 lines  called by: sub_46DB0
+    globals: dword_AE400
+sub_47F90     183 lines  called by: -
+    calls: sub_42150 sub_423D0 sub_11950 sub_41E80 sub_11F50 sub_41EC0 sub_42000 sub_41C70 sub_481D0
+    globals: dword_AE400 word_AE454 word_AE456 word_AE458
+sub_481D0      41 lines  called by: sub_47F90
+sub_48230     103 lines  called by: sub_407A0,sub_408D0,sub_41780
+    calls: sub_48340
+    globals: dword_AE400 dword_AE408
+sub_48340      30 lines  called by: sub_48230
+    globals: dword_AE400 dword_AE408
+sub_483C0      71 lines  called by: sub_55100
+    calls: sub_651F8 sub_65965 sub_48570
+    globals: byte_939E4 byte_939E5 dword_CC140 word_CBFF0 word_CC1C6
+sub_48470      74 lines  called by: sub_55100
+    calls: sub_651F8 sub_48570
+    globals: byte_939E4 byte_939E5 dword_CC140 word_CBFF0 word_CC1C6
+sub_48520      30 lines  called by: sub_55100
+    calls: sub_48570
+    globals: byte_939E4 byte_939E5 word_CC1C6
+sub_48570      67 lines  called by: sub_483C0,sub_48470,sub_48520
+    calls: sub_651F8 sub_6535C
+    globals: dword_939F0 dword_939F8 dword_CC140 dword_CC144 dword_CC154 word_939F4 word_93A00 word_93A02 word_93A0C word_93A22 word_CBFF0 word_CBFF2 word_CC070
+sub_48710    1097 lines  called by: sub_20FB0
+    calls: sub_5A3C0 sub_410CE sub_40F87 sub_60CE0 sub_60D18 sub_5A180
+    globals: byte_99B58 byte_99B59 byte_AD168 byte_AD177 byte_AE068 byte_AE077 byte_AE167 byte_B7934 byte_BB934 dword_12EFF0 dword_12EFF4 dword_90B4C dword_AE400 dword_AE408 ...
+sub_49300     307 lines  called by: sub_20FB0
+    globals: byte_B7934 byte_BB934 byte_CB934 byte_CBC34 byte_CC1E0 byte_EC1E0 dword_12EFF0 dword_12EFF4 dword_90B4C off_9134C word_12C1F0 word_12F02E
+sub_49600     241 lines  called by: -
+    globals: byte_B7934 byte_BB934 byte_CB934 byte_CC1E0 byte_EC1E0 dword_12EFF0 dword_12EFF4 word_12F02E
+sub_49890     105 lines  called by: -
+    calls: sub_373F0 sub_41CC0 sub_11F50 sub_11810 sub_41E80
+    globals: dword_AE400
+sub_499C0      66 lines  called by: -
+    calls: sub_37030 sub_11F50 sub_11810 sub_373F0 sub_41E80
+sub_49A50      36 lines  called by: -
+    calls: sub_11F50 sub_11810 sub_373F0 sub_41E80
+sub_49AA0      18 lines  called by: -
+    calls: sub_11F50
+sub_49AD0      55 lines  called by: -
+    calls: sub_11950 sub_11F50
+    globals: dword_AE400
+sub_49B50      18 lines  called by: -
+    calls: sub_11F50
+sub_4A980     115 lines  called by: sub_340B0
+    calls: sub_505A0 sprintf sub_5CDE0 sub_62ED0 sub_5CE50
+    strings: %s%s\\intro.pld | C: | CARPET%d | \\carpet.cd
+    globals: byte_12CBC6 byte_12CBC9 byte_12CBCA byte_12CBCC byte_12CBCD byte_12CBCE byte_12CBCF byte_12CBD0 byte_12CBD1 byte_12CBD2 byte_12CBD3 byte_12CBD4 byte_12CBD5 byte_12CBD6 ...
+sub_4AB20     142 lines  called by: sub_340B0
+    calls: sub_40440 sub_65D70 sub_65DC0 sub_50770 sub_4AC70 sub_4D3B0 sub_4BD60 sub_4D680 sub_4E5B0 sub_4F3F0 sub_4EFC0 sub_4F1E0 sub_4EE70 sub_4D560 sub_65E00 sub_61610 sub_411D7 sub_411FD sub_20E60
+    strings: data\\screens\\sptrs.dat
+    globals: byte_12CBCE dword_12CA7C dword_12CAEC dword_12CAF0 dword_12CAF4 dword_12CBB0 dword_96880 dword_AE3FC word_12F02E
+sub_4AC70     601 lines  called by: sub_4AB20
+    calls: sub_4BB20 sub_4B520 sprintf strcmp fopen fprintf fclose sub_5CDE0 sub_62ED0 sub_5CE50 sub_62FA8 sub_62FC4 sub_4B560 sub_5CDA0 sub_599B0 sub_51DF0 sub_4BC90 sub_357C0
+    strings: %s | %s%s\\sndsetup.dat | %s%s\\sndsetup.inf | 2 | 220 | 388 | C: | GENERAL | MUSIC = %s %s 0 0 \n | NONE | No music | No sound | ROLAND | SBAWE32 | SOUNDFX = %s %s %s %s\n | WBLAST | \\carpet.cd | wt
+    globals: byte_12CAE4 byte_12CBC9 byte_12CBCB byte_12CBCE byte_12CBD3 byte_12CBD5 byte_12EEF1 dword_12C9A0 dword_12CA00 dword_12CABC dword_12EFF4 dword_96884 dword_A99A0 dword_AE3FC ...
+sub_4B430      26 lines  called by: sub_4B480
+    globals: byte_12EF1A byte_12EF26 byte_12EF70 dword_96880 dword_AE400
+sub_4B480      64 lines  called by: sub_4EE70,sub_4EFC0,sub_4F1E0
+    calls: sub_4B430
+    globals: byte_12EF70 dword_AC5D4 word_12EFDA word_12EFDC word_12EFDE
+sub_4B520      31 lines  called by: sub_4AC70
+    calls: sub_4B6A0
+    globals: byte_12CBCB
+sub_4B560      97 lines  called by: sub_3FB30,sub_4AC70
+    calls: sub_513E0 sub_51360 sub_4B6A0 sub_4B8D0 sub_4B6F0 sub_60CE0 sub_60D18 sub_51400
+    globals: byte_12CBC9 byte_12CBD3 dword_12CAF8 word_12F02E word_4A8BE word_4A8C0 word_4A8C2
+sub_4B6A0      57 lines  called by: sub_4B520,sub_4B560
+    globals: byte_12CBC9 off_4A66C off_4A6CC off_4A734 off_4A74C off_4A77C off_4A79C off_4A7B4
+sub_4B6F0     169 lines  called by: sub_4B560
+    calls: sub_5CC70 sub_51560 sub_4B8D0 sub_513E0 sub_51360 sub_51400
+    globals: byte_12CBC9 byte_12CBCA byte_12CBCB byte_96888 byte_9688A dword_12CB9C dword_96884 dword_AE238 dword_AE35C dword_AE360 word_968B4
+sub_4B8D0     202 lines  called by: sub_4B560,sub_4B6F0
+    calls: sub_513A0 sub_5CC70 sprintf sub_51560 sub_51420 strncmp
+    strings: %s | %s : | %s : %s\n | NONE
+    globals: byte_9688A dword_12C9A0 dword_12CA00 dword_12CB9C dword_96884 dword_AE27C dword_AE280 dword_AE294 dword_AE298 dword_AE29C dword_AE2A0 word_12C9C0 word_12C9E0 word_12CA80 ...
+sub_4BB20     118 lines  called by: sub_4AC70
+    calls: sub_61CC0 sub_40440 sub_3EEA0 sub_65D70 sub_65DC0 sub_51480 sub_5C05C sub_62FA8 sub_62FC4 sub_5CDA0 sub_599B0
+    strings: data/screens/gconfig.dat | data\\screens\\gconfig.pal | data\\screens\\sfont0.dat
+    globals: byte_12CAE4 byte_12CBCE byte_12CBD5 byte_90B23 byte_96888 dword_12CAEC dword_12CAF8 dword_12CAFC dword_12CB00 dword_12CB28 dword_12CB9C dword_12EFF4 dword_96884 dword_AE3FC ...
+sub_4BC90      55 lines  called by: sub_4AC70
+    calls: sub_61CC0 sub_5C05C sub_411D7 sub_411FD sub_5CDA0 sub_599B0 sub_61610
+    strings: data\\screens\\sfont0.dat
+    globals: byte_12CBD5 byte_90B23 dword_12EFF4 word_12F02E
+sub_4BD60     711 lines  called by: sub_4AB20
+    calls: sub_4C7E0 sub_4C6F0 sub_62FA8 sub_62FC4 sub_4CB70 sub_4C640 sub_4C670 sub_4C6A0 ds sub_4F8D0 sub_51AF0 sub_4CCA0 sub_51C90 sub_51E84 sub_60CE0 sub_60D18 sub_5CDA0 sub_599B0 sub_4C580 sub_20E60 sub_4CAC0
+    globals: byte_12CAE4 byte_12CBC6 byte_12CBCD byte_12CBCE byte_12CBD4 byte_12CBD5 byte_12CBD6 byte_12EEFF byte_12EF0C byte_12EF1A byte_12EF26 byte_12EF70 byte_90B23 byte_9687C ...
+sub_4C580      45 lines  called by: sub_4BD60
+    globals: byte_12CBDC byte_12EF70 dword_968C4 dword_968C8 dword_968CC dword_968D0 dword_968D4 word_12EFE0 word_12EFE2 word_12EFE4 word_9AD90 word_9AD92
+sub_4C640      14 lines  called by: sub_4BD60
+    calls: sub_4C6A0
+    globals: byte_12CBC6
+sub_4C670      14 lines  called by: sub_4BD60
+    calls: sub_4C6A0
+    globals: byte_12CBC6
+sub_4C6A0      43 lines  called by: sub_4BD60,sub_4C640,sub_4C670
+    globals: byte_12CBC6 byte_12CBCD byte_93958 byte_9687C
+sub_4C6F0      75 lines  called by: sub_4BD60
+    calls: sub_1002D
+    globals: byte_12CBCE byte_9687C dword_12CB76 dword_12CB7A dword_12CB84 dword_12CB88 dword_12CBA8 dword_12CBB0 word_12CB7E word_12CB8C
+sub_4C7E0     219 lines  called by: sub_4BD60
+    calls: sub_10010 sub_61CC0 sub_5D070 sub_5CEF0 sub_40440 sub_65D70 sub_65DC0 sub_51480 sub_3EEA0 sub_62FA8 sub_62FC4 sub_504A0 sub_51A10 sub_4CB70 sub_5CDA0 sub_599B0 sub_5C05C sub_356E0 sub_5D290
+    strings: data\\screens\\mainmenu.dat | data\\screens\\mainmenu.pal | data\\screens\\mmspr.dat
+    globals: byte_12CAE4 byte_12CBC6 byte_12CBCE byte_12CBD5 byte_12CBD6 byte_90B23 byte_967E4 byte_96890 dword_12CA60 dword_12CAEC dword_12CB04 dword_12CB08 dword_12CB0C dword_12CB34 ...
+sub_4CAC0      62 lines  called by: sub_4BD60,sub_4FD20
+    calls: sub_61CC0 sub_5C05C sub_411D7 sub_411FD sub_5CDA0 sub_599B0 sub_61610
+    strings: data\\screens\\mmspr.dat
+    globals: byte_12CBCE byte_12CBD5 byte_90B23 byte_967E4 dword_12EFF4 word_12F02E
+sub_4CB70      58 lines  called by: sub_4BD60,sub_4C7E0,sub_4FD20,sub_50030
+    calls: sub_60CE0 sub_60D18
+    globals: byte_12CBCD dword_12CB04 word_12F02E
+sub_4CCA0     365 lines  called by: sub_4BD60
+    calls: sub_62FA8 sub_62FC4 sub_5C05C sub_5CDA0 sub_599B0 sprintf sub_107C0 sub_513E0 sub_51360 strcmp sub_4D0F0 sub_50770 sub_4D190 sub_60CE0 sub_60D18 sub_51400
+    strings: -- | intro\\scroll.dat
+    globals: byte_12CAE4 byte_12CBC6 byte_12CBCE byte_12CBD5 byte_12EEF1 byte_12EF0C byte_90B23 dword_12CAEC dword_12CBA4 dword_12EFF4 dword_4A17C dword_96860 dword_9ADC8 dword_AC5C4 ...
+sub_4D0F0      39 lines  called by: sub_4CCA0
+    calls: sub_50D40
+    globals: byte_12CBC6 byte_12CBD5 byte_12EEF1 byte_12EF0C dword_96860 dword_9688C word_12EFDA word_12EFDC word_12EFDE word_4A130
+sub_4D190     125 lines  called by: sub_4CCA0
+    calls: sub_62FA8 sub_62FC4 sub_65EB0 sub_60CE0 sub_60D18 sub_51560
+    globals: byte_12CBC6 byte_12CBD5 dword_12CB04 dword_12EFF4 dword_96860 dword_9688C dword_AE3FC word_12F02E word_4A130
+sub_4D300      68 lines  called by: -
+    calls: sub_5CC70 sub_513E0 sub_51360 sub_51560 sub_51400
+    strings: Game One            
+    globals: byte_96892 dword_12CB9C dword_4A7EC dword_4A7F0 dword_4A7F4 dword_4A7F8 dword_9688C off_96864
+sub_4D3B0     144 lines  called by: sub_4AB20
+    calls: sub_5C05C sub_61CC0 sub_411D7 sub_411FD sub_5CDA0 sub_599B0 sprintf sub_107C0 sub_24BB0 sub_5D010 sub_20E60
+    strings: intro\\intro.dat
+    globals: byte_12CBCE byte_12CBD5 byte_12CBD6 byte_12EEF1 byte_12EF70 byte_90B23 dword_12EFF4 dword_4A1FC dword_9ADC8 word_12EFDC word_12EFDE word_12F02E word_90026
+sub_4D560      89 lines  called by: sub_4AB20
+    calls: sub_5C05C sub_61CC0 sub_411D7 sub_411FD sub_5CDA0 sub_599B0 sprintf sub_107C0 sub_5D010 sub_20E60
+    strings: intro\\outro.dat
+    globals: byte_12EEF1 byte_12EF70 byte_90B23 dword_12EFF4 dword_4A638 dword_96880 dword_9ADC8 dword_AC5D4 dword_AE400 word_12EFDC word_12EFDE word_12F02E word_90026
+sub_4D680     509 lines  called by: sub_4AB20
+    calls: sub_4E0E0 sub_4E320 sub_4DCC0 sub_513E0 sub_51360 sub_51420 sub_51560 sub_51400 sub_5CDA0 sub_599B0 sub_5C05C sub_43430 sub_43930 sub_61CC0 sprintf sub_60CE0 sub_60D18 sub_4E270
+    strings: CARPET%d
+    globals: byte_12CAE4 byte_12CBCE byte_12CBD0 byte_12CBD1 byte_12CBD2 byte_12CBD5 byte_12EEF1 byte_90B23 byte_9689C byte_9689D dword_12CAEC dword_12CB10 dword_12CB9C dword_96880 ...
+sub_4DCC0     374 lines  called by: sub_4D680,sub_4E320,sub_4E3D0,sub_4E470,sub_4E510
+    calls: sub_5C05C sub_62FA8 sub_62FC4 sub_513E0 sub_51360 sub_60CE0 sub_60D18 sub_5CC70 sub_51420 sub_51560 sub_51400
+    strings: Bussorah
+    globals: byte_12CBCE byte_12CBD2 byte_12CBD5 byte_90B23 byte_96892 byte_9689C byte_9689D byte_9689E dword_12CAEC dword_12CB10 dword_12CB9C dword_12CBB0 dword_12EFF4 dword_9688C ...
+sub_4E0E0     131 lines  called by: sub_4D680
+    calls: sub_61CC0 sub_20E60 sub_40440 sub_65D70 sub_65DC0 sub_51480 sub_3EEA0 sub_62FA8 sub_62FC4 sub_5CDA0 sub_599B0 sub_5C05C sub_5CC70
+    strings: data\\screens\\pmulti.dat | data\\screens\\pmulti.pal | data\\screens\\pmultspr.dat
+    globals: byte_12CBCE byte_12CBD5 byte_90B23 byte_96890 byte_96892 dword_12CAEC dword_12CB10 dword_12CB14 dword_12CB18 dword_12CB34 dword_12CB9C dword_12EFF4 dword_9688C dword_AE3FC ...
+sub_4E270      61 lines  called by: sub_4D680
+    calls: sub_61CC0 sub_5C05C sub_411D7 sub_411FD sub_5CDA0 sub_599B0 sub_61610 sub_5D290
+    strings: data\\screens\\pmultspr.dat
+    globals: byte_12CBCE byte_12CBD5 byte_90B23 dword_12EFF4 word_12F02E
+sub_4E320      61 lines  called by: sub_4D680
+    calls: sub_4DCC0 sub_513E0 sub_51360 sub_51420 sub_51560 sub_51400 sub_5CDA0 sub_599B0
+    globals: byte_9689C byte_9689E dword_12CBB0 dword_9688C dword_AE408 word_12F02E
+sub_4E3D0      52 lines  called by: sub_42930,sub_42A00
+    calls: sub_4DCC0 sub_513E0 sub_51360 sub_51420 sub_51560 sub_51400 sub_5CDA0 sub_599B0
+    globals: byte_9689E dword_12CBB0 dword_9688C dword_AE408 word_12F02E
+sub_4E470      52 lines  called by: sub_42930,sub_42A00,sub_43430
+    calls: sub_4DCC0 sub_513E0 sub_51360 sub_51420 sub_51560 sub_51400 sub_5CDA0 sub_599B0
+    globals: byte_9689E dword_12CBB0 dword_9688C dword_AE408 word_12F02E
+sub_4E510      52 lines  called by: sub_42930
+    calls: sub_4DCC0 sub_513E0 sub_51360 sub_51420 sub_51560 sub_51400 sub_5CDA0 sub_599B0
+    globals: byte_9689E dword_12CBB0 dword_9688C dword_AE408 word_12F02E
+sub_4E5B0     721 lines  called by: sub_4AB20
+    calls: sub_5C05C sub_61CC0 sub_411D7 sub_411FD sub_5CDA0 sub_599B0 sprintf sub_107C0 sub_5D010 sub_20E60 sub_5D070 sub_5CEF0 sub_5D290 sub_40440 sub_65D70 sub_65DC0 sub_3EEA0 sub_62FA8 sub_62FC4 sub_51360 sub_61610 sub_51560 sub_65F10 sub_51420
+    strings: % 3d %% | %dh% 02dm %02ds | data/screens/pperf.pal | data\\screens\\pperf.dat | data\\screens\\sfont2.dat | intro\\levelose.dat | intro\\levelw1.dat | intro\\levelw2.dat
+    globals: byte_12CAE4 byte_12CBCE byte_12EEF1 byte_12EF0C byte_12EF29 byte_12EF70 byte_90B23 dword_12CB40 dword_12CB44 dword_12CB48 dword_12CB9C dword_12EFF4 dword_4A1C0 dword_4A5D8 ...
+sub_4EE70     113 lines  called by: sub_4AB20
+    calls: sub_5C05C sub_61CC0 sub_411D7 sub_411FD sub_5CDA0 sub_599B0 sprintf sub_107C0 sub_4B480 sub_5D010 sub_20E60
+    strings: intro\\logo.dat
+    globals: byte_12CBCE byte_12EF70 byte_90B23 dword_12EFF4 dword_4A620 dword_9ADC8 word_12EFDA word_12EFDC word_12EFDE word_12F02E word_90026
+sub_4EFC0     118 lines  called by: sub_4AB20
+    calls: sub_19470 sub_5C05C sub_61CC0 sub_411D7 sub_411FD sub_5CDA0 sub_599B0 sprintf sub_107C0 sub_4B480 sub_5D010 sub_20E60
+    strings: intro\\intel.dat
+    globals: byte_12CBCE byte_12EF70 byte_90B23 dword_12EFF4 dword_4A1E4 dword_9ADC8 dword_AE408 word_12EFDA word_12EFDC word_12EFDE word_12F02E word_90026
+sub_4F120      64 lines  called by: -
+    calls: sub_1002D sub_5CDA0 sub_599B0
+    globals: byte_12EF70 dword_12CB68 dword_12CB6C dword_12EFF4 dword_AC5D4 word_12CB70 word_12EFDA word_12EFDC word_12EFDE word_12F02E
+sub_4F1E0     168 lines  called by: sub_4AB20
+    calls: sub_5C05C sub_61CC0 sub_411D7 sub_411FD sub_5CDA0 sub_599B0 sub_40440 sprintf sub_107C0 sub_4B480 sub_5D010 sub_20E60 sub_61610
+    strings: intro\\title-01.dat | intro\\title-02.dat
+    globals: byte_12CBCE byte_12CBD6 byte_12EF70 byte_90B23 dword_12CB64 dword_12CB68 dword_12CB6C dword_12CBB0 dword_12EFF4 dword_4A568 dword_9ADC8 dword_AE400 word_12CB70 word_12EFDA ...
+sub_4F3F0     426 lines  called by: sub_4AB20
+    calls: sprintf sub_5CDE0 sub_3EEA0 sub_40440 sub_65D70 sub_65DC0 sub_62FA8 sub_62FC4 sub_5CDA0 sub_599B0 sub_5C05C sub_61CC0 sub_50770 sub_60CE0 sub_60D18 sub_62ED0 sub_5CE50 sub_5CBD0 sub_61610 sub_44700
+    strings: %s%s\\language.inf | -=_ | =-=_ | C: | \\carpet.cd | data\\screens\\langspr.dat | data\\screens\\language.dat | data\\screens\\language.pal
+    globals: byte_12CAE4 byte_12CBCE byte_12CBD5 byte_12EEF1 byte_90B23 dword_12CAEC dword_12CB58 dword_12CB5C dword_12CB60 dword_12CB9C dword_12CBB0 dword_12EFF4 dword_AE238 dword_AE3FC ...
+sub_4F8D0     390 lines  called by: sub_4BD60,sub_4FD20,sub_4FF30
+    calls: sub_62FA8 sub_62FC4 sub_5C05C sub_5CDA0 sub_599B0 sprintf sub_107C0 sub_513E0 sub_51360 sub_50770 sub_60CE0 sub_60D18 sub_51400
+    strings: intro\\scroll.dat
+    globals: byte_12CAE4 byte_12CBCE byte_12EEF1 byte_12EF0C byte_90B23 dword_12CAEC dword_12CB04 dword_12CBA4 dword_12EFF4 dword_4A17C dword_9ADC8 dword_AC5C4 dword_AE3FC word_12CAE0 ...
+sub_4FD20      71 lines  called by: -
+    calls: sub_4F8D0 sub_4CAC0 sub_62FA8 sub_62FC4 sub_4CB70
+    globals: byte_12CBCD dword_12CBA8 dword_12EFF4 dword_96880 dword_AE3FC dword_AE400 word_12F02E
+sub_4FE00      62 lines  called by: -
+    calls: sub_65EB0 sub_60CE0 sub_60D18
+    globals: dword_12CB04 word_12F02E
+sub_4FF30      49 lines  called by: -
+    calls: sub_4F8D0 memset
+    globals: byte_12CBCE byte_12CBD5 byte_9687C dword_96880 dword_AE400 dword_AE408
+sub_4FFE0      34 lines  called by: -
+    calls: sub_513A0 sub_51420 sub_51560
+    globals: dword_9688C dword_AE2C8 off_98FD8
+sub_50030     255 lines  called by: -
+    calls: sub_62FA8 sub_62FC4 sprintf sub_5C05C sub_5CDA0 sub_599B0 sub_107C0 sub_513E0 sub_51360 sub_50D40 sub_4CB70 sub_51400
+    strings: intro\\scroll.dat
+    globals: byte_12CAE4 byte_12CBCE byte_12CBD5 byte_12EF0C byte_90B23 dword_12CAEC dword_12CBA4 dword_12EFF4 dword_4A17C dword_9688C dword_9ADC8 dword_AC5C4 dword_AE3FC dword_AE408 ...
+sub_50350      57 lines  called by: -
+    calls: sub_513A0 sub_62FA8 sub_62FC4 sub_51420 sub_51560
+    globals: dword_12EFF4 dword_9688C dword_AE2C0 dword_AE3FC word_12F02E
+sub_503E0      57 lines  called by: -
+    calls: sub_513A0 sub_62FA8 sub_62FC4 sub_51420 sub_51560
+    globals: dword_12EFF4 dword_9688C dword_AE2C4 dword_AE3FC word_12F02E
+sub_50470      24 lines  called by: -
+    globals: dword_12CBA4 dword_12EFF4
+sub_504A0      96 lines  called by: sub_4C7E0
+    calls: sub_5CC70
+    globals: dword_12CB9C dword_12CBAC
+sub_505A0     143 lines  called by: sub_4A980
+    calls: sprintf sub_5CDE0 sub_5CE50 sub_5CBD0
+    strings: %s%s\\sndsetup.dat | %s%s\\sndsetup.inf | C: | NONE | \\carpet.cd
+    globals: dword_12C9A0 dword_12CA00 dword_12CABC dword_A99A0 word_12C9C0 word_12C9E0 word_12CA20 word_12CA80 word_12CA8A word_12CA94 word_12CA9E word_12CAA8 word_12CAB2 word_12CAC6 ...
+sub_50770     559 lines  called by: sub_4AB20,sub_4CCA0,sub_4F3F0,sub_4F8D0
+    calls: sub_3FCA0
+    globals: byte_12CAE4 byte_12CAE5 byte_12CAE6 byte_12CAE7 byte_12CAE8 byte_12CBCF byte_12EF37 byte_12EF38 byte_12EF39 byte_12EF3B byte_12EF3D byte_12EF3F byte_12EF40 byte_12EF41 ...
+sub_50D40     511 lines  called by: sub_4D0F0,sub_50030
+    calls: sub_513A0 sub_51420 sub_512D0 sub_51330 sub_51560 sub_51ECC sub_5CDA0 sub_599B0
+    globals: byte_12CBD5 byte_12EEF1 byte_12EF0C byte_12EF1A byte_12EF26 byte_12EF70 byte_4A84B byte_4A884 byte_4A905 byte_4A93E word_12EFDC word_12EFDE word_12F02E
+sub_512D0      51 lines  called by: sub_50D40
+    calls: memmove
+sub_51330      26 lines  called by: sub_50D40
+    calls: memmove
+sub_51360      25 lines  called by: sub_24AB0,sub_4B560,sub_4B6F0,sub_4CCA0,sub_4D300,sub_4D680,sub_4DCC0,sub_4E320,sub_4E3D0,sub_4E470,sub_4E510,sub_4E5B0,sub_4F8D0,sub_50030
+    globals: dword_12C970 dword_12C974 dword_12C978 dword_12C97C dword_12C980 dword_12C984
+sub_513A0      19 lines  called by: sub_4B8D0,sub_4FFE0,sub_50350,sub_503E0,sub_50D40
+    globals: dword_12C970 dword_12C974 dword_12C978 dword_12C97C dword_12C980 dword_12C984
+sub_513E0      13 lines  called by: sub_4B560,sub_4B6F0,sub_4CCA0,sub_4D300,sub_4D680,sub_4DCC0,sub_4E320,sub_4E3D0,sub_4E470,sub_4E510,sub_4F8D0,sub_50030
+    globals: dword_12C970 dword_12C988 dword_12CA78
+sub_51400      13 lines  called by: sub_4B560,sub_4B6F0,sub_4CCA0,sub_4D300,sub_4D680,sub_4DCC0,sub_4E320,sub_4E3D0,sub_4E470,sub_4E510,sub_4F8D0,sub_50030
+    globals: dword_12C970 dword_12C988 dword_12CA78
+sub_51420      60 lines  called by: sub_4B8D0,sub_4D680,sub_4DCC0,sub_4E320,sub_4E3D0,sub_4E470,sub_4E510,sub_4E5B0,sub_4FFE0,sub_50350,sub_503E0,sub_50D40
+sub_51480      38 lines  called by: sub_24AB0,sub_4BB20,sub_4C7E0,sub_4E0E0
+    calls: sub_519E0 sub_5CC70
+sub_51560     135 lines  called by: sub_24B50,sub_4B6F0,sub_4B8D0,sub_4D190,sub_4D300,sub_4D680,sub_4DCC0,sub_4E320,sub_4E3D0,sub_4E470,sub_4E510,sub_4E5B0,sub_4FFE0,sub_50350,sub_503E0,sub_50D40
+    calls: sub_60D18 sub_51650
+sub_51650     470 lines  called by: sub_51560
+    globals: dword_12C970 dword_12C974 dword_12C978 dword_12C97C dword_12EFF0 dword_12EFF4
+sub_519E0      30 lines  called by: sub_51480
+sub_51A10      86 lines  called by: sub_4C7E0
+    calls: sprintf sub_5CDE0 sub_5CBD0 sub_5CE50
+    strings: %s%s\\save\\carpdd%02X.gam | -- | C: | Game One             | \\carpet.cd
+    globals: off_96864
+sub_51AF0     143 lines  called by: sub_4BD60
+    calls: sprintf sub_5CDE0 sub_5CBD0 sub_5CE50
+    strings: %s%s\\save\\carpdd%02X.gam | C: | Game One             | \\carpet.cd
+    globals: byte_12CBD0 byte_12CBD1 byte_9687C dword_AE400 dword_AE408 off_96864
+sub_51C90     118 lines  called by: sub_4BD60
+    calls: sprintf sub_5CDE0 sub_62ED0 sub_5CE50
+    strings: %s%s\\save\\carpdd%02X.gam | C: | Game One             | \\carpet.cd
+    globals: byte_12CBD0 byte_12CBD1 dword_AE400 dword_AE408 off_96864
+sub_51DF0      64 lines  called by: sub_4AC70
+    calls: sub_3F7D0 sub_3F820 sub_3F370 sub_5AF50
+    globals: byte_90B23 dword_12CAF8 dword_9AD98 dword_AE400
+sub_51E84      42 lines  called by: sub_4BD60
+    globals: dword_12EFF0 dword_12EFF8
+sub_51ECC     143 lines  called by: sub_50D40
+    globals: dword_12EFF0 dword_12EFF4 dword_12F000 dword_12F008 dword_12F010 dword_12F018 dword_12F024 dword_12F028
+sub_51FC0     108 lines  called by: sub_55100
+    calls: sub_651F8 sub_66118
+    globals: byte_12CC20 byte_939E4 byte_939E5 dword_CC140 word_12CC40 word_CC070
+sub_520F0      21 lines  called by: sub_55370
+    calls: sub_52120
+    globals: word_968D8
+sub_52120     146 lines  called by: sub_520F0
+    calls: sub_651F8 sub_6535C
+    globals: byte_12CC20 byte_12CCC0 byte_939E4 byte_939E5 dword_939F0 dword_939F8 dword_CC140 dword_CC144 dword_CC154 word_12CC40 word_939F4 word_939FC word_93A00 word_93A02 ...
+sub_522E0     108 lines  called by: sub_55100
+    calls: sub_651F8 sub_65965 sub_66118
+    globals: byte_12CCC0 byte_939E4 byte_939E5 dword_CC140 word_12CCE0 word_CC070
+sub_52400      66 lines  called by: sub_55890
+    calls: sub_651F8
+    globals: byte_12CC20 byte_12CCC0 byte_939E4 byte_939E5 dword_CC140 word_12CC80 word_12CCE0 word_CBFF0 word_CC070
+sub_524C0      12 lines  called by: sub_52500,sub_52550,sub_52770,sub_52B30,sub_52ED0,sub_530C0,sub_53B50,sub_53DC0,sub_54180,sub_542B0,sub_54A90
+sub_524E0      13 lines  called by: sub_52500,sub_52550,sub_52770,sub_52B30,sub_52ED0,sub_530C0,sub_53DC0,sub_54180,sub_542B0,sub_54A90
+sub_52500      35 lines  called by: sub_54520
+    calls: sub_524C0 sub_42150 sub_42180 sub_524E0
+sub_52550      71 lines  called by: sub_52770,sub_52B30,sub_52ED0,sub_530C0,sub_53DC0,sub_542B0
+    calls: sub_524C0 sub_42150 sub_42180 sub_422A0 sub_524E0
+sub_52610      62 lines  called by: sub_53980
+    calls: sub_42150 sub_42180 sub_422A0
+sub_526C0      73 lines  called by: sub_52770,sub_52B30,sub_52ED0,sub_530C0,sub_535E0,sub_53DC0,sub_542B0
+    globals: dword_AE400
+sub_52770     344 lines  called by: sub_53060,sub_53070
+    calls: sub_52550 sub_54520 sub_41EC0 sub_41C70 sub_11980 sub_55370 sub_42240 sub_42210 sub_524C0 sub_524E0 sub_11F50 sub_11810 sub_373F0 sub_41E80 sub_526C0
+    globals: dword_AE400 word_AE454 word_AE458
+sub_52B30     333 lines  called by: -
+    calls: sub_52550 sub_54520 sub_42210 sub_42240 sub_41EC0 sub_41C70 sub_11980 sub_55370 sub_524C0 sub_524E0 sub_11F50 sub_11810 sub_373F0 sub_41E80 sub_526C0
+    globals: dword_AE400 word_AE454 word_AE458
+sub_52ED0     158 lines  called by: -
+    calls: sub_52550 sub_54520 sub_41EC0 sub_11F50 sub_41C70 sub_11AC0 sub_524C0 sub_524E0 sub_373F0 sub_526C0 sub_41E80
+    globals: dword_AE400 word_AE454 word_AE458
+sub_53060      10 lines  called by: -
+    calls: sub_52770
+sub_53070      31 lines  called by: -
+    calls: sub_52770 sub_373F0
+sub_530B0       9 lines  called by: -
+    calls: sub_530C0
+sub_530C0     375 lines  called by: sub_530B0
+    calls: sub_52550 sub_54520 sub_41EC0 sub_41C70 sub_11980 sub_55370 sub_42240 sub_42210 sub_524C0 sub_524E0 sub_11F50 sub_11810 sub_373F0 sub_41E80 sub_526C0
+    globals: dword_AE400 word_AE454 word_AE458
+sub_534C0     116 lines  called by: sub_535E0
+    calls: sub_54520 sub_41EC0 sub_11980 sub_11F50 sub_41E80
+    globals: dword_AE400 word_AE454 word_AE458
+sub_535E0     347 lines  called by: -
+    calls: sub_41DD0 sub_534C0 sub_41EC0 sub_372C0 sub_36FA0 sub_41CF0 sub_36DE0 sub_11980 sub_373F0 sub_526C0
+    globals: dword_AE400 word_AE454 word_AE456 word_AE458
+sub_53980     188 lines  called by: -
+    calls: sub_53B50 sub_52610 sub_41EC0 sub_41C70 sub_11950 sub_11F50 sub_41E80 sub_373F0 sub_46D20
+    globals: dword_AE400 word_AE454 word_AE458
+sub_53B50     236 lines  called by: sub_53980
+    calls: sub_12F70 sub_46D20 sub_42150 sub_42180 sub_422A0 sub_41EC0 sub_41C70 sub_11950 sub_524C0 sub_11F50 sub_373F0 sub_41E80
+    globals: dword_AE400 word_AE454 word_AE458
+sub_53DC0     346 lines  called by: -
+    calls: sub_52550 sub_54520 sub_41EC0 sub_41C70 sub_11980 sub_55370 sub_42240 sub_42210 sub_524C0 sub_524E0 sub_11F50 sub_11810 sub_373F0 sub_41E80 sub_526C0
+    globals: dword_AE400 word_AE454 word_AE458
+sub_54180     111 lines  called by: -
+    calls: sub_55370 sub_41EC0 sub_11980 sub_11F50 sub_524C0 sub_41C70 sub_524E0 sub_120B0 sub_41E80
+    globals: dword_AE400 word_AE454 word_AE458
+sub_54290      18 lines  called by: -
+    calls: sub_41E80
+sub_542B0     180 lines  called by: -
+    calls: sub_52550 sub_54520 sub_41EC0 sub_11F50 sub_41C70 sub_11C00 sub_524C0 sub_524E0 sub_373F0 sub_526C0 sub_41E80
+    globals: dword_AE400 word_AE454 word_AE458
+sub_54480      31 lines  called by: -
+    calls: sub_373F0 sub_41E80
+sub_54520     587 lines  called by: sub_52770,sub_52B30,sub_52ED0,sub_530C0,sub_534C0,sub_53DC0,sub_542B0
+    calls: sub_42340 sub_54BD0 sub_54A90 sub_52500 sub_46520
+    globals: dword_AE400 dword_AE408
+sub_54A90     127 lines  called by: sub_54520
+    calls: sub_524C0 sub_42150 sub_42210 sub_524E0 sub_42180 sub_423D0
+    globals: dword_90B4C off_9134C
+sub_54BD0     106 lines  called by: sub_54520
+    calls: sub_42150 sub_42210 sub_42180 sub_423D0
+    globals: dword_90B4C off_9134C
+sub_54CD0     213 lines  called by: -
+    calls: sub_42340 sub_42150 sub_42210 sub_42180 sub_41EC0 sub_11950 sub_11F50
+sub_54F00      60 lines  called by: sub_41780
+    calls: sub_54F80
+    globals: dword_AE400 dword_AE408
+sub_54F80     133 lines  called by: sub_54F00
+    calls: sub_42410 sub_410CE
+    globals: dword_AE400
+sub_55100     150 lines  called by: sub_34530
+    calls: sub_522E0 sub_51FC0 sub_483C0 sub_48520 sub_48470 sub_5D750 sub_5D460 sub_66250
+    globals: byte_939E4 byte_939E5 dword_AE408 word_12CD20 word_12CD22 word_12CD24 word_12CD26 word_12CD28
+sub_55370     437 lines  called by: sub_1B090,sub_1B2D0,sub_1B370,sub_1B3C0,sub_1B520,sub_1C110,sub_1C4A0,sub_1C4F0,sub_1C880,sub_1CE30,sub_1DE40,sub_1E380,sub_1E720,sub_1E810,sub_1EA40,sub_207E0,sub_24F60,sub_25130,sub_25410,sub_25470,sub_25670,sub_25CE0,sub_262D0,sub_269A0,sub_26A60,sub_26D20,sub_27030,sub_28DC0,sub_299D0,sub_3C9D0,sub_3DC90,sub_44D30,sub_455D0,sub_45C90,sub_46540,sub_46B00,sub_47960,sub_47A70,sub_52770,sub_52B30,sub_530C0,sub_53DC0,sub_54180,sub_55A40,sub_55DD0,sub_56090,sub_56270,sub_56380,sub_56510,sub_567A0,sub_56950,sub_56AF0,sub_56CA0,sub_56E50,sub_57040,sub_57250,sub_57470,sub_57610,sub_57800,sub_579D0,sub_57B80,sub_57D40,sub_57F00,sub_58240,sub_59B80,sub_59E40,sub_5A090
+    calls: sub_42410 sub_423D0 sub_42150 sub_42210 sub_42240 sub_520F0 sub_55870
+    globals: byte_939E4 byte_939E5 byte_939EC dword_AE400 word_12CD20 word_12CD22 word_12CD24 word_12CD26
+sub_55870      12 lines  called by: sub_55370
+sub_55890      47 lines  called by: sub_455D0
+    calls: sub_52400
+    globals: byte_939E4 byte_939E5 byte_939EC dword_AE400
+sub_558F0      14 lines  called by: -
+    calls: sub_5F83E sub_55960
+    globals: byte_968E0
+sub_55960      17 lines  called by: sub_558F0
+    calls: sub_5DC91 sub_20E60 sub_5F83E
+    globals: byte_968E0 byte_968E1 dword_80120
+sub_559A0      16 lines  called by: sub_61F90
+    calls: sub_66324
+    globals: byte_939E4 byte_939E5 dword_CC140
+sub_559D0      42 lines  called by: -
+    calls: sub_651F8
+    globals: byte_939E4 byte_939E5 dword_CC140 word_CBFF0
+sub_55A40     275 lines  called by: sub_55D30,sub_55DB0
+    calls: sub_41E80 sub_11F50 sub_42090 sub_11950 sub_55370
+    globals: dword_AE400 dword_AE408
+sub_55D30      48 lines  called by: -
+    calls: sub_55A40 off_987DE
+    globals: byte_968E4 off_987DE
+sub_55DB0      15 lines  called by: -
+    calls: sub_55A40
+sub_55DD0      67 lines  called by: sub_56090,sub_56270,sub_56380,sub_56510,sub_566C0,sub_56730,sub_567A0,sub_56950,sub_56AF0,sub_56CA0,sub_56E50,sub_57040,sub_571B0,sub_57250,sub_573F0,sub_57470,sub_57610,sub_57800,sub_579D0,sub_57B80,sub_57D40,sub_57F00,sub_580A0,sub_58240
+    calls: sub_55370
+    globals: dword_AE400
+sub_55E80      45 lines  called by: sub_56090,sub_56380,sub_56510,sub_566C0,sub_56730,sub_567A0,sub_56950,sub_56AF0,sub_56CA0,sub_56E50,sub_57040,sub_571B0,sub_57250,sub_573F0,sub_57470,sub_57610,sub_57800,sub_579D0,sub_57B80,sub_57D40,sub_57F00,sub_580A0,sub_58240
+sub_55EF0     158 lines  called by: sub_56090,sub_56510,sub_567A0,sub_56950,sub_56AF0,sub_56CA0,sub_57040,sub_57250,sub_57470,sub_57610,sub_57800,sub_579D0,sub_57B80,sub_57D40,sub_580A0,sub_58240
+    calls: sub_41EC0 sub_11F50 sub_41C70
+    globals: dword_AE400
+sub_56090     153 lines  called by: -
+    calls: sub_55DD0 sub_373F0 sub_55EF0 sub_41EC0 sub_55370 sub_55E80
+    globals: dword_AE400
+sub_56270     103 lines  called by: -
+    calls: sub_55DD0 sub_55370
+    globals: dword_AE400
+sub_56380     141 lines  called by: -
+    calls: sub_55DD0 sub_55370 locret_455C0 sub_373F0 sub_55E80
+    globals: dword_AE400
+sub_56510     147 lines  called by: -
+    calls: sub_55DD0 sub_373F0 sub_55EF0 sub_41EC0 sub_55370 sub_55E80
+    globals: dword_AE400
+sub_566C0      48 lines  called by: -
+    calls: sub_55DD0 sub_55E80
+    globals: dword_AE400
+sub_56730      45 lines  called by: -
+    calls: sub_55DD0 sub_55E80
+    globals: dword_AE400
+sub_567A0     137 lines  called by: -
+    calls: sub_55DD0 sub_373F0 sub_55EF0 sub_41EC0 sub_11F50 sub_55370 sub_55E80
+    globals: dword_AE400
+sub_56950     135 lines  called by: -
+    calls: sub_55DD0 sub_373F0 sub_55EF0 sub_41EC0 sub_55370 sub_55E80
+    globals: dword_AE400
+sub_56AF0     137 lines  called by: -
+    calls: sub_55DD0 sub_373F0 sub_55EF0 sub_41EC0 sub_11F50 sub_55370 sub_55E80
+    globals: dword_AE400
+sub_56CA0     137 lines  called by: -
+    calls: sub_55DD0 sub_373F0 sub_55EF0 sub_41EC0 sub_11F50 sub_55370 sub_55E80
+    globals: dword_AE400
+sub_56E50     169 lines  called by: -
+    calls: sub_55DD0 sub_41C70 sub_41EC0 sub_55370 sub_55E80
+    globals: dword_AE400
+sub_57040     125 lines  called by: -
+    calls: sub_55DD0 sub_373F0 sub_55EF0 sub_41EC0 sub_55370 sub_55E80
+    globals: dword_AE400
+sub_571B0      68 lines  called by: -
+    calls: sub_55DD0 sub_55E80
+    globals: dword_AE400
+sub_57250     135 lines  called by: -
+    calls: sub_55DD0 sub_373F0 sub_55EF0 sub_41EC0 sub_55370 sub_55E80
+    globals: dword_AE400
+sub_573F0      54 lines  called by: -
+    calls: sub_55DD0 sub_55E80
+    globals: dword_AE400
+sub_57470     135 lines  called by: -
+    calls: sub_55DD0 sub_373F0 sub_55EF0 sub_41EC0 sub_55370 sub_55E80
+    globals: dword_AE400
+sub_57610     160 lines  called by: -
+    calls: sub_55DD0 sub_55E80 sub_373F0 sub_55EF0 sub_41EC0 sub_11F50 sub_55370
+    globals: dword_AE400
+sub_57800     154 lines  called by: -
+    calls: sub_55DD0 sub_373F0 sub_55EF0 sub_41EC0 sub_55370 sub_55E80
+    globals: dword_AE400
+sub_579D0     138 lines  called by: -
+    calls: sub_55DD0 sub_373F0 sub_55EF0 sub_41EC0 sub_55370 sub_55E80
+    globals: dword_AE400
+sub_57B80     153 lines  called by: -
+    calls: sub_55DD0 sub_373F0 sub_55EF0 sub_41EC0 sub_55370 sub_55E80
+    globals: dword_AE400
+sub_57D40     153 lines  called by: -
+    calls: sub_55DD0 sub_373F0 sub_55EF0 sub_41EC0 sub_55370 sub_55E80
+    globals: dword_AE400
+sub_57F00     148 lines  called by: -
+    calls: sub_55DD0 sub_55370 locret_455C0 sub_373F0 sub_55E80
+    globals: dword_AE400
+sub_580A0     139 lines  called by: -
+    calls: sub_55DD0 sub_373F0 sub_55EF0 sub_41EC0 sub_55E80
+    globals: dword_AE400
+sub_58240     153 lines  called by: -
+    calls: sub_55DD0 sub_373F0 sub_55EF0 sub_41EC0 sub_55370 sub_55E80
+    globals: dword_AE400
+sub_58768      70 lines  called by: sub_5A180
+    calls: sub_60D50 sub_60D65
+    globals: dword_12EFF4 word_12F02E
+sub_587E0      40 lines  called by: sub_58E70,sub_58F90
+    calls: sprintf sub_5CDE0
+    strings: %s%s/%s/%s.dat | \\carpet.cd | data | data/%s.dat | tmaps0-0
+    globals: dword_968EC dword_A9C60
+sub_58860      75 lines  called by: sub_58B30,sub_58F90
+    calls: sub_62B30 sub_5CBD0 sub_62B60 printf
+    strings: ERROR decompressing tmap%03d\n
+    globals: dword_12D744 dword_968EC
+sub_58910      93 lines  called by: sub_58C30,sub_59230,sub_59420
+    calls: sub_10FD0 sub_10F10 sub_36A90
+    globals: byte_12E7D0 dword_12CF00 dword_12D744 dword_12D748 dword_12DF8C dword_AE3E0 dword_AE3EC
+sub_58A00      85 lines  called by: sub_58C30
+    calls: sub_10FD0 sub_10F10 sub_36A90
+    globals: dword_12CF00 dword_12D744 dword_12D748 dword_12DF8C dword_AE3E0 dword_AE3EC
+sub_58AD0      47 lines  called by: sub_58C30,sub_59050,sub_59230,sub_59420
+    globals: dword_12D744
+sub_58B30      96 lines  called by: sub_59050,sub_59230,sub_59370,sub_59420
+    calls: sub_369E0 sub_58860 sub_10D40
+    globals: dword_12CF00 dword_12D744 dword_12D748 dword_12DF8C dword_AE3E0 dword_AE3EC dword_AE408
+sub_58C30     248 lines  called by: sub_41490,sub_59050
+    calls: sub_58A00 sub_58910 sub_58AD0
+    globals: byte_12E7D0 dword_12CF00 dword_12D744 dword_12DF8C
+sub_58E70      40 lines  called by: sub_59230,sub_59420
+    calls: sub_36700 sub_10CB0 sub_587E0 memset sub_59320 sub_59370
+    globals: dword_12CF00 dword_12D748 dword_12DF8C dword_AE3E0 dword_AE3EC dword_AE408
+sub_58F00      28 lines  called by: sub_34C60
+    calls: sub_36C10 sub_11010 sub_59140 memset
+    globals: byte_968E8 dword_12CF00 dword_12D748 dword_12DF8C dword_AE3E0 dword_AE3EC
+sub_58F70      12 lines  called by: sub_58F90
+    calls: sub_5CE50
+    globals: dword_968EC
+sub_58F90      75 lines  called by: sub_340B0
+    calls: sub_587E0 sub_58860 sub_58F70
+    globals: byte_99BA0 dword_12EFF4
+sub_59050      59 lines  called by: sub_2DCB0,sub_2F170,sub_2FC50
+    calls: sub_58AD0 W?cause$_failure$_ios$n_x__i sub_58C30 sub_58B30
+    globals: dword_12DF8C dword_AE3EC dword_AE408
+sub_590D0      42 lines  called by: sub_34530
+    calls: sub_10FD0 sub_10EB0
+    globals: dword_12DF8C dword_AE3E0
+sub_59140       8 lines  called by: sub_37440,sub_58F00
+    calls: memset
+    globals: byte_12E9E1
+sub_59160      69 lines  called by: sub_37440
+    calls: sub_591E0
+    globals: word_989C6
+sub_591E0      23 lines  called by: sub_59160
+    globals: byte_12E9E1 byte_99BA0 dword_12D744
+sub_59230     114 lines  called by: sub_37440
+    calls: sub_58E70 memset sub_58910 sub_58AD0 W?cause$_failure$_ios$n_x__i sub_58B30
+    globals: byte_12E9E1 dword_12CF00 dword_12DF8C dword_AE3EC
+sub_59320      31 lines  called by: sub_58E70
+    calls: memset
+    globals: byte_12E7D0 byte_968F0 byte_99BA0
+sub_59370      24 lines  called by: sub_58E70
+    calls: sub_58B30
+    globals: byte_12E7D0
+sub_593B0      40 lines  called by: sub_16B00,sub_3E9D0
+    calls: memset
+    globals: byte_12E7D0 dword_12DF8C dword_AE400
+sub_59420     108 lines  called by: sub_16B00,sub_3E9D0
+    calls: sub_58E70 sub_58910 sub_58AD0 W?cause$_failure$_ios$n_x__i sub_58B30
+    globals: dword_12DF8C dword_AE3EC dword_AE400
+sub_59500      54 lines  called by: sub_34B00,sub_34C80
+    calls: sub_65D70 sub_65DC0
+    globals: word_12F02E
+sub_59560      53 lines  called by: sub_34C80
+    calls: sub_66390 sub_66410
+    globals: word_12F02E
+sub_595C0      40 lines  called by: -
+sub_59600      30 lines  called by: -
+sub_59630      28 lines  called by: -
+sub_59660      26 lines  called by: -
+sub_59690      17 lines  called by: -
+    calls: _gettextposition
+sub_596C0      63 lines  called by: -
+    calls: strnicmp
+sub_59720      16 lines  called by: sub_340B0,sub_3DC90
+    calls: sub_59750
+    globals: word_12F02E
+sub_59750     133 lines  called by: sub_59720
+    calls: memset int386
+    globals: dword_9AD98 word_12F02E word_9AD90 word_9AD92
+sub_59890     116 lines  called by: -
+    calls: memset int386
+    globals: word_12F02E
+sub_599B0      69 lines  called by: sub_30B30,sub_34460,sub_3FB30,sub_4AC70,sub_4BB20,sub_4BC90,sub_4BD60,sub_4C7E0,sub_4CAC0,sub_4CCA0,sub_4D3B0,sub_4D560,sub_4D680,sub_4E0E0,sub_4E270,sub_4E320,sub_4E3D0,sub_4E470,sub_4E510,sub_4E5B0,sub_4EE70,sub_4EFC0,sub_4F120,sub_4F1E0,sub_4F3F0,sub_4F8D0,sub_50030,sub_50D40,sub_5B500,sub_5B560
+    calls: sub_5BDF8 sub_61A1C sub_5BE50
+    globals: byte_9AD96 dword_12EFF4 dword_A0000
+sub_59A80      24 lines  called by: -
+    calls: sub_5A090 sub_37440 sub_41E80
+sub_59AB0      24 lines  called by: -
+    calls: sub_5A090 sub_37440 sub_41E80
+sub_59AE0      37 lines  called by: -
+    calls: sub_5A090 sub_37440 sub_5A120
+sub_59B30      37 lines  called by: -
+    calls: sub_5A090 sub_37440 sub_5A120
+sub_59B80      64 lines  called by: -
+    calls: sub_37440 sub_41E80 sub_55370
+    globals: dword_AE400
+sub_59C40      24 lines  called by: -
+    calls: sub_5A090 sub_37440 sub_41E80
+sub_59C70      24 lines  called by: -
+    calls: sub_5A090 sub_37440 sub_41E80
+sub_59CA0      37 lines  called by: -
+    calls: sub_5A090 sub_37440 sub_5A120
+sub_59CF0      37 lines  called by: -
+    calls: sub_5A090 sub_37440 sub_5A120
+sub_59D40      24 lines  called by: -
+    calls: sub_5A090 sub_37440 sub_41E80
+sub_59D70      24 lines  called by: -
+    calls: sub_5A090 sub_37440 sub_41E80
+sub_59DA0      37 lines  called by: -
+    calls: sub_5A090 sub_37440 sub_5A120
+sub_59DF0      37 lines  called by: -
+    calls: sub_5A090 sub_37440 sub_5A120
+sub_59E40     139 lines  called by: sub_59F60,sub_59F70,sub_59F80,sub_59F90,sub_59FA0,sub_59FB0,sub_59FC0,sub_59FD0,sub_59FE0,sub_59FF0,sub_5A000,sub_5A010,sub_5A020,sub_5A030,sub_5A040,sub_5A050,sub_5A060,sub_5A070
+    calls: sub_55370 sub_37440 sub_41E80
+    globals: dword_AE400 dword_AE408
+sub_59F60      10 lines  called by: -
+    calls: sub_59E40
+sub_59F70      10 lines  called by: -
+    calls: sub_59E40
+sub_59F80      10 lines  called by: -
+    calls: sub_59E40
+sub_59F90      10 lines  called by: -
+    calls: sub_59E40
+sub_59FA0      10 lines  called by: -
+    calls: sub_59E40
+sub_59FB0      10 lines  called by: -
+    calls: sub_59E40
+sub_59FC0      10 lines  called by: -
+    calls: sub_59E40
+sub_59FD0      10 lines  called by: -
+    calls: sub_59E40
+sub_59FE0      10 lines  called by: -
+    calls: sub_59E40
+sub_59FF0      10 lines  called by: -
+    calls: sub_59E40
+sub_5A000      10 lines  called by: -
+    calls: sub_59E40
+sub_5A010      10 lines  called by: -
+    calls: sub_59E40
+sub_5A020      10 lines  called by: -
+    calls: sub_59E40
+sub_5A030      10 lines  called by: -
+    calls: sub_59E40
+sub_5A040      10 lines  called by: -
+    calls: sub_59E40
+sub_5A050      10 lines  called by: -
+    calls: sub_59E40
+sub_5A060      10 lines  called by: -
+    calls: sub_59E40
+sub_5A070      13 lines  called by: -
+    calls: sub_59E40
+sub_5A090      68 lines  called by: sub_59A80,sub_59AB0,sub_59AE0,sub_59B30,sub_59C40,sub_59C70,sub_59CA0,sub_59CF0,sub_59D40,sub_59D70,sub_59DA0,sub_59DF0
+    calls: sub_11950 sub_55370 sub_11F50
+    globals: dword_AE400 dword_AE408
+sub_5A120      52 lines  called by: sub_59AE0,sub_59B30,sub_59CA0,sub_59CF0,sub_59DA0,sub_59DF0
+    calls: sub_11950
+    globals: dword_AE400
+sub_5A180     114 lines  called by: sub_20FB0,sub_22880,sub_24500,sub_48710,sub_5A560
+    calls: sub_5A3B0 sub_58768 sub_5A3A0
+    globals: dword_AE44C word_9ADFC
+sub_5A270     107 lines  called by: -
+    calls: sub_5A3B0 sub_23AE0 sub_5A3A0
+    globals: dword_AE44C
+sub_5A340      58 lines  called by: -
+    calls: sub_5A3A0
+    globals: dword_AE44C
+sub_5A3A0       6 lines  called by: sub_20FB0,sub_5A180,sub_5A270,sub_5A340,sub_5A560
+    globals: dword_AE44C
+sub_5A3B0       6 lines  called by: sub_20FB0,sub_24500,sub_5A180,sub_5A270,sub_5A560
+    globals: dword_AE44C
+sub_5A3C0      15 lines  called by: sub_20FB0,sub_22880,sub_23D40,sub_24230,sub_34B40,sub_48710,sub_5A560
+    globals: dword_AE3B8 dword_AE44C
+sub_5A3E3      39 lines  called by: -
+    calls: __GETDS _chain_intr outp
+    globals: dword_12EC00 dword_AC5D4 dword_AE408 word_12EC04
+sub_5A459      36 lines  called by: sub_357C0
+    calls: _dos_getvect outp _dos_setvect
+    globals: byte_9AD04 dword_12EC00 dword_AE408 word_12EC04
+sub_5A4EA      29 lines  called by: -
+    calls: outp _dos_setvect
+    globals: byte_9AD04 dword_12EC00 word_12EC04
+sub_5A540      25 lines  called by: -
+sub_5A560     576 lines  called by: sub_34530
+    calls: sub_5A3C0 sub_5A180 sub_5A3B0 sprintf sub_37710 sub_63338 sub_5A3A0
+    strings: %d | %d %d | %d/%d | %s %s | 16:26:18 | Beta v8.0 | Bullfrog, Sean Cooper. | Carpet %d | Game turn | GameTurn: | Heap %d | Jun 05 1995 | Level Number | Magic Carpet | Memory (Used/Free) | PUBLIC | Product name | Programmer | Sound Number | Supplied to | Tape %d | Thing | Thing %d, Active %d | Transfer rate: | Version date | Version number | s%7.7d,u%01d
+    globals: byte_939EC byte_AD168 byte_AD177 byte_AE068 dword_12F6A4 dword_1302A0 dword_1314A4 dword_1314A8 dword_AC5D4 dword_AE400 dword_AE408 word_12F02E
+sub_5AC70      26 lines  called by: -
+    calls: printf
+    strings: used %d/size %d\n
+    globals: dword_1302A0
+sub_5ACA0      13 lines  called by: sub_34B40
+    calls: printf
+    strings: %s \n | All rights reserved.\n | Copyright (c) 1995 Bullfrog Productions | Magic Carpet
+sub_5AD10      16 lines  called by: sub_34B40,sub_357C0,sub_407A0
+    calls: printf
+    globals: dword_AE408 off_ABCE0
+sub_5AD30      49 lines  called by: sub_5AF50
+    calls: memset sub_5B3E0
+    globals: dword_12EEA4 dword_12EEB4 dword_12EEB8 dword_12EEBC dword_12EEC0
+sub_5ADB0      49 lines  called by: sub_5AF50
+    calls: memset sub_5B3E0
+    globals: dword_12EE98 dword_12EEA4 dword_12EEB8 dword_12EEBC dword_12EEC0 word_12EEC6 word_12EED8
+sub_5AE30      40 lines  called by: sub_5AF50
+    calls: memset sub_5B3E0
+    globals: dword_12EE98 dword_12EEA4 dword_12EEB8 dword_12EEBC dword_12EEC0 word_12EEC6 word_12EED8
+sub_5AEB0      49 lines  called by: sub_5B210
+    calls: memset sub_5B3E0
+    globals: dword_12EE98 dword_12EEA4 dword_12EEB8 dword_12EEBC dword_12EEC0 word_12EEC6 word_12EED8
+sub_5AF50     254 lines  called by: sub_34DD0,sub_51DF0
+    calls: memset sub_5B480 getenv sub_5B3B0 sub_6660D sub_5AD30 sub_5ADB0 strcmp sub_5AE30
+    strings: VIPPORT
+    globals: byte_12EC10 byte_12EC11 byte_12EE44 byte_12EE6E byte_12EEE1 byte_9AD08 byte_9AD09 dword_12ED10 dword_12EE10 dword_12EE14 dword_12EE18 dword_12EE1C dword_12EE24 dword_12EE28 ...
+sub_5B210      41 lines  called by: sub_3FCA0
+    calls: sub_5AEB0 sub_5B3B0
+    globals: byte_12EE44 byte_12EE6E byte_12EEE0 byte_9AD08 byte_9AD09 dword_12ED10 dword_12EE10 dword_12EE18 word_12EE9C word_12EE9E word_12EEA0 word_12EEDA word_12EEDC word_12EEDE
+sub_5B2B0      35 lines  called by: sub_3FCA0
+    calls: memset int386
+    globals: byte_9AD08 dword_12EE68
+sub_5B310      78 lines  called by: sub_319A0
+    globals: dword_12EE24 dword_12EE94
+sub_5B3B0      15 lines  called by: sub_5AF50,sub_5B210
+    calls: sub_5B450
+    globals: dword_12EE98 word_12EED6
+sub_5B3E0      48 lines  called by: sub_5AD30,sub_5ADB0,sub_5AE30,sub_5AEB0
+    calls: memset int386x
+sub_5B450      20 lines  called by: sub_5B3B0
+    calls: int386
+sub_5B480      54 lines  called by: sub_5AF50
+    calls: segread int386
+sub_5B500      32 lines  called by: sub_31600
+    calls: memset sub_5CDA0 sub_599B0
+    globals: dword_12EFF0 dword_12EFF4 dword_12EFF8 word_12F02E
+sub_5B560      32 lines  called by: sub_31A00
+    calls: memset sub_5CDA0 sub_599B0
+    globals: dword_12EFF0 dword_12EFF4 dword_12EFF8 word_12F02E
+sub_5B5E0      12 lines  called by: sub_44730
+sub_5B5F4      12 lines  called by: sub_44840
+sub_5B608      31 lines  called by: -
+    calls: sub_6666C
+    globals: byte_12EF70 byte_9AD0C
+sub_5B650     243 lines  called by: sub_5BE72
+    calls: sub_61A1C
+    globals: dword_12EF7E dword_12EF82 dword_12EF88 dword_12EF8C dword_12EFA0 dword_12EFA4 dword_12EFA8 dword_12EFC8 dword_12EFCC dword_12EFF0 dword_12EFF8 dword_A0000 dword_B0000 word_12EF86 ...
+sub_5B95C     147 lines  called by: sub_5BDF8
+    globals: dword_12EF7E dword_12EF82 dword_12EF88 dword_12EF8C dword_12EF90 dword_12EF94 dword_12EF98 dword_12EF9C dword_12EFA0 dword_12EFA4 dword_12EFA8 dword_12EFAC dword_12EFC8 dword_12EFF0 ...
+sub_5BB60     171 lines  called by: sub_5BE72
+    calls: sub_61A1C
+    globals: dword_12EF82 dword_12EF88 dword_12EF8C dword_12EFA4 dword_12EFA8 dword_12EFCC dword_12EFF0 dword_A0000 dword_B0000 word_12EFD0 word_12EFD2 word_12EFD4 word_12F02E
+sub_5BD40      74 lines  called by: sub_5BE24
+    globals: dword_12EF90 dword_12EF94 dword_12EF98 dword_12EF9C dword_12EFA4 dword_12EFA8 dword_12EFF0 dword_12EFF4 word_12EFD2 word_12EFD4
+sub_5BDF8      18 lines  called by: sub_599B0,sub_5CDA0,sub_79B2D
+    calls: sub_5B95C
+    globals: dword_9AD88 dword_9AD98
+sub_5BE24      18 lines  called by: -
+    calls: sub_5BD40
+    globals: dword_9AD88 dword_9AD98
+sub_5BE50      14 lines  called by: sub_599B0,sub_5CDA0,sub_79B2D
+    globals: dword_9AD88
+sub_5BE72     158 lines  called by: -
+    calls: sub_5BB60 sub_5B650 sub_61A1C
+    globals: byte_9AD97 dword_12EFB0 dword_12EFCC dword_9AD88 dword_9AD98 word_12EFD6 word_12EFD8 word_12EFDA word_12EFDC word_12EFDE word_12EFE0 word_12EFE2 word_12EFE4 word_12F02E ...
+sub_5C05C     128 lines  called by: sub_340B0,sub_34C80,sub_3DC90,sub_44730,sub_4BB20,sub_4BC90,sub_4C7E0,sub_4CAC0,sub_4CCA0,sub_4D3B0,sub_4D560,sub_4D680,sub_4DCC0,sub_4E0E0,sub_4E270,sub_4E5B0,sub_4EE70,sub_4EFC0,sub_4F1E0,sub_4F3F0,sub_4F8D0,sub_50030,sub_5C214
+    calls: sub_60CE0
+    globals: dword_12EFC8 dword_12EFF0 dword_12EFF4 dword_12EFFC dword_12F000 dword_12F004 dword_12F008 dword_12F00C dword_12F010 dword_12F014 dword_12F018 dword_12F01C dword_12F020 dword_12F024 ...
+sub_5C214     168 lines  called by: sub_34C80,sub_44730
+    calls: segread int386 int386x sub_5C468 sub_42540 sub_5C05C
+    globals: dword_12EF88 dword_12EF98 dword_12EFB4 dword_12EFC8 dword_12EFCC dword_9AD98 word_12EFC4 word_12EFC6 word_12F02E
+sub_5C3D4      54 lines  called by: -
+    calls: int386 sub_426E0
+    globals: dword_12EF88 dword_12EF98 dword_12EFB8 dword_12EFC8 dword_9AD98
+sub_5C468     116 lines  called by: sub_5C214,sub_61B90,sub_61C30
+    calls: int386
+    globals: word_12F02E
+sub_5C76B      74 lines  called by: -
+    calls: sub_5D1A0 sub_5C969 sub_5CA40 sub_5C8CD sub_5CAE7 sub_5C891 sub_5C8AF
+    globals: dword_9ADA4 dword_9ADC0 dword_AE3FC word_9AD9C word_9ADA8
+sub_5C82E      18 lines  called by: -
+    calls: sub_5D1A0
+    globals: dword_9ADA4 dword_9ADC0 dword_AE3FC word_9AD9E word_9ADA0 word_9ADA2
+sub_5C891       9 lines  called by: sub_5C76B
+    calls: sub_5D1A0
+    globals: dword_12EFF4 dword_9ADA4 dword_9ADC0
+sub_5C8AF       9 lines  called by: sub_5C76B
+    calls: sub_5D1A0
+    globals: dword_9ADA4 dword_9ADC0 dword_AE3FC
+sub_5C8CD      10 lines  called by: sub_5C76B
+    calls: sub_5D1A0
+    globals: dword_9ADA4 dword_9ADC0 dword_AE424 word_9ADFA
+sub_5C8F4      52 lines  called by: -
+    calls: sub_319A0
+    globals: dword_9ADBC dword_AE418 dword_AE424 word_9ADFA
+sub_5C969     105 lines  called by: sub_5C76B
+    calls: sub_5D1A0
+    globals: dword_12EFF4 dword_9ADA4 dword_9ADC0 dword_AE3FC word_9ADA0 word_9ADA2
+sub_5CA40      74 lines  called by: sub_5C76B
+    calls: sub_5D1A0
+    globals: dword_12EFF4 dword_9ADA4 dword_9ADC0 dword_AE3FC word_9ADA0 word_9ADA2
+sub_5CAE7      74 lines  called by: sub_5C76B
+    calls: sub_5D1A0
+    globals: dword_12EFF4 dword_9ADA4 dword_9ADC0 dword_AE3FC word_9ADA0 word_9ADA2
+sub_5CB73      37 lines  called by: -
+    globals: dword_9ADC4 word_9ADB4
+sub_5CBD0      33 lines  called by: sub_103F0,sub_107C0,sub_3E100,sub_3E4B0,sub_3E7F0,sub_3E9D0,sub_3EEA0,sub_3EF50,sub_4F3F0,sub_505A0,sub_51A10,sub_51AF0,sub_58860,sub_5D1A0,sub_60BDC,sub_63910
+    calls: read
+sub_5CC54      15 lines  called by: sub_104D0,sub_3FB30,sub_61CC0
+sub_5CC70     125 lines  called by: sub_104D0,sub_24AB0,sub_34B40,sub_4B6F0,sub_4B8D0,sub_4D300,sub_4DCC0,sub_4E0E0,sub_504A0,sub_51480
+    globals: word_12F02E
+sub_5CD70      27 lines  called by: sub_44840
+    calls: int386
+    globals: word_12F02C
+sub_5CDA0      26 lines  called by: sub_104D0,sub_30B30,sub_34460,sub_3FB30,sub_4AC70,sub_4BB20,sub_4BC90,sub_4BD60,sub_4C7E0,sub_4CAC0,sub_4CCA0,sub_4D3B0,sub_4D560,sub_4D680,sub_4E0E0,sub_4E270,sub_4E320,sub_4E3D0,sub_4E470,sub_4E510,sub_4E5B0,sub_4EE70,sub_4EFC0,sub_4F120,sub_4F1E0,sub_4F3F0,sub_4F8D0,sub_50030,sub_50D40,sub_5B500,sub_5B560
+    calls: sub_5BDF8 sub_5BE50
+    globals: byte_9AD96 dword_12EFF4 dword_A0000
+sub_5CDE0      50 lines  called by: sub_107C0,sub_3E100,sub_3E2F0,sub_3E460,sub_3E4B0,sub_3E580,sub_3E640,sub_3E7A0,sub_3E7F0,sub_3E8C0,sub_3E980,sub_3E9D0,sub_3EEA0,sub_3EF50,sub_4A980,sub_4AC70,sub_4F3F0,sub_505A0,sub_51A10,sub_51AF0,sub_51C90,sub_587E0,sub_60BDC,sub_62E60,sub_63910
+    calls: creat setmode close sopen
+sub_5CE50      24 lines  called by: sub_107C0,sub_3E100,sub_3E2F0,sub_3E460,sub_3E4B0,sub_3E580,sub_3E640,sub_3E7A0,sub_3E7F0,sub_3E8C0,sub_3E980,sub_3EC50,sub_3EEA0,sub_3EF50,sub_4A980,sub_4AC70,sub_4F3F0,sub_505A0,sub_51A10,sub_51AF0,sub_51C90,sub_58F70,sub_60BDC,sub_62E60,sub_63910
+    calls: close
+sub_5CEF0      73 lines  called by: sub_111B0,sub_340B0,sub_43B20,sub_4C7E0,sub_4E5B0
+    calls: sprintf sub_634E0 sub_5CFA4 sub_634A0
+    strings: data/music%d-%d.dat | data/music%d-%d.tab | data/music0-0.dat | data/music0-0.tab
+    globals: byte_939CC byte_CBFEE
+sub_5CFA4      54 lines  called by: sub_5CEF0
+    globals: dword_CBF60 dword_CBF64 dword_CBF68 word_939D6
+sub_5D010      58 lines  called by: sub_111B0,sub_16B00,sub_340B0,sub_4D3B0,sub_4D560,sub_4E5B0,sub_4EE70,sub_4EFC0,sub_4F1E0,sub_61F90
+    calls: sub_651F8 sub_65965
+    globals: byte_939E4 dword_CC140
+sub_5D070      77 lines  called by: sub_111B0,sub_340B0,sub_4C7E0,sub_4E5B0
+    calls: sprintf sub_634E0 sub_5D138 sub_634A0
+    strings: data/snds%d-%d.dat | data/snds%d-%d.tab | data/snds0-0.dat | data/snds0-0.tab
+    globals: byte_939E4 byte_939EC
+sub_5D138      54 lines  called by: sub_5D070
+    globals: dword_CC130 dword_CC154 dword_CC1C0 word_CC1C6
+sub_5D1A0      75 lines  called by: sub_5C76B,sub_5C82E,sub_5C891,sub_5C8AF,sub_5C8CD,sub_5C969,sub_5CA40,sub_5CAE7
+    calls: sub_5CBD0
+    globals: dword_9AF08 dword_9AF0C dword_9AF10 dword_9AF14
+sub_5D230      35 lines  called by: sub_111B0
+    calls: read
+    globals: dword_9AF08 dword_9AF0C dword_9AF10 dword_9AF14
+sub_5D290     161 lines  called by: sub_111B0,sub_16B00,sub_340B0,sub_4C7E0,sub_4E270,sub_4E5B0
+    calls: sub_5D7F0 sub_5F420 sub_5F355 sub_6091D sub_5EE22 sub_6378C printf sub_6080C sub_60335 sub_5F398 sub_5EDD6
+    strings: \nError : %s
+    globals: byte_939CC byte_939CD byte_9AF9C dword_12F030 dword_12F038 dword_12F074 dword_9AF18 dword_CBF60 dword_CBFD8 dword_CBFDC word_12F034 word_12F03C word_939D0 word_939D2 ...
+sub_5D460     183 lines  called by: sub_111B0,sub_55100
+    calls: sub_651F8 sub_6535C
+    globals: byte_939E4 byte_939E5 dword_939F0 dword_939F8 dword_CC140 dword_CC144 dword_CC154 word_939F4 word_939FC word_93A00 word_93A02 word_93A0C word_CBFF0 word_CBFF2 ...
+sub_5D610     123 lines  called by: sub_111B0
+    calls: sub_651F8 sub_6535C
+    globals: byte_939E4 byte_939E5 dword_939F0 dword_939F8 dword_CC140 dword_CC144 dword_CC154 word_939F4 word_93A00 word_93A02 word_93A0C word_CBFF0 word_CBFF2 word_CC070 ...
+sub_5D750      76 lines  called by: sub_111B0,sub_55100
+    calls: sub_651F8 sub_65965
+    globals: byte_939E4 dword_CC140 word_CBFF0
+sub_5D7DF      13 lines  called by: -
+sub_5D7F0      33 lines  called by: sub_111B0,sub_20D00,sub_20E60,sub_5D290,sub_65E00,sub_68917
+    globals: dword_9C136
+sub_5D829      13 lines  called by: -
+sub_5D872      13 lines  called by: -
+sub_5D883      80 lines  called by: sub_43B20,sub_43EC0
+    calls: sub_66DF5 sub_66D6A sub_66E21 sub_5DE63
+    globals: dword_1234DC dword_A01C4 dword_A039D dword_A03FB dword_A043D dword_A047D word_A03FF
+sub_5D948      25 lines  called by: sub_43B20,sub_43EC0,sub_60A10,sub_61F90,sub_62020
+    calls: sub_66DF5 sub_66E4D sub_66E21
+    globals: dword_A01C4
+sub_5D97B     173 lines  called by: sub_20D00,sub_357C0,sub_43EC0,sub_5F398,sub_63807,sub_67D9D
+    calls: sub_66DF5 sub_5DE63 sub_66E21
+    globals: byte_123333 byte_A03A1 dword_1234DC dword_A01C4 dword_A039D dword_A0401 dword_A0441 dword_A0481
+sub_5DB1D     150 lines  called by: sub_68917
+    calls: sub_66DF5 sub_5DE63 sub_66E21
+    globals: byte_123333 byte_A03A1 dword_1234DC dword_A01C4 dword_A039D dword_A0401 dword_A0441 dword_A0481
+sub_5DC91     176 lines  called by: sub_20BD0,sub_20D00,sub_358A0,sub_55960,sub_5F420,sub_61F90,sub_63807,sub_66F3C,sub_67F1C
+    calls: sub_5DE63 sub_66DF5 sub_66E21
+    globals: byte_123333 byte_A03A1 dword_1234DC dword_A01C4 dword_A039D dword_A0401 dword_A0441 dword_A0481
+sub_5DE40      21 lines  called by: sub_68917
+    globals: dword_A0401
+sub_5DE63      24 lines  called by: sub_5D883,sub_5D97B,sub_5DB1D,sub_5DC91
+    calls: sub_66D24
+    globals: dword_A039D
+sub_5DE91      63 lines  called by: -
+    calls: fword
+    globals: byte_A03A1 byte_A04C1 byte_A04D1 dword_12F040 dword_A0441 dword_A0481
+sub_5DF4B      13 lines  called by: -
+    calls: sub_66EA2
+sub_5DF61      13 lines  called by: -
+sub_5DF72      13 lines  called by: -
+sub_5DF83     925 lines  called by: sub_66F3C
+    calls: fword
+    globals: byte_9C062 byte_9C176 byte_9DF8F byte_9E20F byte_9E25F byte_9E2AF byte_9E2FF byte_9E300 byte_9E301 byte_9E302 byte_9E303 byte_9E93F byte_9EBBF byte_9EBC0 ...
+sub_5E9C1     297 lines  called by: sub_5F420,sub_66F3C
+    calls: fword
+    globals: byte_9C062 byte_9DF8F byte_9E25F byte_9E2AF byte_9E2FF byte_9E300 byte_9E301 byte_9E302 byte_9E303 byte_9E93F byte_9EBBF byte_9EBC0 byte_9EBC1 dword_9BFF2 ...
+sub_5EDA0      30 lines  called by: sub_20BD0
+    calls: fword
+    globals: byte_9C062
+sub_5EDD6      24 lines  called by: sub_5D290
+    globals: dword_9EBC9
+sub_5EE00      13 lines  called by: -
+sub_5EE11      13 lines  called by: -
+sub_5EE22     463 lines  called by: sub_5D290
+    calls: sub_66EF6 sub_5F7C7
+    globals: byte_9B1F2 byte_9C176 byte_9ECFF dword_9B1B6 dword_9B7F2 dword_9BBF2 dword_9BFF2 dword_9C022 dword_9C042 dword_9D98F word_9BFF6 word_9D993
+sub_5F355      35 lines  called by: sub_20E60,sub_5D290,sub_62020
+    globals: byte_9C176
+sub_5F398      57 lines  called by: sub_20D00,sub_5D290,sub_65E00
+    calls: sub_5D97B
+    globals: byte_9C176 byte_A04C1 dword_9C136 dword_9C1A6
+sub_5F420      88 lines  called by: sub_20E60,sub_5D290,sub_62020
+    calls: sub_5DC91 sub_5E9C1 sub_5F529
+    globals: byte_9C176 byte_A04C1 dword_9C136 dword_9C1A6
+sub_5F529     215 lines  called by: sub_20D00,sub_5F420,sub_65E00,sub_66F3C
+    calls: sub_66EF6 sub_5F7C7
+    globals: byte_9B1F2 byte_9C176 dword_9B7F2 dword_9BBF2 dword_9BFF2 dword_9C022 dword_9C042 dword_9D98F word_9BFF6 word_9D993
+sub_5F7C7      53 lines  called by: sub_5EE22,sub_5F529,sub_66F3C
+sub_5F83E      91 lines  called by: sub_558F0,sub_55960
+    calls: fword
+    globals: byte_9C062 byte_9EBBF byte_9EBC0 byte_9EBC1 byte_9EC5D byte_9ECAD byte_9ECAE dword_9B1B6
+sub_5F913      13 lines  called by: -
+sub_5F924      13 lines  called by: -
+sub_5F935     327 lines  called by: sub_60199
+    calls: sub_674CD
+    globals: dword_1314C0 dword_1314C4 dword_131AF0 dword_131AF4 dword_131AF8 dword_131AFC dword_131B00 dword_131B04 dword_131B08 dword_131B0C
+sub_5FD67     331 lines  called by: sub_60335
+    calls: sub_674FA
+    globals: dword_1314C0 dword_1314C4 dword_131AF0 dword_131AF4 dword_131AF8 dword_131AFC dword_131B00 dword_131B04 dword_131B08 dword_131B0C
+sub_60199      84 lines  called by: sub_43B20
+    calls: sub_5F935 _fstrcpy
+    globals: byte_A04D2 dword_1314C8 dword_1314CE dword_1314D4 dword_1314DA dword_1314E0 dword_1314E6 dword_1314EC dword_1314F2 dword_1314F8 dword_1314FE dword_131504 dword_13150A dword_131510 ...
+sub_60335      20 lines  called by: sub_43B20,sub_5D290,sub_60A10,sub_62020
+    calls: sub_5FD67
+    globals: dword_9C22A
+sub_6035F     465 lines  called by: sub_43B20,sub_60A10
+    calls: sub_67A75 fword sub_6798D sub_689F3 sub_68622 sub_67486 sub_6A737
+    globals: byte_90000 byte_9C062 byte_9C068 byte_9EC5D dword_1314C8 dword_1314E6 dword_131504 dword_131522 dword_9B15C dword_9B17A dword_9B18E dword_9B1B6 dword_9EF06 dword_9EF0C ...
+sub_6080C      97 lines  called by: sub_43B20,sub_5D290,sub_60A10,sub_62020
+    calls: fword sub_68813
+    globals: byte_9C06E dword_9B15C dword_9B18E dword_9B1B6 dword_9EF06 dword_9EF0C word_9B160 word_9EF0A
+sub_6091D      79 lines  called by: sub_20E60,sub_5D290,sub_62020
+    calls: fword
+    globals: byte_9C062 byte_9C074 byte_9EBBF byte_9EBC0 byte_9EBC1 dword_9EF06 dword_9EF0C word_9EF0A
+sub_609F4      13 lines  called by: -
+sub_60A10     139 lines  called by: -
+    calls: sub_60BDC printf sub_6035F sub_6378C sub_6080C sub_6481C sub_60335 sub_5D948 sub_637D1
+    strings: \nError : %s | \nError : Unable to load drum.dig.\n | data\\drum.dig
+    globals: byte_939CC byte_939E4 dword_12F050 dword_12F054 dword_12F05C dword_12F060 dword_12F064 dword_12F06C dword_12F074 dword_12F07A dword_93A44 dword_CBF40 dword_CBF44 dword_CBF50 ...
+sub_60BDC      81 lines  called by: sub_60A10
+    calls: sub_63910 sub_5CDE0 sub_42540 sub_5CBD0 sub_5CE50
+sub_60CE0      36 lines  called by: sub_22880,sub_22E50,sub_23D40,sub_24230,sub_249B0,sub_3FB30,sub_48710,sub_4B560,sub_4BD60,sub_4CB70,sub_4CCA0,sub_4D190,sub_4D680,sub_4DCC0,sub_4F3F0,sub_4F8D0,sub_4FE00,sub_5C05C
+    calls: sub_60D65
+    globals: dword_12EFF4
+sub_60D18      36 lines  called by: sub_22880,sub_22E50,sub_23D40,sub_24230,sub_249B0,sub_3FB30,sub_48710,sub_4B560,sub_4BD60,sub_4CB70,sub_4CCA0,sub_4D190,sub_4D680,sub_4DCC0,sub_4F3F0,sub_4F8D0,sub_4FE00,sub_51560
+    calls: sub_60D65
+    globals: dword_12EFF4
+sub_60D50      16 lines  called by: sub_58768
+    calls: sub_60D65
+sub_60D65    1095 lines  called by: sub_58768,sub_60CE0,sub_60D18,sub_60D50
+    globals: dword_12EFF0 dword_12EFF4 dword_12F000 dword_12F008 dword_12F018 dword_12F024 dword_12F028 dword_9AFA0 word_12F02E word_9ADFC
+sub_61594      36 lines  called by: sub_23D40
+    globals: dword_12EFF4
+sub_615D4      34 lines  called by: sub_23D40
+    globals: dword_12EFF4
+sub_61610      31 lines  called by: sub_24BB0,sub_340B0,sub_34C60,sub_34C80,sub_43EC0,sub_4AB20,sub_4BC90,sub_4CAC0,sub_4E270,sub_4E5B0,sub_4F1E0,sub_4F3F0,sub_61F90,sub_62020
+    calls: sub_634A0
+sub_61640      69 lines  called by: sub_24C20
+    globals: dword_12EFF4 dword_9AFA0 word_9ADFC
+sub_616C0      65 lines  called by: sub_24CA0
+    globals: dword_12EFF4 dword_9AFA0 word_9ADFC
+sub_61740     101 lines  called by: sub_24D20
+    calls: sub_6B260
+sub_61810     101 lines  called by: sub_24DA0
+    calls: sub_6B378
+sub_618E0      87 lines  called by: sub_619B8
+    calls: memset segread int386x
+    globals: dword_12F080 word_12F084
+sub_619B8      48 lines  called by: sub_31600,sub_61C30
+    calls: memset int386 sub_618E0
+sub_61A1C      75 lines  called by: sub_599B0,sub_5B650,sub_5BB60,sub_5BE72,sub_79906,sub_79A1B,sub_79B2D
+    globals: dword_12F080 word_9AFA4
+sub_61AB0      84 lines  called by: sub_30D30
+    calls: memset segread int386x strncmp
+    strings: VESA
+    globals: dword_12F080
+sub_61B90      59 lines  called by: sub_315C0,sub_34C80,sub_44730
+    calls: int386 sub_319A0 sub_5C468 sub_65EB0
+    globals: dword_12EFF0 dword_12EFF8 word_12F02C
+sub_61C30      55 lines  called by: sub_315C0,sub_34C80,sub_44730
+    calls: int386 sub_619B8 sub_319A0 sub_5C468 sub_65EB0
+    globals: dword_12EFF0 dword_12EFF8 word_12F02C
+sub_61CC0     204 lines  called by: sub_340B0,sub_34460,sub_344F0,sub_34690,sub_34C80,sub_428B0,sub_44730,sub_4BB20,sub_4BC90,sub_4C7E0,sub_4CAC0,sub_4D3B0,sub_4D560,sub_4D680,sub_4E0E0,sub_4E270,sub_4E5B0,sub_4EE70,sub_4EFC0,sub_4F1E0,sub_4F3F0
+    calls: sub_6B47C memset sub_5CC54 sub_319A0
+    globals: byte_12F090 byte_9AFA8 dword_12F390 word_12F68E word_12F690
+sub_61EC8      14 lines  called by: sub_34690
+    globals: byte_9AFA8
+sub_61F90      59 lines  called by: sub_358A0
+    calls: sub_5D010 sub_559A0 sub_661A4 sub_5DC91 sub_5D948 sub_64F78 sub_6481C sub_61610
+    strings: data/snds0-0.dat
+    globals: byte_939CC byte_939E4 dword_CC140 dword_CC148
+sub_62020      83 lines  called by: -
+    calls: sub_5F420 sub_5F355 sub_6091D sub_6080C sub_5D948 sub_60335 sub_62128 sub_61610
+    strings: data/music0-0.dat
+    globals: byte_939CC byte_9AF9C byte_CBFEF dword_12F074 dword_12F07A dword_CBFD8 dword_CBFDC dword_CBFE2 dword_CBFE8 word_12F07E word_939D2 word_CBFE6 word_CBFEC
+sub_62128      20 lines  called by: sub_62020
+    calls: sub_426E0
+sub_62B30      30 lines  called by: sub_3E100,sub_58860
+    calls: lseek
+sub_62B60     163 lines  called by: sub_3E100,sub_3EEA0,sub_58860
+    calls: sub_62CF4 sub_62D40 sub_62DC3 sub_62CFD
+    globals: byte_9B150 byte_9B151 dword_9AFC0 dword_9B040 dword_9B0C0 dword_9B140 dword_9B144 word_9B14A word_9B14C word_9B14E
+sub_62CF4       7 lines  called by: sub_62B60
+sub_62CFD      29 lines  called by: sub_62B60
+    calls: sub_62D40
+    globals: word_9B14C
+sub_62D40      46 lines  called by: sub_62B60,sub_62CFD,sub_62DC3
+    globals: byte_9B151 word_9B14C word_9B14E
+sub_62DC3      81 lines  called by: sub_62B60
+    calls: sub_62D40
+sub_62E60      53 lines  called by: sub_3E2A0,sub_3E410,sub_3E750,sub_44470
+    calls: sub_5CDE0 sub_62ED0 sub_5CE50
+sub_62ED0      33 lines  called by: sub_3E580,sub_3E8C0,sub_3E9D0,sub_3EF50,sub_4A980,sub_4AC70,sub_4F3F0,sub_51C90,sub_62E60
+    calls: write
+sub_62FA8      22 lines  called by: sub_3FB30,sub_4AC70,sub_4BB20,sub_4BD60,sub_4C7E0,sub_4CCA0,sub_4D190,sub_4DCC0,sub_4E0E0,sub_4E5B0,sub_4F3F0,sub_4F8D0,sub_4FD20,sub_50030,sub_50350,sub_503E0
+sub_62FC4      26 lines  called by: sub_3FB30,sub_4AC70,sub_4BB20,sub_4BD60,sub_4C7E0,sub_4CCA0,sub_4D190,sub_4DCC0,sub_4E0E0,sub_4E5B0,sub_4F3F0,sub_4F8D0,sub_4FD20,sub_50030,sub_50350,sub_503E0
+sub_62FF0      21 lines  called by: -
+sub_63010     331 lines  called by: sub_40440,sub_42540,sub_425C0,sub_634E0
+    calls: sub_6342C memset malloc _expand qsort sub_6D35C
+    globals: byte_1302B0 byte_1302B1 dword_12F6A0 dword_12F6A4 dword_12F6A8 dword_1302A0 dword_1302A4 dword_1302A8 dword_1302AC dword_A0000
+sub_63338      86 lines  called by: sub_42540,sub_425C0,sub_426E0,sub_42730,sub_427A0,sub_5A560
+    globals: dword_1302A0 dword_1314A0 dword_1314A4 dword_1314A8 dword_1314AC dword_1314B0
+sub_6342C      52 lines  called by: sub_63010
+    calls: int386
+    globals: dword_A0000
+sub_634A0      30 lines  called by: sub_40440,sub_5CEF0,sub_5D070,sub_61610,sub_634E0
+    calls: sub_426E0
+sub_634E0     134 lines  called by: sub_40440,sub_5CEF0,sub_5D070
+    calls: sub_63010 sub_634A0 sub_63910 sub_3EEA0
+sub_6377B      13 lines  called by: -
+sub_6378C      22 lines  called by: sub_43B20,sub_43EC0,sub_5D290,sub_60A10
+    strings: Error Code Does Not Indicate An Error
+    globals: off_9EF10
+sub_637AF      13 lines  called by: -
+sub_637C0      13 lines  called by: -
+sub_637D1      30 lines  called by: sub_43B20,sub_60A10
+    calls: fword
+    globals: byte_9C07A
+sub_63807     114 lines  called by: -
+    calls: sub_5D97B fword sub_5DC91
+    globals: byte_9C07A byte_9ECFE
+sub_638E0      13 lines  called by: -
+    globals: byte_9ECFE
+sub_638F8      13 lines  called by: -
+sub_63910     104 lines  called by: sub_43E50,sub_60BDC,sub_634E0
+    calls: sub_5CDE0 sub_5CBD0 strncmp filelength sub_5CE50
+sub_63A8C      13 lines  called by: -
+sub_63A9D     119 lines  called by: sub_43EC0
+    calls: strcpy strcat open read malloc close sub_67557 sub_67582 sub_674CD lseek
+    strings: hmidet.386
+    globals: byte_A05D1 dword_131574 dword_131578 dword_131580 dword_131588 dword_1315B0 dword_1315B4 dword_9EF60 dword_9EF64 word_1315B8
+sub_63C06      29 lines  called by: sub_43EC0
+    calls: close sub_674FA free
+    globals: dword_131574 dword_131578 dword_9EF60
+sub_63C5A     163 lines  called by: sub_43EC0
+    calls: lseek read sub_67710 sub_6765C
+    globals: byte_13156D dword_131540 dword_131564 dword_131568 dword_131570 dword_131574 dword_131578 dword_131584 dword_131588 dword_1315A8 dword_1315B4 word_1315B8
+sub_63E07     145 lines  called by: -
+    calls: lseek read sub_6765C
+    globals: byte_13156D dword_131540 dword_131564 dword_131568 dword_131570 dword_131574 dword_131578 dword_131584 dword_131588 dword_1315A8 dword_1315B4 word_1315B8
+sub_63F7C     141 lines  called by: -
+    calls: lseek read sub_67710 sub_6765C
+    globals: dword_131570 dword_131574 dword_131578 dword_131584 dword_131588 dword_1315A8 dword_1315B4 dword_9EF68 word_1315B8
+sub_640FB     129 lines  called by: -
+    calls: lseek read sub_67710 sub_6765C
+    globals: dword_131570 dword_131574 dword_131578 dword_131584 dword_1315A8 dword_1315B4 dword_9EF68 word_1315B8
+sub_64248      72 lines  called by: sub_43EC0
+    calls: lseek read sub_67710 sub_6773B
+    globals: dword_131540 dword_131564 dword_131570 dword_131574 dword_131578 dword_131584 dword_1315B4 dword_A06DC dword_A06E0 dword_A06E4 word_1315B8
+sub_64330      78 lines  called by: -
+    calls: lseek read sub_67710 sub_67780
+    globals: dword_131540 dword_131564 dword_131570 dword_131574 dword_131578 dword_131584 dword_1315B4 word_1315B8
+sub_64414      13 lines  called by: -
+sub_64425      13 lines  called by: -
+sub_64436     142 lines  called by: sub_647C0
+    calls: sub_674CD
+    globals: dword_131AE4 dword_131AE8 dword_9F198 dword_A01C8
+sub_645FB     142 lines  called by: sub_6481C
+    calls: sub_674FA
+    globals: dword_131AE4 dword_131AE8 dword_9F198 dword_A01C8
+sub_647C0      44 lines  called by: sub_43EC0
+    calls: sub_64436 _fstrcpy
+    globals: byte_A04D2 dword_9EF80
+sub_6481C      20 lines  called by: sub_43EC0,sub_60A10,sub_61F90
+    calls: sub_645FB
+    globals: dword_9EF80
+sub_64846     628 lines  called by: sub_43EC0,sub_67D9D
+    calls: sub_6DE34 sub_6DD7D sub_650FF sub_6E030 sub_6E09A sub_677E3 sub_67527 sub_6790D sub_67845 sub_678DE sub_678AF sub_6787E
+    globals: byte_131724 byte_A0350 byte_A0394 dword_1315BC dword_1315C4 dword_1315CC dword_1315E4 dword_1315E8 dword_1315F0 dword_1315F4 dword_1315F8 dword_1315FC dword_131600 dword_131608 ...
+sub_64F78     121 lines  called by: sub_43EC0,sub_61F90,sub_67F1C
+    calls: sub_676E5 sub_677B8 sub_67944 sub_6E030 sub_6E23C
+    globals: byte_A0394 dword_9EF6C dword_A01CC dword_A01EA dword_A01FE dword_A0230 dword_A0258 dword_A0294 dword_A02C6 dword_A02DA dword_A0338 word_A01D0 word_A0202 word_A0298 ...
+sub_650FF      76 lines  called by: sub_64846
+    calls: sub_675C8 sub_67557 sub_67582
+sub_651A8      28 lines  called by: -
+sub_651D6      13 lines  called by: -
+sub_651E7      13 lines  called by: -
+sub_651F8      76 lines  called by: sub_483C0,sub_48470,sub_48570,sub_51FC0,sub_52120,sub_522E0,sub_52400,sub_559D0,sub_5D010,sub_5D460,sub_5D610,sub_5D750,sub_65F10,sub_66250
+    globals: byte_131724
+sub_65294      76 lines  called by: -
+    globals: byte_131724
+sub_6533A      13 lines  called by: -
+sub_6534B      13 lines  called by: -
+sub_6535C     387 lines  called by: sub_48570,sub_52120,sub_5D460,sub_5D610,sub_65F10,sub_67A96
+    globals: byte_131724 dword_A01CC dword_A02C6 word_A01D0
+sub_65965      63 lines  called by: sub_483C0,sub_522E0,sub_5D010,sub_5D750,sub_65F10,sub_67A96
+    globals: byte_131724
+sub_659F1     229 lines  called by: -
+    globals: byte_131724 dword_A01CC dword_A02C6 word_A01D0
+sub_65D57      13 lines  called by: -
+sub_65D70      50 lines  called by: sub_4AB20,sub_4BB20,sub_4C7E0,sub_4E0E0,sub_4E5B0,sub_4F3F0,sub_59500
+sub_65DC0      46 lines  called by: sub_4AB20,sub_4BB20,sub_4C7E0,sub_4E0E0,sub_4E5B0,sub_4F3F0,sub_59500
+sub_65E00      54 lines  called by: sub_4AB20
+    calls: sub_5D7F0 sub_5F529 sub_5F398
+    globals: byte_939CC byte_939CD dword_12F030 dword_CBFD8 word_939D2
+sub_65EB0      35 lines  called by: sub_4D190,sub_4FE00,sub_61B90,sub_61C30
+    globals: dword_12F000 dword_12F008 dword_12F010 dword_12F018 dword_12F024 dword_12F028
+sub_65F10     174 lines  called by: sub_4E5B0
+    calls: sub_651F8 sub_65965 sub_6535C
+    globals: byte_939E4 byte_939E5 dword_939F0 dword_939F8 dword_CC140 dword_CC144 dword_CC154 word_939F4 word_93A00 word_93A02 word_93A0C word_CBFF0 word_CBFF2 word_CC070 ...
+sub_66107      13 lines  called by: -
+sub_66118      70 lines  called by: sub_51FC0,sub_522E0,sub_66250
+    globals: byte_131724 dword_A0258
+sub_661A4      69 lines  called by: sub_61F90
+    globals: byte_131724 dword_A0258
+sub_6623A      13 lines  called by: -
+sub_66250      96 lines  called by: sub_55100
+    calls: sub_651F8 sub_66118
+    globals: byte_939E4 dword_CC140 word_CBFF0 word_CC070
+sub_66313      13 lines  called by: -
+sub_66324      50 lines  called by: sub_559A0
+    globals: byte_131724
+sub_6637C      13 lines  called by: -
+sub_66390      66 lines  called by: sub_59560
+sub_66410      45 lines  called by: sub_59560
+sub_664AB     192 lines  called by: -
+    calls: __set_errno sub_66612
+sub_665F1       3 lines  called by: -
+sub_6660D      11 lines  called by: sub_5AF50
+sub_66612      55 lines  called by: sub_664AB
+    calls: tolower
+sub_6666C      37 lines  called by: sub_5B608
+    globals: byte_12EF70 byte_12EF71
+sub_66CAD       3 lines  called by: -
+    calls: __GETDS
+sub_66D0F      13 lines  called by: -
+    calls: fword
+    globals: byte_9F1A8
+sub_66D24      46 lines  called by: sub_5DE63
+    globals: dword_A01C4
+sub_66D6A      73 lines  called by: sub_5D883
+    globals: byte_9F1A8 dword_9F19C dword_9F1A0 dword_A01C4 word_9F1B0 word_9F1B6
+sub_66DF5      32 lines  called by: sub_5D883,sub_5D948,sub_5D97B,sub_5DB1D,sub_5DC91
+    globals: dword_A01C4
+sub_66E21      32 lines  called by: sub_5D883,sub_5D948,sub_5D97B,sub_5DB1D,sub_5DC91
+    globals: dword_A01C4
+sub_66E4D      47 lines  called by: sub_5D948
+    globals: dword_9F19C dword_9F1A0 dword_A01C4
+sub_66EA2      31 lines  called by: sub_5DF4B
+    globals: byte_9F1BA dword_9F19C dword_9F1A0 dword_A01C4 word_A01C2
+sub_66EE5      13 lines  called by: -
+sub_66EF6      25 lines  called by: sub_5EE22,sub_5F529,sub_67FB3
+sub_66F1A      13 lines  called by: -
+sub_66F2B      13 lines  called by: -
+sub_66F3C     374 lines  called by: -
+    calls: sub_5E9C1 sub_5DC91 sub_5F529 fword sub_5DF83 sub_5F7C7
+    globals: byte_9B1F2 byte_9C156 byte_9C166 byte_9C176 byte_A04C1 byte_A04D1 dword_9B7F2 dword_9BBF2 dword_9BFF2 dword_9C022 dword_9C042 dword_9C116 dword_9C136 dword_9C1A6 ...
+sub_67464      13 lines  called by: -
+sub_67475      13 lines  called by: -
+sub_67486      29 lines  called by: sub_6035F
+    globals: dword_9B18E
+sub_674B9      13 lines  called by: -
+sub_674CD      37 lines  called by: sub_5F935,sub_63A9D,sub_64436,sub_68622,sub_6DE34,sub_6E09A
+sub_674FA      37 lines  called by: sub_5FD67,sub_63C06,sub_645FB
+sub_67527      33 lines  called by: sub_64846
+sub_67557      34 lines  called by: sub_63A9D,sub_650FF,sub_68622,sub_6DE34,sub_6E09A
+sub_67582      51 lines  called by: sub_63A9D,sub_650FF,sub_68622,sub_6DE34,sub_6E09A
+sub_675C8      54 lines  called by: sub_650FF
+sub_6765C      45 lines  called by: sub_63C5A,sub_63E07,sub_63F7C,sub_640FB
+sub_676B0      36 lines  called by: sub_6DD7D
+sub_676E5      30 lines  called by: sub_64F78
+sub_67710      31 lines  called by: sub_63C5A,sub_63F7C,sub_640FB,sub_64248,sub_64330
+sub_6773B      37 lines  called by: sub_64248
+    globals: dword_A06DC dword_A06E0 dword_A06E4
+sub_67780      38 lines  called by: sub_64330
+sub_677B8      30 lines  called by: sub_64F78
+sub_677E3      57 lines  called by: sub_64846
+sub_67845      37 lines  called by: sub_64846
+sub_6787E      34 lines  called by: sub_64846
+sub_678AF      32 lines  called by: sub_64846
+sub_678DE      31 lines  called by: sub_64846
+sub_6790D      44 lines  called by: sub_64846
+sub_67944      44 lines  called by: sub_64F78
+sub_6797C      13 lines  called by: -
+sub_6798D      20 lines  called by: sub_6035F
+    globals: dword_131522
+sub_679AE      26 lines  called by: -
+    calls: fword
+    globals: byte_9C22E
+sub_679DE      15 lines  called by: -
+sub_679F7      15 lines  called by: -
+sub_67A10      15 lines  called by: -
+sub_67A29      21 lines  called by: -
+    globals: byte_9C22E
+sub_67A53      13 lines  called by: -
+sub_67A64      13 lines  called by: -
+sub_67A75      20 lines  called by: sub_6035F
+    globals: dword_131504
+sub_67A96     235 lines  called by: -
+    calls: sub_682CB sub_65965 sub_68491 sub_68207 sub_6535C
+    globals: byte_9CA04 byte_9ECAD dword_9C9DC dword_9C9F0 dword_9D922 dword_9D972
+sub_67D9D     153 lines  called by: -
+    calls: sub_64846 sub_5D97B sub_68180
+    globals: dword_1315F8 dword_9D922 dword_9D936 dword_9D94A dword_9D95E dword_9D972
+sub_67F1C      45 lines  called by: -
+    calls: sub_64F78 sub_5DC91 sub_681F6
+    globals: dword_9D922 dword_9D936 dword_9D94A dword_9D95E
+sub_67F9A      15 lines  called by: -
+sub_67FB3     137 lines  called by: -
+    calls: sub_66EF6
+    globals: byte_9CA04 byte_9D904 byte_9D986
+sub_6813F      20 lines  called by: -
+    calls: sub_68365
+sub_6815E      13 lines  called by: -
+sub_6816F      13 lines  called by: -
+sub_68180      50 lines  called by: sub_67D9D
+    globals: dword_9C238 dword_9C9B4 dword_9C9C8 dword_9C9DC word_9C23C
+sub_681F6      12 lines  called by: sub_67F1C
+sub_68207      72 lines  called by: sub_67A96
+    globals: dword_9C234 dword_9C238 dword_9C9B4 dword_9C9DC dword_9C9F0 word_9C23C
+sub_682CB      60 lines  called by: sub_67A96
+    globals: dword_9C238 dword_9C9C8 dword_9C9F0 word_9C23C
+sub_68365     106 lines  called by: sub_6813F
+    globals: dword_9C234 dword_9C238 dword_9C9C8 dword_9C9F0 word_9C23C
+sub_68491     142 lines  called by: sub_67A96
+    globals: dword_9C234 dword_9C238 dword_9C9C8 dword_9C9F0 word_9C23C
+sub_68600      13 lines  called by: -
+sub_68611      13 lines  called by: -
+sub_68622     187 lines  called by: sub_6035F
+    calls: strcpy strcat open read malloc sub_67557 sub_67582 sub_674CD lseek close
+    strings: hmimdrv.386
+    globals: byte_9EE07 dword_9B18E dword_9B1A2 dword_9C1F2 dword_9C222 dword_9C226 dword_9ED08 word_9C1D2 word_9C1FE
+sub_68813      47 lines  called by: sub_6080C
+    globals: dword_9B15C dword_9B18E word_9B160
+sub_6887D      13 lines  called by: -
+sub_6888E      13 lines  called by: -
+sub_6889F      21 lines  called by: -
+    globals: dword_9C116
+sub_688CA      21 lines  called by: -
+    globals: dword_9C116
+sub_688F5      13 lines  called by: -
+sub_68906      13 lines  called by: -
+sub_68917      62 lines  called by: -
+    calls: sub_5D7F0 sub_5DB1D sub_5DE40
+    globals: byte_9C176 dword_9C1A6
+sub_689AB      21 lines  called by: -
+    globals: byte_9C176
+sub_689D1      13 lines  called by: -
+sub_689E2      13 lines  called by: -
+sub_689F3      20 lines  called by: sub_6035F
+    globals: dword_1314C8
+sub_68A14     179 lines  called by: -
+    calls: sub_6F3B3 sub_6F4CB sub_6FDAC sub_6FA53 sub_6FC44 sub_6FDA4 sub_6FDEC
+sub_68BDA      27 lines  called by: -
+    calls: sub_70044 sub_70AA0 sub_6E5B2
+    globals: byte_A2F5F byte_A59DD dword_A1F24 dword_A1F28 dword_A1F2C dword_A1F30 dword_A1F34 dword_A1F38 dword_A1F3C dword_A1F48 dword_A22BC off_A2150 off_A282F off_A2995
+sub_68C4B      16 lines  called by: -
+    calls: sub_70B3E
+sub_68C69      15 lines  called by: -
+sub_68C82      15 lines  called by: -
+sub_68C9B      13 lines  called by: -
+sub_68CAC      13 lines  called by: -
+sub_68CBD      77 lines  called by: sub_697C0
+    calls: sub_68D7F sub_6A085
+    globals: byte_A0764 dword_A0808 dword_A082C dword_A086C
+sub_68D7F     143 lines  called by: sub_68CBD,sub_6907E
+    globals: dword_A0808 dword_A08AC dword_A0A68 dword_A0C00 dword_A0C04
+sub_68F15      13 lines  called by: -
+sub_68F26      13 lines  called by: -
+sub_68F37     125 lines  called by: sub_697C0
+    calls: sub_70B8B sub_6966D sub_69716 sub_6956E
+    globals: byte_A09F4 dword_A08AC dword_A0994 dword_A09F0
+sub_6905C      13 lines  called by: -
+sub_6906D      13 lines  called by: -
+sub_6907E     403 lines  called by: sub_697C0
+    calls: sub_70D55 sub_6A297 sub_6A640 sub_6A405 sub_6A1D5 sub_68D7F sub_6A085
+    globals: byte_A0704 byte_A0724 byte_A0764 byte_A0775 byte_A0776 byte_A0A24 dword_A07A0 dword_A07B0 dword_A07B6 dword_A07C4 dword_A07C8 dword_A0808 dword_A082C dword_A086C ...
+sub_6954C      13 lines  called by: -
+sub_6955D      13 lines  called by: -
+sub_6956E     102 lines  called by: sub_68F37,sub_697C0
+    calls: sub_6A297
+    globals: byte_A0764 byte_A09F4 byte_A09F5 byte_A09F6 dword_A0808 dword_A0994 dword_A09F0
+sub_6966D      73 lines  called by: sub_68F37
+    calls: sub_6A297
+    globals: byte_A0764 dword_A07BC dword_A0808 dword_A08F0 dword_A0930 dword_A0954 dword_A0994
+sub_69716      48 lines  called by: sub_68F37
+    globals: dword_A07BC dword_A082C dword_A08AC dword_A08F0 dword_A0930 dword_A0954 dword_A0994
+sub_6979E      13 lines  called by: -
+sub_697AF      13 lines  called by: -
+sub_697C0     182 lines  called by: sub_69EED
+    calls: sub_6907E sub_6956E sub_70E1C sub_68F37 sub_68CBD
+    globals: byte_A09DE byte_A09DF byte_A09E0 byte_A09E1 byte_A09E2 byte_A09E3 byte_A09E4 byte_A09E5 byte_A09E6 byte_A09E7
+sub_6999B      13 lines  called by: -
+sub_699AC      13 lines  called by: -
+sub_699BD      76 lines  called by: sub_69F75
+    calls: sub_6A317
+    globals: byte_A0764 dword_A07C8 dword_A0808 dword_A082C dword_A086C dword_A08EC dword_A08F0 dword_A0930 dword_A0954
+sub_69A83      13 lines  called by: -
+sub_69A94      13 lines  called by: -
+sub_69AA5     105 lines  called by: sub_69F93
+    calls: sub_69BFE sub_70E1C
+    globals: byte_A0794 byte_A09EE byte_A09EF dword_A078C dword_A079A dword_A07A0 dword_A07A6 dword_A07AA dword_A07B0 dword_A07B6 dword_A07BC dword_A08EC dword_A09E8 word_A079E ...
+sub_69BFE     167 lines  called by: sub_69AA5
+sub_69DFE      13 lines  called by: -
+sub_69E0F      13 lines  called by: -
+sub_69E20      24 lines  called by: sub_69F57
+    calls: sub_69FE4 sub_6A317 sub_6A60E
+    globals: dword_A06E8 dword_A06F0 dword_A0788
+sub_69E63      13 lines  called by: -
+sub_69E74      13 lines  called by: -
+sub_69E85      30 lines  called by: sub_69F1C
+    calls: sub_69FE4 sub_6A11B
+    globals: dword_A06EC dword_A0788
+sub_69ECB      13 lines  called by: -
+sub_69EDC      13 lines  called by: -
+sub_69EED      26 lines  called by: -
+    calls: sub_697C0
+sub_69F1C      27 lines  called by: -
+    calls: sub_69E85
+    globals: dword_131AEC
+sub_69F57      16 lines  called by: -
+    calls: sub_69E20
+sub_69F75      16 lines  called by: -
+    calls: sub_699BD
+sub_69F93      25 lines  called by: -
+    calls: sub_69AA5
+sub_69FC2      13 lines  called by: -
+sub_69FD3      13 lines  called by: -
+sub_69FE4      56 lines  called by: sub_69E20,sub_69E85
+    calls: sub_6A640 sub_6A11B
+    globals: byte_A0758 byte_A0773 dword_A06F0 dword_A076F
+sub_6A063      13 lines  called by: -
+sub_6A074      13 lines  called by: -
+sub_6A085      47 lines  called by: sub_68CBD,sub_6907E
+    calls: sub_6A640
+    globals: byte_A0734 byte_A073D
+sub_6A0F9      13 lines  called by: -
+sub_6A10A      13 lines  called by: -
+sub_6A11B      76 lines  called by: sub_69E85,sub_69FE4
+    calls: sub_6A640
+    globals: byte_A073D byte_A0758 byte_A0759 byte_A0774
+sub_6A1B3      13 lines  called by: -
+sub_6A1C4      13 lines  called by: -
+sub_6A1D5      60 lines  called by: sub_6907E
+    calls: sub_6A640
+    globals: byte_A0734 byte_A073D byte_A0764
+sub_6A275      13 lines  called by: -
+sub_6A286      13 lines  called by: -
+sub_6A297      42 lines  called by: sub_6907E,sub_6956E,sub_6966D
+    calls: sub_6A640
+    globals: byte_A073D byte_A0764
+sub_6A2F5      13 lines  called by: -
+sub_6A306      13 lines  called by: -
+sub_6A317     112 lines  called by: sub_699BD,sub_69E20
+    calls: sub_6A640
+    globals: byte_A073D byte_A0758 byte_A0759 byte_A0773 byte_A0776
+sub_6A3E3      13 lines  called by: -
+sub_6A3F4      13 lines  called by: -
+sub_6A405     171 lines  called by: sub_6907E
+    calls: sub_6A640
+    globals: byte_A0704 byte_A0724 byte_A0759 byte_A0775 byte_A0776
+sub_6A5EC      13 lines  called by: -
+sub_6A5FD      13 lines  called by: -
+sub_6A60E      18 lines  called by: sub_69E20
+    globals: byte_A0773
+sub_6A62D      13 lines  called by: -
+sub_6A640      51 lines  called by: sub_6907E,sub_69FE4,sub_6A085,sub_6A11B,sub_6A1D5,sub_6A297,sub_6A317,sub_6A405,sub_70B8B
+    globals: dword_A06F0
+sub_6A737      43 lines  called by: sub_6035F
+sub_6A787       5 lines  called by: -
+sub_6B260     161 lines  called by: sub_61740
+    globals: dword_12EFF4 dword_12F008 dword_12F010 dword_12F018 dword_12F024 dword_9AFA0
+sub_6B378     153 lines  called by: sub_61810
+    globals: dword_12EFF4 dword_12F008 dword_12F010 dword_12F018 dword_12F024 dword_9AFA0
+sub_6B47C      28 lines  called by: sub_61CC0
+sub_6B87A       3 lines  called by: -
+    globals: dword_A0CA4
+sub_6BCA3     288 lines  called by: -
+    calls: sub_6BF98 dword sub_6BEBB sub_6C66D sub_6C32A sub_6C05C sub_6C224 sub_6BFCF sub_6C175
+sub_6BEBB     118 lines  called by: sub_6BCA3
+sub_6BF98      35 lines  called by: sub_6BCA3
+    calls: dword
+sub_6BFCF      93 lines  called by: sub_6BCA3
+    calls: dword
+sub_6C05C     153 lines  called by: sub_6BCA3
+    calls: dword sub_6C8C5
+sub_6C175      71 lines  called by: sub_6BCA3
+sub_6C1E0      40 lines  called by: sub_6C224
+    calls: memset
+    globals: byte_AC16C
+sub_6C224     133 lines  called by: sub_6BCA3
+    calls: sub_6C1E0 dword
+    globals: byte_AC16C
+sub_6C32A     351 lines  called by: sub_6BCA3
+    calls: dword sub_6C8C5 off_A6368 __FDFS
+    globals: off_A6368
+sub_6C66D     256 lines  called by: sub_6BCA3
+    calls: dword sub_6C8C5 sub_6C896
+sub_6C896      30 lines  called by: sub_6C66D
+    calls: tolower
+sub_6C8C5      25 lines  called by: sub_6C05C,sub_6C32A,sub_6C66D
+    calls: dword
+sub_6D2E0      61 lines  called by: -
+    calls: sub_6D35C free
+    globals: dword_12F6A0
+sub_6D35C      35 lines  called by: sub_63010,sub_6D2E0
+    calls: int386
+sub_6D5EC      20 lines  called by: -
+    globals: dword_6D620
+sub_6DD6C      13 lines  called by: -
+sub_6DD7D      70 lines  called by: sub_64846
+    calls: sub_676B0
+    globals: dword_A01CC dword_A01EA word_A01D0
+sub_6DE12      13 lines  called by: -
+sub_6DE23      13 lines  called by: -
+sub_6DE34     195 lines  called by: sub_64846
+    calls: strcpy strcat open read malloc sub_674CD sub_67557 sub_67582 lseek close
+    strings: hmidrv.386
+    globals: byte_131BAD byte_A04D2 byte_A05D1 dword_131B80 dword_131BA4 dword_131BA8 dword_131BB0 dword_131BD0 dword_A0230 dword_A02C6
+sub_6E030      48 lines  called by: sub_64846,sub_64F78
+    globals: dword_A01CC dword_A0230 word_A01D0
+sub_6E09A     164 lines  called by: sub_64846
+    calls: strcpy strcat open read malloc sub_674CD sub_67557 sub_67582 lseek close
+    strings: hmidrv.386
+    globals: byte_A04D2 byte_A05D1 dword_131B80 dword_131BA4 dword_131BA8 dword_131BB0 dword_131BD0
+sub_6E23C      37 lines  called by: sub_64F78
+sub_6E27A      17 lines  called by: -
+sub_6E295      13 lines  called by: -
+sub_6E2A6      13 lines  called by: -
+sub_6E2B7      32 lines  called by: -
+    globals: dword_A0E10
+sub_6E2FA      32 lines  called by: -
+    globals: dword_A0E10
+sub_6E33D      13 lines  called by: -
+sub_6E34E      13 lines  called by: -
+sub_6E35F      41 lines  called by: -
+    globals: dword_A01CC dword_A0230 dword_A026C word_A01D0
+sub_6E3B9      13 lines  called by: -
+sub_6E5A0       4 lines  called by: -
+    globals: dword_131BE0
+sub_6E5A6       3 lines  called by: -
+    globals: dword_131BDC
+sub_6E5AC       3 lines  called by: -
+    globals: dword_A0E80
+sub_6E5B2      35 lines  called by: sub_68BDA
+    calls: sub_6FC44
+    globals: byte_A1B36 byte_A1B39 byte_A1B3A byte_A1B3B dword_A1734 dword_A1F24 word_A1B3C word_A1B3E word_A1B40 word_A1B42 word_A1B44 word_A1B46 word_A1B48 word_A1B4A ...
+sub_6E65B      49 lines  called by: sub_6E822,sub_6EDD0,sub_6F3B3,sub_6F5A8,sub_6F6D8,sub_6F77A,sub_6F9F9,sub_6FDEC,sub_6FEBF,sub_6FF53,sub_70148,sub_702F6,sub_706CC,sub_70812,sub_70AA0,sub_70B3E
+    globals: word_A160A
+sub_6E6BF      49 lines  called by: sub_6E822,sub_6F5A8,sub_6F77A,sub_7008A,sub_70113,sub_70812,sub_70AA0
+    globals: word_A160A
+sub_6E727      49 lines  called by: sub_6EDD0,sub_6F3B3,sub_6FEBF,sub_7024E,sub_702F6,sub_706CC,sub_70812
+    globals: word_A160A
+sub_6E7A0      59 lines  called by: sub_6E822,sub_6EDD0,sub_6F3B3
+    globals: word_A160A
+sub_6E822     142 lines  called by: sub_6EDD0
+    calls: sub_6E7A0 sub_6E6BF sub_6E65B
+    globals: word_A1608 word_A18B4
+sub_6E976      20 lines  called by: sub_6EA0F
+sub_6E9A4      53 lines  called by: sub_6EA0F
+    globals: dword_A1D34 word_A1D44
+sub_6EA0F     302 lines  called by: sub_6EDD0
+    calls: sub_6E976 sub_6E9A4 dword_A1728
+    globals: dword_A0E84 dword_A1728 dword_A1734 dword_A1D34 word_A1834 word_A1836
+sub_6ED47      29 lines  called by: sub_6EDD0
+    globals: word_A0F00
+sub_6ED75      50 lines  called by: sub_6EDD0
+sub_6EDD0     559 lines  called by: sub_6F4CB
+    calls: sub_6EA0F sub_6E822 sub_6E65B sub_6ED47 sub_6ED75 sub_6E727 sub_6E7A0
+    globals: byte_A1000 byte_A1080 byte_A1100 dword_A1D34 word_A18B4 word_A1B34
+sub_6F3B3      96 lines  called by: sub_68A14,sub_6F4CB
+    calls: sub_6E65B sub_6E7A0 sub_6E727
+    globals: byte_A1B36 dword_A18C4 word_A1608 word_A18B4 word_A18BC word_A18BE
+sub_6F4CB      30 lines  called by: sub_68A14
+    calls: sub_6F3B3 sub_6EDD0
+sub_6F502      20 lines  called by: sub_6FA53
+    globals: word_A1B46 word_A1B48
+sub_6F536      18 lines  called by: sub_6FA53
+    globals: byte_A1B37
+sub_6F55F      18 lines  called by: sub_6FA53
+    globals: byte_A1B38
+sub_6F588      16 lines  called by: sub_6FA53
+    globals: byte_A1B39
+sub_6F5A8     106 lines  called by: sub_6F6AF,sub_6FA53
+    calls: sub_6E6BF sub_6E65B
+    globals: byte_A1000 byte_A1080 byte_A1100 byte_A18B8 byte_A1B3A byte_A1B3B word_A1608 word_A18B4 word_A18BA
+sub_6F6AF      18 lines  called by: sub_6FA53
+    calls: sub_6F5A8
+    globals: byte_A1B3A byte_A1B3B
+sub_6F6D8      69 lines  called by: sub_6FA53
+    calls: sub_6E65B
+    globals: byte_A1B36 word_A1608 word_A18B4 word_A18BC
+sub_6F77A      67 lines  called by: sub_6FA53,sub_6FDAC
+    calls: sub_6E6BF sub_6E65B
+    globals: word_A1608 word_A18B4 word_A18C2 word_A1B3C word_A1B3E
+sub_6F824      21 lines  called by: sub_6FA53
+    globals: word_A1B4A word_A1B4C
+sub_6F850      14 lines  called by: sub_6FA53
+    globals: word_A1B4A word_A1B4C
+sub_6F872      49 lines  called by: sub_6FA53
+    calls: dword_A1728
+    globals: dword_A1728 word_A1B40 word_A1B4A word_A1B4C word_A1B50
+sub_6F8F1      46 lines  called by: sub_6FA53
+    calls: dword_A1728
+    globals: dword_A1728 word_A1B40 word_A1B4A word_A1B4C word_A1B50
+sub_6F963      29 lines  called by: sub_6FA53
+    calls: dword_A1730
+    globals: byte_A1B36 byte_A1B37 byte_A1B38 byte_A1B39 byte_A1B3A byte_A1B3B dword_A1730 word_A1B3C word_A1B40 word_A1B42 word_A1B46 word_A1B48 word_A1B4C word_A1B4E
+sub_6F9F9      40 lines  called by: sub_6FA53
+    calls: sub_6E65B
+    globals: word_A1608 word_A18B4
+sub_6FA53     233 lines  called by: sub_68A14
+    calls: sub_6F502 sub_6F77A sub_6F872 sub_6F5A8 sub_6F588 sub_6F6AF sub_6F8F1 sub_6F6D8 sub_6F536 sub_6F55F sub_6F824 sub_6F850 sub_6F963 sub_6F9F9 dword_A172C dword_A1730
+    globals: dword_A172C dword_A1730
+sub_6FC44     145 lines  called by: sub_68A14,sub_6E5B2
+    globals: dword_A1734 word_A1B34 word_A1B44 word_A1B46 word_A1B48
+sub_6FDA4       4 lines  called by: sub_68A14
+sub_6FDAC      25 lines  called by: sub_68A14
+    calls: sub_6F77A
+    globals: word_A1B3C word_A1B3E
+sub_6FDEC      89 lines  called by: sub_68A14
+    calls: sub_6E65B
+    globals: word_A1608 word_A18B4 word_A18C0 word_A1B40 word_A1B42
+sub_6FEBF      46 lines  called by: -
+    calls: sub_6E65B sub_6E727
+    globals: dword_A1186 dword_A118A word_A1180 word_A1182 word_A1184
+sub_6FF53      56 lines  called by: -
+    calls: sub_6E65B
+    globals: byte_A11F0 off_A13DE word_A120C
+sub_6FFCF      65 lines  called by: -
+    calls: off_A13DE
+    globals: dword_A13CC off_A13DE off_A2995 word_A13DC
+sub_70038       3 lines  called by: -
+    globals: dword_A13F8
+sub_7003E       3 lines  called by: -
+    globals: dword_A13FC
+sub_70044      29 lines  called by: sub_68BDA
+    calls: sub_7008A
+    globals: word_A160A
+sub_7008A      44 lines  called by: sub_70044
+    calls: sub_6E6BF
+sub_70113      30 lines  called by: sub_7024E,sub_702F6,sub_70812,sub_70B3E
+    calls: sub_6E6BF
+sub_70148     100 lines  called by: sub_70AA0
+    calls: sub_6E65B
+sub_7024E      64 lines  called by: sub_70AA0
+    calls: sub_70113 sub_6E727
+sub_702F6     424 lines  called by: sub_70AA0
+    calls: sub_6E65B sub_70113 sub_6E727
+    globals: word_A1400 word_A1500
+sub_706CC     106 lines  called by: sub_70AA0,sub_70B3E
+    calls: sub_6E65B sub_6E727
+    globals: word_A160A
+sub_70812     190 lines  called by: sub_70AA0
+    calls: sub_6E65B sub_6E727 sub_70113 sub_6E6BF
+    globals: dword_A160C
+sub_70AA0      49 lines  called by: sub_68BDA
+    calls: sub_6E6BF sub_6E65B sub_70148 sub_7024E sub_702F6 sub_706CC sub_70812
+    globals: word_A1608 word_A18B4 word_A18C2
+sub_70B3E      25 lines  called by: sub_68C4B
+    calls: sub_6E65B sub_70113 sub_706CC
+sub_70B74       3 lines  called by: -
+    globals: dword_A1600
+sub_70B7A      12 lines  called by: -
+sub_70B8B     147 lines  called by: sub_68F37
+    calls: sub_6A640
+    globals: byte_A0704 byte_A0764 byte_A0775 byte_A0776 byte_A0A24 dword_A07A0 dword_A07C8 dword_A0808 dword_A08F0 dword_A0930 dword_A0954 word_A07A4
+sub_70D33      12 lines  called by: -
+sub_70D44      12 lines  called by: -
+sub_70D55     109 lines  called by: sub_6907E
+    globals: byte_A0764 dword_A0808 dword_A086C
+sub_70DFA      12 lines  called by: -
+sub_70E0B      12 lines  called by: -
+sub_70E1C      22 lines  called by: sub_697C0,sub_69AA5
+    globals: dword_A07C8
+sub_70E47      12 lines  called by: -
+sub_71012       5 lines  called by: -
+    globals: dword_A0CA8
+sub_7101B       3 lines  called by: -
+    globals: dword_A8874
+sub_71524       3 lines  called by: -
+    globals: word_A636C
+sub_71B53       3 lines  called by: -
+sub_71BC9      23 lines  called by: -
+    globals: byte_A0CC6
+sub_724C0     126 lines  called by: sub_11F50,sub_11F70,sub_2DCB0
+    globals: byte_DC1E0
+sub_725C8      79 lines  called by: sub_31AA0
+    calls: sub_72652 sub_726E7
+    globals: word_10C1E0
+sub_72652      46 lines  called by: sub_725C8
+    globals: word_10C1E0
+sub_726E7      88 lines  called by: sub_725C8
+    globals: word_10C1E0
+sub_72807      96 lines  called by: sub_44470
+    globals: dword_9334C
+sub_729A3    9373 lines  called by: sub_2A700
+    globals: byte_967E0 byte_967E1 byte_B7934 byte_BB934 dword_74F95 dword_93AC8 dword_93AD0 dword_93AD4 dword_93AD8 dword_93ADC dword_93AE0
+sub_79495      47 lines  called by: sub_309D0,sub_30A70,sub_30D90
+    globals: dword_93AC8 dword_93ACC dword_93AD0 dword_93AD4 dword_93AD8 dword_93ADC
+sub_79906      95 lines  called by: sub_30B30
+    calls: sub_61A1C sub_79A70
+    globals: dword_12EFF4 dword_AE404
+sub_79A1B      39 lines  called by: sub_30B30
+    calls: sub_61A1C sub_79A70
+    globals: dword_12EFF4 dword_AE404
+sub_79A70      51 lines  called by: sub_79906,sub_79A1B
+    globals: dword_A0000
+sub_79B2D     104 lines  called by: sub_30B30
+    calls: sub_5BDF8 sub_61A1C sub_5BE50
+    globals: byte_9AD96 dword_12EFF4 dword_A0000
+sub_7B444       4 lines  called by: -
+    globals: dword_A0CA8

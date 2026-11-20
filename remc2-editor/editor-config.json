@@ -2,12 +2,34 @@
 	"settings": [
 		{
 			"name": "Main",
-			"version":  "1.0",
+			"version": "2.0",
 			"isActive": true,
-			"paths": {
-				"gameFolder": "NETHERW",
-				"cdFolder": "CD_Files"
-			}
+			"description": [
+				"paths: the folders of each game. name: MagicCarpet, HiddenWorlds or MagicCarpet2, path: the folders of the game (key, value)"
+			],
+			"paths": [
+				{
+					"name": "MagicCarpet",
+					"path": [
+						{ "key": "gameFolder", "value": "MC1/CARPET.CD" },
+						{ "key": "cdFolder", "value": "MC1/CD_Files" }
+					]
+				},
+				{
+					"name": "HiddenWorlds",
+					"path": [
+						{ "key": "gameFolder", "value": "MC1/CARPET.CD" },
+						{ "key": "cdFolder", "value": "MC1/CD_Files" }
+					]
+				},
+				{
+					"name": "MagicCarpet2",
+					"path": [
+						{ "key": "gameFolder", "value": "MC2/NETHERW" },
+						{ "key": "cdFolder", "value": "MC2/CD_Files" }
+					]
+				}
+			]
 		}
 	]
 }

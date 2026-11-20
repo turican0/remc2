@@ -145,13 +145,10 @@ GraphicsDialog::GraphicsDialog(wxWindow* parent, const Config::Settings::Graphic
 		{
 			auto folderSettings = dlg.GetFolders();
 			m_cfg.m_GameDetail.m_UseHighResGraphics = folderSettings.m_UseHighResGraphics;
-			m_cfg.m_GameDetail.m_HighResGraphicsFolder = folderSettings.m_HighResGraphicsFolder;
 			m_cfg.m_GameDetail.m_UseFixedMenuGraphics = folderSettings.m_UseFixedMenuGraphics;
-			m_cfg.m_GameDetail.m_FixedMenuGraphicsFolder = folderSettings.m_FixedMenuGraphicsFolder;
 			m_cfg.m_GameDetail.m_UseFixedTmaps = folderSettings.m_UseFixedTmaps;
-			m_cfg.m_GameDetail.m_FixedTmapsFolder = folderSettings.m_FixedTmapsFolder;
 			m_cfg.m_GameDetail.m_UseExtendedFonts = folderSettings.m_UseExtendedFonts;
-			m_cfg.m_GameDetail.m_ExtendedFontsFolder = folderSettings.m_ExtendedFontsFolder;
+			m_cfg.m_GameDetail.m_Paths = folderSettings.m_Paths;
 		}
 		});
 

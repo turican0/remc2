@@ -1,0 +1,350 @@
+#pragma once
+
+#include <cstdint>
+#include <cstdio>
+
+// MC1 game state and settings, members only as far as they are used by the ported code
+
+#pragma pack(push, 1)
+// a command of a player in a frame (10 bytes, MC2 Type_PlayerInput_0x6E3E)
+typedef struct {
+	uint8_t command_0x00_0; // 1 join, 2 leave, 4 pause ... (3C9D0)
+	int8_t param_0x01_1;
+	int8_t param2_0x02_2;
+	int8_t moveX_0x03_3;
+	int8_t moveY_0x04_4;
+	uint8_t buttons_0x05_5;
+	uint8_t unknown_0x06_6[4];
+} Type_Mc1PlayerInput;
+
+// a message of a player (0x44 bytes)
+typedef struct {
+	char text_0x00_0[0x40];
+	int16_t time_0x40_64; // 7D00h typing, else the frames shown
+	int16_t kind_0x42_66;
+} Type_Mc1Message;
+
+typedef struct {
+	int16_t x;
+	int16_t y;
+	int16_t z;
+} Type_Mc1Position;
+
+// the features of the level counted by CreateLevelModels_37440
+typedef struct { // 0x6A bytes
+	int32_t creatures_0x00; // class 5, not the models 9 and 0Ch-0Fh
+	int32_t class12_0x04[24]; // class 12 by the model
+	uint16_t savedLevel_0x64; // the level and the timer of the game saved by Alt+S (16B00)
+	uint32_t savedTimer_0x66;
+} Type_Mc1CreatureStats;
+
+typedef struct { // 14 bytes in the settings at 0xB8, cleared by ClearLevel_40550
+	uint8_t unknown_0x00[4];
+	int32_t total_0x04; // the mana of the entities with mana counted by SumLevelMana_48230 (+ the start of the player)
+	int32_t dword_0x08;
+	uint8_t unknown_0x0C[2];
+} Type_Mc1ManaStats;
+
+// a mail to an entity: the values of one kind are summed while the sender is set
+typedef struct {
+	int32_t value_0;
+	uint16_t sender_4; // the id of the last sender, 0 none
+} Type_Mc1Mail;
+
+// an entity (DOS 0xA4 bytes at state + 0x7463 + n * 0xA4); members as far as they are checked in the MC1 asm
+typedef struct Type_Mc1Entity {
+	struct Type_Mc1Entity* next_0x00_0;
+	uint32_t rand_0x04_4; // the entity index + the level seed
+	int32_t maxLife_0x08_8; // MC2 maxLife_0x4
+	int32_t life_0x0C_12; // MC2 life_0x8
+	uint32_t flags_0x10_16; // 4 on the map, 8 new, 0x400 to free, 0x20400 reusable (MC2 flags_0xc_12_15)
+	uint16_t mapNext_0x14_20; // the next entity in the map cell (MC2 oldMapEntity_0x16)
+	uint16_t mapPrevious_0x16_22; // the previous entity in the map cell (MC2 nextEntity_0x18)
+	uint16_t id_0x18_24; // MC2 id_0x1A
+	int16_t word_0x1A_26;
+	uint16_t mailMask_0x1C_28; // the kinds of mail the entity takes, bit by the kind
+	int16_t word_0x1E_30;
+	int16_t word_0x20_32;
+	int16_t word_0x22_34; // set with word_0x1E / word_0x20 by the creatures
+	int16_t word_0x24_36;
+	uint16_t word_0x26_38; // the sender of the damage that killed the wizard (46540)
+	uint8_t unknown_0x28_40[2];
+	uint16_t word_0x2A_42; // 27D30: the entity whose word_0x30 is set when the building is done
+	int16_t word_0x2C_44;
+	int16_t word_0x2E_46;
+	int16_t word_0x30_48;
+	int16_t word_0x32_50; // 127E0 sets 1Eh
+	uint16_t word_0x34_52; // the previous segment of a creature (entity index)
+	uint16_t word_0x36_54; // the next segment
+	int16_t word_0x38_56;
+	uint8_t byte_0x3A_58;
+	uint8_t byte_0x3B_59;
+	uint8_t byte_0x3C_60;
+	uint8_t byte_0x3D_61;
+	uint8_t byte_0x3E_62;
+	uint8_t index_0x3F_63; // the low byte of the entity index
+	uint8_t class_0x40_64; // MC2 class_0x3F
+	uint8_t model_0x41_65; // MC2 model_0x40
+	uint8_t byte_0x42_66;
+	uint8_t byte_0x43_67;
+	uint8_t byte_0x44_68;
+	uint8_t unknown_0x45_69;
+	uint8_t actionIndex_0x46_70; // the record of 14 bytes in the actions of the class (MC2 actionIndex_0x45)
+	uint8_t byte_0x47_71;
+	Type_Mc1Position position_0x48_72; // MC2 position_0x4C
+	int16_t box_0x4E_78[4];
+	int16_t sprite_0x56_86;
+	uint8_t frame_0x58_88;
+	uint8_t frameCount_0x59_89;
+	Type_Mc1Mail mails_0x5A_90[6]; // by the kind, added by 127E0 / 120B0
+	int16_t word_0x7E_126;
+	int16_t word_0x80_128;
+	int16_t word_0x82_130;
+	int32_t dword_0x84_132;
+	int32_t dword_0x88_136;
+	int32_t mana_0x8C_140; // MC2 mana_0x90
+	uint16_t owner_0x90_144; // the entity index of the owner
+	uint16_t target_0x92_146; // the entity index of the target
+	uint8_t unknown_0x94_148[0x96 - 0x94];
+	Type_Mc1Position target_0x96_150; // moved by MoveEntity_41EC0 (MC2 axis_0x9A_154x)
+	uint8_t* typeParams_0x9C_156; // dword_98F38 records (MC2 typeParams_0xA0)
+	uint8_t* playerData_0xA0_160; // dword_B7330 (MC2 playerData_0xA4)
+} Type_Mc1Entity;
+
+// the entity with the 32-bit pointers of DOS: saved games and the checks against DOSBox
+typedef struct {
+	uint32_t next_0x00_0;
+	uint32_t rand_0x04_4; // the entity index + the level seed
+	int32_t maxLife_0x08_8; // MC2 maxLife_0x4
+	int32_t life_0x0C_12; // MC2 life_0x8
+	uint32_t flags_0x10_16; // 4 on the map, 8 new, 0x400 to free, 0x20400 reusable (MC2 flags_0xc_12_15)
+	uint16_t mapNext_0x14_20; // the next entity in the map cell (MC2 oldMapEntity_0x16)
+	uint16_t mapPrevious_0x16_22; // the previous entity in the map cell (MC2 nextEntity_0x18)
+	uint16_t id_0x18_24; // MC2 id_0x1A
+	int16_t word_0x1A_26;
+	uint16_t mailMask_0x1C_28; // the kinds of mail the entity takes, bit by the kind
+	int16_t word_0x1E_30;
+	int16_t word_0x20_32;
+	int16_t word_0x22_34; // set with word_0x1E / word_0x20 by the creatures
+	int16_t word_0x24_36;
+	uint8_t unknown_0x26_38[0x2A - 0x26];
+	uint16_t word_0x2A_42; // 27D30: the entity whose word_0x30 is set when the building is done
+	int16_t word_0x2C_44;
+	int16_t word_0x2E_46;
+	int16_t word_0x30_48;
+	int16_t word_0x32_50; // 127E0 sets 1Eh
+	uint16_t word_0x34_52; // the previous segment of a creature (entity index)
+	uint16_t word_0x36_54; // the next segment
+	int16_t word_0x38_56;
+	uint8_t byte_0x3A_58;
+	uint8_t byte_0x3B_59;
+	uint8_t byte_0x3C_60;
+	uint8_t byte_0x3D_61;
+	uint8_t byte_0x3E_62;
+	uint8_t index_0x3F_63; // the low byte of the entity index
+	uint8_t class_0x40_64; // MC2 class_0x3F
+	uint8_t model_0x41_65; // MC2 model_0x40
+	uint8_t byte_0x42_66;
+	uint8_t byte_0x43_67;
+	uint8_t byte_0x44_68;
+	uint8_t unknown_0x45_69;
+	uint8_t actionIndex_0x46_70; // the record of 14 bytes in the actions of the class (MC2 actionIndex_0x45)
+	uint8_t byte_0x47_71;
+	Type_Mc1Position position_0x48_72; // MC2 position_0x4C
+	int16_t box_0x4E_78[4];
+	int16_t sprite_0x56_86;
+	uint8_t frame_0x58_88;
+	uint8_t frameCount_0x59_89;
+	Type_Mc1Mail mails_0x5A_90[6]; // by the kind, added by 127E0 / 120B0
+	int16_t word_0x7E_126;
+	int16_t word_0x80_128;
+	int16_t word_0x82_130;
+	int32_t dword_0x84_132;
+	int32_t dword_0x88_136;
+	int32_t mana_0x8C_140; // MC2 mana_0x90
+	uint16_t owner_0x90_144; // the entity index of the owner
+	uint16_t target_0x92_146; // the entity index of the target
+	uint8_t unknown_0x94_148[0x96 - 0x94];
+	Type_Mc1Position target_0x96_150; // moved by MoveEntity_41EC0 (MC2 axis_0x9A_154x)
+	uint32_t typeParams_0x9C_156; // dword_98F38 records (MC2 typeParams_0xA0)
+	uint32_t playerData_0xA0_160; // dword_B7330 (MC2 playerData_0xA4)
+} Type_Mc1EntityShadow;
+
+typedef struct { // 18 bytes, a feature of the level (2000 at level + 0x430, 0 not used)
+	uint16_t type_0x00_0; // 10 created by CreateFeatures_36430, then 0
+	uint16_t model_0x02_2;
+	uint16_t x_0x04_4;
+	uint16_t y_0x06_6;
+	uint16_t word_0x08_8; // FFFFh created
+	uint16_t word_0x0A_10;
+	uint16_t word_0x0C_12; // a line to the linked feature
+	uint16_t next_0x0E_14; // the previous feature of a line (the building sprite - 10h for model 2Dh)
+	uint16_t link_0x10_16; // the next feature of a line
+} Type_Mc1LevelFeature;
+
+typedef struct { // size 0x979C, levels.dat (ddlevels.dat in HW) unpacked, at state + 0x2F503, no pointers
+	uint8_t unknown_0x00_0[4];
+	uint32_t seed_0x04_4;
+	uint16_t offset_0x08_8;
+	uint8_t unknown_0x0A_10[2];
+	uint16_t raise_0x0C_12;
+	uint8_t unknown_0x0E_14[2];
+	uint16_t gnarl_0x10_16;
+	uint8_t unknown_0x12_18[2];
+	uint32_t river_0x14_20;
+	uint16_t lriver_0x18_24;
+	uint8_t unknown_0x1A_26[2];
+	uint16_t source_0x1C_28;
+	uint8_t unknown_0x1E_30[2];
+	uint16_t snLin_0x20_32;
+	uint8_t unknown_0x22_34[2];
+	uint16_t snFlt_0x24_36;
+	uint8_t unknown_0x26_38[2];
+	uint16_t bhLin_0x28_40;
+	uint8_t unknown_0x2A_42[2];
+	uint16_t bhFlt_0x2C_44;
+	uint8_t unknown_0x2E_46[0x430 - 0x2E];
+	Type_Mc1LevelFeature features_0x430_1072[2000];
+	uint8_t unknown_0x90D0_37072[0x90E0 - 0x90D0];
+	uint8_t playerSpells_0x90E0_37088[0x9792 - 0x90E0]; // by the player 0D8h: +0 available, +64h kind (1 by the progress)
+	uint16_t playerCount_0x9792_38802;
+	uint8_t unknown_0x9794_38804[0x979C - 0x9794];
+} Type_Mc1Level_2F503;
+
+typedef struct { // 14 bytes, the camera (20FB0 -> 30D90; MC2 positions_0x1d1_2BDE_11695)
+	int16_t x_0x00_0;
+	int16_t y_0x02_2;
+	int16_t z_0x04_4;
+	int16_t yaw_0x06_6;
+	int16_t pitch_0x08_8;
+	int16_t roll_0x0A_10;
+	uint16_t word_0x0C_12; // 80h, the field of view
+} Type_Mc1PlayerRecord;
+
+typedef struct { // size 0x801
+	uint8_t unknown_0x00_0[2];
+	uint16_t levelResult_0x02_2; // 2 next level, 4 play again, 8 end
+	uint8_t exitGame_0x04_4; // 1 the player left, 2 the CD is missing (3DD10)
+	uint8_t pause_0x05_5; // switched by the command 4
+	uint8_t active_0x06_6; // the player joined (the command 1)
+	uint16_t index_0x07_7; // the number of the player
+	uint8_t computer_0x09_9; // 1 played by the computer
+	uint16_t entityIndex_0x0A_10; // the entity of the player (wizard)
+	uint8_t unknown_0x0C_12[0x0E - 0x0C];
+	uint16_t word_0x0E_14; // recordCount_0x10 - 1
+	uint16_t recordCount_0x10_16;
+	int32_t turn_0x12_18; // the frames of the level (3C9D0), MC2 Turn_2BE0_11248
+	uint8_t unknown_0x16_22[2];
+	int32_t cheat_0x18_24;
+	Type_Mc1Message messages_0x1C_28[8]; // by the player, the text being typed and the shown ones
+	Type_Mc1PlayerRecord recordTemplate_0x23C_572; // copied to the records by InitPlayers_3DD50
+	Type_Mc1PlayerRecord records_0x24A_586[0x20];
+	char name_0x40A_1034[0x20];
+	uint8_t unknown_0x42A_1066[0x44A - 0x42A];
+	uint8_t mode_0x44A_1098; // 20FB0: 0 and 3 the game, 1 the help, 2 the spells, 4 the map (3DC90)
+	uint8_t byte_0x44B_1099; // cleared every frame by 3C9D0
+	uint8_t unknown_0x44C_1100[0x44F - 0x44C];
+	// 44Fh-801h: the player data of the wizard (its playerData_0xA0 points here, MC2 playerData_0x3E6)
+	uint8_t playerData_0x44F_1103[0x663 - 0x44F];
+	int32_t spells_0x663_1635[24]; // the spells the player has, -1 none
+	uint8_t unknown_0x6C3_1731[0x753 - 0x6C3];
+	uint8_t spellSlots_0x753_1875[24]; // the slot of the spell, FFh none
+	uint8_t spellsAllowed_0x76B_1899[0x60]; // by the spell, a computer player from the level
+	uint8_t progress_0x7CB_1995[0x18]; // cleared by a new game, kept by the demo, in the saved games
+	uint8_t unknown_0x7E3_2019[0x7FB - 0x7E3];
+	uint16_t spellSlot_0x7FB_2043; // the first spell, FFh none
+	uint8_t unknown_0x7FD_2045[2];
+	uint16_t spellSlot2_0x7FF_2047; // the second spell, FFh none
+} Type_Mc1Player_340B;
+
+typedef struct { // size 232713, DOSBox 26C400 (pointer)
+	uint8_t unknown_0x00_0[0x04];
+	uint32_t rand_0x04_4; // the seed of the level
+	int16_t currentPlayer_0x08_8;
+	uint16_t playerCount_0x0A_10;
+	uint8_t modelCounters_0x0C_12[0x14]; // cleared by ClearLevel_40550 (MC2 modelCounters_0x10)
+	uint32_t dword_0x20_32;
+	uint16_t word_0x24_36;
+	uint16_t word_0x26_38;
+	int32_t freeTop_0x28_40; // the top of freeEntities_0x251, -1 empty
+	uint8_t usedTmaps_0x2C_44[0x214]; // the tmaps of a movie: 1 loaded, 2 loaded and locked (593B0 / 59420)
+	int32_t levelVariant_0x240_576;
+	uint8_t byte_0x244_580;
+	uint32_t dword_0x245_581; // 1 after the loading screen
+	uint32_t dword_0x249_585;
+	uint32_t dword_0x24D_589;
+	Type_Mc1Entity* freeEntities_0x251_593[1000];
+	int32_t reuseTop_0x11F1_4593; // the top of reuseEntities_0x11F5, -1 empty
+	Type_Mc1Entity* reuseEntities_0x11F5_4597[1000]; // entities with the flags 0x20400, taken when none is free
+	uint8_t reflections_0x2195_8597;
+	uint8_t shadows_0x2196_8598;
+	uint8_t sky_0x2197_8599;
+	uint8_t setting_0x2198_8600; // 40 by default
+	uint8_t map_0x2199_8601;
+	uint8_t icons_0x219A_8602;
+	uint8_t screenSize_0x219B_8603; // 0 full screen (MC2 0x2190)
+	uint8_t blur_0x219C_8604; // F9: 0 off, 1 light, 2 heavy speed blur
+	uint8_t soften_0x219D_8605; // F4
+	uint8_t vfx_0x219E_8606;
+	uint8_t unknown_0x219F_8607;
+	int8_t tileTextureSize_0x21A0_8608; // 0x20 (blk?-1) or 0x10 (blk?-0), by the memory
+	uint8_t unknown_0x21A1_8609[0x21AD - 0x21A1];
+	uint8_t options_0x21AD_8621[11]; // all 1 by default, [10] cleared with less memory
+	uint8_t unknown_0x21B8_8632[0x23D9 - 0x21B8];
+	Type_Mc1Position playerStarts_0x23D9_9177[8]; // set by the class 3 models 4-11 (MC2 playerStarts_0x2362)
+	Type_Mc1Player_340B networkPlayer_0x2409_9225; // player 0 kept by the network game (4FEB0)
+	Type_Mc1Player_340B playerBackup_0x2C0A_11274; // the player before InitPlayers_3DD50 clears it
+	Type_Mc1Player_340B players_0x340B_13323[8];
+	Type_Mc1PlayerInput playerInputs_0x7413_29715[8]; // the commands of the players in the frame (MC2 playerInputs_0x6E3E)
+	Type_Mc1Entity entities_0x7463_29795[1000];
+	Type_Mc1Level_2F503 level_0x2F503_193795;
+	Type_Mc1CreatureStats creatureStats_0x38C9F_232607; // MC2 creatureStats_0x364D2
+} Type_Mc1State_AE400_AE3F0;
+
+typedef struct { // size 36478
+	uint32_t flags_0x00_0; // 2 record the movie, 4 play the movie (no exit screen), 8 no game, 0x10 network, 0x40 time, 0x80 debug, 0x100 no menu (demo, custom, roll), 0x200-0x2000 demo number, 0x20 roll
+	uint32_t frames_0x04_4; // counted by 3C9D0
+	uint8_t fastCpu_0x08_8;
+	FILE* movieFile_0x09_9; // the movie being played or recorded (DOS: a handle of 4 bytes, MC2 port: FILE* too)
+	uint16_t movie_0x0D_13; // the number of the movie (movie/mvi%05d.dat)
+	uint16_t roll_0x0F_15;
+	uint16_t levelIndex_0x11_17;
+	uint16_t networkLevel_0x13_19; // the level when the network game was chosen
+	uint8_t unknown_0x15_21;
+	int8_t selectedSpell_0x16_22; // the spell under the mouse in the spells mode (20FB0), -1 none
+	uint8_t flag_0x17_23;
+	uint8_t cd_0x18_24; // & 3 == 1: the CD is checked every frame (3DD10)
+	int32_t password_0x19_25;
+	char playerName_0x1D_29[32]; // the first byte from byte_A9058
+	char nickname_0x3D_61[32];
+	uint8_t colorIndex_0x5D_93[16]; // [i]: the frame / i & 1 (3C9D0), the blinking of the texts
+	uint8_t unknown_0x6D_109[0x75 - 0x6D];
+	char sessionName_0x75_117[32];
+	uint8_t tmapsLoaded_0x95_149; // 5 after 59050 loaded a group (not read)
+	uint8_t speedIndex_0x96_150;
+	uint8_t language_0x97_151; // 0-3, chosen on the language screen
+	uint8_t paletteSubMod_0x98_152;
+	uint32_t frameTicks_0x99_153; // the timer at the end of the last frame (GameFrame_34530)
+	uint32_t networkTicks_0x9D_157; // the ticks of the network exchange (3C9D0)
+	uint8_t credits_0xA1_161; // the credits over the demo (20FB0): 3 wait, 2 start, 1 a page shown
+	int32_t creditsTime_0xA2_162; // the frames of the page or of the wait
+	uint16_t creditsLine_0xA6_166; // the first line of the page in off_9AB44
+	uint8_t* heap_0xA8_168; // allocated by InitMemory
+	uint32_t heapSize_0xAC_172;
+	uint8_t unknown_0xB0_176[0xB8 - 0xB0];
+	Type_Mc1ManaStats manaStats_0xB8_184;
+	uint8_t unknown_0xC6_198[0xCE - 0xC6];
+	uint32_t timerDivisor_0xCE_206; // 26AFh, the PIT divisor of the own 120 Hz timer
+	uint32_t unknown_0xD2_210;
+	uint8_t unknown_0xD6_214[0x8E1A - 0xD6];
+	Type_Mc1Entity* entityLists_0x8E1A_36378[25]; // the entities by kind (MC2 creatureLists_38403x ...)
+} Type_Mc1Settings_AE408_AE3F8;
+#pragma pack(pop)
+
+static_assert(sizeof(Type_Mc1Player_340B) == 0x801, "Type_Mc1Player_340B");
+static_assert(sizeof(Type_Mc1EntityShadow) == 0xA4, "Type_Mc1EntityShadow");
+static_assert(sizeof(Type_Mc1Entity) == 0xA4 + 3 * (sizeof(uint8_t*) - 4), "Type_Mc1Entity");
+static_assert(sizeof(Type_Mc1State_AE400_AE3F0) == 232713 + 1000 * (sizeof(Type_Mc1Entity) - 0xA4) + 2000 * (sizeof(uint8_t*) - 4),
+	"Type_Mc1State_AE400_AE3F0");
+static_assert(sizeof(Type_Mc1Settings_AE408_AE3F8) == 36478 + 27 * (sizeof(uint8_t*) - 4), "Type_Mc1Settings_AE408_AE3F8"); // pointers (and the FILE* of the movie) are 4 bytes in DOS
+static_assert(sizeof(Type_Mc1Level_2F503) == 0x979C, "Type_Mc1Level_2F503");

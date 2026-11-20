@@ -1,0 +1,65 @@
+# Renderer: MC1 vs MC2
+
+Comparison of the world drawing tree of CARPET.EXE (MC1) and NETHERW.EXE (MC2), IDA addresses.
+`body` = similarity of normalized instructions, `opcodes` = similarity of the opcode sequence.
+Listings and maps: `c:\prenos\dosbox-x-remc1\ida\`. HIDDEN.EXE functions are in `mc1_hw_map.txt`.
+
+## Tree
+
+| MC1 (CARPET) | lines | MC2 (remc2 name) | lines | body | opcodes | note |
+|---|---|---|---|---|---|---|
+| sub_30D90 | 657 | DrawWorld_411A0 | 469 | 0.45 | 0.58 | same role |
+| sub_79495 | 28 | SetRenderViewPortSize_BCD45 | 28 | 1.00 | 1.00 | identical |
+| sub_2A700 | 1978 | DrawTerrainAndParticles_3C080 | 2589 | 0.29 | 0.56 | same role, biggest difference |
+| sub_29C30 | 670 | SetBillboards_3B560 | 701 | 0.66 | 0.71 | same role |
+| sub_410CE | 30 | sub_7277A | 30 | 1.00 | 1.00 | identical |
+| sub_30730 | 158 | DrawSky_40950 | 173 | 0.46 | 0.78 | same role |
+| sub_729A3 | 7339 | DrawTriangleInProjectionSpace_B6253 | 7339 | 0.99 | 1.00 | identical (only jump table labels differ) |
+| sub_2FC50 | 743 | DrawTileSpriteReflections_3FD60 | 808 | 0.61 | 0.83 | same role |
+| sub_2DCB0 | 1374 | DrawSprites_3E360 | 1718 | 0.43 | 0.50 | same role |
+| sub_2F170 | 705 | - | | 0.25 | 0.50 | MC1 only, one more pass over the sprites (to check: shadows?) |
+| sub_2C410 | 1882 | DrawSprite_41BD3 | 2093 | 0.37 | 0.69 | same role; MC2 also draws names and health bars (88740, 2CB30) |
+| sub_724C0 | 106 | sub_B5C60 | 106 | 1.00 | 1.00 | identical |
+| sub_59050 | 47 | MainInitTmaps_71520 | 49 | 0.81 | 0.90 | tmap cache, similar tree below |
+
+MC1 tree: 20955 asm lines, MC2 tree: 23099.
+
+## Findings
+
+- The structure is the same: DrawWorld -> DrawTerrainAndParticles -> billboards, sky, rasterizer,
+  sprites, reflections; DrawSprite at the bottom; the tmap cache below.
+- Identical and shared directly: viewport, rasterizer, sub_410CE/sub_7277A, sub_724C0/sub_B5C60.
+- Same role, different code: the rest. The differences have to be read function by function; the biggest
+  one is DrawTerrainAndParticles (0.29).
+- MC1 has one extra sprite pass (sub_2F170); MC2 has names/health bars over wizards in DrawSprite.
+- MC1 has extra 3D modes (stereo / VFX1 output) - to be added to the renderer later, not forgotten.
+
+## Plan
+
+1. Scene interface: the renderers (Original, HD, NG, HW) stop reading `world_D41A0` and the other MC2
+   globals directly and get camera, terrain, sprites and sky from the game.
+2. MC1 differences go into the renderer as variants (sky, billboards, extra pass, terrain loop),
+   so MC1 gets all four renderers.
+3. Each step is checked against both MC1 asm listings and, for MC2, with the regression tests.
+
+## Deeper look (2026-11-10)
+
+Opcode alignment of the pairs (difflib over the opcodes, registers and frames ignored):
+
+| MC1 | MC2 | matched (MC1 / MC2) | unmatched blocks |
+|---|---|---|---|
+| sub_30D90 | DrawWorld_411A0 | 0.50 / 0.70 | MC1 +296: the VFX1 / stereo views (219Ch, 219Eh), sub_2A700 called per eye |
+| sub_2A700 | DrawTerrainAndParticles_3C080 | 0.65 / 0.50 | MC2 +833 (one block, the caves); MC1 +486 in 4 blocks, to check |
+| sub_29C30 | SetBillboards_3B560 | 0.73 / 0.70 | MC2 +166, MC1 +157 |
+| sub_30730 | DrawSky_40950 | 0.82 / 0.75 | none over 50 |
+| sub_2FC50 | DrawTileSpriteReflections_3FD60 | 0.87 / 0.80 | none over 50 |
+| sub_2DCB0 | DrawSprites_3E360 | 0.57 / 0.45 | MC2 +590 in 3 blocks; MC1 +340 in 2 blocks |
+| sub_2C410 | DrawSprite_41BD3 | 0.72 / 0.65 | MC2 +107 (names / health bars) |
+
+- sub_2F170 is called by sub_2A700 instead of sub_2DCB0 in one branch: another sprite pass of MC1.
+- The frame (sub_20FB0, 27k lines with the world) is: the world sub_30D90 (20.9k, of it the shared
+  rasterizer 7.3k) + the 2D screen of MC1 (about 6k: sub_20FB0 itself, sub_48710 map, sub_22E50, sub_23D40,
+  sub_22880, sub_49300 ...), which has no MC2 counterpart.
+- remc2 renderers read from the game: world_D41A0 (about 30 uses: display / sky / shadows / reflections settings,
+  players, LevelIndex, MapType), the maps (the same arrays MC1 uses), type_entity_0x6E8E (position, sprite,
+  frame, flags, yaw, id, parent, map chain) and the sprite / tmap tables. MC1 uses the same tmaps format.

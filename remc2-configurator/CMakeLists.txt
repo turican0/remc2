@@ -20,6 +20,8 @@ set(SOURCE_FILES_CONFIGURATOR
     "DisplayDialog.h"
     "GameDialog.cpp"
     "GameDialog.h"
+    "GameFilesCheck.cpp"
+    "GameFilesCheck.h"
     "GameFilesDialog.cpp"
     "GameFilesDialog.h"
     "GraphicsDialog.cpp"
@@ -98,6 +100,7 @@ install(
 
 install(
     DIRECTORY
+    ${CMAKE_CURRENT_SOURCE_DIR}/images
     DESTINATION bin
 )
 

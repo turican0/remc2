@@ -79,6 +79,7 @@ void WaitToScreenBeam_9A0FC();
 
 
 void SetAnimationPosition_765FC(__int16 a1, __int16 a2);
+extern char animDecodeMode_E2A20;
 int8_t* DecodeAnimationFrame_76619(int8_t* a1x, int8_t* a2x);
 void DecodeAnimationChunks_766A4();
 __int16 ReadAnimationPosition_76752();

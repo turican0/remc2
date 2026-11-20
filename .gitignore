@@ -57,6 +57,7 @@ flatpak/build-dir
 .cache
 
 !enhancedassets/*
+!enhancedassets/MC2/*
 
 
 x64/debug.txt

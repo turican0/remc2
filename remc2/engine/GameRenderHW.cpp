@@ -1,6 +1,8 @@
 #include "GameRenderHW.h"
 #include <algorithm>
 #include "globals.h"
+#include "GameRenderNG.h"
+#include "GameUI.h"
 
 #include "../utilities/RendererTests.h"
 
@@ -148,6 +150,11 @@ void GameRenderHW::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 	int v31; // edi
 	int vPosX; // [esp+34h] [ebp+18h]
 	int vPosY; // [esp+38h] [ebp+1Ch]
+	if (Mc1SoftwareMode())
+	{
+		DrawMc1Software(posX, posY, yaw, posZ, pitch, roll, fov);
+		return;
+	}
 	LOBYTE(v8) = HIBYTE(posX);
 	HIBYTE(v8) = HIBYTE(posY);
 	if ((signed int)(uint8_t)posX < 128)
@@ -259,7 +266,7 @@ void GameRenderHW::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 			if (std::abs(speed) > 80)
 				blurActive = true;
 		}
-		SetBlurActive(world_D41A0.miscSettings_0x21AE.xxxx_0x21B1 && blurActive);
+		SetBlurActive((RenderMc1() || world_D41A0.miscSettings_0x21AE.xxxx_0x21B1) && blurActive);
 
 		// The views step sideways along the camera's right axis (as the stereo eyes), centred on the camera, the leftmost
 		// first: view i is (2i - (count - 1)) / 2 steps of viewSpacing from the centre
@@ -299,6 +306,41 @@ void GameRenderHW::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 	}
 
 	EventDispatcher::I->DispatchEvent<ResourceType, RenderViews*>(EventType::E_RESOURCE_CHANGE, ResourceType::POLYGONS_UPDATED, &m_frameViews);
+}
+
+// MC1 30D90: the views which need the screen buffers - the stereogram (screen size 2), red-blue (screen size 1: the
+// second eye into the blur buffer, joined by 30B30) and VFX1 (both eyes side by side, 640x480)
+bool GameRenderHW::Mc1SoftwareMode()
+{
+	if (!RenderMc1())
+		return false;
+	const auto& settings = world_D41A0.m_GameSettings;
+	if (settings.graphics_0x2192.xxxx_0x2193)
+		return settings.m_Display.m_uiScreenSize && screenWidth_18062C == 640;
+	return settings.m_Display.m_uiScreenSize == 1 || settings.m_Display.m_uiScreenSize == 2;
+}
+
+// drawn in software (GameRenderNG) into the screen buffer, shown over the 3D view (no polygons) through the alpha of
+// the view port
+void GameRenderHW::DrawMc1Software(int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov)
+{
+	SetBlurActive(false);
+	if (!m_mc1Software)
+		m_mc1Software = std::make_unique<GameRenderNG>();
+	m_mc1Software->DrawWorld_411A0(posX, posY, yaw, posZ, pitch, roll, fov);
+
+	m_frameViews.composition = ViewComposition::Cells;
+	m_frameViews.rows = 1;
+	m_frameViews.columns = 1;
+	m_frameViews.lists.resize(1);
+	m_frameViews.lists[0].clear();
+	EventDispatcher::I->DispatchEvent<ResourceType, RenderViews*>(EventType::E_RESOURCE_CHANGE, ResourceType::POLYGONS_UPDATED, &m_frameViews);
+	if (pdwScreenAlphaBuffer)
+	{
+		uint8_t* alpha = pdwScreenAlphaBuffer + (ViewPortRenderBufferStart_DE558 - pdwScreenBuffer_351628);
+		for (int row = (uint16_t)viewPort.Height_DE568; row; row--, alpha += iScreenWidth_DE560)
+			memset(alpha, ALPHA_VISIBLE, (uint16_t)viewPort.Width_DE564);
+	}
 }
 
 /*
@@ -409,11 +451,14 @@ void GameRenderHW::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	const int quadrantYaw = ((yaw90 & 0x1FF) - 256) & 0x7FF;
 	const int quadrantCos = Maths::sin_DB750[512 + quadrantYaw];
 	const int quadrantSin = Maths::sin_DB750[quadrantYaw];
-	spriteRender_F2C20.projectionScale_0x18 = 7
-		* Maths::IntegerSqrt_7277A(
-			(uint16_t)viewPort.Width_DE564 * (uint16_t)viewPort.Width_DE564
-			+ (uint16_t)viewPort.Height_DE568 * (uint16_t)viewPort.Height_DE568)
-		* fov >> 11;
+	if (RenderMc1())
+		spriteRender_F2C20.projectionScale_0x18 = Mc1ProjectionScale(viewPort.Width_DE564, viewPort.Height_DE568, fov);
+	else
+		spriteRender_F2C20.projectionScale_0x18 = 7
+			* Maths::IntegerSqrt_7277A(
+				(uint16_t)viewPort.Width_DE564 * (uint16_t)viewPort.Width_DE564
+				+ (uint16_t)viewPort.Height_DE568 * (uint16_t)viewPort.Height_DE568)
+			* fov >> 11;
 	const TileStepQuadrant& steps = m_tileRenderStepTable_D4328x[quadrant];
 
 	int a1 = 0;
@@ -492,7 +537,12 @@ void GameRenderHW::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	if (!world_D41A0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel_D41B6)
 	{
 		// The background colour over the view port, 4 bytes at a time (as the original, the width rounded down to 4)
-		const uint8_t colour = m_BackgroundColour_D4B7C;
+		const uint8_t colour = RenderMc1() ? 0xFF : m_BackgroundColour_D4B7C;   // MC1 2A700: 0xFF
+		if (RenderMc1() && m_mc1ClearColour != colour)
+		{
+			m_mc1ClearColour = colour;
+			EventDispatcher::I->DispatchEvent<ResourceType, uint8_t>(EventType::E_RESOURCE_CHANGE, ResourceType::CLEAR_COLOURIDX_SET, colour);
+		}
 		const int fill = colour | colour << 8 | colour << 16 | colour << 24;
 		const int filled = ((uint16_t)viewPort.Width_DE564 / 4) * 4;
 		uint8_t* line = ViewPortRenderBufferStart_DE558;
@@ -585,7 +635,7 @@ void GameRenderHW::ProjectTiles(TerrainProjection projection, uint8_t mapX, uint
 					wave = (Maths::sin_DB750[(tick + (mapY << 7)) & 0x7FF] >> 8) * (Maths::sin_DB750[(tick + (mapX << 7)) & 0x7FF] >> 8);
 					if (projection == TerrainProjection::Reflections)
 						tile.inverse_alt_8 = -(mapHeightmap_11B4E0[map] * ((wave >> 4) + 0x8000) >> 10) - posZ;
-					if (!(mapAngle_13B4E0[map] & 8) || (tile.alt_4 -= wave >> 10, shading >= 14464))
+					if (!(mapAngle_13B4E0[map] & 8) || (tile.alt_4 -= wave >> 10, !RenderMc1() && shading >= 14464))
 						wave = 0;
 				}
 				tile.pnt5_32 = FogLight((shading << 8) + 8 * wave, distance);
@@ -597,6 +647,8 @@ void GameRenderHW::ProjectTiles(TerrainProjection projection, uint8_t mapX, uint
 				const uint8_t textureY = mapY + steps.texOffY;
 				const uint16_t textureMap = textureY << 8 | textureX;
 				tile.textIndex_41 = mapTerrainType_10B4E0[textureMap];
+				if (RenderMc1() && Mc1TerrainTypeFlat(tile.textIndex_41))
+					tile.triangleFeatures_38 |= 0x1000u;   // MC1: shaded flat (MC2's flat setting is not in this renderer)
 				if (projection == TerrainProjection::Reflections && Maths::x_BYTE_D41D8[164 + tile.textIndex_41])
 					tile.triangleFeatures_38 |= 0x80u;   // water
 				tile.textAtyp_43 = Maths::x_BYTE_D41D8[tile.textIndex_41];
@@ -737,10 +789,10 @@ void GameRenderHW::SubDrawTerrainAndParticles(std::vector<int>& vertexs, std::ve
 // The sprite loaded (MainInitTmaps_71520 when needed) and marked as used in this frame; nullptr when it cannot be loaded.
 Type_Sprite* GameRenderHW::UseSprite(int index)
 {
-	if (!m_ptrLoadedSprites_F66F0x[index] && !MainInitTmaps_71520(index))
+	if (!RenderLoadedTmap(index) && !RenderLoadTmap(index))
 		return nullptr;
-	tmapGroupLastUse_F5730[str_TMAPS00TAB_BEGIN_BUFFER[index].group_8] = gameState_D41A4.FrameTimingIndex_26;
-	return *m_ptrLoadedSprites_F66F0x[index];
+	RenderTmapUsed(index);
+	return *RenderLoadedTmap(index);
 }
 
 // The sprite of the entity by its kind: one picture, an animation frame or one of the directions the camera sees it from
@@ -826,7 +878,7 @@ void GameRenderHW::DrawTileBillboards_3FD60(int tileIndex, std::vector<RenderPol
 	{
 		if (entityIndex < 0x3E8u)
 		{
-			entity = Entities_EA3E4[entityIndex];
+			entity = RenderEntity(entityIndex);
 			if (!(entity->flags_0xc_12_15.byte[0] & 0x21))
 			{
 				const int dx = (int16_t)(entity->position_0x4C_76.x - cameraX_F2CC4);
@@ -838,7 +890,7 @@ void GameRenderHW::DrawTileBillboards_3FD60(int tileIndex, std::vector<RenderPol
 				if (depth > 64 && distance < m_cutOffDistance)
 				{
 					spriteRender_F2C20.fogShade_0x00 = SpriteLight(distance);
-					const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[entity->spriteIndex_0x5A_90];
+					const Type_SpriteDef_D951C& def = *RenderSpriteDef(entity->spriteIndex_0x5A_90);
 					ProjectSprite(across, height, depth);
 					Type_Sprite* sprite = nullptr;
 					int spriteBase = 0, spriteFrame = 0;
@@ -1117,6 +1169,12 @@ void GameRenderHW::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int ti
 
 	RenderPolygon poly;
 	poly.TextureId = kTerrainAtlasId;
+	if (tile.triangleFeatures_38 & 0x1000)   // MC1 flat (mode 7): the texture lit by the corners' average light
+	{
+		const float shade = (float)(uint8_t)((vertexs[4] + vertexs[10] + vertexs[16] + vertexs[22]) >> 18) * 65536.0f / kBrightnessNeutral;
+		for (HWVertex& corner : h)
+			corner.Shade = std::clamp(shade, 0.0f, 2.0f);
+	}
 	if (tile.triangleFeatures_38 & 0x80)   // water tile (only set when reflections are on)
 	{
 		poly.SpriteMode = 26;
@@ -1197,7 +1255,7 @@ void GameRenderHW::DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* 
 	do
 	{
 		//adress 21f370
-		type_entity_0x6E8E* entity = Entities_EA3E4[entityIndex];
+		type_entity_0x6E8E* entity = RenderEntity(entityIndex);
 		spriteRender_F2C20.entity_0x14x = entity;
 		if (!(entity->flags_0xc_12_15.byte[0] & 0x21))
 		{
@@ -1207,7 +1265,7 @@ void GameRenderHW::DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* 
 			int spriteBase = 0, spriteFrame = 0;
 
 			// ---- the shadow ----
-			if (shadows_F2CC7 && !m_ptrStr_E9C38_smalltit[tileIndex].textAtyp_43 && !(entity->flags_0xc_12_15.word[1] & 0x808))
+			if (shadows_F2CC7 && !m_ptrStr_E9C38_smalltit[tileIndex].textAtyp_43 && (RenderMc1() || !(entity->flags_0xc_12_15.word[1] & 0x808)))
 			{
 				//adress 21f40c
 				const int height = GetTerrainAlt2_B5C60(entity->position_0x4C_76.x, entity->position_0x4C_76.y) - spriteRender_F2C20.cameraZ_0x20;
@@ -1217,7 +1275,7 @@ void GameRenderHW::DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* 
 				if (depth > 64 && distance < m_cutOffDistance)
 				{
 					spriteRender_F2C20.fogShade_0x00 = SpriteLight(distance);
-					const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[entity->spriteIndex_0x5A_90];
+					const Type_SpriteDef_D951C& def = *RenderSpriteDef(entity->spriteIndex_0x5A_90);
 					if (!def.lightingTableIdx_10)
 					{
 						ProjectSprite(across, height, depth);
@@ -1246,11 +1304,11 @@ void GameRenderHW::DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* 
 			}
 
 			// ---- the entity ----
-			const int z = spriteRender_F2C20.entity_0x14x->flags_0xc_12_15.byte[3] >= 0
+			const int z = RenderMc1() || spriteRender_F2C20.entity_0x14x->flags_0xc_12_15.byte[3] >= 0
 				? spriteRender_F2C20.entity_0x14x->position_0x4C_76.z : spriteRender_F2C20.entity_0x14x->position_0x4C_76.z - 160;
 			int depth = (spriteRender_F2C20.sin2_0x17 * dx + spriteRender_F2C20.cos2_0x0f * dy) >> 16;
 			const int across = (spriteRender_F2C20.cos2_0x0f * dx - spriteRender_F2C20.sin2_0x17 * dy) >> 16;
-			if (spriteRender_F2C20.entity_0x14x->flags_0xc_12_15.byte[3] & 0x20)
+			if (!RenderMc1() && (spriteRender_F2C20.entity_0x14x->flags_0xc_12_15.byte[3] & 0x20))
 			{
 				// carried: moved along the carrier's direction
 				const type_D404C* offsets = &str_D404C[spriteRender_F2C20.entity_0x14x->poseIndex_0x3B_59];
@@ -1269,7 +1327,7 @@ void GameRenderHW::DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* 
 			if (depth > 64 && distance < m_cutOffDistance)
 			{
 				spriteRender_F2C20.fogShade_0x00 = SpriteLight(distance);
-				const Type_SpriteDef_D951C& def = spriteDefsTable_D951C[spriteRender_F2C20.entity_0x14x->spriteIndex_0x5A_90];
+				const Type_SpriteDef_D951C& def = *RenderSpriteDef(spriteRender_F2C20.entity_0x14x->spriteIndex_0x5A_90);
 				ProjectSprite(across, z - spriteRender_F2C20.cameraZ_0x20, depth);
 				if (ChooseSprite(spriteRender_F2C20.entity_0x14x, def, depth, true, true, sprite, spriteBase, spriteFrame) == SpriteChoice::Draw)
 				{
@@ -1277,7 +1335,7 @@ void GameRenderHW::DrawSprites_3E360(int tileIndex, std::vector<RenderPolygon>* 
 					sprite->flags_0 |= 8u;
 					const __int16 flags2 = drawn->flags_0xc_12_15.byte[2];
 					spriteRender_F2C20.texture_0x02 = sprite->textureBuffer;
-					if (flags2 & 0x380)
+					if (!RenderMc1() && (flags2 & 0x380))
 					{
 						// a player's: tinted with the player's colour (4/5), or blended (2/3)
 						const char flags3 = drawn->flags_0xc_12_15.byte[3];
@@ -1356,10 +1414,10 @@ void GameRenderHW::DrawSprite_41BD3(uint32_t pass, std::vector<RenderPolygon>* p
 			// right = (cos, -sin), down = (sin, cos); a1 != 1 is the flipped reflection
 			EmitSpriteQuad(polygons, spriteIndex, spriteFrame,
 				(float)s.screenY_0x04, (float)s.screenX_0x03,
-				c, -sn, sn, c, pass != 1);
+				c, -sn, sn, c, pass != 1, RenderMc1() ? 0 : (uint8_t)(s.tint_0x07 & 0xFF));   // MC1: tint 0
 		}
 
-		if (pass == 1 && m_primaryView)
+		if (pass == 1 && m_primaryView && !RenderMc1())   // MC1: no names, help or seen flag
 		{
 			if (!gameState_D41A4.byteindex_207
 				&& s.entity_0x14x->class_0x3F_63 == 3
@@ -1398,7 +1456,7 @@ void GameRenderHW::DrawSprite_41BD3(uint32_t pass, std::vector<RenderPolygon>* p
 		s.screenX_0x03 >= (uint16_t)viewPort.Height_DE568 || s.screenX_0x03 + s.realHeight_0x0c <= 0)
 		return;
 
-	if (pass == 1 && m_primaryView && gameState_D41A4.showHelp_10)
+	if (pass == 1 && m_primaryView && gameState_D41A4.showHelp_10 && !RenderMc1())
 		SetEntityHelpText_88740(s.entity_0x14x,
 			(int16_t)(s.screenY_0x04 + (s.realWidth_0x09 >> 1)),
 			(int16_t)(s.screenX_0x03 + (s.realHeight_0x0c >> 1)));
@@ -1406,7 +1464,8 @@ void GameRenderHW::DrawSprite_41BD3(uint32_t pass, std::vector<RenderPolygon>* p
 	// the original has no mode 8 in this path
 	if ((unsigned)s.visibility_0x01 <= 7)
 		EmitSpriteQuad(polygons, spriteIndex, spriteFrame,
-			(float)s.screenY_0x04, (float)s.screenX_0x03, 1, 0, 0, 1, false);
+			(float)s.screenY_0x04, (float)s.screenX_0x03, 1, 0, 0, 1, false,
+			RenderMc1() ? (uint8_t)s.visibility_0x01 : (uint8_t)(s.tint_0x07 & 0xFF));   // MC1: tint = the number of the mode
 }
 
 uint32_t GameRenderHW::SpriteFrameRow(int spriteIndex, int spriteFrame)
@@ -1415,9 +1474,9 @@ uint32_t GameRenderHW::SpriteFrameRow(int spriteIndex, int spriteFrame)
 	if (frames <= 1)
 		return 0;
 
-	if (m_ptrLoadedSprites_F66F0x[spriteIndex] && ((*m_ptrLoadedSprites_F66F0x[spriteIndex])->flags_0 & 1))
+	if (RenderLoadedTmap(spriteIndex) && ((*RenderLoadedTmap(spriteIndex))->flags_0 & 1))
 	{
-		if (const type_animations1* anim = GetAnimationByIndex_724F0(animations_E9C08x, spriteIndex))
+		if (const type_animations1* anim = RenderTmapAnimation(spriteIndex))
 			return (uint32_t)std::clamp(anim->FrameIndex_22 - 2, 0, (int)frames - 1);
 	}
 
@@ -1425,7 +1484,7 @@ uint32_t GameRenderHW::SpriteFrameRow(int spriteIndex, int spriteFrame)
 }
 
 void GameRenderHW::EmitSpriteQuad(std::vector<RenderPolygon>* polygons, int spriteIndex, int spriteFrame,
-	float x, float y, float rx, float ry, float dx, float dy, bool flipV)
+	float x, float y, float rx, float ry, float dx, float dy, bool flipV, uint8_t tint)
 {
 	auto& s = spriteRender_F2C20;
 
@@ -1474,7 +1533,7 @@ void GameRenderHW::EmitSpriteQuad(std::vector<RenderPolygon>* polygons, int spri
 	default:                        poly.Alpha = 1.0f;  break;
 	}
 
-	poly.Tint = (uint8_t)(s.tint_0x07 & 0xFF);
+	poly.Tint = tint;
 	for (int i = 0; i < 4; i++)
 	{
 		HWVertex& v = poly.Vertices[i];

@@ -57,19 +57,22 @@ int DataFileRNC::Decompress(uint8_t* src, uint8_t* a2) {
 		v->max_matches = 0xFF;
 	}
 
-	v->file_size = MAX_BUF_SIZE;
-	v->input = (uint8_t*)malloc(MAX_BUF_SIZE);
-
+	// the input buffer holds the packed data (header + packed size), at least MAX_BUF_SIZE as before:
+	// some MC1 sound banks (e.g. DATA/SNDS2-1.DAT, 671994 bytes) are packed bigger than MAX_BUF_SIZE
 	uint32_t signature = src[0] + (src[1] << 8) + (src[2] << 16);
+	uint32_t packedLength = 0;
 	if (signature == 0x434e52)
 	{
 		uint32_t inputsize = src[11] + (src[10] << 8) + (src[9] << 16) + (src[8] << 24);
-		memmove(v->input, src, inputsize + 0x12);
+		packedLength = inputsize + RNC_HEADER_SIZE;
 	}
+	v->file_size = packedLength > MAX_BUF_SIZE ? packedLength : MAX_BUF_SIZE;
+	v->input = (uint8_t*)calloc(v->file_size, 1);
+
+	if (packedLength > 0)
+		memmove(v->input, src, packedLength);
 	else
-	{
 		v->input[0] = 0;
-	}
 	v->output = a2;
 	v->temp = (uint8_t*)malloc(MAX_BUF_SIZE);
 
@@ -478,8 +481,11 @@ uint8_t DataFileRNC::read_source_byte(vars_t* v)
 
 		read_buf(v->pack_block_start, v->input, &v->input_offset, size_to_read);
 
+		// up to 2 bytes after the block are read ahead (and given back below), never past the end of the input
 		if (left_size - size_to_read > 2)
 			left_size = 2;
+		else
+			left_size -= size_to_read;
 
 		read_buf(&v->mem1[size_to_read], v->input, &v->input_offset, left_size);
 		v->input_offset -= left_size;

@@ -33,12 +33,60 @@ private:
 
 public:
 
+	// the version of the config file format ("version" of a settings entry)
+	static constexpr const char* ConfigVersion = "2.0";
+
 	struct Settings
 	{
+		// the names of the games, the "name" of a paths entry
+		struct GameName
+		{
+			static constexpr const char* MagicCarpet = "MagicCarpet";
+			static constexpr const char* HiddenWorlds = "HiddenWorlds";
+			static constexpr const char* MagicCarpet2 = "MagicCarpet2";
+		};
+
+		// the keys of the path entries
+		struct PathKey
+		{
+			// "paths" of the settings entry
+			static constexpr const char* GameFolder = "gameFolder";
+			static constexpr const char* CdFolder = "cdFolder";
+			// "paths" of sound
+			static constexpr const char* SpeechFolder = "speechFolder";
+			static constexpr const char* OggFolder = "oggFolder";
+			static constexpr const char* Awe32RomFolder = "awe32RomFolder";
+			// "paths" of graphics.gameDetail
+			static constexpr const char* HighResGraphicsFolder = "highResGraphicsFolder";
+			static constexpr const char* FixedMenuGraphicsFolder = "fixedMenuGraphicsFolder";
+			static constexpr const char* FixedTmapsFolder = "fixedTmapsFolder";
+			static constexpr const char* ExtendedFontsFolder = "extendedFontsFolder";
+		};
+
+		// one path of a game: { "key": ..., "value": ... }
+		struct Path
+		{
+			std::string m_Key;
+			std::string m_Value;
+		};
+
+		// the paths of one game: { "name": ..., "path": [ ... ] }
+		struct NamedPaths
+		{
+			std::string m_Name;
+			std::vector<Path> m_Path;
+		};
+
+		// a "paths" section: one entry per game
 		struct Paths
 		{
-			std::string m_GameFolder = "";
-			std::string m_CdFolder = "";
+			std::vector<NamedPaths> m_Entries;
+
+			// the value of the key of the game, empty if there is none
+			std::string Get(const std::string& name, const std::string& key) const;
+			// sets the value (adds the game and the key when they are not there yet)
+			void Set(const std::string& name, const std::string& key, const std::string& value);
+			bool Has(const std::string& name, const std::string& key) const;
 		};
 
 		struct Multiplayer
@@ -57,14 +105,12 @@ public:
 			bool m_FixSpeedSound = true;
 			bool m_AutoShowObjectivesForForeignLanguages = false;
 			int m_MaxSimultaniousSounds = 10;
-			std::string m_SpeechFolder;
 			std::string m_MusicType = "ogg";
-			std::string m_Awe32RomFolder;
 			bool m_UseMagicCarpet1Music = false;
 			bool m_Awe32GmIntroMusic = true;
 			int m_Awe32BufferMs = 200;
-			std::string m_OggFolder;
 			bool m_OggMusicAlternative = false;
+			Paths m_Paths; // speechFolder, oggFolder, awe32RomFolder
 		};
 
 		struct GameDetail
@@ -74,18 +120,15 @@ public:
 			int m_GameUiScale = 1;
 			int m_MapEntityScale = 1;
 			bool m_UseHighResGraphics = false;
-			std::string m_HighResGraphicsFolder = "";
 			bool m_UseFixedMenuGraphics = false;
-			std::string m_FixedMenuGraphicsFolder = "";
 			bool m_UseFixedTmaps = false;
-			std::string m_FixedTmapsFolder = "";
 			bool m_UseExtendedFonts = false;
-			std::string m_ExtendedFontsFolder = "";
 			bool m_Sky = true;
 			bool m_Reflections = true;
 			bool m_DynamicLighting = true;
 			int m_ViewDistanceScale = 2;
 			float m_FogScale = 1.0f;
+			Paths m_Paths; // the graphics folders: highResGraphicsFolder, fixedMenuGraphicsFolder, fixedTmapsFolder, extendedFontsFolder
 		};
 
 		struct Threading
@@ -244,7 +287,7 @@ public:
 		std::string m_Name;
 		std::string m_Version;
 		std::string m_LaunchArguments;
-		Paths m_Paths;
+		Paths m_Paths; // gameFolder, cdFolder
 		Multiplayer m_Multiplayer;
 		Sound m_Sound;
 		Graphics m_Graphics;
@@ -267,14 +310,17 @@ public:
 	Settings::InGameUi GetInGameUi(const json& graphics);
 	Settings::UiElement GetUiElement(const json& inGameUi, const char* name, const Settings::UiElement& defaults);
 	Settings::Sound GetSound(const json& settings);
-	Settings::Paths GetPaths(const json& settings);
+	Settings::Paths GetPaths(const json& parent);
+	Settings::Paths GetSettingsPaths(const json& settings);
+	void ReadOldFolders(const json& settings, Settings& values);
 	Settings::Controls GetControls(const json& settings);
 	Settings::Multiplayer GetMultiplayer(const json& settings);
 	Settings::Game GetGame(const json& settings);
 
 	void SaveLaunchArgumentsToDoc(Config::Settings settings);
 	void SaveSoundToDoc(Settings::Sound soundSettings);
-	void SavePathsToDoc(Settings::Paths pathSettings);
+	void SavePathsToDoc(const Settings::Paths& paths); // the "paths" of the settings entry
+	void SetPaths(json& parent, const Settings::Paths& paths);
 	void SaveMultiplayerToDoc(Settings::Multiplayer multiplayerSettings);
 	void SaveGraphicsToDoc(Settings::Graphics graphics);
 	void SaveGameDetailToDoc(Settings::GameDetail gameDetail);

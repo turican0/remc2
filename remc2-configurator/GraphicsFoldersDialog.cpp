@@ -39,19 +39,19 @@ GraphicsFoldersDialog::GraphicsFoldersDialog(wxWindow* parent, const Config::Set
 
 	// ── Initial values ────────────────────────────────────────────────────────
 	m_chkHighRes->SetValue(d.m_UseHighResGraphics);
-	m_graphicsFolderCtrl->SetValue(d.m_HighResGraphicsFolder);
+	m_graphicsFolderCtrl->SetValue(d.m_Paths.Get(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::HighResGraphicsFolder));
 	m_graphicsFolderCtrl->SetToolTip("Path to High Resolution Graphics");
 
 	m_chkFixedMenu->SetValue(d.m_UseFixedMenuGraphics);
-	m_menuFolderCtrl->SetValue(d.m_FixedMenuGraphicsFolder);
+	m_menuFolderCtrl->SetValue(d.m_Paths.Get(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::FixedMenuGraphicsFolder));
 	m_menuFolderCtrl->SetToolTip("Path to the fixed menu Graphics");
 
 	m_chkFixedTmaps->SetValue(d.m_UseFixedTmaps);
-	m_tmapsFolderCtrl->SetValue(d.m_FixedTmapsFolder);
+	m_tmapsFolderCtrl->SetValue(d.m_Paths.Get(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::FixedTmapsFolder));
 	m_tmapsFolderCtrl->SetToolTip("Path to the fixed tmaps");
 
 	m_chkFonts->SetValue(d.m_UseExtendedFonts);
-	m_fontFolderCtrl->SetValue(d.m_ExtendedFontsFolder);
+	m_fontFolderCtrl->SetValue(d.m_Paths.Get(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::ExtendedFontsFolder));
 	m_fontFolderCtrl->SetToolTip("Path to the extended Fonts");
 
 	// ── Sync enabled state with checkbox values ───────────────────────────────
@@ -130,10 +130,11 @@ Config::Settings::GameDetail GraphicsFoldersDialog::GetFolders() const
 	Config::Settings::GameDetail d = m_initialDetail;
 	d.m_UseHighResGraphics = m_chkHighRes->GetValue();
 	d.m_UseFixedMenuGraphics = m_chkFixedMenu->GetValue();
+	d.m_UseFixedTmaps = m_chkFixedTmaps->GetValue();
 	d.m_UseExtendedFonts = m_chkFonts->GetValue();
-	d.m_HighResGraphicsFolder = m_graphicsFolderCtrl->GetValue();
-	d.m_FixedMenuGraphicsFolder = m_menuFolderCtrl->GetValue();
-	d.m_FixedTmapsFolder = m_menuFolderCtrl->GetValue();
-	d.m_ExtendedFontsFolder = m_fontFolderCtrl->GetValue();
+	d.m_Paths.Set(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::HighResGraphicsFolder, m_graphicsFolderCtrl->GetValue().ToStdString());
+	d.m_Paths.Set(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::FixedMenuGraphicsFolder, m_menuFolderCtrl->GetValue().ToStdString());
+	d.m_Paths.Set(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::FixedTmapsFolder, m_tmapsFolderCtrl->GetValue().ToStdString());
+	d.m_Paths.Set(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::ExtendedFontsFolder, m_fontFolderCtrl->GetValue().ToStdString());
 	return d;
 }

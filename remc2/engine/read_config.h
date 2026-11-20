@@ -48,7 +48,16 @@ struct UiElementLayout
 	int marginY = 0;   // down from the top (top bar, spell icons) or up from the bottom (spell menu)
 };
 
+// the folders of a game: the install folder and the folder of the CD files
+struct GamePaths
+{
+	std::string m_GameFolder;
+	std::string m_CdFolder;
+};
+
 bool SetConfig();
+extern GamePaths magicCarpetPaths;
+extern GamePaths hiddenWorldsPaths;
 std::vector<Maths::Zone> ReadZones(std::vector<Maths::Zone> zonesArray);
 UiAlignment ParseUiAlignment(std::string alignment, UiAlignment defaultAlignment);
 UiElementLayout ReadUiElementLayout(const Config::Settings::UiElement& element, UiAlignment defaultAlignment);

@@ -1,1 +1,0 @@
-DOSBOX\dosbox.exe -conf "Extract\dosboxExtract-GOG-CD.conf" -c exit
