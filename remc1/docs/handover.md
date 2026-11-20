@@ -76,6 +76,8 @@ Python 3 and Git Bash; some scripts still have the paths of the original machine
 - `dbxdump.py <mc1|hw> <code IDA> <outdir> name=<IDA data>:<len> | name=@<linear>:<len> ...` - runs DOSBox and
   dumps memory at the code address (env `DBXCONF` = the conf, `REMC1_DUMP_HIT`, `REMC1_POKE` pass through).
 - `mkconf.py "<CARPET.EXE args>" <conf>` - a DOSBox conf for a level.
+- `dbxrecord.py <level> <out.rec> [play]` - plays the level in DOSBox and records the input of player 0 (or plays
+  the file); the port plays it with the env `REMC1_PLAY=<out.rec>` and `-game mc1 -custom -level <level>`.
 - Comparisons port vs DOSBox (they need a temporary hook in the port: read the script, the hook reads
   `MC1_TEMP*` env variables in `GameFrame_34530` and is removed after the check - nothing temporary is committed):
   - `verframe.sh / cmpframe.py` - the state after 3C9D0 (maps, entities, players);
