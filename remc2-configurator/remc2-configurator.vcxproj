@@ -204,12 +204,9 @@
     <ClInclude Include="ZoneEditorDialog.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="images\hidden_worlds.png" />
-    <Image Include="images\magic_carpet.png" />
-    <Image Include="images\magic_carpet2.png" />
-    <Image Include="images\mc2_hd_logo.png">
-      <DeploymentContent>true</DeploymentContent>
-    </Image>
+    <Image Include="images\hidden_worlds_wide.png" />
+    <Image Include="images\magic_carpet_wide.png" />
+    <Image Include="images\magic_carpet2_wide.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icons\config.rc" />

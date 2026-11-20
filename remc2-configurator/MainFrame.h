@@ -21,7 +21,7 @@ private:
 
 	// enables each play button only when its game has the folders and files it needs (the tooltip lists what is missing)
 	void UpdatePlayButtons();
-	static void SetButtonImage(wxButton* button, const wxString& fileName);
+	static void SetButtonImage(wxButton* button, const wxString& fileName, int width);
 	static void UpdatePlayButton(wxButton* button, const std::vector<wxString>& missing);
 
 	void OnPlayMagicCarpet(wxCommandEvent& evt);
