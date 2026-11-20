@@ -71,8 +71,6 @@ void sub_1B100_1B100(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_1B110_1B110(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
-void sub_1B160_1B160(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
-//!!!!! not ported yet (class action)
 void sub_1B330_1B330(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_1B340_1B340(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
@@ -193,15 +191,9 @@ void sub_1E700_1E700(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_1E710_1E710(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
-void sub_1EA40_1EA40(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
-//!!!!! not ported yet (class action)
-void sub_1F120_1F120(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
-//!!!!! not ported yet (class action)
 void sub_1F5A0_1F5A0(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_1F5B0_1F5B0(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
-//!!!!! not ported yet (class action)
-void sub_1FA00_1FA00(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_1FAA0_1FAA0(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
@@ -232,10 +224,6 @@ void sub_20B60_20B60(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 void sub_20B70_20B70(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_20B80_20B80(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
-//!!!!! not ported yet (class action)
-void sub_24F60_24F60(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
-//!!!!! not ported yet (class action)
-void sub_25130_25130(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_252B0_252B0(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
@@ -277,15 +265,9 @@ void sub_26D20_26D20(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_26E90_26E90(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
-void sub_27030_27030(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
-//!!!!! not ported yet (class action)
-void sub_275C0_275C0(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
-//!!!!! not ported yet (class action)
 void sub_28200_28200(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_285C0_285C0(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
-//!!!!! not ported yet (class action)
-void sub_28DC0_28DC0(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_28FE0_28FE0(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
@@ -400,10 +382,6 @@ Type_Mc1Entity* sub_3C540_3C880(Type_Mc1Position* /*position*/) { NotPorted(__fu
 // 45C90: the sounds of the flight (HMI)
 void sub_55890_55DC0(int16_t /*a1*/, int32_t /*a2*/, int32_t /*a3*/) { NotPorted(__func__); }
 void sub_20D00_20D00(int32_t /*a1*/) { NotPorted(__func__); }
-//!!!!! not ported yet (class action)
-void sub_45FC0_46300(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
-//!!!!! not ported yet (class action)
-void sub_46480_467C0(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_46DB0_470F0(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)

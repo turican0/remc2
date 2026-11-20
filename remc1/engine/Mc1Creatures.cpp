@@ -3,6 +3,7 @@
 #include <cstring>
 
 #include "Mc1Entity.h"
+#include "Mc1Files.h"
 #include "Mc1Game.h"
 #include "Mc1NotPorted.h"
 #include "Mc1Shared.h"
@@ -45,6 +46,12 @@ static uint32_t ReadU32(const uint8_t* data)
 	uint32_t value;
 	memcpy(&value, data, sizeof(value));
 	return value;
+}
+
+static uint32_t NextRand(Type_Mc1Entity* entity)
+{
+	entity->rand_0x04_4 = entity->rand_0x04_4 * 0x24A1 + 0x24DF;
+	return entity->rand_0x04_4;
 }
 
 static void WriteS16(uint8_t* data, int16_t value)
@@ -666,4 +673,266 @@ void CreatureFindBuilding_1F390_1F390(Type_Mc1Entity* entity)
 		entity->word_0x1A_26 = 5;
 		SetAction_424F0_42830(entity, (uint8_t)(action + 1));
 	}
+}
+
+void CreatureGoToBuilding_1F120_1F120(Type_Mc1Entity* entity)
+{
+	// to the target building: at it the action, after word_0x1A steps or without it the action + 1
+	const uint8_t action = 0x48;
+	switch (CreatureDamage(entity))
+	{
+	case 0:
+		break;
+	case 1:
+		HitByWizard(entity);
+		return;
+	case 2:
+		SetAction_424F0_42830(entity, (uint8_t)(action + 4));
+		return;
+	default:
+		return;
+	}
+	MoveCreature_196E0_196E0(entity);
+	if (((uint8_t)entity->index_0x3F_63 % ReadS16(entity->typeParams_0x9C_156 + 0x1A)) / 2)
+		return;
+	Type_Mc1Entity* building = &Entities()[entity->target_0x92_146];
+	const int16_t steps = entity->word_0x1A_26;
+	entity->word_0x1A_26 = (int16_t)(steps - 1);
+	if (!steps || !building->class_0x40_64)
+	{
+		entity->word_0x1A_26 = 5;
+		SetAction_424F0_42830(entity, (uint8_t)(action + 1));
+	}
+	entity->word_0x22_34 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&building->position_0x48_72);
+	if (Distance3D_42340_42680(&entity->position_0x48_72, &building->position_0x48_72) < 0xA00)
+	{
+		entity->word_0x1A_26 = 0;
+		SetAction_424F0_42830(entity, action);
+	}
+}
+
+int32_t CornerHeightRange_35EA0_36260(uint8_t x, uint8_t y, uint8_t height, uint8_t width)
+{
+	// the highest minus the lowest of the corners of the area
+	const uint8_t xs[4] = { x, (uint8_t)(x + width), (uint8_t)(x + width), x };
+	const uint8_t ys[4] = { y, y, (uint8_t)(y + height), (uint8_t)(y + height) };
+	int32_t high = mapHeightmap_DC1E0_DC1D0[(y << 8) | x];
+	int32_t low = high;
+	for (int i = 1; i < 4; i++)
+	{
+		const int32_t corner = mapHeightmap_DC1E0_DC1D0[(ys[i] << 8) | xs[i]];
+		if (corner > high)
+			high = corner;
+		else if (corner < low)
+			low = corner;
+	}
+	return high - low;
+}
+
+uint8_t BuildingPlaceFlat_1E920_1E920(const Type_Mc1Position* position, uint16_t width, uint16_t height, uint16_t limit)
+{
+	// the corner of the building as InitBuildingEntity_36DF0 places it, the ground flat enough
+	uint8_t x = (uint8_t)((uint8_t)(position->x >> 8) - (width >> 1));
+	const uint8_t y = (uint8_t)((uint8_t)(position->y >> 8) - (height >> 1));
+	if ((x + y) % 2)
+		x++;
+	return (int16_t)CornerHeightRange_35EA0_36260(x, y, (uint8_t)height, (uint8_t)width) < limit;
+}
+
+void BuildingSize_1E9B0_1E9B0(uint16_t sprite, uint16_t* width, uint16_t* height)
+{
+	// the half size of the sprite of the building in the world + 300h
+	uint16_t spriteHeight = buildIndex[sprite].height_5;
+	uint16_t spriteWidth = buildIndex[sprite].width_4;
+	if (*videoMode_12F02E_12F01E == 1)
+	{
+		spriteHeight >>= 1;
+		spriteWidth >>= 1;
+	}
+	*height = (uint16_t)((spriteHeight << 8) / 2 + 0x300);
+	*width = (uint16_t)((spriteWidth << 8) / 2 + 0x300);
+}
+
+// a building or a wizard model 2 in the area (the distances to the half sizes of both)
+static bool AreaTaken(Type_Mc1Entity* list, bool wizards, int16_t x, int16_t y, uint16_t width, uint16_t height)
+{
+	for (Type_Mc1Entity* other = list; other > Entities(); other = other->next_0x00_0)
+	{
+		if (wizards && other->model_0x41_65 != 2)
+			continue;
+		const int32_t dx = (int16_t)(other->position_0x48_72.x - x);
+		if ((dx < 0 ? -dx : dx) > width + other->box_0x4E_78[1])
+			continue;
+		const int32_t dy = (int16_t)(other->position_0x48_72.y - y);
+		if ((dy < 0 ? -dy : dy) > height + other->box_0x4E_78[2])
+			continue;
+		return true;
+	}
+	return false;
+}
+
+void CreatureBuild_1EA40_1EA40(Type_Mc1Entity* entity)
+{
+	// a new building next to the target building, the side by word_0x1A; action + 1 when it cannot
+	const uint8_t action = 0x48;
+	Type_Mc1Entity* building = &Entities()[entity->target_0x92_146];
+	if (!building->class_0x40_64 || building->model_0x41_65 != 0x2D)
+		entity->word_0x1A_26 = 5;
+	else
+	{
+		featurePosition_AE454_AE444 = building->position_0x48_72;
+		const int16_t side = entity->word_0x1A_26;
+		entity->word_0x1A_26 = (int16_t)(side + 1);
+		if (side >= 4)
+			entity->word_0x1A_26 = 1;
+		else
+		{
+			const uint8_t sprite = (uint8_t)((NextRand(entity) & 7) + 0x19);
+			uint16_t width;
+			uint16_t height;
+			BuildingSize_1E9B0_1E9B0(sprite, &width, &height);
+			Type_Mc1Position& place = featurePosition_AE454_AE444;
+			switch ((uint16_t)(entity->word_0x1A_26 - 1))
+			{
+			case 0: // right
+			{
+				const int32_t step = (int32_t)(NextRand(entity) % 3) << 8;
+				place.x = (int16_t)(place.x + width + building->box_0x4E_78[1] + step + 0x100);
+				place.y = (int16_t)(place.y + ((int32_t)(NextRand(entity) % 3) << 8) - 0x500);
+				break;
+			}
+			case 1: // left
+			{
+				const int32_t step = (int32_t)(NextRand(entity) % 3) << 8;
+				place.x = (int16_t)(place.x - (width + building->box_0x4E_78[1] + step + 0x100));
+				place.y = (int16_t)(place.y + ((int32_t)(NextRand(entity) % 3) << 8) - 0x500);
+				break;
+			}
+			case 2: // down
+			{
+				place.x = (int16_t)(place.x + ((int32_t)(NextRand(entity) % 3) << 8) - 0x500);
+				const int32_t step = (int32_t)(NextRand(entity) % 3) << 8;
+				place.y = (int16_t)(place.y + height + building->box_0x4E_78[2] + step + 0x100);
+				break;
+			}
+			case 3: // up
+			{
+				place.x = (int16_t)(place.x + ((int32_t)(NextRand(entity) % 3) << 8) - 0x500);
+				const int32_t step = (int32_t)(NextRand(entity) % 3) << 8;
+				place.y = (int16_t)(place.y - (building->box_0x4E_78[2] + height + step + 0x100));
+				break;
+			}
+			}
+			const int16_t x = place.x;
+			const int16_t y = place.y;
+			if (GetTileTypeBit_11810_11810(&place) == 1)
+				entity->word_0x1A_26 = 2;
+			else
+			{
+				const uint16_t flatness = (uint16_t)((((int32_t)width >> 7) + ((int32_t)height >> 7) > 4 ? 1 : 0) + 0x0F);
+				if (!BuildingPlaceFlat_1E920_1E920(&place, (uint16_t)(width >> 8), (uint16_t)(height >> 8), flatness))
+					return;
+				if (AreaTaken(Lists()[23], false, x, y, width, height) || AreaTaken(Lists()[21], true, x, y, width, height))
+					return;
+				if (Type_Mc1Entity* created = CreateEntity_373F0_377B0(&place, 0x0A, 0x2D))
+				{
+					sub_55370_558A0((int16_t)EntityIndex(entity), -1, 0x0A);
+					InitBuildingEntity_36DF0_371B0(created, sprite);
+					created->actionIndex_0x46_70 = 0x33;
+				}
+				entity->target_0x92_146 = 0;
+				SetAction_424F0_42830(entity, 0x4F);
+				return;
+			}
+		}
+	}
+	entity->target_0x92_146 = 0;
+	SetAction_424F0_42830(entity, (uint8_t)(action + 1));
+}
+
+void CreatureLookForLeader_19B10_19B10(Type_Mc1Entity* entity, uint8_t action)
+{
+	// action + 2 attack the wizard that hit it, + 3 follow a creature of the model, + 4 dead
+	switch (CreatureDamage(entity))
+	{
+	case 0:
+		break;
+	case 1:
+		if (Entities()[entity->word_0x28_40].class_0x40_64 == 3)
+		{
+			entity->target_0x92_146 = entity->word_0x28_40;
+			SetAction_424F0_42830(entity, (uint8_t)(action + 2));
+		}
+		return;
+	case 2:
+		SetAction_424F0_42830(entity, (uint8_t)(action + 4));
+		return;
+	default:
+		return;
+	}
+	if (!CreatureUpdateFrame(entity))
+		return;
+	if (Type_Mc1Entity* leader = NearestInView(entity, Lists()[1 + (int8_t)entity->model_0x41_65], false))
+	{
+		entity->word_0x34_52 = EntityIndex(leader);
+		SetAction_424F0_42830(entity, (uint8_t)(action + 3));
+	}
+}
+
+void CreatureToTarget6_1B160_1B160(Type_Mc1Entity* entity)
+{
+	// to the target (the mana ball of 1B200), without it the action 7
+	CreatureLookForLeader_19B10_19B10(entity, 6);
+	MoveCreature_196E0_196E0(entity);
+	if (entity->actionIndex_0x46_70 != 6 || !CreatureUpdateFrame(entity))
+		return;
+	Type_Mc1Entity* target = &Entities()[entity->target_0x92_146];
+	if (target->class_0x40_64)
+	{
+		entity->word_0x22_34 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+		return;
+	}
+	entity->target_0x92_146 = 0;
+	SetAction_424F0_42830(entity, 7);
+}
+
+void CreatureKilled_1A6C0_1A6C0(Type_Mc1Entity* entity, uint8_t action)
+{
+	// the creature and its segments to action + 5; a kill by the player wizard (model 0) is counted (167h)
+	const uint8_t dead = (uint8_t)(action + 5);
+	for (Type_Mc1Entity* segment = &Entities()[entity->word_0x36_54]; segment != Entities(); segment = &Entities()[segment->word_0x36_54])
+	{
+		SetAction_424F0_42830(segment, dead);
+		if (segment->word_0x26_38)
+			entity->word_0x26_38 = segment->word_0x26_38;
+	}
+	Type_Mc1Entity* killer = &Entities()[entity->word_0x26_38];
+	if (entity->word_0x26_38 && killer->class_0x40_64 == 3 && killer->model_0x41_65 == 0
+		&& !(entity->model_0x41_65 == 9 && entity->owner_0x90_144) && (int16_t)entity->id_0x18_24 == (int16_t)EntityIndex(entity))
+	{
+		const uint8_t model = entity->model_0x41_65;
+		if (model != 0x0C && model != 0x0D && model != 0x0E && model != 0x0F && model != 9)
+		{
+			uint8_t* kills = killer->playerData_0xA0_160 + 0x167;
+			int32_t count;
+			memcpy(&count, kills, sizeof(count));
+			count++;
+			memcpy(kills, &count, sizeof(count));
+		}
+	}
+	SetAction_424F0_42830(entity, dead);
+}
+
+void CreatureInBuilding_1FA00_1FA00(Type_Mc1Entity* entity)
+{
+	// in the building (word_0x1A set by 1F640): gone, else killed
+	if (entity->word_0x1A_26)
+	{
+		MarkToFree_41E80_421C0(entity);
+		return;
+	}
+	Type_Mc1Entity* attacker = &Entities()[entity->word_0x26_38];
+	if ((attacker->model_0x41_65 == 0 || attacker->model_0x41_65 == 1) && attacker->playerData_0xA0_160) // port: null player data
+		WriteS16(attacker->playerData_0xA0_160 + 0x210, 0xC8);
+	CreatureKilled_1A6C0_1A6C0(entity, 0x4E);
 }

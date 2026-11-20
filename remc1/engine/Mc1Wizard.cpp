@@ -5,10 +5,9 @@
 #include "Mc1Entity.h"
 #include "Mc1Game.h"
 #include "Mc1NotPorted.h"
+#include "Mc1PlayerEvents.h"
 #include "Mc1Shared.h"
 #include "Mc1Terrain.h"
-
-Type_Mc1Position movePosition_AE454_AE444;
 
 // 93A88: the controls of the flight, the speed (step, min, max, the slowing of a hit) and the turn
 static const int32_t speedStep_93A88_93A88 = 0x10;
@@ -329,31 +328,31 @@ int32_t SlideAlongWall_45410_45750(Type_Mc1Entity* wizard)
 	// into a wall (tile bit 100h): along the wall by the nearer of the two right angles, else no move
 	int32_t move = 1;
 	Type_Mc1Position* position = &wizard->position_0x48_72;
-	if (GetTileTypeBit_11810_11810(&movePosition_AE454_AE444) == 0x100)
+	if (GetTileTypeBit_11810_11810(&featurePosition_AE454_AE444) == 0x100)
 	{
-		const uint16_t yaw = (uint16_t)GetYawAngle_42150_42490(Axis(position), Axis(&movePosition_AE454_AE444));
-		const uint16_t pitch = GetPitchAngle_42180_424C0(position, &movePosition_AE454_AE444);
-		const uint32_t distance = (uint16_t)Distance3D_42340_42680(position, &movePosition_AE454_AE444);
+		const uint16_t yaw = (uint16_t)GetYawAngle_42150_42490(Axis(position), Axis(&featurePosition_AE454_AE444));
+		const uint16_t pitch = GetPitchAngle_42180_424C0(position, &featurePosition_AE454_AE444);
+		const uint32_t distance = (uint16_t)Distance3D_42340_42680(position, &featurePosition_AE454_AE444);
 		const int32_t sector = yaw / 512;
-		movePosition_AE454_AE444 = *position;
+		featurePosition_AE454_AE444 = *position;
 		const uint16_t angle = (uint16_t)(sector << 9);
 		const uint16_t angle2 = (uint16_t)(((sector + 1) << 9) & 0x7FF);
-		MoveEntity_41EC0_42200(Axis(&movePosition_AE454_AE444), angle, pitch,
+		MoveEntity_41EC0_42200(Axis(&featurePosition_AE454_AE444), angle, pitch,
 			(int16_t)((0x200 - (uint16_t)AngleDistance_42210_42550(yaw, angle)) * (int32_t)distance / 512));
-		if (GetTileTypeBit_11810_11810(&movePosition_AE454_AE444) == 0x100)
+		if (GetTileTypeBit_11810_11810(&featurePosition_AE454_AE444) == 0x100)
 		{
-			movePosition_AE454_AE444 = *position;
-			MoveEntity_41EC0_42200(Axis(&movePosition_AE454_AE444), angle2, pitch,
+			featurePosition_AE454_AE444 = *position;
+			MoveEntity_41EC0_42200(Axis(&featurePosition_AE454_AE444), angle2, pitch,
 				(int16_t)((0x200 - (uint16_t)AngleDistance_42210_42550(yaw, angle2)) * (int32_t)distance / 512));
-			if (GetTileTypeBit_11810_11810(&movePosition_AE454_AE444) == 0x100)
+			if (GetTileTypeBit_11810_11810(&featurePosition_AE454_AE444) == 0x100)
 				move = 0;
 		}
 	}
 	// not under the ground (typeParams + 0Ch the height)
 	const int16_t height = ReadS16(wizard->typeParams_0x9C_156 + 0x0C);
-	const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50(Axis(&movePosition_AE454_AE444));
-	if (movePosition_AE454_AE444.z < ground + height)
-		movePosition_AE454_AE444.z = (int16_t)(ground + height);
+	const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50(Axis(&featurePosition_AE454_AE444));
+	if (featurePosition_AE454_AE444.z < ground + height)
+		featurePosition_AE454_AE444.z = (int16_t)(ground + height);
 	return move;
 }
 
@@ -361,16 +360,16 @@ void MoveWizard_455D0_45910(Type_Mc1Entity* wizard)
 {
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
 	uint8_t* playerData = wizard->playerData_0xA0_160;
-	movePosition_AE454_AE444 = wizard->position_0x48_72;
+	featurePosition_AE454_AE444 = wizard->position_0x48_72;
 	// the turn: playerData + 4 / 6 the change of the yaw / pitch from the mouse, summed in + 147h / + 149h
 	WriteS16(playerData + 0x147, ReadS16(playerData + 0x147) + ReadS16(playerData + 4));
 	WriteS16(playerData + 0x149, ReadS16(playerData + 0x149) + ReadS16(playerData + 6));
 	wizard->word_0x1E_30 = (int16_t)((ReadS16(playerData + 0x147) / 8 + (uint16_t)wizard->word_0x1E_30) & 0x7FF);
 	// the speed (word_0x7E) towards playerData + 0Ch
 	wizard->word_0x7E_126 = (int16_t)(wizard->word_0x7E_126 + speedStep_93A88_93A88 * Sign(ReadS16(playerData + 0x0C) - wizard->word_0x7E_126));
-	const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50(Axis(&movePosition_AE454_AE444));
+	const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50(Axis(&featurePosition_AE454_AE444));
 	const int32_t flyHeight = ReadS16(wizard->typeParams_0x9C_156 + 0x0A);
-	int32_t climb = ((movePosition_AE454_AE444.z - ground - flyHeight) << 10) / flyHeight;
+	int32_t climb = ((featurePosition_AE454_AE444.z - ground - flyHeight) << 10) / flyHeight;
 	if (climb < -0x100)
 		climb = -0x100;
 	if (climb > 0x100)
@@ -388,28 +387,28 @@ void MoveWizard_455D0_45910(Type_Mc1Entity* wizard)
 		WriteS16(playerData + 0x1C, -climb * pitch / 256);
 	else if (wizard->word_0x7E_126 > 0 && pitch > 0)
 		WriteS16(playerData + 0x1C, ReadS16(playerData + 0x149));
-	else if (!wizard->word_0x7E_126 && movePosition_AE454_AE444.z > ground + flyHeight)
-		movePosition_AE454_AE444.z -= 8;
+	else if (!wizard->word_0x7E_126 && featurePosition_AE454_AE444.z > ground + flyHeight)
+		featurePosition_AE454_AE444.z -= 8;
 	WriteS16(playerData + 0x1C, ReadS16(playerData + 0x1C) & 0x7FF);
-	MoveEntity_41EC0_42200(Axis(&movePosition_AE454_AE444), (uint16_t)wizard->word_0x1E_30, ReadS16(playerData + 0x1C), wizard->word_0x7E_126);
+	MoveEntity_41EC0_42200(Axis(&featurePosition_AE454_AE444), (uint16_t)wizard->word_0x1E_30, ReadS16(playerData + 0x1C), wizard->word_0x7E_126);
 	// sideways
 	if (const int16_t sideways = ReadS16(playerData + 0x10))
-		MoveEntity_41EC0_42200(Axis(&movePosition_AE454_AE444), (uint16_t)(wizard->word_0x1E_30 + 0x200), 0, sideways);
+		MoveEntity_41EC0_42200(Axis(&featurePosition_AE454_AE444), (uint16_t)(wizard->word_0x1E_30 + 0x200), 0, sideways);
 	// the knock of a hit (+ 16h the speed, + 18h the yaw), slowing down
 	if (ReadS16(playerData + 0x16))
 	{
 		if (ReadS16(playerData + 0x16) > 0x80)
 			WriteS16(playerData + 0x16, 0x80);
-		MoveEntity_41EC0_42200(Axis(&movePosition_AE454_AE444), (uint16_t)ReadS16(playerData + 0x18), 0, ReadS16(playerData + 0x16));
+		MoveEntity_41EC0_42200(Axis(&featurePosition_AE454_AE444), (uint16_t)ReadS16(playerData + 0x18), 0, ReadS16(playerData + 0x16));
 		WriteS16(playerData + 0x16, ReadS16(playerData + 0x16) + hitSlowing_93A94_93A94 * Sign(ReadS16(playerData + 0x16)));
 		const int16_t knock = ReadS16(playerData + 0x16);
 		if ((knock < 0 ? -knock : knock) < 4)
 			WriteS16(playerData + 0x16, 0);
 	}
 	// + 198h: a move from outside (once)
-	movePosition_AE454_AE444.x += ReadS16(playerData + 0x198);
-	movePosition_AE454_AE444.y += ReadS16(playerData + 0x19A);
-	movePosition_AE454_AE444.z += ReadS16(playerData + 0x19C);
+	featurePosition_AE454_AE444.x += ReadS16(playerData + 0x198);
+	featurePosition_AE454_AE444.y += ReadS16(playerData + 0x19A);
+	featurePosition_AE454_AE444.z += ReadS16(playerData + 0x19C);
 	WriteS16(playerData + 0x198, 0);
 	WriteS16(playerData + 0x19A, 0);
 	WriteS16(playerData + 0x19C, 0);
@@ -431,11 +430,11 @@ void MoveWizard_455D0_45910(Type_Mc1Entity* wizard)
 			speed = limit;
 		const uint16_t yaw = (uint16_t)GetYawAngle_42150_42490(Axis(&wizard->position_0x48_72), Axis(&puller->position_0x48_72));
 		wizard->word_0x1E_30 = (int16_t)((wizard->word_0x1E_30 + TurnStep_422A0_425E0((uint16_t)wizard->word_0x1E_30, yaw, 5, 0x82)) & 0x7FF);
-		MoveEntity_41EC0_42200(Axis(&movePosition_AE454_AE444), yaw, wizard->word_0x20_32, (int16_t)speed);
+		MoveEntity_41EC0_42200(Axis(&featurePosition_AE454_AE444), yaw, wizard->word_0x20_32, (int16_t)speed);
 		WriteS16(playerData + 0x13C, ReadS16(playerData + 0x13C) + 1);
 	}
 	if (SlideAlongWall_45410_45750(wizard))
-		CopyEntityPosition_41C70_41FB0(wizard, &movePosition_AE454_AE444);
+		CopyEntityPosition_41C70_41FB0(wizard, &featurePosition_AE454_AE444);
 	// the sounds of the flight: over the water or the land, the wind (+ 18Ch, + 190h)
 	const int16_t player = state->currentPlayer_0x08_8;
 	if (GetTileTypeBit_11810_11810(&wizard->position_0x48_72) == 1)
@@ -565,4 +564,124 @@ void UpdatePlayerWizard_45C90_45FD0(Type_Mc1Entity* wizard)
 	WriteS16(playerData + 0x155, wizard->maxLife_0x08_8 / 2000);
 	if (wizard->dword_0x84_132 < 100)
 		wizard->dword_0x84_132 = 100;
+}
+
+void WizardDying_45FC0_46300(Type_Mc1Entity* wizard)
+{
+	// the wizard falls to the ground, there the spells fall out, a mana ball takes its mana and the action 3 waits
+	MoveWizard_455D0_45910(wizard);
+	if (mc1Settings_AE408_AE3F8->colorIndex_0x5D_93[6])
+		SetFlashOfPlayer_44BE0_44F20(wizard, 7);
+	wizard->position_0x48_72.z = (int16_t)(wizard->position_0x48_72.z + wizard->word_0x2E_46);
+	wizard->word_0x2E_46 = (int16_t)(wizard->word_0x2E_46 - 2);
+	if (wizard->word_0x2E_46 < -0x100)
+		wizard->word_0x2E_46 = -0x100;
+	if (wizard->word_0x2E_46 > 0)
+		wizard->word_0x2E_46 = 0;
+	const int16_t minHeight = ReadS16(wizard->typeParams_0x9C_156 + 0x0C);
+	const int32_t ground = GetTerrainAlt_11F50_11F50((axis_3d*)&wizard->position_0x48_72);
+	if (wizard->position_0x48_72.z < minHeight + (int16_t)ground)
+		wizard->position_0x48_72.z = (int16_t)(ground + minHeight);
+	if (Type_Mc1Entity* smoke = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 0x0A, 1))
+	{
+		smoke->flags_0x10_16 |= 0x80;
+		smoke->id_0x18_24 = wizard->id_0x18_24;
+	}
+	if (wizard->position_0x48_72.z != (int16_t)ground + minHeight)
+		return;
+	RebuildFreeLists_37220_375E0();
+	uint8_t* playerData = wizard->playerData_0xA0_160;
+	const int16_t colour = ReadS16(playerData + 0x30);
+	// the kill of a wizard to the killer
+	if (const uint16_t killerIndex = wizard->word_0x26_38)
+	{
+		Type_Mc1Entity* killer = &Entities()[killerIndex];
+		if (killer->class_0x40_64 == 3 && (killer->model_0x41_65 == 0 || killer->model_0x41_65 == 1))
+		{
+			uint8_t* kills = killer->playerData_0xA0_160 + 0x1E + colour * 2;
+			WriteS16(kills, ReadS16(kills) + 1);
+		}
+	}
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	Type_Mc1Message& message = state->players_0x340B_13323[state->currentPlayer_0x08_8].messages_0x1C_28[colour];
+	strcpy(message.text_0x00_0, (const char*)textPointers_AE238_AE228[54]);
+	message.time_0x40_64 = 100;
+	memset(wizard->mails_0x5A_90, 0, 0x24);
+	// the spells of the wizard fall around it, their slots keep the spell number
+	for (int i = 0; i < 24; i++)
+	{
+		uint8_t* slot = playerData + 0x214 + i * 4;
+		const int32_t index = ReadS32(slot);
+		if (index <= 0)
+		{
+			WriteS32(slot, -1);
+			continue;
+		}
+		Type_Mc1Entity* spell = &Entities()[index];
+		WriteS32(slot, (int8_t)spell->model_0x41_65);
+		playerData[0x394 + (int8_t)spell->model_0x41_65] = (spell->flags_0x10_16 & 0x40000) ? 1 : 0;
+		spell->flags_0x10_16 &= ~1u;
+		spell->actionIndex_0x46_70++;
+		featurePosition_AE454_AE444 = wizard->position_0x48_72;
+		wizard->rand_0x04_4 = wizard->rand_0x04_4 * 0x24A1 + 0x24DF;
+		featurePosition_AE454_AE444.x = (int16_t)(featurePosition_AE454_AE444.x + (int32_t)(wizard->rand_0x04_4 & 0x1FF) - 0x100);
+		wizard->rand_0x04_4 = wizard->rand_0x04_4 * 0x24A1 + 0x24DF;
+		featurePosition_AE454_AE444.y = (int16_t)(featurePosition_AE454_AE444.y + (int32_t)(wizard->rand_0x04_4 & 0x1FF) - 0x100);
+		CopyEntityPosition_41C70_41FB0(spell, &featurePosition_AE454_AE444);
+		wizard->rand_0x04_4 = wizard->rand_0x04_4 * 0x24A1 + 0x24DF;
+		spell->life_0x0C_12 = (int32_t)(wizard->rand_0x04_4 % 0x5A + 0xC8);
+	}
+	if (Type_Mc1Entity* mana = CreateEntity_373F0_377B0(&wizard->position_0x48_72, 0x0A, 0x28))
+	{
+		wizard->actionIndex_0x46_70 = 3;
+		wizard->word_0x1A_26 = (int16_t)((((0xFF - ReadS16(playerData + 0x20E)) / 8) << 5) + 0x20);
+		// the mana balls of the wizard to the new one
+		for (Type_Mc1Entity* ball = mc1Settings_AE408_AE3F8->entityLists_0x8E1A_36378[22]; ball > Entities(); ball = ball->next_0x00_0)
+		{
+			if (ball->model_0x41_65 == 0x27 && ball->owner_0x90_144 == (uint16_t)EntityIndex(wizard))
+				ball->owner_0x90_144 = (uint16_t)EntityIndex(mana);
+		}
+	}
+	wizard->flags_0x10_16 |= 0x20;
+	state->reuseTop_0x11F1_4593--;
+}
+
+void LookAtKiller_463B0_466F0(Type_Mc1Entity* wizard)
+{
+	// the dead wizard turns to its killer (the pitch back to 0)
+	Type_Mc1Position* killer = &Entities()[wizard->word_0x26_38].position_0x48_72;
+	wizard->word_0x22_34 = (int16_t)GetYawAngle_42150_42490(Axis(&wizard->position_0x48_72), Axis(killer));
+	wizard->word_0x24_36 = (int16_t)GetPitchAngle_42180_424C0(&wizard->position_0x48_72, killer);
+	wizard->word_0x1E_30 = (int16_t)((wizard->word_0x1E_30 + TurnStep_422A0_425E0((uint16_t)wizard->word_0x1E_30, (uint16_t)wizard->word_0x22_34, 5, 0x16)) & 0x7FF);
+	wizard->word_0x20_32 = (int16_t)((wizard->word_0x20_32 + TurnStep_422A0_425E0((uint16_t)wizard->word_0x20_32, (uint16_t)wizard->word_0x24_36, 5, 0x16)) & 0x7FF);
+	wizard->word_0x20_32 = 0;
+	WriteS16(wizard->playerData_0xA0_160 + 0x149, wizard->word_0x20_32);
+	WriteS16(wizard->playerData_0xA0_160 + 0x147, 0);
+}
+
+void WizardDead_46480_467C0(Type_Mc1Entity* wizard)
+{
+	// a computer player comes back at its castle after word_0x1A frames (or leaves without one), a human looks at the killer
+	uint8_t* playerData = wizard->playerData_0xA0_160;
+	WriteS16(playerData + 0x16, 0);
+	Type_Mc1Player_340B* player = &mc1State_AE400_AE3F0->players_0x340B_13323[ReadS16(playerData + 0x30)];
+	if (player->computer_0x09_9 == 1)
+	{
+		if (mc1Settings_AE408_AE3F8->flags_0x00_0 & 0x200)
+			return;
+		if (!ReadS16(playerData + 0x32))
+		{
+			player->active_0x06_6 = 0;
+			return;
+		}
+		if (wizard->word_0x1A_26)
+		{
+			wizard->word_0x1A_26--;
+			return;
+		}
+		CreatePlayerWizard_44D30_45070(player, wizard);
+		return;
+	}
+	SetFlashOfPlayer_44BE0_44F20(wizard, 7);
+	LookAtKiller_463B0_466F0(wizard);
 }

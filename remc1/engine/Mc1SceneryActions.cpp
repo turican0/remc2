@@ -1,11 +1,17 @@
 #include "Mc1SceneryActions.h"
 
+#include <cstring>
+
+#include "Mc1Creatures.h"
 #include "Mc1Entity.h"
 #include "Mc1Files.h"
 #include "Mc1Game.h"
 #include "Mc1NotPorted.h"
+#include "Mc1Scenery.h"
+#include "Mc1Search.h"
 #include "Mc1Shared.h"
 #include "Mc1Terrain.h"
+#include "Mc1Wizard.h"
 
 static uint16_t Tile(int x, int y)
 {
@@ -372,4 +378,445 @@ void BuildBuildingAction_27D30_27D30(Type_Mc1Entity* entity)
 			SetTileTerrainType_33800_33BF0(callerCl, Tile(x, y), type, callerDl);
 		}
 	}
+}
+
+static Type_Mc1Entity* EntityAt(uint16_t index)
+{
+	return &mc1State_AE400_AE3F0->entities_0x7463_29795[index];
+}
+
+static void HitByWizard200(uint16_t attacker)
+{
+	// a wizard (model 0 or 1, the class not checked) gets 200 at 210h of its player data
+	Type_Mc1Entity* wizard = EntityAt(attacker);
+	if (wizard->model_0x41_65 != 0 && wizard->model_0x41_65 != 1)
+		return;
+	if (wizard->playerData_0xA0_160) // port: the original writes to 210h of a null player data
+	{
+		const int16_t value = 0xC8;
+		memcpy(wizard->playerData_0xA0_160 + 0x210, &value, sizeof(value));
+	}
+}
+
+// the owner from the mail 1 (the mana and the buildings of a player)
+static bool TakeOwner(Type_Mc1Entity* entity)
+{
+	Type_Mc1Mail& mail = entity->mails_0x5A_90[1];
+	const uint16_t owner = mail.sender_4;
+	if (!owner)
+		return false;
+	bool changed = false;
+	if (owner != entity->owner_0x90_144)
+	{
+		entity->owner_0x90_144 = owner;
+		sub_55370_558A0((int16_t)owner, -1, 4);
+		changed = true;
+	}
+	mail.sender_4 = 0;
+	mail.value_0 = 0;
+	return changed;
+}
+
+int32_t BuildingDamage_29640_29640(Type_Mc1Entity* entity)
+{
+	// 0 none, 1 hit, 2 destroyed
+	entity->word_0x28_40 = 0;
+	if (entity->life_0x0C_12 < 0)
+		return 2;
+	Type_Mc1Mail& mail = entity->mails_0x5A_90[0];
+	if (!mail.sender_4)
+		return 0;
+	entity->life_0x0C_12 -= mail.value_0;
+	if (entity->life_0x0C_12 < 0)
+	{
+		entity->word_0x26_38 = mail.sender_4;
+		return 2;
+	}
+	entity->word_0x28_40 = mail.sender_4;
+	mail.value_0 = 0;
+	mail.sender_4 = 0;
+	return 1;
+}
+
+Type_Mc1Entity* SpawnCreature_28D10_28D10(Type_Mc1Entity* entity, Type_Mc1Position* position)
+{
+	// a random creature of the building
+	(void)position;
+	entity->rand_0x04_4 = entity->rand_0x04_4 * 0x24A1 + 0x24DF;
+	int32_t model;
+	uint8_t action;
+	switch (entity->rand_0x04_4 % 12)
+	{
+	case 0:
+	case 1:
+		model = 4;
+		action = 0x19;
+		break;
+	case 2:
+	case 3:
+		model = 0x0E;
+		action = 0x55;
+		break;
+	case 4:
+	case 5:
+	case 6:
+	case 7:
+	case 8:
+		model = 0x0D;
+		action = 0x4F;
+		break;
+	default:
+		model = 0x0C;
+		action = 0x49;
+		break;
+	}
+	Type_Mc1Entity* creature = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 5, model);
+	if (creature)
+		creature->actionIndex_0x46_70 = action;
+	return creature;
+}
+
+void NearestBuilding_44C90_44C90(Type_Mc1Entity* entity)
+{
+	// the distance of the wizard of the current player to the nearest building (190h of its player data)
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	Type_Mc1Entity* wizard = EntityAt(state->players_0x340B_13323[state->currentPlayer_0x08_8].entityIndex_0x0A_10);
+	const int32_t distance = (int32_t)Distance3D_42340_42680(&entity->position_0x48_72, &wizard->position_0x48_72);
+	int32_t nearest;
+	memcpy(&nearest, wizard->playerData_0xA0_160 + 0x190, sizeof(nearest));
+	if (distance <= nearest)
+		memcpy(wizard->playerData_0xA0_160 + 0x190, &distance, sizeof(distance));
+}
+
+void BuildingAction_28DC0_28DC0(Type_Mc1Entity* entity)
+{
+	// the creature building: hit it lets out a creature, full a random one, destroyed the action 35h
+	switch (BuildingDamage_29640_29640(entity))
+	{
+	case 0:
+		break;
+	case 1:
+		if (entity->word_0x1A_26 > 2)
+		{
+			entity->word_0x1A_26--;
+			featurePosition_AE454_AE444 = entity->position_0x48_72;
+			featurePosition_AE454_AE444.x += entity->box_0x4E_78[1];
+			if (Type_Mc1Entity* creature = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 5, 4))
+				creature->actionIndex_0x46_70 = 0x19;
+			HitByWizard200(entity->word_0x28_40);
+		}
+		break;
+	case 2:
+		entity->actionIndex_0x46_70 = 0x35;
+		return;
+	default:
+		return;
+	}
+	if (entity->mails_0x5A_90[1].sender_4)
+	{
+		const uint16_t owner = entity->mails_0x5A_90[1].sender_4;
+		if (TakeOwner(entity))
+		{
+			entity->flags_0x10_16 &= ~1u;
+			SetSprite_36FA0_37360(entity, 0xB1);
+			int16_t colour;
+			memcpy(&colour, EntityAt(owner)->playerData_0xA0_160 + 0x30, sizeof(colour));
+			entity->sprite_0x56_86 = (int16_t)(entity->sprite_0x56_86 + colour);
+		}
+	}
+	if (!((uint8_t)entity->index_0x3F_63 % 0x28))
+	{
+		entity->mana_0x8C_140 = entity->word_0x1A_26 << 8;
+		const int16_t capacity = entity->word_0x80_128;
+		if (capacity > 5 && capacity == entity->word_0x1A_26)
+		{
+			entity->rand_0x04_4 = entity->rand_0x04_4 * 0x24A1 + 0x24DF;
+			const int32_t roll = (int32_t)(entity->rand_0x04_4 % (uint32_t)(int32_t)capacity);
+			if (roll > capacity - (capacity >> 4) - 2)
+			{
+				featurePosition_AE454_AE444 = entity->position_0x48_72;
+				featurePosition_AE454_AE444.x += entity->box_0x4E_78[1];
+				SpawnCreature_28D10_28D10(entity, &featurePosition_AE454_AE444);
+			}
+		}
+	}
+	NearestBuilding_44C90_44C90(entity);
+}
+
+void TerrainGradient_41F50_41F50(const Type_Mc1Position* position, Type_Mc1Position* gradient)
+{
+	// the slope of the tile: x and y to the lower side (z unchanged)
+	const uint8_t x = (uint8_t)((uint16_t)position->x >> 8);
+	const uint8_t y = (uint8_t)((uint16_t)position->y >> 8);
+	const int32_t h00 = mapHeightmap_DC1E0_DC1D0[(y << 8) | x];
+	const int32_t h10 = mapHeightmap_DC1E0_DC1D0[(y << 8) | (uint8_t)(x + 1)];
+	const int32_t h11 = mapHeightmap_DC1E0_DC1D0[((uint8_t)(y + 1) << 8) | (uint8_t)(x + 1)];
+	const int32_t h01 = mapHeightmap_DC1E0_DC1D0[((uint8_t)(y + 1) << 8) | x];
+	gradient->x = (int16_t)(h00 - h10 - h11 + h01);
+	gradient->y = (int16_t)(h00 + h10 - h11 - h01);
+}
+
+Type_Mc1Entity* FindOverlapping_11D10_11D10(Type_Mc1Entity* entity)
+{
+	// the first entity of the kind (byte_0x42 class, byte_0x43 model, FFh any) overlapping in the tiles of the radius
+	const int32_t x = (entity->position_0x48_72.x + 0x80) >> 8;
+	const int32_t y = (entity->position_0x48_72.y + 0x80) >> 8;
+	const int32_t search = StartSearch_11410_11410(0, (entity->box_0x4E_78[1] + 0xFF) / 256);
+	if (!search)
+		return nullptr;
+	Type_Mc1Entity* entities = mc1State_AE400_AE3F0->entities_0x7463_29795;
+	int32_t dx;
+	int32_t dy;
+	while (GetNextSearchOffset_114B0_114B0(search, &dx, &dy) == 1)
+	{
+		const uint16_t cell = (uint16_t)((((dy + y) & 0xFF) << 8) + ((x + dx) & 0xFF));
+		for (Type_Mc1Entity* other = &entities[(int16_t)mapEntityIndex_10C1E0_10C1D0[cell]]; other != entities; other = &entities[other->mapNext_0x14_20])
+		{
+			bool kind = (int8_t)entity->byte_0x42_66 == -1;
+			if (!kind && entity->byte_0x42_66 == other->class_0x40_64)
+				kind = (int8_t)entity->byte_0x43_67 == -1 || entity->byte_0x43_67 == other->model_0x41_65;
+			if (!kind || entity->id_0x18_24 == other->id_0x18_24 || !EntitiesOverlap_11950_11950(entity, other))
+				continue;
+			EndSearch_11490_11490(search);
+			return other;
+		}
+	}
+	EndSearch_11490_11490(search);
+	return nullptr;
+}
+
+void MergeMana_277D0_277D0(Type_Mc1Entity* entity, Type_Mc1Entity* other)
+{
+	// the other mana ball into the entity: the owner a player over a building (class 10), the higher 88h of two players
+	entity->mana_0x8C_140 += other->mana_0x8C_140;
+	if (!entity->owner_0x90_144 && !other->owner_0x90_144)
+	{
+	}
+	else if (!entity->owner_0x90_144)
+		entity->owner_0x90_144 = other->owner_0x90_144;
+	else if (other->owner_0x90_144)
+	{
+		Type_Mc1Entity* owner = EntityAt(entity->owner_0x90_144);
+		Type_Mc1Entity* otherOwner = EntityAt(other->owner_0x90_144);
+		if (owner->class_0x40_64 == 0x0A && otherOwner->class_0x40_64 == 0x0A)
+		{
+		}
+		else if (owner->class_0x40_64 == 0x0A)
+			entity->owner_0x90_144 = other->owner_0x90_144;
+		else if (otherOwner->class_0x40_64 == 0x0A || owner == otherOwner)
+		{
+		}
+		else if (owner->dword_0x88_136 <= otherOwner->dword_0x88_136)
+			entity->owner_0x90_144 = other->owner_0x90_144;
+	}
+	FreeEntity_41E90_421D0(other);
+}
+
+void ManaAction_27030_27030(Type_Mc1Entity* entity)
+{
+	// the mana ball: the owner by the mail 1, pushed by the mail 4, pulled by the wizard (flag 40h), else it falls,
+	// bounces, merges and rolls down the slope
+	if (entity->mails_0x5A_90[1].sender_4 && TakeOwner(entity))
+		entity->flags_0x10_16 &= ~0x40u;
+	if (const uint16_t pusher = entity->mails_0x5A_90[4].sender_4)
+	{
+		entity->word_0x1E_30 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&EntityAt(pusher)->position_0x48_72);
+		featurePosition_AE454_AE444.x = 0;
+		featurePosition_AE454_AE444.y = 0;
+		featurePosition_AE454_AE444.z = 0;
+		MoveEntity_41EC0_42200((axis_3d*)&featurePosition_AE454_AE444, (uint16_t)entity->word_0x1E_30, 0, 4);
+		entity->target_0x96_150.x += featurePosition_AE454_AE444.x;
+		entity->mails_0x5A_90[4].sender_4 = 0;
+		entity->target_0x96_150.y += featurePosition_AE454_AE444.y;
+	}
+	if (entity->flags_0x10_16 & 0x40)
+	{
+		Type_Mc1Entity* wizard = EntityAt(entity->target_0x92_146);
+		if (wizard->class_0x40_64 != 3 || wizard->model_0x41_65 != 3)
+		{
+			entity->flags_0x10_16 &= ~0x40u;
+			return;
+		}
+		entity->word_0x2E_46 = 0x80;
+		entity->word_0x1E_30 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&wizard->position_0x48_72);
+		const int32_t distance = (int32_t)Distance2D_423D0_42710(&entity->position_0x48_72, &wizard->position_0x48_72);
+		if (distance > 0x400)
+		{
+			entity->flags_0x10_16 &= ~0x40u;
+			return;
+		}
+		featurePosition_AE454_AE444 = entity->position_0x48_72;
+		if (distance < 0x10)
+		{
+			featurePosition_AE454_AE444.x = wizard->position_0x48_72.x;
+			featurePosition_AE454_AE444.y = wizard->position_0x48_72.y;
+			const int16_t z = wizard->position_0x48_72.z;
+			if (featurePosition_AE454_AE444.z < z)
+				featurePosition_AE454_AE444.z += 0x20;
+			else if (featurePosition_AE454_AE444.z > z + 0x200)
+				featurePosition_AE454_AE444.z -= 0x20;
+		}
+		else
+			MoveEntity_41EC0_42200((axis_3d*)&featurePosition_AE454_AE444, (uint16_t)entity->word_0x1E_30, 0, 0x10);
+		const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&featurePosition_AE454_AE444);
+		if (ground > featurePosition_AE454_AE444.z)
+			featurePosition_AE454_AE444.z = ground;
+		CopyEntityPosition_41C70_41FB0(entity, &featurePosition_AE454_AE444);
+		return;
+	}
+	if (!entity->byte_0x3A_58)
+		return;
+	Type_Mc1Position& speed = entity->target_0x96_150;
+	if (speed.x < -0x40)
+		speed.x = -0x40;
+	if (speed.x > 0x40)
+		speed.x = 0x40;
+	if (speed.y < -0x40)
+		speed.y = -0x40;
+	if (speed.y > 0x40)
+		speed.y = 0x40;
+	featurePosition_AE454_AE444 = entity->position_0x48_72;
+	featurePosition_AE454_AE444.x = (int16_t)(entity->position_0x48_72.x + speed.x);
+	featurePosition_AE454_AE444.y = (int16_t)(entity->position_0x48_72.y + speed.y);
+	const int16_t fall = entity->word_0x2E_46;
+	featurePosition_AE454_AE444.z = (int16_t)(featurePosition_AE454_AE444.z + fall);
+	entity->word_0x2E_46 = (int16_t)(fall - 0x10);
+	if (entity->word_0x2E_46 < -0x80)
+		entity->word_0x2E_46 = -0x80;
+	const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&featurePosition_AE454_AE444);
+	if (ground > featurePosition_AE454_AE444.z)
+	{
+		// the bounce: a quarter back up, small ones stop
+		entity->word_0x2E_46 = (int16_t)-(entity->word_0x2E_46 / 4);
+		if (entity->word_0x2E_46 <= 0x10)
+			entity->word_0x2E_46 = 0;
+		featurePosition_AE454_AE444.z = ground;
+	}
+	CopyEntityPosition_41C70_41FB0(entity, &featurePosition_AE454_AE444);
+	if (ground == featurePosition_AE454_AE444.z)
+	{
+		if (Type_Mc1Entity* other = FindOverlapping_11D10_11D10(entity))
+			MergeMana_277D0_277D0(entity, other);
+		TerrainGradient_41F50_41F50(&entity->position_0x48_72, &featurePosition_AE454_AE444);
+		speed.x = (int16_t)(speed.x + featurePosition_AE454_AE444.x);
+		speed.y = (int16_t)(speed.y + featurePosition_AE454_AE444.y);
+		speed.x = (int16_t)(speed.x * 250 / 256);
+		speed.y = (int16_t)(speed.y * 250 / 256);
+	}
+	SetManaSprite_274D0_274D0(entity);
+}
+
+void SmokeAction_25130_25130(Type_Mc1Entity* entity)
+{
+	// the smoke of the dying wizard: puffs (class 10 model 0) around in the ring word_0x1A, freed after its life
+	const int32_t life = entity->life_0x0C_12;
+	entity->life_0x0C_12 = life - 1;
+	if (life < 0)
+	{
+		MarkToFree_41E80_421C0(entity);
+		return;
+	}
+	if (!(entity->flags_0x10_16 & 2))
+	{
+		entity->flags_0x10_16 |= 2;
+		sub_55370_558A0(EntityIndex(entity), -1, 3);
+	}
+	const int32_t search = StartSearch_11410_11410(entity->word_0x1A_26, entity->word_0x1A_26);
+	if (!search)
+		return;
+	int32_t dx;
+	int32_t dy;
+	while (GetNextSearchOffset_114B0_114B0(search, &dx, &dy) == 1)
+	{
+		if ((int32_t)(NextRand(entity) % 0x9D) / 0x4F * 2 - 1 <= 0)
+			continue;
+		Type_Mc1Position position;
+		position.x = (int16_t)(dx * 0xC0 + entity->position_0x48_72.x - 0x60 + (int32_t)(NextRand(entity) % 0x81) - 0x40);
+		position.y = (int16_t)(dy * 0xC0 + entity->position_0x48_72.y - 0x60 + (int32_t)(NextRand(entity) % 0x81) - 0x40);
+		position.z = entity->position_0x48_72.z;
+		if (Type_Mc1Entity* puff = CreateEntity_373F0_377B0(&position, 0x0A, 0))
+		{
+			puff->id_0x18_24 = entity->id_0x18_24;
+			puff->word_0x1E_30 = entity->word_0x1E_30;
+			puff->flags_0x10_16 |= (entity->flags_0x10_16 & 0x10000) | 0x80;
+		}
+	}
+	EndSearch_11490_11490(search);
+}
+
+void WizardManaAction_275C0_275C0(Type_Mc1Entity* entity)
+{
+	// the mana of the dead wizard on the ground: taken by a wizard (the mail 1) with the mana balls it owned
+	entity->position_0x48_72.z = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&entity->position_0x48_72);
+	const uint16_t taker = entity->mails_0x5A_90[1].sender_4;
+	if (!taker)
+		return;
+	if (EntityAt(taker)->class_0x40_64 == 3 && !entity->owner_0x90_144)
+	{
+		Type_Mc1Entity* entities = mc1State_AE400_AE3F0->entities_0x7463_29795;
+		for (int i = 1; i < 1000; i++)
+		{
+			if (entities[i].owner_0x90_144 == (uint16_t)EntityIndex(entity))
+				entities[i].owner_0x90_144 = taker;
+		}
+	}
+	entity->mails_0x5A_90[1].sender_4 = 0;
+	MarkToFree_41E80_421C0(entity);
+}
+
+int32_t NextFrame_42510_42850(Type_Mc1Entity* entity)
+{
+	// 1 at the last frame of the sprite
+	if (entity->frame_0x58_88 >= entity->frameCount_0x59_89)
+		return 1;
+	entity->frame_0x58_88++;
+	return 0;
+}
+
+void PuffAction_24F60_24F60(Type_Mc1Entity* entity)
+{
+	// a puff of the smoke: the first time it hurts around, burns the tile and starts to rise, then it animates
+	if (entity->word_0x1A_26 & 3)
+	{
+		entity->word_0x1A_26--;
+		return;
+	}
+	const int32_t life = entity->life_0x0C_12;
+	entity->life_0x0C_12 = life - 1;
+	if (life < 0)
+	{
+		MarkToFree_41E80_421C0(entity);
+		return;
+	}
+	entity->flags_0x10_16 &= ~1u;
+	const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&entity->position_0x48_72);
+	if (!(entity->flags_0x10_16 & 2))
+	{
+		const uint16_t tile = Tile((entity->position_0x48_72.x + 0x80) >> 8, (entity->position_0x48_72.y + 0x80) >> 8);
+		// 33800 gets cl and dl as the registers are left: cl the flags byte 2 (dl after 11F50 not known: 0), after
+		// 120B0 cl 0 (its last cell row) and dl the radius
+		uint8_t callerCl = (uint8_t)(entity->flags_0x10_16 >> 16);
+		uint8_t callerDl = 0;
+		if (!(entity->flags_0x10_16 & 0x10000))
+		{
+			SendMailAround_120B0_120B0(entity, 0, (uint16_t)entity->word_0x2C_44);
+			callerCl = 0;
+			callerDl = (uint8_t)((entity->box_0x4E_78[1] + 0xFF) / 256);
+		}
+		const uint8_t type = mapTerrainType_CC1E0_CC1D0[tile];
+		if (type == 0x1A)
+			SetTileTerrainType_33800_33BF0(callerCl, tile, 0x14, callerDl);
+		else if (type == 0x0A)
+			SetTileTerrainType_33800_33BF0(callerCl, tile, 0x15, callerDl);
+		else if (type == 0x0B)
+			SetTileTerrainType_33800_33BF0(callerCl, tile, 0x16, callerDl);
+		else if (type && (type < 6 || type > 0x22) && (mapAngle_FC1E0_FC1D0[tile] & 7) != 1
+			&& entity->position_0x48_72.z - ground <= 0x80 && !OnFlatWater(entity))
+			ChangeHeightsAround_40D30_41070(entity, 0, 0, (int16_t)-(int32_t)(NextRand(entity) % 7), 1);
+		entity->flags_0x10_16 |= 2;
+		entity->word_0x2E_46 = (int16_t)(NextRand(entity) % 0x41 - 0x20);
+		sub_55370_558A0(EntityIndex(entity), -1, 3);
+	}
+	ClampHeight_42000_42340(&entity->position_0x48_72, ground, 0, 0, entity->word_0x2E_46);
+	NextFrame_42510_42850(entity);
 }
