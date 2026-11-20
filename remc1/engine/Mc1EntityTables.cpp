@@ -1,6 +1,7 @@
 #include "Mc1EntityTables.h"
 
 #include "Mc1NotPorted.h"
+#include "Mc1Castle.h"
 #include "Mc1Creatures.h"
 #include "Mc1Actions.h"
 #include "Mc1Models.h"
@@ -78,12 +79,12 @@ static Type_Mc1ClassAction class3Actions[12] = {
 	{ textOmitted_968F4, 1, sub_13170_13170, 1 },
 	{ textOmitted_968F4, 2, WizardDying_45FC0_46300, 1 },
 	{ textOmitted_968F4, 3, WizardDead_46480_467C0, 1 },
-	{ textOmitted_968F4, 4, sub_46DB0_470F0, 1 },
-	{ textOmitted_968F4, 5, sub_46F10_47250, 1 },
+	{ textOmitted_968F4, 4, CastleAction_46DB0_470F0, 1 },
+	{ textOmitted_968F4, 5, CastleGrowAction_46F10_47250, 1 },
 	{ textOmitted_968F4, 6, sub_470E0_47420, 1 },
 	{ textOmitted_968F4, 7, EntityNoAction, 1 },
 	{ textOmitted_968F4, 8, EntityNoAction, 1 },
-	{ textOmitted_968F4, 9, sub_47F90_482D0, 1 },
+	{ textOmitted_968F4, 9, BalloonAction_47F90_482D0, 1 },
 	{ textOmitted_968F4, 10, EntityNoAction, 1 },
 	{ nullptr, 0, nullptr, 0 },
 };
@@ -381,9 +382,9 @@ static Type_Mc1ClassAction class10Actions[63] = {
 	{ textOmitted_968F4, 40, sub_26D20_26D20, 1 },
 	{ textOmitted_968F4, 41, ManaAction_27030_27030, 1 },
 	{ textOmitted_968F4, 42, WizardManaAction_275C0_275C0, 1 },
-	{ textOmitted_968F4, 43, sub_28200_28200, 1 },
-	{ textOmitted_968F4, 44, sub_285C0_285C0, 1 },
-	{ textOmitted_968F4, 45, sub_293D0_293D0, 1 },
+	{ textOmitted_968F4, 43, CastleFlatten_28200_28200, 1 },
+	{ textOmitted_968F4, 44, CastleRaise_285C0_285C0, 1 },
+	{ textOmitted_968F4, 45, CastleGrowMail_293D0_293D0, 1 },
 	{ textOmitted_968F4, 46, sub_29540_29540, 0 },
 	{ textOmitted_968F4, 0, nullptr, 0 },
 	{ textOmitted_968F4, 48, BuildBuildingAction_27D30_27D30, 1 },
