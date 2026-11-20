@@ -58,7 +58,12 @@ State of the port on branch `magic-carpet-1` (2026-11-15) and how to continue. T
     `REMC1_DUMP_HIT=n` the n-th time, `REMC1_DUMP_EXIT=1` ends DOSBox after the last dump;
   - `REMC1_POKE=<code>,<data>,<hex bytes>[;...]` writes bytes when the code address runs (once);
   - `REMC1_NOISE=<code>[,...]` the stereogram noise of the port; the original bug at 592D7 / 597E7 is fixed as in
-    the port.
+    the port;
+  - `REMC1_RECORD=<code>,<pointer>,<offset>,<length>,<file>` appends the bytes at [pointer] + offset each time the
+    code address runs, `REMC1_PLAY` (the same arguments) writes them back from the file. The input of player 0:
+    `20D9D0,26C400,7413,A,<file>` (3C9D0, state pointer AE400, playerInputs_0x7413, 10 bytes a frame). The port plays
+    such a file with the env `REMC1_PLAY=<file>` (PlayerEvents_3C9D0), so a game played in DOSBox
+    (`CARPET.EXE -custom -level N`) can be compared frame by frame.
 - The original game files: the MC1 CD content (also `x64/Release/MC1/` of remc2) as drive C:, a conf with
   `cputype=pentium`, `core=normal` and the autoexec `CARPET.EXE -custom -level N` (`tools/mkconf.py` makes it from
   `vs2015/dosbox.conf`).
