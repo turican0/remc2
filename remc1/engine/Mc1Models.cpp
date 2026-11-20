@@ -821,3 +821,50 @@ Type_Mc1Entity* CreateClass12Model20Hw_3C730(Type_Mc1Position* position)
 CLASS12(21, 3C420, 3C760, 0x3F, 0x3E8, 0xFB, 0, 0, 0, 0x64)
 CLASS12(22, 3C450, 3C790, 0x42, 0x124F8, 0x65, 1, 0, 0x30D40, 0x1B58)
 CLASS12(23, 3C480, 3C7C0, 0x45, 0x258, 3, 0, 0, 0xC350, 0x32)
+
+// class 9: the projectiles of the spells, the speed 180h, the life the range / the speed
+static Type_Mc1Entity* NewClass9(Type_Mc1Position* position, uint8_t model, int32_t range, int typeIndex)
+{
+	Type_Mc1Entity* entity = NewEntity(9, model, model);
+	if (!entity)
+		return nullptr;
+	entity->word_0x7E_126 = 0x180;
+	entity->word_0x80_128 = 0x180;
+	entity->maxLife_0x08_8 = range / entity->word_0x7E_126;
+	entity->mana_0x8C_140 = 0x32;
+	entity->typeParams_0x9C_156 = creatureTypes_98F38_98F38[typeIndex];
+	if (model == 1)
+		entity->byte_0x42_66 = 0x0A;
+	entity->flags_0x10_16 &= ~8u;
+	AddToMap_41CF0_42030(entity, position);
+	ResetLife_36DE0_371A0(entity);
+	return entity;
+}
+
+Type_Mc1Entity* CreateClass09Model00_39A10_39D90(Type_Mc1Position* position)
+{
+	Type_Mc1Entity* entity = NewClass9(position, 0, 0x2000, 5);
+	if (entity)
+		SetSprite_36FA0_37360(entity, 0x2A);
+	return entity;
+}
+
+Type_Mc1Entity* CreateClass09Model01_39A90_39E10(Type_Mc1Position* position)
+{
+	// the box twice the sprite
+	Type_Mc1Entity* entity = NewClass9(position, 1, 0x1000, 2);
+	if (entity)
+	{
+		SetSprite_36FA0_37360(entity, 0xD1);
+		SetBox_37130_374F0(entity, (int16_t)(entity->box_0x4E_78[1] * 2), (int16_t)(entity->box_0x4E_78[3] * 2));
+	}
+	return entity;
+}
+
+Type_Mc1Entity* CreateClass09Model10_39F40_3A2C0(Type_Mc1Position* position)
+{
+	Type_Mc1Entity* entity = NewClass9(position, 0x0A, 0x2000, 1);
+	if (entity)
+		SetSprite_36FA0_37360(entity, 0x12);
+	return entity;
+}

@@ -88,7 +88,7 @@ typedef struct Type_Mc1Entity {
 	uint8_t byte_0x42_66;
 	uint8_t byte_0x43_67;
 	uint8_t byte_0x44_68;
-	uint8_t unknown_0x45_69;
+	uint8_t byte_0x45_69;
 	uint8_t actionIndex_0x46_70; // the record of 14 bytes in the actions of the class (MC2 actionIndex_0x45)
 	uint8_t byte_0x47_71;
 	Type_Mc1Position position_0x48_72; // MC2 position_0x4C
@@ -147,7 +147,7 @@ typedef struct {
 	uint8_t byte_0x42_66;
 	uint8_t byte_0x43_67;
 	uint8_t byte_0x44_68;
-	uint8_t unknown_0x45_69;
+	uint8_t byte_0x45_69;
 	uint8_t actionIndex_0x46_70; // the record of 14 bytes in the actions of the class (MC2 actionIndex_0x45)
 	uint8_t byte_0x47_71;
 	Type_Mc1Position position_0x48_72; // MC2 position_0x4C

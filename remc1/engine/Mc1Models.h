@@ -100,3 +100,6 @@ Type_Mc1Entity* CreateClass12Model23_3C480_3C7C0(Type_Mc1Position* position);
 Type_Mc1Entity* InitClass11_3BB20_3BE60(Type_Mc1Position* position, uint8_t model, uint8_t action);
 Type_Mc1Entity* InitClass12_3BF70_3C2B0(Type_Mc1Position* position, uint8_t model, uint8_t action, int32_t value, int32_t divisor,
 	int32_t byte3C, uint8_t byte3E, int32_t dword84, int32_t word2C);
+Type_Mc1Entity* CreateClass09Model00_39A10_39D90(Type_Mc1Position* position);
+Type_Mc1Entity* CreateClass09Model01_39A90_39E10(Type_Mc1Position* position);
+Type_Mc1Entity* CreateClass09Model10_39F40_3A2C0(Type_Mc1Position* position);
