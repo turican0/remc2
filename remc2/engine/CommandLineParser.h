@@ -4,6 +4,14 @@
 #include <vector>
 #include <cstdint>
 
+// -game mc1 | mc1hw | mc2 | select, MC2 without the parameter
+enum class GameType : uint8_t {
+    MC2,
+    MC1,
+    MC1HW,
+    SELECT,
+};
+
 class CommandLineParser {
     public:
         CommandLineParser () = default;
@@ -84,6 +92,8 @@ class CommandLineParser {
         bool DoKillMoveAndRotation() const { return m_kill_move_and_rotation; };
         bool DoUseOldMapDrawing() const { return m_use_old_map_drawing; };
         bool DoVulkanValidation() const { return m_vulkan_validation; };
+        GameType GetGameType() const { return m_game_type; };
+        const std::vector<std::string>& GetUnknownParams() const { return m_unknown_params; };
 
         // settings
         std::string GetMemimagesPath() const {return m_memimages_path;};
@@ -155,6 +165,8 @@ class CommandLineParser {
         bool m_kill_move_and_rotation;
         bool m_use_old_map_drawing;
         bool m_vulkan_validation;
+        GameType m_game_type;
+        std::vector<std::string> m_unknown_params;
 		int m_test_save_index;
 
         std::string m_memimages_path;

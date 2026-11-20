@@ -12,25 +12,17 @@ namespace remc2_installer
         {
 			var version = new Version(0, 0, 0, 0);
 #if WIN64
-            var project = new ManagedProject("Magic Carpet 2 HD x64",
+            var project = new ManagedProject("Magic Carpet HD x64",
 #else
-			var project = new ManagedProject("Magic Carpet 2 HD x86",
+			var project = new ManagedProject("Magic Carpet HD x86",
 #endif
-				new Dir(new Id("SHORTCUTDIR"), @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"),
-					new Dir(new Id("INSTALLDIR"), @"%ProgramFiles%\ReMC\Magic Carpet 2 HD",
+				new Dir(new Id("SHORTCUTDIR"), @"%ProgramMenu%\Magic Carpet HD"),
+					new Dir(new Id("INSTALLDIR"), @"%ProgramFiles%\Magic Carpet HD",
 						new DirPermission("Everyone", GenericPermission.All),
 #if WIN64
-							new WixSharp.File(new Id("PRODUCT_EXE"), @"..\x64\Release\remc2.exe", 
-								new FileShortcut(new Id("PRODUCT_EXE_SHORTCUT"), "Magic Carpet 2 HD", "SHORTCUTDIR")
-                                {
-									IconFile = "Resources/app.ico"
-                                })
+							new WixSharp.File(new Id("PRODUCT_EXE"), @"..\x64\Release\remc2.exe")
 #else
-							new WixSharp.File(new Id("PRODUCT_EXE"), @"..\Release\remc2.exe", 
-								new FileShortcut(new Id("PRODUCT_EXE_SHORTCUT"), "Magic Carpet 2 HD", "SHORTCUTDIR")
-                                {
-									IconFile = "Resources/app.ico"
-                                })
+							new WixSharp.File(new Id("PRODUCT_EXE"), @"..\Release\remc2.exe")
 #endif
 								{
 									Permissions = new[] {
@@ -63,15 +55,15 @@ namespace remc2_installer
 								},
 #if WIN64
 							new WixSharp.File(new Id("CONFIG_EXE"), @"..\x64\Release\remc2-configurator.exe",
-								new FileShortcut(new Id("CONFIG_EXE_SHORTCUT"), "Configure", "SHORTCUTDIR")
+								new FileShortcut(new Id("CONFIG_EXE_SHORTCUT"), "Magic Carpet HD", "SHORTCUTDIR")
 								{
-									IconFile = "Resources/config.ico"
+									IconFile = "Resources/app.ico"
 								})
 #else
 							new WixSharp.File(new Id("CONFIG_EXE"), @"..\Release\remc2-configurator.exe", 
-								new FileShortcut(new Id("CONFIG_EXE_SHORTCUT"), "Configure", "SHORTCUTDIR")
+								new FileShortcut(new Id("CONFIG_EXE_SHORTCUT"), "Magic Carpet HD", "SHORTCUTDIR")
 								{
-									IconFile = "Resources/config.ico"
+									IconFile = "Resources/app.ico"
 								})
 #endif
 							{
@@ -146,7 +138,8 @@ namespace remc2_installer
 								new File(new Id("PCRE2_16_DLL"), @"..\x64\Release\pcre2-16.dll"),
 								new File(new Id("TIFF_DLL"), @"..\x64\Release\tiff.dll"),
 								new File(new Id("VULKAN_1_DLL"), @"..\x64\Release\vulkan-1.dll"),
-								new File(new Id("MC_HD_LOGO_PNG"), @"..\x64\Release\mc2_hd_logo.png"),
+								new Dir(new Id("CONFIGURATOR_IMAGES_INSTALLDIR"), @"images",
+									new Files(@"..\x64\Release\images\*.png")),
 #else
 								new File(new Id("BROTLICOMMON_DLL"), @"..\Release\brotlicommon.dll"),
 								new File(new Id("BROTLIDEC_DLL"), @"..\Release\brotlidec.dll"),
@@ -169,7 +162,8 @@ namespace remc2_installer
 								new File(new Id("PCRE2_16_DLL"), @"..\Release\pcre2-16.dll"),
 								new File(new Id("TIFF_DLL"), @"..\Release\tiff.dll"),
 								new File(new Id("VULKAN_1_DLL"), @"..\Release\vulkan-1.dll"),
-								new File(new Id("MC_HD_LOGO_PNG"), @"..\Release\mc2_hd_logo.png"),
+								new Dir(new Id("CONFIGURATOR_IMAGES_INSTALLDIR"), @"images",
+									new Files(@"..\Release\images\*.png")),
 #endif
 #if WIN64
 								new Dir(new Id("SHADERS_INSTALLDIR"), @"shaders",
@@ -182,40 +176,38 @@ namespace remc2_installer
 									new Files(@"..\Release\kiss\*.*")),
 								new Dir(new Id("FONT_INSTALLDIR"), @"font",
 									new Files(@"..\Release\font\*.*")),
-								new Dir(new Id("LANGUAGE_INSTALLDIR"), @"CD_FILES\LANGUAGE",
-									new Files(@"..\enhancedassets\languages\*.*")),
-								new Dir(new Id("HIGHRESGRAPHICS_INSTALLDIR"), @"graphics\high-res",
-									new Files(@"..\enhancedassets\graphics\high-res\*.*")
+								new Dir(new Id("LANGUAGE_INSTALLDIR"), @"MC2\CD_Files\LANGUAGE",
+									new Files(@"..\enhancedassets\MC2\languages\*.*")),
+								new Dir(new Id("HIGHRESGRAPHICS_INSTALLDIR"), @"MC2\graphics\high-res",
+									new Files(@"..\enhancedassets\MC2\graphics\high-res\*.*")
                                     {
                                         ComponentCondition = "HIGHTEX=\"yes\""
                                     }),
-								new Dir(new Id("FIXEDMENUGRAPHICS_INSTALLDIR"), @"graphics\fixed\menu",
-									new Files(@"..\enhancedassets\graphics\fixed\menu\*.*")
+								new Dir(new Id("FIXEDMENUGRAPHICS_INSTALLDIR"), @"MC2\graphics\fixed\menu",
+									new Files(@"..\enhancedassets\MC2\graphics\fixed\menu\*.*")
 									{
 										ComponentCondition = "FIXEDMENUGRAPHICS=\"yes\""
 									}),
-								new Dir(new Id("FIXEDTMAPS_INSTALLDIR"), @"graphics\fixed\tmaps",
-									new Files(@"..\enhancedassets\graphics\fixed\tmaps\*.*")
+								new Dir(new Id("FIXEDTMAPS_INSTALLDIR"), @"MC2\graphics\fixed\tmaps",
+									new Files(@"..\enhancedassets\MC2\graphics\fixed\tmaps\*.*")
 									{
 										ComponentCondition = "FIXEDTMAPS=\"yes\""
 									}),
-								new Dir(new Id("EXTENDEDFONTS_INSTALLDIR"), @"graphics\fixed\fonts",
-									new Files(@"..\enhancedassets\graphics\fixed\fonts\*.*")
+								new Dir(new Id("EXTENDEDFONTS_INSTALLDIR"), @"MC2\graphics\fixed\fonts",
+									new Files(@"..\enhancedassets\MC2\graphics\fixed\fonts\*.*")
 									{
 										ComponentCondition = "EXTENDEDFONTS=\"yes\""
 									}),
-								new Dir(new Id("SPEECH_INSTALLDIR"), @"CD_FILES\SPEECH",
-									new Files(@"..\enhancedassets\sound\speech\*.*")
+								new Dir(new Id("SPEECH_INSTALLDIR"), @"MC2\CD_Files\SPEECH",
+									new Files(@"..\enhancedassets\MC2\sound\speech\*.*")
 									{
 										ComponentCondition = "SPEECH=\"yes\""
 									}),
-								new Dir(new Id("MUSICOGG_INSTALLDIR"), @"music-ogg",
-                                    new Files(@"..\enhancedassets\music-ogg\*.*")),
-								new Dir(new Id("AWE32DATA_INSTALLDIR"), @"awe32data",
-                                    new Files(@"..\enhancedassets\awe32data\*.*")),
+								new Dir(new Id("MUSICOGG_INSTALLDIR"), @"MC2\music-ogg",
+                                    new Files(@"..\enhancedassets\MC2\music-ogg\*.*")),
+								new Dir(new Id("AWE32DATA_INSTALLDIR"), @"MC2\awe32data",
+                                    new Files(@"..\enhancedassets\MC2\awe32data\*.*")),
                                 new Dir(new Id("EXTRACT_INSTALLDIR"), @"Extract",
-                                    new File(new Id("DOSBOXEXTRACT_CONF"), @"Extract\dosboxExtract-GOG-CD.conf"),
-                                    new File(new Id("XXCOPY16_EXE"), @"Extract\XXCOPY16.EXE"),
 #if WIN64
 									new File(new Id("VC_Redist_EXE"), @"Extract\VC_redist.x64.exe"))),
 #else
@@ -252,22 +244,24 @@ namespace remc2_installer
                                             .Add(Dialogs.InstallDir)
                                             .Add<EnhancedDataDialog>()
                                             .Add(Dialogs.Progress)
-                                            .Add<GameDataDialog>()
+                                            .Add<GameDataMc1Dialog>()
+                                            .Add<GameDataMc2Dialog>()
 											.Add<RedistDialog>()
 											.Add(Dialogs.Exit);
 
             project.ManagedUI.ModifyDialogs.Add(Dialogs.MaintenanceType)
                                            .Add<EnhancedDataDialog>()
                                            .Add(Dialogs.Progress)
-										   .Add<GameDataDialog>()
+										   .Add<GameDataMc1Dialog>()
+										   .Add<GameDataMc2Dialog>()
 										   .Add<RedistDialog>()
 										   .Add(Dialogs.Exit);
 
             project.ControlPanelInfo.ProductIcon = @"Resources\app.ico";
             project.ControlPanelInfo.Comments = "Enhanced Edition of Magic Carpet 2 " + version.ToString();
             project.ControlPanelInfo.UrlInfoAbout = "https://github.com/thobbsinteractive/magic-carpet-2-hd";
-            project.ControlPanelInfo.Contact = "Magic Carpet 2 HD";
-            project.ControlPanelInfo.Manufacturer = "Magic Carpet 2 HD";
+            project.ControlPanelInfo.Contact = "Magic Carpet HD";
+            project.ControlPanelInfo.Manufacturer = "Magic Carpet HD";
 
             project.LicenceFile = @"Resources\MagicCarpet2HD.licence.rtf";
             project.BackgroundImage = @"Resources\MagicCarpet2HD.dialog_bmp.png";

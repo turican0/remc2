@@ -1,4 +1,4 @@
-# Magic Carpet 2 HD
+# Magic Carpet HD
 Based off the Reverse engineering of game Magic Carpet 2 from assembler to c/c++ language by Tomas Versly <br />
 Forked from Tomas Vesely's repo here: https://github.com/turican0/remc2
 
@@ -53,9 +53,9 @@ Switch to Anaglyph 3D (Red/Cyan Glasses. Colours configurable) F11
 - 3: Open "remc2.sln", you can build either x64 or 32 bit versions
 - 4: Build the code
 - 5: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
-- 6: Install the Game. Copy the "NETHERW" directory to "remc2\Debug\" Folder
-- 7: Copy the "Extract" folder to your Game Directory, run extract-GOG-CD.bat. The CD Data will now be copied to a directory called "CD_Files" in the "Extract" directory
-- 8: Move "CD_Files" directory into the "remc2\Debug" Folder
+- 6: Install the Game. Copy the "GAME\NETHERW" directory of the game to "x64\Debug\MC2\NETHERW"
+- 7: Extract the CD Data from "game.gog" in the game directory (a CD image, "game.ins" is its cue sheet) to "x64\Debug\MC2\CD_Files": run the installer (it extracts it for you), or convert it with an ISO tool (e.g. `bchunk game.gog game.ins cd` and open the .iso with 7-Zip)
+- 8: Check the folders in the "Game Files" dialog of the configurator (remc2-configurator.exe)
 - 9: Run
 
 ### Linux:
@@ -195,7 +195,7 @@ e.g. `void sub_19CA0_sound_proc5(unsigned __int8 a1)` was renamed to `void Chang
 ## Original Source Code is Copyright 1995 Bullfrog Productions ##
 
 ## Additonal Code is Licensed under the following MIT Licence: ##
-Copyright 2026 Magic Carpet 2 HD
+Copyright 2026 Magic Carpet HD
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

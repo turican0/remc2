@@ -165,13 +165,14 @@ private:
 	void DrawCaveTile(TerrainVertex quad[4], int index);
 	void DrawReflectedTile(TerrainVertex quad[4], int index);
 	void DrawTerrainTile(TerrainVertex quad[4], int index, bool water);
+	void DrawMc1StereogramDepthTile(TerrainVertex quad[4], int index);
 	void DrawSprite_41BD3(uint32 pass);
 	void DrawRotatedSprite(uint32 pass);
 	void DrawUprightSprite(uint32 pass);
 	void DrawSpriteSpan(const int8_t* texels, const SpriteColumn* columns, uint8_t* screen, const type_unk_F0E20x* steps, int length, int lastMode);
 	enum class SpriteChoice { Draw, Skip, KeepPrevious };
-	void DrawSprites_3E360(int tileIndex);
-	void DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_smalltit& tile, Type_Sprite*& sprite);
+	void DrawSprites_3E360(int tileIndex, bool mc1Depth = false); // mc1Depth: MC1 2F170
+	void DrawEntity(type_entity_0x6E8E* entity, const type_E9C38_smalltit& tile, Type_Sprite*& sprite, bool mc1Depth);
 	void EntityViewPosition(const type_entity_0x6E8E* entity, const type_E9C38_smalltit& tile, int& across, int& depth) const;
 	int SpriteLight(int64_t distance);
 	void ProjectSprite(int across, int height, int depth);

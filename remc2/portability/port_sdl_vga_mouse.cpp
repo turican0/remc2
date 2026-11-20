@@ -49,7 +49,7 @@ bool m_pressed = false;
 uint16_t m_lastScancode = 0;
 Scene m_Scene = Scene::PREAMBLE_MENU;
 
-const char* default_caption = "Magic Carpet 2 HD - (Community Update)";
+const char* default_caption = "Magic Carpet HD";
 
 bool m_initiated = false;
 Uint8 tempPalettebuffer[768];
@@ -615,6 +615,14 @@ void Draw_letterToBuffer(int letter_number, int pozx, int pozy, uint8_t* buffer,
 		}
 };
 
+void VGA_ClearTextScreen() {
+	if (!m_gamePalletisedSurface)
+		return;
+	Set_basic_Palette1();
+	Draw_black();
+	VGA_GotoXY(0, 0);
+}
+
 void VGA_GotoXY(int x, int y) {
 	lastpoz = y * textwidth + x;
 };
@@ -648,6 +656,11 @@ void VGA_Draw_string(char* wrstring) {
 		if (wrstring[i] == '\n')
 		{
 			lastpoz += textwidth - lastpoz % textwidth;
+		}
+		else if (wrstring[i] == '\r')
+		{
+			// back to the start of the line (the progress of MC1 rewrites its line)
+			lastpoz -= lastpoz % textwidth;
 		}
 		else
 		{
@@ -1356,6 +1369,8 @@ void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
 
 void VGA_close()
 {
+	if (!m_initiated)
+		return;
 	clean_up_sound();
 	gamepad_sdl_close();
 	SDL_FreeSurface(m_surfaceFont);
@@ -1367,6 +1382,7 @@ void VGA_close()
 	SDL_DestroyWindow(m_window);
 	m_window = nullptr;
 	SDL_Quit();
+	m_initiated = false; // a later VGA_Init (MC1 after the selector) opens the window again
 	//free(m_currentPalletColours);
 }
 

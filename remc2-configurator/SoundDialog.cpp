@@ -9,7 +9,7 @@
 SoundDialog::SoundDialog(wxWindow* parent, const Config::Settings::Sound& s)
 	: wxDialog(parent, wxID_ANY, "Sound Settings",
 		wxDefaultPosition, wxSize(450, 420), 
-		wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX)
+		wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX), m_initialPaths(s.m_Paths)
 {
 	wxPanel* panel = new wxPanel(this, wxID_ANY);
 
@@ -31,7 +31,7 @@ SoundDialog::SoundDialog(wxWindow* parent, const Config::Settings::Sound& s)
 
 	// AWE controls
 	auto* aweRomLabel = new wxStaticText(musicParent, wxID_ANY, "AWE 32 Rom Folder:");
-	m_aweRomPath = new wxTextCtrl(musicParent, wxID_ANY, s.m_Awe32RomFolder);
+	m_aweRomPath = new wxTextCtrl(musicParent, wxID_ANY, s.m_Paths.Get(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::Awe32RomFolder));
 	m_aweRomPath->SetToolTip("Relative path to the AWE 32 ROM file (.binz or .bin).");
 	auto* btnAweBrowse = new wxButton(musicParent, wxID_ANY, "Browse...");
 
@@ -66,7 +66,7 @@ SoundDialog::SoundDialog(wxWindow* parent, const Config::Settings::Sound& s)
 
 	// OGG controls
 	auto* oggFolderLabel = new wxStaticText(musicParent, wxID_ANY, "Music Tracks Folder:");
-	m_oggFolder = new wxTextCtrl(musicParent, wxID_ANY, s.m_OggFolder);
+	m_oggFolder = new wxTextCtrl(musicParent, wxID_ANY, s.m_Paths.Get(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::OggFolder));
 	m_oggFolder->SetToolTip("Relative Path to the music tracks. Required for music to play.");
 	auto* btnOggBrowse = new wxButton(musicParent, wxID_ANY, "Browse...");
 
@@ -114,7 +114,7 @@ SoundDialog::SoundDialog(wxWindow* parent, const Config::Settings::Sound& s)
 	maxRow->Add(m_maxSimSounds, wxSizerFlags(0));
 
 	auto* speechLabel = new wxStaticText(fxParent, wxID_ANY, "Speech Track Folder:");
-	m_speechFolder = new wxTextCtrl(fxParent, wxID_ANY, s.m_SpeechFolder);
+	m_speechFolder = new wxTextCtrl(fxParent, wxID_ANY, s.m_Paths.Get(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::SpeechFolder));
 	m_speechFolder->SetToolTip("Relative Path to the speech tracks. Required for in game briefings to play.");
 	auto* btnSpeechBrowse = new wxButton(fxParent, wxID_ANY, "Browse...");
 
@@ -204,22 +204,23 @@ SoundDialog::SoundDialog(wxWindow* parent, const Config::Settings::Sound& s)
 Config::Settings::Sound SoundDialog::GetSettings() const
 {
 	Config::Settings::Sound s;
+	s.m_Paths = m_initialPaths;
 	s.m_MusicType = (m_musicType->GetSelection() == 1)
 		? "ogg"
 		: "awe32";
 
 	// Music
-	s.m_Awe32RomFolder = m_aweRomPath->GetValue();
+	s.m_Paths.Set(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::Awe32RomFolder, m_aweRomPath->GetValue().ToStdString());
 	s.m_UseMagicCarpet1Music = m_useMC1Music->GetValue();
 	s.m_Awe32GmIntroMusic = m_aweGmIntroMusic->GetValue();
 	s.m_Awe32BufferMs = m_aweBufferMs->GetValue();
-	s.m_OggFolder = m_oggFolder->GetValue();
+	s.m_Paths.Set(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::OggFolder, m_oggFolder->GetValue().ToStdString());
 	s.m_OggMusicAlternative = m_oggMusicAlternative->GetValue();
 
 	// Sound FX
 	s.m_FixSpeedSound = m_fixSpeedSound->GetValue();
 	s.m_MaxSimultaniousSounds = m_maxSimSounds->GetValue();
-	s.m_SpeechFolder = m_speechFolder->GetValue();
+	s.m_Paths.Set(Config::Settings::GameName::MagicCarpet2, Config::Settings::PathKey::SpeechFolder, m_speechFolder->GetValue().ToStdString());
 	s.m_AutoShowObjectivesForForeignLanguages = m_autoShowObjectives->GetValue();
 	return s;
 }

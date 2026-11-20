@@ -1,0 +1,358 @@
+mc1	lines	pair	mc2	seq	bag	ported
+sub_34610	21	map	InGameLoop_47320	0.24	0.37	
+sub_34530	57	map	DrawAndEventsInGame_47560	0.55	0.67	
+sub_34690	269	role	PaletteChanges_47760	0.30	0.47	
+sub_344F0	13	map	SerialDebugOutput_9B038	0.38	0.38	
+sub_61CC0	143	map	VgaPalFadeInFadeOut_90B27	0.95	0.95	
+sub_6B47C	23	map	VgaGetPalette_A0D2C	1.00	1.00	
+sub_5CC54	7	map	WaitToScreenBeam_9A0FC	1.00	1.00	
+sub_319A0	40	map	VgaPaletteInstall_41A90	0.81	0.92	
+sub_5B310	62	map	ReadVrPort_75A10	1.00	1.00	
+sub_3EEA0	47	map	sub_53E60	0.95	0.95	
+sub_5CDE0	40	map	sub_98817	1.00	1.00	
+sub_5CBD0	24	map	sub_988A7	1.00	1.00	
+sub_5CE50	18	map	sub_98882	1.00	1.00	
+sub_62B60	130	map	sub_9894C	0.94	0.94	
+sub_62CF4	5	map	sub_98AE0	1.00	1.00	
+sub_62D40	42	map	ReadBits_98B2C	1.00	1.00	
+sub_62DC3	67	map	sub_98BAF	1.00	1.00	
+sub_62CFD	23	map	DecodeHuffmanSymbol_98AE9	1.00	1.00	
+sub_61EC8	12	map	ClearCursorDrawnFlag_8CB1F	0.50	0.50	
+sub_590D0	36	role	UpdateSpriteAnimations_715B0	0.40	0.48	
+sub_10FD0	18	map	GetAnimationByIndex_724F0	0.84	0.90	
+sub_10EB0	35	map	AnimateSprite_72350	1.00	1.00	
+sub_10010	10	map	SetAnimationPosition_765FC	1.00	1.00	
+sub_1002D	58	map	DecodeAnimationFrame_76619	1.00	1.00	
+sub_10166	10	map	ReadAnimationPosition_76752	1.00	1.00	
+sub_100B8	53	map	DecodeAnimationChunks_766A4	1.00	1.00	
+sub_101A1	65	map	DecodeAnimationDelta_7678D	1.00	1.00	
+sub_10190	4	map	SkipAnimationChunk_7677C	1.00	1.00	
+sub_10254	64	map	DecodeAnimationRun_76840	1.00	1.00	
+sub_17C20	916	role	MouseAndKeysEvents_17A00	0.15	0.48	
+sub_188A0	498	role	HandleButtonClick_191B0	0.26	0.38	
+sub_16B00	1314	-		0.00	0.00	
+sub_593B0	33	-		0.00	0.00	
+sub_3E750	20	-		0.00	0.00	
+sub_62E60	38	map	OpenWriteClose_98C48	1.00	1.00	
+sub_62ED0	24	map	WriteFile_98CAA	1.00	1.00	
+sub_3E8C0	53	-		0.00	0.00	
+sub_37220	40	-		0.00	0.00	
+sub_3E690	66	-		0.00	0.00	
+sub_3E7A0	25	map	TestOpenMovieGam_53770	0.86	0.86	
+sub_416B0	45	-		0.00	0.00	
+sub_3E7F0	58	-		0.00	0.00	
+sub_3E980	25	map	TestOpenMovieGam_53770	0.86	0.86	
+sub_59420	73	role	HasSkipInput_473E0	0.23	0.36	
+sub_58E70	36	map	InitTmapsAndSprites_712F0	0.68	0.68	
+sub_36700	109	map	InitTmapCache_71B40	0.77	0.77	
+sub_42540	54	map	Malloc_83D70	0.76	0.82	
+sub_63010	218	role	sub_85070	0.23	0.42	
+sub_6342C	37	map	sub_9F110	0.65	0.74	
+sub_6D35C	25	map	FreeMemPool_9AD16	1.00	1.00	
+sub_425C0	54	map	Malloc_83D70	0.86	0.86	
+sub_42650	49	map	sub_83E00	0.90	0.92	
+sub_63338	61	-		0.00	0.00	
+sub_426E0	30	map	FreeMem_83E80	0.88	0.92	
+sub_42860	24	map	sub_84000	1.00	1.00	
+sub_10CB0	52	map	AllocateAnimations_72120	0.89	0.89	
+sub_42530	3	role	SetAllocationTag_83CC0	1.00	1.00	
+sub_587E0	33	role	OpenTmaps_70A60	0.38	0.38	
+sub_59320	24	map	BuildLevelSpriteList_71890	0.65	0.70	
+sub_59370	19	role	LoadLevelSpriteTmaps_718F0	0.57	0.57	
+sub_58B30	79	role	sub_70F50	0.53	0.68	
+sub_369E0	65	map	LoadTMapMetadata_71E70	0.94	0.94	
+sub_36850	17	role	GetIndex_71CD0	0.74	0.74	
+sub_58860	61	map	DecompressTmap_70C60	0.81	0.87	
+sub_62B30	22	map	sub_9891E	1.00	1.00	
+sub_10D40	107	map	InitTmapAnimation_721C0	0.76	0.84	
+sub_58910	72	map	ResetTmap_70D20	0.84	0.84	
+sub_10F10	6	role	ResetAnimation_72410	1.00	1.00	
+sub_36A90	78	role	FreeTmapCacheEntry_71F20	0.67	0.79	
+sub_58AD0	34	map	GetTmapGroupSize_70EF0	0.67	0.71	
+sub_356E0	10	map	ClearEntityStage_12470	0.13	0.13	
+sub_5D010	37	role	EndSample_8D8F0	0.46	0.58	
+sub_651F8	44	-		0.00	0.00	
+sub_65965	39	-		0.00	0.00	
+sub_20E60	40	role	StopMusic_8E020	0.36	0.48	
+sub_5D7F0	21	map	sub_A3A00	0.40	0.70	
+sub_5F420	66	-		0.00	0.00	
+sub_5DC91	113	-		0.00	0.00	
+sub_5DE63	18	map	sub_98882	0.50	0.50	
+sub_66D24	40	-		0.00	0.00	
+sub_66DF5	28	-		0.00	0.00	
+sub_66E21	28	-		0.00	0.00	
+sub_5E9C1	263	-		0.00	0.00	
+sub_5F529	176	-		0.00	0.00	
+sub_66EF6	17	map	sub_A3FE0	0.67	0.67	
+sub_5F7C7	37	-		0.00	0.00	
+sub_5F355	21	-		0.00	0.00	
+sub_6091D	60	-		0.00	0.00	
+sub_5D290	125	role	StartMusic_8E160	0.40	0.54	
+sub_5EE22	340	-		0.00	0.00	
+sub_6378C	16	map	sub_A3FE0	0.73	0.73	
+sub_6080C	67	role	AilSendChannelVoiceMessage_98360	0.16	0.38	
+sub_68813	31	-		0.00	0.00	
+sub_60335	15	map	GetIndexNetwork_74536	0.44	0.44	
+sub_5FD67	326	-		0.00	0.00	
+sub_674FA	24	map	VgaGetPalette_A0D2C	0.19	0.19	
+sub_5F398	45	role	AilSendChannelVoiceMessage_98360	0.28	0.37	
+sub_5D97B	112	role	DebugSoundTimer_916F0	0.19	0.37	
+sub_5EDD6	18	map	sub_9D3F0	1.00	1.00	
+sub_34C80	85	-		0.00	0.00	
+sub_315C0	15	role	ClearScreenAndBlit_75C50	0.34	0.48	
+sub_61B90	50	map	VgaSetVideoMode320x200AndPalette_90D6E	1.00	1.00	
+sub_5C468	100	map	sub_8D12F	1.00	1.00	
+sub_65EB0	27	map	SetViewport_A0D50	1.00	1.00	
+sub_61C30	46	map	VgaSetVideoMode640x480AndPalette_90E07	1.00	1.00	
+sub_619B8	39	map	sub_994BA	1.00	1.00	
+sub_618E0	73	map	TestVgaDriver_995B0	0.80	0.84	
+sub_3F370	14	-		0.00	0.00	
+sub_59560	40	map	CreateIndexes_6EB90	0.86	0.86	
+sub_66390	47	map	CreateIndexDatTabHalved_99A77	1.00	1.00	
+sub_66410	26	map	CreateIndexDatTabRelative_99AEB	1.00	1.00	
+sub_61610	21	map	UnloadFileArray_90D3F	1.00	1.00	
+sub_634A0	23	map	sub_9A2F5	1.00	1.00	
+sub_40440	64	map	LoadFileArray_84250	0.74	0.77	
+sub_634E0	98	map	sub_9A32D	1.00	1.00	
+sub_63910	73	map	sub_AB9E1	1.00	1.00	
+sub_59500	40	map	CreateIndexes_6EB90	0.86	0.86	
+sub_65D70	30	map	CreateIndexDatTabDoubled_98709	1.00	1.00	
+sub_65DC0	26	map	CreateIndexDatTab_9874D	1.00	1.00	
+sub_411D7	19	map	ClearGraphicsBuffer_72883	1.00	1.00	
+sub_411FD	19	map	sub_728A9	1.00	1.00	
+sub_5C214	118	map	InstallMouse_8CEDF	1.00	1.00	
+sub_5C05C	99	map	SetCursor_8CD27	1.00	1.00	
+sub_60CE0	29	map	DrawBitmap320_8F8B0	1.00	1.00	
+sub_60D65	737	map	DrawBitmapFinal_8F935	1.00	1.00	
+sub_31600	298	-		0.00	0.00	
+sub_5B500	28	map	ClearScreenAndBlit_75C50	0.90	0.90	
+sub_5CDA0	20	map	VgaBlit320_90478	1.00	1.00	
+sub_5BDF8	15	map	DrawCursorIfEnabled_8CACD	1.00	1.00	
+sub_5B95C	116	map	DrawCursor_8C635	1.00	1.00	
+sub_5BE50	12	map	ClearCursorDrawnFlag_8CB1F	1.00	1.00	
+sub_599B0	57	map	VgaBlit640_75200	1.00	1.00	
+sub_61A1C	58	map	SetVgaPaletteBank_9951B	1.00	1.00	
+sub_30D30	32	map	sub_5C380	0.79	0.84	
+sub_61AB0	70	map	TestVgaDriver_995B0	1.00	1.00	
+sub_3FCA0	459	-		0.00	0.00	
+sub_5B210	33	map	ShutdownVrDevice_75910	0.97	0.97	
+sub_5AEB0	39	role	VrSendCommand5_755B0	0.67	0.74	
+sub_5B3E0	38	map	sub_75AE0	1.00	1.00	
+sub_5B3B0	11	map	ResetVrDevice_75AB0	1.00	1.00	
+sub_5B450	14	role	sub_75B50	0.94	0.94	
+sub_3F413	62	-		0.00	0.00	
+sub_5B2B0	27	map	SetMouseMinMaxVert_759B0	0.97	0.97	
+sub_3F587	134	-		0.00	0.00	
+sub_3F76D	36	-		0.00	0.00	
+sub_169E0	66	map	ComputeMousePlayerMovement_17060	0.73	0.78	
+sub_3C9D0	1148	role	PlayerEvents_51BB0	0.31	0.51	
+sub_43930	73	role	ReceiveSendAll_7438A	0.38	0.50	
+sub_438D0	26	role	NetworkReceiveMessage2_7404E	0.69	0.69	
+sub_42FB0	35	-		0.00	0.00	
+sub_42F30	49	-		0.00	0.00	
+sub_431A0	64	-		0.00	0.00	
+sub_42E10	91	-		0.00	0.00	
+sub_43870	26	role	NetworkReceiveMessage2_7404E	0.69	0.69	
+sub_430F0	40	-		0.00	0.00	
+sub_43080	40	-		0.00	0.00	
+sub_3E9D0	185	role	RecordOrPlayMovieInput_53A40	0.56	0.62	
+sub_3E350	66	role	SaveSMAPSLEVmovie_54D30	0.39	0.51	
+sub_3E460	25	map	TestOpenMovieGam_53770	0.93	0.93	
+sub_3E4B0	58	role	SaveSMAPSLEVmovie_54D30	0.40	0.43	
+sub_3E640	25	map	TestOpenMovieGam_53770	0.93	0.93	
+sub_3EC50	13	map	CloseMovie_53CC0	0.55	0.55	
+sub_35710	30	role	HasSkipInput_473E0	0.31	0.45	
+sub_3E410	20	-		0.00	0.00	
+sub_3E580	53	role	SaveSMAPSLEVmovie2_54F00	0.58	0.58	
+sub_44D30	425	role	UpdatePlayerWizard_5C950	0.37	0.46	
+sub_11F50	8	map	GetTerrainAlt_10C40	1.00	1.00	
+sub_724C0	106	map	GetTerrainAlt2_B5C60	1.00	1.00	
+sub_373F0	25	map	CreateEntity_4A190	1.00	1.00	
+sub_41C70	29	map	CopyEntityPosition_57CF0	0.82	0.82	
+sub_41DD0	45	map	SetMapEntity_57E50	0.52	0.73	
+sub_41CF0	68	map	AddEventToMap_57D70	0.75	0.75	
+sub_36FA0	43	map	SetEntityIndexAndRot_49CD0	0.52	0.83	
+sub_45C10	34	-		0.00	0.00	
+sub_55370	367	role	PrepareEventSound_6E450	0.52	0.65	
+sub_42410	18	map	DistanceSquaredXY_584D0	0.64	0.80	
+sub_423D0	21	map	GetYawAngle_581E0	0.88	0.88	
+sub_410CE	30	map	IntegerSqrt_7277A	1.00	1.00	
+sub_42150	16	map	GetYawAngle_581E0	1.00	1.00	
+sub_40F87	112	map	Atan2_72633	1.00	1.00	
+sub_42210	16	map	AngleDifference_582B0	1.00	1.00	
+sub_42240	41	role	AngleTurnDirection_582F0	0.81	0.81	
+sub_520F0	11	map	GetTerrainAlt_10C40	0.46	0.46	
+sub_52120	118	-		0.00	0.00	
+sub_6535C	345	-		0.00	0.00	
+sub_55870	6	role	ShouldUpdateSound_6EA90	1.00	1.00	
+sub_279D0	287	role	UpdateManaSphereMovement_36FC0	0.32	0.58	
+sub_33B90	191	role	UpdateTerrainTiles_462A0	0.65	0.80	
+sub_33800	226	map	SetTileTerrainType_45DC0	0.79	0.79	
+sub_33640	152	map	GetTileHeightType_45BE0	0.95	0.96	
+sub_37150	30	map	SetShiftByCastle_49EC0	0.85	0.85	
+sub_47C60	100	role	GrowCastle_60810	0.35	0.58	
+sub_47BD0	40	map	SetCastleLifeAndMana_60780	0.64	0.75	
+sub_47DD0	62	-		0.00	0.00	
+sub_3DC90	32	role	BackupMousePosition_548F0	0.36	0.40	
+sub_31A00	21	map	SetPausedMenuOpen_41AF0	0.70	0.70	
+sub_5B560	28	map	ClearScreenAndBlit_75C50	0.95	0.95	
+sub_59720	9	map	SetCenterScreenForFlyAssistant_6EDB0	1.00	1.00	
+sub_59750	87	map	SetMousePosition_6EDE0	0.92	0.92	
+sub_31A60	11	-		0.00	0.00	
+sub_3DD10	19	map	CheckCdPresent_53120	0.65	0.65	
+sub_11050	39	map	IsCdPresent_10010	0.98	0.98	
+sub_43760	74	-		0.00	0.00	
+sub_42C70	35	-		0.00	0.00	
+sub_42DE0	19	-		0.00	0.00	
+sub_42D40	68	-		0.00	0.00	
+sub_43150	14	-		0.00	0.00	
+sub_43170	15	-		0.00	0.00	
+sub_194F0	29	-		0.00	0.00	
+sub_41B20	92	role	CopyPlayerPositionAndRotation_57B20	0.49	0.61	
+sub_415C0	59	-		0.00	0.00	
+sub_41780	220	role	UpdateEntities_57730	0.40	0.55	
+sub_41E90	13	-		0.00	0.00	
+sub_54F00	42	role	UpdateAllCreatures_68BF0	0.51	0.55	
+sub_54F80	111	-		0.00	0.00	
+sub_16540	179	map	UpdateWizardAiTargets_159E0	0.57	0.62	
+sub_48230	76	map	UpdateCastles_60F00	0.42	0.55	
+sub_48340	23	role	AddBalloonManaToCastle_61000	0.40	0.47	
+sub_41E80	3	role	DisableEntityDrawing04_57F10	0.67	0.67	
+sub_55100	117	role	PlayEntitySounds_6E150	0.53	0.62	
+sub_522E0	80	-		0.00	0.00	
+sub_66118	41	-		0.00	0.00	
+sub_51FC0	83	-		0.00	0.00	
+sub_483C0	53	role	AilEndSamplePlayingByIndex_8F420	0.31	0.43	
+sub_48570	54	-		0.00	0.00	
+sub_48520	20	role	AilEndSamplePlayingByIndex_8F420	0.30	0.43	
+sub_48470	55	role	AilEndSamplePlayingByIndex_8F420	0.28	0.40	
+sub_5D750	47	map	AilEndSamplePlayingByIndex_8F420	0.55	0.62	
+sub_5D460	123	role	PlaySample_8F100	0.31	0.41	
+sub_66250	62	role	AilEndSamplePlayingByIndex_8F420	0.38	0.48	
+sub_20FB0	1787	map	DrawGameFrame_2BE30	0.23	0.43	
+sub_30A70	60	map	SetRenderViewPortSize_40C50	1.00	1.00	
+sub_79495	28	map	SetRenderViewPortSize_BCD45	1.00	1.00	
+sub_30D90	657	map	DrawWorld_411A0	0.68	0.76	
+sub_2A700	1978	map	DrawTerrainAndParticles_3C080	0.55	0.79	
+sub_29C30	670	map	SetBillboards_3B560	0.64	0.90	
+sub_30730	158	map	DrawSky_40950	0.79	0.92	
+sub_729A3	7339	map	DrawTriangleInProjectionSpace_B6253	0.99	0.99	
+sub_2FC50	743	map	DrawTileSpriteReflections_3FD60	0.73	0.84	
+sub_59050	47	map	MainInitTmaps_71520	0.85	0.85	
+sub_58C30	182	role	EvictLeastUsedTmaps_71090	0.44	0.61	
+sub_58A00	66	map	UnloadTmapGroup_70E10	0.78	0.78	
+sub_2C410	1882	map	DrawSprite_41BD3	0.49	0.68	
+sub_2DCB0	1374	map	DrawSprites_3E360	0.53	0.79	
+sub_2F170	705	role	DrawSprites_3E360	0.41	0.50	
+sub_49300	254	-		0.00	0.00	
+sub_48710	883	-		0.00	0.00	
+sub_5A3C0	8	map	GetFont_6FC50	1.00	1.00	
+sub_60D18	29	map	DrawBitmap320_8F8B0	1.00	1.00	
+sub_5A180	79	role	DrawBitmap_2BB40	0.16	0.35	
+sub_5A3B0	4	role	GetFont_6FC50	0.36	0.36	
+sub_58768	57	map	DrawBitmapWithColour640_72C40	1.00	1.00	
+sub_60D50	10	map	DrawBitmapFinalUnscaled_8F920	1.00	1.00	
+sub_5A3A0	4	role	GetLetterHeight_6FC30	0.67	0.67	
+sub_23D40	373	role	DrawWorld_411A0	0.12	0.50	
+sub_23940	137	role	ColorizeScreen_2E790	0.30	0.44	
+sub_24C20	46	-		0.00	0.00	
+sub_61640	49	map	DrawLineLowRes_90164	1.00	1.00	
+sub_24CA0	46	-		0.00	0.00	
+sub_616C0	45	map	DrawLineHighRes_901E4	1.00	1.00	
+sub_61594	27	-		0.00	0.00	
+sub_615D4	25	-		0.00	0.00	
+sub_23AE0	119	role	ColorizeScreen_2E790	0.34	0.57	
+sub_247C0	61	map	ColorizeScreen_2E790	0.74	0.91	
+sub_22E50	843	role	DrawWorld_411A0	0.11	0.39	
+sub_22810	38	-		0.00	0.00	
+sub_24230	204	role	DrawPauseMenu_2FD90	0.23	0.54	
+sub_24D20	46	-		0.00	0.00	
+sub_61740	93	-		0.00	0.00	
+sub_6B260	114	map	DrawLine320_9025C	1.00	1.00	
+sub_23CF0	27	-		0.00	0.00	
+sub_24DA0	46	-		0.00	0.00	
+sub_61810	93	-		0.00	0.00	
+sub_6B378	106	map	DrawLine640_90374	1.00	1.00	
+sub_309D0	45	-		0.00	0.00	
+sub_22880	406	-		0.00	0.00	
+sub_5A560	556	role	DrawGameDebugText_6FEC0	0.51	0.64	
+sub_37710	4	role	GetLetterHeight_6FC30	0.57	0.57	
+sub_30B30	142	map	BlendAndBlit_40F80	0.83	0.88	
+sub_79A1B	34	map	BlitScreenToVgaBanks_BD2CB	1.00	1.00	
+sub_79A70	47	map	BlitToVgaPlanar2_BD320	1.00	1.00	
+sub_79B2D	89	map	BlitScreenToVga_BD3DD	1.00	1.00	
+sub_79906	90	map	DrawVrFrame_BD1B6	1.00	1.00	
+sub_407A0	76	-		0.00	0.00	
+sub_40550	178	map	ClearSettings_567C0	0.76	0.78	
+sub_5AD10	9	map	PrintTextMessage_70910	0.86	0.86	
+sub_3E100	137	map	LevelDecompress_533B0	0.73	0.74	
+sub_31AA0	81	map	GenerateLevelMap_43830	0.52	0.58	
+sub_725C8	58	map	DecompressTerrainMapLevel_B5E70	1.00	1.00	
+sub_72652	43	map	TerrainDiamondStep_B5EFA	1.00	1.00	
+sub_726E7	83	map	TerrainSquareStep_B5F8F	1.00	1.00	
+sub_32A50	47	map	TruncTerrainHeight_44DB0	1.00	1.00	
+sub_32AE0	57	map	MarkLandAndRivers_44E40	0.84	0.84	
+sub_32B90	127	map	SmoothTiles_44EE0	0.84	0.84	
+sub_33500	99	map	SetMax4Tiles_45AA0	1.00	1.00	
+sub_320A0	198	map	ApplySnowLine_440D0	0.99	1.00	
+sub_32D00	159	map	MarkFlatLowland_45060	1.00	1.00	
+sub_32300	158	map	SpreadTerrainClass4_44320	1.00	1.00	
+sub_32EB0	250	map	MarkFlatLowlandClass2_45210	0.99	1.00	
+sub_33180	307	map	MarkSteepTerrain_45600	0.88	0.88	
+sub_31FA0	91	role	RemoveIsolatedTerrainClasses_43FC0	0.90	0.97	
+sub_31BB0	154	map	GetSmoothedHeight_439A0	0.86	0.87	
+sub_31EC0	79	map	AddRivers_43EE0	1.00	1.00	
+sub_32560	378	role	SetTerrainAngles_44580	0.29	0.53	
+sub_31D40	123	map	MarkWaterEdges_43D50	0.79	0.80	
+sub_329C0	46	map	ComputeTerrainShading_44D00	0.88	0.91	
+sub_371C0	21	-		0.00	0.00	
+sub_36430	25	-		0.00	0.00	
+sub_36480	80	-		0.00	0.00	
+sub_36DF0	129	map	InitBuildingEntity_49A30	0.68	0.70	
+sub_361C0	29	map	GetTerrainHeightFromSquare_48DF0	1.00	1.00	
+sub_362C0	86	-		0.00	0.00	
+sub_36620	74	-		0.00	0.00	
+sub_37440	83	-		0.00	0.00	
+sub_59140	6	-		0.00	0.00	
+sub_59160	48	map	LoadEntitySprites_716C0	0.76	0.86	
+sub_591E0	18	map	MarkSpriteTmapUsed_71730	0.93	0.93	
+sub_59230	77	-		0.00	0.00	
+sub_37560	142	-		0.00	0.00	
+sub_37130	7	-		0.00	0.00	
+sub_36DE0	4	-		0.00	0.00	
+sub_3DD50	231	-		0.00	0.00	
+sub_408D0	60	-		0.00	0.00	
+sub_448E0	177	-		0.00	0.00	
+sub_34460	32	-		0.00	0.00	
+sub_4E5B0	604	-		0.00	0.00	
+sub_107C0	63	map	sub_76160	0.76	0.82	
+sub_111B0	165	role	PlayIntoSoundEvents_1B280	0.38	0.51	
+sub_5CEF0	59	role	EndSample_8D8F0	0.21	0.36	
+sub_5CFA4	33	map	sub_8EC90	1.00	1.00	
+sub_5D070	63	-		0.00	0.00	
+sub_5D138	33	map	sub_8EC90	1.00	1.00	
+sub_5D230	28	map	ReadIntoFileBuffer_8F0AB	1.00	1.00	
+sub_24AB0	37	-		0.00	0.00	
+sub_51360	17	map	SetPaletteModification_5C830	0.30	0.30	
+sub_51480	31	-		0.00	0.00	
+sub_519E0	20	map	sub_85AF0	0.90	0.90	
+sub_5CC70	91	role	GetPaletteIndex_5BE80	0.42	0.51	
+sub_24B80	11	map	ClearSubtitleImageMemory_2EC30	1.00	1.00	
+sub_24BB0	12	-		0.00	0.00	
+sub_24B50	13	role	DrawSubtitleTextWithBorder_2EBB0	0.31	0.50	
+sub_51560	84	-		0.00	0.00	
+sub_51650	323	map	sub_856D0	0.73	0.85	
+sub_5D610	88	role	UpdatePlayingSampleStatus_8F710	0.29	0.49	
+sub_103F0	43	map	ReadFrame_75DB0	0.72	0.76	
+sub_104D0	225	map	DrawFrame_75E70	0.80	0.96	
+sub_103C0	20	map	CopyAndShiftFrom17DB50_75D70	1.00	1.00	
+sub_108C0	58	role	ReadIntroPalettes_76260	0.54	0.69	
+sub_10960	113	role	DecodeFlcDeltaChunk_76300	0.74	0.83	
+sub_10AB0	103	map	DecodeFliLineCompressChunk_76430	0.83	0.87	
+sub_10BD0	76	map	DecodeFliByteRunChunk_76540	0.78	0.80	
+sub_10300	54	role	WaitForNextAnimationFrame_75CB0	0.86	0.86	
+sub_24BF0	11	map	SetSubtitleColourAndRedraw_2EC90	1.00	1.00	
+sub_62FA8	15	map	sub_9A128	1.00	1.00	
+sub_62FC4	19	map	sub_9A144	1.00	1.00	
+sub_65F10	116	-		0.00	0.00	
+sub_51420	40	-		0.00	0.00	

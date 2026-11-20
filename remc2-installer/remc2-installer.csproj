@@ -45,11 +45,6 @@
     <None Remove="wix\remc2-installer.g.wxs" />
     <None Include="wix\$(ProjectName).g.wxs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="Extract\dosboxExtract-GOG-CD.conf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="cd .\&#xD;&#xA;set ide=true&#xD;&#xA;&quot;$(TargetPath)&quot;" />
   </Target>

@@ -49,6 +49,12 @@
     <Filter Include="Source Files\shared">
       <UniqueIdentifier>{105f20fd-7c5b-45f0-bfd0-6187f64995bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\remc1">
+      <UniqueIdentifier>{6f3c2a1e-8d4b-4c7a-9e21-5b0d7c3a1f01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\remc1">
+      <UniqueIdentifier>{6f3c2a1e-8d4b-4c7a-9e21-5b0d7c3a1f02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -446,6 +452,216 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\remc1\Mc1Main.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Select.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Hmi.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Sound.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Movie.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1MainMenu.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Level.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1EntityTables.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Entity.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Scenery.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Terrain.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1SceneryActions.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Models.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1World.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Frame.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Input.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Minimap.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Wizard.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Render.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1PlayerEvents.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Actions.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1MenuText.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1MenuSound.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Menu.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Screen.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Blocks.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1TextureMaps.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Install.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Files.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Graphics.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Search.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1System.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Game.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1NotPorted.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClInclude Include="..\remc1\Mc1Main.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Select.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Hmi.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Sound.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Movie.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1MainMenu.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Level.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1EntityTables.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Entity.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Scenery.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Terrain.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1SceneryActions.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Models.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1World.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Frame.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Input.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Minimap.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Wizard.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Render.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1PlayerEvents.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Actions.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1MenuText.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1MenuSound.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Menu.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Shared.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Screen.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Blocks.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1TextureMaps.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Install.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Files.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Graphics.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Search.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1System.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Game.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1GameState.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1NotPorted.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
     <ClCompile Include="remc2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -561,6 +777,9 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\MenusAndIntros.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\GameRenderInterface.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\GameRenderOriginal.cpp">

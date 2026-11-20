@@ -1,6 +1,8 @@
 #include "MainFrame.h"
 
-MainFrame::MainFrame(const wxString& title, const std::string fileName) : wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxSize(416, 520), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX)
+#include "GameFilesCheck.h"
+
+MainFrame::MainFrame(const wxString& title, const std::string fileName) : wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxSize(430, 630), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX)
 {
 	wxInitAllImageHandlers();
 
@@ -10,26 +12,25 @@ MainFrame::MainFrame(const wxString& title, const std::string fileName) : wxFram
 	// ── Panel (gives a native background) ───────────────────────────────────
 	wxPanel* panel = new wxPanel(this, wxID_ANY);
 
-	wxString path = wxFileName(wxStandardPaths::Get().GetExecutablePath()).GetPathWithSep() + "mc2_hd_logo.png";
-
-	wxBitmap logo(path, wxBITMAP_TYPE_PNG);
-
-	if (!logo.IsOk())
-	{
-		wxMessageBox("Failed to load mc2_hd_logo.png");
-	}
-
-	wxStaticBitmap* image = new wxStaticBitmap(panel, wxID_ANY, logo);
-
 	// ── Buttons ─────────────────────────────────────────────────────────────
-	wxButton* btnPlay = new wxButton(panel, ID_BTN_PLAY, "Play");
-	btnPlay->SetMinSize(wxSize(-1, 40));
+	m_btnPlayMagicCarpet = new wxButton(panel, ID_BTN_PLAY_MAGIC_CARPET, "Magic Carpet");
+	m_btnPlayMagicCarpet->SetMinSize(wxSize(-1, 40));
+	m_btnPlayHiddenWorlds = new wxButton(panel, ID_BTN_PLAY_HIDDEN_WORLDS, "Magic Carpet Hidden Worlds");
+	m_btnPlayHiddenWorlds->SetMinSize(wxSize(-1, 40));
+	m_btnPlayMagicCarpet2 = new wxButton(panel, ID_BTN_PLAY_MAGIC_CARPET_2, "Magic Carpet 2");
+	m_btnPlayMagicCarpet2->SetMinSize(wxSize(-1, 40));
+	// the wide picture of each game (images next to the .exe) in place of the text, the width of the column of buttons;
+	// the text only without it
+	constexpr int imageWidth = 388;
+	SetButtonImage(m_btnPlayMagicCarpet, "magic_carpet_wide.png", imageWidth);
+	SetButtonImage(m_btnPlayHiddenWorlds, "hidden_worlds_wide.png", imageWidth);
+	SetButtonImage(m_btnPlayMagicCarpet2, "magic_carpet2_wide.png", imageWidth);
 	wxButton* btnLaunchOptions = new wxButton(panel, ID_BTN_LAUNCH_OPTIONS, "Launch Options");
 	btnLaunchOptions->SetMinSize(wxSize(-1, 40));
-	wxButton* btnMultiplayer = new wxButton(panel, ID_BTN_MULTIPLAYER, "Multiplayer");
-	btnMultiplayer->SetMinSize(wxSize(-1, 40));
 	wxButton* btnFile = new wxButton(panel, ID_BTN_FILE, "Game Files");
 	btnFile->SetMinSize(wxSize(-1, 40));
+	wxButton* btnMultiplayer = new wxButton(panel, ID_BTN_MULTIPLAYER, "Multiplayer");
+	btnMultiplayer->SetMinSize(wxSize(-1, 40));
 	wxButton* btnSettings = new wxButton(panel, ID_BTN_SETTINGS, "Settings");
 	btnSettings->SetMinSize(wxSize(-1, 40));
 	wxButton* btnExit = new wxButton(panel, ID_BTN_EXIT, "Exit");
@@ -44,11 +45,12 @@ MainFrame::MainFrame(const wxString& title, const std::string fileName) : wxFram
 
 	wxBoxSizer* vSizer = new wxBoxSizer(wxVERTICAL);
 
-	buttonSizer->Add(image, flags);
-	buttonSizer->Add(btnPlay, flags);
+	buttonSizer->Add(m_btnPlayMagicCarpet, flags);
+	buttonSizer->Add(m_btnPlayHiddenWorlds, flags);
+	buttonSizer->Add(m_btnPlayMagicCarpet2, flags);
 	buttonSizer->Add(btnLaunchOptions, flags);
-	buttonSizer->Add(btnMultiplayer, flags);
 	buttonSizer->Add(btnFile, flags);
+	buttonSizer->Add(btnMultiplayer, flags);
 	buttonSizer->Add(btnSettings, flags);
 	buttonSizer->Add(btnExit, flags);
 
@@ -68,21 +70,84 @@ MainFrame::MainFrame(const wxString& title, const std::string fileName) : wxFram
 	panel->SetSizer(outerSizer);
 
 	// ── Event bindings ───────────────────────────────────────────────────────
-	Bind(wxEVT_BUTTON, &MainFrame::OnPlay, this, ID_BTN_PLAY);
+	Bind(wxEVT_BUTTON, &MainFrame::OnPlayMagicCarpet, this, ID_BTN_PLAY_MAGIC_CARPET);
+	Bind(wxEVT_BUTTON, &MainFrame::OnPlayHiddenWorlds, this, ID_BTN_PLAY_HIDDEN_WORLDS);
+	Bind(wxEVT_BUTTON, &MainFrame::OnPlayMagicCarpet2, this, ID_BTN_PLAY_MAGIC_CARPET_2);
 	Bind(wxEVT_BUTTON, &MainFrame::OnLaunchOptions, this, ID_BTN_LAUNCH_OPTIONS);
 	Bind(wxEVT_BUTTON, &MainFrame::OnMultiplayer, this, ID_BTN_MULTIPLAYER);
 	Bind(wxEVT_BUTTON, &MainFrame::OnFile, this, ID_BTN_FILE);
 	Bind(wxEVT_BUTTON, &MainFrame::OnSettings, this, ID_BTN_SETTINGS);
 	Bind(wxEVT_BUTTON, &MainFrame::OnExit, this, ID_BTN_EXIT);
 
+	UpdatePlayButtons();
+
+	// the window as tall as the buttons with the pictures of the games
+	const wxSize best = panel->GetBestSize();
+	SetClientSize(wxSize(std::max(GetClientSize().x, best.x), best.y + 16));
+
 	Centre(); // centre on screen
 }
 
-// ── Button handlers ──────────────────────────────────────────────────────────
-void MainFrame::OnPlay(wxCommandEvent&)
+// ── Play buttons ─────────────────────────────────────────────────────────────
+void MainFrame::SetButtonImage(wxButton* button, const wxString& fileName, int width)
 {
-	if (LaunchGame(""))
+	const wxString path = wxFileName(wxStandardPaths::Get().GetExecutablePath()).GetPathWithSep() + "images" +
+		wxFileName::GetPathSeparator() + fileName;
+	if (!wxFileExists(path))
+		return;
+	wxImage image(path, wxBITMAP_TYPE_PNG);
+	if (!image.IsOk())
+		return;
+	// the width given, the height as the picture
+	if (image.GetWidth() != width)
+		image.Rescale(width, image.GetHeight() * width / image.GetWidth(), wxIMAGE_QUALITY_HIGH);
+	// the picture in place of the text: the name of the game stays as the tooltip
+	button->SetName(button->GetLabel());
+	button->SetLabel(wxEmptyString);
+	button->SetBitmap(wxBitmap(image));
+	button->SetMinSize(wxSize(-1, image.GetHeight() + 8));
+}
+
+void MainFrame::UpdatePlayButtons()
+{
+	const auto paths = m_ptrConfig->GetSettingsFromDoc().m_Paths;
+	using GameName = Config::Settings::GameName;
+	UpdatePlayButton(m_btnPlayMagicCarpet, GameFilesCheck::Missing(paths, GameName::MagicCarpet));
+	UpdatePlayButton(m_btnPlayHiddenWorlds, GameFilesCheck::Missing(paths, GameName::HiddenWorlds));
+	UpdatePlayButton(m_btnPlayMagicCarpet2, GameFilesCheck::Missing(paths, GameName::MagicCarpet2));
+}
+
+void MainFrame::UpdatePlayButton(wxButton* button, const std::vector<wxString>& missing)
+{
+	button->Enable(missing.empty());
+	// a button with the picture of the game only (no text) has the name of the game in the tooltip
+	const wxString name = button->GetLabel().empty() ? button->GetName() : wxString();
+	if (missing.empty())
+		button->SetToolTip(name);
+	else
+		button->SetToolTip((name.empty() ? wxString() : name + "\n") + "Missing game files:\n" + GameFilesCheck::ToText(missing));
+}
+
+// ── Button handlers ──────────────────────────────────────────────────────────
+void MainFrame::Play(const wxString& args)
+{
+	if (LaunchGame(args))
 		Close(true); // close the launcher
+}
+
+void MainFrame::OnPlayMagicCarpet(wxCommandEvent&)
+{
+	Play("--game mc1");
+}
+
+void MainFrame::OnPlayHiddenWorlds(wxCommandEvent&)
+{
+	Play("--game mc1hw");
+}
+
+void MainFrame::OnPlayMagicCarpet2(wxCommandEvent&)
+{
+	Play("--game mc2");
 }
 
 void MainFrame::OnLaunchOptions(wxCommandEvent&)
@@ -138,12 +203,11 @@ void MainFrame::OnFile(wxCommandEvent&)
 {
 	auto settings = m_ptrConfig->GetSettingsFromDoc();
 	GameFilesDialog dlg(this, settings.m_Paths);
-	SetDialogMinSize(dlg, wxSize(430, 195));
+	SetDialogMinSize(dlg, wxSize(430, 230));
 	if (dlg.ShowModal() == wxID_OK) {
-		auto pathSettings = dlg.GetPaths();
-		m_ptrConfig->SavePathsToDoc(pathSettings);
+		m_ptrConfig->SavePathsToDoc(dlg.GetPaths());
 		m_ptrConfig->SaveToFile();
-		m_ptrConfig->GetSettingsFromDoc();
+		UpdatePlayButtons();
 	}
 }
 

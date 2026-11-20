@@ -90,7 +90,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
-				XCOPY "$(ProjectDir)mc2_hd_logo.png" "$(TargetDir)/" /Y /F
+				if exist "$(ProjectDir)images" XCOPY "$(ProjectDir)images" "$(TargetDir)images\" /S /Y /I /F
 			</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -111,7 +111,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
-				XCOPY "$(ProjectDir)mc2_hd_logo.png" "$(TargetDir)/" /Y /F
+				if exist "$(ProjectDir)images" XCOPY "$(ProjectDir)images" "$(TargetDir)images\" /S /Y /I /F
 			</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -130,7 +130,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
-				XCOPY "$(ProjectDir)mc2_hd_logo.png" "$(TargetDir)/" /Y /F
+				if exist "$(ProjectDir)images" XCOPY "$(ProjectDir)images" "$(TargetDir)images\" /S /Y /I /F
 			</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -151,7 +151,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
-				XCOPY "$(ProjectDir)mc2_hd_logo.png" "$(TargetDir)/" /Y /F
+				if exist "$(ProjectDir)images" XCOPY "$(ProjectDir)images" "$(TargetDir)images\" /S /Y /I /F
 			</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -159,6 +159,7 @@
     <ClCompile Include="..\remc2\portability\Config.cpp" />
     <ClCompile Include="ControlsDialog.cpp" />
     <ClCompile Include="GameDialog.cpp" />
+    <ClCompile Include="GameFilesCheck.cpp" />
     <ClCompile Include="GameFilesDialog.cpp" />
     <ClCompile Include="DisplayDialog.cpp" />
     <ClCompile Include="GraphicsDialog.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="..\remc2\portability\Config.h" />
     <ClInclude Include="ControlsDialog.h" />
     <ClInclude Include="GameDialog.h" />
+    <ClInclude Include="GameFilesCheck.h" />
     <ClInclude Include="GameFilesDialog.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="DisplayDialog.h" />
@@ -202,9 +204,9 @@
     <ClInclude Include="ZoneEditorDialog.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="mc2_hd_logo.png">
-      <DeploymentContent>true</DeploymentContent>
-    </Image>
+    <Image Include="images\hidden_worlds_wide.png" />
+    <Image Include="images\magic_carpet_wide.png" />
+    <Image Include="images\magic_carpet2_wide.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icons\config.rc" />

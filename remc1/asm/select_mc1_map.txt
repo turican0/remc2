@@ -1,0 +1,86 @@
+-             main                                                                   31
+-             sub_10080                                                             102
+similar 0.92  sub_10230                  sub_1B070                                   12
+-             sub_10260                                                              42
+same          sub_10310                  sub_3EC80                                    6
+similar 0.99  sub_10320                  sub_3EC90                                  189
+-             sub_10520                                                               9
+same          sub_10540                  sub_3EF30                                    9
+similar 1.00  sub_10560                  sub_3EF50                                  196
+similar 0.92  sub_107E0                  sub_3F1D0                                   88
+-             sub_10930                                                              49
+same          sub_10A00                  sub_24C20,sub_24D20                         46
+same          sub_10A80                  sub_24CA0,sub_24DA0                         46
+same          sub_10B00                  sub_24C20,sub_24D20                         46
+same          sub_10B80                  sub_24CA0,sub_24DA0                         46
+-             sub_10C00                                                              44
+same          sub_10C80                  sub_5CDE0                                   40
+same          sub_10CF0                  sub_62ED0                                   24
+same          sub_10D30                  sub_5CE50                                   18
+same          sub_10D90                  sub_5CD70                                   22
+-             sub_10DC0                                                              81
+-             sub_10EA8                                                              77
+-             sub_10F88                                                              74
+-             sub_11060                                                              66
+similar 0.83  sub_11120                  sub_618E0                                  102
+same          sub_1125C                  sub_619B8                                   39
+same          sub_112C0                  sub_61A1C                                   58
+same          sub_11354                  sub_61AB0                                   70
+same          sub_11460                  sub_61B90                                   50
+same          sub_11500                  sub_61C30                                   46
+-             sub_11590                                                              49
+-             sub_11618                                                              47
+same          sub_116A0                  sub_5B5E0,sub_5B5F4,sub_5D7DF               11
+same          sub_116B4                  sub_5B5E0,sub_5B5F4,sub_5D7DF               11
+same          sub_116C8                  sub_5B608                                   22
+same          sub_11704                  sub_62FA8                                   15
+same          sub_11720                  sub_62FC4                                   19
+similar 1.00  sub_11744                  sub_5CDA0                                   20
+similar 1.00  sub_11780                  sub_599B0                                   57
+same          sub_11970                  sub_5CBD0                                   24
+same          sub_119D4                  sub_61640                                   49
+same          sub_11A54                  sub_616C0                                   45
+same          sub_11AD0                  sub_61740,sub_61810                         93
+same          sub_11BA0                  sub_61740,sub_61810                         93
+same          sub_11C70                  sub_5CC70                                   91
+same          sub_12660                  sub_62FF0                                   16
+similar 1.00  sub_12680                  sub_63010                                  218
+same          sub_129A8                  sub_63338                                   61
+similar 1.00  sub_12A9C                  sub_6342C                                   37
+same          sub_12B10                  sub_63910                                   73
+same          sub_12BE0                  sub_62B60                                  130
+same          sub_12D74                  sub_62CF4                                    5
+same          sub_12D7D                  sub_62CFD                                   23
+same          sub_12DC0                  sub_62D40                                   42
+same          sub_12E43                  sub_62DC3                                   67
+-             sub_12F60                                                              55
+similar 1.00  sub_13010                  sub_5B650                                  178
+same          sub_1331C                  sub_5B95C                                  116
+similar 1.00  sub_13520                  sub_5BB60                                  116
+same          sub_13700                  sub_5BD40                                   51
+same          sub_137B8                  sub_5BDF8                                   15
+same          sub_137E4                  sub_5BE24                                   15
+same          sub_13810                  sub_5BE50                                   12
+same          sub_1382C                  sub_66CAD                                    2
+same          sub_13832                  sub_5BE72                                  104
+same          sub_13A1C                  sub_5C05C                                   99
+same          sub_13BD4                  sub_5C214                                  118
+same          sub_13D94                  sub_5C3D4                                   41
+same          sub_13E28                  sub_5C468                                  100
+same          sub_13F90                  sub_65EB0                                   27
+same          sub_1406C                  sub_6666C                                   22
+same          sub_14E94                  sub_60CE0,sub_60D18                         29
+same          sub_14F19                  sub_60D65                                  737
+same          sub_15748                  sub_6B260                                  114
+same          sub_15860                  sub_6B378                                  106
+same          sub_15CBB                  sub_71012                                    3
+same          sub_15CC4                  sub_71524                                    2
+same          sub_166A0                  sub_6D2E0                                   41
+same          sub_1671C                  sub_6D35C                                   25
+same          sub_16802                  sub_6D5EC                                   19
+same          sub_16B93                  sub_6E5A0,sub_6E5A6,sub_6E5AC                2
+same          sub_16B99                  sub_6E5A0,sub_6E5A6,sub_6E5AC                2
+same          sub_16D59                  sub_7101B                                    2
+same          sub_176D3                  sub_138E0,sub_71B53                          2
+same          sub_17B7C                  sub_6B87A,sub_7B444                          2
+same          sub_19398                  sub_6B87A,sub_7B444                          2

@@ -16,7 +16,9 @@ inline void SetDialogMinSize(wxDialog& dlg, const wxSize& minSize)
 }
 
 enum {
-	ID_BTN_PLAY = wxID_HIGHEST + 1,
+	ID_BTN_PLAY_MAGIC_CARPET = wxID_HIGHEST + 1,
+	ID_BTN_PLAY_HIDDEN_WORLDS,
+	ID_BTN_PLAY_MAGIC_CARPET_2,
 	ID_BTN_FILE,
 	ID_BTN_GAME,
 	ID_BTN_CONTROLS,

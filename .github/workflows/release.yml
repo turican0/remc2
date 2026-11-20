@@ -82,7 +82,6 @@ jobs:
         if: matrix.BUILD_PLATFORM == 'x86'
         shell: pwsh
         run: |
-          Copy-Item "Install Guide.txt" "Release/"
           Push-Location "Release"
           7z a "../remc2-win-x86.zip" * -r
           Pop-Location
@@ -91,7 +90,6 @@ jobs:
         if: matrix.BUILD_PLATFORM == 'x64'
         shell: pwsh
         run: |
-          Copy-Item "Install Guide.txt" "x64/Release/"
           Push-Location "x64/Release"
           7z a "../../remc2-win-x64.zip" * -r
           Pop-Location
@@ -279,7 +277,6 @@ jobs:
           find build_Release -maxdepth 3 -name "remc2"        -type f -exec cp {} remc2-linux-x86_64/ \;
           find build_Release -maxdepth 3 -name "remc2-editor" -type f -exec cp {} remc2-linux-x86_64/ \; || true
           cp src/config.json            remc2-linux-x86_64/
-          cp "src/Install Guide.txt"    remc2-linux-x86_64/
           cp src/check_install.sh       remc2-linux-x86_64/
           tar -czf remc2-linux-x86_64.tar.gz remc2-linux-x86_64/
 
@@ -343,7 +340,6 @@ jobs:
           find build_Release -maxdepth 3 -name "remc2"        -type f -exec cp {} remc2-linux-arm64/ \;
           find build_Release -maxdepth 3 -name "remc2-editor" -type f -exec cp {} remc2-linux-arm64/ \; || true
           cp src/config.json            remc2-linux-arm64/
-          cp "src/Install Guide.txt"    remc2-linux-arm64/
           cp src/check_install.sh       remc2-linux-arm64/
           tar -czf remc2-linux-arm64.tar.gz remc2-linux-arm64/
 
@@ -417,7 +413,6 @@ jobs:
           find build_Release -maxdepth 3 -name "remc2"        -type f -exec cp {} remc2-linux-ubuntu22-x86_64/ \;
           find build_Release -maxdepth 3 -name "remc2-editor" -type f -exec cp {} remc2-linux-ubuntu22-x86_64/ \; || true
           cp src/config.json            remc2-linux-ubuntu22-x86_64/
-          cp "src/Install Guide.txt"    remc2-linux-ubuntu22-x86_64/
           cp src/check_install.sh       remc2-linux-ubuntu22-x86_64/
           tar -czf remc2-linux-ubuntu22-x86_64.tar.gz remc2-linux-ubuntu22-x86_64/
 
@@ -456,7 +451,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          name: "Magic Carpet 2 HD ${{ github.ref_name }}"
+          name: "Magic Carpet HD ${{ github.ref_name }}"
           draft: false
           prerelease: ${{ contains(github.ref_name, '-rc') || contains(github.ref_name, '-beta') || contains(github.ref_name, '-alpha') }}
           generate_release_notes: true

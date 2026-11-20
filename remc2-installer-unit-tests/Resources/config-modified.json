@@ -2,17 +2,55 @@
 	"settings": [
 		{
 			"name": "Main",
-			"version": "1.0",
+			"version": "2.0",
 			"isActive": true,
 			"launchArguments": "",
-			"paths": {
-				"description": [
-					"gameFolder: Main game content folder (after install). Path is relative to .exe",
-					"cdFolder: Main game cd content folder (after install). Path is relative to .exe"
-				],
-				"gameFolder": "NETHERW",
-				"cdFolder": "CD_Files"
-			},
+			"description": [
+				"paths: the folders of each game. name: MagicCarpet, HiddenWorlds or MagicCarpet2, path: the folders of the game (key, value)",
+				"gameFolder: Main game content folder (after install; MagicCarpet/HiddenWorlds: the CARPET.CD install folder). Path is relative to .exe",
+				"cdFolder: Main game cd content folder (MagicCarpet/HiddenWorlds: the folder of the CD files). Path is relative to .exe"
+			],
+			"paths": [
+				{
+					"name": "MagicCarpet",
+					"path": [
+						{
+							"key": "gameFolder",
+							"value": "MC1/CARPET.CD"
+						},
+						{
+							"key": "cdFolder",
+							"value": "MC1/CD_Files"
+						}
+					]
+				},
+				{
+					"name": "HiddenWorlds",
+					"path": [
+						{
+							"key": "gameFolder",
+							"value": "MC1/CARPET.CD"
+						},
+						{
+							"key": "cdFolder",
+							"value": "MC1/CD_Files"
+						}
+					]
+				},
+				{
+					"name": "MagicCarpet2",
+					"path": [
+						{
+							"key": "gameFolder",
+							"value": "MC2/NETHERW"
+						},
+						{
+							"key": "cdFolder",
+							"value": "MC2/CD_Files"
+						}
+					]
+				}
+			],
 			"multiplayer": {
 				"serverPort": 3030,
 				"clientPort": 3030,
@@ -32,19 +70,36 @@
 					"awe32GmIntroMusic: the intro and the cutscenes play the General MIDI version of the XMI music through the AWE32 emulation, the game keeps the AWE32 version",
 					"awe32BufferMs: how many ms the AWE32 emulation renders ahead (100-2000), raise it when the music crackles (debug build); the music starts this much later",
 					"oggFolder: folder for ogg music tracks, uses less CPU than AWE32 Emulation",
-					"oggMusicAlternative: set to true to use alternative ogg sound tracks"
+					"oggMusicAlternative: set to true to use alternative ogg sound tracks",
+					"paths: the folders of each game (name), path: speechFolder, oggFolder, awe32RomFolder (key, value)"
+				],
+				"paths": [
+					{
+						"name": "MagicCarpet2",
+						"path": [
+							{
+								"key": "speechFolder",
+								"value": "MC2/CD_Files/SPEECH"
+							},
+							{
+								"key": "oggFolder",
+								"value": "MC2/music-ogg"
+							},
+							{
+								"key": "awe32RomFolder",
+								"value": "MC2/awe32data"
+							}
+						]
+					}
 				],
 				"hqSound": true,
 				"fixSpeedSound": false,
 				"maxSimultaniousSounds": 20,
-				"speechFolder": "CD_Files/SPEECH",
 				"autoShowObjectivesForForeignLanguages": true,
 				"musicType": "awe32",
-				"awe32RomFolder": "awe32data",
 				"useMagicCarpet1Music": false,
 				"awe32GmIntroMusic": true,
 				"awe32BufferMs": 200,
-				"oggFolder": "music-ogg",
 				"oggMusicAlternative": false
 			},
 			"graphics": {
@@ -65,32 +120,52 @@
 						"gameResWidth: In Game resolution. If using software render keep this low",
 						"gameUiScale: Scale of the Game Mini/Map and UI '2' recommended for HD, 3 for higher. (Max 8) Will not allow spell menu to be wider than screen width",
 						"mapEntityScale: Makes the map markings bigger on top of their normal or gameUiScale size. 1 = normal, up to 4 = 4x bigger",
-						"useHighResGraphics: If set to true, highResGraphicsFolder must be set as well",
-						"highResGraphicsFolder: Directory with 128x128 textures. Path is relative to .exe",
-						"useFixedMenuGraphics: If set to true, fixedMenuGraphicsFolder folder must be set as well",
-						"fixedMenuGraphicsFolder: Directory with fixed menu graphics. Path is relative to .exe",
-						"useFixedTmaps: If set to true, fixedTmapsFolder folder must be set as well",
-						"fixedTmapsFolder: Directory with fixed tmaps. Path is relative to .exe",
-						"useExtendedFonts: If set to true, extendedFontsFolder folder must be set as well",
-						"extendedFontsFolder: Directory with extended font graphics to support more languages. Path is relative to .exe",
+						"useHighResGraphics: If set to true, the highResGraphicsFolder path must be set as well",
+						"useFixedMenuGraphics: If set to true, the fixedMenuGraphicsFolder path must be set as well",
+						"useFixedTmaps: If set to true, the fixedTmapsFolder path must be set as well",
+						"useExtendedFonts: If set to true, the extendedFontsFolder path must be set as well",
 						"sky: Turns the sky on or off. Can be changed in-game",
 						"reflections: Turns the reflections on or off. Can be changed in-game",
 						"dynamicLighting: Turns the dynamic terrain lighting on or off. Can be changed in-game",
 						"viewDistanceScale: Increases the view distance (will effect performance). '1' = Original distance, '2' = 2x, ... (NG renderer: over '6' the map repeats)",
-						"fogScale: Moves the fog (NG renderer). '1.0' = Original, '2.0' = twice as far (up to the view distance), '0.5' = closer"
+						"fogScale: Moves the fog (NG renderer). '1.0' = Original, '2.0' = twice as far (up to the view distance), '0.5' = closer",
+						"paths: the folders of each game (name), path: the graphics folders below (key, value)",
+						"highResGraphicsFolder: Directory with 128x128 textures. Path is relative to .exe",
+						"fixedMenuGraphicsFolder: Directory with fixed menu graphics. Path is relative to .exe",
+						"fixedTmapsFolder: Directory with fixed tmaps. Path is relative to .exe",
+						"extendedFontsFolder: Directory with extended font graphics to support more languages. Path is relative to .exe"
+					],
+					"paths": [
+						{
+							"name": "MagicCarpet2",
+							"path": [
+								{
+									"key": "highResGraphicsFolder",
+									"value": "MC2/graphics/high-res"
+								},
+								{
+									"key": "fixedMenuGraphicsFolder",
+									"value": "MC2/graphics/fixed/menu"
+								},
+								{
+									"key": "fixedTmapsFolder",
+									"value": "MC2/graphics/fixed/tmaps"
+								},
+								{
+									"key": "extendedFontsFolder",
+									"value": "MC2/graphics/fixed/fonts"
+								}
+							]
+						}
 					],
 					"gameResWidth": 1920,
 					"gameResHeight": 1080,
 					"gameUiScale": 2,
 					"mapEntityScale": 1,
 					"useHighResGraphics": true,
-					"highResGraphicsFolder": "graphics/high-res",
 					"useFixedMenuGraphics": true,
-					"fixedMenuGraphicsFolder": "graphics/fixed/menu",
 					"useFixedTmaps": true,
-					"fixedTmapsFolder": "graphics/fixed/tmaps",
 					"useExtendedFonts": true,
-					"extendedFontsFolder": "graphics/fixed/fonts",
 					"sky": true,
 					"reflections": true,
 					"dynamicLighting": true,

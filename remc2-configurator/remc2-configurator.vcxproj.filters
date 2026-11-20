@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -19,6 +19,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MainFrame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameFilesCheck.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameFilesDialog.cpp">
@@ -83,6 +86,9 @@
     <ClInclude Include="MainFrame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameFilesCheck.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="GameFilesDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -145,7 +151,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="mc2_hd_logo.png">
+    <Image Include="images\magic_carpet_wide.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\magic_carpet2_wide.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\hidden_worlds_wide.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

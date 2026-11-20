@@ -56,6 +56,7 @@ void Draw_letter(int letter_number, int pozx, int pozy);
 void Draw_letterToBuffer(int letter_number, int pozx, int pozy, uint8_t* buffer, char fontSize = 'M');
 //void VGA_Set_Cursor(posistruct posstrcursor,int count);
 void VGA_GotoXY(int x, int y);
+void VGA_ClearTextScreen(); // the empty text screen: its palette, black, the text at the top left
 int VGA_WhereX(); //returns current text cursor (x) coordinate
 int VGA_WhereY(); //returns current text cursor (y) coordinate
 POSITION VGA_WhereXY();

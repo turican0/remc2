@@ -51,6 +51,7 @@ set(SOURCE_FILES_ENGINE
     "engine/GameRenderHD.h"
     "engine/GameRenderHW.cpp"
     "engine/GameRenderHW.h"
+    "engine/GameRenderInterface.cpp"
     "engine/GameRenderInterface.h"
     "engine/GameRenderNG.cpp"
     "engine/GameRenderNG.h"
@@ -245,12 +246,86 @@ set(SOURCE_FILES__portability
     "portability/xmi2mid.h"
 )
 source_group("Source Files\\portability" FILES ${SOURCE_FILES__portability})
+set(SOURCE_FILES_REMC1
+    "../remc1/Mc1Main.cpp"
+    "../remc1/Mc1Main.h"
+    "../remc1/engine/Select.cpp"
+    "../remc1/engine/Select.h"
+    "../remc1/engine/Mc1Hmi.cpp"
+    "../remc1/engine/Mc1Hmi.h"
+    "../remc1/engine/Mc1Sound.cpp"
+    "../remc1/engine/Mc1Sound.h"
+    "../remc1/engine/Mc1Movie.cpp"
+    "../remc1/engine/Mc1Movie.h"
+    "../remc1/engine/Mc1MainMenu.cpp"
+    "../remc1/engine/Mc1MainMenu.h"
+    "../remc1/engine/Mc1Level.cpp"
+    "../remc1/engine/Mc1Level.h"
+    "../remc1/engine/Mc1EntityTables.cpp"
+    "../remc1/engine/Mc1EntityTables.h"
+    "../remc1/engine/Mc1Entity.cpp"
+    "../remc1/engine/Mc1Entity.h"
+    "../remc1/engine/Mc1Scenery.cpp"
+    "../remc1/engine/Mc1Scenery.h"
+    "../remc1/engine/Mc1Terrain.cpp"
+    "../remc1/engine/Mc1SceneryActions.cpp"
+    "../remc1/engine/Mc1Models.cpp"
+    "../remc1/engine/Mc1World.cpp"
+    "../remc1/engine/Mc1Frame.cpp"
+    "../remc1/engine/Mc1Input.cpp"
+    "../remc1/engine/Mc1Minimap.cpp"
+    "../remc1/engine/Mc1Wizard.cpp"
+    "../remc1/engine/Mc1Render.cpp"
+    "../remc1/engine/Mc1PlayerEvents.cpp"
+    "../remc1/engine/Mc1Actions.cpp"
+    "../remc1/engine/Mc1Terrain.h"
+    "../remc1/engine/Mc1SceneryActions.h"
+    "../remc1/engine/Mc1Models.h"
+    "../remc1/engine/Mc1World.h"
+    "../remc1/engine/Mc1Frame.h"
+    "../remc1/engine/Mc1Input.h"
+    "../remc1/engine/Mc1Minimap.h"
+    "../remc1/engine/Mc1Wizard.h"
+    "../remc1/engine/Mc1Render.h"
+    "../remc1/engine/Mc1PlayerEvents.h"
+    "../remc1/engine/Mc1Actions.h"
+    "../remc1/engine/Mc1MenuText.cpp"
+    "../remc1/engine/Mc1MenuText.h"
+    "../remc1/engine/Mc1MenuSound.cpp"
+    "../remc1/engine/Mc1MenuSound.h"
+    "../remc1/engine/Mc1Menu.cpp"
+    "../remc1/engine/Mc1Menu.h"
+    "../remc1/engine/Mc1Shared.h"
+    "../remc1/engine/Mc1Screen.cpp"
+    "../remc1/engine/Mc1Screen.h"
+    "../remc1/engine/Mc1Blocks.cpp"
+    "../remc1/engine/Mc1Blocks.h"
+    "../remc1/engine/Mc1TextureMaps.cpp"
+    "../remc1/engine/Mc1TextureMaps.h"
+    "../remc1/engine/Mc1Install.cpp"
+    "../remc1/engine/Mc1Install.h"
+    "../remc1/engine/Mc1Files.cpp"
+    "../remc1/engine/Mc1Files.h"
+    "../remc1/engine/Mc1Graphics.cpp"
+    "../remc1/engine/Mc1Graphics.h"
+    "../remc1/engine/Mc1Search.cpp"
+    "../remc1/engine/Mc1Search.h"
+    "../remc1/engine/Mc1System.cpp"
+    "../remc1/engine/Mc1System.h"
+    "../remc1/engine/Mc1Game.cpp"
+    "../remc1/engine/Mc1Game.h"
+    "../remc1/engine/Mc1GameState.h"
+    "../remc1/engine/Mc1NotPorted.cpp"
+    "../remc1/engine/Mc1NotPorted.h"
+)
+source_group("Source Files\\remc1" FILES ${SOURCE_FILES_REMC1})
 set(ALL_FILES
     ${HEADER_FILES}
     ${SOURCE_FILES}
     ${SOURCE_FILES_ENGINE}
     ${SOURCE_FILES__portability}
     ${SOURCE_FILES__networklib}
+    ${SOURCE_FILES_REMC1}
 )
 
 ################################################################################
@@ -282,10 +357,14 @@ install(
 )
 install(
     DIRECTORY
-    ${CMAKE_SOURCE_DIR}/enhancedassets/music-ogg
-    ${CMAKE_SOURCE_DIR}/enhancedassets/graphics
-    ${CMAKE_SOURCE_DIR}/awe32data
-    DESTINATION bin
+    ${CMAKE_SOURCE_DIR}/enhancedassets/MC2/music-ogg
+    ${CMAKE_SOURCE_DIR}/enhancedassets/MC2/awe32data
+    DESTINATION bin/MC2
+)
+install(
+    DIRECTORY
+    ${CMAKE_SOURCE_DIR}/enhancedassets/MC2/graphics
+    DESTINATION bin/MC2
 )
 
 if (WIN32)

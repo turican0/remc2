@@ -71,6 +71,9 @@ constexpr std::array WizardsNames_D93A0 {
 };
 
 
+signed __int16 IsCdPresent_10010();
+extern char cdChecked_D3F48;
+
 void DrawLine_2BD10(int16_t posX1, int16_t posY1, int16_t posX2, int16_t posY2, uint8_t color, uint8_t thickness = 1);
 
 // In-game UI layout (config: graphics.inGameUi). Used at resolutions other than 320x200 / 640x480;
