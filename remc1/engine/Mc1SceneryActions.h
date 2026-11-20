@@ -27,3 +27,5 @@ void SmokeAction_25130_25130(Type_Mc1Entity* entity);
 void WizardManaAction_275C0_275C0(Type_Mc1Entity* entity);
 int32_t NextFrame_42510_42850(Type_Mc1Entity* entity);
 void PuffAction_24F60_24F60(Type_Mc1Entity* entity);
+void ExplosionAction_25760_25760(Type_Mc1Entity* entity);
+void PushManaAction_29920_29960(Type_Mc1Entity* entity);

@@ -10,6 +10,7 @@
 #include "Mc1Scenery.h"
 #include "Mc1Search.h"
 #include "Mc1Shared.h"
+#include "Mc1Spells.h"
 #include "Mc1Terrain.h"
 #include "Mc1Wizard.h"
 
@@ -819,4 +820,38 @@ void PuffAction_24F60_24F60(Type_Mc1Entity* entity)
 	}
 	ClampHeight_42000_42340(&entity->position_0x48_72, ground, 0, 0, entity->word_0x2E_46);
 	NextFrame_42510_42850(entity);
+}
+
+void ExplosionAction_25760_25760(Type_Mc1Entity* entity)
+{
+	// the explosion: the damage word_0x2C as the mail 1 around while it animates
+	entity->word_0x1A_26++;
+	const int32_t life = entity->life_0x0C_12;
+	entity->life_0x0C_12 = life - 1;
+	if (life < 0)
+	{
+		MarkToFree_41E80_421C0(entity);
+		return;
+	}
+	NextFrame_42510_42850(entity);
+	SendMailAround_120B0_120B0(entity, 1, (uint16_t)entity->word_0x2C_44);
+}
+
+void PushManaAction_29920_29960(Type_Mc1Entity* entity)
+{
+	// the mana balls (model 27h) nearer than C40000h (squared) get the mail 4 (pushed away) while it lives
+	const int32_t life = entity->life_0x0C_12;
+	entity->life_0x0C_12 = life - 1;
+	if (life < 0)
+	{
+		MarkToFree_41E80_421C0(entity);
+		return;
+	}
+	for (Type_Mc1Entity* mana = mc1Settings_AE408_AE3F8->entityLists_0x8E1A_36378[22]; mana > mc1State_AE400_AE3F0->entities_0x7463_29795; mana = mana->next_0x00_0)
+	{
+		if (mana->model_0x41_65 != 0x27 || (int32_t)Distance2DSquared_42410_42750(&entity->position_0x48_72, &mana->position_0x48_72) >= 0xC40000)
+			continue;
+		mana->mails_0x5A_90[4].value_0 = 100;
+		mana->mails_0x5A_90[4].sender_4 = (uint16_t)EntityIndex(entity);
+	}
 }

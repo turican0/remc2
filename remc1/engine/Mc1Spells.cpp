@@ -6,7 +6,9 @@
 #include "Mc1EntityTables.h"
 #include "Mc1Game.h"
 #include "Mc1NotPorted.h"
+#include "Mc1Search.h"
 #include "Mc1Shared.h"
+#include "Mc1Terrain.h"
 #include "Mc1Wizard.h"
 
 // the spells of class 12 lying in the world: picked up by a wizard (55A40)
@@ -45,6 +47,12 @@ static int32_t ReadS32(const uint8_t* data)
 static void WriteS32(uint8_t* data, int32_t value)
 {
 	memcpy(data, &value, sizeof(value));
+}
+
+static uint32_t NextRand(Type_Mc1Entity* entity)
+{
+	entity->rand_0x04_4 = entity->rand_0x04_4 * 0x24A1 + 0x24DF;
+	return entity->rand_0x04_4;
 }
 
 int32_t FallToGround_42090_423D0(Type_Mc1Position* position, int32_t ground, int32_t bottom, int32_t top, int32_t fall)
@@ -522,4 +530,365 @@ void ProjectileToCastle_53980_53CC0(Type_Mc1Entity* projectile)
 		return;
 	}
 	CancelCast_46D20_47060(owner, 0);
+}
+
+void LowerByBox_524E0_52820(Type_Mc1Entity* entity)
+{
+	if (entity->model_0x41_65 != 2)
+		entity->position_0x48_72.z = (int16_t)(entity->position_0x48_72.z - entity->box_0x4E_78[0]);
+}
+
+void AimAt_52500_52840(Type_Mc1Entity* projectile, Type_Mc1Entity* target)
+{
+	// the wanted yaw and pitch to the middle of the target
+	RaiseByBox_524C0_52800(target);
+	projectile->word_0x22_34 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&projectile->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+	projectile->word_0x24_36 = (int16_t)GetPitchAngle_42180_424C0(&projectile->position_0x48_72, &target->position_0x48_72);
+	LowerByBox_524E0_52820(target);
+}
+
+void HomeTo_52550_52890(Type_Mc1Entity* projectile, Type_Mc1Entity* target)
+{
+	RaiseByBox_524C0_52800(target);
+	TurnToEntity_52610_52950(projectile, target);
+	LowerByBox_524E0_52820(target);
+}
+
+//!!!!! MC1 only: HW 52A00 differs, not checked
+void CountHit_526C0(Type_Mc1Entity* projectile, Type_Mc1Entity* hit, Type_Mc1Entity* target)
+{
+	// the shots (157h) and the hits of the target (15Bh) of the player wizard, by the model of the projectile
+	const uint8_t model = projectile->model_0x41_65;
+	if (!(model <= 1 || model == 3 || (model >= 7 && model <= 9) || model == 0x13))
+		return;
+	Type_Mc1Entity* owner = &Entities()[(int16_t)projectile->id_0x18_24];
+	if (owner->class_0x40_64 != 3 || owner->model_0x41_65 != 0)
+		return;
+	uint8_t* playerData = owner->playerData_0xA0_160;
+	WriteS32(playerData + 0x157, ReadS32(playerData + 0x157) + 1);
+	if (!hit || hit <= Entities() || target <= Entities() || hit->id_0x18_24 != target->id_0x18_24 || !playerData)
+		return;
+	WriteS32(playerData + 0x15B, ReadS32(playerData + 0x15B) + 1);
+}
+
+// the aim value: the square of the miss by the angles at the distance
+static uint32_t AimMiss(uint16_t yawMiss, uint16_t pitchMiss, int32_t distance)
+{
+	const int32_t a = (Maths::sin_DB750[512 + yawMiss] * distance) >> 16;
+	const int32_t b = (Maths::sin_DB750[yawMiss] * distance * 4) >> 16;
+	const int32_t c = (Maths::sin_DB750[512 + pitchMiss] * distance) >> 16;
+	const int32_t d = (distance * Maths::sin_DB750[pitchMiss] * 4) >> 16;
+	return (uint32_t)(a * a + b * b + c * c + d * d);
+}
+
+uint32_t AimValue_54A90_54FC0(Type_Mc1Entity* projectile, Type_Mc1Entity* target, uint16_t maxYaw, uint16_t maxPitch)
+{
+	// the target in the yaw / pitch limits and 1400h (to its middle), else FFFFFFFFh
+	RaiseByBox_524C0_52800(target);
+	const uint16_t yawMiss = (uint16_t)AngleDistance_42210_42550((uint16_t)projectile->word_0x1E_30,
+		(uint16_t)GetYawAngle_42150_42490((axis_3d*)&projectile->position_0x48_72, (axis_3d*)&target->position_0x48_72));
+	if (yawMiss > maxYaw)
+	{
+		LowerByBox_524E0_52820(target);
+		return 0xFFFFFFFF;
+	}
+	const uint16_t pitchMiss = (uint16_t)AngleDistance_42210_42550((uint16_t)projectile->word_0x20_32,
+		GetPitchAngle_42180_424C0(&projectile->position_0x48_72, &target->position_0x48_72));
+	if (pitchMiss > maxPitch)
+	{
+		LowerByBox_524E0_52820(target);
+		return 0xFFFFFFFF;
+	}
+	const int32_t distance = (int32_t)Distance2D_423D0_42710(&projectile->position_0x48_72, &target->position_0x48_72);
+	LowerByBox_524E0_52820(target);
+	if (distance > 0x1400)
+		return 0xFFFFFFFF;
+	return AimMiss(yawMiss, pitchMiss, distance);
+}
+
+uint32_t AimValueCastle_54BD0_55100(Type_Mc1Entity* projectile, Type_Mc1Entity* target, uint16_t maxYaw, uint16_t maxPitch)
+{
+	// as 54A90 to the position of the castle
+	const uint16_t yawMiss = (uint16_t)AngleDistance_42210_42550((uint16_t)projectile->word_0x1E_30,
+		(uint16_t)GetYawAngle_42150_42490((axis_3d*)&projectile->position_0x48_72, (axis_3d*)&target->position_0x48_72));
+	if (yawMiss > maxYaw)
+		return 0xFFFFFFFF;
+	const uint16_t pitchMiss = (uint16_t)AngleDistance_42210_42550((uint16_t)projectile->word_0x20_32,
+		GetPitchAngle_42180_424C0(&projectile->position_0x48_72, &target->position_0x48_72));
+	if (pitchMiss > maxPitch)
+		return 0xFFFFFFFF;
+	const int32_t distance = (int32_t)Distance2D_423D0_42710(&projectile->position_0x48_72, &target->position_0x48_72);
+	if (distance > 0x1400)
+		return 0xFFFFFFFF;
+	return AimMiss(yawMiss, pitchMiss, distance);
+}
+
+// the best aimed entity of the list (the lower value) of the ones the filter takes
+template <typename Filter, typename Value> static void BestAimed(Type_Mc1Entity* list, uint32_t& best, Type_Mc1Entity*& found, Filter filter, Value value)
+{
+	for (Type_Mc1Entity* entity = list; entity > Entities(); entity = entity->next_0x00_0)
+	{
+		if (!filter(entity))
+			continue;
+		const uint32_t aim = value(entity);
+		if (aim < best)
+		{
+			found = entity;
+			best = aim;
+		}
+	}
+}
+
+//!!!!! MC1 only: HW 548B0 differs, not ported yet
+int32_t FindTarget_54520(Type_Mc1Entity* projectile)
+{
+	// the target of the projectile by its model: wizards and castles in the range, creatures (byte_0x3A), mana, buildings
+	if (projectile->word_0x1A_26 > 0x10)
+		projectile->word_0x1A_26 = 0x10;
+	Type_Mc1Entity** lists = mc1Settings_AE408_AE3F8->entityLists_0x8E1A_36378;
+	uint32_t best = 0xFFFFFFFF;
+	Type_Mc1Entity* found = nullptr;
+	bool alertWizard = false;
+	const auto inRange = [projectile](Type_Mc1Entity* wizard, uint32_t range) {
+		return wizard->id_0x18_24 != projectile->id_0x18_24 && !(wizard->flags_0x10_16 & 0x20)
+			&& Distance3D_42340_42680(&wizard->position_0x48_72, &projectile->position_0x48_72) <= range;
+	};
+	const auto creature = [projectile](Type_Mc1Entity* entity) { return entity->id_0x18_24 != projectile->id_0x18_24 && entity->byte_0x3A_58; };
+	const auto notOwn = [projectile](Type_Mc1Entity* entity) {
+		return (int32_t)entity->owner_0x90_144 != (int32_t)(int16_t)projectile->id_0x18_24 && entity->byte_0x3A_58;
+	};
+	const auto aimWizard = [projectile](Type_Mc1Entity* wizard) {
+		return wizard->model_0x41_65 == 2 ? AimValueCastle_54BD0_55100(projectile, wizard, 0x71, 0x71) : AimValue_54A90_54FC0(projectile, wizard, 0x71, 0x71);
+	};
+	const auto aim = [projectile](Type_Mc1Entity* entity) { return AimValue_54A90_54FC0(projectile, entity, 0x71, 0x71); };
+	const auto aimLow = [projectile](Type_Mc1Entity* entity) { return AimValue_54A90_54FC0(projectile, entity, 0x71, 0x200); };
+	const uint32_t ownerRange = (uint32_t)(int32_t)ReadS16(Entities()[(int16_t)projectile->id_0x18_24].typeParams_0x9C_156 + 0x1C);
+	switch (projectile->model_0x41_65)
+	{
+	case 0:
+	case 3:
+	case 4:
+	case 0x10:
+	case 0x12:
+	case 0x13:
+		BestAimed(lists[21], best, found, [&](Type_Mc1Entity* wizard) { return inRange(wizard, ownerRange); }, aimWizard);
+		for (int list = 1; list <= 20; list++)
+			BestAimed(lists[list], best, found, creature, aim);
+		alertWizard = true;
+		break;
+	case 1:
+		BestAimed(lists[22], best, found, notOwn, aim);
+		BestAimed(lists[23], best, found, notOwn, aim);
+		break;
+	case 7:
+	case 8:
+	case 0x0B:
+	case 0x0C:
+		BestAimed(lists[21], best, found, [&](Type_Mc1Entity* wizard) { return inRange(wizard, ownerRange); }, aim);
+		alertWizard = true;
+		break;
+	case 9:
+	{
+		const uint32_t range = (uint32_t)(projectile->word_0x80_128 * projectile->maxLife_0x08_8);
+		BestAimed(lists[21], best, found, [&](Type_Mc1Entity* wizard) { return inRange(wizard, range); }, aimWizard);
+		for (int list = 1; list <= 20; list++)
+			BestAimed(lists[list], best, found, creature, aimLow);
+		break;
+	}
+	case 0x11:
+		BestAimed(lists[22], best, found, [](Type_Mc1Entity* mana) { return mana->byte_0x3A_58 != 0; }, aim);
+		break;
+	default:
+		return 0;
+	}
+	if (!found)
+		return 0;
+	projectile->target_0x92_146 = EntityIndex(found);
+	AimAt_52500_52840(projectile, found);
+	if (alertWizard && found->class_0x40_64 == 3 && found->model_0x41_65 == 0)
+		ResetWizardTimer_46520_46860(found);
+	return 1;
+}
+
+// the first entity with the flag 8 overlapping the projectile in the tiles of its radius that the filter takes
+template <typename Filter> static Type_Mc1Entity* FindOverlappingHit(Type_Mc1Entity* projectile, Filter filter)
+{
+	const int32_t x = (projectile->position_0x48_72.x + 0x80) >> 8;
+	const int32_t y = (projectile->position_0x48_72.y + 0x80) >> 8;
+	const int32_t search = StartSearch_11410_11410(0, (projectile->box_0x4E_78[1] + 0xFF) / 256);
+	if (!search)
+		return nullptr;
+	Type_Mc1Entity* entities = Entities();
+	int32_t dx;
+	int32_t dy;
+	while (GetNextSearchOffset_114B0_114B0(search, &dx, &dy) == 1)
+	{
+		const uint16_t cell = (uint16_t)((((dy + y) & 0xFF) << 8) + ((x + dx) & 0xFF));
+		for (Type_Mc1Entity* other = &entities[(int16_t)mapEntityIndex_10C1E0_10C1D0[cell]]; other != entities; other = &entities[other->mapNext_0x14_20])
+		{
+			if (!(other->flags_0x10_16 & 8) || !filter(other) || !EntitiesOverlap_11950_11950(projectile, other))
+				continue;
+			EndSearch_11490_11490(search);
+			return other;
+		}
+	}
+	EndSearch_11490_11490(search);
+	return nullptr;
+}
+
+Type_Mc1Entity* FindHit_11980_11980(Type_Mc1Entity* projectile)
+{
+	// of the kind byte_0x42 / byte_0x43 (FFh any), not of the id
+	return FindOverlappingHit(projectile, [projectile](Type_Mc1Entity* other) {
+		bool kind = (int8_t)projectile->byte_0x42_66 == -1;
+		if (!kind && projectile->byte_0x42_66 == other->class_0x40_64)
+			kind = (int8_t)projectile->byte_0x43_67 == -1 || projectile->byte_0x43_67 == other->model_0x41_65;
+		return kind && projectile->id_0x18_24 != other->id_0x18_24;
+	});
+}
+
+Type_Mc1Entity* FindHitMana_11AC0_11AC0(Type_Mc1Entity* projectile)
+{
+	// a mana ball or a building (class 10 models 27h, 28h, 2Dh) not of the id and not owned by it
+	return FindOverlappingHit(projectile, [projectile](Type_Mc1Entity* other) {
+		return other->class_0x40_64 == 0x0A && (other->model_0x41_65 == 0x27 || other->model_0x41_65 == 0x28 || other->model_0x41_65 == 0x2D)
+			&& projectile->id_0x18_24 != other->id_0x18_24 && (int32_t)(int16_t)projectile->id_0x18_24 != (int32_t)other->owner_0x90_144;
+	});
+}
+
+static void ProjectileEnd(Type_Mc1Entity* projectile, Type_Mc1Entity* hit, Type_Mc1Entity* target)
+{
+	// the entity of byte_0x44 / byte_0x45 (the explosion) in the place of the projectile
+	Type_Mc1Entity* created = CreateEntity_373F0_377B0(&projectile->position_0x48_72, (int8_t)projectile->byte_0x44_68, (int8_t)projectile->byte_0x45_69);
+	if (!created)
+		return;
+	CountHit_526C0(projectile, hit, target);
+	created->id_0x18_24 = projectile->id_0x18_24;
+	created->word_0x1E_30 = projectile->word_0x1E_30;
+	created->word_0x20_32 = projectile->word_0x20_32;
+	MarkToFree_41E80_421C0(projectile);
+}
+
+void Fireball_52B30_52E70(Type_Mc1Entity* projectile)
+{
+	// to the target (54520 in the first frame turns it at most 22h), a hit or the ground ends it; a shield (flag 8000h)
+	// with the mana of a quarter of the projectile throws it back to the owner
+	Type_Mc1Entity* target = &Entities()[projectile->target_0x92_146];
+	if (projectile->target_0x92_146)
+		HomeTo_52550_52890(projectile, target);
+	else if (!(projectile->flags_0x10_16 & 2))
+	{
+		projectile->flags_0x10_16 |= 2;
+		if (FindTarget_54520(projectile))
+		{
+			int32_t turn = AngleDistance_42210_42550((uint16_t)projectile->word_0x1E_30, (uint16_t)projectile->word_0x22_34);
+			if ((int16_t)turn < 0)
+				turn = 0;
+			if ((int16_t)turn > 0x22)
+				turn = 0x22;
+			const int32_t direction = AngleDirection_42240_42580((uint16_t)projectile->word_0x1E_30, (uint16_t)projectile->word_0x22_34);
+			projectile->word_0x1E_30 = (int16_t)(projectile->word_0x1E_30 + direction * turn);
+			projectile->word_0x20_32 = projectile->word_0x24_36;
+		}
+		else
+		{
+			projectile->word_0x22_34 = projectile->word_0x1E_30;
+			projectile->word_0x24_36 = projectile->word_0x20_32;
+		}
+	}
+	Type_Mc1Position previous = projectile->position_0x48_72;
+	ProjectileFly(projectile, (uint16_t)projectile->word_0x1E_30);
+	Type_Mc1Entity* hit = FindHit_11980_11980(projectile);
+	bool done = false;
+	if (hit)
+	{
+		if (hit->flags_0x10_16 & 0x8000)
+		{
+			if (projectile->mana_0x8C_140 / 4 > hit->mana_0x8C_140)
+				return;
+			sub_55370_558A0((int16_t)EntityIndex(hit), -1, 0x1C);
+			Type_Mc1Entity* owner = &Entities()[(int16_t)projectile->id_0x18_24];
+			hit->mana_0x8C_140 -= projectile->mana_0x8C_140 / 4;
+			projectile->word_0x22_34 = (int16_t)((projectile->word_0x1E_30 + 0x400) & 0x7FF);
+			const int32_t direction = AngleDirection_42240_42580(0, (uint16_t)projectile->word_0x20_32);
+			const int32_t pitch = AngleDistance_42210_42550(0, (uint16_t)projectile->word_0x20_32);
+			projectile->word_0x24_36 = (int16_t)(-(pitch * direction) & 0x7FF);
+			projectile->word_0x20_32 = projectile->word_0x24_36;
+			projectile->word_0x1E_30 = (int16_t)((uint16_t)projectile->word_0x22_34 + NextRand(projectile) % 0x5B - 0x2D);
+			projectile->target_0x92_146 = EntityIndex(owner);
+			projectile->id_0x18_24 = hit->id_0x18_24;
+			projectile->life_0x0C_12 = projectile->maxLife_0x08_8;
+			featurePosition_AE454_AE444 = hit->position_0x48_72;
+			featurePosition_AE454_AE444.z = (int16_t)(featurePosition_AE454_AE444.z + hit->box_0x4E_78[3]);
+			CopyEntityPosition_41C70_41FB0(projectile, &featurePosition_AE454_AE444);
+			return;
+		}
+		RaiseByBox_524C0_52800(hit);
+		CopyEntityPosition_41C70_41FB0(projectile, &hit->position_0x48_72);
+		LowerByBox_524E0_52820(hit);
+		done = true;
+	}
+	else
+	{
+		const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&projectile->position_0x48_72);
+		featurePosition_AE454_AE444.z = ground;
+		if (ground > projectile->position_0x48_72.z)
+		{
+			CopyEntityPosition_41C70_41FB0(projectile, &previous);
+			if (projectile->model_0x41_65 != 4 && GetTileTypeBit_11810_11810(&projectile->position_0x48_72) == 1)
+			{
+				// into the water: a splash
+				if (Type_Mc1Entity* splash = CreateEntity_373F0_377B0(&projectile->position_0x48_72, 0x0A, 5))
+					splash->id_0x18_24 = projectile->id_0x18_24;
+				MarkToFree_41E80_421C0(projectile);
+				return;
+			}
+			done = true;
+		}
+		else if (--projectile->life_0x0C_12 < 0)
+			done = true;
+	}
+	if (done)
+		ProjectileEnd(projectile, hit, target);
+}
+
+void Possession_52ED0_53210(Type_Mc1Entity* projectile)
+{
+	// to the target (a mana ball or a building not of the owner), a hit or the ground ends it
+	Type_Mc1Entity* target = &Entities()[projectile->target_0x92_146];
+	if (projectile->target_0x92_146)
+		HomeTo_52550_52890(projectile, target);
+	else if (!(projectile->flags_0x10_16 & 2))
+	{
+		projectile->flags_0x10_16 |= 2;
+		if (FindTarget_54520(projectile))
+		{
+			projectile->word_0x1E_30 = projectile->word_0x22_34;
+			projectile->word_0x20_32 = projectile->word_0x24_36;
+		}
+	}
+	featurePosition_AE454_AE444 = projectile->position_0x48_72;
+	MoveEntity_41EC0_42200((axis_3d*)&featurePosition_AE454_AE444, (uint16_t)projectile->word_0x1E_30, (uint16_t)projectile->word_0x20_32, projectile->word_0x7E_126);
+	const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&featurePosition_AE454_AE444);
+	if (ground > featurePosition_AE454_AE444.z)
+		featurePosition_AE454_AE444.z = ground;
+	CopyEntityPosition_41C70_41FB0(projectile, &featurePosition_AE454_AE444);
+	Type_Mc1Entity* hit = FindHitMana_11AC0_11AC0(projectile);
+	bool done = false;
+	if (hit)
+	{
+		RaiseByBox_524C0_52800(hit);
+		CopyEntityPosition_41C70_41FB0(projectile, &hit->position_0x48_72);
+		LowerByBox_524E0_52820(hit);
+		done = true;
+	}
+	else
+	{
+		const int16_t height = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&projectile->position_0x48_72);
+		featurePosition_AE454_AE444.z = height;
+		if (height > projectile->position_0x48_72.z || --projectile->life_0x0C_12 < 0)
+			done = true;
+	}
+	if (done)
+		ProjectileEnd(projectile, hit, target);
 }

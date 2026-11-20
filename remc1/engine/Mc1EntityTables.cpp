@@ -292,8 +292,8 @@ static Type_Mc1ClassModel class8Models[7] = {
 	{ nullptr, 0, nullptr, 0 },
 };
 static Type_Mc1ClassAction class9Actions[22] = {
-	{ textOmitted_968F4, 0, sub_52B30_52E70, 1 },
-	{ textOmitted_968F4, 1, sub_52ED0_53210, 1 },
+	{ textOmitted_968F4, 0, Fireball_52B30_52E70, 1 },
+	{ textOmitted_968F4, 1, Possession_52ED0_53210, 1 },
 	{ textOmitted_968F4, 2, sub_53060_533A0, 1 },
 	{ textOmitted_968F4, 3, sub_53070_533B0, 1 },
 	{ textOmitted_968F4, 4, sub_53060_533A0, 1 },
@@ -351,7 +351,7 @@ static Type_Mc1ClassAction class10Actions[63] = {
 	{ textOmitted_968F4, 9, RaiseTerrainAction_25470_25470, 1 },
 	{ textOmitted_968F4, 10, LowerTerrainOnceAction_25570_25570, 1 },
 	{ textOmitted_968F4, 11, SinkTerrainAction_25670_25670, 1 },
-	{ textOmitted_968F4, 12, sub_25760_25760, 1 },
+	{ textOmitted_968F4, 12, ExplosionAction_25760_25760, 1 },
 	{ textOmitted_968F4, 13, sub_257B0_257B0, 1 },
 	{ textOmitted_968F4, 14, sub_258A0_258A0, 1 },
 	{ textOmitted_968F4, 15, sub_25990_25990, 1 },
@@ -398,7 +398,7 @@ static Type_Mc1ClassAction class10Actions[63] = {
 	{ textOmitted_968F4, 56, sub_296A0_296A0, 1 },
 	{ textOmitted_968F4, 57, sub_29700_29700, 1 },
 	{ textOmitted_968F4, 58, sub_29780_29780, 1 },
-	{ textOmitted_968F4, 59, sub_29920_29960, 1 },
+	{ textOmitted_968F4, 59, PushManaAction_29920_29960, 1 },
 	{ textOmitted_968F4, 60, sub_299D0_29A10, 1 },
 	{ textOmitted_968F4, 61, EntityNoAction, 1 },
 	{ nullptr, 0, nullptr, 0 },
