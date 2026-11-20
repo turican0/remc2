@@ -35,3 +35,6 @@ void CreatureLookForLeader_19B10_19B10(Type_Mc1Entity* entity, uint8_t action);
 void CreatureToTarget6_1B160_1B160(Type_Mc1Entity* entity);
 void CreatureKilled_1A6C0_1A6C0(Type_Mc1Entity* entity, uint8_t action);
 void CreatureInBuilding_1FA00_1FA00(Type_Mc1Entity* entity);
+int32_t CreatureFireball_1A8E0_1A8E0(Type_Mc1Entity* entity, Type_Mc1Entity* target);
+void CreatureAttack12_1B520_1B520(Type_Mc1Entity* entity);
+void CreatureKilled12_1B580_1B580(Type_Mc1Entity* entity);

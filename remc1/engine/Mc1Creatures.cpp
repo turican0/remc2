@@ -936,3 +936,34 @@ void CreatureInBuilding_1FA00_1FA00(Type_Mc1Entity* entity)
 		WriteS16(attacker->playerData_0xA0_160 + 0x210, 0xC8);
 	CreatureKilled_1A6C0_1A6C0(entity, 0x4E);
 }
+
+int32_t CreatureFireball_1A8E0_1A8E0(Type_Mc1Entity* entity, Type_Mc1Entity* target)
+{
+	// a fireball (class 9 model 0) of the creature to its target
+	Type_Mc1Entity* fireball = CreateEntity_373F0_377B0(&entity->position_0x48_72, 9, 0);
+	if (!fireball)
+		return 0;
+	fireball->byte_0x44_68 = 0x0A;
+	fireball->byte_0x45_69 = 0;
+	fireball->id_0x18_24 = entity->id_0x18_24;
+	fireball->word_0x1E_30 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+	fireball->word_0x20_32 = (int16_t)GetPitchAngle_42180_424C0(&entity->position_0x48_72, &target->position_0x48_72);
+	fireball->position_0x48_72.z = (int16_t)(fireball->position_0x48_72.z + entity->box_0x4E_78[3]);
+	fireball->target_0x92_146 = entity->target_0x92_146;
+	fireball->typeParams_0x9C_156 = creatureTypes_98F38_98F38[6];
+	fireball->byte_0x43_67 = entity->byte_0x43_67;
+	fireball->word_0x2C_44 = 0x1F4;
+	fireball->byte_0x42_66 = entity->byte_0x42_66;
+	return 1;
+}
+
+void CreatureAttack12_1B520_1B520(Type_Mc1Entity* entity)
+{
+	if (CreatureAttack_1A120_1A120(entity, 0x12, CreatureFireball_1A8E0_1A8E0))
+		sub_55370_558A0((int16_t)EntityIndex(entity), -1, 8);
+}
+
+void CreatureKilled12_1B580_1B580(Type_Mc1Entity* entity)
+{
+	CreatureKilled_1A6C0_1A6C0(entity, 0x12);
+}

@@ -45,3 +45,4 @@ void SendMailAround_120B0_120B0(Type_Mc1Entity* entity, uint8_t kind, int32_t va
 void SetHalfMana_36F90_37350(Type_Mc1Entity* entity); // mana = maxLife / 2
 int32_t GetFreeEntityCount_37710_37AD0();
 int32_t MoveOnMap_41CC0_42000(Type_Mc1Entity* entity, Type_Mc1Position* position); // out of the map and in again
+void SendFireMail_124F0_124F0(Type_Mc1Entity* entity, uint8_t kind, int32_t value);

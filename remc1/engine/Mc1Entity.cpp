@@ -665,7 +665,7 @@ static bool InList(const Type_Mc1Entity* entity)
 }
 
 // the entities in the map cells around the sender (the kind 0 rules)
-static void SendMailToCellsKind0(Type_Mc1Entity* entity, int32_t x, int32_t y, int32_t radius, uint8_t kind, uint16_t value)
+static void SendMailToCellsKind0(Type_Mc1Entity* entity, int32_t x, int32_t y, int32_t radius, uint8_t kind, uint16_t value, bool treesTenth = false)
 {
 	uint16_t mask = (uint16_t)(1 << kind);
 	for (int32_t dy = -radius; dy <= radius; dy++)
@@ -678,7 +678,12 @@ static void SendMailToCellsKind0(Type_Mc1Entity* entity, int32_t x, int32_t y, i
 					continue;
 				if (other->class_0x40_64 == 3 && other->model_0x41_65 == 2)
 					continue;
-				if (TakesMailFrom(entity, other))
+				if (!TakesMailFrom(entity, other))
+					continue;
+				// 124F0: the trees (class 2 model 0) a tenth
+				if (treesTenth && other->class_0x40_64 == 2 && !other->model_0x41_65)
+					AddMail(other, kind, (uint16_t)(value / 10), entity->id_0x18_24);
+				else
 					AddMail(other, kind, value, entity->id_0x18_24);
 			}
 }
@@ -747,4 +752,18 @@ int32_t MoveOnMap_41CC0_42000(Type_Mc1Entity* entity, Type_Mc1Position* position
 	RemoveFromMap_41DD0_42110(entity);
 	AddToMap_41CF0_42030(entity, position);
 	return 1;
+}
+
+void SendFireMail_124F0_124F0(Type_Mc1Entity* entity, uint8_t kind, int32_t value)
+{
+	// as 120B0 kind 0 (the castles of the list 21 too), the trees get a tenth
+	if (kind)
+		return;
+	for (Type_Mc1Entity* other = mc1Settings_AE408_AE3F8->entityLists_0x8E1A_36378[21]; InList(other); other = other->next_0x00_0)
+		if (other->model_0x41_65 == 2 && other->id_0x18_24 != entity->id_0x18_24 && EntitiesOverlap_11950_11950(entity, other))
+			AddMail(other, kind, (uint16_t)value, entity->id_0x18_24);
+	int32_t x = (entity->position_0x48_72.x - 0x80) / 256;
+	int32_t y = (entity->position_0x48_72.y - 0x80) / 256;
+	int32_t radius = (entity->box_0x4E_78[1] + 0xFF) / 256;
+	SendMailToCellsKind0(entity, x, y, radius, kind, (uint16_t)value, true);
 }

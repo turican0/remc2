@@ -29,3 +29,6 @@ int32_t NextFrame_42510_42850(Type_Mc1Entity* entity);
 void PuffAction_24F60_24F60(Type_Mc1Entity* entity);
 void ExplosionAction_25760_25760(Type_Mc1Entity* entity);
 void PushManaAction_29920_29960(Type_Mc1Entity* entity);
+void NearestFire_44C10_44F50(Type_Mc1Entity* entity);
+void FireAction_252D0_252D0(Type_Mc1Entity* entity);
+void FireSmokeAction_257B0_257B0(Type_Mc1Entity* entity);

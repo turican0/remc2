@@ -78,3 +78,34 @@ void UpdateClass2Model2Action_49AD0_49E10(Type_Mc1Entity* entity)
 	}
 	SetGroundZ(entity);
 }
+
+// in the water: a splash (class 10 model 5) and the entity is gone
+static void SplashInWater(Type_Mc1Entity* entity)
+{
+	entity->position_0x48_72.z = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&entity->position_0x48_72);
+	if (GetTileTypeBit_11810_11810(&entity->position_0x48_72) != 1)
+		return;
+	if (Type_Mc1Entity* splash = CreateEntity_373F0_377B0(&entity->position_0x48_72, 0x0A, 5))
+		splash->id_0x18_24 = entity->id_0x18_24;
+	MarkToFree_41E80_421C0(entity);
+}
+
+void TreeBurning_499C0_49D00(Type_Mc1Entity* entity)
+{
+	// a burning tree: below the life 3Ch the burnt sprite (53h -> E2h, 54h -> E3h) and the action 2
+	entity->life_0x0C_12--;
+	if (entity->life_0x0C_12 < 0x3C)
+	{
+		entity->actionIndex_0x46_70 = 2;
+		if (entity->sprite_0x56_86 == 0x53)
+			SetSpriteBox_37030_373F0(entity, 0xE2);
+		else if (entity->sprite_0x56_86 == 0x54)
+			SetSpriteBox_37030_373F0(entity, 0xE3);
+	}
+	SplashInWater(entity);
+}
+
+void TreeBurnt_49A50_49D90(Type_Mc1Entity* entity)
+{
+	SplashInWater(entity);
+}

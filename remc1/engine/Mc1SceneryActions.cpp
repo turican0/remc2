@@ -855,3 +855,89 @@ void PushManaAction_29920_29960(Type_Mc1Entity* entity)
 		mana->mails_0x5A_90[4].sender_4 = (uint16_t)EntityIndex(entity);
 	}
 }
+
+void NearestFire_44C10_44F50(Type_Mc1Entity* entity)
+{
+	// the distance of the wizard of the current player to the nearest fire (18Ch of its player data)
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	Type_Mc1Entity* wizard = EntityAt(state->players_0x340B_13323[state->currentPlayer_0x08_8].entityIndex_0x0A_10);
+	const int32_t distance = (int32_t)Distance3D_42340_42680(&entity->position_0x48_72, &wizard->position_0x48_72);
+	int32_t nearest;
+	memcpy(&nearest, wizard->playerData_0xA0_160 + 0x18C, sizeof(nearest));
+	if (distance <= nearest)
+		memcpy(wizard->playerData_0xA0_160 + 0x18C, &distance, sizeof(distance));
+}
+
+void FireAction_252D0_252D0(Type_Mc1Entity* entity)
+{
+	// a fire: grows (word_0x1A to 7, the sprite with it) while the life is over 0Ch, then shrinks and sometimes leaves a
+	// smoke (model 0Dh); burns around by 124F0 (without the flag 10000h); in the water gone
+	const int32_t life = entity->life_0x0C_12;
+	entity->life_0x0C_12 = life - 1;
+	if (life >= 0)
+	{
+		NearestFire_44C10_44F50(entity);
+		if (entity->life_0x0C_12 >= 0x0C)
+		{
+			if (entity->word_0x1A_26 <= 6)
+			{
+				entity->sprite_0x56_86++;
+				entity->word_0x1A_26++;
+			}
+		}
+		else if (entity->word_0x1A_26 > 0)
+		{
+			entity->sprite_0x56_86--;
+			entity->word_0x1A_26--;
+			if (!(entity->flags_0x10_16 & 0x80) && !(NextRand(entity) % 7))
+			{
+				if (Type_Mc1Entity* smoke = CreateEntity_373F0_377B0(&entity->position_0x48_72, 0x0A, 0x0D))
+				{
+					smoke->word_0x1A_26 = 0x64;
+					smoke->life_0x0C_12 = 0x0F;
+					smoke->id_0x18_24 = entity->id_0x18_24;
+					smoke->sprite_0x56_86 = (int16_t)(smoke->sprite_0x56_86 + 2);
+				}
+			}
+		}
+		entity->position_0x48_72.z = (int16_t)(GetTerrainAlt_11F50_11F50((axis_3d*)&entity->position_0x48_72) + entity->word_0x2E_46);
+		if (GetTileTypeBit_11810_11810(&entity->position_0x48_72) == 1)
+			MarkToFree_41E80_421C0(entity);
+	}
+	else
+		MarkToFree_41E80_421C0(entity);
+	if (!(entity->flags_0x10_16 & 0x10000))
+		SendFireMail_124F0_124F0(entity, 0, (uint16_t)entity->word_0x2C_44);
+}
+
+void FireSmokeAction_257B0_257B0(Type_Mc1Entity* entity)
+{
+	// the smoke of a fire: rises by word_0x7E (slowing 4 to 40h-80h), drifts 1Eh by its yaw for 16 frames
+	const int32_t life = entity->life_0x0C_12;
+	entity->life_0x0C_12 = life - 1;
+	if (life < 0)
+	{
+		MarkToFree_41E80_421C0(entity);
+		return;
+	}
+	featurePosition_AE454_AE444 = entity->position_0x48_72;
+	entity->word_0x7E_126 = (int16_t)(entity->word_0x7E_126 - 4);
+	if (entity->word_0x7E_126 < 0x40)
+		entity->word_0x7E_126 = 0x40;
+	if (entity->word_0x7E_126 > 0x80)
+		entity->word_0x7E_126 = 0x80;
+	featurePosition_AE454_AE444.z = (int16_t)(featurePosition_AE454_AE444.z + entity->word_0x7E_126);
+	const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&entity->position_0x48_72);
+	if (featurePosition_AE454_AE444.z < ground)
+		featurePosition_AE454_AE444.z = ground;
+	entity->word_0x1A_26++;
+	if (entity->word_0x1A_26 < 0x10)
+	{
+		MoveEntity_41EC0_42200((axis_3d*)&featurePosition_AE454_AE444, (uint16_t)entity->word_0x1E_30, 0, 0x1E);
+		if (!(entity->word_0x1A_26 & 1))
+			entity->sprite_0x56_86++;
+	}
+	if (entity->life_0x0C_12 < 6 && entity->sprite_0x56_86 > 0x43)
+		entity->sprite_0x56_86--;
+	CopyEntityPosition_41C70_41FB0(entity, &featurePosition_AE454_AE444);
+}

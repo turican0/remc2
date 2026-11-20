@@ -374,12 +374,13 @@ void ClearBuildingsAround_12C50_12C50(Type_Mc1Entity* castle)
 	SetBuildingBox_37150_37510(castle, castle->word_0x1A_26);
 }
 
-// a band of tiles: a tile changed by hand (angle bit 80h) stops the growth
-static bool BandChanged(uint8_t x, uint8_t y, uint16_t rows, uint16_t columns)
+// a band of tiles: a tile changed by hand (angle bit 80h) stops the growth; the rows after the first start at rowX (the
+// original returns to the corner of the area, also in the right band)
+static bool BandChanged(uint8_t x, uint8_t y, uint16_t rows, uint16_t columns, uint8_t rowX)
 {
-	for (; rows; rows--, y++)
+	uint8_t column = x;
+	for (; rows; rows--, y++, column = rowX)
 	{
-		uint8_t column = x;
 		for (uint16_t i = columns; i; i--, column++)
 			if (mapAngle_FC1E0_FC1D0[(y << 8) | column] & 0x80)
 				return true;
@@ -409,10 +410,10 @@ uint8_t CastleCanGrow_12D10_12D10(Type_Mc1Entity* castle)
 	const uint8_t y = (uint8_t)(centerY - (uint8_t)height);
 	const uint16_t addWidth = (uint16_t)(width - oldWidth);
 	const uint16_t addHeight = (uint16_t)(height - oldHeight);
-	const bool changed = BandChanged(x, y, addHeight, (uint16_t)(width * 2))
-		|| BandChanged(x, (uint8_t)((uint8_t)height * 2 + y - (uint8_t)addHeight), addHeight, (uint16_t)(width * 2))
-		|| BandChanged(x, (uint8_t)(y + (uint8_t)addHeight), addHeight, addWidth)
-		|| BandChanged((uint8_t)(x + (uint8_t)width - (uint8_t)addWidth), (uint8_t)(y + (uint8_t)addHeight), addHeight, addWidth);
+	const bool changed = BandChanged(x, y, addHeight, (uint16_t)(width * 2), x)
+		|| BandChanged(x, (uint8_t)((uint8_t)height * 2 + y - (uint8_t)addHeight), addHeight, (uint16_t)(width * 2), x)
+		|| BandChanged(x, (uint8_t)(y + (uint8_t)addHeight), addHeight, addWidth, x)
+		|| BandChanged((uint8_t)(x + (uint8_t)width - (uint8_t)addWidth), (uint8_t)(y + (uint8_t)addHeight), addHeight, addWidth, x);
 	SetBuildingBox_37150_37510(castle, castle->word_0x1A_26);
 	return changed ? 0 : 1;
 }
@@ -884,3 +885,4 @@ void BalloonAction_47F90_482D0(Type_Mc1Entity* balloon)
 	}
 	BalloonDamage_481D0_48510(balloon);
 }
+
