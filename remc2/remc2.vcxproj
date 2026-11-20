@@ -486,6 +486,7 @@
     <ClInclude Include="..\remc1\engine\Mc1Scenery.h" />
     <ClInclude Include="..\remc1\engine\Mc1Terrain.h" />
     <ClInclude Include="..\remc1\engine\Mc1SceneryActions.h" />
+    <ClInclude Include="..\remc1\engine\Mc1Spells.h" />
     <ClInclude Include="..\remc1\engine\Mc1Models.h" />
     <ClInclude Include="..\remc1\engine\Mc1World.h" />
     <ClInclude Include="..\remc1\engine\Mc1Frame.h" />
@@ -501,6 +502,7 @@
     <ClInclude Include="..\remc1\engine\Mc1Shared.h" />
     <ClInclude Include="..\remc1\engine\Mc1Screen.h" />
     <ClInclude Include="..\remc1\engine\Mc1Blocks.h" />
+    <ClInclude Include="..\remc1\engine\Mc1Creatures.h" />
     <ClInclude Include="..\remc1\engine\Mc1TextureMaps.h" />
     <ClInclude Include="..\remc1\engine\Mc1Install.h" />
     <ClInclude Include="..\remc1\engine\Mc1Files.h" />
@@ -625,6 +627,7 @@
     <ClCompile Include="..\remc1\engine\Mc1Scenery.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Terrain.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1SceneryActions.cpp" />
+    <ClCompile Include="..\remc1\engine\Mc1Spells.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Models.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1World.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Frame.cpp" />
@@ -639,6 +642,7 @@
     <ClCompile Include="..\remc1\engine\Mc1Menu.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Screen.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Blocks.cpp" />
+    <ClCompile Include="..\remc1\engine\Mc1Creatures.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1TextureMaps.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Install.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Files.cpp" />

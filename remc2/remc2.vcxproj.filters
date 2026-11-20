@@ -488,6 +488,9 @@
     <ClCompile Include="..\remc1\engine\Mc1SceneryActions.cpp">
       <Filter>Source Files\remc1</Filter>
     </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Spells.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
     <ClCompile Include="..\remc1\engine\Mc1Models.cpp">
       <Filter>Source Files\remc1</Filter>
     </ClCompile>
@@ -528,6 +531,9 @@
       <Filter>Source Files\remc1</Filter>
     </ClCompile>
     <ClCompile Include="..\remc1\engine\Mc1Blocks.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1Creatures.cpp">
       <Filter>Source Files\remc1</Filter>
     </ClCompile>
     <ClCompile Include="..\remc1\engine\Mc1TextureMaps.cpp">
@@ -590,6 +596,9 @@
     <ClInclude Include="..\remc1\engine\Mc1SceneryActions.h">
       <Filter>Header Files\remc1</Filter>
     </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Spells.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
     <ClInclude Include="..\remc1\engine\Mc1Models.h">
       <Filter>Header Files\remc1</Filter>
     </ClInclude>
@@ -633,6 +642,9 @@
       <Filter>Header Files\remc1</Filter>
     </ClInclude>
     <ClInclude Include="..\remc1\engine\Mc1Blocks.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1Creatures.h">
       <Filter>Header Files\remc1</Filter>
     </ClInclude>
     <ClInclude Include="..\remc1\engine\Mc1TextureMaps.h">
