@@ -156,6 +156,15 @@ void SetSpriteBox_37030_373F0(Type_Mc1Entity* entity, int16_t sprite)
 	entity->box_0x4E_78[3] = (int16_t)(def.height_0x08_8 / 2);
 }
 
+void SetSpriteDoubleBox_370A0_37460(Type_Mc1Entity* entity, int16_t sprite)
+{
+	// the box of the sprite doubled
+	SetSprite_36FA0_37360(entity, sprite);
+	entity->box_0x4E_78[1] = (int16_t)(entity->box_0x4E_78[1] * 2);
+	entity->box_0x4E_78[2] = (int16_t)(entity->box_0x4E_78[2] * 2);
+	entity->box_0x4E_78[3] = (int16_t)(entity->box_0x4E_78[3] * 2);
+}
+
 void SetSpriteHalfBox_370E0_374A0(Type_Mc1Entity* entity, int16_t sprite)
 {
 	SetSprite_36FA0_37360(entity, sprite);

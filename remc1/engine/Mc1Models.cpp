@@ -868,3 +868,19 @@ Type_Mc1Entity* CreateClass09Model10_39F40_3A2C0(Type_Mc1Position* position)
 		SetSprite_36FA0_37360(entity, 0x12);
 	return entity;
 }
+
+Type_Mc1Entity* CreateClass09Model13_3A0C0_3A440(Type_Mc1Position* position)
+{
+	// the shot of a castle guard (the speed 180h, the life 1400h / the speed)
+	Type_Mc1Entity* entity = NewEntity(9, 0x0D, 0x0D);
+	if (!entity)
+		return nullptr;
+	entity->word_0x7E_126 = 0x180;
+	entity->word_0x80_128 = 0x180;
+	entity->maxLife_0x08_8 = 0x1400 / entity->word_0x7E_126;
+	entity->flags_0x10_16 &= ~8u;
+	AddToMap_41CF0_42030(entity, position);
+	ResetLife_36DE0_371A0(entity);
+	SetSpriteDoubleBox_370A0_37460(entity, 0xC3);
+	return entity;
+}

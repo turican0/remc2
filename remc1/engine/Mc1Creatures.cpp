@@ -2,6 +2,7 @@
 
 #include <cstring>
 
+#include "Mc1Castle.h"
 #include "Mc1Entity.h"
 #include "Mc1Files.h"
 #include "Mc1Game.h"
@@ -966,4 +967,450 @@ void CreatureAttack12_1B520_1B520(Type_Mc1Entity* entity)
 void CreatureKilled12_1B580_1B580(Type_Mc1Entity* entity)
 {
 	CreatureKilled_1A6C0_1A6C0(entity, 0x12);
+}
+
+void CreatureRemains_1A800_1A800(Type_Mc1Entity* entity, uint8_t /*action*/)
+{
+	// the dead creature every 8th frame: its mana (5000 in the demo) as a mana ball, a smoke, gone
+	if (entity->index_0x3F_63 & 7)
+		return;
+	if (mc1Settings_AE408_AE3F8->flags_0x00_0 & 0x200)
+		entity->mana_0x8C_140 = 0x1388;
+	DropMana_27690_27690(entity);
+	if (Type_Mc1Entity* smoke = CreateEntity_373F0_377B0(&entity->position_0x48_72, 0x0A, 1))
+		smoke->id_0x18_24 = entity->id_0x18_24;
+	MarkToFree_41E80_421C0(entity);
+}
+
+void CreatureRemains12_1B590_1B590(Type_Mc1Entity* entity)
+{
+	CreatureRemains_1A800_1A800(entity, 0x12);
+}
+
+// the actions of the models: the shared ones with the action base of the model
+
+void CreatureLookForLeader0_1B060_1B060(Type_Mc1Entity* entity)
+{
+	CreatureLookForLeader_19B10_19B10(entity, 0x0);
+}
+
+void CreatureKilled0_1B100_1B100(Type_Mc1Entity* entity)
+{
+	CreatureKilled_1A6C0_1A6C0(entity, 0x0);
+}
+
+void CreatureRemains0_1B110_1B110(Type_Mc1Entity* entity)
+{
+	CreatureRemains_1A800_1A800(entity, 0x0);
+}
+
+void CreatureKilled6_1B330_1B330(Type_Mc1Entity* entity)
+{
+	CreatureKilled_1A6C0_1A6C0(entity, 0x6);
+}
+
+void CreatureRemains6_1B340_1B340(Type_Mc1Entity* entity)
+{
+	CreatureRemains_1A800_1A800(entity, 0x6);
+}
+
+void CreatureKilledC_1B4E0_1B4E0(Type_Mc1Entity* entity)
+{
+	CreatureKilled_1A6C0_1A6C0(entity, 0xC);
+}
+
+void CreatureRemainsC_1B4F0_1B4F0(Type_Mc1Entity* entity)
+{
+	CreatureRemains_1A800_1A800(entity, 0xC);
+}
+
+void CreatureLookForLeader12_1B500_1B500(Type_Mc1Entity* entity)
+{
+	CreatureLookForLeader_19B10_19B10(entity, 0x12);
+}
+
+void CreatureRemains18_1BC40_1BC40(Type_Mc1Entity* entity)
+{
+	CreatureRemains_1A800_1A800(entity, 0x18);
+}
+
+void CreatureKilled1E_1C3C0_1C3C0(Type_Mc1Entity* entity)
+{
+	CreatureKilled_1A6C0_1A6C0(entity, 0x1E);
+}
+
+void CreatureRemains1E_1C3D0_1C3D0(Type_Mc1Entity* entity)
+{
+	CreatureRemains_1A800_1A800(entity, 0x1E);
+}
+
+void CreatureLookForLeader24_1C490_1C490(Type_Mc1Entity* entity)
+{
+	CreatureLookForLeader_19B10_19B10(entity, 0x24);
+}
+
+void CreatureKilled24_1C8D0_1C8D0(Type_Mc1Entity* entity)
+{
+	CreatureKilled_1A6C0_1A6C0(entity, 0x24);
+}
+
+void CreatureRemains24_1C8E0_1C8E0(Type_Mc1Entity* entity)
+{
+	CreatureRemains_1A800_1A800(entity, 0x24);
+}
+
+void CreatureLookForLeader2A_1C8F0_1C8F0(Type_Mc1Entity* entity)
+{
+	CreatureLookForLeader_19B10_19B10(entity, 0x2A);
+}
+
+void CreatureKilled2A_1CA20_1CA20(Type_Mc1Entity* entity)
+{
+	CreatureKilled_1A6C0_1A6C0(entity, 0x2A);
+}
+
+void CreatureRemains2A_1CA30_1CA30(Type_Mc1Entity* entity)
+{
+	CreatureRemains_1A800_1A800(entity, 0x2A);
+}
+
+void CreatureLookForLeader30_1CA40_1CA40(Type_Mc1Entity* entity)
+{
+	CreatureLookForLeader_19B10_19B10(entity, 0x30);
+}
+
+void CreatureFollowLeader30_1CF50_1CF50(Type_Mc1Entity* entity)
+{
+	CreatureFollowLeader_1A390_1A390(entity, 0x30);
+}
+
+void CreatureRemains30_1CFE0_1CFE0(Type_Mc1Entity* entity)
+{
+	CreatureRemains_1A800_1A800(entity, 0x30);
+}
+
+void CreatureKilled36_1DCB0_1DCB0(Type_Mc1Entity* entity)
+{
+	CreatureKilled_1A6C0_1A6C0(entity, 0x36);
+}
+
+void CreatureRemains36_1DCC0_1DCC0(Type_Mc1Entity* entity)
+{
+	CreatureRemains_1A800_1A800(entity, 0x36);
+}
+
+void CreatureLookForLeader3C_1DDD0_1DDD0(Type_Mc1Entity* entity)
+{
+	CreatureLookForLeader_19B10_19B10(entity, 0x3C);
+}
+
+void CreatureWander3C_1DDE0_1DDE0(Type_Mc1Entity* entity)
+{
+	CreatureWander_19D70_19D70(entity, 0x3C);
+}
+
+void CreatureFollowLeader3C_1DE10_1DE10(Type_Mc1Entity* entity)
+{
+	CreatureFollowLeader_1A390_1A390(entity, 0x3C);
+}
+
+void CreatureKilled3C_1DE20_1DE20(Type_Mc1Entity* entity)
+{
+	CreatureKilled_1A6C0_1A6C0(entity, 0x3C);
+}
+
+void CreatureRemains3C_1DE30_1DE30(Type_Mc1Entity* entity)
+{
+	CreatureRemains_1A800_1A800(entity, 0x3C);
+}
+
+void CreatureFollowLeader42_1E6F0_1E6F0(Type_Mc1Entity* entity)
+{
+	CreatureFollowLeader_1A390_1A390(entity, 0x42);
+}
+
+void CreatureKilled42_1E700_1E700(Type_Mc1Entity* entity)
+{
+	CreatureKilled_1A6C0_1A6C0(entity, 0x42);
+}
+
+void CreatureRemains42_1E710_1E710(Type_Mc1Entity* entity)
+{
+	CreatureRemains_1A800_1A800(entity, 0x42);
+}
+
+void CreatureKilled48_1F5A0_1F5A0(Type_Mc1Entity* entity)
+{
+	CreatureKilled_1A6C0_1A6C0(entity, 0x48);
+}
+
+void CreatureRemains4E_1FAA0_1FAA0(Type_Mc1Entity* entity)
+{
+	CreatureRemains_1A800_1A800(entity, 0x4E);
+}
+
+void CreatureFollowLeader5A_203E0_203E0(Type_Mc1Entity* entity)
+{
+	CreatureFollowLeader_1A390_1A390(entity, 0x5A);
+}
+
+void CreatureKilled5A_203F0_203F0(Type_Mc1Entity* entity)
+{
+	CreatureKilled_1A6C0_1A6C0(entity, 0x5A);
+}
+
+void CreatureRemains5A_20400_20400(Type_Mc1Entity* entity)
+{
+	CreatureRemains_1A800_1A800(entity, 0x5A);
+}
+
+void CreatureLookForLeader60_20700_20700(Type_Mc1Entity* entity)
+{
+	CreatureLookForLeader_19B10_19B10(entity, 0x60);
+}
+
+void CreatureFollowLeader60_20B60_20B60(Type_Mc1Entity* entity)
+{
+	CreatureFollowLeader_1A390_1A390(entity, 0x60);
+}
+
+void CreatureKilled60_20B70_20B70(Type_Mc1Entity* entity)
+{
+	CreatureKilled_1A6C0_1A6C0(entity, 0x60);
+}
+
+void CreatureRemains60_20B80_20B80(Type_Mc1Entity* entity)
+{
+	CreatureRemains_1A800_1A800(entity, 0x60);
+}
+
+void CreatureBob_1B120_1B120(Type_Mc1Entity* entity)
+{
+	// the flying creature (model 0) bobs: up by word_0x1A, falling by 5, again 96h under 100h over the ground
+	entity->position_0x48_72.z = (int16_t)(entity->position_0x48_72.z + entity->word_0x1A_26);
+	const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&entity->position_0x48_72);
+	entity->word_0x1A_26 = (int16_t)(entity->word_0x1A_26 - 5);
+	if (entity->position_0x48_72.z < ground + 0x100)
+		entity->word_0x1A_26 = 0x96;
+}
+
+void CreatureWanderBob0_1B070_1B070(Type_Mc1Entity* entity)
+{
+	CreatureWander_19D70_19D70(entity, 0);
+	CreatureBob_1B120_1B120(entity);
+}
+
+void CreatureFollowLeaderBob0_1B0E0_1B0E0(Type_Mc1Entity* entity)
+{
+	CreatureFollowLeader_1A390_1A390(entity, 0);
+	CreatureBob_1B120_1B120(entity);
+}
+
+void CreatureLookForLeaderC_1B350_1B350(Type_Mc1Entity* entity)
+{
+	CreatureLookForLeader_19B10_19B10(entity, 0x0C);
+	if (entity->actionIndex_0x46_70 == 0x0E)
+		entity->word_0x1A_26 = 1;
+}
+
+// in a building (word_0x1A set) gone, else killed
+static void CreatureGoneOrKilled(Type_Mc1Entity* entity, uint8_t action)
+{
+	if (entity->word_0x1A_26)
+		MarkToFree_41E80_421C0(entity);
+	else
+		CreatureKilled_1A6C0_1A6C0(entity, action);
+}
+
+void CreatureGoneOrKilled18_1BC10_1BC10(Type_Mc1Entity* entity)
+{
+	CreatureGoneOrKilled(entity, 0x18);
+}
+
+void CreatureGoneOrKilled54_1FE90_1FE90(Type_Mc1Entity* entity)
+{
+	CreatureGoneOrKilled(entity, 0x54);
+}
+
+void CreatureStopAtTarget_1BC50_1BC50(Type_Mc1Entity* entity)
+{
+	// stopped, one of two sprites, the kind of the target as the kind it hits (byte_0x42 / byte_0x43)
+	const uint32_t roll = NextRand(entity) % 0x14;
+	entity->word_0x7E_126 = 0;
+	SetSprite_36FA0_37360(entity, roll > 10 ? 1 : 0xCE);
+	const Type_Mc1Entity& target = Entities()[entity->target_0x92_146];
+	entity->byte_0x42_66 = target.class_0x40_64;
+	entity->byte_0x43_67 = target.model_0x41_65;
+}
+
+void CreatureLookForLeader18_1B5A0_1B5A0(Type_Mc1Entity* entity)
+{
+	CreatureLookForLeader_19B10_19B10(entity, 0x18);
+	if (entity->actionIndex_0x46_70 == 0x1A)
+		CreatureStopAtTarget_1BC50_1BC50(entity);
+}
+
+void CreatureFollowLeader18_1BBE0_1BBE0(Type_Mc1Entity* entity)
+{
+	CreatureFollowLeader_1A390_1A390(entity, 0x18);
+	if (entity->actionIndex_0x46_70 == 0x1A)
+		CreatureStopAtTarget_1BC50_1BC50(entity);
+}
+
+void GuardStop_20410_20410(Type_Mc1Entity* entity)
+{
+	// stopped, one of two sprites
+	const uint32_t roll = NextRand(entity) % 0x14;
+	entity->word_0x7E_126 = 0;
+	SetSprite_36FA0_37360(entity, roll > 10 ? 1 : 0xCE);
+}
+
+void GuardWalk_20480_20480(Type_Mc1Entity* entity)
+{
+	// the guard of a castle walks the tiles: every 8th frame the best free one of the 4 directions (random weights 1F40h
+	// 7000 / 10), every 16th frame to the middle of the tile across, away from a guard on the same tile
+	static const uint16_t weights_1FF40_1FF40[4] = { 0x1B58, 0x1B58, 0x0A, 0x1B58 };
+	const uint8_t* params = entity->typeParams_0x9C_156;
+	if (!((uint8_t)entity->index_0x3F_63 % 8))
+	{
+		if (GetTileTypeBit_11810_11810(&entity->position_0x48_72) & ~ReadU32(params + 0x14))
+		{
+			entity->actionIndex_0x46_70 = 0x5E;
+			return;
+		}
+		uint32_t best = 1;
+		uint16_t yaw = (uint16_t)entity->word_0x1E_30;
+		for (int i = 0; i < 4; i++)
+		{
+			featurePosition_AE454_AE444 = entity->position_0x48_72;
+			MoveEntity_41EC0_42200((axis_3d*)&featurePosition_AE454_AE444, yaw, 0, 0x100);
+			const uint32_t roll = NextRand(entity) % weights_1FF40_1FF40[i];
+			const uint32_t free = CheckPosition_11640_11640(entity, &featurePosition_AE454_AE444, 1) ? 0 : 1;
+			const uint32_t score = free * (roll + 2);
+			if ((uint16_t)score > (uint16_t)best)
+			{
+				best = score;
+				entity->word_0x1E_30 = (int16_t)yaw;
+			}
+			yaw = (uint16_t)((yaw + 0x200) & 0x7FF);
+		}
+	}
+	featurePosition_AE454_AE444 = entity->position_0x48_72;
+	if (!((uint8_t)entity->index_0x3F_63 % 0x10))
+	{
+		if ((((int32_t)(uint16_t)entity->word_0x1E_30 - 0x100) >> 9) & 1)
+			featurePosition_AE454_AE444.x = (int16_t)(((featurePosition_AE454_AE444.x >> 8) << 8) + 0x80);
+		else
+			featurePosition_AE454_AE444.y = (int16_t)(((featurePosition_AE454_AE444.y >> 8) << 8) + 0x80);
+	}
+	for (Type_Mc1Entity* other = Lists()[1 + (int8_t)entity->model_0x41_65]; other > Entities(); other = other->next_0x00_0)
+	{
+		if (other->id_0x18_24 == entity->id_0x18_24)
+			continue;
+		const int32_t dx = entity->position_0x48_72.x - other->position_0x48_72.x;
+		if ((dx < 0 ? -dx : dx) >= 0x100)
+			continue;
+		const int32_t dy = entity->position_0x48_72.y - other->position_0x48_72.y;
+		if ((dy < 0 ? -dy : dy) >= 0x100)
+			continue;
+		entity->word_0x22_34 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&other->position_0x48_72, (axis_3d*)&entity->position_0x48_72);
+		break;
+	}
+	if (entity->word_0x22_34 != entity->word_0x1E_30 && NextRand(entity) % 0x14 > 10)
+		return;
+	MoveEntity_41EC0_42200((axis_3d*)&featurePosition_AE454_AE444, (uint16_t)entity->word_0x1E_30, 0, entity->word_0x7E_126);
+	const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&featurePosition_AE454_AE444);
+	ClampHeight_42000_42340(&featurePosition_AE454_AE444, ground, ReadS16(params + 0x0C), ReadS16(params + 0x0A), ReadS16(params + 0x0E));
+	CopyEntityPosition_41C70_41FB0(entity, &featurePosition_AE454_AE444);
+}
+
+void GuardAction_1FF60_1FF60(Type_Mc1Entity* entity)
+{
+	// the guard (action 5Ah + 1): walks, attacks a wizard (not of its castle) that hit it or that it sees (5Ch), dead 5Eh
+	switch (CreatureDamage(entity))
+	{
+	case 0:
+	{
+		GuardWalk_20480_20480(entity);
+		if (!CreatureUpdateFrame(entity) || !entity->byte_0x3A_58)
+			break;
+		const uint8_t* params = entity->typeParams_0x9C_156;
+		const uint32_t range = (uint32_t)(ReadS16(params + 0x1C) * ReadS16(params + 0x1C));
+		uint32_t best = 0xFFFFFFFF;
+		Type_Mc1Entity* found = nullptr;
+		for (Type_Mc1Entity* wizard = Lists()[21]; wizard > Entities(); wizard = wizard->next_0x00_0)
+		{
+			if (wizard->id_0x18_24 == entity->id_0x18_24)
+				continue;
+			const uint32_t distance = Distance2DSquared(entity, wizard);
+			if (distance > range || (wizard->flags_0x10_16 & 0x20))
+				continue;
+			const uint16_t yaw = (uint16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&wizard->position_0x48_72);
+			if ((int32_t)(uint16_t)AngleDistance_42210_42550((uint16_t)entity->word_0x1E_30, yaw) >= ReadS16(params + 0x1E) || distance >= best)
+				continue;
+			found = wizard;
+			best = distance;
+		}
+		if (found)
+		{
+			entity->target_0x92_146 = EntityIndex(found);
+			SetAction_424F0_42830(entity, 0x5C);
+		}
+		break;
+	}
+	case 1:
+	{
+		const Type_Mc1Entity& attacker = Entities()[entity->word_0x28_40];
+		if (attacker.class_0x40_64 == 3 && attacker.id_0x18_24 != entity->id_0x18_24)
+		{
+			entity->target_0x92_146 = entity->word_0x28_40;
+			SetAction_424F0_42830(entity, 0x5C);
+		}
+		break;
+	}
+	case 2:
+		SetAction_424F0_42830(entity, 0x5E);
+		break;
+	}
+	if (entity->actionIndex_0x46_70 == 0x5C)
+		GuardStop_20410_20410(entity);
+}
+
+void GuardResume_20450_20450(Type_Mc1Entity* entity)
+{
+	entity->word_0x7E_126 = entity->word_0x80_128;
+	SetSprite_36FA0_37360(entity, 0);
+}
+
+void GuardAttack_201D0_201D0(Type_Mc1Entity* entity)
+{
+	// the guard shoots (class 9 model 0Dh) at its target in the range, else back to walking (5Bh); dead 5Eh
+	if (CreatureDamage(entity) == 2)
+		entity->actionIndex_0x46_70 = 0x5E;
+	else
+	{
+		Type_Mc1Entity* target = &Entities()[entity->target_0x92_146];
+		if (!(entity->index_0x3F_63 & 3))
+			entity->word_0x22_34 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+		const uint8_t* params = entity->typeParams_0x9C_156;
+		if (target->life_0x0C_12 < 0 || (target->flags_0x10_16 & 0x400))
+			SetAction_424F0_42830(entity, 0x5B);
+		else if (!((uint8_t)entity->index_0x3F_63 % ReadS16(params + 0x1A)))
+		{
+			if (Distance3D_42340_42680(&entity->position_0x48_72, &target->position_0x48_72) >= (uint32_t)(int32_t)ReadS16(params + 0x1C))
+				SetAction_424F0_42830(entity, 0x5B);
+			else if (Type_Mc1Entity* shot = CreateEntity_373F0_377B0(&entity->position_0x48_72, 9, 0x0D))
+			{
+				shot->id_0x18_24 = entity->id_0x18_24;
+				shot->word_0x1E_30 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+				shot->word_0x20_32 = (int16_t)GetPitchAngle_42180_424C0(&entity->position_0x48_72, &target->position_0x48_72);
+				shot->position_0x48_72.z = (int16_t)(shot->position_0x48_72.z + entity->box_0x4E_78[3]);
+				shot->target_0x92_146 = entity->target_0x92_146;
+				shot->byte_0x43_67 = entity->byte_0x43_67;
+				shot->byte_0x42_66 = entity->byte_0x42_66;
+			}
+		}
+	}
+	if (entity->actionIndex_0x46_70 != 0x5C)
+		GuardResume_20450_20450(entity);
 }

@@ -17,17 +17,26 @@ State of the port on branch `magic-carpet-1` (2026-11-15) and how to continue. T
 - Not verified yet: the MC2 renderer tests after the sprite interface in HD, NG and HW (only Original was run
   against the DOSBox screens of MC2: level 4 identical, level 2 / record005 only the known 1 px minimap dots of the
   original); the palette fade in of the level (34690) and the HW textures of MC1 were only seen running.
+- Level 1 (index 0, also New game) against DOSBox: without input identical for 3000 frames (the wizard is killed by
+  the creatures and lies dead); with a synthetic input (flight, all spells by the cheat command, fireball,
+  possession, the castle spell: the castle built and grown, its balloon and guards, fires, burning trees) identical
+  up to at least frame 1626 (entities, players, terrain maps). Ported for it: the creatures (`Mc1Creatures.cpp`),
+  the castle (`Mc1Castle.cpp`), the spells of level 1 and their projectiles (`Mc1Spells.cpp`), the class 10
+  effects (`Mc1SceneryActions.cpp`), the wizard death 45FC0 / 46480, the level won check 415C0.
 - What is still missing in the game (stubs in `remc1/engine/Mc1NotPorted.cpp`, logged once when called):
-  - the actions of the creatures (19550, 1B200, 1B510, 1DDE0, 1EED0, 1F640, 1FAC0: about 1500 asm lines of a
-    shared core) - the creatures do not move yet, which is also why a frame differs from DOSBox in their positions;
-  - the computer wizard (class 3 action 1, 13170), class 10/11/12 actions (26A60, 27030, 28DC0, 59A80, 59D40,
-    56250 ...);
-  - the icons of the frame (23D40, 22E50, 24230, 23CF0, 24D20, 24DA0, 22880), the frame end texts (5A560),
-    415C0, 55100;
-  - the sounds of the game (55370, 55890, 20D00), the save / load in the game (3E690, 3E750, 3E7F0, 3E8C0 - they
-    save the whole state with pointers, needs a pointer free shadow state like remc2 `Convert_from_shadow_*`), the
-    network, the VFX1 head tracker, the joystick calibration;
+  - the casting actions of the other spells (class 12: 56270, 56380, 566C0 ... 58240) and their class 9 / 11
+    actions, the creature actions of the models not in level 1, the computer wizard (class 3 action 1, 13170);
+  - the icons of the frame (23D40, 22E50, 24230, 23CF0, 24D20, 24DA0, 22880), the frame end texts (5A560);
+  - the sounds of the game (55370, 55890, 20D00, 55100 the sound channels), the save / load in the game (3E690,
+    3E750, 3E7F0, 3E8C0 - they save the whole state with pointers, needs a pointer free shadow state like remc2
+    `Convert_from_shadow_*`), the network, the VFX1 head tracker, the joystick calibration;
   - the motion blur by the speed in the renderers.
+- Verification of a played game: `remc1/tools/dbxrecord.py <level> <file>` records the input of player 0 in DOSBox,
+  the port plays it with the env `REMC1_PLAY=<file>`; DOSBox plays it too (`dbxrecord.py ... play`), so the state can
+  be dumped at any frame in both (DOSBox `REMC1_DUMP` at 20FB0 with `REMC1_DUMP_HIT=<frame>`, the port with a
+  temporary hook before DrawFrame_20FB0) and compared (entities state+7463h, players state+340Bh, the maps CC1E0,
+  DC1E0, FC1E0). The input can also be generated: the command 30 with param 1 gives all spells, 21 / 22 select the
+  spells of the buttons, the buttons 1 forward, 2 back, 4 / 8 aside, 10h / 20h the spells, moveX / moveY the mouse.
 
 ## Where things are
 
@@ -102,8 +111,8 @@ Python 3 and Git Bash; some scripts still have the paths of the original machine
 
 ## Where to continue (suggested order)
 
-1. The actions of the creatures (the shared core 19550 ... 1FAC0), then the frame matches DOSBox without injection.
-2. The icons of the frame (23D40, 22E50 ...) and 5A560, 415C0, 55100.
-3. The computer wizard 13170 and the other class actions.
-4. The sounds of the game (55370 ...), then save / load with a shadow state.
+1. Play level 1 in DOSBox with `dbxrecord.py`, replay it in the port and fix the first differing frame (bisect).
+2. The icons of the frame (23D40, 22E50 ...) and 5A560; the sounds (55370 ...).
+3. The other spells and creatures (by the levels), the computer wizard 13170.
+4. Save / load with a shadow state.
 5. HW renderer: compare visually (a GPU frame cannot be dumped), the motion blur.

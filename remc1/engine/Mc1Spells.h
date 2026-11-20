@@ -34,3 +34,4 @@ Type_Mc1Entity* FindHit_11980_11980(Type_Mc1Entity* projectile);
 Type_Mc1Entity* FindHitMana_11AC0_11AC0(Type_Mc1Entity* projectile);
 void Fireball_52B30_52E70(Type_Mc1Entity* projectile);
 void Possession_52ED0_53210(Type_Mc1Entity* projectile);
+void GuardShot_54180_544D0(Type_Mc1Entity* projectile);

@@ -892,3 +892,35 @@ void Possession_52ED0_53210(Type_Mc1Entity* projectile)
 	if (done)
 		ProjectileEnd(projectile, hit, target);
 }
+
+void GuardShot_54180_544D0(Type_Mc1Entity* projectile)
+{
+	// the shot of a guard: a hit (checked before the step), the ground or the end of the life: the damage word_0x2C as
+	// the mail 0 around and gone
+	if (!(projectile->flags_0x10_16 & 2))
+	{
+		const int16_t sound = (int16_t)((NextRand(projectile) & 3) + 0x21);
+		sub_55370_558A0((int16_t)EntityIndex(projectile), -1, sound);
+		projectile->flags_0x10_16 |= 2;
+	}
+	featurePosition_AE454_AE444 = projectile->position_0x48_72;
+	MoveEntity_41EC0_42200((axis_3d*)&featurePosition_AE454_AE444, (uint16_t)projectile->word_0x1E_30, (uint16_t)projectile->word_0x20_32, projectile->word_0x7E_126);
+	Type_Mc1Entity* hit = FindHit_11980_11980(projectile);
+	const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&featurePosition_AE454_AE444);
+	bool end = ground > featurePosition_AE454_AE444.z;
+	if (!end)
+		end = projectile->life_0x0C_12-- == 0 || hit;
+	if (!end)
+	{
+		CopyEntityPosition_41C70_41FB0(projectile, &featurePosition_AE454_AE444);
+		return;
+	}
+	if (hit)
+	{
+		RaiseByBox_524C0_52800(hit);
+		CopyEntityPosition_41C70_41FB0(projectile, &hit->position_0x48_72);
+		LowerByBox_524E0_52820(hit);
+	}
+	SendMailAround_120B0_120B0(projectile, 0, (uint16_t)projectile->word_0x2C_44);
+	MarkToFree_41E80_421C0(projectile);
+}

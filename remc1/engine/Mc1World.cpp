@@ -76,7 +76,7 @@ void GameFrame_34530_348F0()
 		ProcessInput_17C20_17C20();
 	PlayerEvents_3C9D0_3CD10();
 	if (!(settings->flags_0x00_0 & 0x10000))
-		sub_415C0_41900();
+		CheckLevelWon_415C0_41900();
 	// the speed: 1, 4 or 16 ticks of the world in a frame
 	switch (settings->speedIndex_0x96_150)
 	{
@@ -311,4 +311,41 @@ uint8_t SetPlayerCamera_41B20_41E60(Type_Mc1Player_340B* player, Type_Mc1Entity*
 	pitch -= tilt / 8;
 	record.pitch_0x08_8 = (int16_t)pitch;
 	return 1;
+}
+
+void CheckLevelWon_415C0_41900()
+{
+	// a player whose castle with the balloons has the mana percent of the level (word at 9790h of the level) for 16
+	// frames: the level is won (levelResult 2)
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	Type_Mc1Settings_AE408_AE3F8* settings = mc1Settings_AE408_AE3F8;
+	if (settings->flags_0x00_0 & 0x110)
+		return;
+	uint16_t target;
+	memcpy(&target, (const uint8_t*)&state->level_0x2F503_193795 + 0x9790, sizeof(target));
+	for (uint32_t i = 0; i < state->playerCount_0x0A_10; i++)
+	{
+		Type_Mc1Player_340B& player = state->players_0x340B_13323[i];
+		if (!player.active_0x06_6)
+			continue;
+		const uint8_t* playerData = Entities()[player.entityIndex_0x0A_10].playerData_0xA0_160;
+		const uint16_t castle = ReadU16(playerData + 0x32);
+		if (!castle || !settings->manaStats_0xB8_184.total_0x04)
+			continue;
+		int32_t balloons;
+		memcpy(&balloons, playerData + 0x134, sizeof(balloons));
+		const int32_t percent = (Entities()[castle].mana_0x8C_140 + balloons) * 100 / settings->manaStats_0xB8_184.total_0x04;
+		uint16_t frames;
+		memcpy(&frames, &player.unknown_0x00_0, sizeof(frames));
+		if (percent > (int32_t)target)
+		{
+			if ((int16_t)frames >= 0x10)
+				player.levelResult_0x02_2 |= 2;
+			else
+				frames++;
+		}
+		else
+			frames = 0;
+		memcpy(&player.unknown_0x00_0, &frames, sizeof(frames));
+	}
 }

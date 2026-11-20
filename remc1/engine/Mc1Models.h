@@ -103,3 +103,4 @@ Type_Mc1Entity* InitClass12_3BF70_3C2B0(Type_Mc1Position* position, uint8_t mode
 Type_Mc1Entity* CreateClass09Model00_39A10_39D90(Type_Mc1Position* position);
 Type_Mc1Entity* CreateClass09Model01_39A90_39E10(Type_Mc1Position* position);
 Type_Mc1Entity* CreateClass09Model10_39F40_3A2C0(Type_Mc1Position* position);
+Type_Mc1Entity* CreateClass09Model13_3A0C0_3A440(Type_Mc1Position* position);

@@ -16,6 +16,7 @@ void RebuildFreeLists_37220_375E0();
 Type_Mc1Entity* AllocEntity_372C0_37680();
 void SetSprite_36FA0_37360(Type_Mc1Entity* entity, int16_t sprite);
 void SetSpriteBox_37030_373F0(Type_Mc1Entity* entity, int16_t sprite);
+void SetSpriteDoubleBox_370A0_37460(Type_Mc1Entity* entity, int16_t sprite);
 void SetSpriteHalfBox_370E0_374A0(Type_Mc1Entity* entity, int16_t sprite);
 void ResetLife_36DE0_371A0(Type_Mc1Entity* entity);
 void SetBox_37130_374F0(Type_Mc1Entity* entity, int16_t width, int16_t height);
