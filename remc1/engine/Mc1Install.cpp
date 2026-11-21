@@ -3,6 +3,7 @@
 
 #include <cstdio>
 #include <cstring>
+#include <filesystem>
 
 #include "Mc1Files.h"
 #include "Mc1Game.h"
@@ -115,6 +116,17 @@ static void SetupInstallFile(const char* directory, const char* name, const char
 	std::string targetFile = target + "/" + name + ".dat";
 	std::string sourceFile = std::string(directory) + "/" + name + ".dat";
 	if (!FileMissing_3EF20_3F260(targetFile.c_str(), sourceFile.c_str()))
+		return;
+	// port: not copied again when the copy has the size of the source, so games started at the same time (the
+	// regression tests) do not read a file another one is rewriting
+	const std::string sourceData = Mc1DataFilePath(directory) + "/" + name;
+	auto sameSize = [](const std::string& a, const std::string& b) {
+		std::error_code errorA, errorB;
+		const uintmax_t sizeA = std::filesystem::file_size(a, errorA);
+		const uintmax_t sizeB = std::filesystem::file_size(b, errorB);
+		return !errorA && !errorB && sizeA == sizeB;
+	};
+	if (sameSize(targetFile, sourceData + ".dat") && sameSize(target + "/" + name + ".tab", sourceData + ".tab"))
 		return;
 	progressText = label;
 	myprintf("%s", label);
