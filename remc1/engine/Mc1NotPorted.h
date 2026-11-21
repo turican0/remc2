@@ -31,5 +31,3 @@ void sub_42D40_43080(uint32_t handle, char* name);
 void sub_43150_43490();
 void sub_438D0_43C10(uint16_t player, uint8_t* buffer, uint32_t size);
 void sub_43870_43BB0(uint16_t player, uint8_t* buffer, uint32_t size);
-// 20FB0: the icons and the spells
-void sub_5A560_5AA70();

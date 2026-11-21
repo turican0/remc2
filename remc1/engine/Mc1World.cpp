@@ -98,7 +98,7 @@ void GameFrame_34530_348F0()
 	DrawFrame_20FB0_20FB0();
 	// the ticks of the frame for 5A560, then the time of the frame
 	settings->frameTicks_0x99_153 = timerTicks_AC5D4_AC5C4 - settings->frameTicks_0x99_153;
-	sub_5A560_5AA70();
+	DrawDebugInfo_5A560_5AA70();
 	settings->frameTicks_0x99_153 = timerTicks_AC5D4_AC5C4;
 	BlendAndBlit_30B30_30B70();
 }

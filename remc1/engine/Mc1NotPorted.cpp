@@ -60,6 +60,3 @@ void sub_42D40_43080(uint32_t /*handle*/, char* /*name*/) { NotPorted(__func__);
 void sub_43150_43490() { NotPorted(__func__); }
 void sub_438D0_43C10(uint16_t /*player*/, uint8_t* /*buffer*/, uint32_t /*size*/) { NotPorted(__func__); }
 void sub_43870_43BB0(uint16_t /*player*/, uint8_t* /*buffer*/, uint32_t /*size*/) { NotPorted(__func__); }
-// 20FB0: the icons and the spells
-//!!!!! not ported yet
-void sub_5A560_5AA70() { NotPorted(__func__); }

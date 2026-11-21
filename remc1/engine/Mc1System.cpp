@@ -7,8 +7,8 @@
 #include "Mc1Blocks.h"
 #include "Mc1Game.h"
 
-// every block the port allocates, the original left them to DOS at exit
-static std::vector<void*> mc1Allocations;
+// every block the port allocates (the original left them to DOS at exit), its size and the tag of the allocation
+static std::vector<Mc1Allocation> mc1Allocations;
 
 uint8_t enoughMemory_93950_93950 = 0;
 uint8_t allocationTag_93954_93954 = 1; // stored in every heap block (+10h) by the original allocator
@@ -17,7 +17,7 @@ static void* AllocateZeroed(uint32_t size)
 {
 	void* block = calloc(size ? size : 1, 1);
 	if (block)
-		mc1Allocations.push_back(block);
+		mc1Allocations.push_back({ block, size, allocationTag_93954_93954 });
 	return block;
 }
 
@@ -39,7 +39,7 @@ void Free_426E0_42A20(void* block)
 {
 	if (!block)
 		return;
-	auto found = std::find(mc1Allocations.begin(), mc1Allocations.end(), block);
+	auto found = std::find_if(mc1Allocations.begin(), mc1Allocations.end(), [block](const Mc1Allocation& allocation) { return allocation.block == block; });
 	if (found != mc1Allocations.end())
 		mc1Allocations.erase(found);
 	free(block);
@@ -47,9 +47,14 @@ void Free_426E0_42A20(void* block)
 
 void FreeMc1Memory()
 {
-	for (void* block : mc1Allocations)
-		free(block);
+	for (const Mc1Allocation& allocation : mc1Allocations)
+		free(allocation.block);
 	mc1Allocations.clear();
+}
+
+const std::vector<Mc1Allocation>& Mc1Allocations()
+{
+	return mc1Allocations;
 }
 
 void DetectCpu_19470_19470()

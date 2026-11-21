@@ -10,3 +10,4 @@ extern int32_t dword_90098_90098;
 
 // by the mode of the player: 0 and 3 the game, 1 the help, 2 the spells (and the map), 4 the map
 void DrawFrame_20FB0_20FB0();
+void DrawDebugInfo_5A560_5AA70();

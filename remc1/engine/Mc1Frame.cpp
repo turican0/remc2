@@ -3,6 +3,8 @@
 #include <cstdio>
 #include <cstring>
 
+#include "Mc1Blocks.h"
+#include "Mc1Entity.h"
 #include "Mc1Files.h"
 #include "Mc1Game.h"
 #include "Mc1Graphics.h"
@@ -13,6 +15,8 @@
 #include "Mc1Render.h"
 #include "Mc1Screen.h"
 #include "Mc1Shared.h"
+#include "Mc1Sound.h"
+#include "Mc1System.h"
 
 uint8_t screenCleared_90094_90094 = 0x63; // 0 cleared for the game view, 2 for the map
 uint8_t clearedSetting_90096_90096 = 0x28; // the view port setting the screen was cleared for
@@ -433,4 +437,91 @@ void DrawFrame_20FB0_20FB0()
 	}
 	if (settings->flags_0x00_0 & 4)
 		DrawCredits();
+}
+
+// 5A560 / 5AA70 (after the frame): with the flag 8 of the player (+5) the version, the counters and the memory, then
+// the CD flag 2 set by the password F851B9h (always)
+void DrawDebugInfo_5A560_5AA70()
+{
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	Type_Mc1Settings_AE408_AE3F8* settings = mc1Settings_AE408_AE3F8;
+	Type_Mc1Player_340B& player = state->players_0x340B_13323[state->currentPlayer_0x08_8];
+	if (player.pause_0x05_5 & 8)
+	{
+		// the labels red (AE068), the values blue (AD177: the colour 00Fh)
+		const uint8_t label = colorLookup_AD168_AD158[0xF00];
+		const uint8_t value = colorLookup_AD168_AD158[0x00F];
+		const int32_t x = 0x140;
+		int32_t y = 0;
+		char text[0x100];
+		const auto line = [&](const char* string, uint8_t color) {
+			DrawText_5A180_5A690(string, x, (int16_t)y, color);
+			y += GetLineHeight_5A3B0_5A8C0();
+		};
+		SetFont_5A3C0_5A8D0(1);
+		line("Product name", label);
+		line("Magic Carpet", value);
+		line("Version number", label);
+		line("Beta v8.0", value);
+		line("Version date", label);
+		snprintf(text, sizeof(text), "%s %s", mc1Variant == MC1_VARIANT_HW ? "16:16:43" : "16:26:18", "Jun 05 1995");
+		line(text, value);
+		line("Programmer", label);
+		line("Bullfrog, Sean Cooper.", value);
+		line("Supplied to", label);
+		line("PUBLIC", value);
+		line("Level Number", label);
+		snprintf(text, sizeof(text), "%d", settings->levelIndex_0x11_17);
+		line(text, value);
+		if (settings->flags_0x00_0 & 0x10)
+		{
+			line("Transfer rate:", label);
+			snprintf(text, sizeof(text), "%d", (int32_t)settings->networkTicks_0x9D_157);
+			line(text, value);
+		}
+		line("GameTurn:", label);
+		snprintf(text, sizeof(text), "%d", (int32_t)settings->frameTicks_0x99_153);
+		line(text, value);
+		line("Sound Number", label);
+		snprintf(text, sizeof(text), "%d", byte_939EC_939EC);
+		line(text, value);
+		line("Game turn", label);
+		int32_t turn;
+		memcpy(&turn, (const uint8_t*)&player + 0x12, sizeof(turn));
+		snprintf(text, sizeof(text), "%d %d", turn, (int32_t)timerTicks_AC5D4_AC5C4);
+		line(text, value);
+		line("Thing", label);
+		// port: the active ones of all the entities (the original 1000 - the free ones)
+		snprintf(text, sizeof(text), "Thing %d, Active %d", 0xA4, mc1EntityCount - GetFreeEntityCount_37710_37AD0());
+		line(text, value);
+		snprintf(text, sizeof(text), "Carpet %d", 0x38D09);
+		line(text, value);
+		snprintf(text, sizeof(text), "Tape %d", 0x8E7E);
+		line(text, value);
+		snprintf(text, sizeof(text), "Heap %d", (int32_t)settings->heapSize_0xAC_172);
+		line(text, value);
+		// 63338: the used and the free memory of the heap, port: of its own blocks (16 MB as the original heap)
+		uint32_t used = 0;
+		for (const Mc1Allocation& allocation : Mc1Allocations())
+			used += allocation.size;
+		line("Memory (Used/Free)", label);
+		snprintf(text, sizeof(text), "%d/%d", (int32_t)used, (int32_t)(0x1000000 - used));
+		line(text, value);
+		// the blocks in columns from the left, "s<size>,u<tag>" (red: no handle of a file group, the port has none)
+		int32_t blockX = 0;
+		int32_t blockY = 0;
+		for (const Mc1Allocation& allocation : Mc1Allocations())
+		{
+			snprintf(text, sizeof(text), "s%7.7d,u%01d", (int32_t)allocation.size, allocation.tag);
+			DrawText_5A180_5A690(text, (int16_t)blockX, (int16_t)blockY, label);
+			blockY += GetLineHeight_5A3B0_5A8C0();
+			if ((int16_t)blockY > 0x190 - (int16_t)GetLineHeight_5A3B0_5A8C0())
+			{
+				blockX += GetSpaceWidth_5A3A0_5A8B0() * 12;
+				blockY = 0;
+			}
+		}
+	}
+	if (settings->password_0x19_25 == 0xF851B9)
+		settings->cd_0x18_24 |= 2;
 }
