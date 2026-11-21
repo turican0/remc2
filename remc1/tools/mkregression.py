@@ -79,9 +79,19 @@ def idle_input(frames):
     return bytes([1] + [0] * 9) + bytes(10 * (frames - 1))
 
 
-def make_conf(exe_line, out):
+GAME = r'c:\prenos\dosbox-x-remc1\mc1-orig'
+
+
+def copy_game(target):
+    # the original copies its data files to C:\CARPET.CD at every start and reads them while it runs: each DOSBox gets
+    # its own copy of the game (without the intro movies), so DOSBoxes in parallel do not read a file being rewritten
+    shutil.copytree(GAME, target, ignore=shutil.ignore_patterns('INTRO'))
+
+
+def make_conf(exe_line, out, game):
     subprocess.run([sys.executable, os.path.join(TOOLS, 'mkconf.py'), exe_line, out], check=True)
     text = open(out).read().replace('\ncycles=auto\n', '\ncycles=max\n')
+    text = text.replace('mount c c:/prenos/dosbox-x-remc1/mc1-orig/', 'mount c %s/' % game.replace('\\', '/'))
     open(out, 'w').write(text)
 
 
@@ -95,7 +105,9 @@ def make_test(game, level, frames, every, kind, pack_exe, out_root):
     work = tempfile.mkdtemp(prefix='mc1reg')
     try:
         conf = os.path.join(work, 'dbx.conf')
-        make_conf('%s -custom -level %d' % (g['exe'], level), conf)
+        game_dir = os.path.join(work, 'game')
+        copy_game(game_dir)
+        make_conf('%s -custom -level %d' % (g['exe'], level), conf, game_dir)
         dumps = [
             '1F1FB0,1F694,4,%s' % os.path.join(work, 'rand.bin'),
             '1F1FB0,26AF3,280A0,%s' % os.path.join(work, 'entities.bin'),
