@@ -1994,10 +1994,9 @@ void CreatureWander2A_1C900_1C900(Type_Mc1Entity* entity)
 {
 	if (CreatureUpdateFrame(entity))
 	{
-		//!!!!! the original adds 1 only when maxLife >> 6 > maxLife (never for a positive max life), then sets the max
-		const int32_t add = (entity->maxLife_0x08_8 >> 6) > entity->maxLife_0x08_8 ? 1 : 0;
-		entity->life_0x0C_12 += add;
-		if (add)
+		// 1C900: adds (maxLife >> 6 > maxLife), then jz by the flags of the add: not 0 the max life
+		entity->life_0x0C_12 += (entity->maxLife_0x08_8 >> 6) > entity->maxLife_0x08_8 ? 1 : 0;
+		if (entity->life_0x0C_12)
 			entity->life_0x0C_12 = entity->maxLife_0x08_8;
 	}
 	CreatureWander_19D70_19D70(entity, 0x2A);
