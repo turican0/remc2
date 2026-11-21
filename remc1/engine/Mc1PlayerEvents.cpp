@@ -13,6 +13,7 @@
 #include "Mc1MainMenu.h"
 #include "Mc1Movie.h"
 #include "Mc1NotPorted.h"
+#include "Mc1Regression.h"
 #include "Mc1Screen.h"
 #include "Mc1Sound.h"
 #include "Mc1Terrain.h"
@@ -146,7 +147,7 @@ static void DestroyWizardsByModel(const Type_Mc1Entity* wizard, uint8_t model, u
 }
 
 // port: the input of player 0 played back from a recording of DOSBox (dosbox-x-remc2 branch mc1, REMC1_RECORD at
-// 3C9D0), the file in the env REMC1_PLAY; at its end the input is left to the player
+// 3C9D0), the file of the regression test or in the env REMC1_PLAY; at its end the input is left to the player
 static void PlayRecordedInput(Type_Mc1PlayerInput* input)
 {
 	static_assert(sizeof(Type_Mc1PlayerInput) == 10, "the record of DOSBox");
@@ -155,7 +156,10 @@ static void PlayRecordedInput(Type_Mc1PlayerInput* input)
 	if (!opened)
 	{
 		opened = true;
-		if (const char* path = getenv("REMC1_PLAY"))
+		const std::string regressionInput = Mc1RegressionInput();
+		if (!regressionInput.empty())
+			file = fopen(regressionInput.c_str(), "rb");
+		else if (const char* path = getenv("REMC1_PLAY"))
 			file = fopen(path, "rb");
 	}
 	if (!file)

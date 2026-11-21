@@ -505,6 +505,7 @@
     <ClInclude Include="..\remc1\engine\Mc1Blocks.h" />
     <ClInclude Include="..\remc1\engine\Mc1Castle.h" />
     <ClInclude Include="..\remc1\engine\Mc1ComputerWizard.h" />
+    <ClInclude Include="..\remc1\engine\Mc1Regression.h" />
     <ClInclude Include="..\remc1\engine\Mc1Creatures.h" />
     <ClInclude Include="..\remc1\engine\Mc1TextureMaps.h" />
     <ClInclude Include="..\remc1\engine\Mc1Install.h" />
@@ -648,6 +649,7 @@
     <ClCompile Include="..\remc1\engine\Mc1Blocks.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Castle.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1ComputerWizard.cpp" />
+    <ClCompile Include="..\remc1\engine\Mc1Regression.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Creatures.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1TextureMaps.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Install.cpp" />

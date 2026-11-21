@@ -11,6 +11,7 @@
 #include "Mc1Level.h"
 #include "Mc1NotPorted.h"
 #include "Mc1PlayerEvents.h"
+#include "Mc1Regression.h"
 #include "Mc1Shared.h"
 #include "Mc1Screen.h"
 #include "Mc1Sound.h"
@@ -93,6 +94,7 @@ void GameFrame_34530_348F0()
 		break;
 	}
 	PlayQueuedSounds_55100_55630();
+	Mc1RegressionFrame(); // port: the regression test compares the state with DOSBox
 	DrawFrame_20FB0_20FB0();
 	// the ticks of the frame for 5A560, then the time of the frame
 	settings->frameTicks_0x99_153 = timerTicks_AC5D4_AC5C4 - settings->frameTicks_0x99_153;
