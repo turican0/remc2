@@ -134,6 +134,19 @@ void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int
 	}
 	renderGame = RenderGame::MC1;
 
+	// 31311: the blur switched on (and kept) when the wizard flies faster than 50h in the full view of 320x200,
+	// not in the views of 30D90 that return before it (VFX in 640, the screen sizes 1 and 2 without VFX)
+	const bool vfxView = state->vfx_0x219E_8606 && state->screenSize_0x219B_8603 && *screenWidth_12EFF0_12EFE0 == 0x280;
+	const bool sizeView = !state->vfx_0x219E_8606 && (state->screenSize_0x219B_8603 == 1 || state->screenSize_0x219B_8603 == 2);
+	if (!vfxView && !sizeView && *videoMode_12F02E_12F01E == 1)
+	{
+		const Type_Mc1Player_340B& player = state->players_0x340B_13323[state->currentPlayer_0x08_8];
+		const int16_t speed = state->entities_0x7463_29795[player.entityIndex_0x0A_10].word_0x7E_126;
+		if (!player.mode_0x44A_1098 && mc1Settings_AE408_AE3F8->fastCpu_0x08_8 && *blurBuffer_AE404_AE3F4
+			&& state->setting_0x2198_8600 == 0x28 && (speed < 0 ? -speed : speed) > 0x50)
+			state->blur_0x219C_8604 = 1;
+	}
+
 	// the tables B7934 have the layout of ColourLookupTable_F6EE0 (fades, blend 4000h, colours 14000h), the tiles 9334C
 	static_assert(sizeof(tables_B7934_B7924) == sizeof(ColourLookupTable_F6EE0), "the tables of MC1 and MC2");
 	memcpy(ColourLookupTable_F6EE0, &tables_B7934_B7924, sizeof(ColourLookupTable_F6EE0));

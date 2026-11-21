@@ -150,7 +150,7 @@ private:
 	int DrawnWidth() const { return m_largeScreen ? viewPort.Width_DE564 : viewPort.Width_DE564 & ~3; }
 	void DrawSky_40950(int16_t roll);
 	void DrawSkyRows(int firstRow, int endRow);
-	void BlendBlurBuffer(uint8_t* screen, const uint8_t* buffer, bool swapFirstGroup);
+	void BlendBlurBuffer(uint8_t* screen, const uint8_t* buffer, bool swapFirstGroup, bool swapAll);
 	void SmoothViewPort();
 	enum class TerrainProjection { Plain, Reflections, Cave };
 

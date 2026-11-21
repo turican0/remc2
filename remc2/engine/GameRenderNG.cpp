@@ -154,7 +154,7 @@ void GameRenderNG::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 			viewPort.SetRenderViewPortSize_BCD45(m_blurBuffer, 0, 0, 0);
 			DrawTerrainAndParticles_3C080(cameraX, cameraY, yawIndex, posZ, pitch, roll, fov);
 			viewPort.SetRenderViewPortSize_BCD45(screen, 0, 0, 0);
-			BlendBlurBuffer(screen, m_blurBuffer, world_D41A0.m_GameSettings.m_Display.xxxx_0x2191 == 1);
+			BlendBlurBuffer(screen, m_blurBuffer, world_D41A0.m_GameSettings.m_Display.xxxx_0x2191 == 1, RenderMc1() && world_D41A0.m_GameSettings.m_Display.xxxx_0x2191 == 1);
 		}
 		else
 		{
@@ -206,14 +206,15 @@ void GameRenderNG::SetScreenBuffers()
 
 // Screen pixel = blend of the new frame (blur buffer) and the screen, groups of 4 pixels of each line.
 // swapFirstGroup: the original builds the index of the first group of the first line as screen << 8 | buffer.
-void GameRenderNG::BlendBlurBuffer(uint8_t* screen, const uint8_t* buffer, bool swapFirstGroup)
+// swapFirstGroup: MC2 the old pixel * 256 + the new one only in the first 4, swapAll: MC1 31454 in all of them
+void GameRenderNG::BlendBlurBuffer(uint8_t* screen, const uint8_t* buffer, bool swapFirstGroup, bool swapAll)
 {
 	const int drawnWidth = DrawnWidth();
 	for (int row = 0; row < viewPort.Height_DE568; row++)
 	{
 		for (int column = 0; column < drawnWidth; column++)
 		{
-			const bool swap = swapFirstGroup && row == 0 && column < 4;
+			const bool swap = swapAll || (swapFirstGroup && row == 0 && column < 4);
 			const int index = swap ? screen[column] << 8 | buffer[column] : buffer[column] << 8 | screen[column];
 			screen[column] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + index];
 		}

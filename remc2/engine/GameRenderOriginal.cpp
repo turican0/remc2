@@ -165,6 +165,19 @@ void GameRenderOriginal::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_
 			v49 = iScreenWidth_DE560 - (unsigned __int16)viewPort.Width_DE564;
 			v50 = (unsigned __int16)viewPort.Height_DE568;
 			
+			if (RenderMc1() && world_D41A0.m_GameSettings.m_Display.xxxx_0x2191 == 1)
+			{
+				// MC1 31454: every pixel by the old one * 256 + the new one (MC2 only the first 4)
+				v37 = (x_BYTE*)ptrMemoryBuffer_E9C3C;
+				for (; v50; v50--)
+				{
+					for (int i = 0; i < 4 * v51; i++)
+						v35[i] = ColourLookupTable_F6EE0[COLOUR_BLEND_LOOKUP_OFFSET + ((uint8_t)v35[i] << 8 | (uint8_t)v37[i])];
+					v35 += 4 * v51 + v49;
+					v37 += 4 * v51 + v49;
+				}
+				goto LABEL_44;
+			}
 			if (world_D41A0.m_GameSettings.m_Display.xxxx_0x2191 != 1)
 			{
 				v37 = (x_BYTE*)ptrMemoryBuffer_E9C3C;
