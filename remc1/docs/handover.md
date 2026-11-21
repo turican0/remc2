@@ -34,8 +34,8 @@ State of the port on branch `magic-carpet-1` (2026-11-15) and how to continue. T
 - What is still missing in the game (stubs in `remc1/engine/Mc1NotPorted.cpp`, logged once when called):
   - the casting actions of the other spells (class 12: 56270, 56380, 566C0 ... 58240) and their class 9 / 11
     actions, the creature actions of the models not in level 1, the computer wizard (class 3 action 1, 13170);
-  - the frame of the cell under the joystick (24D20, 24DA0), the network players table on the map (22880), the debug
-    texts (5A560); the panel and the spell icons are in `Mc1Panel.cpp`;
+  - the network players table on the map (22880), the debug texts (5A560); the panel, the spell icons and the
+    frame of the joystick cell are in `Mc1Panel.cpp`;
   - the save / load in the game (3E690, 3E750, 3E7F0, 3E8C0 - they save the whole state with pointers, needs a pointer free shadow state like remc2
     `Convert_from_shadow_*`), the network, the VFX1 head tracker, the joystick calibration;
   - the motion blur by the speed in the renderers.
@@ -120,7 +120,7 @@ Python 3 and Git Bash; some scripts still have the paths of the original machine
 ## Where to continue (suggested order)
 
 1. Play level 1 in DOSBox with `dbxrecord.py`, replay it in the port and fix the first differing frame (bisect).
-2. 24D20 / 24DA0, 22880; listen to the sounds of the game (New game: `-custom` turns the sound off in the
+2. 22880; listen to the sounds of the game (New game: `-custom` turns the sound off in the
    original, so the recordings have none).
 3. The other spells and creatures (by the levels), the computer wizard 13170.
 4. Save / load with a shadow state.

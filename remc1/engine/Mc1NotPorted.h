@@ -196,8 +196,6 @@ void sub_43150_43490();
 void sub_438D0_43C10(uint16_t player, uint8_t* buffer, uint32_t size);
 void sub_43870_43BB0(uint16_t player, uint8_t* buffer, uint32_t size);
 // 20FB0: the icons and the spells
-void sub_24D20_24D20(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);
-void sub_24DA0_24DA0(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);
 void sub_22880_22880();
 void sub_5A560_5AA70();
 // 16B00: the game loaded (3E690 the state, 3E7F0 the maps) and saved (3E750, 3E8C0)

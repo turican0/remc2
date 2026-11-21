@@ -333,9 +333,9 @@ static void DrawSpells(Type_Mc1State_AE400_AE3F0* state, Type_Mc1Player_340B& pl
 		if (highlight && joystickFound_B7700_B76F0 && MouseInCell(x, y))
 		{
 			if (*videoMode_12F02E_12F01E & 1)
-				sub_24D20_24D20(x, y, spritesIndex[3].width_4, cellHeight, White());
+				FrameRect320_24D20_24D20(x, y, spritesIndex[3].width_4, cellHeight, White());
 			else
-				sub_24DA0_24DA0(x, y, spritesIndex[3].width_4, cellHeight, White());
+				FrameRect640_24DA0_24DA0(x, y, spritesIndex[3].width_4, cellHeight, White());
 		}
 		x += 0x40;
 		if (x >= 0x280)

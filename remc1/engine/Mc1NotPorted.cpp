@@ -383,8 +383,6 @@ void sub_43150_43490() { NotPorted(__func__); }
 void sub_438D0_43C10(uint16_t /*player*/, uint8_t* /*buffer*/, uint32_t /*size*/) { NotPorted(__func__); }
 void sub_43870_43BB0(uint16_t /*player*/, uint8_t* /*buffer*/, uint32_t /*size*/) { NotPorted(__func__); }
 // 20FB0: the icons and the spells
-void sub_24D20_24D20(int32_t /*x*/, int32_t /*y*/, int32_t /*width*/, int32_t /*height*/, int32_t /*color*/) { NotPorted(__func__); }
-void sub_24DA0_24DA0(int32_t /*x*/, int32_t /*y*/, int32_t /*width*/, int32_t /*height*/, int32_t /*color*/) { NotPorted(__func__); }
 void sub_22880_22880() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_5A560_5AA70() { NotPorted(__func__); }

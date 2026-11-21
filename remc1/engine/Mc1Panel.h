@@ -15,3 +15,6 @@ void DrawSpellIcon_23D40_23D40(int32_t x, int32_t y, Type_Mc1Entity* spell, int3
 void DrawSpellAbsent_23CF0_23CF0(int32_t x, int32_t y, int32_t model);
 // the spells mode: the cell of a got spell with its key, darkened without castle mana
 void DrawSpellCell_24230_24230(int32_t x, int32_t y, Type_Mc1Entity* spell, int32_t selected);
+// the frame of the cell under the joystick in the spells mode (320x200 / 640x480)
+void FrameRect320_24D20_24D20(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);
+void FrameRect640_24DA0_24DA0(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);

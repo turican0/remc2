@@ -374,3 +374,27 @@ void DrawSpellCell_24230_24230(int32_t x, int32_t y, Type_Mc1Entity* spell, int3
 	DrawSprite(x, y, spritesIndex[(int8_t)spell->model_0x41_65 + 6]);
 	DrawSpellKey(x, y, spell, owner, spritesIndex[3]);
 }
+
+// 24D20 / 24DA0 (61740 / 61810): the frame of the rectangle within 640x400 or 640x480 by four lines
+static void FrameRect(int32_t x, int32_t y, int32_t width, int32_t height, uint16_t color, bool low)
+{
+	if (width < 2 || height < 2 || x < 0 || x + width >= 0x280 || y < 0 || y + height >= (low ? 0x190 : 0x1E0))
+		return;
+	auto line = low ? DrawLine320_6B260_6B770 : DrawLine640_6B378_6B888;
+	width--;
+	height--;
+	line((int16_t)x, (int16_t)y, (int16_t)(x + width), (int16_t)y, color, 0);
+	line((int16_t)(x + width), (int16_t)y, (int16_t)(x + width), (int16_t)(y + height + 1), color, 0);
+	line((int16_t)x, (int16_t)(y + height), (int16_t)(x + width + 1), (int16_t)(y + height), color, 0);
+	line((int16_t)x, (int16_t)y, (int16_t)x, (int16_t)(y + height), color, 0);
+}
+
+void FrameRect320_24D20_24D20(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color)
+{
+	FrameRect(x, y, width, height, (uint16_t)color, true);
+}
+
+void FrameRect640_24DA0_24DA0(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color)
+{
+	FrameRect(x, y, width, height, (uint16_t)color, false);
+}
