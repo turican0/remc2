@@ -1,7 +1,6 @@
 #include "Mc1Frame.h"
 
 #include <cstdio>
-#include <cstdlib>
 #include <cstring>
 
 #include "Mc1Files.h"
