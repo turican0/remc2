@@ -539,6 +539,9 @@
     <ClCompile Include="..\remc1\engine\Mc1Castle.cpp">
       <Filter>Source Files\remc1</Filter>
     </ClCompile>
+    <ClCompile Include="..\remc1\engine\Mc1ComputerWizard.cpp">
+      <Filter>Source Files\remc1</Filter>
+    </ClCompile>
     <ClCompile Include="..\remc1\engine\Mc1Creatures.cpp">
       <Filter>Source Files\remc1</Filter>
     </ClCompile>
@@ -654,6 +657,9 @@
       <Filter>Header Files\remc1</Filter>
     </ClInclude>
     <ClInclude Include="..\remc1\engine\Mc1Castle.h">
+      <Filter>Header Files\remc1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\remc1\engine\Mc1ComputerWizard.h">
       <Filter>Header Files\remc1</Filter>
     </ClInclude>
     <ClInclude Include="..\remc1\engine\Mc1Creatures.h">
