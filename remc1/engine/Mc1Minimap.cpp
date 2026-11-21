@@ -11,7 +11,7 @@
 int16_t minimapRows_12C1F0_12C1E0[0x1E0][2];
 
 // 99B58: two palette colours of each player (the dots and the names)
-static const uint8_t playerColors_99B58_99B58[8][2] = {
+const uint8_t playerColors_99B58_99B58[8][2] = {
 	{ 0xB7, 0x71 }, { 0x7D, 0x7A }, { 0x9D, 0x9A }, { 0x07, 0x5A }, { 0x1D, 0x1B }, { 0xDD, 0xDA }, { 0x3C, 0x39 }, { 0x10, 0x0E },
 };
 

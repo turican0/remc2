@@ -9,6 +9,7 @@
 #include "Mc1Level.h"
 #include "Mc1Minimap.h"
 #include "Mc1NotPorted.h"
+#include "Mc1Panel.h"
 #include "Mc1Render.h"
 #include "Mc1Screen.h"
 #include "Mc1Shared.h"
@@ -167,9 +168,9 @@ static void DrawGame(Type_Mc1State_AE400_AE3F0* state, Type_Mc1Player_340B& play
 	{
 		// the spells of the two buttons: the slot (playerData + 3ACh / 3B0h) of the spell entities (+ 214h)
 		const uint8_t* playerData = wizard->playerData_0xA0_160;
-		sub_23D40_23D40(0x1FE, 2, &Entities()[ReadS32(playerData + 0x214 + ReadS16(playerData + 0x3AC) * 4)], 0);
-		sub_23D40_23D40(0x23E, 2, &Entities()[ReadS32(playerData + 0x214 + ReadS16(playerData + 0x3B0) * 4)], 0);
-		sub_22E50_22E50(wizard);
+		DrawSpellIcon_23D40_23D40(0x1FE, 2, &Entities()[ReadS32(playerData + 0x214 + ReadS16(playerData + 0x3AC) * 4)], 0);
+		DrawSpellIcon_23D40_23D40(0x23E, 2, &Entities()[ReadS32(playerData + 0x214 + ReadS16(playerData + 0x3B0) * 4)], 0);
+		DrawPlayerPanel_22E50_22E50(wizard);
 	}
 	SetFont_5A3C0_5A8D0(1);
 	if (settings->flags_0x00_0 & 0x200)
@@ -347,7 +348,7 @@ static void DrawSpells(Type_Mc1State_AE400_AE3F0* state, Type_Mc1Player_340B& pl
 	{
 		const int16_t index = ReadS16(playerData + 0x2A4 + spellOrder_99B88_99B88[settings->selectedSpell_0x16_22] * 2);
 		if (index > 0)
-			sub_23D40_23D40((int16_t)selectedX, (int16_t)selectedY, &Entities()[index], 1);
+			DrawSpellIcon_23D40_23D40((int16_t)selectedX, (int16_t)selectedY, &Entities()[index], 1);
 	}
 	DrawMap(state, player);
 }

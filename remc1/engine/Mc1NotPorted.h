@@ -202,8 +202,6 @@ void sub_438D0_43C10(uint16_t player, uint8_t* buffer, uint32_t size);
 void sub_43870_43BB0(uint16_t player, uint8_t* buffer, uint32_t size);
 void sub_55100_55630();
 // 20FB0: the icons and the spells
-void sub_23D40_23D40(int32_t x, int32_t y, Type_Mc1Entity* spell, int32_t selected);
-void sub_22E50_22E50(Type_Mc1Entity* wizard);
 void sub_24230_24230(int32_t x, int32_t y, Type_Mc1Entity* spell, int32_t a4);
 void sub_23CF0_23CF0(int32_t x, int32_t y, int32_t spell);
 void sub_24D20_24D20(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);

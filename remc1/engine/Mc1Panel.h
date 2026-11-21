@@ -1,0 +1,13 @@
+#pragma once
+
+#include <cstdint>
+
+#include "Mc1GameState.h"
+
+// MC1 frame icons (20FB0): the castle, balloons and wizard panel (22E50) and the spell icons (23D40)
+
+// the castle with its life, mana and size, the balloons, the wizard; the flashes of pd+187h..189h counted down
+void DrawPlayerPanel_22E50_22E50(Type_Mc1Entity* wizard);
+// the spell of the slot: the mana of the owner per cast, the charge, the key number (pd+34Ch flash), darkened
+// without castle mana
+void DrawSpellIcon_23D40_23D40(int32_t x, int32_t y, Type_Mc1Entity* spell, int32_t selected);

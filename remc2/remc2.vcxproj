@@ -492,6 +492,7 @@
     <ClInclude Include="..\remc1\engine\Mc1Frame.h" />
     <ClInclude Include="..\remc1\engine\Mc1Input.h" />
     <ClInclude Include="..\remc1\engine\Mc1Minimap.h" />
+    <ClInclude Include="..\remc1\engine\Mc1Panel.h" />
     <ClInclude Include="..\remc1\engine\Mc1Wizard.h" />
     <ClInclude Include="..\remc1\engine\Mc1Render.h" />
     <ClInclude Include="..\remc1\engine\Mc1PlayerEvents.h" />
@@ -634,6 +635,7 @@
     <ClCompile Include="..\remc1\engine\Mc1Frame.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Input.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Minimap.cpp" />
+    <ClCompile Include="..\remc1\engine\Mc1Panel.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Wizard.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Render.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1PlayerEvents.cpp" />
