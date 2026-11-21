@@ -884,3 +884,320 @@ Type_Mc1Entity* CreateClass09Model13_3A0C0_3A440(Type_Mc1Position* position)
 	SetSpriteDoubleBox_370A0_37460(entity, 0xC3);
 	return entity;
 }
+
+// the models that only take an entity (and leave it allocated, the original returns 0)
+static Type_Mc1Entity* AllocOnly()
+{
+	if (Type_Mc1Entity* entity = AllocEntity_372C0_37680())
+		ResetLife_36DE0_371A0(entity);
+	return nullptr;
+}
+
+// NewClass9 with an action other than the model
+static Type_Mc1Entity* NewClass9Action(Type_Mc1Position* position, uint8_t model, uint8_t action, int32_t range, int typeIndex)
+{
+	Type_Mc1Entity* entity = NewEntity(9, model, action);
+	if (!entity)
+		return nullptr;
+	entity->word_0x7E_126 = 0x180;
+	entity->word_0x80_128 = 0x180;
+	entity->maxLife_0x08_8 = range / entity->word_0x7E_126;
+	entity->mana_0x8C_140 = 0x32;
+	entity->typeParams_0x9C_156 = creatureTypes_98F38_98F38[typeIndex];
+	entity->flags_0x10_16 &= ~8u;
+	AddToMap_41CF0_42030(entity, position);
+	ResetLife_36DE0_371A0(entity);
+	return entity;
+}
+
+static Type_Mc1Entity* CreateClass9Sprite(Type_Mc1Position* position, uint8_t model, uint8_t action, int32_t range, int typeIndex, int16_t sprite)
+{
+	Type_Mc1Entity* entity = NewClass9Action(position, model, action, range, typeIndex);
+	if (entity)
+		SetSprite_36FA0_37360(entity, sprite);
+	return entity;
+}
+
+Type_Mc1Entity* CreateClass01Model01_37A80_37E40(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass01Model02_37AA0_37E60(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass01Model03_37AC0_37E80(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass01Model04_37AE0_37EA0(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass01Model05_37B00_37EC0(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass01Model06_37B20_37EE0(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass01Model07_37B40_37F00(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass01Model08_37B60_37F20(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass01Model09_37B80_37F40(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass01Model10_37BA0_37F60(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass06Model00_39800_39B80(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass06Model01_39820_39BA0(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass07Model00_39840_39BC0(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass07Model01_39860_39BE0(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass07Model02_39880_39C00(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass07Model03_398A0_39C20(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass08Model00_39940_39CC0(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass08Model01_39960_39CE0(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass08Model02_39980_39D00(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass08Model03_399A0_39D20(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass08Model04_399C0_39D40(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass08Model05_399E0_39D60(Type_Mc1Position* /*position*/)
+{
+	return AllocOnly();
+}
+
+Type_Mc1Entity* CreateClass07Model04_398C0_39C40(Type_Mc1Position* /*position*/)
+{
+	// not put on the map by the original
+	Type_Mc1Entity* entity = NewEntity(7, 4, 4);
+	if (!entity)
+		return nullptr;
+	entity->word_0x80_128 = 0x50;
+	entity->word_0x82_130 = 0x10;
+	entity->word_0x7E_126 = (int16_t)(entity->word_0x80_128 / 2);
+	NextRand(entity);
+	entity->word_0x22_34 = (int16_t)((entity->rand_0x04_4 & 0x7FF) - 1);
+	entity->word_0x1E_30 = entity->word_0x22_34;
+	entity->flags_0x10_16 &= ~8u;
+	ResetLife_36DE0_371A0(entity);
+	return entity;
+}
+
+Type_Mc1Entity* CreateClass09Model02_39B40_39EC0(Type_Mc1Position* position)
+{
+	return CreateClass9Sprite(position, 0x02, 0x02, 0x2000, 1, 0xD3);
+}
+
+Type_Mc1Entity* CreateClass09Model03_39BC0_39F40(Type_Mc1Position* position)
+{
+	return CreateClass9Sprite(position, 0x03, 0x03, 0x2000, 1, 0x4C);
+}
+
+Type_Mc1Entity* CreateClass09Model04_39C40_39FC0(Type_Mc1Position* position)
+{
+	return CreateClass9Sprite(position, 0x04, 0x04, 0x2000, 1, 0xD2);
+}
+
+Type_Mc1Entity* CreateClass09Model05_39CC0_3A040(Type_Mc1Position* position)
+{
+	return CreateClass9Sprite(position, 0x05, 0x05, 0x2000, 1, 0xD3);
+}
+
+Type_Mc1Entity* CreateClass09Model06_39D40_3A0C0(Type_Mc1Position* position)
+{
+	return CreateClass9Sprite(position, 0x06, 0x06, 0x2000, 1, 0xD4);
+}
+
+Type_Mc1Entity* CreateClass09Model07_39DC0_3A140(Type_Mc1Position* position)
+{
+	return CreateClass9Sprite(position, 0x07, 0x07, 0x2000, 1, 0xD5);
+}
+
+Type_Mc1Entity* CreateClass09Model08_39E40_3A1C0(Type_Mc1Position* position)
+{
+	return CreateClass9Sprite(position, 0x08, 0x08, 0x2000, 4, 0xD6);
+}
+
+Type_Mc1Entity* CreateClass09Model09_39EC0_3A240(Type_Mc1Position* position)
+{
+	return CreateClass9Sprite(position, 0x09, 0x09, 0xE00, 4, 0xD8);
+}
+
+Type_Mc1Entity* CreateClass09Model11_39FC0_3A340(Type_Mc1Position* position)
+{
+	return CreateClass9Sprite(position, 0x0B, 0x0B, 0x2000, 1, 0x119);
+}
+
+Type_Mc1Entity* CreateClass09Model12_3A040_3A3C0(Type_Mc1Position* position)
+{
+	return CreateClass9Sprite(position, 0x0C, 0x0C, 0x800, 1, 0xD8);
+}
+
+Type_Mc1Entity* CreateClass09Model18_3A390_3A710(Type_Mc1Position* position)
+{
+	return CreateClass9Sprite(position, 0x12, 0x13, 0x2000, 5, 0x2A);
+}
+
+Type_Mc1Entity* CreateClass09Model19_3A410_3A790(Type_Mc1Position* position)
+{
+	return CreateClass9Sprite(position, 0x13, 0x14, 0x2000, 5, 0x2A);
+}
+
+Type_Mc1Entity* CreateClass09Model16_3A270(Type_Mc1Position* position)
+{
+	return CreateClass9Sprite(position, 0x10, 0x11, 0x2000, 5, 0x2A);
+}
+
+Type_Mc1Entity* CreateClass09Model16Hw_3A5F0(Type_Mc1Position* position)
+{
+	// HW: the type 2 and the sprite 4Ch
+	return CreateClass9Sprite(position, 0x10, 0x11, 0x2000, 2, 0x4C);
+}
+
+Type_Mc1Entity* CreateClass09Model14_3A1A0_3A520(Type_Mc1Position* position)
+{
+	// the speed 80h, no mana and no type
+	Type_Mc1Entity* entity = NewEntity(9, 0x0E, 0x0F);
+	if (!entity)
+		return nullptr;
+	entity->word_0x7E_126 = 0x80;
+	entity->word_0x80_128 = 0x80;
+	entity->maxLife_0x08_8 = 0x1000 / entity->word_0x7E_126;
+	entity->flags_0x10_16 &= ~8u;
+	AddToMap_41CF0_42030(entity, position);
+	ResetLife_36DE0_371A0(entity);
+	SetSprite_36FA0_37360(entity, 0xC4);
+	return entity;
+}
+
+Type_Mc1Entity* CreateClass09Model15_3A210_3A590(Type_Mc1Position* position)
+{
+	// the life 50h, the speed 80h, no mana and no type
+	Type_Mc1Entity* entity = AllocEntity_372C0_37680();
+	if (!entity)
+		return nullptr;
+	entity->maxLife_0x08_8 = 0x50;
+	entity->actionIndex_0x46_70 = 0x10;
+	entity->class_0x40_64 = 9;
+	entity->model_0x41_65 = 0x0F;
+	entity->word_0x7E_126 = 0x80;
+	entity->word_0x80_128 = 0x80;
+	entity->flags_0x10_16 &= ~8u;
+	AddToMap_41CF0_42030(entity, position);
+	ResetLife_36DE0_371A0(entity);
+	SetSprite_36FA0_37360(entity, 0xD7);
+	return entity;
+}
+
+Type_Mc1Entity* CreateClass09Model17_3A2F0_3A670(Type_Mc1Position* position)
+{
+	// the box twice the sprite
+	Type_Mc1Entity* entity = NewClass9Action(position, 0x11, 0x12, 0x1000, 2);
+	if (!entity)
+		return nullptr;
+	SetSprite_36FA0_37360(entity, 0xD1);
+	SetBox_37130_374F0(entity, (int16_t)(entity->box_0x4E_78[1] * 2), (int16_t)(entity->box_0x4E_78[3] * 2));
+	return entity;
+}
+
+Type_Mc1Entity* CreateClass13Model00_3C4B0_3C7F0(Type_Mc1Position* /*position*/)
+{
+	Type_Mc1Entity* entity = NewEntity(0x0D, 0, 0);
+	if (!entity)
+		return nullptr;
+	entity->flags_0x10_16 &= 1;
+	ResetLife_36DE0_371A0(entity);
+	return entity;
+}
+
+Type_Mc1Entity* CreateClass13Model01_3C4E0_3C820(Type_Mc1Position* /*position*/)
+{
+	Type_Mc1Entity* entity = NewEntity(0x0D, 1, 1);
+	if (!entity)
+		return nullptr;
+	entity->flags_0x10_16 &= 1;
+	ResetLife_36DE0_371A0(entity);
+	return entity;
+}
+
+Type_Mc1Entity* CreateClass13Model02_3C510_3C850(Type_Mc1Position* /*position*/)
+{
+	Type_Mc1Entity* entity = NewEntity(0x0D, 2, 2);
+	if (!entity)
+		return nullptr;
+	entity->flags_0x10_16 &= 1;
+	ResetLife_36DE0_371A0(entity);
+	return entity;
+}
+
+Type_Mc1Entity* CreateClass13Model03_3C540_3C880(Type_Mc1Position* /*position*/)
+{
+	Type_Mc1Entity* entity = NewEntity(0x0D, 3, 3);
+	if (!entity)
+		return nullptr;
+	entity->flags_0x10_16 &= 1;
+	ResetLife_36DE0_371A0(entity);
+	return entity;
+}
