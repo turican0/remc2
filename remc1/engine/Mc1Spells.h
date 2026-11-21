@@ -29,7 +29,7 @@ void HomeTo_52550_52890(Type_Mc1Entity* projectile, Type_Mc1Entity* target);
 void CountHit_526C0(Type_Mc1Entity* projectile, Type_Mc1Entity* hit, Type_Mc1Entity* target);
 uint32_t AimValue_54A90_54FC0(Type_Mc1Entity* projectile, Type_Mc1Entity* target, uint16_t maxYaw, uint16_t maxPitch);
 uint32_t AimValueCastle_54BD0_55100(Type_Mc1Entity* projectile, Type_Mc1Entity* target, uint16_t maxYaw, uint16_t maxPitch);
-int32_t FindTarget_54520(Type_Mc1Entity* projectile);
+int32_t FindTarget_54520_548B0(Type_Mc1Entity* projectile);
 Type_Mc1Entity* FindHit_11980_11980(Type_Mc1Entity* projectile);
 Type_Mc1Entity* FindHitMana_11AC0_11AC0(Type_Mc1Entity* projectile);
 void Fireball_52B30_52E70(Type_Mc1Entity* projectile);

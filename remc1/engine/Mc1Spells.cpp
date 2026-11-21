@@ -642,10 +642,11 @@ template <typename Filter, typename Value> static void BestAimed(Type_Mc1Entity*
 	}
 }
 
-//!!!!! MC1 only: HW 548B0 differs, not ported yet
-int32_t FindTarget_54520(Type_Mc1Entity* projectile)
+int32_t FindTarget_54520_548B0(Type_Mc1Entity* projectile)
 {
 	// the target of the projectile by its model: wizards and castles in the range, creatures (byte_0x3A), mana, buildings
+	// HW 548B0: the model 10h has its own case, the yaw up to 100h
+	const uint16_t maxYaw = mc1Variant == MC1_VARIANT_HW && projectile->model_0x41_65 == 0x10 ? 0x100 : 0x71;
 	if (projectile->word_0x1A_26 > 0x10)
 		projectile->word_0x1A_26 = 0x10;
 	Type_Mc1Entity** lists = mc1Settings_AE408_AE3F8->entityLists_0x8E1A_36378;
@@ -660,10 +661,10 @@ int32_t FindTarget_54520(Type_Mc1Entity* projectile)
 	const auto notOwn = [projectile](Type_Mc1Entity* entity) {
 		return (int32_t)entity->owner_0x90_144 != (int32_t)(int16_t)projectile->id_0x18_24 && entity->byte_0x3A_58;
 	};
-	const auto aimWizard = [projectile](Type_Mc1Entity* wizard) {
-		return wizard->model_0x41_65 == 2 ? AimValueCastle_54BD0_55100(projectile, wizard, 0x71, 0x71) : AimValue_54A90_54FC0(projectile, wizard, 0x71, 0x71);
+	const auto aimWizard = [projectile, maxYaw](Type_Mc1Entity* wizard) {
+		return wizard->model_0x41_65 == 2 ? AimValueCastle_54BD0_55100(projectile, wizard, maxYaw, 0x71) : AimValue_54A90_54FC0(projectile, wizard, maxYaw, 0x71);
 	};
-	const auto aim = [projectile](Type_Mc1Entity* entity) { return AimValue_54A90_54FC0(projectile, entity, 0x71, 0x71); };
+	const auto aim = [projectile, maxYaw](Type_Mc1Entity* entity) { return AimValue_54A90_54FC0(projectile, entity, maxYaw, 0x71); };
 	const auto aimLow = [projectile](Type_Mc1Entity* entity) { return AimValue_54A90_54FC0(projectile, entity, 0x71, 0x200); };
 	const uint32_t ownerRange = (uint32_t)(int32_t)ReadS16(Entities()[(int16_t)projectile->id_0x18_24].typeParams_0x9C_156 + 0x1C);
 	switch (projectile->model_0x41_65)
@@ -782,7 +783,7 @@ void Fireball_52B30_52E70(Type_Mc1Entity* projectile)
 	else if (!(projectile->flags_0x10_16 & 2))
 	{
 		projectile->flags_0x10_16 |= 2;
-		if (FindTarget_54520(projectile))
+		if (FindTarget_54520_548B0(projectile))
 		{
 			int32_t turn = AngleDistance_42210_42550((uint16_t)projectile->word_0x1E_30, (uint16_t)projectile->word_0x22_34);
 			if ((int16_t)turn < 0)
@@ -864,7 +865,7 @@ void Possession_52ED0_53210(Type_Mc1Entity* projectile)
 	else if (!(projectile->flags_0x10_16 & 2))
 	{
 		projectile->flags_0x10_16 |= 2;
-		if (FindTarget_54520(projectile))
+		if (FindTarget_54520_548B0(projectile))
 		{
 			projectile->word_0x1E_30 = projectile->word_0x22_34;
 			projectile->word_0x20_32 = projectile->word_0x24_36;
@@ -1409,13 +1410,13 @@ static uint16_t IndexOf(const Type_Mc1Entity* entity)
 	return (uint16_t)EntityIndex(entity);
 }
 
-// the first frame: the target found by 54520 (its yaw and pitch taken) or the own angles kept as the wanted ones
+// the first frame: the target found by 54520 / 548B0 (its yaw and pitch taken) or the own angles kept as the wanted ones
 static void ProjectileStart(Type_Mc1Entity* projectile, bool keepOwn)
 {
 	if (projectile->flags_0x10_16 & 2)
 		return;
 	projectile->flags_0x10_16 |= 2;
-	if (FindTarget_54520(projectile))
+	if (FindTarget_54520_548B0(projectile))
 	{
 		projectile->word_0x1E_30 = projectile->word_0x22_34;
 		projectile->word_0x20_32 = projectile->word_0x24_36;
