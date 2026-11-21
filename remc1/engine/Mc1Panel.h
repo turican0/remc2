@@ -11,3 +11,7 @@ void DrawPlayerPanel_22E50_22E50(Type_Mc1Entity* wizard);
 // the spell of the slot: the mana of the owner per cast, the charge, the key number (pd+34Ch flash), darkened
 // without castle mana
 void DrawSpellIcon_23D40_23D40(int32_t x, int32_t y, Type_Mc1Entity* spell, int32_t selected);
+// the spells mode: a spell not got (the shape of its icon over the cell)
+void DrawSpellAbsent_23CF0_23CF0(int32_t x, int32_t y, int32_t model);
+// the spells mode: the cell of a got spell with its key, darkened without castle mana
+void DrawSpellCell_24230_24230(int32_t x, int32_t y, Type_Mc1Entity* spell, int32_t selected);

@@ -321,13 +321,13 @@ static void DrawSpells(Type_Mc1State_AE400_AE3F0* state, Type_Mc1Player_340B& pl
 			}
 			else
 			{
-				sub_24230_24230(x, y, entity, 0);
+				DrawSpellCell_24230_24230(x, y, entity, 0);
 				highlight = true;
 			}
 		}
 		else
 		{
-			sub_23CF0_23CF0(x, y, spell);
+			DrawSpellAbsent_23CF0_23CF0(x, y, spell);
 			highlight = true;
 		}
 		if (highlight && joystickFound_B7700_B76F0 && MouseInCell(x, y))

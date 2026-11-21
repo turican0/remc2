@@ -20,13 +20,17 @@ State of the port on branch `magic-carpet-1` (2026-11-15) and how to continue. T
 - Level 1 (index 0, also New game) against DOSBox: without input identical for 3000 frames (the wizard is killed by
   the creatures and lies dead); with a synthetic input (flight, all spells by the cheat command, fireball,
   possession, the castle spell: the castle built and grown, its balloon and guards, fires, burning trees) identical
-  up to at least frame 1626 (entities, players, terrain maps). Ported for it: the creatures (`Mc1Creatures.cpp`),
+  up to frame 2999 (entities, players, terrain maps, the 320x200 screen); a random input of 8000 frames (seed 7: the
+  castle destroyed and rebuilt, falling buildings, the creatures from the buildings) and of 12000 frames (seed 11)
+  identical at their ends; with the spells grid, the map and the keys of the spells (4000 frames) too. Only the mark
+  of the mouse on the map of the spells grid differs (the mouse position is not in the recording). Ported for it: the creatures (`Mc1Creatures.cpp`),
   the castle (`Mc1Castle.cpp`), the spells of level 1 and their projectiles (`Mc1Spells.cpp`), the class 10
   effects (`Mc1SceneryActions.cpp`), the wizard death 45FC0 / 46480, the level won check 415C0.
 - What is still missing in the game (stubs in `remc1/engine/Mc1NotPorted.cpp`, logged once when called):
   - the casting actions of the other spells (class 12: 56270, 56380, 566C0 ... 58240) and their class 9 / 11
     actions, the creature actions of the models not in level 1, the computer wizard (class 3 action 1, 13170);
-  - the icons of the frame (23D40, 22E50, 24230, 23CF0, 24D20, 24DA0, 22880), the frame end texts (5A560);
+  - the frame of the cell under the joystick (24D20, 24DA0), the network players table on the map (22880), the debug
+    texts (5A560); the panel and the spell icons are in `Mc1Panel.cpp`;
   - the sounds of the game (55370, 55890, 20D00, 55100 the sound channels), the save / load in the game (3E690,
     3E750, 3E7F0, 3E8C0 - they save the whole state with pointers, needs a pointer free shadow state like remc2
     `Convert_from_shadow_*`), the network, the VFX1 head tracker, the joystick calibration;
@@ -35,7 +39,7 @@ State of the port on branch `magic-carpet-1` (2026-11-15) and how to continue. T
   the port plays it with the env `REMC1_PLAY=<file>`; DOSBox plays it too (`dbxrecord.py ... play`), so the state can
   be dumped at any frame in both (DOSBox `REMC1_DUMP` at 20FB0 with `REMC1_DUMP_HIT=<frame>`, the port with a
   temporary hook before DrawFrame_20FB0) and compared (entities state+7463h, players state+340Bh, the maps CC1E0,
-  DC1E0, FC1E0). The input can also be generated: the command 30 with param 1 gives all spells, 21 / 22 select the
+  DC1E0, FC1E0; the work screen is at linear 6D080h, 320x200 in the default video mode 1). The input can also be generated: the command 30 with param 1 gives all spells, 21 / 22 select the
   spells of the buttons, the buttons 1 forward, 2 back, 4 / 8 aside, 10h / 20h the spells, moveX / moveY the mouse.
 
 ## Where things are
@@ -112,7 +116,7 @@ Python 3 and Git Bash; some scripts still have the paths of the original machine
 ## Where to continue (suggested order)
 
 1. Play level 1 in DOSBox with `dbxrecord.py`, replay it in the port and fix the first differing frame (bisect).
-2. The icons of the frame (23D40, 22E50 ...) and 5A560; the sounds (55370 ...).
+2. The sounds (55370 ...); 24D20 / 24DA0, 22880.
 3. The other spells and creatures (by the levels), the computer wizard 13170.
 4. Save / load with a shadow state.
 5. HW renderer: compare visually (a GPU frame cannot be dumped), the motion blur.

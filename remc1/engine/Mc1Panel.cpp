@@ -290,6 +290,34 @@ void DrawPlayerPanel_22E50_22E50(Type_Mc1Entity* wizard)
 	}
 }
 
+// 23D40 / 24230: the key of the spell, in another mode or while pd+34Ch (by the model) counts down; darkened while the
+// castle has less mana than the spell needs (dword_0x84)
+static void DrawSpellKey(int32_t x, int32_t y, Type_Mc1Entity* spell, Type_Mc1Entity* owner, const bitmap_pos_struct_t& cell)
+{
+	uint8_t* playerData = owner->playerData_0xA0_160;
+	Type_Mc1Player_340B& ownerPlayer = mc1State_AE400_AE3F0->players_0x340B_13323[ReadS16(playerData + 0x30)];
+	if (ownerPlayer.mode_0x44A_1098 || (int8_t)playerData[0x34C + (int8_t)spell->model_0x41_65] > 0)
+	{
+		playerData[0x34C + (int8_t)spell->model_0x41_65]--;
+		for (int32_t key = 0; key < 10; key++)
+		{
+			const int8_t slot = (int8_t)playerData[0x304 + key];
+			if (slot == -1)
+				continue;
+			if (&Entities()[ReadS32(playerData + 0x214 + slot * 4)] != spell)
+				continue;
+			BlendSprite(x, y, spritesIndex[key + 0x1E], colorLookup_AD168_AD158[0]);
+			break;
+		}
+	}
+	if (spell->dword_0x84_132)
+	{
+		const uint16_t castle = ReadU16(playerData + 0x32);
+		if (!castle || spell->dword_0x84_132 > Entities()[castle].mana_0x8C_140)
+			FadeRect(x, y, cell.width_4, cell.height_5, 0x30);
+	}
+}
+
 void DrawSpellIcon_23D40_23D40(int32_t x, int32_t y, Type_Mc1Entity* spell, int32_t selected)
 {
 	if (spell <= Entities())
@@ -319,28 +347,30 @@ void DrawSpellIcon_23D40_23D40(int32_t x, int32_t y, Type_Mc1Entity* spell, int3
 	// the charge of the spell
 	if (spell->byte_0x3E_62 && (int8_t)spell->byte_0x3D_61 > 0)
 		FillRect(x + 4, y + 0x24, (int8_t)spell->byte_0x3D_61 * 0x37 / (int8_t)spell->byte_0x3E_62, 4, colorLookup_AD168_AD158[0xF0]);
-	// the key of the spell, in another mode or while pd+34Ch (by the model) counts down
-	uint8_t* playerData = owner->playerData_0xA0_160;
-	Type_Mc1Player_340B& ownerPlayer = mc1State_AE400_AE3F0->players_0x340B_13323[ReadS16(playerData + 0x30)];
-	if (ownerPlayer.mode_0x44A_1098 || (int8_t)playerData[0x34C + (int8_t)spell->model_0x41_65] > 0)
-	{
-		playerData[0x34C + (int8_t)spell->model_0x41_65]--;
-		for (int32_t key = 0; key < 10; key++)
-		{
-			const int8_t slot = (int8_t)playerData[0x304 + key];
-			if (slot == -1)
-				continue;
-			if (&Entities()[ReadS32(playerData + 0x214 + slot * 4)] != spell)
-				continue;
-			BlendSprite(x, y, spritesIndex[key + 0x1E], colorLookup_AD168_AD158[0]);
-			break;
-		}
-	}
-	// darkened while the castle has less mana than the spell needs (dword_0x84)
-	if (spell->dword_0x84_132)
-	{
-		const uint16_t castle = ReadU16(playerData + 0x32);
-		if (!castle || spell->dword_0x84_132 > Entities()[castle].mana_0x8C_140)
-			FadeRect(x, y, spritesIndex[1].width_4, spritesIndex[1].height_5, 0x30);
-	}
+	DrawSpellKey(x, y, spell, owner, spritesIndex[1]);
+}
+
+void DrawSpellAbsent_23CF0_23CF0(int32_t x, int32_t y, int32_t model)
+{
+	BlendSprite(x, y, spritesIndex[3], -1);
+	BlendSprite(x, y, spritesIndex[model + 6], 0xA6);
+}
+
+void DrawSpellCell_24230_24230(int32_t x, int32_t y, Type_Mc1Entity* spell, int32_t selected)
+{
+	if (spell <= Entities())
+		return;
+	SetFont_5A3C0_5A8D0(1);
+	Type_Mc1Entity* owner = &Entities()[spell->word_0x2A_42];
+	if (owner <= Entities())
+		return;
+	if (spell->word_0x30_48 < 0x40 && spell->word_0x30_48 && spell->word_0x32_50 > 0x40 && mc1Settings_AE408_AE3F8->colorIndex_0x5D_93[1])
+		return;
+	const bitmap_pos_struct_t& back = spritesIndex[spell->word_0x30_48 ? 4 : 3];
+	if (selected)
+		DrawSprite(x, y, back);
+	else
+		BlendSprite(x, y, back, -1);
+	DrawSprite(x, y, spritesIndex[(int8_t)spell->model_0x41_65 + 6]);
+	DrawSpellKey(x, y, spell, owner, spritesIndex[3]);
 }
