@@ -125,7 +125,7 @@ constexpr uint32_t mapsAt = settingsAt + mc1RegressionSettingsSize;
 constexpr uint32_t dosEntities = 0x26AF3;
 
 // the bytes not compared: the pointers of the entities (next, typeParams, playerData), the movie handle and the
-// heap of the settings
+// heap of the settings, tmapsLoaded (set by the 3D view only: the references are made without it)
 static bool Ignored(uint32_t i)
 {
 	if (i >= entitiesAt && i < playersAt)
@@ -136,7 +136,7 @@ static bool Ignored(uint32_t i)
 	if (i >= settingsAt && i < mapsAt)
 	{
 		const uint32_t offset = i - settingsAt;
-		return (offset >= 0x09 && offset < 0x0D) || (offset >= 0xA8 && offset < 0xAC);
+		return (offset >= 0x09 && offset < 0x0D) || offset == 0x95 || (offset >= 0xA8 && offset < 0xAC);
 	}
 	return false;
 }
