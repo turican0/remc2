@@ -10,6 +10,7 @@
 #include "Mc1Files.h"
 #include "Mc1Graphics.h"
 #include "Mc1Install.h"
+#include "Mc1Entity.h"
 #include "Mc1EntityTables.h"
 #include "Mc1Level.h"
 #include "Mc1PlayerEvents.h"
@@ -494,8 +495,11 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 	mc1EntityCount = asOriginal ? 1000 : (std::min)((std::max)(mc1EntityLimit, 1000), 32767);
 	// port: and only with the recorded input, the real keyboard, mouse and joystick ignored
 	sdlInputLocked = asOriginal;
-	mc1Entities = mc1EntityCount == 1000 ? state->entities_0x7463_29795
-		: (Type_Mc1Entity*)Malloc_42540_42880(mc1EntityCount * sizeof(Type_Mc1Entity));
+	// port: 10000h of them, so the index of a missing entity (FC3Ah) reads a zero entity as in DOS
+	mc1Entities = (Type_Mc1Entity*)Malloc_42540_42880(0x10000 * sizeof(Type_Mc1Entity));
+	ResetDosAddressZero();
+	mc1Entities[mc1MissingEntityIndex].typeParams_0x9C_156 = DosAddressZero(); // its zero pointers: DOS address 0
+	mc1Entities[mc1MissingEntityIndex].playerData_0xA0_160 = DosAddressZero();
 	for (uint8_t& option_ : state->options_0x21AD_8621)
 		option_ = 1;
 	DetectCpu_19470_19470();

@@ -36,6 +36,9 @@ static Type_Mc1Entity* Entities()
 
 static uint16_t EntityIndex(const Type_Mc1Entity* entity)
 {
+	// the wizard at DOS address 0 (no free entity): (0 - 26AF3h) / A4h
+	if (entity == EntityAtAddressZero())
+		return mc1MissingEntityIndex;
 	return (uint16_t)(entity - Entities());
 }
 
@@ -643,8 +646,8 @@ void CreatePlayerWizard_44D30_45070(Type_Mc1Player_340B* player, Type_Mc1Entity*
 		created = true;
 		//!!!!! no free entity (the levels 17 and 39 fill all 1000): the original goes on with a wizard at DOS address 0
 		//!!!!! and the entity index FC3Ah (the interrupt table overwritten)
-		if (!wizard) // port: the player stays without a wizard
-			return;
+		if (!wizard)
+			wizard = EntityAtAddressZero();
 	}
 	else
 	{

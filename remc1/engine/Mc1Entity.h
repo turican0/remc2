@@ -11,6 +11,12 @@ extern uint8_t creatureTypes_98F38_98F38[31][32]; // the records of typeParams_0
 extern uint8_t playerData_B7330_B7320[0xF0 * 4]; // playerData_0xA0 of the new entities
 extern const uint8_t frameCounts_90AD8_90AD8[42]; // by the kind of the sprite
 
+// port: a missing entity (no free one): the original writes to DOS address 0 and stores the index FC3Ah
+// ((0 - 26AF3h) / A4h), which reads the zero memory at 26AF3h + FC3Ah * A4h
+constexpr uint16_t mc1MissingEntityIndex = 0xFC3A;
+Type_Mc1Entity* EntityAtAddressZero();
+uint8_t* DosAddressZero();
+void ResetDosAddressZero();
 void InitEntities_371C0_37580();
 void RebuildFreeLists_37220_375E0();
 Type_Mc1Entity* AllocEntity_372C0_37680();

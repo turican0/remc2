@@ -34,7 +34,15 @@ State of the port on branch `magic-carpet-1` (2026-11-15) and how to continue. T
   computer wizard), 4, 8, 14 and 20 (entities, players, maps, the screen; level 20 one sprite of the 3D view differs
   in 164 pixels) and in HW levels 0 and 12 (the state).
   The levels 17 and 39 fill all 1000 entities while loading: the original goes on with the wizard of player 0 at
-  DOS address 0 (entity index FC3Ah), the port leaves the player without a wizard (marked `//!!!!!`).
+  DOS address 0 and the entity index FC3Ah (marked `//!!!!!`). The port does the same: `EntityAtAddressZero` lies on
+  a copy of the DOS memory 0-FFFh (the interrupt table as in DOSBox, `ResetDosAddressZero`), the entities are
+  allocated for 10000h indexes and the index FC3Ah reads a zero entity whose pointers point to that copy.
+- The number of the entities: `mc1EntityLimit` in `config.json` (game, also in the configurator), 1000 the original,
+  default and at most 32767 (int16 indexes). `mc1Entities` / `mc1EntityCount` (not the array of the state); the
+  slots over 1000 have their own free list taken only when the original has no free and no reusable entity, so up to
+  1000 entities nothing changes. The regression tests and `REMC1_PLAY` always run with 1000 and without the real
+  keyboard, mouse and joystick (`sdlInputLocked`; dosbox-x-remc1 drops them with `REMC1_PLAY` / `REMC1_DUMP`).
+  The save of the game (not ported yet) should keep the original format while only the slots under 1000 are used.
 - The sounds of the game (`Mc1Sound.cpp`: 55370 the requests by the distance and the angle, 55100, the fades of the
   flight loops, 20D00 the music of the danger) run only without `-custom`; checked only that they leave the state
   equal to DOSBox (forced on) and queue sensible requests, not by listening.
@@ -43,7 +51,6 @@ State of the port on branch `magic-carpet-1` (2026-11-15) and how to continue. T
     the map (22880, checked with the mouse poked to the bottom) are in `Mc1Panel.cpp`;
   - the save / load in the game (3E690, 3E750, 3E7F0, 3E8C0 - they save the whole state with pointers, needs a pointer free shadow state like remc2
     `Convert_from_shadow_*`), the network, the VFX1 head tracker, the joystick calibration;
-  - the motion blur by the speed in the renderers.
 - Regression tests of MC1 and HW (in remc2-regression-test with the MC2 ones, own folders):
   `memimages/regressions-mc1/level<NNN>` and `memimages/regressions-mc1hw/level<NNN>` (NNN = the level + 1), each with
   `input.rec` (the input of player 0, 10 bytes a frame) and `reference.binz` (the state of DOSBox every 100 frames:
@@ -52,7 +59,10 @@ State of the port on branch `magic-carpet-1` (2026-11-15) and how to continue. T
   `--mc1hw N` runs one (`Mc1Regression.cpp` compares before DrawFrame_20FB0 and ends by End_thread), without a
   selection they run in parallel with the MC2 tests. `remc1/tools/mkregression.py <mc1|mc1hw> <levels...>` makes them
   (dosbox-x-remc1 `REMC1_DUMP_EVERY`, then `remc2-regression-test --pack_mc1`); the input is a random flight with all
-  spells (the cheat commands 30), `--input idle` only joins the player. The build copies `config.json` to
+  spells (the cheat commands 30), `--input idle` only joins the player; `--seed`, `--spells` choose the input,
+  `--no_render` runs the original without the 3D view (needed for HW: HIDDEN.EXE overwrites its tmap cache and
+  divides by a frame of height 0; the test ignores settings +95h, set by the 3D view only). A crashed original gives
+  no reference. All 50 MC1 levels and 25 HW levels match DOSBox for 2000 frames. The build copies `config.json` to
   `x64/Release`, so no build while tests of the port run.
 - Verification of a played game: `remc1/tools/dbxrecord.py <level> <file>` records the input of player 0 in DOSBox,
   the port plays it with the env `REMC1_PLAY=<file>`; DOSBox plays it too (`dbxrecord.py ... play`), so the state can

@@ -186,11 +186,13 @@ static void LogDifferences(const std::vector<uint8_t>& expected, const std::vect
 {
 	int shown = 0;
 	uint32_t count = 0;
+	uint32_t parts[5] = {}; // rand, entities, players, settings, maps
 	for (uint32_t i = 0; i < mc1RegressionRecordSize; i++)
 	{
 		if (Ignored(i) || expected[i] == live[i])
 			continue;
 		count++;
+		parts[i < entitiesAt ? 0 : i < playersAt ? 1 : i < settingsAt ? 2 : i < mapsAt ? 3 : 4]++;
 		if (shown >= 16)
 			continue;
 		shown++;
@@ -211,7 +213,8 @@ static void LogDifferences(const std::vector<uint8_t>& expected, const std::vect
 		}
 		Logger->error("MC1 regression frame {}: {} DOSBox {:02X} port {:02X}", frame, text, expected[i], live[i]);
 	}
-	Logger->error("MC1 regression frame {}: {} bytes differ", frame, count);
+	Logger->error("MC1 regression frame {}: {} bytes differ (rand {}, entities {}, players {}, settings {}, maps {})", frame, count,
+		parts[0], parts[1], parts[2], parts[3], parts[4]);
 }
 
 void Mc1RegressionFrame()
