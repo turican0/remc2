@@ -28,13 +28,15 @@ State of the port on branch `magic-carpet-1` (2026-11-15) and how to continue. T
   statistics, then level 2 loads) match too; level 2 then differs by its creatures that are not ported. Ported for it: the creatures (`Mc1Creatures.cpp`),
   the castle (`Mc1Castle.cpp`), the spells of level 1 and their projectiles (`Mc1Spells.cpp`), the class 10
   effects (`Mc1SceneryActions.cpp`), the wizard death 45FC0 / 46480, the level won check 415C0.
+- The sounds of the game (`Mc1Sound.cpp`: 55370 the requests by the distance and the angle, 55100, the fades of the
+  flight loops, 20D00 the music of the danger) run only without `-custom`; checked only that they leave the state
+  equal to DOSBox (forced on) and queue sensible requests, not by listening.
 - What is still missing in the game (stubs in `remc1/engine/Mc1NotPorted.cpp`, logged once when called):
   - the casting actions of the other spells (class 12: 56270, 56380, 566C0 ... 58240) and their class 9 / 11
     actions, the creature actions of the models not in level 1, the computer wizard (class 3 action 1, 13170);
   - the frame of the cell under the joystick (24D20, 24DA0), the network players table on the map (22880), the debug
     texts (5A560); the panel and the spell icons are in `Mc1Panel.cpp`;
-  - the sounds of the game (55370, 55890, 20D00, 55100 the sound channels), the save / load in the game (3E690,
-    3E750, 3E7F0, 3E8C0 - they save the whole state with pointers, needs a pointer free shadow state like remc2
+  - the save / load in the game (3E690, 3E750, 3E7F0, 3E8C0 - they save the whole state with pointers, needs a pointer free shadow state like remc2
     `Convert_from_shadow_*`), the network, the VFX1 head tracker, the joystick calibration;
   - the motion blur by the speed in the renderers.
 - Verification of a played game: `remc1/tools/dbxrecord.py <level> <file>` records the input of player 0 in DOSBox,
@@ -118,7 +120,8 @@ Python 3 and Git Bash; some scripts still have the paths of the original machine
 ## Where to continue (suggested order)
 
 1. Play level 1 in DOSBox with `dbxrecord.py`, replay it in the port and fix the first differing frame (bisect).
-2. The sounds (55370 ...); 24D20 / 24DA0, 22880.
+2. 24D20 / 24DA0, 22880; listen to the sounds of the game (New game: `-custom` turns the sound off in the
+   original, so the recordings have none).
 3. The other spells and creatures (by the levels), the computer wizard 13170.
 4. Save / load with a shadow state.
 5. HW renderer: compare visually (a GPU frame cannot be dumped), the motion blur.
