@@ -18,3 +18,5 @@ void DrawSpellCell_24230_24230(int32_t x, int32_t y, Type_Mc1Entity* spell, int3
 // the frame of the cell under the joystick in the spells mode (320x200 / 640x480)
 void FrameRect320_24D20_24D20(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);
 void FrameRect640_24DA0_24DA0(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);
+// the map: the table of the players with their kills of each other (the mouse at the bottom)
+void DrawPlayersTable_22880_22880();

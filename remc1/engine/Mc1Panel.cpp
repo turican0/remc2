@@ -1,5 +1,6 @@
 #include "Mc1Panel.h"
 
+#include <cstdio>
 #include <cstring>
 
 #include "Mc1Blocks.h"
@@ -397,4 +398,51 @@ void FrameRect320_24D20_24D20(int32_t x, int32_t y, int32_t width, int32_t heigh
 void FrameRect640_24DA0_24DA0(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color)
 {
 	FrameRect(x, y, width, height, (uint16_t)color, false);
+}
+
+void DrawPlayersTable_22880_22880()
+{
+	// the table of the active players in the middle of the map: a row a player with its name and mana (sprite 85), a
+	// column of the kills (pd+1Eh) for each of the 8 players (sprite 86); the width counts only the active players
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	SetFont_5A3C0_5A8D0(1);
+	int32_t count = 0;
+	for (int32_t i = 0; i < state->playerCount_0x0A_10; i++)
+		if (state->players_0x340B_13323[i].active_0x06_6)
+			count++;
+	const bitmap_pos_struct_t& head = spritesIndex[85];
+	const bitmap_pos_struct_t& cell = spritesIndex[86];
+	const int32_t x0 = (0x280 - (cell.width_4 * count + head.width_4)) / 2;
+	int32_t y = ((*videoMode_12F02E_12F01E == 1 ? 0x190 : 0x1E0) - head.height_5 * count) / 2;
+	char text[0x100];
+	for (int32_t row = 0; row < state->playerCount_0x0A_10; row++)
+	{
+		Type_Mc1Player_340B& player = state->players_0x340B_13323[row];
+		if (player.active_0x06_6 != 1)
+			continue;
+		Type_Mc1Entity* wizard = &Entities()[player.entityIndex_0x0A_10];
+		int32_t x = x0;
+		DrawSprite(x, y, head);
+		FillRect(x + 4, y + 4, head.width_4 - 8, head.height_5 - 8, playerColors_99B58_99B58[row][0]);
+		DrawText_5A180_5A690(player.name_0x40A_1034, x + 8, (int16_t)(y + 6), playerColors_99B58_99B58[row][1]);
+		sprintf(text, "%d", wizard->dword_0x88_136);
+		DrawText_5A180_5A690(text, x + 8, (int16_t)(y + 0x14), playerColors_99B58_99B58[row][1]);
+		x += head.width_4;
+		for (int32_t column = 0; column < 8; column++, x += cell.width_4)
+		{
+			if (column != row && state->players_0x340B_13323[column].active_0x06_6 == 1)
+			{
+				DrawSprite(x, y, cell);
+				FillRect(x + 4, y + 4, cell.width_4 - 8, cell.height_5 - 8, playerColors_99B58_99B58[column][0]);
+				sprintf(text, "%03d", ReadS16(wizard->playerData_0xA0_160 + 0x1E + column * 2));
+				DrawText_5A180_5A690(text, x + 8, (int16_t)(y + 0x0A), playerColors_99B58_99B58[column][1]);
+			}
+			else if (column == row)
+			{
+				DrawSprite(x, y, cell);
+				FillRect(x + 4, y + 4, cell.width_4 - 8, cell.height_5 - 8, colorLookup_AD168_AD158[0]);
+			}
+		}
+		y += head.height_5;
+	}
 }

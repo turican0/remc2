@@ -1,6 +1,7 @@
 #include "Mc1Frame.h"
 
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 
 #include "Mc1Files.h"
@@ -285,7 +286,7 @@ static void DrawMap(Type_Mc1State_AE400_AE3F0* state, Type_Mc1Player_340B& playe
 		DrawMinimapEntities_48710_48A50(0, 0, camera.x_0x00_0, camera.y_0x02_2, 0x17E, 0x19E, camera.yaw_0x06_6, 0xAA, width, 1);
 	}
 	if (mousePos_9AD90_9AD90->y >= 0x17E)
-		sub_22880_22880();
+		DrawPlayersTable_22880_22880();
 }
 
 // 21FDC: the spells of the wizard in a grid of 4 x 6 (the one under the mouse larger), then the map
