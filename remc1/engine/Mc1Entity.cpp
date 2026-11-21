@@ -449,6 +449,13 @@ void InitCreatedEntities_36620_369E0()
 	} while (again);
 }
 
+//!!!!! the original writes to a missing entity (no free one, the level 39) at DOS address 0
+static Type_Mc1Entity* OrLowMemory(Type_Mc1Entity* entity)
+{
+	static Type_Mc1Entity lowMemory; // port: the writes go here
+	return entity ? entity : &lowMemory;
+}
+
 void CreateFeatureLine1C_35960_35D20(int32_t x, int32_t y, int32_t x2, int32_t y2)
 {
 	int32_t dx = WrapDelta_358D0_35C90((int16_t)x, (int16_t)x2, 0x100);
@@ -480,12 +487,12 @@ void CreateFeatureLine1C_35960_35D20(int32_t x, int32_t y, int32_t x2, int32_t y
 		for (; steps; steps--)
 		{
 			SetFeaturePosition_35900_35CC0((uint16_t)x, (uint16_t)y, (uint16_t)x2, (uint16_t)y2);
-			Type_Mc1Entity* entity = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 10, 0x1B);
+			Type_Mc1Entity* entity = OrLowMemory(CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 10, 0x1B));
 			entity->word_0x1A_26 = (int16_t)(stepX + restX);
 			x += stepX + restX;
 			entity->actionIndex_0x46_70 = 0x1D;
 			SetFeaturePosition_35900_35CC0((uint16_t)x, (uint16_t)y, (uint16_t)x2, (uint16_t)y2);
-			entity = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 10, 0x1B);
+			entity = OrLowMemory(CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 10, 0x1B));
 			if (stepY < 0)
 			{
 				entity->actionIndex_0x46_70 = 0x1B;
@@ -512,7 +519,7 @@ void CreateFeatureLine1C_35960_35D20(int32_t x, int32_t y, int32_t x2, int32_t y
 		for (; steps; steps--)
 		{
 			SetFeaturePosition_35900_35CC0((uint16_t)x, (uint16_t)y, (uint16_t)x2, (uint16_t)y2);
-			Type_Mc1Entity* entity = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 10, 0x1B);
+			Type_Mc1Entity* entity = OrLowMemory(CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 10, 0x1B));
 			if (stepY < 0)
 			{
 				entity->actionIndex_0x46_70 = 0x1B;
@@ -525,7 +532,7 @@ void CreateFeatureLine1C_35960_35D20(int32_t x, int32_t y, int32_t x2, int32_t y
 			}
 			y += restY + stepY;
 			SetFeaturePosition_35900_35CC0((uint16_t)x, (uint16_t)y, (uint16_t)x2, (uint16_t)y2);
-			entity = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 10, 0x1B);
+			entity = OrLowMemory(CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 10, 0x1B));
 			restY = 0;
 			entity->actionIndex_0x46_70 = 0x1D;
 			int32_t moveX = stepX + restX;

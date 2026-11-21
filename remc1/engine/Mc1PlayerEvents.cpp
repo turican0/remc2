@@ -637,6 +637,10 @@ void CreatePlayerWizard_44D30_45070(Type_Mc1Player_340B* player, Type_Mc1Entity*
 	{
 		wizard = CreateEntity_373F0_377B0(&position, 3, player->computer_0x09_9 == 1 ? 1 : 0);
 		created = true;
+		//!!!!! no free entity (the levels 17 and 39 fill all 1000): the original goes on with a wizard at DOS address 0
+		//!!!!! and the entity index FC3Ah (the interrupt table overwritten)
+		if (!wizard) // port: the player stays without a wizard
+			return;
 	}
 	else
 	{
