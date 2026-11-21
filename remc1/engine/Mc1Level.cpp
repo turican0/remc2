@@ -91,6 +91,28 @@ void LoadLevel_407A0_40AE0()
 	SumLevelMana_48230_48570(&state->entities_0x7463_29795[player->entityIndex_0x0A_10]);
 }
 
+void RestartLevel_408D0_40C10()
+{
+	// the level lost (6 == 4): LoadLevel_407A0 again, without the loading texts and with the players of the level
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	uint8_t sound = byte_939E5_939E5;
+	byte_939E5_939E5 = 0;
+	ClearLevel_40550_40890();
+	LoadLevelData_3E100_3E440((int16_t)mc1Settings_AE408_AE3F8->levelIndex_0x11_17, &state->level_0x2F503_193795);
+	state->playerCount_0x0A_10 = state->level_0x2F503_193795.playerCount_0x9792_38802;
+	GenerateLevelMap_31AA0_31AE0(&state->level_0x2F503_193795);
+	InitEntities_371C0_37580();
+	CreateFeatures_36430_367F0(&state->level_0x2F503_193795);
+	memset(&featurePosition_AE454_AE444, 0, sizeof(featurePosition_AE454_AE444));
+	RebuildFreeLists_37220_375E0();
+	state->reuseTop_0x11F1_4593 = -1;
+	CreateLevelModels_37440_37800(0, 1);
+	byte_939E5_939E5 = sound;
+	InitPlayers_3DD50_3E090();
+	Type_Mc1Player_340B* player = &state->players_0x340B_13323[state->currentPlayer_0x08_8];
+	SumLevelMana_48230_48570(&state->entities_0x7463_29795[player->entityIndex_0x0A_10]);
+}
+
 void ClearLevel_40550_40890()
 {
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;

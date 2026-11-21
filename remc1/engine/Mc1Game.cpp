@@ -167,7 +167,7 @@ int TopProcedure_340B0(int argc, char** argv)
 						player->levelResult_0x02_2 = 8;
 					break;
 				}
-				sub_408D0_40C10();
+				RestartLevel_408D0_40C10();
 				CurrentPlayer()->levelResult_0x02_2 = 4;
 			}
 			FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
@@ -287,7 +287,7 @@ int TopProcedure_34470(int argc, char** argv)
 						player->levelResult_0x02_2 = 8;
 					break;
 				}
-				sub_408D0_40C10();
+				RestartLevel_408D0_40C10();
 				CurrentPlayer()->levelResult_0x02_2 = 4;
 			}
 			FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
