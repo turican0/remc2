@@ -27,6 +27,7 @@
 #include "regression-tests.h"
 #include "../remc2/engine/sequence_codec.h"
 #include "../remc2/engine/TextureMaps.h"
+#include "../remc1/engine/Mc1Regression.h"
 
 
 enum TestType {
@@ -47,6 +48,7 @@ struct type_regtest
 	int steps = 20;
 	bool intervalSave = false;
 	std::string folder;//record<NNN>: <folder>/level<LLL>/sequence-*
+	std::string game;//mc1 / mc1hw: memimages/regressions-<game>/level<NNN>, empty MC2
 };
 
 // N of <prefix>N, -1 for other names
@@ -80,10 +82,31 @@ int SequenceFrames(const std::string& folder)
 }
 
 // every test of memimages/regressions: level<NNN>, afterloadtest<NNN> (its regtest.txt), record<NNN>/level<LLL>
-std::vector<type_regtest> FindRegressionTests(int onlyLevel, int onlyAfterload, int onlyRecord)
+std::vector<type_regtest> FindRegressionTests(int onlyLevel, int onlyAfterload, int onlyRecord, const std::string& onlyGame = "", int onlyGameLevel = -1)
 {
-	const bool all = (onlyLevel < 0 && onlyAfterload < 0 && onlyRecord < 0);
+	const bool all = (onlyLevel < 0 && onlyAfterload < 0 && onlyRecord < 0 && onlyGame.empty());
 	std::vector<std::pair<std::tuple<int, int, int>, type_regtest>> tests;
+	// MC1 and HW: regressions-mc1 / regressions-mc1hw, each level<NNN> with input.rec and reference.binz
+	for (const std::string game : { "mc1", "mc1hw" })
+	{
+		if (!all && onlyGame != game)
+			continue;
+		if (!std::filesystem::exists(Mc1RegressionsPath(game)))
+			continue;
+		for (const auto& entry : std::filesystem::directory_iterator(Mc1RegressionsPath(game)))
+		{
+			type_regtest test;
+			test.name = entry.path().filename().string();
+			test.game = game;
+			test.level = FolderNumber(test.name, "level");
+			if (test.level <= 0 || (onlyGameLevel > 0 && onlyGameLevel != test.level))
+				continue;
+			test.steps = Mc1RegressionFrames(entry.path().string());
+			if (test.steps > 0)
+				tests.push_back({ { game == "mc1" ? 3 : 4, test.level, 0 }, test });
+		}
+	}
+	if (all || onlyGame.empty())//MC2
 	for (const auto& entry : std::filesystem::directory_iterator(RegressionsPath()))
 	{
 		const std::string name = entry.path().filename().string();
@@ -139,10 +162,16 @@ extern bool resaveRecordings;
 // onlyLevel / onlyAfterload / onlyRecord select tests (-1 = no selection).  Running one test per
 // process keeps the engine's globals from carrying over between tests - run_regtest resets only
 // a handful of them.  resave: 1 step of the tests with a recording, which gets the level start saves.
-int CountFailedRegressionTests(int onlyLevel = -1, int onlyAfterload = -1, int onlyRecord = -1, bool resave = false) {
+int CountFailedRegressionTests(int onlyLevel = -1, int onlyAfterload = -1, int onlyRecord = -1, bool resave = false, const std::string& onlyGame = "") {
 	int numFailedTests = 0;
-	for (const auto& test : FindRegressionTests(onlyLevel, onlyAfterload, onlyRecord))
+	for (const auto& test : FindRegressionTests(onlyGame.empty() ? onlyLevel : -1, onlyAfterload, onlyRecord, onlyGame, onlyLevel))
 	{
+		if (!test.game.empty())
+		{
+			if (!resave && run_mc1test(test.game, test.level) != 0)
+				numFailedTests++;
+			continue;
+		}
 		if (resave && test.record.empty())
 			continue;
 		resaveRecordings = resave;
@@ -203,6 +232,8 @@ struct type_running_test
 std::string TestArguments(const type_regtest& test)
 {
 	const std::string packed = forcePackedData ? " --packed_data" : "";
+	if (!test.game.empty())
+		return "--" + test.game + " " + std::to_string(test.level);
 	if (!test.folder.empty())
 		return "--record " + test.folder.substr(6) + " --level " + std::to_string(test.level) + packed;
 	if (test.index > 0)
@@ -212,6 +243,8 @@ std::string TestArguments(const type_regtest& test)
 
 std::string TestName(const type_regtest& test)
 {
+	if (!test.game.empty())
+		return test.game + " level " + std::to_string(test.level);
 	if (!test.folder.empty())
 		return test.folder + " level " + std::to_string(test.level);
 	if (test.index > 0)
@@ -595,6 +628,10 @@ int main(int argc, char** argv)
 	// "--make_tmaps_meta <CD_Files/DATA> <out>": TMAPSMETA.DAT of data/data.binz from the TMAPS?-0.DAT/TAB of the game
 	if (argc == 4 && std::string(argv[1]) == "--make_tmaps_meta")
 		return WriteTmapsMeta(argv[2], argv[3]) ? 0 : 1;
+	// "--pack_mc1 <dumps of DOSBox> <reference.binz> <frames between the dumps>": the reference of an MC1 / HW test
+	if (argc == 5 && std::string(argv[1]) == "--pack_mc1")
+		return PackMc1Reference(argv[2], argv[3], (uint32_t)atoi(argv[4])) ? 0 : 1;
+	std::string onlyGame;//--mc1 N / --mc1hw N: the MC1 / HW test of level N
 	for (int a = 1; a < argc; a++)
 	{
 		if (std::string(argv[a]) == "--resave") resave = true;
@@ -606,16 +643,21 @@ int main(int argc, char** argv)
 		if (std::string(argv[a]) == "--afterload") onlyAfterload = atoi(argv[a + 1]);
 		if (std::string(argv[a]) == "--record") onlyRecord = atoi(argv[a + 1]);
 		if (std::string(argv[a]) == "--jobs") jobs = atoi(argv[a + 1]);
+		if (std::string(argv[a]) == "--mc1" || std::string(argv[a]) == "--mc1hw")
+		{
+			onlyGame = std::string(argv[a]).substr(2);
+			onlyLevel = atoi(argv[a + 1]);
+		}
 	}
 	if (jobs < 1)
 		jobs = 1;
 	if (!unitTestsProgress)//not in a process of the parallel run, its runner has done it
 		UpgradeSequences(jobs);
 	// without a selection: every test in its own process, "--jobs 1" one after another
-	if (onlyLevel < 0 && onlyAfterload < 0 && onlyRecord < 0 && !resave && jobs > 1)
+	if (onlyLevel < 0 && onlyAfterload < 0 && onlyRecord < 0 && onlyGame.empty() && !resave && jobs > 1)
 		numFailedTests += RunTestsInParallel(FindRegressionTests(-1, -1, -1), jobs, argv[0]);
 	else
-		numFailedTests += CountFailedRegressionTests(onlyLevel, onlyAfterload, onlyRecord, resave);
+		numFailedTests += CountFailedRegressionTests(onlyLevel, onlyAfterload, onlyRecord, resave, onlyGame);
 
 	if (numFailedTests == 0)
 	{

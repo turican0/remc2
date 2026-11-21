@@ -4,6 +4,8 @@
 #include "../remc2/engine/Level.h"
 #include "../remc2/engine/read_config.h"
 #include <filesystem>
+#include "../remc1/Mc1Main.h"
+#include "../remc1/engine/Mc1Regression.h"
 
 // Per-run state of the engine that the tests depend on.  All tests run in one process, and without
 // this each one starts where the previous one left off: IsAfterLoad stays true after a level test,
@@ -52,6 +54,56 @@ std::string PackedDataFile()
 	if (std::filesystem::exists(nextToExe))
 		return nextToExe;
 	return (std::filesystem::path(__FILE__).parent_path() / "data" / "data.binz").string();
+}
+
+// memimages/regressions-mc1 / regressions-mc1hw next to memimages/regressions
+std::string Mc1RegressionsPath(const std::string& game)
+{
+	return (std::filesystem::path(RegressionsPath()).parent_path() / ("regressions-" + game)).string();
+}
+
+// MC1 or HW (game mc1 / mc1hw): the level started by -custom -level, the input of input.rec, the state compared with
+// reference.binz of DOSBox by Mc1RegressionFrame, which ends the test (20 passed)
+int run_mc1test(const std::string& game, int level)
+{
+	const std::string testName = game + " level " + std::to_string(level);
+	Logger->info("Testing {}", testName);
+	unitTests = true;
+	menuFps = 0;
+	char folder[32];
+	snprintf(folder, sizeof(folder), "level%03d", level);
+	mc1RegressionFolder = Mc1RegressionsPath(game) + "/" + folder;
+	int locEndTestsCode = 0;
+	endTestsCode = &locEndTestsCode;
+	std::string path = get_exe_path() + "/regression-config.json";
+	if (!std::filesystem::exists(path))
+		path = (std::filesystem::path(__FILE__).parent_path() / "regression-config.json").string();
+	std::vector<std::string> args = { "remc2", "-game", game, "-custom", "-level", std::to_string(level - 1), "--config_file_path", path };
+	std::vector<char*> argv;
+	for (auto& s : args)
+		argv.push_back(s.data());
+	argv.push_back(nullptr);
+	const int argc = (int)args.size();
+	int exitCode = 0;
+	CommandLineParams.Init(argc, argv.data());
+	try
+	{
+		Mc1Main(argc, argv.data());
+	}
+	catch (const thread_exit_exception&) {}
+	catch (const std::exception& e)
+	{
+		Logger->error("Exception running {}: {}", testName, e.what());
+		exitCode = -1;
+	}
+	if (locEndTestsCode == 20)
+		Logger->info("Test {} - OK\n\n", testName);
+	else
+	{
+		Logger->error("Test {} - FAILED\n\n", testName);
+		exitCode = -1;
+	}
+	return exitCode;
 }
 
 // folder of memimages/regressions: prefix and a three digit number (level001, afterloadtest002, record010)
