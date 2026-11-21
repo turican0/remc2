@@ -155,7 +155,7 @@ static void SettingsRecord(uint8_t* at)
 	for (int i = 0; i < 25; i++)
 	{
 		const Type_Mc1Entity* entity = settings->entityLists_0x8E1A_36378[i];
-		const uint32_t value = entity ? dosEntities + (uint32_t)(entity - mc1State_AE400_AE3F0->entities_0x7463_29795) * 0xA4 : 0;
+		const uint32_t value = entity ? dosEntities + (uint32_t)(entity - mc1Entities) * 0xA4 : 0;
 		memcpy(at + 0x8E1A + i * 4, &value, 4);
 	}
 }
@@ -170,7 +170,7 @@ static std::vector<uint8_t> LiveRecord()
 	memcpy(at, &mc1State_AE400_AE3F0->rand_0x04_4, 4);
 	at += 4;
 	for (int i = 0; i < 1000; i++, at += 0xA4)
-		memcpy(at + 4, (const uint8_t*)&mc1State_AE400_AE3F0->entities_0x7463_29795[i] + offsetof(Type_Mc1Entity, rand_0x04_4), 0x98);
+		memcpy(at + 4, (const uint8_t*)&mc1Entities[i] + offsetof(Type_Mc1Entity, rand_0x04_4), 0x98);
 	memcpy(at, mc1State_AE400_AE3F0->players_0x340B_13323, 8 * 0x801);
 	at += 8 * 0x801;
 	SettingsRecord(at);

@@ -17,7 +17,7 @@ const uint8_t playerColors_99B58_99B58[8][2] = {
 
 static Type_Mc1Entity* Entities()
 {
-	return mc1State_AE400_AE3F0->entities_0x7463_29795;
+	return mc1Entities;
 }
 
 static int16_t ReadS16(const uint8_t* data)
@@ -171,7 +171,7 @@ void DrawMinimapEntities_48710_48A50(int32_t screenX, int32_t screenY, int32_t w
 	}
 
 	// the entities: a dot (1 or 2x2 pixels) of a colour, or a sprite (castles 3Ah / 42h + the player, S and T)
-	for (Type_Mc1Entity* entity = &Entities()[1]; entity < &Entities()[1000]; entity++)
+	for (Type_Mc1Entity* entity = &Entities()[1]; entity < &Entities()[mc1EntityCount]; entity++)
 	{
 		uint8_t sprite = 0;
 		uint8_t color = 0;

@@ -65,7 +65,7 @@ uint8_t joyButtons_B772A_B771A = 0; // the bits 10h-80h of 201h, 0 pressed
 
 static Type_Mc1Entity* Entities()
 {
-	return mc1State_AE400_AE3F0->entities_0x7463_29795;
+	return mc1Entities;
 }
 
 static Type_Mc1PlayerInput& CurrentInput()

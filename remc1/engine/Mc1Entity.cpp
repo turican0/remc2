@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 #include <cstring>
+#include <vector>
 
 #include "Mc1EntityTables.h"
 #include "Mc1Files.h"
@@ -55,7 +56,7 @@ const uint8_t frameCounts_90AD8_90AD8[42] = {
 
 static Type_Mc1Entity* Entities()
 {
-	return mc1State_AE400_AE3F0->entities_0x7463_29795;
+	return mc1Entities;
 }
 
 static uint16_t EntityIndex(Type_Mc1Entity* entity)
@@ -69,15 +70,27 @@ static uint16_t MapCell(const Type_Mc1Position* position)
 	return (uint16_t)(((position->y >> 8) & 0xFF) << 8 | ((position->x >> 8) & 0xFF));
 }
 
+// port: the free entities over the 1000 of the original (mc1EntityCount), taken only when the original has none left
+static std::vector<Type_Mc1Entity*> extraFreeEntities;
+
+static void FillExtraFree(bool onlyEmpty)
+{
+	extraFreeEntities.clear();
+	for (int i = mc1EntityCount - 1; i >= 1000; i--)
+		if (!onlyEmpty || !mc1Entities[i].class_0x40_64)
+			extraFreeEntities.push_back(&mc1Entities[i]);
+}
+
 void InitEntities_371C0_37580()
 {
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
-	state->entities_0x7463_29795[0].playerData_0xA0_160 = playerData_B7330_B7320;
+	mc1Entities[0].playerData_0xA0_160 = playerData_B7330_B7320;
 	state->freeTop_0x28_40 = -1;
 	state->reuseTop_0x11F1_4593 = -1;
 	// entity 0 is never used, 1 is taken first
 	for (int i = 999; i > 0; i--)
-		state->freeEntities_0x251_593[++state->freeTop_0x28_40] = &state->entities_0x7463_29795[i];
+		state->freeEntities_0x251_593[++state->freeTop_0x28_40] = &mc1Entities[i];
+	FillExtraFree(false);
 }
 
 void RebuildFreeLists_37220_375E0()
@@ -87,12 +100,13 @@ void RebuildFreeLists_37220_375E0()
 	state->reuseTop_0x11F1_4593 = -1;
 	for (int i = 999; i > 0; i--)
 	{
-		Type_Mc1Entity* entity = &state->entities_0x7463_29795[i];
+		Type_Mc1Entity* entity = &mc1Entities[i];
 		if (!entity->class_0x40_64)
 			state->freeEntities_0x251_593[++state->freeTop_0x28_40] = entity;
 		else if (entity->flags_0x10_16 & 0x20400)
 			state->reuseEntities_0x11F5_4597[++state->reuseTop_0x11F1_4593] = entity;
 	}
+	FillExtraFree(true);
 }
 
 Type_Mc1Entity* AllocEntity_372C0_37680()
@@ -101,10 +115,16 @@ Type_Mc1Entity* AllocEntity_372C0_37680()
 	Type_Mc1Entity* entity;
 	if (state->freeTop_0x28_40 >= 0)
 		entity = state->freeEntities_0x251_593[state->freeTop_0x28_40--];
+	else if (state->reuseTop_0x11F1_4593 < 0)
+	{
+		// port: the entities over the 1000 of the original, when it has none left
+		if (extraFreeEntities.empty())
+			return nullptr;
+		entity = extraFreeEntities.back();
+		extraFreeEntities.pop_back();
+	}
 	else
 	{
-		if (state->reuseTop_0x11F1_4593 < 0)
-			return nullptr;
 		// a reusable entity is taken, the lists of the kinds are cleared
 		Type_Mc1Settings_AE408_AE3F8* settings = mc1Settings_AE408_AE3F8;
 		memset(&settings->entityLists_0x8E1A_36378[1], 0, 20 * sizeof(Type_Mc1Entity*));
@@ -319,7 +339,10 @@ void FreeEntity_41E90_421D0(Type_Mc1Entity* entity)
 	RemoveFromMap_41DD0_42110(entity);
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
 	entity->class_0x40_64 = 0;
-	state->freeEntities_0x251_593[++state->freeTop_0x28_40] = entity;
+	if (entity >= mc1Entities + 1000)
+		extraFreeEntities.push_back(entity); // port: over the 1000 of the original
+	else
+		state->freeEntities_0x251_593[++state->freeTop_0x28_40] = entity;
 }
 
 uint32_t Distance2D_423D0_42710(Type_Mc1Position* from, Type_Mc1Position* to)
@@ -415,9 +438,9 @@ void InitCreatedEntities_36620_369E0()
 	do
 	{
 		again = false;
-		for (int i = 1; i < 1000; i++)
+		for (int i = 1; i < mc1EntityCount; i++)
 		{
-			Type_Mc1Entity* entity = &state->entities_0x7463_29795[i];
+			Type_Mc1Entity* entity = &mc1Entities[i];
 			if (!entity->class_0x40_64)
 				continue;
 			// class 10: the models 9-0Bh, 1Bh-20h, 32h-33h and 2Dh with the action 33h run their action
@@ -760,7 +783,7 @@ void SetHalfMana_36F90_37350(Type_Mc1Entity* entity)
 
 int32_t GetFreeEntityCount_37710_37AD0()
 {
-	return mc1State_AE400_AE3F0->freeTop_0x28_40 + 1;
+	return mc1State_AE400_AE3F0->freeTop_0x28_40 + 1 + (int32_t)extraFreeEntities.size();
 }
 
 int32_t MoveOnMap_41CC0_42000(Type_Mc1Entity* entity, Type_Mc1Position* position)

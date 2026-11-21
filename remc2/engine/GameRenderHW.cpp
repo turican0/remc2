@@ -876,7 +876,7 @@ void GameRenderHW::DrawTileBillboards_3FD60(int tileIndex, std::vector<RenderPol
 	uint16_t entityIndex = m_ptrStr_E9C38_smalltit[tileIndex].haveBillboard_36;
 	do
 	{
-		if (entityIndex < 0x3E8u)
+		if (entityIndex < RenderEntityCount())
 		{
 			entity = RenderEntity(entityIndex);
 			if (!(entity->flags_0xc_12_15.byte[0] & 0x21))

@@ -10,4 +10,5 @@ public:
 private:
 	wxSpinCtrl* m_maxGameFps = nullptr;
 	wxCheckBox* m_skipIntro = nullptr;
+	wxSpinCtrl* m_mc1EntityLimit = nullptr;
 };

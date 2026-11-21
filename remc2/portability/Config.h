@@ -203,6 +203,7 @@ public:
 		{
 			int m_MaxGameFps = 0;
 			bool m_SkipIntro = false;
+			int m_Mc1EntityLimit = 32767; // MC1 / HW: 1000 the original, up to 32767
 		};
 
 		struct Mouse

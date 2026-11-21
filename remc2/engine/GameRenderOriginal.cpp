@@ -2015,7 +2015,7 @@ uint16_t GameRenderOriginal::DrawTileSpriteReflections_3FD60(int a2x)
 
 		//add_compare(0x220d70, CommandLineParams.DoDebugafterload());
 
-		if (result < 0x3E8u)
+		if (result < RenderEntityCount())
 		{
 			v3x = RenderEntity(result);
 			v41x = v3x;
@@ -3239,7 +3239,7 @@ void GameRenderOriginal::DrawSprites_3E360(int a2x, bool mc1Depth)//21f360
 	{
 		//adress 21f370
 
-		if (mc1Depth && result >= 1000)
+		if (mc1Depth && result >= RenderEntityCount())
 			break;
 		v3x = RenderEntity(result);
 		spriteRender_F2C20.entity_0x14x = v3x;

@@ -1,6 +1,7 @@
 #include "Mc1Game.h"
 #include "../../remc2/portability/port_outputs.h"
 
+#include <algorithm>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -12,6 +13,7 @@
 #include "Mc1EntityTables.h"
 #include "Mc1Level.h"
 #include "Mc1PlayerEvents.h"
+#include "Mc1Regression.h"
 #include "Mc1Menu.h"
 #include "Mc1Sound.h"
 #include "Mc1World.h"
@@ -22,6 +24,7 @@
 #include "Mc1System.h"
 #include "../../remc2/engine/Graphics.h"
 #include "../../remc2/engine/PlayerInput.h"
+#include "../../remc2/engine/read_config.h"
 #include "../../remc2/portability/port_filesystem.h"
 
 #if defined(__linux__) || defined(__APPLE__)
@@ -32,6 +35,8 @@
 Mc1Variant mc1Variant = MC1_VARIANT_MC1;
 Type_Mc1State_AE400_AE3F0* mc1State_AE400_AE3F0 = nullptr;
 Type_Mc1Settings_AE408_AE3F8* mc1Settings_AE408_AE3F8 = nullptr;
+Type_Mc1Entity* mc1Entities = nullptr;
+int32_t mc1EntityCount = 1000;
 uint8_t* textPointers_AE238_AE228[80];
 uint8_t byte_939CC_939CC = 1;
 uint8_t byte_939CD_939CD = 1;
@@ -483,6 +488,11 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 	mc1Settings_AE408_AE3F8 = (Type_Mc1Settings_AE408_AE3F8*)Malloc_42540_42880(sizeof(Type_Mc1Settings_AE408_AE3F8));
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
 	Type_Mc1Settings_AE408_AE3F8* settings = mc1Settings_AE408_AE3F8;
+	// port: the regression tests and the input recorded in DOSBox (REMC1_PLAY) always with the 1000 entities of the original
+	const bool asOriginal = !Mc1RegressionInput().empty() || getenv("REMC1_PLAY");
+	mc1EntityCount = asOriginal ? 1000 : (std::min)((std::max)(mc1EntityLimit, 1000), 32767);
+	mc1Entities = mc1EntityCount == 1000 ? state->entities_0x7463_29795
+		: (Type_Mc1Entity*)Malloc_42540_42880(mc1EntityCount * sizeof(Type_Mc1Entity));
 	for (uint8_t& option_ : state->options_0x21AD_8621)
 		option_ = 1;
 	DetectCpu_19470_19470();

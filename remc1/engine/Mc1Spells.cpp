@@ -20,7 +20,7 @@ static uint8_t byte_968E4_968E4 = 0; // only cleared (55D30)
 
 static Type_Mc1Entity* Entities()
 {
-	return mc1State_AE400_AE3F0->entities_0x7463_29795;
+	return mc1Entities;
 }
 
 static int16_t EntityIndex(const Type_Mc1Entity* entity)

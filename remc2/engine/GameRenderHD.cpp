@@ -1836,7 +1836,7 @@ uint16_t GameRenderHD::DrawTileSpriteReflections_3FD60(int a2x, uint8_t playersC
 	result = m_ptrStr_E9C38_smalltit[a2x].haveBillboard_36;
 	do
 	{
-		if (result < 0x3E8u)
+		if (result < RenderEntityCount())
 		{
 			v3x = RenderEntity(result);
 			v41x = v3x;
@@ -4222,7 +4222,7 @@ void GameRenderHD::DrawSprites_3E360(int a2x, Type_Sprite** m_ptrLoadedSprites_F
 	{
 		//adress 21f370
 
-		if (mc1Depth && result >= 1000)
+		if (mc1Depth && result >= RenderEntityCount())
 			break;
 		v3x = RenderEntity(result);
 		spriteRender_F2C20.entity_0x14x = v3x;

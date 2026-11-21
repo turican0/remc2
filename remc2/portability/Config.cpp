@@ -189,6 +189,8 @@ Config::Settings::Game Config::GetGame(const json& settings)
 		const auto& game = settings["game"];
 		gameValues.m_MaxGameFps = ReadIntValue(game, "maxGameFps");
 		gameValues.m_SkipIntro = ReadBoolValue(game, "skipIntro");
+		if (game.contains("mc1EntityLimit") && game["mc1EntityLimit"].is_number())
+			gameValues.m_Mc1EntityLimit = game["mc1EntityLimit"].get<int>();
 	}
 	return gameValues;
 }
@@ -786,6 +788,7 @@ void Config::SaveGameToDoc(Config::Settings::Game gameSettings)
 	auto& game = GetOrCreate(settingsEntry, "game");
 	SetInt(game, "maxGameFps", gameSettings.m_MaxGameFps);
 	SetBool(game, "skipIntro", gameSettings.m_SkipIntro);
+	SetInt(game, "mc1EntityLimit", gameSettings.m_Mc1EntityLimit);
 }
 
 void Config::SaveControlsToDoc(Config::Settings::Controls controlSettings)

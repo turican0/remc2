@@ -39,7 +39,7 @@ static GameRenderInterface* CreateMc1Renderer()
 
 // the sprites (2DCB0, 2FC50): the MC1 entities as the entities of MC2, only what the sprites read (the flags 21h, the
 // next in the map cell, the yaw, the position, the sprite and its frame), the tmaps of MC1 and 99BA0 as D951C
-static type_entity_0x6E8E renderEntities[1000];
+static std::vector<type_entity_0x6E8E> renderEntities;
 static Type_SpriteDef_D951C renderSpriteDefs[286];
 
 static type_entity_0x6E8E* Mc1RenderEntity(uint16_t index)
@@ -75,12 +75,18 @@ static type_animations1* Mc1TmapAnimation(uint16_t tmap)
 	return GetAnimationByIndex_10FD0_10FD0(animations_AE3E0_AE3D0, (int16_t)tmap);
 }
 
-static const RenderSpriteSource mc1Sprites = { Mc1RenderEntity, Mc1LoadedTmap, Mc1LoadTmap, Mc1TmapUsed, Mc1SpriteDef, Mc1TmapAnimation };
+static int Mc1RenderEntityCount()
+{
+	return mc1EntityCount;
+}
+
+static const RenderSpriteSource mc1Sprites = { Mc1RenderEntity, Mc1LoadedTmap, Mc1LoadTmap, Mc1TmapUsed, Mc1SpriteDef, Mc1TmapAnimation, Mc1RenderEntityCount };
 
 static void SetRenderSprites()
 {
-	const Type_Mc1Entity* entities = mc1State_AE400_AE3F0->entities_0x7463_29795;
-	for (int i = 0; i < 1000; i++)
+	const Type_Mc1Entity* entities = mc1Entities;
+	renderEntities.resize(mc1EntityCount);
+	for (int i = 0; i < mc1EntityCount; i++)
 	{
 		const Type_Mc1Entity& entity = entities[i];
 		type_entity_0x6E8E& render = renderEntities[i];
@@ -141,7 +147,7 @@ void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int
 	if (!vfxView && !sizeView && *videoMode_12F02E_12F01E == 1)
 	{
 		const Type_Mc1Player_340B& player = state->players_0x340B_13323[state->currentPlayer_0x08_8];
-		const int16_t speed = state->entities_0x7463_29795[player.entityIndex_0x0A_10].word_0x7E_126;
+		const int16_t speed = mc1Entities[player.entityIndex_0x0A_10].word_0x7E_126;
 		if (!player.mode_0x44A_1098 && mc1Settings_AE408_AE3F8->fastCpu_0x08_8 && *blurBuffer_AE404_AE3F4
 			&& state->setting_0x2198_8600 == 0x28 && (speed < 0 ? -speed : speed) > 0x50)
 			state->blur_0x219C_8604 = 1;

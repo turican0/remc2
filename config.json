@@ -215,9 +215,11 @@
 			},
 			"game": {
 				"description": [
-					"maxGameFps: max frames per second in game. Locks the frame rate.  Delete or set to 0 to unlock"
+					"maxGameFps: max frames per second in game. Locks the frame rate.  Delete or set to 0 to unlock",
+					"mc1EntityLimit: Magic Carpet 1 / Hidden Worlds entities, 1000 as the original, up to 32767"
 				],
-				"maxGameFps": 24
+				"maxGameFps": 24,
+				"mc1EntityLimit": 32767
 			},
 			"controls": {
 				"mouse": [

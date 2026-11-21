@@ -997,7 +997,7 @@ void GameRenderNG::DrawSprites_3E360(int tileIndex, bool mc1Depth)//21f360
 	uint16_t entityIndex = m_tiles[tileIndex].haveBillboard_36;
 	do
 	{
-		if (mc1Depth && entityIndex >= 1000)
+		if (mc1Depth && entityIndex >= RenderEntityCount())
 			break;
 		type_entity_0x6E8E* entity = RenderEntity(entityIndex);
 		spriteRender_F2C20.entity_0x14x = entity;
@@ -1153,7 +1153,7 @@ void GameRenderNG::DrawTileSpriteReflections_3FD60(int tileIndex)
 	uint16_t entityIndex = m_tiles[tileIndex].haveBillboard_36;
 	do
 	{
-		if (entityIndex < 1000)
+		if (entityIndex < RenderEntityCount())
 		{
 			entity = RenderEntity(entityIndex);
 			if (!(entity->flags_0xc_12_15.byte[0] & 0x21))

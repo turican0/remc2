@@ -9,7 +9,7 @@
 
 static Type_Mc1Entity* Entities()
 {
-	return mc1State_AE400_AE3F0->entities_0x7463_29795;
+	return mc1Entities;
 }
 
 static uint32_t NextRand(Type_Mc1Entity* entity)

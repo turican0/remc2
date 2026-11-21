@@ -64,6 +64,7 @@ UiElementLayout ReadUiElementLayout(const Config::Settings::UiElement& element, 
 extern int config_skip_screen;
 extern int texturepixels;
 extern int maxGameFps;
+extern int mc1EntityLimit; // MC1 / HW: the number of the entities, 1000 the original, up to 32767
 extern int menuFps;
 extern int displayIndex;
 extern int windowResWidth;

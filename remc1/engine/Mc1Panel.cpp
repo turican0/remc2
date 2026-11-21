@@ -13,7 +13,7 @@
 
 static Type_Mc1Entity* Entities()
 {
-	return mc1State_AE400_AE3F0->entities_0x7463_29795;
+	return mc1Entities;
 }
 
 static int16_t ReadS16(const uint8_t* data)
@@ -167,7 +167,7 @@ static void FadeRect(int32_t x, int32_t y, int32_t width, int32_t height, uint8_
 void DrawPlayerPanel_22E50_22E50(Type_Mc1Entity* wizard)
 {
 	const intptr_t index = wizard - Entities();
-	if (!index || index >= 1000)
+	if (!index || index >= mc1EntityCount)
 		return;
 	Type_Mc1Settings_AE408_AE3F8* settings = mc1Settings_AE408_AE3F8;
 	uint8_t* playerData = wizard->playerData_0xA0_160;

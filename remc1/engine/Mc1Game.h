@@ -15,6 +15,9 @@ enum Mc1Variant : uint8_t {
 extern Mc1Variant mc1Variant;
 extern Type_Mc1State_AE400_AE3F0* mc1State_AE400_AE3F0;
 extern Type_Mc1Settings_AE408_AE3F8* mc1Settings_AE408_AE3F8;
+// port: the entities, the 1000 of the state (+7463h) or more of them by mc1EntityLimit (int16 indexes: 32767 at most)
+extern Type_Mc1Entity* mc1Entities;
+extern int32_t mc1EntityCount;
 extern uint8_t* textPointers_AE238_AE228[80];
 // the video mode is videoMode_12F02E_12F01E (Mc1Shared.h)
 extern uint8_t byte_939CC_939CC;

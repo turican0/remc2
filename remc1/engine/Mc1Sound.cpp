@@ -502,7 +502,7 @@ static uint16_t dangerTimerHandle_80000_80000;
 
 static Type_Mc1Entity* SoundEntities()
 {
-	return mc1State_AE400_AE3F0->entities_0x7463_29795;
+	return mc1Entities;
 }
 
 static bool SoundsOn()

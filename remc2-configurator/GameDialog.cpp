@@ -5,7 +5,7 @@
 
 GameDialog::GameDialog(wxWindow* parent, const Config::Settings::Game& g)
 	: wxDialog(parent, wxID_ANY, "Speed Settings",
-		wxDefaultPosition, wxSize(286, 194), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX)
+		wxDefaultPosition, wxSize(330, 224), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX)
 {
 	wxPanel* panel = new wxPanel(this, wxID_ANY);
 
@@ -18,6 +18,16 @@ GameDialog::GameDialog(wxWindow* parent, const Config::Settings::Game& g)
 	wxBoxSizer* maxRow = new wxBoxSizer(wxHORIZONTAL);
 	maxRow->Add(maxGameLabel, wxSizerFlags(0).CentreVertical().Border(wxRIGHT, 6));
 	maxRow->Add(m_maxGameFps, wxSizerFlags(0));
+
+	// ── MC1 entity limit row ──────────────────────────────────────────────────
+	auto* entityLabel = new wxStaticText(panel, wxID_ANY, "Magic Carpet 1 entities (1000 original):");
+	m_mc1EntityLimit = new wxSpinCtrl(panel, wxID_ANY, wxEmptyString,
+		wxDefaultPosition, wxDefaultSize,
+		wxSP_ARROW_KEYS, 1000, 32767, g.m_Mc1EntityLimit);
+	m_mc1EntityLimit->SetToolTip("Entities of Magic Carpet 1 and Hidden Worlds: 1000 as the original, more for big levels.");
+	wxBoxSizer* entityRow = new wxBoxSizer(wxHORIZONTAL);
+	entityRow->Add(entityLabel, wxSizerFlags(0).CentreVertical().Border(wxRIGHT, 6));
+	entityRow->Add(m_mc1EntityLimit, wxSizerFlags(0));
 
 	// ── Skip Intro checkbox ──────────────────────────────────────────────────
 	m_skipIntro = new wxCheckBox(panel, wxID_ANY, "Skip Intro");
@@ -34,6 +44,7 @@ GameDialog::GameDialog(wxWindow* parent, const Config::Settings::Game& g)
 	const wxSizerFlags rowFlags = wxSizerFlags(0).Expand().Border(wxLEFT | wxRIGHT | wxTOP, 12);
 	wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
 	mainSizer->Add(maxRow, rowFlags);
+	mainSizer->Add(entityRow, rowFlags);
 	mainSizer->Add(m_skipIntro, wxSizerFlags(0).Border(wxLEFT | wxRIGHT | wxTOP, 12));
 	mainSizer->AddStretchSpacer(1);
 	mainSizer->Add(btnSizer, wxSizerFlags(0).Expand().Border(wxALL, 8));
@@ -50,5 +61,6 @@ Config::Settings::Game GameDialog::GetSettings() const
 	Config::Settings::Game g;
 	g.m_MaxGameFps = m_maxGameFps->GetValue();
 	g.m_SkipIntro = m_skipIntro->GetValue();
+	g.m_Mc1EntityLimit = m_mc1EntityLimit->GetValue();
 	return g;
 }

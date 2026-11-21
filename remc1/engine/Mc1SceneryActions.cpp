@@ -22,7 +22,7 @@ static uint16_t Tile(int x, int y)
 
 static int16_t EntityIndex(Type_Mc1Entity* entity)
 {
-	return (int16_t)(entity - mc1State_AE400_AE3F0->entities_0x7463_29795);
+	return (int16_t)(entity - mc1Entities);
 }
 
 static uint8_t TileX(const Type_Mc1Entity* entity)
@@ -266,7 +266,7 @@ void BuildBuildingAction_27D30_27D30(Type_Mc1Entity* entity)
 		UpdateTerrainTiles_33B90_33F80(Tile(centreX - halfWidth, centreY - halfHeight), Tile(centreX + halfWidth, centreY + halfHeight));
 		if (entity->actionIndex_0x46_70 == 0x30)
 		{
-			mc1State_AE400_AE3F0->entities_0x7463_29795[entity->word_0x2A_42].word_0x30_48 = 2;
+			mc1Entities[entity->word_0x2A_42].word_0x30_48 = 2;
 			MarkToFree_41E80_421C0(entity);
 		}
 		else if (entity->actionIndex_0x46_70 == 0x33)
@@ -384,7 +384,7 @@ void BuildBuildingAction_27D30_27D30(Type_Mc1Entity* entity)
 
 static Type_Mc1Entity* EntityAt(uint16_t index)
 {
-	return &mc1State_AE400_AE3F0->entities_0x7463_29795[index];
+	return &mc1Entities[index];
 }
 
 static void HitByWizard200(uint16_t attacker)
@@ -566,7 +566,7 @@ Type_Mc1Entity* FindOverlapping_11D10_11D10(Type_Mc1Entity* entity)
 	const int32_t search = StartSearch_11410_11410(0, (entity->box_0x4E_78[1] + 0xFF) / 256);
 	if (!search)
 		return nullptr;
-	Type_Mc1Entity* entities = mc1State_AE400_AE3F0->entities_0x7463_29795;
+	Type_Mc1Entity* entities = mc1Entities;
 	int32_t dx;
 	int32_t dy;
 	while (GetNextSearchOffset_114B0_114B0(search, &dx, &dy) == 1)
@@ -755,8 +755,8 @@ void WizardManaAction_275C0_275C0(Type_Mc1Entity* entity)
 		return;
 	if (EntityAt(taker)->class_0x40_64 == 3 && !entity->owner_0x90_144)
 	{
-		Type_Mc1Entity* entities = mc1State_AE400_AE3F0->entities_0x7463_29795;
-		for (int i = 1; i < 1000; i++)
+		Type_Mc1Entity* entities = mc1Entities;
+		for (int i = 1; i < mc1EntityCount; i++)
 		{
 			if (entities[i].owner_0x90_144 == (uint16_t)EntityIndex(entity))
 				entities[i].owner_0x90_144 = taker;
@@ -848,7 +848,7 @@ void PushManaAction_29920_29960(Type_Mc1Entity* entity)
 		MarkToFree_41E80_421C0(entity);
 		return;
 	}
-	for (Type_Mc1Entity* mana = mc1Settings_AE408_AE3F8->entityLists_0x8E1A_36378[22]; mana > mc1State_AE400_AE3F0->entities_0x7463_29795; mana = mana->next_0x00_0)
+	for (Type_Mc1Entity* mana = mc1Settings_AE408_AE3F8->entityLists_0x8E1A_36378[22]; mana > mc1Entities; mana = mana->next_0x00_0)
 	{
 		if (mana->model_0x41_65 != 0x27 || (int32_t)Distance2DSquared_42410_42750(&entity->position_0x48_72, &mana->position_0x48_72) >= 0xC40000)
 			continue;
@@ -978,7 +978,7 @@ static void QueueEntitySound(Type_Mc1Entity* entity, uint8_t sound)
 
 static Type_Mc1Entity* Entities()
 {
-	return mc1State_AE400_AE3F0->entities_0x7463_29795;
+	return mc1Entities;
 }
 
 Type_Mc1Entity* FindOverlappingMana_11C00_11C00(Type_Mc1Entity* entity)
@@ -1603,7 +1603,7 @@ void ShockwaveAction_299D0_29A10(Type_Mc1Entity* entity)
 	}
 	if (LifeEnded(entity))
 		return;
-	for (Type_Mc1Entity* other = Entities(); other < Entities() + 1000; other++)
+	for (Type_Mc1Entity* other = Entities(); other < Entities() + mc1EntityCount; other++)
 	{
 		if (!other->class_0x40_64 || other->id_0x18_24 == entity->id_0x18_24)
 			continue;

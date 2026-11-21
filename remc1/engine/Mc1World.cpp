@@ -22,7 +22,7 @@
 
 static Type_Mc1Entity* Entities()
 {
-	return mc1State_AE400_AE3F0->entities_0x7463_29795;
+	return mc1Entities;
 }
 
 static bool InList(const Type_Mc1Entity* entity)
@@ -121,7 +121,7 @@ void WorldTick_41780_41AC0()
 	state->rand_0x04_4 = state->rand_0x04_4 * 0x24A1 + 0x24DF;
 	if (settings->flags_0x00_0 & 0x10000)
 		return;
-	for (int i = 1; i < 1000; i++)
+	for (int i = 1; i < mc1EntityCount; i++)
 	{
 		Type_Mc1Entity* entity = &Entities()[i];
 		if (entity->class_0x40_64 && (entity->flags_0x10_16 & 0x400))
@@ -138,7 +138,7 @@ void WorldTick_41780_41AC0()
 	Type_Mc1Entity* lastClass9 = nullptr;
 	Type_Mc1Entity* lastMana = nullptr;
 	Type_Mc1Entity* lastBuilding = nullptr;
-	for (int i = 1; i < 1000; i++)
+	for (int i = 1; i < mc1EntityCount; i++)
 	{
 		Type_Mc1Entity* entity = &Entities()[i];
 		switch (entity->class_0x40_64)
@@ -169,7 +169,7 @@ void WorldTick_41780_41AC0()
 		UpdateCreatureAlerts_54F00_55430();
 	UpdateAttackRecords_16540_16540();
 	SumLevelMana_48230_48570(&Entities()[CurrentPlayer().entityIndex_0x0A_10]);
-	for (int i = 1; i < 1000; i++)
+	for (int i = 1; i < mc1EntityCount; i++)
 	{
 		Type_Mc1Entity* entity = &Entities()[i];
 		if (!entity->class_0x40_64)

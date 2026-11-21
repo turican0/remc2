@@ -587,7 +587,7 @@ Type_Mc1Entity* CreateScenery40_3B620_3B9A0(Type_Mc1Position* position)
 	Type_Mc1Entity* entity = NewScenery(0x28, 0x2A);
 	if (!entity)
 		return nullptr;
-	entity->word_0x1A_26 = (int16_t)((entity - mc1State_AE400_AE3F0->entities_0x7463_29795) % 11);
+	entity->word_0x1A_26 = (int16_t)((entity - mc1Entities) % 11);
 	entity->mailMask_0x1C_28 = 2;
 	AddToMap_41CF0_42030(entity, position);
 	ResetLife_36DE0_371A0(entity);
@@ -726,7 +726,7 @@ void SetManaSprite_274D0_274D0(Type_Mc1Entity* entity)
 	int16_t step = 0;
 	while (step < 7 && entity->mana_0x8C_140 > manaSpriteLimits_900A4_900A4[step])
 		step++;
-	Type_Mc1Entity* owner = &mc1State_AE400_AE3F0->entities_0x7463_29795[entity->owner_0x90_144];
+	Type_Mc1Entity* owner = &mc1Entities[entity->owner_0x90_144];
 	int16_t first = 0x34;
 	if (entity->owner_0x90_144 && owner->class_0x40_64 == 3)
 	{

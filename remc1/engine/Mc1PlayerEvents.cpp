@@ -31,7 +31,7 @@ uint8_t networkActive_939B0_939B0[8];
 
 static Type_Mc1Entity* Entities()
 {
-	return mc1State_AE400_AE3F0->entities_0x7463_29795;
+	return mc1Entities;
 }
 
 static uint16_t EntityIndex(const Type_Mc1Entity* entity)
@@ -133,9 +133,9 @@ static void GiveAllSpells(Type_Mc1Entity* wizard)
 		}
 	}
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
-	for (int i = 1; i < 1000; i++)
-		if (state->entities_0x7463_29795[i].class_0x40_64 == 0x0B)
-			state->entities_0x7463_29795[i].flags_0x10_16 &= ~1u;
+	for (int i = 1; i < mc1EntityCount; i++)
+		if (mc1Entities[i].class_0x40_64 == 0x0B)
+			mc1Entities[i].flags_0x10_16 &= ~1u;
 }
 
 // the cheats 3-5: the wizards of the others by the model (0 / 1 players, 2 castles, 3 balloons) die

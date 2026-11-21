@@ -57,9 +57,11 @@ struct RenderSpriteSource
 	void (*tmapUsed)(uint16_t tmap); // the frame of the last use of the group of the tmap
 	Type_SpriteDef_D951C* (*spriteDef)(int16_t index);
 	type_animations1* (*animation)(uint16_t tmap); // the animation of an animated tmap
+	int (*entityCount)(); // MC1: 1000 or more (mc1EntityLimit)
 };
 extern const RenderSpriteSource* renderSprites; // nullptr: MC2
 type_entity_0x6E8E* RenderEntity(uint16_t index);
+int RenderEntityCount();
 Type_Sprite** RenderLoadedTmap(uint16_t tmap);
 bool RenderLoadTmap(uint16_t tmap);
 void RenderTmapUsed(uint16_t tmap);

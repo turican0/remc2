@@ -88,7 +88,7 @@ void LoadLevel_407A0_40AE0()
 	byte_939E5_939E5 = sound;
 	InitPlayers_3DD50_3E090();
 	Type_Mc1Player_340B* player = &state->players_0x340B_13323[state->currentPlayer_0x08_8];
-	SumLevelMana_48230_48570(&state->entities_0x7463_29795[player->entityIndex_0x0A_10]);
+	SumLevelMana_48230_48570(&mc1Entities[player->entityIndex_0x0A_10]);
 }
 
 void RestartLevel_408D0_40C10()
@@ -110,7 +110,7 @@ void RestartLevel_408D0_40C10()
 	byte_939E5_939E5 = sound;
 	InitPlayers_3DD50_3E090();
 	Type_Mc1Player_340B* player = &state->players_0x340B_13323[state->currentPlayer_0x08_8];
-	SumLevelMana_48230_48570(&state->entities_0x7463_29795[player->entityIndex_0x0A_10]);
+	SumLevelMana_48230_48570(&mc1Entities[player->entityIndex_0x0A_10]);
 }
 
 static int32_t ReadPd32(const uint8_t* playerData, int32_t offset)
@@ -144,7 +144,7 @@ void LevelWonStats_448E0_44C20()
 	// and their average (177h); 17Bh becomes the time of the level
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
 	Type_Mc1Player_340B& player = state->players_0x340B_13323[state->currentPlayer_0x08_8];
-	Type_Mc1Entity* wizard = &state->entities_0x7463_29795[player.entityIndex_0x0A_10];
+	Type_Mc1Entity* wizard = &mc1Entities[player.entityIndex_0x0A_10];
 	uint8_t* playerData = wizard->playerData_0xA0_160;
 	const Type_Mc1CreatureStats& stats = state->creatureStats_0x38C9F_232607;
 	int32_t found = 0;
@@ -174,7 +174,7 @@ void LevelWonStats_448E0_44C20()
 		WritePd32(playerData, 0x16F, 100);
 	uint16_t castle;
 	memcpy(&castle, playerData + 0x32, sizeof(castle));
-	const int32_t mana = state->entities_0x7463_29795[castle].mana_0x8C_140 + ReadPd32(playerData, 0x134);
+	const int32_t mana = mc1Entities[castle].mana_0x8C_140 + ReadPd32(playerData, 0x134);
 	WritePd32(playerData, 0x173, AtMost100(mana * 100 / mc1Settings_AE408_AE3F8->manaStats_0xB8_184.total_0x04));
 	int32_t sum = 0;
 	int32_t count = 0;
@@ -211,7 +211,7 @@ void ClearLevel_40550_40890()
 	state->byte_0x244_580 = 0;
 	memset(&state->creatureStats_0x38C9F_232607, 0, sizeof(state->creatureStats_0x38C9F_232607));
 	memset(state->playerStarts_0x23D9_9177, 0, sizeof(state->playerStarts_0x23D9_9177));
-	memset(state->entities_0x7463_29795, 0, sizeof(state->entities_0x7463_29795));
+	memset(mc1Entities, 0, mc1EntityCount * sizeof(Type_Mc1Entity));
 	settings->flag_0x17_23 = 0;
 	memset(settings->colorIndex_0x5D_93, 0, sizeof(settings->colorIndex_0x5D_93));
 	settings->speedIndex_0x96_150 = 0;
@@ -687,7 +687,7 @@ void SumLevelMana_48230_48570(Type_Mc1Entity* playerEntity)
 	// the players start from playerData +142h, the owners and the total get the mana of the entities
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
 	Type_Mc1Settings_AE408_AE3F8* settings = mc1Settings_AE408_AE3F8;
-	Type_Mc1Entity* entities = state->entities_0x7463_29795;
+	Type_Mc1Entity* entities = mc1Entities;
 	for (uint16_t i = 0; i < state->playerCount_0x0A_10; i++)
 	{
 		Type_Mc1Entity* entity = &entities[state->players_0x340B_13323[i].entityIndex_0x0A_10];
@@ -696,7 +696,7 @@ void SumLevelMana_48230_48570(Type_Mc1Entity* playerEntity)
 	}
 	settings->manaStats_0xB8_184.dword_0x08 = 0;
 	settings->manaStats_0xB8_184.total_0x04 = PlayerDataInt(playerEntity, 0x142);
-	for (int i = 1; i < 1000; i++)
+	for (int i = 1; i < mc1EntityCount; i++)
 	{
 		Type_Mc1Entity* entity = &entities[i];
 		switch (entity->class_0x40_64)
@@ -728,7 +728,7 @@ Type_Mc1Entity* AddManaToOwner_48340_48680(Type_Mc1Entity* entity)
 	Type_Mc1Entity* owner = nullptr;
 	if (entity->owner_0x90_144)
 	{
-		owner = &mc1State_AE400_AE3F0->entities_0x7463_29795[entity->owner_0x90_144];
+		owner = &mc1Entities[entity->owner_0x90_144];
 		owner->dword_0x88_136 += entity->mana_0x8C_140;
 	}
 	mc1Settings_AE408_AE3F8->manaStats_0xB8_184.total_0x04 += entity->mana_0x8C_140;

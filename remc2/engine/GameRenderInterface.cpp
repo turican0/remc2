@@ -93,6 +93,11 @@ type_entity_0x6E8E* RenderEntity(uint16_t index)
 	return renderSprites ? renderSprites->entity(index) : Entities_EA3E4[index];
 }
 
+int RenderEntityCount()
+{
+	return renderSprites ? renderSprites->entityCount() : 1000;
+}
+
 Type_Sprite** RenderLoadedTmap(uint16_t tmap)
 {
 	return renderSprites ? renderSprites->loadedTmap(tmap) : m_ptrLoadedSprites_F66F0x[tmap];
