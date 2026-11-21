@@ -62,6 +62,10 @@ int Mc1Main(int argc, char** argv)
 		mc1Variant = game == SELECTED_HIDDEN_WORLDS ? MC1_VARIANT_HW : MC1_VARIANT_MC1;
 		const GamePaths& paths = game == SELECTED_HIDDEN_WORLDS ? hiddenWorldsPaths : magicCarpetPaths;
 		mc1DataPath = Mc1FolderPath(paths.m_CdFolder);
+		// port: the CD files also directly in the parent folder (MC1/ instead of MC1/CD_Files)
+		const std::filesystem::path parent = std::filesystem::path(mc1DataPath).parent_path();
+		if (!std::filesystem::exists(std::filesystem::path(mc1DataPath) / "DATA") && std::filesystem::exists(parent / "DATA"))
+			mc1DataPath = parent.string();
 		mc1InstallPath = Mc1FolderPath(paths.m_GameFolder);
 		std::vector<std::string> gameArgs;
 		gameArgs.push_back(argc > 0 ? argv[0] : "remc2");
