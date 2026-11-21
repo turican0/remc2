@@ -94,13 +94,15 @@ def make_conf(exe_line, out, game):
     open(out, 'w').write(text)
 
 
-def make_test(game, level, frames, every, kind, pack_exe, out_root, seed=None, spells=tuple(range(24)), render=True):
+def make_test(game, level, frames, every, kind, pack_exe, out_root, seed=None, spells=tuple(range(24)), render=True, input_file=None):
     g = GAMES[game]
     folder = os.path.join(out_root, 'level%03d' % (level + 1))
     os.makedirs(folder, exist_ok=True)
     if seed is None:
         seed = (100 if game == 'mc1' else 200) + level
     data = actions_input(frames + 10, seed, spells) if kind == 'actions' else idle_input(frames + 10)
+    if input_file:
+        data = open(input_file, 'rb').read()
     open(os.path.join(folder, 'input.rec'), 'wb').write(data)
     work = tempfile.mkdtemp(prefix='mc1reg')
     try:
@@ -151,6 +153,7 @@ def main():
     parser.add_argument('--out', default=None)
     parser.add_argument('--seed', type=int, default=None)
     parser.add_argument('--no_render', action='store_true', help='the original without the 3D view')
+    parser.add_argument('--input_file', default=None, help='the input.rec to use (10 bytes a frame)')
     parser.add_argument('--spells', default=None, help='the spells of the actions input, e.g. 0-15,17')
     args = parser.parse_args()
     out_root = args.out or os.path.join(ROOT, 'remc2-regression-test', 'memimages', 'regressions-' + args.game)
@@ -163,7 +166,7 @@ def main():
         spells = tuple(spells)
     failed = 0
     for level in args.levels:
-        if not make_test(args.game, level, args.frames, args.every, args.input, args.pack_exe, out_root, args.seed, spells, not args.no_render):
+        if not make_test(args.game, level, args.frames, args.every, args.input, args.pack_exe, out_root, args.seed, spells, not args.no_render, args.input_file):
             failed += 1
     sys.exit(1 if failed else 0)
 

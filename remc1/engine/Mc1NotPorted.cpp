@@ -58,10 +58,6 @@ int16_t JoinNetworkSession_43430_43770(char* /*sessionName*/, uint16_t /*playerC
 // 45C90: the sounds of the flight (HMI)
 
 //!!!!! not ported yet
-int32_t sub_3E350_3E690(int16_t /*movie*/) { NotPorted(__func__); return 0; }
-int32_t sub_3E410_3E750(int16_t /*movie*/) { NotPorted(__func__); return 0; }
-int32_t sub_3E4B0_3E7F0(int16_t /*movie*/) { NotPorted(__func__); return 0; }
-int32_t sub_3E580_3E8C0(int16_t /*movie*/) { NotPorted(__func__); return 0; }
 void sub_42C70_42FB0(int16_t /*player*/) { NotPorted(__func__); }
 void sub_42DE0_43120(uint32_t /*handle*/) { NotPorted(__func__); }
 void sub_42D40_43080(uint32_t /*handle*/, char* /*name*/) { NotPorted(__func__); }
@@ -71,10 +67,3 @@ void sub_43870_43BB0(uint16_t /*player*/, uint8_t* /*buffer*/, uint32_t /*size*/
 // 20FB0: the icons and the spells
 //!!!!! not ported yet
 void sub_5A560_5AA70() { NotPorted(__func__); }
-//!!!!! not ported yet
-// 16B00 Alt+S / Alt+L: the game saved to save/gam00199.dat (the state) and save/map00199.dat (the maps), needs the
-// state without pointers
-int32_t sub_3E690_3E9D0(int16_t /*number*/) { NotPorted(__func__); return 0; }
-int32_t sub_3E750_3EA90(int16_t /*number*/) { NotPorted(__func__); return 0; }
-int32_t sub_3E7F0_3EB30(int16_t /*number*/) { NotPorted(__func__); return 0; }
-int32_t sub_3E8C0_3EC00(int16_t /*number*/) { NotPorted(__func__); return 0; }

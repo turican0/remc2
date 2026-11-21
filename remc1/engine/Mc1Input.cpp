@@ -8,6 +8,7 @@
 #include "Mc1Level.h"
 #include "Mc1Movie.h"
 #include "Mc1NotPorted.h"
+#include "Mc1Save.h"
 #include "Mc1Screen.h"
 #include "Mc1Shared.h"
 #include "Mc1Sound.h"
@@ -258,8 +259,8 @@ void FunctionKeys_16B00_16B00()
 				MarkLoadedTmaps_593B0_598C0();
 				state->creatureStats_0x38C9F_232607.savedLevel_0x64 = settings->levelIndex_0x11_17;
 				state->creatureStats_0x38C9F_232607.savedTimer_0x66 = timerTicks_AC5D4_AC5C4;
-				sub_3E750_3EA90(0xC7);
-				sub_3E8C0_3EC00(0xC7);
+				SaveGame_3E750_3EA90(0xC7);
+				SaveMaps_3E8C0_3EC00(0xC7);
 				RebuildFreeLists_37220_375E0();
 				state->reuseTop_0x11F1_4593 = -1;
 				ShowMessage("Game saved.", 100, 0);
@@ -269,8 +270,8 @@ void FunctionKeys_16B00_16B00()
 		case 0x26: // L: load the game
 			if (!(settings->flags_0x00_0 & 0x10))
 			{
-				sub_3E690_3E9D0(0xC7);
-				sub_3E7F0_3EB30(0xC7);
+				LoadGame_3E690_3E9D0(0xC7);
+				LoadMaps_3E7F0_3EB30(0xC7);
 				settings->levelIndex_0x11_17 = state->creatureStats_0x38C9F_232607.savedLevel_0x64;
 				timerTicks_AC5D4_AC5C4 = state->creatureStats_0x38C9F_232607.savedTimer_0x66;
 				ReloadTmaps_59420_59930();

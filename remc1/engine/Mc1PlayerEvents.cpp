@@ -13,6 +13,7 @@
 #include "Mc1MainMenu.h"
 #include "Mc1Movie.h"
 #include "Mc1NotPorted.h"
+#include "Mc1Save.h"
 #include "Mc1Regression.h"
 #include "Mc1Screen.h"
 #include "Mc1Sound.h"
@@ -253,11 +254,11 @@ void PlayerEvents_3C9D0_3CD10()
 			break;
 		case 10:
 			if (!(settings->flags_0x00_0 & 0x10))
-				sub_3E410_3E750(10000);
+				SaveMovieGame_3E410_3E750(10000);
 			break;
 		case 11:
 			if (!(settings->flags_0x00_0 & 0x10))
-				sub_3E350_3E690(10000);
+				LoadMovieGame_3E350_3E690(10000);
 			break;
 		case 12: // start recording the movie
 			if (!(settings->flags_0x00_0 & 0x20) && current)
@@ -496,14 +497,14 @@ void RecordOrPlayMovieInput_3E9D0_3ED10(Type_Mc1PlayerInput* input)
 		if (!settings->movieFile_0x09_9 && input == &state->playerInputs_0x7413_29715[0])
 		{
 			sprintf(path, "%s/mvi%05d.dat", "movie", settings->movie_0x0D_13);
-			settings->movieFile_0x09_9 = DataFileIO::CreateOrOpenFile(path, 0x200);
+			settings->movieFile_0x09_9 = DataFileIO::CreateOrOpenFile(Mc1DataFilePath(path).c_str(), 0x200);
 			if (!settings->movieFile_0x09_9)
 			{
 				settings->flags_0x00_0 &= ~4u;
 				return;
 			}
-			sub_3E350_3E690(settings->movie_0x0D_13);
-			sub_3E4B0_3E7F0(settings->movie_0x0D_13);
+			LoadMovieGame_3E350_3E690(settings->movie_0x0D_13);
+			LoadMovieMaps_3E4B0_3E7F0(settings->movie_0x0D_13);
 			ReloadTmaps_59420_59930();
 			InitInputChange_356E0_35AA0();
 		}
@@ -533,15 +534,15 @@ void RecordOrPlayMovieInput_3E9D0_3ED10(Type_Mc1PlayerInput* input)
 	if (!settings->movieFile_0x09_9 && input == &state->playerInputs_0x7413_29715[0])
 	{
 		sprintf(path, "%s/mvi%05d.dat", "movie", settings->movie_0x0D_13);
-		settings->movieFile_0x09_9 = DataFileIO::CreateOrOpenFile(path, 0x222);
+		settings->movieFile_0x09_9 = DataFileIO::CreateOrOpenFile(Mc1DataFilePath(path).c_str(), 0x222);
 		if (!settings->movieFile_0x09_9)
 		{
 			settings->flags_0x00_0 &= ~2u;
 			return;
 		}
 		MarkLoadedTmaps_593B0_598C0();
-		sub_3E410_3E750(settings->movie_0x0D_13);
-		sub_3E580_3E8C0(settings->movie_0x0D_13);
+		SaveMovieGame_3E410_3E750(settings->movie_0x0D_13);
+		SaveMovieMaps_3E580_3E8C0(settings->movie_0x0D_13);
 		RebuildFreeLists_37220_375E0();
 		state->reuseTop_0x11F1_4593 = -1;
 		settings->credits_0xA1_161 = 3;
