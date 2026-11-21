@@ -105,7 +105,7 @@ int TopProcedure_340B0(int argc, char** argv)
 				screenMode = 1;
 				if (*videoMode_12F02E_12F01E == 8)
 				{
-					sub_34C80();
+					ToggleResolution_34C80_35040();
 					screenMode = 8;
 				}
 				ShrinkHeapForMenu_41490_417D0();
@@ -135,7 +135,7 @@ int TopProcedure_340B0(int argc, char** argv)
 				{
 					SetFullScreen_31A00_31A40();
 					if (screenMode == 8)
-						sub_34C80();
+						ToggleResolution_34C80_35040();
 					RestoreScreenSize_31A60_31AA0();
 				}
 				SetAllocationTag_42530_42870(3);
@@ -225,7 +225,7 @@ int TopProcedure_34470(int argc, char** argv)
 				screenMode = 1;
 				if (*videoMode_12F02E_12F01E == 8)
 				{
-					sub_35040();
+					ToggleResolution_34C80_35040();
 					screenMode = 8;
 				}
 				ShrinkHeapForMenu_41490_417D0();
@@ -255,7 +255,7 @@ int TopProcedure_34470(int argc, char** argv)
 				{
 					SetFullScreen_31A00_31A40();
 					if (screenMode == 8)
-						sub_35040();
+						ToggleResolution_34C80_35040();
 					RestoreScreenSize_31A60_31AA0();
 				}
 				SetAllocationTag_42530_42870(3);
@@ -602,6 +602,46 @@ void LoadGameData_34B00_34EC0()
 		LoadFileGroup_40440_40780(screenFilesHires_99898_99898);
 	RelocateTabs_59500_59A10(tabRelocations_99974_99974);
 	InitSearchRings_11540_11540();
+}
+
+// 34C80 / 35040: the other resolution (MCGA 320x200 or 640x480): its screen files and sprites, the blur buffer
+void ToggleResolution_34C80_35040()
+{
+	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+	SetScreenModeAndPalette_315C0_31600();
+	Free_426E0_42A20(*blurBuffer_AE404_AE3F4);
+	*blurBuffer_AE404_AE3F4 = nullptr;
+	ResetMouse_3F370_3F6B0();
+	UnrelocateTabs_59560_59A70(tabRelocations_99974_99974);
+	uint32_t blurSize;
+	if (*videoMode_12F02E_12F01E == 1)
+	{
+		FreeFileGroup_61610_61B20(screenFilesMcga_997BC_997BC);
+		*videoMode_12F02E_12F01E = 8;
+		LoadFileGroup_40440_40780(screenFilesHires_99898_99898);
+		blurSize = 640 * 480;
+	}
+	else
+	{
+		FreeFileGroup_61610_61B20(screenFilesHires_99898_99898);
+		*videoMode_12F02E_12F01E = 1;
+		LoadFileGroup_40440_40780(screenFilesMcga_997BC_997BC);
+		blurSize = 320 * 200;
+	}
+	*blurBuffer_AE404_AE3F4 = (uint8_t*)Malloc_42540_42880(blurSize);
+	RelocateTabs_59500_59A10(tabRelocations_99974_99974);
+	//!!!!! the original gives the work screen as the palette (the new one is zero: black until the next fade)
+	if (*videoMode_12F02E_12F01E & 1)
+		SetVideoMode320x200AndPalette_61B90_620A0((TColor*)*workScreen_12EFF4_12EFE4);
+	else
+		SetVideoMode640x480AndPalette_61C30_62140((TColor*)*workScreen_12EFF4_12EFE4);
+	if (*videoMode_12F02E_12F01E & 1)
+		ClearScreen320_411D7_41517(*workScreen_12EFF4_12EFE4, 320, 200, 0);
+	else
+		ClearScreen640_411FD_4153D(*workScreen_12EFF4_12EFE4, 640, 480, 0);
+	InstallMouse_5C214_5C724();
+	SetCursor_5C05C_5C56C(pointersIndex[0]);
+	mc1Settings_AE408_AE3F8->flag_0x17_23 = 0;
 }
 
 void InitGameData_34B40_34F00()

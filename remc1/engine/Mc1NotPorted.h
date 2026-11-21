@@ -8,8 +8,6 @@
 
 // temporary stubs of functions not ported yet; each one moves to its real file when ported from IDA
 
-void sub_34C80();
-void sub_35040();
 // the VFX1 head tracker: 5B210 reads it (vfxTrackerX / Y), 5B2B0 (int 33h 8)
 int32_t sub_5B210_5B720();
 void sub_5B2B0_5B7C0();

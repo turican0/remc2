@@ -23,10 +23,6 @@ static void MenuScreenNotPorted(const char* name)
 }
 
 //!!!!! not ported yet
-void sub_34C80() { NotPorted(__func__); }
-//!!!!! not ported yet
-void sub_35040() { NotPorted(__func__); }
-//!!!!! not ported yet
 // 3FCA0: the VFX1 head tracker (only with vfxTracking_9AD08, InitVfx_5AF50 finds none)
 int32_t sub_5B210_5B720() { NotPorted(__func__); return 1; }
 void sub_5B2B0_5B7C0() { NotPorted(__func__); }

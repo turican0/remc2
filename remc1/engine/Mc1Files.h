@@ -78,3 +78,4 @@ int32_t LoadFileEntry_634E0_639F0(Type_Mc1FileEntry* entry);
 int32_t GetFileUnpackSize_63910_63E20(Type_Mc1FileEntry* entry);
 int32_t ReadPackedFile_3EEA0_3F1E0(const char* path, uint8_t* buffer);
 void RelocateTabs_59500_59A10(Type_Mc1TabRelocation* list);
+void UnrelocateTabs_59560_59A70(Type_Mc1TabRelocation* list);

@@ -337,7 +337,7 @@ void FunctionKeys_16B00_16B00()
 	{
 		// R
 		if (state->options_0x21AD_8621[10] && !state->screenSize_0x219B_8603)
-			sub_34C80();
+			ToggleResolution_34C80_35040();
 		key = 0;
 	}
 	if (key == 0x39)
@@ -920,7 +920,7 @@ static void ProcessGameInput(Type_Mc1State_AE400_AE3F0* state, Type_Mc1Player_34
 	{
 		// R
 		if (state->options_0x21AD_8621[10])
-			sub_34C80();
+			ToggleResolution_34C80_35040();
 		key = 0;
 	}
 	if (key == 0x39)

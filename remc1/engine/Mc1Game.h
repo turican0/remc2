@@ -41,4 +41,5 @@ void Cleanup_34C60_35020();
 void PrintStartTexts_5ACA0_5B1B0();
 void PrintLoadingText_5AD10_5B220(const char* text);
 void LoadGameData_34B00_34EC0();
+void ToggleResolution_34C80_35040();
 void InitGameData_34B40_34F00();

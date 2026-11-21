@@ -228,6 +228,18 @@ int32_t ReadPackedFile_3EEA0_3F1E0(const char* path, uint8_t* buffer)
 	return result ? result : length;
 }
 
+void UnrelocateTabs_59560_59A70(Type_Mc1TabRelocation* list)
+{
+	// the original takes the data address off every offset in the tab again (halved in MCGA, 66390 / 66410), the
+	// port frees its index
+	for (; list->tab_0; list++)
+		if (*list->index)
+		{
+			Free_426E0_42A20(*list->index);
+			*list->index = nullptr;
+		}
+}
+
 void RelocateTabs_59500_59A10(Type_Mc1TabRelocation* list)
 {
 	// the original adds the data address to every offset in the tab (sizes doubled in MCGA, 65D70 / 65DC0),
