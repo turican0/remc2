@@ -8,6 +8,7 @@
 #include "Mc1Game.h"
 #include "Mc1NotPorted.h"
 #include "Mc1Sound.h"
+#include "Mc1SceneryActions.h"
 #include "Mc1Shared.h"
 #include "Mc1Terrain.h"
 #include "Mc1Wizard.h"
@@ -1546,4 +1547,1030 @@ void CreatureAttack18_1BB20_1BB20(Type_Mc1Entity* entity)
 	Type_Mc1Entity* target = &Entities()[entity->target_0x92_146];
 	if ((target->model_0x41_65 == 0 || target->model_0x41_65 == 1) && target->playerData_0xA0_160) // port: null player data
 		WriteS16(target->playerData_0xA0_160 + 0x210, 0xC8);
+}
+
+// the nearest in the list passing the filter within the range (0xFFFFFFFF none)
+template <typename Filter>
+static Type_Mc1Entity* NearestInRange(Type_Mc1Entity* entity, Type_Mc1Entity* list, uint32_t range, Filter filter)
+{
+	uint32_t best = 0xFFFFFFFF;
+	Type_Mc1Entity* found = nullptr;
+	for (Type_Mc1Entity* other = list; other > Entities(); other = other->next_0x00_0)
+	{
+		if (!filter(other))
+			continue;
+		const uint32_t distance = Distance2DSquared(entity, other);
+		if (distance > range || distance >= best)
+			continue;
+		found = other;
+		best = distance;
+	}
+	return found;
+}
+
+static uint32_t ViewRange(const Type_Mc1Entity* entity)
+{
+	return (uint32_t)(ReadS16(entity->typeParams_0x9C_156 + 0x1C) * ReadS16(entity->typeParams_0x9C_156 + 0x1C));
+}
+
+// NearestInView with a filter before the range and the flag 20h (hidden) checked or not
+template <typename Filter>
+static Type_Mc1Entity* NearestInViewIf(Type_Mc1Entity* entity, Type_Mc1Entity* list, bool checkHidden, Filter filter)
+{
+	const uint32_t range = ViewRange(entity);
+	uint32_t best = 0xFFFFFFFF;
+	Type_Mc1Entity* found = nullptr;
+	for (Type_Mc1Entity* other = list; other > Entities(); other = other->next_0x00_0)
+	{
+		if (!filter(other))
+			continue;
+		const uint32_t distance = Distance2DSquared(entity, other);
+		if (distance > range)
+			continue;
+		if (checkHidden && (other->flags_0x10_16 & 0x20))
+			continue;
+		const int32_t angle = ReadS16(entity->typeParams_0x9C_156 + 0x1E);
+		const uint16_t yaw = (uint16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&other->position_0x48_72);
+		if ((int32_t)(uint16_t)AngleDistance_42210_42550((uint16_t)entity->word_0x1E_30, yaw) >= angle)
+			continue;
+		if (distance >= best)
+			continue;
+		found = other;
+		best = distance;
+	}
+	return found;
+}
+
+static void CreatureRegenerate(Type_Mc1Entity* entity)
+{
+	if (entity->life_0x0C_12 < entity->maxLife_0x08_8)
+		entity->life_0x0C_12 += entity->maxLife_0x08_8 >> 7;
+}
+
+static void QueueEntitySound(Type_Mc1Entity* entity, uint8_t sound)
+{
+	QueueSound_55370_558A0((int16_t)EntityIndex(entity), -1, sound);
+}
+
+// a projectile of the creature to the target: the id, the yaw and the pitch, the height of the box, the target
+static void AimProjectile(Type_Mc1Entity* projectile, Type_Mc1Entity* entity, Type_Mc1Entity* target)
+{
+	projectile->id_0x18_24 = entity->id_0x18_24;
+	projectile->word_0x1E_30 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+	projectile->word_0x20_32 = (int16_t)GetPitchAngle_42180_424C0(&entity->position_0x48_72, &target->position_0x48_72);
+	projectile->position_0x48_72.z = (int16_t)(projectile->position_0x48_72.z + entity->box_0x4E_78[3]);
+	projectile->target_0x92_146 = entity->target_0x92_146;
+}
+
+int32_t CreatureShot0D_1AA40_1AA40(Type_Mc1Entity* entity, Type_Mc1Entity* target)
+{
+	Type_Mc1Entity* shot = CreateEntity_373F0_377B0(&entity->position_0x48_72, 9, 0x0D);
+	if (!shot)
+		return 0;
+	AimProjectile(shot, entity, target);
+	shot->byte_0x43_67 = entity->byte_0x43_67;
+	shot->byte_0x42_66 = entity->byte_0x42_66;
+	shot->word_0x2C_44 = entity->owner_0x90_144 ? 0x258 : 0x190;
+	SetSpriteDoubleBox_370A0_37460(shot, 0xCB);
+	return 1;
+}
+
+int32_t CreatureShotsByMana_1AB70_1AB70(Type_Mc1Entity* entity, Type_Mc1Entity* target)
+{
+	// 1-5 shots by the mana of the creature, the kind random by the mana: fireballs, model 9 or one model 3
+	const uint16_t id = entity->id_0x18_24;
+	const int16_t yaw = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+	const int16_t pitch = (int16_t)GetPitchAngle_42180_424C0(&entity->position_0x48_72, &target->position_0x48_72);
+	const int16_t height = entity->box_0x4E_78[3];
+	const uint16_t targetIndex = entity->target_0x92_146;
+	const uint8_t byte43 = entity->byte_0x43_67;
+	const uint8_t byte42 = entity->byte_0x42_66;
+	uint16_t count = (uint16_t)((uint32_t)(entity->mana_0x8C_140 * 7) / (uint32_t)entity->dword_0x88_136);
+	uint16_t kind = 0;
+	if (count)
+	{
+		NextRand(entity);
+		kind = (uint16_t)((int32_t)(entity->rand_0x04_4 % (uint32_t)(count * 100)) / 100);
+	}
+	if (count < 1)
+		count = 1;
+	if (count > 5)
+		count = 5;
+	Type_Mc1Entity* shot = nullptr;
+	auto init = [&](Type_Mc1Entity* created, uint8_t byte45, uint8_t* params, int16_t speed) {
+		created->byte_0x45_69 = byte45;
+		created->typeParams_0x9C_156 = params;
+		created->byte_0x43_67 = byte43;
+		created->byte_0x42_66 = byte42;
+		created->byte_0x44_68 = 0x0A;
+		created->id_0x18_24 = id;
+		created->word_0x1E_30 = yaw;
+		created->word_0x20_32 = pitch;
+		created->word_0x2C_44 = speed;
+		created->position_0x48_72.z = (int16_t)(created->position_0x48_72.z + height);
+		created->target_0x92_146 = targetIndex;
+	};
+	switch (kind)
+	{
+	case 0:
+		for (uint16_t i = 0; i < count; i++)
+			if ((shot = CreateEntity_373F0_377B0(&entity->position_0x48_72, 9, 0)) != nullptr)
+				init(shot, 0, creatureTypes_98F38_98F38[6 - i], 0x190);
+		break;
+	case 1:
+	case 2:
+		for (uint16_t i = 1; i < count; i++)
+			if ((shot = CreateEntity_373F0_377B0(&entity->position_0x48_72, 9, 9)) != nullptr)
+				init(shot, 0x17, creatureTypes_98F38_98F38[6 - i], 0x320);
+		break;
+	case 3:
+	case 4:
+	case 5:
+	case 6:
+		if ((shot = CreateEntity_373F0_377B0(&entity->position_0x48_72, 9, 3)) != nullptr)
+			init(shot, 0x11, creatureTypes_98F38_98F38[3], 0x1F40);
+		break;
+	default:
+		break;
+	}
+	return shot ? 1 : 0;
+}
+
+int32_t CreatureShot0E_1AE30_1AE30(Type_Mc1Entity* entity, Type_Mc1Entity* target)
+{
+	Type_Mc1Entity* shot = CreateEntity_373F0_377B0(&entity->position_0x48_72, 9, 0x0E);
+	if (!shot)
+		return 0;
+	shot->byte_0x44_68 = 0x0A;
+	shot->byte_0x45_69 = 0;
+	AimProjectile(shot, entity, target);
+	shot->typeParams_0x9C_156 = creatureTypes_98F38_98F38[6];
+	shot->byte_0x43_67 = entity->byte_0x43_67;
+	shot->word_0x2C_44 = 0x30C;
+	shot->byte_0x42_66 = entity->byte_0x42_66;
+	return 1;
+}
+
+int32_t CreatureShot09_1AEE0_1AEE0(Type_Mc1Entity* entity, Type_Mc1Entity* target)
+{
+	Type_Mc1Entity* shot = CreateEntity_373F0_377B0(&entity->position_0x48_72, 9, 9);
+	if (!shot)
+		return 0;
+	shot->byte_0x44_68 = 0x0A;
+	shot->byte_0x45_69 = 0x17;
+	AimProjectile(shot, entity, target);
+	shot->typeParams_0x9C_156 = creatureTypes_98F38_98F38[6];
+	shot->byte_0x43_67 = target->byte_0x43_67;
+	shot->word_0x2C_44 = 0xFA0;
+	shot->byte_0x42_66 = target->byte_0x42_66;
+	return 1;
+}
+
+void CreatureManaSprite_38820_38BA0(Type_Mc1Entity* entity)
+{
+	// the sprite B9h-C0h by the mana carried; a bigger one adds 5000 to the max life
+	int16_t size = (int16_t)(entity->mana_0x8C_140 / (entity->dword_0x88_136 / 8));
+	if (size < 0)
+		size = 0;
+	if (size > 7)
+		size = 7;
+	if (size > entity->sprite_0x56_86 - 0xB9)
+		entity->maxLife_0x08_8 += 0x1388;
+	SetSprite_36FA0_37360(entity, (int16_t)(size + 0xB9));
+}
+
+void CreatureAttack0_1B090_1B090(Type_Mc1Entity* entity)
+{
+	if (CreatureAttack_1A120_1A120(entity, 0, CreatureFireball_1A8E0_1A8E0))
+		QueueEntitySound(entity, 8);
+	CreatureBob_1B120_1B120(entity);
+}
+
+void CreatureWanderC_1B370_1B370(Type_Mc1Entity* entity)
+{
+	CreatureWander_19D70_19D70(entity, 0x0C);
+	if (entity->actionIndex_0x46_70 == 0x0E)
+	{
+		QueueEntitySound(entity, 0x0D);
+		entity->word_0x1A_26 = 1;
+	}
+}
+
+void CreatureAttackC_1B3C0_1B3C0(Type_Mc1Entity* entity)
+{
+	// a dive to the height of the target: the speed tripled when the countdown ends
+	if (entity->word_0x1A_26)
+	{
+		if (entity->word_0x1A_26-- == 1)
+			entity->word_0x7E_126 = (int16_t)(entity->word_0x80_128 * 3);
+	}
+	const int32_t dz = entity->position_0x48_72.z - Entities()[entity->target_0x92_146].position_0x48_72.z;
+	const int32_t sign = dz ? dz / (dz < 0 ? -dz : dz) : 0;
+	entity->position_0x48_72.z = (int16_t)(entity->position_0x48_72.z + ReadS16(entity->typeParams_0x9C_156 + 0x0E) * sign);
+	if (CreatureAttack_1A120_1A120(entity, 0x0C, CreatureBite_1AB10_1AB10))
+	{
+		QueueEntitySound(entity, 0x0D);
+		entity->word_0x7E_126 = (int16_t)-entity->word_0x82_130;
+		entity->word_0x1A_26 = (int16_t)(ReadS16(entity->typeParams_0x9C_156 + 0x1A) * 3);
+	}
+	if (entity->actionIndex_0x46_70 != 0x0E)
+		entity->word_0x7E_126 = entity->word_0x80_128;
+}
+
+void CreatureFollowLeaderC_1B4C0_1B4C0(Type_Mc1Entity* entity)
+{
+	CreatureFollowLeader_1A390_1A390(entity, 0x0C);
+	if (entity->actionIndex_0x46_70 == 0x0E)
+		entity->word_0x1A_26 = 1;
+}
+
+void CreatureLookForLeader1E_1BD10_1BD10(Type_Mc1Entity* entity)
+{
+	SetAction_424F0_42830(entity, 0x1F);
+}
+
+// the damage of the model 1E / 24 / 30 / 36: 2 dead (action + 4), 1 hit by a wizard (target, then the action)
+static bool CreatureHitOrDead(Type_Mc1Entity* entity, uint8_t deadAction, uint8_t hitAction, bool anyHit, uint32_t* damage)
+{
+	*damage = CreatureDamage(entity);
+	if (*damage == 2)
+	{
+		SetAction_424F0_42830(entity, deadAction);
+		return true;
+	}
+	if (*damage == 1)
+	{
+		if (anyHit || Entities()[entity->word_0x28_40].class_0x40_64 == 3)
+		{
+			entity->target_0x92_146 = entity->word_0x28_40;
+			SetAction_424F0_42830(entity, hitAction);
+		}
+		return true;
+	}
+	return *damage != 0;
+}
+
+static bool IsManaPile(const Type_Mc1Entity* entity)
+{
+	return entity->class_0x40_64 == 0x0A && entity->model_0x41_65 == 0x27;
+}
+
+static void CreatureWander1E(Type_Mc1Entity* entity)
+{
+	uint32_t damage;
+	if (CreatureHitOrDead(entity, 0x22, 0x20, false, &damage))
+		return;
+	MoveCreature_196E0_196E0(entity);
+	if (!CreatureUpdateFrame(entity))
+		return;
+	if (Type_Mc1Entity* wizard = NearestInViewIf(entity, Lists()[21], true, [](Type_Mc1Entity*) { return true; }))
+	{
+		entity->target_0x92_146 = EntityIndex(wizard);
+		SetAction_424F0_42830(entity, 0x20);
+		return;
+	}
+	if (entity->target_0x92_146)
+	{
+		Type_Mc1Entity* mana = &Entities()[entity->target_0x92_146];
+		if (!IsManaPile(mana))
+		{
+			entity->target_0x92_146 = 0;
+			return;
+		}
+		if (Distance2D_423D0_42710(&entity->position_0x48_72, &mana->position_0x48_72) <= (uint32_t)(entity->word_0x80_128 << 7))
+		{
+			entity->word_0x1A_26 = 0x0F;
+			SetAction_424F0_42830(entity, 0x21);
+			return;
+		}
+		entity->word_0x22_34 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&mana->position_0x48_72);
+		return;
+	}
+	if (Type_Mc1Entity* mana = NearestInRange(entity, Lists()[22], 0xFFFFFFFF, [](Type_Mc1Entity* other) { return other->model_0x41_65 == 0x27; }))
+		entity->target_0x92_146 = EntityIndex(mana);
+	if (entity->dword_0x88_136 + 0x1F4 < entity->mana_0x8C_140)
+	{
+		if (Type_Mc1Entity* drop = CreateEntity_373F0_377B0(&entity->position_0x48_72, 0x0A, 0x34))
+		{
+			NextRand(entity);
+			drop->word_0x1A_26 = (int16_t)(entity->rand_0x04_4 % 0x0A * 10 + 0x64);
+			entity->mana_0x8C_140 -= 0x1F4;
+		}
+	}
+}
+
+void CreatureWander1E_1BD20_1BD20(Type_Mc1Entity* entity)
+{
+	// the mana collector: to the wizards in view, to the nearest mana pile, drops 500 of its mana over its limit
+	CreatureWander1E(entity);
+	CreatureRegenerate(entity);
+}
+
+void CreatureAttack1E_1C110_1C110(Type_Mc1Entity* entity)
+{
+	if (CreatureAttack_1A120_1A120(entity, 0x1E, CreatureShotsByMana_1AB70_1AB70))
+		QueueEntitySound(entity, 0x20);
+	CreatureRegenerate(entity);
+}
+
+void CreatureCollect1E_1C170_1C170(Type_Mc1Entity* entity)
+{
+	// the mana pile taken near it (its mana added, the sprite by the mana)
+	uint32_t damage;
+	if (CreatureHitOrDead(entity, 0x22, 0x20, false, &damage))
+		return;
+	MoveCreature_196E0_196E0(entity);
+	if ((uint8_t)entity->index_0x3F_63 % entity->word_0x1A_26)
+		return;
+	Type_Mc1Entity* mana = &Entities()[entity->target_0x92_146];
+	if (!IsManaPile(mana))
+	{
+		entity->target_0x92_146 = 0;
+		SetAction_424F0_42830(entity, 0x1F);
+		return;
+	}
+	const uint32_t distance = Distance2D_423D0_42710(&entity->position_0x48_72, &mana->position_0x48_72);
+	const int32_t speed = entity->word_0x80_128;
+	if (distance <= (uint32_t)(speed * 5))
+	{
+		entity->target_0x92_146 = 0;
+		entity->mana_0x8C_140 += mana->mana_0x8C_140;
+		mana->owner_0x90_144 = 0;
+		MarkToFree_41E80_421C0(mana);
+		SetAction_424F0_42830(entity, 0x1F);
+		CreatureManaSprite_38820_38BA0(entity);
+		return;
+	}
+	if (distance <= (uint32_t)(speed * 20))
+		entity->word_0x1A_26 = 3;
+	entity->word_0x22_34 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&mana->position_0x48_72);
+}
+
+void CreatureWander24_1C4A0_1C4A0(Type_Mc1Entity* entity)
+{
+	CreatureWander_19D70_19D70(entity, 0x24);
+	if (entity->actionIndex_0x46_70 == 0x26)
+		QueueEntitySound(entity, 0x25);
+	entity->word_0x7E_126 = 0x1E;
+}
+
+void CreatureAttack24_1C4F0_1C4F0(Type_Mc1Entity* entity)
+{
+	// circles the wizard and pushes it, then a volley of 5 shots of the model 9
+	entity->word_0x7E_126 = 0x1E;
+	uint32_t damage = CreatureDamage(entity);
+	if (damage == 2)
+	{
+		SetAction_424F0_42830(entity, 0x28);
+		return;
+	}
+	if (damage == 1)
+	{
+		if (Entities()[entity->word_0x28_40].class_0x40_64 == 3)
+		{
+			entity->word_0x1A_26 = -10;
+			entity->target_0x92_146 = entity->word_0x28_40;
+		}
+		return;
+	}
+	if (damage)
+		return;
+	MoveCreature_196E0_196E0(entity);
+	Type_Mc1Entity* target = &Entities()[entity->target_0x92_146];
+	if (!(entity->index_0x3F_63 & 3))
+		entity->word_0x22_34 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+	if (target->life_0x0C_12 < 0 || (target->flags_0x10_16 & 0x400))
+	{
+		SetAction_424F0_42830(entity, 0x25);
+		return;
+	}
+	if (entity->word_0x1A_26++ > 0x28)
+		entity->word_0x1A_26 = -0x5A;
+	if (entity->word_0x1A_26 > 0)
+	{
+		const uint16_t yaw = (uint16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+		if (uint8_t* playerData = target->playerData_0xA0_160) // port: null player data
+		{
+			WriteS16(playerData + 0x18, (int16_t)((yaw + 0x400) & 0x7FF));
+			WriteS16(playerData + 0x1A, 0x100);
+			WriteS16(playerData + 0x16, 0x50);
+		}
+		QueueEntitySound(entity, 0x2A);
+	}
+	if (CreatureUpdateFrame(entity))
+	{
+		if (Distance3D_42340_42680(&entity->position_0x48_72, &target->position_0x48_72) >= (uint32_t)(int32_t)ReadS16(entity->typeParams_0x9C_156 + 0x1C))
+		{
+			SetAction_424F0_42830(entity, 0x25);
+			return;
+		}
+		QueueEntitySound(entity, 0x25);
+		entity->byte_0x47_71 = 5;
+	}
+	if (!entity->byte_0x47_71)
+		return;
+	entity->byte_0x47_71--;
+	Type_Mc1Entity* shot = CreateEntity_373F0_377B0(&entity->position_0x48_72, 9, 9);
+	if (!shot)
+		return;
+	shot->byte_0x44_68 = 0x0A;
+	shot->byte_0x45_69 = 0x17;
+	AimProjectile(shot, entity, target);
+	shot->typeParams_0x9C_156 = creatureTypes_98F38_98F38[6];
+	shot->byte_0x43_67 = target->byte_0x43_67;
+	shot->word_0x2C_44 = 0x320;
+	shot->byte_0x42_66 = target->byte_0x42_66;
+}
+
+void CreatureFollowLeader24_1C880_1C880(Type_Mc1Entity* entity)
+{
+	CreatureFollowLeader_1A390_1A390(entity, 0x24);
+	entity->word_0x7E_126 = 0x1E;
+	if (entity->actionIndex_0x46_70 == 0x26)
+		QueueEntitySound(entity, 0x25);
+}
+
+void CreatureWander2A_1C900_1C900(Type_Mc1Entity* entity)
+{
+	if (CreatureUpdateFrame(entity))
+	{
+		//!!!!! the original adds 1 only when maxLife >> 6 > maxLife (never for a positive max life), then sets the max
+		const int32_t add = (entity->maxLife_0x08_8 >> 6) > entity->maxLife_0x08_8 ? 1 : 0;
+		entity->life_0x0C_12 += add;
+		if (add)
+			entity->life_0x0C_12 = entity->maxLife_0x08_8;
+	}
+	CreatureWander_19D70_19D70(entity, 0x2A);
+	if (entity->actionIndex_0x46_70 == 0x2C)
+		entity->word_0x1A_26 = 1;
+}
+
+void CreatureAttack2A_1C960_1C960(Type_Mc1Entity* entity)
+{
+	// the sprite C6h while shooting (the back speed), 55h again after the countdown
+	if (entity->word_0x1A_26)
+	{
+		if (entity->word_0x1A_26-- == 1 && entity->sprite_0x56_86 == 0xC6)
+		{
+			SetSprite_36FA0_37360(entity, 0x55);
+			entity->word_0x7E_126 = entity->word_0x80_128;
+		}
+	}
+	if ((uint8_t)CreatureAttack_1A120_1A120(entity, 0x2A, CreatureShot0E_1AE30_1AE30) && entity->sprite_0x56_86 == 0x55)
+	{
+		SetSprite_36FA0_37360(entity, 0xC6);
+		entity->word_0x1A_26 = 0x1E;
+		entity->word_0x7E_126 = entity->word_0x82_130;
+	}
+	if (entity->actionIndex_0x46_70 != 0x2C && entity->sprite_0x56_86 == 0xC6)
+	{
+		SetSprite_36FA0_37360(entity, 0x55);
+		entity->word_0x7E_126 = entity->word_0x80_128;
+	}
+}
+
+void CreatureFollowLeader2A_1CA00_1CA00(Type_Mc1Entity* entity)
+{
+	CreatureFollowLeader_1A390_1A390(entity, 0x2A);
+	if (entity->actionIndex_0x46_70 == 0x2C)
+		entity->word_0x1A_26 = 1;
+}
+
+static void SetWizardFlash210(Type_Mc1Entity* wizard)
+{
+	if ((wizard->model_0x41_65 == 0 || wizard->model_0x41_65 == 1) && wizard->playerData_0xA0_160) // port: null player data
+		WriteS16(wizard->playerData_0xA0_160 + 0x210, 0xC8);
+}
+
+void CreatureWander30_1CA50_1CA50(Type_Mc1Entity* entity)
+{
+	// attacks a wizard in view whose 210h is not 0 (sets it to 200), else follows a creature of its model
+	uint32_t damage;
+	if (CreatureHitOrDead(entity, 0x34, 0x32, false, &damage))
+		return;
+	MoveCreature_196E0_196E0(entity);
+	if (!CreatureUpdateFrame(entity))
+		return;
+	CreatureWanderTurn(entity);
+	if (!entity->byte_0x3A_58)
+		return;
+	Type_Mc1Entity* wizard = NearestInViewIf(entity, Lists()[21], false, [](Type_Mc1Entity*) { return true; });
+	if (wizard && (wizard->model_0x41_65 == 0 || wizard->model_0x41_65 == 1) && wizard->playerData_0xA0_160 // port: null player data
+		&& ReadS16(wizard->playerData_0xA0_160 + 0x210))
+	{
+		entity->target_0x92_146 = EntityIndex(wizard);
+		WriteS16(wizard->playerData_0xA0_160 + 0x210, 0xC8);
+		SetAction_424F0_42830(entity, 0x32);
+		return;
+	}
+	if (Type_Mc1Entity* leader = NearestInView(entity, Lists()[1 + (int8_t)entity->model_0x41_65], false))
+	{
+		entity->word_0x34_52 = EntityIndex(leader);
+		SetAction_424F0_42830(entity, 0x33);
+	}
+}
+
+void CreatureAttack30_1CE30_1CE30(Type_Mc1Entity* entity)
+{
+	if (entity->word_0x1A_26)
+		entity->word_0x7E_126 = entity->word_0x80_128;
+	entity->flags_0x10_16 |= 0x8000;
+	if (CreatureAttack_1A120_1A120(entity, 0x30, CreatureShot09_1AEE0_1AEE0))
+	{
+		QueueEntitySound(entity, 0x26);
+		SetWizardFlash210(&Entities()[entity->target_0x92_146]);
+	}
+	if (CreatureUpdateFrame(entity))
+		QueueEntitySound(entity, 0x26);
+}
+
+void CreatureKilled30_1CF60_1CF60(Type_Mc1Entity* entity)
+{
+	SetWizardFlash210(&Entities()[entity->word_0x26_38]);
+	CreatureKilled_1A6C0_1A6C0(entity, 0x30);
+}
+
+void CreatureWake36_1DD50_1DD50(Type_Mc1Entity* entity)
+{
+	entity->word_0x7E_126 = entity->word_0x80_128;
+	SetSprite_36FA0_37360(entity, 0xC9);
+	entity->byte_0x42_66 = 3;
+	entity->byte_0x43_67 = 0xFF;
+	entity->word_0x1A_26 = 0x32;
+	entity->byte_0x47_71 = 0;
+}
+
+void CreatureHatch36_1CFF0_1CFF0(Type_Mc1Entity* entity)
+{
+	// the egg: the sprite EDh at 16, a frame every 2nd step, then awake
+	const int16_t countdown = entity->word_0x1A_26--;
+	if (!countdown)
+	{
+		CreatureWake36_1DD50_1DD50(entity);
+		SetAction_424F0_42830(entity, 0x37);
+		entity->word_0x1A_26 = 0x190;
+		entity->byte_0x47_71 = 0;
+		return;
+	}
+	if (entity->word_0x1A_26 == 0x10)
+	{
+		SetSprite_36FA0_37360(entity, 0xED);
+		return;
+	}
+	if (entity->word_0x1A_26 < 0x10 && !(entity->word_0x1A_26 % 2))
+		NextFrame_42510_42850(entity);
+}
+
+void CreatureRest36_1DD90_1DD90(Type_Mc1Entity* entity)
+{
+	SetSprite_36FA0_37360(entity, 0xF5);
+	entity->byte_0x47_71 = 1;
+}
+
+void CreatureAwake36_1DDB0_1DDB0(Type_Mc1Entity* entity)
+{
+	entity->byte_0x47_71 = 0;
+	entity->word_0x1A_26 = 0x190;
+	SetSprite_36FA0_37360(entity, 0xC9);
+}
+
+void CreatureDisguise36_1DCD0_1DCD0(Type_Mc1Entity* entity)
+{
+	// the look of the target (the sprite CAh, its class and model), not of an own one
+	Type_Mc1Entity* target = &Entities()[entity->target_0x92_146];
+	if (entity->id_0x18_24 == target->id_0x18_24)
+	{
+		SetAction_424F0_42830(entity, 0x37);
+		return;
+	}
+	entity->word_0x7E_126 = 0;
+	SetSprite_36FA0_37360(entity, 0xCA);
+	entity->byte_0x42_66 = target->class_0x40_64;
+	entity->byte_0x43_67 = target->model_0x41_65;
+}
+
+// the creature of the model 36 eats a mana ball, a building or a creature near it: a new creature of the model 9
+static void EatNear36(Type_Mc1Entity* entity, bool ofWizardOnly)
+{
+	const uint8_t* params = entity->typeParams_0x9C_156;
+	static const uint8_t lists[3] = { 5, 13, 14 };
+	const int32_t which = ((uint8_t)entity->index_0x3F_63 / ReadS16(params + 0x1A)) % 3;
+	Type_Mc1Entity* food = NearestInRange(entity, Lists()[lists[which]], ViewRange(entity), [](Type_Mc1Entity*) { return true; });
+	if (!food || Distance3D_42340_42680(&entity->position_0x48_72, &food->position_0x48_72) > 0x600)
+		return;
+	featurePosition_AE454_AE444 = food->position_0x48_72;
+	MarkToFree_41E80_421C0(food);
+	Type_Mc1Entity* created = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 5, 9);
+	if (created && (!ofWizardOnly || Entities()[(int16_t)entity->id_0x18_24].class_0x40_64 == 3))
+		created->id_0x18_24 = entity->id_0x18_24;
+}
+
+static void CreatureHunt36(Type_Mc1Entity* entity)
+{
+	const uint8_t action = 0x36;
+	if (entity->byte_0x3A_58)
+		entity->word_0x1A_26 = 0x190;
+	uint32_t damage;
+	if (CreatureHitOrDead(entity, (uint8_t)(action + 4), (uint8_t)(action + 2), true, &damage))
+		return;
+	MoveCreature_196E0_196E0(entity);
+	if (!CreatureUpdateFrame(entity))
+		return;
+	const uint16_t id = entity->id_0x18_24;
+	Type_Mc1Entity* found = NearestInRange(entity, Lists()[21], 0xFFFFFFFF, [id](Type_Mc1Entity* other) { return other->model_0x41_65 == 2 && other->id_0x18_24 != id; });
+	if (found)
+	{
+		entity->word_0x22_34 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&found->position_0x48_72);
+		const int32_t reach = ReadS16(entity->typeParams_0x9C_156 + 0x1C) + found->box_0x4E_78[1];
+		if (Distance3D_42340_42680(&entity->position_0x48_72, &found->position_0x48_72) <= (uint32_t)reach)
+		{
+			entity->target_0x92_146 = EntityIndex(found);
+			SetAction_424F0_42830(entity, (uint8_t)(action + 2));
+		}
+		else
+			found = nullptr;
+	}
+	else
+		CreatureWanderTurn(entity);
+	if (found)
+		return;
+	if (entity->byte_0x3A_58)
+	{
+		found = NearestInViewIf(entity, Lists()[21], true, [id](Type_Mc1Entity* other) { return other->id_0x18_24 != id; });
+		if (found)
+		{
+			entity->target_0x92_146 = EntityIndex(found);
+			SetAction_424F0_42830(entity, (uint8_t)(action + 2));
+			return;
+		}
+	}
+	EatNear36(entity, true);
+}
+
+void CreatureResting36_1D6D0_1D6D0(Type_Mc1Entity* entity)
+{
+	uint32_t damage;
+	if (CreatureHitOrDead(entity, 0x3A, 0x38, true, &damage))
+		return;
+	if (entity->word_0x1A_26 < 0)
+	{
+		if (++entity->word_0x1A_26 == 0)
+			CreatureAwake36_1DDB0_1DDB0(entity);
+		return;
+	}
+	if (entity->byte_0x3A_58)
+	{
+		entity->word_0x1A_26 = -0x32;
+		return;
+	}
+	if (!CreatureUpdateFrame(entity))
+		return;
+	EatNear36(entity, false);
+}
+
+void CreatureHunt36_1D060_1D060(Type_Mc1Entity* entity)
+{
+	// hunts the wizards of the model 2 (not its own), the wizards in view, eats what is near; rests after 400 steps
+	if (entity->word_0x1A_26 > 0 && --entity->word_0x1A_26 == 0)
+		CreatureRest36_1DD90_1DD90(entity);
+	if (entity->byte_0x47_71 == 0)
+		CreatureHunt36(entity);
+	else if (entity->byte_0x47_71 == 1)
+		CreatureResting36_1D6D0_1D6D0(entity);
+	if (entity->actionIndex_0x46_70 == 0x38)
+		CreatureDisguise36_1DCD0_1DCD0(entity);
+}
+
+static void CreatureAttack36(Type_Mc1Entity* entity)
+{
+	uint32_t damage = CreatureDamage(entity);
+	if (damage == 2)
+	{
+		SetAction_424F0_42830(entity, 0x3A);
+		return;
+	}
+	if (damage == 1)
+	{
+		if (Entities()[entity->word_0x28_40].class_0x40_64 == 3)
+			entity->target_0x92_146 = entity->word_0x28_40;
+		return;
+	}
+	if (damage)
+		return;
+	MoveCreature_196E0_196E0(entity);
+	Type_Mc1Entity* target = &Entities()[entity->target_0x92_146];
+	if (target->life_0x0C_12 < 0 || (target->flags_0x10_16 & 0x400))
+	{
+		SetAction_424F0_42830(entity, 0x37);
+		return;
+	}
+	if (!((uint8_t)entity->index_0x3F_63 % 0x0A))
+		entity->word_0x22_34 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+	if (!CreatureUpdateFrame(entity))
+		return;
+	int32_t reach = ReadS16(entity->typeParams_0x9C_156 + 0x1C);
+	if (target->class_0x40_64 == 3 && target->model_0x41_65 == 2)
+		reach += target->box_0x4E_78[1];
+	if (Distance3D_42340_42680(&entity->position_0x48_72, &target->position_0x48_72) >= (uint32_t)reach)
+		SetAction_424F0_42830(entity, 0x37);
+	else
+		CreatureShot0D_1AA40_1AA40(entity, target);
+}
+
+void CreatureAttack36_1DA60_1DA60(Type_Mc1Entity* entity)
+{
+	CreatureAttack36(entity);
+	if (entity->actionIndex_0x46_70 != 0x38)
+		CreatureWake36_1DD50_1DD50(entity);
+}
+
+void CreatureFollowLeader36_1DC80_1DC80(Type_Mc1Entity* entity)
+{
+	CreatureFollowLeader_1A390_1A390(entity, 0x36);
+	if (entity->actionIndex_0x46_70 == 0x38)
+		CreatureDisguise36_1DCD0_1DCD0(entity);
+}
+
+void CreatureAttack3C_1DDF0_1DDF0(Type_Mc1Entity* entity)
+{
+	CreatureAttack_1A120_1A120(entity, 0x3C, CreatureShot_1A990_1A990);
+}
+
+void CreatureSplit42_1DE40_1DE40(Type_Mc1Entity* entity)
+{
+	// 12 smokes around it, then at the end of the countdown a jump 32h-6Eh tiles away (every 2nd time, flag 1) or the attack
+	if (!entity->word_0x1A_26)
+	{
+		entity->word_0x1A_26 = 0x0C;
+		while (entity->word_0x1A_26-- != 0)
+		{
+			featurePosition_AE454_AE444 = entity->position_0x48_72;
+			const int32_t n = entity->word_0x1A_26;
+			featurePosition_AE454_AE444.x = (int16_t)(featurePosition_AE454_AE444.x + n % 3 * 0x28);
+			featurePosition_AE454_AE444.y = (int16_t)(featurePosition_AE454_AE444.y + n / 3 * 0x28);
+			if (Type_Mc1Entity* smoke = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 0x0A, 1))
+			{
+				smoke->id_0x18_24 = entity->id_0x18_24;
+				smoke->flags_0x10_16 |= 0x10000;
+			}
+		}
+		entity->word_0x1A_26 = 1;
+		entity->flags_0x10_16 ^= 1;
+		return;
+	}
+	if (entity->word_0x1A_26-- != 1)
+		return;
+	QueueEntitySound(entity, 0x15);
+	if (!(entity->flags_0x10_16 & 1))
+	{
+		SetAction_424F0_42830(entity, 0x44);
+		return;
+	}
+	entity->target_0x92_146 = 0;
+	entity->mails_0x5A_90[0].sender_4 = 0;
+	featurePosition_AE454_AE444 = entity->position_0x48_72;
+	NextRand(entity);
+	featurePosition_AE454_AE444.x = (int16_t)(featurePosition_AE454_AE444.x + (int32_t)(entity->rand_0x04_4 % 0x3C << 8) + 0x3200);
+	NextRand(entity);
+	featurePosition_AE454_AE444.y = (int16_t)(featurePosition_AE454_AE444.y + (int32_t)(entity->rand_0x04_4 % 0x3C << 8) + 0x3200);
+	CopyEntityPosition_41C70_41FB0(entity, &featurePosition_AE454_AE444);
+	SetAction_424F0_42830(entity, 0x43);
+}
+
+void CreatureJumpToTarget42_1E770_1E770(Type_Mc1Entity* entity)
+{
+	// in front of the target by 64 times its speed
+	if (!entity->target_0x92_146)
+		return;
+	entity->word_0x1A_26 = 0;
+	SetAction_424F0_42830(entity, 0x42);
+	Type_Mc1Entity* target = &Entities()[entity->target_0x92_146];
+	featurePosition_AE454_AE444 = target->position_0x48_72;
+	MoveEntity_41EC0_42200((axis_3d*)&featurePosition_AE454_AE444, (uint16_t)target->word_0x1E_30, 0, (int16_t)(entity->word_0x7E_126 << 6));
+	CopyEntityPosition_41C70_41FB0(entity, &featurePosition_AE454_AE444);
+}
+
+void CreatureEatMana42_1E810_1E810(Type_Mc1Entity* entity)
+{
+	// a mana pile in view taken (its mana added) under its limit, a smoke in its place
+	if (entity->mana_0x8C_140 >= entity->dword_0x88_136)
+		return;
+	Type_Mc1Entity* mana = NearestInRange(entity, Lists()[22], ViewRange(entity), [](Type_Mc1Entity* other) { return other->model_0x41_65 == 0x27; });
+	if (!mana)
+		return;
+	entity->mana_0x8C_140 += mana->mana_0x8C_140;
+	mana->owner_0x90_144 = 0;
+	featurePosition_AE454_AE444 = mana->position_0x48_72;
+	MarkToFree_41E80_421C0(mana);
+	if (Type_Mc1Entity* smoke = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 0x0A, 0))
+	{
+		smoke->id_0x18_24 = entity->id_0x18_24;
+		smoke->flags_0x10_16 |= 0x10000;
+	}
+	QueueEntitySound(entity, 0x0B);
+}
+
+void CreatureWander42_1DFE0_1DFE0(Type_Mc1Entity* entity)
+{
+	// heals; strong enough it jumps to a wizard in view (else eats mana), at 3/4 of its life to a wizard with mana
+	uint32_t damage = CreatureDamage(entity);
+	if (damage == 2)
+	{
+		SetAction_424F0_42830(entity, 0x46);
+		return;
+	}
+	if (damage == 1)
+	{
+		if (Entities()[entity->word_0x28_40].class_0x40_64 == 3)
+		{
+			entity->target_0x92_146 = entity->word_0x28_40;
+			CreatureJumpToTarget42_1E770_1E770(entity);
+		}
+		return;
+	}
+	if (damage)
+		return;
+	MoveCreature_196E0_196E0(entity);
+	if (!CreatureUpdateFrame(entity))
+		return;
+	entity->life_0x0C_12 += entity->maxLife_0x08_8 >> 6;
+	if (entity->life_0x0C_12 < -1)
+		entity->life_0x0C_12 = -1;
+	if (entity->life_0x0C_12 > entity->maxLife_0x08_8)
+		entity->life_0x0C_12 = entity->maxLife_0x08_8;
+	if (entity->byte_0x3A_58 && entity->maxLife_0x08_8 >> 2 < entity->life_0x0C_12)
+	{
+		Type_Mc1Entity* wizard = NearestInViewIf(entity, Lists()[21], true, [](Type_Mc1Entity* other) { return other->model_0x41_65 == 0 || other->model_0x41_65 == 1; });
+		if (wizard)
+		{
+			entity->target_0x92_146 = EntityIndex(wizard);
+			CreatureJumpToTarget42_1E770_1E770(entity);
+		}
+		else
+			CreatureEatMana42_1E810_1E810(entity);
+	}
+	CreatureWanderTurn(entity);
+	if (entity->maxLife_0x08_8 - (entity->maxLife_0x08_8 >> 2) >= entity->life_0x0C_12)
+		return;
+	for (Type_Mc1Entity* other = Lists()[21]; other > Entities(); other = other->next_0x00_0)
+	{
+		if ((other->model_0x41_65 == 0 || other->model_0x41_65 == 1) && other->mana_0x8C_140 && !(other->flags_0x10_16 & 0x20))
+		{
+			entity->target_0x92_146 = EntityIndex(other);
+			CreatureJumpToTarget42_1E770_1E770(entity);
+			return;
+		}
+	}
+}
+
+void CreatureStop42_1E720_1E720(Type_Mc1Entity* entity)
+{
+	entity->target_0x92_146 = 0;
+	entity->word_0x1A_26 = 0;
+	SetAction_424F0_42830(entity, 0x42);
+	QueueEntitySound(entity, 0x0B);
+}
+
+void CreatureAttack42_1E380_1E380(Type_Mc1Entity* entity)
+{
+	// shoots while at least at half life, then eats mana and stops
+	uint32_t damage = CreatureDamage(entity);
+	if (damage == 2)
+	{
+		SetAction_424F0_42830(entity, 0x46);
+		return;
+	}
+	if (damage == 1)
+	{
+		if (Entities()[entity->word_0x28_40].class_0x40_64 == 3)
+			entity->target_0x92_146 = entity->word_0x28_40;
+		return;
+	}
+	if (damage)
+		return;
+	MoveCreature_196E0_196E0(entity);
+	Type_Mc1Entity* target = &Entities()[entity->target_0x92_146];
+	if (entity->maxLife_0x08_8 >> 1 > entity->life_0x0C_12)
+		CreatureStop42_1E720_1E720(entity);
+	else if (target->life_0x0C_12 < 0 || (target->flags_0x10_16 & 0x400) || target->class_0x40_64 == 0)
+	{
+		CreatureEatMana42_1E810_1E810(entity);
+		CreatureStop42_1E720_1E720(entity);
+	}
+	else if (!(entity->index_0x3F_63 & 7))
+		entity->word_0x22_34 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+	if (!CreatureUpdateFrame(entity))
+		return;
+	if (Distance3D_42340_42680(&entity->position_0x48_72, &target->position_0x48_72) >= (uint32_t)(int32_t)ReadS16(entity->typeParams_0x9C_156 + 0x1C))
+	{
+		CreatureStop42_1E720_1E720(entity);
+		return;
+	}
+	if (!((uint8_t)entity->index_0x3F_63 % (ReadS16(entity->typeParams_0x9C_156 + 0x1A) * 8)))
+		QueueEntitySound(entity, 0x0B);
+	entity->word_0x1A_26++;
+	// both branches of the original (target model 0 and an odd count / else) create the same shot
+	Type_Mc1Entity* shot = CreateEntity_373F0_377B0(&entity->position_0x48_72, 9, 8);
+	if (!shot)
+		return;
+	shot->byte_0x45_69 = 0x19;
+	shot->byte_0x44_68 = 0x0A;
+	shot->id_0x18_24 = entity->id_0x18_24;
+	shot->word_0x2C_44 = 0xBB8;
+	shot->word_0x1A_26 = 0x14;
+	shot->position_0x48_72.z = (int16_t)(shot->position_0x48_72.z + entity->box_0x4E_78[3]);
+	shot->target_0x92_146 = entity->target_0x92_146;
+	shot->word_0x1E_30 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+	shot->word_0x20_32 = (int16_t)GetPitchAngle_42180_424C0(&entity->position_0x48_72, &target->position_0x48_72);
+	QueueEntitySound(entity, 9);
+}
+
+void CreatureRemains54_1FEC0_1FEC0(Type_Mc1Entity* entity)
+{
+	SetWizardFlash210(&Entities()[entity->word_0x26_38]);
+	CreatureRemains_1A800_1A800(entity, 0x54);
+}
+
+void CreatureLookForLeader5A_1FF50_1FF50(Type_Mc1Entity* entity)
+{
+	// IDA decodes 1FF40-1FF60 as data: push 5Ah, call sub_19B10
+	CreatureLookForLeader_19B10_19B10(entity, 0x5A);
+}
+
+void CreatureWander60_20710_20710(Type_Mc1Entity* entity)
+{
+	CreatureWander_19D70_19D70(entity, 0x60);
+	if (entity->actionIndex_0x46_70 != 0x61)
+		return;
+	if ((uint8_t)entity->index_0x3F_63 % (ReadS16(entity->typeParams_0x9C_156 + 0x1A) + 1))
+		return;
+	if (Type_Mc1Entity* found = NearestInRange(entity, Lists()[23], ViewRange(entity), [](Type_Mc1Entity*) { return true; }))
+	{
+		entity->target_0x92_146 = EntityIndex(found);
+		SetAction_424F0_42830(entity, 0x62);
+	}
+}
+
+void CreatureAttack60_207E0_207E0(Type_Mc1Entity* entity)
+{
+	// fireballs with 60000 mana while the countdown runs, a new countdown when facing the target
+	const uint32_t range = ViewRange(entity);
+	uint32_t damage = CreatureDamage(entity);
+	if (damage == 2)
+	{
+		SetAction_424F0_42830(entity, 0x64);
+		return;
+	}
+	if (damage == 1)
+	{
+		if (Entities()[entity->word_0x28_40].class_0x40_64 == 3)
+			entity->target_0x92_146 = entity->word_0x28_40;
+		return;
+	}
+	if (damage)
+		return;
+	MoveCreature_196E0_196E0(entity);
+	Type_Mc1Entity* target = &Entities()[entity->target_0x92_146];
+	if (!(entity->index_0x3F_63 & 7))
+	{
+		if (target->class_0x40_64 == 3 || Distance3D_42340_42680(&entity->position_0x48_72, &target->position_0x48_72) >= 0x200)
+			entity->word_0x22_34 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+	}
+	if (target->life_0x0C_12 < 0 || (target->flags_0x10_16 & 0x400))
+	{
+		SetAction_424F0_42830(entity, 0x61);
+		return;
+	}
+	if (entity->word_0x1A_26)
+	{
+		entity->word_0x1A_26--;
+		if (Type_Mc1Entity* fireball = CreateEntity_373F0_377B0(&entity->position_0x48_72, 9, 0))
+		{
+			fireball->byte_0x44_68 = 0x0A;
+			fireball->byte_0x45_69 = 0;
+			fireball->typeParams_0x9C_156 = creatureTypes_98F38_98F38[2];
+			fireball->byte_0x43_67 = entity->byte_0x43_67;
+			fireball->byte_0x42_66 = entity->byte_0x42_66;
+			fireball->id_0x18_24 = entity->id_0x18_24;
+			fireball->word_0x1E_30 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+			fireball->word_0x20_32 = (int16_t)GetPitchAngle_42180_424C0(&entity->position_0x48_72, &target->position_0x48_72);
+			fireball->position_0x48_72.z = (int16_t)(fireball->position_0x48_72.z + entity->box_0x4E_78[3] * 4);
+			fireball->word_0x2C_44 = 0xBB8;
+			fireball->mana_0x8C_140 = 0xEA60;
+			fireball->target_0x92_146 = entity->target_0x92_146;
+		}
+	}
+	const int32_t frames = ReadS16(entity->typeParams_0x9C_156 + 0x1A);
+	if ((uint8_t)entity->index_0x3F_63 % frames)
+		return;
+	if (Distance2DSquared(entity, target) >= range)
+	{
+		SetAction_424F0_42830(entity, 0x61);
+		return;
+	}
+	if (!((uint8_t)entity->index_0x3F_63 % (frames * 2)))
+		QueueEntitySound(entity, 0x27);
+	const uint16_t yaw = (uint16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+	if ((uint16_t)AngleDistance_42210_42550((uint16_t)entity->word_0x1E_30, yaw) < 0xE3)
+		entity->word_0x1A_26 = 0x0F;
 }
