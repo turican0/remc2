@@ -113,6 +113,92 @@ void RestartLevel_408D0_40C10()
 	SumLevelMana_48230_48570(&state->entities_0x7463_29795[player->entityIndex_0x0A_10]);
 }
 
+static int32_t ReadPd32(const uint8_t* playerData, int32_t offset)
+{
+	int32_t value;
+	memcpy(&value, playerData + offset, sizeof(value));
+	return value;
+}
+
+static void WritePd32(uint8_t* playerData, int32_t offset, int32_t value)
+{
+	memcpy(playerData + offset, &value, sizeof(value));
+}
+
+static int16_t ReadPd16(const uint8_t* playerData, int32_t offset)
+{
+	int16_t value;
+	memcpy(&value, playerData + offset, sizeof(value));
+	return value;
+}
+
+static int32_t AtMost100(int32_t value)
+{
+	return value > 100 ? 100 : value;
+}
+
+void LevelWonStats_448E0_44C20()
+{
+	// the level won: the spells got (pd+37Ch), the percents (up to 100) of the spells of the level (16Bh), of the
+	// creatures (167h of the count of the level), 15Bh of 157h (16Fh), the mana of the castle and the balloons (173h)
+	// and their average (177h); 17Bh becomes the time of the level
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	Type_Mc1Player_340B& player = state->players_0x340B_13323[state->currentPlayer_0x08_8];
+	Type_Mc1Entity* wizard = &state->entities_0x7463_29795[player.entityIndex_0x0A_10];
+	uint8_t* playerData = wizard->playerData_0xA0_160;
+	const Type_Mc1CreatureStats& stats = state->creatureStats_0x38C9F_232607;
+	int32_t found = 0;
+	int32_t total = 0;
+	for (int32_t i = 0; i < 24; i++)
+	{
+		if (stats.class12_0x04[i])
+		{
+			total++;
+			if (ReadPd16(playerData, 0x2A4 + i * 2))
+			{
+				found++;
+				playerData[0x37C + i] = 1;
+			}
+		}
+		if (ReadPd16(playerData, 0x2A4 + i * 2))
+			playerData[0x37C + i] = 1;
+	}
+	WritePd32(playerData, 0x16B, total ? AtMost100(found * 100 / total) : 100);
+	if (stats.creatures_0x00)
+		WritePd32(playerData, 0x167, AtMost100(ReadPd32(playerData, 0x167) * 100 / stats.creatures_0x00));
+	else
+		WritePd32(playerData, 0x167, 100);
+	if (ReadPd32(playerData, 0x157))
+		WritePd32(playerData, 0x16F, AtMost100(ReadPd32(playerData, 0x15B) * 100 / ReadPd32(playerData, 0x157)));
+	else
+		WritePd32(playerData, 0x16F, 100);
+	uint16_t castle;
+	memcpy(&castle, playerData + 0x32, sizeof(castle));
+	const int32_t mana = state->entities_0x7463_29795[castle].mana_0x8C_140 + ReadPd32(playerData, 0x134);
+	WritePd32(playerData, 0x173, AtMost100(mana * 100 / mc1Settings_AE408_AE3F8->manaStats_0xB8_184.total_0x04));
+	int32_t sum = 0;
+	int32_t count = 0;
+	if (total)
+	{
+		sum += ReadPd32(playerData, 0x16B);
+		count = 1;
+	}
+	if (stats.creatures_0x00)
+	{
+		sum += ReadPd32(playerData, 0x167);
+		count++;
+	}
+	if (ReadPd32(playerData, 0x157))
+	{
+		sum += ReadPd32(playerData, 0x16F);
+		count++;
+	}
+	sum += ReadPd32(playerData, 0x173);
+	count++;
+	WritePd32(playerData, 0x177, sum / count);
+	WritePd32(playerData, 0x17B, (int32_t)timerTicks_AC5D4_AC5C4 - ReadPd32(playerData, 0x17B));
+}
+
 void ClearLevel_40550_40890()
 {
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;

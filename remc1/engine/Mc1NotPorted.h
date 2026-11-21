@@ -16,7 +16,6 @@ void sub_5B2B0_5B7C0();
 void sub_4D680_4D9C0();
 void sub_4E5B0_4E8F0();
 void sub_4D560_4D8A0();
-void sub_448E0_44C20();
 void sub_433C0_43700();
 void InitNetwork_43270_435B0();
 int32_t InitVfx_5AF50_5B460();

@@ -37,7 +37,6 @@ void sub_4E5B0_4E8F0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
 void sub_4D560_4D8A0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
-void sub_448E0_44C20() { NotPorted(__func__); }
 //!!!!! not ported yet
 //!!!!! not ported yet
 void sub_433C0_43700() { NotPorted(__func__); }

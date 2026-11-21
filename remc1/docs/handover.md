@@ -23,7 +23,9 @@ State of the port on branch `magic-carpet-1` (2026-11-15) and how to continue. T
   up to frame 2999 (entities, players, terrain maps, the 320x200 screen); a random input of 8000 frames (seed 7: the
   castle destroyed and rebuilt, falling buildings, the creatures from the buildings) and of 12000 frames (seed 11)
   identical at their ends; with the spells grid, the map and the keys of the spells (4000 frames) too. Only the mark
-  of the mouse on the map of the spells grid differs (the mouse position is not in the recording). Ported for it: the creatures (`Mc1Creatures.cpp`),
+  of the mouse on the map of the spells grid differs (the mouse position is not in the recording).
+  The level lost by the rebirth without a castle (408D0 loads it again) and the level won (command 27, 448E0 the
+  statistics, then level 2 loads) match too; level 2 then differs by its creatures that are not ported. Ported for it: the creatures (`Mc1Creatures.cpp`),
   the castle (`Mc1Castle.cpp`), the spells of level 1 and their projectiles (`Mc1Spells.cpp`), the class 10
   effects (`Mc1SceneryActions.cpp`), the wizard death 45FC0 / 46480, the level won check 415C0.
 - What is still missing in the game (stubs in `remc1/engine/Mc1NotPorted.cpp`, logged once when called):

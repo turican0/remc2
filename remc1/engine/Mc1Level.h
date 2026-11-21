@@ -15,6 +15,7 @@ extern const uint8_t spellOrder_99B88_99B88[24]; // the spells in the order of t
 void LoadingScreen_34460_34820();
 void LoadLevel_407A0_40AE0();
 void RestartLevel_408D0_40C10();
+void LevelWonStats_448E0_44C20();
 void ClearLevel_40550_40890();
 uint8_t LoadLevelData_3E100_3E440(int16_t levelIndex, Type_Mc1Level_2F503* level);
 void GenerateLevelMap_31AA0_31AE0(Type_Mc1Level_2F503* level);

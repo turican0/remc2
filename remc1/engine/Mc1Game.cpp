@@ -160,7 +160,7 @@ int TopProcedure_340B0(int argc, char** argv)
 					if (player->levelResult_0x02_2 & 2)
 					{
 						player->levelResult_0x02_2 = 2;
-						sub_448E0_44C20();
+						LevelWonStats_448E0_44C20();
 						mc1Settings_AE408_AE3F8->levelIndex_0x11_17++;
 					}
 					else
@@ -280,7 +280,7 @@ int TopProcedure_34470(int argc, char** argv)
 					if (player->levelResult_0x02_2 & 2)
 					{
 						player->levelResult_0x02_2 = 2;
-						sub_448E0_44C20();
+						LevelWonStats_448E0_44C20();
 						mc1Settings_AE408_AE3F8->levelIndex_0x11_17++;
 					}
 					else
