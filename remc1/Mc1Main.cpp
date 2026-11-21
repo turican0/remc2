@@ -82,6 +82,7 @@ int Mc1Main(int argc, char** argv)
 		*workScreen_12EFF4_12EFE4 = nullptr;
 		mc1State_AE400_AE3F0 = nullptr;
 		mc1Entities = nullptr;
+		sdlInputLocked = false;
 		mc1Settings_AE408_AE3F8 = nullptr;
 		vesaInfo_12F080_12F070 = nullptr;
 		*blurBuffer_AE404_AE3F4 = nullptr;

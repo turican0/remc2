@@ -25,6 +25,7 @@
 #include "../../remc2/engine/Graphics.h"
 #include "../../remc2/engine/PlayerInput.h"
 #include "../../remc2/engine/read_config.h"
+#include "../../remc2/portability/port_sdl_vga_mouse.h"
 #include "../../remc2/portability/port_filesystem.h"
 
 #if defined(__linux__) || defined(__APPLE__)
@@ -491,6 +492,8 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 	// port: the regression tests and the input recorded in DOSBox (REMC1_PLAY) always with the 1000 entities of the original
 	const bool asOriginal = !Mc1RegressionInput().empty() || getenv("REMC1_PLAY");
 	mc1EntityCount = asOriginal ? 1000 : (std::min)((std::max)(mc1EntityLimit, 1000), 32767);
+	// port: and only with the recorded input, the real keyboard, mouse and joystick ignored
+	sdlInputLocked = asOriginal;
 	mc1Entities = mc1EntityCount == 1000 ? state->entities_0x7463_29795
 		: (Type_Mc1Entity*)Malloc_42540_42880(mc1EntityCount * sizeof(Type_Mc1Entity));
 	for (uint8_t& option_ : state->options_0x21AD_8621)

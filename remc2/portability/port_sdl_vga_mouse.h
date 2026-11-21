@@ -68,6 +68,8 @@ bool VGA_check_standart_input_status();
 uint16_t VGA_read_char_from_buffer();
 void VGA_Set_mouse(int16_t a1, int16_t a2);
 int PollSdlEvents();
+// the recorded input only (MC1 regression tests, REMC1_PLAY): the real keyboard, mouse and joystick ignored
+extern bool sdlInputLocked;
 uint16_t TranslateSdlKeysToGameKeys(uint16_t scancode);
 uint32_t TranslateSdlMouseToGameMouse(SDL_MouseButtonEvent event);
 uint32_t TranslateButtonState(SDL_MouseButtonEvent button);

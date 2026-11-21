@@ -991,6 +991,8 @@ bool HandleSpecialKeys(const SDL_Event &event) {
 	return specialKey;
 }
 
+bool sdlInputLocked = false;
+
 int PollSdlEvents()
 {
 	SDL_Event event;
@@ -999,6 +1001,17 @@ int PollSdlEvents()
 
 	while (SDL_PollEvent(&event))
 	{
+		if (sdlInputLocked)
+		{
+			switch (event.type)
+			{
+			case SDL_KEYDOWN: case SDL_KEYUP: case SDL_TEXTINPUT: case SDL_TEXTEDITING:
+			case SDL_MOUSEMOTION: case SDL_MOUSEBUTTONDOWN: case SDL_MOUSEBUTTONUP: case SDL_MOUSEWHEEL:
+			case SDL_JOYAXISMOTION: case SDL_JOYBALLMOTION: case SDL_JOYHATMOTION: case SDL_JOYBUTTONDOWN: case SDL_JOYBUTTONUP:
+			case SDL_CONTROLLERAXISMOTION: case SDL_CONTROLLERBUTTONDOWN: case SDL_CONTROLLERBUTTONUP:
+				continue;
+			}
+		}
 		switch (event.type)
 		{
 		case SDL_WINDOWEVENT:
@@ -1091,7 +1104,8 @@ int PollSdlEvents()
 		case SDL_QUIT: return 0;
 		}
 	}
-	gamepad_poll_data(&gpe);
+	if (!sdlInputLocked)
+		gamepad_poll_data(&gpe);
 
 	return 1;
 }
@@ -1105,7 +1119,8 @@ void SetMouseEvents(uint32_t buttons, int16_t x, int16_t y)
 void VGA_Set_mouse(int16_t x, int16_t y) 
 {
 	ScaleDownMouseCoordsToVga(x, y);
-	SDL_WarpMouseInWindow(m_window, x, y);
+	if (!sdlInputLocked)
+		SDL_WarpMouseInWindow(m_window, x, y);
 	joystick_set_env(x, y);
 }
 
