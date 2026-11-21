@@ -93,3 +93,8 @@ void GuardWalk_20480_20480(Type_Mc1Entity* entity);
 void GuardAction_1FF60_1FF60(Type_Mc1Entity* entity);
 void GuardResume_20450_20450(Type_Mc1Entity* entity);
 void GuardAttack_201D0_201D0(Type_Mc1Entity* entity);
+void CreatureRemainsHit48_1F5B0_1F5B0(Type_Mc1Entity* entity);
+void CreatureModel4_1B5D0_1B5D0(Type_Mc1Entity* entity);
+int32_t CreatureShot_1A990_1A990(Type_Mc1Entity* entity, Type_Mc1Entity* target);
+void CreatureResume_1BCE0_1BCE0(Type_Mc1Entity* entity);
+void CreatureAttack18_1BB20_1BB20(Type_Mc1Entity* entity);

@@ -1414,3 +1414,135 @@ void GuardAttack_201D0_201D0(Type_Mc1Entity* entity)
 	if (entity->actionIndex_0x46_70 != 0x5C)
 		GuardResume_20450_20450(entity);
 }
+
+void CreatureRemainsHit48_1F5B0_1F5B0(Type_Mc1Entity* entity)
+{
+	// the killer wizard (word_0x26, model 0 or 1) gets 200 at 210h, then the remains
+	Type_Mc1Entity* killer = &Entities()[entity->word_0x26_38];
+	if ((killer->model_0x41_65 == 0 || killer->model_0x41_65 == 1) && killer->playerData_0xA0_160) // port: null player data
+		WriteS16(killer->playerData_0xA0_160 + 0x210, 0xC8);
+	CreatureRemains_1A800_1A800(entity, 0x48);
+}
+
+void CreatureModel4_1B5D0_1B5D0(Type_Mc1Entity* entity)
+{
+	// the creature from a building (action 18h + 1): wanders; attacks a wizard that hit creatures lately (210h) or the
+	// nearest creature of the model 9, else follows one of its model; with a building as the target it goes in
+	const uint8_t action = 0x18;
+	entity->word_0x1A_26 = 0;
+	switch (CreatureDamage(entity))
+	{
+	case 0:
+	{
+		MoveCreature_196E0_196E0(entity);
+		if (!CreatureUpdateFrame(entity))
+			break;
+		if (entity->target_0x92_146)
+		{
+			Type_Mc1Entity* building = &Entities()[entity->target_0x92_146];
+			if (building->class_0x40_64 != 0x0A || building->model_0x41_65 != 0x2D)
+			{
+				entity->target_0x92_146 = 0;
+				break;
+			}
+			if (Distance3D_42340_42680(&entity->position_0x48_72, &building->position_0x48_72) > 0x1000)
+				entity->word_0x22_34 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&building->position_0x48_72);
+			else
+			{
+				SetAction_424F0_42830(entity, (uint8_t)(action + 4));
+				entity->word_0x1A_26 = 1;
+				building->word_0x1A_26++;
+			}
+			break;
+		}
+		CreatureWanderTurn(entity);
+		const uint8_t* params = entity->typeParams_0x9C_156;
+		if ((uint8_t)entity->index_0x3F_63 % (ReadS16(params + 0x1A) * 4))
+			break;
+		Type_Mc1Entity* found = NearestInView(entity, Lists()[21], true);
+		if (found && !((found->model_0x41_65 == 0 || found->model_0x41_65 == 1) && ReadS16(found->playerData_0xA0_160 + 0x210)))
+			found = nullptr;
+		if (!found)
+		{
+			const uint32_t range = (uint32_t)(ReadS16(params + 0x1C) * ReadS16(params + 0x1C));
+			uint32_t best = 0xFFFFFFFF;
+			for (Type_Mc1Entity* other = Lists()[10]; other > Entities(); other = other->next_0x00_0)
+			{
+				const uint32_t distance = Distance2DSquared(entity, other);
+				if (distance > range || distance >= best)
+					continue;
+				found = other;
+				best = distance;
+			}
+		}
+		if (found)
+		{
+			if (found->class_0x40_64 == 0x0A && found->model_0x41_65 == 0x2D)
+				break;
+			entity->target_0x92_146 = EntityIndex(found);
+			SetAction_424F0_42830(entity, (uint8_t)(action + 2));
+			break;
+		}
+		if (Type_Mc1Entity* leader = NearestInView(entity, Lists()[1 + (int8_t)entity->model_0x41_65], false))
+		{
+			entity->word_0x34_52 = EntityIndex(leader);
+			SetAction_424F0_42830(entity, (uint8_t)(action + 3));
+		}
+		break;
+	}
+	case 1:
+		if (Entities()[entity->word_0x28_40].class_0x40_64 == 3)
+		{
+			entity->target_0x92_146 = entity->word_0x28_40;
+			SetAction_424F0_42830(entity, (uint8_t)(action + 2));
+		}
+		break;
+	case 2:
+		SetAction_424F0_42830(entity, (uint8_t)(action + 4));
+		break;
+	}
+	if (entity->actionIndex_0x46_70 == 0x1A)
+		CreatureStopAtTarget_1BC50_1BC50(entity);
+}
+
+int32_t CreatureShot_1A990_1A990(Type_Mc1Entity* entity, Type_Mc1Entity* target)
+{
+	// a shot (class 9 model 0Dh, the damage FAh) of the creature to its target
+	Type_Mc1Entity* shot = CreateEntity_373F0_377B0(&entity->position_0x48_72, 9, 0x0D);
+	if (!shot)
+		return 0;
+	shot->id_0x18_24 = entity->id_0x18_24;
+	shot->word_0x1E_30 = (int16_t)GetYawAngle_42150_42490((axis_3d*)&entity->position_0x48_72, (axis_3d*)&target->position_0x48_72);
+	shot->word_0x20_32 = (int16_t)GetPitchAngle_42180_424C0(&entity->position_0x48_72, &target->position_0x48_72);
+	shot->position_0x48_72.z = (int16_t)(shot->position_0x48_72.z + entity->box_0x4E_78[3]);
+	shot->target_0x92_146 = entity->target_0x92_146;
+	shot->byte_0x43_67 = entity->byte_0x43_67;
+	shot->word_0x2C_44 = 0xFA;
+	shot->byte_0x42_66 = entity->byte_0x42_66;
+	SetSpriteDoubleBox_370A0_37460(shot, 0xC3);
+	return 1;
+}
+
+void CreatureResume_1BCE0_1BCE0(Type_Mc1Entity* entity)
+{
+	entity->word_0x7E_126 = entity->word_0x80_128;
+	SetSprite_36FA0_37360(entity, 0);
+	entity->byte_0x42_66 = 3;
+	entity->byte_0x43_67 = 0xFF;
+}
+
+void CreatureAttack18_1BB20_1BB20(Type_Mc1Entity* entity)
+{
+	// the model 4 shoots at its target; a wizard target gets 200 at 210h
+	CreatureAttack_1A120_1A120(entity, 0x18, CreatureShot_1A990_1A990);
+	if (entity->actionIndex_0x46_70 != 0x1A)
+	{
+		CreatureResume_1BCE0_1BCE0(entity);
+		return;
+	}
+	if (!CreatureUpdateFrame(entity))
+		return;
+	Type_Mc1Entity* target = &Entities()[entity->target_0x92_146];
+	if ((target->model_0x41_65 == 0 || target->model_0x41_65 == 1) && target->playerData_0xA0_160) // port: null player data
+		WriteS16(target->playerData_0xA0_160 + 0x210, 0xC8);
+}

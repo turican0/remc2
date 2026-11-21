@@ -941,3 +941,20 @@ void FireSmokeAction_257B0_257B0(Type_Mc1Entity* entity)
 		entity->sprite_0x56_86--;
 	CopyEntityPosition_41C70_41FB0(entity, &featurePosition_AE454_AE444);
 }
+
+void BuildingFallAction_25410_25410(Type_Mc1Entity* entity)
+{
+	// the destroyed building animates (the sound 1Bh at the start) and is gone at the end of its life
+	const int32_t life = entity->life_0x0C_12;
+	entity->life_0x0C_12 = life - 1;
+	if (life < 0)
+	{
+		MarkToFree_41E80_421C0(entity);
+		return;
+	}
+	NextFrame_42510_42850(entity);
+	if (entity->flags_0x10_16 & 2)
+		return;
+	entity->flags_0x10_16 |= 2;
+	sub_55370_558A0(EntityIndex(entity), -1, 0x1B);
+}

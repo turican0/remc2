@@ -32,3 +32,4 @@ void PushManaAction_29920_29960(Type_Mc1Entity* entity);
 void NearestFire_44C10_44F50(Type_Mc1Entity* entity);
 void FireAction_252D0_252D0(Type_Mc1Entity* entity);
 void FireSmokeAction_257B0_257B0(Type_Mc1Entity* entity);
+void BuildingFallAction_25410_25410(Type_Mc1Entity* entity);

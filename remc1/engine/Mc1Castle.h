@@ -25,3 +25,6 @@ void CastleFlatten_28200_28200(Type_Mc1Entity* effect);
 void CastleGrowMail_293D0_293D0(Type_Mc1Entity* effect);
 int32_t BalloonDamage_481D0_48510(Type_Mc1Entity* balloon);
 void BalloonAction_47F90_482D0(Type_Mc1Entity* balloon);
+void CastleLower_28FE0_28FE0(Type_Mc1Entity* entity);
+void CastleShrink_47A70_47DB0(Type_Mc1Entity* castle);
+void CastleDestroyed_470E0_47420(Type_Mc1Entity* castle);

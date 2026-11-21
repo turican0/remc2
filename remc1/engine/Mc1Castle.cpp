@@ -886,3 +886,158 @@ void BalloonAction_47F90_482D0(Type_Mc1Entity* balloon)
 	BalloonDamage_481D0_48510(balloon);
 }
 
+
+void CastleLower_28FE0_28FE0(Type_Mc1Entity* entity)
+{
+	// the castle of the size byte_0x47 taken down from the terrain by its sprite (the entity is entity 0 filled by 47A70):
+	// the hand changed flag off, the walls lowered, creatures out of it (word_0x1A of them), the tiles smoothed; then the
+	// entity is marked to be freed
+	const uint8_t centerX = (uint8_t)((entity->position_0x48_72.x + 0x80) >> 8);
+	const uint8_t centerY = (uint8_t)((entity->position_0x48_72.y + 0x80) >> 8);
+	const uint8_t sprite = entity->byte_0x47_71;
+	const uint8_t* data = buildIndex[sprite].data;
+	const uint32_t height = BuildByte(sprite, true);
+	const uint32_t width = BuildByte(sprite, false);
+	const uint8_t x0 = (uint8_t)(centerX - (width >> 1));
+	uint8_t y0 = (uint8_t)(centerY - (height >> 1));
+	const int32_t base = entity->model_0x41_65
+		? GetTerrainHeightFromSquare_361C0_36580((char)x0, (char)y0, (char)height, (char)width)
+		: entity->position_0x48_72.z >> 5;
+	const int32_t top = base << 5;
+	const int32_t low = (base - 10) << 5;
+	uint32_t rows = height;
+	uint32_t at = 0;
+	uint16_t tile = Tile(x0, y0);
+	while (rows)
+	{
+		const int8_t code = (int8_t)data[at++];
+		if (!code)
+		{
+			y0++;
+			rows--;
+			tile = Tile(x0, y0);
+			continue;
+		}
+		if (code < 0)
+		{
+			tile = (uint16_t)((tile & 0xFF00) | (uint8_t)((tile & 0xFF) - code));
+			continue;
+		}
+		for (int32_t count = code; count; count--, tile = (uint16_t)((tile & 0xFF00) | (uint8_t)((tile & 0xFF) + 1)))
+		{
+			const uint8_t pixel = data[at++];
+			if (!pixel)
+				continue;
+			featurePosition_AE454_AE444.x = (int16_t)((tile & 0xFF) << 8);
+			featurePosition_AE454_AE444.y = (int16_t)((tile >> 8) << 8);
+			featurePosition_AE454_AE444.z = (int16_t)((at & 7) ? top : low);
+			if (entity->word_0x1A_26 > 0)
+			{
+				entity->word_0x1A_26--;
+				if (!entity->word_0x1A_26)
+				{
+					if (Type_Mc1Entity* creature = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 5, 0x0C))
+						creature->actionIndex_0x46_70 = 0x49;
+				}
+				else if (entity->word_0x1A_26 < 4)
+				{
+					if (Type_Mc1Entity* creature = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 5, 4))
+						creature->actionIndex_0x46_70 = 0x19;
+				}
+				else
+					SpawnCreature_28D10_28D10(entity, &featurePosition_AE454_AE444);
+			}
+			uint8_t& angle = mapAngle_FC1E0_FC1D0[tile];
+			uint8_t& heightAt = mapHeightmap_DC1E0_DC1D0[tile];
+			const uint32_t high = pixel / 16;
+			if (!high)
+				angle &= 0x7F;
+			else if (high == 3)
+			{
+				angle &= 0x7F;
+				const uint8_t kind = (uint8_t)((pixel % 16) % 3);
+				if (kind == 1 && heightAt > 0x0C)
+					heightAt = (uint8_t)(heightAt - 0x0C);
+				if ((kind == 1 || kind == 2) && heightAt > 0x10)
+					heightAt = (uint8_t)(heightAt - 0x10);
+				RebuildTerrainTiles_33E10_34200(tile, tile);
+			}
+			else
+			{
+				angle = (uint8_t)((angle & 0x70) | 1);
+				RebuildTerrainTiles_33E10_34200(tile, tile);
+				const uint8_t level = (uint8_t)(pixel % 16);
+				if (level)
+				{
+					const uint8_t step = (uint8_t)(level - 1);
+					const int32_t limit = step * 4;
+					if (heightAt > limit)
+					{
+						if (NextRand(entity) % 0x32 > 0x14)
+						{
+							const int32_t drop = limit - (int32_t)(NextRand(entity) % 0x14);
+							heightAt = (uint8_t)(heightAt - drop);
+						}
+						else
+							heightAt = (uint8_t)(heightAt - (uint8_t)(step << 2));
+					}
+					else
+						heightAt = 0;
+				}
+			}
+		}
+	}
+	y0 = (uint8_t)(y0 - (uint8_t)height);
+	for (uint32_t row = 0; row < height; row++)
+		for (uint32_t column = 0; column < width; column++)
+			SmoothTileHeight_360C0_36480(Tile((uint8_t)(x0 + column), (uint8_t)(y0 + row)));
+	MarkToFree_41E80_421C0(entity);
+}
+
+void CastleShrink_47A70_47DB0(Type_Mc1Entity* castle)
+{
+	// destroyed: a size down (the mana over the smaller capacity out, the walls of the size down by 28FE0 through entity 0),
+	// at the size 0 the castle is gone
+	if (castle->word_0x1A_26 > 0)
+	{
+		const int32_t tenth = castle->dword_0x88_136 * 10 / 100;
+		castle->dword_0x88_136 -= tenth;
+		CastleOverflow_47130_47470(castle);
+		castle->dword_0x88_136 += tenth;
+		sub_55370_558A0((int16_t)EntityIndex(castle), -1, 0x1E);
+		Type_Mc1Entity* temporary = &Entities()[0];
+		temporary->position_0x48_72 = castle->target_0x96_150;
+		temporary->byte_0x47_71 = (uint8_t)castle->word_0x1A_26;
+		temporary->id_0x18_24 = castle->id_0x18_24;
+		temporary->model_0x41_65 = 0;
+		temporary->word_0x1A_26 = 0;
+		temporary->word_0x2A_42 = EntityIndex(castle);
+		CastleLower_28FE0_28FE0(temporary);
+		castle->word_0x1A_26--;
+		SetBuildingBox_37150_37510(castle, castle->word_0x1A_26);
+		GrowCastle_47C60_47FA0(castle);
+		CancelCast_46D20_47060(castle, 1);
+	}
+	if (!castle->word_0x1A_26)
+	{
+		CancelCast_46D20_47060(castle, 0);
+		WriteU16(Owner(castle)->playerData_0xA0_160 + 0x32, 0);
+		MarkToFree_41E80_421C0(castle);
+	}
+}
+
+void CastleDestroyed_470E0_47420(Type_Mc1Entity* castle)
+{
+	// with a free entity: a size down, the mana out, the balloons; back to the action 4
+	if (GetFreeEntityCount_37710_37AD0())
+	{
+		CastleShrink_47A70_47DB0(castle);
+		castle->actionIndex_0x46_70 = 4;
+		CastleOverflow_47130_47470(castle);
+		CastleBalloonsAndGuards_47400_47740(castle);
+		castle->word_0x30_48 = 0;
+		castle->word_0x32_50 = 5;
+	}
+	else
+		castle->actionIndex_0x46_70 = 4;
+}
