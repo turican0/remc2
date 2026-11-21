@@ -5,8 +5,10 @@
 #include "Mc1Entity.h"
 #include "Mc1EntityTables.h"
 #include "Mc1Game.h"
+#include "Mc1Level.h"
 #include "Mc1NotPorted.h"
 #include "Mc1Sound.h"
+#include "Mc1SceneryActions.h"
 #include "Mc1Search.h"
 #include "Mc1Shared.h"
 #include "Mc1Terrain.h"
@@ -924,4 +926,1127 @@ void GuardShot_54180_544D0(Type_Mc1Entity* projectile)
 	}
 	SendMailAround_120B0_120B0(projectile, 0, (uint16_t)projectile->word_0x2C_44);
 	MarkToFree_41E80_421C0(projectile);
+}
+
+// the casting of the spells (class 12): the countdown word_0x30 from word_0x32, the wizard of word_0x2A
+
+static Type_Mc1Entity* SpellWizard(Type_Mc1Entity* spell)
+{
+	Type_Mc1Entity* wizard = &Entities()[spell->word_0x2A_42];
+	return wizard > Entities() ? wizard : nullptr;
+}
+
+// the projectile of the spell from the hand of the wizard: the kind, the id, the height, the angles, the mana,
+// the damage word_0x2C, the charge 146h of the player data
+static Type_Mc1Entity* SpellProjectile(Type_Mc1Entity* spell, Type_Mc1Entity* wizard, int32_t model, uint8_t kind, bool addSpeed)
+{
+	Type_Mc1Entity* projectile = CreateEntity_373F0_377B0(&wizard->position_0x48_72, 9, model);
+	if (!projectile)
+		return nullptr;
+	if (addSpeed)
+		projectile->word_0x7E_126 = (int16_t)(projectile->word_0x7E_126 + wizard->word_0x7E_126);
+	SpellFromHand_55EF0_56420(wizard, projectile);
+	projectile->byte_0x44_68 = 0x0A;
+	projectile->byte_0x45_69 = kind;
+	projectile->id_0x18_24 = wizard->id_0x18_24;
+	projectile->position_0x48_72.z = (int16_t)(projectile->position_0x48_72.z + wizard->box_0x4E_78[3]);
+	projectile->word_0x1E_30 = wizard->word_0x1E_30;
+	projectile->word_0x20_32 = wizard->word_0x20_32;
+	projectile->mana_0x8C_140 = spell->mana_0x8C_140;
+	projectile->word_0x2C_44 = spell->word_0x2C_44;
+	return projectile;
+}
+
+static void TakeCharge(Type_Mc1Entity* projectile, Type_Mc1Entity* wizard)
+{
+	projectile->word_0x1A_26 = wizard->playerData_0xA0_160[0x146];
+	wizard->playerData_0xA0_160[0x146] = 0;
+}
+
+// target_0x96 ahead of the wizard (by its pitch or level), on the ground or not
+static void TargetAhead(Type_Mc1Entity* projectile, Type_Mc1Entity* wizard, int16_t distance, bool pitch, bool ground)
+{
+	projectile->target_0x96_150 = wizard->position_0x48_72;
+	MoveEntity_41EC0_42200((axis_3d*)&projectile->target_0x96_150, (uint16_t)wizard->word_0x1E_30, pitch ? (uint16_t)wizard->word_0x20_32 : 0, distance);
+	if (ground)
+		projectile->target_0x96_150.z = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&projectile->target_0x96_150);
+}
+
+// the cast of SpellCastProjectile with the damage and the charge, 4000h ahead: per charge byte_0x3D (sound -1 none)
+static void SpellCastCharged(Type_Mc1Entity* spell, int32_t model, uint8_t kind, int32_t sound)
+{
+	if (spell->word_0x30_48 <= 0)
+		return;
+	Type_Mc1Entity* wizard = SpellWizard(spell);
+	if (wizard && SpellCanCast_55DD0_56300(spell, wizard))
+	{
+		while ((int8_t)spell->byte_0x3D_61 >= 0)
+		{
+			if (spell->word_0x30_48 == spell->word_0x32_50)
+			{
+				if (Type_Mc1Entity* projectile = SpellProjectile(spell, wizard, model, kind, true))
+				{
+					TakeCharge(projectile, wizard);
+					TargetAhead(projectile, wizard, 0x4000, true, false);
+					if (sound >= 0)
+						QueueSound_55370_558A0(EntityIndex(projectile), -1, (uint8_t)sound);
+				}
+			}
+			SpellUseMana_55E80_563B0(spell, wizard);
+			spell->byte_0x3D_61--;
+		}
+		spell->byte_0x3D_61 = 0;
+		spell->word_0x30_48--;
+		return;
+	}
+	if (wizard)
+		spell->word_0x30_48 = 1;
+	spell->word_0x30_48--;
+}
+
+// one projectile at the start of the countdown; the mana used every step (or only at the start)
+template <typename Init>
+static void SpellCastOnce(Type_Mc1Entity* spell, bool manaOnlyAtStart, Init init)
+{
+	if (spell->word_0x30_48 <= 0)
+		return;
+	Type_Mc1Entity* wizard = SpellWizard(spell);
+	if (wizard && SpellCanCast_55DD0_56300(spell, wizard))
+	{
+		if (spell->word_0x30_48 == spell->word_0x32_50)
+			init(wizard);
+		else if (manaOnlyAtStart)
+		{
+			spell->word_0x30_48--;
+			return;
+		}
+		SpellUseMana_55E80_563B0(spell, wizard);
+		spell->word_0x30_48--;
+		return;
+	}
+	if (wizard)
+		spell->word_0x30_48 = 1;
+	spell->word_0x30_48--;
+}
+
+void SpellHeal_56270_567A0(Type_Mc1Entity* spell)
+{
+	// the wizard healed by 5 % a step while its mana lasts (the sound 19h at the start)
+	if (spell->word_0x30_48 <= 0)
+		return;
+	Type_Mc1Entity* wizard = SpellWizard(spell);
+	if (wizard)
+	{
+		if (SpellCanCast_55DD0_56300(spell, wizard) && wizard->life_0x0C_12 < wizard->maxLife_0x08_8 && wizard->mana_0x8C_140 >= spell->dword_0x88_136)
+		{
+			if (spell->word_0x30_48 == spell->word_0x32_50)
+				QueueSound_55370_558A0(EntityIndex(wizard), -1, 0x19);
+			wizard->life_0x0C_12 += wizard->maxLife_0x08_8 * 5 / 100;
+			if (wizard->life_0x0C_12 > wizard->maxLife_0x08_8)
+				wizard->life_0x0C_12 = wizard->maxLife_0x08_8;
+			if (wizard->dword_0x84_132 < 0)
+				wizard->dword_0x84_132 -= spell->dword_0x88_136;
+			else
+				wizard->dword_0x84_132 = -spell->dword_0x88_136;
+			spell->word_0x30_48--;
+			return;
+		}
+		spell->word_0x30_48 = 1;
+	}
+	spell->word_0x30_48--;
+}
+
+// the speed of the wizard 0Ch of the player data: 3 (2) times word_0x80 by the factor, smoke every 4th step
+static void SpellSpeed(Type_Mc1Entity* spell, int32_t factor)
+{
+	if (spell->word_0x30_48 <= 0)
+		return;
+	Type_Mc1Entity* wizard = SpellWizard(spell);
+	if (!wizard)
+		return;
+	uint8_t* playerData = wizard->playerData_0xA0_160;
+	if (SpellCanCast_55DD0_56300(spell, wizard) && !ReadS16(playerData + 0x0E))
+	{
+		if (spell->word_0x30_48 == spell->word_0x32_50 && !(spell->flags_0x10_16 & 0x80))
+		{
+			spell->flags_0x10_16 |= 0x80;
+			QueueSound_55370_558A0(EntityIndex(wizard), -1, 0x13);
+		}
+		if (spell->word_0x30_48 == spell->word_0x32_50 - 2 && (spell->flags_0x10_16 & 0x80))
+			spell->flags_0x10_16 &= ~0x80u;
+		if (spell->word_0x30_48 == spell->word_0x32_50)
+			WriteS16(playerData + 0x0C, (int16_t)(factor * wizard->word_0x80_128 * 3));
+		else
+			WriteS16(playerData + 0x0C, (int16_t)(factor * wizard->word_0x80_128 * 2));
+		wizard->word_0x7E_126 = ReadS16(playerData + 0x0C);
+		if (!(spell->index_0x3F_63 & 3))
+		{
+			if (Type_Mc1Entity* smoke = CreateEntity_373F0_377B0(&wizard->position_0x48_72, 0x0A, 2))
+			{
+				smoke->id_0x18_24 = wizard->id_0x18_24;
+				smoke->life_0x0C_12 <<= 2;
+			}
+		}
+		SpellUseMana_55E80_563B0(spell, wizard);
+	}
+	else if (ReadS16(playerData + 0x0E))
+		spell->word_0x30_48 = 1;
+	if (--spell->word_0x30_48 == 0)
+	{
+		WriteS16(playerData + 0x0C, (int16_t)(factor * wizard->word_0x80_128));
+		wizard->word_0x7E_126 = ReadS16(playerData + 0x0C);
+		spell->flags_0x10_16 &= ~0x80u;
+	}
+}
+
+void SpellSpeed_56380_568B0(Type_Mc1Entity* spell)
+{
+	SpellSpeed(spell, 1);
+}
+
+void SpellSlow_57F00_58410(Type_Mc1Entity* spell)
+{
+	// the speed backwards
+	SpellSpeed(spell, -1);
+}
+
+// the flag of the wizard while the spell lasts
+static void SpellWizardFlag(Type_Mc1Entity* spell, uint32_t flag)
+{
+	Type_Mc1Entity* wizard = SpellWizard(spell);
+	if (!wizard || spell->word_0x30_48 <= 0)
+		return;
+	if (SpellCanCast_55DD0_56300(spell, wizard))
+	{
+		wizard->flags_0x10_16 |= flag;
+		SpellUseMana_55E80_563B0(spell, wizard);
+	}
+	else
+		spell->word_0x30_48 = 1;
+	spell->word_0x30_48--;
+}
+
+void SpellShield_566C0_56BF0(Type_Mc1Entity* spell)
+{
+	SpellWizardFlag(spell, 0x4000);
+}
+
+void SpellManaOnly_56730_56C60(Type_Mc1Entity* spell)
+{
+	if (spell->word_0x30_48 <= 0)
+		return;
+	Type_Mc1Entity* wizard = SpellWizard(spell);
+	if (wizard)
+	{
+		if (SpellCanCast_55DD0_56300(spell, wizard))
+		{
+			SpellUseMana_55E80_563B0(spell, wizard);
+			spell->word_0x30_48--;
+			return;
+		}
+		spell->word_0x30_48 = 1;
+	}
+	spell->word_0x30_48--;
+}
+
+void SpellModel2_567A0_56CD0(Type_Mc1Entity* spell)
+{
+	// the projectile model 2 (kind 0Fh) to the ground 1000h ahead; the mana only at the start
+	SpellCastOnce(spell, true, [spell](Type_Mc1Entity* wizard) {
+		if (Type_Mc1Entity* projectile = SpellProjectile(spell, wizard, 2, 0x0F, true))
+		{
+			TakeCharge(projectile, wizard);
+			TargetAhead(projectile, wizard, 0x1000, false, true);
+			QueueSound_55370_558A0(EntityIndex(projectile), -1, 9);
+		}
+	});
+}
+
+void SpellModel3Pitch_56950_56E80(Type_Mc1Entity* spell)
+{
+	// the projectile model 3 (kind 11h) 2800h ahead by the pitch
+	SpellCastOnce(spell, false, [spell](Type_Mc1Entity* wizard) {
+		if (Type_Mc1Entity* projectile = SpellProjectile(spell, wizard, 3, 0x11, true))
+		{
+			TakeCharge(projectile, wizard);
+			TargetAhead(projectile, wizard, 0x2800, true, false);
+			QueueSound_55370_558A0(EntityIndex(projectile), -1, 0x0F);
+		}
+	});
+}
+
+void SpellModel4_56AF0_57020(Type_Mc1Entity* spell)
+{
+	// the projectile model 4 (kind 9) to the ground 1000h ahead
+	SpellCastOnce(spell, false, [spell](Type_Mc1Entity* wizard) {
+		if (Type_Mc1Entity* projectile = SpellProjectile(spell, wizard, 4, 9, true))
+		{
+			TakeCharge(projectile, wizard);
+			TargetAhead(projectile, wizard, 0x1000, false, true);
+			QueueSound_55370_558A0(EntityIndex(projectile), -1, 0x0F);
+		}
+	});
+}
+
+void SpellModel5_56CA0_571D0(Type_Mc1Entity* spell)
+{
+	// the projectile model 5 (kind 0Bh) to the ground 1000h ahead
+	SpellCastOnce(spell, false, [spell](Type_Mc1Entity* wizard) {
+		if (Type_Mc1Entity* projectile = SpellProjectile(spell, wizard, 5, 0x0B, true))
+		{
+			TakeCharge(projectile, wizard);
+			TargetAhead(projectile, wizard, 0x1000, false, true);
+			QueueSound_55370_558A0(EntityIndex(projectile), -1, 0x0F);
+		}
+	});
+}
+
+void SpellTeleport_56E50_57380(Type_Mc1Entity* spell)
+{
+	// to the castle and back to the place of the cast (target_0x96, z 0 none), without a castle 4000h to a random yaw
+	if (spell->word_0x30_48 <= 0)
+		return;
+	Type_Mc1Entity* wizard = SpellWizard(spell);
+	if (!wizard)
+		return;
+	if (SpellCanCast_55DD0_56300(spell, wizard))
+	{
+		if (spell->word_0x30_48 == spell->word_0x32_50)
+		{
+			Type_Mc1Entity* castle = &Entities()[(uint16_t)ReadS16(wizard->playerData_0xA0_160 + 0x32)];
+			if (castle > Entities())
+			{
+				if (!spell->target_0x96_150.z)
+				{
+					spell->target_0x96_150 = wizard->position_0x48_72;
+					CopyEntityPosition_41C70_41FB0(wizard, &castle->position_0x48_72);
+				}
+				else
+				{
+					CopyEntityPosition_41C70_41FB0(wizard, &spell->target_0x96_150);
+					spell->target_0x96_150.z = 0;
+				}
+			}
+			else
+			{
+				spell->target_0x96_150 = wizard->position_0x48_72;
+				NextRand(spell);
+				MoveEntity_41EC0_42200((axis_3d*)&spell->target_0x96_150, (uint16_t)(spell->rand_0x04_4 & 0x7FF), 0, 0x4000);
+				CopyEntityPosition_41C70_41FB0(wizard, &spell->target_0x96_150);
+				spell->target_0x96_150.z = 0;
+			}
+			WriteS16(wizard->playerData_0xA0_160 + 0x0C, 0);
+			QueueSound_55370_558A0(EntityIndex(wizard), -1, 0x16);
+		}
+		SpellUseMana_55E80_563B0(spell, wizard);
+	}
+	else
+		spell->word_0x30_48 = 1;
+	if (--spell->word_0x30_48 == 0)
+		WriteS16(wizard->playerData_0xA0_160 + 0x0C, 0);
+}
+
+void SpellModel7_57040_57570(Type_Mc1Entity* spell)
+{
+	// the projectile model 7 (kind 1Ah) 2800h ahead by the pitch, its own speed
+	SpellCastOnce(spell, false, [spell](Type_Mc1Entity* wizard) {
+		if (Type_Mc1Entity* projectile = SpellProjectile(spell, wizard, 7, 0x1A, false))
+		{
+			TargetAhead(projectile, wizard, 0x2800, true, false);
+			QueueSound_55370_558A0(EntityIndex(projectile), -1, 9);
+		}
+	});
+}
+
+void SpellInvisible_571B0_576E0(Type_Mc1Entity* spell)
+{
+	// the wizard hidden (flag 20h) while the spell lasts
+	if (spell->word_0x30_48 <= 0)
+		return;
+	Type_Mc1Entity* wizard = &Entities()[spell->word_0x2A_42];
+	if (wizard > Entities())
+	{
+		if (SpellCanCast_55DD0_56300(spell, wizard))
+		{
+			if (spell->word_0x30_48 == spell->word_0x32_50)
+			{
+				if (spell->playerData_0xA0_160) // port: null player data
+					WriteS16(spell->playerData_0xA0_160 + 0x14B, 0);
+				wizard->flags_0x10_16 |= 0x20;
+			}
+			else if (!(wizard->flags_0x10_16 & 0x20))
+				spell->word_0x30_48 = 1;
+			SpellUseMana_55E80_563B0(spell, wizard);
+		}
+		else
+			spell->word_0x30_48 = 1;
+	}
+	if (--spell->word_0x30_48 == 0)
+		wizard->flags_0x10_16 &= ~0x20u;
+}
+
+void SpellModel8_57250_57780(Type_Mc1Entity* spell)
+{
+	// the projectile model 8 (kind 19h, damage 7D0h) 4000h ahead by the pitch
+	SpellCastOnce(spell, false, [spell](Type_Mc1Entity* wizard) {
+		if (Type_Mc1Entity* projectile = SpellProjectile(spell, wizard, 8, 0x19, true))
+		{
+			projectile->word_0x2C_44 = 0x7D0;
+			TakeCharge(projectile, wizard);
+			TargetAhead(projectile, wizard, 0x4000, true, false);
+			QueueSound_55370_558A0(EntityIndex(projectile), -1, 9);
+		}
+	});
+}
+
+void SpellFlag8000_573F0_57920(Type_Mc1Entity* spell)
+{
+	// the flag 8000h of the wizard while the spell lasts, cleared when the countdown ends
+	Type_Mc1Entity* wizard = SpellWizard(spell);
+	if (!wizard)
+		return;
+	if (spell->word_0x30_48 <= 0)
+	{
+		wizard->flags_0x10_16 &= ~0x8000u;
+		return;
+	}
+	if (SpellCanCast_55DD0_56300(spell, wizard))
+	{
+		wizard->flags_0x10_16 |= 0x8000;
+		SpellUseMana_55E80_563B0(spell, wizard);
+	}
+	else
+		spell->word_0x30_48 = 1;
+	spell->word_0x30_48--;
+}
+
+void SpellModel9_57470_579A0(Type_Mc1Entity* spell)
+{
+	// the projectile model 9 (kind 17h) 4000h ahead by the pitch
+	SpellCastOnce(spell, false, [spell](Type_Mc1Entity* wizard) {
+		if (Type_Mc1Entity* projectile = SpellProjectile(spell, wizard, 9, 0x17, true))
+		{
+			TakeCharge(projectile, wizard);
+			TargetAhead(projectile, wizard, 0x4000, true, false);
+			QueueSound_55370_558A0(EntityIndex(projectile), -1, 0x17);
+		}
+	});
+}
+
+void SpellModelB_57800_57D30(Type_Mc1Entity* spell)
+{
+	// the projectile model 0Bh (kind 24h): its damage 88h of the spell when the castle has as much in 88h, else 1
+	SpellCastOnce(spell, false, [spell](Type_Mc1Entity* wizard) {
+		if (Type_Mc1Entity* projectile = SpellProjectile(spell, wizard, 0x0B, 0x24, true))
+		{
+			projectile->word_0x2C_44 = 1;
+			if (const uint16_t castle = (uint16_t)ReadS16(wizard->playerData_0xA0_160 + 0x32))
+				if (Entities()[castle].dword_0x88_136 >= spell->dword_0x88_136)
+					projectile->word_0x2C_44 = (int16_t)spell->dword_0x88_136;
+			TakeCharge(projectile, wizard);
+			TargetAhead(projectile, wizard, 0x4000, true, false);
+			QueueSound_55370_558A0(EntityIndex(projectile), -1, 9);
+		}
+	});
+}
+
+void SpellModelC_579D0_57F00(Type_Mc1Entity* spell)
+{
+	// the projectile model 0Ch (byte_0x44 9, kind 9) 4000h ahead by the pitch
+	SpellCastOnce(spell, false, [spell](Type_Mc1Entity* wizard) {
+		if (Type_Mc1Entity* projectile = SpellProjectile(spell, wizard, 0x0C, 9, true))
+		{
+			projectile->byte_0x44_68 = 9;
+			TakeCharge(projectile, wizard);
+			TargetAhead(projectile, wizard, 0x4000, true, false);
+			QueueSound_55370_558A0(EntityIndex(projectile), -1, 9);
+		}
+	});
+}
+
+void SpellModel11_57B80_580B0(Type_Mc1Entity* spell)
+{
+	SpellCastCharged(spell, 0x11, 0x36, 0x28);
+}
+
+void SpellModel10_57D40(Type_Mc1Entity* spell)
+{
+	// MC1: per charge
+	SpellCastCharged(spell, 0x10, 0x35, 9);
+}
+
+void SpellModel10Hw_58270(Type_Mc1Entity* spell)
+{
+	// HW: one projectile 2800h ahead by the pitch
+	SpellCastOnce(spell, false, [spell](Type_Mc1Entity* wizard) {
+		if (Type_Mc1Entity* projectile = SpellProjectile(spell, wizard, 0x10, 0x35, true))
+		{
+			TakeCharge(projectile, wizard);
+			TargetAhead(projectile, wizard, 0x2800, true, false);
+			QueueSound_55370_558A0(EntityIndex(projectile), -1, 0x0F);
+		}
+	});
+}
+
+void SpellModel12_580A0_585B0(Type_Mc1Entity* spell)
+{
+	SpellCastCharged(spell, 0x12, 0x37, -1);
+}
+
+void SpellModel0_58240_58750(Type_Mc1Entity* spell)
+{
+	SpellCastCharged(spell, 0, 0, 9);
+}
+
+// the projectiles of class 9 flying by their speed to the target
+
+// the entity index the original computes for a missing entity: (0 - entities) / A4h with the entities at DOS 26AF3h
+static uint16_t IndexOf(const Type_Mc1Entity* entity)
+{
+	//!!!!! the original stores this garbage index for a missing hit (MC1 address, HW not checked)
+	if (!entity)
+		return (uint16_t)(int16_t)(-0x26AF3 / 0xA4);
+	return (uint16_t)EntityIndex(entity);
+}
+
+// the first frame: the target found by 54520 (its yaw and pitch taken) or the own angles kept as the wanted ones
+static void ProjectileStart(Type_Mc1Entity* projectile, bool keepOwn)
+{
+	if (projectile->flags_0x10_16 & 2)
+		return;
+	projectile->flags_0x10_16 |= 2;
+	if (FindTarget_54520(projectile))
+	{
+		projectile->word_0x1E_30 = projectile->word_0x22_34;
+		projectile->word_0x20_32 = projectile->word_0x24_36;
+	}
+	else if (keepOwn)
+	{
+		projectile->word_0x22_34 = projectile->word_0x1E_30;
+		projectile->word_0x24_36 = projectile->word_0x20_32;
+	}
+}
+
+enum class ProjectileEndKind { Explosion, WizardsOnly, Model26 };
+
+// 52770 / 530C0 / 53DC0: homing (or 54520 in the first frame), the speed to word_0x80 by 2, a hit or the ground ends it;
+// a shield (flag 8000h) with a quarter of the mana throws the kinds 1 / 11h (HW also 35h) back to the caster
+static void ProjectileFlight(Type_Mc1Entity* projectile, ProjectileEndKind endKind, bool hw)
+{
+	bool done = false;
+	Type_Mc1Entity* target = &Entities()[projectile->target_0x92_146];
+	if (target > Entities())
+		HomeTo_52550_52890(projectile, target);
+	else
+		ProjectileStart(projectile, true);
+	const int32_t speedDiff = projectile->word_0x80_128 - projectile->word_0x7E_126;
+	const int32_t sign = speedDiff ? speedDiff / (speedDiff < 0 ? -speedDiff : speedDiff) : 0;
+	projectile->word_0x7E_126 = (int16_t)(projectile->word_0x7E_126 + sign * 2);
+	featurePosition_AE454_AE444 = projectile->position_0x48_72;
+	MoveEntity_41EC0_42200((axis_3d*)&featurePosition_AE454_AE444, (uint16_t)projectile->word_0x1E_30, (uint16_t)projectile->word_0x20_32, projectile->word_0x7E_126);
+	CopyEntityPosition_41C70_41FB0(projectile, &featurePosition_AE454_AE444);
+	Type_Mc1Entity* hit = FindHit_11980_11980(projectile);
+	if (hit)
+	{
+		const uint8_t kind = projectile->byte_0x45_69;
+		if ((hit->flags_0x10_16 & 0x8000) && projectile->mana_0x8C_140 / 4 <= hit->mana_0x8C_140 && projectile->byte_0x44_68 == 0x0A
+			&& (kind == 1 || kind == 0x11 || (hw && kind == 0x35)))
+		{
+			QueueSound_55370_558A0(EntityIndex(hit), -1, 0x1C);
+			Type_Mc1Entity* caster = &Entities()[(int16_t)projectile->id_0x18_24];
+			hit->mana_0x8C_140 -= projectile->mana_0x8C_140 / 4;
+			projectile->word_0x22_34 = (int16_t)((projectile->word_0x1E_30 + 0x400) & 0x7FF);
+			const int32_t direction = AngleDirection_42240_42580(0, (uint16_t)projectile->word_0x20_32);
+			const int32_t pitch = AngleDistance_42210_42550(0, (uint16_t)projectile->word_0x20_32);
+			projectile->word_0x24_36 = (int16_t)(-(pitch * direction) & 0x7FF);
+			projectile->word_0x20_32 = projectile->word_0x24_36;
+			NextRand(projectile);
+			projectile->word_0x1E_30 = (int16_t)((uint16_t)projectile->word_0x22_34 + projectile->rand_0x04_4 % 0x2D - 0x16);
+			projectile->target_0x92_146 = (uint16_t)EntityIndex(caster);
+			projectile->id_0x18_24 = hit->id_0x18_24;
+			projectile->life_0x0C_12 = projectile->maxLife_0x08_8;
+			featurePosition_AE454_AE444 = hit->position_0x48_72;
+			featurePosition_AE454_AE444.z = (int16_t)(featurePosition_AE454_AE444.z + hit->box_0x4E_78[3]);
+			CopyEntityPosition_41C70_41FB0(projectile, &featurePosition_AE454_AE444);
+			return;
+		}
+		RaiseByBox_524C0_52800(hit);
+		CopyEntityPosition_41C70_41FB0(projectile, &hit->position_0x48_72);
+		LowerByBox_524E0_52820(hit);
+		done = true;
+	}
+	else
+	{
+		const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&projectile->position_0x48_72);
+		featurePosition_AE454_AE444.z = ground;
+		if (ground > projectile->position_0x48_72.z)
+		{
+			if (projectile->model_0x41_65 != 4 && GetTileTypeBit_11810_11810(&projectile->position_0x48_72) == 1)
+			{
+				if (Type_Mc1Entity* splash = CreateEntity_373F0_377B0(&projectile->position_0x48_72, 0x0A, 5))
+					splash->id_0x18_24 = projectile->id_0x18_24;
+				MarkToFree_41E80_421C0(projectile);
+				return;
+			}
+			done = true;
+		}
+		else if (--projectile->life_0x0C_12 < 0)
+			done = true;
+	}
+	if (!done)
+		return;
+	if (endKind == ProjectileEndKind::WizardsOnly && !(hit && hit->class_0x40_64 == 3 && (hit->model_0x41_65 == 0 || hit->model_0x41_65 == 1)))
+	{
+		CountHit_526C0(projectile, nullptr, target);
+		MarkToFree_41E80_421C0(projectile);
+		return;
+	}
+	Type_Mc1Entity* created = endKind == ProjectileEndKind::Model26
+		? CreateEntity_373F0_377B0(&projectile->position_0x48_72, 0x0A, 0x26)
+		: CreateEntity_373F0_377B0(&projectile->position_0x48_72, (int8_t)projectile->byte_0x44_68, (int8_t)projectile->byte_0x45_69);
+	if (!created)
+		return;
+	CountHit_526C0(projectile, hit, target);
+	if (projectile->byte_0x45_69 == 0x22)
+		created->life_0x0C_12 = (uint16_t)projectile->word_0x2C_44;
+	created->id_0x18_24 = projectile->id_0x18_24;
+	created->word_0x1E_30 = projectile->word_0x1E_30;
+	created->word_0x20_32 = projectile->word_0x20_32;
+	created->target_0x92_146 = IndexOf(hit);
+	created->word_0x2C_44 = projectile->word_0x2C_44;
+	if (endKind == ProjectileEndKind::Model26)
+	{
+		created->byte_0x44_68 = projectile->byte_0x44_68;
+		created->byte_0x45_69 = projectile->byte_0x45_69;
+	}
+	MarkToFree_41E80_421C0(projectile);
+}
+
+void ProjectileFlight_52770(Type_Mc1Entity* projectile)
+{
+	ProjectileFlight(projectile, ProjectileEndKind::Explosion, false);
+}
+
+void ProjectileFlightHw_52AB0(Type_Mc1Entity* projectile)
+{
+	ProjectileFlight(projectile, ProjectileEndKind::Explosion, true);
+}
+
+void ProjectileToWizard_530C0(Type_Mc1Entity* projectile)
+{
+	ProjectileFlight(projectile, ProjectileEndKind::WizardsOnly, false);
+}
+
+void ProjectileToWizardHw_53400(Type_Mc1Entity* projectile)
+{
+	ProjectileFlight(projectile, ProjectileEndKind::WizardsOnly, true);
+}
+
+void ProjectileModel26_53DC0(Type_Mc1Entity* projectile)
+{
+	ProjectileFlight(projectile, ProjectileEndKind::Model26, false);
+}
+
+void ProjectileModel26Hw_54100(Type_Mc1Entity* projectile)
+{
+	ProjectileFlight(projectile, ProjectileEndKind::Model26, true);
+}
+
+static void ProjectileFlightOfGame(Type_Mc1Entity* projectile)
+{
+	if (mc1Variant == MC1_VARIANT_HW)
+		ProjectileFlightHw_52AB0(projectile);
+	else
+		ProjectileFlight_52770(projectile);
+}
+
+void ProjectileAction_53060_533A0(Type_Mc1Entity* projectile)
+{
+	ProjectileFlightOfGame(projectile);
+}
+
+void ProjectileSmoke_53070_533B0(Type_Mc1Entity* projectile)
+{
+	// a smoke behind it while it flies
+	ProjectileFlightOfGame(projectile);
+	if (!projectile->class_0x40_64)
+		return;
+	if (Type_Mc1Entity* smoke = CreateEntity_373F0_377B0(&projectile->position_0x48_72, 0x0A, 1))
+	{
+		smoke->flags_0x10_16 |= 0x80;
+		smoke->id_0x18_24 = projectile->id_0x18_24;
+		smoke->flags_0x10_16 |= 0x10000;
+	}
+}
+
+void ProjectileFireSmokeHw_54600(Type_Mc1Entity* projectile)
+{
+	// HW action 17: a fire smoke (model 0) behind it while it flies
+	ProjectileFlightHw_52AB0(projectile);
+	if (!projectile->class_0x40_64)
+		return;
+	if (Type_Mc1Entity* smoke = CreateEntity_373F0_377B0(&projectile->position_0x48_72, 0x0A, 0))
+	{
+		smoke->flags_0x10_16 |= 0x80;
+		smoke->id_0x18_24 = projectile->id_0x18_24;
+		smoke->flags_0x10_16 |= 0x10000;
+	}
+}
+
+void ProjectileToWizardAction_530B0_533F0(Type_Mc1Entity* projectile)
+{
+	if (mc1Variant == MC1_VARIANT_HW)
+		ProjectileToWizardHw_53400(projectile);
+	else
+		ProjectileToWizard_530C0(projectile);
+}
+
+int32_t TileDistance_42300_42640(const Type_Mc1Position* from, const Type_Mc1Position* to)
+{
+	// the bigger of |dx| and |dy|
+	int32_t dx = (int16_t)(to->x - from->x);
+	int32_t dy = (int16_t)(to->y - from->y);
+	if (dx < 0)
+		dx = -dx;
+	if (dy < 0)
+		dy = -dy;
+	return dx < dy ? dy : dx;
+}
+
+void ProjectileLife_54290_545E0(Type_Mc1Entity* projectile)
+{
+	const int32_t life = projectile->life_0x0C_12;
+	projectile->life_0x0C_12 = life - 1;
+	if (life < 0)
+		MarkToFree_41E80_421C0(projectile);
+}
+
+void LightningStep_534C0_53800(Type_Mc1Entity* projectile)
+{
+	// one step of the lightning (removed from the map): straight on, a hit or the ground ends it
+	bool done = false;
+	if (&Entities()[projectile->target_0x92_146] <= Entities())
+		ProjectileStart(projectile, true);
+	featurePosition_AE454_AE444 = projectile->position_0x48_72;
+	MoveEntity_41EC0_42200((axis_3d*)&featurePosition_AE454_AE444, (uint16_t)projectile->word_0x1E_30, (uint16_t)projectile->word_0x20_32, projectile->word_0x7E_126);
+	projectile->position_0x48_72 = featurePosition_AE454_AE444;
+	if (Type_Mc1Entity* hit = FindHit_11980_11980(projectile))
+	{
+		projectile->position_0x48_72 = hit->position_0x48_72;
+		done = true;
+	}
+	else
+	{
+		const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&projectile->position_0x48_72);
+		featurePosition_AE454_AE444.z = ground;
+		if (ground > projectile->position_0x48_72.z || --projectile->life_0x0C_12 < 0)
+			done = true;
+	}
+	if (done)
+		MarkToFree_41E80_421C0(projectile);
+}
+
+static int32_t RandomSide(Type_Mc1Entity* entity)
+{
+	NextRand(entity);
+	return (int32_t)(entity->rand_0x04_4 % 0x9D) / 0x4F * 2 - 1;
+}
+
+// the zigzag of the lightning: one step back towards the limit, else a random side
+static int16_t Zigzag(Type_Mc1Entity* entity, int16_t offset, int16_t limit)
+{
+	if (limit < offset)
+		return (int16_t)(offset - 1);
+	if (offset < -limit)
+		return (int16_t)(offset + 1);
+	return (int16_t)(offset + RandomSide(entity));
+}
+
+void Lightning_535E0_53920(Type_Mc1Entity* projectile)
+{
+	// the whole path flown at once by 534C0, then drawn by sprites D8h zigzagging sideways, the explosion at its end;
+	// a shield (flag 8000h) of a wizard with a quarter of the mana takes a quarter of the damage
+	const Type_Mc1Position start = projectile->position_0x48_72;
+	projectile->word_0x7E_126 = projectile->word_0x80_128;
+	RemoveFromMap_41DD0_42110(projectile);
+	LightningStep_534C0_53800(projectile);
+	int32_t steps = 1;
+	const int16_t yaw = projectile->word_0x1E_30;
+	const int16_t pitch = projectile->word_0x20_32;
+	while (!(projectile->flags_0x10_16 & 0x400))
+	{
+		LightningStep_534C0_53800(projectile);
+		steps++;
+	}
+	projectile->word_0x1E_30 = yaw;
+	projectile->word_0x20_32 = pitch;
+	Type_Mc1Position step = { 0, 0, 0 };
+	int32_t count = steps * 8;
+	const int32_t speed = projectile->word_0x7E_126 / 8;
+	MoveEntity_41EC0_42200((axis_3d*)&step, (uint16_t)projectile->word_0x1E_30, (uint16_t)projectile->word_0x20_32, (int16_t)speed);
+	int16_t sideX = 0;
+	int16_t sideY = 0;
+	featurePosition_AE454_AE444 = start;
+	Type_Mc1Position position = start;
+	while ((int16_t)count >= 0)
+	{
+		if (Type_Mc1Entity* spark = AllocEntity_372C0_37680())
+		{
+			spark->actionIndex_0x46_70 = 0x0E;
+			spark->class_0x40_64 = 9;
+			spark->model_0x41_65 = 9;
+			spark->id_0x18_24 = projectile->id_0x18_24;
+			spark->maxLife_0x08_8 = spark >= projectile ? 0 : -1;
+			SetSprite_36FA0_37360(spark, 0xD8);
+			AddToMap_41CF0_42030(spark, &position);
+			ResetLife_36DE0_371A0(spark);
+		}
+		int16_t limit = (int16_t)((int16_t)count / 2);
+		if (limit < 0)
+			limit = 0;
+		if (limit > 8)
+			limit = 8;
+		sideY = Zigzag(projectile, sideY, limit);
+		sideX = Zigzag(projectile, sideX, limit); // computed, not used by the original
+		featurePosition_AE454_AE444.x = (int16_t)(featurePosition_AE454_AE444.x + step.x);
+		featurePosition_AE454_AE444.y = (int16_t)(featurePosition_AE454_AE444.y + step.y);
+		featurePosition_AE454_AE444.z = (int16_t)(featurePosition_AE454_AE444.z + step.z);
+		const int16_t side = (int16_t)((int16_t)speed / 4 * sideY);
+		position = featurePosition_AE454_AE444;
+		position.z = (int16_t)(featurePosition_AE454_AE444.z + side);
+		MoveEntity_41EC0_42200((axis_3d*)&position, (uint16_t)((projectile->word_0x1E_30 + 0x200) & 0x7FF), 0, side);
+		count--;
+	}
+	(void)sideX;
+	Type_Mc1Entity* hit = FindHit_11980_11980(projectile);
+	Type_Mc1Entity* target = &Entities()[projectile->target_0x92_146];
+	Type_Mc1Entity* created = CreateEntity_373F0_377B0(&position, (int8_t)projectile->byte_0x44_68, (int8_t)projectile->byte_0x45_69);
+	if (!created)
+		return;
+	CountHit_526C0(projectile, hit, target);
+	created->id_0x18_24 = projectile->id_0x18_24;
+	created->word_0x1E_30 = projectile->word_0x1E_30;
+	created->word_0x20_32 = projectile->word_0x20_32;
+	created->target_0x92_146 = IndexOf(hit);
+	if (hit && (hit->flags_0x10_16 & 0x8000) && hit->class_0x40_64 == 3 && projectile->mana_0x8C_140 / 4 <= hit->mana_0x8C_140)
+		created->word_0x2C_44 = (int16_t)((uint16_t)projectile->word_0x2C_44 / 4);
+	else
+		created->word_0x2C_44 = projectile->word_0x2C_44;
+}
+
+void ManaCollector_542B0_54640(Type_Mc1Entity* projectile)
+{
+	// to a new mana pile it touches: a sparkle (model 0Ch) and the entity of its kind there
+	bool done = false;
+	Type_Mc1Entity* target = &Entities()[projectile->target_0x92_146];
+	if (target > Entities())
+		HomeTo_52550_52890(projectile, target);
+	else
+		ProjectileStart(projectile, false);
+	featurePosition_AE454_AE444 = projectile->position_0x48_72;
+	MoveEntity_41EC0_42200((axis_3d*)&featurePosition_AE454_AE444, (uint16_t)projectile->word_0x1E_30, (uint16_t)projectile->word_0x20_32, projectile->word_0x7E_126);
+	const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&featurePosition_AE454_AE444);
+	if (ground > featurePosition_AE454_AE444.z)
+		featurePosition_AE454_AE444.z = ground;
+	CopyEntityPosition_41C70_41FB0(projectile, &featurePosition_AE454_AE444);
+	Type_Mc1Entity* mana = FindOverlappingMana_11C00_11C00(projectile);
+	if (mana)
+	{
+		RaiseByBox_524C0_52800(mana);
+		CopyEntityPosition_41C70_41FB0(projectile, &mana->position_0x48_72);
+		LowerByBox_524E0_52820(mana);
+		done = true;
+	}
+	else
+	{
+		const int16_t z = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&projectile->position_0x48_72);
+		featurePosition_AE454_AE444.z = z;
+		if (z > projectile->position_0x48_72.z || --projectile->life_0x0C_12 < 0)
+			done = true;
+	}
+	if (!done)
+		return;
+	if (Type_Mc1Entity* sparkle = CreateEntity_373F0_377B0(&projectile->position_0x48_72, 0x0A, 0x0C))
+	{
+		CountHit_526C0(projectile, mana, target);
+		sparkle->id_0x18_24 = projectile->id_0x18_24;
+		sparkle->word_0x1E_30 = projectile->word_0x1E_30;
+		sparkle->word_0x20_32 = projectile->word_0x20_32;
+	}
+	if (Type_Mc1Entity* created = CreateEntity_373F0_377B0(&projectile->position_0x48_72, (int8_t)projectile->byte_0x44_68, (int8_t)projectile->byte_0x45_69))
+	{
+		CountHit_526C0(projectile, mana, target);
+		created->id_0x18_24 = projectile->id_0x18_24;
+		created->word_0x1E_30 = projectile->word_0x1E_30;
+		created->word_0x20_32 = projectile->word_0x20_32;
+		MarkToFree_41E80_421C0(projectile);
+	}
+}
+
+void ProjectileBecome_54480_54810(Type_Mc1Entity* projectile)
+{
+	// at once the entity of its kind (byte_0x44 / 45)
+	Type_Mc1Entity* created = CreateEntity_373F0_377B0(&projectile->position_0x48_72, (int8_t)projectile->byte_0x44_68, (int8_t)projectile->byte_0x45_69);
+	if (!created)
+		return;
+	created->id_0x18_24 = projectile->id_0x18_24;
+	created->word_0x1E_30 = projectile->word_0x1E_30;
+	created->word_0x20_32 = projectile->word_0x20_32;
+	created->word_0x2C_44 = projectile->word_0x2C_44;
+	MarkToFree_41E80_421C0(projectile);
+}
+
+// the triggers of the level (class 11): the models of the group (the id) created by 37440
+
+int32_t TriggerWizardTouch_5A090_5A5A0(Type_Mc1Entity* trigger, int32_t touching)
+{
+	// every 8th step: a wizard of the model 0 touching it (or not) gets the sound 29h; on the ground
+	if (trigger->index_0x3F_63 & 7)
+		return 0;
+	for (Type_Mc1Entity* wizard = mc1Settings_AE408_AE3F8->entityLists_0x8E1A_36378[21]; wizard > Entities(); wizard = wizard->next_0x00_0)
+	{
+		if (wizard->model_0x41_65 || EntitiesOverlap_11950_11950(trigger, wizard) != touching)
+			continue;
+		QueueSound_55370_558A0(EntityIndex(wizard), -1, 0x29);
+		return 1;
+	}
+	trigger->position_0x48_72.z = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&trigger->position_0x48_72);
+	return 0;
+}
+
+int32_t TriggerPlayerTouch_5A120_5A630(Type_Mc1Entity* trigger, int32_t touching)
+{
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	for (uint16_t i = 0; i < state->playerCount_0x0A_10; i++)
+		if (EntitiesOverlap_11950_11950(trigger, &Entities()[state->players_0x340B_13323[i].entityIndex_0x0A_10]) == touching)
+			return 1;
+	return 0;
+}
+
+// once when a wizard touches it (or leaves it)
+static void TriggerOnce(Type_Mc1Entity* trigger, int32_t touching)
+{
+	if (!TriggerWizardTouch_5A090_5A5A0(trigger, touching))
+		return;
+	CreateLevelModels_37440_37800((int16_t)trigger->id_0x18_24, 1);
+	MarkToFree_41E80_421C0(trigger);
+}
+
+// again after a pause of 10 steps without a player in the state
+static void TriggerRepeat(Type_Mc1Entity* trigger, int32_t touching)
+{
+	if (!trigger->word_0x1A_26)
+	{
+		if (TriggerWizardTouch_5A090_5A5A0(trigger, touching))
+		{
+			CreateLevelModels_37440_37800((int16_t)trigger->id_0x18_24, 0);
+			trigger->word_0x1A_26 = 0x0A;
+		}
+		return;
+	}
+	if (!TriggerPlayerTouch_5A120_5A630(trigger, touching))
+		trigger->word_0x1A_26--;
+}
+
+static void TriggerCountdown(Type_Mc1Entity* trigger)
+{
+	if (!trigger->word_0x1A_26)
+	{
+		trigger->word_0x1A_26 = 0x10;
+		return;
+	}
+	if (trigger->word_0x1A_26 != 1)
+	{
+		trigger->word_0x1A_26--;
+		return;
+	}
+	QueueSound_55370_558A0(EntityIndex(trigger), -1, 0x29);
+	CreateLevelModels_37440_37800((int16_t)trigger->id_0x18_24, 1);
+	MarkToFree_41E80_421C0(trigger);
+}
+
+void TriggerNoCreatures_59E40_5A350(Type_Mc1Entity* trigger, int32_t model)
+{
+	// 16 steps after no creature of the model is left (-1: of the models 0-0Bh and 10h)
+	Type_Mc1Entity** lists = mc1Settings_AE408_AE3F8->entityLists_0x8E1A_36378;
+	if (model != -1)
+	{
+		if (lists[1 + model])
+			return;
+	}
+	else
+	{
+		for (int32_t i = 0; i <= 0x10; i++)
+			if ((i <= 0x0B || i == 0x10) && lists[1 + i])
+				return;
+	}
+	TriggerCountdown(trigger);
+}
+
+void TriggerCastle_59B80_5A090(Type_Mc1Entity* trigger)
+{
+	// the player 0 with a castle and the flag 2 of its result: the group, the flag cleared, the sound 29h
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	Type_Mc1Entity* wizard = &Entities()[state->players_0x340B_13323[0].entityIndex_0x0A_10];
+	uint8_t* playerData = wizard->playerData_0xA0_160;
+	if (!ReadS16(playerData + 0x32))
+		return;
+	Type_Mc1Player_340B& player = state->players_0x340B_13323[ReadS16(playerData + 0x30)];
+	if (!(player.levelResult_0x02_2 & 2))
+		return;
+	CreateLevelModels_37440_37800((int16_t)trigger->id_0x18_24, 0);
+	MarkToFree_41E80_421C0(trigger);
+	Type_Mc1Player_340B& owner = state->players_0x340B_13323[ReadS16(wizard->playerData_0xA0_160 + 0x30)];
+	owner.levelResult_0x02_2 = (uint16_t)((owner.levelResult_0x02_2 & 0xFF00) | (owner.levelResult_0x02_2 & 0xFD));
+	QueueSound_55370_558A0(EntityIndex(trigger), -1, 0x29);
+}
+
+void TriggerEnter_59A80_59F90(Type_Mc1Entity* trigger)
+{
+	TriggerOnce(trigger, 1);
+}
+
+void TriggerLeave_59AB0_59FC0(Type_Mc1Entity* trigger)
+{
+	TriggerOnce(trigger, 0);
+}
+
+void TriggerEnterRepeat_59AE0_59FF0(Type_Mc1Entity* trigger)
+{
+	TriggerRepeat(trigger, 1);
+}
+
+void TriggerLeaveRepeat_59B30_5A040(Type_Mc1Entity* trigger)
+{
+	TriggerRepeat(trigger, 0);
+}
+
+void TriggerEnter_59C40_5A150(Type_Mc1Entity* trigger)
+{
+	TriggerOnce(trigger, 1);
+}
+
+void TriggerLeave_59C70_5A180(Type_Mc1Entity* trigger)
+{
+	TriggerOnce(trigger, 0);
+}
+
+void TriggerEnterRepeat_59CA0_5A1B0(Type_Mc1Entity* trigger)
+{
+	TriggerRepeat(trigger, 1);
+}
+
+void TriggerLeaveRepeat_59CF0_5A200(Type_Mc1Entity* trigger)
+{
+	TriggerRepeat(trigger, 0);
+}
+
+void TriggerEnter_59D40_5A250(Type_Mc1Entity* trigger)
+{
+	TriggerOnce(trigger, 1);
+}
+
+void TriggerLeave_59D70_5A280(Type_Mc1Entity* trigger)
+{
+	TriggerOnce(trigger, 0);
+}
+
+void TriggerEnterRepeat_59DA0_5A2B0(Type_Mc1Entity* trigger)
+{
+	TriggerRepeat(trigger, 1);
+}
+
+void TriggerLeaveRepeat_59DF0_5A300(Type_Mc1Entity* trigger)
+{
+	TriggerRepeat(trigger, 0);
+}
+
+void TriggerNoCreatures00_59F60_5A470(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 0);
+}
+
+void TriggerNoCreatures01_59F70_5A480(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 1);
+}
+
+void TriggerNoCreatures02_59F80_5A490(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 2);
+}
+
+void TriggerNoCreatures03_59F90_5A4A0(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 3);
+}
+
+void TriggerNoCreatures04_59FA0_5A4B0(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 4);
+}
+
+void TriggerNoCreatures05_59FB0_5A4C0(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 5);
+}
+
+void TriggerNoCreatures06_59FC0_5A4D0(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 6);
+}
+
+void TriggerNoCreatures07_59FD0_5A4E0(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 7);
+}
+
+void TriggerNoCreatures08_59FE0_5A4F0(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 8);
+}
+
+void TriggerNoCreatures09_59FF0_5A500(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 9);
+}
+
+void TriggerNoCreatures0A_5A000_5A510(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 10);
+}
+
+void TriggerNoCreatures0B_5A010_5A520(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 11);
+}
+
+void TriggerNoCreatures0C_5A020_5A530(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 12);
+}
+
+void TriggerNoCreatures0D_5A030_5A540(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 13);
+}
+
+void TriggerNoCreatures0E_5A040_5A550(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 14);
+}
+
+void TriggerNoCreatures0F_5A050_5A560(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 15);
+}
+
+void TriggerNoCreatures10_5A060_5A570(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, 16);
+}
+
+void TriggerNoCreaturesAny_5A070_5A580(Type_Mc1Entity* trigger)
+{
+	TriggerNoCreatures_59E40_5A350(trigger, -1);
 }
