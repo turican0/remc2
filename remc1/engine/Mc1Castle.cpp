@@ -7,6 +7,7 @@
 #include "Mc1Files.h"
 #include "Mc1Game.h"
 #include "Mc1NotPorted.h"
+#include "Mc1Sound.h"
 #include "Mc1PlayerEvents.h"
 #include "Mc1Scenery.h"
 #include "Mc1Shared.h"
@@ -447,7 +448,7 @@ void CastleGrown_47960_47CA0(Type_Mc1Entity* castle)
 	Type_Mc1Entity* effect = CreateScenery42_3B7B0_3BB30(&castle->target_0x96_150);
 	if (!effect)
 		return;
-	sub_55370_558A0((int16_t)EntityIndex(castle), -1, 0x0A);
+	QueueSound_55370_558A0((int16_t)EntityIndex(castle), -1, 0x0A);
 	castle->flags_0x10_16 &= ~0x40u;
 	castle->word_0x1A_26++;
 	castle->actionIndex_0x46_70 = 5;
@@ -1004,7 +1005,7 @@ void CastleShrink_47A70_47DB0(Type_Mc1Entity* castle)
 		castle->dword_0x88_136 -= tenth;
 		CastleOverflow_47130_47470(castle);
 		castle->dword_0x88_136 += tenth;
-		sub_55370_558A0((int16_t)EntityIndex(castle), -1, 0x1E);
+		QueueSound_55370_558A0((int16_t)EntityIndex(castle), -1, 0x1E);
 		Type_Mc1Entity* temporary = &Entities()[0];
 		temporary->position_0x48_72 = castle->target_0x96_150;
 		temporary->byte_0x47_71 = (uint8_t)castle->word_0x1A_26;

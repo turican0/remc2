@@ -76,3 +76,15 @@ void StopSample_5D750_5DC60(int16_t owner, int16_t sample);
 void ShutdownDigital_61F90_624A0();
 void ShutdownMusic_62020_62530();
 void RestartMenuMusic_65E00_66310();
+
+// the sounds of the game
+// the sound of an entity (0 none) by its distance and angle to the camera; player: the own sounds of a player, -1 of all
+void QueueSound_55370_558A0(int16_t entityIndex, int32_t player, int32_t sound);
+// the requests of the frame played, the looped samples faded
+void PlayQueuedSounds_55100_55630();
+void FadeInLoops_51FC0_52300();
+void FadeOutLoops_522E0_52620();
+// the flight sounds (1, 2, 5, 31) of the current player fade out
+void FadeOutSound_55890_55DC0(int16_t unused, int32_t player, int32_t sound);
+// the music of the danger: 2 the channels 3-5 fade in, 1 out
+void SetDangerMusic_20D00_20D00(uint8_t mode);

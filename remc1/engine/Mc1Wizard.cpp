@@ -5,6 +5,7 @@
 #include "Mc1Entity.h"
 #include "Mc1Game.h"
 #include "Mc1NotPorted.h"
+#include "Mc1Sound.h"
 #include "Mc1PlayerEvents.h"
 #include "Mc1Shared.h"
 #include "Mc1Terrain.h"
@@ -148,7 +149,7 @@ void UpdateSpellButton_46B00_46E40(Type_Mc1Entity* wizard, Type_Mc1Entity* spell
 		case 0x10:
 			if (spell->word_0x30_48)
 			{
-				sub_55370_558A0(0, ReadS16(playerData + 0x30), 0x1D);
+				QueueSound_55370_558A0(0, ReadS16(playerData + 0x30), 0x1D);
 				return;
 			}
 			if (wizard->mana_0x8C_140 < spell->dword_0x88_136)
@@ -310,7 +311,7 @@ int32_t TakeWizardMails_46540_46880(Type_Mc1Entity* wizard)
 		SetFlashOfPlayer_44BE0_44F20(wizard, 2);
 		playerData[0x188] = 4;
 		WriteS32(playerData + 0x17F, 0x10);
-		sub_55370_558A0(EntityIndex(wizard), -1, 0x11);
+		QueueSound_55370_558A0(EntityIndex(wizard), -1, 0x11);
 		if (wizard->life_0x0C_12 < 0)
 		{
 			wizard->word_0x26_38 = wizard->mails_0x5A_90[0].sender_4;
@@ -439,44 +440,44 @@ void MoveWizard_455D0_45910(Type_Mc1Entity* wizard)
 	const int16_t player = state->currentPlayer_0x08_8;
 	if (GetTileTypeBit_11810_11810(&wizard->position_0x48_72) == 1)
 	{
-		sub_55370_558A0(0, player, 1);
-		sub_55890_55DC0(0, player, 2);
+		QueueSound_55370_558A0(0, player, 1);
+		FadeOutSound_55890_55DC0(0, player, 2);
 	}
 	else
 	{
-		sub_55370_558A0(0, player, 2);
-		sub_55890_55DC0(0, player, 1);
+		QueueSound_55370_558A0(0, player, 2);
+		FadeOutSound_55890_55DC0(0, player, 1);
 	}
 	if (ReadS32(playerData + 0x18C) < 0x600)
 	{
-		sub_55370_558A0(0, player, 5);
+		QueueSound_55370_558A0(0, player, 5);
 		WriteS32(playerData + 0x18C, 0x800);
 	}
 	else
-		sub_55890_55DC0(0, player, 5);
+		FadeOutSound_55890_55DC0(0, player, 5);
 	if (ReadS32(playerData + 0x190) < 0x600)
 	{
-		sub_55370_558A0(0, player, 0x1F);
+		QueueSound_55370_558A0(0, player, 0x1F);
 		WriteS32(playerData + 0x190, 0x800);
 	}
 	else
-		sub_55890_55DC0(0, player, 0x1F);
+		FadeOutSound_55890_55DC0(0, player, 0x1F);
 	if (ReadS16(playerData + 0x30) == state->currentPlayer_0x08_8)
 	{
 		const int16_t timer = ReadS16(playerData + 0x2E);
 		if (timer > 0)
 		{
 			WriteS16(playerData + 0x2E, timer - 1);
-			sub_20D00_20D00(2);
+			SetDangerMusic_20D00_20D00(2);
 		}
 		else
-			sub_20D00_20D00(1);
+			SetDangerMusic_20D00_20D00(1);
 	}
 	if (!(wizard->index_0x3F_63 & 0x3F))
 	{
 		wizard->rand_0x04_4 = wizard->rand_0x04_4 * 0x24A1 + 0x24DF;
 		if (!(wizard->rand_0x04_4 % 11))
-			sub_55370_558A0(EntityIndex(wizard), -1, 0x2E);
+			QueueSound_55370_558A0(EntityIndex(wizard), -1, 0x2E);
 	}
 }
 
@@ -527,7 +528,7 @@ void UpdatePlayerWizard_45C90_45FD0(Type_Mc1Entity* wizard)
 		// dead: the action 2
 		wizard->actionIndex_0x46_70 = 2;
 		wizard->word_0x2E_46 = 0;
-		sub_55370_558A0(EntityIndex(wizard), -1, 0x10);
+		QueueSound_55370_558A0(EntityIndex(wizard), -1, 0x10);
 		return;
 	}
 	if (settings->flags_0x00_0 & 0x10000)

@@ -6,6 +6,7 @@
 #include "Mc1EntityTables.h"
 #include "Mc1Game.h"
 #include "Mc1NotPorted.h"
+#include "Mc1Sound.h"
 #include "Mc1Search.h"
 #include "Mc1Shared.h"
 #include "Mc1Terrain.h"
@@ -151,7 +152,7 @@ int32_t SpellPickUp_55A40_55F70(Type_Mc1Entity* entity, int8_t spell, int8_t act
 			continue;
 		if (entity->flags_0x10_16 & 0x40000)
 			entity->dword_0x84_132 = 0;
-		sub_55370_558A0(EntityIndex(wizard), -1, 0x12);
+		QueueSound_55370_558A0(EntityIndex(wizard), -1, 0x12);
 		entity->flags_0x10_16 |= 1;
 		entity->word_0x2A_42 = (uint16_t)EntityIndex(wizard);
 		entity->actionIndex_0x46_70 = (uint8_t)action;
@@ -213,7 +214,7 @@ int32_t SpellCanCast_55DD0_56300(Type_Mc1Entity* spell, Type_Mc1Entity* wizard)
 				return 1;
 		}
 	}
-	sub_55370_558A0(0, ReadS16(wizard->playerData_0xA0_160 + 0x30), 0x1D);
+	QueueSound_55370_558A0(0, ReadS16(wizard->playerData_0xA0_160 + 0x30), 0x1D);
 	return 0;
 }
 
@@ -291,7 +292,7 @@ static void SpellCastProjectile(Type_Mc1Entity* spell, int32_t model, uint8_t ki
 					wizard->playerData_0xA0_160[0x146] = 0;
 					projectile->target_0x96_150 = wizard->position_0x48_72;
 					MoveEntity_41EC0_42200((axis_3d*)&projectile->target_0x96_150, (uint16_t)wizard->word_0x1E_30, (uint16_t)wizard->word_0x20_32, fireball ? 0x4000 : 0x2800);
-					sub_55370_558A0(EntityIndex(projectile), -1, fireball ? 9 : 0x28);
+					QueueSound_55370_558A0(EntityIndex(projectile), -1, fireball ? 9 : 0x28);
 				}
 				SpellUseMana_55E80_563B0(spell, wizard);
 				spell->byte_0x3D_61--;
@@ -357,7 +358,7 @@ void SpellModel16_57610_57B40(Type_Mc1Entity* spell)
 	wizard->playerData_0xA0_160[0x146] = 0;
 	projectile->word_0x1E_30 = wizard->word_0x1E_30;
 	projectile->word_0x20_32 = wizard->word_0x20_32;
-	sub_55370_558A0(EntityIndex(projectile), -1, 0x0F);
+	QueueSound_55370_558A0(EntityIndex(projectile), -1, 0x0F);
 }
 
 // the projectiles of class 9
@@ -806,7 +807,7 @@ void Fireball_52B30_52E70(Type_Mc1Entity* projectile)
 		{
 			if (projectile->mana_0x8C_140 / 4 > hit->mana_0x8C_140)
 				return;
-			sub_55370_558A0((int16_t)EntityIndex(hit), -1, 0x1C);
+			QueueSound_55370_558A0((int16_t)EntityIndex(hit), -1, 0x1C);
 			Type_Mc1Entity* owner = &Entities()[(int16_t)projectile->id_0x18_24];
 			hit->mana_0x8C_140 -= projectile->mana_0x8C_140 / 4;
 			projectile->word_0x22_34 = (int16_t)((projectile->word_0x1E_30 + 0x400) & 0x7FF);
@@ -900,7 +901,7 @@ void GuardShot_54180_544D0(Type_Mc1Entity* projectile)
 	if (!(projectile->flags_0x10_16 & 2))
 	{
 		const int16_t sound = (int16_t)((NextRand(projectile) & 3) + 0x21);
-		sub_55370_558A0((int16_t)EntityIndex(projectile), -1, sound);
+		QueueSound_55370_558A0((int16_t)EntityIndex(projectile), -1, sound);
 		projectile->flags_0x10_16 |= 2;
 	}
 	featurePosition_AE454_AE444 = projectile->position_0x48_72;

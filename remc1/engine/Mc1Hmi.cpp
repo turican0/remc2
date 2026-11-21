@@ -21,6 +21,7 @@ static std::string SoundDriverPath(const char* file)
 static const int kHmiSampleSlots = 32; // HMI mixes up to 32 samples, MC1 walks all of them
 static HDIGDRIVER digDriver = nullptr;
 static HSAMPLE digSamples[kHmiSampleSlots];
+static uint16_t digSampleIds[kHmiSampleSlots]; // wSampleID of the slot (sosDIGISetSampleVolume)
 static int32_t digSampleRate = 11025;
 static int digSlotCount = 0;
 
@@ -107,6 +108,9 @@ uint16_t sosDIGIStartSample_6535C_6586C(uint16_t driverHandle, Type_SosStartSamp
 	AilSetSamplePlaybackRate_93D90(sample, digSampleRate);
 	if (start->flags_0x1C_28 & SOS_VOLUME)
 		AilSetSampleVolume_93E30(sample, start->volume_0x10_16 * 127 / 0x7FFF);
+	digSampleIds[slot] = start->sampleId_0x12_18;
+	// the pan of HMI 0 left - FFFFh right, of MSS 0 - 127
+	AilSetSampleVolumePan_93ED0(sample, (start->flags_0x1C_28 & SOS_PANNING) ? start->pan_0x32_50 * 127 / 0xFFFF : 64);
 	// the remc2 emulation hands the loop count to SDL_mixer: 0 plays once, -1 forever
 	if (start->flags_0x1C_28 & SOS_LOOPING)
 		AilSetSampleLoopCount_93F70(sample, start->loopCount_0x0C_12 == -1 ? -1 : start->loopCount_0x0C_12);
@@ -114,6 +118,17 @@ uint16_t sosDIGIStartSample_6535C_6586C(uint16_t driverHandle, Type_SosStartSamp
 		AilSetSampleLoopCount_93F70(sample, 0);
 	AilStartSample_93B50(sample);
 	return (uint16_t)slot;
+}
+
+uint16_t sosDIGISetSampleVolume_66118_66628(uint16_t driverHandle, uint16_t sampleId, uint16_t volume)
+{
+	for (int slot = 0; slot < kHmiSampleSlots; slot++)
+		if (!sosDIGISampleDone_651F8_65708(driverHandle, slot) && digSampleIds[slot] == sampleId)
+		{
+			AilSetSampleVolume_93E30(digSamples[slot], volume * 127 / 0x7FFF);
+			return 0;
+		}
+	return 0x0A; // _ERR_INVALID_HANDLE
 }
 
 uint16_t sosDIGIStopSample_65965_65E75(uint16_t /*driverHandle*/, uint16_t sampleHandle)
@@ -454,6 +469,16 @@ bool sosMIDISongDone_5D7F0_5DD00(uint16_t songHandle)
 	if (songHandle >= kMaxSongs)
 		return true;
 	return !songs[songHandle].playing;
+}
+
+uint16_t sosMIDISendMIDIData_5EDA0_5F2B0(uint16_t /*driverHandle*/, const uint8_t* data, uint16_t length)
+{
+	std::lock_guard<std::recursive_mutex> lock(Awe32Mdi::Mutex());
+	if (length == 3)
+		SendMidi(data[0], data[1], data[2]);
+	else if (length == 2)
+		SendMidi(data[0], data[1], 0);
+	return 0;
 }
 
 uint16_t sosMIDIEnableChannelStealing_5EDD6_5F2E6(uint16_t enable)

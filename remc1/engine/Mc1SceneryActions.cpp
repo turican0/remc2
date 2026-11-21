@@ -7,6 +7,7 @@
 #include "Mc1Files.h"
 #include "Mc1Game.h"
 #include "Mc1NotPorted.h"
+#include "Mc1Sound.h"
 #include "Mc1Scenery.h"
 #include "Mc1Search.h"
 #include "Mc1Shared.h"
@@ -73,7 +74,7 @@ void RaiseTerrainAction_25470_25470(Type_Mc1Entity* entity)
 		return;
 	}
 	SendMailToOverlappingEntities_127E0_127E0(entity, 0, (uint16_t)entity->word_0x2C_44);
-	sub_55370_558A0(EntityIndex(entity), -1, 10);
+	QueueSound_55370_558A0(EntityIndex(entity), -1, 10);
 }
 
 void LowerTerrainOnceAction_25570_25570(Type_Mc1Entity* entity)
@@ -108,7 +109,7 @@ void SinkTerrainAction_25670_25670(Type_Mc1Entity* entity)
 	}
 	entity->flags_0x10_16 |= 2;
 	LowerHeightsAround_255D0_255D0(entity, 0, last);
-	sub_55370_558A0(EntityIndex(entity), -1, 10);
+	QueueSound_55370_558A0(EntityIndex(entity), -1, 10);
 }
 
 static void RaiseWallTile(uint16_t tile)
@@ -224,7 +225,7 @@ void RaiseRidgeAction_269A0_269A0(Type_Mc1Entity* entity)
 	if (!ChangeHeightsAround_40D30_41070(entity, 0, 0x400, add, 0))
 	{
 		SendMailAround_120B0_120B0(entity, 0, (uint16_t)entity->word_0x2C_44);
-		sub_55370_558A0(EntityIndex(entity), -1, 10);
+		QueueSound_55370_558A0(EntityIndex(entity), -1, 10);
 	}
 	MoveEntity_41EC0_42200((axis_3d*)&entity->position_0x48_72, (uint16_t)entity->word_0x1E_30, 0, entity->word_0x7E_126);
 }
@@ -410,7 +411,7 @@ static bool TakeOwner(Type_Mc1Entity* entity)
 	if (owner != entity->owner_0x90_144)
 	{
 		entity->owner_0x90_144 = owner;
-		sub_55370_558A0((int16_t)owner, -1, 4);
+		QueueSound_55370_558A0((int16_t)owner, -1, 4);
 		changed = true;
 	}
 	mail.sender_4 = 0;
@@ -720,7 +721,7 @@ void SmokeAction_25130_25130(Type_Mc1Entity* entity)
 	if (!(entity->flags_0x10_16 & 2))
 	{
 		entity->flags_0x10_16 |= 2;
-		sub_55370_558A0(EntityIndex(entity), -1, 3);
+		QueueSound_55370_558A0(EntityIndex(entity), -1, 3);
 	}
 	const int32_t search = StartSearch_11410_11410(entity->word_0x1A_26, entity->word_0x1A_26);
 	if (!search)
@@ -816,7 +817,7 @@ void PuffAction_24F60_24F60(Type_Mc1Entity* entity)
 			ChangeHeightsAround_40D30_41070(entity, 0, 0, (int16_t)-(int32_t)(NextRand(entity) % 7), 1);
 		entity->flags_0x10_16 |= 2;
 		entity->word_0x2E_46 = (int16_t)(NextRand(entity) % 0x41 - 0x20);
-		sub_55370_558A0(EntityIndex(entity), -1, 3);
+		QueueSound_55370_558A0(EntityIndex(entity), -1, 3);
 	}
 	ClampHeight_42000_42340(&entity->position_0x48_72, ground, 0, 0, entity->word_0x2E_46);
 	NextFrame_42510_42850(entity);
@@ -956,5 +957,5 @@ void BuildingFallAction_25410_25410(Type_Mc1Entity* entity)
 	if (entity->flags_0x10_16 & 2)
 		return;
 	entity->flags_0x10_16 |= 2;
-	sub_55370_558A0(EntityIndex(entity), -1, 0x1B);
+	QueueSound_55370_558A0(EntityIndex(entity), -1, 0x1B);
 }

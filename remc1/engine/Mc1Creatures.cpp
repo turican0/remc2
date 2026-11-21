@@ -7,6 +7,7 @@
 #include "Mc1Files.h"
 #include "Mc1Game.h"
 #include "Mc1NotPorted.h"
+#include "Mc1Sound.h"
 #include "Mc1Shared.h"
 #include "Mc1Terrain.h"
 #include "Mc1Wizard.h"
@@ -632,7 +633,7 @@ void CreatureFollowLeader12_1B570_1B570(Type_Mc1Entity* entity)
 void CreatureAttack6_1B2D0_1B2D0(Type_Mc1Entity* entity)
 {
 	if (CreatureAttack_1A120_1A120(entity, 6, CreatureBite_1AB10_1AB10))
-		sub_55370_558A0((int16_t)EntityIndex(entity), -1, 7);
+		QueueSound_55370_558A0((int16_t)EntityIndex(entity), -1, 7);
 }
 
 void CreatureFindBuilding_1F390_1F390(Type_Mc1Entity* entity)
@@ -837,7 +838,7 @@ void CreatureBuild_1EA40_1EA40(Type_Mc1Entity* entity)
 					return;
 				if (Type_Mc1Entity* created = CreateEntity_373F0_377B0(&place, 0x0A, 0x2D))
 				{
-					sub_55370_558A0((int16_t)EntityIndex(entity), -1, 0x0A);
+					QueueSound_55370_558A0((int16_t)EntityIndex(entity), -1, 0x0A);
 					InitBuildingEntity_36DF0_371B0(created, sprite);
 					created->actionIndex_0x46_70 = 0x33;
 				}
@@ -961,7 +962,7 @@ int32_t CreatureFireball_1A8E0_1A8E0(Type_Mc1Entity* entity, Type_Mc1Entity* tar
 void CreatureAttack12_1B520_1B520(Type_Mc1Entity* entity)
 {
 	if (CreatureAttack_1A120_1A120(entity, 0x12, CreatureFireball_1A8E0_1A8E0))
-		sub_55370_558A0((int16_t)EntityIndex(entity), -1, 8);
+		QueueSound_55370_558A0((int16_t)EntityIndex(entity), -1, 8);
 }
 
 void CreatureKilled12_1B580_1B580(Type_Mc1Entity* entity)

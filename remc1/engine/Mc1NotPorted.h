@@ -120,8 +120,6 @@ Type_Mc1Entity* sub_3C4E0_3C820(Type_Mc1Position* position);
 Type_Mc1Entity* sub_3C510_3C850(Type_Mc1Position* position);
 Type_Mc1Entity* sub_3C540_3C880(Type_Mc1Position* position);
 // 45C90: the sounds of the flight (HMI)
-void sub_55890_55DC0(int16_t a1, int32_t a2, int32_t a3);
-void sub_20D00_20D00(int32_t a1);
 void sub_49B50_49E90(Type_Mc1Entity* entity);
 void sub_53060_533A0(Type_Mc1Entity* entity);
 void sub_53070_533B0(Type_Mc1Entity* entity);
@@ -185,7 +183,6 @@ void sub_5A040_5A550(Type_Mc1Entity* entity);
 void sub_5A050_5A560(Type_Mc1Entity* entity);
 void sub_5A060_5A570(Type_Mc1Entity* entity);
 void sub_5A070_5A580(Type_Mc1Entity* entity);
-void sub_55370_558A0(int16_t entityIndex, int32_t sound, int32_t volume); // the sound of an entity by its position
 // the movie (demo): the state and the level saved / loaded, the tmaps of the movie
 int32_t sub_3E350_3E690(int16_t movie);
 int32_t sub_3E410_3E750(int16_t movie);
@@ -198,7 +195,6 @@ void sub_42D40_43080(uint32_t handle, char* name);
 void sub_43150_43490();
 void sub_438D0_43C10(uint16_t player, uint8_t* buffer, uint32_t size);
 void sub_43870_43BB0(uint16_t player, uint8_t* buffer, uint32_t size);
-void sub_55100_55630();
 // 20FB0: the icons and the spells
 void sub_24D20_24D20(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);
 void sub_24DA0_24DA0(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);

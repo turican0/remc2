@@ -244,8 +244,6 @@ Type_Mc1Entity* sub_3C510_3C850(Type_Mc1Position* /*position*/) { NotPorted(__fu
 Type_Mc1Entity* sub_3C540_3C880(Type_Mc1Position* /*position*/) { NotPorted(__func__); return nullptr; }
 //!!!!! not ported yet
 // 45C90: the sounds of the flight (HMI)
-void sub_55890_55DC0(int16_t /*a1*/, int32_t /*a2*/, int32_t /*a3*/) { NotPorted(__func__); }
-void sub_20D00_20D00(int32_t /*a1*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
 void sub_49B50_49E90(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 //!!!!! not ported yet (class action)
@@ -374,14 +372,6 @@ void sub_5A060_5A570(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 void sub_5A070_5A580(Type_Mc1Entity* /*entity*/) { NotPorted(__func__); }
 
 //!!!!! not ported yet
-void sub_55370_558A0(int16_t /*entityIndex*/, int32_t /*sound*/, int32_t /*volume*/)
-{
-	// the sounds off (939E5 / 939E4, the load of the level): nothing
-	if (!byte_939E5_939E5 || !byte_939E4_939E4)
-		return;
-	NotPorted(__func__);
-}
-//!!!!! not ported yet
 int32_t sub_3E350_3E690(int16_t /*movie*/) { NotPorted(__func__); return 0; }
 int32_t sub_3E410_3E750(int16_t /*movie*/) { NotPorted(__func__); return 0; }
 int32_t sub_3E4B0_3E7F0(int16_t /*movie*/) { NotPorted(__func__); return 0; }
@@ -392,8 +382,6 @@ void sub_42D40_43080(uint32_t /*handle*/, char* /*name*/) { NotPorted(__func__);
 void sub_43150_43490() { NotPorted(__func__); }
 void sub_438D0_43C10(uint16_t /*player*/, uint8_t* /*buffer*/, uint32_t /*size*/) { NotPorted(__func__); }
 void sub_43870_43BB0(uint16_t /*player*/, uint8_t* /*buffer*/, uint32_t /*size*/) { NotPorted(__func__); }
-//!!!!! not ported yet
-void sub_55100_55630() { NotPorted(__func__); }
 // 20FB0: the icons and the spells
 void sub_24D20_24D20(int32_t /*x*/, int32_t /*y*/, int32_t /*width*/, int32_t /*height*/, int32_t /*color*/) { NotPorted(__func__); }
 void sub_24DA0_24DA0(int32_t /*x*/, int32_t /*y*/, int32_t /*width*/, int32_t /*height*/, int32_t /*color*/) { NotPorted(__func__); }

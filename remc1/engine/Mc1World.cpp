@@ -92,7 +92,7 @@ void GameFrame_34530_348F0()
 			WorldTick_41780_41AC0();
 		break;
 	}
-	sub_55100_55630();
+	PlayQueuedSounds_55100_55630();
 	DrawFrame_20FB0_20FB0();
 	// the ticks of the frame for 5A560, then the time of the frame
 	settings->frameTicks_0x99_153 = timerTicks_AC5D4_AC5C4 - settings->frameTicks_0x99_153;

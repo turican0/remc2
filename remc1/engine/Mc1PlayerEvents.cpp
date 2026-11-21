@@ -326,7 +326,7 @@ void PlayerEvents_3C9D0_3CD10()
 			if (input->param_0x01_1 == -1)
 				break;
 			WriteS16(playerData + (input->command_0x00_0 == 21 ? 0x3AC : 0x3B0), input->param_0x01_1);
-			sub_55370_558A0(0, player->index_0x07_7, 0x0E);
+			QueueSound_55370_558A0(0, player->index_0x07_7, 0x0E);
 			SetPlayerMode_3DC90_3DFD0(player, 0);
 			break;
 		case 23: // a spell into a slot
@@ -336,7 +336,7 @@ void PlayerEvents_3C9D0_3CD10()
 				if (playerData[0x304 + slot] == (uint8_t)input->param2_0x02_2)
 					playerData[0x304 + slot] = 0xFF;
 			playerData[0x304 + input->param_0x01_1] = (uint8_t)input->param2_0x02_2;
-			sub_55370_558A0(0, player->index_0x07_7, 0x0E);
+			QueueSound_55370_558A0(0, player->index_0x07_7, 0x0E);
 			break;
 		case 24: // the first spell from a slot
 		case 25: // the second spell from a slot
@@ -349,7 +349,7 @@ void PlayerEvents_3C9D0_3CD10()
 				const Type_Mc1Entity& spell = Entities()[ReadS32(playerData + 0x214 + slot * 4)];
 				playerData[0x34C + (int8_t)spell.model_0x41_65] = 0x20;
 			}
-			sub_55370_558A0(0, player->index_0x07_7, 0x0E);
+			QueueSound_55370_558A0(0, player->index_0x07_7, 0x0E);
 			break;
 		}
 		case 26: // all leave
@@ -462,7 +462,7 @@ void SetPlayerMode_3DC90_3DFD0(Type_Mc1Player_340B* player, uint8_t mode)
 			SetCenterMouse_59720_59C30();
 			RestoreScreenSize_31A60_31AA0();
 		}
-		sub_55370_558A0(0, player->index_0x07_7, 0x0E);
+		QueueSound_55370_558A0(0, player->index_0x07_7, 0x0E);
 		// port: the scene of the gamepad of remc2 (MC2 SetMenuCursorPosition_52E90, DrawBottomSpellsMenu_2ECC0)
 		static const Scene scenes[5] = { Scene::FLIGHT, Scene::FLIGHT_MENU, Scene::SPELL_MENU, Scene::CHAT_MENU, Scene::FLIGHT_MENU };
 		if (mode < 5)
@@ -705,7 +705,7 @@ void CreatePlayerWizard_44D30_45070(Type_Mc1Player_340B* player, Type_Mc1Entity*
 				{
 					castle->id_0x18_24 = wizard->id_0x18_24;
 					WriteS16(playerData + 0x32, (int16_t)EntityIndex(castle));
-					sub_55370_558A0((int16_t)EntityIndex(wizard), -1, 0x1E);
+					QueueSound_55370_558A0((int16_t)EntityIndex(wizard), -1, 0x1E);
 					// each level of the castle stamped through entity 0
 					Type_Mc1Entity& stamp = Entities()[0];
 					for (int floor = 0; floor < level[0x9794 + computer]; floor++)
