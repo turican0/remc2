@@ -25,15 +25,20 @@ State of the port on branch `magic-carpet-1` (2026-11-15) and how to continue. T
   identical at their ends; with the spells grid, the map and the keys of the spells (4000 frames) too. Only the mark
   of the mouse on the map of the spells grid differs (the mouse position is not in the recording).
   The level lost by the rebirth without a castle (408D0 loads it again) and the level won (command 27, 448E0 the
-  statistics, then level 2 loads) match too; level 2 then differs by its creatures that are not ported. Ported for it: the creatures (`Mc1Creatures.cpp`),
-  the castle (`Mc1Castle.cpp`), the spells of level 1 and their projectiles (`Mc1Spells.cpp`), the class 10
-  effects (`Mc1SceneryActions.cpp`), the wizard death 45FC0 / 46480, the level won check 415C0.
+  statistics, then level 2 loads) match too.
+- All actions and models of the class tables are ported: the creatures (`Mc1Creatures.cpp`), the castle
+  (`Mc1Castle.cpp`), the spells cast by class 12, their class 9 projectiles and the class 11 triggers of the levels
+  (`Mc1Spells.cpp`), the class 10 effects (`Mc1SceneryActions.cpp`), the model creators (`Mc1Models.cpp`) and the
+  computer wizard (class 3 action 1, `Mc1ComputerWizard.cpp`); the HW functions that differ are set by
+  `PatchClassTablesHw`. A random input casting all spells (cheat) matches DOSBox in MC1 levels 1, 2 (with the
+  computer wizard), 4, 8, 14 and 20 (entities, players, maps, the screen; level 20 one sprite of the 3D view differs
+  in 164 pixels) and in HW levels 0 and 12 (the state).
+  The levels 17 and 39 fill all 1000 entities while loading: the original goes on with the wizard of player 0 at
+  DOS address 0 (entity index FC3Ah), the port leaves the player without a wizard (marked `//!!!!!`).
 - The sounds of the game (`Mc1Sound.cpp`: 55370 the requests by the distance and the angle, 55100, the fades of the
   flight loops, 20D00 the music of the danger) run only without `-custom`; checked only that they leave the state
   equal to DOSBox (forced on) and queue sensible requests, not by listening.
 - What is still missing in the game (stubs in `remc1/engine/Mc1NotPorted.cpp`, logged once when called):
-  - the casting actions of the other spells (class 12: 56270, 56380, 566C0 ... 58240) and their class 9 / 11
-    actions, the creature actions of the models not in level 1, the computer wizard (class 3 action 1, 13170);
   - the debug texts (5A560); the panel, the spell icons, the frame of the joystick cell and the players table of
     the map (22880, checked with the mouse poked to the bottom) are in `Mc1Panel.cpp`;
   - the save / load in the game (3E690, 3E750, 3E7F0, 3E8C0 - they save the whole state with pointers, needs a pointer free shadow state like remc2
