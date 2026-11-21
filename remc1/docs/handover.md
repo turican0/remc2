@@ -44,6 +44,16 @@ State of the port on branch `magic-carpet-1` (2026-11-15) and how to continue. T
   - the save / load in the game (3E690, 3E750, 3E7F0, 3E8C0 - they save the whole state with pointers, needs a pointer free shadow state like remc2
     `Convert_from_shadow_*`), the network, the VFX1 head tracker, the joystick calibration;
   - the motion blur by the speed in the renderers.
+- Regression tests of MC1 and HW (in remc2-regression-test with the MC2 ones, own folders):
+  `memimages/regressions-mc1/level<NNN>` and `memimages/regressions-mc1hw/level<NNN>` (NNN = the level + 1), each with
+  `input.rec` (the input of player 0, 10 bytes a frame) and `reference.binz` (the state of DOSBox every 100 frames:
+  the seed, the entities without their pointers, the players, the settings with the entity lists as DOS addresses,
+  the terrain maps; "MC1REGZ1", LzCompress of each record XOR the previous one). `remc2-regression-test --mc1 N` /
+  `--mc1hw N` runs one (`Mc1Regression.cpp` compares before DrawFrame_20FB0 and ends by End_thread), without a
+  selection they run in parallel with the MC2 tests. `remc1/tools/mkregression.py <mc1|mc1hw> <levels...>` makes them
+  (dosbox-x-remc1 `REMC1_DUMP_EVERY`, then `remc2-regression-test --pack_mc1`); the input is a random flight with all
+  spells (the cheat commands 30), `--input idle` only joins the player. The build copies `config.json` to
+  `x64/Release`, so no build while tests of the port run.
 - Verification of a played game: `remc1/tools/dbxrecord.py <level> <file>` records the input of player 0 in DOSBox,
   the port plays it with the env `REMC1_PLAY=<file>`; DOSBox plays it too (`dbxrecord.py ... play`), so the state can
   be dumped at any frame in both (DOSBox `REMC1_DUMP` at 20FB0 with `REMC1_DUMP_HIT=<frame>`, the port with a
