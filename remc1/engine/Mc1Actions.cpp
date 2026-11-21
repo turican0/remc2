@@ -109,3 +109,9 @@ void TreeBurnt_49A50_49D90(Type_Mc1Entity* entity)
 {
 	SplashInWater(entity);
 }
+
+void GroundedAction_49B50_49E90(Type_Mc1Entity* entity)
+{
+	entity->flags_0x10_16 |= 0x20000;
+	entity->position_0x48_72.z = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&entity->position_0x48_72);
+}

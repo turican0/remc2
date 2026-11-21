@@ -959,3 +959,676 @@ void BuildingFallAction_25410_25410(Type_Mc1Entity* entity)
 	entity->flags_0x10_16 |= 2;
 	QueueSound_55370_558A0(EntityIndex(entity), -1, 0x1B);
 }
+
+// the life counted down, gone below 0
+static bool LifeEnded(Type_Mc1Entity* entity)
+{
+	const int32_t life = entity->life_0x0C_12;
+	entity->life_0x0C_12 = life - 1;
+	if (life >= 0)
+		return false;
+	MarkToFree_41E80_421C0(entity);
+	return true;
+}
+
+static void QueueEntitySound(Type_Mc1Entity* entity, uint8_t sound)
+{
+	QueueSound_55370_558A0(EntityIndex(entity), -1, sound);
+}
+
+static Type_Mc1Entity* Entities()
+{
+	return mc1State_AE400_AE3F0->entities_0x7463_29795;
+}
+
+Type_Mc1Entity* FindOverlappingMana_11C00_11C00(Type_Mc1Entity* entity)
+{
+	// a new mana pile (class 10 model 27h) overlapping in the tiles of the radius
+	const int32_t x = (entity->position_0x48_72.x + 0x80) >> 8;
+	const int32_t y = (entity->position_0x48_72.y + 0x80) >> 8;
+	const int32_t search = StartSearch_11410_11410(0, (entity->box_0x4E_78[1] + 0xFF) / 256);
+	if (!search)
+		return nullptr;
+	int32_t dx;
+	int32_t dy;
+	while (GetNextSearchOffset_114B0_114B0(search, &dx, &dy) == 1)
+	{
+		const uint16_t cell = (uint16_t)((((dy + y) & 0xFF) << 8) + ((x + dx) & 0xFF));
+		for (Type_Mc1Entity* other = &Entities()[(int16_t)mapEntityIndex_10C1E0_10C1D0[cell]]; other != Entities(); other = &Entities()[other->mapNext_0x14_20])
+		{
+			if (!(other->flags_0x10_16 & 8) || other->class_0x40_64 != 0x0A || other->model_0x41_65 != 0x27 || !EntitiesOverlap_11950_11950(entity, other))
+				continue;
+			EndSearch_11490_11490(search);
+			return other;
+		}
+	}
+	EndSearch_11490_11490(search);
+	return nullptr;
+}
+
+int32_t EntityNear_11E50_11E50(Type_Mc1Position* position, uint8_t entityClass, uint8_t model)
+{
+	// an entity of the class and model within 80h in the 2x2 tiles at the position
+	const int16_t x = (int16_t)((position->x - 0x80) >> 8);
+	const int16_t y = (int16_t)((position->y - 0x80) >> 8);
+	for (int16_t dy = 0; dy < 2; dy++)
+	{
+		for (int16_t dx = 0; dx < 2; dx++)
+		{
+			const uint16_t cell = (uint16_t)((((y + dy) & 0xFF) << 8) + ((x + dx) & 0xFF));
+			for (Type_Mc1Entity* other = &Entities()[(int16_t)mapEntityIndex_10C1E0_10C1D0[cell]]; other > Entities(); other = &Entities()[other->mapNext_0x14_20])
+			{
+				if (other->class_0x40_64 == entityClass && other->model_0x41_65 == model && Distance3D_42340_42680(position, &other->position_0x48_72) <= 0x80)
+					return 1;
+			}
+		}
+	}
+	return 0;
+}
+
+void LifeAction_252B0_252B0(Type_Mc1Entity* entity)
+{
+	LifeEnded(entity);
+}
+
+void LifeAction_253F0_253F0(Type_Mc1Entity* entity)
+{
+	LifeEnded(entity);
+}
+
+void RisingSmokeAction_258A0_258A0(Type_Mc1Entity* entity)
+{
+	// rises by word_0x7E (slowing 4 to 40h-80h), drifts 1Eh by its yaw for 16 frames, smaller at the end
+	if (LifeEnded(entity))
+		return;
+	featurePosition_AE454_AE444 = entity->position_0x48_72;
+	entity->word_0x7E_126 = (int16_t)(entity->word_0x7E_126 - 4);
+	if (entity->word_0x7E_126 < 0x40)
+		entity->word_0x7E_126 = 0x40;
+	if (entity->word_0x7E_126 > 0x80)
+		entity->word_0x7E_126 = 0x80;
+	featurePosition_AE454_AE444.z = (int16_t)(featurePosition_AE454_AE444.z + entity->word_0x7E_126);
+	const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&entity->position_0x48_72);
+	if (featurePosition_AE454_AE444.z < ground)
+		featurePosition_AE454_AE444.z = ground;
+	entity->word_0x1A_26++;
+	if (entity->word_0x1A_26 < 0x10)
+	{
+		MoveEntity_41EC0_42200((axis_3d*)&featurePosition_AE454_AE444, (uint16_t)entity->word_0x1E_30, 0, 0x1E);
+		if (!(entity->word_0x1A_26 & 1))
+			entity->sprite_0x56_86++;
+	}
+	if (entity->life_0x0C_12 < 6)
+		entity->sprite_0x56_86--;
+	CopyEntityPosition_41C70_41FB0(entity, &featurePosition_AE454_AE444);
+}
+
+void WaterTrailAction_25990_25990(Type_Mc1Entity* entity)
+{
+	// wanders over the water (gone after 8 tiles off it) leaving the model 0Bh behind
+	if (GetTileAngleBit_11760_11760((axis_3d*)&entity->position_0x48_72) & 1)
+		entity->word_0x1A_26++;
+	else if (entity->word_0x1A_26 > 0)
+		entity->word_0x1A_26--;
+	const int32_t life = entity->life_0x0C_12;
+	entity->life_0x0C_12 = life - 1;
+	if (life < 0 || entity->word_0x1A_26 > 8)
+	{
+		MarkToFree_41E80_421C0(entity);
+		return;
+	}
+	NextRand(entity);
+	entity->word_0x1E_30 = (int16_t)(((uint16_t)entity->word_0x1E_30 + entity->rand_0x04_4 % 0x5B - 0x2D) & 0x7FF);
+	MoveEntity_41EC0_42200((axis_3d*)&entity->position_0x48_72, (uint16_t)entity->word_0x1E_30, 0, 0x100);
+	if (Type_Mc1Entity* trail = CreateEntity_373F0_377B0(&entity->position_0x48_72, 0x0A, 0x0B))
+	{
+		trail->box_0x4E_78[1] = entity->box_0x4E_78[1];
+		trail->box_0x4E_78[2] = entity->box_0x4E_78[2];
+		trail->box_0x4E_78[3] = entity->box_0x4E_78[3];
+		trail->life_0x0C_12 = 0x0A;
+		trail->id_0x18_24 = entity->id_0x18_24;
+	}
+}
+
+static int16_t Clamp16(int16_t value, int16_t low, int16_t high)
+{
+	if (value < low)
+		value = low;
+	if (value > high)
+		value = high;
+	return value;
+}
+
+void BouncingRockAction_25A60_25A60(Type_Mc1Entity* entity)
+{
+	// bounces by target_0x96 (the speed) and word_0x2E (the vertical speed): a splash (model 5) on water, else fire
+	if (LifeEnded(entity))
+		return;
+	if (!(entity->flags_0x10_16 & 2))
+		entity->flags_0x10_16 |= 2;
+	entity->target_0x96_150.x = Clamp16(entity->target_0x96_150.x, -0x50, 0x50);
+	entity->target_0x96_150.y = Clamp16(entity->target_0x96_150.y, -0x50, 0x50);
+	featurePosition_AE454_AE444 = entity->position_0x48_72;
+	featurePosition_AE454_AE444.x = (int16_t)(entity->position_0x48_72.x + entity->target_0x96_150.x);
+	featurePosition_AE454_AE444.y = (int16_t)(entity->position_0x48_72.y + entity->target_0x96_150.y);
+	featurePosition_AE454_AE444.z = (int16_t)(featurePosition_AE454_AE444.z + entity->word_0x2E_46);
+	entity->word_0x2E_46 = Clamp16((int16_t)(entity->word_0x2E_46 - 0x1C), -0x180, 0x100);
+	const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&featurePosition_AE454_AE444);
+	if (ground > featurePosition_AE454_AE444.z)
+	{
+		featurePosition_AE454_AE444.z = ground;
+		entity->word_0x2E_46 = (int16_t)-(entity->word_0x2E_46 / 4);
+		if (GetTileTypeBit_11810_11810(&entity->position_0x48_72) == 1)
+		{
+			if (Type_Mc1Entity* splash = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 0x0A, 5))
+			{
+				splash->id_0x18_24 = entity->id_0x18_24;
+				MarkToFree_41E80_421C0(entity);
+			}
+		}
+		else
+		{
+			if (!EntityNear_11E50_11E50(&featurePosition_AE454_AE444, 0x0A, 6))
+			{
+				if (Type_Mc1Entity* fire = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 0x0A, 6))
+				{
+					fire->id_0x18_24 = entity->id_0x18_24;
+					fire->life_0x0C_12 = 0x1E;
+					fire->word_0x2C_44 = (int16_t)(fire->word_0x2C_44 * 3);
+					entity->word_0x1A_26 = 0;
+				}
+			}
+			if (entity->word_0x2E_46 <= 0x1C)
+				entity->word_0x2E_46 = 0;
+		}
+	}
+	entity->word_0x1A_26++;
+	CopyEntityPosition_41C70_41FB0(entity, &featurePosition_AE454_AE444);
+	if (ground != featurePosition_AE454_AE444.z)
+		return;
+	TerrainGradient_41F50_41F50(&entity->position_0x48_72, &featurePosition_AE454_AE444);
+	entity->target_0x96_150.x = (int16_t)(entity->target_0x96_150.x + featurePosition_AE454_AE444.x);
+	entity->target_0x96_150.y = (int16_t)(entity->target_0x96_150.y + featurePosition_AE454_AE444.y);
+	entity->target_0x96_150.x = (int16_t)(entity->target_0x96_150.x * 250 / 256);
+	entity->target_0x96_150.y = (int16_t)(entity->target_0x96_150.y * 250 / 256);
+}
+
+// the ring of fire growing by 2 tiles (the sound 1Eh at the start): fires (model 0) in it, the damage by word_0x2C
+static void FireRing(Type_Mc1Entity* entity, int16_t sizes)
+{
+	if (LifeEnded(entity))
+		return;
+	if (!(entity->flags_0x10_16 & 2))
+	{
+		entity->flags_0x10_16 |= 0x10002;
+		QueueEntitySound(entity, 0x1E);
+	}
+	SetBox_37130_374F0(entity, (int16_t)(entity->word_0x1A_26 * 3 * 256 / 4), 0x200);
+	SendMailAround_120B0_120B0(entity, 0, (uint16_t)((int32_t)(uint16_t)entity->word_0x2C_44 / entity->maxLife_0x08_8));
+	const int32_t search = StartSearch_11410_11410(entity->word_0x1A_26, entity->word_0x1A_26);
+	if (search)
+	{
+		NextRand(entity);
+		int32_t dx;
+		int32_t dy;
+		while (GetNextSearchOffset_114B0_114B0(search, &dx, &dy) == 1)
+		{
+			Type_Mc1Position position;
+			NextRand(entity);
+			position.x = (int16_t)(dx * 0xA0 + entity->position_0x48_72.x - 0x60 + (int32_t)(entity->rand_0x04_4 % 0x81) - 0x40);
+			NextRand(entity);
+			position.y = (int16_t)(dy * 0xA0 + entity->position_0x48_72.y - 0x60 + (int32_t)(entity->rand_0x04_4 % 0x81) - 0x40);
+			position.z = entity->position_0x48_72.z;
+			if (Type_Mc1Entity* fire = CreateEntity_373F0_377B0(&position, 0x0A, 0))
+			{
+				fire->id_0x18_24 = entity->id_0x18_24;
+				fire->word_0x1E_30 = entity->word_0x1E_30;
+				fire->flags_0x10_16 |= 0x10080;
+				SetBox_37130_374F0(fire, 0x200, 0x200);
+				fire->word_0x1A_26 = 0;
+			}
+		}
+		EndSearch_11490_11490(search);
+	}
+	entity->word_0x1A_26 = (int16_t)((entity->word_0x1A_26 + 2) % sizes);
+}
+
+void FireRingAction_25CE0_25CE0(Type_Mc1Entity* entity)
+{
+	FireRing(entity, 0x0B);
+}
+
+void VolcanoAction_25EC0_25EC0(Type_Mc1Entity* entity)
+{
+	// a volcano (one at a time in state word_0x24): lava (model 10h) every step, rocks (class 9 model 0) at the start
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	if (entity->word_0x1A_26 > 0x9C4)
+	{
+		NextRand(entity);
+		if (!(entity->rand_0x04_4 % 0x64) && !state->word_0x24_36)
+		{
+			const int16_t z = entity->position_0x48_72.z;
+			entity->position_0x48_72.z = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&entity->position_0x48_72);
+			if (z != entity->position_0x48_72.z)
+			{
+				MarkToFree_41E80_421C0(entity);
+				return;
+			}
+			entity->word_0x1A_26 = 0;
+		}
+	}
+	bool erupt = false;
+	if (entity->word_0x1A_26 < 0x80 && (entity->word_0x1A_26 & 0x0F))
+	{
+		NextRand(entity);
+		erupt = !(entity->rand_0x04_4 % 5);
+	}
+	if (!erupt && entity->word_0x1A_26)
+	{
+		entity->word_0x1A_26++;
+		return;
+	}
+	const int16_t z = entity->position_0x48_72.z;
+	entity->position_0x48_72.z = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&entity->position_0x48_72);
+	if (z != entity->position_0x48_72.z)
+	{
+		MarkToFree_41E80_421C0(entity);
+		return;
+	}
+	if (!entity->word_0x1A_26)
+	{
+		Type_Mc1Entity* previous = &Entities()[state->word_0x24_36];
+		if (previous > Entities())
+			previous->word_0x1A_26 = 0xFA;
+		state->word_0x24_36 = (uint16_t)EntityIndex(entity);
+		if (Type_Mc1Entity* cloud = CreateEntity_373F0_377B0(&entity->position_0x48_72, 0x0A, 0x13))
+		{
+			cloud->id_0x18_24 = entity->id_0x18_24;
+			Type_Mc1Entity* old = &Entities()[state->word_0x26_38];
+			if (old > Entities())
+				MarkToFree_41E80_421C0(old);
+			state->word_0x26_38 = (uint16_t)EntityIndex(cloud);
+		}
+	}
+	if (Type_Mc1Entity* lava = CreateEntity_373F0_377B0(&entity->position_0x48_72, 0x0A, 0x10))
+	{
+		lava->id_0x18_24 = entity->id_0x18_24;
+		NextRand(entity);
+		lava->rand_0x04_4 = entity->rand_0x04_4;
+	}
+	entity->word_0x1E_30 = (int16_t)(entity->word_0x1E_30 + 0x500); // 25EC0: add byte [ebx+1Fh], 5
+	if (!entity->word_0x1A_26)
+	{
+		if (Type_Mc1Entity* rock = CreateEntity_373F0_377B0(&entity->position_0x48_72, 9, 0))
+		{
+			rock->id_0x18_24 = entity->id_0x18_24;
+			rock->word_0x20_32 = -0x182;
+			rock->byte_0x44_68 = 0x0A;
+			rock->byte_0x45_69 = 0x11;
+			rock->life_0x0C_12 = 1;
+			rock->word_0x1E_30 = (int16_t)(entity->word_0x1E_30 & 0x7FF);
+			rock->target_0x96_150 = entity->position_0x48_72;
+			MoveEntity_41EC0_42200((axis_3d*)&rock->target_0x96_150, (uint16_t)rock->word_0x1E_30, 0, 0x600);
+			rock->target_0x96_150.z = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&rock->target_0x96_150);
+		}
+	}
+	if (entity->word_0x1A_26 >= 0x7F)
+	{
+		MarkToFree_41E80_421C0(entity);
+		state->word_0x24_36 = 0;
+	}
+	entity->word_0x1A_26++;
+}
+
+void FireStormAction_26140_26140(Type_Mc1Entity* entity)
+{
+	// fires (model 0Dh, 4 or 2 yaws) on a random half of the tile every 2nd step
+	if (!LifeEnded(entity))
+	{
+		entity->word_0x1A_26 = 0;
+		const int32_t search = StartSearch_11410_11410(0, entity->word_0x1A_26);
+		if (search)
+		{
+			int32_t dx;
+			int32_t dy;
+			while (GetNextSearchOffset_114B0_114B0(search, &dx, &dy) == 1)
+			{
+				NextRand(entity);
+				if ((int32_t)(entity->rand_0x04_4 % 0x9D) / 0x4F * 2 - 1 <= 0)
+					continue;
+				Type_Mc1Position position;
+				NextRand(entity);
+				position.x = (int16_t)(dx * 0xC0 + entity->position_0x48_72.x - 0x60 + (int32_t)(entity->rand_0x04_4 % 0x81) - 0x40);
+				NextRand(entity);
+				position.y = (int16_t)(dy * 0xC0 + entity->position_0x48_72.y - 0x60 + (int32_t)(entity->rand_0x04_4 % 0x81) - 0x40);
+				position.z = entity->position_0x48_72.z;
+				if (!(entity->life_0x0C_12 & 1))
+					continue;
+				for (uint16_t yaw = (uint16_t)((entity->life_0x0C_12 / 2 & 1) << 8); yaw < 0x800; yaw += 0x200)
+				{
+					if (Type_Mc1Entity* fire = CreateEntity_373F0_377B0(&position, 0x0A, 0x0D))
+					{
+						fire->id_0x18_24 = entity->id_0x18_24;
+						fire->word_0x1E_30 = (int16_t)yaw;
+					}
+				}
+			}
+			EndSearch_11490_11490(search);
+		}
+		entity->position_0x48_72.z = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&entity->position_0x48_72);
+	}
+	SendMailAround_120B0_120B0(entity, 0, (uint16_t)entity->word_0x2C_44);
+}
+
+void BlastAction_262D0_262D0(Type_Mc1Entity* entity)
+{
+	// the damage once (the sound 18h), then gone
+	entity->word_0x1A_26++;
+	if (LifeEnded(entity))
+		return;
+	if (entity->flags_0x10_16 & 2)
+		return;
+	SendMailAround_120B0_120B0(entity, 0, (uint16_t)entity->word_0x2C_44);
+	QueueEntitySound(entity, 0x18);
+	entity->life_0x0C_12 = 1;
+	entity->flags_0x10_16 |= 2;
+}
+
+void MailOnceAction_26360_26360(Type_Mc1Entity* entity)
+{
+	// animated, the mail 3 once
+	entity->word_0x1A_26++;
+	if (LifeEnded(entity))
+		return;
+	NextFrame_42510_42850(entity);
+	if (entity->flags_0x10_16 & 2)
+		return;
+	entity->flags_0x10_16 |= 2;
+	SendMailAround_120B0_120B0(entity, 3, (uint16_t)entity->word_0x2C_44);
+}
+
+void MailAction_263C0_263C0(Type_Mc1Entity* entity)
+{
+	// animated, the mail 4 every step
+	entity->word_0x1A_26++;
+	if (LifeEnded(entity))
+		return;
+	NextFrame_42510_42850(entity);
+	SendMailAround_120B0_120B0(entity, 4, (uint16_t)entity->word_0x2C_44);
+}
+
+void TeleportAction_26A60_26A60(Type_Mc1Entity* entity)
+{
+	// a wizard entering it facing it is moved to target_0x96 (the sounds 15h at the start, 16h, 14h at the end)
+	if (!(entity->flags_0x10_16 & 2))
+	{
+		entity->flags_0x10_16 |= 2;
+		QueueEntitySound(entity, 0x15);
+	}
+	if (entity->life_0x0C_12 > 0 && --entity->life_0x0C_12 == 0)
+	{
+		MarkToFree_41E80_421C0(entity);
+		QueueEntitySound(entity, 0x14);
+		return;
+	}
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	for (uint16_t i = 0; i < state->playerCount_0x0A_10; i++)
+	{
+		Type_Mc1Entity* wizard = &Entities()[state->players_0x340B_13323[i].entityIndex_0x0A_10];
+		if (!EntitiesOverlap_11950_11950(entity, wizard))
+			continue;
+		const uint16_t yaw = (uint16_t)GetYawAngle_42150_42490((axis_3d*)&wizard->position_0x48_72, (axis_3d*)&entity->position_0x48_72);
+		if ((uint16_t)AngleDistance_42210_42550((uint16_t)wizard->word_0x1E_30, yaw) >= 0xAA)
+			continue;
+		const uint8_t* params = entity->typeParams_0x9C_156;
+		int16_t height;
+		memcpy(&height, params + 0x0C, sizeof(height));
+		entity->target_0x96_150.z = (int16_t)(GetTerrainAlt_11F50_11F50((axis_3d*)&entity->target_0x96_150) + height);
+		QueueEntitySound(entity, 0x16);
+		CopyEntityPosition_41C70_41FB0(wizard, &entity->target_0x96_150);
+		SetFlashOfPlayer_44BE0_44F20(wizard, 6);
+	}
+	entity->position_0x48_72.z = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&entity->position_0x48_72);
+}
+
+void CircleOwnerAction_26C00_26C00(Type_Mc1Entity* entity)
+{
+	// circles the entity of word_0x2A 100h over the ground, gone when its life is 1
+	Type_Mc1Entity* owner = &Entities()[(uint16_t)entity->word_0x2A_42];
+	if (owner <= Entities())
+		return;
+	if (owner->life_0x0C_12 == 1)
+	{
+		MarkToFree_41E80_421C0(entity);
+		return;
+	}
+	featurePosition_AE454_AE444 = owner->position_0x48_72;
+	MoveEntity_41EC0_42200((axis_3d*)&featurePosition_AE454_AE444, (uint16_t)entity->word_0x1E_30, (uint16_t)entity->word_0x20_32, entity->word_0x7E_126);
+	entity->word_0x1E_30 = (int16_t)(((uint16_t)entity->word_0x1E_30 + 0x2D) & 0x7FF);
+	featurePosition_AE454_AE444.z = (int16_t)(GetTerrainAlt_11F50_11F50((axis_3d*)&featurePosition_AE454_AE444) + 0x100);
+	CopyEntityPosition_41C70_41FB0(entity, &featurePosition_AE454_AE444);
+}
+
+void FlagLifeAction_26CE0_26CE0(Type_Mc1Entity* entity)
+{
+	entity->word_0x1A_26++;
+	if (LifeEnded(entity))
+		return;
+	if (!(entity->flags_0x10_16 & 2))
+		entity->flags_0x10_16 |= 2;
+}
+
+void RisingSplitAction_26D20_26D20(Type_Mc1Entity* entity)
+{
+	// rises to 400h over the ground, then splits into 2 of its kind (byte_0x44 / 45) to opposite random yaws
+	bool moved = false;
+	const int16_t ground = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&entity->position_0x48_72);
+	if (entity->position_0x48_72.z < ground + 0x400)
+	{
+		entity->position_0x48_72.z = (int16_t)(entity->position_0x48_72.z + 0x40);
+		moved = true;
+	}
+	if (entity->position_0x48_72.z > ground + 0x400)
+	{
+		entity->position_0x48_72.z = (int16_t)(ground + 0x400);
+		moved = true;
+	}
+	if (moved || LifeEnded(entity))
+		return;
+	entity->word_0x20_32 = 0x38;
+	NextRand(entity);
+	entity->word_0x1E_30 = (int16_t)(entity->rand_0x04_4 & 0x7FF);
+	Type_Mc1Entity* part = nullptr;
+	for (int32_t i = 0; i < 2; i++)
+	{
+		entity->word_0x1E_30 = (int16_t)(((uint16_t)entity->word_0x1E_30 + 0x400) & 0x7FF);
+		featurePosition_AE454_AE444 = entity->position_0x48_72;
+		featurePosition_AE454_AE444.z = (int16_t)(featurePosition_AE454_AE444.z + entity->box_0x4E_78[0]);
+		part = CreateEntity_373F0_377B0(&entity->position_0x48_72, (int8_t)entity->byte_0x44_68, (int8_t)entity->byte_0x45_69);
+		if (!part)
+			continue;
+		part->id_0x18_24 = entity->id_0x18_24;
+		part->life_0x0C_12 /= 3;
+		part->word_0x1E_30 = entity->word_0x1E_30;
+		part->word_0x20_32 = entity->word_0x20_32;
+		part->byte_0x44_68 = 0x0A;
+		part->byte_0x45_69 = 0x17;
+		part->word_0x2C_44 = entity->word_0x2C_44;
+	}
+	//!!!!! the original queues the sound of the last created part, of a wrong index when it was not created
+	if (part) // port: no sound of a not created part
+		QueueEntitySound(part, 0x17);
+}
+
+void CreaturesFromManaAction_26E90_26E90(Type_Mc1Entity* entity)
+{
+	// up to 8 creatures of the model 9 (64 of the id at most) around it sharing 10000 mana, then gone
+	entity->word_0x2C_44 = 0x2710;
+	if ((uint16_t)entity->word_0x2C_44)
+	{
+		int16_t count = (int16_t)GetFreeEntityCount_37710_37AD0();
+		if (count < 0)
+			count = 0;
+		if (count > 8)
+			count = 8;
+		uint16_t owned = 0;
+		for (Type_Mc1Entity* other = mc1Settings_AE408_AE3F8->entityLists_0x8E1A_36378[10]; other > Entities(); other = other->next_0x00_0)
+			if (other->owner_0x90_144 == (int32_t)(int16_t)entity->id_0x18_24)
+				owned++;
+		if (count < 0)
+			count = 0;
+		if (count > 0x40 - owned)
+			count = (int16_t)(0x40 - owned);
+		if (count > 0)
+		{
+			int16_t mana = entity->word_0x2C_44;
+			const int16_t share = (int16_t)(mana / count);
+			const int32_t step = 0x800 / count;
+			int32_t yaw = 0;
+			for (int16_t left = count; left > 0; left--, yaw += step)
+			{
+				featurePosition_AE454_AE444 = entity->position_0x48_72;
+				MoveEntity_41EC0_42200((axis_3d*)&featurePosition_AE454_AE444, (uint16_t)yaw, 0, 0x200);
+				Type_Mc1Entity* creature = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 5, 9);
+				if (!creature)
+					continue;
+				//!!!!! the original stores the remainder of the division, not the share
+				creature->mana_0x8C_140 = mana % share;
+				creature->owner_0x90_144 = entity->id_0x18_24;
+				creature->word_0x22_34 = (int16_t)((yaw + 0x400) & 0x7FF);
+				creature->word_0x1E_30 = creature->word_0x22_34;
+				mana = (int16_t)(mana - share);
+			}
+		}
+	}
+	MarkToFree_41E80_421C0(entity);
+}
+
+void SlideAction_29540_29540(Type_Mc1Entity* entity)
+{
+	// slides down the slope by target_0x96 (at most 80h a step), the damage by word_0x2C
+	TerrainGradient_41F50_41F50(&entity->position_0x48_72, &featurePosition_AE454_AE444);
+	entity->target_0x96_150.x = (int16_t)(entity->target_0x96_150.x + featurePosition_AE454_AE444.x);
+	entity->target_0x96_150.y = (int16_t)(entity->target_0x96_150.y + featurePosition_AE454_AE444.y);
+	entity->target_0x96_150.x = Clamp16(entity->target_0x96_150.x, -0x80, 0x80);
+	entity->target_0x96_150.y = Clamp16(entity->target_0x96_150.y, -0x80, 0x80);
+	featurePosition_AE454_AE444 = entity->position_0x48_72;
+	featurePosition_AE454_AE444.x = (int16_t)(featurePosition_AE454_AE444.x + entity->target_0x96_150.x);
+	featurePosition_AE454_AE444.y = (int16_t)(featurePosition_AE454_AE444.y + entity->target_0x96_150.y);
+	featurePosition_AE454_AE444.z = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&featurePosition_AE454_AE444);
+	CopyEntityPosition_41C70_41FB0(entity, &featurePosition_AE454_AE444);
+	SendMailAround_120B0_120B0(entity, 0, (uint16_t)entity->word_0x2C_44);
+}
+
+void EggAction_296A0_296A0(Type_Mc1Entity* entity)
+{
+	// on the ground; at the end of the countdown the action 39h and 5000 max life
+	entity->position_0x48_72.z = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&entity->position_0x48_72);
+	if (LifeEnded(entity))
+		return;
+	if (entity->word_0x1A_26-- == 0)
+	{
+		SetAction_424F0_42830(entity, 0x39);
+		entity->maxLife_0x08_8 = 0x1388;
+	}
+}
+
+void HatchAction_29700_29700(Type_Mc1Entity* entity)
+{
+	// a creature of the model 5 (counted) and a smoke of its id in its place
+	entity->position_0x48_72.z = (int16_t)GetTerrainAlt_11F50_11F50((axis_3d*)&entity->position_0x48_72);
+	featurePosition_AE454_AE444 = entity->position_0x48_72;
+	if (Type_Mc1Entity* creature = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 5, 5))
+	{
+		mc1State_AE400_AE3F0->creatureStats_0x38C9F_232607.creatures_0x00++;
+		if (Type_Mc1Entity* smoke = CreateEntity_373F0_377B0(&featurePosition_AE454_AE444, 0x0A, 1))
+			smoke->id_0x18_24 = creature->id_0x18_24;
+	}
+	MarkToFree_41E80_421C0(entity);
+}
+
+void FireWallAction_29780(Type_Mc1Entity* entity)
+{
+	// MC1: 15 rows of fires (model 6) in a 3x3 area, the first ones lasting 14 steps
+	if (LifeEnded(entity))
+		return;
+	SetBox_37130_374F0(entity, 0x200, 0x800);
+	SendMailAround_120B0_120B0(entity, 0, (uint16_t)((int32_t)(uint16_t)entity->word_0x2C_44 / entity->maxLife_0x08_8));
+	const int32_t search = StartSearch_11410_11410(0, 1);
+	if (search)
+	{
+		NextRand(entity);
+		int32_t dx;
+		int32_t dy;
+		while (GetNextSearchOffset_114B0_114B0(search, &dx, &dy) == 1)
+		{
+			Type_Mc1Position position;
+			NextRand(entity);
+			position.x = (int16_t)(dx * 0x70 + entity->position_0x48_72.x - 0x60 + (int32_t)(entity->rand_0x04_4 % 0x81) - 0x40);
+			NextRand(entity);
+			position.y = (int16_t)(dy * 0x70 + entity->position_0x48_72.y - 0x60 + (int32_t)(entity->rand_0x04_4 % 0x81) - 0x40);
+			position.z = entity->position_0x48_72.z;
+			Type_Mc1Entity* fire = CreateEntity_373F0_377B0(&position, 0x0A, 6);
+			if (!fire)
+				continue;
+			fire->id_0x18_24 = entity->id_0x18_24;
+			fire->word_0x2C_44 = entity->word_0x2C_44;
+			fire->life_0x0C_12 = entity->word_0x1A_26 ? 1 : 0x0E;
+			fire->flags_0x10_16 |= 0x10080;
+			fire->sprite_0x56_86 = (int16_t)(fire->sprite_0x56_86 + 7);
+			fire->word_0x2E_46 = (int16_t)(entity->word_0x1A_26 * 256 / 2);
+			fire->word_0x1A_26 = 7;
+		}
+		EndSearch_11490_11490(search);
+	}
+	if (++entity->word_0x1A_26 > 0x0E)
+		MarkToFree_41E80_421C0(entity);
+}
+
+void FireWallActionHw_29780(Type_Mc1Entity* entity)
+{
+	// HW: the ring of fire of 25CE0 with 4 sizes
+	FireRing(entity, 7);
+}
+
+void ShockwaveAction_299D0_29A10(Type_Mc1Entity* entity)
+{
+	// the countdown (the sound 2Bh), then within A00h: creatures and class 2 die, wizards get the damage,
+	// a class 9 or 10 near ends it; the sound 2Ch, the flash 3 of the caster
+	if (entity->word_0x1A_26)
+	{
+		entity->word_0x1A_26--;
+		QueueEntitySound(entity, 0x2B);
+		return;
+	}
+	if (LifeEnded(entity))
+		return;
+	for (Type_Mc1Entity* other = Entities(); other < Entities() + 1000; other++)
+	{
+		if (!other->class_0x40_64 || other->id_0x18_24 == entity->id_0x18_24)
+			continue;
+		switch (other->class_0x40_64)
+		{
+		case 2:
+		case 5:
+			if (Distance2D_423D0_42710(&entity->position_0x48_72, &other->position_0x48_72) < 0xA00)
+				other->life_0x0C_12 = -1;
+			break;
+		case 3:
+			if (Distance2D_423D0_42710(&entity->position_0x48_72, &other->position_0x48_72) < 0xA00)
+				SendMail_12B50_12B50(entity, other, 0, (uint16_t)entity->word_0x2C_44);
+			break;
+		case 9:
+		case 0x0A:
+			if (Distance2D_423D0_42710(&entity->position_0x48_72, &other->position_0x48_72) < 0xA00)
+				entity->life_0x0C_12 = 0;
+			break;
+		default:
+			break;
+		}
+	}
+	QueueEntitySound(entity, 0x2C);
+	QueueSound_55370_558A0((int16_t)entity->id_0x18_24, -1, 0x2C);
+	SetFlashOfPlayer_44BE0_44F20(&Entities()[(int16_t)entity->id_0x18_24], 3);
+	MarkToFree_41E80_421C0(entity);
+}
