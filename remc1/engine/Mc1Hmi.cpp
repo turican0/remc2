@@ -48,6 +48,18 @@ uint16_t sosDIGIInitDriver_64846_64D56(uint16_t sampleRate, uint16_t* driverHand
 	digDriver = AilInstallDigDriverFile_93330((char*)path.c_str(), &io);
 	if (!digDriver)
 	{
+		// without the data of MC2: the emulation does not run the driver, a driver image of the header alone does
+		std::vector<uint8_t> image(sizeof(VDI_HDR), 0);
+		memcpy(image.data(), "AIL3DIG", 7);
+		if (AIL_DRIVER* driver = AilInstallDriver_93010(image.data(), (int32_t)image.size()))
+		{
+			digDriver = CreateDigDriver_A2EA0(driver, io);
+			if (!digDriver)
+				AilUninstallDriver_93160(driver);
+		}
+	}
+	if (!digDriver)
+	{
 		Logger->error("MC1 sound: SB16.DIG not installed ({})", path);
 		return 1;
 	}
