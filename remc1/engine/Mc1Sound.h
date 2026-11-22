@@ -72,6 +72,7 @@ void CountSounds_5D138_5D648();
 void PlayMusic_5D290_5D7A0(int16_t music);
 void PlaySampleLooped_5D460_5D970(int16_t owner, int16_t sample, int16_t loops);
 void PlaySample_5D610_5DB20(int16_t owner, int16_t sample);
+void PlaySampleAgain_65F10_66420(int16_t owner, int16_t sample);
 void StopSample_5D750_5DC60(int16_t owner, int16_t sample);
 void ShutdownDigital_61F90_624A0();
 void ShutdownMusic_62020_62530();

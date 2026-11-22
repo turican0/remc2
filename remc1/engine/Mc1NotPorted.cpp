@@ -29,10 +29,6 @@ void sub_5B2B0_5B7C0() { NotPorted(__func__); }
 //!!!!! not ported yet
 void sub_4D680_4D9C0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
-void sub_4E5B0_4E8F0() { MenuScreenNotPorted(__func__); }
-//!!!!! not ported yet
-void sub_4D560_4D8A0() { MenuScreenNotPorted(__func__); }
-//!!!!! not ported yet
 //!!!!! not ported yet
 //!!!!! not ported yet
 void sub_433C0_43700() { NotPorted(__func__); }

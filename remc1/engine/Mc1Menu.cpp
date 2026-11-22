@@ -202,7 +202,7 @@ void RunMenu_4AB20_4AE60()
 		sub_4D680_4D9C0();
 		break;
 	case 5:
-		sub_4E5B0_4E8F0();
+		LevelResults_4E5B0_4E8F0();
 		break;
 	case 6:
 		SelectLanguage_4F3F0_4F730();
@@ -217,7 +217,7 @@ void RunMenu_4AB20_4AE60()
 		PlayLogoIntro_4EE70_4F1B0();
 		break;
 	case 10:
-		sub_4D560_4D8A0();
+		PlayOutro_4D560_4D8A0();
 		break;
 	}
 	dword_12CBB0_12CBA0++;

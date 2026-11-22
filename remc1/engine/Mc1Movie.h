@@ -59,6 +59,8 @@ void WaitMovieFrame_10300_10300();
 void ReadMovieFrame_103F0_103F0();
 void DrawMovieFrame_104D0_104D0();
 void PlayMovie_107C0_107C0(int16_t allowSkip, int16_t redrawText, const Type_Mc1MovieEvent* events);
+void LevelResults_4E5B0_4E8F0();
+void PlayOutro_4D560_4D8A0();
 void MovieEvents_111B0_111B0(const Type_Mc1MovieEvent* events);
 void InitInputChange_356E0_35AA0();
 int32_t InputChanged_35710_35AD0();

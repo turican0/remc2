@@ -466,6 +466,23 @@ void PlaySample_5D610_5DB20(int16_t owner, int16_t sample)
 	StartSample(sample);
 }
 
+// 65F10 / 66420: as 5D610, the sample of the owner still playing stopped first
+void PlaySampleAgain_65F10_66420(int16_t owner, int16_t sample)
+{
+	if (!byte_939E4_939E4 || !byte_939E5_939E5 || sample > (int16_t)soundCount_CC1C6_CC1B6)
+		return;
+	for (uint8_t slot = 0; slot < 32; slot++)
+	{
+		if (sampleOwners_CBFF0_CBFE0[slot][0] != (uint16_t)owner || sampleOwners_CBFF0_CBFE0[slot][1] != (uint16_t)sample)
+			continue;
+		if (sosDIGISampleDone_651F8_65708(digiDriver_CC140_CC130, slot))
+			continue;
+		sosDIGIStopSample_65965_65E75(digiDriver_CC140_CC130, slot);
+		break;
+	}
+	PlaySample_5D610_5DB20(owner, sample);
+}
+
 void StopSample_5D750_5DC60(int16_t owner, int16_t sample)
 {
 	if (!byte_939E4_939E4)

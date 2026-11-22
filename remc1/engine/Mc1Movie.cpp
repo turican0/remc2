@@ -752,3 +752,241 @@ void SetSubtitleColor_24BF0_24BF0(uint8_t color)
 	if (subtitleText_900A0_900A0)
 		ShowSubtitle_24B50_24B50(subtitleText_900A0_900A0);
 }
+
+// 4A5D8 / 4A918 (levelw1, levelw2), 4A1C0 / 4A500 (levelose), 4A638 / 4A978 (outro); the last record never matches
+const Type_Mc1MovieEvent levelWonEvents_4A5D8_4A918[6] = {
+	{ 0, 'A', 10, 0 },
+	{ 0, 'B', 1, 0 },
+	{ 0, 'E', 6, 0 },
+	{ 1, 'M', 2, 0 },
+	{ 200, 'S', 1, 0 },
+	{ 0, 0, 0x0A41, 0 },
+};
+
+const Type_Mc1MovieEvent levelLostEvents_4A1C0_4A500[6] = {
+	{ 0, 'A', 10, 0 },
+	{ 0, 'B', 1, 0 },
+	{ 0, 'E', 8, 0 },
+	{ 1, 'M', 2, 0 },
+	{ 50, 'S', 1, 0 },
+	{ 0, 0, 0x0A41, 0 },
+};
+
+const Type_Mc1MovieEvent outroEvents_4A638_4A978[8] = {
+	{ 0, 'A', 8, 0 },
+	{ 0, 'E', 9, 0 },
+	{ 0, 'B', 1, 0 },
+	{ 1, 'M', 2, 0 },
+	{ 30, 'S', 1, 0 },
+	{ 43, 'S', 2, 0 },
+	{ 130, 'S', 3, 0 },
+	{ 0x5300, 1, 0x7754, 0x26 },
+};
+
+// 999B8 of both games: the names of the levels by the level index
+static const char* const levelNamesMc1_999B8[51] = {
+	nullptr, "1. Al Jahan", "2. Khallabad", "3. Sulghir", "4. Akrir", "5. Cessecca", "6. Qazziel", "7. Ar Ulnan",
+	"8. Gillah", "9. Kutoor", "10. Rannaxior", "11. Zanzandria", "12. Mehkhel", "13. Dullighir", "14. Nazzajahn",
+	"15. Al Saumam", "16. Aflahkstahn", "17. Jan Tabar", "18. Kireemir", "19. Ar Vilim", "20. Jondd Warr",
+	"21. Khaghabal", "22. Ul Ramin", "23. Naqual", "24. Quaddimar", "25. Ottommia", "26. Xikhypt", "27. Shebbahn",
+	"28. Hazzanjahn", "29. Zakhazaran", "30. Banahstur", "31. Idirya", "32. Thammon", "33. Jahrrid", "34. Khatoud",
+	"35. Shai Yulim", "36. Moorrok", "37. Quahahn", "38. Yoggohr", "39. Ar Zaljan", "40. Arrimir", "41. Ooramesa",
+	"42. Ghabbaladan", "43. Tekumir", "44. Zantor", "45. Dubbahn", "46. Ephieria", "47. Inixxia", "48. Meebir",
+	"49. Shal Kazan", "50. Volcania",
+};
+
+static const char* const levelNamesHw_999B8[51] = {
+	nullptr, "1. Goyaan", "2. Cyrecius", "3. Esyphium", "4. Barabban", "5. Tervilar", "6. Imnara", "7. Kouppi",
+	"8. Fayaoud", "9. Rama'Q", "10. Halaj", "11. Uzurmin", "12. Dhellea", "13. Nimahm", "14. Buhrghrok", "15. Sendel",
+	"16. Cassida", "17. Illyum Gar", "18. Haj Vonor", "19. Enzanidor", "20. Adra Geria", "21. Krethe", "22. Wassat",
+	"23. An Jafud", "24. Axmuhl", "25. Abnasur", "26. Xikhypt", "27. Shebbahn", "28. Hazzanjahn", "29. Zakhazaran",
+	"30. Banahstur", "31. Idirya", "32. Thammon", "33. Jahrrid", "34. Khatoud", "35. Shai Yulim", "36. Moorrok",
+	"37. Quahahn", "38. Yoggohr", "39. Ar Zaljan", "40. Arrimir", "41. Ooramesa", "42. Ghabbaladan", "43. Tekumir",
+	"44. Zantor", "45. Dubbahn", "46. Ephieria", "47. Inixxia", "48. Meebir", "49. Shal Kazan", "50. Volcania",
+};
+
+// the font of the results (96894: the glyphs of sfont2 as sprites) and its files
+static uint8_t* resultsFontTab_12CB40_12CB30 = nullptr;
+static uint8_t* resultsFontTabEnd_12CB44_12CB34 = nullptr;
+static uint8_t* resultsFontData_12CB48_12CB38 = nullptr;
+static bitmap_pos_struct_t* resultsFontIndex = nullptr;
+static Type_Mc1Font_96884 resultsFont_96894_96884 = { nullptr, 0x10, 0, 0, 0 };
+
+static Type_Mc1FileEntry resultsFontFiles_49FCC_4A30C[3] = {
+	{ { "data/screens/sfont2.dat", "data/screens/sfont2.dat" }, &resultsFontData_12CB48_12CB38, nullptr, 0, 0 },
+	{ { "data/screens/sfont2.tab", "data/screens/sfont2.tab" }, &resultsFontTab_12CB40_12CB30, &resultsFontTabEnd_12CB44_12CB34, 0, 0 },
+	{ { "", "" }, nullptr, nullptr, 0, 0 },
+};
+
+static void ResetMenuInput()
+{
+	*mouseMiddlePressed_12EFDA_12EFCA = 0;
+	*mouseRightPressed_12EFDC_12EFCC = 0;
+	*mouseLeftPressed_12EFDE_12EFCE = 0;
+	*lastKey_12EF70_12EF60 = 0;
+}
+
+// a line of the results: the label at 28h, the value right aligned to 258h
+static void DrawResultLine(int32_t y, int32_t textIndex, const char* value)
+{
+	DrawText_51560_518A0(&resultsFont_96894_96884, 0x28, y, (const char*)textPointers_AE238_AE228[textIndex]);
+	DrawText_51560_518A0(&resultsFont_96894_96884, (int16_t)(0x258 - TextWidth_51420_51760(&resultsFont_96894_96884, value)), y, value);
+}
+
+// 4E5B0 / 4E8F0 (the menu item 5, after a level): the movie of the result, then the statistics of the player line by
+// line on pperf (a sound each) until a key, the left button or 528h ticks; then the main menu, the outro after the last
+void LevelResults_4E5B0_4E8F0()
+{
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	Type_Mc1Player_340B& player = state->players_0x340B_13323[state->currentPlayer_0x08_8];
+	if (!(player.levelResult_0x02_2 & 8))
+	{
+		if (!inputDevices_90B23_90B23)
+			SetCursor_5C05C_5C56C(bitmap_pos_struct_t{});
+		FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+		ClearAndBlitScreen();
+		const Type_Mc1MovieEvent* events = nullptr;
+		if (player.levelResult_0x02_2 & 2)
+		{
+			sprintf(moviePath_9ADC8_9ADC8, (timerTicks_AC5D4_AC5C4 & 1) ? "intro/levelw2.dat" : "intro/levelw1.dat");
+			events = levelWonEvents_4A5D8_4A918;
+		}
+		else if (player.levelResult_0x02_2 & 4)
+		{
+			sprintf(moviePath_9ADC8_9ADC8, "intro/levelose.dat");
+			events = levelLostEvents_4A1C0_4A500;
+		}
+		if (events)
+		{
+			ResetMenuInput();
+			skipOnInput_90026_90026 = 0;
+			PlayMovie_107C0_107C0(1, 1, events);
+		}
+		FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+		StopAllSamples_5D010_5D520();
+		StopMusic_20E60_20E60();
+		ClearAndBlitScreen();
+		LoadSoundBank_5D070_5D580(0x0D);
+		LoadMusicBank_5CEF0_5D400(0);
+		PlayMusic_5D290_5D7A0(1);
+		ResetMenuInput();
+		mainMenuItem_12CBCE_12CBBE = 2;
+		LoadFileGroup_40440_40780(resultsFontFiles_49FCC_4A30C);
+		BuildSpritesIndex(&resultsFontIndex, resultsFontTab_12CB40_12CB30, resultsFontTabEnd_12CB44_12CB34, resultsFontData_12CB48_12CB38, true);
+		resultsFont_96894_96884.glyphs_0x00_0 = resultsFontIndex + 1; // the tab + 6
+		resultsFont_96894_96884.flags_0x04_4 = 0x10;
+		resultsFont_96894_96884.mode_0x05_5 = 0;
+		ReadPackedFile_3EEA0_3F1E0("data/screens/pperf.pal", menuPalette_12CB9C_12CB8C);
+		ReadPackedFile_3EEA0_3F1E0("data/screens/pperf.dat", backScreen_AE3FC_AE3EC);
+		CopyBackScreen();
+		BlitScreen();
+		FadeInOut_61CC0_621D0((TColor*)menuPalette_12CB9C_12CB8C, 0x20, false, 10);
+		SetTextWindow_51360_516A0(0, 0, 0x140, 0xC8);
+		inputFlags_12CAE4_12CAD4[0] &= 0xFE;
+		(*pressedKeys_12EEF0_12EEE0)[1] = 0;
+		Type_Mc1Entity* wizard = &mc1Entities[player.entityIndex_0x0A_10];
+		const uint8_t* playerData = wizard->playerData_0xA0_160;
+		const uint32_t start = timerTicks_AC5D4_AC5C4;
+		const char* const* levelNames = mc1Variant == MC1_VARIANT_HW ? levelNamesHw_999B8 : levelNamesMc1_999B8;
+		bool sounds[6] = {};
+		bool done = false;
+		char text[0x40];
+		const auto value = [&](int32_t offset) {
+			int32_t number;
+			memcpy(&number, playerData + offset, sizeof(number));
+			snprintf(text, sizeof(text), "% 3d %%", number);
+			return text;
+		};
+		const auto sound = [&](int32_t line) {
+			if (!sounds[line])
+			{
+				PlaySampleAgain_65F10_66420(0, 3);
+				sounds[line] = true;
+			}
+		};
+		while (!done)
+		{
+			if (*lastKey_12EF70_12EF60 || *mouseLeftPressed_12EFDE_12EFCE || timerTicks_AC5D4_AC5C4 > start + 0x528)
+			{
+				inputFlags_12CAE4_12CAD4[0] &= 0xB6;
+				*lastKey_12EF70_12EF60 = 0;
+				*mouseLeftPressed_12EFDE_12EFCE = 0;
+				(*pressedKeys_12EEF0_12EEE0)[0x39] = 0;
+				(*pressedKeys_12EEF0_12EEE0)[0x1C] = 0;
+				(*pressedKeys_12EEF0_12EEE0)[1] = 0;
+				done = true; //!!!!! the original frees the font here and draws this frame with it, the port after it
+			}
+			CopyBackScreen();
+			const uint32_t time = timerTicks_AC5D4_AC5C4;
+			if (time > start + 0x3C)
+			{
+				const char* name = mc1Settings_AE408_AE3F8->levelIndex_0x11_17 < 51 ? levelNames[mc1Settings_AE408_AE3F8->levelIndex_0x11_17] : nullptr;
+				if (name)
+					DrawText_51560_518A0(&resultsFont_96894_96884, 0x28, 8, name);
+				sound(0);
+				DrawResultLine(0x50, 66, value(0x167));
+			}
+			if (time > start + 0x78)
+			{
+				sound(1);
+				DrawResultLine(0x78, 67, value(0x16F));
+			}
+			if (time > start + 0xB4)
+			{
+				sound(2);
+				DrawResultLine(0xA0, 68, value(0x16B));
+			}
+			if (time > start + 0xF0)
+			{
+				sound(3);
+				DrawResultLine(0xC8, 59, value(0x173));
+			}
+			if (time > start + 0x12C)
+			{
+				sound(4);
+				DrawResultLine(0xF0, 69, value(0x177));
+			}
+			if (time > start + 0x168)
+			{
+				sound(5);
+				int32_t ticks;
+				memcpy(&ticks, playerData + 0x17B, sizeof(ticks));
+				const int32_t seconds = ticks / 120;
+				snprintf(text, sizeof(text), "%dh% 02dm %02ds", seconds / 3600, seconds / 60 % 60, seconds % 60);
+				DrawResultLine(0x118, 79, text);
+			}
+			BlitScreen();
+		}
+		FreeFileGroup_61610_61B20(resultsFontFiles_49FCC_4A30C);
+		FreeSpritesIndex(&resultsFontIndex);
+		FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+		StopMusic_20E60_20E60();
+		StopAllSamples_5D010_5D520();
+	}
+	mainMenuItem_12CBCE_12CBBE = mc1Settings_AE408_AE3F8->levelIndex_0x11_17 == 50 ? 10 : 2;
+}
+
+// 4D560 / 4D8A0 (the menu item 10, after the last level): the outro, then the game ends
+void PlayOutro_4D560_4D8A0()
+{
+	if (!inputDevices_90B23_90B23)
+		SetCursor_5C05C_5C56C(bitmap_pos_struct_t{});
+	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+	ClearAndBlitScreen();
+	sprintf(moviePath_9ADC8_9ADC8, "intro/outro.dat");
+	*mouseRightPressed_12EFDC_12EFCC = 0;
+	*mouseLeftPressed_12EFDE_12EFCE = 0;
+	(*pressedKeys_12EEF0_12EEE0)[1] = 0;
+	*lastKey_12EF70_12EF60 = 0;
+	skipOnInput_90026_90026 = 0;
+	PlayMovie_107C0_107C0(0, 1, outroEvents_4A638_4A978);
+	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
+	StopAllSamples_5D010_5D520();
+	StopMusic_20E60_20E60();
+	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	menuDone_96880_96880 = 1;
+	state->players_0x340B_13323[state->currentPlayer_0x08_8].exitGame_0x04_4 = 1;
+	const uint32_t start = timerTicks_AC5D4_AC5C4;
+	while (timerTicks_AC5D4_AC5C4 - start < 0x1E0)
+		WaitForEvents();
+}
