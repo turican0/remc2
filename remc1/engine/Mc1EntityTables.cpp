@@ -1,6 +1,5 @@
 #include "Mc1EntityTables.h"
 
-#include "Mc1NotPorted.h"
 #include "Mc1ComputerWizard.h"
 #include "Mc1Castle.h"
 #include "Mc1Creatures.h"

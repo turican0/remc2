@@ -45,7 +45,6 @@ set(SOURCE_FILES_REGRESSIONTESTS
     "../remc1/engine/Mc1Search.cpp"
     "../remc1/engine/Mc1System.cpp"
     "../remc1/engine/Mc1Game.cpp"
-    "../remc1/engine/Mc1NotPorted.cpp"
     "../remc2/engine/Animation.cpp"
     "../remc2/engine/Animation.h"
     "../remc2/engine/Basic.cpp"

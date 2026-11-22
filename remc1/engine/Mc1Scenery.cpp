@@ -4,7 +4,6 @@
 
 #include "Mc1Entity.h"
 #include "Mc1Game.h"
-#include "Mc1NotPorted.h"
 #include "Mc1Shared.h"
 
 // the models of class 10 (the features of the level), the create functions of classes_96902_96902[10]

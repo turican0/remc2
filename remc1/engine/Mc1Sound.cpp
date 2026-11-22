@@ -12,7 +12,6 @@
 #include "Mc1Entity.h"
 #include "Mc1Game.h"
 #include "Mc1Menu.h"
-#include "Mc1NotPorted.h"
 #include "Mc1Shared.h"
 #include "Mc1Spells.h"
 #include "Mc1Wizard.h"

@@ -331,8 +331,6 @@ set(SOURCE_FILES_REMC1
     "../remc1/engine/Mc1Game.cpp"
     "../remc1/engine/Mc1Game.h"
     "../remc1/engine/Mc1GameState.h"
-    "../remc1/engine/Mc1NotPorted.cpp"
-    "../remc1/engine/Mc1NotPorted.h"
 )
 source_group("Source Files\\remc1" FILES ${SOURCE_FILES_REMC1})
 set(ALL_FILES

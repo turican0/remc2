@@ -6,7 +6,6 @@
 #include "Mc1EntityTables.h"
 #include "Mc1Game.h"
 #include "Mc1Level.h"
-#include "Mc1NotPorted.h"
 #include "Mc1Sound.h"
 #include "Mc1SceneryActions.h"
 #include "Mc1Search.h"

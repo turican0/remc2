@@ -10,7 +10,6 @@
 #include "Mc1Graphics.h"
 #include "Mc1Level.h"
 #include "Mc1Minimap.h"
-#include "Mc1NotPorted.h"
 #include "Mc1Panel.h"
 #include "Mc1Render.h"
 #include "Mc1Screen.h"
