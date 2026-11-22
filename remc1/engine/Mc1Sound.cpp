@@ -1,9 +1,12 @@
 #include "Mc1Sound.h"
 #include "../../remc2/portability/port_outputs.h"
 
+#include <atomic>
+#include <chrono>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <thread>
 
 #include "Mc1Blocks.h"
 #include "Mc1Entity.h"
@@ -102,6 +105,39 @@ uint32_t TimerTick_357A0_35B60(uint32_t interval)
 	return interval;
 }
 
+// port: the timer of DOS as a thread on the real time, the ticks at the times of DOS without a drift: the HMI event of
+// 120 Hz (357C0) or the own one on int 8 with the PIT divisor 26AFh (5A459)
+static std::thread timerThread;
+static std::atomic<bool> timerRunning{ false };
+
+static void StopTimerThread()
+{
+	timerRunning = false;
+	if (timerThread.joinable())
+		timerThread.join();
+}
+
+static void StartTimerThread(double hertz)
+{
+	StopTimerThread();
+	timerRunning = true;
+	timerThread = std::thread([hertz]() {
+		const std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
+		for (uint64_t tick = 1; timerRunning; tick++)
+		{
+			std::this_thread::sleep_until(start + std::chrono::duration_cast<std::chrono::steady_clock::duration>(std::chrono::duration<double>(tick / hertz)));
+			if (timerRunning)
+				TimerTick_357A0_35B60(0);
+		}
+	});
+}
+
+// the thread stopped before the statics go away when the game did not restore the timer
+static struct TimerThreadGuard
+{
+	~TimerThreadGuard() { StopTimerThread(); }
+} timerThreadGuard;
+
 void SoundInit_357C0_35B80()
 {
 	if (soundInitialized_90AD4_90AD4)
@@ -124,7 +160,9 @@ void SoundInit_357C0_35B80()
 	}
 	if (byte_939E4_939E4 || byte_939CC_939CC)
 	{
-		sosTIMERRegisterEvent_5D97B_5DE8B(0x78, TimerTick_357A0_35B60, &timerHandle_80010_80010);
+		// 5D97B (sosTIMERRegisterEvent 120 Hz), port: the timer thread
+		StartTimerThread(120.0);
+		timerHandle_80010_80010 = 0;
 		hmiTimer_90AD5_90AD5 = 1;
 	}
 	else
@@ -150,7 +188,7 @@ void ShutdownSound_358A0_35C60()
 		RestoreTimer_5A4EA_5A9FA();
 		return;
 	}
-	ReleaseTimerEvent(timerHandle_80010_80010); // 5DC91: sosTIMERRemoveEvent
+	StopTimerThread(); // 5DC91: sosTIMERRemoveEvent
 	timerHandle_80010_80010 = 0xFFFF;
 	hmiTimer_90AD5_90AD5 = 0;
 	ShutdownDigital_61F90_624A0();
@@ -263,9 +301,12 @@ void InstallTimer_5A459_5A969()
 {
 	mc1Settings_AE408_AE3F8->timerDivisor_0xCE_206 = 0x26AF;
 	mc1Settings_AE408_AE3F8->unknown_0xD2_210 = 0;
-	// the original sets PIT channel 0 to the divisor (120.5 Hz) and hooks int 8 (5A3E3)
+	// the original sets PIT channel 0 to the divisor (120.49 Hz) and hooks int 8 (5A3E3), port: the timer thread
 	if (timerHandle_80010_80010 == 0xFFFF)
-		sosTIMERRegisterEvent_5D97B_5DE8B(120, TimerTick_357A0_35B60, &timerHandle_80010_80010);
+	{
+		StartTimerThread(1193182.0 / 0x26AF);
+		timerHandle_80010_80010 = 0;
+	}
 }
 
 void RestoreTimer_5A4EA_5A9FA()
@@ -273,7 +314,7 @@ void RestoreTimer_5A4EA_5A9FA()
 	// the original restores int 8 and the PIT
 	if (timerHandle_80010_80010 == 0xFFFF)
 		return;
-	ReleaseTimerEvent(timerHandle_80010_80010);
+	StopTimerThread();
 	timerHandle_80010_80010 = 0xFFFF;
 }
 
