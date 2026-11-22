@@ -72,7 +72,8 @@ Type_Mc1FileEntry searchDFiles_99318_99318[14] = {
 };
 
 Type_Mc1FileEntry screenFilesMcga_997BC_997BC[5] = {
-	{ { "*WScreen", "*WScreen" }, workScreen_12EFF4_12EFE4, nullptr, 0x11580, 0 },
+	//!!!!! 11580h in the original, the subtitles (24AB0) clear and draw the rows 180-239 up to 12C00h (into the next block)
+	{ { "*WScreen", "*WScreen" }, workScreen_12EFF4_12EFE4, nullptr, 0x12C00, 0 },
 	{ { "*BScreen", "*BScreen" }, &backScreen_AE3FC_AE3EC, nullptr, 0x11170, 0 },
 	{ { "data/mspr0-0.dat", "data/mspr1-0.dat" }, &spritesData_AE444_AE434, nullptr, 0, 0 },
 	{ { "data/mspr0-0.tab", "data/mspr1-0.tab" }, &spritesTab_AE42C_AE41C, &spritesTabEnd_AE434_AE424, 0, 0 },
