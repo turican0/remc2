@@ -29,6 +29,16 @@ static std::string Mc1FolderPath(const std::string& folder)
 	return folderPath.is_absolute() ? folder : get_exe_path() + "/" + folder;
 }
 
+// the folder of the CD files, port: also directly in the parent folder (MC1/ instead of MC1/CD_Files)
+static std::string Mc1CdPath(const std::string& folder)
+{
+	const std::string path = Mc1FolderPath(folder);
+	const std::filesystem::path parent = std::filesystem::path(path).parent_path();
+	if (!std::filesystem::exists(std::filesystem::path(path) / "DATA") && std::filesystem::exists(parent / "DATA"))
+		return parent.string();
+	return path;
+}
+
 int Mc1Main(int argc, char** argv)
 {
 	SetTimeStart();
@@ -49,7 +59,7 @@ int Mc1Main(int argc, char** argv)
 	int16_t game = SELECTED_MAGIC_CARPET;
 	if (CommandLineParams.GetGameType() == GameType::SELECT)
 	{
-		game = RunSelect_10010(Mc1FolderPath(magicCarpetPaths.m_CdFolder));
+		game = RunSelect_10010(Mc1CdPath(magicCarpetPaths.m_CdFolder));
 		Logger->info("MC1 selector result: {}", game);
 		// the game starts on the empty text screen, as the DOS game after SELECT.EXE
 		if (game != SELECTED_NONE)
@@ -62,11 +72,7 @@ int Mc1Main(int argc, char** argv)
 		// the game gets the parameters remc2 does not know (e.g. -level 5 -cheat 1), as on the DOS command line
 		mc1Variant = game == SELECTED_HIDDEN_WORLDS ? MC1_VARIANT_HW : MC1_VARIANT_MC1;
 		const GamePaths& paths = game == SELECTED_HIDDEN_WORLDS ? hiddenWorldsPaths : magicCarpetPaths;
-		mc1DataPath = Mc1FolderPath(paths.m_CdFolder);
-		// port: the CD files also directly in the parent folder (MC1/ instead of MC1/CD_Files)
-		const std::filesystem::path parent = std::filesystem::path(mc1DataPath).parent_path();
-		if (!std::filesystem::exists(std::filesystem::path(mc1DataPath) / "DATA") && std::filesystem::exists(parent / "DATA"))
-			mc1DataPath = parent.string();
+		mc1DataPath = Mc1CdPath(paths.m_CdFolder);
 		mc1InstallPath = Mc1FolderPath(paths.m_GameFolder);
 		std::vector<std::string> gameArgs;
 		gameArgs.push_back(argc > 0 ? argv[0] : "remc2");
