@@ -61,7 +61,7 @@
 						"path": [
 							{ "key": "speechFolder", "value": "MC2/CD_Files/SPEECH" },
 							{ "key": "oggFolder", "value": "MC2/music-ogg" },
-							{ "key": "awe32RomFolder", "value": "MC2/awe32data" }
+							{ "key": "awe32RomFolder", "value": "sound/awe32data" }
 						]
 					}
 				],

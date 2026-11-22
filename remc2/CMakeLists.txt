@@ -372,8 +372,12 @@ install(
 install(
     DIRECTORY
     ${CMAKE_SOURCE_DIR}/enhancedassets/MC2/music-ogg
-    ${CMAKE_SOURCE_DIR}/enhancedassets/MC2/awe32data
     DESTINATION bin/MC2
+)
+install(
+    DIRECTORY
+    ${CMAKE_SOURCE_DIR}/enhancedassets/sound/awe32data
+    DESTINATION bin/sound
 )
 install(
     DIRECTORY

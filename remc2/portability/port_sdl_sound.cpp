@@ -40,7 +40,7 @@ bool autoShowObjectivesForForeignLanguages = false;
 int maxSimultaniousSounds = 10;
 
 std::string musicType = "ogg";
-std::string awe32RomFolder = "MC2/awe32data";
+std::string awe32RomFolder = "sound/awe32data";
 bool awe32Music = false;
 bool useMagicCarpet1Music = false;
 bool awe32GmIntroMusic = true;
@@ -1009,6 +1009,14 @@ bool init_sound()
 	{
 		std::string error;
 		awe32RomPath = Awe32Rom::Locate(awe32RomFolder, error);
+		if (awe32RomPath.empty() && awe32RomFolder != "sound/awe32data")
+		{
+			// older configs name MC2/awe32data, the data are in sound/awe32data now
+			std::string defaultError;
+			awe32RomPath = Awe32Rom::Locate("sound/awe32data", defaultError);
+			if (!awe32RomPath.empty())
+				awe32RomFolder = "sound/awe32data";
+		}
 		if (awe32RomPath.empty())
 		{
 			oggmusic = true;
