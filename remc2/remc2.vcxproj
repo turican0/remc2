@@ -601,17 +601,44 @@
     <ClCompile Include="portability\port_filesystem.cpp" />
     <ClCompile Include="portability\port_outputs.cpp" />
     <ClCompile Include="portability\port_sdl_sound.cpp" />
-    <ClCompile Include="portability\awe32\Awe32Mdi.cpp" />
-    <ClCompile Include="portability\awe32\Awe32Rom.cpp" />
-    <ClCompile Include="portability\awe32\Emu8000.cpp" />
+    <!-- the AWE32 emulation optimized in the debug builds too, unoptimized it is too slow for the music -->
+    <ClCompile Include="portability\awe32\Awe32Mdi.cpp">
+      <Optimization Condition="$(Configuration.StartsWith('Debug'))">MaxSpeed</Optimization>
+      <BasicRuntimeChecks Condition="$(Configuration.StartsWith('Debug'))">Default</BasicRuntimeChecks>
+      <EnableASAN Condition="$(Configuration.StartsWith('Debug'))">false</EnableASAN>
+    </ClCompile>
+    <ClCompile Include="portability\awe32\Awe32Rom.cpp">
+      <Optimization Condition="$(Configuration.StartsWith('Debug'))">MaxSpeed</Optimization>
+      <BasicRuntimeChecks Condition="$(Configuration.StartsWith('Debug'))">Default</BasicRuntimeChecks>
+      <EnableASAN Condition="$(Configuration.StartsWith('Debug'))">false</EnableASAN>
+    </ClCompile>
+    <ClCompile Include="portability\awe32\Emu8000.cpp">
+      <Optimization Condition="$(Configuration.StartsWith('Debug'))">MaxSpeed</Optimization>
+      <BasicRuntimeChecks Condition="$(Configuration.StartsWith('Debug'))">Default</BasicRuntimeChecks>
+      <EnableASAN Condition="$(Configuration.StartsWith('Debug'))">false</EnableASAN>
+    </ClCompile>
     <ClCompile Include="portability\awe32\Emu8000Box.cpp">
+      <Optimization Condition="$(Configuration.StartsWith('Debug'))">MaxSpeed</Optimization>
+      <BasicRuntimeChecks Condition="$(Configuration.StartsWith('Debug'))">Default</BasicRuntimeChecks>
+      <EnableASAN Condition="$(Configuration.StartsWith('Debug'))">false</EnableASAN>
       <AdditionalIncludeDirectories>$(ProjectDir)portability\awe32\86box\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>AWE32EMU_WITH_86BOX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ClCompile Include="portability\awe32\I18n.cpp" />
-    <ClCompile Include="portability\awe32\SoundFont.cpp" />
-    <ClCompile Include="portability\awe32\Synth.cpp" />
+    <ClCompile Include="portability\awe32\SoundFont.cpp">
+      <Optimization Condition="$(Configuration.StartsWith('Debug'))">MaxSpeed</Optimization>
+      <BasicRuntimeChecks Condition="$(Configuration.StartsWith('Debug'))">Default</BasicRuntimeChecks>
+      <EnableASAN Condition="$(Configuration.StartsWith('Debug'))">false</EnableASAN>
+    </ClCompile>
+    <ClCompile Include="portability\awe32\Synth.cpp">
+      <Optimization Condition="$(Configuration.StartsWith('Debug'))">MaxSpeed</Optimization>
+      <BasicRuntimeChecks Condition="$(Configuration.StartsWith('Debug'))">Default</BasicRuntimeChecks>
+      <EnableASAN Condition="$(Configuration.StartsWith('Debug'))">false</EnableASAN>
+    </ClCompile>
     <ClCompile Include="portability\awe32\86box\snd_emu8k.c">
+      <Optimization Condition="$(Configuration.StartsWith('Debug'))">MaxSpeed</Optimization>
+      <BasicRuntimeChecks Condition="$(Configuration.StartsWith('Debug'))">Default</BasicRuntimeChecks>
+      <EnableASAN Condition="$(Configuration.StartsWith('Debug'))">false</EnableASAN>
       <AdditionalIncludeDirectories>$(ProjectDir)portability\awe32\86box\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>AWE32EMU_WITH_86BOX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAs>CompileAsC</CompileAs>
