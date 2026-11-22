@@ -1,12 +1,14 @@
 #include "Mc1Hmi.h"
 
 #include <cstring>
+#include <filesystem>
 #include <mutex>
 #include <string>
 #include <vector>
 
 #include "../../remc2/engine/Sound.h"
 #include "../../remc2/portability/awe32/Awe32Mdi.h"
+#include "../../remc2/portability/awe32/Awe32Rom.h"
 #include "../../remc2/portability/port_filesystem.h"
 #include "../../remc2/portability/port_sdl_sound.h"
 
@@ -341,6 +343,20 @@ uint16_t sosMIDIInitDriver_6035F_6086F(uint16_t deviceId, uint16_t* driverHandle
 	io.DMA_16_bit = -1;
 	std::string path = SoundDriverPath("SBAWE32.MDI");
 	mdiDriver = AilInstakkMidiDriverFile_95850((char*)path.c_str(), &io);
+	if (!mdiDriver)
+	{
+		// without the data of MC2: SBAWE32.MDI packed by gzip next to the wave ROM (awe32RomFolder/data2.binz)
+		std::string error;
+		const std::string rom = Awe32Rom::Locate(awe32RomFolder, error);
+		std::vector<uint8_t> image;
+		if (!rom.empty() && Awe32Rom::Read((std::filesystem::path(rom).parent_path() / "data2.binz").string(), image, error))
+			if (AIL_DRIVER* driver = AilInstallDriver_93010(image.data(), (int32_t)image.size()))
+			{
+				mdiDriver = InitAilDriver_A6FB0(driver, &io);
+				if (!mdiDriver)
+					AilUninstallDriver_93160(driver);
+			}
+	}
 	if (!mdiDriver)
 	{
 		Logger->error("MC1 music: SBAWE32.MDI not installed ({})", path);
