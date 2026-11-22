@@ -9,6 +9,7 @@
 #include "Mc1Blocks.h"
 #include "Mc1Files.h"
 #include "Mc1Graphics.h"
+#include "Mc1Input.h"
 #include "Mc1Install.h"
 #include "Mc1Entity.h"
 #include "Mc1EntityTables.h"

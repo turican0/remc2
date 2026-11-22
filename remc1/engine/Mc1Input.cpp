@@ -13,6 +13,7 @@
 #include "Mc1Shared.h"
 #include "Mc1Sound.h"
 #include "Mc1TextureMaps.h"
+#include "../../remc2/engine/Vr.h"
 
 // 9AD0C: the character of a scan code (UK keyboard); 70h-73h are a pointer (its value in DOSBox), 7Ch-7Fh the
 // variable 9AD88 (0 or 1), no letter or digit there
@@ -40,6 +41,34 @@ int32_t vfxIndexY_90B14_90B14 = 0;
 uint8_t vfxTracking_9AD08_9AD08 = 0; // the VFX1 head tracker moves the mouse
 int16_t vfxTrackerY_12EE9E_12EE8E = 0; // read by 5B210
 int16_t vfxTrackerX_12EEA0_12EE90 = 0;
+
+// the VFX1 driver code of MC1 is the one of MC2 (Vr.cpp): 5AF50 = 75650, 5B210 = 75910, 5B2B0 = 759B0;
+// 9AD08 = E12EC (the head), 12EE9C-12EEA0 = 17D6CC; the CyberPuck (9AD09 = E12ED, 12EEDA) MC1 never reads
+int32_t InitVfx_5AF50_5B460()
+{
+	if (!DetectVrDevice_75650())
+		return 0;
+	if (vrDeviceActive_E12EC)
+		vfxTracking_9AD08_9AD08 = 1;
+	return 1;
+}
+
+int32_t ReadVfx_5B210_5B720()
+{
+	if (!ShutdownVrDevice_75910())
+		return 0;
+	if (vfxTracking_9AD08_9AD08)
+	{
+		vfxTrackerY_12EE9E_12EE8E = vrJoystick_17D6CC[1];
+		vfxTrackerX_12EEA0_12EE90 = vrJoystick_17D6CC[2];
+	}
+	return 1;
+}
+
+void SetVfxMouse_5B2B0_5B7C0()
+{
+	SetMouseMinMaxVert_759B0(); // int 33h 6008h of the VFX1 mouse driver
+}
 // B7700-B772A (joystickFound_B7700_B76F0 in Mc1Game): set by the calibration 3F820 / 3FB60
 uint8_t secondStick_B7701_B76F1 = 0;
 int16_t joyX_B7702_B76F2 = 0; // -1..1 digital, -80h..80h analog
@@ -627,7 +656,7 @@ static void JoystickArrows()
 			(*pressedKeys_12EEF0_12EEE0)[0x4B] = 1;
 	}
 	else if (vfxTracking_9AD08_9AD08 && !button3Up)
-		sub_5B2B0_5B7C0();
+		SetVfxMouse_5B2B0_5B7C0();
 }
 
 static void ClearArrows()
@@ -706,7 +735,7 @@ void JoystickInput_3FCA0_3FFE0(int32_t mode, int32_t minX, int32_t minY, int32_t
 		// the VFX1 head moves the mouse, the average of the last 2 readings
 		if (*mouseInstalled_9AD98_9AD98)
 			ResetMouse_3F370_3F6B0();
-		sub_5B210_5B720();
+		ReadVfx_5B210_5B720();
 		vfxSamplesY_90B0C_90B0C[vfxIndexY_90B14_90B14] = vfxTrackerY_12EE9E_12EE8E;
 		vfxIndexY_90B14_90B14 = (vfxIndexY_90B14_90B14 + 1) % 2;
 		const int32_t y = (int16_t)(vfxSamplesY_90B0C_90B0C[0] + vfxSamplesY_90B0C_90B0C[1]) / 2;

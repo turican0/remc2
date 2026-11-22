@@ -23,10 +23,6 @@ static void MenuScreenNotPorted(const char* name)
 }
 
 //!!!!! not ported yet
-// 3FCA0: the VFX1 head tracker (only with vfxTracking_9AD08, InitVfx_5AF50 finds none)
-int32_t sub_5B210_5B720() { NotPorted(__func__); return 1; }
-void sub_5B2B0_5B7C0() { NotPorted(__func__); }
-//!!!!! not ported yet
 void sub_4D680_4D9C0() { MenuScreenNotPorted(__func__); }
 //!!!!! not ported yet
 //!!!!! not ported yet
@@ -34,8 +30,6 @@ void sub_4D680_4D9C0() { MenuScreenNotPorted(__func__); }
 void sub_433C0_43700() { NotPorted(__func__); }
 //!!!!! not ported yet
 void InitNetwork_43270_435B0() { NotPorted(__func__); }
-//!!!!! not ported yet, 0 = no VFX1 headset
-int32_t InitVfx_5AF50_5B460() { NotPorted(__func__); return 0; }
 //!!!!! not ported yet
 void InitDigitalJoystick_3F7D0_3FB10(bitmap_pos_struct_t* /*sprite*/) { NotPorted(__func__); }
 //!!!!! not ported yet

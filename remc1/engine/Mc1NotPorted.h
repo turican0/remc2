@@ -8,13 +8,9 @@
 
 // temporary stubs of functions not ported yet; each one moves to its real file when ported from IDA
 
-// the VFX1 head tracker: 5B210 reads it (vfxTrackerX / Y), 5B2B0 (int 33h 8)
-int32_t sub_5B210_5B720();
-void sub_5B2B0_5B7C0();
 void sub_4D680_4D9C0();
 void sub_433C0_43700();
 void InitNetwork_43270_435B0();
-int32_t InitVfx_5AF50_5B460();
 void InitDigitalJoystick_3F7D0_3FB10(bitmap_pos_struct_t* sprite);
 void InitAnalogJoystick_3F820(bitmap_pos_struct_t* sprite1, bitmap_pos_struct_t* sprite2, bitmap_pos_struct_t* sprite3, uint8_t flags);
 void InitAnalogJoystick_3FB60(bitmap_pos_struct_t* sprite1, bitmap_pos_struct_t* sprite2, bitmap_pos_struct_t* sprite3, uint8_t flags);

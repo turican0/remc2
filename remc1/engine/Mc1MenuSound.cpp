@@ -6,6 +6,7 @@
 
 #include "Mc1Game.h"
 #include "Mc1Graphics.h"
+#include "Mc1Input.h"
 #include "Mc1Install.h"
 #include "Mc1Menu.h"
 #include "Mc1MenuText.h"
