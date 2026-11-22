@@ -2654,16 +2654,19 @@ static std::atomic<bool> gameTimerRunning{ false };
 
 static void GameTimerThread_6FD30()
 {
-	// 119 Hz ~ 8.4 ms perioda; sleep_for(1ms) jako v netThread, tick řešíme akumulátorem
-	auto nextTick = std::chrono::steady_clock::now();
-	const auto interval = std::chrono::microseconds(1000000 / 119);
+	// the PIT divisor of 6FDA0 (timerStep_2388 = 10022: 119.06 Hz), the ticks at start + n periods without a drift
+	const auto start = std::chrono::steady_clock::now();
+	const double period = (gameState_D41A4.timerStep_2388 ? gameState_D41A4.timerStep_2388 : 0x10000) / 1193182.0;
+	uint64_t tick = 1;
+	auto nextTick = start + std::chrono::duration_cast<std::chrono::steady_clock::duration>(std::chrono::duration<double>(period));
 
 	while (gameTimerRunning.load())
 	{
 		auto now = std::chrono::steady_clock::now();
 		if (now >= nextTick)
 		{
-			nextTick += interval;
+			tick++;
+			nextTick = start + std::chrono::duration_cast<std::chrono::steady_clock::duration>(std::chrono::duration<double>(tick * period));
 			GameTimerTurn_17DB54++;
 			gameState_D41A4.timerAccumulator_2392 += gameState_D41A4.timerStep_2388;
 			if (gameState_D41A4.timerAccumulator_2392 >= 0x10000)

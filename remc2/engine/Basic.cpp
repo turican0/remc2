@@ -158,7 +158,7 @@ uint8_t* ViewPortRenderBufferAltStart_DE554 = 0;
 char* langStrings_E9C4C[1000]; // idb
 
 volatile int16_t GameTimerTurn_17DB54 = 0;
-uint32_t PitFrequency_F4240 = 1193182; //PIT Frequency
+uint32_t MicrosecondsPerSecond_F4240 = 1000000; // A1840: mov eax, offset unk_F4240 (IDA shows the constant as an offset)
 
 int Int386Request_17FF0C;
 int MscdexCommand_17FF44;

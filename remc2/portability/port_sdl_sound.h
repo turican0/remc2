@@ -172,10 +172,12 @@ shadow_type_E3808_music_header;
 
 typedef struct
 {
-	int Id;
-	SDL_TimerID SdlId;
-	uint32_t IntervalMs;
-	SDL_TimerCallback Callback;
+	bool Running;
+	uint32_t IntervalUs;
+	uint32_t(*Callback)(uint32_t);
+	uint32_t ScheduleUs; // the period the schedule below counts with
+	int64_t StartUs; // the start of the schedule (steady clock)
+	int64_t Ticks; // the ticks since StartUs
 } Mix_Timer;
 
 //shadow shadow_type_E3808_music_header
@@ -261,7 +263,7 @@ void SOUND_UPDATE();
 void ChannelFinished(int channel);
 
 void SOUND_RegisterTimer(int timerIdx, uint32_t(*callback)(uint32_t));
-void SOUND_SetTimerPeriod(int timerIdx, uint32_t intervalMs);
+void SOUND_SetTimerPeriod(int timerIdx, uint32_t intervalUs);
 void SOUND_StartTimer(int timerIdx);
 void SOUND_StopTimer(int timerIdx);
 void SOUND_ChangeSamplePlaybackRate(HSAMPLE S, float percent);

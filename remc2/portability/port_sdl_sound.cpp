@@ -8,7 +8,10 @@
 #include <adlmidi.h>
 #include <iostream>
 #include <atomic>
+#include <chrono>
 #include <list>
+#include <mutex>
+#include <thread>
 
 // Channel that SOUND_start_sample is just restarting. Mix_PlayChannel halts a still playing
 // channel first and calls ChannelFinished synchronously; that is not the end of the sample.
@@ -72,7 +75,8 @@ std::map<int, HSAMPLE> GameChunkHSamples = std::map<int, HSAMPLE>();
 
 uint8_t sound_buffer[4][20000];
 
-std::vector<Mix_Timer> Timers = std::vector<Mix_Timer>();
+// the AIL timers by their index (Timers_E3E9C: 15 dwords, the index is the byte offset)
+static Mix_Timer Timers[16] = {};
 /*
 10
 29
@@ -825,52 +829,129 @@ uint32_t SOUND_sample_status(HSAMPLE S) {
 	return 0;
 }
 
-void SOUND_RegisterTimer(int timerIdx, uint32_t(*callback)(uint32_t))
+static Mix_Timer* TimerAt(int timerIdx)
 {
-	auto timer = Mix_Timer();
-	timer.Id = timerIdx;
-	timer.Callback = (SDL_TimerCallback)callback;
-	Timers.push_back(timer);
+	if (timerIdx < 0 || timerIdx / 4 >= (int)(sizeof(Timers) / sizeof(Timers[0])))
+		return nullptr;
+	return &Timers[timerIdx / 4];
 }
 
-void SOUND_SetTimerPeriod(int timerIdx, uint32_t intervalMs)
+static int64_t TimerNowUs()
 {
-	for (int i = 0; i < Timers.size(); i++)
+	return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
+}
+
+// the AIL timers on one thread, each tick at start + n periods in microseconds as the PIT of DOS (SDL_AddTimer takes
+// whole ms and on Windows waits at least about 15 ms: 120 Hz gave 65 Hz); the callbacks run without the lock, their value is ignored as in DOS
+static std::mutex timerMutex;
+static std::thread timerThread;
+static bool timerThreadRunning = false;
+
+static void TimerThread()
+{
+	std::unique_lock<std::mutex> lock(timerMutex);
+	while (timerThreadRunning)
 	{
-		if (Timers[i].Id == timerIdx)
+		const int64_t now = TimerNowUs();
+		int64_t next = now + 1000000;
+		uint32_t(*callback)(uint32_t) = nullptr;
+		for (Mix_Timer& timer : Timers)
 		{
-			Timers[i].IntervalMs = intervalMs;
-			break;
+			if (!timer.Running)
+				continue;
+			if (timer.ScheduleUs != timer.IntervalUs)
+			{
+				timer.ScheduleUs = timer.IntervalUs;
+				timer.StartUs = now;
+				timer.Ticks = 0;
+			}
+			int64_t due = timer.StartUs + (timer.Ticks + 1) * (int64_t)timer.ScheduleUs;
+			if (now - due > 100000)
+			{
+				// far behind (a stall): a new schedule instead of a burst of ticks
+				timer.StartUs = now - timer.ScheduleUs;
+				timer.Ticks = 0;
+				due = now;
+			}
+			if (due <= now)
+			{
+				timer.Ticks++;
+				callback = timer.Callback;
+				break;
+			}
+			if (due < next)
+				next = due;
 		}
+		if (callback)
+		{
+			lock.unlock();
+			callback(0);
+			lock.lock();
+			continue;
+		}
+		// a new timer starts within 10 ms at the latest
+		if (next > now + 10000)
+			next = now + 10000;
+		lock.unlock();
+		std::this_thread::sleep_until(std::chrono::steady_clock::time_point(std::chrono::microseconds(next)));
+		lock.lock();
 	}
+}
+
+static struct TimerThreadGuard
+{
+	~TimerThreadGuard()
+	{
+		{
+			std::lock_guard<std::mutex> lock(timerMutex);
+			timerThreadRunning = false;
+		}
+		if (timerThread.joinable())
+			timerThread.join();
+	}
+} timerThreadGuard;
+
+void SOUND_RegisterTimer(int timerIdx, uint32_t(*callback)(uint32_t))
+{
+	std::lock_guard<std::mutex> lock(timerMutex);
+	if (Mix_Timer* timer = TimerAt(timerIdx))
+	{
+		*timer = Mix_Timer();
+		timer->Callback = callback;
+	}
+}
+
+void SOUND_SetTimerPeriod(int timerIdx, uint32_t intervalUs)
+{
+	std::lock_guard<std::mutex> lock(timerMutex);
+	if (Mix_Timer* timer = TimerAt(timerIdx))
+		timer->IntervalUs = intervalUs ? intervalUs : 1000;
 }
 
 void SOUND_StartTimer(int timerIdx)
 {
-	for (int i = 0; i < Timers.size(); i++)
 	{
-		if (Timers[i].Id == timerIdx)
+		std::lock_guard<std::mutex> lock(timerMutex);
+		Mix_Timer* timer = TimerAt(timerIdx);
+		if (!timer || timer->Running || !timer->IntervalUs || !timer->Callback)
+			return;
+		timer->Running = true;
+		timer->ScheduleUs = timer->IntervalUs;
+		timer->StartUs = TimerNowUs();
+		timer->Ticks = 0;
+		if (!timerThreadRunning)
 		{
-			Timers[i].SdlId = SDL_AddTimer(Timers[i].IntervalMs, Timers[i].Callback, nullptr);
-			break;
+			timerThreadRunning = true;
+			timerThread = std::thread(TimerThread);
 		}
 	}
 }
 
 void SOUND_StopTimer(int timerIdx)
 {
-	int idxToDelete = -1;
-	for (int i = 0; i < Timers.size(); i++)
-	{
-		if (Timers[i].Id == timerIdx)
-		{
-			SDL_RemoveTimer(Timers[i].SdlId);
-			idxToDelete = i;
-			break;
-		}
-	}
-	if (idxToDelete > -1)
-		Timers.erase(Timers.begin() + idxToDelete);
+	std::lock_guard<std::mutex> lock(timerMutex);
+	if (Mix_Timer* timer = TimerAt(timerIdx))
+		*timer = Mix_Timer();
 }
 
 void SOUND_end_sample(HSAMPLE S) {

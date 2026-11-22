@@ -518,7 +518,7 @@ extern uint8_t* Zero_pointer;
 
 volatile extern int16_t GameTimerTurn_17DB54; // 34EB54
 
-extern uint32_t PitFrequency_F4240;
+extern uint32_t MicrosecondsPerSecond_F4240;
 
 extern std::vector<Type_Message*>* m_Messages;
 

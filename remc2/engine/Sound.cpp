@@ -1919,7 +1919,7 @@ void AilSetTimerFrequency_92930(int timerIdx, unsigned long hertz)//273930
 void AilSetTimerPeriod_A1840(int timerIdx, unsigned long hertz)
 {
 	AilLock_91BD0();
-	AilSetTimerPeriod_92890(timerIdx, PitFrequency_F4240 / hertz);
+	AilSetTimerPeriod_92890(timerIdx, MicrosecondsPerSecond_F4240 / hertz);
 	AilUnlock_91BF0();
 }
 
@@ -1941,7 +1941,7 @@ void SetTimerPeriod_A1810(int timerIdx, unsigned long microseconds)
 	*(int*)((char*)TimerPeriodsMicroSeconds_E3F1C + timerIdx) = microseconds;
 	*(int*)((char*)TimerPeriods_E3EDC + timerIdx) = 0;
 	UpdateTimerPeriod_A108F();
-	SOUND_SetTimerPeriod(timerIdx, microseconds / 1000);
+	SOUND_SetTimerPeriod(timerIdx, microseconds);
 	AilUnlock_91BF0();
 }
 
@@ -4800,7 +4800,7 @@ HMDIDRIVER InitAilDriver_A6FB0(AIL_DRIVER* ailDriver, IO_PARMS* io)//287fb0
 						hMdiDriver->timbre_trap = nullptr;
 						hMdiDriver->message_count = 0;
 						hMdiDriver->offset = 0;
-						hMdiDriver->interval_time_4 = PitFrequency_F4240 / preference_181DAC[11];
+						hMdiDriver->interval_time_4 = MicrosecondsPerSecond_F4240 / preference_181DAC[11];
 						hMdiDriver->disable_5 = 0;
 						hMdiDriver->master_volume = 127;
 						for (int i = 0; i < 16; i++)
