@@ -141,6 +141,7 @@ static int32_t CallPlayer_42A00_42D40(int16_t player)
 		CancelNcb_42C70_42FB0(player);
 		strcpy(slot->ncb_callName_10, own->ncb_callName_10);
 		slot->ncb_lsn_2 = own->ncb_lsn_2;
+		NetworkMoveSession(own, slot); // port: port_net keeps the session by the NCB, not by the LSN
 		slot->ncb_cmd_cplt_49 = own->ncb_cmd_cplt_49;
 	}
 	return -slot->ncb_cmd_cplt_49;

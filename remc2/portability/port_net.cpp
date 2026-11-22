@@ -833,6 +833,19 @@ static void RemoveSession(myNCB* ncb)
 	if (it != tcpSessions.end()) { it->second->Close(); tcpSessions.erase(it); }
 }
 
+void NetworkMoveSession(myNCB* from, myNCB* to)
+{
+	std::lock_guard<std::mutex> lk(sessions_mutex);
+	auto it = tcpSessions.find(from);
+	if (from == to || it == tcpSessions.end()) return;
+	std::shared_ptr<TcpSession> sess = it->second;
+	tcpSessions.erase(it);
+	auto old = tcpSessions.find(to);
+	if (old != tcpSessions.end() && old->second != sess) old->second->Close();
+	sess->ownerNCB = to;
+	tcpSessions[to] = sess;
+}
+
 // ---------------------------------------------------------------------------
 // IsRemoteAlive  (unchanged API)
 // ---------------------------------------------------------------------------

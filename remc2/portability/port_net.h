@@ -204,6 +204,10 @@ void InitMyNetLib(bool iam_server, bool iam_client, char* ip, int networkPort, i
 // membership list yet - in which case the caller must fall back to what it knows itself.
 int NetworkRosterPlayers(const char* namePrefix, bool present[8]);
 
+// NetBIOS knows a session by its LSN, so a game may copy the LSN of a finished CALL to another NCB and use that
+// one (MC1 42A00); port_net keeps the sessions by the NCB, this moves the session to the other NCB.
+void NetworkMoveSession(myNCB* from, myNCB* to);
+
 void debug_net_printf(const char* format, ...);
 
 void timeState(bool start, const char* text);
