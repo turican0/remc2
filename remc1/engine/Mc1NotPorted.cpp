@@ -31,12 +31,6 @@ void sub_433C0_43700() { NotPorted(__func__); }
 //!!!!! not ported yet
 void InitNetwork_43270_435B0() { NotPorted(__func__); }
 //!!!!! not ported yet
-void InitDigitalJoystick_3F7D0_3FB10(bitmap_pos_struct_t* /*sprite*/) { NotPorted(__func__); }
-//!!!!! not ported yet
-void InitAnalogJoystick_3F820(bitmap_pos_struct_t* /*sprite1*/, bitmap_pos_struct_t* /*sprite2*/, bitmap_pos_struct_t* /*sprite3*/, uint8_t /*flags*/) { NotPorted(__func__); }
-//!!!!! not ported yet
-void InitAnalogJoystick_3FB60(bitmap_pos_struct_t* /*sprite1*/, bitmap_pos_struct_t* /*sprite2*/, bitmap_pos_struct_t* /*sprite3*/, uint8_t /*flags*/) { NotPorted(__func__); }
-//!!!!! not ported yet
 int16_t JoinNetworkSession_43430_43770(char* /*sessionName*/, uint16_t /*playerCount*/) { NotPorted(__func__); return -1; }
 
 // class functions (generated, gen_classes.py)

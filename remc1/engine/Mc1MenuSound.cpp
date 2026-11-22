@@ -468,10 +468,7 @@ void SetControlDevice_51DF0_52130(uint16_t flags)
 	else if ((flags & 1) || (flags & 0x20))
 	{
 		// the joystick calibration screens use gcspr records 10, 5 and 6
-		if (mc1Variant == MC1_VARIANT_HW)
-			InitAnalogJoystick_3FB60(&configSpritesIndex[10], &configSpritesIndex[5], &configSpritesIndex[6], (uint8_t)flags);
-		else
-			InitAnalogJoystick_3F820(&configSpritesIndex[10], &configSpritesIndex[5], &configSpritesIndex[6], (uint8_t)flags);
+		InitAnalogJoystick_3F820_3FB60(&configSpritesIndex[10], &configSpritesIndex[5], &configSpritesIndex[6], (uint8_t)flags);
 		if (*mouseInstalled_9AD98_9AD98)
 			ResetMouse_3F370_3F6B0();
 	}

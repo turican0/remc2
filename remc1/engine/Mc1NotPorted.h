@@ -11,9 +11,6 @@
 void sub_4D680_4D9C0();
 void sub_433C0_43700();
 void InitNetwork_43270_435B0();
-void InitDigitalJoystick_3F7D0_3FB10(bitmap_pos_struct_t* sprite);
-void InitAnalogJoystick_3F820(bitmap_pos_struct_t* sprite1, bitmap_pos_struct_t* sprite2, bitmap_pos_struct_t* sprite3, uint8_t flags);
-void InitAnalogJoystick_3FB60(bitmap_pos_struct_t* sprite1, bitmap_pos_struct_t* sprite2, bitmap_pos_struct_t* sprite3, uint8_t flags);
 int16_t JoinNetworkSession_43430_43770(char* sessionName, uint16_t playerCount);
 
 // class functions (generated, gen_classes.py)

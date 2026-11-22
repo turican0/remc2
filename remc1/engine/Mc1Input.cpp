@@ -6,6 +6,8 @@
 #include "Mc1Files.h"
 #include "Mc1Game.h"
 #include "Mc1Level.h"
+#include "Mc1Menu.h"
+#include "Mc1MenuSound.h"
 #include "Mc1Movie.h"
 #include "Mc1NotPorted.h"
 #include "Mc1Save.h"
@@ -92,6 +94,29 @@ uint16_t joy2ScaleMaxY_B7724_B7714 = 0;
 int16_t joy2ScaleMinX_B7726_B7716 = 0;
 int16_t joy2ScaleMinY_B7728_B7718 = 0;
 uint8_t joyButtons_B772A_B771A = 0; // the bits 10h-80h of 201h, 0 pressed
+// 90B24-90B36: the places of the sprites of the calibration on the sound setup (the record + 4 is the sprite)
+static const int16_t joyTopLeftX_90B24_90B24 = 0x18A;
+static const int16_t joyTopLeftY_90B26_90B26 = 0xE2;
+static const int16_t joyBottomRightX_90B2C_90B2C = 0x18A;
+static const int16_t joyBottomRightY_90B2E_90B2E = 0xE0;
+static const int16_t joyCentreX_90B34_90B34 = 0x18A;
+static const int16_t joyCentreY_90B36_90B36 = 0xE4;
+
+// memset(B7700, 0, 2Bh)
+static void ResetJoystickState()
+{
+	joystickFound_B7700_B76F0 = 0;
+	secondStick_B7701_B76F1 = 0;
+	joyX_B7702_B76F2 = joyY_B7704_B76F4 = 0;
+	joyMaxX_B7706_B76F6 = joyMaxY_B7708_B76F8 = joyMinX_B770A_B76FA = joyMinY_B770C_B76FC = 0;
+	joyScaleMaxX_B770E_B76FE = joyScaleMaxY_B7710_B7700 = 0;
+	joyScaleMinX_B7712_B7702 = joyScaleMinY_B7714_B7704 = 0;
+	joy2X_B7716_B7706 = joy2Y_B7718_B7708 = 0;
+	joy2MaxX_B771A_B770A = joy2MaxY_B771C_B770C = joy2MinX_B771E_B770E = joy2MinY_B7720_B7710 = 0;
+	joy2ScaleMaxX_B7722_B7712 = joy2ScaleMaxY_B7724_B7714 = 0;
+	joy2ScaleMinX_B7726_B7716 = joy2ScaleMinY_B7728_B7718 = 0;
+	joyButtons_B772A_B771A = 0;
+}
 
 static Type_Mc1Entity* Entities()
 {
@@ -609,6 +634,158 @@ void ReadDigitalJoystick_3F413_3F753()
 	joyX_B7702_B76F2 = 0;
 	joyY_B7704_B76F4 = 0;
 	joyButtons_B772A_B771A = 0xFF;
+}
+
+// 3F4CE / 3F80E: the axes present (the one-shots end): B7700 the first stick, B7701 the second
+static void DetectGamePort_3F4CE_3F80E()
+{
+	uint8_t bits = 0;
+	for (int32_t count = 0x2710; count >= 0; count--)
+	{
+		bits = ReadGamePort();
+		if (!(bits & 0x0F))
+			break;
+	}
+	joystickFound_B7700_B76F0 = (bits & 3) ? 0 : 1;
+	secondStick_B7701_B76F1 = (bits & 0x0C) ? 0 : 1;
+}
+
+// 3F398 / 3F6D8: the digital stick, the dead zone from half to one and a half of the centre counts
+static void CentreDigitalJoystick_3F398_3F6D8()
+{
+	uint16_t x = 0;
+	uint16_t y = 0;
+	for (int32_t count = 0x2710; count; count--)
+	{
+		const uint8_t bits = ReadGamePort();
+		if (!(bits & 3))
+		{
+			joystickFound_B7700_B76F0 = 2;
+			joyMinX_B770A_B76FA = (int16_t)(x >> 1);
+			joyMaxX_B7706_B76F6 = (int16_t)((x >> 1) + x);
+			joyMinY_B770C_B76FC = (int16_t)(y >> 1);
+			joyMaxY_B7708_B76F8 = (int16_t)((y >> 1) + y);
+			return;
+		}
+		if (bits & 1)
+			x++;
+		if (bits & 2)
+			y++;
+	}
+	joystickFound_B7700_B76F0 = 0;
+}
+
+// 3F54D / 3F88D: the raw counts of both sticks and the buttons
+static void ReadJoystickCounts_3F54D_3F88D()
+{
+	const GamePortCounts counts = ReadGamePortCounts_3F76D_3FAAD();
+	joyButtons_B772A_B771A = counts.bits;
+	joyX_B7702_B76F2 = counts.x;
+	joyY_B7704_B76F4 = counts.y;
+	joy2X_B7716_B7706 = counts.x2;
+	joy2Y_B7718_B7708 = counts.y2;
+}
+
+// 3FB30 / 3FE70: the sound setup with the sprite until the joystick button 1 is pressed and released
+static void WaitJoystickButton_3FB30_3FE70(int16_t x, int16_t y, bitmap_pos_struct_t* sprite)
+{
+	for (int32_t release = 0; release < 2; release++)
+	{
+		do
+		{
+			CopyBackScreen();
+			DrawSoundSetup_4B560_4B8A0();
+			if (sprite) //!!!!! the original tests (x + y) * 6 + sprite
+			{
+				if (*videoMode_12F02E_12F01E & 1)
+					DrawBitmap320_60CE0_611F0(x, y, *sprite, 1);
+				else
+					DrawBitmap640_60D18_61228(x, y, *sprite, 1);
+			}
+			ReadDigitalJoystick_3F413_3F753();
+			BlitScreen();
+		} while (release ? !(joyButtons_B772A_B771A & 0x10) : (joyButtons_B772A_B771A & 0x10));
+		WaitBeam_5CC54_5D164(0);
+	}
+}
+
+// 3F7D0 / 3FB10: the digital joystick (the gamepad of the sound setup)
+void InitDigitalJoystick_3F7D0_3FB10(bitmap_pos_struct_t* sprite)
+{
+	ResetJoystickState();
+	DetectGamePort_3F4CE_3F80E();
+	CentreDigitalJoystick_3F398_3F6D8();
+	if (!joystickFound_B7700_B76F0)
+		return;
+	CentreDigitalJoystick_3F398_3F6D8();
+	WaitJoystickButton_3FB30_3FE70(joyCentreX_90B34_90B34, joyCentreY_90B36_90B36, sprite);
+	inputDevices_90B23_90B23 = 2;
+}
+
+// the average of 16 readings of the counts
+static void AverageJoystickCounts(int32_t& x, int32_t& y)
+{
+	int16_t sumX = 0;
+	int16_t sumY = 0;
+	for (int32_t i = 0; i < 16; i++)
+	{
+		ReadJoystickCounts_3F54D_3F88D();
+		sumX += joyX_B7702_B76F2;
+		sumY += joyY_B7704_B76F4;
+	}
+	x = sumX / 16;
+	y = sumY / 16;
+}
+
+// 3F820 / 3FB60: the analog joystick, the stick to the top left, the bottom right and the centre with the button;
+// the dead zones 3/10 of the way from the centre, the scales 40000h / the rest of the way
+void InitAnalogJoystick_3F820_3FB60(bitmap_pos_struct_t* sprite1, bitmap_pos_struct_t* sprite2, bitmap_pos_struct_t* sprite3, uint8_t flags)
+{
+	DetectGamePort_3F4CE_3F80E();
+	CentreDigitalJoystick_3F398_3F6D8();
+	if (!joystickFound_B7700_B76F0)
+		return;
+	joystickFound_B7700_B76F0 = 1;
+	int32_t leftX, topY, rightX, bottomY, centreX, centreY;
+	WaitJoystickButton_3FB30_3FE70(joyTopLeftX_90B24_90B24, joyTopLeftY_90B26_90B26, sprite1);
+	AverageJoystickCounts(leftX, topY);
+	WaitJoystickButton_3FB30_3FE70(joyBottomRightX_90B2C_90B2C, joyBottomRightY_90B2E_90B2E, sprite2);
+	AverageJoystickCounts(rightX, bottomY);
+	WaitJoystickButton_3FB30_3FE70(joyCentreX_90B34_90B34, joyCentreY_90B36_90B36, sprite3);
+	AverageJoystickCounts(centreX, centreY);
+	uint16_t range = (uint16_t)(rightX - centreX);
+	if (range > 0x1E)
+	{
+		joyMaxX_B7706_B76F6 = (int16_t)(range * 3 / 10 + (uint16_t)centreX);
+		joyScaleMaxX_B770E_B76FE = (uint16_t)(0x40000 / ((int32_t)(uint16_t)rightX - joyMaxX_B7706_B76F6));
+	}
+	else
+		joyMaxX_B7706_B76F6 = 0x2710;
+	range = (uint16_t)(bottomY - centreY);
+	if (range > 0x1E)
+	{
+		joyMaxY_B7708_B76F8 = (int16_t)(range * 3 / 10 + (uint16_t)centreY);
+		joyScaleMaxY_B7710_B7700 = (uint16_t)(0x40000 / ((int32_t)(uint16_t)bottomY - joyMaxY_B7708_B76F8));
+	}
+	else
+		joyMaxY_B7708_B76F8 = 0x2710;
+	range = (uint16_t)(centreY - topY);
+	if (range > 0x1E)
+	{
+		joyMinY_B770C_B76FC = (int16_t)((uint16_t)centreY - range * 3 / 10);
+		joyScaleMinY_B7714_B7704 = (int16_t)(0x40000 / (joyMinY_B770C_B76FC - (int32_t)(uint16_t)topY));
+	}
+	else
+		joyMinY_B770C_B76FC = 0;
+	range = (uint16_t)(centreX - leftX);
+	if (range > 0x1E)
+	{
+		joyMinX_B770A_B76FA = (int16_t)((uint16_t)centreX - range * 3 / 10);
+		joyScaleMinX_B7712_B7702 = (int16_t)(0x40000 / (joyMinX_B770A_B76FA - (int32_t)(uint16_t)leftX));
+	}
+	else
+		joyMinX_B770A_B76FA = 0;
+	inputDevices_90B23_90B23 = flags;
 }
 
 // the joystick buttons 1 and 2 (the bits 10h and 20h, 0 pressed) as the mouse buttons

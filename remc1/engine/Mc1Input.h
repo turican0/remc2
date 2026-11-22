@@ -2,6 +2,8 @@
 
 #include <cstdint>
 
+#include "../../remc2/portability/bitmap_pos_struct.h"
+
 // MC1 input of the player (17C20): the keys and the mouse to the command of the player in the frame (state + 7413h)
 
 extern const uint8_t scanCodeChars_9AD0C_9AD0C[128];
@@ -31,6 +33,8 @@ extern int16_t vfxTrackerX_12EEA0_12EE90;
 int32_t InitVfx_5AF50_5B460();
 int32_t ReadVfx_5B210_5B720();
 void SetVfxMouse_5B2B0_5B7C0();
+void InitDigitalJoystick_3F7D0_3FB10(bitmap_pos_struct_t* sprite);
+void InitAnalogJoystick_3F820_3FB60(bitmap_pos_struct_t* sprite1, bitmap_pos_struct_t* sprite2, bitmap_pos_struct_t* sprite3, uint8_t flags);
 extern uint8_t secondStick_B7701_B76F1;
 extern int16_t joyX_B7702_B76F2;
 extern int16_t joyY_B7704_B76F4;
