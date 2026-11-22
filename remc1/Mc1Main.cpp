@@ -8,6 +8,7 @@
 
 #include "engine/Mc1Files.h"
 #include "engine/Mc1Game.h"
+#include "engine/Mc1Network.h"
 #include "engine/Mc1Screen.h"
 #include "engine/Mc1System.h"
 #include "engine/Select.h"
@@ -76,6 +77,7 @@ int Mc1Main(int argc, char** argv)
 			gameArgv.push_back(&arg[0]);
 		gameArgv.push_back(nullptr);
 		Main_404F0_40830((int)gameArgs.size(), gameArgv.data());
+		StopNetworkLibrary();
 		// the original left its memory to DOS
 		FreeMc1Memory();
 		FreeCursorBuffers();

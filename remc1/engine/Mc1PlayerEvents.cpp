@@ -12,6 +12,7 @@
 #include "Mc1Level.h"
 #include "Mc1MainMenu.h"
 #include "Mc1Movie.h"
+#include "Mc1Network.h"
 #include "Mc1NotPorted.h"
 #include "Mc1Save.h"
 #include "Mc1Regression.h"
@@ -27,7 +28,6 @@ uint8_t networkJoined_93959_93959 = 0;
 int16_t networkIndex_9395A_9395A = 0;
 int16_t networkCount_9395C_9395C = 0;
 uint16_t networkMaster_9398A_9398A = 0;
-uint32_t networkHandles_93990_93990[8];
 uint8_t networkActive_939B0_939B0[8];
 
 static Type_Mc1Entity* Entities()
@@ -586,20 +586,20 @@ void RemoveNetworkPlayer_43760_43AA0(int16_t player)
 		{
 			if (i == networkIndex_9395A_9395A)
 				continue;
-			sub_42C70_42FB0(i);
-			sub_42DE0_43120(networkHandles_93990_93990[i]);
+			CancelNcb_42C70_42FB0(i);
+			HangUp_42DE0_43120(networkNcbs_93990_93990[i]);
 		}
 		char name[0x14];
-		sprintf(name, "%s%d", "TESTER", networkIndex_9395A_9395A);
-		sub_42D40_43080(networkHandles_93990_93990[player], name);
+		sprintf(name, "%s%d", networkName_939B8_939B8, networkIndex_9395A_9395A);
+		DeleteName_42D40_43080(networkNcbs_93990_93990[player], name);
 		networkJoined_93959_93959 = 0;
 	}
 	else
 	{
-		sub_42C70_42FB0(player);
-		sub_42DE0_43120(networkHandles_93990_93990[player]);
+		CancelNcb_42C70_42FB0(player);
+		HangUp_42DE0_43120(networkNcbs_93990_93990[player]);
 	}
-	sub_43150_43490();
+	UpdateNetworkActive_43150_43490();
 	// the first one still in the game sends the commands
 	for (int16_t i = 0; i < networkCount_9395C_9395C; i++)
 		if (networkActive_939B0_939B0[i])
@@ -618,16 +618,16 @@ void ExchangeAll_43930_43C70(uint8_t* buffer, uint32_t size)
 		// the master: the part of each one in, then all to all
 		for (int16_t i = 0; i < networkCount_9395C_9395C; i++)
 			if (i != networkIndex_9395A_9395A)
-				sub_438D0_43C10((uint16_t)i, buffer + i * size, size);
+				ReceiveFrom_438D0_43C10((uint16_t)i, buffer + i * size, size);
 		for (int16_t i = 0; i < networkCount_9395C_9395C; i++)
 			if (i != networkIndex_9395A_9395A)
-				sub_43870_43BB0((uint16_t)i, buffer, networkCount_9395C_9395C * size);
+				SendTo_43870_43BB0((uint16_t)i, buffer, networkCount_9395C_9395C * size);
 	}
 	else
 	{
 		// the own part to the master, all from it
-		sub_43870_43BB0(networkMaster_9398A_9398A, buffer + networkIndex_9395A_9395A * size, size);
-		sub_438D0_43C10(networkMaster_9398A_9398A, buffer, networkCount_9395C_9395C * size);
+		SendTo_43870_43BB0(networkMaster_9398A_9398A, buffer + networkIndex_9395A_9395A * size, size);
+		ReceiveFrom_438D0_43C10(networkMaster_9398A_9398A, buffer, networkCount_9395C_9395C * size);
 	}
 }
 

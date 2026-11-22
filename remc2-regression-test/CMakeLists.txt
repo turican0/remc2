@@ -36,6 +36,7 @@ set(SOURCE_FILES_REGRESSIONTESTS
     "../remc1/engine/Mc1ComputerWizard.cpp"
     "../remc1/engine/Mc1Regression.cpp"
     "../remc1/engine/Mc1Save.cpp"
+    "../remc1/engine/Mc1Network.cpp"
     "../remc1/engine/Mc1Creatures.cpp"
     "../remc1/engine/Mc1TextureMaps.cpp"
     "../remc1/engine/Mc1Install.cpp"

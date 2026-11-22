@@ -10,7 +10,6 @@ extern uint8_t networkJoined_93959_93959;
 extern int16_t networkIndex_9395A_9395A; // the index of this computer
 extern int16_t networkCount_9395C_9395C;
 extern uint16_t networkMaster_9398A_9398A; // the computer which sends the commands of all
-extern uint32_t networkHandles_93990_93990[8];
 extern uint8_t networkActive_939B0_939B0[8];
 
 void PlayerEvents_3C9D0_3CD10();

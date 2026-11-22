@@ -17,6 +17,7 @@
 #include "Mc1PlayerEvents.h"
 #include "Mc1Regression.h"
 #include "Mc1Menu.h"
+#include "Mc1Network.h"
 #include "Mc1Sound.h"
 #include "Mc1World.h"
 #include "Mc1NotPorted.h"
@@ -185,7 +186,7 @@ int TopProcedure_340B0(int argc, char** argv)
 	// the original calls an empty function (nullsub_2) when flag 8 is set
 	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 	Cleanup_34C60_35020();
-	sub_433C0_43700();
+	FreeNetwork_433C0_43700();
 	return 0;
 }
 
@@ -304,7 +305,7 @@ int TopProcedure_34470(int argc, char** argv)
 	}
 	FadeInOut_61CC0_621D0(nullptr, 0x10, false, 10);
 	Cleanup_34C60_35020();
-	sub_433C0_43700();
+	FreeNetwork_433C0_43700();
 	return 0;
 }
 
@@ -432,6 +433,8 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 			CopyArgument(sessionName, value);
 			i++;
 		}
+		else if (ParseNetworkOption(option, argc, argv, i))
+			; // port: server <port> / client <ip> <server port> <own port> with --network, as MC2
 		else
 		{
 			myprintf("ERROR : Incorrect command : %d\n", i);
@@ -444,6 +447,7 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 
 	if (network)
 	{
+		StartNetworkLibrary();
 		InitNetwork_43270_435B0();
 		network = 0; // cleared here, so the session code below never runs
 	}

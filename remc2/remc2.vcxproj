@@ -507,6 +507,7 @@
     <ClInclude Include="..\remc1\engine\Mc1ComputerWizard.h" />
     <ClInclude Include="..\remc1\engine\Mc1Regression.h" />
     <ClInclude Include="..\remc1\engine\Mc1Save.h" />
+    <ClInclude Include="..\remc1\engine\Mc1Network.h" />
     <ClInclude Include="..\remc1\engine\Mc1Creatures.h" />
     <ClInclude Include="..\remc1\engine\Mc1TextureMaps.h" />
     <ClInclude Include="..\remc1\engine\Mc1Install.h" />
@@ -652,6 +653,7 @@
     <ClCompile Include="..\remc1\engine\Mc1ComputerWizard.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Regression.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Save.cpp" />
+    <ClCompile Include="..\remc1\engine\Mc1Network.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Creatures.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1TextureMaps.cpp" />
     <ClCompile Include="..\remc1\engine\Mc1Install.cpp" />
