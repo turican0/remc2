@@ -48,7 +48,7 @@ struct type_regtest
 	int steps = 20;
 	bool intervalSave = false;
 	std::string folder;//record<NNN>: <folder>/level<LLL>/sequence-*
-	std::string game;//mc1 / mc1hw: memimages/regressions-<game>/level<NNN>, empty MC2
+	std::string game;//mc1 / mc1hw: memimages/regressions-<game>/level<NNN> or record<NNN>/level<NNN> (folder), empty MC2
 };
 
 // N of <prefix>N, -1 for other names
@@ -86,7 +86,8 @@ std::vector<type_regtest> FindRegressionTests(int onlyLevel, int onlyAfterload, 
 {
 	const bool all = (onlyLevel < 0 && onlyAfterload < 0 && onlyRecord < 0 && onlyGame.empty());
 	std::vector<std::pair<std::tuple<int, int, int>, type_regtest>> tests;
-	// MC1 and HW: regressions-mc1 / regressions-mc1hw, each level<NNN> with input.rec and reference.binz
+	// MC1 and HW: regressions-mc1 / regressions-mc1hw, each level<NNN> with input.rec and reference.binz; the
+	// recordings of a player in record<NNN>/level<NNN> ("--mc1 L --record R")
 	for (const std::string game : { "mc1", "mc1hw" })
 	{
 		if (!all && onlyGame != game)
@@ -98,6 +99,24 @@ std::vector<type_regtest> FindRegressionTests(int onlyLevel, int onlyAfterload, 
 			type_regtest test;
 			test.name = entry.path().filename().string();
 			test.game = game;
+			if (const int record = FolderNumber(test.name, "record"); record > 0)
+			{
+				if (!all && onlyRecord != record)
+					continue;
+				test.folder = test.name;
+				for (const auto& levelFolder : std::filesystem::directory_iterator(entry.path()))
+				{
+					test.level = FolderNumber(levelFolder.path().filename().string(), "level");
+					if (test.level <= 0 || (onlyGameLevel > 0 && onlyGameLevel != test.level))
+						continue;
+					test.steps = Mc1RegressionFrames(levelFolder.path().string());
+					if (test.steps > 0)
+						tests.push_back({ { game == "mc1" ? 5 : 6, record, test.level }, test });
+				}
+				continue;
+			}
+			if (!all && onlyRecord > 0)
+				continue;
 			test.level = FolderNumber(test.name, "level");
 			if (test.level <= 0 || (onlyGameLevel > 0 && onlyGameLevel != test.level))
 				continue;
@@ -168,7 +187,7 @@ int CountFailedRegressionTests(int onlyLevel = -1, int onlyAfterload = -1, int o
 	{
 		if (!test.game.empty())
 		{
-			if (!resave && run_mc1test(test.game, test.level) != 0)
+			if (!resave && run_mc1test(test.game, test.level, test.folder) != 0)
 				numFailedTests++;
 			continue;
 		}
@@ -233,7 +252,7 @@ std::string TestArguments(const type_regtest& test)
 {
 	const std::string packed = forcePackedData ? " --packed_data" : "";
 	if (!test.game.empty())
-		return "--" + test.game + " " + std::to_string(test.level);
+		return "--" + test.game + " " + std::to_string(test.level) + (test.folder.empty() ? "" : " --record " + test.folder.substr(6));
 	if (!test.folder.empty())
 		return "--record " + test.folder.substr(6) + " --level " + std::to_string(test.level) + packed;
 	if (test.index > 0)
@@ -244,7 +263,7 @@ std::string TestArguments(const type_regtest& test)
 std::string TestName(const type_regtest& test)
 {
 	if (!test.game.empty())
-		return test.game + " level " + std::to_string(test.level);
+		return test.game + (test.folder.empty() ? "" : " " + test.folder) + " level " + std::to_string(test.level);
 	if (!test.folder.empty())
 		return test.folder + " level " + std::to_string(test.level);
 	if (test.index > 0)

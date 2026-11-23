@@ -64,15 +64,15 @@ std::string Mc1RegressionsPath(const std::string& game)
 
 // MC1 or HW (game mc1 / mc1hw): the level started by -custom -level, the input of input.rec, the state compared with
 // reference.binz of DOSBox by Mc1RegressionFrame, which ends the test (20 passed)
-int run_mc1test(const std::string& game, int level)
+int run_mc1test(const std::string& game, int level, const std::string& record)
 {
-	const std::string testName = game + " level " + std::to_string(level);
+	const std::string testName = game + (record.empty() ? "" : " " + record) + " level " + std::to_string(level);
 	Logger->info("Testing {}", testName);
 	unitTests = true;
 	menuFps = 0;
 	char folder[32];
 	snprintf(folder, sizeof(folder), "level%03d", level);
-	mc1RegressionFolder = Mc1RegressionsPath(game) + "/" + folder;
+	mc1RegressionFolder = Mc1RegressionsPath(game) + "/" + (record.empty() ? "" : record + "/") + folder;
 	int locEndTestsCode = 0;
 	endTestsCode = &locEndTestsCode;
 	std::string path = get_exe_path() + "/regression-config.json";
