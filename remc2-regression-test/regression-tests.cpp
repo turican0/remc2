@@ -71,6 +71,7 @@ int run_mc1test(const std::string& game, int level, const std::string& record)
 	const std::string testName = game + (record.empty() ? "" : " " + record) + " level " + std::to_string(level);
 	Logger->info("Testing {}", testName);
 	unitTests = true;
+	packedDataFile = PackedDataFile();
 	menuFps = 0;
 	char folder[32];
 	snprintf(folder, sizeof(folder), "level%03d", level);

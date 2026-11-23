@@ -8,6 +8,10 @@
 
 // MC1 texture maps (tmaps0-0 / tmaps1-0) and the sprite definitions using them; MC2 has the same in TextureMaps
 
+#include <string>
+
+bool WriteMc1TmapsMeta(const std::string& dataDir, const std::string& outPath);//tmapsmeta.dat of mc1data.binz
+
 typedef struct { // DOS 14 bytes, the same in MC1 and Hidden Worlds
 	uint16_t textureIndex_0x00_0;
 	const char* name_0x02_2; // debug name, unused by the game

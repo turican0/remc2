@@ -329,8 +329,108 @@ uint8_t OpenTmaps_587E0_58CF0()
 	return 1;
 }
 
+// Regression tests without the game (GitHub Actions): mc1data.binz has no tmaps0-0.dat / tmaps1-0.dat, the simulation
+// reads of a tmap only whether it loads, the header (flags, kind, width, height) and the frame count after the first
+// frame (10D40). data/tmapsmeta.dat ("MC1TMAP1"): per game (tmaps0-0, tmaps1-0) u32 tmaps; per tmap i32 result of
+// 58860, the 6 bytes of the header, u16 frame count (0 when past the result); the pixels stay zero.
+static const uint16_t kTmapsMetaCount = 0x211;
+static const uint32_t kTmapsMetaRecord = 12;
+
+static bool ReadWholeFile(const std::string& path, std::vector<uint8_t>& data)
+{
+	FILE* file = fopen(path.c_str(), "rb");
+	if (!file)
+		return false;
+	fseek(file, 0, SEEK_END);
+	data.resize(ftell(file));
+	fseek(file, 0, SEEK_SET);
+	const bool read = fread(data.data(), 1, data.size(), file) == data.size();
+	fclose(file);
+	return read;
+}
+
+bool WriteMc1TmapsMeta(const std::string& dataDir, const std::string& outPath)
+{
+	std::vector<uint8_t> out = { 'M', 'C', '1', 'T', 'M', 'A', 'P', '1' };
+	auto put = [&out](uint32_t v, int bytes) { for (int b = 0; b < bytes; b++) out.push_back((uint8_t)(v >> (8 * b))); };
+	std::vector<uint8_t> buffer(0x100000);
+	for (const char* name : { "TMAPS0-0", "TMAPS1-0" })
+	{
+		std::vector<uint8_t> tab, dat;
+		if (!ReadWholeFile(dataDir + "/" + name + ".TAB", tab) || !ReadWholeFile(dataDir + "/" + name + ".DAT", dat)
+			|| tab.size() < (kTmapsMetaCount + 1) * 10u)
+			return false;
+		put(kTmapsMetaCount, 4);
+		for (uint16_t i = 0; i < kTmapsMetaCount; i++)
+		{
+			uint32_t offset, next;
+			memcpy(&offset, &tab[i * 10 + 4], 4);
+			memcpy(&next, &tab[(i + 1) * 10 + 4], 4);
+			// as 58860: the read length is not checked (a short read at the end), a plain block is its length
+			std::fill(buffer.begin(), buffer.end(), 0);
+			const uint32_t length = next - offset;
+			if (offset < dat.size() && length <= buffer.size())
+				memcpy(buffer.data(), &dat[offset], std::min<size_t>(length, dat.size() - offset));
+			int32_t result = length <= buffer.size() ? DataFileRNC::Decompress(buffer.data(), buffer.data()) : -2;
+			if (result < 0)
+				result = -2;
+			else if (result == 0)
+				result = (int32_t)length;
+			put((uint32_t)result, 4);
+			for (int b = 0; b < 6; b++)
+				out.push_back(buffer[b]);
+			uint16_t width, height, frames = 0;
+			memcpy(&width, &buffer[2], 2);
+			memcpy(&height, &buffer[4], 2);
+			const size_t framesAt = (size_t)width * height + 6;
+			if (result > 0 && framesAt + 2 <= (size_t)result)
+				memcpy(&frames, &buffer[framesAt], 2);
+			put(frames, 2);
+		}
+	}
+	FILE* file = fopen(outPath.c_str(), "wb");
+	if (!file)
+		return false;
+	const bool written = fwrite(out.data(), 1, out.size(), file) == out.size();
+	fclose(file);
+	return written;
+}
+
+static int32_t ReadTmapMeta(uint16_t index, uint8_t* buffer)
+{
+	static std::vector<uint8_t> meta;
+	if (meta.empty() && (!ReadWholeFile(Mc1DataFilePath("data/tmapsmeta.dat"), meta) || meta.size() < 8 || memcmp(meta.data(), "MC1TMAP1", 8)))
+	{
+		meta.clear();
+		return -1;
+	}
+	size_t p = 8;
+	if (mc1Variant == MC1_VARIANT_HW)
+		p += 4 + kTmapsMetaCount * kTmapsMetaRecord;
+	uint32_t count;
+	memcpy(&count, &meta[p], 4);
+	if (index >= count)
+		return -1;
+	const uint8_t* record = &meta[p + 4 + index * kTmapsMetaRecord];
+	int32_t result;
+	memcpy(&result, record, 4);
+	if (result < 0)
+		return result;
+	memset(buffer, 0, result);
+	memcpy(buffer, record + 4, 6);
+	uint16_t width, height;
+	memcpy(&width, buffer + 2, 2);
+	memcpy(&height, buffer + 4, 2);
+	const size_t framesAt = (size_t)width * height + 6;
+	if (framesAt + 2 <= (size_t)result)
+		memcpy(buffer + framesAt, record + 10, 2);
+	return result;
+}
+
 int32_t ReadTmap_58860_58D70(uint16_t index, uint8_t* buffer)
 {
+	if (PackedGameData())
+		return ReadTmapMeta(index, buffer); // port: the tests without the game
 	if (!tmapsFile_968EC_968EC)
 		return -1;
 	DataFileIO::Seek(tmapsFile_968EC_968EC, TmapOffset(index), 0);

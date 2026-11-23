@@ -86,6 +86,7 @@ std::string LevelsDirectory();//CLEVELS, one per process in the tests
 extern std::string packedDataFile;
 inline bool PackedGameData() { return !packedDataFile.empty(); }
 std::string UnpackPackedData();//the folder with CD_Files (from data.binz) and an empty NETHERW
+std::string UnpackMc1PackedData();//MC1 / HW: the folder of the CD files (from mc1data.binz) with an empty CARPET.CD
 extern int* endTestsCode;
 
 extern uint8_t* readbuffer;

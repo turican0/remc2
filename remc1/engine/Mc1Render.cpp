@@ -8,6 +8,7 @@
 #include "Mc1Game.h"
 #include "Mc1Shared.h"
 #include "Mc1TextureMaps.h"
+#include "../../remc2/engine/engine_support.h"
 #include "../../remc2/engine/GameRenderHD.h"
 #include "../../remc2/engine/GameRenderHW.h"
 #include "../../remc2/engine/GameRenderNG.h"
@@ -184,6 +185,10 @@ void Mc1HwAlphaAfterBlit()
 void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov)
 {
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	// port: the regression tests without the game have no graphics of the world (as the DOSBox references with ret
+	// at 2A700 / 2A740), the state compared does not depend on it
+	if (PackedGameData())
+		return;
 	if (!mc1Renderer)
 	{
 		mc1Renderer = CreateMc1Renderer();

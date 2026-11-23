@@ -28,6 +28,7 @@
 #include "../remc2/engine/sequence_codec.h"
 #include "../remc2/engine/TextureMaps.h"
 #include "../remc1/engine/Mc1Regression.h"
+#include "../remc1/engine/Mc1TextureMaps.h"
 
 
 enum TestType {
@@ -647,6 +648,9 @@ int main(int argc, char** argv)
 	// "--make_tmaps_meta <CD_Files/DATA> <out>": TMAPSMETA.DAT of data/data.binz from the TMAPS?-0.DAT/TAB of the game
 	if (argc == 4 && std::string(argv[1]) == "--make_tmaps_meta")
 		return WriteTmapsMeta(argv[2], argv[3]) ? 0 : 1;
+	// "--make_mc1_tmaps_meta <MC1/DATA> <out>": data/tmapsmeta.dat of data/mc1data.binz from the tmaps of MC1 and HW
+	if (argc == 4 && std::string(argv[1]) == "--make_mc1_tmaps_meta")
+		return WriteMc1TmapsMeta(argv[2], argv[3]) ? 0 : 1;
 	// "--pack_mc1 <dumps of DOSBox> <reference.binz> <frames between the dumps>": the reference of an MC1 / HW test
 	if (argc == 5 && std::string(argv[1]) == "--pack_mc1")
 		return PackMc1Reference(argv[2], argv[3], (uint32_t)atoi(argv[4])) ? 0 : 1;

@@ -13,6 +13,7 @@
 #include "engine/Mc1System.h"
 #include "engine/Select.h"
 #include "../remc2/engine/CommandLineParser.h"
+#include "../remc2/engine/engine_support.h"
 #include "../remc2/engine/read_config.h"
 #include "../remc2/portability/port_filesystem.h"
 #include "../remc2/portability/port_sdl_vga_mouse.h"
@@ -74,6 +75,12 @@ int Mc1Main(int argc, char** argv)
 		const GamePaths& paths = game == SELECTED_HIDDEN_WORLDS ? hiddenWorldsPaths : magicCarpetPaths;
 		mc1DataPath = Mc1CdPath(paths.m_CdFolder);
 		mc1InstallPath = Mc1FolderPath(paths.m_GameFolder);
+		if (PackedGameData())
+		{
+			// regression tests without the game: the CD files from mc1data.binz, the install folder empty
+			mc1DataPath = UnpackMc1PackedData();
+			mc1InstallPath = mc1DataPath + "/CARPET.CD";
+		}
 		std::vector<std::string> gameArgs;
 		gameArgs.push_back(argc > 0 ? argv[0] : "remc2");
 		for (const std::string& param : CommandLineParams.GetUnknownParams())

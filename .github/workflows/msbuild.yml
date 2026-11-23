@@ -53,7 +53,7 @@ jobs:
       run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/remc2.sln
     
     # Regression tests against the memimages of the original game. No game data on the runner: the tests use
-    # remc2-regression-test/data/data.binz (--packed_data) and draw nothing (SDL dummy drivers).
+    # remc2-regression-test/data/data.binz and mc1data.binz (MC1 / HW, --packed_data) and draw nothing (SDL dummy drivers).
     - name: Run Regression Tests
       if: ${{ matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}
       working-directory: ${{env.GITHUB_WORKSPACE}}
