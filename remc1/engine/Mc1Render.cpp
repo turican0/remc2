@@ -12,9 +12,12 @@
 #include "../../remc2/engine/GameRenderHW.h"
 #include "../../remc2/engine/GameRenderNG.h"
 #include "../../remc2/engine/GameRenderOriginal.h"
+#include "../../remc2/engine/GameUI.h"
+#include "../../remc2/engine/globals.h"
 #include "../../remc2/engine/ReadAndDecompress.h"
 #include "../../remc2/engine/read_config.h"
 #include "../../remc2/portability/port_filesystem.h"
+#include "../../remc2/shared/EventDispatcher.h"
 
 // The MC1 world drawn by the renderer of remc2 (RenderGame::MC1 switches the differences of MC1 on).
 // The renderer reads the tables, the textures, the sky and the settings of MC2: they are set from MC1 here, the sprites
@@ -122,6 +125,62 @@ struct SavedSettings
 	bool isCave;
 };
 
+// port (HW renderer): the GPU draws the 3D view behind the screen, the screen goes over it by its alpha. MC2 marks the
+// alpha of its 2D as it draws it, MC1 draws into the screen directly: the view port gets the mark FFh before the world
+// (as the colour of 2A700), what is drawn over the mark and everything around the view port is shown
+static const uint8_t kHwViewMark = 0xFF;
+static bool hwWorldDrawn = false;
+static uint16_t hwView[4] = { 0xFFFF, 0xFFFF, 0, 0 }; // x, y, width, height in the screen
+
+static void HwBeginWorld()
+{
+	if (!pdwScreenAlphaBuffer)
+		return;
+	const uint32_t pitch = screenWidth_18062C;
+	memset(pdwScreenAlphaBuffer, ALPHA_HIDDEN, pitch * screenHeight_180624);
+	const uint32_t offset = (uint32_t)(ViewPortRenderBufferStart_DE558 - pdwScreenBuffer_351628);
+	const uint16_t view[4] = { (uint16_t)(offset % pitch), (uint16_t)(offset / pitch), (uint16_t)viewPort.Width_DE564,
+		(uint16_t)viewPort.Height_DE568 };
+	for (uint32_t row = 0; row < view[3]; row++)
+		memset(pdwScreenBuffer_351628 + offset + row * pitch, kHwViewMark, view[2]);
+	// the view port of MC1 (the map, the screen sizes) to the GPU, MC2 sends it from ViewPort
+	if (memcmp(view, hwView, sizeof(view)))
+	{
+		memcpy(hwView, view, sizeof(view));
+		EventDispatcher::I->DispatchEvent<uint16_t, uint16_t, uint16_t, uint16_t>(EventType::E_VIEWPORT_CHANGE, view[0], view[1], view[2], view[3]);
+	}
+	hwWorldDrawn = true;
+}
+
+void Mc1HwAlphaBeforeBlit()
+{
+	if (!pdwScreenAlphaBuffer || !hwWorldDrawn)
+		return;
+	const uint32_t pitch = screenWidth_18062C;
+	for (uint32_t y = 0; y < screenHeight_180624; y++)
+	{
+		uint8_t* alpha = pdwScreenAlphaBuffer + y * pitch;
+		const uint8_t* pixel = pdwScreenBuffer_351628 + y * pitch;
+		const bool rowInView = y >= hwView[1] && y < (uint32_t)hwView[1] + hwView[3];
+		for (uint32_t x = 0; x < pitch; x++)
+		{
+			if (!rowInView || x < hwView[0] || x >= (uint32_t)hwView[0] + hwView[2])
+				alpha[x] = ALPHA_VISIBLE;
+			else if (!alpha[x] && pixel[x] != kHwViewMark)
+				alpha[x] = ALPHA_VISIBLE;
+		}
+	}
+}
+
+// the screens without the world (the menus) are shown whole
+void Mc1HwAlphaAfterBlit()
+{
+	if (!pdwScreenAlphaBuffer || !hwWorldDrawn)
+		return;
+	memset(pdwScreenAlphaBuffer, ALPHA_VISIBLE, screenWidth_18062C * screenHeight_180624);
+	hwWorldDrawn = false;
+}
+
 void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int16_t posZ, int16_t pitch, int16_t roll, int16_t fov)
 {
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
@@ -137,6 +196,9 @@ void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int
 		if (skyData_AE3D8_AE3C8)
 			UpdateSkyTexture(256, skyData_AE3D8_AE3C8);
 		UploadLoadedTmapTextures();
+		if (pdwScreenAlphaBuffer)
+			memset(pdwScreenAlphaBuffer, ALPHA_VISIBLE, screenWidth_18062C * screenHeight_180624);
+		hwView[0] = hwView[1] = 0xFFFF;
 	}
 	renderGame = RenderGame::MC1;
 
@@ -158,6 +220,15 @@ void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int
 	// the tables B7934 have the layout of ColourLookupTable_F6EE0 (fades, blend 4000h, colours 14000h), the tiles 9334C
 	static_assert(sizeof(tables_B7934_B7924) == sizeof(ColourLookupTable_F6EE0), "the tables of MC1 and MC2");
 	memcpy(ColourLookupTable_F6EE0, &tables_B7934_B7924, sizeof(ColourLookupTable_F6EE0));
+	// port (HW renderer): the shading of the GPU by these tables (the fog to the haze of MC1), MC2 sends them with its
+	// palette, MC1 sets them here
+	static std::vector<uint8_t> hwTables;
+	if (pdwScreenAlphaBuffer && (hwTables.size() != sizeof(ColourLookupTable_F6EE0)
+		|| memcmp(hwTables.data(), ColourLookupTable_F6EE0, sizeof(ColourLookupTable_F6EE0))))
+	{
+		hwTables.assign((const uint8_t*)ColourLookupTable_F6EE0, (const uint8_t*)ColourLookupTable_F6EE0 + sizeof(ColourLookupTable_F6EE0));
+		EventDispatcher::I->DispatchEvent<ResourceType, uint8_t*>(EventType::E_RESOURCE_CHANGE, ResourceType::LOOKUPTABLE_SET, (uint8_t*)ColourLookupTable_F6EE0);
+	}
 	for (int i = 0; i < 256; i++)
 		textureAddresses_DDF50[i] = blockPointers_9334C_9334C[i];
 
@@ -193,6 +264,7 @@ void DrawWorld_30D90_30DD0(uint8_t* screen, int posX, int posY, int16_t yaw, int
 	smalltitBuffer_E9C38 = backScreen_AE3FC_AE3EC;
 
 	(void)screen; // the work screen, as pdwScreenBuffer_351628 in remc2
+	HwBeginWorld();
 	mc1Renderer->DrawWorld_411A0(posX, posY, yaw, posZ, pitch, roll, fov);
 
 	smalltitBuffer_E9C38 = savedScratch;

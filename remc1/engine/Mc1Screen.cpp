@@ -7,6 +7,7 @@
 
 #include "Mc1Files.h"
 #include "Mc1Game.h"
+#include "Mc1Render.h"
 #include "Mc1Sound.h"
 #include "../../remc2/engine/Basic.h"
 #include "../../remc2/engine/Graphics.h"
@@ -223,9 +224,18 @@ static void StereoRow(uint8_t* screen, const uint8_t* eye, int groups, const uin
 	}
 }
 
+static void BlendAndBlit(Type_Mc1State_AE400_AE3F0* state);
+
 void BlendAndBlit_30B30_30B70()
 {
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
+	Mc1HwAlphaBeforeBlit();
+	BlendAndBlit(state);
+	Mc1HwAlphaAfterBlit();
+}
+
+static void BlendAndBlit(Type_Mc1State_AE400_AE3F0* state)
+{
 	if (state->screenSize_0x219B_8603 == 1 && !highResScreen_90708_90708)
 	{
 		const int groups = (uint16_t)viewPort.Width_DE564 >> 2;
