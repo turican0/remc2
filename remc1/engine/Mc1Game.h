@@ -28,6 +28,9 @@ extern uint8_t byte_939E5_939E5;
 extern uint8_t menuDone_96880_96880;
 extern uint8_t* vesaInfo_12F080_12F070;
 extern uint8_t debugOption_AE45A_AE44A;
+// port: -asgame, the level as started from the menu: -custom with the menu initialised and the English texts
+// (TopProcedure_340B0 / 34470), at the first frame the flags of -custom cleared (GameFrame_34530_348F0)
+extern uint8_t mc1AsGame;
 extern uint8_t inputDevices_90B23_90B23;
 extern uint8_t joystickFound_B7700_B76F0;
 extern uint8_t byte_A9058_A9058;

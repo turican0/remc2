@@ -4,7 +4,8 @@ import argparse, os, random, shutil, struct, subprocess, sys, tempfile
 # MC1 / HW for remc2-regression-test (memimages/regressions-<game>/level<NNN>, NNN = level + 1): input.rec (the input
 # of player 0, 10 bytes a frame) played in the original in dosbox-x-remc1 (branch mc1, REMC1_PLAY at 3C9D0), the state
 # dumped every --every frames at 20FB0 (REMC1_DUMP_EVERY) and packed to reference.binz by remc2-regression-test
-# --pack_mc1. --input actions: a random flight with all spells (the cheat commands 30), idle: no input.
+# --pack_mc1. --input actions: a random flight with all spells (the cheat commands 30), idle: no input. --as_game: the
+# level as started from the menu (as dbxrecord.py --asgame; options.txt "-asgame" for the port).
 TOOLS = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(TOOLS, '..', '..'))
 DBX = r'c:\prenos\dosbox-x-remc1\bin\x64\Release'
@@ -15,6 +16,11 @@ GAMES = {
     'mc1': { 'exe': 'CARPET.EXE', 'play': '20D9D0,26C400', 'maps': (0x28A1E0, 0x29A1E0, 0x2BA1E0), 'render': 0x1FB700 },
     'mc1hw': { 'exe': 'HIDDEN.EXE', 'play': '20DD10,26C3F0', 'maps': (0x28A1D0, 0x29A1D0, 0x2BA1D0), 'render': 0x1FB740 },
 }
+# --as_game (as dbxrecord.py --asgame, the port -asgame), MC1 only: at the call of 34B40 (340D9) the start of -custom
+# patched: jnz 34113 -> nop nop (InitMenu 4A980 called), jmp 3411A -> jmp 3411C (then the -custom start), push 2575D8
+# (ftext) -> 257580 (etext) at 3411F; at the first 20FB0 the flags of -custom (settings 583A0 + 1, 100h: no level won
+# check) cleared and the menu item byte_12CBCE 5 (results after a level)
+AS_GAME_POKES = '2050D9,205113,9090;2050D9,20511A,EB00;2050D9,20511F,80752500;1F1FB0,583A1,00;1F1FB0,2EABCE,05'
 
 
 def actions_input(frames, seed, spells=tuple(range(24))):
@@ -94,10 +100,17 @@ def make_conf(exe_line, out, game):
     open(out, 'w').write(text)
 
 
-def make_test(game, level, frames, every, kind, pack_exe, out_root, seed=None, spells=tuple(range(24)), render=True, input_file=None):
+def make_test(game, level, frames, every, kind, pack_exe, out_root, seed=None, spells=tuple(range(24)), render=True, input_file=None,
+              as_game=False):
     g = GAMES[game]
     folder = os.path.join(out_root, 'level%03d' % (level + 1))
     os.makedirs(folder, exist_ok=True)
+    options = os.path.join(folder, 'options.txt')
+    if as_game:
+        assert game == 'mc1'
+        open(options, 'w').write('-asgame\n')
+    elif os.path.exists(options):
+        os.remove(options)
     if seed is None:
         seed = (100 if game == 'mc1' else 200) + level
     data = actions_input(frames + 10, seed, spells) if kind == 'actions' else idle_input(frames + 10)
@@ -122,9 +135,14 @@ def make_test(game, level, frames, every, kind, pack_exe, out_root, seed=None, s
         env['REMC1_DUMP_EVERY'] = str(every)
         env['REMC1_DUMP_HIT'] = str(frames)
         env['REMC1_DUMP_EXIT'] = '1'
+        pokes = []
         if not render:
             # the original without the 3D view: the HW one overwrites its tmap cache and divides by a frame of height 0
-            env['REMC1_POKE'] = '1F1FB0,%X,C3' % g['render']
+            pokes.append('1F1FB0,%X,C3' % g['render'])
+        if as_game:
+            pokes.append(AS_GAME_POKES)
+        if pokes:
+            env['REMC1_POKE'] = ';'.join(pokes)
         subprocess.run([os.path.join(DBX, 'dosbox-x.exe'), '-conf', conf], cwd=DBX, env=env,
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=3600)
         reference = os.path.join(folder, 'reference.binz')
@@ -155,8 +173,9 @@ def main():
     parser.add_argument('--no_render', action='store_true', help='the original without the 3D view')
     parser.add_argument('--input_file', default=None, help='the input.rec to use (10 bytes a frame)')
     parser.add_argument('--spells', default=None, help='the spells of the actions input, e.g. 0-15,17')
+    parser.add_argument('--as_game', action='store_true', help='the level as started from the menu (MC1)')
     args = parser.parse_args()
-    out_root = args.out or os.path.join(ROOT, 'remc2-regression-test', 'memimages', 'regressions-' + args.game)
+    out_root = os.path.abspath(args.out or os.path.join(ROOT, 'remc2-regression-test', 'memimages', 'regressions-' + args.game))  # DOSBox runs in its own folder
     spells = tuple(range(24))
     if args.spells:
         spells = []
@@ -166,7 +185,8 @@ def main():
         spells = tuple(spells)
     failed = 0
     for level in args.levels:
-        if not make_test(args.game, level, args.frames, args.every, args.input, args.pack_exe, out_root, args.seed, spells, not args.no_render, args.input_file):
+        if not make_test(args.game, level, args.frames, args.every, args.input, args.pack_exe, out_root, args.seed, spells, not args.no_render, args.input_file,
+                         args.as_game):
             failed += 1
     sys.exit(1 if failed else 0)
 

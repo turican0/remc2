@@ -4,6 +4,7 @@
 #include "../remc2/engine/Level.h"
 #include "../remc2/engine/read_config.h"
 #include <filesystem>
+#include <fstream>
 #include "../remc1/Mc1Main.h"
 #include "../remc1/engine/Mc1Regression.h"
 
@@ -62,8 +63,9 @@ std::string Mc1RegressionsPath(const std::string& game)
 	return (std::filesystem::path(RegressionsPath()).parent_path() / ("regressions-" + game)).string();
 }
 
-// MC1 or HW (game mc1 / mc1hw): the level started by -custom -level, the input of input.rec, the state compared with
-// reference.binz of DOSBox by Mc1RegressionFrame, which ends the test (20 passed)
+// MC1 or HW (game mc1 / mc1hw): the level started by -custom -level (and the options of options.txt, e.g. -asgame),
+// the input of input.rec, the state compared with reference.binz of DOSBox by Mc1RegressionFrame, which ends the test
+// (20 passed)
 int run_mc1test(const std::string& game, int level, const std::string& record)
 {
 	const std::string testName = game + (record.empty() ? "" : " " + record) + " level " + std::to_string(level);
@@ -79,6 +81,9 @@ int run_mc1test(const std::string& game, int level, const std::string& record)
 	if (!std::filesystem::exists(path))
 		path = (std::filesystem::path(__FILE__).parent_path() / "regression-config.json").string();
 	std::vector<std::string> args = { "remc2", "-game", game, "-custom", "-level", std::to_string(level - 1), "--config_file_path", path };
+	std::ifstream options(mc1RegressionFolder + "/options.txt");
+	for (std::string option; options >> option;)
+		args.push_back(option);
 	std::vector<char*> argv;
 	for (auto& s : args)
 		argv.push_back(s.data());

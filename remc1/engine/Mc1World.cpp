@@ -9,6 +9,7 @@
 #include "Mc1Input.h"
 #include "Mc1TextureMaps.h"
 #include "Mc1Level.h"
+#include "Mc1Menu.h"
 #include "Mc1PlayerEvents.h"
 #include "Mc1Regression.h"
 #include "Mc1Shared.h"
@@ -93,6 +94,14 @@ void GameFrame_34530_348F0()
 		break;
 	}
 	PlayQueuedSounds_55100_55630();
+	if (mc1AsGame)
+	{
+		// port: -asgame, at the first 20FB0 as REMC1_POKE of dbxrecord.py / mkregression.py: the flags of -custom
+		// cleared (100h: no level won check) and the menu item 5 (a new game), so a won level goes on to the results
+		mc1AsGame = 0;
+		settings->flags_0x00_0 &= ~0xFF00u;
+		mainMenuItem_12CBCE_12CBBE = 5;
+	}
 	Mc1RegressionFrame(); // port: the regression test compares the state with DOSBox
 	DrawFrame_20FB0_20FB0();
 	// the ticks of the frame for 5A560, then the time of the frame
