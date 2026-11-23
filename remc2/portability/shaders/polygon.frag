@@ -87,6 +87,9 @@ vec3 waterOverReflection(vec3 water, float row)
 {
 	vec3 reflection = texelFetch(uReflection, ivec2(gl_FragCoord.xy), 0).rgb;
 
+	if (pc.tint == 16u)   // MC1: blend[reflection << 8 | water], the water faded to the reflection by 55h / 100h
+		return mix(water, reflection, 85.0 / 256.0);
+
 	if (pc.tint == 0u)   // day
 		return dayRamp(DAY_WATER.x * dot(water, LUMA) + DAY_WATER.y * dot(reflection, LUMA) + DAY_WATER.z);
 

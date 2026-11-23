@@ -1179,6 +1179,8 @@ void GameRenderHW::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int ti
 	{
 		poly.SpriteMode = 26;
 		poly.Tint = static_cast<uint8_t>(world_D41A0.terrain_2FECE.MapType);   // the shader picks the blend fitted for the map type
+		if (RenderMc1())
+			poly.Tint = 16;   // MC1: its own blend table (2/3 the water, 1/3 the reflection), not the fit to MC2's palette
 	}
 
 	// Fan (a,b,c,d) splits into (a,b,c) and (a,c,d), so the first vertex picks the diagonal.
