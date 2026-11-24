@@ -5,7 +5,8 @@ import argparse, os, random, shutil, struct, subprocess, sys, tempfile
 # of player 0, 10 bytes a frame) played in the original in dosbox-x-remc1 (branch mc1, REMC1_PLAY at 3C9D0), the state
 # dumped every --every frames at 20FB0 (REMC1_DUMP_EVERY) and packed to reference.binz by remc2-regression-test
 # --pack_mc1. --input actions: a random flight with all spells (the cheat commands 30), idle: no input. --as_game: the
-# level as started from the menu (as dbxrecord.py --asgame; options.txt "-asgame" for the port).
+# level as started from the menu (as dbxrecord.py --asgame; options.txt "-asgame" for the port). --slot <carpdd??.gam>
+# (with --as_game): the saved game loaded after the menu is initialised (slot.gam, the port -loadslot).
 TOOLS = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(TOOLS, '..', '..'))
 DBX = r'c:\prenos\dosbox-x-remc1\bin\x64\Release'
@@ -21,6 +22,17 @@ GAMES = {
 # (ftext) -> 257580 (etext) at 3411F; at the first 20FB0 the flags of -custom (settings 583A0 + 1, 100h: no level won
 # check) cleared and the menu item byte_12CBCE 5 (results after a level)
 AS_GAME_POKES = '2050D9,205113,9090;2050D9,20511A,EB00;2050D9,20511F,80752500;1F1FB0,583A1,00;1F1FB0,2EABCE,05'
+
+
+def slot_pokes(path):
+    # 51AF0 at 3411C (after InitMenu): the names (settings 583A0 + 1Dh, 3Dh), the level (+ 11h), the progress of
+    # player 0 (state 1F690 + 340Bh + 7CBh), 12CBD0, 12CBD1, newGame 9687C = 0, the 0Ch bytes of state + 2195h
+    data = open(path, 'rb').read()
+    assert len(data) == 142 and struct.unpack_from('<i', data, 0)[0] == 4
+    level, b0, b1 = struct.unpack_from('<i', data, 0x64)[0], data[0x80], data[0x81]
+    parts = [(0x583BD, data[0x18:0x38]), (0x583DD, data[0x38:0x58]), (0x583B1, struct.pack('<H', (level // 4 - b0 - b1) & 0xFFFF)),
+             (0x23266, data[0x68:0x80]), (0x2EABD0, bytes([b0, b1])), (0x25487C, b'\0'), (0x21825, data[0x82:0x8E])]
+    return ';'.join('20511C,%X,%s' % (a, b.hex().upper()) for a, b in parts)
 
 
 def actions_input(frames, seed, spells=tuple(range(24))):
@@ -101,7 +113,7 @@ def make_conf(exe_line, out, game):
 
 
 def make_test(game, level, frames, every, kind, pack_exe, out_root, seed=None, spells=tuple(range(24)), render=True, input_file=None,
-              as_game=False):
+              as_game=False, slot=None):
     g = GAMES[game]
     folder = os.path.join(out_root, 'level%03d' % (level + 1))
     os.makedirs(folder, exist_ok=True)
@@ -111,6 +123,12 @@ def make_test(game, level, frames, every, kind, pack_exe, out_root, seed=None, s
         open(options, 'w').write('-asgame\n')
     elif os.path.exists(options):
         os.remove(options)
+    slot_copy = os.path.join(folder, 'slot.gam')
+    if slot:
+        assert as_game
+        shutil.copyfile(slot, slot_copy)
+    elif os.path.exists(slot_copy):
+        os.remove(slot_copy)
     if seed is None:
         seed = (100 if game == 'mc1' else 200) + level
     data = actions_input(frames + 10, seed, spells) if kind == 'actions' else idle_input(frames + 10)
@@ -141,6 +159,8 @@ def make_test(game, level, frames, every, kind, pack_exe, out_root, seed=None, s
             pokes.append('1F1FB0,%X,C3' % g['render'])
         if as_game:
             pokes.append(AS_GAME_POKES)
+        if slot:
+            pokes.append(slot_pokes(slot))
         if pokes:
             env['REMC1_POKE'] = ';'.join(pokes)
         subprocess.run([os.path.join(DBX, 'dosbox-x.exe'), '-conf', conf], cwd=DBX, env=env,
@@ -174,6 +194,7 @@ def main():
     parser.add_argument('--input_file', default=None, help='the input.rec to use (10 bytes a frame)')
     parser.add_argument('--spells', default=None, help='the spells of the actions input, e.g. 0-15,17')
     parser.add_argument('--as_game', action='store_true', help='the level as started from the menu (MC1)')
+    parser.add_argument('--slot', default=None, help='with --as_game: the saved game (carpdd??.gam) loaded first')
     args = parser.parse_args()
     out_root = os.path.abspath(args.out or os.path.join(ROOT, 'remc2-regression-test', 'memimages', 'regressions-' + args.game))  # DOSBox runs in its own folder
     spells = tuple(range(24))
@@ -186,7 +207,7 @@ def main():
     failed = 0
     for level in args.levels:
         if not make_test(args.game, level, args.frames, args.every, args.input, args.pack_exe, out_root, args.seed, spells, not args.no_render, args.input_file,
-                         args.as_game):
+                         args.as_game, args.slot):
             failed += 1
     sys.exit(1 if failed else 0)
 

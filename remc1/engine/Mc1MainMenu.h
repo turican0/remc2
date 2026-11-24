@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <string>
 
 #include "Mc1Files.h"
 #include "Mc1MenuText.h"
@@ -98,4 +99,5 @@ int32_t SaveDialog_4CCA0_4CFE0();
 void EditSlotName_4D0F0_4D430();
 void DrawSaveDialog_4D190_4D4D0();
 int32_t LoadGame_51AF0_51E30(uint8_t slot);
+int32_t LoadGameFile(const std::string& path, uint8_t index); // port: 51AF0 from a file (-loadslot)
 int32_t SaveGame_51C90_51FD0(uint8_t slot);

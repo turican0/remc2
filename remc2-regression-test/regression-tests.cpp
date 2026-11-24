@@ -85,6 +85,12 @@ int run_mc1test(const std::string& game, int level, const std::string& record)
 	std::ifstream options(mc1RegressionFolder + "/options.txt");
 	for (std::string option; options >> option;)
 		args.push_back(option);
+	if (std::filesystem::exists(mc1RegressionFolder + "/slot.gam"))
+	{
+		// the level after a saved game (-asgame -loadslot)
+		args.push_back("-loadslot");
+		args.push_back(mc1RegressionFolder + "/slot.gam");
+	}
 	std::vector<char*> argv;
 	for (auto& s : args)
 		argv.push_back(s.data());

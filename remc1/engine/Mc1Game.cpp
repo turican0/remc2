@@ -16,6 +16,7 @@
 #include "Mc1Level.h"
 #include "Mc1PlayerEvents.h"
 #include "Mc1Regression.h"
+#include "Mc1MainMenu.h"
 #include "Mc1Menu.h"
 #include "Mc1Network.h"
 #include "Mc1Sound.h"
@@ -49,6 +50,7 @@ uint8_t menuDone_96880_96880 = 0;
 uint8_t* vesaInfo_12F080_12F070 = nullptr;
 uint8_t debugOption_AE45A_AE44A = 0;
 uint8_t mc1AsGame = 0;
+std::string mc1LoadSlot;
 uint8_t inputDevices_90B23_90B23 = 0;
 uint8_t joystickFound_B7700_B76F0 = 0;
 uint8_t byte_A9058_A9058 = 0;
@@ -86,7 +88,11 @@ int TopProcedure_340B0(int argc, char** argv)
 		if (mc1Settings_AE408_AE3F8->flags_0x00_0 & 0x100)
 		{
 			if (mc1AsGame)
+			{
 				InitMenu_4A980_4ACC0(); // port: -asgame, the menu for after the level (REMC1_POKE of dbxrecord.py)
+				if (!mc1LoadSlot.empty())
+					LoadGameFile(mc1LoadSlot, 0);
+			}
 			byte_939CD_939CD = 0;
 			byte_939E5_939E5 = 0;
 			byte_939CC_939CC = 0;
@@ -208,7 +214,11 @@ int TopProcedure_34470(int argc, char** argv)
 		if (mc1Settings_AE408_AE3F8->flags_0x00_0 & 0x100)
 		{
 			if (mc1AsGame)
+			{
 				InitMenu_4A980_4ACC0(); // port: -asgame, the menu for after the level (REMC1_POKE of dbxrecord.py)
+				if (!mc1LoadSlot.empty())
+					LoadGameFile(mc1LoadSlot, 0);
+			}
 			byte_939CD_939CD = 0;
 			byte_939E5_939E5 = 0;
 			byte_939CC_939CC = 0;
@@ -385,6 +395,8 @@ int16_t ProcessCommandLine_34DD0_35190(uint16_t argc, char** argv)
 			custom = 1;
 		else if (!_stricmp("asgame", option))
 			mc1AsGame = 1; // port
+		else if (!_stricmp("loadslot", option) && i + 1 < argc)
+			mc1LoadSlot = argv[++i]; // port
 		else if (!_stricmp("setsound", option))
 			setSound = 1;
 		else if (!_stricmp("demo", option))

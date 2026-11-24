@@ -1074,12 +1074,16 @@ static std::string SavePath(uint8_t slot)
 
 int32_t LoadGame_51AF0_51E30(uint8_t slot)
 {
+	return LoadGameFile(SavePath(slot - 1), slot - 1);
+}
+
+int32_t LoadGameFile(const std::string& path, uint8_t index)
+{
 	int32_t version = 4;
 	int32_t result = 0;
-	uint8_t index = slot - 1;
 	// the level is written as (level + 12CBD0 + 12CBD1) * 4
 	int32_t level = (mc1Settings_AE408_AE3F8->levelIndex_0x11_17 + byte_12CBD0_12CBC0 + byte_12CBD1_12CBC1) * 4;
-	FILE* file = DataFileIO::CreateOrOpenFile(SavePath(index).c_str(), 0x200);
+	FILE* file = DataFileIO::CreateOrOpenFile(path.c_str(), 0x200);
 	if (!file)
 		return 0;
 	DataFileIO::Read(file, (uint8_t*)&version, 4);
