@@ -150,8 +150,9 @@ static void DestroyWizardsByModel(const Type_Mc1Entity* wizard, uint8_t model, u
 }
 
 // port: the input of player 0 played back from a recording of DOSBox (dosbox-x-remc2 branch mc1, REMC1_RECORD at
-// 3C9D0), the file of the regression test or in the env REMC1_PLAY; at its end the input is left to the player
-static void PlayRecordedInput(Type_Mc1PlayerInput* input)
+// 3C9D0), the file of the regression test or in the env REMC1_PLAY; at its end the input is left to the player.
+// Returns whether the frame was played.
+static bool PlayRecordedInput(Type_Mc1PlayerInput* input)
 {
 	static_assert(sizeof(Type_Mc1PlayerInput) == 10, "the record of DOSBox");
 	static FILE* file = nullptr;
@@ -166,22 +167,42 @@ static void PlayRecordedInput(Type_Mc1PlayerInput* input)
 			file = fopen(path, "rb");
 	}
 	if (!file)
-		return;
+		return false;
 	Type_Mc1PlayerInput recorded;
 	if (fread(&recorded, 1, sizeof(recorded), file) != sizeof(recorded))
 	{
 		fclose(file);
 		file = nullptr;
-		return;
+		return false;
 	}
 	*input = recorded;
+	return true;
+}
+
+// port: the input of player 0 recorded to the file in the env REMC1_RECORD (as dosbox-x-remc1, 10 bytes a frame,
+// flushed each frame so a crash keeps it); with REMC1_PLAY from the end of the replay
+static void RecordInput(const Type_Mc1PlayerInput* input)
+{
+	static FILE* file = nullptr;
+	static bool opened = false;
+	if (!opened)
+	{
+		opened = true;
+		if (const char* path = getenv("REMC1_RECORD"))
+			file = fopen(path, "wb");
+	}
+	if (!file)
+		return;
+	fwrite(input, 1, sizeof(Type_Mc1PlayerInput), file);
+	fflush(file);
 }
 
 void PlayerEvents_3C9D0_3CD10()
 {
 	Type_Mc1State_AE400_AE3F0* state = mc1State_AE400_AE3F0;
 	Type_Mc1Settings_AE408_AE3F8* settings = mc1Settings_AE408_AE3F8;
-	PlayRecordedInput(&state->playerInputs_0x7413_29715[0]);
+	if (!PlayRecordedInput(&state->playerInputs_0x7413_29715[0]))
+		RecordInput(&state->playerInputs_0x7413_29715[0]);
 	uint8_t nextMovie = 0;
 	if (settings->flags_0x00_0 & 0x10)
 	{
