@@ -1,5 +1,6 @@
 #include "Mc1Hmi.h"
 
+#include <cstdio>
 #include <cstring>
 #include <filesystem>
 #include <mutex>
@@ -11,6 +12,7 @@
 #include "../../remc2/portability/awe32/Awe32Rom.h"
 #include "../../remc2/portability/port_filesystem.h"
 #include "../../remc2/portability/port_sdl_sound.h"
+#include "../../remc2/utilities/DataFileRNC.h"
 
 // the driver files of the MSS emulation are those of the MC2 installation (gameFolder of the config)
 static std::string SoundDriverPath(const char* file)
@@ -217,8 +219,18 @@ static uint32_t ReadU32(const uint8_t* p)
 	return p[0] | (p[1] << 8) | (p[2] << 16) | ((uint32_t)p[3] << 24);
 }
 
+// port: the recording of the ogg music (Mc1RenderMusic): the channels whose notes play, the channels at the danger
+// volume 7Eh (their own CC 7 replaced)
+static uint16_t recordNotes = 0xFFFF;
+static uint16_t recordDanger = 0;
+
 static void SendMidi(uint8_t status, uint8_t data1, uint8_t data2)
 {
+	const uint16_t channel = 1 << (status & 0x0F);
+	if ((status & 0xF0) == 0x90 && !(recordNotes & channel))
+		return;
+	if ((status & 0xF0) == 0xB0 && data1 == 7 && (recordDanger & channel))
+		data2 = 0x7E;
 	if (mdiDriver)
 		AilSendChannelVoiceMessage_98360(mdiDriver, nullptr, status, data1, data2);
 }
@@ -326,9 +338,15 @@ static void HmpService(void* /*arg*/)
 
 uint16_t sosMIDIInitDriver_6035F_6086F(uint16_t deviceId, uint16_t* driverHandle)
 {
-	// port: MC1 plays its music only through the AWE32 (_MIDI_AWE32), here the SBAWE32.MDI of MSS
-	if (deviceId != SOS_MIDI_AWE32 || !awe32Music)
+	// port: MC1 plays its music through the AWE32 (_MIDI_AWE32), here the SBAWE32.MDI of MSS, or as the ogg music
+	// (Mc1OggPlay of PlayMusic_5D290, the songs are not played then)
+	if (deviceId != SOS_MIDI_AWE32)
 		return 1;
+	if (!awe32Music)
+	{
+		*driverHandle = 0;
+		return oggmusic ? 0 : 1;
+	}
 	// the AIL preferences MC2 sets before AIL_install_MDI_driver_file (26E6F0): service 120 Hz, volume 127
 	AilSetPreference_91A80(11, 120);
 	AilSetPreference_91A80(12, 1);
@@ -359,8 +377,9 @@ uint16_t sosMIDIInitDriver_6035F_6086F(uint16_t deviceId, uint16_t* driverHandle
 	}
 	if (!mdiDriver)
 	{
-		Logger->error("MC1 music: SBAWE32.MDI not installed ({})", path);
-		return 1;
+		SOUND_Awe32FallbackToOgg("MC1: SBAWE32.MDI not installed (" + path + ")");
+		*driverHandle = 0;
+		return 0;
 	}
 	// the songs tick at their tempo in the AWE32 output (instead of the XMIDI service of MSS, MC1 has no XMI)
 	Awe32Mdi::SetService(HmpService, nullptr, 120);
@@ -515,6 +534,137 @@ uint16_t sosMIDIEnableChannelStealing_5EDD6_5F2E6(uint16_t enable)
 	uint16_t old = channelStealing;
 	channelStealing = enable;
 	return old;
+}
+
+// ---- the recording of the ogg music ------------------------------------------------------------------------------
+
+static bool ReadBankFile(const std::string& path, std::vector<uint8_t>& data)
+{
+	FILE* file = fopen(path.c_str(), "rb");
+	if (!file)
+		return false;
+	std::vector<uint8_t> packed;
+	uint8_t buffer[0x10000];
+	for (size_t n; (n = fread(buffer, 1, sizeof(buffer), file)) > 0;)
+		packed.insert(packed.end(), buffer, buffer + n);
+	fclose(file);
+	if (packed.size() < 18 || memcmp(packed.data(), "RNC", 3))
+	{
+		data = packed;
+		return true;
+	}
+	const uint32_t size = (packed[4] << 24) | (packed[5] << 16) | (packed[6] << 8) | packed[7];
+	packed.resize(packed.size() + 0x20000);
+	data.assign(size + 0x1000, 0);
+	if (DataFileRNC::Decompress(packed.data(), data.data()) < 0)
+		return false;
+	data.resize(size);
+	return true;
+}
+
+static void WriteWav(const std::string& path, const std::vector<int16_t>& samples)
+{
+	FILE* file = fopen(path.c_str(), "wb");
+	if (!file)
+		return;
+	const uint32_t bytes = (uint32_t)(samples.size() * 2);
+	const uint32_t rate = Awe32Mdi::kSampleRate;
+	uint8_t header[44] = { 'R', 'I', 'F', 'F' };
+	auto put32 = [&](int at, uint32_t v) { memcpy(header + at, &v, 4); };
+	auto put16 = [&](int at, uint16_t v) { memcpy(header + at, &v, 2); };
+	put32(4, 36 + bytes);
+	memcpy(header + 8, "WAVEfmt ", 8);
+	put32(16, 16);
+	put16(20, 1);
+	put16(22, 2);
+	put32(24, rate);
+	put32(28, rate * 4);
+	put16(32, 4);
+	put16(34, 16);
+	memcpy(header + 36, "data", 4);
+	put32(40, bytes);
+	fwrite(header, 1, sizeof(header), file);
+	fwrite(samples.data(), 2, samples.size(), file);
+	fclose(file);
+}
+
+// one pass of a song (it ends when all its tracks end, the game then starts it again), at most 20 minutes
+static void RecordSong(uint8_t* data, uint16_t notes, uint16_t danger, std::vector<int16_t>& out)
+{
+	static const uint32_t trackMap[32] = {
+		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+	};
+	out.clear();
+	sosMIDIResetDriver_6091D_60E2D(0);
+	recordNotes = notes;
+	recordDanger = danger;
+	for (int channel = 0; channel < 16; channel++)
+		if (danger & (1 << channel))
+			SendMidi(0xB0 | channel, 7, 0x7E);
+	Type_SosMidiInitSong init = {};
+	init.songData_0x00_0 = data;
+	uint16_t song = 0;
+	if (sosMIDIInitSong_5EE22_5F332(&init, trackMap, &song) || sosMIDIStartSong_5F398_5F8A8(song))
+		return;
+	const int chunk = Awe32Mdi::kSampleRate / 100;
+	std::vector<int16_t> block(chunk * 2);
+	for (int i = 0; i < 20 * 60 * 100 && !sosMIDISongDone_5D7F0_5DD00(song); i++)
+	{
+		Awe32Mdi::RenderNow(block.data(), chunk);
+		out.insert(out.end(), block.begin(), block.end());
+	}
+	sosMIDIStopSong_5F420_5F930(song);
+	sosMIDIUnInitSong_5F355_5F865(song);
+	recordNotes = 0xFFFF;
+	recordDanger = 0;
+}
+
+bool Mc1RecordMusic(const std::string& dataFolder, const std::string& outFolder)
+{
+	awe32Music = true;
+	uint16_t driver = 0;
+	if (sosMIDIInitDriver_6035F_6086F(SOS_MIDI_AWE32, &driver) || !awe32Music)
+		return false;
+	std::filesystem::create_directories(outFolder);
+	for (int bank = 0; bank < 2; bank++)
+	{
+		std::vector<uint8_t> tab;
+		std::vector<uint8_t> dat;
+		const std::string name = dataFolder + "/music" + std::to_string(bank) + "-2";
+		if (!ReadBankFile(name + ".tab", tab) || !ReadBankFile(name + ".dat", dat))
+		{
+			Logger->error("MC1 music: {} not read", name);
+			return false;
+		}
+		for (uint32_t index = 1; index < tab.size() / 32; index++)
+		{
+			const uint8_t* entry = tab.data() + index * 32;
+			uint32_t offset;
+			memcpy(&offset, entry + 0x12, 4);
+			if (offset + 8 > dat.size())
+				continue;
+			// the name of the song without its extension (CGAME1.GEN)
+			char title[19] = {};
+			memcpy(title, entry, 18);
+			if (char* dot = strchr(title, '.'))
+				*dot = 0;
+			// the songs of the levels (bank 0, 1-3): the channels 3-5 fade in the danger (20BD0)
+			const bool levelSong = bank == 0 && index <= 3;
+			char file[64];
+			snprintf(file, sizeof(file), "%d%02u_%s", bank, index, title);
+			std::vector<int16_t> samples;
+			RecordSong(dat.data() + offset, levelSong ? 0xFFC7 : 0xFFFF, 0, samples);
+			WriteWav(outFolder + "/" + file + ".wav", samples);
+			Logger->info("MC1 music: {} {:.1f} s", file, samples.size() / 2.0 / Awe32Mdi::kSampleRate);
+			if (levelSong)
+			{
+				RecordSong(dat.data() + offset, 0x0038, 0x0038, samples);
+				WriteWav(outFolder + "/" + file + "_danger.wav", samples);
+			}
+		}
+	}
+	sosMIDIUnInitDriver_6080C_60D1C(driver, true);
+	return true;
 }
 
 // ---- timer ---------------------------------------------------------------------------------------------------

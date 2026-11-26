@@ -211,6 +211,10 @@ extern int m_ptrSpeechBytesOffSet;
 
 extern std::string musicType;
 extern std::string awe32RomFolder;
+// the wave ROM of awe32RomFolder for the AWE32 music (init_sound does it with the fallback folder)
+bool LocateAwe32Rom(std::string& error);
+// the AWE32 music cannot play (e.g. the driver of MC1 missing): the ogg music instead, the warning shown in the game
+void SOUND_Awe32FallbackToOgg(const std::string& reason);
 extern bool awe32Music;//the XMI music of the game plays through the AWE32 emulation (musicType "awe32" and the ROM found)
 extern bool useMagicCarpet1Music;
 extern bool awe32GmIntroMusic;//the intro and the cutscenes play the General MIDI version of the XMI music instead of the AWE32 one
@@ -226,6 +230,11 @@ void SOUND_GameStateChange(const GameState gameState);
 //bool load_sound_files();
 void clean_up_sound();
 void DeleteWarMusic();
+// MC1 / HW: the ogg music instead of the HMP songs (musicType ogg, or awe32 without the wave ROM): the song of the
+// bank looped, its *_danger.ogg (the channels 3-5 of the level songs) on the war channel at the danger volume (0-7Fh)
+bool Mc1OggPlay(int bank, int song);
+void Mc1OggStop();
+void Mc1OggDangerVolume(int volume);
 /*int playsound1();
 int playsound2();
 int playsound3();

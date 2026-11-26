@@ -189,6 +189,7 @@
     <PostBuildEvent>
       <Command>
 		XCOPY "$(SolutionDir)enhancedassets\MC2\music-ogg" "$(TargetDir)MC2\music-ogg\" /S /Y
+		XCOPY "$(SolutionDir)enhancedassets\MC1\music-ogg" "$(TargetDir)MC1\music-ogg\" /S /Y
 		XCOPY "$(SolutionDir)enhancedassets\sound\awe32data" "$(TargetDir)sound\awe32data\" /S /Y
       </Command>
     </PostBuildEvent>
@@ -223,6 +224,7 @@
     <PostBuildEvent>
       <Command>
         XCOPY "$(SolutionDir)enhancedassets\MC2\music-ogg" "$(TargetDir)MC2\music-ogg\" /S /Y
+        XCOPY "$(SolutionDir)enhancedassets\MC1\music-ogg" "$(TargetDir)MC1\music-ogg\" /S /Y
         XCOPY "$(SolutionDir)enhancedassets\sound\awe32data" "$(TargetDir)sound\awe32data\" /S /Y
       </Command>
     </PostBuildEvent>
@@ -259,6 +261,7 @@
 		XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
 		XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
 		XCOPY "$(SolutionDir)enhancedassets\MC2\music-ogg" "$(TargetDir)MC2\music-ogg\" /S /Y
+		XCOPY "$(SolutionDir)enhancedassets\MC1\music-ogg" "$(TargetDir)MC1\music-ogg\" /S /Y
 		XCOPY "$(SolutionDir)enhancedassets\sound\awe32data" "$(TargetDir)sound\awe32data\" /S /Y
       </Command>
     </PostBuildEvent>
@@ -297,6 +300,7 @@
 		XCOPY "$(SolutionDir)config.json" "$(TargetDir)" /Y
 		XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
 		XCOPY "$(SolutionDir)enhancedassets\MC2\music-ogg" "$(TargetDir)MC2\music-ogg\" /S /Y
+		XCOPY "$(SolutionDir)enhancedassets\MC1\music-ogg" "$(TargetDir)MC1\music-ogg\" /S /Y
 		XCOPY "$(SolutionDir)enhancedassets\sound\awe32data" "$(TargetDir)sound\awe32data\" /S /Y
 	  </Command>
     </PostBuildEvent>
@@ -322,6 +326,7 @@
     <PostBuildEvent>
       <Command>
 		XCOPY "$(SolutionDir)enhancedassets\MC2\music-ogg" "$(TargetDir)MC2\music-ogg\" /S /Y
+		XCOPY "$(SolutionDir)enhancedassets\MC1\music-ogg" "$(TargetDir)MC1\music-ogg\" /S /Y
 		XCOPY "$(SolutionDir)enhancedassets\sound\awe32data" "$(TargetDir)sound\awe32data\" /S /Y
 	  </Command>
     </PostBuildEvent>
@@ -343,6 +348,7 @@
     <PostBuildEvent>
       <Command>
 		XCOPY "$(SolutionDir)enhancedassets\MC2\music-ogg" "$(TargetDir)MC2\music-ogg\" /S /Y
+		XCOPY "$(SolutionDir)enhancedassets\MC1\music-ogg" "$(TargetDir)MC1\music-ogg\" /S /Y
 		XCOPY "$(SolutionDir)enhancedassets\sound\awe32data" "$(TargetDir)sound\awe32data\" /S /Y
 	  </Command>
     </PostBuildEvent>

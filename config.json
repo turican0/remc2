@@ -63,6 +63,18 @@
 							{ "key": "oggFolder", "value": "MC2/music-ogg" },
 							{ "key": "awe32RomFolder", "value": "sound/awe32data" }
 						]
+					},
+					{
+						"name": "MagicCarpet",
+						"path": [
+							{ "key": "oggFolder", "value": "MC1/music-ogg" }
+						]
+					},
+					{
+						"name": "HiddenWorlds",
+						"path": [
+							{ "key": "oggFolder", "value": "MC1/music-ogg" }
+						]
 					}
 				],
 				"hqSound": true,

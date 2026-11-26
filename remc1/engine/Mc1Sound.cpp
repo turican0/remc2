@@ -44,6 +44,7 @@ Type_SosStartSample startSample_939F0_939F0 = {};
 uint8_t* musicBankTab_CBF60_CBF50 = nullptr;
 uint8_t* musicBankTabEnd_CBF64_CBF54 = nullptr;
 uint8_t* musicBankData_CBF68_CBF58 = nullptr;
+static uint16_t musicBank = 0; // port: the bank of the ogg music (Mc1OggPlay)
 uint8_t* soundBankData_CC130_CC120 = nullptr;
 uint8_t* soundBankTab_CC154_CC144 = nullptr;
 uint8_t* soundBankTabEnd_CC1C0_CC1B0 = nullptr;
@@ -94,6 +95,8 @@ void StopMusic_20E60_20E60()
 		sosMIDIStopSong_5F420_5F930(song_CBFD8_CBFC8);
 	sosMIDIUnInitSong_5F355_5F865(song_CBFD8_CBFC8);
 	sosMIDIResetDriver_6091D_60E2D(midiDriver_CBFDC_CBFCC);
+	if (!awe32Music)
+		Mc1OggStop(); // port: the ogg music
 	currentMusic_939D2_939D2 = 0;
 }
 
@@ -321,6 +324,7 @@ int32_t LoadMusicBank_5CEF0_5D400(uint16_t bank)
 {
 	if (!byte_939CC_939CC)
 		return 1;
+	musicBank = bank;
 	sprintf(musicDatPath_9AE00_9AE00, "data/music%d-%d.dat", bank, musicFile_CBFEE_CBFDE);
 	sprintf(musicTabPath_9AE2C_9AE2C, "data/music%d-%d.tab", bank, musicFile_CBFEE_CBFDE);
 	if (LoadFileEntry_634E0_639F0(&musicFiles_9AE00_9AE00[0]) != 1)
@@ -410,6 +414,8 @@ void PlayMusic_5D290_5D7A0(int16_t music)
 		return;
 	}
 	sosMIDIEnableChannelStealing_5EDD6_5F2E6(0);
+	if (!awe32Music)
+		Mc1OggPlay(musicBank, music); // port: the ogg music instead of the song
 	musicVolume_939D0_939D0 = 100;
 	currentMusic_939D2_939D2 = music;
 }
@@ -954,6 +960,8 @@ static uint32_t DangerMusicTimer_20BD0_20BD0(uint32_t /*timer*/)
 		const uint8_t message[3] = { (uint8_t)(0xB0 + channel), 7, dangerVolume_9008C_9008C };
 		sosMIDISendMIDIData_5EDA0_5F2B0(midiDriver_CBFDC_CBFCC, message, 3);
 	}
+	if (!awe32Music)
+		Mc1OggDangerVolume(dangerVolume_9008C_9008C); // port: the channels 3-5 are the *_danger.ogg
 	if (dangerVolume_9008C_9008C == 0x7E && dangerMode_9008D_9008D == 2)
 	{
 		ReleaseTimerEvent(dangerTimerHandle_80000_80000);

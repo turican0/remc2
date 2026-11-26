@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <string>
 
 // port: the calls of the HMI Sound Operating System 3 (sosDIGI*, sosMIDI*, sosTIMER*) MC1 uses, done with the
 // MSS emulation of remc2 the same way the HMI drivers did them: SB16.DIG for the samples, SBAWE32.MDI (AWE32
@@ -54,6 +55,10 @@ bool sosMIDISongDone_5D7F0_5DD00(uint16_t songHandle);
 uint16_t sosMIDIEnableChannelStealing_5EDD6_5F2E6(uint16_t enable);
 // a MIDI message straight to the driver (the channel messages of MC1)
 uint16_t sosMIDISendMIDIData_5EDA0_5F2B0(uint16_t driverHandle, const uint8_t* data, uint16_t length);
+
+// port: the ogg music recorded by the AWE32 emulation from <data>/music<bank>-2 to <out> (remc2-regression-test
+// --record_mc1_music)
+bool Mc1RecordMusic(const std::string& dataFolder, const std::string& outFolder);
 
 // timer
 uint16_t sosTIMERRegisterEvent_5D97B_5DE8B(uint16_t rate, uint32_t (*event)(uint32_t), uint16_t* timerHandle);

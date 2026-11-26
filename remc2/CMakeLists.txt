@@ -376,6 +376,11 @@ install(
 )
 install(
     DIRECTORY
+    ${CMAKE_SOURCE_DIR}/enhancedassets/MC1/music-ogg
+    DESTINATION bin/MC1
+)
+install(
+    DIRECTORY
     ${CMAKE_SOURCE_DIR}/enhancedassets/sound/awe32data
     DESTINATION bin/sound
 )

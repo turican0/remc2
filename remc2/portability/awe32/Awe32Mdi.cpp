@@ -358,6 +358,12 @@ void Awe32Mdi::SetBufferMs(int ms)
 	g_ringCv.notify_one();
 }
 
+void Awe32Mdi::RenderNow(int16_t* out, int frames)
+{
+	StopRenderThread();
+	RenderFrames(out, frames);
+}
+
 void Awe32Mdi::Render(int16_t* out, int frames)
 {
 	std::lock_guard<std::mutex> lock(g_ringMutex);

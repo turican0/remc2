@@ -224,9 +224,12 @@ bool SetConfig() {
 
 	musicType = settingsValue.m_Sound.m_MusicType;
 	strcpy(oggmusicFolder, soundPaths.Get(GameName::MagicCarpet2, PathKey::OggFolder).c_str());
-	// MC1 has the AWE32 music only
 	if (CommandLineParams.GetGameType() != GameType::MC2)
-		musicType = "awe32";
+	{
+		// MC1 / HW (also -game select): the ogg music recorded by the AWE32 emulation (enhancedassets/MC1/music-ogg)
+		std::string folder = soundPaths.Get(CommandLineParams.GetGameType() == GameType::MC1HW ? GameName::HiddenWorlds : GameName::MagicCarpet, PathKey::OggFolder);
+		strcpy(oggmusicFolder, folder.empty() ? "MC1/music-ogg" : folder.c_str());
+	}
 
 	if (musicType.compare("ogg") == 0)
 	{

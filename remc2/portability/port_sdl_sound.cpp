@@ -8,6 +8,7 @@
 #include <adlmidi.h>
 #include <iostream>
 #include <atomic>
+#include <filesystem>
 #include <chrono>
 #include <list>
 #include <mutex>
@@ -423,6 +424,75 @@ void DeleteWarMusic()
 		GAME_music_war = nullptr;
 	}
 }
+#ifdef SOUND_SDLMIXER
+static Mix_Music* mc1Music = nullptr;
+#endif//SOUND_SDLMIXER
+
+// <oggFolder>/<bank><song>_<name>.ogg (danger: *_danger.ogg), empty when missing
+static std::string Mc1OggFile(int bank, int song, bool danger)
+{
+	char prefix[16];
+	snprintf(prefix, sizeof(prefix), "%d%02d_", bank, song);
+	std::error_code error;
+	for (const auto& entry : std::filesystem::directory_iterator(GetSubDirectoryPath(oggmusicFolder), error))
+	{
+		const std::string name = entry.path().filename().string();
+		const bool dangerFile = name.size() > 11 && name.compare(name.size() - 11, 11, "_danger.ogg") == 0;
+		if (name.rfind(prefix, 0) == 0 && dangerFile == danger && name.size() > 4 && name.compare(name.size() - 4, 4, ".ogg") == 0)
+			return entry.path().string();
+	}
+	return "";
+}
+
+void Mc1OggStop()
+{
+	if (unitTests)return;
+#ifdef SOUND_SDLMIXER
+	Mix_HaltMusic();
+	if (mc1Music)
+	{
+		Mix_FreeMusic(mc1Music);
+		mc1Music = nullptr;
+	}
+	if (warMusicOn)
+		Mix_HaltChannel(music_war_channel_index);
+	warMusicOn = false;
+	DeleteWarMusic();
+#endif//SOUND_SDLMIXER
+}
+
+bool Mc1OggPlay(int bank, int song)
+{
+	if (unitTests)return false;
+	Mc1OggStop();
+#ifdef SOUND_SDLMIXER
+	const std::string file = Mc1OggFile(bank, song, false);
+	if (file.empty() || !(mc1Music = Mix_LoadMUS(file.c_str())))
+	{
+		Logger->error("MC1 ogg music: song {} of bank {} not found in {}", song, bank, oggmusicFolder);
+		return false;
+	}
+	const std::string danger = Mc1OggFile(bank, song, true);
+	if (!danger.empty() && (GAME_music_war = Mix_LoadWAV(danger.c_str())))
+		warMusicOn = true;
+	Logger->info("MC1 ogg music: {}{}", file, warMusicOn ? " with its danger track" : "");
+	Mix_VolumeMusic(settingsMusicVolume);
+	Mix_PlayMusic(mc1Music, -1);
+	if (warMusicOn)
+	{
+		Mix_Volume(music_war_channel_index, 0);
+		Mix_PlayChannel(music_war_channel_index, GAME_music_war, -1);
+	}
+#endif//SOUND_SDLMIXER
+	return true;
+}
+
+void Mc1OggDangerVolume(int volume)
+{
+	if (unitTests || !warMusicOn)return;
+	WarMusicSetVolume(volume);
+}
+
 /*
 int load_music_files() {
 	GAME_musicmp3[0] = Mix_LoadMUS("music.mp3");
@@ -994,6 +1064,24 @@ void SOUND_finalize(int channel) {
 
 int run();
 
+void SOUND_Awe32FallbackToOgg(const std::string& reason)
+{
+	Logger->warn("AWE32 music: {}; the ogg music plays instead", reason);
+#ifdef SOUND_SDLMIXER
+	if (awe32Music)
+		Mix_HookMusic(nullptr, nullptr);
+#endif//SOUND_SDLMIXER
+	awe32Music = false;
+	oggmusic = true;
+	musicWarning = "AWE32 music not available, ogg music plays";
+}
+
+bool LocateAwe32Rom(std::string& error)
+{
+	awe32RomPath = Awe32Rom::Locate(awe32RomFolder, error);
+	return !awe32RomPath.empty();
+}
+
 bool init_sound()
 {
 	ActiveAudioEffects.resize(maxSimultaniousSounds);
@@ -1048,6 +1136,8 @@ bool init_sound()
 		}
 	}
 
+	// the war music after the sample channels (MC1 mixes 32 of them, set by the config)
+	music_war_channel_index = maxSimultaniousSounds + 1;
 	Mix_AllocateChannels(maxSimultaniousSounds + 1 + 1);
 	if (awe32Music)
 		Mix_HookMusic(awe32MusicHook, nullptr);
