@@ -36,11 +36,12 @@ def slot_pokes(path, code='20511C'):
     return ';'.join('%s,%X,%s' % (code, a, b.hex().upper()) for a, b in parts)
 
 
-# --slot without --as_game: at the first 4AB20 (RunMenu) the saved game (slot_pokes) and menuDone 96880 = 1, the menu
+# --slot without --as_game: at the first 4AB20 (RunMenu) the saved game (slot_pokes), menuDone 96880 = 1 and the music
+# off (939CC, 939CD: the sound setup with the MIDI driver is skipped, a song on no driver crashes in 5F420), the menu
 # item 6 of InitMenu kept (4F3F0: the language of language.inf, 0, the English texts), at the first 20FB0 the menu item
 # byte_12CBCE 5 (the results after the level); the port -loadslot
 def classic_slot_pokes(path):
-    return slot_pokes(path, '21BB20') + ';21BB20,254880,01;1F1FB0,2EABCE,05'
+    return slot_pokes(path, '21BB20') + ';21BB20,254880,01;21BB20,2519CC,0000;1F1FB0,2EABCE,05'
 
 
 def actions_input(frames, seed, spells=tuple(range(24))):

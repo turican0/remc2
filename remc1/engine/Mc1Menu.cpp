@@ -185,11 +185,13 @@ void RunMenu_4AB20_4AE60()
 {
 	if (!mc1AsGame && !mc1LoadSlot.empty())
 	{
-		// port: -loadslot, the menu replaced: the saved game loaded, the menu done, the menu item 6 of InitMenu (the
-		// language, below); the menu item 5 (the results after the level) at the first frame
+		// port: -loadslot, the menu replaced: the saved game loaded, the menu done, the music off (no sound setup), the
+		// menu item 6 of InitMenu (the language, below); the menu item 5 (the results after the level) at the first frame
 		LoadGameFile(mc1LoadSlot, 0);
 		mc1LoadSlot.clear();
 		menuDone_96880_96880 = 1;
+		byte_939CC_939CC = 0;
+		byte_939CD_939CD = 0;
 		slotLanguage = true;
 		mc1ResultsAfterLevel = 1;
 	}
