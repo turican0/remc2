@@ -7,6 +7,9 @@
 #include <wchar.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
+#if defined(_M_X64) || defined(__SSE2__)
+#    include <emmintrin.h> /* AWE32Emu: emu8k_lrint */
+#endif
 #define HAVE_STDARG_H
 
 #include <86box/86box.h>
@@ -278,13 +281,22 @@ static const double emu8k_overshoot[9] = {
 #define EMU8K_OVERSHOOT_STEP 2205 /* samples per table entry (50 ms) */
 
 static inline int32_t
+emu8k_overshoot_q12_calc(int32_t samples)
+{
+    const int    i = samples / EMU8K_OVERSHOOT_STEP;
+    const double f = (double) (samples % EMU8K_OVERSHOOT_STEP) / EMU8K_OVERSHOOT_STEP;
+    return (int32_t) (4096.0 * (1.0 + emu8k_overshoot[i] + (emu8k_overshoot[i + 1] - emu8k_overshoot[i]) * f));
+}
+
+/* The values of emu8k_overshoot_q12_calc for every sample, filled by emu8k_init. */
+static int32_t emu8k_overshoot_q12_table[8 * EMU8K_OVERSHOOT_STEP];
+
+static inline int32_t
 emu8k_overshoot_q12(int32_t samples)
 {
     if (samples < 0 || samples >= 8 * EMU8K_OVERSHOOT_STEP)
         return 4096;
-    const int    i = samples / EMU8K_OVERSHOOT_STEP;
-    const double f = (double) (samples % EMU8K_OVERSHOOT_STEP) / EMU8K_OVERSHOOT_STEP;
-    return (int32_t) (4096.0 * (1.0 + emu8k_overshoot[i] + (emu8k_overshoot[i + 1] - emu8k_overshoot[i]) * f));
+    return emu8k_overshoot_q12_table[samples];
 }
 
 /* Attack phase (value_amp_hz, 1 << 21 = end) -> index into
@@ -306,7 +318,7 @@ emu8k_attack_amp_index(int32_t phase)
 
 /* Modulation envelope attack is strongly convex (block 30): 1 - (1 - x)^13.5. */
 static inline int32_t
-emu8k_mod_attack_value(int32_t phase)
+emu8k_mod_attack_calc(int32_t phase)
 {
     double x = (double) phase / (double) (1 << 21);
     if (x < 0.0)
@@ -314,6 +326,26 @@ emu8k_mod_attack_value(int32_t phase)
     if (x > 1.0)
         x = 1.0;
     return (int32_t) ((1.0 - pow(1.0 - x, 13.5)) * (double) (1 << 21));
+}
+
+/* The values of emu8k_mod_attack_calc by the phase 0..1 << 21 (it clamps the
+ * phase there), each computed at its first use and kept as value + 1 (0 = not
+ * yet): the pow of every attack sample is the hot spot of the voice loop. The
+ * table (8 MB) is allocated at the first use; without it the value is computed. */
+static int32_t *emu8k_mod_attack_cache = NULL;
+
+static inline int32_t
+emu8k_mod_attack_value(int32_t phase)
+{
+    const int32_t index = (phase < 0) ? 0 : (phase > (1 << 21)) ? (1 << 21) : phase;
+    if (!emu8k_mod_attack_cache) {
+        emu8k_mod_attack_cache = (int32_t *) calloc((1 << 21) + 1, sizeof(int32_t));
+        if (!emu8k_mod_attack_cache)
+            return emu8k_mod_attack_calc(phase);
+    }
+    if (!emu8k_mod_attack_cache[index])
+        emu8k_mod_attack_cache[index] = emu8k_mod_attack_calc(index) + 1;
+    return emu8k_mod_attack_cache[index] - 1;
 }
 
 /* One decay/release step: ramp_amount_db_oct is Q16. */
@@ -675,7 +707,11 @@ emu8k_work_reverb_fitted(emu8k_t *emu8k, int32_t *inbuf, int32_t *outbuf, int co
                 const float out  = line[pos];
                 emu8k->rv_comb_store[ch][i] = out * (1.0f - emu8k->rv_damp) + emu8k->rv_comb_store[ch][i] * emu8k->rv_damp;
                 line[pos] = scaled + emu8k->rv_comb_store[ch][i] * emu8k->rv_feedback;
-                emu8k->rv_comb_pos[ch][i] = (pos + 1) % emu8k->rv_comb_len[ch][i];
+                /* (pos + 1) % len, the division only at the wrap */
+                int next = pos + 1;
+                if (next >= emu8k->rv_comb_len[ch][i])
+                    next %= emu8k->rv_comb_len[ch][i];
+                emu8k->rv_comb_pos[ch][i] = next;
                 acc += out;
             }
             acc *= 0.125f;
@@ -684,7 +720,10 @@ emu8k_work_reverb_fitted(emu8k_t *emu8k, int32_t *inbuf, int32_t *outbuf, int co
                 const int   pos  = emu8k->rv_ap_pos[ch][i];
                 const float buf  = line[pos];
                 line[pos]        = acc + buf * 0.5f;
-                emu8k->rv_ap_pos[ch][i] = (pos + 1) % emu8k->rv_ap_len[ch][i];
+                int next = pos + 1;
+                if (next >= emu8k->rv_ap_len[ch][i])
+                    next %= emu8k->rv_ap_len[ch][i];
+                emu8k->rv_ap_pos[ch][i] = next;
                 acc              = buf - acc;
             }
             outbuf[2 * n + ch] += (int32_t) ((acc * emu8k->rv_out_gain + er[ch]) * 32768.0f);
@@ -2130,7 +2169,11 @@ static inline int32_t
 emu8k_chorus_tap(const int32_t *line, int write, double delay)
 {
     double readdouble    = (double) write - delay;
-    int    read          = (int32_t) floor(readdouble);
+    /* floor without the CRT call: the truncation, one less below zero (the
+     * same in the int range of the delay line) */
+    int    read          = (int32_t) readdouble;
+    if ((double) read > readdouble)
+        read--;
     int    fraction_part = (readdouble - (double) read) * 65536.0;
     int    next_value;
     read %= EMU8K_LFOCHORUS_SIZE;
@@ -2290,6 +2333,18 @@ emu8k_work_reverb(int32_t *inbuf, int32_t *outbuf, emu8k_reverb_eng_t *engine, i
  * INIT4 slots on every call; a slot set that matches no table row keeps the
  * previous position (bass 5 / treble 9 before any write, the hardware default
  * the SDK writes as well). */
+/* AWE32Emu: (int32_t) lrint(x) without the CRT call (MSVC checks the value
+ * there): cvtsd2si rounds by the same mode (MXCSR) within the int32 range. */
+static inline int32_t
+emu8k_lrint(double x)
+{
+#if defined(_M_X64) || defined(__SSE2__)
+    if (x >= -2147483648.0 && x < 2147483647.5)
+        return _mm_cvtsd_si32(_mm_set_sd(x));
+#endif
+    return (int32_t) lrint(x);
+}
+
 void
 emu8k_work_eq(emu8k_t *emu8k, int32_t *inoutbuf, int count)
 {
@@ -2334,7 +2389,7 @@ emu8k_work_eq(emu8k_t *emu8k, int32_t *inoutbuf, int count)
                 z[1]            = q[2] * x - q[4] * y;
                 x               = y;
             }
-            *inoutbuf++ = (int32_t) lrint(x);
+            *inoutbuf++ = emu8k_lrint(x);
         }
     }
 }
@@ -2726,13 +2781,13 @@ emu8k_update_chunk(emu8k_t *emu8k)
 
                 /* AWE32Emu: filter modulation in octaves for the Chamberlin filter.
                  * Without both depths the same value without the divisions: each
-                 * term is a zero with the sign of its envelope / LFO value. */
+                 * term is a zero with the sign of its envelope / LFO value (the
+                 * triangle of lfotable is negative above the index 32768). */
                 if (emu_voice->pefe_modenv_filter_height || emu_voice->fmmod_lfo1_filt_mod)
                     emu_voice->filt_oct_target = (double) modenv->value_db_oct / (double) (1 << 21) * emu_voice->pefe_modenv_filter_height / 127.0 * 6.0
                         + lfotable[emu_voice->lfo1_count.int_address] / 32768.0 * emu_voice->fmmod_lfo1_filt_mod / 127.0 * 3.0;
-                else
-                    emu_voice->filt_oct_target = (modenv->value_db_oct < 0 ? -0.0 : 0.0)
-                        + (lfotable[emu_voice->lfo1_count.int_address] < 0 ? -0.0 : 0.0);
+                else /* -0 + -0 = -0, else +0 */
+                    emu_voice->filt_oct_target = (modenv->value_db_oct < 0 && emu_voice->lfo1_count.int_address > 32768) ? -0.0 : 0.0;
 
                 if (currentpitch > 0xFFFF)
                     currentpitch = 0xFFFF;
@@ -3110,6 +3165,9 @@ emu8k_init(emu8k_t *emu8k, uint16_t emu_addr, int onboard_ram)
     emu8k->eq_treble = -1;
     emu8k_rv_init(emu8k); /* AWE32Emu: fitted reverb */
     emu8k_state_dump_open(emu8k); /* AWE32Emu: layered state dump */
+
+    for (c = 0; c < 8 * EMU8K_OVERSHOOT_STEP; c++)
+        emu8k_overshoot_q12_table[c] = emu8k_overshoot_q12_calc(c); /* AWE32Emu */
 
     /* The LFOs use a triangular waveform starting at zero and going 1/-1/1/-1.
      * This table is stored in signed 16bits precision, with a period of 65536 samples */

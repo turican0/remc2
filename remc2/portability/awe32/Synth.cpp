@@ -1652,8 +1652,32 @@ void Synth::PitchBend(uint8_t channel, int16_t value)
     RefreshChannel(channel);
 }
 
+// The substitute voice (AllocateVoice, the state of our own core by
+// IsVoiceActive) is taken only by the win95 driver when no bank has preset 0
+// of bank 0 for the note and velocity (the end of NoteOn).
+bool Synth::SubstituteVoicePossible() const
+{
+    if (m_core.DriverVariant() != Awe32::Driver::Win95) return false;
+    for (const LoadedBank& lb : m_banks)
+    {
+        bool all = true;
+        for (int note = 0; note < 128 && all; ++note)
+            for (int velocity = 1; velocity < 128 && all; ++velocity)
+                all = !lb.bank->Select(0, 0, note, velocity).empty();
+        if (all) return false;
+    }
+    return true;
+}
+
 void Synth::RenderBlock(int16_t* out, uint32_t numFrames)
 {
+    // At the first block (the banks and the driver set): our own core beside
+    // the 86Box chip only when its state can be asked.
+    if (!m_ownCoreDecided)
+    {
+        m_ownCoreDecided = true;
+        m_core.SetRenderOwnCore(SubstituteVoicePossible());
+    }
     if (m_core.DriverVariant() == Awe32::Driver::Win95)
         for (int v = 0; v < kVxdVoices; ++v)
         {

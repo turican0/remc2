@@ -224,6 +224,10 @@ public:
     void SetChipRamKb(int kb) { m_chipRamKb = kb; }
     bool UseBox86Chip(const std::string& romPath, std::string& err);
     Chip ChipVariant() const { return m_chip; }
+    // With the 86Box chip our own core is rendered beside it only while its
+    // state can be asked (IsVoiceActive, the substitute voice of Synth);
+    // Synth turns it off when nothing can ask.
+    void SetRenderOwnCore(bool on) { m_renderOwnCore = on; }
     // How many frames the chip output lags behind (one block with Box86).
     uint32_t ChipLatencyFrames() const;
     int16_t* ChipRam();
@@ -331,6 +335,7 @@ private:
     Awe32::Driver m_driver = Awe32::kDefaultDriver;
 
     Chip m_chip = Chip::Ours;
+    bool m_renderOwnCore = true;
     Emu8000Box m_box;
     int  m_chipRamKb = 8192;
 

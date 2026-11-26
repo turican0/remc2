@@ -214,6 +214,9 @@ private:
     static constexpr uint32_t kDramReserveWin95 = 16;
     uint32_t m_nextDramBase = 0;   // computed when the first bank is loaded
     int m_debugVoices = 0;
+    // SetRenderOwnCore decided at the first RenderBlock.
+    bool m_ownCoreDecided = false;
+    bool SubstituteVoicePossible() const;
     void* m_noteDump = nullptr;   // FILE*
     uint16_t m_channelMask = 0xFFFF;
     int      m_masterVolume = 127;
