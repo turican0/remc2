@@ -51,6 +51,7 @@ uint8_t* vesaInfo_12F080_12F070 = nullptr;
 uint8_t debugOption_AE45A_AE44A = 0;
 uint8_t mc1AsGame = 0;
 std::string mc1LoadSlot;
+uint8_t mc1ResultsAfterLevel = 0;
 uint8_t inputDevices_90B23_90B23 = 0;
 uint8_t joystickFound_B7700_B76F0 = 0;
 uint8_t byte_A9058_A9058 = 0;

@@ -5,8 +5,9 @@ import argparse, os, random, shutil, struct, subprocess, sys, tempfile
 # of player 0, 10 bytes a frame) played in the original in dosbox-x-remc1 (branch mc1, REMC1_PLAY at 3C9D0), the state
 # dumped every --every frames at 20FB0 (REMC1_DUMP_EVERY) and packed to reference.binz by remc2-regression-test
 # --pack_mc1. --input actions: a random flight with all spells (the cheat commands 30), idle: no input. --as_game: the
-# level as started from the menu (as dbxrecord.py --asgame; options.txt "-asgame" for the port). --slot <carpdd??.gam>
-# (with --as_game): the saved game loaded after the menu is initialised (slot.gam, the port -loadslot).
+# level as started from the menu (as dbxrecord.py --asgame; options.txt "-asgame" for the port). --slot <carpdd??.gam>:
+# the saved game (slot.gam, the port -loadslot); with --as_game loaded after the menu is initialised, else the classic
+# game (CARPET.EXE without -custom, as Tomas plays it) with the menu replaced (CLASSIC_SLOT_POKES).
 TOOLS = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(TOOLS, '..', '..'))
 DBX = r'c:\prenos\dosbox-x-remc1\bin\x64\Release'
@@ -24,7 +25,7 @@ GAMES = {
 AS_GAME_POKES = '2050D9,205113,9090;2050D9,20511A,EB00;2050D9,20511F,80752500;1F1FB0,583A1,00;1F1FB0,2EABCE,05'
 
 
-def slot_pokes(path):
+def slot_pokes(path, code='20511C'):
     # 51AF0 at 3411C (after InitMenu): the names (settings 583A0 + 1Dh, 3Dh), the level (+ 11h), the progress of
     # player 0 (state 1F690 + 340Bh + 7CBh), 12CBD0, 12CBD1, newGame 9687C = 0, the 0Ch bytes of state + 2195h
     data = open(path, 'rb').read()
@@ -32,7 +33,14 @@ def slot_pokes(path):
     level, b0, b1 = struct.unpack_from('<i', data, 0x64)[0], data[0x80], data[0x81]
     parts = [(0x583BD, data[0x18:0x38]), (0x583DD, data[0x38:0x58]), (0x583B1, struct.pack('<H', (level // 4 - b0 - b1) & 0xFFFF)),
              (0x23266, data[0x68:0x80]), (0x2EABD0, bytes([b0, b1])), (0x25487C, b'\0'), (0x21825, data[0x82:0x8E])]
-    return ';'.join('20511C,%X,%s' % (a, b.hex().upper()) for a, b in parts)
+    return ';'.join('%s,%X,%s' % (code, a, b.hex().upper()) for a, b in parts)
+
+
+# --slot without --as_game: at the first 4AB20 (RunMenu) the saved game (slot_pokes) and menuDone 96880 = 1, the menu
+# item 6 of InitMenu kept (4F3F0: the language of language.inf, 0, the English texts), at the first 20FB0 the menu item
+# byte_12CBCE 5 (the results after the level); the port -loadslot
+def classic_slot_pokes(path):
+    return slot_pokes(path, '21BB20') + ';21BB20,254880,01;1F1FB0,2EABCE,05'
 
 
 def actions_input(frames, seed, spells=tuple(range(24))):
@@ -125,7 +133,7 @@ def make_test(game, level, frames, every, kind, pack_exe, out_root, seed=None, s
         os.remove(options)
     slot_copy = os.path.join(folder, 'slot.gam')
     if slot:
-        assert as_game
+        assert game == 'mc1'
         shutil.copyfile(slot, slot_copy)
     elif os.path.exists(slot_copy):
         os.remove(slot_copy)
@@ -140,7 +148,7 @@ def make_test(game, level, frames, every, kind, pack_exe, out_root, seed=None, s
         conf = os.path.join(work, 'dbx.conf')
         game_dir = os.path.join(work, 'game')
         copy_game(game_dir)
-        make_conf('%s -custom -level %d' % (g['exe'], level), conf, game_dir)
+        make_conf(g['exe'] if slot and not as_game else '%s -custom -level %d' % (g['exe'], level), conf, game_dir)
         dumps = [
             '1F1FB0,1F694,4,%s' % os.path.join(work, 'rand.bin'),
             '1F1FB0,26AF3,280A0,%s' % os.path.join(work, 'entities.bin'),
@@ -160,7 +168,7 @@ def make_test(game, level, frames, every, kind, pack_exe, out_root, seed=None, s
         if as_game:
             pokes.append(AS_GAME_POKES)
         if slot:
-            pokes.append(slot_pokes(slot))
+            pokes.append(slot_pokes(slot) if as_game else classic_slot_pokes(slot))
         if pokes:
             env['REMC1_POKE'] = ';'.join(pokes)
         subprocess.run([os.path.join(DBX, 'dosbox-x.exe'), '-conf', conf], cwd=DBX, env=env,
@@ -194,7 +202,7 @@ def main():
     parser.add_argument('--input_file', default=None, help='the input.rec to use (10 bytes a frame)')
     parser.add_argument('--spells', default=None, help='the spells of the actions input, e.g. 0-15,17')
     parser.add_argument('--as_game', action='store_true', help='the level as started from the menu (MC1)')
-    parser.add_argument('--slot', default=None, help='with --as_game: the saved game (carpdd??.gam) loaded first')
+    parser.add_argument('--slot', default=None, help='the saved game (carpdd??.gam) loaded first (without --as_game: the classic game)')
     args = parser.parse_args()
     out_root = os.path.abspath(args.out or os.path.join(ROOT, 'remc2-regression-test', 'memimages', 'regressions-' + args.game))  # DOSBox runs in its own folder
     spells = tuple(range(24))

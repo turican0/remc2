@@ -178,8 +178,21 @@ void FreeSpritesIndex(bitmap_pos_struct_t** index)
 	*index = nullptr;
 }
 
+// port: -loadslot, the language of the menu replaced
+static bool slotLanguage = false;
+
 void RunMenu_4AB20_4AE60()
 {
+	if (!mc1AsGame && !mc1LoadSlot.empty())
+	{
+		// port: -loadslot, the menu replaced: the saved game loaded, the menu done, the menu item 6 of InitMenu (the
+		// language, below); the menu item 5 (the results after the level) at the first frame
+		LoadGameFile(mc1LoadSlot, 0);
+		mc1LoadSlot.clear();
+		menuDone_96880_96880 = 1;
+		slotLanguage = true;
+		mc1ResultsAfterLevel = 1;
+	}
 	if (loadMenuFiles_12CA7C_12CA6C)
 	{
 		LoadFileGroup_40440_40780(menuFiles_49B80_49EC0);
@@ -205,7 +218,17 @@ void RunMenu_4AB20_4AE60()
 		LevelResults_4E5B0_4E8F0();
 		break;
 	case 6:
-		SelectLanguage_4F3F0_4F730();
+		if (slotLanguage)
+		{
+			// port: -loadslot, as 4F3F0 with language.inf 0 (not in the packed data): the English texts
+			slotLanguage = false;
+			mc1Settings_AE408_AE3F8->language_0x97_151 = 0;
+			LoadFileGroup_40440_40780(etextFiles_99580_99580);
+			SetTextPointers_44700_44A40((char*)textData_AE41C_AE40C, (char**)textPointers_AE238_AE228, 80);
+			mainMenuItem_12CBCE_12CBBE = 1;
+		}
+		else
+			SelectLanguage_4F3F0_4F730();
 		break;
 	case 7:
 		PlayIntelIntro_4EFC0_4F300();

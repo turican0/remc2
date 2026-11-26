@@ -4,6 +4,7 @@
 #include "../remc2/engine/Level.h"
 #include "../remc2/engine/read_config.h"
 #include <filesystem>
+#include <algorithm>
 #include <fstream>
 #include "../remc1/Mc1Main.h"
 #include "../remc1/engine/Mc1Regression.h"
@@ -63,7 +64,8 @@ std::string Mc1RegressionsPath(const std::string& game)
 	return (std::filesystem::path(RegressionsPath()).parent_path() / ("regressions-" + game)).string();
 }
 
-// MC1 or HW (game mc1 / mc1hw): the level started by -custom -level (and the options of options.txt, e.g. -asgame),
+// MC1 or HW (game mc1 / mc1hw): the level started by -custom -level (and the options of options.txt, e.g. -asgame;
+// slot.gam without -asgame: the classic game after the saved game, -loadslot),
 // the input of input.rec, the state compared with reference.binz of DOSBox by Mc1RegressionFrame, which ends the test
 // (20 passed)
 int run_mc1test(const std::string& game, int level, const std::string& record)
@@ -81,13 +83,20 @@ int run_mc1test(const std::string& game, int level, const std::string& record)
 	std::string path = get_exe_path() + "/regression-config.json";
 	if (!std::filesystem::exists(path))
 		path = (std::filesystem::path(__FILE__).parent_path() / "regression-config.json").string();
-	std::vector<std::string> args = { "remc2", "-game", game, "-custom", "-level", std::to_string(level - 1), "--config_file_path", path };
-	std::ifstream options(mc1RegressionFolder + "/options.txt");
-	for (std::string option; options >> option;)
-		args.push_back(option);
-	if (std::filesystem::exists(mc1RegressionFolder + "/slot.gam"))
+	std::vector<std::string> options;
+	std::ifstream optionsFile(mc1RegressionFolder + "/options.txt");
+	for (std::string option; optionsFile >> option;)
+		options.push_back(option);
+	const bool asGame = std::find(options.begin(), options.end(), "-asgame") != options.end();
+	const bool slot = std::filesystem::exists(mc1RegressionFolder + "/slot.gam");
+	// the level after a saved game: with -asgame from -custom, else the classic game (without -custom) with the menu
+	// replaced by -loadslot
+	std::vector<std::string> args = { "remc2", "-game", game, "--config_file_path", path };
+	if (asGame || !slot)
+		args.insert(args.begin() + 3, { "-custom", "-level", std::to_string(level - 1) });
+	args.insert(args.end(), options.begin(), options.end());
+	if (slot)
 	{
-		// the level after a saved game (-asgame -loadslot)
 		args.push_back("-loadslot");
 		args.push_back(mc1RegressionFolder + "/slot.gam");
 	}

@@ -102,6 +102,12 @@ void GameFrame_34530_348F0()
 		settings->flags_0x00_0 &= ~0xFF00u;
 		mainMenuItem_12CBCE_12CBBE = 5;
 	}
+	if (mc1ResultsAfterLevel)
+	{
+		// port: -loadslot without -asgame, as REMC1_POKE of mkregression.py at the first 20FB0
+		mc1ResultsAfterLevel = 0;
+		mainMenuItem_12CBCE_12CBBE = 5;
+	}
 	Mc1RegressionFrame(); // port: the regression test compares the state with DOSBox
 	DrawFrame_20FB0_20FB0();
 	// the ticks of the frame for 5A560, then the time of the frame

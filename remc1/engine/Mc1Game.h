@@ -32,8 +32,11 @@ extern uint8_t debugOption_AE45A_AE44A;
 // port: -asgame, the level as started from the menu: -custom with the menu initialised and the English texts
 // (TopProcedure_340B0 / 34470), at the first frame the flags of -custom cleared (GameFrame_34530_348F0)
 extern uint8_t mc1AsGame;
-// port: -loadslot <file> with -asgame, a saved game (carpdd??.gam) loaded after the menu is initialised
+// port: -loadslot <file>, a saved game (carpdd??.gam): with -asgame loaded after the menu is initialised, else the
+// classic game (without -custom) with the menu replaced (RunMenu_4AB20_4AE60, as the REMC1_POKE of mkregression.py)
 extern std::string mc1LoadSlot;
+// port: the menu item 5 (the results after the level) set at the first frame (GameFrame_34530_348F0)
+extern uint8_t mc1ResultsAfterLevel;
 extern uint8_t inputDevices_90B23_90B23;
 extern uint8_t joystickFound_B7700_B76F0;
 extern uint8_t byte_A9058_A9058;
