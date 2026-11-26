@@ -1,5 +1,6 @@
 #include "Mc1Terrain.h"
 
+#include "Mc1Game.h"
 #include "Mc1Level.h"
 #include "Mc1Search.h"
 #include "Mc1Shared.h"
@@ -398,6 +399,18 @@ static bool IsSteepType(uint8_t type)
 	return type > 5 && type <= 0x22;
 }
 
+//!!!!! 360C0 reads the types of the row above the row 0 before the map (CC0DF-CC1DF, HW CC0CF-CC1CF), not from the
+// row 255: the globals of the sound bank there. Its pointers (CC154 tab, CC1C0 tab end) are in the DOS low memory at
+// 8xxxxh, their third bytes (CC156, CC1C2) are 8 (a steep type) while the digital sound is on (the bank loaded); the
+// other bytes are taken as 0 (the low bytes of the DOS addresses are not known to the port)
+static uint8_t TerrainTypeBeforeMap(int32_t index)
+{
+	const int32_t address = 0xCC1E0 + index;
+	if (byte_939E4_939E4 && (address == 0xCC156 || address == 0xCC1C2))
+		return 8;
+	return 0;
+}
+
 void SmoothTileHeight_360C0_36480(uint16_t tile)
 {
 	// the average height of the 3x3 tiles that are not steep
@@ -407,9 +420,8 @@ void SmoothTileHeight_360C0_36480(uint16_t tile)
 	static const int32_t corners[4] = { -0x101, -0x100, -1, 0 };
 	for (int32_t offset : corners)
 	{
-		// the original reads other globals before the map at the row 0, taken as type 0 like remc2
 		int32_t index = tile + offset;
-		if (index >= 0 && IsSteepType(mapTerrainType_CC1E0_CC1D0[index]))
+		if (IsSteepType(index >= 0 ? mapTerrainType_CC1E0_CC1D0[index] : TerrainTypeBeforeMap(index)))
 			return;
 	}
 	uint32_t sum = 0;
