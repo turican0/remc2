@@ -653,8 +653,9 @@ int main(int argc, char** argv)
 	// "--make_mc1_tmaps_meta <MC1/DATA> <out>": data/tmapsmeta.dat of data/mc1data.binz from the tmaps of MC1 and HW
 	if (argc == 4 && std::string(argv[1]) == "--make_mc1_tmaps_meta")
 		return WriteMc1TmapsMeta(argv[2], argv[3]) ? 0 : 1;
-	// "--record_mc1_music <MC1/DATA> <folder of the AWE32 ROM> <out>": the ogg music of MC1 / HW recorded as wav
-	if (argc == 5 && std::string(argv[1]) == "--record_mc1_music")
+	// "--record_mc1_music <MC1/DATA> <folder of the AWE32 ROM> <out> [song]": the ogg music of MC1 / HW recorded as wav
+	// (song: only the files starting by it, e.g. 001)
+	if ((argc == 5 || argc == 6) && std::string(argv[1]) == "--record_mc1_music")
 	{
 		awe32RomFolder = argv[3];
 		std::string error;
@@ -663,7 +664,7 @@ int main(int argc, char** argv)
 			Logger->error("{}", error);
 			return 1;
 		}
-		return Mc1RecordMusic(argv[2], argv[4]) ? 0 : 1;
+		return Mc1RecordMusic(argv[2], argv[4], argc == 6 ? argv[5] : "") ? 0 : 1;
 	}
 	// "--pack_mc1 <dumps of DOSBox> <reference.binz> <frames between the dumps>": the reference of an MC1 / HW test
 	if (argc == 5 && std::string(argv[1]) == "--pack_mc1")

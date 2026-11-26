@@ -57,8 +57,8 @@ uint16_t sosMIDIEnableChannelStealing_5EDD6_5F2E6(uint16_t enable);
 uint16_t sosMIDISendMIDIData_5EDA0_5F2B0(uint16_t driverHandle, const uint8_t* data, uint16_t length);
 
 // port: the ogg music recorded by the AWE32 emulation from <data>/music<bank>-2 to <out> (remc2-regression-test
-// --record_mc1_music)
-bool Mc1RecordMusic(const std::string& dataFolder, const std::string& outFolder);
+// --record_mc1_music), only the songs whose file starts by `only` (e.g. 001) when it is not empty
+bool Mc1RecordMusic(const std::string& dataFolder, const std::string& outFolder, const std::string& only = "");
 
 // timer
 uint16_t sosTIMERRegisterEvent_5D97B_5DE8B(uint16_t rate, uint32_t (*event)(uint32_t), uint16_t* timerHandle);

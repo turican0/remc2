@@ -2410,14 +2410,26 @@ emu8k_update_chunk(emu8k_t *emu8k)
                  * only at Q 0 with the cutoff register at 0xFF and no downward
                  * modulation ("the filter does not alter the signal" [PG]). */
                 if (emu_voice->filterq_idx || emu_voice->ifatn_init_filter != 0xFF || emu_voice->filt_oct_curr < 0.0) {
-                    double fc = EMU8K_CHAM_BASE_HZ
-                        * pow(2.0, emu_voice->ifatn_init_filter * EMU8K_CHAM_CENTS / 1200.0 + emu_voice->filt_oct_curr);
-                    if (fc < EMU8K_CHAM_BASE_HZ)
-                        fc = EMU8K_CHAM_BASE_HZ;
-                    if (fc > 44100.0 / 6.0)
-                        fc = 44100.0 / 6.0;
-                    const double F  = 2.0 * sin(M_PI * fc / 44100.0);
-                    const double qd = 1.0 / (EMU8K_CHAM_Q0 * pow(10.0, emu8k_cham_q_db(emu_voice->filterq_idx, fc) / 20.0));
+                    /* The coefficients only change with their inputs: computed
+                     * again only then (the same expressions, the same result). */
+                    if (!emu_voice->cham_cache_ok || emu_voice->cham_cache_q != emu_voice->filterq_idx
+                        || emu_voice->cham_cache_cutoff != emu_voice->ifatn_init_filter
+                        || emu_voice->cham_cache_oct != emu_voice->filt_oct_curr) {
+                        double fc = EMU8K_CHAM_BASE_HZ
+                            * pow(2.0, emu_voice->ifatn_init_filter * EMU8K_CHAM_CENTS / 1200.0 + emu_voice->filt_oct_curr);
+                        if (fc < EMU8K_CHAM_BASE_HZ)
+                            fc = EMU8K_CHAM_BASE_HZ;
+                        if (fc > 44100.0 / 6.0)
+                            fc = 44100.0 / 6.0;
+                        emu_voice->cham_cache_f      = 2.0 * sin(M_PI * fc / 44100.0);
+                        emu_voice->cham_cache_qd     = 1.0 / (EMU8K_CHAM_Q0 * pow(10.0, emu8k_cham_q_db(emu_voice->filterq_idx, fc) / 20.0));
+                        emu_voice->cham_cache_q      = emu_voice->filterq_idx;
+                        emu_voice->cham_cache_cutoff = emu_voice->ifatn_init_filter;
+                        emu_voice->cham_cache_oct    = emu_voice->filt_oct_curr;
+                        emu_voice->cham_cache_ok     = 1;
+                    }
+                    const double F  = emu_voice->cham_cache_f;
+                    const double qd = emu_voice->cham_cache_qd;
                     const double in = (double) dat * emu_voice->filt_att / 65536.0;
                     emu_voice->cham_lp += F * emu_voice->cham_bp;
                     const double hp = in - emu_voice->cham_lp - qd * emu_voice->cham_bp;
@@ -2712,9 +2724,15 @@ emu8k_update_chunk(emu8k_t *emu8k)
                         attenuation -= lfo1_tremolo;
                 }
 
-                /* AWE32Emu: filter modulation in octaves for the Chamberlin filter */
-                emu_voice->filt_oct_target = (double) modenv->value_db_oct / (double) (1 << 21) * emu_voice->pefe_modenv_filter_height / 127.0 * 6.0
-                    + lfotable[emu_voice->lfo1_count.int_address] / 32768.0 * emu_voice->fmmod_lfo1_filt_mod / 127.0 * 3.0;
+                /* AWE32Emu: filter modulation in octaves for the Chamberlin filter.
+                 * Without both depths the same value without the divisions: each
+                 * term is a zero with the sign of its envelope / LFO value. */
+                if (emu_voice->pefe_modenv_filter_height || emu_voice->fmmod_lfo1_filt_mod)
+                    emu_voice->filt_oct_target = (double) modenv->value_db_oct / (double) (1 << 21) * emu_voice->pefe_modenv_filter_height / 127.0 * 6.0
+                        + lfotable[emu_voice->lfo1_count.int_address] / 32768.0 * emu_voice->fmmod_lfo1_filt_mod / 127.0 * 3.0;
+                else
+                    emu_voice->filt_oct_target = (modenv->value_db_oct < 0 ? -0.0 : 0.0)
+                        + (lfotable[emu_voice->lfo1_count.int_address] < 0 ? -0.0 : 0.0);
 
                 if (currentpitch > 0xFFFF)
                     currentpitch = 0xFFFF;
@@ -2926,15 +2944,31 @@ void
 emu8k_init(emu8k_t *emu8k, uint16_t emu_addr, int onboard_ram)
 {
     uint32_t const BLOCK_SIZE_WORDS = 0x10000;
+#ifndef EMU8K_ROM_READ
+    FILE          *fp;
+#endif
     int            c;
     double         out;
 
+#ifndef EMU8K_ROM_READ
+    fp = rom_fopen(EMU8K_ROM_PATH, "rb");
+    if (!fp)
+        fatal("AWE32.RAW not found\n");
+
+#endif
     emu8k->rom = calloc(1024, 1024);
     /* AWE32Emu: also accept a card dump without the leading AWE-DUMP word
      * (1048574 bytes); the missing last word stays zero.
-     * remc2: the image comes from rom_read (it may be stored packed), not rom_fopen. */
+     * remc2: the image comes from rom_read (it may be stored packed), not rom_fopen
+     * (EMU8K_ROM_READ, defined by its rom.h). */
+#ifdef EMU8K_ROM_READ
     if (rom_read(emu8k->rom, 1048576) < 1048574)
         fatal("emu8k_init(): Error reading data\n");
+#else
+    if (fread(emu8k->rom, 1, 1048576, fp) < 1048574)
+        fatal("emu8k_init(): Error reading data\n");
+    fclose(fp);
+#endif
     /*AWE-DUMP creates ROM images offset by 2 bytes, so if we detect this
       then correct it*/
     if (emu8k->rom[3] == 0x314d && emu8k->rom[4] == 0x474d) {

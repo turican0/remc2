@@ -1,5 +1,6 @@
 #include "Mc1Hmi.h"
 
+#include <chrono>
 #include <cstdio>
 #include <cstring>
 #include <filesystem>
@@ -619,7 +620,7 @@ static void RecordSong(uint8_t* data, uint16_t notes, uint16_t danger, std::vect
 	recordDanger = 0;
 }
 
-bool Mc1RecordMusic(const std::string& dataFolder, const std::string& outFolder)
+bool Mc1RecordMusic(const std::string& dataFolder, const std::string& outFolder, const std::string& only)
 {
 	awe32Music = true;
 	uint16_t driver = 0;
@@ -652,10 +653,14 @@ bool Mc1RecordMusic(const std::string& dataFolder, const std::string& outFolder)
 			const bool levelSong = bank == 0 && index <= 3;
 			char file[64];
 			snprintf(file, sizeof(file), "%d%02u_%s", bank, index, title);
+			if (!only.empty() && std::string(file).rfind(only, 0) != 0)
+				continue;
 			std::vector<int16_t> samples;
+			const auto start = std::chrono::steady_clock::now();
 			RecordSong(dat.data() + offset, levelSong ? 0xFFC7 : 0xFFFF, 0, samples);
+			const double seconds = std::chrono::duration<double>(std::chrono::steady_clock::now() - start).count();
 			WriteWav(outFolder + "/" + file + ".wav", samples);
-			Logger->info("MC1 music: {} {:.1f} s", file, samples.size() / 2.0 / Awe32Mdi::kSampleRate);
+			Logger->info("MC1 music: {} {:.1f} s rendered in {:.2f} s", file, samples.size() / 2.0 / Awe32Mdi::kSampleRate, seconds);
 			if (levelSong)
 			{
 				RecordSong(dat.data() + offset, 0x0038, 0x0038, samples);

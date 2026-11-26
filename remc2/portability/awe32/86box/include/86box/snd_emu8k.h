@@ -364,6 +364,14 @@ typedef struct emu8k_voice_t {
     int32_t overshoot_samples;
     double filt_oct_target;
     double filt_oct_curr;
+    /* AWE32Emu: the Chamberlin coefficients of the last inputs (Q, cutoff,
+     * modulation), recomputed only when one of them changes. */
+    int    cham_cache_ok;
+    int    cham_cache_q;
+    int    cham_cache_cutoff;
+    double cham_cache_oct;
+    double cham_cache_f;
+    double cham_cache_qd;
 
 } emu8k_voice_t;
 
